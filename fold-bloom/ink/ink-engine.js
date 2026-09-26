@@ -1,7 +1,7 @@
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
 const hash=(x,y,s=0)=>{let n=(x*374761393+y*668265263+s*69069)>>>0;n=(n^(n>>13))*1274126177>>>0;return ((n^(n>>16))>>>0)/4294967295};
 
-export const INK_SCHEMA='fold-bloom-ink-field/v0.4';
+export const INK_SCHEMA='fold-bloom-ink-field/v0.5';
 
 export class InkField{
   constructor({width=192,height=128,seed=17}={}){
@@ -24,76 +24,57 @@ export class InkField{
   clear(){this.pigment.fill(0);this.water.fill(0);this.stain.fill(0);return this}
   dry(factor=.08){const f=clamp(factor,0,1);for(let i=0;i<this.length;i++)this.water[i]*=f;return this}
 
-  deposit(nx,ny,{speed=0,pressure=.5,tiltX=0,tiltY=0,angle=null,size=.09,water=.62,load=.72,mode='SUMI',flow=1,strokeSeed=0}={}){
-    const gx=clamp(nx)*this.width,gy=clamp(ny)*this.height,p=clamp(pressure,.05,1),spd=clamp(speed/42,0,1);
-    const base=Math.max(1,Math.min(this.width,this.height)*clamp(size,.012,.22));
-    const tilt=Math.hypot(Number(tiltX)||0,Number(tiltY)||0);
-    const dir=Number.isFinite(Number(angle))?Number(angle):(tilt>1?Math.atan2(Number(tiltY)||0,Number(tiltX)||1):0);
-    const tiltStretch=1+clamp(tilt/70,0,.85)*1.25;
-    const motionStretch=1+spd*.32;
-    const rx=base*(.62+p*.56)*(1-spd*.20)*tiltStretch*motionStretch;
-    const ry=base*(.54+p*.48)*(1-spd*.28)/Math.sqrt(tiltStretch);
-    const c=Math.cos(dir),s=Math.sin(dir),reach=Math.max(rx,ry);
-    const x0=Math.max(0,Math.floor(gx-reach-2)),x1=Math.min(this.width-1,Math.ceil(gx+reach+2)),y0=Math.max(0,Math.floor(gy-reach-2)),y1=Math.min(this.height-1,Math.ceil(gy+reach+2));
+  deposit(nx,ny,{speed=0,pressure=.5,tiltX=0,tiltY=0,angle=null,size=.09,water=.62,load=.72,mode='SUMI',flow=1,strokeSeed=0,metricX=1,metricY=1}={}){
+    const px=clamp(nx),py=clamp(ny),mx=Math.max(.08,Number(metricX)||1),my=Math.max(.08,Number(metricY)||1),p=clamp(pressure,.05,1),spd=clamp(speed/42,0,1);
+    const base=clamp(size,.012,.22),tilt=Math.hypot(Number(tiltX)||0,Number(tiltY)||0);
+    const dir=Number.isFinite(Number(angle))?Number(angle):(tilt>1?Math.atan2((Number(tiltY)||0)/my,(Number(tiltX)||1)/mx):0);
+    const tiltStretch=1+clamp(tilt/70,0,.85)*.82,motionStretch=1+spd*.16;
+    const rx=base*(.58+p*.48)*(1-spd*.16)*tiltStretch*motionStretch;
+    const ry=base*(.54+p*.44)*(1-spd*.20)/Math.sqrt(tiltStretch);
+    const reach=Math.max(rx,ry)*1.08,x0=Math.max(0,Math.floor((px-reach*mx)*this.width)),x1=Math.min(this.width-1,Math.ceil((px+reach*mx)*this.width)),y0=Math.max(0,Math.floor((py-reach*my)*this.height)),y1=Math.min(this.height-1,Math.ceil((py+reach*my)*this.height));
     const dry=String(mode).toUpperCase()==='DRY',wash=String(mode).toUpperCase()==='WASH',f=clamp(flow,.04,1);
-    const pigmentLoad=clamp(load)*(dry?1.12:wash?.27:1)*(0.42+p*.78)*(1-spd*.25)*f;
-    const waterLoad=clamp(water)*(dry?.16:wash?1.22:1)*(0.50+p*.52)*(1-spd*.12)*f;
-    const phase=(hash((strokeSeed|0)&1023,(strokeSeed|0)>>10,this.seed^0x6d2b79)-.5)*2.4;
+    const pigmentLoad=clamp(load)*(dry?1.05:wash?.25:.88)*(0.40+p*.66)*(1-spd*.22)*f;
+    const waterLoad=clamp(water)*(dry?.14:wash?1.18:.88)*(0.48+p*.46)*(1-spd*.10)*f;
+    const phase=(hash((strokeSeed|0)&1023,(strokeSeed|0)>>10,this.seed^0x6d2b79)-.5)*2.1,c=Math.cos(dir),s=Math.sin(dir);
     for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
-      const dx=x+.5-gx,dy=y+.5-gy,u=(dx*c+dy*s)/Math.max(.001,rx),v=(-dx*s+dy*c)/Math.max(.001,ry),d=Math.hypot(u,v);if(d>1)continue;
-      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123);
-      const rim=clamp((1-d)/.24,0,1);
-      const bristle=.74+.26*Math.cos((v*8.5+phase)*Math.PI);
-      const tooth=.82+.22*(paper-.78)/.42;
-      const contact=dry?clamp((bristle-.48)*2.15,0,1)*clamp((grain-.16)*1.28,0,1):(.91+.09*bristle);
-      const core=(.82+.18*rim),q=core*contact*tooth;
-      this.pigment[i]=clamp(this.pigment[i]+q*pigmentLoad);
-      this.water[i]=clamp(this.water[i]+(.72+.28*rim)*waterLoad*(dry?(.72+.28*contact):1));
-      if(dry&&grain<.30)this.water[i]*=.72;
+      const qx=((x+.5)/this.width-px)/mx,qy=((y+.5)/this.height-py)/my;
+      const u=(qx*c+qy*s)/Math.max(.001,rx),v=(-qx*s+qy*c)/Math.max(.001,ry),d=Math.hypot(u,v);if(d>=1)continue;
+      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123),body=Math.pow(Math.max(0,1-d*d),.72);
+      const tooth=.94+.08*(paper-.78)/.42;
+      const lane=.64+.36*Math.cos((v*3.2+phase)*Math.PI);
+      const contact=dry?clamp((lane-.34)*1.55,0,1)*clamp((grain-.08)*1.12,0,1):1;
+      const mass=body*tooth*(dry?contact:1);
+      this.pigment[i]=clamp(this.pigment[i]+mass*pigmentLoad);
+      this.water[i]=clamp(this.water[i]+body*waterLoad*(dry?(.62+.38*contact):1));
+      if(dry&&grain<.22)this.water[i]*=.76;
     }
     return this;
   }
 
   strokeSegment(x0,y0,x1,y1,opts={}){
-    const ax=clamp(x0)*this.width,ay=clamp(y0)*this.height,bx=clamp(x1)*this.width,by=clamp(y1)*this.height;
-    const dx=bx-ax,dy=by-ay,dist=Math.hypot(dx,dy);
-    if(dist<.001){this.deposit(bx/this.width,by/this.height,opts);return this}
-
-    // Dragging is a swept brush contact, not a cloud of independent dabs.
-    // Rasterize only the newly swept strip (open at its start), so pointer
-    // event density does not materially change ink mass or create spray dots.
-    const tx=dx/dist,ty=dy/dist,nx=-ty,ny=tx;
-    const p=clamp(opts.pressure??.5,.05,1),spd=clamp((Number(opts.speed)||0)/42,0,1);
-    const base=Math.max(1,Math.min(this.width,this.height)*clamp(opts.size??.09,.012,.22));
-    const tiltX=Number(opts.tiltX)||0,tiltY=Number(opts.tiltY)||0,tilt=Math.hypot(tiltX,tiltY);
-    const crossTilt=tilt>0?Math.abs((tiltX*nx+tiltY*ny)/70):0;
-    const halfWidth=base*(.54+p*.50)*(1-spd*.25)*(1+clamp(crossTilt,0,.8)*.62);
-    const reach=halfWidth+1.5;
-    const xMin=Math.max(0,Math.floor(Math.min(ax,bx)-reach)),xMax=Math.min(this.width-1,Math.ceil(Math.max(ax,bx)+reach));
-    const yMin=Math.max(0,Math.floor(Math.min(ay,by)-reach)),yMax=Math.min(this.height-1,Math.ceil(Math.max(ay,by)+reach));
-    const dry=String(opts.mode||'SUMI').toUpperCase()==='DRY',wash=String(opts.mode||'SUMI').toUpperCase()==='WASH';
-    const flow=clamp(opts.flow??1,.04,1),load=clamp(opts.load??.72),water=clamp(opts.water??.62);
-    const pigmentLoad=load*(dry?1.10:wash?.28:1)*(0.43+p*.76)*(1-spd*.22)*flow;
-    const waterLoad=water*(dry?.15:wash?1.20:1)*(0.52+p*.48)*(1-spd*.10)*flow;
-    const seed=Number.isFinite(Number(opts.strokeSeed))?Number(opts.strokeSeed):0;
-    const phase=(hash(seed&1023,seed>>10,this.seed^0x6d2b79)-.5)*Math.PI*1.8;
-
+    const ax=clamp(x0),ay=clamp(y0),bx=clamp(x1),by=clamp(y1),mx=Math.max(.08,Number(opts.metricX)||1),my=Math.max(.08,Number(opts.metricY)||1);
+    const dx=(bx-ax)/mx,dy=(by-ay)/my,dist=Math.hypot(dx,dy);
+    if(dist<.00001){this.deposit(bx,by,opts);return this}
+    const tx=dx/dist,ty=dy/dist,nx=-ty,ny=tx,p=clamp(opts.pressure??.5,.05,1),spd=clamp((Number(opts.speed)||0)/42,0,1),base=clamp(opts.size??.09,.012,.22);
+    const tiltX=(Number(opts.tiltX)||0)/mx,tiltY=(Number(opts.tiltY)||0)/my,tilt=Math.hypot(tiltX,tiltY),crossTilt=tilt>0?Math.abs((tiltX*nx+tiltY*ny)/70):0;
+    const halfWidth=base*(.54+p*.46)*(1-spd*.20)*(1+clamp(crossTilt,0,.8)*.40),reach=halfWidth*1.08;
+    const xMin=Math.max(0,Math.floor((Math.min(ax,bx)-reach*mx)*this.width)),xMax=Math.min(this.width-1,Math.ceil((Math.max(ax,bx)+reach*mx)*this.width)),yMin=Math.max(0,Math.floor((Math.min(ay,by)-reach*my)*this.height)),yMax=Math.min(this.height-1,Math.ceil((Math.max(ay,by)+reach*my)*this.height));
+    const dry=String(opts.mode||'SUMI').toUpperCase()==='DRY',wash=String(opts.mode||'SUMI').toUpperCase()==='WASH',flow=clamp(opts.flow??1,.04,1),load=clamp(opts.load??.72),water=clamp(opts.water??.62);
+    const pigmentLoad=load*(dry?1.04:wash?.25:.86)*(0.40+p*.66)*(1-spd*.20)*flow,waterLoad=water*(dry?.14:wash?1.18:.86)*(0.48+p*.46)*(1-spd*.09)*flow;
+    const seed=Number.isFinite(Number(opts.strokeSeed))?Number(opts.strokeSeed):0,phase=(hash(seed&1023,seed>>10,this.seed^0x6d2b79)-.5)*Math.PI*1.35;
     for(let y=yMin;y<=yMax;y++)for(let x=xMin;x<=xMax;x++){
-      const rx=x+.5-ax,ry=y+.5-ay,along=rx*tx+ry*ty;
-      if(along<=0||along>dist)continue;
-      const cross=rx*nx+ry*ny,u=Math.abs(cross)/Math.max(.001,halfWidth);
-      if(u>=1)continue;
-      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123);
-      // Soft compressed brush footprint; coherent bristle lanes run along the
-      // stroke instead of re-randomizing at every pointer sample.
-      const body=Math.pow(Math.max(0,1-u*u),.42);
-      const lane=.78+.22*Math.cos((cross/Math.max(1,halfWidth)*7.5)*Math.PI+phase+along/Math.max(1,base)*.08);
-      const tooth=.80+.24*(paper-.78)/.42;
-      const contact=dry?clamp((lane-.46)*2.05,0,1)*clamp((grain-.13)*1.23,0,1):(.92+.08*lane);
-      const q=body*contact*tooth;
-      this.pigment[i]=clamp(this.pigment[i]+q*pigmentLoad);
-      this.water[i]=clamp(this.water[i]+body*waterLoad*(dry?(.68+.32*contact):1));
-      if(dry&&grain<.28)this.water[i]*=.70;
+      const rx=((x+.5)/this.width-ax)/mx,ry=((y+.5)/this.height-ay)/my,along=rx*tx+ry*ty;
+      if(along<0||along>dist)continue;
+      const cross=rx*nx+ry*ny,u=Math.abs(cross)/Math.max(.001,halfWidth);if(u>=1)continue;
+      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123),body=Math.pow(Math.max(0,1-u*u),.78),tooth=.95+.07*(paper-.78)/.42;
+      // Wet strokes stay continuous. Bristle breakup is a DRY-brush property,
+      // coherent across the stroke instead of a periodic wet zebra pattern.
+      const lane=.62+.38*Math.cos((cross/Math.max(.001,halfWidth)*3.1)*Math.PI+phase+along/Math.max(.01,base)*.025);
+      const contact=dry?clamp((lane-.32)*1.48,0,1)*clamp((grain-.06)*1.10,0,1):1;
+      const mass=body*tooth*(dry?contact:1);
+      this.pigment[i]=clamp(this.pigment[i]+mass*pigmentLoad);
+      this.water[i]=clamp(this.water[i]+body*waterLoad*(dry?(.60+.40*contact):1));
+      if(dry&&grain<.20)this.water[i]*=.76;
     }
     return this;
   }
