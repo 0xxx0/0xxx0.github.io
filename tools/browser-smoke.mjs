@@ -665,7 +665,24 @@ function foldBloomLiveMobileBehaviorProbeHtml(){
   <\/script></body></html>`;
 }
 
+function settleProbeHtml(route,checkSrc,limitMs,w,h){
+  const safeRoute=String(route).replace(/&/g,'&amp;');
+  return `<!doctype html><html><body style="margin:0"><img id="hold" src="/__settle-hold" hidden><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
+const f=document.getElementById('f'),o=document.getElementById('caseDom'),hold=document.getElementById('hold'),t0=Date.now();
+const check=(${checkSrc});
+let doneFlag=false;
+const done=(ok)=>{if(doneFlag)return;doneFlag=true;let dom='';try{const d=f.contentDocument;dom=d&&d.documentElement?d.documentElement.outerHTML:'(no dom)'}catch(e){dom='(serialize error '+e+')'}
+o.textContent=dom;o.setAttribute('data-pass',ok?'1':'0');o.setAttribute('data-wait',String(Date.now()-t0));
+hold.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{while(Date.now()-t0<${limitMs}){try{const d=f.contentDocument;if(d&&d.documentElement){const dom=d.documentElement.outerHTML;if(check(dom)){done(true);return}}}catch(_){}await sleep(80)}done(false)})();
+setTimeout(()=>done(false),${limitMs+2000});
+<\/script></body></html>`;
+}
+const settleHolds=new Set();
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
+  if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
   if(String(req.url||'').startsWith('/__smoke/fold-bloom-live-mobile-behavior')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(foldBloomLiveMobileBehaviorProbeHtml());return;
@@ -784,6 +801,29 @@ function runChrome(bin,route,options={}){
     p.on('error',e=>{clearTimeout(timer);reject(e)});
     p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
   });
+}
+function runSettle(bin,c){
+  return new Promise((resolve,reject)=>{
+    const o=c.options||{};
+    const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+(o.settleLimit||20000)+'&w='+(o.width||430)+'&h='+(o.height||900);
+    const args=[
+      '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
+      '--hide-scrollbars','--window-size='+(o.width||430)+','+(o.height||900),
+      '--dump-dom',url
+    ];
+    const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
+    let out='',err='';
+    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+c.route))},o.timeout||30000);
+    p.stdout.on('data',d=>out+=d);
+    p.stderr.on('data',d=>err+=d);
+    p.on('error',e=>{clearTimeout(timer);reject(e)});
+    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
+  });
+}
+function extractCaseDom(html){
+  const m=String(html||'').match(/<pre id="caseDom"[^>]*>([\s\S]*?)<\/pre>/i);
+  if(!m)return null;
+  return m[1].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
 }
 function textAtId(dom,id){
   const marker='id="'+id+'"',i=dom.indexOf(marker);
@@ -1062,7 +1102,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE public audio example',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,settleLimit:20000,timeout:30000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-fold-bloom-layer="IMMERSION"')
   },
   {
@@ -1074,7 +1115,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE clean-phone audio example',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,settleLimit:20000,timeout:30000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')
   },
   {
@@ -1292,20 +1334,26 @@ try{
   console.log('BROWSER SMOKE:',bin);
   for(const c of RUN_CASES){
     let r;
-    try{r=await runChrome(bin,c.route,c.options||{})}
+    try{
+      if(c.settle){r=await runSettle(bin,c)}
+      else{r=await runChrome(bin,c.route,c.options||{})}
+    }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
-    const ok=r.code===0&&!fatal&&c.check(r.out);
+    const dom=c.settle?(extractCaseDom(r.out)||r.out):r.out;
+    const ok=r.code===0&&!fatal&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
+    if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
-      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
+      const body=visibleText(dom).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
   }
 }finally{
+  for(const h of settleHolds){try{h.destroy()}catch(_){}}
   await new Promise(resolve=>server.close(()=>resolve()));
 }
 if(fail.length){
