@@ -5,7 +5,7 @@ import {
   changedFormSlots,formComplete,formToken,formDelta,formChangeOutcome,formDiversity
 } from '../form-puzzle.js';
 
-test('FORM preserves exact LIVE verbs instead of binary compression',()=>{
+test('FORM preserves exact LIVE verbs beneath any coarser projection',()=>{
   let f=[];
   for(const v of ['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'])f=appendFormVerb(f,v);
   assert.equal(f.length,FORM_SLOTS);
