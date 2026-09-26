@@ -1,0 +1,55 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FOLD_BLOOM_AUTHORITY_SYNC_2026-09-26",
+  "date": "2026-09-26",
+  "state": "CI_GREEN_PRESEAL",
+  "object": "FOLD//BLOOM authority projection",
+  "problem": "Runtime heads advanced while CURRENT, root manifest and release metadata still advertised older PLAY/LAB/VOICE versions.",
+  "observed": [
+    "PLAY runtime FOLD_BLOOM_PLAY_0.5.7 is merged; loop contract is derived witness only.",
+    "FIELD LAB 0.3.4 multi-ring PULSE psychophysics is on master.",
+    "VOICE 0.2 spectrum trainer is merged and embedded inside FIELD LAB PULSE.",
+    "Before this change CURRENT/root manifest/live release/voice release disagreed with those shipped heads."
+  ],
+  "delta": [
+    "CURRENT Fold/Bloom head aligned to PLAY 0.5.7 / LAB 0.3.4 / VOICE 0.2.",
+    "Fold/Bloom root and child FIELD projections aligned to shipped runtime state.",
+    "LIVE and VOICE releases aligned to shipped loop/spectrum boundaries.",
+    "Static guard now rejects future runtime/release/manifest/CURRENT version divergence."
+  ],
+  "preserves": [
+    "LIVE runtime/source authority",
+    "FIELD PULSE authority NONE",
+    "VOICE local exercise authorship and microphone privacy",
+    "LAB seven-mode surface; VOICE remains embedded detail, not an eighth mode",
+    "no new engine/store/bus/core"
+  ],
+  "evidence": [
+    {
+      "pr": 403,
+      "merge": "471fdae1c410116f614ffa5479fac29cbfa09a6f",
+      "route_registration_run": 36198970713,
+      "public_surface_run": 36198970709
+    },
+    {
+      "pr": 409,
+      "merge": "da7dfe9efa534d07f3bbe357cf23463c66616d89",
+      "route_registration_run": 36208469519,
+      "public_surface_run": 36208469513
+    },
+    {
+      "commit": "42cbfae5d7888f5192c4c3ba8f056521407ef10a",
+      "claim": "FIELD LAB 0.3.4 multi-ring PULSE psychophysics"
+    }
+  ],
+  "verification": {
+    "route_registration": "PASS · 36209914153",
+    "public_surface": "PASS · 36209914151",
+    "pulse_psychophysics": "PASS · Lab suite step 41",
+    "pulse_multiring_browser": "PASS · FIELD LAB browser step 49 + critical browser smoke step 58",
+    "voice_spectrum": "PASS · step 42",
+    "static_authority_guard": "PASS · step 32"
+  },
+  "one_next": "Rerun repository guards on this sealed metadata head; if green, merge and replan before touching AWAKE.",
+  "stop": "No product feature is authorized by this synchronization."
+}
