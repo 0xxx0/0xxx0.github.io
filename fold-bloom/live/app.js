@@ -372,6 +372,8 @@ async function preparePublicDemo(){
     const blob=await response.blob(),file=new File([blob],'CENTER MASS — public demo excerpt.mp3',{type:blob.type||'audio/mpeg'});
     stopDemo(false);liveTrack.clearSource();deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
     await liveTrack.loadFiles([file]);
+    const decodedSeconds=Number(liveTrack.map?.duration)||0;
+    if(decodedSeconds<6){liveTrack.clearSource();throw Error(`BUNDLED AUDIO DECODES TO ONLY ${decodedSeconds.toFixed(2)} SECONDS`)}
     $('#trackAudio').pause();$('#trackAudio').loop=true;
     layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();
     publicDemoReady=true;trackStatus='READY · PUBLIC DEMO · CENTER MASS';
@@ -380,7 +382,7 @@ async function preparePublicDemo(){
     update();return true;
   })().catch(error=>{
     console.warn(error);publicDemoReady=false;document.documentElement.dataset.foldBloomDemoSource='error';
-    trackStatus='FIELD COURSE · PUBLIC DEMO UNAVAILABLE';update();toast('AUDIO EXAMPLE UNAVAILABLE');return false;
+    trackStatus='AUDIO EXAMPLE DAMAGED · USE FIELD COURSE';update();toast('AUDIO EXAMPLE DAMAGED · USE FIELD COURSE');return false;
   }).finally(()=>{publicDemoLoading=null});
   return publicDemoLoading;
 }
