@@ -394,7 +394,7 @@ async function preparePublicDemo(){
     for(const id of ['#publicDemoBtn','#publicDemoSettingsBtn']){const b=$(id);if(b)b.textContent='PLAY FIELD AUDIO DEMO'}
     drawCourseMap(true);update();return true;
   })().catch(error=>{
-    console.warn(error);publicDemoReady=false;document.documentElement.dataset.foldBloomDemoSource='error';
+    console.warn(error);publicDemoReady=false;document.documentElement.dataset.foldBloomDemoSource='error';document.documentElement.dataset.foldBloomDemoError=String(error?.message||error||'unknown').slice(0,240);
     trackStatus='FIELD COURSE · DEMO UNAVAILABLE';update();toast('FIELD AUDIO DEMO UNAVAILABLE');return false;
   }).finally(()=>{publicDemoLoading=null});
   return publicDemoLoading;
