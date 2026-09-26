@@ -5,9 +5,9 @@ import {courseStrip,mapCourse,normalizeCoursePoints,replayCourse,stepCourse} fro
 test('audio map course steps by requested structural grain',()=>{
   const map={duration:12,beats:[0,1,2,3,4,5],phrases:[{t:0},{t:4},{t:8},{t:12}],sections:[{t:0},{t:6},{t:12}]};
   const phrase=mapCourse(map,{grain:'PHRASE'});
-  assert.deepEqual(phrase.points.map(x=>x.p),[0,1/3,2/3,1]);
-  assert.equal(stepCourse(phrase,.34,1).p,2/3);
-  assert.equal(stepCourse(phrase,.66,-1).p,1/3);
+  assert.deepEqual(phrase.points.map(x=>x.p),[0,0.333333,0.666667,1]);
+  assert.equal(stepCourse(phrase,.34,1).p,0.666667);
+  assert.equal(stepCourse(phrase,.66,-1).p,0.333333);
 });
 
 test('replay course converges words operations and marks into one cue path',()=>{
