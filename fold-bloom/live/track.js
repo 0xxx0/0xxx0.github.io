@@ -3,10 +3,10 @@ import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-
 import {buildTrackfield} from './trackfield.js';
 import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
+import {hashHex} from '../../lib/id.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const TRACKFIELD_MODEL_INTERVAL=.028;
-async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
@@ -106,7 +106,7 @@ export class LiveTrack {
   async load(file,{sidecars=[]}={}){
     if(!file)return null;
     this.loading=true;this.file=file;this.streamUrl=null;this.onState('DECODING');
-    const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    const bytes=await file.arrayBuffer(),hashP=hashHex(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
     let textEvidence=null;
     for(const sf of sidecars){try{const t=parseTextSidecar(await sf.text(),sf.name);if(t?.text){textEvidence=t;break}}catch(_){}}
     if(!textEvidence&&meta.lyrics)textEvidence={name:file.name,kind:'LYRICS',alignment:meta.lyricsAlignment||'UNALIGNED_EMBEDDED',text:meta.lyrics,cues:[],cueCount:0,chars:String(meta.lyrics).length};
