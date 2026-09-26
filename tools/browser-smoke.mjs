@@ -1184,6 +1184,12 @@ const CASES=[
     check:dom=>/SCALE LENS/i.test(dom)&&!dom.includes('load failure')
   },
   {
+    name:'FIELD CATCH knowledge-gap re-entry',
+    route:'/',
+    options:{width:430,height:900,budget:9000,timeout:16000},
+    check:dom=>/FIELD \/ CATCH \+ ACT/.test(dom)&&dom.includes('data-catch-gap="1"')&&/MORE HERE/.test(dom)
+  },
+  {
     name:'DAYLINE CONFLUENCE 0.1',
     route:'/dayline/',
     options:{width:430,height:900,budget:7000,timeout:14000},

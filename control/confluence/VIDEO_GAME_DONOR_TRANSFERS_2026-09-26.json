@@ -1,0 +1,125 @@
+{
+  "schema": "field-game-donor-transfer/v0.1",
+  "updated": "2026-09-26T10:27:00+08:00",
+  "purpose": "Make video-game research pay rent by binding extracted mechanics to current FIELD hosts with explicit non-transfer residue and executable/contractual proof.",
+  "selection_gate": [
+    "current friction named",
+    "mechanism abstracted from fiction/skin/economy",
+    "non-transfer residue explicit",
+    "executable or contractual proof",
+    "no new sovereign app without missing function",
+    "self-verification before human/device evidence",
+    "temporary scaffolding names retirement condition"
+  ],
+  "transfers": [
+    {
+      "id": "knowledge-gap-reentry",
+      "donors": [
+        "Outer Wilds"
+      ],
+      "status": "IMPLEMENTED_CANDIDATE",
+      "recipients": [
+        "/"
+      ],
+      "invariant": "Re-entry may expose what is known plus an already-declared unresolved edge without creating a quest, priority or obligation.",
+      "non_transfer": [
+        "quest log",
+        "mission assignment",
+        "priority score",
+        "canonical read state",
+        "game visual skin"
+      ],
+      "implementation": "FIELD / CATCH + ACT route cards derive MORE HERE from evolution.question, open_gaps, or unresolved field.exit_paths only.",
+      "executable_test": "tools/browser-smoke.mjs",
+      "proof_claim": "Fresh browser root renders at least one MORE HERE knowledge-gap witness when current manifest routes declare one.",
+      "new_sovereign_app": false,
+      "retirement": "No extra store or route; if MORE HERE increases clutter without improving re-entry, delete the projection with no data migration."
+    },
+    {
+      "id": "failure-return",
+      "donors": [
+        "Hades"
+      ],
+      "status": "CONTRACT",
+      "recipients": [
+        "/",
+        "/dayline/",
+        "/spikes/007-hard-evolution-proofs/"
+      ],
+      "invariant": "A failed bounded attempt should return new evidence/residue or be recognized as duplicate churn; failure is not a blank reset.",
+      "non_transfer": [
+        "XP-for-failure",
+        "streaks",
+        "punishment economy"
+      ],
+      "contract_key": "failure_return",
+      "proof_claim": "Execution contract requires failure to emit evidence/residue or stop repeating the same attempt.",
+      "new_sovereign_app": false,
+      "retirement": "Contract remains only while it prevents duplicate blind retries."
+    },
+    {
+      "id": "precommit-telegraph",
+      "donors": [
+        "Into the Breach"
+      ],
+      "status": "CONTRACT",
+      "recipients": [
+        "/",
+        "/house/",
+        "/dayline/"
+      ],
+      "invariant": "When effects are predictable, expose affected addresses and reversible/irreversible boundary before authoritative commit; uncertainty stays visible.",
+      "non_transfer": [
+        "perfect-information claim",
+        "undo after irreversible side effect"
+      ],
+      "contract_key": "precommit_telegraph",
+      "proof_claim": "Execution contract distinguishes preview/configuration from commit/effect.",
+      "new_sovereign_app": false,
+      "retirement": "No extra UI required when native host already exposes equivalent preview."
+    },
+    {
+      "id": "ghost-not-real",
+      "donors": [
+        "Factorio"
+      ],
+      "status": "CONTRACT",
+      "recipients": [
+        "/house/",
+        "/shopping/",
+        "/spikes/007-hard-evolution-proofs/"
+      ],
+      "invariant": "A proposal may carry rich configuration while remaining explicitly non-real and non-actuating until resources, authority and enactment arrive.",
+      "non_transfer": [
+        "proposal counted as installed",
+        "preview counted as proof",
+        "automatic procurement"
+      ],
+      "contract_key": "ghost_state",
+      "proof_claim": "Execution contract names PROPOSED/GHOST as non-real and incapable of increasing world authority.",
+      "new_sovereign_app": false,
+      "retirement": "Ghost disappears when enacted, rejected, superseded or no longer addressable."
+    },
+    {
+      "id": "scaffold-retirement",
+      "donors": [
+        "Terra Nil"
+      ],
+      "status": "CONTRACT",
+      "recipients": [
+        "/",
+        "/control/confluence/"
+      ],
+      "invariant": "Temporary support exists to restore or unlock capability and should name the condition under which it can be removed.",
+      "non_transfer": [
+        "deletion-as-progress",
+        "loss of provenance",
+        "automatic archival destruction"
+      ],
+      "contract_key": "scaffold_retirement",
+      "proof_claim": "Execution contract requires temporary support/helper surfaces to name a retirement condition.",
+      "new_sovereign_app": false,
+      "retirement": "This rule itself may fold into a more general lifecycle contract once enforced elsewhere."
+    }
+  ]
+}

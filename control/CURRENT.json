@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-26T10:12:00+08:00",
+  "updated": "2026-09-26T10:27:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -58,10 +58,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.14 / HELD→INTERPHASE→DAYLINE + LOSSLESS DEPTH + FOLDED SIGNAL + Φ/φ",
+      "head": "FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; FIELD focus is already an INTERPHASE host. 0.8.14 lets the held route cross into /dayline/ without losing identity/address/focus/projection/residue: the existing Dayline handoff carries a bounded interphase/v0.2 witness, and Dayline reprojects the same object without acquiring native source authority.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -74,10 +74,11 @@
         "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
         "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
         "/lib/interphase-field.js",
-        "/lib/interphase-dayline.js"
+        "/lib/interphase-dayline.js",
+        "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
       ],
-      "version": "0.8.14",
-      "latest_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+      "version": "0.8.15",
+      "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
     },
     {
       "lineage": "scale-lens",
@@ -946,7 +947,13 @@
       "DEVICE/WORLD: only unsimulatable physical transport/sensor/tactile/real-world consequence claims",
       "SUBJECTIVE: preference/delight/burden evidence; never substitute for correctness"
     ],
-    "human_gate_rule": "Do not ask the human to test something the executor can verify. If a final device/world/subjective property remains, mark that property UNKNOWN/OPTIONAL_EVIDENCE and continue all independent verification."
+    "human_gate_rule": "Do not ask the human to test something the executor can verify. If a final device/world/subjective property remains, mark that property UNKNOWN/OPTIONAL_EVIDENCE and continue all independent verification.",
+    "game_donor_transfer": {
+      "failure_return": "After a bounded failed attempt, RETURN must contain new evidence/residue or explicitly classify the attempt as duplicate/no-new-information; do not blind-retry to manufacture progress.",
+      "precommit_telegraph": "When a host can predict effects, preview affected addresses plus reversible/irreversible boundary before authoritative commit. Unknown effects remain UNKNOWN; preview never grants authority.",
+      "ghost_state": "PROPOSED/GHOST may carry configuration and exact address while remaining non-real, non-actuating and non-proof. Promotion requires explicit resources/authority/enactment evidence.",
+      "scaffold_retirement": "Temporary helpers, migration shims, compatibility surfaces and proof scaffolds should name a retirement condition when introduced; success may reduce infrastructure, but deletion never outranks provenance."
+    }
   },
   "last_state_survey": "/control/STATE_SURVEY_2026-09-21_1731.json",
   "last_afk_action_surface": "/control/AFK_ACTION_SURFACE_2026-09-21.json",
@@ -1083,7 +1090,8 @@
     "agency_care_lightcone_orientation": "/control/confluence/AGENCY_CARE_LIGHTCONE_ORIENTATION_2026-09-25.md",
     "self_verification_audit": "/control/confluence/SELF_VERIFICATION_FIRST_2026-09-25.md",
     "deep_donor_orientation": "/control/confluence/DEEP_DONOR_ORIENTATION_2026-09-26.md",
-    "video_game_donor_atlas": "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md"
+    "video_game_donor_atlas": "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
+    "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
