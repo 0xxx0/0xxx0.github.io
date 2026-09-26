@@ -423,15 +423,22 @@
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
       "latest_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-      "latest_merge": "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6",
+      "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
       "version": "0.1.6 + PLAY 0.6.1 / LAB 0.3.4 / VOICE 0.2",
       "repo_verification": {
-        "route_registration_run": 36162997518,
-        "public_surface_run": 36162997236,
+        "route_registration_run": 36213508908,
+        "public_surface_run": 36213508965,
         "master_self_verification_run": 36163042383,
-        "status": "PENDING_CI_HEX_061",
+        "status": "PASS",
         "mobile_interaction_regression": "PASS",
-        "lived_feel": "OPTIONAL_OBSERVATION_NOT_GATE"
+        "lived_feel": "OPTIONAL_OBSERVATION_NOT_GATE",
+        "convergence_validate_run": 36213508871,
+        "pages_deployment_run": 36213508309,
+        "hex_projection_core": "PASS",
+        "live_gameplay_suite": "PASS",
+        "live_step_flow": "PASS",
+        "critical_browser_smoke": "PASS",
+        "frozen_city_painting_regression": "PASS"
       }
     },
     {

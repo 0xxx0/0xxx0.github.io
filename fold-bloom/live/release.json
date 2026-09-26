@@ -372,15 +372,15 @@
       "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
     },
     "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
-    "pr": 416,
-    "merge_sha": "1073d69c59607d53adaa429b4443d8a8e007f51f",
+    "pr": 439,
+    "merge_sha": "48a74fced330fe05c469bac614c4074c43dde5dc",
     "verification": {
       "public_surface_check": "PASS",
       "workflow_run": 36211704995,
       "route_registration": "PASS",
       "route_run": 36211704985,
       "gameplay_suite": "PASS",
-      "critical_browser_smoke": "PASS",
+      "critical_browser_smoke": "PASS · public-surface-check 36213508965",
       "phone_visibility_and_feel": "OPTIONAL_LIVED_EVIDENCE",
       "mobile_interaction_regression": "PASS · master self-verification 36163042383",
       "loop_contract": "PASS · PR #409",
@@ -388,8 +388,9 @@
       "public_surface_run": 36208469513,
       "form_morph_core": "PASS · PR #416 + merged master public-surface-check 36211704995",
       "form_morph_mobile": "PASS · merged master mobile interaction regression within public-surface-check 36211704995",
-      "hex_projection_core": "CANDIDATE_TEST_ADDED",
-      "hex_projection_mobile": "CANDIDATE_BROWSER_SMOKE_ADDED"
+      "hex_projection_core": "PASS · public-surface-check 36213508965",
+      "hex_projection_mobile": "PASS · mobile interaction regression within 36213508965",
+      "merged_master": "PASS · Route Registration 36213508908 · convergence-validate 36213508871 · public-surface-check 36213508965 · Pages 36213508309"
     },
     "puzzle_grammar": {
       "status": "CURRENT / HEXAGRAM_CHANGE_OVER_EXACT_VERB_SUBSTRATE",
@@ -600,5 +601,5 @@
     "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-  "latest_merge": "da7dfe9efa534d07f3bbe357cf23463c66616d89"
+  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc"
 }
