@@ -103,7 +103,7 @@ export class LiveTrack {
     this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});
     return this.worldCache;
   }
-  async load(file,{sidecars=[]}={}){
+  async load(file,{sidecars=[],autoplay=true}={}){
     if(!file)return null;
     this.loading=true;this.file=file;this.streamUrl=null;this.onState('DECODING');
     const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
@@ -129,7 +129,7 @@ export class LiveTrack {
         this.worker.onerror=()=>this.onState('PREVIEW · ANALYZER ERROR');
         this.worker.postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
       }
-      await this.audio.play().catch(()=>{});
+      if(autoplay)await this.audio.play().catch(()=>{});
       this.onState(this.stateLabel());
       return this.map;
     }finally{this.loading=false;await ctx.close().catch(()=>{})}
