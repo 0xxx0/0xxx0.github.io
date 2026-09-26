@@ -19,10 +19,10 @@ const wait=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Da
  const map=D().getElementById('courseMap'),back=D().getElementById('courseBack'),next=D().getElementById('courseNext'),mode=D().getElementById('courseMode'),grain=D().getElementById('courseGrain'),address=D().getElementById('courseAddress');
  D().getElementById('menuBtn').click();await wait(()=>map.clientWidth>180,3000,'drawer minimap visible');
  rec.controls=!!map&&!!back&&!!next&&!!mode&&!!grain&&!!address;rec.canvasW=map?.clientWidth||0;rec.initialMode=api.course.mode();rec.initialGrain=api.course.grain();
- api.course.setMode('STEP',false);rec.stepMode=api.course.mode();rec.stepText=mode.textContent;rec.address=api.course.address();
+ api.course.setMode('STEP',false);rec.stepMode=api.course.mode();rec.stepText=mode.textContent;rec.address=api.course.address();rec.addressText=address.textContent;
  api.course.cycleGrain();rec.grain=api.course.grain();rec.grainText=grain.textContent;
  api.course.setMode('FLOW',false);rec.flow=api.course.mode();rec.flowText=mode.textContent;
- const pass=rec.controls&&rec.canvasW>180&&rec.initialMode==='FLOW'&&rec.initialGrain==='PHRASE'&&rec.stepMode==='STEP'&&rec.stepText==='STEP'&&rec.address==='course://audio_map/empty'&&rec.grain==='SECTION'&&rec.grainText==='SECTION'&&rec.flow==='FLOW'&&rec.flowText==='FLOW';
+ const pass=rec.controls&&rec.canvasW>180&&rec.initialMode==='FLOW'&&rec.initialGrain==='PHRASE'&&rec.stepMode==='STEP'&&rec.stepText==='STEP'&&rec.address===null&&rec.addressText==='course://audio_map/empty'&&rec.grain==='SECTION'&&rec.grainText==='SECTION'&&rec.flow==='FLOW'&&rec.flowText==='FLOW';
  done(pass,rec);
 })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
 <\/script></body></html>`}
