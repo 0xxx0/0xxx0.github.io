@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/fold-bloom-ink-return/v0.1",
+  "date": "2026-09-26",
+  "status": "MERGED_BRANCH_CI_GREEN",
+  "artifact": "FOLD//BLOOM INK 0.4",
+  "problem": "Continuous drag still read like spray paint because the engine accumulated many independent elliptical dabs; pointer event density could alter pigment mass and each sample re-randomized local contact.",
+  "operation": "STAMPED DABS → SWEPT BRUSH-CONTACT RIBBON",
+  "delta": [
+    "Each pointer segment rasterizes only its newly swept strip, open at the segment start.",
+    "Bristle lane phase is stroke-seed coherent along the segment instead of re-randomized per pointer sample.",
+    "Pressure, speed and cross-tilt shape contact width; paper tooth modulates contact.",
+    "DRY/SUMI/WASH preserve their existing pigment/water regimes and downstream diffusion/stain evolution.",
+    "Pigment mass is tested to remain approximately invariant across coarse versus dense pointer event sampling.",
+    "Existing /fold-bloom/ink/ and FIELD LAB INK remain the only surfaces; no new engine authority or store."
+  ],
+  "proof": {
+    "pull_request": 417,
+    "merge_sha": "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6",
+    "branch_ci": {
+      "route_registration": {
+        "run": 36211846383,
+        "result": "PASS"
+      },
+      "public_surface_check": {
+        "run": 36211846397,
+        "result": "PASS"
+      },
+      "wet_media_engine": "PASS",
+      "ink_browser_boot": "PASS",
+      "critical_browser_smoke": "PASS"
+    }
+  },
+  "human_observation": "On phone/stylus, check whether long wet strokes now read as continuous brush contact instead of spray/dab chains while DRY/SUMI/WASH remain perceptibly distinct.",
+  "law": "Revise the material model only from observed stroke behavior; do not add decorative paint effects or calligraphy-quality scoring."
+}
