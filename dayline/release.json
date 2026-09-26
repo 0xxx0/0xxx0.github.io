@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "route": "/dayline/",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-26",
-  "role": "Mobile-first continuous execution projection over existing DayState, now a first-class INTERPHASE host. One addressed object survives FIELD → INTERPHASE → Dayline without a second store; FOVEA / LINE / RING are view-only projections over the held object, native Dayline retains all effect authority, WITNESS remains native evidence, and ordinary RETURN carries the current INTERPHASE projection/residue witness.",
+  "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.1 may render a source-owned semantic evidence token carried inside the existing exact handoff; Dayline normalizes the visual token only and never reclassifies source truth. One addressed object survives source → Dayline → WITNESS → RETURN without a second store.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -24,7 +24,8 @@
     "shared INTERPHASE v0.2 identity/address/focus semantics",
     "FIELD Interphase source projection witness across explicit handoff",
     "projection residue rather than silent channel loss",
-    "Dayline native move/effect authority; INTERPHASE adapter is read-only"
+    "Dayline native move/effect authority; INTERPHASE adapter is read-only",
+    "source-owned evidence_signal/proof_boundary across handoff → DayState sourceLink → RETURN"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -54,9 +55,10 @@
     "field_interphase_handoff": "interphase/v0.2/handoff preserved inside existing atlas-dayline-handoff/v0.1 envelope",
     "interphase_return_witness": "poly-atlas-return-f carries current DaylineInterphase projection result",
     "interphase_selftest": "PASS · public-surface-check 36204835503",
-    "public_surface": "PASS · 36204835503"
+    "public_surface": "PASS · 36204835503",
+    "semantic_signal": "PASS CANDIDATE · source-owned token only; direct/local Dayline frames remain CLEAR; no Dayline inference of Shopping lifecycle."
   },
-  "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
+  "stop": "Functional correctness is machine/browser verified first. Source-owned signal rendering is projection only; Dayline must not invent domain evidence classes from task wording. Real-world completion remains a WORLD claim.",
   "verification_policy": {
     "machine_first": [
       "empty/reset state",
