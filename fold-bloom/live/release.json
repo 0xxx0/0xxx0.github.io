@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.13",
+  "version": "LIVE 0.13 + PLAY 0.5.7",
   "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
@@ -252,7 +252,7 @@
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "observed_user_return": {
     "date": "2026-09-22",
     "confidence": "DIRECT_USER_REPORT",
@@ -335,12 +335,13 @@
   "notes": [
     "2026-09-25 restore: generic LIVE regained primary entry; legacy ?source=center-mass links no longer auto-launch an unverified provider stream.",
     "2026-09-25 PLAY takeover: collapsed stalled game-loop branches into the shipped master lineage; old mode/win branches are donors/superseded, not authorities.",
-    "2026-09-25 PLAY 0.5.5 is current: calm RIDE default restored; machine/browser verification green; lived feel is optional evidence only."
+    "2026-09-25 PLAY 0.5.5 is current: calm RIDE default restored; machine/browser verification green; lived feel is optional evidence only.",
+    "2026-09-26 PLAY 0.5.7: derived reusable loop contract + lifecycle subscription over existing mode state; PATH turn partition fixed so sampled releases do not undercount multi-step movement."
   ],
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
-    "version": "0.5.5",
-    "state": "SHIPPED / CALM_RIDE_RECOVERED",
+    "version": "0.5.7",
+    "state": "SHIPPED / REUSABLE_LOOP_CONTRACT",
     "law": "FORM H[A] → address line with ring → release writes consequence bit → Δ emerges → H[B]",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
@@ -367,8 +368,8 @@
       "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
     },
     "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
-    "pr": 302,
-    "merge_sha": "a8454d741ccd58f17e5b491570d61a78f54c4e63",
+    "pr": 409,
+    "merge_sha": "da7dfe9efa534d07f3bbe357cf23463c66616d89",
     "verification": {
       "public_surface_check": "PASS",
       "workflow_run": 36162997236,
@@ -377,7 +378,10 @@
       "gameplay_suite": "PASS",
       "critical_browser_smoke": "PASS",
       "phone_visibility_and_feel": "OPTIONAL_LIVED_EVIDENCE",
-      "mobile_interaction_regression": "PASS · master self-verification 36163042383"
+      "mobile_interaction_regression": "PASS · master self-verification 36163042383",
+      "loop_contract": "PASS · PR #409",
+      "route_registration_run": 36208469519,
+      "public_surface_run": 36208469513
     },
     "puzzle_grammar": {
       "borrowed": "Yijing formal grammar: broken/solid lines, eight three-line trigrams, six-line forms composed as lower + upper trigrams.",
@@ -512,7 +516,32 @@
       ],
       "supersedes_as_default": "0.5.4 HEX STILL / true-two-ring experiment",
       "human_feel": "OPTIONAL_OBSERVATION_NOT_GATE"
+    },
+    "loop_contract": {
+      "version": "FOLD_BLOOM_PLAY_LOOP_0.1",
+      "module": "/fold-bloom/live/play-loop.js",
+      "authority": "DERIVED_WITNESS_ONLY",
+      "archetypes": {
+        "PLAY": "REPEAT",
+        "PUZZLE": "FORM_CHANGE",
+        "PATH": "OPTIMIZE",
+        "DUET": "COORDINATE",
+        "GARDEN": "SELECT_INHERIT",
+        "ZEN": "OPEN_PRACTICE"
+      },
+      "lifecycle": [
+        "START",
+        "RELEASE",
+        "CHOICE_REQUIRED",
+        "CHOICE",
+        "FINISH",
+        "VIEW",
+        "RETURN",
+        "EXIT"
+      ],
+      "boundary": "LIVE remains source/operation authority; this witness normalizes phase/progress/success for projections and reuse only."
     }
   },
-  "play_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json"
+  "play_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
+  "latest_merge": "da7dfe9efa534d07f3bbe357cf23463c66616d89"
 }
