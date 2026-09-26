@@ -1,0 +1,70 @@
+{
+  "schema": "0xxx0/fold-bloom-convergence-return/v0.1",
+  "date": "2026-09-26",
+  "state": "VERIFIED",
+  "surface": "FOLD//BLOOM",
+  "thesis": "Reduce surface area by making existing INK, VOICE/LAB, REPLAY and LIVE surfaces share stronger material, temporal and addressed-course primitives rather than opening parallel apps.",
+  "deltas": [
+    {
+      "id": "INK_CONTACT_RIBBON",
+      "state": "SHIPPED",
+      "commit": "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6",
+      "behavior": "Dragging paints one swept brush-contact ribbon with pressure/speed/tilt, coherent bristle lanes and paper tooth instead of a cloud of independently randomized dabs.",
+      "authority": "Existing pigment/water/stain/paper field remains authoritative.",
+      "verification": {
+        "public_surface_check": "PASS · run 36211846397",
+        "route_registration": "PASS · run 36211846383"
+      }
+    },
+    {
+      "id": "VOICE_TEMPORAL_WITNESS",
+      "state": "SHIPPED",
+      "commit": "6bb83bad5d2834a5c873ff4f7c5150cdcc90b73f",
+      "behavior": "The existing scrolling spectrum carries target/heard pitch traces and borrowed-beat boundaries; bounded onset Δ and center-hold witnesses are shared by standalone VOICE and FIELD LAB PULSE.",
+      "authority": "Practice evidence only; no microphone audio is stored and no singing-quality or health authority is claimed.",
+      "verification": {
+        "public_surface_check": "PASS · run 36212433423",
+        "route_registration": "PASS · run 36212433399"
+      }
+    },
+    {
+      "id": "ADDRESSED_COURSE_REPLAY",
+      "state": "SHIPPED",
+      "commit": "fd47791fa9bd3195faecd363002220cf16ea7f97",
+      "behavior": "One fold-bloom-addressed-course/v0.1 primitive normalizes REPLAY cues and AUDIO MAP beat/phrase/section landmarks; REPLAY gets cue-by-cue STEP without a second timeline model.",
+      "authority": "STEP changes address/playhead only; source evidence, authored operations and profile authority are unchanged.",
+      "verification": {
+        "public_surface_check": "PASS · run 36212797463",
+        "route_registration": "PASS · run 36212797459",
+        "replay_browser_step": "PASS · step 32",
+        "course_core": "PASS · step 41"
+      }
+    },
+    {
+      "id": "LIVE_STEP_FLOW_MINIMAP",
+      "state": "SHIPPED",
+      "commit": "2f4bb84fd3b43881ca12cf05c3c3c99fcaa7def5",
+      "behavior": "Existing LIVE SOURCE drawer now contains one structural strip/minimap and FLOW/STEP transport: FLOW is ordinary real-time playback; STEP pauses source time and advances one addressed BEAT, PHRASE or SECTION; strip tap scrubs source position.",
+      "authority": "AUDIO MAP remains source structure authority; authored FOLD/BLOOM/SPLIT/RETURN remain independent gameplay actions.",
+      "verification": {
+        "public_surface_check": "PASS · run 36213116215",
+        "route_registration": "PASS · run 36213116109",
+        "live_step_minimap": "PASS · step 55",
+        "live_mobile_regression": "PASS · step 64",
+        "critical_browser_smoke": "PASS · step 65"
+      }
+    }
+  ],
+  "convergence": [
+    "No new route was added for INK, VOICE training, REPLAY stepping, turn-based LIVE, or track minimap.",
+    "FIELD LAB stayed at seven unequal projections; VOICE deepened the existing PULSE projection instead of becoming an eighth.",
+    "REPLAY and LIVE share the same addressed-course grammar instead of separate stepping systems.",
+    "The LIVE minimap is a control projection of the existing AUDIO MAP, not a new visualizer authority."
+  ],
+  "current_master": "2f4bb84fd3b43881ca12cf05c3c3c99fcaa7def5",
+  "remaining_lived_evidence": [
+    "Real-phone tactile judgment of INK 0.4 against the former spray/dab feel.",
+    "Real-voice use of onset and center-hold witnesses across NOTE/CALL/SCALE/HUM.",
+    "Ordinary phone use of LIVE STEP at BEAT/PHRASE/SECTION grains on a full local track."
+  ]
+}
