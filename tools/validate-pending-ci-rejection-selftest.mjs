@@ -12,8 +12,7 @@ if(!head){
 const receiptPath=String(head.latest_return).replace(/^\//,'');
 const originalText=fs.readFileSync(receiptPath,'utf8');
 const original=JSON.parse(originalText);
-const markerState='CURRENT PASS head retains pending latest_return state: '+head.lineage;
-const markerProof='CURRENT PASS head retains pending latest_return proof: '+head.lineage;
+const marker='CURRENT PASS head retains pending latest_return CI claim: '+head.lineage;
 
 function runValidator(){
   return spawnSync(process.execPath,['tools/validate-public.mjs'],{encoding:'utf8'});
@@ -26,7 +25,7 @@ function requireBaseline(){
     process.exit(1);
   }
 }
-function requireRejected(mutated,marker,label){
+function requireRejected(mutated,label){
   fs.writeFileSync(receiptPath,JSON.stringify(mutated,null,2)+'\n');
   const r=runValidator(),out=output(r);
   if(r.status===0||!out.includes(marker)){
@@ -40,14 +39,19 @@ try{
 
   const stateCase=structuredClone(original);
   stateCase.state='PASS_PENDING_CI';
-  requireRejected(stateCase,markerState,'pending state');
+  requireRejected(stateCase,'pending state');
 
   fs.writeFileSync(receiptPath,originalText);
   const proofCase=structuredClone(original);
   proofCase.proof={...(proofCase.proof&&typeof proofCase.proof==='object'&&!Array.isArray(proofCase.proof)?proofCase.proof:{}),selftest:'pending CI'};
-  requireRejected(proofCase,markerProof,'pending proof');
+  requireRejected(proofCase,'pending proof');
 
-  console.log('PENDING-CI REJECTION SELFTEST PASS · state + proof mutations both fail closed for '+head.lineage);
+  fs.writeFileSync(receiptPath,originalText);
+  const verificationCase=structuredClone(original);
+  verificationCase.verification=['PR #999 CI pending'];
+  requireRejected(verificationCase,'pending verification');
+
+  console.log('PENDING-CI REJECTION SELFTEST PASS · state + proof + verification mutations all fail closed for '+head.lineage);
 } finally {
   fs.writeFileSync(receiptPath,originalText);
 }
