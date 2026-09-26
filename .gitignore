@@ -102,3 +102,16 @@ delete/reclaimed-*/
 **/_archives/*.jsonl
 **/_archive/*_user.tsv
 **/_archive/*candidates*
+
+# live VirtualBox VM disks — never track, never `git clean -x` (HAOS-VM-HAZARD-2026-09-26)
+**/*.vdi
+**/*.vdi.zip
+
+# --- AXIS/ — untracked by drift, now deliberate (2026-09-26) ---
+# AXIS is the canonical LOCAL state: NOW.md, LEDGER.md, work/, decisions, receipts.
+# Before this rule, `git add -A` would stage 4,378 AXIS files (measured 2026-09-26).
+# The 'archive' profile runs git add -A + push against this PUBLIC remote ~24x/month,
+# so those files were one automation run from being published.
+# gitignore does NOT affect already-tracked paths: the 20 deliberately-tracked,
+# post-scrub files remain tracked and are unaffected by this rule.
+AXIS/
