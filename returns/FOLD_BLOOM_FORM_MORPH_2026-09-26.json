@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-form-morph-return/v0.1",
   "date": "2026-09-26",
-  "status": "CANDIDATE_PR",
+  "status": "PR_OPEN",
   "problem": {
     "observed": "Public HEX gameplay required players to infer an arbitrary binary adapter: BLOOM/FOLD→solid and SPLIT/RETURN→broken, then match a generated six-line target before reaching the actual state-change idea.",
     "conflict": "FIELD LAB already states that STATE / CHANGE six-line notation is only lawful when six explicit binary conditions are meaningful.",
@@ -31,8 +31,10 @@
     "loop witness tests updated",
     "mobile FORM surface smoke updated",
     "public root doorway changed from HEX to FORM MORPH",
-    "PR CI pending"
+    "PR #416 CI pending"
   ],
   "next_if_pass": "Use FORM MORPH as the only public PUZZLE projection; do not reintroduce binary notation unless the source object itself presents six binary conditions.",
-  "next_if_fail": "Retain FORM core as donor, restore PLAY 0.5.7 public mode, preserve exact failure evidence."
+  "next_if_fail": "Retain FORM core as donor, restore PLAY 0.5.7 public mode, preserve exact failure evidence.",
+  "pr": 416,
+  "branch": "fold-bloom-form-morph-v060-r2-20260926"
 }
