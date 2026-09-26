@@ -157,7 +157,7 @@ function resetPulseTraining(announce=false){
 }
 function parseRatio(v){return v.split(':').map(Number)}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
-  pulse.ratio=parseRatio(b.dataset.ratio);$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
+  pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
   $('#ratioRead').textContent=b.dataset.ratio;resetPulseTraining();if(pulse.playing)restartPulse();
 });
 $$('[data-timbre]').forEach(b=>b.onclick=()=>{
