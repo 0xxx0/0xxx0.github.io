@@ -7947,7 +7947,7 @@
       "tier": "FIELD",
       "role": "Executable multi-domain proofs P1/P2/P3 from HARD_EVOLUTION_MAP: one location-with-context descriptor across unequal domains; typed composition (parts / ports / relations / constraints / operators) projected as FORMULA / HYPERGRAPH / FLOWER with declared residue; preserved-interface rewrites with commit + evidence + RETURN. Interactive annex demonstrates IDENTIFY ≠ DEFORM (plane → cylinder → torus). No shared-core promotion.",
       "index": {
-        "updated_at": "2026-09-25T20:45:00+08:00",
+        "updated_at": "2026-09-26T22:45:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -7962,6 +7962,11 @@
         {
           "claim": "IDENTIFY leaves metric untouched; TUBE developable (max |strain| ≈ 0); DONUT max |strain| = R/B (k=3)",
           "source": "spikes/007-hard-evolution-proofs/index.html?selftest=1",
+          "status": "TESTED"
+        },
+        {
+          "claim": "stress sweep 21/21 (nx 6–192, ny 6/36, k 1–12): TUBE developable 1.8e-9; DONUT max |strain| = 1/k (dev 2.4e-10); X-seam closes; Y-seam closes iff ny = m·nx·k; found+fixed setEmbed() TDZ crash when ringFactor omitted",
+          "source": "spikes/007-hard-evolution-proofs/stress.mjs",
           "status": "TESTED"
         },
         {

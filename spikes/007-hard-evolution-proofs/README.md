@@ -78,6 +78,18 @@ Donor provenance: AXIS `work/make-grammar/spike-001-wrap` (node 16/16 + browser 
 
 Boundary: the display morph is not a rigid motion; strain is a first-order edge metric, not a continuum-embedding proof; physical fit remains UNKNOWN. The annex adds no authority to this spike.
 
+### Stress sweep (2026-09-26)
+
+`node stress.mjs` — deterministic invariant sweep, 21 assertions over nx ∈ {6…192}, ny ∈ {6, 36}, k ∈ {1…12}:
+
+- TUBE developable: worst max |strain| = 1.8e-9 across the grid.
+- DONUT law: max |strain| = 1/k (worst deviation 2.4e-10); strain symmetric ±1/k; strictly decreasing in k.
+- X-seam always closes (worst gap 7.5e-15); **Y-seam closes iff ny = m·nx·k, m ∈ ℕ** (worst closed gap 2.8e-15; open minimum gap 5.73).
+- Op semantics: IDENTIFY metric-neutral + adjacency wrap + idempotence-guard; EMBED adjacency-preserving; inputs immutable under ops; receipt carries residue.
+- Declared observations (residue, not fixes): internal `point()` does not validate `embed` (unknown strings take the DONUT branch); negative `ringFactor` is accepted unvalidated; `setEmbed()` without `ringFactor` keeps the current value.
+
+The sweep found and fixed a TDZ crash in `setEmbed()` when `ringFactor` is omitted (2026-09-26); the no-k path is now covered by the sweep.
+
 ## Stop
 
 A passing spike does **not** authorize shared-core promotion.

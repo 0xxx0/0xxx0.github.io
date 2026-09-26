@@ -89,6 +89,8 @@ jobs:
         run: |
           node spikes/007-hard-evolution-proofs/selftest.mjs
           node --check spikes/007-hard-evolution-proofs/wrap-core.js
+          node --check spikes/007-hard-evolution-proofs/stress.mjs
+          node spikes/007-hard-evolution-proofs/stress.mjs > /dev/null
       - name: Validate FOLD BLOOM message replay H1 specimen
         run: |
           node --check spikes/fold-bloom-message-replay-001/score.js

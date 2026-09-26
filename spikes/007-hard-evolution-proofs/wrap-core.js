@@ -123,7 +123,7 @@
     const o=op(obj,'EMBED',
       {geometry:['embed as '+embed+(ringFactor?(' k='+ringFactor):'')]},
       ['topology','adjacency','cells','identity'],
-      [{embed,ringFactor:ringFactor?Number(ringFactor):o.ringFactor,note:'geometry only; adjacency unchanged'}]);
+      [{embed,ringFactor:ringFactor?Number(ringFactor):obj.ringFactor,note:'geometry only; adjacency unchanged'}]);
     o.embed=embed;
     if(ringFactor)o.ringFactor=Number(ringFactor);
     return {ok:true,obj:o};
