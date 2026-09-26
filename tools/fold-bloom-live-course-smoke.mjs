@@ -19,6 +19,7 @@ const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Da
  await api.prepareExample();
  await wait(()=>api.course?.strip?.()?.duration>0,18000,'mapped public example');
  const audio=D().getElementById('trackAudio'),map=D().getElementById('courseMap'),back=D().getElementById('courseBack'),next=D().getElementById('courseNext'),mode=D().getElementById('courseMode'),grain=D().getElementById('courseGrain');
+ D().getElementById('menuBtn').click();await wait(()=>map.clientWidth>180,3000,'drawer minimap visible');
  audio.pause();audio.currentTime=0;
  api.course.setMode('STEP',false);
  const before=api.course.strip(),hit=api.course.step(1),after=api.course.strip();
