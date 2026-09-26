@@ -376,12 +376,12 @@
           "promotion_gate": "Phone proof: clean-phone CENTER MASS source audio; remembered local-track re-entry without picker; SOURCE/MAP/IMMERSION are perceptibly distinct while source identity stays stable; direct feedback decides further LIVE changes."
         },
         {
-          "id": "fold-bloom-field-lab-021",
+          "id": "fold-bloom-field-lab-034",
           "route": "/fold-bloom/lab/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "version": "0.2.1",
-          "thesis": "One compact spatial shell can reuse canonical unequal engines and preserve addressed source continuity; its synthetic PULSE can now lend explicit tempo/beat/phase/quantum context to READFIELD, LIVE and Two Dial without acquiring source or authorship authority.",
-          "promotion_gate": "Direct phone use: ordinary READFIELD RSVP/regress/scale + LAB PULSE→READ ×4 + one PULSE→RIDE/COMPOSE handoff must feel legible without architectural explanation; long READ→LOCI carry remains a separate lived gate.",
+          "version": "0.3.4",
+          "thesis": "One compact spatial shell reuses canonical unequal engines across RIDE / PULSE+VOICE / VERSE / READ / LOCI / INK / DATA while preserving addressed source continuity; PULSE carries LOCK→CROSS→RETURN psychophysics and local pitch/spectrum practice without acquiring exercise or source authority.",
+          "promotion_gate": "Direct phone use should make at least two projections useful without explanation; cross-projection source/focus/marks remain stable. No new universal session bus.",
           "branch": "master@f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
         },
         {
@@ -393,12 +393,12 @@
           "promotion_gate": "Phone/stylus test must distinguish dry brush, sumi and wash by feel/edge/spread; do not promote automatic calligraphy-quality scoring."
         },
         {
-          "id": "fold-bloom-voice-01",
+          "id": "fold-bloom-voice-02",
           "route": "/fold-bloom/voice/",
-          "state": "MERGED_ACTIVE_CANDIDATE",
-          "version": "0.1",
-          "thesis": "Shared timing becomes useful when it supports ordinary human practice: local pitch/stability training may borrow beat timing without moving exercise or voice authority.",
-          "promotion_gate": "Phone proof: non-technical user completes one held-note session and one PULSE-linked 1-3-5-3 pattern without architectural explanation; no raw audio leaves the browser.",
+          "state": "MERGED_ACTIVE_CANDIDATE / FOLDED_INTO_LAB_PULSE",
+          "version": "0.2",
+          "thesis": "Local pitch/stability/spectrum practice remains bounded; its primary current home is FIELD LAB PULSE, where shared timing may advance NOTE/CALL/SCALE/HUM targets without moving exercise or voice authority.",
+          "promotion_gate": "Phone proof: one held-note and one pulse-linked pattern inside LAB PULSE without architectural explanation; standalone /voice/ remains a direct/deep route.",
           "branch": "master@dd1f289af0692e84c62c370e2b525a2069ec7201",
           "verification": "CI GREEN: public-surface-check 35988420252 + Route Registration 35988420492; direct phone singing practice remains WAITING_ON_HUMAN."
         },
