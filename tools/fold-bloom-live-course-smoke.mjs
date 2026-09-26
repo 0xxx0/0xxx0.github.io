@@ -18,16 +18,19 @@ const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Da
  const api=await wait(()=>W().FoldBloomLive?.boot==='ready'&&W().FoldBloomLive,12000,'LIVE ready');
  await api.prepareExample();
  await wait(()=>api.course?.strip?.()?.duration>0,18000,'mapped public example');
- const audio=D().getElementById('trackAudio'),map=D().getElementById('courseMap'),back=D().getElementById('courseBack'),next=D().getElementById('courseNext'),mode=D().getElementById('courseMode'),grain=D().getElementById('courseGrain');
- D().getElementById('menuBtn').click();await wait(()=>map.clientWidth>180,3000,'drawer minimap visible');
+ const audio=D().getElementById('trackAudio'),map=D().getElementById('courseMap'),hud=D().getElementById('courseHud'),back=D().getElementById('courseBack'),next=D().getElementById('courseNext'),mode=D().getElementById('courseMode'),grain=D().getElementById('courseGrain'),menu=D().getElementById('settings');
+ await wait(()=>map.clientWidth>180&&hud?.dataset.ready==='true',3000,'persistent HUD minimap visible');
+ rec.duration=api.course.strip()?.duration||0;rec.hudBeforeMenu=map.clientWidth>180&&!menu.classList.contains('on');
  audio.pause();audio.currentTime=0;
  api.course.setMode('STEP',false);
  const before=api.course.strip(),hit=api.course.step(1),after=api.course.strip();
  rec.before=before?.progress;rec.after=after?.progress;rec.hit=hit?.p;rec.paused=audio.paused;rec.mode=api.course.mode();rec.grain=api.course.grain();rec.address=api.course.address();rec.controls=!!map&&!!back&&!!next&&!!mode&&!!grain;rec.canvasW=map?.clientWidth||0;
- const r=map.getBoundingClientRect();map.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,clientX:r.left+r.width*.72,clientY:r.top+r.height/2,pointerId:7}));
+ const box=map.getBoundingClientRect();map.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,clientX:box.left+box.width*.72,clientY:box.top+box.height/2,pointerId:7}));
  await sleep(120);rec.scrub=api.course.strip()?.progress;rec.scrubPaused=audio.paused;
+ D().getElementById('menuBtn').click();await wait(()=>menu.classList.contains('on'),1500,'menu open');rec.menuOpen=true;
+ D().getElementById('closeSettings').click();await wait(()=>!menu.classList.contains('on'),1500,'menu close');rec.menuClosed=true;rec.hudAfterMenu=map.clientWidth>180;
  api.course.setMode('FLOW',false);rec.flow=api.course.mode();
- const pass=rec.controls&&rec.canvasW>180&&rec.mode==='STEP'&&rec.grain==='PHRASE'&&rec.paused&&rec.after>rec.before&&rec.address.startsWith('course://audio_map/')&&rec.scrub>.65&&rec.scrub<.8&&rec.scrubPaused&&rec.flow==='FLOW';
+ const pass=rec.duration>12&&rec.hudBeforeMenu&&rec.hudAfterMenu&&rec.controls&&rec.canvasW>180&&rec.mode==='STEP'&&rec.grain==='PHRASE'&&rec.paused&&rec.after>rec.before&&rec.address.startsWith('course://audio_map/')&&rec.scrub>.65&&rec.scrub<.8&&rec.scrubPaused&&rec.menuOpen&&rec.menuClosed&&rec.flow==='FLOW';
  done(pass,rec);
 })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
 <\/script></body></html>`}
