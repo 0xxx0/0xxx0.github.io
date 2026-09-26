@@ -47,7 +47,11 @@
     "A quiet quarter-note meter voice is scheduled alongside the two polyrhythm voices so LOCK and RETURN have an audible ground rather than requiring inference from ratio coincidences.",
     "PULSE evidence and FoldBloomFieldLab runtime now expose the psychophysics version, training phase/target/progress, bounded summary and return delta while FIELD PULSE authority remains NONE.",
     "The existing PULSE-embedded VOICE spectrum now overlays target/heard pitch history and beat boundaries, adding onset Δ and center-hold witnesses without adding an eighth Lab projection.",
-    "VOICE temporal evidence is derived through the shared fold-bloom-voice-training-trace/v0.1 contract and remains local, bounded and EVIDENCE_ONLY."
+    "VOICE temporal evidence is derived through the shared fold-bloom-voice-training-trace/v0.1 contract and remains local, bounded and EVIDENCE_ONLY.",
+    "PULSE psychophysics 0.2 makes ring/lane count explicit: 1 = meter M, 2 = M+A, 3 = M+A+B; enabled lanes are both visible and audible.",
+    "PULSE FOCUS is independent of ratio and lane count: AUTO preserves LOCK→CROSS→RETURN over available lanes; fixed M/A/B provides free single-lane timing study without advancing the trainer.",
+    "FIELD PULSE transport and PULSE export retain selected ratio, lane set and focus as authority-NONE context/evidence; downstream consumers may ignore those witnesses.",
+    "Embedded VOICE is explicitly an optional witness with OPEN FULL VOICE pulse-linked handoff; VOICE remains pitch/pattern/microphone authority and PULSE remains rhythm authority."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -67,7 +71,9 @@
     "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority.",
     "PULSE timing metrics are descriptive behavioral witnesses only; phase-correction proxy, bias, jitter and lock score must not be presented as diagnosis, neural measurement, musical ability, or pleasure.",
     "Rhythmic-complexity/groove research motivates keeping challenge learnable; the runtime does not claim a universal optimal syncopation level or infer subjective pleasure.",
-    "VOICE onset and center-hold evidence is descriptive practice evidence only; it must not be presented as singing-quality, neurological or health assessment."
+    "VOICE onset and center-hold evidence is descriptive practice evidence only; it must not be presented as singing-quality, neurological or health assessment.",
+    "PULSE ring count must keep visible lanes, audible scheduler lanes and exported configuration in agreement; it does not change source/audio authority.",
+    "VOICE and PULSE remain separate projections. FIELD PULSE may lend clock context only; neither projection acquires the other's authored targets or evidence."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -96,7 +102,10 @@
     "voice_spectrum_core": "PASS · public-surface-check 36209914151 step 42",
     "authority_sync": "PASS_ON_PRESEAL_HEAD · Route Registration 36209914153 + public-surface-check 36209914151",
     "voice_temporal_core": "PENDING_PR_CI: shared VOICE temporal trace tests",
-    "voice_temporal_lab": "PENDING_PR_CI: FIELD LAB PULSE embed + browser boot"
+    "voice_temporal_lab": "PENDING_PR_CI: FIELD LAB PULSE embed + browser boot",
+    "pulse_lane_focus_core": "PENDING_PR_CI",
+    "pulse_lane_focus_browser": "PENDING_PR_CI",
+    "voice_handoff_boundary": "PENDING_PR_CI"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
