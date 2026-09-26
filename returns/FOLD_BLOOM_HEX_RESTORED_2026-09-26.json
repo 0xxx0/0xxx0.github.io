@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-hex-restored-return/v0.1",
   "date": "2026-09-26",
-  "state": "CANDIDATE",
+  "state": "MERGED_VERIFIED",
   "object": "FOLD//BLOOM PLAY PUZZLE cultural projection",
   "observed_problem": "PLAY 0.6.0 correctly preserved exact BLOOM/FOLD/SPLIT/RETURN verbs but promoted FORM→MORPH as the public language and marked HEX retired, discarding an already-implemented human/cultural teaching surface.",
   "correction": {
@@ -44,5 +44,29 @@
     "/fold-bloom/live/play.js",
     "/tools/browser-smoke.mjs"
   ],
-  "return": "/fold-bloom/"
+  "return": "/fold-bloom/",
+  "merge": {
+    "pr": 439,
+    "commit": "48a74fced330fe05c469bac614c4074c43dde5dc"
+  },
+  "verification": {
+    "route_registration": {
+      "run": 36213508908,
+      "result": "PASS"
+    },
+    "convergence_validate": {
+      "run": 36213508871,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36213508965,
+      "result": "PASS"
+    },
+    "pages_deployment": {
+      "run": 36213508309,
+      "result": "PASS"
+    },
+    "branch_proof": "PR #439 passed HEX quotient tests, full LIVE gameplay, LIVE STEP/FLOW, phone interaction regression, critical browser smoke, recovery verification, and frozen City/Painting regressions.",
+    "merged_master": "All four master workflows above completed successfully on merge commit 48a74fced330fe05c469bac614c4074c43dde5dc."
+  }
 }
