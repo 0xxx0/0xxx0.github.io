@@ -15,6 +15,9 @@ function browserBin(){
     const r=spawnSync('which',[name],{encoding:'utf8'});
     if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
+  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
+    if(fs.existsSync(p))return p;
+  }
   throw new Error('No Chrome/Chromium binary found for runtime smoke');
 }
 function contentType(p){
