@@ -88,6 +88,7 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 ## LIVE STATE (regenerated, not hand-maintained)
 
 - Coordination board: `/nexus/board.html`
+- Machine-room comms state: `/comms/` (system glyph + fleet + open + digest + loops; regenerated from ops-hub by `comms_page.py` every 30m)
 - Convergence dashboard: `/nexus/index.html`
 - System map: `/nexus/map.html`
 - **FIELD Index live sync**: `/` (Φ host/current frame + φ local focus; exact master commits are chronology; manifest rail is a route projection)
