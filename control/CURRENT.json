@@ -505,16 +505,17 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3.2 / EVIDENCE SIGNAL + EXACT DAYLINE RECEIPT + HOUSE FIT / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.3 / SOURCE-OWNED SIGNAL → DAYLINE + EVIDENCE BOUNDARY / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + purchase gate + exact lifecycle + BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit. 0.3.2 adds a derived projection-only evidence posture (CLEAR / CHANGED / REALITY / EXTERNAL / MIXED) and collapsed proof-boundary bar through the shared FIELD pattern grammar. Exact Dayline completion remains RECEIPT_ONLY evidence after item + lifecycle revalidation. Personal state remains local/private; money/seller contact remain human actions; pattern never mutates lifecycle or FIELD WAITING.",
-      "version": "0.3.2",
+      "retained_function": "Capability gap/listing/receipt → native lifecycle/freshness/landed-cost/fit → projection-only evidence signal. 0.3.3 carries Shopping-owned evidence_signal + proof_boundary through the existing exact Dayline handoff; Dayline renders but does not infer/own it, and source RETURN preserves the witness. If manual NEXT ACTION is absent, the handoff uses Shopping's derived smallest next proof. Money/seller actions and lifecycle remain native human/Shopping authority.",
+      "version": "0.3.3",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
-        "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json"
+        "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
+        "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json"
       ],
-      "latest_return": "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json"
+      "latest_return": "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json"
     },
     {
       "lineage": "triangle",
