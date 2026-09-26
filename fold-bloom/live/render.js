@@ -15,7 +15,7 @@ const rgba=(hex,a=1)=>{
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.projected=null;this.projectedAt=performance.now();this.ride=null;this.landmarks=[];this.gameProjection=null;this.visualScene='DEEP';this.previousScene='DEEP';this.sceneAt=performance.now()-1000;this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.sourceAddress=null;this.trackfield=null;this.projected=null;this.projectedAt=performance.now();this.ride=null;this.landmarks=[];this.gameProjection=null;this.visualScene='DEEP';this.previousScene='DEEP';this.sceneAt=performance.now()-1000;this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -24,6 +24,7 @@ export class Renderer {
   beatPulse(step,energy=.35){this.beat=step%16;this.beatAt=performance.now();this.beatEnergy=clamp(Number(energy)||0,0,1)}
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
+  setSourceAddress(view){this.sourceAddress=view&&Number(view.duration)>0?{...view}:null}
   setTrackfield(world){
     const prevTime=Number(this.trackfield?.time),nextTime=Number(world?.time);
     if(Number.isFinite(prevTime)&&Number.isFinite(nextTime)&&nextTime<prevTime-.8){this.lastDropId=null;this.lastDropSourceT=null;this.dropBursts=[];this.projected=null}
@@ -81,7 +82,7 @@ export class Renderer {
   draw(state,now=performance.now()){
     const road=!!this.trackfield?.points?.length,m=this._updateMotion(now);
     this.cx=this.w/2;this.cy=this.h*(road?.64:.52)+m.pitch*.18;this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
-    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._pov(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gameProjection(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
+    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._pov(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._sourceRing(state,now);this._gameProjection(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){
     const g=this.g,w=this.w,h=this.h,world=this._world(t),imm=this.profile?.immersion||1;
@@ -400,6 +401,29 @@ export class Renderer {
   _ring(state,t){const g=this.g;g.save();g.translate(this.cx,this.cy);g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=1;g.beginPath();g.arc(0,0,this.r,0,TAU);g.stroke();state.cells.forEach((cell,i)=>{const a=this.slotAngle(i,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r,rad=9+cell.tier*2.2,col=COLORS[cell.type],forecast=cell.type===state.targetType?forecastAtSlot(state,i):null,hit=forecastMatchesCall(state.call,forecast);g.fillStyle=col+'28';g.strokeStyle=col+(cell.tier>=3?'dd':'88');g.lineWidth=1+cell.tier*.45;this._glyph(g,cell.type,x,y,rad);g.fill();g.stroke();if(state.anchors[cell.type]===i){g.strokeStyle=col+'bb';g.lineWidth=1;g.beginPath();g.arc(x,y,rad+7+2*Math.sin(t*.004+i),0,TAU);g.stroke()}
       if(forecast){g.strokeStyle=hit?'rgba(255,255,255,.82)':col+'55';g.lineWidth=hit?1.8:.8;g.beginPath();g.arc(x,y,rad+12+(hit?2*Math.sin(t*.006+i):0),0,TAU);g.stroke();g.fillStyle=hit?'rgba(255,255,255,.92)':'rgba(255,255,255,.42)';g.font='800 8px ui-monospace,monospace';g.textAlign='center';g.fillText(`${forecast.verb[0]}${forecast.chain>1?forecast.chain:''}`,x,y-rad-16)}
     });g.restore()}
+  _sourceRing(state,t){
+    const s=this.sourceAddress,duration=Number(s?.duration)||0;if(!(duration>0))return;
+    const g=this.g,rr=this.r+52,p=clamp((Number(s.time)||0)/duration,0,1),start=-Math.PI/2,end=start+TAU*p;
+    g.save();g.translate(this.cx,this.cy);g.lineCap='round';
+    g.strokeStyle='rgba(255,255,255,.10)';g.lineWidth=2;g.beginPath();g.arc(0,0,rr,0,TAU);g.stroke();
+    g.strokeStyle=s.mapped?'rgba(123,213,255,.82)':'rgba(255,255,255,.56)';g.lineWidth=s.courseMode==='STEP'?4:2.6;g.beginPath();g.arc(0,0,rr,start,end);g.stroke();
+    for(const mark of this.landmarks){
+      const at=Number(mark?.address);if(!Number.isFinite(at)||at<0||at>duration)continue;
+      const a=start+TAU*clamp(at/duration,0,1),inner=rr-6,outer=rr+7;
+      g.strokeStyle=mark.kind==='FLAG'?'rgba(239,120,73,.88)':mark.kind==='ARC'?'rgba(215,180,109,.86)':'rgba(255,255,255,.46)';
+      g.lineWidth=mark.kind==='FLAG'?2:1.2;g.beginPath();g.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);g.lineTo(Math.cos(a)*outer,Math.sin(a)*outer);g.stroke();
+    }
+    const a=start+TAU*p,x=Math.cos(a)*rr,y=Math.sin(a)*rr;
+    g.fillStyle='#f2f3ef';g.beginPath();g.arc(x,y,s.courseMode==='STEP'?5.2:3.8,0,TAU);g.fill();
+    const mins=Math.floor((Number(s.time)||0)/60),secs=Math.floor((Number(s.time)||0)%60).toString().padStart(2,'0');
+    const mode=s.mapped?((s.courseMode||'FLOW')+' · '+(s.courseGrain||'PHRASE')):'SOURCE';
+    g.textAlign='center';g.font='800 7px ui-monospace,monospace';g.fillStyle='rgba(255,255,255,.46)';
+    g.fillText(mode+' · '+mins+':'+secs,0,-rr-10);
+    if(Number.isFinite(Number(s.sectionIndex))&&Number(s.sectionIndex)>=0){
+      g.fillStyle='rgba(215,180,109,.76)';g.fillText('S'+(Number(s.sectionIndex)+1)+(Number(s.sectionCount)>0?'/'+Number(s.sectionCount):''),0,rr+16);
+    }
+    g.restore();
+  }
   _glyph(g,type,x,y,r){g.beginPath();if(type===0){for(let k=0;k<3;k++){const a=-Math.PI/2+k*TAU/3,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;k?g.lineTo(px,py):g.moveTo(px,py)}g.closePath()}else if(type===1){g.arc(x,y,r,0,TAU)}else{g.rect(x-r*.78,y-r*.78,r*1.56,r*1.56)}}
   _bitArc(g,r,a0,a1,bit){
     const mid=(a0+a1)/2,gap=(a1-a0)*.14;
