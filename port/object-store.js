@@ -1,8 +1,7 @@
 (()=>{'use strict';
 const DB_NAME='human-port-object-store-v01',STORE='objects',VERSION=1;
 const enc=new TextEncoder();
-const hex=buf=>[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
-const sha256=async data=>hex(await crypto.subtle.digest('SHA-256',data));
+const sha256=async data=>{const{hashHex}=await import('../lib/id.js');return hashHex(data)};
 function open(){
  return new Promise((resolve,reject)=>{
   const req=indexedDB.open(DB_NAME,VERSION);
