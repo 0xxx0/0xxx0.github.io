@@ -9,15 +9,22 @@ const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41751;
 function browserBin(){for(const n of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){const r=spawnSync('which',[n],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim()}throw Error('No Chrome/Chromium')}
 function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';if(p.endsWith('.mp3'))return'audio/mpeg';return'application/octet-stream'}
 function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';let p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
-function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0" src="/fold-bloom/live/?source=example&profile=DRIVE"></iframe><pre id="probeResult">PENDING</pre><script>
+function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0" src="/fold-bloom/live/?profile=DRIVE"></iframe><pre id="probeResult">PENDING</pre><script>
 const f=document.getElementById('f'),o=document.getElementById('probeResult'),rec={};let finished=false;
 const done=(ok,data)=>{if(finished)return;finished=true;o.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+const wavFile=(seconds=8,sr=8000)=>{
+ const n=Math.floor(seconds*sr),buf=new ArrayBuffer(44+n*2),v=new DataView(buf),w=(o,x)=>v.setUint32(o,x,true),h=(o,x)=>v.setUint16(o,x,true);
+ const str=(o,t)=>[...t].forEach((c,i)=>v.setUint8(o+i,c.charCodeAt(0)));
+ str(0,'RIFF');w(4,36+n*2);str(8,'WAVE');str(12,'fmt ');w(16,16);h(20,1);h(22,1);w(24,sr);w(28,sr*2);h(32,2);h(34,16);str(36,'data');w(40,n*2);
+ for(let i=0;i<n;i++){const t=i/sr,env=.28+.16*Math.sin(Math.PI*2*t/2),x=Math.sin(Math.PI*2*(150+45*Math.sin(t*.7))*t)*env;v.setInt16(44+i*2,Math.max(-32767,Math.min(32767,Math.round(x*32767))),true)}
+ return new File([buf],'course-smoke.wav',{type:'audio/wav'});
+};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('timeout '+label)};
 (async()=>{const W=()=>f.contentWindow,D=()=>W().document;
  const api=await wait(()=>W().FoldBloomLive?.boot==='ready'&&W().FoldBloomLive,12000,'LIVE ready');
- await api.prepareExample();
- await wait(()=>api.course?.strip?.()?.duration>0,18000,'mapped public example');
+ await api.loadFiles([wavFile()]);
+ await wait(()=>api.course?.strip?.()?.duration>0,18000,'mapped deterministic fixture');
  const audio=D().getElementById('trackAudio'),map=D().getElementById('courseMap'),back=D().getElementById('courseBack'),next=D().getElementById('courseNext'),mode=D().getElementById('courseMode'),grain=D().getElementById('courseGrain');
  D().getElementById('menuBtn').click();await wait(()=>map.clientWidth>180,3000,'drawer minimap visible');
  audio.pause();audio.currentTime=0;
