@@ -39,7 +39,7 @@ IDENTITY + ADDRESS + APERTURE + AUTHORED MARKS/CALIBRATION
 - **Hermes research packet:** `/control/HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json` — manual activation instructions for bounded research workers. It is **not queued**.
 - **Hermes current re-entry:** `/control/HERMES_FOLD_BLOOM_HANDOFF_2026-09-22.json` — refreshed v0.2 current-state handoff including merged SET 0.1.1 local test packs.
 
-These are donor/reference surfaces only. They do not alter the current human gates.
+- **[GEOMETRIC INTERPHASE](./geometric-interphase/)** — executable candidate proof: LINEAR / RADIAL / AXIAL projections over one addressed host, explicit aperture residue, FOVEA, hylo fold/unfold and exact RETURN. Run `node geometric-interphase/selftest.mjs`; see its [research/Hermes handoff](./geometric-interphase/RESEARCH_HANDOFF.md). This does not promote a new kernel or close lived/device gates.\n\nThese are donor/reference surfaces only. They do not alter the current human gates.
 
 ## Current progression
 
