@@ -43,14 +43,26 @@ export function replayCourse(score,{max=256}={}){
   return {schema:COURSE_NAV_SCHEMA,kind:'REPLAY_SCORE',grain:'CUE',duration:Math.max(0,Number(score?.source?.duration_ms)||0)/1000,points:normalizeCoursePoints(points,{includeBounds:true,max})};
 }
 
+function addressed(course,point,index){
+  if(!point)return {p:0,index:-1,point:null,address:'course://empty'};
+  const kind=String(point.kind||course?.grain||'POINT').toUpperCase();
+  return {p:point.p,index,point,address:`course://${String(course?.kind||'FIELD').toLowerCase()}/${kind.toLowerCase()}/${index}@${point.p.toFixed(4)}`};
+}
+
+export function courseAddressAt(course,current=0){
+  const points=Array.isArray(course?.points)?course.points:normalizeCoursePoints(course||[]),p=clamp(current);
+  if(!points.length)return addressed(course,null,-1);
+  let index=0;for(let i=0;i<points.length;i++){if(points[i].p<=p+1e-5)index=i;else break}
+  return addressed(course,points[index],index);
+}
+
 export function stepCourse(course,current=0,delta=1){
   const points=Array.isArray(course?.points)?course.points:normalizeCoursePoints(course||[]),p=clamp(current),dir=Number(delta)<0?-1:1,eps=1e-5;
-  if(!points.length)return {p,index:-1,point:null,address:'course://empty'};
+  if(!points.length)return addressed(course,null,-1);
   let index;
   if(dir>0){index=points.findIndex(x=>x.p>p+eps);if(index<0)index=points.length-1}
   else {index=points.length-1;while(index>=0&&points[index].p>=p-eps)index--;if(index<0)index=0}
-  const point=points[index],kind=String(point.kind||course?.grain||'POINT').toUpperCase();
-  return {p:point.p,index,point,address:`course://${String(course?.kind||'FIELD').toLowerCase()}/${kind.toLowerCase()}/${index}@${point.p.toFixed(4)}`};
+  return addressed(course,points[index],index);
 }
 
 export function courseStrip(map,time=0,{maxBeats=48}={}){
