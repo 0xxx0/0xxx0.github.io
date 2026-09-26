@@ -600,9 +600,11 @@ async function loadCommitFiles(sha){
 }
 function renderRepoTouches(){
  const box=$('touchList'),meta=$('touchMeta');if(!box||!meta)return;
- const xs=repoTouches.slice(0,8);
+ const isMachine=s=>/^(nexus|comms):/i.test(String(s||''));
+ const xs=repoTouches.slice().sort((a,b)=>(isMachine(a.subject)?1:0)-(isMachine(b.subject)?1:0)).slice(0,8);
  if(!xs.length){meta.textContent='master · live chronology unavailable';box.innerHTML='<div class="touchFail">Live GitHub chronology unavailable; manifest projection remains below.</div>';renderSyncLine();return}
- meta.textContent='HEAD '+xs[0].sha.slice(0,8)+' · '+shortTs(xs[0].date)+' · '+repoTouches.length+' exact commits · telemetry included';
+ const machineN=repoTouches.filter(c=>isMachine(c.subject)).length, fieldN=repoTouches.length-machineN;
+ meta.textContent='HEAD '+xs[0].sha.slice(0,8)+' · '+shortTs(xs[0].date)+' · '+fieldN+' field changes · '+machineN+' machine refreshes';
  box.innerHTML=xs.map(c=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
  box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
  renderSyncLine();
