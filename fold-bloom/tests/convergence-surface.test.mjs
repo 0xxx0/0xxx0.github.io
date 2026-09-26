@@ -9,8 +9,10 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   const html=read('fold-bloom/live/index.html');
   const app=read('fold-bloom/live/app.js');
   assert.match(root,/href="\.\/live\/">ENTER LIVE →<\/a>/);
+  assert.match(root,/href="\.\/live\/\?source=example&profile=DRIVE">TRY AUDIO EXAMPLE →<\/a>/);
   assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
-  assert.match(html,/id="playBtn">PLAY FIELD COURSE →<\/button>/);
+  assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE →<\/button>/);
+  assert.match(html,/id="playBtn">FIELD COURSE<\/button>/);
   assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
   assert.match(html,/data-layer-mode="SOURCE"/);
