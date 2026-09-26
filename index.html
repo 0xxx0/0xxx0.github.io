@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#07090a">
-<title>0xxx0 / FIELD INDEX</title>
+<title>0xxx0 / FIELD INDEX</title><link rel="stylesheet" href="./lib/field-signal.css"><script src="./lib/field-signal.js"></script>
 <style>
 :root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -157,7 +157,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </div>
 
 <details class="catchup" id="catchupFold" data-signal="CLEAR">
-  <summary><b>FIELD / CATCH + ACT</b><span id="catchupMeta">loading attention…</span></summary>
+  <summary class="fieldSignalBar" data-field-signal="CLEAR"><b>FIELD / CATCH + ACT</b><span id="catchupMeta">loading attention…</span></summary>
   <div class="catchNow" id="catchupNow"><b>NOW</b><span>loading current conversion…</span></div>
   <div class="catchSignals" id="catchupSignals"><div class="catchSignal"><div class="catchSignalHead"><b>YOU</b><span>loading…</span></div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB</b><span>loading…</span></div></div></div>
   <div class="catchGrid" id="catchupList"><div class="catchEmpty">loading changed addressed heads…</div></div>
@@ -524,8 +524,9 @@ function renderCatchup(){
  const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
  const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe),issueCount=(issues||[]).length;
- const kinds=(changedCount?1:0)+(gates.length?1:0)+(issueCount?1:0),signal=kinds>1?'MIXED':gates.length?'REALITY':issueCount?'GITHUB':changedCount?'CHANGED':'CLEAR';
- $('catchupFold')?.setAttribute('data-signal',signal);
+ const signal=window.FieldSignal?.combine({changed:changedCount>0,reality:gates.length>0,external:issueCount>0})||(gates.length?'REALITY':issueCount?'EXTERNAL':changedCount?'CHANGED':'CLEAR');
+ $('catchupFold')?.setAttribute('data-signal',issueCount&&signal==='EXTERNAL'?'GITHUB':signal);
+ const signalBar=$('catchupFold')?.querySelector(':scope > summary');if(signalBar)window.FieldSignal?.apply(signalBar,signal);
  meta.textContent=(gates.length?gates.length+' REALITY':'REALITY CLEAR')+' · '+(issueCount?issueCount+' GH':'GH CLEAR')+' · '+(changedCount?changedCount+' CHANGE':'CHANGE CLEAR');
  seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
  if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
