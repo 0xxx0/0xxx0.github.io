@@ -368,7 +368,10 @@ async function preparePublicDemo(){
   publicDemoLoading=(async()=>{
     document.documentElement.dataset.foldBloomDemoSource='loading';
     trackStatus='LOADING · PUBLIC AUDIO EXAMPLE';update();
-    const response=await fetch(PUBLIC_DEMO_URL,{cache:'force-cache'});
+    // no-cache (not force-cache): a replaced excerpt must revalidate. With force-cache,
+    // any visitor who cached the previous asset stays stuck on DAMAGED indefinitely
+    // (measured 2026-09-27: stale cache served the truncated 1.25s copy after the fix).
+    const response=await fetch(PUBLIC_DEMO_URL,{cache:'no-cache'});
     if(!response.ok)throw Error('PUBLIC DEMO '+response.status);
     const blob=await response.blob(),file=new File([blob],'CENTER MASS — public demo excerpt.mp3',{type:blob.type||'audio/mpeg'});
     stopDemo(false);liveTrack.clearSource();deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
