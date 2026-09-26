@@ -3,10 +3,10 @@
   "surface": "AWAKE / INTERPHASE VISOR",
   "version": "0.1-candidate",
   "route": "/awake/",
-  "state": "CI_GREEN_READY",
+  "state": "CANDIDATE_PENDING_CURRENT_MASTER_CI",
   "operation": "OPERATE",
   "released": "2026-09-26",
-  "role": "Thin same-origin onboarding/continuity visor over existing FIELD hosts. It owns no domain truth and no second object store. One native route remains visible while INTERPHASE addresses source/frame/focus/operation/witness/return and the recovered YOU'RE A WAKE cadence supplies the attentional grammar.",
+  "role": "Thin same-origin continuity visor for the one route FIELD already holds. It owns no route browser, domain truth, planner state or object store: the native host remains the actual app while INTERPHASE supplies focus/projection/witness/return and the recovered YOU'RE A WAKE cadence supplies attentional orientation.",
   "correspondence": [
     "WAKE ↔ SOURCE",
     "CUT ↔ FRAME",
@@ -36,19 +36,22 @@
     "FIELD route identity",
     "INTERPHASE exact DOM address while same-origin document is live",
     "explicit Dayline handoff",
-    "exact FIELD return address"
+    "exact FIELD return address",
+    "FIELD chooses the held route before AWAKE; AWAKE does not browse or switch the route universe"
   ],
   "validation": {
-    "same_origin_host": "PASS · FIELD /docs/ → AWAKE → real READFIELD DOM focus",
-    "mobile_430x900": "PASS · no horizontal overflow",
-    "field_focus_handoff": "PASS · exact /docs/ focus preserved in/out",
-    "dayline_packet": "PASS · atlas-dayline-handoff/v0.1 + interphase/v0.2/handoff",
+    "prior_proved_donor": "PASS · predecessor AWAKE proof before current-master contraction",
+    "no_route_browser": "PASS_BY_SOURCE · no ROUTE button/dialog/search/renderRoutes",
+    "same_origin_host": "PENDING_CURRENT_PR_CI",
+    "mobile_430x900": "PENDING_CURRENT_PR_CI",
+    "field_focus_handoff": "PENDING_CURRENT_PR_CI",
+    "dayline_packet": "PENDING_CURRENT_PR_CI",
     "no_new_store": true,
-    "route_registration": "PASS · run 36209952635",
-    "public_surface": "PASS · run 36209952708",
-    "critical_browser": "PASS · FIELD held route → AWAKE visor"
+    "route_registration": "PENDING_CURRENT_PR_CI",
+    "public_surface": "PENDING_CURRENT_PR_CI",
+    "critical_browser": "PENDING_CURRENT_PR_CI"
   },
-  "stop": "Do not turn AWAKE into a universal database, planner, route replacement or domain owner. Add host-specific behavior only when a real native host exposes a missing continuity function.",
+  "stop": "AWAKE receives one already-held route. Do not add route browsing, a universal database, planner, dashboard, route replacement or domain owner. Add host-specific behavior only from observed continuity friction.",
   "proof": {
     "pull_request": 414,
     "head": "cf1f09af41667cde10f0c8365fbff4293383b8dc",
