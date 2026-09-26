@@ -14,7 +14,7 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-.headerPlay{flex:none;min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em}
+.headerActions{display:flex;gap:4px;align-items:stretch;flex:none}.headerPlay,.headerAwake{min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em;background:#090d0f}.headerAwake{border-color:var(--gold);color:var(--gold);cursor:pointer}
 .section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* AXIAL / LATEST */
@@ -130,7 +130,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1></div>
-  <a class="headerPlay" href="./field-play.html">PLAY →</a>
+  <div class="headerActions"><button class="headerAwake" id="headerAwake" type="button">AWAKE →</button><a class="headerPlay" href="./field-play.html">PLAY →</a></div>
 </header>
 <details class="reentryFold" aria-label="FIELD re-entry and depth">
   <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary>
@@ -142,6 +142,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
     <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
     <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
+    <a class="utility hot" href="./awake/"><b>AWAKE / VISOR</b><span>one held object through INTERPHASE</span></a>
     <a class="utility" href="./control/confluence/"><b>CONFLUENCE</b><span>continuity + convergence records</span></a>
     <a class="utility" href="./foundry/"><b>FOUNDRY</b><span>axial + instruments</span></a>
     <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
@@ -406,6 +407,20 @@ async function copyHeldAction(){
  };
  const txt=JSON.stringify(packet,null,2);
  try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED ACTION · RETURN → '+focus.href}catch(_){prompt('Copy FIELD action packet:',txt)}
+}
+function openAwake(){
+ const route=focus?.href||'/',title=focus?.title||'FIELD INDEX',h=headForFocus(),c=capabilityForFocus();
+ const ipRaw=window.FieldInterphase&&typeof window.FieldInterphase.projectionResult==='function'?window.FieldInterphase.projectionResult():null;
+ const packet={
+  schema:'field-awake-handoff/v0.1',
+  id:'field-awake-'+Date.now(),
+  created_at:new Date().toISOString(),
+  source:{route,title,state:focus?.state||null,owner:c?.owner||h?.lineage||'FIELD'},
+  return_to:'/?focus='+encodeURIComponent(route),
+  interphase:ipRaw?{schema:'interphase/v0.2/handoff',host:ipRaw.host||'FIELD',projection:ipRaw.projection||'PAGE',object_id:route,selection:Array.isArray(ipRaw.selection)?ipRaw.selection.slice():[],focus:Array.isArray(ipRaw.focus)?ipRaw.focus.map(x=>({id:x.id,aperture:x.aperture||'DETAIL'})):[],residue:Array.isArray(ipRaw.residue)?ipRaw.residue.map(x=>({id:x.id,channel:x.channel,projection:x.projection})):[]}:null
+ };
+ try{sessionStorage.setItem('field.awake.handoff.v01',JSON.stringify(packet));location.assign('./awake/?focus='+encodeURIComponent(route))}
+ catch(_){location.assign('./awake/?focus='+encodeURIComponent(route))}
 }
 function heldDaylineAllowed(){
  return !!focus&&focus.href!=='/'&&focus.href!=='/dayline/'&&!focus.href.startsWith('/dayline/');
@@ -798,7 +813,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' addressed routes · support exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
+$('headerAwake').onclick=openAwake;$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
