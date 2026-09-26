@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.9"><link rel="manifest" href="./manifest.webmanifest">
+<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.10"><link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
 <div id="app"><canvas id="field"></canvas><audio id="trackAudio" preload="metadata"></audio><input id="trackFile" type="file" accept="audio/*,.mp3,.m4a,.mp4,.wav,.flac,.ogg,.aac,.webm,.lrc,.vtt,.srt,.txt,.md" multiple hidden>
@@ -21,7 +21,7 @@
 
   <button class="menuDismiss" id="menuDismiss" aria-label="Close settings"></button><aside class="drawer" id="settings">
 <div class="drawerHead"><h2>LIVE</h2><button id="closeSettings">CLOSE</button></div>
-<div class="control"><label><span>SOURCE</span><span id="trackState">FIELD COURSE</span></label><div class="row"><button id="trackLoad">CHOOSE SONG / AUDIO FILE</button><button id="trackToggle" disabled>PLAY / PAUSE</button></div></div>
+<div class="control"><label><span>SOURCE</span><span id="trackState">FIELD COURSE</span></label><div class="row"><button id="trackLoad">CHOOSE SONG / AUDIO FILE</button><button id="trackToggle" disabled>PLAY / PAUSE</button></div><div class="courseNav" id="courseNav"><canvas id="courseMap" width="320" height="44" aria-label="Track structure minimap and scrub control"></canvas><div class="courseRow"><button id="courseBack" aria-label="Previous addressed track point">←</button><button id="courseMode">FLOW</button><button id="courseGrain">PHRASE</button><button id="courseNext" aria-label="Next addressed track point">→</button></div><div class="courseAddress" id="courseAddress">course://audio_map/empty</div></div></div>
 <details class="drawerMore"><summary>SOURCE TOOLS</summary><div class="control"><label><span>PUBLIC EXAMPLE</span><span>bounded demo excerpt</span></label><div class="row"><button id="publicDemoSettingsBtn">LOAD AUDIO EXAMPLE</button></div></div><div class="control"><label><span>OPTIONAL REMOTE</span><span>provider availability not guaranteed</span></label><div class="row"><button id="centerMassSettingsBtn">TRY CENTER MASS REMOTE</button></div></div>
   <div class="row"><button id="textBtn">TEXT AUTO</button><button id="listenBtn">LISTEN / TUNE</button></div>
   <div class="control vaultControl"><label><span>REMEMBERED THIS DEVICE</span><span id="vaultCount">0</span></label><div class="vaultRow"><select id="vaultSelect"><option value="">REMEMBERED TRACKS…</option></select><button id="vaultOpen" disabled>OPEN SAVED</button></div><div class="small">Private browser vault only. No upload or cross-device sync claim.</div></div>
@@ -38,7 +38,7 @@
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
-<script type="module" src="./app.js?v=0.13.10"></script>
+<script type="module" src="./app.js?v=0.13.11"></script>
 <script type="module" src="./vault-handoff.js"></script>
 <script type="module" src="./play.js?v=0.6.0"></script>
 <script type="module">
