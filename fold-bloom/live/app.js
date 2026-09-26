@@ -274,6 +274,7 @@ function update(){
   $('#sceneBtn').textContent=sceneMeta.plain;
   $('#sceneBtn').title=sceneMeta.detail+' · presentation only';
   $('#sceneBtn').setAttribute('aria-label','World presentation: '+sceneMeta.plain+'. '+sceneMeta.detail);
+  document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===state.scene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
   $('#releaseBtn').disabled=!canRelease(state);
   $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
@@ -388,6 +389,8 @@ async function enterPublicDemo(){
   const wasReady=publicDemoReady&&liveTrack.mapped(),ok=wasReady?true:await preparePublicDemo();
   if(!ok)return false;
   $('#intro').classList.remove('on');applyLayerMode('IMMERSION',false);
+  // Public audio example starts at a deliberately conservative level; the visible slider remains live.
+  liveTrack.setVolume(.24);$('#trackVol').value='24';
   const played=$('#trackAudio').paused?await liveTrack.toggle().then(()=>true).catch(()=>false):true;
   if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('AUDIO EXAMPLE READY · TAP FOR SOURCE')}
   else{syncSoundGate(false,'SOURCE');toast('CENTER MASS EXCERPT · SOURCE + MAP + IMMERSION');if(!demo.on)startDemo({preview:true,playTrack:false})}
@@ -440,7 +443,8 @@ async function doRelease(){
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
-function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length],meta=scenePresentation(name);state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`WORLD · ${meta.plain} · ${meta.short.toUpperCase()}`);update()}
+function selectSoundScene(name){if(!audio.sceneNames().includes(name))return;stopDemo(true);const meta=scenePresentation(name);state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`SOUND PALETTE · ${meta.plain} · ${meta.short.toUpperCase()}`);update()}
+function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene);selectSoundScene(names[(i+1)%names.length])}
 
 function stopDemo(takeover=false){
   if(!demo.on)return;
@@ -529,6 +533,7 @@ function pointUp(e){
 cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointUp);
 
 $('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
+document.querySelectorAll('[data-sound-scene]').forEach(b=>b.addEventListener('click',()=>selectSoundScene(b.dataset.soundScene)));
 $('#soundBtn').onclick=async()=>{if(!audio.ctx){await enableFieldAudio();return}audio.setSound(!audio.soundOn);syncSoundGate(false);update()};
 const setMenuOpen=open=>{
   const on=!!open,drawer=$('#settings');
