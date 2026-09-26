@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "AWAKE_INTERPHASE_VISOR_2026-09-26",
   "date": "2026-09-26",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "CI_GREEN_READY",
   "object": "FIELD held route → AWAKE visor → same-origin INTERPHASE focus → bounded action/trace → Dayline or exact RETURN",
   "recovered": {
     "exact": [
@@ -33,12 +33,18 @@
     "no claim that WAKE and INTERPHASE were historically identical"
   ],
   "verification": {
-    "static_contract": "PENDING_CI",
-    "mobile_430x900": "PENDING_CI",
-    "same_origin_interphase_host": "PENDING_CI",
-    "field_handoff": "PENDING_CI",
-    "dayline_packet": "PENDING_CI"
+    "static_contract": "PASS · public-surface-check 36209952708",
+    "mobile_430x900": "PASS · no horizontal overflow",
+    "same_origin_interphase_host": "PASS · real /docs/ DOM focus",
+    "field_handoff": "PASS · exact /docs/ route in/out",
+    "dayline_packet": "PASS · exact route + interphase/v0.2/handoff",
+    "route_registration": "PASS · 36209952635",
+    "public_surface": "PASS · 36209952708"
   },
   "one_next": "Run route/static/browser proof. If green, merge; then revise only from real continuity friction rather than adding more shell chrome.",
-  "stop": "Do not turn AWAKE into a dashboard of all subsystems. One object and its native host remain primary."
+  "stop": "Do not turn AWAKE into a dashboard of all subsystems. One object and its native host remain primary.",
+  "proof": {
+    "pr": 414,
+    "head": "cf1f09af41667cde10f0c8365fbff4293383b8dc"
+  }
 }
