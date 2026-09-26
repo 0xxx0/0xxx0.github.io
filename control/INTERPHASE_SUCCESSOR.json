@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-successor/v0.1",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "status": "ACTIVE_HANDOFF",
   "purpose": "Cold-start continuation packet for INTERPHASE / Fold-Bloom / recovery convergence. Prefer exact linked artifacts over this summary when they disagree.",
   "top_laws": [
@@ -50,7 +50,8 @@
       "FIELD": "/lib/interphase-field.js",
       "READFIELD": "/lib/interphase-readfield.js",
       "SCALE_LENS": "/lib/interphase-lens.js",
-      "LISTEN": "/lib/interphase-listen.js"
+      "LISTEN": "/lib/interphase-listen.js",
+      "DAYLINE": "/lib/interphase-dayline.js"
     },
     "proof_donors": [
       "/spikes/003-one-instrument/",
@@ -58,6 +59,11 @@
     ]
   },
   "latest_updates": [
+    {
+      "sha": "BRANCH_PENDING",
+      "mechanism": "FIELD → Dayline host continuity",
+      "meaning": "FIELD's existing INTERPHASE focus/projection witness is carried inside the existing Dayline handoff; /dayline/ is now an INTERPHASE host over the same held object with FOVEA/LINE/RING view projections, explicit residue and no effect-authority increase."
+    },
     {
       "sha": "8217a3205ba9d57af8225072cad49ae1beed3b0a",
       "mechanism": "shared glyph/ring grammar",
@@ -186,7 +192,7 @@
     {
       "id": "real-form-scale-proof",
       "priority": 1,
-      "delta": "Use correspondence registry on a real ordinary webpage/form: same focused control should move through page/compact/room allocations with native edit semantics and exact RETURN.",
+      "delta": "Use the shared host protocol on another ordinary real host only after the FIELD → Dayline continuity proof is green; do not create a universal shell.",
       "preserve": [
         "native host state",
         "effect boundaries",
