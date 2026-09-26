@@ -1,0 +1,44 @@
+{
+  "schema": "field-return/v1",
+  "id": "AWAKE_INTERPHASE_VISOR_2026-09-26",
+  "date": "2026-09-26",
+  "state": "CANDIDATE_PENDING_CURRENT_MASTER_CI",
+  "object": "FIELD held route → contracted AWAKE visor → same-origin INTERPHASE focus → bounded action/trace → Dayline or exact RETURN",
+  "recovered": {
+    "exact": [
+      "YOU'RE A WAKE title/cadence survives in wake_engine_v0/v1 and YAW instruments",
+      "WAKE Switchboard uses GRAIN → CUT → HOLD → TURN → ACT → TRACE → SLEEP",
+      "INTERPHASE v0.2 uses SOURCE → FRAME → FOCUS → OPERATE → WITNESS → RETURN",
+      "Omega Interphase / Forward Center Mass explored a one-screen FIELD interface"
+    ],
+    "reconstructed": [
+      "Current WAKE/CUT/HOLD/TURN/TRACE/AGAIN ↔ INTERPHASE mapping is a present convergence, not a historical-identity claim."
+    ]
+  },
+  "delta": [
+    "retain /awake/ as a projection over the exact route already held by FIELD",
+    "remove AWAKE's internal route browser so route selection remains FIELD-owned",
+    "bind real same-origin native DOM through Interphase.Host + InterphaseDOM",
+    "preserve exact native and FIELD return plus existing Dayline handoff",
+    "one-time onboarding exposes WAKE cadence without adding another state owner"
+  ],
+  "boundaries": [
+    "no route browser or subsystem dashboard",
+    "no object database or event bus",
+    "no native authority transfer",
+    "no private Library image publication",
+    "no claim that WAKE and INTERPHASE were historically identical"
+  ],
+  "verification": {
+    "route_browser_absent": "PASS_BY_SOURCE",
+    "static_contract": "PENDING_CURRENT_PR_CI",
+    "mobile_430x900": "PENDING_CURRENT_PR_CI",
+    "same_origin_interphase_host": "PENDING_CURRENT_PR_CI",
+    "field_handoff": "PENDING_CURRENT_PR_CI",
+    "dayline_packet": "PENDING_CURRENT_PR_CI",
+    "route_registration": "PENDING_CURRENT_PR_CI",
+    "public_surface": "PENDING_CURRENT_PR_CI"
+  },
+  "one_next": "Run current-master route/static/browser proof. If green, merge and STOP; further AWAKE changes require observed continuity friction.",
+  "stop": "Do not turn AWAKE into a universal shell. One FIELD-held object and its native host remain primary."
+}
