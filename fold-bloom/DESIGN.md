@@ -65,6 +65,27 @@ For each visible control: what object is manipulated, what stable address remain
 
 Prefer contextual controls, direct manipulation, stable spatial memory, receding chrome and consequence-driven delight.
 
+### Ring instrument law
+
+THE RING IS AN ADDRESSABLE INSTRUMENT, NOT GENERIC RADIAL CHROME.
+
+- The inner 12-cell LIVE ring is player-authored topology memory: typed cells, remembered anchors, creases, current gate and lawful release forecast.
+- The thin outer source annulus is exact source address: current source time, section witness and same-source LISTEN marks. It persists across SOURCE / MAP / IMMERSION because presentation may change while address must not.
+- Dragging the source annulus is an explicit address operation: it enters STEP, seeks the existing AUDIO MAP course, and never authors topology, changes source bytes or rewrites measured evidence.
+- The linear course strip remains an inspector/toolglass over the same course. It is not a second timeline authority.
+- PLAY / HEX / TWO DIAL / ECOLOGY may re-project the inner instrument, but they do not own or silently replace source address.
+
+### PULSE / VOICE seam law
+
+PULSE owns rhythmic construction and timing practice. VOICE owns pitch/pattern practice and microphone evidence.
+
+- PULSE ratio, ring/lane count and training focus are distinct parameters.
+- RINGS 1/2/3 means the enabled lanes are both visible and audible: M; M+A; or M+A+B.
+- FOCUS AUTO runs LOCK → CROSS → RETURN over available lanes. Fixed M / A / B studies one available lane without advancing that trainer.
+- PULSE transport may expose ratio/lanes/focus as authority-NONE context, and exports preserve those choices beside tap evidence.
+- VOICE may explicitly borrow the FIELD PULSE clock, but PULSE does not choose vocal targets and VOICE does not rewrite rhythmic construction.
+- A collapsed inline VOICE witness may exist in LAB, but the full VOICE surface remains a separate projection and must have an obvious handoff/return.
+
 ### Mobile control law
 
 PRIMARY CONTROLS ARE SACRED.
