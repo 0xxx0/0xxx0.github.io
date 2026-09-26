@@ -1,0 +1,38 @@
+{
+  "schema": "return/v0.1",
+  "id": "LIBRARY_EXTRACTION_WAVE1_2026-09-26",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "lib/ shared library — extraction wave 1 (verbatim moves only, no new concepts)",
+  "delta": "Five extraction moves and one duplicate fold landed. fold-bloom/listen/polar-control.js deleted after byte-identity proof (cmp IDENTICAL) and its import repointed to /lib/polar-control.js. /lib/dom.js, /lib/store.js and /lib/path.js created by verbatim move from duplicated call sites. The interphase optic block relocated out of /lib/interphase-core.js (192 -> 138 lines; /lib/path.js = 79 lines), with five classic pages updated to load path.js before core. One consumer rewired per module (vault-handoff esc; fold-bloom app.js active-pointer/keepkv slice with 59/59 behavior-equivalence cases; listen polar import). /lib/README.md added (standing rules + module list). tools/browser-smoke.mjs now finds browsers on macOS (Brave/Chrome app bundles; Linux probe unchanged); the suite runs: 61/62 cases pass. Tracked-file diff before commit: 11 files changed, 20 insertions(+), 118 deletions(-); plus four new files (dom.js 3.3 KB, store.js 2.7 KB, path.js 3.7 KB, README.md 5.8 KB).",
+  "evidence": [
+    "/lib/dom.js",
+    "/lib/store.js",
+    "/lib/path.js",
+    "/lib/README.md",
+    "/lib/interphase-core.js",
+    "/fold-bloom/app.js",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/vault-handoff.js",
+    "/fold-bloom/instrument/index.html",
+    "/fold-bloom/listen/index.html",
+    "/fold-bloom/lens/index.html",
+    "/docs/index.html",
+    "/index.html",
+    "/tools/browser-smoke.mjs"
+  ],
+  "value": [
+    "Every moved block is byte-identical to its source (cmp/splice-verified); consumer behavior equivalence is proven per rewire (equivalence tables in the operator's local receipts).",
+    "Post-wave verification battery green on the machine: 6 interphase selftests, route grammar (146 routes / 0 errors), spine browser smoke, phone-continuity smoke — all exit 0.",
+    "The extraction rule now lives with the code: one copy is a fact, two is a pattern, three is a library function; /lib/ is add-only."
+  ],
+  "residue": [
+    "Most duplicated consumer sites are intentionally un-migrated until their next edit (esc in listen/app.js and live/app.js; the two vault-handoff wrappers; the fmtClock family; care/index.html keeps a deliberate file:// fallback).",
+    "browser-smoke's 'FOLD BLOOM REPLAY score core' probe shows PENDING under full-suite load on macOS but passes in isolation (single-case rerun, exit 0): a scheduling-budget flake, not a page defect."
+  ],
+  "waiting": [
+    "Publish cadence: this wave is committed locally; the public site update rides the standing publish flow (measured 2026-09-26: /lib/id.js still 404 publicly)."
+  ],
+  "stop": "Reopen only for the next third-consumer extraction, a defect in a moved primitive, or the guarded load-order contract in /lib/path.js.",
+  "wasGeneratedBy": "kestrel desktop session 2026-09-26, 10-child fan-out (deleg_b7cee558) + parent verification battery",
+  "wasAttributedTo": "operator (library plan 2026-09-26)"
+}
