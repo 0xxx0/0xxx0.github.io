@@ -234,6 +234,34 @@ function fieldDaylineHandoffProbeHtml(){
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
+function fieldAwakeHandoffProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await wait(()=>W().FieldLensHost?.focus?.()?.href==='/docs/'&&D().getElementById('headerAwake'),14000,'FIELD docs + AWAKE');
+    rec.fieldStart=W().FieldLensHost.focus().href;
+    D().getElementById('headerAwake').click();
+    await wait(()=>W().location.pathname==='/awake/'&&W().AwakeVisor?.state?.()?.route==='/docs/'&&D().documentElement.dataset.awake==='ready',18000,'AWAKE ready');
+    rec.awakePath=W().location.pathname;rec.awakeRoute=W().AwakeVisor.state().route;
+    const enter=D().getElementById('enterBtn');if(enter&&!D().getElementById('onboard').hidden)enter.click();
+    rec.focused=W().AwakeVisor.focusSelector('main');
+    const st=await wait(()=>W().AwakeVisor.state().focus?.length?W().AwakeVisor.state():null,5000,'INTERPHASE focus');
+    const ip=W().AwakeVisor.interphase(),packet=W().AwakeVisor.daylinePacket();
+    rec.interphase={schema:ip?.schema,object_id:ip?.object_id,focus:ip?.focus?.length||0,projection:ip?.projection};
+    rec.packet={schema:packet?.schema,route:packet?.source?.route,return_to:packet?.return_to,interphase:packet?.interphase?.schema};
+    rec.overflow=Math.max(D().documentElement.scrollWidth,D().body.scrollWidth)-D().documentElement.clientWidth;
+    D().getElementById('returnBtn').click();
+    await wait(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href==='/docs/',18000,'FIELD exact return');
+    rec.fieldReturn=W().FieldLensHost.focus().href;
+    const ok=rec.fieldStart==='/docs/'&&rec.awakePath==='/awake/'&&rec.awakeRoute==='/docs/'&&rec.focused===true&&st.focus.length===1&&rec.interphase.schema==='interphase/v0.2/handoff'&&rec.interphase.object_id==='/docs/'&&rec.interphase.focus===1&&rec.packet.schema==='atlas-dayline-handoff/v0.1'&&rec.packet.route==='/docs/'&&rec.packet.return_to==='/?focus=%2Fdocs%2F'&&rec.packet.interphase==='interphase/v0.2/handoff'&&rec.overflow<=1&&rec.fieldReturn==='/docs/';
+    done(ok,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>`;
+}
 function studioProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1180px;height:820px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -750,6 +778,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldDaylineHandoffProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/field-awake-handoff')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldAwakeHandoffProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-studio')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(studioProbeHtml());return;
@@ -944,6 +976,12 @@ const CASES=[
     route:'/__smoke/field-dayline-handoff',
     options:{width:520,height:940,budget:22000,timeout:30000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldFocus":"\/docs\/"/.test(dom)&&/"schema":"atlas-dayline-handoff\/v0\.1"/.test(dom)&&/"before":0/.test(dom)&&/"after":1/.test(dom)&&/"return_to":"\/\?focus=%2Fdocs%2F"/.test(dom)&&/"cleared":true/.test(dom)
+  },
+  {
+    name:'FIELD held route → AWAKE visor',
+    route:'/__smoke/field-awake-handoff',
+    options:{width:520,height:940,budget:24000,timeout:32000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldStart":"\/docs\/"/.test(dom)&&/"awakePath":"\/awake\/"/.test(dom)&&/"awakeRoute":"\/docs\/"/.test(dom)&&/"schema":"interphase\/v0\.2\/handoff"/.test(dom)&&/"schema":"atlas-dayline-handoff\/v0\.1"/.test(dom)&&/"fieldReturn":"\/docs\/"/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
