@@ -16,18 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-26T08:25:00+08:00",
+        "updated_at": "2026-09-26T10:06:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "OPERATE",
           "VERIFY",
-          "OPERATE"
+          "RECOVER"
         ]
       },
-      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. One addressed route may cross into Dayline through the existing FIELD INTERPHASE host: FIELD preserves identity/address/focus/projection/residue inside the explicit Dayline handoff; Dayline becomes a second INTERPHASE host over the same object while native authority remains unequal. No second store or universal shell.",
+      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. 0.8.15 adds one AWAKE aperture for the exact route already held by FIELD: the native host stays visible and sovereign while INTERPHASE supplies focus/projection/witness/RETURN. AWAKE cannot browse the route universe and owns no store or planner.",
       "receipt": "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.14",
+      "version": "0.8.15",
       "transfer": [
+        "0.8.15 AWAKE visor: held FIELD route → field-awake-handoff/v0.1 → same-origin native host + INTERPHASE focus/witness → Dayline or exact FIELD RETURN; no internal route browser",
         "0.8.13 executable held action: non-root route → explicit atlas-dayline-handoff/v0.1 TASK envelope → Dayline ADD TO DAY; FIELD never mutates DayState; generic return is EVIDENCE_ONLY / UNCHANGED and restores exact FIELD focus",
         "lossless root contraction: 12-link header rail removed; PLAY remains immediate while CURRENT/RECOVER/NEXUS/WITNESS/TRACE/COMPARE/HOUSE/CONFLUENCE/FOUNDRY/RECORD/RETURN/FI LAW remain exactly reachable inside the existing re-entry depth",
         "semantic signal skin: CLEAR quiet; CHANGED directional field; REALITY crossed interference; GITHUB cadence; MIXED moire-like overlap; reduced-motion preserves state without animation",
@@ -92,8 +93,120 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
+      "latest_return": "/returns/FIELD_INDEX_AWAKE_VISOR_2026-09-26.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+    },
+    {
+      "href": "/awake/",
+      "title": "AWAKE / INTERPHASE VISOR 0.1",
+      "kind": "projection",
+      "parent": "/",
+      "family": "FIELD / INTERPHASE",
+      "operation": "OPERATE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Thin continuity/onboarding projection for one route already held by FIELD. The same-origin native host remains the actual app; INTERPHASE supplies source/frame/focus/operate/witness/return addressing and the recovered YOU'RE A WAKE cadence supplies attentional orientation. AWAKE cannot browse the route universe and owns no domain truth, planner state or object store.",
+      "receipt": "/awake/release.json",
+      "transfer": [
+        "FIELD held route → field-awake-handoff/v0.1 → exact native route inside visor",
+        "same-origin native DOM → Interphase Host → one exact held element / projection witness",
+        "WAKE / CUT / HOLD / TURN / TRACE / AGAIN correspond to SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without claiming historical identity",
+        "AWAKE held route/focus → existing atlas-dayline-handoff/v0.1 with interphase/v0.2 witness",
+        "native and exact FIELD RETURN remain explicit exits",
+        "no internal route browser; FIELD retains route-selection authority"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "field-awake-handoff/v0.1",
+            "same-origin FIELD route"
+          ],
+          "requires": [
+            "route"
+          ],
+          "optional": [
+            "FIELD Interphase projection witness",
+            "return address"
+          ]
+        },
+        "transforms": {
+          "verb": "frame one already-held host, focus one exact addressed object, expose WAKE↔INTERPHASE cadence and bounded exits without moving native authority",
+          "preserves": [
+            "route identity",
+            "native host authority",
+            "INTERPHASE focus address",
+            "FIELD return address"
+          ],
+          "reversibility": "RETURN FIELD exits without rewriting native state",
+          "side_effects": "session-only handoff and native host actions only"
+        },
+        "emits": {
+          "kinds": [
+            "interphase/v0.2/handoff",
+            "atlas-dayline-handoff/v0.1",
+            "AWAKE TRACE return frame"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "FIELD-held route + optional Interphase witness",
+            "interface": "sessionStorage + query address"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "focus/turn/trace",
+            "interface": "same-origin framed host"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "bounded Dayline handoff",
+            "interface": "existing session envelope"
+          },
+          {
+            "medium": "NAVIGATION",
+            "kind": "exact native/FIELD return",
+            "interface": "same-origin route"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "NATIVE_SOURCE",
+            "status": "AVAILABLE",
+            "via": "NATIVE ↗"
+          },
+          {
+            "class": "DAYLINE",
+            "status": "AVAILABLE",
+            "via": "existing atlas-dayline-handoff/v0.1"
+          },
+          {
+            "class": "FIELD",
+            "status": "AVAILABLE",
+            "via": "exact focus return"
+          }
+        ],
+        "physical_fit": "Mobile-first visor; native host fills the viewport and AWAKE chrome stays bounded."
+      },
+      "index": {
+        "updated_at": "2026-09-26T10:06:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY",
+          "RECOVER"
+        ]
+      }
     },
     {
       "href": "/app-atlas/",
