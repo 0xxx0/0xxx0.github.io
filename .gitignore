@@ -115,3 +115,54 @@ delete/reclaimed-*/
 # gitignore does NOT affect already-tracked paths: the 20 deliberately-tracked,
 # post-scrub files remain tracked and are unaffected by this rule.
 AXIS/
+
+# --- 2026-09-26: top-level private/local material in a PUBLIC-origin clone ---
+# This clone's origin is https://github.com/0xxx0/0xxx0.github.io (PUBLIC).
+# The archive profile publishes from ~/Projects/0xxx0.github.io, but ANY session
+# that runs `git add -A` in ~/void-anchor stages-and-publishes the following.
+# Measured 2026-09-26: ~19.5 GB untracked AND unignored. QUARANTINE != DELETE;
+# these are sources/working trees, not site assets (unregistered = not routed).
+# Root-anchored on purpose: does not affect tracked dirs of the same name deeper in.
+/ai-media/
+/_recovered/
+/_quarantine/
+/_archive/
+/_private-review/
+/InteriorAIApp/
+/backups/
+/boxed/
+/comms-path0/
+/content-pipeline/
+/absorb-build-backup-*/
+/espclaw-trial/
+/CANON.md
+/Untitled.md
+.obsidian/
+
+# delete/ stays partly TRACKED (PROTECTED.md, _protected.jsonl, check-protected.py);
+# only the untracked pen contents below are excluded.
+/delete/gc-sessions-*/
+/delete/tidied-*/
+/delete/broken-symlinks/
+/delete/mobile-vault-sync-conflicts/
+/delete/wiki-self-symlink
+/delete/Untitled.base
+/delete/2026-07-09-empty.md
+
+# --- 2026-09-26 cont.: remaining untracked, local-only dirs (verified tracked-file count = 0) ---
+# These are already unpublished (untracked); this only stops `git add -A` staging them.
+/ops-hub-mobile-vault/
+/logs/
+/generated-artifacts/
+/bin/
+/tmp/
+/state/
+/projects/
+/swarm-specs/
+/hermes-runtime/
+/hardware/
+
+# docs/ IS a published surface (docs/index.html tracked). This subdir holds the
+# private NODE-0 foundation packets awaiting placement (brief-05) and is referenced
+# by NO tracked file. One-line reversal if you ever want them published.
+/docs/foundation/
