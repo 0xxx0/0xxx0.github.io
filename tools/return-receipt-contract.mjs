@@ -1,6 +1,5 @@
-const PENDING_CI = /\\bpending\\s+(?:pr\\s+)?ci\\b|\\bci\\s+(?:is\\s+)?pending\\b/i;
-
 export function hasPendingCIClaim(receipt) {
   const text = typeof receipt === 'string' ? receipt : JSON.stringify(receipt ?? '');
-  return PENDING_CI.test(text);
+  const normalized = text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  return /\bpending (?:pr )?ci\b|\bci (?:is )?pending\b/.test(normalized);
 }
