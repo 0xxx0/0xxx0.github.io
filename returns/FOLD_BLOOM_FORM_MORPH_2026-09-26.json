@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/fold-bloom-form-morph-return/v0.1",
+  "date": "2026-09-26",
+  "status": "PR_OPEN",
+  "problem": {
+    "observed": "Public HEX gameplay required players to infer an arbitrary binary adapter: BLOOM/FOLD→solid and SPLIT/RETURN→broken, then match a generated six-line target before reaching the actual state-change idea.",
+    "conflict": "FIELD LAB already states that STATE / CHANGE six-line notation is only lawful when six explicit binary conditions are meaningful.",
+    "user_evidence": "Current HEX implementation was reported as incredibly weird / unclear whether it was working."
+  },
+  "change": {
+    "play_version": "0.6.0",
+    "loop_contract": "FOLD_BLOOM_PLAY_LOOP_0.2",
+    "retained_archetype": "FORM_CHANGE",
+    "form_phase": "Six releases write exact LIVE verbs directly into six leaves.",
+    "morph_phase": "Ring rotation addresses one leaf; the next LIVE release overwrites that leaf with its actual BLOOM/FOLD/SPLIT/RETURN verb.",
+    "clear": "At least two persistent leaf changes within four MORPH releases.",
+    "projection": "Concentric FROM / NOW rings; verb-specific segments; addressed leaf and persistent delta stay visible.",
+    "return": "F[...] Δ{...} → F[...] preserves exact verb identity. Yijing/stateLanguage is null for this mode."
+  },
+  "lineage": {
+    "supersedes_runtime_mapping": "PLAY 0.5.x HEX binary adapter",
+    "preserves": [
+      "LIVE 0.13 topology and source authority",
+      "FORM_CHANGE loop archetype",
+      "legacy ?play=HEX / YIJING / ICHING route aliases",
+      "STATE_CHANGE six-line grammar as a separate FIELD LAB DATA donor"
+    ]
+  },
+  "verification": [
+    "form-puzzle pure tests added",
+    "loop witness tests updated",
+    "mobile FORM surface smoke updated",
+    "public root doorway changed from HEX to FORM MORPH",
+    "PR #416 CI pending"
+  ],
+  "next_if_pass": "Use FORM MORPH as the only public PUZZLE projection; do not reintroduce binary notation unless the source object itself presents six binary conditions.",
+  "next_if_fail": "Retain FORM core as donor, restore PLAY 0.5.7 public mode, preserve exact failure evidence.",
+  "pr": 416,
+  "branch": "fold-bloom-form-morph-v060-r2-20260926"
+}

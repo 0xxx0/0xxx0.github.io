@@ -1,9 +1,10 @@
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
-  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,HEX_LINES,HEX_CHANGE_TARGET,HEX_CHANGE_LIMIT
+  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET
 } from './play-core.js?v=0.5';
+import {FORM_SLOTS,FORM_CHANGE_TARGET,FORM_CHANGE_LIMIT} from './form-puzzle.js?v=0.1';
 
-export const PLAY_LOOP_CONTRACT_VERSION='FOLD_BLOOM_PLAY_LOOP_0.1';
+export const PLAY_LOOP_CONTRACT_VERSION='FOLD_BLOOM_PLAY_LOOP_0.2';
 
 const CONTRACTS=Object.freeze({
   PLAY:Object.freeze({
@@ -13,8 +14,8 @@ const CONTRACTS=Object.freeze({
     law:'Repeat a legible move; clear by sustained response, while misses still change the road.'
   }),
   PUZZLE:Object.freeze({
-    mode:'PUZZLE',archetype:'FORM_CHANGE',label:'HEX',terminal:'BOUNDED',
-    phases:Object.freeze(['FORM','CHANGE']),
+    mode:'PUZZLE',archetype:'FORM_CHANGE',label:'FORM',terminal:'BOUNDED',
+    phases:Object.freeze(['FORM','MORPH']),
     operators:Object.freeze(['TURN','RELEASE']),
     law:'Construct a form, then make an addressed transformation of that form.'
   }),
@@ -85,16 +86,16 @@ export function loopWitness(mode,state={}){
   }else if(m==='PATH'){
     phase='PATH';progress=bounded(state.releases,PUZZLE_ROUNDS);success=bounded(state.stars,PUZZLE_WIN_STARS);clear=state.win?.path?.clear??null;
   }else if(m==='PUZZLE'){
-    phase=state.hex?.phase==='CHANGE'?'CHANGE':'FORM';
+    phase=state.form?.phase==='MORPH'?'MORPH':'FORM';
     if(phase==='FORM'){
-      progress=bounded(state.hex?.lines?.length,HEX_LINES);
-      success=bounded(state.hex?.form?.matches,HEX_LINES);
-      clear=ended?!!state.hex?.form?.clear:null;
+      progress=bounded(state.form?.current?.length,FORM_SLOTS);
+      success=bounded(state.form?.current?.length,FORM_SLOTS);
+      clear=null;
     }else{
-      const changed=state.hex?.change?.changed?.length??state.hex?.delta?.moving?.length??0;
-      progress=bounded(state.hex?.moves,HEX_CHANGE_LIMIT);
-      success=bounded(changed,HEX_CHANGE_TARGET);
-      clear=ended?!!state.hex?.change?.clear:null;
+      const changed=state.form?.change?.changed?.length??state.form?.delta?.moving?.length??0;
+      progress=bounded(state.form?.moves,FORM_CHANGE_LIMIT);
+      success=bounded(changed,FORM_CHANGE_TARGET);
+      clear=ended?!!state.form?.change?.clear:null;
     }
   }else if(m==='DUET'){
     phase='SYNC';progress=bounded(state.releases,DUET_ROUNDS);success=bounded(state.duet?.hits,DUET_WIN_HITS);clear=state.win?.duet?.clear??null;
