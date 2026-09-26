@@ -29,6 +29,19 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   assert.match(app,/listLocalMedia\(/);
 });
 
+test('LIVE ring keeps topology and source address as unequal layers',()=>{
+  const app=read('fold-bloom/live/app.js');
+  const render=read('fold-bloom/live/render.js');
+  assert.match(render,/setSourceAddress\(view\)/);
+  assert.match(render,/_sourceRing\(state,t\)/);
+  assert.match(render,/this\.landmarks/);
+  assert.match(app,/function sourceProgressFromPointer\(e\)/);
+  assert.match(app,/setCourseMode\('STEP',false\)/);
+  assert.match(app,/seekCourseProgress\(sourceP\)/);
+  assert.match(app,/dataset\.foldBloomRingScrub='on'/);
+  assert.match(app,/renderer\.setSourceAddress\(rawSource\)/);
+});
+
 test('LISTEN makes remembered tracks and Beat Saber pack first-class',()=>{
   const html=read('fold-bloom/listen/index.html');
   const app=read('fold-bloom/listen/app.js');
