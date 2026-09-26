@@ -1,11 +1,11 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "state": "SHIPPED",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
-  "date": "2026-09-25",
+  "date": "2026-09-26",
   "thesis": "A convergence lab should reuse canonical engines, preserve one addressed source across unequal projections, and RETURN bounded evidence of the traversal without claiming donor authority.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
@@ -40,7 +40,12 @@
     "phone mode controls use a 44px floor while the desktop ring expands from six to seven unequal projections.",
     "DATA gains a shared six-line STATE / CHANGE projection with editable before/after stacks, exact Δ positions, copyable state tokens, and direct line editing in the visual field.",
     "Inbound Poem Map VERSE handoffs expose an exact same-origin ↩ POEM MAP caller return after source/focus restoration; returning is navigation only and does not import LAB marks or projection state into poem authorship.",
-    "FIELD LAB 0.3.3 adds one bounded session RETURN: traversed modes, profile/address/source witnesses, and current-projection evidence without copying raw source bytes into a new store."
+    "FIELD LAB 0.3.3 adds one bounded session RETURN: traversed modes, profile/address/source witnesses, and current-projection evidence without copying raw source bytes into a new store.",
+    "PULSE 0.3.4 replaces one nearest-pulse percentage with a bounded LOCK → CROSS → RETURN timing-training loop over the existing synthetic FIELD PULSE clock.",
+    "PULSE renders three concentric temporal witnesses: quarter-note meter plus both selected polyrhythm streams (3:2 / 4:3 / 5:4), with the current training target visually privileged.",
+    "Tap evidence preserves signed early/late asynchrony, tempo-relative lock score, bias, jitter, a bounded lag-1 phase-correction proxy and return-to-meter delta; these are training witnesses, not neurological diagnoses.",
+    "A quiet quarter-note meter voice is scheduled alongside the two polyrhythm voices so LOCK and RETURN have an audible ground rather than requiring inference from ratio coincidences.",
+    "PULSE evidence and FoldBloomFieldLab runtime now expose the psychophysics version, training phase/target/progress, bounded summary and return delta while FIELD PULSE authority remains NONE."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -57,7 +62,9 @@
     "The local text-mark bridge remains LAB-scoped until ordinary cross-layer use proves a broader shared contract is warranted.",
     "STATE / CHANGE notation must only be used when six explicit binary conditions are meaningful; do not compress richer objects merely to fit the grammar.",
     "VERSE caller RETURN is navigation-only: FIELD LAB may not write poem text, marks, timing, or inferred claims back into Poem Map on return.",
-    "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority."
+    "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority.",
+    "PULSE timing metrics are descriptive behavioral witnesses only; phase-correction proxy, bias, jitter and lock score must not be presented as diagnosis, neural measurement, musical ability, or pleasure.",
+    "Rhythmic-complexity/groove research motivates keeping challenge learnable; the runtime does not claim a universal optimal syncopation level or infer subjective pleasure."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -80,7 +87,9 @@
     "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden",
     "lab_return_node": "PASS · public-surface-check run 36166811291 step 41",
     "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49",
-    "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50"
+    "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50",
+    "pulse_psychophysics_core": "PENDING_PR_CI · pure signed-asynchrony / trainer-cycle / summary tests",
+    "pulse_multiring_browser": "PENDING_PR_CI · FIELD LAB public-surface browser witness"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
