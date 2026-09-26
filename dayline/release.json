@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.2.2",
+  "version": "0.3.0-candidate",
   "route": "/dayline/",
-  "state": "MERGED_ACTIVE_CANDIDATE",
+  "state": "IMPLEMENTED_CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-26",
-  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN; Dayline then emits one source-appropriate OFFER_ONLY receipt and releases completed focus. COMMS may receive a native state proposal; Shopping receives evidence-only. HOUSE escape/depth returns directly to canonical /house/ rather than the /house/spatial/ compatibility route.",
+  "role": "Mobile-first continuous execution projection over existing DayState, now a first-class INTERPHASE host. One addressed object survives FIELD → INTERPHASE → Dayline without a second store; FOVEA / LINE / RING are view-only projections over the held object, native Dayline retains all effect authority, WITNESS remains native evidence, and ordinary RETURN carries the current INTERPHASE projection/residue witness.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -20,7 +20,11 @@
     "native source acceptance authority",
     "source-specific return effect class: COMMS STATE_PROPOSAL vs SHOPPING RECEIPT_ONLY",
     "Shopping lifecycle truth remains native; Dayline cannot promote FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED",
-    "canonical HOUSE human entry /house/"
+    "canonical HOUSE human entry /house/",
+    "shared INTERPHASE v0.2 identity/address/focus semantics",
+    "FIELD Interphase source projection witness across explicit handoff",
+    "projection residue rather than silent channel loss",
+    "Dayline native move/effect authority; INTERPHASE adapter is read-only"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -36,7 +40,7 @@
     "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
     "completed_focus_release": "after source-return publication, never before",
     "real_source_browser": "PASS · exact user instruction · 430×900 · public-surface-check 36148842204",
-    "route_registration": "PASS · 36148842258",
+    "route_registration": "PENDING_CI",
     "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe",
     "source_return_effects": "COMMS → STATE_PROPOSAL; SHOPPING → RECEIPT_ONLY; other hosts → EVIDENCE_ONLY",
     "shopping_closed_loop": "PASS · PR #379 · public-surface-check 36165271722 · Route Registration 36165271718 · WATCH remained WATCH after ACCEPT RECEIPT",
@@ -44,7 +48,13 @@
     "comms_regression_after_source_effect_split": "PASS · exact COMMS real-source loop remained green in 36165271722",
     "canonical_house_entry": "/house/",
     "house_compat_alias_not_used_by_dayline": true,
-    "house_route_proof": "PASS · PR #383 · public-surface-check 36165776361 · Route Registration 36165776354 · merge 5595e08aa5367ae8a32801b6fec97333b5c5492b"
+    "house_route_proof": "PASS · PR #383 · public-surface-check 36165776361 · Route Registration 36165776354 · merge 5595e08aa5367ae8a32801b6fec97333b5c5492b",
+    "interphase_host": "IMPLEMENTED · /lib/interphase-dayline.js",
+    "interphase_projections": "FOVEA / LINE / RING over same held object",
+    "field_interphase_handoff": "interphase/v0.2/handoff preserved inside existing atlas-dayline-handoff/v0.1 envelope",
+    "interphase_return_witness": "poly-atlas-return-f carries current DaylineInterphase projection result",
+    "interphase_selftest": "PENDING_CI",
+    "public_surface": "PENDING_CI"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
@@ -65,6 +75,19 @@
     ],
     "subjective_optional": [
       "perceived cognitive burden / ergonomics"
+    ]
+  },
+  "interphase": {
+    "version": "interphase/v0.2",
+    "host": "DAYLINE",
+    "adapter": "/lib/interphase-dayline.js",
+    "source_host": "FIELD",
+    "source_adapter": "/lib/interphase-field.js",
+    "effect_boundary": "DAYLINE_NATIVE_EFFECTS_ONLY",
+    "projections": [
+      "FOVEA",
+      "LINE",
+      "RING"
     ]
   }
 }
