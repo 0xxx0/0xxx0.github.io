@@ -49,7 +49,7 @@ function addTask(input={}){checkpoint('CREATE');const title=String(input.title||
  const earliest=String(input.earliest||mh(now)),latest=String(input.latest||day.meta.dayEnd),t={id,title,contexts:Array.isArray(input.contexts)&&input.contexts.length?input.contexts:[...day.state.contexts],duration:clamp(Number(input.duration)||25,5,180),value:clamp(Number(input.value)||4,1,5),earliest,latest:hm(latest)>hm(earliest)?latest:day.meta.dayEnd,setup:clamp(Number(input.setup)||1,0,5),depends:Array.isArray(input.depends)?input.depends:[],status:'open',sourceClass:input.sourceClass||'USER',provenance:String(input.provenance||'dayline-confluence capture'),notes:String(input.notes||''),fieldRef:input.fieldRef||input.sourceRef||null,sourceLink:input.sourceLink&&typeof input.sourceLink==='object'?clone(input.sourceLink):null};
  day.tasks.push(t);day.state.selected=t.id;event('CREATE',t.id,t.fieldRef||t.provenance);saveDay();return t}
 function applyHandoff(){if(!handoff)return;const h=handoff,p=h.payload||{};if(h.kind==='CONTEXT'){checkpoint('CONTEXT_HANDOFF');const xs=(p.contexts||[]).map(String).filter(Boolean),prefix=String(p.replacePrefix||''),base=day.state.contexts.filter(x=>!prefix||!String(x).startsWith(prefix));day.state.contexts=[...new Set([...base,...xs])];event('CONTEXT_HANDOFF',String(p.sourceRef||h.source?.route||''),xs.join(','));saveDay()}
- else if(h.kind==='TASK'){const t=p.task||{};addTask({...t,sourceClass:'IMPORTED',fieldRef:t.sourceRef||h.source?.route||null,provenance:t.provenance||('explicit handoff · '+(h.source?.route||'source')),sourceLink:{handoff_id:h.id||null,return_to:h.return_to||'',source:clone(h.source||{}),kind:h.kind||'TASK'}})}
+ else if(h.kind==='TASK'){const t=p.task||{};addTask({...t,sourceClass:'IMPORTED',fieldRef:t.sourceRef||h.source?.route||null,provenance:t.provenance||('explicit handoff · '+(h.source?.route||'source')),sourceLink:{handoff_id:h.id||null,return_to:h.return_to||'',source:clone(h.source||{}),kind:h.kind||'TASK',interphase:h.interphase&&typeof h.interphase==='object'?clone(h.interphase):null}})}
  else throw Error('unsupported handoff');
  sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff accepted')}
 function clearHandoff(){sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff cleared')}
@@ -73,9 +73,24 @@ function movesFor(f){
  out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('HOUSE ↗','/house/'));out.push(hrefMove('COMMS ↗','/port/comms/'));return out
 }
 function renderMoves(xs){const host=$('#moves');host.textContent='';xs.forEach((m,i)=>{if(m.href){const a=document.createElement('a');a.href=m.href;a.className=m.cls||'';a.textContent=String(i+1).padStart(2,'0')+' · '+m.label;host.appendChild(a)}else{const b=document.createElement('button');b.className=m.cls||'';b.textContent=String(i+1).padStart(2,'0')+' · '+m.label;b.onclick=m.action;host.appendChild(b)}});$('#moveCount').textContent=xs.length+'/3'}
+function interphaseObject(){
+ const held=chooseFrame(),v=frameView(held),t=v.task||null,last=t?lastWitnessFor(t.id):null,src=t?.sourceLink||null;
+ const id=t?.id||(held.kind==='route'?'route:'+held.route?.href:held.kind==='front'?'front:'+held.front?.id:held.kind==='handoff'?'handoff:'+held.handoff?.id:held.kind==='legacy'?'legacy:sample':'dayline:empty');
+ const inherited=held.kind==='handoff'?(held.handoff?.interphase||null):(src?.interphase||null);
+ return{
+  id,kind:held.kind,title:v.title,owner:v.owner,address:v.address,route:v.route||'',status:t?.status||held.kind,
+  channels:['identity','address','content','depth','time','authority','evidence'],
+  authority:'VIEW / NATIVE_DAYLINE_EFFECTS_ONLY',
+  moves:movesFor(held).slice(0,3).map(x=>({label:x.label,href:x.href||null,effect:!x.href})),
+  witness:last?clone(last):null,
+  sourceLink:src?clone(src):null,
+  inheritedInterphase:inherited?clone(inherited):null,
+  returnTo:src?.return_to||held.handoff?.return_to||v.route||'/'
+ }
+}
 function returnPacket(){
  const before=clone(sessionStart),after=core(),delta=day.events.slice(sessionEventStart),changed=hash(before)!==hash(after)||delta.length>0,dev=mh(deviceMinute(day)),held=chooseFrame(),v=frameView(held),last=v.task?lastWitnessFor(v.task.id):null,sourceLink=v.task?.sourceLink&&typeof v.task.sourceLink==='object'?clone(v.task.sourceLink):null;
- return{kind:'poly-atlas-return-f',version:3,carrier:'dayline-confluence/v0.2',returnClass:changed?'WORLD_DELTA':'ORIENTATION_SNAPSHOT',worldKey:'dayline:'+localDateKey(),generatedAt:new Date().toISOString(),clockWitness:{canonicalNow:day.state.now,deviceLocalNow:dev,deltaMinutes:hm(day.state.now)-hm(dev)},focus:{kind:held.kind,title:v.title,owner:v.owner,address:v.address,taskId:v.task?.id||null,sourceRoute:v.route||null,sourceLink},moves:lastMoves.map(x=>x.label),witness:last||null,before,after,afterChecksum:hash(after),eventIds:delta.map(e=>e.id),delta,evidence:clone(day.evidence),nextRoutes:(day.state.route||[]).map(id=>({id,title:taskById(id)?.title||id}))}
+ return{kind:'poly-atlas-return-f',version:3,carrier:'dayline-confluence/v0.2',interphase:(globalThis.DaylineInterphase&&typeof globalThis.DaylineInterphase.projectionResult==='function')?globalThis.DaylineInterphase.projectionResult():null,returnClass:changed?'WORLD_DELTA':'ORIENTATION_SNAPSHOT',worldKey:'dayline:'+localDateKey(),generatedAt:new Date().toISOString(),clockWitness:{canonicalNow:day.state.now,deviceLocalNow:dev,deltaMinutes:hm(day.state.now)-hm(dev)},focus:{kind:held.kind,title:v.title,owner:v.owner,address:v.address,taskId:v.task?.id||null,sourceRoute:v.route||null,sourceLink},moves:lastMoves.map(x=>x.label),witness:last||null,before,after,afterChecksum:hash(after),eventIds:delta.map(e=>e.id),delta,evidence:clone(day.evidence),nextRoutes:(day.state.route||[]).map(id=>({id,title:taskById(id)?.title||id}))}
 }
 function publishSourceReturn(packet){
  const link=packet?.focus?.sourceLink,task=packet?.focus?.taskId?taskById(packet.focus.taskId):null;if(!link?.return_to||!link?.source||!task)return null;
@@ -95,11 +110,11 @@ function render(){
  $('#truth').textContent='CURRENT '+(current?.updated||'—')+' · NOW '+day.state.now+(drift?' · clock '+(drift>0?'+':'')+drift+'m':'');
  $('#owner').textContent=v.owner;$('#address').textContent=v.address;$('#focusTitle').textContent=v.title;$('#focusMeta').textContent=v.meta||'';lastMoves=movesFor(frame);renderMoves(lastMoves);
  const witnessable=!!v.task;$('#witnessInput').disabled=!witnessable;$('#witnessBtn').disabled=!witnessable;$('#witnessState').textContent=witnessable?(last?'RECORDED':'READY'):'ACCEPT / ADOPT FIRST';$('#lastWitness').textContent=last?(new Date(last.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+last.note):'';
- const stored=(()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch(_){return null}})();$('#returnClass').textContent=stored?.returnClass||'READY';renderSourceReturn();renderDepth();document.body.dataset.daylineWorkfield='ready'
+ const stored=(()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch(_){return null}})();$('#returnClass').textContent=stored?.returnClass||'READY';renderSourceReturn();renderDepth();document.body.dataset.daylineWorkfield='ready';window.dispatchEvent(new CustomEvent('dayline:state',{detail:{object:interphaseObject()}}))
 }
 async function boot(){day=loadDay();handoff=safeHandoff();sessionStart=core();sessionEventStart=day.events.length;const [c,m]=await Promise.all([fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)]);current=c;manifest=m;render()}
 $('#captureForm').onsubmit=e=>{e.preventDefault();const i=$('#captureInput'),title=i.value.trim();if(!title)return;addTask({title,contexts:[...day.state.contexts],duration:25,value:4,provenance:'dayline-confluence direct capture'});i.value='';render();toast('Captured')};
 $('#witnessBtn').onclick=recordWitness;$('#returnBtn').onclick=doReturn;$('#syncNowBtn').onclick=syncNow;
-window.DaylineConfluence=Object.freeze({snapshot:()=>clone(day),returnPacket:()=>returnPacket(),acceptHandoff:()=>applyHandoff(),sourceReturn:()=>clone(readSourceReturn())});
+window.DaylineConfluence=Object.freeze({snapshot:()=>clone(day),returnPacket:()=>returnPacket(),acceptHandoff:()=>applyHandoff(),sourceReturn:()=>clone(readSourceReturn()),interphaseObject:()=>clone(interphaseObject())});
 boot();
 })();
