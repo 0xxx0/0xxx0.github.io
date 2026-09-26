@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0b">
+<title>AWAKE / INTERPHASE VISOR</title>
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="ey">Φ / AWAKE / INTERPHASE 0.1</div>
+      <h1>YOU’RE A <span>WAKE.</span></h1>
+      <p id="sourceLine">One object. One focus. A few moves. Leave a trace. Return.</p>
+    </div>
+    <div class="topActions">
+      <button id="routeBtn" type="button">ROUTE</button>
+      <button id="nativeBtn" type="button">NATIVE ↗</button>
+      <button id="fieldBtn" type="button">FIELD ↩</button>
+    </div>
+  </header>
+
+  <nav class="cadence" id="cadence" aria-label="WAKE to INTERPHASE cadence">
+    <button data-stage="0"><b>WAKE</b><span>SOURCE</span></button>
+    <button data-stage="1"><b>CUT</b><span>FRAME</span></button>
+    <button data-stage="2"><b>HOLD</b><span>FOCUS</span></button>
+    <button data-stage="3"><b>TURN</b><span>OPERATE</span></button>
+    <button data-stage="4"><b>TRACE</b><span>WITNESS</span></button>
+    <button data-stage="5"><b>AGAIN</b><span>RETURN</span></button>
+  </nav>
+
+  <main class="world" id="world">
+    <div class="plateField" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <section class="viewport">
+      <div class="frameHead">
+        <div><span id="owner">FIELD</span><b id="routeTitle">Loading route…</b></div>
+        <div class="frameMeta"><span id="projection">PAGE</span><span id="witness">NO TRACE</span></div>
+      </div>
+      <iframe id="hostFrame" title="Current FIELD surface"></iframe>
+      <div class="focusCard" id="focusCard" hidden>
+        <span>HELD OBJECT</span><b id="focusTitle">—</b><small id="focusAddress">—</small>
+      </div>
+      <div class="captureHint" id="captureHint" hidden>TOUCH ONE THING IN THE LIVE SURFACE</div>
+    </section>
+  </main>
+
+  <footer class="rail">
+    <div class="truth">
+      <b id="office">WAKE / SOURCE</b>
+      <span id="officePrompt">Receive the object before explaining it.</span>
+    </div>
+    <div class="moves">
+      <button id="focusBtn" type="button">HOLD / FOCUS</button>
+      <button id="daylineBtn" type="button">DAYLINE →</button>
+      <button id="returnBtn" type="button">RETURN FIELD</button>
+    </div>
+  </footer>
+</div>
+
+<dialog id="routeDialog">
+  <form method="dialog" class="routeSheet">
+    <header><div><span>FIELD ROUTES</span><b>Change the held host, not its authority.</b></div><button value="cancel" aria-label="Close">×</button></header>
+    <input id="routeSearch" type="search" placeholder="Find route / family / operation" autocomplete="off">
+    <div id="routeList" class="routeList"></div>
+  </form>
+</dialog>
+
+<div class="onboard" id="onboard" hidden>
+  <div class="onboardCard">
+    <span>AWAKE / VISOR</span>
+    <h2>A wake is a difference that survives release.</h2>
+    <p>This is not another source of truth. It keeps one FIELD object visible while INTERPHASE names the passage: source → frame → focus → operate → witness → return.</p>
+    <div class="onboardLaw">WAKE · HOLD · TURN · TRACE · AGAIN</div>
+    <button id="enterBtn" type="button">ENTER FIELD</button>
+  </div>
+</div>
+
+<script src="/lib/interphase-core.js"></script>
+<script src="/lib/interphase-dom.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
