@@ -1000,10 +1000,10 @@ const CASES=[
     check:dom=>/SABER 0\.1/i.test(dom)&&dom.includes('data-fold-bloom-saber="ready"')&&dom.includes('data-saber-role="HOST"')&&dom.includes('id="offer"')&&dom.includes('id="motion"')&&dom.includes('id="returnBtn"')&&/SOURCE → EVENT TAPE → MOTION WITNESS → HIT TRACE → RETURN/.test(dom)
   },
   {
-    name:'FOLD BLOOM VOICE 0.1',
+    name:'FOLD BLOOM VOICE 0.2',
     route:'/fold-bloom/voice/',
     options:{width:430,height:900,budget:8000},
-    check:dom=>/VOICE 0\.1/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
+    check:dom=>/VOICE 0\.2/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&dom.includes('id="spectrogram"')&&dom.includes('id="centroid"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB',
@@ -1017,6 +1017,7 @@ const CASES=[
         verse:/VERSE/.test(dom),
         verseReplay:dom.includes('id="verseReplay"'),
         exportTape:dom.includes('id="exportTape"'),
+        voiceFold:dom.includes('id="voiceTrain"')&&dom.includes('id="voiceMic"')&&dom.includes('id="voiceSpectrum"')&&dom.includes('data-field-lab-voice="ready"'),
         raceInput:dom.includes('id="raceInput"'),
         inkTrace:dom.includes('id="inkTrace"'),
         inkLoad:dom.includes('id="inkLoad"'),

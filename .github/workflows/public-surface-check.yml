@@ -126,11 +126,12 @@ jobs:
           node --check fold-bloom/lab/text-marks.js
           node --check fold-bloom/lab/lab-return.js
           node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs fold-bloom/lab/tests/lab-return.test.mjs fold-bloom/lab/text-marks.test.mjs
-      - name: Test FOLD BLOOM VOICE pitch core
+      - name: Test FOLD BLOOM VOICE pitch + spectrum core
         run: |
           node --check fold-bloom/voice/pitch.js
+          node --check fold-bloom/voice/spectrum.js
           node --check fold-bloom/voice/app.js
-          node --test fold-bloom/voice/tests/pitch.test.mjs
+          node --test fold-bloom/voice/tests/pitch.test.mjs fold-bloom/voice/tests/spectrum.test.mjs
       - name: Test FOLD BLOOM wet-media ink engine
         run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state

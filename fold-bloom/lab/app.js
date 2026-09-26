@@ -6,6 +6,8 @@ import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
+import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
+import {spectrumFeatures} from '../voice/spectrum.js';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -79,6 +81,55 @@ $('#dataLens').onclick=()=>location.href='../lens/';
 
 /* ---------- PULSE ---------- */
 const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0};
+const voice={pattern:'NOTE',baseMidi:60,manualStep:0,stream:null,source:null,analyser:null,samples:null,freqBins:null,mic:false,lastAnalysis:0,history:[],lastSpectrum:null,frames:0,voiced:0,onTarget:0,absCents:0,centroidHz:0,spectralFrames:0};
+function voiceStep(){return pulse.playing&&lastTransport?Math.max(0,Number(lastTransport.beatIndex)||0):voice.manualStep}
+function voiceTarget(){
+  const midi=patternTarget(voice.baseMidi,voice.pattern,voiceStep());
+  return midi===null?null:{midi,hz:midiToHz(midi),name:midiToName(midi)};
+}
+function syncVoiceTarget(){
+  const target=voiceTarget();if($('#voiceTarget'))$('#voiceTarget').textContent=target?.name||'HUM';
+}
+async function startLabVoiceMic(){
+  if(voice.mic)return;
+  if(!navigator.mediaDevices?.getUserMedia){setStatus('VOICE · MICROPHONE API UNAVAILABLE');return}
+  try{
+    const ac=ensureAudio();await ac.resume();
+    voice.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false});
+    voice.source=ac.createMediaStreamSource(voice.stream);voice.analyser=ac.createAnalyser();voice.analyser.fftSize=2048;voice.analyser.smoothingTimeConstant=.18;
+    voice.samples=new Float32Array(voice.analyser.fftSize);voice.freqBins=new Float32Array(voice.analyser.frequencyBinCount);voice.source.connect(voice.analyser);voice.mic=true;voice.history=[];
+    $('#voiceMic').textContent='STOP MIC';$('#voiceMic').classList.add('cool');document.documentElement.dataset.fieldLabVoice='live';setStatus('PULSE / VOICE · MIC LIVE · LOCAL ANALYSIS');
+  }catch(error){setStatus('VOICE · MIC BLOCKED · '+String(error?.name||'PERMISSION'))}
+}
+function stopLabVoiceMic(){
+  voice.mic=false;try{voice.source?.disconnect()}catch(_){};voice.source=null;voice.analyser=null;voice.samples=null;voice.freqBins=null;
+  try{voice.stream?.getTracks?.().forEach(t=>t.stop())}catch(_){};voice.stream=null;
+  if($('#voiceMic')){$('#voiceMic').textContent='START MIC';$('#voiceMic').classList.remove('cool')}document.documentElement.dataset.fieldLabVoice='off';
+}
+async function hearLabVoiceTarget(){
+  const target=voiceTarget()||{hz:midiToHz(voice.baseMidi),name:midiToName(voice.baseMidi)},ac=ensureAudio();await ac.resume();
+  const o=ac.createOscillator(),g=ac.createGain(),now=ac.currentTime;o.type='sine';o.frequency.setValueAtTime(target.hz,now);
+  g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.10,now+.015);g.gain.exponentialRampToValueAtTime(.0001,now+.38);o.connect(g).connect(ac.destination);o.start(now);o.stop(now+.42);
+  setStatus('VOICE · REFERENCE · '+target.name);
+}
+function drawLabVoiceSpectrum(feature){
+  const cv=$('#voiceSpectrum');if(!cv||!feature)return;const g=cv.getContext('2d'),w=cv.width,h=cv.height;
+  g.drawImage(cv,-1,0);g.fillStyle='#05070b';g.fillRect(w-1,0,1,h);
+  const bands=feature.bands||[],bh=h/Math.max(1,bands.length);
+  for(let i=0;i<bands.length;i++){const v=Math.max(0,Math.min(1,bands[i]||0));if(v<.04)continue;g.fillStyle=v>.72?'rgba(239,120,73,'+(.25+.72*v)+')':'rgba(123,213,255,'+(.16+.72*v)+')';g.fillRect(w-1,h-(i+1)*bh,1,Math.max(1,bh+1))}
+}
+function analyzeLabVoice(t){
+  if(!voice.mic||!voice.analyser||t-voice.lastAnalysis<70)return;voice.lastAnalysis=t;syncVoiceTarget();
+  voice.analyser.getFloatTimeDomainData(voice.samples);voice.analyser.getFloatFrequencyData(voice.freqBins);
+  const pitch=estimatePitch(voice.samples,pulse.ac.sampleRate,{minHz:70,maxHz:950}),spec=spectrumFeatures(voice.freqBins,pulse.ac.sampleRate,voice.analyser.fftSize,{bands:48,minHz:70,maxHz:6000});
+  voice.lastSpectrum=spec;voice.frames++;voice.spectralFrames++;voice.centroidHz+=spec.centroidHz;drawLabVoiceSpectrum(spec);$('#voiceCentroid').textContent=Math.round(spec.centroidHz)+' Hz';
+  if(!(pitch.hz>0)){$('#voiceHeard').textContent='—';$('#voiceCents').textContent='—';$('#voiceStable').textContent='…';return}
+  voice.voiced++;const heardMidi=hzToMidi(pitch.hz);voice.history.push(heardMidi*100);voice.history=voice.history.slice(-12);
+  const spread=stabilityCents(voice.history),target=voiceTarget();$('#voiceHeard').textContent=midiToName(heardMidi);$('#voiceStable').textContent=spread==null?'…':Math.round(spread)+'¢';
+  if(!target){$('#voiceCents').textContent='FREE';return}
+  const cents=centsBetween(pitch.hz,target.hz),abs=Math.abs(cents);voice.absCents+=abs;if(abs<=35)voice.onTarget++;$('#voiceCents').textContent=(cents>0?'+':'')+Math.round(cents)+'¢';
+}
+
 function parseRatio(v){return v.split(':').map(Number)}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
   pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
@@ -149,6 +200,13 @@ $('#exportTape').onclick=()=>{
   downloadJSON('fold-bloom-event-tape.json',{eventTape:tape,beatSaberV4Draft:beatSaberV4});
   setStatus('PULSE · EVENT TAPE + BEAT SABER V4 DRAFT EXPORTED');
 };
+$('#voiceMic')?.addEventListener('click',()=>voice.mic?stopLabVoiceMic():startLabVoiceMic());
+$('#voiceHear')?.addEventListener('click',hearLabVoiceTarget);
+$('#voiceNext')?.addEventListener('click',()=>{voice.manualStep++;syncVoiceTarget()});
+$('#voiceBaseDown')?.addEventListener('click',()=>{voice.baseMidi=Math.max(43,voice.baseMidi-1);syncVoiceTarget()});
+$('#voiceBaseUp')?.addEventListener('click',()=>{voice.baseMidi=Math.min(76,voice.baseMidi+1);syncVoiceTarget()});
+$$('[data-voice-pattern]').forEach(b=>b.onclick=()=>{voice.pattern=b.dataset.voicePattern;voice.manualStep=0;$$('[data-voice-pattern]').forEach(x=>x.classList.toggle('cool',x===b));syncVoiceTarget();setStatus('VOICE · '+voice.pattern)});
+syncVoiceTarget();document.documentElement.dataset.fieldLabVoice='ready';
 
 /* ---------- VERSE / TEXT MARKS ---------- */
 const verse={lines:[],focus:0,marks:[],sourceKey:'',returnAddress:''};
@@ -638,12 +696,13 @@ function drawData(){
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
+  analyzeLabVoice(now);
   if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
 function currentProjectionEvidence(){
-  if(mode==='PULSE')return {kind:'PULSE',bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null};
+  if(mode==='PULSE')return {kind:'PULSE',bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};
   if(mode==='VERSE'){
     const line=currentVerseLine();
     return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length};
@@ -709,4 +768,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
