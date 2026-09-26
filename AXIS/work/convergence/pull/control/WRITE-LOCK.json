@@ -1,0 +1,24 @@
+{
+  "schema": "0xxx0/write-lock/v0.1",
+  "description": "Write‑lock manifest to coordinate concurrent session access to shared state files (QUEUE.json, CURRENT.md, HERMES.md, etc.). Prevents collisions by granting exclusive locks per resource.",
+  "last_updated": "2026-09-26T<current_timestamp>",
+  "locks": [
+    {
+      "resource": "QUEUE.json",
+      "owner_session_id": "<placeholder>",
+      "acquired_at": "<placeholder_iso_8601_ts>",
+      "expires_at": "<placeholder_iso_8601_ts>"
+    },
+    {
+      "resource": "CURRENT.md",
+      "owner_session_id": "<placeholder>",
+      "acquired_at": "<placeholder_iso_8601_ts>",
+      "expires_at": "<placeholder_iso_8601_ts>"
+    }
+  ],
+  "policy": {
+    "max_concurrent_locks_per_session": 1,
+    "lock_ttl_seconds": 300,
+    "heartbeat_path": "/hermes/crash-recovery"
+  }
+}
