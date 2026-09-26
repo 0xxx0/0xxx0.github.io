@@ -1,0 +1,44 @@
+{
+  "schema": "field-return/v1",
+  "id": "AWAKE_INTERPHASE_VISOR_2026-09-26",
+  "date": "2026-09-26",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "FIELD held route → AWAKE visor → same-origin INTERPHASE focus → bounded action/trace → Dayline or exact RETURN",
+  "recovered": {
+    "exact": [
+      "YOU'RE A WAKE title/cadence survives in wake_engine_v0/v1 and YAW instruments",
+      "WAKE Switchboard uses GRAIN → CUT → HOLD → TURN → ACT → TRACE → SLEEP",
+      "INTERPHASE v0.2 uses SOURCE → FRAME → FOCUS → OPERATE → WITNESS → RETURN",
+      "Omega Interphase 0.4 explored a one-screen Forward Center Mass + Field interface"
+    ],
+    "reconstructed": [
+      "Current correspondence maps WAKE/CUT/HOLD/TURN/TRACE/AGAIN onto INTERPHASE offices; this is a convergence mapping, not recovered historical identity."
+    ],
+    "visual_reference": "YAW · YOU'RE A WAKE | EIGHT PLATES recovered privately as a design donor; bytes remain outside public repo."
+  },
+  "delta": [
+    "new /awake/ visor frames existing same-origin FIELD routes rather than reimplementing them",
+    "actual Interphase.Host + InterphaseDOM adapter address and focus live native DOM",
+    "one-time onboarding explains authority and WAKE cadence",
+    "FIELD Index AWAKE action preserves current route and current FIELD Interphase projection witness",
+    "AWAKE can emit the existing Dayline handoff with an interphase/v0.2 witness",
+    "native source and exact FIELD return remain visible exits",
+    "FIELD Index becomes 0.8.15 because the root now propagates its held object into AWAKE"
+  ],
+  "boundaries": [
+    "no new object database",
+    "no universal event bus",
+    "no native authority transfer",
+    "no private Library image publication",
+    "no claim that WAKE and INTERPHASE were historically identical"
+  ],
+  "verification": {
+    "static_contract": "PENDING_CI",
+    "mobile_430x900": "PENDING_CI",
+    "same_origin_interphase_host": "PENDING_CI",
+    "field_handoff": "PENDING_CI",
+    "dayline_packet": "PENDING_CI"
+  },
+  "one_next": "Run route/static/browser proof. If green, merge; then revise only from real continuity friction rather than adding more shell chrome.",
+  "stop": "Do not turn AWAKE into a dashboard of all subsystems. One object and its native host remain primary."
+}
