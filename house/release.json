@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "released": "2026-09-26",
   "state": "ACTIVE",
   "changes": [
@@ -48,7 +48,11 @@
     "Added session-only Shopping → HOUSE FIT projection at the canonical /house/ root; /house/spatial/ remains a compatibility redirect and does not regain UI authority.",
     "FIT compares a Shopping candidate's OPERATING W/D/H envelope against explicit user-measured available W/D/H at the selected HOUSE address, with optional 90-degree plan rotation.",
     "FIT PASS/FAIL is dimensional envelope only; doorway path, utilities, ventilation, load, cat clearance and installation remain explicit residue.",
-    "HOUSE does not mutate Shopping lifecycle/candidate state and Shopping fit does not mutate canonical HOUSE geometry, HA/HOUSEBUS state or actuation."
+    "HOUSE does not mutate Shopping lifecycle/candidate state and Shopping fit does not mutate canonical HOUSE geometry, HA/HOUSEBUS state or actuation.",
+    "Closed the Shopping FIT session loop: CHECK ENVELOPE now emits house-shopping-fit-return/v0.1 as OFFER_ONLY / EVIDENCE_ONLY; RETURN SHOPPING ensures a current screen result exists before navigation.",
+    "HOUSE FIT return preserves exact Shopping item/state/source evidence metadata and selected HOUSE address plus candidate/available dimensions.",
+    "FIT source panel renders Shopping-owned semantic evidence pattern/text without reclassifying it; dimensional PASS/FAIL remains separate HOUSE screening truth.",
+    "CLEAR removes both inbound fit handoff and pending fit return; no canonical HOUSE geometry or HA/HOUSEBUS state is mutated."
   ],
   "checks": {
     "boundary": "public projection remains non-authoritative and non-actuating",
@@ -67,8 +71,8 @@
     "authority": "HA/HOUSEBUS private actuation unchanged",
     "projection_hashes": "PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS",
     "dayline_depth": "/house/",
-    "shopping_fit_bridge": "session-only house-shopping-fit/v0.1 at canonical /house/",
-    "shopping_fit_truth_boundary": "dimensional envelope only; missing dimensions => MEASURE/UNKNOWN",
+    "shopping_fit_bridge": "session-only house-shopping-fit/v0.1 inbound + house-shopping-fit-return/v0.1 outbound evidence",
+    "shopping_fit_truth_boundary": "dimensional envelope only; PASS/FAIL/MEASURE/UNKNOWN never proves installation/ownership/adoption",
     "care_bridge": "browser-local house-care-episode/v0.1; explicit session-only Dayline ACTION handoff",
     "care_privacy": "no personal care episodes committed; no HA/HOUSEBUS actuation",
     "care_human_port": "sessionStorage human.port.handoff.v01 → /contact/?mode=PING; draft only, no send authority",
@@ -77,7 +81,9 @@
     "body_bridge_root": "/house/ selected address → localStorage 0xxx0.house.body.context.v01 → /body/",
     "body_bridge_truth_boundary": "selected address != presence; context != causation; no public write or actuation",
     "current_surface_privacy": "current HOUSE working tree contains generalized instance labels; noindex/nofollow on HOUSE HTML surfaces",
-    "git_history_boundary": "historical commits are not rewritten by this pass"
+    "git_history_boundary": "historical commits are not rewritten by this pass",
+    "shopping_fit_authority": "OFFER_ONLY / EVIDENCE_ONLY; Shopping exact item + lifecycle revalidation required",
+    "shopping_source_signal": "projection only; HOUSE normalizes/renders supplied token and never infers Shopping lifecycle"
   },
   "sources": [
     "/showcase-manifest.json",
