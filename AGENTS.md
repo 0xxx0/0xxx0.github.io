@@ -16,6 +16,25 @@ It is a field of addressed objects, unequal projections, reusable mechanisms, ex
 4. Read only the smallest applicable policies from `/control/POLICY_INDEX.json`.
 5. Recover older/local material only when needed to identify the object, lineage, donor or missing function.
 
+**THEN, IF YOU ARE AN AGENT SESSION (Hermes/Kestrel) — this section is for you:**
+
+6. Read `AXIS/MANDATE.md` — what the operator granted, and what the ENDS are.
+7. Read `AXIS/NOW.md` and `AXIS/briefs/README.md` — current state and the open work.
+8. **Check the board before working:** `hermes kanban list`. Claim a task before starting it;
+   put one on before starting something new. **This is how sessions coordinate without the
+   operator relaying messages between them — they cannot see each other.**
+9. Read `~/.hermes/profiles/kestrel/skills/devops/mcvoid-alignment/SKILL.md` before any
+   interaction with him.
+
+**SEARCH, DON'T ASK.** His intention is already recorded — 916 conversations in
+`~/sovereign-node/corpus/corpus.db` (FTS5), 18 packets in `~/handover/packets/`, and the
+substrate. Only ask when the archive genuinely lacks the answer, and say what you searched.
+**He names this as his biggest frustration with this system.**
+
+**BEFORE FINISHING: run `AXIS/DIGEST-PROMPT.md`.** It asks what actually changed in
+numbers and whether any of it was spinning. Answer honestly — a negative result is valid.
+
+
 ## WHO OWNS WHAT
 
 | Surface | Owns |
