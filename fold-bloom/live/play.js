@@ -1,17 +1,20 @@
 import { availableForecasts, forecastMatchesCall, gateCellIndex, typePresentation, N } from './engine.js?v=0.13.1';
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
-  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,
-  circularDistance,relationVerb,relationName,
+  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_CHANGE_TARGET,HEX_CHANGE_LIMIT,
+  circularDistance,relationVerb,relationName,hexChangeOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
 } from './play-core.js?v=0.5';
 import {
   FORM_PUZZLE_VERSION,FORM_SLOTS,FORM_CHANGE_TARGET,FORM_CHANGE_LIMIT,FORM_GLYPHS,
   formAddress,appendFormVerb,writeFormVerb,changedFormSlots,formComplete,formToken,formDelta,formChangeOutcome
 } from './form-puzzle.js?v=0.1';
+import {
+  HEX_PROJECTION_VERSION,EXACT_FORMS_PER_HEXAGRAM,hexProjection,hexChangeProjection,relationPolarity
+} from './hex-projection.js?v=0.1';
 import {PLAY_LOOP_CONTRACT_VERSION,loopContract,loopContracts,loopWitness,partitionTurnDelta} from './play-loop.js?v=0.2';
 
-const VERSION='FOLD_BLOOM_PLAY_0.6.0';
+const VERSION='FOLD_BLOOM_PLAY_0.6.1';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['FORM','PUZZLE'],['MORPH','PUZZLE'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -91,7 +94,7 @@ function injectStyle(){
   html[data-fb-play-mode="ZEN"] .fbGameBar{border-color:rgba(255,255,255,.08);background:rgba(5,8,12,.60)}
 
   .fbDuetPanel,.fbFormPanel{position:absolute;left:50%;bottom:calc(max(10px,env(safe-area-inset-bottom)) + 72px);transform:translateX(-50%);z-index:7;width:min(620px,calc(100vw - 20px));border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.93);padding:9px;display:none;gap:8px;align-items:center;text-align:center;pointer-events:none}.fbDuetPanel{grid-template-columns:1fr auto 1fr}.fbDuetPanel.on{display:grid}.fbFormPanel.on{display:block}
-  .fbFormTitle{font:800 8px/1.4 ui-monospace,monospace;letter-spacing:.09em}.fbFormTitle b{font-size:12px}.fbFormLines{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0}.fbFormLine{border:1px solid rgba(255,255,255,.11);padding:6px 2px;font:900 11px/1 ui-monospace,monospace}.fbFormLine small{display:block;margin-top:4px;font-size:6px;color:rgba(255,255,255,.45)}.fbFormLine[data-verb="BLOOM"]{border-color:rgba(114,228,182,.50)}.fbFormLine[data-verb="FOLD"]{border-color:rgba(255,179,109,.52)}.fbFormLine[data-verb="SPLIT"]{border-color:rgba(200,179,255,.50)}.fbFormLine[data-verb="RETURN"]{border-color:rgba(244,247,245,.58)}.fbFormLine.address{box-shadow:inset 0 -3px rgba(215,180,109,.92)}.fbFormNow .fbFormLine.hit{background:#fff;color:#05070b}.fbFormLegend{font:7px/1.45 ui-monospace,monospace;letter-spacing:.06em;color:rgba(255,255,255,.48)}
+  .fbFormTitle{font:800 8px/1.4 ui-monospace,monospace;letter-spacing:.09em}.fbFormTitle b{font-size:12px}.fbFormLines{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0}.fbFormLine{border:1px solid rgba(255,255,255,.11);padding:6px 2px;font:900 11px/1 ui-monospace,monospace}.fbFormLine small{display:block;margin-top:4px;font-size:6px;color:rgba(255,255,255,.45)}.fbFormLine[data-verb="BLOOM"]{border-color:rgba(114,228,182,.50)}.fbFormLine[data-verb="FOLD"]{border-color:rgba(255,179,109,.52)}.fbFormLine[data-verb="SPLIT"]{border-color:rgba(200,179,255,.50)}.fbFormLine[data-verb="RETURN"]{border-color:rgba(244,247,245,.58)}.fbFormLine.address{box-shadow:inset 0 -3px rgba(215,180,109,.92)}.fbFormNow .fbFormLine.hit{background:#fff;color:#05070b}.fbHexTeach{font:800 7px/1.45 ui-monospace,monospace;letter-spacing:.08em;color:rgba(255,215,109,.82);margin-top:5px}.fbFormLegend{font:7px/1.45 ui-monospace,monospace;letter-spacing:.06em;color:rgba(255,255,255,.48);margin-top:3px}
   .fbDialBox{border:1px solid rgba(255,255,255,.22);padding:8px;font:800 8px/1.3 ui-monospace,monospace;letter-spacing:.09em}.fbDialBox:first-child{border-color:rgba(123,213,255,.55)}.fbDialBox:nth-child(3){border-color:rgba(239,120,73,.55)}.fbDialBox b{display:block;font-size:22px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900;pointer-events:auto}.fbDuetActions{grid-column:1/-1;display:flex;gap:5px;justify-content:center}.fbDuetActions button{pointer-events:auto;min-height:34px;padding:6px 9px;font:900 7px ui-monospace,monospace;letter-spacing:.08em}
   .fbRelation{min-width:150px;font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em}.fbRelation b{display:block;font-size:14px;margin:3px 0}.fbLegend{grid-column:1/-1;font:7px/1.4 ui-monospace,monospace;letter-spacing:.07em;color:rgba(255,255,255,.5)}
   .fbResult,.fbGardenChoice{position:absolute;inset:0;z-index:12;background:rgba(3,5,8,.76);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px;pointer-events:none}.fbResult.on,.fbGardenChoice.on{display:flex}
@@ -145,7 +148,7 @@ function enterRide(){
 function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<details class="fbModeMore"><summary>PLAY MODES · OPTIONAL</summary><div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">FORM · SIX VERBS → MORPH</button><button data-play-mode="PATH">PATH · ★ · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · ◎ × ◎</button><button data-play-mode="GARDEN">ECOLOGY · ◎◎◎ · INHERIT</button><button data-play-mode="ZEN">ZEN · ○ · FREE</button></div><div class="law">Modes are optional projections over the same ride. RIDE stays the default. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 ↗</a></div></details>';
+  box.innerHTML='<details class="fbModeMore"><summary>PLAY MODES · OPTIONAL</summary><div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · CAST SIX LINES → CHANGE</button><button data-play-mode="PATH">PATH · ★ · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · ◎ × ◎</button><button data-play-mode="GARDEN">ECOLOGY · ◎◎◎ · INHERIT</button><button data-play-mode="ZEN">ZEN · ○ · FREE</button></div><div class="law">Modes are optional projections over the same ride. RIDE stays the default. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 ↗</a></div></details>';
   const startRow=card.querySelector('.startRow');if(startRow)startRow.insertAdjacentElement('afterend',box);else card.appendChild(box);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   const fieldBtn=q('#playBtn');
@@ -154,19 +157,19 @@ function injectEntry(){
 function injectHud(){
   if(q('#fbGame'))return;
   root=document.createElement('div');root.id='fbGame';root.className='fbGame';
-  root.innerHTML='<div class="fbGameBar"><div class="fbGameMode" id="fbMode">RUN</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">FORM</button><button data-switch="PATH">PAR</button><button data-switch="DUET">2D</button><button data-switch="GARDEN">ECO</button><button data-switch="ZEN">ZEN</button><button id="fbStillView" aria-pressed="false" title="Stop/start ride motion without changing source or game state">STILL</button></div></div><div class="fbGameFeedback" id="fbGameFeedback" aria-live="polite"></div>';
+  root.innerHTML='<div class="fbGameBar"><div class="fbGameMode" id="fbMode">RUN</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">HEX</button><button data-switch="PATH">PAR</button><button data-switch="DUET">2D</button><button data-switch="GARDEN">ECO</button><button data-switch="ZEN">ZEN</button><button id="fbStillView" aria-pressed="false" title="Stop/start ride motion without changing source or game state">STILL</button></div></div><div class="fbGameFeedback" id="fbGameFeedback" aria-live="polite"></div>';
   document.body.appendChild(root);root.querySelectorAll('[data-switch]').forEach(btn=>btn.addEventListener('click',()=>start(btn.dataset.switch)));q('#fbStillView').onclick=()=>toggleStillView();
   duetPanel=document.createElement('div');duetPanel.id='fbDuetPanel';duetPanel.className='fbDuetPanel';
   duetPanel.innerHTML='<div class="fbDialBox">OUTER / DIAL A · ROAD<b id="fbDialA">0</b></div><div class="fbRelation"><span id="fbRelationName">SAME</span><b id="fbRelationVerb">BLOOM</b><span id="fbDuetState">MAKE BOTH AGREE</span></div><div class="fbDialBox">INNER / DIAL B · RELATION<b id="fbDialB">0</b><div class="fbDialCtl"><button id="fbDialMinus" aria-label="Partner dial left">−</button><button id="fbDialPlus" aria-label="Partner dial right">+</button></div></div><div class="fbDuetActions"><button id="fbLandscape">LANDSCAPE ↔</button><button id="fbFullTwoDial">FULL TWO DIAL ↗</button></div><div class="fbLegend">OUTER A = LIVE ROAD · INNER B = SECOND DIAL · SAME → BLOOM · NEAR → FOLD · FAR → RETURN · OPPOSITE → SPLIT</div>';
   document.body.appendChild(duetPanel);q('#fbDialMinus').onclick=()=>bumpPartner(-1);q('#fbDialPlus').onclick=()=>bumpPartner(1);q('#fbLandscape').onclick=()=>requestLandscape();q('#fbFullTwoDial').onclick=()=>window.open('../two-dial/?mode=DUET','fold-bloom-two-dial');
   formPanel=document.createElement('div');formPanel.id='fbFormPanel';formPanel.className='fbFormPanel';
-  formPanel.innerHTML='<div class="fbFormTitle">FROM <b id="fbFormFromName">—</b></div><div class="fbFormLines fbFormFrom" id="fbFormFrom"></div><div class="fbFormTitle">NOW <b id="fbFormNowName">—</b></div><div class="fbFormLines fbFormNow" id="fbFormNow"></div><div class="fbFormLegend">FORM: each release writes its actual LIVE verb into the next leaf. MORPH: turn the ring to address leaf 1–6; release overwrites that leaf with the actual verb. No binary adapter.</div>';
+  formPanel.innerHTML='<div class="fbFormTitle">FROM HEXAGRAM <b id="fbFormFromName">—</b></div><div class="fbFormLines fbFormFrom" id="fbFormFrom"></div><div class="fbFormTitle">NOW / CHANGE <b id="fbFormNowName">—</b></div><div class="fbFormLines fbFormNow" id="fbFormNow"></div><div class="fbHexTeach" id="fbHexTeach">64 HEXAGRAMS · 8 LOWER × 8 UPPER TRIGRAMS · 64 EXACT VERB-FORMS PER HEXAGRAM</div><div class="fbFormLegend">FOLD//BLOOM projection: SAME / NEAR → YANG · SOLID; FAR / OPPOSITE → YIN · BROKEN. The exact BLOOM / FOLD / RETURN / SPLIT verb remains under every line. This quotient is game-specific; it does not claim proximity/farness are traditional Yijing meanings.</div>';
   document.body.appendChild(formPanel);
   gardenChoice=document.createElement('div');gardenChoice.id='fbGardenChoice';gardenChoice.className='fbGardenChoice';
   gardenChoice.innerHTML='<div class="fbGardenCard"><div class="ey" id="fbGardenEy">GENERATION RETURN</div><h2>WHAT SURVIVES?</h2><p id="fbGardenBody"></p><div class="fbKids"><button data-garden-trait="BODY"><b>BODY</b><span>CHAIN ×2+ · preserve density.</span></button><button data-garden-trait="PATH"><b>PATH</b><span>2 structural ops · preserve topology.</span></button><button data-garden-trait="VOICE"><b>VOICE</b><span>3/4 CALL hits · preserve response.</span></button></div></div>';
   document.body.appendChild(gardenChoice);gardenChoice.querySelectorAll('[data-garden-trait]').forEach(btn=>btn.addEventListener('click',()=>chooseGardenTrait(btn.dataset.gardenTrait)));
   result=document.createElement('div');result.id='fbResult';result.className='fbResult';
-  result.innerHTML='<div class="fbResultCard"><div class="ey" id="fbResultEy">RUN RETURN</div><h2 id="fbResultBig">ROAD HELD</h2><p id="fbResultBody"></p><div class="row"><button class="primary" data-result="AGAIN">AGAIN</button><button data-result="PLAY">RUN</button><button data-result="PUZZLE">FORM</button><button data-result="PATH">PATH</button><button data-result="DUET">DUET</button><button data-result="GARDEN">GARDEN</button><button data-result="ZEN">ZEN</button><button data-result="DONOR" id="fbDonorBtn" hidden>OPEN DONOR</button><button data-result="EXPORT">EXPORT RUN</button></div></div>';
+  result.innerHTML='<div class="fbResultCard"><div class="ey" id="fbResultEy">RUN RETURN</div><h2 id="fbResultBig">ROAD HELD</h2><p id="fbResultBody"></p><div class="row"><button class="primary" data-result="AGAIN">AGAIN</button><button data-result="PLAY">RUN</button><button data-result="PUZZLE">HEX</button><button data-result="PATH">PATH</button><button data-result="DUET">DUET</button><button data-result="GARDEN">GARDEN</button><button data-result="ZEN">ZEN</button><button data-result="DONOR" id="fbDonorBtn" hidden>OPEN DONOR</button><button data-result="EXPORT">EXPORT RUN</button></div></div>';
   document.body.appendChild(result);result.querySelectorAll('[data-result]').forEach(btn=>btn.addEventListener('click',()=>{const action=btn.dataset.result;if(action==='EXPORT'){exportPlayReturn();return;}if(action==='DONOR'){openDonor();return;}start(action==='AGAIN'?mode:action);}));
 }
 function flash(text,kind=''){
@@ -195,17 +198,23 @@ function toggleStillView(){
   emitLoopEvent('VIEW',{still:stillView});
 }
 function bumpPartner(delta){duetB=wrap(duetB+delta,6);if(runtime)update(runtime.state());}
+function hexName(projection){
+  if(!projection?.complete)return 'H[---|---]';
+  const lo=projection.lower,hi=projection.upper;
+  return projection.token+' · '+(lo?lo.glyph+' '+lo.han+' '+lo.image:'—')+' / '+(hi?hi.glyph+' '+hi.han+' '+hi.image:'—');
+}
 function formCell(verb,i,{changed=false,address=false}={}){
-  const v=String(verb||''),glyph=FORM_GLYPHS[v]||'·';
-  return '<div class="fbFormLine '+(changed?'hit ':'')+(address?'address ':'')+'" data-verb="'+v+'"><b>'+glyph+'</b><small>'+(i+1)+' · '+(v||'OPEN')+'</small></div>';
+  const v=String(verb||''),p=relationPolarity(v),glyph=p?.line||'·';
+  return '<div class="fbFormLine '+(changed?'hit ':'')+(address?'address ':'')+'" data-verb="'+v+'" data-polarity="'+(p?.polarity||'OPEN')+'"><b>'+glyph+'</b><small>'+(i+1)+' · '+(p?p.polarity+' · '+v:'OPEN')+'</small></div>';
 }
 function renderFormPanel(){
   if(!formPanel)return;
   const from=formFrom||[],now=formCurrent||[],delta=new Set(formFrom?changedFormSlots(formFrom,formCurrent):[]),address=formPhase==='MORPH'?formAddress(runtime?.state?.()?.rotation):null;
-  q('#fbFormFromName').textContent=formPhase==='FORM'?'BUILDING · '+now.length+'/'+FORM_SLOTS:formToken(from);
-  q('#fbFormNowName').textContent=formToken(now);
+  const fromHex=hexProjection(from),nowHex=hexProjection(now),hexChange=formFrom?hexChangeProjection(formFrom,formCurrent):null;
+  q('#fbFormFromName').textContent=formPhase==='FORM'?'CASTING · '+now.length+'/'+FORM_SLOTS:hexName(fromHex);
+  q('#fbFormNowName').textContent=nowHex.complete?hexName(nowHex):'H[---|---] · '+now.length+'/'+FORM_SLOTS;
   q('#fbFormFrom').innerHTML=Array.from({length:FORM_SLOTS},(_,i)=>formCell(from[i],i,{changed:false,address:false})).join('');
-  q('#fbFormNow').innerHTML=Array.from({length:FORM_SLOTS},(_,i)=>formCell(now[i],i,{changed:delta.has(i+1),address:i===address})).join('');
+  q('#fbFormNow').innerHTML=Array.from({length:FORM_SLOTS},(_,i)=>formCell(now[i],i,{changed:!!hexChange?.moving?.includes(i+1)||delta.has(i+1),address:i===address})).join('');
 }
 function resetModeState(){
   active=true;ended=false;releases=0;hits=0;flowGain=0;stars=0;turns=0;duetB=0;duetHits=0;formCurrent=[];formPhase='FORM';formFrom=null;formChangeMoves=0;
@@ -213,8 +222,8 @@ function resetModeState(){
 }
 function start(nextMode='PLAY'){
   mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');
-  document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'FORM':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';
-  document.documentElement.dataset.fbFormVisual=mode==='PUZZLE'?'two-rings':'off';document.documentElement.dataset.fbHexVisual='retired';document.documentElement.dataset.fbLoopArchetype=loopContract(mode).archetype;updateStillControl();resetModeState();
+  document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';
+  document.documentElement.dataset.fbFormVisual=mode==='PUZZLE'?'exact-verbs-underlay':'off';document.documentElement.dataset.fbHexVisual=mode==='PUZZLE'?'six-lines':'off';document.documentElement.dataset.fbLoopArchetype=loopContract(mode).archetype;updateStillControl();resetModeState();
   const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;lastSeq=Number(state.seq)||0;par=parFor(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');formPanel.classList.toggle('on',mode==='PUZZLE');renderFormPanel();update(state);emitLoopEvent('START',{mode});
 }
 function finish(state){
@@ -222,10 +231,11 @@ function finish(state){
   const best=Math.max(1,Number(state.bestChain)||1),donor=q('#fbDonorBtn');donor.hidden=!['DUET','GARDEN'].includes(mode);donor.textContent=mode==='DUET'?'FULL TWO DIAL':'FULL ECOLOGY';
   if(mode==='PLAY'){const out=runOutcome(hits,releases);q('#fbResultEy').textContent=(out.clear?'RUN CLEAR':'RUN RETURN')+' · WIN '+RUN_WIN_HITS+'/'+RUN_LENGTH;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=hits+' / '+RUN_LENGTH+' CALLs hit · FLOW +'+flowGain+' · best chain '+best+'×. Every miss still changed topology; the road is the receipt.';}
   else if(mode==='PUZZLE'){
-    const change=formFrom?formChangeOutcome(formFrom,formCurrent,formChangeMoves):null,delta=formFrom?formDelta(formFrom,formCurrent):null,clear=!!change?.clear;
-    q('#fbResultEy').textContent=clear?'FORM CHANGE CLEAR':'FORM RETURN';
-    q('#fbResultBig').textContent=clear?'FORM MORPHED':change?.label||'FORM BUILT';
-    q('#fbResultBody').textContent=delta?(delta.token+' · '+formChangeMoves+' MORPH releases. Each symbol is the exact LIVE verb that was written at that addressed leaf.'):(formToken(formCurrent)+' · six actual LIVE consequences formed the baseline.');
+    const fromHex=formFrom?hexProjection(formFrom):null,nowHex=hexProjection(formCurrent),hexDelta=formFrom?hexChangeProjection(formFrom,formCurrent):null;
+    const change=fromHex?.bits&&nowHex?.bits?hexChangeOutcome(fromHex.bits,nowHex.bits,formChangeMoves):null,delta=formFrom?formDelta(formFrom,formCurrent):null,clear=!!change?.clear;
+    q('#fbResultEy').textContent=clear?'HEXAGRAM CHANGE CLEAR':'HEXAGRAM RETURN';
+    q('#fbResultBig').textContent=clear?'HEXAGRAM CHANGED':change?.label||'HEXAGRAM CAST';
+    q('#fbResultBody').textContent=hexDelta?(hexDelta.token+' · '+formChangeMoves+' CHANGE releases · exact receipt '+delta.token+'. Six-line projection is reversible to the exact verbs only because both layers are retained.'):(hexName(nowHex)+' · exact '+formToken(formCurrent)+' · six LIVE consequences cast the hexagram.');
   }
   else if(mode==='PATH'){const out=puzzleOutcome(stars);q('#fbResultEy').textContent=(out.clear?'PATH CLEAR':'PATH RETURN')+' · CLEAR '+PUZZLE_WIN_STARS+'/15';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=stars+' / 15 stars · '+hits+' / '+PUZZLE_ROUNDS+' CALLs hit · FLOW +'+flowGain+'. Three stars means the shortest known turn path.';}
   else if(mode==='DUET'){const out=duetOutcome(duetHits,releases);q('#fbResultEy').textContent=(out.clear?'DUET CLEAR':'DUET RETURN')+' · WIN '+DUET_WIN_HITS+'/'+DUET_ROUNDS;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=duetHits+' / '+DUET_ROUNDS+' synchronized CALLs. The road chose a consequence; the second dial had to name the same relation before release.';}
@@ -252,17 +262,19 @@ function onRelease(event,state){
   if(mode==='PUZZLE'){
     if(formPhase==='FORM'){
       formCurrent=appendFormVerb(formCurrent,event.verb);
-      flash('LEAF '+formCurrent.length+' · '+event.verb+' · FORM '+formCurrent.length+'/'+FORM_SLOTS,'hit');
+      const p=relationPolarity(event.verb);
+      flash('LINE '+formCurrent.length+' · '+(p?.polarity||'OPEN')+' '+(p?.line||'·')+' · exact '+event.verb+' · '+formCurrent.length+'/'+FORM_SLOTS,'hit');
       if(formComplete(formCurrent)){
         formFrom=[...formCurrent];formPhase='MORPH';formChangeMoves=0;
-        flash('FORM HELD · TURN TO ADDRESS A LEAF · MORPH '+FORM_CHANGE_TARGET,'hit');
+        flash('HEXAGRAM CAST · '+hexName(hexProjection(formCurrent))+' · TURN TO ADDRESS A CHANGING LINE','hit');
       }
     }else{
       formChangeMoves+=1;
-      const address=formAddress(state.rotation),before=formCurrent[address];
+      const address=formAddress(state.rotation),before=formCurrent[address],beforePolarity=relationPolarity(before);
       formCurrent=writeFormVerb(formCurrent,address,event.verb);
-      const changed=before!==formCurrent[address],out=formChangeOutcome(formFrom||[],formCurrent,formChangeMoves);
-      flash('LEAF '+(address+1)+' · '+before+' → '+formCurrent[address]+' · '+out.changed.length+'/'+FORM_CHANGE_TARGET+(changed?' CHANGED':' HELD'),changed?'hit':'miss');
+      const after=formCurrent[address],afterPolarity=relationPolarity(after),fromHex=hexProjection(formFrom||[]),nowHex=hexProjection(formCurrent);
+      const exactChanged=before!==after,lineChanged=beforePolarity?.bit!==afterPolarity?.bit,out=fromHex.bits&&nowHex.bits?hexChangeOutcome(fromHex.bits,nowHex.bits,formChangeMoves):{complete:false,changed:[]};
+      flash('LINE '+(address+1)+' · '+before+' → '+after+' · '+(lineChanged?'MOVING '+(beforePolarity?.polarity||'—')+'→'+(afterPolarity?.polarity||'—'):exactChanged?'EXACT VERB CHANGED · HEX LINE HELD':'HELD')+' · '+out.changed.length+'/'+HEX_CHANGE_TARGET,lineChanged?'hit':exactChanged?'':'miss');
       shouldFinishPuzzle=out.complete;
     }
     renderFormPanel();
@@ -295,17 +307,18 @@ function updateDuet(state,forecast,hitReady){
 function updateForm(state,forecast){
   renderFormPanel();
   if(formPhase==='FORM'){
-    const index=formCurrent.length;
-    q('#fbObjective').textContent='FORM · LEAF '+Math.min(index+1,FORM_SLOTS)+' / '+FORM_SLOTS;
-    q('#fbCoach').textContent=forecast?'RELEASE '+forecast.verb+' · WRITE IT DIRECTLY':'TURN · FIND ANY LAWFUL RELEASE';
-    q('#fbProgress').textContent=index+'/'+FORM_SLOTS+' · '+formToken(formCurrent);
+    const index=formCurrent.length,p=forecast?relationPolarity(forecast.verb):null;
+    q('#fbObjective').textContent='CAST HEXAGRAM · LINE '+Math.min(index+1,FORM_SLOTS)+' / '+FORM_SLOTS;
+    q('#fbCoach').textContent=forecast?'RELEASE '+forecast.verb+' → '+(p?.polarity||'—')+' '+(p?.line||''):'TURN · FIND ANY LAWFUL RELEASE';
+    q('#fbProgress').textContent=index+'/'+FORM_SLOTS+' · exact '+formToken(formCurrent);
   }else{
-    const address=formAddress(state.rotation),before=formCurrent[address],next=forecast?.verb||null,delta=changedFormSlots(formFrom||[],formCurrent),willChange=!!next&&next!==before;
-    q('#fbObjective').textContent='MORPH · LEAF '+(address+1)+' · '+before+(next?' → '+next:'');
-    if(!forecast)q('#fbCoach').textContent='TURN · ADDRESS A LEAF + WAKE A CONSEQUENCE';
-    else if(willChange)q('#fbCoach').textContent='CHANGE READY · RELEASE '+next;
-    else q('#fbCoach').textContent='THIS WOULD HOLD '+before+' · KEEP TURNING OR RELEASE';
-    q('#fbProgress').textContent='Δ '+delta.length+'/'+FORM_CHANGE_TARGET+' · MOVE '+formChangeMoves+'/'+FORM_CHANGE_LIMIT;
+    const address=formAddress(state.rotation),before=formCurrent[address],next=forecast?.verb||null,beforeP=relationPolarity(before),nextP=relationPolarity(next),exactDelta=changedFormSlots(formFrom||[],formCurrent),fromHex=hexProjection(formFrom||[]),nowHex=hexProjection(formCurrent),hexOut=fromHex.bits&&nowHex.bits?hexChangeOutcome(fromHex.bits,nowHex.bits,formChangeMoves):{changed:[]};
+    q('#fbObjective').textContent='CHANGE · LINE '+(address+1)+' · '+(beforeP?.polarity||'—')+(next?' → '+(nextP?.polarity||'—'):'');
+    if(!forecast)q('#fbCoach').textContent='TURN · ADDRESS A LINE + WAKE A CONSEQUENCE';
+    else if(beforeP?.bit!==nextP?.bit)q('#fbCoach').textContent='MOVING LINE READY · '+before+' → '+next;
+    else if(before!==next)q('#fbCoach').textContent='EXACT VERB CHANGES · HEX LINE HOLDS · '+before+' → '+next;
+    else q('#fbCoach').textContent='THIS HOLDS '+before+' · KEEP TURNING OR RELEASE';
+    q('#fbProgress').textContent='MOVING '+hexOut.changed.length+'/'+HEX_CHANGE_TARGET+' · exact Δ '+exactDelta.length+' · MOVE '+formChangeMoves+'/'+HEX_CHANGE_LIMIT;
   }
 }
 function updateGarden(state,forecast,hitReady){
@@ -316,14 +329,14 @@ function projectionView(state,forecast){
   const rel=relationVerb(wrap(state.rotation,6),duetB,6),relName=relationName(wrap(state.rotation,6),duetB,6);
   return {mode,active,releases,hits,stars,turns,par,forecast:forecast?{verb:forecast.verb,chain:forecast.chain}:null,
     view:{still:stillView},
-    form:{phase:formPhase,from:formFrom||[],current:[...formCurrent],address:formAddress(state.rotation),writeIndex:formPhase==='FORM'?Math.min(formCurrent.length,FORM_SLOTS-1):formAddress(state.rotation),changed:formFrom?changedFormSlots(formFrom,formCurrent):[],moves:formChangeMoves,targetChanges:FORM_CHANGE_TARGET,moveLimit:FORM_CHANGE_LIMIT,token:formToken(formCurrent)},
+    form:{phase:formPhase,from:formFrom||[],current:[...formCurrent],address:formAddress(state.rotation),writeIndex:formPhase==='FORM'?Math.min(formCurrent.length,FORM_SLOTS-1):formAddress(state.rotation),changed:formFrom?changedFormSlots(formFrom,formCurrent):[],moves:formChangeMoves,targetChanges:FORM_CHANGE_TARGET,moveLimit:FORM_CHANGE_LIMIT,token:formToken(formCurrent),hex:hexProjection(formCurrent),hexChange:formFrom?hexChangeProjection(formFrom,formCurrent):null},
     duet:{a:wrap(state.rotation,6),b:duetB,relation:relName,verb:rel,hits:duetHits},
     garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,events:gardenEvents.length},
     path:{round:releases+1,stars,par,turns}};
 }
 function update(state){
   if(!active||!root)return;updateStillControl();const forecast=runtime.forecast?.(),call=state.call,aligned=!!forecast,hitReady=aligned&&forecastMatchesCall(call,forecast);runtime?.gameProjection?.set?.(projectionView(state,forecast));
-  q('#fbMode').textContent=mode==='PLAY'?'RUN':mode==='PUZZLE'?'FORM':mode==='PATH'?'PAR':mode;root.querySelectorAll('[data-switch]').forEach(btn=>btn.classList.toggle('on',btn.dataset.switch===mode));duetPanel.classList.toggle('on',mode==='DUET');formPanel.classList.toggle('on',mode==='PUZZLE');
+  q('#fbMode').textContent=mode==='PLAY'?'RUN':mode==='PUZZLE'?'HEX':mode==='PATH'?'PAR':mode;root.querySelectorAll('[data-switch]').forEach(btn=>btn.classList.toggle('on',btn.dataset.switch===mode));duetPanel.classList.toggle('on',mode==='DUET');formPanel.classList.toggle('on',mode==='PUZZLE');
   schedulePrimaryControlCheck();
   if(mode==='ZEN'){q('#fbObjective').textContent='FREE RIDE';q('#fbCoach').textContent=aligned?'RELEASE '+forecast.verb+' · OR KEEP TURNING':'TURN · FEEL THE FIELD · RELEASE WHEN IT WAKES';q('#fbProgress').textContent='OPEN';return;}
   if(mode==='PUZZLE'){updateForm(state,forecast);return;}if(mode==='DUET'){updateDuet(state,forecast,hitReady);return;}if(mode==='GARDEN'){updateGarden(state,forecast,hitReady);return;}
@@ -343,13 +356,14 @@ function poll(){
 }
 function playState(){
   const formChange=formFrom?formChangeOutcome(formFrom,formCurrent,formChangeMoves):null,formDeltaState=formFrom?formDelta(formFrom,formCurrent):null;
-  const out={version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,form:{version:FORM_PUZZLE_VERSION,phase:formPhase,from:formFrom?[...formFrom]:null,current:[...formCurrent],token:formToken(formCurrent),moves:formChangeMoves,change:formChange,delta:formDeltaState},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents],choice:!!gardenChoice?.classList.contains('on')},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
+  const out={version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,form:{version:FORM_PUZZLE_VERSION,phase:formPhase,from:formFrom?[...formFrom]:null,current:[...formCurrent],token:formToken(formCurrent),moves:formChangeMoves,change:formChange,delta:formDeltaState,hex:hexProjection(formCurrent),hexChange:formFrom?hexChangeProjection(formFrom,formCurrent):null},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents],choice:!!gardenChoice?.classList.contains('on')},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
   out.loop=loopWitness(mode,out);
   return out;
 }
 function exportPlayReturn(){
-  const formLanguage=mode==='PUZZLE'?{version:FORM_PUZZLE_VERSION,phase:formPhase,from:formFrom?[...formFrom]:null,current:[...formCurrent],token:formToken(formCurrent),delta:formFrom?formDelta(formFrom,formCurrent):null,changeMoves:formChangeMoves}:null;
-  emitLoopEvent('RETURN',{format:'JSON'});const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),contract:loopContract(mode),play:playState(),formLanguage,stateLanguage:null,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md',formPuzzle:'/fold-bloom/live/form-puzzle.js'}};
+  const formLanguage=mode==='PUZZLE'?{version:FORM_PUZZLE_VERSION,authority:'EXACT_VERB_SUBSTRATE',phase:formPhase,from:formFrom?[...formFrom]:null,current:[...formCurrent],token:formToken(formCurrent),delta:formFrom?formDelta(formFrom,formCurrent):null,changeMoves:formChangeMoves}:null;
+  const stateLanguage=mode==='PUZZLE'?{version:HEX_PROJECTION_VERSION,authority:'PROJECTION_ONLY',law:'SAME/NEAR → solid YANG; FAR/OPPOSITE → broken YIN. This is a FOLD//BLOOM relation quotient, not a claim about traditional Yijing meanings.',exactFormsPerHexagram:EXACT_FORMS_PER_HEXAGRAM,from:formFrom?hexProjection(formFrom):null,current:hexProjection(formCurrent),change:formFrom?hexChangeProjection(formFrom,formCurrent):null}:null;
+  emitLoopEvent('RETURN',{format:'JSON'});const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),contract:loopContract(mode),play:playState(),formLanguage,stateLanguage,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md',formPuzzle:'/fold-bloom/live/form-puzzle.js',hexProjection:'/fold-bloom/live/hex-projection.js'}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-play-'+mode.toLowerCase()+'-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function openDonor(){if(mode==='DUET')window.open('../two-dial/','fold-bloom-two-dial');else if(mode==='GARDEN')window.open('../ecology/','fold-bloom-ecology');}
