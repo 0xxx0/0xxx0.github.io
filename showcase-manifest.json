@@ -2409,21 +2409,22 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.3.2",
+      "title": "FOLD//BLOOM · FIELD LAB 0.3.4",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.3.2",
+      "version": "0.3.4",
       "tier": "FIELD",
-      "role": "Spatial seven-projection convergence lab. VERSE carries exact text/focus/human marks while delegating poem authoring to Poem Map; READ embeds canonical READFIELD/APERTURE; LOCI preserves addressed courses; PULSE coordinates timing; RIDE delegates to LIVE; INK and DATA remain unequal studies. VERSE/READ/LOCI marks are local source evidence, not inferred semantics. 0.3.2 restores the exact same-origin Poem Map caller after inbound VERSE projection; RETURN is navigation-only.",
+      "role": "Spatial seven-projection convergence lab over canonical unequal engines. PULSE is now a three-ring LOCK→CROSS→RETURN psychophysics trainer over the existing synthetic FIELD PULSE clock; the shared VOICE 0.2 pitch/spectrum trainer lives inside PULSE as optional detail rather than an eighth Lab mode. VERSE/READ/LOCI preserve exact text/focus and marks; RIDE delegates to LIVE; INK and DATA remain unequal studies.",
       "index": {
-        "updated_at": "2026-09-25T15:20:00+08:00",
+        "updated_at": "2026-09-26T09:58:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "TRAIN"
         ]
       },
       "evidence": {
@@ -2455,7 +2456,10 @@
         "VERSE / READ / LOCI exact-text focus carry",
         "source-scoped human text marks",
         "VERSE → Poem Map / REPLAY bounded handoffs",
-        "VERSE recipient → exact Poem Map caller return without back-propagating marks or projection state"
+        "VERSE recipient → exact Poem Map caller return without back-propagating marks or projection state",
+        "PULSE 0.3.4: quarter-note ground + two polyrhythm rings; LOCK → CROSS → RETURN with signed asynchrony, bias/jitter/phase-correction and return delta",
+        "VOICE 0.2 spectrum trainer is folded inside the same PULSE surface; no eighth Lab mode",
+        "PULSE may pace local voice patterns but cannot author voice exercises or export raw microphone audio"
       ],
       "latest_return": "/returns/VERSE_ROUNDTRIP_RETURN_2026-09-25.json"
     },
@@ -2499,22 +2503,21 @@
     },
     {
       "href": "/fold-bloom/voice/",
-      "title": "FOLD//BLOOM · VOICE 0.1",
+      "title": "FOLD//BLOOM · VOICE 0.2",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / LISTEN",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "tier": "FIELD",
-      "role": "Phone-first local microphone pitch/stability trainer. Single-note, 1-3-5-3, five-note and hum practice may optionally follow LISTEN/AUDIO or FIELD LAB/SYNTH timing through FIELD PULSE; pitch evidence never becomes singing-quality judgment or source authority.",
+      "role": "Local-only pitch/stability/spectrum practice projection. Standalone VOICE exposes spectrogram, centroid and spectral peak; the same trainer is folded into FIELD LAB PULSE. FIELD PULSE may lend tempo/beat and advance a local pattern, but never authors the exercise; no raw microphone audio is recorded or exported.",
       "index": {
-        "updated_at": "2026-09-24T18:18:00+08:00",
+        "updated_at": "2026-09-26T09:58:00+08:00",
         "work_modes": [
           "OPERATE",
           "TRAIN",
-          "VERIFY",
-          "SHARE"
+          "VERIFY"
         ]
       },
       "evidence": {
@@ -2560,15 +2563,19 @@
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/fold-bloom/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Can the existing FIELD PULSE timing substrate support a simple phone singing-practice instrument that is understandable without architectural explanation while keeping microphone evidence local and non-evaluative?",
-        "baseline": "FIELD PULSE already coordinates LISTEN/AUDIO and FIELD LAB/SYNTH timing across READFIELD, LIVE and Two Dial, but there is no ordinary voice-practice consumer; a singer must currently use unrelated tuner/metronome tools.",
-        "mutation": "Add VOICE 0.1 as a sibling projection: local fundamental-pitch/stability estimation, reference tone, four bounded practice patterns and optional borrowed beat timing. Export aggregate practice evidence only; record/upload no microphone audio.",
-        "evidence_gate": "Deterministic pitch-core tests + phone-sized browser boot. Human gate: one 60-second held-note pass and one PULSE-linked 1-3-5-3 pass must be legible to a non-technical user without explaining FIELD PULSE.",
-        "next_if_pass": "Retain VOICE as a small practice projection and test one bounded READFIELD + VOICE shadowing/phrase exercise only if a real use case asks for text plus voice.",
-        "next_if_fail": "Keep the reusable local pitch estimator if useful; remove the VOICE public projection or PULSE link rather than adding scoring, cloud speech models or another timing architecture."
-      }
+        "question": "Can local voice practice gain useful spectral feedback and inhabit PULSE timing without adding another Lab mode or moving voice authorship into the timing substrate?",
+        "baseline": "VOICE 0.1 had local pitch/stability plus optional FIELD PULSE timing; spectral shape and embedded PULSE practice were missing.",
+        "mutation": "VOICE 0.2 adds bounded FFT witnesses and reuses the same trainer inside FIELD LAB PULSE; standalone VOICE remains depth, not another engine.",
+        "evidence_gate": "Spectrum tests + phone-sized browser smoke + PULSE embed checks. Human feel may refine ergonomics but is not correctness authority.",
+        "next_if_pass": "Keep one shared practice core; deepen exercises only when they reuse the same detector/timing/evidence boundary.",
+        "next_if_fail": "Remove burdensome embedded/spectral presentation; do not create another voice mode or cloud scoring path."
+      },
+      "transfer": [
+        "shared VOICE detector + FFT spectrum witness reused by FIELD LAB PULSE",
+        "VOICE→PULSE fold reduces surfaces: one practice core, standalone depth + embedded PULSE detail"
+      ]
     },
     {
       "href": "/fold-bloom/ink/",
@@ -2679,7 +2686,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.5.5 is the shipped finite self-teaching shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.5.7 is the shipped finite self-teaching shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2700,7 +2707,9 @@
         "HEX reuses existing trigram glyph mapping; TWO DIAL exposes outer A / inner B and direct WIDE/full donor affordances",
         "FAN/8 v0.2 physical projection: DIAL slot 0–5 and HEX line 1–6 share stable physical addresses without sharing semantic authority",
         "physical embedding never changes PLAY source/game truth; HOLD FAST / LET FLY only projects predict/test → release/witness",
-        "PLAY 0.5.5 calm-RIDE recovery: RIDE is default; HEX/STILL and other modes are optional projections; NORMAL is neutral 1×"
+        "PLAY 0.5.5 calm-RIDE recovery: RIDE is default; HEX/STILL and other modes are optional projections; NORMAL is neutral 1×",
+        "PLAY 0.5.7 derived loop witness: REPEAT / FORM_CHANGE / OPTIMIZE / COORDINATE / SELECT_INHERIT / OPEN_PRACTICE over existing LIVE authority",
+        "FoldBloomPlay.contract(s) + subscribe(listener) expose bounded lifecycle state without becoming a universal bus or game engine"
       ],
       "contract": {
         "accepts": {
@@ -2846,13 +2855,12 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-25T21:18:00+08:00",
+        "updated_at": "2026-09-26T09:58:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
-          "PLAY",
-          "MAKE"
+          "PLAY"
         ]
       },
       "tier": "FIELD",
