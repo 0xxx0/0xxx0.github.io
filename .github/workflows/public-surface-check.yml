@@ -91,6 +91,8 @@ jobs:
           node --check spikes/fold-bloom-message-replay-001/score.js
           node --check spikes/fold-bloom-message-replay-001/app.js
           node spikes/fold-bloom-message-replay-001/selftest.mjs
+      - name: Test FOLD BLOOM REPLAY addressed STEP
+        run: node tools/fold-bloom-replay-step-smoke.mjs
       - name: Validate INTERPHASE extension bundle syntax
         run: |
           node --check interphase-extension.js
