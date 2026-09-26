@@ -596,7 +596,8 @@
       "moving_lines": true,
       "exact_verbs_retained": true,
       "cultural_boundary": "Traditional trigram glyph/name/image labels are retained; FOLD//BLOOM's SAME/NEAR vs FAR/OPPOSITE polarity mapping is explicitly game-specific."
-    }
+    },
+    "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
   "latest_merge": "da7dfe9efa534d07f3bbe357cf23463c66616d89"
