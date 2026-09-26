@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>OPS // comms on pages</title>
+<style>
+:root{--bg:#07090a;--p:#0b0f11;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--ok:#7dd3a0;--bad:#ff6b6b}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+body{padding:16px 12px 20px;max-width:820px;margin:auto}
+a{color:var(--cool);text-decoration:none}
+header{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.ey{font-size:7px;letter-spacing:.17em;color:var(--mut);text-transform:uppercase}
+h1{font:900 20px/1 system-ui,sans-serif;letter-spacing:-.04em;margin:2px 0 0}
+.sub{color:var(--mut);font-size:8px;text-align:right}
+.cols{display:grid;grid-template-columns:196px 1fr;gap:10px}
+.pane{border:1px solid var(--line);background:var(--p);padding:10px}
+.cap{font-size:7px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
+svg rect.ok{fill:var(--ok)} svg rect.bad{fill:var(--bad)} svg rect.unk{fill:var(--mut);opacity:.3}
+.hexname{font-size:10px;margin-top:8px;color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.chip{font-size:7px;border:1px solid var(--line);padding:1px 5px;color:var(--hot);letter-spacing:.03em}
+.legend{font-size:6.5px;letter-spacing:.05em;color:var(--mut);margin-top:8px;opacity:.85}
+.row{display:grid;grid-template-columns:58px 1fr;gap:10px;padding:8px 0;border-top:1px solid #161d21;align-items:baseline}
+.cap + .row{border-top:0;padding-top:2px}
+.k{color:var(--mut);font-size:9px;letter-spacing:.08em}
+.v{font-size:12px}
+.v.ok{color:var(--green)} .v.att{color:var(--hot)} .v.mut{color:var(--mut)}
+.pulse{background:var(--hot);border-radius:50%;width:6px;height:6px;display:inline-block;margin-right:3px}
+.pulse.off{background:var(--mut);opacity:.4}
+.loops{margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
+.loops .cap{margin-bottom:2px}
+.loop{display:grid;grid-template-columns:52px 1fr auto;gap:10px;padding:6px 0;border-top:1px solid #161d21;align-items:baseline}
+.loops .cap + .loop{border-top:0}
+.nm{color:var(--cool);font-size:10px}
+.st{font-size:10px} .st.att{color:var(--hot)} .st.mut{color:var(--mut)}
+.verb{color:var(--mut);font-size:9px}
+.age{color:var(--mut);font-size:8px;text-align:right}
+footer{margin-top:14px;border-top:1px dashed var(--line);padding-top:8px;font-size:7px;color:var(--mut);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){.cols{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header>
+  <div>
+    <div class="ey">VOID ANCHOR // MACHINE ROOM</div>
+    <h1>COMMS</h1>
+  </div>
+  <div class="sub">2026-09-26 16:07 +0800 · layer 2 · durable record<br>survives the mac sleeping</div>
+</header>
+
+<div class="cols">
+  <section class="pane">
+    <div class="cap">system glyph</div>
+    <svg viewBox="0 0 132 72" width="132" height="72" role="img" aria-label="system glyph"><rect x="0" y="65" width="132" height="7" rx="3.5" class="ok"/><rect x="0" y="52" width="132" height="7" rx="3.5" class="ok"/><rect x="0" y="39" width="132" height="7" rx="3.5" class="ok"/><rect x="0" y="26" width="53" height="7" rx="3.5" class="bad"/><rect x="79" y="26" width="53" height="7" rx="3.5" class="bad"/><rect x="0" y="13" width="132" height="7" rx="3.5" class="ok"/><rect x="0" y="0" width="53" height="7" rx="3.5" class="bad"/><rect x="79" y="0" width="53" height="7" rx="3.5" class="bad"/></svg>
+    <div class="hexname">= hex 010111</div>
+    <div class="chips"><span class="chip">crons · 1 failing</span><span class="chip">alerts · on</span></div>
+    <div class="legend">bottom → top: fleet · credits · open · crons · drift · alerts<br>solid fine · broken attention · same object as the group avatar</div>
+  </section>
+
+  <section class="pane">
+    <div class="cap">the room</div>
+    <div class="row"><span class="k">fleet</span><span class="v ok"><span class="pulse" title="kage · connected · 3m"></span><span class="pulse" title="kestrel · connected · 4h"></span><span class="pulse" title="lam4000 · connected · 4h"></span><span class="pulse" title="mahshroom · connected · 4h"></span><span class="pulse" title="thisjustthing · connected · 4h"></span><span>all clear</span></span></div>
+    <div class="row"><span class="k">open</span><span class="v ok">nothing</span></div>
+    <div class="row"><span class="k">digest</span><span class="v mut">msg ok 7h · inbox ok 61m</span></div>
+    <div class="row"><span class="k">last</span><span class="v">model-benchmark-2026-09-25</span></div>
+    <div class="loops">
+      <div class="cap">loops</div>
+      <div class="loop"><span class="nm">fleet</span><span class="st att">1 need you</span><span class="verb">keep the fleet standing</span><span class="age">4m</span></div><div class="loop"><span class="nm">spend</span><span class="st mut">quiet</span><span class="verb">watch the money</span><span class="age">4m</span></div><div class="loop"><span class="nm">jobs</span><span class="st att">5 in trouble</span><span class="verb">keep the machinery honest</span><span class="age">4m</span></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span>COMMS ON PAGES · regenerated from live ops-hub state · no message content, no ids, no money</span>
+  <span><a href="/nexus/">nexus board</a> · <a href="/port/comms/">comms spine</a> · <a href="/">field index</a></span>
+</footer>
+</body>
+</html>

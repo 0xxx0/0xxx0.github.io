@@ -8070,6 +8070,32 @@
         "support surface only; no geometry or FIELD state authority"
       ],
       "tier": "FIELD"
+    },
+    {
+      "href": "/comms/",
+      "title": "OPS // COMMS ON PAGES",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "family": "COMMS",
+      "showcase_card": false,
+      "role": "Comms-on-pages: the machine room's live state as a durable public record (resilience layer 2, readable without Tailscale). The six-line system glyph is imported from glyph.py — the same object as the ANCHOR group avatar — beside fleet, open items, digest recency, last receipt and the three loops. Derived aggregate only: no message text, ids, money or personal content. A surface, not an authority.",
+      "index": {
+        "updated_at": "2026-09-26T15:52:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "regenerated from live ops-hub state by scripts/comms_page.py (ops-hub side); sanitised aggregate only",
+          "static pass: one screen no scroll, no inline JS, internal links resolve, mirrors nexus board conventions"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
