@@ -9,4 +9,8 @@ need(shop.includes('evidence_signal:e.token')&&shop.includes('proof_boundary:e.b
 need(dayHtml.includes('/lib/field-signal.css')&&dayHtml.includes('class="frame fieldSignalBar"'),'dayline signal host');
 need(dayJs.includes('function sourceEvidence(f)')&&dayJs.includes("src?.evidence_signal||'CLEAR'")&&dayJs.includes("FieldSignal?.apply"),'dayline source-owned projection');
 need(!dayJs.includes('FieldSignal?.combine'),'dayline must not infer/combine source domain signal');
+const house=fs.readFileSync('house/index.html','utf8');
+need(house.includes('/lib/field-signal.css')&&house.includes('id="fitProbe" class="fieldSignalBar"'),'HOUSE fit signal host');
+need(house.includes("src.evidence_signal||'CLEAR'")&&house.includes("FieldSignal?.apply(p,sig)"),'HOUSE source-owned projection');
+need(!house.includes('FieldSignal?.combine'),'HOUSE must not infer/combine Shopping domain signal');
 if(fail.length){console.error('FIELD SIGNAL FAIL · '+fail.join(' · '));process.exit(1)}console.log('FIELD SIGNAL PASS · shared pattern grammar → FIELD root + Shopping');
