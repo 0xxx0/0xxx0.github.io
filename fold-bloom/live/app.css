@@ -73,3 +73,23 @@ html.fbMenuOpen .soundGate{pointer-events:none!important}
 .courseRow button.on{background:#f2f3ef;color:#05070b;border-color:#f2f3ef;font-weight:900}
 .courseAddress{margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#65727a;font-size:7px;letter-spacing:.04em}
 @media(max-width:620px){.courseRow button{min-height:42px!important}}
+
+/* 0.13.12 lived-surface contraction: one persistent AUDIO MAP witness, controls stay in drawer. */
+.courseHud{position:absolute;z-index:18;left:50%;top:max(56px,calc(env(safe-area-inset-top) + 48px));transform:translateX(-50%);width:min(620px,calc(100vw - 190px));pointer-events:none;border:1px solid rgba(255,255,255,.10);background:rgba(5,7,11,.58);backdrop-filter:blur(7px);padding:3px 5px 4px}
+.courseHud canvas{display:block;width:100%;height:46px;pointer-events:auto;touch-action:none;cursor:crosshair}
+.courseHudMeta{display:flex;justify-content:space-between;gap:8px;min-width:0;padding:2px 1px 0;color:#83909a;font-size:6.5px;letter-spacing:.09em;line-height:1.15}
+.courseHudMeta span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.courseHudMeta span:last-child{flex:none;color:#b9c1c7}
+.courseHud[data-ready="false"] canvas{opacity:.28}.courseHud[data-ready="false"] .courseHudMeta{opacity:.65}
+.courseNav{margin-top:7px;border-top:1px solid rgba(255,255,255,.07);padding-top:7px;background:none}
+.courseRow{display:grid;grid-template-columns:44px 1fr 1fr 44px;gap:4px}
+.courseRow button{min-height:38px!important;padding:0 5px!important;font-size:7px!important}
+.courseRow button.on{background:#f2f3ef;color:#05070b;border-color:#f2f3ef;font-weight:900}
+.courseAddress{margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#65727a;font-size:7px;letter-spacing:.04em}
+.drawer{scroll-padding-top:58px}.drawerMore>summary{min-height:38px;display:flex;align-items:center}.sourceControl{margin-top:4px}
+.drawerHead button{font-weight:900;border-color:rgba(255,255,255,.28)}
+@media(max-width:620px){
+  .courseHud{left:8px;right:8px;top:max(54px,calc(env(safe-area-inset-top) + 46px));transform:none;width:auto;padding:3px 4px}
+  .courseHud canvas{height:38px}
+  .courseHudMeta{font-size:6px}
+  .courseRow button{min-height:44px!important}
+}
