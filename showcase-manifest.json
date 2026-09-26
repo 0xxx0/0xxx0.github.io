@@ -8096,6 +8096,34 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/iching/",
+      "title": "易經 // I CHING — CAST · TRANSFORM · NUCLEAR",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "LIVE",
+      "family": "ICHING",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "The Book of Changes as a working instrument: cast six lines (three-coin) and read the primary hexagram (judgment 卦辭, image 大象, line texts 爻辭); changing lines open a transformed hexagram 之卦; the nuclear 互卦 is computed from lines 2–5. All 64 hexagrams: Chinese (周易, zh.wikisource, public domain) + English (Legge, SBE16 1882, public-domain OCR restoration; 20 passages flagged approximate), verified binaries (bottom-to-top; 兌上缺, 巽下斷), King Wen id, unicode symbol, trigrams, nuclear id, per-line flip targets. Hash-addressable casts (#c=987678). Static page + JSON, no build step, no tracking.",
+      "index": {
+        "updated_at": "2026-09-26T22:40:00+08:00",
+        "work_modes": [
+          "PLAY",
+          "READ",
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "64/64 hexagrams; binaries verified against the wikisource trigram table plus complement/nuclear invariants (27/28, 61/62, 63↔64, 1↔1, 2↔2)",
+          "zh parsed 64/64 complete; en OCR extraction quality-flagged on 20 known-imperfect passages (per-hexagram _quality field)",
+          "local headless-chrome render + DOM dump verified; live URL verified after deploy"
+        ],
+        "return_path": "/"
+      }
     }
   ],
   "release_law": [

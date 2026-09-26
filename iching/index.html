@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>易經 · I Ching — cast · transform · nuclear</title>
+<style>
+  :root{
+    --bg:#0c0e11; --panel:#12151a; --fg:#e9e6dd; --dim:#9a9484; --faint:#5d5a52;
+    --acc:#d4a24e; --acc2:#7fb2a8; --line:#232830;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:ui-serif,Georgia,'Songti SC','Noto Serif CJK SC',serif;
+    -webkit-font-smoothing:antialiased}
+  main{max-width:780px;margin:0 auto;padding:28px 20px 60px}
+  header h1{font-size:44px;margin:8px 0 2px;letter-spacing:.08em;font-weight:600}
+  header .sub{color:var(--dim);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 26px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 18px;margin:14px 0}
+  button{background:var(--acc);color:#141414;border:0;border-radius:7px;padding:11px 18px;
+    font-size:14px;letter-spacing:.06em;cursor:pointer;font-weight:600;font-family:inherit}
+  button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:400}
+  button:hover{filter:brightness(1.08)}
+  input[type=text]{background:#0a0c0f;border:1px solid var(--line);color:var(--fg);border-radius:7px;
+    padding:11px 12px;width:100%;font-size:15px;font-family:inherit;margin-bottom:12px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .muted{color:var(--dim);font-size:13px}
+  .faint{color:var(--faint);font-size:12px}
+  figure.fig{display:grid;gap:7px;width:132px;margin:0;flex:0 0 auto}
+  .ln{height:13px;position:relative}
+  .ln .bar{background:var(--fg);height:100%;border-radius:2px;display:block}
+  .ln.yin{display:flex;gap:16px}
+  .ln.yin .bar{flex:1}
+  .ln.chg .bar{background:var(--acc)}
+  .ln .tag{position:absolute;right:-26px;top:-2px;font-size:11px;color:var(--acc)}
+  .ln .dot{display:none}
+  .fig-wrap{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
+  .glyph{font-size:64px;line-height:1;color:var(--acc);font-family:'Apple Symbols',serif}
+  .names .zh-big{font-size:34px;letter-spacing:.12em}
+  .names .py{color:var(--acc2);font-size:15px;letter-spacing:.06em}
+  .names .en{font-size:19px;margin-top:2px}
+  .trigrams{color:var(--dim);font-size:13px;margin-top:6px}
+  h2.sect{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin:26px 0 8px}
+  h2.sect span{color:var(--faint);letter-spacing:.06em;text-transform:none;font-size:12px;margin-left:8px}
+  .en-text{line-height:1.65;font-size:16px;max-width:60ch}
+  .zh-text{color:#cfc9ba;line-height:1.9;font-size:16px;letter-spacing:.04em;margin-top:8px}
+  ul.lines{list-style:none;padding:0;margin:0}
+  ul.lines li{border-top:1px solid var(--line);padding:12px 0}
+  ul.lines li.chg{background:linear-gradient(90deg, rgba(212,162,78,.08), transparent 70%);
+    border-left:3px solid var(--acc);padding-left:12px;margin-left:-15px}
+  .lhead{font-size:12px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-bottom:5px}
+  .lhead .chgtag{color:var(--acc);margin-left:8px;text-transform:none;letter-spacing:.04em}
+  .lhead .lzh{color:var(--acc2);margin-left:8px;letter-spacing:.12em;text-transform:none}
+  .lzh-line{color:#cfc9ba;font-size:15px;margin-top:4px;letter-spacing:.03em}
+  .mini{display:flex;gap:22px;flex-wrap:wrap}
+  .mini .cell{flex:1 1 200px}
+  .mini figure.fig{width:92px;gap:5px}
+  .mini .ln{height:10px}
+  .mini .glyph{font-size:40px}
+  .mini .zh-big{font-size:22px}
+  .mini .en{font-size:15px}
+  a.tel{color:var(--acc2);text-decoration:none;border-bottom:1px dotted var(--acc2);cursor:pointer}
+  .quality{color:var(--acc);font-size:11px;margin-top:6px;opacity:.85}
+  footer{color:var(--faint);font-size:12px;line-height:1.8;margin-top:44px;border-top:1px solid var(--line);padding-top:16px}
+  .tossrow{display:flex;gap:6px;margin-top:10px}
+  .toss{width:26px;height:26px;border:1px solid var(--line);border-radius:5px;display:flex;
+    align-items:center;justify-content:center;font-size:13px;color:var(--dim)}
+  .toss.c{color:var(--acc);border-color:var(--acc)}
+  @media (max-width:520px){ header h1{font-size:32px} .fig-wrap{gap:20px} }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>易經</h1>
+    <p class="sub">I Ching · Book of Changes — cast · transform · nuclear</p>
+  </header>
+
+  <section class="panel" id="castPanel">
+    <input type="text" id="q" placeholder="a question for the casting (optional)" autocomplete="off">
+    <div class="row">
+      <button id="castBtn">CAST — six tosses</button>
+      <button class="ghost" id="copyBtn" style="display:none">copy link</button>
+      <span class="muted" id="seedNote"></span>
+    </div>
+  </section>
+
+  <section id="out"></section>
+
+  <footer id="src">loading…</footer>
+</main>
+
+<script>
+const HEX = { list: [], byBin: {}, meta: null };
+async function load(){
+  const r = await fetch('hexagrams.json', {cache:'no-cache'});
+  const d = await r.json();
+  HEX.meta = d.meta; HEX.list = d.hexagrams;
+  for (const h of HEX.list) HEX.byBin[h.binary] = h;
+  document.getElementById('src').innerHTML =
+    `<b>Sources.</b> 卦辭/爻辭/大象 — 周易, Chinese Wikisource (public domain). `+
+    `English — James Legge, <i>The Sacred Books of the East</i> XVI: The Yî King (1882, public domain) — `+
+    `OCR-restored from the Internet Archive scan; some passages are approximate. 中文為準。<br>`+
+    `King Wen order ${HEX.list.length}/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · generated ${HEX.meta.generated}.`;
+  const h = parseHash();
+  if (h.c) render(h.c.split('').map(Number), h.q || '');
+}
+function parseHash(){
+  const f = new URLSearchParams(location.hash.slice(1));
+  return { c: f.get('c'), q: f.get('q') || '' };
+}
+function tossLine(){ let s=0; for(let i=0;i<3;i++) s += Math.random()<0.5?3:2; return s; } // 6,7,8,9
+function cast(){
+  const v=[]; for(let i=0;i<6;i++) v.push(tossLine()); return v; // v[0]=line1 bottom
+}
+function fig(bits, chgSet, tagVals){
+  let html='<figure class="fig">';
+  for(let i=5;i>=0;i--){
+    const yang = bits[i]==='1';
+    const chg = chgSet.has(i+1);
+    const tag = chg && tagVals ? `<span class="tag">${tagVals[i]===9?'9':'6'}→</span>` : '';
+    html += `<div class="ln ${yang?'yang':'yin'} ${chg?'chg':''}">${yang?'<span class="bar"></span>':'<span class="bar"></span><span class="bar"></span>'}${tag}</div>`;
+  }
+  return html+'</figure>';
+}
+function names(h, small){
+  return `<div class="names">
+    <div class="glyph">${h.unicode}</div>
+    <div class="zh-big">${h.name_zh}</div>
+    <div class="py">${h.name_pinyin || ''} · № ${h.id}</div>
+    <div class="en">${h.name_en || ''}</div>
+    <div class="trigrams">${h.trigrams.lower.en} below · ${h.trigrams.upper.en} above`+
+    ` — binary <span style="font-family:ui-monospace,monospace">${h.binary}</span></div>
+  </div>`;
+}
+function qualityNote(h){
+  if(!h._quality || h._quality.join()==='ok') return '';
+  return `<div class="quality">⚑ EN text: OCR restoration — some passages approximate here (中文為準)</div>`;
+}
+function render(vals, q){
+  // vals: six line values bottom(top?) — store as given: vals[0]=bottom line
+  const bits = vals.map(v=> (v===7||v===9)?'1':'0').join('');
+  const chgSet = new Set();
+  vals.forEach((v,i)=>{ if(v===6||v===9) chgSet.add(i+1); });
+  const prim = HEX.byBin[bits];
+  if(!prim){ document.getElementById('out').innerHTML = '<div class="panel">unknown cast</div>'; return; }
+  // transformed: flip changing lines
+  let tbits = bits.split('');
+  chgSet.forEach(i=>{ const k=i-1; tbits[k] = tbits[k]==='1'?'0':'1'; });
+  const trans = chgSet.size ? HEX.byBin[tbits.join('')] : null;
+  const nuc = HEX.byBin[HEX.list.find(h=>h.id===prim.nuclear_id).binary];
+
+  const chgList = [...chgSet].sort((a,b)=>a-b);
+  const chgStr = chgList.length? chgList.map(i=>`line ${i}`).join(', ') : 'none';
+
+  let html = '';
+  if(q) html += `<div class="panel"><span class="muted">your question:</span> <b>${escapeHtml(q)}</b></div>`;
+
+  html += `
+  <div class="panel">
+    <div class="fig-wrap">
+      ${fig(bits, chgSet, vals)}
+      ${names(prim)}
+    </div>
+    <div class="tossrow">${vals.map((v,i)=>`<div class="toss ${(v===6||v===9)?'c':''}" title="line ${i+1} (bottom to top)">${v}</div>`).join('')}</div>
+    <div class="muted" style="margin-top:6px">changing lines: ${chgStr} · this cast bottom→top: ${vals.join(' ')} · (6 old yin &amp; 9 old yang change; 7 yang, 8 yin)</div>
+  </div>`;
+
+  html += `<div class="panel">
+    <h2 class="sect">Judgment <span>卦辭</span></h2>
+    <div class="en-text">${escapeHtml(prim.judgment_en||'')}</div>
+    <div class="zh-text">${escapeHtml(prim.judgment_zh||'')}</div>
+    ${qualityNote(prim)}
+    <h2 class="sect">Image <span>大象</span></h2>
+    <div class="en-text">${escapeHtml(prim.image_en||'')}</div>
+    <div class="zh-text">${escapeHtml(prim.image_zh||'')}</div>
+  </div>`;
+
+  html += `<div class="panel"><h2 class="sect">Lines <span>爻辭</span></h2><ul class="lines">`;
+  for(const L of prim.lines){
+    const isChg = chgSet.has(L.position);
+    html += `<li class="${isChg?'chg':''}">
+      <div class="lhead">line ${L.position}${isChg?'<span class="chgtag">changing ↻</span>':''}<span class="lzh">${L.name_zh||''}</span></div>
+      <div class="en-text" style="font-size:15px">${escapeHtml(L.en||'')}</div>
+      <div class="lzh-line">${L.zh||''}</div>
+    </li>`;
+  }
+  html += `</ul></div>`;
+
+  if(trans){
+    html += `<div class="panel">
+      <h2 class="sect">Transform <span>之卦 — the movement</span></h2>
+      <div class="mini">
+        <div class="cell">${fig(tbits.join(''), new Set())}</div>
+        <div class="cell">${names(trans,1)}
+          <div class="en-text" style="font-size:14px;margin-top:8px">${escapeHtml(((trans.judgment_en||'').split('. ')[0]||'').replace(/\.$/,''))}.</div>
+        </div>
+      </div>
+      <div class="muted" style="margin-top:8px">with lines ${chgStr} moving, ${prim.name_zh} opens toward ${trans.name_zh} (${trans.name_en}).</div>
+    </div>`;
+  }
+
+  html += `<div class="panel">
+    <h2 class="sect">Nuclear <span>互卦 — the hidden reading</span></h2>
+    <div class="mini">
+      <div class="cell">${fig(nuc.binary, new Set())}</div>
+      <div class="cell">${names(nuc,1)}
+        <div class="en-text" style="font-size:14px;margin-top:8px">${escapeHtml(((nuc.judgment_en||'').split('. ')[0]||'').replace(/\.$/,''))}.</div>
+      </div>
+    </div>
+    <div class="muted" style="margin-top:8px">the inner hexagram formed by lines 2–5 — what the situation is most made of.</div>
+  </div>`;
+
+  document.getElementById('out').innerHTML = html;
+  document.getElementById('copyBtn').style.display='';
+  const f = new URLSearchParams();
+  f.set('c', vals.join('')); if(q) f.set('q', q);
+  history.replaceState(null,'','#'+f.toString());
+  document.getElementById('seedNote').textContent = `#${vals.join('')}`;
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+document.getElementById('castBtn').addEventListener('click', ()=>{
+  const q = document.getElementById('q').value.trim();
+  render(cast(), q);
+  document.getElementById('out').scrollIntoView({behavior:'smooth', block:'start'});
+});
+document.getElementById('copyBtn').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(location.href).then(()=>{
+    const b=document.getElementById('copyBtn'); b.textContent='copied ✓';
+    setTimeout(()=>b.textContent='copy link',1500);
+  });
+});
+window.addEventListener('hashchange', ()=>{ const h=parseHash(); if(h.c) render(h.c.split('').map(Number), h.q||''); });
+load();
+</script>
+</body>
+</html>
