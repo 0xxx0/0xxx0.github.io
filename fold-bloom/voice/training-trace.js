@@ -40,7 +40,8 @@ export function appendVoiceTrace(trace,entry,max=240){
   next.centered=next.cents!==null&&Math.abs(next.cents)<=15;
   next.onsetOffsetMs=next.onset?signedBeatOffsetMs(next.beatPhase,next.bpm):null;
   list.push(next);
-  return list.slice(-Math.max(8,Math.trunc(Number(max)||240)));
+  const limit=clamp(Math.trunc(Number(max)||240),1,240);
+  return list.slice(-limit);
 }
 
 export function summarizeVoiceTrace(trace){
