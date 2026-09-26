@@ -4,6 +4,7 @@ import {
   shareUrl,sampleScore,visualSignature,wordsOf
 } from './score.js';
 import {profileKey} from '../live/visual-worlds.js';
+import {courseAddressAt,replayCourse,stepCourse} from '../course-nav.js';
 
 const $=id=>document.getElementById(id);
 const cv=$('stage'),ctx=cv.getContext('2d');
@@ -85,12 +86,25 @@ function currentMs(now=performance.now()){
   return (now-started)%clipDurationMs(score);
 }
 function currentP(now=performance.now()){return clamp(currentMs(now)/clipDurationMs(score))}
+function replayCueCourse(){return replayCourse(score)}
+function syncCourseAddress(p=scrubP){
+  const hit=courseAddressAt(replayCueCourse(),p),el=$('courseAddress');if(el)el.textContent=hit.address;
+  document.documentElement.dataset.replayCourseAddress=hit.address;return hit;
+}
 function setPlayhead(p,{seekListen=true}={}){
   scrubP=clamp(p);started=performance.now()-scrubP*clipDurationMs(score);
   if(syncListen&&seekListen){
     const api=listenApi();if(api){try{api.seek(absoluteMs(score,scrubP)/1000)}catch(_){}}
   }
-  $('scrub').value=String(Math.round(scrubP*1000));syncReadouts(scrubP);
+  $('scrub').value=String(Math.round(scrubP*1000));syncReadouts(scrubP);syncCourseAddress(scrubP);
+}
+function stepReplay(delta){
+  playing=false;$('pause').textContent='PLAY';
+  const hit=stepCourse(replayCueCourse(),scrubP,delta);setPlayhead(hit.p);
+  if(hit.point?.kind==='WORD'){selectedWord=Math.max(0,Number(hit.point.index)||0);updateWords()}
+  if(hit.point?.kind==='OP'){selectedOp=Math.max(0,Number(hit.point.index)||0);updateOps()}
+  document.documentElement.dataset.replayStep='ready';
+  return hit;
 }
 function syncListenState(now){
   if(now-lastListenPoll<80)return;
@@ -236,6 +250,7 @@ async function exportWebm(){
 $('replay').onclick=()=>{playing=true;setPlayhead(0);$('pause').textContent='PAUSE'};
 $('pause').onclick=()=>{playing=!playing;if(playing)started=performance.now()-scrubP*clipDurationMs(score);$('pause').textContent=playing?'PAUSE':'PLAY'};
 $('scrub').oninput=e=>{playing=false;$('pause').textContent='PLAY';setPlayhead(Number(e.target.value)/1000)};
+$('stepBack').onclick=()=>stepReplay(-1);$('stepNext').onclick=()=>stepReplay(1);
 $('syncListen').onclick=()=>{const api=listenApi();if(!api){$('syncListen').textContent='OPEN FROM LISTEN TO LINK';return}syncListen=!syncListen;listenOk=!!api;updateSyncButton()};
 $('message').onchange=e=>{score=setMessage(score,e.target.value);selectedWord=Math.min(selectedWord,Math.max(0,score.wordCues.length-1));updateUi()};
 $('contextTitle').onchange=e=>{score=setContext(score,{title:e.target.value});updateMeta()};
@@ -270,7 +285,7 @@ document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',e
     $('shareLen').textContent=probe.length+' chars · '+(token.startsWith('z.')?'compressed':'compact');
   }catch(e){document.documentElement.dataset.replayShareRoundtrip='fail';console.warn('REPLAY share selftest failed',e)}
   requestAnimationFrame(draw);
-  window.FoldBloomReplay={
+  window.FoldBloomReplay={course:()=>replayCueCourse(),step:stepReplay,
     boot:'ready',state:()=>normalizeScore(score),share:()=>shareUrl(score,location.origin+location.pathname),
     setPlayhead:p=>setPlayhead(p),syncListen:()=>{syncListen=!!listenApi();updateSyncButton();return syncListen}
   };
