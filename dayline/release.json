@@ -1,9 +1,9 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.3.0-candidate",
+  "version": "0.3.0",
   "route": "/dayline/",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-26",
   "role": "Mobile-first continuous execution projection over existing DayState, now a first-class INTERPHASE host. One addressed object survives FIELD → INTERPHASE → Dayline without a second store; FOVEA / LINE / RING are view-only projections over the held object, native Dayline retains all effect authority, WITNESS remains native evidence, and ordinary RETURN carries the current INTERPHASE projection/residue witness.",
@@ -40,8 +40,8 @@
     "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
     "completed_focus_release": "after source-return publication, never before",
     "real_source_browser": "PASS · exact user instruction · 430×900 · public-surface-check 36148842204",
-    "route_registration": "PENDING_CI",
-    "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe",
+    "route_registration": "PASS · 36204835497",
+    "merge": "PR #407 · ee10eaeb96e3ccc49507f8b75d794b9efc8be0ef",
     "source_return_effects": "COMMS → STATE_PROPOSAL; SHOPPING → RECEIPT_ONLY; other hosts → EVIDENCE_ONLY",
     "shopping_closed_loop": "PASS · PR #379 · public-surface-check 36165271722 · Route Registration 36165271718 · WATCH remained WATCH after ACCEPT RECEIPT",
     "shopping_merge": "PR #379 · 72050f5c12f16a4fc04460e0b757eebbf6d1b621",
@@ -53,8 +53,8 @@
     "interphase_projections": "FOVEA / LINE / RING over same held object",
     "field_interphase_handoff": "interphase/v0.2/handoff preserved inside existing atlas-dayline-handoff/v0.1 envelope",
     "interphase_return_witness": "poly-atlas-return-f carries current DaylineInterphase projection result",
-    "interphase_selftest": "PENDING_CI",
-    "public_surface": "PENDING_CI"
+    "interphase_selftest": "PASS · public-surface-check 36204835503",
+    "public_surface": "PASS · 36204835503"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {

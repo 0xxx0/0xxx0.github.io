@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26",
   "date": "2026-09-26",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGED_MACHINE_GREEN",
   "object": "one FIELD-held route preserved across FIELD INTERPHASE → Dayline INTERPHASE → native Dayline operation → RETURN",
   "source": [
     "/lib/interphase-core.js",
@@ -29,11 +29,16 @@
     "projection residue is visible rather than silently dropped"
   ],
   "verification": {
-    "interphase_dayline_selftest": "PENDING_CI",
-    "static_contract": "PENDING_CI",
-    "public_surface": "PENDING_CI",
-    "route_registration": "PENDING_CI"
+    "interphase_dayline_selftest": "PASS · public-surface-check 36204835503",
+    "static_contract": "PASS · public-surface-check 36204835503",
+    "public_surface": "PASS · 36204835503",
+    "route_registration": "PASS · 36204835497",
+    "critical_browser_smoke": "PASS · public-surface-check 36204835503"
   },
-  "one_next": "Run CI on current-master branch. If green, merge as the first explicit app-level INTERPHASE propagation through FIELD Index; do not generalize to every app yet.",
-  "stop": "Do not add another app adapter until this host continuity is mechanically green and a second host has a concrete missing function."
+  "one_next": "No mandatory second adapter. Reuse this propagation law only when another existing host has a concrete continuity gap.",
+  "stop": "Do not add another app adapter until this host continuity is mechanically green and a second host has a concrete missing function.",
+  "merge": {
+    "pr": 407,
+    "sha": "ee10eaeb96e3ccc49507f8b75d794b9efc8be0ef"
+  }
 }
