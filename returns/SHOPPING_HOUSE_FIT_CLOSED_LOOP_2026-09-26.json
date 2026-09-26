@@ -1,0 +1,33 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26",
+  "date": "2026-09-26",
+  "object": "Shopping ↔ HOUSE dimensional evidence closed loop",
+  "state": "CANDIDATE",
+  "before": "Shopping could project an exact candidate into HOUSE FIT and HOUSE could display PASS/FAIL/MEASURE/UNKNOWN, but RETURN SHOPPING only navigated back; the dimensional result was not returned to or accepted by the exact Shopping item.",
+  "delta": [
+    "Add pure /lib/shopping-house-fit.js contract for fit offers, exact-source validation and evidence receipt creation.",
+    "HOUSE CHECK/RETURN emits a short-lived house-shopping-fit-return/v0.1 OFFER_ONLY / EVIDENCE_ONLY result.",
+    "Shopping explicitly accepts only after route + exact id/address + lifecycle state revalidation.",
+    "Accepted result is browser-local shopping-house-fit-receipt/v0.1 evidence; lifecycle remains unchanged.",
+    "Shopping source-owned semantic signal/proof boundary travels into HOUSE FIT and is rendered without HOUSE re-inference.",
+    "Shopping state schema now explicitly describes both Dayline receipts and HOUSE fit receipts."
+  ],
+  "invariants": [
+    "dimensional envelope != installability",
+    "fit PASS != ownership/adoption",
+    "HOUSE fit cannot mutate Shopping lifecycle",
+    "Shopping cannot mutate HOUSE canonical geometry from receipt",
+    "source token is projection, not fit result",
+    "all bridge state remains same-origin/browser-local"
+  ],
+  "evidence": [
+    "/lib/shopping-house-fit.js",
+    "/tools/shopping-house-fit-selftest.mjs",
+    "/shopping/",
+    "/house/",
+    "/shopping/state.schema.json"
+  ],
+  "return": "/shopping/",
+  "stop": "Do not auto-promote storage_home, lifecycle, purchase decision or installation from a fit receipt."
+}
