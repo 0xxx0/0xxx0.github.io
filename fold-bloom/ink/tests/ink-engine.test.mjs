@@ -61,3 +61,32 @@ test('dry stroke keeps coherent bristle gaps without becoming sparse spray',()=>
   assert.ok(active<1600);
   assert.ok(f.metrics().water>0);
 });
+
+
+test('swept contact is approximately invariant to pointer event density',()=>{
+  const opts={mode:'SUMI',water:.62,load:.76,size:.08,pressure:.68,speed:5,strokeSeed:17};
+  const coarse=new InkField({width:120,height:72,seed:12});
+  const dense=new InkField({width:120,height:72,seed:12});
+  coarse.deposit(.14,.5,{...opts,flow:.5});
+  dense.deposit(.14,.5,{...opts,flow:.5});
+  coarse.strokeSegment(.14,.5,.86,.5,opts);
+  const parts=12;
+  for(let i=0;i<parts;i++)dense.strokeSegment(.14+.72*i/parts,.5,.14+.72*(i+1)/parts,.5,opts);
+  const a=coarse.metrics().pigment,b=dense.metrics().pigment,ratio=b/Math.max(.001,a);
+  assert.ok(ratio>.82&&ratio<1.18,'pointer-density pigment ratio '+ratio);
+});
+
+test('wet swept contact reads as a ribbon rather than isolated spray dabs',()=>{
+  const f=new InkField({width:120,height:72,seed:8});
+  f.deposit(.12,.46,{mode:'SUMI',water:.7,load:.8,size:.085,pressure:.72,strokeSeed:5,flow:.5});
+  f.strokeSegment(.12,.46,.88,.54,{mode:'SUMI',water:.7,load:.8,size:.085,pressure:.72,speed:6,strokeSeed:5});
+  let active=0,gaps=0,maxGap=0,run=0;
+  for(let i=16;i<104;i++){
+    const t=(i-14)/(108-14),y=Math.round((.46+(.54-.46)*t)*f.height);
+    const p=f.pigment[i+Math.max(0,Math.min(f.height-1,y))*f.width];
+    if(p>.025){active++;run=0}else{gaps++;run++;maxGap=Math.max(maxGap,run)}
+  }
+  assert.ok(active>72,'active center samples '+active);
+  assert.ok(maxGap<=3,'maximum center gap '+maxGap);
+  assert.ok(gaps<16,'center gaps '+gaps);
+});
