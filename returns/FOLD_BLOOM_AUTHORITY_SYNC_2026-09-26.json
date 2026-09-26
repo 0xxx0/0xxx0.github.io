@@ -2,7 +2,7 @@
   "schema": "field-return/v0.1",
   "id": "FOLD_BLOOM_AUTHORITY_SYNC_2026-09-26",
   "date": "2026-09-26",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "CI_GREEN_PRESEAL",
   "object": "FOLD//BLOOM authority projection",
   "problem": "Runtime heads advanced while CURRENT, root manifest and release metadata still advertised older PLAY/LAB/VOICE versions.",
   "observed": [
@@ -43,10 +43,13 @@
     }
   ],
   "verification": {
-    "route_registration": "PENDING_PR_CI",
-    "public_surface": "PENDING_PR_CI",
-    "pulse_psychophysics": "PENDING_PR_CI"
+    "route_registration": "PASS · 36209914153",
+    "public_surface": "PASS · 36209914151",
+    "pulse_psychophysics": "PASS · Lab suite step 41",
+    "pulse_multiring_browser": "PASS · FIELD LAB browser step 49 + critical browser smoke step 58",
+    "voice_spectrum": "PASS · step 42",
+    "static_authority_guard": "PASS · step 32"
   },
-  "one_next": "Run the ordinary repository guards. If green, seal exact CI evidence and merge; then replan before touching AWAKE.",
+  "one_next": "Rerun repository guards on this sealed metadata head; if green, merge and replan before touching AWAKE.",
   "stop": "No product feature is authorized by this synchronization."
 }
