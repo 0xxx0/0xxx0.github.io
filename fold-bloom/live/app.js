@@ -272,8 +272,8 @@ function update(){
   $('#scene').textContent=sceneMeta.label;
   $('#modeBtn').textContent=state.mode;
   $('#sceneBtn').textContent=sceneMeta.plain;
-  $('#sceneBtn').title=sceneMeta.detail+' · presentation only';
-  $('#sceneBtn').setAttribute('aria-label','World presentation: '+sceneMeta.plain+'. '+sceneMeta.detail);
+  $('#sceneBtn').title='Generated sound palette + field presentation: '+sceneMeta.plain+'. '+sceneMeta.detail;
+  $('#sceneBtn').setAttribute('aria-label','Cycle generated sound palette and field presentation. Current preset: '+sceneMeta.plain+'. '+sceneMeta.detail);
   document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===state.scene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
   $('#releaseBtn').disabled=!canRelease(state);
   $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
