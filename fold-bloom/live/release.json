@@ -372,12 +372,12 @@
     },
     "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
     "pr": 416,
-    "merge_sha": null,
+    "merge_sha": "1073d69c59607d53adaa429b4443d8a8e007f51f",
     "verification": {
       "public_surface_check": "PASS",
-      "workflow_run": 36162997236,
+      "workflow_run": 36211704995,
       "route_registration": "PASS",
-      "route_run": 36162997518,
+      "route_run": 36211704985,
       "gameplay_suite": "PASS",
       "critical_browser_smoke": "PASS",
       "phone_visibility_and_feel": "OPTIONAL_LIVED_EVIDENCE",
@@ -385,8 +385,8 @@
       "loop_contract": "PASS · PR #409",
       "route_registration_run": 36208469519,
       "public_surface_run": 36208469513,
-      "form_morph_core": "PENDING · PR #416",
-      "form_morph_mobile": "PENDING · PR #416"
+      "form_morph_core": "PASS · PR #416 + merged master public-surface-check 36211704995",
+      "form_morph_mobile": "PASS · merged master mobile interaction regression within public-surface-check 36211704995"
     },
     "puzzle_grammar": {
       "status": "SUPERSEDED_AS_GAMEPLAY_BY_FORM_MORPH_0.6.0",
@@ -561,7 +561,26 @@
       "morph": "Ring rotation addresses one leaf; release writes its exact verb there.",
       "clear": "At least two persistent changed leaves within four MORPH releases.",
       "return_syntax": "F[B F S R B F] Δ{2,5} → F[B R S R S F]",
-      "authority": "Projection only; LIVE owns source, topology, forecast and release."
+      "authority": "Projection only; LIVE owns source, topology, forecast and release.",
+      "merge_sha": "1073d69c59607d53adaa429b4443d8a8e007f51f",
+      "pr": 416,
+      "verification": {
+        "route_registration": {
+          "run": 36211704985,
+          "result": "PASS"
+        },
+        "convergence_validate": {
+          "run": 36211705003,
+          "result": "PASS"
+        },
+        "public_surface_check": {
+          "run": 36211704995,
+          "result": "PASS"
+        },
+        "unified_root_browser": "PASS",
+        "mobile_interaction_regression": "PASS",
+        "critical_browser_smoke": "PASS"
+      }
     }
   },
   "play_return": "/returns/FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
