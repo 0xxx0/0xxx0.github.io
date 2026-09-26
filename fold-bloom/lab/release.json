@@ -88,8 +88,10 @@
     "lab_return_node": "PASS · public-surface-check run 36166811291 step 41",
     "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49",
     "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50",
-    "pulse_psychophysics_core": "PENDING_PR_CI · pure signed-asynchrony / trainer-cycle / summary tests",
-    "pulse_multiring_browser": "PENDING_PR_CI · FIELD LAB public-surface browser witness"
+    "pulse_psychophysics_core": "PASS · public-surface-check 36209914151 · Lab test step 41 includes pulse psychophysics suite",
+    "pulse_multiring_browser": "PASS · public-surface-check 36209914151 · FIELD LAB browser boot step 49 + critical browser smoke step 58",
+    "voice_spectrum_core": "PASS · public-surface-check 36209914151 step 42",
+    "authority_sync": "PASS_ON_PRESEAL_HEAD · Route Registration 36209914153 + public-surface-check 36209914151"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
@@ -107,5 +109,6 @@
       "COPY TOKEN emits the exact portable state/change notation."
     ],
     "boundary": "Six-bit state is a projection only; underlying domain state remains authoritative."
-  }
+  },
+  "updated": "2026-09-26"
 }
