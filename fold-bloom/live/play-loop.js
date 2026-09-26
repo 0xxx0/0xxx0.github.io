@@ -99,7 +99,7 @@ export function loopWitness(mode,state={}){
   }else if(m==='DUET'){
     phase='SYNC';progress=bounded(state.releases,DUET_ROUNDS);success=bounded(state.duet?.hits,DUET_WIN_HITS);clear=state.win?.duet?.clear??null;
   }else if(m==='GARDEN'){
-    phase=!active&&!ended?'CHOOSE':state.garden?.trait?'INHERIT':'OBSERVE';
+    phase=state.garden?.choice?'CHOOSE':state.garden?.trait?'INHERIT':'OBSERVE';
     progress=bounded(state.garden?.generation,GARDEN_GENERATIONS);
     success=bounded(state.garden?.survived,GARDEN_SURVIVAL_TARGET);
     clear=state.win?.garden?.clear??null;
@@ -114,7 +114,7 @@ export function loopWitness(mode,state={}){
     mode:m,
     archetype:contract.archetype,
     phase,
-    status:ended?'COMPLETE':active?'ACTIVE':m==='GARDEN'?'CHOICE':'IDLE',
+    status:ended?'COMPLETE':active?'ACTIVE':m==='GARDEN'&&state.garden?.choice?'CHOICE':'IDLE',
     terminal:contract.terminal,
     progress,
     success,
