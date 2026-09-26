@@ -4,6 +4,7 @@ import {createExperienceSet,appendSource,prepareSet} from './set/set-core.js';
 import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experience-set.js';
 import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,projectionSpec,identityDescriptor} from './instrument-support.js';
 import {hashHex,hashFile,hashText} from '../lib/id.js';
+import {kv,skv} from '../lib/store.js';
 
 const $=s=>document.querySelector(s);
 document.documentElement.dataset.fbModule='ready';
@@ -24,14 +25,14 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('on');v
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]))}
 
 
-function loadActive(){try{return normalizeActive(JSON.parse(sessionStorage.getItem(ACTIVE_KEY)||'null'))}catch(_){return normalizeActive()}}
-function persistActive(){try{sessionStorage.setItem(ACTIVE_KEY,JSON.stringify(active))}catch(_){}return active}
+function loadActive(){return normalizeActive(skv(ACTIVE_KEY).get())}
+function persistActive(){skv(ACTIVE_KEY).set(active);return active}
 function clearActivePointer(){active=normalizeActive();persistActive()}
 function setTextRuntime(id,text){textRuntime=text;try{sessionStorage.setItem(TEXT_PREFIX+id,text)}catch(_){}}
 function getTextRuntime(id){if(textRuntime!=null&&active.id===id)return textRuntime;try{return sessionStorage.getItem(TEXT_PREFIX+id)||''}catch(_){return''}}
 function cachedSourceGlyph(id){try{return JSON.parse(sessionStorage.getItem('fold-bloom.source-glyph.v01:'+id)||'null')?.glyph||null}catch(_){return null}}
 function readSet(){try{const raw=localStorage.getItem(SET_STORE);return raw?decodeExperienceSet(raw):null}catch(_){return null}}
-function readSetMeta(){try{return JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){return{}}}
+function readSetMeta(){return kv(META_STORE,{}).get()||{}}
 
 function focusDescriptor(id){
   if(!id)return null;
