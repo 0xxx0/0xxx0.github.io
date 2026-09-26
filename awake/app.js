@@ -61,7 +61,7 @@ function bootHost(){
   host=globalThis.Interphase.createHost(adapter,{id:'AWAKE:'+route,projection:'PAGE'});
   host.captureReturn('AWAKE ENTRY');doc.addEventListener('click',onFrameClick,true);
   projectionIndex=0;renderMeta();document.documentElement.dataset.awake='ready';
-  if(params.get('smoke')==='1'){setTimeout(()=>{try{const target=doc.querySelector('main')||doc.body;host.select(target);host.focus(target,{aperture:'DETAIL'});describeFocus();const p=daylinePacket(),ok=route==='/docs/'&&host.state.focus.length===1&&p?.interphase?.schema==='interphase/v0.2/handoff'&&p?.source?.route==='/docs/';document.documentElement.dataset.awakeSmoke=ok?'pass':'fail'}catch(_){document.documentElement.dataset.awakeSmoke='fail'}},80)}
+  if(params.get('smoke')==='1'){setTimeout(()=>{try{const target=doc.querySelector('main')||doc.body;host.select(target);host.focus(target,{aperture:'DETAIL'});describeFocus();const p=daylinePacket(),overflow=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-document.documentElement.clientWidth,ok=route==='/docs/'&&host.state.focus.length===1&&p?.interphase?.schema==='interphase/v0.2/handoff'&&p?.source?.route==='/docs/'&&overflow<=1;document.documentElement.dataset.awakeOverflow=String(overflow);document.documentElement.dataset.awakeSmoke=ok?'pass':'fail'}catch(_){document.documentElement.dataset.awakeSmoke='fail'}},80)}
  }catch(e){document.documentElement.dataset.awake='degraded';$('#witness').textContent='HOST DEGRADED';console.error(e)}
 }
 function loadRoute(next,{push=true}={}){
