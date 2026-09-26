@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-26T07:08:00+08:00",
+  "updated": "2026-09-26T08:25:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -58,10 +58,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.13 / HELD→DAYLINE ACTION + LOSSLESS DEPTH + FOLDED SIGNAL + Φ/φ",
+      "head": "FIELD INDEX 0.8.14 / HELD→INTERPHASE→DAYLINE + LOSSLESS DEPTH + FOLDED SIGNAL + Φ/φ",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; manifest owns route projection; Git owns exact mutation chronology. Held non-root routes now expose an explicit DAYLINE → action using the already-proved atlas-dayline-handoff/v0.1 carrier. FIELD only serializes route identity/context and navigates; Dayline owns ADD TO DAY, local mutation/undo, witness and RETURN. Generic FIELD routes receive evidence-only/unchanged return semantics and the return address restores the exact held focus.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; FIELD focus is already an INTERPHASE host. 0.8.14 lets the held route cross into /dayline/ without losing identity/address/focus/projection/residue: the existing Dayline handoff carries a bounded interphase/v0.2 witness, and Dayline reprojects the same object without acquiring native source authority.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -71,10 +71,13 @@
         "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
         "/returns/FIELD_INDEX_SEMANTIC_SIGNAL_STRIP_2026-09-25.json",
         "/returns/FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json",
-        "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json"
+        "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
+        "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+        "/lib/interphase-field.js",
+        "/lib/interphase-dayline.js"
       ],
-      "version": "0.8.13",
-      "latest_return": "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json"
+      "version": "0.8.14",
+      "latest_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
       "lineage": "scale-lens",
@@ -452,7 +455,7 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. Native RETURN consequence is host-specific: COMMS accepts an exact OFFER_ONLY state proposal after source revalidation; Shopping accepts an exact RECEIPT_ONLY evidence record while its procurement lifecycle remains unchanged. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence. HOUSE depth/escape now returns directly to canonical /house/; /house/spatial/ remains compatibility/substrate rather than a second human front door.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile workfield over the same DayState. /dayline/ 0.3 is now a first-class INTERPHASE host: FIELD’s held object may arrive with its existing INTERPHASE witness and be reprojected FOVEA / LINE / RING without a second store or effect authority. Native Dayline still owns RUN/WITNESS/COMPLETE and RETURN.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -463,7 +466,9 @@
         "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/359",
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
-        "/returns/DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json"
+        "/returns/DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json",
+        "/lib/interphase-dayline.js",
+        "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
       ],
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
