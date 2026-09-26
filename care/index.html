@@ -457,7 +457,10 @@ function continuityExport(){
  const course=C.course||{};const courseClaims=[course.phase&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'CURRENT PHASE: '+course.phase,source_id:null,next_evidence:null},course.next&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'NEXT STEP: '+course.next,source_id:null,next_evidence:null},course.gate&&{lane:'FACT',provenance:course.gate_source?'SOURCE':'USER_REPORTED',confidence:course.gate_source?'HIGH':'MEDIUM',text:'CONDITIONAL GATE: '+course.gate+(course.gate_source?' · SOURCE '+course.gate_source:''),source_id:null,next_evidence:null}].filter(Boolean);const claims=(C.events||[]).map(e=>({lane:'FACT',provenance:'SOURCE',confidence:'HIGH',text:e.raw_note||((e.type||'event')+' recorded'),source_id:e.id,next_evidence:null})).concat(courseClaims).concat((C.unknowns||[]).map(x=>({lane:'UNKNOWN',provenance:'CURRENT_INFERENCE',confidence:'UNKNOWN',text:x,source_id:null,next_evidence:null})));
  return {schema:'0xxx0/continuity-case/v0.1',id:'from-'+C.id,subject:C.subject.label,kind:C.subject.kind,domain:'HEALTH',as_of:C.updated_at,reflection:C.ask||'Care continuity handoff',anchors:[],sources,claims,imported_from:{schema:C.schema,id:C.id}};
 }
-async function sha256Text(text){const bytes=new TextEncoder().encode(String(text)),dig=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function sha256Text(text){
+  try{const{hashHex}=await import('../lib/id.js');return hashHex(new TextEncoder().encode(String(text)))}catch(_){}
+  const bytes=new TextEncoder().encode(String(text)),dig=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
 async function openPortCase(){
  pullCase();const gapReview=review(),snapshot={schema:'0xxx0/care-port-snapshot/v0.1',brief:brief(),case_id:C.id,case_schema:C.schema,case_updated_at:C.updated_at,subject:C.subject,ask:C.ask||null,review_gaps:gapReview,case:C};
  const raw=JSON.stringify(snapshot,null,2),hash=await sha256Text(raw),bytes=new TextEncoder().encode(raw);
