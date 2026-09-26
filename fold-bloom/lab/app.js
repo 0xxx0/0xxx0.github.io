@@ -264,7 +264,7 @@ $('#exportTape').onclick=()=>{
   const map=syntheticMap(16),ops=pulse.taps.map((x,i)=>({t:x.t,op:i%4===0?'BLOOM':'MARK',strength:x.score/100}));
   const tape=compileEventTape(map,{sourceId:'field://lab/pulse',operations:ops});
   const beatSaberV4=toBeatSaberV4Draft(tape,{laneSeed:pulse.ratio[0]*10+pulse.ratio[1]});
-  downloadJSON('fold-bloom-event-tape.json',{eventTape:tape,beatSaberV4Draft:beatSaberV4});
+  downloadJSON('fold-bloom-event-tape.json',{pulseConfig:{schema:'fold-bloom-pulse-config/v0.1',ratio:[...pulse.ratio],bpm:pulse.bpm,rings:pulse.rings,lanes:pulseLanes(pulse.rings),focus:pulse.focus,timbre:pulse.timbre},tapEvidence:pulse.taps.map(x=>({t:x.t,lane:x.lane,errorMs:+Number(x.errorMs||0).toFixed(2),lock:x.lock,trainPhase:x.trainPhase})),eventTape:tape,beatSaberV4Draft:beatSaberV4});
   setStatus('PULSE · EVENT TAPE + BEAT SABER V4 DRAFT EXPORTED');
 };
 $('#voiceFull')?.addEventListener('click',()=>{if(pulse.playing)publishPulseTransport(performance.now(),true);location.href='../voice/?pulse=1&from=field-lab'});
@@ -684,7 +684,7 @@ function publishPulseTransport(t,force=false,timeOverride=null){
   pulse.lastPublish=t;
   const ac=pulse.ac,bar=4*60/pulse.bpm,tt=Number.isFinite(Number(timeOverride))?Number(timeOverride):(pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):0);
   const beatDur=60/pulse.bpm,beatPhase=((tt/beatDur)%1+1)%1,quantumPhase=((tt/bar)%1+1)%1;
-  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',clockSource:'SYNTH',quantum:4,quantumPhase,beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:quantumPhase,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:quantumPhase};
+  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',clockSource:'SYNTH',quantum:4,quantumPhase,beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:quantumPhase,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:quantumPhase,pulseRatio:[...pulse.ratio],pulseRings:pulse.rings,pulseLanes:pulseLanes(pulse.rings),pulseFocus:pulse.focus};
   lastTransport=data;fieldPulse.publish('transport',data);updatePulseReadout(data);if(read.pulseMode!=='OFF')applyTransport(data);
 }
 function drawPulseRing(cx,cy,rad,phase,count,col,label,target=false){
