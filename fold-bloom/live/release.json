@@ -135,7 +135,11 @@
     "CENTER MASS clean-phone entry uses its recovered provider source identity; private ChatGPT Library bytes are not committed to the public repo.",
     "direct local LIVE imports are retained into the existing browser-local IndexedDB media vault and exposed through a remembered-track chooser for picker-free same-device re-entry.",
     "browser audio permission is split honestly: TAP FOR SOURCE resumes real source playback; TAP FOR FIELD SOUND initializes the local synth.",
-    "advanced ride rails recede behind CALIBRATE / ADVANCED while macro presets remain first-class."
+    "advanced ride rails recede behind CALIBRATE / ADVANCED while macro presets remain first-class.",
+    "LIVE central instrument gains a thin outer source-address annulus distinct from the inner 12-cell topology ring.",
+    "The source annulus preserves exact playback progress and same-source LISTEN marks across SOURCE / MAP / IMMERSION while the inner ring remains player-authored topology memory.",
+    "Direct drag on the mapped source annulus enters existing STEP mode and seeks the existing AUDIO MAP course; it never authors topology or rewrites source/map evidence.",
+    "The existing linear course strip remains an inspector over the same source course rather than a second timeline authority."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -179,7 +183,9 @@
     "performance witnesses are diagnostic and must not become score/reward mechanics",
     "private ChatGPT Library bytes are not public application assets and are never implied to be cross-device synced",
     "SOURCE-only playback must not display FIELD COURSE terrain as though it were analysis of that source",
-    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities"
+    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities",
+    "The outer source annulus is address projection only; the inner ring retains topology/game semantics and neither layer may silently acquire the other's authority.",
+    "Source-annulus scrubbing is explicit STEP navigation over the existing course and must not emit FOLD/BLOOM/SPLIT/RETURN operations."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -248,7 +254,9 @@
     "source_continuity_pr": 216,
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
-    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison"
+    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison",
+    "source_address_ring": "PENDING_PR_CI",
+    "source_ring_direct_step": "PENDING_PR_CI"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
