@@ -2,7 +2,7 @@
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.13",
   "status": "ACTIVE_CANDIDATE_MERGED",
-  "date": "2026-09-22",
+  "date": "2026-09-26",
   "donors": [
     {
       "route": "/recovery/fold-bloom/fold-weave-0.1/",
@@ -135,7 +135,12 @@
     "CENTER MASS clean-phone entry uses its recovered provider source identity; private ChatGPT Library bytes are not committed to the public repo.",
     "direct local LIVE imports are retained into the existing browser-local IndexedDB media vault and exposed through a remembered-track chooser for picker-free same-device re-entry.",
     "browser audio permission is split honestly: TAP FOR SOURCE resumes real source playback; TAP FOR FIELD SOUND initializes the local synth.",
-    "advanced ride rails recede behind CALIBRATE / ADVANCED while macro presets remain first-class."
+    "advanced ride rails recede behind CALIBRATE / ADVANCED while macro presets remain first-class.",
+    "PLAY 0.6.0 retires the public HEX gameplay adapter in favor of FORM → MORPH: six releases preserve exact BLOOM / FOLD / SPLIT / RETURN verbs, then ring position addresses one of six leaves for direct mutation.",
+    "FORM → MORPH keeps the FORM_CHANGE loop archetype but removes the arbitrary BLOOM/FOLD→solid and SPLIT/RETURN→broken compression from gameplay.",
+    "FORM projection uses concentric FROM / NOW rings with verb-specific segments; the inner ring highlights the currently addressed leaf and persistent deltas.",
+    "Legacy ?play=HEX / YIJING / ICHING aliases remain route-compatible but enter FORM → MORPH; the six-line Yijing/state-language donor remains available in FIELD LAB DATA where explicit binary conditions are meaningful.",
+    "PLAY RETURN now carries a direct formLanguage packet F[...] Δ{...} → F[...] and leaves stateLanguage null for FORM gameplay."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -179,7 +184,9 @@
     "performance witnesses are diagnostic and must not become score/reward mechanics",
     "private ChatGPT Library bytes are not public application assets and are never implied to be cross-device synced",
     "SOURCE-only playback must not display FIELD COURSE terrain as though it were analysis of that source",
-    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities"
+    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities",
+    "Do not map the four LIVE structural verbs into binary yin/yang merely to fit six-line notation; binary STATE / CHANGE notation is only lawful where the underlying six conditions are genuinely binary.",
+    "FORM → MORPH is a projection over existing LIVE releases and ring address; it does not create another topology or source authority."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -248,7 +255,9 @@
     "source_continuity_pr": 216,
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
-    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison"
+    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison",
+    "form_morph_core": "PENDING_PR_CI · exact verb preservation / address / delta / bounded morph",
+    "form_morph_mobile": "PENDING_PR_CI · two-ring FORM mobile projection + primary control clearance"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
