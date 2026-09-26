@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { RELATION_LEGEND as FAN8_RELATION_LEGEND } from '../fold-bloom/live/play-core.js';
+import { hasPendingCIClaim } from './return-receipt-contract.mjs';
 const root=process.cwd(),fail=[];
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const exists=p=>fs.existsSync(path.join(root,p));
@@ -423,8 +424,7 @@ if(currentCoord&&queueCoord){
     if(head?.repo_verification?.status!=='PASS'||!head.latest_return)continue;
     const latest=parse(String(head.latest_return).replace(/^\//,''));
     if(!latest)continue;
-    check(!/PENDING(?:_|\s|-)*(?:PR(?:_|\s|-)*)?CI/i.test(String(latest.state||'')),'CURRENT PASS head retains pending latest_return state: '+head.lineage);
-    check(!/pending\s+(?:PR\s+)?CI/i.test(JSON.stringify(latest.proof||{})),'CURRENT PASS head retains pending latest_return proof: '+head.lineage);
+    check(!hasPendingCIClaim(latest),'CURRENT PASS head retains pending latest_return CI claim: '+head.lineage);
   }
   const city=currentCoord.recovery_targets?.find(x=>x.id==='sleeper-deep-lineage');
   if(city?.status==='EXACT_CITY_SOURCE_AND_PAINTING_RUNTIME_RECOVERED'){
