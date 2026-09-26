@@ -84,6 +84,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
       </section>
 
       <section class="controls" data-controls="PULSE">
+        <label>RATIO = A/B TICKS PER 4-BEAT BAR · RING COUNT FIXED <b id="ringsRead">3</b></label>
         <div class="row" id="ratios"><button data-ratio="3:2" class="cool">3:2</button><button data-ratio="4:3">4:3</button><button data-ratio="5:4">5:4</button></div>
         <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
         <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
@@ -97,8 +98,8 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
           <div class="patterns"><button class="cool" data-voice-pattern="NOTE">NOTE</button><button data-voice-pattern="CALL">1·3·5·3</button><button data-voice-pattern="SCALE">SCALE</button><button data-voice-pattern="HUM">HUM</button></div>
           <div class="row"><button id="voiceBaseDown">−</button><span class="metric">TARGET <b id="voiceTarget">C4</b></span><button id="voiceBaseUp">+</button></div>
           <canvas id="voiceSpectrum" class="voiceSpec" width="320" height="86" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
-          <div><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
-          <div class="mini">Pitch uses the shared VOICE detector; the same scrolling spectrum now carries target/heard pitch traces and beat boundaries. Audio stays local and is never recorded. When PULSE runs, its beat advances the exercise; it does not author the voice.</div>
+          <div><span class="metric">VOICE CLOCK <b id="voiceLinkState">FREE</b></span><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
+          <div class="mini">Pitch uses the shared VOICE detector; the same scrolling spectrum now carries target/heard pitch traces and beat boundaries. Audio stays local and is never recorded. Starting PULSE links the trainer clock (VOICE CLOCK reads LINKED · LAB PULSE), stopping it returns VOICE to FREE. The pulse advances the exercise; it does not author the voice.</div>
         </details>
         <div class="readUses">
           <span><b>ENTRAIN</b> LOCK meter → CROSS alternating polyrhythm rings → RETURN to meter; keep signed timing evidence</span>
@@ -108,7 +109,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
           <span><b>EXPORT</b> turn taps into EVENT TAPE + Beat Saber v4 draft evidence</span>
           <span><b>CLOCK LAW</b> tempo + beat + phase + quantum coordinate; start/stop stays local</span>
         </div>
-        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three concentric rings expose meter + both ratio streams. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three fixed rings — M (beat), A, B — expose meter + both ratio streams; RATIO only resubdivides A/B ticks per bar and never changes the ring count. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
       </section>
 
       <section class="controls" data-controls="VERSE">

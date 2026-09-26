@@ -62,10 +62,10 @@ export function hexChangeOutcome(from,to,moves=0,target=HEX_CHANGE_TARGET,limit=
   return {complete,clear,changed,label:clear?'STATE CHANGED':complete?'CHANGE OPEN':'CHANGE LIVE'};
 }
 
-export function runOutcome(hits,releases=RUN_LENGTH){
-  const complete=Number(releases)>=RUN_LENGTH;
-  const clear=complete&&Number(hits)>=RUN_WIN_HITS;
-  return {complete,clear,label:clear?(Number(hits)>=RUN_LENGTH?'PERFECT ROAD':'ROAD HELD'):'ROAD DRIFTED'};
+export function runOutcome(hits,releases=RUN_LENGTH,length=RUN_LENGTH,win=RUN_WIN_HITS){
+  const complete=Number(releases)>=Number(length);
+  const clear=complete&&Number(hits)>=Number(win);
+  return {complete,clear,label:clear?(Number(hits)>=Number(length)?'PERFECT ROAD':'ROAD HELD'):'ROAD DRIFTED'};
 }
 export function puzzleStars(callMet,turns,par){
   if(!callMet)return 0;
@@ -75,13 +75,13 @@ export function puzzleStars(callMet,turns,par){
   if(used<=target+1)return 2;
   return 1;
 }
-export function puzzleOutcome(stars){
-  const clear=Number(stars)>=PUZZLE_WIN_STARS;
+export function puzzleOutcome(stars,winStars=PUZZLE_WIN_STARS){
+  const clear=Number(stars)>=Number(winStars);
   return {clear,label:clear?'PUZZLE SOLVED':'PUZZLE OPEN'};
 }
-export function duetOutcome(hits,releases=DUET_ROUNDS){
-  const complete=Number(releases)>=DUET_ROUNDS;
-  const clear=complete&&Number(hits)>=DUET_WIN_HITS;
+export function duetOutcome(hits,releases=DUET_ROUNDS,rounds=DUET_ROUNDS,win=DUET_WIN_HITS){
+  const complete=Number(releases)>=Number(rounds);
+  const clear=complete&&Number(hits)>=Number(win);
   return {complete,clear,label:clear?'DUET LOCKED':'DUET OPEN'};
 }
 export function gardenGoalMet(trait,events=[]){

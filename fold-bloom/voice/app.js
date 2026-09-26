@@ -2,6 +2,7 @@ import {createFieldPulse,transportDescriptor,pulseAge} from '../../lib/field-pul
 import {VOICE_TRAINER_SCHEMA,estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from './pitch.js';
 import {spectrumFeatures} from './spectrum.js';
 import {appendVoiceTrace,logFrequencyY,summarizeVoiceTrace} from './training-trace.js';
+import {voiceLinkState} from './pulse-link.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_VOICE');
@@ -45,15 +46,19 @@ function currentStep(){
   return p?Math.max(0,p.beatIndex):manualStep;
 }
 function renderTarget(){
-  const p=livePulse(),target=noteForStep(currentStep());
+  const p=livePulse(),link=voiceLinkState({linked:pulseLinked,live:p}),target=noteForStep(currentStep());
   $('#patternRead').textContent=pattern==='CALL'?'1·3·5·3':pattern==='SCALE'?'1·2·3·4·5·4·3·2':pattern;
   $('#baseRead').textContent=midiToName(baseMidi);
   $('#targetNote').textContent=target?.name||'HUM';
   $('#targetHz').textContent=target?fmt1(target.hz)+' Hz':'STABILITY';
-  $('#pulseBtn').textContent=pulseLinked?'PULSE ON':'PULSE OFF';
+  $('#pulseBtn').textContent=pulseLinked?'DISCONNECT':'LINK TO PULSE';
   $('#pulseBtn').classList.toggle('on',pulseLinked);
-  $('#pulseRead').textContent=p?(p.label+' · '+Math.round(p.bpm)+' BPM · B'+(p.beatIndex+1)):(pulseLinked?'WAITING':'FREE');
-  document.documentElement.dataset.voicePulse=p?.clock||'OFF';
+  $('#pulseBtn').setAttribute('aria-pressed',String(pulseLinked));
+  $('#pulseRead').textContent=link.display+(link.beatIndex!=null?' · B'+(link.beatIndex+1):'');
+  $('#pulseRead').dataset.state=link.state;
+  document.documentElement.dataset.voicePulseState=link.state;
+  document.documentElement.dataset.voicePulse=link.clock||'OFF';
+  document.documentElement.dataset.voicePulseBpm=link.bpm!=null?String(link.bpm):'';
 }
 function receivePulse(msg){
   const d=transportDescriptor(msg);if(!d)return;
@@ -159,7 +164,7 @@ requestAnimationFrame(tick);
 $('#micBtn').onclick=()=>micOn?stopMic():startMic();
 $('#hearBtn').onclick=hearTarget;
 $('#nextBtn').onclick=()=>{manualStep++;renderTarget()};
-$('#pulseBtn').onclick=()=>{pulseLinked=!pulseLinked;renderTarget();status(pulseLinked?'PULSE LINK ON':'PULSE LINK OFF')};
+$('#pulseBtn').onclick=()=>{pulseLinked=!pulseLinked;renderTarget();status('VOICE · '+voiceLinkState({linked:pulseLinked,live:livePulse()}).display)};
 $('#baseDown').onclick=()=>{baseMidi=clamp(baseMidi-1,43,76);renderTarget()};
 $('#baseUp').onclick=()=>{baseMidi=clamp(baseMidi+1,43,76);renderTarget()};
 document.querySelectorAll('[data-pattern]').forEach(b=>b.onclick=()=>{
@@ -171,7 +176,7 @@ $('#exportBtn').onclick=()=>{
   const p=livePulse(),voiced=Math.max(1,stats.voiced),traceSummary=summarizeVoiceTrace(voiceTrace);
   downloadJSON('fold-bloom-voice-return.json',{
     kind:'FOLD_BLOOM_VOICE_RETURN',schema:VOICE_TRAINER_SCHEMA,created:new Date().toISOString(),
-    practice:{pattern,baseMidi,baseNote:midiToName(baseMidi),pulse:p?{label:p.label,clock:p.clock,bpm:p.bpm}:null},
+    practice:{pattern,baseMidi,baseNote:midiToName(baseMidi),pulse:p?{label:p.label,clock:p.clock,bpm:p.bpm}:null,linkState:voiceLinkState({linked:pulseLinked,live:p})},
     evidence:{startedAt:stats.startedAt,frames:stats.frames,voicedFrames:stats.voiced,onTargetFrames:stats.onTarget,onTargetRatio:pattern==='HUM'?null:+(stats.onTarget/voiced).toFixed(3),meanAbsCents:pattern==='HUM'?null:+(stats.absCents/voiced).toFixed(2),meanClarity:+(stats.clarity/voiced).toFixed(3),spectralFrames:stats.spectralFrames,meanCentroidHz:stats.spectralFrames?+(stats.centroidHz/stats.spectralFrames).toFixed(1):null,meanBrightness:stats.spectralFrames?+(stats.brightness/stats.spectralFrames).toFixed(3):null,meanPeakHz:stats.spectralFrames?+(stats.peakHz/stats.spectralFrames).toFixed(1):null,temporal:traceSummary},
     privacy:{audioRecorded:false,rawMicExported:false}
   });status('RETURN EXPORTED · NO AUDIO');
@@ -181,4 +186,4 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&micOn)stop
 addEventListener('pagehide',()=>{stopMic();fieldPulse.close();try{ac?.close()}catch(_){}});
 renderTarget();
 document.documentElement.dataset.foldBloomVoice='ready';
-window.FoldBloomVoice={state:()=>({pattern,baseMidi,pulseLinked,pulse:livePulse(),micOn,stats:{...stats},training:summarizeVoiceTrace(voiceTrace),spectrum:lastSpectrum?{centroidHz:lastSpectrum.centroidHz,peakHz:lastSpectrum.peakHz,brightness:lastSpectrum.brightness}:null})};
+window.FoldBloomVoice={state:()=>({pattern,baseMidi,pulseLinked,link:voiceLinkState({linked:pulseLinked,live:livePulse()}),pulse:livePulse(),micOn,stats:{...stats},training:summarizeVoiceTrace(voiceTrace),spectrum:lastSpectrum?{centroidHz:lastSpectrum.centroidHz,peakHz:lastSpectrum.peakHz,brightness:lastSpectrum.brightness}:null})};

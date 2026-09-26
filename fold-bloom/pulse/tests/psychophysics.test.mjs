@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  pulseIntervals,nearestGridEvent,makeTrainerState,trainerTarget,advanceTrainer,evaluateTap,
+  pulseIntervals,pulseRings,PULSE_LANES,PULSE_RING_COUNT,nearestGridEvent,makeTrainerState,trainerTarget,advanceTrainer,evaluateTap,
   summarizeTapTrace,returnDelta,PULSE_PSYCHOPHYSICS_VERSION
 } from '../psychophysics.js';
 
@@ -39,6 +39,33 @@ test('tap evaluation is tempo-relative and keeps signed error',()=>{
   assert.ok(x.lock>90);
   const a=evaluateTap({time:2/3+.03,start:0,bpm:120,ratio:[3,2],lane:'A'});
   assert.equal(a.lane,'A');assert.equal(Math.round(a.errorMs),30);
+});
+
+test('ring count is fixed by the lane set, never derived from ratio',()=>{
+  for(const ratio of [[3,2],[4,3],[5,4]]){
+    const r=pulseRings({ratio});
+    assert.equal(r.rings,3);
+    assert.equal(r.rings,PULSE_RING_COUNT);
+    assert.deepEqual(r.lanes,['M','A','B']);
+    assert.deepEqual(r.lanes,PULSE_LANES);
+    assert.equal(r.ticks.M,4);
+    assert.equal(r.ticks.A,ratio[0]);
+    assert.equal(r.ticks.B,ratio[1]);
+  }
+  assert.deepEqual(pulseRings().ratio,[3,2]);
+});
+
+test('ratio resubdivides A/B ticks per bar without touching ring count or M',()=>{
+  const a=pulseRings({ratio:[3,2]}),b=pulseRings({ratio:[5,4]});
+  assert.equal(a.rings,b.rings);
+  assert.deepEqual(a.lanes,b.lanes);
+  assert.equal(b.ticks.A,5);assert.equal(b.ticks.B,4);assert.equal(b.ticks.M,4);
+});
+
+test('trainer targets stay inside the declared lane set for every phase',()=>{
+  const lanes=new Set(PULSE_LANES);
+  let s=makeTrainerState();
+  for(let i=0;i<20;i++){s=advanceTrainer(s).state;assert.ok(lanes.has(trainerTarget(s)),'target outside lanes')}
 });
 
 test('trace summary exposes bias jitter correction proxy and bounded lock',()=>{

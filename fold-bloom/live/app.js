@@ -1,5 +1,5 @@
-import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, N } from './engine.js?v=0.13.1';
-import { FoldBloomAudio } from './audio.js';
+import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, clamp, N } from './engine.js?v=0.13.1';
+import { FoldBloomAudio, MIX_PARTS } from './audio.js';
 import { Renderer } from './render.js?v=0.13.6';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
@@ -177,6 +177,13 @@ function syncRideControls(){
   document.querySelectorAll('[data-xp-preset]').forEach(b=>b.classList.toggle('on',b.dataset.xpPreset===preset));
   syncVibeQuick();
   document.documentElement.dataset.foldBloomRideProfile=[rideProfile.solidity,rideProfile.immersion,rideProfile.dropGain,rideProfile.anticipation,rideProfile.motionGain,rideProfile.textOffset].map(x=>Number(x).toFixed(2)).join(':');
+}
+function syncMixUI(){
+  for(const part of MIX_PARTS){
+    const tune=$('#'+part+'Tune'),val=$('#'+part+'Val'),pct=Math.round(clamp(Number(audio.mix[part]),0,2)*100);
+    if(tune)tune.value=String(pct);
+    if(val)val.textContent=pct+'%';
+  }
 }
 
 
@@ -437,7 +444,7 @@ async function doRelease(){
   }
   renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(34,7+out.event.chain*3+(out.event.callMet?3:0)+(arcOut.bonus?5:0)));
-  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,sectionIndex:linkedTrack?.sectionIndex??null,sectionProgress:linkedTrack?.sectionProgress??null,sectionSeal:arcOut.event?.kind==='SECTION_SEAL',sectionBonus:arcOut.bonus||0,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null,trackDeformationCount:deformationTape.length});
+  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,mix:audio.mixSnapshot(),sectionIndex:linkedTrack?.sectionIndex??null,sectionProgress:linkedTrack?.sectionProgress??null,sectionSeal:arcOut.event?.kind==='SECTION_SEAL',sectionBonus:arcOut.bonus||0,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null,trackDeformationCount:deformationTape.length});
   const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
   const arc=arcOut.bonus?` · SECTION SEALED +${arcOut.bonus}`:'';
   const road=linkedTrack?` · ROAD ${out.event.operations.join('→')}`:'';
@@ -552,6 +559,12 @@ $('#closeSettings').onclick=closeMenuEvent;
 $('#menuDismiss').addEventListener('pointerdown',closeMenuEvent);
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
+for(const part of MIX_PARTS){
+  const tune=$('#'+part+'Tune');
+  if(!tune)continue;
+  tune.oninput=()=>{audio.setPartLevel(part,Number(tune.value)/100);syncMixUI()};
+}
+$('#mixResetBtn').onclick=()=>{audio.mixReset();syncMixUI();toast('MIX RESET')};
 const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};$('#trackLoad').onclick=chooseSong;$('#sourceQuick')?.addEventListener('click',chooseSong);$('#vibeQuick')?.addEventListener('click',cycleVibe);$('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
@@ -569,7 +582,7 @@ document.querySelectorAll('[data-xp-preset]').forEach(b=>b.onclick=()=>applyRide
 document.querySelectorAll('[data-layer-mode]').forEach(b=>b.onclick=()=>applyLayerMode(b.dataset.layerMode));
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
-  const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
+  const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),mix:audio.mixSnapshot(),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fold-bloom-live-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('RETURN EXPORTED')
 };
 function resetLiveState({silent=false}={}){stopDemo(false);state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);renderer.setScene(state.scene);syncRideProfile();dragAngle=0;update();if(!silent)toast('NEW FIELD');return snapshot(state)}
@@ -671,9 +684,9 @@ function loop(t){
   renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
-syncRideProfile();syncLayerUI();refreshVault();drawCourseMap(true);update();
+syncRideProfile();syncLayerUI();refreshVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null,address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null,address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);

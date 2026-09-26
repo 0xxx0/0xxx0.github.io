@@ -9,6 +9,11 @@ const SCENES = {
 
 const mhz = m => 440 * Math.pow(2, (m - 69) / 12);
 
+// Generated-sound parts routed through named gain nodes. Defaults are 1.0 so
+// the mix is an exact identity when untouched (contract: FOLD_BLOOM_INTERPHASE_UX_HANDOFF_2026-09-26).
+export const MIX_PARTS = ['kick', 'hats', 'bass', 'lead', 'drone'];
+export const MIX_MAX = 2; // sliders bounded: 0%–200% of the synth master.
+
 export class FoldBloomAudio {
   constructor(onBeat=()=>{}) {
     this.ctx = null;
@@ -34,6 +39,8 @@ export class FoldBloomAudio {
     this.onBeat = onBeat;
     this.droneA = this.droneB = this.droneGain = null;
     this.volume = .58;
+    this.partNodes = null;
+    this.mix = { kick:1, hats:1, bass:1, lead:1, drone:1 };
   }
 
   async init() {
@@ -42,6 +49,13 @@ export class FoldBloomAudio {
       if (!Ctx) return false;
       this.ctx = new Ctx();
       this.master = this.ctx.createGain();
+      this.partNodes = {};
+      for (const part of MIX_PARTS) {
+        const g = this.ctx.createGain();
+        g.gain.value = this.mix[part] ?? 1; // 1.0 = exact identity, default behavior preserved
+        g.connect(this.master);
+        this.partNodes[part] = g;
+      }
       this.comp = this.ctx.createDynamicsCompressor();
       this.comp.threshold.value = -18;
       this.comp.knee.value = 14;
@@ -83,7 +97,10 @@ export class FoldBloomAudio {
     filter.type = 'lowpass';
     filter.frequency.value = 900;
     this.droneGain.gain.value = .0001;
-    this.droneA.connect(filter); this.droneB.connect(filter); filter.connect(this.droneGain).connect(this.master);
+    // Drone scene level (droneGain) and user mix (partNodes.drone) stay as separate
+    // nodes so setMotion() scene ramps never clobber the selected mix.
+    const droneBus = this.partNodes?.drone || this.master;
+    this.droneA.connect(filter); this.droneB.connect(filter); filter.connect(this.droneGain).connect(droneBus);
     this.droneA.start(); this.droneB.start();
     this.droneFilter = filter;
   }
@@ -100,6 +117,22 @@ export class FoldBloomAudio {
     this.soundOn = !!on;
     this.setVolume(this.volume);
   }
+
+  setPartLevel(part, value) {
+    if (!MIX_PARTS.includes(part)) return null;
+    const v = clamp(Number(value), 0, MIX_MAX);
+    this.mix[part] = v;
+    const node = this.partNodes && this.partNodes[part];
+    if (node && this.ctx) node.gain.setTargetAtTime(v, this.ctx.currentTime, .03); // ramp to avoid clicks
+    return v;
+  }
+
+  mixReset() {
+    for (const part of MIX_PARTS) this.setPartLevel(part, 1);
+    return { ...this.mix };
+  }
+
+  mixSnapshot() { return { ...this.mix }; }
 
   setScene(name) {
     if (!SCENES[name]) return;
@@ -175,7 +208,7 @@ export class FoldBloomAudio {
     if (ev.cadence === 'RETURN' && ev.verb !== 'RETURN') {
       const beat = 60/s.bpm;
       const rt = t + beat*.5;
-      this._tone(base-12,rt,beat*.72,.024+.006*ev.power,'sine',Math.min(900,s.cut),0);
+      this._tone(base-12,rt,beat*.72,.024+.006*ev.power,'sine',Math.min(900,s.cut),0,'bass');
       this._pluck(base+7,rt+.035,.26+.05*ev.power,0,true);
     }
   }
@@ -215,7 +248,7 @@ export class FoldBloomAudio {
     if (!aperture && hatMask && Math.random() < s.hats*(.54+.35*this.density)) this._hat(when,b%4? .46:.72,(b%4-1.5)*.16);
     if (b%4===0) {
       const root = s.root + s.scale[((this.rotation%7)+7)%7];
-      this._tone(root-12,when,aperture?.46:.30,.016+.016*this.energy,s.bass,Math.min(1100,s.cut));
+      this._tone(root-12,when,aperture?.46:.30,.016+.016*this.energy,s.bass,Math.min(1100,s.cut),0,'bass');
     }
     if (!aperture && this.motif.length) {
       const m = this.motif[(Math.floor(b/2)+step) % this.motif.length];
@@ -227,31 +260,31 @@ export class FoldBloomAudio {
     }
   }
 
-  _tone(m, when, dur=.15, vel=.02, type='triangle', cut=1800, pan=0) {
-    const c=this.ctx, o=c.createOscillator(), f=c.createBiquadFilter(), g=c.createGain(), p=c.createStereoPanner?c.createStereoPanner():null;
+  _tone(m, when, dur=.15, vel=.02, type='triangle', cut=1800, pan=0, bus='lead') {
+    const c=this.ctx, o=c.createOscillator(), f=c.createBiquadFilter(), g=c.createGain(), p=c.createStereoPanner?c.createStereoPanner():null, out=this.partNodes?.[bus]||this.master;
     o.type=type; o.frequency.value=mhz(m); f.type='lowpass'; f.frequency.value=Math.max(300,cut); f.Q.value=1.2;
     g.gain.setValueAtTime(.0001,when); g.gain.exponentialRampToValueAtTime(Math.max(.001,vel),when+.008); g.gain.exponentialRampToValueAtTime(.0001,when+dur);
-    o.connect(f); f.connect(g); if(p){p.pan.value=clamp(pan,-1,1);g.connect(p);p.connect(this.master)}else g.connect(this.master);
+    o.connect(f); f.connect(g); if(p){p.pan.value=clamp(pan,-1,1);g.connect(p);p.connect(out)}else g.connect(out);
     o.start(when); o.stop(when+dur+.03);
   }
 
-  _pluck(m, when, vel=.3, pan=0, wet=false) {
-    const c=this.ctx, o1=c.createOscillator(), o2=c.createOscillator(), f=c.createBiquadFilter(), g=c.createGain(), p=c.createStereoPanner?c.createStereoPanner():null;
+  _pluck(m, when, vel=.3, pan=0, wet=false, bus='lead') {
+    const c=this.ctx, o1=c.createOscillator(), o2=c.createOscillator(), f=c.createBiquadFilter(), g=c.createGain(), p=c.createStereoPanner?c.createStereoPanner():null, out=this.partNodes?.[bus]||this.master;
     o1.type='triangle'; o2.type='sine'; o1.frequency.value=mhz(m); o2.frequency.value=mhz(m)*2.002;
     f.type='lowpass'; f.frequency.setValueAtTime(Math.min(6500,this.scene.cut*1.8),when); f.frequency.exponentialRampToValueAtTime(Math.max(500,this.scene.cut*.35),when+.28); f.Q.value=4;
     g.gain.setValueAtTime(.0001,when); g.gain.exponentialRampToValueAtTime(.018*vel,when+.005); g.gain.exponentialRampToValueAtTime(.0001,when+.34);
-    o1.connect(f);o2.connect(f);f.connect(g); if(p){p.pan.value=pan;g.connect(p);p.connect(this.master);if(wet)p.connect(this.delay)}else {g.connect(this.master);if(wet)g.connect(this.delay)}
+    o1.connect(f);o2.connect(f);f.connect(g); if(p){p.pan.value=pan;g.connect(p);p.connect(out);if(wet)p.connect(this.delay)}else {g.connect(out);if(wet)g.connect(this.delay)}
     o1.start(when);o2.start(when);o1.stop(when+.37);o2.stop(when+.37);
   }
 
   _kick(when, vel=.6) {
-    const c=this.ctx,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(115,when);o.frequency.exponentialRampToValueAtTime(42,when+.09);
-    g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.052*vel,when+.004);g.gain.exponentialRampToValueAtTime(.0001,when+.22);o.connect(g).connect(this.master);o.start(when);o.stop(when+.24);
+    const c=this.ctx,o=c.createOscillator(),g=c.createGain(),out=this.partNodes?.kick||this.master;o.type='sine';o.frequency.setValueAtTime(115,when);o.frequency.exponentialRampToValueAtTime(42,when+.09);
+    g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.052*vel,when+.004);g.gain.exponentialRampToValueAtTime(.0001,when+.22);o.connect(g).connect(out);o.start(when);o.stop(when+.24);
   }
 
   _hat(when, vel=.7, pan=0) {
     if (!this.noise) return;
-    const c=this.ctx,src=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain(),p=c.createStereoPanner?c.createStereoPanner():null;
-    src.buffer=this.noise;f.type='highpass';f.frequency.value=3000;g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.006*vel,when+.002);g.gain.exponentialRampToValueAtTime(.0001,when+.045);src.connect(f);f.connect(g);if(p){p.pan.value=pan;g.connect(p).connect(this.master)}else g.connect(this.master);src.start(when,Math.random()*.5,.05);
+    const c=this.ctx,src=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain(),p=c.createStereoPanner?c.createStereoPanner():null,out=this.partNodes?.hats||this.master;
+    src.buffer=this.noise;f.type='highpass';f.frequency.value=3000;g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.006*vel,when+.002);g.gain.exponentialRampToValueAtTime(.0001,when+.045);src.connect(f);f.connect(g);if(p){p.pan.value=pan;g.connect(p).connect(out)}else g.connect(out);src.start(when,Math.random()*.5,.05);
   }
 }

@@ -10,7 +10,7 @@ import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,st
 import {spectrumFeatures} from '../voice/spectrum.js';
 import {appendVoiceTrace,logFrequencyY,summarizeVoiceTrace} from '../voice/training-trace.js';
 import {
-  PULSE_PSYCHOPHYSICS_VERSION,pulseIntervals,phaseAt,makeTrainerState,trainerTarget,trainerProgress,
+  PULSE_PSYCHOPHYSICS_VERSION,pulseIntervals,pulseRings,phaseAt,makeTrainerState,trainerTarget,trainerProgress,
   advanceTrainer,evaluateTap,summarizeTapTrace,returnDelta
 } from '../pulse/psychophysics.js?v=0.1';
 
@@ -250,7 +250,7 @@ $('#voiceNext')?.addEventListener('click',()=>{voice.manualStep++;syncVoiceTarge
 $('#voiceBaseDown')?.addEventListener('click',()=>{voice.baseMidi=Math.max(43,voice.baseMidi-1);syncVoiceTarget()});
 $('#voiceBaseUp')?.addEventListener('click',()=>{voice.baseMidi=Math.min(76,voice.baseMidi+1);syncVoiceTarget()});
 $$('[data-voice-pattern]').forEach(b=>b.onclick=()=>{voice.pattern=b.dataset.voicePattern;voice.manualStep=0;$$('[data-voice-pattern]').forEach(x=>x.classList.toggle('cool',x===b));syncVoiceTarget();setStatus('VOICE · '+voice.pattern)});
-syncVoiceTarget();document.documentElement.dataset.fieldLabVoice='ready';
+syncVoiceTarget();document.documentElement.dataset.fieldLabVoice='ready';syncPulseLaneReadouts();
 
 /* ---------- VERSE / TEXT MARKS ---------- */
 const verse={lines:[],focus:0,marks:[],sourceKey:'',returnAddress:''};
@@ -654,6 +654,12 @@ function updatePulseReadout(data){
   if($('#pulseClock'))$('#pulseClock').textContent=data.playing?'OUT':'LAST';
   if($('#pulseBeat'))$('#pulseBeat').textContent=String(Math.max(0,Number(data.beatIndex)||0)+1);
   if($('#pulsePhase'))$('#pulsePhase').textContent=Math.round((Number(data.beatPhase)||0)*100)+'%';
+  syncPulseLaneReadouts();
+}
+function syncPulseLaneReadouts(){
+  const rings=pulseRings({ratio:pulse.ratio});
+  if($('#ringsRead'))$('#ringsRead').textContent=String(rings.rings);
+  if($('#voiceLinkState'))$('#voiceLinkState').textContent=pulse.playing?'LINKED · LAB PULSE · '+pulse.bpm+' BPM':'FREE';
 }
 function publishPulseTransport(t,force=false,timeOverride=null){
   if(!force&&t-pulse.lastPublish<120)return;
@@ -672,19 +678,19 @@ function drawPulseRing(cx,cy,rad,phase,count,col,label,target=false){
 }
 function drawPulse(t){
   publishPulseTransport(t);
-  clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,iv=pulseIntervals({bpm:pulse.bpm,ratio:pulse.ratio});
+  clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,iv=pulseIntervals({bpm:pulse.bpm,ratio:pulse.ratio}),rings=pulseRings({ratio:pulse.ratio});
   const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000,train=trainerProgress(pulse.trainer),target=train.target;
   const phM=phaseAt(tt,0,iv.beat),phA=phaseAt(tt,0,iv.a),phB=phaseAt(tt,0,iv.b),rr=Math.min(W,H)*.245;
-  drawPulseRing(cx,cy,rr,phM,4,'215,180,109','M · BEAT',target==='M');
-  drawPulseRing(cx,cy,rr*.78,phA,iv.ratio[0],'123,213,255','A · '+iv.ratio[0],target==='A');
-  drawPulseRing(cx,cy,rr*.56,phB,iv.ratio[1],'239,120,73','B · '+iv.ratio[1],target==='B');
+  drawPulseRing(cx,cy,rr,phM,rings.ticks.M,'215,180,109','M · BEAT',target==='M');
+  drawPulseRing(cx,cy,rr*.78,phA,rings.ticks.A,'123,213,255','A · '+rings.ticks.A,target==='A');
+  drawPulseRing(cx,cy,rr*.56,phB,rings.ticks.B,'239,120,73','B · '+rings.ticks.B,target==='B');
   if(pulse.lastTap){
     const rad=target==='M'?rr:target==='A'?rr*.78:rr*.56,e=Math.max(-.22,Math.min(.22,Number(pulse.lastTap.phaseError)||0)),an=-Math.PI/2+e*TAU;
     ctx.strokeStyle='rgba(242,243,239,.75)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx+Math.cos(an)*(rad-10),cy+Math.sin(an)*(rad-10));ctx.lineTo(cx+Math.cos(an)*(rad+7),cy+Math.sin(an)*(rad+7));ctx.stroke();
   }
   const summary=summarizeTapTrace(pulse.taps);
   ctx.textAlign='center';ctx.fillStyle='#f2f3ef';ctx.font='900 14px ui-monospace';ctx.fillText(train.phase+' · '+target,cx,cy-3);
-  ctx.fillStyle='#7f8d94';ctx.font='700 8px ui-monospace';ctx.fillText((train.value+1)+' / '+train.targetTaps+' · '+iv.ratio.join(':')+' · LOCK '+(summary.lock??'—'),cx,cy+15);
+  ctx.fillStyle='#7f8d94';ctx.font='700 8px ui-monospace';ctx.fillText((train.value+1)+' / '+train.targetTaps+' · RATIO '+iv.ratio.join(':')+' · RINGS '+rings.rings+' · LOCK '+(summary.lock??'—'),cx,cy+15);
 }
 function versePositions(){
   ensureVerse();const max=11,n=verse.lines.length,start=Math.max(0,Math.min(Math.max(0,n-max),verse.focus-Math.floor(max/2))),end=Math.min(n,start+max),rows=Math.max(1,end-start);
@@ -757,7 +763,7 @@ function tick(now){
 }
 requestAnimationFrame(tick);
 function currentProjectionEvidence(){
-  if(mode==='PULSE'){const train=pulseTrainView();return {kind:'PULSE',psychophysics:PULSE_PSYCHOPHYSICS_VERSION,bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,train:{...train.progress,summary:train.summary,returnDelta:train.returnDelta},voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};}
+  if(mode==='PULSE'){const train=pulseTrainView();return {kind:'PULSE',psychophysics:PULSE_PSYCHOPHYSICS_VERSION,bpm:pulse.bpm,ratio:pulse.ratio.join(':'),rings:pulseRings({ratio:pulse.ratio}),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,train:{...train.progress,summary:train.summary,returnDelta:train.returnDelta},voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};}
   if(mode==='VERSE'){
     const line=currentVerseLine();
     return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length};

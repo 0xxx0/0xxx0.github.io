@@ -15,6 +15,17 @@ export function pulseIntervals({bpm=96,ratio=[3,2]}={}){
   return {bpm:tempo,beat,bar,a:bar/a,b:bar/b,ratio:[a,b]};
 }
 
+// Ring count is a property of the lane set, never of the ratio. The trainer
+// targets, scheduler, event tape, and on-screen rings all share these three
+// lanes; RATIO only resubdivides the A/B tick counts inside one four-beat bar.
+export const PULSE_LANES=Object.freeze(['M','A','B']);
+export const PULSE_RING_COUNT=PULSE_LANES.length;
+
+export function pulseRings({ratio=[3,2]}={}){
+  const a=Math.max(1,Math.trunc(finite(ratio?.[0])||3)),b=Math.max(1,Math.trunc(finite(ratio?.[1])||2));
+  return {rings:PULSE_RING_COUNT,lanes:[...PULSE_LANES],ticks:Object.freeze({M:4,A:a,B:b}),ratio:[a,b]};
+}
+
 export function nearestGridEvent(time,start,interval){
   const t=finite(time),s=finite(start),iv=Math.max(.001,finite(interval));
   const index=Math.round((t-s)/iv),target=s+index*iv,error=t-target;
