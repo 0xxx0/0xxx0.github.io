@@ -1,4 +1,4 @@
-import {InkField} from './ink-engine.js';
+import {InkField} from './ink-engine.js?v=0.4';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const cv=$('#paper'),g=cv.getContext('2d'),stage=$('#stage');
 const IW=256,IH=170,field=new InkField({width:IW,height:IH,seed:31}),off=document.createElement('canvas'),ox=off.getContext('2d');
