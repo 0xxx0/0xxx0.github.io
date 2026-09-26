@@ -246,6 +246,14 @@ check(workfieldJs.includes('interphaseObject:()=>clone(interphaseObject())')&&wo
 check(interphaseDayline.includes("id:'dayline-workfield'")&&interphaseDayline.includes("id:'DAYLINE'")&&interphaseDayline.includes("DAYLINE_NATIVE_EFFECTS_ONLY"),'Dayline INTERPHASE adapter authority boundary missing');
 const fieldRoot=read('index.html');
 check(fieldRoot.includes("schema:'interphase/v0.2/handoff'")&&fieldRoot.includes('INTERPHASE → DAYLINE')&&fieldRoot.includes("window.FieldInterphase"),'FIELD → Dayline INTERPHASE propagation missing');
+const awakeHtml=read('awake/index.html'),awakeApp=read('awake/app.js'),awakeCss=read('awake/app.css'),awakeRelease=parse('awake/release.json');
+check(fieldRoot.includes('id="headerAwake"')&&fieldRoot.includes("field.awake.handoff.v01")&&fieldRoot.includes("schema:'field-awake-handoff/v0.1'"),'FIELD → AWAKE held-route propagation missing');
+check(/AWAKE \/ INTERPHASE 0\.1/.test(awakeHtml)&&awakeHtml.includes('/lib/interphase-core.js')&&awakeHtml.includes('/lib/interphase-dom.js'),'AWAKE visor shell lost INTERPHASE runtime');
+check(awakeApp.includes("InterphaseDOM.create")&&awakeApp.includes("Interphase.createHost")&&awakeApp.includes("id:'AWAKE:'+route"),'AWAKE visor must bind a route-addressed real INTERPHASE host');
+check(awakeApp.includes("schema:'interphase/v0.2/handoff'")&&awakeApp.includes("schema:'atlas-dayline-handoff/v0.1'")&&awakeApp.includes("field.awake.handoff.v01"),'AWAKE visor continuity packets missing');
+for(const pair of ["WAKE',office:'SOURCE","CUT',office:'FRAME","HOLD',office:'FOCUS","TURN',office:'OPERATE","TRACE',office:'WITNESS","AGAIN',office:'RETURN"])check(awakeApp.includes(pair),'AWAKE↔INTERPHASE cadence missing: '+pair);
+check(/@media\(max-width:720px\)/.test(awakeCss)&&/grid-template-columns:repeat\(3,1fr\)/.test(awakeCss),'AWAKE mobile three-move rail regressed');
+check(awakeRelease?.authority?.startsWith('NONE')&&awakeRelease?.lineage?.boundary?.includes('not a claim'),'AWAKE authority/lineage boundary missing');
 check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAMPLE"),'Dayline Confluence legacy sample migration missing');
 const shoppingHtml=read('shopping/index.html');
 check(shoppingHtml.includes("SOURCE_RETURN='atlas.dayline.source-return.v01'")&&shoppingHtml.includes("shopping-dayline-receipt/v0.1"),'Shopping Dayline receipt transport missing');
