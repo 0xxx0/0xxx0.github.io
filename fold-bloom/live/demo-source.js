@@ -1,6 +1,6 @@
 export const FIELD_DEMO_SCHEMA='fold-bloom-field-audio-demo/v0.1';
 export const FIELD_DEMO_DURATION=16;
-export const FIELD_DEMO_SAMPLE_RATE=22050;
+export const FIELD_DEMO_SAMPLE_RATE=16000;
 
 const TAU=Math.PI*2;
 const clamp=v=>Math.max(-1,Math.min(1,v));
