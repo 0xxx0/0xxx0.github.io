@@ -2,6 +2,7 @@ import {decodeExperienceSet} from '../experience-set/experience-set.js';
 import {buildJourneyPlan,journeyAddress,nextJourneyIndex,makeJourneyReturn} from './journey-core.js';
 import {getLocalMedia,putLocalMedia,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
 import {buildShareableSeedDemo} from './demo-seed.js';
+import {hashFile} from '../../lib/id.js';
 
 const $=s=>document.querySelector(s),SET_STORE='fold-bloom.set-compositor.v01',META_STORE='fold-bloom.set-compositor.meta.v01';
 const audioA=$('#audioA'),audioB=$('#audioB');
@@ -26,11 +27,6 @@ async function probeDuration(record){
     const audio=document.createElement('audio'),url=URL.createObjectURL(record.blob),done=value=>{URL.revokeObjectURL(url);resolve(Number.isFinite(value)?value:0)};
     const timer=setTimeout(()=>done(0),6000);audio.preload='metadata';audio.onloadedmetadata=()=>{clearTimeout(timer);done(audio.duration)};audio.onerror=()=>{clearTimeout(timer);done(0)};audio.src=url;
   });
-}
-
-async function hashFile(file){
-  const bytes=await file.arrayBuffer(),hash=await crypto.subtle.digest('SHA-256',bytes);
-  return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
 }
 
 async function bindFiles(files){
