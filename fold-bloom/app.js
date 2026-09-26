@@ -3,6 +3,7 @@ import {listLocalMedia,putLocalMedia} from './local-media-store.js';
 import {createExperienceSet,appendSource,prepareSet} from './set/set-core.js';
 import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experience-set.js';
 import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,projectionSpec,identityDescriptor} from './instrument-support.js';
+import {hashHex,hashFile,hashText} from '../lib/id.js';
 
 const $=s=>document.querySelector(s);
 document.documentElement.dataset.fbModule='ready';
@@ -21,9 +22,7 @@ let active=loadActive(),operation='FOCUS',textRuntime=null,vault=[];
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1400)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]))}
-function hashHex(buf){return crypto.subtle.digest('SHA-256',buf).then(h=>Array.from(new Uint8Array(h),b=>b.toString(16).padStart(2,'0')).join(''))}
-async function hashFile(file){return 'sha256:'+await hashHex(await file.arrayBuffer())}
-async function hashText(text){return 'sha256:'+await hashHex(new TextEncoder().encode(text))}
+
 
 function loadActive(){try{return normalizeActive(JSON.parse(sessionStorage.getItem(ACTIVE_KEY)||'null'))}catch(_){return normalizeActive()}}
 function persistActive(){try{sessionStorage.setItem(ACTIVE_KEY,JSON.stringify(active))}catch(_){}return active}
