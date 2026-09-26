@@ -104,6 +104,8 @@ jobs:
         run: node control/space-scale-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
+      - name: Prove pending-CI receipt rejection
+        run: node tools/validate-pending-ci-rejection-selftest.mjs
       - name: Validate Triangle FORM rewrite core
         run: node tools/triangle-form-selftest.mjs
       - name: Test LISTEN analysis + stream lens
