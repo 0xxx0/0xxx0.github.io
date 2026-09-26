@@ -371,7 +371,7 @@
       "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
     },
     "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
-    "pr": null,
+    "pr": 416,
     "merge_sha": null,
     "verification": {
       "public_surface_check": "PASS",
@@ -385,8 +385,8 @@
       "loop_contract": "PASS · PR #409",
       "route_registration_run": 36208469519,
       "public_surface_run": 36208469513,
-      "form_morph_core": "PENDING_PR_CI",
-      "form_morph_mobile": "PENDING_PR_CI"
+      "form_morph_core": "PENDING · PR #416",
+      "form_morph_mobile": "PENDING · PR #416"
     },
     "puzzle_grammar": {
       "status": "SUPERSEDED_AS_GAMEPLAY_BY_FORM_MORPH_0.6.0",
