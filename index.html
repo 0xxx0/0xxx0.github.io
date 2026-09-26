@@ -413,6 +413,16 @@ function heldDaylineAllowed(){
 function handoffHeldToDayline(){
  if(!heldDaylineAllowed())return;
  const h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
+ const ipRaw=window.FieldInterphase&&typeof window.FieldInterphase.projectionResult==='function'?window.FieldInterphase.projectionResult():null;
+ const interphase=ipRaw?{
+  schema:'interphase/v0.2/handoff',
+  host:ipRaw.host||'FIELD',
+  projection:ipRaw.projection||'PAGE',
+  object_id:route,
+  selection:Array.isArray(ipRaw.selection)?ipRaw.selection.slice():[],
+  focus:Array.isArray(ipRaw.focus)?ipRaw.focus.map(x=>({id:x.id,aperture:x.aperture||'DETAIL'})):[],
+  residue:Array.isArray(ipRaw.residue)?ipRaw.residue.map(x=>({id:x.id,channel:x.channel,projection:x.projection})):[]
+ }:null;
  const packet={
   schema:'atlas-dayline-handoff/v0.1',
   id:'field-'+Date.now(),
@@ -435,11 +445,12 @@ function handoffHeldToDayline(){
     'RETURN /?focus='+encodeURIComponent(route)
    ].filter(Boolean).join('\n')
   }},
-  return_to:'/?focus='+encodeURIComponent(route)
+  return_to:'/?focus='+encodeURIComponent(route),
+  interphase
  };
  try{
   sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));
-  location.assign('/dayline/?handoff=field');
+  location.assign('/dayline/?handoff=field&interphase=FOVEA');
  }catch(_){
   $('capReturn').textContent='DAYLINE HANDOFF FAILED · RETURN → '+route;
  }
@@ -453,7 +464,7 @@ function renderCapabilityTrial(){
  $('capHeld').textContent=(c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(focus.title||focus.href);
  $('capHeldSub').textContent=focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host');
  const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed();
- $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a>'+(canDayline?'<button class="capMove" data-cap-dayline>DAYLINE →</button>':'<button class="capMove" data-cap-copy>COPY ACTION</button>')+'<button class="capMove" data-cap-trace>TRACE</button>';
+ $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a>'+(canDayline?'<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>':'<button class="capMove" data-cap-copy>COPY ACTION</button>')+'<button class="capMove" data-cap-trace>TRACE</button>';
  const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
  const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
  $('capMoves').querySelector('[data-cap-trace]').onclick=openTrace;

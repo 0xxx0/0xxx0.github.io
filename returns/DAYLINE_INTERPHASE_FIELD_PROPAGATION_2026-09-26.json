@@ -1,0 +1,39 @@
+{
+  "schema": "field-return/v1",
+  "id": "DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26",
+  "date": "2026-09-26",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "one FIELD-held route preserved across FIELD INTERPHASE → Dayline INTERPHASE → native Dayline operation → RETURN",
+  "source": [
+    "/lib/interphase-core.js",
+    "/lib/interphase-field.js",
+    "/index.html",
+    "/dayline/",
+    "/control/INTERPHASE_SUCCESSOR.json"
+  ],
+  "delta": [
+    "added /lib/interphase-dayline.js as a first-class read-only INTERPHASE host over existing DayState",
+    "Dayline exposes the currently held object as identity/address/content/depth/time/authority/evidence without a second store",
+    "Dayline projects the held object through FOVEA / LINE / RING; suppressed channels remain explicit residue",
+    "FIELD held-object handoff now carries a bounded interphase/v0.2 witness from the existing FieldInterphase host inside atlas-dayline-handoff/v0.1",
+    "accepted Dayline task preserves the inherited FIELD INTERPHASE witness",
+    "ordinary Dayline RETURN carries the current DaylineInterphase projection witness",
+    "FIELD root action names the crossing INTERPHASE → DAYLINE"
+  ],
+  "boundaries": [
+    "no new canonical store",
+    "no universal shell",
+    "no INTERPHASE effect authority",
+    "native Dayline alone performs RUN / WITNESS / COMPLETE",
+    "native source still owns source-specific RETURN acceptance",
+    "projection residue is visible rather than silently dropped"
+  ],
+  "verification": {
+    "interphase_dayline_selftest": "PENDING_CI",
+    "static_contract": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "route_registration": "PENDING_CI"
+  },
+  "one_next": "Run CI on current-master branch. If green, merge as the first explicit app-level INTERPHASE propagation through FIELD Index; do not generalize to every app yet.",
+  "stop": "Do not add another app adapter until this host continuity is mechanically green and a second host has a concrete missing function."
+}
