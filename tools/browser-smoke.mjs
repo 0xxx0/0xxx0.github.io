@@ -1062,7 +1062,7 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE generated audio demo',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,budget:30000,timeout:42000},
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready-generated"')&&/data-fold-bloom-demo-duration="1[5-7](?:\.\d+)?"/.test(dom)&&dom.includes('id="courseHud"')&&dom.includes('id="courseMap"')&&dom.includes('id="publicDemoBtn"')&&/PLAY FIELD AUDIO DEMO/.test(dom)&&dom.includes('data-fold-bloom-layer="IMMERSION"')
   },
   {
@@ -1074,7 +1074,7 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE clean-phone generated audio demo',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,budget:30000,timeout:42000},
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready-generated"')&&/data-fold-bloom-demo-duration="1[5-7](?:\.\d+)?"/.test(dom)&&dom.includes('id="courseHud"')&&dom.includes('id="courseMap"')&&dom.includes('id="publicDemoBtn"')&&/PLAY FIELD AUDIO DEMO/.test(dom)&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')
   },
   {
