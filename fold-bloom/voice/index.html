@@ -21,7 +21,7 @@ footer{border-top:1px solid var(--line);padding:7px 10px calc(7px + env(safe-are
 <header class="top"><div><div class="brand">FOLD<i>//</i>BLOOM · VOICE 0.2</div><div class="sub">PITCH · SPECTRUM · STABILITY · TARGET · OPTIONAL FIELD PULSE</div></div><div class="grow"></div><button id="backBtn">← RETURN</button></header>
 <main>
 <section class="field">
-  <canvas class="spectrogram" id="spectrogram" width="360" height="128" aria-label="Live voice spectrogram"></canvas>
+  <canvas class="spectrogram" id="spectrogram" width="360" height="128" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
   <div class="rings"></div><div class="beat" id="beatFlash"></div>
   <div class="center">
     <div class="label">TARGET · <span id="patternRead">NOTE</span></div>
@@ -37,12 +37,12 @@ footer{border-top:1px solid var(--line);padding:7px 10px calc(7px + env(safe-are
   <div class="patterns"><button class="on" data-pattern="NOTE">ONE NOTE</button><button data-pattern="CALL">1 · 3 · 5 · 3</button><button data-pattern="SCALE">FIVE NOTE</button><button data-pattern="HUM">HUM / STEADY</button></div>
   <h2 style="margin-top:14px">BASE</h2><div class="base"><button id="baseDown">−</button><strong id="baseRead">C4</strong><button id="baseUp">+</button></div>
   <h2 style="margin-top:14px">CLOCK</h2><div class="row"><button id="pulseBtn">PULSE OFF</button><div style="flex:2;border:1px solid var(--line);padding:12px 9px;font-size:8px;color:var(--mut)" id="pulseRead">FREE</div></div>
-  <div class="metricGrid"><div class="metric">CLARITY<b id="clarity">—</b></div><div class="metric">STABILITY<b id="stability">—</b></div><div class="metric">CENTROID<b id="centroid">—</b></div><div class="metric">SPECTRAL PEAK<b id="spectralPeak">—</b></div></div>
+  <div class="metricGrid"><div class="metric">CLARITY<b id="clarity">—</b></div><div class="metric">STABILITY<b id="stability">—</b></div><div class="metric">CENTROID<b id="centroid">—</b></div><div class="metric">SPECTRAL PEAK<b id="spectralPeak">—</b></div><div class="metric">ONSET Δ<b id="onsetDelta">—</b></div><div class="metric">CENTER HOLD<b id="centerHold">—</b></div></div>
   <div class="row"><button class="cool" id="exportBtn">EXPORT RETURN</button><a href="../lab/?mode=PULSE" style="flex:1"><button style="width:100%">OPEN PULSE →</button></a></div>
-  <div class="privacy">Microphone analysis stays in this browser. VOICE does not record or upload audio. Pitch and spectrum are measured signals, not judgments of singing quality. FIELD PULSE may lend tempo/beat only; it cannot author the voice exercise.</div>
+  <div class="privacy">Microphone analysis stays in this browser. VOICE does not record or upload audio. The scrolling field combines spectrum, target/heard pitch traces and beat boundaries. Pitch/spectrum/timing are measured witnesses, not judgments of singing quality. FIELD PULSE may lend tempo/beat only; it cannot author the voice exercise.</div>
 </aside>
 </main>
 <footer id="status">READY · START MIC OR HEAR TARGET</footer>
 </div>
-<script type="module" src="./app.js?v=0.2"></script><script src="/showcase-nav.js" defer></script>
+<script type="module" src="./app.js?v=0.2.1"></script><script src="/showcase-nav.js" defer></script>
 </body></html>
