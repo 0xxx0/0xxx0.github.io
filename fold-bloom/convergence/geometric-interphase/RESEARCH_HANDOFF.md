@@ -63,3 +63,36 @@ Preserve failures and UNKNOWNs. Keep geometric coordinates as projection data;
 do not infer physical fit. If no real fixture is accessible, stop at the current
 synthetic proof and return the exact missing fixture path.
 ```
+
+
+## Integration log and continuation — 2026-09-26
+
+### Merged evidence
+
+- PR #410 merged as `4b5ab8691b0342064a480f160fd4878d74d67f56`. The candidate self-test covers LINEAR / RADIAL / AXIAL × 64 apertures (192 cases), identity, multifocus, authority, visible/residue partition, typed hylo structure, and exact RETURN.
+- PR #416 merged as `1073d69c59607d53adaa429b4443d8a8e007f51f`. FOLD//BLOOM PLAY 0.6.0 writes exact LIVE verbs into six leaves and addresses MORPH through the existing ring, retaining LIVE authority and the separate Yijing/state-language donor.
+- The merged FORM→MORPH receipt now records branch CI and independent merged-master checks: Route Registration, convergence validation, public-surface-check, unified-root browser, mobile interaction regression, and critical browser smoke all pass. Its exact status and run IDs live in `/returns/FOLD_BLOOM_FORM_MORPH_2026-09-26.json`.
+
+### Shared reading
+
+| Term | Executable meaning here | Limit |
+|---|---|---|
+| Tzimtzum / contraction | Reduce visible facets under an aperture; preserve the canonical host and enumerate suppressed facets as residue. | Analogy grounded in the existing FIELD INDEX surface contraction; not a theological claim or information-theoretic compression. |
+| FOVEA | Stable semantic facet address carried through projection changes. | Screen coordinates never define identity. |
+| LINEAR / RADIAL / AXIAL | Three allocations of the same addressed host: source order, cyclic relations, and orientation/constraint axis. | View geometry is not physical geometry. |
+| Bowtie | Enter through an addressed focus, branch into unequal projections, return to the same host and caller context. | A tested transfer shape, not a new ontology. |
+| Hylomorphic unfold/fold | Recursively unfold typed facets, then fold a structural summary from them. | Executable recursion-scheme sample, not a general categorical proof. |
+| Fold/Bloom | Keep exact SOURCE, derived MAP, optional IMMERSION, authored operation and RETURN distinct; SET owns seam/order, LIVE owns embodied ride state and source/journey clocks. | No transfer of source or domain authority to the geometry layer. |
+
+### Hermes / ForAll next bounded job
+
+Recover `control/CURRENT.json`, `control/INTERPHASE_SUCCESSOR.json`, `control/INTERPHASE_MAPPING_CONTRACT.json`, `control/INTERPHASE_CORRESPONDENCE_REGISTRY.json`, `fold-bloom/DESIGN.md`, `fold-bloom/live/set-ride-core.js`, its tests, and this handoff. Run:
+
+```sh
+node fold-bloom/convergence/geometric-interphase/selftest.mjs
+node --test fold-bloom/live/tests/set-ride-core.test.mjs
+```
+
+Then inspect the real SET→LIVE seam packet/snapshot shape. Add exactly one fixture adapter test to the existing geometric proof only if a current snapshot is available. It must preserve exact source identity/address, `sourceTime`, `journeyTime`, seam law/authority, focus, suppressed-facet residue, and caller RETURN across LINEAR/RADIAL/AXIAL. Compare before/after host state and prove projection alone is non-mutating. A changed canonical host is allowed only through the existing SET/LIVE operation and its own authority.
+
+Keep work centered on one real authored 2–3-source SET and one next lawful operation; report the witness and exact return address. This “center of mass” is a work-selection rule, not a new center-mass audio provider or geometric origin. If no real snapshot exists, return its missing path and preserve the current candidate proof. Do not add a core, bus, store, app shell, or second continuity ledger. Keep real-phone seam use and two-phone SABER tests labeled WAITING_ON_HUMAN.
