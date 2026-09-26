@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/interphase-successor/v0.1",
   "updated": "2026-09-26",
-  "status": "ACTIVE_HANDOFF / DAYLINE_HOST_PROVED",
+  "status": "ACTIVE_HANDOFF",
   "purpose": "Cold-start continuation packet for INTERPHASE / Fold-Bloom / recovery convergence. Prefer exact linked artifacts over this summary when they disagree.",
   "top_laws": [
     "RECOVER BEFORE INVENTING",
@@ -265,5 +265,6 @@
       "remaining_if_pursued": "One bounded fixture showing equal member/source glyph identity does not collapse unequal SET seam/operator state; expose difference or explicit residue without moving authority into GLYPH.",
       "stop": "Do not reopen a glyph framework or coordination architecture solely to manufacture the missing receipt."
     }
-  }
+  },
+  "proof_state": "DAYLINE_HOST_PROVED · PR #407 · ee10eaeb96e3ccc49507f8b75d794b9efc8be0ef"
 }
