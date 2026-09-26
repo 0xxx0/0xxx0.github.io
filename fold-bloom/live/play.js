@@ -6,8 +6,9 @@ import {
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
 } from './play-core.js?v=0.5';
 import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
+import {PLAY_LOOP_CONTRACT_VERSION,loopContract,loopContracts,loopWitness,partitionTurnDelta} from './play-loop.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.5.6';
+const VERSION='FOLD_BLOOM_PLAY_0.5.7';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -17,13 +18,34 @@ let mode=VALID.has(requested)?requested:'PLAY';
 let viewTouched=params.has('view')||params.has('still');
 let stillView=params.get('view')==='still'||params.get('still')==='1';
 let active=false,ended=false,releases=0,hits=0,flowGain=0,stars=0,turns=0,par=0;
-let lastRotation=null,lastEventId=null,runtime=null,fieldEnter=null,root=null,result=null;
+let lastRotation=null,lastEventId=null,lastSeq=null,runtime=null,fieldEnter=null,root=null,result=null;
 let duetPanel=null,duetB=0,duetHits=0;
 let hexPanel=null,hexPlan=null,hexLines=[],hexPhase='FORM',hexFrom=null,hexChangeMoves=0;
 let gardenChoice=null,gardenGeneration=1,gardenEvents=[],gardenTrait=null,gardenSurvived=0,gardenLineage=[],gardenLastResult=null;
-let feedbackTimer=null;
+let feedbackTimer=null,loopEventSeq=0;
+const loopListeners=new Set();
 const q=s=>document.querySelector(s);
 const callText=call=>!call?'OPEN':call.verb+(call.chain>1?' ×'+call.chain+'+':'');
+
+function emitLoopEvent(type,detail={}){
+  const packet={
+    kind:'FOLD_BLOOM_PLAY_LOOP_EVENT',
+    version:PLAY_LOOP_CONTRACT_VERSION,
+    seq:++loopEventSeq,
+    created:new Date().toISOString(),
+    type:String(type||'WITNESS').toUpperCase(),
+    loop:playState().loop,
+    detail:{...detail}
+  };
+  for(const listener of [...loopListeners]){try{listener(packet)}catch(error){console.warn('PLAY loop listener failed',error)}}
+  try{window.dispatchEvent(new CustomEvent('fold-bloom-play-loop',{detail:packet}))}catch(_){}
+  return packet;
+}
+function subscribeLoop(listener){
+  if(typeof listener!=='function')return ()=>{};
+  loopListeners.add(listener);
+  return ()=>loopListeners.delete(listener);
+}
 function markPrimaryControls(){
   const ids=['modeBtn','releaseBtn','sceneBtn'];
   const clear=ids.every(id=>{
@@ -114,8 +136,8 @@ async function enterFromIntro(nextMode){
 function enterRide(){
   active=false;ended=false;root?.classList.remove('on');duetPanel?.classList.remove('on');hexPanel?.classList.remove('on');gardenChoice?.classList.remove('on');result?.classList.remove('on');
   runtime?.gameProjection?.set?.(null);
-  delete document.documentElement.dataset.fbPlayMode;delete document.documentElement.dataset.fbInstrument;document.documentElement.dataset.fbSurface='ride';
-  schedulePrimaryControlCheck();
+  delete document.documentElement.dataset.fbPlayMode;delete document.documentElement.dataset.fbInstrument;delete document.documentElement.dataset.fbLoopArchetype;document.documentElement.dataset.fbSurface='ride';
+  schedulePrimaryControlCheck();emitLoopEvent('EXIT',{to:'RIDE'});
 }
 function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
@@ -167,6 +189,7 @@ function toggleStillView(){
   viewTouched=true;stillView=!stillView;updateStillControl();
   if(runtime)update(runtime.state());
   flash(stillView?'STILL VIEW · SOURCE CLOCK CONTINUES':'RIDE VIEW · SOURCE MOTION RESTORED',stillView?'hit':'');
+  emitLoopEvent('VIEW',{still:stillView});
 }
 function bumpPartner(delta){duetB=wrap(duetB+delta,6);if(runtime)update(runtime.state());}
 function signedRotationToSlot(state,slot){
@@ -199,8 +222,8 @@ function resetModeState(){
   gardenGeneration=1;gardenEvents=[];gardenTrait=null;gardenSurvived=0;gardenLineage=[];gardenLastResult=null;gardenChoice?.classList.remove('on');
 }
 function start(nextMode='PLAY'){
-  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';document.documentElement.dataset.fbHexVisual=mode==='PUZZLE'?'two-rings':'off';updateStillControl();resetModeState();
-  const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);
+  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';document.documentElement.dataset.fbHexVisual=mode==='PUZZLE'?'two-rings':'off';document.documentElement.dataset.fbLoopArchetype=loopContract(mode).archetype;updateStillControl();resetModeState();
+  const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;lastSeq=Number(state.seq)||0;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);emitLoopEvent('START',{mode});
 }
 function finish(state){
   active=false;ended=true;root.classList.remove('on');duetPanel.classList.remove('on');hexPanel.classList.remove('on');gardenChoice.classList.remove('on');runtime?.gameProjection?.set?.(null);
@@ -216,16 +239,16 @@ function finish(state){
   else if(mode==='DUET'){const out=duetOutcome(duetHits,releases);q('#fbResultEy').textContent=(out.clear?'DUET CLEAR':'DUET RETURN')+' · WIN '+DUET_WIN_HITS+'/'+DUET_ROUNDS;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=duetHits+' / '+DUET_ROUNDS+' synchronized CALLs. The road chose a consequence; the second dial had to name the same relation before release.';}
   else if(mode==='GARDEN'){const out=gardenOutcome(gardenSurvived,GARDEN_SURVIVAL_TARGET);q('#fbResultEy').textContent=(out.clear?'GARDEN CLEAR':'GARDEN RETURN')+' · WIN '+GARDEN_SURVIVAL_TARGET+'/'+GARDEN_SURVIVAL_TARGET+' TRAITS';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=gardenSurvived+' / '+GARDEN_SURVIVAL_TARGET+' inherited pressures survived · lineage '+(gardenLineage.join(' → ')||'ROOT')+'. Each four-move generation changed what the next one had to preserve.';}
   else{q('#fbResultEy').textContent='RETURN';q('#fbResultBig').textContent='OPEN';q('#fbResultBody').textContent='The field remains live.';}
-  result.classList.add('on');schedulePrimaryControlCheck();
+  result.classList.add('on');schedulePrimaryControlCheck();emitLoopEvent('FINISH',{mode});
 }
 function showGardenChoice(){
   const s=gardenSummary(gardenEvents),inherited=gardenTrait?(gardenLastResult?'SURVIVED':'DID NOT SURVIVE'):'ROOT OBSERVED';
   q('#fbGardenEy').textContent='GEN '+gardenGeneration+' RETURN · '+inherited;
   q('#fbGardenBody').textContent='Parent: '+s.hits+'/4 CALLs · best chain '+s.best+'× · '+s.structural+' structural ops. Choose one trait-family to become the next generation’s pressure. This is Ecology: selection changes what must persist.';
-  active=false;gardenChoice.classList.add('on');schedulePrimaryControlCheck();
+  active=false;gardenChoice.classList.add('on');schedulePrimaryControlCheck();emitLoopEvent('CHOICE_REQUIRED',{kind:'GARDEN_TRAIT',generation:gardenGeneration});
 }
 function chooseGardenTrait(trait){
-  if(!GARDEN_TRAITS[trait])return;gardenLineage.push(trait);gardenTrait=trait;gardenGeneration+=1;gardenEvents=[];gardenLastResult=null;gardenChoice.classList.remove('on');active=true;update(runtime.state());
+  if(!GARDEN_TRAITS[trait])return;gardenLineage.push(trait);gardenTrait=trait;gardenGeneration+=1;gardenEvents=[];gardenLastResult=null;gardenChoice.classList.remove('on');active=true;update(runtime.state());emitLoopEvent('CHOICE',{kind:'GARDEN_TRAIT',trait,generation:gardenGeneration});
 }
 function finishGardenGeneration(state){
   if(gardenTrait){gardenLastResult=gardenGoalMet(gardenTrait,gardenEvents);if(gardenLastResult)gardenSurvived+=1;}else gardenLastResult=null;
@@ -263,7 +286,7 @@ function onRelease(event,state){
   }else if(mode==='PLAY'){
     flash(event.callMet?'CALL HIT · '+event.verb+' · +'+gain+' FLOW':'ROAD CHANGED · '+event.verb+' · CALL MISSED',event.callMet?'hit':'miss');
   }
-  turns=0;par=parFor(state);
+  turns=0;par=parFor(state);emitLoopEvent('RELEASE',{verb:event.verb,callMet:!!event.callMet,chain:Number(event.chain)||1,flowGain:gain});
   if(mode==='PLAY'&&releases>=RUN_LENGTH)finish(state);else if(mode==='PATH'&&releases>=PUZZLE_ROUNDS)finish(state);else if(mode==='DUET'&&releases>=DUET_ROUNDS)finish(state);else if(mode==='GARDEN'&&gardenEvents.length>=GARDEN_MOVES)finishGardenGeneration(state);
 }
 function normalCoach(state,forecast,hitReady){
@@ -317,11 +340,21 @@ function update(state){
   q('#fbObjective').textContent='GOAL '+callText(call);q('#fbCoach').textContent=normalCoach(state,forecast,hitReady);q('#fbProgress').textContent=mode==='PATH'?(releases+1)+'/'+PUZZLE_ROUNDS+' · '+stars+'★/'+PUZZLE_WIN_STARS+' · PAR '+par+' · '+turns+'T':releases+'/'+RUN_LENGTH+' · '+hits+'/'+RUN_WIN_HITS+' HIT';
 }
 function poll(){
-  if(!runtime)return;const state=runtime.state();if(active&&lastRotation!==null&&state.rotation!==lastRotation)turns+=circularDistance(lastRotation,state.rotation,N);lastRotation=state.rotation;
-  const event=state.history?.at(-1);if(active&&event&&event.id!==lastEventId){lastEventId=event.id;onRelease(event,state);}else if(event)lastEventId=event.id;if(active)update(state);
+  if(!runtime)return;
+  const state=runtime.state(),seq=Number(state.seq)||0,event=state.history?.at(-1),newRelease=!!(active&&event&&event.id!==lastEventId);
+  if(active){
+    const part=partitionTurnDelta(lastSeq,seq,newRelease?event.id:null);
+    turns+=part.before;
+    if(newRelease){lastEventId=event.id;onRelease(event,state);if(active)turns+=part.after;}
+    else if(event)lastEventId=event.id;
+  }else if(event)lastEventId=event.id;
+  lastSeq=seq;lastRotation=state.rotation;
+  if(active)update(state);
 }
 function playState(){
-  return {version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],pair:hexPair(hexLines),form:mode==='PUZZLE'?hexOutcome(hexPlan?.lines||[],hexPhase==='FORM'?hexLines:(hexFrom||[])):null,change:mode==='PUZZLE'&&hexPhase==='CHANGE'?hexChangeOutcome(hexFrom||[],hexLines,hexChangeMoves):null,delta:hexFrom?stateChange(hexFrom,hexLines):null,moves:hexChangeMoves},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents]},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
+  const out={version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],pair:hexPair(hexLines),form:mode==='PUZZLE'?hexOutcome(hexPlan?.lines||[],hexPhase==='FORM'?hexLines:(hexFrom||[])):null,change:mode==='PUZZLE'&&hexPhase==='CHANGE'?hexChangeOutcome(hexFrom||[],hexLines,hexChangeMoves):null,delta:hexFrom?stateChange(hexFrom,hexLines):null,moves:hexChangeMoves},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents]},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
+  out.loop=loopWitness(mode,out);
+  return out;
 }
 function exportPlayReturn(){
   const hexLanguage=mode==='PUZZLE'&&hexPlan?.lines?.length===HEX_LINES?{
@@ -332,11 +365,11 @@ function exportPlayReturn(){
     phase:hexPhase,
     changeMoves:hexChangeMoves
   }:null;
-  const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),play:playState(),stateLanguage:hexLanguage,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md'}};
+  emitLoopEvent('RETURN',{format:'JSON'});const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),contract:loopContract(mode),play:playState(),stateLanguage:hexLanguage,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md'}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-play-'+mode.toLowerCase()+'-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function openDonor(){if(mode==='DUET')window.open('../two-dial/','fold-bloom-two-dial');else if(mode==='GARDEN')window.open('../ecology/','fold-bloom-ecology');}
 function boot(){
-  runtime=window.FoldBloomLive;if(!runtime){setTimeout(boot,80);return;}injectStyle();injectEntry();injectHud();document.documentElement.dataset.foldBloomPlay=VERSION;if(VALID.has(requested))start(requested);else schedulePrimaryControlCheck();setInterval(poll,120);window.FoldBloomPlay={version:VERSION,start,state:playState,relation:(a,b)=>({name:relationName(a,b,6),verb:relationVerb(a,b,6)})};
+  runtime=window.FoldBloomLive;if(!runtime){setTimeout(boot,80);return;}injectStyle();injectEntry();injectHud();document.documentElement.dataset.foldBloomPlay=VERSION;document.documentElement.dataset.foldBloomPlayLoop=PLAY_LOOP_CONTRACT_VERSION;if(VALID.has(requested))start(requested);else schedulePrimaryControlCheck();setInterval(poll,120);window.FoldBloomPlay={version:VERSION,start,state:playState,contract:modeName=>loopContract(modeName||mode),contracts:loopContracts,subscribe:subscribeLoop,relation:(a,b)=>({name:relationName(a,b,6),verb:relationVerb(a,b,6)})};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
