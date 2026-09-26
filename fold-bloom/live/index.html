@@ -29,12 +29,20 @@
 <div class="control layerControl"><label><span>LAYER</span><span id="layerRead">IMMERSION</span></label><div class="row layerModes"><button data-layer-mode="SOURCE">SOURCE</button><button data-layer-mode="MAP">MAP</button><button class="on" data-layer-mode="IMMERSION">IMMERSION</button></div><div class="small">SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response.</div></div>
 <div class="control"><label><span>EXPERIENCE</span><span id="xpPresetRead">NORMAL</span></label><div class="row xpPresets"><button data-xp-preset="NORMAL">NORMAL</button><button data-xp-preset="DRIVE">DRIVE</button><button data-xp-preset="TRANCE">TRANCE</button><button data-xp-preset="SOFT">SOFT</button></div><div class="small">WORLD = presentation only: DEPTH (DEEP) · PULSE (TRANCE) · GRAIN (WOOD) · SPARSE (VOID). Ring cells use three visible shape families: △ TRIANGLE · ○ CIRCLE · □ SQUARE. Each shape remembers its own last anchor; same-shape links/cascades help determine BLOOM / FOLD / SPLIT / RETURN. Old receipts may call them EMBER · WATER · MOSS.</div></div>
 <details class="calibrate"><summary>CALIBRATE / ADVANCED</summary><div class="control rideTune"><label><span>TERRAIN SOLIDITY</span><span id="solidVal">100%</span></label><input id="solidTune" type="range" min="72" max="100" step="1" value="100"></div><div class="control rideTune"><label><span>IMMERSION</span><span id="immersionVal">1.00×</span></label><input id="immersionTune" type="range" min="55" max="145" step="1" value="100"></div><div class="control rideTune"><label><span>ANTICIPATION</span><span id="anticipationVal">1.00×</span></label><input id="anticipationTune" type="range" min="55" max="180" step="1" value="100"></div><div class="control rideTune"><label><span>MOTION / BODY</span><span id="motionGainVal">1.00×</span></label><input id="motionGainTune" type="range" min="45" max="165" step="1" value="100"></div><div class="control rideTune"><label><span>DROP / PLUNGE</span><span id="dropGainVal">1.00×</span></label><input id="dropGainTune" type="range" min="55" max="185" step="1" value="100"></div><div class="control rideTune"><label><span>TEXT SYNC</span><span id="textSyncVal">+0.00s</span></label><input id="textSyncTune" type="range" min="-800" max="800" step="5" value="0"></div><div class="small">Experience calibration only; AUDIO MAP evidence stays untouched.</div></details>
-<details class="drawerMore"><summary>AUDIO / RETURN</summary>
-  <div class="control"><label><span>SONG VOLUME</span><span>source</span></label><input id="trackVol" type="range" min="0" max="100" value="78"></div>
-  <div class="control"><label><span>FIELD SYNTH</span><span>experience</span></label><input id="vol" type="range" min="0" max="100" value="58"></div>
+<details class="drawerMore"><summary>SOUND / RETURN</summary>
+  <div class="control"><label><span>SOURCE TRACK</span><span>original audio</span></label><input id="trackVol" type="range" min="0" max="100" value="78" aria-label="Source track volume"></div>
+  <div class="control"><label><span>FIELD SYNTH MASTER</span><span>generated sound</span></label><input id="vol" type="range" min="0" max="100" value="58" aria-label="Field synth volume"></div>
+  <div class="small">SOUND PALETTE · choose a complete rhythm + timbre preset.</div>
+  <div class="row soundScenes" role="group" aria-label="Generated sound palette">
+    <button type="button" data-sound-scene="DEEP" aria-pressed="false">DEEP · SINE</button>
+    <button type="button" data-sound-scene="TRANCE" aria-pressed="false">TRANCE · SAW</button>
+    <button type="button" data-sound-scene="WOOD" aria-pressed="false">WOOD · TRIANGLE</button>
+    <button type="button" data-sound-scene="VOID" aria-pressed="false">VOID · SPARSE</button>
+  </div>
+  <div class="small">These presets change the generated rhythm, tone, and pacing. Source volume and synth volume are separate. Individual instrument levels are not exposed yet.</div>
   <div class="row"><button id="demoSettingsBtn">AUTOPILOT</button><button id="exportBtn">EXPORT RETURN</button><button id="resetBtn">NEW FIELD</button></div>
   <div class="perf" id="perfState">PERF · CALIBRATING</div>
-  <div class="small">DEEP / TRANCE / WOOD / VOID are presentation scenes only; they do not relabel the source.</div>
+  <div class="small">The world palette also changes the field presentation; the source recording remains unchanged.</div>
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
