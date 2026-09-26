@@ -330,7 +330,6 @@ async function enterPublicDemo(){
   stopDemo(false);
   const wasReady=publicDemoReady&&liveTrack.mapped(),ok=wasReady?true:await preparePublicDemo();
   if(!ok)return false;
-  if(!wasReady){toast('AUDIO EXAMPLE READY · TAP PLAY');return false}
   $('#intro').classList.remove('on');applyLayerMode('IMMERSION',false);
   const played=$('#trackAudio').paused?await liveTrack.toggle().then(()=>true).catch(()=>false):true;
   if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('AUDIO EXAMPLE READY · TAP FOR SOURCE')}
