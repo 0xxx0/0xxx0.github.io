@@ -1300,7 +1300,7 @@ try{
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
-      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
+      const root=(r.out.match(/<html\\b[^>]*>/i)||[])[0]||'';if(root)console.log('SMOKE ROOT',c.name,root.slice(0,1200));\n      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
