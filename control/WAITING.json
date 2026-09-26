@@ -1,6 +1,6 @@
 {
   "schema": "field-waiting/v0.2",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "purpose": "Durable public-safe dependency registry. ACTIVE human/world gates are owned only by CURRENT.current_heads[].next_executable; this file preserves PARKED dependencies and REMOVED history without manufacturing user obligations.",
   "authority": {
     "active": "control/CURRENT.json current_heads[].next_executable",
@@ -143,6 +143,30 @@
         "no automatic COMMS mutation",
         "no global bus/store",
         "ordinary-use feedback is informative, not required busywork"
+      ]
+    },
+    {
+      "id": "fold-bloom-saber-two-phone-proof",
+      "route": "/fold-bloom/saber/",
+      "human_move": "When you choose to test SABER 0.1, use two real phones: open SABER on the host, load one exact local source/event tape, pair the second phone as the opposite hand using the built-in manual WebRTC signaling, perform a short bounded run, then return whether pairing completed, whether both hands produced swing witnesses, whether HIT/GRAZE/MISS timing felt plausibly aligned, and whether pause/resume/source identity survived.",
+      "why": "Pure core, browser boot and route registration are already proved. Only two physical devices can establish real DeviceMotion behavior, direct phone-to-phone transport/clock alignment, actual interaction latency and whether the bounded motion-to-hit reduction is usable.",
+      "unlocks": "KEEP / REVISE / PARK SABER 0.1 as a real-device projection. A pass may justify iteration on gameplay feel; a failure should identify one device/transport/timing defect class without reopening source/media architecture.",
+      "dependency_kind": "REAL_DEVICE",
+      "proof_state": "REPO_VERIFIED / TWO_REAL_PHONES_REQUIRED",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-26",
+      "parked_reason": "Irreducible two-device proof exists, but it is not a current obligation.",
+      "reactivate_when": "User explicitly chooses the SABER two-phone test or CURRENT selects this id.",
+      "evidence": [
+        "/fold-bloom/saber/release.json",
+        "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
+        "/fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md"
+      ],
+      "boundaries": [
+        "no raw continuous motion archive",
+        "no permanent multiplayer backend",
+        "no absolute 3-D position claim",
+        "no new media store"
       ]
     }
   ],
