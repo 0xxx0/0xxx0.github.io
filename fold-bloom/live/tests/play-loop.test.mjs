@@ -26,7 +26,7 @@ test('generic witness normalizes progress without taking source authority',()=>{
   assert.deepEqual(hex.progress,{value:2,target:4});
   assert.deepEqual(hex.success,{value:2,target:2});
 
-  const choice=loopWitness('GARDEN',{active:false,ended:false,garden:{generation:2,trait:'PATH',survived:1}});
+  const choice=loopWitness('GARDEN',{active:false,ended:false,garden:{generation:2,trait:'PATH',survived:1,choice:true}});
   assert.equal(choice.phase,'CHOOSE');
   assert.equal(choice.status,'CHOICE');
 });
