@@ -306,3 +306,127 @@ For every donor: GAME MECHANISM → ABSTRACT INVARIANT → CURRENT HOST → EXEC
 Never: cool screenshot → copy visual skin → invent new app.
 
 The objective is not to make FIELD look like a game. It is to steal decades of solved interaction problems and let the mechanisms disappear into FIELD.
+
+
+## 17. HARDSPACE: SHIPBREAKER — systems as content / decomposition graph
+
+Mechanism: Blackbird Interactive shifted from hand-authored ships toward modular pseudo-procedural construction so a small set of interacting systems could generate many salvage situations; electrical/radiation and maintenance systems make decomposition order consequential.
+
+Steal:
+- SYSTEMS AS CONTENT: prefer a small interacting rule set over hundreds of bespoke cases.
+- DECONSTRUCTION IS AN OPERATION: part removal changes support, hazard and reachability relations.
+- CUT ORDER matters when effects propagate through a graph.
+- Reusable modules can generate varied test fixtures without cloning logic.
+
+FIELD targets: physical MAKE/ENV-0 assembly decomposition; repository/refactor dependency cuts; HARD EVOLUTION typed parts/ports; agent task packets assembled from tested primitives.
+
+Do not steal: procedural variation is not proof of coverage; a generated fixture cannot stand in for an actual physical structure.
+
+Sources: https://www.gamedeveloper.com/production/inside-the-twisting-turning-development-of-i-hardspace-shipbreaker-i-
+
+## 18. TERRA NIL — scaffold, restore, remove the scaffold
+
+Mechanism: the player builds technological infrastructure to restore an ecosystem, then must recycle/remove the machinery; the successful end state contains less intervention apparatus, not a larger permanent base.
+
+Steal:
+- A SUPPORT STRUCTURE SHOULD NAME ITS RETIREMENT CONDITION.
+- SUCCESS MAY REDUCE TOOLING / CHROME / CONTROL SURFACE.
+- BUILD → ENABLE RECOVERY → DISMANTLE SUPPORT → LEAVE CAPABILITY / WORLD IMPROVEMENT.
+- Temporary infrastructure is not automatically a permanent subsystem.
+
+FIELD targets: experimental spikes; migration shims; compatibility aliases; temporary dashboards; recovery tooling; HOUSE temporary fixtures.
+
+Do not steal: deletion is not inherently progress. Preserve source/provenance/RETURN before removing support.
+
+Sources: https://freelives.net/terra-nil-press-kit/ ; https://store.steampowered.com/app/1593030/Terra_Nil/
+
+## 19. BABA IS YOU — rules are visible manipulable objects
+
+Mechanism: sentences assembled from world objects become active rules; changing the sentence changes the executable rule.
+
+Steal:
+- RULE STATE should be inspectable when the user is expected to reason about it.
+- A rule-changing operation should change an explicit rule object, not hidden incidental state.
+- Syntax may itself be the control surface when the grammar is small and legible.
+- Breaking a rule should visibly remove its effect.
+
+FIELD targets: policy/routing trace; agent policy controls; game/glyph operator systems; HOUSE/automation rule preview.
+
+Do not steal: not every domain rule should become user-editable; authority and safety boundaries remain external to presentation.
+
+Sources: https://www.gdcvault.com/play/1026628/Reading-the-Rules-of-Baba ; https://www.gamedeveloper.com/design/designing-i-baba-is-you-i-s-delightfully-innovative-rule-writing-system
+
+## 20. THE LEGEND OF ZELDA: TEARS OF THE KINGDOM — one attachment grammar, many constructions
+
+Mechanism: Ultrahand builds many vehicles/tools by attaching existing world objects through one broadly consistent composition verb. Nintendo describes deliberately using materials already available and tuning a huge combination space; the attachment seam is made visually obvious.
+
+Steal:
+- ONE LEGIBLE ATTACHMENT PRIMITIVE can outperform many bespoke constructors.
+- COMPOSITION should reuse existing addressed parts before inventing a new object class.
+- The seam must remain perceptible: users should be able to tell what is attached to what.
+- Large combination spaces need consistent default rules plus bounded exceptions, not a special workflow per combination.
+
+FIELD targets: ENV-0 cassette/dock; physical partitions/rails; typed INTERPHASE composition; FOLD//BLOOM sets; tool/loadout assembly.
+
+Do not steal: visual attachment does not prove mechanical fit/load; special-case compatibility must remain explicit.
+
+Sources: https://www.nintendo.com/us/whatsnew/ask-the-developer-vol-9-the-legend-of-zelda-tears-of-the-kingdom-part-4/
+
+## 21. THE WITNESS — examples can be the tutorial
+
+Mechanism: puzzle sequences teach an interaction grammar by controlled examples rather than explanatory tutorial text; later puzzles combine earlier learned rules.
+
+Steal:
+- TEACH THE OPERATION WITH A MINIMAL WORKING EXAMPLE before adding prose.
+- Introduce one new distinction at a time when learning a grammar.
+- Later compositions may assume previously demonstrated invariants.
+- If a user fails because the rule was never made inferable, that is a teaching defect, not merely user error.
+
+FIELD targets: FIELD INDEX onboarding; AXIAL/INTERPHASE operation learning; glyph/seal grammar; physical build instructions; games/Lab.
+
+Do not steal: safety-critical constraints must be stated explicitly; nonverbal discovery is not universally accessible.
+
+Sources: https://www.wired.com/2015/09/jonathan-blow-the-witness/ ; https://www.gamespot.com/articles/e3-2014-catching-up-with-jonathan-blow-and-the-witness/1100-6420422/
+
+## 22. OPUS MAGNUM — valid first, optimize on plural axes
+
+Mechanism: a small expressive toolset produces many valid machines. Solutions may then be compared along separate metrics such as cost, area or cycles; optimization is optional rather than a single mandatory composite score.
+
+Steal:
+- VALIDITY / CORRECTNESS comes before optimization.
+- Preserve plural metrics instead of collapsing them prematurely into one score.
+- A minimum expressive primitive set can produce unanticipated constructions.
+- Share/replay the working artifact, not merely its score.
+
+FIELD targets: maker/build comparison; executor evaluation; UI performance/cognitive burden tradeoffs; physical packing; algorithm/proof benches.
+
+Do not steal: leaderboards/ranking are not required; a metric is not a value judgment.
+
+Sources: https://www.gamedeveloper.com/business/road-to-the-igf-zachtronics-i-opus-magnum-i-
+
+# TRANSFER CONDITIONS — HARD GATE
+
+A donor mechanism may enter current FIELD only when all are true:
+
+1. **CURRENT FRICTION** — name the present recipient/problem; no speculative feature tourism.
+2. **ABSTRACT INVARIANT** — state the mechanism without game fiction, art, economy or copyrighted content.
+3. **RESIDUE / NON-TRANSFER** — say what is intentionally not imported.
+4. **EXECUTABLE OR CONTRACTUAL PROOF** — demonstrate it in a current host or encode a testable execution law; prose alone is not promotion.
+5. **NO NEW SOVEREIGN APP** — transfer into an existing owner unless a missing function is proved.
+6. **SELF-VERIFY FIRST** — exhaust static/core/replay/browser proof before device/world/subjective evidence.
+7. **RETIREMENT** — if the transfer introduces scaffolding, name when it can disappear.
+
+A second unequal consumer is required before extracting shared runtime code.
+
+# FIRST REIFIED TRANSFER
+
+**Outer Wilds → FIELD / CATCH + ACT**
+
+Do not turn FIELD INDEX into a quest log. For each changed addressed route, derive **MORE HERE** only from already-declared route evidence:
+- `evolution.question`;
+- `open_gaps[]`;
+- unresolved `field.exit_paths[]`.
+
+This is a knowledge-gap projection, not a task, priority, read-state or obligation. It creates no new store. SEEN remains local orientation only.
+
+Implementation/proof contract: `/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json`.
