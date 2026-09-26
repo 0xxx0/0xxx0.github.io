@@ -267,7 +267,7 @@ for(const bits of ['000','001','010','011','100','101','110','111'])check(fan8Sv
 for(let i=0;i<6;i++)check(fan8Svg.includes(`DIAL ${i} · HEX L${i+1} · MOVE`),`FAN/8 current DIAL/HEX leaf mapping missing at slot ${i}`);
 check(fan8Svg.includes('HOLD FAST')&&fan8Svg.includes('HELD / MODE / RETURN'),'FAN/8 lost transaction/hub physical fields');
 check(fan8StateLanguage.includes("export const HEX_LINES=6")&&fan8PlayCore.includes("if(v==='BLOOM'||v==='FOLD')return 1")&&fan8PlayCore.includes("if(v==='SPLIT'||v==='RETURN')return 0"),'FAN/8 historical HEX donor mapping lost');
-check(fbFormPuzzle.includes("FORM_PUZZLE_VERSION='FOLD_BLOOM_FORM_0.1'")&&fbPlay.includes('FORM_PUZZLE_VERSION')&&!fbPlay.includes("../state-language.js"),'PLAY 0.6.0 must use direct FORM verbs rather than the binary HEX adapter');
+check(fbFormPuzzle.includes("FORM_PUZZLE_VERSION='FOLD_BLOOM_FORM_0.1'")&&fbPlay.includes('FORM_PUZZLE_VERSION')&&fbPlay.includes("./hex-projection.js?v=0.1"),'PLAY 0.6.1 must retain exact FORM verbs plus the explicit HEX projection bridge');
 check(fan8Spec.includes('## Hard distinction: IDENTIFY ≠ EMBED ≠ DEFORM')&&fan8Spec.includes('Logical identity / adjacency belongs to the host law.')&&fan8Spec.includes('physical form may project an existing relation; it does not invent one.'),'FAN/8 lost IDENTIFY/EMBED/DEFORM authority boundary');
 const fan8Legend=FAN8_RELATION_LEGEND.map(([relation,verb],distance)=>`Δ${distance} ${relation}→${verb}`).join(' · ');
 check(fan8Svg.includes(fan8Legend),'FAN/8 printable relation legend drifted from current PLAY RELATION_LEGEND');
@@ -287,8 +287,8 @@ const fbLiveRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/liv
 const fbLabRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/lab/');
 const fbVoiceRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/voice/');
 const fbCurrentHead=fbAuthorityCurrent?.current_heads?.find(h=>h.lineage==='fold-bloom');
-check(fbPlayRuntime.includes("const VERSION='FOLD_BLOOM_PLAY_0.6.0'"),'FOLD//BLOOM PLAY runtime version drifted from expected 0.6.0');
-check(fbLiveRelease?.play_shell?.version==='0.6.0'&&fbLiveRelease?.play_shell?.loop_contract?.version==='FOLD_BLOOM_PLAY_LOOP_0.2'&&String(fbLiveRoute?.role||'').includes('PLAY 0.6.0')&&String(fbCurrentHead?.head||'').includes('PLAY 0.6.0'),'PLAY runtime/release/manifest/CURRENT version drift');
+check(fbPlayRuntime.includes("const VERSION='FOLD_BLOOM_PLAY_0.6.1'"),'FOLD//BLOOM PLAY runtime version drifted from expected 0.6.1');
+check(fbLiveRelease?.play_shell?.version==='0.6.1'&&fbLiveRelease?.play_shell?.loop_contract?.version==='FOLD_BLOOM_PLAY_LOOP_0.2'&&String(fbLiveRoute?.role||'').includes('PLAY 0.6.1')&&String(fbCurrentHead?.head||'').includes('PLAY 0.6.1'),'PLAY runtime/release/manifest/CURRENT version drift');
 check(fbVoiceRelease?.version==='0.2'&&fbVoiceRoute?.version==='0.2'&&fbLabRelease?.version==='0.3.4'&&fbLabRoute?.version==='0.3.4','VOICE/LAB release-manifest version drift');
 check(String(fbVoiceRoute?.role||'').includes('FIELD LAB PULSE')&&String(fbLabRoute?.role||'').includes('VOICE 0.2')&&String(fbCurrentHead?.head||'').includes('LAB 0.3.4'),'VOICE→PULSE / LAB head convergence drift');
 const home=read('index.html');

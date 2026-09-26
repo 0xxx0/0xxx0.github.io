@@ -1,0 +1,48 @@
+{
+  "schema": "0xxx0/fold-bloom-hex-restored-return/v0.1",
+  "date": "2026-09-26",
+  "state": "CANDIDATE",
+  "object": "FOLD//BLOOM PLAY PUZZLE cultural projection",
+  "observed_problem": "PLAY 0.6.0 correctly preserved exact BLOOM/FOLD/SPLIT/RETURN verbs but promoted FORM→MORPH as the public language and marked HEX retired, discarding an already-implemented human/cultural teaching surface.",
+  "correction": {
+    "play_version": "0.6.1",
+    "visible_surface": "YIJING / HEXAGRAM → CHANGE",
+    "exact_substrate": "FORM keeps all six exact LIVE verbs",
+    "projection_law": "Existing six-position relation distance is quotiented as SAME/NEAR → solid YANG and FAR/OPPOSITE → broken YIN.",
+    "change_law": "Only cross-polarity exact edits create moving hexagram lines; same-polarity verb edits remain visible in exact provenance while the line correctly holds."
+  },
+  "math": {
+    "exact_verb_choices_per_line": 4,
+    "lines": 6,
+    "exact_forms": 4096,
+    "projected_line_choices": 2,
+    "hexagrams": 64,
+    "exact_forms_per_hexagram": 64
+  },
+  "cultural_surface": {
+    "retained": [
+      "solid/broken six-line form",
+      "lower and upper trigram glyphs",
+      "乾 兌 離 震 巽 坎 艮 坤 names/images",
+      "moving-line positions",
+      "HEX/YIJING/ICHING route aliases"
+    ],
+    "boundary": "The trigram labels and line grammar are cultural donors; FOLD//BLOOM's relation-distance → yin/yang mapping is a game-specific projection and is not asserted as traditional Yijing doctrine."
+  },
+  "preserves": [
+    "LIVE source/topology/release authority",
+    "exact six-verb FORM receipt",
+    "FORM_CHANGE abstract loop archetype",
+    "state-language donor",
+    "mobile primary-control clearance"
+  ],
+  "evidence": [
+    "/fold-bloom/live/hex-projection.js",
+    "/fold-bloom/live/tests/hex-projection.test.mjs",
+    "/fold-bloom/state-language.js",
+    "/fold-bloom/live/form-puzzle.js",
+    "/fold-bloom/live/play.js",
+    "/tools/browser-smoke.mjs"
+  ],
+  "return": "/fold-bloom/"
+}
