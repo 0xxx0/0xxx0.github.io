@@ -288,7 +288,7 @@ const fbLabRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/lab/
 const fbVoiceRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/voice/');
 const fbCurrentHead=fbAuthorityCurrent?.current_heads?.find(h=>h.lineage==='fold-bloom');
 check(fbPlayRuntime.includes("const VERSION='FOLD_BLOOM_PLAY_0.6.1'"),'FOLD//BLOOM PLAY runtime version drifted from expected 0.6.1');
-check(fbLiveRelease?.play_shell?.version==='0.6.0'&&fbLiveRelease?.play_shell?.loop_contract?.version==='FOLD_BLOOM_PLAY_LOOP_0.2'&&String(fbLiveRoute?.role||'').includes('PLAY 0.6.0')&&String(fbCurrentHead?.head||'').includes('PLAY 0.6.0'),'PLAY runtime/release/manifest/CURRENT version drift');
+check(fbLiveRelease?.play_shell?.version==='0.6.1'&&fbLiveRelease?.play_shell?.loop_contract?.version==='FOLD_BLOOM_PLAY_LOOP_0.2'&&String(fbLiveRoute?.role||'').includes('PLAY 0.6.1')&&String(fbCurrentHead?.head||'').includes('PLAY 0.6.1'),'PLAY runtime/release/manifest/CURRENT version drift');
 check(fbVoiceRelease?.version==='0.2'&&fbVoiceRoute?.version==='0.2'&&fbLabRelease?.version==='0.3.4'&&fbLabRoute?.version==='0.3.4','VOICE/LAB release-manifest version drift');
 check(String(fbVoiceRoute?.role||'').includes('FIELD LAB PULSE')&&String(fbLabRoute?.role||'').includes('VOICE 0.2')&&String(fbCurrentHead?.head||'').includes('LAB 0.3.4'),'VOICE→PULSE / LAB head convergence drift');
 const home=read('index.html');
