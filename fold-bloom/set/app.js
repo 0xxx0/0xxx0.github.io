@@ -1,6 +1,7 @@
 import {encodeExperienceSet,decodeExperienceSet} from '../experience-set/experience-set.js';
 import {SET_COMPOSITOR_VERSION,createExperienceSet,appendSource,removeEntry,reorderEntries,cycleSeamLaw,setSeamLaw,setEntryWeight,renameSet,prepareSet,seamLaws} from './set-core.js';
 import {validateLocalTestPackCatalog,sourceDescriptors,bestPackProgress,buildPackPlan} from '../test-packs/test-pack-core.js';
+import {hashFile} from '../../lib/id.js';
 
 const $=s=>document.querySelector(s),STORE='fold-bloom.set-compositor.v01',META='fold-bloom.set-compositor.meta.v01';
 let set=createExperienceSet(),meta={},demo=false,catalog=null;
@@ -133,7 +134,6 @@ function applyPack(packId,{announce=true}={}){
   return true;
 }
 
-async function hashFile(file){const buf=await file.arrayBuffer(),h=await crypto.subtle.digest('SHA-256',buf);return 'sha256:'+Array.from(new Uint8Array(h),b=>b.toString(16).padStart(2,'0')).join('')}
 async function addFiles(files){
   const xs=[...(files||[])];if(!xs.length)return;
   await catalogReady;
