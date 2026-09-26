@@ -27,7 +27,7 @@ Homoiconic means the same representation actually drives, edits, and round-trips
 
 These observations come from the current LIVE, LAB, VOICE, and INTERPHASE source:
 
-- **LIVE audio example:** `enterPublicDemo()` loads the bundled Center Mass excerpt and starts it; source level previously inherited the normal 78% track level. The excerpt loops. The synth has four sound scenes (DEEP, TRANCE, WOOD, VOID), but the visible scene button only looked like a world-presentation cycle. The only synth control was a master level hidden in “AUDIO / RETURN.”
+- **LIVE audio example:** `enterPublicDemo()` loads the bundled Center Mass MP3. Its ID3 / container metadata advertises about 12.04 seconds, but decoding the repository blob with FFmpeg yields only about 1.25 seconds of playable frames before invalid MP3 headers; the valid samples peak at −0.6 dBFS. The excerpt loops and source level previously inherited the normal 78% track level. This matches the reported tiny, harsh playback. The synth has four sound scenes (DEEP, TRANCE, WOOD, VOID), but the visible scene button only looked like a world-presentation cycle. The only synth control was a master level hidden in “AUDIO / RETURN.”
 - **Synth scope:** presets change rhythm, oscillator choices, pacing, and scene presentation. Individual kick, hat, bass, lead, pluck, and drone levels are not independently exposed.
 - **PLAY modes:** the challenges use fixed action goals (for example RUN is six hits within eight releases). They are not timed sessions. ZEN and the base RIDE do not use those same short win counters.
 - **PULSE:** three fixed rings are drawn: M (beat), A, and B. The ratio menu changes A/B tick counts (3:2, 4:3, or 5:4); it does not change the number of rings. BPM, timbre, play/stop, tap training, and event-tape export already exist. The scheduler currently emits all three lanes.
@@ -35,12 +35,12 @@ These observations come from the current LIVE, LAB, VOICE, and INTERPHASE source
 
 ## This review branch changes
 
-1. The public audio example starts at 24% source volume, and the visible source slider reflects that value. The user can raise or lower it immediately.
+1. The public audio example starts at 24% source volume, and the visible source slider reflects that value. The user can raise or lower it immediately. More importantly, LIVE now checks the decoded preview duration and refuses playback below six seconds with a clear “AUDIO EXAMPLE DAMAGED · USE FIELD COURSE” message. This prevents the known 1.25-second broken asset from looping harshly.
 2. The settings drawer is now **SOUND / RETURN**. It separates original-source level from generated-synth master, exposes four named sound-palette presets, and says clearly that per-instrument levels are not available yet.
 3. The scene cycle and intro copy now describe both sound palette and field presentation.
 4. The Play-mode picker calls these **SHORT CHALLENGES**, names the immediate goals in plain language, and tells people the goals are fixed-count rather than timed. It points to ZEN or RIDE for open play.
 
-This makes the current affordances discoverable. It does **not** yet repair the excerpt’s duration, loop seam, perceived loudness on every device, configurable game session length, or per-instrument mix. Do not report those as solved.
+This makes the current affordances discoverable and stops playback of the known truncated asset. The underlying bundled file is still corrupt and the public audio example remains unavailable until a valid source is recovered or a new excerpt is supplied. The guard does **not** repair the media, verify a loop seam, or settle loudness on every device. Configurable game session length and per-instrument mix are also open. Do not report these as solved.
 
 ## Convergence contract for follow-on work
 
