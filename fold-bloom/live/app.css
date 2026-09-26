@@ -65,3 +65,11 @@ html.fbMenuOpen .bottom,
 html.fbMenuOpen .leftQuick,
 html.fbMenuOpen .autoQuick,
 html.fbMenuOpen .soundGate{pointer-events:none!important}
+
+.courseNav{margin-top:8px;border:1px solid rgba(255,255,255,.08);background:rgba(3,5,8,.72);padding:6px}
+#courseMap{display:block;width:100%;height:44px;border:0;background:#05070b;touch-action:none;cursor:crosshair}
+.courseRow{display:grid;grid-template-columns:42px 1fr 1fr 42px;gap:4px;margin-top:5px}
+.courseRow button{min-height:34px!important;padding:0 5px!important;font-size:7px!important}
+.courseRow button.on{background:#f2f3ef;color:#05070b;border-color:#f2f3ef;font-weight:900}
+.courseAddress{margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#65727a;font-size:7px;letter-spacing:.04em}
+@media(max-width:620px){.courseRow button{min-height:42px!important}}
