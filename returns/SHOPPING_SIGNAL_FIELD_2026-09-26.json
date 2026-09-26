@@ -1,0 +1,49 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_SIGNAL_FIELD_2026-09-26",
+  "date": "2026-09-26",
+  "object": "Shopping reality/evidence projection + shared semantic pattern grammar",
+  "state": "MERGE_READY_WITH_KNOWN_BASELINE_RED",
+  "observed": [
+    "FIELD root pattern semantics were root-local rather than reusable.",
+    "Shopping lifecycle truth was strong but evidence posture was mostly linguistic.",
+    "shopping/contract.json version 0.2 lagged live Shopping 0.3.1."
+  ],
+  "delta": [
+    "Extract shared FIELD signal primitive under /lib without moving authority.",
+    "Root mirrors aggregate attention state into the shared signal bar while retaining legacy compatibility styling.",
+    "Shopping 0.3.2 derives evidence posture from native lifecycle + freshness and exposes it in list + collapsed selected-item proof bar.",
+    "Agent packets carry derived evidence signal/boundary/next proof.",
+    "Shopping durable contract reconciled to 0.3.2."
+  ],
+  "invariants": [
+    "pattern != truth",
+    "pattern != priority",
+    "Shopping signal != FIELD WAITING",
+    "no purchase/seller/payment authority",
+    "no lifecycle transition from signal alone",
+    "accessible text remains present"
+  ],
+  "evidence": [
+    "/lib/field-signal.css",
+    "/lib/field-signal.js",
+    "/shopping/",
+    "/shopping/contract.json",
+    "/tools/field-signal-selftest.mjs"
+  ],
+  "return": "/shopping/",
+  "stop": "Propagate only where a compact/collapsed state witness has a stable semantic mapping owned by the recipient.",
+  "validation_repair": {
+    "issue": "Held-action selftest pinned semantic signal derivation and moire/reduced-motion implementation to literal inline index.html code.",
+    "correction": "Test the same capability across index.html + shared /lib/field-signal.js + /lib/field-signal.css after extraction.",
+    "boundary": "Signal meanings, MIXED interference, reduced-motion behavior and root authority laws remain mandatory; only implementation location changed."
+  },
+  "validation": {
+    "route_registration": "PASS · PR #445 run 36218065513",
+    "shared_signal_selftest": "PASS · public-surface-check before unrelated Fold//Bloom failure",
+    "field_held_action_aperture": "PASS after location-independent capability test repair",
+    "baseline_public_surface": "RED BEFORE/OUTSIDE THIS DELTA · master run 36217696582 fails existing FOLD BLOOM LIVE STEP FLOW track minimap browser launch",
+    "pr_public_surface": "Reached the same inherited Fold//Bloom minimap failure after all FIELD/Shopping signal checks passed; targeted rerun reproduced same unrelated baseline failure.",
+    "merge_basis": "Changed-surface checks + route registration pass; failure is demonstrably pre-existing on unchanged master."
+  }
+}

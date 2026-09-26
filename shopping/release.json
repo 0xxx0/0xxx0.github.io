@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "released": "2026-09-26",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
@@ -60,7 +60,10 @@
     "Consumes exact Shopping-addressed atlas-dayline-source-return/v0.1 offers after Dayline RUN → WITNESS → COMPLETE → RETURN.",
     "Shopping revalidates source route + exact item id/address + original lifecycle state before enabling receipt acceptance.",
     "Accepted Dayline result is stored as browser-local shopping-dayline-receipt/v0.1 evidence only; purchase/adoption lifecycle and next_action remain unchanged.",
-    "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible."
+    "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible.",
+    "Added derived per-item evidence signal (CLEAR / CHANGED / REALITY / EXTERNAL / MIXED) using shared FIELD semantic patterns; projection never mutates lifecycle.",
+    "Selected item exposes a collapsed evidence/reality bar with proof boundary + smallest next proof; list items carry the same recognition pattern.",
+    "Agent research packets include evidence_signal, proof_boundary and next_proof."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -74,7 +77,10 @@
     "exact selected-item re-entry survives SHOPPING → external host → SHOPPING return",
     "Dayline receipt acceptance cannot mutate Shopping lifecycle state",
     "stale lifecycle source blocks Dayline receipt acceptance",
-    "session return offer expires/consumes without creating a global bus"
+    "session return offer expires/consumes without creating a global bus",
+    "semantic pattern is projection-only; no lifecycle or authority mutation",
+    "BOUGHT/RECEIVED/REPAIR project REALITY without becoming FIELD WAITING",
+    "stale/unknown external pre-purchase evidence contributes EXTERNAL/MIXED"
   ],
   "return": "/shopping/",
   "date": "2026-09-25",

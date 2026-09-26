@@ -21,6 +21,8 @@ jobs:
         run: node scripts/check-reality-gaps.mjs
       - name: Validate reality-gap coverage
         run: node scripts/check-reality-gap-coverage.mjs
+      - name: Validate shared semantic signal grammar
+        run: node tools/field-signal-selftest.mjs
       - name: Enforce self-verification before human gates
         run: node scripts/check-human-gate-discipline.mjs
       - name: Validate video-game donor transfers
