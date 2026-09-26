@@ -10,7 +10,7 @@ const STAGES=[
  {wake:'AGAIN',office:'RETURN',prompt:'Release the frame; carry the trace back to its source.'}
 ];
 const params=new URLSearchParams(location.search);
-let manifest=null,routes=[],route='/',routeMeta=null,returnTo='/',host=null,adapter=null,capture=false,stage=0,lastWitness=null,marked=null,projectionIndex=0;
+let manifest=null,route='/',routeMeta=null,returnTo='/',host=null,adapter=null,capture=false,stage=0,lastWitness=null,marked=null,projectionIndex=0;
 const projections=['PAGE','FOVEA','LINE','RING'];
 function safeRoute(x){const s=String(x||'');return s.startsWith('/')&&!s.startsWith('//')&&!s.startsWith('/awake/')?s:'/'}
 function readHandoff(){try{const h=JSON.parse(sessionStorage.getItem(HANDOFF)||'null');if(h?.schema==='field-awake-handoff/v0.1')return h}catch(_){}return null}
@@ -65,28 +65,22 @@ function bootHost(){
  }catch(e){document.documentElement.dataset.awake='degraded';$('#witness').textContent='HOST DEGRADED';console.error(e)}
 }
 function loadRoute(next,{push=true}={}){
- route=safeRoute(next);routeMeta=routes.find(r=>r.href===route)||{href:route,title:route==='/'?'FIELD INDEX':route,family:'FIELD'};
+ route=safeRoute(next);routeMeta=(manifest?.routes||[]).find(r=>r.href===route)||{href:route,title:route==='/'?'FIELD INDEX':route,family:'FIELD'};
  if(push){const u=new URL(location.href);u.searchParams.set('focus',route);u.searchParams.delete('smoke');history.replaceState(null,'',u)}
  setStageVisual(0);lastWitness=null;$('#focusCard').hidden=true;$('#hostFrame').src=route;renderMeta();$('#routeDialog').open&&$('#routeDialog').close()
 }
-function renderRoutes(q=''){
- const needle=String(q).trim().toLowerCase(),xs=routes.filter(r=>r.href!=='/awake/'&&(!needle||[r.title,r.href,r.family,r.operation,r.role].join(' ').toLowerCase().includes(needle))).slice(0,120);
- $('#routeList').innerHTML=xs.map(r=>'<button type="button" class="routeItem" data-route="'+esc(r.href)+'"><b>'+esc(r.title||r.href)+'</b><span>'+esc(r.href)+' · '+esc(r.operation||r.kind||'VIEW')+'</span></button>').join('');
- $$('#routeList [data-route]').forEach(b=>b.onclick=()=>loadRoute(b.dataset.route))
-}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function onboarding(){
  if(params.get('smoke')==='1')return;let seen=false;try{seen=localStorage.getItem(SEEN)==='1'}catch(_){}
  if(!seen)$('#onboard').hidden=false
 }
 async function start(){
  const h=readHandoff();if(h){route=safeRoute(h.source?.route||h.route);returnTo=String(h.return_to||('/?focus='+encodeURIComponent(route)));try{sessionStorage.removeItem(HANDOFF)}catch(_){}}else{route=safeRoute(params.get('focus')||'/');returnTo='/?focus='+encodeURIComponent(route)}
- try{manifest=await fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.json());routes=[{href:'/',title:'FIELD INDEX',family:'FIELD',operation:'OPERATE'},...(manifest.routes||[])];}catch(_){routes=[{href:'/',title:'FIELD INDEX',family:'FIELD',operation:'OPERATE'}]}
- renderRoutes();loadRoute(route,{push:false});onboarding()
+ try{manifest=await fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.json())}catch(_){manifest={routes:[]}}
+ loadRoute(route,{push:false});onboarding()
 }
-$('#hostFrame').addEventListener('load',bootHost);$('#routeBtn').onclick=()=>{$('#routeDialog').showModal();$('#routeSearch').focus()};$('#routeSearch').oninput=e=>renderRoutes(e.target.value);$('#nativeBtn').onclick=()=>location.assign(route);$('#fieldBtn').onclick=returnField;$('#focusBtn').onclick=beginCapture;$('#daylineBtn').onclick=sendDayline;$('#returnBtn').onclick=returnField;
+$('#hostFrame').addEventListener('load',bootHost);$('#nativeBtn').onclick=()=>location.assign(route);$('#fieldBtn').onclick=returnField;$('#focusBtn').onclick=beginCapture;$('#daylineBtn').onclick=sendDayline;$('#returnBtn').onclick=returnField;
 $$('#cadence button').forEach(b=>b.onclick=()=>setStage(+b.dataset.stage));
 $('#enterBtn').onclick=()=>{try{localStorage.setItem(SEEN,'1')}catch(_){}$('#onboard').hidden=true};
-globalThis.AwakeVisor=Object.freeze({state:()=>({route,stage,projection:host?.state?.projection||null,focus:[...(host?.state?.focus||[])],witness:lastWitness?structuredClone(lastWitness):null}),interphase:()=>interphasePacket(),daylinePacket:()=>daylinePacket(),focusSelector:s=>{const el=$('#hostFrame').contentDocument?.querySelector(s);if(!el||!host)return false;host.select(el);host.focus(el,{aperture:'DETAIL'});describeFocus();renderMeta();return true},loadRoute});
+globalThis.AwakeVisor=Object.freeze({state:()=>({route,stage,projection:host?.state?.projection||null,focus:[...(host?.state?.focus||[])],witness:lastWitness?structuredClone(lastWitness):null}),interphase:()=>interphasePacket(),daylinePacket:()=>daylinePacket(),focusSelector:s=>{const el=$('#hostFrame').contentDocument?.querySelector(s);if(!el||!host)return false;host.select(el);host.focus(el,{aperture:'DETAIL'});describeFocus();renderMeta();return true}});
 start();
 })();
