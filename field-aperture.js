@@ -323,7 +323,14 @@ class FieldAperture extends HTMLElement{
     this.glyphDomKey=glyphKey;
   }
   if(this.A.kind==='JSON'){
-    const key=String(c?.key??'
+    const key=String(c?.key??'$'),sum=jsonSummary(c?.value,180);
+    q('centerWord').textContent=key.length>13?key.slice(0,12)+'…':key||'$';q('centerMeta').textContent=(c?.type||'json')+(c?.childCount?' · +'+c.childCount:'');
+    q('focusBefore').textContent=c?.path||'$';q('focusOrp').textContent=' → ';q('focusAfter').textContent=sum;
+  }else{
+    q('centerWord').textContent=parts.word.length>13?parts.word.slice(0,12)+'…':parts.word||'—';q('centerMeta').textContent=s.label+' · '+(this.pos+1)+'/'+n;
+    q('focusBefore').textContent=parts.before;q('focusOrp').textContent=parts.mark;q('focusAfter').textContent=parts.after;
+  }
+  q('ey').textContent=this.A.kind+' · '+s.label;q('size').textContent=mag.human+' · '+mag.band;
   q('addr').textContent=c?.path||s.id+'://'+this.pos;q('meter').style.width=(frac*100)+'%';q('rate').textContent=this.wpm+' WPM';q('speedRail').value=String(this.wpm);q('rsvp').textContent=this.rsvp?'Ⅱ RSVP':'▶ RSVP';q('speak').textContent=this.speaking?'Ⅱ VOICE':'VOICE';
   q('mapDot').style.left=(frac*100)+'%';q('sectionMeta').textContent=st.current?.label||'WHOLE SOURCE';q('progressMeta').textContent=Math.round(frac*100)+'%'+(this.A.kind==='TEXT'?' · '+this.anchor+'/'+Math.max(0,this.A.raw.length-1):'');
   this.applyMaterial();
