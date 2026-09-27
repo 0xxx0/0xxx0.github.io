@@ -113,8 +113,8 @@ function localTextKey(text=''){
   return 'text-local:'+s.length+':'+(h>>>0).toString(16).padStart(8,'0');
 }
 function fail(reason){
-  artifact=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
-  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});
+  artifact=null;carrier=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
+  buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=true});
 }
 function validate(raw){
   let a;try{a=JSON.parse(raw)}catch(_){return fail('UNREADABLE JSON')}
@@ -128,12 +128,14 @@ function validate(raw){
   const proofSet=new Set((Array.isArray(a.proofs)?a.proofs:[]).map(p=>p?.gate).filter(Boolean));
   const missing=GATES.filter(g=>!proofSet.has(g));
   if(missing.length)return fail('INCOMPLETE RETURN · MISSING '+missing.join(' / '));
-  artifact=a;
+  artifact=a;carrier=carrierForArtifact(a);
   status.textContent='VALID RETURN · WORLD '+a.worldKey+' · 8/8 GATES';status.className='bridgeStatus ok';
   summary.hidden=false;$('#sumWorld').textContent=a.worldKey;$('#sumCell').textContent=a.cell.id;$('#sumFigure').textContent=a.figure;$('#sumProofs').textContent=proofSet.size+'/8';
   $('#sumSource').textContent=a.source;
-  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=false});
-  try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a))}catch(_){}
+  buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=false});
+  const carry=buttons.find(b=>b.dataset.act==='carry-dayline');if(carry)carry.disabled=!String(a.transferInstruction||'').trim();
+  try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a));if(carrier)sessionStorage.setItem('interphase.carrier.v01',JSON.stringify(carrier))}catch(_){}
+  renderDaylineOffer();
   return a;
 }
 function readfield(source,label,authority,format='TXT'){
