@@ -131,7 +131,9 @@ jobs:
       - name: Test return receipt CI-claim contract
         run: node --test tools/return-receipt-contract.test.mjs
       - name: Validate static surface contracts
-        run: node tools/validate-public.mjs
+        run: |
+          node tools/html-document-integrity-selftest.mjs
+          node tools/validate-public.mjs
       - name: Test iching head data laws + cast/render state
         run: node tools/iching-core.test.mjs
       - name: Test nexus head link integrity + snapshot coherence
