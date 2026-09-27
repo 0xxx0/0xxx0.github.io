@@ -9,7 +9,15 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 9
+    env:
+      # One global ceiling for every probe's waitFor (tools/browser-smoke.mjs).
+      # CI runners are slower than the workstation the 5-14s limits were tuned
+      # for, so the same failure class (waitFor timeout) surfaced on unrelated
+      # probes across runs whose commits could not reach them. Raising 82
+      # individual limits would re-drift; this raises them all at once. The
+      # limits are maxima — normal runs are unaffected, only the tail is.
+      SMOKE_SLOW: "2"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
