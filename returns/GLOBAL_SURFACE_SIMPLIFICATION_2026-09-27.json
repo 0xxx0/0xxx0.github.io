@@ -1,0 +1,37 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "GLOBAL_SURFACE_SIMPLIFICATION_2026-09-27",
+  "date": "2026-09-27",
+  "object": "shared showcase route adapter mobile chrome",
+  "state": "CANDIDATE",
+  "before": "On <=820px surfaces, BACK navigation, READ and LENS each occupied persistent floating controls, creating three simultaneous route-level identities over the artifact.",
+  "delta": [
+    "Keep one persistent mobile route-control button.",
+    "Move READ and LENS into the existing route panel on mobile; desktop controls remain unchanged.",
+    "Preserve existing READFIELD and Lens handlers rather than adding a new shell or navigation system.",
+    "Encode the surface discipline in AGENTS.md so successors optimize continuity and operation count before visual novelty."
+  ],
+  "invariants": [
+    "route identity and parent/back semantics unchanged",
+    "READFIELD handoff unchanged",
+    "Lens state/Studio handoff unchanged",
+    "desktop route controls unchanged",
+    "no new store, shell, registry or framework",
+    "hard-edge visual grammar retained"
+  ],
+  "evidence": [
+    "/showcase-nav.js",
+    "/tools/showcase-nav-mobile-selftest.mjs",
+    "/AGENTS.md"
+  ],
+  "validation": {
+    "required_checks": [
+      "public-surface-check",
+      "Route Registration"
+    ],
+    "merge_gate": "both required checks must pass on the current PR head",
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
+  },
+  "return": "/",
+  "stop": "Do not propagate further visual rewrites until this shared adapter is exercised by the existing browser smoke and CI."
+}
