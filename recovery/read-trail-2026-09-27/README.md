@@ -7,7 +7,8 @@ Disposition: **FROZEN DONOR / NOT CURRENT AUTHORITY**.
 Recovered exactly:
 - `lib/read-trail.js` — `field-source-trail/v0.1`
 - `tools/read-trail-selftest.cjs`
-- the branch's convergence handoff
+
+The source PR remains the provenance address for its longer convergence narrative; that stale implementation narrative is deliberately not recopied here.
 
 The kernel's hard law is retained verbatim:
 
