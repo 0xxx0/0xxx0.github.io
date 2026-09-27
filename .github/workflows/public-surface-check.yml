@@ -83,6 +83,7 @@ jobs:
         run: |
           node tools/interphase-selftest.cjs
           node tools/interphase-carrier-selftest.cjs
+          node tools/sleeper-return-v2-selftest.cjs
           node tools/sleeper-dayline-carrier-selftest.cjs
           node tools/interphase-dayline-selftest.cjs
       - name: Validate SPIKE 005 / expression transcript
