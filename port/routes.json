@@ -1,6 +1,6 @@
 {
   "schema": "human-port-route-contracts/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-27",
   "fit_states": {
     "DIRECT": "Target consumes this projection directly.",
     "ADAPTER": "A bounded adapter can preserve identity/context while translating into the target's accepted input.",
@@ -202,6 +202,37 @@
         "FILE": []
       },
       "side_effect": "browser-local sensor/fitting import offer only; BODY / FIT requires explicit import and does not gain source authority",
+      "authority": "LOCAL_CANDIDATE_ONLY"
+    },
+    {
+      "id": "shopping",
+      "label": "ADD SHOPPING CANDIDATE",
+      "system": "SHOPPING FIELD",
+      "href": "/shopping/",
+      "accepts": {
+        "TEXT": "ADAPTER",
+        "JSON": "ADAPTER",
+        "IMAGE": "ADAPTER",
+        "FILE": "ADAPTER"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [
+          "WHOLE",
+          "REGION_REF"
+        ],
+        "FILE": [
+          "WHOLE_REF"
+        ]
+      },
+      "side_effect": "candidate offer only; Shopping requires explicit ADD AS VERIFY and retains lifecycle/money authority",
       "authority": "LOCAL_CANDIDATE_ONLY"
     },
     {
