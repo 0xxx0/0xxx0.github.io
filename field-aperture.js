@@ -78,7 +78,18 @@ function extractXrefs(text){
 }
 function jsonNodes(root){
  const out=[];const seen=new WeakSet();
- function walk(v,path='
+ function walk(v,path='$',depth=0,key='$',parentPath=null){
+   const type=Array.isArray(v)?'array':v===null?'null':typeof v,leaf=v===null||typeof v!=='object',childCount=leaf?0:Object.keys(v).length;
+   const node={path,depth,key,type,value:v,leaf,childCount,parentPath,order:out.length};
+   out.push(node);
+   if(v&&typeof v==='object'){
+     if(seen.has(v))return;seen.add(v);
+     if(Array.isArray(v))v.forEach((x,i)=>walk(x,path+'['+i+']',depth+1,String(i),path));
+     else Object.entries(v).forEach(([k,x])=>walk(x,path+'.'+k,depth+1,k,path));
+   }
+ }
+ walk(root);return out;
+}
 function analyze(source,label='Untitled',locale='en',format='AUTO'){
  let data=source,raw='',kind='TEXT';
  if(typeof source!=='string'){kind='JSON';data=source;raw=JSON.stringify(source,null,2)}
