@@ -9,9 +9,9 @@
     "branch": "fix/readfield-lab-focus-usability",
     "blobs": {
       "lib/read-trail.js": "540a56521ec401e62f86db94e894a080d3792a04",
-      "tools/read-trail-selftest.cjs": "2f0edeb6ce84a7324b340dee756e3d9679b6741b",
-      "control/confluence/FOCUS_RING_TRAIL_CONVERGENCE_2026-09-27.md": "7a2c8c21d09d7dc75d2e1669403d0892f5f6f874"
-    }
+      "tools/read-trail-selftest.cjs": "2f0edeb6ce84a7324b340dee756e3d9679b6741b"
+    },
+    "handoff_blob_not_copied": "7a2c8c21d09d7dc75d2e1669403d0892f5f6f874"
   },
   "retained": [
     "field-source-trail/v0.1 source identity",
@@ -23,7 +23,8 @@
   "not_promoted": [
     "PR #461 wholesale integration",
     "stale READFIELD/LAB/REPLAY implementations",
-    "automatic claim that traversal means reading or understanding"
+    "automatic claim that traversal means reading or understanding",
+    "The stale 700+ line convergence narrative was not recopied; PR #461 remains its provenance address."
   ],
   "boundary": "Recovery proves exact donor bytes and pure-kernel selftest only; it does not mean the trail is adopted by current READFIELD or LIVE.",
   "evidence": [
