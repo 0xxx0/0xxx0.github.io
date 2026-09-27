@@ -25,7 +25,7 @@
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
-<script src="../lib/document-structure.js"></script><script src="../field-aperture.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
+<script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../field-aperture.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
 ['SLEEPER / ONE RETURN V2','../recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md','Canonical city contract: inputs, eight enacted Gates, Return Artifact v2, generalization boundary'],
@@ -56,7 +56,7 @@ const docs=[
 ['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
 ];
 const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView'),MK=document.querySelector('#markHere'),NM=document.querySelector('#nextMark'),RL=document.querySelector('#rideLive'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste'),LF=document.querySelector('#localFile');
-let activeRaw='',activeUrl=null,activeLabel='',sourceEpoch=0,activeEphemeral=false;
+let activeRaw='',activeUrl=null,activeLabel='',activeTrailIdentity='',sourceEpoch=0,activeEphemeral=false,trailTimer=null,trailPending=null;
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
@@ -73,7 +73,7 @@ function scheduleReading(snap){
  if(readingTimer)return;readingTimer=setTimeout(()=>{readingTimer=null;const x=readingPending;readingPending=null;if(x)renderReading(x)},120)
 }
 function syncAperture(snap){
- if(!snap)return;scheduleReading(snap);apSyncPending=snap;
+ if(!snap)return;scheduleReading(snap);scheduleTrail(snap);apSyncPending=snap;
  if(!snap.playing&&!snap.speaking){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
  if(apSyncTimer)return;apSyncTimer=setTimeout(()=>{apSyncTimer=null;const x=apSyncPending;apSyncPending=null;if(x)writeAperture(x)},250)
 }
@@ -104,19 +104,71 @@ let jsonHover=null,lastSnap=null;
 function showJsonHover(e,child){if(!jsonHover){jsonHover=document.createElement('div');jsonHover.className='jsonHover';document.body.append(jsonHover)}jsonHover.textContent=child.path+'\n'+child.preview;jsonHover.hidden=false;moveJsonHover(e)}
 function moveJsonHover(e){if(!jsonHover||jsonHover.hidden)return;jsonHover.style.left=Math.min(innerWidth-jsonHover.offsetWidth-8,e.clientX+14)+'px';jsonHover.style.top=Math.min(innerHeight-jsonHover.offsetHeight-8,e.clientY+14)+'px'}
 function hideJsonHover(){if(jsonHover)jsonHover.hidden=true}
-function sourceMarkKey(){
+function normalizeExactId(value=''){
+  const raw=String(value||'').trim().toLowerCase(),hex=raw.startsWith('sha256:')?raw.slice(7):raw;
+  return /^[a-f0-9]{64}$/.test(hex)?('sha256:'+hex):''
+}
+async function exactTextId(text,known=''){
+  const exact=normalizeExactId(known);if(exact)return exact;
+  try{const {hashText}=await import('../lib/id.js');return normalizeExactId(await hashText(String(text??'')))}catch(_){return''}
+}
+function finishTrailIdentity(epoch,text,known=''){
+  const immediate=normalizeExactId(known);if(immediate){activeTrailIdentity=immediate;document.documentElement.dataset.readfieldTrail='identity-ready';return Promise.resolve(immediate)}
+  document.documentElement.dataset.readfieldTrail='identity-pending';
+  return exactTextId(text).then(id=>{if(epoch!==sourceEpoch)return'';activeTrailIdentity=id;document.documentElement.dataset.readfieldTrail=id?'identity-ready':'identity-unavailable';const snap=A.snapshot?.();if(snap){trailRecord(snap);syncMarkUi(snap)}return id})
+}
+function legacyMarkKey(){
   const id=activeUrl?activeUrl.pathname+activeUrl.search:(activeLabel+'|'+activeRaw.length+'|'+activeRaw.slice(0,80));
   let h=2166136261;for(const ch of id){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return 'readfield.marks.v01:'+(h>>>0).toString(36)
 }
-function readMarks(){try{const x=JSON.parse(localStorage.getItem(sourceMarkKey())||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
-function writeMarks(xs){try{localStorage.setItem(sourceMarkKey(),JSON.stringify(xs.slice(0,256)))}catch(_){}}
-function markIdentity(s){return String(s?.address||'')+'|'+String(s?.char_index??'')+'|'+String(s?.scale||'')}
+function trailKey(){
+  const address=activeUrl?(activeUrl.pathname+activeUrl.search):'';
+  return globalThis.FieldSourceTrail?.sourceKey?.({address,id:activeTrailIdentity})||''
+}
+function ensureTrail(){
+  const key=trailKey();if(!key)return globalThis.FieldSourceTrail?.read?.('')||null;
+  let tr=globalThis.FieldSourceTrail?.read?.(key);if(!tr)return null;
+  if(!['EMPTY','READY'].includes(tr.storageState))return tr;
+  const migrateKey=(globalThis.FieldSourceTrail?.storageKey?.(key)||('readfield.trail.v01:'+key))+':legacy-migrated';
+  let migrated=false;try{migrated=localStorage.getItem(migrateKey)==='1'}catch(_){return {...tr,storageState:'UNAVAILABLE'}}
+  if(!migrated){
+    let legacy=[];try{const x=JSON.parse(localStorage.getItem(legacyMarkKey())||'[]');if(Array.isArray(x))legacy=x}catch(_){return {...tr,storageState:'UNAVAILABLE'}}
+    if(legacy.length)tr=globalThis.FieldSourceTrail?.setMarks?.(key,legacy)||tr;
+    try{localStorage.setItem(migrateKey,'1')}catch(_){return {...tr,storageState:'UNAVAILABLE'}}
+  }
+  return tr
+}
+function readMarks(){return ensureTrail()?.marks||[]}
+function writeMarks(xs){const key=trailKey();return key?globalThis.FieldSourceTrail?.setMarks?.(key,xs):null}
+function trailRecord(snap,via='READFIELD'){
+  const key=trailKey();if(!key||!snap)return null;
+  const tr=globalThis.FieldSourceTrail?.record?.(key,{address:snap.address||'',progress:Number(snap.source_progress)||0,focus:snap.focus||'',charIndex:Number.isFinite(Number(snap.char_index))?Number(snap.char_index):null,scale:snap.scale||'',via})||null;
+  if(tr)document.documentElement.dataset.readfieldTrail=String(tr.storageState||'unknown').toLowerCase();
+  return tr
+}
+function scheduleTrail(snap){
+  trailPending=snap;if(!snap?.playing&&!snap?.speaking){if(trailTimer){clearTimeout(trailTimer);trailTimer=null}const x=trailPending;trailPending=null;if(x)trailRecord(x);return}
+  if(trailTimer)return;trailTimer=setTimeout(()=>{trailTimer=null;const x=trailPending;trailPending=null;if(x)trailRecord(x)},350)
+}
+function trailRestoreOption(){
+  const t=ensureTrail();if(!t?.last)return null;
+  if(Number.isFinite(Number(t.last.charIndex)))return {charIndex:Number(t.last.charIndex),scale:t.last.scale||undefined};
+  return t.last.address?{address:t.last.address,scale:t.last.scale||undefined}:null
+}
+function markIdentity(s){return String(s?.address||'')+'|'+String(s?.char_index??s?.charIndex??'')+'|'+String(s?.scale||'')}
+function markMatches(m,snap){
+  const ci=Number(snap?.char_index??snap?.charIndex),mi=Number(m?.charIndex??m?.char_index);
+  return m?.id===markIdentity(snap)||(Number.isFinite(ci)&&Number.isFinite(mi)&&ci===mi)
+}
 function syncMarkUi(snap=lastSnap){
-  if(!snap)return;lastSnap=snap;const marks=readMarks(),id=markIdentity(snap),on=marks.some(m=>m.id===id);
+  if(!snap)return;lastSnap=snap;const tr=ensureTrail(),state=tr?.storageState||'UNAVAILABLE';
+  document.documentElement.dataset.readfieldTrail=String(state).toLowerCase();
+  if(!['EMPTY','READY'].includes(state)){MK.textContent='MARK · '+state;MK.disabled=true;NM.disabled=true;MK.classList.remove('readMarkOn');return}
+  MK.disabled=false;const marks=tr.marks||[],on=marks.some(m=>markMatches(m,snap));
   MK.textContent=(on?'MARKED':'MARK')+' · '+marks.length;MK.classList.toggle('readMarkOn',on);NM.disabled=!marks.length
 }
 function restoreMark(m){
-  if(!m)return;A.restore?.({scale:m.scale,address:m.address,char_index:m.char_index,index:m.index,wpm:m.wpm});syncMarkUi(A.snapshot?.())
+  if(!m)return;A.restore?.({scale:m.scale,address:m.address,char_index:m.charIndex??m.char_index,index:m.index,wpm:m.wpm});syncMarkUi(A.snapshot?.())
 }
 
 function renderReading(snap){
@@ -172,27 +224,30 @@ function renderXrefs(snap){
 }
 function apertureOptions(label,value,format='AUTO'){
  const opt={label,format};if(typeof value==='string')opt.scale='PHRASE';
+ const explicit=firstLoad&&(!!initialAperture.address||Number.isFinite(initialAperture.charIndex));
  if(firstLoad){for(const [k,v] of Object.entries(initialAperture))if(v!==undefined)opt[k]=v}
+ if(!explicit){const saved=trailRestoreOption();if(saved?.address)opt.address=saved.address;else if(Number.isFinite(Number(saved?.charIndex)))opt.charIndex=Number(saved.charIndex);if(saved?.scale)opt.scale=saved.scale}
  return opt
 }
 function syncCopyMode(){if(C)C.textContent=activeEphemeral?'COPY FOCUS':'COPY VIEW'}
-function openPaste(text=PT.value,label='PASTE / SESSION',format='AUTO'){
- const s=String(text??'');if(!s.trim())return;sourceEpoch++;
- activeRaw=s;activeUrl=null;activeLabel=label;activeEphemeral=true;H.textContent=label;R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
+function openPaste(text=PT.value,label='PASTE / SESSION',format='AUTO',exactId=''){
+ const s=String(text??'');if(!s.trim())return;const epoch=++sourceEpoch;
+ activeRaw=s;activeUrl=null;activeLabel=label;activeTrailIdentity=normalizeExactId(exactId);activeEphemeral=true;H.textContent=label;R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.delete('local');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
- const opt=apertureOptions(label,s,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(s,opt);syncCopyMode()
+ const opt=apertureOptions(label,s,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(s,opt);syncCopyMode();void finishTrailIdentity(epoch,s,exactId)
 }
 function localFormat(name=''){
  if(/\.md|\.markdown$/i.test(name))return'MD';if(/\.txt|\.log|\.csv|\.ya?ml$/i.test(name))return'TXT';return'AUTO'
 }
-function openLocalText(raw,name='LOCAL FILE',type='',format=localFormat(name),remember=true){
- const s=String(raw??'');if(!s.trim())return;sourceEpoch++;let value=s,out=s;
+function openLocalText(raw,name='LOCAL FILE',type='',format=localFormat(name),remember=true,exactId=''){
+ const s=String(raw??'');if(!s.trim())return;const epoch=++sourceEpoch;let value=s,out=s;
  if(/\.json$/i.test(name)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
- activeRaw=out;activeUrl=null;activeLabel=name;activeEphemeral=true;H.textContent=name+' · LOCAL';R.hidden=true;T.textContent=out;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
- if(remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format}))}catch(_){}}
+ activeRaw=out;activeUrl=null;activeLabel=name;activeTrailIdentity=normalizeExactId(exactId);activeEphemeral=true;H.textContent=name+' · LOCAL';R.hidden=true;T.textContent=out;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
+ if(remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format,exactId:activeTrailIdentity}))}catch(_){}}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.delete('paste');q.set('local','1');history.replaceState(null,'','?'+q.toString()+'#'+slug(name));
- const opt=apertureOptions(name,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncCopyMode()
+ const opt=apertureOptions(name,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncCopyMode();
+ void finishTrailIdentity(epoch,s,exactId).then(id=>{if(id&&remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format,exactId:id}))}catch(_){}}})
 }
 async function openLocalFile(file){
  if(!file)return;const epoch=++sourceEpoch;
@@ -207,12 +262,12 @@ async function openSource(n,value){
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
    const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;activeEphemeral=false;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncAddress(u,n);syncCopyMode();
+   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;activeTrailIdentity='';activeEphemeral=false;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncAddress(u,n);syncCopyMode();
  }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
 A.addEventListener('aperture-focus',e=>{lastSnap=e.detail;syncAperture(e.detail);syncMarkUi(e.detail)});
-MK.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;let marks=readMarks(),id=markIdentity(snap),i=marks.findIndex(m=>m.id===id);if(i>=0)marks.splice(i,1);else marks.push({id,address:snap.address,scale:snap.scale,char_index:snap.char_index,index:snap.index,wpm:snap.wpm,focus:String(snap.focus||'').slice(0,180),progress:Number(snap.source_progress)||0,at:new Date().toISOString()});writeMarks(marks);syncMarkUi(snap)};
+MK.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;let marks=readMarks(),id=markIdentity(snap),i=marks.findIndex(m=>markMatches(m,snap));if(i>=0)marks.splice(i,1);else marks.push({id,address:snap.address,scale:snap.scale,char_index:snap.char_index,index:snap.index,wpm:snap.wpm,focus:String(snap.focus||'').slice(0,180),progress:Number(snap.source_progress)||0,at:new Date().toISOString(),via:'READFIELD'});writeMarks(marks);syncMarkUi(snap)};
 NM.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;const marks=readMarks().slice().sort((a,b)=>(a.progress||0)-(b.progress||0));if(!marks.length)return;const p=Number(snap.source_progress)||0,next=marks.find(m=>(m.progress||0)>p+1e-6)||marks[0];restoreMark(next)};
 
 O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});PB.onclick=()=>openPaste();PT.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter')openPaste()});LF.addEventListener('change',e=>openLocalFile(e.target.files?.[0]));
@@ -222,8 +277,8 @@ RL.onclick=()=>{
   const snap=A.snapshot?.()||null,returnAddress=location.pathname+location.search+location.hash;
   const sourceIdentity=activeUrl
     ?{kind:'REPO_TEXT',address:activeUrl.pathname+activeUrl.search,format:localFormat(activeUrl.pathname),authority:'READFIELD'}
-    :{kind:'SESSION_TEXT',format:'AUTO',authority:'READFIELD'};
-  const objectAddress=sourceIdentity.address||('session://readfield/'+slug(activeLabel||'source')+'/'+activeRaw.length);
+    :{kind:'SESSION_TEXT',id:activeTrailIdentity||undefined,hash:activeTrailIdentity||undefined,format:'AUTO',authority:'READFIELD'};
+  const objectAddress=sourceIdentity.address||sourceIdentity.id||('session://readfield/'+slug(activeLabel||'source')+'/'+activeRaw.length);
   let carrier=null;
   try{carrier=globalThis.InterphaseCarrier?.make({
     object:{id:'readfield:'+objectAddress,kind:sourceIdentity.kind,label:activeLabel||'READFIELD SOURCE',owner:'READFIELD',address:objectAddress,contract:'field-read-ride/v0.1'},
@@ -238,7 +293,7 @@ RL.onclick=()=>{
     projection:{host:'READFIELD',name:'READ',channels:['identity','address','content','depth','time','authority'],residue:[]},
     sourceRefs:[sourceIdentity.address||''].filter(Boolean)
   })||null}catch(_){}
-  const packet={schema:'field-read-ride/v0.1',created:new Date().toISOString(),source:activeRaw,label:activeLabel||'READFIELD SOURCE',sourceIdentity,focus:snap,from:'/docs/',returnAddress,carrier};
+  const packet={schema:'field-read-ride/v0.1',created:new Date().toISOString(),source:activeRaw,label:activeLabel||'READFIELD SOURCE',sourceIdentity,focus:snap,from:'/docs/',returnAddress,carrier,trailKey:trailKey()};
   try{
     sessionStorage.setItem('fold-bloom.read-ride.handoff.v01',JSON.stringify(packet));
     location.href='/fold-bloom/live/?source=readfield&course=STEP';
@@ -247,9 +302,9 @@ RL.onclick=()=>{
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}
 let handoff=null;if(Q.has('handoff')){try{handoff=JSON.parse(sessionStorage.getItem('readfield.handoff.v1')||'null');sessionStorage.removeItem('readfield.handoff.v1')}catch(_){}}
 const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'',local=Q.has('local')?(()=>{try{return JSON.parse(sessionStorage.getItem('docs.reader.local.v1')||'null')}catch(_){return null}})():null;
-if(handoff?.source){const hret=returnUrl(handoff.returnAddress||handoff.from);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO');if(handoff.focus){A.restore?.(handoff.focus);document.documentElement.dataset.readfieldHandoff='focus-restored'}if(handoff.sourceIdentity?.glyph)A.setGlyphWitness?.(handoff.sourceIdentity.glyph)}
+if(handoff?.source){const hret=returnUrl(handoff.returnAddress||handoff.from);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO',handoff.sourceIdentity?.hash||handoff.sourceIdentity?.id||'');if(handoff.focus){A.restore?.(handoff.focus);document.documentElement.dataset.readfieldHandoff='focus-restored'}if(handoff.sourceIdentity?.glyph)A.setGlyphWitness?.(handoff.sourceIdentity.glyph)}
 else if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
-else if(local?.raw!=null)openLocalText(local.raw,local.name||'LOCAL FILE',local.type||'',local.format||localFormat(local.name||''),false);
+else if(local?.raw!=null)openLocalText(local.raw,local.name||'LOCAL FILE',local.type||'',local.format||localFormat(local.name||''),false,local.exactId||'');
 else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
 </script><script type="module">
