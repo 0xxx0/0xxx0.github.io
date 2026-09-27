@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { RELATION_LEGEND as FAN8_RELATION_LEGEND } from '../fold-bloom/live/play-core.js';
 import { hasPendingCIClaim } from './return-receipt-contract.mjs';
+import { htmlTailErrors } from './html-document-integrity.mjs';
 const root=process.cwd(),fail=[];
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const exists=p=>fs.existsSync(path.join(root,p));
@@ -71,6 +72,7 @@ if(manifest){
     if(r.receipt)check(exists(r.receipt.replace(/^\//,'')),'missing receipt '+r.receipt);
     // Exact recovery donors/fossils are evidence, not production runtimes.
     // Validate their route + receipt here; byte/hash fidelity belongs to recovery manifests.
+    if(rf.endsWith('.html')&&exists(rf))for(const msg of htmlTailErrors(read(rf),rf))fail.push(msg);
     if(runtimeKinds.has(r.kind)) compileInline(rf);
     const liveLinkKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system','control','documentation','evidence','validator','alias']);
     if(liveLinkKinds.has(r.kind)&&r.state!=='FROZEN_DONOR'&&r.kind!=='recovery')scanStaticLinks(rf);
