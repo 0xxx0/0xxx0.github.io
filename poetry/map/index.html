@@ -502,7 +502,7 @@ if(bootVerse){
   S.fieldLoaded=false;$('#source').value=bootVerse.source;parse();setMode('PAGE');
   const line=Math.max(0,Number(bootVerse.focus?.line)||0),focusNode=S.nodes.find(n=>n.line===line)||S.nodes[0]||null;
   S.selected=focusNode?.id||null;render();renderFocusWheel();
-  status('FIELD LAB VERSE · SOURCE + LINE FOCUS RECEIVED'+(bootVerse.marks?.length?' · '+bootVerse.marks.length+' MARKS REMAIN SOURCE EVIDENCE':''));
+  status((bootVerse.fromLabel||'FIELD LAB VERSE')+' · SOURCE + LINE FOCUS RECEIVED'+(bootVerse.marks?.length?' · '+bootVerse.marks.length+' MARKS REMAIN SOURCE EVIDENCE':''));
 }else if(bootDemo){
   S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode(bootMode||'MAP');status(restoreReturnFocus()?'RETURN FOCUS RESTORED · '+bootFocus:'DEMO READY · '+(bootMode||'MAP')+' PROJECTION');
 }else if(S.source){
