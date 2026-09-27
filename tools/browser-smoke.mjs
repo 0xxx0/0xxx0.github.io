@@ -753,7 +753,21 @@ setTimeout(()=>done(false),${limitMs+2000});
 <\/script></body></html>`;
 }
 const settleHolds=new Set();
+
+// SMOKE_SLOW — one global ceiling for every probe's waitFor, instead of 82
+// hard-coded limits. Same failure class (waitFor timeout) on unrelated probes
+// across runs means the ceiling is too low for the runner, not N broken cases:
+// raise it ONCE here and set SMOKE_SLOW in CI. 1 (default) changes nothing.
+const SLOW=Math.max(1,Number(process.env.SMOKE_SLOW||1)||1);
+const slow=html=>SLOW===1?html:html.replace(/limit=(\d+)/g,(m,n)=>'limit='+Math.round(Number(n)*SLOW));
+
 const server=http.createServer((req,res)=>{
+  const reqUrl=String(req.url||'');
+  if(SLOW!==1&&(reqUrl.startsWith('/__smoke/')||reqUrl.startsWith('/__settle?'))){
+    // Rewrite the probe's own waitFor ceilings before it reaches the browser.
+    const send=res.end.bind(res);
+    res.end=(body,...rest)=>{try{if(typeof body==='string')body=slow(body)}catch(_){}return send(body,...rest)};
+  }
   if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
   if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
@@ -874,14 +888,16 @@ const server=http.createServer((req,res)=>{
 function runChrome(bin,route,options={}){
   return new Promise((resolve,reject)=>{
     const url='http://'+HOST+':'+PORT+route;
+    const budget=Math.round((options.budget||6500)*SLOW);
+    const killAfter=Math.round((options.timeout||15000)*SLOW);
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
       '--hide-scrollbars','--window-size='+(options.width||1280)+','+(options.height||900),
-      '--virtual-time-budget='+(options.budget||6500),'--dump-dom',url
+      '--virtual-time-budget='+budget,'--dump-dom',url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
     let out='',err='';
-    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},options.timeout||15000);
+    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},killAfter);
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
@@ -891,7 +907,7 @@ function runChrome(bin,route,options={}){
 function runSettle(bin,c){
   return new Promise((resolve,reject)=>{
     const o=c.options||{};
-    const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+(o.settleLimit||20000)+'&w='+(o.width||430)+'&h='+(o.height||900);
+    const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+Math.round((o.settleLimit||20000)*SLOW)+'&w='+(o.width||430)+'&h='+(o.height||900);
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
       '--hide-scrollbars','--window-size='+(o.width||430)+','+(o.height||900),
