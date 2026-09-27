@@ -166,3 +166,66 @@ Prefer tiny reports:
 ## SUCCESSION RULE
 
 Do not spend a turn explaining this file back to the user if an obvious bounded repair or implementation can be executed. Recover current head, perform one meaningful delta, verify, RETURN, then replan.
+
+
+## 2026-09-27 — J-SPACE CO-DRIVER / LIVE FORECAST APERTURE
+
+Major correction from the applied-research pass:
+
+- `HEX` is not LIVE control state.
+- the last six exact verbs are not LIVE control state either.
+- both remain useful readings/history witnesses.
+- current lawful control evidence lives in native engine state and `forecastContext(state)`.
+
+### What changed in LIVE
+
+`engine.js` now exposes `forecastContext(state)`: current target, rotation/gate, anchors, creases, charge, CALL, and the complete native lawful forecast set. It is evidence, not a claim of minimal sufficient state.
+
+`steering-preview.js` accepts an ephemeral FIELD PULSE steering hint and filters that forecast set by `BLOOM/FOLD/SPLIT/RETURN`.
+
+LIVE renders matching slots as thin temporary ring ticks and adds only a terse status witness such as `LENS FOLD · 2`. The hint expires after about 15 seconds. It cannot execute anything.
+
+### Use it now
+
+In the LIVE browser console:
+
+```js
+FoldBloomLive.steering.context()
+FoldBloomLive.steering.preview('FOLD')
+FoldBloomLive.steering.current()
+FoldBloomLive.steering.clear()
+```
+
+A real J-space producer should publish through existing FIELD PULSE:
+
+```js
+pulse.publish('steering', {
+  authority:'NONE',
+  direction_label:'FOLD',
+  direction_ref:'model://.../residual-direction',
+  request_id:'...',
+  strength:0.7
+})
+```
+
+No direct call into `release()` is lawful.
+
+### Why this is a large LIVE revision even though the UI change is small
+
+```text
+MODEL / READOUT
+      ↓
+ephemeral steering hint
+      ↓
+NATIVE forecastContext
+      ↓
+lawful candidate set
+      ↓
+human / native CALL / later bounded policy
+      ↓
+RELEASE
+```
+
+This lets better models, local Qwen, interpretability experiments, ghost/route systems, or future agent workers plug into LIVE without rewriting the engine or gaining authority.
+
+The next meaningful leap is semantic model evidence, not another LIVE mode: run a capable open-weight model, repeated prompts, a real residual direction, zero/opposite controls, then feed only the resulting bounded hint into this seam.

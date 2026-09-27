@@ -345,5 +345,32 @@
       "COLLISION_CHECK",
       "ONE_NEXT"
     ]
+  },
+  "latest_overlay_2026_09_27_jspace_live": {
+    "status": "IMPLEMENTED_CANDIDATE_PENDING_MERGE",
+    "purpose": "Use J-space as a non-authoritative co-driver over native LIVE forecasts; never replace engine state with HEX/FORM/model readout.",
+    "native_aperture": "/fold-bloom/live/engine.js#forecastContext",
+    "preview": "/fold-bloom/live/steering-preview.js",
+    "transport": "/lib/field-pulse.js kind=steering authority=NONE",
+    "operator": [
+      "FoldBloomLive.steering.context()",
+      "FoldBloomLive.steering.preview('FOLD')",
+      "FoldBloomLive.steering.current()",
+      "FoldBloomLive.steering.clear()"
+    ],
+    "laws": [
+      "HEX quotient is a structural lens, not sufficient control state.",
+      "Recent six-verb exact history is a history witness, not sufficient control state.",
+      "Native forecastContext owns current target/anchors/creases/charge/call/lawful forecast evidence.",
+      "Steering pulse may illuminate lawful candidates only; it cannot mutate LIVE.",
+      "Model/steering hint expires; absence returns LIVE to ordinary native behavior.",
+      "No new bus, store, mode, panel, or command authority."
+    ],
+    "promotion_gate": "/fold-bloom/convergence/jspace-steering/promotion-gate.mjs",
+    "successor": [
+      "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md",
+      "/fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md",
+      "/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md"
+    ]
   }
 }

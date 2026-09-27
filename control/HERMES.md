@@ -205,3 +205,42 @@ Canonical protocol: [HERMES COORDINATION / DETERMINISTIC-FIRST](./confluence/HER
 The key correction is **agent reasoning is the exception layer, not the transport layer**. Repeated stable transforms should become scripts, validators or schemas; Hermes should spend model effort on ambiguity, source recovery, comparison, judgment and bounded exceptions.
 
 Private reality tasks must not be promoted into public repo canon merely because Hermes can see or discuss them. SHOPPING, HOUSE, COMMS and Dayline remain domain/source owners; Hermes coordinates one explicit packet at a time and returns evidence to the owner.
+
+
+## FOLD//BLOOM J-SPACE CO-DRIVER — 2026-09-27
+
+When working on LIVE, recover these before proposing another state language:
+
+1. `/fold-bloom/live/engine.js#forecastContext`
+2. `/fold-bloom/live/steering-preview.js`
+3. `/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md`
+4. `/fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md`
+
+Current law:
+
+```text
+native LIVE state → forecastContext → lawful candidate set
+                                   ↑
+                    ephemeral J-space steering hint
+```
+
+J-space is a **co-driver**, not engine authority. The model may illuminate/filter current native forecasts. It may not rotate, RELEASE, select CALL, mutate topology, or treat HEX/recent FORM as sufficient control state.
+
+The native LIVE falsification already showed:
+- HEX quotient is not sufficient control state for the tested next-forecast property;
+- recent six-verb exact history is also not sufficient control state.
+
+Therefore do not rebuild control from HEX/FORM. Use `forecastContext()` as the explicit current control aperture.
+
+Operator smoke in a LIVE browser console:
+
+```js
+FoldBloomLive.steering.context()
+FoldBloomLive.steering.preview('FOLD')
+FoldBloomLive.steering.current()
+FoldBloomLive.steering.clear()
+```
+
+A real model producer should send the same relation through existing FIELD PULSE as `kind:'steering'`, `data.authority:'NONE'`, and a direction label/ref. LIVE previews matching lawful slots for ~15 seconds and then expires the hint. No new bus/store is authorized.
+
+Hermes task rule: if a proposed improvement needs the model to execute an action directly, return BLOCKED and point to the promotion gate. If it only improves candidate visibility, ambiguity, or evidence over native forecasts, it may be a bounded PREVIEW experiment.

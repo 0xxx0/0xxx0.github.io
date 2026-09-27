@@ -88,3 +88,36 @@ Measure the bundled asset’s actual duration and true peak / loudness, verify t
 - [Audio map](../fold-bloom/listen/audio-map.js) and [LIVE audio controls](../fold-bloom/live/audio.js) — source evidence and generated sound.
 - [Field Pulse contract](../lib/field-pulse.js), [PULSE LAB](../fold-bloom/lab/app.js), and [VOICE surface](../fold-bloom/voice/app.js) — explicit interoperability seam.
 - [PLAY rules](../fold-bloom/live/play-core.js) and [PLAY loop contract](../fold-bloom/live/play-loop.js) — preserve operation semantics when varying session length.
+
+
+## J-space / LIVE co-driver seam — 2026-09-27
+
+LIVE now consumes steering as another optional FIELD PULSE context, not as a merged mode.
+
+UX law:
+
+- no J-space settings panel;
+- no model chat window inside LIVE;
+- no extra sovereign HUD;
+- no automatic RELEASE;
+- show candidate support only when a fresh hint exists;
+- candidate marks recede automatically on expiry;
+- ordinary LIVE remains unchanged when no steering pulse exists.
+
+The visual treatment is intentionally subordinate: thin candidate ticks on the existing ring plus one terse status witness. This should feel like peripheral tactical information, not a second game layer.
+
+The model-facing aperture is `FoldBloomLive.steering.context()`; this exposes current native forecast evidence directly so an external model does not have to infer engine state from HEX, recent form, visuals, or prose.
+
+Manual UX check:
+
+```js
+FoldBloomLive.steering.preview('BLOOM')
+FoldBloomLive.steering.preview('FOLD')
+FoldBloomLive.steering.preview('SPLIT')
+FoldBloomLive.steering.preview('RETURN')
+FoldBloomLive.steering.clear()
+```
+
+Verify that candidate ticks correspond to currently lawful slots, the status count changes as native topology changes, no preview changes flow/call/rotation/charge/topology/history/releases, expiry returns to ordinary LIVE, and phone readability remains acceptable without a new panel.
+
+This seam is the preferred future integration for model/J-space assistance. Do not invent a parallel model-specific LIVE shell.
