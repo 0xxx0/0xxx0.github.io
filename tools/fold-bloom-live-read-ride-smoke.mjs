@@ -29,7 +29,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  await wait(()=>W().FoldBloomLive.read.current()?.course?.address&&W().FoldBloomLive.read.current().course.address!==startAddress,15000,'paragraph step');
  const b=W().FoldBloomLive.read.current();rec.step={address:b.course.address,text:b.witness?.text,progress:b.course.progress};
  W().FoldBloomLive.course.cycleGrain();await sleep(120);const g=W().FoldBloomLive.read.current();rec.grain={grain:g.course.grain,address:g.course.address,text:g.witness?.text};
- const file=new W().File(['# DIRECT\\n\\nAlpha direct.\\n\\nBeta direct.'],'direct.md',{type:'text/markdown'});
+ const file=new (W().File)(['# DIRECT\\n\\nAlpha direct.\\n\\nBeta direct.'],'direct.md',{type:'text/markdown'});
  await W().FoldBloomLive.read.loadFile(file);await wait(()=>W().FoldBloomLive.read.current()?.source?.label==='direct.md',15000,'direct file');
  const d=W().FoldBloomLive.read.current();rec.direct={label:d.source.label,authority:d.source.authority,kind:d.source.kind,grain:d.course.grain,address:d.course.address,text:d.witness?.text};
  const root=D().documentElement;rec.dataset={readRide:root.dataset.foldBloomReadRide,authority:root.dataset.foldBloomReadAuthority,courseKind:root.dataset.foldBloomCourseKind,courseMode:root.dataset.foldBloomCourseMode};
