@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -7204,17 +7204,21 @@
       "kind": "artifact",
       "parent": "/",
       "family": "SLEEPER",
-      "operation": "RECOVER",
+      "operation": "PLAY / PROVE / RETURN",
       "state": "ACTIVE",
       "version": "v2-era / City Engine v0.2",
-      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+      "receipt": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
       "transfer": [
         "phrase + verse cell + figure → deterministic city",
         "URCHIN / SLOTHCAKE / KITE figure-specific physics",
         "CONCH / KERIS / W8 / SPIRAL enacted operators",
         "eight evidence protocols + return to origin",
         "Return Artifact v2 + reproducible world identity",
-        "ASCII POV 0.8 preserved as superseded derivative rather than current authority"
+        "READFIELD can directly inspect the exact ONE RETURN v2 specification and world-law source through same-origin addressed reading",
+        "Verse/Poem is a candidate source/structure donor; Sleeper does not absorb poetry authority",
+        "FOLD//BLOOM LIVE is a movement/ride/ghost donor; borrowed traversal never becomes source or Gate-proof authority",
+        "Scale Lens is a candidate representation consumer for addressed Return Artifact/world objects; no typed Sleeper→Lens adapter is claimed yet",
+        "ASCII POV 0.8 remains a superseded derivative; ASCII ONE RETURN reconstruction remains a donor"
       ],
       "contract": {
         "accepts": {
@@ -7242,20 +7246,21 @@
             "proof ledger"
           ],
           "reversibility": "world inputs reconstruct initial city",
-          "side_effects": "historical runtime was local/browser"
+          "side_effects": "browser-local runtime state; copied/exported witness only"
         },
         "emits": {
           "kinds": [
             "deterministic city",
             "Gate proofs",
             "Return Artifact v2",
-            "reproducible world address"
+            "reproducible world address",
+            "player path signature / future route witness seam"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+          "receipt": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
           "checks": [
             "exact recovered source",
             "38/38 recovered subset tests",
@@ -7291,28 +7296,56 @@
         ],
         "exit_paths": [
           {
-            "class": "HISTORICAL_RUNTIME",
-            "status": "UNVERIFIED_REACHABILITY",
-            "via": "recorded Work route"
+            "class": "LIVE_RUNTIME",
+            "status": "AVAILABLE",
+            "via": "https://sleeper-one-return.metaname.chatgpt.site/ (user-recovered live identity; repository route redirects there)"
+          },
+          {
+            "class": "READFIELD_SPEC",
+            "status": "AVAILABLE",
+            "via": "/docs/?src=/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md&return=/sleeper/project/"
+          },
+          {
+            "class": "READFIELD_ENGINE",
+            "status": "AVAILABLE",
+            "via": "/docs/?src=/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts&return=/sleeper/project/"
           },
           {
             "class": "SOURCE",
             "status": "AVAILABLE",
             "via": "/recovery/sleeper/site-source-2026-09-18/"
+          },
+          {
+            "class": "VERSE_SOURCE_HANDOFF",
+            "status": "CANDIDATE",
+            "via": "phrase / verse-cell transfer only after an explicit source-identity adapter; /poetry/map/ retains authorship"
+          },
+          {
+            "class": "RIDE_GHOST_DONOR",
+            "status": "DONOR",
+            "via": "/fold-bloom/live/ may donate movement/replay mechanics; no shared state authority"
+          },
+          {
+            "class": "SCALE_REPRESENTATION",
+            "status": "CANDIDATE",
+            "via": "/fold-bloom/lens/ after a typed Return Artifact/address adapter; navigation alone is not integration"
           }
         ],
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-09-22T05:41:00+08:00",
+        "updated_at": "2026-09-27T13:02:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "PLAY",
           "VERIFY",
-          "PLAY"
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       },
       "project": "/sleeper/project/",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; eight enacted Gate proofs and return to origin emit Return Artifact v2. FIELD owns addressing, READFIELD can inspect exact source/spec, and adjacent Verse/LIVE/Lens systems remain unequal transfer seams rather than merged authority.",
+      "latest_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/",
@@ -8148,7 +8181,7 @@
     "ecology": "Recovered from exact uncompressed Library source; direct static HTML; packed transport removed.",
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
-    "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
+    "sleeper": "Canonical SLEEPER // ONE RETURN v2 / City Engine v0.2: phrase + verse cell + figure → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. POV/PLAIN 0.8 is preserved only as a superseded derivative; geometry or movement never substitutes for evidence.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 is projection-only. External smoke run 1 exposed mobile importer overflow; targeted importer-wrap patch fixed it and representative traversal passes at 390px + 1280px.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
     "showcase_trace": "HISTORICAL VALIDATION: the former nine-card showcase interaction smoke passed 18/18 at 390px + 1280px on GitHub Actions run 35372320053. This is preserved as historical evidence, not a claim about the current FIELD INDEX root.",
