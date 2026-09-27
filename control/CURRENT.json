@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-27T13:40:00+08:00",
+  "updated": "2026-09-27T14:16:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -61,7 +61,7 @@
       "head": "FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority. FIELD held-route → Dayline now additionally carries the same route through interphase-carrier/v0.1 beside the legacy interphase projection witness; this is additive/backward-compatible and transfers no effect authority.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -75,7 +75,9 @@
         "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
         "/lib/interphase-field.js",
         "/lib/interphase-dayline.js",
-        "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
+        "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
+        "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+        "/returns/INTERPHASE_CARRIER_2026-09-27.json"
       ],
       "version": "0.8.15",
       "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
@@ -185,7 +187,7 @@
       "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2 + RETURN BRIDGE 0.1",
       "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical ONE RETURN v2 remains one deterministic source-built city: phrase + verse cell + figure → eight enacted Gate proofs → return to origin → Return Artifact v2. RETURN BRIDGE 0.1 makes the artifact a usable boundary object without a new bus: the project surface revalidates worldKey + 8/8 Gates, then may carry source/RETURN into READFIELD, Verse/Poem or Scale Lens through their existing handoffs with exact authority/RETURN boundaries. FOLD//BLOOM LIVE and the wider ASCII City lineage remain world-depth donors for traversal, replay, orientation and future environment depth; they do not own source or proof truth.",
+      "retained_function": "Canonical ONE RETURN v2 remains phrase + verse cell + figure → deterministic city → eight enacted Gate proofs → origin RETURN → Return Artifact v2. RETURN BRIDGE 0.1 additionally exposes an explicit, consent-gated transferInstruction carry into Dayline through interphase-carrier/v0.1; Dayline may change focus and produce real-world witness, but the source object stays sleeper:return:<worldKey> and the returning offer is EVIDENCE ONLY, never Gate-proof mutation. READFIELD / Verse / Scale Lens continuations and LIVE / ASCII City donor boundaries remain intact.",
       "evidence": [
         "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -198,7 +200,11 @@
         "https://sleeper-one-return.metaname.chatgpt.site/",
         "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
         "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md",
-        "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
+        "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
+        "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+        "/returns/INTERPHASE_CARRIER_2026-09-27.json",
+        "/lib/interphase-carrier.js",
+        "/tools/sleeper-dayline-carrier-selftest.cjs"
       ],
       "last_return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
       "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
@@ -479,7 +485,7 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile workfield over the same DayState. /dayline/ 0.3 is now a first-class INTERPHASE host: FIELD’s held object may arrive with its existing INTERPHASE witness and be reprojected FOVEA / LINE / RING without a second store or effect authority. Native Dayline still owns RUN/WITNESS/COMPLETE and RETURN.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile workfield over the same DayState. Dayline remains a first-class INTERPHASE host and now also accepts optional interphase-carrier/v0.1 inside existing native handoffs: the source OBJECT/RETURN can survive while Dayline changes FOCUS, runs native effects, records witness, and returns an OFFER_ONLY/evidence-only source receipt. Native Dayline still owns scheduling/RUN/WITNESS/COMPLETE.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -492,7 +498,10 @@
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json",
         "/lib/interphase-dayline.js",
-        "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+        "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+        "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+        "/returns/INTERPHASE_CARRIER_2026-09-27.json",
+        "/lib/interphase-carrier.js"
       ],
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"

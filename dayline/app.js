@@ -49,7 +49,7 @@ function addTask(input={}){checkpoint('CREATE');const title=String(input.title||
  const earliest=String(input.earliest||mh(now)),latest=String(input.latest||day.meta.dayEnd),t={id,title,contexts:Array.isArray(input.contexts)&&input.contexts.length?input.contexts:[...day.state.contexts],duration:clamp(Number(input.duration)||25,5,180),value:clamp(Number(input.value)||4,1,5),earliest,latest:hm(latest)>hm(earliest)?latest:day.meta.dayEnd,setup:clamp(Number(input.setup)||1,0,5),depends:Array.isArray(input.depends)?input.depends:[],status:'open',sourceClass:input.sourceClass||'USER',provenance:String(input.provenance||'dayline-confluence capture'),notes:String(input.notes||''),fieldRef:input.fieldRef||input.sourceRef||null,sourceLink:input.sourceLink&&typeof input.sourceLink==='object'?clone(input.sourceLink):null};
  day.tasks.push(t);day.state.selected=t.id;event('CREATE',t.id,t.fieldRef||t.provenance);saveDay();return t}
 function applyHandoff(){if(!handoff)return;const h=handoff,p=h.payload||{};if(h.kind==='CONTEXT'){checkpoint('CONTEXT_HANDOFF');const xs=(p.contexts||[]).map(String).filter(Boolean),prefix=String(p.replacePrefix||''),base=day.state.contexts.filter(x=>!prefix||!String(x).startsWith(prefix));day.state.contexts=[...new Set([...base,...xs])];event('CONTEXT_HANDOFF',String(p.sourceRef||h.source?.route||''),xs.join(','));saveDay()}
- else if(h.kind==='TASK'){const t=p.task||{};addTask({...t,sourceClass:'IMPORTED',fieldRef:t.sourceRef||h.source?.route||null,provenance:t.provenance||('explicit handoff · '+(h.source?.route||'source')),sourceLink:{handoff_id:h.id||null,return_to:h.return_to||'',source:clone(h.source||{}),kind:h.kind||'TASK',interphase:h.interphase&&typeof h.interphase==='object'?clone(h.interphase):null}})}
+ else if(h.kind==='TASK'){const t=p.task||{};addTask({...t,sourceClass:'IMPORTED',fieldRef:t.sourceRef||h.source?.route||null,provenance:t.provenance||('explicit handoff · '+(h.source?.route||'source')),sourceLink:{handoff_id:h.id||null,return_to:h.return_to||'',source:clone(h.source||{}),kind:h.kind||'TASK',interphase:h.interphase&&typeof h.interphase==='object'?clone(h.interphase):null,carrier:h.carrier&&typeof h.carrier==='object'?clone(h.carrier):null}})}
  else throw Error('unsupported handoff');
  sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff accepted')}
 function clearHandoff(){sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff cleared')}
@@ -77,6 +77,7 @@ function interphaseObject(){
  const held=chooseFrame(),v=frameView(held),t=v.task||null,last=t?lastWitnessFor(t.id):null,src=t?.sourceLink||null;
  const id=t?.id||(held.kind==='route'?'route:'+held.route?.href:held.kind==='front'?'front:'+held.front?.id:held.kind==='handoff'?'handoff:'+held.handoff?.id:held.kind==='legacy'?'legacy:sample':'dayline:empty');
  const inherited=held.kind==='handoff'?(held.handoff?.interphase||null):(src?.interphase||null);
+ const inheritedCarrier=held.kind==='handoff'?(held.handoff?.carrier||null):(src?.carrier||null);
  return{
   id,kind:held.kind,title:v.title,owner:v.owner,address:v.address,route:v.route||'',status:t?.status||held.kind,
   channels:['identity','address','content','depth','time','authority','evidence'],
@@ -85,17 +86,35 @@ function interphaseObject(){
   witness:last?clone(last):null,
   sourceLink:src?clone(src):null,
   inheritedInterphase:inherited?clone(inherited):null,
+  inheritedCarrier:inheritedCarrier?clone(inheritedCarrier):null,
   returnTo:src?.return_to||held.handoff?.return_to||v.route||'/'
  }
 }
+function continuationCarrier(){
+ const C=globalThis.InterphaseCarrier,x=interphaseObject();if(!C||!x)return x?.inheritedCarrier||null;
+ const parent=x.inheritedCarrier||null,object=parent?.object||{id:x.id,kind:x.kind,label:x.title,owner:x.owner,address:x.address,contract:'dayline/workfield'};
+ const next=(x.moves||[]).slice(0,3).map((m,i)=>({id:'DAYLINE_'+(i+1),label:m.label,authority:m.effect?'EFFECT':'NAVIGATION',target:m.href||'/dayline/'}));
+ const witness=x.witness?{class:'OBSERVED',summary:String(x.witness.note||x.witness.kind||'Dayline witness'),evidenceRefs:[]}:(parent?.witness||{class:'UNPROVED',summary:'No Dayline witness recorded'});
+ try{return C.make({
+   object,
+   focus:{id:x.id,label:x.title,address:x.address,aperture:'DAYLINE'},
+   next,witness,
+   return:parent?.return||{address:x.returnTo||'/',owner:object.owner||x.owner,label:'RETURN TO SOURCE'},
+   projection:{host:'DAYLINE',name:'FOVEA',channels:x.channels||[],residue:[]},
+   sourceRefs:[...(parent?.sourceRefs||[]),x.route||''].filter(Boolean),
+   parentFrameId:parent?.frameId||'',
+   handoffId:x.sourceLink?.handoff_id||'',
+   meta:{daylineStatus:x.status||null,daylineAuthority:x.authority}
+ })}catch(_){return parent}
+}
 function returnPacket(){
  const before=clone(sessionStart),after=core(),delta=day.events.slice(sessionEventStart),changed=hash(before)!==hash(after)||delta.length>0,dev=mh(deviceMinute(day)),held=chooseFrame(),v=frameView(held),last=v.task?lastWitnessFor(v.task.id):null,sourceLink=v.task?.sourceLink&&typeof v.task.sourceLink==='object'?clone(v.task.sourceLink):null;
- return{kind:'poly-atlas-return-f',version:3,carrier:'dayline-confluence/v0.2',interphase:(globalThis.DaylineInterphase&&typeof globalThis.DaylineInterphase.projectionResult==='function')?globalThis.DaylineInterphase.projectionResult():null,returnClass:changed?'WORLD_DELTA':'ORIENTATION_SNAPSHOT',worldKey:'dayline:'+localDateKey(),generatedAt:new Date().toISOString(),clockWitness:{canonicalNow:day.state.now,deviceLocalNow:dev,deltaMinutes:hm(day.state.now)-hm(dev)},focus:{kind:held.kind,title:v.title,owner:v.owner,address:v.address,taskId:v.task?.id||null,sourceRoute:v.route||null,sourceLink},moves:lastMoves.map(x=>x.label),witness:last||null,before,after,afterChecksum:hash(after),eventIds:delta.map(e=>e.id),delta,evidence:clone(day.evidence),nextRoutes:(day.state.route||[]).map(id=>({id,title:taskById(id)?.title||id}))}
+ return{kind:'poly-atlas-return-f',version:3,carrier:'dayline-confluence/v0.2',continuationCarrier:continuationCarrier(),interphase:(globalThis.DaylineInterphase&&typeof globalThis.DaylineInterphase.projectionResult==='function')?globalThis.DaylineInterphase.projectionResult():null,returnClass:changed?'WORLD_DELTA':'ORIENTATION_SNAPSHOT',worldKey:'dayline:'+localDateKey(),generatedAt:new Date().toISOString(),clockWitness:{canonicalNow:day.state.now,deviceLocalNow:dev,deltaMinutes:hm(day.state.now)-hm(dev)},focus:{kind:held.kind,title:v.title,owner:v.owner,address:v.address,taskId:v.task?.id||null,sourceRoute:v.route||null,sourceLink},moves:lastMoves.map(x=>x.label),witness:last||null,before,after,afterChecksum:hash(after),eventIds:delta.map(e=>e.id),delta,evidence:clone(day.evidence),nextRoutes:(day.state.route||[]).map(id=>({id,title:taskById(id)?.title||id}))}
 }
 function publishSourceReturn(packet){
  const link=packet?.focus?.sourceLink,task=packet?.focus?.taskId?taskById(packet.focus.taskId):null;if(!link?.return_to||!link?.source||!task)return null;
  const sourceRoute=String(link.source.route||''),done=task.status==='done',nativeEffect=sourceRoute==='/port/comms/'?'STATE_PROPOSAL':sourceRoute==='/shopping/'?'RECEIPT_ONLY':'EVIDENCE_ONLY',proposedNativeState=sourceRoute==='/port/comms/'?(done?'COVERED':'OPEN'):'UNCHANGED';
- const offer={schema:'atlas-dayline-source-return/v0.1',id:'dayline-return-'+Date.now()+'-'+task.id,created_at:new Date().toISOString(),authority:'OFFER_ONLY',source:clone(link.source),return_to:String(link.return_to),handoff_id:link.handoff_id||null,task:{id:task.id,title:task.title,status:task.status,fieldRef:task.fieldRef||null},witness:{return_class:packet.returnClass,after_checksum:packet.afterChecksum,event_ids:[...(packet.eventIds||[])],clock:clone(packet.clockWitness||null),note:packet.witness?.note||null},native_effect:nativeEffect,proposed_native_state:proposedNativeState,law:'Dayline offers evidence for the held object only; native source explicitly accepts, rejects, defers or ignores any state change.'};
+ const offer={schema:'atlas-dayline-source-return/v0.1',id:'dayline-return-'+Date.now()+'-'+task.id,created_at:new Date().toISOString(),authority:'OFFER_ONLY',source:clone(link.source),return_to:String(link.return_to),handoff_id:link.handoff_id||null,carrier:packet.continuationCarrier||link.carrier||null,task:{id:task.id,title:task.title,status:task.status,fieldRef:task.fieldRef||null},witness:{return_class:packet.returnClass,after_checksum:packet.afterChecksum,event_ids:[...(packet.eventIds||[])],clock:clone(packet.clockWitness||null),note:packet.witness?.note||null},native_effect:nativeEffect,proposed_native_state:proposedNativeState,law:'Dayline offers evidence for the held object only; native source explicitly accepts, rejects, defers or ignores any state change.'};
  try{sessionStorage.setItem(SOURCE_RETURN,JSON.stringify({schema:'atlas-dayline-source-return-bundle/v0.1',created_at:new Date().toISOString(),offers:[offer]}))}catch(_){}
  return offer
 }

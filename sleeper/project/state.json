@@ -1,7 +1,7 @@
 {
   "schema": "sleeper-project-state/v0.2",
-  "updated": "2026-09-22T13:06:00+08:00",
-  "purpose": "Keep ONE RETURN as the single Sleeper runtime identity while preserving exact recovered source, later derivatives, donors and unresolved historical version distinctions.",
+  "updated": "2026-09-27T14:16:00+08:00",
+  "purpose": "Keep ONE RETURN as the single Sleeper runtime identity while making verified Return Artifact v2 a usable boundary object: exact source/world/proof truth stays Sleeper-owned while bounded inspection, writing, projection and explicit real-world continuation may occur through unequal hosts.",
   "now": [
     {
       "id": "one-return-v2",
@@ -72,10 +72,32 @@
     "CANONICAL HEAD != DERIVATIVE != DONOR.",
     "PLAYABLE != ORIGINAL.",
     "EXACT SOURCE != CURRENT DEPLOYMENT PROOF.",
-    "PRESERVE SUPERSEDED BYTES BEFORE REPOINTING AUTHORITY."
+    "PRESERVE SUPERSEDED BYTES BEFORE REPOINTING AUTHORITY.",
+    "RETURN ARTIFACT IS A BOUNDARY OBJECT, NOT A BUS.",
+    "EXPLICIT TRANSFER MAY CONTINUE INTO REALITY; REALITY WITNESS RETURNS AS EVIDENCE, NOT RETROACTIVE GAME PROOF."
   ],
   "repair": {
     "receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
-    "branch": "sleeper/converge-city-engine-runtime-20260922"
+    "branch": "sleeper/converge-city-engine-runtime-20260922",
+    "system_fold": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
+    "continuation_fold": "/returns/INTERPHASE_CARRIER_2026-09-27.json"
+  },
+  "continuation": {
+    "project": "/sleeper/project/",
+    "return_bridge": "0.1",
+    "carrier": "interphase-carrier/v0.1",
+    "operator_carry": {
+      "status": "IMPLEMENTED_CANDIDATE",
+      "source_field": "Return Artifact v2 transferInstruction",
+      "target": "/dayline/",
+      "consent": "explicit CARRY OPERATOR action only",
+      "return": "atlas-dayline-source-return/v0.1 OFFER_ONLY / EVIDENCE_ONLY",
+      "invariant": "Dayline witness cannot mutate Sleeper worldKey, returnedSource or Gate proof ledger."
+    },
+    "references": [
+      "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md",
+      "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+      "/returns/INTERPHASE_CARRIER_2026-09-27.json"
+    ]
   }
 }

@@ -124,6 +124,16 @@
       "recipient": "/sleeper/",
       "test": "Transfer only one named missing function at a time; movement/ambient systems/interiors/verticality/transport/ghosts must never satisfy Gate evidence merely by geometry or proximity.",
       "return": "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md"
+    },
+    {
+      "id": "interphase-carrier-continuation-01",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "donor": "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md + /lib/interphase-core.js + existing FIELD→Dayline and Sleeper Return Bridge seams",
+      "evidence_class": "RECURSIVE_COMPOSITION_METHOD + SHARED_LIBRARY + TWO_UNEQUAL_SOURCE_HOSTS + CI_SELFTESTS_PENDING_PR",
+      "unit": "authority-free OBJECT / FOCUS / NEXT≤3 / WITNESS / RETURN continuation frame used only when recursive composition crosses a host/authority boundary; embedded inside native handoff envelopes",
+      "recipient": "FIELD → /dayline/ and SLEEPER → /dayline/ → source RETURN",
+      "test": "Carrier must preserve exact source object + RETURN while focus/projection/witness may change; carrier authority stays NONE / HANDOFF ONLY; moves remain HOST_NATIVE_ONLY; Sleeper Dayline witness must return as evidence-only offer and cannot mutate Gate proof state.",
+      "return": "/returns/INTERPHASE_CARRIER_2026-09-27.json"
     }
   ]
 }

@@ -253,6 +253,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./field-aperture.js"></script>
 <script src="./lib/constraint-surface.js"></script>
 <script src="./lib/interphase-core.js"></script>
+<script src="./lib/interphase-carrier.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -423,6 +424,19 @@ function handoffHeldToDayline(){
   focus:Array.isArray(ipRaw.focus)?ipRaw.focus.map(x=>({id:x.id,aperture:x.aperture||'DETAIL'})):[],
   residue:Array.isArray(ipRaw.residue)?ipRaw.residue.map(x=>({id:x.id,channel:x.channel,projection:x.projection})):[]
  }:null;
+ const carrier=window.InterphaseCarrier&&ipRaw?window.InterphaseCarrier.fromProjection(ipRaw,{
+  owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
+  focusId:route,focusLabel:title,aperture:'ROUTE',
+  next:[
+   {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
+   {id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'},
+   {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
+  ],
+  witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
+  return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
+  sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
+  meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
+ }):null;
  const packet={
   schema:'atlas-dayline-handoff/v0.1',
   id:'field-'+Date.now(),
@@ -446,6 +460,7 @@ function handoffHeldToDayline(){
    ].filter(Boolean).join('\n')
   }},
   return_to:'/?focus='+encodeURIComponent(route),
+  carrier,
   interphase
  };
  try{
