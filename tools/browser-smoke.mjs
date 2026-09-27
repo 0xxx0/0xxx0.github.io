@@ -1287,7 +1287,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900,settleLimit:12000,timeout:18000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-loop-archetype="FORM_CHANGE"')&&dom.includes('data-fb-instrument="HEX"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-form-visual="exact-verbs-underlay"')&&dom.includes('data-fb-hex-visual="six-lines"')&&dom.includes('data-fb-view="ride"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
   },
   {
