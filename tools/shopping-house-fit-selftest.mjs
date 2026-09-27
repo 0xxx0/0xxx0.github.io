@@ -11,7 +11,7 @@ need(rec.effect==='EVIDENCE_ONLY'&&rec.shopping_state==='RECEIVED','receipt may 
 need(rec.source_evidence_signal==='REALITY','source signal lost');
 need(rec.fit_status==='PASS_ENVELOPE'&&rec.house_address==='zone-a','fit witness lost');
 const shop=fs.readFileSync('shopping/index.html','utf8'),house=fs.readFileSync('house/index.html','utf8');
-need(shop.includes('/lib/shopping-house-fit.js')&&shop.includes('shopping-house-fit-receipt/v0.1'),'Shopping consumer/receipt missing');
+need(shop.includes('/lib/shopping-house-fit.js')&&shop.includes('ShoppingHouseFit?.receiptFrom(r.offer,it,new Date().toISOString())')&&shop.includes('it.fit_receipts.push(rec)')&&fs.readFileSync('lib/shopping-house-fit.js','utf8').includes("schema:'shopping-house-fit-receipt/v0.1'"),'Shopping consumer/receipt path missing');
 need(house.includes('/lib/shopping-house-fit.js')&&house.includes('ShoppingHouseFit.makeOffer'),'HOUSE producer missing');
 need(house.includes('fieldSignalBar')&&house.includes('proof_boundary'),'HOUSE source signal projection missing');
 if(fail.length){console.error('SHOPPING↔HOUSE FIT FAIL · '+fail.join(' · '));process.exit(1)}
