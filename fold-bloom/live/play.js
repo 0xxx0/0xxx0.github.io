@@ -113,15 +113,15 @@ function injectStyle(){
   html[data-fb-play-mode="ZEN"] .callpill,html[data-fb-play-mode="ZEN"] .diag{display:none!important}
   @media(max-width:720px){.fbPlayEntry .modes{grid-template-columns:1fr 1fr}.fbPlayEntry button[data-play-mode="PLAY"]{grid-column:1/-1}}
   @media(max-width:620px){
-    .fbGame{top:max(54px,calc(env(safe-area-inset-top) + 50px));width:calc(100vw - 16px)}
+    .fbGame{top:max(78px,calc(env(safe-area-inset-top) + 72px));width:calc(100vw - 16px)}
     .fbGameBar{grid-template-columns:54px 1fr auto;min-height:50px}
     .fbGameMode{padding:0 6px;font-size:6px}.fbGameMission{padding:7px}.fbGameMission b{font-size:8px}.fbGameMission span{font-size:6px}
     .fbGameProgress{gap:2px;padding:3px}.fbGameProgress b{display:none}.fbGameProgress button{min-width:32px;height:32px;padding:0 3px;font-size:6px}
-    .fbFormPanel{top:max(112px,calc(env(safe-area-inset-top) + 108px));bottom:auto;width:calc(100vw - 16px);padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
+    .fbFormPanel{top:max(170px,calc(env(safe-area-inset-top) + 164px));bottom:auto;width:calc(100vw - 16px);padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
     .fbFormPanel.on{display:block}
     .fbFormTitle{display:flex;justify-content:space-between;align-items:center;font-size:6px;line-height:1.2}.fbFormTitle b{font-size:8px}
     .fbFormLines{gap:2px;margin:3px 0}.fbFormLine{padding:3px 1px;font-size:8px}.fbFormLine small{margin-top:2px;font-size:5px}.fbFormLegend{display:none}
-    .fbDuetPanel{top:max(112px,calc(env(safe-area-inset-top) + 108px));bottom:auto;width:calc(100vw - 16px);grid-template-columns:1fr 1fr;padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
+    .fbDuetPanel{top:max(170px,calc(env(safe-area-inset-top) + 164px));bottom:auto;width:calc(100vw - 16px);grid-template-columns:1fr 1fr;padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
     .fbRelation{grid-column:1/-1;grid-row:1}.fbLegend{display:none}
     .fbKids{grid-template-columns:1fr}
     .fbResult,.fbGardenChoice{inset:auto 8px calc(max(8px,env(safe-area-inset-bottom)) + 64px) 8px;background:transparent;backdrop-filter:none;padding:0;align-items:flex-end}
