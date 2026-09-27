@@ -196,6 +196,29 @@ export function availableForecasts(s) {
   return s.cells.map((_,i)=>forecastAtSlot(s,i)).filter(Boolean);
 }
 
+export function forecastContext(s) {
+  const forecasts=availableForecasts(s).map(o=>({
+    slot:o.slot,type:o.type,typeName:o.typeName,verb:o.verb,cadence:o.cadence||null,
+    chain:o.chain,span:o.span,power:o.power,path:[...(o.path||[])],
+    edgeAdded:o.edgeAdded?[...o.edgeAdded]:null
+  }));
+  return {
+    schema:'FOLD_BLOOM_FORECAST_CONTEXT_0.1',
+    authority:'NATIVE_EVIDENCE',
+    seq:s.seq,
+    rotation:s.rotation,
+    gate:gateCellIndex(s),
+    targetType:s.targetType,
+    anchors:[...(s.anchors||[])],
+    creases:(s.creases||[]).map(e=>[...e]),
+    charge:Number(s.charge)||0,
+    call:s.call?{...s.call}:null,
+    mode:s.mode,
+    forecasts,
+    law:'native forecast context is the current control aperture; history/hex/model readouts may annotate it but do not replace it'
+  };
+}
+
 export function selectCall(s) {
   const options = availableForecasts(s);
   if (!options.length) return {verb:'BLOOM',chain:1,candidates:0};

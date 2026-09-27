@@ -2870,7 +2870,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-26T10:55:00+08:00",
+        "updated_at": "2026-09-27T13:35:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2879,7 +2879,12 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json"
+      "latest_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
+      "evidence": {
+        "checks": [
+          "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE."
+        ]
+      }
     },
     {
       "href": "/fold-bloom/set/",
