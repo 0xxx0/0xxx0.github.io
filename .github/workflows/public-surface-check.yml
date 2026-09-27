@@ -25,6 +25,8 @@ jobs:
         run: node tools/field-signal-selftest.mjs
       - name: Validate Shopping ↔ HOUSE fit closed loop
         run: node tools/shopping-house-fit-selftest.mjs
+      - name: Validate global mobile route simplification
+        run: node tools/showcase-nav-mobile-selftest.mjs
       - name: Enforce self-verification before human gates
         run: node scripts/check-human-gate-discipline.mjs
       - name: Validate video-game donor transfers
