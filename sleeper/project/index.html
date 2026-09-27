@@ -25,7 +25,7 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #202a2e;border-left:1px solid #202a2e;margin-top:8px}
 .summary div{padding:8px;border-right:1px solid #202a2e;border-bottom:1px solid #202a2e;min-width:0}
 .summary b{display:block;color:#75c8e7;font-size:8px}.summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.source{margin-top:8px;color:#aab5b9;white-space:pre-wrap;overflow-wrap:anywhere}
+.source{margin-top:8px;color:#aab5b9;white-space:pre-wrap;overflow-wrap:anywhere}.runDetail{margin-top:10px;border-top:1px solid #202a2e}.runRow{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid #151d20}.runRow b{color:#75c8e7;font-size:8px;letter-spacing:.08em}.runRow span,.runRow code{overflow-wrap:anywhere}.runWarn{color:#d8b26a}
 .micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}.offer{margin-top:12px;padding:10px;border-left:3px solid #91db8a;background:#07100b}.offer b{display:block;color:#91db8a}.offer p{margin:5px 0;color:#c7d1cd}.offer code{color:#75c8e7;overflow-wrap:anywhere}
 @media(max-width:650px){body{padding:12px}h1{font-size:52px}.summary{grid-template-columns:1fr 1fr}.actions button{flex:1 1 42%}.actions .clear{margin-left:0}}
 </style>
@@ -53,6 +53,15 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
   <div><b>PROOFS</b><span id="sumProofs">—</span></div>
 </div>
 <div id="sumSource" class="source"></div>
+<div id="runDetail" class="runDetail" hidden>
+  <div class="runRow"><b>RETURNED</b><span id="runReturned">—</span></div>
+  <div class="runRow"><b>TRANSFER</b><span id="runTransfer">—</span></div>
+  <div class="runRow"><b>MEASURES</b><span id="runMeasures">—</span></div>
+  <div class="runRow"><b>OPERATORS</b><span id="runOperators">—</span></div>
+  <div class="runRow"><b>PROOF ORDER</b><span id="runProofs">—</span></div>
+  <div class="runRow"><b>ROUTE TAIL</b><code id="runPath">—</code></div>
+  <div class="runRow runWarn"><b>ROUTE DEPTH</b><span>V2 exports only the last 36 U/D/L/R samples. This is a tail witness, not enough to reconstruct or ghost-replay the full route.</span></div>
+</div>
 <div class="actions">
   <button data-act="read-source" disabled>READ SOURCE</button>
   <button data-act="read-return" disabled>READ RETURN</button>
@@ -62,7 +71,7 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
   <button data-act="carry-dayline" disabled>CARRY OPERATOR → DAYLINE</button>
   <button data-act="clear" class="clear">CLEAR</button>
 </div>
-<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. CARRY OPERATOR is explicit consent to test the artifact transferInstruction in Dayline; its later RETURN is evidence-only and cannot become a Sleeper Gate proof.</div>
+<div class="micro">The bridge checks exact v2 derivation: world key, canonical cell source/provenance, Gate→token/method mapping, dominant operator, returned phrase, witness order, bounded path, and monotonic proof/measures. This validates internal consistency, not network origin or an untampered browser session. CARRY OPERATOR remains explicit consent; later Dayline RETURN is evidence-only and cannot become a Sleeper Gate proof.</div>
 <div id="daylineOffer" class="offer" hidden><b id="offerTitle">DAYLINE RETURN OFFER</b><p id="offerBody"></p><code id="offerMeta"></code><div class="actions"><button data-act="dismiss-offer">DISMISS OFFER</button></div></div>
 </div>
 </div>
@@ -82,8 +91,9 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 </div>
 
 <div class="warn">BOUNDARY OBJECT, NOT BUS. Return Artifact v2 may cross hosts for inspection, writing, projection or later replay, but the recipient gains no right to reinterpret a projection as a Gate proof or to mutate the completed run.</div>
-<div class="card"><div class="state">STATE / RECEIPT</div><div class="links"><a href="./state.json">STATE JSON</a><a href="/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json">SYSTEM FOLD RETURN</a><a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">FIELD CONVERGENCE</a><a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">AUTHORITY REPAIR</a></div></div>
+<div class="card"><div class="state">STATE / RECEIPT</div><div class="links"><a href="./state.json">STATE JSON</a><a href="/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json">SYSTEM FOLD RETURN</a><a href="/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json">HUMAN RETURN · 0C4VA6Q</a><a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">FIELD CONVERGENCE</a><a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">AUTHORITY REPAIR</a></div></div>
 </main>
+<script src="/lib/sleeper-return-v2.js"></script>
 <script src="/lib/interphase-carrier.js"></script>
 <script>
 (()=>{'use strict';
@@ -113,25 +123,24 @@ function localTextKey(text=''){
   return 'text-local:'+s.length+':'+(h>>>0).toString(16).padStart(8,'0');
 }
 function fail(reason){
-  artifact=null;carrier=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
+  artifact=null;carrier=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#runDetail').hidden=true;$('#sumSource').textContent='';
   buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=true});
 }
 function validate(raw){
   let a;try{a=JSON.parse(raw)}catch(_){return fail('UNREADABLE JSON')}
-  if(a?.schema!=='sleeper.one-return'||a?.version!==2)return fail('EXPECTED SLEEPER.ONE-RETURN V2');
-  if(typeof a.source!=='string'||!a.source.trim()||a.source.length>120)return fail('SOURCE INVALID');
-  if(!CELLS.has(String(a.cell?.id||'')))return fail('VERSE CELL UNKNOWN');
-  if(!FIGURES.has(String(a.figure||'')))return fail('FIGURE UNKNOWN');
-  const expected=expectedWorldKey(a);
-  if(String(a.worldKey||'')!==expected)return fail('WORLD KEY MISMATCH · EXPECTED '+expected);
-  if(a.route?.worldKey&&a.route.worldKey!==a.worldKey)return fail('ROUTE WORLD MISMATCH');
-  const proofSet=new Set((Array.isArray(a.proofs)?a.proofs:[]).map(p=>p?.gate).filter(Boolean));
-  const missing=GATES.filter(g=>!proofSet.has(g));
-  if(missing.length)return fail('INCOMPLETE RETURN · MISSING '+missing.join(' / '));
+  const V=globalThis.SleeperReturnV2;if(!V)return fail('V2 VALIDATOR UNAVAILABLE');
+  const checked=V.validate(a);if(!checked.ok)return fail(String(checked.errors[0]||'DERIVATION MISMATCH').toUpperCase());
+  const proofSet=new Set(a.proofs.map(p=>p.gate));
   artifact=a;carrier=carrierForArtifact(a);
-  status.textContent='VALID RETURN · WORLD '+a.worldKey+' · 8/8 GATES';status.className='bridgeStatus ok';
+  status.textContent='VALID RETURN · WORLD '+a.worldKey+' · 8/8 GATES · DERIVATION PASS';status.className='bridgeStatus ok';
   summary.hidden=false;$('#sumWorld').textContent=a.worldKey;$('#sumCell').textContent=a.cell.id;$('#sumFigure').textContent=a.figure;$('#sumProofs').textContent=proofSet.size+'/8';
   $('#sumSource').textContent=a.source;
+  $('#runReturned').textContent=a.returnedSource;
+  $('#runTransfer').textContent=a.transferInstruction+' · derived from raw operator-use count; not a psychometric inference';
+  $('#runMeasures').textContent=(a.measures?.steps??'—')+' steps · '+(((a.measures?.elapsedMs??0)/1000).toFixed(3))+' s';
+  $('#runOperators').textContent=['conch','keris','w8','spiral'].map(k=>k.toUpperCase()+' '+(a.operatorCounts?.[k]??0)).join(' · ')+' · DOMINANT '+String(a.dominantOperator||'—').toUpperCase();
+  $('#runProofs').textContent=a.proofs.map(p=>p.gate+'['+p.token+']').join(' → ');
+  $('#runPath').textContent=a.pathSignature||'—';$('#runDetail').hidden=false;
   buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=false});
   const carry=buttons.find(b=>b.dataset.act==='carry-dayline');if(carry)carry.disabled=!String(a.transferInstruction||'').trim();
   try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a));if(carrier)sessionStorage.setItem('interphase.carrier.v01',JSON.stringify(carrier))}catch(_){}
@@ -204,7 +213,7 @@ function sameWorld(){
 input.addEventListener('input',()=>{const raw=input.value.trim();if(!raw){artifact=null;status.textContent='NO RETURN LOADED';status.className='bridgeStatus';summary.hidden=true;buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});return}validate(raw)});
 buttons.forEach(b=>b.onclick=()=>{
   const act=b.dataset.act;
-  if(act==='clear'){artifact=null;carrier=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(!['clear','dismiss-offer'].includes(x.dataset.act))x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1');sessionStorage.removeItem('interphase.carrier.v01')}catch(_){};return}
+  if(act==='clear'){artifact=null;carrier=null;input.value='';summary.hidden=true;$('#runDetail').hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(!['clear','dismiss-offer'].includes(x.dataset.act))x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1');sessionStorage.removeItem('interphase.carrier.v01')}catch(_){};return}
   if(!artifact)return;
   if(act==='read-source')return readfield(artifact.source,'SLEEPER SOURCE · '+artifact.worldKey,'SLEEPER/ONE-RETURN-V2','TXT');
   if(act==='read-return')return readfield(JSON.stringify(artifact,null,2),'SLEEPER RETURN · '+artifact.worldKey,'SLEEPER/RETURN-V2','AUTO');
