@@ -15,9 +15,9 @@ const done=(ok,x)=>{if(finished)return;finished=true;o.textContent=(ok?'PASS ':'
 const sleep=ms=>new Promise(r=>setTimeout(r,ms)),wait=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
 (async()=>{try{
  const W=()=>f.contentWindow,D=()=>W().document;
- await wait(()=>D().getElementById('docAperture')?.load&&typeof W().openLocalText==='function',12000,'READFIELD boot');
- W().openLocalText(JSON.stringify({alpha:{beta:1,gamma:[2,3]},state:{ready:true},question:'what changes?'},null,2),'probe.json','application/json','AUTO',false);
- const A=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},6000,'JSON aperture');
+ const A=await wait(()=>{const x=D().getElementById('docAperture');return typeof x?.load==='function'?x:null},12000,'APERTURE boot');
+ A.load({alpha:{beta:1,gamma:[2,3]},state:{ready:true},question:'what changes?'},{label:'probe.json',format:'AUTO'});
+ await wait(()=>A.snapshot?.()?.kind==='JSON',6000,'JSON aperture');
  const s=A.snapshot();rec.kind=s.kind;rec.address=s.address;rec.json=!!s.json;rec.jsonPath=s.json?.path;rec.jsonChildren=s.json?.children?.length||0;rec.centerKey=A.shadowRoot?.getElementById('centerWord')?.textContent||'';rec.hover=!!A.hoverDescriptor?.(.3)?.title;
  await wait(()=>D().querySelector('.jsonFocus'),5000,'structured JSON view');
  rec.structured=!!D().querySelector('.jsonFocus');rec.childCards=D().querySelectorAll('.jsonChild').length;rec.thumbs=D().querySelectorAll('.doc .thumb').length;
