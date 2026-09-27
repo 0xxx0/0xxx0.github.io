@@ -92,7 +92,6 @@ export function normalizeReadRidePacket(raw){
   if(!p||p.schema!==READ_RIDE_SCHEMA)throw Error('READ_RIDE_SCHEMA');
   const source=clean(p.source);if(!source.trim())throw Error('READ_SOURCE_REQUIRED');
   const ident=p.sourceIdentity&&typeof p.sourceIdentity==='object'?p.sourceIdentity:{};
-  if(ident.hash&&!/^sha256:[0-9a-f]{64}$/i.test(String(ident.hash)))throw Error('READ_SOURCE_HASH');
   const focus=p.focus&&typeof p.focus==='object'?p.focus:null,n=source.length;
   if(focus?.span){
     const a=Number(focus.span.start),b=Number(focus.span.end);
