@@ -1,12 +1,174 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>SLEEPER / PROJECT</title>
-<style>body{margin:0;background:#050708;color:#edf1ef;font:11px/1.5 ui-monospace,monospace;padding:18px}main{max-width:950px;margin:auto}a{color:#75c8e7;text-decoration:none}.ey{color:#ef7447;font-size:8px;letter-spacing:.14em}h1{font:900 64px/.85 system-ui,sans-serif;letter-spacing:-.06em;margin:12px 0 22px}.card{border-top:1px solid #2b363b;padding:14px 0}.state{color:#8d989d;font-size:8px}.head{border-left:3px solid #75c8e7;padding-left:12px}.warn{border-left:3px solid #d8b26a;padding:10px 12px;margin:18px 0;background:#0b0e0f}.nav{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}</style></head><body><main>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SLEEPER / PROJECT</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:#050708;color:#edf1ef;font:11px/1.5 ui-monospace,monospace;padding:18px}
+main{max-width:950px;margin:auto}a{color:#75c8e7;text-decoration:none}button,textarea{font:inherit}
+.ey{color:#ef7447;font-size:8px;letter-spacing:.14em}
+h1{font:900 64px/.85 system-ui,sans-serif;letter-spacing:-.06em;margin:12px 0 22px}
+h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
+.state{color:#8d989d;font-size:8px;letter-spacing:.09em}.head{border-left:3px solid #75c8e7;padding-left:12px}
+.warn{border-left:3px solid #d8b26a;padding:10px 12px;margin:18px 0;background:#0b0e0f}
+.nav,.links,.actions{display:flex;gap:10px;flex-wrap:wrap}.nav{margin-bottom:20px}
+.bridge{border:1px solid #34434a;padding:12px;margin:8px 0 14px;background:#080c0e}
+.bridge textarea{display:block;width:100%;min-height:130px;resize:vertical;border:1px solid #2b363b;background:#030506;color:#dce6e2;padding:10px;outline:none}
+.bridge textarea:focus{border-color:#75c8e7}
+.actions{margin-top:10px}.actions button{border:1px solid #40525a;background:#0d1417;color:#dbe5e1;padding:8px 10px;min-height:38px;cursor:pointer}
+.actions button:hover:not(:disabled){border-color:#75c8e7}.actions button:disabled{opacity:.32;cursor:not-allowed}
+.actions .clear{margin-left:auto;color:#8d989d}
+.bridgeStatus{padding:8px 0;color:#d8b26a}.bridgeStatus.ok{color:#91db8a}.bridgeStatus.bad{color:#ef7447}
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #202a2e;border-left:1px solid #202a2e;margin-top:8px}
+.summary div{padding:8px;border-right:1px solid #202a2e;border-bottom:1px solid #202a2e;min-width:0}
+.summary b{display:block;color:#75c8e7;font-size:8px}.summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.source{margin-top:8px;color:#aab5b9;white-space:pre-wrap;overflow-wrap:anywhere}
+.micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}
+@media(max-width:650px){body{padding:12px}h1{font-size:52px}.summary{grid-template-columns:1fr 1fr}.actions button{flex:1 1 42%}.actions .clear{margin-left:0}}
+</style>
+</head>
+<body><main>
 <nav class="nav"><a href="/sleeper/">SLEEPER</a><a href="/recovery/sleeper/">RECOVERY</a><a href="/">FIELD</a></nav>
-<div class="ey">RUNTIME CONVERGED / 2026-09-22</div><h1>SLEEPER</h1>
-<div class="card head"><div class="state">CANONICAL HEAD · LIVE RUNTIME + EXACT SOURCE</div><h2>SLEEPER // ONE RETURN v2 / City Engine v0.2</h2><p>PHRASE + VERSE CELL + FIGURE → deterministic city. Figures: URCHIN / SLOTHCAKE / KITE. Eight enacted Gates + return to origin. CONCH / KERIS / W8 / SPIRAL remain operators, not substitute figures.</p><a href="https://sleeper-one-return.metaname.chatgpt.site/">OPEN LIVE RUNTIME ↗</a> · <a href="/recovery/sleeper/site-source-2026-09-18/">EXACT SOURCE</a> · <a href="/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json">PROVENANCE</a></div>
-<div class="card"><div class="state">SUPERSEDED DERIVATIVE · PRESERVED</div><h2>ASCII Sleeper POV 0.8</h2><p>The four-contract POV/PLAIN field formerly misclassified as the Sleeper current head.</p><a href="/sleeper/ascii-pov-0.8/">OPEN PRESERVED BUILD</a></div>
-<div class="card"><div class="state">PLAYABLE DONOR</div><h2>ASCII ONE RETURN / Nine Gate reconstruction</h2><p>Later reconstruction. Kept useful and playable without claiming original identity.</p><a href="/sleeper/one-return/">OPEN DONOR</a> · <a href="/recovery/sleeper/one-return-recon-0.2/">FROZEN COPY</a></div>
-<div class="warn">ONE RUNTIME IDENTITY / MANY PRESERVED OBJECTS. The live ONE RETURN address surfaced again on 2026-09-22; /sleeper/ now resolves there. Exact recovered source remains durable authority. POV 0.8 and the ASCII reconstruction remain preserved without competing for canonical identity.</div>
-<div class="card"><div class="state">LIVE PORTS · SAME OBJECT</div><h2>READ / ADDRESS / RETURN</h2><p>READFIELD may inspect the exact v2 contract or world-law source without moving Sleeper authority. FIELD addresses the canonical object; CONFLUENCE records unequal transfers.</p><a href="/docs/?src=/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md&return=/sleeper/project/">READ V2 SPEC</a> · <a href="/docs/?src=/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts&return=/sleeper/project/">READ WORLD LAW</a> · <a href="/">FIELD</a> · <a href="/control/confluence/">CONFLUENCE</a></div>
-<div class="card"><div class="state">UNEQUAL NEIGHBORS · DONOR / CANDIDATE, NOT MERGED AUTHORITY</div><h2>VERSE / LIVE / LENS</h2><p>Verse/Poem may donate source/structure; FOLD//BLOOM LIVE may donate movement, ride and replay mechanics; Scale Lens may later project addressed world/Return objects. No adapter is claimed until identity and RETURN round-trip are explicit.</p><a href="/poetry/map/">VERSE / POEM</a> · <a href="/fold-bloom/live/">LIVE / RIDE</a> · <a href="/fold-bloom/lens/">SCALE LENS</a></div>
-<div class="card"><div class="state">STATE / RECEIPT</div><a href="./state.json">STATE JSON</a> · <a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">CONVERGENCE RETURN</a> · <a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">EARLIER AUTHORITY REPAIR</a></div>
-</main><script src="/showcase-nav.js" defer></script></body></html>
+<div class="ey">SYSTEM FOLD / 2026-09-27</div><h1>SLEEPER</h1>
+
+<div class="card head"><div class="state">CANONICAL HEAD · LIVE RUNTIME + EXACT SOURCE</div>
+<h2>SLEEPER // ONE RETURN v2 / City Engine v0.2</h2>
+<p>PHRASE + VERSE CELL + FIGURE → deterministic city. Figures: URCHIN / SLOTHCAKE / KITE. Eight enacted Gates + return to origin. CONCH / KERIS / W8 / SPIRAL remain operators, not substitute figures.</p>
+<div class="links"><a href="https://sleeper-one-return.metaname.chatgpt.site/">OPEN LIVE RUNTIME ↗</a><a href="/recovery/sleeper/site-source-2026-09-18/">EXACT SOURCE</a><a href="/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json">PROVENANCE</a></div>
+</div>
+
+<div class="card"><div class="state">RETURN BRIDGE · EXISTING HOSTS, NO SHARED AUTHORITY</div>
+<h2>ONE RETURN → NEXT USE</h2>
+<p>Copy Return Artifact v2 from the live runtime and paste it once. This page verifies the deterministic world key and all eight Gate proofs, then carries either the source or the exact RETURN into an existing instrument. Session-local only.</p>
+<div class="bridge">
+<textarea id="returnInput" spellcheck="false" autocomplete="off" placeholder='Paste {"schema":"sleeper.one-return","version":2,...}'></textarea>
+<div id="bridgeStatus" class="bridgeStatus">NO RETURN LOADED</div>
+<div id="summary" class="summary" hidden>
+  <div><b>WORLD</b><span id="sumWorld">—</span></div>
+  <div><b>CELL</b><span id="sumCell">—</span></div>
+  <div><b>FIGURE</b><span id="sumFigure">—</span></div>
+  <div><b>PROOFS</b><span id="sumProofs">—</span></div>
+</div>
+<div id="sumSource" class="source"></div>
+<div class="actions">
+  <button data-act="read-source" disabled>READ SOURCE</button>
+  <button data-act="read-return" disabled>READ RETURN</button>
+  <button data-act="verse-source" disabled>VERSE SOURCE</button>
+  <button data-act="lens-return" disabled>LENS RETURN</button>
+  <button data-act="same-world" disabled>OPEN SAME WORLD</button>
+  <button data-act="clear" class="clear">CLEAR</button>
+</div>
+<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. None may satisfy or rewrite Sleeper Gate proofs. LIVE remains a donor until a typed route/ride seam exists.</div>
+</div>
+</div>
+
+<div class="card"><div class="state">LIVE PORTS · SAME OBJECT</div><h2>READ / ADDRESS / RETURN</h2>
+<p>READFIELD may inspect the exact v2 contract or world-law source without moving Sleeper authority. FIELD addresses the canonical object; CONFLUENCE records unequal transfers.</p>
+<div class="links"><a href="/docs/?src=/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md&return=/sleeper/project/">READ V2 SPEC</a><a href="/docs/?src=/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts&return=/sleeper/project/">READ WORLD LAW</a><a href="/docs/?src=/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md&return=/sleeper/project/">READ SYSTEM FOLD</a><a href="/">FIELD</a><a href="/control/confluence/">CONFLUENCE</a></div>
+</div>
+
+<div class="card"><div class="state">UNEQUAL NEIGHBORS · TRANSFER ONLY WHAT EARNS IT</div><h2>VERSE / LIVE / LENS</h2>
+<p>Verse/Poem can now receive the exact Sleeper source without receiving world/proof authority. Scale Lens can inspect the Return Artifact as a typed upstream object and return here. FOLD//BLOOM LIVE remains a movement/ride/replay donor; no shared state is claimed.</p>
+<div class="links"><a href="/poetry/map/">VERSE / POEM</a><a href="/fold-bloom/live/">LIVE / RIDE DONOR</a><a href="/fold-bloom/lens/">SCALE LENS</a></div>
+</div>
+
+<div class="card"><div class="state">LINEAGE · UNEQUAL PRESERVATION</div><h2>DERIVATIVE / DONOR</h2>
+<p><a href="/sleeper/ascii-pov-0.8/">ASCII Sleeper POV 0.8</a> is the preserved superseded four-contract derivative. <a href="/sleeper/one-return/">ASCII ONE RETURN / Nine Gate</a> is a playable donor. Neither competes with v2 identity.</p>
+</div>
+
+<div class="warn">BOUNDARY OBJECT, NOT BUS. Return Artifact v2 may cross hosts for inspection, writing, projection or later replay, but the recipient gains no right to reinterpret a projection as a Gate proof or to mutate the completed run.</div>
+<div class="card"><div class="state">STATE / RECEIPT</div><div class="links"><a href="./state.json">STATE JSON</a><a href="/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json">SYSTEM FOLD RETURN</a><a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">FIELD CONVERGENCE</a><a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">AUTHORITY REPAIR</a></div></div>
+</main>
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s), input=$('#returnInput'),status=$('#bridgeStatus'),summary=$('#summary'),buttons=[...document.querySelectorAll('[data-act]')];
+const CELLS=new Set(['doors','one-return','four-verbs','eighth-position','wind','question']);
+const FIGURES=new Set(['urchin','slothcake','kite']);
+const GATES=['PROVENANCE','TRUTH','COMPRESSION','RETRIEVAL','OPERATION','MEASURE','TRANSFER','RESILIENCE'];
+let artifact=null;
+
+function hashString(value){
+  let hash=2166136261;
+  for(const character of String(value).normalize('NFC')){
+    hash^=character.codePointAt(0)??0;
+    hash=Math.imul(hash,16777619);
+  }
+  return hash>>>0;
+}
+function normalizedSource(source){return String(source??'').trim().replace(/\s+/g,' ')}
+function expectedWorldKey(a){
+  const source=normalizedSource(a.source),cell=String(a.cell?.id||''),figure=String(a.figure||'');
+  const seedInput=(source+'\u241f'+cell+'\u241f'+figure).trim().replace(/\s+/g,' ').toUpperCase();
+  return hashString(seedInput).toString(36).toUpperCase().padStart(7,'0');
+}
+function localTextKey(text=''){
+  let h=0x811c9dc5,s=String(text??'');
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)}
+  return 'text-local:'+s.length+':'+(h>>>0).toString(16).padStart(8,'0');
+}
+function fail(reason){
+  artifact=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
+  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});
+}
+function validate(raw){
+  let a;try{a=JSON.parse(raw)}catch(_){return fail('UNREADABLE JSON')}
+  if(a?.schema!=='sleeper.one-return'||a?.version!==2)return fail('EXPECTED SLEEPER.ONE-RETURN V2');
+  if(typeof a.source!=='string'||!a.source.trim()||a.source.length>120)return fail('SOURCE INVALID');
+  if(!CELLS.has(String(a.cell?.id||'')))return fail('VERSE CELL UNKNOWN');
+  if(!FIGURES.has(String(a.figure||'')))return fail('FIGURE UNKNOWN');
+  const expected=expectedWorldKey(a);
+  if(String(a.worldKey||'')!==expected)return fail('WORLD KEY MISMATCH · EXPECTED '+expected);
+  if(a.route?.worldKey&&a.route.worldKey!==a.worldKey)return fail('ROUTE WORLD MISMATCH');
+  const proofSet=new Set((Array.isArray(a.proofs)?a.proofs:[]).map(p=>p?.gate).filter(Boolean));
+  const missing=GATES.filter(g=>!proofSet.has(g));
+  if(missing.length)return fail('INCOMPLETE RETURN · MISSING '+missing.join(' / '));
+  artifact=a;
+  status.textContent='VALID RETURN · WORLD '+a.worldKey+' · 8/8 GATES';status.className='bridgeStatus ok';
+  summary.hidden=false;$('#sumWorld').textContent=a.worldKey;$('#sumCell').textContent=a.cell.id;$('#sumFigure').textContent=a.figure;$('#sumProofs').textContent=proofSet.size+'/8';
+  $('#sumSource').textContent=a.source;
+  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=false});
+  try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a))}catch(_){}
+  return a;
+}
+function readfield(source,label,authority,format='TXT'){
+  const packet={schema:'readfield-handoff/v1',created:new Date().toISOString(),source,label,from:'/sleeper/project/',returnAddress:'/sleeper/project/',sourceIdentity:{kind:format==='TXT'?'TEXT':'JSON',format,authority,worldKey:artifact.worldKey}};
+  sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(packet));
+  location.href='/docs/?handoff=1&from=sleeper&return='+encodeURIComponent('/sleeper/project/');
+}
+function verse(){
+  const source=artifact.source,line=source.split('\n')[0]||source;
+  const packet={schema:'field-verse-handoff/v0.1',created:new Date().toISOString(),source,sourceKey:localTextKey(source),focus:{line:0,start:0,end:line.length,address:'text://0:'+line.length},marks:[],from:'/sleeper/project/',fromLabel:'SLEEPER RETURN '+artifact.worldKey};
+  sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify(packet));
+  location.href='/poetry/map/?handoff=1&from=sleeper';
+}
+function lens(){
+  const text=JSON.stringify(artifact,null,2),id='sleeper:return:'+artifact.worldKey;
+  const state={schema:'0xxx0/lens-state/v0.2',objectId:id,address:'sleeper://'+artifact.worldKey+'/return',focusId:id,aperture:{level:'artifact',range:'full',shape:'return-artifact'},projection:'SOURCE',lensStack:[],operator:'SELECT',returnAddress:'/sleeper/project/',sourceRefs:['/sleeper/','/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json'],provenance:{source:'sleeper.one-return',version:2,worldKey:artifact.worldKey},meta:{contract:'sleeper.one-return/v2',title:'SLEEPER RETURN '+artifact.worldKey}};
+  const packet={schema:'scale-lens.handoff/v2',at:new Date().toISOString(),state,title:'SLEEPER RETURN '+artifact.worldKey,sourceUrl:'/sleeper/',text,returnAddress:'/sleeper/project/'};
+  sessionStorage.setItem('lens:handoff:v2',JSON.stringify(packet));
+  location.href='/fold-bloom/lens/';
+}
+function sameWorld(){
+  const u=new URL('https://sleeper-one-return.metaname.chatgpt.site/');
+  u.searchParams.set('source',artifact.source);u.searchParams.set('cell',artifact.cell.id);u.searchParams.set('figure',artifact.figure);u.searchParams.set('world',artifact.worldKey);
+  location.href=u.toString();
+}
+input.addEventListener('input',()=>{const raw=input.value.trim();if(!raw){artifact=null;status.textContent='NO RETURN LOADED';status.className='bridgeStatus';summary.hidden=true;buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});return}validate(raw)});
+buttons.forEach(b=>b.onclick=()=>{
+  const act=b.dataset.act;
+  if(act==='clear'){artifact=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(x.dataset.act!=='clear')x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1')}catch(_){};return}
+  if(!artifact)return;
+  if(act==='read-source')return readfield(artifact.source,'SLEEPER SOURCE · '+artifact.worldKey,'SLEEPER/ONE-RETURN-V2','TXT');
+  if(act==='read-return')return readfield(JSON.stringify(artifact,null,2),'SLEEPER RETURN · '+artifact.worldKey,'SLEEPER/RETURN-V2','AUTO');
+  if(act==='verse-source')return verse();
+  if(act==='lens-return')return lens();
+  if(act==='same-world')return sameWorld();
+};
+try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}}catch(_){}
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body></html>
