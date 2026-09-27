@@ -120,7 +120,7 @@ function restoreMark(m){
 
 function renderReading(snap){
  if(!snap)return;
- const bits=[];const strong=document.createElement('b');strong.textContent='FOCUS '+(snap.scale_label||snap.scale||'—');bits.push(strong);
+ const bits=[],strong=document.createElement('b');strong.textContent='FOCUS '+(snap.scale_label||snap.scale||'—');bits.push(strong);
  const sec=document.createElement('span');sec.textContent=snap.section?.label||'WHOLE SOURCE';bits.push(sec);
  const pos=document.createElement('span');pos.textContent=Math.round((Number(snap.source_progress)||0)*100)+'% · '+(snap.address||'—');bits.push(pos);M.replaceChildren(...bits);
  V.replaceChildren();
@@ -132,7 +132,24 @@ function renderReading(snap){
    V.append(pre,mark,post);requestAnimationFrame(()=>{V.scrollTop=Math.max(0,mark.offsetTop-V.clientHeight*.42)});
  }else if(snap.kind==='JSON'&&snap.node){
    const card=document.createElement('div');card.className='jsonCard';
-   const path=document.createElement('div');path.className='jsonPath';path.textContent=snap.node.path||snap.address||'
+   const path=document.createElement('div');path.className='jsonPath';path.textContent=snap.node.path||snap.address||'$';card.append(path);
+   const value=document.createElement('div');value.className='jsonValue';value.textContent=snap.node.node?.preview||snap.focus||'(empty)';card.append(value);
+   const children=document.createElement('div');children.className='jsonChildren';
+   for(const child of snap.node.children||[]){
+     const btn=document.createElement('button');btn.className='jsonChild';btn.dataset.jsonPath=child.path;
+     const key=document.createElement('b');key.textContent=child.key;
+     const meta=document.createElement('span');meta.textContent=(child.leaf?'LEAF · ':'')+String(child.type||'').toUpperCase();
+     btn.append(key,meta);btn.title=child.path+'\n'+child.preview;
+     btn.onclick=()=>A.seekPath?.(child.path);
+     btn.onpointerenter=e=>showJsonHover(e,child);btn.onpointermove=e=>moveJsonHover(e);btn.onpointerleave=hideJsonHover;
+     children.append(btn);
+   }
+   if(children.childElementCount)card.append(children);V.append(card);
+ }else{
+   const pre=document.createElement('pre');pre.style.margin='0';pre.style.whiteSpace='pre-wrap';pre.textContent=snap.focus||'(empty)';V.append(pre);
+ }
+ syncMarkUi(snap);renderXrefs(snap)
+}
 function docsReaderHref(u){
  const ret=returnUrl(new URLSearchParams(location.search).get('return'));const q=new URLSearchParams();q.set('src',u.pathname+u.search);if(ret)q.set('return',ret);return '/docs/?'+q.toString()
 }
