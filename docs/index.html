@@ -63,14 +63,16 @@ function trailKey(){
 function trailRead(){const key=trailKey();return key?globalThis.FieldSourceTrail?.read?.(key):null}
 function trailRecord(snap,via='READFIELD'){
  const key=trailKey();if(!key||!snap)return null;
- return globalThis.FieldSourceTrail?.record?.(key,{address:snap.address||'',progress:Number(snap.source_progress)||0,focus:snap.focus||'',via})||null
+ return globalThis.FieldSourceTrail?.record?.(key,{address:snap.address||'',progress:Number(snap.source_progress)||0,focus:snap.focus||'',charIndex:Number.isFinite(Number(snap.char_index))?Number(snap.char_index):null,via})||null
 }
 function scheduleTrail(snap){
  trailPending=snap;if(!snap?.playing&&!snap?.speaking){if(trailTimer){clearTimeout(trailTimer);trailTimer=null}const x=trailPending;trailPending=null;if(x)trailRecord(x);return}
  if(trailTimer)return;trailTimer=setTimeout(()=>{trailTimer=null;const x=trailPending;trailPending=null;if(x)trailRecord(x)},350)
 }
 function trailRestoreOption(){
- const t=trailRead();return t?.last?.address?{address:t.last.address}:null
+ const t=trailRead();if(!t?.last)return null;
+ if(Number.isFinite(Number(t.last.charIndex)))return {charIndex:Number(t.last.charIndex)};
+ return t.last.address?{address:t.last.address}:null
 }
 
 function apertureView(){
@@ -151,7 +153,7 @@ function apertureOptions(label,value,format='AUTO'){
  const opt={label,format};if(typeof value==='string')opt.scale='PHRASE';
  const hasExplicit=!!initialAperture.address||Number.isFinite(initialAperture.charIndex);
  if(firstLoad){for(const [k,v] of Object.entries(initialAperture))if(v!==undefined)opt[k]=v}
- if(!hasExplicit&&!opt.address){const saved=trailRestoreOption();if(saved?.address)opt.address=saved.address}
+ if(!hasExplicit&&!opt.address){const saved=trailRestoreOption();if(saved?.address)opt.address=saved.address;else if(Number.isFinite(Number(saved?.charIndex)))opt.charIndex=Number(saved.charIndex)}
  return opt
 }
 function syncCopyMode(){if(C)C.textContent=activeEphemeral?'COPY FOCUS':'COPY VIEW'}
