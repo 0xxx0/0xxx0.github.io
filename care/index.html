@@ -254,13 +254,14 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <footer><span>OBSERVE → FOLLOW COURSE → BRIEF · raw observation before interpretation</span><span>local-first · local body plans · no server submission</span></footer>
 
 <script src="../bodyplans/registry.js"></script>
+<script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
 const KEY='0xxx0.care.field.v01',BODYCARE='0xxx0.body.care.handoff.v01',PORTCARE='care.port.evidence.v01',PORTSESSION='human.port.object.session.v01';
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const $=Micro.$, $$=Micro.$$;
 const now=()=>new Date().toISOString();
 const uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=Micro.esc; /* was inline copy (4-key); lib escapes ' too — DOM text identical at all 23 innerHTML call sites */
 const blank=()=>({schema:'0xxx0/care-case/v0.3',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},body_plan:'human-reference-m',baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],evidence_refs:[],imports:[]});
 let C=blank(),view='observe',mapView='front',mapMode='TAP',selected=new Set(),trace=[],qualities=new Set(),trend='NEW',ghostRegions=new Set(),ghostTrace=[];
 
@@ -532,7 +533,7 @@ async function openPortCase(){
  const obj={schema:'human-port-object/v0.1',object_id:'portobj:care:'+C.id+':'+hash.slice(0,16),source_class:'EVENT_REF',media_class:'JSON',label:'CARE · '+(C.subject.label||'unnamed case'),mime:'application/json',size_bytes:bytes.byteLength,sha256:hash,created_at:now(),retention:'SESSION',provenance:{origin:'care-field',source_ref:C.id,case_schema:C.schema,case_updated_at:C.updated_at},payload_ref:null,text_payload:raw,focus:null};
  sessionStorage.setItem(PORTSESSION,JSON.stringify({obj,focus:null,scope:'whole',selected:null,at:now()}));location.assign('../port/')
 }
-function download(obj,name){const b=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),700)}
+const download=(obj,name)=>Micro.download(name,JSON.stringify(obj,null,2),'application/json'); /* page keeps its (obj,name) arg order; machinery now lib/micro.js */
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#newCase').onclick=()=>{C=blank();selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer();$('#caseList').value='';$('#caseModal').classList.add('open')};
 $('#caseList').onchange=e=>{const db=store();if(e.target.value&&db[e.target.value]){C=db[e.target.value];selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer()}};

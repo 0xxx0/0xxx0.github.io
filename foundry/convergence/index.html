@@ -44,8 +44,9 @@
 </div>
 <nav class="dock" id="dock"><button data-go="now" class="on">NOW</button><button data-go="lens">LENS</button><button data-go="run">RUN</button><button data-go="proof">PROOF</button><button data-go="atlas">ATLAS</button></nav>
 <div class="modalBack" id="back"></div><section class="modal" id="modal"><div class="modalHead"><b id="modalTitle" class="mono">DETAIL</b><button class="icon" id="closeModal">×</button></div><div id="modalBody"></div></section><div class="toast" id="toast"></div>
+<script src="/lib/micro.js"></script>
 <script>
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const $=Micro.$, $$=Micro.$$;
 const stages=['observe','target','routes','test','result','return'];
 const stagePrompt={observe:'What is actually here, before explanation?',target:'What change would count as useful now?',routes:'Name 2–3 viable routes. What is the smallest reversible move?',test:'What observation could distinguish success from attractive failure?',result:'What happened? Record evidence and contradiction before interpretation.',return:'What delta returns to the world? What remains unresolved, and where do we re-enter?'};
 const qs=['Q0 PURPOSE','Q1 IDENTITY','Q2 STRUCTURE','Q3 TRANSFORM','Q4 EVIDENCE','Q5 COMPACTION','Q6 PERCEPTION','Q7 FALSIFY','Q8 RETURN'];
@@ -56,9 +57,9 @@ let state=load(); let currentView='now';
 function load(){try{const x=JSON.parse(localStorage.getItem('convergence-field-v1'));if(x&&x.objects)return x}catch(e){}return{version:1,mode:'field',theme:'dark',activeId:seed.id,objects:[seed],receipts:[]}}
 function save(){localStorage.setItem('convergence-field-v1',JSON.stringify(state))}
 function active(){return state.objects.find(x=>x.id===state.activeId)||state.objects[0]}
-function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+const esc=Micro.esc; /* was inline copy of lib/dom.js esc; only delta: esc(null) now yields '' not 'null' */
 function hash(s=''){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return('00000000'+(h>>>0).toString(16)).slice(-8)}
-function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1400)}
+const toast=Micro.toast; /* was inline copy; same #toast/'on'/1400ms contract, lib version also resets its pending timer on rapid calls */
 function go(v){currentView=v; $$('.view').forEach(x=>x.classList.remove('on')); $('#v-'+v).classList.add('on'); $$('#dock button').forEach(x=>x.classList.toggle('on',x.dataset.go===v)); if(v!=='now')active().counters.projection++; save(); render()}
 function elapsed(o){return Math.max(0,Math.round(((o.finishedAt||Date.now())-o.startedAt)/60000))}
 function stageIndex(o){return Math.max(0,stages.indexOf(o.stage))}
