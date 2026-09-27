@@ -79,6 +79,17 @@ May: READ · SEARCH · COMPARE · ANALYZE · RECOVER · CLASSIFY · DRAFT · RUN
 
 Escalate before: external sending · public publication · money movement · account changes · destructive deletion · irreversible filesystem operations · large architectural migration.
 
+## SURFACE DISCIPLINE
+
+Aesthetic work must reduce ambiguity or interaction cost, not create another visual framework.
+
+- Preserve one addressed object/focus across projections; navigation is secondary to continuity.
+- Expose only **1–3 reachable lawful operations** at a time; put depth behind explicit reveal.
+- On mobile, keep **one persistent route-control affordance**. Secondary READ/LENS actions belong inside that control surface rather than as permanent floating chrome.
+- Prefer hard edges, borders, typography, whitespace and state contrast. Rounded-card/pill grammar and decorative backgrounds are not defaults.
+- Reuse the current host and its variables before extracting shared styling. The library threshold remains three real repeats; do not invent a universal shell.
+- A visual delta must preserve semantics, keyboard/accessibility paths and evidence boundaries. If it only changes taste, hold it.
+
 ## CURRENT HEADS (coordinates, not invitations)
 
 FIELD INDEX · Scale Lens · READFIELD/RSVP · Sleeper/ONE RETURN · FOLD//BLOOM · AXIAL · HUMAN PORT/FIELD INTAKE · POEM MAP/Verse · CARE/BODY · HOUSE/SPATIAL
