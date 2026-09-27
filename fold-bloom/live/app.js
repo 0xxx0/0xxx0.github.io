@@ -13,7 +13,7 @@ import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} 
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
-import {READ_GRAINS,READ_RIDE_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
+import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
 
 const STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -108,6 +108,20 @@ function readRideCourse(){
   return readRide.course;
 }
 function liveCourse(){return readRide?readRideCourse():(liveTrack.mapped()?mapCourse(liveTrack.map,{grain:courseGrain}):null)}
+function exactReadVisit(hit){
+  const p=hit?.point;if(!readRide||!p)return null;
+  return {source_id:readRide.packet.sourceIdentity?.id||'',start:Number(p.start),end:Number(p.end),grain:String(p.kind||courseGrain),address:String(hit.address||p.address||'')};
+}
+function recordExactReadVisit(hit,{reset=false}={}){
+  if(!readRide)return null;const v=exactReadVisit(hit);if(!v)return null;
+  if(reset){readRide.origin=v;readRide.visited=[v];return v}
+  const last=readRide.visited?.at(-1);
+  if(!last||last.start!==v.start||last.end!==v.end||last.grain!==v.grain)readRide.visited=[...(readRide.visited||[]),v].slice(-64);
+  return v
+}
+function resetExactReadTrail(){
+  if(!readRide)return null;const course=readRideCourse(),hit=readCourseAddressAt(course,readRide.progress);return recordExactReadVisit(hit,{reset:true})
+}
 function liveCourseProgress(){
   if(readRide)return Math.max(0,Math.min(1,Number(readRide.progress)||0));
   const duration=Number(liveTrack.map?.duration)||0;
@@ -162,14 +176,14 @@ function setCourseMode(next,announce=true){
 }
 function cycleCourseGrain(){
   const grains=activeCourseGrains();let i=grains.indexOf(courseGrain);if(i<0)i=0;courseGrain=grains[(i+1)%grains.length];
-  if(readRide)readRide.course=null;
+  if(readRide){readRide.course=null;resetExactReadTrail()}
   drawCourseMap(true);lastTextKey='';updateTextWitness();toast('STEP GRAIN · '+courseGrain);return courseGrain;
 }
 function seekCourseProgress(p,{keepMode=true}={}){
   const course=liveCourse();if(!course)return null;
   const next=Math.max(0,Math.min(1,Number(p)||0));
   if(readRide){
-    readRide.progress=next;courseMode='STEP';lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return readCourseAddressAt(course,next);
+    readRide.progress=next;courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
   }
   const duration=Number(liveTrack.map?.duration)||0;
   if(courseMode==='STEP'||!keepMode)$('#trackAudio').pause();
@@ -412,6 +426,7 @@ function readRideState(){
     course:{grain:courseGrain,mode:courseMode,progress:+liveCourseProgress().toFixed(8),address:witness?.address||null,index:witness?.index??null,count:witness?.count??null},
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
     trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,storageState:t.storageState,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
+    traversal:{origin:readRide.origin?{...readRide.origin}:null,visited:(readRide.visited||[]).map(x=>({...x}))},
     carrier:carrier?{schema:carrier.schema,frameId:carrier.frameId,authority:carrier.authority,object:carrier.object,focus:carrier.focus,next:carrier.next,witness:carrier.witness,return:carrier.return,projection:carrier.projection,lineage:carrier.lineage}:null,
     returnAddress:readRide.packet.returnAddress||null
   };
@@ -433,8 +448,9 @@ function loadReadRidePacket(raw,{announce=true}={}){
   try{$('#trackAudio').pause()}catch(_){}
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
-  readRide={packet,progress:initialReadProgress(packet),course:null};
+  readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};
   courseGrain='PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
+  resetExactReadTrail();
   layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncRideProfile();syncLayerUI();
   document.documentElement.dataset.foldBloomReadRide='ready';
   document.documentElement.dataset.foldBloomReadAuthority=String(packet.sourceIdentity?.authority||'READFIELD').toLowerCase();
@@ -462,8 +478,13 @@ function returnReadRide(){
   const target=readRide?.packet?.returnAddress;if(!target)return false;
   try{
     const u=new URL(target,location.href);if(u.origin!==location.origin)return false;
+    const course=liveCourse(),witness=makeReadReturnWitness(course,{
+      origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:u.pathname+u.search+u.hash
+    });
+    sessionStorage.setItem(READ_RETURN_STORAGE,JSON.stringify(witness));
+    u.searchParams.set('ride_return','1');
     location.href=u.pathname+u.search+u.hash;return true;
-  }catch(_){return false}
+  }catch(error){console.warn('READ/RIDE return',error);return false}
 }
 
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
