@@ -52,7 +52,12 @@ function syncLayerUI(){
     :'SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response.';
   const back=$('#readfieldReturn'),mark=$('#readTrailMark');
   if(back){back.hidden=!readRide?.packet?.returnAddress;back.textContent='↩ '+(readRide?.packet?.sourceIdentity?.authority==='READFIELD'?'READFIELD':'SOURCE')}
-  if(mark){mark.hidden=!readRide;const t=readTrailSnapshot();mark.textContent=readRide?('MARK HERE'+(t?.marks?.length?' · '+t.marks.length:'')):'MARK HERE'}
+  if(mark){
+    mark.hidden=!readRide;const t=readTrailSnapshot(),trailState=t?.storageState||'NO_IDENTITY',writable=['EMPTY','READY'].includes(trailState);
+    mark.disabled=!!readRide&&!writable;
+    mark.textContent=readRide?(writable?('MARK HERE'+(t?.marks?.length?' · '+t.marks.length:'')):('MARK · '+trailState)):'MARK HERE';
+    document.documentElement.dataset.foldBloomReadTrail=String(trailState).toLowerCase();
+  }
 }
 function applyLayerMode(name,announce=true){
   const next=String(name||'').toUpperCase();
@@ -352,11 +357,11 @@ function update(){
 function readTrailKeyFor(packet=readRide?.packet){
   if(!packet)return '';
   if(packet.trailKey)return String(packet.trailKey);
-  const s=packet.sourceIdentity||{},address=s.address||s.id||s.hash||'';
-  return globalThis.FieldSourceTrail?.sourceKey?.({address,source:packet.source||'',label:packet.label||'READ SOURCE'})||'';
+  const s=packet.sourceIdentity||{};
+  return globalThis.FieldSourceTrail?.sourceKey?.({address:s.address||'',id:s.hash||s.id||''})||'';
 }
 function readTrailSnapshot(packet=readRide?.packet){
-  const key=readTrailKeyFor(packet);return key?globalThis.FieldSourceTrail?.read?.(key):null;
+  const key=readTrailKeyFor(packet);return globalThis.FieldSourceTrail?.read?.(key||'')||null;
 }
 function recordReadRideVisit(witness=null){
   if(!readRide)return null;const course=liveCourse(),w=witness||readCourseWitness(course,liveCourseProgress()),key=readTrailKeyFor();
@@ -364,10 +369,11 @@ function recordReadRideVisit(witness=null){
   return globalThis.FieldSourceTrail?.record?.(key,{address:w.address||'',progress:Number(w.progress)||0,focus:String(w.text||'').slice(0,220),charIndex:Number.isFinite(Number(w.start))?Number(w.start):null,scale:w.grain||courseGrain,via:'LIVE_READ_RIDE'})||null;
 }
 function markReadRide(){
-  if(!readRide)return null;const w=readCourseWitness(liveCourse(),liveCourseProgress()),key=readTrailKeyFor();if(!w||!key)return null;
+  if(!readRide)return null;const w=readCourseWitness(liveCourse(),liveCourseProgress()),key=readTrailKeyFor();if(!w||!key){toast('READ TRAIL · NO EXACT IDENTITY');syncLayerUI();return null}
   const t=globalThis.FieldSourceTrail?.addMark?.(key,{address:w.address||'',progress:Number(w.progress)||0,label:(w.grain||courseGrain)+' · '+String(w.text||'').slice(0,96),charIndex:Number.isFinite(Number(w.start))?Number(w.start):null,scale:w.grain||courseGrain,via:'LIVE_READ_RIDE'});
-  if(t){toast('READ MARK · '+(w.grain||courseGrain)+' · '+Math.round((w.progress||0)*100)+'%');syncLayerUI();update()}
-  return t;
+  if(t?.storageState==='READY')toast('READ MARK · '+(w.grain||courseGrain)+' · '+Math.round((w.progress||0)*100)+'%');
+  else toast('READ TRAIL · '+String(t?.storageState||'UNAVAILABLE'));
+  syncLayerUI();update();return t;
 }
 
 function readRideCarrier(witness){
@@ -405,7 +411,7 @@ function readRideState(){
     },
     course:{grain:courseGrain,mode:courseMode,progress:+liveCourseProgress().toFixed(8),address:witness?.address||null,index:witness?.index??null,count:witness?.count??null},
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
-    trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
+    trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,storageState:t.storageState,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
     carrier:carrier?{schema:carrier.schema,frameId:carrier.frameId,authority:carrier.authority,object:carrier.object,focus:carrier.focus,next:carrier.next,witness:carrier.witness,return:carrier.return,projection:carrier.projection,lineage:carrier.lineage}:null,
     returnAddress:readRide.packet.returnAddress||null
   };
