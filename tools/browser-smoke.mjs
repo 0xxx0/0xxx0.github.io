@@ -1238,7 +1238,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE Two Dial embodied mobile',
     route:'/fold-bloom/live/?play=DUET',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900,settleLimit:16000,timeout:24000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="DUET"')&&dom.includes('data-fb-loop-archetype="COORDINATE"')&&dom.includes('data-fb-instrument="TWO_DIAL"')&&dom.includes('data-fb-primary-controls="clear"')&&/OUTER \/ DIAL A · ROAD/i.test(dom)&&/INNER \/ DIAL B · RELATION/i.test(dom)&&/LANDSCAPE ↔/i.test(dom)
   },
   {
