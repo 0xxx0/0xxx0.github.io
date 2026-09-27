@@ -9,6 +9,9 @@ function browserBin(){
   for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
     const r=spawnSync('which',[name],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
+  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
+    if(fs.existsSync(p))return p;
+  }
   throw Error('No Chrome/Chromium');
 }
 function type(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css'; if(p.endsWith('.svg'))return'image/svg+xml';return'application/octet-stream'}
