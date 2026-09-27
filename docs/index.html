@@ -287,6 +287,8 @@ function paintWorkStatus(snap=aperture.snapshot?.()){
   workModeStatus.textContent=info+' · '+scale+' · '+progress+'%'+(wpm?' · '+wpm+' WPM':'');
 }
 function applyView(){
+  // READFIELD owns this host as a reader projection; reassert the mode before view-specific styling.
+  aperture.toggleAttribute('reader',true);
   aperture.toggleAttribute('focusfield',view==='FOCUS'||view==='MIN');aperture.toggleAttribute('minimal',view==='MIN');
   viewButton.textContent='VIEW · '+view;viewButton.classList.toggle('viewOn',view!=='PLAIN');document.documentElement.dataset.readfieldView=view.toLowerCase();
   const q=new URLSearchParams(location.search);if(view==='PLAIN')q.delete('read_view');else q.set('read_view',view.toLowerCase());history.replaceState(null,'','?'+q.toString()+location.hash);
