@@ -26,7 +26,7 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 .summary div{padding:8px;border-right:1px solid #202a2e;border-bottom:1px solid #202a2e;min-width:0}
 .summary b{display:block;color:#75c8e7;font-size:8px}.summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .source{margin-top:8px;color:#aab5b9;white-space:pre-wrap;overflow-wrap:anywhere}
-.micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}
+.micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}.offer{margin-top:12px;padding:10px;border-left:3px solid #91db8a;background:#07100b}.offer b{display:block;color:#91db8a}.offer p{margin:5px 0;color:#c7d1cd}.offer code{color:#75c8e7;overflow-wrap:anywhere}
 @media(max-width:650px){body{padding:12px}h1{font-size:52px}.summary{grid-template-columns:1fr 1fr}.actions button{flex:1 1 42%}.actions .clear{margin-left:0}}
 </style>
 </head>
@@ -59,9 +59,11 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
   <button data-act="verse-source" disabled>VERSE SOURCE</button>
   <button data-act="lens-return" disabled>LENS RETURN</button>
   <button data-act="same-world" disabled>OPEN SAME WORLD</button>
+  <button data-act="carry-dayline" disabled>CARRY OPERATOR → DAYLINE</button>
   <button data-act="clear" class="clear">CLEAR</button>
 </div>
-<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. None may satisfy or rewrite Sleeper Gate proofs. LIVE remains a donor until a typed route/ride seam exists.</div>
+<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. CARRY OPERATOR is explicit consent to test the artifact transferInstruction in Dayline; its later RETURN is evidence-only and cannot become a Sleeper Gate proof.</div>
+<div id="daylineOffer" class="offer" hidden><b id="offerTitle">DAYLINE RETURN OFFER</b><p id="offerBody"></p><code id="offerMeta"></code><div class="actions"><button data-act="dismiss-offer">DISMISS OFFER</button></div></div>
 </div>
 </div>
 
@@ -82,13 +84,14 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 <div class="warn">BOUNDARY OBJECT, NOT BUS. Return Artifact v2 may cross hosts for inspection, writing, projection or later replay, but the recipient gains no right to reinterpret a projection as a Gate proof or to mutate the completed run.</div>
 <div class="card"><div class="state">STATE / RECEIPT</div><div class="links"><a href="./state.json">STATE JSON</a><a href="/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json">SYSTEM FOLD RETURN</a><a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">FIELD CONVERGENCE</a><a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">AUTHORITY REPAIR</a></div></div>
 </main>
+<script src="/lib/interphase-carrier.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s), input=$('#returnInput'),status=$('#bridgeStatus'),summary=$('#summary'),buttons=[...document.querySelectorAll('[data-act]')];
 const CELLS=new Set(['doors','one-return','four-verbs','eighth-position','wind','question']);
 const FIGURES=new Set(['urchin','slothcake','kite']);
 const GATES=['PROVENANCE','TRUTH','COMPRESSION','RETRIEVAL','OPERATION','MEASURE','TRANSFER','RESILIENCE'];
-let artifact=null;
+let artifact=null,carrier=null;
 
 function hashString(value){
   let hash=2166136261;
@@ -110,8 +113,8 @@ function localTextKey(text=''){
   return 'text-local:'+s.length+':'+(h>>>0).toString(16).padStart(8,'0');
 }
 function fail(reason){
-  artifact=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
-  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});
+  artifact=null;carrier=null;status.textContent='RETURN REJECTED · '+reason;status.className='bridgeStatus bad';summary.hidden=true;$('#sumSource').textContent='';
+  buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=true});
 }
 function validate(raw){
   let a;try{a=JSON.parse(raw)}catch(_){return fail('UNREADABLE JSON')}
@@ -125,14 +128,56 @@ function validate(raw){
   const proofSet=new Set((Array.isArray(a.proofs)?a.proofs:[]).map(p=>p?.gate).filter(Boolean));
   const missing=GATES.filter(g=>!proofSet.has(g));
   if(missing.length)return fail('INCOMPLETE RETURN · MISSING '+missing.join(' / '));
-  artifact=a;
+  artifact=a;carrier=carrierForArtifact(a);
   status.textContent='VALID RETURN · WORLD '+a.worldKey+' · 8/8 GATES';status.className='bridgeStatus ok';
   summary.hidden=false;$('#sumWorld').textContent=a.worldKey;$('#sumCell').textContent=a.cell.id;$('#sumFigure').textContent=a.figure;$('#sumProofs').textContent=proofSet.size+'/8';
   $('#sumSource').textContent=a.source;
-  buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=false});
-  try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a))}catch(_){}
+  buttons.forEach(b=>{if(!['clear','dismiss-offer'].includes(b.dataset.act))b.disabled=false});
+  const carry=buttons.find(b=>b.dataset.act==='carry-dayline');if(carry)carry.disabled=!String(a.transferInstruction||'').trim();
+  try{sessionStorage.setItem('sleeper.return.bridge.v1',JSON.stringify(a));if(carrier)sessionStorage.setItem('interphase.carrier.v01',JSON.stringify(carrier))}catch(_){}
+  renderDaylineOffer();
   return a;
 }
+function carrierForArtifact(a=artifact){
+  const C=globalThis.InterphaseCarrier;if(!a||!C)return null;
+  const id='sleeper:return:'+a.worldKey,instruction=String(a.transferInstruction||'').trim(),op=String(a.dominantOperator||'').trim();
+  try{return C.make({
+    object:{id,kind:'return-artifact',label:'SLEEPER RETURN '+a.worldKey,owner:'SLEEPER',address:'sleeper://'+a.worldKey+'/return',contract:'sleeper.one-return/v2'},
+    focus:{id:instruction?('transfer:'+(op||'instruction')):id,label:instruction||('RETURN '+a.worldKey),address:'sleeper://'+a.worldKey+'/return#transfer',aperture:'TRANSFER'},
+    next:[...(instruction?[{id:'CARRY_OPERATOR',label:'CARRY OPERATOR → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),{id:'READ_RETURN',label:'READ RETURN',authority:'NAVIGATION',target:'/docs/'},{id:'OPEN_SAME_WORLD',label:'OPEN SAME WORLD',authority:'NAVIGATION',target:'https://sleeper-one-return.metaname.chatgpt.site/'}].slice(0,3),
+    witness:{class:'RETURN',summary:'8/8 enacted Gates · '+(a.measures?.steps??'—')+' steps · '+(a.measures?.elapsedMs??'—')+' ms',evidenceRefs:['sleeper://'+a.worldKey+'/return#proofs']},
+    return:{address:'/sleeper/project/?world='+encodeURIComponent(a.worldKey),owner:'SLEEPER',label:'RETURN TO SLEEPER'},
+    projection:{host:'SLEEPER',name:'RETURN',channels:['identity','address','content','time','authority','evidence'],residue:[{channel:'world-geometry',reason:'not carried by continuation frame'}]},
+    sourceRefs:['/sleeper/','/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json'],
+    meta:{dominantOperator:op,verseCell:a.cell?.id||null,figure:a.figure||null}
+  })}catch(_){return null}
+}
+function carryDayline(){
+  const instruction=String(artifact?.transferInstruction||'').trim();if(!artifact||!instruction){status.textContent='CARRY BLOCKED · RETURN HAS NO TRANSFER INSTRUCTION';status.className='bridgeStatus bad';return}
+  const id='sleeper-'+artifact.worldKey+'-'+Date.now(),objectId='sleeper:return:'+artifact.worldKey,ret='/sleeper/project/?from=dayline&world='+encodeURIComponent(artifact.worldKey);
+  const packet={
+    schema:'atlas-dayline-handoff/v0.1',id,created_at:new Date().toISOString(),kind:'TASK',
+    source:{route:'/sleeper/project/',object_id:objectId,label:'SLEEPER RETURN '+artifact.worldKey,owner:'SLEEPER',address:'sleeper://'+artifact.worldKey+'/return',evidence_owner:'SLEEPER',proof_boundary:'Dayline witness is evidence about a real-world enactment only; it cannot satisfy or rewrite Sleeper Gate proofs.'},
+    payload:{task:{title:instruction,sourceRef:'/sleeper/project/',provenance:'SLEEPER explicit transfer · '+artifact.worldKey,notes:['SLEEPER RETURN '+artifact.worldKey,'DOMINANT OPERATOR '+String(artifact.dominantOperator||'—'),'TRANSFER '+instruction,'8/8 GATES VERIFIED BEFORE HANDOFF','RETURN OFFER MUST REMAIN EVIDENCE ONLY'].join('\n')}},
+    return_to:ret,carrier:carrier||carrierForArtifact(artifact)
+  };
+  try{sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.href='/dayline/?handoff=sleeper&interphase=FOVEA'}catch(_){status.textContent='DAYLINE HANDOFF FAILED';status.className='bridgeStatus bad'}
+}
+function readDaylineOffer(){
+  try{
+    const b=JSON.parse(sessionStorage.getItem('atlas.dayline.source-return.v01')||'null');if(!b||b.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(b.offers))return null;
+    const age=Date.now()-Date.parse(b.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000)return null;
+    const qworld=new URLSearchParams(location.search).get('world'),expected=artifact?('sleeper:return:'+artifact.worldKey):(qworld?('sleeper:return:'+qworld):null);if(!expected)return null;
+    return b.offers.find(o=>o?.source?.route==='/sleeper/project/'&&o?.source?.object_id===expected)||null;
+  }catch(_){return null}
+}
+function renderDaylineOffer(){
+  const box=$('#daylineOffer');if(!box)return;const o=readDaylineOffer();if(!o){box.hidden=true;return}
+  box.hidden=false;$('#offerTitle').textContent='DAYLINE RETURN OFFER · EVIDENCE ONLY';
+  $('#offerBody').textContent=(o.task?.status||'UNKNOWN')+' · '+(o.witness?.note||'No textual witness recorded.');
+  $('#offerMeta').textContent=(o.witness?.return_class||'RETURN')+' · '+(o.witness?.after_checksum||'no checksum')+' · '+(o.native_effect||'EVIDENCE_ONLY')+' · no Sleeper state mutation';
+}
+function dismissDaylineOffer(){try{sessionStorage.removeItem('atlas.dayline.source-return.v01')}catch(_){};const box=$('#daylineOffer');if(box)box.hidden=true}
 function readfield(source,label,authority,format='TXT'){
   const packet={schema:'readfield-handoff/v1',created:new Date().toISOString(),source,label,from:'/sleeper/project/',returnAddress:'/sleeper/project/',sourceIdentity:{kind:format==='TXT'?'TEXT':'JSON',format,authority,worldKey:artifact.worldKey}};
   sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(packet));
@@ -159,15 +204,17 @@ function sameWorld(){
 input.addEventListener('input',()=>{const raw=input.value.trim();if(!raw){artifact=null;status.textContent='NO RETURN LOADED';status.className='bridgeStatus';summary.hidden=true;buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});return}validate(raw)});
 buttons.forEach(b=>b.onclick=()=>{
   const act=b.dataset.act;
-  if(act==='clear'){artifact=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(x.dataset.act!=='clear')x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1')}catch(_){};return}
+  if(act==='clear'){artifact=null;carrier=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(!['clear','dismiss-offer'].includes(x.dataset.act))x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1');sessionStorage.removeItem('interphase.carrier.v01')}catch(_){};return}
   if(!artifact)return;
   if(act==='read-source')return readfield(artifact.source,'SLEEPER SOURCE · '+artifact.worldKey,'SLEEPER/ONE-RETURN-V2','TXT');
   if(act==='read-return')return readfield(JSON.stringify(artifact,null,2),'SLEEPER RETURN · '+artifact.worldKey,'SLEEPER/RETURN-V2','AUTO');
   if(act==='verse-source')return verse();
   if(act==='lens-return')return lens();
   if(act==='same-world')return sameWorld();
+  if(act==='carry-dayline')return carryDayline();
+  if(act==='dismiss-offer')return dismissDaylineOffer();
 });
-try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}}catch(_){}
+try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}else renderDaylineOffer()}catch(_){renderDaylineOffer()}
 })();
 </script>
 <script src="/showcase-nav.js" defer></script>
