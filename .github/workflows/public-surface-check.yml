@@ -251,7 +251,9 @@ jobs:
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
-        run: node tools/verify-backup-recovery.mjs
+        run: |
+          node tools/verify-backup-recovery.mjs
+          node recovery/read-trail-2026-09-27/tools/read-trail-selftest.cjs
       - name: Test frozen City engines and Painting handlers
         working-directory: recovery/sleeper/site-source-2026-09-18
         run: node --experimental-strip-types --test tests/field-engines.test.mjs tests/painting-path.test.mjs tests/painting-ui.test.mjs
