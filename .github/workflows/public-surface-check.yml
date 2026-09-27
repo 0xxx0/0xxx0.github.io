@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test READFIELD → LIVE exact cursor RETURN
+        run: node tools/readfield-live-exact-return-smoke.mjs
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
       - name: Validate reality-gap proof gates
@@ -204,8 +206,6 @@ jobs:
         run: node tools/fold-bloom-live-course-smoke.mjs
       - name: Test FOLD BLOOM LIVE READFIELD / local-file READ-RIDE
         run: node tools/fold-bloom-live-read-ride-smoke.mjs
-      - name: Test READFIELD → LIVE exact cursor RETURN
-        run: node tools/readfield-live-exact-return-smoke.mjs
       - name: Test FOLD BLOOM LIVE J-space co-driver browser seam
         run: node tools/fold-bloom-live-steering-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB browser boot
