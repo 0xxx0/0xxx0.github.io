@@ -176,10 +176,10 @@ function setPulseMode(next){
 }
 function adjustRatio(lane,delta){
   const i=lane==='B'?1:0,next=[...pulse.ratio];next[i]=Math.max(1,Math.min(8,next[i]+delta));pulse.ratio=next;
-  $('#ratioRead').textContent=pulse.ratio.join(':');$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x.dataset.ratio===pulse.ratio.join(':')));
+  $('#ratioRead').textContent=pulse.ratio.join(':');$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x.dataset.ratio===pulse.ratio.join(':')));
   resetPulseTraining();if(pulse.playing)restartPulse();syncPulseLaneReadouts();return pulse.ratio
 }
-$('[data-ratio]').forEach(b=>b.onclick=()=>{
+$$('[data-ratio]').forEach(b=>b.onclick=()=>{
   pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
   $('#ratioRead').textContent=b.dataset.ratio;resetPulseTraining();if(pulse.playing)restartPulse();
 });
