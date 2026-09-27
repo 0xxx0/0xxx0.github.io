@@ -9,13 +9,15 @@ const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41766;
 function browserBin(){for(const n of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){const r=spawnSync('which',[n],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim()}throw Error('No Chrome/Chromium')}
 function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';if(p.endsWith('.svg'))return'image/svg+xml';return'application/octet-stream'}
 function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';const p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
-function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:900px;height:760px;border:0" src="/docs/?src=%2Fcontrol%2FCURRENT.json"></iframe><pre id="probeResult">PENDING</pre><script>
+function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:900px;height:760px;border:0" src="/docs/"></iframe><pre id="probeResult">PENDING</pre><script>
 const f=document.getElementById('f'),o=document.getElementById('probeResult'),rec={};let finished=false;
 const done=(ok,x)=>{if(finished)return;finished=true;o.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms)),wait=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
 (async()=>{try{
  const W=()=>f.contentWindow,D=()=>W().document;
- const A=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},12000,'JSON aperture');
+ await wait(()=>D().getElementById('docAperture')?.load&&typeof W().openLocalText==='function',12000,'READFIELD boot');
+ W().openLocalText(JSON.stringify({alpha:{beta:1,gamma:[2,3]},state:{ready:true},question:'what changes?'},null,2),'probe.json','application/json','AUTO',false);
+ const A=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},6000,'JSON aperture');
  const s=A.snapshot();rec.kind=s.kind;rec.address=s.address;rec.json=!!s.json;rec.jsonPath=s.json?.path;rec.jsonChildren=s.json?.children?.length||0;rec.centerKey=A.shadowRoot?.getElementById('centerWord')?.textContent||'';rec.hover=!!A.hoverDescriptor?.(.3)?.title;
  await wait(()=>D().querySelector('.jsonFocus'),5000,'structured JSON view');
  rec.structured=!!D().querySelector('.jsonFocus');rec.childCards=D().querySelectorAll('.jsonChild').length;rec.thumbs=D().querySelectorAll('.doc .thumb').length;
