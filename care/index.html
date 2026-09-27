@@ -69,12 +69,23 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
  header{border-bottom:2px solid #111}header h1{font-size:34pt}.sub,.local{color:#444}
 }
 @media(max-width:760px){.courseBand{grid-template-columns:1fr 1fr}.metricBoard{grid-template-columns:1fr}}
+.watch{display:flex;justify-content:flex-end;margin:0 0 6px;background:none;border:0;padding:0;cursor:pointer;color:inherit}.watch:hover svg{opacity:1}.watch:focus-visible{outline:1px solid var(--cool);outline-offset:3px}.watch svg{width:56px;height:56px;color:var(--cool);opacity:.92}.watch .head,.watch .brow,.watch .mouth{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}.watch .eye{fill:currentColor}.watch .brow{transform-box:fill-box;transform-origin:center}.watch .brow-l{animation:brow-twitch 11s ease-in-out infinite}@keyframes brow-twitch{0%,84%,100%{transform:translateY(0) rotate(0)}86%{transform:translateY(-1.5px) rotate(-8deg)}89%{transform:translateY(.5px) rotate(4deg)}92%{transform:translateY(-1px) rotate(-4deg)}95%{transform:translateY(0) rotate(0)}}@media(max-width:760px){.watch{justify-content:flex-start}}@media(prefers-reduced-motion:reduce){.watch .brow-l{animation:none}}
+.facecard{width:min(520px,94vw)}
+.facebig{display:grid;place-items:center;padding:6px 0 2px}
+.facebig svg{width:min(300px,68vw);height:auto;color:var(--ink)}
+.facebig .line{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.facebig .thin{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.facebig .dot{fill:currentColor}
+.facebig .fbrow{fill:none;stroke:currentColor;stroke-width:3.6;stroke-linecap:round;transform-box:fill-box;transform-origin:center}
+.facebig .fbrow-l{animation:brow-twitch-big 9.5s ease-in-out infinite}
+@keyframes brow-twitch-big{0%,84%,100%{transform:translateY(0) rotate(0)}86%{transform:translateY(-3px) rotate(-11deg)}89%{transform:translateY(1px) rotate(5deg)}92%{transform:translateY(-2px) rotate(-6deg)}95%{transform:translateY(0) rotate(0)}}
+@media(prefers-reduced-motion:reduce){.facebig .fbrow-l{animation:none}}
 </style>
 </head>
 <body><main>
 <header>
 <div><div class="ey">CARE / FIELD · COURSE × CONTINUITY × BODYFIELD × HUMAN PORT</div><h1>WHAT CHANGED?</h1><div class="sub">Compact observation, longitudinal follow-up and clinician/vet handoff. Record what happened first; interpretation stays separate.</div></div>
-<div class="local">PUBLIC CODE · PRIVATE LOCAL STATE<br>CASE ≠ BRIEF ≠ PORT ≠ SEND</div>
+<div class="local"><button class="watch" id="openFace" type="button" aria-label="Open face detail" title="FACE — detail"><svg viewBox="0 0 72 72"><ellipse class="head" cx="36" cy="38" rx="19" ry="22"/><path class="brow brow-l" d="M22.5 30.5q7 -4.5 13.5 -1.2"/><path class="brow brow-r" d="M36 29.3q7 -3.3 13.5 1.2"/><circle class="eye" cx="28" cy="37" r="1.8"/><circle class="eye" cx="44" cy="37" r="1.8"/><path class="mouth" d="M30.5 49.5q5.5 3 11 0"/></svg></button>PUBLIC CODE · PRIVATE LOCAL STATE<br>CASE ≠ BRIEF ≠ PORT ≠ SEND</div>
 </header>
 
 <div class="top">
@@ -186,7 +197,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
     <div class="modalhead"><b>CASE CONTEXT</b><div class="spacer"></div><button id="closeCase">×</button></div>
     <div class="formgrid" style="margin-top:9px">
       <div class="field"><label>SUBJECT</label><input id="subject" placeholder="Me / family member / patient / pet…"></div>
-      <div class="field"><label>KIND</label><select id="subjectKind"><option>PERSON</option><option>ANIMAL</option></select></div>
+      <div class="field"><label>KIND</label><select id="subjectKind"><option>PERSON</option><option>ANIMAL</option><option>ABSURD</option></select></div>
     </div>
     <div class="casegrid">
       <div class="box"><div class="label">KNOWN / BASELINE</div><textarea id="baseline" placeholder="Known condition, normal baseline, relevant history. Source facts, not a diagnosis generated here."></textarea></div>
@@ -207,6 +218,36 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
       <a href="../continuity/"><button type="button">CONTINUITY →</button></a>
       <a href="../control/research/CARE_STATE_2026-09-21.md"><button type="button">RESEARCH →</button></a>
     </div>
+  </div>
+</div>
+
+<div class="modal" id="faceModal">
+  <div class="modalcard facecard">
+    <div class="modalhead"><b>FACE / WATCH</b><div class="spacer"></div><button id="closeFace">×</button></div>
+    <div class="facebig">
+      <svg viewBox="0 0 360 440" id="faceBigSvg" role="img" aria-label="Face detail">
+        <path class="thin" d="M100 146 C110 96 142 70 180 70 C218 70 250 96 260 146"/>
+        <path class="line" d="M180 52 C250 52 298 104 298 164 C298 194 291 217 280 236 C271 252 262 264 257 278 C253 290 250 299 243 309 C234 324 216 344 180 350 C144 344 126 324 117 309 C110 299 107 290 103 278 C98 264 89 252 80 236 C69 217 62 194 62 164 C62 104 110 52 180 52 Z"/>
+        <path class="thin" d="M64 172 C52 162 42 166 42 180 C42 194 52 208 64 214"/>
+        <path class="thin" d="M296 172 C308 162 318 166 318 180 C318 194 308 208 296 214"/>
+        <path class="thin" d="M110 246 C114 256 118 262 124 268"/>
+        <path class="thin" d="M250 246 C246 256 242 262 236 268"/>
+        <path class="fbrow fbrow-l" d="M116 170 C134 160 158 158 172 164"/>
+        <path class="fbrow" d="M188 164 C202 158 226 160 244 170"/>
+        <path class="line" d="M118 192 C132 178 154 176 168 188 C154 200 132 202 118 192 Z"/>
+        <path class="line" d="M192 188 C206 176 228 178 242 192 C228 202 206 200 192 188 Z"/>
+        <path class="thin" d="M120 182 C134 172 156 170 168 179"/>
+        <path class="thin" d="M192 179 C204 170 226 172 240 182"/>
+        <circle class="thin" cx="143" cy="189" r="6.5"/><circle class="dot" cx="143" cy="189" r="2.2"/>
+        <circle class="thin" cx="217" cy="189" r="6.5"/><circle class="dot" cx="217" cy="189" r="2.2"/>
+        <path class="thin" d="M180 196 C178 216 172 228 164 236 C168 242 176 244 184 241"/>
+        <path class="line" d="M146 268 C158 260 170 262 180 266 C190 262 202 260 214 268 C202 284 190 290 180 290 C170 290 158 284 146 268 Z"/>
+        <path class="thin" d="M146 268 C170 272 190 272 214 268"/>
+        <path class="line" d="M150 336 L142 396 M210 336 L218 396"/>
+        <path class="thin" d="M84 428 C108 408 132 398 142 398 M218 398 C228 398 252 408 276 428"/>
+      </svg>
+    </div>
+    <div class="planmeta">left brow · autonomic twitch · cadence ~9.5s · nothing to report</div>
   </div>
 </div>
 
@@ -252,7 +293,7 @@ function renderCases(){
  if(db[C.id])sel.value=C.id;
 }
 function registry(){return window.BODY_PLAN_REGISTRY?.plans||{}}
-function defaultPlanForKind(kind){return kind==='ANIMAL'?'feline-reference':'human-reference-m'}
+function defaultPlanForKind(kind){return kind==='ANIMAL'?'feline-reference':kind==='ABSURD'?'blob-reference':'human-reference-m'}
 function planIdsForKind(kind){return Object.values(registry()).filter(p=>p.kind===kind).map(p=>p.id)}
 function currentPlan(){const kind=C.subject?.kind||$('#subjectKind').value||'PERSON',ids=planIdsForKind(kind);if(!ids.length)return null;if(!ids.includes(C.body_plan))C.body_plan=ids[0];return registry()[C.body_plan]||null}
 function syncPlanSelect(){const sel=$('#bodyPlanSelect');if(!sel)return;const kind=C.subject?.kind||$('#subjectKind').value||'PERSON',ids=planIdsForKind(kind);if(!ids.includes(C.body_plan))C.body_plan=ids[0]||defaultPlanForKind(kind);sel.innerHTML=ids.map(id=>'<option value="'+esc(id)+'">'+esc(registry()[id].label)+'</option>').join('');if(C.body_plan)sel.value=C.body_plan}
@@ -495,7 +536,7 @@ function download(obj,name){const b=new Blob([JSON.stringify(obj,null,2)],{type:
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#newCase').onclick=()=>{C=blank();selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer();$('#caseList').value='';$('#caseModal').classList.add('open')};
 $('#caseList').onchange=e=>{const db=store();if(e.target.value&&db[e.target.value]){C=db[e.target.value];selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer()}};
-$('#caseBtn').onclick=()=>$('#caseModal').classList.add('open');$('#closeCase').onclick=()=>{pullCase();$('#caseModal').classList.remove('open');renderMap();renderFollow()};
+$('#caseBtn').onclick=()=>$('#caseModal').classList.add('open');$('#closeCase').onclick=()=>{pullCase();$('#caseModal').classList.remove('open');renderMap();renderFollow()};$('#openFace').onclick=()=>$('#faceModal').classList.add('open');$('#closeFace').onclick=()=>$('#faceModal').classList.remove('open');$('#faceModal').onclick=e=>{if(e.target.id==='faceModal')$('#faceModal').classList.remove('open')};
 $('#subjectKind').onchange=()=>{C.subject.kind=$('#subjectKind').value;C.body_plan=defaultPlanForKind(C.subject.kind);mapView=registry()[C.body_plan]?.defaultView||'front';selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];syncPlanSelect();renderMap()};$('#bodyPlanSelect').onchange=()=>{C.body_plan=$('#bodyPlanSelect').value;mapView=registry()[C.body_plan]?.defaultView||'front';selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderMap()};
 $('#saveCase').onclick=save;$('#returnObs').onclick=addEvent;$('#moreBtn').onclick=()=>$('#details').classList.toggle('open');
 $('#magnitude').oninput=e=>$('#magOut').textContent=e.target.value;

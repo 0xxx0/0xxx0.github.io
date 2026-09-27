@@ -688,6 +688,37 @@ function careLocusProbeHtml(){
   <\/script></body></html>`;
 }
 
+function careFaceProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/care/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const btn=await waitFor(()=>D().getElementById('openFace'));
+    btn.click();
+    const modal=await waitFor(()=>{const m=D().getElementById('faceModal');return m&&m.classList.contains('open')?m:null});
+    rec.faceModal=true;
+    const big=await waitFor(()=>D().getElementById('faceBigSvg'));
+    const brow=big.querySelector('.fbrow-l');
+    rec.bigFace=!!big;rec.brow=!!brow;rec.twitch=brow?W().getComputedStyle(brow).animationName.indexOf('brow-twitch')>-1:false;
+    D().getElementById('closeFace').click();
+    rec.closed=!modal.classList.contains('open');
+    const kind=D().getElementById('subjectKind');kind.value='ABSURD';kind.dispatchEvent(new (W().Event)('change',{bubbles:true}));
+    const sel=await waitFor(()=>{const s=D().getElementById('bodyPlanSelect');return s&&s.options.length>3?s:null});
+    rec.planOptions=[...sel.options].map(o=>o.value);
+    rec.absurdPlan=rec.planOptions.indexOf('blob-reference')>-1;
+    const zone=await waitFor(()=>D().querySelector('#map .zone'));
+    zone.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,cancelable:true,pointerId:1,clientX:20,clientY:20}));
+    await sleep(200);
+    rec.regionTap=D().getElementById('whereText').textContent.indexOf('no location selected')<0;
+    rec.mapMeta=D().getElementById('mapPlanMeta').textContent;
+    done(rec.faceModal&&rec.bigFace&&rec.brow&&rec.twitch&&rec.closed&&rec.absurdPlan&&rec.regionTap,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function houseLocusProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/house/#PLAN"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -728,6 +759,10 @@ const server=http.createServer((req,res)=>{
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(careLocusProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/care-face')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(careFaceProbeHtml());return;
   }
   if(String(req.url||'').startsWith('/__smoke/house-locus')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
@@ -1312,6 +1347,12 @@ const CASES=[
     route:'/__smoke/care-locus',
     options:{width:460,height:940,budget:12000,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"mapVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"noteFocus":true/.test(dom)&&/"course":true/.test(dom)
+  },
+  {
+    name:'CARE face modal + absurd plans',
+    route:'/__smoke/care-face',
+    options:{width:460,height:940,budget:14000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&dom.includes('"faceModal":true')&&dom.includes('"absurdPlan":true')&&dom.includes('"regionTap":true')&&dom.includes('"twitch":true')
   },
   {
     name:'HOUSE diegetic locus aperture',
