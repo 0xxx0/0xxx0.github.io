@@ -4,13 +4,15 @@ Read `/AGENTS.md` first. It owns repository worker/authority law.
 
 `/control/WORKER_BOOT.json` is superseded compatibility history. Do not use it for NOW, heads, gates or priority.
 
+**Default cold start:** emit the bounded transient packet first; do not ingest full CURRENT or the full manifest merely because they are canonical authority sources.
+
 Current truth remains in:
 - `/control/CURRENT.json` — attention / retained heads / next executable
 - `/showcase-manifest.json` — addressed route/state projection
 - `/control/WAITING.json` — human/world dependency residue
 - `/control/FIELD_INDEX_CONTRACT.json` — FIELD root + Φ/φ semantics
 
-For a bounded current handoff, emit a transient packet from a current checkout:
+For the default bounded current handoff, emit a transient packet from a current checkout:
 
 `node scripts/emit-agent-transcript.mjs`
 
@@ -19,3 +21,5 @@ Structured form:
 `node scripts/emit-agent-transcript.mjs --json`
 
 The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.
+
+Deepen selectively: open only the specific CURRENT head / manifest route / WAITING item required by the selected object. Canonical authority remains in the source files; selective reading does not create a second store.
