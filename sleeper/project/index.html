@@ -204,15 +204,17 @@ function sameWorld(){
 input.addEventListener('input',()=>{const raw=input.value.trim();if(!raw){artifact=null;status.textContent='NO RETURN LOADED';status.className='bridgeStatus';summary.hidden=true;buttons.forEach(b=>{if(b.dataset.act!=='clear')b.disabled=true});return}validate(raw)});
 buttons.forEach(b=>b.onclick=()=>{
   const act=b.dataset.act;
-  if(act==='clear'){artifact=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(x.dataset.act!=='clear')x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1')}catch(_){};return}
+  if(act==='clear'){artifact=null;carrier=null;input.value='';summary.hidden=true;$('#sumSource').textContent='';status.textContent='NO RETURN LOADED';status.className='bridgeStatus';buttons.forEach(x=>{if(!['clear','dismiss-offer'].includes(x.dataset.act))x.disabled=true});try{sessionStorage.removeItem('sleeper.return.bridge.v1');sessionStorage.removeItem('interphase.carrier.v01')}catch(_){};return}
   if(!artifact)return;
   if(act==='read-source')return readfield(artifact.source,'SLEEPER SOURCE · '+artifact.worldKey,'SLEEPER/ONE-RETURN-V2','TXT');
   if(act==='read-return')return readfield(JSON.stringify(artifact,null,2),'SLEEPER RETURN · '+artifact.worldKey,'SLEEPER/RETURN-V2','AUTO');
   if(act==='verse-source')return verse();
   if(act==='lens-return')return lens();
   if(act==='same-world')return sameWorld();
+  if(act==='carry-dayline')return carryDayline();
+  if(act==='dismiss-offer')return dismissDaylineOffer();
 });
-try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}}catch(_){}
+try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}else renderDaylineOffer()}catch(_){renderDaylineOffer()}
 })();
 </script>
 <script src="/showcase-nav.js" defer></script>
