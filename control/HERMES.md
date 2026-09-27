@@ -280,3 +280,22 @@ Important distinctions:
 - Fortress = path/topology strategy donor, research-only.
 
 When work feels like “too many projects,” first ask whether the missing thing is only another aperture over an existing addressed object. Prefer recursive composition over a new route.
+
+
+## READ / RIDE / RETURN — 2026-09-27
+
+Canonical successor packet:
+
+- /control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md
+
+This is the current concrete application of recursive INTERPHASE composition to a human library/work corpus:
+
+~~~text
+ATLAS = what source?
+READFIELD = where in it?
+LIVE = move through it.
+LOCI = rehearse it.
+RETURN = never lose the source.
+~~~
+
+J-space may later preview which existing aperture is useful next; it does not gain source or effect authority. I Ching remains a lossy ambiguity-preserving relation lens. Fortress remains a donor for route residue/ghosts, not a new reading ontology.
