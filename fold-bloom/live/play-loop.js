@@ -59,6 +59,7 @@ export function loopContracts(){
 
 const n=v=>Number.isFinite(Number(v))?Number(v):0;
 const bounded=(value,target)=>({value:Math.max(0,n(value)),target:target==null?null:Math.max(0,n(target))});
+const pick=(v,fallback)=>v===undefined?fallback:v;
 
 /**
  * Partition engine sequence movement around one release.
@@ -77,14 +78,16 @@ export function partitionTurnDelta(previousSeq,currentSeq,releaseSeq=null){
   return {before,after,total:before+after};
 }
 
-export function loopWitness(mode,state={}){
+export function loopWitness(mode,state={},counts={}){
   const m=normalizeLoopMode(mode),contract=loopContract(m),active=!!state.active,ended=!!state.ended;
+  const c=counts&&typeof counts==='object'?counts:{};
+  const play=c.play||{},puzzle=c.puzzle||{},path=c.path||{},duet=c.duet||{},garden=c.garden||{};
   let phase=contract.phases[0],progress=bounded(0,null),success=bounded(0,null),clear=null;
 
   if(m==='PLAY'){
-    phase='RUN';progress=bounded(state.releases,RUN_LENGTH);success=bounded(state.hits,RUN_WIN_HITS);clear=state.win?.run?.clear??null;
+    phase='RUN';progress=bounded(state.releases,pick(play.length,RUN_LENGTH));success=bounded(state.hits,pick(play.win,RUN_WIN_HITS));clear=state.win?.run?.clear??null;
   }else if(m==='PATH'){
-    phase='PATH';progress=bounded(state.releases,PUZZLE_ROUNDS);success=bounded(state.stars,PUZZLE_WIN_STARS);clear=state.win?.path?.clear??null;
+    phase='PATH';progress=bounded(state.releases,pick(path.rounds,PUZZLE_ROUNDS));success=bounded(state.stars,pick(path.winStars,PUZZLE_WIN_STARS));clear=state.win?.path?.clear??null;
   }else if(m==='PUZZLE'){
     phase=state.form?.phase==='MORPH'?'MORPH':'FORM';
     if(phase==='FORM'){
@@ -93,16 +96,16 @@ export function loopWitness(mode,state={}){
       clear=null;
     }else{
       const changed=state.form?.change?.changed?.length??state.form?.delta?.moving?.length??0;
-      progress=bounded(state.form?.moves,FORM_CHANGE_LIMIT);
+      progress=bounded(state.form?.moves,pick(puzzle.changeLimit,FORM_CHANGE_LIMIT));
       success=bounded(changed,FORM_CHANGE_TARGET);
       clear=ended?!!state.form?.change?.clear:null;
     }
   }else if(m==='DUET'){
-    phase='SYNC';progress=bounded(state.releases,DUET_ROUNDS);success=bounded(state.duet?.hits,DUET_WIN_HITS);clear=state.win?.duet?.clear??null;
+    phase='SYNC';progress=bounded(state.releases,pick(duet.rounds,DUET_ROUNDS));success=bounded(state.duet?.hits,pick(duet.win,DUET_WIN_HITS));clear=state.win?.duet?.clear??null;
   }else if(m==='GARDEN'){
     phase=state.garden?.choice?'CHOOSE':state.garden?.trait?'INHERIT':'OBSERVE';
-    progress=bounded(state.garden?.generation,GARDEN_GENERATIONS);
-    success=bounded(state.garden?.survived,GARDEN_SURVIVAL_TARGET);
+    progress=bounded(state.garden?.generation,pick(garden.generations,GARDEN_GENERATIONS));
+    success=bounded(state.garden?.survived,pick(garden.survival,GARDEN_SURVIVAL_TARGET));
     clear=state.win?.garden?.clear??null;
   }else{
     phase='OPEN';progress=bounded(state.releases,null);success=bounded(state.hits,null);clear=null;

@@ -39,7 +39,14 @@
     <button type="button" data-sound-scene="WOOD" aria-pressed="false">WOOD · TRIANGLE</button>
     <button type="button" data-sound-scene="VOID" aria-pressed="false">VOID · SPARSE</button>
   </div>
-  <div class="small">These presets change the generated rhythm, tone, and pacing. Source volume and synth volume are separate. Individual instrument levels are not exposed yet.</div>
+  <div class="small">These presets change the generated rhythm, tone, and pacing. Source volume and synth volume are separate.</div>
+  <div class="control"><label><span>KICK</span><span id="kickVal">100%</span></label><input id="kickTune" type="range" min="0" max="200" step="1" value="100" aria-label="Kick level"></div>
+  <div class="control"><label><span>HATS</span><span id="hatsVal">100%</span></label><input id="hatsTune" type="range" min="0" max="200" step="1" value="100" aria-label="Hats level"></div>
+  <div class="control"><label><span>LOW TONE</span><span id="bassVal">100%</span></label><input id="bassTune" type="range" min="0" max="200" step="1" value="100" aria-label="Low tone level"></div>
+  <div class="control"><label><span>LEAD / PLUCK</span><span id="leadVal">100%</span></label><input id="leadTune" type="range" min="0" max="200" step="1" value="100" aria-label="Lead and pluck level"></div>
+  <div class="control"><label><span>DRONE</span><span id="droneVal">100%</span></label><input id="droneTune" type="range" min="0" max="200" step="1" value="100" aria-label="Drone level"></div>
+  <div class="row"><button id="mixResetBtn" type="button">MIX RESET</button></div>
+  <div class="small">Per-part levels are bounded 0–200% multipliers on the FIELD SYNTH MASTER; changes ramp to avoid clicks.</div>
   <div class="row"><button id="demoSettingsBtn">AUTOPILOT</button><button id="exportBtn">EXPORT RETURN</button><button id="resetBtn">NEW FIELD</button></div>
   <div class="perf" id="perfState">PERF · CALIBRATING</div>
   <div class="small">The world palette also changes the field presentation; the source recording remains unchanged.</div>

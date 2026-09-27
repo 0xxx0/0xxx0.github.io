@@ -15,6 +15,9 @@ function browserBin(){
     const r=spawnSync('which',[name],{encoding:'utf8'});
     if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
+  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
+    if(fs.existsSync(p))return p;
+  }
   throw new Error('No Chrome/Chromium binary found for runtime smoke');
 }
 function contentType(p){
@@ -1189,6 +1192,18 @@ const CASES=[
     route:'/fold-bloom/live/?play=DUET',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="DUET"')&&dom.includes('data-fb-loop-archetype="COORDINATE"')&&dom.includes('data-fb-instrument="TWO_DIAL"')&&dom.includes('data-fb-primary-controls="clear"')&&/OUTER \/ DIAL A · ROAD/i.test(dom)&&/INNER \/ DIAL B · RELATION/i.test(dom)&&/LANDSCAPE ↔/i.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE session scale legible',
+    route:'/fold-bloom/live/?play=PLAY&scale=SESSION',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="SESSION"')&&dom.includes('data-fb-open-exit="off"')&&dom.includes('data-scale="QUICK"')&&dom.includes('data-scale="SESSION"')&&dom.includes('data-scale="OPEN"')&&/RUN · SESSION/.test(dom)&&/SESSION · medium challenge/.test(dom)&&/provisional until validated with real users/.test(dom)&&/RETURN TO RIDE/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE session scale open exit',
+    route:'/fold-bloom/live/?play=PLAY&scale=OPEN',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="OPEN"')&&dom.includes('data-fb-open-exit="on"')&&dom.includes('id="fbOpenExit"')&&/RUN · OPEN/.test(dom)
   },
   {
     name:'TWO DIAL 0.10.4 idle witness',
