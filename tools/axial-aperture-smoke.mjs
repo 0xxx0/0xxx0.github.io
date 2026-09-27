@@ -24,7 +24,7 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   const before=ap.snapshot(),child=D().querySelector('.jsonChild'),path=child.dataset.jsonPath;child.click();
   await wait(()=>ap.snapshot()?.address===path,5000,'exact json child');
   const after=ap.snapshot();D().getElementById('markHere').click();const marked=D().getElementById('markHere').textContent;
-  const trailStorageKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:')),trail=trailStorageKey?JSON.parse(W().localStorage.getItem(trailStorageKey)||'null'):null;
+  const trailStorageKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:')&&!k.endsWith(':legacy-migrated')),trail=trailStorageKey?JSON.parse(W().localStorage.getItem(trailStorageKey)||'null'):null;
   D().getElementById('markHere').click();
   rec.read={kind:after.kind,before:before.address,after:after.address,childPath:path,nodePath:after.node?.path,childCount:after.node?.children?.length??0,marked,trailSchema:trail?.schema||null,trailMarks:trail?.marks?.length||0,trailLaw:trail?.law||'',trailHasSource:!!(trail&&Object.prototype.hasOwnProperty.call(trail,'source'))};
 
