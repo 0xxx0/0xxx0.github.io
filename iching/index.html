@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>易經 · I Ching — cast · transform · nuclear</title>
+<title>易經 · I Ching — cast · five lenses · transform</title>
 <style>
   :root{
     --bg:#0c0e11; --panel:#12151a; --fg:#e9e6dd; --dim:#9a9484; --faint:#5d5a52;
-    --acc:#d4a24e; --acc2:#7fb2a8; --line:#232830;
+    --acc:#d4a24e; --acc2:#7fb2a8; --line:#232830; --hd:#a98bd4;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
@@ -33,15 +33,21 @@
   .ln.yin .bar{flex:1}
   .ln.chg .bar{background:var(--acc)}
   .ln .tag{position:absolute;right:-26px;top:-2px;font-size:11px;color:var(--acc)}
-  .ln .dot{display:none}
   .fig-wrap{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
   .glyph{font-size:64px;line-height:1;color:var(--acc);font-family:'Apple Symbols',serif}
   .names .zh-big{font-size:34px;letter-spacing:.12em}
   .names .py{color:var(--acc2);font-size:15px;letter-spacing:.06em}
   .names .en{font-size:19px;margin-top:2px}
   .trigrams{color:var(--dim);font-size:13px;margin-top:6px}
+  .hd-chip{margin-top:10px;border:1px solid #3a3350;background:rgba(169,139,212,.08);border-radius:8px;
+    padding:8px 10px;max-width:340px}
+  .hd-chip .hd-head{color:var(--hd);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .hd-chip .hd-name{font-size:14px;margin-top:2px;color:var(--fg)}
+  .hd-chip .hd-theme{font-size:12.5px;color:var(--dim);margin-top:4px;line-height:1.5}
+  .hd-chip .hd-tag{color:var(--faint);font-size:11px;margin-top:5px}
   h2.sect{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin:26px 0 8px}
   h2.sect span{color:var(--faint);letter-spacing:.06em;text-transform:none;font-size:12px;margin-left:8px}
+  h2.sect .pos{float:right;color:var(--faint);letter-spacing:.02em;text-transform:none;font-size:12px}
   .en-text{line-height:1.65;font-size:16px;max-width:60ch}
   .zh-text{color:#cfc9ba;line-height:1.9;font-size:16px;letter-spacing:.04em;margin-top:8px}
   ul.lines{list-style:none;padding:0;margin:0}
@@ -60,7 +66,10 @@
   .mini .zh-big{font-size:22px}
   .mini .en{font-size:15px}
   a.tel{color:var(--acc2);text-decoration:none;border-bottom:1px dotted var(--acc2);cursor:pointer}
+  a.tel:hover{color:var(--acc)}
   .quality{color:var(--acc);font-size:11px;margin-top:6px;opacity:.85}
+  .howto{color:var(--dim);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .howto b{color:var(--acc)}
   footer{color:var(--faint);font-size:12px;line-height:1.8;margin-top:44px;border-top:1px solid var(--line);padding-top:16px}
   .tossrow{display:flex;gap:6px;margin-top:10px}
   .toss{width:26px;height:26px;border:1px solid var(--line);border-radius:5px;display:flex;
@@ -73,7 +82,7 @@
 <main>
   <header>
     <h1>易經</h1>
-    <p class="sub">I Ching · Book of Changes — cast · transform · nuclear</p>
+    <p class="sub">I Ching · Book of Changes — cast · five lenses · transform</p>
   </header>
 
   <section class="panel" id="castPanel">
@@ -81,6 +90,7 @@
     <div class="row">
       <button id="castBtn">CAST — six tosses</button>
       <button class="ghost" id="copyBtn" style="display:none">copy link</button>
+      <button class="ghost" id="shareBtn" style="display:none">save image</button>
       <span class="muted" id="seedNote"></span>
     </div>
   </section>
@@ -91,28 +101,30 @@
 </main>
 
 <script>
-const HEX = { list: [], byBin: {}, meta: null };
+const HEX = { list: [], byBin: {}, byId: {}, meta: null };
 async function load(){
   const r = await fetch('hexagrams.json', {cache:'no-cache'});
   const d = await r.json();
   HEX.meta = d.meta; HEX.list = d.hexagrams;
-  for (const h of HEX.list) HEX.byBin[h.binary] = h;
+  for (const h of HEX.list){ HEX.byBin[h.binary] = h; HEX.byId[h.id] = h; }
   document.getElementById('src').innerHTML =
     `<b>Sources.</b> 卦辭/爻辭/大象 — 周易, Chinese Wikisource (public domain). `+
     `English — James Legge, <i>The Sacred Books of the East</i> XVI: The Yî King (1882, public domain) — `+
     `OCR-restored from the Internet Archive scan; some passages are approximate. 中文為準。<br>`+
-    `King Wen order ${HEX.list.length}/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · generated ${HEX.meta.generated}.`;
+    `Human Design layer — modern system (1987); gate/center/theme from public HD references `+
+    `(<a class="tel" href="https://jovianarchive.com" target="_blank" rel="noopener">Jovian Archive</a> et al.) — `+
+    `labelled as a <i>separate lens</i>, not classical Yi.<br>`+
+    `King Wen order ${HEX.list.length}/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · v0.4 · generated ${HEX.meta.generated}.`;
   const h = parseHash();
   if (h.c) render(h.c.split('').map(Number), h.q || '');
+  else if (h.h) renderHex(parseInt(h.h,10), h.q || '');
 }
 function parseHash(){
   const f = new URLSearchParams(location.hash.slice(1));
-  return { c: f.get('c'), q: f.get('q') || '' };
+  return { c: f.get('c'), q: f.get('q') || '', h: f.get('h') };
 }
 function tossLine(){ let s=0; for(let i=0;i<3;i++) s += Math.random()<0.5?3:2; return s; } // 6,7,8,9
-function cast(){
-  const v=[]; for(let i=0;i<6;i++) v.push(tossLine()); return v; // v[0]=line1 bottom
-}
+function cast(){ const v=[]; for(let i=0;i<6;i++) v.push(tossLine()); return v; } // v[0]=line1 bottom
 function fig(bits, chgSet, tagVals){
   let html='<figure class="fig">';
   for(let i=5;i>=0;i--){
@@ -123,7 +135,11 @@ function fig(bits, chgSet, tagVals){
   }
   return html+'</figure>';
 }
-function names(h, small){
+function hexLink(id, label){
+  const h = HEX.byId[id];
+  return `<a class="tel" data-h="${id}">${label ?? (h ? h.name_zh+' '+h.name_en : '№'+id)}</a>`;
+}
+function names(h){
   return `<div class="names">
     <div class="glyph">${h.unicode}</div>
     <div class="zh-big">${h.name_zh}</div>
@@ -133,23 +149,63 @@ function names(h, small){
     ` — binary <span style="font-family:ui-monospace,monospace">${h.binary}</span></div>
   </div>`;
 }
+function hdChip(h, small){
+  if(!h.hd) return '';
+  return `<div class="hd-chip"${small?' style="max-width:280px"':''}>
+    <div class="hd-head">Human Design · gate ${h.hd.gate}</div>
+    <div class="hd-name">${h.hd.name} — ${h.hd.center}</div>
+    <div class="hd-theme">${escapeHtml(h.hd.theme)}</div>
+    <div class="hd-tag">modern lens (1987) · shown alongside, not as base text</div>
+  </div>`;
+}
 function qualityNote(h){
   if(!h._quality || h._quality.join()==='ok') return '';
   return `<div class="quality">⚑ EN text: OCR restoration — some passages approximate here (中文為準)</div>`;
 }
+function seqPanel(h){
+  const p = h.sequence.prev ? HEX.byId[h.sequence.prev] : null;
+  const n = h.sequence.next ? HEX.byId[h.sequence.next] : null;
+  return `<div class="panel">
+    <h2 class="sect">Sequence <span>序 — position in the walk</span><span class="pos">№ ${h.id} of 64</span></h2>
+    <div class="muted" style="line-height:1.9">
+      ${p ? `comes after ${hexLink(p.id)} (${p.name_en} · №${p.id})` : 'stands first in the sequence'}<br>
+      ${n ? `leads toward ${hexLink(n.id)} (${n.name_en} · №${n.id})` : 'stands last — the sequence closes here'}
+    </div>
+  </div>`;
+}
+function lensPanels(h, chgSet){
+  let html = `<div class="panel">
+    <h2 class="sect">Judgment <span>卦辭 — the return</span></h2>
+    <div class="en-text">${escapeHtml(h.judgment_en||'')}</div>
+    <div class="zh-text">${escapeHtml(h.judgment_zh||'')}</div>
+    ${qualityNote(h)}
+    <h2 class="sect">Image <span>大象 — the projection</span></h2>
+    <div class="en-text">${escapeHtml(h.image_en||'')}</div>
+    <div class="zh-text">${escapeHtml(h.image_zh||'')}</div>
+  </div>`;
+
+  html += `<div class="panel"><h2 class="sect">Lines <span>爻辭 — the operations</span></h2><ul class="lines">`;
+  for(const L of h.lines){
+    const isChg = chgSet && chgSet.has(L.position);
+    html += `<li class="${isChg?'chg':''}">
+      <div class="lhead">line ${L.position}${isChg?'<span class="chgtag">changing ↻</span>':''}<span class="lzh">${L.name_zh||''}</span></div>
+      <div class="en-text" style="font-size:15px">${escapeHtml(L.en||'')}</div>
+      <div class="lzh-line">${L.zh||''}</div>
+    </li>`;
+  }
+  html += `</ul></div>`;
+  return html;
+}
 function render(vals, q){
-  // vals: six line values bottom(top?) — store as given: vals[0]=bottom line
   const bits = vals.map(v=> (v===7||v===9)?'1':'0').join('');
   const chgSet = new Set();
   vals.forEach((v,i)=>{ if(v===6||v===9) chgSet.add(i+1); });
   const prim = HEX.byBin[bits];
   if(!prim){ document.getElementById('out').innerHTML = '<div class="panel">unknown cast</div>'; return; }
-  // transformed: flip changing lines
   let tbits = bits.split('');
   chgSet.forEach(i=>{ const k=i-1; tbits[k] = tbits[k]==='1'?'0':'1'; });
   const trans = chgSet.size ? HEX.byBin[tbits.join('')] : null;
-  const nuc = HEX.byBin[HEX.list.find(h=>h.id===prim.nuclear_id).binary];
-
+  const nuc = HEX.byId[prim.nuclear_id];
   const chgList = [...chgSet].sort((a,b)=>a-b);
   const chgStr = chgList.length? chgList.map(i=>`line ${i}`).join(', ') : 'none';
 
@@ -160,40 +216,31 @@ function render(vals, q){
   <div class="panel">
     <div class="fig-wrap">
       ${fig(bits, chgSet, vals)}
-      ${names(prim)}
+      <div style="flex:1 1 320px">
+        ${names(prim)}
+        ${hdChip(prim)}
+      </div>
     </div>
     <div class="tossrow">${vals.map((v,i)=>`<div class="toss ${(v===6||v===9)?'c':''}" title="line ${i+1} (bottom to top)">${v}</div>`).join('')}</div>
     <div class="muted" style="margin-top:6px">changing lines: ${chgStr} · this cast bottom→top: ${vals.join(' ')} · (6 old yin &amp; 9 old yang change; 7 yang, 8 yin)</div>
+    <div class="howto">
+      <b>reading:</b> the <b>changing lines</b> are the message · the <b>transform</b> (之卦) is where it moves ·
+      the <b>nuclear</b> (互卦) is the hidden middle · <b>sequence</b> is where it stands. no changing lines → the condition itself is the reading.
+    </div>
   </div>`;
 
-  html += `<div class="panel">
-    <h2 class="sect">Judgment <span>卦辭</span></h2>
-    <div class="en-text">${escapeHtml(prim.judgment_en||'')}</div>
-    <div class="zh-text">${escapeHtml(prim.judgment_zh||'')}</div>
-    ${qualityNote(prim)}
-    <h2 class="sect">Image <span>大象</span></h2>
-    <div class="en-text">${escapeHtml(prim.image_en||'')}</div>
-    <div class="zh-text">${escapeHtml(prim.image_zh||'')}</div>
-  </div>`;
-
-  html += `<div class="panel"><h2 class="sect">Lines <span>爻辭</span></h2><ul class="lines">`;
-  for(const L of prim.lines){
-    const isChg = chgSet.has(L.position);
-    html += `<li class="${isChg?'chg':''}">
-      <div class="lhead">line ${L.position}${isChg?'<span class="chgtag">changing ↻</span>':''}<span class="lzh">${L.name_zh||''}</span></div>
-      <div class="en-text" style="font-size:15px">${escapeHtml(L.en||'')}</div>
-      <div class="lzh-line">${L.zh||''}</div>
-    </li>`;
-  }
-  html += `</ul></div>`;
+  html += lensPanels(prim, chgSet);
 
   if(trans){
     html += `<div class="panel">
-      <h2 class="sect">Transform <span>之卦 — the movement</span></h2>
+      <h2 class="sect">Transform <span>之卦 — where it moves</span></h2>
       <div class="mini">
         <div class="cell">${fig(tbits.join(''), new Set())}</div>
-        <div class="cell">${names(trans,1)}
+        <div class="cell">
+          <div class="names"><div class="zh-big" style="font-size:22px">${trans.name_zh} <span class="py" style="font-size:13px">№ ${trans.id}</span></div>
+          <div class="en" style="font-size:15px">${trans.name_en||''}</div></div>
           <div class="en-text" style="font-size:14px;margin-top:8px">${escapeHtml(((trans.judgment_en||'').split('. ')[0]||'').replace(/\.$/,''))}.</div>
+          <div style="margin-top:8px">${hexLink(trans.id, 'open full №'+trans.id+' →')}</div>
         </div>
       </div>
       <div class="muted" style="margin-top:8px">with lines ${chgStr} moving, ${prim.name_zh} opens toward ${trans.name_zh} (${trans.name_en}).</div>
@@ -204,19 +251,160 @@ function render(vals, q){
     <h2 class="sect">Nuclear <span>互卦 — the hidden reading</span></h2>
     <div class="mini">
       <div class="cell">${fig(nuc.binary, new Set())}</div>
-      <div class="cell">${names(nuc,1)}
+      <div class="cell">
+        <div class="names"><div class="zh-big" style="font-size:22px">${nuc.name_zh} <span class="py" style="font-size:13px">№ ${nuc.id}</span></div>
+        <div class="en" style="font-size:15px">${nuc.name_en||''}</div></div>
         <div class="en-text" style="font-size:14px;margin-top:8px">${escapeHtml(((nuc.judgment_en||'').split('. ')[0]||'').replace(/\.$/,''))}.</div>
+        <div style="margin-top:8px">${hexLink(nuc.id, 'open full №'+nuc.id+' →')}</div>
       </div>
     </div>
     <div class="muted" style="margin-top:8px">the inner hexagram formed by lines 2–5 — what the situation is most made of.</div>
   </div>`;
+  html += seqPanel(prim);
 
   document.getElementById('out').innerHTML = html;
+  wireLinks();
   document.getElementById('copyBtn').style.display='';
+  document.getElementById('shareBtn').style.display='';
   const f = new URLSearchParams();
   f.set('c', vals.join('')); if(q) f.set('q', q);
   history.replaceState(null,'','#'+f.toString());
   document.getElementById('seedNote').textContent = `#${vals.join('')}`;
+  window.__share = ()=>drawShare(prim, chgSet, vals, q, trans);
+}
+function renderHex(id, q){
+  const h = HEX.byId[id];
+  if(!h){ document.getElementById('out').innerHTML = '<div class="panel">unknown hexagram</div>'; return; }
+  const nuc = HEX.byId[h.nuclear_id];
+  let html = '';
+  if(q) html += `<div class="panel"><span class="muted">question:</span> <b>${escapeHtml(q)}</b></div>`;
+  html += `
+  <div class="panel">
+    <div class="fig-wrap">
+      ${fig(h.binary, new Set())}
+      <div style="flex:1 1 320px">
+        ${names(h)}
+        ${hdChip(h)}
+      </div>
+    </div>
+    <div class="howto"><b>static view</b> — no cast, no changing lines. this is the hexagram itself (№ ${h.id} of 64).</div>
+  </div>`;
+  html += lensPanels(h, null);
+  html += `<div class="panel">
+    <h2 class="sect">Nuclear <span>互卦 — the hidden reading</span></h2>
+    <div class="mini">
+      <div class="cell">${fig(nuc.binary, new Set())}</div>
+      <div class="cell">
+        <div class="names"><div class="zh-big" style="font-size:22px">${nuc.name_zh} <span class="py" style="font-size:13px">№ ${nuc.id}</span></div>
+        <div class="en" style="font-size:15px">${nuc.name_en||''}</div></div>
+        <div style="margin-top:8px">${hexLink(nuc.id, 'open full №'+nuc.id+' →')}</div>
+      </div>
+    </div>
+  </div>`;
+  html += seqPanel(h);
+  document.getElementById('out').innerHTML = html;
+  wireLinks();
+  document.getElementById('copyBtn').style.display='';
+  document.getElementById('shareBtn').style.display='';
+  const f = new URLSearchParams(); f.set('h', id); if(q) f.set('q', q);
+  history.replaceState(null,'','#'+f.toString());
+  document.getElementById('seedNote').textContent = `#h=${id}`;
+  window.__share = ()=>drawShare(h, new Set(), null, q, null);
+}
+function wireLinks(){
+  document.querySelectorAll('a.tel[data-h]').forEach(a=>{
+    a.addEventListener('click', ()=>{ location.hash = 'h='+a.dataset.h; });
+  });
+}
+/* ---- share image (canvas, no deps) ---- */
+function wrapText(ctx, text, maxWidth){
+  const words = (text||'').split(/(\s+)/); const lines=[]; let cur='';
+  for(const w of words){
+    if((cur+w).length && ctx.measureText(cur+w).width > maxWidth && cur){ lines.push(cur.trim()); cur=w; }
+    else cur += w;
+  }
+  if(cur.trim()) lines.push(cur.trim());
+  return lines;
+}
+function wrapCJK(ctx, text, maxWidth){
+  const out=[]; let cur='';
+  for(const ch of (text||'')){
+    if(ctx.measureText(cur+ch).width > maxWidth && cur){ out.push(cur); cur=ch; }
+    else cur += ch;
+  }
+  if(cur) out.push(cur);
+  return out;
+}
+function drawShare(h, chgSet, vals, q, trans){
+  const W=1080, H=1350, M=90;
+  const c = document.createElement('canvas'); c.width=W; c.height=H;
+  const x = c.getContext('2d');
+  x.fillStyle='#0c0e11'; x.fillRect(0,0,W,H);
+  x.strokeStyle='#232830'; x.lineWidth=2; x.strokeRect(M-40, M-40, W-2*(M-40), H-2*(M-40));
+  x.textBaseline='top';
+  // header
+  x.fillStyle='#d4a24e'; x.font='600 30px Georgia, serif';
+  x.fillText('易經 · I CHING', M, M);
+  x.fillStyle='#5d5a52'; x.font='24px Georgia, serif';
+  x.fillText('cast · five lenses · transform — 0xxx0.github.io/iching', M, M+44);
+  // question
+  let y = M+120;
+  if(q){
+    x.fillStyle='#9a9484'; x.font='italic 26px Georgia, serif';
+    const ql = wrapText(x, q, W-2*M); x.fillText(ql[0]||'', M, y); y += 40;
+    if(ql[1]){ x.fillText(ql[1], M, y); y += 40; }
+  }
+  // name
+  x.fillStyle='#e9e6dd'; x.font='600 120px "Songti SC", "Noto Serif CJK SC", Georgia, serif';
+  x.fillText(h.name_zh, M, y);
+  x.fillStyle='#7fb2a8'; x.font='34px Georgia, serif';
+  x.fillText(`${h.name_pinyin||''} · № ${h.id} · ${h.name_en||''}`, M, y+140);
+  // lines figure (right side)
+  const fx = W-M-260, by = y-6, bw=260, bh=20, gap=18;
+  for(let i=5;i>=0;i--){
+    const yang = h.binary[i]==='1';
+    const chg = chgSet && chgSet.has(i+1);
+    const yy = by + (5-i)*(bh+gap);
+    x.fillStyle = chg ? '#d4a24e' : '#e9e6dd';
+    if(yang){ x.fillRect(fx, yy, bw, bh); }
+    else { x.fillRect(fx, yy, bw/2-14, bh); x.fillRect(fx+bw/2+14, yy, bw/2-14, bh); }
+    if(chg){
+      x.fillStyle='#d4a24e'; x.font='30px Georgia, serif';
+      x.fillText((vals && vals[i]===9)?'9→':'6→', fx+bw+24, yy-2);
+    }
+  }
+  y += 210;
+  // changing + transform line
+  const chgList = chgSet ? [...chgSet].sort((a,b)=>a-b) : [];
+  if(chgList.length){
+    x.fillStyle='#d4a24e'; x.font='28px Georgia, serif';
+    const line = `changing: line ${chgList.join(', ')}${trans?` → opens toward ${trans.name_zh} (${trans.name_en} · № ${trans.id})`:''}`;
+    x.fillText(line, M, y); y += 50;
+  }
+  // judgment zh
+  x.fillStyle='#cfc9ba'; x.font='40px "Songti SC", "Noto Serif CJK SC", Georgia, serif';
+  for(const ln of wrapCJK(x, h.judgment_zh, W-2*M).slice(0,2)){ x.fillText(ln, M, y); y += 54; }
+  y += 8;
+  // judgment en (small, cap)
+  x.fillStyle='#9a9484'; x.font='26px Georgia, serif';
+  const en = (h.judgment_en||'').slice(0, 230);
+  for(const ln of wrapText(x, en, W-2*M).slice(0,3)){ x.fillText(ln, M, y); y += 34; }
+  // HD chip block
+  y += 18;
+  if(h.hd){
+    x.fillStyle='#a98bd4'; x.font='26px Georgia, serif';
+    x.fillText(`HD gate ${h.hd.gate} · ${h.hd.name} — ${h.hd.center}  (modern lens)`, M, y); y += 36;
+    x.fillStyle='#5d5a52'; x.font='22px Georgia, serif';
+    for(const ln of wrapText(x, h.hd.theme, W-2*M).slice(0,2)){ x.fillText(ln, M, y); y += 28; }
+  }
+  // footer
+  x.fillStyle='#5d5a52'; x.font='22px Georgia, serif';
+  x.fillText(`binary ${h.binary} · 卦辭 周易 · EN Legge 1882 · ${new Date().toISOString().slice(0,10)}`, M, H-M-24);
+  c.toBlob(b=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b); a.download=`iching-${h.id}-${h.binary}.png`;
+    a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
 }
 function escapeHtml(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 document.getElementById('castBtn').addEventListener('click', ()=>{
@@ -230,7 +418,11 @@ document.getElementById('copyBtn').addEventListener('click', ()=>{
     setTimeout(()=>b.textContent='copy link',1500);
   });
 });
-window.addEventListener('hashchange', ()=>{ const h=parseHash(); if(h.c) render(h.c.split('').map(Number), h.q||''); });
+document.getElementById('shareBtn').addEventListener('click', ()=>{ if(window.__share) window.__share(); });
+window.addEventListener('hashchange', ()=>{ const h=parseHash();
+  if(h.c) render(h.c.split('').map(Number), h.q||'');
+  else if(h.h) renderHex(parseInt(h.h,10), h.q||'');
+});
 load();
 </script>
 </body>
