@@ -33,7 +33,7 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   D().getElementById('pasteText').value=pasteText;D().getElementById('readPaste').click();
   await wait(()=>['empty','ready'].includes(D().documentElement.dataset.readfieldTrail)&&!D().getElementById('markHere').disabled,10000,'readfield exact trail writable');
   const pasteAp=D().getElementById('docAperture');D().getElementById('markHere').click();await sleep(80);
-  const shaTrailKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:sha256%3A')),shaTrail=shaTrailKey?JSON.parse(W().localStorage.getItem(shaTrailKey)||'null'):null;
+  const shaTrailKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:sha256%3A')&&!k.endsWith(':legacy-migrated')),shaTrail=shaTrailKey?JSON.parse(W().localStorage.getItem(shaTrailKey)||'null'):null;
   if(shaTrailKey){W().localStorage.setItem(shaTrailKey,'{corrupt');pasteAp.restore?.({scale:'WORD',char_index:Math.min(8,(pasteAp.snapshot?.()?.char_index||0)+3)});}
   await wait(()=>D().documentElement.dataset.readfieldTrail==='corrupt'&&D().getElementById('markHere').disabled,5000,'readfield corrupt trail visibility');
   rec.localTrail={key:shaTrailKey||'',schema:shaTrail?.schema||null,state:shaTrail?.storageState||null,marks:shaTrail?.marks?.length||0,hasSource:!!(shaTrail&&Object.prototype.hasOwnProperty.call(shaTrail,'source')),corruptVisible:D().getElementById('markHere').disabled&&/CORRUPT/.test(D().getElementById('markHere').textContent||'')};
