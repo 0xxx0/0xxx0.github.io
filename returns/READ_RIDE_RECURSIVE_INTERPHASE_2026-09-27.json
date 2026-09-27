@@ -1,0 +1,64 @@
+{
+  "schema": "0xxx0/read-ride-return/v0.1",
+  "generated_at": "2026-09-27T15:10:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "pr": 459,
+  "proof_head": "58d18ecc6565085fc25c6e999b1d03754c42a51a",
+  "schemas": [
+    "field-read-ride/v0.1",
+    "fold-bloom-read-course/v0.1",
+    "fold-bloom-read-witness/v0.1",
+    "fold-bloom-live-read-ride/v0.1",
+    "interphase-carrier/v0.1"
+  ],
+  "implementation": [
+    "/fold-bloom/read-course.js",
+    "/docs/",
+    "/fold-bloom/live/",
+    "/fold-bloom/atlas/",
+    "/tools/fold-bloom-live-read-ride-smoke.mjs",
+    "/control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md"
+  ],
+  "law": "Exact source remains host-owned; READ/RIDE carries source identity + addressed focus into LIVE STEP traversal, while INTERPHASE carrier universalises continuation only and has NONE / HANDOFF ONLY authority.",
+  "proofs": {
+    "route_registration": {
+      "run": 36302101373,
+      "status": "PASS"
+    },
+    "public_surface": {
+      "run": 36302101438,
+      "status": "PASS"
+    },
+    "read_course": "PASS",
+    "readfield_to_live": "PASS",
+    "local_file_to_live": "PASS",
+    "jspace_live_regression": "PASS",
+    "field_lab_regression": "PASS",
+    "critical_browser_smoke": "PASS",
+    "sleeper_frozen_regression": "PASS"
+  },
+  "witnessed_path": {
+    "source": "BOOK TEST",
+    "authority": "READFIELD",
+    "initial_grain": "PARAGRAPH",
+    "initial_address": "read://sha256%3Abook-test/paragraph/2@27-70",
+    "initial_witness": "Second paragraph carries the cursor target.",
+    "step_address_changed": true,
+    "section_grain": true,
+    "direct_file": "direct.md",
+    "direct_file_authority": "LOCAL_FILE",
+    "public_raw_source_tail_absent": true
+  },
+  "preserved_boundaries": [
+    "READFIELD retains text/cursor/RSVP/VOICE authority",
+    "Glyph Atlas retains source-cell/hash/glyph/path authority",
+    "LIVE retains movement/game/effect authority",
+    "carrier stores no raw source and cannot dispatch effects",
+    "text receives no fabricated clock in LIVE",
+    "RELEASE does not advance reading cursor by default",
+    "game score is not comprehension",
+    "PDF/EPUB/DOCX are not claimed",
+    "no durable private raw-file vault is introduced"
+  ],
+  "next_gate": "Use one real 20–80 page text-like source in READFIELD alone and READFIELD→LIVE READ/RIDE; compare re-entry cost, lost-place events, coverage and distraction before adding route residue or RELEASE→STEP coupling."
+}
