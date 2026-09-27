@@ -38,7 +38,8 @@ const PROFILES={
 };
 const MODES={
   RIDE:['EMBODY','audio → terrain → gesture → consequence','RIDE / LIVE','existing embodied engine'],
-  PULSE:['ENTRAIN','ratio → pulse → tap → event tape','PULSE / POLYRHYTHM','play, tap, export events'],
+  PULSE:['ENTRAIN','ring → clock → tap → feedback / event tape','PULSE / RHYTHM CLOCK','free play or staged timing practice'],
+  VOICE:['TUNE','voice → pitch / spectrum → optional borrowed clock','VOICE / SPECTRUM','local voice practice; PULSE link optional'],
   VERSE:['COMPOSE','text → line → mark → carry / replay','VERSE / POEM','Poem Map authority + cross-layer marks'],
   READ:['PACE','text → address → RSVP / regress / return','READ / READFIELD','canonical APERTURE reader + optional trainer'],
   LOCI:['REMEMBER','cell → path → place → recall','LOCI / PATH','spatial mnemonic route'],
@@ -88,9 +89,9 @@ $('#enterListen').onclick=()=>location.href='../listen/';
 $('#dataLens').onclick=()=>location.href='../lens/';
 
 /* ---------- PULSE ---------- */
-const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextM:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0,trainer:makeTrainerState(),lastTap:null,metrics:null,lastReturn:null};
-const voice={pattern:'NOTE',baseMidi:60,manualStep:0,stream:null,source:null,analyser:null,samples:null,freqBins:null,mic:false,lastAnalysis:0,history:[],trace:[],traceStartedAt:0,wasVoiced:false,lastTraceBeat:null,lastSpectrum:null,frames:0,voiced:0,onTarget:0,absCents:0,centroidHz:0,spectralFrames:0};
-function voiceStep(){return pulse.playing&&lastTransport?Math.max(0,Number(lastTransport.beatIndex)||0):voice.manualStep}
+const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',mode:'FREE',lane:'M',playing:false,ac:null,timer:null,start:0,nextM:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0,trainer:makeTrainerState(),lastTap:null,metrics:null,lastReturn:null};
+const voice={pattern:'NOTE',baseMidi:60,manualStep:0,linked:false,stream:null,source:null,analyser:null,samples:null,freqBins:null,mic:false,lastAnalysis:0,history:[],trace:[],traceStartedAt:0,wasVoiced:false,lastTraceBeat:null,lastSpectrum:null,frames:0,voiced:0,onTarget:0,absCents:0,centroidHz:0,spectralFrames:0};
+function voiceStep(){return voice.linked&&pulse.playing&&lastTransport?Math.max(0,Number(lastTransport.beatIndex)||0):voice.manualStep}
 function voiceTarget(){
   const midi=patternTarget(voice.baseMidi,voice.pattern,voiceStep());
   return midi===null?null:{midi,hz:midiToHz(midi),name:midiToName(midi)};
@@ -106,7 +107,7 @@ async function startLabVoiceMic(){
     voice.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false});
     voice.source=ac.createMediaStreamSource(voice.stream);voice.analyser=ac.createAnalyser();voice.analyser.fftSize=2048;voice.analyser.smoothingTimeConstant=.18;
     voice.samples=new Float32Array(voice.analyser.fftSize);voice.freqBins=new Float32Array(voice.analyser.frequencyBinCount);voice.source.connect(voice.analyser);voice.mic=true;voice.history=[];voice.trace=[];voice.traceStartedAt=performance.now();voice.wasVoiced=false;voice.lastTraceBeat=null;
-    $('#voiceMic').textContent='STOP MIC';$('#voiceMic').classList.add('cool');document.documentElement.dataset.fieldLabVoice='live';setStatus('PULSE / VOICE · MIC LIVE · LOCAL ANALYSIS');
+    $('#voiceMic').textContent='STOP MIC';$('#voiceMic').classList.add('cool');document.documentElement.dataset.fieldLabVoice='live';setStatus('VOICE · MIC LIVE · LOCAL ANALYSIS');
   }catch(error){setStatus('VOICE · MIC BLOCKED · '+String(error?.name||'PERMISSION'))}
 }
 function stopLabVoiceMic(){
@@ -133,7 +134,7 @@ function drawLabVoiceSpectrum(feature,pitch,transport){
 function analyzeLabVoice(t){
   if(!voice.mic||!voice.analyser||t-voice.lastAnalysis<70)return;voice.lastAnalysis=t;syncVoiceTarget();
   voice.analyser.getFloatTimeDomainData(voice.samples);voice.analyser.getFloatFrequencyData(voice.freqBins);
-  const pitch=estimatePitch(voice.samples,pulse.ac.sampleRate,{minHz:70,maxHz:950}),spec=spectrumFeatures(voice.freqBins,pulse.ac.sampleRate,voice.analyser.fftSize,{bands:48,minHz:70,maxHz:6000}),target=voiceTarget(),transport=pulse.playing?lastTransport:null,voiced=!!(pitch.hz>0),onset=voiced&&!voice.wasVoiced;
+  const pitch=estimatePitch(voice.samples,pulse.ac.sampleRate,{minHz:70,maxHz:950}),spec=spectrumFeatures(voice.freqBins,pulse.ac.sampleRate,voice.analyser.fftSize,{bands:48,minHz:70,maxHz:6000}),target=voiceTarget(),transport=voice.linked&&pulse.playing?lastTransport:null,voiced=!!(pitch.hz>0),onset=voiced&&!voice.wasVoiced;
   voice.wasVoiced=voiced;voice.lastSpectrum=spec;voice.frames++;voice.spectralFrames++;voice.centroidHz+=spec.centroidHz;drawLabVoiceSpectrum(spec,pitch,transport);$('#voiceCentroid').textContent=Math.round(spec.centroidHz)+' Hz';
   voice.trace=appendVoiceTrace(voice.trace,{atMs:t-voice.traceStartedAt,heardHz:pitch.hz,targetHz:target?.hz,clarity:pitch.clarity,centroidHz:spec.centroidHz,beatIndex:transport?.beatIndex,beatPhase:transport?.beatPhase,bpm:transport?.bpm,onset});
   const summary=summarizeVoiceTrace(voice.trace);
@@ -168,6 +169,16 @@ function resetPulseTraining(announce=false){
   if(announce)setStatus('PULSE · TRAIN RESET · LOCK METER');
 }
 function parseRatio(v){return v.split(':').map(Number)}
+function setPulseMode(next){
+  pulse.mode=String(next||'FREE').toUpperCase()==='TRAIN'?'TRAIN':'FREE';
+  if($('#pulseMode')){$('#pulseMode').textContent=pulse.mode;$('#pulseMode').classList.toggle('cool',pulse.mode==='FREE')}
+  setStatus('PULSE · '+pulse.mode+' · CLICK RING / TAP');return pulse.mode
+}
+function adjustRatio(lane,delta){
+  const i=lane==='B'?1:0,next=[...pulse.ratio];next[i]=Math.max(1,Math.min(8,next[i]+delta));pulse.ratio=next;
+  $('#ratioRead').textContent=pulse.ratio.join(':');$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x.dataset.ratio===pulse.ratio.join(':')));
+  resetPulseTraining();if(pulse.playing)restartPulse();syncPulseLaneReadouts();return pulse.ratio
+}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
   pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
   $('#ratioRead').textContent=b.dataset.ratio;resetPulseTraining();if(pulse.playing)restartPulse();
@@ -208,21 +219,28 @@ function stopPulse(){
   publishPulseTransport(performance.now(),true,stoppedAt);
 }
 $('#pulsePlay').onclick=()=>pulse.playing?stopPulse():startPulse();
-function tapPulse(){
+function tapPulse(laneOverride=null){
   if(!pulse.playing)startPulse();
-  const ac=ensureAudio(),t=ac.currentTime,progress=trainerProgress(pulse.trainer),phase=pulse.trainer.phase,lane=progress.target;
+  const ac=ensureAudio(),t=ac.currentTime,progress=trainerProgress(pulse.trainer),lane=laneOverride||((pulse.mode==='TRAIN')?progress.target:pulse.lane||'M'),phase=pulse.mode==='TRAIN'?pulse.trainer.phase:'FREE';
+  pulse.lane=lane;
   const sample=evaluateTap({time:t,start:pulse.start,bpm:pulse.bpm,ratio:pulse.ratio,lane});
-  const tap={...sample,t:t-pulse.start,score:sample.lock,trainPhase:phase,trainCycle:pulse.trainer.cycle,trainTap:pulse.trainer.phaseTap+1};
-  pulse.taps.push(tap);pulse.taps=pulse.taps.slice(-32);pulse.lastTap=tap;
-  const advanced=advanceTrainer(pulse.trainer);pulse.trainer=advanced.state;
-  if(advanced.cycleComplete)pulse.lastReturn=returnDelta(pulse.taps);
-  syncPulseTrainingUI();pluck(t,'T');
-  if(advanced.transition){
-    const v=trainerProgress(pulse.trainer),returnNote=advanced.cycleComplete&&pulse.lastReturn?.available?' · RETURN Δ '+(pulse.lastReturn.deltaMs>0?'+':'')+pulse.lastReturn.deltaMs+'ms':'';
-    setStatus('PULSE · '+advanced.transition+' · NEXT '+v.phase+' / '+v.target+returnNote);
+  const tap={...sample,t:t-pulse.start,score:sample.lock,trainPhase:phase,trainCycle:pulse.trainer.cycle,trainTap:pulse.trainer.phaseTap+1,lane};
+  pulse.taps.push(tap);pulse.taps=pulse.taps.slice(-32);pulse.lastTap=tap;pluck(t,'T');
+  if(pulse.mode==='TRAIN'){
+    const advanced=advanceTrainer(pulse.trainer);pulse.trainer=advanced.state;
+    if(advanced.cycleComplete)pulse.lastReturn=returnDelta(pulse.taps);
+    syncPulseTrainingUI();
+    if(advanced.transition){const v=trainerProgress(pulse.trainer),returnNote=advanced.cycleComplete&&pulse.lastReturn?.available?' · RETURN Δ '+(pulse.lastReturn.deltaMs>0?'+':'')+pulse.lastReturn.deltaMs+'ms':'';setStatus('PULSE · '+advanced.transition+' · NEXT '+v.phase+' / '+v.target+returnNote)}
+  }else{
+    const sign=sample.errorMs>0?'+':'',msg=lane+' · '+sign+Math.round(sample.errorMs)+'ms · LOCK '+Math.round(sample.lock)+'%';
+    setStatus('PULSE · FREE · '+msg);if($('#pulseError'))$('#pulseError').textContent=sign+Math.round(sample.errorMs)+'ms';if($('#syncRead'))$('#syncRead').textContent=Math.round(sample.lock)+'%';
   }
 }
-$('#tap').onclick=tapPulse;
+$('#tap').onclick=()=>tapPulse();
+$('#pulseMode')?.addEventListener('click',()=>setPulseMode(pulse.mode==='FREE'?'TRAIN':'FREE'));
+$('#pulseAMinus')?.addEventListener('click',()=>adjustRatio('A',-1));$('#pulseAPlus')?.addEventListener('click',()=>adjustRatio('A',1));
+$('#pulseBMinus')?.addEventListener('click',()=>adjustRatio('B',-1));$('#pulseBPlus')?.addEventListener('click',()=>adjustRatio('B',1));
+$('#pulseVoice')?.addEventListener('click',()=>selectMode('VOICE'));
 $('#pulseTrainReset')?.addEventListener('click',()=>resetPulseTraining(true));
 function syntheticMap(seconds=16){
   const beat=60/pulse.bpm,beats=[];for(let t=0;t<=seconds+1e-6;t+=beat)beats.push(+t.toFixed(6));
@@ -250,6 +268,7 @@ $('#exportTape').onclick=()=>{
 $('#voiceMic')?.addEventListener('click',()=>voice.mic?stopLabVoiceMic():startLabVoiceMic());
 $('#voiceHear')?.addEventListener('click',hearLabVoiceTarget);
 $('#voiceNext')?.addEventListener('click',()=>{voice.manualStep++;syncVoiceTarget()});
+$('#voicePulseLink')?.addEventListener('click',()=>{voice.linked=!voice.linked;syncPulseLaneReadouts();setStatus('VOICE · CLOCK '+(voice.linked?'LINKED TO PULSE':'FREE'))});
 $('#voiceBaseDown')?.addEventListener('click',()=>{voice.baseMidi=Math.max(43,voice.baseMidi-1);syncVoiceTarget()});
 $('#voiceBaseUp')?.addEventListener('click',()=>{voice.baseMidi=Math.min(76,voice.baseMidi+1);syncVoiceTarget()});
 $$('[data-voice-pattern]').forEach(b=>b.onclick=()=>{voice.pattern=b.dataset.voicePattern;voice.manualStep=0;$$('[data-voice-pattern]').forEach(x=>x.classList.toggle('cool',x===b));syncVoiceTarget();setStatus('VOICE · '+voice.pattern)});
@@ -617,8 +636,15 @@ $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;
 /* ---------- POINTER / KEY ---------- */
 canvas.addEventListener('pointerdown',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
-  if(mode==='PULSE')tapPulse();
+  if(mode==='PULSE'){
+    const cx=W/2,cy=H/2,rr=Math.min(W,H)*.245,d=Math.hypot(x-cx,y-cy);
+    if(d<rr*.30){pulse.playing?stopPulse():startPulse();setStatus('PULSE · '+(pulse.playing?'PLAY':'STOP'));return}
+    const lanes=[['M',rr],['A',rr*.78],['B',rr*.56]].sort((a,b)=>Math.abs(d-a[1])-Math.abs(d-b[1]));
+    if(Math.abs(d-lanes[0][1])<22){tapPulse(lanes[0][0]);return}
+    tapPulse();
+  }
   if(mode==='DATA'){const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}}
+  if(mode==='VOICE'){return {kind:'VOICE',pattern:voice.pattern,baseMidi:voice.baseMidi,clock:voice.linked?'PULSE_LINKED':'FREE',mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace)}}
   if(mode==='VERSE'){
     const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
     if(hit){verse.focus=hit.i;syncVerseUi();const line=currentVerseLine();if(line)setAddress(line.address)}
@@ -639,7 +665,7 @@ canvas.addEventListener('pointercancel',()=>{ink.down=false;ink.lastX=ink.lastY=
 canvas.addEventListener('wheel',e=>{if(mode!=='DATA')return;e.preventDefault();data.aperture=Math.max(0,Math.min(data.maxDepth,data.aperture+(e.deltaY>0?-1:1)));$('#dataDepth').textContent=data.aperture},{passive:false});
 addEventListener('keydown',e=>{
   if((e.code==='Space'||e.key===' ')&&document.activeElement?.tagName!=='TEXTAREA'&&document.activeElement?.tagName!=='INPUT'){e.preventDefault();if(mode==='PULSE')tapPulse()}
-  const map={1:'RIDE',2:'PULSE',3:'READ',4:'LOCI',5:'INK',6:'DATA',7:'VERSE'};if(map[e.key])selectMode(map[e.key]);
+  const map={1:'RIDE',2:'PULSE',3:'VOICE',4:'READ',5:'LOCI',6:'INK',7:'DATA',8:'VERSE'};if(map[e.key])selectMode(map[e.key]);
 });
 
 /* ---------- DRAW ---------- */
@@ -662,7 +688,9 @@ function updatePulseReadout(data){
 function syncPulseLaneReadouts(){
   const rings=pulseRings({ratio:pulse.ratio});
   if($('#ringsRead'))$('#ringsRead').textContent=String(rings.rings);
-  if($('#voiceLinkState'))$('#voiceLinkState').textContent=pulse.playing?'LINKED · LAB PULSE · '+pulse.bpm+' BPM':'FREE';
+  const linked=voice.linked&&pulse.playing;
+  if($('#voiceLinkState'))$('#voiceLinkState').textContent=linked?'LINKED · LAB PULSE · '+pulse.bpm+' BPM':'FREE';
+  if($('#voicePulseLink')){$('#voicePulseLink').textContent=linked?'CLOCK · LINKED':'CLOCK · FREE';$('#voicePulseLink').classList.toggle('cool',!linked)}
 }
 function publishPulseTransport(t,force=false,timeOverride=null){
   if(!force&&t-pulse.lastPublish<120)return;
@@ -682,7 +710,7 @@ function drawPulseRing(cx,cy,rad,phase,count,col,label,target=false){
 function drawPulse(t){
   publishPulseTransport(t);
   clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,iv=pulseIntervals({bpm:pulse.bpm,ratio:pulse.ratio}),rings=pulseRings({ratio:pulse.ratio});
-  const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000,train=trainerProgress(pulse.trainer),target=train.target;
+  const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000,train=trainerProgress(pulse.trainer),target=pulse.mode==='TRAIN'?train.target:pulse.lane;
   const phM=phaseAt(tt,0,iv.beat),phA=phaseAt(tt,0,iv.a),phB=phaseAt(tt,0,iv.b),rr=Math.min(W,H)*.245;
   drawPulseRing(cx,cy,rr,phM,rings.ticks.M,'215,180,109','M · BEAT',target==='M');
   drawPulseRing(cx,cy,rr*.78,phA,rings.ticks.A,'123,213,255','A · '+rings.ticks.A,target==='A');
@@ -692,8 +720,17 @@ function drawPulse(t){
     ctx.strokeStyle='rgba(242,243,239,.75)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx+Math.cos(an)*(rad-10),cy+Math.sin(an)*(rad-10));ctx.lineTo(cx+Math.cos(an)*(rad+7),cy+Math.sin(an)*(rad+7));ctx.stroke();
   }
   const summary=summarizeTapTrace(pulse.taps);
-  ctx.textAlign='center';ctx.fillStyle='#f2f3ef';ctx.font='900 14px ui-monospace';ctx.fillText(train.phase+' · '+target,cx,cy-3);
-  ctx.fillStyle='#7f8d94';ctx.font='700 8px ui-monospace';ctx.fillText((train.value+1)+' / '+train.targetTaps+' · RATIO '+iv.ratio.join(':')+' · RINGS '+rings.rings+' · LOCK '+(summary.lock??'—'),cx,cy+15);
+  ctx.textAlign='center';ctx.fillStyle='#f2f3ef';ctx.font='900 14px ui-monospace';ctx.fillText((pulse.mode==='TRAIN'?train.phase:'FREE')+' · '+target,cx,cy-3);
+  ctx.fillStyle='#7f8d94';ctx.font='700 8px ui-monospace';ctx.fillText((pulse.mode==='TRAIN'?(train.value+1)+' / '+train.targetTaps:'CLICK RING / TAP')+' · RATIO '+iv.ratio.join(':')+' · LOCK '+(summary.lock??'—'),cx,cy+15);
+}
+function drawVoice(){
+  clear(.18);cross();const cx=W/2,cy=H/2,target=voiceTarget(),last=voice.trace.at(-1),heard=Number(last?.heardHz)||0,targetHz=Number(target?.hz)||0;
+  const maxR=Math.min(W,H)*.30;ctx.strokeStyle='rgba(123,213,255,.24)';ctx.lineWidth=1;
+  for(let i=1;i<=4;i++){ctx.beginPath();ctx.arc(cx,cy,maxR*i/4,0,TAU);ctx.stroke()}
+  if(targetHz>0){ctx.strokeStyle='#d7b46d';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,maxR*.72,0,TAU);ctx.stroke()}
+  if(heard>0&&targetHz>0){const cents=centsBetween(heard,targetHz),a=-Math.PI/2+Math.max(-1,Math.min(1,cents/100))*Math.PI*.78;ctx.strokeStyle=Math.abs(cents)<=35?'#7bd5ff':'#ef7849';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*maxR*.88,cy+Math.sin(a)*maxR*.88);ctx.stroke()}
+  ctx.textAlign='center';ctx.fillStyle='#f2f3ef';ctx.font='900 '+Math.max(30,Math.min(72,Math.min(W,H)*.11))+'px system-ui,sans-serif';ctx.fillText(target?.name||'HUM',cx,cy+4);
+  ctx.fillStyle='#78858c';ctx.font='700 9px ui-monospace';const cents=heard>0&&targetHz>0?centsBetween(heard,targetHz):null;ctx.fillText(heard>0?('HEARD '+midiToName(hzToMidi(heard))+' · '+(cents==null?'FREE':((cents>0?'+':'')+Math.round(cents)+'¢'))):'VOICE · '+(voice.linked?'PULSE-LINKED':'FREE CLOCK'),cx,cy+30);
 }
 function versePositions(){
   ensureVerse();const max=11,n=verse.lines.length,start=Math.max(0,Math.min(Math.max(0,n-max),verse.focus-Math.floor(max/2))),end=Math.min(n,start+max),rows=Math.max(1,end-start);
@@ -754,14 +791,14 @@ function dataPositions(){
 function drawData(){
   clear(.18);const pos=dataPositions();ctx.lineWidth=1;
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;if(n.parent>=0&&pos[n.parent]){ctx.strokeStyle='rgba(70,88,99,.45)';ctx.beginPath();ctx.moveTo(pos[n.parent].x,pos[n.parent].y);ctx.lineTo(pos[i].x,pos[i].y);ctx.stroke()}});
-  data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;const f=i===data.focus;ctx.fillStyle=f?'#ef7849':n.depth===0?'#d7b46d':'#7bd5ff';ctx.globalAlpha=f?1:.65;ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,f?7:3.5,0,TAU);ctx.fill();if(f){ctx.globalAlpha=1;ctx.fillStyle='#f2f3ef';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(n.path+' = '+String(n.value).slice(0,44),W/2,H*.14)}});ctx.globalAlpha=1;
+  data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;const f=i===data.focus;ctx.fillStyle=f?'#ef7849':n.depth===0?'#d7b46d':'#7bd5ff';ctx.globalAlpha=f?1:.65;ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,f?7:3.5,0,TAU);ctx.fill();if(f){ctx.globalAlpha=1;const val=typeof n.value==='object'&&n.value!==null?(Array.isArray(n.value)?'ARRAY '+n.value.length:'OBJECT '+Object.keys(n.value).length):String(n.value);ctx.fillStyle='#f2f3ef';ctx.font='900 '+Math.max(18,Math.min(42,Math.min(W,H)*.06))+'px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText(String(n.key||n.path).slice(0,28),W/2,H*.48,Math.max(180,W*.5));ctx.fillStyle='#7bd5ff';ctx.font='700 9px ui-monospace';ctx.fillText(n.path,W/2,H*.53,Math.max(180,W*.64));ctx.fillStyle='#9aa6ac';ctx.font='700 10px ui-monospace';ctx.fillText(val.slice(0,72),W/2,H*.57,Math.max(180,W*.66))}});ctx.globalAlpha=1;
   drawStateChange();
 }
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
   analyzeLabVoice(now);
-  if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
+  if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VOICE')drawVoice();else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
@@ -832,5 +869,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});

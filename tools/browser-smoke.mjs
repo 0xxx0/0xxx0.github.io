@@ -1170,7 +1170,7 @@ const CASES=[
         verseReplay:dom.includes('id="verseReplay"'),
         exportTape:dom.includes('id="exportTape"'),
         pulseTrainer:dom.includes('id="pulseTarget"')&&dom.includes('id="pulseError"')&&dom.includes('id="pulseBias"')&&dom.includes('id="pulseJitter"')&&dom.includes('id="pulseCorr"')&&dom.includes('id="pulseTrainReset"')&&dom.includes('data-field-lab-pulse-psychophysics="FOLD_BLOOM_PULSE_PSYCHOPHYSICS_0.1"')&&dom.includes('data-field-lab-pulse-train="LOCK"')&&dom.includes('data-field-lab-pulse-target="M"'),
-        voiceFold:dom.includes('id="voiceTrain"')&&dom.includes('id="voiceMic"')&&dom.includes('id="voiceSpectrum"')&&dom.includes('data-field-lab-voice="ready"'),
+        voiceMode:dom.includes('data-mode="VOICE"')&&dom.includes('data-controls="VOICE"')&&dom.includes('id="voiceMic"')&&dom.includes('id="voiceSpectrum"')&&dom.includes('id="voicePulseLink"')&&dom.includes('data-field-lab-voice="ready"'),
         raceInput:dom.includes('id="raceInput"'),
         inkTrace:dom.includes('id="inkTrace"'),
         inkLoad:dom.includes('id="inkLoad"'),

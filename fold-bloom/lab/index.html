@@ -19,7 +19,7 @@ header{display:flex;align-items:center;gap:10px;padding:max(9px,env(safe-area-in
 .modeRing:before,.modeRing:after{content:"";position:absolute;inset:14%;border:1px solid #1e2930;border-radius:50%}.modeRing:after{inset:35%;border-color:#34414a}
 .mode{position:absolute;width:76px;height:40px;margin:-20px -38px;pointer-events:auto;background:#070b0fd9;color:#88949b;font-weight:850;font-size:9px;letter-spacing:.1em}
 .mode.on{border-color:var(--cool);color:var(--cool);background:#071219}.mode[data-mode="INK"].on{border-color:var(--hot);color:#ffb89c}
-.mode[data-mode="RIDE"]{left:50%;top:5%}.mode[data-mode="PULSE"]{left:82%;top:18%}.mode[data-mode="READ"]{left:95%;top:58%}.mode[data-mode="DATA"]{left:72%;top:92%}.mode[data-mode="INK"]{left:28%;top:92%}.mode[data-mode="LOCI"]{left:5%;top:58%}.mode[data-mode="VERSE"]{left:18%;top:18%}
+.mode[data-mode="RIDE"]{left:50%;top:5%}.mode[data-mode="PULSE"]{left:82%;top:18%}.mode[data-mode="READ"]{left:95%;top:50%}.mode[data-mode="DATA"]{left:82%;top:82%}.mode[data-mode="INK"]{left:50%;top:95%}.mode[data-mode="LOCI"]{left:18%;top:82%}.mode[data-mode="VERSE"]{left:5%;top:50%}.mode[data-mode="VOICE"]{left:18%;top:18%}
 .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;text-align:center;pointer-events:none;width:min(44vmin,270px)}
 .core .k{font-size:8px;letter-spacing:.17em;color:var(--mut)}.core b{display:block;font:900 clamp(28px,7vmin,58px)/.85 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.065em}.core span{display:block;margin-top:8px;color:#7d8b92;font-size:8px}
 .hud{position:absolute;inset:10px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;z-index:2}.hudRow{display:flex;justify-content:space-between;gap:10px;color:#64727a;font-size:8px;letter-spacing:.1em}.hudRow b{color:#c4cdd1}
@@ -30,7 +30,7 @@ button,.btn{min-height:34px;padding:7px 9px}.primary{border-color:var(--hot);col
 label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 0 4px}input[type=range]{width:100%}textarea{width:100%;min-height:78px;padding:8px;resize:vertical}
 .mini{color:#76838a;font-size:8px;margin-top:7px}.verseLines{display:grid;gap:3px;max-height:150px;overflow:auto;margin-top:7px}.verseLine{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;text-align:left;min-height:38px}.verseLine b{color:var(--gold);font-size:8px}.verseLine span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.verseLine i{font-style:normal;color:var(--mut);font-size:7px}.verseLine.on{border-color:var(--hot);color:#fff}.verseLine.marked i{color:var(--gold)}.metric{display:inline-block;border:1px solid var(--line);padding:4px 6px;margin:3px 3px 0 0;color:#9aa6ac}.metric b{color:var(--ink)}
 .stateBox{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}.stateBox .pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}.stateBox input{width:100%;padding:8px;text-align:center;letter-spacing:.12em}.stateToken{border:1px solid var(--line);padding:8px;margin-top:6px;overflow:auto;white-space:nowrap;color:#d7b46d;font-size:8px}.stateHint{color:#66747b;font-size:7px;margin-top:5px}
-.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.voiceSpec{display:block;width:100%;height:86px;border:1px solid var(--line);background:#05070b;margin-top:7px}.voiceTrain{border-top:1px solid var(--line);margin-top:8px;padding-top:7px}.voiceTrain summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em}.voiceTrain .patterns{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:6px}.voiceTrain .patterns button{font-size:7px;padding:5px}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
+.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.voiceSpec{display:block;width:100%;height:86px;border:1px solid var(--line);background:#05070b;margin-top:7px}.voiceTrain{border-top:1px solid var(--line);margin-top:8px;padding-top:7px}.voiceTrain summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em}.voiceTrain .patterns{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:6px}.voiceTrain .patterns button{font-size:7px;padding:5px}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core,html[data-field-lab-mode="PULSE"] .core,html[data-field-lab-mode="VOICE"] .core,html[data-field-lab-mode="DATA"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
 #status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}footer a,footer button{display:inline-flex;align-items:center;min-height:34px;padding:0 4px;color:inherit;text-decoration:none;touch-action:manipulation}footer button{border:0;background:transparent;color:var(--gold);letter-spacing:.08em}
 footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{color:#fff}
@@ -64,7 +64,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
 <body>
 <div class="app">
 <header>
-  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.5</div><div class="sub">ONE CENTER · SEVEN UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
+  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.5</div><div class="sub">ONE CENTER · EIGHT UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
   <div class="grow"></div>
   <div class="profile" id="profile">
     <button data-profile="CLEAR" class="on">CLEAR</button><button data-profile="DRIVE">DRIVE</button><button data-profile="TRANCE">TRANCE</button><button data-profile="SOFT">SOFT</button>
@@ -81,6 +81,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
   <div class="modeRing" id="modeRing">
     <button class="mode on" data-mode="RIDE">RIDE</button>
     <button class="mode" data-mode="PULSE">PULSE</button>
+    <button class="mode" data-mode="VOICE">VOICE</button>
     <button class="mode" data-mode="VERSE">VERSE</button>
     <button class="mode" data-mode="READ">READ</button>
     <button class="mode" data-mode="DATA">DATA</button>
@@ -103,19 +104,11 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
         <div class="row" id="ratios"><button data-ratio="3:2" class="cool">3:2</button><button data-ratio="4:3">4:3</button><button data-ratio="5:4">5:4</button></div>
         <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
         <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
-        <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="pulseTrainReset">RESET TRAIN</button><button id="exportTape">EXPORT TAPE</button></div>
+        <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="pulseMode" class="cool">FREE</button><button id="pulseTrainReset">RESET TRAIN</button><button id="exportTape">EXPORT TAPE</button></div>
+        <div class="row" style="margin-top:5px"><button id="pulseAMinus">A −</button><button id="pulseAPlus">A +</button><button id="pulseBMinus">B −</button><button id="pulseBPlus">B +</button><button id="pulseVoice">VOICE →</button></div>
         <div><span class="metric">LOCK <b id="syncRead">—</b></span><span class="metric">TARGET <b id="pulseTarget">LOCK · M · 1/4</b></span><span class="metric">ERROR <b id="pulseError">—</b></span><span class="metric">BIAS <b id="pulseBias">—</b></span><span class="metric">JITTER <b id="pulseJitter">—</b></span><span class="metric">CORR <b id="pulseCorr">—</b></span></div>
         <div><span class="metric">RATIO <b id="ratioRead">3:2</b></span><span class="metric">CLOCK <b id="pulseClock">IDLE</b></span><span class="metric">BEAT <b id="pulseBeat">—</b></span><span class="metric">PHASE <b id="pulsePhase">—</b></span></div>
         <div class="row" style="margin-top:6px"><button id="pulseRead" class="cool">READ ×4 →</button><button id="pulseRide">RIDE →</button><button id="pulseCompose">COMPOSE →</button></div>
-        <details class="voiceTrain" id="voiceTrain">
-          <summary>VOICE / SPECTRUM TRAINER · SAME PULSE</summary>
-          <div class="row"><button id="voiceMic" class="primary">START MIC</button><button id="voiceHear">HEAR TARGET</button><button id="voiceNext">NEXT</button></div>
-          <div class="patterns"><button class="cool" data-voice-pattern="NOTE">NOTE</button><button data-voice-pattern="CALL">1·3·5·3</button><button data-voice-pattern="SCALE">SCALE</button><button data-voice-pattern="HUM">HUM</button></div>
-          <div class="row"><button id="voiceBaseDown">−</button><span class="metric">TARGET <b id="voiceTarget">C4</b></span><button id="voiceBaseUp">+</button></div>
-          <canvas id="voiceSpectrum" class="voiceSpec" width="320" height="86" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
-          <div><span class="metric">VOICE CLOCK <b id="voiceLinkState">FREE</b></span><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
-          <div class="mini">Pitch uses the shared VOICE detector; the same scrolling spectrum now carries target/heard pitch traces and beat boundaries. Audio stays local and is never recorded. Starting PULSE links the trainer clock (VOICE CLOCK reads LINKED · LAB PULSE), stopping it returns VOICE to FREE. The pulse advances the exercise; it does not author the voice.</div>
-        </details>
         <div class="readUses">
           <span><b>ENTRAIN</b> LOCK meter → CROSS alternating polyrhythm rings → RETURN to meter; keep signed timing evidence</span>
           <span><b>READ</b> lend BPM to RSVP pace while READFIELD keeps text authority</span>
@@ -124,7 +117,23 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
           <span><b>EXPORT</b> turn taps into EVENT TAPE + Beat Saber v4 draft evidence</span>
           <span><b>CLOCK LAW</b> tempo + beat + phase + quantum coordinate; start/stop stays local</span>
         </div>
-        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three fixed rings — M (beat), A, B — expose meter + both ratio streams; RATIO only resubdivides A/B ticks per bar and never changes the ring count. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three rings — M (beat), A, B — expose meter + both ratio streams. Click a ring to tap that lane; click the center to start/stop. FREE gives immediate timing feedback without a curriculum; TRAIN restores the staged lock exercise. A/B ± directly changes subdivisions while ring count stays three. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+      </section>
+
+
+      <section class="controls" data-controls="VOICE">
+        <div class="row"><button id="voiceMic" class="primary">START MIC</button><button id="voiceHear">HEAR TARGET</button><button id="voiceNext">NEXT</button><button id="voicePulseLink" class="cool">CLOCK · FREE</button></div>
+        <div class="patterns" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:6px"><button class="cool" data-voice-pattern="NOTE">NOTE</button><button data-voice-pattern="CALL">1·3·5·3</button><button data-voice-pattern="SCALE">SCALE</button><button data-voice-pattern="HUM">HUM</button></div>
+        <div class="row"><button id="voiceBaseDown">−</button><span class="metric">TARGET <b id="voiceTarget">C4</b></span><button id="voiceBaseUp">+</button></div>
+        <canvas id="voiceSpectrum" class="voiceSpec" width="320" height="86" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
+        <div><span class="metric">VOICE CLOCK <b id="voiceLinkState">FREE</b></span><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
+        <div class="readUses">
+          <span><b>FREE</b> pitch / spectrum without PULSE authority</span>
+          <span><b>LINK</b> optionally borrow LAB PULSE as a clock</span>
+          <span><b>TARGET</b> note / call / scale / hum remains a voice exercise</span>
+          <span><b>RETURN</b> voice trace is evidence, not a diagnosis</span>
+        </div>
+        <div class="mini">VOICE is its own projection again. PULSE may lend beat boundaries when explicitly linked; stopping or unlinking PULSE returns VOICE to FREE. Audio stays local and is never recorded.</div>
       </section>
 
       <section class="controls" data-controls="VERSE">

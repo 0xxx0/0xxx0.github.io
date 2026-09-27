@@ -1,0 +1,43 @@
+{
+  "schema": "0xxx0/axial-aperture-return/v0.1",
+  "generated_at": "2026-09-27T16:55:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE_CI_PENDING",
+  "branch": "feat/axial-object-at-center",
+  "law": "Keep the exact addressed object perceptually central; use rings for address/order/clock/scale, controls as orbiting operations, explicit marks as human passage residue, and RETURN to preserve source identity. Derived lenses never acquire source/effect authority.",
+  "implementation": [
+    "/field-aperture.js",
+    "/docs/",
+    "/fold-bloom/lab/",
+    "/fold-bloom/replay/",
+    "/fold-bloom/atlas/",
+    "/tools/axial-aperture-smoke.mjs",
+    "/control/confluence/AXIAL_APERTURE_CONSTRAINT_2026-09-27.md"
+  ],
+  "changes": [
+    "READFIELD JSON renders current exact node/path and direct children rather than raw serialization as the primary view",
+    "READFIELD JSON hover/click preserves exact $.path",
+    "READFIELD MARK / NEXT MARK stores device-local exact addressed residue",
+    "FIELD LAB splits VOICE from PULSE into eight unequal projections",
+    "PULSE defaults FREE, supports direct M/A/B ring taps, center start/stop and A/B subdivision manipulation",
+    "VOICE is FREE-clock by default and may explicitly borrow LAB PULSE",
+    "DATA renders selected node/value at center; six-bit/I Ching/J-space lenses remain secondary",
+    "REPLAY renders active authored word at geometric center",
+    "Glyph Atlas document cells combine deterministic glyph with bounded exact-source text thumbnail"
+  ],
+  "boundaries": [
+    "mark/visited does not imply understood, memorized, agreed or verified",
+    "document thumbnail is not an AI summary and is bounded to 180 characters",
+    "full raw document remains excluded from Atlas packet",
+    "PULSE and VOICE may cooperate but neither gains the other's authorship",
+    "I Ching is a lossy supplied-state lens, not a cast by default",
+    "J-space remains preview/co-driver only",
+    "Fortress route residue remains an unimplemented experiment",
+    "no new global bus, ontology or source store"
+  ],
+  "verification": {
+    "axial_browser": "PENDING",
+    "public_surface": "PENDING",
+    "existing_regressions": "PENDING"
+  },
+  "next_gate": "Pass axial browser proof and full repository CI; then test one real complex JSON and one real paper/book source before adding route-residue ghosts."
+}

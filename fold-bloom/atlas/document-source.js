@@ -52,7 +52,7 @@ export async function adaptDocumentFile(file){
   const entry={
     id:hash,name:String(file.name||'UNTITLED').slice(0,96),artist:'',album:'',duration:0,sourceHash:hash,sourceKind:'LOCAL_DOCUMENT',format,
     textWitness:{kind:'DOCUMENT',alignment:'STRUCTURAL',chars:text.length,cues:structure.counts.sections},
-    document:{schema:DOCUMENT_WITNESS_SCHEMA,sections:structure.counts.sections,paragraphs:structure.counts.paragraphs,words,headingDepth:structure.counts.maxHeadingDepth},
+    document:{schema:DOCUMENT_WITNESS_SCHEMA,sections:structure.counts.sections,paragraphs:structure.counts.paragraphs,words,headingDepth:structure.counts.maxHeadingDepth,preview:text.replace(/\s+/g,' ').trim().slice(0,180)},
     glyph
   };
   return {schema:DOCUMENT_ADAPTER_SCHEMA,materializable:true,exact:{hash,name:String(file.name||'UNTITLED'),size:Number(file.size)||buffer.byteLength,mediaType:String(file.type||''),encoding:'utf-8'},structure,entry,runtime:{text}};

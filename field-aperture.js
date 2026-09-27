@@ -169,6 +169,14 @@ class FieldAperture extends HTMLElement{
   else{const ns=this.A.nodes||[],n=ns[clamp(Math.round(frac*Math.max(0,ns.length-1)),0,Math.max(0,ns.length-1))];this.jsonPath=n?.path||this.jsonPath;this.pos=this.indexForAnchor(this.scale)}
   this.render();this.emit()
  }
+ seekPath(path){
+  if(!this.A||this.A.kind!=='JSON'||!path)return null;
+  const node=(this.A.nodes||[]).find(x=>x.path===path);if(!node)return null;
+  this.jsonPath=node.path;
+  const exact=this.A.scales.map((s,i)=>({i,p:s.units.findIndex(x=>x.path===node.path)})).find(x=>x.p>=0);
+  if(exact){this.scale=exact.i;this.pos=exact.p}else this.pos=this.indexForAnchor(this.scale);
+  this.render();this.emit();return this.snapshot()
+ }
  selectChar(at,cursor=null){
   if(!this.A||this.A.kind!=='TEXT')return;this.anchor=clamp(Math.round(Number(at)||0),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale);this.voiceCursor=cursor;this.render();this.emit()
  }
@@ -201,10 +209,26 @@ class FieldAperture extends HTMLElement{
   }
   return null
  }
+ jsonNodeView(){
+  if(!this.A||this.A.kind!=='JSON')return null;
+  const node=(this.A.nodes||[]).find(x=>x.path===this.jsonPath)||this.current(),path=node?.path||this.jsonPath||'$';
+  if(!node)return null;
+  const children=(this.A.nodes||[]).filter(x=>x.depth===node.depth+1&&(x.path.startsWith(path+'.')||x.path.startsWith(path+'['))).slice(0,48).map(x=>({
+    path:x.path,key:String(x.key),type:x.type,leaf:!!x.leaf,preview:preview(x.value,120)
+  }));
+  return{path,node:{key:String(node.key),type:node.type,depth:node.depth,leaf:!!node.leaf,preview:preview(node.value,420)},children}
+ }
  focusText(){
   if(!this.A)return'';
   if(this.A.kind==='TEXT'&&this.voiceCursor?.text)return this.voiceCursor.text;
-  const c=this.current();return typeof c?.value==='string'?c.value:preview(c?.value,320)
+  const cur=this.A.kind==='JSON'?((this.A.nodes||[]).find(x=>x.path===this.jsonPath)||this.current()):this.current();
+  if(this.A.kind==='JSON'&&cur){
+    const lead=cur.key==='$'?'ROOT':String(cur.key);
+    if(cur.leaf)return lead+(lead?' · ':'')+preview(cur.value,300);
+    const n=(this.A.nodes||[]).filter(x=>x.depth===cur.depth+1&&(x.path.startsWith(cur.path+'.')||x.path.startsWith(cur.path+'['))).length;
+    return (lead||'ROOT')+' · '+String(cur.type||'object').toUpperCase()+' · '+n+' CHILD'+(n===1?'':'REN')
+  }
+  return typeof cur?.value==='string'?cur.value:preview(cur?.value,320)
  }
  localXrefs(){
   if(!this.A)return[];
@@ -239,7 +263,7 @@ class FieldAperture extends HTMLElement{
  material(){const s=this.currentScale(),progress=this.sourceFraction(),scaleFrac=this.A?.scales?.length>1?this.scale/(this.A.scales.length-1):0,mag=this.magnitude(),depth=this.A?.kind==='JSON'&&s?.id?.startsWith('L')?Number(s.id.slice(1))||0:this.scale;return{progress,scale:scaleFrac,magnitude:clamp(mag.decades/12,0,1),depth,kind:this.A?.kind||'NONE',x:(12+progress*76).toFixed(2)+'%',y:(18+scaleFrac*64).toFixed(2)+'%',angle:(20+progress*140).toFixed(1)+'deg',spacing:(18+mag.decades*3).toFixed(1)+'px',strength:(.035+.075*(.35+scaleFrac*.65)).toFixed(3)}}
  applyMaterial(){const m=this.material(),apply=t=>{if(!t)return;t.style.setProperty('--ap-progress',m.progress);t.style.setProperty('--ap-scale',m.scale);t.style.setProperty('--ap-magnitude',m.magnitude);t.style.setProperty('--ap-x',m.x);t.style.setProperty('--ap-y',m.y);t.style.setProperty('--ap-angle',m.angle);t.style.setProperty('--ap-spacing',m.spacing);t.style.setProperty('--ap-strength',m.strength);t.dataset.apertureKind=m.kind;t.dataset.apertureScale=this.currentScale()?.id||'NONE'};apply(this);const sel=this.getAttribute('material-target');if(sel){try{apply(document.querySelector(sel))}catch(_){}}return m}
  emit(){const snap=this.snapshot();this.dispatchEvent(new CustomEvent('aperture-focus',{detail:snap,bubbles:true}));this.dispatchEvent(new CustomEvent('aperture-material',{detail:snap.material,bubbles:true}))}
- snapshot(){const c=this.current(),s=this.currentScale(),st=this.structure(),span=this.focusSpan();return{schema:'field-aperture-focus/v0.2',kind:this.A?.kind,label:this.A?.label,locale:this.A?.locale||this.locale||null,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address:c?.path||null,focus:this.focusText(),char_index:this.A?.kind==='TEXT'?this.anchor:null,span,source_progress:st.progress,section:st.current,structure:st.markers,xrefs:this.localXrefs(),cursor:this.voiceCursor,wpm:this.wpm,wpm_max:MAX_WPM,playing:this.rsvp,speaking:this.speaking,loop:this.hasAttribute('loop'),material:this.material()}}
+ snapshot(){const c=this.current(),s=this.currentScale(),st=this.structure(),span=this.focusSpan(),address=this.A?.kind==='JSON'?(this.jsonPath||c?.path||null):(c?.path||null);return{schema:'field-aperture-focus/v0.2',kind:this.A?.kind,label:this.A?.label,locale:this.A?.locale||this.locale||null,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address,focus:this.focusText(),node:this.jsonNodeView(),char_index:this.A?.kind==='TEXT'?this.anchor:null,span,source_progress:st.progress,section:st.current,structure:st.markers,xrefs:this.localXrefs(),cursor:this.voiceCursor,wpm:this.wpm,wpm_max:MAX_WPM,playing:this.rsvp,speaking:this.speaking,loop:this.hasAttribute('loop'),material:this.material()}}
  magnitude(){
    const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),decades=clamp(log,0,12),gap=7+(decades/12)*26;
    const exp=Math.floor(log),mant=b/Math.pow(10,exp);

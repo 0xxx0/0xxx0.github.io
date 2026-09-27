@@ -48,7 +48,7 @@ function renderWall(){
   const wall=$('#wall');
   wall.innerHTML=packet.entries.map(x=>{
     const p=packet.path.indexOf(x.id),on=x.id===focusId?' on':'',inPath=p>=0?' path':'';
-    return `<button class="glyphCard${on}${inPath}" data-id="${esc(x.id)}">${p>=0?`<span class="pathNo">${p+1}</span>`:''}<span class="mark">${audioGlyphSvg(x.glyph,{size:128,padding:9})}</span><b>${esc(x.name)}</b><small>${esc(metaLine(x))}</small></button>`;
+    const docThumb=x.sourceKind==='LOCAL_DOCUMENT'&&x.document?.preview?`<span class="docThumb">${esc(x.document.preview)}</span>`:'';return `<button class="glyphCard${on}${inPath} ${docThumb?'document':''}" data-id="${esc(x.id)}">${p>=0?`<span class="pathNo">${p+1}</span>`:''}<span class="mark">${audioGlyphSvg(x.glyph,{size:128,padding:9})}${docThumb}</span><b>${esc(x.name)}</b><small>${esc(metaLine(x))}</small></button>`;
   }).join('');
   wall.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>focusEntry(b.dataset.id));
 }
