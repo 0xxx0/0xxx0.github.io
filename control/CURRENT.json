@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-27T13:02:00+08:00",
+  "updated": "2026-09-27T13:40:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -182,10 +182,10 @@
     },
     {
       "lineage": "sleeper-one-return",
-      "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
+      "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2 + RETURN BRIDGE 0.1",
       "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical ONE RETURN v2 remains one deterministic source-built city: phrase + verse cell + figure → eight enacted Gate proofs → return to origin → Return Artifact v2. FIELD now addresses it as PLAY / PROVE / RETURN; READFIELD can directly inspect the exact spec/world-law source; Verse/Poem, FOLD//BLOOM LIVE and Scale Lens are explicit unequal donor/candidate seams, not merged state or authority. POV 0.8 remains superseded and the ASCII reconstruction remains donor-only.",
+      "retained_function": "Canonical ONE RETURN v2 remains one deterministic source-built city: phrase + verse cell + figure → eight enacted Gate proofs → return to origin → Return Artifact v2. RETURN BRIDGE 0.1 makes the artifact a usable boundary object without a new bus: the project surface revalidates worldKey + 8/8 Gates, then may carry source/RETURN into READFIELD, Verse/Poem or Scale Lens through their existing handoffs with exact authority/RETURN boundaries. FOLD//BLOOM LIVE and the wider ASCII City lineage remain world-depth donors for traversal, replay, orientation and future environment depth; they do not own source or proof truth.",
       "evidence": [
         "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -196,11 +196,13 @@
         "/sleeper/ascii-pov-0.8/release.json",
         "/sleeper/one-return/release.json",
         "https://sleeper-one-return.metaname.chatgpt.site/",
-        "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
+        "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
+        "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md",
+        "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
       ],
-      "last_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
+      "last_return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
       "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
-      "version": "v2-era / City Engine v0.2"
+      "version": "v2-era / City Engine v0.2 + bridge-0.1"
     },
     {
       "lineage": "fold-bloom",
