@@ -17,6 +17,8 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
 (async()=>{try{
   // READFIELD: JSON is a navigable structure, exact path survives, mark is honest residue.
   let f=frame('/docs/?src=/showcase-manifest.json'),W=()=>f.contentWindow,D=()=>W().document;
+  await sleep(900);
+  rec.readBoot={title:D().getElementById('title')?.textContent||'',raw:(D().getElementById('text')?.textContent||'').slice(0,220),aperture:!!D().getElementById('docAperture'),kind:D().getElementById('docAperture')?.snapshot?.()?.kind||null,label:D().getElementById('docAperture')?.snapshot?.()?.label||null};
   const ap=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},15000,'readfield json');
   await wait(()=>D().querySelector('.jsonCard .jsonChild'),15000,'json card');
   const before=ap.snapshot(),child=D().querySelector('.jsonChild'),path=child.dataset.jsonPath;child.click();
