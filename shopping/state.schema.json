@@ -293,6 +293,59 @@
                 }
               }
             }
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exact_sku": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "seller_channel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imported_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_ref": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "schema": {
+                "type": "string"
+              },
+              "port_object_id": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "scope": {
+                "type": "string"
+              },
+              "focus": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            }
           }
         }
       }
