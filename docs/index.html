@@ -131,6 +131,7 @@ function renderReading(snap){
    pre.textContent=(from?'… ':'')+activeRaw.slice(from,span.start);mark.textContent=activeRaw.slice(span.start,Math.max(span.start+1,span.end))||'·';post.textContent=activeRaw.slice(Math.max(span.start+1,span.end),to)+(to<activeRaw.length?' …':'');
    V.append(pre,mark,post);requestAnimationFrame(()=>{V.scrollTop=Math.max(0,mark.offsetTop-V.clientHeight*.42)});
  }else if(snap.kind==='JSON'&&snap.node){
+   document.documentElement.dataset.readfieldJson='ready';
    const card=document.createElement('div');card.className='jsonCard';
    const path=document.createElement('div');path.className='jsonPath';path.textContent=snap.node.path||snap.address||'$';card.append(path);
    const value=document.createElement('div');value.className='jsonValue';value.textContent=snap.node.node?.preview||snap.focus||'(empty)';card.append(value);
