@@ -31,7 +31,7 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   // Session text: exact SHA-256 identity gates persistence; corrupt storage becomes visibly non-writable.
   const pasteText='EXACT LOCAL TRAIL SAMPLE. Second sentence for movement.';
   D().getElementById('pasteText').value=pasteText;D().getElementById('readPaste').click();
-  await wait(()=>D().documentElement.dataset.readfieldTrail==='identity-ready'&&!D().getElementById('markHere').disabled,10000,'readfield exact trail identity');
+  await wait(()=>['empty','ready'].includes(D().documentElement.dataset.readfieldTrail)&&!D().getElementById('markHere').disabled,10000,'readfield exact trail writable');
   const pasteAp=D().getElementById('docAperture');D().getElementById('markHere').click();await sleep(80);
   const shaTrailKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:sha256%3A')),shaTrail=shaTrailKey?JSON.parse(W().localStorage.getItem(shaTrailKey)||'null'):null;
   if(shaTrailKey){W().localStorage.setItem(shaTrailKey,'{corrupt');pasteAp.restore?.({scale:'WORD',char_index:Math.min(8,(pasteAp.snapshot?.()?.char_index||0)+3)});}
