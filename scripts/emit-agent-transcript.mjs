@@ -101,6 +101,9 @@ if(process.argv.includes('--selftest')){
   if(packet.phi.selected_expressions.length!==4)fail.push('selected expression count != 4');
   if((packet.now.active_fronts||[]).length>3)fail.push('CURRENT active-front law > 3');
   if(!packet.return?.target)fail.push('RETURN target missing');
+  const rendered=markdown(packet),structured=JSON.stringify(packet);
+  if(rendered.length>10000)fail.push('default transcript exceeds 10k chars: '+rendered.length);
+  if(structured.length>20000)fail.push('structured transcript exceeds 20k chars: '+structured.length);
 
   const unrelated=clone(sources);
   unrelated.C.purpose=String(unrelated.C.purpose||'')+' / SELFTEST UNSELECTED';
