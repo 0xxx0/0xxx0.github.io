@@ -97,6 +97,7 @@ async function acceptReadRideReturn(){
   sessionStorage.removeItem(READ_RIDE_RETURN);q.delete('ride_return');history.replaceState(null,'','?'+q.toString()+location.hash);
   document.documentElement.dataset.readfieldRideReturn='accepted';document.documentElement.dataset.readfieldRideReturnReason='';return{ok:true,cursor:{start:a,end:b,scale:native.scale},witness:w}
 }
+window.ReadfieldRideReturn=Object.freeze({accept:()=>acceptReadRideReturn()});
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
