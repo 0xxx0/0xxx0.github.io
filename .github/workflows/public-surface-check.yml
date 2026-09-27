@@ -210,6 +210,10 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
         run: node tools/browser-smoke.mjs
+      - name: Validate promoted cross-surface READ trail
+        run: |
+          node --check lib/read-trail.js
+          node tools/read-trail-selftest.cjs
       - name: Test axial object-at-center convergence
         run: |
           node --check field-aperture.js
