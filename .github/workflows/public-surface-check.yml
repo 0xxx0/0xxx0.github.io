@@ -121,6 +121,10 @@ jobs:
         run: node --test tools/return-receipt-contract.test.mjs
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
+      - name: Test iching head data laws + cast/render state
+        run: node tools/iching-core.test.mjs
+      - name: Test nexus head link integrity + snapshot coherence
+        run: node tools/nexus-surface.test.mjs
       - name: Prove pending-CI receipt rejection
         run: node tools/validate-pending-ci-rejection-selftest.mjs
       - name: Validate Triangle FORM rewrite core
