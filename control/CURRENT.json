@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-27T14:16:00+08:00",
+  "updated": "2026-09-27T15:58:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -19,8 +19,7 @@
     "UNIFIED INTERFACE = CONTINUITY OF OBJECT + FOCUS + OPERATION + WITNESS + RETURN; ROUTES AND CHROME ARE SECONDARY.",
     "COMPRESSION MUST RETAIN A RETURN PATH",
     "BACK ≠ UNDO ≠ RETURN ≠ PARENT",
-    "DISCUSSION ≠ INDEX TOUCH; MUTATION → INDEX TOUCH",
-    "MATERIAL MUTATION → FIELD INDEX TOUCH; CURRENT-HEAD OR CROSS-LINEAGE MUTATION → BOUNDED CONFLUENCE/RETURN; DO NOT LOG CHAT NOISE",
+    "BRANCH / CHAT / PR NAME ≠ AUTHORITY; ONLY MERGED MATERIAL + CURRENT / MANIFEST / NATIVE RELEASE OR RETURN MAY CLAIM CURRENT TRUTH.",
     "PROGRESS REQUIRES CONVERSION: a new usable capability, exact recovery that unlocks one, user-facing simplification, or a real-world/other-human consequence. RECEIPTS ALONE DO NOT COUNT.",
     "WAITING_ON_HUMAN != ACTIVE_FRONT. Park human/world dependencies in WAITING until the human actually chooses or encounters them.",
     "NO RECEIPT-ONLY OR SEAL-ONLY PR UNLESS IT RESOLVES A LIVE AMBIGUITY, FAILING GATE, OR AUTHORITY CONFLICT."
@@ -61,7 +60,7 @@
       "head": "FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority. FIELD held-route → Dayline now additionally carries the same route through interphase-carrier/v0.1 beside the legacy interphase projection witness; this is additive/backward-compatible and transfers no effect authority.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority. FIELD held-route → Dayline now additionally carries the same route through interphase-carrier/v0.1 beside the legacy interphase projection witness; this is additive/backward-compatible and transfers no effect authority. FOVEA /fovea/ is now a projection-only one-field access surface over registered routes; it opens native hosts and never becomes a second store or priority engine.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -77,7 +76,10 @@
         "/lib/interphase-dayline.js",
         "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
         "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
-        "/returns/INTERPHASE_CARRIER_2026-09-27.json"
+        "/returns/INTERPHASE_CARRIER_2026-09-27.json",
+        "/fovea/",
+        "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md",
+        "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json"
       ],
       "version": "0.8.15",
       "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
@@ -101,10 +103,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + WORK CHAINS",
+      "head": "READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + RIDE LIVE",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE. PR #347 fixes the explicit local-file source race: choosing a local file claims the source epoch synchronously, so a stale repository load cannot discard the newer human selection.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE. PR #347 fixes the explicit local-file source race: choosing a local file claims the source epoch synchronously, so a stale repository load cannot discard the newer human selection. Sep-27 RIDE LIVE carries the exact current text source + cursor into FOLD//BLOOM LIVE as an addressed SENTENCE/PARAGRAPH/SECTION course through field-read-ride/v0.1; READFIELD remains source/cursor authority and LIVE remains traversal authority.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -132,9 +134,12 @@
         "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/283",
         "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/347"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/347",
+        "/control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md",
+        "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
+        "/fold-bloom/read-course.js"
       ],
-      "latest_return": "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
+      "latest_return": "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
       "repo_verification": {
         "route_registration_run": 36142450848,
         "public_surface_run": 36142450809,
@@ -361,7 +366,8 @@
         "/fold-bloom/live/hex-projection.js",
         "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
         "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
-        "/control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md"
+        "/control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md",
+        "/fold-bloom/read-course.js"
       ],
       "experimental": [
         {
@@ -433,7 +439,7 @@
         }
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
-      "latest_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
+      "latest_return": "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
       "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
       "version": "0.1.6 + PLAY 0.6.1 / LAB 0.3.5 / VOICE 0.2",
       "repo_verification": {
