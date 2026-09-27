@@ -1535,7 +1535,7 @@
       "showcase_card": true,
       "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.5 keeps the compact always-visible phone work rail, adds direct session-local downloaded-file intake for text/Markdown/JSON/CSV/log/YAML/source/SVG material, and makes practical chains explicit: SKIM → REVIEW, LISTEN → PULSE → VOICE, READ → LOCI → RETURN. Ephemeral local/pasted bytes never pretend to have a durable addressed URL; COPY FOCUS replaces COPY VIEW for those sources. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD. 2026-09-27 adds explicit RIDE LIVE handoff carrying the current exact source + cursor into LIVE READ/RIDE without creating another text authority.",
       "index": {
-        "updated_at": "2026-09-27T15:12:00+08:00",
+        "updated_at": "2026-09-27T18:59:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1561,7 +1561,9 @@
         "APERTURE compatibility alias preserves bounded focus into READFIELD",
         "session-local downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG intake through the same RSVP/focus/voice/LOCI kernel",
         "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN",
-        "local-file epoch repair: explicit phone/file selection preempts stale repository source completion"
+        "local-file epoch repair: explicit phone/file selection preempts stale repository source completion",
+        "device-local field-source-trail/v0.1 keeps bounded VISITED/MARKED continuity without storing source bytes or inferring completion",
+        "RIDE LIVE return is EVIDENCE_ONLY; READFIELD re-hashes current bytes and requires exact native [start,end] before one cursor restore; stale/malformed return is zero-mutation"
       ],
       "operation": "READ",
       "receipt": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
@@ -2734,7 +2736,9 @@
         "FoldBloomPlay.contract(s) + subscribe(listener) expose bounded lifecycle state without becoming a universal bus or game engine",
         "PLAY 0.6.1 HEXAGRAM / CHANGE: exact six-verb FORM remains the lossless substrate; SAME/NEAR vs FAR/OPPOSITE relation distance projects into solid/broken lines and moving-line change",
         "Yijing/state-language is again the visible PUZZLE projection; traditional trigram labels are retained while the relation→yin/yang quotient is explicitly game-specific",
-        "FORM_CHANGE loop contract 0.2 remains the abstract lifecycle archetype; projection choice does not move LIVE authority"
+        "FORM_CHANGE loop contract 0.2 remains the abstract lifecycle archetype; projection choice does not move LIVE authority",
+        "READ/RIDE persistent trail records bounded traversal/marks only; VISITED/MARKED != read/understood/complete",
+        "READ/RIDE exact RETURN emits session-local EVIDENCE_ONLY address witness; LIVE cannot mutate READFIELD source/cursor"
       ],
       "contract": {
         "accepts": {
@@ -2880,7 +2884,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-27T15:12:00+08:00",
+        "updated_at": "2026-09-27T18:59:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2889,7 +2893,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
+      "latest_return": "/returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE."
