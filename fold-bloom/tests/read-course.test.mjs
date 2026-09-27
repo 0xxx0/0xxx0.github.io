@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   READ_RIDE_SCHEMA,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,
-  readCourseAddressAt,stepReadCourse,readCourseWitness,initialReadProgress
+  readCourseAddressAt,stepReadCourse,readCourseWitness,validateReadCourse,makeReadReturnWitness,initialReadProgress
 } from '../read-course.js';
 
 const source=`# Gate One
@@ -45,6 +45,23 @@ assert.ok(back.p<=next.p);
 const sentence=makeReadCourse(packet,{grain:'SENTENCE'});
 assert.equal(sentence.grain,'SENTENCE');
 assert.ok(sentence.points.filter(x=>x.kind==='SENTENCE').length>=5);
+const returnWitness=makeReadReturnWitness(para,{
+  origin:{start:at.point.start,end:at.point.end,grain:'PARAGRAPH',address:at.address},
+  visited:[
+    {start:at.point.start,end:at.point.end,grain:'PARAGRAPH',address:at.address},
+    {start:next.point.start,end:next.point.end,grain:'PARAGRAPH',address:next.address}
+  ],
+  current:next.p,returnAddress:'/docs/?local=1'
+});
+assert.equal(returnWitness.schema,'readfield-course-witness/v0.1');
+assert.equal(returnWitness.authority,'EVIDENCE_ONLY');
+assert.equal(returnWitness.final.start,next.point.start);
+assert.equal(returnWitness.visited.length,2);
+
+const malformed=structuredClone(para);
+malformed.points[1].start=malformed.points[0].start;
+assert.throws(()=>validateReadCourse(malformed),/READ_GRAIN_OVERLAP|READ_GRAIN_BOUNDS/);
+
 const section=makeReadCourse(packet,{grain:'SECTION'});
 assert.equal(section.grain,'SECTION');
 assert.equal(section.points.filter(x=>x.kind==='SECTION').length,2);
