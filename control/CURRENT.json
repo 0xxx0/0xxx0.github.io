@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-26T10:27:00+08:00",
+  "updated": "2026-09-27T13:02:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -185,7 +185,7 @@
       "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
       "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical Sleeper resolves directly from /sleeper/ to the recovered live ONE RETURN runtime: PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. Exact recovered source remains durable authority under /recovery/sleeper/site-source-2026-09-18/. ASCII Sleeper POV 0.8 remains preserved as a superseded derivative; /sleeper/one-return/ remains a playable reconstruction donor. One runtime identity, many preserved lineage objects.",
+      "retained_function": "Canonical ONE RETURN v2 remains one deterministic source-built city: phrase + verse cell + figure → eight enacted Gate proofs → return to origin → Return Artifact v2. FIELD now addresses it as PLAY / PROVE / RETURN; READFIELD can directly inspect the exact spec/world-law source; Verse/Poem, FOLD//BLOOM LIVE and Scale Lens are explicit unequal donor/candidate seams, not merged state or authority. POV 0.8 remains superseded and the ASCII reconstruction remains donor-only.",
       "evidence": [
         "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -195,9 +195,10 @@
         "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
         "/sleeper/ascii-pov-0.8/release.json",
         "/sleeper/one-return/release.json",
-        "https://sleeper-one-return.metaname.chatgpt.site/"
+        "https://sleeper-one-return.metaname.chatgpt.site/",
+        "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
       ],
-      "last_return": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+      "last_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
       "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
       "version": "v2-era / City Engine v0.2"
     },
