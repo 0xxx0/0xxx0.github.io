@@ -225,7 +225,7 @@ RL.onclick=()=>{
     projection:{host:'READFIELD',name:'READ',channels:['identity','address','content','depth','time','authority'],residue:[]},
     sourceRefs:[sourceIdentity.address||''].filter(Boolean)
   })||null}catch(_){}
-  const packet={schema:'field-read-ride/v0.1',created:new Date().toISOString(),source:activeRaw,label:activeLabel||'READFIELD SOURCE',sourceIdentity,focus:snap,from:'/docs/',returnAddress,carrier};
+  const packet={schema:'field-read-ride/v0.1',created:new Date().toISOString(),source:activeRaw,label:activeLabel||'READFIELD SOURCE',sourceIdentity,focus:snap,from:'/docs/',returnAddress,carrier,trailKey:trailKey()};
   try{
     sessionStorage.setItem('fold-bloom.read-ride.handoff.v01',JSON.stringify(packet));
     location.href='/fold-bloom/live/?source=readfield&course=STEP';
