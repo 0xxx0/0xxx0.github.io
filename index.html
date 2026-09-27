@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
 <script>/* TG Mini App deep link. A link like t.me/<bot>/<app>?startapp=fold-bloom is
-   passed to the webview as the GET parameter tgWebAppStartParam. Resolve it
-   against the field manifest and route to the real surface, so one Mini App can
-   address every route. Unknown or absent values: this page renders as normal. */
+   passed to the webview as the GET parameter tgWebAppStartParam. Redirect
+   synchronously — before anything paints — so one Mini App can address every
+   route and the user never sees this index flash first.
+   Absent value: this page renders as normal. */
 (function(){try{
   var q=new URLSearchParams(location.search).get('tgWebAppStartParam');
   if(!q)return;
   var b=q.trim().replace(/^\/+|\/+$/g,'');
   if(!b)return;
-  fetch('/showcase-manifest.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){
-    var have={};(m.routes||[]).forEach(function(x){if(x&&x.href)have[x.href]=1;});
-    var cands=['/'+b+'/','/'+b];
-    if(!/\.html?$/i.test(b))cands.push('/'+b+'.html');
-    for(var i=0;i<cands.length;i++){if(have[cands[i]]){location.replace(cands[i]);return;}}
-  }).catch(function(){});
+  location.replace('/'+b+(/\.html?$/i.test(b)?'':'/'));
 }catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
