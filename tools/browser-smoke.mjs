@@ -731,9 +731,15 @@ function houseLocusProbeHtml(){
     const room=D().querySelector('#canvas .room.sel'),stage=D().querySelector('.stage'),ar=ap.getBoundingClientRect(),sr=stage.getBoundingClientRect();
     rec.roomVisible=!!room&&W().getComputedStyle(room).display!=='none';rec.within=ar.left>=sr.left-1&&ar.right<=sr.right+1&&ar.top>=sr.top-1&&ar.bottom<=sr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
     ap.querySelector('[data-house-locus="care"]').click();
-    await waitFor(()=>W().location.hash==='#CARE'&&D().getElementById('viewTitle')?.textContent==='CARE'&&D().querySelector('#canvas .careWrap'));
-    rec.care=true;
-    done(rec.roomVisible&&rec.within&&rec.care&&rec.actions.join('|')==='CARE|BODY|DAYLINE',rec);
+    await waitFor(()=>D().getElementById('apertureForm'));
+    rec.formInPlace=!!D().getElementById('apertureForm');
+    const selAfter=D().querySelector('#canvas .room.sel');
+    rec.planVisibleAfter=!!selAfter&&W().getComputedStyle(selAfter).display!=='none';
+    rec.hashUntouched=W().location.hash!=='#CARE';
+    const ap2=D().getElementById('houseAperture');
+    rec.apertureStillVisible=!!ap2&&!ap2.hidden;
+    rec.formBound=!!D().getElementById('apObserved');
+    done(rec.roomVisible&&rec.within&&rec.actions.join('|')==='CARE|BODY|DAYLINE'&&rec.formInPlace&&rec.planVisibleAfter&&rec.hashUntouched&&rec.apertureStillVisible&&rec.formBound,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
@@ -1386,7 +1392,7 @@ const CASES=[
     route:'/__smoke/house-locus',
     options:{width:460,height:940,settleLimit:24000,timeout:32000},
     settle:true,
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"roomVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"care":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"roomVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"formInPlace":true/.test(dom)&&/"planVisibleAfter":true/.test(dom)&&/"hashUntouched":true/.test(dom)&&/"apertureStillVisible":true/.test(dom)&&/"formBound":true/.test(dom)
   },
   {
     name:'HOUSE SPATIAL',

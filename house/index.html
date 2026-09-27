@@ -32,19 +32,37 @@ function fitThingEnvelope(){if(!fitHandoff)return null;let t=fitHandoff.thing||{
 function renderFitProbe(){let p=document.getElementById('fitProbe');if(!p)return;if(!fitHandoff){window.FieldSignal?.apply(p,'CLEAR');p.hidden=true;return}p.hidden=false;let r=M?R():null,e=fitThingEnvelope(),t=fitHandoff.thing||{},src=fitHandoff.source||{},sig=window.FieldSignal?.normalize(src.evidence_signal||'CLEAR')||'CLEAR';window.FieldSignal?.apply(p,sig);fitThing.textContent=src.label||'shopping candidate';fitThingDims.textContent=e?'OPERATING '+[e.w||'?',e.d||'?',e.h||'?'].join(' × ')+' mm · BODY '+[(e.body&&e.body.w)||'?',(e.body&&e.body.d)||'?',(e.body&&e.body.h)||'?'].join(' × ')+' mm':'dimensions unavailable';fitThingMeta.innerHTML=[['candidate',src.object_id],['source evidence',(src.evidence_owner||'SOURCE')+' · '+sig],['proof boundary',src.proof_boundary||'—'],['selected address',r?r.id:'—'],['placement home',t.placement_home||'—'],['maintenance',t.maintenance||'—'],['dependencies',t.dependencies||'—']].map(x=>'<span>'+esc(x[0])+'</span><span>'+esc(x[1]||'—')+'</span>').join('');if(r&&S.ceilings[r.id]&&!fitAvailH.value)fitAvailH.value=S.ceilings[r.id]}
 function publishFitReturn(status,e,aw,ad,ah,rotated){if(!fitHandoff||!window.ShoppingHouseFit)return null;let r=M?R():null,offer=window.ShoppingHouseFit.makeOffer({handoff:fitHandoff,area:r?r.id:'',projection:view,candidate:{w:e?.w||0,d:e?.d||0,h:e?.h||0},available:{w:aw||0,d:ad||0,h:ah||0},rotated90:!!rotated,status});sessionStorage.setItem('house.shopping.fit.return.v01',JSON.stringify(offer));return offer}
 function checkFitProbe(){if(!fitHandoff)return null;let e=fitThingEnvelope(),aw=+fitAvailW.value||0,ad=+fitAvailD.value||0,ah=+fitAvailH.value||0,status='UNKNOWN_CANDIDATE',rotated=false;if(!e||!e.w||!e.d||!e.h){fitResult.textContent='UNKNOWN · add BODY/OPERATING W×D×H in SHOPPING'}else if(!aw||!ad||!ah){status='MEASURE_REQUIRED';fitResult.textContent='MEASURE · available W×D×H required at the selected real zone'}else{let direct=e.w<=aw&&e.d<=ad,rot=fitRotate.checked&&e.d<=aw&&e.w<=ad,hh=e.h<=ah,pass=(direct||rot)&&hh;rotated=!!(pass&&!direct&&rot);status=pass?'PASS_ENVELOPE':'FAIL_ENVELOPE';fitResult.textContent=(pass?'PASS ENVELOPE':'FAIL ENVELOPE')+' · candidate '+e.w+'×'+e.d+'×'+e.h+' · available '+aw+'×'+ad+'×'+ah+(rotated?' · rotated 90°':'')+' · SCREEN ONLY';push('SHOPPING FIT '+(pass?'PASS':'FAIL')+' · '+((fitHandoff.source&&fitHandoff.source.object_id)||'candidate')+' @ '+R().id)}return publishFitReturn(status,e,aw,ad,ah,rotated)}
-function inspect(){let r=R(),ch=S.ceilings[r.id];selName.textContent=r.label;selNote.textContent=r.note;kv.innerHTML=[['room',r.id],['source',r.source],['mode',S.roomModes[r.id]||r.mode],['floor',r.id+':floor'],['ceiling',r.id+':ceiling'],['ceiling Z',ch?ch+' mm':'UNMEASURED'],['walls',r.points.length],['HA anchors',M.anchors.filter(a=>a.room===r.id).length]].map(x=>'<span>'+esc(x[0])+'</span><span>'+esc(x[1])+'</span>').join('');scale.value=S.scale||'';ceil.value=ch||'';vertTruth.textContent=Object.keys(S.ceilings).length?'PARTIAL / LOCAL':'UNMEASURED';traceMeta.textContent='NODES '+((S.trace||[]).length)+' · WIDTH = SEGMENT_TRAVERSAL_COUNT · SOURCE = MANUAL_LOCAL';renderTraceLawState();renderFitProbe()}function renderSpatialAperture(){
+function inspect(){let r=R(),ch=S.ceilings[r.id];selName.textContent=r.label;selNote.textContent=r.note;kv.innerHTML=[['room',r.id],['source',r.source],['mode',S.roomModes[r.id]||r.mode],['floor',r.id+':floor'],['ceiling',r.id+':ceiling'],['ceiling Z',ch?ch+' mm':'UNMEASURED'],['walls',r.points.length],['HA anchors',M.anchors.filter(a=>a.room===r.id).length]].map(x=>'<span>'+esc(x[0])+'</span><span>'+esc(x[1])+'</span>').join('');scale.value=S.scale||'';ceil.value=ch||'';vertTruth.textContent=Object.keys(S.ceilings).length?'PARTIAL / LOCAL':'UNMEASURED';traceMeta.textContent='NODES '+((S.trace||[]).length)+' · WIDTH = SEGMENT_TRAVERSAL_COUNT · SOURCE = MANUAL_LOCAL';renderTraceLawState();renderFitProbe()}let apertureForm=null,apertureFormAddress=null;
+function captureApertureCare(address){
+ const O=document.getElementById('apObserved'),A=document.getElementById('apAction'),Rt=document.getElementById('apReturn'),K=document.getElementById('apKind');
+ const observed=(O&&O.value||'').trim(),action=(A&&A.value||'').trim(),ret=(Rt&&Rt.value||'').trim(),kind=(K&&K.value)||'CARE';
+ if(!observed||!action){push('CARE capture needs OBSERVED + ACTION');return}
+ const id='care-'+Date.now().toString(36),room=M.rooms.find(x=>x.id===address);
+ S.care=S.care||[];
+ S.care.push({schema:'house-care-episode/v0.1',id,created_at:new Date().toISOString(),updated_at:new Date().toISOString(),address,label:room?room.label:address,kind,observed,action,return_condition:ret,state:'OPEN',receipt:''});
+ save();push('CARE captured · '+id+' · in place');
+ apertureForm=null;apertureFormAddress=null;renderSpatialAperture();
+}
+function renderSpatialAperture(){
  const root=document.getElementById('houseAperture');if(!root||!M)return;
- if(!['PLAN','RCP','TRACE'].includes(view)){root.hidden=true;return}
- const target=canvas.querySelector('.room.sel');if(!target){root.hidden=true;return}
+ if(!['PLAN','RCP','TRACE'].includes(view)){root.hidden=true;apertureForm=null;return}
+ const target=canvas.querySelector('.room.sel');if(!target){root.hidden=true;apertureForm=null;return}
  const r=R(),mode=S.roomModes[r.id]||r.mode,open=(S.care||[]).filter(x=>x.address===r.id&&x.state!=='DONE').length;
  root.hidden=false;
+ const sr=document.querySelector('.stage').getBoundingClientRect(),tr=target.getBoundingClientRect();
+ const place=()=>{const w=root.offsetWidth||190,h=root.offsetHeight||84;let left=tr.right-sr.left+8,top=tr.top-sr.top+(tr.height-h)/2;if(left+w>sr.width-6)left=tr.left-sr.left-w-8;left=Math.max(6,Math.min(left,sr.width-w-6));top=Math.max(42,Math.min(top,sr.height-h-6));root.style.left=left+'px';root.style.top=top+'px'};
+ if(apertureForm==='CARE'&&apertureFormAddress===r.id){
+  if(!document.getElementById('apertureForm')){
+   root.innerHTML='<div class="ak">LOCUS / HOUSE · CARE</div><strong>'+esc(r.label)+'</strong><small>'+esc(mode.toUpperCase())+' · address '+esc(r.id)+' · form opens here; plan stays</small><div id="apertureForm" style="margin-top:7px;display:grid;gap:5px"><label class="note" style="display:block">CLASS<select id="apKind" style="width:100%"><option>CARE</option><option>MAINTENANCE</option><option>SUPPLY</option></select></label><label class="note" style="display:block">OBSERVED<input id="apObserved" placeholder="what is actually seen" style="width:100%"></label><label class="note" style="display:block">ACTION<input id="apAction" placeholder="smallest useful response" style="width:100%"></label><label class="note" style="display:block">RETURN<input id="apReturn" placeholder="evidence that closes it" style="width:100%"></label><div class="tools"><button id="apCapture">CAPTURE</button><button id="apClose">CLOSE</button></div><div class="note">Private local episode. No repository, HA or HOUSEBUS write. A receipt is still required to close it.</div></div>';
+   document.getElementById('apClose').onclick=()=>{apertureForm=null;apertureFormAddress=null;renderSpatialAperture()};
+   document.getElementById('apCapture').onclick=()=>captureApertureCare(r.id);
+  }
+  place();return;
+ }
+ apertureForm=null;
  root.innerHTML='<div class="ak">LOCUS / HOUSE</div><strong>'+esc(r.label)+'</strong><small>'+esc(mode.toUpperCase())+' · '+open+' OPEN/WATCH CARE EPISODE'+(open===1?'':'S')+' · address '+esc(r.id)+'</small><div class="spatialActions"><button data-house-locus="care">CARE</button><button data-house-locus="body">BODY</button><button data-house-locus="day">DAYLINE</button></div>';
- const sr=document.querySelector('.stage').getBoundingClientRect(),tr=target.getBoundingClientRect(),w=root.offsetWidth||190,h=root.offsetHeight||84;
- let left=tr.right-sr.left+8,top=tr.top-sr.top+(tr.height-h)/2;
- if(left+w>sr.width-6)left=tr.left-sr.left-w-8;
- left=Math.max(6,Math.min(left,sr.width-w-6));top=Math.max(42,Math.min(top,sr.height-h-6));
- root.style.left=left+'px';root.style.top=top+'px';
- root.querySelector('[data-house-locus="care"]').onclick=()=>{view='CARE';history.replaceState(null,'','#CARE');render()};
+ place();
+ root.querySelector('[data-house-locus="care"]').onclick=()=>{apertureForm='CARE';apertureFormAddress=r.id;renderSpatialAperture()};
  root.querySelector('[data-house-locus="body"]').onclick=()=>bodyContext.click();
  root.querySelector('[data-house-locus="day"]').onclick=()=>daylineContext.click();
 }
