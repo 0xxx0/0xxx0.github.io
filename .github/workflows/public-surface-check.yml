@@ -189,6 +189,7 @@ jobs:
           node fold-bloom/convergence/jspace-steering/promotion-gate.selftest.mjs
           node fold-bloom/convergence/change-calculus/selftest.mjs
           node fold-bloom/convergence/change-calculus/live-sufficiency.mjs
+          node fold-bloom/convergence/change-calculus/live-step-order.mjs
           python3 -m py_compile fold-bloom/convergence/jspace-steering/export_jlens.py
       - name: Test LISTEN preview render
         env:

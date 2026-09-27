@@ -631,6 +631,7 @@ function flipStateLine(index){
 $('#stateProject').onclick=syncStateChange;
 $('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
 $('#stateCopy').onclick=async()=>{const change=syncStateChange();if(!change.valid)return;try{await navigator.clipboard.writeText(change.token);setStatus('STATE TOKEN COPIED · '+change.mask)}catch(_){setStatus('STATE TOKEN · '+change.token)}};
+$('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
