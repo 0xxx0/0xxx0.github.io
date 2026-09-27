@@ -1314,3 +1314,61 @@ RETURN    = never lose the source.
 And:
 
 > **Do not map everything to everything. Keep the source local, keep the address exact, make apertures small, let composition recurse, and preserve the path back.**
+
+
+---
+
+# 27. Repository proof seal — 2026-09-27
+
+Code/proof head:
+
+- 58d18ecc6565085fc25c6e999b1d03754c42a51a
+- PR #459
+
+Evidence:
+
+- Route Registration 36302101373 — PASS.
+- public-surface-check 36302101438 — PASS.
+- pure addressed READ course law — PASS.
+- existing LIVE audio STEP/FLOW course — PASS.
+- READFIELD → LIVE READ/RIDE browser continuity — PASS.
+- direct browser File → LIVE READ/RIDE — PASS.
+- LIVE J-space co-driver browser seam — PASS.
+- FIELD LAB mobile + cross-projection continuity — PASS.
+- LIVE mobile regression — PASS.
+- critical browser smoke — PASS.
+- recovered source/media verification — PASS.
+- frozen Sleeper City/Painting regressions — PASS.
+
+The READ/RIDE browser witness proved, in one same-origin session:
+
+~~~text
+READFIELD packet
+→ BOOK TEST
+→ carried nonzero cursor
+→ PARAGRAPH address read://sha256%3Abook-test/paragraph/2@27-70
+→ witness “Second paragraph carries the cursor target.”
+→ STEP NEXT
+→ new exact read:// address
+→ SECTION grain
+→ exact section witness
+→ browser File direct.md
+→ same READ/RIDE machinery
+→ LOCAL_FILE authority
+~~~
+
+The proof also asserts that LIVE public state does not expose the unrelated/full source tail.
+
+This promotes the repository claim from “implemented, CI pending” to:
+
+> **repository-proven candidate**
+
+It does **not** prove:
+- that embodied reading is better than ordinary READFIELD;
+- comprehension improvement;
+- a durable personal library;
+- PDF/EPUB/DOCX support;
+- RELEASE→STEP usefulness;
+- route-residue usefulness.
+
+The next gate is now ordinary real-source use, not more architecture.
