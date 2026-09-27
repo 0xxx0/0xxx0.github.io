@@ -26,7 +26,7 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 .summary div{padding:8px;border-right:1px solid #202a2e;border-bottom:1px solid #202a2e;min-width:0}
 .summary b{display:block;color:#75c8e7;font-size:8px}.summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .source{margin-top:8px;color:#aab5b9;white-space:pre-wrap;overflow-wrap:anywhere}
-.micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}
+.micro{color:#7f8b90;font-size:9px;margin-top:8px;max-width:760px}.offer{margin-top:12px;padding:10px;border-left:3px solid #91db8a;background:#07100b}.offer b{display:block;color:#91db8a}.offer p{margin:5px 0;color:#c7d1cd}.offer code{color:#75c8e7;overflow-wrap:anywhere}
 @media(max-width:650px){body{padding:12px}h1{font-size:52px}.summary{grid-template-columns:1fr 1fr}.actions button{flex:1 1 42%}.actions .clear{margin-left:0}}
 </style>
 </head>
@@ -59,9 +59,11 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
   <button data-act="verse-source" disabled>VERSE SOURCE</button>
   <button data-act="lens-return" disabled>LENS RETURN</button>
   <button data-act="same-world" disabled>OPEN SAME WORLD</button>
+  <button data-act="carry-dayline" disabled>CARRY OPERATOR → DAYLINE</button>
   <button data-act="clear" class="clear">CLEAR</button>
 </div>
-<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. None may satisfy or rewrite Sleeper Gate proofs. LIVE remains a donor until a typed route/ride seam exists.</div>
+<div class="micro">READFIELD receives source or witness as an inspection handoff. Verse receives source + first-line focus only. Scale Lens receives the exact artifact as an addressed projection object. CARRY OPERATOR is explicit consent to test the artifact transferInstruction in Dayline; its later RETURN is evidence-only and cannot become a Sleeper Gate proof.</div>
+<div id="daylineOffer" class="offer" hidden><b id="offerTitle">DAYLINE RETURN OFFER</b><p id="offerBody"></p><code id="offerMeta"></code><div class="actions"><button data-act="dismiss-offer">DISMISS OFFER</button></div></div>
 </div>
 </div>
 
@@ -82,13 +84,14 @@ h2{margin:5px 0 8px}.card{border-top:1px solid #2b363b;padding:14px 0}
 <div class="warn">BOUNDARY OBJECT, NOT BUS. Return Artifact v2 may cross hosts for inspection, writing, projection or later replay, but the recipient gains no right to reinterpret a projection as a Gate proof or to mutate the completed run.</div>
 <div class="card"><div class="state">STATE / RECEIPT</div><div class="links"><a href="./state.json">STATE JSON</a><a href="/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json">SYSTEM FOLD RETURN</a><a href="/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json">FIELD CONVERGENCE</a><a href="/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json">AUTHORITY REPAIR</a></div></div>
 </main>
+<script src="/lib/interphase-carrier.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s), input=$('#returnInput'),status=$('#bridgeStatus'),summary=$('#summary'),buttons=[...document.querySelectorAll('[data-act]')];
 const CELLS=new Set(['doors','one-return','four-verbs','eighth-position','wind','question']);
 const FIGURES=new Set(['urchin','slothcake','kite']);
 const GATES=['PROVENANCE','TRUTH','COMPRESSION','RETRIEVAL','OPERATION','MEASURE','TRANSFER','RESILIENCE'];
-let artifact=null;
+let artifact=null,carrier=null;
 
 function hashString(value){
   let hash=2166136261;
