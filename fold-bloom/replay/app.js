@@ -92,8 +92,13 @@ function syncCourseAddress(p=scrubP){
   const hit=courseAddressAt(replayCueCourse(),p),el=$('courseAddress');if(el)el.textContent=hit.address;
   document.documentElement.dataset.replayCourseAddress=hit.address;return hit;
 }
+function setReplayCenterWitness(p=scrubP){
+  const word=activeWord(score,clamp(p)*clipDurationMs(score));
+  setReplayCenterWitness(p);
+  return word
+}
 function setPlayhead(p,{seekListen=true}={}){
-  scrubP=clamp(p);started=performance.now()-scrubP*clipDurationMs(score);
+  scrubP=clamp(p);started=performance.now()-scrubP*clipDurationMs(score);setReplayCenterWitness(scrubP);
   if(syncListen&&seekListen){
     const api=listenApi();if(api){try{api.seek(absoluteMs(score,scrubP)/1000)}catch(_){}}
   }
