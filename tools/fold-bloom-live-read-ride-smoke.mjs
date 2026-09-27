@@ -23,14 +23,14 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  }));
  const f=document.createElement('iframe');f.id='f';f.style='width:430px;height:900px;border:0;display:block';f.src='/fold-bloom/live/?source=readfield&course=STEP';document.body.prepend(f);
  const W=()=>f.contentWindow,D=()=>W().document;
- await wait(()=>D().documentElement.dataset.foldBloomReadRide==='ready'&&W().FoldBloomLive?.read?.current?.(),'READ ride boot');
+ await wait(()=>D().documentElement.dataset.foldBloomReadRide==='ready'&&W().FoldBloomLive?.read?.current?.(),15000,'READ ride boot');
  const a=W().FoldBloomLive.read.current();rec.start={label:a.source.label,authority:a.source.authority,grain:a.course.grain,mode:a.course.mode,address:a.course.address,text:a.witness?.text,returnAddress:a.returnAddress};rec.handoffConsumed=!sessionStorage.getItem('fold-bloom.read-ride.handoff.v01');
  const startAddress=a.course.address;W().FoldBloomLive.course.step(1);
- await wait(()=>W().FoldBloomLive.read.current()?.course?.address&&W().FoldBloomLive.read.current().course.address!==startAddress,'paragraph step');
+ await wait(()=>W().FoldBloomLive.read.current()?.course?.address&&W().FoldBloomLive.read.current().course.address!==startAddress,15000,'paragraph step');
  const b=W().FoldBloomLive.read.current();rec.step={address:b.course.address,text:b.witness?.text,progress:b.course.progress};
  W().FoldBloomLive.course.cycleGrain();await sleep(120);const g=W().FoldBloomLive.read.current();rec.grain={grain:g.course.grain,address:g.course.address,text:g.witness?.text};
  const file=new W().File(['# DIRECT\\n\\nAlpha direct.\\n\\nBeta direct.'],'direct.md',{type:'text/markdown'});
- await W().FoldBloomLive.read.loadFile(file);await wait(()=>W().FoldBloomLive.read.current()?.source?.label==='direct.md','direct file');
+ await W().FoldBloomLive.read.loadFile(file);await wait(()=>W().FoldBloomLive.read.current()?.source?.label==='direct.md',15000,'direct file');
  const d=W().FoldBloomLive.read.current();rec.direct={label:d.source.label,authority:d.source.authority,kind:d.source.kind,grain:d.course.grain,address:d.course.address,text:d.witness?.text};
  const root=D().documentElement;rec.dataset={readRide:root.dataset.foldBloomReadRide,authority:root.dataset.foldBloomReadAuthority,courseKind:root.dataset.foldBloomCourseKind,courseMode:root.dataset.foldBloomCourseMode};
  rec.rawAbsent=!JSON.stringify(W().FoldBloomLive.state()).includes('Third paragraph after the second heading');
