@@ -166,7 +166,7 @@ buttons.forEach(b=>b.onclick=()=>{
   if(act==='verse-source')return verse();
   if(act==='lens-return')return lens();
   if(act==='same-world')return sameWorld();
-};
+});
 try{const saved=sessionStorage.getItem('sleeper.return.bridge.v1');if(saved){input.value=saved;validate(saved)}}catch(_){}
 })();
 </script>
