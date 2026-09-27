@@ -94,7 +94,8 @@ function syncCourseAddress(p=scrubP){
 }
 function setReplayCenterWitness(p=scrubP){
   const word=activeWord(score,clamp(p)*clipDurationMs(score));
-  setReplayCenterWitness(p);
+  document.documentElement.dataset.replayCenterText=String(word?.text||score.message||'').slice(0,80);
+  document.documentElement.dataset.replayCenterMode=word?.text?'WORD':'MESSAGE';
   return word
 }
 function setPlayhead(p,{seekListen=true}={}){
