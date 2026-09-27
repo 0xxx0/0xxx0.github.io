@@ -16,7 +16,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
 const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;height:760px;border:0';f.src=src;document.body.prepend(f);return f};
 (async()=>{try{
   // READFIELD: JSON is a navigable structure, exact path survives, mark is honest residue.
-  let f=frame('/docs/?src=/control/CURRENT.json'),W=()=>f.contentWindow,D=()=>W().document;
+  let f=frame('/docs/?src=/showcase-manifest.json'),W=()=>f.contentWindow,D=()=>W().document;
   const ap=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},15000,'readfield json');
   await wait(()=>D().querySelector('.jsonCard .jsonChild'),15000,'json card');
   const before=ap.snapshot(),child=D().querySelector('.jsonChild'),path=child.dataset.jsonPath;child.click();
