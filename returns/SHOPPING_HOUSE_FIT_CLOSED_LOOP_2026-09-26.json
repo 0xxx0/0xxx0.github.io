@@ -32,9 +32,12 @@
   "return": "/shopping/",
   "stop": "Do not auto-promote storage_home, lifecycle, purchase decision or installation from a fit receipt.",
   "validation": {
-    "selftest": "tools/shopping-house-fit-selftest.mjs",
-    "public_surface_run": 36288765395,
-    "route_registration_run": 36288765389,
-    "result": "PASS on pre-boundary-tightening head b7bfc6c3cdd67d6bc4c5096a2b782cae04981fc3; rerun required after this receipt update"
+    "selftest": "/tools/shopping-house-fit-selftest.mjs",
+    "required_checks": [
+      "public-surface-check",
+      "Route Registration"
+    ],
+    "merge_gate": "both required checks must pass on the current PR head",
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
   }
 }
