@@ -150,9 +150,10 @@ details.advanced[open]>summary:after{content:" −"}
  <div class="guideActions"><button id="guideField" class="hot">LOAD FIELD NOW</button><button id="guideDemo">TINY DEMO</button><button id="guideClose">USE MY TEXT</button></div>
 </div></div>
 <script src="../../field-aperture.js"></script>
+<script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],TAU=Math.PI*2,C=$('#map'),X=C.getContext('2d');
+const $=Micro.$,$$=Micro.$$,TAU=Micro.TAU,C=$('#map'),X=C.getContext('2d');
 const DEMO='the door remembers rain\nwe walk through another name\nthe room keeps the weather';
 const JUEJU='未始来时末已示\n\n\n';
 const FORMS={
@@ -166,7 +167,7 @@ const FORMS={
  jueju5:{name:'JUEJU 5',lines:4,chars:5,note:'historical 平仄/rime OPEN'}
 };
 const S={source:'',nodes:[],edges:[],selected:null,mode:'PAGE',fieldLoaded:false,locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],corpus:[],bankOperation:'REPLACE',weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=Micro.esc; /* was inline copy of lib/dom.js esc; semantics byte-identical */
 function isHan(ch){return /[\u3400-\u9fff\uf900-\ufaff]/u.test(ch)}
 function tokenizeLine(line,li){let out=[],re=/[\u3400-\u9fff\uf900-\ufaff]|[\p{L}\p{N}'’-]+|[^\s]/gu,m,ti=0;while((m=re.exec(line))){let raw=m[0];if(/^\s+$/.test(raw))continue;out.push({id:'L'+(li+1)+'T'+(++ti),line:li,index:ti-1,text:raw,norm:raw.toLocaleLowerCase(),start:m.index,x:0,y:0,vx:0,vy:0})}return out}
 async function loadFieldNow(){

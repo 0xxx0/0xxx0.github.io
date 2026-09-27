@@ -81,12 +81,13 @@ footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display
 <script src="../lib/port-shopping.js"></script>
 <script src="./object-store.js"></script>
 <script src="./object-aperture.js"></script>
+<script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s);
+const $=Micro.$;
 const SESSION='human.port.object.session.v01',RECEIPTS='human.port.object.receipts.v01';
 let routeContracts=null,obj=null,textAperture=null,imageAperture=null,focus=null,scope='whole',selected=null,likely=null;
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=Micro.esc; /* was inline copy of lib/dom.js esc; semantics byte-identical */
 const note=(t,hot=false)=>{$('#status').textContent=t;$('#status').classList.toggle('hot',hot)};
 const fmtBytes=n=>n==null?'—':n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB';
 const routeById=id=>routeContracts?.routes.find(r=>r.id===id);

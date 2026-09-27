@@ -264,9 +264,10 @@ kbd{border:1px solid var(--hair);border-radius:5px;padding:1px 4px;color:#bac6cb
   </div>
 </div>
 
+<script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],TAU=Math.PI*2;
+const $=Micro.$,$$=Micro.$$,TAU=Micro.TAU;
 const C=$('#main'),X=C.getContext('2d'),TM=$('#tileMini'),TX=TM.getContext('2d'),GM=$('#glyphMini'),GX=GM.getContext('2d');
 
 const SOURCE_ROWS=[
@@ -626,7 +627,7 @@ function svg(){
  for(let k=0;k<sym;k++)parts+=`<polyline points="${p.map(q=>q.join(',')).join(' ')}" transform="rotate(${k*360/sym} 250 250)" fill="none" stroke="black" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`;
  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="white"/>${parts}</svg>`
 }
-function download(name,data,type){let a=document.createElement('a');a.download=name;a.href=URL.createObjectURL(new Blob([data],{type}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+const download=(name,data,type='')=>Micro.download(name,data,type); /* machinery now lib/micro.js; type default '' keeps the page's no-default contract */
 $('#exportSvg').onclick=()=>State.path.length?download('cell-foundry-route.svg',svg(),'image/svg+xml'):toast('SELECT A ROUTE FIRST');
 $('#exportReceipt').onclick=()=>download('cell-foundry-receipt.json',JSON.stringify(renderReceipt(),null,2),'application/json');
 ['stroke','sym','simp','mm'].forEach(idn=>$('#'+idn).oninput=()=>{drawGlyphMini();draw();renderReceipt()});

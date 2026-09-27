@@ -18,10 +18,11 @@ button{font:inherit;color:inherit;background:#10161c;border:1px solid var(--hair
 <div class="k">FAULT LAW</div><div class="v law" id="ilaw"></div><div class="k">GENOME</div><div class="v" id="igen"></div><div class="k">WHY IT LIVES</div><div class="v" id="iwhy"></div>
 <div class="k">LOCAL OPERATIONS</div><div class="row"><button data-mut="bits">precision</button><button data-mut="wrap">wrap</button><button data-mut="sing">singularity</button><button data-mut="alias">alias</button><button data-mut="memory">memory</button><button data-mut="op">operator</button></div>
 <div class="k">EXPORT</div><div class="row"><button id="copy">COPY GENOME</button><button id="png">PNG</button></div></aside></div></div></div>
+<script src="/lib/micro.js"></script>
 <script>
-const $=s=>document.querySelector(s),grid=$('#grid'),TAU=Math.PI*2;let pop=[],picked=[],inspect=null,t0=performance.now();
+const $=Micro.$,grid=$('#grid'),TAU=Micro.TAU;let pop=[],picked=[],inspect=null,t0=performance.now();
 const modes=['F32','I8','U8','NIBBLE','DEC2'],ops=['tan','recip','xor','fold','mix'];
-function rnd(a=1){return Math.random()*a}function choice(a){return a[rnd(a.length)|0]}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function rnd(a=1){return Math.random()*a}function choice(a){return a[rnd(a.length)|0]}const clamp=Micro.clamp; /* was inline copy; semantics byte-identical */
 function specimen(i=0){return{id:crypto.randomUUID?.()||Math.random().toString(36).slice(2),name:'FAULT '+String(i+1).padStart(2,'0'),g:{mode:choice(modes),bits:choice([2,3,4,5,6,8,12,23]),wrap:choice([4,8,16,32,64,128,256]),eps:choice([.001,.005,.01,.03,.08,.2]),alias:choice([1,2,3,4,6,8]),memory:choice([0,.2,.45,.7,.88,.96]),op:choice(ops),gain:rnd(3)+.4,drift:rnd(.08)+.002},why:''}}
 function q(v,g){
  if(!Number.isFinite(v))v=Math.sign(v||1)*g.wrap;

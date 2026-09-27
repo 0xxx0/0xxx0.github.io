@@ -52,9 +52,10 @@ button,input,select{font:inherit;color:inherit;background:#10171b;border:1px sol
 </div>
 <footer class="statusbar"><span id="status" class="status">RECT · stable IDs own semantics; coordinates are disposable.</span><button id="fingerprint">FIXTURE —</button></footer>
 </div>
+<script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],SVGNS='http://www.w3.org/2000/svg';
+const $=Micro.$,$$=Micro.$$,SVGNS='http://www.w3.org/2000/svg';
 const NODES=[
  {id:'src',label:'SOURCE',role:'source',ports:{'+X':{type:'Text',dir:'out'}}},
  {id:'tok',label:'TOKENIZE',role:'transform',ports:{'-X':{type:'Text',dir:'in'},'+X':{type:'Tokens',dir:'out'}}},
