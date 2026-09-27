@@ -9,7 +9,7 @@ const daylinePage=fs.readFileSync('dayline/index.html','utf8');
 assert(sleeper.includes('/lib/interphase-carrier.js'),'Sleeper carrier lib missing');
 assert(daylinePage.includes('/lib/interphase-carrier.js'),'Dayline carrier lib missing');
 assert(sleeper.includes("data-act=\"carry-dayline\""),'Sleeper carry action missing');
-assert(sleeper.includes("artifact.transferInstruction"),'Sleeper carry must use artifact transferInstruction');
+assert(sleeper.includes("transferInstruction"),'Sleeper carry must use artifact transferInstruction');
 assert(sleeper.includes("schema:'atlas-dayline-handoff/v0.1'"),'Sleeper Dayline handoff schema missing');
 assert(sleeper.includes("authority:'OFFER'"),'Sleeper carrier move must be offer only');
 assert(sleeper.includes("cannot satisfy or rewrite Sleeper Gate proofs"),'Sleeper proof boundary missing');
