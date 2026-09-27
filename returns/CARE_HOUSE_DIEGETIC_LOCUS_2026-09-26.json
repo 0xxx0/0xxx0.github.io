@@ -1,0 +1,38 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "objective": "Turn game-derived diegetic interface research into a reality-anchored CARE/HOUSE interaction pattern without adding a dashboard, health score, new state owner or actuation authority.",
+  "theory": [
+    "AGENCY / CARE / LIGHTCONE orientation retained: CARE SCOPE != COMPETENCE != AUTHORITY.",
+    "Wider scope is only useful when local resolution and lawful efficacy are preserved.",
+    "Selected local condition never becomes a global medical/safety score."
+  ],
+  "donors": [
+    "Dead Space: world/object remains visible; interface attaches to locus",
+    "Spiritfarer: care becomes a concrete relational action where lawful",
+    "NieR:Automata: small primary control grammar",
+    "RimWorld: structure != condition != capacity"
+  ],
+  "delta": {
+    "care": "selected body-plan locus → OBSERVE / PRIOR / COURSE; map remains visible; prior evidence reuses ghost projection",
+    "house": "selected room → CARE / BODY / DAYLINE; spatial substrate remains visible; existing handoffs retain authority",
+    "shared_runtime": "NONE; invariant repeated across two unequal host-local implementations only"
+  },
+  "proof_contract": [
+    "CARE phone browser probe must click a real body-plan region and verify map visibility, aperture containment, exactly three actions, OBSERVE focus and COURSE transition.",
+    "HOUSE phone browser probe must verify selected room visibility, aperture containment, exactly three actions and native CARE transition.",
+    "Inline CARE/HOUSE JavaScript must parse.",
+    "Game-donor transfer registry must resolve both recipient routes and retain no-new-sovereign-app law."
+  ],
+  "authority": {
+    "care_locus": "derived UI only; existing CARE state/operations own effects",
+    "house_locus": "derived UI only; existing HOUSE projection/context bridges own effects",
+    "device_truth": "HA/HOUSEBUS only",
+    "medical_claims": "none"
+  },
+  "privacy": "No personal health/care case, household episode, sensor telemetry or private message content is committed. Public repo contains mechanism/code/contracts only.",
+  "falsifier": "Remove the locus aperture if it obscures the represented substrate, creates score/urgency semantics, duplicates host navigation without reducing translation, grows beyond three immediate actions, or becomes a second state owner.",
+  "next": "If CARE and HOUSE pass browser proof, retain host-local implementations. BODY/FIT becomes the next unequal candidate only if a locus-attached FIT/SENSE/PATINA move reduces translation without adding health scoring.",
+  "return": "/care/"
+}

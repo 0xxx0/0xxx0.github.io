@@ -2,11 +2,16 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.5",
-  "released": "2026-09-22",
-  "state": "EXPERIMENT",
+  "version": "0.6",
+  "released": "2026-09-26",
+  "state": "ACTIVE_CANDIDATE",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "Phone-sized browser probe clicks an actual body-plan region and verifies the map remains visible, aperture remains inside the map, and native CARE operations remain the effect path.",
+    "Game donor transfer is bounded by Dead Space world-attached interface, Spiritfarer concrete care action, NieR small control grammar, and RimWorld structure/condition/capacity separation; branded skin and game scoring do not transfer.",
+    "The locus aperture owns no care state, score, diagnosis, urgency, treatment, or action authority; it derives from current selection + existing event history only.",
+    "LOCUS / CARE exposes exactly three existing host operations: OBSERVE focuses raw capture, PRIOR reuses prior same-region ghost evidence, COURSE opens the existing longitudinal FOLLOW projection.",
+    "Added a diegetic LOCUS / CARE aperture attached to the selected reference body-plan region while the body map remains visible.",
     "attached Port evidence can OPEN SOURCE back into HUMAN PORT when the session object or LOCAL_STASH bytes remain available",
     "added PORT CASE: exact CARE snapshot becomes hashed human-port-object/v0.1 JSON with case identity retained in provenance",
     "added HUMAN PORT → CARE evidence route for TEXT/JSON/IMAGE/FILE objects; explicit ATTACH required",
@@ -64,7 +69,13 @@
     "Port → CARE attachment is explicit and does not duplicate local file/image bytes",
     "session/reference-only Port evidence is surfaced by STEP BACK as a durability gap",
     "direct CONTACT consult chooses NEED only when CARE ASK is non-empty",
-    "CARE source-return reconstructs only addressable Port objects; unavailable session-only sources surface an explicit non-durable warning"
+    "CARE source-return reconstructs only addressable Port objects; unavailable session-only sources surface an explicit non-durable warning",
+    "diegetic locus aperture derives from selected body-plan region and existing event history only",
+    "locus aperture exposes OBSERVE / PRIOR / COURSE and no fourth immediate action",
+    "body map remains present behind locus aperture",
+    "PRIOR uses existing ghost region/trace projection without creating a new event",
+    "local locus condition does not generate whole-body score, diagnosis, urgency or treatment interpretation",
+    "CARE locus browser smoke is executor-verifiable; subjective interface preference is optional evidence only"
   ],
   "open_gaps": [
     "cross-device private evidence portability remains unresolved",
@@ -97,6 +108,19 @@
     ],
     "subjective_optional": [
       "mobile trace feel / burden"
+    ]
+  },
+  "diegetic_locus": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "donor_transfer": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
+    "invariant": "body remains visible → exact locus → OBSERVE / PRIOR / COURSE → native CARE state",
+    "authority": "NONE beyond existing CARE operations",
+    "persistence": "none; derived from existing selection/event state",
+    "nonclaims": [
+      "no diagnosis",
+      "no urgency",
+      "no health score",
+      "no treatment recommendation"
     ]
   }
 }

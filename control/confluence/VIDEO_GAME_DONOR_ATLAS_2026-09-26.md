@@ -429,3 +429,38 @@ Do not turn FIELD INDEX into a quest log. For each changed addressed route, deri
 This is a knowledge-gap projection, not a task, priority, read-state or obligation. It creates no new store. SEEN remains local orientation only.
 
 Implementation/proof contract: `/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json`.
+
+## 23. SPIRITFARER — care as a concrete relational verb
+
+Mechanism: Spiritfarer makes acts of care part of the playable relationship rather than reducing a character to a status dashboard. Thunder Lotus describes the Hug as becoming central and as reinforcing mechanical ways to take care of others.
+
+Steal:
+- CARE SHOULD BECOME A CONCRETE RELATIONAL VERB when a lawful action actually exists.
+- Keep the cared-for entity/person/object primary; the interface is subordinate.
+- Relationship history may inform the next interaction without becoming a score.
+- A small contextual action can carry more meaning than a generic “care dashboard.”
+
+FIELD targets: CARE local locus apertures; HOUSE environmental care; HUMAN PORT bounded relational actions; training/coaching handoffs.
+
+Do not steal: no affection meter, intimacy score, chore economy, sentimental obligation generator, or implication that game-care semantics model medical/interpersonal reality.
+
+Source: https://www.gamedeveloper.com/design/inside-the-thoughtful-design-of-thunder-lotus-i-spiritfarer-i-
+
+## F. DIEGETIC CARE LOCUS
+
+Donors: Dead Space + Spiritfarer + NieR:Automata + RimWorld.
+
+```
+REPRESENTED BODY / ROOM / OBJECT STAYS VISIBLE
+→ exact locus
+→ 1–3 attached lawful operations
+→ local history / consequence
+→ RETURN
+```
+
+Direct fit: CARE and HOUSE first; BODY/FIT is the next unequal candidate.
+
+Transfer proof: /control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md
+
+Do not generalize into a shared UI shell until a third unequal host proves the invariant and duplicated host-local implementation becomes a real maintenance cost.
+

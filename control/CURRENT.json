@@ -497,13 +497,15 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + SHOPPING FIT RETURN",
+      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN",
       "state": "ACTIVE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ projects one addressed physical substrate as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS while HA/HOUSEBUS retains device truth/actuation. 0.7.6 closes the session-only Shopping FIT evidence loop: HOUSE renders the source-owned Shopping evidence witness, screens explicit candidate vs measured available W/D/H, emits an OFFER_ONLY / EVIDENCE_ONLY exact-item fit result, and never mutates Shopping lifecycle or canonical HOUSE geometry.",
+      "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views (PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS) while HA/HOUSEBUS retains device truth/actuation. 0.7.6 attaches exactly CARE / BODY / DAYLINE to the selected room as a diegetic locus aperture — second unequal proof of the diegetic-locus invariant after CARE 0.6, shared runtime extraction deferred; each move delegates to an existing HOUSE projection/context bridge and gains no new store or actuation. 0.7.6 also closes the session-only Shopping FIT evidence loop: HOUSE renders the source-owned Shopping evidence witness, screens candidate vs measured available W/D/H, and emits an OFFER_ONLY / EVIDENCE_ONLY exact-item fit result without mutating Shopping lifecycle or canonical HOUSE geometry.",
       "version": "0.7.6",
       "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
       "evidence": [
+        "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
+        "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
         "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
       ]
     },
@@ -1107,7 +1109,8 @@
     "self_verification_audit": "/control/confluence/SELF_VERIFICATION_FIRST_2026-09-25.md",
     "deep_donor_orientation": "/control/confluence/DEEP_DONOR_ORIENTATION_2026-09-26.md",
     "video_game_donor_atlas": "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
-    "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json"
+    "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+    "care_diegetic_locus": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
