@@ -104,8 +104,14 @@ jobs:
           node spikes/fold-bloom-message-replay-001/selftest.mjs
       - name: Test FOLD BLOOM REPLAY addressed STEP
         run: node tools/fold-bloom-replay-step-smoke.mjs
+      - name: Validate READFIELD source trail law
+        run: node tools/read-trail-selftest.cjs
+      - name: Test READFIELD structured JSON focus + marks
+        run: node tools/readfield-focus-usability-smoke.mjs
       - name: Validate INTERPHASE extension bundle syntax
         run: |
+          node --check field-aperture.js
+          node --check lib/read-trail.js
           node --check interphase-extension.js
           node --check lib/interphase-core.js
           node --check lib/interphase-dom.js
