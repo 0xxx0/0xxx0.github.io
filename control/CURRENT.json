@@ -192,7 +192,7 @@
       "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2 + RETURN BRIDGE 0.1",
       "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical ONE RETURN v2 remains phrase + verse cell + figure → deterministic city → eight enacted Gate proofs → origin RETURN → Return Artifact v2. RETURN BRIDGE 0.1 additionally exposes an explicit, consent-gated transferInstruction carry into Dayline through interphase-carrier/v0.1; Dayline may change focus and produce real-world witness, but the source object stays sleeper:return:<worldKey> and the returning offer is EVIDENCE ONLY, never Gate-proof mutation. READFIELD / Verse / Scale Lens continuations and LIVE / ASCII City donor boundaries remain intact.",
+      "retained_function": "Canonical ONE RETURN v2 remains phrase + verse cell + figure → deterministic city → eight enacted Gate proofs → origin RETURN → Return Artifact v2. A user-supplied completed runtime witness for world 0C4VA6Q now passes exact structural derivation validation (world/cell/Gate tokens+methods/TRANSFER prerequisite/dominant operator/returned phrase/witness order/path/measures); this does not independently attest live network origin. RETURN BRIDGE may explicitly carry its SPIRAL transfer instruction into Dayline, but that real-world carry has not yet been observed.",
       "evidence": [
         "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -209,9 +209,12 @@
         "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
         "/returns/INTERPHASE_CARRIER_2026-09-27.json",
         "/lib/interphase-carrier.js",
-        "/tools/sleeper-dayline-carrier-selftest.cjs"
+        "/tools/sleeper-dayline-carrier-selftest.cjs",
+        "/lib/sleeper-return-v2.js",
+        "/tools/sleeper-return-v2-selftest.cjs",
+        "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
       ],
-      "last_return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
+      "last_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
       "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
       "version": "v2-era / City Engine v0.2 + RETURN BRIDGE 0.1"
     },

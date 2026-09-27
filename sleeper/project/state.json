@@ -1,6 +1,6 @@
 {
   "schema": "sleeper-project-state/v0.2",
-  "updated": "2026-09-27T14:16:00+08:00",
+  "updated": "2026-09-27T15:58:00+08:00",
   "purpose": "Keep ONE RETURN as the single Sleeper runtime identity while making verified Return Artifact v2 a usable boundary object: exact source/world/proof truth stays Sleeper-owned while bounded inspection, writing, projection and explicit real-world continuation may occur through unequal hosts.",
   "now": [
     {
@@ -65,7 +65,9 @@
   ],
   "unresolved": [
     "Preserve historical deployment/version distinctions if further evidence appears; current live address does not prove byte identity with every prior Work deployment.",
-    "Do not resolve historical three-figure versus remembered four-configuration variants by analogy; preserve version distinction if further evidence appears."
+    "Do not resolve historical three-figure versus remembered four-configuration variants by analogy; preserve version distinction if further evidence appears.",
+    "Return Artifact v2 dominantOperator is raw successful-use frequency across ergonomically unequal operators; do not interpret it as a stable human trait. Test whether a future artifact should distinguish navigation/utility use from proof-bearing operator use.",
+    "Return Artifact v2 pathSignature retains only the final 36 U/D/L/R samples. Full same-world route comparison/ghost replay requires a separate optional RouteWitness; never reconstruct missing trajectory from the tail."
   ],
   "laws": [
     "RECOVER BEFORE INVENTING.",
@@ -80,14 +82,15 @@
     "receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
     "branch": "sleeper/converge-city-engine-runtime-20260922",
     "system_fold": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
-    "continuation_fold": "/returns/INTERPHASE_CARRIER_2026-09-27.json"
+    "continuation_fold": "/returns/INTERPHASE_CARRIER_2026-09-27.json",
+    "human_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
   },
   "continuation": {
     "project": "/sleeper/project/",
     "return_bridge": "0.1",
     "carrier": "interphase-carrier/v0.1",
     "operator_carry": {
-      "status": "IMPLEMENTED_CANDIDATE",
+      "status": "READY_WITH_VALIDATED_RETURN / DAYLINE_CARRY_NOT_YET_OBSERVED",
       "source_field": "Return Artifact v2 transferInstruction",
       "target": "/dayline/",
       "consent": "explicit CARRY OPERATOR action only",
@@ -98,6 +101,29 @@
       "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md",
       "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
       "/returns/INTERPHASE_CARRIER_2026-09-27.json"
-    ]
+    ],
+    "return_validator": {
+      "status": "IMPLEMENTED",
+      "module": "/lib/sleeper-return-v2.js",
+      "scope": "structural derivation consistency only",
+      "rejects": [
+        "world/cell/figure mismatch",
+        "Gate token or method mismatch",
+        "duplicate/missing Gates",
+        "derived output mismatch",
+        "non-monotonic proof ledger",
+        "invalid bounded path/measures"
+      ]
+    },
+    "human_return": {
+      "status": "STRUCTURALLY_VALIDATED_USER_SUPPLIED",
+      "world_key": "0C4VA6Q",
+      "observed_at": "2026-09-27T15:58:00+08:00",
+      "receipt": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+      "dominant_operator": "spiral",
+      "transfer_instruction": "Change the representation; verify that the underlying thing survives.",
+      "dayline_carry": "NOT_YET_OBSERVED",
+      "boundary": "User supplied completed runtime witness; derivation is validated against recovered v2 law, but network origin/untampered session is not independently attested."
+    }
   }
 }

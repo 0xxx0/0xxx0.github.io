@@ -1,0 +1,142 @@
+{
+  "schema": "sleeper-human-return-observation/v0.1",
+  "observed_at": "2026-09-27T15:58:00+08:00",
+  "world_key": "0C4VA6Q",
+  "evidence_class": "USER_SUPPLIED_COMPLETED_RUNTIME_WITNESS",
+  "observation": "User stated they finished ONE RETURN and supplied the runtime's COPY WITNESS JSON in chat.",
+  "structural_validation": {
+    "status": "PASS",
+    "validator": "/lib/sleeper-return-v2.js",
+    "checks": [
+      "schema/version exact",
+      "world key recomputes from source + eighth-position + urchin",
+      "canonical cell source/provenance exact",
+      "all 8 unique Gate proofs present",
+      "Gate tokens match eighth-position token assignment",
+      "Gate methods match v2 law; world-assigned TRANSFER tool is W8",
+      "proof step and elapsed time are strictly increasing",
+      "final measures bound the final proof",
+      "operator counts are non-negative integers",
+      "SPIRAL is derived dominant operator",
+      "portable transfer instruction matches SPIRAL",
+      "returned source matches SPIRAL reversal transform",
+      "cell witness matches actual proof enactment order",
+      "path signature is a bounded 36-step U/D/L/R witness"
+    ],
+    "derived": {
+      "seed": 733772114,
+      "worldKey": "0C4VA6Q",
+      "transferTool": "w8",
+      "dominantOperator": "spiral",
+      "transferInstruction": "Change the representation; verify that the underlying thing survives.",
+      "returnedSource": "DOORS. BECOME SOME WRONG. ARE MAPS ALL",
+      "witness": "始 · 未 · 时 · 已 · 空 · 示 · 末 · 来"
+    }
+  },
+  "truth_boundary": [
+    "This validates internal derivation consistency against the recovered v2 generation law.",
+    "It does not independently attest the network origin of the JSON, the identity of the player, or an untampered live browser session.",
+    "No Dayline carry or real-world enactment is claimed by this receipt.",
+    "The completed Sleeper run remains immutable evidence; later continuation may only add external witness."
+  ],
+  "artifact": {
+    "schema": "sleeper.one-return",
+    "version": 2,
+    "worldKey": "0C4VA6Q",
+    "source": "ALL MAPS ARE WRONG. SOME BECOME DOORS.",
+    "returnedSource": "DOORS. BECOME SOME WRONG. ARE MAPS ALL",
+    "cell": {
+      "id": "eighth-position",
+      "source": "未始来时末已示空",
+      "provenance": "Jointly evolved working line; philological status remains open",
+      "witness": "始 · 未 · 时 · 已 · 空 · 示 · 末 · 来"
+    },
+    "figure": "urchin",
+    "dominantOperator": "spiral",
+    "transferInstruction": "Change the representation; verify that the underlying thing survives.",
+    "pathSignature": "LDDDDDLLLLUUUUUUUUUUUUUUUUUUUUUUUUUU",
+    "operatorCounts": {
+      "conch": 3,
+      "keris": 1,
+      "w8": 12,
+      "spiral": 34
+    },
+    "proofs": [
+      {
+        "gate": "COMPRESSION",
+        "token": "始",
+        "method": "spiral",
+        "step": 94,
+        "elapsedMs": 57147,
+        "note": "The city survived a change of representation."
+      },
+      {
+        "gate": "PROVENANCE",
+        "token": "未",
+        "method": "conch",
+        "step": 120,
+        "elapsedMs": 77379,
+        "note": "The nearby signal was revealed and sourced."
+      },
+      {
+        "gate": "MEASURE",
+        "token": "时",
+        "method": "distance",
+        "step": 394,
+        "elapsedMs": 148150,
+        "note": "Distance held at 2.07 units for 2105ms."
+      },
+      {
+        "gate": "RETRIEVAL",
+        "token": "已",
+        "method": "w8",
+        "step": 470,
+        "elapsedMs": 221137,
+        "note": "The marked coordinate was left, held, and recovered."
+      },
+      {
+        "gate": "TRANSFER",
+        "token": "空",
+        "method": "w8",
+        "step": 821,
+        "elapsedMs": 308103,
+        "note": "W8 transferred into a second Gate law."
+      },
+      {
+        "gate": "RESILIENCE",
+        "token": "示",
+        "method": "relocation",
+        "step": 1030,
+        "elapsedMs": 410340,
+        "note": "The same verse token was recovered after its coordinate failed."
+      },
+      {
+        "gate": "OPERATION",
+        "token": "末",
+        "method": "keris",
+        "step": 1352,
+        "elapsedMs": 496288,
+        "note": "A wall changed the next possible route."
+      },
+      {
+        "gate": "TRUTH",
+        "token": "来",
+        "method": "stillness",
+        "step": 1449,
+        "elapsedMs": 538622,
+        "note": "No movement or operator was added while the field changed."
+      }
+    ],
+    "measures": {
+      "steps": 1520,
+      "elapsedMs": 568904
+    }
+  },
+  "design_findings": [
+    "dominantOperator in v2 is derived from raw successful operator-use counts; SPIRAL also changes projection, so cross-operator counts are not semantically or ergonomically equivalent",
+    "world 0C4VA6Q used SPIRAL 34 / W8 12 / CONCH 3 / KERIS 1; treat SPIRAL transferInstruction as an artifact-derived prompt, not a psychological inference",
+    "pathSignature is only the final 36 U/D/L/R samples; it cannot reconstruct the full 1520-step run and is insufficient for same-world ghost replay",
+    "future RouteWitness should remain optional Sleeper-owned depth rather than expanding the universal INTERPHASE carrier"
+  ],
+  "next_gate": "If useful, explicitly carry the artifact's SPIRAL instruction into Dayline. Independently, design RouteWitness v1 from actual runtime path/event data; do not infer a full route from pathSignature."
+}
