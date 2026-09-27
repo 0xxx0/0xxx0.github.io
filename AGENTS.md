@@ -96,6 +96,13 @@ FIELD INDEX · Scale Lens · READFIELD/RSVP · Sleeper/ONE RETURN · FOLD//BLOOM
 
 Reopen a head only if it removes immediate friction, provides a needed tool, captures evidence cheaply, helps another human use something already built, or receives explicit human selection.
 
+## REPOSITORY TRUTH DISCIPLINE
+
+- **Branch existence ≠ active work.** Branches preserve lineage/transport; only `CURRENT.json` plus explicit human selection define attention. An open PR is a candidate delta, not an automatic queue item.
+- **Generated snapshot commits are real Git mutations, not semantic FIELD changes.** `comms:` / `nexus:` refresh commits may move `master`; interfaces may de-emphasize them but must never relabel an older field commit as Git HEAD.
+- Keep **MASTER HEAD** (exact repository chronology) distinct from **FIELD latest** (latest non-machine semantic mutation).
+- Do not mass-delete historical branches merely to make the branch list look clean; prune only with explicit branch-deletion authority and evidence that no open work or unrecovered donor depends on them.
+
 ## LIVE STATE (regenerated, not hand-maintained)
 
 - Coordination board: `/nexus/board.html`
