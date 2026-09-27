@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -281,11 +281,12 @@
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
       "state": "ACTIVE",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. FIELD can lend the exact held route plus its INTERPHASE projection/focus/residue witness; Dayline reprojects that same object as FOVEA / LINE / RING while keeping native Dayline moves as the only effect path. RETURN carries the INTERPHASE projection witness.",
+      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.1 renders source-owned evidence_signal/proof_boundary on the held object when supplied by a native source, without inferring or acquiring source truth. Native Dayline moves remain the only local effect path; RETURN preserves the source witness.",
       "receipt": "/dayline/release.json",
       "transfer": [
+        "source-owned signal projection: exact handoff metadata may color/pattern the held frame; Dayline never derives domain truth from task text",
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
         "same atlas-dayline-handoff/v0.1 session envelope from HOUSE / SHOPPING / COMMS",
         "live CURRENT read-only frame when no local object is held",
@@ -394,7 +395,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-26T08:25:00+08:00",
+        "updated_at": "2026-09-26T12:58:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -4712,11 +4713,13 @@
       "state": "ACTIVE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Canonical human-facing HOUSE instrument. 0.7.6 attaches CARE / BODY / DAYLINE to the selected room as a diegetic locus aperture while keeping PLAN/RCP/TRACE visible. The aperture delegates to existing local/context handoffs only; HA/HOUSEBUS retains private device truth and actuation.",
+      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context, and a diegetic locus aperture attaching CARE / BODY / DAYLINE to the selected room while keeping PLAN/RCP/TRACE visible (delegating to existing local/context handoffs only). CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
       "version": "0.7.6",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
+        "Shopping FIT closed return: exact candidate + measured available zone → dimensional evidence offer → explicit Shopping acceptance",
+        "Shopping source evidence pattern may project on fit probe; HOUSE does not infer or mutate Shopping truth",
         "hash-addressable projections at canonical root",
         "canonical human entry = /house/; no second sovereign HOUSE UI",
         "spatial model/assets remain under /house/spatial/ as substrate, not a competing front door",
@@ -4740,7 +4743,7 @@
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-26T12:18:00+08:00",
+        "updated_at": "2026-09-26T13:24:00+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -6965,16 +6968,21 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.3",
+      "title": "SHOPPING FIELD 0.3.4",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.3.1",
+      "version": "0.3.4",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
+        "exact Shopping → HOUSE dimensional screen → OFFER_ONLY return → explicit evidence receipt; lifecycle unchanged",
+        "source-owned evidence signal/proof boundary travels through HOUSE fit envelope without authority transfer",
+        "source-owned semantic evidence token travels through exact Shopping → Dayline handoff and RETURN without transferring lifecycle authority",
+        "shared semantic signal projection: CLEAR / CHANGED / REALITY / EXTERNAL / MIXED over native Shopping lifecycle; pattern never changes state",
+        "collapsed selected-item proof boundary + list-level prelinguistic signal skin",
         "capability-gap procurement",
         "legacy House OS shopping migration",
         "landed-SGD normalization",
@@ -7113,7 +7121,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-26T00:52:00+08:00",
+        "updated_at": "2026-09-26T13:24:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7122,7 +7130,7 @@
         ]
       },
       "tier": "FIELD",
-      "role": "Capability-gap procurement adapter with exact lifecycle truth, landed-cost/fit evidence, Dayline next-action handoff, HOUSE fit, and explicit evidence-only Dayline receipt acceptance. A completed Dayline task may become Shopping evidence only after exact item/state revalidation; it never becomes purchase/adoption truth."
+      "role": "Capability-gap procurement adapter with exact lifecycle truth, landed-cost/fit evidence, Dayline next-action handoff, HOUSE fit, evidence-only Dayline receipt acceptance, and a projection-only semantic signal skin for evidence posture. Patterns never become purchase/adoption truth."
     },
     {
       "href": "/showcase-selftest/",
@@ -7205,17 +7213,21 @@
       "kind": "artifact",
       "parent": "/",
       "family": "SLEEPER",
-      "operation": "RECOVER",
+      "operation": "PLAY / PROVE / RETURN",
       "state": "ACTIVE",
       "version": "v2-era / City Engine v0.2",
-      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+      "receipt": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
       "transfer": [
         "phrase + verse cell + figure → deterministic city",
         "URCHIN / SLOTHCAKE / KITE figure-specific physics",
         "CONCH / KERIS / W8 / SPIRAL enacted operators",
         "eight evidence protocols + return to origin",
         "Return Artifact v2 + reproducible world identity",
-        "ASCII POV 0.8 preserved as superseded derivative rather than current authority"
+        "READFIELD can directly inspect the exact ONE RETURN v2 specification and world-law source through same-origin addressed reading",
+        "Verse/Poem is a candidate source/structure donor; Sleeper does not absorb poetry authority",
+        "FOLD//BLOOM LIVE is a movement/ride/ghost donor; borrowed traversal never becomes source or Gate-proof authority",
+        "Scale Lens is a candidate representation consumer for addressed Return Artifact/world objects; no typed Sleeper→Lens adapter is claimed yet",
+        "ASCII POV 0.8 remains a superseded derivative; ASCII ONE RETURN reconstruction remains a donor"
       ],
       "contract": {
         "accepts": {
@@ -7243,20 +7255,21 @@
             "proof ledger"
           ],
           "reversibility": "world inputs reconstruct initial city",
-          "side_effects": "historical runtime was local/browser"
+          "side_effects": "browser-local runtime state; copied/exported witness only"
         },
         "emits": {
           "kinds": [
             "deterministic city",
             "Gate proofs",
             "Return Artifact v2",
-            "reproducible world address"
+            "reproducible world address",
+            "player path signature / future route witness seam"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+          "receipt": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
           "checks": [
             "exact recovered source",
             "38/38 recovered subset tests",
@@ -7292,28 +7305,56 @@
         ],
         "exit_paths": [
           {
-            "class": "HISTORICAL_RUNTIME",
-            "status": "UNVERIFIED_REACHABILITY",
-            "via": "recorded Work route"
+            "class": "LIVE_RUNTIME",
+            "status": "AVAILABLE",
+            "via": "https://sleeper-one-return.metaname.chatgpt.site/ (user-recovered live identity; repository route redirects there)"
+          },
+          {
+            "class": "READFIELD_SPEC",
+            "status": "AVAILABLE",
+            "via": "/docs/?src=/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md&return=/sleeper/project/"
+          },
+          {
+            "class": "READFIELD_ENGINE",
+            "status": "AVAILABLE",
+            "via": "/docs/?src=/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts&return=/sleeper/project/"
           },
           {
             "class": "SOURCE",
             "status": "AVAILABLE",
             "via": "/recovery/sleeper/site-source-2026-09-18/"
+          },
+          {
+            "class": "VERSE_SOURCE_HANDOFF",
+            "status": "CANDIDATE",
+            "via": "phrase / verse-cell transfer only after an explicit source-identity adapter; /poetry/map/ retains authorship"
+          },
+          {
+            "class": "RIDE_GHOST_DONOR",
+            "status": "DONOR",
+            "via": "/fold-bloom/live/ may donate movement/replay mechanics; no shared state authority"
+          },
+          {
+            "class": "SCALE_REPRESENTATION",
+            "status": "CANDIDATE",
+            "via": "/fold-bloom/lens/ after a typed Return Artifact/address adapter; navigation alone is not integration"
           }
         ],
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-09-22T05:41:00+08:00",
+        "updated_at": "2026-09-27T13:02:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "PLAY",
           "VERIFY",
-          "PLAY"
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       },
       "project": "/sleeper/project/",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; eight enacted Gate proofs and return to origin emit Return Artifact v2. FIELD owns addressing, READFIELD can inspect exact source/spec, and adjacent Verse/LIVE/Lens systems remain unequal transfer seams rather than merged authority.",
+      "latest_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/",
@@ -7952,7 +7993,7 @@
       "tier": "FIELD",
       "role": "Executable multi-domain proofs P1/P2/P3 from HARD_EVOLUTION_MAP: one location-with-context descriptor across unequal domains; typed composition (parts / ports / relations / constraints / operators) projected as FORMULA / HYPERGRAPH / FLOWER with declared residue; preserved-interface rewrites with commit + evidence + RETURN. Interactive annex demonstrates IDENTIFY ≠ DEFORM (plane → cylinder → torus). No shared-core promotion.",
       "index": {
-        "updated_at": "2026-09-25T20:45:00+08:00",
+        "updated_at": "2026-09-26T22:45:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -7967,6 +8008,11 @@
         {
           "claim": "IDENTIFY leaves metric untouched; TUBE developable (max |strain| ≈ 0); DONUT max |strain| = R/B (k=3)",
           "source": "spikes/007-hard-evolution-proofs/index.html?selftest=1",
+          "status": "TESTED"
+        },
+        {
+          "claim": "stress sweep 21/21 (nx 6–192, ny 6/36, k 1–12): TUBE developable 1.8e-9; DONUT max |strain| = 1/k (dev 2.4e-10); X-seam closes; Y-seam closes iff ny = m·nx·k; found+fixed setEmbed() TDZ crash when ringFactor omitted",
+          "source": "spikes/007-hard-evolution-proofs/stress.mjs",
           "status": "TESTED"
         },
         {
@@ -8075,6 +8121,100 @@
         "support surface only; no geometry or FIELD state authority"
       ],
       "tier": "FIELD"
+    },
+    {
+      "href": "/comms/",
+      "title": "OPS // COMMS ON PAGES",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "family": "COMMS",
+      "showcase_card": false,
+      "role": "Comms-on-pages: the machine room's live state as a durable public record (resilience layer 2, readable without Tailscale). The six-line system glyph is imported from glyph.py — the same object as the ANCHOR group avatar — beside fleet, open items, digest recency, last receipt and the three loops. Derived aggregate only: no message text, ids, money or personal content. A surface, not an authority.",
+      "index": {
+        "updated_at": "2026-09-26T15:52:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "regenerated from live ops-hub state by scripts/comms_page.py (ops-hub side); sanitised aggregate only",
+          "static pass: one screen no scroll, no inline JS, internal links resolve, mirrors nexus board conventions"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/iching/",
+      "title": "易經 // I CHING — CAST · TRANSFORM · NUCLEAR",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "family": "ICHING",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "The Book of Changes as a working instrument: cast six lines (three-coin) and read the primary hexagram (judgment 卦辭, image 大象, line texts 爻辭); changing lines open a transformed hexagram 之卦; the nuclear 互卦 is computed from lines 2–5. All 64 hexagrams: Chinese (周易, zh.wikisource, public domain) + English (Legge, SBE16 1882, public-domain OCR restoration; 20 passages flagged approximate), verified binaries (bottom-to-top; 兌上缺, 巽下斷), King Wen id, unicode symbol, trigrams, nuclear id, per-line flip targets. Hash-addressable casts (#c=987678). Static page + JSON, no build step, no tracking.",
+      "index": {
+        "updated_at": "2026-09-26T22:49:00+08:00",
+        "work_modes": [
+          "PLAY",
+          "READ",
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "64/64 hexagrams; binaries verified against the wikisource trigram table plus complement/nuclear invariants (27/28, 61/62, 63↔64, 1↔1, 2↔2)",
+          "zh parsed 64/64 complete; en OCR extraction quality-flagged on 20 known-imperfect passages (per-hexagram _quality field)",
+          "local headless-chrome render + DOM dump verified; live URL verified after deploy"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/fold-bloom/convergence/change-calculus/",
+      "title": "FOLD//BLOOM · CHANGE CALCULUS 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "operation": "VERIFY / CALCULATE",
+      "state": "CANDIDATE",
+      "family": "FOLD // BLOOM",
+      "showcase_card": false,
+      "role": "Applied research witness joining exact Fold/Bloom operation form, six-bit/hex change quotient, one-line STEP paths and J-space→native-support arithmetic while keeping each representation's information loss and authority boundary explicit. I Ching data is lookup lens only; no cast or control sufficiency is inferred.",
+      "receipt": "/returns/FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
+      "index": {
+        "updated_at": "2026-09-27T12:28:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "pure selftest covers 4096→64 quotient accounting, 64:1 fibers, moving-line Hamming distance, STEP ordering ambiguity and J-space host-support calculation",
+          "FIELD LAB links to the calculator without importing candidate runtime",
+          "real LIVE macrostate sufficiency and real model intervention remain separate evidence gates"
+        ],
+        "return_path": "/fold-bloom/lab/?mode=DATA"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Which compression is sufficient for which lawful next action: exact verb form, binary change state, stepped path, or J-space readout?",
+        "baseline": "Exact Fold/Bloom verbs, binary state language, STEP traversal and J-space steering donor already exist separately.",
+        "mutation": "Add one transparent calculator over existing contracts; expose information loss, path ambiguity and host-support arithmetic without acquiring execution authority.",
+        "evidence_gate": "Repository selftest/CI must pass; promotion beyond RESEARCH additionally requires behavioral sufficiency tests on real LIVE snapshots and a real small-model J-Lens intervention witness.",
+        "next_if_pass": "Use the calculator to falsify candidate control abstractions; transfer only properties that survive native behavioral tests.",
+        "next_if_fail": "Keep exact representations and residue; remove or narrow the failed abstraction rather than adding hidden state."
+      }
     }
   ],
   "release_law": [
@@ -8090,7 +8230,7 @@
     "ecology": "Recovered from exact uncompressed Library source; direct static HTML; packed transport removed.",
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
-    "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
+    "sleeper": "Canonical SLEEPER // ONE RETURN v2 / City Engine v0.2: phrase + verse cell + figure → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. POV/PLAIN 0.8 is preserved only as a superseded derivative; geometry or movement never substitutes for evidence.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 is projection-only. External smoke run 1 exposed mobile importer overflow; targeted importer-wrap patch fixed it and representative traversal passes at 390px + 1280px.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
     "showcase_trace": "HISTORICAL VALIDATION: the former nine-card showcase interaction smoke passed 18/18 at 390px + 1280px on GitHub Actions run 35372320053. This is preserved as historical evidence, not a claim about the current FIELD INDEX root.",

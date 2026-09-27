@@ -316,7 +316,9 @@
       {
         "id": "GLYPH",
         "candidate_reading": "compressed source witness / recognisable signature",
-        "changes": "representation only"
+        "changes": "representation only",
+        "implementation_note": "INTERPHASE adapter.glyph optionally supplies an ephemeral native descriptor/rendering with existing Lens recipe vocabulary; host identity/address remain authoritative. No glyph-only composition law. Missing derivation uses the existing deterministic renderer fallback.",
+        "evidence": "/tools/interphase-glyph-conformance.test.mjs"
       }
     ],
     "rosette6": {

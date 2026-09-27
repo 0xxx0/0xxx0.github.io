@@ -1,4 +1,5 @@
 import {createHost,makePhi,transcribe,splice,translate,ExpressionTape} from './core.mjs';
+import {esc} from '../../lib/dom.js';
 
 const CHANNELS=['identity','address','content','depth','authority','evidence','time'];
 const PROJECTIONS={
@@ -8,7 +9,7 @@ const PROJECTIONS={
   GLYPH:['identity','address'],
   TABLE:['identity','address','content','authority','evidence']
 };
-const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const $=id=>document.getElementById(id);
 let manifest,current,host,phi,tx,view,focus='/',channelSet=new Set(['identity','address','content','authority','evidence']),projection='PAGE',tape=new ExpressionTape(),branchPacket=null;
 
 function nodeFromRoute(r){

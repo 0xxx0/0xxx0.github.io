@@ -1,0 +1,60 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27",
+  "date": "2026-09-27",
+  "status": "CANDIDATE_LIVE_FALSIFICATION_PASS",
+  "classification": [
+    "DONOR",
+    "RESEARCH",
+    "EVIDENCE"
+  ],
+  "host": "fold-bloom/convergence/change-calculus",
+  "purpose": "Expose exact→quotient information loss, endpoint→STEP ordering ambiguity, I Ching endpoint lookup, and J-space→native-support arithmetic without acquiring execution authority.",
+  "implemented": [
+    "transparent six-bit Hamming/moving-line calculation",
+    "derived 6/7/8/9 line-value projection explicitly labeled NOT A CAST",
+    "exact six-verb → binary relation quotient accounting: 4096→64 with 64:1 fibers",
+    "one-exact-edit-at-a-time STEP witness with explicit ordering ambiguity",
+    "J-Lens top-k conditional-weight → explicit control vocabulary → native forecast support calculation",
+    "read-only FIELD LAB / DATA link to the research calculator",
+    "successor handoff with lumpability/bisimulation, causal-abstraction and predictive-sufficiency research gates"
+  ],
+  "truth_boundary": [
+    "hexagram quotient is descriptive compression, not proven sufficient control state",
+    "I Ching lookup does not infer divinatory or physical authority",
+    "moving-line set does not specify temporal order",
+    "top-k conditional weights are not full-vocabulary model probabilities",
+    "J-Lens readout is not a causal direction vector",
+    "native candidate support is not permission to commit",
+    "native LIVE evidence falsifies the hex quotient and recent six-verb history as sufficient control state for the tested next-forecast property; it does not prove a unique minimal replacement state"
+  ],
+  "verification": {
+    "local_contract_selftest": "PASS",
+    "candidate_head": "0b0d493a43451d25a0dbf11e4c8d7f98ced750f0",
+    "route_registration": {
+      "run_id": 36295492564,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run_id": 36295492560,
+      "result": "PASS",
+      "dedicated_step": "Validate J-space steering + change calculus contracts"
+    },
+    "final_rebase_ci": "SEE_PR_SUCCESSOR_SEAL",
+    "real_live_snapshot_lumpability_test": {
+      "result": "FALSIFIED_FOR_NAMED_PROPERTY",
+      "run_id": 36296755785,
+      "samples": 1824,
+      "unique_hex": 47,
+      "unique_exact_recent_forms": 235,
+      "property": "NEXT_LAWFUL_FORECAST_SET + CALL + TARGET_TYPE",
+      "hex_control_sufficient": false,
+      "exact_recent_form_control_sufficient": false,
+      "first_hex_counterexample": "H[011|101]"
+    },
+    "real_open_weight_jlens_trace": "NOT_RUN",
+    "real_model_intervention": "NOT_RUN"
+  },
+  "next_gate": "Preserve HEX and exact form as lenses/history. Validate a bounded mechanistic forecast-state factorization, and independently complete the real-model J-Lens plumbing smoke before any causal steering experiment.",
+  "return_path": "/control/confluence/INTERPHASE_SUCCESSOR_HANDOFF_2026-09-23.md"
+}

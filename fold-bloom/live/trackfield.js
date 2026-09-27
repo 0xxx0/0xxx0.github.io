@@ -1,6 +1,6 @@
 import {beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
+import {clamp} from '../../lib/polar-control.js';
 
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const smoothstep=(a,b,x)=>{const q=clamp((x-a)/Math.max(.0001,b-a),0,1);return q*q*(3-2*q)};
 const NUMERIC_KEYS=['e','c','f','l','m','h'];

@@ -1,10 +1,16 @@
 'use strict';
+// Shared primitives are published: $ (selector idiom) lives in lib/dom.js,
+// clamp lives in lib/polar-control.js. Both bodies were byte-identical to the
+// local copies that used to sit here (verified in
+// 06-fb-lens-eco/harness/verify-spatial-projection.mjs).
+import { $ } from '/lib/dom.js';
+import { clamp } from '/lib/polar-control.js';
 (()=> {
-  const $=s=>document.querySelector(s), api=window.ScaleLensSpatialAPI;
+  const api=window.ScaleLensSpatialAPI;
   const toggle=$('#spatialToggle'), reset=$('#spatialReset'), viewport=$('#spatialViewport'), stage=$('#spatialStage'), meta=$('#spatialMeta');
   if(!api||!toggle||!reset||!viewport||!stage||!meta)return;
 
-  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), rad=d=>d*Math.PI/180;
+  const rad=d=>d*Math.PI/180;
   const M={
     id:()=>[1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
     mul:(a,b)=>{const o=Array(16).fill(0);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o},

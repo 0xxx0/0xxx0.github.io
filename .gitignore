@@ -1,0 +1,168 @@
+# ⛔ SECRETS — MUST NEVER BE COMMITTED
+#
+# WHY THIS FILE EXISTS, AND WHY IT DID NOT UNTIL NOW
+#   `void-anchor` had NO .gitignore at all, while its git remote is
+#   https://github.com/0xxx0/0xxx0.github.io — a PUBLIC repository.
+#   A non-empty `.env` (160 bytes) sat untracked and unignored, alongside
+#   `scripts/set-hermes-telegram-token.py`. A single `git add -A` from any
+#   session or subagent would have published live credentials to GitHub.
+#
+#   This file is ADDITIVE. It removes nothing and ignores nothing that was
+#   previously tracked. If a path here was already tracked, `git rm --cached`
+#   is a separate, deliberate act — not performed here.
+#
+#   Hermes invariant: secrets in .env, settings in config.yaml.
+
+# --- credentials and env ---
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+*.asc
+credentials*.json
+secrets*.json
+*token*.json
+*secret*
+auth.json
+auth.lock
+
+# --- provider / API keys in any form ---
+*_api_key*
+*apikey*
+*.token
+.openrouter
+anthropic*.txt
+openai*.txt
+
+# --- token-handling scripts (they read secrets; they should not ship) ---
+scripts/set-hermes-telegram-token.py
+scripts/check_or_credits.py
+
+# --- Hermes runtime state (machine-local, not source) ---
+.hermes/
+hermes-workspace/node_modules/
+hermes-workspace/dist/
+__pycache__/
+*.pyc
+.claude/
+session-*.jsonl
+
+# --- macOS and editor noise ---
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*~
+
+# --- large local material that is not repo content ---
+# (the archive and backups are sources, not site assets — see PUBLISHING_BOUNDARY)
+ChatGPT-Backup-*/
+*.zip
+*.dmg
+*.pkg
+
+# --- the reversible staging area: undecided files, not discards ---
+# QUARANTINE != DELETE. This is 22 GB awaiting a human decision.
+delete/crushed-*/
+reclaimed-*/
+
+# --- ADDED 2026-09-25 by kestrel after finding private data staged for a PUBLIC remote ---
+# The existing rule only covered session-*.jsonl, which missed the files actually at
+# risk. Anything under AXIS/work/**/cache/ is raw conversation text or source bytes.
+# Nothing here was previously tracked-and-then-removed, except where noted below.
+**/msgs.jsonl
+**/cache/
+**/_rescued-*/
+**/*_user.tsv
+**/candidates.tsv
+**/*__raw/
+# the extracted third-party research library: kept on disk, must not be published
+AXIS/library/GLYPH-VIS-READING/*.pdf
+AXIS/library/GLYPH-VIS-READING/*.docx
+AXIS/library/GLYPH-VIS-READING/*.epub
+# other agents' private/experimental trees
+*_archives/
+AXIS/work/**/quarantine/
+
+# the staging pen holds a live VM disk and GBs of material — never commit its contents
+delete/crushed-*/
+delete/reclaimed-*/
+
+# --- 2026-09-25: close the _archive/_archives plural gap ---
+# The earlier rule was `*_archives/` (plural). `_archive/` (singular) is a different
+# string and slipped through. Targeted by CONTENT TYPE rather than by directory, so
+# legitimate tracked archives (ops-hub/wiki/_archive and friends) are NOT untracked.
+**/_archive/*.jsonl
+**/_archive/*.seed*
+**/_archives/*.jsonl
+**/_archive/*_user.tsv
+**/_archive/*candidates*
+
+# live VirtualBox VM disks — never track, never `git clean -x` (HAOS-VM-HAZARD-2026-09-26)
+**/*.vdi
+**/*.vdi.zip
+
+# --- AXIS/ — untracked by drift, now deliberate (2026-09-26) ---
+# AXIS is the canonical LOCAL state: NOW.md, LEDGER.md, work/, decisions, receipts.
+# Before this rule, `git add -A` would stage 4,378 AXIS files (measured 2026-09-26).
+# The 'archive' profile runs git add -A + push against this PUBLIC remote ~24x/month,
+# so those files were one automation run from being published.
+# gitignore does NOT affect already-tracked paths: the 20 deliberately-tracked,
+# post-scrub files remain tracked and are unaffected by this rule.
+AXIS/
+
+# --- 2026-09-26: top-level private/local material in a PUBLIC-origin clone ---
+# This clone's origin is https://github.com/0xxx0/0xxx0.github.io (PUBLIC).
+# The archive profile publishes from ~/Projects/0xxx0.github.io, but ANY session
+# that runs `git add -A` in ~/void-anchor stages-and-publishes the following.
+# Measured 2026-09-26: ~19.5 GB untracked AND unignored. QUARANTINE != DELETE;
+# these are sources/working trees, not site assets (unregistered = not routed).
+# Root-anchored on purpose: does not affect tracked dirs of the same name deeper in.
+/ai-media/
+/_recovered/
+/_quarantine/
+/_archive/
+/_private-review/
+/InteriorAIApp/
+/backups/
+/boxed/
+/comms-path0/
+/content-pipeline/
+/absorb-build-backup-*/
+/espclaw-trial/
+/CANON.md
+/Untitled.md
+.obsidian/
+
+# delete/ stays partly TRACKED (PROTECTED.md, _protected.jsonl, check-protected.py);
+# only the untracked pen contents below are excluded.
+/delete/gc-sessions-*/
+/delete/tidied-*/
+/delete/broken-symlinks/
+/delete/mobile-vault-sync-conflicts/
+/delete/wiki-self-symlink
+/delete/Untitled.base
+/delete/2026-07-09-empty.md
+
+# --- 2026-09-26 cont.: remaining untracked, local-only dirs (verified tracked-file count = 0) ---
+# These are already unpublished (untracked); this only stops `git add -A` staging them.
+/ops-hub-mobile-vault/
+/logs/
+/generated-artifacts/
+/bin/
+/tmp/
+/state/
+/projects/
+/swarm-specs/
+/hermes-runtime/
+/hardware/
+
+# docs/ IS a published surface (docs/index.html tracked). This subdir holds the
+# private NODE-0 foundation packets awaiting placement (brief-05) and is referenced
+# by NO tracked file. One-line reversal if you ever want them published.
+/docs/foundation/

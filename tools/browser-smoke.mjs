@@ -15,6 +15,9 @@ function browserBin(){
     const r=spawnSync('which',[name],{encoding:'utf8'});
     if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
+  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
+    if(fs.existsSync(p))return p;
+  }
   throw new Error('No Chrome/Chromium binary found for runtime smoke');
 }
 function contentType(p){
@@ -310,7 +313,7 @@ function docsApertureProbeHtml(){
     A.step(1);rec.next=await waitFor(()=>{const x=A.snapshot(),q=new URLSearchParams(W().location.search);return x.index===2&&q.get('ap_scale')===x.scale&&q.get('ap_index')===String(x.index)&&q.get('ap_addr')===x.address&&q.get('ap_wpm')==='650'?x:null});
     rec.url=W().location.search;A.restore(rec.start);rec.restored=await waitFor(()=>{const x=A.snapshot();return x.scale===rec.start.scale&&x.index===rec.start.index&&x.address===rec.start.address&&x.wpm===rec.start.wpm?x:null});
     const originalReplace=W().history.replaceState.bind(W().history);let writes=0;W().history.replaceState=(...args)=>{writes++;return originalReplace(...args)};
-    A.restore({scale:'LEAF',index:0,wpm:3000});writes=0;A.toggleRSVP();await sleep(520);if(A.snapshot().playing)A.toggleRSVP();rec.fast=A.snapshot();rec.urlWrites=writes;rec.throttled=rec.fast.index>0&&writes<=4;
+    A.restore({scale:'LEAF',index:0,wpm:3000});writes=0;A.toggleRSVP();try{await waitFor(()=>A.snapshot().index>0,6000)}catch(_){}if(A.snapshot().playing)A.toggleRSVP();rec.fast=A.snapshot();rec.urlWrites=writes;rec.throttled=rec.fast.index>0&&writes<=4;
     A.restore({scale:'LEAF',index:Math.max(0,rec.fast.count-2),wpm:3000});A.toggleRSVP();rec.ended=!!(await waitFor(()=>{const x=A.snapshot();return !x.playing&&x.index===x.count-1?x:null}));
     rec.copyView=!!D().getElementById('copyView');done(!!rec.copyView&&rec.restored.address===rec.start.address&&rec.throttled&&rec.ended&&rec.fast.loop===false,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
@@ -665,7 +668,6 @@ function foldBloomLiveMobileBehaviorProbeHtml(){
   <\/script></body></html>`;
 }
 
-
 function careLocusProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/care/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -675,10 +677,10 @@ function careLocusProbeHtml(){
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
     const zone=await waitFor(()=>D().querySelector('#map .zone'));
-    zone.dispatchEvent(new W().PointerEvent('pointerdown',{bubbles:true,cancelable:true,pointerId:1,clientX:20,clientY:20}));
-    const ap=await waitFor(()=>{const x=D().getElementById('locusAperture');return x&&!x.hidden&&/LOCUS \/ CARE/.test(x.textContent)?x:null});
+    zone.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,cancelable:true,pointerId:1,clientX:20,clientY:20}));
+    const ap=await waitFor(()=>{const x=D().getElementById('locusAperture');return x&&!x.hidden&&/LOCUS \\/ CARE/.test(x.textContent)?x:null});
     const map=D().getElementById('map'),wrap=map.parentElement,ar=ap.getBoundingClientRect(),wr=wrap.getBoundingClientRect();
-    rec.aperture=ap.textContent.replace(/\s+/g,' ').trim();rec.mapVisible=W().getComputedStyle(map).display!=='none';rec.within=ar.left>=wr.left-1&&ar.right<=wr.right+1&&ar.top>=wr.top-1&&ar.bottom<=wr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
+    rec.aperture=ap.textContent.replace(/\\s+/g,' ').trim();rec.mapVisible=W().getComputedStyle(map).display!=='none';rec.within=ar.left>=wr.left-1&&ar.right<=wr.right+1&&ar.top>=wr.top-1&&ar.bottom<=wr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
     ap.querySelector('[data-locus="observe"]').click();rec.noteFocus=D().activeElement?.id==='note';
     ap.querySelector('[data-locus="course"]').click();rec.course=!D().getElementById('view-follow').hidden&&D().getElementById('view-observe').hidden;
     done(rec.mapVisible&&rec.within&&rec.noteFocus&&rec.course&&rec.actions.join('|')==='OBSERVE|PRIOR|COURSE',rec);
@@ -694,7 +696,7 @@ function houseLocusProbeHtml(){
   const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const ap=await waitFor(()=>{const x=D().getElementById('houseAperture');return x&&!x.hidden&&/LOCUS \/ HOUSE/.test(x.textContent)?x:null});
+    const ap=await waitFor(()=>{const x=D().getElementById('houseAperture');return x&&!x.hidden&&/LOCUS \\/ HOUSE/.test(x.textContent)?x:null});
     const room=D().querySelector('#canvas .room.sel'),stage=D().querySelector('.stage'),ar=ap.getBoundingClientRect(),sr=stage.getBoundingClientRect();
     rec.roomVisible=!!room&&W().getComputedStyle(room).display!=='none';rec.within=ar.left>=sr.left-1&&ar.right<=sr.right+1&&ar.top>=sr.top-1&&ar.bottom<=sr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
     ap.querySelector('[data-house-locus="care"]').click();
@@ -705,7 +707,24 @@ function houseLocusProbeHtml(){
   <\/script></body></html>`;
 }
 
+function settleProbeHtml(route,checkSrc,limitMs,w,h){
+  const safeRoute=String(route).replace(/&/g,'&amp;');
+  return `<!doctype html><html><body style="margin:0"><img id="hold" src="/__settle-hold" hidden><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
+const f=document.getElementById('f'),o=document.getElementById('caseDom'),hold=document.getElementById('hold'),t0=Date.now();
+const check=(${checkSrc});
+let doneFlag=false;
+const done=(ok)=>{if(doneFlag)return;doneFlag=true;let dom='';try{const d=f.contentDocument;dom=d&&d.documentElement?d.documentElement.outerHTML:'(no dom)'}catch(e){dom='(serialize error '+e+')'}
+o.textContent=dom;o.setAttribute('data-pass',ok?'1':'0');o.setAttribute('data-wait',String(Date.now()-t0));
+hold.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{while(Date.now()-t0<${limitMs}){try{const d=f.contentDocument;if(d&&d.documentElement){const dom=d.documentElement.outerHTML;if(check(dom)){done(true);return}}}catch(_){}await sleep(80)}done(false)})();
+setTimeout(()=>done(false),${limitMs+2000});
+<\/script></body></html>`;
+}
+const settleHolds=new Set();
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
+  if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(careLocusProbeHtml());return;
@@ -714,6 +733,7 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(houseLocusProbeHtml());return;
   }
+
   if(String(req.url||'').startsWith('/__smoke/fold-bloom-live-mobile-behavior')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(foldBloomLiveMobileBehaviorProbeHtml());return;
@@ -832,6 +852,29 @@ function runChrome(bin,route,options={}){
     p.on('error',e=>{clearTimeout(timer);reject(e)});
     p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
   });
+}
+function runSettle(bin,c){
+  return new Promise((resolve,reject)=>{
+    const o=c.options||{};
+    const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+(o.settleLimit||20000)+'&w='+(o.width||430)+'&h='+(o.height||900);
+    const args=[
+      '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
+      '--hide-scrollbars','--window-size='+(o.width||430)+','+(o.height||900),
+      '--dump-dom',url
+    ];
+    const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
+    let out='',err='';
+    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+c.route))},o.timeout||30000);
+    p.stdout.on('data',d=>out+=d);
+    p.stderr.on('data',d=>err+=d);
+    p.on('error',e=>{clearTimeout(timer);reject(e)});
+    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
+  });
+}
+function extractCaseDom(html){
+  const m=String(html||'').match(/<pre id="caseDom"[^>]*>([\s\S]*?)<\/pre>/i);
+  if(!m)return null;
+  return m[1].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
 }
 function textAtId(dom,id){
   const marker='id="'+id+'"',i=dom.indexOf(marker);
@@ -1110,7 +1153,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE public audio example',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,settleLimit:20000,timeout:30000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-fold-bloom-layer="IMMERSION"')
   },
   {
@@ -1122,7 +1166,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE clean-phone audio example',
     route:'/fold-bloom/live/?source=example&profile=DRIVE',
-    options:{width:430,height:900,budget:12000,timeout:18000},
+    options:{width:430,height:900,settleLimit:20000,timeout:30000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')
   },
   {
@@ -1171,13 +1216,13 @@ const CASES=[
     name:'FOLD BLOOM LIVE calm ride doorway',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/RIDE THE/i.test(dom)&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY MODES · OPTIONAL/i.test(dom)&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
+    check:dom=>/RIDE THE/i.test(dom)&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY · GAME MODES/i.test(dom)&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
   },
   {
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/RIDE FIELD COURSE/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&/SOURCE → MAP → IMMERSION/i.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY MODES · OPTIONAL/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
+    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/RIDE FIELD COURSE/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&/SOURCE → MAP → IMMERSION/i.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY · GAME MODES/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
   {
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',
@@ -1195,6 +1240,18 @@ const CASES=[
     route:'/fold-bloom/live/?play=DUET',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="DUET"')&&dom.includes('data-fb-loop-archetype="COORDINATE"')&&dom.includes('data-fb-instrument="TWO_DIAL"')&&dom.includes('data-fb-primary-controls="clear"')&&/OUTER \/ DIAL A · ROAD/i.test(dom)&&/INNER \/ DIAL B · RELATION/i.test(dom)&&/LANDSCAPE ↔/i.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE session scale legible',
+    route:'/fold-bloom/live/?play=PLAY&scale=SESSION',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="SESSION"')&&dom.includes('data-fb-open-exit="off"')&&dom.includes('data-scale="QUICK"')&&dom.includes('data-scale="SESSION"')&&dom.includes('data-scale="OPEN"')&&/RUN · SESSION/.test(dom)&&/SESSION · medium challenge/.test(dom)&&/provisional until validated with real users/.test(dom)&&/RETURN TO RIDE/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE session scale open exit',
+    route:'/fold-bloom/live/?play=PLAY&scale=OPEN',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="OPEN"')&&dom.includes('data-fb-open-exit="on"')&&dom.includes('id="fbOpenExit"')&&/RUN · OPEN/.test(dom)
   },
   {
     name:'TWO DIAL 0.10.4 idle witness',
@@ -1352,20 +1409,26 @@ try{
   console.log('BROWSER SMOKE:',bin);
   for(const c of RUN_CASES){
     let r;
-    try{r=await runChrome(bin,c.route,c.options||{})}
+    try{
+      if(c.settle){r=await runSettle(bin,c)}
+      else{r=await runChrome(bin,c.route,c.options||{})}
+    }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
-    const ok=r.code===0&&!fatal&&c.check(r.out);
+    const dom=c.settle?(extractCaseDom(r.out)||r.out):r.out;
+    const ok=r.code===0&&!fatal&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
+    if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
-      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
+      const body=visibleText(dom).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
   }
 }finally{
+  for(const h of settleHolds){try{h.destroy()}catch(_){}}
   await new Promise(resolve=>server.close(()=>resolve()));
 }
 if(fail.length){

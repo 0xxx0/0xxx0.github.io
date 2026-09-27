@@ -2,12 +2,14 @@ import {decodeExperienceSet} from '../experience-set/experience-set.js';
 import {buildJourneyPlan,journeyAddress,nextJourneyIndex,makeJourneyReturn} from './journey-core.js';
 import {getLocalMedia,putLocalMedia,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
 import {buildShareableSeedDemo} from './demo-seed.js';
+import {hashFile} from '../../lib/id.js';
+import {$,toast} from '../../lib/dom.js';
+import {kv} from '../../lib/store.js';
 
-const $=s=>document.querySelector(s),SET_STORE='fold-bloom.set-compositor.v01',META_STORE='fold-bloom.set-compositor.meta.v01';
+const SET_STORE='fold-bloom.set-compositor.v01',META_STORE='fold-bloom.set-compositor.meta.v01';
 const audioA=$('#audioA'),audioB=$('#audioB');
 let set=null,meta={},plan=null,records=new Map(),urls=new Map(),index=0,current=audioA,other=audioB,playing=false,transition=null,startedAt=null,completedAt=null,events=[],demo=false,demoWitness=false,demoClock={progress:0,started:0,cellMs:7800},raf=0;
 
-function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
 function fmt(value){const t=Math.max(0,Number(value)||0),m=Math.floor(t/60),s=t-m*60;return `${String(m).padStart(2,'0')}:${s.toFixed(1).padStart(4,'0')}`}
 function now(){return new Date().toISOString()}
 function labelFor(sourceId){return meta[sourceId]?.name||meta[sourceId]?.title||records.get(sourceId)?.name||sourceId}
@@ -28,11 +30,6 @@ async function probeDuration(record){
   });
 }
 
-async function hashFile(file){
-  const bytes=await file.arrayBuffer(),hash=await crypto.subtle.digest('SHA-256',bytes);
-  return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
-}
-
 async function bindFiles(files){
   const xs=[...(files||[])];if(!xs.length)return;
   requestPersistentLocalStorage().catch(()=>false);setStatus(`HASHING ${xs.length} LOCAL SOURCE${xs.length===1?'':'S'}`);
@@ -48,7 +45,7 @@ async function bindFiles(files){
 function readSetStorage(){
   const raw=localStorage.getItem(SET_STORE);if(!raw)throw new Error('No authored SET found in this browser');
   set=decodeExperienceSet(raw);
-  try{meta=JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){meta={}}
+  meta=kv(META_STORE,{}).get();
   return set;
 }
 

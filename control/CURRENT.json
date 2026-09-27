@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-26T12:18:00+08:00",
+  "updated": "2026-09-27T13:02:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -185,7 +185,7 @@
       "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
       "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical Sleeper resolves directly from /sleeper/ to the recovered live ONE RETURN runtime: PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. Exact recovered source remains durable authority under /recovery/sleeper/site-source-2026-09-18/. ASCII Sleeper POV 0.8 remains preserved as a superseded derivative; /sleeper/one-return/ remains a playable reconstruction donor. One runtime identity, many preserved lineage objects.",
+      "retained_function": "Canonical ONE RETURN v2 remains one deterministic source-built city: phrase + verse cell + figure → eight enacted Gate proofs → return to origin → Return Artifact v2. FIELD now addresses it as PLAY / PROVE / RETURN; READFIELD can directly inspect the exact spec/world-law source; Verse/Poem, FOLD//BLOOM LIVE and Scale Lens are explicit unequal donor/candidate seams, not merged state or authority. POV 0.8 remains superseded and the ASCII reconstruction remains donor-only.",
       "evidence": [
         "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -195,9 +195,10 @@
         "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
         "/sleeper/ascii-pov-0.8/release.json",
         "/sleeper/one-return/release.json",
-        "https://sleeper-one-return.metaname.chatgpt.site/"
+        "https://sleeper-one-return.metaname.chatgpt.site/",
+        "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
       ],
-      "last_return": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+      "last_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
       "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
       "version": "v2-era / City Engine v0.2"
     },
@@ -496,28 +497,32 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + DIEGETIC LOCUS",
+      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN",
       "state": "ACTIVE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views. 0.7.6 keeps selected room visible and attaches exactly CARE / BODY / DAYLINE as a locus aperture; each move delegates to an existing HOUSE projection/context bridge and gains no HA/HOUSEBUS authority. This is the second unequal proof of the diegetic-locus invariant after CARE 0.6; shared runtime extraction remains deferred.",
+      "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views (PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS) while HA/HOUSEBUS retains device truth/actuation. 0.7.6 attaches exactly CARE / BODY / DAYLINE to the selected room as a diegetic locus aperture — second unequal proof of the diegetic-locus invariant after CARE 0.6, shared runtime extraction deferred; each move delegates to an existing HOUSE projection/context bridge and gains no new store or actuation. 0.7.6 also closes the session-only Shopping FIT evidence loop: HOUSE renders the source-owned Shopping evidence witness, screens candidate vs measured available W/D/H, and emits an OFFER_ONLY / EVIDENCE_ONLY exact-item fit result without mutating Shopping lifecycle or canonical HOUSE geometry.",
       "version": "0.7.6",
-      "latest_return": "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
+      "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
       "evidence": [
         "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
-        "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json"
+        "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
       ]
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3.1 / EXACT DAYLINE RECEIPT + HOUSE FIT / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.4 / CLOSED HOUSE FIT + SOURCE SIGNAL → DAYLINE/HOUSE / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle + optional BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit screen. Exact Dayline completion may return as RECEIPT_ONLY evidence after exact item + lifecycle-state revalidation; acceptance appends evidence and never promotes FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED. Personal state remains local/private; money and seller contact remain human actions; HOUSE fit is dimensional screen only.",
-      "version": "0.3.1",
+      "retained_function": "Capability gap/listing/receipt → native lifecycle/freshness/landed-cost/fit → projection-only evidence signal. Shopping now has two exact external evidence loops: Dayline completion returns RECEIPT_ONLY evidence; HOUSE dimensional screening returns house-shopping-fit-return/v0.1 evidence after exact item + lifecycle revalidation. Both are explicit accepts and leave procurement lifecycle unchanged. Source-owned evidence signal/boundary may travel with exact identity to Dayline/HOUSE, but recipient projection never acquires Shopping truth.",
+      "version": "0.3.4",
       "evidence": [
-        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
+        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
+        "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
+        "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
       ],
-      "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
+      "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "triangle",

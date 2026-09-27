@@ -16,7 +16,7 @@ ok(port.includes('FIT ')&&port.includes('CUES ')&&port.includes('HISTORY '),'Por
 ok(port.includes('0xxx0/port-object-to-field-intake/v0.1')&&fi1.includes('0xxx0/port-object-to-field-intake/v0.1'),'Port→FIELD INTAKE handoff schema mismatch');
 ok(fi5.includes('human-port-object-return/v0.1')&&port.includes('human.port.object.return.v01'),'FIELD INTAKE→Port RETURN mismatch');
 ok(fi5.includes('result.receipt.receiptId'),'RETURN must use exact FIELD INTAKE receiptId');
-ok(store.includes("crypto.subtle.digest('SHA-256'"),'local object store must SHA-256 exact bytes');
+ok(store.includes("import('../lib/id.js')")&&store.includes("hashHex(data)"),'local object store must delegate SHA-256 to lib/id.js');
 ok(store.includes("indexedDB.open"),'local file carrier must use IndexedDB');
 ok(port.includes('PURGE BYTES')&&port.includes('PortObjectStore.remove'),'explicit byte PURGE missing');
 ok(ap.includes("image://region/")&&ap.includes("pointerdown")&&ap.includes("pointerup"),'image region addressing missing');

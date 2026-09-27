@@ -1,0 +1,40 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26",
+  "date": "2026-09-26",
+  "object": "Source-owned semantic evidence propagation: Shopping → Dayline → RETURN",
+  "state": "MERGE_READY_WITH_KNOWN_BASELINE_RED",
+  "observed": [
+    "Shared semantic signal primitive existed on FIELD root + Shopping after 0.3.2.",
+    "Dayline exact sourceLink already preserves arbitrary source metadata through task storage and RETURN.",
+    "Propagating by Dayline re-inference would violate domain ownership; carrying source-owned token inside existing identity envelope is lawful."
+  ],
+  "delta": [
+    "Shopping 0.3.3 adds evidence_signal/proof_boundary/evidence_owner to exact Dayline source envelope.",
+    "Shopping uses derived next_proof only when manual next_action is absent.",
+    "Dayline 0.3.1 renders source-owned token on held-object frame and adds exact textual SOURCE EVIDENCE witness.",
+    "Dayline stores/returns the token unchanged through existing sourceLink; direct/local frames remain CLEAR."
+  ],
+  "invariants": [
+    "Shopping owns lifecycle and evidence classification.",
+    "Dayline normalizes rendering token only; it does not combine/infer domain state.",
+    "Signal propagation creates no new bus/store/schema authority.",
+    "RETURN preserves exact source envelope.",
+    "Pattern remains accessible-text-backed projection."
+  ],
+  "evidence": [
+    "/shopping/",
+    "/dayline/",
+    "/lib/field-signal.js",
+    "/tools/field-signal-selftest.mjs"
+  ],
+  "return": "/shopping/",
+  "stop": "Do not propagate tokens into a recipient unless source identity already travels there or the recipient has its own explicit native reducer.",
+  "validation": {
+    "route_registration": "PASS · PR #448 run 36218717948",
+    "shared_signal_propagation": "PASS · field-signal selftest",
+    "field_interphase_and_aperture": "PASS before unrelated Fold//Bloom failure",
+    "inherited_baseline_red": "public-surface-check stops at existing FOLD BLOOM LIVE STEP FLOW track minimap; master already failed the same step before this PR",
+    "changed_surface_conclusion": "No Shopping/Dayline/source-signal regression observed before inherited baseline stop."
+  }
+}

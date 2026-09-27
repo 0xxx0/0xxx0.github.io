@@ -1,10 +1,11 @@
 import {verifyTrace} from './policy-trace-verifier.mjs';
+import {hashText} from './lib/id.js';
+import {esc} from './lib/dom.js';
 
 const GATES=['read','remember','acknowledge','answer','draft','act','escalate'];
 const $=id=>document.getElementById(id);
 let axialHandoff=null;
 try{const q=JSON.parse(sessionStorage.getItem('field.trace.handoff.v01')||'null');sessionStorage.removeItem('field.trace.handoff.v01');if(q&&Date.now()-Date.parse(q.at||0)<300000)axialHandoff=q}catch(_){}
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 function canonical(v){
   if(v===null||typeof v!=='object') return JSON.stringify(v);
@@ -12,9 +13,7 @@ function canonical(v){
   return '{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';
 }
 async function sha(v){
-  const bytes=new TextEncoder().encode(typeof v==='string'?v:canonical(v));
-  const buf=await crypto.subtle.digest('SHA-256',bytes);
-  return 'sha256:'+Array.from(new Uint8Array(buf),b=>b.toString(16).padStart(2,'0')).join('');
+  return hashText(typeof v==='string'?v:canonical(v));
 }
 const inline=value=>({mode:'inline',classification:'public',value});
 const digest=(d,shape)=>({mode:'digest',classification:'private',digest:d,shape});

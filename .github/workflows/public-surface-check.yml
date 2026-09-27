@@ -21,6 +21,12 @@ jobs:
         run: node scripts/check-reality-gaps.mjs
       - name: Validate reality-gap coverage
         run: node scripts/check-reality-gap-coverage.mjs
+      - name: Validate shared semantic signal grammar
+        run: node tools/field-signal-selftest.mjs
+      - name: Validate Shopping ↔ HOUSE fit closed loop
+        run: node tools/shopping-house-fit-selftest.mjs
+      - name: Validate global mobile route simplification
+        run: node tools/showcase-nav-mobile-selftest.mjs
       - name: Enforce self-verification before human gates
         run: node scripts/check-human-gate-discipline.mjs
       - name: Validate video-game donor transfers
@@ -74,6 +80,7 @@ jobs:
       - name: Validate shared INTERPHASE glyph laws
         run: |
           node tools/interphase-glyph-selftest.cjs
+          node --test tools/interphase-glyph-conformance.test.mjs
           node tools/interphase-dom-form-selftest.cjs
           node tools/interphase-ring-selftest.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
@@ -86,6 +93,8 @@ jobs:
         run: |
           node spikes/007-hard-evolution-proofs/selftest.mjs
           node --check spikes/007-hard-evolution-proofs/wrap-core.js
+          node --check spikes/007-hard-evolution-proofs/stress.mjs
+          node spikes/007-hard-evolution-proofs/stress.mjs > /dev/null
       - name: Validate FOLD BLOOM message replay H1 specimen
         run: |
           node --check spikes/fold-bloom-message-replay-001/score.js
@@ -151,6 +160,13 @@ jobs:
         run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
         run: node --test fold-bloom/ride/tests/ride-state.test.mjs
+      - name: Validate J-space steering + change calculus contracts
+        run: |
+          node fold-bloom/convergence/jspace-steering/selftest.mjs
+          node fold-bloom/convergence/jspace-steering/promotion-gate.selftest.mjs
+          node fold-bloom/convergence/change-calculus/selftest.mjs
+          node fold-bloom/convergence/change-calculus/live-sufficiency.mjs
+          python3 -m py_compile fold-bloom/convergence/jspace-steering/export_jlens.py
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
@@ -160,7 +176,7 @@ jobs:
       - name: Test FOLD BLOOM LISTEN phone continuity with real MP3
         run: node tools/fold-bloom-listen-phone-smoke.mjs
       - name: Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride
-        run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs fold-bloom/live/tests/pov-effects.test.mjs fold-bloom/live/tests/visual-worlds.test.mjs fold-bloom/live/tests/projection-smoothing.test.mjs fold-bloom/live/tests/set-ride-core.test.mjs fold-bloom/live/tests/play-core.test.mjs fold-bloom/live/tests/play-loop.test.mjs fold-bloom/live/tests/form-puzzle.test.mjs fold-bloom/live/tests/hex-projection.test.mjs
+        run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs fold-bloom/live/tests/pov-effects.test.mjs fold-bloom/live/tests/visual-worlds.test.mjs fold-bloom/live/tests/projection-smoothing.test.mjs fold-bloom/live/tests/set-ride-core.test.mjs fold-bloom/live/tests/play-core.test.mjs fold-bloom/live/tests/play-loop.test.mjs fold-bloom/live/tests/session-scale.test.mjs fold-bloom/live/tests/form-puzzle.test.mjs fold-bloom/live/tests/hex-projection.test.mjs
       - name: Test FOLD BLOOM LIVE STEP FLOW track minimap
         run: node tools/fold-bloom-live-course-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB browser boot

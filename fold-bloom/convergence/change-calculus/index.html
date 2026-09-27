@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHANGE CALCULUS · applied research</title>
+<style>
+:root{color-scheme:dark;--bg:#07090c;--fg:#e9eceb;--mut:#7f8a90;--line:#253039;--hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}main{max-width:1100px;margin:auto;padding:18px}
+h1{font:800 clamp(28px,6vw,64px)/.9 system-ui;margin:10px 0;letter-spacing:-.06em}h2{font-size:11px;letter-spacing:.14em;color:var(--gold);margin:0 0 8px}
+p,.note{color:var(--mut)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border:1px solid var(--line);padding:12px;background:#0a0e12}.wide{grid-column:1/-1}
+label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,textarea,button{width:100%;background:#080b0e;color:var(--fg);border:1px solid var(--line);padding:9px;font:inherit}button{cursor:pointer;border-color:var(--hot);color:#ffd0bf;font-weight:800}textarea{min-height:94px;resize:vertical}
+.metrics{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0}.m{border:1px solid var(--line);padding:5px 7px;color:var(--mut)}.m b{color:var(--fg)}table{width:100%;border-collapse:collapse;font-size:11px}th,td{border-bottom:1px solid var(--line);padding:5px;text-align:left}th{color:var(--mut)}code,pre{white-space:pre-wrap;overflow-wrap:anywhere}.hot{color:var(--hot)}.cool{color:var(--cool)}.gold{color:var(--gold)}a{color:var(--cool)}@media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="note">FOLD//BLOOM · CONVERGENCE / CANDIDATE RESEARCH WITNESS · NO EFFECT AUTHORITY</div>
+<h1>CHANGE CALCULUS</h1>
+<p>One surface for inspecting unequal reductions: exact operation → six-bit quotient; endpoint change → possible one-line STEP paths; J-Lens token readout → already-lawful host support. The I Ching lookup is a lens over the supplied state transition, <b>not a cast</b>.</p>
+
+<div class="grid">
+<section class="card">
+<h2>STATE / I CHING LENS</h2>
+<label>FROM · six bits bottom→top</label><input id="fromState" value="010|100">
+<label>TO · six bits bottom→top</label><input id="toState" value="011|110">
+</section>
+<section class="card">
+<h2>EXACT FOLD/BLOOM FORM</h2>
+<label>FROM · six verbs bottom→top</label><input id="fromForm" value="RETURN,FOLD,SPLIT,BLOOM,RETURN,SPLIT">
+<label>TO · six verbs bottom→top</label><input id="toForm" value="SPLIT,BLOOM,FOLD,FOLD,BLOOM,RETURN">
+</section>
+<section class="card wide">
+<h2>J-SPACE / HOST SUPPORT</h2>
+<div class="grid">
+<div><label>TRACE · field-jlens-trace/v0.1</label><textarea id="trace"></textarea></div>
+<div><label>NATIVE FORECASTS</label><textarea id="forecasts"></textarea></div>
+</div>
+<label>TARGET layer,position</label><input id="target" value="12,3">
+<div style="margin-top:8px"><button id="calc">CALCULATE · NO COMMIT</button></div>
+</section>
+
+<section class="card" id="stateOut"><h2>STATE</h2></section>
+<section class="card" id="ichingOut"><h2>I CHING LOOKUP</h2></section>
+<section class="card wide" id="formOut"><h2>QUOTIENT / STEP</h2></section>
+<section class="card wide" id="steerOut"><h2>STEERING SUPPORT</h2></section>
+<section class="card wide" id="residueOut"><h2>RESIDUE / NON-EQUIVALENCE</h2></section>
+</div>
+</main>
+<script type="module" src="./app.mjs"></script>
+
+</body>
+</html>

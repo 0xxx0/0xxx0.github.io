@@ -4,6 +4,7 @@ import {
   shareUrl,sampleScore,visualSignature,wordsOf
 } from './score.js';
 import {profileKey} from '../live/visual-worlds.js';
+import {kv} from '../../lib/store.js';
 import {courseAddressAt,replayCourse,stepCourse} from '../course-nav.js';
 
 const $=id=>document.getElementById(id);
@@ -30,7 +31,7 @@ function readHandoff(){
     const p=JSON.parse(raw);
     if(p?.schema!=='fold-bloom-replay-handoff/v0.2')return null;
     if(p.expires&&Date.now()>p.expires)return null;
-    try{localStorage.removeItem(handoffKey)}catch(_){}
+    try{kv(handoffKey).del()}catch(_){}
     return p;
   }catch{return null}
 }
@@ -78,7 +79,7 @@ function readProfileStore(){
   }catch(_){}
 }
 function writeProfileStore(){
-  try{localStorage.setItem(profileKey(score.source.profile_key||score.source.id),JSON.stringify(score.experience.profile))}catch(_){}
+  try{kv(profileKey(score.source.profile_key||score.source.id)).set(score.experience.profile)}catch(_){}
 }
 function currentMs(now=performance.now()){
   if(syncListen&&listenOk)return scrubP*clipDurationMs(score);

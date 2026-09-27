@@ -1,4 +1,5 @@
 import {getLocalMedia,putLocalMedia,listLocalMedia,localMediaFile,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
+import {hashFile} from '../../lib/id.js';
 
 const $=s=>document.querySelector(s),params=new URLSearchParams(location.search),requested=params.get('source'),returnAddress=params.get('return')||'../set/';
 
@@ -7,11 +8,6 @@ function installReturn(){
   const a=document.createElement('a');a.id='vaultReturn';a.href=returnAddress;a.textContent='↩ RETURN';
   a.style.cssText='pointer-events:auto;color:#6dbdff;text-decoration:none;border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.82);padding:7px 9px;font-size:8px;letter-spacing:.1em;white-space:nowrap';
   header.append(a);
-}
-
-async function hashFile(file){
-  const buf=await file.arrayBuffer(),hash=await crypto.subtle.digest('SHA-256',buf);
-  return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
 }
 
 let savedCache=[];

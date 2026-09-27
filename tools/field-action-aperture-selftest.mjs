@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 const html=fs.readFileSync('index.html','utf8');
+const signalJs=fs.readFileSync('lib/field-signal.js','utf8');
+const signalCss=fs.readFileSync('lib/field-signal.css','utf8');
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
 const contract=JSON.parse(fs.readFileSync('control/FIELD_INDEX_CONTRACT.json','utf8'));
 const fail=[],need=(x,m)=>{if(!x)fail.push(m)};
@@ -28,9 +30,9 @@ need(/^\/returns\/FIELD_INDEX_.*\d{4}-\d{2}-\d{2}\.json$/.test(root?.latest_retu
 need((root?.transfer||[]).some(x=>/held action aperture/i.test(x)),'held-action transfer evidence missing');
 need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract missing');
 need(/<details class="catchup" id="catchupFold" data-signal="CLEAR">/.test(html),'CATCH + ACT must be folded by default');
-need(html.includes("signal=kinds>1?'MIXED'"),'mixed semantic signal derivation missing');
-need(html.includes('signalInterference'),'moire/interference signal skin missing');
-need(html.includes('prefers-reduced-motion:reduce'),'signal motion lacks reduced-motion fallback');
+need(html.includes('FieldSignal?.combine')&&signalJs.includes("return a.length>1?'MIXED'"),'mixed semantic signal derivation missing');
+need(signalCss.includes('fieldSignalInterference'),'moire/interference signal skin missing');
+need(signalCss.includes('prefers-reduced-motion:reduce'),'signal motion lacks reduced-motion fallback');
 need(html.includes('class="fold catchReality" id="waitingFold"'),'REALITY detail not nested under attention strip');
 need(!!contract.ui_contract?.root_attention_signal,'semantic attention-strip contract missing');
 need(/Pattern never changes authority or priority/.test(contract.ui_contract?.root_attention_signal||''),'signal pattern authority boundary missing');

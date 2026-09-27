@@ -1,14 +1,17 @@
 import {getLocalMedia} from '../local-media-store.js';
 import {courseFromEventTape,classifySwing,collectMisses,updateClockEstimate,trackTimeForHostPerf,boundedHitTrace,buildReturn} from './saber-core.js';
+import {$} from '../../lib/dom.js';
+import {clamp} from '../../lib/polar-control.js';
+import {skv} from '../../lib/store.js';
 
-const $=s=>document.querySelector(s), HANDOFF='fold-bloom.saber.handoff.v01',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const HANDOFF='fold-bloom.saber.handoff.v01';
 const params=new URLSearchParams(location.search),controllerRole=String(params.get('controller')||'').toUpperCase();
 const controllerMode=controllerRole==='LEFT'||controllerRole==='RIGHT';
 const audio=$('#audio'),canvas=$('#course'),ctx=canvas?.getContext?.('2d');
 let handoff=null,course=null,trace=[],resolved=new Set(),localHand='LEFT',remoteHand='RIGHT',motionOn=false,motionSeq=0,lastSwingAt=0,peer=null,channel=null,clock=null,pingTimer=0,objectUrl=null,lastFrame=performance.now();
 
 function loadHandoff(){
-  try{return JSON.parse(sessionStorage.getItem(HANDOFF)||'null')}catch(_){return null}
+  return skv(HANDOFF,null).get();
 }
 function fmt(t){t=Math.max(0,Number(t)||0);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0')}
 function safeText(s){return String(s||'').replace(/[\u0000-\u001f]/g,' ').slice(0,4000)}

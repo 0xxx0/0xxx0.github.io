@@ -1,4 +1,5 @@
 import {InstrumentState,PROJECTIONS,OFFICES,identityGlyph,residueFor,residueInventory,runInvariantSuite,stableString} from "./core.js";
+import {esc} from "../../lib/dom.js";
 const $=s=>document.querySelector(s),NS="http://www.w3.org/2000/svg";
 const I=new InstrumentState(), six=$("#six"), svg=$("#svgStage"), sixStage=$("#sixStage");
 const panelRefs={};
@@ -8,7 +9,6 @@ for(const o of OFFICES){
   six.appendChild(el);panelRefs[o.id]=el;
 }
 const originalPanelRefs={...panelRefs};
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function svgEl(name,attrs={}){const e=document.createElementNS(NS,name);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);return e}
 function glyphPath(id,cx,cy,R){
   const g=identityGlyph(id),pts=[];for(let i=0;i<g.sides;i++){const a=(g.rotation-90+i*360/g.sides)*Math.PI/180;pts.push([cx+Math.cos(a)*R,cy+Math.sin(a)*R])}

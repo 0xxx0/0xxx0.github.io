@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.1",
+  "version": "0.3.4",
   "released": "2026-09-26",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
@@ -60,7 +60,16 @@
     "Consumes exact Shopping-addressed atlas-dayline-source-return/v0.1 offers after Dayline RUN → WITNESS → COMPLETE → RETURN.",
     "Shopping revalidates source route + exact item id/address + original lifecycle state before enabling receipt acceptance.",
     "Accepted Dayline result is stored as browser-local shopping-dayline-receipt/v0.1 evidence only; purchase/adoption lifecycle and next_action remain unchanged.",
-    "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible."
+    "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible.",
+    "Added derived per-item evidence signal (CLEAR / CHANGED / REALITY / EXTERNAL / MIXED) using shared FIELD semantic patterns; projection never mutates lifecycle.",
+    "Selected item exposes a collapsed evidence/reality bar with proof boundary + smallest next proof; list items carry the same recognition pattern.",
+    "Agent research packets include evidence_signal, proof_boundary and next_proof.",
+    "Shopping → Dayline now carries source-owned evidence_signal + proof_boundary inside the existing exact atlas-dayline-handoff/v0.1 source envelope; Dayline does not infer or own the token.",
+    "When NEXT ACTION is blank, explicit Dayline handoff uses the derived smallest next_proof rather than a generic Resolve placeholder.",
+    "Closed Shopping ↔ HOUSE FIT return loop: HOUSE now emits a short-lived exact-item house-shopping-fit-return/v0.1 OFFER_ONLY / EVIDENCE_ONLY result instead of navigation-only RETURN.",
+    "Shopping revalidates source route + item id/address + original lifecycle state before explicit acceptance into browser-local shopping-house-fit-receipt/v0.1 evidence.",
+    "HOUSE fit acceptance never mutates Shopping lifecycle, next action, ownership or adoption state.",
+    "Shopping-owned evidence_signal/proof_boundary travel into the HOUSE fit probe as source metadata; HOUSE renders but does not infer them."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -74,7 +83,16 @@
     "exact selected-item re-entry survives SHOPPING → external host → SHOPPING return",
     "Dayline receipt acceptance cannot mutate Shopping lifecycle state",
     "stale lifecycle source blocks Dayline receipt acceptance",
-    "session return offer expires/consumes without creating a global bus"
+    "session return offer expires/consumes without creating a global bus",
+    "semantic pattern is projection-only; no lifecycle or authority mutation",
+    "BOUGHT/RECEIVED/REPAIR project REALITY without becoming FIELD WAITING",
+    "stale/unknown external pre-purchase evidence contributes EXTERNAL/MIXED",
+    "source-owned evidence token survives Shopping → Dayline sourceLink → RETURN unchanged",
+    "Dayline may render Shopping token but cannot mutate Shopping lifecycle from it",
+    "HOUSE fit return wrong-item or changed-lifecycle offers are stale/read-only",
+    "PASS/FAIL/MEASURE/UNKNOWN fit evidence is dimensional screen only; it does not prove doorway path, utilities, ventilation, load, cat clearance, installation, ownership, purchase value or adoption",
+    "accepted HOUSE fit receipt leaves Shopping lifecycle unchanged",
+    "source-owned semantic token survives Shopping → HOUSE → fit return"
   ],
   "return": "/shopping/",
   "date": "2026-09-25",

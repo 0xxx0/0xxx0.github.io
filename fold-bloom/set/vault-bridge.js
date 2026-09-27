@@ -1,13 +1,9 @@
 import {putLocalMedia,hasLocalMedia,requestPersistentLocalStorage,localStorageEstimate} from '../local-media-store.js';
+import {hashFile} from '../../lib/id.js';
 
 const input=document.getElementById('files'),drop=document.getElementById('drop'),rail=document.getElementById('rail');
 const syntheticDemo=new URLSearchParams(location.search).has('demo');
 let storing=0,stored=0,failed=0,refreshing=false,refreshQueued=false,observer=null;
-
-async function hashFile(file){
-  const buf=await file.arrayBuffer(),hash=await crypto.subtle.digest('SHA-256',buf);
-  return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
-}
 
 function ensureWitness(){
   let el=document.getElementById('vaultState');

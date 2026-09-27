@@ -1,9 +1,12 @@
+import {audioGlyphRepresentation} from './listen/audio-glyph.js';
 import {listLocalMedia,putLocalMedia} from './local-media-store.js';
 import {createExperienceSet,appendSource,prepareSet} from './set/set-core.js';
 import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experience-set.js';
 import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,projectionSpec,identityDescriptor} from './instrument-support.js';
+import {hashHex,hashFile,hashText} from '../lib/id.js';
+import {$,toast} from '../lib/dom.js';
+import {skv} from '../lib/store.js';
 
-const $=s=>document.querySelector(s);
 document.documentElement.dataset.fbModule='ready';
 const I=globalThis.Interphase,G=globalThis.InterphaseGlyph;
 if(!I)throw new Error('INTERPHASE 0.2 REQUIRED');
@@ -18,18 +21,15 @@ const TEXT_PREFIX='fold-bloom.instrument.text.v01:';
 let active=loadActive(),operation='FOCUS',textRuntime=null,vault=[];
 
 function clone(x){return JSON.parse(JSON.stringify(x))}
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1400)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]))}
-function hashHex(buf){return crypto.subtle.digest('SHA-256',buf).then(h=>Array.from(new Uint8Array(h),b=>b.toString(16).padStart(2,'0')).join(''))}
-async function hashFile(file){return 'sha256:'+await hashHex(await file.arrayBuffer())}
-async function hashText(text){return 'sha256:'+await hashHex(new TextEncoder().encode(text))}
 
-function loadActive(){try{return normalizeActive(JSON.parse(sessionStorage.getItem(ACTIVE_KEY)||'null'))}catch(_){return normalizeActive()}}
-function persistActive(){try{sessionStorage.setItem(ACTIVE_KEY,JSON.stringify(active))}catch(_){}return active}
+
+function loadActive(){return normalizeActive(skv(ACTIVE_KEY,null).get())}
+function persistActive(){skv(ACTIVE_KEY).set(active);return active}
 function clearActivePointer(){active=normalizeActive();persistActive()}
 function setTextRuntime(id,text){textRuntime=text;try{sessionStorage.setItem(TEXT_PREFIX+id,text)}catch(_){}}
 function getTextRuntime(id){if(textRuntime!=null&&active.id===id)return textRuntime;try{return sessionStorage.getItem(TEXT_PREFIX+id)||''}catch(_){return''}}
-function cachedSourceGlyph(id){try{return JSON.parse(sessionStorage.getItem('fold-bloom.source-glyph.v01:'+id)||'null')?.glyph||null}catch(_){return null}}
+function cachedSourceGlyph(id){return skv('fold-bloom.source-glyph.v01:'+id,null).get()?.glyph||null}
 function readSet(){try{const raw=localStorage.getItem(SET_STORE);return raw?decodeExperienceSet(raw):null}catch(_){return null}}
 function readSetMeta(){try{return JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){return{}}}
 
@@ -65,6 +65,7 @@ const adapter={
   idOf:r=>String(r||active.id||'fold-bloom:empty'),
   resolve:r=>String(r||active.id||'fold-bloom:empty'),
   describe:describeRef,
+  glyph:ref=>{const g=describeRef(ref).value?.glyph;return audioGlyphRepresentation(g,ref)},
   read:ref=>describeRef(ref).value,
   capture:()=>({active:clone(active)}),
   restore:s=>{active=normalizeActive(s?.active);persistActive()},
@@ -73,7 +74,7 @@ const adapter={
 const host=I.createHost(adapter,{id:'FOLD_BLOOM',projection:'GLYPH',projections:projectionSpec()});
 document.documentElement.dataset.fbHost='ready';
 
-function returnFrames(){try{const x=JSON.parse(sessionStorage.getItem(RETURN_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+function returnFrames(){const x=skv(RETURN_KEY,[]).get();return Array.isArray(x)?x:[]}
 function writeReturnFrames(xs){try{sessionStorage.setItem(RETURN_KEY,JSON.stringify(xs.slice(-12)))}catch(_){}}
 function captureExternalReturn(label){
   const frame=host.captureReturn(label),xs=returnFrames();xs.push(frame);writeReturnFrames(xs);return frame;
@@ -156,7 +157,9 @@ function addressLabel(d,id){
 }
 function renderDescriptorGlyph(desc,{draft=false}={}){
   const projection=host.snapshot().state.projection,residue=host.projectionResult(projection)?.residue||[];
-  G.render($('#glyph'),desc,{size:400,projection,residue});
+  let witness=desc;
+  if(!draft&&active.kind!=='EMPTY'){const g=host.glyph(desc.id);witness=projection==='GLYPH'?{id:g.id,address:g.address,kind:desc.kind,channels:['identity','address'],glyph:g.representation}:{...desc,glyph:g.representation}}
+  G.render($('#glyph'),witness,{size:400,projection,residue});
   $('#focusLabel').textContent=desc?.label||'NO SOURCE';
   $('#focusAddress').textContent=addressLabel(desc,desc?.id);
   $('#glyph').dataset.draft=draft?'1':'0';

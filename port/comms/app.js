@@ -2,6 +2,7 @@ import {
   parseConversation,deriveSignals,createHumanMark,mergeSignals,
   coverageSummary,buildAgentPacket,makeReturn,stateFromReturn,demoConversation,SIGNAL_STATES
 } from './core.js';
+import {hashText} from '../../lib/id.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const SESSION='human.port.comms-spine.session.v01';
@@ -20,8 +21,7 @@ const nextState=s=>SIGNAL_STATES[(SIGNAL_STATES.indexOf(s)+1)%SIGNAL_STATES.leng
 const fmtAddr=(a,b)=>'char '+a+'–'+b;
 
 async function sourceHash(text){
-  const hash=await crypto.subtle.digest('SHA-256',enc.encode(String(text)));
-  return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
+  return hashText(String(text));
 }
 function derived(){return state.doc?deriveSignals(state.doc):[]}
 function signals(){

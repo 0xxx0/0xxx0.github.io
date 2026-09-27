@@ -1,7 +1,8 @@
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+import {clamp,TAU} from '../../lib/polar-control.js';
+
 const lerp=(a,b,t)=>a+(b-a)*t;
 const fract=x=>x-Math.floor(x);
-const PHI=(Math.sqrt(5)-1)/2,TAU=Math.PI*2;
+const PHI=(Math.sqrt(5)-1)/2;
 
 function hexRgb(hex){
   const h=String(hex||'#000').replace('#',''),v=parseInt(h.length===3?h.split('').map(c=>c+c).join(''):h,16);
