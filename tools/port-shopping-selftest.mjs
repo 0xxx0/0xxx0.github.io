@@ -14,7 +14,7 @@ const routes=JSON.parse(fs.readFileSync('port/routes.json','utf8'));const r=rout
 need(r&&r.authority==='LOCAL_CANDIDATE_ONLY','Port Shopping route missing/over-authorized');
 for(const m of ['TEXT','JSON','IMAGE','FILE'])need(r.accepts?.[m]==='ADAPTER','Port Shopping '+m+' adapter missing');
 const port=fs.readFileSync('port/index.html','utf8'),shop=fs.readFileSync('shopping/index.html','utf8');
-need(port.includes("selected==='shopping'")&&port.includes('PortShopping.makeOffer'),'Port producer missing');
+need(port.includes("selected==='shopping'")&&/PortShopping\?*\.makeOffer|PortShopping\?\.makeOffer/.test(port),'Port producer missing');
 need(shop.includes('shopping.port.candidate.v01')&&shop.includes('PortShopping.itemFromOffer'),'Shopping explicit candidate consumer missing');
 need(shop.includes('ADD AS VERIFY'),'Shopping explicit acceptance missing');
 if(fail.length){console.error('PORT→SHOPPING FAIL · '+fail.join(' · '));process.exit(1)}
