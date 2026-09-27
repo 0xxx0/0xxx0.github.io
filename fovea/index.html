@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOVEA — one field · every surface</title>
+<!-- FOVEA v0.2 — one-field access surface. Projection-only: marks are a curated reading over the public field; OPEN hands off to native routes; no second store, no priority, no mutation authority. Born from the Hermes-side field prototype, 2026-09-27. -->
+<style>
+  :root{--bg:#0b0d10;--panel:#11151a;--panel2:#0a0c0f;--fg:#e9e6dd;--mut:#9a9484;--line:#232830;--acc:#7fb2a8}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-font-smoothing:antialiased}
+  main{max-width:952px;margin:0 auto;padding:26px 14px 64px}
+  header h1{font-size:30px;letter-spacing:.18em;margin:0 0 2px;font-weight:700}
+  header .sub{color:var(--mut);font-size:12px;letter-spacing:.08em;margin:0 0 16px}
+  #fovea{max-width:880px;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;background:var(--panel)}
+  #fovea .bar{display:flex;align-items:baseline;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--mut);flex-wrap:wrap}
+  #fovea .bar b{color:var(--fg);font-size:12px;letter-spacing:.16em;font-weight:700}
+  #fovea .bar .sp{flex:1;min-width:8px}
+  #cv{display:block;width:100%;height:auto;background:var(--panel2);cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none}
+  #fovea .foot{display:flex;justify-content:space-between;gap:12px;padding:8px 14px;border-top:1px solid var(--line);font-size:10px;color:var(--mut);flex-wrap:wrap}
+  #fovea .foot a{color:var(--acc);text-decoration:none}
+  #fovea .foot a:hover{text-decoration:underline}
+  #card{position:absolute;left:16px;bottom:16px;max-width:min(540px,calc(100vw - 62px));background:#161b21;border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:none;z-index:2;box-shadow:0 6px 24px #0008}
+  #card .t{font-size:13px;font-weight:700}
+  #card .meta{font-size:10px;color:var(--mut);margin:3px 0 6px;letter-spacing:.08em;text-transform:uppercase}
+  #card .next{font-size:12px;margin-bottom:9px}
+  #card .btn{display:inline-block;font:inherit;font-size:11px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;margin:0 6px 0 0;text-decoration:none}
+  #card .btn:hover{border-color:var(--acc);color:var(--acc)}
+  #card .btn.primary{border-color:var(--acc);color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>FOVEA</h1>
+    <p class="sub">one field · every surface · nothing filtered</p>
+  </header>
+  <div id="fovea">
+    <div class="bar">
+      <b>FOVEA 0.2</b>
+      <span id="c1">…</span>
+      <span class="sp"></span>
+      <span>foveate to read · tap to hold · esc releases</span>
+    </div>
+    <canvas id="cv"></canvas>
+    <div class="foot">
+      <span>○ running · □ waiting · — parked · marks are a reading; the manifest is the address book · <a href="/">FIELD INDEX</a> · <a href="/field-play.html">FIELD / PLAY</a></span>
+      <span>v0.2 · 2026-09-27</span>
+    </div>
+    <div id="card">
+      <div class="t"></div>
+      <div class="meta"></div>
+      <div class="next"></div>
+      <a class="btn primary" id="open" href="#" target="_self" rel="noopener">OPEN ↗</a><button class="btn" id="copy">COPY NEXT</button><button class="btn" id="rel">RELEASE</button>
+    </div>
+  </div>
+</main>
+<script>
+(function(){
+  var DATA = [
+    {t:"I CHING",l:"PLAY",k:"live",u:"/iching/",n:"cast · transform · nuclear · 64/64"},
+    {t:"TWO DIAL",l:"PLAY",k:"live",u:"/fold-bloom/two-dial/",n:"two constraint dials over fold ↔ bloom"},
+    {t:"ECOLOGY",l:"PLAY",k:"live",u:"/fold-bloom/ecology/",n:"living-forms window"},
+    {t:"SLEEPER",l:"PLAY",k:"live",u:"/sleeper/",n:"constraint surface · held action aperture"},
+    {t:"SABER",l:"PLAY",k:"wait",u:"/fold-bloom/saber/",n:"dual-phone core · two-real-phone proof open"},
+    {t:"READFIELD",l:"REPRESENT",k:"live",u:"/docs/",n:"canonical reading surface · exact cursor"},
+    {t:"SCALE LENS",l:"REPRESENT",k:"live",u:"/fold-bloom/lens/",n:"field lens projection"},
+    {t:"VERSE ATLAS",l:"REPRESENT",k:"live",u:"/foundry/verse-atlas/",n:"verse atlas · sealed receipts"},
+    {t:"IDENTITY LAB",l:"REPRESENT",k:"live",u:"/foundry/convergence/identity-lab.html",n:"fovea node-focus specimen"},
+    {t:"DAYLINE",l:"PLAN",k:"live",u:"/dayline/",n:"confluence day state · ≤3 moves"},
+    {t:"ATLAS DAYLINE",l:"PLAN",k:"live",u:"/atlas-dayline/",n:"day atlas · hand-carried tasks"},
+    {t:"FIELD / PROOF",l:"PROVE",k:"live",u:"/forward-field-proof/",n:"field proof surface"},
+    {t:"FIELD / PLAY",l:"PROVE",k:"live",u:"/field-play.html",n:"public-safe missions derived from gaps"},
+    {t:"CHANGE CALCULUS",l:"PROVE",k:"wait",u:"/fold-bloom/convergence/change-calculus/",n:"STEP arithmetic · sufficiency gate open"},
+    {t:"FIELD INTAKE",l:"CAPTURE",k:"live",u:"/field-intake/",n:"one-screen intake · phone-first"},
+    {t:"HUMAN PORT",l:"CAPTURE",k:"live",u:"/port/",n:"comms spine · inbound → drafts"},
+    {t:"BODY / FIT",l:"OPEN",k:"wait",u:"/body/fit/",n:"sensor transform · real-use proof open"},
+    {t:"READ / RIDE",l:"OPEN",k:"live",u:"/fold-bloom/live/",n:"READFIELD cursor → LIVE course · in review"},
+    {t:"FAN / 8 PRINT",l:"OPEN",k:"wait",u:"/foundry/axial/",n:"print at 100% · one photo RETURN"},
+    {t:"LEGACY DRIVE ARCHIVE",l:"RECOVERED",k:"park",n:"seed · rewrite-on-earn"},
+    {t:"GLYPHLINE MAPS",l:"RECOVERED",k:"park",n:"seed"},
+    {t:"KALA / ROOM LINEAGE",l:"RECOVERED",k:"park",n:"captured · interphase refs"},
+    {t:"INTERIORAIAPP",l:"RECOVERED",k:"park",n:"park"},
+    {t:"RECOVERY FAMILIES ×24",l:"RECOVERED",k:"park",n:"manifested · parked"},
+    {t:"JUNE ARCHIVE",l:"RECOVERED",k:"park",n:"protected · sole-source"}
+  ];
+  var LANES = ["PLAY","REPRESENT","PLAN","PROVE","CAPTURE","OPEN","RECOVERED"];
+  var BOX = {PLAY:[14,26,272,216],REPRESENT:[298,26,284,216],PLAN:[594,26,272,216],
+             PROVE:[14,258,272,104],CAPTURE:[298,258,284,104],OPEN:[594,258,272,104],
+             RECOVERED:[14,378,852,68]};
+  var KN = {live:"running",wait:"waiting",park:"parked"};
+  var W=880,H=470,R=140;
+  var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  var FF=(getComputedStyle(document.body).fontFamily||'ui-monospace,monospace');
+  function V(n,f){var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||f;}
+  var FG=V('--fg','#e9e6dd'), MUT=V('--mut','#9a9484'), ACC=V('--acc','#7fb2a8'), LN=V('--line','#232830');
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  cv.width=W*DPR; cv.height=H*DPR;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  var laneItems={}; DATA.forEach(function(d){(laneItems[d.l]=laneItems[d.l]||[]).push(d);});
+  var rng=mulberry32(42), pts=[];
+  LANES.forEach(function(L){var b=BOX[L],its=laneItems[L]||[];
+    its.forEach(function(it){pts.push({it:it,x:b[0]+20+rng()*(b[2]-40),y:b[1]+30+rng()*(b[3]-46)});});});
+  for(var k=0;k<3;k++){for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){
+    var a=pts[i],b=pts[j]; if(a.it.l!==b.it.l) continue;
+    var dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
+    if(d<16){var push=(16-d)/2;dx/=d;dy/=d;a.x-=dx*push;a.y-=dy*push;b.x+=dx*push;b.y+=dy*push;}}}}
+  var held=null, LMx=null, LMy=null;
+  function glyph(x,y,s,kind){
+    if(kind==='live'){ctx.beginPath();ctx.arc(x,y,3.6*s,0,6.2832);ctx.stroke();}
+    else if(kind==='wait'){ctx.strokeRect(x-3*s,y-3*s,6*s,6*s);}
+    else{ctx.beginPath();ctx.moveTo(x-4*s,y);ctx.lineTo(x+4*s,y);ctx.stroke();}
+  }
+  function draw(mx,my){
+    ctx.clearRect(0,0,W,H);
+    ctx.lineWidth=1.25;
+    LANES.forEach(function(L){var b=BOX[L];
+      ctx.globalAlpha=.32;ctx.strokeStyle=LN;ctx.strokeRect(b[0]+.5,b[1]+.5,b[2]-1,b[3]-1);
+      ctx.globalAlpha=.55;ctx.fillStyle=MUT;ctx.font='700 10px '+FF;ctx.textBaseline='alphabetic';
+      ctx.fillText(L+' · '+((laneItems[L]||[]).length),b[0]+8,b[1]+14);});
+    if(mx!==null){ctx.globalAlpha=.10;ctx.strokeStyle=FG;ctx.beginPath();ctx.arc(mx,my,R,0,6.2832);ctx.stroke();}
+    pts.forEach(function(p){
+      var boost=0;
+      if(mx!==null){var d=Math.hypot(p.x-mx,p.y-my);boost=Math.max(0,1-d/R);}
+      var isH=(held===p);
+      ctx.globalAlpha=isH?1:Math.min(1,.30+.72*boost);
+      ctx.strokeStyle=isH?ACC:FG;ctx.fillStyle=isH?ACC:FG;
+      ctx.lineWidth=isH?1.6:1.25;
+      glyph(p.x,p.y,isH?1.7:1+1.25*boost,p.it.k);
+      if(isH||boost>0.55){
+        ctx.globalAlpha=isH?1:Math.max(0,Math.min(1,1.25*boost-.45));
+        ctx.fillStyle=isH?ACC:FG;ctx.font='11px '+FF;ctx.textBaseline='middle';
+        var t=p.it.t.length>34?p.it.t.slice(0,33)+'…':p.it.t;
+        ctx.fillText(t,p.x+9,p.y+0.5);
+      }
+    });
+  }
+  var card=document.getElementById('card');
+  var openBtn=document.getElementById('open'), copyBtn=document.getElementById('copy'), relBtn=document.getElementById('rel');
+  function showCard(p){
+    card.style.display='block';
+    card.querySelector('.t').textContent=p.it.t;
+    card.querySelector('.meta').textContent=p.it.l+' · '+KN[p.it.k];
+    card.querySelector('.next').textContent='NEXT — '+(p.it.n||'open');
+    openBtn.style.display=p.it.u?'inline-block':'none';
+    if(p.it.u)openBtn.href=p.it.u;
+    copyBtn.textContent='COPY NEXT';
+    copyBtn.onclick=function(){
+      var msg='FOVEA · '+p.it.t+' — '+(p.it.n||'open')+' ('+p.it.l+') · /fovea/';
+      try{navigator.clipboard.writeText(msg);copyBtn.textContent='copied';}
+      catch(e){copyBtn.textContent='no clipboard';}
+      setTimeout(function(){copyBtn.textContent='COPY NEXT';},900);
+    };
+  }
+  function mapEv(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};}
+  function release(){held=null;card.style.display='none';draw(LMx,LMy);}
+  cv.addEventListener('pointermove',function(e){var m=mapEv(e);LMx=m.x;LMy=m.y;draw(LMx,LMy);});
+  cv.addEventListener('pointerleave',function(){LMx=null;LMy=null;draw(null,null);});
+  cv.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    var m=mapEv(e);LMx=m.x;LMy=m.y;
+    var best=null,bd=34;
+    pts.forEach(function(p){var d=Math.hypot(p.x-m.x,p.y-m.y);if(d<bd){bd=d;best=p;}});
+    if(best){held=best;showCard(best);}else{held=null;card.style.display='none';}
+    draw(m.x,m.y);
+  });
+  relBtn.onclick=release;
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')release();});
+  document.getElementById('c1').textContent=DATA.length+' marks · '+LANES.length+' lanes';
+  draw(null,null);
+  document.documentElement.setAttribute('data-render','ok');
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body>
+</html>
