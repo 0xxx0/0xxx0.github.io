@@ -1372,3 +1372,49 @@ It does **not** prove:
 - route-residue usefulness.
 
 The next gate is now ordinary real-source use, not more architecture.
+
+
+---
+
+# 28. Focus-first usability continuation — 2026-09-27
+
+Recover next:
+
+- /control/confluence/FOCUS_RING_TRAIL_CONVERGENCE_2026-09-27.md
+
+This continuation repairs the first real-use frictions after READ/RIDE became repository-proven:
+
+~~~text
+CENTER = current attended object
+RING   = position / scale / rhythm / route
+MARK   = explicit human traversal / annotation evidence
+LENS   = optional interpretation
+RETURN = source re-entry
+~~~
+
+Important refinement:
+
+READ/RIDE progress is not comprehension.
+
+The shared device-local source trail may say:
+- visited to N%;
+- last addressed focus;
+- human placed a MARK;
+
+but it must never infer:
+- read;
+- understood;
+- agreed;
+- verified;
+- complete.
+
+READFIELD and LIVE READ/RIDE retain unequal address grammars. The neutral cross-projection witness is an exact character coordinate when available, not a forced universal URL.
+
+The same continuation also:
+- rationalizes JSON focus into key/value/path/parent/children;
+- returns the current object to the center of LAB READ/DATA and REPLAY;
+- makes PULSE FREE RING the default and TRAIN explicit;
+- separates VOICE from PULSE again;
+- demotes I Ching/J-space to optional DATA lenses over exact state.
+
+This is a usability convergence pass, not a new architecture.
