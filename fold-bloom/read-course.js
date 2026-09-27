@@ -69,7 +69,7 @@ function coursePoint(raw,span,index,grain,sourceId){
   const len=Math.max(1,raw.length),p=clamp(span.start/len);
   return {p:+p.toFixed(8),kind:grain,index,start:span.start,end:span.end,label:span.label||span.text.slice(0,96),address:`read://${encodeURIComponent(sourceId)}/${grain.toLowerCase()}/${index}@${span.start}-${span.end}`};
 }
-export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={},focus=null,returnAddress='/docs/',from='/docs/',carrier=null}={}){
+export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={},focus=null,returnAddress='/docs/',from='/docs/',carrier=null,trailKey=null}={}){
   const text=clean(source);
   if(!text.trim())throw Error('READ_SOURCE_REQUIRED');
   const id=identityId(sourceIdentity,text);
@@ -82,7 +82,8 @@ export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={}
     focus:focus&&typeof focus==='object'?JSON.parse(JSON.stringify(focus)):null,
     from:String(from||'/docs/'),
     returnAddress:String(returnAddress||from||'/docs/'),
-    carrier:carrier&&typeof carrier==='object'?JSON.parse(JSON.stringify(carrier)):null
+    carrier:carrier&&typeof carrier==='object'?JSON.parse(JSON.stringify(carrier)):null,
+    trailKey:trailKey?String(trailKey):null
   };
 }
 export function normalizeReadRidePacket(raw){
