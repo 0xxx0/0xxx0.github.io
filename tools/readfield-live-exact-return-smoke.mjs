@@ -56,7 +56,7 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
     traversal:{mode:'STEP',steps:0,grains_entered:1},witness:{text:SAMPLE.slice(0,1)},
     return:{route:'/docs/',source_id:'sha256:'+('0'.repeat(64)),cursor:{start:0,end:1}},created_at:new Date().toISOString()
   };
-  sessionStorage.setItem(RETURN_STORE,JSON.stringify(stale));history.replaceState(null,'','?paste=1&ride_return=1#paste');
+  sessionStorage.setItem(RETURN_STORE,JSON.stringify(stale));W().history.replaceState(null,'','?paste=1&ride_return=1#paste');
   const staleResult=await W().ReadfieldRideReturn.accept();const afterStale=D().getElementById('docAperture').snapshot();
   rec.stale={result:staleResult,before:beforeStale.span,after:afterStale.span};
   if(staleResult.ok||staleResult.reason!=='STALE_SOURCE'||!same(beforeStale.span,afterStale.span))throw Error('stale zero-mutation failed');
@@ -72,7 +72,7 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
     return:{route:'/docs/',source_id:acceptedHash,cursor:{start:final.start,end:final.end}},created_at:new Date().toISOString()
   };
   template.visited[2].start=template.visited[1].start;
-  const beforeBad=D().getElementById('docAperture').snapshot();sessionStorage.setItem(RETURN_STORE,JSON.stringify(template));history.replaceState(null,'','?paste=1&ride_return=1#paste');
+  const beforeBad=D().getElementById('docAperture').snapshot();sessionStorage.setItem(RETURN_STORE,JSON.stringify(template));W().history.replaceState(null,'','?paste=1&ride_return=1#paste');
   const badResult=await W().ReadfieldRideReturn.accept();const afterBad=D().getElementById('docAperture').snapshot();
   rec.malformed={result:badResult,before:beforeBad.span,after:afterBad.span};
   if(badResult.ok||badResult.reason!=='MALFORMED_VISIT'||!same(beforeBad.span,afterBad.span))throw Error('malformed zero-mutation failed');
