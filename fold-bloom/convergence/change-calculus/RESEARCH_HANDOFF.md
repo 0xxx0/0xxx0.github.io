@@ -503,3 +503,57 @@ For the currently tested one-step forecast property, the obvious causal residue 
 
 Receipt source: public-surface-check run 36296755785 on rebased branch lineage. The current branch keeps this experiment in the normal steering/change-calculus gate.
 
+
+
+## Native STEP typing / order result — 2026-09-27
+
+The next convergence closes a subtle category error in the earlier STEP proposal.
+
+`availableForecasts(state)` is **one decision aperture**. Its entries are alternatives for the next commit, not a queue of actions that can be freely permuted. Native `release()` always selects a new target family different from the released family; because sibling forecasts in the old aperture all address the old target family, committing one invalidates the siblings as stale native forecasts.
+
+Executable witness:
+
+```sh
+node fold-bloom/convergence/change-calculus/live-step-order.mjs
+```
+
+The research module therefore separates two questions:
+
+1. **stale-address composition** — rejected as ill-typed across a release boundary;
+2. **re-resolved verb intents** — `BLOOM/FOLD/SPLIT/RETURN` may be tested in different orders only after declaring an explicit resolver. The current experiment uses `LOWEST_SLOT`, reports candidate ambiguity at every step, and never promotes that resolver into gameplay policy.
+
+This sharpens H5:
+
+```text
+STEP is not "take two buttons from one forecast set and swap them."
+
+STEP is:
+  CAPTURE NATIVE APERTURE
+  → COMMIT ONE LAWFUL ACTION
+  → REFRESH APERTURE
+  → RE-RESOLVE THE NEXT DECLARED INTENT
+  → WITNESS
+  → compare alternate orders only when their typing/resolution law is explicit.
+```
+
+If both intent orders remain defined and end in different native forecast apertures, that is a genuine bounded non-commutation witness. If one order becomes unsupported, record `DOMAIN_DEPENDENT` rather than pretending the operators commute or fail algebraically.
+
+LAB does not gain another mode. Its existing DATA state/change panel now carries the exact supplied FROM/TO endpoints into CHANGE CALCULUS. This keeps FIELD LAB as the doorway and the convergence surface as the specialist research instrument.
+
+### Solve-for-all implication
+
+The reusable primitive is increasingly specific:
+
+```text
+STATE
+→ APERTURE (lawful alternatives for one epoch)
+→ INTENT
+→ SUPPORT / AMBIGUITY
+→ COMMIT
+→ APERTURE'
+→ RESOLVE NEXT INTENT
+→ WITNESS / RETURN
+```
+
+The important boundary is the apostrophe: **commit changes the space in which the next action is interpreted**. A system that carries candidate labels forward without refreshing support is precisely where semantic steering, planners, UI macros and physical procedures can become unsafe or nonsensical.
+

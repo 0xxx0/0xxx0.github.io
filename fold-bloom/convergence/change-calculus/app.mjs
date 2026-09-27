@@ -1,4 +1,5 @@
 import {appliedResearchFrame} from './kernel.mjs';
+import {candidateEpochWitness,runLiveVerbCommutator} from './live-step-order.mjs';
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const traceFixture={
@@ -18,6 +19,10 @@ const forecastFixture=[
   {slot:5,verb:'RETURN',chain:1,power:.9}
 ];
 $('#trace').value=JSON.stringify(traceFixture,null,2);$('#forecasts').value=JSON.stringify(forecastFixture,null,2);
+
+const boot=new URLSearchParams(location.search);
+if(boot.get('from'))$('#fromState').value=boot.get('from');
+if(boot.get('to'))$('#toState').value=boot.get('to');
 
 let hexByBin={};
 fetch('/iching/hexagrams.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{for(const h of d.hexagrams||[])hexByBin[h.binary]=h;calculate()}).catch(()=>calculate());
@@ -71,6 +76,43 @@ function calculate(){
   $('#residueOut').innerHTML='<h2>RESIDUE / NON-EQUIVALENCE</h2><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
     '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="/fold-bloom/lab/?mode=DATA">↩ FIELD LAB / DATA</a> · <a href="/iching/">I CHING source lens →</a></p>';
 }
+
+function pathSummary(path){
+  if(!path)return '—';
+  const steps=(path.steps||[]).map(x=>x.requested_verb+'@'+x.chosen_slot+(x.candidate_count>1?' ['+x.candidate_count+' candidates]':'')).join(' → ');
+  const call=path.final_aperture?.call;
+  const tail=path.status==='COMPLETE'
+    ?'target '+path.final_aperture.target_type+' · call '+(call?call.verb+'×'+call.chain:'OPEN')
+    :'BLOCKED '+(path.blocked_verb||'')+' · '+(path.reason||'');
+  return (steps||'∅')+' · '+tail;
+}
+function runOrderResearch(){
+  const epoch=candidateEpochWitness();
+  const search=runLiveVerbCommutator({seeds:32,rounds:20,maxPairsPerState:6});
+  const w=search.strongest_witness;
+  let html='<h2>NATIVE STEP / ORDER</h2><div class="metrics">'+
+    metric('pairs',search.tested_pairs)+metric('both defined',search.both_defined_pairs)+
+    metric('noncommuting',search.noncommuting_pairs)+metric('domain-dependent',search.domain_dependent_pairs)+
+    metric('resolver',search.resolver)+'</div>';
+  if(epoch.ok){
+    html+='<p><b>FORECAST EPOCH:</b> '+esc(epoch.committed.verb+'@'+epoch.committed.slot)+
+      ' commits target '+esc(epoch.old_target_type)+'→'+esc(epoch.new_target_type)+
+      '; sibling '+esc(epoch.sibling_before.verb+'@'+epoch.sibling_before.slot)+
+      ' survives? <b>'+esc(epoch.sibling_remains_supported?'YES':'NO')+'</b>.</p>'+
+      '<p>'+esc(epoch.law)+'</p>';
+  }
+  if(w){
+    html+='<p><b>'+esc(w.classification)+'</b> · seed '+esc(w.seed)+' · round '+esc(w.round)+
+      ' · intents '+esc(w.intents.join(' ↔ '))+'</p>'+
+      '<table><thead><tr><th>order</th><th>witness</th></tr></thead><tbody>'+
+      '<tr><td>'+esc(w.intents.join(' → '))+'</td><td>'+esc(pathSummary(w.forward))+'</td></tr>'+
+      '<tr><td>'+esc([...w.intents].reverse().join(' → '))+'</td><td>'+esc(pathSummary(w.reverse))+'</td></tr>'+
+      '</tbody></table><p>'+esc(w.law)+'</p>';
+  }else html+='<p class="hot">No distinct-verb order witness found in this bounded search.</p>';
+  html+='<p>Interpretation: a forecast set is one decision aperture, not a queue. Multi-step STEP research must either preserve explicit edit operators or declare how a higher-level intent is re-resolved after every commit.</p>';
+  $('#stepOrderOut').innerHTML=html;
+}
+$('#commute').onclick=runOrderResearch;
 $('#calc').onclick=calculate;
 ['#fromState','#toState','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));
 calculate();
