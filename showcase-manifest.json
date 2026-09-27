@@ -7220,8 +7220,8 @@
       "family": "SLEEPER",
       "operation": "PLAY / PROVE / RETURN",
       "state": "ACTIVE",
-      "version": "v2-era / City Engine v0.2",
-      "receipt": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
+      "version": "v2-era / City Engine v0.2 + RETURN BRIDGE 0.1",
+      "receipt": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json",
       "transfer": [
         "phrase + verse cell + figure → deterministic city",
         "URCHIN / SLOTHCAKE / KITE figure-specific physics",
@@ -7232,7 +7232,11 @@
         "Verse/Poem is a candidate source/structure donor; Sleeper does not absorb poetry authority",
         "FOLD//BLOOM LIVE is a movement/ride/ghost donor; borrowed traversal never becomes source or Gate-proof authority",
         "Scale Lens is a candidate representation consumer for addressed Return Artifact/world objects; no typed Sleeper→Lens adapter is claimed yet",
-        "ASCII POV 0.8 remains a superseded derivative; ASCII ONE RETURN reconstruction remains a donor"
+        "ASCII POV 0.8 remains a superseded derivative; ASCII ONE RETURN reconstruction remains a donor",
+        "Return Bridge 0.1: pasted Return Artifact v2 is revalidated by deterministic worldKey + 8/8 Gate presence before continuation",
+        "validated source → READFIELD through readfield-handoff/v1 with exact caller RETURN",
+        "validated source → Verse/Poem through field-verse-handoff/v0.1; source/focus only, no proof/world authority",
+        "validated Return Artifact → Scale Lens through LensState 0.2 / scale-lens.handoff/v2 with upstream contract and RETURN"
       ],
       "contract": {
         "accepts": {
@@ -7331,8 +7335,8 @@
           },
           {
             "class": "VERSE_SOURCE_HANDOFF",
-            "status": "CANDIDATE",
-            "via": "phrase / verse-cell transfer only after an explicit source-identity adapter; /poetry/map/ retains authorship"
+            "status": "AVAILABLE",
+            "via": "/sleeper/project/ Return Bridge → field-verse-handoff/v0.1 → /poetry/map/; source/focus only"
           },
           {
             "class": "RIDE_GHOST_DONOR",
@@ -7341,16 +7345,22 @@
           },
           {
             "class": "SCALE_REPRESENTATION",
-            "status": "CANDIDATE",
-            "via": "/fold-bloom/lens/ after a typed Return Artifact/address adapter; navigation alone is not integration"
+            "status": "AVAILABLE",
+            "via": "/sleeper/project/ Return Bridge → scale-lens.handoff/v2 → /fold-bloom/lens/; exact Return Artifact as upstream object"
+          },
+          {
+            "class": "READFIELD_RETURN",
+            "status": "AVAILABLE",
+            "via": "/sleeper/project/ Return Bridge → readfield-handoff/v1; choose source or exact Return Artifact"
           }
         ],
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-09-27T13:02:00+08:00",
+        "updated_at": "2026-09-27T13:40:00+08:00",
         "work_modes": [
           "PLAY",
+          "OPERATE",
           "VERIFY",
           "RESEARCH",
           "IMPLEMENT"
@@ -7358,8 +7368,8 @@
       },
       "project": "/sleeper/project/",
       "tier": "FIELD",
-      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; eight enacted Gate proofs and return to origin emit Return Artifact v2. FIELD owns addressing, READFIELD can inspect exact source/spec, and adjacent Verse/LIVE/Lens systems remain unequal transfer seams rather than merged authority.",
-      "latest_return": "/returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
+      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine plus a same-origin Return Bridge: phrase + verse cell + figure compile one deterministic city; eight enacted Gate proofs and return to origin emit Return Artifact v2. The project surface can verify that artifact and carry source/RETURN into READFIELD, Verse or Scale Lens through existing handoffs while preserving Sleeper authority. LIVE/ASCII City remain world-depth donors, not shared state.",
+      "latest_return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/",

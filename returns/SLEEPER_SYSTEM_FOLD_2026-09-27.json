@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/sleeper-system-fold/v0.1",
+  "generated_at": "2026-09-27T13:40:00+08:00",
+  "object": {
+    "lineage": "sleeper-one-return",
+    "route": "/sleeper/",
+    "project": "/sleeper/project/",
+    "identity": "SLEEPER // ONE RETURN v2 / City Engine v0.2 + RETURN BRIDGE 0.1"
+  },
+  "source_authority": "/recovery/sleeper/site-source-2026-09-18/",
+  "implemented": [
+    "existing Sleeper project surface now accepts copied sleeper.one-return v2 Return Artifact JSON",
+    "bridge recomputes deterministic worldKey from source + verse-cell id + figure using recovered seed law",
+    "bridge requires all eight canonical Gate proof names before enabling continuation",
+    "session-local accepted Return is retained only in sessionStorage and can be cleared",
+    "validated source can enter READFIELD through existing readfield-handoff/v1 with exact caller RETURN",
+    "validated full Return Artifact can enter READFIELD as inspectable JSON through the same existing handoff",
+    "validated source + first-line focus can enter Verse/Poem through existing field-verse-handoff/v0.1; Poem Map now displays explicit sender label when supplied",
+    "validated full Return Artifact can enter Scale Lens through existing LensState 0.2 scale-lens.handoff/v2 with upstream contract, provenance and RETURN",
+    "same-world deep link can be reconstructed from verified source/cell/figure/worldKey",
+    "Confluence transfer registry records implemented Sleeper→READFIELD / Verse / Lens seams and ASCII City as partial world-depth donor family",
+    "durable system-fold note records design laws, donor map, open questions and stop rules"
+  ],
+  "preserved": [
+    "Return Artifact v2 is a boundary object, not a universal bus",
+    "Sleeper remains source/world/proof authority",
+    "READFIELD remains read/focus authority only",
+    "Poem Map receives source/focus only and retains writing/authorship authority",
+    "Scale Lens remains projection-only and returns to Sleeper",
+    "FOLD//BLOOM LIVE remains donor-only in this cut",
+    "ASCII City transport is one donor mechanism, not Sleeper ontology",
+    "route ghost remains general player-trace/memory candidate, not transportation-specific",
+    "POV 0.8 remains superseded derivative; ASCII ONE RETURN reconstruction remains donor"
+  ],
+  "open_questions": [
+    "optional RouteWitness v1 inside additive Return Artifact v2",
+    "cross-origin direct bridge from canonical runtime without manual paste",
+    "explicit non-arbitrary Verse → Sleeper choice of source/cell/figure",
+    "which single LIVE/ASCII City world-depth mechanism solves a demonstrated Sleeper gap first",
+    "whether long-form district progression is spatial, mechanical, narrative or orientation-first",
+    "whether ambient traffic/residents create decisions or only spectacle",
+    "which minimal Return subset should opt-in to Dayline/real-world continuation"
+  ],
+  "evidence_boundary": "This branch implements same-origin continuation from a user-copied canonical Return Artifact. It does not modify the external canonical runtime, implement route ghosts, import LIVE state, or claim unreviewed mechanisms from the other ASCII City channel videos."
+}

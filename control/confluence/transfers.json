@@ -1,6 +1,6 @@
 {
   "schema": "confluence-transfer-registry/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-27",
   "status": "PARTIAL_REGISTRY",
   "law": "FROM → TRANSFER UNIT → TO → TEST → RETURN",
   "non_claim": "This registry does not imply every Confluence document is a transfer packet. Only records with explicit donor/source, bounded unit, recipient and evidence posture belong here.",
@@ -84,6 +84,46 @@
       "recipient": "/fold-bloom/listen/ + /docs/ + /fold-bloom/two-dial/",
       "test": "Repository browser/route suite PASS in run 35673287881. Remaining authority: real-phone discoverability/reachability for LISTEN USE TRACK → READFIELD/TWO DIAL and exact RETURN.",
       "return": "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
+    },
+    {
+      "id": "sleeper-return-readfield",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "donor": "/sleeper/ → Return Artifact v2",
+      "evidence_class": "EXACT_RECOVERED_SOURCE + SAME_ORIGIN_RUNTIME_ADAPTER",
+      "unit": "validated sleeper.one-return v2 source or full Return Artifact → readfield-handoff/v1",
+      "recipient": "/docs/",
+      "test": "Sleeper project bridge must recompute worldKey, require all eight Gate proofs, preserve caller RETURN, and READFIELD must remain inspection-only.",
+      "return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
+    },
+    {
+      "id": "sleeper-return-scale-lens",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "donor": "/sleeper/ → Return Artifact v2",
+      "evidence_class": "EXACT_RECOVERED_SOURCE + EXISTING_LENSSTATE_V02_HANDOFF",
+      "unit": "validated Return Artifact v2 → scale-lens.handoff/v2 addressed object with explicit upstream contract + returnAddress",
+      "recipient": "/fold-bloom/lens/",
+      "test": "Lens must parse/project the exact artifact text, retain sleeper.one-return/v2 as upstream contract, and RETURN to /sleeper/project/ without mutating the run.",
+      "return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
+    },
+    {
+      "id": "sleeper-source-verse",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "donor": "/sleeper/ → verified Return Artifact source",
+      "evidence_class": "EXACT_RECOVERED_SOURCE + EXISTING_VERSE_HANDOFF",
+      "unit": "source phrase + bounded first-line focus only → field-verse-handoff/v0.1",
+      "recipient": "/poetry/map/",
+      "test": "Poem Map receives source/focus only; no Sleeper Gate proof, world geometry, path, or returnedSource becomes poem authorship.",
+      "return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
+    },
+    {
+      "id": "ascii-city-to-sleeper-world-depth",
+      "status": "DONOR_PARTIAL",
+      "donor": "ASCII City prototype/update lineage; Prototype 3 transport episode supplied in collaboration",
+      "evidence_class": "USER_SUPPLIED_TIMESTAMPED_SUMMARY + PARTIAL_PUBLIC_SEARCH",
+      "unit": "world-depth mechanisms such as traversal hierarchy, interruptible carry, persistent same-world movement, landmarks/orientation; hold open for other channel episodes",
+      "recipient": "/sleeper/",
+      "test": "Transfer only one named missing function at a time; movement/ambient systems/interiors/verticality/transport/ghosts must never satisfy Gate evidence merely by geometry or proximity.",
+      "return": "/control/confluence/SLEEPER_SYSTEM_FOLD_2026-09-27.md"
     }
   ]
 }
