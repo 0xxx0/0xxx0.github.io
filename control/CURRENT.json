@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-27T15:58:00+08:00",
+  "updated": "2026-09-27T18:26:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -520,16 +520,17 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN",
+      "head": "HOUSE / FIELD 0.7.7 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN + MINI APP INTENT",
       "state": "ACTIVE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views (PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS) while HA/HOUSEBUS retains device truth/actuation. 0.7.6 attaches exactly CARE / BODY / DAYLINE to the selected room as a diegetic locus aperture — second unequal proof of the diegetic-locus invariant after CARE 0.6, shared runtime extraction deferred; each move delegates to an existing HOUSE projection/context bridge and gains no new store or actuation. 0.7.6 also closes the session-only Shopping FIT evidence loop: HOUSE renders the source-owned Shopping evidence witness, screens candidate vs measured available W/D/H, and emits an OFFER_ONLY / EVIDENCE_ONLY exact-item fit result without mutating Shopping lifecycle or canonical HOUSE geometry.",
-      "version": "0.7.6",
+      "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views (PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS) while HA/HOUSEBUS retains device truth/actuation. 0.7.7 retains the CARE / BODY / DAYLINE diegetic locus aperture and the session-only Shopping FIT evidence loop, and restores the canonical Telegram Mini App intent channel: inside Telegram, typed house-intent/v1 may return semantic operation + canonical object + optional value through WebApp.sendData; outside Telegram the adapter is inert. No HA URL/token/service call/private device id enters the client, and the private polling bot retains identity, policy and actuation.",
+      "version": "0.7.7",
       "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
       "evidence": [
         "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
         "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
-        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
+        "/house/release.json"
       ]
     },
     {
