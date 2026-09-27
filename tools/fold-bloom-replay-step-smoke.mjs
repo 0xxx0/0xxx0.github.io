@@ -16,8 +16,9 @@ const b=D().getElementById('stepBack'),n=D().getElementById('stepNext'),scrub=D(
 const a=api.step(1),p1=Number(scrub.value),addr1=D().documentElement.dataset.replayCourseAddress||'';
 const z=api.step(1),p2=Number(scrub.value),addr2=D().documentElement.dataset.replayCourseAddress||'';
 const back=api.step(-1),p3=Number(scrub.value);
-const pass=!!b&&!!n&&a.p>0&&z.p>a.p&&p2>p1&&p3<p2&&addr1.startsWith('course://replay_score/')&&addr2.startsWith('course://replay_score/')&&D().documentElement.dataset.replayStep==='ready';
-o.textContent=(pass?'PASS ':'FAIL ')+JSON.stringify({a:a.p,z:z.p,back:back.p,p1,p2,p3,addr1,addr2,buttons:!!b&&!!n});
+await sleep(120);const wordAnchor=D().documentElement.dataset.replayWordAnchor||'';
+const pass=!!b&&!!n&&a.p>0&&z.p>a.p&&p2>p1&&p3<p2&&addr1.startsWith('course://replay_score/')&&addr2.startsWith('course://replay_score/')&&D().documentElement.dataset.replayStep==='ready'&&wordAnchor==='center';
+o.textContent=(pass?'PASS ':'FAIL ')+JSON.stringify({a:a.p,z:z.p,back:back.p,p1,p2,p3,addr1,addr2,buttons:!!b&&!!n,wordAnchor});
 })().catch(e=>{o.textContent='FAIL '+JSON.stringify({error:String(e?.stack||e)})});
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const f=resolveFile(req.url);if(!f){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(f),'cache-control':'no-store'});fs.createReadStream(f).pipe(res)});
