@@ -1,4 +1,4 @@
-# CURRENT — 2026-09-26
+# CURRENT — 2026-09-27
 
 **Mode:** SEAL → RECOVER → EXECUTE.
 
@@ -33,7 +33,7 @@ Evidence: /recovery/ · /control/MIGRATION.json · /control/MEDIA_REFINERY.json 
 
 **conversion-first-with-stop:** Select the highest-leverage executable conversion on an existing head. Prefer another-human use, device/physical consequence, or exact recovery only when it unlocks those. If the highest-value frontier is human/world-gated, allow at most ONE bounded fallback that directly prepares that gate or reduces re-entry friction, then STOP with NO_LAWFUL_HIGH_VALUE_MOVE. Do not forage the archive for substitute work merely to remain busy.
 
-## HEADS
+## HEADS (human projection; canonical machine versions live in `CURRENT.json`)
 
 - **FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE** — CORE_ACTIVE — route /
 - **SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1** — STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED — route /fold-bloom/lens/
@@ -44,8 +44,8 @@ Evidence: /recovery/ · /control/MIGRATION.json · /control/MEDIA_REFINERY.json 
 - **AXIAL / FOCUS STACK 0.7.3** — ACTIVE — route /foundry/axial/
 - **HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.2.1 + DAYLINE CLOSED RETURN / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router** — ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE — route /port/
 - **ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH** — STABLE + OPT_IN_LIVE_CANDIDATE — route /atlas-dayline/
-- **HOUSE / FIELD 0.7.5 · SPATIAL + CARE CURRENT HEAD** — ACTIVE — route /house/
-- **SHOPPING FIELD 0.3.3 / SOURCE-OWNED SIGNAL → DAYLINE + EVIDENCE BOUNDARY / FI-SHOP-001** — ACTIVE_ADAPTER — route /shopping/
+- **HOUSE / FIELD 0.7.6 · SPATIAL + CARE + SHOPPING FIT RETURN** — ACTIVE — route /house/
+- **SHOPPING FIELD 0.3.4 / CLOSED HOUSE FIT + SOURCE SIGNAL → DAYLINE/HOUSE / FI-SHOP-001** — ACTIVE_ADAPTER — route /shopping/
 - **TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH** — ACTIVE — route /forward-field-proof/triangle/
 
 ## EXECUTION CONTRACT
