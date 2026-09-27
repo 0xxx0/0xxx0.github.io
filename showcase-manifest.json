@@ -4724,7 +4724,7 @@
       "machine_state": "/house/state.json",
       "showcase_card": false,
       "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context, and a diegetic locus aperture attaching CARE / BODY / DAYLINE to the selected room while keeping PLAN/RCP/TRACE visible (delegating to existing local/context handoffs only). CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
-      "version": "0.7.6",
+      "version": "0.7.7",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -4732,6 +4732,7 @@
         "Shopping source evidence pattern may project on fit probe; HOUSE does not infer or mutate Shopping truth",
         "hash-addressable projections at canonical root",
         "canonical human entry = /house/; no second sovereign HOUSE UI",
+        "Mini App intent channel (restored 0.7.7): in a Telegram WebView the root returns a typed house-intent/v1 via WebApp.sendData; outside Telegram the adapter is inert and loads no third-party script; the private polling bot holds identity/policy/actuation",
         "spatial model/assets remain under /house/spatial/ as substrate, not a competing front door",
         "technical public state/runtime projection retained at /house/expert.html",
         "spatial addressing",
