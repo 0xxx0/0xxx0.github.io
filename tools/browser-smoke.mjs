@@ -888,7 +888,16 @@ const server=http.createServer((req,res)=>{
 function runChrome(bin,route,options={}){
   return new Promise((resolve,reject)=>{
     const url='http://'+HOST+':'+PORT+route;
-    const budget=Math.round((options.budget||6500)*SLOW);
+    // Two different needs, deliberately not conflated:
+    //  - PROBE cases (/__smoke/…) emit their own verdict and need the ceiling
+    //    raised inside the page AND enough virtual time to reach it, so their
+    //    budget scales too.
+    //  - DOM-assertion cases assert a state at ONE observed moment. The budget
+    //    decides when the dump fires, so scaling it would move the moment and
+    //    break checks that legitimately assert an early state. Their budget is
+    //    left alone; only the outer kill timer scales.
+    const probeLike=String(route||'').startsWith('/__smoke/');
+    const budget=Math.round((options.budget||6500)*(probeLike?SLOW:1));
     const killAfter=Math.round((options.timeout||15000)*SLOW);
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
