@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.6.0-preview",
-  "date": "2026-09-22",
+  "version": "1.6.1-preview",
+  "date": "2026-09-27",
   "state": "ACTIVE_EXPERIMENT_COMMS_SPINE_CANDIDATE",
   "decision": "HUMAN PORT remains the addressed object/passage layer. COMMS SPINE 0.1 becomes its specialized addressed-conversation instrument: one canonical thread survives signal extraction, human marking, task/response coverage, bot handoff and RETURN without turning derived labels into source truth.",
   "recovered_user_functions": [
@@ -26,7 +26,8 @@
     "/continuity/",
     "/contact/backstage/",
     "/care/",
-    "/body/fit/"
+    "/body/fit/",
+    "/shopping/"
   ],
   "laws": [
     "OBJECT IDENTITY != BYTE HASH != PROJECTION ADDRESS",
@@ -41,7 +42,9 @@
     "SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE",
     "COVERED != DELETED",
     "DERIVED COMMUNICATION CUES DO NOT AUTHOR HUMAN INTENT",
-    "EVERY PROMOTED COMMS ITEM MUST RETURN TO AN EXACT SOURCE RANGE"
+    "EVERY PROMOTED COMMS ITEM MUST RETURN TO AN EXACT SOURCE RANGE",
+    "PORT SHOPPING OFFER != SHOPPING LIFECYCLE STATE",
+    "SOURCE URL MAY BE CARRIED LITERALLY; SKU/SELLER MUST NOT BE INFERRED WITHOUT EVIDENCE"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
@@ -80,7 +83,10 @@
     "compose response/handoff beside the source and explicitly bind coverage to addressed obligations",
     "emit comms-spine-agent-packet/v0.1 for bots and comms-spine-return/v0.1 with residue preserved",
     "default to session-only storage; optional PIN LOCAL is explicit; page performs no network send",
-    "accept current HUMAN PORT text object from sessionStorage without creating a second canonical object"
+    "accept current HUMAN PORT text object from sessionStorage without creating a second canonical object",
+    "add candidate-only SHOPPING FIELD route for TEXT/JSON/IMAGE/FILE Port objects",
+    "Port → Shopping preserves object id/hash/scope/focus and literal URL when present; SKU/seller remain unknown",
+    "Shopping requires explicit ADD AS VERIFY; Port cannot create BOUGHT/RECEIVED/TESTED/ADOPTED state"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -91,7 +97,7 @@
     "/control/INTERACTION_SEMANTICS.json",
     "/control/PREFERENCE_SIGNALS.json"
   ],
-  "receipt": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+  "receipt": "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
   "support_semantics": {
     "kind": "HEURISTIC_CUE_EVIDENCE",
     "contract": "/control/SUPPORT_SEMANTICS.json",
