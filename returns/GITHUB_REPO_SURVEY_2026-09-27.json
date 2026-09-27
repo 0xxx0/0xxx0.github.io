@@ -1,0 +1,59 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "GITHUB_REPO_SURVEY_2026-09-27",
+  "date": "2026-09-27",
+  "object": "0xxx0/0xxx0.github.io repository truth and convergence surface",
+  "state": "CANDIDATE",
+  "observations": {
+    "branch_refs_seen": 448,
+    "branch_pages": {
+      "page_size": 100,
+      "pages": [
+        100,
+        100,
+        100,
+        100,
+        48
+      ]
+    },
+    "recent_master_sample": 100,
+    "generated_refresh_commits_in_sample": 41,
+    "generated_refresh_breakdown": {
+      "comms": 33,
+      "nexus": 8
+    },
+    "manifest_routes": 153,
+    "current_heads": 12,
+    "manifest_routes_not_explicitly_held": 110,
+    "note": "Counts are an observation at survey time and may change immediately."
+  },
+  "findings": [
+    "Branch namespace is historical/experimental residue at a scale far larger than active attention; branch existence cannot be treated as queue state.",
+    "Generated COMMS/NEXUS snapshots consume a large fraction of exact master chronology. FIELD INDEX already de-emphasizes them, but previously mislabeled the first filtered field commit as HEAD.",
+    "Current authority is much smaller than repository address space: 12 retained heads versus 153 manifest routes.",
+    "PR #464 exposed a separate corruption class: valid feature-local tests can coexist with duplicated source after </html>; that class is now guarded by HTML document integrity validation.",
+    "The external/private ops-hub generator that writes COMMS/NEXUS snapshots was not accessible through the connected GitHub installation, so this pass does not pretend to change its cadence."
+  ],
+  "delta": [
+    "Keep exact MASTER HEAD visible even when machine refresh commits are de-emphasized.",
+    "Expose FIELD latest as a separate semantic coordinate.",
+    "Encode branch-existence and generated-refresh authority boundaries for future agents."
+  ],
+  "non_actions": [
+    "No branch refs deleted: branch deletion is unavailable in the connected tool surface and donor dependence was not exhaustively proved.",
+    "No generated refresh cadence changed: generator authority was not accessible.",
+    "No mass manifest hiding: discoverability and current attention remain separate concerns."
+  ],
+  "evidence": [
+    "/index.html",
+    "/AGENTS.md",
+    "/tools/repo-truth-selftest.mjs"
+  ],
+  "validation": {
+    "required_checks": [
+      "public-surface-check"
+    ],
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
+  },
+  "return": "/"
+}
