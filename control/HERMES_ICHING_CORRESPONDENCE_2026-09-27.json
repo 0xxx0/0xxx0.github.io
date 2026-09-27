@@ -1,0 +1,90 @@
+{
+  "schema": "0xxx0/hermes-research-packet/v0.1",
+  "id": "HERMES-ICHING-CORRESPONDENCE-2026-09-27",
+  "date": "2026-09-27",
+  "status": "MANUAL_ACTIVATION_NOT_QUEUED",
+  "purpose": "Derive a parsimonious, machine-usable correspondence mapping for I Ching / change-state material that preserves ambiguity and supports bounded mapping into body, real-world gates and digital hosts without promoting symbolic correspondence into measurement or control truth.",
+  "boot": [
+    "/llms.txt",
+    "/control/CURRENT.json",
+    "/control/HERMES.md",
+    "/iching/",
+    "/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md",
+    "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md"
+  ],
+  "authority": {
+    "allowed": [
+      "READ",
+      "SEARCH",
+      "COMPARE",
+      "ANALYZE",
+      "DRAFT",
+      "PREPARE_BOUNDED_CHANGES"
+    ],
+    "forbidden": [
+      "CANONICAL_WRITE",
+      "MERGE",
+      "PUBLIC_PUBLISH",
+      "PHYSICAL_OR_MEDICAL_INFERENCE",
+      "AUTOMATIC_ACTION"
+    ]
+  },
+  "objective": "Replace loose/esoteric cross-domain analogies with an explicit correspondence relation that is inspectable, lossy by declaration, ambiguity-preserving and reversible to native evidence.",
+  "required_model": {
+    "source_object": "native host state/event",
+    "projection": "explicit Q(native) -> finite relation address",
+    "address": "hex/trigram/line-change or another exact I Ching structural address",
+    "transforms": [
+      "single-line flip",
+      "NOT / 錯",
+      "reversal / 綜",
+      "nuclear / 互",
+      "Hamming relation",
+      "King Wen relation only when source justifies it"
+    ],
+    "correspondence": "0..n candidate meanings/actions in the receiving domain",
+    "ambiguity": "candidate count and/or explicit unresolved alternatives",
+    "residue": "native information lost by projection",
+    "claim_boundary": "what the mapping does NOT prove",
+    "return": "exact native source/address"
+  },
+  "tasks": [
+    {
+      "id": "ICHING-MAP-1",
+      "question": "What is the smallest modern machine-facing schema that preserves the actual structural operations of the current /iching/ surface while separating them from inherited symbolic interpretation?",
+      "deliverable": "one compact JSON-schema-like mapping table plus 6-12 worked examples"
+    },
+    {
+      "id": "ICHING-MAP-2",
+      "question": "Which traditional correspondences are structurally derivable, which are conventional/cultural overlays, and which are unsafe to treat as measurement?",
+      "deliverable": "three-column STRUCTURAL / CONVENTIONAL / UNSUPPORTED table with provenance and limits"
+    },
+    {
+      "id": "ICHING-MAP-3",
+      "question": "Can the same correspondence contract map one digital host and one real-world/body gate without changing either host's authority?",
+      "deliverable": "two bounded examples: one Fold/Bloom/Sleeper/Dayline example and one non-diagnostic body/real-world planning example"
+    }
+  ],
+  "acceptance": [
+    "No universal ontology claim.",
+    "Every mapping names source, projection, loss, ambiguity and RETURN.",
+    "Machine can represent one-to-many correspondences without choosing for the user.",
+    "Body examples use user-declared/measured state only; symbolic mapping never invents health facts.",
+    "HEX remains a lens, not sufficient native control state.",
+    "Result can be consumed as an INTERPHASE aperture rather than requiring a new app."
+  ],
+  "stop": [
+    "Stop if the mapping requires hidden semantic weights that cannot be explained.",
+    "Stop before adding runtime code or another public route.",
+    "If a traditional correspondence has no adequate provenance or structural basis, mark it CONVENTIONAL or UNSUPPORTED rather than harmonizing it."
+  ],
+  "return_contract": [
+    "STATE",
+    "FINDINGS",
+    "MAPPING_TABLE",
+    "EXAMPLES",
+    "CLAIM_LIMITS",
+    "RESIDUE",
+    "ONE_NEXT"
+  ]
+}
