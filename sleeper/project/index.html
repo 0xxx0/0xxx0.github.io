@@ -158,7 +158,7 @@ function carryDayline(){
   const packet={
     schema:'atlas-dayline-handoff/v0.1',id,created_at:new Date().toISOString(),kind:'TASK',
     source:{route:'/sleeper/project/',object_id:objectId,label:'SLEEPER RETURN '+artifact.worldKey,owner:'SLEEPER',address:'sleeper://'+artifact.worldKey+'/return',evidence_owner:'SLEEPER',proof_boundary:'Dayline witness is evidence about a real-world enactment only; it cannot satisfy or rewrite Sleeper Gate proofs.'},
-    payload:{task:{title:instruction,contexts:['phone','computer','home'],value:4,sourceRef:'/sleeper/project/',provenance:'SLEEPER explicit transfer · '+artifact.worldKey,notes:['SLEEPER RETURN '+artifact.worldKey,'DOMINANT OPERATOR '+String(artifact.dominantOperator||'—'),'TRANSFER '+instruction,'8/8 GATES VERIFIED BEFORE HANDOFF','RETURN OFFER MUST REMAIN EVIDENCE ONLY'].join('\n')}},
+    payload:{task:{title:instruction,sourceRef:'/sleeper/project/',provenance:'SLEEPER explicit transfer · '+artifact.worldKey,notes:['SLEEPER RETURN '+artifact.worldKey,'DOMINANT OPERATOR '+String(artifact.dominantOperator||'—'),'TRANSFER '+instruction,'8/8 GATES VERIFIED BEFORE HANDOFF','RETURN OFFER MUST REMAIN EVIDENCE ONLY'].join('\n')}},
     return_to:ret,carrier:carrier||carrierForArtifact(artifact)
   };
   try{sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.href='/dayline/?handoff=sleeper&interphase=FOVEA'}catch(_){status.textContent='DAYLINE HANDOFF FAILED';status.className='bridgeStatus bad'}
@@ -167,8 +167,8 @@ function readDaylineOffer(){
   try{
     const b=JSON.parse(sessionStorage.getItem('atlas.dayline.source-return.v01')||'null');if(!b||b.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(b.offers))return null;
     const age=Date.now()-Date.parse(b.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000)return null;
-    const expected=artifact?('sleeper:return:'+artifact.worldKey):null;
-    return b.offers.find(o=>o?.source?.route==='/sleeper/project/'&&(!expected||o?.source?.object_id===expected))||null;
+    const qworld=new URLSearchParams(location.search).get('world'),expected=artifact?('sleeper:return:'+artifact.worldKey):(qworld?('sleeper:return:'+qworld):null);if(!expected)return null;
+    return b.offers.find(o=>o?.source?.route==='/sleeper/project/'&&o?.source?.object_id===expected)||null;
   }catch(_){return null}
 }
 function renderDaylineOffer(){
