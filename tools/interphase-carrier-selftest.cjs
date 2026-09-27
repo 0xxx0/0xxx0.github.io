@@ -1,3 +1,4 @@
+const fs=require('fs');
 const C=require('../lib/interphase-carrier.js');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 
@@ -41,5 +42,12 @@ assert(C.sameObject(round,witnessed),'witness does not replace object');
 let threw=false;
 try{C.make({object:{id:'x',owner:'X',address:'x://1'},return:{address:''}})}catch(_){threw=true}
 assert(threw,'missing return rejected');
+
+const fieldHtml=fs.readFileSync('index.html','utf8');
+const daylineHtml=fs.readFileSync('dayline/index.html','utf8');
+assert(fieldHtml.includes('/lib/interphase-carrier.js'),'FIELD carrier lib missing');
+assert(fieldHtml.includes("window.InterphaseCarrier.fromProjection"),'FIELD held route is not carrierized');
+assert(fieldHtml.includes("carrier,\n  interphase"),'FIELD Dayline packet does not carry carrier alongside legacy interphase');
+assert(daylineHtml.includes('/lib/interphase-carrier.js'),'Dayline carrier lib missing');
 
 console.log('INTERPHASE CARRIER SELFTEST PASS',C.SCHEMA);
