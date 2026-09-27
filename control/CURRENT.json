@@ -468,10 +468,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.2.1 + DAYLINE CLOSED RETURN / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.6.1-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.2.1 / OBJECT APERTURE + SHOPPING CANDIDATE + FIELD INTAKE + CARE + BODY/FIT",
       "state": "ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE",
       "route": "/port/",
-      "retained_function": "CONTACT FRONT 0.4 is the stable shareable human-facing address with no server inbox or false delivery claim. COMMS SPINE 0.1.2.1 preserves exact source thread addresses and unequal DERIVED/HUMAN signals; one OPEN source-addressed signal can enter Dayline, remain exact through RUN → WITNESS → COMPLETE, and return as one OFFER_ONLY receipt. COMMS alone explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal id + message/range revalidation; stale source blocks mutation; no send authority.",
+      "retained_function": "HUMAN PORT is the canonical addressed object passage. 1.6.1-preview adds a candidate-only Shopping exit: exact Port object/hash/scope/focus and literal URL may be offered to Shopping, but Shopping requires explicit ADD AS VERIFY and retains all lifecycle/money authority. CONTACT/COMMS, FIELD INTAKE, CARE and BODY/FIT remain unequal routes; FIT/CUES/HISTORY never become authority.",
       "evidence": [
         "/port/comms/release.json",
         "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
@@ -484,9 +484,10 @@
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
         "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359",
+        "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json"
       ],
-      "version": "1.6.0-preview"
+      "version": "1.6.1-preview"
     },
     {
       "lineage": "atlas-dayline",
@@ -530,18 +531,19 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3.4 / CLOSED HOUSE FIT + SOURCE SIGNAL → DAYLINE/HOUSE / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.5 / PORT WORLD-IN + CLOSED DAYLINE/HOUSE RETURNS + SOURCE SIGNAL / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → native lifecycle/freshness/landed-cost/fit → projection-only evidence signal. Shopping now has two exact external evidence loops: Dayline completion returns RECEIPT_ONLY evidence; HOUSE dimensional screening returns house-shopping-fit-return/v0.1 evidence after exact item + lifecycle revalidation. Both are explicit accepts and leave procurement lifecycle unchanged. Source-owned evidence signal/boundary may travel with exact identity to Dayline/HOUSE, but recipient projection never acquires Shopping truth.",
-      "version": "0.3.4",
+      "retained_function": "Shopping now spans WORLD_IN→WORLD_THROUGH without status laundering: HUMAN PORT may offer an exact object/focus as a candidate; explicit ADD AS VERIFY creates the browser-local item while retaining object/hash provenance and literal source URL. Shopping then owns freshness, landed cost, SKU/seller verification, lifecycle, evidence patterns, Dayline completion receipts and HOUSE dimensional fit receipts. Money/seller contact and ownership/adoption remain human/evidence-backed.",
+      "version": "0.3.5",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
         "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
-        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
+        "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json"
       ],
-      "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
+      "latest_return": "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json"
     },
     {
       "lineage": "triangle",
