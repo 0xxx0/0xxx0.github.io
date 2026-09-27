@@ -142,7 +142,7 @@
       <div class="muted" style="margin-top:8px">eight trigrams = vertices · twelve edges = single-line moves (Hamming 1) · 8×8 = 64 directed pairs = the hexagrams. the diagonal loops on itself.</div>
       <div class="row" style="margin-top:10px">
         <button class="ghost" id="cubeReset">reset pick</button>
-        <button class="ghost" id="cubeAuto">auto-rotate: on</button>
+        <button class="ghost" id="cubeAuto">auto-rotate: off</button>
       </div>
     </div>
   </section>
@@ -176,7 +176,7 @@ const TRIGRAMS = {
 };
 const C6 = [1,6,15,20,15,6,1];
 let currentView = 'read', cubeCurrent = null, cubePick = [];
-let cubeAngX = -0.5, cubeAngY = 0.6, cubeAuto = true, cubeDragging = false, cubeLast = null;
+let cubeAngX = -0.5, cubeAngY = 0.6, cubeAuto = false, cubeDragging = false, cubeLast = null;
 const CUBE_TRIS = Object.keys(TRIGRAMS);
 
 async function load(){
