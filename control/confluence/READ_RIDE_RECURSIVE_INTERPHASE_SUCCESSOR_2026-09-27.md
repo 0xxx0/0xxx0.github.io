@@ -1372,3 +1372,34 @@ It does **not** prove:
 - route-residue usefulness.
 
 The next gate is now ordinary real-source use, not more architecture.
+
+
+---
+
+# 28. Axial usability correction — 2026-09-27
+
+Canonical constraint:
+
+- /control/confluence/AXIAL_APERTURE_CONSTRAINT_2026-09-27.md
+
+The READ/RIDE stack now has a stricter perceptual law:
+
+~~~text
+OBJECT AT CENTER
+RING = ADDRESS / ORDER / CLOCK / SCALE
+CONTROLS ORBIT
+MARKS = HUMAN RESIDUE
+RETURN PRESERVES SOURCE
+~~~
+
+This emerged from actual use of READFIELD JSON, FIELD LAB PULSE/DATA, and REPLAY. It is a usability constraint over the existing recursive INTERPHASE grammar, not another kernel.
+
+Important corrections:
+- JSON inspection must present exact node/path/children before derived lenses.
+- READFIELD marks mean intentionally marked/visited, never understood.
+- PULSE is a free rhythm clock first; staged timing TRAIN is optional.
+- VOICE is independent again and borrows PULSE only by explicit link.
+- REPLAY active text belongs at the geometric center.
+- DATA selected object remains primary; I Ching/J-space/Change Calculus remain optional lenses.
+- document thumbnails are bounded exact-source recognition cues, not summaries.
+- Fortress route residue is the next falsifiable experiment only after ordinary marks prove useful.

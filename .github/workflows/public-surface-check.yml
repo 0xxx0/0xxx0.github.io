@@ -205,6 +205,8 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
         run: node tools/browser-smoke.mjs
+      - name: Test axial object-at-center convergence
+        run: node tools/axial-aperture-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB mobile composition
         run: node tools/fold-bloom-lab-mobile-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB cross-projection continuity

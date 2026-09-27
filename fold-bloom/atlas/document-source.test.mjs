@@ -68,13 +68,18 @@ test('empty document is not materialized',async()=>{
   assert.equal(x.materializable,false);assert.equal(x.reason,'EMPTY_DOCUMENT');
 });
 
-test('atlas packet preserves bounded document witness but not raw source',async()=>{
-  const phrase='UNIQUE_RAW_SENTENCE_4f9e';
-  const x=await adaptDocumentFile(fakeFile('essay.md','# A\n'+phrase));
-  const packet=atlasPacket({entries:[x.entry]}),encoded=encodeAtlas(packet),raw=JSON.stringify(packet);
+test('atlas packet preserves bounded recognition thumbnail but not full raw source',async()=>{
+  const head='TITLE ALPHA recognition words';
+  const tail='UNIQUE_PRIVATE_TAIL_4f9e';
+  const source='# A\n'+head+' '+('context '.repeat(40))+tail;
+  const x=await adaptDocumentFile(fakeFile('essay.md',source));
+  const packet=atlasPacket({entries:[x.entry]}),encoded=encodeAtlas(packet),raw=JSON.stringify(packet),preview=packet.entries[0].document.preview;
   assert.equal(packet.entries[0].document.sections,1);
-  assert.equal(raw.includes(phrase),false);
-  assert.equal(encoded.includes(phrase),false);
+  assert.ok(preview.includes('TITLE ALPHA'));
+  assert.ok(preview.length<=180);
+  assert.equal(raw.includes(tail),false);
+  assert.equal(encoded.includes(tail),false);
+  assert.equal(raw.includes(source),false);
 });
 
 test('document glyph is deterministic and renderer-compatible',()=>{
