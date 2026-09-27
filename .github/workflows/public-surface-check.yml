@@ -204,12 +204,18 @@ jobs:
         run: node tools/fold-bloom-live-course-smoke.mjs
       - name: Test FOLD BLOOM LIVE READFIELD / local-file READ-RIDE
         run: node tools/fold-bloom-live-read-ride-smoke.mjs
+      - name: Test READFIELD → LIVE exact cursor RETURN
+        run: node tools/readfield-live-exact-return-smoke.mjs
       - name: Test FOLD BLOOM LIVE J-space co-driver browser seam
         run: node tools/fold-bloom-live-steering-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
         run: node tools/browser-smoke.mjs
+      - name: Validate promoted cross-surface READ trail
+        run: |
+          node --check lib/read-trail.js
+          node tools/read-trail-selftest.cjs
       - name: Test axial object-at-center convergence
         run: |
           node --check field-aperture.js

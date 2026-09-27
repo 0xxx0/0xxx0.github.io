@@ -13,7 +13,7 @@ import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} 
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
-import {READ_GRAINS,READ_RIDE_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
+import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
 
 const STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -50,8 +50,14 @@ function syncLayerUI(){
   if(law)law.textContent=readRide
     ?'SOURCE = exact session text. MAP = addressed SENTENCE / PARAGRAPH / SECTION structure. IMMERSION = MAP + LIVE field response. READFIELD/source authority does not move into LIVE.'
     :'SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response.';
-  const back=$('#readfieldReturn');
+  const back=$('#readfieldReturn'),mark=$('#readTrailMark');
   if(back){back.hidden=!readRide?.packet?.returnAddress;back.textContent='↩ '+(readRide?.packet?.sourceIdentity?.authority==='READFIELD'?'READFIELD':'SOURCE')}
+  if(mark){
+    mark.hidden=!readRide;const t=readTrailSnapshot(),trailState=t?.storageState||'NO_IDENTITY',writable=['EMPTY','READY'].includes(trailState);
+    mark.disabled=!!readRide&&!writable;
+    mark.textContent=readRide?(writable?('MARK HERE'+(t?.marks?.length?' · '+t.marks.length:'')):('MARK · '+trailState)):'MARK HERE';
+    document.documentElement.dataset.foldBloomReadTrail=String(trailState).toLowerCase();
+  }
 }
 function applyLayerMode(name,announce=true){
   const next=String(name||'').toUpperCase();
@@ -102,6 +108,20 @@ function readRideCourse(){
   return readRide.course;
 }
 function liveCourse(){return readRide?readRideCourse():(liveTrack.mapped()?mapCourse(liveTrack.map,{grain:courseGrain}):null)}
+function exactReadVisit(hit){
+  const p=hit?.point;if(!readRide||!p)return null;
+  return {source_id:readRide.packet.sourceIdentity?.id||'',start:Number(p.start),end:Number(p.end),grain:String(p.kind||courseGrain),address:String(hit.address||p.address||'')};
+}
+function recordExactReadVisit(hit,{reset=false}={}){
+  if(!readRide)return null;const v=exactReadVisit(hit);if(!v)return null;
+  if(reset){readRide.origin=v;readRide.visited=[v];return v}
+  const last=readRide.visited?.at(-1);
+  if(!last||last.start!==v.start||last.end!==v.end||last.grain!==v.grain)readRide.visited=[...(readRide.visited||[]),v].slice(-64);
+  return v
+}
+function resetExactReadTrail(){
+  if(!readRide)return null;const course=readRideCourse(),hit=readCourseAddressAt(course,readRide.progress);return recordExactReadVisit(hit,{reset:true})
+}
 function liveCourseProgress(){
   if(readRide)return Math.max(0,Math.min(1,Number(readRide.progress)||0));
   const duration=Number(liveTrack.map?.duration)||0;
@@ -156,14 +176,14 @@ function setCourseMode(next,announce=true){
 }
 function cycleCourseGrain(){
   const grains=activeCourseGrains();let i=grains.indexOf(courseGrain);if(i<0)i=0;courseGrain=grains[(i+1)%grains.length];
-  if(readRide)readRide.course=null;
+  if(readRide){readRide.course=null;resetExactReadTrail()}
   drawCourseMap(true);lastTextKey='';updateTextWitness();toast('STEP GRAIN · '+courseGrain);return courseGrain;
 }
 function seekCourseProgress(p,{keepMode=true}={}){
   const course=liveCourse();if(!course)return null;
   const next=Math.max(0,Math.min(1,Number(p)||0));
   if(readRide){
-    readRide.progress=next;courseMode='STEP';lastTextKey='';drawCourseMap(true);updateTextWitness();update();return readCourseAddressAt(course,next);
+    readRide.progress=next;courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
   }
   const duration=Number(liveTrack.map?.duration)||0;
   if(courseMode==='STEP'||!keepMode)$('#trackAudio').pause();
@@ -348,6 +368,28 @@ function update(){
   save();
 }
 
+function readTrailKeyFor(packet=readRide?.packet){
+  if(!packet)return '';
+  if(packet.trailKey)return String(packet.trailKey);
+  const s=packet.sourceIdentity||{};
+  return globalThis.FieldSourceTrail?.sourceKey?.({address:s.address||'',id:s.hash||s.id||''})||'';
+}
+function readTrailSnapshot(packet=readRide?.packet){
+  const key=readTrailKeyFor(packet);return globalThis.FieldSourceTrail?.read?.(key||'')||null;
+}
+function recordReadRideVisit(witness=null){
+  if(!readRide)return null;const course=liveCourse(),w=witness||readCourseWitness(course,liveCourseProgress()),key=readTrailKeyFor();
+  if(!w||!key)return null;
+  return globalThis.FieldSourceTrail?.record?.(key,{address:w.address||'',progress:Number(w.progress)||0,focus:String(w.text||'').slice(0,220),charIndex:Number.isFinite(Number(w.start))?Number(w.start):null,scale:w.grain||courseGrain,via:'LIVE_READ_RIDE'})||null;
+}
+function markReadRide(){
+  if(!readRide)return null;const w=readCourseWitness(liveCourse(),liveCourseProgress()),key=readTrailKeyFor();if(!w||!key){toast('READ TRAIL · NO EXACT IDENTITY');syncLayerUI();return null}
+  const t=globalThis.FieldSourceTrail?.addMark?.(key,{address:w.address||'',progress:Number(w.progress)||0,label:(w.grain||courseGrain)+' · '+String(w.text||'').slice(0,96),charIndex:Number.isFinite(Number(w.start))?Number(w.start):null,scale:w.grain||courseGrain,via:'LIVE_READ_RIDE'});
+  if(t?.storageState==='READY')toast('READ MARK · '+(w.grain||courseGrain)+' · '+Math.round((w.progress||0)*100)+'%');
+  else toast('READ TRAIL · '+String(t?.storageState||'UNAVAILABLE'));
+  syncLayerUI();update();return t;
+}
+
 function readRideCarrier(witness){
   if(!readRide||!globalThis.InterphaseCarrier)return readRide?.packet?.carrier||null;
   const C=globalThis.InterphaseCarrier,parent=readRide.packet.carrier||null,s=readRide.packet.sourceIdentity||{},id=String(parent?.object?.id||s.id||s.hash||s.address||'readfield:source');
@@ -383,6 +425,8 @@ function readRideState(){
     },
     course:{grain:courseGrain,mode:courseMode,progress:+liveCourseProgress().toFixed(8),address:witness?.address||null,index:witness?.index??null,count:witness?.count??null},
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
+    trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,storageState:t.storageState,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
+    traversal:{origin:readRide.origin?{...readRide.origin}:null,visited:(readRide.visited||[]).map(x=>({...x}))},
     carrier:carrier?{schema:carrier.schema,frameId:carrier.frameId,authority:carrier.authority,object:carrier.object,focus:carrier.focus,next:carrier.next,witness:carrier.witness,return:carrier.return,projection:carrier.projection,lineage:carrier.lineage}:null,
     returnAddress:readRide.packet.returnAddress||null
   };
@@ -404,12 +448,13 @@ function loadReadRidePacket(raw,{announce=true}={}){
   try{$('#trackAudio').pause()}catch(_){}
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
-  readRide={packet,progress:initialReadProgress(packet),course:null};
+  readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};
   courseGrain='PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
+  resetExactReadTrail();
   layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncRideProfile();syncLayerUI();
   document.documentElement.dataset.foldBloomReadRide='ready';
   document.documentElement.dataset.foldBloomReadAuthority=String(packet.sourceIdentity?.authority||'READFIELD').toLowerCase();
-  $('#intro').classList.remove('on');syncSoundGate(false);drawCourseMap(true);updateTextWitness();update();
+  $('#intro').classList.remove('on');syncSoundGate(false);drawCourseMap(true);const readWitness=updateTextWitness();recordReadRideVisit(readWitness);update();
   if(announce)toast('READ / RIDE · '+packet.label);
   return readRideState();
 }
@@ -433,8 +478,13 @@ function returnReadRide(){
   const target=readRide?.packet?.returnAddress;if(!target)return false;
   try{
     const u=new URL(target,location.href);if(u.origin!==location.origin)return false;
+    const course=liveCourse(),witness=makeReadReturnWitness(course,{
+      origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:u.pathname+u.search+u.hash
+    });
+    sessionStorage.setItem(READ_RETURN_STORAGE,JSON.stringify(witness));
+    u.searchParams.set('ride_return','1');
     location.href=u.pathname+u.search+u.hash;return true;
-  }catch(_){return false}
+  }catch(error){console.warn('READ/RIDE return',error);return false}
 }
 
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
@@ -728,6 +778,7 @@ $('#vaultOpen')?.addEventListener('click',()=>{void openVaultSource()});
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#readFile').onchange=e=>{const file=e.target.files?.[0];e.target.value='';if(file)void loadReadFile(file)};
 $('#readfieldReturn')?.addEventListener('click',()=>{if(!returnReadRide())toast('NO READFIELD RETURN')});
+$('#readTrailMark')?.addEventListener('click',()=>markReadRide());
 $('#trackToggle').onclick=()=>{stopDemo(true);if($('#trackAudio').paused&&courseMode==='STEP')setCourseMode('FLOW',false);liveTrack.toggle().then(()=>{drawCourseMap(true);update()}).catch(()=>toast('SONG PLAY BLOCKED'))};
 $('#courseMode').onclick=()=>setCourseMode(courseMode==='FLOW'?'STEP':'FLOW');
 $('#courseGrain').onclick=cycleCourseGrain;

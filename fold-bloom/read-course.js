@@ -1,6 +1,9 @@
+import {hashFile} from '../lib/id.js';
 export const READ_RIDE_SCHEMA='field-read-ride/v0.1';
 export const READ_COURSE_SCHEMA='fold-bloom-read-course/v0.1';
 export const READ_RIDE_STORAGE='fold-bloom.read-ride.handoff.v01';
+export const READ_RETURN_SCHEMA='readfield-course-witness/v0.1';
+export const READ_RETURN_STORAGE='readfield.read-ride.return.v01';
 export const READ_GRAINS=Object.freeze(['SENTENCE','PARAGRAPH','SECTION']);
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
@@ -89,14 +92,41 @@ export function normalizeReadRidePacket(raw){
   const p=typeof raw==='string'?JSON.parse(raw):raw;
   if(!p||p.schema!==READ_RIDE_SCHEMA)throw Error('READ_RIDE_SCHEMA');
   const source=clean(p.source);if(!source.trim())throw Error('READ_SOURCE_REQUIRED');
+  const focus=p.focus&&typeof p.focus==='object'?p.focus:null,n=source.length;
+  if(focus?.span){
+    const a=Number(focus.span.start),b=Number(focus.span.end);
+    if(!Number.isInteger(a)||!Number.isInteger(b)||a<0||b<=a||b>n)throw Error('READ_FOCUS_BOUNDS');
+  }
+  if(focus&&focus.char_index!=null){
+    const i=Number(focus.char_index);if(!Number.isInteger(i)||i<0||i>=n)throw Error('READ_FOCUS_CHAR');
+  }
+  const ret=String(p.returnAddress||p.from||'');
+  if(!ret.startsWith('/'))throw Error('READ_RETURN_ADDRESS');
   const id=identityId(p.sourceIdentity||{},source);
-  return {...p,source,label:String(p.label||'READ SOURCE').slice(0,160),sourceIdentity:{...(p.sourceIdentity||{}),id,authority:String(p.sourceIdentity?.authority||'READFIELD')}};
+  return {...p,source,label:String(p.label||'READ SOURCE').slice(0,160),sourceIdentity:{...(p.sourceIdentity||{}),id,authority:String(p.sourceIdentity?.authority||'READFIELD')},returnAddress:ret};
 }
 export function makeReadCourse(packet,{grain='PARAGRAPH'}={}){
   const p=normalizeReadRidePacket(packet),g=READ_GRAINS.includes(String(grain).toUpperCase())?String(grain).toUpperCase():'PARAGRAPH';
   const units=spans(p.source,g),sourceId=p.sourceIdentity.id;
   const points=units.map((u,i)=>coursePoint(p.source,u,i,g,sourceId));
-  return {schema:READ_COURSE_SCHEMA,kind:'READFIELD_TEXT',grain:g,sourceId,label:p.label,length:p.source.length,points,source:p.source,sourceIdentity:p.sourceIdentity,returnAddress:p.returnAddress,from:p.from};
+  const course={schema:READ_COURSE_SCHEMA,kind:'READFIELD_TEXT',grain:g,sourceId,label:p.label,length:p.source.length,points,source:p.source,sourceIdentity:p.sourceIdentity,returnAddress:p.returnAddress,from:p.from};
+  validateReadCourse(course);
+  return course;
+}
+export function validateReadCourse(course){
+  if(!course||course.schema!==READ_COURSE_SCHEMA)throw Error('READ_COURSE_SCHEMA');
+  const n=Number(course.length),xs=course.points;
+  if(!Number.isInteger(n)||n<1||!Array.isArray(xs)||!xs.length||xs.length>100000)throw Error('READ_COURSE_SHAPE');
+  let prevEnd=-1;
+  for(let i=0;i<xs.length;i++){
+    const x=xs[i],a=Number(x?.start),b=Number(x?.end);
+    if(Number(x?.index)!==i)throw Error('READ_GRAIN_ORDINAL');
+    if(!Number.isInteger(a)||!Number.isInteger(b)||a<0||b<=a||b>n)throw Error('READ_GRAIN_BOUNDS');
+    if(i&&a<prevEnd)throw Error('READ_GRAIN_OVERLAP');
+    if(String(x?.kind)!==String(course.grain)||!String(x?.address||'').startsWith('read://'))throw Error('READ_GRAIN_ADDRESS');
+    prevEnd=b;
+  }
+  return true;
 }
 function addressed(course,point,index){
   if(!point)return {p:0,index:-1,point:null,address:'read://empty'};
@@ -135,6 +165,26 @@ export function readCourseWitness(course,current=0){
     returnAddress:course.returnAddress
   };
 }
+export function makeReadReturnWitness(course,{origin=null,visited=[],current=0,returnAddress=null}={}){
+  validateReadCourse(course);
+  const hit=readCourseAddressAt(course,current),w=readCourseWitness(course,current);
+  if(!w||!hit.point)throw Error('READ_RETURN_EMPTY');
+  const addr=x=>({source_id:course.sourceId,start:Number(x.start),end:Number(x.end),grain:String(x.kind||x.grain||course.grain),address:String(x.address||'')});
+  const final=addr({...hit.point,address:hit.address});
+  const first=origin&&Number.isInteger(Number(origin.start))?{source_id:course.sourceId,start:Number(origin.start),end:Number(origin.end),grain:String(origin.grain||course.grain),address:String(origin.address||'')}:addr({...course.points[0],address:course.points[0].address});
+  const seen=(Array.isArray(visited)?visited:[]).map(x=>({source_id:course.sourceId,start:Number(x.start),end:Number(x.end),grain:String(x.grain||course.grain),address:String(x.address||'')}));
+  if(!seen.length)seen.push(first);
+  if(seen.at(-1).start!==final.start||seen.at(-1).end!==final.end)seen.push(final);
+  return {
+    schema:READ_RETURN_SCHEMA,authority:'EVIDENCE_ONLY',source_id:course.sourceId,
+    source_hash:course.sourceIdentity?.hash||null,source_address:course.sourceIdentity?.address||null,
+    origin:first,visited:seen,final,
+    traversal:{mode:'STEP',steps:Math.max(0,seen.length-1),grains_entered:seen.length},
+    witness:{text:String(w.text||''),progress:Number(w.progress)||0,grain:w.grain,index:w.index,address:w.address},
+    return:{route:String(returnAddress||course.returnAddress||'/docs/'),source_id:course.sourceId,cursor:final},
+    created_at:new Date().toISOString()
+  };
+}
 export function initialReadProgress(packet){
   const p=normalizeReadRidePacket(packet),n=Math.max(1,p.source.length);
   const f=p.focus||{};
@@ -145,11 +195,11 @@ export function initialReadProgress(packet){
 }
 export async function packetFromLocalFile(file,{returnAddress='/fold-bloom/live/',from='/fold-bloom/live/'}={}){
   if(!file)throw Error('FILE_REQUIRED');
-  const source=await file.text();
+  const [source,hash]=await Promise.all([file.text(),hashFile(file)]);
   return makeReadRidePacket({
     source,
     label:file.name||'LOCAL FILE',
-    sourceIdentity:{kind:'LOCAL_FILE',format:(String(file.name||'').split('.').pop()||'TXT').toUpperCase(),size:Number(file.size)||source.length,mediaType:String(file.type||''),authority:'LOCAL_FILE'},
+    sourceIdentity:{hash,kind:'LOCAL_FILE',format:(String(file.name||'').split('.').pop()||'TXT').toUpperCase(),size:Number(file.size)||source.length,mediaType:String(file.type||''),authority:'LOCAL_FILE'},
     focus:{source_progress:0},
     returnAddress,from
   });

@@ -23,8 +23,20 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   await wait(()=>D().querySelector('.jsonCard .jsonChild'),15000,'json card');
   const before=ap.snapshot(),child=D().querySelector('.jsonChild'),path=child.dataset.jsonPath;child.click();
   await wait(()=>ap.snapshot()?.address===path,5000,'exact json child');
-  const after=ap.snapshot();D().getElementById('markHere').click();const marked=D().getElementById('markHere').textContent;D().getElementById('markHere').click();
-  rec.read={kind:after.kind,before:before.address,after:after.address,childPath:path,nodePath:after.node?.path,childCount:after.node?.children?.length??0,marked};
+  const after=ap.snapshot();D().getElementById('markHere').click();const marked=D().getElementById('markHere').textContent;
+  const trailStorageKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:')),trail=trailStorageKey?JSON.parse(W().localStorage.getItem(trailStorageKey)||'null'):null;
+  D().getElementById('markHere').click();
+  rec.read={kind:after.kind,before:before.address,after:after.address,childPath:path,nodePath:after.node?.path,childCount:after.node?.children?.length??0,marked,trailSchema:trail?.schema||null,trailMarks:trail?.marks?.length||0,trailLaw:trail?.law||'',trailHasSource:!!(trail&&Object.prototype.hasOwnProperty.call(trail,'source'))};
+
+  // Session text: exact SHA-256 identity gates persistence; corrupt storage becomes visibly non-writable.
+  const pasteText='EXACT LOCAL TRAIL SAMPLE. Second sentence for movement.';
+  D().getElementById('pasteText').value=pasteText;D().getElementById('readPaste').click();
+  await wait(()=>['empty','ready'].includes(D().documentElement.dataset.readfieldTrail)&&!D().getElementById('markHere').disabled,10000,'readfield exact trail writable');
+  const pasteAp=D().getElementById('docAperture');D().getElementById('markHere').click();await sleep(80);
+  const shaTrailKey=Object.keys(W().localStorage).find(k=>k.startsWith('readfield.trail.v01:sha256%3A')&&!k.endsWith(':legacy-migrated')),shaTrail=shaTrailKey?JSON.parse(W().localStorage.getItem(shaTrailKey)||'null'):null;
+  if(shaTrailKey){W().localStorage.setItem(shaTrailKey,'{corrupt');pasteAp.restore?.({scale:'WORD',char_index:Math.min(8,(pasteAp.snapshot?.()?.char_index||0)+3)});}
+  await wait(()=>D().documentElement.dataset.readfieldTrail==='corrupt'&&D().getElementById('markHere').disabled,5000,'readfield corrupt trail visibility');
+  rec.localTrail={key:shaTrailKey||'',schema:shaTrail?.schema||null,state:shaTrail?.storageState||null,marks:shaTrail?.marks?.length||0,hasSource:!!(shaTrail&&Object.prototype.hasOwnProperty.call(shaTrail,'source')),corruptVisible:D().getElementById('markHere').disabled&&/CORRUPT/.test(D().getElementById('markHere').textContent||'')};
   f.remove();
 
   // FIELD LAB: eight projections; PULSE free by default; VOICE separate and unlinked by default.
@@ -45,7 +57,7 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   await wait(()=>D().documentElement.dataset.replayCenterMode==='WORD'&&D().documentElement.dataset.replayCenterText,5000,'replay center word');
   rec.replay={mode:D().documentElement.dataset.replayCenterMode,text:D().documentElement.dataset.replayCenterText,address:D().documentElement.dataset.replayCourseAddress};
   const pass=
-    rec.read.kind==='JSON'&&rec.read.after===path&&rec.read.nodePath===path&&/^MARKED/.test(marked)&&
+    rec.read.kind==='JSON'&&rec.read.after===path&&rec.read.nodePath===path&&/^MARKED/.test(marked)&&rec.read.trailSchema==='field-source-trail/v0.1'&&rec.read.trailMarks===1&&/never means read/i.test(rec.read.trailLaw)&&rec.read.trailHasSource===false&&rec.localTrail.key.includes('sha256%3A')&&rec.localTrail.schema==='field-source-trail/v0.1'&&rec.localTrail.state==='READY'&&rec.localTrail.marks===1&&rec.localTrail.hasSource===false&&rec.localTrail.corruptVisible&&
     modes.length===8&&modes.includes('VOICE')&&pulse0.mode==='FREE'&&rec.lab.mode==='VOICE'&&rec.lab.voiceLinked===false&&rec.lab.voicePanel&&coreDisplay==='none'&&
     rec.replay.mode==='WORD'&&rec.replay.text==='MEET';
   done(pass,rec);
