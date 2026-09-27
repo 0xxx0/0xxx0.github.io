@@ -1,5 +1,10 @@
 # CONVERGENCE STRATEGY — TARGETS & BOUNDS
 
+> **Historical snapshot: 2026-09-22.** The status table and target list below record that day's planning state; they are not a live queue. For current attention, read [CURRENT](../CURRENT.md) and [AGENTS](../../AGENTS.md). The active objective is conversion: move one existing verified head into real use or world contact, observe the consequence, record a bounded RETURN, then replan. Recovery and ingest remain maintenance unless they remove a live blocker.
+>
+> The original purpose and end condition are stated in [CONFLUENCE / FIELD — Conversion Report](./CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md): preserve identity and provenance while transforming conversation, code, objects, rooms, bodies, media, and other unequal sources into consequential operations with evidence and a path back. The interface invariant is captured in [Unified Instrument Pivot](./UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md): carry one object and focus through a small number of lawful operations, visible consequence, witness, and RETURN. Do not merge every project or create another universal layer.
+
+
 **Generated:** 2026-09-22  
 **Role:** Operational confluence document — sets reachable targets, bounds, and self-verification loops for the current convergence phase.
 
@@ -81,14 +86,18 @@ Every Monday at 8am UTC, `disk-integrity.yml` checks:
 
 ---
 
-## NEXT CONCRETE ACTIONS
+## SUCCESSOR INSTRUCTIONS — CURRENT AUTHORITY
 
-1. ✅ Convergence validate action written
-2. ✅ Disk integrity action written
-3. **Extract 11 Laconic canon files** from conversation text
-4. **Update MIGRATION.json** with corrected Sleeper status
-5. **Write convergence summary to repo** (this document → `/control/confluence/CONVERGENCE_TARGETS.md`)
+1. Start from `AGENTS.md` and `control/CURRENT.json`; run `node scripts/emit-agent-transcript.mjs --json` for a bounded handoff. Treat the dated sections below as history, not present work.
+2. Select one existing head and one real use/consequence. Keep the object identity and focus stable; expose at most three operations already lawful for that host.
+3. Execute one bounded move. Test invariants and replay locally first; mark unobserved human, model, device, and physical properties UNKNOWN. A passing synthetic test is not lived-use evidence.
+4. Record the exact source, operation, changed state, evidence class, limits, and return address. Update FIELD INDEX/CURRENT only when a material head or focus actually changes.
+5. Re-read CURRENT and explicitly replan. Stop when the next useful move requires human/world input; do not substitute archive foraging, new architecture, or receipt-only work.
+
+**Current J-Lens/FOLD//BLOOM continuation:** the donor work lives in [PR #450](https://github.com/0xxx0/0xxx0.github.io/pull/450) and `fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md`. First run one small open-weight-model J-Lens trace with exact model/lens revisions and token IDs. Do not publish a new UI or let readout tokens act as causal directions. Only after a real trace exists, use an explicit model-side residual direction and one controlled perturbation with zero/opposite controls; save before/after traces and an execution receipt. Then stop and replan from the returned evidence.
+
+**Success measure:** less friction from intent to consequence, with identity, authority, uncertainty, and RETURN intact. Artifact count and merged-app count are not progress measures.
 
 ---
 
-*Targets are reachable. Bounds prevent scope creep. Self-verification replaces manual audit.*
+*The targets and bounds below are retained as dated history for lineage; use CURRENT for active selection.*
