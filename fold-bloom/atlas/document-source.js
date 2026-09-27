@@ -15,7 +15,7 @@ async function sha256(buffer){
   return hashHex(buffer);
 }
 export {DOCUMENT_ADAPTER_SCHEMA,DOCUMENT_WITNESS_SCHEMA};
-export function isDocumentFile(file){return ['txt','md','markdown'].includes(extOf(file?.name))}
+export function isDocumentFile(file){return ['txt','md','markdown','json','csv','log','yaml','yml','js','mjs','css','html','svg'].includes(extOf(file?.name))}
 export function analyzeDocumentText(text,{format='TXT'}={}){
   const api=parser();if(!api?.parseDocumentStructure)throw Error('Document structure parser unavailable');
   return api.parseDocumentStructure(String(text??''),{format});

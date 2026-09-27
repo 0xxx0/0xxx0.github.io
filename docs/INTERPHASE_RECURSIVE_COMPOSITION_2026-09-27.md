@@ -362,3 +362,26 @@ The technique is not "map everything to everything."
 It is:
 
 > **keep every object locally small, give it stable addresses and a few lawful apertures, compose those apertures recursively, preserve the residue, and always keep a way back.**
+
+
+---
+
+## 2026-09-27 — READ / RIDE material traversal evolution
+
+Successor packet:
+
+- /control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md
+
+The recursive composition method now has a concrete material-traversal proof candidate:
+
+~~~text
+GLYPH ATLAS / READFIELD / LOCAL TEXT FILE
+→ exact source identity
+→ addressed SENTENCE / PARAGRAPH / SECTION course
+→ LIVE embodied local POV
+↔ whole-source course map
+→ STEP / witness
+→ RETURN
+~~~
+
+This should be read as the same contract recurring at a new scale, not as a merger of READFIELD and LIVE. READFIELD owns source/cursor/RSVP; LIVE owns embodied movement and native Fold/Bloom effects. Text enters LIVE without a fabricated clock. The Sleeper POV/SPIRAL analogy is functional: local embodied view plus global route/scale, not a requirement to copy Sleeper rendering.

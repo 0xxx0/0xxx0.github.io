@@ -4,6 +4,7 @@ import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sidecar-text.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 import {isDocumentFile,adaptDocumentFile,storeDocumentRuntime,loadDocumentRuntime,clearDocumentRuntime,makeReadfieldHandoff} from './document-source.js';
+import {READ_RIDE_STORAGE,makeReadRidePacket} from '../read-course.js';
 import {hashHex} from '../../lib/id.js';
 import {esc,$} from '../../lib/dom.js';
 import {kv,skv} from '../../lib/store.js';
@@ -80,7 +81,8 @@ function renderFocus(){
   $('#inside').innerHTML=inside.map(([k,v])=>'<div class="insideFacet"><b>'+esc(k)+'</b><span>'+esc(v||'—')+'</span></div>').join('');
   const i=packet.path.indexOf(x.id);pathBtn.disabled=false;pathBtn.textContent=i>=0?`REMOVE FROM PATH · ${i+1}`:'ADD TO PATH';
   readBtn.hidden=!isDoc;readBtn.disabled=!isDoc||runtime==null;rebindBtn.hidden=!isDoc;rebindBtn.disabled=!isDoc;
-  listenBtn.hidden=isDoc;liveBtn.hidden=isDoc;listenBtn.disabled=isDoc;liveBtn.disabled=isDoc;
+  listenBtn.hidden=isDoc;listenBtn.disabled=isDoc;
+  liveBtn.hidden=false;liveBtn.disabled=isDoc?runtime==null:false;liveBtn.textContent=isDoc?'RIDE DOCUMENT':'OPEN RIDE';
   $('#originBtn').disabled=!origin?.address;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
 }
 function renderPath(){
@@ -226,6 +228,33 @@ function readDocument(){
   const q=new URLSearchParams({handoff:'1',ap_scale:'SECTION',ap_addr:handoff.address||'section://0',return:'/fold-bloom/atlas/'});
   window.open('/docs/?'+q.toString(),'_blank');
 }
+function rideDocument(){
+  const x=entryBy(focusId);if(!x||x.sourceKind!=='LOCAL_DOCUMENT')return false;
+  const text=loadDocumentRuntime(x.sourceHash);if(text==null){$('#status').textContent='SOURCE NOT BOUND · REBIND DOCUMENT';renderFocus();return false}
+  try{
+    const carrier=globalThis.InterphaseCarrier?.make?.({
+      object:{id:'atlas:document:'+x.sourceHash,kind:'LOCAL_DOCUMENT',label:x.name||'DOCUMENT',owner:'GLYPH_ATLAS',address:'glyph://'+x.sourceHash,contract:'field-read-ride/v0.1'},
+      focus:{id:'atlas:document:'+x.sourceHash,label:x.name||'DOCUMENT',address:'glyph://'+x.sourceHash,aperture:'INSIDE'},
+      next:[
+        {id:'READFIELD',label:'READ',authority:'NAVIGATION',target:'/docs/'},
+        {id:'RIDE_LIVE',label:'RIDE DOCUMENT',authority:'NAVIGATION',target:'/fold-bloom/live/'},
+        {id:'RETURN_ATLAS',label:'RETURN ATLAS',authority:'NAVIGATION',target:'/fold-bloom/atlas/'}
+      ],
+      witness:{class:'OBSERVED',summary:'BOUND DOCUMENT CELL · '+(x.document?.paragraphs||0)+' paragraphs'},
+      return:{address:'/fold-bloom/atlas/',owner:'GLYPH_ATLAS',label:'RETURN TO ATLAS'},
+      projection:{host:'GLYPH_ATLAS',name:'INSIDE',channels:['identity','address','content','depth','evidence'],residue:['raw document bytes remain session-bound']}
+    })||null;
+    const packet=makeReadRidePacket({
+      source:text,label:x.name||'DOCUMENT',
+      sourceIdentity:{hash:x.sourceHash,kind:'LOCAL_DOCUMENT',format:x.format||'TXT',authority:'GLYPH_ATLAS'},
+      focus:{source_progress:0},
+      from:'/fold-bloom/atlas/',returnAddress:'/fold-bloom/atlas/',carrier
+    });
+    sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
+    window.open('/fold-bloom/live/?source=readfield&course=STEP','_blank');
+    $('#status').textContent='RIDE HANDOFF · DOCUMENT ADDRESS PRESERVED';return true;
+  }catch(error){console.warn('document ride',error);$('#status').textContent='RIDE HANDOFF FAILED';return false}
+}
 async function rebindDocument(file){
   const x=entryBy(focusId);if(!x||x.sourceKind!=='LOCAL_DOCUMENT'||!file)return;
   try{
@@ -239,9 +268,9 @@ $('#loadBtn').onclick=()=>$('#files').click();$('#files').onchange=e=>loadFiles(
 $('#pathBtn').onclick=togglePath;$('#clearPath').onclick=clearPath;$('#removeBtn').onclick=removeFocus;$('#idleBtn').onclick=startIdle;$('#shareBtn').onclick=share;$('#exportBtn').onclick=exportReturn;
 $('#message').oninput=()=>{packet.note=$('#message').value;persist()};
 $('#readBtn').onclick=readDocument;$('#rebindBtn').onclick=()=>$('#rebindFile').click();$('#rebindFile').onchange=async e=>{const f=e.target.files?.[0];e.target.value='';if(f)await rebindDocument(f)};
-$('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>openSibling('../live/');$('#originBtn').onclick=()=>{const x=entryBy(focusId);if(x?.origin?.address)window.open(x.origin.address,'_blank','noopener')};
+$('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>{const x=entryBy(focusId);if(x?.sourceKind==='LOCAL_DOCUMENT')rideDocument();else openSibling('../live/')};$('#originBtn').onclick=()=>{const x=entryBy(focusId);if(x?.origin?.address)window.open(x.origin.address,'_blank','noopener')};
 document.addEventListener('pointerdown',e=>{if(idle.on&&!e.target.closest('#idleBtn'))stopIdle(true)},{capture:true});
 document.addEventListener('keydown',e=>{if(idle.on&&e.key!=='Tab')stopIdle(true)});
 render();
 setTimeout(()=>{if(!realMode&&!idle.on)startIdle()},1100);
-window.FoldBloomAtlas={state:()=>({packet:currentPacket(),focusId,idle:idle.on,deepQueue:deepQueue.length}),loadFiles,readDocument,rebindDocument,startIdle,stopIdle};
+window.FoldBloomAtlas={state:()=>({packet:currentPacket(),focusId,idle:idle.on,deepQueue:deepQueue.length}),loadFiles,readDocument,rideDocument,rebindDocument,startIdle,stopIdle};

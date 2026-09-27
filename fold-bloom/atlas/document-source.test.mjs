@@ -10,6 +10,11 @@ test('document detection is extension bounded',()=>{
   assert.equal(isDocumentFile({name:'paper.md'}),true);
   assert.equal(isDocumentFile({name:'PAPER.MARKDOWN'}),true);
   assert.equal(isDocumentFile({name:'notes.txt'}),true);
+  assert.equal(isDocumentFile({name:'data.json'}),true);
+  assert.equal(isDocumentFile({name:'table.csv'}),true);
+  assert.equal(isDocumentFile({name:'config.yaml'}),true);
+  assert.equal(isDocumentFile({name:'module.mjs'}),true);
+  assert.equal(isDocumentFile({name:'diagram.svg'}),true);
   assert.equal(isDocumentFile({name:'paper.pdf'}),false);
 });
 

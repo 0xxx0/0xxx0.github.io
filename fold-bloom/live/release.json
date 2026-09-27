@@ -136,7 +136,10 @@
     "direct local LIVE imports are retained into the existing browser-local IndexedDB media vault and exposed through a remembered-track chooser for picker-free same-device re-entry.",
     "browser audio permission is split honestly: TAP FOR SOURCE resumes real source playback; TAP FOR FIELD SOUND initializes the local synth.",
     "advanced ride rails recede behind CALIBRATE / ADVANCED while macro presets remain first-class.",
-    "J-SPACE CO-DRIVER: LIVE exposes native forecastContext and accepts ephemeral authority-NONE steering pulses that only illuminate currently lawful BLOOM/FOLD/SPLIT/RETURN candidate slots; hints expire and never rotate, RELEASE, select CALL, or mutate topology."
+    "J-SPACE CO-DRIVER: LIVE exposes native forecastContext and accepts ephemeral authority-NONE steering pulses that only illuminate currently lawful BLOOM/FOLD/SPLIT/RETURN candidate slots; hints expire and never rotate, RELEASE, select CALL, or mutate topology.",
+    "READ/RIDE candidate: LIVE can consume an exact READFIELD/local text-like source as an addressed SENTENCE/PARAGRAPH/SECTION course in STEP mode without fabricating a text clock.",
+    "READ/RIDE preserves source identity + exact read:// address, keeps raw text host/session-owned, and emits only bounded current witness + return address in LIVE public state.",
+    "READ/RIDE may embed interphase-carrier/v0.1 for authority-free cross-host continuation; carrier authority remains NONE / HANDOFF ONLY."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -180,7 +183,10 @@
     "performance witnesses are diagnostic and must not become score/reward mechanics",
     "private ChatGPT Library bytes are not public application assets and are never implied to be cross-device synced",
     "SOURCE-only playback must not display FIELD COURSE terrain as though it were analysis of that source",
-    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities"
+    "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities",
+    "READFIELD retains text/cursor/RSVP/VOICE authority; LIVE embodiment does not become a second reader authority.",
+    "RELEASE does not advance reading cursor by default; game score/route completion do not imply comprehension.",
+    "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -249,7 +255,8 @@
     "source_continuity_pr": 216,
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
-    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison"
+    "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison",
+    "read_ride": "PASS · PR #459 head 58d18ecc6565085fc25c6e999b1d03754c42a51a · public-surface-check 36302101438 · READFIELD cursor→LIVE paragraph→STEP address change→SECTION→direct local File; full repo browser/recovery suite green."
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",

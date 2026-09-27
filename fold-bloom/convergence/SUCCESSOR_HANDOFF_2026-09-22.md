@@ -261,3 +261,25 @@ Consequences:
 - J-space remains an external co-driver over a host's native affordances.
 
 LAB 0.3.5 specifically repairs the phone composition: one horizontal aperture strip, bounded/collapsible bottom sheet, and a dedicated 390×720 geometry/tappability smoke. Projection semantics are unchanged.
+
+
+## 2026-09-27 — READ / RIDE / RETURN MATERIAL TRAVERSAL
+
+Recover:
+
+- /control/confluence/READ_RIDE_RECURSIVE_INTERPHASE_SUCCESSOR_2026-09-27.md
+- /fold-bloom/read-course.js
+- /tools/fold-bloom-live-read-ride-smoke.mjs
+
+Candidate law:
+
+~~~text
+READFIELD / GLYPH ATLAS / LOCAL FILE
+→ exact text source + address
+→ READ COURSE
+→ LIVE POV / STEP
+→ bounded witness
+→ RETURN
+~~~
+
+Do not make LIVE another reader authority. READFIELD keeps source/cursor/RSVP/VOICE authority; LIVE contributes embodied traversal and its native authored operation field. Do not couple RELEASE to page/paragraph advancement by default. The first real gate after repository proof is one ordinary book/document comparison against READFIELD alone.
