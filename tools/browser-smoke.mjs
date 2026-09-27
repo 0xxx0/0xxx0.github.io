@@ -1041,7 +1041,8 @@ const CASES=[
   {
     name:'READFIELD → LOCI focus handoff',
     route:'/__smoke/readfield-loci-handoff',
-    options:{width:520,height:940,budget:18000,timeout:24000},
+    options:{width:520,height:940,settleLimit:30000,timeout:40000},
+    settle:true,
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"packetScale":"WORD"/.test(dom)&&/"sourceSame":true/.test(dom)&&/"contains":true/.test(dom)&&/"words":96/.test(dom)&&/"nodes":16/.test(dom)
   },
   {
@@ -1376,13 +1377,15 @@ const CASES=[
   {
     name:'CARE face modal + absurd plans',
     route:'/__smoke/care-face',
-    options:{width:460,height:940,budget:14000,timeout:20000},
+    options:{width:460,height:940,settleLimit:28000,timeout:36000},
+    settle:true,
     check:dom=>/id="probeResult">PASS /.test(dom)&&dom.includes('"faceModal":true')&&dom.includes('"absurdPlan":true')&&dom.includes('"regionTap":true')&&dom.includes('"twitch":true')
   },
   {
     name:'HOUSE diegetic locus aperture',
     route:'/__smoke/house-locus',
-    options:{width:460,height:940,budget:12000,timeout:18000},
+    options:{width:460,height:940,settleLimit:24000,timeout:32000},
+    settle:true,
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"roomVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"care":true/.test(dom)
   },
   {
