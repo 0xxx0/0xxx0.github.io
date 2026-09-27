@@ -1,6 +1,6 @@
 {
   "schema": "field-waiting/v0.2",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "purpose": "Durable public-safe dependency registry. ACTIVE human/world gates are owned only by CURRENT.current_heads[].next_executable; this file preserves PARKED dependencies and REMOVED history without manufacturing user obligations.",
   "authority": {
     "active": "control/CURRENT.json current_heads[].next_executable",
@@ -167,6 +167,21 @@
         "no permanent multiplayer backend",
         "no absolute 3-D position claim",
         "no new media store"
+      ]
+    },
+    {
+      "id": "trunk-publish-strategy-h3",
+      "route": "/",
+      "human_move": "Choose the private-trunk publish strategy: (A) cherry-pick the public-safe subset into the publish clone — guard-verified separable, recommended; (B) untrack the private trees, scrub, then merge; (C) hold the trunk private for now. The accidental remote push-feature branch is already deleted.",
+      "why": "34 unmerged local commits mix public-safe material with private trees; the pre-push guard correctly refuses a direct push, so the publish boundary needs one human pick.",
+      "unlocks": "A clean public delta from a week of real work, plus a standing untrack/scrub convention so future publishes are routine.",
+      "dependency_kind": "HUMAN_CONFIRM",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-27",
+      "parked_reason": "Publication-boundary choice; not an obligation.",
+      "reactivate_when": "Operator picks A/B/C, or CURRENT selects this id.",
+      "evidence": [
+        "/control/HERMES.md"
       ]
     }
   ],
