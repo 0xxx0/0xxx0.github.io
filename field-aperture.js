@@ -211,7 +211,25 @@ class FieldAperture extends HTMLElement{
  }
  jsonNodeView(){
   if(!this.A||this.A.kind!=='JSON')return null;
-  const node=this.current(),path=node?.path||this.jsonPath||'
+  const node=(this.A.nodes||[]).find(x=>x.path===this.jsonPath)||this.current(),path=node?.path||this.jsonPath||'$';
+  if(!node)return null;
+  const children=(this.A.nodes||[]).filter(x=>x.depth===node.depth+1&&(x.path.startsWith(path+'.')||x.path.startsWith(path+'['))).slice(0,48).map(x=>({
+    path:x.path,key:String(x.key),type:x.type,leaf:!!x.leaf,preview:preview(x.value,120)
+  }));
+  return{path,node:{key:String(node.key),type:node.type,depth:node.depth,leaf:!!node.leaf,preview:preview(node.value,420)},children}
+ }
+ focusText(){
+  if(!this.A)return'';
+  if(this.A.kind==='TEXT'&&this.voiceCursor?.text)return this.voiceCursor.text;
+  const cur=this.A.kind==='JSON'?((this.A.nodes||[]).find(x=>x.path===this.jsonPath)||this.current()):this.current();
+  if(this.A.kind==='JSON'&&cur){
+    const lead=cur.key==='$'?'ROOT':String(cur.key);
+    if(cur.leaf)return lead+(lead?' · ':'')+preview(cur.value,300);
+    const n=(this.A.nodes||[]).filter(x=>x.depth===cur.depth+1&&(x.path.startsWith(cur.path+'.')||x.path.startsWith(cur.path+'['))).length;
+    return (lead||'ROOT')+' · '+String(cur.type||'object').toUpperCase()+' · '+n+' CHILD'+(n===1?'':'REN')
+  }
+  return typeof cur?.value==='string'?cur.value:preview(cur?.value,320)
+ }
  localXrefs(){
   if(!this.A)return[];
   let src='';
