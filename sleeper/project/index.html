@@ -138,6 +138,46 @@ function validate(raw){
   renderDaylineOffer();
   return a;
 }
+function carrierForArtifact(a=artifact){
+  const C=globalThis.InterphaseCarrier;if(!a||!C)return null;
+  const id='sleeper:return:'+a.worldKey,instruction=String(a.transferInstruction||'').trim(),op=String(a.dominantOperator||'').trim();
+  try{return C.make({
+    object:{id,kind:'return-artifact',label:'SLEEPER RETURN '+a.worldKey,owner:'SLEEPER',address:'sleeper://'+a.worldKey+'/return',contract:'sleeper.one-return/v2'},
+    focus:{id:instruction?('transfer:'+(op||'instruction')):id,label:instruction||('RETURN '+a.worldKey),address:'sleeper://'+a.worldKey+'/return#transfer',aperture:'TRANSFER'},
+    next:[...(instruction?[{id:'CARRY_OPERATOR',label:'CARRY OPERATOR → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),{id:'READ_RETURN',label:'READ RETURN',authority:'NAVIGATION',target:'/docs/'},{id:'OPEN_SAME_WORLD',label:'OPEN SAME WORLD',authority:'NAVIGATION',target:'https://sleeper-one-return.metaname.chatgpt.site/'}].slice(0,3),
+    witness:{class:'RETURN',summary:'8/8 enacted Gates · '+(a.measures?.steps??'—')+' steps · '+(a.measures?.elapsedMs??'—')+' ms',evidenceRefs:['sleeper://'+a.worldKey+'/return#proofs']},
+    return:{address:'/sleeper/project/?world='+encodeURIComponent(a.worldKey),owner:'SLEEPER',label:'RETURN TO SLEEPER'},
+    projection:{host:'SLEEPER',name:'RETURN',channels:['identity','address','content','time','authority','evidence'],residue:[{channel:'world-geometry',reason:'not carried by continuation frame'}]},
+    sourceRefs:['/sleeper/','/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json'],
+    meta:{dominantOperator:op,verseCell:a.cell?.id||null,figure:a.figure||null}
+  })}catch(_){return null}
+}
+function carryDayline(){
+  const instruction=String(artifact?.transferInstruction||'').trim();if(!artifact||!instruction){status.textContent='CARRY BLOCKED · RETURN HAS NO TRANSFER INSTRUCTION';status.className='bridgeStatus bad';return}
+  const id='sleeper-'+artifact.worldKey+'-'+Date.now(),objectId='sleeper:return:'+artifact.worldKey,ret='/sleeper/project/?from=dayline&world='+encodeURIComponent(artifact.worldKey);
+  const packet={
+    schema:'atlas-dayline-handoff/v0.1',id,created_at:new Date().toISOString(),kind:'TASK',
+    source:{route:'/sleeper/project/',object_id:objectId,label:'SLEEPER RETURN '+artifact.worldKey,owner:'SLEEPER',address:'sleeper://'+artifact.worldKey+'/return',evidence_owner:'SLEEPER',proof_boundary:'Dayline witness is evidence about a real-world enactment only; it cannot satisfy or rewrite Sleeper Gate proofs.'},
+    payload:{task:{title:instruction,contexts:['phone','computer','home'],value:4,sourceRef:'/sleeper/project/',provenance:'SLEEPER explicit transfer · '+artifact.worldKey,notes:['SLEEPER RETURN '+artifact.worldKey,'DOMINANT OPERATOR '+String(artifact.dominantOperator||'—'),'TRANSFER '+instruction,'8/8 GATES VERIFIED BEFORE HANDOFF','RETURN OFFER MUST REMAIN EVIDENCE ONLY'].join('\n')}},
+    return_to:ret,carrier:carrier||carrierForArtifact(artifact)
+  };
+  try{sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.href='/dayline/?handoff=sleeper&interphase=FOVEA'}catch(_){status.textContent='DAYLINE HANDOFF FAILED';status.className='bridgeStatus bad'}
+}
+function readDaylineOffer(){
+  try{
+    const b=JSON.parse(sessionStorage.getItem('atlas.dayline.source-return.v01')||'null');if(!b||b.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(b.offers))return null;
+    const age=Date.now()-Date.parse(b.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000)return null;
+    const expected=artifact?('sleeper:return:'+artifact.worldKey):null;
+    return b.offers.find(o=>o?.source?.route==='/sleeper/project/'&&(!expected||o?.source?.object_id===expected))||null;
+  }catch(_){return null}
+}
+function renderDaylineOffer(){
+  const box=$('#daylineOffer');if(!box)return;const o=readDaylineOffer();if(!o){box.hidden=true;return}
+  box.hidden=false;$('#offerTitle').textContent='DAYLINE RETURN OFFER · EVIDENCE ONLY';
+  $('#offerBody').textContent=(o.task?.status||'UNKNOWN')+' · '+(o.witness?.note||'No textual witness recorded.');
+  $('#offerMeta').textContent=(o.witness?.return_class||'RETURN')+' · '+(o.witness?.after_checksum||'no checksum')+' · '+(o.native_effect||'EVIDENCE_ONLY')+' · no Sleeper state mutation';
+}
+function dismissDaylineOffer(){try{sessionStorage.removeItem('atlas.dayline.source-return.v01')}catch(_){};const box=$('#daylineOffer');if(box)box.hidden=true}
 function readfield(source,label,authority,format='TXT'){
   const packet={schema:'readfield-handoff/v1',created:new Date().toISOString(),source,label,from:'/sleeper/project/',returnAddress:'/sleeper/project/',sourceIdentity:{kind:format==='TXT'?'TEXT':'JSON',format,authority,worldKey:artifact.worldKey}};
   sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(packet));
