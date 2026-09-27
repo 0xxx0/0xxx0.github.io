@@ -26,10 +26,10 @@
   ],
   "validation": {
     "required_checks": [
-      "public-surface-check",
-      "Route Registration"
+      "public-surface-check"
     ],
-    "merge_gate": "both required checks must pass on the current PR head",
+    "route_registration": "not applicable: this delta changes no registered route or HTML surface",
+    "merge_gate": "public-surface-check must pass on the current PR head",
     "result": "PASS_REQUIRED_ON_MERGE_HEAD"
   },
   "return": "/",
