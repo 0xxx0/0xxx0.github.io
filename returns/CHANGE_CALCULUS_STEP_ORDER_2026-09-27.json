@@ -1,0 +1,125 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "CHANGE_CALCULUS_STEP_ORDER_2026-09-27",
+  "date": "2026-09-27",
+  "status": "CANDIDATE_EVIDENCE_PASS",
+  "classification": [
+    "RESEARCH",
+    "EVIDENCE",
+    "FOLD_BLOOM",
+    "CHANGE_CALCULUS"
+  ],
+  "source": {
+    "repository": "0xxx0/0xxx0.github.io",
+    "pr": 476,
+    "tested_head": "faec7d857920758326ae537a82291993d8cb8673",
+    "engine": "/fold-bloom/live/engine.js",
+    "experiment": "/fold-bloom/convergence/change-calculus/live-step-order.mjs"
+  },
+  "claim": {
+    "named_property": "two-step re-resolved verb-intent order under explicit LOWEST_SLOT resolver",
+    "authority": "EVIDENCE_ONLY",
+    "result": "ORDER_SENSITIVE",
+    "scope": "current deterministic LIVE engine and tested seed/round family only"
+  },
+  "epoch_witness": {
+    "old_target_type": 0,
+    "new_target_type": 1,
+    "committed": {
+      "slot": 0,
+      "verb": "BLOOM",
+      "chain": 1
+    },
+    "stale_sibling_before": {
+      "slot": 2,
+      "verb": "BLOOM",
+      "chain": 1
+    },
+    "stale_sibling_after": null,
+    "aperture_invalidated": true,
+    "interpretation": "availableForecasts() entries are alternatives for one commit epoch, not a sequential queue"
+  },
+  "search": {
+    "resolver": "LOWEST_SLOT",
+    "seeds": 48,
+    "rounds": 24,
+    "tested_pairs": 1801,
+    "both_defined_pairs": 874,
+    "noncommuting_pairs": 874,
+    "commuting_pairs": 0,
+    "domain_dependent_pairs": 927,
+    "first_noncommuting": {
+      "seed": 1,
+      "round": 4,
+      "intents": [
+        "FOLD",
+        "RETURN"
+      ],
+      "classification": "NONCOMMUTING_ON_TESTED_APERTURE",
+      "forward": [
+        {
+          "intent": "FOLD",
+          "candidate_count": 2,
+          "ambiguity_bits": 1,
+          "chosen_slot": 2,
+          "event": {
+            "verb": "FOLD",
+            "chain": 3
+          }
+        },
+        {
+          "intent": "RETURN",
+          "candidate_count": 1,
+          "ambiguity_bits": 0,
+          "chosen_slot": 4,
+          "event": {
+            "verb": "RETURN",
+            "chain": 1
+          }
+        }
+      ],
+      "reverse": [
+        {
+          "intent": "RETURN",
+          "candidate_count": 1,
+          "ambiguity_bits": 0,
+          "chosen_slot": 5,
+          "event": {
+            "verb": "RETURN",
+            "chain": 2
+          }
+        },
+        {
+          "intent": "FOLD",
+          "candidate_count": 3,
+          "ambiguity_bits": 1.584963,
+          "chosen_slot": 3,
+          "event": {
+            "verb": "FOLD",
+            "chain": 2
+          }
+        }
+      ]
+    }
+  },
+  "verification": {
+    "route_registration": {
+      "run": 36314448677,
+      "status": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36314448666,
+      "status": "PASS"
+    },
+    "dedicated_step": "Validate J-space steering + change calculus contracts",
+    "dedicated_status": "PASS"
+  },
+  "boundaries": [
+    "LOWEST_SLOT is an explicit research resolver, not a gameplay or planning policy",
+    "stale forecasts are not carried across a release boundary",
+    "domain-dependent compositions are reported as DOMAIN_DEPENDENT rather than forced into an algebra",
+    "the result does not promote HEX, recent exact form, J-Lens tokens, or resolver output into control authority",
+    "no model causal-steering claim is made"
+  ],
+  "next_gate": "Compare at least one alternate explicit resolver and distinguish resolver-dependent order effects from engine-intrinsic order effects before generalizing the 874/874 observation."
+}
