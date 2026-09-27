@@ -1,21 +1,10 @@
 {
   "schema": "field-repo-issues/v0.1",
-  "generated_at": "2026-09-25T12:58:00+08:00",
+  "generated_at": "2026-09-27T10:25:43.274Z",
   "source": "GitHub open issues for 0xxx0/0xxx0.github.io",
   "dynamic_source": "https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100",
-  "count": 1,
-  "play_safe_count": 1,
+  "count": 0,
+  "play_safe_count": 0,
   "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain recoverable in closed issue history or WAITING rather than remaining open merely to preserve memory.",
-  "issues": [
-    {
-      "number": 11,
-      "title": "Print 01 · Digital → stencil/proof → physical → RETURN",
-      "updated_at": "2026-09-20T14:05:37Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/11",
-      "labels": [],
-      "body": "## Goal\nReify the print/proof mechanisms already present in Cassette Atlas / House OS materials.\n\n## Loop\ncanonical object/state\n→ SVG/PDF plate\n→ print/sticker/stencil/template\n→ physical placement/use\n→ photo/measurement/observation\n→ RETURN receipt\n\n## Candidate first fixture\nOne address strip / route tile / tool label / stencil with:\n- stable ID\n- scale\n- registration\n- revision\n- source pointer\n- manual fallback\n\n## Done when\nThe physical artifact can be traced back to exact digital source and the observed physical consequence returns to the ledger.",
-      "play_safe": true,
-      "disposition": "PUBLIC_REPO"
-    }
-  ]
+  "issues": []
 }
