@@ -23,7 +23,7 @@
 <div class="drawerHead"><h2>LIVE</h2><button id="closeSettings">CLOSE</button></div>
 <div class="control"><label><span>SOURCE</span><span id="trackState">FIELD COURSE</span></label><div class="row"><button id="trackLoad">CHOOSE SONG / AUDIO FILE</button><button id="readLoad">READ / RIDE FILE</button><button id="trackToggle" disabled>PLAY / PAUSE</button></div><div class="courseNav" id="courseNav"><canvas id="courseMap" width="320" height="44" aria-label="Source structure minimap and scrub control"></canvas><div class="courseRow"><button id="courseBack" aria-label="Previous addressed track point">←</button><button id="courseMode">FLOW</button><button id="courseGrain">PHRASE</button><button id="courseNext" aria-label="Next addressed track point">→</button></div><div class="courseAddress" id="courseAddress">course://audio_map/empty</div></div></div>
 <details class="drawerMore"><summary>SOURCE TOOLS</summary><div class="control"><label><span>PUBLIC EXAMPLE</span><span>bounded demo excerpt</span></label><div class="row"><button id="publicDemoSettingsBtn">LOAD AUDIO EXAMPLE</button></div></div><div class="control"><label><span>OPTIONAL REMOTE</span><span>provider availability not guaranteed</span></label><div class="row"><button id="centerMassSettingsBtn">TRY CENTER MASS REMOTE</button></div></div>
-  <div class="row"><button id="textBtn">TEXT AUTO</button><button id="listenBtn">LISTEN / TUNE</button><button id="readfieldReturn" hidden>↩ READFIELD</button></div>
+  <div class="row"><button id="textBtn">TEXT AUTO</button><button id="readTrailMark" hidden>MARK HERE</button><button id="listenBtn">LISTEN / TUNE</button><button id="readfieldReturn" hidden>↩ READFIELD</button></div>
   <div class="control vaultControl"><label><span>REMEMBERED THIS DEVICE</span><span id="vaultCount">0</span></label><div class="vaultRow"><select id="vaultSelect"><option value="">REMEMBERED TRACKS…</option></select><button id="vaultOpen" disabled>OPEN SAVED</button></div><div class="small">Private browser vault only. No upload or cross-device sync claim.</div></div>
 </details>
 <div class="control layerControl"><label><span>LAYER</span><span id="layerRead">IMMERSION</span></label><div class="row layerModes"><button data-layer-mode="SOURCE">SOURCE</button><button data-layer-mode="MAP">MAP</button><button class="on" data-layer-mode="IMMERSION">IMMERSION</button></div><div class="small" id="layerLaw">SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response.</div></div>
@@ -53,7 +53,7 @@
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
-<script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.16"></script>
+<script src="../../lib/interphase-carrier.js"></script><script src="../../lib/read-trail.js"></script><script type="module" src="./app.js?v=0.13.17"></script>
 <script type="module" src="./vault-handoff.js"></script>
 <script type="module" src="./play.js?v=0.6.2"></script>
 <script type="module">
