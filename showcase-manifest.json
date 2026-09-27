@@ -1891,7 +1891,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-26T10:34:00+08:00",
+        "updated_at": "2026-09-27T14:25:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -1902,13 +1902,14 @@
       },
       "role": "Public Fold/Bloom doorway around one source-continuity law. The primary surface remains contracted, but its puzzle aperture is again culturally legible: YIJING / HEXAGRAM → CHANGE is the visible mode, while the exact six-verb FORM substrate remains underneath for provenance. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change without moving LIVE/source authority.",
       "tier": "FIELD",
-      "version": "0.1.6 + PLAY 0.6.1 / LAB 0.3.4 / VOICE 0.2",
+      "version": "0.1.6 + PLAY 0.6.1 / LAB 0.3.5 / VOICE 0.2",
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
       "transfer": [
         "PLAY 0.6.1 restores HEXAGRAM / CHANGE as the humane/cultural puzzle surface while preserving exact BLOOM/FOLD/SPLIT/RETURN provenance underneath",
         "binary projection is explicit and reversible-at-return: 4^6 exact forms → 2^6 hexagrams, 64 exact forms per hexagram; moving lines occur only on cross-polarity changes",
         "0.1.6 public contraction: four primary jobs + one LAB gate; secondary/cross-domain exits move behind MORE USES without losing reachability",
-        "FIELD LAB public truth corrected to 0.3.4 / seven projections; VOICE 0.2 is folded into PULSE on the main LAB path rather than advertised as a separate Lab mode"
+        "FIELD LAB public truth corrected to 0.3.4 / seven projections; VOICE 0.2 is folded into PULSE on the main LAB path rather than advertised as a separate Lab mode",
+        "LAB 0.3.5 keeps seven unequal projections but repairs phone composition into one horizontal aperture strip + bounded/collapsible sheet; no eighth mode or authority merge."
       ]
     },
     {
@@ -2426,17 +2427,17 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.3.4",
+      "title": "FOLD//BLOOM · FIELD LAB 0.3.5",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "tier": "FIELD",
-      "role": "Spatial seven-projection convergence lab over canonical unequal engines. PULSE is now a three-ring LOCK→CROSS→RETURN psychophysics trainer over the existing synthetic FIELD PULSE clock; the shared VOICE 0.2 pitch/spectrum trainer lives inside PULSE as optional detail rather than an eighth Lab mode. VERSE/READ/LOCI preserve exact text/focus and marks; RIDE delegates to LIVE; INK and DATA remain unequal studies.",
+      "role": "Seven-projection composition bench over unequal canonical engines. Mobile 0.3.5 uses one horizontal aperture strip plus a bounded/collapsible bottom sheet. RIDE, PULSE, VERSE, READ, LOCI, INK and DATA preserve separate authority while explicit carry/RETURN tests whether one addressed object survives recursive re-projection. PULSE still embeds the shared VOICE 0.2 pitch/spectrum trainer as subordinate detail rather than an eighth projection.",
       "index": {
-        "updated_at": "2026-09-26T09:58:00+08:00",
+        "updated_at": "2026-09-27T14:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -7357,10 +7358,9 @@
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-09-27T13:40:00+08:00",
+        "updated_at": "2026-09-27T14:20:00+08:00",
         "work_modes": [
           "PLAY",
-          "OPERATE",
           "VERIFY",
           "RESEARCH",
           "IMPLEMENT"
@@ -7368,7 +7368,7 @@
       },
       "project": "/sleeper/project/",
       "tier": "FIELD",
-      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine plus a same-origin Return Bridge: phrase + verse cell + figure compile one deterministic city; eight enacted Gate proofs and return to origin emit Return Artifact v2. The project surface can verify that artifact and carry source/RETURN into READFIELD, Verse or Scale Lens through existing handoffs while preserving Sleeper authority. LIVE/ASCII City remain world-depth donors, not shared state.",
+      "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; enacted Gates and ordered route evidence return to origin as Return Artifact v2. Current convergence treats Sleeper as a path/witness host for same-world route comparison, ghosts and optional transportation readings; FIELD/STEP donors may compose at the aperture boundary without taking City Engine authority.",
       "latest_return": "/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json"
     },
     {
@@ -7809,9 +7809,9 @@
       "state": "CANDIDATE",
       "version": "0.1",
       "tier": "FIELD",
-      "role": "Implementation-convergence proof: 12 canonical objects in 4 simultaneous projections (page/ring/table/glyph) over ONE store. A mutation through any view updates every other with zero view-to-view code — verified by source inspection, not asserted.",
+      "role": "Implementation proof for recursive INTERPHASE composition: one canonical object can sustain multiple simultaneous unequal projections over one store, with mutations returning through the owner rather than view-to-view coupling. Current doctrine generalizes the contract recursively without merging domain semantics.",
       "index": {
-        "updated_at": "2026-09-23T11:16:26+08:00",
+        "updated_at": "2026-09-27T14:20:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -8173,9 +8173,9 @@
       "family": "ICHING",
       "version": "0.1",
       "tier": "FIELD",
-      "role": "The Book of Changes as a working instrument: cast six lines (three-coin) and read the primary hexagram (judgment 卦辭, image 大象, line texts 爻辭); changing lines open a transformed hexagram 之卦; the nuclear 互卦 is computed from lines 2–5. All 64 hexagrams: Chinese (周易, zh.wikisource, public domain) + English (Legge, SBE16 1882, public-domain OCR restoration; 20 passages flagged approximate), verified binaries (bottom-to-top; 兌上缺, 巽下斷), King Wen id, unicode symbol, trigrams, nuclear id, per-line flip targets. Hash-addressable casts (#c=987678). Static page + JSON, no build step, no tracking.",
+      "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
       "index": {
-        "updated_at": "2026-09-26T22:49:00+08:00",
+        "updated_at": "2026-09-27T14:20:00+08:00",
         "work_modes": [
           "PLAY",
           "READ",

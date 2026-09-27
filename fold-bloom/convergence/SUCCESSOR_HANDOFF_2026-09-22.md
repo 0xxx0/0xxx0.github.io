@@ -229,3 +229,35 @@ RELEASE
 This lets better models, local Qwen, interpretability experiments, ghost/route systems, or future agent workers plug into LIVE without rewriting the engine or gaining authority.
 
 The next meaningful leap is semantic model evidence, not another LIVE mode: run a capable open-weight model, repeated prompts, a real residual direction, zero/opposite controls, then feed only the resulting bounded hint into this seam.
+
+
+## 2026-09-27 — RECURSIVE COMPOSITION / LAB / SLEEPER DONORS
+
+Recover before adding another cross-domain mode:
+
+- `/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md`
+- `/control/HERMES_ICHING_CORRESPONDENCE_2026-09-27.json`
+- `/docs/TRON_FORTRESS_TRANSFER_BRIEF_2026-09-27.md`
+- `/sleeper/README.md`
+
+Current convergence law:
+
+```text
+ONE OBJECT
+→ STABLE ADDRESS
+→ UNEQUAL APERTURES
+→ FEW LAWFUL TRANSFORMS
+→ WITNESS
+→ RETURN
+```
+
+The recursion is contractual, not ontological: an aperture may open another addressed host that repeats the same small grammar, while each host keeps its own state and authority.
+
+Consequences:
+- FIELD LAB stays a seven-projection composition bench; do not add a new mode for every donor.
+- Sleeper contributes ordered route/Gate/RETURN evidence and is the preferred host for ghost/route/path experiments.
+- I Ching may provide finite correspondence/change addresses only when projection, ambiguity and residue are explicit.
+- Fortress is a research donor for path-induced topology / relational margin / role emergence; no production Fold/Bloom mutation is authorized.
+- J-space remains an external co-driver over a host's native affordances.
+
+LAB 0.3.5 specifically repairs the phone composition: one horizontal aperture strip, bounded/collapsible bottom sheet, and a dedicated 390×720 geometry/tappability smoke. Projection semantics are unchanged.

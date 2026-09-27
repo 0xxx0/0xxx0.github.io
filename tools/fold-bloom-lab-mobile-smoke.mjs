@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+'use strict';
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawn,spawnSync} from 'node:child_process';
+
+const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41763;
+function browserBin(){for(const n of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){const r=spawnSync('which',[n],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim()}throw Error('No Chrome/Chromium')}
+function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
+function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';const p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
+function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:720px;border:0;display:block" src="/fold-bloom/lab/"></iframe><pre id="probeResult">PENDING</pre><script>
+const f=document.getElementById('f'),o=document.getElementById('probeResult'),rec={};let doneFlag=false;
+const done=(ok,x)=>{if(doneFlag)return;doneFlag=true;o.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait timeout')};
+(async()=>{try{
+ const W=()=>f.contentWindow,D=()=>W().document;await wait(()=>D().documentElement.dataset.foldBloomFieldLab==='ready');
+ const d=D(),stage=d.getElementById('stage').getBoundingClientRect(),ring=d.getElementById('modeRing').getBoundingClientRect(),panel=d.querySelector('.panel').getBoundingClientRect(),footer=d.querySelector('footer').getBoundingClientRect(),modes=[...d.querySelectorAll('.mode')].map(x=>x.getBoundingClientRect());
+ rec.boot=d.getElementById('labBootWitness')?.textContent;rec.panel=d.documentElement.dataset.fieldLabPanel;rec.stage=[stage.top,stage.bottom];rec.ring=[ring.top,ring.bottom,ring.height];rec.panelRect=[panel.top,panel.bottom,panel.height];rec.footer=[footer.top,footer.bottom];rec.modeHeights=modes.map(x=>Math.round(x.height));rec.modeTopSpread=Math.max(...modes.map(x=>x.top))-Math.min(...modes.map(x=>x.top));rec.gap=Math.round(panel.top-ring.bottom);rec.bodyOverflow=Math.max(0,d.documentElement.scrollWidth-d.documentElement.clientWidth);
+ const openOK=ring.height<=54&&rec.modeTopSpread<3&&modes.every(x=>x.height>=40)&&panel.top>=ring.bottom+70&&panel.bottom<=stage.bottom+1&&rec.bodyOverflow===0&&d.documentElement.dataset.fieldLabPanel==='open';
+ d.getElementById('hidePanel').click();await sleep(80);const collapsed=d.querySelector('.panel').getBoundingClientRect();rec.collapsedHeight=Math.round(collapsed.height);rec.collapsedState=d.documentElement.dataset.fieldLabPanel;const collapsedOK=rec.collapsedState==='collapsed'&&collapsed.height<=52;
+ d.getElementById('hidePanel').click();await sleep(80);d.querySelector('[data-mode="PULSE"]').click();await sleep(80);const p2=d.querySelector('.panel').getBoundingClientRect();rec.mode=W().FoldBloomFieldLab.mode();rec.pulsePanel=[p2.top,p2.bottom,p2.height];rec.pulseVisible=d.querySelector('[data-controls="PULSE"]').classList.contains('on');const pulseOK=rec.mode==='PULSE'&&rec.pulseVisible&&p2.bottom<=stage.bottom+1&&p2.height<=stage.height*.52+4;
+ done(openOK&&collapsedOK&&pulseOK,{...rec,openOK,collapsedOK,pulseOK});
+}catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
+<\/script></body></html>`}
+const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
+function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=410,780','--virtual-time-budget=11000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},22000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
+await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));
+try{const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);if(r.code!==0||fatal||!result.startsWith('PASS ')){console.error('FIELD LAB MOBILE SMOKE FAIL',result||'(no result)');if(r.err.trim())console.error(r.err.slice(-2200));process.exitCode=1}else console.log('FIELD LAB MOBILE SMOKE PASS',result.slice(5))}finally{await new Promise(r=>server.close(()=>r()))}

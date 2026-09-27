@@ -244,3 +244,39 @@ FoldBloomLive.steering.clear()
 A real model producer should send the same relation through existing FIELD PULSE as `kind:'steering'`, `data.authority:'NONE'`, and a direction label/ref. LIVE previews matching lawful slots for ~15 seconds and then expires the hint. No new bus/store is authorized.
 
 Hermes task rule: if a proposed improvement needs the model to execute an action directly, return BLOCKED and point to the promotion gate. If it only improves candidate visibility, ambiguity, or evidence over native forecasts, it may be a bounded PREVIEW experiment.
+
+
+## RECURSIVE INTERPHASE COMPOSITION — 2026-09-27
+
+Canonical working note:
+
+- /docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md
+
+Use this before creating another cross-domain framework.
+
+Core law:
+
+~~~text
+ONE OBJECT
+→ STABLE ADDRESS
+→ UNEQUAL APERTURES
+→ FEW LAWFUL TRANSFORMS
+→ WITNESS
+→ RETURN
+~~~
+
+The recursive/fractal property is in the contract: an aperture may resolve to another addressed object that exposes the same small grammar. Do not infer that the objects share semantics or state.
+
+Current bounded research packets:
+- /control/HERMES_ICHING_CORRESPONDENCE_2026-09-27.json
+- /docs/TRON_FORTRESS_TRANSFER_BRIEF_2026-09-27.md
+- /sleeper/README.md (2026-09-27 route-witness seam)
+
+Important distinctions:
+- I Ching = finite correspondence/change lens, not sufficient host state.
+- J-space = model disposition/evidence, not action authority.
+- Sleeper = world/route/Gate/RETURN host, not Fold/Bloom skin.
+- FIELD LAB = composition bench, not a bucket for every donor.
+- Fortress = path/topology strategy donor, research-only.
+
+When work feels like “too many projects,” first ask whether the missing thing is only another aperture over an existing addressed object. Prefer recursive composition over a new route.

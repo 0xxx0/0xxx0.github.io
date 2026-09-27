@@ -19,6 +19,7 @@ import {
 
 const canvas=$('#field'),ctx=canvas.getContext('2d');
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
+document.documentElement.dataset.fieldLabPanel='open';
 const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
 let lastTransport=null;
 const labStartedAt=Date.now();
@@ -74,6 +75,8 @@ function selectMode(next){
 $$('.mode').forEach(b=>b.onclick=()=>selectMode(b.dataset.mode));
 $('#hidePanel').onclick=()=>{
   panelHidden=!panelHidden;$('#panelBody').hidden=panelHidden;$('#hidePanel').textContent=panelHidden?'+':'—';
+  document.documentElement.dataset.fieldLabPanel=panelHidden?'collapsed':'open';
+  queueMicrotask(resize);
 };
 $$('[data-profile]').forEach(b=>b.onclick=()=>{
   profile=b.dataset.profile;$$('[data-profile]').forEach(x=>x.classList.toggle('on',x.dataset.profile===profile));
