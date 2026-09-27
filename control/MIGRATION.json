@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/migration-ledger/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-27",
   "purpose": "Batch recovery + dedup ledger for the last ~2 weeks. Copy/recover first; classify second; merge only after mechanisms and lineage are visible.",
   "laws": [
     "NO DELETION DURING INGEST",
@@ -113,13 +113,14 @@
     },
     {
       "id": "ascii-sleeper-0-8",
-      "name": "ASCII Sleeper 0.8",
+      "name": "ASCII Sleeper · ONE RETURN v2",
       "family": "sleeper",
       "status": "LIVE_HEAD",
       "route": "/sleeper/",
       "source_type": "repo",
-      "unique": "Constraint field with POV/PLAIN views, explicit evidence contracts, coupled gates and RETURN seal.",
-      "action": "KEEP HEAD."
+      "unique": "Converged instrument: phrase + verse cell + figure compile into one deterministic city; eight enacted Gate protocols; bidirectional Return Artifact v2. POV 0.8 views preserved as superseded derivative; ASCII ONE RETURN reconstruction remains donor.",
+      "action": "KEEP HEAD. Charter + manifest converged 2026-09-27 from superseded POV/PLAIN semantics to canonical ONE RETURN v2; evidence at returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json.",
+      "convergence_return": "returns/SLEEPER_FIELD_CONVERGENCE_2026-09-27.json"
     },
     {
       "id": "sleeper-one-return-city-engine",
