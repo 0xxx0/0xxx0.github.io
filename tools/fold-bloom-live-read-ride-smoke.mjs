@@ -19,7 +19,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  sessionStorage.setItem('fold-bloom.read-ride.handoff.v01',JSON.stringify({
    schema:'field-read-ride/v0.1',created:new Date().toISOString(),source,label:'BOOK TEST',
    sourceIdentity:{hash:'sha256:book-test',kind:'LOCAL_DOCUMENT',format:'MD',authority:'READFIELD'},
-   focus:{char_index:focus,source_progress:focus/source.length},from:'/docs/',returnAddress:'/docs/?local=1'
+   focus:{char_index:focus,source_progress:focus/source.length},from:'/docs/',returnAddress:'/docs/?local=1',trailKey:'address:/docs/book-test'
  }));
  const f=document.createElement('iframe');f.id='f';f.style='width:430px;height:900px;border:0;display:block';f.src='/fold-bloom/live/?source=readfield&course=STEP';document.body.prepend(f);
  const W=()=>f.contentWindow,D=()=>W().document;
@@ -29,12 +29,13 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  await wait(()=>W().FoldBloomLive.read.current()?.course?.address&&W().FoldBloomLive.read.current().course.address!==startAddress,15000,'paragraph step');
  const b=W().FoldBloomLive.read.current();rec.step={address:b.course.address,text:b.witness?.text,progress:b.course.progress};
  W().FoldBloomLive.course.cycleGrain();await sleep(120);const g=W().FoldBloomLive.read.current();rec.grain={grain:g.course.grain,address:g.course.address,text:g.witness?.text};
+ const trail0=W().FoldBloomLive.read.trail();W().FoldBloomLive.read.mark();await sleep(80);const trail1=W().FoldBloomLive.read.trail();rec.trail={before:trail0?.marks?.length||0,after:trail1?.marks?.length||0,furthest:trail1?.furthest,lastChar:trail1?.last?.charIndex,law:trail1?.law||''};
  const file=new (W().File)(['# DIRECT\\n\\nAlpha direct.\\n\\nBeta direct.'],'direct.md',{type:'text/markdown'});
  await W().FoldBloomLive.read.loadFile(file);await wait(()=>W().FoldBloomLive.read.current()?.source?.label==='direct.md',15000,'direct file');
  const d=W().FoldBloomLive.read.current();rec.direct={label:d.source.label,authority:d.source.authority,kind:d.source.kind,grain:d.course.grain,address:d.course.address,text:d.witness?.text};
  const root=D().documentElement;rec.dataset={readRide:root.dataset.foldBloomReadRide,authority:root.dataset.foldBloomReadAuthority,courseKind:root.dataset.foldBloomCourseKind,courseMode:root.dataset.foldBloomCourseMode};
  rec.rawAbsent=!JSON.stringify(W().FoldBloomLive.state()).includes('Third paragraph after the second heading');
- const ok=rec.start.label==='BOOK TEST'&&rec.start.authority==='READFIELD'&&rec.start.mode==='STEP'&&rec.start.grain==='PARAGRAPH'&&String(rec.start.address).startsWith('read://')&&/Second paragraph/.test(rec.start.text||'')&&rec.handoffConsumed&&rec.step.address!==rec.start.address&&rec.grain.grain==='SECTION'&&rec.direct.label==='direct.md'&&rec.direct.authority==='LOCAL_FILE'&&rec.direct.grain==='PARAGRAPH'&&rec.dataset.readRide==='ready'&&rec.dataset.courseKind==='READFIELD_TEXT'&&rec.dataset.courseMode==='STEP'&&rec.rawAbsent;
+ const ok=rec.start.label==='BOOK TEST'&&rec.start.authority==='READFIELD'&&rec.start.mode==='STEP'&&rec.start.grain==='PARAGRAPH'&&String(rec.start.address).startsWith('read://')&&/Second paragraph/.test(rec.start.text||'')&&rec.handoffConsumed&&rec.step.address!==rec.start.address&&rec.grain.grain==='SECTION'&&rec.trail.after===rec.trail.before+1&&rec.trail.furthest>0&&Number.isFinite(rec.trail.lastChar)&&/never means read/i.test(rec.trail.law)&&rec.direct.label==='direct.md'&&rec.direct.authority==='LOCAL_FILE'&&rec.direct.grain==='PARAGRAPH'&&rec.dataset.readRide==='ready'&&rec.dataset.courseKind==='READFIELD_TEXT'&&rec.dataset.courseMode==='STEP'&&rec.rawAbsent;
  done(ok,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
