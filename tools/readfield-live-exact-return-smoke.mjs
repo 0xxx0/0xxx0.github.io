@@ -26,7 +26,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=18000
 const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)===Number(b.start)&&Number(a.end)===Number(b.end);
 (async()=>{try{
   f.src='/docs/';
-  await wait(()=>D().getElementById('docAperture')?.snapshot,16000,'READFIELD boot');
+  await wait(()=>D().getElementById('docAperture')?.snapshot&&typeof D().getElementById('readPaste')?.onclick==='function',16000,'READFIELD controller');
   D().getElementById('pasteText').value=SAMPLE;D().getElementById('readPaste').click();
   await wait(()=>D().getElementById('docAperture').snapshot()?.kind==='TEXT',5000,'paste source');
   const ap=D().getElementById('docAperture'),para=ap.scaleIndex('PARA');ap.setScale(para);ap.setPos(0);await sleep(80);
