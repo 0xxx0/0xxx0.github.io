@@ -242,3 +242,32 @@ Choose one actual MAKE object and describe measured state + operations + corresp
 See:
 
 `/control/confluence/INTERPHASE_SESSION_STARTERS_2026-09-23.md`
+
+
+## J-space / J-Lens steering donor — 2026-09-27
+
+Status: **CANDIDATE DONOR; NOT CURRENT AUTHORITY.**
+
+- bounded handoff: `/fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md`
+- RETURN: `/returns/JSPACE_STEERING_DONOR_2026-09-27.json`
+- implemented law: `READ → explicit STEER request → WITNESS → RETURN`
+- hard boundary: a decoded J-Lens token is an observation, **not** a causal residual direction; steering requires an explicit model-side `direction.ref`.
+- cross-surface steering context reuses `field-pulse/v0.1` with authority `NONE`; `jspace-steering/interphase-adapter.mjs` now enforces explicit host-owned direction→native-operation mapping and returns `SUPPORT=0` otherwise.
+- Fold/Bloom adapter maps only the explicit `BLOOM / FOLD / SPLIT / RETURN` vocabulary to already-lawful native forecasts and returns `PREVIEW`; it never executes RELEASE or mutates LIVE/SET state.
+- local synthetic selftest and Python compile pass. A real open-weight J-Lens trace and any controlled residual intervention remain **NOT RUN**.
+- next gate: run one small-model J-Lens read trace first; only then consider one controlled perturbation with zero/opposite controls and an exact execution receipt. Do not bind this donor into production heads before that evidence exists.
+
+
+## CHANGE CALCULUS applied-research donor — 2026-09-27
+
+Status: **CANDIDATE RESEARCH WITNESS; NO EFFECT AUTHORITY.**
+
+- surface: `/fold-bloom/convergence/change-calculus/`
+- handoff: `/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md`
+- kernel: `/fold-bloom/convergence/change-calculus/kernel.mjs`
+- proof: `node fold-bloom/convergence/change-calculus/selftest.mjs`
+- FIELD LAB exposes this only as a link from DATA; production LAB does not import the candidate kernel.
+- exact Fold/Bloom six-verb forms: `4^6 = 4096`; binary relation quotient: `2^6 = 64`; quotient fiber: `64:1`.
+- endpoint moving-set is not an ordered path: `k` moving coordinates admit `k!` one-line STEP orders.
+- J-space steering support is now calculated transparently from exported top-k logits → explicit vocabulary mapping → already-lawful native forecast counts. Top-k weights are labeled conditional and never promoted to full model probability.
+- strongest open gate: test whether a candidate macrostate actually preserves named native next-action behavior before treating it as control state.

@@ -160,6 +160,13 @@ jobs:
         run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
         run: node --test fold-bloom/ride/tests/ride-state.test.mjs
+      - name: Validate J-space steering + change calculus contracts
+        run: |
+          node fold-bloom/convergence/jspace-steering/selftest.mjs
+          node fold-bloom/convergence/jspace-steering/promotion-gate.selftest.mjs
+          node fold-bloom/convergence/change-calculus/selftest.mjs
+          node fold-bloom/convergence/change-calculus/live-sufficiency.mjs
+          python3 -m py_compile fold-bloom/convergence/jspace-steering/export_jlens.py
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render

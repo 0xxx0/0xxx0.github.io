@@ -8133,6 +8133,46 @@
         ],
         "return_path": "/"
       }
+    },
+    {
+      "href": "/fold-bloom/convergence/change-calculus/",
+      "title": "FOLD//BLOOM · CHANGE CALCULUS 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "operation": "VERIFY / CALCULATE",
+      "state": "CANDIDATE",
+      "family": "FOLD // BLOOM",
+      "showcase_card": false,
+      "role": "Applied research witness joining exact Fold/Bloom operation form, six-bit/hex change quotient, one-line STEP paths and J-space→native-support arithmetic while keeping each representation's information loss and authority boundary explicit. I Ching data is lookup lens only; no cast or control sufficiency is inferred.",
+      "receipt": "/returns/FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
+      "index": {
+        "updated_at": "2026-09-27T12:28:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "pure selftest covers 4096→64 quotient accounting, 64:1 fibers, moving-line Hamming distance, STEP ordering ambiguity and J-space host-support calculation",
+          "FIELD LAB links to the calculator without importing candidate runtime",
+          "real LIVE macrostate sufficiency and real model intervention remain separate evidence gates"
+        ],
+        "return_path": "/fold-bloom/lab/?mode=DATA"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Which compression is sufficient for which lawful next action: exact verb form, binary change state, stepped path, or J-space readout?",
+        "baseline": "Exact Fold/Bloom verbs, binary state language, STEP traversal and J-space steering donor already exist separately.",
+        "mutation": "Add one transparent calculator over existing contracts; expose information loss, path ambiguity and host-support arithmetic without acquiring execution authority.",
+        "evidence_gate": "Repository selftest/CI must pass; promotion beyond RESEARCH additionally requires behavioral sufficiency tests on real LIVE snapshots and a real small-model J-Lens intervention witness.",
+        "next_if_pass": "Use the calculator to falsify candidate control abstractions; transfer only properties that survive native behavioral tests.",
+        "next_if_fail": "Keep exact representations and residue; remove or narrow the failed abstraction rather than adding hidden state."
+      }
     }
   ],
   "release_law": [

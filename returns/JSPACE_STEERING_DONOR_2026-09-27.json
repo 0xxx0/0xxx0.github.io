@@ -1,0 +1,82 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "JSPACE_STEERING_DONOR_2026-09-27",
+  "date": "2026-09-27",
+  "status": "CANDIDATE_REAL_MODEL_PLUMBING_PASS",
+  "classification": [
+    "DONOR",
+    "EVIDENCE"
+  ],
+  "host": "fold-bloom/convergence/jspace-steering",
+  "purpose": "Introduce a bounded READ→STEER→WITNESS→RETURN contract for real Jacobian-lens traces without moving model, INTERPHASE, SET, LIVE, or host effect authority.",
+  "source": {
+    "anthropic_repo": "anthropics/jacobian-lens",
+    "anthropic_commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "repo_base": "0xxx0/0xxx0.github.io@32850daabae0212ae25b497c6ffad541a951b048"
+  },
+  "implemented": [
+    "portable field-jlens-trace/v0.1 validator/addressing",
+    "explicit-direction field-steering-request/v0.1",
+    "before/after field-steering-return/v0.1 witness",
+    "authority-NONE field-pulse steering envelope",
+    "generic INTERPHASE PREVIEW adapter requiring an explicit host-owned direction→native-operation mapping",
+    "Fold/Bloom preview adapter over native forecast outputs",
+    "Anthropic jlens.apply() JSON exporter",
+    "successor handoff with real-model gate and causal controls",
+    "executable promotion gate that blocks plumbing-only or uncontrolled model evidence from causal steering promotion"
+  ],
+  "verification": {
+    "local_node_selftest": "PASS",
+    "python_compile": "PASS",
+    "candidate_head": "0b0d493a43451d25a0dbf11e4c8d7f98ced750f0",
+    "route_registration": {
+      "run_id": 36295492564,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run_id": 36295492560,
+      "result": "PASS",
+      "dedicated_step": "Validate J-space steering + change calculus contracts"
+    },
+    "final_rebase_ci": "SEE_PR_SUCCESSOR_SEAL",
+    "real_model_jlens_run": "NOT_RUN",
+    "real_intervention": "NOT_RUN",
+    "real_model_fit_apply_smoke": {
+      "result": "PASS",
+      "run_id": 36296854890,
+      "artifact_id": 10923953545,
+      "artifact_digest": "sha256:2d5962ec36406d119b00f696d0e8b39896566a80d4665b400f54583f39b9b9ae",
+      "model_id": "sshleifer/tiny-gpt2",
+      "model_revision": "5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be",
+      "jlens_revision": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+      "d_model": 2,
+      "n_prompts": 1,
+      "jacobian": [
+        [
+          0.98631734,
+          0.01368271
+        ],
+        [
+          -0.03695348,
+          1.03695357
+        ]
+      ],
+      "frobenius_norm": 1.4316589832305908,
+      "determinant": 1.023270845413208,
+      "evidence_class": "PLUMBING_ONLY"
+    },
+    "semantic_workspace_trace": "NOT_RUN"
+  },
+  "invariants": [
+    "decoded token is observation, not an intervention vector",
+    "direction.ref is mandatory before an intervention request can exist",
+    "cross-surface steering pulse has authority NONE",
+    "Fold/Bloom adapter emits PREVIEW only and no commit operation",
+    "generic host steering returns SUPPORT=0 without an explicit mapping and never invokes the host",
+    "host state is non-mutated by preview",
+    "causal interpretation requires an external execution receipt plus controls",
+    "real model fit/apply plumbing evidence is necessary but not semantic or causal steering evidence"
+  ],
+  "next_gate": "Run a meaningful open-weight model across repeated prompts, derive one genuine residual direction, execute zero/+direction/-or-unrelated controls, and preserve exact receipts before promotion beyond bounded PREVIEW.",
+  "return_path": "/control/confluence/INTERPHASE_SUCCESSOR_HANDOFF_2026-09-23.md"
+}
