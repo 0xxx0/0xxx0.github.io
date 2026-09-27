@@ -43,6 +43,21 @@ let threw=false;
 try{C.make({object:{id:'x',owner:'X',address:'x://1'},return:{address:''}})}catch(_){threw=true}
 assert(threw,'missing return rejected');
 
+let tooMany=false;
+try{C.make({
+  object:{id:'x',owner:'X',address:'x://1'},focus:{id:'x',address:'x://1'},
+  return:{address:'x://1'},next:[1,2,3,4].map(i=>({id:'M'+i,label:'M'+i,authority:'VIEW'}))
+})}catch(_){tooMany=true}
+assert(tooMany,'NEXT > 3 must reject, not truncate silently');
+
+let elevated=false;
+try{C.make({authority:'EFFECT',object:{id:'x',owner:'X',address:'x://1'},focus:{id:'x',address:'x://1'},return:{address:'x://1'}})}catch(_){elevated=true}
+assert(elevated,'carrier authority injection must reject');
+
+let directDispatch=false;
+try{C.make({object:{id:'x',owner:'X',address:'x://1'},focus:{id:'x',address:'x://1'},return:{address:'x://1'},next:[{id:'M',label:'M',authority:'EFFECT',dispatch:'DIRECT'}]})}catch(_){directDispatch=true}
+assert(directDispatch,'direct move dispatch must reject');
+
 const fieldHtml=fs.readFileSync('index.html','utf8');
 const daylineHtml=fs.readFileSync('dayline/index.html','utf8');
 assert(fieldHtml.includes('/lib/interphase-carrier.js'),'FIELD carrier lib missing');
