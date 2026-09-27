@@ -4772,7 +4772,7 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "INSPECT",
       "state": "UTILITY",
-      "version": "0.7.2",
+      "version": "0.7.7",
       "showcase_card": false,
       "role": "Technical timestamped HOUSE state/runtime projection. Canonical human entry remains /house/; Home Assistant / HOUSEBUS retains private device truth and actuation. This page adds inspection depth only.",
       "index": {
@@ -4805,8 +4805,8 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REDIRECT",
       "state": "UTILITY",
-      "version": "0.7",
-      "receipt": "/house/release.json",
+      "version": "0.6.1",
+      "receipt": "/house/spatial/release.json",
       "role": "Compatibility alias only. Redirects to canonical /house/; spatial model, TRACE laws and donor assets remain under /house/spatial/ as substrate, not a second human-facing authority.",
       "transfer": [
         "plan/RCP/section/3D identity",
