@@ -1,0 +1,49 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "JSPACE_REAL_TRACE_2026-09-27",
+  "date": "2026-09-27",
+  "status": "REAL_MODEL_READ_TRACE_RUN__NO_CAUSAL_CLAIM",
+  "classification": ["EVIDENCE"],
+  "host": "fold-bloom/convergence/jspace-steering",
+  "purpose": "First real open-weight-model Jacobian-lens READ trace: applies the donor's field-jlens-trace/v0.1 pipeline to a substantially capable decoder (Qwen2.5-1.5B-Instruct) with exact model/lens revisions preserved. Observation only; no intervention; no direction claimed.",
+  "source": {
+    "anthropic_repo": "anthropics/jacobian-lens",
+    "anthropic_commit": "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+    "jlens_version": "0.1.0",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "model_shape": "28 layers, d_model=1536",
+    "machine": "Mac mini M4 (local run; venv-only install)",
+    "fitted_lens": {
+      "file": "lens-qwen2.5-1.5B-8p.pt (kept in scratch, not committed)",
+      "layers": "0-26 -> 27",
+      "n_prompts": 8,
+      "sha256": "b5c150969f0fc234a11f3f0ea82e00cf47dfd151cc54f51596c95b352c511941",
+      "note": "8 fit prompts is below the upstream paper's ~100-usable guidance; corpus-echo risk is recorded in the receipt."
+    }
+  },
+  "artifacts": {
+    "trace": "field-jlens-trace/v0.1 · trace_id jlens:7c2310b9afe3894e0714 · sha256 345826c9ec3143a5a2cd6c0bdc7763abe5a3fccd952c6c0213e6b89c38b8af46",
+    "receipt": "~/void-anchor/AXIS/work/jspace-trace-2026-09-27/RECEIPT.md",
+    "support": ["fit-result.json", "validate-trace-output.json", "selftest-output.json", "corpus.json", "fit_lens.py", "validate_trace.mjs"]
+  },
+  "verification": {
+    "donor_kernel_normalize_trace": "PASS (18 exact token IDs preserved; 28 cells at P17 addressed jlens://MODEL/LENS/L{layer}/P{position}; ranked top-8 readouts; MODEL_OUTPUT at final layer)",
+    "donor_selftest": "PASS 8/8",
+    "measured_timings": {"model_download_s": 50, "fit_s": 601, "fit_per_prompt_s": 75.2, "export_s": 14, "total_min": 33},
+    "independence_note": "Run executed by subagent lane W28-2 (kestrel session 20260926_153943_485f4c); parent re-verified the trace sha256 from disk 2026-09-27."
+  },
+  "observations": [
+    "Readouts converge to model output late: L26 top-1 ' Write' equals L27 MODEL_OUTPUT top-1 ' Write'.",
+    "Early layers: formatting tokens; mid layers: instruction-flavored ('Sentence', 'Writing') with corpus-echo risk (8 fit prompts).",
+    "NO control verb (BLOOM/FOLD/SPLIT/RETURN) in any top-8 at the final position — the next-token observation does not resolve to the control vocabulary."
+  ],
+  "invariants": [
+    "read-only: zero interventions executed",
+    "decoded token remains an observation, not a causal direction",
+    "promotion gate remains BLOCKED (no controls, no intervention, no repeated-prompt causal evidence)",
+    "no writes to the static repo from the run; artifacts preserved outside it"
+  ],
+  "next_gate": "Repeated-prompt read traces and/or an ~100-prompt lens refit (~2 h at ~75 s/prompt, shardable via JacobianLens.merge()); only then consider one bounded residual perturbation with an external direction.ref plus zero/opposite controls, RETURNed via witnessSteering.",
+  "return_path": "/fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md"
+}

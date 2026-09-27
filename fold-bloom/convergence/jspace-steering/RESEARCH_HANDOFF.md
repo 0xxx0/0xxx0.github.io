@@ -266,3 +266,16 @@ Current evidence is intentionally `BLOCKED` from causal steering promotion becau
 
 A falsified HEX macrostate also cannot be substituted for native host forecasts. Even a future passing model intervention yields only `ELIGIBLE_FOR_BOUNDED_PREVIEW`, never an automatic commit operation.
 
+## First real open-weight read trace — 2026-09-27
+
+Status: **RUN — observation only; no intervention; promotion gate unchanged (`BLOCKED`).**
+
+- run: local (Mac mini M4), venv-only; artifacts in `~/void-anchor/AXIS/work/jspace-trace-2026-09-27/` (RECEIPT.md, trace JSON, validator outputs, fit script); fitted lens kept in scratch, not committed.
+- model: `Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306` (28 layers, d_model=1536) — the "substantially capable open-weight decoder" this gate required. (0.5B step-down not needed.)
+- lens: fitted locally via upstream `jlens` 0.1.0 (layers 0–26 → 27, n_prompts=8, sha256 `b5c15096…41941`). Eight fit prompts is below the paper's ~100-usable guidance and is recorded as a limitation, not hidden.
+- trace: `field-jlens-trace/v0.1` · id `jlens:7c2310b9afe3894e0714` · sha256 `345826c9…b8af46` · donor `kernel.mjs` `normalizeTrace` **PASS** (18 exact token IDs; 28 cells at P17; ranked top-8) · donor `selftest.mjs` **PASS 8/8**.
+- measured: model download 50 s · fit 601 s (75.2 s/prompt) · export 14 s · ≈33 min total.
+- observation: **no control verb (BLOOM / FOLD / SPLIT / RETURN) appears in any top-8** at the final position — an honest negative; no direction is claimed. Late-layer readouts converge to the model output token.
+- return: `/returns/JSPACE_REAL_TRACE_2026-09-27.json`.
+- next: repeated-prompt read traces and/or an ~100-prompt refit (~2 h at ~75 s/prompt, shardable via `JacobianLens.merge()`); only then — as a separate, gated step — one bounded residual perturbation with an external `direction.ref` plus zero/opposite controls.
+
