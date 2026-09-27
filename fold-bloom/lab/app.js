@@ -8,6 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
+import {transparentStateCalculation,steppedStatePath} from '../convergence/change-calculus/kernel.mjs';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -558,7 +559,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateStepCursor:0,stateOrderFlip:false};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -578,14 +579,37 @@ function stateLabel(desc){
   if(!desc?.valid)return 'INVALID';
   return (desc.lower?.glyph||'')+' '+(desc.lower?.key||'OPEN')+' / '+(desc.upper?.glyph||'')+' '+(desc.upper?.key||'OPEN');
 }
+function syncStateStepUI(){
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor;
+  if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
+  if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
+  if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
+  if($('#stateAmbiguity'))$('#stateAmbiguity').textContent=step?.ok?step.order_ambiguity_bits+'b':'—';
+  if($('#stateLineValues'))$('#stateLineValues').textContent=calc?.ok?calc.iching_projection.line_values.join(' · '):'—';
+  if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER · '+step.selected_order.map(x=>'L'+x).join('→'):'ORDER · ∅';
+  if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+Math.min(cursor+1,step.steps.length)+'/'+step.steps.length:'STEP · STABLE';
+  if($('#stateStepRead')){
+    if(!step?.ok)$('#stateStepRead').textContent='STEP path unavailable';
+    else if(!step.steps.length)$('#stateStepRead').textContent='STABLE · '+step.from_token+' = '+step.to_token;
+    else if(cursor<=0)$('#stateStepRead').textContent='START · '+step.from_token+' · '+step.selected_order.map(x=>'L'+x).join(' → ');
+    else{
+      const x=step.steps[Math.min(cursor-1,step.steps.length-1)];
+      $('#stateStepRead').textContent='STEP '+x.step+'/'+step.steps.length+' · L'+x.line+' · '+x.from_bit+'→'+x.to_bit+' = '+x.iching_line_value+' · '+x.before_token+' → '+x.after_token;
+    }
+  }
+}
 function syncStateChange(){
-  const change=stateChange($('#stateFrom')?.value,$('#stateTo')?.value);
-  data.stateChange=change;
+  const from=$('#stateFrom')?.value,to=$('#stateTo')?.value;
+  const change=stateChange(from,to),calc=transparentStateCalculation(from,to);
+  data.stateChange=change;data.stateCalc=calc;data.stateStepCursor=0;
+  const order=calc?.ok&&data.stateOrderFlip?[...calc.moving].reverse():null;
+  data.stateStep=calc?.ok?steppedStatePath(from,to,order):null;
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
   if($('#stateDelta'))$('#stateDelta').textContent=change.moving.length?change.moving.join(','):'∅';
-  if(change.valid){setSource('STATE / LOCAL');setStatus('DATA · '+change.token);setAddress('field://lab/data/state/'+formatState(change.to.bits))}
+  syncStateStepUI();
+  if(change.valid){setSource('STATE / LOCAL');setStatus('DATA · '+change.token+' · d_H '+calc.metrics.hamming_distance+' · '+calc.metrics.one_line_step_orders+' STEP ORDER'+(calc.metrics.one_line_step_orders===1?'':'S'));setAddress('field://lab/data/state/'+formatState(change.to.bits))}
   else setStatus('DATA · STATE NEEDS SIX 0/1 BITS');
   return change;
 }
@@ -617,6 +641,12 @@ function drawStateChange(){
   ctx.fillText(change.from.lower?.glyph||'',leftX-w*.72,cy+gap*2.5);ctx.fillText(change.from.upper?.glyph||'',leftX+w*.72,cy-gap*2.5);
   ctx.fillText(change.to.lower?.glyph||'',rightX-w*.72,cy+gap*2.5);ctx.fillText(change.to.upper?.glyph||'',rightX+w*.72,cy-gap*2.5);
   ctx.fillStyle='#d7b46d';ctx.font='800 9px ui-monospace';ctx.fillText(change.mask,W/2,cy-gap*3.2);
+  const step=data.stateStep,cursor=data.stateStepCursor;
+  if(step?.ok){
+    ctx.fillStyle='#7bd5ff';ctx.font='700 8px ui-monospace';
+    const label=cursor>0&&step.steps.length?step.steps[Math.min(cursor-1,step.steps.length-1)].after_token:'ORDER '+(step.selected_order.length?step.selected_order.map(x=>'L'+x).join('→'):'∅');
+    ctx.fillText('STEP '+cursor+'/'+step.steps.length+' · '+label,W/2,cy+gap*3.55);
+  }
   ctx.restore();
 }
 function stateLineAt(x,y){
@@ -631,6 +661,16 @@ function flipStateLine(index){
 $('#stateProject').onclick=syncStateChange;
 $('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
 $('#stateCopy').onclick=async()=>{const change=syncStateChange();if(!change.valid)return;try{await navigator.clipboard.writeText(change.token);setStatus('STATE TOKEN COPIED · '+change.mask)}catch(_){setStatus('STATE TOKEN · '+change.token)}};
+$('#stateStep')?.addEventListener('click',()=>{
+  const step=data.stateStep;if(!step?.ok||!step.steps.length){setStatus('STATE STEP · NO MOVING LINES');return}
+  data.stateStepCursor=(data.stateStepCursor+1)%(step.steps.length+1);syncStateStepUI();
+  if(data.stateStepCursor===0){setStatus('STATE STEP · RETURN TO START · '+step.from_token);return}
+  const x=step.steps[data.stateStepCursor-1];setStatus('STATE STEP · L'+x.line+' · '+x.before_token+' → '+x.after_token);
+});
+$('#stateOrder')?.addEventListener('click',()=>{
+  if((data.stateCalc?.moving||[]).length<2){setStatus('STATE STEP · ONLY ONE ORDER');return}
+  data.stateOrderFlip=!data.stateOrderFlip;syncStateChange();setStatus('STATE STEP ORDER · '+data.stateStep.selected_order.map(x=>'L'+x).join(' → '));
+});
 $('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
@@ -822,8 +862,8 @@ function currentProjectionEvidence(){
     return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water)};
   }
   if(mode==='DATA'){
-    const change=data.stateChange;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits)}:null};
+    const change=data.stateChange,calc=data.stateCalc,step=data.stateStep;
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],cursor:data.stateStepCursor,path:step.steps.map(x=>({line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -870,5 +910,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,cursor:data.stateStepCursor}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
