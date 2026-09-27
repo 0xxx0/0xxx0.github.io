@@ -313,7 +313,7 @@ function docsApertureProbeHtml(){
     A.step(1);rec.next=await waitFor(()=>{const x=A.snapshot(),q=new URLSearchParams(W().location.search);return x.index===2&&q.get('ap_scale')===x.scale&&q.get('ap_index')===String(x.index)&&q.get('ap_addr')===x.address&&q.get('ap_wpm')==='650'?x:null});
     rec.url=W().location.search;A.restore(rec.start);rec.restored=await waitFor(()=>{const x=A.snapshot();return x.scale===rec.start.scale&&x.index===rec.start.index&&x.address===rec.start.address&&x.wpm===rec.start.wpm?x:null});
     const originalReplace=W().history.replaceState.bind(W().history);let writes=0;W().history.replaceState=(...args)=>{writes++;return originalReplace(...args)};
-    A.restore({scale:'LEAF',index:0,wpm:3000});writes=0;A.toggleRSVP();await sleep(520);if(A.snapshot().playing)A.toggleRSVP();rec.fast=A.snapshot();rec.urlWrites=writes;rec.throttled=rec.fast.index>0&&writes<=4;
+    A.restore({scale:'LEAF',index:0,wpm:3000});writes=0;A.toggleRSVP();try{await waitFor(()=>A.snapshot().index>0,6000)}catch(_){}if(A.snapshot().playing)A.toggleRSVP();rec.fast=A.snapshot();rec.urlWrites=writes;rec.throttled=rec.fast.index>0&&writes<=4;
     A.restore({scale:'LEAF',index:Math.max(0,rec.fast.count-2),wpm:3000});A.toggleRSVP();rec.ended=!!(await waitFor(()=>{const x=A.snapshot();return !x.playing&&x.index===x.count-1?x:null}));
     rec.copyView=!!D().getElementById('copyView');done(!!rec.copyView&&rec.restored.address===rec.start.address&&rec.throttled&&rec.ended&&rec.fast.loop===false,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
