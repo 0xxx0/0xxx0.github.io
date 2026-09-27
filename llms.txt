@@ -19,3 +19,5 @@ Structured form:
 `node scripts/emit-agent-transcript.mjs --json`
 
 The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.
+
+Before pushing, run the CI gate list locally: `node tools/ship-check.mjs` (`--fast`, `--json`, `--only <regex>`).
