@@ -25,13 +25,18 @@
  *   - authority ceilings / irreversibility (a mutation is assumed reversible)
  *   - clock continuity under projection (a clock field survives, but no scheduler)
  *
- * UMD-ish: works as <script> (window.Interphase) or as a CommonJS module.
+ * RETIRED 2026-09-27: unwired recovered donor, moved to recovery/interphase-20260927/.
+ * Its global was
+ * renamed from `Interphase` to `InterphaseKernel` to end the silent collision with
+ * lib/interphase-core.js (both claimed `root.Interphase`; last load won).
+ *
+ * UMD-ish: works as <script> (window.InterphaseKernel) or as a CommonJS module.
  */
 (function (root, factory) {
   'use strict';
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
-  if (root) root.Interphase = api;
+  if (root) root.InterphaseKernel = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
