@@ -1,3 +1,4 @@
+import {hashFile} from '../lib/id.js';
 export const READ_RIDE_SCHEMA='field-read-ride/v0.1';
 export const READ_COURSE_SCHEMA='fold-bloom-read-course/v0.1';
 export const READ_RIDE_STORAGE='fold-bloom.read-ride.handoff.v01';
@@ -145,11 +146,11 @@ export function initialReadProgress(packet){
 }
 export async function packetFromLocalFile(file,{returnAddress='/fold-bloom/live/',from='/fold-bloom/live/'}={}){
   if(!file)throw Error('FILE_REQUIRED');
-  const source=await file.text();
+  const [source,hash]=await Promise.all([file.text(),hashFile(file)]);
   return makeReadRidePacket({
     source,
     label:file.name||'LOCAL FILE',
-    sourceIdentity:{kind:'LOCAL_FILE',format:(String(file.name||'').split('.').pop()||'TXT').toUpperCase(),size:Number(file.size)||source.length,mediaType:String(file.type||''),authority:'LOCAL_FILE'},
+    sourceIdentity:{hash,kind:'LOCAL_FILE',format:(String(file.name||'').split('.').pop()||'TXT').toUpperCase(),size:Number(file.size)||source.length,mediaType:String(file.type||''),authority:'LOCAL_FILE'},
     focus:{source_progress:0},
     returnAddress,from
   });
