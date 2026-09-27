@@ -4709,10 +4709,12 @@
       "machine_state": "/house/state.json",
       "showcase_card": false,
       "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context. CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
-      "version": "0.7.5",
+      "version": "0.7.6",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
+        "Shopping FIT closed return: exact candidate + measured available zone → dimensional evidence offer → explicit Shopping acceptance",
+        "Shopping source evidence pattern may project on fit probe; HOUSE does not infer or mutate Shopping truth",
         "hash-addressable projections at canonical root",
         "canonical human entry = /house/; no second sovereign HOUSE UI",
         "spatial model/assets remain under /house/spatial/ as substrate, not a competing front door",
@@ -4733,7 +4735,7 @@
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-26T07:07:00+08:00",
+        "updated_at": "2026-09-26T13:24:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",
@@ -6957,16 +6959,18 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.3.3",
+      "title": "SHOPPING FIELD 0.3.4",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
+        "exact Shopping → HOUSE dimensional screen → OFFER_ONLY return → explicit evidence receipt; lifecycle unchanged",
+        "source-owned evidence signal/proof boundary travels through HOUSE fit envelope without authority transfer",
         "source-owned semantic evidence token travels through exact Shopping → Dayline handoff and RETURN without transferring lifecycle authority",
         "shared semantic signal projection: CLEAR / CHANGED / REALITY / EXTERNAL / MIXED over native Shopping lifecycle; pattern never changes state",
         "collapsed selected-item proof boundary + list-level prelinguistic signal skin",
@@ -7108,7 +7112,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-26T12:58:00+08:00",
+        "updated_at": "2026-09-26T13:24:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",

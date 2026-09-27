@@ -496,26 +496,30 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.5 · SPATIAL + CARE CURRENT HEAD",
+      "head": "HOUSE / FIELD 0.7.6 · SPATIAL + CARE + SHOPPING FIT RETURN",
       "state": "ACTIVE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ projects one addressed physical substrate as hash-addressable PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS. Selected spatial addresses can be handed explicitly to Dayline or attached as browser-local BODY context; neither implies presence or causation. HOUSE CARE remains browser-local continuity with explicit Dayline/HUMAN PORT projections. /house/expert.html retains timestamped technical depth. HA/HOUSEBUS alone retains device truth and actuation. Public working-tree instance labels are generalized and HOUSE HTML is noindex; this is discoverability reduction, not access control, and historical Git commits remain a separate privacy boundary.",
-      "version": "0.7.5",
-      "latest_return": "/returns/HOUSE_CARE_RETURN_2026-09-25.json"
+      "retained_function": "Canonical /house/ projects one addressed physical substrate as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS while HA/HOUSEBUS retains device truth/actuation. 0.7.6 closes the session-only Shopping FIT evidence loop: HOUSE renders the source-owned Shopping evidence witness, screens explicit candidate vs measured available W/D/H, emits an OFFER_ONLY / EVIDENCE_ONLY exact-item fit result, and never mutates Shopping lifecycle or canonical HOUSE geometry.",
+      "version": "0.7.6",
+      "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
+      "evidence": [
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
+      ]
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3.3 / SOURCE-OWNED SIGNAL → DAYLINE + EVIDENCE BOUNDARY / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.4 / CLOSED HOUSE FIT + SOURCE SIGNAL → DAYLINE/HOUSE / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → native lifecycle/freshness/landed-cost/fit → projection-only evidence signal. 0.3.3 carries Shopping-owned evidence_signal + proof_boundary through the existing exact Dayline handoff; Dayline renders but does not infer/own it, and source RETURN preserves the witness. If manual NEXT ACTION is absent, the handoff uses Shopping's derived smallest next proof. Money/seller actions and lifecycle remain native human/Shopping authority.",
-      "version": "0.3.3",
+      "retained_function": "Capability gap/listing/receipt → native lifecycle/freshness/landed-cost/fit → projection-only evidence signal. Shopping now has two exact external evidence loops: Dayline completion returns RECEIPT_ONLY evidence; HOUSE dimensional screening returns house-shopping-fit-return/v0.1 evidence after exact item + lifecycle revalidation. Both are explicit accepts and leave procurement lifecycle unchanged. Source-owned evidence signal/boundary may travel with exact identity to Dayline/HOUSE, but recipient projection never acquires Shopping truth.",
+      "version": "0.3.4",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
-        "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json"
+        "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
+        "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
       ],
-      "latest_return": "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json"
+      "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "triangle",

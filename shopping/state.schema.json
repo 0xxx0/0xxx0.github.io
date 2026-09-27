@@ -190,6 +190,109 @@
               "CAPABILITY",
               "EXPEDITION"
             ]
+          },
+          "receipts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "schema",
+                "accepted_at",
+                "shopping_state",
+                "effect"
+              ],
+              "properties": {
+                "schema": {
+                  "const": "shopping-dayline-receipt/v0.1"
+                },
+                "accepted_at": {
+                  "type": "string"
+                },
+                "shopping_state": {
+                  "enum": [
+                    "NEED",
+                    "QUERY",
+                    "FOUND",
+                    "VERIFY",
+                    "WATCH",
+                    "DECIDE",
+                    "BOUGHT",
+                    "RECEIVED",
+                    "TESTED",
+                    "ADOPTED",
+                    "HOLD",
+                    "SKIP",
+                    "EXPIRED",
+                    "RETURNED",
+                    "REPAIR",
+                    "ABANDONED",
+                    "ARCHIVE"
+                  ]
+                },
+                "effect": {
+                  "const": "EVIDENCE_ONLY"
+                }
+              }
+            }
+          },
+          "fit_receipts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "schema",
+                "accepted_at",
+                "fit_status",
+                "shopping_state",
+                "effect"
+              ],
+              "properties": {
+                "schema": {
+                  "const": "shopping-house-fit-receipt/v0.1"
+                },
+                "accepted_at": {
+                  "type": "string"
+                },
+                "fit_status": {
+                  "enum": [
+                    "PASS_ENVELOPE",
+                    "FAIL_ENVELOPE",
+                    "MEASURE_REQUIRED",
+                    "UNKNOWN_CANDIDATE"
+                  ]
+                },
+                "house_address": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "shopping_state": {
+                  "enum": [
+                    "NEED",
+                    "QUERY",
+                    "FOUND",
+                    "VERIFY",
+                    "WATCH",
+                    "DECIDE",
+                    "BOUGHT",
+                    "RECEIVED",
+                    "TESTED",
+                    "ADOPTED",
+                    "HOLD",
+                    "SKIP",
+                    "EXPIRED",
+                    "RETURNED",
+                    "REPAIR",
+                    "ABANDONED",
+                    "ARCHIVE"
+                  ]
+                },
+                "effect": {
+                  "const": "EVIDENCE_ONLY"
+                }
+              }
+            }
           }
         }
       }

@@ -2,7 +2,7 @@
   "schema": "capability-contract/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "role": "procurement/resource-acquisition adapter under Forward Center Mass",
   "kernel": "Shopping is an input-output transformation field: need enters, verified capability exits. Lifecycle truth remains native; evidence posture may be projected through the shared FIELD signal grammar without changing state.",
   "accepts": {
@@ -62,7 +62,10 @@
       "local/private inventory boundary",
       "ESSENTIAL/CAPABILITY/EXPEDITION intent without conflating curiosity with purchase intent",
       "semantic pattern is projection only; signal token never mutates lifecycle or authority",
-      "Shopping-owned evidence_signal/proof_boundary may travel as source metadata through exact handoffs; recipient rendering does not transfer semantic authority"
+      "Shopping-owned evidence_signal/proof_boundary may travel as source metadata through exact handoffs; recipient rendering does not transfer semantic authority",
+      "HOUSE fit result is evidence-only; no lifecycle promotion",
+      "exact Shopping item/state must revalidate before HOUSE fit receipt acceptance",
+      "Shopping-owned evidence signal/boundary remains source metadata through HOUSE"
     ],
     "reversibility": "full",
     "side_effects": "browser-local only"
@@ -79,7 +82,9 @@
       "session-only HOUSE fit packet",
       "shopping-dayline-receipt/v0.1 evidence",
       "derived evidence signal + proof boundary",
-      "atlas-dayline-handoff/v0.1 with source-owned evidence witness"
+      "atlas-dayline-handoff/v0.1 with source-owned evidence witness",
+      "house-shopping-fit/v0.1 source envelope",
+      "shopping-house-fit-receipt/v0.1 evidence"
     ],
     "machine_readable": true,
     "human_readable": true
@@ -113,7 +118,10 @@
       "lane survives import/export and Dayline/agent handoff",
       "selected-item evidence signal is derived from lifecycle/freshness only",
       "pattern semantics are shared but Shopping wording/state authority remains local",
-      "Dayline handoff preserves Shopping-owned evidence signal/boundary without converting it into lifecycle truth"
+      "Dayline handoff preserves Shopping-owned evidence signal/boundary without converting it into lifecycle truth",
+      "HOUSE fit return expires and revalidates exact item + lifecycle state",
+      "fit PASS/FAIL screens dimensional envelope only",
+      "accepted fit receipt does not mutate procurement lifecycle"
     ],
     "return_path": "/shopping/"
   }
