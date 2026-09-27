@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/interphase-carrier-return/v0.1",
+  "generated_at": "2026-09-27T14:16:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "carrier_schema": "interphase-carrier/v0.1",
+  "implementation": [
+    "/lib/interphase-carrier.js",
+    "/tools/interphase-carrier-selftest.cjs",
+    "/tools/sleeper-dayline-carrier-selftest.cjs",
+    "/sleeper/project/",
+    "/dayline/",
+    "/",
+    "/.github/workflows/public-surface-check.yml"
+  ],
+  "law": "Universalise continuation, not domain state: same OBJECT may cross hosts while FOCUS/projection/witness change; carrier authority is NONE / HANDOFF ONLY and moves dispatch HOST_NATIVE_ONLY.",
+  "proofs": [
+    "generic carrier validation/serialization preserves exact object + RETURN",
+    "witness evolution creates lineage without replacing object identity",
+    "FIELD route handoff embeds carrier beside backward-compatible legacy interphase projection",
+    "Sleeper Return Bridge derives carrier from verified Return Artifact v2 and only enables Dayline carry when transferInstruction exists",
+    "Sleeper does not assign Dayline scheduling context/urgency/time",
+    "Dayline retains incoming carrier in sourceLink and derives continuation carrier while preserving parent object",
+    "Dayline source-return offer carries continuation carrier",
+    "Sleeper displays matching Dayline return only for exact sleeper:return:<worldKey> object and marks it EVIDENCE ONLY",
+    "CI workflow now executes generic carrier and Sleeper→Dayline integration selftests"
+  ],
+  "preserved_boundaries": [
+    "no global canonical store",
+    "no universal effect schema",
+    "native handoff envelopes remain authoritative",
+    "recipient may ignore carrier safely",
+    "carrier cannot execute a move",
+    "Dayline witness cannot mutate Sleeper Return Artifact or Gate proof ledger",
+    "FIELD legacy interphase witness retained for compatibility"
+  ],
+  "open_questions": [
+    "real-use P1 with one genuine Sleeper Return Artifact",
+    "whether carrier history earns a work-ghost/re-entry projection",
+    "whether one agent/subagent delegation should use carrier packets",
+    "whether COMMS or SHOPPING is the next justified carrier seam",
+    "whether route/compiler discovery can remain a view rather than become a second planner",
+    "how/if a physical QR/NFC carrier should reference objects without exposing sensitive payloads"
+  ],
+  "next_gate": "Run one real Sleeper → Dayline → Sleeper loop and judge reconstruction cost. Do not mass-migrate hosts before that evidence."
+}
