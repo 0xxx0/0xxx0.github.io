@@ -1,0 +1,32 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "HTML_DOCUMENT_TAIL_INTEGRITY_2026-09-27",
+  "date": "2026-09-27",
+  "object": "registered static HTML document integrity",
+  "state": "CANDIDATE",
+  "observed_failure": {
+    "pr": 464,
+    "file": "/docs/index.html",
+    "symptom": "two </html> closers and 17,211 bytes of duplicated source after the first document close",
+    "consequence": "duplicate runtime code executed and broke a legacy READFIELD reader-mode invariant while feature-local axial proof still passed"
+  },
+  "delta": [
+    "Add a tiny HTML tail checker.",
+    "Apply it to every manifest-addressed HTML document during existing public static validation.",
+    "Reject duplicate closing html tags and non-whitespace bytes after a closing html tag.",
+    "Allow fragment-like HTML with no closing html tag so embedded/static fragments are not reclassified."
+  ],
+  "boundary": "This detects document-tail corruption, not general HTML validity or browser semantic correctness.",
+  "evidence": [
+    "/tools/html-document-integrity.mjs",
+    "/tools/html-document-integrity-selftest.mjs",
+    "/tools/validate-public.mjs"
+  ],
+  "validation": {
+    "required_checks": [
+      "public-surface-check"
+    ],
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
+  },
+  "return": "/returns/"
+}
