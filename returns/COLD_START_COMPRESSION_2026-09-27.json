@@ -1,0 +1,43 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "COLD_START_COMPRESSION_2026-09-27",
+  "date": "2026-09-27",
+  "object": "worker cold-start / canonical state projection",
+  "state": "CANDIDATE",
+  "observed": {
+    "current_json_chars": 85810,
+    "current_heads_chars": 40627,
+    "current_heads_count": 12,
+    "documentation_map_chars": 9360,
+    "documentation_entries": 151,
+    "fold_bloom_head_chars": 24145,
+    "fold_bloom_retained_function_chars": 10467,
+    "fold_bloom_evidence_refs": 146,
+    "llms_txt_chars": 860
+  },
+  "finding": "Canonical retained depth is valid authority but is too broad as a mandatory first-read payload. The repository already has a selective, authority-NONE JIT transcript; boot law bypassed it.",
+  "delta": [
+    "AGENTS boot uses the existing JIT transcript before full CURRENT.",
+    "Full CURRENT and manifest are opened selectively for the chosen object, not ingested by default.",
+    "llms.txt now distinguishes authority source from mandatory payload.",
+    "JIT selftest fails if default markdown grows beyond 10k chars or structured packet beyond 20k chars."
+  ],
+  "invariants": [
+    "CURRENT.json remains canonical attention/head authority.",
+    "showcase-manifest.json remains canonical route projection.",
+    "JIT packet remains transient with packet_authority NONE.",
+    "No second state store or generated compact-current file is introduced."
+  ],
+  "evidence": [
+    "/AGENTS.md",
+    "/llms.txt",
+    "/scripts/emit-agent-transcript.mjs"
+  ],
+  "validation": {
+    "required_checks": [
+      "public-surface-check"
+    ],
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
+  },
+  "return": "/"
+}
