@@ -24,7 +24,8 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  const f=document.createElement('iframe');f.id='f';f.style='width:430px;height:900px;border:0;display:block';f.src='/fold-bloom/live/?source=readfield&course=STEP';document.body.prepend(f);
  const W=()=>f.contentWindow,D=()=>W().document;
  await wait(()=>D().documentElement.dataset.foldBloomReadRide==='ready'&&W().FoldBloomLive?.read?.current?.(),15000,'READ ride boot');
- const a=W().FoldBloomLive.read.current();rec.start={label:a.source.label,authority:a.source.authority,grain:a.course.grain,mode:a.course.mode,address:a.course.address,text:a.witness?.text,returnAddress:a.returnAddress};rec.handoffConsumed=!sessionStorage.getItem('fold-bloom.read-ride.handoff.v01');
+ const a=W().FoldBloomLive.read.current();rec.start={label:a.source.label,authority:a.source.authority,grain:a.course.grain,mode:a.course.mode,address:a.course.address,text:a.witness?.text,returnAddress:a.returnAddress,trail:a.trail};rec.handoffConsumed=!sessionStorage.getItem('fold-bloom.read-ride.handoff.v01');
+ const mark=D().getElementById('readTrailMark');mark?.click();await sleep(80);const marked=W().FoldBloomLive.read.current();rec.mark={button:!!mark,count:marked.trail?.marks||0,law:marked.trail?.law||'',last:marked.trail?.last||null};
  const startAddress=a.course.address;W().FoldBloomLive.course.step(1);
  await wait(()=>W().FoldBloomLive.read.current()?.course?.address&&W().FoldBloomLive.read.current().course.address!==startAddress,15000,'paragraph step');
  const b=W().FoldBloomLive.read.current();rec.step={address:b.course.address,text:b.witness?.text,progress:b.course.progress};
@@ -34,7 +35,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  const d=W().FoldBloomLive.read.current();rec.direct={label:d.source.label,authority:d.source.authority,kind:d.source.kind,grain:d.course.grain,address:d.course.address,text:d.witness?.text};
  const root=D().documentElement;rec.dataset={readRide:root.dataset.foldBloomReadRide,authority:root.dataset.foldBloomReadAuthority,courseKind:root.dataset.foldBloomCourseKind,courseMode:root.dataset.foldBloomCourseMode};
  rec.rawAbsent=!JSON.stringify(W().FoldBloomLive.state()).includes('Third paragraph after the second heading');
- const ok=rec.start.label==='BOOK TEST'&&rec.start.authority==='READFIELD'&&rec.start.mode==='STEP'&&rec.start.grain==='PARAGRAPH'&&String(rec.start.address).startsWith('read://')&&/Second paragraph/.test(rec.start.text||'')&&rec.handoffConsumed&&rec.step.address!==rec.start.address&&rec.grain.grain==='SECTION'&&rec.direct.label==='direct.md'&&rec.direct.authority==='LOCAL_FILE'&&rec.direct.grain==='PARAGRAPH'&&rec.dataset.readRide==='ready'&&rec.dataset.courseKind==='READFIELD_TEXT'&&rec.dataset.courseMode==='STEP'&&rec.rawAbsent;
+ const ok=rec.start.label==='BOOK TEST'&&rec.start.authority==='READFIELD'&&rec.start.mode==='STEP'&&rec.start.grain==='PARAGRAPH'&&String(rec.start.address).startsWith('read://')&&/Second paragraph/.test(rec.start.text||'')&&rec.handoffConsumed&&rec.start.trail?.schema==='field-source-trail/v0.1'&&rec.mark.button&&rec.mark.count===1&&/never means read/i.test(rec.mark.law)&&rec.step.address!==rec.start.address&&Number(b.trail?.furthest)>=Number(rec.start.trail?.furthest||0)&&rec.grain.grain==='SECTION'&&rec.direct.label==='direct.md'&&rec.direct.authority==='LOCAL_FILE'&&rec.direct.grain==='PARAGRAPH'&&rec.dataset.readRide==='ready'&&rec.dataset.courseKind==='READFIELD_TEXT'&&rec.dataset.courseMode==='STEP'&&rec.rawAbsent;
  done(ok,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
