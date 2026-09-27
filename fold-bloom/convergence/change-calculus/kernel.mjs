@@ -72,6 +72,52 @@ export function transparentStateCalculation(from,to){
   };
 }
 
+export function steppedStatePath(from,to,order=null){
+  const calc=transparentStateCalculation(from,to);
+  if(!calc.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:calc.reason};
+  const changed=[...calc.moving];
+  const requested=Array.isArray(order)?order.map(Number):changed;
+  if(requested.length!==changed.length||new Set(requested).size!==changed.length||requested.some(x=>!changed.includes(x))){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'STEP_ORDER_MUST_PERMUTE_MOVING_LINES',changed};
+  }
+  let current=[...calc.from.bits];
+  const steps=requested.map((line,step)=>{
+    const i=line-1,before=[...current],fromBit=before[i],toBit=calc.to.bits[i];
+    current[i]=toBit;
+    const after=[...current],transition=stateChange(before,after);
+    return {
+      step:step+1,
+      line,
+      from_bit:fromBit,
+      to_bit:toBit,
+      iching_line_value:lineTransitionValue(fromBit,toBit),
+      before_token:transition.from.token,
+      after_token:transition.to.token,
+      before_binary:bitString(before),
+      after_binary:bitString(after),
+      lower_after:transition.to.lower,
+      upper_after:transition.to.upper
+    };
+  });
+  const orders=factorial(changed.length);
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/state-step',
+    authority:'CALCULATION_ONLY',
+    from_token:calc.from.token,
+    to_token:calc.to.token,
+    changed_lines:changed,
+    selected_order:requested,
+    possible_one_line_orders:orders,
+    order_ambiguity_bits:orders>0?round(Math.log2(orders)):0,
+    steps,
+    final_bits:[...current],
+    final_token:'H['+formatState(current)+']',
+    final_matches_target:current.every((x,i)=>x===calc.to.bits[i]),
+    law:'STEP orders one addressed moving line at a time; identical endpoints do not imply identical intermediate states or consequences'
+  };
+}
+
 export function exactFormCalculation(fromForm,toForm=fromForm){
   if(!formOk(fromForm)||!formOk(toForm))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'SIX_EXACT_CONTROL_VERBS_REQUIRED'};
   const a=upperForm(fromForm),b=upperForm(toForm),from=hexProjection(a),to=hexProjection(b),change=hexChangeProjection(a,b);
@@ -159,6 +205,7 @@ export function steppedFormPath(fromForm,toForm,order=null){
 
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
+  const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
   const exact=spec.fromForm&&spec.toForm?exactFormCalculation(spec.fromForm,spec.toForm):null;
   const step=spec.fromForm&&spec.toForm?steppedFormPath(spec.fromForm,spec.toForm,spec.stepOrder):null;
   const steering=spec.trace&&spec.target
@@ -173,6 +220,7 @@ export function appliedResearchFrame(spec={}){
     schema:CHANGE_CALCULUS_SCHEMA+'/frame',
     authority:'RESEARCH_WITNESS_ONLY',
     state,
+    state_step:stateStep,
     exact,
     step,
     steering,
