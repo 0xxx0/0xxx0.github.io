@@ -30,7 +30,7 @@ button,.btn{min-height:34px;padding:7px 9px}.primary{border-color:var(--hot);col
 label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 0 4px}input[type=range]{width:100%}textarea{width:100%;min-height:78px;padding:8px;resize:vertical}
 .mini{color:#76838a;font-size:8px;margin-top:7px}.verseLines{display:grid;gap:3px;max-height:150px;overflow:auto;margin-top:7px}.verseLine{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;text-align:left;min-height:38px}.verseLine b{color:var(--gold);font-size:8px}.verseLine span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.verseLine i{font-style:normal;color:var(--mut);font-size:7px}.verseLine.on{border-color:var(--hot);color:#fff}.verseLine.marked i{color:var(--gold)}.metric{display:inline-block;border:1px solid var(--line);padding:4px 6px;margin:3px 3px 0 0;color:#9aa6ac}.metric b{color:var(--ink)}
 .stateBox{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}.stateBox .pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}.stateBox input{width:100%;padding:8px;text-align:center;letter-spacing:.12em}.stateToken{border:1px solid var(--line);padding:8px;margin-top:6px;overflow:auto;white-space:nowrap;color:#d7b46d;font-size:8px}.stateHint{color:#66747b;font-size:7px;margin-top:5px}
-.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.voiceSpec{display:block;width:100%;height:86px;border:1px solid var(--line);background:#05070b;margin-top:7px}.voiceTrain{border-top:1px solid var(--line);margin-top:8px;padding-top:7px}.voiceTrain summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em}.voiceTrain .patterns{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:6px}.voiceTrain .patterns button{font-size:7px;padding:5px}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
+.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.voiceSpec{display:block;width:100%;height:86px;border:1px solid var(--line);background:#05070b;margin-top:7px}.voiceTrain{border-top:1px solid var(--line);margin-top:8px;padding-top:7px}.voiceTrain summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em}.voiceTrain .patterns{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:6px}.voiceTrain .patterns button{font-size:7px;padding:5px}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}.core.focusObject b{font-size:clamp(20px,5.2vmin,42px);line-height:.96;overflow-wrap:anywhere}.core.focusObject span{max-width:260px;margin:8px auto 0;overflow-wrap:anywhere}.danger{border-color:#75413c;color:#efa49c}
 #status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}footer a,footer button{display:inline-flex;align-items:center;min-height:34px;padding:0 4px;color:inherit;text-decoration:none;touch-action:manipulation}footer button{border:0;background:transparent;color:var(--gold);letter-spacing:.08em}
 footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{color:#fff}
@@ -48,7 +48,6 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
   html[data-field-lab-panel="collapsed"] .core{top:47%}
   .readUses{grid-template-columns:1fr 1fr}
   html[data-field-lab-mode="READ"] .panel{left:6px;right:6px;width:auto;max-height:min(70%,560px)}
-  html[data-field-lab-mode="READ"] .core{display:none}
   footer{overflow-x:auto;overflow-y:hidden;white-space:nowrap;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   footer::-webkit-scrollbar{display:none}footer .grow{flex:0 0 8px}
 }
@@ -64,7 +63,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
 <body>
 <div class="app">
 <header>
-  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.5</div><div class="sub">ONE CENTER · SEVEN UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
+  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.6</div><div class="sub">ONE CENTER · SEVEN UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
   <div class="grow"></div>
   <div class="profile" id="profile">
     <button data-profile="CLEAR" class="on">CLEAR</button><button data-profile="DRIVE">DRIVE</button><button data-profile="TRANCE">TRANCE</button><button data-profile="SOFT">SOFT</button>
@@ -103,28 +102,21 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
         <div class="row" id="ratios"><button data-ratio="3:2" class="cool">3:2</button><button data-ratio="4:3">4:3</button><button data-ratio="5:4">5:4</button></div>
         <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
         <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
-        <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="pulseTrainReset">RESET TRAIN</button><button id="exportTape">EXPORT TAPE</button></div>
+        <div class="row" id="pulseInteraction"><button id="pulseFree" class="cool">FREE RING</button><button id="pulseTrainMode">TRAIN</button></div>
+        <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP RING</button><button id="pulseTrainReset">RESET TRAIN</button><button id="exportTape">EXPORT TAPE</button></div>
         <div><span class="metric">LOCK <b id="syncRead">—</b></span><span class="metric">TARGET <b id="pulseTarget">LOCK · M · 1/4</b></span><span class="metric">ERROR <b id="pulseError">—</b></span><span class="metric">BIAS <b id="pulseBias">—</b></span><span class="metric">JITTER <b id="pulseJitter">—</b></span><span class="metric">CORR <b id="pulseCorr">—</b></span></div>
         <div><span class="metric">RATIO <b id="ratioRead">3:2</b></span><span class="metric">CLOCK <b id="pulseClock">IDLE</b></span><span class="metric">BEAT <b id="pulseBeat">—</b></span><span class="metric">PHASE <b id="pulsePhase">—</b></span></div>
         <div class="row" style="margin-top:6px"><button id="pulseRead" class="cool">READ ×4 →</button><button id="pulseRide">RIDE →</button><button id="pulseCompose">COMPOSE →</button></div>
-        <details class="voiceTrain" id="voiceTrain">
-          <summary>VOICE / SPECTRUM TRAINER · SAME PULSE</summary>
-          <div class="row"><button id="voiceMic" class="primary">START MIC</button><button id="voiceHear">HEAR TARGET</button><button id="voiceNext">NEXT</button></div>
-          <div class="patterns"><button class="cool" data-voice-pattern="NOTE">NOTE</button><button data-voice-pattern="CALL">1·3·5·3</button><button data-voice-pattern="SCALE">SCALE</button><button data-voice-pattern="HUM">HUM</button></div>
-          <div class="row"><button id="voiceBaseDown">−</button><span class="metric">TARGET <b id="voiceTarget">C4</b></span><button id="voiceBaseUp">+</button></div>
-          <canvas id="voiceSpectrum" class="voiceSpec" width="320" height="86" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
-          <div><span class="metric">VOICE CLOCK <b id="voiceLinkState">FREE</b></span><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
-          <div class="mini">Pitch uses the shared VOICE detector; the same scrolling spectrum now carries target/heard pitch traces and beat boundaries. Audio stays local and is never recorded. Starting PULSE links the trainer clock (VOICE CLOCK reads LINKED · LAB PULSE), stopping it returns VOICE to FREE. The pulse advances the exercise; it does not author the voice.</div>
-        </details>
+        <div class="voiceTrain"><div class="row"><a class="btn" href="../voice/">VOICE / SPECTRUM →</a></div><div class="mini">VOICE is a separate instrument again. It may borrow this PULSE clock through FIELD PULSE, but PULSE owns rhythm/tap evidence and VOICE owns microphone/pitch/spectrum evidence.</div></div>
         <div class="readUses">
-          <span><b>ENTRAIN</b> LOCK meter → CROSS alternating polyrhythm rings → RETURN to meter; keep signed timing evidence</span>
+          <span><b>FREE RING</b> click/tap M, A or B and feel the nearest pulse; no curriculum, no score advancement</span><span><b>TRAIN</b> LOCK meter → CROSS alternating polyrhythm rings → RETURN; keep signed timing evidence</span>
           <span><b>READ</b> lend BPM to RSVP pace while READFIELD keeps text authority</span>
           <span><b>RIDE</b> lend beat / phase to LIVE timing; topology remains player-authored</span>
           <span><b>COMPOSE</b> lend tempo / energy to Two Dial; harmony and form remain local</span>
           <span><b>EXPORT</b> turn taps into EVENT TAPE + Beat Saber v4 draft evidence</span>
           <span><b>CLOCK LAW</b> tempo + beat + phase + quantum coordinate; start/stop stays local</span>
         </div>
-        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three fixed rings — M (beat), A, B — expose meter + both ratio streams; RATIO only resubdivides A/B ticks per bar and never changes the ring count. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. FREE RING is the default: click a ring to select M/A/B, then tap for immediate signed timing feedback without advancing the trainer. TRAIN opts into the existing curriculum. Three fixed rings — M (beat), A, B — expose meter + both ratio streams; RATIO only resubdivides A/B ticks per bar and never changes the ring count. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
       </section>
 
       <section class="controls" data-controls="VERSE">
@@ -183,15 +175,18 @@ the room keeps the weather</textarea>
         <textarea id="dataSource">{"source":"FIELD","modes":["RIDE","PULSE","READ","LOCI","INK","DATA"],"state":{"profile":"CLEAR","return":true},"question":"what changes when one object is re-projected?"}</textarea>
         <div class="row"><button id="dataLoad" class="primary">LOAD DATA</button><button id="dataLens">OPEN SCALE LENS →</button></div>
         <div><span class="metric">NODES <b id="dataNodes">0</b></span><span class="metric">DEPTH <b id="dataDepth">0</b></span></div>
-        <div class="mini">JSON becomes addressed nodes; plain text becomes addressed lines. Wheel changes aperture depth. Hover/tap focuses without rewriting source.</div>
-        <div class="stateBox">
+        <div class="mini"><b>USE DATA:</b> LOAD → hover/tap a node → the current key/value becomes the center. Wheel changes depth. The graph is a route over one object, not a second copy of it.</div>
+        <div class="readUses">
+          <span><b>1 · OBJECT</b> Load JSON/text. Nodes keep exact paths.</span><span><b>2 · FOCUS</b> Hover/tap to choose one addressed value.</span><span><b>3 · LENS</b> Only if you have a real before/after state, open CHANGE / I CHING / J-SPACE below.</span>
+        </div>
+        <details class="stateBox"><summary>CHANGE / I CHING / J-SPACE · OPTIONAL LENS</summary>
           <label>STATE / CHANGE LANGUAGE · BOTTOM → TOP</label>
           <div class="pair"><input id="stateFrom" value="010|100" aria-label="State before, six bits bottom to top"><input id="stateTo" value="011|110" aria-label="State after, six bits bottom to top"></div>
           <div class="row" style="margin-top:5px"><button id="stateProject" class="primary">PROJECT Δ</button><button id="stateSwap">SWAP</button><button id="stateCopy">COPY TOKEN</button><a class="btn cool" href="../convergence/change-calculus/">APPLIED CALC →</a></div>
           <div class="stateToken" id="stateToken">H[010|100] Δ{3,5} → H[011|110]</div>
           <div><span class="metric">FROM <b id="stateFromName">☵ KAN / ☳ ZHEN</b></span><span class="metric">TO <b id="stateToName">☴ XUN / ☱ DUI</b></span><span class="metric">Δ <b id="stateDelta">3,5</b></span></div>
-          <div class="stateHint">Tap a line in the right-hand visual field to flip it. This is a neutral six-bit state grammar; trigram names are a readable projection, not a requirement.</div>
-        </div>
+          <div class="stateHint">Tap a line in the field to flip it. Exact six-bit state is primary. I Ching is a readable lossy quotient; J-space support is an optional candidate lens; CALCULATE commits nothing.</div>
+        </details>
       </section>
     </div>
   </aside>
@@ -204,7 +199,7 @@ the room keeps the weather</textarea>
 (()=>{const w=document.getElementById('labBootWitness');addEventListener('error',e=>{if(w)w.textContent='LAB_ERROR '+String(e.message||e.error||'unknown').slice(0,180)});addEventListener('unhandledrejection',e=>{if(w)w.textContent='LAB_REJECTION '+String(e.reason?.message||e.reason||'unknown').slice(0,180)})})();
 </script>
 <script src="/field-aperture.js"></script>
-<script type="module" src="./app.js?v=0.3.5&voice=1"></script>
+<script type="module" src="./app.js?v=0.3.6&focus=1"></script>
 <script src="/showcase-nav.js" defer></script>
 </body>
 </html>
