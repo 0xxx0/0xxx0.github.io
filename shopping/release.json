@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.4",
-  "released": "2026-09-26",
+  "version": "0.3.5",
+  "released": "2026-09-27",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
     {
@@ -69,7 +69,11 @@
     "Closed Shopping ↔ HOUSE FIT return loop: HOUSE now emits a short-lived exact-item house-shopping-fit-return/v0.1 OFFER_ONLY / EVIDENCE_ONLY result instead of navigation-only RETURN.",
     "Shopping revalidates source route + item id/address + original lifecycle state before explicit acceptance into browser-local shopping-house-fit-receipt/v0.1 evidence.",
     "HOUSE fit acceptance never mutates Shopping lifecycle, next action, ownership or adoption state.",
-    "Shopping-owned evidence_signal/proof_boundary travel into the HOUSE fit probe as source metadata; HOUSE renders but does not infer them."
+    "Shopping-owned evidence_signal/proof_boundary travel into the HOUSE fit probe as source metadata; HOUSE renders but does not infer them.",
+    "Added explicit HUMAN PORT → Shopping candidate ingress: one exact Port object/focus becomes a short-lived OFFER_ONLY / CANDIDATE_ONLY Shopping offer.",
+    "Shopping shows the pending Port offer separately and requires explicit ADD AS VERIFY before browser-local ledger mutation.",
+    "Added first-class SOURCE URL / EXACT SKU / SELLER-CHANNEL fields so evidence required by the Shopping contract and agent packet is no longer dropped by the ledger UI.",
+    "Port carries a literal URL when present but deliberately does not infer SKU/seller or ownership state."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -92,7 +96,11 @@
     "HOUSE fit return wrong-item or changed-lifecycle offers are stale/read-only",
     "PASS/FAIL/MEASURE/UNKNOWN fit evidence is dimensional screen only; it does not prove doorway path, utilities, ventilation, load, cat clearance, installation, ownership, purchase value or adoption",
     "accepted HOUSE fit receipt leaves Shopping lifecycle unchanged",
-    "source-owned semantic token survives Shopping → HOUSE → fit return"
+    "source-owned semantic token survives Shopping → HOUSE → fit return",
+    "Port candidate cannot auto-save to Shopping",
+    "Port candidate imports only as VERIFY / source_kind other",
+    "Port object id/hash/scope/focus survive as source_ref evidence",
+    "source URL / exact SKU / seller-channel survive Shopping export/agent packet"
   ],
   "return": "/shopping/",
   "date": "2026-09-25",

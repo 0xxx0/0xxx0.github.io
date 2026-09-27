@@ -5728,16 +5728,16 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.6.0-preview",
+      "title": "HUMAN PORT 1.6.1-preview",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.6.0-preview",
+      "version": "1.6.1-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical addressed object aperture: accept text/JSON/image/local files as one Port object, preserve byte/provenance identity, focus lawful projections, expose FIT/CUES/HISTORY separately, then SELECT + OPEN a bounded route. FIELD INTAKE remains the separate reviewed admission gate.",
+      "role": "Canonical addressed object aperture. 1.6.1-preview adds candidate-only Shopping routing: exact Port object/focus may become an explicit Shopping VERIFY candidate, while Port cannot author procurement lifecycle, seller/payment action or ownership.",
       "transfer": [
         "PORT_OBJECT envelope across text/json/image/file",
         "AXIAL focus / explicit OPEN",
@@ -5746,7 +5746,8 @@
         "FIT != CUES != HISTORY != AUTHORITY",
         "object-aware RETURN / re-entry",
         "CARE evidence-reference route without byte duplication",
-        "BODY / FIT structured sensor-object route"
+        "BODY / FIT structured sensor-object route",
+        "exact Port object → Shopping OFFER_ONLY candidate → explicit ADD AS VERIFY"
       ],
       "contract": {
         "transforms": {
@@ -5859,6 +5860,11 @@
             "class": "CANONICAL_INGEST",
             "status": "AVAILABLE",
             "via": "/field-intake/ candidate-only adapter; resolution + APPLY sovereign"
+          },
+          {
+            "class": "SHOPPING",
+            "status": "AVAILABLE",
+            "via": "/shopping/ candidate-only offer; explicit Shopping import required"
           }
         ],
         "physical_fit": "Human/world boundary and routing surface; does not itself authorize sending, actuation, inference or private-context publication."
@@ -5962,7 +5968,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-25T12:53:00+08:00",
+        "updated_at": "2026-09-27T16:55:00+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -6978,16 +6984,18 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.3.4",
+      "title": "SHOPPING FIELD 0.3.5",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
+        "HUMAN PORT exact object/focus → OFFER_ONLY candidate → explicit Shopping VERIFY import",
+        "source URL / exact SKU / seller-channel retained as first-class evidence",
         "exact Shopping → HOUSE dimensional screen → OFFER_ONLY return → explicit evidence receipt; lifecycle unchanged",
         "source-owned evidence signal/proof boundary travels through HOUSE fit envelope without authority transfer",
         "source-owned semantic evidence token travels through exact Shopping → Dayline handoff and RETURN without transferring lifecycle authority",
@@ -7016,11 +7024,11 @@
             "owned-item claim",
             "receipt/purchase record",
             "legacy House OS shopping export",
-            "materialization idea"
+            "aesthetic/materialization idea",
+            "HUMAN PORT candidate offer"
           ],
-          "requires": [],
           "optional": [
-            "intent lane: ESSENTIAL | CAPABILITY | EXPEDITION",
+            "lane: ESSENTIAL | CAPABILITY | EXPEDITION",
             "source URL",
             "observed_at",
             "exact SKU",
@@ -7037,14 +7045,41 @@
           ]
         },
         "transforms": {
-          "verb": "normalize intent lane, provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
+          "verb": "normalize lane, provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
+          "states": [
+            "NEED",
+            "QUERY",
+            "FOUND",
+            "VERIFY",
+            "WATCH",
+            "DECIDE",
+            "BOUGHT",
+            "RECEIVED",
+            "TESTED",
+            "ADOPTED",
+            "HOLD",
+            "SKIP",
+            "EXPIRED",
+            "RETURNED",
+            "REPAIR",
+            "ABANDONED",
+            "ARCHIVE"
+          ],
           "preserves": [
-            "source/legacy state",
+            "source state",
+            "legacy state",
             "human money/action authority",
             "FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED distinction",
             "unknowns",
-            "private inventory boundary",
-            "curiosity/research intent distinct from purchase intent"
+            "local/private inventory boundary",
+            "ESSENTIAL/CAPABILITY/EXPEDITION intent without conflating curiosity with purchase intent",
+            "semantic pattern is projection only; signal token never mutates lifecycle or authority",
+            "Shopping-owned evidence_signal/proof_boundary may travel as source metadata through exact handoffs; recipient rendering does not transfer semantic authority",
+            "HOUSE fit result is evidence-only; no lifecycle promotion",
+            "exact Shopping item/state must revalidate before HOUSE fit receipt acceptance",
+            "Shopping-owned evidence signal/boundary remains source metadata through HOUSE",
+            "Port object identity/hash/scope/focus on explicit candidate import",
+            "unknown SKU/seller remain unknown until explicit evidence"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only"
@@ -7059,20 +7094,34 @@
             "inventory/capability candidate",
             "explicit non-action",
             "session-only HOUSE fit packet",
-            "shopping-dayline-receipt/v0.1 evidence"
+            "shopping-dayline-receipt/v0.1 evidence",
+            "derived evidence signal + proof boundary",
+            "atlas-dayline-handoff/v0.1 with source-owned evidence witness",
+            "house-shopping-fit/v0.1 source envelope",
+            "shopping-house-fit-receipt/v0.1 evidence",
+            "explicit Port-derived VERIFY candidate"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/shopping/release.json",
           "checks": [
-            "legacy CONFIRMED→VERIFY migration",
-            "freshness derived from observation time",
-            "landed-cost components visible",
-            "explicit manual state changes",
+            "legacy CONFIRMED migrates conservatively to VERIFY",
+            "freshness is timestamp-derived",
+            "landed cost exposes components",
+            "gate status visible",
+            "state changes are explicit/manual",
             "import/export round-trip",
-            "no network submission"
+            "no network submission",
+            "lane survives import/export and Dayline/agent handoff",
+            "selected-item evidence signal is derived from lifecycle/freshness only",
+            "pattern semantics are shared but Shopping wording/state authority remains local",
+            "Dayline handoff preserves Shopping-owned evidence signal/boundary without converting it into lifecycle truth",
+            "HOUSE fit return expires and revalidates exact item + lifecycle state",
+            "fit PASS/FAIL screens dimensional envelope only",
+            "accepted fit receipt does not mutate procurement lifecycle",
+            "Port candidate import is explicit and conservative VERIFY",
+            "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence"
           ],
           "return_path": "/shopping/"
         }
@@ -7131,7 +7180,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-26T13:24:00+08:00",
+        "updated_at": "2026-09-27T16:55:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7140,7 +7189,7 @@
         ]
       },
       "tier": "FIELD",
-      "role": "Capability-gap procurement adapter with exact lifecycle truth, landed-cost/fit evidence, Dayline next-action handoff, HOUSE fit, evidence-only Dayline receipt acceptance, and a projection-only semantic signal skin for evidence posture. Patterns never become purchase/adoption truth."
+      "role": "WORLD_IN/WORLD_THROUGH procurement adapter: explicit Port candidates, native lifecycle/freshness/source evidence, landed cost, Dayline task receipts, HOUSE dimensional fit receipts, and projection-only semantic evidence patterns. No automatic buying, seller contact, ownership or adoption."
     },
     {
       "href": "/showcase-selftest/",

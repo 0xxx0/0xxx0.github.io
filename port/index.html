@@ -78,6 +78,7 @@ footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display
 
 <script src="../field-aperture.js"></script>
 <script src="../field-signals.js"></script>
+<script src="../lib/port-shopping.js"></script>
 <script src="./object-store.js"></script>
 <script src="./object-aperture.js"></script>
 <script>
@@ -92,7 +93,7 @@ const routeById=id=>routeContracts?.routes.find(r=>r.id===id);
 function loadReceipts(){try{return JSON.parse(localStorage.getItem(RECEIPTS)||'[]')}catch(_){return[]}}
 function historyCount(id){return loadReceipts().filter(r=>r.route===id).length}
 function cuesFor(text){
- const t=String(text||'').toLowerCase(),c={contact:0,burst:0,idea:0,residue:0,lens:0,care:0,intake:0};
+ const t=String(text||'').toLowerCase(),c={contact:0,burst:0,idea:0,residue:0,lens:0,care:0,shopping:0,intake:0};
  const hit=(k,re)=>c[k]+=(t.match(re)||[]).length;
  hit('contact',/\b(reply|send|message|email|tell|draft|write back)\b/g);
  hit('burst',/\b(messy|unclear|wait|actually|sorry|confus|untangle|multiple|several)\b/g);
@@ -100,6 +101,7 @@ function cuesFor(text){
  hit('residue',/\b(remind|remember|follow[- ]?up|promise|later|owed?|do not forget|don't forget)\b/g);
  hit('lens',/\b(map|structure|scale|view|projection|relationship|zoom|compare)\b/g);
  hit('care',/\b(care|health|symptom|pain|eye|seizure|med(?:ication)?|doctor|vet|lab|treatment|appointment|result|patient|pet)\b/g);
+ hit('shopping',/\b(buy|price|cost|listing|seller|sku|receipt|shipping|purchase|cart|taobao|aliexpress|carousell|marketplace|deal|stock)\b/g);
  hit('intake',/\b(record|admit|canon|canonical|evidence|observation|measure|source|artifact)\b/g);
  return c;
 }
@@ -220,6 +222,12 @@ async function openRoute(){
   if(selected==='body-fit'){
    sessionStorage.setItem('body.fit.port.sensor.v01',JSON.stringify({schema:'0xxx0/port-object-to-body-fit/v0.1',created_at:new Date().toISOString(),object_id:obj.object_id,media_class:obj.media_class,label:obj.label,sha256:obj.sha256||null,scope,focus:scope==='focus'?focus:null,text_payload:String(summary||''),provenance:obj.provenance||{}}));
    location.assign('../body/fit/');return;
+  }
+  if(selected==='shopping'){
+   const offer=window.PortShopping?.makeOffer({object:obj,summary,scope,focus:scope==='focus'?focus:null});
+   if(!offer)throw Error('Shopping adapter unavailable');
+   sessionStorage.setItem('shopping.port.candidate.v01',JSON.stringify(offer));
+   location.assign('../shopping/?from=port');return;
   }
   if(selected==='intake'){
    sessionStorage.setItem('field.intake.handoff.v01',JSON.stringify({schema:'0xxx0/port-object-to-field-intake/v0.1',capture:intakeCapture(),source_object_id:obj.object_id,source_object:{label:obj.label,media_class:obj.media_class,mime:obj.mime,size_bytes:obj.size_bytes,sha256:obj.sha256,retention:obj.retention,focus:scope==='focus'?focus:null},created_at:new Date().toISOString()}));
