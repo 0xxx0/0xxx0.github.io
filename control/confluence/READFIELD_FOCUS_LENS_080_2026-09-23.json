@@ -49,5 +49,20 @@
       "conclusion": "success"
     }
   },
-  "stop": "Do not create a separate convergence app or move audio/glyph authority into READFIELD. Further work requires direct use evidence."
+  "stop": "Do not create a separate convergence app or move audio/glyph authority into READFIELD. Further work requires direct use evidence.",
+  "continuation_2026_09_27": {
+    "status": "IMPLEMENTED_CANDIDATE_PR_461",
+    "handoff": "/control/confluence/FOCUS_RING_TRAIL_CONVERGENCE_2026-09-27.md",
+    "laws": [
+      "CENTER = current attended object; ring/context must not displace it",
+      "VISITED/MARKED is human traversal evidence only, never comprehension or completion",
+      "unequal reader addresses may share exact source/character coordinates without being collapsed into one namespace"
+    ],
+    "delta": [
+      "JSON focus becomes path/key/value/parent/children rather than generic string preview",
+      "ring pointer hover previews bounded addressed JSON/text material",
+      "repository shelf gains deterministic recognition thumbnails",
+      "device-local source trail adds resume + explicit marks without storing raw source bytes"
+    ]
+  }
 }
