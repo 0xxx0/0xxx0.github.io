@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,exactFormCalculation,
+  lineTransitionValue,transparentStateCalculation,steppedStatePath,exactFormCalculation,
   steppedFormPath,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
@@ -18,6 +18,23 @@ assert.equal(state.metrics.hamming_distance,2);
 assert.equal(state.metrics.normalized_hamming,0.333333);
 assert.equal(state.metrics.one_line_step_orders,2);
 assert.deepEqual(state.iching_projection.line_values,[8,7,6,7,6,8]);
+
+const stateStep=steppedStatePath('010|100','011|110');
+assert.equal(stateStep.ok,true);
+assert.deepEqual(stateStep.changed_lines,[3,5]);
+assert.deepEqual(stateStep.selected_order,[3,5]);
+assert.equal(stateStep.possible_one_line_orders,2);
+assert.equal(stateStep.order_ambiguity_bits,1);
+assert.equal(stateStep.steps[0].before_token,'H[010|100]');
+assert.equal(stateStep.steps[0].after_token,'H[011|100]');
+assert.equal(stateStep.steps[0].iching_line_value,6);
+assert.equal(stateStep.steps[1].after_token,'H[011|110]');
+assert.equal(stateStep.final_matches_target,true);
+const stateStepReverse=steppedStatePath('010|100','011|110',[5,3]);
+assert.equal(stateStepReverse.ok,true);
+assert.equal(stateStepReverse.steps[0].after_token,'H[010|110]');
+assert.notEqual(stateStep.steps[0].after_token,stateStepReverse.steps[0].after_token);
+assert.equal(steppedStatePath('010|100','011|110',[3,3]).ok,false);
 
 const fromForm=['RETURN','FOLD','SPLIT','BLOOM','RETURN','SPLIT'];
 const toForm=['SPLIT','BLOOM','FOLD','FOLD','BLOOM','RETURN'];
@@ -83,13 +100,15 @@ const frame=appliedResearchFrame({
   trace,target:{layer:12,position:3},nativeForecasts:forecasts
 });
 assert.equal(frame.authority,'RESEARCH_WITNESS_ONLY');
+assert.equal(frame.state_step.possible_one_line_orders,2);
+assert.equal(frame.state_step.steps.length,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
 assert.equal(frame.steering.top.status,'MULTIPLE_NATIVE_CANDIDATES');
 assert.ok(frame.residue.some(x=>x.includes('moving-line set loses step ordering')));
 
 console.log(JSON.stringify({
   status:'PASS',
-  state:{moving:state.moving,orders:state.metrics.one_line_step_orders,lineValues:state.iching_projection.line_values},
+  state:{moving:state.moving,orders:state.metrics.one_line_step_orders,lineValues:state.iching_projection.line_values,stepPaths:[stateStep.steps.map(x=>x.after_token),stateStepReverse.steps.map(x=>x.after_token)]},
   quotient:{exactStates:4096,hexStates:64,fiber:64,invisibleExact:exact.metrics.quotient_invisible_exact_changes},
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},

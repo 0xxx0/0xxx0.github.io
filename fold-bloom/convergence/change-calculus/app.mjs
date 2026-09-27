@@ -1,4 +1,4 @@
-import {appliedResearchFrame} from './kernel.mjs';
+import {appliedResearchFrame,steppedStatePath} from './kernel.mjs';
 import {candidateEpochWitness,runLiveVerbCommutator} from './live-step-order.mjs';
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
@@ -33,6 +33,24 @@ function hexLabel(binary){
   const h=hexByBin[binary];
   return h?'<a href="/iching/#h='+h.id+'"><b>'+esc(h.unicode+' '+h.name_zh+' · №'+h.id+' · '+h.name_en)+'</b></a>':'<b>'+esc(binary)+'</b>';
 }
+function statePathWitness(path,state){
+  const fmt=p=>[path.from_token,...p.steps.map(x=>x.after_token)].join(' → ');
+  const primary=fmt(path);
+  let alternate=null;
+  if(path.changed_lines.length>1){
+    const reverse=steppedStatePath($('#fromState').value,$('#toState').value,[...path.changed_lines].reverse());
+    if(reverse?.ok)alternate=fmt(reverse);
+  }
+  const rows=path.steps.map(x=>'<tr><td>'+x.step+'</td><td>L'+x.line+'</td><td>'+x.from_bit+'→'+x.to_bit+'</td><td>'+x.iching_line_value+'</td><td>'+esc(x.after_token)+'</td></tr>').join('');
+  return '<h2 style="margin-top:12px">STATE STEP PATH</h2><div class="metrics">'+
+    metric('selected order',path.selected_order.length?path.selected_order.map(x=>'L'+x).join('→'):'∅')+
+    metric('possible orders',path.possible_one_line_orders)+metric('order info',path.order_ambiguity_bits+' bits')+
+    '</div><p><code>'+esc(primary)+'</code></p>'+
+    (alternate&&alternate!==primary?'<p class="cool">reverse order: <code>'+esc(alternate)+'</code></p>':'')+
+    (rows?'<table><thead><tr><th>step</th><th>line</th><th>bit</th><th>Yi value</th><th>intermediate</th></tr></thead><tbody>'+rows+'</tbody></table>':'<p>Stable endpoint: no moving-line step required.</p>')+
+    '<p>Same endpoints do not imply the same path. Intermediate state is evidence whenever downstream consequences can depend on order.</p>';
+}
+
 function calculate(){
   let trace=null,forecasts=[];try{trace=JSON.parse($('#trace').value)}catch(_){}try{forecasts=JSON.parse($('#forecasts').value)}catch(_){}
   const [layer,position]=String($('#target').value).split(',').map(Number);
@@ -41,14 +59,15 @@ function calculate(){
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
-  const s=frame.state,e=frame.exact,p=frame.step,j=frame.steering;
+  const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering;
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
     metric('stable',s.metrics.stable_lines)+metric('STEP orders',s.metrics.one_line_step_orders)+
     metric('order ambiguity',s.metrics.step_order_ambiguity_bits+' bits')+
     '</div><code>'+esc(s.from.token+'  '+s.mask+'  →  '+s.to.token)+'</code>'+
-    '<p>'+esc(s.formulas.one_line_step_orders)+'. The moving set specifies changed coordinates, not their temporal order.</p>';
+    '<p>'+esc(s.formulas.one_line_step_orders)+'. The moving set specifies changed coordinates, not their temporal order.</p>'+
+    (sp?.ok?statePathWitness(sp,s):'');
 
   const fromHex=hexLabel(s.from.binary),toHex=hexLabel(s.to.binary);
   $('#ichingOut').innerHTML='<h2>I CHING LOOKUP · NOT A CAST</h2><p>'+fromHex+'<br>→ '+toHex+'</p>'+
@@ -75,6 +94,13 @@ function calculate(){
 
   $('#residueOut').innerHTML='<h2>RESIDUE / NON-EQUIVALENCE</h2><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
     '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="/fold-bloom/lab/?mode=DATA">↩ FIELD LAB / DATA</a> · <a href="/iching/">I CHING source lens →</a></p>';
+  if($('#claimOut'))$('#claimOut').innerHTML='<h2>EVIDENCE LADDER · CURRENT</h2><table><tbody>'+
+    '<tr><td>six-bit / hex state</td><td><b>DESCRIPTIVE LENS</b></td><td>native one-step control sufficiency already falsified</td></tr>'+
+    '<tr><td>recent exact six-verb form</td><td><b>HISTORY WITNESS</b></td><td>also not sufficient native control state</td></tr>'+
+    '<tr><td>native forecast aperture</td><td><b>ONE-EPOCH SUPPORT</b></td><td>alternatives expire and must be refreshed after commit</td></tr>'+
+    '<tr><td>J-Lens arithmetic here</td><td><b>READ / SUPPORT HYPOTHESIS</b></td><td>default fixture is synthetic; real tiny-model smoke proves plumbing only</td></tr>'+
+    '<tr><td>causal steering</td><td><b class="hot">BLOCKED</b></td><td>requires semantic evidence + real direction + controls + receipt</td></tr>'+
+    '</tbody></table><p>The common primitive is not a common ontology: <code>STATE → APERTURE → INTENT → SUPPORT/AMBIGUITY → COMMIT → APERTURE′ → WITNESS → RETURN</code>.</p>';
 }
 
 function pathSummary(path){

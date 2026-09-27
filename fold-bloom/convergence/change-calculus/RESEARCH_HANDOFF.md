@@ -557,3 +557,64 @@ STATE
 
 The important boundary is the apostrophe: **commit changes the space in which the next action is interpreted**. A system that carries candidate labels forward without refreshing support is precisely where semantic steering, planners, UI macros and physical procedures can become unsafe or nonsensical.
 
+
+
+## FIELD LAB transparent STEP witness — 2026-09-27
+
+LAB DATA now exposes the arithmetic it previously hid behind the compact `H[...] Δ{...} → H[...]` token.
+
+For the supplied endpoints it shows:
+
+- Hamming distance `d_H/6`;
+- stable-line count;
+- derived Yi line values `6/7/8/9` (endpoint projection, never a cast);
+- `k!` possible one-line STEP orders;
+- `log2(k!)` order-information bits;
+- the declared moving-line order;
+- each intermediate six-bit state while stepping.
+
+The reusable function is `steppedStatePath(from,to,order)`. It refuses an order that is not a permutation of the actual moving lines.
+
+Example:
+
+```text
+H[010|100] Δ{3,5} → H[011|110]
+
+L3 → L5:
+H[010|100] → H[011|100] → H[011|110]
+
+L5 → L3:
+H[010|100] → H[010|110] → H[011|110]
+```
+
+The endpoints and moving set are identical; the intermediate state differs. Therefore a STEP path is not recoverable from Δ alone whenever intermediate consequences matter.
+
+LAB remains a doorway, not a second calculus engine: it imports the existing change-calculus functions, displays the witness, places the calculation + selected path into LAB RETURN, and links to the specialist CHANGE CALCULUS surface for exact-form, native order and J-space support research.
+
+The applied surface now also carries a compact evidence ladder:
+
+```text
+six-bit / HEX state       = descriptive lens; native control sufficiency falsified
+recent exact six-verb     = history witness; native control sufficiency falsified
+native forecast aperture  = lawful alternatives for one commit epoch
+J-Lens readout            = read/support hypothesis; real smoke is plumbing-only
+causal steering           = blocked pending semantic intervention controls + receipt
+```
+
+This is the current solve-for-all result in the strongest safe form:
+
+> shared **experimental grammar**, not shared ontology.
+
+```text
+STATE
+→ APERTURE
+→ INTENT
+→ SUPPORT / AMBIGUITY
+→ COMMIT
+→ APERTURE′
+→ RE-RESOLVE
+→ WITNESS
+→ RETURN
+```
+
+The key quantity to expose at every reduction is not merely what the compressed label says, but **how many lawful distinctions remain hidden and whether those hidden distinctions can change the next witnessed consequence**.
