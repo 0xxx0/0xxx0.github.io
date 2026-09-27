@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/instrument-charters/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-27",
   "purpose": "A compact maturity contract for instruments that have become important enough to survive beyond one experiment.",
   "maturity_gate": {
     "required_when": "STABLE, or an EXPERIMENT has a retained unique mechanism/public route and is being used as a donor for other work.",
@@ -131,24 +131,31 @@
     {
       "id": "ascii-sleeper",
       "route": "/sleeper/",
-      "maturity": "PUBLIC_EXPERIMENT",
-      "PASSION": "Make uncertainty and obligation traversable without pretending motion through a representation proves anything about reality.",
-      "PURPOSE": "Separate recall, observation, decision, and action gates; couple local laws; permit RETURN only after required evidence contracts are resolved.",
-      "POWER": "POV and PLAIN share one canonical gate state while geometry makes constraint interactions experientially legible.",
+      "maturity": "ACTIVE_CANDIDATE / CANONICAL_RUNTIME_RECOVERED",
+      "PASSION": "Make a source become a place you can traverse, test, remember, and return from without confusing representation with truth.",
+      "PURPOSE": "Compile phrase + verse cell + figure into one deterministic city; require eight enacted evidence protocols; return to the origin with a portable, inspectable witness.",
+      "POWER": "Couples reproducible text-built topology, provenance-bearing verse structure, figure-specific physics, distinct operator proofs, player trace, and bidirectional Return Artifact v2 in one run.",
       "PROOF": [
-        "same gate state across POV/PLAIN",
-        "deterministic seal/field hash",
-        "gate evidence classes remain distinct",
-        "real task comparison against plain handling"
+        "identical phrase/cell/figure reconstruct the same world key and initial city",
+        "changing phrase, verse cell, or figure changes a mechanically visible world input",
+        "all eight Gate protocols require their enacted proof rather than proximity alone",
+        "Return Artifact v2 preserves source/provenance/figure/proof order/operator counts/path signature/steps/time and can restore only a verified matching world",
+        "recovered subset tests pass and prior build/render/360-city evidence remains provenance-linked"
       ],
-      "PROMISE": "Geometry is downstream of recorded state and never proof of external truth.",
-      "PRICE": "Traversal friction; the maze must earn itself by improving orientation or comprehension.",
-      "RETURN": "source/evidence/law/route fingerprint + unresolved residue",
+      "PROMISE": "Movement, geometry, landmarks, ghosts, transport, or projection may change traversal and legibility; none may silently count as external truth or satisfy a Gate proof. Source, provenance, world identity, enacted evidence, and RETURN remain separable.",
+      "PRICE": "Traversal and world simulation add friction and maintenance; every added city mechanic must earn itself through a distinct decision, consequence, replay value, transferable lesson, and inspectable return.",
+      "RETURN": "Return Artifact v2: verified world identity + source/provenance + figure + eight Gate proofs + operator/path/measures + reproducible world address",
       "motifs": [
         "motif:typed-path",
         "motif:one-return",
         "motif:identity-through-projection"
-      ]
+      ],
+      "canonical_identity": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
+      "lineage": {
+        "canonical_source": "/recovery/sleeper/site-source-2026-09-18/",
+        "superseded_derivative": "/sleeper/ascii-pov-0.8/",
+        "playable_donor": "/sleeper/one-return/"
+      }
     },
     {
       "id": "two-dial",
