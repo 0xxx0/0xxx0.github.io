@@ -1,0 +1,41 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "READ_TRAIL_DONOR_RECOVERY_2026-09-27",
+  "date": "2026-09-27",
+  "object": "PR #461 unique READ trail mechanism",
+  "state": "FROZEN_DONOR",
+  "source": {
+    "pr": 461,
+    "branch": "fix/readfield-lab-focus-usability",
+    "blobs": {
+      "lib/read-trail.js": "540a56521ec401e62f86db94e894a080d3792a04",
+      "tools/read-trail-selftest.cjs": "2f0edeb6ce84a7324b340dee756e3d9679b6741b",
+      "control/confluence/FOCUS_RING_TRAIL_CONVERGENCE_2026-09-27.md": "7a2c8c21d09d7dc75d2e1669403d0892f5f6f874"
+    }
+  },
+  "retained": [
+    "field-source-trail/v0.1 source identity",
+    "bounded last/furthest/visit evidence",
+    "explicit human marks",
+    "neutral charIndex bridge across unequal address grammars",
+    "VISITED/MARKED != comprehension/completion law"
+  ],
+  "not_promoted": [
+    "PR #461 wholesale integration",
+    "stale READFIELD/LAB/REPLAY implementations",
+    "automatic claim that traversal means reading or understanding"
+  ],
+  "boundary": "Recovery proves exact donor bytes and pure-kernel selftest only; it does not mean the trail is adopted by current READFIELD or LIVE.",
+  "evidence": [
+    "/recovery/read-trail-2026-09-27/lib/read-trail.js",
+    "/recovery/read-trail-2026-09-27/tools/read-trail-selftest.cjs",
+    "/recovery/read-trail-2026-09-27/README.md"
+  ],
+  "validation": {
+    "required_checks": [
+      "public-surface-check"
+    ],
+    "result": "PASS_REQUIRED_ON_MERGE_HEAD"
+  },
+  "return": "/recovery/"
+}
