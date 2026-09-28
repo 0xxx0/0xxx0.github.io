@@ -71,6 +71,32 @@ export function stepOrderRank(lines,order){
     law:'Lehmer rank is the inverse of factoradic step-order indexing for the declared canonical line order'
   };
 }
+
+export function steerStepOrder(lines,order,cursor,nextLine){
+  const canonical=addressedLines(lines),requested=addressedLines(order);
+  if(!canonical||!requested||requested.length!==canonical.length||requested.some(x=>!canonical.includes(x))){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',reason:'ORDER_MUST_PERMUTE_ADDRESSED_LINES'};
+  }
+  const depth=Math.max(0,Math.min(requested.length,Math.trunc(Number(cursor)||0)));
+  const prefix=requested.slice(0,depth),remaining=requested.slice(depth),line=Number(nextLine);
+  if(!remaining.includes(line)){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',reason:'NEXT_LINE_MUST_BE_UNMOVED',cursor:depth,prefix,remaining};
+  }
+  const next=[...prefix,line,...remaining.filter(x=>x!==line)],ranked=stepOrderRank(canonical,next);
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',
+    authority:'CALCULATION_ONLY',
+    cursor:depth,
+    prefix,
+    chosen_line:line,
+    order:next,
+    index:ranked.index,
+    count:ranked.count,
+    address:ranked.address,
+    law:'local steering freezes the witnessed prefix, chooses one still-unmoved line next, and preserves the relative order of all other future lines'
+  };
+}
 const bitString=bits=>Array.isArray(bits)?bits.join(''):null;
 const formOk=form=>Array.isArray(form)&&form.length===6&&form.every(x=>CONTROL_VERBS.includes(String(x||'').toUpperCase()));
 const upperForm=form=>form.map(x=>String(x).toUpperCase());
