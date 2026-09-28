@@ -1900,7 +1900,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-28T18:55:13+08:00",
+        "updated_at": "2026-09-28T20:31:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -1910,18 +1910,23 @@
           "IMPLEMENT"
         ]
       },
-      "role": "Public Fold/Bloom doorway around one source-continuity law. The primary surface remains contracted, but its puzzle aperture is again culturally legible: YIJING / HEXAGRAM → CHANGE is the visible mode, while the exact six-verb FORM substrate remains underneath for provenance. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change without moving LIVE/source authority. VOICE 0.2 is an independent FIELD LAB route aperture; PULSE clock borrowing is opt-in. DRIVE is presentation preference; LIVE owns source-addressed POV traversal and RETURN.",
+      "role": "Public Fold/Bloom doorway around one source-continuity law. The contracted four primary jobs are now RIDE / GARDEN / MAP / REPLAY: Ecology returns as a calm OBSERVE/PLAY doorway and second hero aperture while HEXAGRAM remains available under MORE USES. LIVE remains source-addressed POV/effect authority; Ecology retains local gene/lineage/breeding authority; LAB remains a transduction bench. Mute-first audio and borrowed-clock/authorship boundaries stay explicit.",
       "tier": "FIELD",
-      "version": "0.1.6 + PLAY 0.6.1 / LAB 0.3.6 / VOICE 0.2",
-      "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
+      "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
+      "receipt": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
       "transfer": [
         "PLAY 0.6.1 restores HEXAGRAM / CHANGE as the humane/cultural puzzle surface while preserving exact BLOOM/FOLD/SPLIT/RETURN provenance underneath",
         "binary projection is explicit and reversible-at-return: 4^6 exact forms → 2^6 hexagrams, 64 exact forms per hexagram; moving lines occur only on cross-polarity changes",
         "0.1.6 public contraction: four primary jobs + one LAB gate; secondary/cross-domain exits move behind MORE USES without losing reachability",
         "FIELD LAB public truth corrected to 0.3.4 / seven projections; VOICE 0.2 is folded into PULSE on the main LAB path rather than advertised as a separate Lab mode",
         "LAB 0.3.5 keeps seven unequal projections but repairs phone composition into one horizontal aperture strip + bounded/collapsible sheet; no eighth mode or authority merge.",
-        "Sep-28 LAB 0.3.6: VOICE 0.2 stays an independent aperture, visible second after RIDE in portrait; PULSE remains an optional clock link; DRIVE changes presentation only and LIVE keeps source/POV/traversal/RETURN authority."
-      ]
+        "Sep-28 LAB 0.3.6: VOICE 0.2 stays an independent aperture, visible second after RIDE in portrait; PULSE remains an optional clock link; DRIVE changes presentation only and LIVE keeps source/POV/traversal/RETURN authority.",
+        "PUBLIC 0.1.7 keeps four primary jobs but replaces primary HEXAGRAM with GARDEN / OBSERVE; HEXAGRAM remains directly reachable deeper without being erased",
+        "ECOLOGY 0.2.1 becomes truthfully mute-first: generated sound defaults OFF, explicit enable persists locally, and sound-check occurs only on intentional enable",
+        "Ecology public promotion preserves unequal authority: GARDEN/lineage/breeding remain Ecology-owned; LIVE source/effect authority and LAB projection authority do not move",
+        "song-as-climate remains a bounded research seam through existing FIELD PULSE timing/presentation context only; no new bus or semantic control path"
+      ],
+      "latest_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json"
     },
     {
       "href": "/fold-bloom/saber/",
@@ -2177,18 +2182,21 @@
     },
     {
       "href": "/fold-bloom/ecology/",
-      "title": "ECOLOGY 0.2",
+      "title": "ECOLOGY 0.2.1",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
-      "operation": "PLAY",
-      "state": "STABLE",
-      "version": "0.2",
+      "operation": "PLAY / OBSERVE",
+      "state": "CANDIDATE",
+      "version": "0.2.1",
       "receipt": "/fold-bloom/ecology/release.json",
       "transfer": [
         "adaptive-agent feedback",
         "multimodal state",
-        "mute-first signalling"
+        "mute-first signalling",
+        "public GARDEN / OBSERVE doorway on /fold-bloom/",
+        "mute-first audio: OFF by default, locally persistent explicit enable, one sound-check on intentional unlock",
+        "bounded future song-as-climate donor: existing FIELD PULSE may lend timing/presentation only; borrowed climate != borrowed evolution"
       ],
       "contract": {
         "accepts": {
@@ -2199,14 +2207,20 @@
           ],
           "requires": [],
           "optional": [
-            "audio enabled"
+            "audio enabled",
+            "explicit generated audio enable",
+            "future explicit FIELD PULSE temporal climate"
           ]
         },
         "transforms": {
           "verb": "evolve and expose coupled agent state",
           "preserves": [
             "lineage",
-            "mode identity"
+            "mode identity",
+            "gene/lineage authority",
+            "breeding/audition authority",
+            "mute-readable causality",
+            "explicit human takeover"
           ],
           "reversibility": "bounded",
           "side_effects": "local"
@@ -2217,14 +2231,17 @@
             "audio state",
             "lineage/mode change"
           ],
-          "machine_readable": false,
+          "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
           "receipt": "/fold-bloom/ecology/release.json",
           "checks": [
             "mute-useful visual score",
-            "lineage/mode visibility"
+            "lineage/mode visibility",
+            "mute-first/audio persistence + public GARDEN routing static contract",
+            "recent mobile overflow repair for mode/start and pause controls",
+            "lineage/mode visibility and local RETURN packet remain present"
           ],
           "return_path": "/fold-bloom/ecology/"
         }
@@ -2273,7 +2290,7 @@
         "physical_fit": "Useful as a feedback/control-loop donor, not yet a House controller."
       },
       "index": {
-        "updated_at": "2026-09-28T14:09:30+08:00",
+        "updated_at": "2026-09-28T20:31:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -2281,7 +2298,9 @@
           "RELEASE"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "role": "Living-field OBSERVE/PLAY instrument with local gene, lineage, law, breeding/audition and RETURN authority. GARDEN may visibly self-progress but touch returns control immediately. The field is mute-readable and now truthfully boots with sound OFF; generated audio is explicit presentation only.",
+      "latest_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json"
     },
     {
       "href": "/fold-bloom/lens/",
