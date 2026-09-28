@@ -31,8 +31,8 @@ const wait=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Da
  const beforeChoice=api.state(),targets=api.choice.targets(),target=targets.find(x=>x.slot!==beforeChoice.forecastContext?.gate)||targets[0];
  if(!target)throw Error('no direct forecast target');
  const canvas=D().getElementById('field'),rect=canvas.getBoundingClientRect(),cx=rect.left+target.x,cy=rect.top+target.y;
- canvas.dispatchEvent(new W().PointerEvent('pointerdown',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
- canvas.dispatchEvent(new W().PointerEvent('pointerup',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
+ canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
+ canvas.dispatchEvent(new (W().PointerEvent)('pointerup',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
  await wait(()=>api.state().forecastContext?.gate===target.slot,2500,'direct forecast seek');
  const afterSeek=api.state(),seekStatus=D().getElementById('status')?.textContent||'',releaseBtn=D().getElementById('releaseBtn'),choiceCalc=api.calculus?.();
  rec.choice={slot:target.slot,verb:target.verb,chain:target.chain,beforeGate:beforeChoice.forecastContext?.gate,afterGate:afterSeek.forecastContext?.gate,beforeHistory:beforeChoice.history?.length||0,afterSeekHistory:afterSeek.history?.length||0,beforeSeq:beforeChoice.seq,afterSeq:afterSeek.seq,status:seekStatus,releaseDisabled:!!releaseBtn?.disabled,steeringStillPreview:api.steering.current()?.authority,calcCandidates:choiceCalc?.native?.candidates?.length,calcSeekDelta:choiceCalc?.native?.candidates?.find(x=>x.slot===target.slot)?.seek_delta};
