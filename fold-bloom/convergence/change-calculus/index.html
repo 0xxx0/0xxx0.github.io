@@ -25,7 +25,8 @@ label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,texta
 <label>FROM · six bits bottom→top</label><input id="fromState" value="010|100">
 <label>TO · six bits bottom→top</label><input id="toState" value="011|110">
 <label>STEP PATH INDEX · 0-based factoradic address</label><input id="stateOrderIndex" type="number" min="0" step="1" value="0">
-<p class="note">The index wraps modulo k! for the current moving-line set. It selects one reproducible one-line-at-a-time path; it does not alter either endpoint.</p>
+<label>STEP CURSOR · depth in the selected chain</label><input id="stateCursor" type="number" min="0" max="6" step="1" value="0">
+<p class="note">The index wraps modulo k! for the current moving-line set. The cursor selects a witnessed intermediate vertex on that chain. Neither alters either endpoint.</p>
 </section>
 <section class="card">
 <h2>EXACT FOLD/BLOOM FORM</h2>
