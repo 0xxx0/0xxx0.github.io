@@ -112,9 +112,24 @@ HUMAN PORT owns the explicit external share/copy boundary.
 The next credible evolution is not more generic generated lines. It is evidence-bearing curation:
 
 1. recover more exact scene trees / response sequences;
-2. mark user adoption/reuse separately from assistant generation;
-3. add small branch-level KEEP / DROP / WHY receipts;
+2. ~~mark user adoption/reuse separately from assistant generation~~ — **DONE 2026-09-29**: the scene receipt records `used` as its own field, independent of KEEP;
+3. ~~add small branch-level KEEP / DROP / WHY receipts~~ — **DONE 2026-09-29**: verdicts inside a trajectory are keyed `scene#node`, carry `trail`, and accept a short `why`;
 4. only then use the recovered grammar to generate a small new frontier.
+
+### What (2) and (3) change, and why it matters
+
+The promotion law above is `EXACT SOURCE ≠ USER-ADOPTED ≠ CURRENT CANON`. Before this change the
+instrument could record **taste** (KEEP) but never **adoption** — so nothing recovered could ever
+satisfy the rule, and the VAULT read as a museum with no exit. A verdict now carries:
+
+- `v` — KEEP / DROP (taste, as before, backward-compatible with v01 local state);
+- `used` — ADOPTED: this was actually used in a real exchange. **Evidence, not taste.** In the line
+  ranking, adoption outscores KEEP because it is the stronger claim;
+- `why` — short free text: what made it work or fail;
+- `scene` / `node` / `trail` — WHICH branch it came from and the path taken to reach it.
+
+Still local-only: `DRAFT ≠ SEND`, and nothing here uploads or promotes automatically. The receipts
+are the *evidence substrate* a later, deliberate promotion step can read.
 
 
 ## Recovered source packs

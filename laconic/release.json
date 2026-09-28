@@ -2,10 +2,11 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.3.1",
-  "released": "2026-09-28",
+  "version": "0.3.2",
+  "released": "2026-09-29",
   "state": "ACTIVE",
   "changes": [
+    "v0.3.2 — branch-level receipt: verdicts inside a scene are keyed scene#node, carry the trail, and record `used` (ADOPTION) separately from KEEP (taste) plus a short `why`. Backward-compatible with existing v01 local state.",
     "renamed the recovered-fragments surface to VAULT and kept the active drafting layer small",
     "made the exact 2025 60-line Iconic/Laconic source bank browseable by original category without bulk-promoting it into current LINES",
     "made the exact Ping / Flux / Fuse / Myth / Pulse / Void / Glitch / Echo companion lexicon browseable as historical expression vocabulary",
