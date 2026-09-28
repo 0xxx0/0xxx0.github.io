@@ -284,7 +284,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand · capability aperture: ?cap=1</span><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -596,7 +596,7 @@ function renderCatchup(){
    const gap=catchGap(r);
    return '<article class="catchCard '+(head?'head':'')+'"'+(gap?' data-catch-gap="1"':'')+'>'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div>'+(gap?'<div class="catchGap"><b>MORE HERE</b>'+esc(gap)+'</div>':'')+'<div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
  }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
- box.querySelectorAll('[data-catch-focus],[data-catch-gate]').forEach(b=>b.onclick=()=>{const href=b.dataset.catchFocus||b.dataset.catchGate,r=routeMap().get(href);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})});
+ box.querySelectorAll('[data-catch-focus],[data-catch-gate]').forEach(b=>b.onclick=()=>{const href=b.dataset.catchFocus||b.dataset.catchGate,r=routeMap().get(href);if(!r)return;focusRoute(r,true,'OTHER');$('aperture')?.scrollIntoView({behavior:'smooth',block:'center'})});
  box.querySelectorAll('[data-catch-seen]').forEach(b=>b.onclick=()=>markRouteCaughtUp(b.dataset.catchSeen));
  $('catchupMark').disabled=!changed.length;
 }
@@ -772,7 +772,7 @@ function renderWaiting(xs){
  const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED')).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
  const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED')).join('')+'</details>':'';
  $('waitingList').innerHTML=active+parked+removed+other;
- $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})}));
+ $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('aperture')?.scrollIntoView({behavior:'smooth',block:'center'})}));
  const activeById=new Map(groups.active.map(x=>[x.id,x]));
  $('waitingList').querySelectorAll('[data-wait-copy]').forEach(b=>b.addEventListener('click',()=>copyRealityTest(activeById.get(b.dataset.waitCopy),b)));
  updateStatusRail();renderCatchup();
