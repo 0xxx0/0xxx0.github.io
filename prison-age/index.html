@@ -25,7 +25,7 @@ footer{border-top:1px solid var(--line);padding-top:8px;display:flex;justify-con
 <div><div id="number" class="num">08</div><div id="title" class="title">THE SUCCESSFUL ESCAPE<br><b>CHANGES THE NEXT PRISON</b></div></div>
 <div class="meta"><span id="season">SEASON VII</span><span id="engine">ENGINE · TRANSFER LEARNING</span><span id="class">EXACT ANTHOLOGY STORY</span></div>
 <div><div id="preview" class="preview loading">Loading exact source…</div><div class="law"><b>SOURCE LAW</b> · The story is not generated here. READFIELD and FOLD//BLOOM LIVE are unequal projections of the same addressed bytes. Traversal may leave evidence; it does not rewrite the source or prove comprehension.</div></div>
-<div><div class="actions"><button id="readBtn" class="read">READ SOURCE →</button><button id="rideBtn" class="ride">RIDE SAME SOURCE →</button><a id="rawBtn" class="raw" href="#">RAW SOURCE</a></div><div id="status" class="status">PRISON AGE retains source authority · LIVE receives PARAGRAPH / STEP · RETURN preserves exact address.</div></div>
+<div><div class="actions"><button id="readBtn" class="read">READ SOURCE →</button><button id="rideBtn" class="ride">RIDE SAME SOURCE →</button><a id="rawBtn" class="raw" href="#">RAW SOURCE</a></div><div id="status" class="status">PRISON AGE retains source authority · READ/RIDE starts at the exact narrative entry address · LIVE receives SENTENCE / STEP · RETURN preserves exact address.</div></div>
 </section>
 <aside><div class="asideTitle">SOURCED MOVEMENTS / NO CURATED ORDER</div><div id="storyList"></div><div class="archive">The previous “I’M ALWAYS BEHIND YOU” reader is preserved as a failed projection, not current authority.<br><a href="/prison-age/reader-0.2/">OPEN FROZEN 0.2</a></div></aside>
 </main>
@@ -42,6 +42,7 @@ const cleanPreview=raw=>{
   return prose.slice(0,3).join('\n\n');
 };
 const currentUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id);
+const entryChar=()=>{const a=String(story?.entry_anchor||'');const i=a?source.indexOf(a):-1;return i>=0?i:0};
 function updateUrl(){history.replaceState(null,'',currentUrl())}
 function renderList(){
   $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.engine+' · '+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
@@ -58,7 +59,7 @@ async function loadStory(id){
 }
 function readSource(){
   if(!story)return;
-  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',currentUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');location.href=u.pathname+u.search;
+  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',currentUrl());u.searchParams.set('ap_scale','SENTENCE');u.searchParams.set('ap_char',String(entryChar()));location.href=u.pathname+u.search;
 }
 async function rideSource(){
   if(!story||!source.trim())return;
@@ -66,11 +67,11 @@ async function rideSource(){
   const packet=makeReadRidePacket({
     source,label:'PRISON AGE · '+story.title,
     sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
-    focus:{char_index:0,source_progress:0},
+    focus:{char_index:entryChar(),source_progress:source.length?entryChar()/source.length:0,grain:'SENTENCE'},
     from:currentUrl(),returnAddress:currentUrl()
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
-  $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
+  $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / SENTENCE / STEP · OWNER PRISON_AGE';
   location.href='/fold-bloom/live/?source=readfield&course=STEP';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
