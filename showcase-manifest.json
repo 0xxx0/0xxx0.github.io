@@ -8427,16 +8427,19 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE",
       "state": "ACTIVE",
-      "version": "0.3",
+      "version": "0.4",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
-      "role": "Source-first Prison Age doorway. Exact sourced movements remain primary; READ opens READFIELD and RIDE sends the same addressed bytes into FOLD//BLOOM LIVE STEP mode. No generated story framing, no active P26 motif/path, no canon reading order.",
+      "latest_return": "/returns/PRISON_AGE_SOURCE_SCORE_TERRAIN_2026-09-28.json",
+      "role": "Source-first Prison Age doorway. Exact sourced movements remain primary; READ opens READFIELD and RIDE sends the same addressed bytes into FOLD//BLOOM LIVE as SENTENCE / STEP over deterministic text-derived terrain. A bounded exact-quote score may change reversible LIVE presentation only. No generated story framing, no active P26 motif/path, no canon reading order.",
       "transfer": [
         "exact Prison Age story address + bytes → READFIELD",
         "exact same story bytes + source identity → FOLD//BLOOM LIVE field-read-ride/v0.1",
         "READ/RIDE → exact /prison-age/?story=<id> return",
-        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen"
+        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen",
+        "exact source structure → deterministic fold-bloom-read-track-map/v0.1 terrain; STRUCTURE ≠ MEANING",
+        "exact unique Prison Age quote spans → field-read-experience/v0.1 projection-only scene/profile cues",
+        "LIVE RETURN → exact source cursor/traversal + optional cue-encounter evidence"
       ],
       "contract": {
         "accepts": {
@@ -8446,22 +8449,27 @@
           ]
         },
         "transforms": {
-          "verb": "choose an exact sourced movement, then READ or RIDE the same bytes through an existing host",
+          "verb": "choose an exact sourced movement, then READ it or RIDE the same bytes as a source-derived field; optional exact-quote score changes presentation only",
           "preserves": [
             "source address",
             "source bytes",
             "source status",
             "story identity",
-            "exact return route"
+            "exact return route",
+            "manual presentation override",
+            "source-score reversibility"
           ],
           "reversibility": "source selector / exact URL re-entry / return from READFIELD or LIVE",
-          "side_effects": "session-local READ/RIDE handoff only; no source mutation"
+          "side_effects": "session-local READ/RIDE handoff plus reversible presentation projection only; no source mutation and no cue preference persistence"
         },
         "emits": {
           "kinds": [
             "READFIELD source projection",
             "field-read-ride/v0.1 handoff",
-            "shareable story URL"
+            "shareable story URL",
+            "fold-bloom-read-track-map/v0.1 structural terrain",
+            "field-read-experience/v0.1 projection score",
+            "field-read-experience-return/v0.1 cue traversal evidence"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -8491,13 +8499,13 @@
           },
           {
             "medium": "EXPERIENCE",
-            "kind": "FOLD//BLOOM LIVE STEP traversal",
+            "kind": "FOLD//BLOOM LIVE SENTENCE / STEP over deterministic text terrain",
             "interface": "RIDE SAME SOURCE"
           },
           {
             "medium": "DATA",
-            "kind": "exact source/return identity",
-            "interface": "field-read-ride/v0.1"
+            "kind": "exact source/cursor/traversal + optional source-cue evidence",
+            "interface": "field-read-ride/v0.1 → RETURN"
           }
         ],
         "exit_paths": [
@@ -8520,11 +8528,11 @@
       },
       "classification": "RECOVERED_2026_SOURCE / SOURCE_DOORWAY",
       "evolution": {
-        "mutation": "Reader 0.2 is frozen; active route contracts to exact source selection plus two unequal existing projections.",
-        "question": "Can LIVE make authored Prison Age text more traversable without becoming the content?"
+        "mutation": "Source-first doorway retained; RIDE now gains source-derived structural terrain, exact-quote reversible presentation score, and visible traversal RETURN. Frozen reader 0.2 remains lineage only.",
+        "question": "Can the source literally shape the traversable field while remaining more salient than the field?"
       },
       "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
+        "updated_at": "2026-09-28T20:40:00+08:00",
         "work_modes": [
           "READ",
           "RIDE",
