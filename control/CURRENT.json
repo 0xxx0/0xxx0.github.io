@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T11:31:35+08:00",
+  "updated": "2026-09-28T12:31:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE",
+      "head": "FIELD INDEX 0.8.16 / SEMANTIC SCALE + PROJECT GLYPH COMPOSITION",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. CATCH + ACT now distinguishes changed evidence from an optional MORE HERE knowledge-gap witness derived only from existing route question/gap/exit declarations; it creates no quest, priority, obligation or canonical read state. FIELD focus remains an INTERPHASE host and may explicitly hand the held route to Dayline without moving native authority. FIELD held-route → Dayline now additionally carries the same route through interphase-carrier/v0.1 beside the legacy interphase projection witness; this is additive/backward-compatible and transfers no effect authority. FOVEA /fovea/ is now a projection-only one-field access surface over registered routes; it opens native hosts and never becomes a second store or priority engine.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. FIELD now preserves focus across FIELD/ROUTE/OBJECT semantic aperture and FOVEA local detail. At exact CURRENT-head focus, OBJECT scale may derive an INTERPHASE project glyph from CURRENT + manifest + RETURN while composing the existing FIELD glyph as its inner identity/state witness. This is projection only: project glyph operations are VIEW-only; native hosts retain domain/effect authority; no project registry, backlog, second priority or second zoom system is introduced.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -79,10 +79,14 @@
         "/returns/INTERPHASE_CARRIER_2026-09-27.json",
         "/fovea/",
         "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md",
-        "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json"
+        "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
+        "/control/confluence/PROJECT_SCALE_MAP_2026-09-28.md",
+        "/lib/project-head-glyph.js",
+        "/tools/project-head-glyph-selftest.cjs",
+        "/returns/FIELD_INDEX_PROJECT_GLYPH_CONVERGENCE_2026-09-28.json"
       ],
-      "version": "0.8.15",
-      "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json"
+      "version": "0.8.16",
+      "latest_return": "/returns/FIELD_INDEX_PROJECT_GLYPH_CONVERGENCE_2026-09-28.json"
     },
     {
       "lineage": "scale-lens",
