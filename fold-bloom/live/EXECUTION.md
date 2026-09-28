@@ -42,6 +42,7 @@ Donors remain addressable and independent:
 29. **Calculation is residue, not control.** `FoldBloomLive.calculus()` may join native forecast evidence, recent history, J-space support and traversal policy into one inspectable witness, but it emits no operation and owns no state.
 30. **Recent HEX is history-only.** Six authored release verbs form one exact 4^6 history; the existing binary relation quotient maps that history into one of 2^6 HEX states, so every HEX represents 64 exact verb histories and drops 6 uniform bits. Earlier native sufficiency experiments already falsified HEX/recent-form history as replacements for current LIVE control state.
 31. **Model support is not permission.** J-space/model direction overlap may report how many currently lawful native forecasts match a direction. It remains PREVIEW_ONLY with `commit_operation:null`; native LIVE forecast/release remains the effect aperture.
+32. **Ghost steering is a path witness, not a driver.** For a supported candidate slot, LIVE may derive the shortest signed ring delta from the current gate and render `LEFT/RIGHT/HERE × steps`. Applying that delta to a cloned state must land on the advertised slot. The ghost never rotates the authored state, selects among tied candidates, or grants RELEASE authority.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
