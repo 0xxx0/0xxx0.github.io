@@ -10,7 +10,9 @@ import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride
 import { PracticeTrack } from './practice-track.js';
 import { normalizePins } from '../listen/stream-lens.js';
 import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} from './visual-worlds.js?v=0.3';
-import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
+import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,hasLocalMedia,requestPersistentLocalStorage} from '../local-media-store.js';
+import {hashFile} from '../../lib/id.js';
+import {IMAGE_GRAINS,IMAGE_SET_STORAGE,IMAGE_DWELL_SECONDS,isImageRecord,makeImageCourse,imageCourseAddressAt,stepImageCourse,createImageClock,imageSetProgress,imageSetSeconds,makeImageSetManifest,normalizeImageSetManifest,normalizeImageSetRegistry,imageCourseSummary} from './image-course.js?v=0.1';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
 import {buildLiveCalculation,liveCalculationSummary} from './live-calculus.js?v=0.1';
@@ -29,6 +31,20 @@ let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:nu
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
 let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,perf={emaMs:16.7,fps:60,modelHz:0};
+// IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
+// never pass through here: they stay in the browser vault keyed by sha256. What lives
+// here is the declaration, the course built from its metadata, and the clock that lets
+// FLOW advance the address when no audio source exists to drive it.
+let imageSet=null,imageRegistry=[],imageUrlCache=new Map(),imageUrlPending=new Map(),imageStageKey='',imageTrailKey='',imageTick=0;
+// The addressed readout must not depend on the render loop. rAF is throttled in
+// headless and in a backgrounded tab, while the set clock keeps running on
+// performance.now(); without this the address would move but the readout would not.
+// This is a 4 Hz readout tick, not a second render loop.
+function startImageTicker(){
+  if(imageTick)return imageTick;
+  imageTick=setInterval(()=>{if(!imageSet)return;syncImageStage();syncImageSetReadouts()},250);
+  return imageTick;
+}
 const CENTER_MASS_SOURCE='2b09a703-1881-4471-bf65-cc51c976d32c';
 const CENTER_MASS_URL='https://cdn1.suno.ai/'+CENTER_MASS_SOURCE+'.mp3';
 const PUBLIC_DEMO_URL='./demo/center-mass-demo.mp3';
@@ -102,13 +118,23 @@ const liveTrack=new LiveTrack($('#trackAudio'),{
 });
 liveTrack.setVolume(.78);
 const AUDIO_COURSE_GRAINS=['BEAT','PHRASE','SECTION'];
-function activeCourseGrains(){return readRide?[...READ_GRAINS]:AUDIO_COURSE_GRAINS}
+function activeCourseGrains(){return readRide?[...READ_GRAINS]:imageSet?[...IMAGE_GRAINS]:AUDIO_COURSE_GRAINS}
 function readRideCourse(){
   if(!readRide)return null;
   if(!readRide.course||readRide.course.grain!==courseGrain)readRide.course=makeReadCourse(readRide.packet,{grain:courseGrain});
   return readRide.course;
 }
-function liveCourse(){return readRide?readRideCourse():(liveTrack.mapped()?mapCourse(liveTrack.map,{grain:courseGrain}):null)}
+function rebuildImageCourse(grain=courseGrain){
+  if(!imageSet)return null;
+  imageSet.course=makeImageCourse(imageSet.entries,{grain,setKey:imageSet.setKey,dwell:imageSet.dwell,label:imageSet.label,loop:imageSet.loop!==false});
+  return imageSet.course;
+}
+// ONE addressed source at a time, resolved the same way for all three kinds.
+function liveCourse(){
+  if(readRide)return readRideCourse();
+  if(imageSet)return imageSet.course;
+  return liveTrack.mapped()?mapCourse(liveTrack.map,{grain:courseGrain}):null;
+}
 function exactReadVisit(hit){
   const p=hit?.point;if(!readRide||!p)return null;
   return {source_id:readRide.packet.sourceIdentity?.id||'',start:Number(p.start),end:Number(p.end),grain:String(p.kind||courseGrain),address:String(hit.address||p.address||'')};
@@ -125,6 +151,9 @@ function resetExactReadTrail(){
 }
 function liveCourseProgress(){
   if(readRide)return Math.max(0,Math.min(1,Number(readRide.progress)||0));
+  // A set clock exists without audio. This is the whole point: FLOW has something to
+  // read even when nothing is playing, so the address moves with no tap.
+  if(imageSet)return imageSetProgress(imageSet.course,imageSet.clock);
   const duration=Number(liveTrack.map?.duration)||0;
   return duration>0?Math.max(0,Math.min(1,(Number($('#trackAudio')?.currentTime)||0)/duration)):0;
 }
@@ -132,13 +161,21 @@ function courseAddress(course,p){
   return readRide?readCourseAddressAt(course,p):courseAddressAt(course,p);
 }
 function courseStep(course,p,delta){
-  return readRide?stepReadCourse(course,p,delta):stepCourse(course,p,delta);
+  if(readRide)return stepReadCourse(course,p,delta);
+  if(imageSet)return stepImageCourse(course,p,delta,{loop:imageSet.course?.loop!==false});
+  return stepCourse(course,p,delta);
 }
 function courseModeLabel(value=courseMode){return value==='RELEASE_STEP'?'RELEASE→STEP':value}
 function courseModeLaw(value=courseMode){
   if(readRide){
     if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address. The text source itself is never rewritten.';
     return 'STEP changes only the addressed '+courseGrain+' witness. RELEASE writes LIVE consequence and holds the text address.';
+  }
+  if(imageSet){
+    const dwell=Number(imageSet.course?.dwell)||IMAGE_DWELL_SECONDS;
+    if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address of the set. The set clock stays held.';
+    if(value==='STEP')return '← / → or map tap moves exactly one '+courseGrain+' address. The set clock is held; the declared images are never re-picked.';
+    return 'SET CLOCK advances address continuously — one '+courseGrain+' every '+dwell+'s, cycling at the seam. No audio source required. RELEASE writes LIVE consequence but never seeks the set.';
   }
   if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address. Source playback stays paused.';
   if(value==='STEP')return '← / → or map tap moves exactly one '+courseGrain+' address. RELEASE writes LIVE consequence and holds the source address.';
@@ -159,27 +196,35 @@ function syncCourseControls(){
   const label=courseModeLabel();
   if(mode){mode.textContent=label;mode.classList.toggle('on',courseMode==='STEP'||courseMode==='RELEASE_STEP')}
   if(grain)grain.textContent=courseGrain;
-  const hit=course?courseAddress(course,p):null,empty=readRide?'read://empty':'course://audio_map/empty',count=course?.points?.length||0,index=hit?.index??-1;
+  const hit=course?courseAddress(course,p):null,empty=readRide?'read://empty':imageSet?'course://image_set/empty':'course://audio_map/empty',count=course?.points?.length||0,index=hit?.index??-1;
   if(address)address.textContent=hit?.address||empty;
-  if(witness)witness.textContent=course?(label+' · '+courseGrain+' · '+Math.max(1,index+1)+' / '+count):(label+' · '+courseGrain+' · NO SOURCE MAP');
+  if(witness)witness.textContent=course?(label+' · '+courseGrain+' · '+Math.max(1,index+1)+' / '+count+(imageSet&&course?(' · '+(imageSet.clock?.paused?'HELD':'RUNNING')):'')):(label+' · '+courseGrain+' · NO SOURCE MAP');
   if(law)law.textContent=courseModeLaw();
   if(quick){quick.hidden=!course;quick.textContent=label+' · '+courseGrain;quick.classList.toggle('on',courseMode!=='FLOW');quick.setAttribute('aria-label','Traversal '+label+' at '+courseGrain+' grain')}
   document.documentElement.dataset.foldBloomCourseMode=courseMode;
   document.documentElement.dataset.foldBloomCoursePolicy=courseMode==='RELEASE_STEP'?'RELEASE_THEN_ONE_ADDRESS':courseMode==='STEP'?'MANUAL_ADDRESS_ONLY':'SOURCE_CLOCK';
   document.documentElement.dataset.foldBloomCourseGrain=courseGrain;
   document.documentElement.dataset.foldBloomCourseAddress=hit?.address||empty;
-  document.documentElement.dataset.foldBloomCourseKind=readRide?'READFIELD_TEXT':(liveTrack.mapped()?'AUDIO_MAP':'NONE');
+  document.documentElement.dataset.foldBloomCourseKind=readRide?'READFIELD_TEXT':imageSet?'IMAGE_SET':(liveTrack.mapped()?'AUDIO_MAP':'NONE');
   return hit;
 }
 function drawCourseMap(force=false){
   const cv=$('#courseMap');if(!cv)return null;
-  const course=liveCourse(),progress=liveCourseProgress(),key=course?(readRide?'r:':'a:')+Math.round(progress*2000)+':'+courseGrain+':'+courseMode:'empty';
+  const course=liveCourse(),progress=liveCourseProgress(),key=course?(readRide?'r:':imageSet?'i:':'a:')+Math.round(progress*2000)+':'+courseGrain+':'+courseMode:'empty';
   if(!force&&key===lastCoursePaint)return null;lastCoursePaint=key;
   const g=cv.getContext('2d'),w=cv.width,h=cv.height;g.clearRect(0,0,w,h);g.fillStyle='#05070b';g.fillRect(0,0,w,h);
   if(!course){
-    g.fillStyle='#46515a';g.font='8px ui-monospace,monospace';g.fillText(readRide?'READ SOURCE EMPTY':'LOAD TRACK OR READ SOURCE',8,25);syncCourseControls();return null
+    g.fillStyle='#46515a';g.font='8px ui-monospace,monospace';g.fillText(readRide?'READ SOURCE EMPTY':imageSet?'IMAGE SET EMPTY':'LOAD TRACK OR READ SOURCE',8,25);syncCourseControls();return null
   }
   g.fillStyle='rgba(255,255,255,.10)';g.fillRect(0,h/2,w,1);
+  if(imageSet){
+    // The set has no measured internal structure to draw, so the strip shows only what
+    // is true: where the address boundaries are and where the clock currently points.
+    const pts=course.points||[],stride=Math.max(1,Math.ceil(pts.length/180));
+    g.fillStyle='rgba(123,213,255,.62)';for(let i=0;i<pts.length;i+=stride)g.fillRect(Math.round(pts[i].p*w),h*.23,1,h*.54);
+    g.fillStyle='#f2f3ef';g.fillRect(Math.round(progress*w)-1,2,3,h-4);
+    syncCourseControls();return {schema:course.schema,progress,points:pts.length,grain:course.grain};
+  }
   if(readRide){
     const pts=course.points||[],stride=Math.max(1,Math.ceil(pts.length/180));
     g.fillStyle='rgba(215,180,109,.68)';for(let i=0;i<pts.length;i+=stride)g.fillRect(Math.round(pts[i].p*w),h*.23,1,h*.54);
@@ -200,9 +245,12 @@ function setCourseMode(next,announce=true){
   courseMode=readRide?(nextMode==='RELEASE_STEP'?'RELEASE_STEP':'STEP'):nextMode;
   if(courseMode==='STEP'||courseMode==='RELEASE_STEP'){
     if(liveTrack.sourceActive())$('#trackAudio').pause();
-  }
+    // STEP holds the set clock — the same word the course law already uses.
+    if(imageSet)imageSet.clock.hold();
+  }else if(imageSet)imageSet.clock.start();
+  if(imageSet)refreshImageVault();
   drawCourseMap(true);update();
-  if(announce)toast((readRide?'READ':'TRACK')+' · '+courseModeLabel()+(courseMode==='STEP'||courseMode==='RELEASE_STEP'?' · '+courseGrain:''));
+  if(announce)toast((readRide?'READ':imageSet?'SET':'TRACK')+' · '+courseModeLabel()+(courseMode==='STEP'||courseMode==='RELEASE_STEP'?' · '+courseGrain:''));
   return courseMode;
 }
 function cycleCourseMode(){
@@ -213,6 +261,9 @@ function cycleCourseMode(){
 function cycleCourseGrain(){
   const grains=activeCourseGrains();let i=grains.indexOf(courseGrain);if(i<0)i=0;courseGrain=grains[(i+1)%grains.length];
   if(readRide){readRide.course=null;resetExactReadTrail()}
+  // A grain change re-addresses the SAME set at the SAME set-time — the clock is not
+  // touched, so continuity of position survives the projection change.
+  else if(imageSet){rebuildImageCourse(courseGrain);recordImageVisit(imageCourseAddressAt(imageSet.course,liveCourseProgress()));syncImageStage(true)}
   drawCourseMap(true);lastTextKey='';updateTextWitness();toast('STEP GRAIN · '+courseGrain);return courseGrain;
 }
 function seekCourseProgress(p,{keepMode=true}={}){
@@ -220,6 +271,15 @@ function seekCourseProgress(p,{keepMode=true}={}){
   const next=Math.max(0,Math.min(1,Number(p)||0));
   if(readRide){
     readRide.progress=next;if(courseMode!=='RELEASE_STEP')courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
+  }
+  if(imageSet){
+    // Seeking re-anchors the set clock; it does not fabricate a progress value. A held
+    // set stays held, a running set keeps running from the new anchor.
+    if((courseMode==='STEP'||courseMode==='RELEASE_STEP')||!keepMode)imageSet.clock.hold();
+    imageSet.clock.seekSeconds(next*Number(imageSet.course?.duration||0));
+    lastCoursePaint=-1;lastTextKey='';drawCourseMap(true);updateTextWitness();
+    const hit=imageCourseAddressAt(course,next);recordImageVisit(hit);syncImageStage(true);update();
+    return hit;
   }
   const duration=Number(liveTrack.map?.duration)||0;
   if((courseMode==='STEP'||courseMode==='RELEASE_STEP')||!keepMode)$('#trackAudio').pause();
@@ -325,16 +385,23 @@ function releaseLabel(){
 }
 
 
+function imageWitness(){
+  // The addressed image IS the witness: same element the lyric band uses, so the
+  // addressed object stays one object across projections.
+  const course=imageSet?.course,hit=course?imageCourseAddressAt(course,liveCourseProgress()):null,p=hit?.point;
+  if(!p)return null;
+  return {kind:'IMAGE',mode:'SET',grain:course.grain,address:hit.address,index:hit.index,count:course.points.length,start:null,alignment:null,name:p.name,text:String(p.label||p.name||'')};
+}
 function updateTextWitness(){
   const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
   const w=textOn
-    ?(readRide?readCourseWitness(liveCourse(),liveCourseProgress()):(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null))
+    ?(readRide?readCourseWitness(liveCourse(),liveCourseProgress()):(imageSet?imageWitness():(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null)))
     :null;
   if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return null}
-  const key=readRide?[w.grain,w.address,w.text].join('|'):[w.mode,w.alignment,w.start,w.text].join('|');
+  const key=readRide?[w.grain,w.address,w.text].join('|'):imageSet?[w.grain,w.address,w.text].join('|'):[w.mode,w.alignment,w.start,w.text].join('|');
   if(key!==lastTextKey){
     lastTextKey=key;box.hidden=false;
-    mode.textContent=readRide?('READ · '+w.grain):(w.mode==='TIMED'?((w.kind||'TEXT')+' · TIMED'):((w.kind||'TEXT')+' · FLOAT / UNALIGNED'));
+    mode.textContent=readRide?('READ · '+w.grain):imageSet?('SET · '+w.grain):(w.mode==='TIMED'?((w.kind||'TEXT')+' · TIMED'):((w.kind||'TEXT')+' · FLOAT / UNALIGNED'));
     body.textContent=String(w.text||'').slice(0,readRide?520:320);
   }
   return w;
@@ -433,7 +500,9 @@ function update(){
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
   $('#build').textContent=readRide
     ?`${VERSION} · READFIELD TEXT × addressed course × LIVE POV → READ-RIDE · ${courseGrain} · ${Math.round(liveCourseProgress()*100)}%`
-    :`${VERSION} · AUDIO MAP × deformation tape × ride trace → traversable TRACKFIELD · ${deformationTape.length} road ops · ${ride.branchChoices} branch choices`;
+    :imageSet
+      ?`${VERSION} · LOCAL IMAGE SET × self-driving set clock → addressed source · ${imageCourseSummary(imageSet.course)} · ${courseGrain} · ${Math.round(liveCourseProgress()*100)}%`
+      :`${VERSION} · AUDIO MAP × deformation tape × ride trace → traversable TRACKFIELD · ${deformationTape.length} road ops · ${ride.branchChoices} branch choices`;
   syncAutopilotUI();
   renderer.setDrag(dragAngle);
   save();
@@ -516,6 +585,7 @@ function clearReadRide({silent=false}={}){
 function loadReadRidePacket(raw,{announce=true}={}){
   const packet=normalizeReadRidePacket(raw);
   stopDemo(false);
+  clearImageSet({silent:true});
   try{$('#trackAudio').pause()}catch(_){}
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
@@ -574,11 +644,203 @@ async function enableFieldAudio(){
 function audioFileOf(files){return [...(files||[])].find(f=>f?.type?.startsWith?.('audio/')||/\.(mp3|m4a|wav|flac|ogg|aac|webm|mp4)$/i.test(f?.name||''))||null}
 async function refreshVault(){
   const select=$('#vaultSelect'),read=$('#vaultCount');if(!select)return [];
-  vaultCache=(await listLocalMedia().catch(()=>[])).filter(x=>x?.blob).sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+  // The image set lives in the SAME vault store. Audio selects must not offer image
+  // records as tracks, so the split is by measured type, not by a new store or schema.
+  vaultCache=(await listLocalMedia().catch(()=>[])).filter(x=>x?.blob&&!isImageRecord(x)).sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
   select.innerHTML='<option value="">REMEMBERED TRACKS…</option>'+vaultCache.map(x=>`<option value="${String(x.sourceId).replaceAll('"','&quot;')}">${String(x.name||x.sourceId).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</option>`).join('');
   if(read)read.textContent=String(vaultCache.length);
   const open=$('#vaultOpen');if(open)open.disabled=!vaultCache.length;
   return vaultCache;
+}
+
+// ── IMAGE SET — the third addressed source ──────────────────────────────────
+//
+// Same vault pattern as audio, extended to images: declare local files ONCE, the
+// browser keeps the bytes in IndexedDB keyed by their exact sha256 source id, and the
+// declaration is remembered so later opens need no picker. Nothing is uploaded and
+// nothing is written to the repo; the course is built from metadata only, which is why
+// the clock can drive the set while the bytes never leave this device.
+function imageRegistryLoad(){
+  try{return normalizeImageSetRegistry(localStorage.getItem(IMAGE_SET_STORAGE)||'[]')}catch(_){return []}
+}
+function imageRegistrySave(list){
+  imageRegistry=normalizeImageSetRegistry(list);
+  try{localStorage.setItem(IMAGE_SET_STORAGE,JSON.stringify(imageRegistry))}catch(_){}
+  return imageRegistry;
+}
+function imageSetView(){
+  if(!imageSet)return null;
+  const course=imageSet.course,hit=course?imageCourseAddressAt(course,liveCourseProgress()):null;
+  return {
+    setKey:imageSet.setKey,label:imageSet.label,grain:course?.grain||null,mode:courseMode,
+    running:!!imageSet.clock&&!imageSet.clock.paused,
+    seconds:+imageSetSeconds(course,imageSet.clock).toFixed(3),
+    address:hit?.address||null,index:hit?.index??null,points:course?.points?.length||0,
+    summary:imageCourseSummary(course),
+    trail:(imageSet.visited||[]).map(x=>({...x})),
+    entries:(imageSet.entries||[]).map(x=>({sourceId:x.sourceId,name:x.name}))
+  };
+}
+function recordImageVisit(hit){
+  if(!imageSet||!hit?.point)return null;
+  const last=imageSet.visited?.at(-1);
+  if(last&&last.address===hit.address)return last;
+  const visit={address:hit.address,grain:imageSet.course?.grain||courseGrain,index:hit.index,
+    sourceId:hit.point.sourceId,label:hit.point.label||hit.point.name||'',
+    seconds:+imageSetSeconds(imageSet.course,imageSet.clock).toFixed(3)};
+  imageSet.visited=[...(imageSet.visited||[]),visit].slice(-64);
+  return visit;
+}
+function trimImageUrls(pin){
+  if(imageUrlCache.size<=16)return;
+  for(const key of [...imageUrlCache.keys()]){
+    if(imageUrlCache.size<=16)break;
+    if(key===pin)continue;
+    try{URL.revokeObjectURL(imageUrlCache.get(key))}catch(_){}
+    imageUrlCache.delete(key);
+  }
+}
+function imageBlobUrl(sourceId){
+  const id=String(sourceId||'');if(!id)return Promise.resolve(null);
+  if(imageUrlCache.has(id))return Promise.resolve(imageUrlCache.get(id));
+  if(imageUrlPending.has(id))return imageUrlPending.get(id);
+  const pending=getLocalMedia(id).then(record=>{
+    imageUrlPending.delete(id);
+    if(!record?.blob)return null;
+    const url=URL.createObjectURL(record.blob);
+    imageUrlCache.set(id,url);trimImageUrls(id);
+    return url;
+  }).catch(()=>{imageUrlPending.delete(id);return null});
+  imageUrlPending.set(id,pending);
+  return pending;
+}
+function syncImageStage(force=false){
+  const img=$('#imageStage');if(!img)return null;
+  if(!imageSet){if(!img.hidden){img.hidden=true;img.removeAttribute('src');imageStageKey=''}return null}
+  const course=imageSet.course,hit=course?imageCourseAddressAt(course,liveCourseProgress()):null;
+  if(!hit?.point){img.hidden=true;return null}
+  img.hidden=false;
+  if(!force&&imageStageKey===hit.address)return hit;
+  imageStageKey=hit.address;img.dataset.address=hit.address;img.dataset.grain=course.grain;
+  if(img.dataset.source!==hit.point.sourceId){
+    img.dataset.source=hit.point.sourceId;
+    const wanted=hit.address;
+    void imageBlobUrl(hit.point.sourceId).then(url=>{
+      if(!url||imageStageKey!==wanted)return; // the set moved on; this frame is past
+      img.src=url;img.alt=String(hit.point.label||hit.point.name||'addressed image');
+    });
+    // Warm the next address so a running set never waits on IndexedDB at the seam.
+    const next=stepImageCourse(course,hit.p,1,{loop:course.loop!==false});
+    if(next?.point&&next.point.sourceId!==hit.point.sourceId)void imageBlobUrl(next.point.sourceId);
+  }
+  return hit;
+}
+function syncImageSetReadouts(){
+  if(!imageSet)return null;
+  const course=imageSet.course,hit=course?imageCourseAddressAt(course,liveCourseProgress()):null;
+  recordImageVisit(hit);
+  const trail=(imageSet.visited||[]).map(v=>`${v.index}@${v.seconds}`).join(';');
+  if(trail!==imageTrailKey){
+    imageTrailKey=trail;
+    const root=document.documentElement;
+    root.dataset.foldBloomImageTrail=trail;
+    root.dataset.foldBloomImageAdvances=String(Math.max(0,(imageSet.visited||[]).length-1));
+    root.dataset.foldBloomImageAddress=hit?.address||'course://image_set/empty';
+    root.dataset.foldBloomImageRunning=imageSet.clock?.paused?'HELD':'RUNNING';
+    const law=$('#imageSetLaw');
+    if(law)law.textContent=`${imageCourseSummary(course)} · ${imageSet.clock?.paused?'HELD':'RUNNING'} · ${courseModeLabel()}`;
+  }
+  return hit;
+}
+async function declareImageSet(files,{label='IMAGE SET'}={}){
+  const list=[...(files||[])].filter(f=>isImageRecord(f));
+  if(!list.length){toast('IMAGE SET · NO IMAGE FILES');return null}
+  requestPersistentLocalStorage().catch(()=>false);
+  const entries=[];
+  for(const [index,file] of list.entries()){
+    let id=null;
+    try{id=await hashFile(file)}catch(error){console.warn('IMAGE SET hash failed',error);continue}
+    await putLocalMedia({sourceId:id,blob:file,name:file.name||id,type:file.type||'image/*',size:file.size,lastModified:file.lastModified||0,meta:{origin:'LIVE_IMAGE_SET',order:index,storedAt:new Date().toISOString()}}).catch(error=>console.warn('IMAGE SET vault store failed',error));
+    entries.push({sourceId:id,name:file.name||id,type:file.type||'',size:file.size,order:index});
+  }
+  if(!entries.length){toast('IMAGE SET · NOTHING STORED');return null}
+  const course=makeImageCourse(entries,{grain:'FRAME',dwell:IMAGE_DWELL_SECONDS,label});
+  const manifest=makeImageSetManifest(course);
+  imageRegistrySave([manifest,...imageRegistryLoad().filter(x=>x.setKey!==manifest.setKey)]);
+  return openImageSetManifest(manifest);
+}
+function openImageSetManifest(raw,{announce=true}={}){
+  const manifest=normalizeImageSetManifest(raw);
+  stopDemo(false);
+  clearReadRide({silent:true});
+  try{$('#trackAudio').pause()}catch(_){}
+  liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
+  deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
+  courseGrain=manifest.grain||'FRAME';
+  imageSet={setKey:manifest.setKey,label:manifest.label,dwell:manifest.dwell,loop:true,entries:manifest.entries,course:null,clock:createImageClock(),visited:[]};
+  imageStageKey='';imageTrailKey='';rebuildImageCourse(courseGrain);
+  courseMode='FLOW';
+  // The clock starts itself. FLOW does not wait for a click — that is the fix.
+  imageSet.clock.seekSeconds(0);imageSet.clock.start();
+  lastCoursePaint=-1;lastTextKey='';
+  recordImageVisit(imageCourseAddressAt(imageSet.course,liveCourseProgress()));
+  layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();syncSoundGate(false);
+  const root=document.documentElement;
+  root.dataset.foldBloomImageSet=manifest.setKey;
+  root.dataset.foldBloomImageGrain=courseGrain;
+  $('#intro').classList.remove('on');
+  drawCourseMap(true);updateTextWitness();syncImageStage(true);update();refreshImageVault();
+  startImageTicker();
+  if(announce)toast(`IMAGE SET · ${manifest.label} · ${imageCourseSummary(imageSet.course)} · RUNNING`);
+  return imageSetView();
+}
+function openImageSetByKey(setKey,{announce=true}={}){
+  const manifest=imageRegistryLoad().find(m=>m.setKey===String(setKey||''));
+  if(!manifest){toast('IMAGE SET · NOT REMEMBERED HERE');return null}
+  return openImageSetManifest(manifest,{announce});
+}
+async function openImageSetFromVault(){
+  const setKey=$('#imageSetSelect')?.value;if(!setKey)return null;
+  const manifest=imageRegistryLoad().find(m=>m.setKey===setKey);
+  if(!manifest){toast('IMAGE SET · MISSING');await refreshImageVault();return null}
+  const seen=await Promise.all(manifest.entries.map(e=>hasLocalMedia(e.sourceId).catch(()=>false)));
+  const missing=seen.filter(ok=>!ok).length;
+  const out=openImageSetManifest(manifest,{announce:false});
+  toast(missing?`IMAGE SET · ${missing}/${manifest.entries.length} BYTES MISSING`:`IMAGE SET · ${manifest.label} · RUNNING`);
+  return out;
+}
+function clearImageSet({silent=false}={}){
+  if(!imageSet)return false;
+  stopImageTicker();
+  for(const url of imageUrlCache.values()){try{URL.revokeObjectURL(url)}catch(_){}}
+  imageUrlCache=new Map();imageUrlPending=new Map();imageStageKey='';imageTrailKey='';
+  const img=$('#imageStage');if(img){img.hidden=true;img.removeAttribute('src');delete img.dataset.address;delete img.dataset.source}
+  imageSet=null;
+  if(IMAGE_GRAINS.includes(courseGrain))courseGrain='PHRASE';
+  courseMode='FLOW';lastCoursePaint=-1;lastTextKey='';
+  const root=document.documentElement;
+  delete root.dataset.foldBloomImageSet;delete root.dataset.foldBloomImageTrail;
+  delete root.dataset.foldBloomImageAdvances;delete root.dataset.foldBloomImageAddress;
+  delete root.dataset.foldBloomImageRunning;delete root.dataset.foldBloomImageGrain;
+  syncRideProfile();syncLayerUI();drawCourseMap(true);updateTextWitness();update();refreshImageVault();
+  if(!silent)toast('IMAGE SET RETURNED');
+  return true;
+}
+function stopImageTicker(){
+  if(imageTick){clearInterval(imageTick);imageTick=0}
+  return 0;
+}
+function refreshImageVault(){
+  const select=$('#imageSetSelect'),count=$('#imageSetCount'),law=$('#imageSetLaw');
+  imageRegistry=imageRegistryLoad();
+  if(select){
+    select.innerHTML='<option value="">REMEMBERED SETS…</option>'+imageRegistry.map(m=>`<option value="${String(m.setKey).replaceAll('"','&quot;')}"${imageSet&&imageSet.setKey===m.setKey?' selected':''}>${String(m.label||m.setKey).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))} · ${m.count}</option>`).join('');
+  }
+  if(count)count.textContent=String(imageRegistry.length);
+  if(law)law.textContent=imageSet
+    ?`${imageCourseSummary(imageSet.course)} · ${imageSet.clock?.paused?'HELD':'RUNNING'} · ${courseModeLabel()}`
+    :'Local images stay in this browser vault. Declare a set once — it advances on its own clock, never on a click.';
+  return imageRegistry;
 }
 async function retainLiveSource(files){
   const file=audioFileOf(files),meta=liveTrack.metadata();if(!file||!meta?.hash)return false;
@@ -594,7 +856,7 @@ async function openVaultSource(){
 }
 async function loadLocalSong(files,{retain=true,label='CUSTOM SONG READY'}={}){
   if(!files||!files.length)return;
-  clearReadRide({silent:true});stopDemo(false);
+  clearReadRide({silent:true});clearImageSet({silent:true});stopDemo(false);
   courseGrain='PHRASE';courseMode='FLOW';
   try{
     deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
@@ -616,7 +878,7 @@ function waitForRemoteReady(timeout=5000){
   });
 }
 async function enterCenterMass(){
-  clearReadRide({silent:true});stopDemo(false);
+  clearReadRide({silent:true});clearImageSet({silent:true});stopDemo(false);
   courseGrain='PHRASE';courseMode='FLOW';
   try{
     trackStatus='PROBING OPTIONAL REMOTE SOURCE';update();
@@ -636,7 +898,7 @@ async function enterCenterMass(){
 
 
 async function preparePublicDemo(){
-  clearReadRide({silent:true});
+  clearReadRide({silent:true});clearImageSet({silent:true});
   if(publicDemoReady&&liveTrack.mapped())return true;
   if(publicDemoLoading)return publicDemoLoading;
   publicDemoLoading=(async()=>{
@@ -846,9 +1108,15 @@ $('#sourceQuick')?.addEventListener('click',()=>readRide?chooseRead():chooseSong
 $('#vibeQuick')?.addEventListener('click',cycleVibe);
 $('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#readIntroBtn')?.addEventListener('click',chooseRead);
+$('#imageIntroBtn')?.addEventListener('click',()=>{stopDemo(true);setMenuOpen(false);$('#imageFile').click()});
 $('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
 $('#vaultOpen')?.addEventListener('click',()=>{void openVaultSource()});
+// IMAGE SET — three reachable ops and no more: declare, open a remembered set, return.
+$('#imagePickBtn')?.addEventListener('click',()=>{stopDemo(true);setMenuOpen(false);$('#imageFile').click()});
+$('#imageFile').onchange=e=>{const files=[...(e.target.files||[])];e.target.value='';if(files.length)void declareImageSet(files)};
+$('#imageSetSelect')?.addEventListener('change',e=>{const setKey=e.target.value;if(setKey)void openImageSetFromVault()});
+$('#imageClearBtn')?.addEventListener('click',()=>clearImageSet());
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#readFile').onchange=e=>{const file=e.target.files?.[0];e.target.value='';if(file)void loadReadFile(file)};
 $('#readfieldReturn')?.addEventListener('click',()=>{if(!returnReadRide())toast('NO READFIELD RETURN')});
@@ -968,17 +1236,23 @@ function loop(t){
   }
   renderer.setTrackfield(latestWorld);
   drawCourseMap();
+  syncImageStage();
+  syncImageSetReadouts();
   updateTextWitness();
   renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
-syncRideProfile();syncLayerUI();refreshVault();drawCourseMap(true);syncMixUI();update();
+syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
+// A remembered set can be opened by name, exactly like a remembered audio source
+// (`?source=`). The picker is a one-time act; the address is addressable after it.
+const launchImages=String(launchParams.get('images')||'').trim();
+if(launchImages){document.documentElement.dataset.foldBloomLaunch='image-set';openImageSetByKey(launchImages,{announce:false})}
 if(launchSource==='example'){document.documentElement.dataset.foldBloomLaunch='public-demo';preparePublicDemo().then(ok=>{if(ok)toast('AUDIO EXAMPLE READY · TAP PLAY')})}
 else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true});toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}

@@ -90,3 +90,12 @@ html.fbMenuOpen .soundGate{pointer-events:none!important}
 .calcRows span{color:#cfd6d9;overflow-wrap:anywhere}
 .calcFormula{margin-top:6px;padding:7px 8px;border-left:2px solid rgba(109,189,255,.45);color:#8297a3;font-size:7px;line-height:1.45}
 @media(max-width:620px){.calcRows>div{grid-template-columns:68px minmax(0,1fr);padding:8px}.calcSummary,.calcRows>div,.calcFormula{font-size:7.25px}}
+
+/* IMAGE SET — the addressed image IS the object at focus. A hard-edged frame, no
+   rounding and no decoration: it is a source, not a card. It sits above the field
+   canvas and below the chrome, and it takes no pointer events, so the existing
+   drag/scrub surface (and its keyboard/accessibility paths) is untouched. */
+#imageStage{position:absolute;left:50%;top:max(64px,calc(env(safe-area-inset-top) + 58px));transform:translateX(-50%);width:min(94vw,880px);height:min(56vh,470px);object-fit:contain;background:#05070b;border:1px solid rgba(255,255,255,.22);pointer-events:none;z-index:1}
+#imageStage[hidden]{display:none}
+.imageControl .vaultRow{grid-template-columns:minmax(0,1fr)}
+@media(max-width:620px){#imageStage{top:max(58px,calc(env(safe-area-inset-top) + 52px));width:96vw;height:min(44vh,360px)}}
