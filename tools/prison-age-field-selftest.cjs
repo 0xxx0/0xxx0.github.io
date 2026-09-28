@@ -68,6 +68,10 @@ assert(field.includes("story=open-air&action=read&return=field"),'FIELD READ tar
 assert(field.includes("story=open-air&action=ride&return=field"),'FIELD RIDE target');
 assert(field.includes("story=open-air&return=field"),'FIELD SOURCE target');
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
-assert(fh?.version==='0.8.20','FIELD head advanced');
-assert(fh?.latest_return==='/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json','FIELD return receipt');
-console.log('PRISON AGE → FIELD CONVERGENCE PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
+const fv=String(fh?.version||'0').split('.').map(Number),fnum=(fv[0]||0)*1e6+(fv[1]||0)*1e3+(fv[2]||0);
+assert(fnum>=8020,'FIELD head regressed below 0.8.20 source-set baseline');
+assert((fh?.evidence||[]).includes('/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json'),'Prison Age convergence evidence retained by later FIELD heads');
+assert((fh?.evidence||[]).includes('/prison-age/release.json'),'Prison Age release evidence retained by later FIELD heads');
+const fieldRoot=manifest.routes.find(r=>r.href==='/');
+assert((fieldRoot?.transfer||[]).some(x=>/^0\.8\.20 source-set native actions:/.test(String(x))),'FIELD root retains 0.8.20 source-set transfer');
+console.log('PRISON AGE → FIELD CONVERGENCE PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE · LATER FIELD HEADS MAY ADVANCE');
