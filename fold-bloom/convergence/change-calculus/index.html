@@ -24,6 +24,8 @@ label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,texta
 <h2>STATE / I CHING LENS</h2>
 <label>FROM · six bits bottom→top</label><input id="fromState" value="010|100">
 <label>TO · six bits bottom→top</label><input id="toState" value="011|110">
+<label>STEP PATH INDEX · 0-based factoradic address</label><input id="stateOrderIndex" type="number" min="0" step="1" value="0">
+<p class="note">The index wraps modulo k! for the current moving-line set. It selects one reproducible one-line-at-a-time path; it does not alter either endpoint.</p>
 </section>
 <section class="card">
 <h2>EXACT FOLD/BLOOM FORM</h2>
