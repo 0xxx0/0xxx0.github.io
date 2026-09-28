@@ -93,6 +93,8 @@ It also establishes:
 
 Therefore this packet does **not** propose another zoom implementation.
 
+PR #488 then landed **FIELD 0.8.16**, teaching the semantic bands in place and moving FOVEA to a touch/pen/mouse Pointer Events law with one-gesture-one-interpretation. The project-glyph pass is deliberately stacked after that interaction baseline as **0.8.17**.
+
 ## Glyph convergence
 
 There are two existing glyph levels.
