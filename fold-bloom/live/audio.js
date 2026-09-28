@@ -160,26 +160,6 @@ export class FoldBloomAudio {
 
   sceneNames() { return Object.keys(SCENES); }
 
-  setClimate({energy,density,tension}={}, amount=.08) {
-    const a = clamp(Number(amount)||0,0,1);
-    const blend = (current,next,min,max) => Number.isFinite(Number(next))
-      ? clamp(current*(1-a)+clamp(Number(next),min,max)*a,min,max)
-      : current;
-    this.energy = blend(this.energy,energy,.12,1);
-    this.density = blend(this.density,density,.08,.98);
-    this.tension = blend(this.tension,tension,0,1);
-    return this.climateSnapshot();
-  }
-
-  climateSnapshot() {
-    return {
-      energy:+this.energy.toFixed(3),
-      density:+this.density.toFixed(3),
-      tension:+this.tension.toFixed(3),
-      scene:this.sceneName
-    };
-  }
-
   hydrate(state) {
     if (!state) return;
     if (SCENES[state.scene]) this.setScene(state.scene);
