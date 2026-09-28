@@ -49,12 +49,12 @@ html.fbMenuOpen .drawer{display:block;z-index:120}
 .drawerHead #closeSettings{min-width:52px;min-height:44px;font-size:0;border-color:rgba(255,255,255,.52);background:rgba(5,8,12,.98);pointer-events:auto}
 .drawerHead #closeSettings:after{content:'×';font-size:24px;line-height:1}
 .leftQuick{position:absolute;left:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 72px);z-index:32;display:flex;flex-direction:column;gap:5px;pointer-events:auto}
-.leftQuick .sourceQuick,.leftQuick .courseQuick,.leftQuick .vibeQuick,.leftQuick .musicQuick{position:static;min-width:118px;height:40px;padding:0 10px;font-size:7.5px;font-weight:1000;letter-spacing:.08em;background:rgba(6,9,14,.94);backdrop-filter:blur(8px)}
+.leftQuick .sourceQuick,.leftQuick .courseQuick,.leftQuick .vibeQuick{position:static;min-width:118px;height:40px;padding:0 10px;font-size:7.5px;font-weight:1000;letter-spacing:.08em;background:rgba(6,9,14,.94);backdrop-filter:blur(8px)}
 .leftQuick .sourceQuick{border-color:rgba(255,255,255,.55)}
 .leftQuick .courseQuick{border-color:rgba(215,180,109,.42);color:#f0d79d}
 .leftQuick .courseQuick.on{background:rgba(215,180,109,.14);border-color:rgba(215,180,109,.78);color:#ffe9b5}
-.leftQuick .vibeQuick{border-color:rgba(109,189,255,.42);color:#d8edff}.leftQuick .musicQuick{border-color:rgba(215,180,109,.34);color:#d8c89e}.leftQuick .musicQuick[data-state="audible"]{border-color:rgba(118,216,164,.72);color:#d8ffe9;background:rgba(20,72,45,.32)}.leftQuick .musicQuick[data-state="wanted"]{border-color:rgba(215,180,109,.58);color:#f4deb0}
-@media(max-width:620px){.leftQuick{left:8px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);gap:4px}.leftQuick .sourceQuick,.leftQuick .courseQuick,.leftQuick .vibeQuick,.leftQuick .musicQuick{height:42px;min-width:120px}.drawerHead #closeSettings{min-width:50px;min-height:50px}}
+.leftQuick .vibeQuick{border-color:rgba(109,189,255,.42);color:#d8edff}
+@media(max-width:620px){.leftQuick{left:8px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);gap:4px}.leftQuick .sourceQuick,.leftQuick .courseQuick,.leftQuick .vibeQuick{height:42px;min-width:120px}.drawerHead #closeSettings{min-width:50px;min-height:50px}}
 
 
 /* 0.13.9 menu interaction ownership: an open drawer is the sole pointer-active control layer. */
