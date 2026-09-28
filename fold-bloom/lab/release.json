@@ -1,11 +1,11 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.5",
-  "state": "SHIPPED",
+  "version": "0.3.6",
+  "state": "CANDIDATE",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "thesis": "A convergence lab should reuse canonical engines, preserve one addressed source across unequal projections, and RETURN bounded evidence of the traversal without claiming donor authority.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
@@ -50,7 +50,8 @@
     "VOICE temporal evidence is derived through the shared fold-bloom-voice-training-trace/v0.1 contract and remains local, bounded and EVIDENCE_ONLY.",
     "FIELD LAB 0.3.5 replaces the three-row phone mode crown with one horizontally scrollable 44px aperture strip, leaving measurable field space between navigation and the bounded bottom sheet.",
     "Phone panel state is explicit (open/collapsed); collapsing the sheet expands the field without changing the selected projection.",
-    "A dedicated 390×720 browser proof now checks real panel/ring geometry, touch target height, non-overlap, horizontal overflow, collapse behavior and PULSE re-entry."
+    "A dedicated 390×720 browser proof now checks real panel/ring geometry, touch target height, non-overlap, horizontal overflow, collapse behavior and PULSE re-entry.",
+    "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -58,7 +59,7 @@
     "CARRY is explicit human action and never silently mutates another projection",
     "PULSE ×4 changes pace only; it cannot change source focus, segmentation or meaning",
     "LOCI grouping/layout is derived evidence; exact text spans are preserved, but mnemonic meaning remains human/training evidence. The local course adapter is not promoted shared core.",
-    "profiles change presentation only",
+    "profiles change presentation only; DRIVE never changes LIVE source-addressed POV traversal, return address or source identity.",
     "CURRENT was updated only after PR #207 merged, preserving its coordination ownership during implementation.",
     "synthetic PULSE timing may coordinate tempo/beat/phase/quantum but never becomes audio/source authority.",
     "Poem Map remains poetry authoring authority; FIELD LAB does not own candidate generation, form scoring, revision ancestry or poem semantics.",
@@ -71,7 +72,8 @@
     "PULSE timing metrics are descriptive behavioral witnesses only; phase-correction proxy, bias, jitter and lock score must not be presented as diagnosis, neural measurement, musical ability, or pleasure.",
     "Rhythmic-complexity/groove research motivates keeping challenge learnable; the runtime does not claim a universal optimal syncopation level or infer subjective pleasure.",
     "VOICE onset and center-hold evidence is descriptive practice evidence only; it must not be presented as singing-quality, neurological or health assessment.",
-    "Mobile composition changes layout only; the seven projection modes, source ownership, cross-projection state and RETURN laws are unchanged."
+    "Mobile composition changes layout only; all eight apertures retain separate source ownership, cross-projection state and RETURN laws.",
+    "VOICE remains an independent Lab aperture; PULSE clock borrowing is explicit and optional. DRIVE is presentation preference; LIVE remains source-addressed POV/traversal and RETURN authority."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -101,9 +103,13 @@
     "authority_sync": "PASS_ON_PRESEAL_HEAD · Route Registration 36209914153 + public-surface-check 36209914151",
     "voice_temporal_core": "PENDING_PR_CI: shared VOICE temporal trace tests",
     "voice_temporal_lab": "PENDING_PR_CI: FIELD LAB PULSE embed + browser boot",
-    "mobile_composition": "PASS · public-surface-check 36299504243 step 62 · 390×720 geometry/touchability/non-overlap/collapse/PULSE proof",
+    "mobile_composition": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 geometry/touchability/non-overlap/collapse plus visible second-position VOICE and independent PULSE re-entry",
     "cross_projection_035": "PASS · public-surface-check 36299504243 step 63 · exact source/focus survived VERSE→READ→LOCI→VERSE",
-    "lab_boot_035": "PASS · public-surface-check 36299504243 step 61"
+    "lab_boot_035": "PASS · public-surface-check 36299504243 step 61",
+    "mobile_voice_aperture": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 requires VOICE 0.2 visible second after RIDE and independently selectable",
+    "field_index_route": "PASS · public-surface-check run 36379975736 step 41 · manifest/CURRENT/release versions align at 0.3.6; Field Index exposes VOICE/PULSE and RIDE/DRIVE",
+    "lab_boot_036": "PASS · public-surface-check run 36379975736 step 67",
+    "cross_projection_036": "PASS · public-surface-check run 36379975736 step 71"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
@@ -122,5 +128,5 @@
     ],
     "boundary": "Six-bit state is a projection only; underlying domain state remains authoritative."
   },
-  "updated": "2026-09-27"
+  "updated": "2026-09-28"
 }
