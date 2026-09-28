@@ -752,3 +752,15 @@ For future causal work, compare interventions at matched lattice addresses rathe
 ### Successor rule
 
 Prefer enriching this shared lattice/path witness over adding another “stepped” subsystem. If a host has a different native transition graph, derive its graph explicitly and preserve the same separation between state-space witness, selected path, model support, and effect authority.
+
+## Material projection: selected path → INK guide — 2026-09-28
+
+A selected STEP chain may now be carried into FIELD LAB INK as a **projection-only tracing guide**.
+
+The projection is deliberately transparent: every six-bit intermediate state becomes one point in an 8×8 matrix where the lower trigram binary value is the x coordinate and the upper trigram binary value is the y coordinate. The selected factoradic order becomes the polyline through those addressed states.
+
+CHANGE CALCULUS path → addressed 8×8 state-matrix geometry → faint INK guide → human brush gesture → INK RETURN evidence.
+
+The guide is `PROJECTION_ONLY`. It does not paint, select a path, promote J-space steering, or claim I Ching authorship. Once in INK, the visible stroke remains an authored wet-media trace; switching to a glyph guide discards the carried path guide rather than silently blending meanings.
+
+This is the intended convergence pattern: **same addressed object, unequal projections, explicit residue, authorship preserved**.
