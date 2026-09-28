@@ -1,0 +1,41 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_ATTENTION_GLYPH_2026-09-28",
+  "date": "2026-09-28",
+  "object": "FIELD INDEX / attention-scaled held glyph",
+  "state": "SHIPPED_CANDIDATE",
+  "before": "FIELD 0.8.17 correctly contracted the root to one field and one held object, but the compact glyph remained almost equally terse before and after HOLD. Meaning therefore still had to move into text/folds instead of emerging from the object itself.",
+  "delta": [
+    "Keep peripheral field marks unchanged and compact.",
+    "On HOLD, render the same address through the existing INTERPHASE recursive glyph carrier rather than adding another panel or scale control.",
+    "Preserve the FIELD glyph as the identity core; concentric depth, channel spokes, VIEW-only outer readings and dashed residue surround it only while held.",
+    "Derive ordinary held-route depth from manifest parent/children and expose only READ / OPEN_NATIVE as VIEW readings.",
+    "For an exact CURRENT head, derive evidence count, unresolved exits, latest RETURN and next-executable residue from CURRENT + manifest through a strict route/head match.",
+    "Keep native OPEN/DO outside the glyph as the existing action edge; glyph geometry itself never gains effect authority.",
+    "Document the ring grammar only inside the already-collapsed STATUS → KEY residue."
+  ],
+  "laws": [
+    "ATTENTION CHANGES RESOLUTION, NOT IDENTITY.",
+    "PERIPHERAL MARK → HELD WITNESS → NATIVE OBJECT is disclosure, not mode switching.",
+    "GLYPH RINGS ARE WITNESS, NOT CONTROL.",
+    "COMPRESSION REMAINS LAWFUL ONLY WHILE RESIDUE IS NAMED/RECOVERABLE."
+  ],
+  "evidence": [
+    "/field-glyph.js",
+    "/lib/interphase-ring.js",
+    "/lib/interphase-glyph.js",
+    "/lib/project-head-glyph.js",
+    "/index.html",
+    "/tools/field-attention-glyph-selftest.cjs",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "verification": {
+    "source": "PENDING CI: deterministic glyph composition, exact CURRENT-head identity, VIEW-only operation authority, root contraction, route registration and critical browser smoke must pass.",
+    "human": "No mandatory human gate. Ordinary use may still reveal that the richer held glyph is visually noisy; if so, reduce channels/rings rather than adding explanatory chrome.",
+    "limit": "Machine checks establish derivation and authority boundaries, not perceptual legibility."
+  },
+  "next": "If the held glyph survives use, propagate the same attention-scaling law to other one-object surfaces through existing INTERPHASE adapters rather than duplicating FIELD-specific UI.",
+  "stop": "Do not add a glyph mode switch, ring controls, hover-only dependencies, project dashboard, or new state store.",
+  "version": "0.8.18",
+  "upstream_preserved": "FIELD 0.8.17 one-object contraction remains the topology; this pass changes only how the already-held object discloses recoverable meaning."
+}
