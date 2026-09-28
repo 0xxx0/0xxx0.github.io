@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T19:10:34+08:00",
+  "updated": "2026-09-28T19:19:23+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -89,7 +89,14 @@
         "/tools/field-signal-locality-selftest.cjs"
       ],
       "version": "0.8.19",
-      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json"
+      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "repo_verification": {
+        "status": "PASS",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
+        "merge_commit": "a175e4ea74b65109066f3c7e7444004d339e9ced",
+        "pr_checks": "PASS · public-surface-check 36414534341; Route Registration 36414534526; gitleaks 36414534573",
+        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; ship-check --fast 64/64"
+      }
     },
     {
       "lineage": "scale-lens",
