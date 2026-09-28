@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-28T19:10:34+08:00",
+  "updated": "2026-09-28T19:17:46+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-28T19:10:34+08:00",
+        "updated_at": "2026-09-28T19:17:46+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1461,7 +1461,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-09-28T19:10:34+08:00",
+        "updated_at": "2026-09-28T19:17:46+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
