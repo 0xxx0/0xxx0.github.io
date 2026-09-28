@@ -254,7 +254,7 @@ Status: **MERGED RESEARCH DONOR; NO EFFECT AUTHORITY.**
 - hard boundary: a decoded J-Lens token is an observation, **not** a causal residual direction; steering requires an explicit model-side `direction.ref`.
 - cross-surface steering context reuses `field-pulse/v0.1` with authority `NONE`; the generic adapter requires an explicit host-owned direction→native-operation map or returns `SUPPORT=0`.
 - Fold/Bloom LIVE has a merged co-driver PREVIEW seam over the current native forecast aperture. It may highlight already-lawful candidates; it never rotates, RELEASEs, selects CALL, or mutates topology.
-- a real pretrained tiny-model J-Lens fit/apply smoke is now proven in CI. Treat it as **PLUMBING_ONLY**, not semantic workspace evidence.
+- a real pretrained tiny-model J-Lens fit/apply smoke is proven in CI, and a later real Qwen2.5-1.5B-Instruct read trace is preserved at `/returns/JSPACE_REAL_TRACE_2026-09-27.json`. The Qwen observation had zero control-vocabulary hits in the exported top-8 and remains **READ OBSERVATION ONLY**, not semantic steering evidence.
 - real semantic steering direction + controlled intervention remain unproved.
 - `promotion-gate.mjs` now calculates ten explicit proof obligations. Current repository evidence passes 4/10 and fails 6/10, so promotion remains `BLOCKED`.
 - even a future 10/10 pass yields only `ELIGIBLE_FOR_BOUNDED_PREVIEW`, never automatic commit authority.
