@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
@@ -571,7 +571,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -680,8 +680,10 @@ function selectedStatePathMasks(){
 }
 function drawStateLattice(){
   const lattice=data.stateLattice,step=data.stateStep;
+  data.stateLatticeHits=[];
   if(!lattice?.ok)return;
   const k=lattice.dimensions,pathMasks=selectedStatePathMasks(),pathSet=new Set(pathMasks),activeMask=pathMasks[Math.min(data.stateStepCursor,pathMasks.length-1)]??0;
+  const nextEdges=lattice.edge_set.filter(e=>e.from_mask===activeMask),nextByMask=new Map(nextEdges.map(e=>[e.to_mask,e.line]));
   const x0=W*.17,x1=W*.83,top=H*.79,bottom=H*.94,band=Math.max(1,bottom-top),pos=new Map();
   const grouped=new Map();
   for(const v of lattice.vertex_set){if(!grouped.has(v.depth))grouped.set(v.depth,[]);grouped.get(v.depth).push(v)}
@@ -692,6 +694,7 @@ function drawStateLattice(){
       pos.set(v.mask,{x,y,v});
     });
   }
+  data.stateLatticeHits=nextEdges.map(e=>{const p=pos.get(e.to_mask);return p?{line:e.line,mask:e.to_mask,x:p.x,y:p.y}:null}).filter(Boolean);
   ctx.save();
   ctx.font='700 7px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#5f6d75';
   ctx.fillText('ORDER SPACE · '+lattice.dimensions+'D · '+lattice.vertices+' STATES · '+lattice.maximal_one_line_paths+' CHAINS',W/2,top-10);
@@ -704,9 +707,13 @@ function drawStateLattice(){
     ctx.lineWidth=onPath?1.7:.65;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
   }
   for(const [mask,p] of pos){
-    const onPath=pathSet.has(mask),active=mask===activeMask;
+    const onPath=pathSet.has(mask),active=mask===activeMask,candidate=nextByMask.has(mask);
     ctx.fillStyle=active?'#ef7849':onPath?'#7bd5ff':'#40515b';
-    ctx.globalAlpha=active?1:(onPath ? .92 : .48);ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:2.0,0,TAU);ctx.fill();
+    ctx.globalAlpha=active?1:(onPath ? .92 : candidate ? .78 : .48);ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:candidate?3.0:2.0,0,TAU);ctx.fill();
+    if(candidate&&!active){
+      ctx.globalAlpha=.92;ctx.strokeStyle='#d7b46d';ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x,p.y,7,0,TAU);ctx.stroke();
+      ctx.fillStyle='#d7b46d';ctx.font='700 6px ui-monospace';ctx.fillText('L'+nextByMask.get(mask),p.x,p.y-9);
+    }
   }
   ctx.globalAlpha=1;
   if(step?.ok&&step.selected_order.length){
@@ -718,6 +725,7 @@ function drawStateLattice(){
 function drawStateChange(){
   const change=data.stateChange;if(!change?.valid)return;
   const {leftX,midX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving),step=data.stateStep,cursor=data.stateStepCursor;
+  const future=new Set(step?.selected_order?.slice(cursor)||[]);
   const previewBits=statePreviewBits()||change.from.bits,preview=stateDescriptor(previewBits);
   const activeLine=cursor>0&&step?.steps.length?step.steps[Math.min(cursor-1,step.steps.length-1)].line:null;
   ctx.save();
@@ -732,7 +740,8 @@ function drawStateChange(){
     drawStateLine(rightX,y,w,change.to.bits[i],changed);
     if(changed){
       ctx.strokeStyle='rgba(123,213,255,.20)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(leftX+w*.6,y);ctx.lineTo(midX-w*.6,y);ctx.moveTo(midX+w*.6,y);ctx.lineTo(rightX-w*.6,y);ctx.stroke();
-      ctx.fillStyle=active?'#ef7849':'#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('L'+(i+1),midX,y-5);
+      ctx.fillStyle=active?'#ef7849':future.has(i+1)?'#d7b46d':'#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('L'+(i+1),midX,y-5);
+      if(future.has(i+1)){ctx.fillStyle='#d7b46d';ctx.fillText('›',midX-w*.62,y-5)}
     }
   }
   ctx.fillStyle='#f2f3ef';ctx.font='900 18px ui-monospace';
@@ -755,6 +764,40 @@ function stateLineAt(x,y){
 function flipStateLine(index){
   const bits=normalizeStateBits($('#stateTo')?.value);if(!bits||index<0||index>5)return;
   bits[index]=bits[index]?0:1;$('#stateTo').value=formatState(bits);syncStateChange();
+}
+function stateSteerLineAt(x,y){
+  const step=data.stateStep;if(!step?.ok||!step.steps.length)return null;
+  const {midX,cy,gap,w}=stateLayout();if(Math.abs(x-midX)>w*.82)return null;
+  const remaining=new Set(step.selected_order.slice(data.stateStepCursor));
+  let best=null,dist=18;
+  for(const line of remaining){
+    const yy=cy+gap*(2.5-(line-1)),d=Math.abs(y-yy);
+    if(d<dist){best=line;dist=d}
+  }
+  return best;
+}
+function stateLatticeCandidateAt(x,y){
+  let best=null,dist=15;
+  for(const hit of data.stateLatticeHits||[]){
+    const d=Math.hypot(x-hit.x,y-hit.y);
+    if(d<dist){best=hit;dist=d}
+  }
+  return best;
+}
+function steerStateNextLine(line){
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor;
+  if(!calc?.ok||!step?.ok)return null;
+  const steered=steerStepOrder(calc.moving,step.selected_order,cursor,line);
+  if(!steered.ok){setStatus('STATE STEER · '+steered.reason);return steered}
+  const next=steppedStatePath($('#stateFrom')?.value,$('#stateTo')?.value,steered.order);
+  if(!next.ok){setStatus('STATE STEER · PATH REBUILD FAILED');return next}
+  data.stateOrderIndex=steered.index;data.stateStep=next;data.stateFlow=false;data.stateStepCursor=Math.min(cursor,next.steps.length);
+  data.stateResidue=residueLadder({state:calc,stateStep:next,lattice:data.stateLattice});syncStateStepUI();
+  const here=data.stateStepCursor>0?next.steps[data.stateStepCursor-1]?.address:next.path_address;
+  setAddress(here||next.path_address);
+  setStatus('STATE STEER · PREFIX '+data.stateStepCursor+'/'+next.steps.length+' HELD · NEXT L'+line+' · PATH '+(next.selected_order_index+1)+'/'+next.possible_one_line_orders);
+  recordLabTrace('STATE_STEER');
+  return steered;
 }
 $('#stateProject').onclick=syncStateChange;
 $('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
@@ -799,7 +842,11 @@ canvas.addEventListener('pointerdown',e=>{
     if(Math.abs(d-lanes[0][1])<22){tapPulse(lanes[0][0]);return}
     tapPulse();
   }
-  if(mode==='DATA'){const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}}
+  if(mode==='DATA'){
+    const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}
+    const nextLine=stateSteerLineAt(x,y);if(nextLine){steerStateNextLine(nextLine);return}
+    const candidate=stateLatticeCandidateAt(x,y);if(candidate){steerStateNextLine(candidate.line);return}
+  }
   if(mode==='VOICE'){return {kind:'VOICE',pattern:voice.pattern,baseMidi:voice.baseMidi,clock:voice.linked?'PULSE_LINKED':'FREE',mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace)}}
   if(mode==='VERSE'){
     const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
@@ -1049,5 +1096,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock()}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateLatticeHits||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
