@@ -107,7 +107,7 @@ function calculate(){
     '<tr><td>six-bit / hex state</td><td><b>DESCRIPTIVE LENS</b></td><td>native one-step control sufficiency already falsified</td></tr>'+
     '<tr><td>recent exact six-verb form</td><td><b>HISTORY WITNESS</b></td><td>also not sufficient native control state</td></tr>'+
     '<tr><td>native forecast aperture</td><td><b>ONE-EPOCH SUPPORT</b></td><td>alternatives expire and must be refreshed after commit</td></tr>'+
-    '<tr><td>J-Lens arithmetic here</td><td><b>READ / SUPPORT HYPOTHESIS</b></td><td>default fixture is synthetic; real tiny-model smoke proves plumbing only</td></tr>'+
+    '<tr><td>J-Lens arithmetic here</td><td><b>READ / SUPPORT HYPOTHESIS</b></td><td>default fixture is synthetic; real Qwen2.5-1.5B read trace exists but has no control-verb top-8 hit and remains observation-only</td></tr>'+
     '<tr><td>causal steering</td><td><b class="'+(g?.eligible?'cool':'hot')+'">'+esc(g?.status||'UNKNOWN')+'</b></td><td>'+esc(g?.summary?g.summary.failed+'/'+g.summary.total+' promotion obligations fail':'promotion evidence unavailable')+'</td></tr>'+
     '</tbody></table><p>The common primitive is not a common ontology: <code>STATE → APERTURE → INTENT → SUPPORT/AMBIGUITY → COMMIT → APERTURE′ → WITNESS → RETURN</code>.</p>';
 }
