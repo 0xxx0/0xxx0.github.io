@@ -43,6 +43,14 @@ function promotionWitness(g,source){
     '</div><table><thead><tr><th>obligation</th><th>result</th><th>observed</th><th>required</th></tr></thead><tbody>'+rows+'</tbody></table>'+
     '<p>'+esc(g.law)+'</p><p><b>Support ≠ permission.</b> A token may map to one lawful host candidate and still fail this independent causal-evidence gate.</p>';
 }
+function residueLadderWitness(ladder){
+  if(!ladder?.levels?.length)return '<p class="hot">Residue ladder unavailable.</p>';
+  const rows=ladder.levels.map((x,i)=>'<tr><td>'+(i+1)+'</td><td><b>'+esc(x.id)+'</b><br><span class="note">'+esc(x.claim||'')+'</span></td><td>'+esc(x.keeps||'—')+'</td><td>'+esc(x.drops||'—')+'</td><td>'+esc(x.authority||'—')+'</td></tr>').join('');
+  return '<div class="metrics">'+metric('strongest claim',ladder.strongest_claim)+metric('levels',ladder.levels.length)+'</div>'+
+    '<table><thead><tr><th>#</th><th>lens / claim</th><th>keeps</th><th>residue / drops</th><th>authority</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<p>'+esc(ladder.law)+'</p>';
+}
+
 function statePathWitness(path,state){
   const fmt=p=>[path.from_token,...p.steps.map(x=>x.after_token)].join(' → ');
   const primary=fmt(path);
@@ -107,7 +115,10 @@ function calculate(){
       '<p>'+esc(j.formulas.warning)+'. '+esc(j.formulas.decision)+'.</p>'+promotionWitness(g,frame.promotion_evidence_source);
   }else $('#steerOut').innerHTML='<h2>J-SPACE → NATIVE SUPPORT</h2><span class="hot">'+esc(j?.reason||'TRACE NOT PARSED')+'</span>'+promotionWitness(g,frame.promotion_evidence_source);
 
-  $('#residueOut').innerHTML='<h2>RESIDUE / NON-EQUIVALENCE</h2><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
+  $('#residueOut').innerHTML='<h2>RESIDUE LADDER · WHAT EACH READING CANNOT CARRY</h2>'+
+    '<p>Zooming out is lawful only when the discarded detail stays named. The ladder below is a witness of compression/support boundaries, not a universal ontology.</p>'+
+    residueLadderWitness(frame.residue_ladder)+
+    '<details><summary>DECLARED NON-EQUIVALENCES</summary><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></details>'+
     '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="/fold-bloom/lab/?mode=DATA">↩ FIELD LAB / DATA</a> · <a href="/iching/">I CHING source lens →</a></p>';
   if($('#claimOut'))$('#claimOut').innerHTML='<h2>EVIDENCE LADDER · CURRENT</h2><table><tbody>'+
     '<tr><td>six-bit / hex state</td><td><b>DESCRIPTIVE LENS</b></td><td>native one-step control sufficiency already falsified</td></tr>'+
