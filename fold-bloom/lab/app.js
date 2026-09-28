@@ -9,6 +9,7 @@ import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 import {transparentStateCalculation,stepOrderAt,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -531,7 +532,7 @@ buildLoci();
 /* ---------- INK ---------- */
 const IW=192,IH=128,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
 const inkImage=inkCtx.createImageData(IW,IH),inkField=new InkField({width:IW,height:IH,seed:23});
-const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,lastX:null,lastY:null,lastT:0,strokeSeed:0,down:false,simAt:0,metricAt:0};
+const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,pathGuide:null,lastX:null,lastY:null,lastT:0,strokeSeed:0,down:false,simAt:0,metricAt:0};
 const INK_GUIDES=['永','一','○',''];
 $('#wetness').oninput=e=>{ink.wet=+e.target.value/100;$('#wetRead').textContent=e.target.value};
 $('#inkLoad').oninput=e=>{ink.load=+e.target.value/100;$('#loadRead').textContent=e.target.value};
@@ -539,7 +540,18 @@ $('#brush').oninput=e=>{ink.brush=+e.target.value;$('#brushRead').textContent=e.
 $('#paperAbsorb').oninput=e=>{ink.absorb=+e.target.value/100;$('#paperRead').textContent=e.target.value};
 $('#inkClear').onclick=()=>{ink.field.clear();syncInkMetrics()};
 $('#inkDry').onclick=()=>{ink.field.dry(.035);setStatus('INK · PAPER DRIED');syncInkMetrics()};
-$('#inkTrace').onclick=()=>{ink.guide=(ink.guide+1)%INK_GUIDES.length;const g=INK_GUIDES[ink.guide];$('#inkTrace').textContent=g?'GUIDE '+g:'GUIDE OFF';$('#inkTrace').classList.toggle('cool',!!g)};
+function syncInkGuideUI(){
+  const path=ink.pathGuide?.ok?ink.pathGuide:null,glyph=INK_GUIDES[ink.guide];
+  const label=path?'PATH':glyph||'OFF';
+  $('#inkTrace').textContent='GUIDE '+label;
+  $('#inkTrace').classList.toggle('cool',!!path||!!glyph);
+  if($('#inkGuideRead'))$('#inkGuideRead').textContent=path?'CHANGE PATH · '+path.points.length+' STATES':glyph?'GLYPH '+glyph:'OFF';
+}
+$('#inkTrace').onclick=()=>{
+  ink.pathGuide=null;ink.guide=(ink.guide+1)%INK_GUIDES.length;syncInkGuideUI();
+  const g=INK_GUIDES[ink.guide];setStatus('INK · '+(g?'GLYPH GUIDE '+g:'GUIDE OFF'));
+};
+syncInkGuideUI();
 $$('[data-ink-mode]').forEach(b=>b.onclick=()=>{ink.mode=b.dataset.inkMode;$$('[data-ink-mode]').forEach(x=>x.classList.toggle('cool',x===b));setStatus('INK · '+ink.mode)});
 function syncInkMetrics(){
   const m=ink.field.metrics();$('#inkMass').textContent=Math.round(m.pigment);$('#waterMass').textContent=Math.round(m.water);
@@ -769,6 +781,12 @@ $('#stateFlow')?.addEventListener('click',()=>{
   setStatus('STATE FLOW · '+(data.stateFlow?stateFlowClock().label:'PAUSED')+' · WITNESS ONLY');
 });
 $('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),order:String(data.stateStep?.selected_order_index||0),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
+$('#stateInk')?.addEventListener('click',()=>{
+  const guide=changePathInkGuide(data.stateStep);
+  if(!guide.ok){setStatus('STATE → INK · PATH UNAVAILABLE');return}
+  ink.pathGuide=guide;ink.guide=INK_GUIDES.length-1;syncInkGuideUI();selectMode('INK');
+  setSource('STATE PATH / PROJECTION GUIDE');setAddress(guide.address);setStatus('INK · CHANGE PATH GUIDE · TRACE REMAINS HUMAN AUTHORED');
+});
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
@@ -912,12 +930,32 @@ function drawLoci(){
   const source=String($('#lociSource').value||''),marks=storedMarks(source);
   pos.forEach((p,i)=>{const node=loci.nodes[i],active=i===loci.step,done=i<loci.step,marked=!!node&&marksForRange(marks,node.start,node.end).length>0;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle=marked?'#d7b46d':'#52616a';ctx.lineWidth=marked?2:1;ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(String(loci.nodes[i]?.text||'').slice(0,22),p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
 }
+function drawInkPathGuide(){
+  const guide=ink.pathGuide;if(!guide?.ok||!Array.isArray(guide.points)||guide.points.length<1)return;
+  const x0=W*.16,x1=W*.84,y0=H*.16,y1=H*.84;
+  ctx.save();ctx.lineWidth=1;
+  ctx.strokeStyle='rgba(123,213,255,.08)';
+  for(let i=0;i<8;i++){
+    const x=x0+(x1-x0)*(i/7),y=y0+(y1-y0)*(i/7);
+    ctx.beginPath();ctx.moveTo(x,y0);ctx.lineTo(x,y1);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+  }
+  const pts=guide.points.map(p=>({x:x0+(x1-x0)*p.x,y:y0+(y1-y0)*p.y,p}));
+  ctx.setLineDash([5,5]);ctx.strokeStyle='rgba(123,213,255,.46)';ctx.lineWidth=1.4;ctx.beginPath();
+  pts.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y));ctx.stroke();ctx.setLineDash([]);
+  pts.forEach((q,i)=>{ctx.fillStyle=i===0?'#d7b46d':i===pts.length-1?'#ef7849':'#7bd5ff';ctx.beginPath();ctx.arc(q.x,q.y,i===0||i===pts.length-1?4:3,0,TAU);ctx.fill()});
+  ctx.fillStyle='rgba(154,166,172,.78)';ctx.font='700 7px ui-monospace';ctx.textAlign='center';
+  ctx.fillText('CHANGE PATH · LOWER TRIGRAM → X · UPPER TRIGRAM → Y',W/2,H*.11);
+  ctx.fillText(guide.order.map(x=>'L'+x).join(' → '),W/2,H*.90);
+  ctx.restore();
+}
 function drawInk(t){
   if(t-ink.simAt>26){stepInk();ink.simAt=t}
   inkImage.data.set(ink.field.rgba({warmth:.10}));inkCtx.putImageData(inkImage,0,0);
   ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(inkCanvas,0,0,W,H);
+  drawInkPathGuide();
   const guide=INK_GUIDES[ink.guide];
-  if(guide){ctx.save();ctx.globalAlpha=.105;ctx.fillStyle='#344952';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText(guide,W/2,H/2);ctx.restore()}
+  if(guide&&!ink.pathGuide){ctx.save();ctx.globalAlpha=.105;ctx.fillStyle='#344952';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText(guide,W/2,H/2);ctx.restore()}
   if(t-ink.metricAt>180){ink.metricAt=t;syncInkMetrics()}
 }
 function dataPositions(){
@@ -960,7 +998,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='INK'){
     const metrics=ink.field.metrics();
-    return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water)};
+    return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water),guide:ink.pathGuide?.ok?{kind:'CHANGE_PATH',address:ink.pathGuide.address,states:ink.pathGuide.points.length,order:[...ink.pathGuide.order],projection:'LOWER_TRIGRAM_X__UPPER_TRIGRAM_Y'}:(INK_GUIDES[ink.guide]?{kind:'GLYPH',glyph:INK_GUIDES[ink.guide]}:null)};
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue;
@@ -1011,5 +1049,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock()}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock()}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
