@@ -1,0 +1,81 @@
+{
+  "schema": "fold-bloom-authored-reader-pack/v0.1",
+  "id": "prison-age-2021",
+  "title": "PRISON AGE",
+  "subtitle": "2021 proto-root / authored fragment",
+  "source_path": "/fold-bloom/live/authored/prison-age-2021.txt",
+  "source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+  "authority": "RECOVERED_AUTHORED_SOURCE",
+  "source_status": "V / exact recovered wording",
+  "authorship": "user-authored recovered artifact",
+  "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+  "internal_date": "2021-07-18",
+  "recovery_note": "The exact originating prompt remains unavailable. This reader pack is a derived arrangement of recovered exact fragments from the same 2021 artifact; it is not a facsimile of the original page.",
+  "exclusions": [
+    "Later 2024 Prison Age reality-show material is not included in this default pack because much of that corpus was live user/assistant co-creation.",
+    "\"I'm always behind you\" is not included because its exact authorship/source provenance remains unresolved."
+  ],
+  "fragments": [
+    {
+      "id": "title",
+      "status": "V",
+      "text": "PRISON AGE"
+    },
+    {
+      "id": "infinity",
+      "status": "V",
+      "text": "all agree infinite(ly many)\n9 gate cities exist …\nthe size of infinity\nis dispute"
+    },
+    {
+      "id": "gate-city",
+      "status": "V",
+      "text": "9 g a t e c i t y\ns i n g a p o r e"
+    },
+    {
+      "id": "recombination",
+      "status": "V",
+      "text": "SIN / ORE / GAP / SINGAPORE"
+    }
+  ],
+  "recurrence": [
+    {
+      "id": "same-nine-letters",
+      "label": "SAME LETTERS · DIFFERENT PARTITION",
+      "relation": "CONSERVATION_BY_REARRANGEMENT",
+      "signature": "AEGINOPRS",
+      "variants": [
+        {
+          "label": "PRISON AGE",
+          "text": "PRISON AGE",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "label": "SINGAPORE / SPACED",
+          "text": "s i n g a p o r e",
+          "start": 113,
+          "end": 130
+        },
+        {
+          "label": "SIN / ORE / GAP",
+          "text": "SIN / ORE / GAP",
+          "start": 132,
+          "end": 147
+        },
+        {
+          "label": "SINGAPORE",
+          "text": "SINGAPORE",
+          "start": 150,
+          "end": 159
+        }
+      ],
+      "boundary": "Letter conservation is mechanically verified after removing spaces/punctuation and uppercasing. No semantic equivalence is claimed."
+    }
+  ],
+  "default_grain": "PARAGRAPH",
+  "default_mode": "RELEASE_STEP",
+  "return": {
+    "source_reader": "/docs/?src=%2Ffold-bloom%2Flive%2Fauthored%2Fprison-age-2021.txt",
+    "field_index": "/"
+  }
+}

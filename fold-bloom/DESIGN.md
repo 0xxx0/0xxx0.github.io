@@ -222,3 +222,17 @@ At any time expose at most three real active fronts. Old branches are donors or 
 3. **SABER RUNTIME** — two real phones become LEFT / RIGHT motion controllers against one shared transport/event tape; do not claim completion before this works.
 4. **LIVED VALUE** — direct use decides whether LISTEN/LIVE/VOICE/INK/SABER follow-ups are useful; CI cannot substitute for this.
 5. **SOURCE CONTINUITY REMAINS LAW** — future PWA/local-playlist work may improve intake, but exact source identity and user-granted file access remain the boundary.
+
+
+## Authored reader law
+
+`RECOVERED SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → RECURRENCE → RETURN`
+
+AUTHORED READER is an explicit LIVE source aperture, not a new product, fifth public job, or replacement for plain LIVE.
+
+- A bundled authored pack identifies exact source bytes, source artifact/date, authorship/provenance class, recovery boundary and exclusions.
+- A derived reader pack may rearrange recovered exact fragments for traversal only when that packaging is labeled as derived rather than presented as an original facsimile.
+- Recurrence must be grounded in an inspectable source relation: exact span, repeated token, conserved form, explicit cross-reference or authored mark. Generated connective narrative is not source evidence.
+- READ/RIDE owns exact text addresses. LIVE may alter projection, traversal and its own BLOOM/FOLD/SPLIT/RETURN field state; it may never rewrite the recovered source.
+- RETURN carries EVIDENCE_ONLY traversal/recurrence/LIVE witness back to an exact native source/cursor. The receiving source host independently revalidates identity before moving its cursor.
+- Unresolved authorship stays unresolved. Mixed/co-created provenance remains a separate stratum until explicitly selected and labeled.

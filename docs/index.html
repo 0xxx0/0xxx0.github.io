@@ -27,6 +27,8 @@
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../field-aperture.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
+['PRISON AGE / 2021 ROOT','../fold-bloom/live/authored/prison-age-2021.txt','Recovered 2021 proto-root fragments used by the explicit LIVE authored-reading aperture; exact source, not later co-created lore.'],
+['FOLD//BLOOM / AUTHORED READER RETURN','../returns/FOLD_BLOOM_AUTHORED_READER_2026-09-28.json','Exact source identity, recurrence, traversal and EVIDENCE_ONLY RETURN boundary for explicit authored mode.'],
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
 ['SLEEPER / ONE RETURN V2','../recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md','Canonical city contract: inputs, eight enacted Gates, Return Artifact v2, generalization boundary'],
 ['SLEEPER / WORLD LAW','../recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts','Exact phrase/cell/figure compiler, Gate definitions and Return Artifact v2 implementation'],
@@ -139,13 +141,11 @@ async function acceptReadRideReturn(){
   const first=w.visited[0],origin=w.origin||{},last=w.visited.at(-1);
   if(Number(first.start)!==Number(origin.start)||Number(first.end)!==Number(origin.end))return reject('ORIGIN_MISMATCH');
   if(Number(last.start)!==a||Number(last.end)!==b)return reject('FINAL_NOT_LAST_VISIT');
-  let prev=-1;
   for(const x of w.visited){
     if(x.source_id!==hash)return reject('VISIT_SOURCE_MISMATCH');
     const s=Number(x.start),e=Number(x.end);
-    if(!Number.isInteger(s)||!Number.isInteger(e)||s<0||e<=s||e>activeRaw.length||s<prev)return reject('MALFORMED_VISIT');
+    if(!Number.isInteger(s)||!Number.isInteger(e)||s<0||e<=s||e>activeRaw.length)return reject('MALFORMED_VISIT');
     if(!exactNativeUnit(x.grain,s,e))return reject('VISIT_NOT_NATIVE');
-    prev=e
   }
   const native=exactNativeUnit(f.grain,a,b);if(!native)return reject('ADDRESS_NOT_NATIVE');
   const expected=String(w.witness?.text||'').trim();if(expected&&activeRaw.slice(a,b).trim()!==expected)return reject('TEXT_MISMATCH');

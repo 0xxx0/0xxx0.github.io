@@ -267,11 +267,13 @@
     "image_set_runtime": "MERGED · fa93895dde230c6df49b6ad2903a1c1239d67b17 · IMAGE_SET source + deterministic set clock + FRAME/STRIP/SET address grains",
     "image_clock_smoke": "PASS evidence recorded in 747ac3cef0f45a3c69a76040c4aac5bfd9ac9d0a · 3/3 browser-smoke runs; independent second process reproduces zero-click trail; Fold-bloom suite 10/10",
     "image_course_ci_contract": "GATED · public-surface-check runs fold-bloom/live/tests/image-course.test.mjs under addressed course navigation",
-    "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained"
+    "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained",
+    "authored_reader_selftest": "PENDING PR CI · exact source hash + recurrence signature + exclusion/provenance boundaries",
+    "authored_reader_browser": "PENDING PR CI · explicit reader launch + PARAGRAPH/RELEASE_STEP + RELEASE→one-address advance + ECHO + provenance + EVIDENCE_ONLY RETURN"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
-  "updated": "2026-09-26",
+  "updated": "2026-09-29",
   "observed_user_return": {
     "date": "2026-09-22",
     "confidence": "DIRECT_USER_REPORT",
@@ -620,5 +622,22 @@
     "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc"
+  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
+  "authored_reader": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "schema": "fold-bloom-authored-reader-pack/v0.1",
+    "first_pack": "/fold-bloom/live/authored/prison-age-2021.json",
+    "source": "/fold-bloom/live/authored/prison-age-2021.txt",
+    "source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+    "launch": "/fold-bloom/live/?reader=prison-age-2021",
+    "provenance": {
+      "authority": "RECOVERED_AUTHORED_SOURCE",
+      "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+      "internal_date": "2021-07-18",
+      "boundary": "Derived arrangement of recovered exact fragments, not a facsimile. Exact originating prompt remains unavailable. Later co-created Prison Age strata and the unresolved line \"I'm always behind you\" are excluded from this first pack."
+    },
+    "loop": "SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → SOURCE-DERIVED RECURRENCE / LIVE RELEASE → RETURN",
+    "source_authority": "Plain LIVE remains RIDE-first. When explicitly selected, authored source bytes/provenance remain native; LIVE owns traversal and field consequences only.",
+    "return_schema": "fold-bloom-authored-reading-return/v0.1"
+  }
 }
