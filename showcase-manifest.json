@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-28T18:55:13+08:00",
+  "updated": "2026-09-28T19:10:34+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,18 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-28T18:42:58+08:00",
+        "updated_at": "2026-09-28T19:10:34+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. CURRENT owns attention. Ordinary routes use the compact FIELD glyph; an exact CURRENT head may reveal latent project depth through the existing INTERPHASE glyph grammar while preserving the same route identity. Native hosts retain domain/effect authority; no project registry, priority system, scale control or second dashboard is introduced.",
-      "receipt": "/returns/FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
+      "role": "FIELD INDEX root: one glyph field + one held object. Semantic signal is local to the address that owns it: compact marks and the held header may show route-owned CHANGED/REALITY/EXTERNAL/MIXED patterns while global CATCH remains a separate aggregate. Exact CURRENT heads retain the VIEW-only latent project glyph. Identity, priority and native effect authority do not move into pattern.",
+      "receipt": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
       "machine_view": "FIELD",
-      "version": "0.8.18",
+      "version": "0.8.19",
       "transfer": [
+        "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
         "0.8.17 one-object contraction: remove exposed scale rail; held object + glyph field become the root instrument; AXIAL/capability/witness move under REFINE / PROVE; CHANGE/GIT + glyph key move under STATUS; compression must keep residue named/recoverable",
         "0.8.16 semantic-scale use pass: FIELD/ROUTE/OBJECT teaches itself in-place; FOVEA uses Pointer Events for mouse/pen/touch and owns addressed-mark activation so one physical tap cannot accidentally become both HOLD and OPEN",
@@ -98,7 +99,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
+      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -1460,7 +1461,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-09-28T14:33:16+08:00",
+        "updated_at": "2026-09-28T19:10:34+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",

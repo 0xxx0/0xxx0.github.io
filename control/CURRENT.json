@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T19:04:50+08:00",
+  "updated": "2026-09-28T19:10:34+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.18 / ONE HELD OBJECT + LATENT PROJECT GLYPH",
+      "head": "FIELD INDEX 0.8.19 / ROUTE-LOCAL SEMANTIC SIGNAL / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. The root exposes one glyph field and one held object; presentation density remains automatic and ROUTE/semantic scale are not user modes. When the held route exactly matches a CURRENT head, that same mark may reveal bounded project depth through the existing INTERPHASE glyph grammar: the native FIELD glyph remains the inner identity/state witness while outer rings derive apertures, evidence and residue with VIEW-only operations. Ordinary routes remain compact. REFINE / PROVE and STATUS retain constraints, witness, chronology and maps as named recoverable residue.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -84,10 +84,12 @@
         "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json",
         "/lib/project-head-glyph.js",
         "/tools/project-head-glyph-selftest.cjs",
-        "/returns/FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json"
+        "/returns/FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
+        "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+        "/tools/field-signal-locality-selftest.cjs"
       ],
-      "version": "0.8.18",
-      "latest_return": "/returns/FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json"
+      "version": "0.8.19",
+      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json"
     },
     {
       "lineage": "scale-lens",
