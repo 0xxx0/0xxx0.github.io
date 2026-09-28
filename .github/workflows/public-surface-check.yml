@@ -177,6 +177,11 @@ jobs:
         run: node --test fold-bloom/set/tests/set-core.test.mjs fold-bloom/test-packs/tests/test-pack-core.test.mjs
       - name: Test FOLD BLOOM local source spine + Journey Ride 0.1.2
         run: node --test fold-bloom/tests/local-media-store.test.mjs fold-bloom/journey/tests/journey-core.test.mjs fold-bloom/journey/tests/demo-seed.test.mjs
+      - name: Test FOLD BLOOM recovered authored reader + exact RETURN
+        run: |
+          node tools/fold-bloom-authored-reader-selftest.mjs
+          node tools/fold-bloom-authored-reader-smoke.mjs
+
       - name: Test FOLD BLOOM event tape + Beat Saber pack adapter
         run: node --test fold-bloom/beat/tests/event-tape.test.mjs fold-bloom/beat/tests/beatsaber-pack.test.mjs fold-bloom/tests/convergence-surface.test.mjs
       - name: Test FOLD BLOOM SABER dual-phone core
