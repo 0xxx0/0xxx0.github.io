@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#070707"><title>PRISON AGE // I'M ALWAYS BEHIND YOU</title>
+<style>
+:root{--bg:#070707;--ink:#f1efe9;--mut:#8d918e;--line:#30322f;--hot:#e86f43;--cool:#85d7ff;--gold:#d8b66e;--ghost:#181b1a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{min-height:100dvh;overflow:hidden}button,a{font:inherit;color:inherit;background:#090a09;border:1px solid var(--line);border-radius:0;text-decoration:none}
+button{cursor:pointer}.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;max-width:980px;margin:auto;padding:max(8px,env(safe-area-inset-top)) 10px max(8px,env(safe-area-inset-bottom))}
+header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;border-bottom:1px solid var(--line);padding:5px 0 8px}.ey{color:var(--hot);font-size:8px;letter-spacing:.17em}.title{font:900 clamp(20px,5vw,42px)/.88 system-ui,sans-serif;letter-spacing:-.055em}.title b{color:var(--hot)}.headActions{display:flex;gap:4px;align-items:center}.headActions button,.headActions a{padding:7px 9px}
+main{min-height:0;position:relative;overflow:hidden}.stage{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;position:relative;isolation:isolate}.meta{display:flex;justify-content:space-between;gap:10px;padding:8px 0;color:var(--mut);font-size:8px;letter-spacing:.08em;border-bottom:1px solid #171917}.meta b{color:var(--ink)}.progress{height:2px;background:#171917;position:relative}.progress i{position:absolute;inset:0 auto 0 0;width:0;background:var(--hot);transition:width .18s ease}.pressure{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;padding:5px 0 0}.pressure i{height:5px;border:1px solid #202320;position:relative}.pressure i.done{background:#39443d}.pressure i.current{border-color:var(--hot);background:#3a1d13}.pressureLabel{display:flex;justify-content:space-between;gap:8px;color:#6f7772;font-size:7px;letter-spacing:.08em;padding:3px 0 0}.pressureLabel b{color:#bfc7c1}.behind{display:none;width:min(800px,94%);border-left:2px solid #263a44;padding:7px 10px;margin:0 auto;color:#7694a0;font-size:9px;line-height:1.35}.behind.on{display:block}.behind b{color:var(--cool);letter-spacing:.12em}.proto{border-left:2px solid #39443d;padding:9px 12px;margin:14px 0;color:#9ba49e;font-size:10px;max-width:660px}.proto b{color:#d1d6d2}.proto em{color:#777f7a;font-style:normal}.carryPreview{border:1px solid #29343a;padding:8px 10px;margin:10px 0;color:#9db5bf;font-size:9px}.carryPreview b{color:var(--cool)}
+.page{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden;padding:clamp(18px,5vw,54px) clamp(8px,4vw,42px)}.after{position:absolute;inset:auto 4% 9% 4%;font:900 clamp(34px,10vw,110px)/.82 system-ui,sans-serif;letter-spacing:-.06em;color:var(--ghost);z-index:-1;max-height:58%;overflow:hidden;filter:blur(.2px);user-select:none;pointer-events:none;transform:translateY(2%)}
+.paragraph{width:min(800px,94%);font:clamp(19px,3.3vw,34px)/1.42 Georgia,'Times New Roman',serif;letter-spacing:-.015em;white-space:pre-wrap;text-wrap:pretty;transition:opacity .12s ease,transform .12s ease}.paragraph.metaLine{font:800 clamp(17px,3vw,28px)/1.2 ui-monospace,monospace;color:#c7cec9;letter-spacing:.02em}.paragraph.shout{font:900 clamp(24px,5vw,52px)/1.03 system-ui,sans-serif;letter-spacing:-.04em}.paragraph.quote{border-left:2px solid var(--hot);padding-left:18px}.paragraph.marked:after{content:attr(data-mark);display:block;margin-top:14px;color:var(--gold);font:8px/1 ui-monospace,monospace;letter-spacing:.16em}
+.voice{border-top:1px solid var(--line);padding:8px 0 10px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}.voiceWho{color:var(--mut);font-size:8px;letter-spacing:.14em;padding-top:3px}.voiceLine{font:900 clamp(18px,4vw,34px)/1 system-ui,sans-serif;letter-spacing:-.045em}.voiceLine::before{content:'“'}.voiceLine::after{content:'”'}
+.rail{display:grid;grid-template-columns:54px minmax(0,1fr) 54px;gap:4px;border-top:1px solid var(--line);padding-top:6px}.rail button{min-height:44px}.rail .next{border-color:var(--hot);font-weight:900;letter-spacing:.08em}.rail button:disabled{opacity:.28}
+.sheet{position:fixed;z-index:20;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translate(-50%,12px);width:min(560px,94vw);background:#080908;border:1px solid var(--line);padding:8px;opacity:0;visibility:hidden;transition:.15s}.sheet.on{opacity:1;visibility:visible;transform:translate(-50%,0)}.sheetHead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:3px 3px 8px}.sheetGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding-top:7px}.sheetGrid button,.sheetGrid a{padding:9px;text-align:left;min-height:42px}.sheetGrid span{display:block;color:var(--mut);font-size:8px;margin-top:2px}
+.threshold,.returner{position:fixed;inset:0;z-index:30;background:#050505;display:grid;place-items:center;padding:16px;transition:.22s}.threshold.off,.returner.off{opacity:0;visibility:hidden;pointer-events:none}.card{width:min(820px,96vw);border:1px solid var(--line);padding:clamp(18px,5vw,54px);background:#070707;position:relative;overflow:hidden}.mark9{position:absolute;right:-.04em;top:-.18em;font:900 clamp(110px,30vw,260px)/1 system-ui,sans-serif;color:#101210;letter-spacing:-.08em;z-index:0}.card>*{position:relative;z-index:1}.big{font:900 clamp(38px,10vw,96px)/.82 system-ui,sans-serif;letter-spacing:-.065em;max-width:780px}.big b{color:var(--hot)}.lede{font:14px/1.6 Georgia,serif;max-width:620px;color:#c7cbc7;margin:20px 0}.path{display:flex;gap:3px;align-items:center;flex-wrap:wrap;margin:16px 0;color:var(--mut);font-size:9px}.path b{color:var(--ink)}.cardActions{display:flex;gap:5px;flex-wrap:wrap}.cardActions button,.cardActions a{padding:10px 13px;min-height:42px}.cardActions .primary{border-color:var(--hot);color:#ffd2c1}.returner .big b{color:var(--gold)}.returnPrompt{font:clamp(18px,3.2vw,30px)/1.4 Georgia,serif;max-width:720px;margin:20px 0}.marks{display:grid;gap:5px;margin:14px 0}.markRow{border-left:2px solid var(--gold);padding:6px 9px;color:#b9b3a1;font-size:10px}.markRow b{color:var(--gold)}.receipt{font-size:8px;color:var(--mut);overflow-wrap:anywhere;margin-top:10px}
+.toast{position:fixed;z-index:40;left:50%;top:12%;transform:translate(-50%,-6px);border:1px solid var(--line);background:#080908e8;padding:8px 11px;opacity:0;pointer-events:none;transition:.15s}.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:640px){header{grid-template-columns:1fr auto}.title{font-size:24px}.headActions a{display:none}.page{padding:18px 4px}.paragraph{font-size:clamp(20px,6vw,29px);line-height:1.4}.after{font-size:17vw;bottom:12%}.voice{grid-template-columns:1fr;gap:3px}.voiceLine{font-size:23px}.rail{position:sticky;bottom:0;background:#070707}.sheetGrid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<div id="threshold" class="threshold"><div class="card"><div class="mark9">PA</div><div class="ey">PRISON AGE · 2026 READER CONTINUATION</div><div class="big">I'M ALWAYS <b>BEHIND YOU</b></div><div class="lede">Four sourced movements. One sentence that never changes. Only the speaker does. Read until the rule becomes visible; mark what changes the available moves; then see what follows the escape.</div><div class="proto"><b>2021 / BEFORE THE SHOW</b><br>“all agree infinite(ly many) / 9 gate cities exist … / the size of infinity / is dispute”<br><em>Recovered root. The nine pressures below are a 2026 reader projection, not reconstructed 2021 Gate rules.</em></div><div class="path"><b>OPEN AIR</b><span>→</span><b>FANDOM COURT</b><span>→</span><b>LAST STALL</b><span>→</span><b>NEXT PRISON</b></div><div class="cardActions"><button id="enter" class="primary">ENTER READING</button><a href="/prison-age/pack.json">PROVENANCE</a></div></div></div>
+<div id="returner" class="returner off"><div class="card"><div class="mark9">↩</div><div class="ey" id="returnEy">PRISON AGE / RETURN</div><div class="big">WHAT <b>SURVIVED</b> THE STORY?</div><div id="returnPrompt" class="returnPrompt"></div><div id="returnCarry" class="carryPreview"></div><div id="returnMarks" class="marks"></div><div class="cardActions"><button id="nextStory" class="primary">NEXT STORY</button><button id="copyReturn">COPY RETURN</button><button id="reread">RE-ENTER</button></div><div id="receiptText" class="receipt"></div></div></div>
+<div id="sheet" class="sheet"><div class="sheetHead"><b>APERTURE</b><button id="closeSheet">ESC</button></div><div class="sheetGrid">
+<button id="markRule">MARK RULE<span>What is being treated as necessary?</span></button>
+<button id="markMove">MARK MOVE<span>What changed the available moves?</span></button>
+<button id="markWitness">MARK WITNESS<span>What became transmissible?</span></button>
+<a id="focusLink" href="/docs/">FOCUS / READFIELD<span>Exact story + paragraph position.</span></a>
+<button id="copyLink">COPY POSITION<span>Share story + paragraph only.</span></button>
+<button id="clearBehind">CLEAR BEHIND<span>Forget the locally carried mark; source and read trail remain.</span></button>
+<a id="rawLink" href="#">RAW SOURCE<span>Open the exact recovered story file.</span></a>
+</div></div>
+<div id="toast" class="toast">COPIED</div>
+<div class="app">
+<header><div><div class="ey">PRISON AGE · READER 0.1</div><div class="title" id="headTitle">I'M ALWAYS <b>BEHIND YOU</b></div></div><div class="headActions"><a href="/">FIELD</a><button id="restart">THRESHOLD</button></div></header>
+<main><section class="stage"><div><div class="meta"><span id="storyMeta">LOADING</span><span id="positionMeta">—</span></div><div class="progress"><i id="progress"></i></div><div id="pressure" class="pressure"></div><div class="pressureLabel"><span>P26 / RULE AFTERLIFE</span><b id="pressureName">FIELD</b></div></div><div class="page"><div id="after" class="after"></div><div><div id="behind" class="behind"></div><div id="paragraph" class="paragraph">Loading…</div></div></div><div class="voice"><div id="voiceWho" class="voiceWho">VOICE / UNKNOWN</div><div class="voiceLine">I'm always behind you.</div></div></section></main>
+<div class="rail"><button id="prev">←</button><button id="next" class="next">READ →</button><button id="more">···</button></div>
+</div>
+<script src="/lib/read-trail.js"></script>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),PACK='/prison-age/pack.json',STATE='prison-age.reader.v01',markKinds=['RULE','MOVE','WITNESS'];
+let pack=null,story=null,raw='',paras=[],idx=0,storyId='',sheetOpen=false,receipt=null,passCount=0;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+function q(){return new URLSearchParams(location.search)}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('on');setTimeout(()=>$('toast').classList.remove('on'),900)}
+function state(){try{return JSON.parse(localStorage.getItem(STATE)||'{}')}catch{return{}}}
+function saveState(patch){try{localStorage.setItem(STATE,JSON.stringify({...state(),...patch}))}catch{}}
+function storyOrder(){return pack?.order||[]}
+function sourceKey(){return window.FieldSourceTrail?.sourceKey({address:story?.path})||''}
+function trail(){return window.FieldSourceTrail?.read(sourceKey())}
+function markAt(i=idx){const t=trail();return t?.marks?.find(m=>Number(m.index)===i)||null}
+function classify(p){const x=p.trim();if(/^(0[0-9]|UNIVERSE |TOKEN |MARGIN |[·]{8,})/.test(x))return'metaLine';if(/^[A-Z][A-Z ./'’:-]{8,}$/.test(x)&&x.length<140)return'shout';if(/^["“]/.test(x)||/["”]$/.test(x))return'quote';return''}
+function parse(text){return text.replace(/\r/g,'').split(/\n+/).map(s=>s.trim()).filter(Boolean)}
+function charStart(i){let n=0;for(let k=0;k<i;k++){const at=raw.indexOf(paras[k],n);if(at>=0)n=at+paras[k].length}const hit=raw.indexOf(paras[i]||'',n);return Math.max(0,hit)}
+function currentProgress(){return paras.length<=1?1:idx/(paras.length-1)}function globalProgress(){const o=storyOrder(),si=Math.max(0,o.indexOf(storyId));return o.length?Math.min(1,(si+currentProgress())/o.length):0}function pressureStage(){const xs=pack?.ninePressures?.stages||[];return xs[Math.min(Math.max(0,xs.length-1),Math.floor(globalProgress()*xs.length))]||'FIELD'}function behindState(){return state().behind||null}function carryCandidate(marks){const xs=Array.isArray(marks)?marks:[],priority=pack?.carry?.priority||['WITNESS','MOVE','RULE'];for(const kind of priority){const hits=xs.filter(m=>m.kind===kind).sort((a,b)=>Number(b.index)-Number(a.index));if(hits.length)return hits[0]}return null}
+function voiceFor(){const voices=story?.voice||['UNKNOWN'];if(passCount>0&&currentProgress()<.18)return'YOUR PREVIOUS PASS';const i=Math.min(voices.length-1,Math.floor(currentProgress()*voices.length));return voices[i]||voices.at(-1)||'UNKNOWN'}
+function record(){const T=window.FieldSourceTrail,key=sourceKey();if(!T||!key)return;T.record(key,{address:story.path+'#p'+idx,progress:currentProgress(),focus:paras[idx]||'',charIndex:charStart(idx),scale:'PARAGRAPH',via:'PRISON_AGE_READER'});}
+function currentReturnUrl(){return'/prison-age/?story='+encodeURIComponent(storyId)+'&p='+idx}
+function syncUrl(){const u=new URL(location.href);u.searchParams.set('story',storyId);u.searchParams.set('p',idx);history.replaceState(null,'',u.pathname+'?'+u.searchParams.toString())}
+function render(){
+ if(!story||!paras.length)return;
+ idx=clamp(idx,0,paras.length-1);const p=paras[idx],prev=idx?paras[idx-1]:'';
+ $('paragraph').textContent=p;$('paragraph').className='paragraph '+classify(p)+(markAt()?' marked':'');$('paragraph').dataset.mark=markAt()?.label||'';
+ $('after').textContent=prev;$('storyMeta').innerHTML='<b>'+esc(story.number+' / '+story.title)+'</b> · '+esc(story.season)+' · '+esc(story.engine);
+ $('positionMeta').textContent=(idx+1)+' / '+paras.length;$('progress').style.width=Math.round(currentProgress()*100)+'%';const stages=pack?.ninePressures?.stages||[],$p=$('pressure');$p.innerHTML=stages.map((x,i)=>'<i title="'+esc(x)+'" class="'+(i<Math.floor(globalProgress()*stages.length)?'done':i===Math.min(stages.length-1,Math.floor(globalProgress()*stages.length))?'current':'')+'"></i>').join('');$('pressureName').textContent=pressureStage();const bh=behindState(),be=$('behind');if(bh?.excerpt){be.classList.add('on');be.innerHTML='<b>BEHIND YOU / '+esc(bh.kind||'MARK')+'</b> · '+esc(bh.excerpt)+' <span>— '+esc(bh.fromTitle||bh.fromStoryId||'previous pass')+'</span>'}else{be.classList.remove('on');be.textContent=''};
+ $('voiceWho').textContent='VOICE / '+voiceFor();$('prev').disabled=idx===0;$('next').textContent=idx===paras.length-1?'RETURN ↩':'READ →';
+ $('rawLink').href=story.path;
+ const focus=new URL('/docs/',location.origin);focus.searchParams.set('src',story.path);focus.searchParams.set('return',currentReturnUrl());focus.searchParams.set('ap_scale','PARAGRAPH');focus.searchParams.set('ap_char',String(charStart(idx)));$('focusLink').href=focus.pathname+focus.search;
+ syncUrl();record();saveState({storyId,idx});
+}
+async function loadStory(id,at=0){
+ storyId=pack.stories[id]?id:storyOrder()[0];story=pack.stories[storyId];raw=await fetch(story.path,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('source '+r.status);return r.text()});paras=parse(raw);idx=clamp(Number(at)||0,0,Math.max(0,paras.length-1));
+ const st=state();passCount=Number(st.passes?.[storyId]||0);render();
+}
+function openSheet(){sheetOpen=true;$('sheet').classList.add('on')}
+function closeSheet(){sheetOpen=false;$('sheet').classList.remove('on')}
+function mark(kind){
+ const T=window.FieldSourceTrail,key=sourceKey();if(!T||!key)return;
+ const old=markAt();if(old)T.removeMark(key,old.id);
+ T.addMark(key,{id:'p'+idx,address:story.path+'#p'+idx,progress:currentProgress(),label:kind,note:(paras[idx]||'').slice(0,240),charIndex:charStart(idx),scale:'PARAGRAPH',index:idx,via:'PRISON_AGE_READER'});
+ closeSheet();render();toast('MARKED '+kind);
+}
+function makeReceipt(){
+ const t=trail(),marks=(t?.marks||[]).filter(m=>Number.isFinite(Number(m.index))).map(m=>({kind:m.label,index:m.index,address:m.address,excerpt:m.note}));
+ const carry=carryCandidate(marks);return{schema:pack.returnSchema,at:new Date().toISOString(),story:{id:storyId,title:story.title,address:story.path,position:idx+1,paragraphs:paras.length},path:{name:pack.readingPath.name,index:storyOrder().indexOf(storyId),pressure:pressureStage()},motif:{text:pack.motif.text,voice:voiceFor()},marks,carryCandidate:carry,operatorPrompt:story.returnPrompt,law:'Reader marks are explicit local traversal evidence; they do not prove understanding, agreement, completion or real-world action. Only an explicit mark may be carried into another story.',return:currentReturnUrl()};
+}
+function showReturn(){
+ receipt=makeReceipt();const st=state(),passes={...(st.passes||{})};passes[storyId]=(Number(passes[storyId]||0)+1);saveState({passes,storyId,idx});passCount=passes[storyId];
+ $('returnPrompt').textContent=story.returnPrompt;const ms=receipt.marks,c=receipt.carryCandidate;$('returnCarry').innerHTML=c?'<b>BEHIND NEXT / '+esc(c.kind)+'</b> · '+esc(c.excerpt):'<b>BEHIND NEXT / NOTHING SELECTED</b> · Mark RULE / MOVE / WITNESS if you want one thing to follow you.';
+ $('returnMarks').innerHTML=ms.length?ms.map(m=>'<div class="markRow"><b>'+esc(m.kind)+'</b> · '+esc(m.excerpt)+'</div>').join(''):'<div class="markRow">No marks required. The story may return with only a changed distinction.</div>';
+ $('receiptText').textContent=receipt.schema+' · '+story.path+' · '+(receipt.marks.length)+' explicit marks';
+ const last=storyOrder().indexOf(storyId)===storyOrder().length-1;$('nextStory').textContent=last?'RETURN TO FIRST STORY':'NEXT STORY';
+ $('returnEy').textContent=last?'PRISON AGE / PATH RETURN · VOICE / YOUR PREVIOUS PASS':'PRISON AGE / STORY RETURN';
+ $('returner').classList.remove('off');
+}
+function advance(){if(idx<paras.length-1){idx++;render()}else showReturn()}
+function retreat(){if(idx>0){idx--;render()}}
+function nextStory(){const order=storyOrder(),i=order.indexOf(storyId),next=order[(i+1)%order.length],c=(receipt||makeReceipt()).carryCandidate;if(c)saveState({behind:{...c,fromStoryId:storyId,fromTitle:story.title,carriedAt:new Date().toISOString()}});$('returner').classList.add('off');loadStory(next,0)}
+async function copyText(t,msg='COPIED'){try{await navigator.clipboard.writeText(t);toast(msg)}catch{toast('COPY UNAVAILABLE')}}
+window.PrisonAgeReaderAPI=Object.freeze({
+ snapshot:()=>({storyId,idx,paragraphs:paras.length,progress:currentProgress(),globalProgress:globalProgress(),pressure:pressureStage(),voice:voiceFor(),mark:markAt(),behind:behindState(),returnOpen:!$('returner').classList.contains('off'),source:story?.path||'',focus:$('focusLink').getAttribute('href')||''}),
+ goto:(id,p=0)=>loadStory(id,p),receipt:()=>makeReceipt(),advance,retreat,mark
+});
+$('enter').onclick=()=>$('threshold').classList.add('off');$('restart').onclick=()=>$('threshold').classList.remove('off');
+$('prev').onclick=retreat;$('next').onclick=advance;$('more').onclick=openSheet;$('closeSheet').onclick=closeSheet;
+$('markRule').onclick=()=>mark('RULE');$('markMove').onclick=()=>mark('MOVE');$('markWitness').onclick=()=>mark('WITNESS');
+$('copyLink').onclick=()=>copyText(location.href,'POSITION COPIED');$('clearBehind').onclick=()=>{saveState({behind:null});closeSheet();render();toast('BEHIND CLEARED')};$('copyReturn').onclick=()=>copyText(JSON.stringify(receipt||makeReceipt(),null,2),'RETURN COPIED');
+$('reread').onclick=()=>{$('returner').classList.add('off');idx=0;render()};$('nextStory').onclick=nextStory;
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('returner').classList.contains('off'))$('returner').classList.add('off');else closeSheet();return}if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName))return;if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();advance()}if(e.key==='ArrowLeft'){e.preventDefault();retreat()}if(e.key.toLowerCase()==='m')openSheet()});
+(async()=>{pack=await fetch(PACK,{cache:'no-store'}).then(r=>r.json());const u=q(),st=state(),id=u.get('story')||st.storyId||pack.order[0],p=Number(u.get('p')??st.idx??0);await loadStory(id,p)})().catch(e=>{$('paragraph').textContent='READER FAILED · '+e.message});
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body></html>

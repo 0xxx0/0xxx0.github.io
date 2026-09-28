@@ -1,0 +1,61 @@
+{
+  "schema": "prison-age.reader-convergence/v0.2",
+  "generated_at": "2026-09-28T15:49:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "route": "/prison-age/",
+  "public_verb": "READ",
+  "source_truth": {
+    "proto_root": "2021 PRISON AGE / 9 Gate City recovered context; transition to 2024 show remains partially unrecovered",
+    "exact_anthology_bodies": [
+      "03-open-air.md",
+      "05-fandom-court.md",
+      "08-successful-escape.md"
+    ],
+    "last_stall": "curated exact-source extract from PRISON_AGE_THE_LAST_STALL_v2.md with explicit omissions",
+    "p26": [
+      "I'm always behind you motif",
+      "curated order",
+      "nine-pressure reader projection",
+      "carry-forward mark mechanism"
+    ]
+  },
+  "mechanism": {
+    "fixed_motif": "I'm always behind you.",
+    "provenance_sequence": [
+      "UNKNOWN",
+      "CAMERA",
+      "CITY / AUDIENCE",
+      "ARCHIVE",
+      "PRODUCTION / CAMERA / NEXT PERSON",
+      "NEXT PRISON",
+      "YOUR PREVIOUS PASS"
+    ],
+    "afterimage": "previous paragraph remains literally behind current paragraph",
+    "explicit_marks": [
+      "RULE",
+      "MOVE",
+      "WITNESS"
+    ],
+    "carry": "highest-priority explicit mark WITNESS > MOVE > RULE may follow on explicit NEXT STORY; clearable locally",
+    "pressures": [
+      "FIELD",
+      "ARRANGEMENT",
+      "RULE",
+      "MOVE",
+      "WITNESS",
+      "EDIT",
+      "ADOPTION",
+      "COUNTERMEASURE",
+      "NEW FIELD"
+    ],
+    "return_schema": "prison-age.reader-return/v0.2"
+  },
+  "convergence": {
+    "readfield": "exact source + paragraph char address + exact Prison Age RETURN",
+    "field_index": "ACTIVE addressed READ route; shareable direct URL",
+    "sleeper_boundary": "no merge; Nine Gate adjacency is historical/conceptual only",
+    "read_trail": "local explicit traversal evidence only; visit != comprehension"
+  },
+  "next_gate": "Human read/share test: does the carried explicit mark deepen rereading without feeling like profiling or a puzzle mechanic?",
+  "truth_boundary": "No historical claim is made for the P26 motif, curated path, nine-pressure projection or carry mechanism."
+}

@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-28T14:05:19+08:00",
+  "updated": "2026-09-28",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -8345,6 +8345,111 @@
         "next_if_pass": "Use the calculator to falsify candidate control abstractions; transfer only properties that survive native behavioral tests.",
         "next_if_fail": "Keep exact representations and residue; remove or narrow the failed abstraction rather than adding hidden state."
       }
+    },
+    {
+      "href": "/prison-age/",
+      "title": "PRISON AGE // I'M ALWAYS BEHIND YOU",
+      "kind": "artifact",
+      "parent": "/",
+      "family": "PRISON AGE",
+      "operation": "READ",
+      "state": "ACTIVE",
+      "version": "0.2",
+      "showcase_card": true,
+      "receipt": "/prison-age/release.json",
+      "latest_return": "/returns/PRISON_AGE_READER_CONVERGENCE_2026-09-28.json",
+      "role": "Shareable narrative-first Prison Age reader: four sourced movements, changing provenance of one fixed P26 motif, literal paragraph afterimage, explicit RULE/MOVE/WITNESS evidence, one clearable carried mark across stories, nine-stage rule-afterlife projection, exact READFIELD focus and inspectable RETURN. Historical source strata remain distinct; Prison Age is not merged into Sleeper.",
+      "transfer": [
+        "2021 PRISON AGE / 9 Gate City root → threshold context without backdating later show grammar",
+        "exact anthology stories + curated source-exact Last Stall extract → paragraph-by-paragraph native reading",
+        "prior paragraph → literal typographic afterimage; explicit mark → optional locally carried evidence behind next story",
+        "current story + exact paragraph char position → READFIELD FOCUS",
+        "story completion → prison-age.reader-return/v0.2",
+        "FIELD INDEX addressed READ route → direct shareable /prison-age/"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "same-origin sourced Prison Age story text",
+            "curated source extract with explicit omissions"
+          ]
+        },
+        "transforms": {
+          "verb": "read a sourced Prison Age path while provenance, afterimage and explicit carried evidence make the rule-afterlife perceptible",
+          "preserves": [
+            "source address",
+            "paragraph position",
+            "source-status boundary",
+            "explicit marks",
+            "exact re-entry"
+          ],
+          "reversibility": "paragraph PREV / exact URL re-entry / clearable behind mark",
+          "side_effects": "browser-local read trail, pass count and explicit carried mark only"
+        },
+        "emits": {
+          "kinds": [
+            "prison-age.reader-return/v0.2",
+            "exact READFIELD FOCUS handoff",
+            "shareable story+paragraph URL"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/prison-age/release.json",
+          "return_path": "/prison-age/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "TEXT",
+            "kind": "sourced Prison Age prose",
+            "interface": "paragraph address"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "EVIDENCE",
+            "kind": "reader RETURN / explicit marks",
+            "interface": "local trail + copied JSON"
+          },
+          {
+            "medium": "DATA",
+            "kind": "exact READFIELD focus",
+            "interface": "same-origin handoff"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "READFIELD",
+            "status": "AVAILABLE",
+            "via": "FOCUS / READFIELD"
+          },
+          {
+            "class": "SHARE",
+            "status": "AVAILABLE",
+            "via": "COPY POSITION / direct URL"
+          }
+        ]
+      },
+      "classification": "RECOVERED_2026_SOURCE + P26_READER_CONTINUATION",
+      "evolution": {
+        "mutation": "Prison Age moves from archive/anthology material into a shareable sourced reading experience whose only adaptive residue is reader-explicit evidence.",
+        "question": "Does one explicit carried mark change the next story without turning the reader into a profiling system?"
+      },
+      "index": {
+        "updated_at": "2026-09-28T15:49:00+08:00",
+        "work_modes": [
+          "READ",
+          "FOCUS",
+          "RETURN"
+        ]
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
