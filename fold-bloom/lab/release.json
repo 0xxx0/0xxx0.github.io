@@ -51,7 +51,10 @@
     "FIELD LAB 0.3.5 replaces the three-row phone mode crown with one horizontally scrollable 44px aperture strip, leaving measurable field space between navigation and the bounded bottom sheet.",
     "Phone panel state is explicit (open/collapsed); collapsing the sheet expands the field without changing the selected projection.",
     "A dedicated 390×720 browser proof now checks real panel/ring geometry, touch target height, non-overlap, horizontal overflow, collapse behavior and PULSE re-entry.",
-    "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link."
+    "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link.",
+    "DATA exposes the moving-line set as one Boolean change lattice: 2^k reachable intermediate states, k·2^(k-1) lawful one-line edges, k! maximal STEP chains, and stable factoradic path addresses.",
+    "Direct local steering preserves the already-witnessed STEP prefix and reorders only the future suffix; steerStepOrder remains CALCULATION_ONLY and never calls LIVE release().",
+    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -73,14 +76,18 @@
     "Rhythmic-complexity/groove research motivates keeping challenge learnable; the runtime does not claim a universal optimal syncopation level or infer subjective pleasure.",
     "VOICE onset and center-hold evidence is descriptive practice evidence only; it must not be presented as singing-quality, neurological or health assessment.",
     "Mobile composition changes layout only; all eight apertures retain separate source ownership, cross-projection state and RETURN laws.",
-    "VOICE remains an independent Lab aperture; PULSE clock borrowing is explicit and optional. DRIVE is presentation preference; LIVE remains source-addressed POV/traversal and RETURN authority."
+    "VOICE remains an independent Lab aperture; PULSE clock borrowing is explicit and optional. DRIVE is presentation preference; LIVE remains source-addressed POV/traversal and RETURN authority.",
+    "STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT. Shared geometry/address never transfers control authority between CHANGE CALCULUS, I Ching, J-space/J-Lens, LIVE, or INK.",
+    "I Ching remains a structural/corpus lookup lens over supplied state; no cast or divinatory control authority is created by DATA or CHANGE CALCULUS.",
+    "J-space/J-Lens support remains evidence/preview only; no support result may promote itself into LIVE effect authority or commit RELEASE.",
+    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
     "loci_course_node": "PASS · public-surface-check run 35953594950 step 29",
     "phone_readfield_boot": "PASS · 430×900 FIELD LAB browser proof + critical browser smoke run 35953594950",
-    "route_registration": "PASS · run 36166811306",
-    "full_public_surface": "PASS · public-surface-check run 36166811291",
+    "route_registration": "PASS · run 36410051512",
+    "full_public_surface": "PASS · public-surface-check run 36410051617",
     "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab",
     "coordination_cleanup_merge": "55e308432e79a5eaf376bdccf112973db01a36dc",
     "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline",
@@ -100,7 +107,7 @@
     "pulse_psychophysics_core": "PASS · public-surface-check 36209914151 · Lab test step 41 includes pulse psychophysics suite",
     "pulse_multiring_browser": "PASS · public-surface-check 36209914151 · FIELD LAB browser boot step 49 + critical browser smoke step 58",
     "voice_spectrum_core": "PASS · public-surface-check 36209914151 step 42",
-    "authority_sync": "PASS_ON_PRESEAL_HEAD · Route Registration 36209914153 + public-surface-check 36209914151",
+    "authority_sync": "PASS · PR #492 merge 639a25a92570787fb02502f013744cd473c4b1e7 preserved through PR #507 merge 815af862cc90a6b1f34e57559428c1e3a1302fb1",
     "voice_temporal_core": "PENDING_PR_CI: shared VOICE temporal trace tests",
     "voice_temporal_lab": "PENDING_PR_CI: FIELD LAB PULSE embed + browser boot",
     "mobile_composition": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 geometry/touchability/non-overlap/collapse plus visible second-position VOICE and independent PULSE re-entry",
@@ -109,10 +116,16 @@
     "mobile_voice_aperture": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 requires VOICE 0.2 visible second after RIDE and independently selectable",
     "field_index_route": "PASS · public-surface-check run 36379975736 step 41 · manifest/CURRENT/release versions align at 0.3.6; Field Index exposes VOICE/PULSE and RIDE/DRIVE",
     "lab_boot_036": "PASS · public-surface-check run 36379975736 step 67",
-    "cross_projection_036": "PASS · public-surface-check run 36379975736 step 71"
+    "cross_projection_036": "PASS · public-surface-check run 36379975736 step 71",
+    "change_lattice_contract": "PASS · public-surface-check 36410051617 step 58 · J-space steering + change calculus contracts",
+    "change_ink_browser": "PASS · public-surface-check 36410051617 step 72 · local steering → witnessed prefix → addressed path → PROJECTION_ONLY INK guide → authored pigment RETURN",
+    "live_mobile_regression": "PASS · public-surface-check 36410051617 step 79",
+    "critical_browser_smoke": "PASS · public-surface-check 36410051617 step 80",
+    "change_lattice_merge_sha": "639a25a92570787fb02502f013744cd473c4b1e7",
+    "latest_proof_merge_sha": "815af862cc90a6b1f34e57559428c1e3a1302fb1"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
-  "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
+  "confluence": "/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md",
   "shipped": true,
   "state_language": {
     "version": "0.1",
