@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steppedStatePath} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steppedStatePath,residueLadder} from '../convergence/change-calculus/kernel.mjs';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -559,7 +559,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -612,6 +612,14 @@ function syncStateStepUI(){
       $('#stateStepRead').textContent='PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+x.step+'/'+step.steps.length+' · L'+x.line+' · '+x.from_bit+'→'+x.to_bit+' = '+x.iching_line_value+' · '+x.after_token;
     }
   }
+  if($('#stateResidueRead')){
+    const ladder=data.stateResidue,moving=ladder?.levels?.find(x=>x.id==='MOVING_SET');
+    if(!ladder||!moving)$('#stateResidueRead').textContent='RESIDUE · UNRESOLVED';
+    else{
+      const n=Number(moving.alternatives)||1,bits=Number(moving.ambiguity_bits)||0,path=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
+      $('#stateResidueRead').textContent='RESIDUE · Δ SET COLLAPSES '+n+' ORDER'+(n===1?'':'S')+' ('+bits+'b) · PATH '+path+' RESTORES ONE ADDRESSED SEQUENCE · '+ladder.strongest_claim;
+    }
+  }
 }
 function syncStateChange({preserveOrder=false}={}){
   const from=$('#stateFrom')?.value,to=$('#stateTo')?.value;
@@ -621,6 +629,7 @@ function syncStateChange({preserveOrder=false}={}){
   const indexed=calc?.ok?stepOrderAt(calc.moving,data.stateOrderIndex):null;
   if(indexed?.ok)data.stateOrderIndex=indexed.index;
   data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
+  data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep});
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
@@ -900,8 +909,8 @@ function currentProjectionEvidence(){
     return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water)};
   }
   if(mode==='DATA'){
-    const change=data.stateChange,calc=data.stateCalc,step=data.stateStep;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null}:null};
+    const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,ladder=data.stateResidue;
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
