@@ -1,5 +1,6 @@
 import {appliedResearchFrame,transparentStateCalculation,stepOrderAt,steppedStatePath} from './kernel.mjs';
 import {candidateEpochWitness,runLiveVerbCommutator} from './live-step-order.mjs';
+import {stateStepDecisionAperture,nativeForecastDecisionAperture,compareDecisionApertures} from './decision-aperture.mjs';
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const traceFixture={
@@ -51,6 +52,20 @@ function residueLadderWitness(ladder){
     '<p>'+esc(ladder.law)+'</p>';
 }
 
+function decisionApertureWitness(stateA,nativeA,comparison){
+  if(!stateA?.ok||!nativeA?.ok||!comparison?.ok)return '<p class="hot">Decision aperture witness unavailable.</p>';
+  const row=(label,a)=>'<tr><td><b>'+esc(label)+'</b></td><td>'+esc(a.kind)+'</td><td>'+esc(a.authority)+'</td><td>'+a.candidate_count+'</td><td>'+esc(a.candidate_ambiguity_bits==null?'—':a.candidate_ambiguity_bits+'b')+'</td><td>'+esc(a.focus.basis)+'</td><td>'+a.focus.count+'</td><td>'+esc(a.focus.information_gain_bits==null?'—':a.focus.information_gain_bits+'b')+'</td><td>'+esc(a.commit_semantics)+'</td></tr>';
+  return '<div class="metrics">'+
+    metric('state next',stateA.candidate_count)+metric('state choice info',stateA.candidate_ambiguity_bits==null?'—':stateA.candidate_ambiguity_bits+' bits')+
+    metric('native now',nativeA.candidate_count)+metric('native choice info',nativeA.candidate_ambiguity_bits==null?'—':nativeA.candidate_ambiguity_bits+' bits')+
+    metric('semantic equivalence',String(comparison.semantic_equivalence).toUpperCase())+
+    '</div><table><thead><tr><th>aperture</th><th>kind</th><th>authority</th><th>candidates</th><th>ambiguity</th><th>focus basis</th><th>focus n</th><th>narrowing</th><th>commit</th></tr></thead><tbody>'+
+    row('STATE / STEP',stateA)+row('LIVE / J-SPACE',nativeA)+'</tbody></table>'+
+    '<p><b>Structural rhyme:</b> '+esc(comparison.structural_rhyme.join(' · '))+'</p>'+
+    '<p><b>Non-equivalence:</b> '+esc(comparison.non_equivalence.join(' · '))+'</p>'+
+    '<p>'+esc(comparison.law)+'</p>';
+}
+
 function statePathWitness(path,state){
   const fmt=p=>[path.from_token,...p.steps.map(x=>x.after_token)].join(' → ');
   const primary=fmt(path);
@@ -83,6 +98,10 @@ function calculate(){
     trace,target:{layer,position},nativeForecasts:forecasts
   });
   const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering,g=frame.promotion;
+  const stateAperture=stateStepDecisionAperture(frame.change_lattice,sp,0);
+  const steeringPreview=j?.ok&&j.top?.mapped_verb?{ok:true,verb:j.top.mapped_verb,candidates:forecasts.filter(x=>String(x?.verb||'').toUpperCase()===j.top.mapped_verb)}:null;
+  const nativeAperture=nativeForecastDecisionAperture({authority:'NATIVE_EVIDENCE',seq:'RESEARCH_EPOCH',forecasts},steeringPreview);
+  const apertureComparison=compareDecisionApertures(stateAperture,nativeAperture);
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
@@ -115,6 +134,9 @@ function calculate(){
       '<p>'+esc(j.formulas.warning)+'. '+esc(j.formulas.decision)+'.</p>'+promotionWitness(g,frame.promotion_evidence_source);
   }else $('#steerOut').innerHTML='<h2>J-SPACE → NATIVE SUPPORT</h2><span class="hot">'+esc(j?.reason||'TRACE NOT PARSED')+'</span>'+promotionWitness(g,frame.promotion_evidence_source);
 
+  if($('#apertureOut'))$('#apertureOut').innerHTML='<h2>DECISION APERTURES · SAME SHAPE ≠ SAME MEANING</h2>'+
+    '<p>STEP and model-supported LIVE forecasts can both be inspected as finite candidate apertures. The shared arithmetic stops at candidate-set shape, narrowing and refresh; identity, semantics and authority remain local.</p>'+
+    decisionApertureWitness(stateAperture,nativeAperture,apertureComparison);
   $('#residueOut').innerHTML='<h2>RESIDUE LADDER · WHAT EACH READING CANNOT CARRY</h2>'+
     '<p>Zooming out is lawful only when the discarded detail stays named. The ladder below is a witness of compression/support boundaries, not a universal ontology.</p>'+
     residueLadderWitness(frame.residue_ladder)+
