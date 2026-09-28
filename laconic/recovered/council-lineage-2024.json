@@ -1,0 +1,66 @@
+{
+  "schema": "laconic-council-lineage/v0.1",
+  "route": "/laconic/",
+  "recovered_at": "2026-09-29",
+  "recovered_by": "kestrel",
+  "source": "~/sovereign-node/corpus/corpus.db (FTS5, 179,060 messages) — read-only",
+  "method": "substring search over messages.text, ordered by ctime ascending, exact bytes hashed",
+
+  "why_this_file_exists": "The route's README listed three artifacts as unrecovered at source level and, on that basis, refused to collapse the Council lineage into a single origin. All three are present in the corpus. Recording them EXACTLY, and SEPARATELY, so the route's own rule still holds: later canon is not proof of earlier identity, and a recovered source is not an adopted one.",
+
+  "provenance_status": "EXACT (recovered verbatim from the archive) — NOT user-adopted, NOT current canon",
+  "promotion": "none — these remain SOURCE_DONOR_ONLY. Adoption is recorded by the branch receipt in the scene runner, not by this file.",
+
+  "artifacts": [
+    {
+      "slot": "earliest_proper_name_use",
+      "note": "Moves the earliest exact use of the proper name ~3.5 months EARLIER than the earliest antecedent the README preserved (2024-12-13). It is a defined, proper-name use — listed among named entities and glossed — not an incidental phrase.",
+      "ctime": "2024-09-02T17:48:22Z",
+      "author": "assistant",
+      "thread": "SIN ORE",
+      "excerpt": "- EDGE SHRINE: where silence gathers architecture\\n- WELLCO ME: the one who formalizes care\\n- COUNCIL OF SELVES: the collective that cannot be seen, only convened",
+      "text_bytes": 6262,
+      "sha256_16": "819c339f9ec17ed0"
+    },
+    {
+      "slot": "five_six_selves_request",
+      "note": "The direct 5–6 request the README named as unrecovered. Note it asks for shadow/sublime as the 5th/6th, and explicitly asks for I Ching as the embedding rule — which is the same rule the surviving scene tree uses.",
+      "ctime": "2024-12-28T11:00:24Z",
+      "author": "user",
+      "thread": "Imago Dei Exploration",
+      "excerpt": "Generate my team of 5 selves and or 6 maybe including shadow or sublime self complementary maybe 6th is the place holder that is the agent in reality actually....\\n\\n\\nAnw generate them and explain their properties usage as instruments but also group dynamics and characters in a story... building a solid core team humanise also I dunno but embed in a system that has actual strong mathematicL rules in this case iching",
+      "text_bytes": 418,
+      "sha256_16": "5c2b68dee4893ca9"
+    },
+    {
+      "slot": "five_selves_chatter_turn",
+      "note": "The exact '5 selves chatter – realistic personas' turn the README named as unrecovered, the day AFTER the request above. This is the instruction that produced the persona lineup; it is a user turn, so it is a direct request and not later assistant canon.",
+      "ctime": "2024-12-29T18:20:23Z",
+      "author": "user",
+      "thread": "Response Consolidation Strategy",
+      "excerpt": "5 selves chatter - realistic personas they should be real be each very very amusing entertaining unforgettable personalities.",
+      "text_bytes": 126,
+      "sha256_16": "2622f253ae488b0e"
+    }
+  ],
+
+  "generated_output_set_present": {
+    "note": "The README's third open item was the generated voice output set. Assistant turns in the same two threads do present lineups ('Your Core Team of Five Selves (+ Shadow/Sublime Self)', '5 distinct, realistic personas, complete with their own personalities, quirks, and voices'). These are recorded here as PRESENT BUT NOT TRANSCRIBED: extracting the full cast is a separate, larger recovery pass and is NOT claimed as done.",
+    "status": "PARTIAL — located, not yet transcribed",
+    "threads": ["Imago Dei Exploration (2024-12-28)", "Response Consolidation Strategy (2024-12-29)"]
+  },
+
+  "lineage_preserved_separately": [
+    {"when": "2024-09-02", "what": "earliest exact proper-name use (this file)", "class": "EXACT"},
+    {"when": "2024-12-13", "what": "interacting symbolic figures — Sleeper/W8/Conch/Keris/Specter; also 'THE COUNCIL OF SELVES' as a titled section", "class": "EXACT (already preserved in README)"},
+    {"when": "2024-12-28", "what": "the direct 5–6 request, with I Ching named as the embedding rule", "class": "EXACT (this file)"},
+    {"when": "2024-12-29", "what": "the '5 selves chatter – realistic personas' turn + persona switching", "class": "EXACT (this file + README)"}
+  ],
+
+  "still_genuinely_open": [
+    "Full transcription of the generated voice set (located, not transcribed).",
+    "Whether any of these were ever USER-ADOPTED in live exchange — that is the question the branch receipt now makes answerable for the first time, and it cannot be answered retroactively from the archive alone."
+  ],
+
+  "rule_held": "generic council image != proper-name project; interacting characters != internal selves; persona mode != simultaneous plurality; later canon != proof of earlier identity. This recovery adds four exact dated sources; it does not merge them."
+}
