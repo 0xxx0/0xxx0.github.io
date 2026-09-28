@@ -187,9 +187,11 @@ function burst(col){
 function onClick(e){
   if(!on)return;
   const t=target; if(!t||!t.href)return;
-  burst(t.state?stateColor(t.state):'#72bce7');      // FOLLOW-THROUGH: the press leaves a mark
-  lockAt=performance.now();                           // and the lens reacts to its own action
-  if(e.shiftKey){window.__fieldAct?.open?.(t.href)}
+  e.preventDefault();e.stopPropagation();
+  burst(t.state?stateColor(t.state):'#72bce7');
+  lockAt=performance.now();
+  const held=window.__fieldAct?.focusHref?.()===t.href;
+  if(e.shiftKey||held){window.__fieldAct?.open?.(t.href)}
   else{window.__fieldAct?.focus?.(t.href)}
   setTimeout(place,30);
 }
@@ -201,6 +203,8 @@ function onWheel(e){
     setTimeout(()=>{draw();readout(target)},40);
     return;
   }
+  if(!target?.href)return;
+  e.preventDefault();
   const d=e.deltaY>0?1:-1;
   window.__fieldAct?.peer?.(d);
   setTimeout(place,40);
@@ -245,9 +249,10 @@ function ensure(){
 
 const MOVE={passive:true};
 function onMove(e){x=e.clientX;y=e.clientY;
-  if(!px&&!py){px=x;py=y}   /* first contact: arrive, do not fly in from the corner */
+  if(!px&&!py){px=x;py=y}
   if(el)el.style.opacity='1';place()}
-function onLeave(){if(el)el.style.opacity='0'}
+function onPointerDown(e){if(!on)return;x=e.clientX;y=e.clientY;if(!px&&!py){px=x;py=y}if(el)el.style.opacity='1';place()}
+function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType))el.style.opacity='0'}
 function onEnter(){if(el&&on)el.style.opacity='1'}
 function onKey(e){
   if(e.key!=='f'||e.metaKey||e.ctrlKey||e.altKey)return;
@@ -262,16 +267,18 @@ function toggle(next){
   if(b)b.classList.toggle('on',on);
   if(on){
     ensure();el.style.opacity='0';px=x;py=y;vx=0;vy=0;scale=.7;lockAt=performance.now();
-    window.addEventListener('mousemove',onMove,MOVE);
-    window.addEventListener('mouseleave',onLeave);
-    window.addEventListener('mouseenter',onEnter);
+    window.addEventListener('pointerdown',onPointerDown,MOVE);
+    window.addEventListener('pointermove',onMove,MOVE);
+    window.addEventListener('pointerleave',onLeave);
+    window.addEventListener('pointerenter',onEnter);
     window.addEventListener('click',onClick,true);
     window.addEventListener('wheel',onWheel,{passive:false});
     loop();
   }else{
-    window.removeEventListener('mousemove',onMove,MOVE);
-    window.removeEventListener('mouseleave',onLeave);
-    window.removeEventListener('mouseenter',onEnter);
+    window.removeEventListener('pointerdown',onPointerDown,MOVE);
+    window.removeEventListener('pointermove',onMove,MOVE);
+    window.removeEventListener('pointerleave',onLeave);
+    window.removeEventListener('pointerenter',onEnter);
     window.removeEventListener('click',onClick,true);
     window.removeEventListener('wheel',onWheel);
     cancelAnimationFrame(raf);
@@ -284,7 +291,7 @@ function toggle(next){
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click selects, shift-click opens, scroll steps peers, alt-scroll changes FIELD semantic scale. Nothing opens unless you mean it. Toggle: f key.';}
+    b.title='LOCAL DETAIL. Mouse/pen: sweep to read; click holds; click held mark again or shift-click opens; wheel steps peers; alt-wheel changes semantic scale. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.';}
   window.addEventListener('keydown',onKey);
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
