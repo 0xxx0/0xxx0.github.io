@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-28T17:28:33+00:00",
+  "updated": "2026-09-28T20:20:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -2729,7 +2729,7 @@
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE / DRIVE 0.13",
+      "title": "FOLD//BLOOM LIVE / READER + RIDE 0.13",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
@@ -2737,7 +2737,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Explicit AUTHORED READER mode is a bounded LIVE text-source path: a selected recovered pack exposes source provenance, exact READ/RIDE addresses, source-grounded recurrence and EVIDENCE_ONLY RETURN without changing plain LIVE's RIDE-first identity or the contracted public four jobs.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Explicit AUTHORED READER mode is a bounded LIVE text-source path: a selected recovered pack exposes source provenance, exact READ/RIDE addresses, source-grounded recurrence and EVIDENCE_ONLY RETURN without changing PLAY 0.6.1 effect authority or the contracted public four jobs.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2895,7 +2895,7 @@
           {
             "medium": "TEXT/DATA",
             "kind": "recovered authored source + provenance pack",
-            "interface": "explicit AUTHORED READER / READ-RIDE"
+            "interface": "AUTHORED READER / READ-RIDE"
           }
         ],
         "outputs": [
@@ -2939,13 +2939,13 @@
           {
             "class": "SOURCE_RETURN",
             "status": "AVAILABLE",
-            "via": "explicit AUTHORED READER → exact READFIELD source/cursor return"
+            "via": "AUTHORED READER → exact READFIELD source/cursor return"
           }
         ],
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-28T20:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2960,8 +2960,7 @@
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
           "IMAGE_SET deterministic course arithmetic is gated under public-surface addressed-course navigation",
           "image-clock browser proof declares generated fixtures, observes zero-click address/stage advance, repeats in an independent browser process, and checks STEP hold/step-one/grain/RETURN",
-          "FLOW-default reconciliation preserves quiet audio behavior while restoring source-clock traversal",
-          "AUTHORED READER exact-source/browser proof: recovered source hash + recurrence + RELEASE→STEP + provenance + EVIDENCE_ONLY RETURN + exact READFIELD re-entry"
+          "FLOW-default reconciliation preserves quiet audio behavior while restoring source-clock traversal"
         ]
       }
     },
