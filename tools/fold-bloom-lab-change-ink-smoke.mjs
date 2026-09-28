@@ -53,9 +53,9 @@ function probe(){
     rec.guideStates=ink.guide.points.length;
     rec.address=addr;
     const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),x=box.left+box.width*.5,y=box.top+box.height*.5;
-    canvas.dispatchEvent(new W().PointerEvent('pointerdown',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x,clientY:y,pressure:.65}));
-    canvas.dispatchEvent(new W().PointerEvent('pointermove',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
-    canvas.dispatchEvent(new W().PointerEvent('pointerup',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
+    canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x,clientY:y,pressure:.65}));
+    canvas.dispatchEvent(new (W().PointerEvent)('pointermove',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
+    canvas.dispatchEvent(new (W().PointerEvent)('pointerup',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
     await sleep(120);
     const packet=W().FoldBloomFieldLab.returnPacket(),projection=packet?.projection||{};
     rec.returnKind=projection.kind;
