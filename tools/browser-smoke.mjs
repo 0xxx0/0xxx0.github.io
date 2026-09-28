@@ -1282,16 +1282,40 @@ const CASES=[
     check:dom=>/GLYPH ATLAS/i.test(dom)&&/SYNTHETIC DEMO/i.test(dom)&&/SOURCE = CELL/i.test(dom)&&/GLYPH = THUMBNAIL/i.test(dom)&&/FOCUS = INSIDE/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="inside"')&&dom.includes('id="originBtn"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')&&dom.includes('id="readBtn"')&&dom.includes('id="rebindBtn"')&&dom.includes('document-structure.js')
   },
   {
-    name:'FOLD BLOOM LIVE calm ride doorway',
+    name:'FOLD BLOOM LIVE reader-facing doorway',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/RIDE THE/i.test(dom)&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY · GAME MODES/i.test(dom)&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
+    check:dom=>/READ WHAT REARRANGES/i.test(dom)&&/ENTER · PRISON AGE 2021/i.test(dom)&&/OPEN YOUR TEXT/i.test(dom)&&/OTHER SOURCES \/ PLAY MODES/i.test(dom)&&dom.includes('id="authoredIntroBtn"')&&dom.includes('id="readerPrev"')&&dom.includes('id="readerNext"')&&dom.includes('id="readerReturnBtn"')&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
   },
   {
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/RIDE FIELD COURSE/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&/SOURCE → MAP → IMMERSION/i.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/RIDE FIELD COURSE/i.test(dom)&&/PLAY · GAME MODES/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
+    check:dom=>
+      dom.includes('data-fold-bloom-live="ready"')&&
+      dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&
+      dom.includes('data-fold-bloom-macro-drop="v0.2"')&&
+      dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&
+      ((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&
+      dom.includes('data-fold-bloom-landmarks="0"')&&
+      dom.includes('data-fold-bloom-layer="IMMERSION"')&&
+      /READ WHAT REARRANGES/i.test(dom)&&
+      /SOURCE \/ TRAVERSE \/ RETURN/i.test(dom)&&
+      dom.includes('id="authoredIntroBtn"')&&dom.includes('id="readIntroBtn"')&&
+      dom.includes('id="readerPrev"')&&dom.includes('id="readerNext"')&&
+      dom.includes('id="readerEchoPrev"')&&dom.includes('id="readerEchoNext"')&&
+      dom.includes('id="readerProvBtn"')&&dom.includes('id="readerReturnBtn"')&&
+      dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&
+      dom.includes('id="centerMassBtn"')&&dom.includes('id="vaultSelect"')&&
+      dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&
+      dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&
+      dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&
+      dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&
+      dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&
+      /AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&
+      /VIBE · NORMAL/i.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)&&/FIELD COURSE/.test(dom)&&
+      dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)
+  },
   {
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',

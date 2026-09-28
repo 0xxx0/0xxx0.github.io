@@ -35,8 +35,9 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),16000,'LIVE handoff');
   const api=W().FoldBloomLive,first=api.read.current();rec.liveStart=first;rec.sourceId=first.source.id;
   for(let i=0;i<3;i++){api.course.step(1);await sleep(100)}
+  api.course.step(-1);await sleep(100);api.course.step(1);await sleep(100);
   const end=api.read.current();rec.liveEnd=end;rec.visited=end.traversal?.visited||[];
-  if(rec.visited.length!==4)throw Error('visited count '+rec.visited.length);
+  if(rec.visited.length!==6)throw Error('visited/backtrack count '+rec.visited.length);
   const final={start:end.witness.start,end:end.witness.end};
   D().getElementById('readfieldReturn').click();
   await wait(()=>W().location.pathname==='/docs/'&&D().documentElement.dataset.readfieldRideReturn==='accepted',16000,'exact READFIELD return');
@@ -71,14 +72,14 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
     traversal:{mode:'STEP',steps:3,grains_entered:4},witness:{text:end.witness.text},
     return:{route:'/docs/',source_id:acceptedHash,cursor:{start:final.start,end:final.end}},created_at:new Date().toISOString()
   };
-  template.visited[2].start=template.visited[1].start;
+  template.visited[2].start=-1;
   const beforeBad=D().getElementById('docAperture').snapshot();sessionStorage.setItem(RETURN_STORE,JSON.stringify(template));W().history.replaceState(null,'','?paste=1&ride_return=1#paste');
   const badResult=await W().ReadfieldRideReturn.accept();const afterBad=D().getElementById('docAperture').snapshot();
   rec.malformed={result:badResult,before:beforeBad.span,after:afterBad.span};
   if(badResult.ok||badResult.reason!=='MALFORMED_VISIT'||!same(beforeBad.span,afterBad.span))throw Error('malformed zero-mutation failed');
 
-  const ok=rec.visited.length===4&&same(rec.returned.span,final)&&rec.stale.result.reason==='STALE_SOURCE'&&rec.malformed.result.reason==='MALFORMED_VISIT';
-  done(ok,{sourceId:rec.sourceId,steps:3,visited:rec.visited,final,returned:rec.returned.span,stale:rec.stale.result,malformed:rec.malformed.result,exact:ok});
+  const ok=rec.visited.length===6&&same(rec.returned.span,final)&&rec.stale.result.reason==='STALE_SOURCE'&&rec.malformed.result.reason==='MALFORMED_VISIT';
+  done(ok,{sourceId:rec.sourceId,steps:5,backtrack:true,visited:rec.visited,final,returned:rec.returned.span,stale:rec.stale.result,malformed:rec.malformed.result,exact:ok});
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
