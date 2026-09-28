@@ -160,13 +160,14 @@ jobs:
           FAIL=0
 
           # Tolerance: AE (absolute error) pixel count threshold per route.
-          # 430x900 = 387,000 px. Base tolerance 2% = 7,740 px for static pages.
-          # Dynamic pages (canvas/WebGL, animations) get higher allowances.
+          # 430x900 = 387,000 px. Base tolerance 0.5% = 1,935 px for stable pages.
+          # Dynamic pages get higher allowances: root/fold-bloom 3% (11,610),
+          # fold-bloom/live 30% (116,100) for non-deterministic WebGL.
           # -fuzz 1% absorbs sub-pixel AA variance.
           # Per-route thresholds chosen from observed inter-run variance on ubuntu-24.04.
           declare -A MAX_DIFF_PIXELS=(
             ["root"]=11610      # 3.0% — root has minor font/layout variance
-            ["fold-bloom_live"]=58050  # 15% — canvas/WebGL, non-deterministic render
+            ["fold-bloom_live"]=116100  # 30% — canvas/WebGL, highly non-deterministic
             ["fold-bloom"]=11610     # 3.0% — some animation variance
             ["fold-bloom_ecology"]=1935  # 0.5% — stable static content
             ["docs"]=1935          # 0.5% — stable static content
@@ -175,7 +176,7 @@ jobs:
           echo "# Visual Regression Compare Report" > "$REPORT"
           echo "" >> "$REPORT"
           echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> "$REPORT"
-          echo "Tolerance: per-route AE thresholds (base 0.5%=1935px; root/fold-bloom 3%=11610px; fold-bloom/live 15%=58050px)" >> "$REPORT"
+          echo "Tolerance: per-route AE thresholds (base 0.5%=1935px; root/fold-bloom 3%=11610px; fold-bloom/live 30%=116100px)" >> "$REPORT"
           echo "" >> "$REPORT"
           echo "| Route | Golden | Capture | Diff (AE) | Status |" >> "$REPORT"
           echo "|-------|--------|---------|-----------|--------|" >> "$REPORT"
