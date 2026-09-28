@@ -2,7 +2,7 @@
   "schema": "prison-age.reader-pack/v0.2",
   "title": "I'M ALWAYS BEHIND YOU",
   "subtitle": "A Prison Age reading path",
-  "status": "ACTIVE CANDIDATE / 2026 READER CONTINUATION",
+  "status": "FROZEN READER 0.2 / PRESERVED FOR LINEAGE",
   "source": {
     "artifact": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
@@ -162,5 +162,7 @@
       "RULE"
     ],
     "clearable": true
-  }
+  },
+  "successor": "/prison-age/",
+  "freeze_reason": "P26 motif/path/pressure reader projection rejected as current product face; exact source extraction retained."
 }
