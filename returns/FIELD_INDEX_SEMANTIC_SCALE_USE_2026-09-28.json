@@ -1,0 +1,37 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28",
+  "date": "2026-09-28",
+  "object": "FIELD INDEX / semantic scale + FOVEA use pass",
+  "state": "SHIPPED_CANDIDATE",
+  "before": "FIELD/ROUTE/OBJECT semantic scale was merged and CI-green, but its use was under-explained on phone and FOVEA still listened to mouse movement. FOVEA click capture could also let the same physical click reach the underlying route control after changing focus.",
+  "delta": [
+    "Teach FIELD / ROUTE / OBJECT meaning in the scale rail itself and expose phone-specific tap guidance without adding a tutorial panel.",
+    "Move FOVEA tracking from mouse-only movement to Pointer Events so mouse, pen and touch share one aperture path.",
+    "Make FOVEA own addressed-mark clicks while active: first activation holds, activating the held mark again opens; shift-click remains immediate OPEN on desktop.",
+    "Keep page scrolling available when FOVEA is not over an addressed mark; wheel peer traversal consumes scroll only over a valid target."
+  ],
+  "laws": [
+    "One physical action must not be interpreted twice by stacked interaction layers.",
+    "A projection should teach its minimum viable operation at the point of use.",
+    "Touch, pen and mouse may share an interaction law without pretending their gestures are identical.",
+    "Projection changes never mutate FIELD route identity, CURRENT attention or native host authority."
+  ],
+  "evidence": [
+    "/index.html",
+    "/fovea-lens.js",
+    "/field-presentation.js",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "commit:e98a04e9817c564dfd3b717541d78038bef43fca",
+    "commit:432a78a9248b735fba493cd662b0eed8793257f5"
+  ],
+  "verification": {
+    "source": "PENDING CI on PR branch; require public-surface-check including critical browser smoke plus route registration.",
+    "human": "PENDING: ordinary-use check on a real phone: switch bands, focus/open a mark, enable FOVEA, drag across marks, and confirm scrolling remains controllable.",
+    "limit": "Pointer/browser tests cannot prove the touch interaction feels clear in ordinary phone use."
+  },
+  "next": "Use FIELD root on phone once. If a gesture is ambiguous, change the smallest interaction law or label; do not add another navigation layer.",
+  "stop": "Do not add pinch-to-zoom, a tutorial modal, or a second focus store unless ordinary-use evidence shows the three-band + FOVEA model cannot be learned in place.",
+  "version": "0.8.16",
+  "upstream_preserved": "PR #485 semantic-scale law remains intact: FIELD/ROUTE/OBJECT changes projection density; MAP depth changes topology; FOVEA is local detail; all preserve one addressed focus."
+}
