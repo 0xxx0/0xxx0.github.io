@@ -1092,7 +1092,7 @@ async function startDemo({preview=true,playTrack=false}={}){
 
 function pointDown(e){
   if($('#intro').classList.contains('on')||$('#settings').classList.contains('on'))return;
-  stopDemo(true);dragging=true;startX=lastX=e.clientX;startY=e.clientY;stepAccum=0;pointerTravel=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);if(audio.soundOn)ensureAudio();
+  stopDemo(true);dragging=true;startX=lastX=e.clientX;startY=e.clientY;stepAccum=0;pointerTravel=0;lastT=performance.now();try{cv.setPointerCapture?.(e.pointerId)}catch(_){};if(audio.soundOn)ensureAudio();
 }
 function pointMove(e){
   if(!dragging)return;e.preventDefault();const now=performance.now(),dx=e.clientX-lastX,total=e.clientX-startX,threshold=Math.max(20,innerWidth*.045),dir=Math.sign(dx)||1;
