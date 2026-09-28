@@ -144,13 +144,16 @@
     "Declared local image bytes remain device-local in the existing IndexedDB media vault keyed by sha256 source identity; the set manifest carries metadata/address continuity, not uploaded or repository-committed image bytes.",
     "IMAGE_SET carries its own deterministic set clock: FLOW advances the addressed image without clicks or audio, STEP holds that clock and moves exactly one address, and map scrub re-anchors the same set clock.",
     "FLOW is the current traversal default after cff756e6 reconciled the quiet-start experiment: with no source clock the field is still; with an addressed audio/image source FLOW advances continuously. Quiet source audio outside IMMERSION remains explicit rather than autoplaying sound.",
-    "AUTHORED READER 0.1: LIVE opens with a recovered authored-source reading path instead of leading with the audio/game demo.",
+    "AUTHORED READER 0.1 is an explicit LIVE READ aperture over recovered/authored source; it no longer defines LIVE's default identity.",
     "The bundled Prison Age 2021 pack carries exact source bytes, sha256 identity, fragment-level V status, source artifact/date, explicit recovery boundary and exclusions; later co-created lore is not silently promoted.",
     "Reader mode reuses existing READ/RIDE SENTENCE/PARAGRAPH/SECTION addressing and RELEASE→STEP; LIVE consequences never rewrite source bytes.",
     "RECURRENCE is source-derived, not generated narrative: PRISON AGE / spaced SINGAPORE / SIN-ORE-GAP / SINGAPORE share mechanically verified AEGINOPRS letter conservation under different partition.",
     "ECHO navigation records exact source offsets separately from coarse paragraph addresses so recurrence remains inspectable in RETURN.",
     "Reader RETURN emits EVIDENCE_ONLY source/traversal/recurrence/LIVE-operation witness and can re-enter the exact source in READFIELD with native cursor restoration.",
-    "Audio, image, PLAY and calculation depth remain available as unequal projections but no longer lead the public LIVE intro."
+    "Audio, image, PLAY and calculation depth remain available as unequal projections but no longer lead the public LIVE intro.",
+    "LIVE flagship shell now exposes unequal RIDE / READ / GARDEN apertures without merging their native authorities.",
+    "GARDEN is hosted inside LIVE through the canonical /fold-bloom/ecology/ engine. LIVE holds its own source clock and generated sound while the aperture is active; Ecology retains gene/lineage/law/breeding/GARDEN/RETURN authority.",
+    "RETURN LIVE restores the previously held LIVE traversal/presentation state; no Ecology lineage event becomes a LIVE RELEASE or source-history event."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -200,7 +203,10 @@
     "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed.",
     "IMAGE_SET is source/address evidence, not inferred image meaning. The clock may advance source position but may not author BLOOM/FOLD/SPLIT/RETURN or fabricate semantic labels.",
     "Local image bytes stay browser-local; declaring or reopening an IMAGE_SET must not upload or commit private image content.",
-    "FLOW changes source address only according to the active source clock; RELEASE remains the authored LIVE effect aperture and never seeks or rewrites the source."
+    "FLOW changes source address only according to the active source clock; RELEASE remains the authored LIVE effect aperture and never seeks or rewrites the source.",
+    "Hosted GARDEN transfers shell orientation only: sourceClockBridge=false and releaseAuthority=false.",
+    "The canonical Ecology route remains directly recoverable; LIVE must not fork or clone the Ecology engine.",
+    "AUTHORED READER remains a source path inside LIVE, not the public/default definition of LIVE."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -276,7 +282,8 @@
     "image_course_ci_contract": "GATED · public-surface-check runs fold-bloom/live/tests/image-course.test.mjs under addressed course navigation",
     "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained",
     "authored_reader": "PENDING PR CI · source-pack selftest + browser source/provenance/RELEASE→STEP/recurrence/exact-READFIELD-RETURN proof",
-    "authored_reader_source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e"
+    "authored_reader_source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+    "hosted_garden_contract": "PENDING_PR_CI · fold-bloom/live/tests/garden-aperture.test.mjs + tools/fold-bloom-live-garden-smoke.mjs"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
