@@ -932,7 +932,7 @@ function runSettle(bin,c){
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
     let out='',err='';
-    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+c.route))},o.timeout||30000);
+    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+c.route))},Math.round((o.timeout||30000)*SLOW));
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
