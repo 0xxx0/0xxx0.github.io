@@ -2,7 +2,6 @@
 'use strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { RELATION_LEGEND as FAN8_RELATION_LEGEND } from '../fold-bloom/live/play-core.js';
 import { hasPendingCIClaim } from './return-receipt-contract.mjs';
 import { htmlTailErrors } from './html-document-integrity.mjs';
 const root=process.cwd(),fail=[];
@@ -271,7 +270,19 @@ check(fan8Svg.includes('HOLD FAST')&&fan8Svg.includes('HELD / MODE / RETURN'),'F
 check(fan8StateLanguage.includes("export const HEX_LINES=6")&&fan8PlayCore.includes("if(v==='BLOOM'||v==='FOLD')return 1")&&fan8PlayCore.includes("if(v==='SPLIT'||v==='RETURN')return 0"),'FAN/8 historical HEX donor mapping lost');
 check(fbFormPuzzle.includes("FORM_PUZZLE_VERSION='FOLD_BLOOM_FORM_0.1'")&&fbPlay.includes('FORM_PUZZLE_VERSION')&&fbPlay.includes("./hex-projection.js?v=0.1"),'PLAY 0.6.1 must retain exact FORM verbs plus the explicit HEX projection bridge');
 check(fan8Spec.includes('## Hard distinction: IDENTIFY ≠ EMBED ≠ DEFORM')&&fan8Spec.includes('Logical identity / adjacency belongs to the host law.')&&fan8Spec.includes('physical form may project an existing relation; it does not invent one.'),'FAN/8 lost IDENTIFY/EMBED/DEFORM authority boundary');
-const fan8Legend=FAN8_RELATION_LEGEND.map(([relation,verb],distance)=>`Δ${distance} ${relation}→${verb}`).join(' · ');
+// RELATION_LEGEND is read from the file's own bytes rather than imported, deliberately.
+// The repo is browser-native with no build step (AXIS/AUTONOMOUS-BRIEF.md:149 -- "Do not
+// introduce npm, a bundler, or TypeScript"), so there is no package.json to declare
+// fold-bloom/*.js as ESM for Node. Importing a browser module from a Node tool is what broke
+// this validator. Reading the bytes it already reads is both in-grain and a stronger check:
+// it asserts the exact shipped text, not a resolved module.
+const fan8LegendPairs=(()=>{
+  const m=fan8PlayCore.match(/RELATION_LEGEND\s*=\s*Object\.freeze\(\[([\s\S]*?)\]\)/);
+  if(!m)return null;
+  return [...m[1].matchAll(/\['([A-Z]+)'\s*,\s*'([A-Z]+)'\]/g)].map(x=>[x[1],x[2]]);
+})();
+check(Array.isArray(fan8LegendPairs)&&fan8LegendPairs.length===4,'PLAY RELATION_LEGEND unreadable from fold-bloom/live/play-core.js bytes');
+const fan8Legend=(fan8LegendPairs||[]).map(([relation,verb],distance)=>`Δ${distance} ${relation}→${verb}`).join(' · ');
 check(fan8Svg.includes(fan8Legend),'FAN/8 printable relation legend drifted from current PLAY RELATION_LEGEND');
 const fan8Carrier=parse('control/TRANSDUCTIONS.json')?.instrument_cell?.physical_recipes?.FAN8;
 check(fan8Carrier?.version==='0.2'&&fan8Carrier?.artifact==='/foundry/axial/fan8-print.svg'&&fan8Carrier?.projection_cell==='FOLD'&&fan8Carrier?.authority==='NONE','FAN/8 lost TRANSDUCTIONS physical-recipe ownership');

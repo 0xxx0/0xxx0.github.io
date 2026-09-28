@@ -1,7 +1,0 @@
-{
-  "name": "fold-bloom",
-  "private": true,
-  "type": "module",
-  "description": "Scoped module declaration for fold-bloom/. Every .js file under here uses ESM export syntax and is imported both by <script type=\"module\"> in the browser and by .mjs tools/tests in Node. With no nearest package.json declaring type:module, Node resolves these as CommonJS and refuses the named imports ('is a CommonJS module, which may not support all module.exports as named exports'). Measured cost: tools/validate-public.mjs could not run, and fold-bloom/live/tests/play-core.test.mjs could not run. This declaration fixes both, and is verified safe here -- zero files under fold-bloom/ use require(, module.exports, __dirname or __filename. Deliberately scoped to fold-bloom/: lib/ holds a mix of CommonJS and ESM .js files, so a repo-root type:module would break the CommonJS ones.",
-  "license": "UNLICENSED"
-}
