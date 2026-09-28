@@ -165,6 +165,8 @@ jobs:
           node --test fold-bloom/tests/course-nav.test.mjs
           node --test fold-bloom/tests/read-course.test.mjs
           node --test fold-bloom/live/tests/image-course.test.mjs
+      - name: Test corpus read export maps to the LIVE read course
+        run: node --test tools/corpus-read-export.test.mjs
       - name: Test FOLD BLOOM Ecology public contract
         run: node --test fold-bloom/ecology/tests/public-contract.test.mjs
       - name: Test FOLD BLOOM Experience Set v0.1 round trip
