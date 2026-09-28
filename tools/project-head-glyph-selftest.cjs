@@ -22,6 +22,7 @@ for(const f of [fold,sleeper]){
   assert.equal(a.model.schema,'interphase-glyph/v0.1');
   assert.equal(a.model.authority,'VIEW');
   assert.equal(a.descriptor.address.route,f.route.href);
+  assert.equal(a.model.id,f.route.href,'held project witness must preserve route identity');
   assert.equal(a.descriptor.address.lineage,f.head.lineage);
   assert.ok(a.descriptor.channels.includes('identity'));
   assert.ok(a.descriptor.channels.includes('address'));

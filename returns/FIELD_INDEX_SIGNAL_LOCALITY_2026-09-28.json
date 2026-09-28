@@ -1,0 +1,42 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28",
+  "date": "2026-09-28",
+  "object": "FIELD INDEX / semantic signal locality",
+  "state": "SHIPPED_CANDIDATE",
+  "before": "FIELD 0.8.18 had a useful shared semantic-signal grammar, but renderCatchup projected the global combined CATCH token onto focusHead. A held object could therefore appear CHANGED/REALITY/MIXED because of unrelated state elsewhere in the field.",
+  "delta": [
+    "Derive a route-local semantic token for every addressed FIELD mark.",
+    "CHANGED is owned only by that route's unresolved browser-local index-change witness.",
+    "REALITY is owned only by an explicit CURRENT human/world gate whose route exactly matches the glyph.",
+    "EXTERNAL is owned only when an external issue/witness explicitly names that route; live issue refresh preserves a snapshot route if one exists.",
+    "MIXED appears on an addressed glyph only when multiple route-owned source classes coexist.",
+    "Project the route-local token onto compact feed glyphs and the held-object header.",
+    "Keep CATCH + ACT as a folded global/source-disaggregation summary; remove its global-token spill into focusHead.",
+    "Preserve route identity through the held project glyph: lineage remains metadata, not replacement identity."
+  ],
+  "laws": [
+    "GLOBAL SUMMARY ≠ OBJECT STATE.",
+    "SIGNAL LOCALITY: PATTERN MAY ONLY CLAIM THE ADDRESS ITS SOURCE NAMES.",
+    "PATTERN ≠ PRIORITY ≠ AUTHORITY.",
+    "ROUTE IDENTITY SURVIVES HELD-GLYPH DISCLOSURE."
+  ],
+  "evidence": [
+    "/index.html",
+    "/lib/field-signal.js",
+    "/lib/field-signal.css",
+    "/lib/project-head-glyph.js",
+    "/tools/field-signal-locality-selftest.cjs",
+    "/tools/project-head-glyph-selftest.cjs",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "verification": {
+    "source": "PENDING CI: signal grammar/locality selftests, project-head glyph selftest, root public contracts, route registration and critical browser smoke.",
+    "human": "No human gate required. Perceptual usefulness remains revisable: pattern intensity may be reduced without changing token semantics.",
+    "limit": "External route locality requires an explicit source-side route association; unaddressed GitHub issues remain global and are not guessed onto objects."
+  },
+  "next": "If locality holds, CATCH can be further contracted because its addressed change/reality meaning now already lives on the field; preserve only source disaggregation and reversible local acknowledgement that has no other owner.",
+  "stop": "Do not infer route affinity from issue text, recency, title similarity or semantic proximity.",
+  "version": "0.8.19",
+  "upstream_preserved": "FIELD 0.8.18 held-project glyph remains VIEW-only; this pass tightens identity and signal scope without adding another visible block."
+}

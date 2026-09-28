@@ -588,10 +588,22 @@ function catchupItems(){try{const x=JSON.parse(localStorage.getItem(CATCHUP_ITEM
 function saveCatchupItems(x){try{localStorage.setItem(CATCHUP_ITEM_KEY,JSON.stringify(x||{}))}catch(_){}}
 function setCatchupSeen(stamp){try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}}
 function routeCaughtUpAt(href){const items=catchupItems();return Math.max(catchupSeen(),Math.max(0,Number(items[href])||0))}
+function routeSignal(r){
+ if(!r?.href)return'CLEAR';
+ const changed=tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href);
+ const reality=currentHumanGates().some(g=>g.route===r.href);
+ const external=(issues||[]).some(x=>x.route===r.href);
+ return window.FieldSignal?.combine({changed,reality,external})||(reality&&changed?'MIXED':reality?'REALITY':external?'EXTERNAL':changed?'CHANGED':'CLEAR');
+}
+function applyFocusSignal(){
+ const bar=$('focusHead');if(!bar)return;
+ const token=routeSignal(focus);window.FieldSignal?.apply(bar,token);
+ bar.title=focus?((focus.title||focus.href)+' · '+token+' · signal belongs to this address'):'FIELD · CLEAR';
+}
 function markRouteCaughtUp(href){
  const r=routeMap().get(href);if(!r)return;
  const items=catchupItems(),previous=Math.max(0,Number(items[href])||0),stamp=tsMs(r.index?.updated_at)||Date.now();
- pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderCatchup();
+ pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderCatchup();renderFeed();
 }
 function catchText(r){
  const s=r?.evolution?.mutation||r?.evolution?.question||r?.role||(Array.isArray(r?.transfer)?r.transfer[0]:'')||'Addressed head changed.';
@@ -620,7 +632,6 @@ function renderCatchup(){
  const signal=window.FieldSignal?.combine({changed:changedCount>0,reality:gates.length>0,external:issueCount>0})||(gates.length?'REALITY':issueCount?'EXTERNAL':changedCount?'CHANGED':'CLEAR');
  $('catchupFold')?.setAttribute('data-signal',issueCount&&signal==='EXTERNAL'?'GITHUB':signal);
  const signalBar=$('catchupFold')?.querySelector(':scope > summary');if(signalBar)window.FieldSignal?.apply(signalBar,signal);
- if($('focusHead'))window.FieldSignal?.apply($('focusHead'),signal);
  meta.textContent=(gates.length?gates.length+' REALITY':'REALITY CLEAR')+' · '+(issueCount?issueCount+' GH':'GH CLEAR')+' · '+(changedCount?changedCount+' CHANGE':'CHANGE CLEAR');
  seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
  if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
@@ -643,7 +654,7 @@ function renderCatchup(){
 function markCaughtUp(){
  const changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href));if(!changed.length)return;
  const previous=catchupSeen(),stamp=Math.max(...changed.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderCatchup();
+ pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderCatchup();renderFeed();
 }
 function rewindCaughtUp(){
  const history=catchupHistory();
@@ -654,7 +665,7 @@ function rewindCaughtUp(){
   else if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items)}
  }else if(catchupSeen())setCatchupSeen(0);
  else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
- renderCatchup();
+ renderCatchup();renderFeed();
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
@@ -740,12 +751,12 @@ function renderFeed(){
  for(const r of xs){
    const d=shortDay(r.index?.updated_at||'');
    if(d&&d!==lastDay){parts.push('<span class="feedDay" title="manifest index day '+esc(d)+'">'+esc(d)+'</span>');lastDay=d}
-   const lab=[r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/')].filter(Boolean).join(' · ');
-   parts.push('<button class="feedChip '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt></button>');
+   const signal=routeSignal(r),lab=[r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/'),signal!=='CLEAR'?signal:null].filter(Boolean).join(' · ');
+   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt></button>');
  }
  $('feedRail').innerHTML=parts.join('');
  $('feedRail').querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
- renderSyncLine();try{updateStatusRail()}catch(_){}
+ applyFocusSignal();renderSyncLine();try{updateStatusRail()}catch(_){}
 }
 function dependencyKind(state){
  const s=String(state||'').toUpperCase();
@@ -826,7 +837,7 @@ async function loadIssues(){
  let snap={issues:[]};try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
  if(/^(?:127\.0\.0\.1|localhost)$/.test(location.hostname))return;
  const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),2500);
- try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO'}}))}catch(_){}finally{clearTimeout(timeout)}
+ try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO',route:p.route||null}}))}catch(_){}finally{clearTimeout(timeout)}
 }
 function renderHeads(){
  const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained · CURRENT '+(current?.updated||'—');
