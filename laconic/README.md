@@ -167,11 +167,32 @@ Three antecedents are currently preserved separately:
 
 These may later converge, but they are not silently collapsed into one origin.
 
-Still open at source level:
+**RECOVERED 2026-09-29** — exact-source pass over `~/sovereign-node/corpus/corpus.db` (179,060
+messages, read-only). All three items were present. Filed as `recovered/council-lineage-2024.json`
+with exact bytes + sha256, and left **separate** rather than merged:
 
-- the direct generated **5–6 internal voice output set**;
-- the direct **“5 selves chatter – realistic personas”** turn and first resulting scene;
-- the earliest direct use of the exact proper name **“Council of Selves.”**
+- ~~the direct generated **5–6 internal voice output set**~~ → **LOCATED, NOT TRANSCRIBED.** Assistant
+  turns in both threads present full lineups ("Your Core Team of Five Selves (+ Shadow/Sublime
+  Self)", "5 distinct, realistic personas, complete with their own personalities, quirks, and
+  voices"). Extracting the full cast is a larger separate pass; not claimed as done.
+- ~~the direct **"5 selves chatter – realistic personas"** turn~~ → **FOUND EXACT.** User turn,
+  `2024-12-29T18:20:23Z`, thread *Response Consolidation Strategy*, 126 bytes, sha `2622f253ae488b0e`:
+  *"5 selves chatter - realistic personas they should be real be each very very amusing
+  entertaining unforgettable personalities."*
+- ~~the earliest direct use of the exact proper name **"Council of Selves."**~~ → **FOUND, 3.5
+  MONTHS EARLIER THAN PRESERVED.** `2024-09-02T17:48:22Z`, thread *SIN ORE*, assistant turn, a
+  *defined proper-name use*: *"COUNCIL OF SELVES: the collective that cannot be seen, only
+  convened"*. The earliest antecedent preserved here was 2024-12-13 — the true earliest is now
+  2024-09-02.
+
+Also found exact: the **direct 5–6 request** — `2024-12-28T11:00:24Z`, user, thread *Imago Dei
+Exploration*, sha `5c2b68dee4893ca9`: *"Generate my team of 5 selves and or 6 maybe including
+shadow or sublime self … embed in a system that has actual strong mathematicL rules in this case
+iching"*. **It names I Ching as the embedding rule** — the same rule the surviving scene tree uses.
+
+Recovery rule held: these are four exact dated sources added, **not merged**. `EXACT SOURCE ≠
+USER-ADOPTED ≠ CURRENT CANON` — and whether any was ever adopted in live exchange is now
+answerable going forward (by the branch receipt) but cannot be recovered retroactively.
 
 Recovery rule: **generic council image ≠ proper-name project; interacting characters ≠ internal selves; persona mode ≠ simultaneous plurality; later canon ≠ proof of earlier identity.**
 
