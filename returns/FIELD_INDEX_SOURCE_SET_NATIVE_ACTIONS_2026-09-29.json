@@ -1,0 +1,33 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_SOURCE_SET_NATIVE_ACTIONS_2026-09-29",
+  "date": "2026-09-29",
+  "object": "FIELD INDEX / source-set native actions",
+  "state": "MERGED_VERIFIED",
+  "version": "0.8.20",
+  "before": "FIELD 0.8.19 had route-local semantic signal and one held object, while the already-merged Prison Age convergence proved a source-set held object with bounded native actions but the root manifest later regressed and lost the matching FIELD-dated RETURN.",
+  "delta": [
+    "Restore root manifest identity to the already-merged FIELD 0.8.20 SOURCE-SET NATIVE ACTIONS head.",
+    "Attach this FIELD-dated RETURN as the root manifest witness required by the reversibility contract.",
+    "Reference the existing verified Prison Age convergence RETURN rather than duplicating its source/runtime proof.",
+    "Remove the stale public /prison-age/reader-0.2/ registration because that runtime was already removed and is preserved only in Git/recovery lineage."
+  ],
+  "laws": [
+    "RETURN MAY WRAP UNEQUAL DOMAIN EVIDENCE WITHOUT ACQUIRING ITS AUTHORITY.",
+    "SOURCE-SET ACTIONS DO NOT MOVE SOURCE OR PROJECTION AUTHORITY INTO FIELD.",
+    "REMOVED RUNTIME ≠ PUBLIC FROZEN ROUTE."
+  ],
+  "evidence": [
+    "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
+    "/prison-age/release.json",
+    "/control/CURRENT.json",
+    "/showcase-manifest.json"
+  ],
+  "verification": {
+    "inherited": "PASS · /returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json records the already-verified executable convergence and exact source invariants.",
+    "repair": "Manifest-only truth repair; Route Registration and public-surface CI must confirm no stale route or CURRENT↔manifest drift remains."
+  },
+  "next": "Keep FIELD 0.8.20 as the source-set-native-actions base. Subsequent FIELD mutations must advance version lineage rather than reuse 0.8.20.",
+  "stop": "Do not restore the rejected Prison Age reader runtime, generated framing, or a second public route merely to preserve history.",
+  "upstream_preserved": "Exact Prison Age source bytes and READ/RIDE/SOURCE ownership boundaries remain unchanged."
+}
