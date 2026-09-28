@@ -1,7 +1,7 @@
 {
   "schema": "release-receipt/v1",
   "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
-  "version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1",
+  "version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1 + threshold-theatre-0.1.1",
   "state": "DONOR",
   "released": "2026-09-28",
   "route": "/sleeper/one-return/",
@@ -27,7 +27,12 @@
     "evidence-bearing RETURN witness",
     "prior RETURN residue remains visible but is explicitly distinct from same-world comparison",
     "optional full RouteWitness with exact donor-world identity and lossless cardinal route reconstruction",
-    "explicit COMPARE SAME WORLD replays the exact prior epoch/rules and overlays the validated route"
+    "explicit COMPARE SAME WORLD replays the exact prior epoch/rules and overlays the validated route",
+    "default experience now prioritizes CITY over configuration panels; SOURCE/GATES/MODEL remain available through explicit APERTURE",
+    "fresh-run threshold introduces the Nine Gate contract without changing source/world semantics",
+    "Gate success causes a visible topology-consequence pulse tied to actual GATE_PASS state",
+    "RETURN opens a ceremony over the already-recorded RouteWitness instead of silently switching to TRACE",
+    "same-world replay exposes temporal ghost play/pause/scrub over the validated prior route; ghost remains evidence-only"
   ],
   "distinction": {
     "from_current_sleeper": "Current /sleeper/ POV 0.8 remains the active constraint/evidence head; ONE RETURN is a playable ancestor lane, not a replacement.",
@@ -42,7 +47,9 @@
     "RETURN export schema one-return/import-reified-0.2",
     "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze",
     "sleeper-route-witness/v0.1 pure-core reconstruction/tamper/cross-world tests",
-    "same-world compare requires exact witness world id; different worlds are rejected"
+    "same-world compare requires exact witness world id; different worlds are rejected",
+    "browser UX smoke proves threshold entry, aperture open/close, real Gate challenge/pass, topology consequence state, Return ceremony, same-world ghost theatre, play advancement and scrub",
+    "browser UX smoke verifies explicit THRESHOLD re-entry after entering/restoring city state"
   ],
   "interop": {
     "input": "BY/GRID-PATH-2",
@@ -88,5 +95,21 @@
     "distinction": "Full route evidence belongs to Sleeper donor depth. It does not upgrade this reconstruction to canonical v2 and cannot satisfy canonical Gate proofs.",
     "same_world": "COMPARE SAME WORLD reconstructs witness seed/source/adapter/epoch; ordinary RETURN still advances the donor epoch and its comma overlay is labeled PRIOR RETURN RESIDUE.",
     "return": "embedded as routeWitness in existing one-return/import-reified-0.2 export"
+  },
+  "experience": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "version": "threshold-theatre-0.1.1",
+    "sequence": [
+      "THRESHOLD",
+      "CITY",
+      "GATE_ENCOUNTER",
+      "TOPOLOGY_CHANGE",
+      "RETURN_CEREMONY",
+      "SAME_WORLD_GHOST_THEATRE"
+    ],
+    "aperture": "SOURCE / GATES / MODEL are retained but hidden from the default city-first projection",
+    "ghost_player": "non-authoritative temporal cursor over sleeper.route-witness/v0.1; play/pause/scrub changes only projection state",
+    "truth_boundary": "Visual intensity follows native state changes. It must not imply proof, superiority or canonical authority beyond the donor's actual run evidence.",
+    "reentry": "THRESHOLD is explicitly reachable from the header; NEW RUN recompiles then re-enters the threshold, so restored local state cannot hide the transformed opening."
   }
 }
