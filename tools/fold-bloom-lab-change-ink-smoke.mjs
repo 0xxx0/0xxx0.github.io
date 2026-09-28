@@ -57,6 +57,8 @@ function probe(){
     D().getElementById('stateTo').value='111|110';
     D().getElementById('stateProject').click();
     await sleep(80);
+    const projected=W().FoldBloomFieldLab.stateStep(),ap0=projected.decision;
+    rec.aperture0={candidates:ap0?.candidate_count,ambiguity:ap0?.candidate_ambiguity_bits,focus:ap0?.focus?.ids,focusGain:ap0?.focus?.information_gain_bits,planned:ap0?.planned_id,commit:ap0?.commit_semantics,nextText:D().getElementById('stateNextCount')?.textContent,infoText:D().getElementById('stateNextInfo')?.textContent,planText:D().getElementById('statePlanGain')?.textContent};
     const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),h=box.height,gap=Math.max(22,Math.min(38,h*.055)),cy=h*.51;
     const tapLine=line=>{
       const y=cy+gap*(2.5-(line-1));
@@ -67,9 +69,11 @@ function probe(){
     D().getElementById('stateStep').click();
     await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===1,1500,'witness prefix');
     const firstSteer=W().FoldBloomFieldLab.stateStep();
+    rec.aperture1={candidates:firstSteer.decision?.candidate_count,ambiguity:firstSteer.decision?.candidate_ambiguity_bits,focus:firstSteer.decision?.focus?.ids,planned:firstSteer.decision?.planned_id};
     tapLine(3);
     await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[1]===3,2500,'steer L3 second');
     const steered=W().FoldBloomFieldLab.stateStep();
+    rec.aperture2={candidates:steered.decision?.candidate_count,ambiguity:steered.decision?.candidate_ambiguity_bits,focus:steered.decision?.focus?.ids,planned:steered.decision?.planned_id};
     rec.steering={initial:rec.initialOrder,afterFirst:[...firstSteer.path.selected_order],afterSecond:[...steered.path.selected_order],cursor:steered.cursor,prefix:steered.path.selected_order.slice(0,steered.cursor)};
     rec.pathAddress=steered.path.path_address;
     rec.order=[...steered.path.selected_order];
@@ -91,7 +95,11 @@ function probe(){
     rec.returnGuide=projection.guide;
     rec.pigment=projection.pigment;
     rec.water=projection.water;
-    const pass=rec.beforeMode==='DATA'&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const pass=rec.beforeMode==='DATA'&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&
+      rec.aperture0.candidates===3&&Math.abs(rec.aperture0.ambiguity-1.584963)<1e-6&&rec.aperture0.focus.join(',')==='line:1'&&rec.aperture0.planned==='line:1'&&rec.aperture0.commit==='PATH_SELECTION_ONLY'&&rec.aperture0.nextText==='3'&&rec.aperture0.infoText==='1.584963b'&&rec.aperture0.planText==='1.584963b'&&
+      rec.aperture1.candidates===2&&rec.aperture1.ambiguity===1&&rec.aperture1.focus.join(',')==='line:1'&&rec.aperture1.planned==='line:1'&&
+      rec.aperture2.candidates===2&&rec.aperture2.ambiguity===1&&rec.aperture2.focus.join(',')==='line:3'&&rec.aperture2.planned==='line:3'&&
+      rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
