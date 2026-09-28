@@ -2737,7 +2737,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Explicit AUTHORED READER mode is a bounded LIVE text-source path: a selected recovered pack exposes source provenance, exact READ/RIDE addresses, source-grounded recurrence and EVIDENCE_ONLY RETURN without changing plain LIVE's RIDE-first identity or the contracted public four jobs.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2767,7 +2767,10 @@
         "READ/RIDE persistent trail records bounded traversal/marks only; VISITED/MARKED != read/understood/complete",
         "READ/RIDE exact RETURN emits session-local EVIDENCE_ONLY address witness; LIVE cannot mutate READFIELD source/cursor",
         "Sep-28 IMAGE_SET: device-local image declarations reuse the existing course/address spine at FRAME / STRIP / SET grain; bytes remain in the local media vault and are never uploaded/committed.",
-        "Sep-28 traversal reconciliation: FLOW is the source-clock default; no source means still, an addressed source means continuous address advance, STEP holds and advances exactly one address, RELEASE remains authored effect authority."
+        "Sep-28 traversal reconciliation: FLOW is the source-clock default; no source means still, an addressed source means continuous address advance, STEP holds and advances exactly one address, RELEASE remains authored effect authority.",
+        "AUTHORED READER 0.1: explicit ?reader=prison-age-2021 deep link → exact hashed recovered source → READ/RIDE traversal → source-derived recurrence → EVIDENCE_ONLY RETURN",
+        "PRISON AGE / SINGAPORE / SIN-ORE-GAP recurrence is mechanically grounded in conserved nine-letter signature AEGINOPRS; no semantic equivalence or generated connective narrative is inferred",
+        "reader RETURN reuses existing READFIELD exact-source acceptance; source bytes/cursor authority remain native"
       ],
       "contract": {
         "accepts": {
@@ -2777,7 +2780,8 @@
             "local MP3/custom audio",
             "optional FIELD PULSE transport",
             "local lyrics/transcript sidecar",
-            "local IMAGE_SET declaration over device-local image bytes"
+            "local IMAGE_SET declaration over device-local image bytes",
+            "explicit RECOVERED_AUTHORED_SOURCE text + provenance pack"
           ],
           "requires": [],
           "optional": [
@@ -2797,7 +2801,7 @@
           ]
         },
         "transforms": {
-          "verb": "project one hashed linear source into solid hierarchical terrain; keep source timing/event evidence exact while optionally damping display geometry; apply source-addressed ride calibration; morph DEEP/TRANCE/WOOD/VOID in perceptual color space; allow reversible AUTOPILOT witness-play; apply only human-authored BLOOM/FOLD/SPLIT/RETURN as durable road writing",
+          "verb": "project one hashed linear source into solid hierarchical terrain; keep source timing/event evidence exact while optionally damping display geometry; apply source-addressed ride calibration; morph DEEP/TRANCE/WOOD/VOID in perceptual color space; allow reversible AUTOPILOT witness-play; apply only human-authored BLOOM/FOLD/SPLIT/RETURN as durable road writing Explicit authored-reader mode projects one exact recovered text source into addressed traversal + declared recurrence + optional LIVE field consequence, then returns evidence without rewriting source bytes.",
           "preserves": [
             "donor provenance",
             "topology identity",
@@ -2816,7 +2820,11 @@
             "normal/custom source parity",
             "audio phase lock at 1×",
             "IDLE non-authority",
-            "authored PIN text/provenance"
+            "authored PIN text/provenance",
+            "authored source byte identity",
+            "source artifact/date/provenance boundary",
+            "recurrence as source-derived relation rather than generated narrative",
+            "exact READ/RIDE return cursor"
           ],
           "reversibility": "bounded",
           "side_effects": "local browser state / explicit export only"
@@ -2830,7 +2838,8 @@
             "AUDIO MAP-derived perspective TRACKFIELD",
             "deformation tape",
             "deformed perspective TRACKFIELD",
-            "bounded BRANCH_CHOICE traversal trace"
+            "bounded BRANCH_CHOICE traversal trace",
+            "fold-bloom-authored-reading-return/v0.1 EVIDENCE_ONLY witness"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -2861,7 +2870,11 @@
           "projection performance changes do not rewrite map evidence",
           "IMAGE_SET bytes remain device-local",
           "source-clock traversal does not author LIVE release",
-          "FLOW/STEP change address policy without moving source/effect authority"
+          "FLOW/STEP change address policy without moving source/effect authority",
+          "authored source byte identity",
+          "source artifact/date/provenance boundary",
+          "recurrence as source-derived relation rather than generated narrative",
+          "exact READ/RIDE return cursor"
         ]
       },
       "field": {
@@ -2878,6 +2891,11 @@
             "medium": "SOUND/DATA",
             "kind": "local MP3 → hashed AUDIO MAP / beat + phrase + section transport",
             "interface": "file picker / Web Audio"
+          },
+          {
+            "medium": "TEXT/DATA",
+            "kind": "recovered authored source + provenance pack",
+            "interface": "explicit AUTHORED READER / READ-RIDE"
           }
         ],
         "outputs": [
@@ -2900,6 +2918,11 @@
             "medium": "LIGHT/SPACE",
             "kind": "future audio features projected as perspective terrain",
             "interface": "TRACKFIELD canvas projection"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "authored reading traversal + recurrence RETURN",
+            "interface": "exact READFIELD re-entry / JSON witness"
           }
         ],
         "exit_paths": [
@@ -2912,12 +2935,17 @@
             "class": "DONOR_COMPARISON",
             "status": "AVAILABLE",
             "via": "/recovery/fold-bloom/fold-weave-0.1/ + /fold-bloom/two-dial/"
+          },
+          {
+            "class": "SOURCE_RETURN",
+            "status": "AVAILABLE",
+            "via": "explicit AUTHORED READER → exact READFIELD source/cursor return"
           }
         ],
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-28T19:20:00+08:00",
+        "updated_at": "2026-09-29T01:28:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2926,13 +2954,14 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
+      "latest_return": "/returns/FOLD_BLOOM_AUTHORED_READER_2026-09-28.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
           "IMAGE_SET deterministic course arithmetic is gated under public-surface addressed-course navigation",
           "image-clock browser proof declares generated fixtures, observes zero-click address/stage advance, repeats in an independent browser process, and checks STEP hold/step-one/grain/RETURN",
-          "FLOW-default reconciliation preserves quiet audio behavior while restoring source-clock traversal"
+          "FLOW-default reconciliation preserves quiet audio behavior while restoring source-clock traversal",
+          "AUTHORED READER exact-source/browser proof: recovered source hash + recurrence + RELEASE→STEP + provenance + EVIDENCE_ONLY RETURN + exact READFIELD re-entry"
         ]
       }
     },
