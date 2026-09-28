@@ -48,6 +48,19 @@ Five standing rules:
 
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
+## Portfolio fold — 2026-09-28
+
+Derived orientation only; this is not a registry, queue, or new authority. Read the apparent project sprawl as six capability families:
+
+- **HOLD / ADDRESS / SCALE** — FIELD, INTERPHASE, FOVEA, Scale Lens, AXIAL.
+- **PATH / TRAVERSAL / RE-ENTRY** — STEP, READ/RIDE, Sleeper RouteWitness.
+- **TRANSFORM / STEERING** — change calculus, I Ching correspondence, J-space/J-Lens.
+- **EXPERIENCE / EXPRESSION** — FOLD//BLOOM, Verse, Sleeper/Nine Gate, Replay/Listen/Ink/Voice.
+- **WORLD LOOPS** — Dayline, HOUSE, Shopping, HUMAN PORT/COMMS.
+- **RECOVERY / PROVENANCE** — vault, migration, exact donors.
+
+A route, PR, worker, experiment, mode or donor is not automatically a project. CURRENT remains attention authority. Prefer **conversion before coordination**.
+
 ## Current confluence packets
 
 - [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.

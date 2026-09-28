@@ -317,6 +317,7 @@ check(home.includes('routeGitDrift()')&&home.includes('function tsMs('),'root mi
 check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missing Φ host / φ focus truth frame');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
+check(home.includes('project-head-glyph.js')&&home.includes('HEAD GLYPH'),'root missing latent current-head project glyph wiring');
 check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
 check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
 check(home.includes('id="apInspect"')&&home.includes('>READ</button>'),'FIELD root missing focused READFIELD action');

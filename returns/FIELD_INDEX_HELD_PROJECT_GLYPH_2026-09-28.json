@@ -1,0 +1,39 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28",
+  "date": "2026-09-28",
+  "object": "FIELD INDEX / held project glyph",
+  "state": "SHIPPED_CANDIDATE",
+  "before": "FIELD 0.8.17 contracted the root to one glyph field + one held object and removed exposed semantic-scale controls. The held mark remained the same small route glyph even when the route was a deep CURRENT head.",
+  "delta": [
+    "Keep the 0.8.17 one-object contraction unchanged: no FIELD/ROUTE/OBJECT scale rail returns.",
+    "For an exact CURRENT-head focus only, derive a project-head glyph through existing interphase-glyph/v0.1.",
+    "Compose the existing FIELD glyph as the inner route identity/state witness; derive only apertures, evidence/residue and up to three VIEW operations around it.",
+    "Ordinary routes and non-head surfaces keep the compact FIELD glyph.",
+    "Project glyph state is never persisted and cannot create priority, edit/effect authority, or a second project registry.",
+    "Selftest uses deliberately unequal FOLD//BLOOM and Sleeper heads and fails closed on route/head mismatch."
+  ],
+  "laws": [
+    "ONE HELD OBJECT; MORE DEPTH MAY APPEAR INSIDE THE MARK WITHOUT BECOMING ANOTHER DASHBOARD.",
+    "PROJECT GLYPH = DERIVED PROJECTION, NOT PROJECT STATE.",
+    "ALL PROJECT-GLYPH OPERATIONS ARE VIEW-ONLY.",
+    "COMPRESSION MUST RETAIN NAMED RESIDUE AND EXACT RETURN."
+  ],
+  "evidence": [
+    "/index.html",
+    "/field-glyph.js",
+    "/lib/interphase-glyph.js",
+    "/lib/project-head-glyph.js",
+    "/tools/project-head-glyph-selftest.cjs",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json"
+  ],
+  "verification": {
+    "machine": "PENDING CI: project-head selftest + existing INTERPHASE glyph laws + validate-public + browser smoke.",
+    "human": "UNKNOWN: whether the richer held mark reduces re-entry burden without adding clutter.",
+    "falsifier": "If exact-head glyphs make the root read like a status dashboard or require explanation longer than the information they replace, remove the project glyph and keep FIELD 0.8.17 contraction."
+  },
+  "next": "After CI, stop glyph/scale architecture. Resume conversion: ordinary external use/share/world consequence on an existing head.",
+  "version": "0.8.18"
+}
