@@ -57,6 +57,8 @@ function probe(){
     D().getElementById('stateTo').value='111|110';
     D().getElementById('stateProject').click();
     await sleep(80);
+    const frontierStart=W().FoldBloomFieldLab.stateStep().frontier;
+    rec.frontierStart={current:frontierStart?.current?.token,futures:frontierStart?.current_future_paths,next:(frontierStart?.candidates||[]).map(x=>x.line),buttons:[...D().querySelectorAll('#stateFrontierRead [data-state-next-line]')].map(x=>Number(x.dataset.stateNextLine))};
     const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),h=box.height,gap=Math.max(22,Math.min(38,h*.055)),cy=h*.51;
     const tapLine=line=>{
       const y=cy+gap*(2.5-(line-1));
@@ -67,10 +69,14 @@ function probe(){
     D().getElementById('stateStep').click();
     await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===1,1500,'witness prefix');
     const firstSteer=W().FoldBloomFieldLab.stateStep();
+    rec.frontierAfterStep={current:firstSteer.frontier?.current?.token,futures:firstSteer.frontier?.current_future_paths,next:(firstSteer.frontier?.candidates||[]).map(x=>x.line),buttons:[...D().querySelectorAll('#stateFrontierRead [data-state-next-line]')].map(x=>Number(x.dataset.stateNextLine))};
     tapLine(3);
     await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[1]===3,2500,'steer L3 second');
     const steered=W().FoldBloomFieldLab.stateStep();
     rec.steering={initial:rec.initialOrder,afterFirst:[...firstSteer.path.selected_order],afterSecond:[...steered.path.selected_order],cursor:steered.cursor,prefix:steered.path.selected_order.slice(0,steered.cursor)};
+    rec.frontierAfterSteer={current:steered.frontier?.current?.token,futures:steered.frontier?.current_future_paths,next:(steered.frontier?.candidates||[]).map(x=>x.line),selected:(steered.frontier?.candidates||[]).find(x=>x.selected_by_current_order)?.line};
+    const dataPacket=W().FoldBloomFieldLab.returnPacket();
+    rec.frontierReturn=dataPacket?.projection?.stateChange?.frontier;
     rec.pathAddress=steered.path.path_address;
     rec.order=[...steered.path.selected_order];
     D().getElementById('stateInk').click();
@@ -91,7 +97,10 @@ function probe(){
     rec.returnGuide=projection.guide;
     rec.pigment=projection.pigment;
     rec.water=projection.water;
-    const pass=rec.beforeMode==='DATA'&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const frontierOK=rec.frontierStart?.current==='H[010|100]'&&rec.frontierStart?.futures===6&&rec.frontierStart?.next?.join(',')==='1,3,5'&&rec.frontierStart?.buttons?.join(',')==='1,3,5'&&
+      rec.frontierAfterStep?.current==='H[010|110]'&&rec.frontierAfterStep?.futures===2&&rec.frontierAfterStep?.next?.join(',')==='1,3'&&rec.frontierAfterStep?.buttons?.join(',')==='1,3'&&
+      rec.frontierAfterSteer?.selected===3&&rec.frontierReturn?.current==='H[010|110]'&&rec.frontierReturn?.futurePaths===2&&rec.frontierReturn?.candidates?.length===2;
+    const pass=rec.beforeMode==='DATA'&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
