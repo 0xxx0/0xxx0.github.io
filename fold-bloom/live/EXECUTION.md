@@ -37,6 +37,8 @@ Donors remain addressable and independent:
 24. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 25. **Human marks may enter terrain; machine meaning may not.** Same-source LISTEN PINs can become road landmarks because their address/text was authored. Terrain analysis must never invent landmark text or narrative.
 26. **Exact source key gates message projection.** A landmark may appear only when its PIN source key matches the loaded local source hash.
+27. **Address traversal is an explicit operator.** `FLOW` means the source clock advances the canonical address; `STEP` means only explicit navigation changes address; `RELEASE→STEP` means one authored LIVE release is followed by exactly one addressed grain advance. Text READ/RIDE has no fabricated autonomous clock, so it supports only `STEP` and `RELEASE→STEP`.
+28. **Sound witnesses operation; it never gates operation.** A lawful BLOOM/FOLD/SPLIT/RETURN commits native state, deformation, RETURN residue and any explicit `RELEASE→STEP` address move even if audio initialization is blocked or late. Generated sound joins best-effort when its context is ready.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`

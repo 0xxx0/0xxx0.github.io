@@ -133,13 +133,28 @@ function courseAddress(course,p){
 function courseStep(course,p,delta){
   return readRide?stepReadCourse(course,p,delta):stepCourse(course,p,delta);
 }
+function courseModeLabel(value=courseMode){return value==='RELEASE_STEP'?'RELEASE→STEP':value}
+function courseModeLaw(value=courseMode){
+  if(readRide){
+    if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address. The text source itself is never rewritten.';
+    return 'STEP changes only the addressed '+courseGrain+' witness. RELEASE writes LIVE consequence and holds the text address.';
+  }
+  if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address. Source playback stays paused.';
+  if(value==='STEP')return '← / → or map tap moves exactly one '+courseGrain+' address. RELEASE writes LIVE consequence and holds the source address.';
+  return 'SOURCE CLOCK advances address continuously. RELEASE writes LIVE consequence but never seeks the source.';
+}
 function syncCourseControls(){
-  const mode=$('#courseMode'),grain=$('#courseGrain'),address=$('#courseAddress'),course=liveCourse(),p=liveCourseProgress();
-  if(mode){mode.textContent=courseMode;mode.classList.toggle('on',courseMode==='STEP'||courseMode==='RELEASE_STEP')}
+  const mode=$('#courseMode'),grain=$('#courseGrain'),address=$('#courseAddress'),quick=$('#courseQuick'),witness=$('#courseWitness'),law=$('#courseLaw'),course=liveCourse(),p=liveCourseProgress();
+  const label=courseModeLabel();
+  if(mode){mode.textContent=label;mode.classList.toggle('on',courseMode==='STEP'||courseMode==='RELEASE_STEP')}
   if(grain)grain.textContent=courseGrain;
-  const hit=course?courseAddress(course,p):null,empty=readRide?'read://empty':'course://audio_map/empty';
+  const hit=course?courseAddress(course,p):null,empty=readRide?'read://empty':'course://audio_map/empty',count=course?.points?.length||0,index=hit?.index??-1;
   if(address)address.textContent=hit?.address||empty;
+  if(witness)witness.textContent=course?(label+' · '+courseGrain+' · '+Math.max(1,index+1)+' / '+count):(label+' · '+courseGrain+' · NO SOURCE MAP');
+  if(law)law.textContent=courseModeLaw();
+  if(quick){quick.hidden=!course;quick.textContent=label+' · '+courseGrain;quick.classList.toggle('on',courseMode!=='FLOW');quick.setAttribute('aria-label','Traversal '+label+' at '+courseGrain+' grain')}
   document.documentElement.dataset.foldBloomCourseMode=courseMode;
+  document.documentElement.dataset.foldBloomCoursePolicy=courseMode==='RELEASE_STEP'?'RELEASE_THEN_ONE_ADDRESS':courseMode==='STEP'?'MANUAL_ADDRESS_ONLY':'SOURCE_CLOCK';
   document.documentElement.dataset.foldBloomCourseGrain=courseGrain;
   document.documentElement.dataset.foldBloomCourseAddress=hit?.address||empty;
   document.documentElement.dataset.foldBloomCourseKind=readRide?'READFIELD_TEXT':(liveTrack.mapped()?'AUDIO_MAP':'NONE');
@@ -171,13 +186,18 @@ function setCourseMode(next,announce=true){
   const requested=String(next||'FLOW').toUpperCase();
   const validModes=['FLOW','STEP','RELEASE_STEP'];
   const nextMode=validModes.includes(requested)?requested:'FLOW';
-  courseMode=readRide?(validModes.includes(nextMode)?nextMode:'STEP'):nextMode;
+  courseMode=readRide?(nextMode==='RELEASE_STEP'?'RELEASE_STEP':'STEP'):nextMode;
   if(courseMode==='STEP'||courseMode==='RELEASE_STEP'){
     if(liveTrack.sourceActive())$('#trackAudio').pause();
   }
   drawCourseMap(true);update();
-  if(announce)toast((readRide?'READ':'TRACK')+' · '+courseMode+(courseMode==='STEP'||courseMode==='RELEASE_STEP'?' · '+courseGrain:''));
+  if(announce)toast((readRide?'READ':'TRACK')+' · '+courseModeLabel()+(courseMode==='STEP'||courseMode==='RELEASE_STEP'?' · '+courseGrain:''));
   return courseMode;
+}
+function cycleCourseMode(){
+  const modes=readRide?['STEP','RELEASE_STEP']:['FLOW','STEP','RELEASE_STEP'];
+  const current=Math.max(0,modes.indexOf(courseMode)),next=modes[(current+1)%modes.length];
+  return setCourseMode(next);
 }
 function cycleCourseGrain(){
   const grains=activeCourseGrains();let i=grains.indexOf(courseGrain);if(i<0)i=0;courseGrain=grains[(i+1)%grains.length];
@@ -188,7 +208,7 @@ function seekCourseProgress(p,{keepMode=true}={}){
   const course=liveCourse();if(!course)return null;
   const next=Math.max(0,Math.min(1,Number(p)||0));
   if(readRide){
-    readRide.progress=next;courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
+    readRide.progress=next;if(courseMode!=='RELEASE_STEP')courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
   }
   const duration=Number(liveTrack.map?.duration)||0;
   if((courseMode==='STEP'||courseMode==='RELEASE_STEP')||!keepMode)$('#trackAudio').pause();
@@ -198,9 +218,9 @@ function seekCourseProgress(p,{keepMode=true}={}){
 function stepTrackCourse(delta){
   stopDemo(true);
   const course=liveCourse();if(!course){toast(readRide?'READ SOURCE EMPTY':'MAP A TRACK FIRST');return null}
-  setCourseMode('STEP',false);
+  setCourseMode(courseMode==='RELEASE_STEP'?'RELEASE_STEP':'STEP',false);
   const hit=courseStep(course,liveCourseProgress(),delta);seekCourseProgress(hit.p);
-  toast(courseGrain+' · '+Math.max(1,hit.index+1)+' / '+course.points.length);return hit;
+  toast(courseModeLabel()+' · '+courseGrain+' · '+Math.max(1,hit.index+1)+' / '+course.points.length);return hit;
 }
 audio.hydrate(state);renderer.setScene(state.scene);renderer.setProfile(effectiveRideProfile());
 
@@ -636,7 +656,7 @@ function step(dir,count=1){
 
 async function doRelease(){
   if(!canRelease(state)) return;
-  await ensureAudio();
+  const audioReady=ensureAudio().catch(()=>false);
   const out=release(state,timingNow()); if(!out.event)return;
   state=out.state;
   deformationTape=appendReleaseDeformations(deformationTape,out.event,linkedTrack);
@@ -648,7 +668,8 @@ async function doRelease(){
     if(last)last.sectionArc={sectionIndex:sectionArc.sectionIndex,sealed:true,bonus:arcOut.bonus,hits:sectionArc.hits,verbs:[...sectionArc.verbs]};
   }
   renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
-  audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(34,7+out.event.chain*3+(out.event.callMet?3:0)+(arcOut.bonus?5:0)));
+  audioReady.then(ok=>{if(ok)audio.release(out.event)}).catch(()=>{});
+  renderer.pulse(out.event); haptic(Math.min(34,7+out.event.chain*3+(out.event.callMet?3:0)+(arcOut.bonus?5:0)));
   fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,mix:audio.mixSnapshot(),sectionIndex:linkedTrack?.sectionIndex??null,sectionProgress:linkedTrack?.sectionProgress??null,sectionSeal:arcOut.event?.kind==='SECTION_SEAL',sectionBonus:arcOut.bonus||0,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null,trackDeformationCount:deformationTape.length});
   const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
   const arc=arcOut.bonus?` · SECTION SEALED +${arcOut.bonus}`:'';
@@ -787,12 +808,8 @@ $('#readFile').onchange=e=>{const file=e.target.files?.[0];e.target.value='';if(
 $('#readfieldReturn')?.addEventListener('click',()=>{if(!returnReadRide())toast('NO READFIELD RETURN')});
 $('#readTrailMark')?.addEventListener('click',()=>markReadRide());
 $('#trackToggle').onclick=()=>{stopDemo(true);if($('#trackAudio').paused&&(courseMode==='STEP'||courseMode==='RELEASE_STEP'))setCourseMode('FLOW',false);liveTrack.toggle().then(()=>{drawCourseMap(true);update()}).catch(()=>toast('SONG PLAY BLOCKED'))};
-$('#courseMode').onclick=()=>{
-  const modes=['FLOW','STEP','RELEASE_STEP'];
-  const current=modes.indexOf(courseMode);
-  const next=modes[(current+1)%modes.length];
-  setCourseMode(next);
-};
+$('#courseMode').onclick=cycleCourseMode;
+$('#courseQuick')?.addEventListener('click',cycleCourseMode);
 $('#courseGrain').onclick=cycleCourseGrain;
 $('#courseBack').onclick=()=>stepTrackCourse(-1);$('#courseNext').onclick=()=>stepTrackCourse(1);
 $('#courseMap').addEventListener('pointerdown',e=>{if(!liveCourse())return;const r=e.currentTarget.getBoundingClientRect(),p=(e.clientX-r.left)/Math.max(1,r.width);stopDemo(true);seekCourseProgress(p);e.preventDefault()});
