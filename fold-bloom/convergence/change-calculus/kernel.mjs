@@ -11,6 +11,60 @@ export const CONTROL_VERBS=Object.freeze(['BLOOM','FOLD','SPLIT','RETURN']);
 
 const round=(x,n=6)=>Number(Number(x).toFixed(n));
 const factorial=n=>{let x=1;for(let i=2;i<=Math.max(0,Math.trunc(Number(n)||0));i++)x*=i;return x};
+const addressedLines=lines=>{
+  const xs=Array.isArray(lines)?lines.map(Number):[];
+  return xs.every(x=>Number.isInteger(x)&&x>=1&&x<=6)&&new Set(xs).size===xs.length?xs:null;
+};
+
+export function stepOrderAt(lines,index=0){
+  const canonical=addressedLines(lines);
+  if(!canonical)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-order',reason:'UNIQUE_ADDRESSED_LINES_REQUIRED'};
+  const count=factorial(canonical.length),raw=Math.trunc(Number(index)||0),selected=((raw%count)+count)%count;
+  let residue=selected;
+  const pool=[...canonical],order=[];
+  while(pool.length){
+    const block=factorial(pool.length-1),digit=Math.floor(residue/block);
+    residue%=block;
+    order.push(pool.splice(digit,1)[0]);
+  }
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/step-order',
+    authority:'CALCULATION_ONLY',
+    canonical:[...canonical],
+    index:selected,
+    count,
+    order,
+    address:'order://'+selected+'-of-'+count,
+    law:'factoradic indexing gives every permutation one stable integer address without materializing the full path set'
+  };
+}
+
+export function stepOrderRank(lines,order){
+  const canonical=addressedLines(lines),requested=addressedLines(order);
+  if(!canonical||!requested||requested.length!==canonical.length||requested.some(x=>!canonical.includes(x))){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-order',reason:'ORDER_MUST_PERMUTE_ADDRESSED_LINES'};
+  }
+  const pool=[...canonical];
+  let index=0;
+  for(const line of requested){
+    const digit=pool.indexOf(line);
+    if(digit<0)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-order',reason:'ORDER_MUST_PERMUTE_ADDRESSED_LINES'};
+    index+=digit*factorial(pool.length-1);
+    pool.splice(digit,1);
+  }
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/step-order',
+    authority:'CALCULATION_ONLY',
+    canonical:[...canonical],
+    index,
+    count:factorial(canonical.length),
+    order:[...requested],
+    address:'order://'+index+'-of-'+factorial(canonical.length),
+    law:'Lehmer rank is the inverse of factoradic step-order indexing for the declared canonical line order'
+  };
+}
 const bitString=bits=>Array.isArray(bits)?bits.join(''):null;
 const formOk=form=>Array.isArray(form)&&form.length===6&&form.every(x=>CONTROL_VERBS.includes(String(x||'').toUpperCase()));
 const upperForm=form=>form.map(x=>String(x).toUpperCase());
@@ -81,6 +135,9 @@ export function steppedStatePath(from,to,order=null){
   if(requested.length!==changed.length||new Set(requested).size!==changed.length||requested.some(x=>!changed.includes(x))){
     return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'STEP_ORDER_MUST_PERMUTE_MOVING_LINES',changed};
   }
+  const ranked=stepOrderRank(changed,requested);
+  const orders=factorial(changed.length);
+  const pathAddress='change://state/'+calc.from.binary+'→'+calc.to.binary+'/order/'+ranked.index+'-of-'+orders;
   let current=[...calc.from.bits];
   const steps=requested.map((line,step)=>{
     const i=line-1,before=[...current],fromBit=before[i],toBit=calc.to.bits[i];
@@ -88,6 +145,7 @@ export function steppedStatePath(from,to,order=null){
     const after=[...current],transition=stateChange(before,after);
     return {
       step:step+1,
+      address:pathAddress+'/step/'+(step+1),
       line,
       from_bit:fromBit,
       to_bit:toBit,
@@ -100,7 +158,6 @@ export function steppedStatePath(from,to,order=null){
       upper_after:transition.to.upper
     };
   });
-  const orders=factorial(changed.length);
   return {
     ok:true,
     schema:CHANGE_CALCULUS_SCHEMA+'/state-step',
@@ -109,6 +166,9 @@ export function steppedStatePath(from,to,order=null){
     to_token:calc.to.token,
     changed_lines:changed,
     selected_order:requested,
+    selected_order_index:ranked.index,
+    selected_order_address:ranked.address,
+    path_address:pathAddress,
     possible_one_line_orders:orders,
     order_ambiguity_bits:orders>0?round(Math.log2(orders)):0,
     steps,
@@ -172,6 +232,9 @@ export function steppedFormPath(fromForm,toForm,order=null){
   if(requested.length!==changed.length||new Set(requested).size!==changed.length||requested.some(x=>!changed.includes(x))){
     return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'STEP_ORDER_MUST_PERMUTE_CHANGED_LINES',changed};
   }
+  const ranked=stepOrderRank(changed,requested);
+  const orders=factorial(changed.length);
+  const pathAddress='change://form/'+hexProjection(a).token+'→'+hexProjection(target).token+'/order/'+ranked.index+'-of-'+orders;
   let current=[...a];
   const steps=requested.map((line,step)=>{
     const i=line-1,before=[...current],beforeProjection=hexProjection(before);
@@ -179,6 +242,7 @@ export function steppedFormPath(fromForm,toForm,order=null){
     const after=[...current],afterProjection=hexProjection(after);
     return {
       step:step+1,
+      address:pathAddress+'/step/'+(step+1),
       line,
       from_verb:before[i],
       to_verb:after[i],
@@ -188,13 +252,15 @@ export function steppedFormPath(fromForm,toForm,order=null){
       exact_form:[...after]
     };
   });
-  const orders=factorial(changed.length);
   return {
     ok:true,
     schema:CHANGE_CALCULUS_SCHEMA,
     authority:'CALCULATION_ONLY',
     changed_lines:changed,
     selected_order:requested,
+    selected_order_index:ranked.index,
+    selected_order_address:ranked.address,
+    path_address:pathAddress,
     possible_one_edit_orders:orders,
     order_ambiguity_bits:orders>0?round(Math.log2(orders)):0,
     steps,
