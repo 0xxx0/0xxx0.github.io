@@ -69,7 +69,7 @@ Prefer contextual controls, direct manipulation, stable spatial memory, receding
 
 PRIMARY CONTROLS ARE SACRED.
 
-- The bottom MODE / RELEASE / WORLD controls must remain visible and hit-testable whenever LIVE is operable.
+- The bottom TURN / MODE / RELEASE / WORLD / TURN controls must remain visible and hit-testable whenever LIVE is operable. Drag/swipe may remain a faster gesture, but basic play may not depend on discovering it.
 - Transient feedback, coaching, result surfaces and projection chrome may not intercept pointer events outside their actual actionable controls.
 - A detailed projection may disappear on phone when the central instrument already carries the same state. Duplicate explanation is lower priority than touch access.
 - Result/choice states should become bounded sheets or cards rather than full-screen click shields unless the underlying action is genuinely unsafe to continue.

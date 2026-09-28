@@ -380,7 +380,7 @@ bindVerse({announce:false});
 
 /* ---------- READ / READFIELD / RACE ---------- */
 const readQuery=new URLSearchParams(location.search),requestedReadPulse=Number(readQuery.get('pulse'));
-const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:requestedReadPulse===4?'PACE4':'WITNESS',readerLoaded:false};
+const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:requestedReadPulse===4?'PACE4':'WITNESS',readerLoaded:false,boundSourceKey:''};
 const reader=$('#labReader');
 function tokenize(text){
   try{return [...new Intl.Segmenter(undefined,{granularity:'word'}).segment(text)].filter(x=>x.isWordLike).map(x=>x.segment)}
@@ -393,17 +393,21 @@ function recoverHandoff(){
   }catch(_){}
   return null;
 }
-function readerSource(){return String($('#readSource').value||'').trim()}
+function readerSource(){return String($('#readSource').value||'')}
 function loadReader({announce=false,preferHandoff=false}={}){
   if(!reader||typeof reader.load!=='function')return null;
-  const h=preferHandoff?recoverHandoff():null,source=h?.source||readerSource(),hf=h?.focus||null;
-  if(h?.source)$('#readSource').value=h.source;
+  const h=preferHandoff?recoverHandoff():null,source=h?.source??readerSource(),hf=h?.focus||null,sourceKey=textSourceKey(source),sourceChanged=sourceKey!==read.boundSourceKey;
+  if(h?.source!=null)$('#readSource').value=h.source;
   const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:hf?.scale||'WORD',wpm:hf?.wpm||read.wpm,address:hf?.address||undefined,charIndex:Number.isFinite(Number(hf?.char_index))?Number(hf.char_index):undefined,index:Number.isFinite(Number(hf?.index))?Number(hf.index):undefined});
-  read.readerLoaded=true;
+  read.readerLoaded=true;read.boundSourceKey=sourceKey;read.wpm=Number(snap?.wpm)||read.wpm;
+  if(sourceChanged)resetRead();
   document.documentElement.dataset.fieldLabReader=snap?.scale?'ready':'empty';
   document.documentElement.dataset.fieldLabReaderScale=snap?.scale||'NONE';
   const sourceAperture=$('#readSourceAperture');if(sourceAperture)sourceAperture.open=false;
   document.documentElement.dataset.fieldLabReadSource='bound';
+  if($('#wpm'))$('#wpm').value=String(Math.max(120,Math.min(1600,read.wpm)));
+  if($('#wpmRead'))$('#wpmRead').textContent=read.wpm+' WPM';
+  syncReadApertureUi(snap);
   if(lastTransport&&read.pulseMode!=='OFF')applyTransport(lastTransport);
   if(announce)setStatus('READ · APERTURE / RSVP LOADED');
   return snap;
@@ -423,7 +427,19 @@ function applyTransport(data){
 fieldPulse.subscribe(msg=>{if(msg.kind==='transport'&&msg.data)applyTransport(msg.data)});
 const lastPulse=fieldPulse.last();
 if(lastPulse?.kind==='transport'&&lastPulse.data)lastTransport=lastPulse.data;
-reader?.addEventListener('aperture-focus',e=>{const focus=boundedFocus(e.detail);if(!focus)return;fieldPulse.publish('focus',focus);if(mode==='READ')setAddress(focus.address||('text://'+Math.round(focus.sourceProgress*10000)))});
+function syncReadApertureUi(snap=reader?.snapshot?.()){
+  if(!snap)return null;
+  if($('#readScaleRead'))$('#readScaleRead').textContent=snap.scale_label||snap.scale||'—';
+  if($('#readPosRead'))$('#readPosRead').textContent=(Math.max(0,Number(snap.index)||0)+1)+'/'+Math.max(0,Number(snap.count)||0);
+  if($('#readApertureWpm'))$('#readApertureWpm').textContent=String(Number(snap.wpm)||read.wpm);
+  const r=$('#readRsvp');if(r){r.textContent=snap.playing?'Ⅱ RSVP':'▶ RSVP';r.classList.toggle('primary',!!snap.playing)}
+  return snap;
+}
+function setReaderScale(id){
+  ensureReader();const want=String(id||'').toUpperCase(),i=reader?.A?.scales?.findIndex(x=>String(x.id||'').toUpperCase()===want);
+  if(i>=0)reader.setScale(i);return reader?.snapshot?.()||null;
+}
+reader?.addEventListener('aperture-focus',e=>{syncReadApertureUi(e.detail);const focus=boundedFocus(e.detail);if(!focus)return;fieldPulse.publish('focus',focus);if(mode==='READ')setAddress(focus.address||('text://'+Math.round(focus.sourceProgress*10000)))});
 $('#readLoad').onclick=()=>loadReader({announce:true});
 $('#readPulse').onclick=()=>{
   read.pulseMode=nextPulseMode(read.pulseMode);syncPulseButton();
@@ -431,6 +447,18 @@ $('#readPulse').onclick=()=>{
   if(read.pulseMode==='OFF')reader?.setExternalPulse?.(null);else if(lastTransport)applyTransport(lastTransport);
   setStatus('READ · '+pulseModeLabel(read.pulseMode));
 };
+$('#readFast').onclick=()=>{
+  const snap=ensureReader();if(!snap)return;
+  setReaderScale('WORD');read.wpm=900;reader?.setWpm?.(900);
+  if($('#wpm'))$('#wpm').value='900';if($('#wpmRead'))$('#wpmRead').textContent='900 WPM';
+  if(!reader?.snapshot?.()?.playing)reader?.toggleRSVP?.();
+  syncReadApertureUi();setStatus('READ · FAST · WORD · 900 WPM · SAME SOURCE / CURSOR');
+};
+$('#readReview').onclick=()=>{
+  if(!ensureReader())return;reader?.stop?.();setReaderScale('SENT');syncReadApertureUi();
+  setStatus('READ · REVIEW · SENTENCE · MOTION STOPPED · CURSOR PRESERVED');
+};
+$('#readRsvp').onclick=()=>{if(!ensureReader())return;reader?.toggleRSVP?.();syncReadApertureUi();setStatus('READ · '+(reader?.snapshot?.()?.playing?'RSVP PLAY':'RSVP PAUSE'))};
 $('#readFull').onclick=()=>{
   const source=readerSource(),focus=reader?.snapshot?.()||ensureReader()||null;window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search,focus});
   const q=read.pulseMode==='PACE4'?'?pulse=4&from=field-lab':'?from=field-lab';location.href='/docs/'+q;
