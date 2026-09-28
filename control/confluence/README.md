@@ -63,6 +63,9 @@ A route, PR, worker, experiment, mode or donor is not automatically a project. C
 
 ## Current confluence packets
 
+- [CHANGE CALCULUS / shared order-space handoff](../../fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md) — canonical successor for the merged Boolean change lattice, prefix-preserving CALCULATION_ONLY steering, projection-only path→INK guide, J-space promotion gate, and the boundary `STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`.
+- [FOLD//BLOOM playable convergence handoff](./FOLD_BLOOM_PLAYABLE_CONVERGENCE_HERMES_2026-09-28.md) — post-#492/#507 recovery frame joining exact READ, playable LIVE/DRIVE and the bounded change-calculus/J-space donors without creating a new host authority.
+
 - [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.
 
 - [HERMES VISION LOOP](../prompts/HERMES_VISION_LOOP_2026-09-24.md) — bounded long-horizon research/design-engineering loop: question → falsifiable hypothesis → specimen → lived/machine evidence → promote/transfer/park/compost → RETURN.
