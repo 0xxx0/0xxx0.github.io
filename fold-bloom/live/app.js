@@ -1,5 +1,5 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, forecastContext, clamp, N } from './engine.js?v=0.13.2';
-import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.15';
+import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.14';
 import { Renderer } from './render.js?v=0.13.8';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { $ } from '../../lib/dom.js';
@@ -30,9 +30,7 @@ let state=normalizeLoadedState(load()) || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
-const FIELD_MUSIC_PREF='fold-bloom.live.field-music.v1';
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let fieldMusicWanted=(()=>{try{return localStorage.getItem(FIELD_MUSIC_PREF)==='1'}catch(_){return false}})();
 let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,authoredReader=null,perf={emaMs:16.7,fps:60,modelHz:0};
 // IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
 // never pass through here: they stay in the browser vault keyed by sha256. What lives
@@ -62,47 +60,6 @@ function effectiveRideProfile(){
   if(layerMode==='MAP')return normalizeRideProfile({...rideProfile,immersion:.68,dropGain:.72,anticipation:.86,motionGain:.64});
   return rideProfile;
 }
-function persistFieldMusicWanted(){
-  try{localStorage.setItem(FIELD_MUSIC_PREF,fieldMusicWanted?'1':'0')}catch(_){}
-}
-function fieldMusicAudible(){
-  return !!(fieldMusicWanted&&layerMode==='IMMERSION'&&audio.ctx&&audio.soundOn);
-}
-function syncFieldMusicUI(){
-  const quick=$('#musicQuick'),hud=$('#soundBtn'),armed=fieldMusicWanted&&!audio.ctx,audible=fieldMusicAudible();
-  const label=!fieldMusicWanted?'MUSIC · OFF':layerMode!=='IMMERSION'?'MUSIC · HELD':armed?'MUSIC · ARMED':audible?('MUSIC · '+audio.sceneName):'MUSIC · ON';
-  if(quick){quick.textContent=label;quick.setAttribute('aria-pressed',String(fieldMusicWanted));quick.dataset.state=audible?'audible':fieldMusicWanted?'wanted':'off'}
-  if(hud){hud.textContent=audible?'♫':fieldMusicWanted?'♪':'×';hud.setAttribute('aria-pressed',String(fieldMusicWanted));hud.title=label+' · generated FIELD presentation only'}
-  document.documentElement.dataset.foldBloomFieldMusic=audible?'audible':fieldMusicWanted?'wanted':'off';
-  document.documentElement.dataset.foldBloomFieldMusicLayer=layerMode;
-}
-function setFieldMusicProjection(){
-  const shouldPlay=fieldMusicWanted&&layerMode==='IMMERSION'&&!!audio.ctx;
-  audio.setSound(shouldPlay);
-  syncFieldMusicUI();
-  return shouldPlay;
-}
-async function setFieldMusicWanted(on,{announce=true}={}){
-  fieldMusicWanted=!!on;persistFieldMusicWanted();
-  if(!fieldMusicWanted){
-    audio.setSound(false);syncFieldMusicUI();if(announce)toast('FIELD MUSIC · OFF');update();return false;
-  }
-  if(layerMode!=='IMMERSION')applyLayerMode('IMMERSION',false);
-  if(layerMode!=='IMMERSION'){
-    audio.setSound(false);syncFieldMusicUI();if(announce)toast('FIELD MUSIC · HELD UNTIL IMMERSION');update();return false;
-  }
-  audio.setSound(true);
-  const ok=await ensureAudio();
-  if(!ok){audio.setSound(false);syncFieldMusicUI();if(announce)toast('FIELD MUSIC · AUDIO UNAVAILABLE');update();return false}
-  audio.setSound(true);syncSoundGate(false);syncFieldMusicUI();if(announce)toast('FIELD MUSIC · '+audio.sceneName);update();return true;
-}
-async function toggleFieldMusic(){
-  if(fieldMusicWanted&&!audio.ctx)return setFieldMusicWanted(true);
-  return setFieldMusicWanted(!fieldMusicWanted);
-}
-function fieldMusicClimate(){
-  return {wanted:fieldMusicWanted,audible:fieldMusicAudible(),layer:layerMode,...audio.climateSnapshot()};
-}
 function syncLayerUI(){
   if($('#layerRead'))$('#layerRead').textContent=layerMode;
   document.querySelectorAll('[data-layer-mode]').forEach(b=>b.classList.toggle('on',b.dataset.layerMode===layerMode));
@@ -129,7 +86,7 @@ function applyLayerMode(name,announce=true){
   }
   layerMode=next;
   renderer.setProfile(effectiveRideProfile());
-  setFieldMusicProjection();
+  if(layerMode!=='IMMERSION')audio.setSound(false);
   syncLayerUI();update();
   if(announce)toast('LAYER · '+layerMode);
   return true;
@@ -541,7 +498,7 @@ function update(){
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText(calc);
   syncCalculationUI(calc);
-  syncFieldMusicUI();
+  $('#soundBtn').textContent=audio.soundOn?'♪':'×';
   $('#build').textContent=readRide
     ?`${VERSION} · READFIELD TEXT × addressed course × LIVE POV → READ-RIDE · ${courseGrain} · ${Math.round(liveCourseProgress()*100)}%`
     :imageSet
@@ -669,7 +626,7 @@ function syncAuthoredReaderUI(){
   const recur=$('#readerRecurrence');
   if(overlap){
     recur.hidden=false;$('#readerRecurrenceLabel').textContent=overlap.group.label;
-    $('#readerRecurrenceBody').textContent=overlap.hits.map(x=>x.label).join(' · ')+' · ['+overlap.group.signature+'] · '+overlap.group.boundary;
+    $('#readerRecurrenceBody').textContent=overlap.hits.map(x=>x.label).join(' · ')+' · '+overlap.group.boundary;
   }else recur.hidden=true;
   $('#liveSubtitle').textContent='LIVE READER · PROVENANCE / TRAVERSE / RECURRENCE / RETURN';
   return{rs,w,stats,overlap};
@@ -766,7 +723,12 @@ function syncSoundGate(show,mode='FIELD'){
   gate.hidden=!show;gate.dataset.mode=mode;gate.textContent=mode==='SOURCE'?'TAP FOR SOURCE':'TAP FOR FIELD SOUND';gate.setAttribute('aria-hidden',show?'false':'true');
 }
 async function enableFieldAudio(){
-  return setFieldMusicWanted(true,{announce:true});
+  audio.setSound(true);
+  const ok=await ensureAudio();
+  syncSoundGate(false);
+  toast(ok?'FIELD COURSE · SOUND ON':'AUDIO UNAVAILABLE');
+  update();
+  return ok;
 }
 function audioFileOf(files){return [...(files||[])].find(f=>f?.type?.startsWith?.('audio/')||/\.(mp3|m4a|wav|flac|ogg|aac|webm|mp4)$/i.test(f?.name||''))||null}
 async function refreshVault(){
@@ -1212,7 +1174,7 @@ cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',p
 
 $('#turnLeft').onclick=()=>{stopDemo(true);step(-1)};$('#turnRight').onclick=()=>{stopDemo(true);step(1)};$('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
 document.querySelectorAll('[data-sound-scene]').forEach(b=>b.addEventListener('click',()=>selectSoundScene(b.dataset.soundScene)));
-$('#soundBtn').onclick=toggleFieldMusic;$('#musicQuick')?.addEventListener('click',toggleFieldMusic);
+$('#soundBtn').onclick=async()=>{if(!audio.ctx){await enableFieldAudio();return}audio.setSound(!audio.soundOn);syncSoundGate(false);update()};
 const setMenuOpen=open=>{
   const on=!!open,drawer=$('#settings');
   drawer.classList.toggle('on',on);
@@ -1279,8 +1241,8 @@ $('#exportBtn').onclick=()=>{
 };
 function resetLiveState({silent=false}={}){stopDemo(false);state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);renderer.setScene(state.scene);syncRideProfile();dragAngle=0;update();if(!silent)toast('NEW FIELD');return snapshot(state)}
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';resetLiveState()};
-$('#playBtn').onclick=()=>{stopDemo(false);void setFieldMusicWanted(false,{announce:false});applyRidePreset('DRIVE',false);renderer.setProfile(effectiveRideProfile());syncVibeQuick();practiceTrack.pause();courseMode='STEP';syncSoundGate(true,'FIELD');$('#intro').classList.remove('on');update();toast('DRIVE FIELD · STILL · RELEASE ADVANCES ONE BEAT')};
-$('#mutePlay').onclick=()=>{stopDemo(false);void setFieldMusicWanted(false,{announce:false});$('#intro').classList.remove('on');syncSoundGate(false);update()};
+$('#playBtn').onclick=()=>{stopDemo(false);applyRidePreset('DRIVE',false);renderer.setProfile(effectiveRideProfile());syncVibeQuick();audio.setSound(false);practiceTrack.pause();courseMode='STEP';syncSoundGate(true,'FIELD');$('#intro').classList.remove('on');update();toast('DRIVE FIELD · STILL · RELEASE ADVANCES ONE BEAT')};
+$('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);syncSoundGate(false);update()};
 $('#soundGate')?.addEventListener('click',()=>{
   const gate=$('#soundGate');
   if(gate?.dataset.mode==='SOURCE'){
@@ -1307,7 +1269,7 @@ addEventListener('keydown',e=>{
   else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();doRelease()}
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
-  else if(e.key.toLowerCase()==='m'){void toggleFieldMusic()}
+  else if(e.key.toLowerCase()==='m'){if(!audio.soundOn&&!audio.ctx)void enableFieldAudio();else{audio.setSound(!audio.soundOn);update()}}
 });
 
 fieldPulse.subscribe(msg=>{
@@ -1374,10 +1336,6 @@ function loop(t){
     document.documentElement.dataset.trackfieldMotion=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}:${Number(latestWorld.currentGrade||0).toFixed(2)}:${Number(latestWorld.currentBend||0).toFixed(2)}`:'NONE';
     document.documentElement.dataset.foldBloomPerf=`${perf.fps.toFixed(0)}fps:${modelSlices}slices`;
     const pe=$('#perfState');if(pe)pe.textContent=`PERF · ${perf.fps.toFixed(0)} FPS · ${modelSlices} MODEL SLICES · MODEL ≤36 HZ`;
-    const e=Math.max(.12,Math.min(1,Number(linkedTrack?.energy)||.24));
-    const bend=Math.min(1,Math.abs(Number(latestWorld?.currentBend)||0));
-    const dropStrength=Math.max(0,Math.min(1,Number(latestWorld?.drop?.strength)||0));
-    audio.setClimate({energy:e,density:Math.min(.98,.18+e*.62+bend*.12),tension:Math.min(1,dropStrength*.72+bend*.28)},.075);
   }
   renderer.setTrackfield(latestWorld);
   drawCourseMap();
@@ -1387,9 +1345,9 @@ function loop(t){
   renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
-syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();syncFieldMusicUI();update();
+syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,music:{set:setFieldMusicWanted,toggle:toggleFieldMusic,current:fieldMusicClimate,scenes:()=>audio.sceneNames(),scene:selectSoundScene},authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,echo:jumpAuthoredEcho,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),fieldMusic:fieldMusicClimate(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,echo:jumpAuthoredEcho,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchReader){document.documentElement.dataset.foldBloomLaunch='authored-reader';void openAuthoredReader(launchReader,{announce:false}).catch(error=>{console.warn('AUTHORED READER',error);document.documentElement.dataset.foldBloomAuthoredReader='error';toast('AUTHORED SOURCE REJECTED')})}
