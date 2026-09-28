@@ -1,0 +1,33 @@
+{
+  "schema": "0xxx0/recovery-donor/v0.1",
+  "family": "Poo Baby",
+  "classification": "FROZEN_ORDERED_COMIC_DONOR",
+  "state": "SOURCE_PRESERVED_UNTOUCHED",
+  "source": {
+    "path": "~/Downloads/pooBaby",
+    "preserved": true
+  },
+  "sections": {
+    "main_linear": {
+      "sheets": 170,
+      "labelled": 115,
+      "label_range": [
+        2,
+        170
+      ],
+      "inversions": 0
+    },
+    "specials": {
+      "sheets": 66,
+      "labelled": 43,
+      "label_range": [
+        2,
+        123
+      ],
+      "inversions": 0
+    }
+  },
+  "ordering": "printed panel label (OCR), not filename timestamp",
+  "duplicate_clusters": 28,
+  "boundary": "Comic art and PDFs remain local. This shelf exposes metadata only."
+}

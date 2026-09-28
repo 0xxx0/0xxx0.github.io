@@ -6447,10 +6447,11 @@
       "showcase_card": false,
       "role": "Historical temporal/radial instrument shelf: exact DataDisc 2019 + RSVP/TTS 2018 fixtures for mechanism comparison.",
       "index": {
-        "updated_at": "2026-09-21T18:51:00+08:00",
+        "updated_at": "2026-09-29T00:00:59+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -6524,6 +6525,57 @@
             "status": "AVAILABLE",
             "via": "/recovery/sleeper/",
             "class": "RETURN"
+          }
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/recovery/media/poobaby/",
+      "title": "POO BABY / COMIC RUN",
+      "parent": "/recovery/media/",
+      "kind": "donor",
+      "family": "MEDIA / REPRESENTATION",
+      "state": "FROZEN_DONOR",
+      "version": "2026-09-28",
+      "showcase_card": false,
+      "role": "170 main-line comic sheets + 66 specials, sequenced by the panel labels printed in the art (not filenames). Two ordered PDFs and a local review shelf; source folder preserved untouched.",
+      "operation": "RECOVER / RETRIEVE",
+      "receipt": "/recovery/media/poobaby/manifest.json",
+      "index": {
+        "updated_at": "2026-09-29T00:00:59+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "field": {
+        "roles": [
+          "SOURCE"
+        ],
+        "inputs": [],
+        "outputs": [
+          {
+            "medium": "IMAGE",
+            "kind": "ordered comic run"
+          },
+          {
+            "medium": "DATA",
+            "kind": "label index"
+          }
+        ],
+        "exit_paths": [
+          {
+            "status": "AVAILABLE",
+            "via": "/recovery/media/poobaby/",
+            "class": "RETURN"
+          },
+          {
+            "status": "EXPLICIT_EXPORT_REQUIRED",
+            "via": "local shelf (not in repo)",
+            "class": "BOUNDARY",
+            "note": "48 MB + 17 MB PDFs stay on the local machine by design; /ai-media/ is gitignored."
           }
         ]
       },
