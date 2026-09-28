@@ -622,7 +622,6 @@ function renderSyncLine(){
  cur.textContent=(current?.updated||'—')+' · '+fronts+' fronts · '+heads+' heads';
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
- renderSemanticScale();
 }
 function routeForRepoFile(path){
  const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
