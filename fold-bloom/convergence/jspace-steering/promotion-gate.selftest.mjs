@@ -10,6 +10,7 @@ assert.equal(current.summary.failed,6);
 assert.equal(current.summary.passed,4);
 assert.equal(current.summary.total,10);
 assert.equal(current.checks.find(x=>x.id==='MODEL_EVIDENCE_SEMANTIC')?.pass,false);
+assert.equal(current.checks.find(x=>x.id==='MODEL_EVIDENCE_SEMANTIC')?.observed,'REAL_READ_TRACE_OBSERVATION_ONLY');
 assert.equal(current.checks.find(x=>x.id==='REAL_MODEL_FIT_APPLY')?.pass,true);
 assert.equal(current.commit_operation,null);
 
