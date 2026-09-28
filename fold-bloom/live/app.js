@@ -346,9 +346,13 @@ function refreshSteeringPreview(now=Date.now()){
   if(!next.ok){steeringPulse=null;steeringView=null;renderer.setSteeringPreview(null);document.documentElement.dataset.foldBloomSteering='off';return null}
   steeringView=next;renderer.setSteeringPreview(next);document.documentElement.dataset.foldBloomSteering=String(next.verb||'on').toLowerCase();return next;
 }
+function steeringPathLabel(view){
+  const n=view?.candidates?.find?.(x=>Number(x.turn_steps)===Number(view.nearest_turn_steps));
+  return n?(n.turn_direction+'×'+n.turn_steps):'';
+}
 function setManualSteeringPreview(verb){
   steeringPulse=manualSteeringPulse(verb);const view=refreshSteeringPreview();update();
-  if(view)toast(`LENS ${view.verb} · ${view.candidate_count} LAWFUL`);
+  if(view)toast(`LENS ${view.verb} · ${view.candidate_count} LAWFUL${steeringPathLabel(view)?' · GHOST '+steeringPathLabel(view):''}`);
   return view;
 }
 function clearSteeringPreview(){steeringPulse=null;steeringView=null;renderer.setSteeringPreview(null);document.documentElement.dataset.foldBloomSteering='off';update()}
@@ -375,7 +379,7 @@ function syncCalculationUI(calc){
     ?`${calc.recent.hex.token} · 64 exact six-verb histories / HEX · −${calc.recent.hex.information_loss_bits} bits · HISTORY ≠ CONTROL`
     :`RECENT EXACT VERBS · ${calc.recent.count}/6 · HEX appears only after six authored releases`;
   if(lens)lens.textContent=calc.steering
-    ?`${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count} native candidates · PREVIEW ONLY`
+    ?`${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count} native candidates${calc.steering.nearest_turn_steps!=null?' · GHOST '+(calc.steering.nearest_turn_direction||'HERE')+'×'+calc.steering.nearest_turn_steps:''} · PREVIEW ONLY`
     :'OFF · model/manual steering support is preview-only and grants no RELEASE authority';
   if(step)step.textContent=calc.traversal
     ?`${calc.traversal.mode==='RELEASE_STEP'?'RELEASE→STEP':calc.traversal.mode} · ${calc.traversal.grain} ${calc.traversal.index!=null&&calc.traversal.count?((calc.traversal.index+1)+'/'+calc.traversal.count):''}${calc.traversal.next_address?' · NEXT '+calc.traversal.next_address:''}`
@@ -388,7 +392,7 @@ function statusText(calc){
   const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=layerMode!=='SOURCE'&&linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:(liveTrack.sourceActive()?' · SOURCE PLAYBACK':'');
   const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
   const hex=calc?.recent?.hex?` · HEX ${calc.recent.hex.token}`:(calc?.recent?.count?` · FORM ${calc.recent.count}/6`:'');
-  const lens=calc?.steering?` · LENS ${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count}`:'';
+  const lens=calc?.steering?` · LENS ${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count}${calc.steering.nearest_turn_steps!=null?' · GHOST '+(calc.steering.nearest_turn_direction||'HERE')+'×'+calc.steering.nearest_turn_steps:''}`:'';
   const nav=calc?.traversal&&calc.traversal.mode!=='FLOW'?` · ${calc.traversal.mode==='RELEASE_STEP'?'RELEASE→STEP':calc.traversal.mode} ${calc.traversal.grain}`:'';
   return `GATE ${String(idx).padStart(2,'0')} · ${typePresentation(c.type).text} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${hex}${lens}${nav}${track}`;
 }
@@ -904,7 +908,7 @@ addEventListener('keydown',e=>{
 
 fieldPulse.subscribe(msg=>{
   if(msg?.kind==='steering'){
-    steeringPulse=msg;const view=refreshSteeringPreview();if(view)toast(`LENS ${view.verb} · ${view.candidate_count} LAWFUL`);update();return;
+    steeringPulse=msg;const view=refreshSteeringPreview();if(view)toast(`LENS ${view.verb} · ${view.candidate_count} LAWFUL${steeringPathLabel(view)?' · GHOST '+steeringPathLabel(view):''}`);update();return;
   }
   const clock=transportDescriptor(msg);
   if(!clock||liveTrack.active())return;
