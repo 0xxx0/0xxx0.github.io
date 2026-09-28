@@ -255,16 +255,28 @@ The exact fitted lens and FIELD-compatible trace are preserved in the Actions ar
 
 ## Executable promotion gate
 
-`promotion-gate.mjs` now encodes the join law.
+`promotion-gate.mjs` encodes the join law and now exposes ten explicit proof obligations as machine-readable `checks[]`: each has `id`, `pass`, stable failure `reason`, `observed`, and `required`.
 
-Current evidence is intentionally `BLOCKED` from causal steering promotion because:
+Current evidence is intentionally `BLOCKED`. The strongest read evidence is no longer the tiny-model smoke: it is the real Qwen2.5-1.5B-Instruct trace recorded below and in `/returns/JSPACE_REAL_TRACE_2026-09-27.json`. That trace is typed `REAL_READ_TRACE_OBSERVATION_ONLY` because it is one sampled read witness with an 8-prompt fitted lens and no control-verb top-8 hit.
 
-- model evidence class is `PLUMBING_ONLY`;
-- no real residual intervention has been executed;
-- zero and opposite/unrelated controls do not exist yet;
-- repeated-prompt causal evidence does not exist yet.
+Current gate: **4 / 10 PASS; 6 / 10 FAIL.** The failed obligations are:
 
-A falsified HEX macrostate also cannot be substituted for native host forecasts. Even a future passing model intervention yields only `ELIGIBLE_FOR_BOUNDED_PREVIEW`, never an automatic commit operation.
+- semantic model evidence;
+- a real residual intervention;
+- zero-strength control;
+- opposite-sign or unrelated-direction control;
+- repeated-prompt causal evidence;
+- an exact execution receipt.
+
+A falsified HEX macrostate also cannot be substituted for native host forecasts. Even a future 10 / 10 result yields only `ELIGIBLE_FOR_BOUNDED_PREVIEW`, never an automatic commit operation.
+
+The key separation is:
+
+```text
+LEGIBILITY != SUPPORT != PERMISSION
+```
+
+A readable token is not host support; host support is not steering permission.
 
 ## First real open-weight read trace — 2026-09-27
 
