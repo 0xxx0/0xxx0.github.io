@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
   lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steppedStatePath,exactFormCalculation,
-  steppedFormPath,appliedResearchFrame
+  steppedFormPath,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -136,6 +136,21 @@ assert.equal(frame.promotion_evidence_source,'CURRENT_EVIDENCE_2026_09_27');
 assert.equal(frame.promotion.checks.find(x=>x.id==='REAL_MODEL_FIT_APPLY')?.pass,true);
 assert.equal(frame.promotion.checks.find(x=>x.id==='MODEL_INTERVENTION_EXECUTED')?.pass,false);
 assert.ok(frame.residue.some(x=>x.includes('moving-line set loses step ordering')));
+assert.equal(frame.residue_ladder.authority,'RESEARCH_WITNESS_ONLY');
+assert.equal(frame.residue_ladder.strongest_claim,'READ_SUPPORT_ONLY');
+assert.deepEqual(frame.residue_ladder.levels.map(x=>x.id),[
+  'EXACT_FORM','HEX_STATE','MOVING_SET','ORDERED_PATH','MODEL_READOUT','HOST_SUPPORT','CAUSAL_GATE'
+]);
+assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HEX_STATE')?.compression_ratio,64);
+assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.alternatives,2);
+assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.ambiguity_bits,1);
+assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HOST_SUPPORT')?.native_candidate_count,3);
+assert.equal(frame.residue_ladder.levels.find(x=>x.id==='CAUSAL_GATE')?.failed_obligations,6);
+
+const stateOnlyResidue=residueLadder({state,stateStep});
+assert.equal(stateOnlyResidue.strongest_claim,'ORDERED_PATH_WITNESS');
+assert.deepEqual(stateOnlyResidue.levels.map(x=>x.id),['HEX_STATE','MOVING_SET','ORDERED_PATH']);
+assert.equal(stateOnlyResidue.levels.find(x=>x.id==='HEX_STATE')?.compression_ratio,null);
 
 console.log(JSON.stringify({
   status:'PASS',
@@ -144,5 +159,6 @@ console.log(JSON.stringify({
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
   promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
+  residueLadder:{strongest:frame.residue_ladder.strongest_claim,levels:frame.residue_ladder.levels.map(x=>x.id)},
   authority:frame.authority
 },null,2));
