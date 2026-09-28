@@ -50,6 +50,8 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
+- [PROJECT / SCALE MAP — 2026-09-28](./PROJECT_SCALE_MAP_2026-09-28.md) — zoomed-out project-management projection over CURRENT/manifest/RETURN; groups recent work into capability families and treats glyphs as scale-changing derived dashboards rather than a new state owner.
+
 - [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.
 
 - [HERMES VISION LOOP](../prompts/HERMES_VISION_LOOP_2026-09-24.md) — bounded long-horizon research/design-engineering loop: question → falsifiable hypothesis → specimen → lived/machine evidence → promote/transfer/park/compost → RETURN.
