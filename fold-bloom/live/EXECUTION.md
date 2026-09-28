@@ -39,6 +39,9 @@ Donors remain addressable and independent:
 26. **Exact source key gates message projection.** A landmark may appear only when its PIN source key matches the loaded local source hash.
 27. **Address traversal is an explicit operator.** `FLOW` means the source clock advances the canonical address; `STEP` means only explicit navigation changes address; `RELEASE→STEP` means one authored LIVE release is followed by exactly one addressed grain advance. Text READ/RIDE has no fabricated autonomous clock, so it supports only `STEP` and `RELEASE→STEP`.
 28. **Sound witnesses operation; it never gates operation.** A lawful BLOOM/FOLD/SPLIT/RETURN commits native state, deformation, RETURN residue and any explicit `RELEASE→STEP` address move even if audio initialization is blocked or late. Generated sound joins best-effort when its context is ready.
+29. **Calculation is residue, not control.** `FoldBloomLive.calculus()` may join native forecast evidence, recent history, J-space support and traversal policy into one inspectable witness, but it emits no operation and owns no state.
+30. **Recent HEX is history-only.** Six authored release verbs form one exact 4^6 history; the existing binary relation quotient maps that history into one of 2^6 HEX states, so every HEX represents 64 exact verb histories and drops 6 uniform bits. Earlier native sufficiency experiments already falsified HEX/recent-form history as replacements for current LIVE control state.
+31. **Model support is not permission.** J-space/model direction overlap may report how many currently lawful native forecasts match a direction. It remains PREVIEW_ONLY with `commit_operation:null`; native LIVE forecast/release remains the effect aperture.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`

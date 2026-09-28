@@ -79,3 +79,14 @@ html.fbMenuOpen .soundGate{pointer-events:none!important}
 @media(max-width:620px){.courseRow button{min-height:42px!important}.courseLaw{font-size:7.25px}}
 
 .soundScenes{display:flex;flex-wrap:wrap;gap:5px}.soundScenes button{flex:1 1 42%;min-height:36px}.soundScenes button.on{border-color:var(--gold);color:var(--gold)}
+
+
+/* 0.13 transparent calculation witness: one drawer aperture, no new authority surface. */
+.calcRead{border-top:1px solid rgba(255,255,255,.08);padding-top:8px}
+.calcSummary{border:1px solid rgba(215,180,109,.28);padding:7px 8px;color:#efd99f;font-size:7px;line-height:1.45;letter-spacing:.05em;background:rgba(215,180,109,.035)}
+.calcRows{display:grid;gap:1px;margin-top:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06)}
+.calcRows>div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px;padding:7px 8px;background:rgba(5,7,11,.96);font-size:7px;line-height:1.45}
+.calcRows b{color:#8f9ba2;letter-spacing:.08em}
+.calcRows span{color:#cfd6d9;overflow-wrap:anywhere}
+.calcFormula{margin-top:6px;padding:7px 8px;border-left:2px solid rgba(109,189,255,.45);color:#8297a3;font-size:7px;line-height:1.45}
+@media(max-width:620px){.calcRows>div{grid-template-columns:68px minmax(0,1fr);padding:8px}.calcSummary,.calcRows>div,.calcFormula{font-size:7.25px}}
