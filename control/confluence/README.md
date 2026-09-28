@@ -50,7 +50,7 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
-- [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.
+- [PROJECT / SCALE MAP — 2026-09-28](./PROJECT_SCALE_MAP_2026-09-28.md) — derived six-family orientation over CURRENT/manifest/RETURN; folds merged semantic scale + FOVEA into the bounded project-head glyph composition without creating a second tracker.\n\n- [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.
 
 - [HERMES VISION LOOP](../prompts/HERMES_VISION_LOOP_2026-09-24.md) — bounded long-horizon research/design-engineering loop: question → falsifiable hypothesis → specimen → lived/machine evidence → promote/transfer/park/compost → RETURN.
 - [HERMES SKILLS](../../skills/README.md) — executable method shelf; skills are admitted by demonstrated recurrence + transfer, not by sounding general.
