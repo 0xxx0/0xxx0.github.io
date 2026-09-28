@@ -185,7 +185,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <span class="signalGlyph" aria-hidden="true"></span><strong>SCALE</strong>
   <button class="scaleStep" id="scaleOut" title="Semantic zoom out: preserve focus, compress repeated detail" aria-label="Semantic zoom out">−</button>
   <div class="scaleBands" role="group" aria-label="Semantic scale band">
-    <button data-scale-band="FIELD">FIELD</button><button data-scale-band="ROUTE">ROUTE</button><button data-scale-band="OBJECT">OBJECT</button>
+    <button data-scale-band="FIELD" title="FIELD: compress repeated detail and scan the whole addressed surface">FIELD</button><button data-scale-band="ROUTE" title="ROUTE: balanced route labels, state and controls">ROUTE</button><button data-scale-band="OBJECT" title="OBJECT: expand the held route and its actions">OBJECT</button>
   </div>
   <button class="scaleStep" id="scaleIn" title="Semantic zoom in: preserve focus, reveal addressed detail" aria-label="Semantic zoom in">＋</button>
   <button class="scaleFit" id="scaleFit" title="Return semantic scale to adaptive viewport fit">FIT</button>
@@ -283,7 +283,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand · capability aperture: ?cap=1</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand · capability aperture: ?cap=1</span><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -617,11 +617,15 @@ function rewindCaughtUp(){
 }
 function renderSemanticScale(st=window.FieldPresentation?.state?.()){
  const rail=$('scaleRail');if(!rail||!st)return;
+ const foveaOn=!!window.FoveaLens?.on?.(),phone=window.matchMedia?.('(max-width:760px)')?.matches;
  rail.dataset.scaleBand=st.band||'ROUTE';
- rail.querySelectorAll('[data-scale-band]').forEach(b=>b.classList.toggle('on',b.dataset.scaleBand===st.band));
- $('scaleOut').disabled=st.band==='FIELD';$('scaleIn').disabled=st.band==='OBJECT';$('scaleFit').classList.toggle('on',!!st.auto);
- $('scaleFovea').classList.toggle('on',!!window.FoveaLens?.on?.());
- $('scaleMeta').textContent=(st.auto?'FIT '+st.baseline:'LOCKED '+st.density)+' · φ '+(focus?.href||'/')+' · identity fixed';
+ rail.querySelectorAll('[data-scale-band]').forEach(b=>{const on=b.dataset.scaleBand===st.band;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});
+ $('scaleOut').disabled=st.band==='FIELD';$('scaleIn').disabled=st.band==='OBJECT';
+ $('scaleFit').classList.toggle('on',!!st.auto);$('scaleFit').setAttribute('aria-pressed',String(!!st.auto));
+ $('scaleFovea').classList.toggle('on',foveaOn);$('scaleFovea').setAttribute('aria-pressed',String(foveaOn));
+ $('scaleMeta').textContent=phone
+  ?(foveaOn?'FOVEA ON · touch/drag marks to read · tap held mark again to open':'tap FIELD / ROUTE / OBJECT · tap mark = hold · tap again = open')
+  :((st.auto?'FIT '+st.baseline:'LOCKED '+st.density)+' · φ '+(focus?.href||'/')+' · F toggles FOVEA');
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
