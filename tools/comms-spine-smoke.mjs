@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
-const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41761;
+const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 function browserBin(){for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium','brave-browser','brave']){const r=spawnSync('which',[name],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim()}for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){if(fs.existsSync(p))return p}throw Error('No Chrome/Chromium')}
 function type(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
 function fileFor(url){let clean=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!clean)clean='index.html';if(clean.endsWith('/'))clean+='index.html';const p=path.normalize(path.join(ROOT,clean));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;return null}
@@ -45,7 +45,7 @@ function probe(){return '<!doctype html><html><body><iframe id="f" style="width:
 "done(rec.messages==='4'&&rec.signals0>0&&rec.signals1>rec.signals0&&rec.signals2===rec.signals1+2&&rec.covered>=1&&rec.human>=1&&/^sha256:/.test(rec.sourceId)&&rec.draft>10&&rec.packet==='comms-spine-agent-packet/v0.1'&&rec.overflow<=1&&rec.temporary&&rec.resumed&&rec.resumeSource&&rec.resumeDraft&&rec.resumeCovered&&rec.resumeConfirmed&&rec.resumeDismissed&&rec.machineSpotted&&rec.machineRendered&&rec.machineOriginText&&rec.cardGrammar3&&rec.machineTwoActions&&rec.machineUncovered&&rec.confirmFlips&&rec.confirmCard&&rec.dismissFlips&&rec.dismissKeeps&&rec.noPromoteOnAuthored&&rec.originGeometry&&rec.originGeometry.distinct===true,rec)})().catch(e=>done(false,{error:String(e&&e.stack||e),...rec}));"+
 '</scr'+'ipt></body></html>'}
 const server=http.createServer((req,res)=>{if(String(req.url).startsWith('/__comms')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res)});
-await new Promise(r=>server.listen(PORT,HOST,r));
+await new Promise(r=>server.listen(PORT,HOST,r));PORT=server.address().port;
 const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=24000','--dump-dom','http://'+HOST+':'+PORT+'/__comms'];
 const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},36000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
 server.close();

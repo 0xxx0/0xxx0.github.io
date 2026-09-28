@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
-const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41764;
+const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 function browserBin(){
   for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
     const r=spawnSync('which',[name],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim();
@@ -70,7 +70,7 @@ const server=http.createServer((req,res)=>{
   const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}
   res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res);
 });
-await new Promise(r=>server.listen(PORT,HOST,r));
+await new Promise(r=>server.listen(PORT,HOST,r));PORT=server.address().port;
 const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=32000','--dump-dom','http://'+HOST+':'+PORT+'/__dayline_shopping_real_loop'];
 const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},44000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
 server.close();

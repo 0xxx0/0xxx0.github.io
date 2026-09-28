@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
-const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41763;
+const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 const USER_SOURCE='User: Run the real COMMS OPEN signal → Dayline → act and witness → RETURN TO SOURCE loop, then report whether PR #296 is ready to merge.';
 const WITNESS='BROWSER OBSERVED: exact COMMS source SHA + signal/message/range survived into Dayline and RUN was enacted before RETURN.';
 
@@ -122,7 +122,7 @@ const server=http.createServer((req,res)=>{
   const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}
   res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res);
 });
-await new Promise(r=>server.listen(PORT,HOST,r));
+await new Promise(r=>server.listen(PORT,HOST,r));PORT=server.address().port;
 const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=32000','--dump-dom','http://'+HOST+':'+PORT+'/__dayline_comms_real_loop'];
 const result=await new Promise((resolve,reject)=>{
   const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';
