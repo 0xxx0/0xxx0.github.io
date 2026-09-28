@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,steppedStatePath,exactFormCalculation,
+  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steppedStatePath,exactFormCalculation,
   steppedFormPath,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
@@ -10,6 +10,22 @@ assert.equal(lineTransitionValue(0,0),8);
 assert.equal(lineTransitionValue(1,1),7);
 assert.equal(lineTransitionValue(0,1),6);
 assert.equal(lineTransitionValue(1,0),9);
+
+const order0=stepOrderAt([1,2,3,4,5,6],0);
+const order719=stepOrderAt([1,2,3,4,5,6],719);
+assert.equal(order0.ok,true);
+assert.deepEqual(order0.order,[1,2,3,4,5,6]);
+assert.equal(order0.count,720);
+assert.equal(order719.index,719);
+assert.deepEqual(order719.order,[6,5,4,3,2,1]);
+assert.equal(stepOrderAt([1,2,3],6).index,0);
+for(const i of [0,1,5,17,119,719]){
+  const indexed=stepOrderAt([1,2,3,4,5,6],i);
+  const ranked=stepOrderRank([1,2,3,4,5,6],indexed.order);
+  assert.equal(ranked.ok,true);
+  assert.equal(ranked.index,i);
+}
+assert.equal(stepOrderRank([1,2,3],[1,1,2]).ok,false);
 
 const state=transparentStateCalculation('010|100','011|110');
 assert.equal(state.ok,true);
@@ -30,8 +46,14 @@ assert.equal(stateStep.steps[0].after_token,'H[011|100]');
 assert.equal(stateStep.steps[0].iching_line_value,6);
 assert.equal(stateStep.steps[1].after_token,'H[011|110]');
 assert.equal(stateStep.final_matches_target,true);
+assert.equal(stateStep.selected_order_index,0);
+assert.equal(stateStep.selected_order_address,'order://0-of-2');
+assert.equal(stateStep.path_address,'change://state/010100→011110/order/0-of-2');
+assert.equal(stateStep.steps[0].address,stateStep.path_address+'/step/1');
 const stateStepReverse=steppedStatePath('010|100','011|110',[5,3]);
 assert.equal(stateStepReverse.ok,true);
+assert.equal(stateStepReverse.selected_order_index,1);
+assert.equal(stateStepReverse.selected_order_address,'order://1-of-2');
 assert.equal(stateStepReverse.steps[0].after_token,'H[010|110]');
 assert.notEqual(stateStep.steps[0].after_token,stateStepReverse.steps[0].after_token);
 assert.equal(steppedStatePath('010|100','011|110',[3,3]).ok,false);
@@ -57,6 +79,9 @@ assert.equal(stepped.ok,true);
 assert.equal(stepped.steps.length,6);
 assert.equal(stepped.possible_one_edit_orders,720);
 assert.equal(stepped.final_matches_target,true);
+assert.equal(stepped.selected_order_index,0);
+assert.equal(stepped.selected_order_address,'order://0-of-720');
+assert.ok(stepped.path_address.includes('/order/0-of-720'));
 assert.equal(stepped.steps.filter(x=>x.quotient_changed).length,2);
 assert.equal(steppedFormPath(fromForm,toForm,[3,5]).ok,false);
 
