@@ -41,7 +41,7 @@ main{min-height:0;position:relative;overflow:hidden}.stage{height:100%;display:g
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),PACK='/prison-age/pack.json',STATE='prison-age.reader.v01',markKinds=['RULE','MOVE','WITNESS'];
-let pack=null,story=null,raw='',paras=[],idx=0,storyId='',sheetOpen=false,receipt=null,passCount=0;
+let pack=null,packPromise=null,bootPromise=null,story=null,raw='',paras=[],idx=0,storyId='',sheetOpen=false,receipt=null,passCount=0;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 function q(){return new URLSearchParams(location.search)}
@@ -54,6 +54,7 @@ function trail(){return window.FieldSourceTrail?.read(sourceKey())}
 function markAt(i=idx){const t=trail();return t?.marks?.find(m=>Number(m.index)===i)||null}
 function classify(p){const x=p.trim();if(/^(0[0-9]|UNIVERSE |TOKEN |MARGIN |[·]{8,})/.test(x))return'metaLine';if(/^[A-Z][A-Z ./'’:-]{8,}$/.test(x)&&x.length<140)return'shout';if(/^["“]/.test(x)||/["”]$/.test(x))return'quote';return''}
 function parse(text){return text.replace(/\r/g,'').split(/\n+/).map(s=>s.trim()).filter(Boolean)}
+function loadPack(){if(pack)return Promise.resolve(pack);if(!packPromise)packPromise=fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('pack '+r.status);return r.json()}).then(x=>(pack=x));return packPromise}
 function charStart(i){let n=0;for(let k=0;k<i;k++){const at=raw.indexOf(paras[k],n);if(at>=0)n=at+paras[k].length}const hit=raw.indexOf(paras[i]||'',n);return Math.max(0,hit)}
 function currentProgress(){return paras.length<=1?1:idx/(paras.length-1)}function globalProgress(){const o=storyOrder(),si=Math.max(0,o.indexOf(storyId));return o.length?Math.min(1,(si+currentProgress())/o.length):0}function pressureStage(){const xs=pack?.ninePressures?.stages||[];return xs[Math.min(Math.max(0,xs.length-1),Math.floor(globalProgress()*xs.length))]||'FIELD'}function behindState(){return state().behind||null}function carryCandidate(marks){const xs=Array.isArray(marks)?marks:[],priority=pack?.carry?.priority||['WITNESS','MOVE','RULE'];for(const kind of priority){const hits=xs.filter(m=>m.kind===kind).sort((a,b)=>Number(b.index)-Number(a.index));if(hits.length)return hits[0]}return null}
 function voiceFor(){const voices=story?.voice||['UNKNOWN'];if(passCount>0&&currentProgress()<.18)return'YOUR PREVIOUS PASS';const i=Math.min(voices.length-1,Math.floor(currentProgress()*voices.length));return voices[i]||voices.at(-1)||'UNKNOWN'}
@@ -72,7 +73,7 @@ function render(){
  syncUrl();record();saveState({storyId,idx});
 }
 async function loadStory(id,at=0){
- storyId=pack.stories[id]?id:storyOrder()[0];story=pack.stories[storyId];raw=await fetch(story.path,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('source '+r.status);return r.text()});paras=parse(raw);idx=clamp(Number(at)||0,0,Math.max(0,paras.length-1));
+ await loadPack();storyId=pack.stories[id]?id:storyOrder()[0];story=pack.stories[storyId];raw=await fetch(story.path,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('source '+r.status);return r.text()});paras=parse(raw);idx=clamp(Number(at)||0,0,Math.max(0,paras.length-1));
  const st=state();passCount=Number(st.passes?.[storyId]||0);render();
 }
 function openSheet(){sheetOpen=true;$('sheet').classList.add('on')}
@@ -102,7 +103,7 @@ function nextStory(){const order=storyOrder(),i=order.indexOf(storyId),next=orde
 async function copyText(t,msg='COPIED'){try{await navigator.clipboard.writeText(t);toast(msg)}catch{toast('COPY UNAVAILABLE')}}
 window.PrisonAgeReaderAPI=Object.freeze({
  snapshot:()=>({storyId,idx,paragraphs:paras.length,progress:currentProgress(),globalProgress:globalProgress(),pressure:pressureStage(),voice:voiceFor(),mark:markAt(),behind:behindState(),returnOpen:!$('returner').classList.contains('off'),source:story?.path||'',focus:$('focusLink').getAttribute('href')||''}),
- goto:(id,p=0)=>loadStory(id,p),receipt:()=>makeReceipt(),advance,retreat,mark
+ ready:()=>bootPromise||loadPack(),goto:(id,p=0)=>(bootPromise||loadPack()).then(()=>loadStory(id,p)),receipt:()=>makeReceipt(),advance,retreat,mark
 });
 $('enter').onclick=()=>$('threshold').classList.add('off');$('restart').onclick=()=>$('threshold').classList.remove('off');
 $('prev').onclick=retreat;$('next').onclick=advance;$('more').onclick=openSheet;$('closeSheet').onclick=closeSheet;
@@ -110,7 +111,7 @@ $('markRule').onclick=()=>mark('RULE');$('markMove').onclick=()=>mark('MOVE');$(
 $('copyLink').onclick=()=>copyText(location.href,'POSITION COPIED');$('clearBehind').onclick=()=>{saveState({behind:null});closeSheet();render();toast('BEHIND CLEARED')};$('copyReturn').onclick=()=>copyText(JSON.stringify(receipt||makeReceipt(),null,2),'RETURN COPIED');
 $('reread').onclick=()=>{$('returner').classList.add('off');idx=0;render()};$('nextStory').onclick=nextStory;
 addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('returner').classList.contains('off'))$('returner').classList.add('off');else closeSheet();return}if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName))return;if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();advance()}if(e.key==='ArrowLeft'){e.preventDefault();retreat()}if(e.key.toLowerCase()==='m')openSheet()});
-(async()=>{pack=await fetch(PACK,{cache:'no-store'}).then(r=>r.json());const u=q(),st=state(),id=u.get('story')||st.storyId||pack.order[0],p=Number(u.get('p')??st.idx??0);await loadStory(id,p)})().catch(e=>{$('paragraph').textContent='READER FAILED · '+e.message});
+bootPromise=(async()=>{await loadPack();const u=q(),st=state(),id=u.get('story')||st.storyId||pack.order[0],p=Number(u.get('p')??st.idx??0);await loadStory(id,p);return true})().catch(e=>{$('paragraph').textContent='READER FAILED · '+e.message;throw e});
 })();
 </script>
 <script src="/showcase-nav.js" defer></script>
