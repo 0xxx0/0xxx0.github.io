@@ -2,6 +2,7 @@
 'use strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { hasPendingCIClaim } from './return-receipt-contract.mjs';
 import { htmlTailErrors } from './html-document-integrity.mjs';
 const root=process.cwd(),fail=[];
@@ -455,6 +456,53 @@ if(currentCoord&&queueCoord){
     }
   }
 }
+// ── Byte fidelity for recovery/donor manifests ───────────────────────────────────────────
+// An earlier line in this file says: "Validate their route + receipt here; byte/hash fidelity
+// belongs to recovery manifests." Nothing performed that check. 93 manifest entries across the
+// repo claim a sha256 and none were verified, which is how law-zoo's 4 disagreements sat
+// unnoticed behind a green receipt_ok (receipt_ok checks EXISTENCE, correctly, by design).
+//
+// This performs the delegated check. The 4 known law-zoo discrepancies are accepted EXPLICITLY
+// and BY NAME -- each with a recorded verdict and evidence in
+// law-zoo/artifact_manifest.json._integrity_audit_2026-09-28 -- rather than skipped silently.
+// Any NEW disagreement still fails the build.
+const KNOWN_LEDGER_DISCREPANCIES=new Set([
+  'law-zoo/law_zoo_field_guide.html',  // ledger artefact: +1 trailing LF in the ledger stream
+  'law-zoo/FIELD_NOTES.md',            // ledger artefact: same
+  'law-zoo/error_garden.html',         // superseded by 98bf68ab (microlib, 2026-09-27)
+  'law-zoo/mined_law_library.json',    // never delivered; referenced but absent everywhere
+]);
+function ledgerFiles(dir,out=[]){
+  if(!exists(dir))return out;
+  for(const e of fs.readdirSync(path.join(root,dir||'.'),{withFileTypes:true})){
+    const rel=dir?dir+'/'+e.name:e.name;
+    if(e.isDirectory()){if(e.name!=='node_modules'&&!e.name.startsWith('.'))ledgerFiles(rel,out)}
+    else if(e.name==='artifact_manifest.json')out.push(rel);
+  }
+  return out;
+}
+let ledgerVerified=0,ledgerAccepted=0;
+for(const rel of ledgerFiles('')){
+  let man;try{man=JSON.parse(read(rel))}catch(e){check(false,'unreadable ledger '+rel);continue}
+  const dir=rel.replace(/\/artifact_manifest\.json$/,'');
+  for(const a of (man.artifacts||[])){
+    if(!a||!a.sha256||!a.name)continue;
+    const file=dir?dir+'/'+a.name:a.name;
+    const known=KNOWN_LEDGER_DISCREPANCIES.has(file);
+    if(!exists(file)){
+      if(known){ledgerAccepted++}
+      else{check(false,'ledger references a file that does not exist: '+file)}
+      continue;
+    }
+    const actual=createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');
+    ledgerVerified++;
+    if(actual!==a.sha256){
+      if(known){ledgerAccepted++}
+      else{check(false,'ledger sha256 disagrees with bytes: '+file+' (ledger '+a.sha256.slice(0,12)+'… actual '+actual.slice(0,12)+'…)')}
+    }
+  }
+}
+
 if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '));process.exit(1)}
 console.log('PUBLIC SURFACE CHECK PASS');
 console.log('manifest routes:',manifest?.routes?.length||0);
@@ -465,3 +513,4 @@ console.log('AXIAL contract: present / non-card');
 console.log('migration artifacts:',migration?.artifacts?.length||0);
 console.log('migration NOW:',migrationNow?.now?.length||0);
 console.log('migration queue:',migration?.ingest_queue?.length||0);
+console.log('ledger byte fidelity:',ledgerVerified+' verified · '+ledgerAccepted+' known-accepted');

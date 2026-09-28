@@ -45,5 +45,45 @@
       "bytes": 3724,
       "sha256": "ba4ebce2519498329dde96ff148c74f048917e10d71ebbfa89ed30ea95211c7e"
     }
-  ]
+  ],
+  "_integrity_audit_2026-09-28": {
+    "why": "A field audit found 4 of 8 artifacts in artifacts[] disagree with the committed bytes. artifacts[] is the sealed claim and is deliberately NOT edited here; this block records the findings so the disagreement is visible instead of silent.",
+    "sealed_at_commit": "6d3bef27",
+    "findings": [
+      {
+        "name": "law_zoo_field_guide.html",
+        "ledger_bytes": 29081,
+        "actual_bytes": 29080,
+        "verdict": "LEDGER_ARTEFACT",
+        "evidence": "sha256(file + '\\n') equals the ledger sha 9f4555956943... exactly. Only commit touching it is the import cc2d4315, whose blob is already 29080 and equals disk. Every preserved copy agrees with disk.",
+        "action": "Ledger bytes/sha record a stream with a trailing LF that no copy ever had. Do not alter the file to match."
+      },
+      {
+        "name": "FIELD_NOTES.md",
+        "ledger_bytes": 3724,
+        "actual_bytes": 3723,
+        "verdict": "LEDGER_ARTEFACT",
+        "evidence": "sha256(file + '\\n') equals the ledger sha ba4ebce25194... exactly. Blob 67e336f4 is 3723 and equals disk.",
+        "action": "Same trailing-LF ledger artefact. Do not alter the file."
+      },
+      {
+        "name": "error_garden.html",
+        "ledger_bytes": 10600,
+        "actual_bytes": 10634,
+        "verdict": "SUPERSEDED_BY_LATER_DELTA",
+        "evidence": "Ledger 10600 / 6c7e7817... equals blob 75ef27a3 at import exactly. The file was then changed by 98bf68ab (2026-09-27, 'microlib: wire ... phase 4 batch 2'): 3 insertions / 2 deletions, $/TAU/clamp rewired to Micro.*.",
+        "action": "INTEGRITY NOTE: this route is still registered state:FROZEN_DONOR, so a frozen donor was mutated without a state change. Sealed bytes are recoverable from blob 75ef27a3. Operator ruling required: re-seal, or revert."
+      },
+      {
+        "name": "mined_law_library.json",
+        "ledger_bytes": 3451,
+        "actual_bytes": null,
+        "verdict": "NEVER_DELIVERED",
+        "evidence": "Absent from every commit on every branch (git log --all -S'mined_law_library' hits only the manifest commit); object afff34c7... does not exist in the repo store; absent from all three donor archives. Not a byte-integrity failure.",
+        "action": "Mark unrecovered in any future ledger revision; the sealed object was never imported."
+      }
+    ],
+    "corroboration": "Three independent preserved copies (Projects/0xxx0-backup-recovery-20260921/law-zoo, void-anchor/law-zoo, review-pin-20260927/law-zoo) all carry 29080/c4e33205... and 3723/de2e9fcb..., i.e. every copy agrees with the repo.",
+    "unresolved": "Direction of the trailing-LF artefact (whether the sealed stream had a final LF that copies stripped, or the ledger generator appended one for those two entries only) is undetermined. Whether mined_law_library.json ever existed upstream is undetermined."
+  }
 }
