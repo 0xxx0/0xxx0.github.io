@@ -22,12 +22,14 @@ const wait=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Da
  if(!verb)throw Error('no native forecasts');
  const expected=before.forecasts.filter(x=>x.verb===verb).length,beforeJson=JSON.stringify(before);
  const view=api.steering.preview(verb);await sleep(80);
- const during=api.steering.current(),status=D().getElementById('status')?.textContent||'',dataset=D().documentElement.dataset.foldBloomSteering;
+ const during=api.steering.current(),status=D().getElementById('status')?.textContent||'',dataset=D().documentElement.dataset.foldBloomSteering,calc=api.calculus?.(),calcLens=D().getElementById('calcSteering')?.textContent||'';
  const afterJson=JSON.stringify(api.steering.context());
  rec.verb=verb;rec.expected=expected;rec.count=view?.candidate_count;rec.authority=view?.authority;rec.commit=view?.commit_operation;rec.status=status;rec.dataset=dataset;rec.same=beforeJson===afterJson;
+ rec.calc={schema:calc?.schema,authority:calc?.authority,nativeAuthority:calc?.native?.authority,steeringAuthority:calc?.steering?.authority,count:calc?.steering?.native_candidate_count,commit:calc?.steering?.commit_operation,lens:calcLens};
  api.steering.clear();await sleep(60);
- rec.cleared=api.steering.current()===null&&D().documentElement.dataset.foldBloomSteering==='off'&&!String(D().getElementById('status')?.textContent||'').includes('LENS ');
- const pass=!!view?.ok&&view.authority==='PREVIEW'&&view.commit_operation===null&&view.candidate_count===expected&&during?.verb===verb&&status.includes('LENS '+verb+' · '+expected)&&dataset===verb.toLowerCase()&&rec.same&&rec.cleared;
+ const clearedCalc=api.calculus?.();
+ rec.cleared=api.steering.current()===null&&D().documentElement.dataset.foldBloomSteering==='off'&&!String(D().getElementById('status')?.textContent||'').includes('LENS ')&&clearedCalc?.steering===null;
+ const pass=!!view?.ok&&view.authority==='PREVIEW'&&view.commit_operation===null&&view.candidate_count===expected&&during?.verb===verb&&status.includes('LENS '+verb+' · '+expected+'/'+before.forecasts.length)&&dataset===verb.toLowerCase()&&rec.same&&rec.calc.schema==='fold-bloom-live-calculus/v0.1'&&rec.calc.authority==='WITNESS_ONLY'&&rec.calc.nativeAuthority==='NATIVE_EVIDENCE'&&rec.calc.steeringAuthority==='PREVIEW_ONLY'&&rec.calc.count===expected&&rec.calc.commit===null&&calcLens.includes(verb+' · '+expected+'/'+before.forecasts.length+' native candidates')&&rec.cleared;
  done(pass,rec);
 })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
 <\/script></body></html>`}

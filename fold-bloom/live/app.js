@@ -13,6 +13,7 @@ import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} 
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
+import {buildLiveCalculation,liveCalculationSummary} from './live-calculus.js?v=0.1';
 import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
 
 const STORE='fb-live-0.1';
@@ -142,6 +143,16 @@ function courseModeLaw(value=courseMode){
   if(value==='RELEASE_STEP')return 'RELEASE writes LIVE consequence → then advances exactly one '+courseGrain+' address. Source playback stays paused.';
   if(value==='STEP')return '← / → or map tap moves exactly one '+courseGrain+' address. RELEASE writes LIVE consequence and holds the source address.';
   return 'SOURCE CLOCK advances address continuously. RELEASE writes LIVE consequence but never seeks the source.';
+}
+function traversalCalculationInput(){
+  const course=liveCourse();if(!course)return null;
+  const p=liveCourseProgress(),hit=courseAddress(course,p),next=courseMode==='RELEASE_STEP'?courseStep(course,p,1):null;
+  return {
+    mode:courseMode,grain:courseGrain,address:hit?.address||null,index:hit?.index??null,count:course.points?.length||0,
+    next_address:courseMode==='RELEASE_STEP'?(next?.address||null):null,
+    policy:courseMode==='RELEASE_STEP'?'RELEASE_THEN_ONE_ADDRESS':courseMode==='STEP'?'MANUAL_ADDRESS_ONLY':'SOURCE_CLOCK',
+    law:courseModeLaw()
+  };
 }
 function syncCourseControls(){
   const mode=$('#courseMode'),grain=$('#courseGrain'),address=$('#courseAddress'),quick=$('#courseQuick'),witness=$('#courseWitness'),law=$('#courseLaw'),course=liveCourse(),p=liveCourseProgress();
@@ -342,11 +353,44 @@ function setManualSteeringPreview(verb){
 }
 function clearSteeringPreview(){steeringPulse=null;steeringView=null;renderer.setSteeringPreview(null);document.documentElement.dataset.foldBloomSteering='off';update()}
 
-function statusText(){
+function currentLiveCalculation(){
+  const steering=refreshSteeringPreview();
+  return buildLiveCalculation({
+    nativeContext:forecastContext(state),
+    currentForecast:currentForecast(),
+    history:state.history,
+    steering,
+    traversal:traversalCalculationInput()
+  });
+}
+function syncCalculationUI(calc){
+  if(!calc)return null;
+  const native=$('#calcNative'),recent=$('#calcRecent'),lens=$('#calcSteering'),step=$('#calcTraversal'),formula=$('#calcFormula'),summary=$('#calcSummary');
+  const selected=calc.native.selected;
+  if(summary)summary.textContent=liveCalculationSummary(calc);
+  if(native)native.textContent=selected
+    ?`HERE ${selected.verb}${selected.chain>1?'×'+selected.chain:''} · ${calc.native.candidate_count} lawful · ambiguity ${calc.native.candidate_ambiguity_bits} bits`
+    :`SEEK · ${calc.native.candidate_count} lawful forecast candidates · ambiguity ${calc.native.candidate_ambiguity_bits} bits`;
+  if(recent)recent.textContent=calc.recent.hex
+    ?`${calc.recent.hex.token} · 64 exact six-verb histories / HEX · −${calc.recent.hex.information_loss_bits} bits · HISTORY ≠ CONTROL`
+    :`RECENT EXACT VERBS · ${calc.recent.count}/6 · HEX appears only after six authored releases`;
+  if(lens)lens.textContent=calc.steering
+    ?`${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count} native candidates · PREVIEW ONLY`
+    :'OFF · model/manual steering support is preview-only and grants no RELEASE authority';
+  if(step)step.textContent=calc.traversal
+    ?`${calc.traversal.mode==='RELEASE_STEP'?'RELEASE→STEP':calc.traversal.mode} · ${calc.traversal.grain} ${calc.traversal.index!=null&&calc.traversal.count?((calc.traversal.index+1)+'/'+calc.traversal.count):''}${calc.traversal.next_address?' · NEXT '+calc.traversal.next_address:''}`
+    :'NO ADDRESSED SOURCE COURSE';
+  if(formula)formula.textContent='4^6 exact histories → 2^6 HEX · steering support = matching native forecasts / all native forecasts · RELEASE→STEP = commit LIVE operation, then +1 addressed grain';
+  document.documentElement.dataset.foldBloomCalculus=calc.recent.hex?'hex-history-ready':'forming-history';
+  return calc;
+}
+function statusText(calc){
   const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=layerMode!=='SOURCE'&&linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:(liveTrack.sourceActive()?' · SOURCE PLAYBACK':'');
   const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
-  const lens=refreshSteeringPreview()?` · LENS ${steeringView.verb} · ${steeringView.candidate_count}`:'';
-  return `GATE ${String(idx).padStart(2,'0')} · ${typePresentation(c.type).text} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${lens}${track}`;
+  const hex=calc?.recent?.hex?` · HEX ${calc.recent.hex.token}`:(calc?.recent?.count?` · FORM ${calc.recent.count}/6`:'');
+  const lens=calc?.steering?` · LENS ${calc.steering.verb} · ${calc.steering.native_candidate_count}/${calc.native.candidate_count}`:'';
+  const nav=calc?.traversal&&calc.traversal.mode!=='FLOW'?` · ${calc.traversal.mode==='RELEASE_STEP'?'RELEASE→STEP':calc.traversal.mode} ${calc.traversal.grain}`:'';
+  return `GATE ${String(idx).padStart(2,'0')} · ${typePresentation(c.type).text} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${hex}${lens}${nav}${track}`;
 }
 
 function syncAutopilotUI(){
@@ -356,6 +400,7 @@ function syncAutopilotUI(){
 }
 
 function update(){
+  const calc=currentLiveCalculation();
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
   $('#target').textContent=typePresentation(state.targetType).text;
@@ -383,7 +428,8 @@ function update(){
   $('#releaseBtn').disabled=!canRelease(state);
   $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
-  $('#status').textContent=statusText();
+  $('#status').textContent=statusText(calc);
+  syncCalculationUI(calc);
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
   $('#build').textContent=readRide
     ?`${VERSION} · READFIELD TEXT × addressed course × LIVE POV → READ-RIDE · ${courseGrain} · ${Math.round(liveCourseProgress()*100)}%`
@@ -928,7 +974,7 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
