@@ -50,9 +50,9 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(rec.reentry.voice!=='YOUR PREVIOUS PASS'||rec.reentry.idx!==0)throw Error('previous pass provenance');
 
  D().getElementById('returner').classList.remove('off');D().getElementById('nextStory').click();
- await wait(()=>W().PrisonAgeReaderAPI.snapshot().storyId==='fandom-court',3000,'next story');
+ await wait(()=>W().PrisonAgeReaderAPI.snapshot().storyId==='fandom-court'&&/BEHIND YOU/.test(D().getElementById('behind')?.textContent||''),4000,'next story rendered carry');
  rec.next={story:W().PrisonAgeReaderAPI.snapshot().storyId,source:W().PrisonAgeReaderAPI.snapshot().source,behind:W().PrisonAgeReaderAPI.snapshot().behind,pressure:W().PrisonAgeReaderAPI.snapshot().pressure};
- if(rec.next.source!=='/prison-age/stories/05-fandom-court.md'||rec.next.behind?.kind!=='RULE'||!/BEHIND YOU/.test(D().getElementById('behind').textContent)||!rec.next.pressure)throw Error('curated path/carry handoff');
+ if(rec.next.source!=='/prison-age/stories/05-fandom-court.md'||rec.next.behind?.kind!=='RULE'||!rec.next.pressure)throw Error('curated path/carry handoff');
  await W().PrisonAgeReaderAPI.goto('last-stall',0);await sleep(80);rec.lastStall={source:W().PrisonAgeReaderAPI.snapshot().source,text:D().getElementById('paragraph').textContent};if(rec.lastStall.source!=='/prison-age/stories/07-last-stall-extract.md')throw Error('Last Stall route');
  D().getElementById('more').click();D().getElementById('clearBehind').click();await sleep(60);rec.clearBehind=W().PrisonAgeReaderAPI.snapshot().behind;if(rec.clearBehind)throw Error('clear behind');
  done(true,rec);
