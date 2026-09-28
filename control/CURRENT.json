@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T16:47:00+08:00",
+  "updated": "2026-09-28T17:02:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.17 / ONE FIELD + ONE HELD OBJECT + LATENT REFINE",
+      "head": "FIELD INDEX 0.8.17 / ONE FIELD + ONE HELD OBJECT + LATENT PROJECT GLYPH",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. The root now exposes one glyph field and one held object; ROUTE/semantic scale are no longer user modes. Presentation density adapts automatically. AXIAL constraints, lawful moves, witness/return and proof remain recoverable under REFINE / PROVE; Git chronology, glyph key, maps and other evidence remain under STATUS. CATCH + ACT follows the object rather than obstructing entry. Compression is lawful only while residue stays named/recoverable.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. The root exposes one glyph field and one held object; ROUTE/semantic scale are no longer user modes and presentation density adapts automatically. When the held route is an exact CURRENT head, that same mark may expand in place through the existing INTERPHASE glyph grammar to expose apertures, evidence and residue while keeping every operation VIEW-only. Ordinary routes retain the compact FIELD glyph. AXIAL constraints, lawful moves, witness/return and proof remain recoverable under REFINE / PROVE; chronology, maps and other evidence remain under STATUS. Compression is lawful only while residue stays named/recoverable.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -81,7 +81,9 @@
         "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md",
         "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
         "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
-        "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json"
+        "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json",
+        "/lib/project-head-glyph.js",
+        "/tools/project-head-glyph-selftest.cjs"
       ],
       "version": "0.8.17",
       "latest_return": "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json"
