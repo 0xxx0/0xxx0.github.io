@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T12:46:22+08:00",
+  "updated": "2026-09-28T12:52:54+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.16 / SEMANTIC SCALE + TOUCH FOVEA + HELD→INTERPHASE→DAYLINE",
+      "head": "FIELD INDEX 0.8.17 / SEMANTIC SCALE + TOUCH FOVEA + PROJECT GLYPH",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. FIELD now exposes one semantic aperture FIELD → ROUTE → OBJECT over the same focus; MAP depth remains topology rather than zoom. FOVEA is optional local detail and now uses Pointer Events across mouse, pen and touch; first activation holds and activating the held mark again opens so one physical gesture is not double-interpreted. CATCH + ACT, INTERPHASE→Dayline handoff, native authority boundaries, and existing evidence/proof distinctions remain unchanged.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. FIELD preserves focus across FIELD/ROUTE/OBJECT semantic aperture, MAP address depth and touch/pointer FOVEA local detail. At exact CURRENT-head focus, OBJECT scale may derive a VIEW-only INTERPHASE project glyph from CURRENT + manifest + RETURN while composing the existing FIELD glyph as its inner identity/state witness. Native hosts retain domain/effect authority; no project registry, second priority, second zoom or new glyph ontology is introduced.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -80,10 +80,14 @@
         "/fovea/",
         "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md",
         "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
-        "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json"
+        "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
+        "/control/confluence/PROJECT_SCALE_MAP_2026-09-28.md",
+        "/lib/project-head-glyph.js",
+        "/tools/project-head-glyph-selftest.cjs",
+        "/returns/FIELD_INDEX_PROJECT_GLYPH_CONVERGENCE_2026-09-28.json"
       ],
-      "version": "0.8.16",
-      "latest_return": "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json"
+      "version": "0.8.17",
+      "latest_return": "/returns/FIELD_INDEX_PROJECT_GLYPH_CONVERGENCE_2026-09-28.json"
     },
     {
       "lineage": "scale-lens",
