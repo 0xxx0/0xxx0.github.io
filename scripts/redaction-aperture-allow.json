@@ -1,0 +1,237 @@
+{
+  "schema": "0xxx0/redaction-aperture-allow/v0.1",
+  "updated": "2026-09-28",
+  "gate": "scripts/check-redaction-aperture.py",
+  "redactor": "scripts/redact.py (vendored byte-identical copy of ~/void-anchor/AXIS/reusable/scripts/redact.py; sha256 fe9e54b9bf8c7925509da7ccc54b8e00dcbeba80f4d04fb0a5d08162ddc66041)",
+  "policy": "Entries are EXACT (path, kind, sha256-of-value) triples, each with a why. The value itself is never stored. Never add a pattern or a family: add the one exact triple for the one finding you verified benign (`python3 scripts/check-redaction-aperture.py --hash '<exact value>'` prints the hash). allow_any entries drop the path pin and are reserved for values that are benign everywhere (e.g. the operator's own published username).",
+  "disabled_kinds": {
+    "phone": "Measured 2026-09-28 on master 8c0e1bf5: 2,890 findings / 325 files, all sampled benign — byte-size constants (1048576, 1073741824), SVG path coordinates, calendar timestamps ('2026-09-26 12') collide with the 10-15-digit phone shape. The class remains ACTIVE in the local corpus projection pipeline (corpus-public-projection.py), which is where real phone-shaped material (archive rows) actually flows; re-enable here with --all-kinds or by deleting this entry.",
+    "ipv4": "Measured 2026-09-28: 52 findings / 36 files, all sampled benign — 4-part version strings ('0.1.3.0' style in manifests/control) and the loopback address in smoke tools/docs. Version bumps would false-red every release, so the class is off by default.",
+    "wallet": "Measured 2026-09-28: 65 findings / 5 files, all sampled benign — base64 runs inside art payloads and manifest blobs (painting.html, foundry/p/4.txt) and Google-Drive-shaped ids collide with the BTC legacy shape. Base64 data collides by construction on this repo."
+  },
+  "allow_any": [
+    {
+      "kind": "user",
+      "value_sha256": "24eb665cde4715ac094c3079f372a47acea60f8c1007c8f176eba28efa014f9f",
+      "why": "operator's own username (home-path form); established public in this repo (16 occurrences / 7 files) before the gate existed; other usernames remain gated"
+    }
+  ],
+  "allow_path": [
+    {
+      "path": "control/QUEUE.json",
+      "kind": "user",
+      "value_sha256": "ee510d1a07ac7e6491ea191cd1918ea553ed2a358c8a0a04c1b90bd89222c314",
+      "why": "prose artifact: slash-joined word run with a 'home' segment, not a home directory"
+    },
+    {
+      "path": "control/confluence/INTERPHASE_MAPPING_THEORY_2026-09-23.md",
+      "kind": "email",
+      "value_sha256": "08168cd80dfd534ab0f10af10f1303fe00af2d43ab5c1432360d137f8197e17a",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "dayline/app.js",
+      "kind": "secret",
+      "value_sha256": "7eb6cd49cf6cc2cce51a843a0cb195ea338ca50b4bfe5aedf49f89515cf46f3a",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-1.js",
+      "kind": "secret",
+      "value_sha256": "2d10447b26bbee39caf09d4220ed4afafc2ddc0e7261927cc8e39f9ec10b9b03",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-1.js",
+      "kind": "secret",
+      "value_sha256": "41aee0207bf57722ab57175477b4ee213aeca7297281eabd546c1c3a0afb5001",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "0f37e989806d9ce1ad652c771b1a6c199a75380a8df0b5284c5918b6be44c6b1",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "0f37e989806d9ce1ad652c771b1a6c199a75380a8df0b5284c5918b6be44c6b1",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "2d10447b26bbee39caf09d4220ed4afafc2ddc0e7261927cc8e39f9ec10b9b03",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "3107e19e1a6a98b657d3625a3a116a50580fd46e878fe765c2b5169e2290b090",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "311b2695615334d6b5f38829849a4a1b55fea2424741ed7acc23c22ba491b76a",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "534e842ddc5f1b6f3be598429a28b8ba20a1b6d9afa747acbbc7bbb8043253a5",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "67b8f44a7c208f677aaa5acf406c4aa8f0a560f2f3c42ccf4a1c954d827f9d41",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "7091053c2c8ffe37eb56ee1a2a097c4b83433c5e4e637a7ac10499e417f5f46c",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-2.js",
+      "kind": "secret",
+      "value_sha256": "a00416090d4a1d616b4455a2fdb9868c5ad7b7b8e2ce8e11b96594f7dbdc1b87",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-3.js",
+      "kind": "secret",
+      "value_sha256": "0ce650fb74707e8c85c4542054ff01050499ad8b40655a3006f84093c92b5eca",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "field-intake/core-3.js",
+      "kind": "secret",
+      "value_sha256": "2d10447b26bbee39caf09d4220ed4afafc2ddc0e7261927cc8e39f9ec10b9b03",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "fold-bloom/convergence/jspace-steering/export_jlens.py",
+      "kind": "secret",
+      "value_sha256": "0bda3eb30ab17d3b412039c8dfa7e7ef19b459b64e013c3e3cac013171eb7aa9",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "fold-bloom/convergence/jspace-steering/fold-bloom-adapter.mjs",
+      "kind": "secret",
+      "value_sha256": "d00c4895c22355457f716a9876842a2ecc3b5081f0d8c25f36298def042837f7",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "fold-bloom/convergence/jspace-steering/real_model_smoke.py",
+      "kind": "secret",
+      "value_sha256": "0bda3eb30ab17d3b412039c8dfa7e7ef19b459b64e013c3e3cac013171eb7aa9",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "fold-bloom/live/app.js",
+      "kind": "token",
+      "value_sha256": "359f5b4d9e74dd9f658569ee2781a6b499303ff2f718244c670d59f5a3875a47",
+      "why": "code fragment captured by the auth-scheme heuristic (comparison expression in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "recovery/poly-furnisher/evidence/PRELUDE-DRAFT-NOTES.md",
+      "kind": "email",
+      "value_sha256": "575fdcd1967f8282a2a17765d1fba53c51a5687d1826c6916905aa328bd2fdfe",
+      "why": "pre-existing public content in the frozen recovery vault (committed 2026-09-20); REVIEW — real-looking address, not a credential; operator decision pending"
+    },
+    {
+      "path": "recovery/poly-furnisher/evidence/PRELUDE-DRAFT-NOTES.md",
+      "kind": "user",
+      "value_sha256": "2a89c3f9144725c69f68e77faf76a1de54deb352c0c4da30f5ab677790f0db28",
+      "why": "URL path segment ('/home/' inside a public academic URL), not a home directory"
+    },
+    {
+      "path": "recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md",
+      "kind": "user",
+      "value_sha256": "59ea123c0d70b150939706c1ed9822e76f87a73d159a4a67792924a85c6f92bb",
+      "why": "URL path segment ('/home/' inside a public academic URL), not a home directory"
+    },
+    {
+      "path": "recovery/sleeper/site-source-2026-09-18/app/one-return/one-return-client.tsx",
+      "kind": "secret",
+      "value_sha256": "d76230b3f7dde644e5d29b34d282337f536af4f9d87405ba90a1167c13212931",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "recovery/sleeper/workfield-v1.2/index.html",
+      "kind": "user",
+      "value_sha256": "59ea123c0d70b150939706c1ed9822e76f87a73d159a4a67792924a85c6f92bb",
+      "why": "URL path segment ('/home/' inside a public academic URL), not a home directory"
+    },
+    {
+      "path": "scripts/redact.py",
+      "kind": "email",
+      "value_sha256": "2169eac35f974cd0692128bc8d35357e9e33ef01b1ac78e8a221ff9fc14feede",
+      "why": "fixture: `%s@host` format-string tail inside a DSN template in the redactor's selftest fixture (runtime value is generated)"
+    },
+    {
+      "path": "scripts/redact.py",
+      "kind": "email",
+      "value_sha256": "fb7c5132977a21f5651c411aba2567f1cd55ae876fa95fa6e9e0c12bda31aaf6",
+      "why": "fixture: `%s@host` format-string tail inside a DSN template in the redactor's selftest fixture (runtime value is generated)"
+    },
+    {
+      "path": "scripts/redact.py",
+      "kind": "privatekey",
+      "value_sha256": "bd307c66bba77d07ba7f07c6e2978cffa9155dd9e6059eac8293b3fb97f1ef4d",
+      "why": "regex/pattern text: the PEM header+footer literals in the redactor's private-key detector and fixture builder, not a key"
+    },
+    {
+      "path": "scripts/redact.py",
+      "kind": "token",
+      "value_sha256": "e991b04a5c67b7ed29e263307b7ef90dd33e748ad5ed2ea9940ea149db17c12e",
+      "why": "fixture: shape-demo sample token literal in the redactor's own selftest (synthetic, proves the marker shape; not a credential)"
+    },
+    {
+      "path": "shopping/index.html",
+      "kind": "secret",
+      "value_sha256": "1e9f67fa8254382f1ea08a46c26fda3e6b9677964b4517eb28e15eea1dc15052",
+      "why": "code fragment captured by the key=value heuristic (a statement like `const token = <expression>` in source); verified benign by reading the file 2026-09-28"
+    },
+    {
+      "path": "tools/interphase-dom-form-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "0d1000d76c0fc73849fd7202a1764a74dfc4bf08f5c10030f783dd2a06931299",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "tools/interphase-dom-form-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "1bbf6fabffb5501bb159a8b0ad2c00b7c37acc08b1d09275a199f04ba9db22bb",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "tools/interphase-dom-form-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "1bbf6fabffb5501bb159a8b0ad2c00b7c37acc08b1d09275a199f04ba9db22bb",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "tools/interphase-glyph-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "16cf3de9fd08355b5c5d128e2ab1051836fe3c6ce88c76de8d2ad17649c3e3a7",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "tools/interphase-mapping-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "08168cd80dfd534ab0f10af10f1303fe00af2d43ab5c1432360d137f8197e17a",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "tools/interphase-mapping-selftest.cjs",
+      "kind": "email",
+      "value_sha256": "e8f39b3e1382367d6d41ab34dc270d4e7533f978c9e9a775dfe2185b2f96b96c",
+      "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    }
+  ]
+}
