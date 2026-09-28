@@ -25,15 +25,17 @@ test('Ecology is truthfully mute-first and sound is explicit/persistent', () => 
   assert.match(ecology, /temperament,soundOn/);
 });
 
-test('Ecology GARDEN is a primary public doorway while HEXAGRAM remains reachable deeper', () => {
-  assert.match(publicFront, /<a class="cta" href="\.\/ecology\/">GARDEN \/ OBSERVE →<\/a>/);
+test('Ecology GARDEN is a primary public doorway hosted by LIVE while HEXAGRAM remains deeper', () => {
+  assert.match(publicFront, /<a class="cta" href="\.\/live\/\?garden=1">GARDEN \/ OBSERVE →<\/a>/);
   const primaryStart = publicFront.indexOf('<div class="useGrid primaryUse">');
   const primaryEnd = publicFront.indexOf('</div>', primaryStart);
   assert.ok(primaryStart >= 0 && primaryEnd > primaryStart);
   const primary = publicFront.slice(primaryStart, primaryEnd);
-  assert.match(primary, /href="\.\/ecology\/"/);
+  assert.match(primary, /href="\.\/live\/\?garden=1"/);
   assert.match(primary, /GARDEN \/ OBSERVE/);
+  assert.match(primary, /ENTER LIVE GARDEN/);
   assert.doesNotMatch(primary, /play=PUZZLE/);
+  assert.match(publicFront, /href="\.\/ecology\/">ECOLOGY<\/a>/);
 
   const moreUses = publicFront.indexOf('MORE USES');
   const puzzle = publicFront.indexOf('play=PUZZLE', moreUses);
