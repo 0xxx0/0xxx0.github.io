@@ -24,6 +24,7 @@ const boot=new URLSearchParams(location.search);
 if(boot.get('from'))$('#fromState').value=boot.get('from');
 if(boot.get('to'))$('#toState').value=boot.get('to');
 if(boot.get('order'))$('#stateOrderIndex').value=boot.get('order');
+const carriedStep=Math.max(0,Math.trunc(Number(boot.get('step'))||0)),carriedFromLab=boot.get('fromLab')==='1';
 
 let hexByBin={};
 fetch('/iching/hexagrams.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{for(const h of d.hexagrams||[])hexByBin[h.binary]=h;calculate()}).catch(()=>calculate());
@@ -53,21 +54,29 @@ function residueLadderWitness(ladder){
 
 function statePathWitness(path,state){
   const fmt=p=>[path.from_token,...p.steps.map(x=>x.after_token)].join(' → ');
-  const primary=fmt(path);
+  const primary=fmt(path),focusStep=Math.max(0,Math.min(path.steps.length,carriedStep));
   let alternate=null;
   if(path.changed_lines.length>1){
     const reverse=steppedStatePath($('#fromState').value,$('#toState').value,[...path.changed_lines].reverse());
     if(reverse?.ok)alternate=fmt(reverse);
   }
-  const rows=path.steps.map(x=>'<tr><td>'+x.step+'</td><td>L'+x.line+'</td><td>'+x.from_bit+'→'+x.to_bit+'</td><td>'+x.iching_line_value+'</td><td>'+esc(x.after_token)+'</td></tr>').join('');
+  const rows=path.steps.map(x=>'<tr class="'+(carriedFromLab&&x.step===focusStep?'focus':'')+'"><td>'+x.step+'</td><td>L'+x.line+'</td><td>'+x.from_bit+'→'+x.to_bit+'</td><td>'+x.iching_line_value+'</td><td>'+esc(x.after_token)+'</td></tr>').join('');
+  const focusToken=focusStep===0?path.from_token:path.steps[focusStep-1]?.after_token;
   return '<h2 style="margin-top:12px">STATE STEP PATH</h2><div class="metrics">'+
     metric('path',String(path.selected_order_index+1)+'/'+path.possible_one_line_orders)+
     metric('selected order',path.selected_order.length?path.selected_order.map(x=>'L'+x).join('→'):'∅')+
     metric('possible orders',path.possible_one_line_orders)+metric('order info',path.order_ambiguity_bits+' bits')+
+    (carriedFromLab?metric('carried LAB focus',focusStep+'/'+path.steps.length+' · '+focusToken):'')+
     '</div><p><code>'+esc(path.path_address)+'</code></p><p><code>'+esc(primary)+'</code></p>'+
     (alternate&&alternate!==primary?'<p class="cool">reverse order: <code>'+esc(alternate)+'</code></p>':'')+
     (rows?'<table><thead><tr><th>step</th><th>line</th><th>bit</th><th>Yi value</th><th>intermediate</th></tr></thead><tbody>'+rows+'</tbody></table>':'<p>Stable endpoint: no moving-line step required.</p>')+
     '<p>Same endpoints do not imply the same path. Intermediate state is evidence whenever downstream consequences can depend on order.</p>';
+}
+
+function labReturnHref(path){
+  const focus=Math.max(0,Math.min(path?.steps?.length||0,carriedStep));
+  const q=new URLSearchParams({mode:'DATA',from:$('#fromState').value,to:$('#toState').value,order:String(path?.selected_order_index||0),step:String(focus)});
+  return '/fold-bloom/lab/?'+q.toString();
 }
 
 function calculate(){
@@ -119,7 +128,7 @@ function calculate(){
     '<p>Zooming out is lawful only when the discarded detail stays named. The ladder below is a witness of compression/support boundaries, not a universal ontology.</p>'+
     residueLadderWitness(frame.residue_ladder)+
     '<details><summary>DECLARED NON-EQUIVALENCES</summary><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></details>'+
-    '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="/fold-bloom/lab/?mode=DATA">↩ FIELD LAB / DATA</a> · <a href="/iching/">I CHING source lens →</a></p>';
+    '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="'+esc(labReturnHref(sp))+'">↩ FIELD LAB / SAME CHANGE FOCUS</a> · <a href="/iching/">I CHING source lens →</a></p>';
   if($('#claimOut'))$('#claimOut').innerHTML='<h2>EVIDENCE LADDER · CURRENT</h2><table><tbody>'+
     '<tr><td>six-bit / hex state</td><td><b>DESCRIPTIVE LENS</b></td><td>native one-step control sufficiency already falsified</td></tr>'+
     '<tr><td>recent exact six-verb form</td><td><b>HISTORY WITNESS</b></td><td>also not sufficient native control state</td></tr>'+
