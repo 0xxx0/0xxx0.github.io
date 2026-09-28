@@ -135,7 +135,7 @@ function courseStep(course,p,delta){
 }
 function syncCourseControls(){
   const mode=$('#courseMode'),grain=$('#courseGrain'),address=$('#courseAddress'),course=liveCourse(),p=liveCourseProgress();
-  if(mode){mode.textContent=courseMode;mode.classList.toggle('on',courseMode==='STEP')}
+  if(mode){mode.textContent=courseMode;mode.classList.toggle('on',courseMode==='STEP'||courseMode==='RELEASE_STEP')}
   if(grain)grain.textContent=courseGrain;
   const hit=course?courseAddress(course,p):null,empty=readRide?'read://empty':'course://audio_map/empty';
   if(address)address.textContent=hit?.address||empty;
@@ -168,10 +168,15 @@ function drawCourseMap(force=false){
   syncCourseControls();return strip;
 }
 function setCourseMode(next,announce=true){
-  courseMode=readRide?'STEP':(String(next||'FLOW').toUpperCase()==='STEP'?'STEP':'FLOW');
-  if(courseMode==='STEP'&&liveTrack.sourceActive())$('#trackAudio').pause();
+  const requested=String(next||'FLOW').toUpperCase();
+  const validModes=['FLOW','STEP','RELEASE_STEP'];
+  const nextMode=validModes.includes(requested)?requested:'FLOW';
+  courseMode=readRide?(validModes.includes(nextMode)?nextMode:'STEP'):nextMode;
+  if(courseMode==='STEP'||courseMode==='RELEASE_STEP'){
+    if(liveTrack.sourceActive())$('#trackAudio').pause();
+  }
   drawCourseMap(true);update();
-  if(announce)toast((readRide?'READ':'TRACK')+' · '+courseMode+(courseMode==='STEP'?' · '+courseGrain:''));
+  if(announce)toast((readRide?'READ':'TRACK')+' · '+courseMode+(courseMode==='STEP'||courseMode==='RELEASE_STEP'?' · '+courseGrain:''));
   return courseMode;
 }
 function cycleCourseGrain(){
@@ -186,7 +191,7 @@ function seekCourseProgress(p,{keepMode=true}={}){
     readRide.progress=next;courseMode='STEP';const hit=readCourseAddressAt(course,next);recordExactReadVisit(hit);lastTextKey='';drawCourseMap(true);const w=updateTextWitness();recordReadRideVisit(w);update();return hit;
   }
   const duration=Number(liveTrack.map?.duration)||0;
-  if(courseMode==='STEP'||!keepMode)$('#trackAudio').pause();
+  if((courseMode==='STEP'||courseMode==='RELEASE_STEP')||!keepMode)$('#trackAudio').pause();
   $('#trackAudio').currentTime=next*duration;lastLinkedBeat=-1;lastTextKey='';drawCourseMap(true);updateTextWitness();update();
   return courseAddressAt(course,next);
 }
@@ -648,7 +653,9 @@ async function doRelease(){
   const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
   const arc=arcOut.bonus?` · SECTION SEALED +${arcOut.bonus}`:'';
   const road=linkedTrack?` · ROAD ${out.event.operations.join('→')}`:'';
-  toast(`${out.event.callMet?'CALL ✓':'OPEN'} · ${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${timing}${arc}${road}`); dragAngle=0; update();
+  toast(`${out.event.callMet?'CALL ✓':'OPEN'} · ${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${timing}${arc}${road}`); dragAngle=0;
+  if(courseMode==='RELEASE_STEP') stepTrackCourse(1);
+  update();
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
@@ -779,8 +786,13 @@ $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#readFile').onchange=e=>{const file=e.target.files?.[0];e.target.value='';if(file)void loadReadFile(file)};
 $('#readfieldReturn')?.addEventListener('click',()=>{if(!returnReadRide())toast('NO READFIELD RETURN')});
 $('#readTrailMark')?.addEventListener('click',()=>markReadRide());
-$('#trackToggle').onclick=()=>{stopDemo(true);if($('#trackAudio').paused&&courseMode==='STEP')setCourseMode('FLOW',false);liveTrack.toggle().then(()=>{drawCourseMap(true);update()}).catch(()=>toast('SONG PLAY BLOCKED'))};
-$('#courseMode').onclick=()=>setCourseMode(courseMode==='FLOW'?'STEP':'FLOW');
+$('#trackToggle').onclick=()=>{stopDemo(true);if($('#trackAudio').paused&&(courseMode==='STEP'||courseMode==='RELEASE_STEP'))setCourseMode('FLOW',false);liveTrack.toggle().then(()=>{drawCourseMap(true);update()}).catch(()=>toast('SONG PLAY BLOCKED'))};
+$('#courseMode').onclick=()=>{
+  const modes=['FLOW','STEP','RELEASE_STEP'];
+  const current=modes.indexOf(courseMode);
+  const next=modes[(current+1)%modes.length];
+  setCourseMode(next);
+};
 $('#courseGrain').onclick=cycleCourseGrain;
 $('#courseBack').onclick=()=>stepTrackCourse(-1);$('#courseNext').onclick=()=>stepTrackCourse(1);
 $('#courseMap').addEventListener('pointerdown',e=>{if(!liveCourse())return;const r=e.currentTarget.getBoundingClientRect(),p=(e.clientX-r.left)/Math.max(1,r.width);stopDemo(true);seekCourseProgress(p);e.preventDefault()});
