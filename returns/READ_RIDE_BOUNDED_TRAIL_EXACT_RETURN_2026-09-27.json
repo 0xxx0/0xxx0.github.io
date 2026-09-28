@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27",
+  "date": "2026-09-27",
+  "state": "MERGED_PROVED",
+  "object": "READFIELD ↔ FOLD/BLOOM LIVE addressed-course continuity",
+  "merge": {
+    "pr": 474,
+    "sha": "beba274d745552613e4548711b467afe40726038"
+  },
+  "delta": [
+    "field-source-trail/v0.1 provides bounded device-local last/furthest/visits/marks continuity without source bytes",
+    "READFIELD derives exact SHA-256 identity before LIVE handoff",
+    "LIVE keeps a session-local exact ordered excursion trail beside the persistent trail",
+    "READFIELD accepts readfield-course-witness/v0.1 only after source-hash, return-route, ordered visit, native-unit, final-address and witness-text revalidation",
+    "valid RETURN performs one native cursor restore; stale or malformed returns leave source/cursor unchanged"
+  ],
+  "authority": {
+    "READFIELD": "source + canonical cursor",
+    "LIVE": "traversal projection only",
+    "persistent_trail": "EVIDENCE_ONLY / VISITED_MARKED",
+    "excursion_witness": "EVIDENCE_ONLY"
+  },
+  "non_claims": [
+    "VISITED/MARKED does not mean read, understood, agreed, verified or complete",
+    "no cross-device persistence claim",
+    "no universal source store or event bus",
+    "no claim that independent LIVE segmentation is universally equivalent to READFIELD segmentation"
+  ],
+  "proof": {
+    "route_registration_run": 36314081547,
+    "public_surface_run": 36314081568,
+    "read_ride_existing_smoke": "PASS",
+    "exact_return_smoke": "PASS · native paragraph → STEP×3 → exact cursor RETURN",
+    "adversarial": "PASS · stale SHA rejected + overlapping/malformed trail rejected with zero final cursor mutation",
+    "axial_integration": "PASS",
+    "critical_browser_smoke": "PASS"
+  },
+  "falsifier": "If LIVE course segmentation does not exactly resolve to READFIELD native units, reject ADDRESS_NOT_NATIVE and move course derivation under READFIELD rather than approximate-seek.",
+  "residue": [
+    "ordinary-use value of embodied document traversal remains an ergonomic observation, not a correctness gate",
+    "persistent trail and exact one-excursion witness remain intentionally unequal"
+  ],
+  "next": "Use existing RIDE LIVE on real long-form material; promote further course geometry only when a concrete reading/navigation failure names the missing function."
+}
