@@ -23,7 +23,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=12000
  d.querySelector('[data-mode="DATA"]').click();await sleep(100);
  const beforePath=W().FoldBloomFieldLab.stateStep();d.getElementById('stateOrder').click();await sleep(80);const afterPath=W().FoldBloomFieldLab.stateStep();d.getElementById('stateStep').click();await sleep(60);const stepped=W().FoldBloomFieldLab.stateStep(),packet=W().FoldBloomFieldLab.returnPacket();
  rec.pathSpace={before:beforePath.path?.selected_order_index,after:afterPath.path?.selected_order_index,count:afterPath.path?.possible_one_line_orders,cursor:stepped.cursor,address:afterPath.path?.path_address,returnIndex:packet.projection?.stateChange?.step?.orderIndex,returnCursor:packet.projection?.stateChange?.step?.cursor};
- const pathSpaceOK=beforePath.path?.selected_order_index===0&&afterPath.path?.selected_order_index===1&&afterPath.path?.possible_one_line_orders===2&&stepped.cursor===1&&/\/order\/1-of-2$/.test(afterPath.path?.path_address||'')&&packet.projection?.stateChange?.step?.orderIndex===1&&packet.projection?.stateChange?.step?.cursor===1;
+ const pathSpaceOK=beforePath.path?.selected_order_index===0&&afterPath.path?.selected_order_index===1&&afterPath.path?.possible_one_line_orders===2&&stepped.cursor===1&&String(afterPath.path?.path_address||'').endsWith('/order/1-of-2')&&packet.projection?.stateChange?.step?.orderIndex===1&&packet.projection?.stateChange?.step?.cursor===1;
  done(openOK&&collapsedOK&&pulseOK&&pathSpaceOK,{...rec,openOK,collapsedOK,pulseOK,pathSpaceOK});
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
