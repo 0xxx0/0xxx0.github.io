@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,exactFormCalculation,
-  steppedFormPath,residueLadder,appliedResearchFrame
+  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactFormCalculation,
+  steppedFormPath,exactFormFrontierCalculation,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -91,6 +91,25 @@ assert.equal(changeLatticeCalculation('000|000','111|111').vertices,64);
 assert.equal(changeLatticeCalculation('000|000','111|111').edges,192);
 assert.equal(changeLatticeCalculation('000|000','111|111').maximal_one_line_paths,720);
 
+const frontier0=stateFrontierCalculation('010|100','011|110',[3,5],0);
+assert.equal(frontier0.ok,true);
+assert.equal(frontier0.current.token,'H[010|100]');
+assert.equal(frontier0.current_future_paths,2);
+assert.deepEqual(frontier0.candidates.map(x=>x.line),[3,5]);
+assert.deepEqual(frontier0.candidates.map(x=>x.future_paths_after),[1,1]);
+assert.equal(frontier0.candidates.find(x=>x.line===3)?.selected_by_current_order,true);
+assert.equal(frontier0.candidates.find(x=>x.line===5)?.order_index_if_chosen,1);
+const frontier1=stateFrontierCalculation('010|100','011|110',[3,5],1);
+assert.equal(frontier1.current.token,'H[011|100]');
+assert.equal(frontier1.current_future_paths,1);
+assert.deepEqual(frontier1.remaining_lines,[5]);
+assert.equal(frontier1.candidates[0].after_token,'H[011|110]');
+assert.equal(frontier1.candidates[0].histories_collapsed_at_successor,2);
+const frontier6=stateFrontierCalculation('000|000','111|111',null,0);
+assert.equal(frontier6.candidates.length,6);
+assert.equal(frontier6.current_future_paths,720);
+assert.ok(frontier6.candidates.every(x=>x.future_paths_after===120));
+
 const fromForm=['RETURN','FOLD','SPLIT','BLOOM','RETURN','SPLIT'];
 const toForm=['SPLIT','BLOOM','FOLD','FOLD','BLOOM','RETURN'];
 const exact=exactFormCalculation(fromForm,toForm);
@@ -153,6 +172,16 @@ assert.equal(steering.residue.outside_vocabulary.length,1);
 assert.ok(steering.host_supported_weight<1);
 assert.ok(steering.host_supported_weight>0);
 
+const exactFrontier=exactFormFrontierCalculation(fromForm,toForm,null,0,steering);
+assert.equal(exactFrontier.ok,true);
+assert.equal(exactFrontier.candidates.length,6);
+assert.equal(exactFrontier.current_future_paths,720);
+assert.equal(exactFrontier.candidates.find(x=>x.line===3)?.to_verb,'FOLD');
+assert.equal(exactFrontier.candidates.find(x=>x.line===3)?.support_status,'CURRENT_EPOCH_NATIVE_SUPPORT');
+assert.equal(exactFrontier.candidates.find(x=>x.line===6)?.to_verb,'RETURN');
+assert.equal(exactFrontier.candidates.find(x=>x.line===1)?.support_status,'TARGET_VERB_ABSENT_FROM_EXPORTED_TOP_K');
+assert.equal(exactFrontier.candidates.find(x=>x.line===3)?.support_scope,'CURRENT_NATIVE_APERTURE_ONLY');
+
 const frame=appliedResearchFrame({
   fromState:'010|100',toState:'011|110',fromForm,toForm,
   trace,target:{layer:12,position:3},nativeForecasts:forecasts
@@ -160,7 +189,11 @@ const frame=appliedResearchFrame({
 assert.equal(frame.authority,'RESEARCH_WITNESS_ONLY');
 assert.equal(frame.state_step.possible_one_line_orders,2);
 assert.equal(frame.state_step.steps.length,2);
+assert.equal(frame.state_frontier.current_future_paths,2);
+assert.equal(frame.state_frontier.candidates.length,2);
 assert.equal(frame.change_lattice.vertices,4);
+assert.equal(frame.exact_frontier.current_future_paths,720);
+assert.equal(frame.exact_frontier.candidates.find(x=>x.to_verb==='FOLD')?.support_status,'CURRENT_EPOCH_NATIVE_SUPPORT');
 assert.equal(frame.change_lattice.maximal_one_line_paths,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
 assert.equal(frame.steering.top.status,'MULTIPLE_NATIVE_CANDIDATES');
@@ -192,6 +225,8 @@ console.log(JSON.stringify({
   status:'PASS',
   state:{moving:state.moving,orders:state.metrics.one_line_step_orders,lineValues:state.iching_projection.line_values,stepPaths:[stateStep.steps.map(x=>x.after_token),stateStepReverse.steps.map(x=>x.after_token)]},
   lattice:{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,ranks:lattice.ranks.map(x=>x.vertices)},
+  frontier:{current:frontier0.current.token,next:frontier0.candidates.map(x=>({line:x.line,after:x.after_token,futures:x.future_paths_after})),sixLineFutures:frontier6.current_future_paths},
+  exactFrontier:{futures:exactFrontier.current_future_paths,candidates:exactFrontier.candidates.map(x=>({line:x.line,verb:x.to_verb,support:x.support_status}))},
   quotient:{exactStates:4096,hexStates:64,fiber:64,invisibleExact:exact.metrics.quotient_invisible_exact_changes},
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
