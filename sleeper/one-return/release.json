@@ -1,7 +1,7 @@
 {
   "schema": "release-receipt/v1",
   "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
-  "version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1 + threshold-theatre-0.1",
+  "version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1 + threshold-theatre-0.1.1",
   "state": "DONOR",
   "released": "2026-09-28",
   "route": "/sleeper/one-return/",
@@ -48,7 +48,8 @@
     "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze",
     "sleeper-route-witness/v0.1 pure-core reconstruction/tamper/cross-world tests",
     "same-world compare requires exact witness world id; different worlds are rejected",
-    "browser UX smoke proves threshold entry, aperture open/close, real Gate challenge/pass, topology consequence state, Return ceremony, same-world ghost theatre, play advancement and scrub"
+    "browser UX smoke proves threshold entry, aperture open/close, real Gate challenge/pass, topology consequence state, Return ceremony, same-world ghost theatre, play advancement and scrub",
+    "browser UX smoke verifies explicit THRESHOLD re-entry after entering/restoring city state"
   ],
   "interop": {
     "input": "BY/GRID-PATH-2",
@@ -97,7 +98,7 @@
   },
   "experience": {
     "status": "IMPLEMENTED_CANDIDATE",
-    "version": "threshold-theatre-0.1",
+    "version": "threshold-theatre-0.1.1",
     "sequence": [
       "THRESHOLD",
       "CITY",
@@ -108,6 +109,7 @@
     ],
     "aperture": "SOURCE / GATES / MODEL are retained but hidden from the default city-first projection",
     "ghost_player": "non-authoritative temporal cursor over sleeper.route-witness/v0.1; play/pause/scrub changes only projection state",
-    "truth_boundary": "Visual intensity follows native state changes. It must not imply proof, superiority or canonical authority beyond the donor's actual run evidence."
+    "truth_boundary": "Visual intensity follows native state changes. It must not imply proof, superiority or canonical authority beyond the donor's actual run evidence.",
+    "reentry": "THRESHOLD is explicitly reachable from the header; NEW RUN recompiles then re-enters the threshold, so restored local state cannot hide the transformed opening."
   }
 }

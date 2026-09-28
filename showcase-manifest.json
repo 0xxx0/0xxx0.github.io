@@ -7576,7 +7576,7 @@
       "family": "SLEEPER",
       "operation": "PLAY",
       "state": "DONOR",
-      "version": "ascii-reified-0.2 + route-witness-0.1 + threshold-theatre-0.1",
+      "version": "ascii-reified-0.2 + route-witness-0.1 + threshold-theatre-0.1.1",
       "showcase_card": false,
       "receipt": "/sleeper/one-return/release.json",
       "role": "Playable reconstruction derived from attested ASCII/Nine-Gate mechanics, now with a city-first threshold/Return/ghost theatre projection. Useful donor/experiment, but NOT the polished Work-mode SLEEPER // ONE RETURN v2 whose world compiler used PHRASE + CELL + FIGURE and reproducible world links.",
@@ -7590,7 +7590,8 @@
         "full donor RouteWitness → exact same-world replay/ghost comparison",
         "ordinary RETURN ghost is labeled prior-world residue when the return epoch changes",
         "city-first threshold → Gate encounter → topology-consequence → RETURN ceremony",
-        "validated same-world RouteWitness → temporal ghost theatre with play/pause/scrub"
+        "validated same-world RouteWitness → temporal ghost theatre with play/pause/scrub",
+        "THRESHOLD remains explicitly re-enterable after local-state restore; NEW RUN passes through threshold"
       ],
       "contract": {
         "transforms": {
@@ -7616,7 +7617,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-28T12:10:00+08:00",
+        "updated_at": "2026-09-28T12:24:00+08:00",
         "work_modes": [
           "VERIFY",
           "RECOVER"

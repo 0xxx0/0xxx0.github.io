@@ -22,6 +22,10 @@ const W=()=>f.contentWindow,D=()=>W().document;
   D().getElementById('enterWorldBtn').click();
   rec.entered=D().getElementById('threshold').classList.contains('off');
   if(!rec.entered)throw Error('threshold did not close');
+  D().getElementById('thresholdBtn').click();
+  rec.threshold.reentry=!D().getElementById('threshold').classList.contains('off');
+  if(!rec.threshold.reentry)throw Error('threshold re-entry missing');
+  D().getElementById('enterWorldBtn').click();
 
   const layout=D().getElementById('mainLayout'),ap=D().getElementById('apertureBtn');
   rec.aperture={closed:!layout.classList.contains('aperture-open')};
