@@ -774,3 +774,38 @@ FIELD LAB exposes this as direct manipulation: future lines in the center stack 
 The end-to-end browser proof now exercises a three-line interval: choose L5 first, witness it, choose L3 second while preserving prefix L5, then carry the resulting ordered path into INK and return authored pigment evidence.
 
 After this transfer is verified, PR #483 should remain provenance/donor only rather than a second maintained change-lattice implementation.
+
+
+## 2026-09-28 — held change focus across unequal readings
+
+The next convergence closes a projection-boundary loss rather than adding another state engine.
+
+A selected LAB change now carries the tuple:
+
+```text
+FROM + TO + FACTORADIC ORDER + STEP CURSOR
+```
+
+across these unequal readings:
+
+```text
+DATA change lattice
+  → INK path guide
+  → I CHING exact intermediate six-bit state
+  → APPLIED CALC research witness
+  → RETURN to the same LAB path focus
+```
+
+Specific law:
+
+- DATA owns only the local calculation witness.
+- INK receives path geometry plus the current cursor; witnessed prefix, active point and future suffix remain visually distinct. Advancing PATH STEP changes the preview cursor only and never paints automatically.
+- I CHING accepts a direct `#b=<six-bit-binary>` structural deep link and resolves that address to its own native hexagram record. It does not inherit path or host authority.
+- APPLIED CALC receives `from/to/order/step`, marks the carried LAB focus, and returns the same tuple to LAB.
+- LAB RETURN from INK now includes the path cursor and exact focus address/token/binary, so the projection does not erase where the user actually was.
+
+This is the intended convergence pattern:
+
+> **one held object/focus; multiple unequal projections; explicit loss; exact RETURN.**
+
+Do not turn the tuple into a new global session store. Same-session LAB state plus explicit URL/address handoff is sufficient until evidence proves otherwise.
