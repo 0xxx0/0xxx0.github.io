@@ -6053,15 +6053,15 @@
     },
     {
       "href": "/port/comms/",
-      "title": "HUMAN PORT / COMMS SPINE 0.1.2.2",
+      "title": "HUMAN PORT / COMMS SPINE 0.1.3.0",
       "kind": "workbench",
       "parent": "/port/",
       "family": "HUMAN PORT",
       "operation": "ADDRESS",
       "state": "ACTIVE",
-      "version": "0.1.2.2",
+      "version": "0.1.3.0",
       "showcase_card": false,
-      "role": "Exact conversation remains canonical while DERIVED/HUMAN signals, obligation state, response coverage and Dayline handoff/return remain unequal projections. A Dayline OFFER_ONLY receipt can change COMMS state only after exact source SHA + signal id + message/range revalidation and an explicit native action; no network send authority.",
+      "role": "Exact conversation remains canonical while DERIVED/MACHINE/HUMAN signals, obligation state, response coverage and Dayline handoff/return remain unequal projections. A machine-spotted MACHINE item becomes HUMAN only by explicit CONFIRM at confidence 1, or retires to state DROPPED by explicit DISMISS; nothing is deleted. A Dayline OFFER_ONLY receipt can change COMMS state only after exact source SHA + signal id + message/range revalidation and an explicit native action; no network send authority.",
       "evidence": {
         "checks": [
           "source identity is a SHA-256 of exact pasted text, computed in the browser; source_mutation is false",

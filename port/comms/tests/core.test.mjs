@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  parseConversation,deriveSignals,createHumanMark,mergeSignals,setSignalState,
-  sourceSlice,coverageSummary,buildAgentPacket,makeReturn,validateReturn,stateFromReturn,demoConversation
+  parseConversation,deriveSignals,createHumanMark,createMachineMark,confirmMachine,dismissMachine,mergeSignals,setSignalState,
+  sourceSlice,coverageSummary,buildAgentPacket,makeReturn,validateReturn,stateFromReturn,demoConversation,SIGNAL_ORIGINS
 } from '../core.js';
 
 test('conversation parser preserves exact source addresses',()=>{
@@ -114,4 +114,74 @@ test('address-only RETURN cannot pretend to be a resumable source',()=>{
   const doc=parseConversation('User: Can you help?'),s=deriveSignals(doc);
   const r=makeReturn({doc,sourceId:'sha256:test',signals:s,includeSource:false});
   assert.throws(()=>stateFromReturn(r),/source-bearing RETURN/);
+});
+
+test('machine mark is a third origin class, never authored',()=>{
+  const src='User: please fix the login bug tomorrow.';
+  const doc=parseConversation(src),c=doc.messages[0].clauses[0];
+  const m=createMachineMark({kind:'CONSTRAINT',messageId:c.messageId,clauseId:c.id,speaker:'USER',start:c.start,end:c.end,text:c.text});
+  assert.equal(m.origin,'MACHINE');
+  assert.ok(m.confidence<1);
+  assert.equal(sourceSlice(src,m),c.text);
+  assert.deepEqual([...SIGNAL_ORIGINS],['DERIVED','MACHINE','HUMAN']);
+});
+
+test('machine claims coexist with human and derived signals without silent promotion',()=>{
+  const doc=parseConversation('User: Can you do this?');const d=deriveSignals(doc),c=doc.messages[0].clauses[0];
+  const m=createMachineMark({kind:'ASK',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const h=createHumanMark({kind:'NOTE',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const all=mergeSignals(d,[m],[h]);
+  assert.equal(all.length,d.length+2);
+  assert.equal(all.find(x=>x.id===m.id).origin,'MACHINE');
+  assert.equal(all.find(x=>x.id===h.id).origin,'HUMAN');
+  assert.ok(all.filter(x=>x.origin==='DERIVED').every(x=>x.confidence<1));
+});
+
+test('confirm promotes a machine claim to HUMAN at confidence 1; nothing else can be confirmed',()=>{
+  const doc=parseConversation('User: Can you do this?');const d=deriveSignals(doc),c=doc.messages[0].clauses[0];
+  const m=createMachineMark({kind:'ASK',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const h=createHumanMark({kind:'NOTE',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const owned=confirmMachine(m);
+  assert.equal(owned.origin,'HUMAN');
+  assert.equal(owned.confidence,1);
+  assert.equal(owned.id,m.id);
+  assert.equal(owned.start,m.start);
+  assert.equal(m.origin,'MACHINE');
+  assert.ok(m.confidence<1);
+  assert.throws(()=>confirmMachine(h),/MACHINE/);
+  assert.throws(()=>confirmMachine(d[0]),/MACHINE/);
+});
+
+test('dismiss retires a machine claim to DROPPED without deleting or promoting it',()=>{
+  const doc=parseConversation('User: Can you do this?');const d=deriveSignals(doc),c=doc.messages[0].clauses[0];
+  const m=createMachineMark({kind:'ASK',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const h=createHumanMark({kind:'NOTE',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const dropped=dismissMachine(m);
+  assert.equal(dropped.state,'DROPPED');
+  assert.equal(dropped.origin,'MACHINE');
+  assert.equal(dropped.confidence,m.confidence);
+  const all=mergeSignals(d,[dropped],[h]);
+  assert.ok(all.some(x=>x.id===m.id));
+  assert.equal(coverageSummary(all).DROPPED,1);
+  assert.throws(()=>dismissMachine(h),/MACHINE/);
+  assert.throws(()=>dismissMachine(d[0]),/MACHINE/);
+});
+
+test('machine marks reject unknown kinds and confidence 1 instead of degrading silently',()=>{
+  const doc=parseConversation('User: Can you do this?'),c=doc.messages[0].clauses[0];
+  assert.throws(()=>createMachineMark({kind:'NEED',messageId:c.messageId,start:c.start,end:c.end,text:c.text}),/kind/);
+  assert.throws(()=>createMachineMark({kind:'ASK',messageId:c.messageId,start:c.start,end:c.end,text:c.text,confidence:1}),/confidence/);
+});
+
+test('RETURN round-trips MACHINE provenance and dismissal residue',()=>{
+  const doc=parseConversation('User: Can you do this?'),c=doc.messages[0].clauses[0];
+  const m=createMachineMark({kind:'ASK',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text});
+  const owned=confirmMachine(createMachineMark({kind:'NOTE',messageId:c.messageId,clauseId:c.id,start:c.start,end:c.end,text:c.text,confidence:.95}));
+  const r=makeReturn({doc,sourceId:'sha256:machine',signals:[dismissMachine(m),owned],includeSource:true});
+  assert.equal(validateReturn(JSON.parse(JSON.stringify(r))).schema,'comms-spine-return/v0.1');
+  const st=stateFromReturn(r);
+  assert.equal(st.machineMarks.length,1);
+  assert.equal(st.machineMarks[0].id,m.id);
+  assert.equal(st.states[m.id],'DROPPED');
+  assert.equal(st.humanMarks.some(x=>x.id===owned.id&&x.confidence===1),true);
 });

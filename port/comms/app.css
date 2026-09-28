@@ -40,12 +40,13 @@ h1{margin:4px 0 0;font:900 clamp(30px,6vw,62px)/.82 system-ui,sans-serif;letter-
 .signalCell i[data-kind="DECISION"]{background:var(--gold)}
 .signalCell i[data-kind="WAITING"]{background:var(--violet)}
 .signalCell i[data-kind="CONSTRAINT"]{background:var(--red)}
-/* ORIGIN geometry — encodes the law DERIVED != HUMAN AUTHORED in the thread map itself.
-   HUMAN = full-height bar; DERIVED = half-height, dimmed. Geometry, not colour, so the
-   distinction survives colour-blindness and greyscale. Mirrors the existing .signalCard
-   solid/dashed origin grammar; adds no new framework. */
+/* ORIGIN geometry — encodes the law DERIVED != MACHINE != HUMAN AUTHORED in the thread map itself.
+   HUMAN = full-height bar; DERIVED = upper half, dimmed; MACHINE = lower half. Geometry, not colour,
+   so the three provenance classes stay distinct under colour-blindness and greyscale printing.
+   Mirrors the existing .signalCard solid/dashed/double origin grammar; adds no new framework. */
 .signalCell i[data-origin="HUMAN"]{top:0;bottom:0}
 .signalCell i[data-origin="DERIVED"]{top:0;bottom:55%;opacity:.5}
+.signalCell i[data-origin="MACHINE"]{top:55%;bottom:0}
 .workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);gap:1px;background:var(--line)}
 .source,.signals{min-height:0;background:var(--panel)}
 .source{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
@@ -82,6 +83,7 @@ h1{margin:4px 0 0;font:900 clamp(30px,6vw,62px)/.82 system-ui,sans-serif;letter-
 .signalCard{border:1px solid #253037;background:#090d10;padding:9px;position:relative}
 .signalCard.human{border-left:3px solid var(--ink)}
 .signalCard.derived{border-left:3px dashed #526169}
+.signalCard.machine{border-left:3px double var(--mut)}
 .signalCard.focus{border-color:var(--hot)}
 .signalTop{display:flex;align-items:center;gap:6px}
 .kind{font-size:7px;letter-spacing:.09em;padding:3px 5px;border:1px solid var(--line2)}

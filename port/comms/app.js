@@ -1,5 +1,5 @@
 import {
-  parseConversation,deriveSignals,createHumanMark,mergeSignals,
+  parseConversation,deriveSignals,createHumanMark,createMachineMark,confirmMachine,dismissMachine,mergeSignals,
   coverageSummary,buildAgentPacket,makeReturn,stateFromReturn,demoConversation,SIGNAL_STATES
 } from './core.js';
 import {hashText} from '../../lib/id.js';
@@ -12,7 +12,7 @@ const DAYLINE_RETURN='atlas.dayline.source-return.v01';
 const enc=new TextEncoder();
 
 let state={
-  source:'',sourceId:'',title:'COMMS SPINE',doc:null,humanMarks:[],states:{},
+  source:'',sourceId:'',title:'COMMS SPINE',doc:null,humanMarks:[],machineMarks:[],states:{},
   draft:'',coverageLinks:[],targets:[],currentMessage:0,selectedClause:null,filter:'ALL'
 };
 
@@ -25,11 +25,11 @@ async function sourceHash(text){
 }
 function derived(){return state.doc?deriveSignals(state.doc):[]}
 function signals(){
-  return mergeSignals(derived(),state.humanMarks).map(x=>({...x,state:state.states[x.id]||x.state||'OPEN'}));
+  return mergeSignals(derived(),state.machineMarks,state.humanMarks).map(x=>({...x,state:state.states[x.id]||x.state||'OPEN'}));
 }
 function persist(){
   const snap={
-    source:state.source,sourceId:state.sourceId,title:state.title,humanMarks:state.humanMarks,
+    source:state.source,sourceId:state.sourceId,title:state.title,humanMarks:state.humanMarks,machineMarks:state.machineMarks,
     states:state.states,draft:state.draft,coverageLinks:state.coverageLinks,targets:state.targets,
     currentMessage:state.currentMessage,selectedClause:state.selectedClause,filter:state.filter
   };
@@ -61,7 +61,7 @@ async function loadSource(text,title='COMMS SPINE'){
   if(!source){toast('PASTE A THREAD FIRST');return}
   state={
     source,sourceId:await sourceHash(source),title:String(title||'COMMS SPINE').trim()||'COMMS SPINE',
-    doc:parseConversation(source),humanMarks:[],states:{},draft:'',coverageLinks:[],targets:[],
+    doc:parseConversation(source),humanMarks:[],machineMarks:[],states:{},draft:'',coverageLinks:[],targets:[],
     currentMessage:0,selectedClause:null,filter:'ALL'
   };
   state.selectedClause=state.doc.messages[0]?.clauses?.[0]?.id||null;
@@ -142,19 +142,57 @@ function removeHuman(id){
   state.targets=state.targets.filter(x=>x!==id);state.coverageLinks=state.coverageLinks.filter(x=>x!==id);
   persist();render();
 }
+/* Machine ingress — the machine-spotted class. One bounded call the machine side uses to hand over
+   a claim about an exact source range; it must resolve to the source text or it is refused. The
+   item stays MACHINE until the operator acts. */
+function spotMachine(spec){
+  if(!state.doc||!state.source)return null;
+  let item;try{item=createMachineMark(spec||{})}catch(error){toast('MACHINE SPOT REJECTED · '+String(error?.message||error).slice(0,80));return null}
+  if(state.doc.source.slice(item.start,item.end)!==item.text){toast('MACHINE SPOT REJECTED · ADDRESS DOES NOT RESOLVE');return null}
+  if([...state.humanMarks,...state.machineMarks].some(x=>x.id===item.id))return null;
+  state.machineMarks.push(item);state.states[item.id]=state.states[item.id]||'OPEN';
+  persist();render();toast('MACHINE SPOT · '+item.kind+' · CONFIRM OR DISMISS');
+  return item;
+}
+/* The only two exits from MACHINE. CONFIRM promotes to HUMAN with confidence 1 (the operator now
+   owns it); DISMISS sets state DROPPED and deletes nothing. Both refuse any other origin. */
+function resolveMachine(id,action){
+  const item=state.machineMarks.find(x=>x.id===id);if(!item)return;
+  if(action==='CONFIRM'){
+    const owned=confirmMachine(item);
+    state.machineMarks=state.machineMarks.filter(x=>x.id!==id);
+    if(!state.humanMarks.some(x=>x.id===owned.id))state.humanMarks.push(owned);
+    state.states[owned.id]=state.states[owned.id]||'OPEN';
+    persist();render();toast('MACHINE → HUMAN · CONFIRMED');
+  }else if(action==='DISMISS'){
+    state.states[id]=dismissMachine(item).state;
+    persist();render();toast('MACHINE SPOT DISMISSED · NOTHING DELETED');
+  }
+}
+const standardActions=sig=>'<button data-jump>LOCATE</button><button data-target>'+(state.targets.includes(sig.id)?'TARGET ✓':'TARGET')+'</button>'+(sig.origin==='HUMAN'?'<button data-remove>REMOVE MARK</button>':'');
+const machineActions=sig=>'<button data-jump>LOCATE</button><button data-confirm>CONFIRM → HUMAN</button><button data-dismiss>DISMISS → DROPPED</button>';
 function renderSignals(){
   const all=signals(),visible=all.filter(s=>state.filter==='ALL'||s.kind===state.filter),list=$('#signalList');list.replaceChildren();
   $('#signalMeta').textContent=all.length+' SIGNALS · '+all.filter(x=>x.state==='OPEN').length+' OPEN';
   $$('.filters button').forEach(b=>b.classList.toggle('on',b.dataset.filter===state.filter));
   if(!visible.length){list.innerHTML='<div class="signalCard"><div class="signalText">No signals in this projection. Derived labels are intentionally conservative; author a mark from the source fovea when something matters.</div></div>';return}
   for(const sig of visible){
-    const card=document.createElement('article'),focused=sig.clauseId===state.selectedClause&&sig.messageId===currentMessage()?.id;
+    const card=document.createElement('article'),focused=sig.clauseId===state.selectedClause&&sig.messageId===currentMessage()?.id,machine=sig.origin==='MACHINE';
     card.className='signalCard '+sig.origin.toLowerCase()+(focused?' focus':'');
-    card.innerHTML='<div class="signalTop"><span class="kind '+sig.kind+'">'+sig.kind+'</span><span class="origin">'+sig.origin+(sig.origin==='DERIVED'?' · '+Math.round(sig.confidence*100)+'%':'')+'</span><button class="state '+sig.state+'" data-state>'+sig.state+'</button></div><div class="signalText"></div><div class="signalAddr"></div><div class="signalActions"><button data-jump>LOCATE</button><button data-target>'+(state.targets.includes(sig.id)?'TARGET ✓':'TARGET')+'</button>'+(sig.origin==='HUMAN'?'<button data-remove>REMOVE MARK</button>':'')+'</div>';
+    /* MACHINE = the third provenance class: machine-spotted, never authored. It exposes exactly two
+       resolving actions (CONFIRM → HUMAN confidence 1 · DISMISS → DROPPED, nothing deleted) beside
+       the shared LOCATE reading path. No TARGET, no state cycling, no REMOVE — and neither resolving
+       action exists on HUMAN or DERIVED items. */
+    const chip=machine?'<span class="state '+sig.state+'" data-stateview>'+sig.state+'</span>':'<button class="state '+sig.state+'" data-state>'+sig.state+'</button>';
+    const actions=machine?machineActions(sig):standardActions(sig);
+    card.innerHTML='<div class="signalTop"><span class="kind '+sig.kind+'">'+sig.kind+'</span><span class="origin">'+sig.origin+(sig.origin==='DERIVED'?' · '+Math.round(sig.confidence*100)+'%':'')+'</span>'+chip+'</div><div class="signalText"></div><div class="signalAddr"></div><div class="signalActions">'+actions+'</div>';
     card.querySelector('.signalText').textContent=sig.text;card.querySelector('.signalAddr').textContent=sig.messageId+' · '+fmtAddr(sig.start,sig.end)+' · '+sig.id;
-    card.querySelector('[data-state]').onclick=()=>setState(sig.id,nextState(sig.state));
+    card.querySelector('[data-state]')?.addEventListener('click',()=>setState(sig.id,nextState(sig.state)));
     card.querySelector('[data-jump]').onclick=()=>jumpSignal(sig);
-    const target=card.querySelector('[data-target]');target.classList.toggle('selected',state.targets.includes(sig.id));target.onclick=()=>toggleTarget(sig.id);
+    card.querySelector('[data-confirm]')?.addEventListener('click',()=>resolveMachine(sig.id,'CONFIRM'));
+    card.querySelector('[data-dismiss]')?.addEventListener('click',()=>resolveMachine(sig.id,'DISMISS'));
+    const target=card.querySelector('[data-target]');
+    if(target){target.classList.toggle('selected',state.targets.includes(sig.id));target.onclick=()=>toggleTarget(sig.id)}
     card.querySelector('[data-remove]')?.addEventListener('click',()=>removeHuman(sig.id));
     list.append(card);
   }
@@ -243,20 +281,20 @@ function exportReturn(){
 }
 function daylineHandoff(){
   if(!state.doc){toast('NO SOURCE');return}
-  const open=signals().filter(x=>x.state==='OPEN'),sig=open.find(x=>(state.targets||[]).includes(x.id))||open.find(x=>x.origin==='HUMAN')||open[0];
-  if(!sig){toast('NO OPEN SIGNAL');return}
+  const open=signals().filter(x=>x.state==='OPEN'),eligible=open.filter(x=>x.origin!=='MACHINE'),sig=eligible.find(x=>(state.targets||[]).includes(x.id))||eligible.find(x=>x.origin==='HUMAN')||eligible[0];
+  if(!sig){toast(open.length?'MACHINE SPOTS NEED CONFIRM FIRST':'NO OPEN SIGNAL');return}
   const packet={schema:'atlas-dayline-handoff/v0.1',id:'comms-'+Date.now(),created_at:new Date().toISOString(),kind:'TASK',source:{route:'/port/comms/',object_id:state.sourceId,address:{message_id:sig.messageId,start:sig.start,end:sig.end},label:state.title,signal_id:sig.id,origin:sig.origin},payload:{task:{title:'COMMS · '+sig.kind+' · '+String(sig.text||'').slice(0,96),contexts:['phone','computer'],duration:15,value:sig.origin==='HUMAN'?5:3,provenance:'COMMS SPINE '+sig.origin+' explicit handoff · '+state.sourceId,sourceRef:'/port/comms/#'+state.sourceId+'|'+sig.messageId+'|'+sig.start+'-'+sig.end,notes:['SIGNAL '+sig.kind,'ORIGIN '+sig.origin,'ADDRESS '+sig.messageId+' '+fmtAddr(sig.start,sig.end),'TEXT '+sig.text,'SOURCE HASH '+state.sourceId].join('\n')}},return_to:'/port/comms/'};
   sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.assign('/dayline/?handoff=comms')
 }
 function pinLocal(){
   if(!state.doc)return;
-  const snap={source:state.source,sourceId:state.sourceId,title:state.title,humanMarks:state.humanMarks,states:state.states,draft:state.draft,coverageLinks:state.coverageLinks,targets:state.targets,currentMessage:state.currentMessage,selectedClause:state.selectedClause,filter:state.filter};
+  const snap={source:state.source,sourceId:state.sourceId,title:state.title,humanMarks:state.humanMarks,machineMarks:state.machineMarks,states:state.states,draft:state.draft,coverageLinks:state.coverageLinks,targets:state.targets,currentMessage:state.currentMessage,selectedClause:state.selectedClause,filter:state.filter};
   try{localStorage.setItem(PINNED,JSON.stringify(snap));toast('PINNED IN THIS BROWSER');updatePortButtons()}catch(_){toast('LOCAL PIN FAILED')}
 }
 function purgeLocal(){
   if(!confirm('Purge COMMS SPINE pinned + session state from this browser?'))return;
   localStorage.removeItem(PINNED);sessionStorage.removeItem(SESSION);
-  state={source:'',sourceId:'',title:'COMMS SPINE',doc:null,humanMarks:[],states:{},draft:'',coverageLinks:[],targets:[],currentMessage:0,selectedClause:null,filter:'ALL'};
+  state={source:'',sourceId:'',title:'COMMS SPINE',doc:null,humanMarks:[],machineMarks:[],states:{},draft:'',coverageLinks:[],targets:[],currentMessage:0,selectedClause:null,filter:'ALL'};
   updatePortButtons();render();toast('LOCAL COMMS STATE PURGED');
 }
 
@@ -267,7 +305,7 @@ $('#prevMsg').onclick=()=>jumpMessage(state.currentMessage-1);$('#nextMsg').oncl
 $$('[data-mark]').forEach(b=>b.onclick=()=>addMark(b.dataset.mark));
 $$('[data-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.filter;persist();renderSignals()});
 $('#draft').oninput=e=>{state.draft=e.target.value;persist();renderCompose()};
-$('#selectOpen').onclick=()=>{state.targets=signals().filter(x=>x.state==='OPEN').map(x=>x.id);persist();renderSignals()};
+$('#selectOpen').onclick=()=>{state.targets=signals().filter(x=>x.state==='OPEN'&&x.origin!=='MACHINE').map(x=>x.id);persist();renderSignals()};
 $('#clearTargets').onclick=()=>{state.targets=[];persist();renderSignals()};
 $('#coverBtn').onclick=()=>applyTargetState('COVERED');$('#deferBtn').onclick=()=>applyTargetState('DEFERRED');$('#reopenBtn').onclick=()=>applyTargetState('OPEN');
 $('#copyOpenBtn').onclick=()=>copy(openLoopsText(),'OPEN LOOPS COPIED');
@@ -292,6 +330,6 @@ if(params.get('demo')==='1'&&!state.doc)loadSource(demoConversation(),'COMMS SPI
 window.CommsSpine={
   version:'0.1',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
-  loadSource,loadReturn,returnObject,
+  loadSource,loadReturn,returnObject,spotMachine,
   buildAgentPacket:()=>buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title})
 };

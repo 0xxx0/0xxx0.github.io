@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1.2.2",
+  "version": "0.1.3.0",
   "date": "2026-09-23",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
@@ -23,6 +23,7 @@
   ],
   "provenance_classes": {
     "DERIVED": "weak deterministic heuristic suggestion; confidence < 1; never human intent truth",
+    "MACHINE": "machine-spotted claim about an exact source range at high confidence (< 1); never authored; becomes HUMAN only by explicit CONFIRM at confidence 1, or retires to state DROPPED by explicit DISMISS",
     "HUMAN": "explicit authored mark at exact source range; confidence 1"
   },
   "signal_states": [
@@ -35,6 +36,7 @@
     "SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE",
     "EVERY PROMOTED COMMS ITEM RETURNS TO AN EXACT SOURCE RANGE",
     "DERIVED != HUMAN AUTHORED",
+    "DERIVED != MACHINE != HUMAN AUTHORED",
     "COVERED != DELETED",
     "SUMMARY/TASK/RESPONSE != SOURCE",
     "OPEN RESIDUE SURVIVES RETURN",
@@ -45,6 +47,7 @@
     "non_scroll_primary": "whole thread is compressed into a horizontal spine; primary reading surface holds one addressed turn at a time",
     "address_navigation": "turn spine, previous/next keys, LOCATE from any signal",
     "human_marking": "select exact clause then ASK/PROMISE/DECISION/WAITING/CONSTRAINT/NOTE",
+    "machine_spot_resolution": "MACHINE items expose exactly two resolving actions: CONFIRM (promote to HUMAN at confidence 1; the operator now owns it) or DISMISS (state DROPPED; nothing deleted); no TARGET, no state cycle, no REMOVE, and neither action appears on HUMAN or DERIVED items",
     "response_coverage": "target signals then COVER / DEFER / REOPEN explicitly",
     "bot_handoff": "copy source-addressed agent packet; no summary-only handoff",
     "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable"
@@ -122,6 +125,10 @@
     "Return transport is session-local and expires after 12 hours; dismissing an offer is lossless.",
     "Completed source-linked Dayline objects remain returnable until one source receipt is emitted; Dayline releases focus after RETURN, preventing COMMS=COVERED while a duplicate Dayline obligation remains OPEN.",
     "Encode the law DERIVED != HUMAN AUTHORED in the thread map itself: signal-rail ticks now carry data-origin and differ by GEOMETRY (HUMAN = full-height bar, DERIVED = half-height + dimmed), not colour alone, so the distinction survives greyscale and colour-blindness. Mirrors the existing .signalCard solid/dashed origin grammar; no new framework, no core.js change.",
-    "Extend tools/comms-spine-smoke.mjs to assert origin geometry is present and distinct, so the distinction cannot silently collapse again; the phone smoke now fails if it does."
+    "Extend tools/comms-spine-smoke.mjs to assert origin geometry is present and distinct, so the distinction cannot silently collapse again; the phone smoke now fails if it does.",
+    "Added a third provenance class MACHINE: a machine-spotted claim about an exact source range (confidence < 1) that is neither a weak DERIVED guess nor a HUMAN authored mark; DERIVED and HUMAN keep their exact meaning, nothing is silently promoted, and the law extends from DERIVED != HUMAN AUTHORED to DERIVED != MACHINE != HUMAN AUTHORED.",
+    "MACHINE items render distinctly in greyscale by reusing the existing origin grammar: cards carry a double left border and their signal-rail tick occupies the lower half (HUMAN = full height, DERIVED = upper half dimmed); no new colour token, no new framework.",
+    "MACHINE-origin cards expose exactly two resolving actions: CONFIRM promotes the item to origin HUMAN at confidence 1 (the operator now owns it), DISMISS sets state DROPPED and deletes nothing; neither action exists on HUMAN or DERIVED items, and a MACHINE item is not targetable, not state-cycleable and not Dayline-handoff-eligible before CONFIRM.",
+    "Machine ingress is the bounded CommsSpine.spotMachine() call: a spot must resolve its text to the exact source range, and unknown kinds or confidence 1 are rejected loudly instead of silently degrading to NOTE. Machine items and their dismissal residue survive RETURN export/import, and core tests plus the phone smoke assert presence, the two transitions, the absence of promotion paths on the other origins, and three-way origin geometry distinct in black and white."
   ]
 }

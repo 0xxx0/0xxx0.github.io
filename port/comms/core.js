@@ -2,6 +2,7 @@ export const COMMS_SPINE_SCHEMA='comms-spine/v0.1';
 export const RETURN_SCHEMA='comms-spine-return/v0.1';
 export const SIGNAL_KINDS=Object.freeze(['ASK','PROMISE','DECISION','WAITING','CONSTRAINT','NOTE']);
 export const SIGNAL_STATES=Object.freeze(['OPEN','COVERED','DEFERRED','DROPPED']);
+export const SIGNAL_ORIGINS=Object.freeze(['DERIVED','MACHINE','HUMAN']);
 
 const clean=s=>String(s??'').replace(/\r\n?/g,'\n');
 const clip=(s,n=180)=>String(s??'').replace(/\s+/g,' ').trim().slice(0,n);
@@ -127,10 +128,29 @@ export function createHumanMark({kind='NOTE',messageId,clauseId,speaker='UNKNOWN
     start:Number(start),end:Number(end),text:String(text||''),label:String(label||'')
   };
 }
-export function mergeSignals(derived=[],human=[]){
+export function createMachineMark({kind,messageId,clauseId,speaker='UNKNOWN',start,end,text,label='',confidence=.9}={}){
+  if(!SIGNAL_KINDS.includes(kind))throw new TypeError('machine mark requires a known kind; unknown kinds are rejected, never degraded');
+  const c=Number(confidence);
+  if(!Number.isFinite(c)||c<0||c>=1)throw new TypeError('machine confidence must be < 1; only HUMAN marks carry 1');
+  if(!Number.isFinite(Number(start))||!Number.isFinite(Number(end))||Number(end)<=Number(start))throw new TypeError('valid source range required');
+  return {
+    id:'m:'+String(messageId||'m')+':'+Number(start)+'-'+Number(end)+':'+String(kind).toLowerCase(),
+    kind,state:'OPEN',origin:'MACHINE',confidence:c,
+    messageId:String(messageId||''),clauseId:String(clauseId||''),speaker:String(speaker||'UNKNOWN'),
+    start:Number(start),end:Number(end),text:String(text||''),label:String(label||'')
+  };
+}
+export function confirmMachine(signal){
+  if(signal?.origin!=='MACHINE')throw new TypeError('only a MACHINE item can be confirmed; DERIVED and HUMAN are already resolved');
+  return {...signal,origin:'HUMAN',confidence:1};
+}
+export function dismissMachine(signal){
+  if(signal?.origin!=='MACHINE')throw new TypeError('only a MACHINE item can be dismissed; nothing else is dismissable');
+  return {...signal,state:'DROPPED'};
+}
+export function mergeSignals(...groups){
   const map=new Map();
-  for(const x of derived||[])map.set(x.id,{...x});
-  for(const x of human||[])map.set(x.id,{...x});
+  for(const group of groups)for(const x of group||[])map.set(x.id,{...x});
   return [...map.values()].sort((a,b)=>a.start-b.start||a.end-b.end||String(a.id).localeCompare(String(b.id)));
 }
 export function setSignalState(signals,id,state){
@@ -160,7 +180,7 @@ export function buildAgentPacket({doc,signals=[],draft='',title='COMMS SPINE'}={
     deferred:deferred.map(line),
     covered:covered.map(line),
     draft:String(draft||''),
-    law:'Every transformed item retains an exact source address. Derived labels are advisory; HUMAN marks are authored.'
+    law:'Every transformed item retains an exact source address. Derived and machine-spotted labels are advisory; HUMAN marks are authored.'
   };
 }
 export function makeReturn({doc,sourceId,signals=[],draft='',coverageLinks=[],title='COMMS SPINE',includeSource=true}={}){
@@ -184,6 +204,8 @@ export function makeReturn({doc,sourceId,signals=[],draft='',coverageLinks=[],ti
     laws:[
       'SOURCE ADDRESS SURVIVES TRANSFORMATION',
       'DERIVED != HUMAN AUTHORED',
+      'DERIVED != MACHINE != HUMAN AUTHORED',
+      'MACHINE BECOMES HUMAN ONLY BY EXPLICIT CONFIRM',
       'SUMMARY/TASK/RESPONSE != SOURCE',
       'COVERED != DELETED',
       'RETURN PRESERVES RESIDUE'
@@ -195,6 +217,7 @@ export function stateFromReturn(value){
   if(typeof v.source?.text!=='string'||!v.source.text.length)throw new TypeError('source-bearing RETURN required for resume');
   const doc=parseConversation(v.source.text);
   const humanMarks=(v.signals||[]).filter(s=>s.origin==='HUMAN').map(s=>({...s}));
+  const machineMarks=(v.signals||[]).filter(s=>s.origin==='MACHINE').map(s=>({...s}));
   const states=Object.fromEntries((v.signals||[]).map(s=>[s.id,s.state||'OPEN']));
   return {
     source:v.source.text,
@@ -202,6 +225,7 @@ export function stateFromReturn(value){
     title:String(v.source.title||'COMMS SPINE'),
     doc,
     humanMarks,
+    machineMarks,
     states,
     draft:String(v.response?.text||''),
     coverageLinks:Array.isArray(v.response?.covers)?[...new Set(v.response.covers.map(String))]:[],
