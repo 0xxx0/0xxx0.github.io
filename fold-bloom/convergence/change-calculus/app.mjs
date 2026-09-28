@@ -33,6 +33,15 @@ function hexLabel(binary){
   const h=hexByBin[binary];
   return h?'<a href="/iching/#h='+h.id+'"><b>'+esc(h.unicode+' '+h.name_zh+' · №'+h.id+' · '+h.name_en)+'</b></a>':'<b>'+esc(binary)+'</b>';
 }
+function promotionWitness(g,source){
+  if(!g)return '';
+  const rows=(g.checks||[]).map(x=>'<tr><td>'+esc(x.id)+'</td><td><b class="'+(x.pass?'cool':'hot')+'">'+(x.pass?'PASS':'FAIL')+'</b></td><td>'+esc(x.observed==null?'—':x.observed)+'</td><td>'+esc(x.required==null?'—':x.required)+'</td></tr>').join('');
+  return '<h2 style="margin-top:12px">CAUSAL PROMOTION GATE</h2><div class="metrics">'+
+    metric('status',g.status)+metric('passed',g.summary?.passed??'—')+metric('failed',g.summary?.failed??'—')+
+    metric('obligations',g.summary?.total??'—')+metric('evidence',source||'SUPPLIED')+
+    '</div><table><thead><tr><th>obligation</th><th>result</th><th>observed</th><th>required</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<p>'+esc(g.law)+'</p><p><b>Support ≠ permission.</b> A token may map to one lawful host candidate and still fail this independent causal-evidence gate.</p>';
+}
 function statePathWitness(path,state){
   const fmt=p=>[path.from_token,...p.steps.map(x=>x.after_token)].join(' → ');
   const primary=fmt(path);
@@ -59,7 +68,7 @@ function calculate(){
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
-  const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering;
+  const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering,g=frame.promotion;
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
@@ -89,8 +98,8 @@ function calculate(){
     const rows=j.rows.map(x=>'<tr><td>'+x.rank+'</td><td>'+esc(x.token)+'</td><td>'+(x.conditional_weight==null?'—':x.conditional_weight)+'</td><td>'+esc(x.mapped_verb||'—')+'</td><td>'+x.native_candidate_count+'</td><td>'+esc(x.support)+'</td></tr>').join('');
     $('#steerOut').innerHTML='<h2>J-SPACE → NATIVE SUPPORT</h2><div class="metrics">'+metric('basis',j.weight_basis)+metric('top',j.top.status)+metric('candidate ambiguity',j.top.candidate_ambiguity_bits==null?'—':j.top.candidate_ambiguity_bits+' bits')+metric('mapped weight',j.mapped_weight??'—')+metric('host-supported weight',j.host_supported_weight??'—')+'</div>'+
       '<table><thead><tr><th>rank</th><th>token</th><th>top-k weight</th><th>mapped verb</th><th>candidates</th><th>support</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-      '<p>'+esc(j.formulas.warning)+'. '+esc(j.formulas.decision)+'.</p>';
-  }else $('#steerOut').innerHTML='<h2>J-SPACE → NATIVE SUPPORT</h2><span class="hot">'+esc(j?.reason||'TRACE NOT PARSED')+'</span>';
+      '<p>'+esc(j.formulas.warning)+'. '+esc(j.formulas.decision)+'.</p>'+promotionWitness(g,frame.promotion_evidence_source);
+  }else $('#steerOut').innerHTML='<h2>J-SPACE → NATIVE SUPPORT</h2><span class="hot">'+esc(j?.reason||'TRACE NOT PARSED')+'</span>'+promotionWitness(g,frame.promotion_evidence_source);
 
   $('#residueOut').innerHTML='<h2>RESIDUE / NON-EQUIVALENCE</h2><ul>'+frame.residue.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
     '<p>Alignment check: '+esc(JSON.stringify(frame.alignment))+'</p><p><a href="/fold-bloom/lab/?mode=DATA">↩ FIELD LAB / DATA</a> · <a href="/iching/">I CHING source lens →</a></p>';
@@ -99,7 +108,7 @@ function calculate(){
     '<tr><td>recent exact six-verb form</td><td><b>HISTORY WITNESS</b></td><td>also not sufficient native control state</td></tr>'+
     '<tr><td>native forecast aperture</td><td><b>ONE-EPOCH SUPPORT</b></td><td>alternatives expire and must be refreshed after commit</td></tr>'+
     '<tr><td>J-Lens arithmetic here</td><td><b>READ / SUPPORT HYPOTHESIS</b></td><td>default fixture is synthetic; real tiny-model smoke proves plumbing only</td></tr>'+
-    '<tr><td>causal steering</td><td><b class="hot">BLOCKED</b></td><td>requires semantic evidence + real direction + controls + receipt</td></tr>'+
+    '<tr><td>causal steering</td><td><b class="'+(g?.eligible?'cool':'hot')+'">'+esc(g?.status||'UNKNOWN')+'</b></td><td>'+esc(g?.summary?g.summary.failed+'/'+g.summary.total+' promotion obligations fail':'promotion evidence unavailable')+'</td></tr>'+
     '</tbody></table><p>The common primitive is not a common ontology: <code>STATE → APERTURE → INTENT → SUPPORT/AMBIGUITY → COMMIT → APERTURE′ → WITNESS → RETURN</code>.</p>';
 }
 
