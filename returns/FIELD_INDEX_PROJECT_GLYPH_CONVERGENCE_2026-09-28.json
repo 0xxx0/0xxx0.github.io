@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FIELD_INDEX_PROJECT_GLYPH_CONVERGENCE_2026-09-28",
+  "date": "2026-09-28",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "FIELD INDEX / SEMANTIC SCALE / PROJECT-HEAD GLYPH",
+  "source": [
+    "/control/CURRENT.json",
+    "/showcase-manifest.json",
+    "/field-glyph.js",
+    "/lib/interphase-glyph.js",
+    "merged PR #485 / semantic scale + FOVEA convergence"
+  ],
+  "before": "FIELD/ROUTE/OBJECT semantic scale existed, but OBJECT scale still used the same small route glyph and required prose scanning to recover current-head depth/evidence/residue.",
+  "delta": [
+    "Added a pure project-head → interphase-glyph adapter with no persistence or effect authority.",
+    "Composed the existing FIELD glyph as the inner/native representation when available.",
+    "At exact CURRENT-head focus, OBJECT semantic scale renders the project glyph; FIELD/ROUTE scales retain the existing compact route glyph.",
+    "Project glyph derives child apertures, bounded VIEW operations, evidence presence, unresolved exits/next gate residue and exact route/lineage address.",
+    "Added self-test against deliberately unequal FOLD//BLOOM and SLEEPER current heads.",
+    "Folded project-management orientation into one derived project/scale map."
+  ],
+  "authority": {
+    "current": "control/CURRENT.json",
+    "route": "showcase-manifest.json",
+    "domain": "native host",
+    "glyph": "VIEW / projection only",
+    "effect": "NONE"
+  },
+  "invariants": [
+    "IDENTITY survives semantic scale.",
+    "FIELD glyph remains the inner route identity witness rather than being replaced.",
+    "Project glyph operations are VIEW only.",
+    "No new project store, backlog, priority or route.",
+    "Semantic moire remains the existing FIELD signal carrier from PR #485.",
+    "Native browser zoom and MAP address depth remain separate from semantic scale."
+  ],
+  "verification": {
+    "selftest": "tools/project-head-glyph-selftest.cjs",
+    "ci": "PENDING",
+    "lived_reentry": "UNKNOWN",
+    "subjective_compression_value": "UNKNOWN"
+  },
+  "falsifier": "Remove or narrow project-head glyph if OBJECT scale does not reduce project re-entry/prose burden or if it makes FIELD focus feel like a different object.",
+  "next": "Use FIELD OBJECT scale on two unequal exact current heads; compare re-entry burden against ROUTE scale and native prose, then RETURN before adding any new glyph semantics.",
+  "stop": "Do not add a project registry, universal glyph ontology, new moire classes, or second zoom system."
+}
