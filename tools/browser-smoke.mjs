@@ -214,7 +214,7 @@ function fieldActivationProbeHtml(){
 }
 
 function fieldCoaxialProbeHtml(){
-  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -246,7 +246,7 @@ function fieldCoaxialProbeHtml(){
     const exact=JSON.stringify(rec.layers)===JSON.stringify(['DEPTH','MOVE','WITNESS'])&&JSON.stringify(rec.selection)===JSON.stringify(['DEPTH','MOVE','WITNESS']);
     done(rec.claimed&&rec.free&&rec.linked&&rec.closed&&exact&&rec.beforeFocus==='/fold-bloom/'&&rec.afterFocus===rec.beforeFocus,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
-  <\/script></body></html>\`;
+  <\/script></body></html>`;
 }
 
 function fieldDaylineHandoffProbeHtml(){
