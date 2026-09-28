@@ -102,7 +102,7 @@ function renderSpine(){
     const sc=document.createElement('div');sc.className='signalCell';sc.style.flexGrow=String(Math.max(1,m.end-m.start));sc.style.flexBasis='0';
     for(const sig of ss.filter(x=>x.messageId===m.id)){
       const tick=document.createElement('i'),span=Math.max(1,m.end-m.start);
-      tick.dataset.kind=sig.kind;tick.style.left=(((sig.start-m.start)/span)*100).toFixed(2)+'%';
+      tick.dataset.kind=sig.kind;tick.dataset.origin=sig.origin;tick.style.left=(((sig.start-m.start)/span)*100).toFixed(2)+'%';
       tick.title=sig.kind+' · '+sig.origin;sc.append(tick);
     }
     srail.append(sc);

@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1.2.1",
+  "version": "0.1.2.2",
   "date": "2026-09-23",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
@@ -111,7 +111,7 @@
     "real_source_browser": "PASS · exact user instruction · 430×900",
     "real_phone_ordinary_use": "OPTIONAL_OBSERVATION"
   },
-  "released": "2026-09-25",
+  "released": "2026-09-28",
   "changes": [
     "Added explicit OPEN-signal → Dayline handoff: prefer HUMAN-authored OPEN signal, otherwise preserve DERIVED origin visibly.",
     "The handoff preserves source SHA, message/range address, signal kind, origin and text without transferring the full conversation.",
@@ -120,6 +120,8 @@
     "Native COMMS alone decides COVERED / DEFERRED / OPEN; Dayline never mutates communication state.",
     "If the signal changed while away or exact address no longer resolves, the offer is stale/read-only and cannot overwrite source state.",
     "Return transport is session-local and expires after 12 hours; dismissing an offer is lossless.",
-    "Completed source-linked Dayline objects remain returnable until one source receipt is emitted; Dayline releases focus after RETURN, preventing COMMS=COVERED while a duplicate Dayline obligation remains OPEN."
+    "Completed source-linked Dayline objects remain returnable until one source receipt is emitted; Dayline releases focus after RETURN, preventing COMMS=COVERED while a duplicate Dayline obligation remains OPEN.",
+    "Encode the law DERIVED != HUMAN AUTHORED in the thread map itself: signal-rail ticks now carry data-origin and differ by GEOMETRY (HUMAN = full-height bar, DERIVED = half-height + dimmed), not colour alone, so the distinction survives greyscale and colour-blindness. Mirrors the existing .signalCard solid/dashed origin grammar; no new framework, no core.js change.",
+    "Extend tools/comms-spine-smoke.mjs to assert origin geometry is present and distinct, so the distinction cannot silently collapse again; the phone smoke now fails if it does."
   ]
 }

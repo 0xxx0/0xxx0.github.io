@@ -40,6 +40,12 @@ h1{margin:4px 0 0;font:900 clamp(30px,6vw,62px)/.82 system-ui,sans-serif;letter-
 .signalCell i[data-kind="DECISION"]{background:var(--gold)}
 .signalCell i[data-kind="WAITING"]{background:var(--violet)}
 .signalCell i[data-kind="CONSTRAINT"]{background:var(--red)}
+/* ORIGIN geometry — encodes the law DERIVED != HUMAN AUTHORED in the thread map itself.
+   HUMAN = full-height bar; DERIVED = half-height, dimmed. Geometry, not colour, so the
+   distinction survives colour-blindness and greyscale. Mirrors the existing .signalCard
+   solid/dashed origin grammar; adds no new framework. */
+.signalCell i[data-origin="HUMAN"]{top:0;bottom:0}
+.signalCell i[data-origin="DERIVED"]{top:0;bottom:55%;opacity:.5}
 .workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);gap:1px;background:var(--line)}
 .source,.signals{min-height:0;background:var(--panel)}
 .source{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
