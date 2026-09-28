@@ -270,6 +270,107 @@ export function steppedFormPath(fromForm,toForm,order=null){
   };
 }
 
+export function residueLadder({state=null,stateStep=null,exact=null,steering=null,promotion=null}={}){
+  const levels=[];
+  if(exact?.ok){
+    levels.push({
+      id:'EXACT_FORM',
+      claim:'EXACT_OPERATION_DESCRIPTION',
+      authority:'CALCULATION_ONLY',
+      keeps:'six addressed BLOOM/FOLD/SPLIT/RETURN operations',
+      drops:'nothing inside the declared six-verb form',
+      cardinality:exact.metrics.exact_state_count,
+      information_bits:exact.metrics.exact_uniform_information_bits,
+      residue_count:0
+    });
+  }
+  if(state?.ok){
+    levels.push({
+      id:'HEX_STATE',
+      claim:'DESCRIPTIVE_QUOTIENT',
+      authority:'CALCULATION_ONLY',
+      keeps:'six relation-polarity bits plus trigram/hex address',
+      drops:exact?.ok
+        ?exact.metrics.quotient_information_loss_bits+' uniform bits; '+exact.metrics.quotient_invisible_exact_changes+' exact changed line(s) are invisible in this endpoint pair'
+        :'exact BLOOM/FOLD and SPLIT/RETURN identity lies outside the six-bit quotient',
+      cardinality:HEXAGRAM_STATES,
+      information_bits:6,
+      compression_ratio:exact?.ok?exact.metrics.exact_forms_per_hexagram:null
+    });
+    levels.push({
+      id:'MOVING_SET',
+      claim:'ENDPOINT_CHANGE_MASK',
+      authority:'CALCULATION_ONLY',
+      keeps:state.metrics.hamming_distance+' addressed moving line(s)',
+      drops:state.metrics.one_line_step_orders>1
+        ?state.metrics.one_line_step_orders+' possible one-line orders collapse to one unordered set'
+        :'no order ambiguity for this endpoint pair',
+      alternatives:state.metrics.one_line_step_orders,
+      ambiguity_bits:state.metrics.step_order_ambiguity_bits
+    });
+  }
+  if(stateStep?.ok){
+    levels.push({
+      id:'ORDERED_PATH',
+      claim:'SELECTED_PATH_WITNESS',
+      authority:'CALCULATION_ONLY',
+      keeps:'factoradic order '+(stateStep.selected_order_index+1)+'/'+stateStep.possible_one_line_orders+' and '+stateStep.steps.length+' addressed intermediate step(s)',
+      drops:'native host consequences are not encoded by this abstract bit path',
+      address:stateStep.path_address
+    });
+  }
+  if(steering?.ok){
+    const supported=steering.rows.filter(x=>x.native_candidate_count>0);
+    levels.push({
+      id:'MODEL_READOUT',
+      claim:'READOUT_ONLY',
+      authority:'CALCULATION_ONLY',
+      keeps:steering.rows.length+' exported top-k token row(s)',
+      drops:steering.weight_basis==='TOP_K_CONDITIONAL'
+        ?'unexported vocabulary mass; conditional weights are normalized only inside exported top-k'
+        :'unexported vocabulary mass and calibrated probability',
+      mapped_weight:steering.mapped_weight,
+      host_supported_weight:steering.host_supported_weight
+    });
+    levels.push({
+      id:'HOST_SUPPORT',
+      claim:'SUPPORT_NOT_PERMISSION',
+      authority:'PREVIEW_ONLY',
+      keeps:supported.length+' model row(s) with at least one already-lawful native candidate',
+      drops:'candidate support expires with the native forecast aperture and grants no execution authority',
+      native_candidate_count:supported.reduce((n,x)=>n+x.native_candidate_count,0),
+      top_candidate_ambiguity_bits:steering.top.candidate_ambiguity_bits
+    });
+  }
+  if(promotion){
+    const passed=promotion.summary?.passed??0,total=promotion.summary?.total??0,failed=promotion.summary?.failed??Math.max(0,total-passed);
+    levels.push({
+      id:'CAUSAL_GATE',
+      claim:promotion.status||'UNKNOWN',
+      authority:'EVIDENCE_GATE',
+      keeps:passed+'/'+total+' explicit promotion obligation(s) passed',
+      drops:'no effect authority is granted here; even eligibility means bounded preview, not automatic commit',
+      failed_obligations:failed
+    });
+  }
+  const strongest_claim=promotion?.eligible
+    ?'ELIGIBLE_FOR_BOUNDED_PREVIEW'
+    :steering?.ok&&steering.rows.some(x=>x.native_candidate_count>0)
+      ?'READ_SUPPORT_ONLY'
+      :stateStep?.ok
+        ?'ORDERED_PATH_WITNESS'
+        :state?.ok
+          ?'DESCRIPTIVE_CHANGE_ONLY'
+          :'UNRESOLVED';
+  return {
+    schema:CHANGE_CALCULUS_SCHEMA+'/residue-ladder',
+    authority:'RESEARCH_WITNESS_ONLY',
+    strongest_claim,
+    levels,
+    law:'each projection may compress representation or narrow support; no layer inherits control or causal authority from the one before it'
+  };
+}
+
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
@@ -285,6 +386,7 @@ export function appliedResearchFrame(spec={}){
     to_matches:state.to.binary===exact.to.bits?.join(''),
     law:'exact operation form and six-bit state are unequal representations; equality here only checks this explicit quotient'
   }:null;
+  const residue_ladder=residueLadder({state,stateStep,exact,steering,promotion});
   return {
     schema:CHANGE_CALCULUS_SCHEMA+'/frame',
     authority:'RESEARCH_WITNESS_ONLY',
@@ -296,6 +398,7 @@ export function appliedResearchFrame(spec={}){
     promotion,
     promotion_evidence_source:spec.promotionEvidence?'SUPPLIED':'CURRENT_EVIDENCE_2026_09_27',
     alignment,
+    residue_ladder,
     residue:[
       'I Ching names/text are an optional lookup lens over the six-bit state; no divinatory authority is inferred by this calculation',
       'hexagram quotient loses exact BLOOM/FOLD and SPLIT/RETURN distinctions',
