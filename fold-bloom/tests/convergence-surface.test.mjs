@@ -4,22 +4,28 @@ import {readFileSync} from 'node:fs';
 
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url),'utf8');
 
-test('LIVE exposes source/map/immersion plus remembered-source re-entry without making one remote track sovereign',()=>{
+test('LIVE leads with recovered authored reading while preserving unequal source/map/immersion doors',()=>{
   const root=read('fold-bloom/index.html');
   const html=read('fold-bloom/live/index.html');
   const app=read('fold-bloom/live/app.js');
+  const pack=read('fold-bloom/live/authored/prison-age-2021.json');
   assert.match(root,/href="\.\/live\/">ENTER LIVE →<\/a>/);
   assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
-  assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE →<\/button>/);
-  assert.match(html,/id="songIntroBtn">OPEN LOCAL TRACK<\/button>/);
-  assert.match(html,/id="playBtn">START STILL FIELD →<\/button>/);
-  assert.match(html,/STILL FIELD remains silent and stationary until RELEASE/);
-  assert.match(html,/AUTOPILOT, FIELD SOUND, and source playback are explicit opt-ins/);
-  assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
+  assert.match(html,/RECOVERED SOURCE → LIVE TRAVERSAL → RECURRENCE → RETURN/);
+  assert.match(html,/id="authoredIntroBtn">ENTER · PRISON AGE 2021 →<\/button>/);
+  assert.match(html,/id="readIntroBtn">OPEN YOUR TEXT<\/button>/);
+  assert.match(html,/OTHER SOURCES \/ PLAY MODES/);
+  assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE<\/button>/);
+  assert.match(html,/id="songIntroBtn">LOCAL TRACK<\/button>/);
+  assert.match(html,/id="playBtn">STILL FIELD<\/button>/);
+  assert.match(html,/id="centerMassBtn">CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
   assert.match(html,/data-layer-mode="SOURCE"/);
   assert.match(html,/data-layer-mode="MAP"/);
   assert.match(html,/data-layer-mode="IMMERSION"/);
+  assert.match(app,/openAuthoredReader/);
+  assert.match(pack,/"authority": "RECOVERED_AUTHORED_SOURCE"/);
+  assert.match(pack,/"signature": "AEGINOPRS"/);
   assert.match(app,/CENTER_MASS_SOURCE='[0-9a-f-]{36}'/);
   assert.match(app,/sourceOnly=liveTrack\.sourceActive\(\)&&!liveTrack\.mapped\(\)/);
   assert.match(app,/TAP FOR SOURCE/);
