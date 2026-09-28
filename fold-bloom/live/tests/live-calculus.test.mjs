@@ -41,7 +41,12 @@ test('LIVE calculus keeps native control, model support, history quotient and tr
   const selected=nativeContext.forecasts[1];
   const steering={
     ok:true,authority:'PREVIEW',source:'TEST',direction_ref:'test://fold',verb:'FOLD',strength:1,
-    candidate_count:2,candidate_ambiguity_bits:1,commit_operation:null
+    candidate_count:2,candidate_ambiguity_bits:1,nearest_turn_steps:1,nearest_slots:[4],
+    candidates:[
+      {slot:4,verb:'FOLD',turn_delta:-1,turn_steps:1,turn_direction:'LEFT'},
+      {slot:7,verb:'FOLD',turn_delta:4,turn_steps:4,turn_direction:'RIGHT'}
+    ],
+    commit_operation:null
   };
   const traversal={
     mode:'RELEASE_STEP',grain:'PARAGRAPH',address:'read://x/paragraph/2',index:2,count:9,
@@ -65,6 +70,10 @@ test('LIVE calculus keeps native control, model support, history quotient and tr
   assert.equal(w.steering.authority,'PREVIEW_ONLY');
   assert.equal(w.steering.native_candidate_count,2);
   assert.equal(w.steering.native_candidate_fraction,.5);
+  assert.equal(w.steering.nearest_turn_steps,1);
+  assert.equal(w.steering.nearest_turn_delta,-1);
+  assert.equal(w.steering.nearest_turn_direction,'LEFT');
+  assert.deepEqual(w.steering.nearest_slots,[4]);
   assert.equal(w.steering.commit_operation,null);
   assert.equal(w.traversal.authority,'NAVIGATION_POLICY');
   assert.equal(w.traversal.policy,'RELEASE_THEN_ONE_ADDRESS');
@@ -74,6 +83,6 @@ test('LIVE calculus keeps native control, model support, history quotient and tr
   const summary=liveCalculationSummary(w);
   assert.match(summary,/HERE FOLD×2/);
   assert.match(summary,/H\[110\|011\]/);
-  assert.match(summary,/LENS FOLD 2\/4/);
+  assert.match(summary,/LENS FOLD 2\/4 LEFT×1/);
   assert.match(summary,/RELEASE→STEP PARAGRAPH 3\/9/);
 });
