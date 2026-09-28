@@ -23,7 +23,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  // exercise READ by inspecting the source API implementation through temporary click interception
  let readHref='';const oldAssign=W().location.assign;
  const expectedReturn='/prison-age/?story=successful-escape';
- const docs=new URL('/docs/',W().location.origin);docs.searchParams.set('src','/prison-age/stories/08-successful-escape.md');docs.searchParams.set('return',expectedReturn);docs.searchParams.set('ap_scale','PARAGRAPH');docs.searchParams.set('ap_char','0');
+ const docs=new URL('/docs/',W().location.origin);docs.searchParams.set('src','/prison-age/stories/08-successful-escape.md');docs.searchParams.set('return',expectedReturn);docs.searchParams.set('ap_scale','SENTENCE');docs.searchParams.set('ap_char',String((W().PrisonAgeSourceAPI.snapshot().story?.entry_anchor?D().getElementById('preview').textContent.indexOf(W().PrisonAgeSourceAPI.snapshot().story.entry_anchor):0)));
  rec.readExpected=docs.pathname+docs.search;
 
  await W().PrisonAgeSourceAPI.load('open-air');await wait(()=>W().PrisonAgeSourceAPI.snapshot().story?.id==='open-air'&&W().PrisonAgeSourceAPI.snapshot().sourceLength>0,5000,'source switch');
@@ -34,7 +34,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  await W().PrisonAgeSourceAPI.ride();
  await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),18000,'LIVE handoff');
  const live=W().FoldBloomLive.read.current();rec.live={label:live.source.label,id:live.source.id,authority:live.source.authority,kind:live.source.kind,grain:live.course.grain,mode:live.course.mode,address:live.course.address,text:live.witness?.text,returnAddress:live.returnAddress,dataset:D().documentElement.dataset.foldBloomReadRide};
- if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!==expectedReturn||!/Season Seven began with an open door\./.test(live.witness?.text||'')||rec.live.dataset!=='ready')throw Error('LIVE source handoff');
+ if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='SENTENCE'||live.returnAddress!==expectedReturn||live.witness?.text!=='Season Seven began with an open door.'||rec.live.dataset!=='ready')throw Error('LIVE source handoff');
 
  f.src='/prison-age/reader-0.2/';
  await wait(()=>/I'M ALWAYS BEHIND YOU/.test(D().body.textContent||''),12000,'legacy reader');
