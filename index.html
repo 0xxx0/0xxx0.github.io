@@ -58,6 +58,18 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .sRail u{text-decoration:none;color:var(--mut);margin-right:8px;white-space:nowrap}
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
+
+/* SEMANTIC SCALE — projection aperture, never browser/CSS zoom */
+.semanticScale{margin-top:4px;display:flex;align-items:center;gap:4px;padding:4px 5px;border:1px solid var(--line);background:#080b0d;min-height:31px}
+.semanticScale>.signalGlyph{margin-inline-end:1px}.semanticScale>strong{font-size:6.5px;letter-spacing:.15em;color:var(--mut);white-space:nowrap}
+.scaleBands{display:grid;grid-template-columns:repeat(3,minmax(54px,1fr));gap:1px;min-width:190px;background:#1b2429;border:1px solid #1b2429}
+.semanticScale button{min-height:22px;padding:3px 6px;border:0;background:#090d0f;color:#68757b;font-size:6.5px;letter-spacing:.06em}
+.semanticScale button:hover{background:#11181c;color:var(--ink)}.semanticScale button.on{background:#162027;color:var(--cool);box-shadow:inset 0 -2px 0 var(--cool)}
+.semanticScale .scaleStep{border:1px solid var(--line);font-size:11px;line-height:1;padding:2px 7px}.semanticScale .scaleStep:disabled{opacity:.25;cursor:default}
+.semanticScale .scaleFit{border:1px solid var(--line)}.semanticScale .scaleFit.on{color:var(--green);border-color:#49684e;box-shadow:none}
+.semanticScale .scaleFovea{border:1px solid var(--line);margin-left:2px}.semanticScale .scaleFovea.on{color:var(--gold);border-color:var(--gold);box-shadow:none}
+.scaleMeta{margin-left:auto;color:var(--mut);font-size:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38ch}
+html[data-density="MARK"] .scaleMeta{display:none}
 .catchup{--signal-a:rgba(114,188,231,.13);--signal-b:rgba(237,116,71,.12);margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{position:relative;isolation:isolate;overflow:hidden;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:7px 8px;cursor:pointer;background:#080b0d}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary>*{position:relative;z-index:2}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchup>summary::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .18s ease}.catchup[data-signal="CHANGED"]>summary::before{opacity:.65;background:repeating-linear-gradient(104deg,transparent 0 8px,var(--signal-a) 8px 9px,transparent 9px 18px)}.catchup[data-signal="REALITY"]>summary::before{opacity:.92;background:repeating-linear-gradient(26deg,transparent 0 10px,var(--signal-b) 10px 11px,transparent 11px 20px),repeating-linear-gradient(-28deg,transparent 0 15px,rgba(213,173,104,.08) 15px 16px,transparent 16px 29px)}.catchup[data-signal="GITHUB"]>summary::before{opacity:.75;background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(213,173,104,.12) 13px 14px,transparent 14px 26px)}.catchup[data-signal="MIXED"]>summary::before{opacity:1;background:repeating-linear-gradient(27deg,transparent 0 9px,var(--signal-a) 9px 10px,transparent 10px 19px),repeating-linear-gradient(-29deg,transparent 0 11px,var(--signal-b) 11px 12px,transparent 12px 23px);background-size:37px 37px,43px 43px;animation:signalInterference 7s linear infinite}.catchup[data-signal="MIXED"]{border-color:#50433a}.catchup[data-signal="REALITY"]>summary b,.catchup[data-signal="MIXED"]>summary b{color:#ffd0bd}.catchup[open]>summary{border-bottom:1px solid var(--line)}@keyframes signalInterference{to{background-position:37px 0,-43px 0}}@media(prefers-reduced-motion:reduce){.catchup[data-signal="MIXED"]>summary::before{animation:none}}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchGap{grid-column:2;border-top:1px dotted #263137;padding-top:4px;color:#9aa6aa;font:6.5px/1.35 system-ui,sans-serif}.catchGap b{color:var(--gold);font-size:6px;letter-spacing:.11em;margin-right:4px}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchSignals{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.catchSignal{background:#080b0d;padding:6px 7px;min-width:0}.catchSignalHead{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6px;letter-spacing:.1em}.catchSignalBody{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.catchSignalBody button,.catchSignalBody a{padding:5px 6px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font-size:6.5px;text-decoration:none}.catchSignalBody a.hot{border-color:var(--hot);color:#ffd0bd}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
 .catchReality{margin:0;border-top:1px solid var(--line);padding:0 7px}.catchReality>summary{padding:6px 0}.catchReality[open]>summary{border-bottom:1px solid #1b2429}@media(max-width:760px){.catchGrid,.catchSignals{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a,.catchSignalBody button,.catchSignalBody a{min-height:40px}}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
@@ -136,6 +148,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .aperture{grid-template-columns:34px minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
  .capCell{padding:10px}.capK{font-size:10px}.capV{font-size:14px}.capSub{font-size:10px;line-height:1.4;white-space:normal}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
+ .semanticScale{gap:5px;padding:6px;flex-wrap:wrap}.semanticScale>strong{font-size:10px}.scaleBands{order:2;flex:1 1 100%;min-width:0}.semanticScale button{min-height:42px;font-size:10px}.semanticScale .scaleStep{font-size:18px;min-width:42px}.scaleMeta{font-size:9px;max-width:none;flex:1 1 160px}
 }
 </style>
 </head>
@@ -167,6 +180,17 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <span id="syncCurrent">loading current…</span>
   <span class="syncLocal"><b>φ</b> <span id="syncFocus">/</span></span>
   <span id="syncRepo">HEAD —</span>
+</div>
+<div class="semanticScale fieldSignalBar" id="scaleRail" data-field-signal="CLEAR" data-scale-band="ROUTE" aria-label="FIELD semantic scale">
+  <span class="signalGlyph" aria-hidden="true"></span><strong>SCALE</strong>
+  <button class="scaleStep" id="scaleOut" title="Semantic zoom out: preserve focus, compress repeated detail" aria-label="Semantic zoom out">−</button>
+  <div class="scaleBands" role="group" aria-label="Semantic scale band">
+    <button data-scale-band="FIELD">FIELD</button><button data-scale-band="ROUTE">ROUTE</button><button data-scale-band="OBJECT">OBJECT</button>
+  </div>
+  <button class="scaleStep" id="scaleIn" title="Semantic zoom in: preserve focus, reveal addressed detail" aria-label="Semantic zoom in">＋</button>
+  <button class="scaleFit" id="scaleFit" title="Return semantic scale to adaptive viewport fit">FIT</button>
+  <button class="scaleFovea" id="scaleFovea" title="Temporary local detail at the point of attention; does not change global scale">◎ FOVEA</button>
+  <span class="scaleMeta" id="scaleMeta">adaptive semantic aperture · focus preserved</span>
 </div>
 
 <details class="catchup" id="catchupFold" data-signal="CLEAR">
@@ -245,7 +269,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <summary><b>MAP / PROJECTIONS</b><span id="mapMeta">visual · pulse · structure · evolve · recent</span></summary>
   <div class="foldBody">
     <div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="PULSE">PULSE</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-mode="VERSIONS">VERSIONS</button><button data-mode="RECENT">RECENT</button><input id="mapSearch" type="search" placeholder="/ find route"></div>
-    <div id="mapVisual" class="mapStage"><div class="mapCanvas"><svg id="fieldMap" viewBox="0 0 1000 430" aria-label="FIELD visual sitemap"></svg></div><aside class="mapSide"><b id="mapTitle">FIELD</b><span id="mapPath">/</span><button id="mapUp">UP</button><button id="mapRootBtn">ROOT</button><button id="mapDrill">DRILL SELECTED</button></aside></div>
+    <div id="mapVisual" class="mapStage"><div class="mapCanvas"><svg id="fieldMap" viewBox="0 0 1000 430" aria-label="FIELD visual sitemap"></svg></div><aside class="mapSide"><b id="mapTitle">FIELD</b><span id="mapPath">/</span><span>address depth · focus preserved</span><button id="mapUp" title="Rise one parent depth without changing held route">DEPTH −</button><button id="mapRootBtn">ROOT</button><button id="mapDrill" title="Descend toward the held route when it has children">DEPTH +</button></aside></div>
     <div id="mapList" class="mapList" hidden></div>
   </div>
 </details>
@@ -555,6 +579,7 @@ function renderCatchup(){
  const signal=window.FieldSignal?.combine({changed:changedCount>0,reality:gates.length>0,external:issueCount>0})||(gates.length?'REALITY':issueCount?'EXTERNAL':changedCount?'CHANGED':'CLEAR');
  $('catchupFold')?.setAttribute('data-signal',issueCount&&signal==='EXTERNAL'?'GITHUB':signal);
  const signalBar=$('catchupFold')?.querySelector(':scope > summary');if(signalBar)window.FieldSignal?.apply(signalBar,signal);
+ if($('scaleRail'))window.FieldSignal?.apply($('scaleRail'),signal);
  meta.textContent=(gates.length?gates.length+' REALITY':'REALITY CLEAR')+' · '+(issueCount?issueCount+' GH':'GH CLEAR')+' · '+(changedCount?changedCount+' CHANGE':'CHANGE CLEAR');
  seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
  if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
@@ -590,12 +615,21 @@ function rewindCaughtUp(){
  else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
  renderCatchup();
 }
+function renderSemanticScale(st=window.FieldPresentation?.state?.()){
+ const rail=$('scaleRail');if(!rail||!st)return;
+ rail.dataset.scaleBand=st.band||'ROUTE';
+ rail.querySelectorAll('[data-scale-band]').forEach(b=>b.classList.toggle('on',b.dataset.scaleBand===st.band));
+ $('scaleOut').disabled=st.band==='FIELD';$('scaleIn').disabled=st.band==='OBJECT';$('scaleFit').classList.toggle('on',!!st.auto);
+ $('scaleFovea').classList.toggle('on',!!window.FoveaLens?.on?.());
+ $('scaleMeta').textContent=(st.auto?'FIT '+st.baseline:'LOCKED '+st.density)+' · φ '+(focus?.href||'/')+' · identity fixed';
+}
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
  const fronts=(current?.active_fronts||[]).length,heads=(current?.current_heads||[]).length;
  cur.textContent=(current?.updated||'—')+' · '+fronts+' fronts · '+heads+' heads';
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
+ renderSemanticScale();
 }
 function routeForRepoFile(path){
  const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
@@ -845,11 +879,18 @@ $('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
+$('scaleOut').onclick=()=>window.FieldPresentation?.step?.(-1,'FIELD scale out');
+$('scaleIn').onclick=()=>window.FieldPresentation?.step?.(1,'FIELD scale in');
+$('scaleFit').onclick=()=>window.FieldPresentation?.fit?.('FIELD scale fit');
+document.querySelectorAll('#scaleRail [data-scale-band]').forEach(b=>b.onclick=()=>window.FieldPresentation?.setBand?.(b.dataset.scaleBand,'FIELD scale band'));
+$('scaleFovea').onclick=()=>{window.FoveaLens?.toggle?.();renderSemanticScale()};
 window.addEventListener('field-density',()=>{renderAxes();renderFeed()});
+window.addEventListener('field-scale',e=>renderSemanticScale(e.detail));
+window.addEventListener('field-fovea',()=>renderSemanticScale());
 [0,400,1200,2500].forEach(t=>setTimeout(()=>{try{updateStatusRail()}catch(_){}},t));
 function fieldPathTo(href){const out=['/'];let h=href,guard=0,tmp=[];while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}return out.concat(tmp)}
-function fieldUiState(){return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1)}}
-function fieldRestore(st){if(!st)return;axisScrollMuteUntil=performance.now()+220;Object.values(scrollTimers).forEach(clearTimeout);if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;mapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()}
+function fieldUiState(){return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1),semanticScale:window.FieldPresentation?.state?.()||null}}
+function fieldRestore(st){if(!st)return;if(st.semanticScale){if(st.semanticScale.auto)window.FieldPresentation?.fit?.('restore');else if(st.semanticScale.density)window.FieldPresentation?.setDensity?.(st.semanticScale.density,'restore')}axisScrollMuteUntil=performance.now()+220;Object.values(scrollTimers).forEach(clearTimeout);if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;mapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()}
 function fieldProject(mode){if(mode==='AXIAL_LATEST'){$('mapFold').open=false;document.getElementById('axialLatest')?.scrollIntoView({block:'start'});notifyFieldIndex();return}if(!['VISUAL','PULSE','STRUCTURE','EVOLVE','VERSIONS','RECENT'].includes(mode))return;mapMode=mode;$('mapFold').open=true;renderMap();notifyFieldIndex()}
 function fieldDive(){const target=focus?.href;if(!target)return;const path=fieldPathTo(target),i=path.indexOf(mapRoot);if(i>=0&&i<path.length-1)mapRoot=path[i+1];else mapRoot=focus?.parent||'/';mapSelected=target;$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
 function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}

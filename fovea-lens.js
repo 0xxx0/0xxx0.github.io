@@ -162,9 +162,9 @@ function readout(t){
   if(!t||!t.href){o.textContent='';o.dataset.kind='';return}
   const r=MAP()?.get?.(t.href)||{};
   const acts=(window.__fieldAct&&window.__fieldAct.siblings)?.()?.length||0;
-  const st=String(r.state||'—'), kd=String(r.kind||'—');
+  const st=String(r.state||'—'), kd=String(r.kind||'—'),scaleBand=window.FieldPresentation?.state?.().band||'ROUTE';
   const meta=(st.toLowerCase()===kd.toLowerCase())?st:(st+' · '+kd);
-  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(meta)+(acts?' · '+acts+' peers':'')+'</i>';
+  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(scaleBand+' · '+meta)+(acts?' · '+acts+' peers':'')+'</i>';
   o.dataset.kind=r.state||'';
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -195,6 +195,12 @@ function onClick(e){
 }
 function onWheel(e){
   if(!on)return;
+  if(e.altKey&&window.FieldPresentation?.step){
+    e.preventDefault();
+    window.FieldPresentation.step(e.deltaY>0?-1:1,'FOVEA alt-wheel');
+    setTimeout(()=>{draw();readout(target)},40);
+    return;
+  }
   const d=e.deltaY>0?1:-1;
   window.__fieldAct?.peer?.(d);
   setTimeout(place,40);
@@ -260,7 +266,7 @@ function toggle(next){
     window.addEventListener('mouseleave',onLeave);
     window.addEventListener('mouseenter',onEnter);
     window.addEventListener('click',onClick,true);
-    window.addEventListener('wheel',onWheel,{passive:true});
+    window.addEventListener('wheel',onWheel,{passive:false});
     loop();
   }else{
     window.removeEventListener('mousemove',onMove,MOVE);
@@ -271,13 +277,14 @@ function toggle(next){
     cancelAnimationFrame(raf);
     if(el){el.style.opacity='0';el.querySelectorAll('.fovBurst').forEach(b=>b.remove())}
   }
+  window.dispatchEvent(new CustomEvent('field-fovea',{detail:{on,semanticScale:window.FieldPresentation?.state?.()||null}}));
   return on;
 }
 
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.';}
+    b.title='READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click selects, shift-click opens, scroll steps peers, alt-scroll changes FIELD semantic scale. Nothing opens unless you mean it. Toggle: f key.';}
   window.addEventListener('keydown',onKey);
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
