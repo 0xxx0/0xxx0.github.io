@@ -48,5 +48,5 @@ assert(route?.version==='0.3','active route version');
 assert(route?.tier==='FIELD','active FIELD tier');
 assert(route?.role.includes('Source-first'),'active route role');
 assert(route?.field?.exit_paths?.some(x=>x.class==='FOLD_BLOOM_LIVE'),'LIVE exit');
-assert(legacyRoute?.state==='FROZEN'&&legacyRoute?.showcase_card===false,'legacy reader must be frozen and hidden');
-console.log('PRISON AGE SOURCE / READ-RIDE CONTRACT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· LEGACY 0.2 FROZEN');
+assert(legacyRoute?.state==='FROZEN_DONOR'&&legacyRoute?.showcase_card===false,'legacy reader must be frozen and hidden');
+console.log('PRISON AGE SOURCE / READ-RIDE CONTRACT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· LEGACY 0.2 FROZEN_DONOR');
