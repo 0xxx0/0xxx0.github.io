@@ -80,7 +80,25 @@ function probe(){
     rec.guideAuthority=ink.guide.authority;
     rec.guideAddress=ink.guide.address;
     rec.guideStates=ink.guide.points.length;
+    rec.guideCursor=ink.guide.cursor;
+    rec.guideFocus={...ink.guide.focus};
     rec.address=addr;
+    rec.pathControlsVisible=!D().getElementById('inkPathControls').hidden;
+    rec.expectedFocusAddress=steered.path.steps[0].address;
+
+    D().getElementById('inkPathStep').click();
+    await wait(()=>W().FoldBloomFieldLab.ink?.().guide?.cursor===2,2000,'INK path step');
+    const steppedInk=W().FoldBloomFieldLab.ink().guide;
+    rec.afterInkStep={cursor:steppedInk.cursor,focus:{...steppedInk.focus},address:D().getElementById('addressRead').textContent||''};
+
+    D().getElementById('inkPathReturn').click();
+    await wait(()=>W().FoldBloomFieldLab.mode()==='DATA'&&W().FoldBloomFieldLab.stateStep().cursor===2,2000,'INK return to DATA');
+    rec.returnedData={mode:W().FoldBloomFieldLab.mode(),cursor:W().FoldBloomFieldLab.stateStep().cursor,address:D().getElementById('addressRead').textContent||''};
+
+    D().getElementById('stateInk').click();
+    await wait(()=>W().FoldBloomFieldLab.mode()==='INK'&&W().FoldBloomFieldLab.ink?.().guide?.cursor===2,2000,'DATA re-enter INK same focus');
+    rec.reenteredGuide=W().FoldBloomFieldLab.ink().guide;
+
     const x=box.left+box.width*.5,y=box.top+box.height*.5;
     canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x,clientY:y,pressure:.65}));
     canvas.dispatchEvent(new (W().PointerEvent)('pointermove',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
@@ -92,8 +110,11 @@ function probe(){
     rec.pigment=projection.pigment;
     rec.water=projection.water;
     const pass=rec.beforeMode==='DATA'&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
-      rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
-      rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
+      rec.guideAddress===rec.pathAddress&&rec.guideCursor===1&&rec.guideFocus?.token==='H[010|110]'&&rec.guideFocus?.address===rec.expectedFocusAddress&&rec.address===rec.expectedFocusAddress&&rec.pathControlsVisible===true&&rec.guideStates===rec.order.length+1&&
+      rec.afterInkStep?.cursor===2&&rec.afterInkStep?.focus?.token==='H[011|110]'&&rec.afterInkStep?.address===steered.path.steps[1].address&&
+      rec.returnedData?.mode==='DATA'&&rec.returnedData?.cursor===2&&rec.returnedData?.address===steered.path.steps[1].address&&
+      rec.reenteredGuide?.cursor===2&&rec.reenteredGuide?.focus?.address===steered.path.steps[1].address&&
+      rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&rec.returnGuide?.cursor===2&&rec.returnGuide?.focus?.address===steered.path.steps[1].address&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
     done(pass,rec);
   })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
