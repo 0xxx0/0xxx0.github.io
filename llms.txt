@@ -25,3 +25,5 @@ The packet has authority `NONE`, omits live φ focus, binds its revision only to
 Deepen selectively: open only the specific CURRENT head / manifest route / WAITING item required by the selected object. Canonical authority remains in the source files; selective reading does not create a second store.
 
 Before pushing, run the CI gate list locally: `node tools/ship-check.mjs` (`--fast`, `--json`, `--only <regex>`).
+
+Public-surface redaction gate: `python3 scripts/check-redaction-aperture.py` (unredacted sensitive material fails the push; exact-triple allowlist in `scripts/redaction-aperture-allow.json`).
