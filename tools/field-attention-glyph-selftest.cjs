@@ -37,6 +37,7 @@ const headOpt={children,representation:rep,size:68};
 const a=P.descriptor(head,route,headOpt),b=P.descriptor(head,route,headOpt);
 assert.deepEqual(a,b,'CURRENT head derivation must be deterministic');
 assert.equal(a.descriptor.address.route,route.href);
+assert.equal(a.model.id,route.href,'held CURRENT-head witness must preserve route identity');
 assert.equal(a.model.authority,'VIEW');
 assert.ok(a.model.operations.length>=1&&a.model.operations.length<=3);
 assert.ok(a.model.operations.every(x=>x.authority==='VIEW'),'glyph cannot mint effect authority');
