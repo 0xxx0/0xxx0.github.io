@@ -1,9 +1,10 @@
 (()=>{'use strict';
 /*
 FIELD PRESENTATION v0.2 — semantic scale, not CSS zoom.
-Adaptive FIT chooses a density from viewport width. An explicit operator choice
-locks FIELD / ROUTE / OBJECT until FIT is restored. Route identity, focus,
-authority and browser zoom are never mutated by this projection.
+Viewport width chooses presentation density automatically. Legacy explicit
+density locks are cleared on boot; scale is an implementation projection, not
+a root control. Route identity, focus, authority and browser zoom are never
+mutated by this projection.
 */
 const LEVELS=[
   {name:'MARK',max:520,band:'FIELD'},
@@ -17,10 +18,8 @@ function indexOfDensity(name){const i=LEVELS.findIndex(x=>x.name===name);return 
 function indexOfBand(name){const s=String(name||'').toUpperCase(),i=LEVELS.findIndex(x=>x.band===s);return i<0?null:i}
 function levelFor(width){return LEVELS.find(x=>width<=x.max)?.name||'FULL'}
 function readOverride(){
- try{
-  const raw=JSON.parse(localStorage.getItem(KEY)||'null');
-  return raw&&indexOfDensity(raw.density)!==null?raw.density:null;
- }catch(_){return null}
+ try{localStorage.removeItem(KEY)}catch(_){}
+ return null;
 }
 let override=readOverride(),lastScaleKey='';
 function baseline(width=widthNow()){return levelFor(width)}
