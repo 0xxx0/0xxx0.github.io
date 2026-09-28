@@ -774,3 +774,121 @@ FIELD LAB exposes this as direct manipulation: future lines in the center stack 
 The end-to-end browser proof now exercises a three-line interval: choose L5 first, witness it, choose L3 second while preserving prefix L5, then carry the resulting ordered path into INK and return authored pigment evidence.
 
 After this transfer is verified, PR #483 should remain provenance/donor only rather than a second maintained change-lattice implementation.
+
+
+## 2026-09-29 — complete NEXT frontier / solve-for-all refinement
+
+The prior lattice pass made the whole finite state space visible, but ordinary use still privileged one selected chain. The current refinement makes the **current frontier** first-class without promoting it into a planner.
+
+New reusable witnesses:
+
+- `stateFrontierCalculation(from,to,order,cursor)`
+- `exactFormFrontierCalculation(fromForm,toForm,order,cursor,steering)`
+
+### State frontier
+
+At any witnessed STEP prefix, enumerate **every still-lawful one-line successor**. For each candidate retain:
+
+- addressed line;
+- exact bit transition and derived Yi endpoint line value;
+- successor six-bit/hex token;
+- lower/upper trigram consequence;
+- stable factoradic path address if that edge is chosen next;
+- number of future maximal paths after the edge;
+- number of distinct prefix histories collapsed into the successor.
+
+For a transition with `r` remaining moving lines:
+
+```text
+NEXT candidates                 = r
+future paths from current       = r!
+future paths after any NEXT     = (r-1)!
+histories collapsed at depth d  = d!
+```
+
+This makes two different ambiguities simultaneously visible:
+
+1. **future ambiguity** — what can still happen from here;
+2. **history ambiguity** — how many prior orders can already have converged on the same current vertex.
+
+A compact state label is therefore not just a compression of object detail; it may also be a compression of **trajectory history**.
+
+### Exact-form + J-space support overlay
+
+When exact FOLD/BLOOM forms and a J-Lens support calculation are both supplied, `exactFormFrontierCalculation(...)` annotates every exact NEXT edit with:
+
+- target control verb;
+- whether the six-bit quotient visibly changes;
+- exported top-k conditional model weight for that target verb, when present;
+- current native forecast candidate count;
+- support status;
+- remaining exact edit orders.
+
+The annotation is deliberately typed:
+
+```text
+MODEL READOUT
+  → CURRENT-EPOCH HOST SUPPORT
+  → annotation on NEXT frontier
+
+NOT:
+MODEL READOUT
+  → ranking
+  → permission
+  → queued multi-step plan
+```
+
+Every native-support annotation is scoped `CURRENT_NATIVE_APERTURE_ONLY`. A real commit invalidates that aperture; the next intent must be re-resolved against the host's new state.
+
+### FIELD LAB experience
+
+LAB DATA now exposes this frontier directly below the selected STEP path.
+
+Each NEXT button answers, before selection:
+
+```text
+which line?
+what transition?
+what trigram consequence?
+how many futures remain?
+```
+
+Selecting a NEXT edge uses the existing prefix-preserving `steerStepOrder(...)` primitive. Already-witnessed history is frozen; only the unseen suffix is reranked. The same frontier is preserved in the existing LAB RETURN packet.
+
+Browser proof extends the existing change→INK and mobile smokes rather than creating a new test harness:
+
+- 3-line interval begins with 3 NEXT candidates and 6 future paths;
+- after witnessing L5, frontier contracts to 2 NEXT candidates and 2 future paths;
+- steering L3 next preserves the witnessed L5 prefix;
+- RETURN carries the current frontier witness;
+- the selected path may still project to INK without changing authority.
+
+### Solve-for-all result
+
+The shared experimental grammar is now better stated as:
+
+```text
+STATE
+→ APERTURE / FRONTIER
+→ ALL LAWFUL NEXT CANDIDATES
+→ INTENT
+→ SUPPORT / RESIDUE
+→ SELECT ONE EDGE
+→ WITNESS
+→ APERTURE′ / FRONTIER′
+→ RE-RESOLVE
+→ RETURN
+```
+
+The crucial improvement is **ALL before ONE**.
+
+A useful system should expose the lawful alternatives and their residue before collapsing them into a chosen path. That principle applies beyond six-bit state:
+
+- UI actions;
+- model-tool plans;
+- physical procedures;
+- repository operations;
+- reading/navigation choices;
+- host/game operations.
+
+The representation may differ radically by host. The invariant is that candidate space, selected path, evidence, and effect authority remain separable and recoverable.

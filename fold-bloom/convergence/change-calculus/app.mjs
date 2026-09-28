@@ -70,6 +70,26 @@ function statePathWitness(path,state){
     '<p>Same endpoints do not imply the same path. Intermediate state is evidence whenever downstream consequences can depend on order.</p>';
 }
 
+
+function stateFrontierWitness(frontier){
+  if(!frontier?.ok)return '';
+  const rows=frontier.candidates.map(x=>'<tr><td>L'+x.line+'</td><td>'+esc(x.transition)+' · '+x.iching_line_value+'</td><td>'+esc((x.before_trigram?.glyph||'')+' '+(x.before_trigram?.key||'OPEN')+' → '+(x.after_trigram?.glyph||'')+' '+(x.after_trigram?.key||'OPEN'))+'</td><td>'+esc(x.after_token)+'</td><td>'+x.future_paths_after+'</td><td>'+x.histories_collapsed_at_successor+'</td><td>'+esc(x.order_address_if_chosen||'—')+'</td></tr>').join('');
+  return '<h2 style="margin-top:12px">CURRENT FRONTIER · ALL LAWFUL NEXT EDGES</h2><div class="metrics">'+
+    metric('cursor',frontier.cursor)+metric('NEXT',frontier.candidates.length)+metric('future paths',frontier.current_future_paths)+
+    metric('future order info',frontier.current_future_order_ambiguity_bits+' bits')+metric('histories collapsed here',frontier.current_histories_collapsed)+
+    '</div><p><code>'+esc(frontier.current.address)+'</code> · <code>'+esc(frontier.current.token)+'</code></p>'+
+    (rows?'<table><thead><tr><th>NEXT</th><th>line</th><th>trigram consequence</th><th>successor</th><th>future paths</th><th>histories at successor</th><th>path if chosen</th></tr></thead><tbody>'+rows+'</tbody></table>':'<p class="cool">Target reached. No lawful one-line successors remain inside this endpoint interval.</p>')+
+    '<p>'+esc(frontier.law)+'</p>';
+}
+function exactFrontierWitness(frontier){
+  if(!frontier?.ok)return '';
+  const rows=frontier.candidates.map(x=>'<tr><td>L'+x.line+'</td><td>'+esc(x.from_verb+'→'+x.to_verb)+'</td><td>'+esc(x.after_token)+(x.quotient_changed?'':' · quotient residue')+'</td><td>'+(x.model_topk_conditional_weight==null?'—':x.model_topk_conditional_weight)+'</td><td>'+x.native_candidate_count+'</td><td>'+esc(x.support_status)+'</td><td>'+x.future_paths_after+'</td></tr>').join('');
+  return '<h2 style="margin-top:12px">EXACT NEXT FRONTIER · J-SPACE / HOST SUPPORT OVERLAY</h2><div class="metrics">'+
+    metric('cursor',frontier.cursor)+metric('NEXT',frontier.candidates.length)+metric('future exact orders',frontier.current_future_paths)+metric('authority',frontier.authority)+
+    '</div>'+(rows?'<table><thead><tr><th>NEXT</th><th>exact edit</th><th>hex witness</th><th>top-k weight</th><th>native candidates</th><th>support</th><th>future orders</th></tr></thead><tbody>'+rows+'</tbody></table>':'<p class="cool">Exact target reached.</p>')+
+    '<p>'+esc(frontier.law)+'</p><p><b>Epoch law:</b> any native-support annotation is valid only for the supplied current forecast aperture. A real commit requires a fresh host aperture before the next intent is interpreted.</p>';
+}
+
 function calculate(){
   let trace=null,forecasts=[];try{trace=JSON.parse($('#trace').value)}catch(_){}try{forecasts=JSON.parse($('#forecasts').value)}catch(_){}
   const [layer,position]=String($('#target').value).split(',').map(Number);
@@ -82,7 +102,7 @@ function calculate(){
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
-  const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering,g=frame.promotion;
+  const s=frame.state,sp=frame.state_step,sf=frame.state_frontier,e=frame.exact,p=frame.step,ef=frame.exact_frontier,j=frame.steering,g=frame.promotion;
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
@@ -90,7 +110,8 @@ function calculate(){
     metric('order ambiguity',s.metrics.step_order_ambiguity_bits+' bits')+
     '</div><code>'+esc(s.from.token+'  '+s.mask+'  →  '+s.to.token)+'</code>'+
     '<p>'+esc(s.formulas.one_line_step_orders)+'. The moving set specifies changed coordinates, not their temporal order.</p>'+
-    (sp?.ok?statePathWitness(sp,s):'');
+    (sp?.ok?statePathWitness(sp,s):'')+
+    (sf?.ok?stateFrontierWitness(sf):'');
 
   const fromHex=hexLabel(s.from.binary),toHex=hexLabel(s.to.binary);
   $('#ichingOut').innerHTML='<h2>I CHING LOOKUP · NOT A CAST</h2><p>'+fromHex+'<br>→ '+toHex+'</p>'+
@@ -105,7 +126,8 @@ function calculate(){
       metric('exact edits',e.metrics.exact_changed_lines)+metric('visible quotient edits',e.metrics.quotient_changed_lines)+
       metric('invisible exact edits',e.metrics.quotient_invisible_exact_changes)+metric('exact STEP orders',p.possible_one_edit_orders)+
       '</div><p><code>4^6 = 4096 → 2^6 = 64; fiber = 64 exact forms / hexagram</code>. This loses 6 uniform-description bits. Loss does not imply uselessness; it means the quotient cannot silently become full control state.</p>'+
-      '<table><thead><tr><th>step</th><th>address</th><th>exact edit</th><th>hex token</th><th>quotient moves?</th></tr></thead><tbody>'+rows+'</tbody></table>';
+      '<table><thead><tr><th>step</th><th>address</th><th>exact edit</th><th>hex token</th><th>quotient moves?</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      (ef?.ok?exactFrontierWitness(ef):'');
   }
 
   if(j?.ok){

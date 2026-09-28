@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
@@ -599,7 +599,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -628,8 +628,31 @@ function statePreviewBits(){
   if(cursor<=0||!step.steps.length)return normalizeStateBits(step.from_token);
   return normalizeStateBits(step.steps[Math.min(cursor-1,step.steps.length-1)].after_binary);
 }
+function refreshStateFrontier(){
+  const step=data.stateStep,calc=data.stateCalc;
+  data.stateFrontier=calc?.ok&&step?.ok
+    ?stateFrontierCalculation($('#stateFrom')?.value,$('#stateTo')?.value,step.selected_order,data.stateStepCursor)
+    :null;
+  return data.stateFrontier;
+}
+function syncStateFrontierUI(frontier=refreshStateFrontier()){
+  const box=$('#stateFrontierRead');if(!box)return;
+  box.replaceChildren();
+  if(!frontier?.ok){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · UNRESOLVED';box.append(span);return}
+  if(!frontier.candidates.length){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · TARGET REACHED · '+frontier.current.token;box.append(span);return}
+  for(const candidate of frontier.candidates){
+    const button=document.createElement('button');
+    button.type='button';button.className=candidate.selected_by_current_order?'cool':'';
+    button.dataset.stateNextLine=String(candidate.line);
+    const before=candidate.before_trigram?.glyph||'',after=candidate.after_trigram?.glyph||'';
+    button.textContent='L'+candidate.line+' · '+candidate.transition+' = '+candidate.iching_line_value+' · '+before+'→'+after+' · '+candidate.future_paths_after+' FUTURE';
+    button.title='Choose L'+candidate.line+' next · path '+(candidate.order_index_if_chosen+1)+'/'+(data.stateStep?.possible_one_line_orders||1)+' · '+candidate.histories_collapsed_at_successor+' histories meet at successor';
+    button.onclick=()=>steerStateNextLine(candidate.line);
+    box.append(button);
+  }
+}
 function syncStateStepUI(){
-  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock();
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock(),frontier=refreshStateFrontier();
   if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
   if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
   if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
@@ -656,6 +679,7 @@ function syncStateStepUI(){
       $('#stateStepRead').textContent='PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+x.step+'/'+step.steps.length+' · L'+x.line+' · '+x.from_bit+'→'+x.to_bit+' = '+x.iching_line_value+' · '+x.after_token;
     }
   }
+  syncStateFrontierUI(frontier);
   if($('#stateResidueRead')){
     const ladder=data.stateResidue,moving=ladder?.levels?.find(x=>x.id==='MOVING_SET');
     if(!ladder||!moving)$('#stateResidueRead').textContent='RESIDUE · UNRESOLVED';
@@ -674,6 +698,7 @@ function syncStateChange({preserveOrder=false}={}){
   if(indexed?.ok)data.stateOrderIndex=indexed.index;
   data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
   data.stateLattice=calc?.ok?changeLatticeCalculation(from,to):null;
+  data.stateFrontier=calc?.ok&&data.stateStep?.ok?stateFrontierCalculation(from,to,data.stateStep.selected_order,data.stateStepCursor):null;
   data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep,lattice:data.stateLattice});
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
@@ -1077,7 +1102,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -1124,5 +1149,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateLatticeHits||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
