@@ -24,6 +24,7 @@ const boot=new URLSearchParams(location.search);
 if(boot.get('from'))$('#fromState').value=boot.get('from');
 if(boot.get('to'))$('#toState').value=boot.get('to');
 if(boot.get('order'))$('#stateOrderIndex').value=boot.get('order');
+if(boot.get('cursor'))$('#stateCursor').value=boot.get('cursor');
 
 let hexByBin={};
 fetch('/iching/hexagrams.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{for(const h of d.hexagrams||[])hexByBin[h.binary]=h;calculate()}).catch(()=>calculate());
@@ -71,10 +72,11 @@ function calculate(){
   const frame=appliedResearchFrame({
     fromState:$('#fromState').value,toState:$('#toState').value,
     stateStepOrder:indexed?.ok?indexed.order:null,
+    stateStepCursor:Number($('#stateCursor')?.value||0),
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
-  const s=frame.state,sp=frame.state_step,e=frame.exact,p=frame.step,j=frame.steering,g=frame.promotion;
+  const s=frame.state,sp=frame.state_step,sl=frame.state_lattice,e=frame.exact,p=frame.step,j=frame.steering,g=frame.promotion;
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
@@ -82,6 +84,16 @@ function calculate(){
     metric('order ambiguity',s.metrics.step_order_ambiguity_bits+' bits')+
     '</div><code>'+esc(s.from.token+'  '+s.mask+'  →  '+s.to.token)+'</code>'+
     '<p>'+esc(s.formulas.one_line_step_orders)+'. The moving set specifies changed coordinates, not their temporal order.</p>'+
+    (sl?.ok?'<h2 style="margin-top:12px">BOOLEAN CHANGE SUBCUBE</h2><div class="metrics">'+
+      metric('dimension',sl.dimension+'D')+metric('vertices',sl.vertex_count)+metric('edges',sl.edge_count)+
+      metric('max chains',sl.maximal_chains)+metric('depth',sl.cursor+'/'+sl.dimension)+
+      metric('layer width',sl.current_layer_width)+metric('future chains',sl.future_chains)+
+      metric('history collapsed',sl.collapsed_prefix_orderings+' · '+sl.collapsed_prefix_order_bits+' bits')+
+      '</div><p><code>'+esc(sl.current.vertex_address)+'</code></p>'+
+      (sl.next_candidates.length?'<table><thead><tr><th>next</th><th>intermediate</th><th>continuations</th></tr></thead><tbody>'+
+        sl.next_candidates.map(x=>'<tr><td>L'+x.line+'</td><td>'+esc(x.after_token)+'</td><td>'+x.continuation_chains+'</td></tr>').join('')+
+        '</tbody></table>':'<p>Endpoint reached: no unmoved line remains.</p>')+
+      '<p>'+esc(sl.laws[1])+' '+esc(sl.laws[2])+'</p>':'')+
     (sp?.ok?statePathWitness(sp,s):'');
 
   const fromHex=hexLabel(s.from.binary),toHex=hexLabel(s.to.binary);
@@ -155,5 +167,5 @@ function runOrderResearch(){
 }
 $('#commute').onclick=runOrderResearch;
 $('#calc').onclick=calculate;
-['#fromState','#toState','#stateOrderIndex','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));
+['#fromState','#toState','#stateOrderIndex','#stateCursor','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));
 calculate();
