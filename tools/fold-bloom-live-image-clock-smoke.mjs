@@ -297,25 +297,33 @@ try{
     console.log('IMAGE CLOCK TRAIL',parsed.trail);
     console.log('IMAGE CLOCK SAMPLES',JSON.stringify(parsed.samples.map(s=>({t:s.t,address:s.api,witness:s.witness}))));
     // ── PHASE 2: an INDEPENDENT second run of the same instrument ─────────────
-    // Same page, smaller virtual-time budget, separate browser process, zero clicks.
+    // Same page, separate browser process, zero clicks.
+    // NOTE (2026-09-28): this second run originally used a 60000 ms budget and became
+    // LOAD-SENSITIVE. Measured on a busy machine: it reached SAMPLE-5/7 at t=52.8-58.7s and
+    // was cut off before finishing, while the 180000 ms first run passed every time. The
+    // budget is an instrument parameter, not part of the claim -- an independent process
+    // still has to reproduce the trail on its own -- so the budget is raised rather than the
+    // assertion loosened.
     // The set must drive itself a second time — not because anything was carried over,
     // but because the declaration is the only input either run is ever given. Both runs
     // landing on the same set key also proves the declaration is byte-deterministic.
     console.log('IMAGE CLOCK DOM SERIES',JSON.stringify(parsed.samples.map(s=>({t:s.t,dom:s.dom,witness:s.witness}))));
-    // IMAGE_SECOND_BUDGET lets a second, independent run use a smaller virtual-time
-    // budget; the budget is an instrument parameter, not part of the claim.
-    const rerun=await run(browserBin(),{budget:Number(process.env.IMAGE_SECOND_BUDGET||60000)});
+    // IMAGE_SECOND_BUDGET overrides the second run's virtual-time budget; the budget is an
+    // instrument parameter, not part of the claim. Default raised 60000 -> 150000 because
+    // 60s was measured to be load-sensitive (see the note above).
+    const secondBudget=Number(process.env.IMAGE_SECOND_BUDGET||150000);
+    const rerun=await run(browserBin(),{budget:secondBudget});
     const rm=rerun.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i);
     const rresult=(rm?.[1]||'(no result)').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim();
     let second=null;
     try{second=JSON.parse(rresult.slice(5))}catch(_){second=null}
     const secondOk=rresult.startsWith('PASS ')&&!!second;
     console.log('IMAGE CLOCK SECOND RUN',JSON.stringify(secondOk?{
-      budget:60000,ok:true,setKey:second.declared?.setKey,distinctAddresses:second.distinctAddresses,
+      budget:secondBudget,ok:true,setKey:second.declared?.setKey,distinctAddresses:second.distinctAddresses,
       addressMoved:second.addressMoved,interactions:second.interactions,trail:second.trail,
       trailAdvances:second.trailAdvances,stageDistinct:second.stageDistinct,
       heldStable:second.heldStable,stepOne:second.stepOne
-    }:{budget:60000,ok:false,result:rresult.slice(0,300)}));
+    }:{budget:secondBudget,ok:false,result:rresult.slice(0,300)}));
     const ok2=secondOk&&second.interactions===0&&second.distinctAddresses>=3
       &&second.trailAdvances>=3&&second.stageDistinct>=3&&second.heldStable===true&&second.stepOne===true
       &&second.declared?.setKey===parsed.declared?.setKey;
