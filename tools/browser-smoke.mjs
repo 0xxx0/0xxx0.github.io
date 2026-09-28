@@ -1169,7 +1169,7 @@ const CASES=[
     options:{width:430,height:900,budget:7000},
     check:dom=>{
       const parts={
-        version:/FIELD LAB 0\.3\.6/i.test(dom),
+        version:/FIELD LAB 0\.3\.5/i.test(dom),
         ready:dom.includes('data-fold-bloom-field-lab="ready"'),
         ride:dom.includes('data-field-lab-mode="RIDE"'),
         verse:/VERSE/.test(dom),
