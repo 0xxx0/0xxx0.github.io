@@ -290,6 +290,122 @@ export function changeLatticeCalculation(from,to){
   };
 }
 
+
+export function stateFrontierCalculation(from,to,order=null,cursor=0){
+  const calc=transparentStateCalculation(from,to);
+  if(!calc.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/state-frontier',reason:calc.reason};
+  const path=steppedStatePath(from,to,order);
+  if(!path.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/state-frontier',reason:path.reason};
+  const depth=Math.max(0,Math.min(path.steps.length,Math.trunc(Number(cursor)||0)));
+  const prefix=path.selected_order.slice(0,depth),prefixSet=new Set(prefix);
+  const current=[...calc.from.bits];
+  for(const line of prefix)current[line-1]=calc.to.bits[line-1];
+  const currentDesc=stateDescriptor(current),remaining=calc.moving.filter(line=>!prefixSet.has(line));
+  const movingIndex=new Map(calc.moving.map((line,i)=>[line,i]));
+  let mask=0;
+  for(const line of prefix){const bit=movingIndex.get(line);if(bit!==undefined)mask|=(1<<bit)}
+  const currentAddress='change://state/'+calc.from.binary+'→'+calc.to.binary+'/vertex/'+mask.toString(2).padStart(calc.moving.length,'0');
+  const candidates=remaining.map(line=>{
+    const after=[...current],i=line-1,fromBit=current[i],toBit=calc.to.bits[i];
+    after[i]=toBit;
+    const nextDesc=stateDescriptor(after),steered=steerStepOrder(calc.moving,path.selected_order,depth,line);
+    const nextDepth=depth+1,nextRemaining=Math.max(0,remaining.length-1);
+    return {
+      line,
+      selected_by_current_order:path.selected_order[depth]===line,
+      transition:String(fromBit)+'→'+String(toBit),
+      iching_line_value:lineTransitionValue(fromBit,toBit),
+      trigram:line<=3?'LOWER':'UPPER',
+      before_token:currentDesc.token,
+      after_token:nextDesc.token,
+      after_binary:bitString(after),
+      before_trigram:line<=3?currentDesc.lower:currentDesc.upper,
+      after_trigram:line<=3?nextDesc.lower:nextDesc.upper,
+      order_index_if_chosen:steered.ok?steered.index:null,
+      order_address_if_chosen:steered.ok?steered.address:null,
+      future_paths_after:factorial(nextRemaining),
+      future_order_ambiguity_bits_after:nextRemaining>0?round(Math.log2(factorial(nextRemaining))):0,
+      histories_collapsed_at_successor:factorial(nextDepth),
+      history_ambiguity_bits_at_successor:nextDepth>0?round(Math.log2(factorial(nextDepth))):0
+    };
+  });
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/state-frontier',
+    authority:'CALCULATION_ONLY',
+    from_token:calc.from.token,
+    to_token:calc.to.token,
+    cursor:depth,
+    prefix,
+    current:{bits:current,binary:bitString(current),token:currentDesc.token,lower:currentDesc.lower,upper:currentDesc.upper,address:currentAddress},
+    remaining_lines:remaining,
+    current_future_paths:factorial(remaining.length),
+    current_future_order_ambiguity_bits:remaining.length>0?round(Math.log2(factorial(remaining.length))):0,
+    current_histories_collapsed:factorial(depth),
+    current_history_ambiguity_bits:depth>0?round(Math.log2(factorial(depth))):0,
+    candidates,
+    law:'the frontier enumerates every lawful one-line successor from the witnessed prefix; it exposes structural consequences and remaining path multiplicity without ranking, permission, or host effect authority'
+  };
+}
+
+export function exactFormFrontierCalculation(fromForm,toForm,order=null,cursor=0,steering=null){
+  if(!formOk(fromForm)||!formOk(toForm))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-frontier',reason:'SIX_EXACT_CONTROL_VERBS_REQUIRED'};
+  const a=upperForm(fromForm),target=upperForm(toForm),path=steppedFormPath(a,target,order);
+  if(!path.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-frontier',reason:path.reason};
+  const depth=Math.max(0,Math.min(path.steps.length,Math.trunc(Number(cursor)||0)));
+  const prefix=path.selected_order.slice(0,depth),prefixSet=new Set(prefix),current=[...a];
+  for(const line of prefix)current[line-1]=target[line-1];
+  const remaining=path.changed_lines.filter(line=>!prefixSet.has(line));
+  const currentProjection=hexProjection(current);
+  const candidates=remaining.map(line=>{
+    const i=line-1,after=[...current],targetVerb=target[i],fromVerb=current[i];
+    after[i]=targetVerb;
+    const afterProjection=hexProjection(after),steered=steerStepOrder(path.changed_lines,path.selected_order,depth,line);
+    const supportRows=steering?.ok?steering.rows.filter(x=>x.mapped_verb===targetVerb):[];
+    const modelWeight=steering?.ok&&steering.weight_basis==='TOP_K_CONDITIONAL'
+      ?round(supportRows.reduce((sum,x)=>sum+Number(x.conditional_weight||0),0))
+      :null;
+    const nativeCandidateCount=supportRows.reduce((m,x)=>Math.max(m,Number(x.native_candidate_count)||0),0);
+    const supportStatus=!steering?.ok
+      ?'NO_MODEL_SUPPORT_WITNESS'
+      :supportRows.length===0
+        ?'TARGET_VERB_ABSENT_FROM_EXPORTED_TOP_K'
+        :nativeCandidateCount>0
+          ?'CURRENT_EPOCH_NATIVE_SUPPORT'
+          :'MAPPED_WITHOUT_NATIVE_SUPPORT';
+    return {
+      line,
+      selected_by_current_order:path.selected_order[depth]===line,
+      from_verb:fromVerb,
+      to_verb:targetVerb,
+      before_token:currentProjection.token,
+      after_token:afterProjection.token,
+      quotient_changed:currentProjection.token!==afterProjection.token,
+      order_index_if_chosen:steered.ok?steered.index:null,
+      order_address_if_chosen:steered.ok?steered.address:null,
+      future_paths_after:factorial(Math.max(0,remaining.length-1)),
+      model_topk_conditional_weight:modelWeight,
+      model_rows:supportRows.map(x=>({rank:x.rank,token:x.token,conditional_weight:x.conditional_weight,support:x.support})),
+      native_candidate_count:nativeCandidateCount,
+      support_status:supportStatus,
+      support_scope:'CURRENT_NATIVE_APERTURE_ONLY'
+    };
+  });
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/exact-frontier',
+    authority:'RESEARCH_WITNESS_ONLY',
+    cursor:depth,
+    prefix,
+    current_exact_form:current,
+    current_hex_token:currentProjection.token,
+    remaining_lines:remaining,
+    current_future_paths:factorial(remaining.length),
+    candidates,
+    law:'model readout and current host support may annotate every exact-form NEXT candidate, but they do not rank it, grant permission, or survive a real commit without re-resolving the native aperture'
+  };
+}
+
 export function exactFormCalculation(fromForm,toForm=fromForm){
   if(!formOk(fromForm)||!formOk(toForm))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'SIX_EXACT_CONTROL_VERBS_REQUIRED'};
   const a=upperForm(fromForm),b=upperForm(toForm),from=hexProjection(a),to=hexProjection(b),change=hexChangeProjection(a,b);
@@ -503,6 +619,8 @@ export function appliedResearchFrame(spec={}){
   const steering=spec.trace&&spec.target
     ?steeringSupportCalculation(spec.trace,spec.target,spec.nativeForecasts||[],spec.vocabulary)
     :null;
+  const state_frontier=state?.ok?stateFrontierCalculation(spec.fromState,spec.toState,spec.stateStepOrder,spec.stateCursor||0):null;
+  const exact_frontier=exact?.ok?exactFormFrontierCalculation(spec.fromForm,spec.toForm,spec.stepOrder,spec.stepCursor||0,steering):null;
   const promotionEvidence=spec.promotionEvidence||CURRENT_EVIDENCE_2026_09_27;
   const promotion=evaluateSteeringPromotion(promotionEvidence);
   const alignment=state?.ok&&exact?.ok?{
@@ -516,9 +634,11 @@ export function appliedResearchFrame(spec={}){
     authority:'RESEARCH_WITNESS_ONLY',
     state,
     state_step:stateStep,
+    state_frontier,
     change_lattice:lattice,
     exact,
     step,
+    exact_frontier,
     steering,
     promotion,
     promotion_evidence_source:spec.promotionEvidence?'SUPPLIED':'CURRENT_EVIDENCE_2026_09_27',
@@ -528,6 +648,7 @@ export function appliedResearchFrame(spec={}){
       'I Ching names/text are an optional lookup lens over the six-bit state; no divinatory authority is inferred by this calculation',
       'hexagram quotient loses exact BLOOM/FOLD and SPLIT/RETURN distinctions',
       'moving-line set loses step ordering; its k moving lines define a 2^k-state Boolean change lattice with k! maximal one-line paths',
+      'a current frontier enumerates all lawful one-line successors; selecting one edge is not implied by endpoint state, model readout, or host support',
       'J-Lens top-k readout loses unexported vocabulary mass and does not provide a causal direction vector',
       'host forecast support is not permission to execute',
       'promotion from read/support hypothesis to bounded preview is a separate evidence gate with explicit proof obligations'
