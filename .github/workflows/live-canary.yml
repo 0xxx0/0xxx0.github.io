@@ -1,0 +1,88 @@
+name: live-canary
+
+# Deployed-site canary: probes the LIVE GitHub Pages site (not the checkout)
+# and files/updates a GitHub issue when a route breaks.
+# Added 2026-09-28 by kestrel (W28 steal-adoption: live-site canary move).
+# Why: all other workflows check the checkout; only this one observes reality.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'          # every 6 hours
+  workflow_dispatch:                 # manual proof runs
+  workflow_run:
+    workflows: ['pages build and deployment']
+    types: [completed]               # probe right after every deploy
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe deployed routes
+        id: probe
+        run: |
+          set -u
+          BASE="https://0xxx0.github.io"
+          OUT=/tmp/canary.md
+          FAIL=0
+          echo "live-canary probes — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$OUT"
+          echo "run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> "$OUT"
+          echo "" >> "$OUT"
+
+          probe() { # $1=path $2=expected_code $3=optional marker
+            local path="$1" want="$2" marker="${3:-}"
+            local body; body=$(mktemp)
+            local got
+            got=$(curl -sS -o "$body" -w '%{http_code}' -L --max-time 25 "${BASE}${path}" 2>/dev/null || echo 000)
+            if [ "$got" != "$want" ]; then
+              echo "- \`${path}\` → HTTP ${got} (want ${want})" >> "$OUT"
+              FAIL=1
+            elif [ -n "$marker" ] && ! grep -q "$marker" "$body"; then
+              echo "- \`${path}\` → HTTP ${want} but missing marker \`${marker}\`" >> "$OUT"
+              FAIL=1
+            else
+              echo "- \`${path}\` → OK (HTTP ${got})" >> "$OUT"
+            fi
+            rm -f "$body"
+          }
+
+          probe / 200 fieldSignalBar
+          probe /control/CURRENT.json 200 '"updated"'
+          probe /control/CURRENT.md 200 'NEXT SINGLE ACTION'
+          probe /fold-bloom/live/ 200 'play.js'
+          probe /fold-bloom/ 200 ''
+          probe /docs/ 200 ''
+          probe /house/ 200 ''
+          probe /sleeper/ 200 ''
+          probe /poetry/map/ 200 ''
+          probe /foundry/axial/ 200 ''
+          probe /nexus/board.html 200 ''
+          probe /llms.txt 200 ''
+
+          echo "" >> "$OUT"
+          echo "FAIL=${FAIL}" >> "$OUT"
+          echo "fail=${FAIL}" >> "$GITHUB_OUTPUT"
+          cat "$OUT"
+
+      - name: Open or update issue on failure
+        if: steps.probe.outputs.fail == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY=$(cat /tmp/canary.md)
+          N=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+                --search 'live-canary in:title' --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue comment "$N" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "live-canary: deployed site check failed" \
+              --body "$BODY"
+          fi
+
+      - name: Fail the run if probes failed
+        if: steps.probe.outputs.fail == '1'
+        run: exit 1

@@ -1,0 +1,23 @@
+name: gitleaks
+
+# Secret-scan gate: full-history scan on every push and PR.
+# Policy lives in /.gitleaks.toml (exact-value allowlists, each commented).
+# Added 2026-09-28 by kestrel (W28 steal-adoption: gitleaks move).
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

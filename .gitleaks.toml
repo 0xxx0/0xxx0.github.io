@@ -1,0 +1,39 @@
+# .gitleaks.toml — secret-scan policy for the 0xxx0 FIELD repo.
+#
+# Extends the default rule set; adds targeted allowlists for verified-benign
+# matches from the first full-history scan (gitleaks 8.30.1, 2026-09-27/28).
+# Every hit triaged was one of three benign classes:
+#   (a) dotted protocol/schema KEY NAMES (e.g. a contract key literally named
+#       "0xxx0.body.care.handoff.v01" — an identifier, not a credential);
+#   (b) JS self-test comparison expressions captured as "secrets";
+#   (c) client-side overlay style tokens embedded in published HTML by design.
+#
+# RULE: add exact values only, each with a comment saying why it is benign.
+# Never add broad/loose patterns — they would mask real leaks later.
+
+title = "0xxx0 FIELD — secret scan policy"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Benign dotted protocol/schema key identifiers (contract key names; hit by the generic-api-key entropy heuristic on dotted lowercase identifiers)"
+regexTarget = "secret"
+regexes = [
+  '''^0xxx0\.body\.care\.handoff\.v0\d$''',
+  '''^scale\.lens\.handoff\.v0\d$''',
+  '''^interphase\.carrier\.v0\d$''',
+]
+
+[[allowlists]]
+description = "JS self-test expressions captured as 'secrets' (comparison code, not values; poetry/map self-tests)"
+regexTarget = "secret"
+regexes = ['''^[a-z]+\.operation===$''']
+
+[[allowlists]]
+description = "Client-side overlay style tokens (display-gating constants embedded in published HTML by design; historical appdeploy code, verified benign)"
+regexTarget = "secret"
+regexes = [
+  '''^7d2d47da554cf0d82be4372020b26382715c$''',
+  '''^c03f8691b3f33637e1a7fb416af7b0b2204f$''',
+]
