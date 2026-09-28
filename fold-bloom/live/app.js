@@ -1,13 +1,13 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, forecastContext, clamp, N } from './engine.js?v=0.13.2';
-import { FoldBloomAudio, MIX_PARTS } from './audio.js';
-import { Renderer } from './render.js?v=0.13.7';
+import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.14';
+import { Renderer } from './render.js?v=0.13.8';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { $ } from '../../lib/dom.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
 import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, deformationSummary } from './track-deform.js';
 import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride.js';
-import { PracticeTrack } from './practice-track.js';
+import { PracticeTrack } from './practice-track.js?v=0.2';
 import { normalizePins } from '../listen/stream-lens.js';
 import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} from './visual-worlds.js?v=0.3';
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,hasLocalMedia,requestPersistentLocalStorage} from '../local-media-store.js';
@@ -66,7 +66,7 @@ function syncLayerUI(){
   const law=$('#layerLaw');
   if(law)law.textContent=readRide
     ?'SOURCE = exact session text. MAP = addressed SENTENCE / PARAGRAPH / SECTION structure. IMMERSION = MAP + LIVE field response. READFIELD/source authority does not move into LIVE.'
-    :'SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response.';
+    :'SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response. FIELD synth remains an explicit opt-in.';
   const back=$('#readfieldReturn'),mark=$('#readTrailMark');
   if(back){back.hidden=!readRide?.packet?.returnAddress;back.textContent='↩ '+(readRide?.packet?.sourceIdentity?.authority==='READFIELD'?'READFIELD':'SOURCE')}
   if(mark){
@@ -85,7 +85,7 @@ function applyLayerMode(name,announce=true){
   }
   layerMode=next;
   renderer.setProfile(effectiveRideProfile());
-  if(layerMode==='IMMERSION'){if(audio.ctx)audio.setSound(true)}else audio.setSound(false);
+  if(layerMode!=='IMMERSION')audio.setSound(false);
   syncLayerUI();update();
   if(announce)toast('LAYER · '+layerMode);
   return true;
@@ -478,7 +478,7 @@ function update(){
   $('#route').textContent=rideView(ride,latestWorld).label;
   $('#speed').textContent=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}×`:'—';
   const g=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(g)<.08?'LEVEL':g>0?`UP ${Math.round(g*100)}`:`DOWN ${Math.round(Math.abs(g)*100)}`;
-  $('#trackState').textContent=readRide?('READ · '+readRide.packet.label):(liveTrack.sourceActive()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?`${externalTrack._pulseLabel||'FIELD'} PULSE`:'FIELD COURSE'));
+  $('#trackState').textContent=readRide?('READ · '+readRide.packet.label):(liveTrack.sourceActive()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?`${externalTrack._pulseLabel||'FIELD'} PULSE`:'FIELD COURSE · STILL'));
   $('#textBtn').textContent=textOn?'TEXT AUTO':'TEXT OFF';
   $('#trackToggle').disabled=!!readRide||!liveTrack.sourceActive();
   $('#trackToggle').textContent=readRide?'NO TEXT CLOCK':(liveTrack.sourceActive()?($('#trackAudio').paused?'PLAY SOURCE':'PAUSE SOURCE'):'PLAY / PAUSE');
@@ -575,7 +575,7 @@ function clearReadRide({silent=false}={}){
   if(!readRide)return false;
   readRide=null;
   if(READ_GRAINS.includes(courseGrain))courseGrain='PHRASE';
-  courseMode='FLOW';lastCoursePaint=-1;lastTextKey='';
+  courseMode='STEP';lastCoursePaint=-1;lastTextKey='';
   delete document.documentElement.dataset.foldBloomReadRide;
   delete document.documentElement.dataset.foldBloomReadAuthority;
   syncRideProfile();syncLayerUI();drawCourseMap(true);updateTextWitness();
@@ -860,7 +860,7 @@ async function loadLocalSong(files,{retain=true,label='CUSTOM SONG READY'}={}){
   courseGrain='PHRASE';courseMode='FLOW';
   try{
     deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
-    ensureAudio().catch(()=>false);trackStatus='DECODING';update();await liveTrack.loadFiles(files);
+    trackStatus='DECODING';update();await liveTrack.loadFiles(files);
     if(retain)await retainLiveSource(files);
     layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();
     $('#intro').classList.remove('on');toast(label);update();
@@ -935,10 +935,15 @@ async function enterPublicDemo(){
   liveTrack.setVolume(.24);$('#trackVol').value='24';
   const played=$('#trackAudio').paused?await liveTrack.toggle().then(()=>true).catch(()=>false):true;
   if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('AUDIO EXAMPLE READY · TAP FOR SOURCE')}
-  else{syncSoundGate(false,'SOURCE');toast('CENTER MASS EXCERPT · SOURCE + MAP + IMMERSION');if(!demo.on)startDemo({preview:true,playTrack:false})}
+  else{syncSoundGate(false,'SOURCE');toast('CENTER MASS EXCERPT · SOURCE + MAP + IMMERSION')}
   update();return played;
 }
 
+function practiceFieldOnly(){return !readRide&&!liveTrack.sourceActive()&&!externalTrack}
+function advancePracticeField(beats=1){
+  if(!practiceFieldOnly())return null;
+  return practiceTrack.advance(beats);
+}
 function steerRide(dir){
   const out=chooseRideBranch(ride,dir,latestWorld,Number(linkedTrack?.time)||0);
   ride=out.state;
@@ -964,9 +969,10 @@ function step(dir,count=1){
 
 async function doRelease(){
   if(!canRelease(state)) return;
-  const audioReady=ensureAudio().catch(()=>false);
+  const audioReady=audio.soundOn?ensureAudio().catch(()=>false):Promise.resolve(false);
   const out=release(state,timingNow()); if(!out.event)return;
   state=out.state;
+  advancePracticeField(1);
   deformationTape=appendReleaseDeformations(deformationTape,out.event,linkedTrack);
   const arcOut=observeSectionRelease(sectionArc,out.event,linkedTrack);
   sectionArc=arcOut.arc;
@@ -1055,7 +1061,7 @@ async function startDemo({preview=true,playTrack=false}={}){
 
 function pointDown(e){
   if($('#intro').classList.contains('on')||$('#settings').classList.contains('on'))return;
-  stopDemo(true);dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);ensureAudio();
+  stopDemo(true);dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);if(audio.soundOn)ensureAudio();
 }
 function pointMove(e){
   if(!dragging)return;e.preventDefault();const now=performance.now(),dx=e.clientX-lastX,total=e.clientX-startX,threshold=Math.max(20,innerWidth*.045),dir=Math.sign(dx)||1;
@@ -1139,7 +1145,7 @@ $('#exportBtn').onclick=()=>{
 };
 function resetLiveState({silent=false}={}){stopDemo(false);state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);renderer.setScene(state.scene);syncRideProfile();dragAngle=0;update();if(!silent)toast('NEW FIELD');return snapshot(state)}
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';resetLiveState()};
-$('#playBtn').onclick=async()=>{stopDemo(false);applyRidePreset('DRIVE',false);renderer.setProfile(effectiveRideProfile());syncVibeQuick();await enableFieldAudio();$('#intro').classList.remove('on');toast('DRIVE FIELD · TURN → ALIGN → RELEASE');update()};
+$('#playBtn').onclick=()=>{stopDemo(false);applyRidePreset('DRIVE',false);renderer.setProfile(effectiveRideProfile());syncVibeQuick();audio.setSound(false);practiceTrack.pause();courseMode='STEP';syncSoundGate(true,'FIELD');$('#intro').classList.remove('on');update();toast('DRIVE FIELD · STILL · RELEASE ADVANCES ONE BEAT')};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);syncSoundGate(false);update()};
 $('#soundGate')?.addEventListener('click',()=>{
   const gate=$('#soundGate');
@@ -1167,7 +1173,7 @@ addEventListener('keydown',e=>{
   else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();doRelease()}
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
-  else if(e.key.toLowerCase()==='m'){audio.setSound(!audio.soundOn);update()}
+  else if(e.key.toLowerCase()==='m'){if(!audio.soundOn&&!audio.ctx)void enableFieldAudio();else{audio.setSound(!audio.soundOn);update()}}
 });
 
 fieldPulse.subscribe(msg=>{
@@ -1191,7 +1197,7 @@ if(new URLSearchParams(location.search).get('from')==='field-lab'&&pulseHandoffC
   linkedTrack=externalTrack;
 }
 
-document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx&&audio.soundOn)audio.start()});
 function loop(t){
   const frameMs=Math.max(1,t-lastLoopT);lastLoopT=t;perf.emaMs+=(frameMs-perf.emaMs)*.055;perf.fps=1000/Math.max(1,perf.emaMs);
   const dt=Math.max(0,Math.min(.12,frameMs/1000||.016)),modelSlices=innerWidth<620?46:56;
@@ -1208,6 +1214,7 @@ function loop(t){
     if(externalTrack&&!externalFresh)externalTrack=null;
     linkedTrack=practiceTrack.transport(t);baseWorld=practiceTrack.trackfield(13.5,modelSlices,t);
   }
+  renderer.setMotionActive(!!linkedTrack?.playing);
   if(linkedTrack){
     syncArc(linkedTrack,true);
     const beat=Number(linkedTrack.beatIndex);
@@ -1254,6 +1261,6 @@ if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer
 const launchImages=String(launchParams.get('images')||'').trim();
 if(launchImages){document.documentElement.dataset.foldBloomLaunch='image-set';openImageSetByKey(launchImages,{announce:false})}
 if(launchSource==='example'){document.documentElement.dataset.foldBloomLaunch='public-demo';preparePublicDemo().then(ok=>{if(ok)toast('AUDIO EXAMPLE READY · TAP PLAY')})}
-else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true});toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
+else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
-else setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
+else document.documentElement.dataset.foldBloomLaunch='still';

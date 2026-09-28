@@ -12,7 +12,9 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
   assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE →<\/button>/);
   assert.match(html,/id="songIntroBtn">OPEN LOCAL TRACK<\/button>/);
-  assert.match(html,/id="playBtn">DRIVE FIELD →<\/button>/);
+  assert.match(html,/id="playBtn">START STILL FIELD →<\/button>/);
+  assert.match(html,/STILL FIELD remains silent and stationary until RELEASE/);
+  assert.match(html,/AUTOPILOT, FIELD SOUND, and source playback are explicit opt-ins/);
   assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
   assert.match(html,/data-layer-mode="SOURCE"/);

@@ -22,7 +22,7 @@ export class FoldBloomAudio {
     this.delay = null;
     this.delayGain = null;
     this.noise = null;
-    this.soundOn = true;
+    this.soundOn = false;
     this.sceneName = 'DEEP';
     this.scene = SCENES.DEEP;
     this.step = 0;
@@ -70,10 +70,15 @@ export class FoldBloomAudio {
       this.master.connect(this.comp).connect(this.ctx.destination);
       this.setVolume(this.volume);
       this.noise = this._makeNoise();
-      this._startDrone();
     }
     if (this.ctx.state !== 'running') await this.ctx.resume();
-    this.start();
+    if (this.soundOn) {
+      this._startDrone();
+      this.start();
+    } else {
+      this.stop();
+      this.setVolume(this.volume);
+    }
     return true;
   }
 
@@ -115,6 +120,15 @@ export class FoldBloomAudio {
 
   setSound(on) {
     this.soundOn = !!on;
+    if (this.ctx) {
+      if (this.soundOn) {
+        this._startDrone();
+        this.start();
+      } else {
+        this.stop();
+        if (this.droneGain) this.droneGain.gain.setTargetAtTime(0, this.ctx.currentTime, .03);
+      }
+    }
     this.setVolume(this.volume);
   }
 

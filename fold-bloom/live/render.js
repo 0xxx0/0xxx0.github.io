@@ -15,7 +15,7 @@ const rgba=(hex,a=1)=>{
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.projected=null;this.projectedAt=performance.now();this.ride=null;this.landmarks=[];this.gameProjection=null;this.steeringPreview=null;this.visualScene='DEEP';this.previousScene='DEEP';this.sceneAt=performance.now()-1000;this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.projected=null;this.projectedAt=performance.now();this.ride=null;this.landmarks=[];this.gameProjection=null;this.steeringPreview=null;this.motionActive=false;this.motionHoldAt=performance.now();this.visualScene='DEEP';this.previousScene='DEEP';this.sceneAt=performance.now()-1000;this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -37,6 +37,7 @@ export class Renderer {
     this.trackfield=world||null
   }
   setRide(view){this.ride=view||null}
+  setMotionActive(active){const on=!!active;if(on===this.motionActive)return;this.motionActive=on;if(!on)this.motionHoldAt=performance.now()}
   setGameProjection(view){this.gameProjection=view||null}
   setSteeringPreview(view){this.steeringPreview=view?.ok?view:null}
   setScene(name){
@@ -106,7 +107,7 @@ export class Renderer {
     g.restore()
   }
   _pov(state,t){
-    const g=this.g,w=this.w,h=this.h,m=this.motion,world=this.trackfield,optic=opticWitness(world,t,this.reducedMotion?7:20);
+    const g=this.g,w=this.w,h=this.h,m=this.motion,world=this.trackfield,optic=opticWitness(world,this.motionActive?t:this.motionHoldAt,this.reducedMotion?7:20);
     const horizonX=w*.5+(m.bend||0)*w*.07,horizonY=h*(.28-.025*Math.tanh(m.grade||0));
     g.save();
     // Peripheral optic flow: deterministic source-motion witness, not a score effect.
@@ -357,7 +358,7 @@ export class Renderer {
 
     const speedMix=clamp((m.speed-.72)/1.14,0,1);
     if(speedMix>.04){
-      const phase=(t*.00022*m.speed)%1;
+      const phase=((this.motionActive?t:this.motionHoldAt)*.00022*m.speed)%1;
       g.strokeStyle=`rgba(255,255,255,${.035+.085*speedMix})`;g.lineWidth=.7+speedMix*.8;
       for(const side of [-1,1]){
         for(let k=0;k<5;k++){
