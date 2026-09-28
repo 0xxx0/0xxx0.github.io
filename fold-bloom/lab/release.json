@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "state": "CANDIDATE",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
@@ -54,7 +54,10 @@
     "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link.",
     "DATA exposes the moving-line set as one Boolean change lattice: 2^k reachable intermediate states, k·2^(k-1) lawful one-line edges, k! maximal STEP chains, and stable factoradic path addresses.",
     "Direct local steering preserves the already-witnessed STEP prefix and reorders only the future suffix; steerStepOrder remains CALCULATION_ONLY and never calls LIVE release().",
-    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence."
+    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence.",
+    "FIELD LAB 0.3.7 preserves one addressed CHANGE focus across DATA → INK → I CHING → APPLIED CALC: selected factoradic path + current STEP cursor remain explicit rather than resetting at projection boundaries.",
+    "INK change-path guides now distinguish witnessed prefix, active intermediate state and future suffix; PATH STEP advances preview only, I CHING opens the exact current six-bit state, and RETURN → CHANGE restores the same LAB path focus.",
+    "APPLIED CALC handoff now carries the current STEP cursor and returns to the same endpoints/order/cursor instead of collapsing back to path start."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -80,7 +83,8 @@
     "STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT. Shared geometry/address never transfers control authority between CHANGE CALCULUS, I Ching, J-space/J-Lens, LIVE, or INK.",
     "I Ching remains a structural/corpus lookup lens over supplied state; no cast or divinatory control authority is created by DATA or CHANGE CALCULUS.",
     "J-space/J-Lens support remains evidence/preview only; no support result may promote itself into LIVE effect authority or commit RELEASE.",
-    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship."
+    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship.",
+    "Cross-projection CHANGE focus is address continuity only: DATA STEP remains CALCULATION_ONLY, INK remains PROJECTION_ONLY/human-authored, I CHING remains structural/text lens authority, and APPLIED CALC remains RESEARCH_WITNESS_ONLY."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
