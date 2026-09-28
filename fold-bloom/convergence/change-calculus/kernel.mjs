@@ -1,4 +1,4 @@
-import {stateChange,formatState} from '../../state-language.js';
+import {stateChange,stateDescriptor,formatState} from '../../state-language.js';
 import {
   EXACT_FORM_STATES,HEXAGRAM_STATES,EXACT_FORMS_PER_HEXAGRAM,
   hexProjection,hexChangeProjection
