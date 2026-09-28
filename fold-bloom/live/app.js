@@ -474,7 +474,7 @@ function loadReadRidePacket(raw,{announce=true}={}){
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
   readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};
-  courseGrain='PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
+  const requestedReadGrain=String(packet.focus?.grain||'PARAGRAPH').toUpperCase();courseGrain=READ_GRAINS.includes(requestedReadGrain)?requestedReadGrain:'PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
   resetExactReadTrail();
   layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncRideProfile();syncLayerUI();
   document.documentElement.dataset.foldBloomReadRide='ready';
