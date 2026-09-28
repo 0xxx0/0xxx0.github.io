@@ -42,7 +42,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .axisToken.route{width:154px;grid-template-columns:28px 1fr;gap:5px;text-align:left}.axisToken.route .tokTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.axisToken .sub{display:block;color:#59666c;font-size:5.8px;margin-top:2px}
 .survivors{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding:5px 7px;background:#090d0f}.survivors.lock{box-shadow:inset 2px 0 0 var(--green)}.survivors.dead{box-shadow:inset 2px 0 0 var(--bad)}.survLabel{font-size:6.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.survMarks{display:flex;gap:1px;flex-wrap:wrap;max-height:54px;overflow:hidden}.survMark{width:27px;height:27px;min-height:0;padding:1px;display:grid;place-items:center;border:1px solid transparent;background:#090d0f}.survMark:hover,.survMark.on{border-color:#66757b;background:#11181c}.survState{font-size:7px;color:var(--cool);white-space:nowrap}.survivors.lock .survState{color:var(--green)}.survivors.dead .survState{color:var(--bad)}.trail{color:#59676d;font-size:6px;margin-left:4px}
 .aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:8px;background:#080b0d}
-.apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
+.apGlyph{display:grid;place-items:center;transition:width .16s ease}.apGlyph svg{max-width:100%;height:auto}html[data-scale-band="OBJECT"] .aperture{grid-template-columns:86px minmax(0,1fr) auto}html[data-scale-band="OBJECT"] .apGlyph{width:78px}html[data-scale-band="OBJECT"] .apGlyph svg{width:78px;height:78px}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
 .capTrial{display:grid;grid-template-columns:minmax(150px,.8fr) minmax(220px,1.25fr) minmax(170px,1fr);gap:1px;border-bottom:1px solid var(--line);background:var(--line)}
 .capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
@@ -145,7 +145,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .sectionHead{align-items:start;flex-direction:column;gap:4px}.sectionHead b{font-size:12px}.sectionHead span{font-size:10px}
  .axialHead{align-items:flex-start;padding:9px}.axialHead b{font-size:12px}.axialHead span,.axialHead button{font-size:10px}.axialHead button{min-height:42px;padding:8px}
  .axisName{font-size:10px}.axisName b{font-size:11px}.axisToken{height:44px;font-size:11px}.axisToken small,.axisToken .sub{font-size:9px}
- .aperture{grid-template-columns:34px minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
+ .aperture{grid-template-columns:34px minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4} html[data-scale-band="OBJECT"] .aperture{grid-template-columns:70px minmax(0,1fr)} html[data-scale-band="OBJECT"] .apGlyph{width:64px} html[data-scale-band="OBJECT"] .apGlyph svg{width:64px;height:64px}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
  .capCell{padding:10px}.capK{font-size:10px}.capV{font-size:14px}.capSub{font-size:10px;line-height:1.4;white-space:normal}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
  .semanticScale{gap:5px;padding:6px;flex-wrap:wrap}.semanticScale>strong{font-size:10px}.scaleBands{order:2;flex:1 1 100%;min-width:0}.semanticScale button{min-height:42px;font-size:10px}.semanticScale .scaleStep{font-size:18px;min-width:42px}.scaleMeta{font-size:9px;max-width:none;flex:1 1 160px}
@@ -290,6 +290,9 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./field-aperture.js"></script>
 <script src="./lib/constraint-surface.js"></script>
 <script src="./lib/interphase-core.js"></script>
+<script src="./lib/interphase-ring.js"></script>
+<script src="./lib/interphase-glyph.js"></script>
+<script src="./lib/project-head-glyph.js"></script>
 <script src="./lib/interphase-carrier.js"></script>
 <script src="./lens-state.js"></script>
 <script>
@@ -431,6 +434,17 @@ function headForFocus(){
  if(!focus||!current?.current_heads)return null;
  return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
 }
+function projectGlyphForFocus(size=78){
+ const h=headForFocus(),band=window.FieldPresentation?.state?.().band||'ROUTE';
+ if(!focus||!h||h.route!==focus.href||band!=='OBJECT'||!window.ProjectHeadGlyph)return{svg:routeGlyph(focus,size>40?34:size),summary:null};
+ const children=routes.filter(x=>x.parent===focus.href);
+ let representation=null;
+ try{representation=window.FieldInterphase?.glyph?.(focus.href)?.representation||null}catch(_){}
+ try{
+  const opt={children,size,...(representation?{representation}:{})},summary=window.ProjectHeadGlyph.summary(h,focus,opt);
+  return{svg:window.ProjectHeadGlyph.svg(h,focus,opt),summary}
+ }catch(_){return{svg:routeGlyph(focus,34),summary:null}}
+}
 async function copyHeldAction(){
  if(!focus)return;
  const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
@@ -525,7 +539,7 @@ function renderCapabilityTrial(){
 }
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
- ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();
+ ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';const pg=projectGlyphForFocus();$('apGlyph').innerHTML=pg.svg;$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apProjection').textContent=pg.summary?('OBJECT GLYPH · '+pg.summary.childCount+' apertures · '+pg.summary.evidenceCount+' evidence · '+pg.summary.residueCount+' residue'):'READING · FIELD / FOCUS';$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();
 }
 function updateStatusRail(){
   const el=document.getElementById('sRail');if(!el)return;
@@ -889,7 +903,7 @@ $('scaleFit').onclick=()=>window.FieldPresentation?.fit?.('FIELD scale fit');
 document.querySelectorAll('#scaleRail [data-scale-band]').forEach(b=>b.onclick=()=>window.FieldPresentation?.setBand?.(b.dataset.scaleBand,'FIELD scale band'));
 $('scaleFovea').onclick=()=>{window.FoveaLens?.toggle?.();renderSemanticScale()};
 window.addEventListener('field-density',()=>{renderAxes();renderFeed()});
-window.addEventListener('field-scale',e=>renderSemanticScale(e.detail));
+window.addEventListener('field-scale',e=>{renderSemanticScale(e.detail);renderAperture()});
 window.addEventListener('field-fovea',()=>renderSemanticScale());
 [0,400,1200,2500].forEach(t=>setTimeout(()=>{try{updateStatusRail()}catch(_){}},t));
 function fieldPathTo(href){const out=['/'];let h=href,guard=0,tmp=[];while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}return out.concat(tmp)}
@@ -914,6 +928,7 @@ window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore
 })();
 </script>
 <script src="./lib/interphase-field.js"></script>
+<script>queueMicrotask(()=>{try{renderAperture()}catch(_){}})</script>
 <script src="./field-lens.js"></script>
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
