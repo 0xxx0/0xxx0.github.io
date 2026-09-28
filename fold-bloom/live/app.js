@@ -1,6 +1,6 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, forecastContext, clamp, N } from './engine.js?v=0.13.2';
 import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.14';
-import { Renderer } from './render.js?v=0.13.8';
+import { Renderer } from './render.js?v=0.13.9';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { $ } from '../../lib/dom.js';
 import { LiveTrack } from './track.js';
@@ -15,7 +15,7 @@ import {hashFile} from '../../lib/id.js';
 import {IMAGE_GRAINS,IMAGE_SET_STORAGE,IMAGE_DWELL_SECONDS,isImageRecord,makeImageCourse,imageCourseAddressAt,stepImageCourse,createImageClock,imageSetProgress,imageSetSeconds,makeImageSetManifest,normalizeImageSetManifest,normalizeImageSetRegistry,imageCourseSummary} from './image-course.js?v=0.1';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
-import {buildLiveCalculation,liveCalculationSummary} from './live-calculus.js?v=0.1';
+import {buildLiveCalculation,liveCalculationSummary,forecastSeekDelta} from './live-calculus.js?v=0.2';
 import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
 
 const STORE='fb-live-0.1';
@@ -26,7 +26,7 @@ function normalizeLoadedState(s){
   return scene===s.scene?s:{...s,scene};
 }
 let state=normalizeLoadedState(load()) || createState();
-let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
+let dragging=false,startX=0,startY=0,lastX=0,stepAccum=0,pointerTravel=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
@@ -954,6 +954,37 @@ function steerRide(dir){
   }
   return out.event;
 }
+function seekForecastSlot(slot,{announce=true}={}){
+  stopDemo(true);
+  const context=forecastContext(state),forecast=context.forecasts.find(x=>Number(x.slot)===Number(slot));
+  if(!forecast)return {ok:false,reason:'NOT_A_LAWFUL_CURRENT_FORECAST',slot:Number(slot),authority:'HUMAN_NAVIGATION'};
+  const before={seq:state.seq,rotation:state.rotation,history:state.history.length};
+  const delta=forecastSeekDelta(state.rotation,forecast.slot,N);
+  if(delta){
+    state=rotateSteps(state,delta);
+    audio.setMotion(state.rotation,Math.min(1,Math.abs(delta)*.24));
+    haptic(Math.min(16,4+Math.abs(delta)*2));
+  }
+  dragAngle=0;renderer.setDrag(0);update();
+  const aligned=currentForecast(),out={
+    ok:true,
+    schema:'fold-bloom-live-native-choice/v0.1',
+    authority:'HUMAN_NAVIGATION',
+    slot:forecast.slot,
+    verb:forecast.verb,
+    chain:forecast.chain,
+    delta,
+    before,
+    after:{seq:state.seq,rotation:state.rotation,history:state.history.length},
+    aligned:!!aligned&&aligned.slot===forecast.slot,
+    release_committed:false,
+    law:'direct forecast selection seeks one already-lawful native gate through TURN state; RELEASE remains a separate authored effect'
+  };
+  document.documentElement.dataset.foldBloomChoice=out.aligned?'aligned':'seek';
+  if(announce)toast(`SEEK · ${forecast.verb}${forecast.chain>1?' ×'+forecast.chain:''} · RELEASE SEPARATE`);
+  return out;
+}
+
 function step(dir,count=1){
   const n=Math.max(1,Math.min(8,Math.abs(count|0)));
   steerRide(dir);
@@ -1061,10 +1092,11 @@ async function startDemo({preview=true,playTrack=false}={}){
 
 function pointDown(e){
   if($('#intro').classList.contains('on')||$('#settings').classList.contains('on'))return;
-  stopDemo(true);dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);if(audio.soundOn)ensureAudio();
+  stopDemo(true);dragging=true;startX=lastX=e.clientX;startY=e.clientY;stepAccum=0;pointerTravel=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);if(audio.soundOn)ensureAudio();
 }
 function pointMove(e){
   if(!dragging)return;e.preventDefault();const now=performance.now(),dx=e.clientX-lastX,total=e.clientX-startX,threshold=Math.max(20,innerWidth*.045),dir=Math.sign(dx)||1;
+  pointerTravel=Math.max(pointerTravel,Math.hypot(e.clientX-startX,e.clientY-startY));
   if(state.mode==='RATCHET'){
     stepAccum+=dx;
     while(Math.abs(stepAccum)>=threshold){const d=stepAccum>0?1:-1;step(d);stepAccum-=d*threshold}
@@ -1077,11 +1109,14 @@ function pointMove(e){
 }
 function pointUp(e){
   if(!dragging)return;dragging=false;
+  const tapLimit=Math.max(9,Math.min(18,innerWidth*.025)),picked=e.type==='pointerup'&&pointerTravel<=tapLimit?renderer.pickForecast(state,e.clientX,e.clientY):null;
+  if(picked){seekForecastSlot(picked.slot);return}
   if(state.mode==='FLOW'){
     const stepAngle=Math.PI*2/N,delta=Math.round(dragAngle/stepAngle);if(delta){steerRide(Math.sign(delta));state=rotateSteps(state,delta)}dragAngle=0;audio.setMotion(state.rotation,0);update();if(canRelease(state))doRelease();
   }else{dragAngle=0;renderer.setDrag(0);update()}
 }
-cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointUp);
+function pointCancel(){if(!dragging)return;dragging=false;dragAngle=0;renderer.setDrag(0);update()}
+cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointCancel);
 
 $('#turnLeft').onclick=()=>{stopDemo(true);step(-1)};$('#turnRight').onclick=()=>{stopDemo(true);step(1)};$('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
 document.querySelectorAll('[data-sound-scene]').forEach(b=>b.addEventListener('click',()=>selectSoundScene(b.dataset.soundScene)));
@@ -1251,7 +1286,7 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},choice:{seek:seekForecastSlot,targets:()=>renderer.forecastTargets(state).map(x=>({...x})),context:()=>currentLiveCalculation().native},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
