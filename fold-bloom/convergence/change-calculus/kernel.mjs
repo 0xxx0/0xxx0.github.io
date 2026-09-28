@@ -15,6 +15,12 @@ const addressedLines=lines=>{
   const xs=Array.isArray(lines)?lines.map(Number):[];
   return xs.every(x=>Number.isInteger(x)&&x>=1&&x<=6)&&new Set(xs).size===xs.length?xs:null;
 };
+const choose=(n,r)=>{
+  n=Math.max(0,Math.trunc(Number(n)||0));r=Math.max(0,Math.trunc(Number(r)||0));
+  if(r>n)return 0;r=Math.min(r,n-r);let x=1;
+  for(let i=1;i<=r;i++)x=x*(n-r+i)/i;
+  return Math.round(x);
+};
 
 export function stepOrderAt(lines,index=0){
   const canonical=addressedLines(lines);
@@ -63,6 +69,30 @@ export function stepOrderRank(lines,order){
     order:[...requested],
     address:'order://'+index+'-of-'+factorial(canonical.length),
     law:'Lehmer rank is the inverse of factoradic step-order indexing for the declared canonical line order'
+  };
+}
+
+export function steerStepOrder(lines,order,cursor,nextLine){
+  const canonical=addressedLines(lines),requested=addressedLines(order);
+  if(!canonical||!requested||requested.length!==canonical.length||requested.some(x=>!canonical.includes(x))){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',reason:'ORDER_MUST_PERMUTE_ADDRESSED_LINES'};
+  }
+  const depth=Math.max(0,Math.min(requested.length,Math.trunc(Number(cursor)||0)));
+  const prefix=requested.slice(0,depth),remaining=requested.slice(depth),line=Number(nextLine);
+  if(!remaining.includes(line))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',reason:'NEXT_LINE_MUST_BE_UNMOVED',prefix,remaining};
+  const next=[...prefix,line,...remaining.filter(x=>x!==line)],ranked=stepOrderRank(canonical,next);
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/step-steer',
+    authority:'CALCULATION_ONLY',
+    cursor:depth,
+    prefix,
+    chosen_line:line,
+    order:next,
+    index:ranked.index,
+    count:ranked.count,
+    address:ranked.address,
+    law:'local steering fixes the witnessed prefix, chooses one remaining line next, and preserves the relative order of all other future lines'
   };
 }
 const bitString=bits=>Array.isArray(bits)?bits.join(''):null;
@@ -179,6 +209,70 @@ export function steppedStatePath(from,to,order=null){
   };
 }
 
+export function statePathLattice(from,to,order=null,cursor=0){
+  const calc=transparentStateCalculation(from,to);
+  if(!calc.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/state-lattice',reason:calc.reason};
+  const path=steppedStatePath(from,to,order);
+  if(!path.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/state-lattice',reason:path.reason};
+  const k=calc.moving.length,depth=Math.max(0,Math.min(k,Math.trunc(Number(cursor)||0)));
+  const prefix=path.selected_order.slice(0,depth),remaining=path.selected_order.slice(depth);
+  const current=[...calc.from.bits];
+  for(const line of prefix)current[line-1]=calc.to.bits[line-1];
+  const currentToken='H['+formatState(current)+']',fromBinary=calc.from.binary,toBinary=calc.to.binary;
+  const vertexAddress='change://state/'+fromBinary+'→'+toBinary+'/vertex/'+(prefix.length?[...prefix].sort((a,b)=>a-b).join(','):'origin');
+  const nextCandidates=remaining.map(line=>{
+    const after=[...current];after[line-1]=calc.to.bits[line-1];
+    const steered=steerStepOrder(calc.moving,path.selected_order,depth,line);
+    const left=Math.max(0,remaining.length-1),continuations=factorial(left);
+    return {
+      line,
+      transition:String(current[line-1])+'→'+String(calc.to.bits[line-1]),
+      iching_line_value:lineTransitionValue(current[line-1],calc.to.bits[line-1]),
+      after_binary:bitString(after),
+      after_token:'H['+formatState(after)+']',
+      continuation_chains:continuations,
+      continuation_bits:round(Math.log2(continuations)),
+      steered_order_index:steered.ok?steered.index:null,
+      steered_order:steered.ok?[...steered.order]:null
+    };
+  });
+  const collapsed=factorial(depth),future=factorial(k-depth);
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/state-lattice',
+    authority:'CALCULATION_ONLY',
+    dimension:k,
+    vertex_count:2**k,
+    edge_count:k===0?0:k*(2**(k-1)),
+    maximal_chains:factorial(k),
+    layers:Array.from({length:k+1},(_,d)=>({depth:d,vertices:choose(k,d)})),
+    selected_order:[...path.selected_order],
+    selected_order_index:path.selected_order_index,
+    path_address:path.path_address,
+    cursor:depth,
+    current:{
+      token:currentToken,
+      binary:bitString(current),
+      bits:current,
+      vertex_address:vertexAddress,
+      prefix:[...prefix]
+    },
+    remaining_lines:[...remaining],
+    next_candidates:nextCandidates,
+    future_chains:future,
+    future_ambiguity_bits:round(Math.log2(future)),
+    collapsed_prefix_orderings:collapsed,
+    collapsed_prefix_order_bits:round(Math.log2(collapsed)),
+    current_layer_width:choose(k,depth),
+    laws:[
+      'the endpoint interval is a k-dimensional Boolean subcube over exactly the moving lines',
+      'one-line STEP paths are maximal chains through that subcube, so there are k! paths but only 2^k unique vertices',
+      'the current binary vertex records which lines have moved, not the order in which the witnessed prefix moved them',
+      'choosing a next line steers only the preview path; it does not authorize or execute a host operation'
+    ]
+  };
+}
+
 export function exactFormCalculation(fromForm,toForm=fromForm){
   if(!formOk(fromForm)||!formOk(toForm))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'SIX_EXACT_CONTROL_VERBS_REQUIRED'};
   const a=upperForm(fromForm),b=upperForm(toForm),from=hexProjection(a),to=hexProjection(b),change=hexChangeProjection(a,b);
@@ -273,6 +367,7 @@ export function steppedFormPath(fromForm,toForm,order=null){
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
+  const stateLattice=state?.ok?statePathLattice(spec.fromState,spec.toState,spec.stateStepOrder,spec.stateStepCursor||0):null;
   const exact=spec.fromForm&&spec.toForm?exactFormCalculation(spec.fromForm,spec.toForm):null;
   const step=spec.fromForm&&spec.toForm?steppedFormPath(spec.fromForm,spec.toForm,spec.stepOrder):null;
   const steering=spec.trace&&spec.target
@@ -290,6 +385,7 @@ export function appliedResearchFrame(spec={}){
     authority:'RESEARCH_WITNESS_ONLY',
     state,
     state_step:stateStep,
+    state_lattice:stateLattice,
     exact,
     step,
     steering,
