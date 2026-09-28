@@ -5,6 +5,7 @@ import {
   steppedFormPath,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
+import {stateStepDecisionAperture,nativeForecastDecisionAperture,compareDecisionApertures} from './decision-aperture.mjs';
 
 assert.equal(lineTransitionValue(0,0),8);
 assert.equal(lineTransitionValue(1,1),7);
@@ -153,6 +154,47 @@ assert.equal(steering.residue.outside_vocabulary.length,1);
 assert.ok(steering.host_supported_weight<1);
 assert.ok(steering.host_supported_weight>0);
 
+
+const stateAperture0=stateStepDecisionAperture(lattice,stateStep,0);
+assert.equal(stateAperture0.ok,true);
+assert.equal(stateAperture0.kind,'STATE_STEP');
+assert.equal(stateAperture0.authority,'CALCULATION_ONLY');
+assert.equal(stateAperture0.candidate_count,2);
+assert.equal(stateAperture0.candidate_ambiguity_bits,1);
+assert.equal(stateAperture0.focus.basis,'SELECTED_PATH_NEXT');
+assert.deepEqual(stateAperture0.focus.ids,['line:3']);
+assert.equal(stateAperture0.focus.information_gain_bits,1);
+assert.equal(stateAperture0.planned_id,'line:3');
+assert.equal(stateAperture0.commit_semantics,'PATH_SELECTION_ONLY');
+
+const stateAperture1=stateStepDecisionAperture(lattice,stateStep,1);
+assert.equal(stateAperture1.candidate_count,1);
+assert.equal(stateAperture1.candidate_ambiguity_bits,0);
+assert.deepEqual(stateAperture1.focus.ids,['line:5']);
+assert.equal(stateAperture1.focus.information_gain_bits,0);
+
+const nativeAperture=nativeForecastDecisionAperture(
+  {authority:'NATIVE_EVIDENCE',seq:17,forecasts},
+  {ok:true,verb:'FOLD',candidates:forecasts.filter(x=>x.verb==='FOLD')}
+);
+assert.equal(nativeAperture.ok,true);
+assert.equal(nativeAperture.kind,'NATIVE_FORECAST');
+assert.equal(nativeAperture.authority,'NATIVE_EVIDENCE');
+assert.equal(nativeAperture.candidate_count,3);
+assert.equal(nativeAperture.candidate_ambiguity_bits,1.584963);
+assert.equal(nativeAperture.focus.basis,'STEERING_SUPPORT');
+assert.equal(nativeAperture.focus.count,2);
+assert.equal(nativeAperture.focus.information_gain_bits,0.584963);
+assert.equal(nativeAperture.commit_semantics,'HOST_RELEASE_REQUIRED');
+assert.match(nativeAperture.refresh_semantics,/INVALIDATES/);
+
+const apertureComparison=compareDecisionApertures(stateAperture0,nativeAperture);
+assert.equal(apertureComparison.ok,true);
+assert.equal(apertureComparison.semantic_equivalence,false);
+assert.equal(apertureComparison.authority_equivalence,false);
+assert.ok(apertureComparison.structural_rhyme.includes('finite candidate set'));
+assert.ok(apertureComparison.non_equivalence.some(x=>x.includes('J-space support')));
+
 const frame=appliedResearchFrame({
   fromState:'010|100',toState:'011|110',fromForm,toForm,
   trace,target:{layer:12,position:3},nativeForecasts:forecasts
@@ -195,6 +237,7 @@ console.log(JSON.stringify({
   quotient:{exactStates:4096,hexStates:64,fiber:64,invisibleExact:exact.metrics.quotient_invisible_exact_changes},
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
+  apertures:{state:{candidates:stateAperture0.candidate_count,ambiguity:stateAperture0.candidate_ambiguity_bits,planned:stateAperture0.planned_id},native:{candidates:nativeAperture.candidate_count,ambiguity:nativeAperture.candidate_ambiguity_bits,focus:nativeAperture.focus.count},semanticEquivalence:apertureComparison.semantic_equivalence},
   promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
   residueLadder:{strongest:frame.residue_ladder.strongest_claim,levels:frame.residue_ladder.levels.map(x=>x.id)},
   authority:frame.authority
