@@ -31,7 +31,7 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,authoredReader=null,perf={emaMs:16.7,fps:60,modelHz:0};
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,authoredReader=null,gardenOpen=false,gardenReturn=null,perf={emaMs:16.7,fps:60,modelHz:0};
 // IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
 // never pass through here: they stay in the browser vault keyed by sha256. What lives
 // here is the declaration, the course built from its metadata, and the clock that lets
@@ -1188,6 +1188,54 @@ const closeMenuEvent=e=>{e?.preventDefault?.();e?.stopPropagation?.();setMenuOpe
 $('#closeSettings').addEventListener('pointerdown',closeMenuEvent);
 $('#closeSettings').onclick=closeMenuEvent;
 $('#menuDismiss').addEventListener('pointerdown',closeMenuEvent);
+
+function gardenState(){
+  return {
+    open:gardenOpen,
+    host:'FOLD_BLOOM_LIVE',
+    authority:'ECOLOGY',
+    canonical:'/fold-bloom/ecology/',
+    sourceClockBridge:false,
+    releaseAuthority:false,
+    heldCourseMode:gardenReturn?.courseMode||null
+  };
+}
+function openGarden({announce=true}={}){
+  const frame=$('#gardenFrame'),view=$('#gardenView');if(!frame||!view)return gardenState();
+  if(gardenOpen)return gardenState();
+  const sourceWasPlaying=!!(liveTrack.sourceActive()&&!$('#trackAudio').paused);
+  const imageWasRunning=!!(imageSet?.clock&&!imageSet.clock.paused);
+  gardenReturn={courseMode,sourceWasPlaying,imageWasRunning,audioSoundOn:!!audio.soundOn};
+  stopDemo(true);
+  try{$('#trackAudio').pause()}catch(_){}
+  if(imageSet?.clock)imageSet.clock.hold();
+  audio.setSound(false);syncSoundGate(false);setMenuOpen(false);
+  gardenOpen=true;frame.hidden=false;
+  document.documentElement.classList.add('fbGardenOpen');document.body.classList.add('fbGardenOpen');
+  document.documentElement.dataset.foldBloomGarden='open';
+  if(!view.dataset.loaded){view.src=view.dataset.src||'../ecology/?embedded=live&garden=1';view.dataset.loaded='1'}
+  $('#intro').classList.remove('on');
+  if(announce)toast('GARDEN · ECOLOGY AUTHORITY · LIVE HELD');
+  update();
+  return gardenState();
+}
+async function closeGarden({restore=true,announce=true}={}){
+  const frame=$('#gardenFrame');if(!gardenOpen){if(frame)frame.hidden=true;return gardenState()}
+  const held=gardenReturn;gardenOpen=false;gardenReturn=null;
+  if(frame)frame.hidden=true;
+  document.documentElement.classList.remove('fbGardenOpen');document.body.classList.remove('fbGardenOpen');
+  document.documentElement.dataset.foldBloomGarden='closed';
+  if(restore&&held){
+    setCourseMode(held.courseMode||'STEP',false);
+    if(held.sourceWasPlaying&&liveTrack.sourceActive()&&$('#trackAudio').paused)await liveTrack.toggle().catch(()=>{});
+    if(held.imageWasRunning&&imageSet?.clock&&held.courseMode==='FLOW'&&imageSet.clock.paused)imageSet.clock.start();
+    if(held.audioSoundOn&&audio.ctx)audio.setSound(true);
+  }
+  if(announce)toast('RETURN LIVE · SOURCE AUTHORITY RESTORED');
+  update();return gardenState();
+}
+$('#gardenOpenBtn').onclick=()=>openGarden();
+$('#gardenClose').onclick=()=>{void closeGarden()};
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
 for(const part of MIX_PARTS){
@@ -1347,17 +1395,18 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,echo:jumpAuthoredEcho,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
-const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase();
+window.FoldBloomLive={boot:'ready',version:VERSION,garden:{open:openGarden,close:closeGarden,current:gardenState},authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,echo:jumpAuthoredEcho,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),garden:gardenState(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
+const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase(),launchGarden=['1','true','open','garden'].includes(String(launchParams.get('garden')||'').toLowerCase());
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchReader){document.documentElement.dataset.foldBloomLaunch='authored-reader';void openAuthoredReader(launchReader,{announce:false}).catch(error=>{console.warn('AUTHORED READER',error);document.documentElement.dataset.foldBloomAuthoredReader='error';toast('AUTHORED SOURCE REJECTED')})}
+else if(launchGarden){document.documentElement.dataset.foldBloomLaunch='garden';openGarden({announce:false})}
 else if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
 // A remembered set can be opened by name, exactly like a remembered audio source
 // (`?source=`). The picker is a one-time act; the address is addressable after it.
 const launchImages=String(launchParams.get('images')||'').trim();
 if(launchImages){document.documentElement.dataset.foldBloomLaunch='image-set';openImageSetByKey(launchImages,{announce:false})}
-if(launchReader){/* authored reader owns launch */}
+if(launchReader||launchGarden){/* authored reader / garden owns launch */}
 else if(launchSource==='example'){document.documentElement.dataset.foldBloomLaunch='public-demo';preparePublicDemo().then(ok=>{if(ok)toast('AUDIO EXAMPLE READY · TAP PLAY')})}
 else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
