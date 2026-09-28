@@ -1,4 +1,4 @@
-import {appliedResearchFrame,steppedStatePath} from './kernel.mjs';
+import {appliedResearchFrame,transparentStateCalculation,stepOrderAt,steppedStatePath} from './kernel.mjs';
 import {candidateEpochWitness,runLiveVerbCommutator} from './live-step-order.mjs';
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
@@ -23,6 +23,7 @@ $('#trace').value=JSON.stringify(traceFixture,null,2);$('#forecasts').value=JSON
 const boot=new URLSearchParams(location.search);
 if(boot.get('from'))$('#fromState').value=boot.get('from');
 if(boot.get('to'))$('#toState').value=boot.get('to');
+if(boot.get('order'))$('#stateOrderIndex').value=boot.get('order');
 
 let hexByBin={};
 fetch('/iching/hexagrams.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{for(const h of d.hexagrams||[])hexByBin[h.binary]=h;calculate()}).catch(()=>calculate());
@@ -52,9 +53,10 @@ function statePathWitness(path,state){
   }
   const rows=path.steps.map(x=>'<tr><td>'+x.step+'</td><td>L'+x.line+'</td><td>'+x.from_bit+'→'+x.to_bit+'</td><td>'+x.iching_line_value+'</td><td>'+esc(x.after_token)+'</td></tr>').join('');
   return '<h2 style="margin-top:12px">STATE STEP PATH</h2><div class="metrics">'+
+    metric('path',String(path.selected_order_index+1)+'/'+path.possible_one_line_orders)+
     metric('selected order',path.selected_order.length?path.selected_order.map(x=>'L'+x).join('→'):'∅')+
     metric('possible orders',path.possible_one_line_orders)+metric('order info',path.order_ambiguity_bits+' bits')+
-    '</div><p><code>'+esc(primary)+'</code></p>'+
+    '</div><p><code>'+esc(path.path_address)+'</code></p><p><code>'+esc(primary)+'</code></p>'+
     (alternate&&alternate!==primary?'<p class="cool">reverse order: <code>'+esc(alternate)+'</code></p>':'')+
     (rows?'<table><thead><tr><th>step</th><th>line</th><th>bit</th><th>Yi value</th><th>intermediate</th></tr></thead><tbody>'+rows+'</tbody></table>':'<p>Stable endpoint: no moving-line step required.</p>')+
     '<p>Same endpoints do not imply the same path. Intermediate state is evidence whenever downstream consequences can depend on order.</p>';
@@ -63,8 +65,12 @@ function statePathWitness(path,state){
 function calculate(){
   let trace=null,forecasts=[];try{trace=JSON.parse($('#trace').value)}catch(_){}try{forecasts=JSON.parse($('#forecasts').value)}catch(_){}
   const [layer,position]=String($('#target').value).split(',').map(Number);
+  const stateBase=transparentStateCalculation($('#fromState').value,$('#toState').value);
+  const indexed=stateBase?.ok?stepOrderAt(stateBase.moving,Number($('#stateOrderIndex')?.value||0)):null;
+  if(indexed?.ok&&$('#stateOrderIndex'))$('#stateOrderIndex').value=String(indexed.index);
   const frame=appliedResearchFrame({
     fromState:$('#fromState').value,toState:$('#toState').value,
+    stateStepOrder:indexed?.ok?indexed.order:null,
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
@@ -149,5 +155,5 @@ function runOrderResearch(){
 }
 $('#commute').onclick=runOrderResearch;
 $('#calc').onclick=calculate;
-['#fromState','#toState','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));
+['#fromState','#toState','#stateOrderIndex','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));
 calculate();
