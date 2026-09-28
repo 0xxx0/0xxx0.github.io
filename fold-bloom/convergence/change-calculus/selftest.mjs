@@ -104,6 +104,12 @@ assert.equal(frame.state_step.possible_one_line_orders,2);
 assert.equal(frame.state_step.steps.length,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
 assert.equal(frame.steering.top.status,'MULTIPLE_NATIVE_CANDIDATES');
+assert.equal(frame.promotion.status,'BLOCKED');
+assert.equal(frame.promotion.summary.failed,6);
+assert.equal(frame.promotion.summary.total,10);
+assert.equal(frame.promotion_evidence_source,'CURRENT_EVIDENCE_2026_09_27');
+assert.equal(frame.promotion.checks.find(x=>x.id==='REAL_MODEL_FIT_APPLY')?.pass,true);
+assert.equal(frame.promotion.checks.find(x=>x.id==='MODEL_INTERVENTION_EXECUTED')?.pass,false);
 assert.ok(frame.residue.some(x=>x.includes('moving-line set loses step ordering')));
 
 console.log(JSON.stringify({
@@ -112,5 +118,6 @@ console.log(JSON.stringify({
   quotient:{exactStates:4096,hexStates:64,fiber:64,invisibleExact:exact.metrics.quotient_invisible_exact_changes},
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
+  promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
   authority:frame.authority
 },null,2));
