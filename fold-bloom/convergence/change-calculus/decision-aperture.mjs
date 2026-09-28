@@ -8,7 +8,7 @@ function cloneCandidate(x,i){
   const id=cleanId(x?.id);
   return {
     id,
-    label:String(x?.label??id||('CANDIDATE '+(i+1))),
+    label:String(x?.label??(id||('CANDIDATE '+(i+1)))),
     address:x?.address==null?null:String(x.address),
     payload:x?.payload&&typeof x.payload==='object'?{...x.payload}:null
   };
