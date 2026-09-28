@@ -618,3 +618,63 @@ STATE
 ```
 
 The key quantity to expose at every reduction is not merely what the compressed label says, but **how many lawful distinctions remain hidden and whether those hidden distinctions can change the next witnessed consequence**.
+
+
+## Promotion proof obligations — 2026-09-28
+
+The support calculation and the causal promotion gate are now deliberately separate executable witnesses.
+
+`promotion-gate.mjs` emits ten named predicates with:
+
+- `id`;
+- `pass`;
+- stable failure `reason`;
+- `observed`;
+- `required`.
+
+`appliedResearchFrame(...)` carries that gate beside the J-space → native-support calculation, and the Applied Calc surface renders the full proof table.
+
+Current repository evidence is:
+
+```text
+host path resolved                    PASS
+HEX sufficiency requirement           PASS / N/A on native path
+native forecasts witnessed            PASS
+real model fit/apply                   PASS
+semantic model evidence               FAIL
+real intervention executed            FAIL
+zero-strength control                  FAIL
+opposite/unrelated direction control  FAIL
+repeated-prompt evidence               FAIL
+execution receipt                      FAIL
+
+4 / 10 pass
+6 / 10 fail
+status = BLOCKED
+```
+
+This sharpens the evidence typing:
+
+```text
+READOUT
+  → SUPPORT CALCULATION
+      asks: which already-lawful host candidates survive this explicit map?
+
+PROMOTION GATE
+  → CAUSAL EVIDENCE OBLIGATIONS
+      asks: is there enough independent evidence to expose even bounded steering preview?
+```
+
+They are orthogonal. A uniquely supported native candidate can coexist with a blocked causal promotion gate. Conversely, satisfying causal model controls would not make an unsupported host operation lawful.
+
+Even a fully passing promotion gate returns only `ELIGIBLE_FOR_BOUNDED_PREVIEW`; it never creates a commit operation or effect authority.
+
+### Current stronger scientific boundary
+
+The repository now has both the earlier real tiny-model fit/apply plumbing proof and a **real Qwen/Qwen2.5-1.5B-Instruct J-Lens read trace**. The Qwen trace is still observation-only: the 8-prompt fitted lens produced no `BLOOM / FOLD / SPLIT / RETURN` token in any exported top-8 cell at the sampled final position. Current evidence is therefore typed `REAL_READ_TRACE_OBSERVATION_ONLY`, not semantic steering evidence. It does not establish a useful direction or a causal host effect; those remain the six failed obligations above.
+
+This is the reusable solve-for-all distinction:
+
+> **legibility, support, and permission are three different questions.**
+
+Do not collapse them into a single confidence score.

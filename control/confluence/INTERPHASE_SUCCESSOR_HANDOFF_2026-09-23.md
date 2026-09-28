@@ -246,28 +246,32 @@ See:
 
 ## J-space / J-Lens steering donor — 2026-09-27
 
-Status: **CANDIDATE DONOR; NOT CURRENT AUTHORITY.**
+Status: **MERGED RESEARCH DONOR; NO EFFECT AUTHORITY.**
 
 - bounded handoff: `/fold-bloom/convergence/jspace-steering/RESEARCH_HANDOFF.md`
 - RETURN: `/returns/JSPACE_STEERING_DONOR_2026-09-27.json`
 - implemented law: `READ → explicit STEER request → WITNESS → RETURN`
 - hard boundary: a decoded J-Lens token is an observation, **not** a causal residual direction; steering requires an explicit model-side `direction.ref`.
-- cross-surface steering context reuses `field-pulse/v0.1` with authority `NONE`; `jspace-steering/interphase-adapter.mjs` now enforces explicit host-owned direction→native-operation mapping and returns `SUPPORT=0` otherwise.
-- Fold/Bloom adapter maps only the explicit `BLOOM / FOLD / SPLIT / RETURN` vocabulary to already-lawful native forecasts and returns `PREVIEW`; it never executes RELEASE or mutates LIVE/SET state.
-- local synthetic selftest and Python compile pass. A real open-weight J-Lens trace and any controlled residual intervention remain **NOT RUN**.
-- next gate: run one small-model J-Lens read trace first; only then consider one controlled perturbation with zero/opposite controls and an exact execution receipt. Do not bind this donor into production heads before that evidence exists.
-
+- cross-surface steering context reuses `field-pulse/v0.1` with authority `NONE`; the generic adapter requires an explicit host-owned direction→native-operation map or returns `SUPPORT=0`.
+- Fold/Bloom LIVE has a merged co-driver PREVIEW seam over the current native forecast aperture. It may highlight already-lawful candidates; it never rotates, RELEASEs, selects CALL, or mutates topology.
+- a real pretrained tiny-model J-Lens fit/apply smoke is proven in CI, and a later real Qwen2.5-1.5B-Instruct read trace is preserved at `/returns/JSPACE_REAL_TRACE_2026-09-27.json`. The Qwen observation had zero control-vocabulary hits in the exported top-8 and remains **READ OBSERVATION ONLY**, not semantic steering evidence.
+- real semantic steering direction + controlled intervention remain unproved.
+- `promotion-gate.mjs` now calculates ten explicit proof obligations. Current repository evidence passes 4/10 and fails 6/10, so promotion remains `BLOCKED`.
+- even a future 10/10 pass yields only `ELIGIBLE_FOR_BOUNDED_PREVIEW`, never automatic commit authority.
 
 ## CHANGE CALCULUS applied-research donor — 2026-09-27
 
-Status: **CANDIDATE RESEARCH WITNESS; NO EFFECT AUTHORITY.**
+Status: **MERGED RESEARCH WITNESS; NO EFFECT AUTHORITY.**
 
 - surface: `/fold-bloom/convergence/change-calculus/`
 - handoff: `/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md`
 - kernel: `/fold-bloom/convergence/change-calculus/kernel.mjs`
 - proof: `node fold-bloom/convergence/change-calculus/selftest.mjs`
-- FIELD LAB exposes this only as a link from DATA; production LAB does not import the candidate kernel.
+- FIELD LAB DATA now imports the bounded calculation kernel for transparent endpoint arithmetic: Hamming distance, 6/7/8/9 line values, `k!` STEP orders, order-information bits, and addressed intermediate states. It still delegates exact-form/native/J-space research to APPLIED CALC.
 - exact Fold/Bloom six-verb forms: `4^6 = 4096`; binary relation quotient: `2^6 = 64`; quotient fiber: `64:1`.
-- endpoint moving-set is not an ordered path: `k` moving coordinates admit `k!` one-line STEP orders.
-- J-space steering support is now calculated transparently from exported top-k logits → explicit vocabulary mapping → already-lawful native forecast counts. Top-k weights are labeled conditional and never promoted to full model probability.
-- strongest open gate: test whether a candidate macrostate actually preserves named native next-action behavior before treating it as control state.
+- native LIVE falsification has already shown that neither the HEX quotient nor recent exact six-verb history is sufficient for the tested next-forecast/CALL/target property.
+- native STEP research establishes that a forecast set is a one-commit aperture, not a queue: after commit, support must be refreshed and the next intent re-resolved. Under the declared research resolver, tested jointly-defined verb orders were non-commuting; unsupported reversals remain `DOMAIN_DEPENDENT`, not forced into an algebraic claim.
+- J-space steering support is calculated transparently from exported top-k logits → explicit vocabulary map → already-lawful native candidates. Those weights remain `TOP_K_CONDITIONAL`, never full model probability.
+- causal promotion is now a separate computed proof table. Current evidence is `BLOCKED` at 4/10 obligations passed.
+- shared experimental grammar: `STATE → APERTURE → INTENT → SUPPORT / AMBIGUITY → COMMIT → APERTURE′ → RE-RESOLVE → WITNESS → RETURN`.
+- successor rule: **legibility, support, and permission are different questions**. Never promote one into another by naming or visual proximity.
