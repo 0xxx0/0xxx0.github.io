@@ -54,21 +54,56 @@ VALID_MODES = {"RECOVER", "INVESTIGATE", "RESEARCH", "SPECULATE", "SPECIFY",
 def hrefs_for_paths(paths, routes):
     """Map changed repo paths to manifest hrefs.
 
-    Two passes, because the manifest addresses both directories and single files:
-      1. exact file route   nexus/board.html -> /nexus/board.html
-      2. longest dir prefix house/index.html -> /house/
+    Three passes, in order of specificity -- the manifest already declares its own structure,
+    so read that before guessing from directory layout:
+
+      1. exact file route        nexus/board.html      -> /nexus/board.html
+      2. declared pointer        house/release.json    -> /house/   (via route.receipt /
+                                                                    route.contract /
+                                                                    route.machine_state)
+      3. longest dir prefix      house/index.html      -> /house/
+
+    Pass 2 exists because pass 3 alone over-reaches: law-zoo/lab.release.json is the receipt
+    for /law-zoo/lab.html, but prefix matching attributes it to the parent hub /law-zoo/,
+    which did not change. Files the manifest already names as a route's receipt/contract/state
+    belong to THAT route.
+
     Returns (sorted_hrefs, unmatched) so the caller reports what it ignored rather than
     dropping it silently.
     """
     hrefs = {r.get("href") for r in routes if r.get("href")}
+
+    # Normalise the manifest's declared file pointers: "law-zoo/lab.release.json" -> that href.
+    POINTER_KEYS = ("receipt", "contract", "machine_state", "state")
+    pointers = {}
+    for r in routes:
+        h = r.get("href")
+        if not h:
+            continue
+        for k in POINTER_KEYS:
+            v = r.get(k)
+            if isinstance(v, str) and v:
+                pointers[v.strip().lstrip("./").lstrip("/")] = h
+        ev = r.get("evidence")
+        if isinstance(ev, dict):
+            v = ev.get("receipt")
+            if isinstance(v, str) and v:
+                pointers[v.strip().lstrip("./").lstrip("/")] = h
+
     found, unmatched = set(), []
     for p in paths:
         p = p.strip().lstrip("./")
         if not p:
             continue
+        # (1) exact file route
         if "/" + p in hrefs:
             found.add("/" + p)
             continue
+        # (2) the manifest declares this file belongs to a route
+        if p in pointers:
+            found.add(pointers[p])
+            continue
+        # (3) longest directory prefix
         parts = p.split("/")
         hit = None
         for i in range(len(parts) - 1, 0, -1):
