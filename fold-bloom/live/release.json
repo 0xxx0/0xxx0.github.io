@@ -186,7 +186,8 @@
     "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities",
     "READFIELD retains text/cursor/RSVP/VOICE authority; LIVE embodiment does not become a second reader authority.",
     "RELEASE does not advance reading cursor by default; game score/route completion do not imply comprehension.",
-    "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed."
+    "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed.",
+    "Source-requested READ/RIDE grain is a projection preference, not semantic segmentation authority; only existing READ_GRAINS are accepted."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -256,7 +257,8 @@
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
     "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison",
-    "read_ride": "PASS · PR #459 head 58d18ecc6565085fc25c6e999b1d03754c42a51a · public-surface-check 36302101438 · READFIELD cursor→LIVE paragraph→STEP address change→SECTION→direct local File; full repo browser/recovery suite green."
+    "read_ride": "PASS · PR #459 head 58d18ecc6565085fc25c6e999b1d03754c42a51a · public-surface-check 36302101438 · READFIELD cursor→LIVE paragraph→STEP address change→SECTION→direct local File; full repo browser/recovery suite green.",
+    "prison_age_exact_source_grain": "PR #500 candidate: exact Prison Age source requests SENTENCE at an exact char anchor; browser smoke must prove source authority/return remain intact."
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
@@ -609,5 +611,8 @@
     "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc"
+  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
+  "preserved": [
+    "READ/RIDE handoff may request one existing valid SENTENCE/PARAGRAPH/SECTION grain through focus.grain; LIVE validates the request and falls back to PARAGRAPH. This changes projection granularity only, never source bytes or authority."
+  ]
 }

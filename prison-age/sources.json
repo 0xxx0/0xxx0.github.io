@@ -1,0 +1,94 @@
+{
+  "schema": "prison-age.source-pack/v0.1",
+  "status": "ACTIVE_SOURCE_DOORWAY",
+  "default": "successful-escape",
+  "law": "Exact sourced text remains authoritative. READ and RIDE are unequal projections of the same bytes; neither may rewrite the story or claim that traversal equals comprehension.",
+  "source_boundary": {
+    "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
+    "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
+    "last_stall": "PRISON_AGE_THE_LAST_STALL_v2.md",
+    "last_stall_class": "USER_LIBRARY_SOURCE / 2026 EPISODE CONTINUATION / CURATED EXTRACT"
+  },
+  "stories": {
+    "open-air": {
+      "id": "open-air",
+      "number": "03",
+      "title": "Open Air",
+      "season": "Season V",
+      "engine": "UNCONTROLLED VARIABLE",
+      "token": "A municipal permit for weather",
+      "path": "/prison-age/stories/03-open-air.md",
+      "source_lines": "251–303",
+      "source_class": "EXACT_ANTHOLOGY_STORY",
+      "source_fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "ee35b81f",
+        "length": 3912
+      },
+      "entry_anchor": "By the forty-third year of enclosure, weather had become impolite."
+    },
+    "fandom-court": {
+      "id": "fandom-court",
+      "number": "05",
+      "title": "The Fandom Court",
+      "season": "Season IV",
+      "engine": "PROVENANCE WITHOUT WORSHIP",
+      "token": "A bootleg episode with no first frame",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "source_lines": "349–400",
+      "source_class": "EXACT_ANTHOLOGY_STORY",
+      "source_fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "5523dd07",
+        "length": 4056
+      },
+      "entry_anchor": "The missing season had never aired, which made everyone remember it differently."
+    },
+    "successful-escape": {
+      "id": "successful-escape",
+      "number": "08",
+      "title": "The Successful Escape Changes the Next Prison",
+      "season": "Season VII",
+      "engine": "TRANSFER LEARNING",
+      "token": "A key that opens nothing twice",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "source_lines": "497–552",
+      "source_class": "EXACT_ANTHOLOGY_STORY",
+      "source_fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "5a038d8a",
+        "length": 3674
+      },
+      "entry_anchor": "Season Seven began with an open door."
+    },
+    "last-stall": {
+      "id": "last-stall",
+      "number": "0/8",
+      "title": "The Last Stall / Extract",
+      "season": "August 2026 Prison Age episode continuation",
+      "engine": "FINDABILITY / COUNTERMEASURE",
+      "token": "Blank paper over Camera Eight",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "source_lines": "PRISON_AGE_THE_LAST_STALL_v2.md · 477–561 / 719–739 / 751–792",
+      "source_class": "CURATED_SOURCE_EXTRACT / OMISSIONS EXPLICIT",
+      "source_fingerprint": null,
+      "entry_anchor": "Contestant Seven sat fully clothed on the closed toilet lid, holding a phone with one per cent battery and the expression of someone who had obeyed every instruction and arrived nowhere."
+    }
+  },
+  "operations": [
+    "READ SOURCE",
+    "RIDE LIVE",
+    "RAW SOURCE",
+    "RETURN FIELD"
+  ],
+  "active_projection": {
+    "read": "READFIELD owns text/cursor/reading projections.",
+    "ride": "FOLD//BLOOM LIVE owns embodied STEP traversal; Prison Age remains source authority. The source doorway requests SENTENCE grain from an exact narrative entry address without rewriting source bytes.",
+    "return": "Both preserve exact source address and return to /prison-age/?story=<id>."
+  },
+  "legacy": {
+    "route": "/prison-age/reader-0.2/",
+    "status": "FROZEN_FAILED_PROJECTION",
+    "reason": "The 0.2 reader over-authored the framing with a P26 motif/path/pressure layer. Its sourced story extraction and source hashes remain useful; its narrative framing is not the active authority."
+  }
+}
