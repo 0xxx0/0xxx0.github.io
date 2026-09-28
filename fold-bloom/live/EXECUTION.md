@@ -42,6 +42,7 @@ Donors remain addressable and independent:
 29. **Calculation is residue, not control.** `FoldBloomLive.calculus()` may join native forecast evidence, recent history, J-space support and traversal policy into one inspectable witness, but it emits no operation and owns no state.
 30. **Recent HEX is history-only.** Six authored release verbs form one exact 4^6 history; the existing binary relation quotient maps that history into one of 2^6 HEX states, so every HEX represents 64 exact verb histories and drops 6 uniform bits. Earlier native sufficiency experiments already falsified HEX/recent-form history as replacements for current LIVE control state.
 31. **Model support is not permission.** J-space/model direction overlap may report how many currently lawful native forecasts match a direction. It remains PREVIEW_ONLY with `commit_operation:null`; native LIVE forecast/release remains the effect aperture.
+32. **All lawful forecasts are directly seekable; RELEASE stays separate.** The ring is the choice aperture, not a decorative forecast display. A human tap on any currently lawful forecast may rotate the existing native gate to that slot using the shortest signed TURN delta. This navigation may change rotation/charge/seq exactly as TURN does, but it does not append release history, choose from model support, or commit BLOOM/FOLD/SPLIT/RETURN. After SEEK, the human must still invoke RELEASE explicitly.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -61,7 +62,7 @@ A change survives only if it improves at least one without materially harming th
 
 ## Promotion gate
 Do not call LIVE canonical until direct desktop + touch play establishes all of these:
-1. Within 60 s, a player can explain TARGET vs CALL, identify at least two candidate consequence labels, and use RATCHET as **stored tension**, not merely step navigation.
+1. Within 60 s, a player can explain TARGET vs CALL, identify at least two candidate consequence labels, directly tap one lawful forecast to SEEK it, and understand that RELEASE is still a separate authored act; RATCHET reads as **stored tension**, not merely step navigation.
 2. Within 120 s, a blind-ish listener can hear a difference between ordinary BLOOM and a crease/cascade event without reading the HUD.
 3. A charged structural event retains its topology identity (e.g. `FOLD → RETURN`) and the RETURN aperture is perceptible.
 4. Muted play still exposes target, alignment, creases, cascade path and charge.
