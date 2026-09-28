@@ -200,9 +200,9 @@ function readout(t){
   if(!t||!t.href){o.textContent='';o.dataset.kind='';return}
   const r=MAP()?.get?.(t.href)||{};
   const acts=(window.__fieldAct&&window.__fieldAct.siblings)?.()?.length||0;
-  const st=String(r.state||'—'), kd=String(r.kind||'—'),scaleBand=window.FieldPresentation?.state?.().band||'ROUTE';
+  const st=String(r.state||'—'), kd=String(r.kind||'—');
   const meta=(st.toLowerCase()===kd.toLowerCase())?st:(st+' · '+kd);
-  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(scaleBand+' · '+meta)+(acts?' · '+acts+' peers':'')+'</i>';
+  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(meta)+(acts?' · '+acts+' peers':'')+'</i>';
   o.dataset.kind=r.state||'';
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
