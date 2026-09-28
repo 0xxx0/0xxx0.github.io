@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steppedStatePath,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -559,7 +559,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -596,6 +596,10 @@ function syncStateStepUI(){
   if($('#stateAmbiguity'))$('#stateAmbiguity').textContent=step?.ok?step.order_ambiguity_bits+'b':'—';
   if($('#stateLineValues'))$('#stateLineValues').textContent=calc?.ok?calc.iching_projection.line_values.join(' · '):'—';
   if($('#statePathIndex'))$('#statePathIndex').textContent=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
+  const lattice=data.stateLattice;
+  if($('#stateVertices'))$('#stateVertices').textContent=lattice?.ok?String(lattice.vertices):'—';
+  if($('#stateEdges'))$('#stateEdges').textContent=lattice?.ok?String(lattice.edges):'—';
+  if($('#stateWidth'))$('#stateWidth').textContent=lattice?.ok?String(lattice.widest_rank):'—';
   if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER ▶ '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'ORDER · ∅';
   if($('#stateOrderPrev'))$('#stateOrderPrev').disabled=!step?.ok||step.possible_one_line_orders<=1;
   if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+cursor+'/'+step.steps.length:'STEP · STABLE';
@@ -629,7 +633,8 @@ function syncStateChange({preserveOrder=false}={}){
   const indexed=calc?.ok?stepOrderAt(calc.moving,data.stateOrderIndex):null;
   if(indexed?.ok)data.stateOrderIndex=indexed.index;
   data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
-  data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep});
+  data.stateLattice=calc?.ok?changeLatticeCalculation(from,to):null;
+  data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep,lattice:data.stateLattice});
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
@@ -649,6 +654,54 @@ function drawStateLine(x,y,w,bit,changed=false){
   if(Number(bit)===1){ctx.moveTo(x-w/2,y);ctx.lineTo(x+w/2,y)}
   else{ctx.moveTo(x-w/2,y);ctx.lineTo(x-w*.12,y);ctx.moveTo(x+w*.12,y);ctx.lineTo(x+w/2,y)}
   ctx.stroke();ctx.restore();
+}
+function selectedStatePathMasks(){
+  const lattice=data.stateLattice,step=data.stateStep;
+  if(!lattice?.ok||!step?.ok)return [0];
+  const byLine=new Map(lattice.moving_lines.map((line,i)=>[line,i]));
+  const out=[0];let mask=0;
+  for(const line of step.selected_order){
+    const bit=byLine.get(line);if(bit===undefined)continue;
+    mask|=(1<<bit);out.push(mask);
+  }
+  return out;
+}
+function drawStateLattice(){
+  const lattice=data.stateLattice,step=data.stateStep;
+  if(!lattice?.ok)return;
+  const k=lattice.dimensions,pathMasks=selectedStatePathMasks(),pathSet=new Set(pathMasks),activeMask=pathMasks[Math.min(data.stateStepCursor,pathMasks.length-1)]??0;
+  const x0=W*.17,x1=W*.83,top=H*.79,bottom=H*.94,band=Math.max(1,bottom-top),pos=new Map();
+  const grouped=new Map();
+  for(const v of lattice.vertex_set){if(!grouped.has(v.depth))grouped.set(v.depth,[]);grouped.get(v.depth).push(v)}
+  for(const [depth,list] of grouped){
+    const x=k?x0+(x1-x0)*(depth/k):(x0+x1)/2;
+    list.forEach((v,i)=>{
+      const y=list.length===1?(top+bottom)/2:top+band*(i/(list.length-1));
+      pos.set(v.mask,{x,y,v});
+    });
+  }
+  ctx.save();
+  ctx.font='700 7px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#5f6d75';
+  ctx.fillText('ORDER SPACE · '+lattice.dimensions+'D · '+lattice.vertices+' STATES · '+lattice.maximal_one_line_paths+' CHAINS',W/2,top-10);
+  const pathEdges=new Set();
+  for(let i=1;i<pathMasks.length;i++)pathEdges.add(pathMasks[i-1]+'>'+pathMasks[i]);
+  for(const e of lattice.edge_set){
+    const a=pos.get(e.from_mask),b=pos.get(e.to_mask);if(!a||!b)continue;
+    const onPath=pathEdges.has(e.from_mask+'>'+e.to_mask);
+    ctx.strokeStyle=onPath?'rgba(123,213,255,.74)':'rgba(78,96,107,.20)';
+    ctx.lineWidth=onPath?1.7:.65;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+  }
+  for(const [mask,p] of pos){
+    const onPath=pathSet.has(mask),active=mask===activeMask;
+    ctx.fillStyle=active?'#ef7849':onPath?'#7bd5ff':'#40515b';
+    ctx.globalAlpha=active?1:onPath?.92:.48;ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:2.0,0,TAU);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  if(step?.ok&&step.selected_order.length){
+    ctx.fillStyle='#78858c';ctx.font='700 7px ui-monospace';
+    ctx.fillText('SELECTED · '+step.selected_order.map(x=>'L'+x).join(' → '),W/2,bottom+11);
+  }
+  ctx.restore();
 }
 function drawStateChange(){
   const change=data.stateChange;if(!change?.valid)return;
@@ -680,6 +733,7 @@ function drawStateChange(){
     ctx.fillText('PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+cursor+'/'+step.steps.length,midX,cy+gap*3.7);
   }
   ctx.restore();
+  drawStateLattice();
 }
 function stateLineAt(x,y){
   const change=data.stateChange;if(!change?.valid)return -1;
