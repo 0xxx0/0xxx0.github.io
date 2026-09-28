@@ -73,6 +73,7 @@ export function buildLiveCalculation({
     }:null,
     law:'forecastContext is the native control aperture; history, HEX and model readouts may annotate it but never replace it'
   };
+  const nearest=activeSteering?.candidates?.find?.(x=>Number(x.turn_steps)===Number(activeSteering.nearest_turn_steps))||null;
   const steeringWitness=activeSteering?{
     authority:'PREVIEW_ONLY',
     source:activeSteering.source||null,
@@ -82,8 +83,12 @@ export function buildLiveCalculation({
     native_candidate_count:candidateCount,
     native_candidate_fraction:total?round(candidateCount/total):0,
     candidate_ambiguity_bits:activeSteering.candidate_ambiguity_bits??(candidateCount?log2(candidateCount):null),
+    nearest_turn_steps:activeSteering.nearest_turn_steps??null,
+    nearest_turn_delta:nearest?.turn_delta??null,
+    nearest_turn_direction:nearest?.turn_direction??null,
+    nearest_slots:[...(activeSteering.nearest_slots||[])],
     commit_operation:null,
-    law:'steering support means overlap with already-lawful native forecasts; support is not permission and cannot commit RELEASE'
+    law:'steering support means overlap with already-lawful native forecasts; ghost turn paths show authored steps to support but never rotate or commit RELEASE'
   }:null;
   const t=traversal?{
     authority:'NAVIGATION_POLICY',
@@ -118,7 +123,7 @@ export function liveCalculationSummary(w){
   const f=w.native?.selected;
   const native=f?('HERE '+f.verb+(f.chain>1?'×'+f.chain:'')):('SEEK · '+(w.native?.candidate_count||0)+' LAWFUL');
   const hex=w.recent?.hex?(' · '+w.recent.hex.token):(' · FORM '+(w.recent?.count||0)+'/6');
-  const steer=w.steering?(' · LENS '+w.steering.verb+' '+w.steering.native_candidate_count+'/'+(w.native?.candidate_count||0)):'';
+  const steer=w.steering?(' · LENS '+w.steering.verb+' '+w.steering.native_candidate_count+'/'+(w.native?.candidate_count||0)+(w.steering.nearest_turn_steps!=null?' '+(w.steering.nearest_turn_direction||'HERE')+'×'+w.steering.nearest_turn_steps:'')):'';
   const t=w.traversal;
   const step=t?(' · '+(t.mode==='RELEASE_STEP'?'RELEASE→STEP':t.mode)+' '+t.grain+(t.index!=null&&t.count?(' '+(t.index+1)+'/'+t.count):'')):'';
   return 'CALC · '+native+hex+steer+step;
