@@ -103,15 +103,20 @@ def main() -> int:
     ap.add_argument("--routes", help="file with one href per line")
     ap.add_argument("--from-git", help="git range, e.g. HEAD~1..HEAD; derives routes + --at")
     ap.add_argument("--at", help="ISO8601 timestamp to stamp (defaults to the range's date)")
-    ap.add_argument("--modes", required=True, help="comma-separated work modes")
+    ap.add_argument("--modes", help="comma-separated work modes (not needed with --check)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="CI gate: exit 1 if any derived route is stale, writing nothing")
     args = ap.parse_args()
 
     if not args.routes and not args.from_git:
         print("REFUSED: pass --routes or --from-git", file=sys.stderr)
         return 2
+    if not args.check and not args.modes:
+        print("REFUSED: --modes is required unless --check is set", file=sys.stderr)
+        return 2
 
-    modes = [m.strip().upper() for m in args.modes.split(",") if m.strip()]
+    modes = [m.strip().upper() for m in (args.modes or "").split(",") if m.strip()]
     bad = [m for m in modes if m not in VALID_MODES]
     if bad:
         print(f"REFUSED: unknown work modes {bad}; valid = {sorted(VALID_MODES)}", file=sys.stderr)
@@ -177,6 +182,19 @@ def main() -> int:
         a = by_href[href].get("operation")
         b = {r.get("href"): r for r in m2.get("routes", [])}[href].get("operation")
         assert a == b, f"operation changed for {href}"
+
+    if args.check:
+        if changed:
+            print(f"STALE: {len(changed)} route(s) are registered but older than the "
+                  f"commit that last touched them.", file=sys.stderr)
+            for href, b_at, a_at, _b_m, _a_m in changed:
+                print(f"  {href}: recorded {b_at}, commit says {a_at}", file=sys.stderr)
+            print(f"\nRun this to fix, then commit showcase-manifest.json:\n"
+                  f"  python3 tools/fi-mutation-contract.py --from-git {args.from_git} "
+                  f"--modes IMPLEMENT,VERIFY", file=sys.stderr)
+            return 1
+        print(f"FI RECENCY OK: {len(skipped)} route(s) checked, none stale")
+        return 0
 
     if changed and not args.dry_run:
         m["updated"] = at

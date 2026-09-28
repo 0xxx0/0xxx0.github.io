@@ -32,6 +32,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # the recency gate diffs HEAD~1..HEAD
 
       - uses: actions/setup-node@v4
         with:
@@ -39,6 +41,16 @@ jobs:
 
       - name: Check every live surface is registered
         run: node scripts/check-route-registration.mjs
+
+      # Sibling failure to registration: a route that IS registered but whose
+      # index.updated_at predates the last commit touching it. The FIELD INDEX
+      # CATCH strip decides "changed" by that stamp, so stale bookkeeping makes
+      # real work invisible on the surface the operator actually reads.
+      # Measured 2026-09-28: newest stamp anywhere was 16:55 while commits had
+      # landed through 19:45, and /house/ still claimed 09-26 from before its own
+      # 0.7.7 release. Reuses the same derivation the fix command uses.
+      - name: Check route recency (manifest not older than its commit)
+        run: python3 tools/fi-mutation-contract.py --from-git HEAD~1..HEAD --check
 
       - name: Derive route ontology diagnostic (warnings only)
         run: node scripts/check-route-registration.mjs --ontology
