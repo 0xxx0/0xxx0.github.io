@@ -1,10 +1,10 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM Ecology Instrument 0.2",
-  "version": "0.2",
+  "version": "0.2.1",
   "route": "/fold-bloom/ecology/",
-  "state": "STABLE",
-  "operation": "PLAY",
+  "state": "CANDIDATE",
+  "operation": "PLAY / OBSERVE",
   "source": {
     "authority": "0xxx0/0",
     "path": "recovery/ecology-0.2/source.html",
@@ -40,7 +40,26 @@
       "manifest.webmanifest",
       "sw.js",
       "/showcase-nav.js"
-    ]
+    ],
+    "ecology_public_contract": "PASS · public-surface-check 36421730487 step 49 · inline syntax + mute-first persistence/state + explicit soundcheck + GARDEN routing",
+    "mobile_layout": "PASS evidence · 191c81f52b8b8fcca57a3ccd388b0092dbcbf2a8 + FI recency repair 74503262fb296dc1e13dcc3bd3bdcfa9b6ac23ca",
+    "fold_bloom_root_browser": "PASS · public-surface-check 36421730487 step 79",
+    "critical_browser_smoke": "PASS · public-surface-check 36421730487 step 81"
   },
-  "known_gap": "Live mobile/desktop interaction smoke remains part of showcase audit."
+  "known_gap": "Human lived gate: GARDEN should feel calm/legible on phone and desktop; optional FIELD PULSE song-as-climate remains research-only until that value is demonstrated.",
+  "date": "2026-09-28",
+  "thesis": "A living field can remain calm, mute-readable and locally self-evolving while giving the human immediate takeover, explicit sound control, inspectable lineage and bounded RETURN.",
+  "public_delta": [
+    "public Fold/Bloom doorway restores GARDEN / OBSERVE as one of four primary jobs; GARDEN also occupies the second hero aperture; HEXAGRAM remains reachable under MORE USES",
+    "MUTE-FIRST is now literal: sound defaults OFF and is enabled only by explicit human action",
+    "sound preference persists locally; the two-note unlock check runs only on intentional enable rather than every game start",
+    "GARDEN remains Ecology-owned witness-play; public promotion does not move gene, lineage, breeding, law or source authority"
+  ],
+  "constraints": [
+    "Ecology owns gene, lineage, breeding/audition, law progression and Ecology RETURN.",
+    "GARDEN automation is visible local witness-play; touch returns control immediately.",
+    "Generated audio is optional presentation and is never required to read or operate the field.",
+    "A future FIELD PULSE climate bridge may borrow timing/presentation context only; borrowed climate does not author lineage, breeding, law or semantic meaning."
+  ],
+  "return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json"
 }

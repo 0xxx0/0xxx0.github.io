@@ -65,14 +65,20 @@ For each visible control: what object is manipulated, what stable address remain
 
 Prefer contextual controls, direct manipulation, stable spatial memory, receding chrome and consequence-driven delight.
 
-### Quiet-still default law
+### Quiet-audio / source-clock traversal law
 
-- Plain LIVE boots **silent and stationary**. It must not start AUTOPILOT, a generated-sound scheduler, drone, or synthetic source clock merely because the page loaded.
-- The built-in FIELD COURSE is a held synthetic world. Ring turns change the decision state; a successful authored **RELEASE advances the synthetic course exactly one beat**.
-- Forward-motion cues (optic flow / road streak phase) follow the actual transport `playing` witness. A held transport may ease to newly authored geometry, but it may not simulate continuous travel from wall-clock time alone.
-- Source audio advances only after an explicit PLAY action. AUTOPILOT advances only after an explicit AUTOPILOT action or an explicit `?demo=1` launch.
-- IMMERSION may alter visual/body response while generated FIELD sound remains off. Sound requires its own explicit opt-in and turning sound off stops the generated scheduler.
-- A future implementation may make the still→advance transition more continuous or expressive, but it may not restore invisible autonomous motion as the plain default.
+Quietness and traversal policy are separate.
+
+- Plain LIVE boots with **generated FIELD sound OFF** and **AUTOPILOT OFF**. Loading the page must not create a drone, scheduler, authored operation, or synthetic witness-play.
+- LIVE's default traversal policy is **FLOW**. FLOW means: *follow the active addressed source clock*. It is not permission for wall-clock motion.
+- With **no running source clock**, FLOW is still. With a playing AUDIO_MAP source or running IMAGE_SET clock, FLOW advances its existing address continuously.
+- **STEP** is the explicit hold/manual policy: hold the relevant source clock and move exactly one lawful address at a time. **RELEASE_STEP** writes the LIVE consequence, then moves one address where that host law applies.
+- **RELEASE** remains authored effect authority. Ordinary FLOW never seeks, rewrites, or authors the source, and a source clock never chooses BLOOM / FOLD / SPLIT / RETURN.
+- Source playback and generated FIELD sound are independent apertures. Playing a song or advancing an IMAGE_SET does not enable the synth; IMMERSION does not imply sound.
+- Turning generated sound off stops its scheduler/drone. AUTOPILOT advances only after explicit AUTOPILOT action or an explicit demo route.
+- Forward-motion cues must follow a real active transport/source-clock witness. A held or absent clock may ease to authored geometry but may not counterfeit travel.
+
+This reconciles the Sep-28 quiet-start repair with the later FLOW restoration: **quiet audio survives; STEP-as-default does not.**
 
 ### Mobile control law
 
@@ -151,6 +157,40 @@ REPLAY is a **score before media**.
 - If a public source address exists it may travel as a reference; it is not proof the recipient can play it.
 - JSON is the full inspectable artifact. WebM/GIF-like exports are projections of the score, not canonical state.
 - LISTEN↔REPLAY live-tab synchronization is an ephemeral convenience: borrowed clock ≠ borrowed authorship and no universal session bus is introduced.
+
+## Ecology / living-field law
+
+ECOLOGY is a first-class **OBSERVE / PLAY** door, not merely a donor hidden behind the main instrument.
+
+Its native authority remains local and unequal:
+
+- Ecology owns its gene, lineage, law progression, breeding/audition choices, GARDEN witness-play and Ecology RETURN.
+- LIVE does not become Ecology merely because both use a cyclic field.
+- GARDEN automation is visible Ecology-authored witness-play. Touching the ring returns control immediately; it is not evidence that a source or model authored the lineage.
+- Ecology is **mute-first**. Generated sound is an explicit preference and may never be required to read the causal field.
+
+### Song-as-climate boundary
+
+A lawful future bridge already exists in principle through **FIELD PULSE**. It does not require another bus.
+
+An explicitly enabled pulse link may lend bounded temporal/performance context such as tempo, beat phase, section aperture or measured energy to Ecology's **atmosphere / pacing / presentation**. It may not choose or rewrite:
+
+- gene or lineage;
+- FOLD/ORBIT/INTERFERENCE/etc. law;
+- organism BODY / PATH / VOICE inheritance;
+- breeding/audition selection;
+- human meaning, mood or semantic labels;
+- canonical source analysis.
+
+```
+SOURCE / LISTEN
+  -- FIELD PULSE / authority NONE -->
+ECOLOGY CLIMATE
+  → presentation / temporal witness only
+  ≠ lineage authorship
+```
+
+Prove that this makes GARDEN more inhabitable before implementing it. **Borrowed climate ≠ borrowed evolution.**
 
 ## Beat Saber law
 

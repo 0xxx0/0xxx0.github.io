@@ -85,13 +85,13 @@ button{font:inherit;color:inherit}#app{position:fixed;inset:0;overflow:hidden;ba
 <div id="app">
 <canvas id="c"></canvas>
 <div id="ui">
- <div class="top"><div><div class="brand">FOLD<i>//</i>BLOOM</div><div class="micro">ECOLOGY INSTRUMENT 0.2 / FULL GAME</div></div><div class="grow"></div><div class="hud"><div class="pill"><span>FLOW </span><b id="score">0</b></div><div class="pill"><span>CHAIN </span><b id="chain">—</b></div><div class="pill"><span>LAW </span><b id="law">ALIGN</b></div><div class="pill hideM"><span>MODE </span><b id="runMode">HAND</b></div><div class="pill hideM"><span>PACE </span><b id="paceRead">1.00×</b></div><div class="pill hideM"><span>MOV </span><b id="movement">—</b></div><div class="pill hideM"><span>GEN </span><b id="gen">0</b></div><div class="pill hideM"><span>MEM </span><b id="memCount">0</b></div><div class="pill hideM"><span>VOICE </span><b id="voice">SEED</b></div><button class="icon" id="audioBtn" title="Sound">♪</button><input id="vol" aria-label="Volume" type="range" min="0" max="100" value="58" style="width:68px;accent-color:white;opacity:.72"><button class="icon" id="pauseBtn">Ⅱ</button></div></div>
+ <div class="top"><div><div class="brand">FOLD<i>//</i>BLOOM</div><div class="micro">ECOLOGY INSTRUMENT 0.2 / FULL GAME</div></div><div class="grow"></div><div class="hud"><div class="pill"><span>FLOW </span><b id="score">0</b></div><div class="pill"><span>CHAIN </span><b id="chain">—</b></div><div class="pill"><span>LAW </span><b id="law">ALIGN</b></div><div class="pill hideM"><span>MODE </span><b id="runMode">HAND</b></div><div class="pill hideM"><span>PACE </span><b id="paceRead">1.00×</b></div><div class="pill hideM"><span>MOV </span><b id="movement">—</b></div><div class="pill hideM"><span>GEN </span><b id="gen">0</b></div><div class="pill hideM"><span>MEM </span><b id="memCount">0</b></div><div class="pill hideM"><span>VOICE </span><b id="voice">SEED</b></div><button class="icon" id="audioBtn" title="Generated sound off" aria-pressed="false">×</button><input id="vol" aria-label="Volume" type="range" min="0" max="100" value="58" style="width:68px;accent-color:white;opacity:.72"><button class="icon" id="pauseBtn">Ⅱ</button></div></div>
  <div id="path"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><div id="movementPulse"></div>
  <div id="center"><div class="x" id="combo">1×</div><div class="lab">RESONANCE</div></div>
  <div id="gesture"><div class="hand"></div></div><div id="toast" class="toast"></div><div id="forecast"></div><div id="caption">TURN THE RING</div><div class="modebadge" id="modeBadge">FLOW</div>
 </div>
 
-<div class="overlay on" id="start"><div class="card"><div class="eyebrow">FULL FOLD//BLOOM · LIVING GUIDES · MUTE-FIRST</div><h1>MAKE<br>LIKE <span>MEET</span><br>LIKE.</h1><div class="lede">A seed falls toward the bright gate. Turn the ring until the same symbol is waiting there. LOAF, RIVET and MANTA do not replace the game: each embodies one symbol family and points toward a promising relation. Their motion, the causal traces, and the living score carry the same information when sound is off.</div><div class="demo"><div class="target"></div><div class="seed"></div><div class="ring"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><div class="sw">← DRAG →</div></div><div class="modePick"><button class="cta" id="begin">FLOW →</button><button class="ghost" id="ratchetStart">RATCHET →</button><button class="ghost" id="gardenStart">GARDEN / OBSERVE →</button><button class="ghost" id="slow">ZEN / SLOW</button></div><div class="note">Use the volume slider beside <b>♪</b>. Each law now lasts long enough to master before the next mechanic arrives. Starting should play a two-note sound check; if silent, tap <b>♪</b> once. <b>FLOW</b> spins freely. <b>RATCHET</b> clicks one notch per swipe. You can switch at any pause. Breeding pauses a HAND run until you choose. GARDEN keeps playing, breeding and progressing by itself; touch the ring whenever you want control back. <span id="iosInstallHint"></span></div></div></div>
+<div class="overlay on" id="start"><div class="card"><div class="eyebrow">FULL FOLD//BLOOM · LIVING GUIDES · MUTE-FIRST</div><h1>MAKE<br>LIKE <span>MEET</span><br>LIKE.</h1><div class="lede">A seed falls toward the bright gate. Turn the ring until the same symbol is waiting there. LOAF, RIVET and MANTA do not replace the game: each embodies one symbol family and points toward a promising relation. Their motion, the causal traces, and the living score carry the same information when sound is off.</div><div class="demo"><div class="target"></div><div class="seed"></div><div class="ring"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><div class="sw">← DRAG →</div></div><div class="modePick"><button class="cta" id="begin">FLOW →</button><button class="ghost" id="ratchetStart">RATCHET →</button><button class="ghost" id="gardenStart">GARDEN / OBSERVE →</button><button class="ghost" id="slow">ZEN / SLOW</button></div><div class="note">Use the volume slider beside <b>♪</b>. Each law now lasts long enough to master before the next mechanic arrives. The field starts mute. Tap <b>×</b> to enable sound; the first enable plays a two-note check. <b>FLOW</b> spins freely. <b>RATCHET</b> clicks one notch per swipe. You can switch at any pause. Breeding pauses a HAND run until you choose. GARDEN keeps playing, breeding and progressing by itself; touch the ring whenever you want control back. <span id="iosInstallHint"></span></div></div></div>
 
 <div class="overlay" id="chapter"><div class="card"><div class="eyebrow" id="chapterNo">LAW 02 / 06</div><div class="sigil" id="chapterSigil">↕</div><h2 id="chapterTitle">POLARITY</h2><div class="lede" id="chapterText" style="margin:auto">The gate can flip. Read the pole before you move.</div><div class="progressBox"><i id="chapterProgress"></i></div><button class="cta" id="chapterGo">LET IT IN →</button></div></div>
 
@@ -173,7 +173,7 @@ const CHAPTERS=[
 const gene0={law:"FOLD",sym:7,warp:.26,memory:.10,hue:10,tempo:92,scale:0,gravity:1,seed:1337};
 let gene=load("fb2-gene")||{...gene0},lineage=load("fb2-lineage")||[],rng=mulberry32(gene.seed);
 gene={...gene0,...gene};gene.voice=gene.voice||"GLASS";gene.rhythm=gene.rhythm||"PULSE";gene.response=gene.response||"ECHO";
-let audio=null,master=null,delay=null,compressor=null,musicTimer=null,musicStep=0,soundOn=true,audioReady=false;
+let audio=null,master=null,delay=null,compressor=null,musicTimer=null,musicStep=0,soundOn=load("fb-sound-on")===true,audioReady=false,soundcheckDone=false;
 
 function mulberry32(a){return()=>{let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
 function rnd(n=1){return rng()*n}
@@ -225,7 +225,7 @@ function updateInstallHint(){
 updateInstallHint();
 lawSessionName=gene.law;lawSessionAt=Date.now();
 window.FoldBloom={
- state:()=>({chapter:CHAPTERS[chapter]?.name,generation,blooms,score,combo,pace,garden,controlMode,gene:{...gene}}),
+ state:()=>({chapter:CHAPTERS[chapter]?.name,generation,blooms,score,combo,pace,garden,controlMode,soundOn,gene:{...gene}}),
  on:fn=>{eventSinks.add(fn);return()=>eventSinks.delete(fn)},
  step:externalStep,
  setPace:v=>setPace(v,true),
@@ -243,7 +243,7 @@ function returnPacket(){
   schema:"foldbloom.return.v4",
   build:"ecology-instrument-0.2",
   exportedAt:new Date().toISOString(),
-  state:{chapter:CHAPTERS[chapter]?.name||"ALIGN",chapterIndex:chapter,endlessMode,generation,blooms,score:Math.floor(score),combo,bestCombo,bestChain,misses,pace,garden,controlMode,zen,style:styleName,ecology:ecologyOn,temperament},
+  state:{chapter:CHAPTERS[chapter]?.name||"ALIGN",chapterIndex:chapter,endlessMode,generation,blooms,score:Math.floor(score),combo,bestCombo,bestChain,misses,pace,garden,controlMode,zen,style:styleName,ecology:ecologyOn,temperament,soundOn},
   gene:cloneGene(gene),
   lineage:lineage.slice(-32),
   memory:vault.slice(0,8).map(v=>({sig:v.sig,when:v.when,score:v.score,blooms:v.blooms,generation:v.generation,bestCombo:v.bestCombo,bestChain:v.bestChain,law:v.law,voice:v.voice,rhythm:v.rhythm,topology:v.topology,gene:v.gene})),
@@ -787,7 +787,8 @@ function playChainTone(type,tier,step,angle=0){
 function doDrift(){const i=gateIndex(),cell=cells[i],incoming=seed.type;ecologyDrift(incoming);emitSemantic("DRIFT",{type:incoming,slot:i,auto:garden});recordLawDrift();misses++;combo=1;chainNow=0;score=Math.max(0,score-25);toneMiss();haptic(1);toast("DRIFT",false);cell.type=(cell.type+incoming+1)%TYPES;cell.tier=Math.max(1,cell.tier-1);burst(slotAngle(i),cell.type,1,true);seed=null;updateHUD();setTimeout(()=>spawnSeed(false),zen?760:460)}
 function haptic(t){try{navigator.vibrate?.(t>=4?[18,28,22]:[7+t*2])}catch(e){}}
 
-async function initAudio(){
+function syncSoundUI(){const b=$("#audioBtn");if(!b)return;b.textContent=soundOn?(audioReady?"♪":"!"):"×";b.setAttribute("aria-pressed",String(soundOn));b.title=soundOn?(audioReady?"Generated sound on":"Generated sound requested; tap to unlock"):"Generated sound off"}
+async function initAudio({soundcheck=false}={}){
  try{
   const AC=window.AudioContext||window.webkitAudioContext;
   if(!AC){$("#audioBtn").textContent="NO";return false}
@@ -800,10 +801,14 @@ async function initAudio(){
   }
   if(audio.state==="suspended")await audio.resume();
   audioReady=audio.state==="running";
-  if(audioReady){const t=audio.currentTime+.015;osc(440,t,.08,.06,"sine");osc(659.25,t+.055,.12,.045,"sine");startMusic()}
-  $("#audioBtn").textContent=audioReady?"♪":"!";return audioReady
- }catch(e){console.warn("Audio unlock failed",e);audioReady=false;$("#audioBtn").textContent="!";return false}
+  if(audioReady&&soundOn){
+   if(soundcheck&&!soundcheckDone){const t=audio.currentTime+.015;osc(440,t,.08,.06,"sine");osc(659.25,t+.055,.12,.045,"sine");soundcheckDone=true}
+   if(running&&!paused)startMusic()
+  }
+  syncSoundUI();return audioReady
+ }catch(e){console.warn("Audio unlock failed",e);audioReady=false;syncSoundUI();return false}
 }
+syncSoundUI();
 function recoverAudio(){
  if(!soundOn)return;
  if(audio&&audio.state==="suspended")audio.resume().then(()=>{audioReady=audio.state==="running";if(audioReady&&running&&!paused)startMusic()}).catch(()=>{});
@@ -1091,7 +1096,7 @@ async function begin(z,mode="FLOW",auto=false){
  if(mb){mb.textContent=garden?"GARDEN":controlMode;mb.classList.toggle("garden",garden)}
  if(cb)cb.textContent="CONTROL: "+controlMode;if(zb)zb.textContent="ZEN: "+(zen?"ON":"OFF");
  $("#start").classList.remove("on");running=true;paused=false;
- initAudio().catch(()=>{});initBoard();initEcology();$("#gesture").classList.toggle("on",!garden);
+ if(soundOn)initAudio({soundcheck:false}).catch(()=>{});else syncSoundUI();initBoard();initEcology();$("#gesture").classList.toggle("on",!garden);
  $("#caption").textContent=garden?"OBSERVE · TOUCH TO TAKE OVER":controlMode==="RATCHET"?"SWIPE ONE NOTCH":"TURN THE RING";
  last=performance.now();updateHUD();emitSemantic("START",{garden,controlMode,zen});requestAnimationFrame(loop)
 }
@@ -1112,7 +1117,12 @@ try{const pv=parseFloat(localStorage.getItem("fb-pace"));if(Number.isFinite(pv))
 setPace(pace,false);
 if(paceCtl){paceCtl.oninput=()=>setPace(paceCtl.value/100,false);paceCtl.onchange=()=>setPace(paceCtl.value/100,true)}
 
-$("#audioBtn").onclick=async()=>{if(!soundOn){soundOn=true;await initAudio()}else if(!audioReady||!audio||audio.state!=="running"){await initAudio()}else{soundOn=false;$("#audioBtn").textContent="×";clearInterval(musicTimer)}};$("#pauseBtn").onclick=()=>{if(!running)return;paused=true;$("#pause").classList.add("on")};
+async function setSoundEnabled(on,{soundcheck=true}={}){
+ soundOn=!!on;try{localStorage.setItem("fb-sound-on",JSON.stringify(soundOn))}catch(_){}
+ if(!soundOn){clearInterval(musicTimer);musicTimer=null;syncSoundUI();return false}
+ const ok=await initAudio({soundcheck});syncSoundUI();return ok
+}
+$("#audioBtn").onclick=async()=>{if(!soundOn)await setSoundEnabled(true,{soundcheck:true});else if(!audioReady||!audio||audio.state!=="running")await initAudio({soundcheck:false});else await setSoundEnabled(false,{soundcheck:false})};$("#pauseBtn").onclick=()=>{if(!running)return;paused=true;$("#pause").classList.add("on")};
 $("#memoryBtn").onclick=()=>{renderMemory();$("#pause").classList.remove("on");$("#memory").classList.add("on")};
 $("#lineageBtn").onclick=()=>openArchaeology();
 $("#lawLabBtn").onclick=()=>{renderLawLab();$("#pause").classList.remove("on");$("#lawLab").classList.add("on");emitSemantic("LAW_LAB_OPEN",{})};
