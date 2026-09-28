@@ -671,7 +671,7 @@ Even a fully passing promotion gate returns only `ELIGIBLE_FOR_BOUNDED_PREVIEW`;
 
 ### Current stronger scientific boundary
 
-The repository now has a **real pretrained tiny-model J-Lens fit/apply plumbing proof**, not merely a synthetic trace. It remains `PLUMBING_ONLY`: it does not establish semantic workspace quality, a genuine useful steering direction, or a causal host effect. Those remain the six failed obligations above.
+The repository now has both the earlier real tiny-model fit/apply plumbing proof and a **real Qwen/Qwen2.5-1.5B-Instruct J-Lens read trace**. The Qwen trace is still observation-only: the 8-prompt fitted lens produced no `BLOOM / FOLD / SPLIT / RETURN` token in any exported top-8 cell at the sampled final position. Current evidence is therefore typed `REAL_READ_TRACE_OBSERVATION_ONLY`, not semantic steering evidence. It does not establish a useful direction or a causal host effect; those remain the six failed obligations above.
 
 This is the reusable solve-for-all distinction:
 
