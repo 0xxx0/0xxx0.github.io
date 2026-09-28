@@ -90,9 +90,28 @@ test('mixSnapshot returns a copy, not a live reference', () => {
   assert.equal(a.mix.drone, 0.3);
 });
 
+test('quiet default does not start scheduler or drone until sound is explicitly enabled', async () => {
+  await withFakeWindow(async () => {
+    const a = new FoldBloomAudio();
+    assert.equal(a.soundOn, false);
+    assert.equal(await a.init(), true);
+    assert.equal(a.timer, null);
+    assert.equal(a.droneA, null);
+    assert.equal(a.master.gain.value, 0);
+    a.setSound(true);
+    assert.equal(a.soundOn, true);
+    assert.ok(a.timer);
+    assert.ok(a.droneA);
+    a.setSound(false);
+    assert.equal(a.timer, null);
+    assert.equal(a.master.gain.value, 0);
+  });
+});
+
 test('init() builds one named gain node per part with identity (1.0) defaults, drone bus separate from scene gain', async () => {
   await withFakeWindow(async () => {
     const a = new FoldBloomAudio();
+    a.setSound(true);
     assert.equal(await a.init(), true);
     try {
       assert.deepEqual(Object.keys(a.partNodes).sort(), [...MIX_PARTS].sort());
