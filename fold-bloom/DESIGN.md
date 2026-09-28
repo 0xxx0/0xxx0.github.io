@@ -61,7 +61,7 @@ Edges are operators, not just links. Borrowed clock never becomes borrowed autho
 
 RECOVERED SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → RECURRENCE → RETURN
 
-AUTHORED READER is a LIVE source path, not a new product or fifth public job.
+AUTHORED READER is a LIVE source path, not a new product or fifth public job. It is also not LIVE's identity or default ontology: LIVE remains the flagship shell for unequal RIDE / READ / GARDEN apertures.
 
 - A bundled authored pack must identify exact source bytes, source artifact/date, authorship/provenance class, recovery boundary and exclusions.
 - A derived reader pack may rearrange recovered exact fragments for traversal only when that packaging is labeled as derived rather than presented as an original facsimile.
@@ -174,11 +174,14 @@ REPLAY is a **score before media**.
 
 ## Ecology / living-field law
 
-ECOLOGY is a first-class **OBSERVE / PLAY** door, not merely a donor hidden behind the main instrument.
+ECOLOGY is a first-class **OBSERVE / PLAY** aperture, not merely a donor hidden behind the main instrument. The public GARDEN door may be hosted inside the LIVE shell, while `/fold-bloom/ecology/` remains the canonical Ecology engine.
 
 Its native authority remains local and unequal:
 
 - Ecology owns its gene, lineage, law progression, breeding/audition choices, GARDEN witness-play and Ecology RETURN.
+- LIVE may host the canonical Ecology surface as an in-field aperture, but it must hold its own source clock/generated sound while that aperture is active unless an explicit future bridge says otherwise.
+- The hosted aperture transfers orientation only: no LIVE RELEASE authority, source clock, source bytes, J-space support or authored effect crosses into Ecology.
+- RETURN LIVE restores the held LIVE transport/presentation state; it does not convert Ecology lineage into LIVE history.
 - LIVE does not become Ecology merely because both use a cyclic field.
 - GARDEN automation is visible Ecology-authored witness-play. Touching the ring returns control immediately; it is not evidence that a source or model authored the lineage.
 - Ecology is **mute-first**. Generated sound is an explicit preference and may never be required to read the causal field.
