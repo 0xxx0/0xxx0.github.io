@@ -5,6 +5,7 @@ const sources=JSON.parse(fs.readFileSync('prison-age/sources.json','utf8'));
 const legacy=JSON.parse(fs.readFileSync('prison-age/pack.json','utf8'));
 const release=JSON.parse(fs.readFileSync('prison-age/release.json','utf8'));
 const active=fs.readFileSync('prison-age/index.html','utf8');
+const activeApp=fs.readFileSync('prison-age/app.js','utf8');
 const frozen=fs.readFileSync('prison-age/reader-0.2/index.html','utf8');
 
 assert(sources.schema==='prison-age.source-pack/v0.1','source pack schema');
@@ -17,10 +18,11 @@ assert(release.legacy?.status==='FROZEN_FAILED_PROJECTION','legacy freeze status
 assert(release.boundaries.some(x=>x.includes("remains preserved only in frozen reader 0.2")),'motif boundary');
 assert(!active.includes("I'M ALWAYS <b>BEHIND YOU</b>"),'active surface must not present rejected motif');
 assert(active.includes('RIDE SAME SOURCE'),'active ride aperture');
-assert(active.includes("makeReadRidePacket"),'active route must use shared READ/RIDE contract');
-assert(active.includes("authority:'PRISON_AGE'"),'source authority must remain Prison Age');
-assert(active.includes("grain:'SENTENCE'"),'Prison Age ride must request SENTENCE grain explicitly');
-assert(active.includes('entryChar()'),'READ/RIDE must start from exact narrative entry address');
+assert(active.includes('/prison-age/app.js'),'active doorway must load external module');
+assert(activeApp.includes('makeReadRidePacket'),'active route must use shared READ/RIDE contract');
+assert(activeApp.includes("authority:'PRISON_AGE'"),'source authority must remain Prison Age');
+assert(activeApp.includes("grain:'SENTENCE'"),'Prison Age ride must request SENTENCE grain explicitly');
+assert(activeApp.includes('entryChar()'),'READ/RIDE must start from exact narrative entry address');
 assert(frozen.includes("I'M ALWAYS <b>BEHIND YOU</b>"),'frozen reader bytes must remain inspectable');
 
 const expected={
@@ -51,5 +53,5 @@ assert(route?.version==='0.3','active route version');
 assert(route?.tier==='FIELD','active FIELD tier');
 assert(route?.role.includes('Source-first'),'active route role');
 assert(route?.field?.exit_paths?.some(x=>x.class==='FOLD_BLOOM_LIVE'),'LIVE exit');
-assert(legacyRoute?.state==='FROZEN'&&legacyRoute?.showcase_card===false,'legacy reader must be frozen and hidden');
+assert(legacyRoute?.state==='FROZEN_DONOR'&&legacyRoute?.showcase_card===false,'legacy reader must be frozen donor and hidden');
 console.log('PRISON AGE SOURCE / READ-RIDE CONTRACT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· LEGACY 0.2 FROZEN');
