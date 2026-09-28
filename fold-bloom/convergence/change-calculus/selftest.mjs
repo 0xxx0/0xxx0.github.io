@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steppedStatePath,exactFormCalculation,
+  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,statePathLattice,exactFormCalculation,
   steppedFormPath,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
@@ -26,6 +26,11 @@ for(const i of [0,1,5,17,119,719]){
   assert.equal(ranked.index,i);
 }
 assert.equal(stepOrderRank([1,2,3],[1,1,2]).ok,false);
+const steeredOrder=steerStepOrder([3,5],[3,5],0,5);
+assert.equal(steeredOrder.ok,true);
+assert.deepEqual(steeredOrder.order,[5,3]);
+assert.equal(steeredOrder.index,1);
+assert.equal(steerStepOrder([3,5],[3,5],1,3).ok,false);
 
 const state=transparentStateCalculation('010|100','011|110');
 assert.equal(state.ok,true);
@@ -57,6 +62,41 @@ assert.equal(stateStepReverse.selected_order_address,'order://1-of-2');
 assert.equal(stateStepReverse.steps[0].after_token,'H[010|110]');
 assert.notEqual(stateStep.steps[0].after_token,stateStepReverse.steps[0].after_token);
 assert.equal(steppedStatePath('010|100','011|110',[3,3]).ok,false);
+
+const lattice0=statePathLattice('010|100','011|110',[3,5],0);
+assert.equal(lattice0.ok,true);
+assert.equal(lattice0.dimension,2);
+assert.equal(lattice0.vertex_count,4);
+assert.equal(lattice0.edge_count,4);
+assert.equal(lattice0.maximal_chains,2);
+assert.deepEqual(lattice0.layers.map(x=>x.vertices),[1,2,1]);
+assert.equal(lattice0.future_chains,2);
+assert.equal(lattice0.next_candidates.length,2);
+assert.deepEqual(lattice0.next_candidates.map(x=>x.line),[3,5]);
+assert.equal(lattice0.collapsed_prefix_orderings,1);
+
+const lattice1=statePathLattice('010|100','011|110',[3,5],1);
+assert.equal(lattice1.current.token,'H[011|100]');
+assert.deepEqual(lattice1.remaining_lines,[5]);
+assert.equal(lattice1.future_chains,1);
+assert.equal(lattice1.current_layer_width,2);
+assert.equal(lattice1.collapsed_prefix_orderings,1);
+
+const lattice2=statePathLattice('010|100','011|110',[3,5],2);
+assert.equal(lattice2.current.token,'H[011|110]');
+assert.equal(lattice2.next_candidates.length,0);
+assert.equal(lattice2.future_chains,1);
+assert.equal(lattice2.collapsed_prefix_orderings,2);
+assert.equal(lattice2.collapsed_prefix_order_bits,1);
+
+const lattice6=statePathLattice('000|000','111|111',[1,2,3,4,5,6],3);
+assert.equal(lattice6.dimension,6);
+assert.equal(lattice6.vertex_count,64);
+assert.equal(lattice6.edge_count,192);
+assert.equal(lattice6.maximal_chains,720);
+assert.equal(lattice6.current_layer_width,20);
+assert.equal(lattice6.future_chains,6);
+assert.equal(lattice6.collapsed_prefix_orderings,6);
 
 const fromForm=['RETURN','FOLD','SPLIT','BLOOM','RETURN','SPLIT'];
 const toForm=['SPLIT','BLOOM','FOLD','FOLD','BLOOM','RETURN'];
