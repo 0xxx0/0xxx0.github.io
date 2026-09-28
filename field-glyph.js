@@ -36,5 +36,47 @@ function svg(r,opt={}){
  return '<svg class="fieldGlyph" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" aria-label="'+label+'" role="img" style="color:'+p.color+'"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">'+frame(p.kind)+operation(p.operation)+attentionMarks(opt)+'</g></svg>';
 }
 function mnemonic(r){const p=parts(r);return p.kind_key+p.operation_key}
-window.FieldGlyph={svg,parts,mnemonic,stateColor,kindKey,opKey};
+function representation(r,opt={}){
+ return{
+  recipe:{
+   lensId:'field-glyph',lensVersion:'2',kind:'VIEW_LENS',authority:'PREVIEW',params:{},
+   inputContract:'field-route/v0.1',outputContract:'projection/glyph',
+   preserves:['identity','address'],
+   hides:['content','depth','time','authority','evidence'],
+   derives:['kind frame','operation mark','state color','attention marks']
+  },
+  descriptor:parts(r,opt),
+  svg:svg(r,{...opt,size:opt.coreSize||48})
+ };
+}
+function instrument(r,opt={}){
+ const G=globalThis.InterphaseGlyph;
+ if(!G||!r)return{svg:svg(r,{...opt,size:opt.size||58}),summary:null,model:null,residue:[]};
+ const children=(Array.isArray(opt.children)?opt.children:[]).map(x=>typeof x==='string'?x:x?.href).filter(Boolean);
+ const chain=(Array.isArray(opt.chain)?opt.chain:[]).map(x=>typeof x==='string'?{id:x,label:x}:x).filter(x=>x?.id||x?.label);
+ const operations=(Array.isArray(opt.operations)&&opt.operations.length?opt.operations:[
+  {id:'READ',authority:'VIEW'},{id:'OPEN_NATIVE',authority:'VIEW'}
+ ]).slice(0,3).map(x=>typeof x==='string'?{id:x,authority:'VIEW'}:{id:String(x?.id||''),authority:'VIEW'}).filter(x=>x.id);
+ const residue=(Array.isArray(opt.residue)?opt.residue:['content','authority','evidence']).map(x=>
+  typeof x==='string'?{id:r.href||r.id||'/',channel:x,projection:'GLYPH'}:x
+ );
+ const d={
+  id:String(r.href||r.id||'/'),kind:String(r.kind||'object'),label:String(r.title||r.href||r.id||'FIELD object'),
+  address:{route:r.href||null,parent:r.parent||null},
+  channels:['identity','address',...(children.length||chain.length?['depth']:[])],
+  operations,authority:'VIEW',parent:r.parent||null,children,
+  value:{state:r.state||null,operation:r.operation||null,chain},
+  glyph:representation(r,opt)
+ };
+ const model=G.model(d,{projection:'GLYPH',residue});
+ return{
+  svg:G.svg(model,{size:opt.size||68,projection:'GLYPH',residue}),
+  model,residue,
+  summary:Object.freeze({
+   id:model.id,depth:model.depth?.count||0,childCount:children.length,
+   operations:model.operations.map(x=>x.id),residueCount:residue.length,authority:model.authority
+  })
+ };
+}
+window.FieldGlyph={svg,parts,mnemonic,stateColor,kindKey,opKey,representation,instrument};
 })();
