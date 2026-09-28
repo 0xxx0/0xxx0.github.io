@@ -25,7 +25,7 @@ The source does not become its waveform, terrain, glyph, scene, reading layout, 
 
 - **SOURCE** — original track; no derived terrain; FIELD synth silent.
 - **MAP** — source + derived terrain; restrained experience gain; FIELD synth silent.
-- **IMMERSION** — source + map + selected experience profile + FIELD synth/world response.
+- **IMMERSION** — source + map + selected experience profile + world response. FIELD synth is a separate explicit opt-in channel; entering IMMERSION never turns it on.
 
 These are three readings of one source, not three products.
 
@@ -64,6 +64,15 @@ SUBSTANCE GENERATES FORM.
 For each visible control: what object is manipulated, what stable address remains, what relation becomes visible, what operation occurs, what sensory witness proves consequence, what is evidence versus preference, and how does the user RETURN?
 
 Prefer contextual controls, direct manipulation, stable spatial memory, receding chrome and consequence-driven delight.
+
+### Quiet-still default law
+
+- Plain LIVE boots **silent and stationary**. It must not start AUTOPILOT, a generated-sound scheduler, drone, or synthetic source clock merely because the page loaded.
+- The built-in FIELD COURSE is a held synthetic world. Ring turns change the decision state; a successful authored **RELEASE advances the synthetic course exactly one beat**.
+- Forward-motion cues (optic flow / road streak phase) follow the actual transport `playing` witness. A held transport may ease to newly authored geometry, but it may not simulate continuous travel from wall-clock time alone.
+- Source audio advances only after an explicit PLAY action. AUTOPILOT advances only after an explicit AUTOPILOT action or an explicit `?demo=1` launch.
+- IMMERSION may alter visual/body response while generated FIELD sound remains off. Sound requires its own explicit opt-in and turning sound off stops the generated scheduler.
+- A future implementation may make the still→advance transition more continuous or expressive, but it may not restore invisible autonomous motion as the plain default.
 
 ### Mobile control law
 

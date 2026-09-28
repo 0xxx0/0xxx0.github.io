@@ -52,13 +52,31 @@ export class PracticeTrack {
     this.map=createPracticeMap({duration,bpm});
     this.epoch=performance.now();
     this.offset=0;
-    this.paused=false;this.worldCache=null;this.worldTime=-1;
+    this.paused=true;this.worldCache=null;this.worldTime=-1;
   }
   time(now=performance.now()){
     const raw=this.paused?this.offset:this.offset+(now-this.epoch)/1000;
     return ((raw%this.map.duration)+this.map.duration)%this.map.duration;
   }
-  reset(now=performance.now()){this.epoch=now;this.offset=0;this.worldCache=null;this.worldTime=-1}
+  beatSeconds(){return 60/(Number(this.map.bpm)||108)}
+  seek(seconds=0,now=performance.now()){
+    const d=Number(this.map.duration)||1;
+    this.offset=((Number(seconds)||0)%d+d)%d;this.epoch=now;this.worldCache=null;this.worldTime=-1;
+    return this.offset;
+  }
+  pause(now=performance.now()){
+    if(!this.paused)this.offset=this.time(now);
+    this.epoch=now;this.paused=true;return this.time(now);
+  }
+  resume(now=performance.now()){
+    if(this.paused){this.offset=this.time(now);this.epoch=now;this.paused=false}
+    return this.time(now);
+  }
+  advance(beats=1,now=performance.now()){
+    const delta=this.beatSeconds()*(Number(beats)||0);
+    this.seek(this.time(now)+delta,now);this.paused=true;return this.time(now);
+  }
+  reset(now=performance.now()){this.epoch=now;this.offset=0;this.paused=true;this.worldCache=null;this.worldTime=-1}
   transport(now=performance.now()){
     const p=transportFromMap(this.map,this.time(now),!this.paused);
     return p?{...p,stage:'DEMO',sourceKind:'FIELD_PRACTICE',sourceAddress:null,_receivedAt:now}:null;

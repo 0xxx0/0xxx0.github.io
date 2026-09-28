@@ -283,3 +283,58 @@ READFIELD / GLYPH ATLAS / LOCAL FILE
 ~~~
 
 Do not make LIVE another reader authority. READFIELD keeps source/cursor/RSVP/VOICE authority; LIVE contributes embodied traversal and its native authored operation field. Do not couple RELEASE to page/paragraph advancement by default. The first real gate after repository proof is one ordinary book/document comparison against READFIELD alone.
+
+
+## 2026-09-28 — QUIET STILL REPAIR / CURRENT SUCCESSOR NOTE
+
+Direct user report: current LIVE had become unpleasantly noisy and self-moving. The specific defects were recoverable in code rather than subjective:
+
+- `FoldBloomAudio` defaulted `soundOn=true`; `init()` immediately created the continuous drone and started the synth scheduler.
+- plain LIVE scheduled AUTOPILOT after 650 ms even with no explicit request.
+- the fallback `PracticeTrack` clock ran continuously, so the synthetic road advanced even when the user had not chosen a source or action.
+- entering IMMERSION could silently re-enable generated sound after an audio context already existed.
+
+Repair branch: `fix/fold-bloom-quiet-still-20260928`.
+
+New invariant:
+
+```
+BOOT
+  = SILENT + STILL
+
+RING TURN
+  = decision/topology change only
+
+RELEASE
+  = commit native LIVE operation
+  = then FIELD COURSE +1 beat (only when the fallback practice field owns the clock)
+
+PLAY SOURCE
+  = explicit continuous source clock
+
+FIELD SOUND
+  = explicit generated-sound opt-in
+
+AUTOPILOT / ?demo=1
+  = explicit witness-play opt-in
+```
+
+Implementation boundaries:
+
+- `audio.js`: sound defaults OFF; quiet `init()` does not start drone/scheduler; OFF stops scheduler and mutes drone/master; ON starts them only after explicit audio permission.
+- `practice-track.js`: paused by default; explicit `advance(beats)` is deterministic; reset returns to paused zero.
+- `render.js`: optic-flow and road-streak forward phase are held whenever the active transport reports `playing=false`; authored geometry may still ease to its new state.
+- `app.js`: plain route no longer autostarts AUTOPILOT; local tracks load paused in STEP; synthetic course advances one beat after successful RELEASE; IMMERSION no longer implies sound; pointer/release paths do not initialize synth while sound is off.
+- `index.html`: default entry is named STATIC FIELD and explains RELEASE→+1 beat.
+- explicit `?demo=1` remains legal; AUDIO EXAMPLE and source PLAY remain explicit continuous-motion paths.
+
+Do not “fix” this later by restarting the practice clock in RAF, reenabling audio from layer changes, or treating AUTOPILOT as onboarding wallpaper. If the still experience feels dead, improve the consequence of the authored step; do not restore ambient autonomous motion.
+
+Human gate after CI:
+
+1. open plain LIVE and leave it untouched for 10 s — no audible hum and no source/road progression;
+2. turn the ring without RELEASE — topology changes, synthetic road address does not;
+3. commit RELEASE — synthetic road advances one beat and then holds;
+4. opt into FIELD SOUND — generated sound begins; turn it off — scheduler/hum stop;
+5. load a local song — it is mapped but held; PLAY SOURCE alone starts continuous source motion;
+6. AUTOPILOT moves only after pressing AUTOPILOT (or explicit `?demo=1`).
