@@ -4918,13 +4918,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3",
+      "title": "LACONIC / ICONIC 0.3.1",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3",
+      "version": "0.3.1",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5049,7 +5049,7 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-09-21T01:06:00+08:00",
+        "updated_at": "2026-09-29T00:45:09+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",

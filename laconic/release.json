@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.3",
-  "released": "2026-09-21",
+  "version": "0.3.1",
+  "released": "2026-09-28",
   "state": "ACTIVE",
   "changes": [
     "renamed the recovered-fragments surface to VAULT and kept the active drafting layer small",
@@ -13,7 +13,8 @@
     "added the exact user-authored `the council sends you this invisible recovery hamper...` fragment as a STAR",
     "corrected the persona-to-Council lineage from a single-origin story to multi-donor convergence",
     "preserved HUMAN PORT as the explicit external share/copy boundary",
-    "Recovered the direct 2024-12-29→12-30 source chain from 5–6 requested internal voices to a named five-self set and the first immediate simultaneous inner-dialogue scene; later Council canon remains evidence-distinct."
+    "Recovered the direct 2024-12-29→12-30 source chain from 5–6 requested internal voices to a named five-self set and the first immediate simultaneous inner-dialogue scene; later Council canon remains evidence-distinct.",
+    "FIX: the ARCHIVE vault never rendered in 0.3. renderVaultModes() called forEach on $ ('#vaultModes button') -- $ is document.querySelector, which returns a single Element with no forEach, so it threw a TypeError at the head of renderVault(); renderVault() sits in the boot chain with no try/catch, so the vault was left at its initial 'Loading vault…' placeholder and every later boot step was skipped. Browser-verified before/after: 1 child / 14 chars -> 14 children / 1813 chars. One character: $( -> $$(. Live since 2026-09-21."
   ],
   "recovered_evidence": [
     {

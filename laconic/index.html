@@ -239,7 +239,7 @@ $('#runner').onclick=e=>{
 function vaultHay(x){return JSON.stringify(x).toLowerCase()}
 function vaultMatch(x){const q=$('#vaultQ')?.value.trim().toLowerCase();return !q||vaultHay(x).includes(q)}
 function renderVaultModes(){
- $('#vaultModes button').forEach(b=>b.classList.toggle('on',b.dataset.vault===vaultMode));
+ $$('#vaultModes button').forEach(b=>b.classList.toggle('on',b.dataset.vault===vaultMode));
 }
 function renderVault(){
  if(!fragmentsData||!historicData||!lexiconData||!lineageData||!earlyDonors)return;
