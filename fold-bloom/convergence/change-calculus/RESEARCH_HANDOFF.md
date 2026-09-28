@@ -764,3 +764,13 @@ CHANGE CALCULUS path → addressed 8×8 state-matrix geometry → faint INK guid
 The guide is `PROJECTION_ONLY`. It does not paint, select a path, promote J-space steering, or claim I Ching authorship. Once in INK, the visible stroke remains an authored wet-media trace; switching to a glyph guide discards the carried path guide rather than silently blending meanings.
 
 This is the intended convergence pattern: **same addressed object, unequal projections, explicit residue, authorship preserved**.
+
+## Prefix-preserving local steering donor — 2026-09-28
+
+Transferred the useful mechanism from draft PR #483 into this richer whole-lattice lineage. `steerStepOrder(...)` treats the already-witnessed STEP prefix as immutable, lets the user nominate exactly one still-unmoved line as NEXT, and re-ranks only the future suffix with the existing Lehmer/factoradic address.
+
+FIELD LAB exposes this as direct manipulation: future lines in the center stack are marked with a small steering aperture, and lawful one-edge lattice successors are ringed. Tapping either calls the same calculation-only steering primitive. No new control row, host mutation, LIVE `release()`, divinatory authority, or J-space causal promotion is introduced.
+
+The end-to-end browser proof now exercises a three-line interval: choose L5 first, witness it, choose L3 second while preserving prefix L5, then carry the resulting ordered path into INK and return authored pigment evidence.
+
+After this transfer is verified, PR #483 should remain provenance/donor only rather than a second maintained change-lattice implementation.
