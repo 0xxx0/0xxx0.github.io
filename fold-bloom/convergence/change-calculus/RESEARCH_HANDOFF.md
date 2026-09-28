@@ -720,3 +720,35 @@ This is the reusable solve-for-all distinction:
 > **legibility, support, and permission are three different questions.**
 
 Do not collapse them into a single confidence score.
+
+## 2026-09-28 — order-space convergence
+
+The moving-line set is now represented as a **Boolean change lattice**, not merely an unordered Δ mask plus a list of permutations.
+
+For `k` moving lines:
+
+- reachable abstract intermediate states = `2^k`;
+- lawful one-line directed edges = `k · 2^(k-1)`;
+- complete one-line STEP orders = `k!` maximal chains;
+- rank `r` contains `C(k,r)` states;
+- every rank has exactly `k!` maximal-chain incidences because `C(k,r) · r! · (k-r)! = k!`.
+
+This matters because “720 orders” at six moving lines is misleading if treated as 720 unrelated trajectories. They are 720 maximal chains reusing only 64 addressed intermediate states and 192 one-line edges. The shared state-space is the stable object; STEP selects one chain through it.
+
+### FIELD LAB integration
+
+DATA now renders that shared order space behind the selected FROM → PATH → TO witness. The selected factoradic chain is highlighted; STEP advances along it; ORDER selects another maximal chain; FLOW only animates the witness. No path acquires LIVE authority.
+
+The LAB RETURN carries the bounded lattice summary (dimensions / vertices / edges / maximal chains) with the selected order witness, not a new state store.
+
+### J-space / steering implication
+
+A readout or steering hypothesis can at most nominate support inside a host's already-lawful option/state space. It does **not** determine a trajectory through that space. The distinction is now explicit:
+
+`STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`
+
+For future causal work, compare interventions at matched lattice addresses rather than comparing only endpoint labels. If two interventions reach the same endpoint by different lawful chains, endpoint equivalence is insufficient evidence that mechanism or consequence was equivalent.
+
+### Successor rule
+
+Prefer enriching this shared lattice/path witness over adding another “stepped” subsystem. If a host has a different native transition graph, derive its graph explicitly and preserve the same separation between state-space witness, selected path, model support, and effect authority.
