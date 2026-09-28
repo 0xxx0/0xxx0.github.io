@@ -456,9 +456,23 @@ export class Renderer {
   }
   _steering(state,t){
     const v=this.steeringPreview;if(!v?.candidates?.length)return;
-    const g=this.g,pulse=.55+.45*Math.sin(t*.006),slots=new Set(v.candidates.map(x=>Number(x.slot)));
-    g.save();g.translate(this.cx,this.cy);g.strokeStyle=`rgba(215,180,109,${.42+.36*pulse})`;g.lineWidth=1.4;g.setLineDash([2,4]);
-    for(const slot of slots){if(!Number.isFinite(slot))continue;const a=this.slotAngle(slot,state),r0=this.r+17,r1=this.r+27;g.beginPath();g.moveTo(Math.cos(a)*r0,Math.sin(a)*r0);g.lineTo(Math.cos(a)*r1,Math.sin(a)*r1);g.stroke()}
+    const g=this.g,pulse=.55+.45*Math.sin(t*.006),nearest=new Set((v.nearest_slots||[]).map(Number));
+    g.save();g.translate(this.cx,this.cy);
+    for(const candidate of v.candidates){
+      const slot=Number(candidate.slot);if(!Number.isFinite(slot))continue;
+      const a=this.slotAngle(slot,state),r0=this.r+17,r1=this.r+27,isNearest=nearest.has(slot);
+      g.strokeStyle=`rgba(215,180,109,${(isNearest?.62:.30)+.28*pulse})`;g.lineWidth=isNearest?1.8:1.1;g.setLineDash(isNearest?[3,4]:[2,5]);
+      g.beginPath();g.moveTo(Math.cos(a)*r0,Math.sin(a)*r0);g.lineTo(Math.cos(a)*r1,Math.sin(a)*r1);g.stroke();
+      if(!isNearest)continue;
+      const delta=Number(candidate.turn_delta)||0,da=delta*TAU/N,arcR=this.r+22,end=a+da;
+      if(delta){
+        g.strokeStyle=`rgba(215,180,109,${.30+.24*pulse})`;g.lineWidth=1.15;g.setLineDash([3,5]);
+        g.beginPath();g.arc(0,0,arcR,a,end,da<0);g.stroke();
+      }
+      const mid=delta?a+da*.5:a,label=delta>0?'→'+Math.abs(delta):delta<0?'←'+Math.abs(delta):'HERE';
+      g.setLineDash([]);g.fillStyle=`rgba(239,217,159,${.70+.22*pulse})`;g.font='800 7px ui-monospace,monospace';g.textAlign='center';g.textBaseline='middle';
+      g.fillText(label,Math.cos(mid)*(arcR+12),Math.sin(mid)*(arcR+12));
+    }
     g.setLineDash([]);g.restore();
   }
   _gate(state,t){const g=this.g,x=this.cx,y=this.cy-this.r-36,col=COLORS[state.targetType],aligned=isAligned(state),f=forecastRelease(state),hit=forecastMatchesCall(state.call,f);g.save();g.strokeStyle=hit?'#fff':col+(aligned?'ff':'aa');g.lineWidth=hit?3:aligned?2.4:1.2;g.beginPath();g.arc(x,y,16+(aligned?3*Math.sin(t*.008):0),0,TAU);g.stroke();g.fillStyle=col+(aligned?'30':'14');g.fill();g.font='700 9px ui-monospace,monospace';g.textAlign='center';g.fillStyle='rgba(255,255,255,.62)';g.fillText(typePresentation(state.targetType).text,x,y-24);g.fillStyle=hit?'rgba(255,255,255,.95)':'rgba(255,255,255,.38)';g.font='800 7px ui-monospace,monospace';g.fillText(callLabel(state.call),x,y+29);g.restore()}
