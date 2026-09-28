@@ -4,6 +4,7 @@ import {
   hexProjection,hexChangeProjection
 } from '../../live/hex-projection.js';
 import {steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
+import {evaluateSteeringPromotion,CURRENT_EVIDENCE_2026_09_27} from '../jspace-steering/promotion-gate.mjs';
 
 export const CHANGE_CALCULUS_SCHEMA='fold-bloom-change-calculus/v0.1';
 export const CONTROL_VERBS=Object.freeze(['BLOOM','FOLD','SPLIT','RETURN']);
@@ -211,6 +212,8 @@ export function appliedResearchFrame(spec={}){
   const steering=spec.trace&&spec.target
     ?steeringSupportCalculation(spec.trace,spec.target,spec.nativeForecasts||[],spec.vocabulary)
     :null;
+  const promotionEvidence=spec.promotionEvidence||CURRENT_EVIDENCE_2026_09_27;
+  const promotion=evaluateSteeringPromotion(promotionEvidence);
   const alignment=state?.ok&&exact?.ok?{
     from_matches:state.from.binary===exact.from.bits?.join(''),
     to_matches:state.to.binary===exact.to.bits?.join(''),
@@ -224,13 +227,16 @@ export function appliedResearchFrame(spec={}){
     exact,
     step,
     steering,
+    promotion,
+    promotion_evidence_source:spec.promotionEvidence?'SUPPLIED':'CURRENT_EVIDENCE_2026_09_27',
     alignment,
     residue:[
       'I Ching names/text are an optional lookup lens over the six-bit state; no divinatory authority is inferred by this calculation',
       'hexagram quotient loses exact BLOOM/FOLD and SPLIT/RETURN distinctions',
       'moving-line set loses step ordering',
       'J-Lens top-k readout loses unexported vocabulary mass and does not provide a causal direction vector',
-      'host forecast support is not permission to execute'
+      'host forecast support is not permission to execute',
+      'promotion from read/support hypothesis to bounded preview is a separate evidence gate with explicit proof obligations'
     ]
   };
 }
