@@ -8464,7 +8464,7 @@
         "exact Prison Age story address + bytes → READFIELD",
         "exact same story bytes + source identity → FOLD//BLOOM LIVE field-read-ride/v0.1",
         "READ/RIDE → exact /prison-age/?story=<id> return",
-        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen"
+        "reader 0.2 source extraction/tests remain recoverable through Git/recovery lineage; failed runtime route and motif/path/pressure framing stay removed"
       ],
       "contract": {
         "accepts": {
@@ -8548,66 +8548,17 @@
       },
       "classification": "RECOVERED_2026_SOURCE / SOURCE_DOORWAY",
       "evolution": {
-        "mutation": "Reader 0.2 is frozen; active route contracts to exact source selection plus two unequal existing projections.",
+        "mutation": "Reader 0.2 runtime remains removed; exact source extraction lineage stays recoverable while the active route contracts to source selection plus unequal READ/RIDE projections.",
         "question": "Can LIVE make authored Prison Age text more traversable without becoming the content?"
       },
       "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
+        "updated_at": "2026-09-29T03:12:00+08:00",
         "work_modes": [
-          "READ",
-          "RIDE",
-          "RETURN"
+          "RECOVER",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
-    },
-    {
-      "href": "/prison-age/reader-0.2/",
-      "title": "PRISON AGE // READER 0.2 (FROZEN)",
-      "kind": "artifact",
-      "parent": "/prison-age/",
-      "family": "PRISON AGE",
-      "operation": "ARCHIVE",
-      "state": "FROZEN_DONOR",
-      "version": "0.2",
-      "showcase_card": false,
-      "receipt": "/prison-age/reader-0.2/release.json",
-      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
-      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
-      "tier": "DONOR",
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "historical frozen reader state"
-          ]
-        },
-        "transforms": {
-          "verb": "inspect only",
-          "preserves": [
-            "frozen bytes",
-            "source boundary"
-          ],
-          "reversibility": "return to /prison-age/",
-          "side_effects": "none"
-        },
-        "emits": {
-          "kinds": [
-            "lineage inspection"
-          ],
-          "machine_readable": false,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/prison-age/reader-0.2/release.json",
-          "return_path": "/prison-age/"
-        }
-      },
-      "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
-        "work_modes": [
-          "ARCHIVE"
-        ]
-      }
     }
   ],
   "release_law": [
