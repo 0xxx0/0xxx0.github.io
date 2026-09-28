@@ -21,8 +21,9 @@ const wait=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Da
  rec.controls=!!map&&!!back&&!!next&&!!mode&&!!grain&&!!address;rec.canvasW=map?.clientWidth||0;rec.initialMode=api.course.mode();rec.initialGrain=api.course.grain();
  api.course.setMode('STEP',false);rec.stepMode=api.course.mode();rec.stepText=mode.textContent;rec.address=api.course.address();rec.addressText=address.textContent;
  api.course.cycleGrain();rec.grain=api.course.grain();rec.grainText=grain.textContent;
- api.course.setMode('FLOW',false);rec.flow=api.course.mode();rec.flowText=mode.textContent;
- const pass=rec.controls&&rec.canvasW>180&&rec.initialMode==='FLOW'&&rec.initialGrain==='PHRASE'&&rec.stepMode==='STEP'&&rec.stepText==='STEP'&&rec.address===null&&rec.addressText==='course://audio_map/empty'&&rec.grain==='SECTION'&&rec.grainText==='SECTION'&&rec.flow==='FLOW'&&rec.flowText==='FLOW';
+ api.course.setMode('RELEASE_STEP',false);rec.releaseStep=api.course.mode();rec.releaseStepText=mode.textContent;rec.releasePolicy=D().documentElement.dataset.foldBloomCoursePolicy;rec.releaseLaw=D().getElementById('courseLaw')?.textContent||'';
+ api.course.setMode('FLOW',false);rec.flow=api.course.mode();rec.flowText=mode.textContent;rec.flowPolicy=D().documentElement.dataset.foldBloomCoursePolicy;
+ const pass=rec.controls&&rec.canvasW>180&&rec.initialMode==='FLOW'&&rec.initialGrain==='PHRASE'&&rec.stepMode==='STEP'&&rec.stepText==='STEP'&&rec.address===null&&rec.addressText==='course://audio_map/empty'&&rec.grain==='SECTION'&&rec.grainText==='SECTION'&&rec.releaseStep==='RELEASE_STEP'&&rec.releaseStepText==='RELEASE→STEP'&&rec.releasePolicy==='RELEASE_THEN_ONE_ADDRESS'&&/advances exactly one SECTION address/.test(rec.releaseLaw)&&rec.flow==='FLOW'&&rec.flowText==='FLOW'&&rec.flowPolicy==='SOURCE_CLOCK';
  done(pass,rec);
 })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
 <\/script></body></html>`}
