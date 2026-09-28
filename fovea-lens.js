@@ -469,6 +469,13 @@ function boot(){
         SLOTS.push({id:s.id,label:s.label||s.id,angle:Number(s.angle)||0,reserved:!!s.reserved,note:s.note||'',run:s.run});
         radialSlots();
         return true;
+      },
+      claim:(id,s)=>{
+        const slot=SLOTS.find(x=>x.id===id&&x.reserved);
+        if(!slot||!s||typeof s.run!=='function')return false;
+        slot.label=s.label||slot.label;slot.note=s.note||slot.note||'';slot.run=s.run;slot.reserved=false;
+        radialSlots();
+        return true;
       }
     })
   });
