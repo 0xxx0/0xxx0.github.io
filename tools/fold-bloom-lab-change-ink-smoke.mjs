@@ -42,8 +42,28 @@ function probe(){
     await wait(()=>D().documentElement.dataset.foldBloomFieldLab==='ready'&&W().FoldBloomFieldLab?.stateStep?.().path?.ok,12000,'LAB DATA ready');
     const before=W().FoldBloomFieldLab.stateStep();
     rec.beforeMode=W().FoldBloomFieldLab.mode();
-    rec.pathAddress=before.path.path_address;
-    rec.order=[...(before.path.selected_order||[])];
+    rec.initialPath=before.path.path_address;
+    rec.initialOrder=[...(before.path.selected_order||[])];
+
+    D().getElementById('stateTo').value='111|110';
+    D().getElementById('stateProject').click();
+    await sleep(80);
+    const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),h=box.height,gap=Math.max(22,Math.min(38,h*.055)),cy=h*.51;
+    const tapLine=line=>{
+      const y=cy+gap*(2.5-(line-1));
+      canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:3,pointerType:'touch',clientX:box.left+box.width*.5,clientY:box.top+y}));
+    };
+    tapLine(5);
+    await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[0]===5,2500,'steer L5 first');
+    D().getElementById('stateStep').click();
+    await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===1,1500,'witness prefix');
+    const firstSteer=W().FoldBloomFieldLab.stateStep();
+    tapLine(3);
+    await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[1]===3,2500,'steer L3 second');
+    const steered=W().FoldBloomFieldLab.stateStep();
+    rec.steering={initial:rec.initialOrder,afterFirst:[...firstSteer.path.selected_order],afterSecond:[...steered.path.selected_order],cursor:steered.cursor,prefix:steered.path.selected_order.slice(0,steered.cursor)};
+    rec.pathAddress=steered.path.path_address;
+    rec.order=[...steered.path.selected_order];
     D().getElementById('stateInk').click();
     await wait(()=>W().FoldBloomFieldLab.mode()==='INK'&&W().FoldBloomFieldLab.ink?.().guide?.ok,6000,'INK guide');
     const ink=W().FoldBloomFieldLab.ink(),addr=D().getElementById('addressRead').textContent||'';
@@ -52,7 +72,7 @@ function probe(){
     rec.guideAddress=ink.guide.address;
     rec.guideStates=ink.guide.points.length;
     rec.address=addr;
-    const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),x=box.left+box.width*.5,y=box.top+box.height*.5;
+    const x=box.left+box.width*.5,y=box.top+box.height*.5;
     canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x,clientY:y,pressure:.65}));
     canvas.dispatchEvent(new (W().PointerEvent)('pointermove',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
     canvas.dispatchEvent(new (W().PointerEvent)('pointerup',{bubbles:true,pointerId:7,pointerType:'pen',clientX:x+32,clientY:y+18,pressure:.58}));
@@ -62,7 +82,7 @@ function probe(){
     rec.returnGuide=projection.guide;
     rec.pigment=projection.pigment;
     rec.water=projection.water;
-    const pass=rec.beforeMode==='DATA'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const pass=rec.beforeMode==='DATA'&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
