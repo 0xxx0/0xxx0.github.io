@@ -36,5 +36,44 @@ function svg(r,opt={}){
  return '<svg class="fieldGlyph" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" aria-label="'+label+'" role="img" style="color:'+p.color+'"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">'+frame(p.kind)+operation(p.operation)+attentionMarks(opt)+'</g></svg>';
 }
 function mnemonic(r){const p=parts(r);return p.kind_key+p.operation_key}
-window.FieldGlyph={svg,parts,mnemonic,stateColor,kindKey,opKey};
+
+/* HELD OBJECT INSTRUMENT
+ * Reuse INTERPHASE's recursive glyph carrier instead of inventing another
+ * dashboard. The compact FIELD glyph stays the identity core. Rings disclose
+ * recoverable structure without becoming controls or authority.
+ */
+function instrumentModel(r,opt={}){
+ const G=globalThis.InterphaseGlyph;
+ if(!G||!r)return null;
+ const coreSvg=svg(r,{size:48,now:!!opt.now,head:!!opt.head,issue:!!opt.issue});
+ const chain=Array.isArray(opt.chain)?opt.chain:[];
+ const children=Array.isArray(opt.children)?opt.children:[];
+ const operations=(Array.isArray(opt.operations)&&opt.operations.length?opt.operations:[
+  {id:'READ',authority:'VIEW'},{id:'OPEN',authority:'EFFECT'}
+ ]).map(x=>typeof x==='string'?{id:x,authority:'VIEW'}:x);
+ const channels=Array.isArray(opt.channels)&&opt.channels.length?opt.channels:
+  ['identity','address','content','depth','authority','evidence'];
+ const desc={
+  id:r.href||r.id||'/',kind:r.kind||'object',label:r.title||r.href||'FIELD object',
+  address:r.href||null,authority:'VIEW',parent:r.parent||null,children,
+  channels,operations,
+  value:{state:r.state||null,operation:r.operation||null,chain},
+  glyph:{
+   recipe:{lensId:'field-glyph',lensVersion:'2',kind:'VIEW_LENS',authority:'PREVIEW',params:{},
+    inputContract:'field-route/v0.1',outputContract:'projection/glyph',
+    preserves:['identity','address'],hides:['content','depth','time','authority','evidence'],
+    derives:['kind frame','operation mark','state color','attention marks']},
+   svg:coreSvg
+  }
+ };
+ const residue=(Array.isArray(opt.residue)?opt.residue:['content','depth','authority','evidence'])
+  .map(x=>typeof x==='string'?{id:desc.id,channel:x,projection:'GLYPH'}:x);
+ return {desc,residue,model:G.model(desc,{projection:'GLYPH',residue})};
+}
+function instrumentSvg(r,opt={}){
+ const G=globalThis.InterphaseGlyph,m=instrumentModel(r,opt);
+ if(!G||!m)return svg(r,{...opt,size:opt.size||72});
+ return G.svg(m.model,{size:opt.size||96,projection:'GLYPH',residue:m.residue});
+}
+window.FieldGlyph={svg,parts,mnemonic,stateColor,kindKey,opKey,instrumentModel,instrumentSvg};
 })();
