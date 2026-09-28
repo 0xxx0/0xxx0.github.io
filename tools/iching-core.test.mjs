@@ -22,7 +22,7 @@ const byId = new Map(HEXES.map(h => [h.id, h]));
 const byBin = new Map(HEXES.map(h => [h.binary, h]));
 
 /* ---- fixture: run the real inline script of iching/index.html headless ---- */
-function fixture() {
+function fixture(initialHash='') {
   const els = new Map();
   const ctx2d = {
     setTransform() {}, clearRect() {}, fillRect() {}, beginPath() {}, moveTo() {},
@@ -43,7 +43,7 @@ function fixture() {
   const buttons = ['read', 'cube', 'grid', 'walk']
     .map(v => ({ dataset: { view: v }, classList: { toggle() {} }, addEventListener() {} }));
   const history = { calls: [], replaceState(...a) { this.calls.push(a); } };
-  const location = { hash: '', href: '' };
+  const location = { hash: initialHash, href: '' };
   const context = {
     console, URL, URLSearchParams, setTimeout, clearTimeout,
     fetch: async () => ({ json: async () => plain(DATA) }),
@@ -162,6 +162,20 @@ check('data: judgment / image / names / line text present for all 64', () => {
 await new Promise(r => setTimeout(r, 25)); // let the page's async load() settle
 const fx = fixtureReady;
 const t = fx.t;
+const fxBinary = fixture('#b=010110');
+await new Promise(r => setTimeout(r, 25));
+
+check('page: direct #b six-bit address resolves through native binary index without casting', () => {
+  const h=fxBinary.t.parseHash(),target=byBin.get('010110');
+  assert.equal(h.b,'010110');
+  assert.ok(target,'fixture binary must exist');
+  assert.ok(fxBinary.els.get('out').innerHTML.includes(target.name_zh),'binary deep link renders native target');
+  assert.equal(fxBinary.history.calls.at(-1)?.[2],'#h='+target.id,'renderHex canonicalizes structural lookup to native hex id');
+});
+check('page: malformed #b is rejected rather than coerced to a hexagram address', () => {
+  fx.location.hash='#b=01011x';
+  assert.equal(t.parseHash().b,null);
+});
 
 check('page: inline script boots and load() builds 64 hexagrams + indexes', () => {
   assert.equal(t.HEX.list.length, 64);
