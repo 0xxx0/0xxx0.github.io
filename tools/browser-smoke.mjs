@@ -212,6 +212,43 @@ function fieldActivationProbeHtml(){
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
+
+function fieldCoaxialProbeHtml(){
+  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const wait=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await wait(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/'&&W().FoveaLens?.radial?.slots?.()&&W().FieldCoaxial?.open,12000,'FIELD coaxial boot');
+    rec.beforeFocus=W().FieldLensHost.focus().href;
+    const slot=W().FoveaLens.radial.slots().find(x=>x.id==='GLYPH');
+    rec.claimed=!!slot&&!slot.reserved&&/coaxial projection/i.test(slot.note||'');
+    const pid=91,cx=180,cy=180;
+    W().dispatchEvent(new W().PointerEvent('pointerdown',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy,button:0,bubbles:true}));
+    await sleep(480);
+    await wait(()=>W().FoveaLens.radial.ready(),3000,'radial open');
+    W().dispatchEvent(new W().PointerEvent('pointermove',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
+    await sleep(40);
+    W().dispatchEvent(new W().PointerEvent('pointerup',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
+    await wait(()=>D().getElementById('fieldCoaxial')?.classList.contains('on'),4000,'GLYPH projection open');
+    const state=W().FieldCoaxial.state();
+    rec.layers=(state?.layers||[]).map(x=>x.id);
+    rec.selection=Object.keys(W().FieldCoaxial.selection()||{});
+    rec.free=state?.coupled===false;
+    D().getElementById('fcLink')?.click();
+    await wait(()=>W().FieldCoaxial.state()?.coupled===true,2000,'LINKED');
+    rec.linked=W().FieldCoaxial.state().coupled===true;
+    D().getElementById('fcReturn')?.click();
+    await wait(()=>!D().getElementById('fieldCoaxial')?.classList.contains('on'),2000,'RETURN close');
+    rec.closed=true;rec.afterFocus=W().FieldLensHost.focus().href;
+    const exact=JSON.stringify(rec.layers)===JSON.stringify(['DEPTH','MOVE','WITNESS'])&&JSON.stringify(rec.selection)===JSON.stringify(['DEPTH','MOVE','WITNESS']);
+    done(rec.claimed&&rec.free&&rec.linked&&rec.closed&&exact&&rec.beforeFocus==='/fold-bloom/'&&rec.afterFocus===rec.beforeFocus,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>\`;
+}
+
 function fieldDaylineHandoffProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
@@ -871,6 +908,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/field-coaxial')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldCoaxialProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-dayline-handoff')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldDaylineHandoffProbeHtml());return;
@@ -1098,6 +1139,12 @@ const CASES=[
     route:'/__smoke/field-activation',
     options:{width:1040,height:820,budget:18000,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
+  },
+  {
+    name:'FIELD coaxial GLYPH summon + LINK + RETURN',
+    route:'/__smoke/field-coaxial',
+    options:{width:520,height:940,budget:12000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"claimed":true/.test(dom)&&/"free":true/.test(dom)&&/"linked":true/.test(dom)&&/"closed":true/.test(dom)&&/"beforeFocus":"\/fold-bloom\/"/.test(dom)&&/"afterFocus":"\/fold-bloom\/"/.test(dom)
   },
   {
     name:'FIELD held route → Dayline action',
