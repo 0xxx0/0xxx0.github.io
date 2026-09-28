@@ -7,7 +7,9 @@ import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
 const ROOT=process.cwd();
-const PORT=41739;
+// Overridable so two sessions running the harness concurrently do not collide on one
+// hard-coded port. Default is unchanged, so existing invocations behave identically.
+const PORT=Number(process.env.SMOKE_PORT||41739)||41739;
 const HOST='127.0.0.1';
 
 function browserBin(){
@@ -1398,6 +1400,22 @@ const CASES=[
     name:'HOUSE SPATIAL',
     route:'/house/spatial/',
     check:dom=>/HOUSE/i.test(dom)&&!dom.includes('load failure')
+  },
+  {
+    // The lab's fold: relation naming must come from lib/interphase-ring.js at runtime,
+    // not be hard-coded in the page. Default pick is DE JONG DUST x XOR TEXTILE, whose
+    // dominant lenses are INSTRUMENT and GLYPH -> NEAR -> FOLD.
+    name:'LAW ZOO LAB names relations',
+    route:'/law-zoo/lab.html',
+    options:{width:900,height:1000,budget:9000,timeout:14000},
+    // data-algebra proves lib/interphase-ring.js actually loaded at runtime; data-verb
+    // proves the verb was produced by relationVerb(), not hard-coded in the page.
+    // NOTE: do not assert !dom.includes('failed to load') here -- that string lives in the
+    // page's own inline script source, so it always appears in the dumped DOM.
+    check:dom=>dom.includes('data-algebra="interphase-ring/v0.1"')
+      &&dom.includes('data-ring-slots="5"')
+      &&dom.includes('data-verb="FOLD"')
+      &&dom.includes('data-relation="INSTRUMENT→GLYPH·NEAR"')
   },
   {
     name:'POETRY',

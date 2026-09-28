@@ -5046,6 +5046,43 @@
       "tier": "VAULT"
     },
     {
+      "href": "/law-zoo/lab.html",
+      "title": "LAW ZOO // LAB 0.1",
+      "kind": "lab",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "NAME / RECORD",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Sibling notebook to the frozen LAW ZOO donor family. Names the relation between two mined specimens via lib/interphase-ring.js, using the same four control verbs the FOLD//BLOOM convergence lane consumes (BLOOM / FOLD / RETURN / SPLIT). Records relations to browser-local storage and exports a return file. Does not read, write or modify the five FROZEN_DONOR machines; carries received vocabulary only and links out to the field guide for play.",
+      "index": {
+        "updated_at": "2026-09-28T16:20:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/law-zoo/lab.release.json",
+        "checks": [
+          "browser smoke 'LAW ZOO LAB names relations' asserts data-algebra=interphase-ring/v0.1, so the verb is produced by the library at runtime rather than hard-coded",
+          "default pick DE JONG DUST x XOR TEXTILE resolves INSTRUMENT->GLYPH = NEAR = FOLD",
+          "zero donor bytes touched; the five machines remain FROZEN_DONOR"
+        ],
+        "return_path": "/law-zoo/"
+      },
+      "field": {
+        "exit_paths": [
+          {
+            "class": "TRANSFER",
+            "status": "AVAILABLE",
+            "via": "EXPORT writes law-zoo-lab-relations/v0.1 JSON (schema, ring algebra version, verb, lenses)"
+          }
+        ]
+      }
+    },
+    {
       "href": "/law-zoo/error_garden.html",
       "title": "ERROR GARDEN",
       "kind": "experiment",
