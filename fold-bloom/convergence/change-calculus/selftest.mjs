@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steppedStatePath,changeLatticeCalculation,exactFormCalculation,
+  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,exactFormCalculation,
   steppedFormPath,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
@@ -26,6 +26,24 @@ for(const i of [0,1,5,17,119,719]){
   assert.equal(ranked.index,i);
 }
 assert.equal(stepOrderRank([1,2,3],[1,1,2]).ok,false);
+
+const steer0=steerStepOrder([1,3,5],[1,3,5],0,5);
+assert.equal(steer0.ok,true);
+assert.deepEqual(steer0.prefix,[]);
+assert.deepEqual(steer0.order,[5,1,3]);
+assert.equal(steer0.index,4);
+const steer1=steerStepOrder([1,3,5],steer0.order,1,3);
+assert.equal(steer1.ok,true);
+assert.deepEqual(steer1.prefix,[5]);
+assert.deepEqual(steer1.order,[5,3,1]);
+assert.deepEqual(steerStepOrder([1,3,5],steer1.order,1,5),{
+  ok:false,
+  schema:'fold-bloom-change-calculus/v0.1/step-steer',
+  reason:'NEXT_LINE_MUST_BE_UNMOVED',
+  cursor:1,
+  prefix:[5],
+  remaining:[3,1]
+});
 
 const state=transparentStateCalculation('010|100','011|110');
 assert.equal(state.ok,true);
