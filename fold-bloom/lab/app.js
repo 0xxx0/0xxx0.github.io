@@ -694,7 +694,7 @@ function drawStateLattice(){
   for(const [mask,p] of pos){
     const onPath=pathSet.has(mask),active=mask===activeMask;
     ctx.fillStyle=active?'#ef7849':onPath?'#7bd5ff':'#40515b';
-    ctx.globalAlpha=active?1:(onPath?.92:.48);ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:2.0,0,TAU);ctx.fill();
+    ctx.globalAlpha=active?1:(onPath ? .92 : .48);ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:2.0,0,TAU);ctx.fill();
   }
   ctx.globalAlpha=1;
   if(step?.ok&&step.selected_order.length){
