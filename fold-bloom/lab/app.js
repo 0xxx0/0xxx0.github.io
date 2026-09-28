@@ -9,6 +9,7 @@ import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {stateStepDecisionAperture} from '../convergence/change-calculus/decision-aperture.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
@@ -599,7 +600,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateDecision:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -628,8 +629,12 @@ function statePreviewBits(){
   if(cursor<=0||!step.steps.length)return normalizeStateBits(step.from_token);
   return normalizeStateBits(step.steps[Math.min(cursor-1,step.steps.length-1)].after_binary);
 }
+function syncStateDecisionAperture(){
+  data.stateDecision=stateStepDecisionAperture(data.stateLattice,data.stateStep,data.stateStepCursor);
+  return data.stateDecision;
+}
 function syncStateStepUI(){
-  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock();
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock(),aperture=syncStateDecisionAperture();
   if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
   if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
   if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
@@ -640,6 +645,9 @@ function syncStateStepUI(){
   if($('#stateVertices'))$('#stateVertices').textContent=lattice?.ok?String(lattice.vertices):'—';
   if($('#stateEdges'))$('#stateEdges').textContent=lattice?.ok?String(lattice.edges):'—';
   if($('#stateWidth'))$('#stateWidth').textContent=lattice?.ok?String(lattice.widest_rank):'—';
+  if($('#stateNextCount'))$('#stateNextCount').textContent=aperture?.ok?String(aperture.candidate_count):'—';
+  if($('#stateNextInfo'))$('#stateNextInfo').textContent=aperture?.ok?(aperture.candidate_ambiguity_bits==null?'—':aperture.candidate_ambiguity_bits+'b'):'—';
+  if($('#statePlanGain'))$('#statePlanGain').textContent=aperture?.ok?(aperture.focus.information_gain_bits==null?'—':aperture.focus.information_gain_bits+'b'):'—';
   if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER ▶ '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'ORDER · ∅';
   if($('#stateOrderPrev'))$('#stateOrderPrev').disabled=!step?.ok||step.possible_one_line_orders<=1;
   if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+cursor+'/'+step.steps.length:'STEP · STABLE';
@@ -662,6 +670,14 @@ function syncStateStepUI(){
     else{
       const n=Number(moving.alternatives)||1,bits=Number(moving.ambiguity_bits)||0,path=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
       $('#stateResidueRead').textContent='RESIDUE · Δ SET COLLAPSES '+n+' ORDER'+(n===1?'':'S')+' ('+bits+'b) · PATH '+path+' RESTORES ONE ADDRESSED SEQUENCE · '+ladder.strongest_claim;
+    }
+  }
+  if($('#stateApertureRead')){
+    if(!aperture?.ok)$('#stateApertureRead').textContent='APERTURE · UNAVAILABLE';
+    else{
+      const planned=aperture.planned_id?aperture.planned_id.replace('line:','L'):'OPEN';
+      const gain=aperture.focus.information_gain_bits==null?'—':aperture.focus.information_gain_bits+'b';
+      $('#stateApertureRead').textContent='APERTURE · '+aperture.candidate_count+' NEXT · '+(aperture.candidate_ambiguity_bits??'—')+'b CHOICE · PLAN '+planned+' · NARROW '+gain+' · '+aperture.commit_semantics;
     }
   }
 }
@@ -725,7 +741,8 @@ function drawStateLattice(){
   data.stateLatticeHits=nextEdges.map(e=>{const p=pos.get(e.to_mask);return p?{line:e.line,mask:e.to_mask,x:p.x,y:p.y}:null}).filter(Boolean);
   ctx.save();
   ctx.font='700 7px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#5f6d75';
-  ctx.fillText('ORDER SPACE · '+lattice.dimensions+'D · '+lattice.vertices+' STATES · '+lattice.maximal_one_line_paths+' CHAINS',W/2,top-10);
+  const aperture=data.stateDecision,planned=aperture?.planned_id?aperture.planned_id.replace('line:','L'):'OPEN';
+  ctx.fillText('ORDER SPACE · '+lattice.dimensions+'D · '+lattice.vertices+' STATES · '+lattice.maximal_one_line_paths+' CHAINS · NEXT '+(aperture?.candidate_count??0)+' · PLAN '+planned,W/2,top-10);
   const pathEdges=new Set();
   for(let i=1;i<pathMasks.length;i++)pathEdges.add(pathMasks[i-1]+'>'+pathMasks[i]);
   for(const e of lattice.edge_set){
@@ -1077,7 +1094,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null,decisionAperture:data.stateDecision?.ok?{kind:data.stateDecision.kind,authority:data.stateDecision.authority,epoch:data.stateDecision.epoch,candidateCount:data.stateDecision.candidate_count,candidateAmbiguityBits:data.stateDecision.candidate_ambiguity_bits,focus:{basis:data.stateDecision.focus.basis,count:data.stateDecision.focus.count,informationGainBits:data.stateDecision.focus.information_gain_bits},plannedId:data.stateDecision.planned_id,commitSemantics:data.stateDecision.commit_semantics,refreshSemantics:data.stateDecision.refresh_semantics}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -1124,5 +1141,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateLatticeHits||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,decision:data.stateDecision,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateLatticeHits||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
