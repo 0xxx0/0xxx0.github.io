@@ -58,4 +58,29 @@ assert.equal(m.slots[2].opposite,8);
 assert.equal(m.slots[2].item,'cell:2');
 assert.equal(R.stepRotation(0,1,12),Math.PI*2/12);
 
+// COAXIALITY: named rings share one gate; free motion changes one projection,
+// coupled motion applies the same angular delta and settle correction to all.
+let coax=R.coaxialModel({
+  layers:[
+    {id:'DEPTH',items:['a','b','c'],index:1},
+    {id:'MOVE',items:['open','trace','compare'],index:0},
+    {id:'WITNESS',items:['witness','return'],index:0}
+  ],
+  coupled:false
+});
+assert.equal(coax.schema,'interphase-coaxial/v0.1');
+assert.equal(coax.selection.DEPTH.item,'b');
+const freeBefore=coax.layers.map(x=>x.rotation);
+coax=R.coaxialRotate(coax,'MOVE',Math.PI/3,{coupled:false});
+assert.equal(coax.layers[0].rotation,freeBefore[0]);
+assert.notEqual(coax.layers[1].rotation,freeBefore[1]);
+const coupledBefore=coax.layers.map(x=>x.rotation);
+coax=R.coaxialRotate(coax,'DEPTH',.37,{coupled:true});
+const coupledDelta=coax.layers.map((x,i)=>x.rotation-coupledBefore[i]);
+assert.ok(coupledDelta.every(x=>Math.abs(x-.37)<1e-12));
+const relativeBefore=coax.layers[2].rotation-coax.layers[0].rotation;
+coax=R.coaxialSettle(coax,'DEPTH',{coupled:true});
+assert.ok(Math.abs((coax.layers[2].rotation-coax.layers[0].rotation)-relativeBefore)<1e-12,'coupled settle preserves relative phase');
+assert.equal(Object.keys(R.coaxialSelection(coax)).length,3);
+
 console.log('INTERPHASE RING SELFTEST PASS');
