@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-28T12:46:22+08:00",
+  "updated": "2026-09-28T16:47:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.16 / SEMANTIC SCALE + TOUCH FOVEA + HELD→INTERPHASE→DAYLINE",
+      "head": "FIELD INDEX 0.8.17 / ONE FIELD + ONE HELD OBJECT + LATENT REFINE",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. FIELD now exposes one semantic aperture FIELD → ROUTE → OBJECT over the same focus; MAP depth remains topology rather than zoom. FOVEA is optional local detail and now uses Pointer Events across mouse, pen and touch; first activation holds and activating the held mark again opens so one physical gesture is not double-interpreted. CATCH + ACT, INTERPHASE→Dayline handoff, native authority boundaries, and existing evidence/proof distinctions remain unchanged.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. The root now exposes one glyph field and one held object; ROUTE/semantic scale are no longer user modes. Presentation density adapts automatically. AXIAL constraints, lawful moves, witness/return and proof remain recoverable under REFINE / PROVE; Git chronology, glyph key, maps and other evidence remain under STATUS. CATCH + ACT follows the object rather than obstructing entry. Compression is lawful only while residue stays named/recoverable.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -80,10 +80,11 @@
         "/fovea/",
         "/docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md",
         "/returns/READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
-        "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json"
+        "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
+        "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json"
       ],
-      "version": "0.8.16",
-      "latest_return": "/returns/FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json"
+      "version": "0.8.17",
+      "latest_return": "/returns/FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json"
     },
     {
       "lineage": "scale-lens",
