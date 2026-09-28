@@ -23,11 +23,11 @@ footer{border-top:1px solid var(--line);padding-top:8px;display:flex;justify-con
 <main>
 <section class="source">
 <div><div id="number" class="num">08</div><div id="title" class="title">THE SUCCESSFUL ESCAPE<br><b>CHANGES THE NEXT PRISON</b></div></div>
-<div class="meta"><span id="season">SEASON VII</span><span id="engine">ENGINE · TRANSFER LEARNING</span><span id="class">EXACT ANTHOLOGY STORY</span></div>
+<div class="meta"><span id="season">SEASON V</span><span id="class">EXACT ANTHOLOGY STORY</span><span id="lines">SOURCE LINES · —</span></div>
 <div><div id="preview" class="preview loading">Loading exact source…</div><div class="law"><b>SOURCE LAW</b> · The story is not generated here. READFIELD and FOLD//BLOOM LIVE are unequal projections of the same addressed bytes. Traversal may leave evidence; it does not rewrite the source or prove comprehension.</div></div>
-<div><div class="actions"><button id="readBtn" class="read">READ SOURCE →</button><button id="rideBtn" class="ride">RIDE SAME SOURCE →</button><a id="rawBtn" class="raw" href="#">RAW SOURCE</a></div><div id="status" class="status">PRISON AGE retains source authority · LIVE receives PARAGRAPH / STEP · RETURN preserves exact address.</div></div>
+<div><div class="actions"><button id="readBtn" class="read">READ →</button><button id="rideBtn" class="ride">RIDE →</button><a id="rawBtn" class="raw" href="#">SOURCE</a><a id="returnField" class="raw" href="/?focus=%2Fprison-age%2F">RETURN FIELD</a></div><div id="status" class="status">Exact source bytes remain primary · READFIELD reads · FOLD//BLOOM LIVE traverses · both RETURN exactly.</div></div>
 </section>
-<aside><div class="asideTitle">SOURCED MOVEMENTS / NO CURATED ORDER</div><div id="storyList"></div><div class="archive">The previous “I’M ALWAYS BEHIND YOU” reader is preserved as a failed projection, not current authority.<br><a href="/prison-age/reader-0.2/">OPEN FROZEN 0.2</a></div></aside>
+<aside><div class="asideTitle">SOURCED MOVEMENTS / SOURCE ORDER</div><div id="storyList"></div></aside>
 </main>
 <footer><span id="address" class="route">—</span><span>READ / RIDE / RETURN</span></footer>
 </div>
@@ -41,16 +41,17 @@ const cleanPreview=raw=>{
   const prose=lines.filter(x=>!/^\d+(?:\/\d+)?$/.test(x)&&!/^UNIVERSE\b/.test(x)&&!/^TOKEN\s*\/\//.test(x)&&!/^MARGIN\s*\/\//.test(x)&&!/^[-·]{8,}$/.test(x)&&!/^#/.test(x)&&!/^(Source|Editorial status):/i.test(x)&&!/^\*\*/.test(x)&&!/^\[ … SOURCE PASSAGE OMITTED … \]$/.test(x));
   return prose.slice(0,3).join('\n\n');
 };
-const currentUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id);
-function updateUrl(){history.replaceState(null,'',currentUrl())}
+const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(q.get('return')==='field'?'&return=field':'');
+const returnUrl=()=>q.get('return')==='field'?'/?focus=%2Fprison-age%2F':sourceUrl();
+function updateUrl(){history.replaceState(null,'',sourceUrl())}
 function renderList(){
-  $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.engine+' · '+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
+  $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
   $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=()=>loadStory(b.dataset.story));
 }
 async function loadStory(id){
   story=pack.stories[id]||pack.stories[pack.default];source='';
   $('number').textContent=story.number;$('title').textContent=story.title;
-  $('season').textContent=story.season.toUpperCase();$('engine').textContent='ENGINE · '+story.engine;$('class').textContent=story.source_class.replaceAll('_',' ');
+  $('season').textContent=story.season.toUpperCase();$('class').textContent=story.source_class.replaceAll('_',' ');$('lines').textContent='SOURCE LINES · '+story.source_lines;
   $('rawBtn').href=story.path;$('address').textContent=story.path;$('preview').className='preview loading';$('preview').textContent='Loading exact source…';
   updateUrl();renderList();
   try{const r=await fetch(story.path,{cache:'no-store'});if(!r.ok)throw Error('SOURCE '+r.status);source=await r.text();$('preview').textContent=cleanPreview(source);$('preview').className='preview';$('status').textContent='EXACT SOURCE READY · '+source.length+' chars · '+story.path}
@@ -58,7 +59,7 @@ async function loadStory(id){
 }
 function readSource(){
   if(!story)return;
-  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',currentUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');location.href=u.pathname+u.search;
+  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',returnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');location.href=u.pathname+u.search;
 }
 async function rideSource(){
   if(!story||!source.trim())return;
@@ -68,13 +69,14 @@ async function rideSource(){
     source,label:'PRISON AGE · '+story.title,
     sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
     focus:{char_index:0,source_progress:0},
-    from:currentUrl(),returnAddress:currentUrl()
+    from:sourceUrl(),returnAddress:returnUrl()
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
   $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
   location.href='/fold-bloom/live/?source=readfield&course=STEP';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
-window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,returnAddress:story?currentUrl():null}),load:loadStory,ride:rideSource,read:readSource});
-fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(x=>{pack=x;return loadStory(q.get('story')||pack.default)}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
+window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null}),load:loadStory,ride:rideSource,read:readSource});
+async function consumeInitialAction(){const action=q.get('action');if(action==='read')return readSource();if(action==='ride')return rideSource()}
+fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);await consumeInitialAction()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
 </script></body></html>

@@ -1,0 +1,74 @@
+{
+  "schema": "prison-age.field-convergence-return/v0.1",
+  "generated_at": "2026-09-29T01:28:00+08:00",
+  "status": "PASS / MERGE_READY",
+  "object": "/prison-age/",
+  "field_object": {
+    "route": "/?focus=%2Fprison-age%2F",
+    "owner": "PRISON_AGE",
+    "native_actions": [
+      "READ",
+      "RIDE",
+      "SOURCE"
+    ],
+    "authority": "FIELD holds address/actions only"
+  },
+  "source_invariants": {
+    "untouched_paths": [
+      "/prison-age/stories/03-open-air.md",
+      "/prison-age/stories/05-fandom-court.md",
+      "/prison-age/stories/07-last-stall-extract.md",
+      "/prison-age/stories/08-successful-escape.md"
+    ],
+    "fingerprints": {
+      "03-open-air.md": "ee35b81f",
+      "05-fandom-court.md": "5523dd07",
+      "08-successful-escape.md": "5a038d8a"
+    },
+    "last_stall": "CURATED_SOURCE_EXTRACT / omissions explicit"
+  },
+  "removed_runtime": [
+    "/prison-age/pack.json",
+    "/prison-age/reader-0.2/index.html",
+    "/prison-age/reader-0.2/release.json",
+    "/tools/prison-age-reader-selftest.cjs",
+    "/tools/prison-age-reader-smoke.mjs"
+  ],
+  "removed_active_framing": [
+    "bespoke reader route",
+    "curated cross-story path",
+    "invented voice/pressure/carry framing",
+    "interpretive engine/token labels in active source ledger"
+  ],
+  "preserved": [
+    "exact source bytes",
+    "source classes/line ranges/fingerprints",
+    "READFIELD exact source projection",
+    "FOLD//BLOOM field-read-ride/v0.1 traversal",
+    "exact FIELD/source RETURN"
+  ],
+  "truth_boundary": [
+    "Git history preserves removed projection lineage; it is not a public runtime authority.",
+    "READ/RIDE traversal is evidence of traversal only.",
+    "FIELD does not author Prison Age.",
+    "No story prose was modified by this pass."
+  ],
+  "verification": {
+    "static": "PASS · tools/prison-age-field-selftest.cjs",
+    "browser": "PASS · tools/prison-age-field-smoke.mjs",
+    "proof_head": "eb2a5b290f79a699d7799d1eaa3ae66bd312203b",
+    "route_registration": {
+      "run": 36459813350,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36459813380,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36459813346,
+      "conclusion": "success"
+    },
+    "note": "Proof head includes the complete semantic/runtime delta. This receipt-only update does not change executable behavior."
+  }
+}

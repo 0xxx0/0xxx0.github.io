@@ -1,8 +1,8 @@
 {
   "schema": "prison-age.source-pack/v0.1",
-  "status": "ACTIVE_SOURCE_DOORWAY",
-  "default": "successful-escape",
-  "law": "Exact sourced text remains authoritative. READ and RIDE are unequal projections of the same bytes; neither may rewrite the story or claim that traversal equals comprehension.",
+  "status": "FIELD_SOURCE_SET",
+  "default": "open-air",
+  "law": "Exact sourced text remains authoritative. FIELD holds the source set; READFIELD reads and FOLD//BLOOM LIVE traverses exact addressed bytes. No projection may rewrite the story or claim traversal equals comprehension.",
   "source_boundary": {
     "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
@@ -15,8 +15,6 @@
       "number": "03",
       "title": "Open Air",
       "season": "Season V",
-      "engine": "UNCONTROLLED VARIABLE",
-      "token": "A municipal permit for weather",
       "path": "/prison-age/stories/03-open-air.md",
       "source_lines": "251–303",
       "source_class": "EXACT_ANTHOLOGY_STORY",
@@ -31,8 +29,6 @@
       "number": "05",
       "title": "The Fandom Court",
       "season": "Season IV",
-      "engine": "PROVENANCE WITHOUT WORSHIP",
-      "token": "A bootleg episode with no first frame",
       "path": "/prison-age/stories/05-fandom-court.md",
       "source_lines": "349–400",
       "source_class": "EXACT_ANTHOLOGY_STORY",
@@ -47,8 +43,6 @@
       "number": "08",
       "title": "The Successful Escape Changes the Next Prison",
       "season": "Season VII",
-      "engine": "TRANSFER LEARNING",
-      "token": "A key that opens nothing twice",
       "path": "/prison-age/stories/08-successful-escape.md",
       "source_lines": "497–552",
       "source_class": "EXACT_ANTHOLOGY_STORY",
@@ -63,8 +57,6 @@
       "number": "0/8",
       "title": "The Last Stall / Extract",
       "season": "August 2026 Prison Age episode continuation",
-      "engine": "FINDABILITY / COUNTERMEASURE",
-      "token": "Blank paper over Camera Eight",
       "path": "/prison-age/stories/07-last-stall-extract.md",
       "source_lines": "PRISON_AGE_THE_LAST_STALL_v2.md · 477–561 / 719–739 / 751–792",
       "source_class": "CURATED_SOURCE_EXTRACT / OMISSIONS EXPLICIT",
@@ -72,19 +64,16 @@
     }
   },
   "operations": [
-    "READ SOURCE",
-    "RIDE LIVE",
-    "RAW SOURCE",
+    "READ",
+    "RIDE",
+    "SOURCE",
     "RETURN FIELD"
   ],
   "active_projection": {
+    "field": "FIELD INDEX holds one PRISON AGE source-set object with READ / RIDE / SOURCE native operations.",
     "read": "READFIELD owns text/cursor/reading projections.",
     "ride": "FOLD//BLOOM LIVE owns embodied STEP traversal; source authority stays PRISON_AGE.",
-    "return": "Both preserve exact source address and return to /prison-age/?story=<id>."
-  },
-  "legacy": {
-    "route": "/prison-age/reader-0.2/",
-    "status": "FROZEN_FAILED_PROJECTION",
-    "reason": "The 0.2 reader over-authored the framing with a P26 motif/path/pressure layer. Its sourced story extraction and source hashes remain useful; its narrative framing is not the active authority."
+    "source": "/prison-age/ resolves exact source identity/provenance and does not add narrative framing.",
+    "return": "FIELD-launched READ/RIDE returns to /?focus=/prison-age/; direct source use returns to the exact story resolver."
   }
 }
