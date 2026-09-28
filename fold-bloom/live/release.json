@@ -646,36 +646,5 @@
     "loop": "SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → SOURCE-DERIVED RECURRENCE / LIVE RELEASE → RETURN",
     "source_authority": "Source bytes/provenance remain native. LIVE owns traversal and field consequences only.",
     "return_schema": "fold-bloom-authored-reading-return/v0.1"
-  },
-  "field_music": {
-    "status": "RESTORED_CANDIDATE",
-    "control": "visible MUSIC quick control + existing ♪ header control",
-    "default": "OFF / mute-first",
-    "intent": "persisted locally across reload and projection changes",
-    "projection_law": "SOURCE/MAP may silence generated music without clearing user intent; IMMERSION restores it after explicit audio unlock",
-    "climate": "existing source/field clock may slowly bias generated synth energy/density/tension as presentation only",
-    "authority": "NONE over source identity, AUDIO MAP evidence, addressed text/image source, RELEASE or semantic meaning",
-    "scenes": [
-      "DEEP",
-      "TRANCE",
-      "WOOD",
-      "VOID"
-    ],
-    "mix_parts": [
-      "kick",
-      "hats",
-      "bass",
-      "lead",
-      "drone"
-    ],
-    "verification": [
-      "/fold-bloom/live/tests/audio-climate.test.mjs",
-      "/tools/fold-bloom-live-field-music-smoke.mjs"
-    ]
-  },
-  "preserves": [
-    "FIELD MUSIC is explicit opt-in and mute-first",
-    "music intent survives SOURCE/MAP projection silence without promoting generated sound to source authority",
-    "source-clock climate modulation is presentation-only and bounded"
-  ]
+  }
 }
