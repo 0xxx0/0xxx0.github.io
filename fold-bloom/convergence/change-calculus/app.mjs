@@ -61,7 +61,8 @@ function statePathWitness(path,state){
     if(reverse?.ok)alternate=fmt(reverse);
   }
   const rows=path.steps.map(x=>'<tr class="'+(carriedFromLab&&x.step===focusStep?'focus':'')+'"><td>'+x.step+'</td><td>L'+x.line+'</td><td>'+x.from_bit+'→'+x.to_bit+'</td><td>'+x.iching_line_value+'</td><td>'+esc(x.after_token)+'</td></tr>').join('');
-  const focusState=focusStep===0?path.from_token:path.steps[focusStep-1]?.after_token;
+  let focusState=path.steps[focusStep-1]?.after_token;
+  if(focusStep===0)focusState=path.from_token;
   return '<h2 style="margin-top:12px">STATE STEP PATH</h2><div class="metrics">'+
     metric('path',String(path.selected_order_index+1)+'/'+path.possible_one_line_orders)+
     metric('selected order',path.selected_order.length?path.selected_order.map(x=>'L'+x).join('→'):'∅')+
