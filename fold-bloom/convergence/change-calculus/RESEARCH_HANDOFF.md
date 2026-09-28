@@ -201,6 +201,68 @@ LAB → APPLIED CALC carries the selected order index in the URL, so the researc
 
 The exact-form path is even richer: exact same-polarity edits may change while the binary quotient remains fixed.
 
+### 2026-09-28 — Boolean change subcube / local steering
+
+The indexed path result admits a stronger compression.
+
+For endpoints separated by `k = d_H` moving lines, the monotone one-line-at-a-time interval is exactly a **k-dimensional Boolean subcube**:
+
+```text
+unique vertices       = 2^k
+directed change edges = k · 2^(k-1)
+maximal STEP chains   = k!
+layer d vertices      = C(k,d)
+future chains at d    = (k-d)!
+```
+
+For six moving lines:
+
+```text
+64 vertices
+192 directed edges
+720 maximal chains
+```
+
+This resolves an apparent contradiction in the previous UI: there may be hundreds of ordered paths without hundreds of distinct intermediate states. Different histories can converge on the same vertex.
+
+At depth `d`, the current binary state records **which** `d` lines have moved but not **which order** moved them. Exactly `d!` ordered prefixes collapse onto that same vertex, so the hidden prefix-order residue is:
+
+```text
+history collapse = d!
+history-loss bits = log2(d!)
+```
+
+At the endpoint, `k!` path histories collapse to one endpoint state; this recovers the earlier `log2(k!)` order ambiguity from a local information-loss view.
+
+The reusable witnesses are now:
+
+- `statePathLattice(from,to,order,cursor)`
+- `steerStepOrder(lines,order,cursor,nextLine)`
+
+The second operation is deliberately **local**. It freezes the already-witnessed prefix, selects one still-unmoved line as the next step, and preserves the relative order of all remaining future lines. It does not execute a domain operation.
+
+FIELD LAB DATA therefore supports two complementary navigations:
+
+```text
+GLOBAL
+  ORDER i / k! → choose an addressed maximal chain
+
+LOCAL
+  HERE(vertex)
+    → inspect remaining lines
+    → choose NEXT line
+    → rerank future suffix
+    → STEP / FLOW
+```
+
+The center stack is the current vertex. Blue `› L#` labels are still-unmoved local choices; tapping one steers only the preview path. The right-hand TO stack still edits the endpoint.
+
+This is a useful general pattern beyond Yi/Fold-Bloom:
+
+> **endpoint state is a quotient of path history; local steering should preserve witnessed prefix and expose only lawful remaining choices.**
+
+It is structurally analogous to the native LIVE rule that one forecast aperture is valid for one commit epoch, but the two are not equated. The Boolean subcube is a transparent calculation over explicit binary endpoint differences; native LIVE support must still be re-resolved from its own state after every real commit.
+
 ### Derived I Ching line values
 
 For an explicitly supplied before/after bit pair:
