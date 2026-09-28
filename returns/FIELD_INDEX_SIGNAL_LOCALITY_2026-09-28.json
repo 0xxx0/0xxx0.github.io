@@ -3,7 +3,7 @@
   "id": "FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28",
   "date": "2026-09-28",
   "object": "FIELD INDEX / semantic signal locality",
-  "state": "SHIPPED_CANDIDATE",
+  "state": "MERGED_VERIFIED",
   "before": "FIELD 0.8.18 had a useful shared semantic-signal grammar, but renderCatchup projected the global combined CATCH token onto focusHead. A held object could therefore appear CHANGED/REALITY/MIXED because of unrelated state elsewhere in the field.",
   "delta": [
     "Derive a route-local semantic token for every addressed FIELD mark.",
@@ -31,7 +31,7 @@
     "/control/FIELD_INDEX_CONTRACT.json"
   ],
   "verification": {
-    "source": "PENDING CI: signal grammar/locality selftests, project-head glyph selftest, root public contracts, route registration and critical browser smoke.",
+    "source": "PASS · public-surface-check 36414534341 including critical browser smoke; Route Registration 36414534526; gitleaks 36414534573; local focused signal/locality/project-glyph checks; ship-check --fast 64/64.",
     "human": "No human gate required. Perceptual usefulness remains revisable: pattern intensity may be reduced without changing token semantics.",
     "limit": "External route locality requires an explicit source-side route association; unaddressed GitHub issues remain global and are not guessed onto objects."
   },
