@@ -139,7 +139,11 @@
     "J-SPACE CO-DRIVER: LIVE exposes native forecastContext and accepts ephemeral authority-NONE steering pulses that only illuminate currently lawful BLOOM/FOLD/SPLIT/RETURN candidate slots; hints expire and never rotate, RELEASE, select CALL, or mutate topology.",
     "READ/RIDE candidate: LIVE can consume an exact READFIELD/local text-like source as an addressed SENTENCE/PARAGRAPH/SECTION course in STEP mode without fabricating a text clock.",
     "READ/RIDE preserves source identity + exact read:// address, keeps raw text host/session-owned, and emits only bounded current witness + return address in LIVE public state.",
-    "READ/RIDE may embed interphase-carrier/v0.1 for authority-free cross-host continuation; carrier authority remains NONE / HANDOFF ONLY."
+    "READ/RIDE may embed interphase-carrier/v0.1 for authority-free cross-host continuation; carrier authority remains NONE / HANDOFF ONLY.",
+    "LIVE admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT, reusing the existing course/address machinery at FRAME / STRIP / SET grain rather than creating a parallel navigation system.",
+    "Declared local image bytes remain device-local in the existing IndexedDB media vault keyed by sha256 source identity; the set manifest carries metadata/address continuity, not uploaded or repository-committed image bytes.",
+    "IMAGE_SET carries its own deterministic set clock: FLOW advances the addressed image without clicks or audio, STEP holds that clock and moves exactly one address, and map scrub re-anchors the same set clock.",
+    "FLOW is the current traversal default after cff756e6 reconciled the quiet-start experiment: with no source clock the field is still; with an addressed audio/image source FLOW advances continuously. Quiet source audio outside IMMERSION remains explicit rather than autoplaying sound."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -186,7 +190,10 @@
     "SOURCE / MAP / IMMERSION are unequal readings of one source, not separate source identities",
     "READFIELD retains text/cursor/RSVP/VOICE authority; LIVE embodiment does not become a second reader authority.",
     "RELEASE does not advance reading cursor by default; game score/route completion do not imply comprehension.",
-    "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed."
+    "READ/RIDE currently means text-like local sources; PDF/EPUB/DOCX adapters are not claimed.",
+    "IMAGE_SET is source/address evidence, not inferred image meaning. The clock may advance source position but may not author BLOOM/FOLD/SPLIT/RETURN or fabricate semantic labels.",
+    "Local image bytes stay browser-local; declaring or reopening an IMAGE_SET must not upload or commit private image content.",
+    "FLOW changes source address only according to the active source clock; RELEASE remains the authored LIVE effect aperture and never seeks or rewrites the source."
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -256,7 +263,11 @@
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
     "source_continuity_human_gate": "REQUIRED: clean-phone CENTER MASS audio + remembered-track re-entry + SOURCE/MAP/IMMERSION comparison",
-    "read_ride": "PASS · PR #459 head 58d18ecc6565085fc25c6e999b1d03754c42a51a · public-surface-check 36302101438 · READFIELD cursor→LIVE paragraph→STEP address change→SECTION→direct local File; full repo browser/recovery suite green."
+    "read_ride": "PASS · PR #459 head 58d18ecc6565085fc25c6e999b1d03754c42a51a · public-surface-check 36302101438 · READFIELD cursor→LIVE paragraph→STEP address change→SECTION→direct local File; full repo browser/recovery suite green.",
+    "image_set_runtime": "MERGED · fa93895dde230c6df49b6ad2903a1c1239d67b17 · IMAGE_SET source + deterministic set clock + FRAME/STRIP/SET address grains",
+    "image_clock_smoke": "PASS evidence recorded in 747ac3cef0f45a3c69a76040c4aac5bfd9ac9d0a · 3/3 browser-smoke runs; independent second process reproduces zero-click trail; Fold-bloom suite 10/10",
+    "image_course_ci_contract": "GATED · public-surface-check runs fold-bloom/live/tests/image-course.test.mjs under addressed course navigation",
+    "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
