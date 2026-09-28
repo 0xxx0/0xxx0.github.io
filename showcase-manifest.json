@@ -23,12 +23,13 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Semantic signal is local to the address that owns it: compact marks and the held header may show route-owned CHANGED/REALITY/EXTERNAL/MIXED patterns while global CATCH remains a separate aggregate. Exact CURRENT heads retain the VIEW-only latent project glyph. Identity, priority and native effect authority do not move into pattern.",
+      "role": "FIELD INDEX root: one glyph field + one held object. Route-local semantic signal, source-set native actions and latent project depth retain their existing owners. FOVEA → GLYPH may now project the same held address through source-backed coaxial ROUTE/DEPTH, NEXT/MOVE and WITNESS/RETURN rings; free/linked motion is local projection state only and never acquires native effect, source, priority or truth authority.",
       "receipt": "/returns/FIELD_INDEX_COAXIAL_HELD_OBJECT_2026-09-29.json",
       "machine_view": "FIELD",
       "version": "0.8.21",
       "transfer": [
         "0.8.21 coaxial held object: FOVEA → GLYPH claims the existing reserved aperture and projects route/depth, current lawful moves, and witness/RETURN as independently rotatable source-backed rings; LINK preserves relative phase while rotating together; projection only, no native action or authority",
+        "0.8.20 source-set native actions: one held source-set object may expose a bounded native action set; Prison Age proves READ / RIDE / SOURCE while READFIELD and FOLD//BLOOM remain projection owners and PRISON_AGE retains source authority",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
         "0.8.17 one-object contraction: remove exposed scale rail; held object + glyph field become the root instrument; AXIAL/capability/witness move under REFINE / PROVE; CHANGE/GIT + glyph key move under STATUS; compression must keep residue named/recoverable",
@@ -8465,7 +8466,7 @@
         "exact Prison Age story address + bytes → READFIELD",
         "exact same story bytes + source identity → FOLD//BLOOM LIVE field-read-ride/v0.1",
         "READ/RIDE → exact /prison-age/?story=<id> return",
-        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen"
+        "reader 0.2 source extraction/tests remain recoverable through Git/recovery lineage; failed runtime route and motif/path/pressure framing stay removed"
       ],
       "contract": {
         "accepts": {
@@ -8549,66 +8550,17 @@
       },
       "classification": "RECOVERED_2026_SOURCE / SOURCE_DOORWAY",
       "evolution": {
-        "mutation": "Reader 0.2 is frozen; active route contracts to exact source selection plus two unequal existing projections.",
+        "mutation": "Reader 0.2 runtime remains removed; exact source extraction lineage stays recoverable while the active route contracts to source selection plus unequal READ/RIDE projections.",
         "question": "Can LIVE make authored Prison Age text more traversable without becoming the content?"
       },
       "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
+        "updated_at": "2026-09-29T03:12:00+08:00",
         "work_modes": [
-          "READ",
-          "RIDE",
-          "RETURN"
+          "RECOVER",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
-    },
-    {
-      "href": "/prison-age/reader-0.2/",
-      "title": "PRISON AGE // READER 0.2 (FROZEN)",
-      "kind": "artifact",
-      "parent": "/prison-age/",
-      "family": "PRISON AGE",
-      "operation": "ARCHIVE",
-      "state": "FROZEN_DONOR",
-      "version": "0.2",
-      "showcase_card": false,
-      "receipt": "/prison-age/reader-0.2/release.json",
-      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
-      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
-      "tier": "DONOR",
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "historical frozen reader state"
-          ]
-        },
-        "transforms": {
-          "verb": "inspect only",
-          "preserves": [
-            "frozen bytes",
-            "source boundary"
-          ],
-          "reversibility": "return to /prison-age/",
-          "side_effects": "none"
-        },
-        "emits": {
-          "kinds": [
-            "lineage inspection"
-          ],
-          "machine_readable": false,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/prison-age/reader-0.2/release.json",
-          "return_path": "/prison-age/"
-        }
-      },
-      "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
-        "work_modes": [
-          "ARCHIVE"
-        ]
-      }
     }
   ],
   "release_law": [
