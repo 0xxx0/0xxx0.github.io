@@ -114,3 +114,32 @@ This law permits intense optimization for the immediate human case while keeping
 ## Return
 
 Receipt: `/returns/FIELD_EVOLUTION_2026-09-21.json`
+
+## 2026-09-29 — Coaxial held-object transfer
+
+**Host:** FIELD INDEX held object  
+**Donor:** *Blade Runner 2049* memory-orb interaction topology; treated only as a mechanism donor.
+
+Transfer invariant:
+
+```
+one addressed object
+→ several source-backed concentric dimensions
+→ independent relative phase
+→ optional coupled motion preserving relative phase
+→ one fixed reading gate
+→ explicit RETURN
+```
+
+Current host mapping:
+
+- **ROUTE / DEPTH** — current manifest route plus its actual sibling set.
+- **NEXT / MOVE** — the lawful moves already surfaced by FIELD's held action aperture.
+- **WITNESS / RETURN** — the existing current witness and RETURN projection.
+- **FREE / LINKED** — local projection state only; coupling never executes an action or changes native authority.
+- **FOVEA → GLYPH** — claims the pre-existing reserved radial slot; no new route, mode, store, bus, or backlog.
+
+Non-transfer residue: fictional memory-authoring semantics, branded/film visual language, prop styling, animatronic mechanics, and any implication that relative phase itself establishes domain truth.
+
+The implementation pressure-tests the existing INTERPHASE ring algebra instead of introducing an orb-specific component. Promotion beyond this projection requires ordinary-use evidence that relative ring motion improves orientation or control without obscuring the explicit action/authority boundary.
+
