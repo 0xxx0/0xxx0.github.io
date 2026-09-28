@@ -42,6 +42,11 @@
     "subjective_compression_value": "UNKNOWN"
   },
   "falsifier": "Remove or narrow project-head glyph if OBJECT scale does not reduce project re-entry/prose burden or if it makes FIELD focus feel like a different object.",
-  "next": "Use FIELD OBJECT scale on two unequal exact current heads; compare re-entry burden against ROUTE scale and native prose, then RETURN before adding any new glyph semantics.",
-  "stop": "Do not add a project registry, universal glyph ontology, new moire classes, or second zoom system."
+  "next": "Use FIELD 0.8.17 OBJECT scale on two unequal exact current heads; compare re-entry burden against ROUTE scale and native prose, then RETURN before adding any new glyph semantics.",
+  "stop": "Do not add a project registry, universal glyph ontology, new moire classes, or second zoom system.",
+  "version": "0.8.17",
+  "upstream_preserved": [
+    "PR #485: FIELD/ROUTE/OBJECT semantic scale + FOVEA convergence",
+    "PR #488 / FIELD 0.8.16: touch/pointer FOVEA use pass + one-gesture-one-interpretation"
+  ]
 }
