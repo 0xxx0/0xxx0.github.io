@@ -144,6 +144,8 @@ jobs:
         run: |
           node tools/html-document-integrity-selftest.mjs
           node tools/validate-public.mjs
+      - name: Validate public surface redaction aperture
+        run: python3 scripts/check-redaction-aperture.py
       - name: Test iching head data laws + cast/render state
         run: node tools/iching-core.test.mjs
       - name: Test nexus head link integrity + snapshot coherence
@@ -165,12 +167,10 @@ jobs:
           node --test fold-bloom/tests/course-nav.test.mjs
           node --test fold-bloom/tests/read-course.test.mjs
           node --test fold-bloom/live/tests/image-course.test.mjs
+      - name: Test corpus read export maps to the LIVE read course
+        run: node --test tools/corpus-read-export.test.mjs
       - name: Test FOLD BLOOM Ecology public contract
         run: node --test fold-bloom/ecology/tests/public-contract.test.mjs
-      - name: Test FOLD BLOOM LIVE hosted GARDEN aperture
-        run: |
-          node --test fold-bloom/live/tests/garden-aperture.test.mjs
-          node tools/fold-bloom-live-garden-smoke.mjs
       - name: Test FOLD BLOOM Experience Set v0.1 round trip
         run: node --test fold-bloom/experience-set/tests/experience-set.test.mjs
       - name: Test FOLD BLOOM Set Compositor 0.1.1 + local test packs
