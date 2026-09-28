@@ -338,3 +338,85 @@ Human gate after CI:
 4. opt into FIELD SOUND — generated sound begins; turn it off — scheduler/hum stop;
 5. load a local song — it is mapped but held; PLAY SOURCE alone starts continuous source motion;
 6. AUTOPILOT moves only after pressing AUTOPILOT (or explicit `?demo=1`).
+
+
+## 2026-09-28 — PUBLIC LIVING FIELD / FLOW RECONCILIATION
+
+The earlier **QUIET STILL REPAIR** note above is now lineage evidence, not the complete current traversal law.
+
+What survived:
+- generated FIELD sound defaults OFF;
+- synth/drone/scheduler require explicit sound enable;
+- AUTOPILOT remains explicit;
+- source/effect authorship remains separate.
+
+What was superseded:
+- **STEP as the plain LIVE default**;
+- the idea that ordinary RELEASE must advance a synthetic field one beat.
+
+Current runtime law after `cff756e6`:
+
+```text
+FLOW
+  = follow an already-running addressed source clock
+  = still when no source clock exists
+
+STEP
+  = hold + explicit one-address navigation
+
+RELEASE
+  = authored LIVE consequence
+  ≠ source seek
+  ≠ source clock
+```
+
+Current source kinds include AUDIO_MAP, READFIELD_TEXT and IMAGE_SET. IMAGE_SET may carry its own deterministic clock; its bytes remain device-local.
+
+### Public front candidate
+
+PR #513 advances the contracted public face to:
+
+```text
+RIDE        — embodied addressed source
+GARDEN      — living field / observe / take over
+MAP / MARK  — source cartography
+REPLAY      — addressed expression
+```
+
+HEXAGRAM / CHANGE remains preserved under MORE USES; it is no longer duplicated as a primary/hero aperture.
+
+ECOLOGY 0.2.1 is the important donor-return here:
+- GARDEN may visibly self-progress;
+- touch immediately returns control;
+- lineage / gene / law / breeding / RETURN stay Ecology-owned;
+- the causal field remains readable with sound OFF;
+- generated sound is a preference, not a prerequisite.
+
+### Research seam: song as climate
+
+Do **not** build another bus.
+
+If GARDEN earns voluntary reuse, the next bounded experiment is an explicit FIELD PULSE link with authority NONE:
+
+```text
+LISTEN / SOURCE TIMING
+→ FIELD PULSE
+→ ECOLOGY CLIMATE / PRESENTATION
+≠ GENE
+≠ LINEAGE
+≠ BREEDING
+≠ LAW
+≠ MEANING
+```
+
+Tempo, phase, section aperture or measured energy may shape pacing/atmosphere. They may not author the evolutionary grammar.
+
+**Borrowed climate ≠ borrowed evolution.**
+
+### Successor priority
+
+1. finish/verify the public GARDEN + mute-first pass;
+2. use GARDEN and record one tiny lived RETURN: `CALM/BUSY · LEGIBLE/OPAQUE · WANT AGAIN/NO`;
+3. only on a positive return, test bounded FIELD PULSE climate.
+
+Do not respond to “forward” by adding a ninth LAB aperture or another session architecture. The current leverage is to make unequal existing instruments more inhabitable and more truthfully connected.
