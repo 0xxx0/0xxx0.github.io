@@ -70,8 +70,8 @@ async function rideSource(){
     from:currentUrl(),returnAddress:currentUrl()
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
-  $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP';
-  location.href='/fold-bloom/live/?source=prison-age&course=STEP';
+  $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
+  location.href='/fold-bloom/live/?source=readfield&course=STEP';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
 window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,returnAddress:story?currentUrl():null}),load:loadStory,ride:rideSource,read:readSource});
