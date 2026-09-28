@@ -8389,24 +8389,22 @@
     },
     {
       "href": "/prison-age/",
-      "title": "PRISON AGE // I'M ALWAYS BEHIND YOU",
+      "title": "PRISON AGE",
       "kind": "artifact",
       "parent": "/",
       "family": "PRISON AGE",
-      "operation": "READ",
+      "operation": "READ / RIDE",
       "state": "ACTIVE",
-      "version": "0.2",
+      "version": "0.3",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_READER_CONVERGENCE_2026-09-28.json",
-      "role": "Shareable narrative-first Prison Age reader: four sourced movements, changing provenance of one fixed P26 motif, literal paragraph afterimage, explicit RULE/MOVE/WITNESS evidence, one clearable carried mark across stories, nine-stage rule-afterlife projection, exact READFIELD focus and inspectable RETURN. Historical source strata remain distinct; Prison Age is not merged into Sleeper.",
+      "latest_return": "/returns/PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
+      "role": "Source-first Prison Age doorway. Exact sourced movements remain primary; READ opens READFIELD and RIDE sends the same addressed bytes into FOLD//BLOOM LIVE STEP mode. No generated story framing, no active P26 motif/path, no canon reading order.",
       "transfer": [
-        "2021 PRISON AGE / 9 Gate City root → threshold context without backdating later show grammar",
-        "exact anthology stories + curated source-exact Last Stall extract → paragraph-by-paragraph native reading",
-        "prior paragraph → literal typographic afterimage; explicit mark → optional locally carried evidence behind next story",
-        "current story + exact paragraph char position → READFIELD FOCUS",
-        "story completion → prison-age.reader-return/v0.2",
-        "FIELD INDEX addressed READ route → direct shareable /prison-age/"
+        "exact Prison Age story address + bytes → READFIELD",
+        "exact same story bytes + source identity → FOLD//BLOOM LIVE field-read-ride/v0.1",
+        "READ/RIDE → exact /prison-age/?story=<id> return",
+        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen"
       ],
       "contract": {
         "accepts": {
@@ -8416,22 +8414,22 @@
           ]
         },
         "transforms": {
-          "verb": "read a sourced Prison Age path while provenance, afterimage and explicit carried evidence make the rule-afterlife perceptible",
+          "verb": "choose an exact sourced movement, then READ or RIDE the same bytes through an existing host",
           "preserves": [
             "source address",
-            "paragraph position",
-            "source-status boundary",
-            "explicit marks",
-            "exact re-entry"
+            "source bytes",
+            "source status",
+            "story identity",
+            "exact return route"
           ],
-          "reversibility": "paragraph PREV / exact URL re-entry / clearable behind mark",
-          "side_effects": "browser-local read trail, pass count and explicit carried mark only"
+          "reversibility": "source selector / exact URL re-entry / return from READFIELD or LIVE",
+          "side_effects": "session-local READ/RIDE handoff only; no source mutation"
         },
         "emits": {
           "kinds": [
-            "prison-age.reader-return/v0.2",
-            "exact READFIELD FOCUS handoff",
-            "shareable story+paragraph URL"
+            "READFIELD source projection",
+            "field-read-ride/v0.1 handoff",
+            "shareable story URL"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -8443,54 +8441,113 @@
       },
       "field": {
         "roles": [
+          "SOURCE",
           "WORLD_THROUGH"
         ],
         "inputs": [
           {
             "medium": "TEXT",
             "kind": "sourced Prison Age prose",
-            "interface": "paragraph address"
+            "interface": "exact story address"
           }
         ],
         "outputs": [
           {
-            "medium": "EVIDENCE",
-            "kind": "reader RETURN / explicit marks",
-            "interface": "local trail + copied JSON"
+            "medium": "TEXT",
+            "kind": "READFIELD projection",
+            "interface": "READ SOURCE"
+          },
+          {
+            "medium": "EXPERIENCE",
+            "kind": "FOLD//BLOOM LIVE STEP traversal",
+            "interface": "RIDE SAME SOURCE"
           },
           {
             "medium": "DATA",
-            "kind": "exact READFIELD focus",
-            "interface": "same-origin handoff"
+            "kind": "exact source/return identity",
+            "interface": "field-read-ride/v0.1"
           }
         ],
         "exit_paths": [
           {
             "class": "READFIELD",
             "status": "AVAILABLE",
-            "via": "FOCUS / READFIELD"
+            "via": "READ SOURCE"
           },
           {
-            "class": "SHARE",
+            "class": "FOLD_BLOOM_LIVE",
             "status": "AVAILABLE",
-            "via": "COPY POSITION / direct URL"
+            "via": "RIDE SAME SOURCE"
+          },
+          {
+            "class": "RAW_SOURCE",
+            "status": "AVAILABLE",
+            "via": "RAW SOURCE"
           }
         ]
       },
-      "classification": "RECOVERED_2026_SOURCE + P26_READER_CONTINUATION",
+      "classification": "RECOVERED_2026_SOURCE / SOURCE_DOORWAY",
       "evolution": {
-        "mutation": "Prison Age moves from archive/anthology material into a shareable sourced reading experience whose only adaptive residue is reader-explicit evidence.",
-        "question": "Does one explicit carried mark change the next story without turning the reader into a profiling system?"
+        "mutation": "Reader 0.2 is frozen; active route contracts to exact source selection plus two unequal existing projections.",
+        "question": "Can LIVE make authored Prison Age text more traversable without becoming the content?"
       },
       "index": {
-        "updated_at": "2026-09-28T15:49:00+08:00",
+        "updated_at": "2026-09-28T17:08:00+08:00",
         "work_modes": [
           "READ",
-          "FOCUS",
+          "RIDE",
           "RETURN"
         ]
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/prison-age/reader-0.2/",
+      "title": "PRISON AGE // READER 0.2 (FROZEN)",
+      "kind": "artifact",
+      "parent": "/prison-age/",
+      "family": "PRISON AGE",
+      "operation": "ARCHIVE",
+      "state": "FROZEN_DONOR",
+      "version": "0.2",
+      "showcase_card": false,
+      "receipt": "/prison-age/reader-0.2/release.json",
+      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
+      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
+      "tier": "DONOR",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "historical frozen reader state"
+          ]
+        },
+        "transforms": {
+          "verb": "inspect only",
+          "preserves": [
+            "frozen bytes",
+            "source boundary"
+          ],
+          "reversibility": "return to /prison-age/",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "lineage inspection"
+          ],
+          "machine_readable": false,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/prison-age/reader-0.2/release.json",
+          "return_path": "/prison-age/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-28T17:08:00+08:00",
+        "work_modes": [
+          "ARCHIVE"
+        ]
+      }
     }
   ],
   "release_law": [
