@@ -193,11 +193,12 @@ async function load(){
   const h = parseHash();
   if (h.c){ switchView('read'); render(h.c.split('').map(Number), h.q || ''); }
   else if (h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q || ''); }
+  else if (h.b && HEX.byBin[h.b]){ switchView('read'); renderHex(HEX.byBin[h.b].id, h.q || ''); }
   else if (h.view) switchView(h.view);
 }
 function parseHash(){
-  const f = new URLSearchParams(location.hash.slice(1));
-  return { c: f.get('c'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
+  const f = new URLSearchParams(location.hash.slice(1)),binary=String(f.get('b')||'').replace(/[^01]/g,'');
+  return { c: f.get('c'), q: f.get('q') || '', h: f.get('h'), b: binary.length===6?binary:null, view: f.get('view') };
 }
 function switchView(name){
   currentView = name;
