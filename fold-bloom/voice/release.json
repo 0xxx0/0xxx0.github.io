@@ -22,7 +22,8 @@
     "LAB/VOICE RETURN contains bounded aggregate evidence only; raw microphone audio is never recorded or exported",
     "The existing scrolling spectrogram now carries target-pitch and heard-pitch traces on the same log-frequency axis, plus borrowed-beat boundary marks.",
     "A bounded temporal training trace derives target-relative center-hold and voiced-onset timing witnesses without storing microphone audio.",
-    "VOICE RETURN and FoldBloomVoice state expose aggregate temporal evidence; the trace remains descriptive training evidence, not singing-quality scoring."
+    "VOICE RETURN and FoldBloomVoice state expose aggregate temporal evidence; the trace remains descriptive training evidence, not singing-quality scoring.",
+    "Phone layout (<=760px): the spectrogram is a reserved bottom strip in field flow instead of a full-height overlay, so active spectrum bands can never cover the tune rail, cents needle or relation status line."
   ],
   "constraints": [
     "pitch estimate != singing quality assessment",
@@ -46,10 +47,11 @@
     "route_registration_run": 36198970713,
     "public_surface_run": 36198970709,
     "temporal_trace_core": "PENDING_PR_CI: log-frequency alignment, signed beat-onset error and bounded trace summary",
-    "temporal_voice_lab": "PENDING_PR_CI: same temporal witness shared by VOICE and FIELD LAB PULSE without a new Lab mode"
+    "temporal_voice_lab": "PENDING_PR_CI: same temporal witness shared by VOICE and FIELD LAB PULSE without a new Lab mode",
+    "phone_spectrogram_layout": "PASS: headless Brave 430x900 + 375x667, idle and mic-active: spectrogram strip bottom-anchored in field flow, zero overlap with tune rail / relation line, field height unchanged by mic activation"
   },
   "promotion_gate": "Human feel remains optional evidence: held-note and PULSE-linked patterns should be legible in ordinary phone use. Correctness is machine-verified; no raw audio may leave the browser.",
   "return": "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json",
   "confluence": "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json",
-  "updated": "2026-09-26"
+  "updated": "2026-09-28"
 }
