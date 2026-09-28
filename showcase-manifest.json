@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-28",
+  "updated": "2026-09-28T18:42:58+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-28T17:02:00+08:00",
+        "updated_at": "2026-09-28T18:42:58+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -6118,7 +6118,7 @@
         ]
       },
       "index": {
-        "updated_at": "2026-09-26T00:55:00+08:00",
+        "updated_at": "2026-09-28T18:29:18+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"

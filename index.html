@@ -158,6 +158,29 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
  .focusDepth>summary{min-height:42px;padding:8px}.focusDepth>summary b,.focusDepth>summary span{font-size:10px}.refineTools a,.refineTools button{min-height:42px;font-size:10px}.fieldGesture{font-size:9px;padding:7px}.fieldGesture button{min-height:40px;font-size:10px}
 }
+/* CONVERGENCE READ — composed on read from control/QUEUE.json + federation-atlas.json; no generated strip, no second dashboard */
+.convRead{grid-column:1/-1;background:#090d0f;border-top:1px solid var(--line);padding:7px 8px 8px}
+.cvHead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:5px}
+.cvHead b{font-size:7px;letter-spacing:.16em}
+.cvHead span{color:var(--mut);font-size:6.5px;text-align:right;min-width:0}
+.cvSec{margin-top:6px}
+.cvSecH{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:3px}
+.cvSecH b{font-size:6.5px;letter-spacing:.14em;color:var(--gold)}
+.cvSecH span{color:var(--mut);font-size:6px;text-align:right;min-width:0}
+.cvRow{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:2px 7px;padding:3px 0;border-bottom:1px dotted #1d2529;align-items:baseline}
+.cvRow b{font-size:7px;letter-spacing:.04em;white-space:nowrap}
+.cvRow em{font-style:normal;color:var(--cool);font-size:6px;letter-spacing:.09em;white-space:nowrap}
+.cvRow p{grid-column:3;margin:0;color:#b7c0c4;font-size:7.5px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
+.cvTable{display:grid;grid-template-columns:minmax(92px,1.6fr) repeat(4,minmax(30px,.55fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2px}
+.cvTable>div{background:#090d0f;padding:3px 5px;font-size:6.5px;color:#b7c0c4;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cvTable .cvTH{color:var(--mut);font-size:6px;letter-spacing:.1em}
+.cvTable .n{text-align:right;color:var(--ink)}
+.cvTable .tot{color:var(--mut)}
+.cvNone,.cvFail{padding:3px 0;color:var(--mut);font-size:7px}
+.cvFail{color:var(--bad)}
+.cvFoot{margin-top:6px;padding-top:5px;border-top:1px solid var(--line);color:var(--mut);font-size:6.5px;line-height:1.5}
+.cvFoot a{color:var(--cool)}
+@media(max-width:760px){.cvRow{grid-template-columns:minmax(72px,auto) minmax(0,1fr)}.cvRow b{grid-column:1;grid-row:1}.cvRow em{grid-column:1;grid-row:2;white-space:normal}.cvRow p{grid-column:2;grid-row:1/span 2}}
 </style>
 </head>
 <body><main>
@@ -182,6 +205,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
     <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
     <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>root interaction contract</span></a>
+    <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json and federation-atlas.json">
+      <div class="cvHead"><b>CONVERGENCE READ</b><span id="convMeta">QUEUE + atlas · composing…</span></div>
+      <div id="convBody"><div class="cvNone">composing live fronts · held reasons · horizon distribution…</div></div>
+      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. ATTENTION ≠ RECENCY — <a href="./control/">/control/CURRENT.json</a> owns NOW; QUEUE does not authorize NOW or NEXT; atlas horizon is planning metadata, not priority. Coordination + RETURN live in <a href="./nexus/">NEXUS</a>.</div>
+    </div>
   </div>
 </details>
 <div class="syncLine" aria-label="FIELD truth frame">
@@ -892,6 +920,36 @@ function openProof(){if(!focus)return;if(window.LensProof?.open){window.LensProo
 async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
 async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.href+'\n'+(focus.title||'')+'\n'+location.href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
 
+function convTrim(s,n){const t=String(s==null?'':s).replace(/[ \t\r\n]+/g,' ').trim();return t.length>n?t.slice(0,Math.max(1,n-1)).trimEnd()+'…':t}
+function convRowHTML(id,tag,text){return '<div class="cvRow"><b>'+esc(id)+'</b><em>'+esc(tag||'')+'</em><p>'+esc(text)+'</p></div>'}
+function renderConvergence(q,a){
+ const box=$('convBody'),meta=$('convMeta');if(!box)return;
+ let out='',bits=[];
+ if(q&&!q.__error){
+  const live=Array.isArray(q.live)?q.live:[],held=Array.isArray(q.held)?q.held:[],max=(q.max_live==null?'?':q.max_live);
+  bits.push(live.length+'/'+max+' live',held.length+' held');
+  out+='<div class="cvSec"><div class="cvSecH"><b>LIVE FRONTS</b><span>QUEUE.json updated '+esc(q.updated||'—')+' · live '+live.length+'/'+max+' · compatibility projection, not attention</span></div>'
+   +(live.length?live.map(f=>convRowHTML(f.id||f.front_id,f.horizon||'',convTrim(f.goal||f.center||'',200))).join(''):'<div class="cvNone">No live fronts recorded in QUEUE.</div>')+'</div>';
+  out+='<div class="cvSec"><div class="cvSecH"><b>HELD — AS RECORDED</b><span>QUEUE.json · held '+held.length+' · reason as recorded</span></div>'
+   +(held.length?held.map(h=>convRowHTML(h.id,h.horizon||'',convTrim(h.reason||'(no reason recorded)',200))).join(''):'<div class="cvNone">No held items recorded in QUEUE.</div>')+'</div>';
+ }else{
+  out+='<div class="cvSec"><div class="cvSecH"><b>LIVE + HELD</b><span>QUEUE.json unreachable</span></div><div class="cvFail">QUEUE.json unreadable ('+esc(String(q&&q.__error||'fetch failed'))+') — reading incomplete; this does NOT report clear.</div></div>';
+ }
+ if(a&&!a.__error){
+  const ps=Array.isArray(a.provinces)?a.provinces:[],all=ps.flatMap(p=>Array.isArray(p.items)?p.items:[]),HS=['now','next','later','hold'],cnt=list=>h=>list.filter(x=>x.horizon===h).length,count=cnt(all);
+  bits.push('horizon '+HS.map(h=>h+' '+count(h)).join(' · '));
+  out+='<div class="cvSec"><div class="cvSecH"><b>HORIZON DISTRIBUTION</b><span>federation-atlas.json · '+esc(a.generated||'—')+' · '+all.length+' items · '+esc(a.projection||'—')+'</span></div><div class="cvTable"><div class="cvTH">PROVINCE</div>'+HS.map(h=>'<div class="cvTH">'+h.toUpperCase()+'</div>').join('')+ps.map(p=>{const c=cnt(Array.isArray(p.items)?p.items:[]);return '<div>'+esc(p.province)+'</div>'+HS.map(h=>'<div class="n">'+c(h)+'</div>').join('')}).join('')+'<div class="tot">ALL '+all.length+'</div>'+HS.map(h=>'<div class="n tot">'+count(h)+'</div>').join('')+'</div></div>';
+ }else{
+  out+='<div class="cvSec"><div class="cvSecH"><b>HORIZON</b><span>federation-atlas.json unreachable</span></div><div class="cvFail">federation-atlas.json unreadable ('+esc(String(a&&a.__error||'fetch failed'))+') — horizon reading missing; not an all-clear.</div></div>';
+ }
+ box.innerHTML=out;
+ if(meta)meta.textContent=bits.length?bits.join(' · ')+' · read-only':'sources unreadable — not an all-clear';
+}
+async function loadConvergence(){
+ const get=u=>fetch(u,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});
+ const [q,a]=await Promise.all([get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))]);
+ try{renderConvergence(q,a)}catch(e){const box=$('convBody');if(box)box.innerHTML='<div class="cvFail">convergence read failed: '+esc(String(e&&e.message||e))+'</div>'}
+}
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>r.json())
@@ -899,7 +957,7 @@ Promise.all([
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
- renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
+ renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};

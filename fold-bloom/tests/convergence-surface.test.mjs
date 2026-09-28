@@ -12,7 +12,7 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
   assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE →<\/button>/);
   assert.match(html,/id="songIntroBtn">OPEN LOCAL TRACK<\/button>/);
-  assert.match(html,/id="playBtn">FIELD COURSE<\/button>/);
+  assert.match(html,/id="playBtn">DRIVE FIELD →<\/button>/);
   assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
   assert.match(html,/data-layer-mode="SOURCE"/);
@@ -24,6 +24,7 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   assert.match(app,/REMOTE SOURCE UNAVAILABLE · LIVE READY/);
   assert.match(app,/legacy-center-mass/);
   assert.match(app,/clearSource\(\)/);
+  assert.match(app,/applyRidePreset\('DRIVE',false\)/);
   assert.match(app,/dataset\.mode==='SOURCE'/);
   assert.match(app,/putLocalMedia\(/);
   assert.match(app,/listLocalMedia\(/);

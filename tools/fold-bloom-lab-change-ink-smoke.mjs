@@ -6,14 +6,23 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
-const ROOT=process.cwd(),HOST='127.0.0.1',PORT=41774;
+const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 
 function browserBin(){
   for(const n of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
     const r=spawnSync('which',[n],{encoding:'utf8'});
     if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
-  throw Error('No Chrome/Chromium for FIELD LAB change→INK smoke');
+  // macOS: Chrome/Brave/Edge/Chromium live in /Applications, not on PATH. Without this the
+  // smoke could not run on the operator's own machine at all, so it reported a failure that
+  // said nothing about the code.
+  for(const p of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+                  '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+                  '/Applications/Chromium.app/Contents/MacOS/Chromium',
+                  '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge']){
+    if(spawnSync('test',['-x',p]).status===0)return p;
+  }
+  throw Error('No Chrome/Chromium for FIELD LAB change→INK smoke (checked PATH and /Applications)');
 }
 function contentType(p){
   if(p.endsWith('.html'))return 'text/html; charset=utf-8';
@@ -105,7 +114,7 @@ function run(bin){return new Promise((resolve,reject)=>{
 })}
 function resultText(dom){const m=String(dom||'').match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i);return (m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').trim()}
 
-await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));
+await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));PORT=server.address().port;
 try{
   const r=await run(browserBin()),result=resultText(r.stdout),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.stderr);
   if(r.code!==0||fatal||!result.startsWith('PASS ')){
