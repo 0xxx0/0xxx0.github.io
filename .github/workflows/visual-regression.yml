@@ -81,7 +81,6 @@ jobs:
           exit 1
 
       - name: Capture screenshots
-        if: github.event.inputs.mode == 'capture' || github.event_name == 'schedule'
         id: capture
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
@@ -89,10 +88,10 @@ jobs:
         run: |
           set -euo pipefail
           MODE="${{ github.event.inputs.mode }}"
-          if [ "$MODE" = "compare" ] && [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ -z "$MODE" ] && [ "${{ github.event_name }}" = "schedule" ]; then
             MODE="compare"
           fi
-          echo "Running in $MODE mode"
+          echo "Running in ${MODE:-capture} mode (capturing screenshots)"
 
           # Routes to capture (5 stable routes per spec)
           ROUTES=(
@@ -141,7 +140,7 @@ jobs:
 
           echo "outdir=$OUTDIR" >> "$GITHUB_OUTPUT"
 
-      - name: Upload captures as artifact (capture mode)
+      - name: Upload captures as artifact (capture mode only)
         if: github.event.inputs.mode == 'capture'
         uses: actions/upload-artifact@v4
         with:
