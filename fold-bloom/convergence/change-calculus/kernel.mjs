@@ -11,6 +11,12 @@ export const CONTROL_VERBS=Object.freeze(['BLOOM','FOLD','SPLIT','RETURN']);
 
 const round=(x,n=6)=>Number(Number(x).toFixed(n));
 const factorial=n=>{let x=1;for(let i=2;i<=Math.max(0,Math.trunc(Number(n)||0));i++)x*=i;return x};
+const binomial=(n,k)=>{
+  n=Math.max(0,Math.trunc(Number(n)||0));k=Math.max(0,Math.trunc(Number(k)||0));
+  if(k>n)return 0;k=Math.min(k,n-k);let x=1;
+  for(let i=1;i<=k;i++)x=x*(n-k+i)/i;
+  return Math.round(x);
+};
 const addressedLines=lines=>{
   const xs=Array.isArray(lines)?lines.map(Number):[];
   return xs.every(x=>Number.isInteger(x)&&x>=1&&x<=6)&&new Set(xs).size===xs.length?xs:null;
@@ -179,6 +185,85 @@ export function steppedStatePath(from,to,order=null){
   };
 }
 
+export function changeLatticeCalculation(from,to){
+  const calc=transparentStateCalculation(from,to);
+  if(!calc.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/change-lattice',reason:calc.reason};
+  const moving=[...calc.moving],k=moving.length,vertexCount=2**k,edgeCount=k===0?0:k*(2**(k-1)),chainCount=factorial(k);
+  const ranks=Array.from({length:k+1},(_,depth)=>{
+    const vertices=binomial(k,depth),prefixOrders=factorial(depth),suffixOrders=factorial(k-depth);
+    return {
+      depth,
+      vertices,
+      prefix_orders_per_vertex:prefixOrders,
+      suffix_orders_per_vertex:suffixOrders,
+      maximal_chains_through_each_vertex:prefixOrders*suffixOrders,
+      total_chain_incidence:vertices*prefixOrders*suffixOrders
+    };
+  });
+  const vertices=Array.from({length:vertexCount},(_,mask)=>{
+    const bits=[...calc.from.bits],selected=[];
+    for(let j=0;j<k;j++){
+      if(mask&(1<<j)){
+        const line=moving[j];bits[line-1]=calc.to.bits[line-1];selected.push(line);
+      }
+    }
+    const desc=stateDescriptor(bits);
+    return {
+      mask,
+      depth:selected.length,
+      selected_lines:selected,
+      binary:bitString(bits),
+      token:desc.token,
+      lower:desc.lower,
+      upper:desc.upper,
+      address:'change://state/'+calc.from.binary+'→'+calc.to.binary+'/vertex/'+mask.toString(2).padStart(k,'0')
+    };
+  });
+  const edges=[];
+  for(let mask=0;mask<vertexCount;mask++){
+    for(let j=0;j<k;j++){
+      if(mask&(1<<j))continue;
+      const toMask=mask|(1<<j);
+      edges.push({
+        from_mask:mask,
+        to_mask:toMask,
+        line:moving[j],
+        address:'change://state/'+calc.from.binary+'→'+calc.to.binary+'/edge/'+mask+'-'+toMask
+      });
+    }
+  }
+  const widest=Math.max(...ranks.map(x=>x.vertices));
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/change-lattice',
+    authority:'CALCULATION_ONLY',
+    from_token:calc.from.token,
+    to_token:calc.to.token,
+    moving_lines:moving,
+    dimensions:k,
+    vertices:vertexCount,
+    edges:edgeCount,
+    maximal_one_line_paths:chainCount,
+    widest_rank:widest,
+    ranks,
+    vertex_set:vertices,
+    edge_set:edges,
+    metrics:{
+      state_choice_bits:k,
+      path_order_ambiguity_bits:chainCount>0?round(Math.log2(chainCount)):0,
+      path_to_vertex_ratio:vertexCount?round(chainCount/vertexCount):0
+    },
+    formulas:{
+      vertices:'2^k = '+vertexCount,
+      directed_edges:'k·2^(k-1) = '+edgeCount,
+      maximal_chains:'k! = '+chainCount,
+      rank_width:'C(k,r); widest rank = '+widest,
+      incidence:'C(k,r)·r!·(k-r)! = k! at every rank'
+    },
+    law:'the moving-line set defines a k-dimensional Boolean lattice; STEP order selects one maximal chain through shared intermediate states, so same endpoints can have many trajectories without inventing extra state authority'
+  };
+}
+
 export function exactFormCalculation(fromForm,toForm=fromForm){
   if(!formOk(fromForm)||!formOk(toForm))return {ok:false,schema:CHANGE_CALCULUS_SCHEMA,reason:'SIX_EXACT_CONTROL_VERBS_REQUIRED'};
   const a=upperForm(fromForm),b=upperForm(toForm),from=hexProjection(a),to=hexProjection(b),change=hexChangeProjection(a,b);
@@ -270,7 +355,7 @@ export function steppedFormPath(fromForm,toForm,order=null){
   };
 }
 
-export function residueLadder({state=null,stateStep=null,exact=null,steering=null,promotion=null}={}){
+export function residueLadder({state=null,stateStep=null,lattice=null,exact=null,steering=null,promotion=null}={}){
   const levels=[];
   if(exact?.ok){
     levels.push({
@@ -307,6 +392,18 @@ export function residueLadder({state=null,stateStep=null,exact=null,steering=nul
         :'no order ambiguity for this endpoint pair',
       alternatives:state.metrics.one_line_step_orders,
       ambiguity_bits:state.metrics.step_order_ambiguity_bits
+    });
+  }
+  if(lattice?.ok){
+    levels.push({
+      id:'ORDER_SPACE',
+      claim:'TRAJECTORY_SPACE_WITNESS',
+      authority:'CALCULATION_ONLY',
+      keeps:lattice.vertices+' reachable intermediate state(s), '+lattice.edges+' one-line edge(s), '+lattice.maximal_one_line_paths+' maximal chain(s)',
+      drops:'native host timing, cost and consequence are not implied by abstract adjacency',
+      dimensions:lattice.dimensions,
+      widest_rank:lattice.widest_rank,
+      path_order_ambiguity_bits:lattice.metrics.path_order_ambiguity_bits
     });
   }
   if(stateStep?.ok){
@@ -374,6 +471,7 @@ export function residueLadder({state=null,stateStep=null,exact=null,steering=nul
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
+  const lattice=state?.ok?changeLatticeCalculation(spec.fromState,spec.toState):null;
   const exact=spec.fromForm&&spec.toForm?exactFormCalculation(spec.fromForm,spec.toForm):null;
   const step=spec.fromForm&&spec.toForm?steppedFormPath(spec.fromForm,spec.toForm,spec.stepOrder):null;
   const steering=spec.trace&&spec.target
@@ -386,12 +484,13 @@ export function appliedResearchFrame(spec={}){
     to_matches:state.to.binary===exact.to.bits?.join(''),
     law:'exact operation form and six-bit state are unequal representations; equality here only checks this explicit quotient'
   }:null;
-  const residue_ladder=residueLadder({state,stateStep,exact,steering,promotion});
+  const residue_ladder=residueLadder({state,stateStep,lattice,exact,steering,promotion});
   return {
     schema:CHANGE_CALCULUS_SCHEMA+'/frame',
     authority:'RESEARCH_WITNESS_ONLY',
     state,
     state_step:stateStep,
+    change_lattice:lattice,
     exact,
     step,
     steering,
@@ -402,7 +501,7 @@ export function appliedResearchFrame(spec={}){
     residue:[
       'I Ching names/text are an optional lookup lens over the six-bit state; no divinatory authority is inferred by this calculation',
       'hexagram quotient loses exact BLOOM/FOLD and SPLIT/RETURN distinctions',
-      'moving-line set loses step ordering',
+      'moving-line set loses step ordering; its k moving lines define a 2^k-state Boolean change lattice with k! maximal one-line paths',
       'J-Lens top-k readout loses unexported vocabulary mass and does not provide a causal direction vector',
       'host forecast support is not permission to execute',
       'promotion from read/support hypothesis to bounded preview is a separate evidence gate with explicit proof obligations'
