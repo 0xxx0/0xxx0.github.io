@@ -157,6 +157,48 @@ Examples:
 
 The moving-line set therefore does **not** determine a temporal path. If intermediate states affect consequences, step order is provenance and cannot be dropped.
 
+### 2026-09-28 — addressed path space
+
+The implementation now gives every one-line order a stable **factoradic address** instead of exposing only a default/reverse pair.
+
+For canonical changed-line list `L=[l0,...,l(k-1)]`:
+
+```text
+rank : permutation(L) → {0,...,k!-1}
+unrank : {0,...,k!-1} → permutation(L)
+
+rank(unrank(i)) = i
+```
+
+The calculator exposes:
+
+- `selected_order_index` — zero-based Lehmer/factoradic rank;
+- `selected_order_address` — compact `order://i-of-k!` witness;
+- `path_address` — endpoint-scoped `change://.../order/i-of-k!`;
+- step-local addresses beneath that path.
+
+This matters because six moving lines have 720 lawful one-line orderings. Enumerating only “forward” and “reverse” made 718 paths invisible even though the arithmetic already said they existed.
+
+FIELD LAB DATA now treats this as an inspectable path space:
+
+```text
+ENDPOINTS
+  → choose ORDER i/k!
+  → STEP one line
+  → intermediate six-bit state
+  → STEP ...
+  → target
+  → RETURN(path address + cursor + clock witness)
+```
+
+`FLOW` only advances the **preview cursor**. If LAB PULSE is already running it may lend the interval; otherwise LAB uses a local 720 ms witness clock. This follows the existing law:
+
+> borrowed clock ≠ borrowed authorship.
+
+FLOW never calls LIVE `release()`, never mutates a host forecast aperture, and never converts I Ching/J-space evidence into effect authority.
+
+LAB → APPLIED CALC carries the selected order index in the URL, so the research surface reopens the exact inspected path rather than silently falling back to path 0. LAB RETURN preserves the same path address and cursor.
+
 The exact-form path is even richer: exact same-polarity edits may change while the binary quotient remains fixed.
 
 ### Derived I Ching line values

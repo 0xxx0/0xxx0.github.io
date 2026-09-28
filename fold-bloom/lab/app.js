@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,steppedStatePath} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steppedStatePath} from '../convergence/change-calculus/kernel.mjs';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -559,7 +559,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateStepCursor:0,stateOrderFlip:false};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -579,31 +579,48 @@ function stateLabel(desc){
   if(!desc?.valid)return 'INVALID';
   return (desc.lower?.glyph||'')+' '+(desc.lower?.key||'OPEN')+' / '+(desc.upper?.glyph||'')+' '+(desc.upper?.key||'OPEN');
 }
+function stateFlowClock(){
+  return pulse.playing?{label:'PULSE '+pulse.bpm+' BPM',interval:Math.max(180,60000/pulse.bpm)}:{label:'LOCAL 720ms',interval:720};
+}
+function statePreviewBits(){
+  const step=data.stateStep,cursor=data.stateStepCursor;
+  if(!step?.ok)return data.stateChange?.from?.bits||null;
+  if(cursor<=0||!step.steps.length)return normalizeStateBits(step.from_token);
+  return normalizeStateBits(step.steps[Math.min(cursor-1,step.steps.length-1)].after_binary);
+}
 function syncStateStepUI(){
-  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor;
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock();
   if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
   if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
   if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
   if($('#stateAmbiguity'))$('#stateAmbiguity').textContent=step?.ok?step.order_ambiguity_bits+'b':'—';
   if($('#stateLineValues'))$('#stateLineValues').textContent=calc?.ok?calc.iching_projection.line_values.join(' · '):'—';
-  if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER · '+step.selected_order.map(x=>'L'+x).join('→'):'ORDER · ∅';
-  if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+Math.min(cursor+1,step.steps.length)+'/'+step.steps.length:'STEP · STABLE';
+  if($('#statePathIndex'))$('#statePathIndex').textContent=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
+  if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER ▶ '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'ORDER · ∅';
+  if($('#stateOrderPrev'))$('#stateOrderPrev').disabled=!step?.ok||step.possible_one_line_orders<=1;
+  if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+cursor+'/'+step.steps.length:'STEP · STABLE';
+  if($('#stateFlow')){
+    $('#stateFlow').textContent=data.stateFlow?'FLOW · '+clock.label:'FLOW';
+    $('#stateFlow').classList.toggle('cool',data.stateFlow);
+  }
   if($('#stateStepRead')){
     if(!step?.ok)$('#stateStepRead').textContent='STEP path unavailable';
     else if(!step.steps.length)$('#stateStepRead').textContent='STABLE · '+step.from_token+' = '+step.to_token;
-    else if(cursor<=0)$('#stateStepRead').textContent='START · '+step.from_token+' · '+step.selected_order.map(x=>'L'+x).join(' → ');
+    else if(cursor<=0)$('#stateStepRead').textContent='PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · START · '+step.from_token+' · '+step.selected_order.map(x=>'L'+x).join(' → ');
     else{
       const x=step.steps[Math.min(cursor-1,step.steps.length-1)];
-      $('#stateStepRead').textContent='STEP '+x.step+'/'+step.steps.length+' · L'+x.line+' · '+x.from_bit+'→'+x.to_bit+' = '+x.iching_line_value+' · '+x.before_token+' → '+x.after_token;
+      $('#stateStepRead').textContent='PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+x.step+'/'+step.steps.length+' · L'+x.line+' · '+x.from_bit+'→'+x.to_bit+' = '+x.iching_line_value+' · '+x.after_token;
     }
   }
 }
-function syncStateChange(){
+function syncStateChange({preserveOrder=false}={}){
   const from=$('#stateFrom')?.value,to=$('#stateTo')?.value;
   const change=stateChange(from,to),calc=transparentStateCalculation(from,to);
   data.stateChange=change;data.stateCalc=calc;data.stateStepCursor=0;
-  const order=calc?.ok&&data.stateOrderFlip?[...calc.moving].reverse():null;
-  data.stateStep=calc?.ok?steppedStatePath(from,to,order):null;
+  if(!preserveOrder){data.stateOrderIndex=0;data.stateFlow=false}
+  const indexed=calc?.ok?stepOrderAt(calc.moving,data.stateOrderIndex):null;
+  if(indexed?.ok)data.stateOrderIndex=indexed.index;
+  data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
@@ -614,8 +631,8 @@ function syncStateChange(){
   return change;
 }
 function stateLayout(){
-  const gap=Math.max(22,Math.min(38,H*.055)),cy=H*.51,w=Math.max(52,Math.min(92,W*.15));
-  return {leftX:W*.29,rightX:W*.71,cy,gap,w};
+  const gap=Math.max(22,Math.min(38,H*.055)),cy=H*.51,w=Math.max(42,Math.min(76,W*.115));
+  return {leftX:W*.18,midX:W*.50,rightX:W*.82,cy,gap,w};
 }
 function drawStateLine(x,y,w,bit,changed=false){
   ctx.save();ctx.lineWidth=changed?3:2;ctx.strokeStyle=changed?'#ef7849':'#d7b46d';ctx.globalAlpha=changed?1:.72;
@@ -626,26 +643,32 @@ function drawStateLine(x,y,w,bit,changed=false){
 }
 function drawStateChange(){
   const change=data.stateChange;if(!change?.valid)return;
-  const {leftX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving);
+  const {leftX,midX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving),step=data.stateStep,cursor=data.stateStepCursor;
+  const previewBits=statePreviewBits()||change.from.bits,preview=stateDescriptor(previewBits);
+  const activeLine=cursor>0&&step?.steps.length?step.steps[Math.min(cursor-1,step.steps.length-1)].line:null;
   ctx.save();
   ctx.font='800 8px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#78858c';
   ctx.fillText('FROM · '+formatState(change.from.bits),leftX,cy-gap*4);
-  ctx.fillText('TO · '+formatState(change.to.bits),rightX,cy-gap*4);
+  ctx.fillStyle='#7bd5ff';ctx.fillText('PATH · '+formatState(previewBits),midX,cy-gap*4);
+  ctx.fillStyle='#78858c';ctx.fillText('TO · '+formatState(change.to.bits),rightX,cy-gap*4);
   for(let i=0;i<6;i++){
-    const y=cy+gap*(2.5-i),changed=moving.has(i+1);
+    const y=cy+gap*(2.5-i),changed=moving.has(i+1),active=activeLine===i+1;
     drawStateLine(leftX,y,w,change.from.bits[i],changed);
+    drawStateLine(midX,y,w,previewBits[i],active);
     drawStateLine(rightX,y,w,change.to.bits[i],changed);
-    if(changed){ctx.strokeStyle='rgba(123,213,255,.34)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(leftX+w*.6,y);ctx.lineTo(rightX-w*.6,y);ctx.stroke();ctx.fillStyle='#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('Δ'+(i+1),(leftX+rightX)/2,y-4)}
+    if(changed){
+      ctx.strokeStyle='rgba(123,213,255,.20)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(leftX+w*.6,y);ctx.lineTo(midX-w*.6,y);ctx.moveTo(midX+w*.6,y);ctx.lineTo(rightX-w*.6,y);ctx.stroke();
+      ctx.fillStyle=active?'#ef7849':'#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('L'+(i+1),midX,y-5);
+    }
   }
-  ctx.fillStyle='#f2f3ef';ctx.font='900 20px ui-monospace';
-  ctx.fillText(change.from.lower?.glyph||'',leftX-w*.72,cy+gap*2.5);ctx.fillText(change.from.upper?.glyph||'',leftX+w*.72,cy-gap*2.5);
-  ctx.fillText(change.to.lower?.glyph||'',rightX-w*.72,cy+gap*2.5);ctx.fillText(change.to.upper?.glyph||'',rightX+w*.72,cy-gap*2.5);
-  ctx.fillStyle='#d7b46d';ctx.font='800 9px ui-monospace';ctx.fillText(change.mask,W/2,cy-gap*3.2);
-  const step=data.stateStep,cursor=data.stateStepCursor;
+  ctx.fillStyle='#f2f3ef';ctx.font='900 18px ui-monospace';
+  ctx.fillText(change.from.lower?.glyph||'',leftX,cy+gap*3.05);ctx.fillText(change.from.upper?.glyph||'',leftX,cy-gap*3.05);
+  ctx.fillStyle='#7bd5ff';ctx.fillText(preview.lower?.glyph||'',midX,cy+gap*3.05);ctx.fillText(preview.upper?.glyph||'',midX,cy-gap*3.05);
+  ctx.fillStyle='#f2f3ef';ctx.fillText(change.to.lower?.glyph||'',rightX,cy+gap*3.05);ctx.fillText(change.to.upper?.glyph||'',rightX,cy-gap*3.05);
+  ctx.fillStyle='#d7b46d';ctx.font='800 9px ui-monospace';ctx.fillText(change.mask,midX,cy-gap*3.3);
   if(step?.ok){
     ctx.fillStyle='#7bd5ff';ctx.font='700 8px ui-monospace';
-    const label=cursor>0&&step.steps.length?step.steps[Math.min(cursor-1,step.steps.length-1)].after_token:'ORDER '+(step.selected_order.length?step.selected_order.map(x=>'L'+x).join('→'):'∅');
-    ctx.fillText('STEP '+cursor+'/'+step.steps.length+' · '+label,W/2,cy+gap*3.55);
+    ctx.fillText('PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+cursor+'/'+step.steps.length,midX,cy+gap*3.7);
   }
   ctx.restore();
 }
@@ -661,17 +684,28 @@ function flipStateLine(index){
 $('#stateProject').onclick=syncStateChange;
 $('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
 $('#stateCopy').onclick=async()=>{const change=syncStateChange();if(!change.valid)return;try{await navigator.clipboard.writeText(change.token);setStatus('STATE TOKEN COPIED · '+change.mask)}catch(_){setStatus('STATE TOKEN · '+change.token)}};
-$('#stateStep')?.addEventListener('click',()=>{
-  const step=data.stateStep;if(!step?.ok||!step.steps.length){setStatus('STATE STEP · NO MOVING LINES');return}
+function advanceStateStep(){
+  const step=data.stateStep;if(!step?.ok||!step.steps.length){setStatus('STATE STEP · NO MOVING LINES');return null}
   data.stateStepCursor=(data.stateStepCursor+1)%(step.steps.length+1);syncStateStepUI();
-  if(data.stateStepCursor===0){setStatus('STATE STEP · RETURN TO START · '+step.from_token);return}
-  const x=step.steps[data.stateStepCursor-1];setStatus('STATE STEP · L'+x.line+' · '+x.before_token+' → '+x.after_token);
+  if(data.stateStepCursor===0){setStatus('STATE STEP · RETURN TO START · '+step.from_token);return null}
+  const x=step.steps[data.stateStepCursor-1];setAddress(x.address);setStatus('STATE STEP · PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · L'+x.line+' · '+x.before_token+' → '+x.after_token);return x;
+}
+function shiftStateOrder(delta){
+  const count=data.stateStep?.possible_one_line_orders||1;
+  if(count<=1){setStatus('STATE STEP · ONLY ONE ORDER');return}
+  data.stateOrderIndex=((data.stateOrderIndex+Number(delta||0))%count+count)%count;
+  data.stateFlow=false;syncStateChange({preserveOrder:true});
+  setAddress(data.stateStep.path_address);setStatus('STATE PATH · '+(data.stateStep.selected_order_index+1)+'/'+count+' · '+data.stateStep.selected_order.map(x=>'L'+x).join(' → '));
+}
+$('#stateStep')?.addEventListener('click',()=>advanceStateStep());
+$('#stateOrder')?.addEventListener('click',()=>shiftStateOrder(1));
+$('#stateOrderPrev')?.addEventListener('click',()=>shiftStateOrder(-1));
+$('#stateFlow')?.addEventListener('click',()=>{
+  const step=data.stateStep;if(!step?.ok||!step.steps.length){setStatus('STATE FLOW · NO MOVING LINES');return}
+  data.stateFlow=!data.stateFlow;data.stateFlowAt=performance.now();syncStateStepUI();
+  setStatus('STATE FLOW · '+(data.stateFlow?stateFlowClock().label:'PAUSED')+' · WITNESS ONLY');
 });
-$('#stateOrder')?.addEventListener('click',()=>{
-  if((data.stateCalc?.moving||[]).length<2){setStatus('STATE STEP · ONLY ONE ORDER');return}
-  data.stateOrderFlip=!data.stateOrderFlip;syncStateChange();setStatus('STATE STEP ORDER · '+data.stateStep.selected_order.map(x=>'L'+x).join(' → '));
-});
-$('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
+$('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),order:String(data.stateStep?.selected_order_index||0),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
@@ -839,6 +873,10 @@ function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
   analyzeLabVoice(now);
+  if(mode==='DATA'&&data.stateFlow&&data.stateStep?.steps.length){
+    const clock=stateFlowClock();
+    if(now-data.stateFlowAt>=clock.interval){data.stateFlowAt=now;advanceStateStep()}
+  }
   if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VOICE')drawVoice();else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
   requestAnimationFrame(tick);
 }
@@ -863,7 +901,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],cursor:data.stateStepCursor,path:step.steps.map(x=>({line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -910,5 +948,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,cursor:data.stateStepCursor}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock()}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});

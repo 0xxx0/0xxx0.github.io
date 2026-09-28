@@ -1184,7 +1184,7 @@ const CASES=[
         stateFrom:dom.includes('id="stateFrom"'),
         stateTo:dom.includes('id="stateTo"'),
         stateToken:dom.includes('id="stateToken"')&&/H\[010\|100\] Δ\{3,5\} → H\[011\|110\]/.test(dom),
-        stateReady:dom.includes('data-fold-bloom-state="ready"'),
+        stateReady:dom.includes('data-fold-bloom-state="ready"')&&dom.includes('id="statePathIndex"')&&dom.includes('id="stateOrderPrev"')&&dom.includes('id="stateFlow"')&&/PATH 1\/2 · START/.test(dom),
         labReturn:dom.includes('data-field-lab-return="ready"')&&dom.includes('data-field-lab-trace="')&&dom.includes('id="exportLabReturn"')&&/EXPORT LAB RETURN/.test(dom),
         dry:/DRY BRUSH/.test(dom),wash:/WASH/.test(dom)
       };
