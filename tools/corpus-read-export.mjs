@@ -86,12 +86,20 @@ export function buildReadDocument(convos, {label = 'CORPUS READ', stamp = new Da
     L.push('`cid ' + c.cid + '` · gen ' + String(c.gen || '-') + ' · ' + c.messages.length + ' messages' + (c.span ? ' · ' + c.span : ''), '');
     c.messages.forEach((m, i) => {
       L.push(`### #${i + 1} · ${labelFor(m.author)} · ${readableTime(m.mtime)}`, '');
-      L.push(cleanText(m.text, maxChars), '');
+      L.push(escapeHeadings(cleanText(m.text, maxChars)), '');
     });
   }
   return L.join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 
+function escapeHeadings(t) {
+  // A message body's OWN markdown headings must not enter the reading file's heading
+  // ladder, because the ladder IS the address space. Un-escaped, a reply's '## Section'
+  // collides with a conversation's '## title', so SECTION/PARAGRAPH stop meaning what
+  // they claim. Backslash-escape the leading hashes: the text still renders and still
+  // reads as text, but it is no longer a heading.
+  return String(t).replace(/^(#{1,6})(\s)/gm, '\\$1$2');
+}
 function dateDaysAgo(days) {
   return new Date(Date.now() - Math.max(0, Number(days) || 0) * 86400000).toISOString().slice(0, 10);
 }
