@@ -103,11 +103,13 @@
     "authority_sync": "PASS_ON_PRESEAL_HEAD · Route Registration 36209914153 + public-surface-check 36209914151",
     "voice_temporal_core": "PENDING_PR_CI: shared VOICE temporal trace tests",
     "voice_temporal_lab": "PENDING_PR_CI: FIELD LAB PULSE embed + browser boot",
-    "mobile_composition": "PASS · public-surface-check 36299504243 step 62 · 390×720 geometry/touchability/non-overlap/collapse/PULSE proof",
+    "mobile_composition": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 geometry/touchability/non-overlap/collapse plus visible second-position VOICE and independent PULSE re-entry",
     "cross_projection_035": "PASS · public-surface-check 36299504243 step 63 · exact source/focus survived VERSE→READ→LOCI→VERSE",
     "lab_boot_035": "PASS · public-surface-check 36299504243 step 61",
-    "mobile_voice_aperture": "PENDING_PR_CI: 390×720 smoke requires VOICE 0.2 fully visible as the second route after RIDE",
-    "field_index_route": "PENDING_PR_CI: Field Index route card, CURRENT head and Lab receipt agree on 0.3.6"
+    "mobile_voice_aperture": "PASS · public-surface-check run 36379975736 attempt 2 step 70 · 390×720 requires VOICE 0.2 visible second after RIDE and independently selectable",
+    "field_index_route": "PASS · public-surface-check run 36379975736 step 41 · manifest/CURRENT/release versions align at 0.3.6; Field Index exposes VOICE/PULSE and RIDE/DRIVE",
+    "lab_boot_036": "PASS · public-surface-check run 36379975736 step 67",
+    "cross_projection_036": "PASS · public-surface-check run 36379975736 step 71"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
