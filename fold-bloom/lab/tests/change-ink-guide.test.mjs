@@ -19,11 +19,31 @@ test('an addressed STEP chain becomes a projection-only INK guide without losing
   assert.equal(g.schema,CHANGE_INK_GUIDE_SCHEMA);
   assert.equal(g.authority,'PROJECTION_ONLY');
   assert.equal(g.address,path.path_address);
+  assert.equal(g.cursor,0);
+  assert.equal(g.focus.token,'H[010|100]');
   assert.deepEqual(g.order,[3,5]);
   assert.equal(g.points.length,3);
   assert.deepEqual(g.points.map(x=>[x.lower,x.upper]),[[2,4],[3,4],[3,6]]);
+  assert.deepEqual(g.points.map(x=>x.active),[true,false,false]);
   assert.equal(g.points.at(-1).token,'H[011|110]');
-  assert.match(g.law,/geometry and address only/);
+  assert.match(g.law,/current preview focus/);
+});
+
+test('INK guide carries the exact current STEP focus without changing path authority',()=>{
+  const path=steppedStatePath('010|100','011|110',[3,5]);
+  const g=changePathInkGuide(path,{cursor:1});
+  assert.equal(g.cursor,1);
+  assert.equal(g.focus.step,1);
+  assert.equal(g.focus.token,'H[011|100]');
+  assert.equal(g.focus.address,path.steps[0].address);
+  assert.deepEqual(g.points.map(x=>[x.past,x.active,x.future]),[
+    [true,false,false],
+    [false,true,false],
+    [false,false,true]
+  ]);
+  const end=changePathInkGuide(path,{cursor:99});
+  assert.equal(end.cursor,2);
+  assert.equal(end.focus.token,'H[011|110]');
 });
 
 test('INK guide fails closed without a lawful addressed path',()=>{
