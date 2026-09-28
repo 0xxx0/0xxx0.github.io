@@ -8509,14 +8509,14 @@
       "kind": "artifact",
       "parent": "/prison-age/",
       "family": "PRISON AGE",
-      "operation": "ARCHIVE",
-      "state": "FROZEN",
+      "operation": "PRESERVE",
+      "state": "FROZEN_DONOR",
       "version": "0.2",
       "showcase_card": false,
       "receipt": "/prison-age/reader-0.2/release.json",
-      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
-      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
-      "tier": "DONOR",
+      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Frozen donor lineage only; not current authority.",
+      "classification": "FAILED_PROJECTION / FROZEN_DONOR / PRESERVED_LINEAGE",
+      "tier": "VAULT",
       "contract": {
         "accepts": {
           "kinds": [
