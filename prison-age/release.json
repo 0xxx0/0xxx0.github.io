@@ -1,11 +1,11 @@
 {
   "schema": "prison-age.source-doorway-release/v0.1",
-  "version": "0.3",
+  "version": "0.4",
   "date": "2026-09-28",
   "status": "ACTIVE_SOURCE_DOORWAY / LEGACY_READER_FROZEN",
   "route": "/prison-age/",
   "operation": "READ / RIDE",
-  "object": "Exact sourced Prison Age movements exposed through existing READFIELD and FOLD//BLOOM LIVE apertures; no active generated narrative framing.",
+  "object": "Exact sourced Prison Age movements remain the held object. READFIELD reads them; FOLD//BLOOM LIVE now traverses requested SENTENCE addresses over deterministic text-structure terrain, with a small exact-quote source score changing presentation only.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
@@ -29,12 +29,31 @@
       "schema": "field-read-ride/v0.1",
       "storage": "fold-bloom.read-ride.handoff.v01",
       "mode": "STEP",
-      "default_grain": "PARAGRAPH",
-      "role": "embodied traversal of exact same story bytes",
-      "authority": "FOLD//BLOOM owns ride/game state; Prison Age remains source authority"
+      "default_grain": "SENTENCE",
+      "role": "embodied traversal of the exact same story bytes over source-derived structural terrain",
+      "terrain": {
+        "schema": "fold-bloom-read-track-map/v0.1",
+        "module": "/fold-bloom/live/read-trackfield.js",
+        "derives_from": [
+          "addressed source-unit length",
+          "punctuation density",
+          "orthographic variation",
+          "adjacent lexical recurrence"
+        ],
+        "law": "STRUCTURE ≠ MEANING. Terrain is deterministic from source form and may shape presentation; it makes no semantic or comprehension claim."
+      },
+      "experience": {
+        "schema": "field-read-experience/v0.1",
+        "score": "/prison-age/live-score.js",
+        "authority": "PROJECTION_ONLY",
+        "role": "exact unique source spans select reversible LIVE scene/profile presentation states",
+        "manual_override": "any manual LIVE scene/profile/layer choice suspends the source score",
+        "persistence": "none; source score does not write LIVE state/preferences"
+      },
+      "authority": "FOLD//BLOOM owns ride/game state and presentation; Prison Age remains source authority"
     }
   },
-  "return_law": "READ and RIDE return to /prison-age/?story=<id>; traversal/marks may be evidence but do not rewrite source or prove comprehension.",
+  "return_law": "READ and RIDE return to /prison-age/?story=<id>; LIVE may return exact traversal plus source-score projection history. Neither rewrites source, establishes meaning, or proves comprehension.",
   "legacy": {
     "route": "/prison-age/reader-0.2/",
     "release": "/prison-age/reader-0.2/release.json",
@@ -60,8 +79,13 @@
     "LIVE embodiment changes projection, not story bytes or semantic authority.",
     "READ/RIDE traversal is not comprehension, agreement or proof.",
     "The line 'I'm always behind you.' remains preserved only in frozen reader 0.2 as a P26 experiment, not current Prison Age authority.",
-    "The active source doorway does not impose a canon reading order."
+    "The active source doorway does not impose a canon reading order.",
+    "Text terrain derives from measured source structure only; STRUCTURE ≠ MEANING.",
+    "Prison Age LIVE score is a 2026 projection over exact quotes, not historical Prison Age canon or new story prose.",
+    "Source score may alter only reversible LIVE presentation; it cannot move the source cursor, RELEASE, rewrite bytes, or persist a user preference.",
+    "Manual LIVE presentation choice suspends the score rather than being overwritten by later cues.",
+    "RETURN may report exact cue encounters as traversal evidence only."
   ],
-  "next_test": "Use one exact story through READFIELD and LIVE. Pass only if LIVE changes the felt traversal while the story remains recognizably primary; fail if the field becomes the content.",
-  "latest_return": "/returns/PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json"
+  "next_test": "Ride an exact Prison Age movement through SENTENCE / STEP. Pass only if source text remains primary while source-derived terrain/cues materially change felt traversal, manual override remains sovereign, and exact RETURN is effortless.",
+  "latest_return": "/returns/PRISON_AGE_SOURCE_SCORE_TERRAIN_2026-09-28.json"
 }

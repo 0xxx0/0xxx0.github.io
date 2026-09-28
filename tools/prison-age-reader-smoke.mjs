@@ -33,8 +33,28 @@ const W=()=>f.contentWindow,D=()=>W().document;
  await W().PrisonAgeSourceAPI.load('successful-escape');await wait(()=>W().PrisonAgeSourceAPI.snapshot().story?.id==='successful-escape',4000,'back to default');
  await W().PrisonAgeSourceAPI.ride();
  await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),18000,'LIVE handoff');
- const live=W().FoldBloomLive.read.current();rec.live={label:live.source.label,id:live.source.id,authority:live.source.authority,kind:live.source.kind,grain:live.course.grain,mode:live.course.mode,address:live.course.address,text:live.witness?.text,returnAddress:live.returnAddress,dataset:D().documentElement.dataset.foldBloomReadRide};
- if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!==expectedReturn||!/Season Seven began with an open door\./.test(live.witness?.text||'')||rec.live.dataset!=='ready')throw Error('LIVE source handoff');
+ await wait(()=>W().FoldBloomLive?.state?.()?.trackfield?.sourceKind==='READFIELD_TEXT',8000,'text terrain');
+ let live=W().FoldBloomLive.read.current(),liveState=W().FoldBloomLive.state();
+ rec.live={label:live.source.label,id:live.source.id,authority:live.source.authority,kind:live.source.kind,grain:live.course.grain,mode:live.course.mode,address:live.course.address,text:live.witness?.text,returnAddress:live.returnAddress,dataset:D().documentElement.dataset.foldBloomReadRide,terrain:live.terrain,trackfield:liveState.trackfield?.sourceKind,experience:live.experience,experienceDataset:D().documentElement.dataset.foldBloomReadExperience||''};
+ if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='SENTENCE'||live.returnAddress!==expectedReturn||!/Season Seven began with an open door\./.test(live.witness?.text||'')||rec.live.dataset!=='ready'||live.terrain?.schema!=='fold-bloom-read-track-map/v0.1'||rec.live.trackfield!=='READFIELD_TEXT'||live.experience?.owner!=='PRISON_AGE'||live.experience?.authority!=='PROJECTION_ONLY')throw Error('LIVE source handoff / terrain / score');
+
+ await wait(()=>W().FoldBloomLive.read.current()?.experience?.current?.id==='open-door',6000,'first exact source cue');
+ rec.cue1={...W().FoldBloomLive.read.current().experience.current,dataset:D().documentElement.dataset.foldBloomReadExperience||'',scene:D().getElementById('scene')?.textContent||'',vibe:D().getElementById('vibeQuick')?.textContent||''};
+ for(let i=0;i<12&&W().FoldBloomLive.read.current()?.experience?.current?.id!=='archived-escapes';i++){W().FoldBloomLive.course.step(1);await sleep(80)}
+ await wait(()=>W().FoldBloomLive.read.current()?.experience?.current?.id==='archived-escapes',6000,'second exact source cue');
+ const cue2State=W().FoldBloomLive.read.current();rec.cue2={...cue2State.experience.current,cuesSeen:cue2State.experience.cues_seen.map(x=>x.id),text:cue2State.witness?.text,trackfield:W().FoldBloomLive.state().trackfield?.sourceKind};
+ if(!/Season Seven began with an open door\./.test(rec.cue1.quote||'')||rec.cue1.dataset!=='prison_age:open-door'||!/new prison was built from archived escapes/i.test(rec.cue2.quote||'')||rec.cue2.cuesSeen.length<2||rec.cue2.trackfield!=='READFIELD_TEXT')throw Error('exact source cue traversal');
+
+ W().FoldBloomLive.profile.apply('SOFT');
+ await wait(()=>W().FoldBloomLive.read.current()?.experience?.suspended===true,3000,'manual score suspend');
+ rec.manual={suspended:W().FoldBloomLive.read.current().experience.suspended,dataset:D().documentElement.dataset.foldBloomReadExperience||'',vibe:D().getElementById('vibeQuick')?.textContent||''};
+ if(!rec.manual.suspended||rec.manual.dataset!=='suspended')throw Error('manual presentation override did not suspend source score');
+
+ const returned=W().FoldBloomLive.read.return();if(!returned)throw Error('LIVE return refused');
+ await wait(()=>W().location.pathname==='/prison-age/'&&W().PrisonAgeSourceAPI?.snapshot?.()?.sourceLength>0,16000,'Prison Age return');
+ const returnedSnap=W().PrisonAgeSourceAPI.snapshot(),returnBox=D().getElementById('rideReturn');
+ rec.returned={story:returnedSnap.story?.id,projection:returnedSnap.rideReturn?.projection,cues:returnedSnap.rideReturn?.projection?.cues_seen?.map(x=>x.id)||[],witness:returnedSnap.rideReturn?.witness?.text||'',visible:!!returnBox&&!returnBox.hidden,text:returnBox?.textContent||'',url:W().location.search};
+ if(rec.returned.story!=='successful-escape'||rec.returned.projection?.owner!=='PRISON_AGE'||rec.returned.cues.length<2||!rec.returned.visible||!/RETURNED FROM LIVE/.test(rec.returned.text)||!rec.returned.url.includes('ride_return=1'))throw Error('source return evidence');
 
  f.src='/prison-age/reader-0.2/';
  await wait(()=>/I'M ALWAYS BEHIND YOU/.test(D().body.textContent||''),12000,'legacy reader');

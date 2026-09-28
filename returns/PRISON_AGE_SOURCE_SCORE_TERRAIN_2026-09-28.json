@@ -1,0 +1,39 @@
+{
+  "schema": "prison-age-source-score-terrain-return/v0.1",
+  "generated_at": "2026-09-28T20:40:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "object": "/prison-age/",
+  "source_authority": "PRISON_AGE",
+  "implementation": [
+    "/prison-age/index.html",
+    "/prison-age/live-score.js",
+    "/fold-bloom/read-experience.js",
+    "/fold-bloom/live/read-trackfield.js",
+    "/fold-bloom/live/app.js"
+  ],
+  "delta": [
+    "Prison Age READ/RIDE now requests SENTENCE grain because three of four verified source files contain no blank-line paragraph boundaries and previously collapsed to a single PARAGRAPH address.",
+    "Generic READ terrain deterministically derives LIVE road structure from source-unit length, punctuation, orthographic variation and adjacent lexical recurrence.",
+    "Prison Age supplies a bounded exact-quote score; every active cue is unique and byte-exact in its source body.",
+    "Cue application is reversible and projection-only; native LIVE authored state and saved ride profile remain untouched.",
+    "Manual scene/profile/layer choice suspends the source score.",
+    "LIVE RETURN may append cue encounter history as EVIDENCE_ONLY projection data.",
+    "Prison Age doorway surfaces the returned exact source witness and cue IDs rather than generating an epilogue."
+  ],
+  "truth_boundaries": [
+    "STRUCTURE ≠ MEANING.",
+    "Text terrain is a deterministic visualization/traversal of source form, not semantic analysis.",
+    "Source cue choices are a 2026 authored projection, not historical Prison Age canon.",
+    "Exact quote encounter ≠ comprehension, agreement or interpretation.",
+    "FOLD//BLOOM RELEASE/game state remains native to LIVE and cannot rewrite Prison Age source.",
+    "The rejected 'I'm always behind you.' motif remains confined to frozen reader 0.2 and is absent from the active score."
+  ],
+  "evidence": [
+    "/tools/read-experience-selftest.mjs",
+    "/tools/read-trackfield-selftest.mjs",
+    "/tools/prison-age-live-score-selftest.mjs",
+    "/tools/prison-age-reader-selftest.cjs",
+    "/tools/prison-age-reader-smoke.mjs"
+  ],
+  "next_gate": "Browser-prove source doorway → scored SENTENCE ride → READFIELD_TEXT terrain → exact cue transition → manual override suspension → exact source RETURN. Then human-read whether the field deepens rather than eclipses the prose."
+}

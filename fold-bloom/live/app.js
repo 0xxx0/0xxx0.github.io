@@ -17,6 +17,8 @@ import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
 import {buildLiveCalculation,liveCalculationSummary} from './live-calculus.js?v=0.1';
 import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
+import {normalizeReadExperience,readExperienceCueAt,readExperienceView} from '../read-experience.js?v=0.1';
+import {makeReadTrackMap,buildReadTrackfield,readTrackTransport} from './read-trackfield.js?v=0.1';
 
 const STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -30,7 +32,7 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,perf={emaMs:16.7,fps:60,modelHz:0};
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,readExperiencePresentation=null,perf={emaMs:16.7,fps:60,modelHz:0};
 // IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
 // never pass through here: they stay in the browser vault keyed by sha256. What lives
 // here is the declaration, the course built from its metadata, and the clock that lets
@@ -54,10 +56,56 @@ const RIDE_PRESETS=Object.freeze({
   TRANCE:{solidity:.94,immersion:1.22,dropGain:1.08,anticipation:1.48,motionGain:.82},
   SOFT:{solidity:1,immersion:.64,dropGain:.62,anticipation:.72,motionGain:.56}
 });
+function restoreReadExperienceProjection(base=null,{restoreLayer=true}={}){
+  readExperiencePresentation=null;
+  if(base?.profile)rideProfile=normalizeRideProfile(base.profile);
+  if(restoreLayer&&base?.layer&&['SOURCE','MAP','IMMERSION'].includes(base.layer))layerMode=base.layer;
+  audio.setScene(state.scene);renderer.setScene(state.scene);renderer.setProfile(effectiveRideProfile());
+  delete document.documentElement.dataset.foldBloomReadExperience;
+  syncLayerUI();syncRideControls();
+}
+function suspendReadExperience(reason='MANUAL'){
+  if(!readRide?.experience||readRide.experienceSuspended)return false;
+  readRide.experienceSuspended=true;readRide.experienceCueId=null;
+  restoreReadExperienceProjection(null,{restoreLayer:false});
+  document.documentElement.dataset.foldBloomReadExperience='suspended';
+  toast('SOURCE SCORE PAUSED · '+reason);return true;
+}
+function syncReadExperience(witness){
+  if(!readRide?.experience||readRide.experienceSuspended||!witness)return null;
+  const exp=readRide.experience,charIndex=Math.max(0,(Number(witness.end)||Number(witness.start)||0)-1),cue=readExperienceCueAt(exp,charIndex);
+  const key=cue?.id||'initial';
+  if(readRide.experienceCueId===key)return cue;
+  readRide.experienceCueId=key;
+  const p={...(exp.initial||{}),...(cue?.presentation||{})};
+  readExperiencePresentation=p;
+  if(p.layer&&['SOURCE','MAP','IMMERSION'].includes(p.layer))layerMode=p.layer;
+  if(p.scene&&audio.sceneNames().includes(p.scene)){audio.setScene(p.scene);renderer.setScene(p.scene)}
+  renderer.setProfile(effectiveRideProfile());syncLayerUI();syncRideControls();
+  document.documentElement.dataset.foldBloomReadExperience=(exp.owner||'source').toLowerCase()+':'+key;
+  if(cue){
+    readRide.experienceVisited=readRide.experienceVisited||[];
+    if(!readRide.experienceVisited.some(x=>x.id===cue.id))readRide.experienceVisited.push({id:cue.id,start:cue.start,end:cue.end,quote:cue.quote,address:witness.address||null});
+    toast('SOURCE CUE · '+String(cue.quote||'').replace(/\s+/g,' ').slice(0,92));
+  }
+  return cue;
+}
+function readExperienceReturnEvidence(){
+  if(!readRide?.experience)return null;
+  const view=readExperienceView(readRide.experience,Math.max(0,Number(readCourseWitness(liveCourse(),liveCourseProgress())?.end||0)-1));
+  return {
+    schema:'field-read-experience-return/v0.1',authority:'EVIDENCE_ONLY',owner:readRide.experience.owner,
+    score_schema:readRide.experience.schema,suspended:!!readRide.experienceSuspended,
+    cues_seen:(readRide.experienceVisited||[]).map(x=>({...x})),current:view?.current||null,
+    law:'Projection history only. Cue traversal does not rewrite source, imply comprehension, or grant LIVE effect authority.'
+  };
+}
 function effectiveRideProfile(){
-  if(layerMode==='SOURCE')return normalizeRideProfile({...rideProfile,immersion:.45,dropGain:.55,anticipation:.65,motionGain:.45});
-  if(layerMode==='MAP')return normalizeRideProfile({...rideProfile,immersion:.68,dropGain:.72,anticipation:.86,motionGain:.64});
-  return rideProfile;
+  const preset=readExperiencePresentation?.profile&&RIDE_PRESETS[readExperiencePresentation.profile];
+  const base=preset?normalizeRideProfile({...rideProfile,...preset}):rideProfile;
+  if(layerMode==='SOURCE')return normalizeRideProfile({...base,immersion:.45,dropGain:.55,anticipation:.65,motionGain:.45});
+  if(layerMode==='MAP')return normalizeRideProfile({...base,immersion:.68,dropGain:.72,anticipation:.86,motionGain:.64});
+  return base;
 }
 function syncLayerUI(){
   if($('#layerRead'))$('#layerRead').textContent=layerMode;
@@ -65,7 +113,7 @@ function syncLayerUI(){
   document.documentElement.dataset.foldBloomLayer=layerMode;
   const law=$('#layerLaw');
   if(law)law.textContent=readRide
-    ?'SOURCE = exact session text. MAP = addressed SENTENCE / PARAGRAPH / SECTION structure. IMMERSION = MAP + LIVE field response. READFIELD/source authority does not move into LIVE.'
+    ?'SOURCE = exact session text. MAP = addressed structure + deterministic text terrain from length / punctuation / orthographic variation / adjacent recurrence. STRUCTURE ≠ MEANING. IMMERSION adds LIVE field response; source authority does not move.'
     :'SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response. FIELD synth remains an explicit opt-in.';
   const back=$('#readfieldReturn'),mark=$('#readTrailMark');
   if(back){back.hidden=!readRide?.packet?.returnAddress;back.textContent='↩ '+(readRide?.packet?.sourceIdentity?.authority==='READFIELD'?'READFIELD':'SOURCE')}
@@ -77,6 +125,7 @@ function syncLayerUI(){
   }
 }
 function applyLayerMode(name,announce=true){
+  if(announce&&readRide?.experience)suspendReadExperience('MANUAL LAYER');
   const next=String(name||'').toUpperCase();
   if(!['SOURCE','MAP','IMMERSION'].includes(next))return false;
   if(liveTrack.sourceActive()&&!liveTrack.mapped()&&next!=='SOURCE'){
@@ -90,13 +139,15 @@ function applyLayerMode(name,announce=true){
   if(announce)toast('LAYER · '+layerMode);
   return true;
 }
-function ridePresetName(p=rideProfile){
+function ridePresetName(p=null){
+  p=p||(readExperiencePresentation?.profile&&RIDE_PRESETS[readExperiencePresentation.profile])||rideProfile;
   for(const [name,x] of Object.entries(RIDE_PRESETS)){
     if(['solidity','immersion','dropGain','anticipation','motionGain'].every(k=>Math.abs(Number(p?.[k])-x[k])<.035))return name;
   }
   return 'CUSTOM';
 }
 function applyRidePreset(name,announce=true){
+  if(announce&&readRide?.experience)suspendReadExperience('MANUAL PROFILE');
   const x=RIDE_PRESETS[name];if(!x)return;
   rideProfile=normalizeRideProfile({...rideProfile,...x});saveRideProfile();if(announce)toast('EXPERIENCE · '+name);
 }
@@ -121,9 +172,10 @@ const AUDIO_COURSE_GRAINS=['BEAT','PHRASE','SECTION'];
 function activeCourseGrains(){return readRide?[...READ_GRAINS]:imageSet?[...IMAGE_GRAINS]:AUDIO_COURSE_GRAINS}
 function readRideCourse(){
   if(!readRide)return null;
-  if(!readRide.course||readRide.course.grain!==courseGrain)readRide.course=makeReadCourse(readRide.packet,{grain:courseGrain});
+  if(!readRide.course||readRide.course.grain!==courseGrain){readRide.course=makeReadCourse(readRide.packet,{grain:courseGrain});readRide.terrainMap=makeReadTrackMap(readRide.course)}
   return readRide.course;
 }
+function readRideTerrainMap(){if(!readRide)return null;readRideCourse();return readRide.terrainMap||null}
 function rebuildImageCourse(grain=courseGrain){
   if(!imageSet)return null;
   imageSet.course=makeImageCourse(imageSet.entries,{grain,setKey:imageSet.setKey,dwell:imageSet.dwell,label:imageSet.label,loop:imageSet.loop!==false});
@@ -260,7 +312,7 @@ function cycleCourseMode(){
 }
 function cycleCourseGrain(){
   const grains=activeCourseGrains();let i=grains.indexOf(courseGrain);if(i<0)i=0;courseGrain=grains[(i+1)%grains.length];
-  if(readRide){readRide.course=null;resetExactReadTrail()}
+  if(readRide){readRide.course=null;readRide.terrainMap=null;resetExactReadTrail()}
   // A grain change re-addresses the SAME set at the SAME set-time — the clock is not
   // touched, so continuity of position survives the projection change.
   else if(imageSet){rebuildImageCourse(courseGrain);recordImageVisit(imageCourseAddressAt(imageSet.course,liveCourseProgress()));syncImageStage(true)}
@@ -394,10 +446,12 @@ function imageWitness(){
 }
 function updateTextWitness(){
   const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
+  const readWitness=readRide?readCourseWitness(liveCourse(),liveCourseProgress()):null;
+  if(readWitness)syncReadExperience(readWitness);
   const w=textOn
-    ?(readRide?readCourseWitness(liveCourse(),liveCourseProgress()):(imageSet?imageWitness():(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null)))
+    ?(readRide?readWitness:(imageSet?imageWitness():(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null)))
     :null;
-  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return null}
+  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return readWitness}
   const key=readRide?[w.grain,w.address,w.text].join('|'):imageSet?[w.grain,w.address,w.text].join('|'):[w.mode,w.alignment,w.start,w.text].join('|');
   if(key!==lastTextKey){
     lastTextKey=key;box.hidden=false;
@@ -485,13 +539,13 @@ function update(){
   if($('#sourceQuick'))$('#sourceQuick').textContent=readRide?'READ SOURCE':'CHOOSE SONG';
   syncLayerUI();
   $('#mode').textContent=state.mode;
-  const sceneMeta=scenePresentation(state.scene);
+  const displayScene=readExperiencePresentation?.scene||state.scene,sceneMeta=scenePresentation(displayScene);
   $('#scene').textContent=sceneMeta.label;
   $('#modeBtn').textContent=state.mode;
   $('#sceneBtn').textContent=sceneMeta.plain;
   $('#sceneBtn').title='Generated sound palette + field presentation: '+sceneMeta.plain+'. '+sceneMeta.detail;
   $('#sceneBtn').setAttribute('aria-label','Cycle generated sound palette and field presentation. Current preset: '+sceneMeta.plain+'. '+sceneMeta.detail);
-  document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===state.scene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
+  document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===displayScene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
   $('#releaseBtn').disabled=!canRelease(state);
   $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
@@ -567,36 +621,43 @@ function readRideState(){
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
     trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,storageState:t.storageState,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
     traversal:{origin:readRide.origin?{...readRide.origin}:null,visited:(readRide.visited||[]).map(x=>({...x}))},
+    terrain:(()=>{const m=readRideTerrainMap();return m?{schema:m.version,unitCount:m.structure?.unitCount||0,grain:m.source?.grain||courseGrain,law:m.structure?.law||null}:null})(),
+    experience:readRide.experience?{...readExperienceView(readRide.experience,Math.max(0,Number(witness?.end||0)-1)),suspended:!!readRide.experienceSuspended,cues_seen:(readRide.experienceVisited||[]).map(x=>({...x}))}:null,
     carrier:carrier?{schema:carrier.schema,frameId:carrier.frameId,authority:carrier.authority,object:carrier.object,focus:carrier.focus,next:carrier.next,witness:carrier.witness,return:carrier.return,projection:carrier.projection,lineage:carrier.lineage}:null,
     returnAddress:readRide.packet.returnAddress||null
   };
 }
 function clearReadRide({silent=false}={}){
   if(!readRide)return false;
+  const experienceBase=readRide.experienceBase||null;
   readRide=null;
+  restoreReadExperienceProjection(experienceBase,{restoreLayer:true});
   if(READ_GRAINS.includes(courseGrain))courseGrain='PHRASE';
   courseMode='STEP';lastCoursePaint=-1;lastTextKey='';
   delete document.documentElement.dataset.foldBloomReadRide;
   delete document.documentElement.dataset.foldBloomReadAuthority;
-  syncRideProfile();syncLayerUI();drawCourseMap(true);updateTextWitness();
+  syncRideControls();syncLayerUI();drawCourseMap(true);updateTextWitness();
   if(!silent)toast('READ SOURCE RETURNED');
   return true;
 }
 function loadReadRidePacket(raw,{announce=true}={}){
-  const packet=normalizeReadRidePacket(raw);
+  const packet=normalizeReadRidePacket(raw),baseLayer=layerMode,baseProfile={...rideProfile};
+  let experience=null;
+  if(packet.experience){try{experience=normalizeReadExperience(packet.experience,packet.source,packet.sourceIdentity)}catch(error){console.warn('READ experience rejected',error)}}
   stopDemo(false);
   clearImageSet({silent:true});
   try{$('#trackAudio').pause()}catch(_){}
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
-  readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};
-  courseGrain='PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
+  const requestedGrain=String(packet.focus?.grain||'').toUpperCase();
+  readRide={packet,progress:initialReadProgress(packet),course:null,terrainMap:null,origin:null,visited:[],experience,experienceVisited:[],experienceSuspended:false,experienceCueId:null,experienceBase:{layer:baseLayer,profile:baseProfile}};
+  courseGrain=READ_GRAINS.includes(requestedGrain)?requestedGrain:'PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
   resetExactReadTrail();
-  layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncRideProfile();syncLayerUI();
+  layerMode='IMMERSION';syncRideProfile();renderer.setProfile(effectiveRideProfile());syncLayerUI();
   document.documentElement.dataset.foldBloomReadRide='ready';
   document.documentElement.dataset.foldBloomReadAuthority=String(packet.sourceIdentity?.authority||'READFIELD').toLowerCase();
   $('#intro').classList.remove('on');syncSoundGate(false);drawCourseMap(true);const readWitness=updateTextWitness();recordReadRideVisit(readWitness);update();
-  if(announce)toast('READ / RIDE · '+packet.label);
+  if(announce)toast('READ / RIDE · '+packet.label+(experience?' · SOURCE SCORE':''));
   return readRideState();
 }
 function loadReadText(source,{label='READ SOURCE',sourceIdentity={kind:'SESSION_TEXT',authority:'READFIELD'},focus={source_progress:0},returnAddress='/fold-bloom/live/',from='/fold-bloom/live/'}={}){
@@ -621,7 +682,8 @@ function returnReadRide(){
     const u=new URL(target,location.href);if(u.origin!==location.origin)return false;
     const course=liveCourse(),witness=makeReadReturnWitness(course,{
       origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:u.pathname+u.search+u.hash
-    });
+    }),experienceEvidence=readExperienceReturnEvidence();
+    if(experienceEvidence)witness.projection=experienceEvidence;
     sessionStorage.setItem(READ_RETURN_STORAGE,JSON.stringify(witness));
     u.searchParams.set('ride_return','1');
     location.href=u.pathname+u.search+u.hash;return true;
@@ -994,7 +1056,7 @@ async function doRelease(){
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
-function selectSoundScene(name){if(!audio.sceneNames().includes(name))return;stopDemo(true);const meta=scenePresentation(name);state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`SOUND PALETTE · ${meta.plain} · ${meta.short.toUpperCase()}`);update()}
+function selectSoundScene(name){if(!audio.sceneNames().includes(name))return;if(readRide?.experience)suspendReadExperience('MANUAL SCENE');stopDemo(true);const meta=scenePresentation(name);state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`SOUND PALETTE · ${meta.plain} · ${meta.short.toUpperCase()}`);update()}
 function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene);selectSoundScene(names[(i+1)%names.length])}
 
 function stopDemo(takeover=false){
@@ -1204,7 +1266,11 @@ function loop(t){
   const local=liveTrack.transport(),sourceOnly=liveTrack.sourceActive()&&!liveTrack.mapped();
   const externalFresh=!!(externalTrack&&(externalTrack._pulseSeed||t-Number(externalTrack._receivedAt||0)<1800));
   let baseWorld=null;
-  if(local){
+  if(readRide){
+    const readMap=readRideTerrainMap(),progress=liveCourseProgress();
+    linkedTrack=readMap?readTrackTransport(readMap,progress):null;
+    baseWorld=readMap?buildReadTrackfield(readMap,progress,{horizon:13.5,count:modelSlices}):null;
+  }else if(local){
     linkedTrack=local;baseWorld=liveTrack.trackfield(13.5,modelSlices);
   }else if(sourceOnly){
     linkedTrack=null;baseWorld=null;
@@ -1235,7 +1301,7 @@ function loop(t){
     $('#route').textContent=rv.label;
     $('#speed').textContent=latestWorld?Number(latestWorld.currentSpeed||1).toFixed(2)+'×':'—';
     const grade=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(grade)<.08?'LEVEL':grade>0?'UP '+Math.round(grade*100):'DOWN '+Math.round(Math.abs(grade)*100);
-    const source=liveTrack.sourceActive()?(liveTrack.mapped()?'LOCAL_FILE':'SOURCE_ONLY'):externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
+    const source=readRide?'READFIELD_TEXT':liveTrack.sourceActive()?(liveTrack.mapped()?'LOCAL_FILE':'SOURCE_ONLY'):externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
     document.documentElement.dataset.trackfieldSource=source;
     document.documentElement.dataset.trackfieldMotion=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}:${Number(latestWorld.currentGrade||0).toFixed(2)}:${Number(latestWorld.currentBend||0).toFixed(2)}`:'NONE';
     document.documentElement.dataset.foldBloomPerf=`${perf.fps.toFixed(0)}fps:${modelSlices}slices`;

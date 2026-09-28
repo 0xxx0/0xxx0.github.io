@@ -2,7 +2,7 @@
   "schema": "prison-age.source-pack/v0.1",
   "status": "ACTIVE_SOURCE_DOORWAY",
   "default": "successful-escape",
-  "law": "Exact sourced text remains authoritative. READ and RIDE are unequal projections of the same bytes; neither may rewrite the story or claim that traversal equals comprehension.",
+  "law": "Exact sourced text remains authoritative. READ and RIDE are unequal projections of the same bytes; deterministic text terrain and exact-quote presentation cues may alter experience, never story authority, cursor truth, or comprehension claims.",
   "source_boundary": {
     "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
@@ -73,18 +73,26 @@
   },
   "operations": [
     "READ SOURCE",
-    "RIDE LIVE",
+    "RIDE SAME SOURCE",
     "RAW SOURCE",
     "RETURN FIELD"
   ],
   "active_projection": {
     "read": "READFIELD owns text/cursor/reading projections.",
-    "ride": "FOLD//BLOOM LIVE owns embodied STEP traversal; source authority stays PRISON_AGE.",
-    "return": "Both preserve exact source address and return to /prison-age/?story=<id>."
+    "ride": "FOLD//BLOOM LIVE owns SENTENCE / STEP traversal over deterministic text-structure terrain. Optional Prison Age exact-quote score is PROJECTION_ONLY; source authority stays PRISON_AGE.",
+    "return": "READFIELD/LIVE preserve exact source address. LIVE may additionally return traversal and source-cue encounter evidence."
   },
   "legacy": {
     "route": "/prison-age/reader-0.2/",
     "status": "FROZEN_FAILED_PROJECTION",
     "reason": "The 0.2 reader over-authored the framing with a P26 motif/path/pressure layer. Its sourced story extraction and source hashes remain useful; its narrative framing is not the active authority."
+  },
+  "ride_projection": {
+    "grain": "SENTENCE",
+    "mode": "STEP",
+    "terrain": "fold-bloom-read-track-map/v0.1",
+    "score": "field-read-experience/v0.1 · /prison-age/live-score.js",
+    "score_authority": "PROJECTION_ONLY",
+    "return": "readfield-course-witness/v0.1 + optional field-read-experience-return/v0.1"
   }
 }

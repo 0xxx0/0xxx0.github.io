@@ -19,6 +19,11 @@ assert(!active.includes("I'M ALWAYS <b>BEHIND YOU</b>"),'active surface must not
 assert(active.includes('RIDE SAME SOURCE'),'active ride aperture');
 assert(active.includes("makeReadRidePacket"),'active route must use shared READ/RIDE contract');
 assert(active.includes("authority:'PRISON_AGE'"),'source authority must remain Prison Age');
+assert(active.includes("grain:'SENTENCE'"),'Prison Age ride must request exact sentence grain');
+assert(active.includes('makePrisonAgeLiveScore'),'active ride should attach exact-source projection score');
+assert(fs.existsSync('prison-age/live-score.js'),'source score module');
+assert(fs.existsSync('fold-bloom/read-experience.js'),'generic projection-only read experience');
+assert(fs.existsSync('fold-bloom/live/read-trackfield.js'),'generic text-derived terrain');
 assert(frozen.includes("I'M ALWAYS <b>BEHIND YOU</b>"),'frozen reader bytes must remain inspectable');
 
 const expected={
@@ -44,9 +49,13 @@ const legacyRoute=manifest.routes.find(r=>r.href==='/prison-age/reader-0.2/');
 assert(route?.state==='ACTIVE','active route');
 assert(route?.operation==='READ / RIDE','FIELD route verb');
 assert(route?.showcase_card===true,'active route visible');
-assert(route?.version==='0.3','active route version');
+assert(route?.version==='0.4','active route version');
 assert(route?.tier==='FIELD','active FIELD tier');
 assert(route?.role.includes('Source-first'),'active route role');
+assert(route?.role.includes('text-derived terrain'),'active route should name text-derived terrain');
 assert(route?.field?.exit_paths?.some(x=>x.class==='FOLD_BLOOM_LIVE'),'LIVE exit');
 assert(legacyRoute?.state==='FROZEN_DONOR'&&legacyRoute?.showcase_card===false,'legacy reader must be frozen and hidden');
+assert(release.projections?.ride?.default_grain==='SENTENCE','release sentence grain');
+assert(release.projections?.ride?.terrain?.schema==='fold-bloom-read-track-map/v0.1','release text terrain');
+assert(release.projections?.ride?.experience?.schema==='field-read-experience/v0.1','release source score');
 console.log('PRISON AGE SOURCE / READ-RIDE CONTRACT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· LEGACY 0.2 FROZEN_DONOR');
