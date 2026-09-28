@@ -23,8 +23,8 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=12000
  d.querySelector('[data-mode="DATA"]').click();await sleep(100);
  const beforePath=W().FoldBloomFieldLab.stateStep();d.getElementById('stateOrder').click();await sleep(80);const afterPath=W().FoldBloomFieldLab.stateStep();d.getElementById('stateStep').click();await sleep(60);const stepped=W().FoldBloomFieldLab.stateStep(),packet=W().FoldBloomFieldLab.returnPacket();
  rec.pathSpace={before:beforePath.path?.selected_order_index,after:afterPath.path?.selected_order_index,count:afterPath.path?.possible_one_line_orders,cursor:stepped.cursor,address:afterPath.path?.path_address,returnIndex:packet.projection?.stateChange?.step?.orderIndex,returnCursor:packet.projection?.stateChange?.step?.cursor};
- const dataOK=beforePath.path?.selected_order_index===0&&afterPath.path?.selected_order_index===1&&afterPath.path?.possible_one_line_orders===2&&stepped.cursor===1&&/\/order\/1-of-2$/.test(afterPath.path?.path_address||'')&&packet.projection?.stateChange?.step?.orderIndex===1&&packet.projection?.stateChange?.step?.cursor===1;
- done(openOK&&collapsedOK&&pulseOK&&dataOK,{...rec,openOK,collapsedOK,pulseOK,dataOK});
+ const pathSpaceOK=beforePath.path?.selected_order_index===0&&afterPath.path?.selected_order_index===1&&afterPath.path?.possible_one_line_orders===2&&stepped.cursor===1&&/\/order\/1-of-2$/.test(afterPath.path?.path_address||'')&&packet.projection?.stateChange?.step?.orderIndex===1&&packet.projection?.stateChange?.step?.cursor===1;
+ done(openOK&&collapsedOK&&pulseOK&&pathSpaceOK,{...rec,openOK,collapsedOK,pulseOK,pathSpaceOK});
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
