@@ -104,6 +104,19 @@ html[data-density="MARK"] .scaleMeta{display:none}
 #foveaToggle{display:none}
 #foveaToggle.ready{display:inline-block}
 #foveaToggle.on{color:var(--gold);border-color:var(--gold)}
+/* readout flips ABOVE the lens when the lens sits above the pointer */
+#foveaLens[data-side="up"] #foveaOut{top:auto;bottom:100%;margin:0 0 5px}
+/* THE SUMMON RADIAL — the gesture menu (fovea-lens.js). Pointer-events none:
+   it never eats a click. Slots are the extension seam for the unified
+   interphase glyph operations (FoveaLens.radial.register). */
+#foveaRadial{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .12s ease}
+#foveaRadial.on{opacity:1}
+#foveaRadial svg{position:absolute;left:-100px;top:-100px;overflow:visible}
+#foveaRadialSlots{position:absolute;left:0;top:0}
+.fovSlot{position:absolute;width:76px;height:20px;margin:-10px 0 0 -38px;display:grid;place-items:center;border:1px solid #2a3439;background:#080b0e;color:#91a0a6;font:700 7px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;box-shadow:0 2px 10px rgba(0,0,0,.55)}
+.fovSlot.on{border-color:var(--gold);color:var(--gold);background:#0d1114}
+.fovSlot.reserved{border-style:dashed;color:#4a565c}
+#foveaRadialHint{position:absolute;left:-110px;top:110px;width:220px;text-align:center;color:#59666c;font:6px/1.4 ui-monospace,monospace;letter-spacing:.08em}
 /* FOLDS */
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:8px;letter-spacing:.12em}.fold>summary span{font-size:7px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
 .issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}
@@ -625,7 +638,7 @@ function renderSemanticScale(st=window.FieldPresentation?.state?.()){
  $('scaleFit').classList.toggle('on',!!st.auto);$('scaleFit').setAttribute('aria-pressed',String(!!st.auto));
  $('scaleFovea').classList.toggle('on',foveaOn);$('scaleFovea').setAttribute('aria-pressed',String(foveaOn));
  $('scaleMeta').textContent=phone
-  ?(foveaOn?'FOVEA ON · touch/drag marks to read · tap held mark again to open':'tap FIELD / ROUTE / OBJECT · tap mark = hold · tap again = open')
+  ?(foveaOn?'FOVEA ON · hold a point for the RADIAL · sweep to read':'tap FIELD / ROUTE / OBJECT · tap mark = hold · tap again = open')
   :((st.auto?'FIT '+st.baseline:'LOCKED '+st.density)+' · φ '+(focus?.href||'/')+' · F toggles FOVEA');
 }
 function renderSyncLine(){

@@ -22,21 +22,45 @@
  * That was bands dimming a static map; this follows the pointer and carries
  * the support set's own shape. Bands FOVEA/PARA/PERIPHERY stay single-sourced.
  *
- * OFF BY DEFAULT. Foot button or the `f` key.
- * Deletable: this file, #foveaLens CSS, the toggle. Nothing else.
+ * LAW — IT NEVER INTERFERES. When off, nothing in this file calls
+ * preventDefault. When on, the lens is DISPLAY ONLY: it sweeps and reads the
+ * route under the pointer; it never consumes clicks, wheel, touch or scroll.
+ * Read/open actions live in the RADIAL, not in a click trap. The figure is
+ * drawn OFF the pointer (above it, flipping below near the top edge) with a
+ * leader line back to the point it reads — the cursor keeps its own pixels.
+ *
+ * THE SUMMON GESTURE — radial menu, same shape on both devices:
+ *   touch/pen  long-press ~400ms stationary → RADIAL opens there; drag
+ *              toward a slot; release selects; release elsewhere dismisses.
+ *   keyboard   hold `f` ~400ms → RADIAL at the pointer; move to a slot;
+ *              release `f` selects; Esc cancels.
+ *   tap `f`, the foot ◎ FOVEA button and the semantic-scale ◎ FOVEA button
+ *   still toggle the lens (tap `f` now toggles on key release).
+ *   Esc closes the RADIAL, else turns the lens off.
+ *   Selecting FOVEA activates the lens AT the gesture point (pin + read).
+ *
+ * SLOT EXTENSION (unified interphase hook): slots are DATA — see SLOTS and
+ * FoveaLens.radial.register({id,label,angle,run}). The reserved GLYPH slot
+ * marks where the interphase glyph operations plug in. Not built here.
+ *
+ * OFF BY DEFAULT. Foot button, ◎ FOVEA, `f`, or the gesture.
+ * Deletable: this file, the #foveaLens/#foveaRadial CSS, the toggles. Nothing else.
  */
 (()=>{'use strict';
 const H=()=>window.FieldLensHost;
 const MAP=()=>window.__fieldRouteMap;
 const N=24;                 // 24 sensors, exactly as audio-glyph.js samples
 const TAU=Math.PI*2;
-const R=54;
-
+const R=54;                 // ring radius
+const LENS=120;             // element size
+const OFF=70;               // lens centre sits this far off the pointer
 let on=false, el=null, ring=null, x=0, y=0, raf=0, target=null;
 /* KINETIC STATE — the lens has mass. It trails the pointer under springs,
    stretches when it moves fast (squash & stretch), and overshoots when it
    locks a new target. Source: kinetic interaction / Disney 12 / P5. */
 let px=0,py=0,vx=0,vy=0,scale=1,targetScale=1,spin=0,targetSpin=0,lockAt=0,stagger=0,lastProbe=0;
+/* ANCHOR — the drawn centre; never the pointer itself */
+let ax=0, ay=0, side='up', lastX=0, lastY=0;
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function polar(cx,cy,r,a){return[cx+r*Math.cos(a),cy+r*Math.sin(a)]}
@@ -110,6 +134,15 @@ function probe(cx,cy){
   return{href,state:r?.state||'',title:r?.title||chip.getAttribute?.('title')||''};
 }
 
+/* ---- the anchor: computed from the pointer, never equal to it ---- */
+function anchor(){
+  const W=innerWidth,Hh=innerHeight,half=LENS/2;
+  ax=clamp(x,half+4,Math.max(half+4,W-half-4));
+  side=(y-OFF-(R+8)<4)?'down':'up';
+  ay=(side==='up')?y-OFF:Math.min(y+OFF,Hh-half-4);
+  if(el)el.dataset.side=side;
+}
+
 /* ---- draw: a closed polygon from measured radii, as audioGlyphSvg does ---- */
 function draw(){
   if(!ring)return;
@@ -132,6 +165,10 @@ function draw(){
   }
   out.push('<circle cx="'+c+'" cy="'+c+'" r="'+(R*.12+.11*R*d.inner).toFixed(2)+'" fill="none" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".9"/>');
   out.push('<circle cx="'+c+'" cy="'+c+'" r="2" fill="'+col+'" fill-opacity=".9"/>');
+  /* LEADER — a hairline from the lens edge to the point it reads. The lens is
+     displaced off the pointer, so the figure must say which point it is about. */
+  const lx=c+(x-ax), y1=side==='up'?(c+R+5):(c-R-5), y2=c+(y-ay)+(side==='up'?-5:5);
+  if(Math.abs(y2-y1)>3)out.push('<path d="M'+lx.toFixed(1)+' '+y1+' L'+lx.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+col+'" stroke-width=".7" stroke-opacity=".28"/>');
   ring.innerHTML=out.join('');
   el.dataset.band=target?'FOVEA':'PERIPHERY';
   el.dataset.set=d.setSize+'/'+d.total;
@@ -140,7 +177,8 @@ function draw(){
 
 function place(){
   if(!el)return;
-  el.style.transform='translate3d('+(x-R-6)+'px,'+(y-R-6)+'px,0)';
+  anchor();
+  el.style.transform='translate3d('+(ax-LENS/2)+'px,'+(ay-LENS/2)+'px,0)';
   const t=probe(x,y);
   const key=(t?.href||'')+'|'+(MAP()?.all?MAP().all().size:0);
   if(key!==(el.dataset.key||'')){
@@ -154,8 +192,8 @@ function place(){
 }
 
 /* ---- THE READOUT: inspect without navigating. This is the utility. ----
- * The lens is big enough to read. You sweep the field and read each route in
- * place; you never click into anything you did not mean to open. */
+ * The lens is big enough to read. Sweep the field and read each route in
+ * place; nothing is clicked into that was not meant to open. */
 function readout(t){
   const o=document.getElementById('foveaOut');
   if(!o)return;
@@ -169,7 +207,7 @@ function readout(t){
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
-/* ---- ACT at the point of attention ---- */
+/* ---- impact feedback: a burst, never a click trap ---- */
 function burst(col){
   if(!el)return;
   const b=document.createElement('div');
@@ -184,31 +222,138 @@ function burst(col){
   setTimeout(()=>b.remove(),1500);
   el.appendChild(b);
 }
-function onClick(e){
-  if(!on)return;
-  const t=target; if(!t||!t.href)return;
-  e.preventDefault();e.stopPropagation();
-  burst(t.state?stateColor(t.state):'#72bce7');
-  lockAt=performance.now();
-  const held=window.__fieldAct?.focusHref?.()===t.href;
-  if(e.shiftKey||held){window.__fieldAct?.open?.(t.href)}
-  else{window.__fieldAct?.focus?.(t.href)}
-  setTimeout(place,30);
+
+/* ==================================================================
+ * THE RADIAL — the summon gesture's menu. Gesture in, choice out.
+ * Slots are DATA. This array is the extension seam for the unified
+ * interphase glyph operations (SLOTS / FoveaLens.radial.register).
+ * ================================================================== */
+const SLOT_R=76, DEAD=26, HOLD_MS=400;
+const SLOTS=[
+  {id:'FOVEA',label:'FOVEA',angle:-90,run:pt=>{
+    toggle(true);x=pt.x;y=pt.y;px=x;py=y;vx=0;vy=0;if(el)el.style.opacity='1';place();
+  }},
+  {id:'HOLD',label:'HOLD',angle:150,run:pt=>{
+    const t=probe(pt.x,pt.y);if(t?.href){window.__fieldAct?.focus?.(t.href);burst(t.state?stateColor(t.state):'#d5ad68')}
+  }},
+  {id:'OPEN',label:'OPEN',angle:30,run:pt=>{
+    const t=probe(pt.x,pt.y);if(t?.href)window.__fieldAct?.open?.(t.href);else burst('#ed7447');
+  }},
+  {id:'GLYPH',label:'GLYPH',angle:90,reserved:true,note:'reserved — unified interphase glyph slots'}
+];
+let radialEl=null,radialOpen=false,radialMode=null,hotSlot=-1,rx=0,ry=0;
+let armTimer=0,armX=0,armY=0,armId=null,keyTimer=0,keyDownAt=0,suppressClicks=0,suppressTimer=0;
+
+function slotHTML(){
+  return SLOTS.map((s,i)=>{const a=s.angle*Math.PI/180;
+    return '<div class="fovSlot'+(s.reserved?' reserved':'')+'" data-slot="'+i+'" title="'+escAttr(s.note||s.label)+'" style="left:'+(Math.cos(a)*SLOT_R).toFixed(1)+'px;top:'+(Math.sin(a)*SLOT_R).toFixed(1)+'px">'+s.label+'</div>'
+  }).join('');
 }
-function onWheel(e){
-  if(!on)return;
-  if(e.altKey&&window.FieldPresentation?.step){
-    e.preventDefault();
-    window.FieldPresentation.step(e.deltaY>0?-1:1,'FOVEA alt-wheel');
-    setTimeout(()=>{draw();readout(target)},40);
-    return;
+function escAttr(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function radialSlots(){
+  const box=radialEl&&radialEl.querySelector('#foveaRadialSlots');
+  if(box)box.innerHTML=slotHTML();
+}
+function radialEnsure(){
+  if(radialEl)return radialEl;
+  radialEl=document.createElement('div');radialEl.id='foveaRadial';radialEl.setAttribute('aria-hidden','true');
+  radialEl.innerHTML='<svg viewBox="-100 -100 200 200" width="200" height="200">'
+    +'<circle r="'+SLOT_R+'" fill="none" stroke="#2a3439" stroke-width="1" stroke-dasharray="2 5"/>'
+    +'<circle r="'+DEAD+'" fill="none" stroke="#2a3439" stroke-width=".6" stroke-dasharray="1 4"/>'
+    +'<circle r="2.5" fill="#d7ae67" fill-opacity=".85"/></svg>'
+    +'<span id="foveaRadialHint">RELEASE ON A SLOT · ELSEWHERE DISMISSES · ESC CANCELS</span>'
+    +'<div id="foveaRadialSlots"></div>';
+  document.body.appendChild(radialEl);
+  radialSlots();
+  return radialEl;
+}
+function radialHighlight(mx,my){
+  let idx=-1;
+  if(radialEl){
+    const dx=mx-rx,dy=my-ry,d=Math.hypot(dx,dy);
+    if(d>=DEAD){
+      const a=Math.atan2(dy,dx)*180/Math.PI;let best=1e9;
+      SLOTS.forEach((s,i)=>{const dd=Math.abs(((a-s.angle+540)%360)-180);if(dd<best){best=dd;idx=i}});
+    }
   }
-  if(!target?.href)return;
-  e.preventDefault();
-  const d=e.deltaY>0?1:-1;
-  window.__fieldAct?.peer?.(d);
-  setTimeout(place,40);
+  if(idx!==hotSlot){hotSlot=idx;radialEl?.querySelectorAll('.fovSlot').forEach((s,i)=>s.classList.toggle('on',i===idx))}
 }
+function radialOpenAt(mx,my,mode){
+  radialEnsure();
+  rx=mx;ry=my;radialOpen=true;radialMode=mode;hotSlot=-1;
+  radialEl.style.transform='translate3d('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px,0)';
+  radialEl.querySelectorAll('.fovSlot').forEach(s=>s.classList.remove('on'));
+  radialHighlight(mx,my);
+  radialEl.classList.add('on');
+  window.addEventListener('touchmove',radialTouchMove,{passive:false});
+  window.addEventListener('contextmenu',radialCtx,true);
+}
+function radialClose(){
+  if(!radialOpen)return;
+  radialOpen=false;radialMode=null;hotSlot=-1;
+  radialEl?.classList.remove('on');
+  window.removeEventListener('touchmove',radialTouchMove);
+  window.removeEventListener('contextmenu',radialCtx,true);
+}
+function radialSelect(){
+  const s=hotSlot>=0?SLOTS[hotSlot]:null,mode=radialMode,pt={x:rx,y:ry};
+  radialClose();
+  if(mode==='press')armClickSuppress();   // the release must not also click through
+  if(!s||s.reserved){if(s?.reserved)burst('#59666c');return s?null:null}
+  try{s.run(pt)}catch(_){}
+  return s.id;
+}
+/* exactly ONE click is filtered, and only within 400ms of a press-radial
+   closing; late fires disarm themselves so a deliberate next tap is never lost */
+function armClickSuppress(){suppressClicks=1;clearTimeout(suppressTimer);suppressTimer=setTimeout(()=>{suppressClicks=0},400)}
+function radialTouchMove(e){if(radialOpen)e.preventDefault()}
+function radialCtx(e){if(radialOpen)e.preventDefault()}
+
+/* ---- the summon gestures ---- */
+function armDown(e){                                  // touch/pen long-press
+  if(radialOpen||!e.isPrimary||e.pointerType==='mouse'||(e.button!==undefined&&e.button!==0))return;
+  armId=e.pointerId;armX=e.clientX;armY=e.clientY;
+  clearTimeout(armTimer);
+  armTimer=setTimeout(()=>{if(!radialOpen)radialOpenAt(armX,armY,'press')},HOLD_MS);
+}
+function armMove(e){
+  if(e.pointerId!==armId)return;
+  const d=Math.hypot(e.clientX-armX,e.clientY-armY);
+  if(!radialOpen){if(d>10){clearTimeout(armTimer);armId=null}}
+  else if(radialMode==='press')radialHighlight(e.clientX,e.clientY);
+}
+function armUp(e){
+  if(e.pointerId!==armId)return;
+  clearTimeout(armTimer);armId=null;
+  if(radialOpen&&radialMode==='press')radialSelect();
+}
+function keyHoldEnd(){
+  clearTimeout(keyTimer);
+  if(radialOpen&&radialMode==='key'){radialSelect();return}      // release = select / dismiss
+  if(performance.now()-keyDownAt<HOLD_MS)toggle(!on);            // quick tap = the old toggle
+}
+function onKeyDown(e){
+  if(e.key!=='f'||e.metaKey||e.ctrlKey||e.altKey)return;
+  const t=e.target;
+  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+  if(e.repeat)return;
+  if(radialOpen){if(radialMode==='key')radialClose();return}
+  keyDownAt=performance.now();clearTimeout(keyTimer);
+  keyTimer=setTimeout(()=>{
+    if(radialOpen)return;
+    radialOpenAt(lastX||innerWidth/2,lastY||innerHeight/2,'key');
+  },HOLD_MS);
+}
+function onKeyUp(e){
+  if(e.key!=='f'||e.metaKey||e.ctrlKey||e.altKey||e.repeat)return;
+  keyHoldEnd();
+}
+function onEscape(){
+  if(radialOpen){radialClose();return true}
+  if(on){toggle(false);return true}
+  return false;
+}
+
 /* ---- THE SPRING: stiffness k, friction damp. Not position-lerp: real velocity,
  * so the figure carries momentum and releases it. ---- */
 function physics(){
@@ -223,7 +368,10 @@ function physics(){
   // overshoot & settle when the ring changed target (P5 slam-in)
   if(performance.now()-lockAt<260){ scale+= (1.16-scale)*.22; }
   spin+= (targetSpin-spin)*.12;
-  if(el)el.style.transform='translate3d('+(px-R-6).toFixed(1)+'px,'+(py-R-6).toFixed(1)+'px,0) scale('+scale.toFixed(3)+') rotate('+spin.toFixed(2)+'deg)';
+  anchor();
+  /* the body springs toward the pointer; the drawn centre is the ANCHOR, so
+     the figure trails and settles off the pointer, never on it */
+  if(el)el.style.transform='translate3d('+(px-(x-ax)-LENS/2).toFixed(1)+'px,'+(py-(y-ay)-LENS/2).toFixed(1)+'px,0) scale('+scale.toFixed(3)+') rotate('+spin.toFixed(2)+'deg)';
 }
 function loop(){
   if(!on)return;
@@ -247,40 +395,45 @@ function ensure(){
   return el;
 }
 
+/* All observation is passive: position tracking + gesture arming. Nothing
+ * below calls preventDefault except the two deliberate cases (touchmove /
+ * contextmenu while the RADIAL is open, and the 700ms click filter that
+ * follows a press-radial release so the release does not also click through). */
 const MOVE={passive:true};
-function onMove(e){x=e.clientX;y=e.clientY;
+function onMove(e){
+  x=e.clientX;y=e.clientY;lastX=x;lastY=y;
   if(!px&&!py){px=x;py=y}
-  if(el)el.style.opacity='1';place()}
-function onPointerDown(e){if(!on)return;x=e.clientX;y=e.clientY;if(!px&&!py){px=x;py=y}if(el)el.style.opacity='1';place()}
+  if(radialOpen)radialHighlight(x,y);
+  if(on&&el){el.style.opacity='1';place()}
+}
+function onPointerDown(e){
+  if(radialOpen&&radialMode==='key'){radialClose()}      // a click means "not the radial"
+  x=e.clientX;y=e.clientY;lastX=x;lastY=y;
+  if(!px&&!py){px=x;py=y}
+  if(on&&el)el.style.opacity='1';
+  armDown(e);
+}
+function onPointerUp(e){armUp(e)}
+function onPointerCancel(e){if(e.pointerId===armId){clearTimeout(armTimer);armId=null}if(radialOpen&&radialMode==='press')radialClose()}
 function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType))el.style.opacity='0'}
 function onEnter(){if(el&&on)el.style.opacity='1'}
 function onKey(e){
-  if(e.key!=='f'||e.metaKey||e.ctrlKey||e.altKey)return;
-  const t=e.target;
-  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
-  toggle(!on);
+  if(e.key==='Escape'){if(onEscape())e.preventDefault();return}
+  if(e.key!=='f')return;
+  if(e.type==='keydown')onKeyDown(e);else onKeyUp(e);
 }
+function onClickFilter(e){if(suppressClicks>0){suppressClicks=0;e.preventDefault();e.stopImmediatePropagation()}}
 
 function toggle(next){
   on=next===undefined?!on:!!next;
   const b=document.getElementById('foveaToggle');
   if(b)b.classList.toggle('on',on);
   if(on){
-    ensure();el.style.opacity='0';px=x;py=y;vx=0;vy=0;scale=.7;lockAt=performance.now();
-    window.addEventListener('pointerdown',onPointerDown,MOVE);
-    window.addEventListener('pointermove',onMove,MOVE);
-    window.addEventListener('pointerleave',onLeave);
-    window.addEventListener('pointerenter',onEnter);
-    window.addEventListener('click',onClick,true);
-    window.addEventListener('wheel',onWheel,{passive:false});
-    loop();
+    ensure();
+    if(!x&&!y){x=innerWidth/2;y=innerHeight/2;px=x;py=y}
+    el.style.opacity='1';px=x;py=y;vx=0;vy=0;scale=.7;lockAt=performance.now();
+    place();loop();
   }else{
-    window.removeEventListener('pointerdown',onPointerDown,MOVE);
-    window.removeEventListener('pointermove',onMove,MOVE);
-    window.removeEventListener('pointerleave',onLeave);
-    window.removeEventListener('pointerenter',onEnter);
-    window.removeEventListener('click',onClick,true);
-    window.removeEventListener('wheel',onWheel);
     cancelAnimationFrame(raf);
     if(el){el.style.opacity='0';el.querySelectorAll('.fovBurst').forEach(b=>b.remove())}
   }
@@ -291,12 +444,33 @@ function toggle(next){
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='LOCAL DETAIL. Mouse/pen: sweep to read; click holds; click held mark again or shift-click opens; wheel steps peers; alt-wheel changes semantic scale. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.';}
-  window.addEventListener('keydown',onKey);
+    b.title='LOCAL DETAIL. Off by default; it never blocks clicks or scrolling. Summon: hold ~400ms (touch: anywhere; keyboard: `f`) → radial at that point; drag to a slot and release. Tap `f`, this button, or ◎ FOVEA to toggle. Esc dismisses.';}
+  window.addEventListener('keydown',onKey,true);
+  window.addEventListener('keyup',onKey,true);
+  window.addEventListener('pointermove',onMove,MOVE);
+  window.addEventListener('pointerdown',onPointerDown,MOVE);
+  window.addEventListener('pointerup',onPointerUp,MOVE);
+  window.addEventListener('pointercancel',onPointerCancel,MOVE);
+  window.addEventListener('pointerleave',onLeave);
+  window.addEventListener('pointerenter',onEnter);
+  window.addEventListener('click',onClickFilter,true);
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
     target:()=>target,bands:['FOVEA','PARA','PERIPHERY'],
-    descriptor,redraw:draw
+    descriptor,redraw:draw,side:()=>side,
+    /* THE EXTENSION SEAM — the unified interphase registers glyph slots here. */
+    radial:Object.freeze({
+      open:(mx,my)=>radialOpenAt(mx??innerWidth/2,my??innerHeight/2,'api'),
+      close:radialClose,
+      ready:()=>radialOpen,
+      slots:()=>SLOTS.map(s=>({id:s.id,label:s.label,angle:s.angle,reserved:!!s.reserved,note:s.note||''})),
+      register:s=>{
+        if(!s||!s.id||typeof s.run!=='function'||SLOTS.some(x=>x.id===s.id))return false;
+        SLOTS.push({id:s.id,label:s.label||s.id,angle:Number(s.angle)||0,reserved:!!s.reserved,note:s.note||'',run:s.run});
+        radialSlots();
+        return true;
+      }
+    })
   });
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
