@@ -16,18 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-28T19:25:50+08:00",
+        "updated_at": "2026-09-29T01:28:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Semantic signal is local to the address that owns it: compact marks and the held header may show route-owned CHANGED/REALITY/EXTERNAL/MIXED patterns while global CATCH remains a separate aggregate. Exact CURRENT heads retain the VIEW-only latent project glyph. Identity, priority and native effect authority do not move into pattern.",
+      "role": "FIELD INDEX root: one glyph field + one held object. Semantic signal is local to the address that owns it: compact marks and the held header may show route-owned CHANGED/REALITY/EXTERNAL/MIXED patterns while global CATCH remains a separate aggregate. Exact CURRENT heads retain the VIEW-only latent project glyph. Prison Age enters FIELD as one held source-set object with exactly READ / RIDE / SOURCE native operations; READFIELD and FOLD//BLOOM retain projection authority while PRISON_AGE retains source bytes/provenance. Identity, priority and native effect authority do not move into pattern.",
       "receipt": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
       "machine_view": "FIELD",
-      "version": "0.8.19",
+      "version": "0.8.20",
       "transfer": [
+        "0.8.20 Prison Age source-set capability: /prison-age/ is one FIELD-held exact-source object with READ → READFIELD, RIDE → FOLD//BLOOM LIVE STEP, and SOURCE → provenance; the rejected reader 0.2 runtime is retired and remains recoverable only through Git history",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
         "0.8.17 one-object contraction: remove exposed scale rail; held object + glyph field become the root instrument; AXIAL/capability/witness move under REFINE / PROVE; CHANGE/GIT + glyph key move under STATUS; compression must keep residue named/recoverable",
@@ -99,7 +100,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -8560,54 +8561,6 @@
         ]
       },
       "tier": "FIELD"
-    },
-    {
-      "href": "/prison-age/reader-0.2/",
-      "title": "PRISON AGE // READER 0.2 (FROZEN)",
-      "kind": "artifact",
-      "parent": "/prison-age/",
-      "family": "PRISON AGE",
-      "operation": "ARCHIVE",
-      "state": "FROZEN_DONOR",
-      "version": "0.2",
-      "showcase_card": false,
-      "receipt": "/prison-age/reader-0.2/release.json",
-      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
-      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
-      "tier": "DONOR",
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "historical frozen reader state"
-          ]
-        },
-        "transforms": {
-          "verb": "inspect only",
-          "preserves": [
-            "frozen bytes",
-            "source boundary"
-          ],
-          "reversibility": "return to /prison-age/",
-          "side_effects": "none"
-        },
-        "emits": {
-          "kinds": [
-            "lineage inspection"
-          ],
-          "machine_readable": false,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/prison-age/reader-0.2/release.json",
-          "return_path": "/prison-age/"
-        }
-      },
-      "index": {
-        "updated_at": "2026-09-28T17:08:00+08:00",
-        "work_modes": [
-          "ARCHIVE"
-        ]
-      }
     }
   ],
   "release_law": [
