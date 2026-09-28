@@ -109,10 +109,13 @@ export const CURRENT_EVIDENCE_2026_09_27=Object.freeze({
   },
   model:{
     real_fit_apply:true,
-    evidence_class:'PLUMBING_ONLY',
-    model_id:'sshleifer/tiny-gpt2',
-    model_revision:'5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be',
-    jlens_revision:'581d398613e5602a5af361e1c34d3a92ea82ba8e'
+    evidence_class:'REAL_READ_TRACE_OBSERVATION_ONLY',
+    model_id:'Qwen/Qwen2.5-1.5B-Instruct',
+    model_revision:'989aa7980e4cf806f80c7fef2b1adb7bc71aa306',
+    jlens_revision:'581d398613e5602a5af361e1c34d3a92ea82ba8e',
+    lens_n_prompts:8,
+    read_trace_ref:'/returns/JSPACE_REAL_TRACE_2026-09-27.json',
+    control_vocab_top8_hits:0
   },
   intervention:{
     executed:false,
