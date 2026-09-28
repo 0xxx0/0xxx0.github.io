@@ -20,7 +20,15 @@ const sh = (c) => { try { return execSync(c, { cwd: ROOT, encoding: 'utf8', maxB
 
 // hour must be LOCAL (+08 for this human) so the rhythm is theirs, not UTC's
 const TZ = 8;
-const raw = sh('git log --format=%h%x1f%at%x1f%an%x1f%s%x1e');
+// Build from the PUBLISHED ref, never bare HEAD. This file is generated on one
+// machine and then published; if it is built from a checkout that is ahead of
+// the remote — or, as happened 2026-09-28, stranded on a detached HEAD after a
+// wedged rebase — every extra row references a commit that does not exist on
+// GitHub. A reader clicking such a row gets a 404 and a dead expansion, with
+// nothing on the page indicating the row was never real. Local-only commits are
+// invisible to anyone visiting; the data must match what they can reach.
+const REF = sh('git rev-parse --verify -q origin/master') ? 'origin/master' : 'HEAD';
+const raw = sh(`git log --format=%h%x1f%at%x1f%an%x1f%s%x1e ${REF}`);
 const commits = raw.split('\x1e').filter(Boolean).map((rec) => {
   const [hash, at, an, subject] = rec.replace(/^\n/, '').split('\x1f');
   const t = Number(at) * 1000 + TZ * 3600 * 1000;
@@ -52,6 +60,11 @@ const out = {
   schema: 'field-git-history/v0.1',
   generated: new Date().toISOString(),
   generator: 'scripts/build-git-history.mjs',
+  // Record WHAT this was built from. A stale or locally-ahead checkout used to
+  // be undetectable from the file alone, so nobody could tell a fresh build from
+  // one carrying commits no reader can reach.
+  source_ref: REF,
+  source_head: sh(`git rev-parse --short ${REF}`),
   total: commits.length,
   days_active: days.length,
   span: [days[0].d, days[days.length - 1].d],

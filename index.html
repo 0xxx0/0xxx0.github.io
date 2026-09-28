@@ -165,6 +165,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a>
     <a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a>
     <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
+    <a class="utility" href="./comms/"><b>MACHINE / ROOM</b><span>comms state · fleet / open / loops / moved</span></a>
     <a class="utility" href="./fovea/"><b>FOVEA</b><span>one-field projection over registered surfaces</span></a>
     <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
     <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
@@ -295,7 +296,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
 const CAP_TRIAL=INIT.get('cap')!=='0';
 const CAPABILITY_PROJECTION=Object.freeze([
@@ -778,8 +779,8 @@ function renderWaiting(xs){
  if(Array.isArray(xs))waitingSource=xs;
  const groups=mergeWaiting(waitingSource),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
  waiting=[...groups.active,...groups.parked,...groups.removed,...groups.other];
- $('waitingMeta').textContent=(a?a+' REALITY':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
- const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / WORLD EVIDENCE REQUIRED</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">No current head is blocked on real-device, physical, lived-use, human, private-input or world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
+ $('waitingMeta').textContent=waitingFailed?('SOURCE UNAVAILABLE · '+waitingError):((a?a+' REALITY':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY');
+ const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / WORLD EVIDENCE REQUIRED</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):(waitingFailed?'<div class="waitRow"><div class="waitState">UNKNOWN<small>SOURCE DOWN</small></div><div><div class="waitMove">WAITING.json could not be read ('+waitingError+'), so this panel cannot say whether anything is parked. It is NOT reporting clear.</div></div><div></div><span class="waitAck waitNone">—</span></div>':'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">No current head is blocked on real-device, physical, lived-use, human, private-input or world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>'))+'</section>';
  const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED')).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
  const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED')).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
  const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED')).join('')+'</details>':'';
@@ -789,7 +790,7 @@ function renderWaiting(xs){
  $('waitingList').querySelectorAll('[data-wait-copy]').forEach(b=>b.addEventListener('click',()=>copyRealityTest(activeById.get(b.dataset.waitCopy),b)));
  updateStatusRail();renderCatchup();
 }
-async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
+async function loadWaiting(){try{const r=await fetch('./control/WAITING.json',{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const w=await r.json();waitingUpdated=w.updated||'';waitingFailed=false;waitingError='';renderWaiting(w.items||[])}catch(e){waitingFailed=true;waitingError=(e&&e.message)||'unreachable';renderWaiting(waitingSource||[])}}
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
  $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();renderCatchup();
