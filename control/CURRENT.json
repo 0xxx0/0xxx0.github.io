@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T01:28:00+08:00",
+  "updated": "2026-09-29T03:17:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.20 / ROUTE-LOCAL SEMANTIC SIGNAL / ONE HELD OBJECT / SOURCE-SET NATIVE ACTIONS",
-      "state": "CORE_ACTIVE",
+      "head": "FIELD INDEX 0.8.21 / ONE HELD OBJECT / SOURCE-SET ACTIONS / COAXIAL GLYPH PROJECTION",
+      "state": "CORE_ACTIVE_CANDIDATE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity. Prison Age now enters FIELD as one held source-set object with exactly READ / RIDE / SOURCE native operations; READFIELD and FOLD//BLOOM retain projection authority while PRISON_AGE retains source bytes/provenance.",
+      "retained_function": "Fast repo re-entry around one addressed object. Existing route-local semantic signal, VIEW-only project depth and source-set native actions retain their owners. FOVEA → GLYPH may summon one projection over that same held address: source-backed ROUTE/DEPTH, already-surfaced NEXT/MOVE, and WITNESS/RETURN rings rotate independently or LINK as local projection state. Ring motion never executes a move or acquires source, effect, priority or truth authority.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -88,16 +88,19 @@
         "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
         "/tools/field-signal-locality-selftest.cjs",
         "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
-        "/prison-age/release.json"
+        "/prison-age/release.json",
+        "/returns/FIELD_INDEX_COAXIAL_HELD_OBJECT_2026-09-29.json",
+        "/field-coaxial.js",
+        "/lib/interphase-ring.js",
+        "/tools/interphase-ring-selftest.cjs"
       ],
-      "version": "0.8.20",
-      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
+      "version": "0.8.21",
+      "latest_return": "/returns/FIELD_INDEX_COAXIAL_HELD_OBJECT_2026-09-29.json",
       "repo_verification": {
-        "status": "PASS",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
-        "merge_commit": "a175e4ea74b65109066f3c7e7444004d339e9ced",
-        "pr_checks": "PASS · public-surface-check 36414534341; Route Registration 36414534526; gitleaks 36414534573",
-        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; ship-check --fast 64/64"
+        "status": "PENDING_PR_CI",
+        "candidate_pr": "PENDING",
+        "local": "PASS · focused interphase-coaxial kernel: free rotation isolates one layer; linked rotation shares angular delta; linked settle preserves relative phase",
+        "pending": "Repository public-surface, browser and route checks not yet complete; no PASS claim."
       }
     },
     {
