@@ -43,7 +43,7 @@
 <header>
   <h1>ARCHIVE READER / LOCAL SURFACE</h1>
   <div class="sub">a public <b>projection</b> of a private service &nbsp;·&nbsp;
-  <b>9/11</b> routes body-asserted &nbsp;·&nbsp; nothing private is published here</div>
+  <b>9/11</b> routes body-asserted (2026-09-28) &nbsp;·&nbsp; nothing private is published here</div>
 </header>
 
 <div class="local">
@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<h2>Probe — body-asserted, not status-only</h2>
+<h2>Probe — body-asserted, not status-only · readback 2026-09-28</h2>
 <div class="score">
   <div class="s"><div class="k">passed</div><div class="v g">9</div></div>
   <div class="s"><div class="k">failed</div><div class="v h">2</div></div>
@@ -78,17 +78,17 @@
 <table>
 <thead><tr><th>verdict</th><th>route</th><th>http</th><th>title</th><th>bytes</th><th>note</th></tr></thead>
 <tbody>
-<tr><td class="ok">PASS</td><td class="p">/</td><td class="c">200</td><td class="t">ARCHIVE READER</td><td class="n">15,682 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/status</td><td class="c">200</td><td class="t">STATUS</td><td class="n">13,004 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/asks</td><td class="c">200</td><td class="t">ASKS</td><td class="n">21,467 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/interfaces</td><td class="c">200</td><td class="t">Interface History</td><td class="n">191,995 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/contacts</td><td class="c">200</td><td class="t">Contact Sheets</td><td class="n">20,005 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/threads</td><td class="c">200</td><td class="t">Conversations</td><td class="n">141,684 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/unified</td><td class="c">200</td><td class="t">Unified Index</td><td class="n">73,427 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/b/desktop</td><td class="c">200</td><td class="t">desktop/</td><td class="n">16,869 B</td></tr>
-<tr><td class="ok">PASS</td><td class="p">/b/documents</td><td class="c">200</td><td class="t">documents/</td><td class="n">11,071 B</td></tr>
-<tr><td class="xx">FAIL</td><td class="p">/thread?cid=0</td><td class="c">200</td><td class="t">404</td><td class="n">9,585 B</td><td class="e">error body</td></tr>
-<tr><td class="xx">FAIL</td><td class="p">/b/codex</td><td class="c">200</td><td class="t">err</td><td class="n">9,704 B</td><td class="e">Cannot read this directory</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/</td><td class="c">200</td><td class="t">ARCHIVE READER</td><td class="n">16,240 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/status</td><td class="c">200</td><td class="t">STATUS</td><td class="n">13,110 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/asks</td><td class="c">200</td><td class="t">ASKS</td><td class="n">21,534 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/interfaces</td><td class="c">200</td><td class="t">Interface History</td><td class="n">195,149 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/contacts</td><td class="c">200</td><td class="t">Contact Sheets</td><td class="n">20,072 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/threads</td><td class="c">200</td><td class="t">Conversations</td><td class="n">137,898 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/unified</td><td class="c">200</td><td class="t">Unified Index</td><td class="n">73,950 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/b/desktop</td><td class="c">200</td><td class="t">desktop/</td><td class="n">16,970 B</td></tr>
+<tr><td class="ok">PASS</td><td class="p">/b/documents</td><td class="c">200</td><td class="t">documents/</td><td class="n">11,140 B</td></tr>
+<tr><td class="xx">FAIL</td><td class="p">/thread?cid=0</td><td class="c">200</td><td class="t">404</td><td class="n">9,650 B</td><td class="e">error body</td></tr>
+<tr><td class="xx">FAIL</td><td class="p">/b/codex</td><td class="c">200</td><td class="t">err</td><td class="n">9,769 B</td><td class="e">Cannot read this directory</td></tr>
 </tbody>
 </table>
 
@@ -97,7 +97,38 @@
   <div class="w">
     A route passes only if <b>all</b> hold: HTTP 200, the page title is not <code>404</code> or
     <code>err</code>, the body contains no <code>Errno</code>/<code>Operation not permitted</code>
-    marker, and the body exceeds 500 bytes. A status code alone proves nothing.
+    marker, and the body exceeds 500 bytes. A status code alone proves nothing. The verdicts above are
+    stable across two consecutive runs on 2026-09-28 and match the 2026-09-23 probe; bytes are the
+    2026-09-28 readback and drift with the service. A third root outside this set, <code>/b/downloads</code>,
+    fails the same test (HTTP 200 + <code>err</code> body, 9,769 B).
+  </div>
+</div>
+
+<h2>The archive, by the numbers — content-free · readback 2026-09-28</h2>
+<div class="score">
+  <div class="s"><div class="k">messages stored</div><div class="v">179,060</div></div>
+  <div class="s"><div class="k">conversations</div><div class="v">5,392</div></div>
+  <div class="s"><div class="k">operator's own voice</div><div class="v">21,226</div></div>
+  <div class="s"><div class="k">span</div><div class="v" style="font-size:14px;letter-spacing:-.02em;padding-top:7px">2023-06 → 2026-09</div></div>
+</div>
+<div class="local">
+  <div class="w">
+    Read from the reader's own database with named read-only queries: <code>COUNT(*)</code> = 179,060
+    messages · <code>COUNT(DISTINCT cid)</code> = 5,392 conversations · <code>author='user' AND
+    origin='human' AND origin_rule NOT LIKE 'grp:human-other%'</code> = 21,226 messages in the operator's
+    own voice, across 2,177 conversations · <code>MIN/MAX(ctime)</code> = 2023-06-19 → 2026-09-28.<br><br>
+    Message text, titles and other people's words are never published here. This page is static and
+    cannot query the archive — there is no search on it; search runs on the machine, at the reader
+    itself. The full record stays exactly recoverable at its named owner.
+  </div>
+</div>
+<div class="rule">
+  <div class="h">why numbers are allowed here</div>
+  <div class="t">
+    FIELD INDEX contract: <em>"COMPRESSION MUST NAME ITS RESIDUE."</em> A count may stand in for
+    179,060 messages only because the discarded layer stays exactly recoverable at its named owner.
+    And <em>"ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE"</em> — this is an address, not attention.
+    Nothing private is promoted by being counted.
   </div>
 </div>
 
