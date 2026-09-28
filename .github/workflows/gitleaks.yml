@@ -1,12 +1,15 @@
 name: gitleaks
 
-# Secret-scan gate: full-history scan on every push and PR.
+# Secret-scan gate: full-history scan on every push, PR, and a weekly sweep.
 # Policy lives in /.gitleaks.toml (exact-value allowlists, each commented).
 # Added 2026-09-28 by kestrel (W28 steal-adoption: gitleaks move).
 
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '23 5 * * 1'   # weekly full-history sweep (Mondays 05:23 UTC)
+  workflow_dispatch:
 
 permissions:
   contents: read
