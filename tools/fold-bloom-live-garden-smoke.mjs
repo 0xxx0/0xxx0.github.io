@@ -25,7 +25,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  D().getElementById('gardenClose').click();
  await wait(()=>api.garden.current().open===false&&D().getElementById('gardenFrame').hidden,5000,'RETURN LIVE');
  rec.close={garden:api.garden.current(),dataset:D().documentElement.dataset.foldBloomGarden,subtitle:D().getElementById('liveSubtitle').textContent};
- if(rec.close.dataset!=='closed'||!/RIDE \/ READ \/ GARDEN \/ RETURN/.test(rec.close.subtitle))throw Error('RETURN LIVE contract');
+ if(rec.close.dataset!=='closed'||!rec.close.subtitle.includes('RIDE / READ / GARDEN / RETURN'))throw Error('RETURN LIVE contract');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
