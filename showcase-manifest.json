@@ -7572,7 +7572,7 @@
       "family": "SLEEPER",
       "operation": "PLAY",
       "state": "DONOR",
-      "version": "ascii-reified-0.2",
+      "version": "ascii-reified-0.2 + route-witness-0.1",
       "showcase_card": false,
       "receipt": "/sleeper/one-return/release.json",
       "role": "Playable reconstruction derived from attested ASCII/Nine-Gate mechanics. Useful donor/experiment, but NOT the polished Work-mode SLEEPER // ONE RETURN v2 whose world compiler used PHRASE + CELL + FIGURE and reproducible world links.",
@@ -7582,7 +7582,9 @@
         "semantic success changes topology",
         "DataDisc as same-state alternate projection",
         "ghost previous RETURN",
-        "event trace + RETURN witness"
+        "event trace + RETURN witness",
+        "full donor RouteWitness → exact same-world replay/ghost comparison",
+        "ordinary RETURN ghost is labeled prior-world residue when the return epoch changes"
       ],
       "contract": {
         "transforms": {
@@ -7600,10 +7602,15 @@
         "evidence": {
           "receipt": "/sleeper/one-return/release.json",
           "return_path": "/sleeper/"
+        },
+        "emits": {
+          "kinds": [
+            "sleeper.route-witness/v0.1 evidence-only full route"
+          ]
         }
       },
       "index": {
-        "updated_at": "2026-09-22T04:39:00+08:00",
+        "updated_at": "2026-09-28T11:20:00+08:00",
         "work_modes": [
           "VERIFY",
           "RECOVER"

@@ -1,9 +1,9 @@
 {
   "schema": "release-receipt/v1",
   "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
-  "version": "reified-0.2 + grid-receipt-seam-1",
+  "version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1",
   "state": "DONOR",
-  "released": "2026-09-21",
+  "released": "2026-09-28",
   "route": "/sleeper/one-return/",
   "parent": "/sleeper/",
   "lineage": [
@@ -24,7 +24,10 @@
     "append event trace",
     "local persistence",
     "JSON import/export",
-    "evidence-bearing RETURN witness"
+    "evidence-bearing RETURN witness",
+    "prior RETURN residue remains visible but is explicitly distinct from same-world comparison",
+    "optional full RouteWitness with exact donor-world identity and lossless cardinal route reconstruction",
+    "explicit COMPARE SAME WORLD replays the exact prior epoch/rules and overlays the validated route"
   ],
   "distinction": {
     "from_current_sleeper": "Current /sleeper/ POV 0.8 remains the active constraint/evidence head; ONE RETURN is a playable ancestor lane, not a replacement.",
@@ -37,7 +40,9 @@
     "dependency-free core",
     "browser smoke route required before merge",
     "RETURN export schema one-return/import-reified-0.2",
-    "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze"
+    "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze",
+    "sleeper-route-witness/v0.1 pure-core reconstruction/tamper/cross-world tests",
+    "same-world compare requires exact witness world id; different worlds are rejected"
   ],
   "interop": {
     "input": "BY/GRID-PATH-2",
@@ -74,5 +79,14 @@
     "reason": "User identified the promoted artifact as the wrong, low-fi reconstruction. The intended game is the polished Work-mode SLEEPER // ONE RETURN v2 with PHRASE+CELL+FIGURE compilation and figure-specific physics.",
     "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
     "rule": "Keep this runnable as an experiment/donor; never cite it as recovery of polished ONE RETURN v2."
+  },
+  "route_witness": {
+    "schema": "sleeper.route-witness/v0.1",
+    "module": "/lib/sleeper-route-witness.js",
+    "owner": "SLEEPER_DONOR",
+    "authority": "EVIDENCE_ONLY",
+    "distinction": "Full route evidence belongs to Sleeper donor depth. It does not upgrade this reconstruction to canonical v2 and cannot satisfy canonical Gate proofs.",
+    "same_world": "COMPARE SAME WORLD reconstructs witness seed/source/adapter/epoch; ordinary RETURN still advances the donor epoch and its comma overlay is labeled PRIOR RETURN RESIDUE.",
+    "return": "embedded as routeWitness in existing one-return/import-reified-0.2 export"
   }
 }
