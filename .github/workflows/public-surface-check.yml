@@ -231,6 +231,8 @@ jobs:
         run: node tools/fold-bloom-lab-mobile-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB cross-projection continuity
         run: node tools/fold-bloom-lab-cross-projection-smoke.mjs
+      - name: Test FOLD BLOOM FIELD LAB change path to INK
+        run: node tools/fold-bloom-lab-change-ink-smoke.mjs
       - name: Test FOLD BLOOM INK FIELD browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM INK FIELD
