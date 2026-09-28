@@ -439,6 +439,10 @@ $('#playBtn').onclick = async () => {
   run = true;
   soundCheck();
   hud();
+  // D5: request landscape for DUET on mobile
+  if (prefs.mode === 'DUET' && innerWidth <= innerHeight) {
+    void requestWide();
+  }
 };
 $('#buildInfo').textContent =
   `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · bounded phrase return`;
@@ -456,7 +460,21 @@ setMenuPane('PLAY');
 syncUI();
 renderSaves();
 hud();
-setTimeout(()=>{if($('#intro')?.style.display!=='none'&&!demo.on)startDemo(true,false)},700);
+// D1: auto-enter on deep-link mode (including DUET)
+if (launchMode) {
+  $('#intro').style.display = 'none';
+  initSound().then(() => {
+    run = true;
+    soundCheck();
+    hud();
+    // D5: request landscape for DUET on mobile
+    if (prefs.mode === 'DUET' && innerWidth <= innerHeight) {
+      void requestWide();
+    }
+  });
+} else {
+  setTimeout(()=>{if($('#intro')?.style.display!=='none'&&!demo.on)startDemo(true,false)},700);
+}
 window.FoldBloom = {
   version: APP_VERSION,
   state: () => minimalSnapshot(),

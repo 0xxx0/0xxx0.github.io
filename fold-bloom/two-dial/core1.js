@@ -141,6 +141,8 @@ let scarsL = [0, 0, 0, 0, 0, 0],
   particles = [],
   waves = [],
   pointers = new Map();
+// D2: track which dials have been touched since last commit (for DUET mode)
+let dialTouched = [false, false];
 let live = { vL: 0, vR: 0, mode: 'STILL' },
   phrase = Array.from({ length: 16 }, () => ({ m: 0, h: 0, w: 0, verb: '' })),
   learnCursor = 0;

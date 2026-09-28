@@ -206,6 +206,13 @@ function forecastLens() {
   g.fillStyle = match ? c : '#718794';
   g.font = '800 9px ui-monospace';
   g.fillText(preview.label, cx, cy);
+  // D4: DUET-specific feedback
+  if (prefs.mode === 'DUET' && !match) {
+    g.globalAlpha = 0.6;
+    g.fillStyle = '#ffd56b';
+    g.font = '700 8px ui-monospace';
+    g.fillText(`TUNE PARTNER → ${requestVerb}`, cx, cy + 28);
+  }
   for (let i = 0; i < 3; i++) {
     g.globalAlpha = i < preview.power ? 0.78 : 0.12;
     g.fillStyle = c;
@@ -385,6 +392,8 @@ cv.onpointerdown = e => {
     raw = rawFromPoint(side, e.clientX, e.clientY);
   pointers.set(e.pointerId, { side, raw, t: performance.now() });
   cv.setPointerCapture?.(e.pointerId);
+  // D2: mark dial as touched for DUET commit logic
+  dialTouched[side] = true;
   pointerMove(e);
 };
 cv.onpointermove = e => {
@@ -397,7 +406,10 @@ cv.onpointerup = e => {
   if (!pointers.has(e.pointerId)) return;
   e.preventDefault();
   pointers.delete(e.pointerId);
-  if (!pointers.size) {
+  // D2: in DUET mode, only commit when both dials have been touched
+  // or when all pointers released (simultaneous two-hand/two-person release)
+  const shouldCommit = prefs.mode !== 'DUET' || dialTouched[0] && dialTouched[1] || !pointers.size;
+  if (shouldCommit) {
     live.vL = live.vR = 0;
     classifyMotion();
     liveUpdate();
@@ -573,6 +585,8 @@ function commit() {
   });
   updatePreview();
   saveLocal();
+  // D2: reset dial touched state after commit
+  dialTouched[0] = dialTouched[1] = false;
   hud();
 }
 function toast(v) {
@@ -605,5 +619,9 @@ function hud() {
   $('#leftHud').firstChild.textContent =
     prefs.mode === 'OPEN' ? 'MOVES ' : 'PHRASES ';
   $('#rightHud').firstChild.textContent = 'MOTIF ';
+  // D7: update foot text for DUET mode
+  $('.foot').textContent = prefs.mode === 'DUET'
+    ? 'PLAYER A · MATTER  ×  PLAYER B · HARMONY'
+    : 'LEFT · MATTER  ×  RIGHT · HARMONY';
   renderScore();
 }

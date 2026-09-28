@@ -369,6 +369,14 @@ input[type='range'] {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* D8: smaller lawstrip font on narrow screens to prevent truncation */
+@media (max-width: 480px) {
+  .lawstrip {
+    font: 600 7px ui-monospace;
+    letter-spacing: 0.06em;
+    padding: 4px 6px;
+  }
+}
 .duetLabels {
   display: none;
   position: fixed;
@@ -389,6 +397,33 @@ input[type='range'] {
   position: absolute;
   right: 12%;
 }
+/* D3: show duetLabels in DUET mode for both orientations */
+body.duet .duetLabels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: auto;
+  bottom: max(58px, calc(env(safe-area-inset-bottom) + 50px));
+}
+body.duet .duetLabels span:first-child,
+body.duet .duetLabels span:last-child {
+  position: static;
+  margin: 2px 0;
+}
+@media (orientation: landscape) {
+  body.duet .duetLabels {
+    flex-direction: row;
+    justify-content: space-between;
+    left: 12%;
+    right: 12%;
+    bottom: max(34px, calc(env(safe-area-inset-bottom) + 26px));
+  }
+  body.duet .duetLabels span:first-child,
+  body.duet .duetLabels span:last-child {
+    margin: 0;
+  }
+}
 #help {
   display: none;
 }
@@ -405,9 +440,6 @@ input[type='range'] {
   .foot:after {
     content: ' · DUET TABLE';
     color: #b8d8e8;
-  }
-  body.duet .duetLabels {
-    display: block;
   }
   body.duet:after {
     content: '';
