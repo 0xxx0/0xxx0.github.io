@@ -49,7 +49,7 @@ function renderList(){
 }
 async function loadStory(id){
   story=pack.stories[id]||pack.stories[pack.default];source='';
-  $('number').textContent=story.number;$('title').innerHTML=story.title.replace(/ (Changes|Court|Air|Stall)/i,'<br><b>$1').replace(/$/,'</b>');
+  $('number').textContent=story.number;$('title').textContent=story.title;
   $('season').textContent=story.season.toUpperCase();$('engine').textContent='ENGINE · '+story.engine;$('class').textContent=story.source_class.replaceAll('_',' ');
   $('rawBtn').href=story.path;$('address').textContent=story.path;$('preview').className='preview loading';$('preview').textContent='Loading exact source…';
   updateUrl();renderList();
