@@ -8,7 +8,8 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steppedStatePath,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
+import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -531,7 +532,7 @@ buildLoci();
 /* ---------- INK ---------- */
 const IW=192,IH=128,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
 const inkImage=inkCtx.createImageData(IW,IH),inkField=new InkField({width:IW,height:IH,seed:23});
-const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,lastX:null,lastY:null,lastT:0,strokeSeed:0,down:false,simAt:0,metricAt:0};
+const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,pathGuide:null,lastX:null,lastY:null,lastT:0,strokeSeed:0,down:false,simAt:0,metricAt:0};
 const INK_GUIDES=['永','一','○',''];
 $('#wetness').oninput=e=>{ink.wet=+e.target.value/100;$('#wetRead').textContent=e.target.value};
 $('#inkLoad').oninput=e=>{ink.load=+e.target.value/100;$('#loadRead').textContent=e.target.value};
@@ -539,7 +540,18 @@ $('#brush').oninput=e=>{ink.brush=+e.target.value;$('#brushRead').textContent=e.
 $('#paperAbsorb').oninput=e=>{ink.absorb=+e.target.value/100;$('#paperRead').textContent=e.target.value};
 $('#inkClear').onclick=()=>{ink.field.clear();syncInkMetrics()};
 $('#inkDry').onclick=()=>{ink.field.dry(.035);setStatus('INK · PAPER DRIED');syncInkMetrics()};
-$('#inkTrace').onclick=()=>{ink.guide=(ink.guide+1)%INK_GUIDES.length;const g=INK_GUIDES[ink.guide];$('#inkTrace').textContent=g?'GUIDE '+g:'GUIDE OFF';$('#inkTrace').classList.toggle('cool',!!g)};
+function syncInkGuideUI(){
+  const path=ink.pathGuide?.ok?ink.pathGuide:null,glyph=INK_GUIDES[ink.guide];
+  const label=path?'PATH':glyph||'OFF';
+  $('#inkTrace').textContent='GUIDE '+label;
+  $('#inkTrace').classList.toggle('cool',!!path||!!glyph);
+  if($('#inkGuideRead'))$('#inkGuideRead').textContent=path?'CHANGE PATH · '+path.points.length+' STATES':glyph?'GLYPH '+glyph:'OFF';
+}
+$('#inkTrace').onclick=()=>{
+  ink.pathGuide=null;ink.guide=(ink.guide+1)%INK_GUIDES.length;syncInkGuideUI();
+  const g=INK_GUIDES[ink.guide];setStatus('INK · '+(g?'GLYPH GUIDE '+g:'GUIDE OFF'));
+};
+syncInkGuideUI();
 $$('[data-ink-mode]').forEach(b=>b.onclick=()=>{ink.mode=b.dataset.inkMode;$$('[data-ink-mode]').forEach(x=>x.classList.toggle('cool',x===b));setStatus('INK · '+ink.mode)});
 function syncInkMetrics(){
   const m=ink.field.metrics();$('#inkMass').textContent=Math.round(m.pigment);$('#waterMass').textContent=Math.round(m.water);
@@ -559,7 +571,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -596,6 +608,10 @@ function syncStateStepUI(){
   if($('#stateAmbiguity'))$('#stateAmbiguity').textContent=step?.ok?step.order_ambiguity_bits+'b':'—';
   if($('#stateLineValues'))$('#stateLineValues').textContent=calc?.ok?calc.iching_projection.line_values.join(' · '):'—';
   if($('#statePathIndex'))$('#statePathIndex').textContent=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
+  const lattice=data.stateLattice;
+  if($('#stateVertices'))$('#stateVertices').textContent=lattice?.ok?String(lattice.vertices):'—';
+  if($('#stateEdges'))$('#stateEdges').textContent=lattice?.ok?String(lattice.edges):'—';
+  if($('#stateWidth'))$('#stateWidth').textContent=lattice?.ok?String(lattice.widest_rank):'—';
   if($('#stateOrder'))$('#stateOrder').textContent=step?.ok&&step.selected_order.length?'ORDER ▶ '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'ORDER · ∅';
   if($('#stateOrderPrev'))$('#stateOrderPrev').disabled=!step?.ok||step.possible_one_line_orders<=1;
   if($('#stateStep'))$('#stateStep').textContent=step?.ok&&step.steps.length?'STEP · '+cursor+'/'+step.steps.length:'STEP · STABLE';
@@ -629,7 +645,8 @@ function syncStateChange({preserveOrder=false}={}){
   const indexed=calc?.ok?stepOrderAt(calc.moving,data.stateOrderIndex):null;
   if(indexed?.ok)data.stateOrderIndex=indexed.index;
   data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
-  data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep});
+  data.stateLattice=calc?.ok?changeLatticeCalculation(from,to):null;
+  data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep,lattice:data.stateLattice});
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
@@ -650,9 +667,65 @@ function drawStateLine(x,y,w,bit,changed=false){
   else{ctx.moveTo(x-w/2,y);ctx.lineTo(x-w*.12,y);ctx.moveTo(x+w*.12,y);ctx.lineTo(x+w/2,y)}
   ctx.stroke();ctx.restore();
 }
+function selectedStatePathMasks(){
+  const lattice=data.stateLattice,step=data.stateStep;
+  if(!lattice?.ok||!step?.ok)return [0];
+  const byLine=new Map(lattice.moving_lines.map((line,i)=>[line,i]));
+  const out=[0];let mask=0;
+  for(const line of step.selected_order){
+    const bit=byLine.get(line);if(bit===undefined)continue;
+    mask|=(1<<bit);out.push(mask);
+  }
+  return out;
+}
+function drawStateLattice(){
+  const lattice=data.stateLattice,step=data.stateStep;
+  data.stateLatticeHits=[];
+  if(!lattice?.ok)return;
+  const k=lattice.dimensions,pathMasks=selectedStatePathMasks(),pathSet=new Set(pathMasks),activeMask=pathMasks[Math.min(data.stateStepCursor,pathMasks.length-1)]??0;
+  const nextEdges=lattice.edge_set.filter(e=>e.from_mask===activeMask),nextByMask=new Map(nextEdges.map(e=>[e.to_mask,e.line]));
+  const x0=W*.17,x1=W*.83,top=H*.79,bottom=H*.94,band=Math.max(1,bottom-top),pos=new Map();
+  const grouped=new Map();
+  for(const v of lattice.vertex_set){if(!grouped.has(v.depth))grouped.set(v.depth,[]);grouped.get(v.depth).push(v)}
+  for(const [depth,list] of grouped){
+    const x=k?x0+(x1-x0)*(depth/k):(x0+x1)/2;
+    list.forEach((v,i)=>{
+      const y=list.length===1?(top+bottom)/2:top+band*(i/(list.length-1));
+      pos.set(v.mask,{x,y,v});
+    });
+  }
+  data.stateLatticeHits=nextEdges.map(e=>{const p=pos.get(e.to_mask);return p?{line:e.line,mask:e.to_mask,x:p.x,y:p.y}:null}).filter(Boolean);
+  ctx.save();
+  ctx.font='700 7px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#5f6d75';
+  ctx.fillText('ORDER SPACE · '+lattice.dimensions+'D · '+lattice.vertices+' STATES · '+lattice.maximal_one_line_paths+' CHAINS',W/2,top-10);
+  const pathEdges=new Set();
+  for(let i=1;i<pathMasks.length;i++)pathEdges.add(pathMasks[i-1]+'>'+pathMasks[i]);
+  for(const e of lattice.edge_set){
+    const a=pos.get(e.from_mask),b=pos.get(e.to_mask);if(!a||!b)continue;
+    const onPath=pathEdges.has(e.from_mask+'>'+e.to_mask);
+    ctx.strokeStyle=onPath?'rgba(123,213,255,.74)':'rgba(78,96,107,.20)';
+    ctx.lineWidth=onPath?1.7:.65;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+  }
+  for(const [mask,p] of pos){
+    const onPath=pathSet.has(mask),active=mask===activeMask,candidate=nextByMask.has(mask);
+    ctx.fillStyle=active?'#ef7849':onPath?'#7bd5ff':'#40515b';
+    ctx.globalAlpha=active?1:(onPath ? .92 : candidate ? .78 : .48);ctx.beginPath();ctx.arc(p.x,p.y,active?4.8:onPath?3.1:candidate?3.0:2.0,0,TAU);ctx.fill();
+    if(candidate&&!active){
+      ctx.globalAlpha=.92;ctx.strokeStyle='#d7b46d';ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x,p.y,7,0,TAU);ctx.stroke();
+      ctx.fillStyle='#d7b46d';ctx.font='700 6px ui-monospace';ctx.fillText('L'+nextByMask.get(mask),p.x,p.y-9);
+    }
+  }
+  ctx.globalAlpha=1;
+  if(step?.ok&&step.selected_order.length){
+    ctx.fillStyle='#78858c';ctx.font='700 7px ui-monospace';
+    ctx.fillText('SELECTED · '+step.selected_order.map(x=>'L'+x).join(' → '),W/2,bottom+11);
+  }
+  ctx.restore();
+}
 function drawStateChange(){
   const change=data.stateChange;if(!change?.valid)return;
   const {leftX,midX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving),step=data.stateStep,cursor=data.stateStepCursor;
+  const future=new Set(step?.selected_order?.slice(cursor)||[]);
   const previewBits=statePreviewBits()||change.from.bits,preview=stateDescriptor(previewBits);
   const activeLine=cursor>0&&step?.steps.length?step.steps[Math.min(cursor-1,step.steps.length-1)].line:null;
   ctx.save();
@@ -667,7 +740,8 @@ function drawStateChange(){
     drawStateLine(rightX,y,w,change.to.bits[i],changed);
     if(changed){
       ctx.strokeStyle='rgba(123,213,255,.20)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(leftX+w*.6,y);ctx.lineTo(midX-w*.6,y);ctx.moveTo(midX+w*.6,y);ctx.lineTo(rightX-w*.6,y);ctx.stroke();
-      ctx.fillStyle=active?'#ef7849':'#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('L'+(i+1),midX,y-5);
+      ctx.fillStyle=active?'#ef7849':future.has(i+1)?'#d7b46d':'#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('L'+(i+1),midX,y-5);
+      if(future.has(i+1)){ctx.fillStyle='#d7b46d';ctx.fillText('›',midX-w*.62,y-5)}
     }
   }
   ctx.fillStyle='#f2f3ef';ctx.font='900 18px ui-monospace';
@@ -680,6 +754,7 @@ function drawStateChange(){
     ctx.fillText('PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+cursor+'/'+step.steps.length,midX,cy+gap*3.7);
   }
   ctx.restore();
+  drawStateLattice();
 }
 function stateLineAt(x,y){
   const change=data.stateChange;if(!change?.valid)return -1;
@@ -689,6 +764,40 @@ function stateLineAt(x,y){
 function flipStateLine(index){
   const bits=normalizeStateBits($('#stateTo')?.value);if(!bits||index<0||index>5)return;
   bits[index]=bits[index]?0:1;$('#stateTo').value=formatState(bits);syncStateChange();
+}
+function stateSteerLineAt(x,y){
+  const step=data.stateStep;if(!step?.ok||!step.steps.length)return null;
+  const {midX,cy,gap,w}=stateLayout();if(Math.abs(x-midX)>w*.82)return null;
+  const remaining=new Set(step.selected_order.slice(data.stateStepCursor));
+  let best=null,dist=18;
+  for(const line of remaining){
+    const yy=cy+gap*(2.5-(line-1)),d=Math.abs(y-yy);
+    if(d<dist){best=line;dist=d}
+  }
+  return best;
+}
+function stateLatticeCandidateAt(x,y){
+  let best=null,dist=15;
+  for(const hit of data.stateLatticeHits||[]){
+    const d=Math.hypot(x-hit.x,y-hit.y);
+    if(d<dist){best=hit;dist=d}
+  }
+  return best;
+}
+function steerStateNextLine(line){
+  const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor;
+  if(!calc?.ok||!step?.ok)return null;
+  const steered=steerStepOrder(calc.moving,step.selected_order,cursor,line);
+  if(!steered.ok){setStatus('STATE STEER · '+steered.reason);return steered}
+  const next=steppedStatePath($('#stateFrom')?.value,$('#stateTo')?.value,steered.order);
+  if(!next.ok){setStatus('STATE STEER · PATH REBUILD FAILED');return next}
+  data.stateOrderIndex=steered.index;data.stateStep=next;data.stateFlow=false;data.stateStepCursor=Math.min(cursor,next.steps.length);
+  data.stateResidue=residueLadder({state:calc,stateStep:next,lattice:data.stateLattice});syncStateStepUI();
+  const here=data.stateStepCursor>0?next.steps[data.stateStepCursor-1]?.address:next.path_address;
+  setAddress(here||next.path_address);
+  setStatus('STATE STEER · PREFIX '+data.stateStepCursor+'/'+next.steps.length+' HELD · NEXT L'+line+' · PATH '+(next.selected_order_index+1)+'/'+next.possible_one_line_orders);
+  recordLabTrace('STATE_STEER');
+  return steered;
 }
 $('#stateProject').onclick=syncStateChange;
 $('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
@@ -715,6 +824,12 @@ $('#stateFlow')?.addEventListener('click',()=>{
   setStatus('STATE FLOW · '+(data.stateFlow?stateFlowClock().label:'PAUSED')+' · WITNESS ONLY');
 });
 $('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),order:String(data.stateStep?.selected_order_index||0),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
+$('#stateInk')?.addEventListener('click',()=>{
+  const guide=changePathInkGuide(data.stateStep);
+  if(!guide.ok){setStatus('STATE → INK · PATH UNAVAILABLE');return}
+  ink.pathGuide=guide;ink.guide=INK_GUIDES.length-1;syncInkGuideUI();selectMode('INK');
+  setSource('STATE PATH / PROJECTION GUIDE');setAddress(guide.address);setStatus('INK · CHANGE PATH GUIDE · TRACE REMAINS HUMAN AUTHORED');
+});
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
@@ -727,7 +842,11 @@ canvas.addEventListener('pointerdown',e=>{
     if(Math.abs(d-lanes[0][1])<22){tapPulse(lanes[0][0]);return}
     tapPulse();
   }
-  if(mode==='DATA'){const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}}
+  if(mode==='DATA'){
+    const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}
+    const nextLine=stateSteerLineAt(x,y);if(nextLine){steerStateNextLine(nextLine);return}
+    const candidate=stateLatticeCandidateAt(x,y);if(candidate){steerStateNextLine(candidate.line);return}
+  }
   if(mode==='VOICE'){return {kind:'VOICE',pattern:voice.pattern,baseMidi:voice.baseMidi,clock:voice.linked?'PULSE_LINKED':'FREE',mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace)}}
   if(mode==='VERSE'){
     const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
@@ -858,12 +977,32 @@ function drawLoci(){
   const source=String($('#lociSource').value||''),marks=storedMarks(source);
   pos.forEach((p,i)=>{const node=loci.nodes[i],active=i===loci.step,done=i<loci.step,marked=!!node&&marksForRange(marks,node.start,node.end).length>0;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle=marked?'#d7b46d':'#52616a';ctx.lineWidth=marked?2:1;ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(String(loci.nodes[i]?.text||'').slice(0,22),p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
 }
+function drawInkPathGuide(){
+  const guide=ink.pathGuide;if(!guide?.ok||!Array.isArray(guide.points)||guide.points.length<1)return;
+  const x0=W*.16,x1=W*.84,y0=H*.16,y1=H*.84;
+  ctx.save();ctx.lineWidth=1;
+  ctx.strokeStyle='rgba(123,213,255,.08)';
+  for(let i=0;i<8;i++){
+    const x=x0+(x1-x0)*(i/7),y=y0+(y1-y0)*(i/7);
+    ctx.beginPath();ctx.moveTo(x,y0);ctx.lineTo(x,y1);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+  }
+  const pts=guide.points.map(p=>({x:x0+(x1-x0)*p.x,y:y0+(y1-y0)*p.y,p}));
+  ctx.setLineDash([5,5]);ctx.strokeStyle='rgba(123,213,255,.46)';ctx.lineWidth=1.4;ctx.beginPath();
+  pts.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y));ctx.stroke();ctx.setLineDash([]);
+  pts.forEach((q,i)=>{ctx.fillStyle=i===0?'#d7b46d':i===pts.length-1?'#ef7849':'#7bd5ff';ctx.beginPath();ctx.arc(q.x,q.y,i===0||i===pts.length-1?4:3,0,TAU);ctx.fill()});
+  ctx.fillStyle='rgba(154,166,172,.78)';ctx.font='700 7px ui-monospace';ctx.textAlign='center';
+  ctx.fillText('CHANGE PATH · LOWER TRIGRAM → X · UPPER TRIGRAM → Y',W/2,H*.11);
+  ctx.fillText(guide.order.map(x=>'L'+x).join(' → '),W/2,H*.90);
+  ctx.restore();
+}
 function drawInk(t){
   if(t-ink.simAt>26){stepInk();ink.simAt=t}
   inkImage.data.set(ink.field.rgba({warmth:.10}));inkCtx.putImageData(inkImage,0,0);
   ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(inkCanvas,0,0,W,H);
+  drawInkPathGuide();
   const guide=INK_GUIDES[ink.guide];
-  if(guide){ctx.save();ctx.globalAlpha=.105;ctx.fillStyle='#344952';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText(guide,W/2,H/2);ctx.restore()}
+  if(guide&&!ink.pathGuide){ctx.save();ctx.globalAlpha=.105;ctx.fillStyle='#344952';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText(guide,W/2,H/2);ctx.restore()}
   if(t-ink.metricAt>180){ink.metricAt=t;syncInkMetrics()}
 }
 function dataPositions(){
@@ -906,11 +1045,11 @@ function currentProjectionEvidence(){
   }
   if(mode==='INK'){
     const metrics=ink.field.metrics();
-    return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water)};
+    return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water),guide:ink.pathGuide?.ok?{kind:'CHANGE_PATH',address:ink.pathGuide.address,states:ink.pathGuide.points.length,order:[...ink.pathGuide.order],projection:'LOWER_TRIGRAM_X__UPPER_TRIGRAM_Y'}:(INK_GUIDES[ink.guide]?{kind:'GLYPH',glyph:INK_GUIDES[ink.guide]}:null)};
   }
   if(mode==='DATA'){
-    const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,ladder=data.stateResidue;
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue;
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -957,5 +1096,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock()}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateLatticeHits||[]).map(x=>({...x}))}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});

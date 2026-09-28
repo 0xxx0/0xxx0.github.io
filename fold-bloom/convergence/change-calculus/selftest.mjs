@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
-  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steppedStatePath,exactFormCalculation,
+  lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,exactFormCalculation,
   steppedFormPath,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
@@ -26,6 +26,24 @@ for(const i of [0,1,5,17,119,719]){
   assert.equal(ranked.index,i);
 }
 assert.equal(stepOrderRank([1,2,3],[1,1,2]).ok,false);
+
+const steer0=steerStepOrder([1,3,5],[1,3,5],0,5);
+assert.equal(steer0.ok,true);
+assert.deepEqual(steer0.prefix,[]);
+assert.deepEqual(steer0.order,[5,1,3]);
+assert.equal(steer0.index,4);
+const steer1=steerStepOrder([1,3,5],steer0.order,1,3);
+assert.equal(steer1.ok,true);
+assert.deepEqual(steer1.prefix,[5]);
+assert.deepEqual(steer1.order,[5,3,1]);
+assert.deepEqual(steerStepOrder([1,3,5],steer1.order,1,5),{
+  ok:false,
+  schema:'fold-bloom-change-calculus/v0.1/step-steer',
+  reason:'NEXT_LINE_MUST_BE_UNMOVED',
+  cursor:1,
+  prefix:[5],
+  remaining:[3,1]
+});
 
 const state=transparentStateCalculation('010|100','011|110');
 assert.equal(state.ok,true);
@@ -57,6 +75,21 @@ assert.equal(stateStepReverse.selected_order_address,'order://1-of-2');
 assert.equal(stateStepReverse.steps[0].after_token,'H[010|110]');
 assert.notEqual(stateStep.steps[0].after_token,stateStepReverse.steps[0].after_token);
 assert.equal(steppedStatePath('010|100','011|110',[3,3]).ok,false);
+
+const lattice=changeLatticeCalculation('010|100','011|110');
+assert.equal(lattice.ok,true);
+assert.equal(lattice.dimensions,2);
+assert.equal(lattice.vertices,4);
+assert.equal(lattice.edges,4);
+assert.equal(lattice.maximal_one_line_paths,2);
+assert.equal(lattice.widest_rank,2);
+assert.deepEqual(lattice.ranks.map(x=>x.vertices),[1,2,1]);
+assert.ok(lattice.ranks.every(x=>x.total_chain_incidence===2));
+assert.deepEqual(lattice.vertex_set.map(x=>x.token).sort(),['H[010|100]','H[010|110]','H[011|100]','H[011|110]'].sort());
+assert.deepEqual(lattice.edge_set.map(x=>x.line).sort(),[3,3,5,5]);
+assert.equal(changeLatticeCalculation('000|000','111|111').vertices,64);
+assert.equal(changeLatticeCalculation('000|000','111|111').edges,192);
+assert.equal(changeLatticeCalculation('000|000','111|111').maximal_one_line_paths,720);
 
 const fromForm=['RETURN','FOLD','SPLIT','BLOOM','RETURN','SPLIT'];
 const toForm=['SPLIT','BLOOM','FOLD','FOLD','BLOOM','RETURN'];
@@ -127,6 +160,8 @@ const frame=appliedResearchFrame({
 assert.equal(frame.authority,'RESEARCH_WITNESS_ONLY');
 assert.equal(frame.state_step.possible_one_line_orders,2);
 assert.equal(frame.state_step.steps.length,2);
+assert.equal(frame.change_lattice.vertices,4);
+assert.equal(frame.change_lattice.maximal_one_line_paths,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
 assert.equal(frame.steering.top.status,'MULTIPLE_NATIVE_CANDIDATES');
 assert.equal(frame.promotion.status,'BLOCKED');
@@ -139,7 +174,7 @@ assert.ok(frame.residue.some(x=>x.includes('moving-line set loses step ordering'
 assert.equal(frame.residue_ladder.authority,'RESEARCH_WITNESS_ONLY');
 assert.equal(frame.residue_ladder.strongest_claim,'READ_SUPPORT_ONLY');
 assert.deepEqual(frame.residue_ladder.levels.map(x=>x.id),[
-  'EXACT_FORM','HEX_STATE','MOVING_SET','ORDERED_PATH','MODEL_READOUT','HOST_SUPPORT','CAUSAL_GATE'
+  'EXACT_FORM','HEX_STATE','MOVING_SET','ORDER_SPACE','ORDERED_PATH','MODEL_READOUT','HOST_SUPPORT','CAUSAL_GATE'
 ]);
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HEX_STATE')?.compression_ratio,64);
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.alternatives,2);
@@ -147,14 +182,16 @@ assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.ambiguity
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HOST_SUPPORT')?.native_candidate_count,3);
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='CAUSAL_GATE')?.failed_obligations,6);
 
-const stateOnlyResidue=residueLadder({state,stateStep});
+const stateOnlyResidue=residueLadder({state,stateStep,lattice});
 assert.equal(stateOnlyResidue.strongest_claim,'ORDERED_PATH_WITNESS');
-assert.deepEqual(stateOnlyResidue.levels.map(x=>x.id),['HEX_STATE','MOVING_SET','ORDERED_PATH']);
+assert.deepEqual(stateOnlyResidue.levels.map(x=>x.id),['HEX_STATE','MOVING_SET','ORDER_SPACE','ORDERED_PATH']);
+assert.equal(stateOnlyResidue.levels.find(x=>x.id==='ORDER_SPACE')?.dimensions,2);
 assert.equal(stateOnlyResidue.levels.find(x=>x.id==='HEX_STATE')?.compression_ratio,null);
 
 console.log(JSON.stringify({
   status:'PASS',
   state:{moving:state.moving,orders:state.metrics.one_line_step_orders,lineValues:state.iching_projection.line_values,stepPaths:[stateStep.steps.map(x=>x.after_token),stateStepReverse.steps.map(x=>x.after_token)]},
+  lattice:{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,ranks:lattice.ranks.map(x=>x.vertices)},
   quotient:{exactStates:4096,hexStates:64,fiber:64,invisibleExact:exact.metrics.quotient_invisible_exact_changes},
   exactStepOrders:stepped.possible_one_edit_orders,
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},

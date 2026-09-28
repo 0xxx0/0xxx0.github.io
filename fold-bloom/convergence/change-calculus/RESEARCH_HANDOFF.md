@@ -720,3 +720,57 @@ This is the reusable solve-for-all distinction:
 > **legibility, support, and permission are three different questions.**
 
 Do not collapse them into a single confidence score.
+
+## 2026-09-28 — order-space convergence
+
+The moving-line set is now represented as a **Boolean change lattice**, not merely an unordered Δ mask plus a list of permutations.
+
+For `k` moving lines:
+
+- reachable abstract intermediate states = `2^k`;
+- lawful one-line directed edges = `k · 2^(k-1)`;
+- complete one-line STEP orders = `k!` maximal chains;
+- rank `r` contains `C(k,r)` states;
+- every rank has exactly `k!` maximal-chain incidences because `C(k,r) · r! · (k-r)! = k!`.
+
+This matters because “720 orders” at six moving lines is misleading if treated as 720 unrelated trajectories. They are 720 maximal chains reusing only 64 addressed intermediate states and 192 one-line edges. The shared state-space is the stable object; STEP selects one chain through it.
+
+### FIELD LAB integration
+
+DATA now renders that shared order space behind the selected FROM → PATH → TO witness. The selected factoradic chain is highlighted; STEP advances along it; ORDER selects another maximal chain; FLOW only animates the witness. No path acquires LIVE authority.
+
+The LAB RETURN carries the bounded lattice summary (dimensions / vertices / edges / maximal chains) with the selected order witness, not a new state store.
+
+### J-space / steering implication
+
+A readout or steering hypothesis can at most nominate support inside a host's already-lawful option/state space. It does **not** determine a trajectory through that space. The distinction is now explicit:
+
+`STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`
+
+For future causal work, compare interventions at matched lattice addresses rather than comparing only endpoint labels. If two interventions reach the same endpoint by different lawful chains, endpoint equivalence is insufficient evidence that mechanism or consequence was equivalent.
+
+### Successor rule
+
+Prefer enriching this shared lattice/path witness over adding another “stepped” subsystem. If a host has a different native transition graph, derive its graph explicitly and preserve the same separation between state-space witness, selected path, model support, and effect authority.
+
+## Material projection: selected path → INK guide — 2026-09-28
+
+A selected STEP chain may now be carried into FIELD LAB INK as a **projection-only tracing guide**.
+
+The projection is deliberately transparent: every six-bit intermediate state becomes one point in an 8×8 matrix where the lower trigram binary value is the x coordinate and the upper trigram binary value is the y coordinate. The selected factoradic order becomes the polyline through those addressed states.
+
+CHANGE CALCULUS path → addressed 8×8 state-matrix geometry → faint INK guide → human brush gesture → INK RETURN evidence.
+
+The guide is `PROJECTION_ONLY`. It does not paint, select a path, promote J-space steering, or claim I Ching authorship. Once in INK, the visible stroke remains an authored wet-media trace; switching to a glyph guide discards the carried path guide rather than silently blending meanings.
+
+This is the intended convergence pattern: **same addressed object, unequal projections, explicit residue, authorship preserved**.
+
+## Prefix-preserving local steering donor — 2026-09-28
+
+Transferred the useful mechanism from draft PR #483 into this richer whole-lattice lineage. `steerStepOrder(...)` treats the already-witnessed STEP prefix as immutable, lets the user nominate exactly one still-unmoved line as NEXT, and re-ranks only the future suffix with the existing Lehmer/factoradic address.
+
+FIELD LAB exposes this as direct manipulation: future lines in the center stack are marked with a small steering aperture, and lawful one-edge lattice successors are ringed. Tapping either calls the same calculation-only steering primitive. No new control row, host mutation, LIVE `release()`, divinatory authority, or J-space causal promotion is introduced.
+
+The end-to-end browser proof now exercises a three-line interval: choose L5 first, witness it, choose L3 second while preserving prefix L5, then carry the resulting ordered path into INK and return authored pigment evidence.
+
+After this transfer is verified, PR #483 should remain provenance/donor only rather than a second maintained change-lattice implementation.
