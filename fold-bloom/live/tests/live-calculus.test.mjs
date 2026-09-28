@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {LIVE_CALCULUS_SCHEMA,recentExactForm,buildLiveCalculation,liveCalculationSummary} from '../live-calculus.js';
+import {LIVE_CALCULUS_SCHEMA,forecastSeekDelta,recentExactForm,buildLiveCalculation,liveCalculationSummary} from '../live-calculus.js';
 
 const history=verbs=>verbs.map((verb,i)=>({kind:'RELEASE',id:i+1,verb}));
 
@@ -25,6 +25,15 @@ test('partial release history refuses to pretend a complete HEX witness exists',
   assert.equal(r.count,3);
   assert.equal(r.hex,null);
   assert.equal(r.exact_token,null);
+});
+
+test('forecast seek delta chooses the shortest signed rotation without implying a release',()=>{
+  assert.equal(forecastSeekDelta(0,0,12),0);
+  assert.equal(forecastSeekDelta(0,1,12),-1);
+  assert.equal(forecastSeekDelta(0,11,12),1);
+  assert.equal(forecastSeekDelta(8,4,12),0);
+  assert.equal(forecastSeekDelta(0,6,12),6);
+  assert.equal(forecastSeekDelta(11,0,12),1);
 });
 
 test('LIVE calculus keeps native control, model support, history quotient and traversal authority separate',()=>{
@@ -60,6 +69,13 @@ test('LIVE calculus keeps native control, model support, history quotient and tr
   assert.equal(w.native.candidate_count,4);
   assert.equal(w.native.candidate_ambiguity_bits,2);
   assert.deepEqual(w.native.candidates_by_verb,{BLOOM:1,FOLD:2,SPLIT:0,RETURN:1});
+  assert.equal(w.native.choice_aperture.authority,'HUMAN_NAVIGATION_ONLY');
+  assert.equal(w.native.choice_aperture.all_before_one,true);
+  assert.equal(w.native.choice_aperture.release_separate,true);
+  assert.equal(w.native.candidates.length,4);
+  assert.equal(w.native.candidates.find(x=>x.slot===4)?.seek_delta,0);
+  assert.equal(w.native.candidates.find(x=>x.slot===4)?.steering_supported,false);
+  assert.match(w.formulas.direct_seek,/never implies RELEASE/i);
   assert.equal(w.recent.authority,'HISTORY_ONLY');
   assert.equal(w.recent.hex.control_sufficient,false);
   assert.equal(w.steering.authority,'PREVIEW_ONLY');
