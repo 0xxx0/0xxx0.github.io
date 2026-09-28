@@ -301,14 +301,18 @@ check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
 check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
-check(home.includes('FIELD / FOCUS'),'root missing FIELD / FOCUS compositor');
+check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missing held-object + glyph-field compositor');
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>PORTS / EXIT STATE<'),'root missing PORTS / EXIT STATE reading');
 check(home.includes('REALITY GAP / YOU')&&(home.includes('ACTIVE / WORLD EVIDENCE REQUIRED')||home.includes('ACTIVE / NEEDS YOUR EVIDENCE'))&&home.includes('PARKED / NOT NEEDED NOW')&&home.includes('HISTORY / REMOVED'),'root missing reality-gap / WAITING lifecycle split');
 if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARKED&&fi.ui_contract?.root_ports,'FIELD INDEX port taxonomy contract missing');}
-check(home.includes('ROUTES / FIELD SURFACE')&&home.includes('CHANGE / GIT'),'root missing route-first field surface + collapsed exact-change aperture');
+{
+  const held=home.indexOf('id="aperture"'),field=home.indexOf('id="feedRail"'),refine=home.indexOf('id="refineFold"'),catchup=home.indexOf('id="catchupFold"'),status=home.indexOf('id="statusFold"'),change=home.indexOf('id="changeFold"');
+  check(held>=0&&field>held&&refine>field&&catchup>refine&&status>catchup&&change>status,'root missing one-object field → latent refine → attention → status contraction');
+  check(!home.includes('id="scaleRail"'),'root regressed to exposed semantic-scale controls');
+}
 check(home.includes('routeGitDrift()')&&home.includes('function tsMs('),'root missing offset-aware INDEX↔GIT drift witness');
 check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missing Φ host / φ focus truth frame');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
