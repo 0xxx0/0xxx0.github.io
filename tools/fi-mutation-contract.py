@@ -44,11 +44,46 @@ import json
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 MANIFEST = "showcase-manifest.json"
 VALID_MODES = {"RECOVER", "INVESTIGATE", "RESEARCH", "SPECULATE", "SPECIFY",
                "IMPLEMENT", "VERIFY", "OPERATE", "RELEASE", "UNKNOWN"}
+
+# Canonical stamp form: ISO 8601, whole seconds, and ONE specific offset — +08:00, the offset
+# this repo's git commits carry. Mixed formats make route.index.updated_at sort wrongly: a UTC
+# stamp reads 8 hours OLDER than its +08:00 peer, and a fractional-seconds stamp sorts by string
+# in the wrong place. Measured 2026-09-29: 156 routes carried 5 different formats, so the FIELD
+# INDEX ordering was quietly wrong. Accepting "any offset" is NOT enough — the offset itself has
+# to be pinned, or `+00:00` sails through and the ordering bug survives the fix.
+CANONICAL_STAMP = re.compile(r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\+08:00$")
+
+
+def canonicalise_stamp(value):
+    """Return (canonical_stamp, note). Normalises rather than refuses, and SAYS what it did.
+
+    Normalising silently is how the mixed formats arose; normalising loudly makes the
+    coercion visible in the run output instead of hidden in the file.
+    """
+    if value is None:
+        return None, None
+    s = str(value).strip()
+    if CANONICAL_STAMP.match(s):
+        return s, None
+    note = f"normalised --at {s!r} -> "
+    if re.match(r"^\d{4}-\d\d-\d\d$", s):
+        s = s + "T00:00:00+08:00"
+        return s, note + repr(s) + " (bare date read as local midnight)"
+    t = s.replace("Z", "+00:00")
+    t = re.sub(r"^(.*T\d\d:\d\d)([+-]\d\d:\d\d)$", r"\1:00\2", t)   # add missing seconds
+    try:
+        dt = datetime.fromisoformat(t)
+    except Exception:
+        raise SystemExit(f"REFUSED: --at {value!r} is not a parseable ISO 8601 timestamp")
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    out = dt.astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    return out, note + repr(out) + " (+08:00, instant preserved)"
 
 
 def hrefs_for_paths(paths, routes):
@@ -239,6 +274,9 @@ def main() -> int:
         if not at:
             print("REFUSED: --at is required with --routes", file=sys.stderr)
             return 2
+        at, note = canonicalise_stamp(at)
+        if note:
+            print(f"  {note}")
 
     missing = [h for h in wanted if h not in by_href]
     if missing:

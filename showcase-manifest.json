@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29",
+  "updated": "2026-09-22T05:59:03+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,19 +16,18 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-28T19:25:50+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Native held-object actions may now come directly from an addressed capability without moving source/effect authority; Prison Age is the first source-set proof with READ / RIDE / SOURCE. Semantic signal remains local to the address that owns it.",
+      "role": "FIELD INDEX root: one glyph field + one held object. Semantic signal is local to the address that owns it: compact marks and the held header may show route-owned CHANGED/REALITY/EXTERNAL/MIXED patterns while global CATCH remains a separate aggregate. Exact CURRENT heads retain the VIEW-only latent project glyph. Identity, priority and native effect authority do not move into pattern.",
       "receipt": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
       "machine_view": "FIELD",
-      "version": "0.8.20",
+      "version": "0.8.19",
       "transfer": [
-        "0.8.20 source-set native actions: held PRISON AGE exposes READ / RIDE / SOURCE directly; exact source authority remains PRISON_AGE and READ/RIDE RETURN to the held FIELD object",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
         "0.8.17 one-object contraction: remove exposed scale rail; held object + glyph field become the root instrument; AXIAL/capability/witness move under REFINE / PROVE; CHANGE/GIT + glyph key move under STATUS; compression must keep residue named/recoverable",
@@ -3702,7 +3701,13 @@
       },
       "alias_of": "/docs/",
       "redirects_to": "/docs/",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "index": {
+        "updated_at": "2026-09-25T12:21:07+08:00",
+        "work_modes": [
+          "IMPLEMENT"
+        ]
+      }
     },
     {
       "href": "/foundry/axial/",
@@ -4097,7 +4102,7 @@
         "physical_fit": "Prove digital↔physical mapping invariants before trusting an adapter."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T00:00:00+08:00",
         "work_modes": [
           "VERIFY",
           "RELEASE"
@@ -5050,7 +5055,7 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-09-28T17:45:06+00:00",
+        "updated_at": "2026-09-29T01:45:06+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
@@ -5560,7 +5565,7 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T09:21:54.530563+00:00",
+        "updated_at": "2026-09-21T17:21:54+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -6840,7 +6845,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:09:24+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -6906,7 +6911,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:09:24+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -6946,7 +6951,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:09:24+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7019,7 +7024,7 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-09-21T14:37:48.549192+00:00",
+        "updated_at": "2026-09-21T22:37:48+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -7563,7 +7568,13 @@
       "alias_of": "/sleeper/one-return/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
       "operation": "REDIRECT",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "index": {
+        "updated_at": "2026-09-22T05:59:03+08:00",
+        "work_modes": [
+          "IMPLEMENT"
+        ]
+      }
     },
     {
       "href": "/sleeper/ascii-pov-0.8/project/",
@@ -7575,7 +7586,13 @@
       "alias_of": "/sleeper/project/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
       "operation": "REDIRECT",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "index": {
+        "updated_at": "2026-09-22T05:59:03+08:00",
+        "work_modes": [
+          "IMPLEMENT"
+        ]
+      }
     },
     {
       "href": "/sleeper/borrowed-river/",
@@ -7589,7 +7606,7 @@
       "role": "Draw a finite river around stone, sail branching landings, and return along your actual strokes; original painting voyage with replay-validated save/return.",
       "receipt": "/sleeper/borrowed-river/release.json",
       "index": {
-        "updated_at": "2026-09-21T20:16:13.936Z",
+        "updated_at": "2026-09-22T04:16:13+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8436,18 +8453,18 @@
       "kind": "artifact",
       "parent": "/",
       "family": "PRISON AGE",
-      "operation": "READ / RIDE / SOURCE",
+      "operation": "READ / RIDE",
       "state": "ACTIVE",
-      "version": "0.4",
+      "version": "0.3",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
-      "role": "FIELD-held source set. Four exact sourced movements remain primary; READ opens READFIELD, RIDE traverses the same addressed bytes in FOLD//BLOOM LIVE, SOURCE inspects identity/provenance. No bespoke narrative reader remains active.",
+      "latest_return": "/returns/PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
+      "role": "Source-first Prison Age doorway. Exact sourced movements remain primary; READ opens READFIELD and RIDE sends the same addressed bytes into FOLD//BLOOM LIVE STEP mode. No generated story framing, no active P26 motif/path, no canon reading order.",
       "transfer": [
-        "FIELD held source set → READ exact source in READFIELD",
-        "FIELD held source set → RIDE exact same bytes in FOLD//BLOOM LIVE",
-        "FIELD held source set → SOURCE identity/provenance resolver",
-        "READ/RIDE → exact FIELD held object RETURN when launched from FIELD"
+        "exact Prison Age story address + bytes → READFIELD",
+        "exact same story bytes + source identity → FOLD//BLOOM LIVE field-read-ride/v0.1",
+        "READ/RIDE → exact /prison-age/?story=<id> return",
+        "reader 0.2 source extraction/tests → preserved lineage; motif/path/pressure framing frozen"
       ],
       "contract": {
         "accepts": {
@@ -8457,34 +8474,34 @@
           ]
         },
         "transforms": {
-          "verb": "hold one source set, choose an exact movement, project it through READ or RIDE without changing source authority",
+          "verb": "choose an exact sourced movement, then READ or RIDE the same bytes through an existing host",
           "preserves": [
             "source address",
             "source bytes",
             "source status",
             "story identity",
-            "return address"
+            "exact return route"
           ],
-          "reversibility": "exact story resolver or FIELD focus return",
+          "reversibility": "source selector / exact URL re-entry / return from READFIELD or LIVE",
           "side_effects": "session-local READ/RIDE handoff only; no source mutation"
         },
         "emits": {
           "kinds": [
             "READFIELD source projection",
-            "field-read-ride/v0.1 traversal handoff",
-            "source identity/provenance view"
+            "field-read-ride/v0.1 handoff",
+            "shareable story URL"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
           "receipt": "/prison-age/release.json",
-          "return_path": "/?focus=%2Fprison-age%2F"
+          "return_path": "/prison-age/"
         }
       },
       "field": {
         "roles": [
-          "SOURCE_SET",
+          "SOURCE",
           "WORLD_THROUGH"
         ],
         "inputs": [
@@ -8498,55 +8515,99 @@
           {
             "medium": "TEXT",
             "kind": "READFIELD projection",
-            "interface": "READ"
+            "interface": "READ SOURCE"
           },
           {
             "medium": "EXPERIENCE",
             "kind": "FOLD//BLOOM LIVE STEP traversal",
-            "interface": "RIDE"
+            "interface": "RIDE SAME SOURCE"
           },
           {
             "medium": "DATA",
-            "kind": "source identity/provenance",
-            "interface": "SOURCE"
+            "kind": "exact source/return identity",
+            "interface": "field-read-ride/v0.1"
           }
         ],
         "exit_paths": [
           {
             "class": "READFIELD",
             "status": "AVAILABLE",
-            "via": "READ",
-            "target": "/prison-age/?story=open-air&action=read&return=field"
+            "via": "READ SOURCE"
           },
           {
             "class": "FOLD_BLOOM_LIVE",
             "status": "AVAILABLE",
-            "via": "RIDE",
-            "target": "/prison-age/?story=open-air&action=ride&return=field"
+            "via": "RIDE SAME SOURCE"
           },
           {
             "class": "RAW_SOURCE",
             "status": "AVAILABLE",
-            "via": "SOURCE",
-            "target": "/prison-age/?story=open-air&return=field"
+            "via": "RAW SOURCE"
           }
         ]
       },
-      "classification": "RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
+      "classification": "RECOVERED_2026_SOURCE / SOURCE_DOORWAY",
       "evolution": {
-        "mutation": "Rejected bespoke reader/pack removed from runtime; exact source set becomes one FIELD-held object with three native operations.",
-        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
+        "mutation": "Reader 0.2 is frozen; active route contracts to exact source selection plus two unequal existing projections.",
+        "question": "Can LIVE make authored Prison Age text more traversable without becoming the content?"
       },
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-28T17:08:00+08:00",
         "work_modes": [
           "READ",
           "RIDE",
-          "SOURCE",
           "RETURN"
         ]
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/prison-age/reader-0.2/",
+      "title": "PRISON AGE // READER 0.2 (FROZEN)",
+      "kind": "artifact",
+      "parent": "/prison-age/",
+      "family": "PRISON AGE",
+      "operation": "ARCHIVE",
+      "state": "FROZEN_DONOR",
+      "version": "0.2",
+      "showcase_card": false,
+      "receipt": "/prison-age/reader-0.2/release.json",
+      "role": "Preserved failed reader projection: exact sourced story bodies plus rejected P26 motif/path/pressure framing. Lineage only; not current authority.",
+      "classification": "FAILED_PROJECTION / PRESERVED_LINEAGE",
+      "tier": "DONOR",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "historical frozen reader state"
+          ]
+        },
+        "transforms": {
+          "verb": "inspect only",
+          "preserves": [
+            "frozen bytes",
+            "source boundary"
+          ],
+          "reversibility": "return to /prison-age/",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "lineage inspection"
+          ],
+          "machine_readable": false,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/prison-age/reader-0.2/release.json",
+          "return_path": "/prison-age/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-28T17:08:00+08:00",
+        "work_modes": [
+          "ARCHIVE"
+        ]
+      }
     }
   ],
   "release_law": [
