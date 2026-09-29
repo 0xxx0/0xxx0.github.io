@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -52,7 +53,25 @@ const cases=[
     {},'ARCHIVE'],
   ['Q empty packet archives',
     {packet_id:'empty'},
-    {},'ARCHIVE']
+    {},'ARCHIVE'],
+  ['R canonical WAITING outranks NEXT',
+    {OBJECT:{id:'canon-gate'},WAITING:'real device',NEXT:'continue'},
+    {},'GATE'],
+  ['S canonical witnessed DELTA survives',
+    {OBJECT:{id:'canon-delta'},DELTA:{material:true,summary:'changed'},EVIDENCE:{sufficient:true,refs:['proof']}},
+    {},'DELTA'],
+  ['T canonical RESIDUE outranks witnessed DELTA',
+    {OBJECT:{id:'canon-residue'},RESIDUE:'one unresolved seam',DELTA:{material:true},EVIDENCE:{sufficient:true}},
+    {},'RESIDUE'],
+  ['U RETURN/replan-only canonical NEXT is terminal re-entry, not continuation',
+    {OBJECT:{id:'canon-return'},NEXT:'RETURN to CURRENT and replan. Do not auto-continue.',DELTA:{material:true},EVIDENCE:{sufficient:true}},
+    {},'DELTA'],
+  ['V canonical STOP blocks NEXT',
+    {OBJECT:{id:'canon-stop'},STOP:'closed by RETURN',NEXT:'continue'},
+    {},'ARCHIVE'],
+  ['W canonical conditional STOP is GATE',
+    {OBJECT:{id:'canon-stop-until'},STOP:{explicit:true,until:'real device evidence'},NEXT:'continue'},
+    {},'GATE']
 ];
 
 assert.deepEqual(EGRESS_CLASSES,['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']);
@@ -73,4 +92,10 @@ const precedence=reducePacket({
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
 
-console.log('FIELD packet egress reducer PASS · A-Q · GATE>NOW>RESIDUE>NEXT>DELTA>ARCHIVE');
+const root=readFileSync('index.html','utf8');
+assert.match(root,/gap=catchGap\(r\)/,'FIELD route adapter must classify the same MORE HERE gap as RESIDUE');
+assert.match(root,/delta:\{material:true,updated_at:r\.index\?\.updated_at\|\|null/,'changed route must declare material DELTA');
+assert.match(root,/evidence:\{sufficient:true,refs:\['\/showcase-manifest\.json',r\.href\]\}/,'changed route DELTA must carry manifest evidence');
+assert.doesNotMatch(root,/data-mode="PULSE"/,'redundant MAP/PULSE control must stay retired');
+assert.doesNotMatch(root,/mapMode==='PULSE'/,'redundant PULSE renderer must stay retired');
+console.log('FIELD packet egress reducer PASS · A-W · authority + witnessed DELTA + canonical aliases + terminal RETURN + PULSE subtraction');
