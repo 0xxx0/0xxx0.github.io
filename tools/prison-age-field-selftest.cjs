@@ -17,8 +17,9 @@ for(const [id,x] of Object.entries(sources.stories)){
   assert(!Object.prototype.hasOwnProperty.call(x,'engine'),id+' interpretive engine removed');
   assert(!Object.prototype.hasOwnProperty.call(x,'token'),id+' interpretive token removed');
 }
-assert(release.status==='FIELD_SOURCE_SET / NO_BESPOKE_READER','release contraction');
-assert(release.operation==='READ / RIDE / SOURCE','release operations');
+assert(release.status==='FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE','release contraction + echo depth');
+assert(release.operation==='READ / RIDE / SOURCE · passive ECHO in READ/RIDE','release operations');
+assert(release.echo?.schema==='field-source-echo-index/v0.1'&&release.echo?.authority==='EVIDENCE_ONLY','echo release boundary');
 assert(release.field.native_actions.join('|')==='READ|RIDE|SOURCE','FIELD native actions');
 assert(release.retired_runtime.status==='REMOVED_FROM_RUNTIME_TREE','retired runtime status');
 
@@ -57,9 +58,11 @@ assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
 const route=prisonRoutes[0];
 assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE','single active FIELD route');
 assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
-assert(route.version==='0.4.1','FIELD route version');
+assert(route.version==='0.5','FIELD route version');
+assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
 assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','FIELD work modes');
 assert(route.field.exit_paths.length===3,'exactly three native exits');
+assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');
 
 assert(field.includes("owner:'PRISON AGE'"),'FIELD capability owner');
@@ -75,4 +78,6 @@ assert(sources.stories['last-stall'].source_fingerprint?.value==='1856b483','Las
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
 assert(fh?.route==='/'&&String(fh?.head||'').includes('FIELD INDEX'),'FIELD head missing');
 assert((fh?.evidence||[]).includes('/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json'),'FIELD head lost Prison Age source-intent evidence');
-console.log('PRISON AGE → FIELD EXPLICIT SOURCE INTENT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
+assert(fh?.version==='0.8.22','source ECHO must not advance FIELD head');
+assert(!(fh?.evidence||[]).includes('/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json'),'projection-depth ECHO must not claim FIELD-head evidence');
+console.log('PRISON AGE → FIELD SOURCE INTENT + ECHO PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');

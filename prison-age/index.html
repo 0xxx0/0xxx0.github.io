@@ -59,7 +59,7 @@ async function loadStory(id){
 }
 function readSource(){
   if(!story)return;
-  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',returnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');location.href=u.pathname+u.search;
+  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',returnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');u.searchParams.set('echo','/prison-age/echo-index.json');u.searchParams.set('echo_source',story.id);location.href=u.pathname+u.search;
 }
 async function rideSource(){
   if(!story||!source.trim())return;
@@ -69,7 +69,8 @@ async function rideSource(){
     source,label:'PRISON AGE · '+story.title,
     sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
     focus:{char_index:0,source_progress:0},
-    from:sourceUrl(),returnAddress:returnUrl()
+    from:sourceUrl(),returnAddress:returnUrl(),
+    echo:{index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'}
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
   $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
