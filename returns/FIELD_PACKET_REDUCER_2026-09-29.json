@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.2",
+  "id": "FIELD_PACKET_REDUCER_2026-09-29",
+  "route": "/",
+  "state": "CANDIDATE_PENDING_CI",
+  "before": "FIELD CATCH + ACT already aggregated CURRENT fronts, addressed manifest touches, CURRENT world gates and GitHub issues, but those sources had no shared executable egress reduction law.",
+  "operation": "Add field-packet-reducer/v0.1 and project its NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE vocabulary through the existing CATCH + ACT surface. Reuse the already-merged COAXIALITY audit gate; do not create another audit framework, route, queue, planner, store, or effect authority.",
+  "delta": [
+    "/lib/field-packet-reducer.js implements deterministic reduction with required OBJECT + AUTHORITY, explicit precedence, invalid-packet quarantine and RETURN dispositions.",
+    "/control/FIELD_PACKET_REDUCER.json defines packet fields, bucket semantics and non-goals.",
+    "FIELD root adds one read-only REDUCE line inside existing CATCH + ACT; CURRENT / manifest / GitHub / held-focus sources keep native authority.",
+    "CI verifies the reducer against the current executable /control/FIELD_COAXIALITY_AUDIT.json."
+  ],
+  "authority": {
+    "NOW": "/control/CURRENT.json only",
+    "DELTA": "source evidence remains source-owned; manifest touch is addressed projection evidence, not Git chronology",
+    "RESIDUE": "unresolved returned work or unproved material claim",
+    "GATE": "external human/device/world/private prerequisite; never ACTIVE merely by existing",
+    "NEXT": "OFFER_ONLY; at most three candidate moves; no inherited execution authority",
+    "ARCHIVE": "closed/non-actionable/invalid packet; ordinary attention excludes it"
+  },
+  "evidence": [
+    "/control/FIELD_PACKET_REDUCER.json",
+    "/lib/field-packet-reducer.js",
+    "/tools/field-packet-reducer-selftest.cjs",
+    "/control/FIELD_COAXIALITY_AUDIT.json",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "tests": {
+    "static": "PASS_BY_CONSTRUCTION",
+    "ci": "PENDING"
+  },
+  "residue": [
+    "The original 18 packet bodies were not recovered and are not fabricated. This reducer accepts any bounded packet that supplies the canonical fields.",
+    "Do not claim shipped/current until exact-head CI is green and the PR is merged."
+  ],
+  "return": {
+    "disposition": "TRIGGER",
+    "next": [
+      "Run exact-head CI.",
+      "Merge only if checks are green.",
+      "Seal CURRENT/RETURN truth after merge without extending product scope."
+    ]
+  }
+}
