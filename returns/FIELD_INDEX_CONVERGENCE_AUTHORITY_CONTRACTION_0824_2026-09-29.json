@@ -1,0 +1,60 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29",
+  "status": "PR_CANDIDATE_EXACT_CURRENT_MASTER",
+  "date": "2026-09-29",
+  "route": "/",
+  "version": "0.8.24",
+  "base": "09bec14a89ec273acc83f4fa185d5178b97d994b",
+  "host_delta": "Remove the stale parallel convergence-dashboard authority: FIELD root owns the convergence read; /nexus/ is a compatibility alias while board/map remain direct utilities.",
+  "law": "CONVERGENCE READ ≠ AUTHORITY. Root composes QUEUE + federation-atlas read-only; CURRENT owns attention/NOW; RETURN owns durable evidence; native host actions remain manifest-derived; board/map utilities cannot mint NEXT.",
+  "changes": [
+    "/index.html — CONVERGE points at embedded convRead; #convRead opens re-entry; exact NEXUS alias remains reachable",
+    "/nexus/index.html — stale hard-coded dashboard becomes compatibility alias to /#convRead",
+    "/tools/nexus-surface.test.mjs — alias contract + board/map integrity; contracted 4-link root is explicit",
+    "/control/FIELD_INDEX_CONTRACT.json — convergence-authority boundary",
+    "/AGENTS.md — canonical convergence re-entry moved to /#convRead",
+    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation",
+    "/tools/browser-smoke.mjs — FIELD critical smoke now expects CONVERGE / READ while independently requiring exact ./nexus/ compatibility reachability"
+  ],
+  "preserves": [
+    "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
+    "explicit generic READ / RIDE / SOURCE source intent",
+    "shared carrier HOLD / TURN / RELEASE / TRACE / RETURN",
+    "one held FIELD object",
+    "CURRENT owns NOW",
+    "RETURN owns durable evidence",
+    "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE reducer",
+    "NEXUS board + system map as direct utilities",
+    "no new route, queue, store, planner, shell or dashboard",
+    "root RECOVER cold-start/re-entry capability"
+  ],
+  "verify": [
+    "node tools/field-action-aperture-selftest.mjs",
+    "node tools/audit-route-grammar.mjs",
+    "node tools/nexus-surface.test.mjs",
+    "node tools/prison-age-field-selftest.cjs",
+    "node scripts/check-route-registration.mjs",
+    "public-surface-check",
+    "gitleaks",
+    "browser/static hash contract: /nexus/ → /#convRead opens FIELD re-entry",
+    "node tools/browser-smoke.mjs"
+  ],
+  "corrections": [
+    "r1 preserved /nexus/ exact reachability after FIELD aperture guard exposed its loss",
+    "r1 adopted existing alias grammar after route-grammar guard rejected invented COMPAT_ALIAS state",
+    "r2 restored the exact generic source-intent sentence required by #605",
+    "r2 calibrated stale-dashboard link-count sanity from >=12 to the contracted alias's four explicit local exits",
+    "r3 rebased onto merged #618 host-action derivation rather than overwriting its root/contract/manifest law",
+    "r3 critical browser smoke exposed one stale UI-label invariant (CONVERGE / NEXUS); updated to CONVERGE / READ + explicit NEXUS alias link without reducing route/boot coverage",
+    "r3 folded merged #620 root RECOVER capability back into manifest work_modes and restored the explicit neutral-unowned-route host boundary",
+    "r4 applied only the proven convergence seam after fast-forwarding to current master; all concurrent Prison Age, Two Dial, workflow and non-root manifest changes remain untouched",
+    "rebuilt over exact current master after #630/#631/#634; current Prison Age activity grammar and Two Dial cache repair preserved"
+  ],
+  "residue": [
+    "board.html and map.html remain snapshots/utilities; they do not gain attention or execution authority",
+    "NEXUS uses existing manifest alias grammar: kind=alias, alias_of=/, state=UTILITY."
+  ],
+  "stop": "Merge only on exact-head green proof. After merge, do not create another convergence dashboard; reopen only for observed re-entry failure or authority ambiguity.",
+  "predecessor_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json"
+}
