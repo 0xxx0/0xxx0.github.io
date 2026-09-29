@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T01:28:00+08:00",
+  "updated": "2026-09-29T09:08:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -94,10 +94,15 @@
       "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
       "repo_verification": {
         "status": "PASS",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
-        "merge_commit": "a175e4ea74b65109066f3c7e7444004d339e9ced",
-        "pr_checks": "PASS · public-surface-check 36414534341; Route Registration 36414534526; gitleaks 36414534573",
-        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; ship-check --fast 64/64"
+        "field_signal_locality_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
+        "field_signal_locality_merge": "a175e4ea74b65109066f3c7e7444004d339e9ced",
+        "prison_age_source_first_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/505",
+        "prison_age_source_first_merge": "6e7266e08086f45cf71d62f2f192c7a994ea16bf",
+        "prison_age_field_merge": "4ea379c4ada3aac5295a3789cb921909c6dc573f",
+        "prison_age_field_proof_head": "eb2a5b290f79a699d7799d1eaa3ae66bd312203b",
+        "prison_age_field_checks": "PASS · Route Registration 36459813350; public-surface-check 36459813380; gitleaks 36459813346",
+        "manifest_truth_commit": "9e817ba5ec3244670fc8bd57c9ca5132bca92289",
+        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; prison-age-field-selftest; prison-age-field-smoke"
       }
     },
     {
