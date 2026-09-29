@@ -179,7 +179,7 @@ kbd{border:1px solid #44525a;border-bottom-width:2px;padding:1px 4px;border-radi
 </aside>
 </div>
 
-<footer class="bottom"><span id="status" class="status">PLAY: learn one mechanic at a time; nothing important is hidden.</span><span id="saveState" class="pill">local save</span></footer>
+<footer class="bottom"><span id="status" class="status">PLAY: learn one mechanic at a time; nothing important is hidden.</span><a id="wordReturn" href="/poetry/" hidden>↩ WORD / VERSE</a><span id="saveState" class="pill">local save</span></footer>
 </div>
 
 <div class="overlay" id="welcome">
@@ -409,7 +409,20 @@ function renderSourceTruth(){
  let rows=[['SOURCE',src?.name||'CUSTOM'],['STATUS',S.sourceId==='verse'?'user composition':'compact transcription / derived fixture'],['LAW',S.law],['PATH',S.path.length+' addressed cells'],['READING',reading().slice(0,80)||'∅'],['PROMISE','source and law remain recoverable'],['NOT CLAIMED','visual/audio similarity = semantic identity']];
  e.innerHTML=rows.map(r=>`<b>${r[0]}</b><span>${r[1]}</span>`).join('')
 }
-$('#loadCustom').onclick=()=>{let t=$('#customSource').value.trim();if(!t){toast('PASTE A SOURCE FIRST');return}SOURCES.push({id:'custom'+Date.now(),name:'CUSTOM SOURCE',section:'U',note:'user supplied',text:t});S.sourceId=SOURCES.at(-1).id;S.law='ROWS';S.matrixW=9;buildGrid();renderSources();toast('CUSTOM SOURCE LOADED')};
+function loadCustomSource(text,note='user supplied'){
+ let t=String(text||'').trim();if(!t)return false;
+ SOURCES.push({id:'custom'+Date.now(),name:'CUSTOM SOURCE',section:'U',note,text:t});S.sourceId=SOURCES.at(-1).id;S.law='ROWS';S.matrixW=9;S.custom=[];$('#law').value='ROWS';$('#customSource').value=t;buildGrid();renderSources();return true
+}
+function safeWordReturn(value=''){try{const u=new URL(String(value||''),location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch(_){return''}}
+function recoverWordHandoff(){
+ try{
+  if(!new URLSearchParams(location.search).has('handoff'))return null;
+  const h=JSON.parse(sessionStorage.getItem('field.word.handoff.v01')||'null');sessionStorage.removeItem('field.word.handoff.v01');
+  if(h?.schema!=='field-word-source/v0.1'||typeof h.source!=='string'||!h.source.trim())return null;
+  return{...h,from:safeWordReturn(h.from)}
+ }catch(_){return null}
+}
+$('#loadCustom').onclick=()=>{if(!loadCustomSource($('#customSource').value,'user supplied')){toast('PASTE A SOURCE FIRST');return}toast('CUSTOM SOURCE LOADED')};
 $('#exportSession').onclick=()=>{let a=document.createElement('a');a.download='anthropy-session.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.click()};
 $('#importSession').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let q=JSON.parse(await f.text());S={...S,...q};hydrate();toast('SESSION IMPORTED')}catch(err){toast('INVALID SESSION')}};
 $('#resetAll').onclick=()=>{if(confirm('Reset local ANTHROPY session?')){localStorage.removeItem('anthropy-pathweaver-v1');location.reload()}};
@@ -425,7 +438,12 @@ $('#helpBtn').onclick=()=>$('#help').classList.remove('hidden');$('#closeHelp').
 $('#leftToggle').onclick=()=>$('#left').classList.toggle('mobileHidden');$('#rightToggle').onclick=()=>$('#right').classList.toggle('mobileHidden');
 addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='1')setMode('PLAY');if(e.key==='2')setMode('COMPOSE');if(e.key==='3')setMode('FORGE');if(e.key==='4')setMode('SOURCE');if(e.key==='?')$('#help').classList.remove('hidden');if(e.code==='Space'){e.preventDefault();performPath(S.path,S.grid,+($('#tempo')?.value||108),$('#scale')?.value||'pent')}});
 
+const wordInbound=recoverWordHandoff();
 load();hydrate();
+if(wordInbound&&loadCustomSource(wordInbound.source,'held source from WORD / VERSE')){
+ $('#welcome').classList.add('hidden');S.sandbox=true;$('#hero').style.display='none';setMode('PLAY');
+ const back=$('#wordReturn');back.hidden=false;back.href=wordInbound.from||'/poetry/';toast('HELD SOURCE RECEIVED')
+}
 </script>
 </body>
 </html>
