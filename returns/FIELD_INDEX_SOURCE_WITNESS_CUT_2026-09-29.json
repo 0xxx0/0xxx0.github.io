@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_SOURCE_WITNESS_CUT_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE_EXACT_HEAD_PENDING",
+  "object": "FIELD Index 0.8.23 source-witness convergence cut over the canonical packet-egress reducer",
+  "source_instruction": "Take point across FIELD INDEX; converge packet returns, COAXIALITY/A-H audit discipline, live CURRENT, stale compatibility surfaces and machine snapshots without producing another dashboard or authority layer.",
+  "recovered": [
+    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs already merged on master while this pass was in flight",
+    "/control/FIELD_COAXIALITY_LAW.json already owns Tests A–H deletion/repair acceptance",
+    "existing FIELD root CONVERGENCE READ already occupied the correct depth but restated stale QUEUE + atlas views",
+    "CURRENT / WAITING / Git chronology already carried the stronger authority boundaries needed for one source cut"
+  ],
+  "delta": [
+    "/lib/field-source-cut.mjs adapts unequal existing sources into the already-canonical NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE classes",
+    "/tools/field-source-cut-selftest.mjs proves CURRENT-only NOW, semantic-Git DELTA, parked residue, world gates, NEXT≤3, history archive and source freshness/conflict",
+    "FIELD root replaces the old raw QUEUE/atlas convergence reading with SOURCE WITNESS + FIELD EGRESS inside the same collapsed re-entry fold",
+    "CONVERGE / NEXUS becomes CONVERGE / FIELD; NEXUS and COMMS remain exactly reachable as snapshot/depth surfaces",
+    "source rows expose SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT",
+    "public-surface CI now executes the source-cut proof beside the canonical packet reducer"
+  ],
+  "invariants": [
+    "CURRENT alone owns NOW and CURRENT-authorized NEXT",
+    "Git remains literal chronology; nexus:/comms: refresh commits remain chronology but are excluded from semantic DELTA",
+    "WAITING registry state, QUEUE compatibility state and atlas planning state never manufacture priority",
+    "source freshness never becomes source authority",
+    "no new route, dashboard, packet cache, store, queue, bus or planner"
+  ],
+  "known_limits": [
+    "The external void-anchor/ops-hub process that writes periodic NEXUS/COMMS snapshots is outside this repository authority. This cut makes those writes semantically non-authoritative but does not claim to stop them.",
+    "Non-Git SOURCE HEAD values are explicit source revision timestamps, not content hashes.",
+    "VALID/STALE/CONFLICT is a projection-integrity witness, not a quality score or priority signal."
+  ],
+  "verification": {
+    "source_cut_selftest": "PENDING exact-head CI",
+    "canonical_packet_reducer": "PENDING exact-head CI",
+    "public_surface": "PENDING exact-head CI",
+    "route_registration": "PENDING exact-head CI",
+    "redaction": "PENDING exact-head CI"
+  },
+  "residue": [
+    "If ordinary use shows the five source-witness rows add more reading burden than re-entry clarity, Test H requires contraction/deletion rather than expansion.",
+    "Stopping machine writeback belongs at the ops-hub generator/transport boundary, not in FIELD."
+  ],
+  "next": "Run exact-head proof; merge only if green. After merge, re-enter through FIELD and select at most one CURRENT-authorized consequence.",
+  "stop": "Do not reintroduce a packet dashboard, second aggregation route, or synthetic NOW."
+}
