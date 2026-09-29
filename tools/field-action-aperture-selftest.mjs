@@ -45,6 +45,7 @@ need(html.includes('r?.field?.exit_paths'),'native action adapter does not read 
 const prison=(manifest.routes||[]).find(r=>r.href==='/prison-age/');
 const prisonActions=(prison?.field?.exit_paths||[]).filter(x=>String(x?.status||'').toUpperCase()==='AVAILABLE'&&x?.target).map(x=>x.via||x.class);
 need(prisonActions.join('|')==='READ|RIDE|SOURCE','Prison Age host manifest lost exact READ/RIDE/SOURCE action ownership');
+need(prison?.host_owner==='PRISON AGE','Prison Age host identity must stay manifest-owned');
 need(!html.includes("target:'./prison-age/?intent=read&return=field'"),'Prison Age target still duplicated inside FIELD root');
 need((contract.laws||[]).some(x=>/^HOST ACTION HINTS DERIVE FROM HOST-OWNED MANIFEST CONTRACTS/.test(x)),'host-action derivation law missing');
 need(/<details class="catchup" id="catchupFold" data-signal="CLEAR">/.test(html),'CATCH + ACT must be folded by default');
