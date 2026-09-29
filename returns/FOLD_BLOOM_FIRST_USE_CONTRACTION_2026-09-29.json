@@ -1,0 +1,62 @@
+{
+  "schema": "field-return/v1",
+  "id": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "MERGED_CI_GREEN / HUMAN_COMPREHENSION_GATE",
+  "object": "FOLD//BLOOM public front + LIVE first-use surface",
+  "observed_need": [
+    "Independent first-use feedback described Fold//Bloom / LIVE as incomprehensible and non-intuitive.",
+    "The implementation had become internally coherent while exposing too much architecture, vocabulary and control chrome before the first satisfying action.",
+    "Tests had begun to encode obsolete onboarding wording as invariants."
+  ],
+  "operation": "FULL MODEL AT FIRST CONTACT → ACTION-FIRST EDGE + RECOVERABLE DEPTH",
+  "law": "FIRST CONTACT ≠ FULL MODEL",
+  "delta": [
+    "Public front now leads with TRY A RIDE / WATCH A GARDEN / MAP A SONG.",
+    "LIVE cold-open teaches TURN → RELEASE → CHANGE → REPEAT in three literal steps.",
+    "Phone primary ride row contracts to TURN LEFT / RELEASE / TURN RIGHT; mode/world/vibe/autopilot remain reachable as secondary controls.",
+    "Disabled middle action says TURN UNTIL READY instead of SEEK <shape>.",
+    "Advanced PLAY modes remain under MORE MODES; hosted Garden remains canonical Ecology inside LIVE.",
+    "Source/provenance/state/game depth is preserved but no longer compulsory onboarding.",
+    "Static/browser tests were revised to protect routing, authority and runtime invariants instead of exact old jargon."
+  ],
+  "preserved": [
+    "LIVE 0.13 source-addressed traversal",
+    "PLAY 0.6.1 exact verb substrate + HEXAGRAM/CHANGE projection",
+    "PLAY LOOP 0.2",
+    "hosted canonical Ecology Garden",
+    "Two Dial relation algebra",
+    "SOURCE / MAP / IMMERSION layers",
+    "READ/RIDE / IMAGE_SET / LISTEN / REPLAY / SET / LAB / INK / VOICE / SABER",
+    "RETURN/provenance boundaries"
+  ],
+  "proof": {
+    "pull_request": 539,
+    "merge_sha": "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f",
+    "route_registration": {
+      "run": 36513646688,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36513646682,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36513646732,
+      "result": "PASS"
+    },
+    "critical_browser_smoke": "PASS",
+    "live_mobile_interaction_regression": "PASS"
+  },
+  "human_gate": {
+    "state": "PENDING_LIVED_USE",
+    "test": "A first-time person cold-opens Fold//Bloom on phone and completes one RELEASE without verbal coaching.",
+    "acceptance": [
+      "chooses a meaningful start without architecture explanation",
+      "finds ← / middle action / → within 5–10 seconds",
+      "completes one release and perceives the road changed",
+      "advanced depth stays reachable without competing with first action"
+    ]
+  },
+  "next": "Revise only from observed first-use friction. Do not add another mode, ontology, explanation slab or primary control before this gate."
+}
