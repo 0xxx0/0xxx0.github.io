@@ -16,19 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T19:47:00+08:00",
+        "updated_at": "2026-09-29T21:23:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "RESEARCH",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. The visor consumes the same interphase-action-surface/v0.1 now used by DAYLINE: HOLD focus, TURN/RELEASE over unchanged native moves, TRACE witness, exact RETURN. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Prison Age source-intent semantics and native host authority remain unchanged.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one canonical INTERPHASE action surface. 0.8.24 adds game-donor-derived consequence FORECAST inside the existing ≤3-move aperture: immediate change, authority boundary and mutation owner are visible before commit, while WITNESS/RETURN remain post-action evidence. Packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE; native host authority is unchanged.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.23",
+      "version": "0.8.24",
       "transfer": [
+        "0.8.24 game-donor convergence: Into the Breach → visible FORECAST before commit in the existing ≤3 lawful-move aperture; Outer Wilds → knowledge-gap projection (existing 0.8.15); Hades → failure as RESIDUE/RETURN; Death Stranding → asynchronous useful trace/infrastructure; Hardspace → interface-aware deconstruction audit; Terra Nil → scaffold retirement/leave-no-trace completion law. Donor fiction/economy/game skin does not transfer.",
         "0.8.23 action-surface convergence: AWAKE visor derives cadence, HOLD, TURN/RELEASE moves, TRACE and RETURN from interphase-action-surface/v0.1; duplicated hardcoded visor grammar removed; native labels/authority unchanged",
         "packet egress boundary: only explicit external/world/human WAITING → GATE; generic unresolved/internal WAITING → RESIDUE across string/object/array/named dependency shapes; metadata key names/container presence cannot mint externality",
         "packet egress compatibility convergence: uppercase canonical aliases + inert RETURN-to-CURRENT/replan semantics preserved under caller-authorized NOW and witnessed DELTA; FIELD route-touch DELTA is host-attested from its own manifest/local-boundary witness",
@@ -108,8 +108,9 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
-      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+      "latest_return": "/returns/FIELD_GAME_DONOR_FORECAST_2026-09-29.json",
+      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+      "game_donor_transfer": "/control/confluence/GAME_DONOR_TRANSFER_2026-09-29.md"
     },
     {
       "href": "/app-atlas/",
