@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {
   reducePacket,EGRESS_CLASSES,CANONICAL_PACKET_SCHEMA,validateCanonicalPacket
 } from '../lib/field-egress-reducer.mjs';
@@ -31,6 +32,9 @@ const legacyCases=[
 ];
 
 assert.deepEqual(EGRESS_CLASSES,['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']);
+const contract=JSON.parse(fs.readFileSync('control/FIELD_PACKET_EGRESS.json','utf8'));
+assert.equal(contract.canonical_packet_schema,CANONICAL_PACKET_SCHEMA);
+assert.deepEqual(Object.keys(contract.canonical_fields),['OBJECT','AUTHORITY','STATE_IN','DELTA','EVIDENCE','STATE_OUT','RESIDUE','WAITING','NEXT','STOP']);
 for(const [name,packet,ctx,want] of legacyCases){
   const got=reducePacket(packet,ctx);
   assert.equal(got.class,want,name+' -> '+JSON.stringify(got));
