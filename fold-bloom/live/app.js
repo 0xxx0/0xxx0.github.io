@@ -685,7 +685,7 @@ function currentAuthoredReturn(){
     schema:'fold-bloom-authored-reading-return/v0.1',authority:'EVIDENCE_ONLY',
     source:{id:authoredReader.hash,address:pack.source_path,title:pack.title,provenance:pack.source_artifact,internal_date:pack.internal_date,status:pack.source_status},
     traversal:witness,recurrence:{groups:(pack.recurrence||[]).map(x=>({id:x.id,label:x.label,relation:x.relation,signature:x.signature})),revisits:stats.revisits,jumps:(authoredReader.jumps||[]).map(x=>({...x}))},
-    live:{release_count:stats.releases,verbs:(state.history||[]).map(x=>x.verb).filter(Boolean),law:'LIVE consequences are reader-authored field operations and never rewrite recovered source bytes.'},
+    live:{release_count:stats.releases,verbs:(Array.isArray(state?.history)?state.history:[]).slice(Math.max(0,Number(authoredReader?.historyStart)||0)).map(x=>x.verb).filter(Boolean),law:'LIVE consequences are reader-authored field operations and never rewrite recovered source bytes.'},
     return:{source_reader:pack.return.source_reader,field_index:pack.return.field_index},
     created_at:new Date().toISOString()
   }
