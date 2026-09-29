@@ -27,7 +27,7 @@ test('LIVE teaches one turn-release-change loop before deeper vocabulary',()=>{
 test('phone primary controls contract to turn-release-turn while depth remains',()=>{
   assert.match(css,/@media\(max-width:620px\)[\s\S]*?\.bottom\{grid-template-columns:48px minmax\(0,1fr\) 48px/);
   assert.match(css,/\.bottom \.mode,\.bottom \.scene\{display:none\}/);
-  assert.match(play,/data\.fbPrimaryControlSet=innerWidth<=620\?'TURN_RELEASE_TURN':'MODE_RELEASE_WORLD'/);
+  assert.match(play,/dataset\.fbPrimaryControlSet=innerWidth<=620\?'TURN_RELEASE_TURN':'MODE_RELEASE_WORLD'/);
   assert.match(live,/id="modeBtn"/);
   assert.match(live,/id="sceneBtn"/);
 });
