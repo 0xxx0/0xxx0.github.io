@@ -1,0 +1,60 @@
+{
+  "schema": "0xxx0/fold-bloom-authored-reader-return/v0.1",
+  "date": "2026-09-28",
+  "status": "CURRENT_MASTER_CANDIDATE",
+  "source": {
+    "pack": "/fold-bloom/live/authored/prison-age-2021.json",
+    "text": "/fold-bloom/live/authored/prison-age-2021.txt",
+    "hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+    "authority": "RECOVERED_AUTHORED_SOURCE",
+    "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+    "internal_date": "2021-07-18",
+    "status": "V / exact recovered wording",
+    "boundary": "The reader pack is a derived arrangement of exact recovered fragments, not a facsimile or invented continuation. Exact originating prompt remains unavailable."
+  },
+  "excluded": [
+    "2024 Prison Age reality-show/co-created corpus from the default authored pack",
+    "\"I'm always behind you\" until exact source/authorship provenance is recovered"
+  ],
+  "recurrence": {
+    "relation": "CONSERVATION_BY_REARRANGEMENT",
+    "signature": "AEGINOPRS",
+    "variants": [
+      "PRISON AGE",
+      "s i n g a p o r e",
+      "SIN / ORE / GAP",
+      "SINGAPORE"
+    ],
+    "claim": "same nine Latin letters after punctuation/spacing removal and sorting; no semantic equivalence claim"
+  },
+  "loop": [
+    "load exact recovered source + visible provenance",
+    "address source through existing READ/RIDE course",
+    "traverse SENTENCE/PARAGRAPH/SECTION without rewriting source",
+    "optionally RELEASE LIVE BLOOM/FOLD/SPLIT/RETURN consequence then step one source address",
+    "jump among mechanically declared recurrence spans through RECURRENCE navigation while logging exact offsets",
+    "RETURN EVIDENCE_ONLY traversal/recurrence/LIVE witness",
+    "re-enter exact source/cursor through existing READFIELD acceptance"
+  ],
+  "implementation": [
+    "/fold-bloom/live/index.html",
+    "/fold-bloom/live/app.css",
+    "/fold-bloom/live/app.js",
+    "/fold-bloom/live/authored-reader.js",
+    "/fold-bloom/live/authored/prison-age-2021.json",
+    "/fold-bloom/live/authored/prison-age-2021.txt",
+    "/tools/fold-bloom-authored-reader-selftest.mjs",
+    "/tools/fold-bloom-authored-reader-smoke.mjs"
+  ],
+  "invariants": [
+    "source bytes != LIVE field state",
+    "source/provenance authority remains native",
+    "recurrence must be declared from source-grounded relation, never generated connective story",
+    "LIVE RELEASE mutates only LIVE field state",
+    "RETURN is EVIDENCE_ONLY",
+    "READFIELD accepts return only against exact current source identity/address/native unit",
+    "audio/image/game depth remains optional and does not redefine authored source",
+    "cross-source ECHO from /lib/source-echo.js remains a separate EVIDENCE_ONLY aperture; authored-pack RECURRENCE does not impersonate it"
+  ],
+  "next_gate": "Repository/browser proof gates promotion. Ordinary use may later judge whether recurrence + RELEASE changes reading attention without obscuring source; subjective preference is observation, not correctness proof."
+}
