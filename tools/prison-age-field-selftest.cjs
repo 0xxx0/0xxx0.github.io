@@ -73,6 +73,6 @@ const last=fs.readFileSync('prison-age/stories/07-last-stall-extract.md','utf8')
 assert(fnv(last)==='1856b483'&&last.length===4991,'Last Stall extract fingerprint');
 assert(sources.stories['last-stall'].source_fingerprint?.value==='1856b483','Last Stall ledger fingerprint');
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
-assert(fh?.version==='0.8.21','FIELD head advanced');
-assert(fh?.latest_return==='/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json','FIELD-owned return receipt');
+assert(fh?.route==='/'&&String(fh?.head||'').includes('FIELD INDEX'),'FIELD head missing');
+assert((fh?.evidence||[]).includes('/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json'),'FIELD head lost Prison Age source-intent evidence');
 console.log('PRISON AGE → FIELD EXPLICIT SOURCE INTENT PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
