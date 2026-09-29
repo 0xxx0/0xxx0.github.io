@@ -11,6 +11,7 @@ h1{font:900 clamp(52px,13vw,126px)/.76 system-ui,sans-serif;letter-spacing:-.075
 .lead{max-width:780px;color:#aab4b8;font:15px/1.55 system-ui,sans-serif}.law{margin:20px 0;border-block:1px solid var(--line);padding:10px 0;color:var(--green)}
 .primary{display:grid;grid-template-columns:1.3fr .7fr;gap:8px;margin-top:18px}.card{display:block;border:1px solid var(--line);background:var(--panel);padding:16px;color:inherit;text-decoration:none;min-height:150px;position:relative}.card:hover{border-color:#6c7d84}.card strong{display:block;font:850 clamp(22px,4vw,38px)/.95 system-ui,sans-serif;letter-spacing:-.035em;margin:18px 0 8px}.card p{margin:0;color:var(--muted);font:11px/1.5 system-ui,sans-serif}.tag{color:var(--cyan);font-size:8px;letter-spacing:.13em}.arrow{position:absolute;right:10px;top:9px;color:var(--muted)}
 .jobs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.jobs .card{min-height:130px}.jobs .card strong{font-size:20px}.quarry{margin-top:24px;border-top:1px solid var(--line);padding-top:12px}.quarryHead{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.quarryHead b{letter-spacing:.14em}.quarryHead span{color:var(--muted);font-size:9px}.machine{display:grid;grid-template-columns:120px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #202a2e;padding:10px 0;color:inherit;text-decoration:none}.machine b{font-size:11px}.machine span{color:var(--muted);font-size:10px}.machine em{font-style:normal;color:var(--gold);font-size:9px}
+.hold{margin:18px 0 8px;border:1px solid var(--line);background:#0a0e10;padding:12px}.holdHead{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.holdHead b{letter-spacing:.14em}.holdHead span{color:var(--muted);font-size:9px}.hold textarea{width:100%;min-height:84px;margin-top:8px;resize:vertical;background:#070a0b;color:var(--ink);border:1px solid var(--line);padding:10px;font:12px/1.5 ui-monospace,monospace}.holdActions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.holdActions button{min-height:42px;background:#0d1214;color:var(--ink);border:1px solid var(--line);padding:8px 12px;font:10px ui-monospace,monospace;cursor:pointer}.holdActions button:hover{border-color:var(--cyan)}.holdState{margin-top:6px;color:var(--muted);font-size:9px}
 .note{margin-top:22px;border-left:3px solid var(--hot);padding:9px 12px;background:#0c1012;color:#aeb8bc}.note b{color:#ffd0ac}
 footer{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);color:var(--muted);font-size:9px}footer a{color:var(--cyan);text-decoration:none}
 @media(max-width:760px){.primary,.jobs{grid-template-columns:1fr}.machine{grid-template-columns:1fr auto}.machine span{grid-column:1/-1}.card{min-height:128px}}
@@ -19,6 +20,17 @@ footer{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);color:v
 <h1>COPILOT</h1>
 <p class="lead">Start with a word, fragment, blank line, poem, note, or strange phrase. The machine should widen what you can reach without taking authorship away. Path, grid and game are tools you may invoke—not a theory you must obey.</p>
 <div class="law">SOURCE → SELECT → ASK → COMPARE → CHOOSE → OPTIONAL TRANSFORM → RETURN</div>
+
+<section class="hold" aria-label="Held source">
+  <div class="holdHead"><b>HELD SOURCE</b><span>one fragment · unequal operations · session-local</span></div>
+  <textarea id="heldSource" placeholder="Paste a word, fragment, poem, note, lyric, classical line, code-like phrase…"></textarea>
+  <div class="holdActions">
+    <button data-held-op="WRITE">WRITE / CHOOSE</button>
+    <button data-held-op="WEAVE">WEAVE / PATH</button>
+    <button data-held-op="READ">READ / RSVP</button>
+  </div>
+  <div class="holdState" id="heldState">Nothing held. This rail carries exact source bytes only; each target keeps its own authority.</div>
+</section>
 
 <section class="primary">
 <a class="card" href="./map/"><span class="arrow">↗</span><span class="tag">PRIMARY · WRITE / CHOOSE</span><strong>VERSE COPILOT</strong><p>Readable writing first. Select a word or empty line; ask for continuation, turn, echo, rhyme, contrast or surprise; bank, preview, lock, adopt, undo. Relation maps and paths stay behind demand.</p></a>
@@ -40,7 +52,47 @@ footer{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);color:v
 <a class="machine" href="../recovery/path-grid/cell-foundry-r2/"><b>CELL FOUNDRY R2</b><span>route law → transformations → verify → glyph/audio; discovery ≠ authorship</span><em>GAME</em></a>
 </section>
 
+<section class="quarry" id="language">
+<div class="quarryHead"><b>LANGUAGE / CORPUS / TRANSFER</b><span>external anchors · evidence and experiments, not merged authority</span></div>
+<a class="machine" href="https://ctext.org/" target="_blank" rel="noopener"><b>CTEXT</b><span>Classical Chinese source corpus + searchable textual evidence. Feed study/research; do not treat corpus proximity as authorship or semantic proof.</span><em>CORPUS</em></a>
+<a class="machine" href="https://github.com/LingDong-/cope" target="_blank" rel="noopener"><b>COPE</b><span>Classical regulated-verse IDE: tone-pattern checks, rhyme dictionaries, line neighbours and edit suggestions. Strong specialist donor, not our canonical editor.</span><em>PROSODY</em></a>
+<a class="machine" href="https://wy-lang.org/" target="_blank" rel="noopener"><b>WENYAN / 文言</b><span>Classical-Chinese programming surface compiling to executable targets. Language↔code bridge; not a poetry form and not silently generated by Copilot.</span><em>CODE</em></a>
+<a class="machine" href="https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju" target="_blank" rel="noopener"><b>ENGLISH JUEJU</b><span>External transfer tradition: four lines, seven syllables/monosyllables per line as a deliberate English analogue. OPEN experiment here; not historical equivalence.</span><em>TRANSFER</em></a>
+</section>
+
+<div class="note"><b>RECOVERED WORD MATERIAL.</b> Keep lexical transformation available beside poetry: DEFIED ↔ DEIFIED ↔ REIFIER; drown is in word → drawn onward; render → re-enter → remember. These are authored transformation materials, not evidence that every word relation is a path law.</div>
+
 <div class="note"><b>OWNERSHIP LAW.</b> Verse Copilot owns the writing choice. Foundry supplies machines. Word Market supplies possibilities. Pathweaver/Grid Path/Cell Foundry supply play and transformation. Verse Atlas supplies Jueju-native evidence. No path or grid is allowed to become the poem merely because it can represent it.</div>
 
-<footer><a href="../foundry/">FOUNDRY →</a> · <a href="../control/confluence/VERSE_COPILOT_RECOVERY.md">COPILOT RECOVERY →</a> · <a href="../control/confluence/VERSE_LINEAGE.md">LINEAGE →</a> · <a href="../">FIELD INDEX →</a></footer>
-</main></body></html>
+<footer><a href="../foundry/">FOUNDRY →</a> · <a href="../control/confluence/WORD_LANGUAGE_FIELD_2026-09-29.md">WORD/LANGUAGE FIELD →</a> · <a href="../control/confluence/VERSE_COPILOT_RECOVERY.md">COPILOT RECOVERY →</a> · <a href="../control/confluence/VERSE_LINEAGE.md">LINEAGE →</a> · <a href="../">FIELD INDEX →</a></footer>
+</main>
+<script>
+(()=>{
+ const KEY='field.word.held.v01', el=document.getElementById('heldSource'), state=document.getElementById('heldState');
+ const read=()=>String(el.value||'').trim();
+ try{const q=JSON.parse(sessionStorage.getItem(KEY)||'null');if(q?.source)el.value=String(q.source)}catch(_){}
+ function remember(){
+   const source=read();if(!source){sessionStorage.removeItem(KEY);state.textContent='Nothing held. This rail carries exact source bytes only; each target keeps its own authority.';return null}
+   const packet={schema:'field-word-source/v0.1',created:new Date().toISOString(),source,from:'/poetry/',authority:'SOURCE_ONLY'};
+   sessionStorage.setItem(KEY,JSON.stringify(packet));state.textContent=source.length+' chars held · SOURCE_ONLY';return packet
+ }
+ el.addEventListener('input',remember);remember();
+ document.querySelectorAll('[data-held-op]').forEach(b=>b.onclick=()=>{
+   const h=remember();if(!h)return;
+   const op=b.dataset.heldOp;
+   if(op==='WRITE'){
+     sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify({schema:'field-verse-handoff/v0.1',created:h.created,source:h.source,focus:{line:0,start:0,end:0,address:'text://0:0'},marks:[],from:'/poetry/',fromLabel:'VERSE / HELD SOURCE'}));
+     location.href='./map/?handoff=1&from=poetry';return;
+   }
+   if(op==='WEAVE'){
+     sessionStorage.setItem('field.word.handoff.v01',JSON.stringify(h));
+     location.href='../recovery/path-grid/anthropy-pathweaver/?handoff=1&from=poetry';return;
+   }
+   if(op==='READ'){
+     sessionStorage.setItem('readfield.handoff.v1',JSON.stringify({schema:'readfield-handoff/v1',created:h.created,source:h.source,label:'WORD / VERSE HELD SOURCE',from:'/poetry/',returnAddress:'/poetry/',sourceIdentity:{kind:'TEXT',format:'TXT',authority:'VERSE/COPILOT-HUB'},focus:{scale:'WORD',index:0,address:'text://0:0',char_index:0,source_progress:0,wpm:300}}));
+     location.href='../docs/?handoff=1&from=poetry&return=%2Fpoetry%2F';
+   }
+ })
+})();
+</script>
+</body></html>
