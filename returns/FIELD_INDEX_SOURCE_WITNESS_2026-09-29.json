@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_SOURCE_WITNESS_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Contract the existing raw convergence reading into one freshness/provenance witness across CURRENT / WAITING / QUEUE / atlas / Git, while leaving the already-merged held/CATCH packet-egress consumer untouched.",
+  "law": "Source freshness is not source authority. Ordinary FIELD convergence exposes SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT; NEXUS/COMMS remain recoverable snapshots rather than the ordinary aggregation destination.",
+  "changes": [
+    "/lib/field-source-witness.mjs — pure read-only source freshness/conflict witness; no state or egress",
+    "/tools/field-source-witness-selftest.mjs — proves stale QUEUE/atlas, WAITING↔CURRENT conflict and cached Git behavior",
+    "/index.html — old raw QUEUE/atlas convergence block contracts to five source-witness rows; CONVERGE routes to FIELD; NEXUS/COMMS remain reachable as SNAPSHOT depth",
+    "/control/FIELD_INDEX_CONTRACT.json — binds source freshness witness and keeps root packet egress separate",
+    "/.github/workflows/public-surface-check.yml — runs source-witness proof beside canonical egress proof",
+    "/showcase-manifest.json — exact FIELD route touch; no version bump"
+  ],
+  "absorbed": [
+    "PR #570 already owns canonical held/CATCH packet egress; no duplicate six-class dashboard is introduced",
+    "canonical reducer GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE remains unchanged",
+    "COAXIALITY A–H deletion/repair discipline remains existing FIELD law"
+  ],
+  "preserves": [
+    "FIELD INDEX version 0.8.22",
+    "CURRENT owns NOW",
+    "Git owns literal chronology",
+    "WAITING / QUEUE / atlas retain unequal meanings",
+    "held/CATCH packet-egress projection from PR #570",
+    "no new route, dashboard, queue, store, cache, planner or packet authority"
+  ],
+  "known_limits": [
+    "The external ops-hub process that periodically writes NEXUS/COMMS snapshots is outside repository authority. This delta labels/demotes those projections but does not claim to stop the writer.",
+    "Non-Git SOURCE HEAD values are source revision timestamps rather than content hashes.",
+    "VALID/STALE/CONFLICT describes projection integrity/freshness, never priority or quality."
+  ],
+  "verify": [
+    "node tools/field-source-witness-selftest.mjs",
+    "node tools/field-egress-reducer-selftest.mjs",
+    "existing Route Registration / public-surface-check / gitleaks exact-head gates"
+  ],
+  "residue": [
+    "If ordinary use shows five witness rows cost more reading than the stale-data ambiguity they remove, compression Test H requires further contraction.",
+    "Stopping snapshot writeback belongs at the external generator/transport boundary."
+  ],
+  "stop": "Do not add egress rows here; PR #570 already owns that projection. Do not turn VALID/STALE/CONFLICT into ranking or attention."
+}
