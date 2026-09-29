@@ -1,10 +1,10 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
-  "version": "0.4.1",
+  "version": "0.5",
   "date": "2026-09-29",
-  "status": "FIELD_SOURCE_SET / NO_BESPOKE_READER",
+  "status": "FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
-  "operation": "READ / RIDE / SOURCE",
+  "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
   "object": "Four exact sourced Prison Age movements held as one FIELD object. FIELD chooses an addressed movement and opens unequal existing projections; no active generated narrative layer.",
   "source": {
     "pack": "/prison-age/sources.json",
@@ -68,7 +68,25 @@
     "No bespoke reader or reader pack remains in the runtime tree.",
     "FIELD READ/RIDE targets carry intent only, with no story parameter.",
     "Resolver does not auto-navigate on READ/RIDE intent until a story is clicked.",
-    "Last Stall extract bytes match fingerprint 1856b483 / length 4991."
+    "Last Stall extract bytes match fingerprint 1856b483 / length 4991.",
+    "READFIELD known sentence renders a cross-source exact ECHO with address and evidence-only basis.",
+    "READ→RIDE preserves ECHO context and LIVE renders a cross-source exact fragment at a known sentence address.",
+    "Meaningless unmatched text produces no echo.",
+    "A stale source fingerprint suppresses ECHO."
   ],
-  "latest_return": "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json"
+  "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
+  "echo": {
+    "schema": "field-source-echo-index/v0.1",
+    "index": "/prison-age/echo-index.json",
+    "codec": "/lib/source-echo.js",
+    "authority": "EVIDENCE_ONLY",
+    "behavior": "When an exact addressed span shares sufficiently specific lexical evidence with a fragment in another Prison Age source, READFIELD/LIVE may reveal that exact neighbor with its source address. Silence is lawful when evidence is weak.",
+    "boundaries": [
+      "ECHO never rewrites source bytes or inserts narrative connective tissue.",
+      "ECHO never asserts theme, intent, causality, canon order, equivalence, comprehension or interpretation.",
+      "Current full source fingerprint must match the index before any echo renders.",
+      "Same-source candidates are excluded.",
+      "READ→RIDE carries the evidence index and source id only; source authority remains PRISON_AGE."
+    ]
+  }
 }

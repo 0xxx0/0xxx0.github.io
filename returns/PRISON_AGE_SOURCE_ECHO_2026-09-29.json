@@ -1,0 +1,102 @@
+{
+  "schema": "0xxx0/prison-age-source-echo-return/v0.1",
+  "generated_at": "2026-09-29T17:35:00+08:00",
+  "status": "VERIFIED / PR 578 PREDECESSOR PROOF HEAD",
+  "field_head": "FIELD INDEX 0.8.22 / AWAKE INTERPHASE VISOR / SOURCE-SET INTENT / ONE HELD OBJECT",
+  "source_set": "PRISON_AGE",
+  "authority": "EVIDENCE_ONLY",
+  "implementation": [
+    "/lib/source-echo.js",
+    "/prison-age/echo-index.json",
+    "/prison-age/",
+    "/docs/",
+    "/fold-bloom/live/",
+    "/tools/source-echo-selftest.cjs",
+    "/tools/source-echo-read-ride-smoke.mjs"
+  ],
+  "law": "SOURCE chooses meaning. ECHO exposes exact recurrence evidence only. Representation may reveal a neighbor; it may not author the relation.",
+  "observed_source_seams": {
+    "all_four": [
+      "door",
+      "changed"
+    ],
+    "three_or_more": [
+      "threshold",
+      "object",
+      "visible",
+      "moved"
+    ],
+    "exact_cross_source_examples": [
+      "previous seasons",
+      "looked … camera"
+    ],
+    "shared_margin": "Three complete sourced episodes carry the same authored MARGIN line; Last Stall carries a different explicit verse. ECHO may expose either only as exact bytes."
+  },
+  "proofs": {
+    "fingerprint_validation": "PASS · all four indexed source fingerprints match exact current bytes; stale +1 byte rejected",
+    "silence_boundary": "PASS · weak generic opened-door overlap and nonsense text remain silent",
+    "readfield_echo": "PASS · Successful Escape SENTENCE ‘Season Seven began with an open door.’ → exact Last Stall maintenance-door fragment",
+    "read_to_ride_echo": "PASS · same Successful Escape sentence survives READ→RIDE and yields the same exact Last Stall fragment",
+    "exact_return_regression": "PASS · LIVE return remains exact READFIELD source/cursor URL whose nested return is FIELD /?focus=%2Fprison-age%2F",
+    "repo_regression": "PASS · shared host laws, static surface, exact cursor RETURN, promoted READ trail, LIVE host/mobile and critical browser smoke"
+  },
+  "boundaries": [
+    "No generated story prose, connective narrative, summary or thematic claim.",
+    "No fourth FIELD action.",
+    "No source mutation.",
+    "No echo when current bytes fail source fingerprint validation.",
+    "No same-source echo.",
+    "READFIELD remains reading/cursor authority; LIVE remains traversal/effect authority; PRISON_AGE remains source authority.",
+    "FIELD head is unchanged; ECHO is projection depth below the existing Prison Age source-set object."
+  ],
+  "next_gate": "Use the shipped ECHO layer on one complete READ→RIDE→RETURN pass and judge whether it creates useful recognition without stealing attention from the prose.",
+  "field_head_changed": false,
+  "pr": 578,
+  "proof_head": "f377ab2f77d1aed55be80a52a6b23914760f48ad",
+  "checks": {
+    "route_registration": {
+      "run": 36550052549,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36550052448,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36550052445,
+      "conclusion": "success"
+    }
+  },
+  "browser_witness": {
+    "read": {
+      "source": "/prison-age/stories/08-successful-escape.md",
+      "focus": "Season Seven began with an open door.",
+      "scale": "SENT",
+      "echo_source": "last-stall",
+      "echo": "Can you open the maintenance door?",
+      "basis": [
+        "open",
+        "door"
+      ],
+      "authority": "EVIDENCE_ONLY"
+    },
+    "ride": {
+      "authority": "READFIELD",
+      "source": "/prison-age/stories/08-successful-escape.md",
+      "witness": "Season Seven began with an open door.",
+      "echo_source": "last-stall",
+      "echo": "Can you open the maintenance door?",
+      "return_chain": [
+        "FOLD_BLOOM_LIVE",
+        "READFIELD exact source/cursor",
+        "FIELD /?focus=%2Fprison-age%2F"
+      ]
+    },
+    "truth": {
+      "valid_source": true,
+      "stale_source": false,
+      "unmatched_echo_count": 0
+    }
+  },
+  "receipt_note": "This metadata-only receipt seals evidence from proof_head f377ab2f…; merge remains gated by CI on the exact receipt-bearing PR head."
+}

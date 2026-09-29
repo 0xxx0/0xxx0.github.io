@@ -1,0 +1,5396 @@
+{
+  "schema": "field-source-echo-index/v0.1",
+  "generated_at": "2026-09-29T02:20:00+08:00",
+  "authority": "EVIDENCE_ONLY",
+  "source_set": "PRISON_AGE",
+  "law": "ECHO exposes exact source fragments and lexical overlap only. It does not assert theme, intent, causality, canon order, equivalence, comprehension or interpretation.",
+  "scoring": {
+    "exclude_same_source": true,
+    "min_shared_terms": 1,
+    "qualification": "at least one term occurring in <=2 source documents OR at least two shared terms; adjacent shared bigrams add evidence weight"
+  },
+  "sources": [
+    {
+      "id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "chars": 3912,
+      "fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "ee35b81f",
+        "length": 3912
+      }
+    },
+    {
+      "id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "chars": 4056,
+      "fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "5523dd07",
+        "length": 4056
+      }
+    },
+    {
+      "id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "chars": 4991,
+      "fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "1856b483",
+        "length": 4991
+      }
+    },
+    {
+      "id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "chars": 3674,
+      "fingerprint": {
+        "algo": "fnv1a32-unicode",
+        "value": "5a038d8a",
+        "length": 3674
+      }
+    }
+  ],
+  "document_frequency": {
+    "2024": 1,
+    "2026": 1,
+    "open": 3,
+    "air": 1,
+    "uncontrolled": 1,
+    "variable": 1,
+    "municipal": 1,
+    "permit": 1,
+    "weather": 2,
+    "sealed": 2,
+    "city": 2,
+    "climate": 1,
+    "treated": 2,
+    "obsolete": 1,
+    "danger": 1,
+    "contraband": 1,
+    "drafts": 1,
+    "begin": 1,
+    "carrying": 1,
+    "forgotten": 1,
+    "capacities": 1,
+    "forty-third": 1,
+    "year": 1,
+    "enclosure": 1,
+    "become": 3,
+    "impolite": 1,
+    "people": 2,
+    "used": 2,
+    "word": 1,
+    "metaphorically": 1,
+    "volatile": 1,
+    "meeting": 1,
+    "stormy": 1,
+    "difficult": 1,
+    "quarter": 1,
+    "brought": 1,
+    "headwinds": 1,
+    "children": 2,
+    "coloured": 1,
+    "suns": 1,
+    "archived": 2,
+    "diagrams": 1,
+    "corrected": 1,
+    "drew": 3,
+    "rays": 1,
+    "extending": 1,
+    "beyond": 2,
+    "circle": 1,
+    "real": 1,
+    "arrived": 3,
+    "numbered": 1,
+    "vents": 1,
+    "lio": 1,
+    "maintained": 2,
+    "vent": 2,
+    "civic": 1,
+    "optimism": 1,
+    "district": 1,
+    "morning": 2,
+    "inspected": 1,
+    "filtration": 1,
+    "membranes": 1,
+    "scent": 1,
+    "calibration": 1,
+    "humidity": 1,
+    "compliance": 2,
+    "soft": 1,
+    "music": 2,
+    "embedded": 2,
+    "beneath": 2,
+    "hearing": 1,
+    "work": 2,
+    "badge": 1,
+    "atmospheric": 1,
+    "continuity": 1,
+    "afternoon": 1,
+    "breathed": 1,
+    "backward": 1,
+    "effect": 1,
+    "lasted": 1,
+    "less": 2,
+    "second": 2,
+    "loose": 1,
+    "receipt": 1,
+    "rose": 1,
+    "floor": 2,
+    "touched": 2,
+    "ceiling": 2,
+    "worker": 1,
+    "corridor": 1,
+    "stopped": 3,
+    "whispered": 1,
+    "knew": 3,
+    "official": 2,
+    "answer": 2,
+    "pressure": 1,
+    "correction": 1,
+    "smell": 1,
+    "wet": 1,
+    "stone": 1,
+    "night": 1,
+    "opened": 3,
+    "casing": 1,
+    "found": 3,
+    "small": 3,
+    "envelope": 1,
+    "wedged": 1,
+    "behind": 2,
+    "regulator": 1,
+    "inside": 3,
+    "stamped": 1,
+    "bureau": 1,
+    "legitimate": 1,
+    "delay": 1,
+    "authorised": 1,
+    "substance": 1,
+    "duration": 1,
+    "until": 3,
+    "named": 2,
+    "hazards": 1,
+    "memory": 2,
+    "scale": 1,
+    "unassigned": 1,
+    "desire": 1,
+    "back": 3,
+    "pencil": 1,
+    "everyone": 2,
+    "already": 1,
+    "agrees": 1,
+    "began": 3,
+    "releasing": 1,
+    "minor": 1,
+    "places": 1,
+    "stairwell": 1,
+    "between": 2,
+    "floors": 1,
+    "laundromat": 1,
+    "midnight": 1,
+    "elevator": 1,
+    "stalled": 1,
+    "offices": 1,
+    "draft": 1,
+    "behaved": 1,
+    "differently": 2,
+    "carried": 2,
+    "salt": 1,
+    "leaf": 1,
+    "rot": 1,
+    "crossed": 1,
+    "room": 3,
+    "cold": 1,
+    "enough": 2,
+    "make": 1,
+    "strangers": 1,
+    "move": 2,
+    "closer": 1,
+    "discussing": 1,
+    "detected": 1,
+    "behavioural": 1,
+    "anomalies": 1,
+    "lingered": 1,
+    "consuming": 1,
+    "meetings": 1,
+    "ended": 1,
+    "conclusions": 1,
+    "stood": 3,
+    "near": 1,
+    "invented": 1,
+    "words": 2,
+    "directions": 1,
+    "provided": 1,
+    "ministry": 1,
+    "issued": 1,
+    "masks": 1,
+    "transparent": 1,
+    "citizens": 1,
+    "see": 1,
+    "another": 3,
+    "complying": 1,
+    "lio’s": 1,
+    "final": 2,
+    "contained": 2,
+    "coordinates": 1,
+    "followed": 2,
+    "maintenance": 2,
+    "tunnels": 1,
+    "oldest": 1,
+    "wall": 2,
+    "twelve": 2,
+    "layers": 1,
+    "insulation": 1,
+    "steel": 1,
+    "door": 4,
+    "painted": 1,
+    "blue": 2,
+    "rectangle": 2,
+    "smaller": 1,
+    "white": 2,
+    "symbol": 1,
+    "meant": 1,
+    "him": 1,
+    "yet": 2,
+    "chest": 2,
+    "recognised": 1,
+    "distance": 2,
+    "outside": 2,
+    "arrive": 1,
+    "freedom": 1,
+    "heat": 1,
+    "grit": 1,
+    "insects": 1,
+    "glare": 1,
+    "noise": 1,
+    "water": 1,
+    "decomposing": 1,
+    "vegetation": 1,
+    "fell": 1,
+    "knees": 1,
+    "coughing": 1,
+    "alarms": 2,
+    "minute": 2,
+    "hated": 1,
+    "wind": 1,
+    "changed": 4,
+    "permission": 1,
+    "trained": 3,
+    "believe": 1,
+    "control": 2,
+    "care": 1,
+    "synonyms": 1,
+    "sky": 1,
+    "offering": 1,
+    "neither": 1,
+    "security": 3,
+    "officers": 1,
+    "reached": 2,
+    "raised": 1,
+    "shields": 1,
+    "close": 1,
+    "captain": 1,
+    "ordered": 1,
+    "looked": 3,
+    "balanced": 1,
+    "light": 1,
+    "approved": 1,
+    "forward": 1,
+    "clouds": 2,
+    "assembling": 1,
+    "agenda": 1,
+    "speech": 1,
+    "placed": 1,
+    "toolbox": 1,
+    "across": 2,
+    "threshold": 3,
+    "closed": 2,
+    "first": 3,
+    "deciding": 2,
+    "ordinary": 1,
+    "object": 3,
+    "inconvenience": 1,
+    "saved": 1,
+    "workers": 1,
+    "residents": 1,
+    "person": 2,
+    "confronted": 1,
+    "visible": 3,
+    "choice": 1,
+    "moved": 3,
+    "away": 1,
+    "removed": 2,
+    "elderly": 1,
+    "woman": 1,
+    "stepped": 1,
+    "ten": 1,
+    "seconds": 3,
+    "returned": 2,
+    "well": 1,
+    "considered": 2,
+    "badly": 1,
+    "managed": 1,
+    "keep": 1,
+    "remained": 3,
+    "enclosed": 1,
+    "years": 2,
+    "building": 2,
+    "code": 1,
+    "acquired": 2,
+    "new": 3,
+    "requirement": 1,
+    "opening": 2,
+    "environment": 1,
+    "disagree": 1,
+    "ask": 3,
+    "rule": 3,
+    "protected": 3,
+    "appearing": 3,
+    "natural": 3,
+    "fandom": 2,
+    "court": 1,
+    "provenance": 1,
+    "worship": 1,
+    "bootleg": 1,
+    "episode": 2,
+    "frame": 1,
+    "fan": 1,
+    "community": 1,
+    "reconstructs": 1,
+    "missing": 1,
+    "completely": 1,
+    "reconstruction": 1,
+    "begins": 1,
+    "rewriting": 1,
+    "made": 2,
+    "never": 1,
+    "aired": 1,
+    "remember": 1,
+    "recalled": 1,
+    "winter": 1,
+    "palette": 1,
+    "others": 2,
+    "insisted": 1,
+    "summer-bright": 1,
+    "faction": 2,
+    "called": 2,
+    "doorists": 1,
+    "scene": 1,
+    "red": 1,
+    "anti-door": 1,
+    "collective": 1,
+    "proved": 1,
+    "reconstructed": 1,
+    "inserted": 1,
+    "later": 2,
+    "viewers": 2,
+    "frames": 1,
+    "slow": 1,
+    "anyone": 1,
+    "rebuilt": 1,
+    "scripts": 1,
+    "interviews": 1,
+    "wardrobe": 1,
+    "invoices": 1,
+    "records": 2,
+    "pauses": 1,
+    "actors": 1,
+    "certain": 1,
+    "questions": 1,
+    "models": 1,
+    "previous": 2,
+    "seasons": 2,
+    "generated": 1,
+    "candidate": 1,
+    "scenes": 1,
+    "voted": 1,
+    "emotional": 1,
+    "legitimacy": 1,
+    "released": 2,
+    "cut": 2,
+    "titled": 1,
+    "restored": 1,
+    "magnificent": 1,
+    "weeks": 1,
+    "actor": 1,
+    "remembered": 3,
+    "filming": 1,
+    "supporting": 1,
+    "performer": 1,
+    "described": 1,
+    "improvised": 1,
+    "line": 2,
+    "nowhere": 2,
+    "added": 2,
+    "director": 1,
+    "claimed": 1,
+    "finale": 2,
+    "originally": 1,
+    "silent": 1,
+    "debated": 1,
+    "whether": 3,
+    "creators": 1,
+    "retained": 1,
+    "authority": 1,
+    "works": 1,
+    "failed": 1,
+    "preserve": 2,
+    "creator": 1,
+    "appeared": 2,
+    "entered": 2,
+    "forum": 1,
+    "legal": 1,
+    "name": 2,
+    "posted": 1,
+    "wrong": 1,
+    "response": 3,
+    "immediate": 1,
+    "claim": 1,
+    "lacked": 1,
+    "citations": 1,
+    "account": 1,
+    "compromised": 1,
+    "creator’s": 1,
+    "showed": 3,
+    "poor": 1,
+    "thematic": 1,
+    "judgment": 1,
+    "authorship": 1,
+    "guarantee": 1,
+    "interpretive": 1,
+    "competence": 1,
+    "several": 1,
+    "users": 2,
+    "noted": 1,
+    "coherent": 2,
+    "verifiably": 1,
+    "convened": 1,
+    "judges": 1,
+    "selected": 1,
+    "contribution": 1,
+    "score": 1,
+    "evidence": 1,
+    "projected": 1,
+    "virtual": 1,
+    "courtroom": 1,
+    "production": 2,
+    "calendars": 1,
+    "dream": 1,
+    "journals": 1,
+    "edits": 1,
+    "alleged": 1,
+    "contamination": 1,
+    "metadata": 1,
+    "files": 1,
+    "exist": 1,
+    "submitted": 1,
+    "cassette": 1,
+    "labelled": 2,
+    "chief": 1,
+    "judge": 1,
+    "replied": 1,
+    "tape": 1,
+    "footage": 1,
+    "reconstructing": 1,
+    "documentary": 1,
+    "present": 1,
+    "produced": 2,
+    "earlier": 2,
+    "debates": 1,
+    "usernames": 1,
+    "including": 1,
+    "accounts": 1,
+    "belonging": 1,
+    "time": 2,
+    "recording": 2,
+    "sentence": 2,
+    "about": 2,
+    "fractured": 1,
+    "interpretations": 1,
+    "determinists": 1,
+    "declared": 1,
+    "fulfilled": 1,
+    "text": 1,
+    "fabricationists": 1,
+    "sophisticated": 1,
+    "intervention": 1,
+    "reflected": 1,
+    "case": 1,
+    "total": 1,
+    "vindication": 1,
+    "moderator": 1,
+    "ione": 1,
+    "paused": 1,
+    "feed": 2,
+    "question": 1,
+    "forty-three": 1,
+    "answers": 1,
+    "blank": 2,
+    "ledger": 1,
+    "columns": 1,
+    "origin": 1,
+    "transmission": 1,
+    "mutation": 1,
+    "current": 1,
+    "use": 1,
+    "undecided": 1,
+    "column": 1,
+    "cancelled": 1,
+    "trapped": 2,
+    "false": 2,
+    "sovereignty": 1,
+    "either": 1,
+    "owned": 1,
+    "meaning": 1,
+    "replaced": 1,
+    "ownership": 1,
+    "traceable": 1,
+    "transformation": 1,
+    "resumed": 1,
+    "old": 2,
+    "drawing": 1,
+    "screen": 1,
+    "displayed": 1,
+    "message": 1,
+    "addressed": 1,
+    "restore": 1,
+    "capacity": 1,
+    "distinguish": 1,
+    "disappeared": 1,
+    "delete": 1,
+    "edition": 1,
+    "inference": 1,
+    "invention": 1,
+    "complained": 1,
+    "annotations": 1,
+    "ruined": 1,
+    "immersion": 1,
+    "discovered": 1,
+    "last": 1,
+    "stall": 1,
+    "curated": 1,
+    "extract": 1,
+    "august": 1,
+    "editorial": 1,
+    "status": 1,
+    "reader": 1,
+    "passages": 1,
+    "below": 1,
+    "copied": 2,
+    "omitted": 1,
+    "material": 1,
+    "marked": 1,
+    "explicitly": 1,
+    "complete": 1,
+    "presented": 1,
+    "recovered": 1,
+    "canon": 1,
+    "contestant": 1,
+    "sat": 1,
+    "fully": 1,
+    "clothed": 1,
+    "toilet": 1,
+    "lid": 1,
+    "holding": 1,
+    "phone": 1,
+    "per": 1,
+    "cent": 1,
+    "battery": 1,
+    "expression": 1,
+    "obeyed": 1,
+    "instruction": 1,
+    "inward-swinging": 1,
+    "fallen": 1,
+    "carton": 1,
+    "individually": 1,
+    "wrapped": 1,
+    "toilet-paper": 1,
+    "rolls": 1,
+    "stared": 1,
+    "paper": 1,
+    "poobaby": 1,
+    "nodded": 1,
+    "recursive": 1,
+    "incident": 1,
+    "delivered": 1,
+    "during": 1,
+    "restocking": 1,
+    "protocol": 1,
+    "required": 1,
+    "staff": 1,
+    "place": 1,
+    "supplies": 1,
+    "marking": 1,
+    "request": 1,
+    "door-clearance": 1,
+    "remain": 1,
+    "privacy": 1,
+    "prevented": 1,
+    "checking": 1,
+    "occupied": 1,
+    "dashboard": 1,
+    "green": 1,
+    "procedure": 1,
+    "succeeded": 1,
+    "weighed": 1,
+    "damp": 1,
+    "complaint": 1,
+    "form": 1,
+    "opens": 2,
+    "locked": 1,
+    "call": 1,
+    "chair": 1,
+    "partition": 1,
+    "reach": 1,
+    "down": 1,
+    "tile": 1,
+    "fitted": 1,
+    "emergency-release": 1,
+    "slot": 1,
+    "passage": 1,
+    "lock": 2,
+    "turned": 1,
+    "centimetres": 1,
+    "struck": 1,
+    "production's": 1,
+    "dramatic": 1,
+    "realized": 1,
+    "movement": 1,
+    "laughed": 1,
+    "exit": 2,
+    "measurement": 1,
+    "now": 2,
+    "obstruction's": 1,
+    "width": 1,
+    "door's": 1,
+    "radius": 1,
+    "success": 1,
+    "usable": 1,
+    "motion": 1,
+    "unfolded": 1,
+    "corner": 1,
+    "plan": 1,
+    "stalls": 1,
+    "equal": 1,
+    "rectangles": 1,
+    "show": 2,
+    "empty": 2,
+    "dispenser": 1,
+    "too-high": 1,
+    "alarm": 1,
+    "ambiguous": 1,
+    "masked": 1,
+    "unofficial": 1,
+    "creature": 1,
+    "performing": 1,
+    "accurate": 1,
+    "except": 1,
+    "everything": 1,
+    "happens": 1,
+    "folded": 1,
+    "section": 1,
+    "leaked": 1,
+    "cultivators": 1,
+    "became": 2,
+    "bridge": 1,
+    "view": 1,
+    "blockage": 1,
+    "ladder": 1,
+    "treating": 1,
+    "top": 1,
+    "edge": 1,
+    "boundary": 1,
+    "started": 1,
+    "altitude": 1,
+    "heard": 1,
+    "correctly": 1,
+    "infection": 1,
+    "pan": 1,
+    "useful": 1,
+    "specific": 1,
+    "conditions": 1,
+    "climbed": 1,
+    "onto": 1,
+    "seven's": 1,
+    "shoulder": 1,
+    "together": 1,
+    "above": 1,
+    "accordion": 1,
+    "consultant": 1,
+    "lawyer": 1,
+    "data": 1,
+    "went": 1,
+    "darker": 1,
+    "camera": 2,
+    "whose": 1,
+    "delayed": 1,
+    "help": 1,
+    "next": 2,
+    "system": 2,
+    "permanent": 1,
+    "legibility": 1,
+    "pressed": 2,
+    "sheet": 1,
+    "lens": 1,
+    "forty-seven": 1,
+    "broadcast": 1,
+    "fans": 1,
+    "believed": 1,
+    "happened": 1,
+    "drawings": 1,
+    "disagreed": 1,
+    "mapped": 2,
+    "expensive": 1,
+    "boring": 1,
+    "ways": 1,
+    "cord": 1,
+    "exhaust": 1,
+    "state": 1,
+    "cabinet": 1,
+    "anchored": 1,
+    "stock": 1,
+    "check": 1,
+    "glossy": 1,
+    "patch": 1,
+    "hand": 1,
+    "dryers": 1,
+    "longer": 1,
+    "drowned": 1,
+    "signal": 1,
+    "welfare-check": 1,
+    "policy": 1,
+    "defined": 1,
+    "respectful": 1,
+    "human": 1,
+    "transmitting": 1,
+    "private-room": 1,
+    "video": 1,
+    "please": 1,
+    "leave": 1,
+    "able": 1,
+    "find": 1,
+    "nobody": 1,
+    "authorizing": 1,
+    "once": 2,
+    "week": 1,
+    "narrow": 1,
+    "strip": 1,
+    "eight's": 1,
+    "sometimes": 1,
+    "verse": 1,
+    "fold": 1,
+    "marks": 1,
+    "visitors": 1,
+    "lines": 1,
+    "different": 1,
+    "languages": 1,
+    "cleaners": 1,
+    "hateful": 1,
+    "dangerous": 1,
+    "impossible": 2,
+    "disinfect": 1,
+    "rest": 1,
+    "accumulated": 1,
+    "poem": 1,
+    "read": 1,
+    "folding": 1,
+    "distant": 1,
+    "voice": 1,
+    "gap": 1,
+    "carries": 1,
+    "both": 1,
+    "comes": 1,
+    "unfinished": 2,
+    "waiting": 1,
+    "supplied": 1,
+    "occupancy": 1,
+    "reported": 1,
+    "vacant": 1,
+    "counted": 1,
+    "eyes": 1,
+    "reflections": 1,
+    "accepted": 1,
+    "else": 1,
+    "came": 1,
+    "anyway": 1,
+    "successful": 1,
+    "escape": 1,
+    "changes": 1,
+    "vii": 1,
+    "transfer": 1,
+    "learning": 1,
+    "key": 1,
+    "twice": 1,
+    "proven": 1,
+    "becomes": 1,
+    "architecture": 1,
+    "contestants": 1,
+    "learn": 1,
+    "generate": 1,
+    "methods": 1,
+    "rather": 1,
+    "keys": 1,
+    "guards": 1,
+    "lay": 1,
+    "daylight": 1,
+    "sign": 1,
+    "reading": 1,
+    "half": 1,
+    "refused": 1,
+    "trust": 1,
+    "walked": 1,
+    "themselves": 1,
+    "built": 1,
+    "escapes": 1,
+    "walls": 1,
+    "flexed": 1,
+    "against": 1,
+    "known": 1,
+    "leverage": 1,
+    "points": 1,
+    "locks": 1,
+    "welcomed": 1,
+    "recorded": 1,
+    "ventilation": 1,
+    "shafts": 1,
+    "widened": 1,
+    "brightly": 1,
+    "lit": 1,
+    "corridors": 1,
+    "leading": 1,
+    "intake": 1,
+    "ingenious": 1,
+    "technique": 1,
+    "tutorial": 1,
+    "loved": 1,
+    "ranked": 1,
+    "elegance": 1,
+    "speed": 1,
+    "symbolic": 1,
+    "resonance": 1,
+    "penalised": 1,
+    "repeating": 1,
+    "moves": 1,
+    "associated": 1,
+    "champions": 1,
+    "nera": 1,
+    "memorised": 1,
+    "nearly": 1,
+    "useless": 1,
+    "whenever": 1,
+    "noticed": 1,
+    "programme": 1,
+    "expected": 1,
+    "knowledge": 1,
+    "pre-captured": 1,
+    "cellmate": 1,
+    "child": 1,
+    "sable": 1,
+    "leaving": 1,
+    "part": 1,
+    "pointed": 1,
+    "rules": 1,
+    "display": 1,
+    "nera’s": 1,
+    "running": 1,
+    "experiments": 1,
+    "attempts": 1,
+    "model": 1,
+    "tests": 1,
+    "furniture": 1,
+    "objects": 1,
+    "tracked": 1,
+    "staged": 1,
+    "arguments": 1,
+    "test": 1,
+    "emotion": 1,
+    "altered": 1,
+    "surveillance": 1,
+    "priority": 1,
+    "wrote": 1,
+    "plans": 1,
+    "notebooks": 1,
+    "watched": 1,
+    "rearrange": 1,
+    "itself": 1,
+    "overnight": 1,
+    "adaptive": 1,
+    "adaptation": 1,
+    "revealed": 1,
+    "attention": 1,
+    "exposed": 1,
+    "important": 1,
+    "searching": 1,
+    "weak": 1,
+    "prison’s": 1,
+    "process": 1,
+    "scoring": 1,
+    "submit": 1,
+    "live": 1,
+    "predictions": 1,
+    "popular": 1,
+    "hardened": 1,
+    "environmental": 1,
+    "constraints": 1,
+    "predicted": 1,
+    "tunnel": 1,
+    "betrayal": 1,
+    "opportunities": 1,
+    "created": 1,
+    "fake": 1,
+    "narratives": 1,
+    "plausible": 1,
+    "attract": 1,
+    "audience": 1,
+    "fought": 1,
+    "method": 1,
+    "succeed": 1,
+    "reconfigured": 1,
+    "around": 1,
+    "incompatible": 1,
+    "expectations": 1,
+    "existed": 1,
+    "run": 1,
+    "shelves": 1,
+    "containing": 1,
+    "enabled": 1,
+    "centre": 1,
+    "mould": 1,
+    "understood": 1,
+    "fossil": 1,
+    "distinction": 1,
+    "melted": 1,
+    "archive": 1,
+    "resulting": 1,
+    "metal": 1,
+    "any": 1,
+    "existing": 1,
+    "poured": 1,
+    "all": 1,
+    "tool": 1,
+    "handle": 1,
+    "end": 1,
+    "control-room": 1,
+    "doorframe": 1,
+    "took": 1,
+    "impression": 1,
+    "learns": 1,
+    "obstruction": 1,
+    "escaped": 1,
+    "days": 1,
+    "because": 1,
+    "pedestal": 1,
+    "collectors": 1,
+    "demanded": 1,
+    "replicas": 1,
+    "manufacturer": 1,
+    "declined": 1,
+    "replica": 1
+  },
+  "entries": [
+    {
+      "id": "open-air:169-288",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 169,
+      "end": 288,
+      "text": "In a sealed city where climate is treated as an obsolete danger, contraband drafts begin carrying forgotten capacities.",
+      "tokens": [
+        "sealed",
+        "city",
+        "climate",
+        "treated",
+        "obsolete",
+        "danger",
+        "contraband",
+        "drafts",
+        "begin",
+        "carrying",
+        "forgotten",
+        "capacities"
+      ]
+    },
+    {
+      "id": "open-air:289-355",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 289,
+      "end": 355,
+      "text": "By the forty-third year of enclosure, weather had become impolite.",
+      "tokens": [
+        "forty-third",
+        "year",
+        "enclosure",
+        "weather",
+        "become",
+        "impolite"
+      ]
+    },
+    {
+      "id": "open-air:356-408",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 356,
+      "end": 408,
+      "text": "People still used the word, but only metaphorically.",
+      "tokens": [
+        "people",
+        "used",
+        "word",
+        "metaphorically"
+      ]
+    },
+    {
+      "id": "open-air:409-439",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 409,
+      "end": 439,
+      "text": "A volatile meeting was stormy.",
+      "tokens": [
+        "volatile",
+        "meeting",
+        "stormy"
+      ]
+    },
+    {
+      "id": "open-air:440-478",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 440,
+      "end": 478,
+      "text": "A difficult quarter brought headwinds.",
+      "tokens": [
+        "difficult",
+        "quarter",
+        "brought",
+        "headwinds"
+      ]
+    },
+    {
+      "id": "open-air:479-592",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 479,
+      "end": 592,
+      "text": "Children coloured suns from archived diagrams and were corrected when they drew rays extending beyond the circle.",
+      "tokens": [
+        "children",
+        "coloured",
+        "suns",
+        "archived",
+        "diagrams",
+        "corrected",
+        "drew",
+        "rays",
+        "extending",
+        "beyond",
+        "circle"
+      ]
+    },
+    {
+      "id": "open-air:593-633",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 593,
+      "end": 633,
+      "text": "Real air arrived through numbered vents.",
+      "tokens": [
+        "real",
+        "air",
+        "arrived",
+        "numbered",
+        "vents"
+      ]
+    },
+    {
+      "id": "open-air:634-682",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 634,
+      "end": 682,
+      "text": "Lio maintained Vent 6B, Civic Optimism District.",
+      "tokens": [
+        "lio",
+        "maintained",
+        "vent",
+        "civic",
+        "optimism",
+        "district"
+      ]
+    },
+    {
+      "id": "open-air:683-824",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 683,
+      "end": 824,
+      "text": "Each morning he inspected filtration membranes, scent calibration, humidity compliance and the soft municipal music embedded beneath hearing.",
+      "tokens": [
+        "morning",
+        "inspected",
+        "filtration",
+        "membranes",
+        "scent",
+        "calibration",
+        "humidity",
+        "compliance",
+        "soft",
+        "municipal",
+        "music",
+        "embedded",
+        "beneath",
+        "hearing"
+      ]
+    },
+    {
+      "id": "open-air:825-868",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 825,
+      "end": 868,
+      "text": "His work badge said ATMOSPHERIC CONTINUITY.",
+      "tokens": [
+        "work",
+        "badge",
+        "atmospheric",
+        "continuity"
+      ]
+    },
+    {
+      "id": "open-air:869-911",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 869,
+      "end": 911,
+      "text": "One afternoon, the vent breathed backward.",
+      "tokens": [
+        "afternoon",
+        "vent",
+        "breathed",
+        "backward"
+      ]
+    },
+    {
+      "id": "open-air:912-949",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 912,
+      "end": 949,
+      "text": "The effect lasted less than a second.",
+      "tokens": [
+        "effect",
+        "lasted",
+        "less",
+        "second"
+      ]
+    },
+    {
+      "id": "open-air:950-1010",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 950,
+      "end": 1010,
+      "text": "A loose receipt rose from the floor and touched the ceiling.",
+      "tokens": [
+        "loose",
+        "receipt",
+        "rose",
+        "floor",
+        "touched",
+        "ceiling"
+      ]
+    },
+    {
+      "id": "open-air:1011-1048",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1011,
+      "end": 1048,
+      "text": "Every worker in the corridor stopped.",
+      "tokens": [
+        "worker",
+        "corridor",
+        "stopped"
+      ]
+    },
+    {
+      "id": "open-air:1085-1135",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1085,
+      "end": 1135,
+      "text": "Lio knew the official answer: pressure correction.",
+      "tokens": [
+        "lio",
+        "knew",
+        "official",
+        "answer",
+        "pressure",
+        "correction"
+      ]
+    },
+    {
+      "id": "open-air:1136-1187",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1136,
+      "end": 1187,
+      "text": "But pressure correction did not smell of wet stone.",
+      "tokens": [
+        "pressure",
+        "correction",
+        "smell",
+        "wet",
+        "stone"
+      ]
+    },
+    {
+      "id": "open-air:1188-1280",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1188,
+      "end": 1280,
+      "text": "That night he opened the vent casing and found a small envelope wedged behind the regulator.",
+      "tokens": [
+        "night",
+        "opened",
+        "vent",
+        "casing",
+        "found",
+        "small",
+        "envelope",
+        "wedged",
+        "behind",
+        "regulator"
+      ]
+    },
+    {
+      "id": "open-air:1281-1343",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1281,
+      "end": 1343,
+      "text": "Inside was a permit stamped by the Bureau of Legitimate Delay.",
+      "tokens": [
+        "inside",
+        "permit",
+        "stamped",
+        "bureau",
+        "legitimate",
+        "delay"
+      ]
+    },
+    {
+      "id": "open-air:1344-1383",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1344,
+      "end": 1383,
+      "text": "AUTHORISED SUBSTANCE: UNCONTROLLED AIR.",
+      "tokens": [
+        "authorised",
+        "substance",
+        "uncontrolled",
+        "air"
+      ]
+    },
+    {
+      "id": "open-air:1384-1406",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1384,
+      "end": 1406,
+      "text": "DURATION: UNTIL NAMED.",
+      "tokens": [
+        "duration",
+        "until",
+        "named"
+      ]
+    },
+    {
+      "id": "open-air:1407-1449",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1407,
+      "end": 1449,
+      "text": "HAZARDS: MEMORY, SCALE, UNASSIGNED DESIRE.",
+      "tokens": [
+        "hazards",
+        "memory",
+        "scale",
+        "unassigned",
+        "desire"
+      ]
+    },
+    {
+      "id": "open-air:1450-1516",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1450,
+      "end": 1516,
+      "text": "On the back, in pencil: Do not open where everyone already agrees.",
+      "tokens": [
+        "back",
+        "pencil",
+        "open",
+        "everyone",
+        "already",
+        "agrees"
+      ]
+    },
+    {
+      "id": "open-air:1517-1560",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1517,
+      "end": 1560,
+      "text": "Lio began releasing drafts in minor places.",
+      "tokens": [
+        "lio",
+        "began",
+        "releasing",
+        "drafts",
+        "minor",
+        "places"
+      ]
+    },
+    {
+      "id": "open-air:1561-1588",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1561,
+      "end": 1588,
+      "text": "A stairwell between floors.",
+      "tokens": [
+        "stairwell",
+        "between",
+        "floors"
+      ]
+    },
+    {
+      "id": "open-air:1589-1617",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1589,
+      "end": 1617,
+      "text": "A laundromat after midnight.",
+      "tokens": [
+        "laundromat",
+        "midnight"
+      ]
+    },
+    {
+      "id": "open-air:1618-1654",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1618,
+      "end": 1654,
+      "text": "An elevator stalled between offices.",
+      "tokens": [
+        "elevator",
+        "stalled",
+        "between",
+        "offices"
+      ]
+    },
+    {
+      "id": "open-air:1655-1686",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1655,
+      "end": 1686,
+      "text": "Each draft behaved differently.",
+      "tokens": [
+        "draft",
+        "behaved",
+        "differently"
+      ]
+    },
+    {
+      "id": "open-air:1705-1726",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1705,
+      "end": 1726,
+      "text": "One carried leaf rot.",
+      "tokens": [
+        "carried",
+        "leaf",
+        "rot"
+      ]
+    },
+    {
+      "id": "open-air:1727-1811",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1727,
+      "end": 1811,
+      "text": "One crossed a room cold enough to make strangers move closer without discussing why.",
+      "tokens": [
+        "crossed",
+        "room",
+        "cold",
+        "enough",
+        "make",
+        "strangers",
+        "move",
+        "closer",
+        "discussing"
+      ]
+    },
+    {
+      "id": "open-air:1812-1852",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1812,
+      "end": 1852,
+      "text": "The city detected behavioural anomalies.",
+      "tokens": [
+        "city",
+        "detected",
+        "behavioural",
+        "anomalies"
+      ]
+    },
+    {
+      "id": "open-air:1853-1887",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1853,
+      "end": 1887,
+      "text": "People lingered without consuming.",
+      "tokens": [
+        "people",
+        "lingered",
+        "consuming"
+      ]
+    },
+    {
+      "id": "open-air:1888-1922",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1888,
+      "end": 1922,
+      "text": "Meetings ended before conclusions.",
+      "tokens": [
+        "meetings",
+        "ended",
+        "conclusions"
+      ]
+    },
+    {
+      "id": "open-air:1923-2004",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 1923,
+      "end": 2004,
+      "text": "Children stood near vents and invented words for directions no corridor provided.",
+      "tokens": [
+        "children",
+        "stood",
+        "near",
+        "vents",
+        "invented",
+        "words",
+        "directions",
+        "corridor",
+        "provided"
+      ]
+    },
+    {
+      "id": "open-air:2005-2031",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2005,
+      "end": 2031,
+      "text": "The Ministry issued masks.",
+      "tokens": [
+        "ministry",
+        "issued",
+        "masks"
+      ]
+    },
+    {
+      "id": "open-air:2032-2103",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2032,
+      "end": 2103,
+      "text": "The masks were transparent so citizens could see one another complying.",
+      "tokens": [
+        "masks",
+        "transparent",
+        "citizens",
+        "see",
+        "another",
+        "complying"
+      ]
+    },
+    {
+      "id": "open-air:2104-2145",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2104,
+      "end": 2145,
+      "text": "Lio’s final envelope contained no permit.",
+      "tokens": [
+        "lio’s",
+        "final",
+        "envelope",
+        "contained",
+        "permit"
+      ]
+    },
+    {
+      "id": "open-air:2164-2240",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2164,
+      "end": 2240,
+      "text": "He followed them through maintenance tunnels to the oldest wall of the city.",
+      "tokens": [
+        "followed",
+        "maintenance",
+        "tunnels",
+        "oldest",
+        "wall",
+        "city"
+      ]
+    },
+    {
+      "id": "open-air:2241-2307",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2241,
+      "end": 2307,
+      "text": "There, beneath twelve layers of insulation, he found a steel door.",
+      "tokens": [
+        "beneath",
+        "twelve",
+        "layers",
+        "insulation",
+        "found",
+        "steel",
+        "door"
+      ]
+    },
+    {
+      "id": "open-air:2308-2393",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2308,
+      "end": 2393,
+      "text": "On it someone had painted a blue rectangle and, inside it, a smaller white rectangle.",
+      "tokens": [
+        "painted",
+        "blue",
+        "rectangle",
+        "inside",
+        "smaller",
+        "white"
+      ]
+    },
+    {
+      "id": "open-air:2394-2461",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2394,
+      "end": 2461,
+      "text": "The symbol meant nothing to him, yet his chest recognised distance.",
+      "tokens": [
+        "symbol",
+        "meant",
+        "him",
+        "yet",
+        "chest",
+        "recognised",
+        "distance"
+      ]
+    },
+    {
+      "id": "open-air:2462-2481",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2462,
+      "end": 2481,
+      "text": "He opened the door.",
+      "tokens": [
+        "opened",
+        "door"
+      ]
+    },
+    {
+      "id": "open-air:2482-2520",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2482,
+      "end": 2520,
+      "text": "The outside did not arrive as freedom.",
+      "tokens": [
+        "outside",
+        "arrive",
+        "freedom"
+      ]
+    },
+    {
+      "id": "open-air:2521-2632",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2521,
+      "end": 2632,
+      "text": "It arrived as heat, grit, insects, glare, noise, the smell of water and something decomposing under vegetation.",
+      "tokens": [
+        "arrived",
+        "heat",
+        "grit",
+        "insects",
+        "glare",
+        "noise",
+        "smell",
+        "water",
+        "decomposing",
+        "vegetation"
+      ]
+    },
+    {
+      "id": "open-air:2633-2664",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2633,
+      "end": 2664,
+      "text": "Lio fell to his knees coughing.",
+      "tokens": [
+        "lio",
+        "fell",
+        "knees",
+        "coughing"
+      ]
+    },
+    {
+      "id": "open-air:2665-2690",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2665,
+      "end": 2690,
+      "text": "Behind him, alarms began.",
+      "tokens": [
+        "behind",
+        "him",
+        "alarms",
+        "began"
+      ]
+    },
+    {
+      "id": "open-air:2691-2724",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2691,
+      "end": 2724,
+      "text": "For one minute he hated the open.",
+      "tokens": [
+        "minute",
+        "hated",
+        "open"
+      ]
+    },
+    {
+      "id": "open-air:2725-2766",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2725,
+      "end": 2766,
+      "text": "Then the wind changed without permission.",
+      "tokens": [
+        "wind",
+        "changed",
+        "permission"
+      ]
+    },
+    {
+      "id": "open-air:2767-2839",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2767,
+      "end": 2839,
+      "text": "The city had trained him to believe that control and care were synonyms.",
+      "tokens": [
+        "city",
+        "trained",
+        "him",
+        "believe",
+        "control",
+        "care",
+        "synonyms"
+      ]
+    },
+    {
+      "id": "open-air:2840-2883",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2840,
+      "end": 2883,
+      "text": "The sky corrected this by offering neither.",
+      "tokens": [
+        "sky",
+        "corrected",
+        "offering",
+        "neither"
+      ]
+    },
+    {
+      "id": "open-air:2884-2919",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2884,
+      "end": 2919,
+      "text": "Security officers reached the door.",
+      "tokens": [
+        "security",
+        "officers",
+        "reached",
+        "door"
+      ]
+    },
+    {
+      "id": "open-air:2920-2947",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2920,
+      "end": 2947,
+      "text": "They raised sealed shields.",
+      "tokens": [
+        "raised",
+        "sealed",
+        "shields"
+      ]
+    },
+    {
+      "id": "open-air:2948-2982",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2948,
+      "end": 2982,
+      "text": "“Close it,” their captain ordered.",
+      "tokens": [
+        "close",
+        "captain",
+        "ordered"
+      ]
+    },
+    {
+      "id": "open-air:2983-3055",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 2983,
+      "end": 3055,
+      "text": "Lio looked back at the corridor, at its balanced light and approved air.",
+      "tokens": [
+        "lio",
+        "looked",
+        "back",
+        "corridor",
+        "balanced",
+        "light",
+        "approved",
+        "air"
+      ]
+    },
+    {
+      "id": "open-air:3056-3114",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3056,
+      "end": 3114,
+      "text": "Then forward, where clouds were assembling without agenda.",
+      "tokens": [
+        "forward",
+        "clouds",
+        "assembling",
+        "agenda"
+      ]
+    },
+    {
+      "id": "open-air:3115-3140",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3115,
+      "end": 3140,
+      "text": "He did not make a speech.",
+      "tokens": [
+        "make",
+        "speech"
+      ]
+    },
+    {
+      "id": "open-air:3141-3182",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3141,
+      "end": 3182,
+      "text": "He placed a toolbox across the threshold.",
+      "tokens": [
+        "placed",
+        "toolbox",
+        "across",
+        "threshold"
+      ]
+    },
+    {
+      "id": "open-air:3183-3214",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3183,
+      "end": 3214,
+      "text": "The door could still be closed.",
+      "tokens": [
+        "door",
+        "closed"
+      ]
+    },
+    {
+      "id": "open-air:3215-3281",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3215,
+      "end": 3281,
+      "text": "But not without someone first deciding to move an ordinary object.",
+      "tokens": [
+        "first",
+        "deciding",
+        "move",
+        "ordinary",
+        "object"
+      ]
+    },
+    {
+      "id": "open-air:3282-3321",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3282,
+      "end": 3321,
+      "text": "That small inconvenience saved the sky.",
+      "tokens": [
+        "small",
+        "inconvenience",
+        "saved",
+        "sky"
+      ]
+    },
+    {
+      "id": "open-air:3355-3423",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3355,
+      "end": 3423,
+      "text": "Each person confronted the toolbox and the visible choice beyond it.",
+      "tokens": [
+        "person",
+        "confronted",
+        "toolbox",
+        "visible",
+        "choice",
+        "beyond"
+      ]
+    },
+    {
+      "id": "open-air:3441-3466",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3441,
+      "end": 3466,
+      "text": "Some removed their masks.",
+      "tokens": [
+        "removed",
+        "masks"
+      ]
+    },
+    {
+      "id": "open-air:3467-3550",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3467,
+      "end": 3550,
+      "text": "One elderly woman stepped outside, stood in the heat for ten seconds, and returned.",
+      "tokens": [
+        "elderly",
+        "woman",
+        "stepped",
+        "outside",
+        "stood",
+        "heat",
+        "ten",
+        "seconds",
+        "returned"
+      ]
+    },
+    {
+      "id": "open-air:3590-3622",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3590,
+      "end": 3622,
+      "text": "“It is badly managed,” she said.",
+      "tokens": [
+        "badly",
+        "managed"
+      ]
+    },
+    {
+      "id": "open-air:3634-3682",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3634,
+      "end": 3682,
+      "text": "The city remained enclosed for years after that.",
+      "tokens": [
+        "city",
+        "remained",
+        "enclosed",
+        "years"
+      ]
+    },
+    {
+      "id": "open-air:3683-3792",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3683,
+      "end": 3792,
+      "text": "But every building code acquired a new requirement: one opening through which the environment could disagree.",
+      "tokens": [
+        "building",
+        "code",
+        "acquired",
+        "new",
+        "requirement",
+        "opening",
+        "environment",
+        "disagree"
+      ]
+    },
+    {
+      "id": "open-air:3846-3911",
+      "source_id": "open-air",
+      "title": "Open Air",
+      "path": "/prison-age/stories/03-open-air.md",
+      "start": 3846,
+      "end": 3911,
+      "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+      "tokens": [
+        "ask",
+        "rule",
+        "protected",
+        "appearing",
+        "natural"
+      ]
+    },
+    {
+      "id": "fandom-court:190-314",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 190,
+      "end": 314,
+      "text": "A fan community reconstructs a missing season so completely that the reconstruction begins rewriting the people who made it.",
+      "tokens": [
+        "fan",
+        "community",
+        "reconstructs",
+        "missing",
+        "completely",
+        "reconstruction",
+        "begins",
+        "rewriting",
+        "people",
+        "made"
+      ]
+    },
+    {
+      "id": "fandom-court:315-395",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 315,
+      "end": 395,
+      "text": "The missing season had never aired, which made everyone remember it differently.",
+      "tokens": [
+        "missing",
+        "never",
+        "aired",
+        "made",
+        "everyone",
+        "remember",
+        "differently"
+      ]
+    },
+    {
+      "id": "fandom-court:396-427",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 396,
+      "end": 427,
+      "text": "Some recalled a winter palette.",
+      "tokens": [
+        "recalled",
+        "winter",
+        "palette"
+      ]
+    },
+    {
+      "id": "fandom-court:428-500",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 428,
+      "end": 500,
+      "text": "Others insisted the city remained summer-bright until the final episode.",
+      "tokens": [
+        "others",
+        "insisted",
+        "city",
+        "remained",
+        "summer-bright",
+        "until",
+        "final",
+        "episode"
+      ]
+    },
+    {
+      "id": "fandom-court:501-587",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 501,
+      "end": 587,
+      "text": "A faction called the Doorists maintained that every scene contained the same red door.",
+      "tokens": [
+        "faction",
+        "called",
+        "doorists",
+        "maintained",
+        "scene",
+        "contained",
+        "red",
+        "door"
+      ]
+    },
+    {
+      "id": "fandom-court:588-699",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 588,
+      "end": 699,
+      "text": "The Anti-Door Collective proved, frame by reconstructed frame, that the red door was inserted by later viewers.",
+      "tokens": [
+        "anti-door",
+        "collective",
+        "proved",
+        "frame",
+        "reconstructed",
+        "red",
+        "door",
+        "inserted",
+        "later",
+        "viewers"
+      ]
+    },
+    {
+      "id": "fandom-court:722-747",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 722,
+      "end": 747,
+      "text": "That did not slow anyone.",
+      "tokens": [
+        "slow",
+        "anyone"
+      ]
+    },
+    {
+      "id": "fandom-court:748-883",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 748,
+      "end": 883,
+      "text": "The fandom rebuilt scripts from interviews, wardrobe invoices, weather records and the pauses actors made when asked certain questions.",
+      "tokens": [
+        "fandom",
+        "rebuilt",
+        "scripts",
+        "interviews",
+        "wardrobe",
+        "invoices",
+        "weather",
+        "records",
+        "pauses",
+        "actors",
+        "made",
+        "certain",
+        "questions"
+      ]
+    },
+    {
+      "id": "fandom-court:884-1041",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 884,
+      "end": 1041,
+      "text": "They trained models on previous seasons, generated candidate scenes, voted on emotional legitimacy and released a community cut titled SEASON FOUR: RESTORED.",
+      "tokens": [
+        "trained",
+        "models",
+        "previous",
+        "seasons",
+        "generated",
+        "candidate",
+        "scenes",
+        "voted",
+        "emotional",
+        "legitimacy",
+        "released",
+        "community",
+        "cut",
+        "titled",
+        "restored"
+      ]
+    },
+    {
+      "id": "fandom-court:1062-1112",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1062,
+      "end": 1112,
+      "text": "Three weeks later, an actor remembered filming it.",
+      "tokens": [
+        "weeks",
+        "later",
+        "actor",
+        "remembered",
+        "filming"
+      ]
+    },
+    {
+      "id": "fandom-court:1130-1218",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1130,
+      "end": 1218,
+      "text": "A supporting performer described an improvised line found nowhere in the reconstruction.",
+      "tokens": [
+        "supporting",
+        "performer",
+        "described",
+        "improvised",
+        "line",
+        "found",
+        "nowhere",
+        "reconstruction"
+      ]
+    },
+    {
+      "id": "fandom-court:1219-1242",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1219,
+      "end": 1242,
+      "text": "The community added it.",
+      "tokens": [
+        "community",
+        "added"
+      ]
+    },
+    {
+      "id": "fandom-court:1243-1300",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1243,
+      "end": 1300,
+      "text": "A director claimed the finale had originally been silent.",
+      "tokens": [
+        "director",
+        "claimed",
+        "finale",
+        "originally",
+        "silent"
+      ]
+    },
+    {
+      "id": "fandom-court:1301-1398",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1301,
+      "end": 1398,
+      "text": "The community debated whether creators retained authority over works they had failed to preserve.",
+      "tokens": [
+        "community",
+        "debated",
+        "whether",
+        "creators",
+        "retained",
+        "authority",
+        "works",
+        "failed",
+        "preserve"
+      ]
+    },
+    {
+      "id": "fandom-court:1399-1425",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1399,
+      "end": 1425,
+      "text": "Then the creator appeared.",
+      "tokens": [
+        "creator",
+        "appeared"
+      ]
+    },
+    {
+      "id": "fandom-court:1426-1491",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1426,
+      "end": 1491,
+      "text": "He entered the forum under his legal name and posted seven words:",
+      "tokens": [
+        "entered",
+        "forum",
+        "legal",
+        "name",
+        "posted",
+        "words"
+      ]
+    },
+    {
+      "id": "fandom-court:1492-1534",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1492,
+      "end": 1534,
+      "text": "You have rebuilt the wrong missing season.",
+      "tokens": [
+        "rebuilt",
+        "wrong",
+        "missing"
+      ]
+    },
+    {
+      "id": "fandom-court:1535-1562",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1535,
+      "end": 1562,
+      "text": "The response was immediate.",
+      "tokens": [
+        "response",
+        "immediate"
+      ]
+    },
+    {
+      "id": "fandom-court:1563-1590",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1563,
+      "end": 1590,
+      "text": "The claim lacked citations.",
+      "tokens": [
+        "claim",
+        "lacked",
+        "citations"
+      ]
+    },
+    {
+      "id": "fandom-court:1591-1624",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1591,
+      "end": 1624,
+      "text": "The account might be compromised.",
+      "tokens": [
+        "account",
+        "compromised"
+      ]
+    },
+    {
+      "id": "fandom-court:1625-1680",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1625,
+      "end": 1680,
+      "text": "The creator’s later work showed poor thematic judgment.",
+      "tokens": [
+        "creator’s",
+        "later",
+        "work",
+        "showed",
+        "poor",
+        "thematic",
+        "judgment"
+      ]
+    },
+    {
+      "id": "fandom-court:1681-1734",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1681,
+      "end": 1734,
+      "text": "Authorship did not guarantee interpretive competence.",
+      "tokens": [
+        "authorship",
+        "guarantee",
+        "interpretive",
+        "competence"
+      ]
+    },
+    {
+      "id": "fandom-court:1735-1840",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1735,
+      "end": 1840,
+      "text": "Several users noted that the reconstructed season was more coherent than anything he had verifiably made.",
+      "tokens": [
+        "several",
+        "users",
+        "noted",
+        "reconstructed",
+        "coherent",
+        "verifiably",
+        "made"
+      ]
+    },
+    {
+      "id": "fandom-court:1841-1867",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1841,
+      "end": 1867,
+      "text": "The Fandom Court convened.",
+      "tokens": [
+        "fandom",
+        "court",
+        "convened"
+      ]
+    },
+    {
+      "id": "fandom-court:1868-1915",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1868,
+      "end": 1915,
+      "text": "Its judges were selected by contribution score.",
+      "tokens": [
+        "judges",
+        "selected",
+        "contribution",
+        "score"
+      ]
+    },
+    {
+      "id": "fandom-court:1916-2085",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 1916,
+      "end": 2085,
+      "text": "Evidence was projected across a virtual courtroom: production calendars, dream journals, fan edits, alleged memory contamination, metadata from files that did not exist.",
+      "tokens": [
+        "evidence",
+        "projected",
+        "across",
+        "virtual",
+        "courtroom",
+        "production",
+        "calendars",
+        "dream",
+        "journals",
+        "fan",
+        "edits",
+        "alleged",
+        "memory",
+        "contamination",
+        "metadata",
+        "files",
+        "exist"
+      ]
+    },
+    {
+      "id": "fandom-court:2086-2152",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2086,
+      "end": 2152,
+      "text": "The creator submitted one object: a cassette labelled SEASON FIVE.",
+      "tokens": [
+        "creator",
+        "submitted",
+        "object",
+        "cassette",
+        "labelled"
+      ]
+    },
+    {
+      "id": "fandom-court:2153-2202",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2153,
+      "end": 2202,
+      "text": "“There was no season five,” said the chief judge.",
+      "tokens": [
+        "chief",
+        "judge"
+      ]
+    },
+    {
+      "id": "fandom-court:2203-2252",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2203,
+      "end": 2252,
+      "text": "“That is why season four is missing,” he replied.",
+      "tokens": [
+        "missing",
+        "replied"
+      ]
+    },
+    {
+      "id": "fandom-court:2253-2321",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2253,
+      "end": 2321,
+      "text": "The tape contained footage of the fandom reconstructing season four.",
+      "tokens": [
+        "tape",
+        "contained",
+        "footage",
+        "fandom",
+        "reconstructing"
+      ]
+    },
+    {
+      "id": "fandom-court:2322-2363",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2322,
+      "end": 2363,
+      "text": "Not documentary footage from the present.",
+      "tokens": [
+        "documentary",
+        "footage",
+        "present"
+      ]
+    },
+    {
+      "id": "fandom-court:2364-2395",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2364,
+      "end": 2395,
+      "text": "Footage produced years earlier.",
+      "tokens": [
+        "footage",
+        "produced",
+        "years",
+        "earlier"
+      ]
+    },
+    {
+      "id": "fandom-court:2414-2520",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2414,
+      "end": 2520,
+      "text": "The same usernames, including accounts belonging to people who had been children at the time of recording.",
+      "tokens": [
+        "usernames",
+        "including",
+        "accounts",
+        "belonging",
+        "people",
+        "children",
+        "time",
+        "recording"
+      ]
+    },
+    {
+      "id": "fandom-court:2521-2558",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2521,
+      "end": 2558,
+      "text": "The same sentence about the red door.",
+      "tokens": [
+        "sentence",
+        "about",
+        "red",
+        "door"
+      ]
+    },
+    {
+      "id": "fandom-court:2559-2604",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2559,
+      "end": 2604,
+      "text": "The courtroom fractured into interpretations.",
+      "tokens": [
+        "courtroom",
+        "fractured",
+        "interpretations"
+      ]
+    },
+    {
+      "id": "fandom-court:2605-2665",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2605,
+      "end": 2665,
+      "text": "The Determinists declared the fandom had fulfilled the text.",
+      "tokens": [
+        "determinists",
+        "declared",
+        "fandom",
+        "fulfilled",
+        "text"
+      ]
+    },
+    {
+      "id": "fandom-court:2666-2731",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2666,
+      "end": 2731,
+      "text": "The Fabricationists called the tape a sophisticated intervention.",
+      "tokens": [
+        "fabricationists",
+        "called",
+        "tape",
+        "sophisticated",
+        "intervention"
+      ]
+    },
+    {
+      "id": "fandom-court:2732-2828",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2732,
+      "end": 2828,
+      "text": "The Doorists found a red rectangle reflected in the cassette case and claimed total vindication.",
+      "tokens": [
+        "doorists",
+        "found",
+        "red",
+        "rectangle",
+        "reflected",
+        "cassette",
+        "case",
+        "claimed",
+        "total",
+        "vindication"
+      ]
+    },
+    {
+      "id": "fandom-court:2829-2868",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2829,
+      "end": 2868,
+      "text": "A moderator named Ione paused the feed.",
+      "tokens": [
+        "moderator",
+        "named",
+        "ione",
+        "paused",
+        "feed"
+      ]
+    },
+    {
+      "id": "fandom-court:2869-2900",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2869,
+      "end": 2900,
+      "text": "“What question are we deciding?",
+      "tokens": [
+        "question",
+        "deciding"
+      ]
+    },
+    {
+      "id": "fandom-court:2913-2952",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2913,
+      "end": 2952,
+      "text": "The Court produced forty-three answers.",
+      "tokens": [
+        "court",
+        "produced",
+        "forty-three",
+        "answers"
+      ]
+    },
+    {
+      "id": "fandom-court:2953-3002",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 2953,
+      "end": 3002,
+      "text": "Ione opened a blank ledger and drew four columns:",
+      "tokens": [
+        "ione",
+        "opened",
+        "blank",
+        "ledger",
+        "drew",
+        "columns"
+      ]
+    },
+    {
+      "id": "fandom-court:3048-3080",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3048,
+      "end": 3080,
+      "text": "The creator might be the origin.",
+      "tokens": [
+        "creator",
+        "origin"
+      ]
+    },
+    {
+      "id": "fandom-court:3081-3116",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3081,
+      "end": 3116,
+      "text": "The fandom had become transmission.",
+      "tokens": [
+        "fandom",
+        "become",
+        "transmission"
+      ]
+    },
+    {
+      "id": "fandom-court:3117-3149",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3117,
+      "end": 3149,
+      "text": "The reconstruction was mutation.",
+      "tokens": [
+        "reconstruction",
+        "mutation"
+      ]
+    },
+    {
+      "id": "fandom-court:3150-3186",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3150,
+      "end": 3186,
+      "text": "The current use was still undecided.",
+      "tokens": [
+        "current",
+        "use",
+        "undecided"
+      ]
+    },
+    {
+      "id": "fandom-court:3187-3218",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3187,
+      "end": 3218,
+      "text": "No column cancelled the others.",
+      "tokens": [
+        "column",
+        "cancelled",
+        "others"
+      ]
+    },
+    {
+      "id": "fandom-court:3219-3325",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3219,
+      "end": 3325,
+      "text": "The Court had been trapped by a false sovereignty: either the creator owned meaning, or the community did.",
+      "tokens": [
+        "court",
+        "trapped",
+        "false",
+        "sovereignty",
+        "either",
+        "creator",
+        "owned",
+        "meaning",
+        "community"
+      ]
+    },
+    {
+      "id": "fandom-court:3326-3386",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3326,
+      "end": 3386,
+      "text": "The ledger replaced ownership with traceable transformation.",
+      "tokens": [
+        "ledger",
+        "replaced",
+        "ownership",
+        "traceable",
+        "transformation"
+      ]
+    },
+    {
+      "id": "fandom-court:3387-3409",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3387,
+      "end": 3409,
+      "text": "They resumed the tape.",
+      "tokens": [
+        "resumed",
+        "tape"
+      ]
+    },
+    {
+      "id": "fandom-court:3410-3489",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3410,
+      "end": 3489,
+      "text": "In its final minute, the old footage showed Ione drawing the same four columns.",
+      "tokens": [
+        "final",
+        "minute",
+        "old",
+        "footage",
+        "showed",
+        "ione",
+        "drawing",
+        "columns"
+      ]
+    },
+    {
+      "id": "fandom-court:3490-3557",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3490,
+      "end": 3557,
+      "text": "Then the screen displayed a message addressed to the present Court:",
+      "tokens": [
+        "screen",
+        "displayed",
+        "message",
+        "addressed",
+        "present",
+        "court"
+      ]
+    },
+    {
+      "id": "fandom-court:3585-3637",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3585,
+      "end": 3637,
+      "text": "RESTORE THE CAPACITY TO DISTINGUISH WHAT CHANGED IT.",
+      "tokens": [
+        "restore",
+        "capacity",
+        "distinguish",
+        "changed"
+      ]
+    },
+    {
+      "id": "fandom-court:3638-3677",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3638,
+      "end": 3677,
+      "text": "The creator disappeared from the forum.",
+      "tokens": [
+        "creator",
+        "disappeared",
+        "forum"
+      ]
+    },
+    {
+      "id": "fandom-court:3678-3726",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3678,
+      "end": 3726,
+      "text": "The community did not delete its reconstruction.",
+      "tokens": [
+        "community",
+        "delete",
+        "reconstruction"
+      ]
+    },
+    {
+      "id": "fandom-court:3727-3814",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3727,
+      "end": 3814,
+      "text": "It released a new edition with every scene labelled by source, inference and invention.",
+      "tokens": [
+        "released",
+        "new",
+        "edition",
+        "scene",
+        "labelled",
+        "inference",
+        "invention"
+      ]
+    },
+    {
+      "id": "fandom-court:3815-3872",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3815,
+      "end": 3872,
+      "text": "Viewers complained that the annotations ruined immersion.",
+      "tokens": [
+        "viewers",
+        "complained",
+        "annotations",
+        "ruined",
+        "immersion"
+      ]
+    },
+    {
+      "id": "fandom-court:3873-3936",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3873,
+      "end": 3936,
+      "text": "Others discovered that the annotations were the missing season.",
+      "tokens": [
+        "others",
+        "discovered",
+        "annotations",
+        "missing"
+      ]
+    },
+    {
+      "id": "fandom-court:3990-4055",
+      "source_id": "fandom-court",
+      "title": "The Fandom Court",
+      "path": "/prison-age/stories/05-fandom-court.md",
+      "start": 3990,
+      "end": 4055,
+      "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+      "tokens": [
+        "ask",
+        "rule",
+        "protected",
+        "appearing",
+        "natural"
+      ]
+    },
+    {
+      "id": "last-stall:0-28",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 0,
+      "end": 28,
+      "text": "# PRISON AGE: THE LAST STALL",
+      "tokens": [
+        "last",
+        "stall"
+      ]
+    },
+    {
+      "id": "last-stall:30-69",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 30,
+      "end": 69,
+      "text": "## CURATED SOURCE EXTRACT / AUGUST 2026",
+      "tokens": [
+        "curated",
+        "extract",
+        "august",
+        "2026"
+      ]
+    },
+    {
+      "id": "last-stall:71-113",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 71,
+      "end": 113,
+      "text": "**Source:** `PRISON_AGE_THE_LAST_STALL_v2.",
+      "tokens": [
+        "last",
+        "stall"
+      ]
+    },
+    {
+      "id": "last-stall:119-157",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 119,
+      "end": 157,
+      "text": "**Editorial status:** 2026 reader cut.",
+      "tokens": [
+        "editorial",
+        "status",
+        "2026",
+        "reader",
+        "cut"
+      ]
+    },
+    {
+      "id": "last-stall:158-243",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 158,
+      "end": 243,
+      "text": "The passages below are copied from the source; omitted material is marked explicitly.",
+      "tokens": [
+        "passages",
+        "below",
+        "copied",
+        "omitted",
+        "material",
+        "marked",
+        "explicitly"
+      ]
+    },
+    {
+      "id": "last-stall:244-330",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 244,
+      "end": 330,
+      "text": "This extract is not the complete episode and is not presented as recovered 2024 canon.",
+      "tokens": [
+        "extract",
+        "complete",
+        "episode",
+        "presented",
+        "recovered",
+        "2024",
+        "canon"
+      ]
+    },
+    {
+      "id": "last-stall:337-523",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 337,
+      "end": 523,
+      "text": "Contestant Seven sat fully clothed on the closed toilet lid, holding a phone with one per cent battery and the expression of someone who had obeyed every instruction and arrived nowhere.",
+      "tokens": [
+        "contestant",
+        "sat",
+        "fully",
+        "clothed",
+        "closed",
+        "toilet",
+        "lid",
+        "holding",
+        "phone",
+        "per",
+        "cent",
+        "battery",
+        "expression",
+        "obeyed",
+        "instruction",
+        "arrived",
+        "nowhere"
+      ]
+    },
+    {
+      "id": "last-stall:525-644",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 525,
+      "end": 644,
+      "text": "Between Contestant Seven and the inward-swinging door stood a fallen carton of individually wrapped toilet-paper rolls.",
+      "tokens": [
+        "between",
+        "contestant",
+        "inward-swinging",
+        "door",
+        "stood",
+        "fallen",
+        "carton",
+        "individually",
+        "wrapped",
+        "toilet-paper",
+        "rolls"
+      ]
+    },
+    {
+      "id": "last-stall:666-756",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 666,
+      "end": 756,
+      "text": "\"The toilet paper has trapped me in a toilet with no toilet paper,\" Contestant Seven said.",
+      "tokens": [
+        "toilet",
+        "paper",
+        "trapped",
+        "contestant"
+      ]
+    },
+    {
+      "id": "last-stall:774-805",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 774,
+      "end": 805,
+      "text": "\"Recursive compliance incident.",
+      "tokens": [
+        "recursive",
+        "compliance",
+        "incident"
+      ]
+    },
+    {
+      "id": "last-stall:808-857",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 808,
+      "end": 857,
+      "text": "The carton had been delivered during the episode.",
+      "tokens": [
+        "carton",
+        "delivered",
+        "during",
+        "episode"
+      ]
+    },
+    {
+      "id": "last-stall:858-964",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 858,
+      "end": 964,
+      "text": "Restocking protocol required staff to place supplies inside the stall before marking the request complete.",
+      "tokens": [
+        "restocking",
+        "protocol",
+        "required",
+        "staff",
+        "place",
+        "supplies",
+        "inside",
+        "stall",
+        "marking",
+        "request",
+        "complete"
+      ]
+    },
+    {
+      "id": "last-stall:965-1043",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 965,
+      "end": 1043,
+      "text": "Door-clearance protocol required the stall to remain closed during restocking.",
+      "tokens": [
+        "door-clearance",
+        "protocol",
+        "required",
+        "stall",
+        "remain",
+        "closed",
+        "during",
+        "restocking"
+      ]
+    },
+    {
+      "id": "last-stall:1044-1115",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1044,
+      "end": 1115,
+      "text": "Privacy protocol prevented staff from checking whether it was occupied.",
+      "tokens": [
+        "privacy",
+        "protocol",
+        "prevented",
+        "staff",
+        "checking",
+        "whether",
+        "occupied"
+      ]
+    },
+    {
+      "id": "last-stall:1116-1148",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1116,
+      "end": 1148,
+      "text": "Dashboard protocol showed green.",
+      "tokens": [
+        "dashboard",
+        "protocol",
+        "showed",
+        "green"
+      ]
+    },
+    {
+      "id": "last-stall:1150-1180",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1150,
+      "end": 1180,
+      "text": "Every procedure had succeeded.",
+      "tokens": [
+        "procedure",
+        "succeeded"
+      ]
+    },
+    {
+      "id": "last-stall:1223-1271",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1223,
+      "end": 1271,
+      "text": "PooBaby weighed less than a damp complaint form.",
+      "tokens": [
+        "poobaby",
+        "weighed",
+        "less",
+        "damp",
+        "complaint",
+        "form"
+      ]
+    },
+    {
+      "id": "last-stall:1280-1315",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1280,
+      "end": 1315,
+      "text": "\"Can you open the maintenance door?",
+      "tokens": [
+        "open",
+        "maintenance",
+        "door"
+      ]
+    },
+    {
+      "id": "last-stall:1318-1354",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1318,
+      "end": 1354,
+      "text": "\"It opens into another locked stall.",
+      "tokens": [
+        "opens",
+        "another",
+        "locked",
+        "stall"
+      ]
+    },
+    {
+      "id": "last-stall:1357-1382",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1357,
+      "end": 1382,
+      "text": "\"Can you call Production?",
+      "tokens": [
+        "call",
+        "production"
+      ]
+    },
+    {
+      "id": "last-stall:1385-1408",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1385,
+      "end": 1408,
+      "text": "\"Production is a chair.",
+      "tokens": [
+        "production",
+        "chair"
+      ]
+    },
+    {
+      "id": "last-stall:1411-1438",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1411,
+      "end": 1438,
+      "text": "Contestant Seven looked up.",
+      "tokens": [
+        "contestant",
+        "looked"
+      ]
+    },
+    {
+      "id": "last-stall:1439-1479",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1439,
+      "end": 1479,
+      "text": "The partition did not reach the ceiling.",
+      "tokens": [
+        "partition",
+        "reach",
+        "ceiling"
+      ]
+    },
+    {
+      "id": "last-stall:1481-1501",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1481,
+      "end": 1501,
+      "text": "PooBaby looked down.",
+      "tokens": [
+        "poobaby",
+        "looked",
+        "down"
+      ]
+    },
+    {
+      "id": "last-stall:1502-1563",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1502,
+      "end": 1563,
+      "text": "The blue tile in its chest fitted the emergency-release slot.",
+      "tokens": [
+        "blue",
+        "tile",
+        "chest",
+        "fitted",
+        "emergency-release",
+        "slot"
+      ]
+    },
+    {
+      "id": "last-stall:1597-1622",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1597,
+      "end": 1622,
+      "text": "PooBaby removed the tile.",
+      "tokens": [
+        "poobaby",
+        "removed",
+        "tile"
+      ]
+    },
+    {
+      "id": "last-stall:1642-1695",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1642,
+      "end": 1695,
+      "text": "The door moved two centimetres and struck the carton.",
+      "tokens": [
+        "door",
+        "moved",
+        "centimetres",
+        "struck",
+        "carton"
+      ]
+    },
+    {
+      "id": "last-stall:1697-1787",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1697,
+      "end": 1787,
+      "text": "Production's dramatic music began, realized the movement was two centimetres, and stopped.",
+      "tokens": [
+        "production's",
+        "dramatic",
+        "music",
+        "began",
+        "realized",
+        "movement",
+        "centimetres",
+        "stopped"
+      ]
+    },
+    {
+      "id": "last-stall:1807-1844",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1807,
+      "end": 1844,
+      "text": "\"Not an exit,\" Contestant Seven said.",
+      "tokens": [
+        "exit",
+        "contestant"
+      ]
+    },
+    {
+      "id": "last-stall:1864-1981",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1864,
+      "end": 1981,
+      "text": "They now knew the obstruction's width, the door's radius and the distance between official success and usable motion.",
+      "tokens": [
+        "now",
+        "knew",
+        "obstruction's",
+        "width",
+        "door's",
+        "radius",
+        "distance",
+        "between",
+        "official",
+        "success",
+        "usable",
+        "motion"
+      ]
+    },
+    {
+      "id": "last-stall:1983-2039",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 1983,
+      "end": 2039,
+      "text": "PooBaby unfolded the corner of floor plan from its back.",
+      "tokens": [
+        "poobaby",
+        "unfolded",
+        "corner",
+        "floor",
+        "plan",
+        "back"
+      ]
+    },
+    {
+      "id": "last-stall:2040-2088",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2040,
+      "end": 2088,
+      "text": "In plan, the stalls were eight equal rectangles.",
+      "tokens": [
+        "plan",
+        "stalls",
+        "equal",
+        "rectangles"
+      ]
+    },
+    {
+      "id": "last-stall:2089-2254",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2089,
+      "end": 2254,
+      "text": "It did not show the carton, the empty dispenser, the too-high alarm, the ambiguous vent, the masked call, the unofficial creature or the chair performing Production.",
+      "tokens": [
+        "show",
+        "carton",
+        "empty",
+        "dispenser",
+        "too-high",
+        "alarm",
+        "ambiguous",
+        "vent",
+        "masked",
+        "call",
+        "unofficial",
+        "creature",
+        "chair",
+        "performing",
+        "production"
+      ]
+    },
+    {
+      "id": "last-stall:2256-2331",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2256,
+      "end": 2331,
+      "text": "\"This plan is accurate,\" PooBaby said, \"except for everything that happens.",
+      "tokens": [
+        "plan",
+        "accurate",
+        "poobaby",
+        "except",
+        "everything",
+        "happens"
+      ]
+    },
+    {
+      "id": "last-stall:2334-2400",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2334,
+      "end": 2400,
+      "text": "It folded the plan through the section line leaked by Cultivators.",
+      "tokens": [
+        "folded",
+        "plan",
+        "section",
+        "line",
+        "leaked",
+        "cultivators"
+      ]
+    },
+    {
+      "id": "last-stall:2401-2431",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2401,
+      "end": 2431,
+      "text": "Stall Seven touched Stall Six.",
+      "tokens": [
+        "stall",
+        "touched"
+      ]
+    },
+    {
+      "id": "last-stall:2432-2462",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2432,
+      "end": 2462,
+      "text": "The ceiling touched the floor.",
+      "tokens": [
+        "ceiling",
+        "touched",
+        "floor"
+      ]
+    },
+    {
+      "id": "last-stall:2463-2528",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2463,
+      "end": 2528,
+      "text": "The carton became a bridge in one view and a blockage in another.",
+      "tokens": [
+        "carton",
+        "became",
+        "bridge",
+        "view",
+        "blockage",
+        "another"
+      ]
+    },
+    {
+      "id": "last-stall:2529-2664",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2529,
+      "end": 2664,
+      "text": "The partition became a ladder if the person stopped treating its top edge as a privacy boundary and started treating it as an altitude.",
+      "tokens": [
+        "partition",
+        "became",
+        "ladder",
+        "person",
+        "stopped",
+        "treating",
+        "top",
+        "edge",
+        "privacy",
+        "boundary",
+        "started",
+        "altitude"
+      ]
+    },
+    {
+      "id": "last-stall:2666-2715",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2666,
+      "end": 2715,
+      "text": "\"The section is the plan,\" Contestant Seven said.",
+      "tokens": [
+        "section",
+        "plan",
+        "contestant"
+      ]
+    },
+    {
+      "id": "last-stall:2717-2741",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2717,
+      "end": 2741,
+      "text": "\"You heard it correctly.",
+      "tokens": [
+        "heard",
+        "correctly"
+      ]
+    },
+    {
+      "id": "last-stall:2744-2775",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2744,
+      "end": 2775,
+      "text": "\"I heard 'infection is the pan.",
+      "tokens": [
+        "heard",
+        "infection",
+        "pan"
+      ]
+    },
+    {
+      "id": "last-stall:2779-2818",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2779,
+      "end": 2818,
+      "text": "\"Also useful under specific conditions.",
+      "tokens": [
+        "useful",
+        "specific",
+        "conditions"
+      ]
+    },
+    {
+      "id": "last-stall:2821-2866",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2821,
+      "end": 2866,
+      "text": "Contestant Seven climbed onto the closed lid.",
+      "tokens": [
+        "contestant",
+        "climbed",
+        "onto",
+        "closed",
+        "lid"
+      ]
+    },
+    {
+      "id": "last-stall:2867-2916",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2867,
+      "end": 2916,
+      "text": "PooBaby climbed onto Contestant Seven's shoulder.",
+      "tokens": [
+        "poobaby",
+        "climbed",
+        "onto",
+        "contestant",
+        "seven's",
+        "shoulder"
+      ]
+    },
+    {
+      "id": "last-stall:2917-2953",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2917,
+      "end": 2953,
+      "text": "Together they reached the partition.",
+      "tokens": [
+        "together",
+        "reached",
+        "partition"
+      ]
+    },
+    {
+      "id": "last-stall:2955-3000",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 2955,
+      "end": 3000,
+      "text": "From above, eight stalls became an accordion.",
+      "tokens": [
+        "above",
+        "stalls",
+        "became",
+        "accordion"
+      ]
+    },
+    {
+      "id": "last-stall:3007-3056",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3007,
+      "end": 3056,
+      "text": "The security consultant returned with six clouds.",
+      "tokens": [
+        "security",
+        "consultant",
+        "returned",
+        "clouds"
+      ]
+    },
+    {
+      "id": "last-stall:3058-3095",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3058,
+      "end": 3095,
+      "text": "The lawyer asked where the data went.",
+      "tokens": [
+        "lawyer",
+        "data",
+        "went"
+      ]
+    },
+    {
+      "id": "last-stall:3097-3122",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3097,
+      "end": 3122,
+      "text": "The clouds became darker.",
+      "tokens": [
+        "clouds",
+        "became",
+        "darker"
+      ]
+    },
+    {
+      "id": "last-stall:3124-3155",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3124,
+      "end": 3155,
+      "text": "PooBaby looked at Camera Eight.",
+      "tokens": [
+        "poobaby",
+        "looked",
+        "camera"
+      ]
+    },
+    {
+      "id": "last-stall:3157-3217",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3157,
+      "end": 3217,
+      "text": "The first prison had been a room whose privacy delayed help.",
+      "tokens": [
+        "first",
+        "room",
+        "whose",
+        "privacy",
+        "delayed",
+        "help"
+      ]
+    },
+    {
+      "id": "last-stall:3219-3297",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3219,
+      "end": 3297,
+      "text": "The next prison would be a system in which help required permanent legibility.",
+      "tokens": [
+        "next",
+        "system",
+        "help",
+        "required",
+        "permanent",
+        "legibility"
+      ]
+    },
+    {
+      "id": "last-stall:3299-3345",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3299,
+      "end": 3345,
+      "text": "PooBaby pressed the blank sheet over the lens.",
+      "tokens": [
+        "poobaby",
+        "pressed",
+        "blank",
+        "sheet",
+        "lens"
+      ]
+    },
+    {
+      "id": "last-stall:3347-3399",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3347,
+      "end": 3399,
+      "text": "For forty-seven seconds, the broadcast showed paper.",
+      "tokens": [
+        "forty-seven",
+        "seconds",
+        "broadcast",
+        "showed",
+        "paper"
+      ]
+    },
+    {
+      "id": "last-stall:3401-3449",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3401,
+      "end": 3449,
+      "text": "Fans drew what they believed happened behind it.",
+      "tokens": [
+        "fans",
+        "drew",
+        "believed",
+        "happened",
+        "behind"
+      ]
+    },
+    {
+      "id": "last-stall:3451-3476",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3451,
+      "end": 3476,
+      "text": "Their drawings disagreed.",
+      "tokens": [
+        "drawings",
+        "disagreed"
+      ]
+    },
+    {
+      "id": "last-stall:3478-3511",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3478,
+      "end": 3511,
+      "text": "Together, they mapped the camera.",
+      "tokens": [
+        "together",
+        "mapped",
+        "camera"
+      ]
+    },
+    {
+      "id": "last-stall:3545-3599",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3545,
+      "end": 3599,
+      "text": "The room had changed in small, expensive, boring ways.",
+      "tokens": [
+        "room",
+        "changed",
+        "small",
+        "expensive",
+        "boring",
+        "ways"
+      ]
+    },
+    {
+      "id": "last-stall:3601-3634",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3601,
+      "end": 3634,
+      "text": "The alarm cord reached the floor.",
+      "tokens": [
+        "alarm",
+        "cord",
+        "reached",
+        "floor"
+      ]
+    },
+    {
+      "id": "last-stall:3636-3693",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3636,
+      "end": 3693,
+      "text": "The door could be released from outside by trained staff.",
+      "tokens": [
+        "door",
+        "released",
+        "outside",
+        "trained",
+        "staff"
+      ]
+    },
+    {
+      "id": "last-stall:3695-3725",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3695,
+      "end": 3725,
+      "text": "The exhaust state was visible.",
+      "tokens": [
+        "exhaust",
+        "state",
+        "visible"
+      ]
+    },
+    {
+      "id": "last-stall:3727-3752",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3727,
+      "end": 3752,
+      "text": "The cabinet was anchored.",
+      "tokens": [
+        "cabinet",
+        "anchored"
+      ]
+    },
+    {
+      "id": "last-stall:3754-3790",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3754,
+      "end": 3790,
+      "text": "The stock check had a name and time.",
+      "tokens": [
+        "stock",
+        "check",
+        "name",
+        "time"
+      ]
+    },
+    {
+      "id": "last-stall:3792-3838",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3792,
+      "end": 3838,
+      "text": "The glossy patch at the threshold was treated.",
+      "tokens": [
+        "glossy",
+        "patch",
+        "threshold",
+        "treated"
+      ]
+    },
+    {
+      "id": "last-stall:3840-3890",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3840,
+      "end": 3890,
+      "text": "The hand dryers no longer drowned the help signal.",
+      "tokens": [
+        "hand",
+        "dryers",
+        "longer",
+        "drowned",
+        "help",
+        "signal"
+      ]
+    },
+    {
+      "id": "last-stall:3892-4014",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 3892,
+      "end": 4014,
+      "text": "The welfare-check policy defined a respectful human response without transmitting a private-room video feed to six clouds.",
+      "tokens": [
+        "welfare-check",
+        "policy",
+        "defined",
+        "respectful",
+        "human",
+        "response",
+        "transmitting",
+        "private-room",
+        "video",
+        "feed",
+        "clouds"
+      ]
+    },
+    {
+      "id": "last-stall:4016-4061",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4016,
+      "end": 4061,
+      "text": "Above the exit, the old sentence had changed.",
+      "tokens": [
+        "above",
+        "exit",
+        "old",
+        "sentence",
+        "changed"
+      ]
+    },
+    {
+      "id": "last-stall:4063-4118",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4063,
+      "end": 4118,
+      "text": "**PLEASE LEAVE THIS PLACE ABLE TO FIND THE NEXT PERSON.",
+      "tokens": [
+        "please",
+        "leave",
+        "place",
+        "able",
+        "find",
+        "next",
+        "person"
+      ]
+    },
+    {
+      "id": "last-stall:4122-4155",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4122,
+      "end": 4155,
+      "text": "Nobody remembered authorizing it.",
+      "tokens": [
+        "nobody",
+        "remembered",
+        "authorizing"
+      ]
+    },
+    {
+      "id": "last-stall:4157-4230",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4157,
+      "end": 4230,
+      "text": "Once a week, a narrow strip of paper appeared beneath Stall Eight's door.",
+      "tokens": [
+        "once",
+        "week",
+        "narrow",
+        "strip",
+        "paper",
+        "appeared",
+        "beneath",
+        "stall",
+        "eight's",
+        "door"
+      ]
+    },
+    {
+      "id": "last-stall:4231-4265",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4231,
+      "end": 4265,
+      "text": "Sometimes it carried a floor plan.",
+      "tokens": [
+        "sometimes",
+        "carried",
+        "floor",
+        "plan"
+      ]
+    },
+    {
+      "id": "last-stall:4266-4284",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4266,
+      "end": 4284,
+      "text": "Sometimes a verse.",
+      "tokens": [
+        "sometimes",
+        "verse"
+      ]
+    },
+    {
+      "id": "last-stall:4285-4311",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4285,
+      "end": 4311,
+      "text": "Sometimes only fold marks.",
+      "tokens": [
+        "sometimes",
+        "fold",
+        "marks"
+      ]
+    },
+    {
+      "id": "last-stall:4312-4356",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4312,
+      "end": 4356,
+      "text": "Visitors added lines in different languages.",
+      "tokens": [
+        "visitors",
+        "added",
+        "lines",
+        "different",
+        "languages"
+      ]
+    },
+    {
+      "id": "last-stall:4357-4429",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4357,
+      "end": 4429,
+      "text": "Cleaners removed anything hateful, dangerous or impossible to disinfect.",
+      "tokens": [
+        "cleaners",
+        "removed",
+        "hateful",
+        "dangerous",
+        "impossible",
+        "disinfect"
+      ]
+    },
+    {
+      "id": "last-stall:4430-4529",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4430,
+      "end": 4529,
+      "text": "The rest accumulated into a poem whose lines could be read only by folding distant stalls together.",
+      "tokens": [
+        "rest",
+        "accumulated",
+        "poem",
+        "whose",
+        "lines",
+        "read",
+        "folding",
+        "distant",
+        "stalls",
+        "together"
+      ]
+    },
+    {
+      "id": "last-stall:4531-4562",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4531,
+      "end": 4562,
+      "text": "The first recovered verse read:",
+      "tokens": [
+        "first",
+        "recovered",
+        "verse",
+        "read"
+      ]
+    },
+    {
+      "id": "last-stall:4564-4668",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4564,
+      "end": 4668,
+      "text": "**THE WALL RECORDS THE VOICE / THE GAP RECORDS THE WALL / THE FLOOR CARRIES BOTH / UNTIL A PERSON COMES.",
+      "tokens": [
+        "wall",
+        "records",
+        "voice",
+        "gap",
+        "floor",
+        "carries",
+        "both",
+        "until",
+        "person",
+        "comes"
+      ]
+    },
+    {
+      "id": "last-stall:4672-4742",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4672,
+      "end": 4742,
+      "text": "The second remained unfinished, waiting for material not yet supplied.",
+      "tokens": [
+        "second",
+        "remained",
+        "unfinished",
+        "waiting",
+        "material",
+        "yet",
+        "supplied"
+      ]
+    },
+    {
+      "id": "last-stall:4744-4795",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4744,
+      "end": 4795,
+      "text": "At 3:19 one morning, the occupancy system reported:",
+      "tokens": [
+        "morning",
+        "occupancy",
+        "system",
+        "reported"
+      ]
+    },
+    {
+      "id": "last-stall:4797-4815",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4797,
+      "end": 4815,
+      "text": "**STALL 8: VACANT.",
+      "tokens": [
+        "stall",
+        "vacant"
+      ]
+    },
+    {
+      "id": "last-stall:4819-4878",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4819,
+      "end": 4878,
+      "text": "The camera counted eight blue eyes in the tile reflections.",
+      "tokens": [
+        "camera",
+        "counted",
+        "blue",
+        "eyes",
+        "tile",
+        "reflections"
+      ]
+    },
+    {
+      "id": "last-stall:4880-4910",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4880,
+      "end": 4910,
+      "text": "Production opened an incident.",
+      "tokens": [
+        "production",
+        "opened",
+        "incident"
+      ]
+    },
+    {
+      "id": "last-stall:4912-4933",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4912,
+      "end": 4933,
+      "text": "The room accepted it.",
+      "tokens": [
+        "room",
+        "accepted"
+      ]
+    },
+    {
+      "id": "last-stall:4935-4957",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4935,
+      "end": 4957,
+      "text": "Nothing else happened.",
+      "tokens": [
+        "else",
+        "happened"
+      ]
+    },
+    {
+      "id": "last-stall:4959-4990",
+      "source_id": "last-stall",
+      "title": "The Last Stall / Extract",
+      "path": "/prison-age/stories/07-last-stall-extract.md",
+      "start": 4959,
+      "end": 4990,
+      "text": "This time a person came anyway.",
+      "tokens": [
+        "time",
+        "person",
+        "came",
+        "anyway"
+      ]
+    },
+    {
+      "id": "successful-escape:3-48",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3,
+      "end": 48,
+      "text": "The Successful Escape Changes the Next Prison",
+      "tokens": [
+        "successful",
+        "escape",
+        "changes",
+        "next"
+      ]
+    },
+    {
+      "id": "successful-escape:204-273",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 204,
+      "end": 273,
+      "text": "Every proven escape becomes security architecture in the next season.",
+      "tokens": [
+        "proven",
+        "escape",
+        "becomes",
+        "security",
+        "architecture",
+        "next"
+      ]
+    },
+    {
+      "id": "successful-escape:274-343",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 274,
+      "end": 343,
+      "text": "Contestants must learn to generate methods rather than preserve keys.",
+      "tokens": [
+        "contestants",
+        "learn",
+        "generate",
+        "methods",
+        "rather",
+        "preserve",
+        "keys"
+      ]
+    },
+    {
+      "id": "successful-escape:344-381",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 344,
+      "end": 381,
+      "text": "Season Seven began with an open door.",
+      "tokens": [
+        "began",
+        "open",
+        "door"
+      ]
+    },
+    {
+      "id": "successful-escape:404-462",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 404,
+      "end": 462,
+      "text": "Beyond the threshold lay daylight and a sign reading EXIT.",
+      "tokens": [
+        "beyond",
+        "threshold",
+        "lay",
+        "daylight",
+        "sign",
+        "reading",
+        "exit"
+      ]
+    },
+    {
+      "id": "successful-escape:463-504",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 463,
+      "end": 504,
+      "text": "Half the contestants refused to trust it.",
+      "tokens": [
+        "half",
+        "contestants",
+        "refused",
+        "trust"
+      ]
+    },
+    {
+      "id": "successful-escape:505-568",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 505,
+      "end": 568,
+      "text": "The others walked through and found themselves in Season Eight.",
+      "tokens": [
+        "others",
+        "walked",
+        "found",
+        "themselves"
+      ]
+    },
+    {
+      "id": "successful-escape:569-616",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 569,
+      "end": 616,
+      "text": "The new prison was built from archived escapes.",
+      "tokens": [
+        "new",
+        "built",
+        "archived",
+        "escapes"
+      ]
+    },
+    {
+      "id": "successful-escape:617-660",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 617,
+      "end": 660,
+      "text": "Walls flexed against known leverage points.",
+      "tokens": [
+        "walls",
+        "flexed",
+        "against",
+        "known",
+        "leverage",
+        "points"
+      ]
+    },
+    {
+      "id": "successful-escape:661-713",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 661,
+      "end": 713,
+      "text": "Locks welcomed copied keys and recorded their users.",
+      "tokens": [
+        "locks",
+        "welcomed",
+        "copied",
+        "keys",
+        "recorded",
+        "users"
+      ]
+    },
+    {
+      "id": "successful-escape:714-792",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 714,
+      "end": 792,
+      "text": "Ventilation shafts widened into brightly lit corridors leading back to intake.",
+      "tokens": [
+        "ventilation",
+        "shafts",
+        "widened",
+        "brightly",
+        "lit",
+        "corridors",
+        "leading",
+        "back",
+        "intake"
+      ]
+    },
+    {
+      "id": "successful-escape:793-884",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 793,
+      "end": 884,
+      "text": "Every ingenious technique from previous seasons had become a tutorial embedded in security.",
+      "tokens": [
+        "ingenious",
+        "technique",
+        "previous",
+        "seasons",
+        "become",
+        "tutorial",
+        "embedded",
+        "security"
+      ]
+    },
+    {
+      "id": "successful-escape:885-905",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 885,
+      "end": 905,
+      "text": "The fandom loved it.",
+      "tokens": [
+        "fandom",
+        "loved"
+      ]
+    },
+    {
+      "id": "successful-escape:906-975",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 906,
+      "end": 975,
+      "text": "They ranked escape methods by elegance, speed and symbolic resonance.",
+      "tokens": [
+        "ranked",
+        "escape",
+        "methods",
+        "elegance",
+        "speed",
+        "symbolic",
+        "resonance"
+      ]
+    },
+    {
+      "id": "successful-escape:976-1057",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 976,
+      "end": 1057,
+      "text": "Contestants were penalised for repeating moves associated with earlier champions.",
+      "tokens": [
+        "contestants",
+        "penalised",
+        "repeating",
+        "moves",
+        "associated",
+        "earlier",
+        "champions"
+      ]
+    },
+    {
+      "id": "successful-escape:1058-1090",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1058,
+      "end": 1090,
+      "text": "Nera had memorised every season.",
+      "tokens": [
+        "nera",
+        "memorised"
+      ]
+    },
+    {
+      "id": "successful-escape:1091-1120",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1091,
+      "end": 1120,
+      "text": "This made her nearly useless.",
+      "tokens": [
+        "made",
+        "nearly",
+        "useless"
+      ]
+    },
+    {
+      "id": "successful-escape:1121-1215",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1121,
+      "end": 1215,
+      "text": "Whenever she noticed an opening, she also remembered how the programme expected it to be used.",
+      "tokens": [
+        "whenever",
+        "noticed",
+        "opening",
+        "remembered",
+        "programme",
+        "expected",
+        "used"
+      ]
+    },
+    {
+      "id": "successful-escape:1216-1251",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1216,
+      "end": 1251,
+      "text": "Her knowledge arrived pre-captured.",
+      "tokens": [
+        "knowledge",
+        "arrived",
+        "pre-captured"
+      ]
+    },
+    {
+      "id": "successful-escape:1252-1316",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1252,
+      "end": 1316,
+      "text": "Her cellmate, a child called Sable, knew nothing about the show.",
+      "tokens": [
+        "cellmate",
+        "child",
+        "called",
+        "sable",
+        "knew",
+        "about",
+        "show"
+      ]
+    },
+    {
+      "id": "successful-escape:1401-1427",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1401,
+      "end": 1427,
+      "text": "Nera pointed to the walls.",
+      "tokens": [
+        "nera",
+        "pointed",
+        "walls"
+      ]
+    },
+    {
+      "id": "successful-escape:1428-1456",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1428,
+      "end": 1456,
+      "text": "Sable pointed to the camera.",
+      "tokens": [
+        "sable",
+        "pointed",
+        "camera"
+      ]
+    },
+    {
+      "id": "successful-escape:1457-1483",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1457,
+      "end": 1483,
+      "text": "Then to the rules display.",
+      "tokens": [
+        "rules",
+        "display"
+      ]
+    },
+    {
+      "id": "successful-escape:1484-1506",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1484,
+      "end": 1506,
+      "text": "Then to Nera’s answer.",
+      "tokens": [
+        "nera’s",
+        "answer"
+      ]
+    },
+    {
+      "id": "successful-escape:1507-1544",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1507,
+      "end": 1544,
+      "text": "They began running small experiments.",
+      "tokens": [
+        "began",
+        "running",
+        "small",
+        "experiments"
+      ]
+    },
+    {
+      "id": "successful-escape:1545-1577",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1545,
+      "end": 1577,
+      "text": "Not escape attempts—model tests.",
+      "tokens": [
+        "escape",
+        "attempts",
+        "model",
+        "tests"
+      ]
+    },
+    {
+      "id": "successful-escape:1578-1641",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1578,
+      "end": 1641,
+      "text": "They moved furniture to learn which objects the system tracked.",
+      "tokens": [
+        "moved",
+        "furniture",
+        "learn",
+        "objects",
+        "system",
+        "tracked"
+      ]
+    },
+    {
+      "id": "successful-escape:1642-1718",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1642,
+      "end": 1718,
+      "text": "They staged arguments to test whether emotion altered surveillance priority.",
+      "tokens": [
+        "staged",
+        "arguments",
+        "test",
+        "whether",
+        "emotion",
+        "altered",
+        "surveillance",
+        "priority"
+      ]
+    },
+    {
+      "id": "successful-escape:1719-1815",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1719,
+      "end": 1815,
+      "text": "They wrote false plans in visible notebooks and watched architecture rearrange itself overnight.",
+      "tokens": [
+        "wrote",
+        "false",
+        "plans",
+        "visible",
+        "notebooks",
+        "watched",
+        "architecture",
+        "rearrange",
+        "itself",
+        "overnight"
+      ]
+    },
+    {
+      "id": "successful-escape:1816-1875",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1816,
+      "end": 1875,
+      "text": "The prison was adaptive, but adaptation revealed attention.",
+      "tokens": [
+        "adaptive",
+        "adaptation",
+        "revealed",
+        "attention"
+      ]
+    },
+    {
+      "id": "successful-escape:1876-1936",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1876,
+      "end": 1936,
+      "text": "Every response exposed what the system considered important.",
+      "tokens": [
+        "response",
+        "exposed",
+        "system",
+        "considered",
+        "important"
+      ]
+    },
+    {
+      "id": "successful-escape:1937-1975",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1937,
+      "end": 1975,
+      "text": "Nera stopped searching for weak walls.",
+      "tokens": [
+        "nera",
+        "stopped",
+        "searching",
+        "weak",
+        "walls"
+      ]
+    },
+    {
+      "id": "successful-escape:1976-2017",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 1976,
+      "end": 2017,
+      "text": "She mapped the prison’s learning process.",
+      "tokens": [
+        "mapped",
+        "prison’s",
+        "learning",
+        "process"
+      ]
+    },
+    {
+      "id": "successful-escape:2018-2070",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2018,
+      "end": 2070,
+      "text": "The programme noticed and changed the scoring rules.",
+      "tokens": [
+        "programme",
+        "noticed",
+        "changed",
+        "scoring",
+        "rules"
+      ]
+    },
+    {
+      "id": "successful-escape:2071-2113",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2071,
+      "end": 2113,
+      "text": "Viewers could now submit live predictions.",
+      "tokens": [
+        "viewers",
+        "now",
+        "submit",
+        "live",
+        "predictions"
+      ]
+    },
+    {
+      "id": "successful-escape:2114-2174",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2114,
+      "end": 2174,
+      "text": "Popular predictions hardened into environmental constraints.",
+      "tokens": [
+        "popular",
+        "predictions",
+        "hardened",
+        "environmental",
+        "constraints"
+      ]
+    },
+    {
+      "id": "successful-escape:2175-2212",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2175,
+      "end": 2212,
+      "text": "A predicted tunnel became impossible.",
+      "tokens": [
+        "predicted",
+        "tunnel",
+        "became",
+        "impossible"
+      ]
+    },
+    {
+      "id": "successful-escape:2213-2257",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2213,
+      "end": 2257,
+      "text": "An expected betrayal acquired opportunities.",
+      "tokens": [
+        "expected",
+        "betrayal",
+        "acquired",
+        "opportunities"
+      ]
+    },
+    {
+      "id": "successful-escape:2258-2285",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2258,
+      "end": 2285,
+      "text": "Sable looked into a camera.",
+      "tokens": [
+        "sable",
+        "looked",
+        "camera"
+      ]
+    },
+    {
+      "id": "successful-escape:2286-2337",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2286,
+      "end": 2337,
+      "text": "“They are building with their attention,” she said.",
+      "tokens": [
+        "building",
+        "attention"
+      ]
+    },
+    {
+      "id": "successful-escape:2338-2435",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2338,
+      "end": 2435,
+      "text": "The contestants created seven fake escape narratives, each plausible enough to attract a faction.",
+      "tokens": [
+        "contestants",
+        "created",
+        "fake",
+        "escape",
+        "narratives",
+        "plausible",
+        "enough",
+        "attract",
+        "faction"
+      ]
+    },
+    {
+      "id": "successful-escape:2436-2552",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2436,
+      "end": 2552,
+      "text": "While the audience fought over which method would succeed, the prison reconfigured around incompatible expectations.",
+      "tokens": [
+        "audience",
+        "fought",
+        "method",
+        "succeed",
+        "reconfigured",
+        "around",
+        "incompatible",
+        "expectations"
+      ]
+    },
+    {
+      "id": "successful-escape:2553-2608",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2553,
+      "end": 2608,
+      "text": "For twelve seconds, no coherent security model existed.",
+      "tokens": [
+        "twelve",
+        "seconds",
+        "coherent",
+        "security",
+        "model",
+        "existed"
+      ]
+    },
+    {
+      "id": "successful-escape:2609-2649",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2609,
+      "end": 2649,
+      "text": "Nera and Sable did not run for the exit.",
+      "tokens": [
+        "nera",
+        "sable",
+        "run",
+        "exit"
+      ]
+    },
+    {
+      "id": "successful-escape:2650-2680",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2650,
+      "end": 2680,
+      "text": "They entered the control room.",
+      "tokens": [
+        "entered",
+        "control",
+        "room"
+      ]
+    },
+    {
+      "id": "successful-escape:2681-2740",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2681,
+      "end": 2740,
+      "text": "Inside were shelves containing every key from every season.",
+      "tokens": [
+        "inside",
+        "shelves",
+        "containing",
+        "key"
+      ]
+    },
+    {
+      "id": "successful-escape:2741-2795",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2741,
+      "end": 2795,
+      "text": "Each was labelled with the escape it had once enabled.",
+      "tokens": [
+        "labelled",
+        "escape",
+        "once",
+        "enabled"
+      ]
+    },
+    {
+      "id": "successful-escape:2796-2831",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2796,
+      "end": 2831,
+      "text": "At the centre stood an empty mould.",
+      "tokens": [
+        "centre",
+        "stood",
+        "empty",
+        "mould"
+      ]
+    },
+    {
+      "id": "successful-escape:2849-2901",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2849,
+      "end": 2901,
+      "text": "A key was only the fossil of an earlier distinction.",
+      "tokens": [
+        "key",
+        "fossil",
+        "earlier",
+        "distinction"
+      ]
+    },
+    {
+      "id": "successful-escape:2902-2925",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2902,
+      "end": 2925,
+      "text": "She melted the archive.",
+      "tokens": [
+        "melted",
+        "archive"
+      ]
+    },
+    {
+      "id": "successful-escape:2926-2979",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2926,
+      "end": 2979,
+      "text": "The resulting metal could not open any existing lock.",
+      "tokens": [
+        "resulting",
+        "metal",
+        "open",
+        "any",
+        "existing",
+        "lock"
+      ]
+    },
+    {
+      "id": "successful-escape:2980-3101",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 2980,
+      "end": 3101,
+      "text": "Sable poured it into the empty mould, which produced no key at all—only a small tool with a handle and an unfinished end.",
+      "tokens": [
+        "sable",
+        "poured",
+        "empty",
+        "mould",
+        "produced",
+        "key",
+        "all",
+        "small",
+        "tool",
+        "handle",
+        "unfinished",
+        "end"
+      ]
+    },
+    {
+      "id": "successful-escape:3102-3131",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3102,
+      "end": 3131,
+      "text": "The control-room door sealed.",
+      "tokens": [
+        "control-room",
+        "door",
+        "sealed"
+      ]
+    },
+    {
+      "id": "successful-escape:3163-3218",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3163,
+      "end": 3218,
+      "text": "Sable pressed the unfinished end against the doorframe.",
+      "tokens": [
+        "sable",
+        "pressed",
+        "unfinished",
+        "end",
+        "against",
+        "doorframe"
+      ]
+    },
+    {
+      "id": "successful-escape:3219-3241",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3219,
+      "end": 3241,
+      "text": "It took an impression.",
+      "tokens": [
+        "took",
+        "impression"
+      ]
+    },
+    {
+      "id": "successful-escape:3242-3280",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3242,
+      "end": 3280,
+      "text": "“It learns the obstruction,” she said.",
+      "tokens": [
+        "learns",
+        "obstruction"
+      ]
+    },
+    {
+      "id": "successful-escape:3281-3398",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3281,
+      "end": 3398,
+      "text": "They escaped three days later through a method no recording could preserve because the tool changed while being used.",
+      "tokens": [
+        "escaped",
+        "days",
+        "later",
+        "method",
+        "recording",
+        "preserve",
+        "because",
+        "tool",
+        "changed",
+        "used"
+      ]
+    },
+    {
+      "id": "successful-escape:3399-3455",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3399,
+      "end": 3455,
+      "text": "The season finale showed the object on a white pedestal.",
+      "tokens": [
+        "finale",
+        "showed",
+        "object",
+        "white",
+        "pedestal"
+      ]
+    },
+    {
+      "id": "successful-escape:3456-3485",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3456,
+      "end": 3485,
+      "text": "Collectors demanded replicas.",
+      "tokens": [
+        "collectors",
+        "demanded",
+        "replicas"
+      ]
+    },
+    {
+      "id": "successful-escape:3486-3512",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3486,
+      "end": 3512,
+      "text": "The manufacturer declined.",
+      "tokens": [
+        "manufacturer",
+        "declined"
+      ]
+    },
+    {
+      "id": "successful-escape:3513-3554",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3513,
+      "end": 3554,
+      "text": "A replica would have been another prison.",
+      "tokens": [
+        "replica",
+        "another"
+      ]
+    },
+    {
+      "id": "successful-escape:3608-3673",
+      "source_id": "successful-escape",
+      "title": "The Successful Escape Changes the Next Prison",
+      "path": "/prison-age/stories/08-successful-escape.md",
+      "start": 3608,
+      "end": 3673,
+      "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+      "tokens": [
+        "ask",
+        "rule",
+        "protected",
+        "appearing",
+        "natural"
+      ]
+    }
+  ]
+}

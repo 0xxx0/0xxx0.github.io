@@ -8527,16 +8527,18 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.4.1",
+      "version": "0.5",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
-      "role": "FIELD-held source set. FIELD selects READ / RIDE / SOURCE only; READ/RIDE then require explicit movement selection in the Prison Age resolver. READFIELD and FOLD//BLOOM LIVE receive the exact chosen bytes; no hidden default story is executed.",
+      "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
+      "role": "FIELD-held source set. FIELD selects READ / RIDE / SOURCE only; explicit source choice remains required. READFIELD and FOLD//BLOOM LIVE may passively reveal exact cross-source ECHO evidence ranked only by lexical recurrence. ECHO is evidence-only and never generated narrative glue.",
       "transfer": [
         "FIELD READ intent → Prison Age exact source chooser → READFIELD",
         "FIELD RIDE intent → Prison Age exact source chooser → FOLD//BLOOM LIVE",
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
-        "READ/RIDE → exact FIELD held object RETURN when launched from FIELD"
+        "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
+        "exact source movement → passive cross-source ECHO evidence in READFIELD",
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
       ],
       "contract": {
         "accepts": {
@@ -8561,7 +8563,8 @@
           "kinds": [
             "READFIELD source projection",
             "field-read-ride/v0.1 traversal handoff",
-            "source identity/provenance view"
+            "source identity/provenance view",
+            "field-source-echo-index/v0.1 exact-fragment evidence"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -8627,7 +8630,7 @@
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
-        "updated_at": "2026-09-29T09:06:00+08:00",
+        "updated_at": "2026-09-29T02:40:00+08:00",
         "work_modes": [
           "READ",
           "RIDE",
