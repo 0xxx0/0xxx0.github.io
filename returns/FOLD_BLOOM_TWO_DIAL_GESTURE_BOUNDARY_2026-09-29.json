@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_GESTURE_BOUNDARY_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Make Two Dial gesture ownership explicit without adding UI: one live pointer owns one dial; canceled preview restores that dial's pre-gesture index/raw/wear; release remains the semantic relation commit boundary.",
+  "law": "ONE GESTURE -> ONE PRIMARY INTERPRETATION. Preview cancellation is reversible; causal RETURN is evidence, not cosmetic UNDO.",
+  "changes": [
+    "/fold-bloom/two-dial/core2.js — one-pointer/one-dial claim + side-local pointercancel rollback",
+    "/fold-bloom/two-dial/core1.js — 0.10.6 gesture-boundary build",
+    "/tools/two-dial-gesture-boundary-selftest.cjs — executable ownership/cancel proof",
+    "/control/FIELD_COAXIALITY_AUDIT.json — C_GESTURE PASS; E_REVERSAL remains INDETERMINATE",
+    "/showcase-manifest.json — remove overstated reversibility=full claim; record exact boundary",
+    "/fold-bloom/two-dial/release.json + sw.js — 0.10.6 release/cache metadata",
+    "/.github/workflows/public-surface-check.yml — proof runs in full CI"
+  ],
+  "preserves": [
+    "SAME/NEAR/FAR/OPPOSITE -> BLOOM/FOLD/RETURN/SPLIT relation algebra",
+    "causal phrase RETURN v0.2",
+    "LIVE borrowed-clock/authorship boundary",
+    "PLAY/OPEN/SCALE/DUET behavior and no new controls",
+    "local cassette/share/export state"
+  ],
+  "evidence": [
+    "C_GESTURE may pass once CI proves one live pointer per dial and cancellation rollback contract",
+    "E_REVERSAL is intentionally not promoted: committed musical FOLD/BLOOM inverse-or-residue semantics remain unproven",
+    "H_COMPRESSION remains ordinary-use/plain-baseline evidence, not a code gate that should be gamed by adding UI"
+  ],
+  "stop": "Do not add undo chrome or a plain-baseline mode merely to satisfy the audit. Next code only if ordinary use exposes a concrete reversal need; H remains human evidence.",
+  "verify": [
+    "node --check fold-bloom/two-dial/core1.js",
+    "node --check fold-bloom/two-dial/core2.js",
+    "node tools/two-dial-causal-return-selftest.cjs",
+    "node tools/two-dial-gesture-boundary-selftest.cjs",
+    "node tools/field-coaxiality-audit.cjs",
+    "public-surface-check + route registration + gitleaks"
+  ],
+  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json"
+}
