@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
-import {reducePacket,EGRESS_CLASSES} from '../lib/field-egress-reducer.mjs';
+import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const INPUTS={
   current:'control/CURRENT.json',
@@ -66,7 +66,7 @@ function compile({C,M,W,K}){
     phi_focus:null,
     now:{updated:C.updated||null,active_fronts:C.active_fronts||[],next_single_action:C.next_single_action||null},
     heads,human_world_gates:gates,
-    egress:{schema:'field-packet-egress/v0.1',classes:EGRESS_CLASSES,items:egress,law:'Packet presence does not create continuation; historical/superseded packets archive unless current authority explicitly reactivates them.'},
+    egress:{schema:'field-packet-egress/v0.1',classes:EGRESS_CLASSES,precedence:EGRESS_PRECEDENCE,items:egress,law:'Packet presence does not create continuation; precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; historical/superseded packets archive unless current authority explicitly reactivates them.'},
     residue:{waiting_registry_surface_counts:waitCounts,note:'Registry residue is not promoted into NOW merely because it exists.'},
     truth_grammar:K.truth_grammar||{},
     return:{target:'/',law:'RETURN restores re-entry/context; REWIND navigates transcript/history context; REVERT is a new authorized canonical operation.'},
@@ -119,6 +119,7 @@ if(process.argv.includes('--selftest')){
   if((packet.now.active_fronts||[]).length>3)fail.push('CURRENT active-front law > 3');
   if(!packet.return?.target)fail.push('RETURN target missing');
   if((packet.egress?.items||[]).some(x=>!EGRESS_CLASSES.includes(x.class)))fail.push('invalid egress class');
+  if(JSON.stringify(packet.egress?.precedence)!==JSON.stringify(EGRESS_PRECEDENCE))fail.push('egress precedence drift');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('front:')).some(x=>x.class!=='NOW'))fail.push('active front did not reduce to NOW');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('gate:')).some(x=>x.class!=='GATE'))fail.push('human/world gate did not reduce to GATE');
   const rendered=markdown(packet),structured=JSON.stringify(packet);
