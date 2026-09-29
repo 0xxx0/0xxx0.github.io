@@ -155,7 +155,7 @@
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
       "decision": "PROVE_OR_DECOAXIALIZE",
-      "repair_boundary": "Causal RETURN (G) is repaired and LIVE commit/compose provenance (F) is explicit. Do not promote to KEEP: prove one-gesture/one-primary-interpretation (C), establish whether cheap local transforms have a lawful reversal/residue story (E), and compare user-visible burden against a plain non-coaxial baseline (H). If H fails, de-coaxialize/delete rather than add explanation chrome.",
+      "repair_boundary": "Causal RETURN (G), LIVE provenance (F), one-gesture ownership (C), and bounded exact local reversal (E) are proven. Only H remains open: compare the relational instrument against a functionally equivalent plain/non-coaxial baseline in ordinary use. Until observed evidence exists, keep PROVE_OR_DECOAXIALIZE; if H fails, de-coaxialize/delete rather than add explanation chrome.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -172,9 +172,10 @@
           ]
         },
         "C_GESTURE": {
-          "verdict": "INDETERMINATE",
+          "verdict": "PASS",
           "evidence": [
-            "No dedicated repo proof in this audit establishes one-gesture/one-primary-interpretation across pointer, dial and mode interactions."
+            "/fold-bloom/two-dial/core2.js: pointer-down fixes one pointer to one dial side; pointermove mutates only that owned L or R axis; pointerup alone may commit the resulting relation",
+            "/tools/two-dial-gesture-reversal-selftest.cjs: executable static proof that pointermove cannot commit and release owns the relation commit"
           ]
         },
         "D_IDENTITY": {
@@ -185,9 +186,11 @@
           ]
         },
         "E_REVERSAL": {
-          "verdict": "INDETERMINATE",
+          "verdict": "PASS",
           "evidence": [
-            "The host uses FOLD/BLOOM as musical/domain operators, but this audit found no bounded proof that any lossy compression retains sufficient residue for exact or declared-tolerance reopen."
+            "/fold-bloom/two-dial/core2.js: each non-IDLE commit captures minimalSnapshot() before mutation into a bounded 12-entry session-local undo stack",
+            "/fold-bloom/two-dial/app-runtime.js: UNDO LAST cancels pending delayed compose, restores the exact snapshot, preserves earlier undo depth, and emits fold-bloom-undo/v0.1 evidence; unrelated control mutations invalidate the stack",
+            "/tools/two-dial-gesture-reversal-selftest.cjs: executable bounded reversal contract"
           ]
         },
         "F_LIVE": {
@@ -210,7 +213,8 @@
         "H_COMPRESSION": {
           "verdict": "INDETERMINATE",
           "evidence": [
-            "No durable baseline comparison currently demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler non-coaxial control surface."
+            "No durable ordinary-use comparison yet demonstrates that the relational two-dial manipulation reduces total learning/interaction burden versus a functionally equivalent plain non-coaxial baseline.",
+            "Required H experiment: hold task/output/authority constant, vary representation only, and compare re-entry/correction/help burden; code/control counts alone cannot promote H to PASS."
           ]
         }
       }
