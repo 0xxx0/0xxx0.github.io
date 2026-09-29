@@ -1,0 +1,69 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-29",
+  "state": "CANDIDATE / CI_EVIDENCE_ATTACHED",
+  "route": "/",
+  "objective": "Convert video-game donor research into one missing FIELD capability without adding a game layer or new sovereign surface.",
+  "recovered_before_inventing": {
+    "existing_authority": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+    "existing_transfers": [
+      "Outer Wilds → knowledge-gap re-entry",
+      "Hades → failure RETURN",
+      "Into the Breach → precommit telegraph",
+      "Factorio → GHOST != REAL",
+      "Terra Nil → scaffold retirement contract",
+      "Dead Space / Spiritfarer / NieR:Automata / RimWorld → care locus"
+    ],
+    "action": "extended the existing packet rather than preserving the parallel research memo"
+  },
+  "new_transfer": {
+    "id": "safe-salvage-retirement",
+    "donors": [
+      "Hardspace: Shipbreaker",
+      "Terra Nil"
+    ],
+    "invariant": "SURVEY → ISOLATE → SALVAGE → CUT → VERIFY → RETURN",
+    "missing_function": "FIELD could merge/fold/compost conceptually but lacked an executable conservative audit for whether an addressed container is safe even to consider retiring.",
+    "implementation": [
+      "/lib/field-salvage-core.mjs",
+      "/scripts/field-salvage-audit.mjs",
+      "/tools/field-salvage-selftest.mjs",
+      "/control/FIELD_SALVAGE_POLICY.json"
+    ]
+  },
+  "safety": [
+    "auto-delete is false",
+    "FROZEN_DONOR is preserved",
+    "compatibility alias is preserved",
+    "CURRENT/head evidence blocks retirement",
+    "children and live runtime/tooling references block explicit retirement candidates",
+    "absence of internal reference does not prove zero external dependency",
+    "RETIRE_CANDIDATE is review evidence, never delete authority"
+  ],
+  "proof": {
+    "synthetic": "tools/field-salvage-selftest.mjs",
+    "real_repo_assertions": [
+      "/house/ → KEEP_CURRENT",
+      "/foundry/axial/lab-0.5.1.html → KEEP_DONOR",
+      "/house/spatial/ → KEEP_COMPAT",
+      "/forward-field-proof/triangle/bench/ → SALVAGE_REVIEW"
+    ],
+    "ci": {
+      "workflow": "public-surface-check",
+      "run_id": 36549045524,
+      "tested_head": "5f769984808570ddf286a28632fdc53a1780f8cc",
+      "conclusion": "SUCCESS",
+      "steps": "93/93 completed with no failures",
+      "note": "This metadata attachment is the only delta after the tested head; final PR head must pass CI before merge."
+    },
+    "status": "PENDING",
+    "gitleaks": {
+      "run_id": 36549045251,
+      "tested_head": "5f769984808570ddf286a28632fdc53a1780f8cc",
+      "conclusion": "SUCCESS"
+    }
+  },
+  "authority": "READ_ONLY AUDIT; no route/file mutation authority",
+  "next": "If CI proves the classifier, use it to identify at most one actual retirement candidate. Do not delete anything in this transfer.",
+  "falsifier": "If the audit cannot distinguish current/donor/compatibility/temporary surfaces conservatively, remove it rather than weakening the safeguards."
+}
