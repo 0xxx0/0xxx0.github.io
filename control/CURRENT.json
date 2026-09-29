@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T12:22:30+08:00",
+  "updated": "2026-09-29T17:04:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.22 / AWAKE INTERPHASE VISOR / SOURCE-SET INTENT / ONE HELD OBJECT",
+      "head": "FIELD INDEX 0.8.23 / SOURCE WITNESS CUT / PACKET EGRESS / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. Prison Age 0.8.21 semantics remain intact: FIELD chooses READ / RIDE / SOURCE intent but never silently chooses a story. 0.8.22 makes the root teach its actual continuation law in place: first contact may expose a lightweight YOU’RE A WAKE / INTERPHASE visor derived from the same held interphase-carrier/v0.1 used for cross-host continuity. The visor names WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN, shows the real held object and at most three carrier moves, then recedes into ordinary FIELD. Native route/effect authority, CURRENT attention, source selection, route-local semantic signal and exact project-head depth remain unchanged; no /awake/ product shell or second store is promoted.",
+      "retained_function": "Fast repo re-entry around one addressed object. 0.8.23 preserves the AWAKE/INTERPHASE visor, native held-object authority, source-intent semantics and canonical packet reducer, then contracts the old root CONVERGENCE READ into one read-only FIELD source cut. CURRENT / WAITING / QUEUE / federation atlas / Git remain unequal sources; each exposes SOURCE HEAD, DERIVED AT, SOURCE AGE and VALID/STALE/CONFLICT. The cut projects NOW / DELTA / RESIDUE / GATE / NEXT≤3 / ARCHIVE without a second store, queue or planner. CURRENT alone creates NOW/NEXT; Git supplies semantic DELTA; NEXUS/COMMS remain recoverable snapshots rather than ordinary aggregation authority.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -94,49 +94,58 @@
         "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
         "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
         "/lib/interphase-carrier.js",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/414"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/414",
+        "/lib/field-egress-reducer.mjs",
+        "/lib/field-source-cut.mjs",
+        "/tools/field-source-cut-selftest.mjs",
+        "/returns/FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
+        "/returns/FIELD_INDEX_SOURCE_WITNESS_CUT_2026-09-29.json"
       ],
-      "version": "0.8.22",
-      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "version": "0.8.23",
+      "latest_return": "/returns/FIELD_INDEX_SOURCE_WITNESS_CUT_2026-09-29.json",
       "repo_verification": {
-        "status": "PASS / PR 533 EXACT-HEAD",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
-        "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
-        "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
-        "checks": {
-          "route_registration": {
-            "run": 36508540373,
-            "conclusion": "success"
-          },
-          "public_surface": {
-            "run": 36508540378,
-            "conclusion": "success"
-          },
-          "gitleaks": {
-            "run": 36508540355,
-            "conclusion": "success"
-          }
-        },
-        "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+        "status": "CANDIDATE / EXACT-HEAD CI REQUIRED",
+        "candidate_branch": "field/source-witness-cut-20260929",
         "predecessor": {
-          "status": "PASS / PR 528 EXACT-HEAD",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-          "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+          "status": "PASS / PR 533 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+          "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+          "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
           "checks": {
             "route_registration": {
-              "run": 36507219876,
+              "run": 36508540373,
               "conclusion": "success"
             },
             "public_surface": {
-              "run": 36507220022,
+              "run": 36508540378,
               "conclusion": "success"
             },
             "gitleaks": {
-              "run": 36507219919,
+              "run": 36508540355,
               "conclusion": "success"
             }
           },
-          "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+          "predecessor": {
+            "status": "PASS / PR 528 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+            "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+            "checks": {
+              "route_registration": {
+                "run": 36507219876,
+                "conclusion": "success"
+              },
+              "public_surface": {
+                "run": 36507220022,
+                "conclusion": "success"
+              },
+              "gitleaks": {
+                "run": 36507219919,
+                "conclusion": "success"
+              }
+            },
+            "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+          }
         }
       }
     },
