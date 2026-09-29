@@ -1,0 +1,42 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_2026-09-29",
+  "date": "2026-09-29",
+  "object": "FIELD INDEX / held-object packet egress reducer",
+  "state": "IMPLEMENTED_PROOF_BOUND",
+  "before": "FIELD already exposed one held object, at most three lawful moves, witness/RETURN, and CATCH + ACT, but packet/state residue still required manual interpretation across CURRENT, manifest, INTERPHASE and RETURN-shaped fields.",
+  "delta": [
+    "Add pure read-only field-packet-egress/v0.1 reducer.",
+    "Reduce one packet to exactly one egress class: terminal STOP → ARCHIVE; WAITING/TRIGGER or nonterminal STOP → GATE; RESIDUE/CONTRADICTION → RESIDUE; DELTA → DELTA; NEXT → NEXT; otherwise stable STATE_OUT/STATE_IN/OBJECT → NOW.",
+    "Cap NEXT payload at three and preserve object/authority/state/evidence provenance without mutating input.",
+    "Project the derived class inside the existing FIELD HELD aperture rather than adding a dashboard, route, queue, state store or second control surface.",
+    "Build the transient packet only from existing FIELD focus, CURRENT next executable, manifest state, INTERPHASE carrier residue/moves, and existing evidence pointers.",
+    "Bind tools/field-egress-selftest.cjs into the standing public-surface-check workflow."
+  ],
+  "laws": [
+    "ONE PACKET → ONE EGRESS CLASS.",
+    "DERIVED READING ≠ CANONICAL STATE.",
+    "GATE ≠ PRIORITY ≠ AUTHORITY.",
+    "ARCHIVE requires explicit terminal STOP semantics; absence of work alone never fabricates completion for an addressed object.",
+    "NEXT ≤ 3."
+  ],
+  "authority": "DERIVED_READ_ONLY / FIELD projection only; native owner remains authoritative.",
+  "evidence": [
+    "/index.html",
+    "/lib/field-egress.js",
+    "/tools/field-egress-selftest.cjs",
+    "/.github/workflows/public-surface-check.yml",
+    "/control/CURRENT.json",
+    "/showcase-manifest.json"
+  ],
+  "verification": {
+    "static": "PASS · reducer syntax; FIELD inline-script syntax; classification matrix; non-mutation; provenance retention; NEXT≤3.",
+    "code_head": "PASS · Route Registration 36545779296; gitleaks 36545779291; critical browser smoke step passed inside public-surface run 36545779322 before canonical metadata was added.",
+    "final_ci_claim": "NONE IN RECEIPT — required PR-head checks are merge-gate evidence, not copied canonical state."
+  },
+  "residue": "No human/world proof is claimed or required: this is a read-only repo/UI projection. Full local ship-check was unavailable in the remote-only executor, so the final PR head must satisfy repository GitHub checks before merge.",
+  "next": "Use the egress class as a compact reading of the held object. Any actual mutation still occurs only through one of the existing lawful native moves, followed by witness and RETURN.",
+  "stop": "Do not turn egress classes into a second queue, inferred priority, automatic archive action, or completion authority.",
+  "version": "0.8.23",
+  "pr": 549
+}
