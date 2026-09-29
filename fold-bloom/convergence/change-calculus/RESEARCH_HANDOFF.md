@@ -946,3 +946,87 @@ WITNESS / RETURN
 This gives STEP, J-space and FOLD//BLOOM one shared non-equivalence law: **a representation may help describe or nominate an option, but the current native dependency factor owns what options actually exist.**
 
 The applied-research surface exposes this as an explicit `RUN SUFFICIENCY + FACTOR AUDIT` action. It remains research-only and performs no LIVE commit.
+
+
+## 2026-09-30 — LIVE release window → LAB change witness
+
+FIELD LAB DATA now has a bounded bridge from **observed LIVE play** into the existing change calculus. It reuses `field-pulse/v0.1`; no second bus, store, or control path was added.
+
+The seam is:
+
+```text
+LIVE release()
+  → FIELD PULSE operation { BLOOM | FOLD | SPLIT | RETURN }
+  → rolling six-release exact window
+  → Q : V^6 → B^6
+  → hex/change witness
+  → optional FROM / TO capture
+  → exact-vs-quotient residue
+  → STEP / lattice / INK / RETURN
+```
+
+Implementation:
+
+- `/fold-bloom/lab/live-change-bridge.js`
+- `/fold-bloom/lab/tests/live-change-bridge.test.mjs`
+- `/tools/fold-bloom-lab-live-change-smoke.mjs`
+
+### What becomes experiential
+
+A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Once six exist, LAB displays both:
+
+- the exact ordered verb window; and
+- its binary hex projection.
+
+`CAPTURE → FROM` and `CAPTURE → TO` freeze exact event refs plus the projected bits. The existing state/change machinery then receives the projected endpoints while the bridge retains the exact verbs.
+
+This makes quotient loss inspectable from lived play. Two captured windows may have the **same hex endpoints** while every exact verb changed. LAB reports this explicitly as:
+
+```text
+EXACT Δ
+HEX Δ
+INVISIBLE EXACT Δ
+64× exact-form fiber
+```
+
+The point is not to make hex state more authoritative. The point is to let the user feel and inspect where the abstraction stops carrying the run.
+
+### J-space beside the run, never above it
+
+The same bridge may display a contemporaneous `kind=steering` FIELD PULSE only when `steeringDescriptor()` accepts it, including the invariant:
+
+```text
+data.authority = NONE
+```
+
+That steering witness travels beside the LIVE evidence in LAB RETURN. It does not:
+
+- call `release()`;
+- replace `availableForecasts()`;
+- select a STEP edge;
+- persist native support across a commit;
+- become a causal steering claim.
+
+An invalid/effect-authority steering pulse is ignored.
+
+### RETURN law
+
+LAB RETURN now may preserve:
+
+- current rolling LIVE exact window;
+- FROM / TO captured exact forms and event refs;
+- exact-vs-hex comparison;
+- optional authority-NONE steering witness.
+
+The bridge is therefore a **research witness over real play**, not a new gameplay state machine.
+
+### Proof gates
+
+Run:
+
+```sh
+node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
+node tools/fold-bloom-lab-live-change-smoke.mjs
+```
+
+The browser proof injects two six-release LIVE windows with the same hex projection but six exact same-polarity edits, requires `EXACT Δ 6 / HEX Δ 0 / INVISIBLE 6`, verifies both event windows survive RETURN, and verifies an `AUTHORITY EFFECT` steering pulse cannot overwrite the accepted `AUTHORITY NONE` witness.
