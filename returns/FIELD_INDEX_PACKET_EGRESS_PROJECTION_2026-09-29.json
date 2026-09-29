@@ -1,0 +1,31 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE / CI_PENDING",
+  "object": "FIELD Index CATCH + ACT projection of canonical packet egress",
+  "source": "/lib/field-egress-reducer.mjs",
+  "host_delta": "Propagate the already-shipped packet reducer into the existing FIELD root without copying its logic or adding a packet dashboard/store.",
+  "delta": [
+    "CATCH + ACT renders NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE as one compact six-cell projection.",
+    "FIELD dynamically imports /lib/field-egress-reducer.mjs and calls reducePacket directly.",
+    "CURRENT active fronts feed NOW; CURRENT human/world gates feed GATE; next_single_action feeds NEXT; unresolved changed-route gaps feed RESIDUE; other changed routes feed DELTA; local acknowledgement history feeds ARCHIVE.",
+    "Selecting an addressed egress cell only HOLDs the already-addressed route; native OPEN/effect authority remains unchanged.",
+    "Existing field-egress-reducer selftest now proves the root imports the canonical module, exposes all six classes, calls reducePacket, and does not load the discarded duplicate reducer."
+  ],
+  "preserves": [
+    "CURRENT owns NOW",
+    "WAITING/CURRENT human-world gates retain their authority boundary",
+    "manifest owns route identity",
+    "browser-local catch-up acknowledgement remains reversible and non-canonical",
+    "historical packet presence cannot self-promote",
+    "no new route, queue, store, planner, dashboard, or reducer copy"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest",
+    "existing public-surface / route-registration / gitleaks CI"
+  ],
+  "residue": "This is a legibility/continuity projection over existing witnesses. It does not infer a NEXT when CURRENT has not supplied one and it does not execute any class.",
+  "next": "Exact-head CI; merge only if FIELD root, canonical reducer and existing public invariants stay green."
+}
