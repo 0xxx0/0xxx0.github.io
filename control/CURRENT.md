@@ -86,4 +86,4 @@ Human/world dependencies live in [WAITING.json](./WAITING.json).
 - video_game_donor_atlas: /control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md
 - video_game_donor_transfers: /control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json
 
-Machine state: [CURRENT.json](./CURRENT.json) (`updated 2026-09-29T17:07:00+08:00`, schema `0xxx0/control-current/v0.1`)
+Machine state: [CURRENT.json](./CURRENT.json) (`updated 2026-09-29T17:14:00+08:00`, schema `0xxx0/control-current/v0.1`)
