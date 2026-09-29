@@ -267,7 +267,8 @@
     "image_set_runtime": "MERGED · fa93895dde230c6df49b6ad2903a1c1239d67b17 · IMAGE_SET source + deterministic set clock + FRAME/STRIP/SET address grains",
     "image_clock_smoke": "PASS evidence recorded in 747ac3cef0f45a3c69a76040c4aac5bfd9ac9d0a · 3/3 browser-smoke runs; independent second process reproduces zero-click trail; Fold-bloom suite 10/10",
     "image_course_ci_contract": "GATED · public-surface-check runs fold-bloom/live/tests/image-course.test.mjs under addressed course navigation",
-    "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained"
+    "flow_default_reconciliation": "MERGED · cff756e60d2caf25548287360cbc8180bf611626 · FLOW traversal default restored; PR #506 quiet-audio behavior retained",
+    "authored_reader": "PR #574 exact-head CI required: source-pack selftest + browser traversal/recurrence/exact READFIELD RETURN"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
@@ -349,7 +350,8 @@
   "capabilities": [
     "PLAY 0.3 finite game shell over LIVE: RUN / PUZZLE / TWO DIAL / ECOLOGY / ZEN.",
     "Per-release explanatory feedback and visible Ecology inheritance progress.",
-    "CONCERT quickstart alias opens the finite RUN without creating a separate concert engine."
+    "CONCERT quickstart alias opens the finite RUN without creating a separate concert engine.",
+    "AUTHORED READER 0.1 · recovered-source provenance / exact READ-RIDE traversal / source-grounded recurrence / EVIDENCE_ONLY RETURN."
   ],
   "notes": [
     "2026-09-25 restore: generic LIVE regained primary entry; legacy ?source=center-mass links no longer auto-launch an unverified provider stream.",
@@ -671,5 +673,20 @@
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
   "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
-  "comprehension_return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json"
+  "comprehension_return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
+  "authored_reader": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "schema": "fold-bloom-authored-reader-pack/v0.1",
+    "default_pack": "/fold-bloom/live/authored/prison-age-2021.json",
+    "source": "/fold-bloom/live/authored/prison-age-2021.txt",
+    "source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+    "provenance": {
+      "authority": "RECOVERED_AUTHORED_SOURCE",
+      "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+      "internal_date": "2021-07-18",
+      "boundary": "Derived arrangement of recovered exact fragments; not a facsimile. Later mixed/co-created Prison Age material and unresolved-attribution lines are excluded by default."
+    },
+    "loop": "SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → SOURCE-DERIVED RECURRENCE / LIVE RELEASE → RETURN",
+    "return_schema": "fold-bloom-authored-reading-return/v0.1"
+  }
 }

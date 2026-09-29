@@ -57,6 +57,20 @@ PULSE --CLOCK--> READ --PLACE--> LOCI --TRACE--> INK --RETURN--> SOURCE
 
 Edges are operators, not just links. Borrowed clock never becomes borrowed authorship.
 
+## Authored reader law
+
+RECOVERED SOURCE → PROVENANCE → ADDRESSED TRAVERSAL → RECURRENCE → RETURN
+
+AUTHORED READER is a LIVE source path, not a new product or fifth public job.
+
+- A bundled authored pack must identify exact source bytes, source artifact/date, authorship/provenance class, recovery boundary and exclusions.
+- A derived reader pack may rearrange recovered exact fragments for traversal only when that packaging is labeled as derived rather than presented as an original facsimile.
+- Recurrence must be grounded in an inspectable source relation (exact span, repeated token, conserved form, explicit cross-reference, authored mark). Generated connective narrative is not source evidence.
+- READ/RIDE owns exact text addresses. LIVE may alter projection, traversal and its own BLOOM/FOLD/SPLIT/RETURN field state; it may never rewrite the recovered source.
+- RELEASE→STEP means commit one LIVE consequence, then advance one addressed source grain. Source position never grants RELEASE authority.
+- RETURN carries EVIDENCE_ONLY traversal/recurrence/LIVE witness back to an exact native source/cursor. READFIELD revalidates source identity and native unit before moving its cursor.
+- Unresolved authorship stays unresolved. Material with mixed/co-created provenance remains a separate layer until explicitly selected and labeled.
+
 ## Interaction law
 
 SUBSTANCE GENERATES FORM.

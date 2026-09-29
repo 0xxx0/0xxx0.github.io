@@ -7,14 +7,15 @@ const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const ecology=readFileSync(new URL('../../ecology/index.html',import.meta.url),'utf8');
 const root=readFileSync(new URL('../../index.html',import.meta.url),'utf8');
 
-test('LIVE remains RIDE-first while exposing READ and hosted GARDEN apertures',()=>{
+test('LIVE may lead with authored reading while preserving READ and hosted GARDEN apertures',()=>{
   assert.match(live,/<title>FOLD\/\/BLOOM — LIVE 0\.13<\/title>/);
   assert.match(live,/LIVE 0\.13 · RIDE \/ READ \/ GARDEN \/ RETURN/);
-  assert.match(live,/THE WHOLE RIDE LOOP/);
-  assert.match(live,/TURN\.<br><span>RELEASE\.<\/span>/);
-  assert.match(live,/MORE STARTS \/ MODES/);
+  assert.match(live,/RECOVERED SOURCE → LIVE TRAVERSAL → RECURRENCE → RETURN/);
+  assert.match(live,/READ WHAT<br><span>REARRANGES\.<\/span>/);
+  assert.match(live,/id="authoredIntroBtn">ENTER · PRISON AGE 2021/);
+  assert.match(live,/OTHER SOURCES \/ PLAY MODES/);
   assert.match(live,/id="gardenOpenBtn">WATCH GARDEN/);
-  assert.doesNotMatch(live,/LIVE READER|Reader mode is the public default/);
+  assert.match(live,/GARDEN keeps Ecology authority/);
 });
 
 test('GARDEN is hosted by LIVE while Ecology remains canonical authority',()=>{

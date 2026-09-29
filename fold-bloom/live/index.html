@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.16"><link rel="manifest" href="./manifest.webmanifest">
+<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.17"><link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
 <div id="app"><canvas id="field"></canvas><img id="imageStage" alt="Addressed image from the local set" hidden><audio id="trackAudio" preload="metadata"></audio><input id="trackFile" type="file" accept="audio/*,.mp3,.m4a,.mp4,.wav,.flac,.ogg,.aac,.webm,.lrc,.vtt,.srt,.txt,.md" multiple hidden><input id="readFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json" hidden><input id="imageFile" type="file" accept="image/*" multiple hidden>
@@ -15,17 +15,37 @@
     </div>
     <iframe id="gardenView" title="FOLD BLOOM Ecology Garden" data-src="../ecology/?embedded=live&garden=1"></iframe>
     <div class="gardenShellLaw">LIVE hosts this aperture. Ecology keeps gene · lineage · law · breeding · GARDEN · RETURN authority. LIVE source clocks and RELEASE authority do not cross into the garden.</div>
-  </section><div class="lyric" id="lyric" hidden><b id="lyricMode">TEXT</b><span id="lyricText"></span></div><div class="status" id="status"></div><div class="toast" id="toast"></div>
+  </section>
+  <section id="authoredReaderFrame" class="authoredReaderFrame" hidden>
+    <div class="readerTopline"><span id="readerAuthority">RECOVERED SOURCE</span><b id="readerPackTitle">—</b><button id="readerProvBtn">PROVENANCE</button></div>
+    <div class="readerSourceMeta" id="readerSourceMeta">—</div>
+    <div class="readerAddress"><b id="readerAddress">—</b><span id="readerProgress">—</span></div>
+    <div id="readerRecurrence" class="readerRecurrence" hidden><b id="readerRecurrenceLabel">RECURRENCE</b><span id="readerRecurrenceBody"></span></div>
+    <div class="readerRail">
+      <button id="readerPrev">← READ</button><button id="readerNext">READ →</button>
+      <button id="readerEchoPrev">← ECHO</button><button id="readerEchoNext">ECHO →</button>
+      <button id="readerMark">MARK</button><button id="readerReturnBtn" class="readerReturnBtn">RETURN READING</button>
+    </div>
+  </section>
+  <div id="readerProvenance" class="readerProvenance" hidden>
+    <div class="readerProvCard"><div class="ey">PROVENANCE / SOURCE AUTHORITY</div><h2 id="readerProvTitle">—</h2><div id="readerProvBody"></div><div class="row"><button id="readerProvClose">CLOSE</button><a id="readerRawSource" href="#" target="_blank" rel="noopener">RAW SOURCE</a></div></div>
+  </div>
+  <div id="readerReturn" class="readerReturn" hidden>
+    <div class="readerReturnCard"><div class="ey">READING / RETURN</div><h2>WHAT SURVIVED<br><span>THE TRAVERSAL?</span></h2>
+      <div class="readerReturnStats"><div><small>VISITS</small><b id="readerVisits">0</b></div><div><small>REVISITS</small><b id="readerRevisits">0</b></div><div><small>RELEASES</small><b id="readerReleases">0</b></div><div><small>POSITION</small><b id="readerFinalProgress">0%</b></div></div>
+      <div id="readerReturnWitness" class="readerReturnWitness"></div>
+      <div class="row"><button id="readerAgain">READ AGAIN</button><button id="readerReturnSource" class="cta">RETURN TO SOURCE</button><a href="../../">FIELD INDEX</a><button id="readerReturnClose">CONTINUE HERE</button></div>
+    </div>
+  </div><div class="lyric" id="lyric" hidden><b id="lyricMode">TEXT</b><span id="lyricText"></span></div><div class="status" id="status"></div><div class="toast" id="toast"></div>
   <div class="bottom"><button class="turn" id="turnLeft" aria-label="Turn one step left">←</button><button class="mode" id="modeBtn">RATCHET</button><button class="release" id="releaseBtn" disabled>SEEK MATCH</button><button class="scene" id="sceneBtn">DEPTH</button><button class="turn" id="turnRight" aria-label="Turn one step right">→</button></div><div class="leftQuick"><button class="sourceQuick" id="sourceQuick">CHOOSE SONG</button><button class="courseQuick" id="courseQuick" hidden aria-label="Traversal mode">FLOW · PHRASE</button><button class="vibeQuick" id="vibeQuick">VIBE · CLEAR</button></div><button class="autoQuick" id="autoBtn" aria-pressed="false">AUTOPILOT</button><button class="soundGate" id="soundGate" hidden aria-label="Enable built-in FIELD COURSE audio">TAP FOR SOUND</button>
 
     <section class="panel on" id="intro"><div class="card">
-    <div class="ey">THE WHOLE RIDE LOOP</div>
-    <h1>TURN.<br><span>RELEASE.</span></h1>
-    <div class="lede">Use ← / →, drag, or tap a labelled forecast on the ring to seek a lawful gate. Then tap the middle action. The field changes. RELEASE stays separate from seeking.</div>
-    <div class="firstLoop"><div><b>1</b><span>Pick the example, your own song, or no song.</span></div><div><b>2</b><span>Turn, drag, or tap a labelled forecast to line up the gate.</span></div><div><b>3</b><span>Tap the middle action. Watch the road change. Do it again.</span></div></div>
-    <div class="row startRow"><button class="cta" id="publicDemoBtn">TRY THE EXAMPLE →</button><button class="ghost" id="songIntroBtn">CHOOSE MY SONG</button><button class="ghost" id="playBtn">NO SONG / JUST PLAY →</button></div>
-    <details class="introMore"><summary>WHAT IS FOLD//BLOOM DOING?</summary><div class="keys"><div><b>SOURCE</b>the song, text, image set, or living field you chose</div><div><b>MAP</b>where you are inside it</div><div><b>RELEASE</b>your action changes the field, not the original source</div><div><b>RETURN</b>keep a trace and come back without losing orientation</div></div></details>
-    <details class="introMore"><summary>MORE STARTS / MODES</summary><div class="row"><button class="ghost" id="gardenOpenBtn">WATCH GARDEN</button><button class="ghost" id="readIntroBtn">READ / RIDE FILE</button><button class="ghost" id="imageIntroBtn">LOCAL IMAGE SET</button><button class="ghost" id="demoBtn">AUTOPILOT</button><button class="ghost" id="mutePlay">PLAY MUTED</button><button class="ghost" id="centerMassBtn">TRY CENTER MASS REMOTE</button></div><div class="small">GARDEN opens canonical Ecology inside LIVE and RETURN LIVE restores the held ride. Local imports stay on this device. AUTOPILOT and generated sound are explicit opt-ins.</div></details>
+    <div class="ey">RECOVERED SOURCE → LIVE TRAVERSAL → RECURRENCE → RETURN</div>
+    <h1>READ WHAT<br><span>REARRANGES.</span></h1>
+    <div class="lede">Begin with recovered authored material, not generated narrative. The words remain source-owned. LIVE gives them addressed depth: move through paragraphs, notice recurrence, commit field consequences without rewriting the text, then RETURN with an exact traversal witness.</div>
+    <div class="row startRow"><button class="cta" id="authoredIntroBtn">ENTER · PRISON AGE 2021 →</button><button class="ghost" id="readIntroBtn">OPEN YOUR TEXT</button></div>
+    <div class="keys"><div><b>SOURCE</b>exact recovered / chosen bytes</div><div><b>PROVENANCE</b>who / when / what is known</div><div><b>TRAVERSE</b>sentence / paragraph / section</div><div><b>RECURRENCE</b>return to related material without invention</div><div><b>RELEASE</b>write field consequence, never source text</div><div><b>RETURN</b>preserve route + source identity</div></div>
+    <details class="introMore"><summary>OTHER SOURCES / PLAY MODES</summary><div class="row"><button class="ghost" id="gardenOpenBtn">WATCH GARDEN</button><button class="ghost" id="publicDemoBtn">AUDIO EXAMPLE</button><button class="ghost" id="songIntroBtn">LOCAL TRACK</button><button class="ghost" id="imageIntroBtn">LOCAL IMAGE SET</button><button class="ghost" id="playBtn">STILL FIELD</button><button class="ghost" id="demoBtn">AUTOPILOT</button><button class="ghost" id="mutePlay">PLAY MUTED</button><button class="ghost" id="centerMassBtn">CENTER MASS REMOTE</button></div><div class="small">Reader mode leads this LIVE doorway. GARDEN keeps Ecology authority; audio, images, PLAY and other field modes remain unequal projections over their own native sources. Nothing here promotes later reconstruction into authored source.</div></details>
   </div></section>
 
   <button class="menuDismiss" id="menuDismiss" aria-label="Close settings"></button><aside class="drawer" id="settings">
@@ -75,7 +95,7 @@
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
-<script src="../../lib/read-trail.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.22"></script>
+<script src="../../lib/read-trail.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.23"></script>
 <script type="module" src="./vault-handoff.js"></script>
 <script type="module" src="./play.js?v=0.6.4"></script>
 <script type="module">

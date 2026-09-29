@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+const M=await import(pathToFileURL(process.cwd()+'/fold-bloom/live/authored-reader.js'));
+const pack=JSON.parse(fs.readFileSync('fold-bloom/live/authored/prison-age-2021.json','utf8'));
+const source=fs.readFileSync('fold-bloom/live/authored/prison-age-2021.txt','utf8');
+const v=M.validateAuthoredPack(pack,source);
+if(!v.ok)throw Error(v.errors.join(' | '));
+const hash='sha256:'+crypto.createHash('sha256').update(source).digest('hex');
+if(hash!==pack.source_hash)throw Error('hash mismatch '+hash);
+const sigs=pack.recurrence[0].variants.map(x=>M.conservationSignature(x.text));
+if(!sigs.every(x=>x==='AEGINOPRS'))throw Error('conservation signature');
+const n=M.nextRecurrence(pack,0,1);
+if(n?.label!=='SINGAPORE / SPACED')throw Error('next recurrence');
+const back=M.nextRecurrence(pack,n.start,-1);
+if(back?.label!=='PRISON AGE')throw Error('previous recurrence');
+console.log('FOLD BLOOM AUTHORED READER PACK PASS ·',pack.id,'·',hash,'·',sigs.join('/'));

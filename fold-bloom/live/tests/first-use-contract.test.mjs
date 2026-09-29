@@ -15,11 +15,14 @@ test('public first contact is action-first without inventing source shortcuts',(
   assert.match(root,/href="\.\/live\/\?garden=1">WATCH A GARDEN →/);
 });
 
-test('LIVE teaches one turn-release-change loop before deeper vocabulary',()=>{
-  assert.match(live,/THE WHOLE RIDE LOOP/);
-  assert.match(live,/TURN\.<br><span>RELEASE\.<\/span>/);
-  assert.match(live,/TRY THE EXAMPLE/);
-  assert.match(live,/NO SONG \/ JUST PLAY/);
+test('LIVE teaches one recovered-source traversal loop before deeper field vocabulary',()=>{
+  assert.match(live,/RECOVERED SOURCE → LIVE TRAVERSAL → RECURRENCE → RETURN/);
+  assert.match(live,/READ WHAT<br><span>REARRANGES\.<\/span>/);
+  assert.match(live,/id="authoredIntroBtn">ENTER · PRISON AGE 2021/);
+  assert.match(live,/id="readerPrev">← READ/);
+  assert.match(live,/id="readerNext">READ →/);
+  assert.match(live,/id="readerReturnBtn"[^>]*>RETURN READING/);
+  assert.match(live,/OTHER SOURCES \/ PLAY MODES/);
   assert.match(app,/TURN UNTIL READY/);
   assert.match(play,/TURN ← \/ → UNTIL THE CENTER ACTION LIGHTS/);
 });
