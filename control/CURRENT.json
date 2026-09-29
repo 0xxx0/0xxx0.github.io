@@ -60,7 +60,7 @@
       "head": "FIELD INDEX 0.8.23 / RETURN REDUCER / AWAKE INTERPHASE / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. 0.8.23 adds a read-only RETURN reducer directly beneath HELD / PROJECTION: heterogeneous existing RETURN/submission packets normalize on read to OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP and receive one primary disposition by GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. The reducer does not become a queue, store or planner: CURRENT alone owns NOW, NEXT remains candidate-only, legacy packet bytes are untouched, and native route/effect authority remains with the host.",
+      "retained_function": "Fast repo re-entry around one addressed object. 0.8.23 preserves the 0.8.22 AWAKE/INTERPHASE visor and Prison Age READ / RIDE / SOURCE intent semantics, then adds a read-only RETURN reducer directly beneath HELD / PROJECTION: heterogeneous existing RETURN/submission packets normalize on read to OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP and receive one primary disposition by GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. The reducer does not become a queue, store or planner: CURRENT alone owns NOW, NEXT remains candidate-only, legacy packet bytes are untouched, and native route/effect authority remains with the host.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -106,9 +106,51 @@
         "checks": {
           "reducer": "node tools/field-packet-reducer-selftest.cjs",
           "route_registration": "required",
-          "public_surface": "required"
+          "public_surface": "required",
+          "gitleaks": "required"
         },
-        "authority": "CURRENT remains NOW authority; reducer is read-only projection"
+        "authority": "CURRENT remains NOW authority; reducer is read-only projection",
+        "predecessor": {
+          "status": "PASS / PR 533 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+          "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+          "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+          "checks": {
+            "route_registration": {
+              "run": 36508540373,
+              "conclusion": "success"
+            },
+            "public_surface": {
+              "run": 36508540378,
+              "conclusion": "success"
+            },
+            "gitleaks": {
+              "run": 36508540355,
+              "conclusion": "success"
+            }
+          },
+          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+          "predecessor": {
+            "status": "PASS / PR 528 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+            "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+            "checks": {
+              "route_registration": {
+                "run": 36507219876,
+                "conclusion": "success"
+              },
+              "public_surface": {
+                "run": 36507220022,
+                "conclusion": "success"
+              },
+              "gitleaks": {
+                "run": 36507219919,
+                "conclusion": "success"
+              }
+            },
+            "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+          }
+        }
       }
     },
     {
