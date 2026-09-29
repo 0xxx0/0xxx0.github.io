@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Propagate the already-canonical FIELD packet egress reducer into the existing held-object and CATCH surfaces, so one addressed object can expose a compact disposition without another dashboard, reducer, queue, or authority source.",
+  "law": "FIELD root consumes /lib/field-egress-reducer.mjs. Ordinary focus is not NOW. CURRENT attention, CURRENT gates, local unresolved delta, existing next_executable and durable RETURN/receipt residue remain owned by their existing sources.",
+  "changes": [
+    "/index.html — dynamically imports the canonical reducer; held aperture and CATCH metadata expose its class; COPY ACTION carries the same reducer result",
+    "/control/FIELD_INDEX_CONTRACT.json — binds the root projection to the canonical reducer and forbids focus→NOW promotion",
+    "/showcase-manifest.json — touches FIELD root without a version bump; records this RETURN"
+  ],
+  "deletes": [
+    "PR #551 closed superseded",
+    "PR #555 closed superseded",
+    "duplicate /lib/field-egress.js implementation not promoted"
+  ],
+  "preserves": [
+    "FIELD INDEX version 0.8.22",
+    "CURRENT owns NOW",
+    "WAITING/CURRENT next_executable owns human/world gates",
+    "CATCH local SEEN/REWIND remains browser-local and reversible",
+    "native route/effect authority",
+    "canonical reducer A-H proof and transcript integration from master commit 039990b25441754cc97ea09dec4b591661c03c78"
+  ],
+  "verify": [
+    "static root integration assertions before PR",
+    "node tools/field-egress-reducer-selftest.mjs via existing public-surface CI",
+    "existing Route Registration, public-surface-check and gitleaks on exact PR head"
+  ],
+  "residue": [
+    "The class is intentionally lossy; exact owner evidence remains under CURRENT / WAITING / manifest / RETURN.",
+    "No new egress dashboard or independent lifecycle state is authorized."
+  ],
+  "reentry": "Merge only if exact-head repository gates are green; if master independently lands the same root consumer first, close this branch rather than duplicate it."
+}

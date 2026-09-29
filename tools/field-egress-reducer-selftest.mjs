@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -37,4 +38,18 @@ for(const [name,packet,ctx,want] of cases){
 assert.equal(reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'}).class,'ARCHIVE');
 assert.equal(reducePacket({packet_id:'claimed-now',egress:'NOW'}).class,'ARCHIVE');
 assert.equal(reducePacket({packet_id:'terminal',stop:'No sequel; archive this packet.'}).class,'ARCHIVE');
-console.log('FIELD packet egress reducer PASS · A-H · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
+assert.equal(reducePacket({packet_id:'canonical-residue',DELTA:'changed',RESIDUE:'still unresolved'}).class,'RESIDUE');
+assert.equal(reducePacket({packet_id:'explicit-residue',egress:'RESIDUE',delta:'candidate'}).class,'RESIDUE');
+assert.equal(reducePacket({packet_id:'explicit-next',egress:'NEXT',delta:'prepared'}).class,'NEXT');
+assert.equal(reducePacket({packet_id:'return-only',DELTA:'done',NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'}).class,'DELTA');
+assert.equal(reducePacket({packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'}).class,'GATE');
+
+const fieldRoot=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.ok(fieldRoot.includes("import('./lib/field-egress-reducer.mjs')"),'FIELD root must import the canonical reducer');
+assert.ok(fieldRoot.includes("('EGRESS '+egress.class)"),'CATCH cards must expose the reducer class');
+assert.ok(fieldRoot.includes('fieldEgressReduce(packet,{now:nowSet.has(r.href)})'),'only CURRENT-derived nowSet may pass NOW context');
+assert.doesNotMatch(fieldRoot,/selected\\s*:\\s*true/,'ordinary FIELD focus must not self-promote to NOW');
+assert.doesNotMatch(fieldRoot,/field-egress-reducer\\.js/,'FIELD root must not import a duplicate reducer');
+assert.ok(fieldRoot.includes("('EGRESS · '+egress.class+' · ')"),'held-object aperture must expose the reducer class');
+
+console.log('FIELD packet egress reducer PASS · A-H + canonical aliases + inert RETURN · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
