@@ -356,6 +356,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./lib/interphase-glyph.js"></script>
 <script src="./lib/project-head-glyph.js"></script>
 <script src="./lib/interphase-carrier.js"></script>
+<script src="./lib/field-egress.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -507,16 +508,25 @@ function capabilityForFocus(){
  if(!focus)return null;
  return CAPABILITY_PROJECTION.find(x=>x.match(focus.href||''))||null;
 }
-function headForFocus(){
- if(!focus||!current?.current_heads)return null;
- return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
+function headForRoute(r){
+ if(!r||!current?.current_heads)return null;
+ return current.current_heads.find(h=>h.route===r.href)||current.current_heads.find(h=>r.href&&h.route&&h.route!=='/'&&r.href.startsWith(h.route))||null;
+}
+function headForFocus(){return headForRoute(focus)}
+function egressForRoute(r){
+ if(!r||!window.FieldEgress)return null;
+ const h=headForRoute(r),gate=currentHumanGates().some(g=>g.route===r.href),n=h?.next_executable||null;
+ const delta=tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href);
+ const residue=!!(h||r.receipt||r.latest_return||r.convergence_return);
+ return window.FieldEgress.reduce({now:nowSet.has(r.href),gate,delta,next:!!n&&!gate,residue});
 }
 async function copyHeldAction(){
  if(!focus)return;
- const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
+ const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus(),egress=egressForRoute(focus);
  const packet={
   schema:'field-action-handoff/v0.1',
   object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  egress,
   gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
   native_moves:c?.moves||[],
   authority:'NONE / HANDOFF ONLY',
@@ -645,9 +655,9 @@ function renderCapabilityTrial(){
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
  if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=egressForRoute(focus),egressLabel=egress?.bucket?('EGRESS · '+egress.bucket+' · '):'';
  $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
- $('capHeldSub').textContent=returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host'));
+ $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host')));
  const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
  if(nativeActions.length){
   $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
@@ -740,7 +750,7 @@ function renderCatchup(){
   ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
   '</div></div>';
  box.innerHTML=xs.length?xs.map(r=>{
-   const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',sub=[stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
+   const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',egress=egressForRoute(r),sub=[egress?.bucket?('EGRESS '+egress.bucket):'',stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
    const gap=catchGap(r);
    return '<article class="catchCard '+(head?'head':'')+'"'+(gap?' data-catch-gap="1"':'')+'>'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div>'+(gap?'<div class="catchGap"><b>MORE HERE</b>'+esc(gap)+'</div>':'')+'<div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
  }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
