@@ -1,0 +1,60 @@
+{
+  "schema": "0xxx0/field-packet-egress/v0.2",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_BOUNDED",
+  "reducer": "/lib/field-egress-reducer.mjs",
+  "canonical_packet_schema": "field-work-packet/v0.1",
+  "purpose": "Give new bounded work-transfer packets a strict egress law while retaining the broad legacy adapter for recovered historical packet shapes.",
+  "canonical_fields": {
+    "OBJECT": "Required. Exact addressed thing carried by the packet.",
+    "AUTHORITY": "Required. Source/owner/current marker; an egress label alone never creates NOW.",
+    "STATE_IN": "Optional pre-operation state/reference.",
+    "DELTA": "Optional material change. Canonical DELTA requires EVIDENCE or reduces to RESIDUE.",
+    "EVIDENCE": "Proof/source references supporting a claimed material DELTA.",
+    "STATE_OUT": "Optional returned state/reference.",
+    "RESIDUE": "Unresolved returned work, contradiction, defect, or uncertainty.",
+    "WAITING": "External human/device/world/private prerequisite; maps to GATE.",
+    "NEXT": "Fresh candidate continuation; 0..3 only. More than 3 maps to RESIDUE.",
+    "STOP": "Explicit closure; maps to ARCHIVE before NOW/NEXT."
+  },
+  "return_dispositions": {
+    "CLOSE": "ARCHIVE",
+    "RESIDUE": "RESIDUE",
+    "WAITING": "GATE",
+    "CONTRADICTION": "RESIDUE",
+    "TRIGGER": "NEXT only when 1..3 candidate moves are present; otherwise ARCHIVE"
+  },
+  "canonical_precedence": [
+    "HISTORICAL/SUPERSEDED -> ARCHIVE unless explicitly reactivated",
+    "INVALID OBJECT/AUTHORITY/RETURN DISPOSITION -> ARCHIVE quarantine",
+    "STOP or RETURN CLOSE -> ARCHIVE",
+    "RETURN CONTRADICTION -> RESIDUE",
+    "WAITING or RETURN WAITING -> GATE",
+    "RESIDUE or RETURN RESIDUE -> RESIDUE",
+    "CURRENT authority / explicit selected context -> NOW",
+    "DELTA without EVIDENCE -> RESIDUE",
+    "DELTA with EVIDENCE -> DELTA",
+    "NEXT > 3 -> RESIDUE",
+    "NEXT 1..3 -> NEXT",
+    "otherwise -> ARCHIVE"
+  ],
+  "legacy_compatibility": {
+    "mode": "RECOVERY_ADAPTER",
+    "law": "Packets that do not declare the canonical schema and do not carry both object+authority retain broad legacy field recognition. Legacy compatibility may recover historical shapes but is not the contract for new packets.",
+    "non_promotion": "Historical/superseded legacy packets remain ARCHIVE unless explicitly reactivated."
+  },
+  "invariants": [
+    "PACKET PRESENCE != CONTINUATION.",
+    "PACKET LABEL != AUTHORITY.",
+    "CURRENT owns NOW.",
+    "GATE blocks NEXT.",
+    "RETURN closes the previous move; NEXT is a fresh offer.",
+    "SUCCESSFUL CLOSE disappears from ordinary attention.",
+    "INVALID canonical packets quarantine to ARCHIVE and cannot alter CONTROL.",
+    "No packet reducer creates a queue, planner, route, store, priority, or effect authority."
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest"
+  ]
+}
