@@ -527,7 +527,7 @@
         }
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
-      "latest_return": "/returns/FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29.json",
+      "latest_return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
       "latest_merge": "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f",
       "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
       "repo_verification": {
@@ -566,7 +566,7 @@
         "public_root_browser": "PASS · public-surface-check 36421730487 step 79",
         "public_living_field_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
         "live_garden_host": "CANDIDATE · current-master successor to PR #532 · static + browser contract added; exact-head CI required before promotion",
-        "live_direct_choice": "CANDIDATE · exact-head CI pending · unit + browser proof added · donor PR #527 reconstructed from current master"
+        "live_direct_choice": "CANDIDATE · PR #544 exact-head CI in progress · candidate receipt is evidence only until proof is green"
       },
       "next_executable": {
         "id": "fold-bloom-live-direct-choice-exact-head",
