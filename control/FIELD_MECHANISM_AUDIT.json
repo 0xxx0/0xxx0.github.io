@@ -1,0 +1,90 @@
+{
+  "schema": "0xxx0/field-mechanism-audit/v0.1",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_RUBRIC",
+  "purpose": "Audit FIELD mechanisms by state, causality, legibility, reversibility, identity, provenance, RETURN, and compression; repair only mechanisms that can recover those properties without creating more surface than they remove.",
+  "tests": {
+    "A": {
+      "name": "STATE",
+      "pass": "Canonical or host-owned state is representable independently of rendering/projection.",
+      "fail": "The only state is visual/DOM geometry, animation, or inferred display residue.",
+      "evidence": ["state model path/schema", "pure state fixture or serializer", "projection-independent test"]
+    },
+    "B": {
+      "name": "RELATION",
+      "pass": "A relative transform has explicit host/domain meaning and changes a named relation or lawful operation.",
+      "fail": "Geometry or proximity is decorative, generic-carrier semantics leak into the host, or relation cannot be stated without pointing at the picture.",
+      "evidence": ["relation algebra", "host mapping", "before/after relation witness"]
+    },
+    "C": {
+      "name": "LEGIBILITY",
+      "pass": "A first-use reader can identify the held object, available operation, and visible consequence without inspector/devtools/project lore.",
+      "fail": "Meaning requires hidden state, jargon lookup, hover-only explanation, or developer inspection.",
+      "evidence": ["cold-start copy", "mobile/browser proof", "visible consequence"]
+    },
+    "D": {
+      "name": "REVERSAL",
+      "pass": "Cheap/local transforms are reversible; irreversible changes are gated and FOLD preserves declared residue for BLOOM/RETURN.",
+      "fail": "A local gesture silently destroys state, cannot be undone/reopened, or reversal semantics are ambiguous.",
+      "evidence": ["inverse/undo test", "residue record", "reopen round-trip"]
+    },
+    "E": {
+      "name": "IDENTITY",
+      "pass": "ROUTE/SCALE/FOLD/BLOOM preserve the addressed referent unless traversal explicitly changes it.",
+      "fail": "Projection changes silently substitute another object, route, source, or authority.",
+      "evidence": ["stable object id/address", "cross-projection same-object test", "explicit traversal witness when identity changes"]
+    },
+    "F": {
+      "name": "PROVENANCE",
+      "pass": "User/source/system/LIVE/automation contributions remain distinguishable; borrowed clock does not become borrowed authorship.",
+      "fail": "Actor/source of a mutation cannot be reconstructed or automation is rendered as user-authored state.",
+      "evidence": ["actor/source fields", "driver provenance", "automation boundary test"]
+    },
+    "G": {
+      "name": "RETURN",
+      "pass": "RETURN records enough before/operation/actor/delta/after/provenance to explain the present state and restore exact context where promised.",
+      "fail": "Only destination snapshots exist, causal path is missing, or RETURN cannot recover the held object/context.",
+      "evidence": ["RETURN receipt", "round-trip proof", "before/after causal witness"]
+    },
+    "H": {
+      "name": "COMPRESSION",
+      "pass": "The mechanism removes more exposed interaction/learning complexity than it adds while retaining exact recovery.",
+      "fail": "The mechanism adds vocabulary, controls, modes, geometry, or hidden rules without eliminating greater complexity.",
+      "evidence": ["controls/concepts removed", "controls/concepts added", "named residue/recovery path", "plain-list or prior-surface comparator"]
+    }
+  },
+  "record_fields": [
+    "mechanism_id",
+    "path",
+    "host",
+    "state_model",
+    "relations_delta",
+    "gestures_events",
+    "identity",
+    "provenance_actor",
+    "return_evidence",
+    "exposure_fold_bloom",
+    "complexity_delta",
+    "tests.A..H.status",
+    "tests.A..H.evidence",
+    "decision",
+    "repair_scope",
+    "delete_or_fold_target"
+  ],
+  "statuses": ["PASS", "FAIL", "INDETERMINATE"],
+  "decision_rules": [
+    "ALL A-H PASS -> KEEP.",
+    "FAIL A, B, F, or G -> authority/causality failure: ISOLATE immediately; REPAIR only if one bounded host-local fix restores the invariant, otherwise DELETE/FOLD.",
+    "FAIL C, D, or E -> REPAIR once with one bounded mutation; if repair requires a new shell/store/mode or causes H to fail, DELETE/FOLD instead.",
+    "FAIL H -> FOLD or DELETE by default. Keep only if a bounded comparator proves net reduction in exposed complexity.",
+    "INDETERMINATE -> do not promote; gather the smallest missing evidence only when the mechanism is selected by CURRENT.",
+    "A mechanism may be interesting and still be removed. Novelty is not a retention criterion."
+  ],
+  "output_disposition": ["KEEP", "REPAIR", "FOLD", "DELETE", "INDETERMINATE"],
+  "integration": {
+    "normative_law": "/control/FIELD_COAXIALITY_LAW.json",
+    "field_contract": "/control/FIELD_INDEX_CONTRACT.json",
+    "packet_reducer": "/control/FIELD_PACKET_REDUCER.json",
+    "reducer_rule": "Any audit FAIL that remains unresolved emits RESIDUE; an external proof dependency emits GATE; a completed deletion/repair RETURN may CLOSE to ARCHIVE."
+  }
+}
