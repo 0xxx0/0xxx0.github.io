@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.5-causal-return',
+const APP_VERSION = '0.10.6-gesture-undo',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -217,6 +217,8 @@ let prefs = {
 let rngState = Date.now() >>> 0 || 1,
   events = [],
   eventSeq = 0,
+  undoStack = [],
+  pendingComposeTimer = 0,
   soundOn = true,
   dL = null,
   dR = null,
