@@ -1,0 +1,54 @@
+{
+  "schema": "0xxx0/return/sticker-tgs/v0.1",
+  "id": "RETURN-STICKER-TGS-2026-09-29",
+  "at": "2026-09-29T12:22:30+08:00",
+  "class": "RETURN",
+  "what_changed": "Telegram sticker egress extended from static (.png/.webp) and raster video (.webm) to animated vector (.tgs, gzipped Lottie), and from a single rigid silhouette to a rig whose parts animate independently.",
+  "live_sets": [
+    {
+      "set": "movementstudy_by_tathagatabot",
+      "link": "https://t.me/addstickers/movementstudy_by_tathagatabot",
+      "format": "tgs",
+      "stickers": 1,
+      "bytes": 16100,
+      "verified": "getStickerSet: is_animated=true, thumbnail present"
+    },
+    {
+      "set": "motionrig_by_tathagatabot",
+      "link": "https://t.me/addstickers/motionrig_by_tathagatabot",
+      "format": "tgs",
+      "stickers": 1,
+      "bytes": 17883,
+      "layers": 2,
+      "verified": "getStickerSet: is_animated=true, thumbnail present"
+    },
+    {
+      "set": "cute_by_tathagatabot",
+      "link": "https://t.me/addstickers/cute_by_tathagatabot",
+      "format": "webm",
+      "stickers": 5,
+      "verified": "getStickerSet: 5 x is_video=true"
+    }
+  ],
+  "measured": {
+    "tgs_vs_webm_bytes": "16100 vs 228758 for the same motion — a 14x reduction",
+    "reference_benchmark": "a public 24-sticker animated reaction set the operator rates: 35-65 KB per sticker, 21-26 layers each with its own position/rotation/scale curves. Rigged parts, not one shape.",
+    "our_rig": "2 layers (body, eyes) — the articulation gap is layer COUNT, not size"
+  },
+  "contract_findings": [
+    "emoji parameter is `emojis`; the modern `emoji_list` name is refused with 'invalid sticker emojis' in every encoding tried (bare, repeated field, JSON array)",
+    "an animated sticker must be a direct multipart upload — a file_id from sendSticker is refused: 'animated sticker must be uploaded as an InputFile'",
+    "a .tgs must declare fr=60 and the top-level `tgs` marker; a lower frame rate returns 'wrong file type'",
+    "the emoji must be in Telegram's restricted sticker list; a non-member fails the call and silently omits one sticker from the set"
+  ],
+  "verification": "Every set above was read back with getStickerSet after publish and compared against its local manifest. A push returning ok is not the same claim as a set that contains the sticker: one sticker was silently absent from a live set while the push reported success.",
+  "artifacts": {
+    "control": "/control/CURRENT.json",
+    "self": "/returns/STICKER_TGS_2026-09-29.json",
+    "sets": "t.me links above (the human-usable artifact)"
+  },
+  "limits": [
+    "No additional photographs of the operator's cats exist on this machine: a sweep of 1687 unique images across the Photos Library originals and the Telegram media cache found none beyond 9 already known.",
+    "The rig is a first cut: 2 layers against the 21-26 of the reference set; further articulation (mouth, ears, tail) is the next step."
+  ]
+}

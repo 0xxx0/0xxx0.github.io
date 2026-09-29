@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T10:18:00+08:00",
+  "updated": "2026-09-29T12:22:30+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -640,11 +640,11 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.7 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN + MINI APP INTENT Sep-27 the Mini App registration landed (t.me/Kagemushbot/testapp0 + /foldbloom) and the sticker sets publish via Bot API — the intent channel is now live-registered, not intent-only.",
+      "head": "HOUSE / FIELD 0.7.8 · SPATIAL + CARE + DIEGETIC LOCUS + SHOPPING FIT RETURN + MINI APP INTENT Sep-27 the Mini App registration landed (t.me/Kagemushbot/testapp0 + /foldbloom) and the sticker sets publish via Bot API — the intent channel is now live-registered, not intent-only. 2026-09-29 the sticker egress moved from still and video packs to animated .tgs over the Bot API: animated Lottie sets are live at 512 px, 60 fps and roughly 16-18 KB each, including a two-layer rig in which the eye parts animate on their own scale curve while the body hops — a rig, not one rigid silhouette. Three API facts cost real time and are now contract: the emoji parameter is `emojis` (the post-6.6 `emoji_list` name is refused however it is encoded), an animated sticker must arrive as a direct multipart upload (a file_id is rejected outright), and the emoji must belong to Telegram's own restricted list — a non-member fails the call and silently drops one sticker from the set, so a publish is only proven by reading the set back. Reference :: returns/STICKER_TGS_2026-09-29.json",
       "state": "ACTIVE",
       "route": "/house/",
       "retained_function": "Canonical /house/ projects one addressed physical substrate through unequal views (PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS) while HA/HOUSEBUS retains device truth/actuation. 0.7.7 retains the CARE / BODY / DAYLINE diegetic locus aperture and the session-only Shopping FIT evidence loop, and restores the canonical Telegram Mini App intent channel: inside Telegram, typed house-intent/v1 may return semantic operation + canonical object + optional value through WebApp.sendData; outside Telegram the adapter is inert. No HA URL/token/service call/private device id enters the client, and the private polling bot retains identity, policy and actuation.",
-      "version": "0.7.7",
+      "version": "0.7.8",
       "latest_return": "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
       "evidence": [
         "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
