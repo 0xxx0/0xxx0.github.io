@@ -892,3 +892,57 @@ A useful system should expose the lawful alternatives and their residue before c
 - host/game operations.
 
 The representation may differ radically by host. The invariant is that candidate space, selected path, evidence, and effect authority remain separable and recoverable.
+
+
+## 2026-09-29 — native forecast factorization
+
+The earlier LIVE sufficiency experiment established a negative result: neither the HEX quotient nor the recent exact six-verb form is sufficient for the named native next-forecast property.
+
+The new pass answers the constructive follow-up without inventing a replacement ontology.
+
+For the current `availableForecasts()` implementation, the native aperture separates into two explicit dependency layers:
+
+```text
+STRUCTURAL FORECAST
+= f(cell types, target type, anchors, creases)
+
+FULL FORECAST
+= f(structural factor, charge)
+```
+
+A deterministic native experiment reconstructs forecasts from only those factors across lawful LIVE snapshots.
+
+The structural comparison includes slot, type, verb, chain, cascade path, added edge and span. The full comparison additionally includes cadence and power. Removing charge still preserves structural topology but changes full forecast output on observed snapshots, making charge an explicit performance residue rather than hidden state.
+
+This is stronger than another correlation over labels because the factor is fed back through the existing native `availableForecasts()` function. It is still deliberately bounded:
+
+- it does **not** claim the factor is minimal;
+- it does not include current gate alignment / rotation;
+- it does not replace CALL/history;
+- it does not describe post-RELEASE mutation;
+- it does not include source timing, audio or presentation;
+- it grants no execution authority.
+
+### Convergence consequence
+
+The stable separation is now:
+
+```text
+HISTORY / HEX / MODEL READOUT
+        ↓ annotate
+NATIVE FORECAST FACTOR
+        ↓ computes
+CURRENT FORECAST APERTURE
+        ↓ expose ALL
+INTENT / SELECT ONE
+        ↓ commit by host only
+RELEASE
+        ↓ invalidates old aperture
+RECOMPUTE FACTOR + APERTURE
+        ↓
+WITNESS / RETURN
+```
+
+This gives STEP, J-space and FOLD//BLOOM one shared non-equivalence law: **a representation may help describe or nominate an option, but the current native dependency factor owns what options actually exist.**
+
+The applied-research surface exposes this as an explicit `RUN SUFFICIENCY + FACTOR AUDIT` action. It remains research-only and performs no LIVE commit.
