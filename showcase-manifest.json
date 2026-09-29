@@ -8554,7 +8554,7 @@
       "kind": "artifact",
       "parent": "/",
       "family": "PRISON AGE",
-      "operation": "ROOT / READ / RIDE / SOURCE",
+      "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
       "version": "0.6",
       "showcase_card": true,
@@ -8667,11 +8667,13 @@
       "index": {
         "updated_at": "2026-09-29T21:30:00+08:00",
         "work_modes": [
-          "ROOT",
           "READ",
           "RIDE",
           "SOURCE",
           "RETURN"
+        ],
+        "deep_modes": [
+          "ROOT / RECURRENCE"
         ]
       },
       "tier": "FIELD"
