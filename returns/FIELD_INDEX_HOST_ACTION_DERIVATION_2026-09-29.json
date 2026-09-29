@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return/field-index-host-action-derivation/v0.1",
+  "id": "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
+  "status": "CANDIDATE / EXACT_HEAD_REQUIRED",
+  "date": "2026-09-29",
+  "route": "/",
+  "version": "0.8.23",
+  "host_delta": "Delete FIELD's parallel per-host capability table and derive native owner/action hints from each held route's own manifest field.owner + operation + AVAILABLE exit paths.",
+  "law": "Generic action grammar may be shared; host-specific owner, verbs and exact targets stay host-owned. FIELD projects explicit manifest ownership but does not infer or restate authority.",
+  "changes": [
+    "/index.html — remove CAPABILITY_PROJECTION; derive owner/moves/actions from held manifest route; unowned routes stay neutral",
+    "/showcase-manifest.json — migrate the eight former FIELD capability owners to native field.owner and retain exact host exit targets",
+    "/tools/field-action-aperture-selftest.mjs — fail if parallel table returns; prove READFIELD/FOLD//BLOOM owners and Prison Age actions remain manifest-owned",
+    "/tools/prison-age-field-selftest.cjs — prove Prison Age owner/actions/targets at host manifest boundary rather than FIELD HTML",
+    "/tools/validate-public.mjs — preserve READFIELD≠FOLD//BLOOM authority invariant without requiring the deleted table",
+    "/control/FIELD_INDEX_CONTRACT.json — bind host owner/action hints to manifest ownership"
+  ],
+  "preserves": [
+    "FIELD 0.8.23 canonical INTERPHASE action-surface visor",
+    "one held object and <=3 root actions",
+    "Prison Age exact READ / RIDE / SOURCE targets and explicit source selection",
+    "native host state/effect/source authority",
+    "Dayline explicit mutation boundary",
+    "packet egress reducer and CURRENT attention ownership",
+    "no new route, registry, store, queue, ontology, planner or shell",
+    "READFIELD ≠ FOLD//BLOOM native authority boundary"
+  ],
+  "verify": [
+    "node tools/field-action-aperture-selftest.mjs",
+    "node tools/field-reversibility-selftest.mjs",
+    "node tools/validate-public.mjs",
+    "public-surface-check"
+  ],
+  "residue": [
+    "Some manifest routes expose only operation and no exact target exit; FIELD intentionally shows generic OPEN/TRACE/Dayline handoff rather than inventing richer host verbs.",
+    "Routes without explicit field.owner remain neutral FIELD ROUTE projections; FIELD does not infer authority from title, parent, or current-head proximity.",
+    "Host routes that want exact direct actions publish them at their own manifest boundary; FIELD does not infer targets."
+  ],
+  "stop": "Do not recreate a second host capability registry in FIELD. Add richer action metadata only at the native route/manifest owner when ordinary use proves a missing function."
+}
