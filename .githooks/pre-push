@@ -1,0 +1,14 @@
+#!/bin/sh
+# pre-push — the finish-line gate, at the last moment before the claim is made.
+#
+# REFUSES locally, and that asymmetry is deliberate:
+#   * a LOCAL refusal stops only the actor who is about to make the claim
+#   * a CI gate that BLOCKS stops every concurrent writer, including ones mid-flight
+# On 2026-09-29 a blocking CI gate landed here and broke a live writer seven seconds
+# later. So: refuse locally, report in CI. Never block the shared trunk.
+#
+# Installed via:  sh tools/install-hooks.sh
+# Bypass is possible (--no-verify) and that is fine: the point is that skipping it is
+# now a CONSCIOUS act rather than an invisible default.
+
+exec python3 "$(git rev-parse --show-toplevel)/tools/finish-line.py" --pre-push
