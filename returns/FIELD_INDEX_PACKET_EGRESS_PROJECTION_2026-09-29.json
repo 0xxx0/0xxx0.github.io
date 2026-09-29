@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29",
-  "status": "CANDIDATE_REPAIRED_PRECEDENCE",
+  "status": "MERGED_GREEN_TERMINAL_SAFE",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Propagate the canonical packet egress reducer into the existing FIELD held-object and CATCH surfaces, using the repaired one-bucket precedence without creating another reducer, dashboard, queue, store, planner, or authority source.",
-  "law": "Canonical order is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. FIELD focus is not CURRENT selection. GATE comes only from explicit CURRENT human/world dependency; RESIDUE comes only from unresolved/open-gap material; proof receipts are evidence, not residue.",
+  "law": "Canonical order is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. FIELD focus is not CURRENT selection. GATE comes only from explicit CURRENT human/world dependency; RESIDUE comes only from unresolved/open-gap material; proof receipts are evidence, not residue. Canonical terminal RETURN-to-CURRENT / replan-only prose is inert and cannot surface as executable NEXT.",
   "changes": [
     "/index.html — dynamically imports /lib/field-egress-reducer.mjs; builds a thin route packet from existing owners; held/CATCH metadata expose class; COPY ACTION carries the same canonical result",
     "/control/FIELD_INDEX_CONTRACT.json — binds root projection to repaired precedence and forbids focus→NOW / receipt→RESIDUE promotion",
@@ -27,12 +27,21 @@
   ],
   "verify": [
     "static integration assertions: canonical import once; no duplicate reducer; no selected:true from focus; CURRENT nowSet is sole NOW context; unresolved/open_gaps are sole RESIDUE adapter input",
-    "node tools/field-egress-reducer-selftest.mjs via existing public-surface CI",
-    "existing CURRENT↔manifest, held-action, reversibility, Route Registration, public-surface-check and gitleaks gates"
+    "PR #570 head f7346125e34f1cba0cec0b686509975a01755267 · Route Registration 36547489023 SUCCESS",
+    "PR #570 head f7346125e34f1cba0cec0b686509975a01755267 · gitleaks 36547488820 SUCCESS",
+    "PR #570 head f7346125e34f1cba0cec0b686509975a01755267 · public-surface-check 36547489001 SUCCESS",
+    "merged master 98cc5f36019364bf7d82e65aa130bc9d0b5ebb13 after terminal-semantics master 1d729ce1edc35473c34d7379a142d40bb3e01406"
   ],
   "residue": [
     "EGRESS remains intentionally lossy; exact owner evidence is recoverable under CURRENT / WAITING / manifest / RETURN.",
     "A route with no gate/NOW/unresolved/next/delta reduces to ARCHIVE; this does not delete or demote the route."
   ],
-  "reentry": "Merge only on exact-head green CI. If master lands an equivalent FIELD root consumer first, close rather than duplicate."
+  "reentry": "Use the merged FIELD root. Do not reopen a separate egress reducer or dashboard. Any future change must arise from an observed misclassification or a real consumer that cannot express itself through the canonical reducer.",
+  "merged": {
+    "pr": 570,
+    "head": "f7346125e34f1cba0cec0b686509975a01755267",
+    "merge_commit": "98cc5f36019364bf7d82e65aa130bc9d0b5ebb13",
+    "merged_at": "2026-09-29T09:13:29Z",
+    "terminal_semantics_base": "1d729ce1edc35473c34d7379a142d40bb3e01406"
+  }
 }
