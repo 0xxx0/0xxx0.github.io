@@ -1,0 +1,34 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-29",
+  "route": "/",
+  "version": "0.8.24",
+  "state": "CANDIDATE / SELF_VERIFYING",
+  "trigger": "Transfer a bounded video-game mechanism into FIELD without importing game skin or authority.",
+  "donor_map": "/control/confluence/GAME_DONOR_TRANSFER_2026-09-29.md",
+  "implemented": {
+    "donor": "Into the Breach",
+    "invariant": "SHOW CONSEQUENCE BEFORE COMMIT",
+    "host": "FIELD held-action aperture",
+    "delta": [
+      "Visible FORECAST remains inside the existing <=3 lawful-move cell.",
+      "OPEN is navigation-only; DAYLINE is OFFER_ONLY until native acceptance; COPY is clipboard-only; TRACE is view/evidence-only.",
+      "Native direct intents remain target-host-owned.",
+      "FORECAST is distinct from EFFECT and WITNESS."
+    ]
+  },
+  "mapped_not_promoted": [
+    "Outer Wilds -> knowledge progression / declared gaps",
+    "Hades -> failed attempt as RESIDUE",
+    "Death Stranding -> asynchronous useful trace",
+    "Hardspace: Shipbreaker -> interface-aware decommission",
+    "Terra Nil -> scaffold retirement"
+  ],
+  "authority": "Forecast is derived display only; native hosts retain mutation, reversal and RETURN authority.",
+  "verification": {
+    "static": "tools/field-action-aperture-selftest.mjs",
+    "ci": ".github/workflows/public-surface-check.yml already executes the existing action-aperture selftest",
+    "browser": "existing FIELD browser smoke remains authoritative for rendered root behavior"
+  },
+  "stop": "Do not add a game-donor dashboard. Promote another donor only when a current host has a specific missing function."
+}
