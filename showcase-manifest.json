@@ -16,19 +16,20 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T16:47:00+08:00",
+        "updated_at": "2026-09-29T16:45:00+08:00",
         "work_modes": [
           "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Prison Age source-intent semantics remain: FIELD chooses READ / RIDE / SOURCE without silently selecting a story. The recovered YOU’RE A WAKE grammar teaches SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without adding another app, route picker, store or effect authority. Native held-object actions remain source-owned; semantic signal remains route-local.",
-      "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "role": "FIELD INDEX root: one held object + AWAKE/INTERPHASE visor + one read-only convergence cut. FIELD derives SOURCE WITNESS and NOW / DELTA / RESIDUE / GATE / NEXT≤3 / ARCHIVE through the shared egress reducer; CURRENT alone owns NOW/NEXT authority, Git remains literal chronology, WAITING/QUEUE/atlas remain unequal projections, and NEXUS/COMMS remain recoverable snapshots.",
+      "receipt": "/returns/FIELD_INDEX_EGRESS_CUT_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.22",
+      "version": "0.8.23",
       "transfer": [
+        "0.8.23 FIELD egress cut: canonical GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE reducer with STOP dominance and CURRENT-only NOW; SOURCE WITNESS exposes source revision/age/VALID|STALE|CONFLICT; existing CONVERGENCE read replaces NEXUS as ordinary aggregation destination while NEXUS/COMMS remain snapshots",
         "packet egress reducer: existing transient machine handoff maps supplied/current packets to NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE; historical/superseded packets cannot self-promote; no new route, queue, store or authority",
         "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
         "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
@@ -104,7 +105,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_EGRESS_CUT_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
