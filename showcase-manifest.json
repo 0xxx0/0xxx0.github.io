@@ -8690,7 +8690,7 @@
     "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator.",
     "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump.",
     "field_index_visual_recovery": "Recovered the stronger pre-regression FI visual grammar, retained CURRENT/MAP ownership separation, and added a navigable SVG sitemap rather than reverting control semantics.",
-    "field_index_pulse": "PULSE is a DataDisc-2019 donor graft: route mutation history projected as a spiral field. It is explicitly secondary to STRUCTURE and NOW; spiral proximity/recency never imply semantic similarity or priority.",
+    "field_index_pulse_retired": "The DataDisc-2019 route-touch spiral remains a recoverable donor, but FIELD root no longer exposes PULSE because RECENT preserves the same route.index.updated_at witness with less machinery. Legacy PULSE projection requests degrade to RECENT.",
     "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence.",
     "shopping_field": "FI-SHOP-001 absorbs the recovered House OS shopping console and Shopping Field Menu contract as an FCM child adapter. Public route carries no personal inventory; legacy v0.4 exports import locally, with ambiguous CONFIRMED conservatively mapped to VERIFY.",
     "center_mass": "Triangle-centered many-front selection projection; /fcm/ remains an earlier parallel experiment.",
@@ -8844,9 +8844,9 @@
     "route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json",
     "visual_modes": [
       "VISUAL",
-      "PULSE",
       "STRUCTURE",
       "EVOLVE",
+      "VERSIONS",
       "RECENT"
     ],
     "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
