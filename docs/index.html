@@ -139,13 +139,11 @@ async function acceptReadRideReturn(){
   const first=w.visited[0],origin=w.origin||{},last=w.visited.at(-1);
   if(Number(first.start)!==Number(origin.start)||Number(first.end)!==Number(origin.end))return reject('ORIGIN_MISMATCH');
   if(Number(last.start)!==a||Number(last.end)!==b)return reject('FINAL_NOT_LAST_VISIT');
-  let prev=-1;
   for(const x of w.visited){
     if(x.source_id!==hash)return reject('VISIT_SOURCE_MISMATCH');
     const s=Number(x.start),e=Number(x.end);
-    if(!Number.isInteger(s)||!Number.isInteger(e)||s<0||e<=s||e>activeRaw.length||s<prev)return reject('MALFORMED_VISIT');
+    if(!Number.isInteger(s)||!Number.isInteger(e)||s<0||e<=s||e>activeRaw.length)return reject('MALFORMED_VISIT');
     if(!exactNativeUnit(x.grain,s,e))return reject('VISIT_NOT_NATIVE');
-    prev=e
   }
   const native=exactNativeUnit(f.grain,a,b);if(!native)return reject('ADDRESS_NOT_NATIVE');
   const expected=String(w.witness?.text||'').trim();if(expected&&activeRaw.slice(a,b).trim()!==expected)return reject('TEXT_MISMATCH');
