@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/media-refinery-contract/v0.1",
   "id": "FIELD-MEDIA-REFINERY",
-  "updated": "2026-09-22",
+  "updated": "2026-09-29",
   "primary_abstraction": "PAINT = Composition × Surface × Pattern × Meaning × Transformation",
   "laws": [
     "RECOVER BEFORE GENERATE",
@@ -189,7 +189,11 @@
     "cycle": "/scripts/media-curator-cycle.py",
     "hermes_skill": "/skills/media-curator/SKILL.md",
     "bootstrap": "/scripts/hermes-media-bootstrap.sh",
-    "bulk_default": "qwen3-vl:8b via local Ollama",
-    "authority": "semantic overlay + validation only; no source mutation or rendering"
+    "bulk_default": "qwen3.5:9b via local Ollama",
+    "authority": "semantic overlay + validation only; no source mutation or rendering",
+    "local_adjudicator": "qwen3.5:27b optional manual pull; held/high-value adjudication only",
+    "executor_law": "Hermes is exception/supervision only; model/provider memory is non-canonical.",
+    "remote_renderer": "Higgsfield only after explicit render authority; remote output never becomes source or lineage authority.",
+    "typed_output_gate": "Semantic bulk promotion requires strict parse + schema validation; malformed output STOPs that semantic step and is never silently repaired or provider-hopped."
   }
 }
