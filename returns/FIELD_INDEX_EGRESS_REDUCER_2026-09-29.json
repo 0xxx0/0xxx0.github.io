@@ -1,0 +1,33 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_EGRESS_REDUCER_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "FIELD INDEX now reduces each held/CATCH object into one deterministic egress disposition and carries that snapshot in COPY ACTION without creating a new store, queue, planner, or authority source.",
+  "law": "NOW > GATE > DELTA > NEXT > RESIDUE > ARCHIVE. NOW is CURRENT-owned; all buckets are PROJECTION_ONLY.",
+  "changes": [
+    "/lib/field-egress.js — pure deterministic reducer with fixed precedence",
+    "/index.html — held action aperture + CATCH cards expose EGRESS; COPY ACTION includes the same reducer snapshot",
+    "/control/FIELD_INDEX_CONTRACT.json — reducer/authority law + root projection contract",
+    "/showcase-manifest.json — FIELD INDEX 0.8.23 route touch and retained-function record",
+    "/tools/field-egress-selftest.cjs — six precedence cases"
+  ],
+  "preserves": [
+    "CURRENT owns NOW",
+    "local CATCH acknowledgement and REWIND semantics",
+    "native route/head effect authority",
+    "RETURN ≠ NEXT and fresh-replan law",
+    "no new route, shell, store, queue, backlog or priority source"
+  ],
+  "residue": [
+    "EGRESS is intentionally a single lossy label; exact CURRENT, change timestamps, head state, gates and RETURN evidence remain recoverable from their owners",
+    "CURRENT head remains 0.8.22 until the candidate is merged and canonical authority is refreshed"
+  ],
+  "verify": [
+    "Reducer precedence executed in the connector JS runtime: 6/6 PASS",
+    "Static integration assertions: script/function/action-packet/held/CATCH/contract/manifest 8/8 PASS",
+    "PR CI still required for public-surface, route-registration and secret scan"
+  ],
+  "reentry": "Open the candidate PR. Merge only after exact-head CI is green; then refresh CURRENT field-index head to 0.8.23 with merge/check evidence."
+}
