@@ -108,6 +108,11 @@ async function rideSource(){
   location.href='/fold-bloom/live/?source=readfield&course=STEP&experience=echo-walk';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
+$('copyThreadLink').onclick=async()=>{
+  const v=$('threadReturn').dataset.share;if(!v)return;
+  try{await navigator.clipboard.writeText(new URL(v,location.origin).href);$('status').textContent='THREAD SHARE LINK COPIED · READER PATH / NOT CANON ORDER'}
+  catch(_){$('status').textContent='THREAD COPY UNAVAILABLE'}
+};
 $('clearThreadReturn').onclick=()=>{
   try{sessionStorage.removeItem(THREAD_RETURN_STORAGE);sessionStorage.removeItem(THREAD_STORAGE)}catch(_){}
   $('threadReturn').hidden=true;threadReceipt=null;
