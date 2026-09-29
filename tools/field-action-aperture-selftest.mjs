@@ -42,11 +42,15 @@ need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract
 need(!html.includes('CAPABILITY_PROJECTION'),'parallel per-host capability table survived');
 need(html.includes('function nativeRouteActions(r)'),'manifest-derived native action adapter missing');
 need(html.includes('r?.field?.exit_paths'),'native action adapter does not read host-owned exit paths');
+need(html.includes("r?.field?.owner||''"),'native owner adapter does not read explicit host-owned owner');
+need(html.includes("return owner||'FIELD ROUTE'"),'unowned route must remain neutral instead of inheriting authority');
 const prison=(manifest.routes||[]).find(r=>r.href==='/prison-age/');
 const prisonActions=(prison?.field?.exit_paths||[]).filter(x=>String(x?.status||'').toUpperCase()==='AVAILABLE'&&x?.target).map(x=>x.via||x.class);
 need(prisonActions.join('|')==='READ|RIDE|SOURCE','Prison Age host manifest lost exact READ/RIDE/SOURCE action ownership');
 need(!html.includes("target:'./prison-age/?intent=read&return=field'"),'Prison Age target still duplicated inside FIELD root');
-need((contract.laws||[]).some(x=>/^HOST ACTION HINTS DERIVE FROM HOST-OWNED MANIFEST CONTRACTS/.test(x)),'host-action derivation law missing');
+need((contract.laws||[]).some(x=>/^HOST OWNER \+ ACTION HINTS DERIVE FROM HOST-OWNED MANIFEST CONTRACTS/.test(x)),'host-action derivation law missing');
+need((manifest.routes||[]).find(r=>r.href==='/docs/')?.field?.owner==='READFIELD','READFIELD native owner missing from manifest');
+need((manifest.routes||[]).find(r=>r.href==='/fold-bloom/')?.field?.owner==='FOLD//BLOOM','FOLD//BLOOM native owner missing from manifest');
 need(/<details class="catchup" id="catchupFold" data-signal="CLEAR">/.test(html),'CATCH + ACT must be folded by default');
 need(html.includes('FieldSignal?.combine')&&signalJs.includes("return a.length>1?'MIXED'"),'mixed semantic signal derivation missing');
 need(signalCss.includes('fieldSignalInterference'),'moire/interference signal skin missing');
