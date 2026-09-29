@@ -417,12 +417,15 @@ function ensureEchoThread(){
 }
 function clearReadEcho(){readEcho=null;const box=$('#sourceEchoLive'),follow=$('#sourceEchoFollow'),thread=$('#sourceEchoThread');if(box)box.hidden=true;if(follow)follow.hidden=true;if(thread)thread.hidden=true;delete document.documentElement.dataset.foldBloomSourceEcho;delete document.documentElement.dataset.foldBloomSourceEchoSource}
 function syncReadEcho(w){
- const box=$('#sourceEchoLive'),link=$('#sourceEchoLiveLink'),basis=$('#sourceEchoLiveBasis');if(!box)return null;
- if(!readRide||!readEcho?.index||!w?.text){box.hidden=true;document.documentElement.dataset.foldBloomSourceEcho=readEcho?'silent':'off';return null}
+ const box=$('#sourceEchoLive'),link=$('#sourceEchoLiveLink'),basis=$('#sourceEchoLiveBasis'),follow=$('#sourceEchoFollow'),thread=$('#sourceEchoThread');if(!box)return null;
+ if(!readRide||!readEcho?.index||!w?.text){box.hidden=true;if(follow)follow.hidden=true;document.documentElement.dataset.foldBloomSourceEcho=readEcho?'silent':'off';return null}
  const hit=globalThis.FieldSourceEcho?.best?.(readEcho.index,{sourceId:readEcho.sourceId,text:w.text});
- if(!hit){box.hidden=true;document.documentElement.dataset.foldBloomSourceEcho='silent';return null}
+ readEcho.hit=hit||null;
+ if(!hit){box.hidden=true;if(follow)follow.hidden=true;document.documentElement.dataset.foldBloomSourceEcho='silent';return null}
  const e=hit.entry,u=new URL('/docs/',location.origin);u.searchParams.set('src',e.path);u.searchParams.set('ap_scale','SENT');u.searchParams.set('ap_char',String(e.start));u.searchParams.set('echo',readEcho.url);u.searchParams.set('echo_source',e.source_id);if(readRide.packet.returnAddress)u.searchParams.set('return',readRide.packet.returnAddress);
- link.href=u.pathname+u.search;link.textContent=e.title+' · “'+String(e.text).slice(0,180)+'”';basis.textContent='shared '+hit.shared.join(' · ')+(hit.phrases.length?' · phrase '+hit.phrases.join(' / '):'')+' · exact fragment · evidence only';box.hidden=false;document.documentElement.dataset.foldBloomSourceEcho='shown';document.documentElement.dataset.foldBloomSourceEchoSource=e.source_id;return hit
+ link.href=u.pathname+u.search;link.textContent=e.title+' · “'+String(e.text).slice(0,180)+'”';basis.textContent='shared '+hit.shared.join(' · ')+(hit.phrases.length?' · phrase '+hit.phrases.join(' / '):'')+' · exact fragment · evidence only';
+ const walk=isEchoWalk();if(follow){follow.hidden=!walk;follow.disabled=!walk}if(thread){const t=walk?ensureEchoThread():null;thread.hidden=!walk;thread.textContent='THREAD '+String(t?.hops?.length||0)+' · READER PATH / NOT CANON'}
+ box.hidden=false;document.documentElement.dataset.foldBloomSourceEcho='shown';document.documentElement.dataset.foldBloomSourceEchoSource=e.source_id;document.documentElement.dataset.foldBloomEchoWalk=walk?'ready':'off';return hit
 }
 async function loadReadEcho(packet){
  clearReadEcho();const cfg=packet?.echo;if(!cfg?.index||!cfg?.source_id||!globalThis.FieldSourceEcho)return null;
