@@ -97,6 +97,8 @@ The guide uses one browser-local seen bit:
 
 The same `fieldCarrierForFocus()` now feeds both the visor and FIELD → Dayline handoff, preventing onboarding from narrating a different state than transport actually carries.
 
+The visibility pass also exposed one pre-existing authority leak: `/docs/` had been grouped into FIELD's broad FOLD//BLOOM capability matcher even though the manifest says source/cursor authority remains READFIELD. FIELD now addresses `/docs/` explicitly as owner `READFIELD`; LIVE/FOLD//BLOOM may still receive RIDE projections without becoming text authority.
+
 ## VISUAL LAW
 
 The private Eight Plates image is reference-only. No private image bytes are shipped.
