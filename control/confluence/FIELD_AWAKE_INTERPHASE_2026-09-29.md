@@ -1,6 +1,6 @@
 # FIELD / AWAKE / INTERPHASE CONVERGENCE — 2026-09-29
 
-**Status:** IMPLEMENTED CANDIDATE  
+**Status:** MERGED / MACHINE GREEN · PR #533  
 **Role:** lineage + product-boundary note for FIELD 0.8.22. Not a new app, ontology, planner, route authority or story canon.
 
 ## OBSERVED / RECOVERED
@@ -161,3 +161,16 @@ RETURN
 ```
 
 **One app. One held object. Many lawful readings. No second authority.**
+
+
+## MERGE PROOF
+
+- PR: #533
+- Merge: `c7ff53906a2a4d0610a5b0db90cb0e0627b58c29`
+- Proof head: `dc028d88efb7054a19d411a37c35d9fc8a5875a9`
+- Route Registration: 36508540373 PASS
+- gitleaks: 36508540355 PASS
+- public-surface-check: 36508540378 PASS
+- 430×900 FIELD AWAKE / INTERPHASE browser case: PASS
+
+The separate `/awake/` shell remains donor-only. The shipped product surface is FIELD Index.
