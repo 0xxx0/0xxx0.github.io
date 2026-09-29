@@ -102,6 +102,8 @@ jobs:
           node tools/sleeper-nine-gate-ux-smoke.mjs
           node tools/prison-age-field-selftest.cjs
           node tools/prison-age-field-smoke.mjs
+          node tools/source-echo-selftest.cjs
+          node tools/source-echo-read-ride-smoke.mjs
           node tools/sleeper-dayline-carrier-selftest.cjs
           node tools/interphase-dayline-selftest.cjs
       - name: Validate SPIKE 005 / expression transcript
