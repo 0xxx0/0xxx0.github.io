@@ -113,8 +113,9 @@ export class Renderer {
     // Peripheral optic flow: deterministic source-motion witness, not a score effect.
     for(const p of optic.stars){
       const q=p.depth,x=horizonX+p.x*w*.67,y=horizonY+p.y*h*.45;
-      const trail=this.reducedMotion?0:(4+18*q*clamp((optic.speed-.45)/2,0,1))*(this.profile?.immersion||1)*(this.profile?.motionGain||1);
-      const dx=(x-horizonX),dy=(y-horizonY),len=Math.max(1,Math.hypot(dx,dy)),a=.025+.13*q*clamp(optic.speed/2.2,0,1);
+      // WONDER SL3 - grade/plunge coupling: climb/dive and measured drop kick lengthen the peripheral trail (bounded).
+      const trail=this.reducedMotion?0:(4+18*q*clamp((optic.speed-.45)/2,0,1)+10*q*Math.abs(m.grade||0)*.35+16*q*clamp(m.dropKick||0,0,1))*(this.profile?.immersion||1)*(this.profile?.motionGain||1);
+      const dx=(x-horizonX),dy=(y-horizonY),len=Math.max(1,Math.hypot(dx,dy)),a=.025+.13*q*clamp(optic.speed/2.2,0,1)+.05*clamp(optic.speed-1.3,0,1);
       g.strokeStyle=`rgba(255,255,255,${a})`;g.lineWidth=.45+q*.85;
       g.beginPath();g.moveTo(x,y);g.lineTo(x-dx/len*trail,y-dy/len*trail);g.stroke();
     }
