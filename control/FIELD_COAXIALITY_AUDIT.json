@@ -174,8 +174,8 @@
         "C_GESTURE": {
           "verdict": "PASS",
           "evidence": [
-            "/fold-bloom/two-dial/core2.js: pointer-down fixes one pointer to one dial side; pointermove mutates only that owned L or R axis; pointerup alone may commit the resulting relation",
-            "/tools/two-dial-gesture-reversal-selftest.cjs: executable static proof that pointermove cannot commit and release owns the relation commit"
+            "/fold-bloom/two-dial/core2.js: pointer-down fixes one pointer to one dial side; pointermove mutates only that owned L or R axis; commit waits for all active pointers to release; DUET additionally requires both dials to have participated",
+            "/tools/two-dial-gesture-reversal-selftest.cjs: executable proof that pointermove cannot commit, one multi-pointer transaction yields at most one release commit, and pointer cancel invalidates the transaction"
           ]
         },
         "D_IDENTITY": {
