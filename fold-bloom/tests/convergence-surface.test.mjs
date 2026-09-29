@@ -14,7 +14,8 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   assert.match(html,/id="publicDemoBtn">TRY THE EXAMPLE →<\/button>/);
   assert.match(html,/id="songIntroBtn">CHOOSE MY SONG<\/button>/);
   assert.match(html,/id="playBtn">NO SONG \/ JUST PLAY →<\/button>/);
-  assert.match(html,/Tap ← or → until the middle action lights up/);
+  assert.match(html,/Turn, drag, or tap a labelled forecast to line up the gate/);
+  assert.match(html,/RELEASE stays separate from seeking/);
   assert.match(html,/MORE STARTS \/ MODES/);
   assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
