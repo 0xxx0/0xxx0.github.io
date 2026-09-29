@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T17:10:00+08:00",
+        "updated_at": "2026-09-29T17:18:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -25,10 +25,11 @@
         ]
       },
       "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Held/CATCH objects consume the canonical packet egress reducer as a compact GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE reading; ordinary focus never creates NOW, receipts do not become RESIDUE, and the projection has no mutation authority. Prison Age source-intent semantics remain: FIELD chooses READ / RIDE / SOURCE without silently selecting a story. Native held-object actions remain source-owned; semantic signal remains route-local.",
-      "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "receipt": "/returns/FIELD_INDEX_SOURCE_WITNESS_2026-09-29.json",
       "machine_view": "FIELD",
       "version": "0.8.22",
       "transfer": [
+        "FIELD source witness: collapsed CONVERGENCE now reports CURRENT / WAITING / QUEUE / ATLAS / GIT as SOURCE HEAD · DERIVED AT · SOURCE AGE · VALID/STALE/CONFLICT; freshness never becomes authority; held/CATCH egress remains the separate canonical reducer projection; NEXUS/COMMS remain snapshot depth.",
         "FIELD root egress consumer: held-object and CATCH projections consume canonical GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; ordinary focus cannot mint NOW; proof receipts do not count as RESIDUE",
         "packet egress reducer: one-bucket precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; historical packets cannot self-promote; packet labels cannot mint GATE/NOW authority; no new route, queue, store or dashboard",
         "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
@@ -105,8 +106,9 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
-      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+      "latest_return": "/returns/FIELD_INDEX_SOURCE_WITNESS_2026-09-29.json",
+      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+      "source_witness": "/lib/field-source-witness.mjs"
     },
     {
       "href": "/app-atlas/",
