@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,19 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T17:05:00+08:00",
+        "updated_at": "2026-09-29T17:07:00+08:00",
         "work_modes": [
-          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "RELEASE"
         ]
       },
       "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Prison Age source-intent semantics remain: FIELD chooses READ / RIDE / SOURCE without silently selecting a story. The recovered YOU’RE A WAKE grammar teaches SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without adding another app, route picker, store or effect authority. Native held-object actions remain source-owned; semantic signal remains route-local.",
-      "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "receipt": "/returns/FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.22",
+      "version": "0.8.23",
       "transfer": [
+        "0.8.23 COAXIALITY subtraction: MAP/PULSE retired as redundant view; RECENT retains route-touch evidence; canonical A-H mechanism audit remains narrow/executable; no replacement visualization",
         "packet egress reducer: one-bucket precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; historical packets cannot self-promote; packet labels cannot mint GATE/NOW authority; no new route, queue, store or dashboard",
         "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
         "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
@@ -104,7 +104,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
