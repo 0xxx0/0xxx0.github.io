@@ -126,7 +126,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 
 /* MAP */
 .mapTools{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}.mapTools button,.mapTools input{min-height:28px;padding:5px 7px;font-size:7px}.mapTools button.on{border-color:var(--cool);color:var(--cool)}.mapTools input{width:200px}
-.mapStage{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:6px}.mapCanvas{border:1px solid var(--line);background:#090d0f;min-height:430px}.mapCanvas svg{display:block;width:100%;height:430px}.mapSide{border:1px solid var(--line);padding:8px;background:#090d0f}.mapSide b{display:block;font:800 14px/1 system-ui,sans-serif}.mapSide span{display:block;color:var(--mut);font-size:6.5px;margin-top:4px}.mapSide button{width:100%;margin-top:5px;padding:6px;font-size:7px}.mapList{border-top:1px solid var(--line)}.mapRow{display:grid;grid-template-columns:28px minmax(0,1fr) 100px;gap:7px;align-items:center;width:100%;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:6px 2px;text-align:left}.mapRow:hover{background:#0c1215}.mapNode rect{fill:#0a0e10;stroke:#3a464c}.mapNode text{fill:#d7dddf;font-size:8px}.mapNode.sel rect{stroke:var(--hot);stroke-width:2}.mapEdge{stroke:#263137;stroke-width:1}.pulsePath{fill:none;stroke:#263137;stroke-width:1}.pulseDot{fill:#0a0e10;stroke:#526169}.pulseDot.sel{stroke:var(--hot);stroke-width:2}
+.mapStage{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:6px}.mapCanvas{border:1px solid var(--line);background:#090d0f;min-height:430px}.mapCanvas svg{display:block;width:100%;height:430px}.mapSide{border:1px solid var(--line);padding:8px;background:#090d0f}.mapSide b{display:block;font:800 14px/1 system-ui,sans-serif}.mapSide span{display:block;color:var(--mut);font-size:6.5px;margin-top:4px}.mapSide button{width:100%;margin-top:5px;padding:6px;font-size:7px}.mapList{border-top:1px solid var(--line)}.mapRow{display:grid;grid-template-columns:28px minmax(0,1fr) 100px;gap:7px;align-items:center;width:100%;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:6px 2px;text-align:left}.mapRow:hover{background:#0c1215}.mapNode rect{fill:#0a0e10;stroke:#3a464c}.mapNode text{fill:#d7dddf;font-size:8px}.mapNode.sel rect{stroke:var(--hot);stroke-width:2}.mapEdge{stroke:#263137;stroke-width:1}
 .health{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.health a{background:#090d0f;padding:8px}.health b{display:block;font-size:7px}.health span{display:block;color:var(--mut);font-size:6px;margin-top:3px}
 .foot{display:flex;justify-content:space-between;gap:10px;margin-top:14px;padding-top:7px;border-top:1px solid var(--line);color:#657278;font-size:6.5px}
 
@@ -328,9 +328,9 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </details>
 
 <details class="fold" id="mapFold">
-  <summary><b>MAP / PROJECTIONS</b><span id="mapMeta">visual · pulse · structure · evolve · recent</span></summary>
+  <summary><b>MAP / PROJECTIONS</b><span id="mapMeta">visual · structure · evolve · versions · recent</span></summary>
   <div class="foldBody">
-    <div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="PULSE">PULSE</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-mode="VERSIONS">VERSIONS</button><button data-mode="RECENT">RECENT</button><input id="mapSearch" type="search" placeholder="/ find route"></div>
+    <div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-mode="VERSIONS">VERSIONS</button><button data-mode="RECENT">RECENT</button><input id="mapSearch" type="search" placeholder="/ find route"></div>
     <div id="mapVisual" class="mapStage"><div class="mapCanvas"><svg id="fieldMap" viewBox="0 0 1000 430" aria-label="FIELD visual sitemap"></svg></div><aside class="mapSide"><b id="mapTitle">FIELD</b><span id="mapPath">/</span><span>address depth · focus preserved</span><button id="mapUp" title="Rise one parent depth without changing held route">DEPTH −</button><button id="mapRootBtn">ROOT</button><button id="mapDrill" title="Descend toward the held route when it has children">DEPTH +</button></aside></div>
     <div id="mapList" class="mapList" hidden></div>
   </div>
@@ -360,9 +360,10 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[],fieldEgressReduce=null;
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
 const CAP_TRIAL=INIT.get('cap')!=='0';
+const fieldEgressReady=import('./lib/field-egress-reducer.mjs').then(m=>{fieldEgressReduce=m.reducePacket;queueMicrotask(()=>{try{renderAperture();renderCatchup()}catch(_){}});return m}).catch(()=>null);
 const CAPABILITY_PROJECTION=Object.freeze([
  {id:'dayline',match:h=>h==='/atlas-dayline/'||h.startsWith('/atlas-dayline/'),owner:'DAYLINE',moves:['FOCUS / ADD','RUN ≤ 3','RETURN'],boundary:'time/execution only'},
  {id:'readfield',match:h=>h==='/docs/',owner:'READFIELD',moves:['FAST / REVIEW','RIDE / LIVE','RETURN'],boundary:'source/cursor authority remains READFIELD; borrowed projections do not own text'},
@@ -507,16 +508,37 @@ function capabilityForFocus(){
  if(!focus)return null;
  return CAPABILITY_PROJECTION.find(x=>x.match(focus.href||''))||null;
 }
-function headForFocus(){
- if(!focus||!current?.current_heads)return null;
- return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
+function headForRoute(r){
+ if(!r||!current?.current_heads)return null;
+ return current.current_heads.find(h=>h.route===r.href)||current.current_heads.find(h=>r.href&&h.route&&h.route!=='/'&&r.href.startsWith(h.route))||null;
+}
+function headForFocus(){return headForRoute(focus)}
+function fieldEgressForRoute(r){
+ if(!r||!fieldEgressReduce)return null;
+ const h=headForRoute(r),gate=currentHumanGates().find(g=>g.route===r.href)||null,n=h?.next_executable||null;
+ const changed=tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href),gap=catchGap(r);
+ const routeState=String(r.state||''),historical=/HISTORICAL|SUPERSEDED|ARCHIV|RETIRED|OBSOLETE|DONOR_ONLY/i.test(routeState);
+ const evidence=[h?.latest_return,r.latest_return,r.receipt,r.convergence_return].filter(Boolean);
+ const packet={
+  packet_id:'route:'+r.href,
+  ...(historical?{state:routeState}:{}),
+  sources:[r.href,'/control/CURRENT.json','/showcase-manifest.json'],
+  ...(evidence.length?{evidence}:{}),
+  ...(gate?{waiting:[{id:gate.id,state:gate.state,dependency_kind:gate.dependency_kind}]}:{}),
+  ...(gap?{residue:[gap]}:{}),
+  ...(!gate&&n?{next_executable:n}:{}),
+  ...(changed?{delta:{updated_at:r.index?.updated_at||null}}:{})
+ };
+ try{return fieldEgressReduce(packet,{now:nowSet.has(r.href)})}catch(_){return null}
 }
 async function copyHeldAction(){
  if(!focus)return;
- const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
+ if(!fieldEgressReduce)await fieldEgressReady;
+ const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus(),egress=fieldEgressForRoute(focus);
  const packet={
   schema:'field-action-handoff/v0.1',
   object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  ...(egress?{egress}:{}),
   gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
   native_moves:c?.moves||[],
   authority:'NONE / HANDOFF ONLY',
@@ -645,9 +667,9 @@ function renderCapabilityTrial(){
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
  if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=fieldEgressForRoute(focus),egressLabel=egress?.class?('EGRESS · '+egress.class+' · '):'';
  $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
- $('capHeldSub').textContent=returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host'));
+ $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host')));
  const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
  if(nativeActions.length){
   $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
@@ -740,7 +762,7 @@ function renderCatchup(){
   ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
   '</div></div>';
  box.innerHTML=xs.length?xs.map(r=>{
-   const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',sub=[stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
+   const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',egress=fieldEgressForRoute(r),sub=[egress?.class?('EGRESS '+egress.class):'',stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
    const gap=catchGap(r);
    return '<article class="catchCard '+(head?'head':'')+'"'+(gap?' data-catch-gap="1"':'')+'>'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div>'+(gap?'<div class="catchGap"><b>MORE HERE</b>'+esc(gap)+'</div>':'')+'<div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
  }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
@@ -978,7 +1000,7 @@ const childrenMap=()=>{const m=new Map;for(const r of routes){const p=r.parent||
 function mapMatches(r){if(!mapQuery)return true;return [r.title,r.href,r.state,r.operation,r.kind,r.role].join(' ').toLowerCase().includes(mapQuery)}
 function renderMap(){
  const list=$('mapList'),vis=$('mapVisual');document.querySelectorAll('#mapTools [data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mapMode));
- if(mapMode==='VISUAL'||mapMode==='PULSE'){vis.hidden=false;list.hidden=true;renderMapSvg();return}
+ if(mapMode==='VISUAL'){vis.hidden=false;list.hidden=true;renderMapSvg();return}
  vis.hidden=true;list.hidden=false;
  let xs=[];
  if(mapMode==='RECENT')xs=latest.filter(mapMatches).slice(0,40);
@@ -996,18 +1018,12 @@ function renderMap(){
 }
 function renderMapSvg(){
  const svg=$('fieldMap');svg.innerHTML='';const NS='http://www.w3.org/2000/svg',el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e};
- if(mapMode==='PULSE'){
-   const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
-   if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
-   pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusOrOpen(p.r,'OTHER');svg.append(c)});
-   $('mapTitle').textContent='PULSE';$('mapPath').textContent='route-touch spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent route touches · manifest '+(manifest?.updated||'—');updateStatusRail();return;
- }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
  kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusOrOpen(r,'OTHER');renderMapSelection()};svg.append(g)});
  $('mapTitle').textContent=center.title||'FIELD';$('mapPath').textContent=mapRoot;$('mapMeta').textContent=kids.length+' children · visual root '+mapRoot+' · manifest '+(manifest?.updated||'—');updateStatusRail();
 }
-function renderMapSelection(){if($('mapFold').open&&(mapMode==='VISUAL'||mapMode==='PULSE'))renderMapSvg()}
+function renderMapSelection(){if($('mapFold').open&&mapMode==='VISUAL')renderMapSvg()}
 function drillSelected(){const cm=childrenMap(),h=focus?.href||mapSelected;if(h&&(cm.get(h)||[]).length){mapRoot=h;mapSelected=h;renderMap();notifyFieldIndex()}}
 function mapUp(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';renderMap();notifyFieldIndex()}
 function openAxial(){if(!focus)return;var q=new URLSearchParams({focus:focus.href});location.assign('./foundry/axial/?'+q.toString())}
