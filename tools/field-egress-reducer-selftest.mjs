@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -72,5 +73,9 @@ const precedence=reducePacket({
   evidence:{sufficient:true}
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
+
+const rootHtml=fs.readFileSync('index.html','utf8');
+assert.match(rootHtml,/delta:\{material:true,updated_at:/,'FIELD root changed-route DELTA must be material');
+assert.match(rootHtml,/evidence:\{sufficient:true,refs:\[r\.href\+'@'/,'FIELD root changed-route DELTA must carry addressed evidence');
 
 console.log('FIELD packet egress reducer PASS · A-Q · GATE>NOW>RESIDUE>NEXT>DELTA>ARCHIVE');
