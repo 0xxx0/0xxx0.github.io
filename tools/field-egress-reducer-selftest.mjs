@@ -50,6 +50,9 @@ const contract=JSON.parse(fs.readFileSync('control/FIELD_PACKET_EGRESS.json','ut
 assert.equal(contract.canonical_packet_schema,CANONICAL_PACKET_SCHEMA);
 assert.deepEqual(Object.keys(contract.canonical_fields),['OBJECT','AUTHORITY','STATE_IN','DELTA','EVIDENCE','STATE_OUT','RESIDUE','WAITING','NEXT','STOP']);
 assert.deepEqual(contract.precedence,EGRESS_PRECEDENCE);
+const rootHtml=fs.readFileSync('index.html','utf8');
+assert.match(rootHtml,/delta:\{material:true,updated_at:/,'FIELD root changed-route DELTA must stay material');
+assert.match(rootHtml,/evidence:\{sufficient:true,refs:\[r\.href\+'@'/,'FIELD root changed-route DELTA must carry addressed evidence');
 
 const C=(x={})=>({
   schema:CANONICAL_PACKET_SCHEMA,
