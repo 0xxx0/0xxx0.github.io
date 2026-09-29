@@ -17,6 +17,7 @@ import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js
 import {liveSteeringPreview,manualSteeringPulse} from './steering-preview.js';
 import {buildLiveCalculation,liveCalculationSummary,forecastSeekDelta} from './live-calculus.js?v=0.2';
 import {READ_GRAINS,READ_RIDE_STORAGE,READ_RETURN_STORAGE,makeReadRidePacket,normalizeReadRidePacket,makeReadCourse,readCourseAddressAt,stepReadCourse,readCourseWitness,makeReadReturnWitness,initialReadProgress,packetFromLocalFile} from '../read-course.js';
+import {loadAuthoredPack,nextRecurrence,readerStats} from './authored-reader.js';
 
 const STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -30,7 +31,7 @@ let dragging=false,startX=0,startY=0,lastX=0,stepAccum=0,pointerTravel=0,lastT=0
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,readEcho=null,gardenOpen=false,gardenReturn=null,perf={emaMs:16.7,fps:60,modelHz:0};
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,readEcho=null,authoredReader=null,gardenOpen=false,gardenReturn=null,perf={emaMs:16.7,fps:60,modelHz:0};
 // IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
 // never pass through here: they stay in the browser vault keyed by sha256. What lives
 // here is the declaration, the course built from its metadata, and the clock that lets
@@ -410,14 +411,14 @@ function updateTextWitness(){
   const w=textOn
     ?(readRide?readCourseWitness(liveCourse(),liveCourseProgress()):(imageSet?imageWitness():(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null)))
     :null;
-  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';syncReadEcho(null);return null}
+  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';syncReadEcho(null);syncAuthoredReaderUI();return null}
   const key=readRide?[w.grain,w.address,w.text].join('|'):imageSet?[w.grain,w.address,w.text].join('|'):[w.mode,w.alignment,w.start,w.text].join('|');
   if(key!==lastTextKey){
     lastTextKey=key;box.hidden=false;
     mode.textContent=readRide?('READ · '+w.grain):imageSet?('SET · '+w.grain):(w.mode==='TIMED'?((w.kind||'TEXT')+' · TIMED'):((w.kind||'TEXT')+' · FLOAT / UNALIGNED'));
     body.textContent=String(w.text||'').slice(0,readRide?520:320);
   }
-  syncReadEcho(w);return w;
+  syncReadEcho(w);syncAuthoredReaderUI();return w;
 }
 
 function refreshSteeringPreview(now=Date.now()){
@@ -495,7 +496,7 @@ function update(){
   $('#textBtn').textContent=textOn?'TEXT AUTO':'TEXT OFF';
   $('#trackToggle').disabled=!!readRide||!liveTrack.sourceActive();
   $('#trackToggle').textContent=readRide?'NO TEXT CLOCK':(liveTrack.sourceActive()?($('#trackAudio').paused?'PLAY SOURCE':'PAUSE SOURCE'):'PLAY / PAUSE');
-  if($('#sourceQuick'))$('#sourceQuick').textContent=readRide?'READ SOURCE':'CHOOSE SONG';
+  if($('#sourceQuick'))$('#sourceQuick').textContent=authoredReader?'PROVENANCE':readRide?'READ SOURCE':'CHOOSE SONG';
   syncLayerUI();
   $('#mode').textContent=state.mode;
   const sceneMeta=scenePresentation(state.scene);
@@ -519,7 +520,7 @@ function update(){
     :imageSet
       ?`${VERSION} · LOCAL IMAGE SET × self-driving set clock → addressed source · ${imageCourseSummary(imageSet.course)} · ${courseGrain} · ${Math.round(liveCourseProgress()*100)}%`
       :`${VERSION} · AUDIO MAP × deformation tape × ride trace → traversable TRACKFIELD · ${deformationTape.length} road ops · ${ride.branchChoices} branch choices`;
-  syncAutopilotUI();
+  syncAutopilotUI();syncAuthoredReaderUI();
   renderer.setDrag(dragAngle);
   save();
 }
@@ -590,7 +591,7 @@ function readRideState(){
 }
 function clearReadRide({silent=false}={}){
   if(!readRide)return false;
-  readRide=null;clearReadEcho();
+  readRide=null;authoredReader=null;document.documentElement.dataset.foldBloomAuthoredReader='off';clearReadEcho();syncAuthoredReaderUI();
   if(READ_GRAINS.includes(courseGrain))courseGrain='PHRASE';
   courseMode='STEP';lastCoursePaint=-1;lastTextKey='';
   delete document.documentElement.dataset.foldBloomReadRide;
@@ -599,8 +600,8 @@ function clearReadRide({silent=false}={}){
   if(!silent)toast('READ SOURCE RETURNED');
   return true;
 }
-function loadReadRidePacket(raw,{announce=true}={}){
-  const packet=normalizeReadRidePacket(raw);
+function loadReadRidePacket(raw,{announce=true,authored=null}={}){
+  const packet=normalizeReadRidePacket(raw);authoredReader=authored;document.documentElement.dataset.foldBloomAuthoredReader=authoredReader?'on':'off';
   stopDemo(false);
   clearImageSet({silent:true});
   try{$('#trackAudio').pause()}catch(_){}
@@ -615,6 +616,94 @@ function loadReadRidePacket(raw,{announce=true}={}){
   $('#intro').classList.remove('on');syncSoundGate(false);drawCourseMap(true);const readWitness=updateTextWitness();recordReadRideVisit(readWitness);update();
   void loadReadEcho(packet);if(announce)toast('READ / RIDE · '+packet.label);
   return readRideState();
+}
+function authoredOverlap(witness){
+  if(!authoredReader||!witness)return null;
+  const a=Number(witness.start),b=Number(witness.end);
+  for(const group of authoredReader.pack.recurrence||[]){
+    const hits=(group.variants||[]).filter(v=>Number(v.start)<b&&Number(v.end)>a);
+    if(hits.length)return{group,hits};
+  }
+  return null;
+}
+function syncAuthoredReaderUI(){
+  const frame=$('#authoredReaderFrame'),prov=$('#readerProvenance'),ret=$('#readerReturn');
+  if(!frame)return null;
+  if(!authoredReader||!readRide){
+    frame.hidden=true;if(prov)prov.hidden=true;if(ret)ret.hidden=true;
+    document.documentElement.dataset.foldBloomAuthoredReader='off';return null;
+  }
+  document.documentElement.dataset.foldBloomAuthoredReader='on';frame.hidden=false;
+  const rs=readRideState(),w=rs?.witness,pack=authoredReader.pack,overlap=authoredOverlap(w),stats=readerStats(rs,state);
+  $('#readerAuthority').textContent=pack.authority.replaceAll('_',' ');
+  $('#readerPackTitle').textContent=pack.title;
+  $('#readerSourceMeta').textContent=pack.internal_date+' · '+pack.source_artifact+' · '+pack.source_status+' · '+authoredReader.hash.slice(0,19)+'…';
+  $('#readerAddress').textContent=w?.address||'read://—';
+  $('#readerProgress').textContent=(w?((w.index+1)+' / '+w.count+' · '):'')+Math.round((rs?.course?.progress||0)*100)+'% · '+stats.revisits+' revisit'+(stats.revisits===1?'':'s');
+  const recur=$('#readerRecurrence');
+  if(overlap){
+    recur.hidden=false;$('#readerRecurrenceLabel').textContent=overlap.group.label;
+    $('#readerRecurrenceBody').textContent=overlap.hits.map(x=>x.label).join(' · ')+' · LETTERS '+overlap.group.signature+' · '+overlap.group.boundary;
+  }else recur.hidden=true;
+  $('#liveSubtitle').textContent='LIVE READER · PROVENANCE / TRAVERSE / RECURRENCE / RETURN';
+  return{rs,w,stats,overlap};
+}
+function showAuthoredProvenance(){
+  if(!authoredReader)return false;const p=authoredReader.pack;
+  $('#readerProvTitle').textContent=p.title+' · '+p.subtitle;
+  $('#readerProvBody').innerHTML=[
+    ['AUTHORITY',p.authority.replaceAll('_',' ')],
+    ['SOURCE',p.source_artifact+' · internally dated '+p.internal_date],
+    ['STATUS',p.source_status+' · '+p.authorship],
+    ['RECOVERY BOUNDARY',p.recovery_note],
+    ['EXCLUDED FROM DEFAULT',p.exclusions.join(' / ')],
+    ['IDENTITY',authoredReader.hash+' · '+p.source_path]
+  ].map(([k,v])=>'<div><b>'+k+'</b>'+String(v).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))+'</div>').join('');
+  $('#readerRawSource').href=p.source_path;$('#readerProvenance').hidden=false;return true
+}
+function jumpAuthoredRecurrence(direction=1){
+  if(!authoredReader||!readRide)return null;
+  const w=readCourseWitness(liveCourse(),liveCourseProgress()),offset=Math.round(liveCourseProgress()*Math.max(1,authoredReader.source.length)),next=nextRecurrence(authoredReader.pack,offset,direction);
+  if(!next)return null;
+  authoredReader.jumps=Array.isArray(authoredReader.jumps)?authoredReader.jumps:[];
+  authoredReader.jumps.push({from:offset,to:next.start,label:next.label,group:next.groupId,at:new Date().toISOString()});authoredReader.jumps=authoredReader.jumps.slice(-64);
+  seekCourseProgress(next.start/Math.max(1,authoredReader.source.length));
+  toast('RECURRENCE · '+next.label);syncAuthoredReaderUI();return next
+}
+function currentAuthoredReturn(){
+  if(!authoredReader||!readRide)return null;
+  const course=liveCourse(),rs=readRideState(),witness=makeReadReturnWitness(course,{
+    origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:readRide.packet.returnAddress
+  });
+  const stats=readerStats(rs,state),pack=authoredReader.pack;
+  return{
+    schema:'fold-bloom-authored-reading-return/v0.1',authority:'EVIDENCE_ONLY',
+    source:{id:authoredReader.hash,address:pack.source_path,title:pack.title,provenance:pack.source_artifact,internal_date:pack.internal_date,status:pack.source_status},
+    traversal:witness,recurrence:{groups:(pack.recurrence||[]).map(x=>({id:x.id,label:x.label,relation:x.relation,signature:x.signature})),revisits:stats.revisits,jumps:(authoredReader.jumps||[]).map(x=>({...x}))},
+    live:{release_count:stats.releases,verbs:(state.history||[]).map(x=>x.verb).filter(Boolean),law:'LIVE consequences are reader-authored field operations and never rewrite recovered source bytes.'},
+    return:{source_reader:pack.return.source_reader,field_index:pack.return.field_index},
+    created_at:new Date().toISOString()
+  }
+}
+function showAuthoredReturn(){
+  const r=currentAuthoredReturn();if(!r)return false;const rs=readRideState(),stats=readerStats(rs,state);
+  $('#readerVisits').textContent=String(stats.visits);$('#readerRevisits').textContent=String(stats.revisits);$('#readerReleases').textContent=String(stats.releases);$('#readerFinalProgress').textContent=Math.round(stats.progress*100)+'%';
+  $('#readerReturnWitness').textContent='SOURCE '+r.source.id+'\nFINAL '+String(r.traversal?.final?.address||'—')+'\nRECURRENCE '+r.recurrence.groups.map(x=>x.label+' ['+x.signature+']').join(' · ')+'\nRECURRENCE JUMPS '+r.recurrence.jumps.length+' · '+(r.recurrence.jumps.map(x=>x.label).join(' → ')||'NONE')+'\nLIVE '+(r.live.verbs.length?r.live.verbs.join(' → '):'NO RELEASES')+'\nAUTHORITY '+r.authority;
+  $('#readerReturn').hidden=false;document.documentElement.dataset.foldBloomAuthoredReturn='open';return r
+}
+function closeAuthoredReturn(){const x=$('#readerReturn');if(x)x.hidden=true;delete document.documentElement.dataset.foldBloomAuthoredReturn}
+async function openAuthoredReader(id='prison-age-2021',{announce=true}={}){
+  const loaded=await loadAuthoredPack(id);
+  const p=loaded.pack,packet=makeReadRidePacket({
+    source:loaded.source,label:p.title,
+    sourceIdentity:{id:loaded.hash,hash:loaded.hash,address:p.source_path,authority:p.authority,kind:'AUTHORED_RECOVERED_TEXT',format:'TXT',provenance:p.source_artifact},
+    focus:{source_progress:0},returnAddress:p.return.source_reader,from:'/fold-bloom/live/?reader='+encodeURIComponent(p.id)
+  });
+  const authored={pack:p,source:loaded.source,hash:loaded.hash,jumps:[]};
+  const out=loadReadRidePacket(packet,{announce:false,authored});
+  courseGrain=String(p.default_grain||'PARAGRAPH');readRide.course=null;resetExactReadTrail();setCourseMode(String(p.default_mode||'RELEASE_STEP'),false);
+  layerMode='IMMERSION';audio.setSound(false);syncSoundGate(false);$('#intro').classList.remove('on');syncAuthoredReaderUI();drawCourseMap(true);updateTextWitness();update();
+  if(announce)toast('AUTHORED SOURCE · '+p.title);return out
 }
 function loadReadText(source,{label='READ SOURCE',sourceIdentity={kind:'SESSION_TEXT',authority:'READFIELD'},focus={source_progress:0},returnAddress='/fold-bloom/live/',from='/fold-bloom/live/'}={}){
   return loadReadRidePacket(makeReadRidePacket({source,label,sourceIdentity,focus,returnAddress,from}));
@@ -1202,10 +1291,17 @@ $('#mixResetBtn').onclick=()=>{audio.mixReset();syncMixUI();toast('MIX RESET')};
 const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};
 const chooseRead=()=>{stopDemo(true);setMenuOpen(false);$('#readFile').click()};
 $('#trackLoad').onclick=chooseSong;$('#readLoad').onclick=chooseRead;
-$('#sourceQuick')?.addEventListener('click',()=>readRide?chooseRead():chooseSong());
+$('#sourceQuick')?.addEventListener('click',()=>authoredReader?showAuthoredProvenance():readRide?chooseRead():chooseSong());
 $('#vibeQuick')?.addEventListener('click',cycleVibe);
 $('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#readIntroBtn')?.addEventListener('click',chooseRead);
+$('#authoredIntroBtn')?.addEventListener('click',()=>{void openAuthoredReader('prison-age-2021')});
+$('#readerProvBtn')?.addEventListener('click',showAuthoredProvenance);$('#readerProvClose')?.addEventListener('click',()=>{$('#readerProvenance').hidden=true});
+$('#readerPrev')?.addEventListener('click',()=>stepTrackCourse(-1));$('#readerNext')?.addEventListener('click',()=>stepTrackCourse(1));
+$('#readerRecurrencePrev')?.addEventListener('click',()=>jumpAuthoredRecurrence(-1));$('#readerRecurrenceNext')?.addEventListener('click',()=>jumpAuthoredRecurrence(1));
+$('#readerMark')?.addEventListener('click',markReadRide);$('#readerReturnBtn')?.addEventListener('click',showAuthoredReturn);
+$('#readerReturnClose')?.addEventListener('click',closeAuthoredReturn);$('#readerAgain')?.addEventListener('click',()=>{closeAuthoredReturn();seekCourseProgress(0);syncAuthoredReaderUI();toast('READ AGAIN · SAME SOURCE')});
+$('#readerReturnSource')?.addEventListener('click',()=>{const r=currentAuthoredReturn();if(r)try{sessionStorage.setItem('fold-bloom.authored-reading.return.v01',JSON.stringify(r))}catch(_){};if(!returnReadRide())toast('SOURCE RETURN BLOCKED')});
 $('#imageIntroBtn')?.addEventListener('click',()=>{stopDemo(true);setMenuOpen(false);$('#imageFile').click()});
 $('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
@@ -1343,10 +1439,11 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,garden:{open:openGarden,close:closeGarden,current:gardenState},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),garden:gardenState(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},choice:{seek:seekForecastSlot,targets:()=>renderer.forecastTargets(state).map(x=>({...x})),context:()=>currentLiveCalculation().native},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
-const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchGarden=['1','true','open','garden'].includes(String(launchParams.get('garden')||'').toLowerCase());
+window.FoldBloomLive={boot:'ready',version:VERSION,garden:{open:openGarden,close:closeGarden,current:gardenState},authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,recurrence:jumpAuthoredRecurrence,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),garden:gardenState(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},choice:{seek:seekForecastSlot,targets:()=>renderer.forecastTargets(state).map(x=>({...x})),context:()=>currentLiveCalculation().native},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
+const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase(),launchGarden=['1','true','open','garden'].includes(String(launchParams.get('garden')||'').toLowerCase());
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchGarden){document.documentElement.dataset.foldBloomLaunch='garden';openGarden({announce:false})}
+else if(launchReader){document.documentElement.dataset.foldBloomLaunch='authored-reader';void openAuthoredReader(launchReader,{announce:false}).catch(error=>{console.warn('AUTHORED READER',error);document.documentElement.dataset.foldBloomAuthoredReader='error';toast('AUTHORED SOURCE REJECTED')})}
 else if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
 // A remembered set can be opened by name, exactly like a remembered audio source
@@ -1354,6 +1451,7 @@ if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer
 const launchImages=String(launchParams.get('images')||'').trim();
 if(launchImages){document.documentElement.dataset.foldBloomLaunch='image-set';openImageSetByKey(launchImages,{announce:false})}
 if(launchGarden){/* hosted GARDEN owns launch */}
+else if(launchReader){/* authored reader owns launch */}
 else if(launchSource==='example'){document.documentElement.dataset.foldBloomLaunch='public-demo';preparePublicDemo().then(ok=>{if(ok)toast('AUDIO EXAMPLE READY · TAP PLAY')})}
 else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
