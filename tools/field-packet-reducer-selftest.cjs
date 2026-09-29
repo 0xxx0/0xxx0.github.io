@@ -24,6 +24,8 @@ assert.equal(x.disposition,'NEXT');
 
 x=R.reducePacket({id:'d',delta:['a'],verification:{test:'PASS'},next:'RETURN to CURRENT and replan'});
 assert.equal(x.disposition,'DELTA');
+x=R.reducePacket({id:'d2',delta:['a'],verification:{test:'PASS'},next:'RETURN to CURRENT and replan. Do not auto-continue.'});
+assert.equal(x.disposition,'DELTA');
 
 x=R.reducePacket({id:'a',state:'MERGED_MACHINE_GREEN',next:'RETURN to CURRENT and replan'});
 assert.equal(x.disposition,'ARCHIVE');
