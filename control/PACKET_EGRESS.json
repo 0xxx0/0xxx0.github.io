@@ -1,0 +1,337 @@
+{
+  "schema": "field-packet-egress-projection/v0.1",
+  "generated_at": null,
+  "current_updated": "2026-09-29T12:22:30+08:00",
+  "authority": "DERIVED_PROJECTION_ONLY / CURRENT REMAINS ATTENTION AUTHORITY",
+  "laws": [
+    "PACKET != CONTROL.",
+    "Only external CURRENT context may classify a packet as NOW; packet AUTHORITY text cannot self-promote.",
+    "Standard control-eligible packet egress requires OBJECT, AUTHORITY, STATE_IN, DELTA, EVIDENCE, STATE_OUT, RESIDUE, WAITING, NEXT, STOP.",
+    "Adapted RETURNs and legacy packets are evidence projections only and can never mutate CURRENT/QUEUE.",
+    "One primary category never erases secondary facets or source evidence.",
+    "RETURN closes the move; NEXT is a suggestion and never inherited authority."
+  ],
+  "precedence": "NOW(external CURRENT only) → GATE → DELTA(evidence/terminal) → RESIDUE → NEXT → DELTA(unproved) → ARCHIVE",
+  "counts": {
+    "NOW": 0,
+    "DELTA": 8,
+    "RESIDUE": 0,
+    "GATE": 0,
+    "NEXT": 2,
+    "ARCHIVE": 1
+  },
+  "entries": [
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22",
+      "source": "control/confluence/FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
+      "source_kind": "LEGACY_PACKET_ADAPTER",
+      "route": null,
+      "object": "FOLD//BLOOM 0.12 → Experience Compiler 0.1",
+      "authority": "LEGACY PACKET / EVIDENCE_ONLY",
+      "state_out": "MERGED_PLANNING_AUTHORITY",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [
+        "After 0.12 QA, implement Experience Set v0.1 and prove exact order/transition/profile/identity round-trip before any new large UI."
+      ],
+      "stop": "Do not start provider proliferation, learned Atlas neighborhoods, combo economy, DAW editing or multiple domain adapters before the bounded Experience Set → compositor → journey sequence earns direct use.",
+      "head_lineage": null
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26",
+      "source": "returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/atlas-dayline/",
+      "object": "exact Shopping item → Dayline execution → evidence-only native Shopping receipt",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "MERGED_MACHINE_VERIFIED",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "RESIDUE",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": true,
+      "waiting_present": false,
+      "next": [
+        "No symmetric HOUSE receipt work by default. Reopen only from concrete ordinary-use friction or a named native consequence."
+      ],
+      "stop": "No automatic Shopping lifecycle transition, purchase, seller contact, universal receipt-state ontology, or FAN/8 sequel.",
+      "head_lineage": "atlas-dayline"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29",
+      "source": "returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/",
+      "object": "FIELD Index first-contact visor over the exact current interphase-carrier/v0.1 frame",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "MERGED_MACHINE_GREEN",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "RESIDUE",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": true,
+      "waiting_present": false,
+      "next": [
+        "RETURN to CURRENT and replan. Do not resurrect /awake/ as a second app; future refinement should occur through FIELD/native host friction only."
+      ],
+      "stop": null,
+      "head_lineage": "field-index"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29",
+      "source": "returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/fold-bloom/",
+      "object": "FOLD//BLOOM public front + LIVE first-use surface",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [
+        "Keep the first-use surface stable under self-verification. Revise only from a concrete observed or machine-reproduced failure; do not add another mode, ontology, explanation slab or primary control by default."
+      ],
+      "stop": null,
+      "head_lineage": "fold-bloom"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27",
+      "source": "returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/shopping/",
+      "object": "HUMAN PORT exact object → Shopping explicit candidate ingress",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "CANDIDATE",
+      "category": "DELTA",
+      "facets": [
+        "DELTA"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [],
+      "stop": "Do not auto-classify Port objects as listings, receipts or owned items without explicit evidence.",
+      "head_lineage": "shopping-field"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27",
+      "source": "returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/docs/",
+      "object": "READFIELD ↔ FOLD/BLOOM LIVE addressed-course continuity",
+      "authority": {
+        "READFIELD": "source + canonical cursor",
+        "LIVE": "traversal projection only",
+        "persistent_trail": "EVIDENCE_ONLY / VISITED_MARKED",
+        "excursion_witness": "EVIDENCE_ONLY"
+      },
+      "state_out": "MERGED_PROVED",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "RESIDUE",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": true,
+      "waiting_present": false,
+      "next": [
+        "Use existing RIDE LIVE on real long-form material; promote further course geometry only when a concrete reading/navigation failure names the missing function."
+      ],
+      "stop": null,
+      "head_lineage": "rsvp-reader"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26",
+      "source": "returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/house/",
+      "object": "Shopping ↔ HOUSE dimensional evidence closed loop",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "VERIFIED_CANDIDATE",
+      "category": "DELTA",
+      "facets": [
+        "DELTA"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [],
+      "stop": "Do not auto-promote storage_home, lifecycle, purchase decision or installation from a fit receipt.",
+      "head_lineage": "house-spatial"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "VERSE_COPILOT_RECENTER_2026-09-26",
+      "source": "returns/VERSE_COPILOT_RECENTER_2026-09-26.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/poetry/map/",
+      "object": "Verse / Poetry Copilot product identity + recovered word/path/game quarry",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": "MERGED_CI_GREEN",
+      "category": "DELTA",
+      "facets": [
+        "DELTA",
+        "NEXT"
+      ],
+      "reason": "evidence-bearing state change",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": true,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [
+        "Use the Copilot as writing first. Transfer only a concrete missing donor mechanism; do not visually merge all recovered machines into one mega-editor."
+      ],
+      "stop": null,
+      "head_lineage": "path-poetry"
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "HERMES_VERSE_PUZZLE_MODEL_2026-09-23",
+      "source": "control/packets/HERMES_VERSE_PUZZLE_MODEL_2026-09-23.json",
+      "source_kind": "LEGACY_PACKET_ADAPTER",
+      "route": null,
+      "object": "VERSE / Poem Map / constraint-puzzle model",
+      "authority": "READ / RESEARCH / ANALYZE / RETURN ONLY. No canonical writes, queue mutation, corpus bulk download, or autonomous feature implementation.",
+      "state_out": "MANUAL_RESEARCH_PACKET",
+      "category": "NEXT",
+      "facets": [
+        "NEXT"
+      ],
+      "reason": "bounded lawful continuation only",
+      "control_eligible": false,
+      "evidence_present": false,
+      "delta_present": false,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [
+        "one-page formal model",
+        "problem-class table with confidence and citations",
+        "tractable-vs-hard boundary table"
+      ],
+      "stop": [
+        "No new app.",
+        "No generic LLM poetry generator.",
+        "No universal complexity-class claim.",
+        "No treating aesthetic quality as a machine-verifiable constraint.",
+        "No conflating Jueju, cell poetry and general verse.",
+        "Stop after one bounded research RETURN."
+      ],
+      "head_lineage": null
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": "INGEST-ONE-FAMILY-2026-09-21",
+      "source": "control/packets/INGEST_ONE_FAMILY_2026-09-21.json",
+      "source_kind": "LEGACY_PACKET_ADAPTER",
+      "route": null,
+      "object": "local Mac / bounded Codex or Hermes read-analysis cycle",
+      "authority": {
+        "codex": "READ private ingest reports and candidate local files; prepare one bounded review packet. Canonical/public writes only if separately allowlisted by the task result.",
+        "hermes": "READ / HASH / ANALYZE / PREPARE_PACKET only; no canonical writes by default."
+      },
+      "state_out": null,
+      "category": "NEXT",
+      "facets": [
+        "NEXT"
+      ],
+      "reason": "bounded lawful continuation only",
+      "control_eligible": false,
+      "evidence_present": false,
+      "delta_present": false,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [
+        "One evidence-bearing semantic family packet or an explicit BLOCKED/NO_GAIN receipt."
+      ],
+      "stop": [
+        "After one family packet.",
+        "On missing/hash-mismatched private reports.",
+        "On ambiguous provenance that cannot distinguish version/association/duplicate.",
+        "Before any move/delete/rename/publication."
+      ],
+      "head_lineage": null
+    },
+    {
+      "schema": "field-packet-egress/v0.1",
+      "id": null,
+      "source": "returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+      "source_kind": "RETURN_ADAPTER",
+      "route": "/sleeper/",
+      "object": "returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+      "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
+      "state_out": null,
+      "category": "ARCHIVE",
+      "facets": [
+        "ARCHIVE"
+      ],
+      "reason": "closed/non-control/insufficient live egress",
+      "control_eligible": false,
+      "evidence_present": true,
+      "delta_present": false,
+      "residue_present": false,
+      "waiting_present": false,
+      "next": [],
+      "stop": null,
+      "head_lineage": "sleeper-one-return"
+    }
+  ],
+  "unstructured_legacy": [
+    "control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
+    "control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
+  ],
+  "ignored_examples": [
+    "control/confluence/interphase-recovery-packet.example.json"
+  ],
+  "source_rules": {
+    "returns": "latest_return/last_return named by CURRENT current_heads, when local JSON exists",
+    "packets": "machine-readable JSON under control/packets plus control/confluence/*PACKET*.json",
+    "markdown": "preserved as unstructured legacy; never interpreted into CONTROL"
+  }
+}
