@@ -68,6 +68,6 @@ assert(field.includes("story=open-air&action=read&return=field"),'FIELD READ tar
 assert(field.includes("story=open-air&action=ride&return=field"),'FIELD RIDE target');
 assert(field.includes("story=open-air&return=field"),'FIELD SOURCE target');
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
-assert(fh?.version==='0.8.20','FIELD head advanced');
-assert(fh?.latest_return==='/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json','FIELD return receipt');
+assert(fh?.route==='/'&&String(fh?.head||'').includes('FIELD INDEX'),'FIELD head missing');
+assert((fh?.evidence||[]).includes('/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json'),'FIELD head lost Prison Age convergence evidence');
 console.log('PRISON AGE → FIELD CONVERGENCE PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
