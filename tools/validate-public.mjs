@@ -415,7 +415,7 @@ if(exists('showcase-selftest/index.html')){
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(exists('foundry/index.html')){
   const p=read('foundry/index.html');
-  for(const token of ['VERSE COPILOT','03 / WORD MACHINES','WORD MARKET','PATHWEAVER','GRID PATH V4','CELL FOUNDRY R2','FEDERATION','CABINET V4','geometry, authorship, semantics and study remain unequal'])check(p.includes(token),'FOUNDRY word-machine family missing: '+token);
+  for(const token of ['VERSE COPILOT','03 / WORD MACHINES','WORD MARKET','PATHWEAVER','GRID PATH V4','CELL FOUNDRY R2','FEDERATION','CABINET V4','geometry, authorship, semantics and study remain unequal','03B / LANGUAGE SURFACES','CTEXT','COPE','WENYAN / 文言','ENGLISH JUEJU','WORDLESS'])check(p.includes(token),'FOUNDRY word/language family missing: '+token);
 }
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
@@ -425,7 +425,13 @@ if(exists('poetry/map/index.html')){
 }
 if(exists('poetry/index.html')){
   const p=read('poetry/index.html');
-  for(const token of ['VERSE COPILOT','WORD MARKET','PATHWEAVER','GRID PATH','VERSE ATLAS','CELL FOUNDRY','Path, grid and game are tools'])check(p.includes(token),'VERSE re-entry option missing: '+token);
+  for(const token of ['VERSE COPILOT','WORD MARKET','PATHWEAVER','GRID PATH','VERSE ATLAS','CELL FOUNDRY','Path, grid and game are tools','HELD SOURCE','WRITE / CHOOSE','WEAVE / PATH','READ / RSVP','field.word.handoff.v01','CTEXT','COPE','WENYAN / 文言','ENGLISH JUEJU'])check(p.includes(token),'VERSE re-entry/word-field option missing: '+token);
+  compileInline('poetry/index.html');
+}
+if(exists('recovery/path-grid/anthropy-pathweaver/index.html')){
+  const p=read('recovery/path-grid/anthropy-pathweaver/index.html');
+  for(const token of ['field.word.handoff.v01','field-word-source/v0.1','recoverWordHandoff','loadCustomSource','id="wordReturn"'])check(p.includes(token),'Pathweaver held-source seam missing: '+token);
+  compileInline('recovery/path-grid/anthropy-pathweaver/index.html');
 }
 if(exists('foundry/verse-atlas/app.js')){
   const v=read('foundry/verse-atlas/app.js'),vh=read('foundry/verse-atlas/index.html');
