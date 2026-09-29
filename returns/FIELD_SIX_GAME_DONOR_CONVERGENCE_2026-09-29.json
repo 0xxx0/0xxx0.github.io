@@ -1,0 +1,77 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FIELD_SIX_GAME_DONOR_CONVERGENCE_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE / SELF_VERIFYING",
+  "route": "/",
+  "objective": "Fold six researched video-game mechanisms into existing FIELD hosts without game skin, a new app, or transferred authority.",
+  "recovered_before_inventing": [
+    "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
+    "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+    "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
+    "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
+    "BODY / FIT already implements PREP → SET OUT → RETURN → PATINA → NEXT CUT and already records Death Stranding as a donor"
+  ],
+  "six_game_map": [
+    {
+      "donor": "Outer Wilds",
+      "rule": "WORLD RESET != KNOWLEDGE RESET",
+      "field": "CATCH + ACT / MORE HERE",
+      "delta": "retain existing knowledge-gap re-entry projection"
+    },
+    {
+      "donor": "Hades",
+      "rule": "FAILED ATTEMPT → RETURN WITH DIFFERENCE",
+      "field": "failure_return execution contract",
+      "delta": "retain evidence/residue-or-stop law"
+    },
+    {
+      "donor": "Death Stranding",
+      "rule": "LOADOUT IS RELATIONAL TO PURPOSE / ENVIRONMENT",
+      "field": "BODY / FIT",
+      "delta": "FIELD held /body/fit/ now exposes native LOADOUT / PATINA / SENSE views; BODY/FIT gains stable hash addresses"
+    },
+    {
+      "donor": "Into the Breach",
+      "rule": "PREVIEW BEFORE COMMIT",
+      "field": "precommit_telegraph execution contract",
+      "delta": "retain predictable-effect + reversible/irreversible boundary law"
+    },
+    {
+      "donor": "Hardspace: Shipbreaker",
+      "rule": "SURVEY DEPENDENCIES BEFORE CUT",
+      "field": "safe-salvage audit",
+      "delta": "retain conservative read-only retirement classifier"
+    },
+    {
+      "donor": "Terra Nil",
+      "rule": "SUCCESS MAY REMOVE ITS SCAFFOLD",
+      "field": "scaffold_retirement + safe-salvage",
+      "delta": "retain explicit retirement condition + provenance-before-subtraction law"
+    }
+  ],
+  "enacted": [
+    "machine-readable six_game_map added to the existing donor-transfer packet",
+    "Death Stranding promoted from atlas/manifest donor mention to explicit bounded transfer",
+    "BODY / FIT views are addressable as #loadout / #sense / #fuse / #patina / #plain without a second store",
+    "FIELD INDEX capability projection for /body/fit/ exposes LOADOUT / PREP, PATINA / NEXT CUT, and SENSE / FUSE as navigation-only native entries",
+    "browser smoke covers FIELD → BODY/FIT native aperture and direct BODY/FIT #patina re-entry"
+  ],
+  "authority": {
+    "field": "holds/address-selects and navigates only; no BODY/FIT state mutation",
+    "body_fit": "owns loadout, SET OUT, RETURN, PATINA, sensor/fitting state and local persistence",
+    "game_donors": "provenance/mechanism donors only; no fiction, scoring, visual skin or game authority transfers"
+  },
+  "nonclaims": [
+    "No claim that the six mechanics form a universal game theory.",
+    "No claim that BODY / FIT preparation proves physical safety, medical meaning or improved outcomes.",
+    "No new quest log, XP, reputation score, game economy or sovereign game layer."
+  ],
+  "proof": {
+    "donor_validator": "scripts/check-game-donor-transfer.mjs",
+    "browser": "tools/browser-smoke.mjs",
+    "status": "PENDING_BRANCH_CI"
+  },
+  "retirement": "Remove any donor projection that adds translation/clutter without preserving a distinct useful invariant. BODY/FIT state survives removal of FIELD shortcuts.",
+  "return": "/"
+}
