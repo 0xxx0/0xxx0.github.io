@@ -104,8 +104,8 @@ async function rideSource(){
     echo:{index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'}
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
-  $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
-  location.href='/fold-bloom/live/?source=readfield&course=STEP&experience=echo-walk';
+  $('status').textContent='ECHO WALK READY · SAME SOURCE → LIVE / SENTENCE / RELEASE→STEP · FOLLOW ECHO IS ALWAYS EXPLICIT';
+  location.href='/fold-bloom/live/?source=readfield&course=RELEASE_STEP&experience=echo-walk';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
 $('copyThreadJson').onclick=async()=>{
