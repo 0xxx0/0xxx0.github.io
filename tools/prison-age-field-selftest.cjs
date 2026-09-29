@@ -65,11 +65,12 @@ assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');
 
-assert(field.includes("owner:'PRISON AGE'"),'FIELD capability owner');
-assert(field.includes("moves:['READ','RIDE','SOURCE']"),'FIELD native move list');
-assert(field.includes("?intent=read&return=field"),'FIELD READ intent target');
-assert(field.includes("?intent=ride&return=field"),'FIELD RIDE intent target');
-assert(field.includes("./prison-age/?return=field"),'FIELD SOURCE target');
+assert(field.includes('function nativeRouteOwner(r)')&&field.includes("r?.field?.owner||''"),'FIELD owner must derive from explicit host manifest owner');
+assert(field.includes('function nativeRouteActions(r)')&&field.includes('manifestExitPaths(r)'),'FIELD native actions must derive from manifest exits');
+assert(route.field.owner==='PRISON AGE','manifest owns Prison Age authority label');
+assert(route.field.exit_paths.map(x=>x.target).join('|')==='/prison-age/?intent=read&return=field|/prison-age/?intent=ride&return=field|/prison-age/?return=field','manifest owns exact READ/RIDE/SOURCE targets');
+assert(!field.includes("owner:'PRISON AGE'"),'FIELD must not duplicate Prison Age capability owner');
+assert(!field.includes("moves:['READ','RIDE','SOURCE']"),'FIELD must not duplicate Prison Age native move list');
 assert(!field.includes("story=open-air&action=read"),'FIELD READ must not hide a default story');
 assert(!field.includes("story=open-air&action=ride"),'FIELD RIDE must not hide a default story');
 const last=fs.readFileSync('prison-age/stories/07-last-stall-extract.md','utf8');
