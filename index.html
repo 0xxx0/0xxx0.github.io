@@ -551,7 +551,7 @@ function fieldCarrierForFocus(){
  const ipRaw=window.FieldInterphase&&typeof window.FieldInterphase.projectionResult==='function'?window.FieldInterphase.projectionResult():null;
  if(!ipRaw)return null;
  try{
-  const base=C.fromProjection(ipRaw,{
+  const base=window.InterphaseCarrier.fromProjection(ipRaw,{
    owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
    focusId:route,focusLabel:title,aperture:'ROUTE',
    next:fieldCarrierMoves(route),
