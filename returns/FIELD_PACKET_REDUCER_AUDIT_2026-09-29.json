@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.2",
+  "id": "FIELD_PACKET_REDUCER_AUDIT_2026-09-29",
+  "route": "/",
+  "state": "CANDIDATE_PENDING_CI",
+  "before": "FIELD CATCH + ACT already aggregated CURRENT fronts, addressed manifest touches, CURRENT world gates and GitHub issues, but each source used its own local vocabulary and there was no executable packet-egress reduction law. COAXIALITY A-H existed, but the repo did not yet carry the requested legibility-centered A-H mechanism audit rubric.",
+  "operation": "Add one pure field-packet-reducer/v0.1, bind NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE to the existing root CATCH + ACT surface, and add a repo-level A-H mechanism audit rubric. No new route, queue, planner, store, or effect authority.",
+  "delta": [
+    "/lib/field-packet-reducer.js reduces bounded packets with required OBJECT + AUTHORITY and explicit precedence; invalid packets quarantine to ARCHIVE and cannot alter CONTROL.",
+    "/control/FIELD_PACKET_REDUCER.json defines packet fields, bucket semantics, RETURN dispositions and non-goals.",
+    "/control/FIELD_MECHANISM_AUDIT.json restores the exact A-H audit dimensions: STATE, RELATION, LEGIBILITY, REVERSAL, IDENTITY, PROVENANCE, RETURN, COMPRESSION.",
+    "FIELD root adds one read-only REDUCE line inside existing CATCH + ACT. Native CURRENT / manifest / GitHub / held-focus sources retain their own authority.",
+    "CI gains a deterministic reducer/audit selftest."
+  ],
+  "authority": {
+    "NOW": "/control/CURRENT.json only",
+    "DELTA": "source evidence remains source-owned; manifest touch is projection evidence, not Git chronology",
+    "GATE": "CURRENT explicit human/world dependency only",
+    "NEXT": "OFFER_ONLY; no inherited execution authority",
+    "ARCHIVE": "closed/non-actionable packets disappear from ordinary attention"
+  },
+  "evidence": [
+    "/control/FIELD_PACKET_REDUCER.json",
+    "/control/FIELD_MECHANISM_AUDIT.json",
+    "/lib/field-packet-reducer.js",
+    "/tools/field-packet-reducer-selftest.cjs",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "tests": {
+    "local_reasoning": "PASS",
+    "ci": "PENDING"
+  },
+  "residue": [
+    "Do not claim shipped/current until exact-head CI is green and the PR is merged.",
+    "The reducer does not recover the original 18 packet bodies; it defines lawful egress for any bounded packet that supplies the canonical fields."
+  ],
+  "return": {
+    "disposition": "TRIGGER",
+    "next": [
+      "Run exact-head CI.",
+      "Merge only if checks are green.",
+      "Seal CURRENT/RETURN truth after merge without extending product scope."
+    ]
+  }
+}
