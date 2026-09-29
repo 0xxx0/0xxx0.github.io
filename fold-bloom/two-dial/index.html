@@ -55,7 +55,7 @@
     </div>
     <div class="overlay" id="intro">
       <div class="card">
-        <div class="ey">TWO DIAL · HOLD FAST / LET FLY · SOUND FIELD 0.10.4</div>
+        <div class="ey">TWO DIAL · HOLD FAST / LET FLY · SOUND FIELD 0.10.6</div>
         <div class="title">TOUCH.<br />RELATE.<br />RETURN.</div>
         <div class="copy">
           Two cyclic controls create one consequence. The music is not a
@@ -200,7 +200,8 @@
         <div class="section" data-pane-section="STATE">
           <div class="k">SHARE / RETURN</div>
           <div class="row">
-            <button class="secondary" id="shareBtn">SHARE</button
+            <button class="secondary" id="undoBtn" disabled>UNDO LAST</button
+            ><button class="secondary" id="shareBtn">SHARE</button
             ><button class="secondary" id="copyBtn">MAKE CODE</button
             ><button class="secondary" id="exportBtn">EXPORT JSON</button>
           </div>
@@ -212,8 +213,7 @@
             style="display: none; margin-top: 8px"
           ></textarea>
           <div class="tiny" style="margin-top: 8px">
-            A cassette contains the musical world, mode, field state, scars and
-            phrase memory.
+            UNDO LAST restores the exact pre-commit local snapshot. Any unrelated control change starts a new undo boundary. A cassette contains the musical world, mode, field state, scars and phrase memory.
           </div>
         </div>
         <div class="section" data-pane-section="STATE">
