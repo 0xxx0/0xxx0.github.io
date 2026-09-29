@@ -1,4 +1,5 @@
 const fs=require('fs');
+const crypto=require('crypto');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 const fnv=s=>{let h=2166136261>>>0;for(const ch of s){h^=ch.codePointAt(0)??0;h=Math.imul(h,16777619)>>>0}return(h>>>0).toString(16).padStart(8,'0')};
 
@@ -13,12 +14,18 @@ assert(sources.schema==='prison-age.source-pack/v0.1','source schema');
 assert(sources.status==='FIELD_SOURCE_SET','source set status');
 assert(sources.default==='open-air','stable source-order default');
 assert(sources.operations.join('|')==='READ|RIDE|SOURCE|RETURN FIELD','source-set operations');
+assert(sources.proto_root?.id==='prison-age-2021','proto-root id');
+assert(sources.proto_root?.relation?.signature==='AEGINOPRS','proto-root recurrence signature');
+assert(/No semantic equivalence claim/i.test(sources.proto_root?.relation?.boundary||''),'proto-root relation boundary');
+const rootText=fs.readFileSync('fold-bloom/live/authored/prison-age-2021.txt');
+const rootHash='sha256:'+crypto.createHash('sha256').update(rootText).digest('hex');
+assert(rootHash===sources.proto_root.source_hash,'proto-root source hash');
 for(const [id,x] of Object.entries(sources.stories)){
   assert(!Object.prototype.hasOwnProperty.call(x,'engine'),id+' interpretive engine removed');
   assert(!Object.prototype.hasOwnProperty.call(x,'token'),id+' interpretive token removed');
 }
-assert(release.status==='FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE','release contraction + echo depth');
-assert(release.operation==='READ / RIDE / SOURCE · passive ECHO in READ/RIDE','release operations');
+assert(release.status==='FIELD_SOURCE_CONSTELLATION / SOURCE_ECHO_EVIDENCE','release constellation + echo depth');
+assert(release.operation==='ROOT / READ / RIDE / SOURCE · passive RECURRENCE + ECHO','release operations');
 assert(release.echo?.schema==='field-source-echo-index/v0.1'&&release.echo?.authority==='EVIDENCE_ONLY','echo release boundary');
 assert(release.field.native_actions.join('|')==='READ|RIDE|SOURCE','FIELD native actions');
 assert(release.retired_runtime.status==='REMOVED_FROM_RUNTIME_TREE','retired runtime status');
@@ -35,6 +42,8 @@ for(const txt of [active,JSON.stringify(sources),JSON.stringify(release)]){
 assert(!active.includes('reader-0.2'),'active page must not expose retired reader');
 assert(!active.includes('id="engine"'),'active page must not expose interpretive engine');
 assert(active.includes('READ →')&&active.includes('RIDE →')&&active.includes('>SOURCE<')&&active.includes('RETURN FIELD'),'source resolver operations');
+assert(active.includes('SOURCE CONSTELLATION')&&active.includes('RIDE ROOT →')&&active.includes('REARRANGE →'),'constellation threshold operations');
+assert(active.includes('AEGINOPRS')&&active.includes('No generated connective story is active'),'source-grounded threshold boundary');
 
 const expected={
  'open-air':['prison-age/stories/03-open-air.md',3912,'ee35b81f'],
@@ -57,8 +66,8 @@ const prisonRoutes=manifest.routes.filter(r=>r.family==='PRISON AGE'||r.href==='
 assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
 const route=prisonRoutes[0];
 assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE','single active FIELD route');
-assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
-assert(route.version==='0.5','FIELD route version');
+assert(route.operation==='ROOT / READ / RIDE / SOURCE','FIELD route operation');
+assert(route.version==='0.6','FIELD route version');
 assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
 assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','FIELD work modes');
 assert(route.field.exit_paths.length===3,'exactly three native exits');
