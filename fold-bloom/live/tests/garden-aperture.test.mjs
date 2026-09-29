@@ -18,7 +18,7 @@ test('LIVE remains RIDE-first while exposing READ and hosted GARDEN apertures',(
 
 test('GARDEN is hosted by LIVE while Ecology remains canonical authority',()=>{
   assert.match(live,/id="gardenFrame"/);
-  assert.match(live,/src="\.\.\/ecology\/\?embedded=live&garden=1"/);
+  assert.match(live,/src="about:blank" data-src="\.\.\/ecology\/\?embedded=live&garden=1"/);
   assert.match(live,/Ecology keeps gene · lineage · law · breeding · GARDEN · RETURN authority/);
   assert.match(app,/authority:'ECOLOGY'/);
   assert.match(app,/canonical:'\/fold-bloom\/ecology\/'/);
@@ -26,6 +26,7 @@ test('GARDEN is hosted by LIVE while Ecology remains canonical authority',()=>{
   assert.match(app,/releaseAuthority:false/);
   assert.match(app,/function openGarden/);
   assert.match(app,/function closeGarden/);
+  assert.match(app,/view\.src='about:blank'/);
 });
 
 test('opening GARDEN holds LIVE source clocks and generated sound',()=>{
