@@ -1125,6 +1125,7 @@ async function closeGarden({restore=true,announce=true}={}){
   const frame=$('#gardenFrame');if(!gardenOpen){if(frame)frame.hidden=true;return gardenState()}
   const held=gardenReturn;gardenOpen=false;gardenReturn=null;
   if(frame)frame.hidden=true;
+  const view=$('#gardenView');if(view){view.src='about:blank';delete view.dataset.loaded}
   document.documentElement.classList.remove('fbGardenOpen');document.body.classList.remove('fbGardenOpen');
   document.documentElement.dataset.foldBloomGarden='closed';
   if(restore&&held){
