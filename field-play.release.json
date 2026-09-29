@@ -1,20 +1,23 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FIELD / PLAY",
-  "version": "0.3",
+  "version": "0.4",
   "route": "/field-play.html",
   "state": "ACTIVE",
   "operation": "VERIFY",
-  "released": "2026-09-21",
-  "purpose": "Turn public-safe FIELD gaps and selected public GitHub issues into bounded contributor missions, projected through the shared MARK / COMPACT / FULL presentation and compositional glyph grammar.",
+  "released": "2026-09-29",
+  "purpose": "Turn one public-safe FIELD gap into one bounded mission and evidence-bearing RETURN, while allowing the exact same mission to be viewed through FIELD or PLAIN as a representation ablation rather than a second workflow.",
   "laws": [
     "MISSION != AUTHORITY",
+    "VIEW != STATE",
+    "ONE MISSION ID ACROSS FIELD / PLAIN",
     "ONE BOUNDED MOVE",
     "EVIDENCE BEFORE CLAIM",
     "RETURN != NEXT",
+    "SUBJECTIVE RATING != CORRECTNESS PROOF",
     "PRIVATE/MEDICAL/MESSAGING ADAPTERS EXCLUDED FROM PUBLIC DECK"
   ],
-  "representative_interaction": "ROLL or open #issue=N → OPEN TARGET → perform one bounded move → PASS/PARTIAL/FAIL → COPY RETURN JSON",
+  "representative_interaction": "ROLL or open #issue=N → keep the same mission → choose FIELD or PLAIN → OPEN TARGET → perform one bounded move → record PASS/PARTIAL/FAIL + evidence/residue + clarity/re-entry/use-again → COPY RETURN JSON; toggle projection and repeat without changing mission identity.",
   "validation": {
     "inline_javascript_syntax": "PASS_STATIC_PARSE",
     "manifest_derived_deck": true,
@@ -41,7 +44,17 @@
         "FULL"
       ],
       "rule": "density changes representation only; mission identity/authority/return packet stay invariant"
+    },
+    "projection_ablation": {
+      "modes": [
+        "FIELD",
+        "PLAIN"
+      ],
+      "authority": "VIEW_ONLY",
+      "mission_packet": "field-game-mission/v0.1 unchanged by projection",
+      "return_packet": "field-game-return/v0.2 records projection + subjective 1..5 evidence",
+      "auto_storage": "NONE"
     }
   },
-  "known_gap": "No submission transport or shared scoreboard by design. GitHub issue missions are explicit public-safe selections; contributor returns are copied and reviewed before any repo mutation."
+  "known_gap": "No submission transport or shared scoreboard by design. Comparative FIELD↔PLAIN preference remains an ordinary-use observation, not correctness proof; contributor returns are copied and reviewed before any repo mutation."
 }
