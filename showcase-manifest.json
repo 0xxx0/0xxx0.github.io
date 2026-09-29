@@ -16,18 +16,20 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-29T09:09:00+08:00",
         "work_modes": [
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Native held-object actions may now come directly from an addressed capability without moving source/effect authority; Prison Age is the first source-set proof with READ / RIDE / SOURCE. Semantic signal remains local to the address that owns it.",
-      "receipt": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. The recovered YOU’RE A WAKE grammar teaches SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without adding another app, route picker, store or effect authority. Native held-object actions remain source-owned; semantic signal remains route-local.",
+      "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.20",
+      "version": "0.8.21",
       "transfer": [
+        "0.8.21 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; no /awake/ product surface or private painting bytes",
         "0.8.20 source-set native actions: held PRISON AGE exposes READ / RIDE / SOURCE directly; exact source authority remains PRISON_AGE and READ/RIDE RETURN to the held FIELD object",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
@@ -100,7 +102,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
