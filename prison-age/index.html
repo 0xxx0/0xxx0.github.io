@@ -82,12 +82,12 @@ function renderList(){
   $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=async()=>{await loadStory(b.dataset.story);if(intent==='read')return readSource();if(intent==='ride')return rideSource()});
 }
 async function loadStory(id){
-  const fallback=pack.stories[pack.default],candidate=pack.stories[id];
+  const rootRequested=id===ROOT_ID,fallback=pack.stories[pack.default],candidate=pack.stories[id];
   story=candidate&&candidate.id!==ROOT_ID?candidate:fallback;source='';
   $('number').textContent=story.number;$('title').textContent=story.title;
   $('season').textContent=story.season.toUpperCase();$('class').textContent=story.source_class.replaceAll('_',' ');$('lines').textContent='SOURCE LINES · '+story.source_lines;
   $('rawBtn').href=story.path;$('address').textContent=story.path;$('preview').className='preview loading';$('preview').textContent='Loading exact source…';
-  updateUrl();renderList();
+  if(!rootRequested)updateUrl();renderList();
   try{const r=await fetch(story.path,{cache:'no-store'});if(!r.ok)throw Error('SOURCE '+r.status);source=await r.text();$('preview').textContent=cleanPreview(source);$('preview').className='preview';$('status').textContent='EXACT SOURCE READY · '+source.length+' chars · '+story.path}
   catch(e){$('preview').textContent='Source unavailable: '+String(e.message||e);$('status').textContent='SOURCE LOAD FAILED'}
 }
