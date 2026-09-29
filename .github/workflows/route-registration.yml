@@ -49,8 +49,24 @@ jobs:
       # Measured 2026-09-28: newest stamp anywhere was 16:55 while commits had
       # landed through 19:45, and /house/ still claimed 09-26 from before its own
       # 0.7.7 release. Reuses the same derivation the fix command uses.
-      - name: Check route recency (manifest not older than its commit)
-        run: python3 tools/fi-mutation-contract.py --from-git HEAD~1..HEAD --check
+      #
+      # REPORT-ONLY, and that is a lesson paid for on 2026-09-29: this step landed
+      # as BLOCKING and broke a live writer seven seconds later. A blocking CI gate
+      # stops every concurrent writer, including ones mid-flight who did nothing
+      # wrong — and unlike registration (a page either is or is not in the manifest,
+      # a stably true invariant), recency is a TIMING race: another session's commit
+      # can touch a path whose stamp it has not bumped yet, through no fault of its
+      # own. Refuse locally in .githooks/pre-push, where a refusal stops only the
+      # actor about to make the claim; report here, never block the shared trunk.
+      - name: Check route recency (REPORT-ONLY — never blocks the trunk)
+        run: |
+          set +e
+          python3 tools/fi-mutation-contract.py --from-git HEAD~1..HEAD --check
+          rc=$?
+          if [ $rc -ne 0 ]; then
+            echo "::warning title=Route recency drift::Stamp(s) older than their commit — see .githooks/pre-push to have this refused locally."
+          fi
+          exit 0
 
       - name: Derive route ontology diagnostic (warnings only)
         run: node scripts/check-route-registration.mjs --ontology
