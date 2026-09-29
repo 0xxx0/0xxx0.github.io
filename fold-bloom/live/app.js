@@ -1300,7 +1300,7 @@ $('#mixResetBtn').onclick=()=>{audio.mixReset();syncMixUI();toast('MIX RESET')};
 const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};
 const chooseRead=()=>{stopDemo(true);setMenuOpen(false);$('#readFile').click()};
 $('#trackLoad').onclick=chooseSong;$('#readLoad').onclick=chooseRead;
-$('#sourceQuick')?.addEventListener('click',()=>authoredReader?showAuthoredProvenance():readRide?chooseRead():chooseSong());
+$('#sourceQuick')?.addEventListener('click',()=>{if(authoredReader)return showAuthoredProvenance();if(readRide?.packet?.sourceIdentity?.authority==='PRISON_AGE'){const id=String(readEcho?.sourceId||'').trim(),u=new URL('/prison-age/',location.origin);if(id)u.searchParams.set('story',id);if(String(readRide.packet.returnAddress||'').includes('focus=%2Fprison-age%2F'))u.searchParams.set('return','field');location.href=u.pathname+u.search;return}return readRide?chooseRead():chooseSong()});
 $('#vibeQuick')?.addEventListener('click',cycleVibe);
 $('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#readIntroBtn')?.addEventListener('click',chooseRead);
