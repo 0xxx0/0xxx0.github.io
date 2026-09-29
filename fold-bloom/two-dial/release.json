@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "route": "/fold-bloom/two-dial/",
   "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
@@ -15,6 +15,9 @@
     "existing relation algebra, musical result path, local cassette restore and optional borrowed-clock authorship boundary"
   ],
   "delta": [
+    "bounded session-local UNDO captures the exact pre-commit cassette snapshot for the last 12 manual relation commits; unrelated control changes invalidate the stack",
+    "one physical pointer is fixed to one dial at pointer-down; pointer motion cannot commit; release owns the relation commit",
+    "UNDO LAST cancels a pending delayed FOLD→BLOOM compose before restoring the prior state and emits a causal undo witness",
     "causal relation commits now retain bounded before / operation / actor+driver / delta / after / provenance receipts",
     "phrase RETURN v0.2 aggregates matched commit receipts instead of emitting destination-only expressive history",
     "delayed FOLD→BLOOM compose receives its own causal receipt rather than disappearing behind the phrase boundary",
@@ -74,9 +77,10 @@
     "mode_embodiment": "PASS: PR #328 · public-surface-check 36140134183 + Route Registration 36140134198",
     "wide_phone": "HUMAN_GATE: verify WIDE/rotate fallback and direct DUET donor on one real phone",
     "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
-    "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge"
+    "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge",
+    "gesture_reversal_contract": "CHECK: tools/two-dial-gesture-reversal-selftest.cjs; pointer ownership + exact bounded UNDO"
   },
-  "known_gap": "Causal RETURN repairs the audit G failure and makes LIVE driver provenance explicit; gesture ownership, local reversal semantics and net interaction compression still require bounded evidence. Instrument-quality judgment still requires direct listening.",
+  "known_gap": "A/B/C/D/E/F/G now have durable repo proof. H_COMPRESSION remains intentionally INDETERMINATE until ordinary-use evidence compares this relational instrument with a functionally equivalent plain/non-coaxial baseline. Instrument-quality judgment and listed real-phone gates also remain human evidence.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
   "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
   "updated": "2026-09-29"
