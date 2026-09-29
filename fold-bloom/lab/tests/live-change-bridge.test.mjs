@@ -15,6 +15,21 @@ const op=(seq,verb,extra={})=>({
   data:{operation:verb,slot:seq%12,chain:1,charge:.2,trackTime:seq*.5,...extra}
 });
 
+const native=(seq,targetType,call,forecasts)=>({
+  schema:'FOLD_BLOOM_FORECAST_CONTEXT_0.1',
+  authority:'NATIVE_EVIDENCE',
+  seq,
+  rotation:0,
+  gate:0,
+  targetType,
+  anchors:[null,null,null],
+  creases:[],
+  charge:.2,
+  call,
+  mode:'RATCHET',
+  forecasts
+});
+
 test('only lawful LIVE operation pulses enter the six-release witness window',()=>{
   let s=createLiveChangeBridgeState();
   const same=reduceLiveChangeBridge(s,{source:'OTHER',kind:'operation',seq:1,wall:1,data:{operation:'FOLD'}});
@@ -56,6 +71,37 @@ test('comparison keeps same-polarity exact edits as quotient residue',()=>{
   assert.equal(c.quotient_invisible_exact_changes,6);
   assert.equal(c.invisible_lines.length,6);
   assert.equal(c.exact_forms_per_hexagram,64);
+});
+
+test('same hex windows can retain unequal post-release native NEXT apertures',()=>{
+  const a=native(6,0,{verb:'FOLD',chain:2,candidates:1},[
+    {slot:2,verb:'FOLD',chain:2,cadence:null,span:2,power:1.3},
+    {slot:5,verb:'RETURN',chain:1,cadence:null,span:0,power:.9}
+  ]);
+  const b=native(12,1,{verb:'RETURN',chain:1,candidates:1},[
+    {slot:3,verb:'BLOOM',chain:1,cadence:null,span:0,power:1.0}
+  ]);
+  let s=createLiveChangeBridgeState();
+  for(const [i,verb] of ['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'].entries()){
+    s=reduceLiveChangeBridge(s,op(i+1,verb,i===5?{nativeForecast:a}:{}));
+  }
+  const from=captureLiveChangeWindow(s,'FROM');
+  assert.equal(from.native_after.authority,'NATIVE_EVIDENCE');
+  assert.equal(from.native_after.candidate_count,2);
+  for(const [i,verb] of ['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'].entries()){
+    s=reduceLiveChangeBridge(s,op(i+7,verb,i===5?{nativeForecast:b}:{}));
+  }
+  const to=captureLiveChangeWindow(s,'TO');
+  const cmp=compareLiveChangeCaptures(from,to);
+  assert.equal(cmp.same_hex_endpoints,true);
+  assert.equal(cmp.native_next.available,true);
+  assert.equal(cmp.native_next.equal,false);
+  assert.equal(cmp.native_next.same_hex_unequal_native,true);
+  assert.equal(cmp.native_next.from.candidate_count,2);
+  assert.equal(cmp.native_next.to.candidate_count,1);
+  assert.equal(cmp.native_next.from.target_type,0);
+  assert.equal(cmp.native_next.to.target_type,1);
+  assert.equal(from.event_refs.at(-1).native_after.candidate_count,2);
 });
 
 test('authority-NONE steering witness may travel beside LIVE evidence but does not become control',()=>{
