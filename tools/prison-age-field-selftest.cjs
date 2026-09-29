@@ -77,7 +77,9 @@ assert(fnv(last)==='1856b483'&&last.length===4991,'Last Stall extract fingerprin
 assert(sources.stories['last-stall'].source_fingerprint?.value==='1856b483','Last Stall ledger fingerprint');
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
 assert(fh?.route==='/'&&String(fh?.head||'').includes('FIELD INDEX'),'FIELD head missing');
-assert((fh?.evidence||[]).includes('/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json'),'FIELD head lost Prison Age source-intent evidence');
+assert(String(fh?.retained_function||'').includes('Explicit source-intent semantics remain generic'),'FIELD head lost generic source-intent boundary');
+assert(!String(fh?.retained_function||'').includes('Prison Age source-intent semantics'),'FIELD head must not promote Prison Age into root law');
+assert(!(fh?.evidence||[]).some(x=>/PRISON_AGE/.test(String(x))),'FIELD current-head evidence must not depend on Prison Age donor receipts');
 assert(fh?.latest_return!=='/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json','source ECHO must not own FIELD head RETURN');
 assert(!(fh?.evidence||[]).includes('/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json'),'projection-depth ECHO must not claim FIELD-head evidence');
-console.log('PRISON AGE → FIELD SOURCE INTENT + ECHO PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
+console.log('PRISON AGE SOURCE CONTRACT + GENERIC FIELD INTENT + ECHO PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
