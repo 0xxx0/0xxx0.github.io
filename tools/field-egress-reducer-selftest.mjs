@@ -53,13 +53,16 @@ const cases=[
   ['Q canonical uppercase RESIDUE alias survives',
     {packet_id:'canonical-residue',DELTA:{material:true},EVIDENCE:{sufficient:true},RESIDUE:'still unresolved'},
     {},'RESIDUE'],
-  ['R canonical uppercase WAITING alias gates',
+  ['R canonical uppercase external WAITING alias gates',
     {packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'},
     {},'GATE'],
-  ['S inert RETURN prose is not NEXT',
+  ['S generic WAITING is unresolved residue, not a world gate',
+    {packet_id:'internal-wait',WAITING:'source ambiguity remains',NEXT:'continue'},
+    {},'RESIDUE'],
+  ['T inert RETURN prose is not NEXT',
     {packet_id:'return-only',DELTA:{material:true},EVIDENCE:{sufficient:true},NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'},
     {},'DELTA'],
-  ['T empty packet archives',
+  ['U empty packet archives',
     {packet_id:'empty'},
     {},'ARCHIVE']
 ];
@@ -81,4 +84,4 @@ const precedence=reducePacket({
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
 
-console.log('FIELD packet egress reducer PASS · A-T · aliases + inert RETURN + authority/evidence hardening');
+console.log('FIELD packet egress reducer PASS · A-U · aliases + gate/residue boundary + inert RETURN + authority/evidence hardening');
