@@ -2,7 +2,7 @@
   "schema": "prison-age.source-pack/v0.1",
   "status": "FIELD_SOURCE_SET",
   "default": "open-air",
-  "law": "Exact sourced text remains authoritative. FIELD chooses an operation, then the reader explicitly chooses the exact source movement before READ/RIDE. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; no projection may rewrite the story or claim traversal equals comprehension.",
+  "law": "Exact sourced text remains authoritative. The recovered 2021 proto-root and the 2026 sourced movements are unequal source strata, not a generated chronology. FIELD chooses an operation; the reader explicitly chooses source material before READ/RIDE. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; recurrence and ECHO may expose inspectable relations but may not rewrite the story or claim traversal equals comprehension.",
   "source_boundary": {
     "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
@@ -79,5 +79,32 @@
     "ride": "FOLD//BLOOM LIVE owns embodied STEP traversal; source authority stays PRISON_AGE.",
     "source": "/prison-age/ resolves exact source identity/provenance and does not add narrative framing.",
     "return": "FIELD-launched READ/RIDE returns to /?focus=/prison-age/; direct source use returns to the exact story resolver."
+  },
+  "version": "0.2",
+  "proto_root": {
+    "id": "prison-age-2021",
+    "title": "PRISON AGE",
+    "subtitle": "2021 proto-root / recovered authored fragment",
+    "path": "/fold-bloom/live/authored/prison-age-2021.txt",
+    "pack": "/fold-bloom/live/authored/prison-age-2021.json",
+    "source_class": "RECOVERED_AUTHORED_SOURCE / 2021 PROTO-ROOT",
+    "source_hash": "sha256:9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+    "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+    "internal_date": "2021-07-18",
+    "relation": {
+      "type": "CONSERVATION_BY_REARRANGEMENT",
+      "signature": "AEGINOPRS",
+      "variants": [
+        "PRISON AGE",
+        "s i n g a p o r e",
+        "SIN / ORE / GAP",
+        "SINGAPORE"
+      ],
+      "boundary": "Same nine Latin letters after punctuation/spacing removal and sorting. No semantic equivalence claim."
+    },
+    "exclusions": [
+      "Later 2024 co-created Prison Age strata are not folded into this recovered root.",
+      "\"I'm always behind you\" remains excluded while exact source/authorship provenance is unresolved."
+    ]
   }
 }
