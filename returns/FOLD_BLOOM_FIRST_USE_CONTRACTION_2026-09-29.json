@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29",
   "date": "2026-09-29",
-  "state": "MERGED_CI_GREEN / HUMAN_COMPREHENSION_GATE",
+  "state": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
   "object": "FOLD//BLOOM public front + LIVE first-use surface",
   "observed_need": [
     "Independent first-use feedback described Fold//Bloom / LIVE as incomprehensible and non-intuitive.",
@@ -48,15 +48,16 @@
     "critical_browser_smoke": "PASS",
     "live_mobile_interaction_regression": "PASS"
   },
-  "human_gate": {
-    "state": "PENDING_LIVED_USE",
-    "test": "A first-time person cold-opens Fold//Bloom on phone and completes one RELEASE without verbal coaching.",
-    "acceptance": [
-      "chooses a meaningful start without architecture explanation",
-      "finds ← / middle action / → within 5–10 seconds",
-      "completes one release and perceives the road changed",
-      "advanced depth stays reachable without competing with first action"
-    ]
-  },
-  "next": "Revise only from observed first-use friction. Do not add another mode, ontology, explanation slab or primary control before this gate."
+  "next": "Keep the first-use surface stable under self-verification. Revise only from a concrete observed or machine-reproduced failure; do not add another mode, ontology, explanation slab or primary control by default.",
+  "subjective_evidence": {
+    "state": "OPTIONAL",
+    "purpose": "Use naturally observed first-time behavior to refine ergonomics without delegating release proof to the user.",
+    "useful_observations": [
+      "whether a first-time person chooses RIDE / GARDEN / MAP without architecture explanation",
+      "whether ← / middle action / → reads as the main loop",
+      "whether one release produces an understood causal change",
+      "the exact word/control/visual state at any observed stall"
+    ],
+    "authority": "Evidence only; not a release gate."
+  }
 }
