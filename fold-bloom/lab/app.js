@@ -639,8 +639,13 @@ function syncLiveChangeUI(){
   if($('#liveExactDelta'))$('#liveExactDelta').textContent=cmp?String(cmp.exact_changed_lines):'—';
   if($('#liveHexDelta'))$('#liveHexDelta').textContent=cmp?String(cmp.quotient_changed_lines):'—';
   if($('#liveInvisible'))$('#liveInvisible').textContent=cmp?String(cmp.quotient_invisible_exact_changes):'—';
+  const native=cmp?.native_next,fromNative=native?.from,toNative=native?.to;
+  if($('#liveNativeNext'))$('#liveNativeNext').textContent=!native?.available?'—':native.equal?'SAME':'DIFF';
+  if($('#liveChangeNative'))$('#liveChangeNative').textContent=native?.available
+    ?'NATIVE NEXT · FROM '+fromNative.candidate_count+' CANDIDATES / TARGET '+fromNative.target_type+' / CALL '+(fromNative.call?.verb||'OPEN')+' → TO '+toNative.candidate_count+' CANDIDATES / TARGET '+toNative.target_type+' / CALL '+(toNative.call?.verb||'OPEN')+(native.same_hex_unequal_native?' · SAME HEX ≠ SAME NEXT':'')
+    :'NATIVE NEXT · WAITING FOR POST-RELEASE FORECAST WITNESSES FROM LIVE';
   if($('#liveChangeResidue'))$('#liveChangeResidue').textContent=cmp
-    ?'QUOTIENT RESIDUE · EXACT Δ '+cmp.exact_changed_lines+' · HEX-VISIBLE '+cmp.quotient_changed_lines+' · INVISIBLE '+cmp.quotient_invisible_exact_changes+' · FIBER '+cmp.exact_forms_per_hexagram+'×'+(cmp.same_hex_endpoints?' · SAME HEX ENDPOINTS':'')
+    ?'QUOTIENT RESIDUE · EXACT Δ '+cmp.exact_changed_lines+' · HEX-VISIBLE '+cmp.quotient_changed_lines+' · INVISIBLE '+cmp.quotient_invisible_exact_changes+' · FIBER '+cmp.exact_forms_per_hexagram+'×'+(cmp.same_hex_endpoints?' · SAME HEX ENDPOINTS':'')+(native?.same_hex_unequal_native?' · CONTROL-SUFFICIENCY COUNTEREXAMPLE OBSERVED':'')
     :'QUOTIENT RESIDUE · CAPTURE LIVE FROM + TO WINDOWS';
   const steering=liveChange.bridge?.steering;
   if($('#liveChangeSteering'))$('#liveChangeSteering').textContent=steering
