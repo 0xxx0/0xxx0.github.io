@@ -12,7 +12,8 @@
     "/scripts/emit-agent-transcript.mjs — compact current egress projection + --reduce <packet.json>",
     "/control/FIELD_INDEX_CONTRACT.json — packet egress law",
     "/AGENTS.md — machine re-entry documents bounded reducer",
-    "/showcase-manifest.json — FIELD root touch only; no new route/version"
+    "/showcase-manifest.json — FIELD root touch only; no new route/version",
+    "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate"
   ],
   "preserves": [
     "CURRENT owns NOW",
