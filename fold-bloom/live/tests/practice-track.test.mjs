@@ -47,7 +47,8 @@ test('plain LIVE is quiet-still while explicit demo and sound remain available',
   const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
   assert.match(html,/id="soundGate"[^>]*>TAP FOR SOUND<\/button>/);
   assert.match(html,/id="playBtn">NO SONG \/ JUST PLAY →<\/button>/);
-  assert.match(html,/Add a song if you want the road to move with music/);
+  assert.match(html,/Pick the example, your own song, or no song/);
+  assert.match(html,/RELEASE stays separate from seeking/);
   assert.match(html,/AUTOPILOT and generated sound are explicit opt-ins/);
   assert.match(app,/async function enableFieldAudio\(\)/);
   assert.match(app,/advancePracticeField\(1\)/);

@@ -25,11 +25,27 @@ const wait=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Da
  const during=api.steering.current(),status=D().getElementById('status')?.textContent||'',dataset=D().documentElement.dataset.foldBloomSteering,calc=api.calculus?.(),calcLens=D().getElementById('calcSteering')?.textContent||'';
  const afterJson=JSON.stringify(api.steering.context());
  rec.verb=verb;rec.expected=expected;rec.count=view?.candidate_count;rec.authority=view?.authority;rec.commit=view?.commit_operation;rec.status=status;rec.dataset=dataset;rec.same=beforeJson===afterJson;
- rec.calc={schema:calc?.schema,authority:calc?.authority,nativeAuthority:calc?.native?.authority,steeringAuthority:calc?.steering?.authority,count:calc?.steering?.native_candidate_count,commit:calc?.steering?.commit_operation,lens:calcLens};
+ rec.calc={schema:calc?.schema,authority:calc?.authority,nativeAuthority:calc?.native?.authority,steeringAuthority:calc?.steering?.authority,count:calc?.steering?.native_candidate_count,commit:calc?.steering?.commit_operation,lens:calcLens,choiceAuthority:calc?.native?.choice_aperture?.authority,allBeforeOne:calc?.native?.choice_aperture?.all_before_one,releaseSeparate:calc?.native?.choice_aperture?.release_separate,candidates:calc?.native?.candidates?.length};
+
+ D().getElementById('mutePlay')?.click();await sleep(120);
+ const beforeChoice=api.state(),targets=api.choice.targets(),target=targets.find(x=>x.slot!==beforeChoice.forecastContext?.gate)||targets[0];
+ if(!target)throw Error('no direct forecast target');
+ const canvas=D().getElementById('field'),rect=canvas.getBoundingClientRect(),cx=rect.left+target.x,cy=rect.top+target.y;
+ canvas.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
+ canvas.dispatchEvent(new (W().PointerEvent)('pointerup',{bubbles:true,pointerId:9,clientX:cx,clientY:cy,pointerType:'touch',isPrimary:true}));
+ await wait(()=>api.state().forecastContext?.gate===target.slot,2500,'direct forecast seek');
+ const afterSeek=api.state(),seekStatus=D().getElementById('status')?.textContent||'',releaseBtn=D().getElementById('releaseBtn'),choiceCalc=api.calculus?.(),choiceDataset=D().documentElement.dataset.foldBloomChoice||'';
+ rec.choice={slot:target.slot,verb:target.verb,chain:target.chain,beforeGate:beforeChoice.forecastContext?.gate,afterGate:afterSeek.forecastContext?.gate,beforeHistory:beforeChoice.history?.length||0,afterSeekHistory:afterSeek.history?.length||0,beforeSeq:beforeChoice.seq,afterSeq:afterSeek.seq,status:seekStatus,choiceDataset,releaseDisabled:!!releaseBtn?.disabled,steeringStillPreview:api.steering.current()?.authority,calcCandidates:choiceCalc?.native?.candidates?.length,calcSeekDeltaAfterAlign:choiceCalc?.native?.candidates?.find(x=>x.slot===target.slot)?.seek_delta};
+ const seekSeparated=rec.choice.afterGate===target.slot&&rec.choice.afterSeekHistory===rec.choice.beforeHistory&&!rec.choice.releaseDisabled&&['aligned','seek'].includes(rec.choice.choiceDataset)&&rec.choice.steeringStillPreview==='PREVIEW';
+
+ releaseBtn.click();await wait(()=>(api.state().history?.length||0)===rec.choice.beforeHistory+1,2500,'separate RELEASE');
+ const afterRelease=api.state(),last=afterRelease.history?.at(-1);
+ rec.release={history:afterRelease.history?.length||0,verb:last?.verb,slot:last?.slot,id:last?.id};
+ const releaseSeparated=rec.release.history===rec.choice.beforeHistory+1&&rec.release.verb===target.verb&&rec.release.slot===target.slot;
  api.steering.clear();await sleep(60);
  const clearedCalc=api.calculus?.();
  rec.cleared=api.steering.current()===null&&D().documentElement.dataset.foldBloomSteering==='off'&&!String(D().getElementById('status')?.textContent||'').includes('LENS ')&&clearedCalc?.steering===null;
- const pass=!!view?.ok&&view.authority==='PREVIEW'&&view.commit_operation===null&&view.candidate_count===expected&&during?.verb===verb&&status.includes('LENS '+verb+' · '+expected+'/'+before.forecasts.length)&&dataset===verb.toLowerCase()&&rec.same&&rec.calc.schema==='fold-bloom-live-calculus/v0.1'&&rec.calc.authority==='WITNESS_ONLY'&&rec.calc.nativeAuthority==='NATIVE_EVIDENCE'&&rec.calc.steeringAuthority==='PREVIEW_ONLY'&&rec.calc.count===expected&&rec.calc.commit===null&&calcLens.includes(verb+' · '+expected+'/'+before.forecasts.length+' native candidates')&&rec.cleared;
+ const pass=!!view?.ok&&view.authority==='PREVIEW'&&view.commit_operation===null&&view.candidate_count===expected&&during?.verb===verb&&status.includes('LENS '+verb+' · '+expected+'/'+before.forecasts.length)&&dataset===verb.toLowerCase()&&rec.same&&rec.calc.schema==='fold-bloom-live-calculus/v0.1'&&rec.calc.authority==='WITNESS_ONLY'&&rec.calc.nativeAuthority==='NATIVE_EVIDENCE'&&rec.calc.steeringAuthority==='PREVIEW_ONLY'&&rec.calc.count===expected&&rec.calc.commit===null&&rec.calc.choiceAuthority==='HUMAN_NAVIGATION_ONLY'&&rec.calc.allBeforeOne===true&&rec.calc.releaseSeparate===true&&rec.calc.candidates===before.forecasts.length&&calcLens.includes(verb+' · '+expected+'/'+before.forecasts.length+' native candidates')&&seekSeparated&&releaseSeparated&&rec.cleared;
  done(pass,rec);
 })().catch(e=>done(false,{...rec,error:String(e?.stack||e)}));
 <\/script></body></html>`}

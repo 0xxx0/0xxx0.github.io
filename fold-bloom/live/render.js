@@ -80,6 +80,25 @@ export class Renderer {
     return m;
   }
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
+  forecastTargets(state,opt={}){
+    const hitRadius=Math.max(24,Math.min(36,Number(opt.hitRadius)||this.r*.14));
+    return state.cells.map((cell,slot)=>{
+      if(cell?.type!==state.targetType)return null;
+      const forecast=forecastAtSlot(state,slot);if(!forecast)return null;
+      const a=this.slotAngle(slot,state);
+      return {slot,verb:forecast.verb,chain:forecast.chain,cadence:forecast.cadence||null,power:forecast.power,x:this.cx+Math.cos(a)*this.r,y:this.cy+Math.sin(a)*this.r,hitRadius};
+    }).filter(Boolean);
+  }
+  pickForecast(state,clientX,clientY,opt={}){
+    const rect=this.cv.getBoundingClientRect(),x=Number(clientX)-rect.left,y=Number(clientY)-rect.top;
+    if(!Number.isFinite(x)||!Number.isFinite(y))return null;
+    let best=null;
+    for(const target of this.forecastTargets(state,opt)){
+      const distance=Math.hypot(x-target.x,y-target.y);
+      if(distance<=target.hitRadius&&(!best||distance<best.distance))best={...target,distance};
+    }
+    return best;
+  }
   draw(state,now=performance.now()){
     const road=!!this.trackfield?.points?.length,m=this._updateMotion(now);
     this.cx=this.w/2;this.cy=this.h*(road?.64:.52)+m.pitch*.18;this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);

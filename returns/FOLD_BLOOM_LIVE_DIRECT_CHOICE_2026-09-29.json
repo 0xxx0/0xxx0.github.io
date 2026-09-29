@@ -1,0 +1,42 @@
+{
+  "schema": "field-return/v1",
+  "id": "FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE / EXACT_HEAD_CI_PENDING",
+  "object": "FOLD//BLOOM LIVE native forecast ring",
+  "trigger": "PR #527 preserved a useful all-before-one choice aperture but was intentionally closed as a stale donor until the combined post-Garden LIVE head existed.",
+  "operation": "VISIBLE LAWFUL FORECAST → DIRECT HUMAN SEEK → SEPARATE RELEASE",
+  "law": "CHOICE APERTURE ≠ EFFECT AUTHORITY",
+  "delta": [
+    "Every currently lawful native forecast already drawn on the LIVE ring becomes a direct touch target.",
+    "A tap computes the shortest signed TURN delta and seeks that native slot using existing rotation state.",
+    "Seeking changes no release history and commits no BLOOM/FOLD/SPLIT/RETURN.",
+    "RELEASE remains a separate explicit authored act after alignment.",
+    "J-space/model steering remains PREVIEW_ONLY and may annotate candidates but cannot select or release.",
+    "The first-use surface stays contracted: turn, drag, or tap a forecast; then release."
+  ],
+  "preserved": [
+    "LIVE source clocks and SOURCE/MAP/IMMERSION authority",
+    "hosted canonical Ecology Garden",
+    "READ/RIDE exact source RETURN",
+    "PLAY 0.6.1 exact verb substrate + HEXAGRAM/CHANGE projection",
+    "existing TURN state, charge, seq and release semantics",
+    "INTERPHASE and FIELD authority boundaries"
+  ],
+  "proof": {
+    "unit": "fold-bloom/live/tests/live-calculus.test.mjs",
+    "browser": "tools/fold-bloom-live-steering-smoke.mjs",
+    "required": [
+      "Route Registration",
+      "public-surface-check",
+      "gitleaks",
+      "exact-head browser tap→seek→separate RELEASE"
+    ]
+  },
+  "predecessor": {
+    "donor_pr": 527,
+    "donor_state": "CLOSED_UNMERGED_DONOR",
+    "reason": "stale pre-Garden branch; mechanism reconstructed on current master rather than merged"
+  },
+  "next": "If exact-head proof is green, merge and make direct forecast seek the ordinary LIVE choice aperture. Do not add a new mode, shell, store or model authority."
+}
