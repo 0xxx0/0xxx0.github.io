@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "route": "/fold-bloom/two-dial/",
   "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
@@ -15,6 +15,7 @@
     "existing relation algebra, musical result path, local cassette restore and optional borrowed-clock authorship boundary"
   ],
   "delta": [
+    "gesture boundary: one live pointer owns one dial; release is the semantic commit boundary; pointercancel restores that dial's pre-gesture index/raw position/wear instead of leaking preview state",
     "causal relation commits now retain bounded before / operation / actor+driver / delta / after / provenance receipts",
     "phrase RETURN v0.2 aggregates matched commit receipts instead of emitting destination-only expressive history",
     "delayed FOLD→BLOOM compose receives its own causal receipt rather than disappearing behind the phrase boundary",
@@ -74,9 +75,10 @@
     "mode_embodiment": "PASS: PR #328 · public-surface-check 36140134183 + Route Registration 36140134198",
     "wide_phone": "HUMAN_GATE: verify WIDE/rotate fallback and direct DUET donor on one real phone",
     "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
-    "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge"
+    "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge",
+    "gesture_boundary": "CI_REQUIRED: one-pointer/one-dial ownership + canceled-preview rollback static contract; committed FOLD/BLOOM inverse semantics remain an evidence gate."
   },
-  "known_gap": "Causal RETURN repairs the audit G failure and makes LIVE driver provenance explicit; gesture ownership, local reversal semantics and net interaction compression still require bounded evidence. Instrument-quality judgment still requires direct listening.",
+  "known_gap": "Instrument-quality judgment still requires direct listening. COAXIALITY E_REVERSAL remains open for committed FOLD/BLOOM inverse/residue semantics, and H_COMPRESSION remains an ordinary-use baseline gate; do not confuse causal RETURN or pointer-cancel rollback with full undo.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
   "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
   "updated": "2026-09-29"
