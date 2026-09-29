@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29T21:23:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,19 +16,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T19:47:00+08:00",
+        "updated_at": "2026-09-29T21:23:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. The visor consumes the same interphase-action-surface/v0.1 now used by DAYLINE: HOLD focus, TURN/RELEASE over unchanged native moves, TRACE witness, exact RETURN. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Prison Age source-intent semantics and native host authority remain unchanged.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Six bounded game-donor transfers now resolve into existing hosts rather than a game layer: knowledge-gap re-entry, failure RETURN, BODY/FIT load-return continuity, precommit telegraph, safe salvage, and scaffold retirement. Native host authority, packet egress precedence, Prison Age source intent and exact RETURN remain unchanged.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.23",
+      "version": "0.8.24",
       "transfer": [
+        "0.8.24 six-game donor convergence: recovered donor atlas/transfers are machine-mapped to current hosts; /body/fit/ gains a native LOADOUT/PATINA/SENSE held-object aperture; no game skin, score, quest state or effect authority moves into FIELD",
         "0.8.23 action-surface convergence: AWAKE visor derives cadence, HOLD, TURN/RELEASE moves, TRACE and RETURN from interphase-action-surface/v0.1; duplicated hardcoded visor grammar removed; native labels/authority unchanged",
         "packet egress boundary: only explicit external/world/human WAITING → GATE; generic unresolved/internal WAITING → RESIDUE across string/object/array/named dependency shapes; metadata key names/container presence cannot mint externality",
         "packet egress compatibility convergence: uppercase canonical aliases + inert RETURN-to-CURRENT/replan semantics preserved under caller-authorized NOW and witnessed DELTA; FIELD route-touch DELTA is host-attested from its own manifest/local-boundary witness",
@@ -108,7 +110,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
+      "latest_return": "/returns/FIELD_SIX_GAME_DONOR_CONVERGENCE_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -599,10 +601,11 @@
       "family": "BODY / FIELD",
       "operation": "ADDRESS",
       "state": "CANDIDATE",
-      "version": "0.3.1-candidate",
+      "version": "0.3.2-candidate",
       "receipt": "/returns/BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
-      "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: manage addressed modules, prep saved kits, align source-distinct observations, then close real use with RETURN/PATINA and one NEXT CUT without streak scoring.",
+      "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: PREP → SET OUT → RETURN → PATINA → NEXT CUT. 0.3.2 gives LOADOUT/SENSE/FUSE/PATINA/PLAIN stable hash addresses so FIELD may navigate into native views without acquiring state or effect authority.",
       "transfer": [
+        "0.3.2 Death Stranding bounded transfer: preparation/loadout → outing → RETURN residue; FIELD shortcuts are navigation-only and SET OUT/RETURN stay native",
         "Syndicate Wars Cryovat body-fitting donor",
         "Deus Ex body-slot compatibility/revision donor",
         "RimWorld condition/implant/capability separation donor",
@@ -692,10 +695,9 @@
         "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
       },
       "index": {
-        "updated_at": "2026-09-22T05:24:00+08:00",
+        "updated_at": "2026-09-29T21:23:00+08:00",
         "work_modes": [
-          "RESEARCH",
-          "SPECIFY",
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -726,7 +728,8 @@
           "provenance": "exact implementation + return-patina validation; runtime tab regression hardened in commit 2a470c809a24c5cb80e7707ce9af295007773e69"
         }
       ],
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "latest_return": "/returns/FIELD_SIX_GAME_DONOR_CONVERGENCE_2026-09-29.json"
     },
     {
       "href": "/bodyplans/",
