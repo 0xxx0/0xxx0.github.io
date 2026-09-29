@@ -35,7 +35,8 @@ footer{border-top:1px solid var(--line);padding-top:8px;display:flex;justify-con
 <script>
 
 const $=id=>document.getElementById(id),PACK='/prison-age/sources.json';
-let pack=null,story=null,source='';
+let pack=null,story=null,source='',threadReceipt=null;
+const THREAD_STORAGE='prison-age.echo-thread.v01',THREAD_RETURN_STORAGE='prison-age.echo-thread.return.v01';
 const q=new URLSearchParams(location.search),intent=['read','ride'].includes(q.get('intent'))?q.get('intent'):null;
 const cleanPreview=raw=>{
   const lines=String(raw||'').replace(/\r/g,'').split('\n').map(x=>x.trim()).filter(Boolean);
