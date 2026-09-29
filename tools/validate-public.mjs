@@ -320,6 +320,14 @@ check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&
 check(home.includes('WAKE</b><small>SOURCE')&&home.includes('CUT</b><small>FRAME')&&home.includes('HOLD</b><small>FOCUS')&&home.includes('TURN</b><small>OPERATE')&&home.includes('TRACE</b><small>WITNESS')&&home.includes('AGAIN</b><small>RETURN'),'FIELD visor lost recovered WAKE→INTERPHASE correspondence');
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
 if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
+check(home.includes('CONVERGE / FIELD')&&home.includes('CONVERGENCE / FIELD CUT')&&home.includes('SOURCE WITNESS')&&home.includes('FIELD EGRESS'),'FIELD root missing derived convergence cut');
+check(home.includes("import('./lib/field-egress-reducer.mjs')")&&home.includes('GATE → NOW → RESIDUE → NEXT → Δ → ARCHIVE'),'FIELD convergence cut is not using shared egress reducer/precedence');
+check(home.includes('NEXUS / SNAPSHOT')&&home.includes('MACHINE / SNAPSHOT'),'FIELD root failed to demote NEXUS/COMMS ordinary aggregation authority');
+if(fi){
+  check(fi.packet_egress_contract?.runtime==='/lib/field-egress-reducer.mjs','FIELD packet egress contract missing shared runtime');
+  check(JSON.stringify(fi.packet_egress_contract?.precedence)===JSON.stringify(['GATE','NOW','RESIDUE','NEXT','DELTA','ARCHIVE']),'FIELD packet egress precedence drift');
+  check(fi.mechanism_audit?.schema==='field-mechanism-audit/v0.1'&&Array.isArray(fi.mechanism_audit.tests)&&fi.mechanism_audit.tests.map(x=>x.id).join('')==='ABCDEFGH','FIELD A-H mechanism audit missing/drifted');
+}
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
