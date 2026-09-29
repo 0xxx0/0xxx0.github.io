@@ -415,7 +415,7 @@ function ensureEchoThread(){
   const p=echoPoint();if(!p)return null;
   try{readEchoThread=globalThis.PrisonAgeEchoThread.create(p);saveEchoThread();return readEchoThread}catch(_){return null}
 }
-function clearReadEcho(){readEcho=null;const box=$('#sourceEchoLive');if(box)box.hidden=true;delete document.documentElement.dataset.foldBloomSourceEcho;delete document.documentElement.dataset.foldBloomSourceEchoSource}
+function clearReadEcho(){readEcho=null;const box=$('#sourceEchoLive'),follow=$('#sourceEchoFollow'),thread=$('#sourceEchoThread');if(box)box.hidden=true;if(follow)follow.hidden=true;if(thread)thread.hidden=true;delete document.documentElement.dataset.foldBloomSourceEcho;delete document.documentElement.dataset.foldBloomSourceEchoSource}
 function syncReadEcho(w){
  const box=$('#sourceEchoLive'),link=$('#sourceEchoLiveLink'),basis=$('#sourceEchoLiveBasis');if(!box)return null;
  if(!readRide||!readEcho?.index||!w?.text){box.hidden=true;document.documentElement.dataset.foldBloomSourceEcho=readEcho?'silent':'off';return null}
