@@ -45,6 +45,13 @@ jobs:
         run: node scripts/check-human-gate-discipline.mjs
       - name: Validate video-game donor transfers
         run: node scripts/check-game-donor-transfer.mjs
+      - name: Validate FIELD safe salvage / retirement
+        run: |
+          node tools/field-salvage-selftest.mjs
+          node scripts/field-salvage-audit.mjs --route /house/ --assert KEEP_CURRENT --summary
+          node scripts/field-salvage-audit.mjs --route /foundry/axial/lab-0.5.1.html --assert KEEP_DONOR --summary
+          node scripts/field-salvage-audit.mjs --route /house/spatial/ --assert KEEP_COMPAT --summary
+          node scripts/field-salvage-audit.mjs --route /forward-field-proof/triangle/bench/ --assert SALVAGE_REVIEW --summary
       - name: Validate Hermes bootstrap scripts
         run: |
           bash -n scripts/hermes-confluence-bootstrap.sh
