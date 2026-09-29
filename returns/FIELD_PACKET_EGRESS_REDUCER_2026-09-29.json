@@ -1,20 +1,19 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE_AUTHORITY_HARDENING",
+  "status": "CURRENT_MASTER_RECONSTRUCTION_CANDIDATE",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
-  "law": "Packet egress is derived, never packet-authorized. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. Only caller-supplied CURRENT/explicit selection context can create NOW; packet current/state/egress labels cannot. Unwitnessed material change is RESIDUE. STOP suppresses continuation; historical/superseded material remains ARCHIVE unless explicitly reactivated.",
+  "law": "Packet egress is derived, never packet-authorized. GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. Only caller-supplied CURRENT/explicit selection context can create NOW. DELTA requires material change plus host-attested sufficient EVIDENCE; unwitnessed change is RESIDUE. Uppercase compatibility aliases and inert RETURN-to-CURRENT/replan semantics are preserved. STOP suppresses continuation; historical/superseded material remains ARCHIVE unless explicitly reactivated.",
   "changes": [
-    "/lib/field-egress-reducer.mjs — pure deterministic reducer + hard non-promotion boundary",
-    "/tools/field-egress-reducer-selftest.mjs — A-H acceptance cases",
-    "/scripts/emit-agent-transcript.mjs — compact current egress projection + --reduce <packet.json>",
-    "/control/FIELD_INDEX_CONTRACT.json — packet egress law",
-    "/AGENTS.md — machine re-entry documents bounded reducer",
-    "/showcase-manifest.json — FIELD root touch only; no new route/version",
-    "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate",
-    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence"
+    "/lib/field-egress-reducer.mjs — deterministic reducer + uppercase compatibility aliases + hard non-promotion boundary",
+    "/tools/field-egress-reducer-selftest.mjs — A–T acceptance cases",
+    "/scripts/emit-agent-transcript.mjs — transient law matches reducer semantics",
+    "/index.html — route-local changed witness attests material DELTA with host-owned evidence",
+    "/control/FIELD_INDEX_CONTRACT.json — executable truth bound to packet egress law",
+    "/returns/FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json — malformed duplicate tail removed and durable receipt reconstructed",
+    "/showcase-manifest.json — FIELD root touch only; no new route/version"
   ],
   "preserves": [
     "CURRENT owns NOW",
@@ -25,22 +24,23 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs  # A-Q + global precedence",
+    "node tools/field-egress-reducer-selftest.mjs",
     "node scripts/emit-agent-transcript.mjs --selftest",
-    "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
+    "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
+    "FIELD route adapter emits material route_touch DELTA with evidence.sufficient=true only from its owned manifest/local catch-up witness",
+    "existing Route Registration / public-surface-check / gitleaks"
+  ],
+  "correction": [
+    "Merged authority hardening left runtime behind the contract: uppercase OBJECT/AUTHORITY/STATE_IN/DELTA/EVIDENCE/STATE_OUT/RESIDUE/WAITING/NEXT/STOP aliases were promised but not executable.",
+    "RETURN-to-CURRENT/replan-only prose is terminal re-entry, not NEXT.",
+    "Precomputed egress labels remain advisory only and cannot manufacture attention or continuation.",
+    "Canonical exists:false / material:false fields do not manufacture attention.",
+    "The prior receipt on master contained a duplicated trailing fragment after its JSON object; this reconstruction restores one valid durable record."
   ],
   "residue": [
-    "The reducer classifies egress only; it does not choose project priority or execute NEXT.",
-    "Legacy packets without explicit EVIDENCE can no longer claim DELTA merely by naming a change; they remain RESIDUE until witnessed.",
-    "External/private packets are reduced only when explicitly supplied to the existing transient transcript CLI."
+    "The reducer classifies egress only; it does not choose priority or execute NEXT.",
+    "Evidence sufficiency is asserted by the owning adapter/host; the generic reducer does not infer domain proof.",
+    "No second packet aggregation surface is authorized."
   ],
-  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress.",
-  "correction": [
-    "PR #557 restored canonical precedence but still allowed packet.current / ACTIVE_NOW state to create NOW without caller authority.",
-    "NOW now requires caller-supplied context.now or context.selected; authority.can_select_now=false blocks that promotion and survives as RESIDUE.",
-    "Packet egress/egress_class/field_egress is advisory only and cannot manufacture NOW, NEXT, DELTA, RESIDUE or GATE.",
-    "DELTA requires material change plus sufficient evidence; an unwitnessed material-change claim reduces to RESIDUE.",
-    "STOP dominates continuation: STOP+condition → GATE; STOP+residue/unwitnessed change → RESIDUE; otherwise STOP → ARCHIVE.",
-    "Canonical exists:false/material:false fields do not manufacture attention."
-  ]
+  "stop": "After exact-head green proof, treat this reducer seam as closed. Do not render another packet dashboard."
 }
