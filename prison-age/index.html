@@ -108,6 +108,12 @@ async function rideSource(){
   location.href='/fold-bloom/live/?source=readfield&course=STEP&experience=echo-walk';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
+$('clearThreadReturn').onclick=()=>{
+  try{sessionStorage.removeItem(THREAD_RETURN_STORAGE);sessionStorage.removeItem(THREAD_STORAGE)}catch(_){}
+  $('threadReturn').hidden=true;threadReceipt=null;
+  const u=new URL(location.href);u.searchParams.delete('trail');u.searchParams.delete('thread_return');u.searchParams.delete('ride_return');history.replaceState(null,'',u.pathname+u.search);
+  delete document.documentElement.dataset.prisonAgeThread
+};
 window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent}),load:loadStory,ride:rideSource,read:readSource});
 function applyIntentStatus(){if(intent==='read')$('status').textContent='READ INTENT · choose an exact source movement; READFIELD opens only after selection.';else if(intent==='ride')$('status').textContent='RIDE INTENT · choose an exact source movement; FOLD//BLOOM LIVE opens only after selection.'}
 fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);applyIntentStatus();await renderThreadReturn()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
