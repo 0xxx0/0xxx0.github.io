@@ -71,10 +71,16 @@ const cases=[
   ['W named external blocked_by gates',
     {packet_id:'named-external',blocked_by:'human action required',NEXT:'continue'},
     {},'GATE'],
-  ['X inert RETURN prose is not NEXT',
+  ['X nested false metadata cannot mint external GATE',
+    {packet_id:'nested-false',WAITING:{exists:true,dependency:{human:false,world:false}},NEXT:'continue'},
+    {},'RESIDUE'],
+  ['Y nested explicit external value gates',
+    {packet_id:'nested-external',WAITING:{exists:true,dependency:{kind:'real device'}},NEXT:'continue'},
+    {},'GATE'],
+  ['Z inert RETURN prose is not NEXT',
     {packet_id:'return-only',DELTA:{material:true},EVIDENCE:{sufficient:true},NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'},
     {},'DELTA'],
-  ['Y empty packet archives',
+  ['AA empty packet archives',
     {packet_id:'empty'},
     {},'ARCHIVE']
 ];
@@ -96,4 +102,4 @@ const precedence=reducePacket({
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
 
-console.log('FIELD packet egress reducer PASS · A-Y · external GATE vs unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');
+console.log('FIELD packet egress reducer PASS · A-AA · external GATE value semantics + unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');
