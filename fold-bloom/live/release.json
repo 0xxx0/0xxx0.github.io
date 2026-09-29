@@ -624,7 +624,7 @@
       "date": "2026-09-29",
       "pr": 539,
       "merge_sha": "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f",
-      "state": "MERGED_CI_GREEN / HUMAN_COMPREHENSION_GATE",
+      "state": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
       "law": "FIRST CONTACT ≠ FULL MODEL",
       "first_loop": "pick source or still field → TURN ←/→ until ready → RELEASE → road changes → repeat",
       "public_front": [
@@ -663,9 +663,10 @@
         },
         "critical_browser_smoke": "PASS",
         "live_mobile_interaction_regression": "PASS",
-        "human_comprehension": "PENDING_LIVED_USE"
+        "human_comprehension": "OPTIONAL_EVIDENCE_NOT_RELEASE_GATE"
       },
-      "return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json"
+      "return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
+      "evidence_policy": "Machine/browser proof is primary. First-time human behavior may refine ergonomics but is not delegated as required verification."
     }
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
