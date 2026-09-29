@@ -25,7 +25,7 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs  # A-T + aliases + inert RETURN + authority/evidence hardening",
+    "node tools/field-egress-reducer-selftest.mjs  # A-U + aliases + gate/residue boundary + inert RETURN + authority/evidence hardening",
     "node scripts/emit-agent-transcript.mjs --selftest",
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
     "FIELD route adapter emits material route_touch DELTA with evidence.sufficient=true only when its own manifest/local catch-up witness says changed"
@@ -42,6 +42,7 @@
     "Precomputed egress labels remain advisory only and cannot manufacture attention or continuation.",
     "RETURN-to-CURRENT/replan-only prose is terminal re-entry, not NEXT.",
     "FIELD root attests the route-touch witness it already owns so a legitimate changed-route projection remains DELTA under the stronger evidence law.",
-    "Canonical exists:false / material:false fields do not manufacture attention."
+    "Canonical exists:false / material:false fields do not manufacture attention.",
+    "Bare WAITING text is unresolved RESIDUE unless it names an external/world/human dependency; explicit external WAITING remains GATE."
   ]
 }

@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T19:17:00+08:00",
+        "updated_at": "2026-09-29T19:28:53+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -29,6 +29,7 @@
       "machine_view": "FIELD",
       "version": "0.8.22",
       "transfer": [
+        "packet egress boundary correction: generic unresolved WAITING → RESIDUE; explicit external/world/human WAITING → GATE; contract/runtime/test parity restored",
         "packet egress compatibility convergence: uppercase canonical aliases + inert RETURN-to-CURRENT/replan semantics preserved under caller-authorized NOW and witnessed DELTA; FIELD route-touch DELTA is host-attested from its own manifest/local-boundary witness",
         "FIELD root egress consumer: held-object and CATCH projections consume canonical GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; ordinary focus cannot mint NOW; proof receipts do not count as RESIDUE",
         "packet egress reducer: one-bucket precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; historical packets cannot self-promote; packet labels cannot mint GATE/NOW authority; no new route, queue, store or dashboard",
