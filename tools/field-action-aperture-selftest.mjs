@@ -39,6 +39,7 @@ need(atLeast087,'root version predates held-action aperture');
 need(/^\/returns\/FIELD_INDEX_.*\d{4}-\d{2}-\d{2}\.json$/.test(root?.latest_return||''),'FIELD INDEX dated RETURN not attached');
 need((root?.transfer||[]).some(x=>/held action aperture/i.test(x)),'held-action transfer evidence missing');
 need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract missing');
+need((root?.index?.work_modes||[]).includes('RECOVER'),'FIELD root must retain RECOVER as cold-start/re-entry capability');
 need(!html.includes('CAPABILITY_PROJECTION'),'parallel per-host capability table survived');
 need(html.includes('function nativeRouteActions(r)'),'manifest-derived native action adapter missing');
 need(html.includes('r?.field?.exit_paths'),'native action adapter does not read host-owned exit paths');
