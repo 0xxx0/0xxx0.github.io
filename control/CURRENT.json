@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T12:22:30+08:00",
+  "updated": "2026-09-29T16:46:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -1256,7 +1256,8 @@
     "video_game_donor_atlas": "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
     "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
     "care_diegetic_locus": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
-    "field_salvage_policy": "/control/FIELD_SALVAGE_POLICY.json"
+    "field_salvage_policy": "/control/FIELD_SALVAGE_POLICY.json",
+    "game_donor_salvage_return": "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
