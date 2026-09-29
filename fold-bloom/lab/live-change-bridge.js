@@ -13,8 +13,16 @@ const sameBits=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a
 const nativeForecastWitness=input=>{
   if(input?.schema!=='FOLD_BLOOM_FORECAST_CONTEXT_0.1'||input?.authority!=='NATIVE_EVIDENCE')return null;
   const forecasts=(Array.isArray(input.forecasts)?input.forecasts:[]).filter(x=>isVerb(x?.verb)).map(x=>({
-    slot:Number(x.slot),verb:String(x.verb).toUpperCase(),chain:Number(x.chain)||1,cadence:x.cadence?String(x.cadence):null,
-    span:Number(x.span)||0,power:Number(x.power)||0
+    slot:Number(x.slot),
+    type:Number.isFinite(Number(x.type))?Number(x.type):null,
+    type_name:x.typeName?String(x.typeName):null,
+    verb:String(x.verb).toUpperCase(),
+    chain:Number(x.chain)||1,
+    cadence:x.cadence?String(x.cadence):null,
+    path:Array.isArray(x.path)?x.path.map(Number):[],
+    edge_added:Array.isArray(x.edgeAdded)?x.edgeAdded.map(Number):null,
+    span:Number(x.span)||0,
+    power:Number(x.power)||0
   })).sort((a,b)=>a.slot-b.slot||a.verb.localeCompare(b.verb));
   return {
     schema:input.schema,
