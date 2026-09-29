@@ -48,7 +48,7 @@
     "SIGNAL LOCALITY. A pattern on an addressed glyph may encode only source classes explicitly bound to that same route. Global/unaddressed change, reality or external signals remain global summaries; they may not stain the currently held object.",
     "ONBOARDING ≠ SECOND APP. FIELD may expose a first-contact visor over the same held INTERPHASE carrier, but it may not create a second route picker, object store, planner, effect authority or canonical state. The visor must recede into the normal held-object surface and remain explicitly reopenable.",
     "COAXIALITY ≠ CONCENTRICITY. Related dimensions may share one held manipulation space only when each axis owns named state, relative transforms have host-defined semantics, one gesture has one primary interpretation, STATE ≠ VIEW, FOLD/BLOOM preserve recoverable residue, LIVE provenance remains distinguishable, and RETURN can reconstruct the causal path. Geometry alone may not manufacture domain meaning.",
-    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Historical/superseded packets collapse to ARCHIVE unless current authority explicitly reactivates them; GATE blocks NEXT; only CURRENT/explicit selection may create NOW."
+    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Structural precedence is historical→ARCHIVE, then GATE, authority-derived NOW, RESIDUE, candidate NEXT, evidenced DELTA, default ARCHIVE. Explicit packet labels are claims, not authority: NEXT cannot bypass GATE/RESIDUE, NOW requires CURRENT/explicit selection, and DELTA without evidence reduces to RESIDUE."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -344,5 +344,6 @@
     }
   },
   "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json",
-  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json"
+  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json",
+  "packet_egress_reducer": "/lib/field-egress-reducer.mjs"
 }
