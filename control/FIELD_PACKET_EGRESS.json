@@ -1,0 +1,64 @@
+{
+  "schema": "0xxx0/field-packet-egress/v0.2",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_BOUNDED",
+  "reducer": "/lib/field-egress-reducer.mjs",
+  "canonical_packet_schema": "field-work-packet/v0.1",
+  "purpose": "One FIELD egress mechanism: strict shape/authority rules for new packets plus a compatibility adapter for recovered historical packet forms.",
+  "canonical_fields": {
+    "OBJECT": "Required. Exact addressed thing carried by the packet.",
+    "AUTHORITY": "Required. Source/owner constraints. Packet-local fields never grant NOW; caller CURRENT/selection context does.",
+    "STATE_IN": "Optional pre-operation state/reference.",
+    "DELTA": "Optional material change. DELTA must be material and witnessed.",
+    "EVIDENCE": "Required for canonical DELTA. May be direct evidence or refs with sufficient=true.",
+    "STATE_OUT": "Optional returned state/reference.",
+    "RESIDUE": "Unresolved returned work, contradiction, defect, authority conflict, or unwitnessed material change.",
+    "WAITING": "External human/device/world/private prerequisite; maps to GATE.",
+    "NEXT": "Fresh candidate continuation. At most 3 executable entries.",
+    "STOP": "Conditional STOP -> GATE. Terminal STOP + unresolved material -> RESIDUE. Completed terminal STOP -> ARCHIVE."
+  },
+  "precedence": ["GATE","NOW","RESIDUE","NEXT","DELTA","ARCHIVE"],
+  "return_dispositions": {
+    "CLOSE": "ARCHIVE unless a higher GATE condition is present",
+    "RESIDUE": "RESIDUE unless GATE/NOW already owns the packet",
+    "WAITING": "GATE",
+    "CONTRADICTION": "RESIDUE unless GATE/NOW already owns the packet",
+    "TRIGGER": "NEXT only when a bounded executable NEXT exists and execution is explicitly authorized; otherwise GATE"
+  },
+  "canonical_rules": [
+    "Historical/superseded -> ARCHIVE unless explicitly reactivated.",
+    "Missing OBJECT/AUTHORITY or unknown RETURN disposition -> ARCHIVE quarantine.",
+    "Packet egress labels are hints only and cannot manufacture any class.",
+    "WAITING / conditional STOP / blocked TRIGGER -> GATE.",
+    "RETURN CLOSE -> ARCHIVE after GATE has been considered.",
+    "Terminal STOP never leaks into NEXT: unresolved material -> RESIDUE; otherwise ARCHIVE.",
+    "NOW requires caller context.now/context.selected and is blocked by AUTHORITY.can_select_now=false.",
+    "Unresolved fact, contradiction, authority conflict, or unwitnessed material DELTA -> RESIDUE.",
+    "Executable NEXT > 3 -> RESIDUE.",
+    "Executable NEXT 1..3 -> NEXT.",
+    "Witnessed material DELTA with no higher egress -> DELTA.",
+    "Otherwise -> ARCHIVE."
+  ],
+  "legacy_compatibility": {
+    "mode": "RECOVERY_ADAPTER",
+    "accepted_aliases": ["uppercase canonical egress fields","legacy lower-case fields","RETURN-to-CURRENT/replan inert NEXT prose"],
+    "law": "Recovered packet shapes preserve the same GATE -> NOW -> RESIDUE -> NEXT -> DELTA -> ARCHIVE precedence. NOW still requires caller CURRENT/selection context; DELTA still requires sufficient evidence; packet egress labels remain hints only.",
+    "non_promotion": "Historical/superseded material remains ARCHIVE unless explicitly reactivated."
+  },
+  "invariants": [
+    "PACKET PRESENCE != CONTINUATION.",
+    "PACKET LABEL != AUTHORITY.",
+    "CURRENT owns NOW.",
+    "GATE blocks continuation.",
+    "RETURN closes the previous move; NEXT is a fresh offer.",
+    "NEXT visibility is bounded to <=3 for canonical packets.",
+    "UNWITNESSED DELTA is RESIDUE, not change truth.",
+    "SUCCESSFUL CLOSE disappears from ordinary attention.",
+    "INVALID canonical packets quarantine to ARCHIVE and cannot alter CONTROL.",
+    "No reducer creates a queue, planner, route, store, priority, dashboard, or effect authority."
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest"
+  ]
+}
