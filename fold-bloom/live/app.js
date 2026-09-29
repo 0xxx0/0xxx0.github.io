@@ -492,8 +492,10 @@ function update(){
   $('#sceneBtn').title='Generated sound palette + field presentation: '+sceneMeta.plain+'. '+sceneMeta.detail;
   $('#sceneBtn').setAttribute('aria-label','Cycle generated sound palette and field presentation. Current preset: '+sceneMeta.plain+'. '+sceneMeta.detail);
   document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===state.scene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
-  $('#releaseBtn').disabled=!canRelease(state);
-  $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
+  const releaseReady=canRelease(state),releaseControl=$('#releaseBtn');
+  releaseControl.disabled=!releaseReady;
+  releaseControl.textContent=releaseReady?releaseLabel():'TURN UNTIL READY';
+  releaseControl.setAttribute('aria-label',releaseReady?releaseLabel():'Turn left or right until the release action is ready');
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText(calc);
   syncCalculationUI(calc);
