@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
+import {isDeepStrictEqual} from 'node:util';
 
 const require=createRequire(import.meta.url);
 const R=require('../lib/packet-egress.js');
@@ -89,8 +90,9 @@ if(args.has('--write')){
   fs.writeFileSync(OUT,stable(projection));
   console.log('PACKET EGRESS WRITE PASS · '+projection.entries.length+' entries');
 }else if(args.has('--check')){
-  const actual=fs.existsSync(OUT)?fs.readFileSync(OUT,'utf8'):'';
-  if(actual!==stable(projection)){
+  let actual=null;
+  try{actual=JSON.parse(fs.readFileSync(OUT,'utf8'))}catch(_){}
+  if(!isDeepStrictEqual(actual,projection)){
     console.error('PACKET EGRESS DRIFT FAIL · run node scripts/build-packet-egress.mjs --write');
     process.exit(1);
   }
