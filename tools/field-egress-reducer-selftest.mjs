@@ -56,13 +56,31 @@ const cases=[
   ['R canonical uppercase external WAITING alias gates',
     {packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'},
     {},'GATE'],
-  ['S generic WAITING is unresolved residue, not a world gate',
+  ['S generic WAITING text is unresolved residue',
     {packet_id:'internal-wait',WAITING:'source ambiguity remains',NEXT:'continue'},
     {},'RESIDUE'],
-  ['T inert RETURN prose is not NEXT',
+  ['T external WAITING array still gates',
+    {packet_id:'external-array',WAITING:[{exists:true,external:true,dependency_kind:'REAL_DEVICE'}],NEXT:'continue'},
+    {},'GATE'],
+  ['U generic WAITING array remains residue',
+    {packet_id:'internal-array',WAITING:['source ambiguity remains',{exists:true,external:false,summary:'parser uncertainty'}],NEXT:'continue'},
+    {},'RESIDUE'],
+  ['V named internal waiting_on remains residue',
+    {packet_id:'named-internal',waiting_on:'schema reconciliation',NEXT:'continue'},
+    {},'RESIDUE'],
+  ['W named external blocked_by gates',
+    {packet_id:'named-external',blocked_by:'human action required',NEXT:'continue'},
+    {},'GATE'],
+  ['X nested false metadata cannot mint external GATE',
+    {packet_id:'nested-false',WAITING:{exists:true,dependency:{human:false,world:false}},NEXT:'continue'},
+    {},'RESIDUE'],
+  ['Y nested explicit external value gates',
+    {packet_id:'nested-external',WAITING:{exists:true,dependency:{kind:'real device'}},NEXT:'continue'},
+    {},'GATE'],
+  ['Z inert RETURN prose is not NEXT',
     {packet_id:'return-only',DELTA:{material:true},EVIDENCE:{sufficient:true},NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'},
     {},'DELTA'],
-  ['U empty packet archives',
+  ['AA empty packet archives',
     {packet_id:'empty'},
     {},'ARCHIVE']
 ];
@@ -84,4 +102,4 @@ const precedence=reducePacket({
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
 
-console.log('FIELD packet egress reducer PASS · A-U · aliases + gate/residue boundary + inert RETURN + authority/evidence hardening');
+console.log('FIELD packet egress reducer PASS · A-AA · external GATE value semantics + unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');

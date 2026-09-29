@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE_CONVERGENCE_REPAIR",
+  "status": "CURRENT_MASTER_WAITING_BOUNDARY_CANDIDATE",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
@@ -25,7 +25,7 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs  # A-U + aliases + gate/residue boundary + inert RETURN + authority/evidence hardening",
+    "node tools/field-egress-reducer-selftest.mjs  # A-AA + shape/value-invariant WAITING boundary + aliases + inert RETURN + authority/evidence hardening",
     "node scripts/emit-agent-transcript.mjs --selftest",
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
     "FIELD route adapter emits material route_touch DELTA with evidence.sufficient=true only when its own manifest/local catch-up witness says changed"
@@ -35,7 +35,7 @@
     "Evidence sufficiency is asserted by the owning adapter/host; the generic reducer does not infer domain proof.",
     "No second packet surface, queue, store, planner or authority source is introduced."
   ],
-  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress.",
+  "stop": "After exact-head green proof, close packet egress again. Do not broaden GATE into generic unresolved state.",
   "correction": [
     "PR #575 correctly hardened NOW authority and witnessed DELTA but regressed the immediately preceding uppercase compatibility aliases and inert RETURN-to-CURRENT/replan handling.",
     "Restore uppercase OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP compatibility while retaining #575 authority semantics.",
@@ -43,6 +43,9 @@
     "RETURN-to-CURRENT/replan-only prose is terminal re-entry, not NEXT.",
     "FIELD root attests the route-touch witness it already owns so a legitimate changed-route projection remains DELTA under the stronger evidence law.",
     "Canonical exists:false / material:false fields do not manufacture attention.",
-    "Bare WAITING text is unresolved RESIDUE unless it names an external/world/human dependency; explicit external WAITING remains GATE."
+    "Only explicit external/world/human WAITING is GATE; generic unresolved/internal WAITING is RESIDUE.",
+    "The external-vs-internal predicate is recursive across string/object/array WAITING values; a non-empty array alone does not grant GATE.",
+    "Named waiting_on/blocked_by fields require external semantics for GATE; otherwise they remain RESIDUE.",
+    "Nested object key names do not count as external evidence; only explicit external values/flags/kinds may grant GATE."
   ]
 }
