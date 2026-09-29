@@ -453,6 +453,8 @@ if(currentCoord&&queueCoord){
   check(queued.every(id=>!held.has(id)),'QUEUE schedules a CURRENT-held front');
   const axialHead=currentCoord.current_heads?.find(x=>x.lineage==='axial'),axialHold=currentCoord.held_fronts?.find(x=>x.id==='machine-representation');
   if(axialRelease?.version){check(axialHead?.head?.includes(axialRelease.version),'CURRENT axial head/version drift');check(axialHold?.center?.includes(axialRelease.version),'CURRENT axial hold/version drift');}
+  const fieldHead=currentCoord.current_heads?.find(x=>x.lineage==='field-index'),fieldRoot=(manifest?.routes||[]).find(x=>x.href==='/');
+  if(fieldHead&&fieldRoot){check(fieldHead.version===fieldRoot.version,'CURRENT FIELD INDEX / manifest root version drift');check(String(fieldHead.head||'').includes(fieldRoot.version),'CURRENT FIELD INDEX head/version drift');}
   for(const head of currentCoord.current_heads||[]){
     if(head?.repo_verification?.status!=='PASS'||!head.latest_return)continue;
     const latest=parse(String(head.latest_return).replace(/^\//,''));
