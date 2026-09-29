@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.4-mode-embodiment',
+const APP_VERSION = '0.10.5-causal-return',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -331,6 +331,99 @@ function relationFromPair(l = L, r = R) {
 function rel() {
   return relationFromPair();
 }
+function causalDriver() {
+  const borrowedClock = pulseIsLive();
+  return {
+    actor: demo?.preview ? 'SYSTEM' : 'USER',
+    trigger: demo?.preview ? 'IDLE_DEMO' : 'POINTER_COMMIT',
+    compositionAuthority: 'TWO_DIAL_RELATION',
+    borrowedClock,
+    clock: borrowedClock ? {
+      kind: pulseLink.sourceKind || 'FIELD_PULSE',
+      sourceHash: pulseLink.sourceHash || null,
+      sourceAddress: pulseLink.sourceAddress || null,
+      bpm: pulseTempo(),
+    } : { kind: 'LOCAL' },
+  };
+}
+function causalFrame() {
+  const cell = phrase[learnCursor] || null;
+  return {
+    dial: { L, R, relation: rel() },
+    mode: prefs.mode,
+    scope: prefs.mode === 'SCALE' ? prefs.scope : 'ALL',
+    splitCharge: !!splitCharge,
+    form: {
+      state: form.state,
+      bars: form.bars,
+      tension: form.tension,
+      sync: form.sync,
+      cadence: form.cadence,
+    },
+    pattern: {
+      cycle: pat.cycle,
+      rotation: pat.rotation,
+      fold: pat.fold,
+      bloom: pat.bloom,
+      split: pat.split,
+      law: pat.law,
+    },
+    music: { energy: mus.energy, density: mus.density, voices: mus.voices },
+    memory: {
+      pair: pairMemory[wrap(L, 6)][wrap(R, 6)] || 0,
+      scarL: scarsL[wrap(L, 6)] || 0,
+      scarR: scarsR[wrap(R, 6)] || 0,
+      learnCursor,
+      cell: cell ? { m: cell.m, h: cell.h, w: cell.w, verb: cell.verb } : null,
+      motif: (form.motif || []).map(q => ({ m: q.m, h: q.h, v: q.v })),
+    },
+  };
+}
+function causalDelta(before, after) {
+  return {
+    formState: [before.form.state, after.form.state],
+    tension: after.form.tension - before.form.tension,
+    sync: after.form.sync - before.form.sync,
+    cadence: after.form.cadence - before.form.cadence,
+    pattern: {
+      cycle: after.pattern.cycle - before.pattern.cycle,
+      rotation: after.pattern.rotation - before.pattern.rotation,
+      fold: [before.pattern.fold, after.pattern.fold],
+      bloom: after.pattern.bloom - before.pattern.bloom,
+      split: after.pattern.split - before.pattern.split,
+    },
+    music: {
+      energy: after.music.energy - before.music.energy,
+      density: after.music.density - before.music.density,
+      voices: after.music.voices - before.music.voices,
+    },
+    memory: {
+      pair: after.memory.pair - before.memory.pair,
+      scarL: after.memory.scarL - before.memory.scarL,
+      scarR: after.memory.scarR - before.memory.scarR,
+      learnCursor: [before.memory.learnCursor, after.memory.learnCursor],
+      motifChanged: JSON.stringify(before.memory.motif) !== JSON.stringify(after.memory.motif),
+    },
+    splitCharge: [before.splitCharge, after.splitCharge],
+  };
+}
+function causalReceipt(before, after, operation, driver = causalDriver()) {
+  return {
+    schema: 'fold-bloom-causal-event/v0.1',
+    before,
+    operation,
+    actor: driver.actor,
+    driver,
+    delta: causalDelta(before, after),
+    after,
+    provenance: {
+      host: 'FOLD//BLOOM TWO DIAL',
+      semanticOwner: 'RELATION_VERBS_BY_KIND',
+      compositionAuthority: driver.compositionAuthority,
+      borrowedClockAuthorship: false,
+    },
+  };
+}
 function shuffleVerbs() {
   let a = [...VERBS];
   for (let i = a.length - 1; i > 0; i--) {
@@ -373,7 +466,7 @@ function pairMidi(l, r, oct = 12) {
   return w.root + w.scale[idx] + oct;
 }
 function replayPhrase(moves) {
-  if (!moves.length) return;
+  if (!moves.length) return null;
   let sig = moves.map(m => VG[m.v]).join('');
   lastPhraseSig = sig;
   if (audio && soundOn) {
@@ -394,25 +487,47 @@ function replayPhrase(moves) {
         );
     });
   }
-  emit('phrase_return', {
-    n: phraseCount,
+  const receipts = moves.map(m => m.causal).filter(Boolean),
+    first = receipts[0] || null,
+    last = receipts[receipts.length - 1] || null,
+    actors = [...new Set(receipts.map(r => r.actor).filter(Boolean))];
+  const returned = {
+    schema: 'fold-bloom-phrase-return/v0.2',
+    phrase: phraseCount,
     sig,
-    moves: moves.map(m => ({ l: m.l, r: m.r, v: m.v, power: m.power })),
-  });
+    before: first?.before || null,
+    operation: {
+      kind: 'PHRASE',
+      moves: moves.map(m => ({ l: m.l, r: m.r, v: m.v, power: m.power })),
+    },
+    actor: actors.length === 1 ? actors[0] : actors.length ? 'MIXED' : 'UNKNOWN',
+    driver: receipts.map(r => r.driver),
+    delta: receipts.map(r => r.delta),
+    after: last?.after || null,
+    provenance: {
+      host: 'FOLD//BLOOM TWO DIAL',
+      receipts: receipts.length,
+      compositionAuthority: 'TWO_DIAL_RELATION',
+      borrowedClockAuthorship: false,
+    },
+  };
+  emit('phrase_return', returned);
   $('#lawStrip').textContent =
     `PHRASE RETURN ${String(phraseCount).padStart(2, '0')} // ${sig}`;
   toast(`PHRASE ${String(phraseCount).padStart(2, '0')} · RETURN`);
+  return returned;
 }
 function completePhrase() {
   phraseCount++;
-  let moves = currentPhraseMoves.map(m => ({ ...m }));
+  let moves = currentPhraseMoves.map(m => ({ ...m })),
+    returned = replayPhrase(moves);
   phraseHistory.push({
     n: phraseCount,
     sig: moves.map(m => m.v[0]).join(''),
     moves,
+    return: returned,
   });
   phraseHistory = phraseHistory.slice(-12);
-  replayPhrase(moves);
   beginPhrase();
 }
 function homeDistance(r = R) {

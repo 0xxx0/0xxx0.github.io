@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_CAUSAL_RETURN_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Repair the COAXIALITY G_RETURN failure without adding UI or a second history store: relation commits and delayed compose emit bounded causal receipts; phrase RETURN aggregates matched receipts; existing export carries the latest phrase causal RETURN.",
+  "law": "RETURN preserves causality; borrowed clock remains provenance/context and never becomes composition authorship.",
+  "changes": [
+    "/fold-bloom/two-dial/core1.js — causal driver/frame/delta/receipt + phrase RETURN v0.2",
+    "/fold-bloom/two-dial/core2.js — commit and delayed compose causal capture",
+    "/fold-bloom/two-dial/app-runtime.js — export latest causal phrase RETURN",
+    "/fold-bloom/two-dial/sw.js — cache bump",
+    "/control/FIELD_COAXIALITY_AUDIT.json — F/G PASS; overall PROVE_OR_DECOAXIALIZE",
+    "/tools/two-dial-causal-return-selftest.cjs — executable contract proof",
+    "/fold-bloom/two-dial/release.json + /showcase-manifest.json — 0.10.5 contract/index"
+  ],
+  "preserves": [
+    "SAME/NEAR/FAR/OPPOSITE → BLOOM/FOLD/RETURN/SPLIT host mapping",
+    "existing music/form/memory mutation behavior",
+    "local cassette restore",
+    "optional PULSE/local-track clock context",
+    "no new control, mode, route, state store or authority"
+  ],
+  "residue": [
+    "C_GESTURE remains INDETERMINATE pending bounded one-gesture ownership proof",
+    "E_REVERSAL remains INDETERMINATE; causal history is not cosmetic UNDO",
+    "H_COMPRESSION remains INDETERMINATE pending a plain-baseline ordinary-use comparison",
+    "do not promote Two Dial to KEEP until remaining evidence exists"
+  ],
+  "verify": [
+    "node --check fold-bloom/two-dial/core1.js",
+    "node --check fold-bloom/two-dial/core2.js",
+    "node --check fold-bloom/two-dial/app-runtime.js",
+    "node tools/two-dial-causal-return-selftest.cjs",
+    "node tools/field-coaxiality-audit.cjs",
+    "public-surface-check + route registration + gitleaks"
+  ],
+  "reentry": "/fold-bloom/two-dial/"
+}

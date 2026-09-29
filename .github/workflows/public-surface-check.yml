@@ -117,6 +117,12 @@ jobs:
           node tools/project-head-glyph-selftest.cjs
           node tools/interphase-dom-form-selftest.cjs
           node tools/interphase-ring-selftest.cjs
+      - name: Validate Two Dial causal RETURN
+        run: |
+          node --check fold-bloom/two-dial/core1.js
+          node --check fold-bloom/two-dial/core2.js
+          node --check fold-bloom/two-dial/app-runtime.js
+          node tools/two-dial-causal-return-selftest.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
         run: |
           node --check lib/interphase-mapping.js

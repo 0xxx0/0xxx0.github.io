@@ -135,8 +135,8 @@
       "host": "FOLD//BLOOM TWO DIAL",
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
-      "decision": "REPAIR_OR_DELETE",
-      "repair_boundary": "Retain the neutral relation carrier and host-owned mapping. Before this mechanism may claim COAXIALITY PASS, repair causal RETURN (G), prove/repair E and F as needed, then compare user-visible burden against a plain control baseline for H. If H fails, de-coaxialize/delete rather than add explanation chrome.",
+      "decision": "PROVE_OR_DECOAXIALIZE",
+      "repair_boundary": "Causal RETURN (G) is repaired and LIVE commit/compose provenance (F) is explicit. Do not promote to KEEP: prove one-gesture/one-primary-interpretation (C), establish whether cheap local transforms have a lawful reversal/residue story (E), and compare user-visible burden against a plain non-coaxial baseline (H). If H fails, de-coaxialize/delete rather than add explanation chrome.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -172,15 +172,20 @@
           ]
         },
         "F_LIVE": {
-          "verdict": "INDETERMINATE",
+          "verdict": "PASS",
           "evidence": [
-            "core1.js retains pulseLink sourceKind/sourceHash/sourceAddress, but no bounded audit yet proves driver/authorship separation across all LIVE-linked mutations."
+            "/fold-bloom/two-dial/core1.js: causalDriver() records USER vs SYSTEM, borrowed clock source/hash/address/BPM, and keeps compositionAuthority=TWO_DIAL_RELATION",
+            "/fold-bloom/two-dial/core2.js: relation commits and delayed FOLD→BLOOM compose carry causal receipts; borrowed clock is provenance/context, not semantic authorship",
+            "/tools/two-dial-causal-return-selftest.cjs: asserts the driver/authorship boundary is present in the durable causal contract"
           ]
         },
         "G_RETURN": {
-          "verdict": "FAIL",
+          "verdict": "PASS",
           "evidence": [
-            "/fold-bloom/two-dial/core1.js replayPhrase() emits phrase_return with n/sig/moves but does not record the law-required before + actor/driver + delta + after + provenance causal tuple."
+            "/fold-bloom/two-dial/core1.js: fold-bloom-phrase-return/v0.2 aggregates before + operation + actor + driver + delta + after + provenance from matched relation commits",
+            "/fold-bloom/two-dial/core2.js: every relation commit captures bounded causal before/after; delayed compose records a separate causal receipt",
+            "/fold-bloom/two-dial/app-runtime.js: FOLD_BLOOM_RETURN exports latest causal phrase RETURN beside restorable state",
+            "/tools/two-dial-causal-return-selftest.cjs: executable static contract proof"
           ]
         },
         "H_COMPRESSION": {

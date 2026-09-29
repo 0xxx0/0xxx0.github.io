@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "route": "/fold-bloom/two-dial/",
   "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
@@ -11,9 +11,14 @@
     "six-position two-dial relation algebra",
     "SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT",
     "PLAY / OPEN / DUET behavior outside SCALE mode",
-    "motif/form memory, phrase RETURN, cassettes and local-only state"
+    "motif/form memory, phrase RETURN, cassettes and local-only state",
+    "existing relation algebra, musical result path, local cassette restore and optional borrowed-clock authorship boundary"
   ],
   "delta": [
+    "causal relation commits now retain bounded before / operation / actor+driver / delta / after / provenance receipts",
+    "phrase RETURN v0.2 aggregates matched commit receipts instead of emitting destination-only expressive history",
+    "delayed FOLD→BLOOM compose receives its own causal receipt rather than disappearing behind the phrase boundary",
+    "exported FOLD_BLOOM_RETURN exposes the latest causal phrase RETURN alongside the existing restorable state",
     "sound worlds expand from 5 to 7 with TRANCE and DRIFT",
     "six selectable voice engines: AIR / WOOD / FM / BELL / BOW / DIRTY",
     "five separable groove skeletons: GROUND / DRIVE / SWING / BROKEN / POLY",
@@ -68,10 +73,11 @@
     "idle_witness_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
     "mode_embodiment": "PASS: PR #328 · public-surface-check 36140134183 + Route Registration 36140134198",
     "wide_phone": "HUMAN_GATE: verify WIDE/rotate fallback and direct DUET donor on one real phone",
-    "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07"
+    "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
+    "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge"
   },
-  "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
+  "known_gap": "Causal RETURN repairs the audit G failure and makes LIVE driver provenance explicit; gesture ownership, local reversal semantics and net interaction compression still require bounded evidence. Instrument-quality judgment still requires direct listening.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
   "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
-  "updated": "2026-09-25"
+  "updated": "2026-09-29"
 }

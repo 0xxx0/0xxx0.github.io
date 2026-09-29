@@ -173,6 +173,7 @@ function exportPacket() {
     version: APP_VERSION,
     created: new Date().toISOString(),
     state: minimalSnapshot(),
+    causal_return: phraseHistory.length ? phraseHistory[phraseHistory.length - 1]?.return || null : null,
     summary: {
       world: prefs.world,
       voice: prefs.voice,
@@ -445,7 +446,7 @@ $('#playBtn').onclick = async () => {
   }
 };
 $('#buildInfo').textContent =
-  `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · bounded phrase return`;
+  `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · causal phrase return`;
 let fromHash = false;
 if (location.hash.startsWith('#s=')) {
   try {

@@ -479,6 +479,7 @@ function advanceForm(v, power = 1) {
   captureMotif();
 }
 function commit() {
+  const before = causalFrame(), driver = causalDriver();
   let original = rel(),
     requested = requestVerb,
     c = consequence(),
@@ -519,6 +520,7 @@ function commit() {
   if (special) {
     splitCharge = 0;
     setTimeout(() => {
+      const composeBefore = causalFrame(), composeDriver = causalDriver();
       chord('BLOOM');
       if (prefs.mode === 'SCALE') {
         if (prefs.scope === 'PULSE') applyPatternVerb('BLOOM',1);
@@ -532,7 +534,15 @@ function commit() {
         applyMemoryVerb('BLOOM', 1);
       }
       burst('BLOOM');
-      emit('compose', { ops: ['FOLD', 'BLOOM'] });
+      const composeAfter = causalFrame();
+      emit('compose', {
+        ops: ['FOLD', 'BLOOM'],
+        causal: causalReceipt(composeBefore, composeAfter, {
+          kind: 'COMPOSE',
+          ops: ['FOLD', 'BLOOM'],
+          source: 'splitCharge',
+        }, composeDriver),
+      });
       saveLocal();
       hud();
     }, 90);
@@ -544,6 +554,17 @@ function commit() {
     scarsR = scarsR.map(x => Math.max(0, x - reduction));
   }
   let matched = prefs.mode !== 'OPEN' && original === requested;
+  const after = causalFrame();
+  const causal = causalReceipt(before, after, {
+    kind: 'RELATION_COMMIT',
+    verb: original,
+    requested,
+    matched,
+    power,
+    mode: prefs.mode,
+    scope: prefs.mode === 'SCALE' ? prefs.scope : 'ALL',
+    delayedCompose: special ? ['BLOOM'] : [],
+  }, driver);
   if (matched) {
     fulfilled++;
     currentPhraseMoves.push({
@@ -553,6 +574,7 @@ function commit() {
       power,
       echo: echoBefore,
       gravity: c.gravity,
+      causal,
     });
     phrasePos++;
     if (phrasePos >= phrasePlan.length) completePhrase();
@@ -582,6 +604,7 @@ function commit() {
     request: requested,
     phrase: phraseCount + 1,
     phrasePos,
+    causal,
   });
   updatePreview();
   saveLocal();
