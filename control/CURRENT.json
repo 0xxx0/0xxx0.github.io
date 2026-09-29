@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T12:22:30+08:00",
+  "updated": "2026-09-29T16:46:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -1114,7 +1114,8 @@
       "failure_return": "After a bounded failed attempt, RETURN must contain new evidence/residue or explicitly classify the attempt as duplicate/no-new-information; do not blind-retry to manufacture progress.",
       "precommit_telegraph": "When a host can predict effects, preview affected addresses plus reversible/irreversible boundary before authoritative commit. Unknown effects remain UNKNOWN; preview never grants authority.",
       "ghost_state": "PROPOSED/GHOST may carry configuration and exact address while remaining non-real, non-actuating and non-proof. Promotion requires explicit resources/authority/enactment evidence.",
-      "scaffold_retirement": "Temporary helpers, migration shims, compatibility surfaces and proof scaffolds should name a retirement condition when introduced; success may reduce infrastructure, but deletion never outranks provenance."
+      "scaffold_retirement": "Temporary helpers, migration shims, compatibility surfaces and proof scaffolds should name a retirement condition when introduced; success may reduce infrastructure, but deletion never outranks provenance.",
+      "safe_salvage": "Before retiring an addressed surface, survey CURRENT/head authority, children, compatibility aliases and live runtime/tooling references; preserve transferable mechanism/provenance/RETURN; FROZEN_DONOR and compatibility aliases are not debt; RETIRE_CANDIDATE never authorizes deletion."
     }
   },
   "last_state_survey": "/control/STATE_SURVEY_2026-09-21_1731.json",
@@ -1254,7 +1255,9 @@
     "deep_donor_orientation": "/control/confluence/DEEP_DONOR_ORIENTATION_2026-09-26.md",
     "video_game_donor_atlas": "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
     "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
-    "care_diegetic_locus": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md"
+    "care_diegetic_locus": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
+    "field_salvage_policy": "/control/FIELD_SALVAGE_POLICY.json",
+    "game_donor_salvage_return": "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
