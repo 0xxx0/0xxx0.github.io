@@ -79,6 +79,30 @@
       "retirement": "No extra UI required when native host already exposes equivalent preview."
     },
     {
+      "id": "body-load-route-return",
+      "donors": [
+        "Death Stranding"
+      ],
+      "status": "IMPLEMENTED_CANDIDATE",
+      "recipients": [
+        "/body/fit/",
+        "/"
+      ],
+      "invariant": "Preparation is evaluated against an addressed purpose/environment; after use, friction returns as residue that changes the next loadout instead of merely growing inventory.",
+      "non_transfer": [
+        "delivery fiction",
+        "likes/reputation score",
+        "inventory accumulation as progress",
+        "physical-safety inference",
+        "medical inference"
+      ],
+      "implementation": "BODY / FIT already owns PREP → SET OUT → RETURN → PATINA → NEXT CUT. FIELD now derives BODY / FIT native LOADOUT / PATINA / SENSE navigation from the route manifest's field.owner + AVAILABLE targeted exit paths; SET OUT and RETURN remain explicit BODY / FIT actions.",
+      "executable_test": "tools/browser-smoke.mjs",
+      "proof_claim": "Browser smoke proves FIELD focus /body/fit/ renders three manifest-derived native navigation moves and direct #patina re-entry resolves to the native PATINA view without creating FIELD mutation authority.",
+      "new_sovereign_app": false,
+      "retirement": "If the manifest-derived shortcuts stop reducing translation or duplicate a better native capability contract, remove those exit-path projections; BODY / FIT state and history remain untouched."
+    },
+    {
       "id": "ghost-not-real",
       "donors": [
         "Factorio"
@@ -187,6 +211,44 @@
           "observed": "designers describe the recycling endgame as taking away the buildings/tools after restoration; the excess infrastructure problem motivated the mechanic"
         }
       ]
+    }
+  ],
+  "six_game_map": [
+    {
+      "donor": "Outer Wilds",
+      "field_mechanism": "FIELD / CATCH + ACT · MORE HERE knowledge-gap re-entry",
+      "transferable_rule": "WORLD RESET ≠ KNOWLEDGE RESET: re-entry should preserve learned constraints and reopen at an unresolved edge.",
+      "implementation_idea": "Derive unresolved relation/gap hints only from route-owned evolution.question, open_gaps and non-AVAILABLE exit paths; no quest state, priority or obligation."
+    },
+    {
+      "donor": "Hades",
+      "field_mechanism": "execution_contract.game_donor_transfer.failure_return + ONE RETURN / Dayline receipts",
+      "transferable_rule": "FAILED ATTEMPT → RETURN WITH DIFFERENCE: failure earns continuity only when it leaves evidence, residue or a changed next route.",
+      "implementation_idea": "Classify bounded failed attempts as NEW_RESIDUE or DUPLICATE_NO_NEW_INFORMATION before retry; never award synthetic XP or repeat blindly."
+    },
+    {
+      "donor": "Death Stranding",
+      "field_mechanism": "BODY / FIT · PREP → SET OUT → RETURN → PATINA → NEXT CUT + manifest-owned native exits",
+      "transferable_rule": "LOADOUT IS RELATIONAL: body + carried modules + purpose/environment form one temporary system; preparation should answer expected friction.",
+      "implementation_idea": "From FIELD focus /body/fit/, derive native LOADOUT / PATINA / SENSE navigation from BODY / FIT manifest authority; keep SET OUT, RETURN and physical-safety judgment inside BODY / FIT."
+    },
+    {
+      "donor": "Into the Breach",
+      "field_mechanism": "execution_contract.game_donor_transfer.precommit_telegraph + held action aperture",
+      "transferable_rule": "PREVIEW BEFORE COMMIT: when effects are knowable, show affected addresses and the reversible/irreversible boundary before authority fires.",
+      "implementation_idea": "Let native hosts attach an optional forecast/effect witness to a held move; unknown consequences stay UNKNOWN and preview never creates permission."
+    },
+    {
+      "donor": "Hardspace: Shipbreaker",
+      "field_mechanism": "FIELD safe-salvage audit · /lib/field-salvage-core.mjs + scripts/field-salvage-audit.mjs",
+      "transferable_rule": "CUT ORDER FOLLOWS DEPENDENCIES: survey support, hazards, children, aliases and live references before decomposition.",
+      "implementation_idea": "Run the conservative read-only salvage classifier before considering route/container retirement; blockers force KEEP/REVIEW and auto-delete remains false."
+    },
+    {
+      "donor": "Terra Nil",
+      "field_mechanism": "scaffold_retirement contract + safe-salvage audit",
+      "transferable_rule": "SUCCESS MAY REMOVE ITS SCAFFOLD: temporary support should leave capability/provenance behind and name when it can disappear.",
+      "implementation_idea": "Require migration shims, proof scaffolds and temporary helper surfaces to state a retirement condition, then pass the salvage audit before any subtraction."
     }
   ]
 }
