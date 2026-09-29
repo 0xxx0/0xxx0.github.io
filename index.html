@@ -17,7 +17,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#07090a">
-<title>0xxx0 / FIELD INDEX</title><link rel="stylesheet" href="./lib/field-signal.css"><script src="./lib/field-signal.js"></script>
+<title>0xxx0 / FIELD INDEX</title><link rel="stylesheet" href="./lib/field-signal.css"><script src="./lib/field-signal.js"></script><script src="./lib/field-packet-reducer.js"></script>
 <style>
 :root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -67,7 +67,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
 
-.catchup{--signal-a:rgba(114,188,231,.13);--signal-b:rgba(237,116,71,.12);margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{position:relative;isolation:isolate;overflow:hidden;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:7px 8px;cursor:pointer;background:#080b0d}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary>*{position:relative;z-index:2}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchup>summary::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .18s ease}.catchup[data-signal="CHANGED"]>summary::before{opacity:.65;background:repeating-linear-gradient(104deg,transparent 0 8px,var(--signal-a) 8px 9px,transparent 9px 18px)}.catchup[data-signal="REALITY"]>summary::before{opacity:.92;background:repeating-linear-gradient(26deg,transparent 0 10px,var(--signal-b) 10px 11px,transparent 11px 20px),repeating-linear-gradient(-28deg,transparent 0 15px,rgba(213,173,104,.08) 15px 16px,transparent 16px 29px)}.catchup[data-signal="GITHUB"]>summary::before{opacity:.75;background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(213,173,104,.12) 13px 14px,transparent 14px 26px)}.catchup[data-signal="MIXED"]>summary::before{opacity:1;background:repeating-linear-gradient(27deg,transparent 0 9px,var(--signal-a) 9px 10px,transparent 10px 19px),repeating-linear-gradient(-29deg,transparent 0 11px,var(--signal-b) 11px 12px,transparent 12px 23px);background-size:37px 37px,43px 43px;animation:signalInterference 7s linear infinite}.catchup[data-signal="MIXED"]{border-color:#50433a}.catchup[data-signal="REALITY"]>summary b,.catchup[data-signal="MIXED"]>summary b{color:#ffd0bd}.catchup[open]>summary{border-bottom:1px solid var(--line)}@keyframes signalInterference{to{background-position:37px 0,-43px 0}}@media(prefers-reduced-motion:reduce){.catchup[data-signal="MIXED"]>summary::before{animation:none}}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchGap{grid-column:2;border-top:1px dotted #263137;padding-top:4px;color:#9aa6aa;font:6.5px/1.35 system-ui,sans-serif}.catchGap b{color:var(--gold);font-size:6px;letter-spacing:.11em;margin-right:4px}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchSignals{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.catchSignal{background:#080b0d;padding:6px 7px;min-width:0}.catchSignalHead{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6px;letter-spacing:.1em}.catchSignalBody{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.catchSignalBody button,.catchSignalBody a{padding:5px 6px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font-size:6.5px;text-decoration:none}.catchSignalBody a.hot{border-color:var(--hot);color:#ffd0bd}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
+.catchup{--signal-a:rgba(114,188,231,.13);--signal-b:rgba(237,116,71,.12);margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{position:relative;isolation:isolate;overflow:hidden;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:7px 8px;cursor:pointer;background:#080b0d}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary>*{position:relative;z-index:2}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchup>summary::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .18s ease}.catchup[data-signal="CHANGED"]>summary::before{opacity:.65;background:repeating-linear-gradient(104deg,transparent 0 8px,var(--signal-a) 8px 9px,transparent 9px 18px)}.catchup[data-signal="REALITY"]>summary::before{opacity:.92;background:repeating-linear-gradient(26deg,transparent 0 10px,var(--signal-b) 10px 11px,transparent 11px 20px),repeating-linear-gradient(-28deg,transparent 0 15px,rgba(213,173,104,.08) 15px 16px,transparent 16px 29px)}.catchup[data-signal="GITHUB"]>summary::before{opacity:.75;background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(213,173,104,.12) 13px 14px,transparent 14px 26px)}.catchup[data-signal="MIXED"]>summary::before{opacity:1;background:repeating-linear-gradient(27deg,transparent 0 9px,var(--signal-a) 9px 10px,transparent 10px 19px),repeating-linear-gradient(-29deg,transparent 0 11px,var(--signal-b) 11px 12px,transparent 12px 23px);background-size:37px 37px,43px 43px;animation:signalInterference 7s linear infinite}.catchup[data-signal="MIXED"]{border-color:#50433a}.catchup[data-signal="REALITY"]>summary b,.catchup[data-signal="MIXED"]>summary b{color:#ffd0bd}.catchup[open]>summary{border-bottom:1px solid var(--line)}@keyframes signalInterference{to{background-position:37px 0,-43px 0}}@media(prefers-reduced-motion:reduce){.catchup[data-signal="MIXED"]>summary::before{animation:none}}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchReduce{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:5px 8px;border-bottom:1px solid #1b2429;background:#080b0d;color:var(--mut);font-size:6px;letter-spacing:.06em}.catchReduce b{color:var(--gold);letter-spacing:.12em}.catchReduce span{text-align:right}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchGap{grid-column:2;border-top:1px dotted #263137;padding-top:4px;color:#9aa6aa;font:6.5px/1.35 system-ui,sans-serif}.catchGap b{color:var(--gold);font-size:6px;letter-spacing:.11em;margin-right:4px}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchSignals{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.catchSignal{background:#080b0d;padding:6px 7px;min-width:0}.catchSignalHead{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6px;letter-spacing:.1em}.catchSignalBody{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.catchSignalBody button,.catchSignalBody a{padding:5px 6px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font-size:6.5px;text-decoration:none}.catchSignalBody a.hot{border-color:var(--hot);color:#ffd0bd}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
 .catchReality{margin:0;border-top:1px solid var(--line);padding:0 7px}.catchReality>summary{padding:6px 0}.catchReality[open]>summary{border-bottom:1px solid #1b2429}@media(max-width:760px){.catchGrid,.catchSignals{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a,.catchSignalBody button,.catchSignalBody a{min-height:40px}}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
 .touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
@@ -283,6 +283,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <details class="catchup" id="catchupFold" data-signal="CLEAR">
   <summary class="fieldSignalBar" data-field-signal="CLEAR"><span class="signalGlyph"></span><b>FIELD / CATCH + ACT</b><span id="catchupMeta">loading attention…</span></summary>
   <div class="catchNow" id="catchupNow"><b>NOW</b><span>loading current conversion…</span></div>
+  <div class="catchReduce" id="packetReduce"><b>REDUCE</b><span>loading packet conditions…</span></div>
   <div class="catchSignals" id="catchupSignals"><div class="catchSignal"><div class="catchSignalHead"><b>YOU</b><span>loading…</span></div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB</b><span>loading…</span></div></div></div>
   <div class="catchGrid" id="catchupList"><div class="catchEmpty">loading changed addressed heads…</div></div>
   <details class="fold catchReality" id="waitingFold">
@@ -716,6 +717,58 @@ function catchGap(r){
  if(unresolved)return (String(unresolved.status||'OPEN').replaceAll('_',' ')+' · '+String(unresolved.via||'')).replace(/\s+/g,' ').trim().slice(0,260);
  return '';
 }
+function fieldCatchPackets(changed,gates,repoIssues){
+ const packets=[];
+ (current?.active_fronts||[]).forEach(f=>packets.push({
+  id:'current:'+String(f.id||'front'),
+  object:{id:String(f.id||'front'),label:f.center||f.objective||f.id||'CURRENT'},
+  authority:{source:'CURRENT',current:true},
+  state_out:{attention:'NOW'},
+  evidence:Array.isArray(f.evidence)?f.evidence:[]
+ }));
+ (changed||[]).forEach(r=>packets.push({
+  id:'delta:'+r.href,
+  object:{id:r.href,address:r.href},
+  authority:{source:'MANIFEST_PROJECTION'},
+  delta:{material:true,summary:catchText(r)},
+  evidence:[{kind:'MANIFEST_TOUCH',ref:r.href+'@'+String(r.index?.updated_at||'')}],
+  state_out:{route:r.href}
+ }));
+ (gates||[]).forEach(g=>packets.push({
+  id:'gate:'+String(g.id||g.route||'world'),
+  object:{id:g.route||g.id||'world',address:g.route||null},
+  authority:{source:'CURRENT'},
+  waiting:{id:g.id||null,kind:g.dependency_kind||g.state||'WORLD'},
+  evidence:g.source?[g.source]:[],
+  state_out:{route:g.route||null}
+ }));
+ (repoIssues||[]).forEach(x=>packets.push({
+  id:'github-issue:'+x.number,
+  object:{id:'github-issue:'+x.number,address:x.route||null},
+  authority:{source:'GITHUB_ISSUE'},
+  residue:{kind:'OPEN_ISSUE',summary:x.title||('Issue #'+x.number)},
+  evidence:[x.html_url].filter(Boolean)
+ }));
+ if(focus){
+  const next=fieldCarrierMoves(focus.href);
+  if(next.length)packets.push({
+   id:'next:'+focus.href,
+   object:{id:focus.href,address:focus.href},
+   authority:{source:'FIELD_FOCUS'},
+   next,
+   evidence:[focus.href]
+  });
+ }
+ return packets;
+}
+function renderPacketReduce(changed,gates,repoIssues){
+ const el=$('packetReduce');if(!el)return;
+ const R=window.FieldPacketReducer;
+ if(!R){el.innerHTML='<b>REDUCE</b><span>reducer unavailable · native sources unchanged</span>';return}
+ const p=R.project(fieldCatchPackets(changed,gates,repoIssues)),n=p.counts;
+ el.innerHTML='<b>REDUCE</b><span>NOW '+n.NOW+' · Δ '+n.DELTA+' · RES '+n.RESIDUE+' · GATE '+n.GATE+' · NEXT '+n.NEXT+'</span>';
+ el.title='Read-only packet projection · ARCHIVE '+n.ARCHIVE+' hidden from ordinary attention · native authorities remain native';
+}
 function renderCatchup(){
  const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen'),rewind=$('catchupRewind');if(!box||!meta||!now||!seenLabel)return;
  const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href)),pool=changed.slice();
@@ -726,6 +779,7 @@ function renderCatchup(){
  const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
  const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe),issueCount=(issues||[]).length;
+ renderPacketReduce(changed,gates,issues||[]);
  const signal=window.FieldSignal?.combine({changed:changedCount>0,reality:gates.length>0,external:issueCount>0})||(gates.length?'REALITY':issueCount?'EXTERNAL':changedCount?'CHANGED':'CLEAR');
  $('catchupFold')?.setAttribute('data-signal',issueCount&&signal==='EXTERNAL'?'GITHUB':signal);
  const signalBar=$('catchupFold')?.querySelector(':scope > summary');if(signalBar)window.FieldSignal?.apply(signalBar,signal);
