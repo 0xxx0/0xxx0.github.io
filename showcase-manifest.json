@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29T21:45:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,18 +16,20 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T21:38:00+08:00",
+        "updated_at": "2026-09-29T21:45:00+08:00",
         "work_modes": [
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE exit paths rather than a FIELD-owned capability table; routes without an explicit native owner remain neutral FIELD ROUTE projections rather than inheriting authority. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE express operation intent only; exact source selection and effect authority remain with the native host.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE exit paths; unowned routes remain neutral FIELD ROUTE. Explicit READ / RIDE / SOURCE intent stays native-host resolved. Convergence is one read-only root projection composed from QUEUE + federation-atlas; /nexus/ is compatibility-only. CURRENT owns attention/NOW, RETURN owns durable evidence, and packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE without mutation authority.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.23",
+      "version": "0.8.24",
       "transfer": [
+        "0.8.24 convergence authority contraction: root CONVERGE opens the embedded QUEUE + atlas read; /nexus/ becomes an alias to FIELD while board/map remain direct utilities; CURRENT/NOW and RETURN evidence authority stay separate; merged #618 native field.owner/action derivation and generic source intent are preserved",
         "host-action derivation: FIELD no longer carries a per-host CAPABILITY_PROJECTION table; native owner/action hints come from manifest field.owner + route.operation + AVAILABLE field.exit_paths, so READFIELD cannot be laundered into FOLD//BLOOM and exact target actions such as Prison Age READ / RIDE / SOURCE remain host-owned",
         "0.8.23 action-surface convergence: AWAKE visor derives cadence, HOLD, TURN/RELEASE moves, TRACE and RETURN from interphase-action-surface/v0.1; duplicated hardcoded visor grammar removed; native labels/authority unchanged",
         "packet egress boundary: only explicit external/world/human WAITING → GATE; generic unresolved/internal WAITING → RESIDUE across string/object/array/named dependency shapes; metadata key names/container presence cannot mint externality",
@@ -108,7 +110,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -5617,28 +5619,29 @@
     },
     {
       "href": "/nexus/",
-      "title": "NEXUS // CONVERGENCE",
-      "kind": "utility",
+      "title": "NEXUS / FIELD ALIAS",
+      "kind": "alias",
       "parent": "/",
-      "operation": "ORIENT",
+      "operation": "RETURN",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Hermes/recovery convergence status snapshot. Useful for observing corpus/recovery/automation state, but it is not execution authority: CURRENT + QUEUE + exact receipts remain canonical for what may act next.",
+      "role": "Compatibility alias to the canonical FIELD convergence read at /#convRead. /nexus/board.html and /nexus/map.html remain direct utility projections; none owns NOW, NEXT, RETURN evidence, or execution authority.",
       "index": {
-        "updated_at": "2026-09-28T13:23:53+08:00",
+        "updated_at": "2026-09-29T21:45:00+08:00",
         "work_modes": [
-          "INSPECT",
-          "VERIFY",
-          "IMPLEMENT"
+          "RECOVER",
+          "VERIFY"
         ]
       },
       "evidence": {
         "checks": [
-          "static public route registered after NEXUS surface appeared on master"
+          "nexus/index.html redirects to /#convRead",
+          "tools/nexus-surface.test.mjs proves alias target + board/map utility integrity"
         ],
-        "return_path": "/"
+        "return_path": "/#convRead"
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "alias_of": "/"
     },
     {
       "href": "/nexus/board.html",
