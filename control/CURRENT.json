@@ -110,7 +110,69 @@
           "public_surface": "PENDING",
           "gitleaks": "PENDING"
         },
-        "browser": "PENDING · /nexus/ → /#convRead hash re-entry; FIELD fold reveal"
+        "browser": "PENDING · /nexus/ → /#convRead hash re-entry; FIELD fold reveal",
+        "predecessor": {
+          "status": "PASS / PR 601 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+          "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+          "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+          "checks": {
+            "route_registration": {
+              "run": 36564168802,
+              "conclusion": "success"
+            },
+            "public_surface": {
+              "run": 36564168856,
+              "conclusion": "success"
+            },
+            "gitleaks": {
+              "run": 36564168889,
+              "conclusion": "success"
+            }
+          },
+          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
+          "predecessor": {
+            "status": "PASS / PR 533 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+            "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+            "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+            "checks": {
+              "route_registration": {
+                "run": 36508540373,
+                "conclusion": "success"
+              },
+              "public_surface": {
+                "run": 36508540378,
+                "conclusion": "success"
+              },
+              "gitleaks": {
+                "run": 36508540355,
+                "conclusion": "success"
+              }
+            },
+            "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+            "predecessor": {
+              "status": "PASS / PR 528 EXACT-HEAD",
+              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+              "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+              "checks": {
+                "route_registration": {
+                  "run": 36507219876,
+                  "conclusion": "success"
+                },
+                "public_surface": {
+                  "run": 36507220022,
+                  "conclusion": "success"
+                },
+                "gitleaks": {
+                  "run": 36507219919,
+                  "conclusion": "success"
+                }
+              },
+              "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+            }
+          }
+        }
       }
     },
     {
