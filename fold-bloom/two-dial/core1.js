@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.5-causal-return',
+const APP_VERSION = '0.10.6-gesture-boundary',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
