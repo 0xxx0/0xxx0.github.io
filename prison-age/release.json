@@ -1,11 +1,11 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
-  "version": "0.5",
+  "version": "0.6",
   "date": "2026-09-29",
-  "status": "FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE",
+  "status": "FIELD_SOURCE_CONSTELLATION / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
-  "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
-  "object": "Four exact sourced Prison Age movements held as one FIELD object. FIELD chooses an addressed movement and opens unequal existing projections; no active generated narrative layer.",
+  "operation": "ROOT / READ / RIDE / SOURCE · passive RECURRENCE + ECHO",
+  "object": "One recovered 2021 proto-root plus four exact sourced 2026 Prison Age movements held as unequal source strata. The constellation exposes exact relations and existing projections; it does not generate chronology, connective prose or a sovereign reader.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
@@ -14,8 +14,9 @@
       "/prison-age/stories/08-successful-escape.md",
       "/prison-age/stories/07-last-stall-extract.md"
     ],
-    "authority": "PRISON_AGE",
-    "mutation": "NONE"
+    "authority": "PRISON_AGE / RECOVERED_AUTHORED_SOURCE kept distinct by source",
+    "mutation": "NONE",
+    "proto_root": "/fold-bloom/live/authored/prison-age-2021.json"
   },
   "field": {
     "route": "/?focus=%2Fprison-age%2F",
@@ -45,6 +46,12 @@
     "source": {
       "host": "/prison-age/",
       "authority": "source identity/provenance only"
+    },
+    "proto_root": {
+      "host": "/fold-bloom/live/?reader=prison-age-2021",
+      "relation": "CONSERVATION_BY_REARRANGEMENT / AEGINOPRS",
+      "authority": "RECOVERED_AUTHORED_SOURCE remains source authority; LIVE traversal/recurrence only",
+      "return": "/prison-age/?root=1"
     }
   },
   "retired_runtime": {
@@ -58,7 +65,12 @@
     "READ/RIDE traversal is evidence of traversal only, not comprehension, agreement or proof.",
     "The curated Last Stall file remains an explicit source extract with omissions.",
     "FIELD READ/RIDE never silently select the default story; source movement selection is explicit.",
-    "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material."
+    "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material.",
+    "The 2021 proto-root and 2026 sourced movements are juxtaposed, not declared one chronology or one authorship stratum.",
+    "The AEGINOPRS relation is mechanical letter conservation only and asserts no semantic equivalence.",
+    "\"I'm always behind you\" remains excluded while exact source/authorship provenance is unresolved.",
+    "The source constellation is a threshold/resolver, not a bespoke narrative reader.",
+    "Unresolved motifs remain excluded unless exact source/authorship provenance is recovered."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -72,9 +84,13 @@
     "READFIELD known sentence renders a cross-source exact ECHO with address and evidence-only basis.",
     "READ→RIDE preserves ECHO context and LIVE renders a cross-source exact fragment at a known sentence address.",
     "Meaningless unmatched text produces no echo.",
-    "A stale source fingerprint suppresses ECHO."
+    "A stale source fingerprint suppresses ECHO.",
+    "2021 proto-root SHA-256 remains 9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e.",
+    "Source constellation exposes exact ROOT / READ / RIDE / SOURCE paths without adding generated prose.",
+    "RIDE ROOT opens the existing FOLD//BLOOM authored-reader seam and exact RETURN may re-enter /prison-age/?root=1.",
+    "PRISON_AGE RIDE source affordance returns to /prison-age/ rather than opening an unrelated local file picker."
   ],
-  "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
+  "latest_return": "/returns/PRISON_AGE_SOURCE_CONSTELLATION_2026-09-29.json",
   "echo": {
     "schema": "field-source-echo-index/v0.1",
     "index": "/prison-age/echo-index.json",
