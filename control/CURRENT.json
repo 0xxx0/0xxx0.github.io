@@ -99,7 +99,25 @@
       "version": "0.8.22",
       "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "repo_verification": {
-        "status": "CANDIDATE_PENDING_CI",
+        "status": "PASS / PR 533 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+        "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+        "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+        "checks": {
+          "route_registration": {
+            "run": 36508540373,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36508540378,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36508540355,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
         "predecessor": {
           "status": "PASS / PR 528 EXACT-HEAD",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
@@ -119,8 +137,7 @@
             }
           },
           "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
-        },
-        "awake_interphase_visor": "CANDIDATE_PENDING_CI · exact held carrier + native READFIELD ownership + 430×900 browser proof"
+        }
       }
     },
     {
