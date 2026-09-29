@@ -1,0 +1,32 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_AUTHORITY_PULSE_CONTRACTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_PR_CANDIDATE",
+  "object": "FIELD packet egress authority + root MAP contraction",
+  "delta": [
+    "NOW now requires caller-supplied context.now/context.selected; packet.current, ACTIVE_NOW text and egress labels cannot self-promote.",
+    "Conditional STOP remains GATE; terminal STOP closes continuation, preserving only explicit unresolved residue.",
+    "FIELD route-local RESIDUE now includes the same catchGap/MORE HERE material the human surface already exposes.",
+    "Delete redundant MAP/PULSE control, spiral renderer and pulse CSS; RECENT retains the same route.index.updated_at evidence directly."
+  ],
+  "preserves": [
+    "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence",
+    "canonical uppercase aliases",
+    "RETURN-to-CURRENT/replan-only NEXT suppression",
+    "merged #570 compact held/CATCH egress consumer",
+    "FIELD 0.8.22 head / AWAKE INTERPHASE / native authority",
+    "VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT map readings"
+  ],
+  "excluded": [
+    "No new DELTA evidence requirement in this pass; proof remains a separate witness layer until a concrete consumer requires stricter DELTA semantics.",
+    "No source-cut, dashboard, queue, store, planner, version bump, or CURRENT rewrite."
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "public-surface-check including critical browser smoke",
+    "Route Registration",
+    "gitleaks"
+  ],
+  "next": "RETURN to CURRENT and replan; no automatic sequel."
+}
