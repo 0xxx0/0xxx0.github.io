@@ -455,7 +455,9 @@
         "Any explicit ?play= mode synchronously removes and hides the onboarding panel before active play.",
         "Runtime publishes data-fb-primary-controls=clear|occluded using elementFromPoint over MODE/RELEASE/WORLD."
       ],
-      "cache_boundary": "index pins app.css?v=0.13.2, app.js?v=0.13.3 and play.js?v=0.5.2; app pins render.js?v=0.13.2; app/render/play pin engine.js?v=0.13.1; renderer pins visual-worlds.js?v=0.3."
+      "cache_boundary": "index pins app.css?v=0.13.2, app.js?v=0.13.3 and play.js?v=0.5.2; app pins render.js?v=0.13.2; app/render/play pin engine.js?v=0.13.1; renderer pins visual-worlds.js?v=0.3.",
+      "current_law": "PHONE PRIMARY RIDE CONTROLS = TURN LEFT / RELEASE / TURN RIGHT. MODE / WORLD / VIBE / AUTOPILOT remain secondary/reachable rather than occupying the first-use action row.",
+      "current_probe": "data-fb-primary-control-set=TURN_RELEASE_TURN at <=620px; data-fb-primary-controls must remain clear."
     },
     "scene_vocabulary": {
       "authority": "presentation only",
@@ -617,8 +619,56 @@
       "exact_verbs_retained": true,
       "cultural_boundary": "Traditional trigram glyph/name/image labels are retained; FOLD//BLOOM's SAME/NEAR vs FAR/OPPOSITE polarity mapping is explicitly game-specific."
     },
-    "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
+    "cache_boundary_current": "index → app.css?v=0.13.16 + app.js?v=0.13.21 + play.js?v=0.6.4; PLAY runtime remains FOLD_BLOOM_PLAY_0.6.1 over play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1.",
+    "comprehension_contraction": {
+      "date": "2026-09-29",
+      "pr": 539,
+      "merge_sha": "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f",
+      "state": "MERGED_CI_GREEN / HUMAN_COMPREHENSION_GATE",
+      "law": "FIRST CONTACT ≠ FULL MODEL",
+      "first_loop": "pick source or still field → TURN ←/→ until ready → RELEASE → road changes → repeat",
+      "public_front": [
+        "TRY A RIDE",
+        "WATCH A GARDEN",
+        "MAP A SONG"
+      ],
+      "phone_primary_controls": [
+        "TURN LEFT",
+        "RELEASE / current verb",
+        "TURN RIGHT"
+      ],
+      "secondary_depth": [
+        "settings/source layers",
+        "PLAY modes / HEXAGRAM",
+        "TWO DIAL",
+        "ECOLOGY / hosted GARDEN",
+        "J-space / change calculus",
+        "LAB / VOICE / INK / DATA",
+        "provenance / RETURN"
+      ],
+      "preserved_authority": "No source, map, gameplay, Ecology, Two Dial, state-language, or RETURN authority moved into onboarding. Garden remains canonical Ecology hosted by LIVE.",
+      "test_law": "Browser/static tests protect route, authority, runtime and first-action invariants; they no longer require obsolete onboarding jargon.",
+      "verification": {
+        "route_registration": {
+          "run": 36513646688,
+          "result": "PASS"
+        },
+        "gitleaks": {
+          "run": 36513646682,
+          "result": "PASS"
+        },
+        "public_surface_check": {
+          "run": 36513646732,
+          "result": "PASS"
+        },
+        "critical_browser_smoke": "PASS",
+        "live_mobile_interaction_regression": "PASS",
+        "human_comprehension": "PENDING_LIVED_USE"
+      },
+      "return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json"
+    }
   },
   "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc"
+  "latest_merge": "48a74fced330fe05c469bac614c4074c43dde5dc",
+  "comprehension_return": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json"
 }
