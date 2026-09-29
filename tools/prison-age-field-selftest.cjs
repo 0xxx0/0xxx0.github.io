@@ -69,9 +69,15 @@ assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1
 assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');
-assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','native source-set work modes drifted');
+const fieldContract=JSON.parse(fs.readFileSync('control/FIELD_INDEX_CONTRACT.json','utf8'));
+const activityModes=new Set(Object.keys(fieldContract.activity_modes||{}));
+assert((route.index.work_modes||[]).length>0&&(route.index.work_modes||[]).every(x=>activityModes.has(x)),'route work_modes must use FIELD activity-mode vocabulary');
+assert(!(route.index.work_modes||[]).some(x=>['READ','RIDE','SOURCE','RETURN'].includes(x)),'READ/RIDE/SOURCE/RETURN belong to operation/exit paths, not work_modes');
 assert((route.contract?.accepts?.kinds||[]).some(x=>/recovered authored Prison Age proto-root/i.test(x)),'manifest contract missing recovered authored source class');
 assert((route.contract?.emits?.kinds||[]).some(x=>/authored-reader recurrence projection/i.test(x)),'manifest contract missing authored-reader projection');
+const rootRoute=manifest.routes.find(r=>r.href==='/'),foldRoute=manifest.routes.find(r=>r.href==='/fold-bloom/');
+assert(rootRoute?.latest_return!=='/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json','Prison Age RETURN must not own FIELD root latest_return');
+assert(foldRoute?.latest_return!=='/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json','Prison Age RETURN must not replace FOLD//BLOOM native latest_return');
 
 assert(field.includes('function nativeRouteOwner(r)')&&field.includes("r?.field?.owner||''"),'FIELD owner must derive from explicit host manifest owner');
 assert(field.includes('function nativeRouteActions(r)')&&field.includes('manifestExitPaths(r)'),'FIELD native actions must derive from manifest exits');
