@@ -67,3 +67,5 @@ assert.equal(m.slots[2].item,'cell:2');
 assert.equal(R.stepRotation(0,1,12),Math.PI*2/12);
 
 console.log('INTERPHASE RING SELFTEST PASS');
+// Keep the normative COAXIALITY registry internally coherent whenever the ring selftest runs.
+require('./field-coaxiality-audit.cjs');
