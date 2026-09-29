@@ -3080,15 +3080,16 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.3",
+      "title": "TWO DIAL 0.10.5",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.3",
+      "version": "0.10.5",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
+        "causal RETURN v0.2: relation commits retain before/operation/actor+driver/delta/after/provenance; phrase RETURN aggregates them and export carries the latest causal receipt",
         "preserved two-dial relation algebra",
         "7 sound worlds / 6 voice engines / 5 groove skeletons",
         "SCALE-of-consequence: PULSE / VOICE / MOTIF / FORM",
@@ -3143,7 +3144,8 @@
             "direct A/B listening remains instrument-quality gate",
             "pulse-link module browser boot",
             "same-page local track module browser boot; direct phone/headphone feel remains required",
-            "host-owned SAME/NEAR/FAR/OPPOSITE mapping preserves the existing BLOOM/FOLD/RETURN/SPLIT algebra"
+            "host-owned SAME/NEAR/FAR/OPPOSITE mapping preserves the existing BLOOM/FOLD/RETURN/SPLIT algebra",
+            "causal relation RETURN records before / operation / actor+driver / delta / after / provenance and exported phrase RETURN aggregates matched commits"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -3197,7 +3199,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-29T15:53:00+08:00",
+        "updated_at": "2026-09-29T19:23:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
