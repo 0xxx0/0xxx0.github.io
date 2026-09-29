@@ -957,11 +957,13 @@ The seam is:
 ```text
 LIVE release()
   → FIELD PULSE operation { BLOOM | FOLD | SPLIT | RETURN }
+      + bounded post-release native forecast aperture
   → rolling six-release exact window
   → Q : V^6 → B^6
   → hex/change witness
   → optional FROM / TO capture
   → exact-vs-quotient residue
+      + native NEXT comparison
   → STEP / lattice / INK / RETURN
 ```
 
@@ -970,15 +972,17 @@ Implementation:
 - `/fold-bloom/lab/live-change-bridge.js`
 - `/fold-bloom/lab/tests/live-change-bridge.test.mjs`
 - `/tools/fold-bloom-lab-live-change-smoke.mjs`
+- `/tools/fold-bloom-live-lab-change-bridge-smoke.mjs`
 
 ### What becomes experiential
 
-A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Once six exist, LAB displays both:
+A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Each committed release now also publishes the bounded post-release `forecastContext(state)` witness already owned by LIVE. Once six exist, LAB keeps three unequal readings together:
 
-- the exact ordered verb window; and
-- its binary hex projection.
+- the exact ordered verb window;
+- its binary hex projection; and
+- the most recent native lawful NEXT aperture (`NATIVE_EVIDENCE`).
 
-`CAPTURE → FROM` and `CAPTURE → TO` freeze exact event refs plus the projected bits. The existing state/change machinery then receives the projected endpoints while the bridge retains the exact verbs.
+`CAPTURE → FROM` and `CAPTURE → TO` freeze exact event refs, the projected bits and the observed post-release native NEXT aperture. The existing state/change machinery then receives the projected endpoints while the bridge retains the exact verbs and native support evidence.
 
 This makes quotient loss inspectable from lived play. Two captured windows may have the **same hex endpoints** while every exact verb changed. LAB reports this explicitly as:
 
@@ -987,9 +991,10 @@ EXACT Δ
 HEX Δ
 INVISIBLE EXACT Δ
 64× exact-form fiber
+NATIVE NEXT · SAME | DIFF
 ```
 
-The point is not to make hex state more authoritative. The point is to let the user feel and inspect where the abstraction stops carrying the run.
+The point is not to make hex state more authoritative. The point is to let the user feel and inspect where the abstraction stops carrying the run. If two captures share one hex address while their native NEXT apertures differ, LAB labels that as a **lived control-sufficiency counterexample** rather than silently promoting the quotient.
 
 ### J-space beside the run, never above it
 
@@ -1016,6 +1021,7 @@ LAB RETURN now may preserve:
 - current rolling LIVE exact window;
 - FROM / TO captured exact forms and event refs;
 - exact-vs-hex comparison;
+- bounded post-release native forecast evidence and native-NEXT comparison;
 - optional authority-NONE steering witness.
 
 The bridge is therefore a **research witness over real play**, not a new gameplay state machine.
@@ -1027,6 +1033,9 @@ Run:
 ```sh
 node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
 node tools/fold-bloom-lab-live-change-smoke.mjs
+node tools/fold-bloom-live-lab-change-bridge-smoke.mjs
 ```
 
-The browser proof injects two six-release LIVE windows with the same hex projection but six exact same-polarity edits, requires `EXACT Δ 6 / HEX Δ 0 / INVISIBLE 6`, verifies both event windows survive RETURN, and verifies an `AUTHORITY EFFECT` steering pulse cannot overwrite the accepted `AUTHORITY NONE` witness.
+The deterministic LAB browser proof injects two six-release windows with the same hex projection but six exact same-polarity edits and intentionally unequal native NEXT apertures. It requires `EXACT Δ 6 / HEX Δ 0 / INVISIBLE 6 / NATIVE NEXT DIFF`, verifies both event windows and native evidence survive RETURN, and verifies an `AUTHORITY EFFECT` steering pulse cannot overwrite the accepted `AUTHORITY NONE` witness.
+
+A separate end-to-end browser proof runs actual `/fold-bloom/live/` and `/fold-bloom/lab/` iframes together, executes six lawful LIVE releases through the public interaction surface, and requires LAB's observed exact window to equal LIVE's own last-six history while the retained native candidate count/target equal LIVE's current `forecastContext`. This proves the real BroadcastChannel seam, not merely the message schema.
