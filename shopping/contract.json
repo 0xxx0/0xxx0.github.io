@@ -127,8 +127,162 @@
       "fit PASS/FAIL screens dimensional envelope only",
       "accepted fit receipt does not mutate procurement lifecycle",
       "Port candidate import is explicit and conservative VERIFY",
-      "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence"
+      "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence",
+      "shared object grammar is specified as projection-only until runtime proof lands",
+      "NEED remains a distinct object kind from THING candidate",
+      "primary lifecycle compression must preserve native detailed state as residue"
     ],
     "return_path": "/shopping/"
+  },
+  "shared_object_grammar": {
+    "status": "SPEC_CURRENT_NOT_RUNTIME",
+    "purpose": "Project Shopping through the same OBJECT → FOCUS → OPERATION → RETURN grammar without mutating the native detailed lifecycle.",
+    "object": {
+      "need": "NEED is a desired-state object, not a product. FIND creates/links a THING candidate through MAY_BE_SATISFIED_BY.",
+      "thing": "THING is one exact candidate/owned material object with identity, promise, native lifecycle, evidence, fit, cost and burden.",
+      "law": "NEED != THING; projection may relate them but must not collapse aspiration into product identity."
+    },
+    "focus": {
+      "lenses": [
+        "PROMISE",
+        "IDENTITY",
+        "DECISION",
+        "RECEIPT",
+        "PROOF",
+        "SYSTEM",
+        "HISTORY"
+      ],
+      "law": "One exact object + one current question. FIT, COST, BURDEN and PROOF remain unequal evidence lenses rather than new object identities."
+    },
+    "primary_states": [
+      "NEED",
+      "CANDIDATE",
+      "READY",
+      "INBOUND",
+      "ON_HAND",
+      "ADOPTED",
+      "CLOSED"
+    ],
+    "transitions": [
+      {
+        "from": "NEED",
+        "operation": "FIND",
+        "to": "CANDIDATE",
+        "effect": "CREATE_THING + MAY_BE_SATISFIED_BY"
+      },
+      {
+        "from": "CANDIDATE",
+        "operation": "VERIFY",
+        "to": "READY",
+        "effect": "DERIVED_FROM_REQUIRED_EVIDENCE"
+      },
+      {
+        "from": "READY",
+        "operation": "ACQUIRE",
+        "to": "INBOUND",
+        "effect": "HUMAN_WORLD_AUTHORITY"
+      },
+      {
+        "from": "INBOUND",
+        "operation": "RECEIVE",
+        "to": "ON_HAND",
+        "effect": "POSSESSION_EVIDENCE"
+      },
+      {
+        "from": "ON_HAND",
+        "operation": "PROVE",
+        "to": "ADOPTED",
+        "effect": "ADOPTION_CRITERION_EVIDENCE"
+      },
+      {
+        "from": "READY",
+        "operation": "EVIDENCE_DECAY",
+        "to": "CANDIDATE",
+        "effect": "DERIVED"
+      },
+      {
+        "from": "ANY_LIVE",
+        "operation": "CLOSE",
+        "to": "CLOSED",
+        "effect": "TYPED_DISPOSITION"
+      }
+    ],
+    "closed_reasons": [
+      "SKIP",
+      "EXPIRED",
+      "CANCELLED",
+      "RETURNED",
+      "FAILED",
+      "SUPERSEDED",
+      "ABANDONED",
+      "RETIRED",
+      "ARCHIVE"
+    ],
+    "native_state_fold": {
+      "NEED|QUERY": "NEED",
+      "FOUND|VERIFY|WATCH|DECIDE|HOLD": "CANDIDATE or derived READY",
+      "BOUGHT": "INBOUND",
+      "RECEIVED|TESTED|REPAIR": "ON_HAND with detailed evidence/residue preserved",
+      "ADOPTED": "ADOPTED",
+      "SKIP|EXPIRED|RETURNED|ABANDONED|ARCHIVE": "CLOSED(reason)"
+    },
+    "operations": {
+      "maximum_visible": 3,
+      "candidate": [
+        "OPEN SOURCE when available",
+        "HOUSE FIT",
+        "DAYLINE verify/decide"
+      ],
+      "inbound": [
+        "OPEN SOURCE when available",
+        "DAYLINE receive"
+      ],
+      "on_hand": [
+        "DAYLINE prove",
+        "HOUSE place/fit",
+        "OPEN SOURCE when useful"
+      ],
+      "adopted": [
+        "DAYLINE maintain",
+        "HOUSE locate"
+      ],
+      "authority": "Shared verbs HOLD/TURN/RELEASE/TRACE/RETURN are projections only. Native Shopping/HOUSE/Dayline/human authority remains unchanged."
+    },
+    "return": {
+      "address": "/shopping/#<exact-item-id>",
+      "law": "External hosts may return evidence only. Shopping revalidates exact item identity + native lifecycle before accepting a receipt; RETURN cannot silently purchase, install, receive or adopt."
+    },
+    "readiness": {
+      "rule": "READY is derived, not manually asserted.",
+      "minimum": "existing purchase gate passes and required external evidence is not stale/unknown",
+      "caveat": "Domain-specific gates may add FIT/compatibility/risk requirements; projection must fail closed when required evidence is absent."
+    },
+    "adoption": {
+      "rule": "TESTED is evidence under ON_HAND; ADOPTED requires the named adoption criterion.",
+      "ownership_boundary": "After ADOPTED, the material object may participate in shared FIELD/HOUSE inventory while Shopping retains procurement provenance rather than owning all future maintenance state."
+    },
+    "residue": {
+      "must_preserve": [
+        "native detailed lifecycle",
+        "freshness",
+        "landed SGD components",
+        "purchase gate",
+        "fit receipts",
+        "Dayline receipts",
+        "burden",
+        "source provenance",
+        "unknowns",
+        "close reason"
+      ],
+      "law": "Compression may reduce visible lifecycle states only when every suppressed distinction remains inspectable and round-trippable."
+    },
+    "promotion_gate": [
+      "implement as a projection over existing browser-local v0.1 ledger; no destructive migration",
+      "prove legacy import/export bytes retain native states",
+      "prove READY falls back to CANDIDATE on stale/unknown required external evidence",
+      "prove no more than three visible native moves",
+      "prove exact Shopping → HOUSE/Dayline → exact Shopping RETURN",
+      "prove projection never moves money, contacts sellers, or promotes ownership/adoption"
+    ]
   }
 }
