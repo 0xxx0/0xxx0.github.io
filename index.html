@@ -53,7 +53,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGesture button{padding:4px 6px;font-size:6.5px}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
-.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
+.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capForecast{display:grid;gap:2px;margin-top:5px;padding-top:4px;border-top:1px dotted #263137;color:var(--mut);font:6px/1.35 system-ui,sans-serif}.capForecast span{display:block}.capForecast b{color:var(--gold);font-size:5.8px;letter-spacing:.07em;margin-right:4px}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
 @media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
 
 /* LATEST */
@@ -259,7 +259,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
        order is asserted by indexOf() and prose would be matched before the element. -->
   <div class="capTrial" id="capTrial" aria-label="Held object action aperture">
     <div class="capCell"><span class="capK">HELD / PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">focus only · native object remains with owner</span></div>
-    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
+    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES · FORECAST</span><div class="capMoves" id="capMoves"></div><div class="capForecast" id="capForecast" aria-live="polite">NO COMMIT YET · choose a held object to forecast consequence.</div></div>
     <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
   </div>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
@@ -674,11 +674,25 @@ function renderFieldVisor({force=false}={}){
  v.hidden=false;document.documentElement.dataset.fieldVisor='ready';return true
 }
 function maybeShowFieldVisor(){if(INIT.get('visor')==='0')return;renderFieldVisor({force:INIT.get('visor')==='1'})}
+function fieldMoveForecasts({nativeActions=[],primary='OPEN',canDayline=false}={}){
+ const boundary='FIELD source unchanged until the native owner performs an authorized effect';
+ if(nativeActions.length)return nativeActions.slice(0,3).map(a=>({label:a.label||'NATIVE',consequence:'HANDOFF / NAVIGATION · target host owns any effect · '+boundary}));
+ const out=[{label:primary,consequence:'NAVIGATION ONLY · no FIELD/source mutation; native host owns any later effect'}];
+ if(canDayline)out.push({label:'DAYLINE →',consequence:'OFFER ONLY · no DayState/source mutation until explicit ADD TO DAY; Dayline owns undo + RETURN'});
+ else out.push({label:'COPY ACTION',consequence:'CLIPBOARD ONLY · authority NONE · no source mutation'});
+ out.push({label:'TRACE',consequence:'VIEW / EVIDENCE ONLY · no source mutation'});
+ return out.slice(0,3)
+}
+function renderMoveForecast(xs){
+ const el=$('capForecast');if(!el)return;
+ if(!Array.isArray(xs)||!xs.length){el.textContent='NO COMMIT · no lawful move forecast';return}
+ el.innerHTML=xs.map((x,i)=>'<span><b>'+esc(String(i+1)+' · '+String(x.label||'MOVE'))+'</b>'+esc(String(x.consequence||'effect owned by native host'))+'</span>').join('')
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';renderMoveForecast([]);$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=fieldEgressForRoute(focus),egressLabel=egress?.class?('EGRESS · '+egress.class+' · '):'';
  $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
  $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host')));
@@ -691,6 +705,7 @@ function renderCapabilityTrial(){
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
   const traceBtn=$('capMoves').querySelector('[data-cap-trace]');if(traceBtn)traceBtn.onclick=openTrace;
  }
+ renderMoveForecast(fieldMoveForecasts({nativeActions,primary,canDayline}));
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
  if(!$('fieldVisor')?.hidden)renderFieldVisor({force:true});
