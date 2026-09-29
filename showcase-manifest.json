@@ -18,12 +18,13 @@
       "index": {
         "updated_at": "2026-09-29T21:44:00+08:00",
         "work_modes": [
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE exit paths rather than a FIELD-owned capability table. Explicit READ / RIDE / SOURCE intent remains generic and exact source/effect authority remains native. Convergence is a read-only projection composed in root from QUEUE + federation-atlas; /nexus/ is compatibility-only. CURRENT owns NOW, RETURN owns durable evidence, and packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE without mutation authority.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE exit paths rather than a FIELD-owned capability table; routes without an explicit native owner remain neutral FIELD ROUTE projections rather than inheriting authority. Explicit READ / RIDE / SOURCE intent remains generic and exact source/effect authority remains native. Convergence is a read-only projection composed in root from QUEUE + federation-atlas; /nexus/ is compatibility-only. CURRENT owns NOW, RETURN owns durable evidence, and packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE without mutation authority.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
       "version": "0.8.24",
