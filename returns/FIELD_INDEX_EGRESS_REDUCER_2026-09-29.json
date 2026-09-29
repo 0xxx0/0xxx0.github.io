@@ -1,0 +1,60 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_EGRESS_REDUCER_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE_EXACT_HEAD_PENDING",
+  "object": "FIELD Index 0.8.23 read-only packet egress reducer and source-witness convergence cut",
+  "source_instruction": "Take point; align to shared context and ship through/into/over/across FIELD INDEX. Converge prior packet-return, Tests A–H, COAXIALITY and FIELD aggregation work rather than creating another branch of architecture.",
+  "recovered": [
+    "packet egress grammar: OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP",
+    "RETURN reducer: CLOSE | RESIDUE | WAITING | CONTRADICTION",
+    "FIELD projection: NOW / DELTA / RESIDUE / GATE / NEXT≤3 / ARCHIVE",
+    "Tests A–H: STATE / RELATION / LEGIBILITY / REVERSAL / IDENTITY / PROVENANCE / RETURN / COMPRESSION",
+    "current FIELD 0.8.22 one-held-object + AWAKE/INTERPHASE surface",
+    "COAXIALITY host-owned semantics law from merged PR #543"
+  ],
+  "delta": [
+    "/lib/field-egress-reducer.js adds a pure read reducer; packets cannot self-promote to NOW",
+    "/tools/field-egress-reducer-selftest.cjs proves NOW authority, RETURN classes, NEXT≤3, semantic-Git filtering and source freshness/conflict behavior",
+    "/control/FIELD_INDEX_CONTRACT.json v0.5 binds packet egress and A–H deletion-or-repair audit without a new route/store/queue",
+    "/ index contracts CONVERGE / NEXUS into CONVERGE / FIELD and renders SOURCE WITNESS + FIELD EGRESS inside the existing collapsed re-entry fold",
+    "NEXUS and COMMS remain exactly reachable but are labeled snapshots; their generated refresh commits stay literal Git chronology and are excluded from semantic DELTA",
+    "FIELD root advances to 0.8.23 in CURRENT + showcase manifest"
+  ],
+  "invariants": [
+    "CURRENT alone owns NOW and CURRENT-authorized NEXT",
+    "Git remains the literal repository chronology",
+    "QUEUE compatibility state, WAITING registry state and atlas horizon do not manufacture attention",
+    "derived source validity/freshness never becomes source authority",
+    "RETURN never authorizes a second move",
+    "no new route, dashboard, state store, bus or domain ontology"
+  ],
+  "audit": {
+    "A": "STATE independent of rendering",
+    "B": "RELATION has host-defined relative semantics",
+    "C": "LEGIBILITY without inspector",
+    "D": "REVERSAL restores/reconstructs prior state",
+    "E": "IDENTITY remains traceable through ROUTE/SCALE/FOLD/BLOOM",
+    "F": "PROVENANCE distinguishes user/LIVE/automation/recovered/derived",
+    "G": "RETURN reconstructs causal path",
+    "H": "COMPRESSION removes more surface complexity than it creates",
+    "disposition": "failure => named REPAIR when host needs the function; otherwise CONTRACT/DELETE. Identity/provenance/reversal/RETURN failures block promotion."
+  },
+  "known_limits": [
+    "The external void-anchor/ops-hub writer that periodically commits NEXUS/COMMS snapshots to master is outside this repository's available control path. This delta demotes those commits semantically but does not claim to stop that writer.",
+    "SOURCE HEAD uses each source's explicit revision timestamp marker where no content hash exists; it is intentionally distinct from Git HEAD.",
+    "The reducer reads existing source truth; it does not reconcile contradictions automatically."
+  ],
+  "verification": {
+    "reducer_selftest": "PENDING exact branch execution / CI",
+    "root_public_surface": "PENDING exact-head CI",
+    "route_registration": "PENDING exact-head CI",
+    "redaction": "PENDING exact-head CI"
+  },
+  "residue": [
+    "Stop external NEXUS/COMMS writeback only at its actual ops-hub generator/transport authority; do not fake that stop in FIELD.",
+    "If source-witness rows do not reduce re-entry friction in ordinary use, contract/delete them under Test H rather than expand the panel."
+  ],
+  "next": "Run exact-head proof. If green, merge 0.8.23. Then re-enter FIELD through the derived cut and select at most one CURRENT-authorized consequence.",
+  "stop": "No second aggregation interface; no new packet store; no semantic promotion of stale telemetry."
+}
