@@ -316,6 +316,7 @@ check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
 check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missing held-object + glyph-field compositor');
 check(home.includes('id="fieldVisor"')&&home.includes('YOU’RE A WAKE.')&&home.includes('id="fieldVisorOpen"'),'FIELD root missing AWAKE / INTERPHASE first-contact visor');
 check(home.includes('function fieldCarrierForFocus()')&&home.includes('window.FieldIndexCarrier')&&home.includes("field.interphase.visor.seen.v01"),'FIELD visor is not bound to the current INTERPHASE carrier');
+check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&!home.includes("h.startsWith('/fold-bloom/')||h==='/docs/'"),'FIELD carrier launders READFIELD ownership into FOLD//BLOOM');
 check(home.includes('WAKE</b><small>SOURCE')&&home.includes('CUT</b><small>FRAME')&&home.includes('HOLD</b><small>FOCUS')&&home.includes('TURN</b><small>OPERATE')&&home.includes('TRACE</b><small>WITNESS')&&home.includes('AGAIN</b><small>RETURN'),'FIELD visor lost recovered WAKE→INTERPHASE correspondence');
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
 if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
