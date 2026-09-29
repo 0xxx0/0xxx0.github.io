@@ -617,6 +617,11 @@ function loadReadRidePacket(raw,{announce=true,authored=null}={}){
   void loadReadEcho(packet);if(announce)toast('READ / RIDE · '+packet.label);
   return readRideState();
 }
+function authoredReaderStats(rs=readRideState()){
+  const historyStart=Math.max(0,Number(authoredReader?.historyStart)||0);
+  const scoped={...state,history:Array.isArray(state?.history)?state.history.slice(historyStart):[]};
+  return readerStats(rs,scoped);
+}
 function authoredOverlap(witness){
   if(!authoredReader||!witness)return null;
   const a=Number(witness.start),b=Number(witness.end);
@@ -634,7 +639,7 @@ function syncAuthoredReaderUI(){
     document.documentElement.dataset.foldBloomAuthoredReader='off';return null;
   }
   document.documentElement.dataset.foldBloomAuthoredReader='on';frame.hidden=false;
-  const rs=readRideState(),w=rs?.witness,pack=authoredReader.pack,overlap=authoredOverlap(w),stats=readerStats(rs,state);
+  const rs=readRideState(),w=rs?.witness,pack=authoredReader.pack,overlap=authoredOverlap(w),stats=authoredReaderStats(rs);
   $('#readerAuthority').textContent=pack.authority.replaceAll('_',' ');
   $('#readerPackTitle').textContent=pack.title;
   $('#readerSourceMeta').textContent=pack.internal_date+' · '+pack.source_artifact+' · '+pack.source_status+' · '+authoredReader.hash.slice(0,19)+'…';
@@ -675,7 +680,7 @@ function currentAuthoredReturn(){
   const course=liveCourse(),rs=readRideState(),witness=makeReadReturnWitness(course,{
     origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:readRide.packet.returnAddress
   });
-  const stats=readerStats(rs,state),pack=authoredReader.pack;
+  const stats=authoredReaderStats(rs),pack=authoredReader.pack;
   return{
     schema:'fold-bloom-authored-reading-return/v0.1',authority:'EVIDENCE_ONLY',
     source:{id:authoredReader.hash,address:pack.source_path,title:pack.title,provenance:pack.source_artifact,internal_date:pack.internal_date,status:pack.source_status},
@@ -686,7 +691,7 @@ function currentAuthoredReturn(){
   }
 }
 function showAuthoredReturn(){
-  const r=currentAuthoredReturn();if(!r)return false;const rs=readRideState(),stats=readerStats(rs,state);
+  const r=currentAuthoredReturn();if(!r)return false;const rs=readRideState(),stats=authoredReaderStats(rs);
   $('#readerVisits').textContent=String(stats.visits);$('#readerRevisits').textContent=String(stats.revisits);$('#readerReleases').textContent=String(stats.releases);$('#readerFinalProgress').textContent=Math.round(stats.progress*100)+'%';
   $('#readerReturnWitness').textContent='SOURCE '+r.source.id+'\nFINAL '+String(r.traversal?.final?.address||'—')+'\nRECURRENCE '+r.recurrence.groups.map(x=>x.label+' ['+x.signature+']').join(' · ')+'\nRECURRENCE JUMPS '+r.recurrence.jumps.length+' · '+(r.recurrence.jumps.map(x=>x.label).join(' → ')||'NONE')+'\nLIVE '+(r.live.verbs.length?r.live.verbs.join(' → '):'NO RELEASES')+'\nAUTHORITY '+r.authority;
   $('#readerReturn').hidden=false;document.documentElement.dataset.foldBloomAuthoredReturn='open';return r
@@ -699,7 +704,7 @@ async function openAuthoredReader(id='prison-age-2021',{announce=true}={}){
     sourceIdentity:{id:loaded.hash,hash:loaded.hash,address:p.source_path,authority:p.authority,kind:'AUTHORED_RECOVERED_TEXT',format:'TXT',provenance:p.source_artifact},
     focus:{source_progress:0},returnAddress:p.return.source_reader,from:'/fold-bloom/live/?reader='+encodeURIComponent(p.id)
   });
-  const authored={pack:p,source:loaded.source,hash:loaded.hash,jumps:[]};
+  const authored={pack:p,source:loaded.source,hash:loaded.hash,jumps:[],historyStart:Array.isArray(state?.history)?state.history.length:0};
   const out=loadReadRidePacket(packet,{announce:false,authored});
   courseGrain=String(p.default_grain||'PARAGRAPH');readRide.course=null;resetExactReadTrail();setCourseMode(String(p.default_mode||'RELEASE_STEP'),false);
   layerMode='IMMERSION';audio.setSound(false);syncSoundGate(false);$('#intro').classList.remove('on');syncAuthoredReaderUI();drawCourseMap(true);updateTextWitness();update();
