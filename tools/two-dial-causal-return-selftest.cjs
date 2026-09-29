@@ -9,7 +9,7 @@ const runtime=fs.readFileSync('fold-bloom/two-dial/app-runtime.js','utf8');
 const release=JSON.parse(fs.readFileSync('fold-bloom/two-dial/release.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('control/FIELD_COAXIALITY_AUDIT.json','utf8'));
 
-assert.match(core1,/0\.10\.5-causal-return/);
+assert.match(core1,/0\.10\.6-gesture-undo/);
 assert.match(core1,/function causalDriver\(\)/);
 assert.match(core1,/compositionAuthority:\s*'TWO_DIAL_RELATION'/);
 assert.match(core1,/borrowedClockAuthorship:\s*false/);
@@ -26,7 +26,7 @@ assert.match(core2,/currentPhraseMoves\.push\([\s\S]*?causal,/);
 assert.match(core2,/emit\('commit',[\s\S]*?causal,/);
 assert.match(runtime,/causal_return:\s*phraseHistory\.length/);
 
-assert.equal(release.version,'0.10.5');
+assert.equal(release.version,'0.10.6');
 const mechanism=audit.mechanisms.find(m=>m.id==='fold-bloom-two-dial-relation');
 assert.ok(mechanism,'Two Dial audit mechanism missing');
 assert.equal(mechanism.tests.F_LIVE.verdict,'PASS');
