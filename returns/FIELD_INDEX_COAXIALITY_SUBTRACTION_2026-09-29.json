@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29",
   "date": "2026-09-29",
-  "state": "IMPLEMENTED_PR_CANDIDATE",
+  "state": "MERGED_CI_GREEN",
   "object": "FIELD INDEX · COAXIALITY-guided subtraction of redundant MAP/PULSE projection",
   "delta": [
     "PULSE removed from root MAP controls.",
@@ -30,5 +30,23 @@
     "critical browser smoke"
   ],
   "residue": "No replacement visualization is authorized without an observed information need.",
-  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json"
+  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json",
+  "proof": {
+    "pull_request": 589,
+    "tested_head": "be1316e28b566a8e9542ec4ebdcf05a25ba07822",
+    "merge_sha": "d8ed1dd3998e4adbcfc34545bdc512744261f67b",
+    "route_registration": {
+      "run": 36561462436,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36561462708,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36561462467,
+      "result": "PASS"
+    },
+    "critical_browser_smoke": "PASS"
+  }
 }
