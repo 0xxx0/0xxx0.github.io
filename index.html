@@ -228,10 +228,10 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
     <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
     <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>root interaction contract</span></a>
-    <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json and federation-atlas.json">
+    <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json, packet egress, and federation-atlas.json">
       <div class="cvHead"><b>CONVERGENCE READ</b><span id="convMeta">QUEUE + atlas · composing…</span></div>
       <div id="convBody"><div class="cvNone">composing live fronts · held reasons · horizon distribution…</div></div>
-      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. ATTENTION ≠ RECENCY — <a href="./control/">/control/CURRENT.json</a> owns NOW; QUEUE does not authorize NOW or NEXT; atlas horizon is planning metadata, not priority. Coordination + RETURN live in <a href="./nexus/">NEXUS</a>.</div>
+      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./control/PACKET_EGRESS.json">PACKET_EGRESS.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. PACKET ≠ CONTROL · <a href="./control/">CURRENT</a> alone owns NOW · NEXT never inherits authority · atlas horizon is planning metadata, not priority. Coordination + RETURN live in <a href="./nexus/">NEXUS</a>.</div>
     </div>
   </div>
 </details>
@@ -1030,7 +1030,7 @@ async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.hre
 
 function convTrim(s,n){const t=String(s==null?'':s).replace(/[ \t\r\n]+/g,' ').trim();return t.length>n?t.slice(0,Math.max(1,n-1)).trimEnd()+'…':t}
 function convRowHTML(id,tag,text){return '<div class="cvRow"><b>'+esc(id)+'</b><em>'+esc(tag||'')+'</em><p>'+esc(text)+'</p></div>'}
-function renderConvergence(q,a){
+function renderConvergence(q,a,p){
  const box=$('convBody'),meta=$('convMeta');if(!box)return;
  let out='',bits=[];
  if(q&&!q.__error){
@@ -1042,6 +1042,22 @@ function renderConvergence(q,a){
    +(held.length?held.map(h=>convRowHTML(h.id,h.horizon||'',convTrim(h.reason||'(no reason recorded)',200))).join(''):'<div class="cvNone">No held items recorded in QUEUE.</div>')+'</div>';
  }else{
   out+='<div class="cvSec"><div class="cvSecH"><b>LIVE + HELD</b><span>QUEUE.json unreachable</span></div><div class="cvFail">QUEUE.json unreadable ('+esc(String(q&&q.__error||'fetch failed'))+') — reading incomplete; this does NOT report clear.</div></div>';
+ }
+ if(p&&!p.__error){
+  const counts=p.counts||{},entries=Array.isArray(p.entries)?p.entries:[],order=['NOW','GATE','RESIDUE','NEXT','DELTA','ARCHIVE'];
+  const brief=order.map(k=>k+' '+(Number(counts[k])||0)).join(' · ');
+  bits.push('egress '+order.filter(k=>Number(counts[k])>0).map(k=>(k==='DELTA'?'Δ':k)+' '+counts[k]).join(' · '));
+  out+='<div class="cvSec"><div class="cvSecH"><b>PACKET EGRESS</b><span>'+esc(brief)+' · derived from CURRENT returns + packet shelf</span></div>';
+  for(const k of order){
+   const xs=entries.filter(e=>e.category===k);if(!xs.length)continue;
+   const shown=xs.slice(0,3).map(e=>convTrim(e.object||e.id||e.source||'packet',90));
+   const more=xs.length>shown.length?' · +'+(xs.length-shown.length)+' more':'';
+   out+=convRowHTML(k,String(xs.length),shown.join(' · ')+more);
+  }
+  if(Array.isArray(p.unstructured_legacy)&&p.unstructured_legacy.length)out+=convRowHTML('LEGACY','NO CONTROL',p.unstructured_legacy.length+' unstructured packet(s) preserved; not interpreted');
+  out+='<div class="cvNone">PACKET ≠ CONTROL · only CURRENT context can emit NOW · adapted RETURN/legacy packets are evidence-only.</div></div>';
+ }else{
+  out+='<div class="cvSec"><div class="cvSecH"><b>PACKET EGRESS</b><span>PACKET_EGRESS.json unreachable</span></div><div class="cvFail">Packet reduction unreadable ('+esc(String(p&&p.__error||'fetch failed'))+') — no inference from missing aggregation.</div></div>';
  }
  if(a&&!a.__error){
   const ps=Array.isArray(a.provinces)?a.provinces:[],all=ps.flatMap(p=>Array.isArray(p.items)?p.items:[]),HS=['now','next','later','hold'],cnt=list=>h=>list.filter(x=>x.horizon===h).length,count=cnt(all);
@@ -1055,8 +1071,12 @@ function renderConvergence(q,a){
 }
 async function loadConvergence(){
  const get=u=>fetch(u,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});
- const [q,a]=await Promise.all([get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))]);
- try{renderConvergence(q,a)}catch(e){const box=$('convBody');if(box)box.innerHTML='<div class="cvFail">convergence read failed: '+esc(String(e&&e.message||e))+'</div>'}
+ const [q,p,a]=await Promise.all([
+  get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),
+  get('./control/PACKET_EGRESS.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),
+  get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))
+ ]);
+ try{renderConvergence(q,a,p)}catch(e){const box=$('convBody');if(box)box.innerHTML='<div class="cvFail">convergence read failed: '+esc(String(e&&e.message||e))+'</div>'}
 }
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
