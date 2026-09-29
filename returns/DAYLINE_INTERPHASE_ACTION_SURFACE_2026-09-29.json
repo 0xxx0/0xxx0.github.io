@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/dayline-interphase-action-surface/v0.1",
   "created_at": "2026-09-29T19:34:00+08:00",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "MERGED_CI_GREEN",
   "base_sha": "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
   "branch": "converge/dayline-action-surface-20260929",
   "route": "/dayline/",
@@ -24,9 +24,22 @@
     "RETURN remains distinct from navigation/reversal"
   ],
   "verification": {
-    "interphase_dayline_selftest": "PENDING CURRENT CI",
-    "public_surface": "PENDING CURRENT CI",
-    "route_registration": "PENDING CURRENT CI"
+    "interphase_dayline_selftest": "PASS · current-base public-surface-check shared INTERPHASE host laws",
+    "public_surface": {
+      "run": 36563087134,
+      "result": "PASS · 94/94 including critical browser smoke"
+    },
+    "route_registration": {
+      "run": 36563087125,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36563087262,
+      "result": "PASS"
+    },
+    "integration_boundary": "PR reopened after exact-master rebase; current-base pull-request merge-ref validation passed before merge"
   },
-  "rebased_at": "2026-09-29T19:38:00+08:00"
+  "rebased_at": "2026-09-29T19:38:00+08:00",
+  "merge_sha": "2205201ada43fa18f10627ac3ad0639ec08a3ebd",
+  "sealed_at": "2026-09-29T19:42:00+08:00"
 }
