@@ -393,6 +393,28 @@ function imageWitness(){
   if(!p)return null;
   return {kind:'IMAGE',mode:'SET',grain:course.grain,address:hit.address,index:hit.index,count:course.points.length,start:null,alignment:null,name:p.name,text:String(p.label||p.name||'')};
 }
+const ECHO_THREAD_STORAGE='prison-age.echo-thread.v01',ECHO_THREAD_RETURN_STORAGE='prison-age.echo-thread.return.v01';
+function isEchoWalk(){return readRide?.packet?.sourceIdentity?.source_set==='PRISON_AGE'&&!!globalThis.PrisonAgeEchoThread}
+function echoPoint(witness=readCourseWitness(liveCourse(),liveCourseProgress()),identity=readRide?.packet?.sourceIdentity){
+  if(!witness||!identity)return null;
+  return{source_id:String(identity.source_id||''),path:String(identity.address||''),title:String(identity.title||readRide?.packet?.label||identity.source_id||''),start:Number(witness.start),end:Number(witness.end),address:String(witness.address||'')}
+}
+function saveEchoThread(){
+  if(!readEchoThread)return;
+  try{sessionStorage.setItem(ECHO_THREAD_STORAGE,JSON.stringify(readEchoThread))}catch(_){}
+}
+function restoreEchoThread(){
+  if(!isEchoWalk())return null;
+  try{const raw=sessionStorage.getItem(ECHO_THREAD_STORAGE);if(raw)readEchoThread=globalThis.PrisonAgeEchoThread.normalize(raw)}catch(_){readEchoThread=null}
+  return readEchoThread
+}
+function ensureEchoThread(){
+  if(!isEchoWalk())return null;
+  if(readEchoThread)return readEchoThread;
+  restoreEchoThread();if(readEchoThread)return readEchoThread;
+  const p=echoPoint();if(!p)return null;
+  try{readEchoThread=globalThis.PrisonAgeEchoThread.create(p);saveEchoThread();return readEchoThread}catch(_){return null}
+}
 function clearReadEcho(){readEcho=null;const box=$('#sourceEchoLive');if(box)box.hidden=true;delete document.documentElement.dataset.foldBloomSourceEcho;delete document.documentElement.dataset.foldBloomSourceEchoSource}
 function syncReadEcho(w){
  const box=$('#sourceEchoLive'),link=$('#sourceEchoLiveLink'),basis=$('#sourceEchoLiveBasis');if(!box)return null;
