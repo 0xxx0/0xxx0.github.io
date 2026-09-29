@@ -1,0 +1,49 @@
+{
+  "schema": "field-salvage-policy/v0.1",
+  "status": "ACTIVE_CANDIDATE",
+  "purpose": "Make convergence capable of subtraction without confusing deletion with progress.",
+  "game_donors": [
+    {
+      "source": "Hardspace: Shipbreaker",
+      "donor_mechanism": "survey interconnected subsystems/hazards before dismantling; extract valuable material with tool-specific cuts",
+      "transfer": "SURVEY → ISOLATE → SALVAGE → CUT → VERIFY → RETURN",
+      "residue": "fiction, debt economy, spaceship skin and destructive spectacle do not transfer",
+      "source_url": "https://www.blackbirdinteractive.com/shipbreaker"
+    },
+    {
+      "source": "Terra Nil",
+      "donor_mechanism": "restoration succeeds by leaving a functioning ecology rather than permanent construction machinery",
+      "transfer": "temporary scaffolding must have an exit condition; success may reduce visible machinery",
+      "residue": "ecology simulation, biome content and environmental scoring do not transfer",
+      "source_url": "https://www.terranil.com/"
+    }
+  ],
+  "laws": [
+    "DELETE != CONVERGE. Removal is lawful only after identity, inbound dependence, children, authority and residue are surveyed.",
+    "SALVAGE MECHANISM BEFORE CONTAINER. Preserve the transferable invariant/proof/provenance before removing a superseded surface.",
+    "FROZEN_DONOR != DEBT. Recovery artifacts may remain deliberately addressable without competing for CURRENT attention.",
+    "ALIAS != DEAD. Compatibility addresses may carry external bookmarks and are not retired from internal silence alone.",
+    "TEMPORARY MECHANISM OWES AN EXIT CONDITION. Candidate/parked/experiment surfaces enter SALVAGE_REVIEW rather than permanent accretion.",
+    "RETIRE_CANDIDATE != DELETE AUTHORITY. The audit never mutates files; a separate bounded change must perform and prove any cut.",
+    "CUT MUST RETURN. A retirement change names removed addresses, preserved donors, redirects if any, broken-reference proof and reversal path."
+  ],
+  "classifications": {
+    "KEEP_CURRENT": "CURRENT head/front evidence; retain.",
+    "KEEP_DONOR": "Frozen/recovered donor; retain as archive capability.",
+    "KEEP_COMPAT": "Alias/redirect; retain unless an explicit compatibility migration proves retirement.",
+    "KEEP": "No retirement signal.",
+    "SALVAGE_REVIEW": "Temporary/parked/experiment; identify what survives and whether the container still earns its surface.",
+    "RETIRE_CANDIDATE": "Explicit superseded/deprecated/retired/removed signal with no detected current/structural/runtime blocker.",
+    "BLOCKED": "Retirement signal exists but children, aliases, CURRENT or live references remain."
+  },
+  "executable": {
+    "core": "/lib/field-salvage-core.mjs",
+    "audit": "node scripts/field-salvage-audit.mjs --route <href> --summary",
+    "selftest": "node tools/field-salvage-selftest.mjs"
+  },
+  "safety": {
+    "auto_delete": false,
+    "external_bookmarks": "UNKNOWN unless separately measured",
+    "absence_of_internal_reference": "not proof of zero external dependency"
+  }
+}\n
