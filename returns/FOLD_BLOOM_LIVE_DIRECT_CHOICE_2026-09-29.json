@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29",
   "date": "2026-09-29",
-  "state": "CANDIDATE / EXACT_HEAD_CI_PENDING",
+  "state": "MERGED_CI_GREEN",
   "object": "FOLD//BLOOM LIVE native forecast ring",
   "trigger": "PR #527 preserved a useful all-before-one choice aperture but was intentionally closed as a stale donor until the combined post-Garden LIVE head existed.",
   "operation": "VISIBLE LAWFUL FORECAST → DIRECT HUMAN SEEK → SEPARATE RELEASE",
@@ -31,12 +31,28 @@
       "public-surface-check",
       "gitleaks",
       "exact-head browser tap→seek→separate RELEASE"
-    ]
+    ],
+    "pull_request": 544,
+    "tested_head": "57e5442de7b7b3384975c29df9155c7a2e04399d",
+    "merge_sha": "e255cda1dd1c3931a7ef103560555836b1e57275",
+    "route_registration": {
+      "run": 36546083210,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36546083221,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36546083229,
+      "result": "PASS"
+    },
+    "direct_choice_browser": "PASS · tap rendered lawful forecast → native gate alignment with release history unchanged → separate RELEASE appends exactly one matching native event"
   },
   "predecessor": {
     "donor_pr": 527,
     "donor_state": "CLOSED_UNMERGED_DONOR",
     "reason": "stale pre-Garden branch; mechanism reconstructed on current master rather than merged"
   },
-  "next": "If exact-head proof is green, merge and make direct forecast seek the ordinary LIVE choice aperture. Do not add a new mode, shell, store or model authority."
+  "next": "Hold the contracted first-use surface stable. Revise direct choice only from a concrete reproduced failure or naturally observed use evidence; do not add another mode, shell, store, planner, or model authority."
 }
