@@ -1,0 +1,51 @@
+{
+  "schema": "0xxx0/prison-age-source-echo-return/v0.1",
+  "generated_at": "2026-09-29T02:24:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE / CI_PENDING",
+  "field_head": "FIELD INDEX 0.8.23 / SOURCE-NATIVE ECHO",
+  "source_set": "PRISON_AGE",
+  "authority": "EVIDENCE_ONLY",
+  "implementation": [
+    "/lib/source-echo.js",
+    "/prison-age/echo-index.json",
+    "/prison-age/",
+    "/docs/",
+    "/fold-bloom/live/",
+    "/tools/source-echo-selftest.cjs",
+    "/tools/prison-age-field-smoke.mjs"
+  ],
+  "law": "SOURCE chooses meaning. ECHO exposes exact recurrence evidence only. Representation may reveal a neighbor; it may not author the relation.",
+  "observed_source_seams": {
+    "all_four": [
+      "door",
+      "changed"
+    ],
+    "three_or_more": [
+      "threshold",
+      "object",
+      "visible",
+      "moved"
+    ],
+    "exact_cross_source_examples": [
+      "previous seasons",
+      "looked … camera"
+    ],
+    "shared_margin": "Three complete sourced episodes carry the same authored MARGIN line; Last Stall carries a different explicit verse. ECHO may expose either only as exact bytes."
+  },
+  "proofs": {
+    "fingerprint_validation": "PENDING_CI",
+    "silence_boundary": "PENDING_CI",
+    "readfield_echo": "PENDING_CI",
+    "read_to_ride_echo": "PENDING_CI",
+    "exact_return_regression": "PENDING_CI"
+  },
+  "boundaries": [
+    "No generated story prose, connective narrative, summary or thematic claim.",
+    "No fourth FIELD action.",
+    "No source mutation.",
+    "No echo when current bytes fail source fingerprint validation.",
+    "No same-source echo.",
+    "READFIELD remains reading/cursor authority; LIVE remains traversal/effect authority; PRISON_AGE remains source authority."
+  ],
+  "next_gate": "Use the shipped ECHO layer on one complete READ→RIDE→RETURN pass and judge whether it creates useful recognition without stealing attention from the prose."
+}
