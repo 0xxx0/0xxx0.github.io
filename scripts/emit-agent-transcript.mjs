@@ -66,7 +66,7 @@ function compile({C,M,W,K}){
     phi_focus:null,
     now:{updated:C.updated||null,active_fronts:C.active_fronts||[],next_single_action:C.next_single_action||null},
     heads,human_world_gates:gates,
-    egress:{schema:'field-packet-egress/v0.1',classes:EGRESS_CLASSES,precedence:EGRESS_PRECEDENCE,items:egress,law:'Packet egress is derived, never packet-authorized: GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; only caller-supplied CURRENT/selection context can create NOW; unwitnessed material change remains RESIDUE; historical/superseded packets archive unless explicitly reactivated.'},
+    egress:{schema:'field-packet-egress/v0.1',classes:EGRESS_CLASSES,precedence:EGRESS_PRECEDENCE,items:egress,law:'Packet egress is derived, never packet-authorized: GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; only caller-supplied CURRENT/selection context can create NOW; DELTA requires host-attested sufficient evidence; unwitnessed material change remains RESIDUE; uppercase compatibility aliases and inert RETURN-to-CURRENT/replan semantics are preserved; historical/superseded packets archive unless explicitly reactivated.'},
     residue:{waiting_registry_surface_counts:waitCounts,note:'Registry residue is not promoted into NOW merely because it exists.'},
     truth_grammar:K.truth_grammar||{},
     return:{target:'/',law:'RETURN restores re-entry/context; REWIND navigates transcript/history context; REVERT is a new authorized canonical operation.'},
