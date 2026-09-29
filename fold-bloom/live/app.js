@@ -482,6 +482,8 @@ function syncAutopilotUI(){
 
 function update(){
   const calc=currentLiveCalculation();
+  const sq=$('#sourceQuick');
+  if(sq)sq.textContent=authoredReader?'PROVENANCE':readRide?.packet?.sourceIdentity?.authority==='PRISON_AGE'?'PRISON AGE / SOURCE':readRide?'CHOOSE TEXT':'CHOOSE SONG';
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
   $('#target').textContent=typePresentation(state.targetType).text;
@@ -697,12 +699,19 @@ function showAuthoredReturn(){
   $('#readerReturn').hidden=false;document.documentElement.dataset.foldBloomAuthoredReturn='open';return r
 }
 function closeAuthoredReturn(){const x=$('#readerReturn');if(x)x.hidden=true;delete document.documentElement.dataset.foldBloomAuthoredReturn}
+function authoredLaunchReturn(pack){
+  const raw=new URLSearchParams(location.search).get('return');
+  if(raw){
+    try{const u=new URL(raw,location.origin);if(u.origin===location.origin)return u.pathname+u.search+u.hash}catch(_){}
+  }
+  return pack.return.source_reader
+}
 async function openAuthoredReader(id='prison-age-2021',{announce=true}={}){
   const loaded=await loadAuthoredPack(id);
-  const p=loaded.pack,packet=makeReadRidePacket({
+  const p=loaded.pack,returnAddress=authoredLaunchReturn(p),packet=makeReadRidePacket({
     source:loaded.source,label:p.title,
     sourceIdentity:{id:loaded.hash,hash:loaded.hash,address:p.source_path,authority:p.authority,kind:'AUTHORED_RECOVERED_TEXT',format:'TXT',provenance:p.source_artifact},
-    focus:{source_progress:0},returnAddress:p.return.source_reader,from:'/fold-bloom/live/?reader='+encodeURIComponent(p.id)
+    focus:{source_progress:0},returnAddress,from:location.pathname+location.search
   });
   const authored={pack:p,source:loaded.source,hash:loaded.hash,jumps:[],historyStart:Array.isArray(state?.history)?state.history.length:0};
   const out=loadReadRidePacket(packet,{announce:false,authored});
@@ -1296,7 +1305,18 @@ $('#mixResetBtn').onclick=()=>{audio.mixReset();syncMixUI();toast('MIX RESET')};
 const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};
 const chooseRead=()=>{stopDemo(true);setMenuOpen(false);$('#readFile').click()};
 $('#trackLoad').onclick=chooseSong;$('#readLoad').onclick=chooseRead;
-$('#sourceQuick')?.addEventListener('click',()=>authoredReader?showAuthoredProvenance():readRide?chooseRead():chooseSong());
+function openNativeReadSource(){
+  if(authoredReader)return showAuthoredProvenance();
+  if(readRide?.packet?.sourceIdentity?.authority==='PRISON_AGE'){
+    const id=String(readEcho?.sourceId||'').trim(),u=new URL('/prison-age/',location.origin);
+    if(id)u.searchParams.set('story',id);
+    if(readRide.packet.returnAddress?.includes('focus=%2Fprison-age%2F'))u.searchParams.set('return','field');
+    location.href=u.pathname+u.search;return true
+  }
+  if(readRide)return chooseRead();
+  return chooseSong()
+}
+$('#sourceQuick')?.addEventListener('click',openNativeReadSource);
 $('#vibeQuick')?.addEventListener('click',cycleVibe);
 $('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#readIntroBtn')?.addEventListener('click',chooseRead);
