@@ -35,7 +35,7 @@ Evidence: /recovery/ · /control/MIGRATION.json · /control/MEDIA_REFINERY.json 
 
 ## HEADS (human projection; canonical machine versions live in `CURRENT.json`)
 
-- **FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE** — CORE_ACTIVE — route /
+- **FIELD INDEX 0.8.23 / ONE HELD OBJECT / REDUCED ROOT / NATIVE ACTION GRAMMAR** - CORE_ACTIVE - route /
 - **SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1** — STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED — route /fold-bloom/lens/
 - **READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + WORK CHAINS** — UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE — route /docs/
 - **VERSE COPILOT 0.3 / POEM MAP ENGINE 0.2.6** — ACTIVE_CANDIDATE / WRITING_FIRST / OPTIONAL_PATH_GRID — route /poetry/map/
