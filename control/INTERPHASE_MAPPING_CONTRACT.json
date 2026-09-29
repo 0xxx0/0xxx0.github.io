@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-mapping-contract/v0.1",
-  "updated": "2026-09-23",
+  "updated": "2026-09-29",
   "status": "IMPLEMENTABLE",
   "purpose": "Separate semantic correspondence from geometry so one host object can be lawfully rendered and operated through unequal projections and scales without becoming several objects.",
   "equation": {
@@ -78,7 +78,8 @@
     "Selection and multifocus survive projection and scale changes.",
     "Authority is host-owned and cannot increase through projection.",
     "Physical geometry, fit, load and irreversible actuation are canonical only when supplied by a physical host; screen placement is not evidence of physical truth.",
-    "Six offices are one reusable mapping preset, not a required ontology."
+    "Six offices are one reusable mapping preset, not a required ontology.",
+    "Shared HOLD / TURN / RELEASE / TRACE / RETURN verbs are action projections over native operations; they may compress interaction language but never manufacture operation support or authority."
   ],
   "facet": {
     "required": [
@@ -137,5 +138,32 @@
     "proof_donor": "/spikes/003-one-instrument/",
     "runtime_core": "/lib/interphase-core.js",
     "merged_pr": 184
+  },
+  "action_projection": {
+    "schema": "interphase-action-surface/v0.1",
+    "law": "Shared verbs compress how a carried object is manipulated; they never replace native operation ids, host authority, or effect semantics.",
+    "verbs": {
+      "HOLD": "retain the exact addressed focus; focus is not an effect",
+      "TURN": "view, navigation, offer, orientation, or other non-EFFECT native move",
+      "RELEASE": "explicit host-native EFFECT boundary; the carrier still cannot dispatch it",
+      "TRACE": "evidence or witness operation / state",
+      "RETURN": "exact continuation closure to the recorded caller context"
+    },
+    "inference": [
+      "explicit valid action alias wins",
+      "RETURN/BACK TO SOURCE cue -> RETURN",
+      "TRACE/WITNESS cue -> TRACE",
+      "HOLD/FOCUS/SELECT cue -> HOLD",
+      "authority EFFECT -> RELEASE",
+      "otherwise -> TURN"
+    ],
+    "invariants": [
+      "native move id, label, authority, target and HOST_NATIVE_ONLY dispatch remain visible",
+      "shared verbs create no mutation authority",
+      "one carrier still exposes at most three native moves",
+      "RETURN remains distinct from BACK, UNDO, REWIND, REVERT and RESET",
+      "hosts may remain unequal; the shared action surface is a projection only"
+    ],
+    "runtime": "/lib/interphase-carrier.js#actionSurface"
   }
 }
