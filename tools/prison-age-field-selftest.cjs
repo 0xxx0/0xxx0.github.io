@@ -65,7 +65,8 @@ assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');
 
-assert(field.includes('function nativeRouteOwner(r)')&&field.includes("r?.title||headForRoute(r)?.lineage||'HOST'"),'FIELD owner must derive from held route');
+assert(field.includes('function nativeRouteOwner(r)')&&field.includes("r?.field?.owner||''"),'FIELD owner must derive from explicit host manifest owner');
+assert(route.field.owner==='PRISON AGE','manifest owns Prison Age authority label');
 assert(field.includes('function nativeRouteActions(r)')&&field.includes('manifestExitPaths(r)'),'FIELD native actions must derive from manifest exits');
 assert(route.field.exit_paths.map(x=>x.target).join('|')==='/prison-age/?intent=read&return=field|/prison-age/?intent=ride&return=field|/prison-age/?return=field','manifest owns exact READ/RIDE/SOURCE targets');
 assert(!field.includes("owner:'PRISON AGE'"),'FIELD must not duplicate Prison Age capability owner');
