@@ -16,7 +16,7 @@
   ],
   "delta": [
     "bounded session-local UNDO captures the exact pre-commit cassette snapshot for the last 12 manual relation commits; unrelated control changes invalidate the stack",
-    "one physical pointer is fixed to one dial at pointer-down; pointer motion cannot commit; release owns the relation commit",
+    "pointer-down fixes each physical pointer to MATTER or HARMONY; pointermove cannot commit; all active pointers must release before one transaction commit, and DUET requires both dials to have participated",
     "UNDO LAST cancels a pending delayed FOLD→BLOOM compose before restoring the prior state and emits a causal undo witness",
     "causal relation commits now retain bounded before / operation / actor+driver / delta / after / provenance receipts",
     "phrase RETURN v0.2 aggregates matched commit receipts instead of emitting destination-only expressive history",
@@ -78,7 +78,7 @@
     "wide_phone": "HUMAN_GATE: verify WIDE/rotate fallback and direct DUET donor on one real phone",
     "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
     "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge",
-    "gesture_reversal_contract": "CHECK: tools/two-dial-gesture-reversal-selftest.cjs; pointer ownership + exact bounded UNDO"
+    "gesture_reversal_contract": "CHECK: tools/two-dial-gesture-reversal-selftest.cjs; fixed pointer ownership + atomic all-release commit + exact bounded UNDO"
   },
   "known_gap": "A/B/C/D/E/F/G now have durable repo proof. H_COMPRESSION remains intentionally INDETERMINATE until ordinary-use evidence compares this relational instrument with a functionally equivalent plain/non-coaxial baseline. Instrument-quality judgment and listed real-phone gates also remain human evidence.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
