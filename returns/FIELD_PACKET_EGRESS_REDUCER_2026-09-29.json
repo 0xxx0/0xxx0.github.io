@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE",
+  "status": "CANDIDATE / AUTHORITY-PRECEDENCE-CORRECTED",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
-  "law": "Packet presence does not create continuation. Historical/superseded material collapses to ARCHIVE unless current authority explicitly reactivates it; GATE blocks NEXT; current authority alone may produce NOW.",
+  "law": "Packet egress is derived, never packet-authorized. GATE > NOW > RESIDUE > NEXT > DELTA > ARCHIVE. Historical/superseded material collapses to ARCHIVE unless explicitly reactivated; reactivation only reopens evaluation; only caller-supplied CURRENT/explicit selection context can create NOW.",
   "changes": [
     "/lib/field-egress-reducer.mjs — pure deterministic reducer + hard non-promotion boundary",
     "/tools/field-egress-reducer-selftest.mjs — A-H acceptance cases",
@@ -24,7 +24,7 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs",
+    "node tools/field-egress-reducer-selftest.mjs  # A-P + global precedence",
     "node scripts/emit-agent-transcript.mjs --selftest",
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
@@ -32,5 +32,13 @@
     "The reducer classifies structure; it does not decide project priority or execute NEXT.",
     "External/private packets are reduced only when explicitly supplied to the existing transcript CLI."
   ],
-  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress."
+  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress.",
+  "precedence": "GATE > NOW > RESIDUE > NEXT > DELTA > ARCHIVE",
+  "correction": [
+    "Packet-provided egress/egress_class/field_egress is advisory input only; it cannot self-promote a packet to NOW.",
+    "Reactivation bypasses the historical ARCHIVE boundary only; NOW still requires caller-supplied CURRENT/explicit selection context.",
+    "RESIDUE outranks NEXT and DELTA; an unwitnessed material-change claim reduces to RESIDUE rather than DELTA.",
+    "STOP dominates continuation: STOP+condition -> GATE; STOP+residue -> RESIDUE; otherwise STOP -> ARCHIVE.",
+    "Canonical exists:false/material:false fields do not manufacture attention; explicit authority.can_select_now=false blocks selected NOW and survives as RESIDUE."
+  ]
 }
