@@ -1902,21 +1902,19 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-28T20:31:00+08:00",
+        "updated_at": "2026-09-29T09:32:00+08:00",
         "work_modes": [
-          "OPERATE",
+          "IMPLEMENT",
           "VERIFY",
-          "SHARE",
-          "PLAY",
-          "TRAIN",
-          "IMPLEMENT"
+          "OPERATE"
         ]
       },
-      "role": "Public Fold/Bloom doorway around one source-continuity law. The contracted four primary jobs are now RIDE / GARDEN / MAP / REPLAY: Ecology returns as a calm OBSERVE/PLAY doorway and second hero aperture while HEXAGRAM remains available under MORE USES. LIVE remains source-addressed POV/effect authority; Ecology retains local gene/lineage/breeding authority; LAB remains a transduction bench. Mute-first audio and borrowed-clock/authorship boundaries stay explicit.",
+      "role": "Public Fold/Bloom doorway around one source-continuity law. The four primary jobs remain RIDE / GARDEN / MAP / REPLAY. GARDEN now enters LIVE as a hosted canonical Ecology aperture: LIVE holds/restores orientation, while Ecology keeps gene/lineage/law/breeding authority and LIVE keeps source/effect authority. HEXAGRAM remains deeper; LAB remains a transduction bench.",
       "tier": "FIELD",
       "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
       "receipt": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
       "transfer": [
+        "Sep-29 GARDEN HOST 0.1: public GARDEN enters LIVE; Ecology lazy-loads only on entry, LIVE source clocks/generated sound are held, authority stays Ecology-local, and RETURN releases the hosted runtime then restores LIVE context",
         "PLAY 0.6.1 restores HEXAGRAM / CHANGE as the humane/cultural puzzle surface while preserving exact BLOOM/FOLD/SPLIT/RETURN provenance underneath",
         "binary projection is explicit and reversible-at-return: 4^6 exact forms → 2^6 hexagrams, 64 exact forms per hexagram; moving lines occur only on cross-polarity changes",
         "0.1.6 public contraction: four primary jobs + one LAB gate; secondary/cross-domain exits move behind MORE USES without losing reachability",
@@ -1928,7 +1926,7 @@
         "Ecology public promotion preserves unequal authority: GARDEN/lineage/breeding remain Ecology-owned; LIVE source/effect authority and LAB projection authority do not move",
         "song-as-climate remains a bounded research seam through existing FIELD PULSE timing/presentation context only; no new bus or semantic control path"
       ],
-      "latest_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json"
+      "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json"
     },
     {
       "href": "/fold-bloom/saber/",
@@ -2739,7 +2737,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Sep-29 GARDEN HOST 0.1 adds one unequal Ecology-owned aperture inside LIVE. Hosting carries orientation only: Ecology loads on entry, LIVE source/generated-sound state is held, no source-clock or RELEASE authority crosses the boundary, and RETURN unloads Ecology then restores held LIVE context.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2769,7 +2767,8 @@
         "READ/RIDE persistent trail records bounded traversal/marks only; VISITED/MARKED != read/understood/complete",
         "READ/RIDE exact RETURN emits session-local EVIDENCE_ONLY address witness; LIVE cannot mutate READFIELD source/cursor",
         "Sep-28 IMAGE_SET: device-local image declarations reuse the existing course/address spine at FRAME / STRIP / SET grain; bytes remain in the local media vault and are never uploaded/committed.",
-        "Sep-28 traversal reconciliation: FLOW is the source-clock default; no source means still, an addressed source means continuous address advance, STEP holds and advances exactly one address, RELEASE remains authored effect authority."
+        "Sep-28 traversal reconciliation: FLOW is the source-clock default; no source means still, an addressed source means continuous address advance, STEP holds and advances exactly one address, RELEASE remains authored effect authority.",
+        "GARDEN HOST 0.1: canonical Ecology hosted in LIVE with sourceClockBridge=false and releaseAuthority=false; lazy-load on entry; unload + context restore on RETURN"
       ],
       "contract": {
         "accepts": {
@@ -2919,7 +2918,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-28T19:20:00+08:00",
+        "updated_at": "2026-09-29T09:32:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2928,7 +2927,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
+      "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
