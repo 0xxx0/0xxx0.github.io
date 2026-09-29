@@ -1,0 +1,36 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_PROJECTION_ABLATION_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/field-play.html",
+  "host_delta": "Make representation itself testable without forking the work object: the same mission can render as FIELD or PLAIN, and copied RETURN v0.2 records which view was used plus bounded subjective evidence.",
+  "law": "VIEW != STATE; preference about a projection is evidence about representation, not authority or correctness.",
+  "changes": [
+    "/field-play.html — FIELD / PLAIN switch over one unchanged mission; 1–5 clarity / re-entry / use-again evidence added to copied RETURN only",
+    "/field-play.release.json — 0.4 contract names projection ablation and evidence limits",
+    "/control/FIELD_PROJECTION_GRAMMAR.json — FLOWER / ASCENT / FU / RADIAL are unequal projections/donors over the existing FIELD kernel, not new products",
+    "/control/FIELD_INDEX_CONTRACT.json — projection evidence cannot mutate canonical state",
+    "/showcase-manifest.json — /field-play.html 0.4 route touch + checks",
+    "/tools/field-play-projection-selftest.cjs — static invariants for view/state separation"
+  ],
+  "preserves": [
+    "field-game-mission/v0.1 mission identity and target",
+    "public-safe deck filtering",
+    "one bounded move",
+    "REPORT_ONLY / NO AUTO_WRITE return authority",
+    "browser-local storage remains return count only",
+    "FIELD INDEX root retains one held object; no new root mode or route"
+  ],
+  "evidence_boundary": {
+    "machine": "Static selftest + existing route/public-surface CI may prove packet/view invariants and deployment integrity.",
+    "human": "Which projection actually improves re-entry, clarity or use-again remains ordinary-use evidence and must not be synthesized from CI."
+  },
+  "verify": [
+    "node tools/field-play-projection-selftest.cjs",
+    "existing route registration CI",
+    "existing public surface CI",
+    "ordinary use: same mission once in FIELD and once in PLAIN; compare copied RETURN evidence"
+  ],
+  "reentry": "/field-play.html"
+}
