@@ -88,8 +88,9 @@ function restore(x) {
   hud();
   return true;
 }
-function saveLocal() {
+function saveLocal({ preserveUndo = false } = {}) {
   if (demo?.preview) return;
+  if (!preserveUndo) undoStack = [];
   try {
     localStorage.setItem(STORE, JSON.stringify(minimalSnapshot()));
   } catch (e) {}
@@ -224,6 +225,7 @@ function renderSaves() {
     row.className = 'saveitem';
     row.innerHTML = `<button class="secondary">${x.name}</button><button class="secondary">×</button>`;
     row.children[0].onclick = () => {
+      undoStack = [];
       restore(x.snap);
       closeDrawer();
       toast('LOADED');
@@ -256,6 +258,38 @@ function importCode() {
     toast('BAD CODE');
   }
 }
+function undoLastCommit() {
+  if (!undoStack.length) {
+    toast('NOTHING TO UNDO');
+    return false;
+  }
+  if (pendingComposeTimer) {
+    clearTimeout(pendingComposeTimer);
+    pendingComposeTimer = 0;
+  }
+  const beforeUndo = typeof causalFrame === 'function' ? causalFrame() : null;
+  const snap = undoStack.pop();
+  const remaining = undoStack.slice();
+  restore(snap);
+  undoStack = remaining;
+  const afterUndo = typeof causalFrame === 'function' ? causalFrame() : null;
+  emit('undo', {
+    schema: 'fold-bloom-undo/v0.1',
+    operation: 'UNDO_LAST_COMMIT',
+    actor: 'USER',
+    before: beforeUndo,
+    after: afterUndo,
+    provenance: {
+      host: 'FOLD//BLOOM TWO DIAL',
+      exactSnapshotRestore: true,
+      compositionAuthority: 'TWO_DIAL_RELATION',
+    },
+  });
+  saveLocal({ preserveUndo: true });
+  hud();
+  toast('UNDONE');
+  return true;
+}
 function newField() {
   rngState = Date.now() >>> 0 || 1;
   L = R = rawL = rawR = 0;
@@ -284,6 +318,8 @@ function newField() {
   pat = { cycle: 0, rotation: 0, fold: false, bloom: 0, split: 0, law: 'seq' };
   events = [];
   eventSeq = 0;
+  undoStack = [];
+  if (pendingComposeTimer) { clearTimeout(pendingComposeTimer); pendingComposeTimer = 0; }
   saveLocal();
   hud();
   toast('NEW FIELD');
@@ -395,6 +431,7 @@ $('#demoBtn').onclick = () => { if (demo.on) stopDemo(true); else startDemo(true
 $('#shareBtn').onclick = shareNow;
 $('#copyBtn').onclick = copyCode;
 $('#exportBtn').onclick = exportPacket;
+$('#undoBtn').onclick = undoLastCommit;
 $('#saveBtn').onclick = saveCassette;
 $('#importBtn').onclick = importCode;
 $('#newBtn').onclick = () => {
@@ -446,7 +483,7 @@ $('#playBtn').onclick = async () => {
   }
 };
 $('#buildInfo').textContent =
-  `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · causal phrase return`;
+  `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · causal return · bounded undo`;
 let fromHash = false;
 if (location.hash.startsWith('#s=')) {
   try {
