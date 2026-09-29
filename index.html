@@ -522,9 +522,10 @@ function fieldEgressForRoute(r){
  const h=headForRoute(r),gate=currentHumanGates().find(g=>g.route===r.href)||null,n=h?.next_executable||null;
  const changed=tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href);
  const residue=[h?.latest_return,r.latest_return,r.receipt,r.convergence_return].filter(Boolean);
+ const routeState=String(r.state||''),historical=/HISTORICAL|SUPERSEDED|ARCHIV|RETIRED|OBSOLETE|DONOR_ONLY/i.test(routeState);
  const packet={
   packet_id:'route:'+r.href,
-  state:h?.state||r.state||null,
+  ...(historical?{state:routeState}:{}),
   sources:[r.href,'/control/CURRENT.json','/showcase-manifest.json'],
   ...(gate?{waiting:[{id:gate.id,state:gate.state,dependency_kind:gate.dependency_kind}]}:{}),
   ...(changed?{delta:{updated_at:r.index?.updated_at||null}}:{}),
