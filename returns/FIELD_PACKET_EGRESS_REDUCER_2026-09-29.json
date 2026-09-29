@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CURRENT_MASTER_WAITING_VALUE_SHAPE_CANDIDATE",
+  "status": "EXACT_HEAD_GREEN_CLOSED",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
@@ -35,7 +35,7 @@
     "Evidence sufficiency is asserted by the owning adapter/host; the generic reducer does not infer domain proof.",
     "No second packet surface, queue, store, planner or authority source is introduced."
   ],
-  "stop": "After exact-head green proof, close packet egress. Do not broaden GATE into generic unresolved state or infer externality from object key names/container shape.",
+  "stop": "CLOSED. Do not add another packet reducer, queue, dashboard or authority surface. Reopen only on a failing reducer proof, authority conflict, or a concrete consumer incompatibility.",
   "correction": [
     "PR #575 correctly hardened NOW authority and witnessed DELTA but regressed the immediately preceding uppercase compatibility aliases and inert RETURN-to-CURRENT/replan handling.",
     "Restore uppercase OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP compatibility while retaining #575 authority semantics.",
@@ -48,5 +48,16 @@
     "Named waiting_on/blocked_by fields require external semantics for GATE; otherwise they remain RESIDUE.",
     "Nested object key names such as human:false/world:false are metadata, not external evidence; only explicit values/flags/kinds may grant GATE."
   ],
-  "current_master_base": "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd"
+  "current_master_base": "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
+  "current_master_head": "9e04d27bcbac94b2fd8939b0bc83bfedd9dea3c4",
+  "proof": {
+    "public_surface_check": {
+      "run_id": 36575146155,
+      "conclusion": "success",
+      "reducer_step": "Validate JIT FIELD handoff compiler",
+      "reducer_step_conclusion": "success"
+    },
+    "reducer_selftest": "A-AA PASS under public-surface-check",
+    "transcript_selftest": "PASS under public-surface-check"
+  }
 }
