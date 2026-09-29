@@ -25,6 +25,10 @@ jobs:
           node-version: '22'
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
+      - name: Validate FIELD packet egress reduction
+        run: |
+          node tools/packet-egress-selftest.cjs
+          node scripts/build-packet-egress.mjs --check
       - name: Validate reality-gap proof gates
         run: node scripts/check-reality-gaps.mjs
       - name: Validate reality-gap coverage
