@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.4.0",
-  "released": "2026-09-29",
+  "version": "0.3.5",
+  "released": "2026-09-27",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
     {
@@ -73,12 +73,7 @@
     "Added explicit HUMAN PORT → Shopping candidate ingress: one exact Port object/focus becomes a short-lived OFFER_ONLY / CANDIDATE_ONLY Shopping offer.",
     "Shopping shows the pending Port offer separately and requires explicit ADD AS VERIFY before browser-local ledger mutation.",
     "Added first-class SOURCE URL / EXACT SKU / SELLER-CHANNEL fields so evidence required by the Shopping contract and agent packet is no longer dropped by the ledger UI.",
-    "Port carries a literal URL when present but deliberately does not infer SKU/seller or ownership state.",
-    "Added a derived shared lifecycle projection: NEED → CANDIDATE → READY → INBOUND → ON_HAND → ADOPTED, with CLOSED as typed disposition; native detailed states remain source truth/residue.",
-    "Selected Shopping items now project as one shared object/focus/action/return surface over the existing exact item; the projection never mutates the native ledger state.",
-    "READY is derived from the existing purchase gate plus non-stale external evidence; TESTED and REPAIR remain ON_HAND evidence/detail rather than separate primary lifecycle states.",
-    "Shared actions reuse existing Shopping-native SOURCE, HOUSE FIT, DAYLINE and research packet operations; money movement remains external/human authority.",
-    "Exact /shopping/#item RETURN and existing Dayline/HOUSE evidence loops remain unchanged."
+    "Port carries a literal URL when present but deliberately does not infer SKU/seller or ownership state."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -105,15 +100,10 @@
     "Port candidate cannot auto-save to Shopping",
     "Port candidate imports only as VERIFY / source_kind other",
     "Port object id/hash/scope/focus survive as source_ref evidence",
-    "source URL / exact SKU / seller-channel survive Shopping export/agent packet",
-    "shared lifecycle projection is derived only; legacy/source state survives unchanged",
-    "shared action surface exposes no more than three native Shopping moves",
-    "NEED remains distinct from THING candidate semantics",
-    "READY may fall back to CANDIDATE when external evidence is stale/unknown",
-    "shared RETURN re-enters the exact Shopping item"
+    "source URL / exact SKU / seller-channel survive Shopping export/agent packet"
   ],
   "return": "/shopping/",
-  "date": "2026-09-29",
+  "date": "2026-09-25",
   "validation": {
     "dayline_closed_loop_pr": 379,
     "merge_sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621",
