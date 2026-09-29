@@ -20,6 +20,7 @@ const app=fs.readFileSync('fold-bloom/live/app.js','utf8');
 const html=fs.readFileSync('fold-bloom/live/index.html','utf8');
 if(!app.includes("historyStart:Array.isArray(state?.history)?state.history.length:0"))throw Error('authored causal RETURN missing history start');
 if(!app.includes("state.history.slice(historyStart)"))throw Error('authored causal RETURN not session scoped');
+if(!app.includes("verbs:(Array.isArray(state?.history)?state.history:[]).slice(Math.max(0,Number(authoredReader?.historyStart)||0))"))throw Error('authored RETURN verbs leak pre-reader LIVE history');
 if(!app.includes("recurrence:jumpAuthoredRecurrence"))throw Error('authored recurrence API missing');
 if(!html.includes('id="sourceEchoLive"')||!html.includes('id="readerRecurrence"'))throw Error('ECHO/RECURRENCE coexistence missing');
 if(!html.includes('THE WHOLE RIDE LOOP')||!html.includes('id="authoredIntroBtn">PRISON AGE 2021'))throw Error('shipped first contact was replaced');
