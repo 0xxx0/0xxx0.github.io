@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -42,4 +43,12 @@ assert.equal(reducePacket({packet_id:'explicit-residue',egress:'RESIDUE',delta:'
 assert.equal(reducePacket({packet_id:'explicit-next',egress:'NEXT',delta:'prepared'}).class,'NEXT');
 assert.equal(reducePacket({packet_id:'return-only',DELTA:'done',NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'}).class,'DELTA');
 assert.equal(reducePacket({packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'}).class,'GATE');
-console.log('FIELD packet egress reducer PASS · A-H + canonical aliases + inert RETURN · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
+const root=readFileSync('index.html','utf8');
+assert.match(root,/import\('\.\/lib\/field-egress-reducer\.mjs'\)/,'FIELD root must consume canonical reducer');
+assert.match(root,/function fieldEgressForRoute\(/,'FIELD root must expose one route-local adapter');
+assert.match(root,/evidence=\[h\?\.latest_return,r\.latest_return,r\.receipt,r\.convergence_return\]/,'receipts must stay evidence/provenance');
+assert.match(root,/gap\?\{residue:\[gap\]\}/,'only an actual unresolved catch gap may feed route residue');
+assert.doesNotMatch(root,/id="catchReducer"/,'do not add a six-bin packet dashboard');
+assert.doesNotMatch(root,/data-mode="PULSE"/,'redundant PULSE control must stay deleted');
+assert.doesNotMatch(root,/mapMode==='PULSE'/,'PULSE renderer must stay deleted');
+console.log('FIELD packet egress reducer PASS · precedence + aliases + inert RETURN + compact root projection + PULSE subtraction');
