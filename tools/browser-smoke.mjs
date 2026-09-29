@@ -467,7 +467,7 @@ function readfieldLociHandoffProbeHtml(){
   const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
   try{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&W().FieldAperture?.handoff?a:null},12000,'READFIELD ready');
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture'),pb=D().getElementById('readPaste'),pt=D().getElementById('pasteText');return a?.snapshot?.()&&W().FieldAperture?.handoff&&typeof pb?.onclick==='function'&&pt?a:null},12000,'READFIELD + paste controls ready');
     const source=Array.from({length:96},(_,i)=>'word'+i).join(' ');
     D().getElementById('pasteText').value=source;D().getElementById('readPaste').click();
     await waitFor(()=>A.A?.label?.startsWith('PASTE')&&(A.A?.scales?.find(x=>x.id==='WORD')?.units?.length||0)>=90,12000,'paste loaded');
