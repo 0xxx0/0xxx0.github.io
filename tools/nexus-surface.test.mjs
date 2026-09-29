@@ -56,7 +56,7 @@ check('links: every local link resolves to a real repo path (incl. src/return ta
       }
     }
   }
-  assert.ok(checked >= 12, `link extraction found only ${checked} local targets — extractor broken?`);
+  assert.ok(checked >= 4, `link extraction found only ${checked} local targets — alias surface must retain FIELD + board + map + root reachability`);
   assert.deepEqual(missing, [], 'dead local links');
 });
 
