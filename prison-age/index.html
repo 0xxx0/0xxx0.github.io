@@ -55,6 +55,24 @@ async function hydrateThreadPoint(p){
   if(fp&&globalThis.FieldSourceEcho?.fnv1a32&&globalThis.FieldSourceEcho.fnv1a32(body)!==String(fp.value))throw Error('THREAD SOURCE STALE');
   return{...p,title:st.title,path:st.path,text:body.slice(a,b)}
 }
+async function renderThreadReturn(){
+  const T=globalThis.PrisonAgeEchoThread,box=$('threadReturn');if(!T||!pack||!box)return null;
+  try{
+    let points=[],compact='',receipt=null;
+    const shared=q.get('trail');
+    if(shared){points=T.parseCompact(shared);compact=shared}
+    else if(q.get('thread_return')==='1'){
+      const raw=sessionStorage.getItem(THREAD_RETURN_STORAGE);if(!raw)return null;
+      receipt=JSON.parse(raw);if(receipt?.schema!=='prison-age.echo-thread-return/v0.1')throw Error('THREAD RETURN');
+      const thread=T.normalize(receipt.thread);threadReceipt=receipt;points=[thread.origin,...thread.hops.map(h=>h.to)];compact=T.compact(thread)
+    }else return null;
+    const hydrated=[];for(const p of points)hydrated.push(await hydrateThreadPoint(p));
+    const root=$('threadPath');root.replaceChildren();
+    hydrated.forEach((p,i)=>{const node=document.createElement('div');node.className='threadNode';const b=document.createElement('b');b.textContent=(i+1)+' · '+p.title;const span=document.createElement('span');span.textContent='“'+p.text.slice(0,260)+'”';const small=document.createElement('small');small.textContent=p.source_id+' · '+p.start+'–'+p.end;node.append(b,span,small);root.append(node)});
+    const u=new URL('/prison-age/',location.origin);u.searchParams.set('trail',compact);$('threadShare').textContent=u.pathname+u.search;box.hidden=false;box.dataset.share=u.pathname+u.search;
+    document.documentElement.dataset.prisonAgeThread='shown';return{points:hydrated,compact,url:u.pathname+u.search,receipt}
+  }catch(error){console.warn('THREAD RETURN',error);box.hidden=true;document.documentElement.dataset.prisonAgeThread='rejected';return null}
+}
 
 function renderList(){
   $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
