@@ -57,6 +57,7 @@ const scanStaticLinks=(page)=>{
   }
 };
 const fiContract=parse('control/FIELD_INDEX_CONTRACT.json');
+const packetEgress=parse('control/PACKET_EGRESS.json');
 const manifest=parse('showcase-manifest.json');
 const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system']);
 if(manifest){
@@ -320,6 +321,10 @@ check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&
 check(home.includes('WAKE</b><small>SOURCE')&&home.includes('CUT</b><small>FRAME')&&home.includes('HOLD</b><small>FOCUS')&&home.includes('TURN</b><small>OPERATE')&&home.includes('TRACE</b><small>WITNESS')&&home.includes('AGAIN</b><small>RETURN'),'FIELD visor lost recovered WAKE→INTERPHASE correspondence');
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
 if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
+check(packetEgress?.schema==='field-packet-egress-projection/v0.1','FIELD packet egress projection missing/unreadable');
+check(packetEgress?.authority==='DERIVED_PROJECTION_ONLY / CURRENT REMAINS ATTENTION AUTHORITY','packet egress projection gained authority');
+check(home.includes('./control/PACKET_EGRESS.json')&&home.includes('PACKET EGRESS')&&home.includes('PACKET ≠ CONTROL'),'FIELD convergence read missing packet egress reduction');
+if(fi)check(!!fi.ui_contract?.root_packet_egress,'FIELD INDEX contract missing packet-egress projection law');
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
