@@ -1,0 +1,34 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_PACKET_EGRESS_HARDENING_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Repair the already-merged packet egress reducer so its implementation matches FIELD authority law: GATE cannot be bypassed by explicit NEXT; NOW is authority-derived; unresolved or unproved change is RESIDUE; only evidenced completed change becomes DELTA.",
+  "repairs": [
+    "explicit NEXT + waiting/dependency -> GATE",
+    "explicit NOW without CURRENT/selection authority -> RESIDUE",
+    "RESIDUE outranks NEXT and DELTA",
+    "DELTA without evidence -> RESIDUE",
+    "replan-only NEXT prose does not manufacture continuation",
+    "legacy uppercase canonical egress fields are recognized without archive rewrite"
+  ],
+  "preserves": [
+    "same six egress classes",
+    "same transient reducer and transcript consumer",
+    "CURRENT owns NOW",
+    "NEXT remains candidate-only",
+    "historical material remains non-promoting",
+    "no new UI, route, queue, store, planner or packet database"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest",
+    "existing public-surface-check CI"
+  ],
+  "residue": [
+    "Reducer remains a structural disposition mechanism, not a project-priority engine.",
+    "Ordinary consumers should use the existing JIT transcript/reducer rather than render a second packet dashboard."
+  ],
+  "stop": "If a future consumer needs more than disposition + provenance, extend the consumer's host contract rather than widening FIELD packet authority."
+}
