@@ -2,10 +2,10 @@
   "schema": "prison-age.field-source-release/v0.1",
   "version": "0.6",
   "date": "2026-09-29",
-  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
+  "status": "FIELD_SOURCE_CONSTELLATION / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
-  "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
-  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection.",
+  "operation": "READ / RIDE / SOURCE · native ROOT recurrence + passive ECHO depth",
+  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. The public source resolver now presents these unequal source classes as a constellation threshold while FIELD remains exactly READ / RIDE / SOURCE.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
@@ -64,7 +64,10 @@
     "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material.",
     "The recovered 2021 proto-root is exact recovered wording arranged as a derived traversal pack; it is not an anthology story, page facsimile, generated continuation, or evidence of semantic equivalence.",
     "Authored RECURRENCE is intra-source conservation/rearrangement evidence and remains distinct from cross-source ECHO.",
-    "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority."
+    "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority.",
+    "The public constellation juxtaposes recovered 2021 root and 2026 sourced movements but does not declare them one chronology, authorship stratum or semantic equivalence.",
+    "The AEGINOPRS root relation is mechanical letter conservation only.",
+    "The source constellation is a resolver/threshold over existing hosts, not a bespoke reader or new FIELD mode."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -82,9 +85,13 @@
     "Resolver exposes proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity.",
     "Proto-root READ enters READFIELD over exact source bytes without cross-source ECHO.",
     "Proto-root RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
-    "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged."
+    "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged.",
+    "Public resolver visibly preserves AEGINOPRS root recurrence while keeping proto-root-2021 provenance-distinct.",
+    "The four 2026 story files remain byte-identical and explicit source choices.",
+    "Direct proto-root RIDE may return to its exact Prison Age resolver address; FIELD-launched proto-root RIDE still returns to FIELD.",
+    "Ordinary PRISON_AGE LIVE RIDE exposes a native PRISON AGE / SOURCE affordance back to the resolver."
   ],
-  "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+  "latest_return": "/returns/PRISON_AGE_SOURCE_CONSTELLATION_2026-09-29.json",
   "echo": {
     "schema": "field-source-echo-index/v0.1",
     "index": "/prison-age/echo-index.json",
