@@ -63,7 +63,7 @@ need((contract.laws||[]).some(x=>/^SIGNALS CONVERGE AT FOCUS/.test(x)),'focus/au
 need(html.includes('class="headerPlay" href="./field-play.html"'),'single immediate PLAY action missing');
 need(!html.includes('<nav>'),'duplicate top-level navigation rail survived');
 const depthStart=html.indexOf('<div class="reentryBody">'),depthEnd=html.indexOf('</details>',depthStart),depth=depthStart>=0&&depthEnd>depthStart?html.slice(depthStart,depthEnd):'';
-for(const href of ['./control/','./recovery/','./nexus/','./witness/','#traceFold','./lens-proof/','./house/','./control/confluence/','./foundry/','./migration/','./returns/','./control/FIELD_INDEX_CONTRACT.json']){
+for(const href of ['./control/','./recovery/','#convRead','./witness/','#traceFold','./lens-proof/','./house/','./control/confluence/','./foundry/','./migration/','./returns/','./control/FIELD_INDEX_CONTRACT.json']){
  need(depth.includes('href="'+href+'"'),'folded depth lost '+href);
 }
 need(!!contract.ui_contract?.root_depth_contraction,'root depth contraction contract missing');
