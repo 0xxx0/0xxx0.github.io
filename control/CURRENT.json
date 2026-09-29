@@ -567,22 +567,18 @@
         "live_garden_host": "CANDIDATE · current-master successor to PR #532 · static + browser contract added; exact-head CI required before promotion"
       },
       "next_executable": {
-        "id": "fold-bloom-first-use-comprehension-lived-proof",
-        "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "Cold-open /fold-bloom/ and then LIVE on a real phone with a first-time person. The person should choose a meaningful start and complete one authored RELEASE without prior explanation of Fold//Bloom vocabulary.",
-        "human_questions": [
-          "On /fold-bloom/, can they choose RIDE / GARDEN / MAP without first learning SOURCE / ADDRESS / RETURN vocabulary?",
-          "In LIVE, can they identify ← / middle action / → as the main loop within roughly 5–10 seconds?",
-          "Can they make one release without verbal coaching and describe the causal loop as turn until ready → release → road changes?",
-          "Are CHOOSE MY SONG and the settings menu still reachable without competing with the primary phone action bar?",
-          "If they stall, what exact word, control, or visual state causes the stall?"
-        ],
+        "id": "fold-bloom-first-use-self-verify",
+        "state": "SELF_VERIFIED_CANDIDATE",
+        "objective": "Keep the action-first Fold//Bloom edge stable and self-verify it on every first-surface change. The existing browser/mobile proof must show a plain public start, a reachable TURN / RELEASE / TURN loop, one successful authored release, clear primary controls, and preserved deep routes/authority.",
         "acceptance": [
-          "One first-time user completes one RELEASE from a cold open without verbal instruction.",
-          "No primary phone control is occluded; TURN / RELEASE / TURN remains the dominant action row.",
-          "Advanced modes remain reachable without appearing as mandatory onboarding."
+          "Public root exposes TRY A RIDE / WATCH A GARDEN / MAP A SONG while deeper surfaces remain reachable.",
+          "LIVE cold-open exposes the three-step TURN → RELEASE → CHANGE loop and no mandatory advanced-mode choice.",
+          "390–430px browser/mobile checks keep TURN LEFT / RELEASE / TURN RIGHT unoccluded and actionable.",
+          "Automated course/browser proof completes an authored release and observes history/road change.",
+          "Hosted Garden, source layers, HEXAGRAM/PLAY, Two Dial, Lab and RETURN retain their existing authority/runtime proofs."
         ],
-        "law": "FIRST CONTACT ≠ FULL MODEL. Do not add a mode, ontology, explanation slab, or primary control until this cold-open gate passes; revise only from observed first-use friction."
+        "subjective_evidence_policy": "First-time-user behavior is welcome evidence if naturally observed, but it is not a default test harness and must not block a machine/self-verified release.",
+        "law": "SELF-VERIFY BEFORE HUMAN-GATE. FIRST CONTACT ≠ FULL MODEL. Do not expand first-use chrome without a concrete observed or machine-reproduced failure."
       }
     },
     {
