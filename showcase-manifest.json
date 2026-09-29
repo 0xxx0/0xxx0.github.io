@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29T17:03:18+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T16:47:00+08:00",
+        "updated_at": "2026-09-29T17:03:18+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -29,6 +29,7 @@
       "machine_view": "FIELD",
       "version": "0.8.22",
       "transfer": [
+        "packet egress hardening: structural precedence now enforces historical→ARCHIVE, GATE, authority-NOW, RESIDUE, NEXT, evidenced DELTA, default ARCHIVE; explicit packet labels cannot self-promote or bypass unresolved evidence",
         "packet egress reducer: existing transient machine handoff maps supplied/current packets to NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE; historical/superseded packets cannot self-promote; no new route, queue, store or authority",
         "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
         "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
