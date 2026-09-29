@@ -986,6 +986,18 @@ const CASES=[
     check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ NEXUS/.test(dom)&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&dom.includes('id="catchupFold"')&&dom.includes('data-signal="')&&!dom.includes('id="catchupFold" open')&&dom.includes('id="catchupSignals"')&&dom.includes('id="catchupList"')&&dom.includes('class="fold catchReality" id="waitingFold"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/FIELD \/ CATCH \+ ACT/.test(dom)&&dom.includes('id="capTrial"')&&/REWIND/.test(dom)&&/MARK ALL/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
+    name:'FIELD BODY/FIT donor aperture',
+    route:'/?focus=%2Fbody%2Ffit%2F',
+    options:{width:520,height:940,budget:9000,timeout:18000},
+    check:dom=>/BODY \/ FIT/.test(dom)&&/LOADOUT \/ PREP/.test(dom)&&/PATINA \/ NEXT CUT/.test(dom)&&/SENSE \/ FUSE/.test(dom)&&dom.includes('href="./body/fit/#loadout"')&&dom.includes('href="./body/fit/#patina"')
+  },
+  {
+    name:'BODY/FIT addressed PATINA view',
+    route:'/body/fit/#patina',
+    options:{width:430,height:900,budget:9000,timeout:18000},
+    check:dom=>/BODY \/ FIT/.test(dom)&&/<button class="tab on" data-view="history">PATINA<\/button>/.test(dom)&&dom.includes('id="view-history"')&&!/id="view-history"[^>]*hidden/.test(dom)&&/MARK = RETURN RECEIPT, NOT REWARD/.test(dom)
+  },
+  {
     name:'HUMAN PORT',
     route:'/port/',
     check:dom=>dom.includes('id="payload"')&&dom.includes('PORT INTAKE')
