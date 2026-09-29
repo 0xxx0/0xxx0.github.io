@@ -377,7 +377,7 @@ const CAPABILITY_PROJECTION=Object.freeze([
  ],boundary:'source bytes and provenance stay authoritative; traversal is evidence, not comprehension'},
  {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
 ]);
-const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02',FIELD_VISOR_KEY='field.interphase.visor.seen.v01';
+const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02',FIELD_VISOR_KEY='field.interphase.visor.seen.v01',DAYLINE_SOURCE_RETURN_KEY='atlas.dayline.source-return.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
 function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
@@ -528,24 +528,49 @@ async function copyHeldAction(){
 function heldDaylineAllowed(){
  return !!focus&&focus.href!=='/'&&focus.href!=='/dayline/'&&!focus.href.startsWith('/dayline/');
 }
+function fieldCarrierMoves(route){
+ return[
+  {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
+  ...(heldDaylineAllowed()?[{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),
+  {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
+ ].slice(0,3)
+}
+function daylineReturnForFocus(route){
+ try{
+  const bundle=JSON.parse(sessionStorage.getItem(DAYLINE_SOURCE_RETURN_KEY)||'null');
+  if(!bundle||bundle.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(bundle.offers))return null;
+  const age=Date.now()-Date.parse(bundle.created_at||0);
+  if(!Number.isFinite(age)||age<0||age>43200000){sessionStorage.removeItem(DAYLINE_SOURCE_RETURN_KEY);return null}
+  const returnTo='/?focus='+encodeURIComponent(route);
+  return bundle.offers.find(o=>o&&o.schema==='atlas-dayline-source-return/v0.1'&&o.authority==='OFFER_ONLY'&&o.return_to===returnTo&&o.carrier&&o.carrier.schema==='interphase-carrier/v0.1')||null
+ }catch(_){return null}
+}
 function fieldCarrierForFocus(){
  if(!focus||!window.InterphaseCarrier)return null;
- const h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
+ const C=window.InterphaseCarrier,h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
  const ipRaw=window.FieldInterphase&&typeof window.FieldInterphase.projectionResult==='function'?window.FieldInterphase.projectionResult():null;
  if(!ipRaw)return null;
- try{return window.InterphaseCarrier.fromProjection(ipRaw,{
-  owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
-  focusId:route,focusLabel:title,aperture:'ROUTE',
-  next:[
-   {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
-   ...(heldDaylineAllowed()?[{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),
-   {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
-  ].slice(0,3),
-  witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
-  return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
-  sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
-  meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
- })}catch(_){return null}
+ try{
+  const base=window.InterphaseCarrier.fromProjection(ipRaw,{
+   owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
+   focusId:route,focusLabel:title,aperture:'ROUTE',
+   next:fieldCarrierMoves(route),
+   witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
+   return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
+   sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
+   meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
+  });
+  const offer=daylineReturnForFocus(route);if(!offer?.carrier)return base;
+  const returned=C.validate(offer.carrier);if(!returned.ok||!C.sameObject(base,returned.carrier))return base;
+  const r=returned.carrier;
+  return C.make({
+   object:r.object,focus:r.focus,next:fieldCarrierMoves(route),witness:r.witness,return:base.return,
+   projection:{host:'FIELD',name:'RETURN',channels:base.projection.channels,residue:r.projection?.residue||[]},
+   sourceRefs:[...(r.sourceRefs||[]),route,'/control/CURRENT.json','/showcase-manifest.json'],
+   parentFrameId:r.frameId,handoffId:r.lineage?.handoffId||'',
+   meta:{...(r.meta||{}),...(base.meta||{}),daylineReturnId:offer.id,daylineReturnAuthority:offer.authority}
+  })
+ }catch(_){return null}
 }
 function handoffHeldToDayline(){
  if(!heldDaylineAllowed())return;
@@ -620,9 +645,9 @@ function renderCapabilityTrial(){
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
  if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href);
- $('capHeld').textContent=(c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(focus.title||focus.href);
- $('capHeldSub').textContent=focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host');
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
+ $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
+ $('capHeldSub').textContent=returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host'));
  const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
  if(nativeActions.length){
   $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
@@ -632,8 +657,8 @@ function renderCapabilityTrial(){
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
   const traceBtn=$('capMoves').querySelector('[data-cap-trace]');if(traceBtn)traceBtn.onclick=openTrace;
  }
- $('capWitness').textContent=n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
- $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
+ $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
+ $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
  if(!$('fieldVisor')?.hidden)renderFieldVisor({force:true});
 }
 function renderAperture(){
