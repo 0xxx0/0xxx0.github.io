@@ -652,7 +652,7 @@ function readRideState(){
 }
 function clearReadRide({silent=false}={}){
   if(!readRide)return false;
-  readRide=null;authoredReader=null;document.documentElement.dataset.foldBloomAuthoredReader='off';clearReadEcho();syncAuthoredReaderUI();
+  readRide=null;readEchoThread=null;authoredReader=null;document.documentElement.dataset.foldBloomAuthoredReader='off';clearReadEcho();try{sessionStorage.removeItem(ECHO_THREAD_STORAGE)}catch(_){};syncAuthoredReaderUI();
   if(READ_GRAINS.includes(courseGrain))courseGrain='PHRASE';
   courseMode='STEP';lastCoursePaint=-1;lastTextKey='';
   delete document.documentElement.dataset.foldBloomReadRide;
