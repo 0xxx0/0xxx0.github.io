@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import {reducePacket,EGRESS_CLASSES} from '../lib/field-egress-reducer.mjs';
 
 const INPUTS={
   current:'control/CURRENT.json',
@@ -53,6 +54,11 @@ function compile({C,M,W,K}){
       objective:n.objective||detail[0]||'Return one observed delta.',first_evidence:detail[0]||null
     }];
   });
+  const egress=[];
+  for(const f of C.active_fronts||[])egress.push(reducePacket({packet_id:'front:'+(f.id||'unnamed'),state:f.state,sources:['/control/CURRENT.json#active_fronts']},{now:true}));
+  for(const g of gates)egress.push(reducePacket({packet_id:'gate:'+(g.id||g.route||'unnamed'),state:g.state,waiting:[g],sources:['/control/CURRENT.json#current_heads.next_executable']}));
+  if(C.next_single_action)egress.push(reducePacket({packet_id:'next:'+(C.next_single_action.id||'single'),one_next:C.next_single_action,sources:['/control/CURRENT.json#next_single_action']}));
+  if(Object.keys(waitCounts).length)egress.push(reducePacket({packet_id:'residue:waiting-registry',residue:waitCounts,sources:['/control/WAITING.json#surface_state_counts']}));
   return {
     schema:'field-agent-transcript/v0.2-jit',
     packet_authority:'NONE',
@@ -60,6 +66,7 @@ function compile({C,M,W,K}){
     phi_focus:null,
     now:{updated:C.updated||null,active_fronts:C.active_fronts||[],next_single_action:C.next_single_action||null},
     heads,human_world_gates:gates,
+    egress:{schema:'field-packet-egress/v0.1',classes:EGRESS_CLASSES,items:egress,law:'Packet presence does not create continuation; historical/superseded packets archive unless current authority explicitly reactivates them.'},
     residue:{waiting_registry_surface_counts:waitCounts,note:'Registry residue is not promoted into NOW merely because it exists.'},
     truth_grammar:K.truth_grammar||{},
     return:{target:'/',law:'RETURN restores re-entry/context; REWIND navigates transcript/history context; REVERT is a new authorized canonical operation.'},
@@ -87,10 +94,20 @@ function markdown(p){
   out.push('','## HUMAN / WORLD GATES');
   if(!p.human_world_gates.length)out.push('- CLEAR');
   for(const g of p.human_world_gates)out.push('- '+(g.route||'—')+' · '+g.dependency_kind+' · '+clip(g.objective));
+  out.push('','## EGRESS');
+  for(const x of p.egress.items)out.push('- '+x.class+' · '+x.packet_id+' · '+x.reason);
   out.push('','## RESIDUE','- WAITING registry counts: '+JSON.stringify(p.residue.waiting_registry_surface_counts),'','## RETURN','- '+p.return.law,'');
   return out.join('\n')+'\n';
 }
 
+const reduceAt=process.argv.indexOf('--reduce');
+if(reduceAt>=0){
+  const path=process.argv[reduceAt+1];
+  if(!path){console.error('FIELD reduce requires a JSON packet path');process.exit(2)}
+  const packet=read(path);
+  const context={now:process.argv.includes('--now'),selected:process.argv.includes('--selected'),reactivated:process.argv.includes('--reactivate')};
+  process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\n');
+}else{
 const sources=load(),packet=compile(sources);
 if(process.argv.includes('--selftest')){
   const fail=[];
@@ -101,6 +118,9 @@ if(process.argv.includes('--selftest')){
   if(packet.phi.selected_expressions.length!==4)fail.push('selected expression count != 4');
   if((packet.now.active_fronts||[]).length>3)fail.push('CURRENT active-front law > 3');
   if(!packet.return?.target)fail.push('RETURN target missing');
+  if((packet.egress?.items||[]).some(x=>!EGRESS_CLASSES.includes(x.class)))fail.push('invalid egress class');
+  if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('front:')).some(x=>x.class!=='NOW'))fail.push('active front did not reduce to NOW');
+  if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('gate:')).some(x=>x.class!=='GATE'))fail.push('human/world gate did not reduce to GATE');
   const rendered=markdown(packet),structured=JSON.stringify(packet);
   if(rendered.length>10000)fail.push('default transcript exceeds 10k chars: '+rendered.length);
   if(structured.length>20000)fail.push('structured transcript exceeds 20k chars: '+structured.length);
@@ -119,4 +139,5 @@ if(process.argv.includes('--selftest')){
   process.stdout.write(JSON.stringify(packet,null,2)+'\n');
 }else{
   process.stdout.write(markdown(packet));
+}
 }
