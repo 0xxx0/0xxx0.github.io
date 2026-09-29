@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29",
-  "status": "PR_CANDIDATE_EXACT_CURRENT_MASTER",
+  "status": "MERGED_PASS",
   "date": "2026-09-29",
   "route": "/",
   "version": "0.8.24",
@@ -56,5 +56,24 @@
     "NEXUS uses existing manifest alias grammar: kind=alias, alias_of=/, state=UTILITY."
   ],
   "stop": "Merge only on exact-head green proof. After merge, do not create another convergence dashboard; reopen only for observed re-entry failure or authority ambiguity.",
-  "predecessor_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json"
+  "predecessor_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
+  "verification": {
+    "pr": 636,
+    "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
+    "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+    "checks": {
+      "route_registration": {
+        "run": 36580603188,
+        "conclusion": "success"
+      },
+      "public_surface": {
+        "run": 36580602549,
+        "conclusion": "success"
+      },
+      "gitleaks": {
+        "run": 36580602546,
+        "conclusion": "success"
+      }
+    }
+  }
 }

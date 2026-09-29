@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T21:44:00+08:00",
+  "updated": "2026-09-29T22:13:47+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -99,15 +99,25 @@
       "version": "0.8.24",
       "latest_return": "/returns/FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
       "repo_verification": {
-        "status": "PR_CANDIDATE / EXACT_CURRENT_MASTER_REBUILD",
-        "base_sha": "09bec14a89ec273acc83f4fa185d5178b97d994b",
+        "status": "PASS / PR 636 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
+        "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+        "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
         "checks": {
-          "nexus_surface": "PENDING",
-          "route_registration": "PENDING",
-          "public_surface": "PENDING",
-          "gitleaks": "PENDING"
+          "route_registration": {
+            "run": 36580603188,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36580602549,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36580602546,
+            "conclusion": "success"
+          }
         },
-        "browser": "PENDING · /nexus/ → /#convRead preserves re-entry while CURRENT owns NOW and RETURN owns evidence",
+        "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
         "predecessor": {
           "status": "PASS / PR 601 EXACT-HEAD",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
