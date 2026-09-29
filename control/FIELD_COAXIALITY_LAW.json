@@ -72,13 +72,18 @@
     "preferred_ring_api": "InterphaseRing.relationLabel(a,b,count,HOST_MAP)",
     "compatibility_note": "InterphaseRing.relationVerb remains legacy compatibility for existing callers; new generic work must not rely on its default BLOOM/FOLD/RETURN/SPLIT mapping.",
     "first_host_migration": "/fold-bloom/two-dial/ owns SAME/NEAR/FAR/OPPOSITE -> BLOOM/FOLD/RETURN/SPLIT explicitly.",
-    "acceptance": "A design passes only when invariants A-H all hold; failure of H means it may be interesting but is not justified by COAXIALITY."
+    "acceptance": "A design passes only when invariants A-H all hold; failure of H means it may be interesting but is not justified by COAXIALITY.",
+    "audit_contract": "/control/FIELD_COAXIALITY_AUDIT.json",
+    "audit_tool": "/tools/field-coaxiality-audit.cjs",
+    "admission_rule": "A mechanism may claim COAXIALITY PASS only when the executable audit computes KEEP. INDETERMINATE is not PASS; H_COMPRESSION failure requires de-coaxialization/deletion rather than explanation chrome."
   },
   "related_contracts": [
     "/control/FIELD_INDEX_CONTRACT.json",
     "/control/INTERACTION_SEMANTICS.json",
     "/control/INTERPHASE_SUCCESSOR.json",
     "/lib/interphase-ring.js",
-    "/lib/interphase-glyph.js"
+    "/lib/interphase-glyph.js",
+    "/control/FIELD_COAXIALITY_AUDIT.json",
+    "/tools/field-coaxiality-audit.cjs"
   ]
 }

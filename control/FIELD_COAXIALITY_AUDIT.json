@@ -1,0 +1,195 @@
+{
+  "schema": "0xxx0/field-coaxiality-audit/v0.1",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_EXECUTABLE",
+  "purpose": "Turn FIELD COAXIALITY invariants A-H into a repo-level keep/repair/delete gate. The audit validates claims; it does not create a UI, state store, semantic mapping, or execution authority.",
+  "verdicts": {
+    "PASS": "The named criterion is directly supported by durable repo evidence.",
+    "FAIL": "Durable evidence demonstrates a violation.",
+    "INDETERMINATE": "Required evidence is absent or insufficient. INDETERMINATE is never promoted to PASS."
+  },
+  "evidence_fields": [
+    "mechanism",
+    "host",
+    "claim",
+    "state_owner",
+    "projection_boundary",
+    "gesture_ownership",
+    "identity_rule",
+    "reversal_or_residue",
+    "driver_provenance",
+    "return_record",
+    "complexity_delta",
+    "proof"
+  ],
+  "decision_rule": {
+    "KEEP": "All A-H PASS.",
+    "REPAIR_OR_DELETE": "One or more of A-G FAIL. Repair only the failed invariant(s); otherwise delete/de-coaxialize the mechanism.",
+    "DECOAXIALIZE_OR_DELETE": "H_COMPRESSION FAIL: restore ordinary controls/structure or remove the mechanism. Novelty is not sufficient justification.",
+    "PROVE_OR_DECOAXIALIZE": "No FAIL exists but at least one criterion is INDETERMINATE. Supply bounded evidence; otherwise fall back to a simpler non-coaxial form.",
+    "precedence": [
+      "Any FAIL in A-G -> REPAIR_OR_DELETE",
+      "Else H FAIL -> DECOAXIALIZE_OR_DELETE",
+      "Else any INDETERMINATE -> PROVE_OR_DECOAXIALIZE",
+      "Else -> KEEP"
+    ]
+  },
+  "tests": [
+    {
+      "id": "A_STATE",
+      "pass": "Canonical/host state is representable and testable without the rendering or geometric projection.",
+      "fail": "Changing/removing the view destroys, manufactures, or becomes the only representation of canonical state.",
+      "evidence": [
+        "state_owner",
+        "projection_boundary",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "B_RELATION",
+      "pass": "Relative meaning is supplied by an explicit host/domain mapping over neutral carrier relations.",
+      "fail": "Carrier geometry, angle, distance, nesting, animation, or default labels directly manufacture domain verbs/meaning.",
+      "evidence": [
+        "host",
+        "claim",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "C_GESTURE",
+      "pass": "Each physical gesture has one primary interpretation; any secondary coupling is explicit and visible.",
+      "fail": "One gesture silently selects+navigates, mutates unrelated axes, or changes multiple authorities.",
+      "evidence": [
+        "gesture_ownership",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "D_IDENTITY",
+      "pass": "ROUTE/SCALE/FOLD/BLOOM preserve the addressed referent unless an explicit traversal changes it.",
+      "fail": "Projection/scale/compression silently swaps the referent or loses the exact address.",
+      "evidence": [
+        "identity_rule",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "E_REVERSAL",
+      "pass": "Cheap/local transforms are reversible, or FOLD retains named residue sufficient for exact or declared-tolerance BLOOM.",
+      "fail": "Compression/transformation destroys state required to reopen, reverse, or explain the loss.",
+      "evidence": [
+        "reversal_or_residue",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "F_LIVE",
+      "pass": "Time/driver inputs retain source/user/system provenance and borrowed clock never becomes borrowed authorship.",
+      "fail": "Animation/time input obscures who/what drove the state or promotes an external clock/model to author.",
+      "evidence": [
+        "driver_provenance",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "G_RETURN",
+      "pass": "RETURN can explain causation using before + operation + actor/driver + delta + after + provenance.",
+      "fail": "History is destination-only, decorative, or cannot reconstruct why the present state exists.",
+      "evidence": [
+        "return_record",
+        "proof"
+      ],
+      "on_fail": "REPAIR_OR_DELETE"
+    },
+    {
+      "id": "H_COMPRESSION",
+      "pass": "Compared with a named plain/non-coaxial baseline, the mechanism removes more exposed interaction/learning burden than it adds while retaining required function.",
+      "fail": "The mechanism adds equal/greater control, explanation, memory, or navigation burden than the baseline.",
+      "evidence": [
+        "complexity_delta",
+        "proof"
+      ],
+      "on_fail": "DECOAXIALIZE_OR_DELETE"
+    }
+  ],
+  "scope": {
+    "admission": "Register only mechanisms that actually claim a shared held manipulation space. Neutral carrier libraries are audited through their hosts, not treated as independently justified UI.",
+    "carrier_exclusions": [
+      {
+        "path": "/lib/interphase-ring.js",
+        "disposition": "KEEP_AS_NEUTRAL_CARRIER",
+        "reason": "The library exposes cyclic coordinates/relations but owns no domain meaning, mutation, RETURN, or user-facing compression claim. Its host must satisfy A-H."
+      }
+    ]
+  },
+  "mechanisms": [
+    {
+      "id": "fold-bloom-two-dial-relation",
+      "route": "/fold-bloom/two-dial/",
+      "host": "FOLD//BLOOM TWO DIAL",
+      "carrier": "/lib/interphase-ring.js",
+      "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
+      "decision": "REPAIR_OR_DELETE",
+      "repair_boundary": "Retain the neutral relation carrier and host-owned mapping. Before this mechanism may claim COAXIALITY PASS, repair causal RETURN (G), prove/repair E and F as needed, then compare user-visible burden against a plain control baseline for H. If H fails, de-coaxialize/delete rather than add explanation chrome.",
+      "tests": {
+        "A_STATE": {
+          "verdict": "PASS",
+          "evidence": [
+            "/fold-bloom/two-dial/core1.js: L/R + relationFromPair are state/functions independent of canvas drawing",
+            "/lib/interphase-ring.js: relation() is pure state algebra"
+          ]
+        },
+        "B_RELATION": {
+          "verdict": "PASS",
+          "evidence": [
+            "/fold-bloom/two-dial/core1.js: RELATION_VERBS_BY_KIND owns SAME/NEAR/FAR/OPPOSITE -> BLOOM/FOLD/RETURN/SPLIT",
+            "/lib/interphase-ring.js: relationLabel() returns neutral kind unless host map is supplied"
+          ]
+        },
+        "C_GESTURE": {
+          "verdict": "INDETERMINATE",
+          "evidence": [
+            "No dedicated repo proof in this audit establishes one-gesture/one-primary-interpretation across pointer, dial and mode interactions."
+          ]
+        },
+        "D_IDENTITY": {
+          "verdict": "PASS",
+          "evidence": [
+            "/lib/interphase-ring.js model() preserves slot index/item identity while rotation changes projection",
+            "/fold-bloom/two-dial/core1.js keeps L/R addressed dial state explicit"
+          ]
+        },
+        "E_REVERSAL": {
+          "verdict": "INDETERMINATE",
+          "evidence": [
+            "The host uses FOLD/BLOOM as musical/domain operators, but this audit found no bounded proof that any lossy compression retains sufficient residue for exact or declared-tolerance reopen."
+          ]
+        },
+        "F_LIVE": {
+          "verdict": "INDETERMINATE",
+          "evidence": [
+            "core1.js retains pulseLink sourceKind/sourceHash/sourceAddress, but no bounded audit yet proves driver/authorship separation across all LIVE-linked mutations."
+          ]
+        },
+        "G_RETURN": {
+          "verdict": "FAIL",
+          "evidence": [
+            "/fold-bloom/two-dial/core1.js replayPhrase() emits phrase_return with n/sig/moves but does not record the law-required before + actor/driver + delta + after + provenance causal tuple."
+          ]
+        },
+        "H_COMPRESSION": {
+          "verdict": "INDETERMINATE",
+          "evidence": [
+            "No durable baseline comparison currently demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler non-coaxial control surface."
+          ]
+        }
+      }
+    }
+  ]
+}
