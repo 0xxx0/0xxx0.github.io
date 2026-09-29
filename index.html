@@ -347,9 +347,9 @@ const CAPABILITY_PROJECTION=Object.freeze([
  {id:'house',match:h=>h==='/house/'||h.startsWith('/house/'),owner:'HOUSE',moves:['PROJECT / TRACE','STATE / EXPERT','CONTEXT → DAYLINE'],boundary:'selection ≠ presence / no actuation'},
  {id:'shopping',match:h=>h==='/shopping/'||h.startsWith('/shopping/'),owner:'SHOPPING',moves:['RESEARCH / COMPARE','GATE / NEXT ACTION','HANDOFF → DAYLINE'],boundary:'no purchase or lifecycle promotion'},
  {id:'prison-age',match:h=>h==='/prison-age/'||h.startsWith('/prison-age/'),owner:'PRISON AGE',moves:['READ','RIDE','SOURCE'],actions:[
-  {label:'READ',target:'./prison-age/?story=open-air&action=read&return=field'},
-  {label:'RIDE',target:'./prison-age/?story=open-air&action=ride&return=field'},
-  {label:'SOURCE',target:'./prison-age/?story=open-air&return=field'}
+  {label:'READ',target:'./prison-age/?intent=read&return=field'},
+  {label:'RIDE',target:'./prison-age/?intent=ride&return=field'},
+  {label:'SOURCE',target:'./prison-age/?return=field'}
  ],boundary:'source bytes and provenance stay authoritative; traversal is evidence, not comprehension'},
  {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
 ]);

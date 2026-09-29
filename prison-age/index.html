@@ -35,18 +35,18 @@ footer{border-top:1px solid var(--line);padding-top:8px;display:flex;justify-con
 
 const $=id=>document.getElementById(id),PACK='/prison-age/sources.json';
 let pack=null,story=null,source='';
-const q=new URLSearchParams(location.search);
+const q=new URLSearchParams(location.search),intent=['read','ride'].includes(q.get('intent'))?q.get('intent'):null;
 const cleanPreview=raw=>{
   const lines=String(raw||'').replace(/\r/g,'').split('\n').map(x=>x.trim()).filter(Boolean);
   const prose=lines.filter(x=>!/^\d+(?:\/\d+)?$/.test(x)&&!/^UNIVERSE\b/.test(x)&&!/^TOKEN\s*\/\//.test(x)&&!/^MARGIN\s*\/\//.test(x)&&!/^[-·]{8,}$/.test(x)&&!/^#/.test(x)&&!/^(Source|Editorial status):/i.test(x)&&!/^\*\*/.test(x)&&!/^\[ … SOURCE PASSAGE OMITTED … \]$/.test(x));
   return prose.slice(0,3).join('\n\n');
 };
-const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(q.get('return')==='field'?'&return=field':'');
+const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(intent?'&intent='+encodeURIComponent(intent):'')+(q.get('return')==='field'?'&return=field':'');
 const returnUrl=()=>q.get('return')==='field'?'/?focus=%2Fprison-age%2F':sourceUrl();
 function updateUrl(){history.replaceState(null,'',sourceUrl())}
 function renderList(){
   $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
-  $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=()=>loadStory(b.dataset.story));
+  $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=async()=>{await loadStory(b.dataset.story);if(intent==='read')return readSource();if(intent==='ride')return rideSource()});
 }
 async function loadStory(id){
   story=pack.stories[id]||pack.stories[pack.default];source='';
@@ -76,7 +76,7 @@ async function rideSource(){
   location.href='/fold-bloom/live/?source=readfield&course=STEP';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
-window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null}),load:loadStory,ride:rideSource,read:readSource});
-async function consumeInitialAction(){const action=q.get('action');if(action==='read')return readSource();if(action==='ride')return rideSource()}
-fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);await consumeInitialAction()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
+window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent}),load:loadStory,ride:rideSource,read:readSource});
+function applyIntentStatus(){if(intent==='read')$('status').textContent='READ INTENT · choose an exact source movement; READFIELD opens only after selection.';else if(intent==='ride')$('status').textContent='RIDE INTENT · choose an exact source movement; FOLD//BLOOM LIVE opens only after selection.'}
+fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);applyIntentStatus()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
 </script></body></html>

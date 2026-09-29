@@ -1,0 +1,41 @@
+{
+  "schema": "field-index.prison-age-source-intent-return/v0.1",
+  "generated_at": "2026-09-29T09:08:00+08:00",
+  "status": "PASS / PR_528",
+  "route": "/",
+  "field_version": "0.8.21",
+  "change": "Held PRISON AGE source-set actions preserve READ / RIDE / SOURCE labels while READ/RIDE carry operation intent only. Exact source selection remains in the native Prison Age resolver.",
+  "preserves": [
+    "one held object",
+    "exact route identity",
+    "native-owner authority",
+    "RETURN to FIELD held object",
+    "FIELD never selects a Prison Age story",
+    "FIELD never mutates source bytes or READ/RIDE domain state"
+  ],
+  "delegates": {
+    "source_truth": "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
+    "source_owner": "PRISON_AGE",
+    "read_owner": "READFIELD",
+    "ride_owner": "FOLD_BLOOM_LIVE"
+  },
+  "verification": {
+    "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+    "status": "PASS",
+    "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+    "checks": {
+      "route_registration": {
+        "run": 36507219876,
+        "conclusion": "success"
+      },
+      "public_surface": {
+        "run": 36507220022,
+        "conclusion": "success"
+      },
+      "gitleaks": {
+        "run": 36507219919,
+        "conclusion": "success"
+      }
+    }
+  }
+}
