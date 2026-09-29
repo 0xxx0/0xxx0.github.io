@@ -109,7 +109,8 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 
 - Coordination board: `/nexus/board.html`
 - Machine-room comms state: `/comms/` (system glyph + fleet + open + digest + loops; regenerated from ops-hub by `comms_page.py` every 30m)
-- Convergence dashboard: `/nexus/index.html`
+- Canonical convergence read: `/#convRead` (composed read-only on FIELD INDEX)
+- Legacy convergence entry: `/nexus/index.html` → compatibility alias to FIELD
 - System map: `/nexus/map.html`
 - **FIELD Index live sync**: `/` (Φ host/current frame + φ local focus; exact master commits are chronology; manifest rail is a route projection)
 - Machine entrypoint: `/llms.txt`
