@@ -79,6 +79,31 @@
       "retirement": "No extra UI required when native host already exposes equivalent preview."
     },
     {
+      "id": "asynchronous-path-residue",
+      "donors": [
+        "Death Stranding"
+      ],
+      "status": "CONTRACT",
+      "recipients": [
+        "/",
+        "/control/confluence/"
+      ],
+      "invariant": "A contributor may leave bounded, addressable residue that another actor can reuse later without shared live state; reuse may strengthen the path only when later use is actually observed.",
+      "non_transfer": [
+        "likes/reputation economy",
+        "popularity ranking",
+        "automatic trust",
+        "global shared-world mutation",
+        "permanent clutter",
+        "mere recency treated as reuse"
+      ],
+      "contract_key": "asynchronous_residue",
+      "implementation": "Reuse existing exact Git/RETURN addresses as asynchronous residue; future traversals may cite the residue, but existence alone never changes CURRENT, priority or authority.",
+      "proof_claim": "CURRENT contract forbids popularity/recency from minting authority and requires observed reuse before calling a path strengthened.",
+      "new_sovereign_app": false,
+      "retirement": "No new store is created. If a derived traversal witness is later added, retire it if exact Git/RETURN evidence already answers the re-entry question."
+    },
+    {
       "id": "ghost-not-real",
       "donors": [
         "Factorio"
@@ -187,6 +212,87 @@
           "observed": "designers describe the recycling endgame as taking away the buildings/tools after restoration; the excess infrastructure problem motivated the mechanic"
         }
       ]
+    }
+  ],
+  "requested_map": [
+    {
+      "game": "Outer Wilds",
+      "field_mechanism": "RUMOR / knowledge-gap re-entry",
+      "transferable_rule": "Progress can be increased knowledge without world-state mutation; show known facts and unresolved edges, not a task list.",
+      "implementation_idea": "FIELD MAP → RUMOR derives rows only from route-owned evolution.question, open_gaps, or non-AVAILABLE exit declarations; selecting a row only holds the existing route.",
+      "current_host": "/"
+    },
+    {
+      "game": "Hades",
+      "field_mechanism": "failure-return residue",
+      "transferable_rule": "A failed bounded attempt should alter the next encounter by leaving evidence, context or relationship residue; otherwise stop blind repetition.",
+      "implementation_idea": "On failed executor/run returns, classify NEW_EVIDENCE / DUPLICATE / BLOCKED and carry only the residue into the next replan; never award streak/XP.",
+      "current_host": "/dayline/"
+    },
+    {
+      "game": "Death Stranding",
+      "field_mechanism": "asynchronous path residue",
+      "transferable_rule": "Useful contributions can persist for later actors without synchronous coordination; a path becomes meaningful through reuse, not popularity.",
+      "implementation_idea": "Project exact commit/RETURN residues onto their addressed routes and allow later agents to cite/reuse them; only a later observed reuse may mark the residue as traversed again.",
+      "current_host": "/"
+    },
+    {
+      "game": "Into the Breach",
+      "field_mechanism": "pre-commit telegraph",
+      "transferable_rule": "If effects are predictable, show affected addresses and the commit boundary before acting; unknown effects stay unknown.",
+      "implementation_idea": "Before any host-authoritative irreversible action, render PREVIEW: affected objects, predicted deltas, reversible/irreversible flag, then a separate COMMIT owned by the host.",
+      "current_host": "/"
+    },
+    {
+      "game": "Hardspace: Shipbreaker",
+      "field_mechanism": "safe salvage / dependency-aware subtraction",
+      "transferable_rule": "Survey interfaces, hazards and reusable parts before cutting; subtraction is an operation with proof obligations.",
+      "implementation_idea": "Run field-salvage-audit before retiring a surface; preserve current/head authority, aliases, children, runtime references, provenance and transferable mechanism before any deletion proposal.",
+      "current_host": "/control/confluence/"
+    },
+    {
+      "game": "Terra Nil",
+      "field_mechanism": "scaffold retirement",
+      "transferable_rule": "A successful support system may culminate in removing itself after capability has been restored or transferred.",
+      "implementation_idea": "Temporary helpers/migration shims must declare a retirement condition at creation; once the host owns the capability and proof/RETURN survives, classify the scaffold for salvage review rather than permanent promotion.",
+      "current_host": "/control/confluence/"
+    }
+  ],
+  "sources": [
+    {
+      "game": "Outer Wilds",
+      "url": "https://new.annapurnainteractive.com/en/games/outer-wilds",
+      "observed": "time-loop mystery; practical progression depends on retained discovery/knowledge across repeated cycles"
+    },
+    {
+      "game": "Outer Wilds / Ship Log reference",
+      "url": "https://nh.outerwildsmods.com/guides/ship-log/",
+      "observed": "Rumor Mode relates entries/facts and distinguishes rumor facts from explored facts"
+    },
+    {
+      "game": "Hades",
+      "url": "https://www.supergiantgames.com/blog/9/",
+      "observed": "repeated runs keep exposing new builds and story events rather than narratively resetting"
+    },
+    {
+      "game": "Death Stranding",
+      "url": "https://www.playstation.com/en-us/games/death-stranding-2-on-the-beach/",
+      "observed": "Social Strand System exposes asynchronous structures, routes, donations and incomplete deliveries across players"
+    },
+    {
+      "game": "Into the Breach",
+      "url": "https://www.subsetgames.com/itb.html",
+      "observed": "enemy attacks are telegraphed before the turn so predicted effects can be countered"
+    },
+    {
+      "game": "Hardspace: Shipbreaker",
+      "url": "https://www.blackbirdinteractive.com/shipbreaker",
+      "observed": "layered ships contain coupled subsystems/hazards and are surveyed, cut and salvaged"
+    },
+    {
+      "game": "Terra Nil",
+      "url": "https://devolverdigital.itch.io/terra-nil",
+      "observed": "restoration culminates in recycling the infrastructure and leaving no trace"
     }
   ]
 }
