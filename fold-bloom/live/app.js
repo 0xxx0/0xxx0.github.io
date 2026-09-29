@@ -488,6 +488,7 @@ function update(){
   const sceneMeta=scenePresentation(state.scene);
   $('#scene').textContent=sceneMeta.label;
   $('#modeBtn').textContent=state.mode;
+  $('#modeDrawerBtn').textContent='RIDE MODE · '+state.mode;$('#modeDrawerBtn').setAttribute('aria-label','Ride mode: '+state.mode+'. Tap to toggle between RATCHET and FLOW.');
   $('#sceneBtn').textContent=sceneMeta.plain;
   $('#sceneBtn').title='Generated sound palette + field presentation: '+sceneMeta.plain+'. '+sceneMeta.detail;
   $('#sceneBtn').setAttribute('aria-label','Cycle generated sound palette and field presentation. Current preset: '+sceneMeta.plain+'. '+sceneMeta.detail);
@@ -1085,7 +1086,7 @@ function pointUp(e){
 }
 cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointUp);
 
-$('#turnLeft').onclick=()=>{stopDemo(true);step(-1)};$('#turnRight').onclick=()=>{stopDemo(true);step(1)};$('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
+$('#turnLeft').onclick=()=>{stopDemo(true);step(-1)};$('#turnRight').onclick=()=>{stopDemo(true);step(1)};$('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};$('#modeDrawerBtn').onclick=()=>{stopDemo(true);toggleMode()};
 document.querySelectorAll('[data-sound-scene]').forEach(b=>b.addEventListener('click',()=>selectSoundScene(b.dataset.soundScene)));
 $('#soundBtn').onclick=async()=>{if(!audio.ctx){await enableFieldAudio();return}audio.setSound(!audio.soundOn);syncSoundGate(false);update()};
 const setMenuOpen=open=>{
