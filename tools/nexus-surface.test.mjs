@@ -1,13 +1,9 @@
 #!/usr/bin/env node
 'use strict';
-/* NEXUS head test — the /nexus/ surface (index.html, board.html, map.html)
-   had no runnable check of any kind. These are hand-authored snapshot pages,
-   so what is real and falsifiable here is: (a) every local link resolves to a
-   real repo path (incl. src/return query targets), (b) the pages carry their
-   contract structure (titles, cross-links, provenance statements), and
-   (c) each page's internal claims are self-consistent (the "N/N bots live"
-   claim equals the bot cards actually present; blocker lists match their
-   counts; pipeline rows and map nodes are complete). Node stdlib only.
+/* NEXUS compatibility test — /nexus/ is an alias into the canonical FIELD
+   convergence read. board.html + map.html remain direct utility projections.
+   The test therefore proves: alias target/re-entry behavior, local link integrity,
+   board snapshot coherence, and map structural completeness. Node stdlib only.
    Run: node tools/nexus-surface.test.mjs */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,6 +15,7 @@ const read = p => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const PAGES = ['nexus/index.html', 'nexus/board.html', 'nexus/map.html'];
 const TXT = Object.fromEntries(PAGES.map(p => [p, read(p)]));
 const [INDEX, BOARD, MAP] = PAGES.map(p => TXT[p]);
+const FIELD = read('index.html');
 
 const checks = [];
 const check = (name, fn) => {
@@ -26,9 +23,11 @@ const check = (name, fn) => {
   catch (e) { checks.push([name, e]); }
 };
 
-check('pages: all three load as substantial HTML with their expected titles', () => {
-  for (const p of PAGES) assert.ok(TXT[p].length > 3000, `${p} too small`);
-  assert.ok(INDEX.includes('<title>NEXUS // convergence</title>'), 'index title');
+check('pages: alias + utility pages load with expected titles', () => {
+  assert.ok(INDEX.length > 700, 'nexus alias too small');
+  assert.ok(BOARD.length > 3000, 'board too small');
+  assert.ok(MAP.length > 3000, 'map too small');
+  assert.ok(INDEX.includes('<title>NEXUS // FIELD alias</title>'), 'alias title');
   assert.ok(BOARD.includes('<title>OPS // multi-agent board</title>'), 'board title');
   assert.ok(MAP.includes('<title>FIELD // SYSTEM MAP</title>'), 'map title');
 });
@@ -57,58 +56,26 @@ check('links: every local link resolves to a real repo path (incl. src/return ta
       }
     }
   }
-  assert.ok(checked >= 20, `link extraction found only ${checked} local targets — extractor broken?`);
+  assert.ok(checked >= 12, `link extraction found only ${checked} local targets — extractor broken?`);
   assert.deepEqual(missing, [], 'dead local links');
 });
 
-check('index: topnav cross-links the three views and FIELD INDEX', () => {
-  for (const href of ['href="./index.html"', 'href="./map.html"', 'href="./board.html"', 'href="../"'])
-    assert.ok(INDEX.includes(href), `index topnav missing ${href}`);
+check('index: compatibility alias returns to canonical FIELD convergence', () => {
+  assert.ok(INDEX.includes('http-equiv="refresh" content="0;url=../#convRead"'), 'meta redirect target');
+  assert.ok(INDEX.includes("location.replace('../#convRead')"), 'script redirect target');
+  assert.ok(INDEX.includes('CURRENT owns attention'), 'authority boundary');
+  assert.ok(INDEX.includes('RETURN owns durable evidence'), 'return boundary');
+  assert.ok(INDEX.includes('href="./board.html"'), 'board utility link');
+  assert.ok(INDEX.includes('href="./map.html"'), 'map utility link');
 });
 
-check('index: cards carry label + stat; blocker lists match their own counts', () => {
-  const cards = INDEX.split('<a class="card"').slice(1);
-  assert.ok(cards.length >= 6, `only ${cards.length} cards`);
-  const byLabel = new Map();
-  for (const block of cards) {
-    const label = (block.match(/class="label">([^<]*)</) || [])[1];
-    const stat = (block.match(/class="stat[^"]*"[^>]*>([^<]*)</) || [])[1];
-    assert.ok(label && label.trim(), 'card without label');
-    assert.ok(stat && stat.trim(), `card "${label}" without stat`);
-    byLabel.set(label, {
-      n: parseInt(stat.replace(/,/g, ''), 10),
-      desc: (block.match(/<div style="font-size:8px;color:var\(--mut\)">([^<]*)</) || [])[1] || '',
-    });
-  }
-  const lifted = byLabel.get('Blockers lifted');
-  const blocked = byLabel.get('Still blocked');
-  assert.ok(lifted, 'no Blockers lifted card');
-  assert.ok(blocked, 'no Still blocked card');
-  assert.equal(lifted.desc.split(' · ').length, lifted.n, 'blockers-lifted list vs count');
-  assert.equal(blocked.desc.split(' · ').length, blocked.n, 'still-blocked list vs count');
-});
-
-check('index: recovery pipeline rows complete, statuses from the known set', () => {
-  const rows = INDEX.match(/<tr class="rowlink"[^>]*>[\s\S]*?<\/tr>/g) || [];
-  assert.ok(rows.length >= 5, `only ${rows.length} pipeline rows`);
-  for (const row of rows) {
-    assert.equal((row.match(/<td/g) || []).length, 4, 'pipeline row must have 4 cells');
-    assert.ok(row.includes('status-dot'), 'pipeline row missing status dot');
-    assert.ok(/(RECOVERED|IN REPO|PARTIAL|FROZEN|BLOCKED)</.test(row), 'pipeline row status unknown');
-  }
-});
-
-check('index: timeline entries carry tag + strong + link', () => {
-  const items = INDEX.match(/<a class="timeline-item"[\s\S]*?<\/a>/g) || [];
-  assert.ok(items.length >= 5, `only ${items.length} timeline items`);
-  for (const it of items) {
-    assert.ok(/class="tag [a-z]+"/.test(it), 'timeline item missing tag');
-    assert.ok(it.includes('<strong>'), 'timeline item missing strong');
-  }
-});
-
-check('index: footer states the self-verifying convergence provenance', () => {
-  assert.ok(INDEX.includes('Self-verifying convergence state'), 'provenance line');
+check('FIELD: convergence hash opens the embedded read instead of a second dashboard', () => {
+  assert.ok(FIELD.includes('id="reentryFold"'), 're-entry fold id');
+  assert.ok(FIELD.includes('id="convRead"'), 'embedded convergence read');
+  assert.ok(FIELD.includes("location.hash!=='#convRead'"), 'hash reveal guard');
+  assert.ok(FIELD.includes("fold.open=true"), 'hash opens root re-entry fold');
+  assert.ok(FIELD.includes('<b>CONVERGE / READ</b>'), 'root convergence destination');
+  assert.ok(!FIELD.includes('<b>CONVERGE / NEXUS</b>'), 'stale NEXUS authority still exposed');
 });
 
 check('board: "N/N bots live" claims equal the bot cards present, header == footer', () => {
@@ -188,6 +155,6 @@ for (const [name, e] of checks)
   if (e) console.error('  FAIL', name, '—', String(e.message).split('\n')[0]);
 console.log((fails.length ? 'NEXUS SURFACE TEST FAIL' : 'NEXUS SURFACE TEST PASS')
   + ` · ${checks.length - fails.length}/${checks.length} checks`
-  + ' · /nexus/ link integrity + snapshot self-consistency'
+  + ' · /nexus/ alias + board/map utility integrity'
   + (fails.length ? ` · ${fails.length} failed` : ''));
 process.exitCode = fails.length ? 1 : 0;
