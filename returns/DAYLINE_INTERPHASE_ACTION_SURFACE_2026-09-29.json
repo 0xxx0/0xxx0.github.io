@@ -1,0 +1,32 @@
+{
+  "schema": "0xxx0/return/dayline-interphase-action-surface/v0.1",
+  "created_at": "2026-09-29T19:34:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "base_sha": "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
+  "branch": "converge/dayline-action-surface-20260929",
+  "route": "/dayline/",
+  "version": "0.3.3",
+  "law": "ONE HELD OBJECT → HOLD → TURN / RELEASE → TRACE → RETURN",
+  "purpose": "Make an existing real surface consume the merged INTERPHASE action grammar instead of reconstructing a parallel UI vocabulary.",
+  "delta": [
+    "Dayline visible move labels derive TURN/RELEASE from InterphaseCarrier.classifyAction() and retain the native label",
+    "interphaseObject() carries the derived action beside href/effect",
+    "continuationCarrier() preserves the explicit action alias while carrier authority stays NONE / HANDOFF ONLY",
+    "DaylineConfluence exposes continuationCarrier() and actionSurface() as read-only projections over existing state",
+    "INTERPHASE OPERATE office shows the action neighbourhood without gaining invoke authority"
+  ],
+  "invariants": [
+    "DayState store unchanged",
+    "native move handler unchanged",
+    "source/native authority unchanged",
+    "NEXT <= 3",
+    "carrier dispatch remains HOST_NATIVE_ONLY",
+    "RETURN remains distinct from navigation/reversal"
+  ],
+  "verification": {
+    "interphase_dayline_selftest": "PENDING CURRENT CI",
+    "public_surface": "PENDING CURRENT CI",
+    "route_registration": "PENDING CURRENT CI"
+  },
+  "rebased_at": "2026-09-29T19:38:00+08:00"
+}
