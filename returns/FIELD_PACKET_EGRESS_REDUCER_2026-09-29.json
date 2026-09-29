@@ -25,7 +25,7 @@
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
     "node scripts/emit-agent-transcript.mjs --selftest",
-    "node scripts/emit-agent-transcript.mjs --reduce control/HERMES_QUEUE.json"
+    "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
   "residue": [
     "The reducer classifies structure; it does not decide project priority or execute NEXT.",
