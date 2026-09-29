@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_PR_CANDIDATE",
+  "object": "FIELD INDEX 0.8.23 · delete redundant MAP/PULSE projection under canonical COAXIALITY discipline",
+  "context": "Canonical master now owns the executable COAXIALITY A-H audit gate. This delta does not duplicate or broaden that registry.",
+  "delta": [
+    "Remove PULSE from MAP / PROJECTIONS controls.",
+    "Remove route-touch spiral renderer and pulse-specific map CSS.",
+    "Retain VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT over the exact same manifest-route focus.",
+    "Delete root_pulse from FIELD_INDEX_CONTRACT and contract root_map to the surviving evidence-bearing projections.",
+    "Record PULSE in FIELD_COAXIALITY_AUDIT only as a non-admitted projection disposition, not as a coaxial mechanism.",
+    "Update public validator so PULSE absence is enforced."
+  ],
+  "why": "PULSE and RECENT both derive from route.index.updated_at. PULSE's spiral geometry was explicitly forbidden from implying chronology, priority, semantic proximity or ancestry, so it added a renderer/mode without a unique host-owned relation. RECENT preserves the evidence directly.",
+  "canonical_audit": {
+    "path": "/control/FIELD_COAXIALITY_AUDIT.json",
+    "rule": "Do not inflate the A-H mechanism registry for view-only projections. The stricter canonical audit remains authoritative.",
+    "active_mechanism_status": "Two Dial remains REPAIR_OR_DELETE under canonical audit until causal RETURN and remaining evidence gaps are repaired/proved."
+  },
+  "preserved": [
+    "one held FIELD object + ≤3 lawful moves + WITNESS/RETURN",
+    "AXIAL under REFINE / PROVE",
+    "CATCH + ACT + REWIND",
+    "AWAKE / INTERPHASE visor",
+    "VISUAL parent/child topology",
+    "STRUCTURE / EVOLVE / VERSIONS / RECENT manifest readings",
+    "route-local signal grammar",
+    "canonical COAXIALITY audit runner and admission law"
+  ],
+  "verification": {
+    "local_contracts": "public validator now requires VISUAL/STRUCTURE/RECENT and rejects active PULSE",
+    "required_before_merge": [
+      "CURRENT↔manifest drift",
+      "canonical COAXIALITY audit via ring selftest",
+      "FIELD reversibility",
+      "FIELD held action aperture",
+      "static public surface",
+      "route registration",
+      "gitleaks",
+      "critical browser smoke"
+    ]
+  },
+  "residue": "DataDisc/spiral donor remains recoverable as lineage/history. Do not replace PULSE with a new visualization absent an observed information need.",
+  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json"
+}
