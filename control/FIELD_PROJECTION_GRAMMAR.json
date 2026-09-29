@@ -1,0 +1,124 @@
+{
+  "schema": "0xxx0/field-projection-grammar/v0.1",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_BOUNDED",
+  "purpose": "Allow one addressed FIELD object to admit unequal physical/virtual projections without multiplying canonical state, authority, queues, routes, or workflows.",
+  "kernel": {
+    "canonical_flow": "OBJECT -> ADDRESS -> STATE -> PROJECTION -> OPERATOR -> WITNESS -> RETURN",
+    "invariant": "Projection may reveal, compress, orient, or stage an already-owned object; it may not create domain meaning, authority, priority, or hidden mutation.",
+    "acceptance": [
+      "same object identity survives projection change",
+      "same source/target authority survives projection change",
+      "one gesture has one primary host-defined interpretation",
+      "projection-only state can be discarded without losing canonical object state",
+      "RETURN names the projection only as evidence about representation",
+      "no projection earns promotion without reducing confusion or increasing lawful re-entry"
+    ]
+  },
+  "projections": {
+    "PLAIN": {
+      "status": "IMPLEMENTED / ABLATION CONTROL",
+      "host": "/field-play.html",
+      "function": "Minimal linear reading of the same held mission; removes glyph/topological detail while preserving title, brief, action, evidence and RETURN.",
+      "authority": "VIEW_ONLY"
+    },
+    "FIELD": {
+      "status": "IMPLEMENTED",
+      "host": "/field-play.html + /",
+      "function": "Addressed FIELD reading using existing glyph/presentation grammar over the same mission/object.",
+      "authority": "VIEW_ONLY except native host actions"
+    },
+    "FLOWER": {
+      "status": "SPECIFIED DONOR / NOT ROOT MODE",
+      "function": "Runtime reading of a transformation without creating another workflow.",
+      "mapping": {
+        "FIELD": "source/context already owned by host",
+        "LOOP": "repeat the bounded host run only when a prior RETURN authorizes a fresh replan",
+        "OPERATOR": "native host transformation",
+        "WITNESS": "observed evidence/resistance",
+        "ELEVATION": "optional derived principle/invariant; never required to RETURN",
+        "RETURN": "receipt/re-entry into native context",
+        "GATE": "authority/evidence boundary around the sequence, not an extra petal or state store"
+      },
+      "authority": "NONE / PROJECTION GRAMMAR"
+    },
+    "ASCENT": {
+      "donor": "Borobudur / progressive traversal-to-abstraction pattern",
+      "status": "SPECIFIED DONOR / NOT ROOT MODE",
+      "law": "Higher abstraction is earned only when the lower representation emits evidence; ascent is a reading depth, never status, rank, spirituality score, or authority.",
+      "levels": [
+        "EVENT",
+        "MOTIVE",
+        "CONSEQUENCE",
+        "PATTERN",
+        "RELATION",
+        "PRINCIPLE",
+        "INVARIANT",
+        "EMBODIMENT",
+        "RELEASE"
+      ],
+      "residue": "The cultural/historical monument is not claimed to encode this modern nine-step compiler exactly; only the traversal/compression invariant is transferred.",
+      "authority": "VIEW_ONLY"
+    },
+    "FU": {
+      "donor": "functional-unit / room / interphase lineage",
+      "status": "SPECIFIED DONOR / NOT ROOT MODE",
+      "function": "Expose one object through composable ports rather than a new object store.",
+      "ports": [
+        "FIELD",
+        "GATE",
+        "OPERATOR",
+        "WITNESS",
+        "ELEVATION",
+        "RETURN"
+      ],
+      "physical_virtual_rule": "Physical cube/room and virtual node are equivalent only when they preserve the same state contracts and RETURN path; matching geometry alone is insufficient.",
+      "authority": "HOST_OWNED PORTS / CARRIER NONE"
+    },
+    "RADIAL": {
+      "status": "EXISTING CARRIER FAMILY",
+      "function": "Angle/radius/ring/center may encode host-owned relations only through explicit mappings.",
+      "law": "COAXIALITY != CONCENTRICITY; generic geometry exposes coordinates/relations, host owns semantic verbs.",
+      "contract": "/control/FIELD_COAXIALITY_LAW.json",
+      "authority": "CARRIER NONE"
+    }
+  },
+  "first_experiment": {
+    "route": "/field-play.html",
+    "question": "For the exact same real mission, does FIELD or PLAIN produce the better lawful re-entry and consequence?",
+    "controlled": [
+      "mission id",
+      "target address",
+      "authority",
+      "bounded-move law",
+      "RETURN schema semantics"
+    ],
+    "varied": [
+      "representation only: FIELD or PLAIN"
+    ],
+    "observed": [
+      "clarity 1..5",
+      "re-entry 1..5",
+      "use-again 1..5",
+      "free evidence",
+      "residue"
+    ],
+    "caveat": "Subjective ratings characterize representation fit; they do not prove mission correctness or global interface superiority."
+  },
+  "exclusions": [
+    "no new root mode",
+    "no universal shell",
+    "no second object store",
+    "no second route picker",
+    "no automatic promotion from subjective score",
+    "no cultural claim that modern projection grammar is the historical meaning of Borobudur",
+    "no geometry-derived domain verb without an explicit host map"
+  ],
+  "related": [
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/control/FIELD_COAXIALITY_LAW.json",
+    "/control/INTERPHASE_SUCCESSOR.json",
+    "/field-play.html",
+    "/field-play.release.json"
+  ]
+}
