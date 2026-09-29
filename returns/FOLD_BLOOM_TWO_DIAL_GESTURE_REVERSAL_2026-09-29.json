@@ -7,7 +7,7 @@
   "host_delta": "Close COAXIALITY C_GESTURE and E_REVERSAL without adding a mode, route, store, semantic axis, or new authority.",
   "law": "One pointer owns one dial until release; manual relation commits retain a bounded exact inverse; representation compression is not promoted until ordinary-use H evidence exists.",
   "changes": [
-    "pointer-down fixes gesture ownership to MATTER or HARMONY; pointermove cannot commit; pointerup owns relation commit",
+    "pointer-down fixes gesture ownership to MATTER or HARMONY; pointermove cannot commit; one multi-pointer transaction commits only after all active pointers release, with DUET requiring both dials",
     "manual commits push exact minimalSnapshot() state into a 12-entry session-local undo stack",
     "STATE pane exposes UNDO LAST inside the existing control surface",
     "undo cancels pending delayed FOLD→BLOOM compose, restores the exact snapshot, preserves earlier undo depth, and emits fold-bloom-undo/v0.1 evidence",
