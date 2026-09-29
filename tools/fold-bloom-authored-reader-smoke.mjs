@@ -19,9 +19,9 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   const source=await fetch('/fold-bloom/live/authored/prison-age-2021.txt').then(r=>r.text());
   f.src='/fold-bloom/live/?reader=prison-age-2021';
   await wait(()=>W().FoldBloomLive?.authored?.current?.()?.hash===HASH,18000,'authored reader');
-  const api=W().FoldBloomLive,first=api.authored.current(),frame=D().getElementById('authoredReaderFrame');
-  rec.entry={hash:first.hash,authority:first.state.source.authority,label:first.state.source.label,kind:first.state.source.kind,mode:api.course.mode(),grain:api.course.grain(),frame:!frame.hidden,subtitle:D().getElementById('liveSubtitle').textContent,sourceText:D().getElementById('lyricText').textContent};
-  if(first.state.source.authority!=='RECOVERED_AUTHORED_SOURCE'||first.state.source.kind!=='AUTHORED_RECOVERED_TEXT'||api.course.mode()!=='RELEASE_STEP'||api.course.grain()!=='PARAGRAPH'||frame.hidden)throw Error('reader entry contract');
+  const api=W().FoldBloomLive,first=api.authored.current(),frame=D().getElementById('authoredReaderFrame'),sourceEcho=D().getElementById('sourceEchoLive');
+  rec.entry={hash:first.hash,authority:first.state.source.authority,label:first.state.source.label,kind:first.state.source.kind,mode:api.course.mode(),grain:api.course.grain(),frame:!frame.hidden,sourceEchoHidden:sourceEcho.hidden,subtitle:D().getElementById('liveSubtitle').textContent,sourceText:D().getElementById('lyricText').textContent};
+  if(first.state.source.authority!=='RECOVERED_AUTHORED_SOURCE'||first.state.source.kind!=='AUTHORED_RECOVERED_TEXT'||api.course.mode()!=='RELEASE_STEP'||api.course.grain()!=='PARAGRAPH'||frame.hidden||!sourceEcho.hidden)throw Error('reader entry / ECHO boundary contract');
   if(!/PRISON AGE/.test(rec.entry.sourceText))throw Error('authored text not in primary witness');
   const firstIndex=api.read.current().course.index;
   D().getElementById('readerNext').click();await wait(()=>api.read.current().course.index===firstIndex+1,2000,'direct READ next');
@@ -41,7 +41,7 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   await wait(()=>api.authored.current().return.recurrence.jumps.length===1,3000,'first recurrence jump');
   const jump1=api.authored.current();
   rec.recurrence1={progress:jump1.state.course.progress,address:jump1.state.course.address,jumps:jump1.return.recurrence.jumps,label:D().getElementById('readerRecurrenceLabel').textContent,body:D().getElementById('readerRecurrenceBody').textContent};
-  if(!/SAME LETTERS/.test(rec.jump1.label)||!/AEGINOPRS/.test(rec.jump1.body))throw Error('recurrence relation not visible');
+  if(!/SAME LETTERS/.test(rec.recurrence1.label)||!/AEGINOPRS/.test(rec.recurrence1.body)||!sourceEcho.hidden)throw Error('recurrence relation / ECHO separation failed');
 
   D().getElementById('readerRecurrenceNext').click();
   await wait(()=>api.authored.current().return.recurrence.jumps.length===2,3000,'second recurrence jump');
