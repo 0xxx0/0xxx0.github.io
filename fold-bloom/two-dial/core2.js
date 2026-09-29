@@ -390,6 +390,7 @@ cv.onpointerdown = e => {
   e.preventDefault();
   let side = dialSide(e.clientX, e.clientY),
     raw = rawFromPoint(side, e.clientX, e.clientY);
+  // Gesture ownership is fixed at pointer-down: one physical pointer owns exactly one dial.
   pointers.set(e.pointerId, { side, raw, t: performance.now() });
   cv.setPointerCapture?.(e.pointerId);
   // D2: mark dial as touched for DUET commit logic
@@ -479,6 +480,9 @@ function advanceForm(v, power = 1) {
   captureMotif();
 }
 function commit() {
+  // Keep a bounded exact session-local inverse for committed manual transforms.
+  // IDLE preview never enters undo history.
+  const undoBefore = demo?.preview ? null : minimalSnapshot();
   const before = causalFrame(), driver = causalDriver();
   let original = rel(),
     requested = requestVerb,
@@ -519,7 +523,7 @@ function commit() {
   }
   if (special) {
     splitCharge = 0;
-    setTimeout(() => {
+    pendingComposeTimer = setTimeout(() => {
       const composeBefore = causalFrame(), composeDriver = causalDriver();
       chord('BLOOM');
       if (prefs.mode === 'SCALE') {
@@ -543,7 +547,8 @@ function commit() {
           source: 'splitCharge',
         }, composeDriver),
       });
-      saveLocal();
+      saveLocal({ preserveUndo: true });
+      pendingComposeTimer = 0;
       hud();
     }, 90);
   }
@@ -607,7 +612,11 @@ function commit() {
     causal,
   });
   updatePreview();
-  saveLocal();
+  if (undoBefore) {
+    undoStack.push(undoBefore);
+    undoStack = undoStack.slice(-12);
+  }
+  saveLocal({ preserveUndo: true });
   // D2: reset dial touched state after commit
   dialTouched[0] = dialTouched[1] = false;
   hud();
@@ -626,6 +635,8 @@ function buzz() {
   } catch (e) {}
 }
 function hud() {
+  const undoBtn = $('#undoBtn');
+  if (undoBtn) undoBtn.disabled = undoStack.length === 0;
   let commits = events.filter(e => e.type === 'commit').length,
     motifN = form.motif?.length || 0;
   $('#flow').textContent = prefs.mode === 'OPEN' ? commits : phraseCount;
