@@ -191,5 +191,24 @@
         }
       }
     }
+  ],
+  "non_admitted_dispositions": [
+    {
+      "id": "field-map-pulse",
+      "path": "/index.html#mapFold",
+      "admitted": false,
+      "reason": "MAP/PULSE is a view-only route-touch projection, not a mechanism claiming shared coaxial manipulation space; do not inflate the A-H registry to cover it.",
+      "disposition": "DELETE_REDUNDANT_PROJECTION",
+      "basis": [
+        "FIELD SIGNAL PATTERN MUST PAY SEMANTIC RENT",
+        "COAXIALITY H_COMPRESSION remains a useful subtraction heuristic even when the projection is outside audit admission"
+      ],
+      "evidence": [
+        "PULSE and RECENT both derive from route.index.updated_at",
+        "the former root_pulse contract explicitly forbade reading chronology, priority, semantic proximity or ancestry from spiral geometry",
+        "RECENT preserves the underlying route-touch evidence and shared focus without an additional renderer/mode"
+      ],
+      "residue": "DataDisc/spiral remains recoverable as donor/history; no active FIELD capability depends on the projection."
+    }
   ]
 }
