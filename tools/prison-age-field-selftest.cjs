@@ -17,8 +17,8 @@ for(const [id,x] of Object.entries(sources.stories)){
   assert(!Object.prototype.hasOwnProperty.call(x,'engine'),id+' interpretive engine removed');
   assert(!Object.prototype.hasOwnProperty.call(x,'token'),id+' interpretive token removed');
 }
-assert(release.status==='FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE','release source-set + authored path + echo depth');
-assert(release.operation==='READ / RIDE / SOURCE · passive ECHO in READ/RIDE','release operations');
+assert(release.status==='FIELD_SOURCE_CONSTELLATION / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE','release constellation + authored path + echo depth');
+assert(release.operation==='READ / RIDE / SOURCE · native ROOT recurrence + passive ECHO depth','release operations');
 assert(release.echo?.schema==='field-source-echo-index/v0.1'&&release.echo?.authority==='EVIDENCE_ONLY','echo release boundary');
 assert(release.field.native_actions.join('|')==='READ|RIDE|SOURCE','FIELD native actions');
 assert(release.retired_runtime.status==='REMOVED_FROM_RUNTIME_TREE','retired runtime status');
@@ -57,7 +57,11 @@ assert(proto?.source_class==='RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT','
 assert(proto?.path==='/fold-bloom/live/authored/prison-age-2021.txt','2021 proto-root exact source path');
 assert(proto?.source_fingerprint?.algo==='sha256'&&proto.source_fingerprint?.value==='9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e','2021 proto-root exact source hash');
 assert(proto?.authored_reader?.id==='prison-age-2021'&&proto.echo===false,'2021 authored RIDE / RECURRENCE != ECHO');
-assert(active.includes('story.authored_reader?.id'),'resolver authored RIDE seam');
+assert(proto?.recurrence?.signature==='AEGINOPRS','proto-root recurrence signature');
+assert(/No semantic equivalence/.test(proto?.recurrence?.boundary||''),'proto-root recurrence boundary');
+assert(active.includes('SOURCE CONSTELLATION')&&active.includes('REARRANGE →')&&active.includes('RIDE ROOT →'),'source constellation threshold');
+assert(active.includes('RECURRENCE')&&active.includes('ECHO'),'unequal relation labels visible');
+assert(active.includes('rootStory?.authored_reader'),'resolver root authored RIDE seam');
 
 const prisonRoutes=manifest.routes.filter(r=>r.family==='PRISON AGE'||r.href==='/prison-age/'||String(r.href||'').startsWith('/prison-age/'));
 assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
