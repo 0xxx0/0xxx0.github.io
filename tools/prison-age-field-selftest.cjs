@@ -66,10 +66,12 @@ assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE'
 assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
 assert(route.version==='0.6','FIELD route version');
 assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
-assert(route.index.work_modes.join('|')==='IMPLEMENT|VERIFY|OPERATE','FIELD route-touch work modes');
 assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');
+assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','native source-set work modes drifted');
+assert((route.contract?.accepts?.kinds||[]).some(x=>/recovered authored Prison Age proto-root/i.test(x)),'manifest contract missing recovered authored source class');
+assert((route.contract?.emits?.kinds||[]).some(x=>/authored-reader recurrence projection/i.test(x)),'manifest contract missing authored-reader projection');
 
 assert(field.includes('function nativeRouteOwner(r)')&&field.includes("r?.field?.owner||''"),'FIELD owner must derive from explicit host manifest owner');
 assert(field.includes('function nativeRouteActions(r)')&&field.includes('manifestExitPaths(r)'),'FIELD native actions must derive from manifest exits');
