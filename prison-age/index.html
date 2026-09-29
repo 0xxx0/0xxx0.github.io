@@ -74,7 +74,7 @@ async function rideSource(){
   });
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
   $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
-  location.href='/fold-bloom/live/?source=readfield&course=STEP';
+  location.href='/fold-bloom/live/?source=readfield&course=STEP&experience=echo-walk';
 }
 $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
 window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent}),load:loadStory,ride:rideSource,read:readSource});
