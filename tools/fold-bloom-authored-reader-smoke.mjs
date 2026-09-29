@@ -38,15 +38,15 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   if(after.course.index!==before.course.index+1)throw Error('RELEASE did not advance exactly one addressed paragraph');
 
   D().getElementById('readerRecurrenceNext').click();
-  await wait(()=>api.authored.current().return.recurrence.jumps.length===1,3000,'first echo');
-  const echo1=api.authored.current();
-  rec.echo1={progress:echo1.state.course.progress,address:echo1.state.course.address,echoes:echo1.return.recurrence.jumps,label:D().getElementById('readerRecurrenceLabel').textContent,body:D().getElementById('readerRecurrenceBody').textContent};
-  if(!/SAME LETTERS/.test(rec.echo1.label)||!/AEGINOPRS/.test(rec.echo1.body))throw Error('recurrence relation not visible');
+  await wait(()=>api.authored.current().return.recurrence.jumps.length===1,3000,'first recurrence jump');
+  const jump1=api.authored.current();
+  rec.recurrence1={progress:jump1.state.course.progress,address:jump1.state.course.address,jumps:jump1.return.recurrence.jumps,label:D().getElementById('readerRecurrenceLabel').textContent,body:D().getElementById('readerRecurrenceBody').textContent};
+  if(!/SAME LETTERS/.test(rec.jump1.label)||!/AEGINOPRS/.test(rec.jump1.body))throw Error('recurrence relation not visible');
 
   D().getElementById('readerRecurrenceNext').click();
-  await wait(()=>api.authored.current().return.recurrence.jumps.length===2,3000,'second echo');
-  const echo2=api.authored.current();rec.echo2=echo2.return.recurrence.jumps;
-  if(echo2.return.recurrence.jumps[1].to!==132)throw Error('exact recurrence offset not preserved');
+  await wait(()=>api.authored.current().return.recurrence.jumps.length===2,3000,'second recurrence jump');
+  const jump2=api.authored.current();rec.recurrence2=jump2.return.recurrence.jumps;
+  if(jump2.return.recurrence.jumps[1].to!==132)throw Error('exact recurrence offset not preserved');
 
   D().getElementById('readerProvBtn').click();
   rec.provenance={visible:!D().getElementById('readerProvenance').hidden,title:D().getElementById('readerProvTitle').textContent,body:D().getElementById('readerProvBody').textContent,raw:D().getElementById('readerRawSource').getAttribute('href')};
