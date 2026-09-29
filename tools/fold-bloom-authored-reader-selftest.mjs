@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+const M=await import(pathToFileURL(process.cwd()+'/fold-bloom/live/authored-reader.js'));
+const pack=JSON.parse(fs.readFileSync('fold-bloom/live/authored/prison-age-2021.json','utf8'));
+const source=fs.readFileSync('fold-bloom/live/authored/prison-age-2021.txt','utf8');
+const v=M.validateAuthoredPack(pack,source);
+if(!v.ok)throw Error(v.errors.join(' | '));
+const hash='sha256:'+crypto.createHash('sha256').update(source).digest('hex');
+if(hash!==pack.source_hash)throw Error('hash mismatch '+hash);
+const sigs=pack.recurrence[0].variants.map(x=>M.conservationSignature(x.text));
+if(!sigs.every(x=>x==='AEGINOPRS'))throw Error('conservation signature');
+const n=M.nextRecurrence(pack,0,1);
+if(n?.label!=='SINGAPORE / SPACED')throw Error('next recurrence');
+const back=M.nextRecurrence(pack,n.start,-1);
+if(back?.label!=='PRISON AGE')throw Error('previous recurrence');
+console.log('FOLD BLOOM AUTHORED READER PACK PASS ·',pack.id,'·',hash,'·',sigs.join('/'));
+
+const app=fs.readFileSync('fold-bloom/live/app.js','utf8');
+const html=fs.readFileSync('fold-bloom/live/index.html','utf8');
+if(!app.includes("historyStart:Array.isArray(state?.history)?state.history.length:0"))throw Error('authored causal RETURN missing history start');
+if(!app.includes("state.history.slice(historyStart)"))throw Error('authored causal RETURN not session scoped');
+if(!app.includes("recurrence:jumpAuthoredRecurrence"))throw Error('authored recurrence API missing');
+if(!html.includes('id="sourceEchoLive"')||!html.includes('id="readerRecurrence"'))throw Error('ECHO/RECURRENCE coexistence missing');
+if(!html.includes('THE WHOLE RIDE LOOP')||!html.includes('id="authoredIntroBtn">PRISON AGE 2021'))throw Error('shipped first contact was replaced');
+console.log('FOLD BLOOM AUTHORED READER BOUNDARIES PASS · session-scoped RETURN · RECURRENCE != ECHO · default first-contact preserved');
