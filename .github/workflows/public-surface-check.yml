@@ -50,7 +50,9 @@ jobs:
           bash -n scripts/hermes-confluence-bootstrap.sh
           python3 -m py_compile scripts/hermes-daily-prompt.py
       - name: Validate JIT FIELD handoff compiler
-        run: node scripts/emit-agent-transcript.mjs --selftest
+        run: |
+          node tools/field-egress-reducer-selftest.mjs
+          node scripts/emit-agent-transcript.mjs --selftest
       - name: Validate FIELD reversibility semantics
         run: node tools/field-reversibility-selftest.mjs
       - name: Validate FIELD held action aperture
