@@ -976,7 +976,7 @@ Implementation:
 
 ### What becomes experiential
 
-A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Each committed release now also publishes the bounded post-release `forecastContext(state)` witness already owned by LIVE. Once six exist, LAB keeps three unequal readings together:
+A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Each committed release now also publishes the bounded post-release `forecastContext(state)` witness already owned by LIVE. LAB preserves the native structural comparison fields (`slot`, `type`, `verb`, `chain`, cascade `path`, `edgeAdded`, `span`) plus cadence/power residue, matching the existing forecast-factorization proof rather than comparing a weakened surrogate. Once six exist, LAB keeps three unequal readings together:
 
 - the exact ordered verb window;
 - its binary hex projection; and
