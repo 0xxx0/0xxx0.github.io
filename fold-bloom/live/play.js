@@ -59,13 +59,15 @@ function subscribeLoop(listener){
   return ()=>loopListeners.delete(listener);
 }
 function markPrimaryControls(){
-  const ids=['modeBtn','releaseBtn','sceneBtn'];
+  const ids=innerWidth<=620?['turnLeft','releaseBtn','turnRight']:['modeBtn','releaseBtn','sceneBtn'];
   const clear=ids.every(id=>{
     const el=document.getElementById(id);if(!el)return false;
+    const style=getComputedStyle(el);if(style.display==='none'||style.visibility==='hidden')return false;
     const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,top=document.elementFromPoint(x,y);
-    return top===el||el.contains(top);
+    return r.width>0&&r.height>0&&(top===el||el.contains(top));
   });
   document.documentElement.dataset.fbPrimaryControls=clear?'clear':'occluded';
+  document.documentElement.dataset.fbPrimaryControlSet=innerWidth<=620?'TURN_RELEASE_TURN':'MODE_RELEASE_WORLD';
   return clear;
 }
 function schedulePrimaryControlCheck(){requestAnimationFrame(()=>requestAnimationFrame(markPrimaryControls))}
@@ -172,12 +174,12 @@ function flushOpenExit(){
 function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<details class="fbModeMore"><summary>PLAY · GAME MODES</summary><div class="fbSessionScale" role="group" aria-label="Challenge session scale">'+SESSION_SCALES.map(s=>'<button type="button" data-scale="'+s+'" aria-pressed="'+(sessionScale===s?'true':'false')+'">'+s+'</button>').join('')+'</div><div class="fbScaleNote" id="fbScaleNote">'+sessionScaleNote(sessionScale)+'</div><div class="modes"><button data-play-mode="PLAY"><span class="modeIcon">▶</span> RUN · 6 HITS / 8 RELEASES</button><button data-play-mode="PUZZLE"><span class="modeIcon">☷</span> HEX · CAST → CHANGE</button><button data-play-mode="PATH"><span class="modeIcon">↗</span> PATH · FIND A ROUTE</button><button data-play-mode="DUET"><span class="modeIcon">⟳</span> TWO DIAL · PLAY TOGETHER</button><button data-play-mode="GARDEN"><span class="modeIcon">✦</span> ECOLOGY · GROW / INHERIT</button><button data-play-mode="ZEN"><span class="modeIcon">○</span> ZEN · OPEN ENDED</button></div><div class="law">Challenge goals are fixed counts, not timed sessions; a goal can end quickly. QUICK is the short fixed goal. SESSION is a medium challenge (counts provisional until validated with real users). OPEN keeps the same game without a win counter; leave any time via RETURN TO RIDE. ZEN / RIDE remain open-ended. RIDE remains the default. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 ↗</a></div></details>';
+  box.innerHTML='<details class="fbModeMore"><summary>MORE MODES · PUZZLE / TWO DIAL / ECOLOGY</summary><div class="fbSessionScale" role="group" aria-label="Challenge session scale">'+SESSION_SCALES.map(s=>'<button type="button" data-scale="'+s+'" aria-pressed="'+(sessionScale===s?'true':'false')+'">'+s+'</button>').join('')+'</div><div class="fbScaleNote" id="fbScaleNote">'+sessionScaleNote(sessionScale)+'</div><div class="modes"><button data-play-mode="PLAY"><span class="modeIcon">▶</span> RUN · 6 HITS / 8 RELEASES</button><button data-play-mode="PUZZLE"><span class="modeIcon">☷</span> HEX · CAST → CHANGE</button><button data-play-mode="PATH"><span class="modeIcon">↗</span> PATH · FIND A ROUTE</button><button data-play-mode="DUET"><span class="modeIcon">⟳</span> TWO DIAL · PLAY TOGETHER</button><button data-play-mode="GARDEN"><span class="modeIcon">✦</span> ECOLOGY · GROW / INHERIT</button><button data-play-mode="ZEN"><span class="modeIcon">○</span> ZEN · OPEN ENDED</button></div><div class="law">Challenge goals are fixed counts, not timed sessions; a goal can end quickly. QUICK is the short fixed goal. SESSION is a medium challenge (counts provisional until validated with real users). OPEN keeps the same game without a win counter; leave any time via RETURN TO RIDE. ZEN / RIDE remain open-ended. RIDE remains the default. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 ↗</a></div></details>';
   const startRow=card.querySelector('.startRow');if(startRow)startRow.insertAdjacentElement('afterend',box);else card.appendChild(box);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   box.querySelectorAll('[data-scale]').forEach(btn=>btn.addEventListener('click',()=>setSessionScale(btn.dataset.scale)));
   const fieldBtn=q('#playBtn');
-  if(fieldBtn&&!fieldBtn.dataset.fbPlayWrapped){fieldEnter=fieldBtn.onclick;fieldBtn.dataset.fbPlayWrapped='1';fieldBtn.textContent='RIDE FIELD COURSE →';fieldBtn.onclick=async event=>{if(fieldEnter)await fieldEnter.call(fieldBtn,event);enterRide();};}
+  if(fieldBtn&&!fieldBtn.dataset.fbPlayWrapped){fieldEnter=fieldBtn.onclick;fieldBtn.dataset.fbPlayWrapped='1';fieldBtn.textContent='NO SONG / JUST PLAY →';fieldBtn.onclick=async event=>{if(fieldEnter)await fieldEnter.call(fieldBtn,event);enterRide();};}
 }
 function injectHud(){
   if(q('#fbGame'))return;
@@ -334,9 +336,9 @@ function onRelease(event,state){
   if(mode==='PUZZLE'&&shouldFinishPuzzle)finish(state);else if(mode==='PLAY'&&c.length!=null&&releases>=c.length)finish(state);else if(mode==='PATH'&&c.rounds!=null&&releases>=c.rounds)finish(state);else if(mode==='DUET'&&c.rounds!=null&&releases>=c.rounds)finish(state);else if(mode==='GARDEN'&&c.moves!=null&&gardenEvents.length>=c.moves)finishGardenGeneration(state);
 }
 function normalCoach(state,forecast,hitReady){
-  if(hitReady)return 'HIT READY · RELEASE '+forecast.verb;
-  if(forecast)return 'HERE '+forecast.verb+(forecast.chain>1?' ×'+forecast.chain:'')+' · KEEP TURNING FOR GOAL '+callText(state.call);
-  return 'TURN · FIND '+typePresentation(state.targetType).text+' · SAME SHAPE FAMILY WAKES THE CENTER';
+  if(hitReady)return 'READY · TAP '+forecast.verb;
+  if(forecast)return 'CURRENT MOVE '+forecast.verb+(forecast.chain>1?' ×'+forecast.chain:'')+' · TURN ← / → FOR '+callText(state.call);
+  return 'TURN ← / → UNTIL THE CENTER ACTION LIGHTS';
 }
 function updateDuet(state,forecast,hitReady){
   const a=wrap(state.rotation,6),rel=relationVerb(a,duetB,6),name=relationName(a,duetB,6),agrees=!!forecast&&rel===forecast.verb,c=countsFor();
