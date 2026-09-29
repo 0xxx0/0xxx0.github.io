@@ -15,3 +15,12 @@ if(n?.label!=='SINGAPORE / SPACED')throw Error('next recurrence');
 const back=M.nextRecurrence(pack,n.start,-1);
 if(back?.label!=='PRISON AGE')throw Error('previous recurrence');
 console.log('FOLD BLOOM AUTHORED READER PACK PASS ·',pack.id,'·',hash,'·',sigs.join('/'));
+
+const app=fs.readFileSync('fold-bloom/live/app.js','utf8');
+const html=fs.readFileSync('fold-bloom/live/index.html','utf8');
+if(!app.includes("historyStart:Array.isArray(state?.history)?state.history.length:0"))throw Error('authored causal RETURN missing history start');
+if(!app.includes("state.history.slice(historyStart)"))throw Error('authored causal RETURN not session scoped');
+if(!app.includes("recurrence:jumpAuthoredRecurrence"))throw Error('authored recurrence API missing');
+if(!html.includes('id="sourceEchoLive"')||!html.includes('id="readerRecurrence"'))throw Error('ECHO/RECURRENCE coexistence missing');
+if(!html.includes('THE WHOLE RIDE LOOP')||!html.includes('id="authoredIntroBtn">PRISON AGE 2021'))throw Error('shipped first contact was replaced');
+console.log('FOLD BLOOM AUTHORED READER BOUNDARIES PASS · session-scoped RETURN · RECURRENCE != ECHO · default first-contact preserved');
