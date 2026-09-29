@@ -1,0 +1,335 @@
+{
+  "schema": "0xxx0/field-coaxiality-audit/v0.1",
+  "date": "2026-09-29",
+  "scope": "FIELD root + shared cyclic carrier + first host semantic mapping",
+  "law": "/control/FIELD_COAXIALITY_LAW.json",
+  "rubric": {
+    "A": "STATE — authoritative state exists independently of rendering",
+    "B": "RELATION — relative transform has named host-owned semantics",
+    "C": "GESTURE — one gesture has one primary interpretation",
+    "D": "IDENTITY — addressed thing survives projection/transform",
+    "E": "REVERSAL — cheap/local transform reverses or reopens from residue",
+    "F": "LIVE — driver/authorship provenance remains distinguishable",
+    "G": "RETURN — current state can be explained/re-entered from evidence",
+    "H": "COMPRESSION — mechanism removes more exposed complexity than it adds"
+  },
+  "verdicts": {
+    "PASS": "keep criterion satisfied",
+    "FAIL": "structural or bounded defect",
+    "NA": "criterion not applicable"
+  },
+  "decision_rule": "KEEP only when all applicable A-H pass. REPAIR only for bounded defects with unique useful behavior. DELETE when H fails structurally, relation is decorative/redundant, or capability already survives elsewhere.",
+  "mechanisms": [
+    {
+      "id": "root-held-action-aperture",
+      "path": "/index.html#aperture + #capTrial",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "manifest route focus + CURRENT/head context; projection authority remains NONE",
+        "relation": "held route → ≤3 lawful host-owned moves → witness/RETURN",
+        "gesture": "tap mark holds; held mark opens; OPEN/READ remain distinct",
+        "identity": "one manifest href persists across aperture, carrier and Dayline handoff",
+        "reversal": "focus is local/deep-linkable; no canonical mutation",
+        "return": "fieldCarrierForFocus() carries exact RETURN address",
+        "compression": "primary object/move/witness frame replaces dashboard-style action surfaces",
+        "proof": "tools/field-action-aperture-selftest.mjs"
+      }
+    },
+    {
+      "id": "root-addressed-feed-rail",
+      "path": "/index.html#feedRail",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "manifest identities only",
+        "relation": "compact route marks address the same shared focus",
+        "gesture": "first activation HOLD; held activation OPEN",
+        "identity": "same href feeds aperture/AXIAL/MAP",
+        "reversal": "selection only; URL focus preserves re-entry",
+        "return": "focus encoded by syncAxialURL()",
+        "compression": "compact mark rail replaces persistent route navigation while retaining direct reach"
+      }
+    },
+    {
+      "id": "refine-axial-constraint-field",
+      "path": "/index.html#refineFold / #axialRows / #survivors",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "axisState + manifest data; selection is not navigation",
+        "relation": "exact set-support across STATE / OPERATION / WORK MODE",
+        "gesture": "axis token selects one constraint only",
+        "identity": "surviving exact route identities remain visible",
+        "reversal": "RESET / NEWEST + local selection",
+        "return": "axis/focus state deep-links through query parameters",
+        "compression": "advanced filtering is folded under REFINE / PROVE; ordinary root stays one-object"
+      }
+    },
+    {
+      "id": "root-reentry-depth",
+      "path": "/index.html .reentryFold",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "destinations retain native ownership",
+        "relation": "NOW / RECOVER / CONVERGE expose explicit re-entry classes",
+        "gesture": "summary only opens depth; links navigate explicitly",
+        "identity": "fold does not rewrite held route",
+        "reversal": "native details close/open without state mutation",
+        "return": "all displaced destinations remain exact hrefs",
+        "compression": "12-link header rail already contracted into one recoverable fold",
+        "proof": "tools/field-action-aperture-selftest.mjs"
+      }
+    },
+    {
+      "id": "catch-act",
+      "path": "/index.html#catchupFold",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "PASS",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "CURRENT + manifest + addressed GitHub issue signals remain unequal sources",
+        "relation": "signals converge at exact focus without merging authority",
+        "gesture": "SEEN/HOLD/DO/REWIND are distinct operations",
+        "identity": "route-addressed signal locality",
+        "reversal": "local acknowledgements retain bounded history and REWIND",
+        "live": "YOU/GITHUB/reality sources remain labeled",
+        "return": "changed route/action handoff carries source and re-entry",
+        "compression": "one folded surface replaces separate changed/gate/issue dashboards",
+        "proof": "tools/field-action-aperture-selftest.mjs + tools/field-reversibility-selftest.mjs + tools/field-signal-locality-selftest.cjs"
+      }
+    },
+    {
+      "id": "awake-interphase-visor",
+      "path": "/index.html#fieldVisor",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "reads fieldCarrierForFocus(); does not own canonical state",
+        "relation": "SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN projects current carrier",
+        "gesture": "ENTER FIELD only dismisses teaching projection",
+        "identity": "same held object and focus as FIELD → Dayline carrier",
+        "reversal": "WAKE / GUIDE reopens; ?visor=1/0 is explicit",
+        "return": "visor exposes carrier.return",
+        "compression": "first-contact only; one local seen bit removes it from ordinary use",
+        "proof": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json"
+      }
+    },
+    {
+      "id": "map-visual",
+      "path": "/index.html#mapFold VISUAL",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "manifest parent/child graph",
+        "relation": "edges mean declared parent-child structure only",
+        "gesture": "node activation addresses shared focus; DEPTH-/ROOT/DRILL change map aperture",
+        "identity": "manifest href remains shared focus identity",
+        "reversal": "mapRoot navigation is local and ROOT restores aperture",
+        "return": "held focus persists through shared query focus",
+        "compression": "collapsed visual hierarchy supplies structure without another route store"
+      }
+    },
+    {
+      "id": "map-pulse",
+      "path": "/index.html#mapFold PULSE",
+      "decision": "DELETE",
+      "tests": {
+        "A": "PASS",
+        "B": "FAIL",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "FAIL"
+      },
+      "evidence": {
+        "state": "uses existing route.index.updated_at ordering",
+        "relation": "spiral position has no host semantic relation; contract explicitly forbids chronology, priority, semantic proximity or ancestry claims",
+        "gesture": "dot activation only addresses existing focus",
+        "identity": "manifest href preserved",
+        "reversal": "projection-only",
+        "return": "same shared focus/re-entry as other map projections",
+        "compression": "RECENT already exposes the same route-touch evidence directly; PULSE adds one mode, drawing code and geometry without unique capability",
+        "redundant_with": "MAP/RECENT + shared focus rail",
+        "residue": "DataDisc/spiral remains historical donor material; no active FIELD capability depends on it"
+      },
+      "deletion": {
+        "same_change": true,
+        "proof": "new FIELD coaxiality selftest rejects active PULSE map projection"
+      }
+    },
+    {
+      "id": "map-text-projections",
+      "path": "/index.html#mapFold STRUCTURE / EVOLVE / VERSIONS / RECENT",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "all projections read manifest-owned fields",
+        "relation": "each mode names a distinct manifest relation: exhaustive structure, evolution metadata, version trail, curated route touch",
+        "gesture": "mode changes view only; row activation addresses focus",
+        "identity": "shared href identity",
+        "reversal": "view-only mode switch",
+        "return": "same focus is retained across projections",
+        "compression": "one collapsed list renderer exposes four distinct readings without duplicate stores"
+      }
+    },
+    {
+      "id": "semantic-signal-skin",
+      "path": "/lib/field-signal.js + /lib/field-signal.css + root addressed marks",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "PASS",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "signal token derives from named source classes",
+        "relation": "CLEAR/CHANGED/REALITY/GITHUB/MIXED encode source-class overlap only",
+        "gesture": "no gesture ownership; signal is evidence projection",
+        "identity": "addressed marks receive only route-local evidence",
+        "reversal": "projection has no canonical mutation",
+        "live": "source classes remain distinguishable and reduced-motion preserves state",
+        "return": "source evidence remains outside the visual skin",
+        "compression": "pattern compresses multi-source state without labels becoming authority",
+        "proof": "tools/field-signal-locality-selftest.cjs"
+      }
+    },
+    {
+      "id": "interphase-ring-carrier",
+      "path": "/lib/interphase-ring.js",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "NA",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "generic cyclic coordinates/relations are independent of rendering",
+        "relation": "relationLabel exposes relation kind; host supplies semantic map",
+        "gesture": "carrier functions expose one geometric transform at a time",
+        "identity": "items remain addressed slots",
+        "reversal": "cyclic deltas and nearestEquivalent preserve reversible rotation",
+        "return": "deterministic relation/rotation can be reconstructed",
+        "compression": "one ring kernel replaces bespoke ring math across hosts",
+        "proof": "tools/interphase-ring-selftest.cjs"
+      }
+    },
+    {
+      "id": "two-dial-relation-host",
+      "path": "/fold-bloom/two-dial/core1.js",
+      "decision": "KEEP",
+      "tests": {
+        "A": "PASS",
+        "B": "PASS",
+        "C": "PASS",
+        "D": "PASS",
+        "E": "PASS",
+        "F": "PASS",
+        "G": "PASS",
+        "H": "PASS"
+      },
+      "evidence": {
+        "state": "L/R control state + composition state remain host-owned",
+        "relation": "host explicitly maps SAME/NEAR/FAR/OPPOSITE to BLOOM/FOLD/RETURN/SPLIT",
+        "gesture": "each dial changes its own cyclic control",
+        "identity": "cassette/phrase identity retained",
+        "reversal": "local cyclic manipulation and reset/cassette mechanisms",
+        "live": "optional source pulse lends clock/context, not composition authorship",
+        "return": "bounded phrase RETURN + export packet",
+        "compression": "two cyclic controls generate four host semantics without four separate action buttons",
+        "proof": "tools/interphase-ring-selftest.cjs + existing Two Dial public checks"
+      }
+    }
+  ],
+  "summary": {
+    "KEEP": 11,
+    "REPAIR": 0,
+    "DELETE": 1
+  },
+  "executed_deletion": "map-pulse",
+  "stop": "Do not invent a coaxial control to replace PULSE. Reopen only if ordinary use produces a specific information need not satisfied by VISUAL/STRUCTURE/EVOLVE/VERSIONS/RECENT."
+}
