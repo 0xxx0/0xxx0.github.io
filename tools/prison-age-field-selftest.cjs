@@ -66,7 +66,7 @@ const prisonRoutes=manifest.routes.filter(r=>r.family==='PRISON AGE'||r.href==='
 assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
 const route=prisonRoutes[0];
 assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE','single active FIELD route');
-assert(route.operation==='ROOT / READ / RIDE / SOURCE','FIELD route operation');
+assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
 assert(route.version==='0.6','FIELD route version');
 assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
 assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','FIELD work modes');
