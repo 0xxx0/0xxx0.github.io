@@ -8578,7 +8578,8 @@
         "accepts": {
           "kinds": [
             "same-origin sourced Prison Age story text",
-            "curated source extract with explicit omissions"
+            "curated source extract with explicit omissions",
+            "recovered authored Prison Age proto-root text / derived arrangement with exact provenance"
           ]
         },
         "transforms": {
@@ -8587,7 +8588,7 @@
             "source address",
             "source bytes",
             "source status",
-            "story identity",
+            "source/story identity",
             "return address"
           ],
           "reversibility": "exact story resolver or FIELD focus return",
@@ -8597,6 +8598,7 @@
           "kinds": [
             "READFIELD source projection",
             "field-read-ride/v0.1 traversal handoff",
+            "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
             "field-source-echo-index/v0.1 exact-fragment evidence"
           ],
@@ -8616,19 +8618,19 @@
         "inputs": [
           {
             "medium": "TEXT",
-            "kind": "sourced Prison Age prose",
-            "interface": "exact story address"
+            "kind": "provenance-distinct sourced/recovered Prison Age prose",
+            "interface": "explicit source address + source class"
           }
         ],
         "outputs": [
           {
             "medium": "TEXT",
-            "kind": "READFIELD projection",
+            "kind": "READFIELD exact-source projection",
             "interface": "READ"
           },
           {
             "medium": "EXPERIENCE",
-            "kind": "FOLD//BLOOM LIVE STEP traversal",
+            "kind": "FOLD//BLOOM traversal; explicit recovered proto-root may use authored RECURRENCE projection",
             "interface": "RIDE"
           },
           {
