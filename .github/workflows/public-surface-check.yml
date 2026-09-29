@@ -123,6 +123,8 @@ jobs:
           node --check fold-bloom/two-dial/core2.js
           node --check fold-bloom/two-dial/app-runtime.js
           node tools/two-dial-causal-return-selftest.cjs
+      - name: Validate FIELD COAXIALITY audit
+        run: node tools/field-coaxiality-audit.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
         run: |
           node --check lib/interphase-mapping.js
