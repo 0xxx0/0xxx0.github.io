@@ -472,8 +472,8 @@ export class Renderer {
     if(v?.active&&v.mode==='PUZZLE')stroke='rgba(215,180,109,.88)';
     else if(v?.active&&v.mode==='DUET')stroke='rgba(123,213,255,.86)';
     else if(v?.active&&v.mode==='GARDEN')stroke='rgba(114,228,182,.80)';
-    g.fillStyle=`rgba(255,255,255,${.03+.025*pulse})`;g.beginPath();g.arc(0,0,48+charge*16,0,TAU);g.fill();
-    g.strokeStyle=stroke;g.lineWidth=hit?2.6:v?.active&&['PUZZLE','DUET','GARDEN'].includes(v.mode)?2.1:aligned?1.8:1;g.beginPath();g.arc(0,0,32+charge*8,0,TAU);g.stroke();
+    g.fillStyle=`rgba(255,255,255,${.04+.06*charge/1.75+.02*pulse})`;g.beginPath();g.arc(0,0,48+charge*16,0,TAU);g.fill();
+    g.strokeStyle=stroke;g.lineWidth=hit?2.6:v?.active&&['PUZZLE','DUET','GARDEN'].includes(v.mode)?2.1:aligned?1.8+1.4*charge/1.75:1;g.beginPath();g.arc(0,0,32+charge*8,0,TAU);g.stroke();
     g.textAlign='center';
     if(v?.active&&v.mode==='PUZZLE'){
       const f=v.form||{},current=f.current||[],address=Math.max(0,Math.min(5,Number(f.address)||0)),verb=current[address]||v.forecast?.verb||'·';
