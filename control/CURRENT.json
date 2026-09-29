@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T21:21:00+08:00",
+  "updated": "2026-09-29T21:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,11 +57,13 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.23 / CANONICAL ACTION-SURFACE VISOR / SOURCE-SET INTENT / ONE HELD OBJECT",
+      "head": "FIELD INDEX 0.8.24 / RUMOR KNOWLEDGE-GAP PROJECTION / HOST-DERIVED ACTION SURFACE / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. 0.8.23 removes the remaining parallel AWAKE interaction grammar: the root visor consumes interphase-action-surface/v0.1 from the exact held carrier, so HOLD / TURN / RELEASE / TRACE / RETURN and WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN have one machine-readable source. Native move labels, route/effect authority, CURRENT attention, source selection, route-local signal and exact RETURN remain unchanged; no /awake/ shell or second store exists.",
+      "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. 0.8.23 removes the remaining parallel AWAKE interaction grammar: the root visor consumes interphase-action-surface/v0.1 from the exact held carrier, so HOLD / TURN / RELEASE / TRACE / RETURN and WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN have one machine-readable source. Native move labels, route/effect authority, CURRENT attention, source selection, route-local signal and exact RETURN remain unchanged; no /awake/ shell or second store exists. 0.8.24 adds a read-only RUMOR projection over already-declared route questions, open gaps and unresolved exits: knowledge progress can improve re-entry without becoming task progress, priority or obligation.",
       "evidence": [
+        "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+        "/returns/FIELD_INDEX_GAME_DONOR_RUMOR_0824_2026-09-29.json",
         "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
         "/lib/interphase-carrier.js",
         "/control/INTERPHASE_MAPPING_CONTRACT.json",
@@ -95,67 +97,83 @@
         "/lib/interphase-carrier.js",
         "https://github.com/0xxx0/0xxx0.github.io/pull/414"
       ],
-      "version": "0.8.23",
-      "latest_return": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
+      "version": "0.8.24",
+      "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_RUMOR_0824_2026-09-29.json",
       "repo_verification": {
-        "status": "PASS / PR 601 EXACT-HEAD",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
-        "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
-        "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+        "status": "PENDING / GAME-DONOR RUMOR PR",
+        "proof_head": null,
         "checks": {
           "route_registration": {
-            "run": 36564168802,
-            "conclusion": "success"
+            "conclusion": "pending"
           },
           "public_surface": {
-            "run": 36564168856,
-            "conclusion": "success"
+            "conclusion": "pending"
           },
           "gitleaks": {
-            "run": 36564168889,
-            "conclusion": "success"
+            "conclusion": "pending"
           }
         },
-        "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
+        "browser": "PENDING · FIELD RUMOR knowledge-gap projection",
         "predecessor": {
-          "status": "PASS / PR 533 EXACT-HEAD",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
-          "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
-          "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+          "status": "PASS / PR 601 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+          "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+          "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
           "checks": {
             "route_registration": {
-              "run": 36508540373,
+              "run": 36564168802,
               "conclusion": "success"
             },
             "public_surface": {
-              "run": 36508540378,
+              "run": 36564168856,
               "conclusion": "success"
             },
             "gitleaks": {
-              "run": 36508540355,
+              "run": 36564168889,
               "conclusion": "success"
             }
           },
-          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
           "predecessor": {
-            "status": "PASS / PR 528 EXACT-HEAD",
-            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-            "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+            "status": "PASS / PR 533 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+            "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+            "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
             "checks": {
               "route_registration": {
-                "run": 36507219876,
+                "run": 36508540373,
                 "conclusion": "success"
               },
               "public_surface": {
-                "run": 36507220022,
+                "run": 36508540378,
                 "conclusion": "success"
               },
               "gitleaks": {
-                "run": 36507219919,
+                "run": 36508540355,
                 "conclusion": "success"
               }
             },
-            "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+            "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+            "predecessor": {
+              "status": "PASS / PR 528 EXACT-HEAD",
+              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+              "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+              "checks": {
+                "route_registration": {
+                  "run": 36507219876,
+                  "conclusion": "success"
+                },
+                "public_surface": {
+                  "run": 36507220022,
+                  "conclusion": "success"
+                },
+                "gitleaks": {
+                  "run": 36507219919,
+                  "conclusion": "success"
+                }
+              },
+              "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+            }
           }
         }
       }
