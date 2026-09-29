@@ -325,6 +325,11 @@ check(
   home.includes('actions:nativeRouteActions(focus)'),
   'FIELD host actions must derive from the held manifest route; parallel per-host ownership tables are forbidden'
 );
+if(manifest){
+  const readfieldHost=(manifest.routes||[]).find(r=>r.href==='/docs/');
+  const foldBloomHost=(manifest.routes||[]).find(r=>r.href==='/fold-bloom/');
+  check(readfieldHost?.host_owner==='READFIELD'&&foldBloomHost?.host_owner==='FOLD//BLOOM','native host-owner declarations drifted or collapsed');
+}
 const interphaseCarrier=read('lib/interphase-carrier.js');
 check(
   home.includes('function fieldActionSurface(')&&
