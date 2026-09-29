@@ -174,7 +174,19 @@
       "executable_test": "tools/field-salvage-selftest.mjs",
       "proof_claim": "Synthetic classifier proves CURRENT heads, frozen donors, compatibility aliases and live references resist retirement; only an already-explicit SUPERSEDED / DEPRECATED / RETIRED / REMOVED signal with no detected blockers may become RETIRE_CANDIDATE.",
       "new_sovereign_app": false,
-      "retirement": "Fold this audit into a more general lifecycle checker if another current mechanism owns identical dependency/salvage/cut proof; never preserve the checker merely because it exists."
+      "retirement": "Fold this audit into a more general lifecycle checker if another current mechanism owns identical dependency/salvage/cut proof; never preserve the checker merely because it exists.",
+      "sources": [
+        {
+          "title": "Hardspace: Shipbreaker",
+          "url": "https://www.blackbirdinteractive.com/shipbreaker",
+          "observed": "layered ships contain complex subsystems and hazards; safe dismantling/salvage is the core operation"
+        },
+        {
+          "title": "Why a recycling mechanic saved Terra Nil's climate cleanup design",
+          "url": "https://www.gamedeveloper.com/design/why-a-recycling-mechanic-saved-terra-nil-s-climate-cleanup-mechanics",
+          "observed": "designers describe the recycling endgame as taking away the buildings/tools after restoration; the excess infrastructure problem motivated the mechanic"
+        }
+      ]
     }
   ]
 }
