@@ -14,7 +14,8 @@
     "/tools/nexus-surface.test.mjs — alias contract + board/map integrity; contracted 4-link root is explicit",
     "/control/FIELD_INDEX_CONTRACT.json — convergence-authority boundary",
     "/AGENTS.md — canonical convergence re-entry moved to /#convRead",
-    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation"
+    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation",
+    "/control/confluence/FIELD_SIX_FAMILY_PROJECT_MAP_2026-09-29.md — derived one-page dependency / proof / next-move orientation; no new queue/project state"
   ],
   "preserves": [
     "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
@@ -25,7 +26,8 @@
     "RETURN owns durable evidence",
     "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE reducer",
     "NEXUS board + system map as direct utilities",
-    "no new route, queue, store, planner, shell or dashboard"
+    "no new route, queue, store, planner, shell or dashboard",
+    "six-family project map is orientation only; CURRENT remains attention authority and each family retains native proof/RETURN ownership"
   ],
   "verify": [
     "node tools/field-action-aperture-selftest.mjs",
