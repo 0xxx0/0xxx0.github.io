@@ -106,7 +106,7 @@ if(reduceAt>=0){
   if(!path){console.error('FIELD reduce requires a JSON packet path');process.exit(2)}
   const packet=read(path);
   const context={now:process.argv.includes('--now'),selected:process.argv.includes('--selected'),reactivated:process.argv.includes('--reactivate')};
-  process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\\n');
+  process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\n');
 }else{
 const sources=load(),packet=compile(sources);
 if(process.argv.includes('--selftest')){
