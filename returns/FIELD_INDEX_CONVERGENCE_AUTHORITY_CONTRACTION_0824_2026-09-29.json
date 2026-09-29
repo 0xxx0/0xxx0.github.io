@@ -14,7 +14,8 @@
     "/tools/nexus-surface.test.mjs — alias contract + board/map integrity; contracted 4-link root is explicit",
     "/control/FIELD_INDEX_CONTRACT.json — convergence-authority boundary",
     "/AGENTS.md — canonical convergence re-entry moved to /#convRead",
-    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation"
+    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation",
+    "/tools/browser-smoke.mjs — FIELD critical smoke now expects CONVERGE / READ while independently requiring exact ./nexus/ compatibility reachability"
   ],
   "preserves": [
     "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
@@ -35,14 +36,16 @@
     "node scripts/check-route-registration.mjs",
     "public-surface-check",
     "gitleaks",
-    "browser/static hash contract: /nexus/ → /#convRead opens FIELD re-entry"
+    "browser/static hash contract: /nexus/ → /#convRead opens FIELD re-entry",
+    "node tools/browser-smoke.mjs"
   ],
   "corrections": [
     "r1 preserved /nexus/ exact reachability after FIELD aperture guard exposed its loss",
     "r1 adopted existing alias grammar after route-grammar guard rejected invented COMPAT_ALIAS state",
     "r2 restored the exact generic source-intent sentence required by #605",
     "r2 calibrated stale-dashboard link-count sanity from >=12 to the contracted alias's four explicit local exits",
-    "r3 rebased onto merged #618 host-action derivation rather than overwriting its root/contract/manifest law"
+    "r3 rebased onto merged #618 host-action derivation rather than overwriting its root/contract/manifest law",
+    "r3 critical browser smoke exposed one stale UI-label invariant (CONVERGE / NEXUS); updated to CONVERGE / READ + explicit NEXUS alias link without reducing route/boot coverage"
   ],
   "residue": [
     "board.html and map.html remain snapshots/utilities; they do not gain attention or execution authority",
