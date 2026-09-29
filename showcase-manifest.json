@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29",
+  "updated": "2026-09-29T13:06:49+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T17:14:00+08:00",
+        "updated_at": "2026-09-29T17:19:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5812,20 +5812,20 @@
         "Grid Path V4 typed BY / route / multilingual projection donor remains separate",
         "Cell Foundry route-game/transformation donor remains separate",
         "Verse Atlas sealed Jueju-native study/evidence specialist",
-        "source-bound exact focus return and recipient handoffs retained"
+        "source-bound exact focus return and recipient handoffs retained",
+        "source-authority epoch: explicit local parse preempts an older in-flight FIELD NOW preload; stale async source cannot overwrite newer authored text"
       ],
       "index": {
-        "updated_at": "2026-09-28T13:23:53+08:00",
+        "updated_at": "2026-09-29T17:10:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "RESEARCH",
+          "INVESTIGATE",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_COPILOT_RECENTER_2026-09-26.json"
+      "latest_return": "/returns/POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29.json"
     },
     {
       "href": "/port/",
