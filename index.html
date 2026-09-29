@@ -534,7 +534,7 @@ function fieldEgressForRoute(r){
   ...(gate?{waiting:[{id:gate.id,state:gate.state,dependency_kind:gate.dependency_kind}]}:{}),
   ...(unknowns.length?{unknowns}:{}),
   ...(!gate&&n?{next_executable:n}:{}),
-  ...(changed?{delta:{updated_at:r.index?.updated_at||null}}:{})
+  ...(changed?{delta:{material:true,scope:'route_touch',updated_at:r.index?.updated_at||null},evidence:{sufficient:true,kind:'route_touch_witness',refs:[r.href,'/showcase-manifest.json#routes[index.updated_at]']}}:{})
  };
  try{return fieldEgressReduce(packet,{now:nowSet.has(r.href)})}catch(_){return null}
 }
