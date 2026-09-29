@@ -26,7 +26,8 @@
     "RETURN owns durable evidence",
     "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE reducer",
     "NEXUS board + system map as direct utilities",
-    "no new route, queue, store, planner, shell or dashboard"
+    "no new route, queue, store, planner, shell or dashboard",
+    "root RECOVER cold-start/re-entry capability"
   ],
   "verify": [
     "node tools/field-action-aperture-selftest.mjs",
@@ -45,7 +46,8 @@
     "r2 restored the exact generic source-intent sentence required by #605",
     "r2 calibrated stale-dashboard link-count sanity from >=12 to the contracted alias's four explicit local exits",
     "r3 rebased onto merged #618 host-action derivation rather than overwriting its root/contract/manifest law",
-    "r3 critical browser smoke exposed one stale UI-label invariant (CONVERGE / NEXUS); updated to CONVERGE / READ + explicit NEXUS alias link without reducing route/boot coverage"
+    "r3 critical browser smoke exposed one stale UI-label invariant (CONVERGE / NEXUS); updated to CONVERGE / READ + explicit NEXUS alias link without reducing route/boot coverage",
+    "r3 folded merged #620 root RECOVER capability back into manifest work_modes and restored the explicit neutral-unowned-route host boundary"
   ],
   "residue": [
     "board.html and map.html remain snapshots/utilities; they do not gain attention or execution authority",
