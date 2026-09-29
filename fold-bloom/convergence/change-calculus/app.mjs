@@ -1,5 +1,6 @@
 import {appliedResearchFrame,transparentStateCalculation,stepOrderAt,steppedStatePath} from './kernel.mjs';
 import {candidateEpochWitness,runLiveVerbCommutator} from './live-step-order.mjs';
+import {runLiveMacrostateSufficiency,runLiveForecastFactorization} from './live-sufficiency.mjs';
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const traceFixture={
@@ -160,6 +161,41 @@ function pathSummary(path){
     :'BLOCKED '+(path.blocked_verb||'')+' · '+(path.reason||'');
   return (steps||'∅')+' · '+tail;
 }
+
+function runSufficiencyResearch(){
+  const macro=runLiveMacrostateSufficiency({seeds:64,rounds:24});
+  const factor=runLiveForecastFactorization({seeds:64,rounds:24});
+  const h=macro.hexCounterexample;
+  const x=macro.exactCounterexample;
+  let html='<h2>PROJECTION SUFFICIENCY → NATIVE FORECAST FACTOR</h2><div class="metrics">'+
+    metric('snapshots',macro.samples)+
+    metric('HEX sufficient?',macro.hexControlSufficient?'NOT FALSIFIED':'NO')+
+    metric('recent exact form sufficient?',macro.exactRecentFormControlSufficient?'NOT FALSIFIED':'NO')+
+    metric('topology factor',factor.topology_factor.reproduces_structural_forecasts?'PASS':'MISMATCH')+
+    metric('full factor',factor.full_factor.reproduces_full_forecasts?'PASS':'MISMATCH')+
+    metric('charge residue',factor.charge_residue.affects_full_forecast?'OBSERVED':'NOT SEEN')+
+    '</div>';
+  if(h){
+    html+='<p><b>HEX COUNTEREXAMPLE:</b> <code>'+esc(h.macrostate)+'</code> labels two lawful snapshots with different native next-forecast apertures.</p>'+
+      '<table><thead><tr><th>witness</th><th>seed / round</th><th>target</th><th>call</th><th>verbs</th><th>max chain</th></tr></thead><tbody>'+
+      '<tr><td>A</td><td>'+h.a.seed+' / '+h.a.round+'</td><td>'+h.a.behavior.targetType+'</td><td>'+esc(JSON.stringify(h.a.behavior.call))+'</td><td>'+esc(JSON.stringify(h.a.behavior.verbs))+'</td><td>'+h.a.behavior.maxChain+'</td></tr>'+
+      '<tr><td>B</td><td>'+h.b.seed+' / '+h.b.round+'</td><td>'+h.b.behavior.targetType+'</td><td>'+esc(JSON.stringify(h.b.behavior.call))+'</td><td>'+esc(JSON.stringify(h.b.behavior.verbs))+'</td><td>'+h.b.behavior.maxChain+'</td></tr>'+
+      '</tbody></table>';
+  }
+  if(x) html+='<p><b>Recent exact-form history also collapses unequal native futures.</b> History is evidence, not the live control aperture.</p>';
+  html+='<h2 style="margin-top:12px">MECHANISTIC FACTORIZATION</h2>'+
+    '<p><code>STRUCTURAL FORECAST = f(cell types, target type, anchors, creases)</code></p>'+
+    '<p><code>FULL FORECAST = f(structural factor, charge)</code></p>'+
+    '<div class="metrics">'+
+      metric('structural fields',factor.topology_factor.fields.join(' · '))+
+      metric('full adds','charge')+
+      '</div>'+
+    '<p>'+esc(factor.law)+'</p>'+
+    '<p><b>Boundary:</b> this factor reconstructs <code>availableForecasts()</code> for the current engine. It does not claim minimality, current gate alignment, CALL/history, release mutation, source timing, or presentation. After any real RELEASE, recompute the native aperture.</p>'+
+    '<p><b>J-space consequence:</b> model readout may annotate candidates inside this native aperture. It does not replace the factor, select an edge, or carry support across the next commit.</p>';
+  $('#sufficiencyOut').innerHTML=html;
+}
+
 function runOrderResearch(){
   const epoch=candidateEpochWitness();
   const search=runLiveVerbCommutator({seeds:32,rounds:20,maxPairsPerState:6});
@@ -186,6 +222,7 @@ function runOrderResearch(){
   html+='<p>Interpretation: a forecast set is one decision aperture, not a queue. Multi-step STEP research must either preserve explicit edit operators or declare how a higher-level intent is re-resolved after every commit.</p>';
   $('#stepOrderOut').innerHTML=html;
 }
+$('#sufficiency').onclick=runSufficiencyResearch;
 $('#commute').onclick=runOrderResearch;
 $('#calc').onclick=calculate;
 ['#fromState','#toState','#stateOrderIndex','#fromForm','#toForm','#target'].forEach(id=>$(id).addEventListener('change',calculate));

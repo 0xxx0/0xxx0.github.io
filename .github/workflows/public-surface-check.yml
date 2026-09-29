@@ -207,6 +207,10 @@ jobs:
           node fold-bloom/convergence/change-calculus/live-step-order.mjs
           node --check fold-bloom/convergence/change-calculus/app.mjs
           python3 -m py_compile fold-bloom/convergence/jspace-steering/export_jlens.py
+      - name: Test FOLD BLOOM change calculus browser
+        env:
+          SMOKE_ONLY: FOLD BLOOM CHANGE CALCULUS
+        run: node tools/browser-smoke.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render

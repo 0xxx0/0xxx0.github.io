@@ -1,4 +1,3 @@
-import assert from 'node:assert/strict';
 import {
   createState,rotateSteps,release,availableForecasts,forecastMatchesCall,N,wrap
 } from '../../live/engine.js';
@@ -98,10 +97,115 @@ export function runLiveMacrostateSufficiency({
   };
 }
 
-if(import.meta.url===new URL(process.argv[1], 'file://').href){
+
+function cleanStructuralForecast(o){
+  return {
+    slot:o.slot,type:o.type,verb:o.verb,chain:o.chain,
+    path:[...(o.path||[])],
+    edgeAdded:o.edgeAdded?[...o.edgeAdded]:null,
+    span:o.span
+  };
+}
+function cleanFullForecast(o){
+  return {...cleanStructuralForecast(o),cadence:o.cadence||null,power:o.power};
+}
+function signature(xs,cleaner){
+  return JSON.stringify((xs||[]).map(cleaner).sort((a,b)=>a.slot-b.slot||a.verb.localeCompare(b.verb)));
+}
+
+export function liveForecastFactor(state,{includeCharge=true}={}){
+  return {
+    schema:LIVE_SUFFICIENCY_SCHEMA+'/forecast-factor',
+    authority:'NATIVE_DEPENDENCY_WITNESS',
+    cell_types:(state?.cells||[]).map(c=>c.type),
+    target_type:state?.targetType,
+    anchors:[...(state?.anchors||[])],
+    creases:(state?.creases||[]).map(e=>[...e]),
+    ...(includeCharge?{charge:Number(state?.charge)||0}:{})
+  };
+}
+
+function stateFromForecastFactor(factor,{charge=0}={}){
+  return {
+    cells:(factor?.cell_types||[]).map(type=>({type})),
+    targetType:factor?.target_type,
+    anchors:[...(factor?.anchors||[])],
+    creases:(factor?.creases||[]).map(e=>[...e]),
+    charge:Number(factor?.charge??charge)||0
+  };
+}
+
+export function runLiveForecastFactorization({seeds=96,rounds=24}={}){
+  let samples=0,topologyMismatch=null,fullMismatch=null,chargeResidueWitness=null;
+  for(let seed=1;seed<=seeds;seed++){
+    let state=createState(seed);
+    for(let round=0;round<rounds;round++){
+      state=step(state,round);
+      const native=availableForecasts(state);
+      const topologyFactor=liveForecastFactor(state,{includeCharge:false});
+      const fullFactor=liveForecastFactor(state,{includeCharge:true});
+      const topologyForecasts=availableForecasts(stateFromForecastFactor(topologyFactor,{charge:0}));
+      const fullForecasts=availableForecasts(stateFromForecastFactor(fullFactor));
+      samples++;
+      const nativeStructural=signature(native,cleanStructuralForecast);
+      const factorStructural=signature(topologyForecasts,cleanStructuralForecast);
+      const nativeFull=signature(native,cleanFullForecast);
+      const factorFull=signature(fullForecasts,cleanFullForecast);
+      const chargeFreeFull=signature(topologyForecasts,cleanFullForecast);
+      if(!topologyMismatch&&nativeStructural!==factorStructural){
+        topologyMismatch={seed,round:round+1,factor:topologyFactor,native:nativeStructural,reconstructed:factorStructural};
+      }
+      if(!fullMismatch&&nativeFull!==factorFull){
+        fullMismatch={seed,round:round+1,factor:fullFactor,native:nativeFull,reconstructed:factorFull};
+      }
+      if(!chargeResidueWitness&&nativeFull!==chargeFreeFull){
+        chargeResidueWitness={seed,round:round+1,charge:Number(state.charge)||0,native:nativeFull,without_charge:chargeFreeFull};
+      }
+    }
+  }
+  return {
+    schema:LIVE_SUFFICIENCY_SCHEMA+'/forecast-factorization',
+    authority:'EVIDENCE_ONLY',
+    samples,
+    property:{
+      structural:'availableForecasts(): slot + type + verb + chain + path + edgeAdded + span',
+      full:'structural forecast + cadence + power'
+    },
+    topology_factor:{
+      fields:['cell_types','target_type','anchors','creases'],
+      reproduces_structural_forecasts:!topologyMismatch,
+      first_mismatch:topologyMismatch
+    },
+    full_factor:{
+      fields:['cell_types','target_type','anchors','creases','charge'],
+      reproduces_full_forecasts:!fullMismatch,
+      first_mismatch:fullMismatch
+    },
+    charge_residue:{
+      affects_full_forecast:!!chargeResidueWitness,
+      first_witness:chargeResidueWitness
+    },
+    excluded_from_claim:[
+      'rotation / current gate alignment',
+      'call selection and historical counters',
+      'release mutation after commit',
+      'audio / source timing / presentation',
+      'minimality of the factor'
+    ],
+    law:'for the current LIVE engine, topology fields are sufficient to reconstruct the structural availableForecasts aperture and charge is additional residue for cadence/power; this is a bounded native dependency witness, not a claim that the factor is minimal or sufficient for all LIVE behavior'
+  };
+}
+
+const isCli=typeof process!=='undefined'&&process?.argv?.[1]&&import.meta.url===new URL(process.argv[1], 'file://').href;
+if(isCli){
   const out=runLiveMacrostateSufficiency();
-  assert.ok(out.samples>100,'expected substantial native LIVE sample set');
-  assert.ok(out.hexCounterexample,'expected same hex quotient with unequal native futures');
-  assert.equal(out.hexControlSufficient,false);
-  console.log(JSON.stringify(out,null,2));
+  const factor=runLiveForecastFactorization();
+  if(!(out.samples>100))throw new Error('expected substantial native LIVE sample set');
+  if(!out.hexCounterexample)throw new Error('expected same hex quotient with unequal native futures');
+  if(out.hexControlSufficient!==false)throw new Error('expected HEX control sufficiency falsification');
+  if(!(factor.samples>100))throw new Error('expected substantial forecast factorization sample set');
+  if(!factor.topology_factor.reproduces_structural_forecasts)throw new Error('topology factor failed structural forecast reconstruction');
+  if(!factor.full_factor.reproduces_full_forecasts)throw new Error('full factor failed full forecast reconstruction');
+  if(!factor.charge_residue.affects_full_forecast)throw new Error('expected charge residue witness');
+  console.log(JSON.stringify({macrostate:out,factorization:factor},null,2));
 }
