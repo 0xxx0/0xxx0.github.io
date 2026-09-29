@@ -10,9 +10,10 @@ const root=readFileSync(new URL('../../index.html',import.meta.url),'utf8');
 test('LIVE remains RIDE-first while exposing READ and hosted GARDEN apertures',()=>{
   assert.match(live,/<title>FOLD\/\/BLOOM — LIVE 0\.13<\/title>/);
   assert.match(live,/LIVE 0\.13 · RIDE \/ READ \/ GARDEN \/ RETURN/);
-  assert.match(live,/RIDE THE/);
-  assert.match(live,/GARDEN \/ OBSERVE/);
-  assert.match(live,/RIDE \/ READ \/ GARDEN, unequal by design/);
+  assert.match(live,/THE WHOLE RIDE LOOP/);
+  assert.match(live,/TURN\.<br><span>RELEASE\.<\/span>/);
+  assert.match(live,/MORE STARTS \/ MODES/);
+  assert.match(live,/id="gardenOpenBtn">WATCH GARDEN/);
   assert.doesNotMatch(live,/LIVE READER|Reader mode is the public default/);
 });
 
@@ -39,8 +40,8 @@ test('opening GARDEN holds LIVE source clocks and generated sound',()=>{
 });
 
 test('public GARDEN enters LIVE while standalone Ecology remains recoverable',()=>{
-  assert.match(root,/href="\.\/live\/\?garden=1">GARDEN \/ OBSERVE/);
-  assert.match(root,/href="\.\/live\/\?garden=1"><span class="verb">GARDEN \/ OBSERVE/);
+  assert.match(root,/href="\.\/live\/\?garden=1">WATCH A GARDEN/);
+  assert.match(root,/href="\.\/live\/\?garden=1"><span class="verb">GARDEN<\/span>/);
   assert.match(root,/href="\.\/ecology\/">ECOLOGY<\/a>/);
 });
 

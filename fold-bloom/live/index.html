@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.15"><link rel="manifest" href="./manifest.webmanifest">
+<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.16"><link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
 <div id="app"><canvas id="field"></canvas><img id="imageStage" alt="Addressed image from the local set" hidden><audio id="trackAudio" preload="metadata"></audio><input id="trackFile" type="file" accept="audio/*,.mp3,.m4a,.mp4,.wav,.flac,.ogg,.aac,.webm,.lrc,.vtt,.srt,.txt,.md" multiple hidden><input id="readFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json" hidden><input id="imageFile" type="file" accept="image/*" multiple hidden>
@@ -19,12 +19,13 @@
   <div class="bottom"><button class="turn" id="turnLeft" aria-label="Turn one step left">←</button><button class="mode" id="modeBtn">RATCHET</button><button class="release" id="releaseBtn" disabled>SEEK MATCH</button><button class="scene" id="sceneBtn">DEPTH</button><button class="turn" id="turnRight" aria-label="Turn one step right">→</button></div><div class="leftQuick"><button class="sourceQuick" id="sourceQuick">CHOOSE SONG</button><button class="courseQuick" id="courseQuick" hidden aria-label="Traversal mode">FLOW · PHRASE</button><button class="vibeQuick" id="vibeQuick">VIBE · CLEAR</button></div><button class="autoQuick" id="autoBtn" aria-pressed="false">AUTOPILOT</button><button class="soundGate" id="soundGate" hidden aria-label="Enable built-in FIELD COURSE audio">TAP FOR SOUND</button>
 
     <section class="panel on" id="intro"><div class="card">
-    <div class="ey">LIVE · SOURCE → MAP → IMMERSION</div>
-    <h1>RIDE THE<br><span>SOURCE.</span></h1>
-    <div class="lede">Pick a track, addressed text or a local image set and move—or enter GARDEN and let the living field unfold. RIDE keeps source-address motion and authored RELEASE; READ keeps exact text addresses; GARDEN hosts canonical Ecology without importing its lineage authority. Each aperture returns to the same LIVE shell without pretending the underlying objects are the same thing.</div>
-    <div class="row startRow"><button class="cta" id="publicDemoBtn">AUDIO EXAMPLE →</button><button class="ghost" id="songIntroBtn">OPEN LOCAL TRACK</button><button class="ghost" id="gardenOpenBtn">GARDEN / OBSERVE</button><button class="ghost" id="playBtn">START STILL FIELD →</button></div>
-    <div class="keys"><div><b>SOURCE</b>original audio / exact text / local images</div><div><b>ADDRESS</b>beat / paragraph / frame / lineage witness</div><div><b>APERTURE</b>RIDE / READ / GARDEN, unequal by design</div><div><b>TURN</b>move attention or choose a lawful gate</div><div><b>RELEASE</b>author LIVE consequence only</div><div><b>RETURN</b>restore orientation + preserve exact residue</div></div>
-    <details class="introMore"><summary>OTHER STARTS / AUTOPILOT</summary><div class="row"><button class="ghost" id="readIntroBtn">READ / RIDE FILE</button><button class="ghost" id="imageIntroBtn">LOCAL IMAGE SET</button><button class="ghost" id="demoBtn">AUTOPILOT</button><button class="ghost" id="mutePlay">PLAY MUTED</button><button class="ghost" id="centerMassBtn">TRY CENTER MASS REMOTE</button></div><div class="small">AUDIO EXAMPLE checks the bundled CENTER MASS preview before playback and refuses a damaged or very short decode. STILL FIELD remains silent and stationary until RELEASE; each RELEASE advances one beat. AUTOPILOT, FIELD SOUND, and source playback are explicit opt-ins. Local imports stay on this device. CENTER MASS REMOTE may expire or be blocked. GARDEN is the canonical Ecology engine hosted in-field; opening it holds LIVE transport/generated sound and RETURN restores the held LIVE context.</div></details>
+    <div class="ey">THE WHOLE RIDE LOOP</div>
+    <h1>TURN.<br><span>RELEASE.</span></h1>
+    <div class="lede">Use ← / → until the middle button becomes ready. Tap it. The field changes. Repeat. Add a song if you want the road to move with music.</div>
+    <div class="firstLoop"><div><b>1</b><span>Pick the example, your own song, or no song.</span></div><div><b>2</b><span>Tap ← or → until the middle action lights up.</span></div><div><b>3</b><span>Tap the middle action. Watch the road change. Do it again.</span></div></div>
+    <div class="row startRow"><button class="cta" id="publicDemoBtn">TRY THE EXAMPLE →</button><button class="ghost" id="songIntroBtn">CHOOSE MY SONG</button><button class="ghost" id="playBtn">NO SONG / JUST PLAY →</button></div>
+    <details class="introMore"><summary>WHAT IS FOLD//BLOOM DOING?</summary><div class="keys"><div><b>SOURCE</b>the song, text, image set, or living field you chose</div><div><b>MAP</b>where you are inside it</div><div><b>RELEASE</b>your action changes the field, not the original source</div><div><b>RETURN</b>keep a trace and come back without losing orientation</div></div></details>
+    <details class="introMore"><summary>MORE STARTS / MODES</summary><div class="row"><button class="ghost" id="gardenOpenBtn">WATCH GARDEN</button><button class="ghost" id="readIntroBtn">READ / RIDE FILE</button><button class="ghost" id="imageIntroBtn">LOCAL IMAGE SET</button><button class="ghost" id="demoBtn">AUTOPILOT</button><button class="ghost" id="mutePlay">PLAY MUTED</button><button class="ghost" id="centerMassBtn">TRY CENTER MASS REMOTE</button></div><div class="small">GARDEN opens canonical Ecology inside LIVE and RETURN LIVE restores the held ride. Local imports stay on this device. AUTOPILOT and generated sound are explicit opt-ins.</div></details>
   </div></section>
 
   <button class="menuDismiss" id="menuDismiss" aria-label="Close settings"></button><aside class="drawer" id="settings">
@@ -73,9 +74,9 @@
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
-<script src="../../lib/read-trail.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.20"></script>
+<script src="../../lib/read-trail.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.21"></script>
 <script type="module" src="./vault-handoff.js"></script>
-<script type="module" src="./play.js?v=0.6.3"></script>
+<script type="module" src="./play.js?v=0.6.4"></script>
 <script type="module">
 document.documentElement.dataset.foldBloomSetRideLoad='loading';
 import('./set-handoff.js').then(()=>{document.documentElement.dataset.foldBloomSetRideLoad='loaded'}).catch(error=>{document.documentElement.dataset.foldBloomSetRide='blocked';document.documentElement.dataset.foldBloomSetRideLoad='error:'+String(error?.message||error).slice(0,160);console.error('SET RIDE module load failed',error)});
