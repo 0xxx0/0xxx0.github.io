@@ -27,7 +27,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
 (async()=>{try{
   const W=()=>f.contentWindow,D=()=>W().document;
   await wait(()=>D().documentElement.dataset.foldBloomFieldLab==='ready'&&W().FoldBloomFieldLab?.liveChange,12000,'LAB ready');
-  const emit=detail=>W().dispatchEvent(new W().CustomEvent('field-pulse-local',{detail}));
+  const emit=detail=>W().dispatchEvent(new (W().CustomEvent)('field-pulse-local',{detail}));
   const op=(seq,verb)=>({schema:'field-pulse/v0.1',source:'FOLD_BLOOM_LIVE',instance:'probe-live',kind:'operation',seq,wall:1000+seq,data:{operation:verb,slot:seq%12,chain:1,charge:.2,trackTime:seq*.5}});
   const a=['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'];
   const b=['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'];
