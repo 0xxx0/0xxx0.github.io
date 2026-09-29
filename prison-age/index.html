@@ -93,6 +93,7 @@ function readSource(){
 }
 async function rideSource(){
   if(!story||!source.trim())return;
+  try{sessionStorage.removeItem(THREAD_STORAGE);sessionStorage.removeItem(THREAD_RETURN_STORAGE)}catch(_){}
   const {makeReadRidePacket,READ_RIDE_STORAGE}=await import('/fold-bloom/read-course.js');
   const fp=story.source_fingerprint;
   const packet=makeReadRidePacket({
