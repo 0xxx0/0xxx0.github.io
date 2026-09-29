@@ -283,6 +283,8 @@ jobs:
         run: node tools/fold-bloom-lab-change-ink-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB live change witness
         run: node tools/fold-bloom-lab-live-change-smoke.mjs
+      - name: Test real LIVE to FIELD LAB change bridge
+        run: node tools/fold-bloom-live-lab-change-bridge-smoke.mjs
       - name: Test FOLD BLOOM INK FIELD browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM INK FIELD
