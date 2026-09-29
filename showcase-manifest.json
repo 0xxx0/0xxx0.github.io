@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29T21:49:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,19 +16,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T21:38:00+08:00",
+        "updated_at": "2026-09-29T21:49:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE exit paths rather than a FIELD-owned capability table; routes without an explicit native owner remain neutral FIELD ROUTE projections rather than inheriting authority. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE express operation intent only; exact source selection and effect authority remain with the native host.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier. Host-specific owner/action hints derive from each held route's explicit manifest field.owner + operation + AVAILABLE targeted exit paths rather than a FIELD-owned capability table. Six bounded game-donor mechanisms now resolve into existing hosts: knowledge-gap re-entry, failure RETURN, BODY/FIT load-return continuity, precommit telegraph, safe salvage, and scaffold retirement. Held/CATCH packet egress and generic READ / RIDE / SOURCE intent remain unchanged; exact source selection and native effect authority remain host-owned.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.23",
+      "version": "0.8.24",
       "transfer": [
+        "0.8.24 six-game donor convergence: existing game-donor research is mapped to current hosts; BODY / FIT publishes native LOADOUT/PATINA/SENSE targeted exits and FIELD derives them through manifest-owned host actions; no game layer, quest state, score or new effect authority",
         "host-action derivation: FIELD no longer carries a per-host CAPABILITY_PROJECTION table; native owner/action hints come from manifest field.owner + route.operation + AVAILABLE field.exit_paths, so READFIELD cannot be laundered into FOLD//BLOOM and exact target actions such as Prison Age READ / RIDE / SOURCE remain host-owned",
         "0.8.23 action-surface convergence: AWAKE visor derives cadence, HOLD, TURN/RELEASE moves, TRACE and RETURN from interphase-action-surface/v0.1; duplicated hardcoded visor grammar removed; native labels/authority unchanged",
         "packet egress boundary: only explicit external/world/human WAITING → GATE; generic unresolved/internal WAITING → RESIDUE across string/object/array/named dependency shapes; metadata key names/container presence cannot mint externality",
@@ -109,7 +111,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_SIX_GAME_DONOR_CONVERGENCE_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -595,16 +597,17 @@
     },
     {
       "href": "/body/fit/",
-      "title": "BODY / FIT 0.3",
+      "title": "BODY / FIT 0.3.2",
       "kind": "workbench",
       "parent": "/body/",
       "family": "BODY / FIELD",
       "operation": "ADDRESS",
       "state": "CANDIDATE",
-      "version": "0.3.1-candidate",
+      "version": "0.3.2-candidate",
       "receipt": "/returns/BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
-      "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: manage addressed modules, prep saved kits, align source-distinct observations, then close real use with RETURN/PATINA and one NEXT CUT without streak scoring.",
+      "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: PREP → SET OUT → RETURN → PATINA → NEXT CUT. 0.3.2 gives LOADOUT/SENSE/FUSE/PATINA/PLAIN stable hash addresses and publishes navigation-only native exits; SET OUT, RETURN, sensor/fitting state and local persistence remain BODY / FIT authority.",
       "transfer": [
+        "0.3.2 Death Stranding bounded transfer: relational preparation/loadout → outing → RETURN residue; manifest-owned native view exits are navigation-only and SET OUT/RETURN stay native",
         "Syndicate Wars Cryovat body-fitting donor",
         "Deus Ex body-slot compatibility/revision donor",
         "RimWorld condition/implant/capability separation donor",
@@ -661,6 +664,24 @@
         ],
         "exit_paths": [
           {
+            "class": "SENSE_FUSE",
+            "status": "AVAILABLE",
+            "via": "SENSE / FUSE",
+            "target": "/body/fit/#sense"
+          },
+          {
+            "class": "PATINA_RETURN",
+            "status": "AVAILABLE",
+            "via": "PATINA / NEXT CUT",
+            "target": "/body/fit/#patina"
+          },
+          {
+            "class": "LOADOUT_PREP",
+            "status": "AVAILABLE",
+            "via": "LOADOUT / PREP",
+            "target": "/body/fit/#loadout"
+          },
+          {
             "class": "HUMAN_PORT",
             "status": "AVAILABLE",
             "via": "/port/ TEXT/JSON → explicit BODY / FIT import"
@@ -691,13 +712,13 @@
             "via": "future shared patina grammar only after BODY/FIT ordinary-use proof; CARE action complete != condition improved"
           }
         ],
-        "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
+        "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority.",
+        "owner": "BODY / FIT"
       },
       "index": {
-        "updated_at": "2026-09-22T05:24:00+08:00",
+        "updated_at": "2026-09-29T21:49:00+08:00",
         "work_modes": [
-          "RESEARCH",
-          "SPECIFY",
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -728,7 +749,8 @@
           "provenance": "exact implementation + return-patina validation; runtime tab regression hardened in commit 2a470c809a24c5cb80e7707ce9af295007773e69"
         }
       ],
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "latest_return": "/returns/FIELD_INDEX_SIX_GAME_DONOR_CONVERGENCE_2026-09-29.json"
     },
     {
       "href": "/bodyplans/",
