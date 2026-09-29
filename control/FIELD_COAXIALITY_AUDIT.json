@@ -155,7 +155,7 @@
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
       "decision": "PROVE_OR_DECOAXIALIZE",
-      "repair_boundary": "Causal RETURN (G) is repaired and LIVE commit/compose provenance (F) is explicit. Do not promote to KEEP: prove one-gesture/one-primary-interpretation (C), establish whether cheap local transforms have a lawful reversal/residue story (E), and compare user-visible burden against a plain non-coaxial baseline (H). If H fails, de-coaxialize/delete rather than add explanation chrome.",
+      "repair_boundary": "Gesture ownership (C) is now statically proved; causal RETURN (G) and LIVE provenance (F) remain proved. Do not promote to KEEP: E_REVERSAL is still open for committed musical FOLD/BLOOM inverse-or-residue semantics, and H_COMPRESSION still requires a plain non-coaxial ordinary-use baseline. Canceled pointer preview is reversible, but causal history is not cosmetic UNDO.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -172,9 +172,11 @@
           ]
         },
         "C_GESTURE": {
-          "verdict": "INDETERMINATE",
+          "verdict": "PASS",
           "evidence": [
-            "No dedicated repo proof in this audit establishes one-gesture/one-primary-interpretation across pointer, dial and mode interactions."
+            "/fold-bloom/two-dial/core2.js: pointerSideClaimed() enforces at most one live pointer per dial; each pointer stores exactly one side",
+            "/fold-bloom/two-dial/core2.js: movement mutates only its owned dial preview; pointer release is the explicit semantic commit boundary",
+            "/tools/two-dial-gesture-boundary-selftest.cjs: executable static ownership/cancel-boundary proof"
           ]
         },
         "D_IDENTITY": {
@@ -187,7 +189,9 @@
         "E_REVERSAL": {
           "verdict": "INDETERMINATE",
           "evidence": [
-            "The host uses FOLD/BLOOM as musical/domain operators, but this audit found no bounded proof that any lossy compression retains sufficient residue for exact or declared-tolerance reopen."
+            "/fold-bloom/two-dial/core2.js: pointerGestureStart() retains side-local index/raw/wear residue and pointercancel restores it, so canceled preview no longer leaks local state",
+            "/fold-bloom/two-dial/app-runtime.js: full local snapshot/cassette restore exists, but it is not an automatic inverse for each committed musical operation",
+            "Committed FOLD/BLOOM transformations alter pattern/form/music/motif in ways not yet proved exact- or tolerance-reopenable; causal RETURN explains them but does not itself constitute UNDO"
           ]
         },
         "F_LIVE": {
