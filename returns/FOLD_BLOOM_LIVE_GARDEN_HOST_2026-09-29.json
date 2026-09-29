@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/fold-bloom-live-garden-host/v0.1",
+  "date": "2026-09-29",
+  "state": "CANDIDATE",
+  "host": "/fold-bloom/live/",
+  "canonical_engine": "/fold-bloom/ecology/",
+  "trigger": "Converge the public GARDEN doorway into the LIVE flagship shell without turning Fold/Bloom into one universal engine.",
+  "loop": "LIVE RIDE/READ context → HOLD → canonical ECOLOGY GARDEN aperture → RETURN LIVE → exact held LIVE context restored",
+  "authority": {
+    "host": "FOLD_BLOOM_LIVE",
+    "garden": "ECOLOGY",
+    "source_clock_bridge": false,
+    "release_authority": false,
+    "law": "Hosting is projection/orientation only. Ecology keeps gene, lineage, law, breeding and GARDEN authority; LIVE keeps source clocks and authored RELEASE authority."
+  },
+  "behavior": [
+    "Public GARDEN routes to /fold-bloom/live/?garden=1.",
+    "Ecology is lazy-loaded only when GARDEN opens; plain LIVE does not run a hidden Ecology simulation.",
+    "Opening GARDEN stops AUTOPILOT, pauses active source audio, holds IMAGE_SET clock and disables generated LIVE sound.",
+    "Canonical Ecology runs in a hosted same-origin iframe with embedded=live&garden=1.",
+    "RETURN LIVE unloads the hosted runtime, then restores held course mode and resumes only the source/image/sound state that was active before entry.",
+    "Standalone /fold-bloom/ecology/ remains directly reachable and canonical."
+  ],
+  "non_changes": [
+    "No source store, session bus, engine clone or authority merge.",
+    "No bespoke Prison Age reader runtime; current FIELD-held Prison Age source-set direction is preserved.",
+    "READ/RIDE source identity and RETURN semantics remain unchanged."
+  ],
+  "verification": {
+    "static": "fold-bloom/live/tests/garden-aperture.test.mjs",
+    "browser": "tools/fold-bloom-live-garden-smoke.mjs",
+    "ci": ".github/workflows/public-surface-check.yml"
+  },
+  "next": "After exact-head proof, reconstruct the native forecast-ring seek aperture on this combined LIVE shell; keep RELEASE separate."
+}
