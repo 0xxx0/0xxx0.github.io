@@ -17,7 +17,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#07090a">
-<title>0xxx0 / FIELD INDEX</title><link rel="stylesheet" href="./lib/field-signal.css"><script src="./lib/field-signal.js"></script>
+<title>0xxx0 / FIELD INDEX</title><link rel="stylesheet" href="./lib/field-signal.css"><script src="./lib/field-signal.js"></script><script src="./lib/field-egress.js"></script>
 <style>
 :root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -53,8 +53,8 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGesture button{padding:4px 6px;font-size:6.5px}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
-.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
-@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
+.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}.capEgress{grid-column:1/-1;display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:7px;align-items:center;background:#070a0c;padding:5px 8px;border-top:1px solid #182126}.capEgress b{color:var(--gold);font-size:6.5px;letter-spacing:.11em}.capEgress span{color:var(--mut);font-size:6px}.capEgress code{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aeb9bd;font-size:6.5px}
+@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}.capEgress{grid-template-columns:1fr auto;gap:3px 8px;padding:7px}.capEgress code{grid-column:1/-1;white-space:normal;line-height:1.35}}
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
@@ -262,6 +262,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div class="capCell"><span class="capK">HELD / PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">focus only · native object remains with owner</span></div>
     <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
     <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
+    <div class="capEgress" aria-label="Packet egress reducer"><b id="capEgressBucket">EGRESS / —</b><span id="capEgressSource">derived read-only</span><code id="capEgressValue">hold one addressed object</code></div>
   </div>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span>tap mark → hold · held mark → open</span><button id="moreLatest">ALL</button></div>
@@ -640,11 +641,45 @@ function renderFieldVisor({force=false}={}){
  v.hidden=false;document.documentElement.dataset.fieldVisor='ready';return true
 }
 function maybeShowFieldVisor(){if(INIT.get('visor')==='0')return;renderFieldVisor({force:INIT.get('visor')==='1'})}
+function compactEgressValue(v){
+ if(v==null)return'—';
+ if(Array.isArray(v))return v.length+' · '+(v.length?compactEgressValue(v[0]):'—');
+ if(typeof v==='object'){
+  const x=v.state||v.objective||v.label||v.id||v.address||v.route;
+  if(x)return String(x).replace(/\s+/g,' ').slice(0,190);
+  try{return JSON.stringify(v).replace(/\s+/g,' ').slice(0,190)}catch(_){return String(v).slice(0,190)}
+ }
+ return String(v).replace(/\s+/g,' ').slice(0,190)
+}
+function fieldPacketForFocus(){
+ if(!focus)return null;
+ const h=headForFocus(),n=h?.next_executable||null,carrier=fieldCarrierForFocus();
+ const waitingState=String(n?.state||'');
+ const waiting=/HUMAN|WAIT|BLOCK|REAL_DEVICE|WORLD|PRIVATE|PHYSICAL|APPROVAL|TRIGGER/.test(waitingState)?{
+  id:n?.id||null,state:n?.state||null,objective:n?.objective||null,acceptance:n?.human_questions||n?.acceptance||[]
+ }:null;
+ const residue=[...(Array.isArray(carrier?.projection?.residue)?carrier.projection.residue:[]),...(Array.isArray(focus?.open_gaps)?focus.open_gaps:[])].filter(Boolean);
+ const evidence=[...(Array.isArray(h?.evidence)?h.evidence:[]),h?.latest_return,focus?.receipt].filter(Boolean);
+ return{
+  OBJECT:{route:focus.href,title:focus.title||focus.href,owner:carrier?.object?.owner||h?.lineage||'FIELD ROUTE'},
+  AUTHORITY:carrier?.object?.owner||h?.lineage||'FIELD ROUTE',
+  STATE_IN:{manifest:focus.state||null,indexed_at:focus.index?.updated_at||null},
+  DELTA:focus.evolution?.mutation||null,EVIDENCE:evidence,
+  STATE_OUT:h?{head:h.head||h.lineage,state:h.state||focus.state||null}:null,
+  RESIDUE:residue,WAITING:waiting,NEXT:(carrier?.next||fieldCarrierMoves(focus.href)).slice(0,3),STOP:null
+ }
+}
+function renderHeldEgress(){
+ const b=$('capEgressBucket'),src=$('capEgressSource'),val=$('capEgressValue');if(!b||!src||!val)return;
+ if(!focus||!window.FieldEgress){b.textContent='EGRESS / —';src.textContent='derived read-only';val.textContent=focus?'reducer unavailable':'hold one addressed object';return}
+ const r=window.FieldEgress.reduce(fieldPacketForFocus());
+ b.textContent='EGRESS / '+r.bucket;src.textContent=r.source+' · '+r.authority;val.textContent=compactEgressValue(r.payload);
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';renderHeldEgress();return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
  $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
  $('capHeldSub').textContent=returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host'));
@@ -659,6 +694,7 @@ function renderCapabilityTrial(){
  }
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
+ renderHeldEgress();
  if(!$('fieldVisor')?.hidden)renderFieldVisor({force:true});
 }
 function renderAperture(){
