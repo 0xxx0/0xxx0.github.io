@@ -795,6 +795,17 @@ function returnReadRide(){
       origin:readRide.origin,visited:readRide.visited,current:liveCourseProgress(),returnAddress:u.pathname+u.search+u.hash
     });
     sessionStorage.setItem(READ_RETURN_STORAGE,JSON.stringify(witness));
+    if(isEchoWalk()&&readEchoThread){
+      const T=globalThis.PrisonAgeEchoThread,thread=T.normalize(readEchoThread);
+      const threadReturn={
+        schema:'prison-age.echo-thread-return/v0.1',authority:'EVIDENCE_ONLY',
+        thread,compact:T.compact(thread),final:witness,
+        current_source:{source_id:readRide.packet.sourceIdentity?.source_id||null,path:readRide.packet.sourceIdentity?.address||null,title:readRide.packet.sourceIdentity?.title||readRide.packet.label},
+        created_at:new Date().toISOString(),
+        law:'Chosen source-to-source traversal evidence only. Thread order is not canon order, theme, causality, equivalence or comprehension.'
+      };
+      sessionStorage.setItem(ECHO_THREAD_RETURN_STORAGE,JSON.stringify(threadReturn));u.searchParams.set('thread_return','1');
+    }
     u.searchParams.set('ride_return','1');
     location.href=u.pathname+u.search+u.hash;return true;
   }catch(error){console.warn('READ/RIDE return',error);return false}
