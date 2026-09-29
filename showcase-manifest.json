@@ -3134,7 +3134,8 @@
             "relation algebra preserved",
             "direct A/B listening remains instrument-quality gate",
             "pulse-link module browser boot",
-            "same-page local track module browser boot; direct phone/headphone feel remains required"
+            "same-page local track module browser boot; direct phone/headphone feel remains required",
+            "host-owned SAME/NEAR/FAR/OPPOSITE mapping preserves the existing BLOOM/FOLD/RETURN/SPLIT algebra"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -3188,12 +3189,13 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-28T13:23:53+08:00",
+        "updated_at": "2026-09-29T15:53:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
-          "RELEASE"
+          "RELEASE",
+          "SPECIFY"
         ]
       },
       "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover. PULSE LINK accepts LISTEN/AUDIO or FIELD LAB/SYNTH timing while a local same-page track remains higher priority.",

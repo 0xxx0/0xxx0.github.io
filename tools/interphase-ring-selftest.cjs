@@ -19,6 +19,14 @@ assert.equal(R.relation(0,1,6).kind,'NEAR');
 assert.equal(R.relation(0,2,6).kind,'FAR');
 assert.equal(R.relation(0,3,6).kind,'OPPOSITE');
 
+// COAXIALITY: the generic carrier exposes relation kinds; the host supplies semantics.
+assert.equal(R.relationLabel(0,0,6),'SAME');
+assert.equal(R.relationLabel(0,3,6),'OPPOSITE');
+const TWO_DIAL_RELATION=Object.freeze({SAME:'BLOOM',NEAR:'FOLD',FAR:'RETURN',OPPOSITE:'SPLIT'});
+for(let l=0;l<6;l++)for(let r=0;r<6;r++){
+  assert.equal(R.relationLabel(l,r,6,TWO_DIAL_RELATION),legacyVerb(l,r),`mapped ${l}→${r}`);
+}
+
 // TWO DIAL point→continuous slot parity: top is slot zero.
 assert.equal(R.pointIndex(0,-10,0,0,6),0);
 assert.equal(R.pointIndex(10,0,0,0,6),2);

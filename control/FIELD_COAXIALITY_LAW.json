@@ -1,0 +1,84 @@
+{
+  "schema": "0xxx0/field-coaxiality-law/v0.1",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_BOUNDED",
+  "purpose": "Compress related FIELD dimensions into one coherent held manipulation space without allowing geometry, projection, animation, or control count to manufacture domain meaning.",
+  "law": "Related dimensions may share one held manipulation space when meaning is carried by named state and host-defined relative transforms; compression must preserve identity, gesture ownership, reversibility/residue, provenance, and causal RETURN.",
+  "definitions": {
+    "axis": "A continuous reversible dimension of meaningful host state.",
+    "coaxial_object": "One coherent state-bearing thing through which two or more related axes can be read or manipulated; not necessarily circular or one DOM object.",
+    "relative_state": "A named relation derived from two or more axes, such as alignment, phase, distance, enclosure, exposure, or temporal offset.",
+    "held_state": "The currently addressed state owned by the user/host; projections may render it but do not become its authority.",
+    "exposure": "How much latent structure is currently perceptible/manipulable.",
+    "coupling": "An explicit host-owned rule by which one axis influences another."
+  },
+  "invariants": [
+    {
+      "id": "A_STATE",
+      "law": "STATE != VIEW. Current state must be representable independently of rendering."
+    },
+    {
+      "id": "B_RELATION",
+      "law": "Relative transforms may carry meaning only through an explicit host/domain mapping; carrier geometry alone supplies no semantic verb."
+    },
+    {
+      "id": "C_GESTURE",
+      "law": "ONE GESTURE -> ONE PRIMARY INTERPRETATION. Secondary coupling must be explicit and legible."
+    },
+    {
+      "id": "D_IDENTITY",
+      "law": "ROUTE/SCALE/FOLD/BLOOM preserve addressed identity unless traversal explicitly changes the referent."
+    },
+    {
+      "id": "E_REVERSAL",
+      "law": "Cheap/local transforms are reversible; FOLD preserves enough residue for exact or declared-tolerance BLOOM."
+    },
+    {
+      "id": "F_LIVE",
+      "law": "LIVE may drive state but user/source/system contributions remain distinguishable; borrowed clock != borrowed authorship."
+    },
+    {
+      "id": "G_RETURN",
+      "law": "RETURN records enough before/operation/actor/delta/after/provenance to explain the present state."
+    },
+    {
+      "id": "H_COMPRESSION",
+      "law": "A coaxial mechanism must remove more exposed interaction complexity than it adds."
+    }
+  ],
+  "operators": {
+    "ROUTE": "Change addressed position while retaining context; traversal is explicit.",
+    "SCALE": "Change resolution/aperture while keeping the referent traceable.",
+    "FOLD": "Reduce exposed dimensionality without deleting recoverable state.",
+    "BLOOM": "Expose latent/derived dimensions with provenance; do not invent feature layers.",
+    "LIVE": "Evolve transforms through time under explicit driver provenance.",
+    "RETURN": "Preserve causal transformation lineage; destination-only snapshots are insufficient."
+  },
+  "failure_modes": [
+    "AXIS_INFLATION: every variable becomes a ring/dial/axis.",
+    "DECORATIVE_COAXIALITY: nested geometry has no meaningful relational behavior.",
+    "SEMANTIC_LEAKAGE: a generic carrier maps geometry directly to domain verbs.",
+    "GESTURE_COLLISION: one motion silently mutates unrelated dimensions.",
+    "STATE_VIEW_CONFUSION: projection changes are mistaken for canonical state changes.",
+    "FOLD_AMNESIA: compression destroys information required to reopen.",
+    "BLOOM_BLOAT: expansion is a feature drawer rather than exposure of latent state.",
+    "LIVE_DECORATION: animation moves without meaningful state evolution.",
+    "RETURN_THEATRE: history stores snapshots but cannot reconstruct cause.",
+    "FALSE_COMPRESSION: the clever mechanism costs more attention/learning than the controls it replaces."
+  ],
+  "implementation": {
+    "carrier_rule": "Generic carriers expose coordinates, relations, gates, distances, and transforms. Hosts own semantic mappings.",
+    "current_ring_path": "/lib/interphase-ring.js",
+    "preferred_ring_api": "InterphaseRing.relationLabel(a,b,count,HOST_MAP)",
+    "compatibility_note": "InterphaseRing.relationVerb remains legacy compatibility for existing callers; new generic work must not rely on its default BLOOM/FOLD/RETURN/SPLIT mapping.",
+    "first_host_migration": "/fold-bloom/two-dial/ owns SAME/NEAR/FAR/OPPOSITE -> BLOOM/FOLD/RETURN/SPLIT explicitly.",
+    "acceptance": "A design passes only when invariants A-H all hold; failure of H means it may be interesting but is not justified by COAXIALITY."
+  },
+  "related_contracts": [
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/control/INTERACTION_SEMANTICS.json",
+    "/control/INTERPHASE_SUCCESSOR.json",
+    "/lib/interphase-ring.js",
+    "/lib/interphase-glyph.js"
+  ]
+}

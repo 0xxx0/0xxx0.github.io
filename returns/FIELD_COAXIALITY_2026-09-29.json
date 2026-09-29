@@ -1,0 +1,34 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_COAXIALITY_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Name COAXIALITY once at FIELD contract level and move Two Dial semantic mapping to its host boundary without changing the established relation algebra.",
+  "law": "Generic carrier geometry may expose relation; domain verbs belong to the host.",
+  "changes": [
+    "/control/FIELD_COAXIALITY_LAW.json — bounded normative law + A-H acceptance tests",
+    "/control/FIELD_INDEX_CONTRACT.json — one compact COAXIALITY law + pointer",
+    "/lib/interphase-ring.js — relationLabel(..., HOST_MAP) separates raw relation from semantic label; legacy relationVerb retained for compatibility",
+    "/fold-bloom/two-dial/core1.js — host now explicitly owns SAME/NEAR/FAR/OPPOSITE -> BLOOM/FOLD/RETURN/SPLIT",
+    "/tools/interphase-ring-selftest.cjs — proves unmapped relation kinds and explicit host mapping parity",
+    "/showcase-manifest.json — exact Two Dial route touch + evidence check"
+  ],
+  "preserves": [
+    "Two Dial public relation algebra",
+    "INTERPHASE ring geometry and gate behavior",
+    "legacy relationVerb compatibility",
+    "host/domain authority boundaries",
+    "no new route, shell, store, queue, or exposed control"
+  ],
+  "residue": [
+    "relationVerb default semantic mapping remains as compatibility residue; new generic callers should not use it",
+    "ordinary-use evidence remains the gate for any future UI contraction or new coaxial manipulation"
+  ],
+  "verify": [
+    "node tools/interphase-ring-selftest.cjs",
+    "existing public-surface / route registration CI",
+    "no public semantic delta expected in Two Dial"
+  ],
+  "reentry": "Review PR branch field-coaxiality-law-v01; if proof is green, merge as an architectural clarification + ownership hardening rather than a feature release."
+}

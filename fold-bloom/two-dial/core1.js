@@ -124,6 +124,13 @@ let L = 0,
   splitCharge = 0;
 const VERBS = ['BLOOM', 'FOLD', 'SPLIT', 'RETURN'],
   VG = { BLOOM: '✦', FOLD: '⌁', SPLIT: '⋔', RETURN: '↺' };
+// Domain semantics live here, not in the generic cyclic carrier.
+const RELATION_VERBS_BY_KIND = Object.freeze({
+  SAME: 'BLOOM',
+  NEAR: 'FOLD',
+  FAR: 'RETURN',
+  OPPOSITE: 'SPLIT',
+});
 let requestVerb = 'BLOOM',
   nextVerb = 'FOLD',
   fulfilled = 0;
@@ -319,7 +326,7 @@ function centers() {
       ];
 }
 function relationFromPair(l = L, r = R) {
-  return CYCLIC.relationVerb(l, r, 6);
+  return CYCLIC.relationLabel(l, r, 6, RELATION_VERBS_BY_KIND);
 }
 function rel() {
   return relationFromPair();
