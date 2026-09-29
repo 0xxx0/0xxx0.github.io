@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/prison-age-authored-source-fold-return/v0.1",
   "date": "2026-09-29",
-  "status": "IMPLEMENTED / PR_PROOF_REQUIRED",
+  "status": "IMPLEMENTED / MERGED / AUTHORITY_REPAIRED",
   "host": "/prison-age/",
   "field_object": "/prison-age/",
   "delta": [
@@ -19,7 +19,9 @@
     "FIELD READ / RIDE / SOURCE remains three operations",
     "source bytes remain immutable",
     "FOLD//BLOOM owns traversal/effect only",
-    "RETURN may restore address but grants no continuation authority"
+    "RETURN may restore address but grants no continuation authority",
+    "ACTIVITY MODE ≠ OPERATION: READ / RIDE / SOURCE remain native actions; route.index.work_modes uses FIELD activity vocabulary",
+    "PRISON AGE RETURN ≠ FIELD ROOT RETURN ≠ FOLD//BLOOM NATIVE RETURN"
   ],
   "evidence": [
     "/prison-age/sources.json",
@@ -31,5 +33,18 @@
     "/tools/fold-bloom-authored-reader-selftest.mjs"
   ],
   "proof_gate": "Existing authored-reader selftest + smoke + public-surface checks must pass on exact PR head before merge.",
-  "authority": "Projection/reachability only. PRISON_AGE remains source authority; FOLD//BLOOM remains traversal/effect authority; FIELD remains focus/action aperture."
+  "authority": "Projection/reachability only. PRISON_AGE remains source authority; FOLD//BLOOM remains traversal/effect authority; FIELD remains focus/action aperture.",
+  "proof": {
+    "runtime_merge": "PR #608",
+    "contract_repair": "PR #630",
+    "grammar_repair": "route work modes validated against FIELD activity_modes; native actions remain operation/exit-path authority",
+    "checks": [
+      "tools/prison-age-field-selftest.cjs",
+      "tools/fold-bloom-authored-reader-selftest.mjs",
+      "tools/fold-bloom-authored-reader-smoke.mjs",
+      "Route Registration",
+      "public-surface-check",
+      "gitleaks"
+    ]
+  }
 }
