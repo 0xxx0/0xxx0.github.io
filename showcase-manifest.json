@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-29T13:06:49+08:00",
+  "updated": "2026-09-29T17:12:36+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T17:05:00+08:00",
+        "updated_at": "2026-09-29T17:12:36+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -24,11 +24,12 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Prison Age source-intent semantics remain: FIELD chooses READ / RIDE / SOURCE without silently selecting a story. The recovered YOU’RE A WAKE grammar teaches SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without adding another app, route picker, store or effect authority. Native held-object actions remain source-owned; semantic signal remains route-local.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Held/CATCH surfaces may project one canonical route-local packet egress class without creating a dashboard, queue, priority, read state or authority; ordinary focus is not NOW and receipts remain evidence rather than residue. Prison Age source-intent semantics remain native. MAP keeps direct VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT readings; redundant PULSE is retired.",
       "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "machine_view": "FIELD",
       "version": "0.8.22",
       "transfer": [
+        "root contraction: canonical route-local egress appears only on existing HELD/CATCH surfaces (receipt evidence ≠ residue; focus ≠ NOW); redundant MAP/PULSE spiral removed while RECENT retains the same manifest timestamp evidence",
         "packet egress reducer: one-bucket precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; historical packets cannot self-promote; packet labels cannot mint GATE/NOW authority; no new route, queue, store or dashboard",
         "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
         "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
@@ -105,7 +106,8 @@
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
       "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
-      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+      "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+      "egress_contraction_return": "/returns/FIELD_INDEX_EGRESS_CONTRACTION_2026-09-29.json"
     },
     {
       "href": "/app-atlas/",
