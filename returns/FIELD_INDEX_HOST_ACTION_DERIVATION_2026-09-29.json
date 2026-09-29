@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/field-index-host-action-derivation/v0.1",
   "id": "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
-  "status": "PR_CANDIDATE",
+  "status": "MERGED_CI_GREEN",
   "date": "2026-09-29",
   "route": "/",
   "version": "0.8.23",
@@ -37,5 +37,25 @@
     "Routes without explicit field.owner remain neutral FIELD ROUTE projections; FIELD does not infer authority from title, parent, or current-head proximity.",
     "Host routes that want exact direct actions publish them at their own manifest boundary; FIELD does not infer targets."
   ],
-  "stop": "Do not recreate a second host capability registry in FIELD. Add richer owner/action metadata only at the native route/manifest owner when ordinary use proves a missing function."
+  "stop": "Do not recreate a second host capability registry in FIELD. Add richer owner/action metadata only at the native route/manifest owner when ordinary use proves a missing function.",
+  "merge_pr": 618,
+  "merge_sha": "91f94dfa67a0c4141227361473ee2f02796af71e",
+  "proof_head": "8b958983bd0a687b6de482bb4e68af166bb03e59",
+  "verification": {
+    "route_registration": {
+      "run": 36576626756,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36576626752,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36576626603,
+      "conclusion": "success",
+      "critical_browser_smoke": "PASS"
+    },
+    "exact_head": true
+  },
+  "closed_at": "2026-09-29T21:42:19+08:00"
 }
