@@ -64,6 +64,12 @@ function recordWitness(){frame=chooseFrame();const v=frameView(frame),t=v.task,n
 function lastWitnessFor(id){return[...(day.evidence.return||[])].reverse().find(x=>x.task===id)||null}
 function move(label,action,cls=''){return{label,action,cls}}
 function hrefMove(label,href,cls='secondary'){return{label,href,cls}}
+function sharedActionForMove(m){
+ const C=globalThis.InterphaseCarrier,authority=m?.href?'NAVIGATION':'EFFECT';
+ if(C&&typeof C.classifyAction==='function')return C.classifyAction({id:m?.id||'',label:m?.label||'',authority,action:m?.canonicalAction});
+ return authority==='EFFECT'?'RELEASE':'TURN'
+}
+function actionMove(m,i=0){return{id:'DAYLINE_'+(i+1),label:m.label,href:m.href||null,effect:!m.href,action:sharedActionForMove(m)}}
 function movesFor(f){
  const v=frameView(f),out=[];
  if(f.kind==='legacy'){out.push(move('RESET LEGACY SAMPLE',resetLegacy,'primary'));out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('KEEP / ATLAS ↗','/atlas-dayline/?live=1'));return out}
@@ -72,7 +78,7 @@ function movesFor(f){
  if(f.kind==='front'||f.kind==='route'){out.push(move('ADOPT TODAY',adoptFrame,'primary'));out.push(hrefMove(f.kind==='route'?'OPEN SOURCE ↗':'FIELD ↗',v.route||'/'));out.push(hrefMove('ATLAS ↗','/atlas-dayline/?live=1'));return out.slice(0,3)}
  out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('HOUSE ↗','/house/'));out.push(hrefMove('COMMS ↗','/port/comms/'));return out
 }
-function renderMoves(xs){const host=$('#moves');host.textContent='';xs.forEach((m,i)=>{if(m.href){const a=document.createElement('a');a.href=m.href;a.className=m.cls||'';a.textContent=String(i+1).padStart(2,'0')+' · '+m.label;host.appendChild(a)}else{const b=document.createElement('button');b.className=m.cls||'';b.textContent=String(i+1).padStart(2,'0')+' · '+m.label;b.onclick=m.action;host.appendChild(b)}});$('#moveCount').textContent=xs.length+'/3'}
+function renderMoves(xs){const host=$('#moves');host.textContent='';xs.forEach((m,i)=>{const shared=sharedActionForMove(m),label=String(i+1).padStart(2,'0')+' · '+shared+' · '+m.label;if(m.href){const a=document.createElement('a');a.href=m.href;a.className=m.cls||'';a.textContent=label;host.appendChild(a)}else{const b=document.createElement('button');b.className=m.cls||'';b.textContent=label;b.onclick=m.action;host.appendChild(b)}});$('#moveCount').textContent=xs.length+'/3'}
 function interphaseObject(){
  const held=chooseFrame(),v=frameView(held),t=v.task||null,last=t?lastWitnessFor(t.id):null,src=t?.sourceLink||null;
  const id=t?.id||(held.kind==='route'?'route:'+held.route?.href:held.kind==='front'?'front:'+held.front?.id:held.kind==='handoff'?'handoff:'+held.handoff?.id:held.kind==='legacy'?'legacy:sample':'dayline:empty');
@@ -82,7 +88,7 @@ function interphaseObject(){
   id,kind:held.kind,title:v.title,owner:v.owner,address:v.address,route:v.route||'',status:t?.status||held.kind,
   channels:['identity','address','content','depth','time','authority','evidence'],
   authority:'VIEW / NATIVE_DAYLINE_EFFECTS_ONLY',
-  moves:movesFor(held).slice(0,3).map(x=>({label:x.label,href:x.href||null,effect:!x.href})),
+  moves:movesFor(held).slice(0,3).map(actionMove),
   witness:last?clone(last):null,
   sourceLink:src?clone(src):null,
   inheritedInterphase:inherited?clone(inherited):null,
@@ -93,7 +99,7 @@ function interphaseObject(){
 function continuationCarrier(){
  const C=globalThis.InterphaseCarrier,x=interphaseObject();if(!C||!x)return x?.inheritedCarrier||null;
  const parent=x.inheritedCarrier||null,object=parent?.object||{id:x.id,kind:x.kind,label:x.title,owner:x.owner,address:x.address,contract:'dayline/workfield'};
- const next=(x.moves||[]).slice(0,3).map((m,i)=>({id:'DAYLINE_'+(i+1),label:m.label,authority:m.effect?'EFFECT':'NAVIGATION',target:m.href||'/dayline/'}));
+ const next=(x.moves||[]).slice(0,3).map((m,i)=>({id:m.id||('DAYLINE_'+(i+1)),label:m.label,authority:m.effect?'EFFECT':'NAVIGATION',action:m.action||undefined,target:m.href||'/dayline/'}));
  const witness=x.witness?{class:'OBSERVED',summary:String(x.witness.note||x.witness.kind||'Dayline witness'),evidenceRefs:[]}:(parent?.witness||{class:'UNPROVED',summary:'No Dayline witness recorded'});
  try{return C.make({
    object,
@@ -139,6 +145,11 @@ function render(){
 async function boot(){day=loadDay();handoff=safeHandoff();sessionStart=core();sessionEventStart=day.events.length;const [c,m]=await Promise.all([fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)]);current=c;manifest=m;render()}
 $('#captureForm').onsubmit=e=>{e.preventDefault();const i=$('#captureInput'),title=i.value.trim();if(!title)return;addTask({title,contexts:[...day.state.contexts],duration:25,value:4,provenance:'dayline-confluence direct capture'});i.value='';render();toast('Captured')};
 $('#witnessBtn').onclick=recordWitness;$('#returnBtn').onclick=doReturn;$('#syncNowBtn').onclick=syncNow;
-window.DaylineConfluence=Object.freeze({snapshot:()=>clone(day),returnPacket:()=>returnPacket(),acceptHandoff:()=>applyHandoff(),sourceReturn:()=>clone(readSourceReturn()),interphaseObject:()=>clone(interphaseObject())});
+window.DaylineConfluence=Object.freeze({
+ snapshot:()=>clone(day),returnPacket:()=>returnPacket(),acceptHandoff:()=>applyHandoff(),sourceReturn:()=>clone(readSourceReturn()),
+ interphaseObject:()=>clone(interphaseObject()),
+ continuationCarrier:()=>clone(continuationCarrier()),
+ actionSurface:()=>{const C=globalThis.InterphaseCarrier,c=continuationCarrier();return C&&c&&typeof C.actionSurface==='function'?clone(C.actionSurface(c)):null}
+});
 boot();
 })();
