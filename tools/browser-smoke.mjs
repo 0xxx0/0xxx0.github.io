@@ -223,13 +223,13 @@ function fieldRumorProbeHtml(){
     await wait(()=>W().FieldLensHost?.focus?.(),12000,'FIELD ready');
     W().FieldLensHost.project('RUMOR');
     await wait(()=>W().FieldLensHost.uiState()?.mapMode==='RUMOR'&&D().querySelector('.mapRow'),8000,'RUMOR rows');
-    const rows=[...D().querySelectorAll('.mapRow')],first=rows[0];
+    const rows=[...D().querySelectorAll('.mapRow')];
+    const before=W().FieldLensHost.focus()?.href||null,first=rows.find(x=>x?.dataset?.href&&x.dataset.href!==before)||rows[0];
     rec.mode=W().FieldLensHost.uiState().mapMode;
     rec.count=rows.length;
     rec.tail=(first?.querySelector('.tiny')?.textContent||'').trim();
     rec.meta=(first?.querySelector('.rowMeta')?.textContent||'').trim();
     rec.href=first?.dataset?.href||null;
-    const before=W().FieldLensHost.focus()?.href||null;
     first?.click();await sleep(120);
     rec.before=before;rec.after=W().FieldLensHost.focus()?.href||null;rec.path=W().location.pathname;
     done(rec.mode==='RUMOR'&&rec.count>0&&rec.tail==='MORE HERE'&&rec.meta.includes(' · ')&&rec.href===rec.after&&rec.path==='/',rec);
@@ -1155,7 +1155,7 @@ const CASES=[
     name:'FIELD RUMOR knowledge-gap projection',
     route:'/__smoke/field-rumor',
     options:{width:1040,height:820,budget:16000,timeout:24000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"RUMOR"/.test(dom)&&/"count":[1-9][0-9]*/.test(dom)&&/"tail":"MORE HERE"/.test(dom)&&/"path":"\\/"/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"RUMOR"/.test(dom)&&/"count":[1-9][0-9]*/.test(dom)&&/"tail":"MORE HERE"/.test(dom)&&dom.includes('"path":"/"')
   },
   {
     name:'FIELD held route → Dayline action',
