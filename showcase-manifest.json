@@ -8554,26 +8554,29 @@
       "kind": "artifact",
       "parent": "/",
       "family": "PRISON AGE",
-      "operation": "READ / RIDE / SOURCE",
+      "operation": "ROOT / READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.5",
+      "version": "0.6",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
-      "role": "FIELD-held source set. FIELD selects READ / RIDE / SOURCE only; explicit source choice remains required. READFIELD and FOLD//BLOOM LIVE may passively reveal exact cross-source ECHO evidence ranked only by lexical recurrence. ECHO is evidence-only and never generated narrative glue.",
+      "latest_return": "/returns/PRISON_AGE_SOURCE_CONSTELLATION_2026-09-29.json",
+      "role": "Source constellation / resolver: recovered 2021 proto-root plus four exact sourced 2026 movements. READFIELD reads, FOLD//BLOOM LIVE traverses, recurrence/ECHO expose evidence-backed relations; no generated connective narrative or imposed chronology.",
       "transfer": [
         "FIELD READ intent → Prison Age exact source chooser → READFIELD",
         "FIELD RIDE intent → Prison Age exact source chooser → FOLD//BLOOM LIVE",
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
         "exact source movement → passive cross-source ECHO evidence in READFIELD",
-        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE",
+        "2021 recovered proto-root → FOLD//BLOOM authored-reader recurrence → exact source RETURN",
+        "2026 exact movement → READFIELD or FOLD//BLOOM LIVE → lexical ECHO when evidence earns it"
       ],
       "contract": {
         "accepts": {
           "kinds": [
             "same-origin sourced Prison Age story text",
-            "curated source extract with explicit omissions"
+            "curated source extract with explicit omissions",
+            "recovered 2021 authored proto-root with exact SHA-256 provenance"
           ]
         },
         "transforms": {
@@ -8593,7 +8596,9 @@
             "READFIELD source projection",
             "field-read-ride/v0.1 traversal handoff",
             "source identity/provenance view",
-            "field-source-echo-index/v0.1 exact-fragment evidence"
+            "field-source-echo-index/v0.1 exact-fragment evidence",
+            "fold-bloom-authored-reader-pack/v0.1 recovered-root traversal",
+            "mechanically verified AEGINOPRS recurrence projection"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -8654,14 +8659,15 @@
         ],
         "owner": "PRISON AGE"
       },
-      "classification": "RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
+      "classification": "RECOVERED_2021_PROTO_ROOT + RECOVERED_2026_SOURCE / FIELD_SOURCE_CONSTELLATION",
       "evolution": {
-        "mutation": "Rejected bespoke reader/pack removed from runtime; exact source set becomes one FIELD-held object with three native operations.",
-        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
+        "mutation": "Rejected bespoke reader remains retired. Source resolver becomes a shareable constellation threshold over exact 2021/2026 strata; all reading/traversal stays in existing READFIELD/FOLD//BLOOM hosts.",
+        "question": "Can exact recurrence, ECHO, traversal and RETURN create narrative depth without generated connective prose?"
       },
       "index": {
-        "updated_at": "2026-09-29T02:40:00+08:00",
+        "updated_at": "2026-09-29T21:30:00+08:00",
         "work_modes": [
+          "ROOT",
           "READ",
           "RIDE",
           "SOURCE",
