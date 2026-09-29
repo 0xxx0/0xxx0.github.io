@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-22T05:59:03+08:00",
+  "updated": "2026-09-29",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,18 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-29T09:06:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Native held-object actions may now come directly from an addressed capability without moving source/effect authority; Prison Age is the first source-set proof with READ / RIDE / SOURCE. Semantic signal remains local to the address that owns it.",
-      "receipt": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "role": "FIELD INDEX root: one glyph field + one held object. Native held-object actions remain address-local. Prison Age now proves operation-intent-before-source-selection: FIELD chooses READ / RIDE / SOURCE, but never silently chooses a story; source/effect authority stays native.",
+      "receipt": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.20",
+      "version": "0.8.21",
       "transfer": [
+        "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
         "0.8.20 source-set native actions: held PRISON AGE exposes READ / RIDE / SOURCE directly; exact source authority remains PRISON_AGE and READ/RIDE RETURN to the held FIELD object",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
         "0.8.18 held-project glyph: exact CURRENT heads may expand the held mark through interphase-glyph/v0.1; FIELD glyph remains the inner witness; project operations are VIEW-only and unpersisted",
@@ -100,7 +101,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+      "latest_return": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -8456,15 +8457,15 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.4",
+      "version": "0.4.1",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
-      "role": "FIELD-held source set. Four exact sourced movements remain primary; READ opens READFIELD, RIDE traverses the same addressed bytes in FOLD//BLOOM LIVE, SOURCE inspects identity/provenance. No bespoke narrative reader remains active.",
+      "latest_return": "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
+      "role": "FIELD-held source set. FIELD selects READ / RIDE / SOURCE only; READ/RIDE then require explicit movement selection in the Prison Age resolver. READFIELD and FOLD//BLOOM LIVE receive the exact chosen bytes; no hidden default story is executed.",
       "transfer": [
-        "FIELD held source set → READ exact source in READFIELD",
-        "FIELD held source set → RIDE exact same bytes in FOLD//BLOOM LIVE",
-        "FIELD held source set → SOURCE identity/provenance resolver",
+        "FIELD READ intent → Prison Age exact source chooser → READFIELD",
+        "FIELD RIDE intent → Prison Age exact source chooser → FOLD//BLOOM LIVE",
+        "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD"
       ],
       "contract": {
@@ -8475,7 +8476,7 @@
           ]
         },
         "transforms": {
-          "verb": "hold one source set, choose an exact movement, project it through READ or RIDE without changing source authority",
+          "verb": "hold one source set, choose operation intent, require explicit source movement selection, then project through READ or RIDE without changing source authority",
           "preserves": [
             "source address",
             "source bytes",
@@ -8534,19 +8535,19 @@
             "class": "READFIELD",
             "status": "AVAILABLE",
             "via": "READ",
-            "target": "/prison-age/?story=open-air&action=read&return=field"
+            "target": "/prison-age/?intent=read&return=field"
           },
           {
             "class": "FOLD_BLOOM_LIVE",
             "status": "AVAILABLE",
             "via": "RIDE",
-            "target": "/prison-age/?story=open-air&action=ride&return=field"
+            "target": "/prison-age/?intent=ride&return=field"
           },
           {
             "class": "RAW_SOURCE",
             "status": "AVAILABLE",
             "via": "SOURCE",
-            "target": "/prison-age/?story=open-air&return=field"
+            "target": "/prison-age/?return=field"
           }
         ]
       },
@@ -8556,7 +8557,7 @@
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
-        "updated_at": "2026-09-29T01:28:00+08:00",
+        "updated_at": "2026-09-29T09:06:00+08:00",
         "work_modes": [
           "READ",
           "RIDE",

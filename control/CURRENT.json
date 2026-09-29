@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.20 / ROUTE-LOCAL SEMANTIC SIGNAL / ONE HELD OBJECT / SOURCE-SET NATIVE ACTIONS",
+      "head": "FIELD INDEX 0.8.21 / ONE HELD OBJECT / SOURCE-SET INTENT BEFORE SELECTION",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity. Prison Age now enters FIELD as one held source-set object with exactly READ / RIDE / SOURCE native operations; READFIELD and FOLD//BLOOM retain projection authority while PRISON_AGE retains source bytes/provenance.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity. Prison Age enters FIELD as one held source-set object with READ / RIDE / SOURCE. FIELD now chooses operation intent only; the exact source movement must be explicitly selected before READ/RIDE executes, removing the hidden Open Air default.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -88,21 +88,31 @@
         "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
         "/tools/field-signal-locality-selftest.cjs",
         "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
-        "/prison-age/release.json"
+        "/prison-age/release.json",
+        "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
+        "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json"
       ],
-      "version": "0.8.20",
-      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
+      "version": "0.8.21",
+      "latest_return": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
       "repo_verification": {
-        "status": "PASS",
-        "field_signal_locality_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
-        "field_signal_locality_merge": "a175e4ea74b65109066f3c7e7444004d339e9ced",
-        "prison_age_source_first_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/505",
-        "prison_age_source_first_merge": "6e7266e08086f45cf71d62f2f192c7a994ea16bf",
-        "prison_age_field_merge": "4ea379c4ada3aac5295a3789cb921909c6dc573f",
-        "prison_age_field_proof_head": "eb2a5b290f79a699d7799d1eaa3ae66bd312203b",
-        "prison_age_field_checks": "PASS · Route Registration 36459813350; public-surface-check 36459813380; gitleaks 36459813346",
-        "manifest_truth_commit": "9e817ba5ec3244670fc8bd57c9ca5132bca92289",
-        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; prison-age-field-selftest; prison-age-field-smoke"
+        "status": "PASS / PR 528 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+        "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+        "checks": {
+          "route_registration": {
+            "run": 36507219876,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36507220022,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36507219919,
+            "conclusion": "success"
+          }
+        },
+        "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
       }
     },
     {

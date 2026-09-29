@@ -1,6 +1,6 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
-  "version": "0.4",
+  "version": "0.4.1",
   "date": "2026-09-29",
   "status": "FIELD_SOURCE_SET / NO_BESPOKE_READER",
   "route": "/prison-age/",
@@ -24,8 +24,9 @@
       "RIDE",
       "SOURCE"
     ],
-    "default_source": "/prison-age/stories/03-open-air.md",
-    "boundary": "FIELD holds address and lawful operations only; it does not author Prison Age."
+    "default_source": "Listing preview only; no default story is executed by FIELD actions.",
+    "boundary": "FIELD holds address and lawful operations only; it does not author Prison Age.",
+    "selection": "FIELD chooses operation intent only. Prison Age resolver requires explicit source movement selection before executing READ/RIDE."
   },
   "projections": {
     "read": {
@@ -55,14 +56,19 @@
     "No curated reading order is imposed by the runtime; source order is used only as a stable listing.",
     "No invented voice, pressure spine, carry story, operator prompt or motif is active.",
     "READ/RIDE traversal is evidence of traversal only, not comprehension, agreement or proof.",
-    "The curated Last Stall file remains an explicit source extract with omissions."
+    "The curated Last Stall file remains an explicit source extract with omissions.",
+    "FIELD READ/RIDE never silently select the default story; source movement selection is explicit.",
+    "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
     "FIELD held object exposes READ / RIDE / SOURCE only.",
     "READ and RIDE preserve PRISON_AGE source authority and exact RETURN.",
     "No frozen reader route remains in showcase-manifest.",
-    "No bespoke reader or reader pack remains in the runtime tree."
+    "No bespoke reader or reader pack remains in the runtime tree.",
+    "FIELD READ/RIDE targets carry intent only, with no story parameter.",
+    "Resolver does not auto-navigate on READ/RIDE intent until a story is clicked.",
+    "Last Stall extract bytes match fingerprint 1856b483 / length 4991."
   ],
-  "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json"
+  "latest_return": "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json"
 }

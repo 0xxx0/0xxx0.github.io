@@ -1,0 +1,42 @@
+{
+  "schema": "prison-age.explicit-source-intent-return/v0.1",
+  "generated_at": "2026-09-29T09:06:00+08:00",
+  "status": "PASS / PR_528",
+  "object": "/prison-age/",
+  "delta": [
+    "FIELD READ/RIDE now carry operation intent without a story id.",
+    "Prison Age resolver requires an explicit story click before READ/RIDE executes.",
+    "SOURCE remains a source-set resolver and may preview the stable listing default without executing it.",
+    "Last Stall curated extract now carries an exact fingerprint of the extract bytes: fnv1a32-unicode 1856b483 / length 4991."
+  ],
+  "invariants": [
+    "No source story prose changed.",
+    "PRISON_AGE retains source-byte/provenance authority.",
+    "READFIELD and FOLD//BLOOM retain projection/traversal authority only.",
+    "No invented motif, reader, ordering or narrative connector is reintroduced.",
+    "FIELD still exposes exactly READ / RIDE / SOURCE."
+  ],
+  "evidence": {
+    "selftest": "/tools/prison-age-field-selftest.cjs",
+    "browser": "/tools/prison-age-field-smoke.mjs",
+    "release": "/prison-age/release.json",
+    "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+    "field_return": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+    "checks": {
+      "route_registration": {
+        "run": 36507219876,
+        "conclusion": "success"
+      },
+      "public_surface": {
+        "run": 36507220022,
+        "conclusion": "success"
+      },
+      "gitleaks": {
+        "run": 36507219919,
+        "conclusion": "success"
+      }
+    }
+  },
+  "promotion_gate": "SATISFIED on proof head f478cee439eea4b9fa513f7c7c97728d1ced4846.",
+  "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846"
+}

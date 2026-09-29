@@ -19,25 +19,37 @@ const W=()=>f.contentWindow,D=()=>W().document;
  const moves=[...D().querySelectorAll('#capMoves .capMove')].map(a=>({label:a.textContent.trim(),href:a.getAttribute('href')||''}));
  rec.field={held:D().getElementById('capHeld').textContent,moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
- if(!moves[0].href.includes('action=read')||!moves[1].href.includes('action=ride')||moves[2].href.includes('action='))throw Error('FIELD action targets');
+ if(!moves[0].href.includes('intent=read')||!moves[1].href.includes('intent=ride')||moves.some(x=>x.href.includes('story=open-air')))throw Error('FIELD intent targets must not hide a source choice');
 
  f.src='/prison-age/?story=open-air&return=field';
- await wait(()=>W().PrisonAgeSourceAPI?.snapshot?.()?.sourceLength>0,12000,'source resolver');
- const snap=W().PrisonAgeSourceAPI.snapshot(),body=D().body.textContent||'';
+ await wait(()=>W().PrisonAgeSourceAPI?.snapshot,12000,'source resolver api');
+ let resolverSnap=W().PrisonAgeSourceAPI.snapshot();
+ const resolverDeadline=Date.now()+12000;
+ while(resolverSnap.sourceLength<=0&&Date.now()<resolverDeadline){await sleep(80);resolverSnap=W().PrisonAgeSourceAPI.snapshot()}
+ if(resolverSnap.sourceLength<=0)throw Error('source resolver not ready · status='+String(D().getElementById('status')?.textContent||'')+' · preview='+String(D().getElementById('preview')?.textContent||'').slice(0,160)+' · snapshot='+JSON.stringify(resolverSnap));
+ const snap=resolverSnap,body=D().body.textContent||'';
  rec.source={story:snap.story?.id,title:D().getElementById('title')?.textContent||'',preview:D().getElementById('preview')?.textContent||'',returnAddress:snap.returnAddress,returnHref:D().getElementById('returnField')?.getAttribute('href')||'',engine:!!D().getElementById('engine'),retired:/reader-0\.2|ALWAYS BEHIND/i.test(body)};
  if(rec.source.story!=='open-air'||!/By the forty-third year of enclosure/.test(rec.source.preview)||rec.source.engine||rec.source.retired)throw Error('source resolver primacy');
  if(rec.source.returnAddress!=='/?focus=%2Fprison-age%2F'||rec.source.returnHref!=='/?focus=%2Fprison-age%2F')throw Error('FIELD exact return');
 
- f.src='/prison-age/?story=open-air&action=read&return=field';
- await wait(()=>W().location.pathname==='/docs/',16000,'READFIELD action');
+ f.src='/prison-age/?intent=read&return=field';
+ await wait(()=>W().PrisonAgeSourceAPI?.snapshot?.()?.intent==='read',12000,'READ intent chooser');
+ rec.readIntent={path:W().location.pathname,intent:W().PrisonAgeSourceAPI.snapshot().intent,status:D().getElementById('status')?.textContent||''};
+ if(W().location.pathname!=='/prison-age/'||!/choose an exact source/i.test(rec.readIntent.status))throw Error('READ intent auto-executed or chooser missing');
+ const readStory=[...D().querySelectorAll('[data-story]')].find(x=>x.dataset.story==='successful-escape');readStory.click();
+ await wait(()=>W().location.pathname==='/docs/',16000,'READFIELD selected action');
  rec.read={path:W().location.pathname,src:new URL(W().location.href).searchParams.get('src'),ret:new URL(W().location.href).searchParams.get('return'),scale:new URL(W().location.href).searchParams.get('ap_scale')};
- if(rec.read.src!=='/prison-age/stories/03-open-air.md'||rec.read.ret!=='/?focus=%2Fprison-age%2F'||rec.read.scale!=='PARA')throw Error('READ exact source/return');
+ if(rec.read.src!=='/prison-age/stories/08-successful-escape.md'||rec.read.ret!=='/?focus=%2Fprison-age%2F'||rec.read.scale!=='PARA')throw Error('READ exact selected source/return');
 
- f.src='/prison-age/?story=open-air&action=ride&return=field';
- await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),18000,'RIDE LIVE action');
+ f.src='/prison-age/?intent=ride&return=field';
+ await wait(()=>W().PrisonAgeSourceAPI?.snapshot?.()?.intent==='ride',12000,'RIDE intent chooser');
+ rec.rideIntent={path:W().location.pathname,intent:W().PrisonAgeSourceAPI.snapshot().intent,status:D().getElementById('status')?.textContent||''};
+ if(W().location.pathname!=='/prison-age/'||!/choose an exact source/i.test(rec.rideIntent.status))throw Error('RIDE intent auto-executed or chooser missing');
+ const rideStory=[...D().querySelectorAll('[data-story]')].find(x=>x.dataset.story==='fandom-court');rideStory.click();
+ await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),18000,'RIDE LIVE selected action');
  const live=W().FoldBloomLive.read.current();
  rec.ride={authority:live.source.authority,kind:live.source.kind,mode:live.course.mode,grain:live.course.grain,address:live.course.address,ret:live.returnAddress,text:live.witness?.text||''};
- if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!=='/?focus=%2Fprison-age%2F'||!/By the forty-third year of enclosure/.test(rec.ride.text))throw Error('RIDE exact source/return');
+ if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!=='/?focus=%2Fprison-age%2F'||!/court/i.test(rec.ride.text))throw Error('RIDE exact selected source/return');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
