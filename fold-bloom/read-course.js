@@ -17,6 +17,18 @@ function identityId(identity={},source=''){
   const explicit=identity.hash||identity.address||identity.id;
   return explicit?String(explicit):'fnv1a32:'+fnv1a32(source);
 }
+function normalizeEcho(echo){
+  if(!echo||typeof echo!=='object'||Array.isArray(echo))return null;
+  const index=String(echo.index||''),sourceId=String(echo.source_id||'');
+  if(!index.startsWith('/')||!sourceId)return null;
+  return {
+    index,
+    source_id:sourceId,
+    source_path:echo.source_path?String(echo.source_path):null,
+    source_fingerprint:echo.source_fingerprint&&typeof echo.source_fingerprint==='object'?JSON.parse(JSON.stringify(echo.source_fingerprint)):null,
+    authority:'EVIDENCE_ONLY'
+  };
+}
 function trimSpan(raw,start,end){
   let a=Math.max(0,start),b=Math.min(raw.length,end);
   while(a<b&&/\s/.test(raw[a]))a++;
@@ -72,7 +84,7 @@ function coursePoint(raw,span,index,grain,sourceId){
   const len=Math.max(1,raw.length),p=clamp(span.start/len);
   return {p:+p.toFixed(8),kind:grain,index,start:span.start,end:span.end,label:span.label||span.text.slice(0,96),address:`read://${encodeURIComponent(sourceId)}/${grain.toLowerCase()}/${index}@${span.start}-${span.end}`};
 }
-export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={},focus=null,returnAddress='/docs/',from='/docs/',carrier=null}={}){
+export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={},focus=null,returnAddress='/docs/',from='/docs/',carrier=null,echo=null}={}){
   const text=clean(source);
   if(!text.trim())throw Error('READ_SOURCE_REQUIRED');
   const id=identityId(sourceIdentity,text);
@@ -85,7 +97,8 @@ export function makeReadRidePacket({source,label='READ SOURCE',sourceIdentity={}
     focus:focus&&typeof focus==='object'?JSON.parse(JSON.stringify(focus)):null,
     from:String(from||'/docs/'),
     returnAddress:String(returnAddress||from||'/docs/'),
-    carrier:carrier&&typeof carrier==='object'?JSON.parse(JSON.stringify(carrier)):null
+    carrier:carrier&&typeof carrier==='object'?JSON.parse(JSON.stringify(carrier)):null,
+    echo:normalizeEcho(echo)
   };
 }
 export function normalizeReadRidePacket(raw){
@@ -102,8 +115,8 @@ export function normalizeReadRidePacket(raw){
   }
   const ret=String(p.returnAddress||p.from||'');
   if(!ret.startsWith('/'))throw Error('READ_RETURN_ADDRESS');
-  const id=identityId(p.sourceIdentity||{},source);
-  return {...p,source,label:String(p.label||'READ SOURCE').slice(0,160),sourceIdentity:{...(p.sourceIdentity||{}),id,authority:String(p.sourceIdentity?.authority||'READFIELD')},returnAddress:ret};
+  const id=identityId(p.sourceIdentity||{},source),echo=normalizeEcho(p.echo);
+  return {...p,source,label:String(p.label||'READ SOURCE').slice(0,160),sourceIdentity:{...(p.sourceIdentity||{}),id,authority:String(p.sourceIdentity?.authority||'READFIELD')},returnAddress:ret,echo};
 }
 export function makeReadCourse(packet,{grain='PARAGRAPH'}={}){
   const p=normalizeReadRidePacket(packet),g=READ_GRAINS.includes(String(grain).toUpperCase())?String(grain).toUpperCase():'PARAGRAPH';
