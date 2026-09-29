@@ -369,6 +369,11 @@ const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation
 const CAP_TRIAL=INIT.get('cap')!=='0';
 const CAPABILITY_PROJECTION=Object.freeze([
  {id:'dayline',match:h=>h==='/atlas-dayline/'||h.startsWith('/atlas-dayline/'),owner:'DAYLINE',moves:['FOCUS / ADD','RUN ≤ 3','RETURN'],boundary:'time/execution only'},
+ {id:'body-fit',match:h=>h==='/body/fit/'||h.startsWith('/body/fit/'),owner:'BODY / FIT',moves:['LOADOUT / PREP','PATINA / NEXT CUT','SENSE / FUSE'],actions:[
+  {label:'LOADOUT / PREP',target:'./body/fit/#loadout'},
+  {label:'PATINA / NEXT CUT',target:'./body/fit/#patina'},
+  {label:'SENSE / FUSE',target:'./body/fit/#sense'}
+ ],boundary:'navigation into native BODY / FIT only; SET OUT / RETURN remain explicit native actions; no medical inference or physical-safety claim'},
  {id:'readfield',match:h=>h==='/docs/',owner:'READFIELD',moves:['FAST / REVIEW','RIDE / LIVE','RETURN'],boundary:'source/cursor authority remains READFIELD; borrowed projections do not own text'},
  {id:'fold-bloom',match:h=>h==='/fold-bloom/'||h.startsWith('/fold-bloom/'),owner:'FOLD//BLOOM',moves:['MAP / MARK','RIDE / DRIVE','VOICE / PULSE'],boundary:'LIVE owns traversal; PULSE is opt-in; source stays native'},
  {id:'comms',match:h=>h==='/port/comms/'||h.startsWith('/port/comms/'),owner:'COMMS',moves:['LOCATE / MARK','DRAFT / COVER','HANDOFF → DAYLINE'],boundary:'no send authority'},
