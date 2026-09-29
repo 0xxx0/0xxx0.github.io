@@ -1,0 +1,35 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_EGRESS_CONTRACTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_PR_CANDIDATE",
+  "object": "FIELD INDEX root · route-local egress projection + MAP/PULSE subtraction",
+  "delta": [
+    "Consume the canonical packet egress reducer directly in the existing held-object and CATCH route surfaces.",
+    "Project one route-local class only; do not render a six-bin dashboard.",
+    "Feed receipts/RETURN paths as evidence/provenance, never as RESIDUE; unresolved catch gap alone supplies route residue.",
+    "Keep ordinary focus distinct from NOW; only existing CURRENT-derived nowSet supplies reducer NOW context.",
+    "Carry the read-only egress result inside COPY ACTION while authority remains NONE / HANDOFF ONLY.",
+    "Delete MAP/PULSE control, spiral renderer and pulse CSS; retain RECENT as the direct reading of route.index.updated_at."
+  ],
+  "preserves": [
+    "FIELD INDEX 0.8.22 head and AWAKE/INTERPHASE semantics",
+    "CURRENT owns NOW",
+    "native route/effect authority",
+    "CATCH SEEN/REWIND reversibility",
+    "VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT map readings",
+    "exact Git chronology outside manifest recency",
+    "canonical reducer and its precedence"
+  ],
+  "verification": [
+    "node tools/field-egress-reducer-selftest.mjs via public-surface-check",
+    "Route Registration",
+    "gitleaks",
+    "critical browser smoke"
+  ],
+  "residue": [
+    "The route-local class is intentionally lossy; exact source evidence stays under CURRENT / WAITING / manifest / RETURN.",
+    "Do not replace PULSE or the rejected six-bin strip without an observed information need."
+  ],
+  "next": "RETURN to CURRENT and replan; no automatic sequel."
+}
