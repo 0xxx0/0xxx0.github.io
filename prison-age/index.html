@@ -46,6 +46,15 @@ const cleanPreview=raw=>{
 const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(intent?'&intent='+encodeURIComponent(intent):'')+(q.get('return')==='field'?'&return=field':'');
 const returnUrl=()=>q.get('return')==='field'?'/?focus=%2Fprison-age%2F':sourceUrl();
 function updateUrl(){history.replaceState(null,'',sourceUrl())}
+async function hydrateThreadPoint(p){
+  const st=pack?.stories?.[p.source_id];if(!st)throw Error('THREAD SOURCE');
+  const r=await fetch(st.path,{cache:'no-store'});if(!r.ok)throw Error('THREAD SOURCE FETCH');
+  const body=await r.text(),a=Number(p.start),b=Number(p.end);
+  if(!Number.isInteger(a)||!Number.isInteger(b)||a<0||b<=a||b>body.length)throw Error('THREAD SPAN');
+  const fp=st.source_fingerprint;
+  if(fp&&globalThis.FieldSourceEcho?.fnv1a32&&globalThis.FieldSourceEcho.fnv1a32(body)!==String(fp.value))throw Error('THREAD SOURCE STALE');
+  return{...p,title:st.title,path:st.path,text:body.slice(a,b)}
+}
 
 function renderList(){
   $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
