@@ -53,11 +53,11 @@ const W=()=>f.contentWindow,D=()=>W().document;
  await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),18000,'RIDE LIVE selected action');
  let live=W().FoldBloomLive.read.current();
  if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!=='/?focus=%2Fprison-age%2F'||!/court/i.test(live.witness?.text||''))throw Error('RIDE exact selected source/return');
- W().FoldBloomLive.course.cycleGrain();W().FoldBloomLive.course.cycleGrain();W().FoldBloomLive.course.seek(501/4056);
+ W().FoldBloomLive.course.cycleGrain();W().FoldBloomLive.course.cycleGrain();W().FoldBloomLive.course.seek(884/4056);
  await wait(()=>D().documentElement.dataset.foldBloomSourceEcho==='shown',12000,'LIVE exact echo');
  live=W().FoldBloomLive.read.current();
  rec.ride={authority:live.source.authority,kind:live.source.kind,mode:live.course.mode,grain:live.course.grain,address:live.course.address,ret:live.returnAddress,text:live.witness?.text||'',echo:live.echo,echoSource:D().documentElement.dataset.foldBloomSourceEchoSource||'',echoText:D().getElementById('sourceEchoLiveLink')?.textContent||'',echoBasis:D().getElementById('sourceEchoLiveBasis')?.textContent||''};
- if(live.course.grain!=='SENTENCE'||live.echo?.authority!=='EVIDENCE_ONLY'||rec.ride.echoSource==='fandom-court'||!/door/i.test(rec.ride.echoText)||!/exact fragment · evidence only/i.test(rec.ride.echoBasis))throw Error('LIVE source echo carry');
+ if(live.course.grain!=='SENTENCE'||live.echo?.authority!=='EVIDENCE_ONLY'||rec.ride.echoSource==='fandom-court'||!/previous seasons/i.test(rec.ride.echoText)||!/exact fragment · evidence only/i.test(rec.ride.echoBasis))throw Error('LIVE source echo carry');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
