@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.13 + PLAY 0.6.1",
+  "version": "LIVE 0.13 + PLAY 0.6.1 + SOURCE ECHO 0.1",
   "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-27",
   "donors": [
@@ -143,7 +143,9 @@
     "LIVE admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT, reusing the existing course/address machinery at FRAME / STRIP / SET grain rather than creating a parallel navigation system.",
     "Declared local image bytes remain device-local in the existing IndexedDB media vault keyed by sha256 source identity; the set manifest carries metadata/address continuity, not uploaded or repository-committed image bytes.",
     "IMAGE_SET carries its own deterministic set clock: FLOW advances the addressed image without clicks or audio, STEP holds that clock and moves exactly one address, and map scrub re-anchors the same set clock.",
-    "FLOW is the current traversal default after cff756e6 reconciled the quiet-start experiment: with no source clock the field is still; with an addressed audio/image source FLOW advances continuously. Quiet source audio outside IMMERSION remains explicit rather than autoplaying sound."
+    "FLOW is the current traversal default after cff756e6 reconciled the quiet-start experiment: with no source clock the field is still; with an addressed audio/image source FLOW advances continuously. Quiet source audio outside IMMERSION remains explicit rather than autoplaying sound.",
+    "SOURCE ECHO 0.1: READ/RIDE may carry an evidence-only source-set echo index; LIVE verifies the exact current source fingerprint then passively reveals exact addressed fragments from another source when lexical recurrence is sufficiently specific.",
+    "SOURCE ECHO is projection-only: same-source candidates are excluded; weak evidence yields silence; no theme, intent, causality, canon order, comprehension or narrative relation is inferred."
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
