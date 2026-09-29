@@ -3097,7 +3097,7 @@
       "version": "0.10.6",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
-        "0.10.6 gesture/reversal proof: pointer-down fixes one pointer to one dial; release owns commit; last 12 manual commits retain exact pre-commit snapshots for bounded UNDO LAST",
+        "0.10.6 gesture/reversal proof: pointer-down fixes ownership; all active pointers release before one commit; DUET requires both dials; last 12 manual commits retain exact pre-commit snapshots for bounded UNDO LAST",
         "causal RETURN v0.2: relation commits retain before/operation/actor+driver/delta/after/provenance; phrase RETURN aggregates them and export carries the latest causal receipt",
         "preserved two-dial relation algebra",
         "7 sound worlds / 6 voice engines / 5 groove skeletons",
