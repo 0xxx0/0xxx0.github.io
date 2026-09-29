@@ -48,7 +48,8 @@
     "SIGNAL LOCALITY. A pattern on an addressed glyph may encode only source classes explicitly bound to that same route. Global/unaddressed change, reality or external signals remain global summaries; they may not stain the currently held object.",
     "ONBOARDING ≠ SECOND APP. FIELD may expose a first-contact visor over the same held INTERPHASE carrier, but it may not create a second route picker, object store, planner, effect authority or canonical state. The visor must recede into the normal held-object surface and remain explicitly reopenable.",
     "COAXIALITY ≠ CONCENTRICITY. Related dimensions may share one held manipulation space only when each axis owns named state, relative transforms have host-defined semantics, one gesture has one primary interpretation, STATE ≠ VIEW, FOLD/BLOOM preserve recoverable residue, LIVE provenance remains distinguishable, and RETURN can reconstruct the causal path. Geometry alone may not manufacture domain meaning.",
-    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. A conditional STOP is GATE; unresolved fact is RESIDUE. Historical/superseded packets collapse to ARCHIVE unless current authority explicitly reactivates them; packet labels cannot manufacture GATE/NOW authority; only CURRENT/explicit selection may create NOW."
+    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. A conditional STOP is GATE; unresolved fact is RESIDUE. Historical/superseded packets collapse to ARCHIVE unless current authority explicitly reactivates them; packet labels cannot manufacture GATE/NOW authority; only CURRENT/explicit selection may create NOW.",
+    "CANONICAL PACKET ≠ LEGACY RECOVERY SHAPE. New field-work-packet/v0.1 packets require OBJECT + AUTHORITY; conditional STOP/WAITING/blocked TRIGGER → GATE; terminal completed STOP/CLOSE → ARCHIVE; terminal STOP with unresolved material → RESIDUE; CURRENT/selection owns NOW; unresolved fact outranks NEXT/DELTA; NEXT is bounded to ≤3; canonical DELTA requires EVIDENCE. Legacy broad recognition remains recovery-only."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -344,5 +345,6 @@
     }
   },
   "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json",
-  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json"
+  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json",
+  "packet_egress_contract": "/control/FIELD_PACKET_EGRESS.json"
 }
