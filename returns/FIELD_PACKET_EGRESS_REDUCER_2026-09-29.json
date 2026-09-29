@@ -14,7 +14,8 @@
     "/AGENTS.md — machine re-entry documents bounded reducer",
     "/showcase-manifest.json — FIELD root touch only; no new route/version",
     "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate",
-    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence"
+    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence",
+    "/lib/field-egress-reducer.mjs + selftest — accept canonical uppercase egress aliases and treat RETURN-to-CURRENT/replan-only prose as terminal rather than NEXT"
   ],
   "preserves": [
     "CURRENT owns NOW",
@@ -30,7 +31,7 @@
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
   "residue": [
-    "The reducer classifies packet egress only; it does not decide project priority, execute NEXT, or allow packet labels to manufacture NOW/GATE.",
+    "The reducer classifies packet egress only; it does not decide project priority, execute NEXT, or allow packet labels to manufacture NOW/GATE. RETURN-to-CURRENT/replan-only prose is terminal re-entry, not continuation.",
     "External/private packets are reduced only when explicitly supplied to the existing transcript CLI."
   ],
   "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress."
