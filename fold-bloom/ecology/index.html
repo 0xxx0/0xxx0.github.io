@@ -1149,6 +1149,18 @@ $("#memoryClose").onclick=()=>{$("#memory").classList.remove("on");$("#pause").c
 $("#resume").onclick=()=>{$("#pause").classList.remove("on");paused=false;last=performance.now();requestAnimationFrame(loop)};
 if($("#controlBtn"))$("#controlBtn").onclick=()=>{controlMode=controlMode==="FLOW"?"RATCHET":"FLOW";$("#controlBtn").textContent="CONTROL: "+controlMode;$("#modeBadge").textContent=controlMode;$("#caption").textContent=controlMode==="RATCHET"?"SWIPE ONE NOTCH":"TURN THE RING"};
 $("#gardenBtn").onclick=()=>setGarden(!garden,true);$("#zenBtn").onclick=()=>{zen=!zen;$("#zenBtn").textContent="ZEN: "+(zen?"ON":"OFF");startMusic()};$("#newBtn").onclick=()=>{if(confirm("Begin a new lineage?")){resetRun();$("#pause").classList.remove("on");paused=false;last=performance.now();requestAnimationFrame(loop)}};
+const ecologyLaunchParams=new URLSearchParams(location.search);
+const ecologyEmbedded=String(ecologyLaunchParams.get("embedded")||"").toLowerCase();
+const ecologyLaunchGarden=["1","true","garden","open"].includes(String(ecologyLaunchParams.get("garden")||"").toLowerCase());
+if(ecologyEmbedded){
+ document.documentElement.dataset.foldBloomEcologyEmbedded=ecologyEmbedded;
+ document.documentElement.dataset.foldBloomEcologyHost=ecologyEmbedded==="live"?"FOLD_BLOOM_LIVE":ecologyEmbedded.toUpperCase();
+}
+if(ecologyLaunchGarden){
+ document.documentElement.dataset.foldBloomEcologyLaunch="garden";
+ queueMicrotask(()=>{if(!running)begin(false,"FLOW",true)});
+}
+
 
 canvas.addEventListener("pointerdown",e=>{
  if(!running||paused)return;
