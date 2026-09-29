@@ -1,5 +1,5 @@
 {
-  "schema": "field-index-contract/v0.4",
+  "schema": "field-index-contract/v0.5",
   "updated": "2026-09-29",
   "purpose": "Keep FIELD INDEX usable under growth: exact Git repository chronology for literal change, CURRENT for attention, showcase-manifest for addressed route projection, and one shared focus identity across AXIAL / route projections / map without allowing any projection to impersonate authority.",
   "laws": [
@@ -47,7 +47,11 @@
     "COMPRESSION MUST NAME ITS RESIDUE. Any root contraction may hide representation, chronology, constraints, evidence or witness detail only when the discarded layer remains exactly recoverable under a named owner/fold; hidden detail does not transfer authority upward.",
     "SIGNAL LOCALITY. A pattern on an addressed glyph may encode only source classes explicitly bound to that same route. Global/unaddressed change, reality or external signals remain global summaries; they may not stain the currently held object.",
     "ONBOARDING ≠ SECOND APP. FIELD may expose a first-contact visor over the same held INTERPHASE carrier, but it may not create a second route picker, object store, planner, effect authority or canonical state. The visor must recede into the normal held-object surface and remain explicitly reopenable.",
-    "COAXIALITY ≠ CONCENTRICITY. Related dimensions may share one held manipulation space only when each axis owns named state, relative transforms have host-defined semantics, one gesture has one primary interpretation, STATE ≠ VIEW, FOLD/BLOOM preserve recoverable residue, LIVE provenance remains distinguishable, and RETURN can reconstruct the causal path. Geometry alone may not manufacture domain meaning."
+    "COAXIALITY ≠ CONCENTRICITY. Related dimensions may share one held manipulation space only when each axis owns named state, relative transforms have host-defined semantics, one gesture has one primary interpretation, STATE ≠ VIEW, FOLD/BLOOM preserve recoverable residue, LIVE provenance remains distinguishable, and RETURN can reconstruct the causal path. Geometry alone may not manufacture domain meaning.",
+    "PACKET ≠ PRIORITY. A packet may declare OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP, but FIELD derives NOW only from CURRENT attention; packet age, activity words, QUEUE membership and atlas horizon may not manufacture priority.",
+    "DERIVED SOURCE STATUS IS EXPLICIT. Any ordinary cross-source FIELD aggregation names SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT. Freshness describes the projection, not its authority.",
+    "NEXUS / COMMS SNAPSHOT ≠ ORDINARY AGGREGATION. FIELD root is the ordinary cross-source re-entry surface; NEXUS and COMMS remain recoverable coordination/machine snapshots and may not silently become CURRENT, Git chronology or semantic FIELD freshness.",
+    "MECHANISMS MUST EARN SURFACE AREA. Tests A–H are deletion-or-repair gates over candidate FIELD mechanisms; failure does not create a roadmap. Repair the violated invariant when a host needs the function, otherwise contract or delete the mechanism."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -113,8 +117,8 @@
     "root_trace_placement": "TRACE / VERIFY is a collapsed secondary instrument inside STATUS. Top navigation and the focused-object TRACE action open that same nested instrument by first opening STATUS; TRACE no longer occupies the primary re-entry stack.",
     "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence.",
     "root_waiting": "REALITY GAP / YOU is detailed human/world evidence depth nested inside FIELD / CATCH + ACT rather than a second top-level attention block. ACTIVE gates derive only from explicit CURRENT.current_heads[].next_executable human/world states. /control/WAITING.json preserves durable dependency memory as PARKED or REMOVED history and may enrich a matching CURRENT gate by id. Parked, conditional, ambient-use and removed dependencies never become user obligations merely because they exist in the registry. Local acknowledgement or COPY TEST does not resolve a CURRENT gate.",
-    "root_reentry": "NOW / RECOVER / CONVERGE is a collapsed one-line semantic router. NOW opens CURRENT/QUEUE attention; RECOVER opens the generic Recovery vault for exact source + lineage and must not privilege a current project head; CONVERGE opens NEXUS for coordination + RETURN.",
-    "root_convergence": "Generated convergence data/plain readings remain available to NEXUS/READFIELD with generation timestamps, but the generated KPI strip is retired from FIELD root. Root live frame derives CURRENT + master HEAD rather than caching a second status dashboard.",
+    "root_reentry": "NOW / RECOVER / CONVERGE remains one collapsed semantic router. NOW opens CURRENT attention; RECOVER opens the exact-source vault; CONVERGE opens the FIELD-local derived cut. NEXUS remains exactly reachable as a snapshot/depth surface but is no longer the ordinary aggregation destination.",
+    "root_convergence": "FIELD root composes a read-only egress cut from CURRENT + WAITING + QUEUE + federation atlas + semantic Git chronology. It exposes NOW / DELTA / RESIDUE / GATE / NEXT≤3 / ARCHIVE plus SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT. No derived row owns attention or mutation. NEXUS/COMMS remain recoverable snapshots; repeated machine refresh commits remain exact Git chronology but are excluded from semantic DELTA.",
     "root_truth_grammar": "Use Φ for host/authority frame and φ for the current addressed focus/projection. The root reads CURRENT → φ FOCUS → ROUTES; Git/TRACE/STATUS are subordinate evidence or instruments opened on demand.",
     "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). Detailed REALITY GAP / YOU now lives inside the folded CATCH + ACT attention strip and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
     "root_tzimtzum": "Primary root hierarchy: title + PLAY → folded re-entry → CURRENT/φ truth line → one held object + glyph field → folded CATCH + ACT → collapsed STATUS. Exact CURRENT heads may carry latent project depth inside the held glyph; that depth must not create a second dashboard or scale control. Refinement, proof, chronology and maps remain residue depth. If another persistent root block duplicates one of those functions, fold it under its owner or remove it.",
@@ -342,5 +346,110 @@
       "law": "Unknown future statuses never silently become BUILD / PROVE."
     }
   },
-  "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json"
+  "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json",
+  "packet_egress_contract": {
+    "schema": "field-egress-reducer/v0.1",
+    "runtime": "/lib/field-egress-reducer.js",
+    "fields": [
+      "OBJECT",
+      "AUTHORITY",
+      "STATE_IN",
+      "DELTA",
+      "EVIDENCE",
+      "STATE_OUT",
+      "RESIDUE",
+      "WAITING",
+      "NEXT",
+      "STOP"
+    ],
+    "field_projection": {
+      "NOW": "CURRENT.active_fronts only; max three. No packet/source may self-promote into NOW.",
+      "DELTA": "Semantic Git mutations newer than the CURRENT cut; generated NEXUS/COMMS refresh commits are chronology but not material FIELD delta.",
+      "RESIDUE": "Held/parked/latent material that remains recoverable without becoming an obligation.",
+      "GATE": "Explicit CURRENT human/world gate or a source contradiction that blocks a claim; WAITING registry alone does not create NOW.",
+      "NEXT": "At most three CURRENT-authorized next actions; RETURN never autoplays a second move.",
+      "ARCHIVE": "Closed/removed/superseded history with a retained address."
+    },
+    "return_reducer": {
+      "CLOSE": "No unresolved residue, waiting dependency or contradiction is carried by the packet.",
+      "RESIDUE": "Useful untransferred material remains named and recoverable.",
+      "WAITING": "A declared external/human/world dependency blocks the packet's claim.",
+      "CONTRADICTION": "Declared state/evidence conflicts; do not reconcile silently."
+    },
+    "laws": [
+      "STATE → Δ → EVENT → RETURN remains the substrate; the reducer is a read projection, not a second state store.",
+      "RETURN outputs CLOSE | RESIDUE | WAITING | CONTRADICTION; a RETURN may expose NEXT but never authorizes it.",
+      "NEXT is clipped to three reachable actions.",
+      "Source freshness and source authority are unequal; VALID means the source parsed coherently, not that it owns NOW."
+    ]
+  },
+  "mechanism_audit": {
+    "schema": "field-mechanism-audit/v0.1",
+    "purpose": "Deletion-or-repair audit for FIELD mechanisms. Evidence changes disposition; attractive geometry or conceptual fit does not.",
+    "decisions": [
+      "KEEP",
+      "REPAIR",
+      "CONTRACT",
+      "DELETE"
+    ],
+    "tests": [
+      {
+        "id": "A",
+        "name": "STATE",
+        "pass": "Mechanism state is named independently of rendering and can be reconstructed without reading presentation DOM/geometry.",
+        "fail": "Rendering is the only state record or visual position silently owns domain state.",
+        "decision": "REPAIR state ownership; DELETE if no host requires durable state."
+      },
+      {
+        "id": "B",
+        "name": "RELATION",
+        "pass": "Relative transform has host-defined semantics and changes a lawful reading/operation in a reproducible way.",
+        "fail": "Concentricity/proximity/rotation merely looks related or imports generic semantic verbs.",
+        "decision": "REPAIR with host mapping; otherwise DELETE the semantic claim and keep only geometry if useful."
+      },
+      {
+        "id": "C",
+        "name": "LEGIBILITY",
+        "pass": "Without an inspector, an ordinary use path exposes current object, primary operation and visible consequence.",
+        "fail": "Meaning requires hidden diagnostics, lore, or developer interpretation.",
+        "decision": "REPAIR surface or CONTRACT to donor/depth."
+      },
+      {
+        "id": "D",
+        "name": "REVERSAL",
+        "pass": "UNDO/RETURN/inverse restores prior state or an exact reconstructable address without ambiguity.",
+        "fail": "A transform destroys the prior recoverable state or conflates BACK, UNDO and RETURN.",
+        "decision": "REPAIR before promotion; DELETE irreversible convenience if repair costs exceed function."
+      },
+      {
+        "id": "E",
+        "name": "IDENTITY",
+        "pass": "One object identity stays traceable through ROUTE / SCALE / FOLD / BLOOM projections.",
+        "fail": "Projection creates a replacement object without an explicit lineage edge.",
+        "decision": "REPAIR identity carrier; otherwise DELETE the adapter."
+      },
+      {
+        "id": "F",
+        "name": "PROVENANCE",
+        "pass": "User, LIVE/runtime, automation, recovered source and derived projection remain distinguishable.",
+        "fail": "Derived/generated state can impersonate authored/live/current state.",
+        "decision": "REPAIR provenance before use; DELETE the ambiguous projection if provenance cannot be retained."
+      },
+      {
+        "id": "G",
+        "name": "RETURN",
+        "pass": "The causal path can be reconstructed from source/state-in/delta/evidence/state-out plus residue/waiting/next/stop or an equivalent bounded receipt.",
+        "fail": "Only the final appearance/result remains.",
+        "decision": "REPAIR RETURN/evidence boundary; no promotion without it."
+      },
+      {
+        "id": "H",
+        "name": "COMPRESSION",
+        "pass": "The mechanism removes more exposed complexity than it introduces and names where hidden residue remains recoverable.",
+        "fail": "It adds another shell, mode, dashboard, ontology, or navigation burden for the same function.",
+        "decision": "CONTRACT or DELETE; KEEP only when measured interaction/surface cost falls."
+      }
+    ],
+    "hard_fail_rule": "Identity, provenance, reversal or RETURN failure blocks promotion. Other failures demand a named repair with evidence or contraction/deletion; they do not create a standing backlog."
+  }
 }
