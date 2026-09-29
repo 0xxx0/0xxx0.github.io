@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/prison-age-authored-source-fold-return/v0.1",
+  "date": "2026-09-29",
+  "status": "IMPLEMENTED / PR_PROOF_REQUIRED",
+  "host": "/prison-age/",
+  "field_object": "/prison-age/",
+  "delta": [
+    "admit recovered 2021 proto-root as a provenance-distinct source in the existing PRISON AGE resolver",
+    "keep FIELD native action surface exactly READ / RIDE / SOURCE",
+    "route only explicit proto-root RIDE into the existing FOLD//BLOOM authored-reader projection",
+    "preserve exact resolver/FIELD return through a same-origin authored-reader return override",
+    "keep ordinary anthology READ/RIDE and generic FOLD//BLOOM first contact unchanged",
+    "keep authored RECURRENCE distinct from cross-source ECHO"
+  ],
+  "invariants": [
+    "SOURCE CLASS ≠ STORY ID ≠ PROJECTION",
+    "RECOVERED_AUTHORED_SOURCE ≠ 2026 ANTHOLOGY CONTINUATION",
+    "RECURRENCE ≠ ECHO",
+    "FIELD READ / RIDE / SOURCE remains three operations",
+    "source bytes remain immutable",
+    "FOLD//BLOOM owns traversal/effect only",
+    "RETURN may restore address but grants no continuation authority"
+  ],
+  "evidence": [
+    "/prison-age/sources.json",
+    "/prison-age/index.html",
+    "/prison-age/release.json",
+    "/fold-bloom/live/authored/prison-age-2021.json",
+    "/fold-bloom/live/authored/prison-age-2021.txt",
+    "/fold-bloom/live/app.js",
+    "/tools/fold-bloom-authored-reader-selftest.mjs"
+  ],
+  "proof_gate": "Existing authored-reader selftest + smoke + public-surface checks must pass on exact PR head before merge.",
+  "authority": "Projection/reachability only. PRISON_AGE remains source authority; FOLD//BLOOM remains traversal/effect authority; FIELD remains focus/action aperture."
+}

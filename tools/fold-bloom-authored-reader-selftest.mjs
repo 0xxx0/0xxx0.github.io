@@ -25,3 +25,18 @@ if(!app.includes("recurrence:jumpAuthoredRecurrence"))throw Error('authored recu
 if(!html.includes('id="sourceEchoLive"')||!html.includes('id="readerRecurrence"'))throw Error('ECHO/RECURRENCE coexistence missing');
 if(!html.includes('THE WHOLE RIDE LOOP')||!html.includes('id="authoredIntroBtn">PRISON AGE 2021'))throw Error('shipped first contact was replaced');
 console.log('FOLD BLOOM AUTHORED READER BOUNDARIES PASS · session-scoped RETURN · RECURRENCE != ECHO · default first-contact preserved');
+
+const prisonPack=JSON.parse(fs.readFileSync('prison-age/sources.json','utf8'));
+const proto=prisonPack.stories?.['proto-root-2021'];
+if(!proto)throw Error('FIELD source resolver missing recovered 2021 source');
+if(proto.path!==pack.source_path)throw Error('FIELD authored source path drift');
+if(proto.source_fingerprint?.algo!=='sha256'||('sha256:'+proto.source_fingerprint?.value)!==pack.source_hash)throw Error('FIELD authored source fingerprint drift');
+if(proto.authored_reader?.id!==pack.id)throw Error('FIELD authored reader id drift');
+if(proto.echo!==false)throw Error('authored recurrence source must not mint cross-source ECHO');
+const prisonHtml=fs.readFileSync('prison-age/index.html','utf8');
+if(!prisonHtml.includes('story.authored_reader?.id')||!prisonHtml.includes("u.searchParams.set('reader_return',returnUrl())"))throw Error('FIELD source resolver authored RIDE seam missing');
+if(!prisonHtml.includes("if(story.echo!==false)"))throw Error('authored source must bypass cross-source ECHO projection');
+if(!app.includes('function authoredReturnAddress(raw,fallback)')||!app.includes('returnAddress:exactReturn')||!app.includes('returnAddress:launchReaderReturn'))throw Error('authored resolver return continuity missing');
+const release=JSON.parse(fs.readFileSync('prison-age/release.json','utf8'));
+if(JSON.stringify(release.field?.native_actions)!==JSON.stringify(['READ','RIDE','SOURCE']))throw Error('FIELD native action surface expanded');
+console.log('PRISON AGE FIELD SOURCE FOLD PASS · 3 native moves · 2021 provenance-distinct source · authored RIDE · exact resolver return');

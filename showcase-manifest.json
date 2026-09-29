@@ -1924,12 +1924,11 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-29T19:42:15+08:00",
+        "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE",
-          "RECOVER"
+          "OPERATE"
         ]
       },
       "role": "Public Fold/Bloom doorway with an action-first front edge. First contact exposes TRY A RIDE / WATCH A GARDEN / MAP A SONG; REPLAY and the deeper system remain reachable below. LIVE teaches TURN → RELEASE → CHANGE → REPEAT before SOURCE/MAP/RETURN, HEXAGRAM, Two Dial or Lab vocabulary. Hosted GARDEN still uses canonical Ecology authority; the contraction changes onboarding, not engines or source truth.",
@@ -1937,7 +1936,7 @@
       "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
       "receipt": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
       "transfer": [
-        "authored-reader current-master candidate: recovered Prison Age 2021 exact-source pack → visible provenance → addressed READ/RIDE → intra-source RECURRENCE → optional LIVE RELEASE → EVIDENCE_ONLY exact READFIELD RETURN; source-native cross-source ECHO stays separate and the shipped TURN→RELEASE first contact is unchanged",
+        "authored-reader integrated source path: recovered Prison Age 2021 exact-source pack → visible provenance → addressed READ/RIDE → intra-source RECURRENCE → optional LIVE RELEASE → EVIDENCE_ONLY exact READFIELD RETURN; source-native cross-source ECHO stays separate and the shipped TURN→RELEASE first contact is unchanged",
         "FIRST CONTACT ≠ FULL MODEL: plain action precedes system vocabulary",
         "phone LIVE primary row = TURN LEFT / RELEASE / TURN RIGHT; mode/world controls remain secondary and reachable",
         "tests protect route/authority/runtime invariants rather than obsolete onboarding copy",
@@ -2769,6 +2768,7 @@
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
       "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Sep-29 GARDEN HOST 0.1 adds one unequal Ecology-owned aperture inside LIVE. Hosting carries orientation only: Ecology loads on entry, LIVE source/generated-sound state is held, no source-clock or RELEASE authority crosses the boundary, and RETURN unloads Ecology then restores held LIVE context. Sep-29 first-use contraction teaches one causal ride loop before architecture: TURN ←/→ until ready → RELEASE → road changes → repeat. On phone the primary row is ← / action / →; advanced controls remain in secondary UI. Engine/source/Ecology/RETURN authority is unchanged.",
       "transfer": [
+        "FIELD source fold: explicit PRISON AGE proto-root RIDE may launch authored-reader with a same-origin resolver/FIELD return override; generic LIVE first contact and ordinary READ/RIDE remain unchanged",
         "Sep-29 first-use contraction: TURN → RELEASE → CHANGE → REPEAT before architecture vocabulary",
         "phone first-use control set = ← / action / →; advanced controls remain secondary",
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
@@ -2950,7 +2950,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-29T13:06:49+08:00",
+        "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2958,7 +2958,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
+      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
@@ -8557,14 +8557,16 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.5",
+      "version": "0.6",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
-      "role": "FIELD-held source set. FIELD selects READ / RIDE / SOURCE only; explicit source choice remains required. READFIELD and FOLD//BLOOM LIVE may passively reveal exact cross-source ECHO evidence ranked only by lexical recurrence. ECHO is evidence-only and never generated narrative glue.",
+      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
       "transfer": [
-        "FIELD READ intent → Prison Age exact source chooser → READFIELD",
-        "FIELD RIDE intent → Prison Age exact source chooser → FOLD//BLOOM LIVE",
+        "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
+        "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
+        "proto-root RIDE → existing FOLD//BLOOM authored reader → provenance / addressed traversal / RECURRENCE / optional RELEASE → exact resolver/FIELD RETURN",
+        "FIELD action surface remains exactly READ / RIDE / SOURCE; source class selection stays inside PRISON AGE resolver",
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
         "exact source movement → passive cross-source ECHO evidence in READFIELD",
@@ -8661,12 +8663,11 @@
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
-        "updated_at": "2026-09-29T02:40:00+08:00",
+        "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
-          "READ",
-          "RIDE",
-          "SOURCE",
-          "RETURN"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "tier": "FIELD"
