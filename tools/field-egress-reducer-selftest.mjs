@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {reducePacket,EGRESS_CLASSES} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -35,4 +36,10 @@ for(const [name,packet,ctx,want] of cases){
 }
 const noPromotion=reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'});
 assert.equal(noPromotion.class,'ARCHIVE');
-console.log('FIELD packet egress reducer PASS · A-H');
+const root=readFileSync('index.html','utf8');
+assert.match(root,/import\('\.\/lib\/field-egress-reducer\.mjs'\)/,'FIELD root must consume the canonical reducer, not copy it');
+assert.match(root,/id="catchReducer"/,'FIELD root must expose the bounded egress projection inside CATCH + ACT');
+assert.match(root,/fieldEgress\.reducePacket/,'FIELD root must classify through the canonical reducer');
+assert.doesNotMatch(root,/field-egress-reducer\.js/,'FIELD root must not load the superseded duplicate reducer');
+for(const k of EGRESS_CLASSES)assert.match(root,new RegExp('<b>'+k+'<\\/b>'),'FIELD root must keep '+k+' legible at cold load');
+console.log('FIELD packet egress reducer PASS · A-H + root projection');
