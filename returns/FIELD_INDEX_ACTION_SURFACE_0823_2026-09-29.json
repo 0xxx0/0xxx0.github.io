@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/field-index-action-surface/v0.1",
   "created_at": "2026-09-29T19:47:00+08:00",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "MERGED_CI_GREEN",
   "base_sha": "b0f9caae7f0b545978acf2b714b685ae029aa049",
   "branch": "converge/field-action-surface-0823-20260929",
   "route": "/",
@@ -26,9 +26,26 @@
     "no new route/store/planner"
   ],
   "verification": {
-    "field_awake_browser": "PENDING PR CI",
-    "public_surface": "PENDING PR CI",
-    "route_registration": "PENDING PR CI",
-    "gitleaks": "PENDING PR CI"
-  }
+    "field_awake_browser": "PASS · actionSurface schema + HOLD + TURN/native-label equality + carrier cadence + exact /docs/ RETURN + reopen + zero overflow",
+    "public_surface": {
+      "run": 36564168856,
+      "result": "PASS · 95/95 including critical browser smoke"
+    },
+    "route_registration": {
+      "run": 36564168802,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36564168889,
+      "result": "PASS"
+    },
+    "invariant_repairs": [
+      "Prison Age ECHO regression guard now tests authority exclusion rather than freezing FIELD at historical version 0.8.22",
+      "public validator proves visor cadence derives from InterphaseCarrier.ATTENTION_GRAMMAR rather than requiring duplicated literal UI bytes"
+    ]
+  },
+  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+  "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+  "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+  "sealed_at": "2026-09-29T19:51:00+08:00"
 }
