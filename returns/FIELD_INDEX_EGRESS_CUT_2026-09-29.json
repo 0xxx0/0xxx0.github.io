@@ -1,0 +1,61 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_EGRESS_CUT_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE_EXACT_HEAD_PENDING",
+  "object": "FIELD Index 0.8.23 / one held object + source witness + canonical packet egress cut",
+  "source_instruction": "Take point; align to shared context; ship through/into/over/across FIELD INDEX without creating another control plane.",
+  "recovered": [
+    "packet egress fields: OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP",
+    "canonical one-bucket precedence: GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE",
+    "STOP dominates continuation: conditional → GATE; unresolved fact → RESIDUE; completed/no residue → ARCHIVE; never NEXT",
+    "NOW requires external CURRENT/native-host selection context; packet current/ACTIVE_NOW/status NOW/egress=NOW cannot self-promote",
+    "Tests A–H: STATE / RELATION / GESTURE / IDENTITY / REVERSAL / LIVE-PROVENANCE / RETURN / COMPRESSION",
+    "COAXIALITY: carrier relation, host semantics; geometry cannot mint domain meaning",
+    "current FIELD one-held-object + AWAKE/INTERPHASE visor"
+  ],
+  "delta": [
+    "Repair the already-merged /lib/field-egress-reducer.mjs rather than adding a second reducer.",
+    "Expose exact EGRESS_FIELDS / RETURN_CLASSES / FIELD_BUCKETS and source-witness helpers from the same reducer.",
+    "Add FIELD-level reduceField(): NOW from CURRENT; semantic DELTA from Git after the CURRENT cut; GATE from CURRENT world/human gates plus unbacked ACTIVE WAITING conflicts; NEXT from CURRENT only and clipped to three; RESIDUE from held/parked/later material; ARCHIVE from removed history.",
+    "Filter generated NEXUS/COMMS refresh commits from semantic DELTA while preserving them as literal Git chronology.",
+    "Add SOURCE WITNESS for CURRENT / WAITING / QUEUE / ATLAS with SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT; freshness never changes authority.",
+    "Fold the cut into the existing FIELD re-entry CONVERGENCE block. CONVERGE now opens FIELD-local derived state; NEXUS and COMMS remain exactly reachable snapshots.",
+    "Bind packet egress and exact A–H KEEP/REPAIR/CONTRACT/DELETE audit into FIELD_INDEX_CONTRACT v0.4 without creating a new route, store, queue, dashboard or ontology.",
+    "Align agent transcript and public validator to the same reducer/precedence."
+  ],
+  "authority": {
+    "now": "/control/CURRENT.json only, or explicit native-host selection supplied as reducer context",
+    "literal_repo_chronology": "Git",
+    "waiting_registry": "/control/WAITING.json",
+    "queue": "compatibility/execution recipe projection only",
+    "atlas": "planning projection only",
+    "reducer": "READ_ONLY / NO MUTATION AUTHORITY"
+  },
+  "audit": {
+    "A": "STATE — named independent owner/state",
+    "B": "RELATION — host-defined relative semantics",
+    "C": "GESTURE — one gesture, one primary interpretation",
+    "D": "IDENTITY — same object survives projection",
+    "E": "REVERSAL — prior state/address reconstructable",
+    "F": "LIVE / PROVENANCE — authored/live/automation/recovered/derived stay distinguishable",
+    "G": "RETURN — causal path reconstructable",
+    "H": "COMPRESSION — less exposed burden, named recoverable residue",
+    "disposition": "all applicable pass → KEEP; one bounded needed defect → REPAIR; structural redundancy/negative compression → CONTRACT/DELETE",
+    "hard_fail": "IDENTITY / REVERSAL / LIVE-PROVENANCE / RETURN block promotion"
+  },
+  "verification": {
+    "reducer_selftest": "PENDING exact-head CI",
+    "agent_transcript_selftest": "PENDING exact-head CI",
+    "public_surface": "PENDING exact-head CI",
+    "route_registration": "PENDING exact-head CI",
+    "gitleaks": "PENDING exact-head CI"
+  },
+  "known_limits": [
+    "The external writer that periodically commits NEXUS/COMMS snapshots is outside this repo's visible control path; this change semantically filters/demotes those refreshes but does not claim to stop the writer.",
+    "SOURCE HEAD uses each source's explicit revision timestamp when no content hash exists; it is intentionally not Git HEAD.",
+    "Source conflicts are exposed, not silently reconciled."
+  ],
+  "next": "Run exact-head proof. If green, merge 0.8.23, close superseded reducer PRs, then RETURN to CURRENT and select one existing conversion consequence rather than extending aggregation architecture.",
+  "stop": "No second reducer, static packet cache, packet dashboard, autonomous routing, self-activating NOW, or autoplayed NEXT."
+}
