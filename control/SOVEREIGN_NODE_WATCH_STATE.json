@@ -1,0 +1,65 @@
+{
+  "schema": "0xxx0/sovereign-node-watch-state/v0.1",
+  "updated": "2026-09-29",
+  "authority": "EVIDENCE_ONLY",
+  "purpose": "Delta baseline for sovereign-node reconnaissance. This file never creates CURRENT work by itself.",
+  "materiality_gate": [
+    "unlocks active conversion",
+    "security posture changes",
+    "compatibility/deployment changes",
+    "pin/rollback changes",
+    "authority boundary changes",
+    "local-vs-cloud placement changes"
+  ],
+  "laws": [
+    "UNCHANGED FINDINGS STAY SILENT",
+    "RELEASE RECENCY IS NOT MATERIALITY",
+    "MODEL x HARNESS IS THE EXECUTOR UNIT",
+    "RUNTIME/BACKEND/ARTIFACT IDENTITY QUALIFIES PROOF",
+    "PROVIDER MEMORY IS NON-CANONICAL",
+    "SECURITY / INVALID-REQUEST / AUTHORITY-DENIED => STOP; NEVER SILENT HOP",
+    "PASS MEANS TRANSFER INTO AN EXISTING HOST, NOT A NEW FRONT"
+  ],
+  "current_baseline": {
+    "media_refinery": {
+      "bulk_worker": "qwen3.5:9b local Ollama",
+      "adjudicator": "qwen3.5:27b optional manual pull",
+      "supervisor": "Hermes exception layer",
+      "renderer": "Higgsfield explicit remote render authority only"
+    },
+    "executor": {
+      "openclaw": "2026.9.5 or later security-equivalent pinned build; identify tested artifact bytes",
+      "hermes": "0.21.3 reference until a newer tag passes a conversion-relevant isolated proof",
+      "grok": "optional neutral model x harness comparator only"
+    },
+    "runtime": {
+      "ollama": "typed-output/endurance proof is the active decision surface; production promotion requires exact fixture evidence",
+      "mlx": "backend identity must be visible when selected or auto-selected"
+    }
+  },
+  "categories": [
+    "Nix-Darwin/Lix",
+    "Ollama",
+    "MLX/Qwen",
+    "Hermes-Agent",
+    "OpenClaw",
+    "decision services",
+    "Apple container",
+    "local orchestration/iTerm2",
+    "Grok Build",
+    "JEPA/world/spatial tooling",
+    "Higgsfield/media APIs/MCP"
+  ],
+  "return_shape": [
+    "WHAT_CHANGED",
+    "WHY_IT_MATTERS_HERE",
+    "DISPOSITION",
+    "SMALLEST_TEST",
+    "PASS",
+    "FAIL",
+    "ROLLBACK",
+    "UNCERTAINTY",
+    "PRIMARY_SOURCES"
+  ],
+  "successor_note": "Scout broadly, mutate narrowly. Never turn reconnaissance into a project. First ask which existing conversion, proof, authority boundary or rollback decision would change; if none, preserve the observation only when needed to prevent rediscovery, otherwise remain silent."
+}
