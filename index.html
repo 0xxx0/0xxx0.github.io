@@ -534,7 +534,10 @@ function fieldEgressForRoute(r){
   ...(gate?{waiting:[{id:gate.id,state:gate.state,dependency_kind:gate.dependency_kind}]}:{}),
   ...(unknowns.length?{unknowns}:{}),
   ...(!gate&&n?{next_executable:n}:{}),
-  ...(changed?{delta:{updated_at:r.index?.updated_at||null}}:{})
+  ...(changed?{
+   delta:{material:true,updated_at:r.index?.updated_at||null},
+   evidence:{sufficient:true,refs:[r.href+'@'+String(r.index?.updated_at||'')]}
+  }:{})
  };
  try{return fieldEgressReduce(packet,{now:nowSet.has(r.href)})}catch(_){return null}
 }
