@@ -5,11 +5,14 @@ const assert=require('node:assert/strict');
 
 const core1=fs.readFileSync('fold-bloom/two-dial/core1.js','utf8');
 const core2=fs.readFileSync('fold-bloom/two-dial/core2.js','utf8');
+const sw=fs.readFileSync('fold-bloom/two-dial/sw.js','utf8');
 const release=JSON.parse(fs.readFileSync('fold-bloom/two-dial/release.json','utf8'));
 const audit=JSON.parse(fs.readFileSync('control/FIELD_COAXIALITY_AUDIT.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
 
 assert.match(core1,/0\.10\.6-gesture-boundary/);
+assert.match(sw,/const CACHE='fb-two-dial-v0106'/);
+assert.match(sw,/startsWith\('fb-two-dial-'\)/);
 assert.match(core2,/function pointerSideClaimed\(side\)/);
 assert.match(core2,/if \(pointerSideClaimed\(side\)\) return;/);
 assert.match(core2,/function pointerGestureStart\(side, raw\)/);
