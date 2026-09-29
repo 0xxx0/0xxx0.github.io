@@ -212,14 +212,15 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="visorFoot"><span>Same object. Many doors. Native authority stays native.</span><button id="fieldVisorEnter" type="button">ENTER FIELD</button></div>
 </section>
 <details class="reentryFold" aria-label="FIELD re-entry and depth">
-  <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary>
+  <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>FIELD</b></span><span class="reentryToggle">▶</span></summary>
   <div class="reentryBody">
     <a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a>
     <a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a>
-    <a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a>
+    <a href="#convRead"><b>CONVERGE / FIELD</b><span>derived source cut · no second authority</span></a>
     <a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a>
     <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
-    <a class="utility" href="./comms/"><b>MACHINE / ROOM</b><span>comms state · fleet / open / loops / moved</span></a>
+    <a class="utility" href="./comms/"><b>MACHINE / SNAPSHOT</b><span>external derived state · not FIELD authority</span></a>
+    <a class="utility" href="./nexus/"><b>NEXUS / SNAPSHOT</b><span>coordination depth · dated projection</span></a>
     <a class="utility" href="./fovea/"><b>FOVEA</b><span>one-field projection over registered surfaces</span></a>
     <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
     <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
@@ -228,10 +229,10 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
     <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
     <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>root interaction contract</span></a>
-    <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json and federation-atlas.json">
-      <div class="cvHead"><b>CONVERGENCE READ</b><span id="convMeta">QUEUE + atlas · composing…</span></div>
-      <div id="convBody"><div class="cvNone">composing live fronts · held reasons · horizon distribution…</div></div>
-      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. ATTENTION ≠ RECENCY — <a href="./control/">/control/CURRENT.json</a> owns NOW; QUEUE does not authorize NOW or NEXT; atlas horizon is planning metadata, not priority. Coordination + RETURN live in <a href="./nexus/">NEXUS</a>.</div>
+    <div class="convRead" id="convRead" aria-label="FIELD convergence source cut">
+      <div class="cvHead"><b>CONVERGENCE / FIELD CUT</b><span id="convMeta">CURRENT + WAITING + QUEUE + atlas + Git · deriving…</span></div>
+      <div id="convBody"><div class="cvNone">deriving source witness + NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE…</div></div>
+      <div class="cvFoot">DERIVED ONLY — <a href="./control/CURRENT.json">CURRENT</a> owns NOW; Git owns literal chronology; <a href="./control/WAITING.json">WAITING</a>, <a href="./control/QUEUE.json">QUEUE</a> and <a href="./federation-atlas.json">atlas</a> keep unequal meanings. <a href="./lib/field-egress-reducer.mjs">packet reducer</a> + <a href="./lib/field-source-cut.mjs">source-cut adapter</a> create no state, queue or priority. SOURCE HEAD is a source revision marker; only the GIT row is Git HEAD. <a href="./nexus/">NEXUS</a> + <a href="./comms/">COMMS</a> remain recoverable snapshots.</div>
     </div>
   </div>
 </details>
@@ -360,7 +361,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[],convSources=null;
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
 const CAP_TRIAL=INIT.get('cap')!=='0';
 const CAPABILITY_PROJECTION=Object.freeze([
@@ -811,6 +812,7 @@ function renderRepoTouches(){
  box.innerHTML=xs.map(c=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
  box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
  renderSyncLine();
+ if(convSources)renderConvergence(convSources.q,convSources.a,convSources.w,convSources.c,convSources.Cut);
 }
 async function loadRepoTouches(){
  const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),9000);
@@ -1030,32 +1032,53 @@ async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.hre
 
 function convTrim(s,n){const t=String(s==null?'':s).replace(/[ \t\r\n]+/g,' ').trim();return t.length>n?t.slice(0,Math.max(1,n-1)).trimEnd()+'…':t}
 function convRowHTML(id,tag,text){return '<div class="cvRow"><b>'+esc(id)+'</b><em>'+esc(tag||'')+'</em><p>'+esc(text)+'</p></div>'}
-function renderConvergence(q,a){
+function convAge(ms){
+ if(ms==null||!Number.isFinite(ms))return'UNKNOWN';
+ const m=Math.floor(ms/60000);if(m<1)return'<1m';if(m<60)return m+'m';
+ const h=Math.floor(m/60);if(h<48)return h+'h '+(m%60)+'m';
+ return Math.floor(h/24)+'d '+(h%24)+'h';
+}
+function convItemText(x){
+ if(!x)return'—';
+ const main=x.label||x.objective||x.reason||x.id||x.packet_id||'—';
+ const tail=[x.route,x.authority].filter(Boolean).join(' · ');
+ return convTrim(main+(tail?' · '+tail:''),230);
+}
+function renderConvergence(q,a,w,c,Cut){
  const box=$('convBody'),meta=$('convMeta');if(!box)return;
- let out='',bits=[];
- if(q&&!q.__error){
-  const live=Array.isArray(q.live)?q.live:[],held=Array.isArray(q.held)?q.held:[],max=(q.max_live==null?'?':q.max_live);
-  bits.push(live.length+'/'+max+' live',held.length+' held');
-  out+='<div class="cvSec"><div class="cvSecH"><b>LIVE FRONTS</b><span>QUEUE.json updated '+esc(q.updated||'—')+' · live '+live.length+'/'+max+' · compatibility projection, not attention</span></div>'
-   +(live.length?live.map(f=>convRowHTML(f.id||f.front_id,f.horizon||'',convTrim(f.goal||f.center||'',200))).join(''):'<div class="cvNone">No live fronts recorded in QUEUE.</div>')+'</div>';
-  out+='<div class="cvSec"><div class="cvSecH"><b>HELD — AS RECORDED</b><span>QUEUE.json · held '+held.length+' · reason as recorded</span></div>'
-   +(held.length?held.map(h=>convRowHTML(h.id,h.horizon||'',convTrim(h.reason||'(no reason recorded)',200))).join(''):'<div class="cvNone">No held items recorded in QUEUE.</div>')+'</div>';
- }else{
-  out+='<div class="cvSec"><div class="cvSecH"><b>LIVE + HELD</b><span>QUEUE.json unreachable</span></div><div class="cvFail">QUEUE.json unreadable ('+esc(String(q&&q.__error||'fetch failed'))+') — reading incomplete; this does NOT report clear.</div></div>';
+ convSources={q,a,w,c,Cut};
+ if(!Cut||typeof Cut.deriveFieldSourceCut!=='function'){
+  box.innerHTML='<div class="cvFail">FIELD source-cut adapter unavailable — no derived convergence claim.</div>';
+  if(meta)meta.textContent='source cut unavailable — not an all-clear';
+  return;
  }
- if(a&&!a.__error){
-  const ps=Array.isArray(a.provinces)?a.provinces:[],all=ps.flatMap(p=>Array.isArray(p.items)?p.items:[]),HS=['now','next','later','hold'],cnt=list=>h=>list.filter(x=>x.horizon===h).length,count=cnt(all);
-  bits.push('horizon '+HS.map(h=>h+' '+count(h)).join(' · '));
-  out+='<div class="cvSec"><div class="cvSecH"><b>HORIZON DISTRIBUTION</b><span>federation-atlas.json · '+esc(a.generated||'—')+' · '+all.length+' items · '+esc(a.projection||'—')+'</span></div><div class="cvTable"><div class="cvTH">PROVINCE</div>'+HS.map(h=>'<div class="cvTH">'+h.toUpperCase()+'</div>').join('')+ps.map(p=>{const c=cnt(Array.isArray(p.items)?p.items:[]);return '<div>'+esc(p.province)+'</div>'+HS.map(h=>'<div class="n">'+c(h)+'</div>').join('')}).join('')+'<div class="tot">ALL '+all.length+'</div>'+HS.map(h=>'<div class="n tot">'+count(h)+'</div>').join('')+'</div></div>';
- }else{
-  out+='<div class="cvSec"><div class="cvSecH"><b>HORIZON</b><span>federation-atlas.json unreachable</span></div><div class="cvFail">federation-atlas.json unreadable ('+esc(String(a&&a.__error||'fetch failed'))+') — horizon reading missing; not an all-clear.</div></div>';
+ const derivedAt=new Date().toISOString();
+ let cut;
+ try{cut=Cut.deriveFieldSourceCut({current:c||{},waiting:w||{},queue:q||{},atlas:a||{},repoTouches,derivedAt})}
+ catch(e){box.innerHTML='<div class="cvFail">FIELD source cut failed: '+esc(String(e&&e.message||e))+'</div>';if(meta)meta.textContent='derivation failed — not an all-clear';return}
+ let out='<div class="cvSec"><div class="cvSecH"><b>SOURCE WITNESS</b><span>DERIVED AT '+esc(derivedAt)+' · freshness ≠ authority</span></div>';
+ out+=cut.witnesses.map(v=>convRowHTML(v.source,v.status,'SOURCE HEAD '+v.head+' · SOURCE AGE '+convAge(v.source_age_ms)+' · '+v.reason)).join('');
+ out+='</div><div class="cvSec"><div class="cvSecH"><b>FIELD EGRESS</b><span>packet presence ≠ continuation · NEXT ≤3</span></div>';
+ for(const k of ['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']){
+   const xs=cut.buckets[k]||[];
+   const shown=xs.slice(0,3).map(convItemText),more=xs.length>3?' · +'+(xs.length-3)+' recoverable':'';
+   out+=convRowHTML(k,String(xs.length),shown.length?shown.join(' / ')+more:'—');
  }
+ out+='</div>';
  box.innerHTML=out;
- if(meta)meta.textContent=bits.length?bits.join(' · ')+' · read-only':'sources unreadable — not an all-clear';
+ if(meta)meta.textContent='NOW '+cut.buckets.NOW.length+' · DELTA '+cut.buckets.DELTA.length+' · RESIDUE '+cut.buckets.RESIDUE.length+' · GATE '+cut.buckets.GATE.length+' · NEXT '+cut.buckets.NEXT.length+' · ARCHIVE '+cut.buckets.ARCHIVE.length+' · read-only';
 }
 async function loadConvergence(){
  const get=u=>fetch(u,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});
- const [q,a]=await Promise.all([get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))]);
+ const [q,a,w,Cut]=await Promise.all([
+  get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable',live:[],held:[]})),
+  get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable',provinces:[]})),
+  get('./control/WAITING.json').catch(e=>({__error:(e&&e.message)||'unreachable',items:[]})),
+  import('./lib/field-source-cut.mjs').catch(()=>null)
+ ]);
+ renderConvergence(q,a,w,current||{},Cut);
+}
+Promise.all([get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))]);
  try{renderConvergence(q,a)}catch(e){const box=$('convBody');if(box)box.innerHTML='<div class="cvFail">convergence read failed: '+esc(String(e&&e.message||e))+'</div>'}
 }
 Promise.all([
