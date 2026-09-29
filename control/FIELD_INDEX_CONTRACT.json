@@ -344,5 +344,6 @@
       "law": "Unknown future statuses never silently become BUILD / PROVE."
     }
   },
-  "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json"
+  "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json",
+  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json"
 }
