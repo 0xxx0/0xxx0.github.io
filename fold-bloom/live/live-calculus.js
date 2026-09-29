@@ -9,6 +9,14 @@ const cleanVerb=x=>{
   return CONTROL_VERBS.includes(v)?v:null;
 };
 
+export function forecastSeekDelta(rotation,slot,n=12){
+  const count=Math.max(1,Math.trunc(Number(n)||12));
+  const wrap=x=>((Math.trunc(Number(x)||0)%count)+count)%count;
+  const current=wrap(rotation),target=wrap(-Math.trunc(Number(slot)||0));
+  const clockwise=wrap(target-current);
+  return clockwise>count/2?clockwise-count:clockwise;
+}
+
 export function recentExactForm(history=[],slots=6){
   const verbs=(Array.isArray(history)?history:[])
     .filter(x=>x?.kind==='RELEASE')
@@ -51,6 +59,7 @@ export function buildLiveCalculation({
   const recent=recentExactForm(history,6);
   const activeSteering=steering?.ok?steering:null;
   const candidateCount=Math.max(0,Number(activeSteering?.candidate_count)||0);
+  const supportedSlots=new Set(Array.isArray(activeSteering?.candidates)?activeSteering.candidates.map(x=>Number(x?.slot)).filter(Number.isFinite):[]);
   const total=forecasts.length;
   const native={
     authority:nativeContext?.authority||'NATIVE_EVIDENCE',
@@ -63,6 +72,8 @@ export function buildLiveCalculation({
     candidate_count:total,
     candidate_ambiguity_bits:log2(total),
     candidates_by_verb:byVerb,
+    candidates:forecasts.map(x=>({slot:Number(x.slot),verb:String(x.verb||''),chain:Number(x.chain)||1,cadence:x.cadence||null,power:Number(x.power)||0,path:[...(x.path||[])],seek_delta:forecastSeekDelta(nativeContext?.rotation,x.slot,12),steering_supported:supportedSlots.has(Number(x.slot))})),
+    choice_aperture:{authority:'HUMAN_NAVIGATION_ONLY',all_before_one:true,direct_seek:true,release_separate:true,candidate_count:total,law:'every lawful native forecast may be selected as a navigation target; seeking changes gate orientation only through existing TURN state and never commits RELEASE'},
     selected:currentForecast?{
       slot:Number(currentForecast.slot),
       verb:String(currentForecast.verb||''),
@@ -105,6 +116,7 @@ export function buildLiveCalculation({
     traversal:t,
     formulas:{
       native_ambiguity:'log2(number of currently lawful native forecast candidates)',
+      direct_seek:'desired rotation = -slot mod N; choose the shortest signed rotation delta; seek never implies RELEASE',
       hex_compression:'4^6 exact six-verb histories → 2^6 HEX quotient; 64 exact forms per HEX; 6 uniform bits dropped',
       steering_support:'|native forecasts matching steering direction| / |all native forecasts|',
       release_step:'commit native LIVE operation first; if policy = RELEASE_THEN_ONE_ADDRESS, advance exactly one addressed grain afterward'
