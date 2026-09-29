@@ -30,7 +30,7 @@ let dragging=false,startX=0,startY=0,lastX=0,stepAccum=0,pointerTravel=0,lastT=0
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,gardenOpen=false,gardenReturn=null,perf={emaMs:16.7,fps:60,modelHz:0};
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,courseMode='FLOW',courseGrain='PHRASE',lastCoursePaint=-1,steeringPulse=null,steeringView=null,readRide=null,readEcho=null,gardenOpen=false,gardenReturn=null,perf={emaMs:16.7,fps:60,modelHz:0};
 // IMAGE SET — the third addressed source, beside audio and addressed text. The BYTES
 // never pass through here: they stay in the browser vault keyed by sha256. What lives
 // here is the declaration, the course built from its metadata, and the clock that lets
@@ -392,19 +392,32 @@ function imageWitness(){
   if(!p)return null;
   return {kind:'IMAGE',mode:'SET',grain:course.grain,address:hit.address,index:hit.index,count:course.points.length,start:null,alignment:null,name:p.name,text:String(p.label||p.name||'')};
 }
+function clearReadEcho(){readEcho=null;const box=$('#sourceEchoLive');if(box)box.hidden=true;delete document.documentElement.dataset.foldBloomSourceEcho;delete document.documentElement.dataset.foldBloomSourceEchoSource}
+function syncReadEcho(w){
+ const box=$('#sourceEchoLive'),link=$('#sourceEchoLiveLink'),basis=$('#sourceEchoLiveBasis');if(!box)return null;
+ if(!readRide||!readEcho?.index||!w?.text){box.hidden=true;document.documentElement.dataset.foldBloomSourceEcho=readEcho?'silent':'off';return null}
+ const hit=globalThis.FieldSourceEcho?.best?.(readEcho.index,{sourceId:readEcho.sourceId,text:w.text});
+ if(!hit){box.hidden=true;document.documentElement.dataset.foldBloomSourceEcho='silent';return null}
+ const e=hit.entry,u=new URL('/docs/',location.origin);u.searchParams.set('src',e.path);u.searchParams.set('ap_scale','SENT');u.searchParams.set('ap_char',String(e.start));u.searchParams.set('echo',readEcho.url);u.searchParams.set('echo_source',e.source_id);if(readRide.packet.returnAddress)u.searchParams.set('return',readRide.packet.returnAddress);
+ link.href=u.pathname+u.search;link.textContent=e.title+' · “'+String(e.text).slice(0,180)+'”';basis.textContent='shared '+hit.shared.join(' · ')+(hit.phrases.length?' · phrase '+hit.phrases.join(' / '):'')+' · exact fragment · evidence only';box.hidden=false;document.documentElement.dataset.foldBloomSourceEcho='shown';document.documentElement.dataset.foldBloomSourceEchoSource=e.source_id;return hit
+}
+async function loadReadEcho(packet){
+ clearReadEcho();const cfg=packet?.echo;if(!cfg?.index||!cfg?.source_id||!globalThis.FieldSourceEcho)return null;
+ try{const u=new URL(cfg.index,location.href);if(u.origin!==location.origin)throw Error('ECHO_ORIGIN');const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw Error('ECHO '+r.status);const index=await r.json(),v=globalThis.FieldSourceEcho.validateIndex(index);if(!v.ok)throw Error(v.errors.join(' / '));if(!globalThis.FieldSourceEcho.sourceValid(index,{sourceId:cfg.source_id,text:packet.source}))throw Error('ECHO_STALE_SOURCE');readEcho={index,url:u.pathname+u.search,sourceId:String(cfg.source_id)};syncReadEcho(readCourseWitness(liveCourse(),liveCourseProgress()));return readEcho}catch(error){console.warn('SOURCE ECHO',error);document.documentElement.dataset.foldBloomSourceEcho='rejected';return null}
+}
 function updateTextWitness(){
   const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
   const w=textOn
     ?(readRide?readCourseWitness(liveCourse(),liveCourseProgress()):(imageSet?imageWitness():(liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null)))
     :null;
-  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return null}
+  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';syncReadEcho(null);return null}
   const key=readRide?[w.grain,w.address,w.text].join('|'):imageSet?[w.grain,w.address,w.text].join('|'):[w.mode,w.alignment,w.start,w.text].join('|');
   if(key!==lastTextKey){
     lastTextKey=key;box.hidden=false;
     mode.textContent=readRide?('READ · '+w.grain):imageSet?('SET · '+w.grain):(w.mode==='TIMED'?((w.kind||'TEXT')+' · TIMED'):((w.kind||'TEXT')+' · FLOAT / UNALIGNED'));
     body.textContent=String(w.text||'').slice(0,readRide?520:320);
   }
-  return w;
+  syncReadEcho(w);return w;
 }
 
 function refreshSteeringPreview(now=Date.now()){
@@ -570,13 +583,14 @@ function readRideState(){
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
     trail:(()=>{const t=readTrailSnapshot();return t?{schema:t.schema,storageState:t.storageState,furthest:t.furthest,marks:t.marks.length,last:t.last?{address:t.last.address,progress:t.last.progress,charIndex:t.last.charIndex,scale:t.last.scale,via:t.last.via}:null,law:t.law}:null})(),
     traversal:{origin:readRide.origin?{...readRide.origin}:null,visited:(readRide.visited||[]).map(x=>({...x}))},
+    echo:readEcho?{schema:readEcho.index?.schema||null,source_set:readEcho.index?.source_set||null,source_id:readEcho.sourceId,url:readEcho.url,authority:'EVIDENCE_ONLY'}:null,
     carrier:carrier?{schema:carrier.schema,frameId:carrier.frameId,authority:carrier.authority,object:carrier.object,focus:carrier.focus,next:carrier.next,witness:carrier.witness,return:carrier.return,projection:carrier.projection,lineage:carrier.lineage}:null,
     returnAddress:readRide.packet.returnAddress||null
   };
 }
 function clearReadRide({silent=false}={}){
   if(!readRide)return false;
-  readRide=null;
+  readRide=null;clearReadEcho();
   if(READ_GRAINS.includes(courseGrain))courseGrain='PHRASE';
   courseMode='STEP';lastCoursePaint=-1;lastTextKey='';
   delete document.documentElement.dataset.foldBloomReadRide;
@@ -592,14 +606,14 @@ function loadReadRidePacket(raw,{announce=true}={}){
   try{$('#trackAudio').pause()}catch(_){}
   liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;sourceLandmarks=[];renderer.setLandmarks([]);
   deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;
-  readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};
+  readRide={packet,progress:initialReadProgress(packet),course:null,origin:null,visited:[]};clearReadEcho();
   courseGrain='PARAGRAPH';courseMode='STEP';textOn=true;lastCoursePaint=-1;lastTextKey='';
   resetExactReadTrail();
   layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncRideProfile();syncLayerUI();
   document.documentElement.dataset.foldBloomReadRide='ready';
   document.documentElement.dataset.foldBloomReadAuthority=String(packet.sourceIdentity?.authority||'READFIELD').toLowerCase();
   $('#intro').classList.remove('on');syncSoundGate(false);drawCourseMap(true);const readWitness=updateTextWitness();recordReadRideVisit(readWitness);update();
-  if(announce)toast('READ / RIDE · '+packet.label);
+  void loadReadEcho(packet);if(announce)toast('READ / RIDE · '+packet.label);
   return readRideState();
 }
 function loadReadText(source,{label='READ SOURCE',sourceIdentity={kind:'SESSION_TEXT',authority:'READFIELD'},focus={source_progress:0},returnAddress='/fold-bloom/live/',from='/fold-bloom/live/'}={}){
