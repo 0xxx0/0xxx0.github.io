@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_EGRESS_COMPAT_PULSE_CONTRACTION_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_PR_CANDIDATE",
+  "object": "FIELD INDEX packet egress + root MAP contraction",
+  "state_in": {
+    "master": "bfeded5bf6f05786785c947550c1473abcb75619",
+    "root_projection": "PR #570 merged",
+    "authority_hardening": "PR #575 merged",
+    "regression": [
+      "PR #575 strengthened caller-owned NOW + witnessed DELTA but dropped canonical uppercase aliases and inert RETURN/replan compatibility already sealed by #566.",
+      "Root changed-route adapter did not supply the evidence required by #575, so changed routes could collapse to RESIDUE even without an unresolved gap.",
+      "MAP/PULSE still duplicated RECENT's route.index.updated_at evidence and the public validator required that duplication."
+    ]
+  },
+  "delta": [
+    "Preserve #575 caller-owned NOW, authority denial, STOP dominance, witnessed-DELTA semantics and GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE precedence.",
+    "Restore canonical uppercase RETURN aliases for OBJECT / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP without rewriting historical packet bytes.",
+    "Restore inert NEXT handling so RETURN to CURRENT/FIELD + replan/no-auto-continue prose does not manufacture continuation.",
+    "Make route-local changed DELTA explicitly material and witnessed by /showcase-manifest.json + exact route identity.",
+    "Feed the same human-visible CATCH MORE HERE gap into route RESIDUE so machine class and human projection agree.",
+    "Delete MAP/PULSE control, spiral renderer and pulse CSS; RECENT retains route.index.updated_at directly.",
+    "Invert the public validator: PULSE absence is now required rather than PULSE presence."
+  ],
+  "preserves": [
+    "one canonical reducer",
+    "CURRENT/caller context owns NOW",
+    "proof receipts remain evidence rather than residue",
+    "FIELD held/CATCH compact egress consumer from #570",
+    "no packet dashboard, queue, store, planner, source-cut, CURRENT rewrite, or version bump",
+    "VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT map readings"
+  ],
+  "evidence": [
+    "node tools/field-egress-reducer-selftest.mjs · A-W",
+    "node scripts/emit-agent-transcript.mjs --selftest",
+    "tools/validate-public.mjs rejects active PULSE",
+    "public-surface-check + critical browser smoke",
+    "Route Registration",
+    "gitleaks"
+  ],
+  "residue": [
+    "The broader CURRENT/WAITING/QUEUE/atlas/Git source-witness cut remains held as a donor; do not promote it until ordinary FIELD use demonstrates a missing source relation.",
+    "PULSE remains recoverable in Git history; deletion is from the active root projection only."
+  ],
+  "next": "RETURN to CURRENT and replan. No automatic sequel."
+}
