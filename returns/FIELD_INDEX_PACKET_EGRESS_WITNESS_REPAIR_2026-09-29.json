@@ -1,0 +1,26 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_WITNESS_REPAIR_2026-09-29",
+  "status": "CANDIDATE_PENDING_CI",
+  "date": "2026-09-29",
+  "route": "/",
+  "before": "PR #570 projected packet egress at held FIELD focus. PR #575 then correctly hardened DELTA so material change without evidence becomes RESIDUE. The root adapter still emitted changed-route DELTA without evidence, so changed routes would be demoted after #575.",
+  "delta": "Changed-route packets now mark DELTA material=true and carry an addressed manifest-touch evidence ref. The reducer remains unchanged.",
+  "changes": [
+    "/index.html — changed-route FIELD packet now includes material DELTA + sufficient evidence ref",
+    "/tools/field-egress-reducer-selftest.mjs — static guard requires the root witness adapter"
+  ],
+  "preserves": [
+    "CURRENT-only NOW",
+    "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE",
+    "unwitnessed DELTA → RESIDUE",
+    "native source authority",
+    "one existing held-focus surface; no new dashboard/route/store"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest"
+  ],
+  "residue": [],
+  "stop": "Merge on exact-head green; do not weaken the reducer to accommodate unwitnessed consumers."
+}
