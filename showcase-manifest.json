@@ -16,18 +16,20 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T09:06:00+08:00",
+        "updated_at": "2026-09-29T09:09:00+08:00",
         "work_modes": [
+          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object. Native held-object actions remain address-local. Prison Age now proves operation-intent-before-source-selection: FIELD chooses READ / RIDE / SOURCE, but never silently chooses a story; source/effect authority stays native.",
-      "receipt": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the same INTERPHASE carrier. Prison Age source-intent semantics remain: FIELD chooses READ / RIDE / SOURCE without silently selecting a story. The recovered YOU’RE A WAKE grammar teaches SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN without adding another app, route picker, store or effect authority. Native held-object actions remain source-owned; semantic signal remains route-local.",
+      "receipt": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "machine_view": "FIELD",
-      "version": "0.8.21",
+      "version": "0.8.22",
       "transfer": [
+        "0.8.22 AWAKE / INTERPHASE visor: first contact projects the exact held interphase-carrier/v0.1 frame as YOU’RE A WAKE → SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN; one local seen bit only; WAKE / GUIDE reopens; /docs/ remains explicitly READFIELD-owned; no /awake/ product surface or private painting bytes",
         "0.8.21 Prison Age source-set refinement: FIELD READ/RIDE express operation intent only; exact source movement is explicitly selected in the native resolver before READFIELD or FOLD//BLOOM opens",
         "0.8.20 source-set native actions: held PRISON AGE exposes READ / RIDE / SOURCE directly; exact source authority remains PRISON_AGE and READ/RIDE RETURN to the held FIELD object",
         "0.8.19 signal locality: semantic moire descends onto the addressed glyph that owns the witness; global CATCH no longer stains held focus; project-head glyph now preserves exact route identity",
@@ -101,7 +103,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
