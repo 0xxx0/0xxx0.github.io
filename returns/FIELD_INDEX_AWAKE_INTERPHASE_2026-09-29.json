@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29",
   "date": "2026-09-29",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGED_MACHINE_GREEN",
   "object": "FIELD Index first-contact visor over the exact current interphase-carrier/v0.1 frame",
   "source_instruction": "Converge make one app integrate with interphase propagate through field index; link it to the You're a Wake lineage and recover the painting-backed donor for reference.",
   "recovered": [
@@ -30,13 +30,19 @@
     "WAKE↔INTERPHASE correspondence is reconstructed convergence, not historical identity"
   ],
   "verification": {
-    "static_contract": "ADDED",
-    "dedicated_browser_430x900": "PENDING_CI",
-    "public_surface": "PENDING_CI",
-    "route_registration": "PENDING_CI",
+    "static_contract": "PASS · public-surface-check 36508540378",
+    "dedicated_browser_430x900": "PASS · exact /docs/ object · READFIELD owner · carrier authority NONE / HANDOFF ONLY · NEXT≤3 · exact RETURN · six WAKE pairs · reopen preserves focus · overflow 0",
+    "public_surface": "PASS · 36508540378",
+    "route_registration": "PASS · 36508540373",
     "source_authority": "UNCHANGED",
-    "readfield_owner_guard": "ADDED · /docs/ carrier owner must be READFIELD"
+    "readfield_owner_guard": "PASS",
+    "gitleaks": "PASS · 36508540355"
   },
   "residue": "If the visor proves clear, retire the old /awake/ branch as donor-only permanently and let future hosts inherit the carrier law through FIELD rather than copying onboarding shells.",
-  "next": "Run CI/browser proof. Merge only if current-master reconciliation remains bounded and no root interaction regression appears."
+  "next": "RETURN to CURRENT and replan. Do not resurrect /awake/ as a second app; future refinement should occur through FIELD/native host friction only.",
+  "merge": {
+    "pr": 533,
+    "sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+    "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9"
+  }
 }
