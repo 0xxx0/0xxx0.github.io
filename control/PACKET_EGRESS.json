@@ -17,8 +17,8 @@
     "DELTA": 8,
     "RESIDUE": 0,
     "GATE": 0,
-    "NEXT": 2,
-    "ARCHIVE": 1
+    "NEXT": 3,
+    "ARCHIVE": 0
   },
   "entries": [
     {
@@ -307,17 +307,19 @@
       "object": "returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
       "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
       "state_out": null,
-      "category": "ARCHIVE",
+      "category": "NEXT",
       "facets": [
-        "ARCHIVE"
+        "NEXT"
       ],
-      "reason": "closed/non-control/insufficient live egress",
+      "reason": "bounded lawful continuation only",
       "control_eligible": false,
       "evidence_present": true,
       "delta_present": false,
       "residue_present": false,
       "waiting_present": false,
-      "next": [],
+      "next": [
+        "If useful, explicitly carry the artifact's SPIRAL instruction into Dayline. Independently, design RouteWitness v1 from actual runtime path/event data; do not infer a full route from pathSignature."
+      ],
       "stop": null,
       "head_lineage": "sleeper-one-return"
     }
