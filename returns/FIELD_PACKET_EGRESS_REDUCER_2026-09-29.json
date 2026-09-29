@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE",
+  "status": "CANDIDATE_PRECEDENCE_REPAIR",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
-  "law": "Packet presence does not create continuation. Historical/superseded material collapses to ARCHIVE unless current authority explicitly reactivates it; GATE blocks NEXT; current authority alone may produce NOW.",
+  "law": "Packet presence does not create continuation. Historical/superseded material collapses to ARCHIVE unless current authority explicitly reactivates it. Canonical one-bucket precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; only CURRENT/explicit selection may produce NOW.",
   "changes": [
     "/lib/field-egress-reducer.mjs — pure deterministic reducer + hard non-promotion boundary",
     "/tools/field-egress-reducer-selftest.mjs — A-H acceptance cases",
@@ -13,7 +13,8 @@
     "/control/FIELD_INDEX_CONTRACT.json — packet egress law",
     "/AGENTS.md — machine re-entry documents bounded reducer",
     "/showcase-manifest.json — FIELD root touch only; no new route/version",
-    "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate"
+    "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate",
+    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence"
   ],
   "preserves": [
     "CURRENT owns NOW",
@@ -29,7 +30,7 @@
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
   "residue": [
-    "The reducer classifies structure; it does not decide project priority or execute NEXT.",
+    "The reducer classifies packet egress only; it does not decide project priority, execute NEXT, or allow packet labels to manufacture NOW/GATE.",
     "External/private packets are reduced only when explicitly supplied to the existing transcript CLI."
   ],
   "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress."

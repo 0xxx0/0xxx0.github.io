@@ -1,38 +1,40 @@
 import assert from 'node:assert/strict';
-import {reducePacket,EGRESS_CLASSES} from '../lib/field-egress-reducer.mjs';
+import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
   ['A historical cannot self-promote',
     {packet_id:'old',disposition:'HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE',one_next:'do it'},
     {},'ARCHIVE'],
-  ['B gate outranks next',
-    {packet_id:'gate',state:'WAITING_REAL_DEVICE',one_next:'continue'},
+  ['B conditional STOP is GATE',
+    {packet_id:'gate',stop:'Wait until real-device evidence exists.',next:'continue',delta:'prepared'},
     {},'GATE'],
   ['C current authority becomes NOW',
-    {packet_id:'front',state:'ACTIVE_NOW'},
+    {packet_id:'front',state:'ACTIVE_NOW',residue:['still open'],next:'later',delta:'changed'},
     {},'NOW'],
-  ['D bounded change becomes DELTA',
-    {packet_id:'delta',delta:'changed runtime',residue:['later']},
-    {},'DELTA'],
-  ['E explicit next becomes NEXT',
-    {packet_id:'next',one_next:'run exact check'},
-    {},'NEXT'],
-  ['F unresolved material becomes RESIDUE',
-    {packet_id:'residue',unknowns:[{id:'u1'}]},
+  ['D unresolved fact outranks NEXT and DELTA',
+    {packet_id:'residue',unknowns:[{id:'u1'}],one_next:'inspect',delta:'candidate change'},
     {},'RESIDUE'],
+  ['E NEXT outranks DELTA',
+    {packet_id:'next',one_next:'run exact check',delta:'prepared change'},
+    {},'NEXT'],
+  ['F DELTA survives when no higher egress exists',
+    {packet_id:'delta',delta:'changed runtime'},
+    {},'DELTA'],
   ['G empty packet archives',
     {packet_id:'empty'},
     {},'ARCHIVE'],
-  ['H reactivation is explicit',
+  ['H explicit reactivation still needs current selection for NOW',
     {packet_id:'reactivate',disposition:'SUPERSEDED',egress:'NOW'},
-    {reactivated:true},'NOW']
+    {reactivated:true,selected:true},'NOW']
 ];
 
 assert.deepEqual(EGRESS_CLASSES,['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']);
+assert.deepEqual(EGRESS_PRECEDENCE,['GATE','NOW','RESIDUE','NEXT','DELTA','ARCHIVE']);
 for(const [name,packet,ctx,want] of cases){
   const got=reducePacket(packet,ctx);
   assert.equal(got.class,want,name+' -> '+JSON.stringify(got));
 }
-const noPromotion=reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'});
-assert.equal(noPromotion.class,'ARCHIVE');
-console.log('FIELD packet egress reducer PASS · A-H');
+assert.equal(reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'}).class,'ARCHIVE');
+assert.equal(reducePacket({packet_id:'claimed-now',egress:'NOW'}).class,'ARCHIVE');
+assert.equal(reducePacket({packet_id:'terminal',stop:'No sequel; archive this packet.'}).class,'ARCHIVE');
+console.log('FIELD packet egress reducer PASS · A-H · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
