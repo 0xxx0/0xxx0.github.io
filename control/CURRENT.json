@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T09:08:00+08:00",
+  "updated": "2026-09-29T09:09:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.21 / ONE HELD OBJECT / SOURCE-SET INTENT BEFORE SELECTION",
+      "head": "FIELD INDEX 0.8.22 / AWAKE INTERPHASE VISOR / SOURCE-SET INTENT / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity. Prison Age enters FIELD as one held source-set object with READ / RIDE / SOURCE. FIELD now chooses operation intent only; the exact source movement must be explicitly selected before READ/RIDE executes, removing the hidden Open Air default.",
+      "retained_function": "Fast repo re-entry around one addressed object. Prison Age 0.8.21 semantics remain intact: FIELD chooses READ / RIDE / SOURCE intent but never silently chooses a story. 0.8.22 makes the root teach its actual continuation law in place: first contact may expose a lightweight YOU’RE A WAKE / INTERPHASE visor derived from the same held interphase-carrier/v0.1 used for cross-host continuity. The visor names WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN, shows the real held object and at most three carrier moves, then recedes into ordinary FIELD. Native route/effect authority, CURRENT attention, source selection, route-local semantic signal and exact project-head depth remain unchanged; no /awake/ product shell or second store is promoted.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -90,29 +90,37 @@
         "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
         "/prison-age/release.json",
         "/returns/PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
-        "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json"
+        "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+        "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
+        "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+        "/lib/interphase-carrier.js",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/414"
       ],
-      "version": "0.8.21",
-      "latest_return": "/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+      "version": "0.8.22",
+      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "repo_verification": {
-        "status": "PASS / PR 528 EXACT-HEAD",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-        "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
-        "checks": {
-          "route_registration": {
-            "run": 36507219876,
-            "conclusion": "success"
+        "status": "CANDIDATE_PENDING_CI",
+        "predecessor": {
+          "status": "PASS / PR 528 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+          "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+          "checks": {
+            "route_registration": {
+              "run": 36507219876,
+              "conclusion": "success"
+            },
+            "public_surface": {
+              "run": 36507220022,
+              "conclusion": "success"
+            },
+            "gitleaks": {
+              "run": 36507219919,
+              "conclusion": "success"
+            }
           },
-          "public_surface": {
-            "run": 36507220022,
-            "conclusion": "success"
-          },
-          "gitleaks": {
-            "run": 36507219919,
-            "conclusion": "success"
-          }
+          "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
         },
-        "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+        "awake_interphase_visor": "CANDIDATE_PENDING_CI · exact held carrier + native READFIELD ownership + 430×900 browser proof"
       }
     },
     {
