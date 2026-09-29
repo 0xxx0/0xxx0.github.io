@@ -384,13 +384,50 @@ function classifyMotion() {
   live.mode =
     a && b ? (a === b ? 'PARALLEL' : 'COUNTER') : a || b ? 'ANCHOR' : 'STILL';
 }
+function pointerSideClaimed(side) {
+  return [...pointers.values()].some(p => p.side === side);
+}
+function pointerGestureStart(side, raw) {
+  return {
+    side,
+    raw,
+    t: performance.now(),
+    startIndex: side === 0 ? L : R,
+    startRaw: side === 0 ? rawL : rawR,
+    startScars: (side === 0 ? scarsL : scarsR).slice(),
+  };
+}
+function cancelPointerGesture(e) {
+  const p = pointers.get(e.pointerId);
+  if (!p) return;
+  e.preventDefault?.();
+  pointers.delete(e.pointerId);
+  if (p.side === 0) {
+    L = p.startIndex;
+    rawL = p.startRaw;
+    scarsL = p.startScars.slice();
+    live.vL = 0;
+  } else {
+    R = p.startIndex;
+    rawR = p.startRaw;
+    scarsR = p.startScars.slice();
+    live.vR = 0;
+  }
+  dialTouched[p.side] = false;
+  classifyMotion();
+  liveUpdate();
+  updatePreview();
+  hud();
+}
 cv.onpointerdown = e => {
   if (!run) return;
   if (demo.on) stopDemo(true);
   e.preventDefault();
   let side = dialSide(e.clientX, e.clientY),
     raw = rawFromPoint(side, e.clientX, e.clientY);
-  pointers.set(e.pointerId, { side, raw, t: performance.now() });
+  // One physical pointer owns at most one dial, and one dial accepts one live pointer.
+  if (pointerSideClaimed(side)) return;
+  pointers.set(e.pointerId, pointerGestureStart(side, raw));
   cv.setPointerCapture?.(e.pointerId);
   // D2: mark dial as touched for DUET commit logic
   dialTouched[side] = true;
@@ -406,8 +443,7 @@ cv.onpointerup = e => {
   if (!pointers.has(e.pointerId)) return;
   e.preventDefault();
   pointers.delete(e.pointerId);
-  // D2: in DUET mode, only commit when both dials have been touched
-  // or when all pointers released (simultaneous two-hand/two-person release)
+  // Release is the single semantic commit boundary; motion before release is preview/performance.
   const shouldCommit = prefs.mode !== 'DUET' || dialTouched[0] && dialTouched[1] || !pointers.size;
   if (shouldCommit) {
     live.vL = live.vR = 0;
@@ -416,7 +452,7 @@ cv.onpointerup = e => {
     commit();
   }
 };
-cv.onpointercancel = e => pointers.delete(e.pointerId);
+cv.onpointercancel = cancelPointerGesture;
 function burst(v) {
   let c = colors(v),
     base = prefs.surface === 'QUIET' ? 4 : prefs.surface === 'TRACE' ? 14 : 25,
