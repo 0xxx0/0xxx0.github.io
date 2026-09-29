@@ -25,7 +25,7 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs  # A-Y + aliases + inert RETURN + authority/evidence hardening",
+    "node tools/field-egress-reducer-selftest.mjs  # A-AA + shape/value-invariant WAITING boundary + aliases + inert RETURN + authority/evidence hardening",
     "node scripts/emit-agent-transcript.mjs --selftest",
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
     "FIELD route adapter emits material route_touch DELTA with evidence.sufficient=true only when its own manifest/local catch-up witness says changed"
@@ -45,6 +45,7 @@
     "Canonical exists:false / material:false fields do not manufacture attention.",
     "Only explicit external/world/human WAITING is GATE; generic unresolved/internal WAITING is RESIDUE.",
     "The external-vs-internal predicate is recursive across string/object/array WAITING values; a non-empty array alone does not grant GATE.",
-    "Named waiting_on/blocked_by fields require external semantics for GATE; otherwise they remain RESIDUE."
+    "Named waiting_on/blocked_by fields require external semantics for GATE; otherwise they remain RESIDUE.",
+    "Nested object key names do not count as external evidence; only explicit external values/flags/kinds may grant GATE."
   ]
 }
