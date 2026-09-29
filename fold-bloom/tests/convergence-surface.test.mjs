@@ -8,12 +8,12 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry without 
   const root=read('fold-bloom/index.html');
   const html=read('fold-bloom/live/index.html');
   const app=read('fold-bloom/live/app.js');
-  assert.match(root,/href="\.\/live\/">ENTER LIVE →<\/a>/);
-  assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
-  assert.match(html,/id="publicDemoBtn">AUDIO EXAMPLE →<\/button>/);
-  assert.match(html,/id="songIntroBtn">OPEN LOCAL TRACK<\/button>/);
-  assert.match(html,/id="playBtn">START STILL FIELD →<\/button>/);
-  assert.match(html,/STILL FIELD remains silent and stationary until RELEASE/);
+  assert.match(root,/href="\.\/live\/">(?:ENTER LIVE|TRY A RIDE) →<\/a>/);
+  assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS|source=example/);
+  assert.match(html,/id="publicDemoBtn">TRY THE EXAMPLE →<\/button>/);
+  assert.match(html,/id="songIntroBtn">CHOOSE MY SONG<\/button>/);
+  assert.match(html,/id="playBtn">NO SONG \/ JUST PLAY →<\/button>/);
+  assert.match(html,/THE WHOLE LOOP/);
   assert.match(html,/AUTOPILOT, FIELD SOUND, and source playback are explicit opt-ins/);
   assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
