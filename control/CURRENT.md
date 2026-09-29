@@ -35,7 +35,7 @@ Evidence: /recovery/ · /control/MIGRATION.json · /control/MEDIA_REFINERY.json 
 
 ## HEADS (human projection; canonical machine versions live in `CURRENT.json`)
 
-- **FIELD INDEX 0.8.15 / CATCH KNOWLEDGE GAPS + HELD→INTERPHASE→DAYLINE** — CORE_ACTIVE — route /
+- **FIELD INDEX 0.8.23 / COAXIALITY SUBTRACTION / ONE HELD OBJECT** — CORE_ACTIVE — route /
 - **SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1** — STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED — route /fold-bloom/lens/
 - **READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + WORK CHAINS** — UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE — route /docs/
 - **VERSE COPILOT 0.3 / POEM MAP ENGINE 0.2.6** — ACTIVE_CANDIDATE / WRITING_FIRST / OPTIONAL_PATH_GRID — route /poetry/map/
@@ -86,4 +86,4 @@ Human/world dependencies live in [WAITING.json](./WAITING.json).
 - video_game_donor_atlas: /control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md
 - video_game_donor_transfers: /control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json
 
-Machine state: [CURRENT.json](./CURRENT.json) (`updated 2026-09-26T10:27:00+08:00`, schema `0xxx0/control-current/v0.1`)
+Machine state: [CURRENT.json](./CURRENT.json) (`updated 2026-09-29T17:03:00+08:00`, schema `0xxx0/control-current/v0.1`)
