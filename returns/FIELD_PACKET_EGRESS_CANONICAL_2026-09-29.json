@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_PACKET_EGRESS_CANONICAL_2026-09-29",
+  "status": "CANDIDATE_PENDING_CI",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Tighten the already-merged six-class FIELD egress reducer in place: legacy packets keep the recovery adapter, while new field-work-packet/v0.1 packets enter a strict authority/evidence/RETURN lane.",
+  "before": "The merged reducer correctly prevented historical self-promotion and mapped broad legacy packet shapes to NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE, but it did not require canonical OBJECT + AUTHORITY, bound NEXT cardinality, require evidence for canonical DELTA, or reduce STOP/RETURN dispositions explicitly.",
+  "changes": [
+    "/lib/field-egress-reducer.mjs — canonical packet detection, validation and strict reduction; broad legacy adapter preserved",
+    "/control/FIELD_PACKET_EGRESS.json — recoverable canonical fields + precedence + RETURN disposition contract",
+    "/tools/field-egress-reducer-selftest.mjs — legacy A-H retained plus strict authority/evidence/STOP/RETURN/NEXT cases",
+    "/control/FIELD_INDEX_CONTRACT.json — canonical packet law + contract pointer",
+    "/AGENTS.md — new workers prefer field-work-packet/v0.1 instead of inventing packet shapes"
+  ],
+  "canonical_fields": [
+    "OBJECT",
+    "AUTHORITY",
+    "STATE_IN",
+    "DELTA",
+    "EVIDENCE",
+    "STATE_OUT",
+    "RESIDUE",
+    "WAITING",
+    "NEXT",
+    "STOP"
+  ],
+  "proved_by_test": [
+    "explicit egress:NOW cannot manufacture canonical NOW",
+    "missing OBJECT/AUTHORITY quarantines to ARCHIVE",
+    "STOP/CLOSE outranks CURRENT/NEXT",
+    "WAITING blocks NEXT and maps to GATE",
+    "RETURN CONTRADICTION/RESIDUE maps to RESIDUE",
+    "canonical DELTA without EVIDENCE maps to RESIDUE",
+    "canonical DELTA with EVIDENCE maps to DELTA",
+    "NEXT > 3 maps to RESIDUE; NEXT 1..3 maps to NEXT",
+    "RETURN TRIGGER maps to NEXT only when a bounded NEXT exists",
+    "legacy packet A-H behavior remains intact"
+  ],
+  "preserves": [
+    "CURRENT owns NOW",
+    "historical/superseded packet non-promotion",
+    "legacy packet recoverability",
+    "packet authority remains NONE",
+    "native host/source mutation authority",
+    "no new route, dashboard, queue, planner, store, or canonical packet cache"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest"
+  ],
+  "residue": [
+    "Do not migrate historical packet bodies merely to satisfy the new schema; the legacy adapter exists for recovery.",
+    "Do not surface another packet UI. The contract belongs behind FIELD machine/handoff projections unless a real consumer proves missing legibility."
+  ],
+  "stop": "After exact-head CI, merge and return to ordinary FIELD work; do not elaborate the packet model without a failed real consumer."
+}
