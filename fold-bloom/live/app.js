@@ -639,7 +639,10 @@ function readRideState(){
       kind:readRide.packet.sourceIdentity?.kind||null,
       authority:readRide.packet.sourceIdentity?.authority||'READFIELD',
       address:readRide.packet.sourceIdentity?.address||null,
-      format:readRide.packet.sourceIdentity?.format||null
+      format:readRide.packet.sourceIdentity?.format||null,
+      source_set:readRide.packet.sourceIdentity?.source_set||null,
+      source_id:readRide.packet.sourceIdentity?.source_id||null,
+      title:readRide.packet.sourceIdentity?.title||null
     },
     course:{grain:courseGrain,mode:courseMode,progress:+liveCourseProgress().toFixed(8),address:witness?.address||null,index:witness?.index??null,count:witness?.count??null},
     witness:witness?{...witness,text:String(witness.text||'').slice(0,800)}:null,
