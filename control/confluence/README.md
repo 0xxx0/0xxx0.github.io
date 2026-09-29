@@ -63,6 +63,8 @@ A route, PR, worker, experiment, mode or donor is not automatically a project. C
 
 ## Current confluence packets
 
+- [FIELD SIX-FAMILY PROJECT MAP — 2026-09-29](./FIELD_SIX_FAMILY_PROJECT_MAP_2026-09-29.md) — one-page dependency / proof / next-move map for HOLD, PATH, TRANSFORM, EXPERIENCE, WORLD LOOPS and RECOVERY; derived orientation only, CURRENT remains attention authority.
+
 - [CHANGE CALCULUS / shared order-space handoff](../../fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md) — canonical successor for the merged Boolean change lattice, prefix-preserving CALCULATION_ONLY steering, projection-only path→INK guide, J-space promotion gate, and the boundary `STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`.
 - [FOLD//BLOOM playable convergence handoff](./FOLD_BLOOM_PLAYABLE_CONVERGENCE_HERMES_2026-09-28.md) — post-#492/#507 recovery frame joining exact READ, playable LIVE/DRIVE and the bounded change-calculus/J-space donors without creating a new host authority.
 
