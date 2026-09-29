@@ -2958,7 +2958,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+      "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
@@ -8578,7 +8578,8 @@
         "accepts": {
           "kinds": [
             "same-origin sourced Prison Age story text",
-            "curated source extract with explicit omissions"
+            "curated source extract with explicit omissions",
+            "recovered authored Prison Age proto-root text / derived arrangement with exact provenance"
           ]
         },
         "transforms": {
@@ -8587,7 +8588,7 @@
             "source address",
             "source bytes",
             "source status",
-            "story identity",
+            "source/story identity",
             "return address"
           ],
           "reversibility": "exact story resolver or FIELD focus return",
@@ -8597,6 +8598,7 @@
           "kinds": [
             "READFIELD source projection",
             "field-read-ride/v0.1 traversal handoff",
+            "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
             "field-source-echo-index/v0.1 exact-fragment evidence"
           ],
@@ -8616,7 +8618,7 @@
         "inputs": [
           {
             "medium": "TEXT",
-            "kind": "sourced Prison Age prose",
+            "kind": "provenance-distinct sourced/recovered Prison Age text",
             "interface": "exact story address"
           }
         ],
@@ -8628,7 +8630,7 @@
           },
           {
             "medium": "EXPERIENCE",
-            "kind": "FOLD//BLOOM LIVE STEP traversal",
+            "kind": "generic READ/RIDE or explicit recovered-authored traversal",
             "interface": "RIDE"
           },
           {
@@ -8659,17 +8661,18 @@
         ],
         "owner": "PRISON AGE"
       },
-      "classification": "RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
+      "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
       "evolution": {
-        "mutation": "Rejected bespoke reader/pack removed from runtime; exact source set becomes one FIELD-held object with three native operations.",
+        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
         "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "READ",
+          "RIDE",
+          "SOURCE",
+          "RETURN"
         ]
       },
       "tier": "FIELD"
