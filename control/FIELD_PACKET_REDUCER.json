@@ -1,0 +1,67 @@
+{
+  "schema": "0xxx0/field-packet-reducer/v0.1",
+  "updated": "2026-09-29",
+  "status": "NORMATIVE_BOUNDED",
+  "purpose": "Reduce bounded work-transfer packets into one FIELD attention condition without creating a second queue, dashboard, authority source, or universal object store.",
+  "packet_fields": {
+    "OBJECT": "Exact addressed thing being carried. Required.",
+    "AUTHORITY": "Who may interpret or mutate the thing. Required. Recency never implies CURRENT authority.",
+    "STATE_IN": "Optional pre-operation state or state reference.",
+    "DELTA": "Material change asserted by this packet. A DELTA without evidence reduces to RESIDUE, not truth.",
+    "EVIDENCE": "References sufficient to support the packet's claimed delta or disposition.",
+    "STATE_OUT": "Returned state after the bounded move.",
+    "RESIDUE": "Unresolved returned work, ambiguity, defect, contradiction, or unproved claim.",
+    "WAITING": "External human/device/world/private prerequisite. WAITING never occupies NOW merely because it exists.",
+    "NEXT": "At most three lawful candidate moves. NEXT is OFFER_ONLY and never inherits authority from the previous move.",
+    "STOP": "Explicit close/stop marker."
+  },
+  "buckets": {
+    "NOW": "Explicit current authority/attention. Derived only from an authoritative current marker, never from time, branch, chat, or manifest freshness.",
+    "DELTA": "Evidenced material change that should be surfaced but does not itself become NOW.",
+    "RESIDUE": "Returned unresolved work, contradiction, failed proof, malformed NEXT, or material delta lacking evidence.",
+    "GATE": "External prerequisite that must be parked until its trigger occurs. GATE != ACTIVE_FRONT.",
+    "NEXT": "One to three lawful candidate moves with no inherited execution authority.",
+    "ARCHIVE": "Closed, non-actionable, or invalid/quarantined packet. Successful CLOSE disappears from ordinary attention."
+  },
+  "primary_precedence": [
+    "INVALID -> ARCHIVE (quarantine; cannot alter CONTROL)",
+    "CONTRADICTION -> RESIDUE",
+    "CLOSE/STOP -> ARCHIVE",
+    "WAITING -> GATE",
+    "RESIDUE -> RESIDUE",
+    "EXPLICIT CURRENT AUTHORITY -> NOW",
+    "MATERIAL DELTA WITHOUT EVIDENCE -> RESIDUE",
+    "EVIDENCED MATERIAL DELTA -> DELTA",
+    "NEXT > 3 -> RESIDUE",
+    "NEXT 1..3 -> NEXT",
+    "otherwise -> ARCHIVE"
+  ],
+  "return_reduction": {
+    "CLOSE": "ARCHIVE",
+    "RESIDUE": "RESIDUE",
+    "WAITING": "GATE",
+    "CONTRADICTION": "RESIDUE",
+    "TRIGGER": "NEXT when 1..3 lawful moves are present; otherwise ARCHIVE"
+  },
+  "laws": [
+    "PACKET IS TRANSFER, NOT AUTHORITY.",
+    "UNREADABLE OR INVALID FIELDS CANNOT ALTER CONTROL.",
+    "CURRENT OWNS NOW. Git owns literal mutation chronology. Manifest touch is only addressed projection evidence.",
+    "WAITING_ON_HUMAN != ACTIVE_FRONT.",
+    "RETURN CLOSES THE PREVIOUS MOVE; NEXT IS A FRESH OFFER, NOT INHERITED AUTHORITY.",
+    "SUCCESSFUL CLOSE DISAPPEARS FROM ORDINARY ATTENTION.",
+    "FIELD is the sole ordinary aggregation interface; this reducer is a pure mechanism behind existing CATCH / ACT and control projections."
+  ],
+  "implementation": {
+    "library": "/lib/field-packet-reducer.js",
+    "selftest": "/tools/field-packet-reducer-selftest.cjs",
+    "host": "FIELD INDEX root / existing CATCH + ACT surface",
+    "non_goals": [
+      "new packet route",
+      "new queue",
+      "new backlog database",
+      "cross-host mutation authority",
+      "automatic execution"
+    ]
+  }
+}
