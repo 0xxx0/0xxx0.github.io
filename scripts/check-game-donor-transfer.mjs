@@ -10,6 +10,19 @@ const allowed=new Set(['IMPLEMENTED_CANDIDATE','CONTRACT','DONOR']);
 
 if(packet.schema!=='field-game-donor-transfer/v0.1')issues.push('schema');
 if(!Array.isArray(packet.selection_gate)||packet.selection_gate.length<7)issues.push('selection gate incomplete');
+const requiredGames=['Outer Wilds','Hades','Death Stranding','Into the Breach','Hardspace: Shipbreaker','Terra Nil'];
+const requested=Array.isArray(packet.requested_map)?packet.requested_map:[];
+for(const game of requiredGames){
+  const row=requested.find(x=>x?.game===game);
+  if(!row)issues.push('requested_map missing '+game);
+  else{
+    if(!row.transferable_rule)issues.push(game+': transferable_rule missing');
+    if(!row.implementation_idea)issues.push(game+': implementation_idea missing');
+    if(!row.field_mechanism)issues.push(game+': field_mechanism missing');
+    if(!routes.has(row.current_host))issues.push(game+': unknown current_host '+row.current_host);
+  }
+}
+
 
 for(const t of packet.transfers||[]){
   if(!t.id)issues.push('transfer missing id');
