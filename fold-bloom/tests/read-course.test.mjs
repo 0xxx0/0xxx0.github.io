@@ -18,10 +18,20 @@ const packet=makeReadRidePacket({
   sourceIdentity:{hash:'sha256:test-book',kind:'LOCAL_DOCUMENT',authority:'READFIELD'},
   focus:{char_index:source.indexOf('second paragraph')},
   returnAddress:'/docs/?local=1',
-  from:'/docs/'
+  from:'/docs/',
+  echo:{
+    index:'/prison-age/echo-index.json',
+    source_id:'open-air',
+    source_path:'/prison-age/stories/03-open-air.md',
+    source_fingerprint:{algo:'fnv1a32-unicode',value:'deadbeef',length:123}
+  }
 });
 assert.equal(packet.schema,READ_RIDE_SCHEMA);
 assert.equal(normalizeReadRidePacket(packet).sourceIdentity.id,'sha256:test-book');
+assert.equal(packet.echo.index,'/prison-age/echo-index.json');
+assert.equal(packet.echo.source_id,'open-air');
+assert.equal(packet.echo.authority,'EVIDENCE_ONLY');
+assert.deepEqual(normalizeReadRidePacket(packet).echo,packet.echo);
 const start=initialReadProgress(packet);
 assert.ok(start>0&&start<1);
 
