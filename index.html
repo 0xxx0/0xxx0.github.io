@@ -496,9 +496,8 @@ function focusOrOpen(r,source='OTHER'){
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function manifestExitPaths(r){return Array.isArray(r?.field?.exit_paths)?r.field.exit_paths:[]}
 function nativeRouteOwner(r){
- const raw=String(r?.title||headForRoute(r)?.lineage||'HOST').trim();
- const stripped=raw.replace(/\s+v?\d+(?:\.\d+)+(?:\b.*)?$/i,'').trim();
- return stripped||raw;
+ const owner=String(r?.field?.owner||'').trim();
+ return owner||'FIELD ROUTE';
 }
 function nativeRouteActions(r){
  return manifestExitPaths(r)
@@ -550,7 +549,7 @@ async function copyHeldAction(){
  const egress=fieldEgressForRoute(focus);
  const packet={
   schema:'field-action-handoff/v0.1',
-  object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||'FIELD ROUTE'},
   ...(egress?{egress}:{}),
   gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
   native_moves:c?.moves||[],
@@ -587,13 +586,13 @@ function fieldCarrierForFocus(){
  if(!ipRaw)return null;
  try{
   const base=window.InterphaseCarrier.fromProjection(ipRaw,{
-   owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
+   owner:c?.owner||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
    focusId:route,focusLabel:title,aperture:'ROUTE',
    next:fieldCarrierMoves(route),
    witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
    return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
    sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
-   meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
+   meta:{nativeOwner:c?.owner||'FIELD ROUTE'}
   });
   const offer=daylineReturnForFocus(route);if(!offer?.carrier)return base;
   const returned=C.validate(offer.carrier);if(!returned.ok||!C.sameObject(base,returned.carrier))return base;
@@ -626,7 +625,7 @@ function handoffHeldToDayline(){
   id:'field-'+Date.now(),
   created_at:new Date().toISOString(),
   kind:'TASK',
-  source:{route,object_id:'route:'+route,label:title,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  source:{route,object_id:'route:'+route,label:title,owner:c?.owner||'FIELD ROUTE'},
   payload:{task:{
    title:'FIELD · '+title,
    contexts:['phone','computer'],
@@ -637,7 +636,7 @@ function handoffHeldToDayline(){
    notes:[
     'FIELD HELD ROUTE '+route,
     'STATE '+(focus.state||'—'),
-    'OWNER '+(c?.owner||h?.lineage||'FIELD ROUTE'),
+    'OWNER '+(c?.owner||'FIELD ROUTE'),
     h?.retained_function?('CONTEXT '+String(h.retained_function).replace(/\s+/g,' ').slice(0,360)):'',
     c?.moves?.length?('NATIVE MOVES '+c.moves.slice(0,3).join(' · ')):'',
     'RETURN /?focus='+encodeURIComponent(route)
@@ -686,8 +685,8 @@ function renderCapabilityTrial(){
  box.hidden=false;
  if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=fieldEgressForRoute(focus),egressLabel=egress?.class?('EGRESS · '+egress.class+' · '):'';
- $('capHeld').textContent=(carrier?.object?.owner||c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
- $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host')));
+ $('capHeld').textContent=(carrier?.object?.owner||c?.owner||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
+ $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||'FIELD ROUTE')));
  const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
  if(nativeActions.length){
   $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
