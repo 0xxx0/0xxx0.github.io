@@ -13,6 +13,13 @@ need(html.includes('function markRouteCaughtUp'),'one-by-one SEEN missing');
 need(html.includes("data-catch-seen"),'SEEN control missing');
 need(html.includes("data-catch-gate"),'CURRENT gate HOLD missing');
 need(html.includes('function copyHeldAction'),'action handoff missing');
+need(html.includes('id="capForecast"'),'pre-commit forecast surface missing');
+need(html.includes('function fieldMoveForecasts'),'move forecast derivation missing');
+need(html.includes('NAVIGATION ONLY · no FIELD/source mutation'),'native-open consequence forecast missing');
+need(html.includes('OFFER ONLY · no DayState/source mutation until explicit ADD TO DAY'),'Dayline offer forecast missing');
+need((contract.laws||[]).some(x=>/^FORECAST ≠ EFFECT/.test(x)),'FORECAST/effect authority law missing');
+need(/Into-the-Breach-derived/.test(contract.ui_contract?.root_action_forecast||''),'game-donor forecast contract missing');
+
 need(html.includes('function handoffHeldToDayline'),'held Dayline action missing');
 need(html.includes("schema:'atlas-dayline-handoff/v0.1'"),'Dayline handoff schema missing');
 need(html.includes("sessionStorage.setItem('atlas.dayline.handoff.v01'"),'Dayline session handoff write missing');
@@ -56,4 +63,4 @@ for(const href of ['./control/','./recovery/','./nexus/','./witness/','#traceFol
 need(!!contract.ui_contract?.root_depth_contraction,'root depth contraction contract missing');
 need((contract.laws||[]).some(x=>/^DEPTH FOLDS; ACTION STAYS SURFACED/.test(x)),'lossless depth-fold law missing');
 if(fail.length){console.error('FIELD action aperture FAIL · '+fail.join(' · '));process.exit(1)}
-console.log('FIELD action aperture PASS · unequal signals → one held focus → ≤3 lawful root actions');
+console.log('FIELD action aperture PASS · unequal signals → one held focus → ≤3 lawful moves → forecast → witness/RETURN');
