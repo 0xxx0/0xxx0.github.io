@@ -320,7 +320,7 @@ check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&
 check(home.includes('WAKE</b><small>SOURCE')&&home.includes('CUT</b><small>FRAME')&&home.includes('HOLD</b><small>FOCUS')&&home.includes('TURN</b><small>OPERATE')&&home.includes('TRACE</b><small>WITNESS')&&home.includes('AGAIN</b><small>RETURN'),'FIELD visor lost recovered WAKE→INTERPHASE correspondence');
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
 if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
-check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
+check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="VERSIONS"')&&!home.includes('data-mode="PULSE"')&&!home.includes("mapMode==='PULSE'"),'root MAP projection contraction drift: VISUAL/VERSIONS required and PULSE must stay retired');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>PORTS / EXIT STATE<'),'root missing PORTS / EXIT STATE reading');
