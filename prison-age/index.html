@@ -46,7 +46,7 @@ const cleanPreview=raw=>{
 const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(intent?'&intent='+encodeURIComponent(intent):'')+(q.get('return')==='field'?'&return=field':'');
 const returnUrl=()=>q.get('return')==='field'?'/?focus=%2Fprison-age%2F':sourceUrl();
 function updateUrl(){history.replaceState(null,'',sourceUrl())}
-let echoIndexPromise=null;
+
 function renderList(){
   $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
   $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=async()=>{await loadStory(b.dataset.story);if(intent==='read')return readSource();if(intent==='ride')return rideSource()});
