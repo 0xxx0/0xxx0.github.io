@@ -664,10 +664,10 @@
         ],
         "exit_paths": [
           {
-            "class": "SENSE_FUSE",
+            "class": "LOADOUT_PREP",
             "status": "AVAILABLE",
-            "via": "SENSE / FUSE",
-            "target": "/body/fit/#sense"
+            "via": "LOADOUT / PREP",
+            "target": "/body/fit/#loadout"
           },
           {
             "class": "PATINA_RETURN",
@@ -676,10 +676,10 @@
             "target": "/body/fit/#patina"
           },
           {
-            "class": "LOADOUT_PREP",
+            "class": "SENSE_FUSE",
             "status": "AVAILABLE",
-            "via": "LOADOUT / PREP",
-            "target": "/body/fit/#loadout"
+            "via": "SENSE / FUSE",
+            "target": "/body/fit/#sense"
           },
           {
             "class": "HUMAN_PORT",
