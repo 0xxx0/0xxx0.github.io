@@ -5,13 +5,15 @@
   "date": "2026-09-29",
   "route": "/",
   "version": "0.8.23",
-  "host_delta": "Delete FIELD's parallel per-host capability table and derive native action hints from the held route's own manifest operation + AVAILABLE exit paths.",
+  "host_delta": "Delete FIELD's parallel per-host capability table; declare canonical host identity at native manifest route families and derive held-route action hints from operation + AVAILABLE exit paths.",
   "law": "Generic action grammar may be shared; host-specific verbs and exact targets stay host-owned. FIELD projects them but does not restate or own them.",
   "changes": [
-    "/index.html — remove CAPABILITY_PROJECTION; derive owner/moves/actions from held manifest route",
-    "/tools/field-action-aperture-selftest.mjs — fail if parallel table returns; prove Prison Age READ/RIDE/SOURCE targets remain manifest-owned",
-    "/control/FIELD_INDEX_CONTRACT.json — bind host-action hints to manifest ownership",
-    "/showcase-manifest.json — FIELD root touch + provenance"
+    "/index.html — remove CAPABILITY_PROJECTION; derive canonical owner from host_owner/parent lineage and moves/actions from held manifest route",
+    "/showcase-manifest.json — native host families declare host_owner; FIELD root keeps RECOVER + generic source intent",
+    "/tools/field-action-aperture-selftest.mjs — fail if parallel table returns; prove Prison Age host_owner + READ/RIDE/SOURCE targets remain manifest-owned",
+    "/tools/prison-age-field-selftest.cjs — replace duplicate-table assertions with native manifest ownership assertions",
+    "/tools/validate-public.mjs — replace fossilized hard-coded READFIELD table assertion with distinct native host-owner derivation proof",
+    "/control/FIELD_INDEX_CONTRACT.json — bind host identity/actions to manifest ownership"
   ],
   "preserves": [
     "FIELD 0.8.23 canonical INTERPHASE action-surface visor",
@@ -29,7 +31,8 @@
     "public-surface-check"
   ],
   "residue": [
-    "Some manifest routes expose only operation and no exact target exit; FIELD intentionally shows generic OPEN/TRACE/Dayline handoff rather than inventing richer host verbs.",
+    "Routes may inherit canonical host_owner through manifest parent lineage, but action targets remain local to the held route's own AVAILABLE exit paths.",
+    "Routes with no explicit host_owner fall back to presentation-derived labeling only; that fallback carries no native effect/source authority.",
     "Host routes that want exact direct actions must publish them at their own manifest boundary; FIELD does not infer targets."
   ],
   "stop": "Do not recreate a second host capability registry in FIELD. Add richer action metadata only at the native route/manifest owner when ordinary use proves a missing function."
