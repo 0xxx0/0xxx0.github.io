@@ -53,8 +53,8 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGesture button{padding:4px 6px;font-size:6.5px}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
-.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
-@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
+.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}\n.packetReduce{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px;align-items:center;border-bottom:1px solid var(--line);padding:5px 7px;background:#080b0d}.packetReduceHead{display:flex;align-items:center;gap:6px;white-space:nowrap}.packetReduceHead b{font-size:6.5px;letter-spacing:.12em;color:var(--mut)}.packetReduceHead a{font-size:6px;color:var(--cool);max-width:20ch;overflow:hidden;text-overflow:ellipsis}.packetReduceBody{min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px;align-items:center}.packetBins{display:flex;gap:2px;flex-wrap:wrap}.packetBin{border:1px solid #273238;padding:3px 4px;font-size:5.8px;letter-spacing:.08em;color:#59666c}.packetBin.on{border-color:var(--gold);color:var(--gold);background:#11181c}.packetReduce[data-disposition=GATE] .packetBin.on{border-color:var(--hot);color:var(--hot)}.packetReduce[data-disposition=NOW] .packetBin.on{border-color:var(--hot);color:var(--hot)}.packetReduce[data-disposition=DELTA] .packetBin.on{border-color:var(--green);color:var(--green)}.packetReduceText{font-size:6.5px;color:#8d9aa0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}.packetReduce{grid-template-columns:1fr;padding:7px}.packetReduceBody{grid-template-columns:1fr}.packetReduceText{white-space:normal;font-size:8px;line-height:1.35}.packetBin{font-size:7px;padding:4px 5px}}
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
@@ -263,6 +263,10 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
     <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
   </div>
+  <div class="packetReduce" id="packetReduce" data-disposition="ARCHIVE" aria-label="RETURN packet reducer">
+    <div class="packetReduceHead"><b>RETURN / REDUCE</b><a id="packetSource" hidden>packet</a></div>
+    <div class="packetReduceBody"><div class="packetBins" id="packetBins"></div><div class="packetReduceText" id="packetReduceText">no focused RETURN packet</div></div>
+  </div>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span>tap mark → hold · held mark → open</span><button id="moreLatest">ALL</button></div>
 
@@ -355,7 +359,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./lib/interphase-ring.js"></script>
 <script src="./lib/interphase-glyph.js"></script>
 <script src="./lib/project-head-glyph.js"></script>
-<script src="./lib/interphase-carrier.js"></script>
+<script src="./lib/interphase-carrier.js"></script>\n<script src="./lib/field-packet-reducer.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -661,9 +665,40 @@ function renderCapabilityTrial(){
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
  if(!$('fieldVisor')?.hidden)renderFieldVisor({force:true});
 }
+const packetReduceCache=new Map;let packetReduceEpoch=0;
+function packetPathForFocus(){
+ const h=headForFocus(),candidates=[h?.latest_return,h?.last_return,focus?.latest_return,focus?.receipt,...(Array.isArray(h?.evidence)?h.evidence.slice().reverse():[])];
+ return candidates.find(x=>typeof x==='string'&&/^\/returns\/[^?#]+\.json$/i.test(x))||null;
+}
+function packetSummary(v){
+ const s=window.FieldPacketReducer?.flatten?.(v)||String(v??'').replace(/\s+/g,' ').trim();
+ return s.length>220?s.slice(0,219).trimEnd()+'…':s;
+}
+function renderPacketReductionState(result,path){
+ const box=$('packetReduce'),bins=$('packetBins'),txt=$('packetReduceText'),src=$('packetSource');if(!box||!bins||!txt||!src)return;
+ const order=window.FieldPacketReducer?.DISPLAY_ORDER||['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE'],disp=result?.disposition||'ARCHIVE',n=result?.normalized||{};
+ box.dataset.disposition=disp;bins.innerHTML=order.map(k=>'<span class="packetBin '+(k===disp?'on':'')+'" data-bin="'+k+'">'+k+'</span>').join('');
+ if(path){src.hidden=false;src.href='.'+path;src.textContent=path.split('/').pop()}else{src.hidden=true;src.removeAttribute('href')}
+ const value=disp==='GATE'?(n.WAITING||n.STOP):disp==='NOW'?(n.OBJECT||n.STATE_OUT||n.STATE_IN):disp==='RESIDUE'?n.RESIDUE:disp==='NEXT'?n.NEXT:disp==='DELTA'?n.DELTA:(n.STATE_OUT||n.OBJECT);
+ txt.textContent=(result?.reason?result.reason+' · ':'')+(packetSummary(value)||'no actionable egress · archive/default');
+}
+async function renderPacketReducer(){
+ const epoch=++packetReduceEpoch,path=packetPathForFocus(),held=focus?.href||null;
+ if(!window.FieldPacketReducer){renderPacketReductionState(null,null);return}
+ if(!path){renderPacketReductionState(window.FieldPacketReducer.reducePacket({object:held}),null);return}
+ try{
+  let packet=packetReduceCache.get(path);
+  if(!packet){const res=await fetch('.'+path,{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);packet=await res.json();packetReduceCache.set(path,packet)}
+  if(epoch!==packetReduceEpoch||held!==(focus?.href||null))return;
+  renderPacketReductionState(window.FieldPacketReducer.reducePacket(packet),path);
+ }catch(e){
+  if(epoch!==packetReduceEpoch)return;
+  renderPacketReductionState({disposition:'ARCHIVE',reason:'PACKET_UNREADABLE',normalized:{OBJECT:held,STATE_OUT:String(e&&e.message||e)}},path);
+ }
+}
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
- ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';$('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';$('apMeta').textContent=[focus.state||'—',opOf(focus)].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();
+ if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();renderPacketReducer();return}
+ ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';$('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';$('apMeta').textContent=[focus.state||'—',opOf(focus)].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();renderPacketReducer();
 }
 function updateStatusRail(){
   const el=document.getElementById('sRail');if(!el)return;
