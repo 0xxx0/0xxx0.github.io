@@ -210,12 +210,12 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
   <div class="visorFoot"><span>Same object. Many doors. Native authority stays native.</span><button id="fieldVisorEnter" type="button">ENTER FIELD</button></div>
 </section>
-<details class="reentryFold" aria-label="FIELD re-entry and depth">
-  <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary>
+<details class="reentryFold" id="reentryFold" aria-label="FIELD re-entry and depth">
+  <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>READ</b></span><span class="reentryToggle">▶</span></summary>
   <div class="reentryBody">
     <a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a>
     <a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a>
-    <a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a>
+    <a href="#convRead"><b>CONVERGE / READ</b><span>live QUEUE + atlas projection</span></a>
     <a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a>
     <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
     <a class="utility" href="./comms/"><b>MACHINE / ROOM</b><span>comms state · fleet / open / loops / moved</span></a>
@@ -223,6 +223,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
     <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
     <a class="utility" href="./control/confluence/"><b>CONFLUENCE</b><span>continuity + convergence records</span></a>
+    <a class="utility" href="./nexus/"><b>NEXUS ALIAS</b><span>compatibility → FIELD convergence</span></a>
     <a class="utility" href="./foundry/"><b>FOUNDRY</b><span>axial + instruments</span></a>
     <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
     <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
@@ -230,7 +231,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json and federation-atlas.json">
       <div class="cvHead"><b>CONVERGENCE READ</b><span id="convMeta">QUEUE + atlas · composing…</span></div>
       <div id="convBody"><div class="cvNone">composing live fronts · held reasons · horizon distribution…</div></div>
-      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. ATTENTION ≠ RECENCY — <a href="./control/">/control/CURRENT.json</a> owns NOW; QUEUE does not authorize NOW or NEXT; atlas horizon is planning metadata, not priority. Coordination + RETURN live in <a href="./nexus/">NEXUS</a>.</div>
+      <div class="cvFoot">READING ONLY — composed on read from <a href="./control/QUEUE.json">QUEUE.json</a> + <a href="./federation-atlas.json">federation-atlas.json</a>; no attention, priority, recency or mutation of its own. ATTENTION ≠ RECENCY — <a href="./control/">/control/CURRENT.json</a> owns NOW; QUEUE does not authorize NOW or NEXT; atlas horizon is planning metadata, not priority. This read creates no authority. <a href="./control/">CURRENT</a> owns attention; <a href="./returns/">RETURN</a> owns durable evidence.</div>
     </div>
   </div>
 </details>
@@ -1086,6 +1087,12 @@ async function loadConvergence(){
  const [q,a]=await Promise.all([get('./control/QUEUE.json').catch(e=>({__error:(e&&e.message)||'unreachable'})),get('./federation-atlas.json').catch(e=>({__error:(e&&e.message)||'unreachable'}))]);
  try{renderConvergence(q,a)}catch(e){const box=$('convBody');if(box)box.innerHTML='<div class="cvFail">convergence read failed: '+esc(String(e&&e.message||e))+'</div>'}
 }
+function revealConvergenceHash(){
+ if(location.hash!=='#convRead')return;
+ const fold=$('reentryFold');if(fold)fold.open=true;
+ requestAnimationFrame(()=>$('convRead')?.scrollIntoView({block:'start'}));
+}
+window.addEventListener('hashchange',revealConvergenceHash);
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>r.json())
@@ -1093,7 +1100,7 @@ Promise.all([
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
- renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();setTimeout(maybeShowFieldVisor,0);if(INIT.get('trace')==='1')setTimeout(openTrace,0);
+ renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();setTimeout(maybeShowFieldVisor,0);if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('fieldVisorOpen').onclick=()=>renderFieldVisor({force:true});$('fieldVisorClose').onclick=()=>hideFieldVisor();$('fieldVisorEnter').onclick=()=>{hideFieldVisor();document.getElementById('axialLatest')?.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})};
 $('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
