@@ -1,0 +1,38 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29",
+  "status": "CANDIDATE_REPAIRED_PRECEDENCE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Propagate the canonical packet egress reducer into the existing FIELD held-object and CATCH surfaces, using the repaired one-bucket precedence without creating another reducer, dashboard, queue, store, planner, or authority source.",
+  "law": "Canonical order is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. FIELD focus is not CURRENT selection. GATE comes only from explicit CURRENT human/world dependency; RESIDUE comes only from unresolved/open-gap material; proof receipts are evidence, not residue.",
+  "changes": [
+    "/index.html — dynamically imports /lib/field-egress-reducer.mjs; builds a thin route packet from existing owners; held/CATCH metadata expose class; COPY ACTION carries the same canonical result",
+    "/control/FIELD_INDEX_CONTRACT.json — binds root projection to repaired precedence and forbids focus→NOW / receipt→RESIDUE promotion",
+    "/showcase-manifest.json — touches FIELD root and records this consumer without a version bump"
+  ],
+  "supersedes": [
+    "PR #551 duplicate reducer branch — closed",
+    "PR #555 duplicate reducer branch — closed",
+    "PR #564 pre-precedence-repair root consumer — superseded"
+  ],
+  "preserves": [
+    "FIELD INDEX version 0.8.22",
+    "CURRENT owns NOW",
+    "CURRENT/WAITING owns human/world dependency evidence",
+    "local CATCH SEEN/REWIND semantics",
+    "native route/effect mutation authority",
+    "canonical reducer and A-H tests from master",
+    "no second egress implementation"
+  ],
+  "verify": [
+    "static integration assertions: canonical import once; no duplicate reducer; no selected:true from focus; CURRENT nowSet is sole NOW context; unresolved/open_gaps are sole RESIDUE adapter input",
+    "node tools/field-egress-reducer-selftest.mjs via existing public-surface CI",
+    "existing CURRENT↔manifest, held-action, reversibility, Route Registration, public-surface-check and gitleaks gates"
+  ],
+  "residue": [
+    "EGRESS remains intentionally lossy; exact owner evidence is recoverable under CURRENT / WAITING / manifest / RETURN.",
+    "A route with no gate/NOW/unresolved/next/delta reduces to ARCHIVE; this does not delete or demote the route."
+  ],
+  "reentry": "Merge only on exact-head green CI. If master lands an equivalent FIELD root consumer first, close rather than duplicate."
+}
