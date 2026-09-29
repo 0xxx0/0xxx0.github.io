@@ -48,7 +48,9 @@
     "SIGNAL LOCALITY. A pattern on an addressed glyph may encode only source classes explicitly bound to that same route. Global/unaddressed change, reality or external signals remain global summaries; they may not stain the currently held object.",
     "ONBOARDING ≠ SECOND APP. FIELD may expose a first-contact visor over the same held INTERPHASE carrier, but it may not create a second route picker, object store, planner, effect authority or canonical state. The visor must recede into the normal held-object surface and remain explicitly reopenable.",
     "COAXIALITY ≠ CONCENTRICITY. Related dimensions may share one held manipulation space only when each axis owns named state, relative transforms have host-defined semantics, one gesture has one primary interpretation, STATE ≠ VIEW, FOLD/BLOOM preserve recoverable residue, LIVE provenance remains distinguishable, and RETURN can reconstruct the causal path. Geometry alone may not manufacture domain meaning.",
-    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. A conditional STOP is GATE; unresolved fact is RESIDUE. Historical/superseded packets collapse to ARCHIVE unless current authority explicitly reactivates them; packet labels cannot manufacture GATE/NOW authority; only CURRENT/explicit selection may create NOW."
+    "PACKET PRESENCE ≠ CONTINUATION. Transient packets reduce to exactly one egress class — NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE — without becoming a queue or authority source. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. A conditional STOP is GATE; unresolved fact is RESIDUE. Historical/superseded packets collapse to ARCHIVE unless current authority explicitly reactivates them; packet labels cannot manufacture GATE/NOW authority; only CURRENT/explicit selection may create NOW.",
+    "DERIVED CUT ≠ SOURCE AUTHORITY. FIELD may reduce CURRENT / WAITING / QUEUE / atlas / Git into one read-only re-entry cut only when every source retains a visible revision witness and its native meaning; source freshness may not create authority.",
+    "SNAPSHOT ≠ AGGREGATION. NEXUS and COMMS remain recoverable dated/machine coordination projections. FIELD root is the ordinary cross-source re-entry surface; snapshot refreshes remain literal Git mutations but may not count as semantic DELTA, CURRENT attention or route freshness."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -114,8 +116,8 @@
     "root_trace_placement": "TRACE / VERIFY is a collapsed secondary instrument inside STATUS. Top navigation and the focused-object TRACE action open that same nested instrument by first opening STATUS; TRACE no longer occupies the primary re-entry stack.",
     "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence.",
     "root_waiting": "REALITY GAP / YOU is detailed human/world evidence depth nested inside FIELD / CATCH + ACT rather than a second top-level attention block. ACTIVE gates derive only from explicit CURRENT.current_heads[].next_executable human/world states. /control/WAITING.json preserves durable dependency memory as PARKED or REMOVED history and may enrich a matching CURRENT gate by id. Parked, conditional, ambient-use and removed dependencies never become user obligations merely because they exist in the registry. Local acknowledgement or COPY TEST does not resolve a CURRENT gate.",
-    "root_reentry": "NOW / RECOVER / CONVERGE is a collapsed one-line semantic router. NOW opens CURRENT/QUEUE attention; RECOVER opens the generic Recovery vault for exact source + lineage and must not privilege a current project head; CONVERGE opens NEXUS for coordination + RETURN.",
-    "root_convergence": "Generated convergence data/plain readings remain available to NEXUS/READFIELD with generation timestamps, but the generated KPI strip is retired from FIELD root. Root live frame derives CURRENT + master HEAD rather than caching a second status dashboard.",
+    "root_reentry": "NOW / RECOVER / CONVERGE is one collapsed semantic router. NOW opens CURRENT attention; RECOVER opens exact-source lineage; CONVERGE stays inside FIELD and reveals the read-only source cut. NEXUS remains exactly reachable as a snapshot/depth surface rather than the ordinary aggregation destination.",
+    "root_convergence": "The existing CONVERGENCE READ contracts into FIELD SOURCE CUT: five source-witness rows plus six canonical packet-egress dispositions derived from CURRENT + WAITING + QUEUE + federation atlas + Git. Every source exposes SOURCE HEAD / DERIVED AT / SOURCE AGE / VALID|STALE|CONFLICT. CURRENT alone owns NOW; Git owns literal chronology; machine NEXUS/COMMS refresh commits are chronology but not semantic DELTA. Display order does not alter canonical reducer precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. No new store, route, queue, priority or mutation authority.",
     "root_truth_grammar": "Use Φ for host/authority frame and φ for the current addressed focus/projection. The root reads CURRENT → φ FOCUS → ROUTES; Git/TRACE/STATUS are subordinate evidence or instruments opened on demand.",
     "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). Detailed REALITY GAP / YOU now lives inside the folded CATCH + ACT attention strip and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
     "root_tzimtzum": "Primary root hierarchy: title + PLAY → folded re-entry → CURRENT/φ truth line → one held object + glyph field → folded CATCH + ACT → collapsed STATUS. Exact CURRENT heads may carry latent project depth inside the held glyph; that depth must not create a second dashboard or scale control. Refinement, proof, chronology and maps remain residue depth. If another persistent root block duplicates one of those functions, fold it under its owner or remove it.",
@@ -344,5 +346,38 @@
     }
   },
   "coaxiality_contract": "/control/FIELD_COAXIALITY_LAW.json",
-  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json"
+  "coaxiality_audit": "/control/FIELD_COAXIALITY_AUDIT.json",
+  "source_cut_contract": {
+    "schema": "field-source-cut/v0.1",
+    "runtime": "/lib/field-source-cut.mjs",
+    "reducer": "/lib/field-egress-reducer.mjs",
+    "source_witness": [
+      "SOURCE HEAD",
+      "DERIVED AT",
+      "SOURCE AGE",
+      "VALID|STALE|CONFLICT"
+    ],
+    "sources": {
+      "CURRENT": "attention authority; only source allowed to project NOW/NEXT",
+      "WAITING": "durable human/world dependency memory; ACTIVE must be backed by a CURRENT gate",
+      "QUEUE": "compatibility projection; never attention authority",
+      "ATLAS": "planning/horizon projection; never priority authority",
+      "GIT": "literal repository mutation chronology; generated nexus:/comms: snapshots remain chronology but are excluded from semantic DELTA"
+    },
+    "output": [
+      "NOW",
+      "DELTA",
+      "RESIDUE",
+      "GATE",
+      "NEXT",
+      "ARCHIVE"
+    ],
+    "precedence": "Classification remains canonical GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE inside /lib/field-egress-reducer.mjs. FIELD display order is a reading projection, not reducer precedence.",
+    "laws": [
+      "Source revision age describes freshness only.",
+      "CONFLICT is exposed, never silently reconciled.",
+      "NEXT is capped at three CURRENT-authorized moves.",
+      "The source cut is derived on read and stores nothing."
+    ]
+  }
 }
