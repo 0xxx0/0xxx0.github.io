@@ -1196,6 +1196,12 @@ const CASES=[
     check:dom=>/VOICE 0\.2/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&dom.includes('id="spectrogram"')&&dom.includes('id="centroid"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
+    name:'FOLD BLOOM CHANGE CALCULUS',
+    route:'/fold-bloom/convergence/change-calculus/',
+    options:{width:430,height:900,budget:8000},
+    check:dom=>/CHANGE CALCULUS/i.test(dom)&&dom.includes('id="sufficiency"')&&/PROJECTION SUFFICIENCY \/ FORECAST FACTOR/.test(dom)&&/J-SPACE → NATIVE SUPPORT/.test(dom)&&/EVIDENCE LADDER · CURRENT/.test(dom)&&/NO EFFECT AUTHORITY/.test(dom)
+  },
+  {
     name:'FOLD BLOOM FIELD LAB',
     route:'/fold-bloom/lab/',
     options:{width:430,height:900,budget:7000},
