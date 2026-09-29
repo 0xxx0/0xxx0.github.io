@@ -407,9 +407,12 @@ cv.onpointerup = e => {
   if (!pointers.has(e.pointerId)) return;
   e.preventDefault();
   pointers.delete(e.pointerId);
-  // D2: in DUET mode, only commit when both dials have been touched
-  // or when all pointers released (simultaneous two-hand/two-person release)
-  const shouldCommit = prefs.mode !== 'DUET' || dialTouched[0] && dialTouched[1] || !pointers.size;
+  // One pointer transaction -> at most one commit.
+  // Wait until every active pointer is released; DUET additionally requires
+  // both dials to have participated since the previous commit.
+  const shouldCommit =
+    !pointers.size &&
+    (prefs.mode !== 'DUET' || (dialTouched[0] && dialTouched[1]));
   if (shouldCommit) {
     live.vL = live.vR = 0;
     classifyMotion();
@@ -417,7 +420,11 @@ cv.onpointerup = e => {
     commit();
   }
 };
-cv.onpointercancel = e => pointers.delete(e.pointerId);
+cv.onpointercancel = e => {
+  pointers.delete(e.pointerId);
+  // A cancelled pointer invalidates the current multi-pointer transaction.
+  dialTouched[0] = dialTouched[1] = false;
+};
 function burst(v) {
   let c = colors(v),
     base = prefs.surface === 'QUIET' ? 4 : prefs.surface === 'TRACE' ? 14 : 25,
