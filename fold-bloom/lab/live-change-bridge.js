@@ -10,6 +10,25 @@ export const CONTROL_VERBS=Object.freeze(['BLOOM','FOLD','SPLIT','RETURN']);
 const clone=x=>globalThis.structuredClone?structuredClone(x):JSON.parse(JSON.stringify(x));
 const isVerb=x=>CONTROL_VERBS.includes(String(x||'').toUpperCase());
 const sameBits=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((x,i)=>Number(x)===Number(b[i]));
+const nativeForecastWitness=input=>{
+  if(input?.schema!=='FOLD_BLOOM_FORECAST_CONTEXT_0.1'||input?.authority!=='NATIVE_EVIDENCE')return null;
+  const forecasts=(Array.isArray(input.forecasts)?input.forecasts:[]).filter(x=>isVerb(x?.verb)).map(x=>({
+    slot:Number(x.slot),verb:String(x.verb).toUpperCase(),chain:Number(x.chain)||1,cadence:x.cadence?String(x.cadence):null,
+    span:Number(x.span)||0,power:Number(x.power)||0
+  })).sort((a,b)=>a.slot-b.slot||a.verb.localeCompare(b.verb));
+  return {
+    schema:input.schema,
+    authority:'NATIVE_EVIDENCE',
+    seq:Math.max(0,Math.trunc(Number(input.seq)||0)),
+    gate:Number.isFinite(Number(input.gate))?Number(input.gate):null,
+    target_type:Number.isFinite(Number(input.targetType))?Number(input.targetType):null,
+    charge:Number(input.charge)||0,
+    call:input.call?{verb:String(input.call.verb||''),chain:Number(input.call.chain)||1,candidates:Number(input.call.candidates)||0}:null,
+    candidate_count:forecasts.length,
+    forecasts
+  };
+};
+const nativeSignature=x=>x?JSON.stringify({target_type:x.target_type,call:x.call,forecasts:x.forecasts}):null;
 
 export function createLiveChangeBridgeState(){
   return {
@@ -34,6 +53,7 @@ function operationEntry(message){
     chain:Number.isFinite(Number(message?.data?.chain))?Number(message.data.chain):null,
     charge:Number.isFinite(Number(message?.data?.charge))?Number(message.data.charge):null,
     track_time:Number.isFinite(Number(message?.data?.trackTime))?Number(message.data.trackTime):null,
+    native_after:nativeForecastWitness(message?.data?.nativeForecast),
     source:LIVE_SOURCE
   };
 }
@@ -64,7 +84,8 @@ function compileWindow(operations){
     upper:projection.upper?{...projection.upper}:null,
     first_seq:xs[0]?.seq??null,
     last_seq:xs.at(-1)?.seq??null,
-    event_refs:xs.map(x=>({seq:x.seq,wall:x.wall,verb:x.verb,slot:x.slot,chain:x.chain,track_time:x.track_time}))
+    native_after:xs.at(-1)?.native_after?clone(xs.at(-1).native_after):null,
+    event_refs:xs.map(x=>({seq:x.seq,wall:x.wall,verb:x.verb,slot:x.slot,chain:x.chain,track_time:x.track_time,native_after:x.native_after?clone(x.native_after):null}))
   };
 }
 
@@ -110,6 +131,7 @@ export function captureLiveChangeWindow(state,role='CAPTURE'){
     first_seq:window.first_seq,
     last_seq:window.last_seq,
     event_refs:clone(window.event_refs||[]),
+    native_after:window.native_after?clone(window.native_after):null,
     steering:state?.steering?clone(state.steering):null,
     law:'capture freezes an observed six-release LIVE window and its lossy hex projection; it does not acquire LIVE execution authority'
   };
@@ -123,6 +145,10 @@ export function compareLiveChangeCaptures(fromCapture,toCapture){
   if(!exact.ok)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:exact.reason};
   const invisible=exact.lines.filter(x=>x.invisible_exact_change);
   const visible=exact.lines.filter(x=>x.quotient_changed);
+  const fromNative=fromCapture.native_after||null,toNative=toCapture.native_after||null;
+  const fromNativeSignature=nativeSignature(fromNative),toNativeSignature=nativeSignature(toNative);
+  const nativeEqual=fromNativeSignature&&toNativeSignature?fromNativeSignature===toNativeSignature:null;
+  const sameHex=sameBits(fromCapture.bits,toCapture.bits);
   return {
     ok:true,
     schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',
@@ -135,13 +161,21 @@ export function compareLiveChangeCaptures(fromCapture,toCapture){
     exact_forms_per_hexagram:exact.metrics.exact_forms_per_hexagram,
     visible_lines:visible.map(x=>({line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,from_bit:x.from_bit,to_bit:x.to_bit})),
     invisible_lines:invisible.map(x=>({line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,bit:x.from_bit})),
-    same_hex_endpoints:sameBits(fromCapture.bits,toCapture.bits),
+    same_hex_endpoints:sameHex,
+    native_next:{
+      available:!!(fromNative&&toNative),
+      equal:nativeEqual,
+      from:fromNative?clone(fromNative):null,
+      to:toNative?clone(toNative):null,
+      same_hex_unequal_native:sameHex&&nativeEqual===false
+    },
     formulas:{
       quotient:'q(BLOOM)=q(FOLD)=1; q(SPLIT)=q(RETURN)=0',
       fiber:'4^6 / 2^6 = 64 exact forms per hex state',
-      residue:'exact edits with unchanged q-value remain invisible to the hex quotient'
+      residue:'exact edits with unchanged q-value remain invisible to the hex quotient',
+      native:'post-commit native forecast apertures are compared as evidence; recent exact history and hex state never substitute for current LIVE support'
     },
-    law:'the comparison keeps exact release identity beside the binary quotient so same-polarity FOLD/BLOOM or SPLIT/RETURN edits remain named residue rather than disappearing'
+    law:'the comparison keeps exact release identity, the binary quotient and any observed post-commit native forecast aperture unequal, so compression loss stays visible instead of becoming control authority'
   };
 }
 
@@ -155,6 +189,6 @@ export function liveChangeBridgeReturn(state,{fromCapture=null,toCapture=null}={
     from_capture:fromCapture?.ok?clone(fromCapture):null,
     to_capture:toCapture?.ok?clone(toCapture):null,
     comparison:comparison.ok?comparison:null,
-    law:'RETURN preserves observed LIVE release provenance, quotient residue and any contemporaneous authority-NONE steering witness without converting any of them into control state'
+    law:'RETURN preserves observed LIVE release provenance, quotient residue, bounded native-next evidence and any contemporaneous authority-NONE steering witness without converting any of them into control state'
   };
 }
