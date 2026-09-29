@@ -59,10 +59,18 @@ async function loadStory(id){
 }
 function readSource(){
   if(!story)return;
-  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',returnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');u.searchParams.set('echo','/prison-age/echo-index.json');u.searchParams.set('echo_source',story.id);location.href=u.pathname+u.search;
+  const u=new URL('/docs/',location.origin);u.searchParams.set('src',story.path);u.searchParams.set('return',returnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');
+  if(story.echo!==false){u.searchParams.set('echo','/prison-age/echo-index.json');u.searchParams.set('echo_source',story.id)}
+  location.href=u.pathname+u.search;
 }
 async function rideSource(){
   if(!story||!source.trim())return;
+  if(story.authored_reader?.id){
+    const u=new URL(story.authored_reader.target||('/fold-bloom/live/?reader='+encodeURIComponent(story.authored_reader.id)),location.origin);
+    u.searchParams.set('reader_return',returnUrl());
+    $('status').textContent='HANDOFF READY · RECOVERED AUTHORED SOURCE → PROVENANCE / RECURRENCE / RETURN · OWNER '+String(story.authored_reader.authority||'RECOVERED_AUTHORED_SOURCE');
+    location.href=u.pathname+u.search;return;
+  }
   const {makeReadRidePacket,READ_RIDE_STORAGE}=await import('/fold-bloom/read-course.js');
   const fp=story.source_fingerprint;
   const packet=makeReadRidePacket({

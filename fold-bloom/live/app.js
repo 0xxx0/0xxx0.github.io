@@ -686,7 +686,7 @@ function currentAuthoredReturn(){
     source:{id:authoredReader.hash,address:pack.source_path,title:pack.title,provenance:pack.source_artifact,internal_date:pack.internal_date,status:pack.source_status},
     traversal:witness,recurrence:{groups:(pack.recurrence||[]).map(x=>({id:x.id,label:x.label,relation:x.relation,signature:x.signature})),revisits:stats.revisits,jumps:(authoredReader.jumps||[]).map(x=>({...x}))},
     live:{release_count:stats.releases,verbs:(Array.isArray(state?.history)?state.history:[]).slice(Math.max(0,Number(authoredReader?.historyStart)||0)).map(x=>x.verb).filter(Boolean),law:'LIVE consequences are reader-authored field operations and never rewrite recovered source bytes.'},
-    return:{source_reader:pack.return.source_reader,field_index:pack.return.field_index},
+    return:{source_reader:pack.return.source_reader,field_index:pack.return.field_index,active:readRide?.packet?.returnAddress||pack.return.source_reader},
     created_at:new Date().toISOString()
   }
 }
@@ -697,12 +697,16 @@ function showAuthoredReturn(){
   $('#readerReturn').hidden=false;document.documentElement.dataset.foldBloomAuthoredReturn='open';return r
 }
 function closeAuthoredReturn(){const x=$('#readerReturn');if(x)x.hidden=true;delete document.documentElement.dataset.foldBloomAuthoredReturn}
-async function openAuthoredReader(id='prison-age-2021',{announce=true}={}){
+function authoredReturnAddress(raw,fallback){
+  const value=String(raw??'').trim();if(!value)return fallback;
+  try{const u=new URL(value,location.origin);if(u.origin!==location.origin)return fallback;return u.pathname+u.search+u.hash}catch(_){return fallback}
+}
+async function openAuthoredReader(id='prison-age-2021',{announce=true,returnAddress=null}={}){
   const loaded=await loadAuthoredPack(id);
-  const p=loaded.pack,packet=makeReadRidePacket({
+  const p=loaded.pack,exactReturn=authoredReturnAddress(returnAddress,p.return.source_reader),packet=makeReadRidePacket({
     source:loaded.source,label:p.title,
     sourceIdentity:{id:loaded.hash,hash:loaded.hash,address:p.source_path,authority:p.authority,kind:'AUTHORED_RECOVERED_TEXT',format:'TXT',provenance:p.source_artifact},
-    focus:{source_progress:0},returnAddress:p.return.source_reader,from:'/fold-bloom/live/?reader='+encodeURIComponent(p.id)
+    focus:{source_progress:0},returnAddress:exactReturn,from:'/fold-bloom/live/?reader='+encodeURIComponent(p.id)
   });
   const authored={pack:p,source:loaded.source,hash:loaded.hash,jumps:[],historyStart:Array.isArray(state?.history)?state.history.length:0};
   const out=loadReadRidePacket(packet,{announce:false,authored});
@@ -1445,10 +1449,10 @@ function loop(t){
 syncRideProfile();syncLayerUI();refreshVault();refreshImageVault();drawCourseMap(true);syncMixUI();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
 window.FoldBloomLive={boot:'ready',version:VERSION,garden:{open:openGarden,close:closeGarden,current:gardenState},authored:{open:openAuthoredReader,current:()=>authoredReader?{pack:JSON.parse(JSON.stringify(authoredReader.pack)),hash:authoredReader.hash,state:readRideState(),return:currentAuthoredReturn()}:null,recurrence:jumpAuthoredRecurrence,showReturn:showAuthoredReturn,showProvenance:showAuthoredProvenance},course:{mode:()=>courseMode,grain:()=>courseGrain,setMode:setCourseMode,cycleGrain:cycleCourseGrain,step:stepTrackCourse,seek:seekCourseProgress,strip:()=>readRide?drawCourseMap(true):(liveTrack.map?courseStrip(liveTrack.map,Number($('#trackAudio')?.currentTime)||0):null),address:()=>syncCourseControls()?.address||null},state:()=>({...snapshot(state),mix:audio.mixSnapshot(),garden:gardenState(),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:readRide?readCourseWitness(liveCourse(),liveCourseProgress()):liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:readRide?readRideState()?.source:liveTrack.metadata(),readRide:readRideState(),imageSet:imageSetView(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,forecastContext:forecastContext(state),perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),read:{loadPacket:loadReadRidePacket,loadText:loadReadText,loadFile:loadReadFile,current:readRideState,clear:clearReadRide,return:returnReadRide},images:{declare:declareImageSet,open:openImageSetByKey,openFromVault:openImageSetFromVault,clear:clearImageSet,current:imageSetView,list:()=>imageRegistryLoad(),summary:()=>imageCourseSummary(imageSet?.course)},layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},gameProjection:{set:view=>renderer.setGameProjection(view),clear:()=>renderer.setGameProjection(null)},choice:{seek:seekForecastSlot,targets:()=>renderer.forecastTargets(state).map(x=>({...x})),context:()=>currentLiveCalculation().native},steering:{preview:setManualSteeringPreview,clear:clearSteeringPreview,current:()=>steeringView?JSON.parse(JSON.stringify(steeringView)):null,context:()=>forecastContext(state)},calculus:()=>currentLiveCalculation(),reset:resetLiveState,practice:()=>practiceTrack.map};
-const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase(),launchGarden=['1','true','open','garden'].includes(String(launchParams.get('garden')||'').toLowerCase());
+const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase(),launchReader=String(launchParams.get('reader')||'').toLowerCase(),launchReaderReturn=String(launchParams.get('reader_return')||''),launchGarden=['1','true','open','garden'].includes(String(launchParams.get('garden')||'').toLowerCase());
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(launchGarden){document.documentElement.dataset.foldBloomLaunch='garden';openGarden({announce:false})}
-else if(launchReader){document.documentElement.dataset.foldBloomLaunch='authored-reader';void openAuthoredReader(launchReader,{announce:false}).catch(error=>{console.warn('AUTHORED READER',error);document.documentElement.dataset.foldBloomAuthoredReader='error';toast('AUTHORED SOURCE REJECTED')})}
+else if(launchReader){document.documentElement.dataset.foldBloomLaunch='authored-reader';void openAuthoredReader(launchReader,{announce:false,returnAddress:launchReaderReturn}).catch(error=>{console.warn('AUTHORED READER',error);document.documentElement.dataset.foldBloomAuthoredReader='error';toast('AUTHORED SOURCE REJECTED')})}
 else if(launchSource==='readfield'){document.documentElement.dataset.foldBloomLaunch='readfield';consumeReadRideHandoff()}
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
 // A remembered set can be opened by name, exactly like a remembered audio source

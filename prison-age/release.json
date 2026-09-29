@@ -1,21 +1,23 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
-  "version": "0.5",
+  "version": "0.6",
   "date": "2026-09-29",
-  "status": "FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE",
+  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
   "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
-  "object": "Four exact sourced Prison Age movements held as one FIELD object. FIELD chooses an addressed movement and opens unequal existing projections; no active generated narrative layer.",
+  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
+      "/fold-bloom/live/authored/prison-age-2021.txt",
       "/prison-age/stories/03-open-air.md",
       "/prison-age/stories/05-fandom-court.md",
       "/prison-age/stories/08-successful-escape.md",
       "/prison-age/stories/07-last-stall-extract.md"
     ],
     "authority": "PRISON_AGE",
-    "mutation": "NONE"
+    "mutation": "NONE",
+    "proto_root_pack": "/fold-bloom/live/authored/prison-age-2021.json"
   },
   "field": {
     "route": "/?focus=%2Fprison-age%2F",
@@ -26,7 +28,7 @@
     ],
     "default_source": "Listing preview only; no default story is executed by FIELD actions.",
     "boundary": "FIELD holds address and lawful operations only; it does not author Prison Age.",
-    "selection": "FIELD chooses operation intent only. Prison Age resolver requires explicit source movement selection before executing READ/RIDE."
+    "selection": "FIELD chooses operation intent only. Prison Age resolver requires explicit source selection before READ/RIDE; the recovered 2021 proto-root remains a distinct source class and may enter the existing authored-reader projection without adding a fourth FIELD operation."
   },
   "projections": {
     "read": {
@@ -37,10 +39,11 @@
     "ride": {
       "host": "/fold-bloom/live/",
       "schema": "field-read-ride/v0.1",
-      "mode": "STEP",
+      "mode": "STEP / authored RELEASE_STEP when explicitly selecting proto-root-2021",
       "default_grain": "PARAGRAPH",
       "authority": "FOLD//BLOOM traversal only; Prison Age remains source authority",
-      "return": "exact FIELD or source resolver address"
+      "return": "exact resolver/FIELD return supplied at launch; source authority unchanged",
+      "authored_reader": "/fold-bloom/live/?reader=prison-age-2021"
     },
     "source": {
       "host": "/prison-age/",
@@ -58,23 +61,30 @@
     "READ/RIDE traversal is evidence of traversal only, not comprehension, agreement or proof.",
     "The curated Last Stall file remains an explicit source extract with omissions.",
     "FIELD READ/RIDE never silently select the default story; source movement selection is explicit.",
-    "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material."
+    "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material.",
+    "The recovered 2021 proto-root is exact recovered wording arranged as a derived traversal pack; it is not an anthology story, page facsimile, generated continuation, or evidence of semantic equivalence.",
+    "Authored RECURRENCE is intra-source conservation/rearrangement evidence and remains distinct from cross-source ECHO.",
+    "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
     "FIELD held object exposes READ / RIDE / SOURCE only.",
     "READ and RIDE preserve PRISON_AGE source authority and exact RETURN.",
     "No frozen reader route remains in showcase-manifest.",
-    "No bespoke reader or reader pack remains in the runtime tree.",
     "FIELD READ/RIDE targets carry intent only, with no story parameter.",
     "Resolver does not auto-navigate on READ/RIDE intent until a story is clicked.",
     "Last Stall extract bytes match fingerprint 1856b483 / length 4991.",
     "READFIELD known sentence renders a cross-source exact ECHO with address and evidence-only basis.",
     "READ→RIDE preserves ECHO context and LIVE renders a cross-source exact fragment at a known sentence address.",
     "Meaningless unmatched text produces no echo.",
-    "A stale source fingerprint suppresses ECHO."
+    "A stale source fingerprint suppresses ECHO.",
+    "FIELD held object still exposes exactly READ / RIDE / SOURCE.",
+    "Resolver exposes proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity.",
+    "Proto-root READ enters READFIELD over exact source bytes without cross-source ECHO.",
+    "Proto-root RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
+    "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged."
   ],
-  "latest_return": "/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
+  "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
   "echo": {
     "schema": "field-source-echo-index/v0.1",
     "index": "/prison-age/echo-index.json",

@@ -17,7 +17,7 @@ for(const [id,x] of Object.entries(sources.stories)){
   assert(!Object.prototype.hasOwnProperty.call(x,'engine'),id+' interpretive engine removed');
   assert(!Object.prototype.hasOwnProperty.call(x,'token'),id+' interpretive token removed');
 }
-assert(release.status==='FIELD_SOURCE_SET / SOURCE_ECHO_EVIDENCE','release contraction + echo depth');
+assert(release.status==='FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE','release source-set + authored path + echo depth');
 assert(release.operation==='READ / RIDE / SOURCE · passive ECHO in READ/RIDE','release operations');
 assert(release.echo?.schema==='field-source-echo-index/v0.1'&&release.echo?.authority==='EVIDENCE_ONLY','echo release boundary');
 assert(release.field.native_actions.join('|')==='READ|RIDE|SOURCE','FIELD native actions');
@@ -52,15 +52,21 @@ const extract=fs.readFileSync('prison-age/stories/07-last-stall-extract.md','utf
 assert(extract.includes('Every procedure had succeeded.\n\nThe person had not.'),'Last Stall source anchor');
 assert(extract.includes('[ … SOURCE PASSAGE OMITTED … ]'),'Last Stall omissions explicit');
 assert(sources.stories['last-stall']?.source_class.includes('CURATED_SOURCE_EXTRACT'),'Last Stall extract class');
+const proto=sources.stories['proto-root-2021'];
+assert(proto?.source_class==='RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT','2021 proto-root source class');
+assert(proto?.path==='/fold-bloom/live/authored/prison-age-2021.txt','2021 proto-root exact source path');
+assert(proto?.source_fingerprint?.algo==='sha256'&&proto.source_fingerprint?.value==='9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e','2021 proto-root exact source hash');
+assert(proto?.authored_reader?.id==='prison-age-2021'&&proto.echo===false,'2021 authored RIDE / RECURRENCE != ECHO');
+assert(active.includes('story.authored_reader?.id'),'resolver authored RIDE seam');
 
 const prisonRoutes=manifest.routes.filter(r=>r.family==='PRISON AGE'||r.href==='/prison-age/'||String(r.href||'').startsWith('/prison-age/'));
 assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
 const route=prisonRoutes[0];
 assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE','single active FIELD route');
 assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
-assert(route.version==='0.5','FIELD route version');
+assert(route.version==='0.6','FIELD route version');
 assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
-assert(route.index.work_modes.join('|')==='READ|RIDE|SOURCE|RETURN','FIELD work modes');
+assert(route.index.work_modes.join('|')==='IMPLEMENT|VERIFY|OPERATE','FIELD route-touch work modes');
 assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
 assert(route.field.exit_paths.map(x=>x.via).join('|')==='READ|RIDE|SOURCE','native exit labels');

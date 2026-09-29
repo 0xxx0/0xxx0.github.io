@@ -2,14 +2,37 @@
   "schema": "prison-age.source-pack/v0.1",
   "status": "FIELD_SOURCE_SET",
   "default": "open-air",
-  "law": "Exact sourced text remains authoritative. FIELD chooses an operation, then the reader explicitly chooses the exact source movement before READ/RIDE. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; no projection may rewrite the story or claim traversal equals comprehension.",
+  "law": "Exact sourced text remains authoritative. FIELD chooses READ / RIDE / SOURCE, then the resolver explicitly chooses a provenance-distinct source before execution. Anthology stories and the recovered 2021 proto-root remain unequal source classes. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; no projection may rewrite source or claim traversal equals comprehension.",
   "source_boundary": {
     "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
     "last_stall": "PRISON_AGE_THE_LAST_STALL_v2.md",
-    "last_stall_class": "USER_LIBRARY_SOURCE / 2026 EPISODE CONTINUATION / CURATED EXTRACT"
+    "last_stall_class": "USER_LIBRARY_SOURCE / 2026 EPISODE CONTINUATION / CURATED EXTRACT",
+    "proto_root": "2021 GPA EN SCRATCH-1.pdf / exact recovered wording arranged as a derived traversal pack, not a page facsimile",
+    "proto_root_class": "RECOVERED_AUTHORED_SOURCE / 2021-07-18 / DERIVED_ARRANGEMENT"
   },
   "stories": {
+    "proto-root-2021": {
+      "id": "proto-root-2021",
+      "number": "2021",
+      "title": "Proto-root / Recovered Fragment",
+      "season": "2021-07-18",
+      "path": "/fold-bloom/live/authored/prison-age-2021.txt",
+      "source_lines": "derived exact-fragment arrangement · 160 chars",
+      "source_class": "RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT",
+      "source_fingerprint": {
+        "algo": "sha256",
+        "value": "9b9be4ac4e24cb980d9f65bc948d6b3aaa9c514a84ee44a96142d526b2d25a6e",
+        "length": 160
+      },
+      "echo": false,
+      "authored_reader": {
+        "id": "prison-age-2021",
+        "target": "/fold-bloom/live/?reader=prison-age-2021",
+        "relation": "CONSERVATION_BY_REARRANGEMENT",
+        "authority": "RECOVERED_AUTHORED_SOURCE"
+      }
+    },
     "open-air": {
       "id": "open-air",
       "number": "03",
@@ -74,9 +97,9 @@
     "RETURN FIELD"
   ],
   "active_projection": {
-    "field": "FIELD INDEX holds one PRISON AGE source-set object with READ / RIDE / SOURCE native operations; READ/RIDE express operation intent only and do not silently select a story.",
+    "field": "FIELD INDEX holds one PRISON AGE source-set object with READ / RIDE / SOURCE native operations; SOURCE resolves unequal source classes and READ/RIDE express operation intent only.",
     "read": "READFIELD owns text/cursor/reading projections.",
-    "ride": "FOLD//BLOOM LIVE owns embodied STEP traversal; source authority stays PRISON_AGE.",
+    "ride": "FOLD//BLOOM LIVE owns embodied traversal. Ordinary sourced movements use generic READ/RIDE STEP; the recovered 2021 proto-root may explicitly enter the authored-reader recurrence projection. Source authority stays native.",
     "source": "/prison-age/ resolves exact source identity/provenance and does not add narrative framing.",
     "return": "FIELD-launched READ/RIDE returns to /?focus=/prison-age/; direct source use returns to the exact story resolver."
   }
