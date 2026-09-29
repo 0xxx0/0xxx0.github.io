@@ -126,7 +126,26 @@
         "disposition": "KEEP_AS_NEUTRAL_CARRIER",
         "reason": "The library exposes cyclic coordinates/relations but owns no domain meaning, mutation, RETURN, or user-facing compression claim. Its host must satisfy A-H."
       }
-    ]
+    ],
+    "root_admission_review": {
+      "as_of": "2026-09-29",
+      "boundary": "FIELD INDEX root exposed mechanisms",
+      "law": "ONE HELD OBJECT != COAXIALITY. Admit only mechanisms whose meaning depends on relative transformation inside a shared manipulation space; discrete action apertures, disclosure routers, attention aggregators and view-only projections stay under their native contracts.",
+      "reviewed": [
+        "field-root-held-action-aperture",
+        "field-axial-refinement",
+        "field-awake-visor",
+        "field-catch-act",
+        "field-reentry-router",
+        "field-project-head-glyph",
+        "field-map-view-projections",
+        "field-map-pulse"
+      ],
+      "admitted": [
+        "fold-bloom-two-dial-relation"
+      ],
+      "result": "No additional FIELD INDEX root mechanism currently earns A-H admission."
+    }
   },
   "mechanisms": [
     {
@@ -215,6 +234,84 @@
       ],
       "compatibility": "Previously persisted or externally requested PULSE projection is normalized to RECENT; no stale client is allowed to manufacture a dead mode.",
       "residue": "DataDisc/spiral remains recoverable as donor/history; no active FIELD capability depends on the projection."
+    },
+    {
+      "id": "field-root-held-action-aperture",
+      "path": "/index.html#capTrial",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "A discrete one-held-object action aperture is governed by INTERPHASE/native action authority; it does not derive meaning from relative continuous transforms.",
+      "evidence": [
+        "/tools/field-action-aperture-selftest.mjs proves one held focus, <=3 lawful moves, exact RETURN and native authority boundaries",
+        "/control/FIELD_INDEX_CONTRACT.json ui_contract.root_action_aperture"
+      ]
+    },
+    {
+      "id": "field-axial-refinement",
+      "path": "/index.html#refineFold",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "AXIAL is an exact constraint/support refinement instrument. Its rows are independent filters over manifest state; visual alignment does not manufacture a domain verb or continuous relative-transform semantics.",
+      "evidence": [
+        "/control/FIELD_INDEX_CONTRACT.json ui_contract.root_axial_latest",
+        "/tools/axial-aperture-smoke.mjs + public-surface CI 'Test axial object-at-center convergence'"
+      ]
+    },
+    {
+      "id": "field-awake-visor",
+      "path": "/index.html#fieldVisor",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "The visor is first-contact teaching over the existing INTERPHASE carrier. It recedes and reopens; it is not a manipulation space or second state owner.",
+      "evidence": [
+        "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
+        "PR #533 phone-size proof: same focus/carrier/RETURN, authority NONE / HANDOFF ONLY"
+      ]
+    },
+    {
+      "id": "field-catch-act",
+      "path": "/index.html#catchupFold",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "CATCH + ACT aggregates unequal attention signals around a held route; semantic signal locality and reversible acknowledgement are not relative-axis manipulation.",
+      "evidence": [
+        "/tools/field-signal-locality-selftest.cjs proves route-owned signal locality",
+        "/tools/field-reversibility-selftest.mjs proves local acknowledgement REWIND",
+        "/tools/field-action-aperture-selftest.mjs proves the folded attention/action surface"
+      ]
+    },
+    {
+      "id": "field-reentry-router",
+      "path": "/index.html .reentryFold",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "NOW / RECOVER / CONVERGE is a disclosure/navigation router. Folding depth is lossless presentation, not a shared relative-transform control space.",
+      "evidence": [
+        "/control/FIELD_INDEX_CONTRACT.json ui_contract.root_reentry + root_depth_contraction",
+        "/tools/field-action-aperture-selftest.mjs proves displaced destinations remain reachable"
+      ]
+    },
+    {
+      "id": "field-project-head-glyph",
+      "path": "/lib/project-head-glyph.js",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "The project-head glyph is a deterministic VIEW-only witness composed over exact route identity. It may visualize channels/rings but cannot mint semantic or effect authority.",
+      "evidence": [
+        "/tools/project-head-glyph-selftest.cjs proves deterministic route identity and VIEW-only operations",
+        "/control/FIELD_INDEX_CONTRACT.json ui_contract.root_glyph"
+      ]
+    },
+    {
+      "id": "field-map-view-projections",
+      "path": "/index.html#mapFold",
+      "admitted": false,
+      "disposition": "KEEP_NON_COAXIAL",
+      "reason": "VISUAL / STRUCTURE / EVOLVE / VERSIONS / RECENT are unequal views over one manifest focus. Projection changes representation only; they are not one coaxial manipulation mechanism.",
+      "evidence": [
+        "/control/FIELD_INDEX_CONTRACT.json ui_contract.root_map + root_visual + root_recent",
+        "PULSE was separately deleted when its extra spiral renderer failed semantic-rent/compression justification"
+      ]
     }
   ]
 }

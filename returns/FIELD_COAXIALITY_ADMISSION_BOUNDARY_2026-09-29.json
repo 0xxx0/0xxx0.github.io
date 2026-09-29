@@ -1,0 +1,48 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_COAXIALITY_ADMISSION_BOUNDARY_2026-09-29",
+  "status": "CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Seal COAXIALITY as a narrow mechanism class instead of a universal FIELD ontology. Review the exposed FIELD INDEX root and explicitly keep non-relative-transform mechanisms outside A-H admission.",
+  "law": "ONE HELD OBJECT != COAXIALITY. Relative transformation must actually carry the mechanism's meaning.",
+  "admitted": [
+    "fold-bloom-two-dial-relation"
+  ],
+  "non_admitted": [
+    "field-root-held-action-aperture",
+    "field-axial-refinement",
+    "field-awake-visor",
+    "field-catch-act",
+    "field-reentry-router",
+    "field-project-head-glyph",
+    "field-map-view-projections",
+    "field-map-pulse"
+  ],
+  "dispositions": {
+    "KEEP_NON_COAXIAL": "Retain under native contract without forcing A-H semantics.",
+    "DELETE_REDUNDANT_PROJECTION": "PULSE remains deleted; RECENT preserves its source evidence."
+  },
+  "changes": [
+    "/control/FIELD_COAXIALITY_AUDIT.json — root admission review + explicit non-admitted dispositions",
+    "/tools/field-coaxiality-audit.cjs — executable separation/coverage checks",
+    "/.github/workflows/public-surface-check.yml — audit now runs in CI"
+  ],
+  "preserves": [
+    "existing FIELD root behavior and UI",
+    "INTERPHASE/native authority boundaries",
+    "AXIAL exact-support semantics",
+    "AWAKE visor first-contact role",
+    "CATCH+ACT signal locality and REWIND",
+    "MAP/RECENT view-only focus preservation"
+  ],
+  "residue": [
+    "Two Dial remains PROVE_OR_DECOAXIALIZE because C/E/H evidence is still open",
+    "future mechanisms may enter A-H only when they actually claim shared relative-transform manipulation"
+  ],
+  "verify": [
+    "node tools/field-coaxiality-audit.cjs",
+    "public-surface-check + route registration + gitleaks"
+  ],
+  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json"
+}

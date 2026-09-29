@@ -36,5 +36,22 @@ for(const m of audit.mechanisms){
   console.log(`${computed.padEnd(23)} ${m.id}  ${verdicts}`);
 }
 
-console.log(`FIELD COAXIALITY AUDIT VALID · ${audit.mechanisms.length} mechanism(s) · ${nonKeep} not KEEP`);
+const nonAdmitted=Array.isArray(audit.non_admitted_dispositions)?audit.non_admitted_dispositions:[];
+const ids=new Set(audit.mechanisms.map(m=>m.id));
+for(const d of nonAdmitted){
+  assert.ok(d&&typeof d.id==='string'&&d.id,'non-admitted disposition missing id');
+  assert.equal(d.admitted,false,`${d.id}: non-admitted entry must say admitted=false`);
+  assert.ok(typeof d.disposition==='string'&&d.disposition,`${d.id}: missing disposition`);
+  assert.ok(typeof d.reason==='string'&&d.reason,`${d.id}: missing reason`);
+  assert.ok(Array.isArray(d.evidence)&&d.evidence.length>0,`${d.id}: missing evidence`);
+  assert.ok(!ids.has(d.id),`${d.id}: cannot be both admitted and non-admitted`);
+  assert.ok(!ids.has(d.id),`${d.id}: duplicate admission identity`);
+  ids.add(d.id);
+}
+const rootReview=audit.scope?.root_admission_review;
+assert.ok(rootReview&&Array.isArray(rootReview.reviewed)&&rootReview.reviewed.length>0,'root admission review missing');
+for(const id of rootReview.reviewed) assert.ok(ids.has(id),`root admission review references unknown ${id}`);
+for(const id of rootReview.admitted||[]) assert.ok(audit.mechanisms.some(m=>m.id===id),`admitted review id not in mechanisms: ${id}`);
+
+console.log(`FIELD COAXIALITY AUDIT VALID · ${audit.mechanisms.length} admitted · ${nonAdmitted.length} explicitly non-admitted · ${nonKeep} admitted not KEEP`);
 if(process.argv.includes('--require-pass') && nonKeep) process.exitCode=1;
