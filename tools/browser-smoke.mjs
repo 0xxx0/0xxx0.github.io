@@ -226,12 +226,12 @@ function fieldCoaxialProbeHtml(){
     const slot=W().FoveaLens.radial.slots().find(x=>x.id==='GLYPH');
     rec.claimed=!!slot&&!slot.reserved&&/coaxial projection/i.test(slot.note||'');
     const pid=91,cx=180,cy=180;
-    W().dispatchEvent(new W().PointerEvent('pointerdown',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy,button:0,bubbles:true}));
+    W().dispatchEvent(new (W().PointerEvent)('pointerdown',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy,button:0,bubbles:true}));
     await sleep(480);
     await wait(()=>W().FoveaLens.radial.ready(),3000,'radial open');
-    W().dispatchEvent(new W().PointerEvent('pointermove',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
+    W().dispatchEvent(new (W().PointerEvent)('pointermove',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
     await sleep(40);
-    W().dispatchEvent(new W().PointerEvent('pointerup',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
+    W().dispatchEvent(new (W().PointerEvent)('pointerup',{pointerId:pid,pointerType:'touch',isPrimary:true,clientX:cx,clientY:cy+76,button:0,bubbles:true}));
     await wait(()=>D().getElementById('fieldCoaxial')?.classList.contains('on'),4000,'GLYPH projection open');
     const state=W().FieldCoaxial.state();
     rec.layers=(state?.layers||[]).map(x=>x.id);
