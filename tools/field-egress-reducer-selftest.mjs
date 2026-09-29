@@ -37,4 +37,9 @@ for(const [name,packet,ctx,want] of cases){
 assert.equal(reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'}).class,'ARCHIVE');
 assert.equal(reducePacket({packet_id:'claimed-now',egress:'NOW'}).class,'ARCHIVE');
 assert.equal(reducePacket({packet_id:'terminal',stop:'No sequel; archive this packet.'}).class,'ARCHIVE');
-console.log('FIELD packet egress reducer PASS · A-H · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
+assert.equal(reducePacket({packet_id:'canonical-residue',DELTA:'changed',RESIDUE:'still unresolved'}).class,'RESIDUE');
+assert.equal(reducePacket({packet_id:'explicit-residue',egress:'RESIDUE',delta:'candidate'}).class,'RESIDUE');
+assert.equal(reducePacket({packet_id:'explicit-next',egress:'NEXT',delta:'prepared'}).class,'NEXT');
+assert.equal(reducePacket({packet_id:'return-only',DELTA:'done',NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'}).class,'DELTA');
+assert.equal(reducePacket({packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'}).class,'GATE');
+console.log('FIELD packet egress reducer PASS · A-H + canonical aliases + inert RETURN · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
