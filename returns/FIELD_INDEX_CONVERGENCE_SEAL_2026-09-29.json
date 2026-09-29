@@ -1,0 +1,66 @@
+{
+  "schema": "0xxx0/return/field-index-convergence-seal/v0.1",
+  "id": "FIELD_INDEX_CONVERGENCE_SEAL_2026-09-29",
+  "date": "2026-09-29",
+  "status": "DERIVED_SEAL",
+  "route": "/",
+  "version": "0.8.23",
+  "purpose": "Align FIELD INDEX declared head with already-merged runtime truth after the convergence pass, and make future CURRENT/manifest root version drift a failing validation condition.",
+  "law": "ONE HELD OBJECT; fewer representations; shared action language never grants authority; only explicit external dependencies gate; COAXIALITY is admitted narrowly; RETURN must preserve causality.",
+  "delta": [
+    "CURRENT field-index head advanced from 0.8.22 to 0.8.23 without introducing a new runtime surface.",
+    "Manifest root version advanced to 0.8.23 and records the convergence seal.",
+    "Human CURRENT projection refreshes only the FIELD INDEX head line.",
+    "Public validation now requires CURRENT field-index version to equal manifest root version and the human-readable head string to contain that version."
+  ],
+  "merged_evidence": [
+    {
+      "pr": 589,
+      "merge_sha": "d8ed1dd3998e4adbcfc34545bdc512744261f67b",
+      "claim": "redundant root MAP/PULSE retired; RECENT preserves route-touch witness"
+    },
+    {
+      "pr": 590,
+      "merge_sha": "0401fc9428a2ecd10dba58d41b7f69f9cf49bac9",
+      "claim": "INTERPHASE action grammar HOLD/TURN/RELEASE/TRACE/RETURN"
+    },
+    {
+      "pr": 594,
+      "merge_sha": "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
+      "claim": "Two Dial causal RETURN repaired without new UI"
+    },
+    {
+      "pr": 595,
+      "merge_sha": "2205201ada43fa18f10627ac3ad0639ec08a3ebd",
+      "claim": "DAYLINE consumes shared action surface while preserving native authority"
+    },
+    {
+      "pr": 598,
+      "merge_sha": "9dd8e352f79c75a703263eb197204747804ae96c",
+      "claim": "COAXIALITY admission boundary is explicit and executable in CI"
+    },
+    {
+      "pr": 599,
+      "merge_sha": "9e6c2ab74eeb9fb4f032eceb9db1ec1ac8bf46ce",
+      "claim": "WAITING external GATE semantics are value/shape invariant"
+    }
+  ],
+  "invariants": [
+    "No new route, queue, store, planner, ontology or effect authority.",
+    "CURRENT remains the source of NOW attention authority.",
+    "INTERPHASE action aliases remain projections over host-native operations.",
+    "Generic unresolved WAITING is RESIDUE; only explicit external/world/human dependency is GATE.",
+    "FIELD root mechanisms are not COAXIAL by default.",
+    "PULSE remains retired; legacy PULSE requests degrade to RECENT.",
+    "RETURN remains distinct from BACK/UNDO/REWIND and must preserve causal re-entry."
+  ],
+  "proof_paths": [
+    "/returns/FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
+    "/returns/INTERPHASE_ACTION_GRAMMAR_2026-09-29.json",
+    "/returns/FOLD_BLOOM_TWO_DIAL_CAUSAL_RETURN_2026-09-29.json",
+    "/returns/DAYLINE_INTERPHASE_ACTION_SURFACE_2026-09-29.json",
+    "/returns/FIELD_COAXIALITY_ADMISSION_BOUNDARY_2026-09-29.json",
+    "/returns/FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json"
+  ],
+  "stop": "Do not open another FIELD root mechanism from this seal. Re-enter only on observed ordinary-use failure, violated invariant, or an existing host that needs the shared carrier/action law."
+}
