@@ -26,7 +26,9 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-.headerPlay{flex:none;min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em}
+.headerPlay{flex:none;min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em}.headerActions{display:flex;align-items:stretch;gap:4px}.headerGuide{min-height:42px;padding:8px 10px;border-color:var(--gold);color:var(--gold);font-size:7px;letter-spacing:.09em}
+.fieldVisor{margin-top:9px;border:1px solid #4b4a43;background:#090c0d;box-shadow:0 18px 70px rgba(0,0,0,.28);overflow:hidden}.fieldVisor[hidden]{display:none}.visorTop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 7px;border-bottom:1px solid var(--line);color:var(--mut);font-size:6px;letter-spacing:.14em}.visorTop button{border:0;min-height:28px;padding:0 8px;font-size:16px;color:var(--mut)}.visorPlates{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:#242a2c;border-bottom:1px solid var(--line)}.visorPlates i{min-width:0;padding:5px 6px 6px;background:linear-gradient(150deg,rgba(216,203,174,.10),transparent 58%),#0b0e0f;font-style:normal}.visorPlates i:nth-child(2),.visorPlates i:nth-child(5){background:linear-gradient(150deg,rgba(114,188,231,.10),transparent 58%),#0b0e0f}.visorPlates i:nth-child(4),.visorPlates i:nth-child(7){background:linear-gradient(150deg,rgba(237,116,71,.09),transparent 58%),#0b0e0f}.visorPlates b{display:block;color:#a7adae;font-size:5px}.visorPlates span{display:block;margin-top:2px;color:var(--mut);font-size:5.5px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.visorHero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 10px}.visorEy{color:var(--gold);font-size:7px;letter-spacing:.17em}.visorHero h2{margin:5px 0 4px;font:850 clamp(20px,3.6vw,38px)/.96 system-ui,sans-serif;letter-spacing:-.045em}.visorHero p{margin:0;color:var(--mut);font-size:7px}.visorGlyph{width:64px;height:64px;display:grid;place-items:center}.visorGlyph svg{max-width:64px;max-height:64px}.visorCadence{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.visorCadence>span{padding:6px 7px;border-right:1px solid var(--line);min-width:0}.visorCadence>span:last-child{border-right:0}.visorCadence b,.visorCadence small{display:block}.visorCadence b{font-size:7px;letter-spacing:.11em}.visorCadence small{margin-top:2px;color:var(--gold);font-size:5.5px;letter-spacing:.08em}.visorFrame{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line)}.visorFrame>div{min-width:0;background:#080b0d;padding:8px}.visorFrame>div>span{display:block;color:var(--mut);font-size:6px;letter-spacing:.12em;margin-bottom:4px}.visorFrame b{display:block;font:750 10px/1.2 system-ui,sans-serif}.visorFrame small{display:block;color:var(--mut);font-size:6px;margin-top:3px;line-height:1.35}.visorMoves{display:flex;flex-wrap:wrap;gap:3px}.visorMoves em{font-style:normal;color:var(--mut);font-size:6px}.visorMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6px;letter-spacing:.04em}.visorMove:first-child{border-color:var(--hot);color:#ffd0bd}.visorFoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 8px;border-top:1px solid var(--line)}.visorFoot span{color:#9ca7aa;font:7px/1.4 system-ui,sans-serif}.visorFoot button{min-height:38px;padding:7px 12px;border-color:var(--paper,#d8cbae);color:#e7ddc5;font-size:7px;letter-spacing:.1em}
+@media(max-width:760px){.headerActions{gap:3px}.headerGuide,.headerPlay{min-height:42px;padding:7px 8px;font-size:9px}.fieldVisor{margin-top:7px}.visorTop{font-size:9px;padding:6px 8px}.visorPlates{grid-template-columns:repeat(4,1fr)}.visorPlates i{padding:5px 6px}.visorPlates b{font-size:8px}.visorPlates span{font-size:8px}.visorHero{padding:11px 9px}.visorEy{font-size:10px}.visorHero h2{font-size:25px}.visorHero p{font-size:10px;line-height:1.4}.visorGlyph{width:52px;height:52px}.visorGlyph svg{max-width:52px;max-height:52px}.visorCadence{grid-template-columns:repeat(3,1fr)}.visorCadence>span{padding:7px}.visorCadence b{font-size:10px}.visorCadence small{font-size:8px}.visorFrame{grid-template-columns:1fr}.visorFrame>div{padding:9px}.visorFrame>div>span{font-size:9px}.visorFrame b{font-size:14px}.visorFrame small,.visorMoves em{font-size:9px}.visorMove{font-size:9px;padding:6px 8px}.visorFoot{align-items:flex-start;flex-direction:column}.visorFoot span{font-size:10px}.visorFoot button{width:100%;min-height:44px;font-size:10px}}
 .section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* AXIAL / LATEST */
@@ -186,8 +188,29 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1></div>
-  <a class="headerPlay" href="./field-play.html">PLAY →</a>
+  <div class="headerActions"><button class="headerGuide" id="fieldVisorOpen" type="button">WAKE / GUIDE</button><a class="headerPlay" href="./field-play.html">PLAY →</a></div>
 </header>
+<section class="fieldVisor" id="fieldVisor" hidden aria-label="FIELD INTERPHASE onboarding visor">
+  <div class="visorTop"><span>Φ / FIELD / INTERPHASE</span><button id="fieldVisorClose" type="button" aria-label="Close guide">×</button></div>
+  <div class="visorPlates" aria-hidden="true">
+    <i><b>01</b><span>GRAIN</span></i><i><b>02</b><span>RESET</span></i><i><b>03</b><span>NOTE</span></i><i><b>04</b><span>MOUTH</span></i>
+    <i><b>05</b><span>ALL ONE</span></i><i><b>06</b><span>WIND</span></i><i><b>07</b><span>HAND</span></i><i><b>08</b><span>AGAIN</span></i>
+  </div>
+  <div class="visorHero">
+    <div><span class="visorEy">YOU’RE A WAKE.</span><h2 id="fieldVisorTitle">Hold one thing long enough to change it lawfully.</h2><p id="fieldVisorRoute">FIELD is loading the held object…</p></div>
+    <div class="visorGlyph" id="fieldVisorGlyph" aria-hidden="true"></div>
+  </div>
+  <div class="visorCadence" aria-label="Recovered WAKE cadence mapped onto INTERPHASE">
+    <span><b>WAKE</b><small>SOURCE</small></span><span><b>CUT</b><small>FRAME</small></span><span><b>HOLD</b><small>FOCUS</small></span>
+    <span><b>TURN</b><small>OPERATE</small></span><span><b>TRACE</b><small>WITNESS</small></span><span><b>AGAIN</b><small>RETURN</small></span>
+  </div>
+  <div class="visorFrame">
+    <div><span>OBJECT / FOCUS</span><b id="fieldVisorHeld">—</b><small id="fieldVisorHeldSub">same object · projection may change</small></div>
+    <div><span>NEXT ≤3</span><div class="visorMoves" id="fieldVisorMoves"><em>waiting for lawful moves…</em></div></div>
+    <div><span>WITNESS / RETURN</span><b id="fieldVisorWitness">—</b><small id="fieldVisorReturn">RETURN remains explicit.</small></div>
+  </div>
+  <div class="visorFoot"><span>Same object. Many doors. Native authority stays native.</span><button id="fieldVisorEnter" type="button">ENTER FIELD</button></div>
+</section>
 <details class="reentryFold" aria-label="FIELD re-entry and depth">
   <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary>
   <div class="reentryBody">
@@ -342,7 +365,8 @@ const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation
 const CAP_TRIAL=INIT.get('cap')!=='0';
 const CAPABILITY_PROJECTION=Object.freeze([
  {id:'dayline',match:h=>h==='/atlas-dayline/'||h.startsWith('/atlas-dayline/'),owner:'DAYLINE',moves:['FOCUS / ADD','RUN ≤ 3','RETURN'],boundary:'time/execution only'},
- {id:'fold-bloom',match:h=>h==='/fold-bloom/'||h.startsWith('/fold-bloom/')||h==='/docs/',owner:'FOLD//BLOOM',moves:['MAP / MARK','RIDE / DRIVE','VOICE / PULSE'],boundary:'LIVE owns traversal; PULSE is opt-in; source stays native'},
+ {id:'readfield',match:h=>h==='/docs/',owner:'READFIELD',moves:['FAST / REVIEW','RIDE / LIVE','RETURN'],boundary:'source/cursor authority remains READFIELD; borrowed projections do not own text'},
+ {id:'fold-bloom',match:h=>h==='/fold-bloom/'||h.startsWith('/fold-bloom/'),owner:'FOLD//BLOOM',moves:['MAP / MARK','RIDE / DRIVE','VOICE / PULSE'],boundary:'LIVE owns traversal; PULSE is opt-in; source stays native'},
  {id:'comms',match:h=>h==='/port/comms/'||h.startsWith('/port/comms/'),owner:'COMMS',moves:['LOCATE / MARK','DRAFT / COVER','HANDOFF → DAYLINE'],boundary:'no send authority'},
  {id:'house',match:h=>h==='/house/'||h.startsWith('/house/'),owner:'HOUSE',moves:['PROJECT / TRACE','STATE / EXPERT','CONTEXT → DAYLINE'],boundary:'selection ≠ presence / no actuation'},
  {id:'shopping',match:h=>h==='/shopping/'||h.startsWith('/shopping/'),owner:'SHOPPING',moves:['RESEARCH / COMPARE','GATE / NEXT ACTION','HANDOFF → DAYLINE'],boundary:'no purchase or lifecycle promotion'},
@@ -353,7 +377,7 @@ const CAPABILITY_PROJECTION=Object.freeze([
  ],boundary:'source bytes and provenance stay authoritative; traversal is evidence, not comprehension'},
  {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
 ]);
-const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02';
+const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02',FIELD_VISOR_KEY='field.interphase.visor.seen.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
 function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
@@ -504,6 +528,25 @@ async function copyHeldAction(){
 function heldDaylineAllowed(){
  return !!focus&&focus.href!=='/'&&focus.href!=='/dayline/'&&!focus.href.startsWith('/dayline/');
 }
+function fieldCarrierForFocus(){
+ if(!focus||!window.InterphaseCarrier)return null;
+ const h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
+ const ipRaw=window.FieldInterphase&&typeof window.FieldInterphase.projectionResult==='function'?window.FieldInterphase.projectionResult():null;
+ if(!ipRaw)return null;
+ try{return window.InterphaseCarrier.fromProjection(ipRaw,{
+  owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
+  focusId:route,focusLabel:title,aperture:'ROUTE',
+  next:[
+   {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
+   ...(heldDaylineAllowed()?[{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),
+   {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
+  ].slice(0,3),
+  witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
+  return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
+  sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
+  meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
+ })}catch(_){return null}
+}
 function handoffHeldToDayline(){
  if(!heldDaylineAllowed())return;
  const h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
@@ -517,19 +560,7 @@ function handoffHeldToDayline(){
   focus:Array.isArray(ipRaw.focus)?ipRaw.focus.map(x=>({id:x.id,aperture:x.aperture||'DETAIL'})):[],
   residue:Array.isArray(ipRaw.residue)?ipRaw.residue.map(x=>({id:x.id,channel:x.channel,projection:x.projection})):[]
  }:null;
- const carrier=window.InterphaseCarrier&&ipRaw?window.InterphaseCarrier.fromProjection(ipRaw,{
-  owner:c?.owner||h?.lineage||'FIELD ROUTE',objectId:route,label:title,address:route,contract:'field-route/v0.1',
-  focusId:route,focusLabel:title,aperture:'ROUTE',
-  next:[
-   {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
-   {id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'},
-   {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
-  ],
-  witness:{class:'OBSERVED',summary:(h?.state||focus.state||'FIELD ROUTE')+' · held route projection'},
-  return:{address:'/?focus='+encodeURIComponent(route),owner:'FIELD',label:'RETURN TO FIELD'},
-  sourceRefs:[route,'/control/CURRENT.json','/showcase-manifest.json'],
-  meta:{nativeOwner:c?.owner||h?.lineage||'FIELD ROUTE'}
- }):null;
+ const carrier=fieldCarrierForFocus();
  const packet={
   schema:'atlas-dayline-handoff/v0.1',
   id:'field-'+Date.now(),
@@ -563,6 +594,27 @@ function handoffHeldToDayline(){
   $('capReturn').textContent='DAYLINE HANDOFF FAILED · RETURN → '+route;
  }
 }
+function fieldVisorSeen(){try{return localStorage.getItem(FIELD_VISOR_KEY)==='1'}catch(_){return false}}
+function setFieldVisorSeen(){try{localStorage.setItem(FIELD_VISOR_KEY,'1')}catch(_){}}
+function hideFieldVisor({remember=true}={}){const v=$('fieldVisor');if(!v)return;if(remember)setFieldVisorSeen();v.hidden=true;document.documentElement.dataset.fieldVisor='closed'}
+function renderFieldVisor({force=false}={}){
+ const v=$('fieldVisor');if(!v||!focus)return false;
+ if(INIT.get('visor')==='0'&&!force){v.hidden=true;return false}
+ if(!force&&INIT.get('visor')!=='1'&&fieldVisorSeen()){v.hidden=true;return false}
+ const carrier=fieldCarrierForFocus();
+ if(!carrier){setTimeout(()=>{try{renderFieldVisor({force})}catch(_){}},90);return false}
+ const hg=heldGlyph(focus);
+ $('fieldVisorGlyph').innerHTML=hg.svg||routeGlyph(focus,56);
+ $('fieldVisorTitle').textContent=carrier.object.label||focus.title||focus.href;
+ $('fieldVisorRoute').textContent=carrier.object.address+' · '+carrier.object.owner+' · authority remains native';
+ $('fieldVisorHeld').textContent=carrier.focus.label||carrier.focus.id;
+ $('fieldVisorHeldSub').textContent=carrier.object.id+' · '+carrier.projection.name+' projection · frame '+carrier.frameId;
+ $('fieldVisorMoves').innerHTML=carrier.next.length?carrier.next.map(m=>'<span class="visorMove">'+esc(m.label)+'</span>').join(''):'<em>no cross-host move required</em>';
+ $('fieldVisorWitness').textContent=(carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'no witness yet');
+ $('fieldVisorReturn').textContent='RETURN → '+carrier.return.address;
+ v.hidden=false;document.documentElement.dataset.fieldVisor='ready';return true
+}
+function maybeShowFieldVisor(){if(INIT.get('visor')==='0')return;renderFieldVisor({force:INIT.get('visor')==='1'})}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
@@ -582,6 +634,7 @@ function renderCapabilityTrial(){
  }
  $('capWitness').textContent=n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
  $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
+ if(!$('fieldVisor')?.hidden)renderFieldVisor({force:true});
 }
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
@@ -987,8 +1040,9 @@ Promise.all([
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
- renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
+ renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();setTimeout(maybeShowFieldVisor,0);if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
+$('fieldVisorOpen').onclick=()=>renderFieldVisor({force:true});$('fieldVisorClose').onclick=()=>hideFieldVisor();$('fieldVisorEnter').onclick=()=>{hideFieldVisor();document.getElementById('axialLatest')?.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})};
 $('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
@@ -1013,6 +1067,7 @@ window.__fieldAct=Object.freeze({
   siblings:()=>{const p=focus?.parent||'/';return (childrenMap().get(p)||[]).map(r=>r.href)}
 });
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
+window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),showVisor:()=>renderFieldVisor({force:true}),hideVisor:()=>hideFieldVisor({remember:false})});
 })();
 </script>
 <script src="./lib/interphase-field.js"></script>
