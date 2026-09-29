@@ -1,0 +1,42 @@
+{
+  "schema": "0xxx0/return/interphase-action-grammar/v0.1",
+  "created_at": "2026-09-29T19:18:00+08:00",
+  "rebased_at": "2026-09-29T19:29:00+08:00",
+  "status": "IMPLEMENTED_BRANCH / VERIFICATION_PENDING",
+  "base_sha": "d8ed1dd3998e4adbcfc34545bdc512744261f67b",
+  "branch": "converge/interphase-action-surface-20260929",
+  "purpose": "Converge FIELD/READFIELD/LIVE/LENS/DAYLINE interaction language without creating a universal shell or replacing native host operations.",
+  "law": "ONE HELD OBJECT → HOLD → TURN / RELEASE → TRACE → RETURN",
+  "delta": [
+    "interphase-carrier/v0.1 remains the transport schema and authority NONE / HANDOFF ONLY",
+    "every normalized move now carries one derived shared action alias while retaining native id/label/authority/target",
+    "actionSurface() exposes a host-neutral UI projection over the same carrier",
+    "AWAKE SOURCE/FRAME/FOCUS/OPERATE/WITNESS/RETURN cadence is exported as teaching grammar, not a state authority",
+    "invalid explicit action aliases fail closed"
+  ],
+  "action_semantics": {
+    "HOLD": "address/focus",
+    "TURN": "non-EFFECT native move",
+    "RELEASE": "native EFFECT boundary",
+    "TRACE": "witness/evidence",
+    "RETURN": "exact caller continuation"
+  },
+  "invariants": [
+    "NEXT <= 3",
+    "HOST_NATIVE_ONLY dispatch",
+    "shared verb != native operation",
+    "shared verb != authority",
+    "RETURN != BACK/UNDO/REWIND/REVERT/RESET",
+    "same object and focus survive projection"
+  ],
+  "files": [
+    "/lib/interphase-carrier.js",
+    "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "/tools/interphase-carrier-selftest.cjs"
+  ],
+  "verification": {
+    "carrier_selftest": "PENDING PR CI",
+    "public_surface": "PENDING PR CI",
+    "route_registration": "PENDING PR CI"
+  }
+}
