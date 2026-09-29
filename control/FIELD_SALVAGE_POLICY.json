@@ -5,17 +5,17 @@
   "game_donors": [
     {
       "source": "Hardspace: Shipbreaker",
-      "donor_mechanism": "survey interconnected subsystems/hazards before dismantling; extract valuable material with tool-specific cuts",
+      "donor_mechanism": "survey complex ship subsystems and hazards, then use bounded tools to dismantle and recover useful material",
       "transfer": "SURVEY → ISOLATE → SALVAGE → CUT → VERIFY → RETURN",
       "residue": "fiction, debt economy, spaceship skin and destructive spectacle do not transfer",
       "source_url": "https://www.blackbirdinteractive.com/shipbreaker"
     },
     {
       "source": "Terra Nil",
-      "donor_mechanism": "restoration succeeds by leaving a functioning ecology rather than permanent construction machinery",
-      "transfer": "temporary scaffolding must have an exit condition; success may reduce visible machinery",
+      "donor_mechanism": "after restoration, recycle/remove the buildings and tools used to create it; excess scaffolding is itself an end-state problem",
+      "transfer": "temporary scaffolding must name an exit condition; success may legitimately reduce visible machinery",
       "residue": "ecology simulation, biome content and environmental scoring do not transfer",
-      "source_url": "https://www.terranil.com/"
+      "source_url": "https://www.gamedeveloper.com/design/why-a-recycling-mechanic-saved-terra-nil-s-climate-cleanup-mechanics"
     }
   ],
   "laws": [
