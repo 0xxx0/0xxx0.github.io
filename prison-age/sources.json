@@ -2,7 +2,7 @@
   "schema": "prison-age.source-pack/v0.1",
   "status": "FIELD_SOURCE_SET",
   "default": "open-air",
-  "law": "Exact sourced text remains authoritative. FIELD chooses READ / RIDE / SOURCE, then the resolver explicitly chooses a provenance-distinct source before execution. Anthology stories and the recovered 2021 proto-root remain unequal source classes. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; no projection may rewrite source or claim traversal equals comprehension.",
+  "law": "Exact sourced text remains authoritative. FIELD exposes READ / RIDE / SOURCE only; the native resolver explicitly chooses a provenance-distinct source before projection. The recovered 2021 proto-root and the 2026 sourced movements are unequal source classes, not an imposed chronology. READFIELD reads and FOLD//BLOOM LIVE traverses addressed bytes; RECURRENCE and ECHO may expose inspectable relations but no projection may rewrite source or claim traversal equals comprehension.",
   "source_boundary": {
     "anthology": "SINGAPORE_BLIGHT_PRISON_AGE.docx",
     "anthology_class": "USER_LIBRARY_SOURCE / 2026 ANTHOLOGY CONTINUATION",
@@ -31,6 +31,23 @@
         "target": "/fold-bloom/live/?reader=prison-age-2021",
         "relation": "CONSERVATION_BY_REARRANGEMENT",
         "authority": "RECOVERED_AUTHORED_SOURCE"
+      },
+      "recurrence": {
+        "relation": "CONSERVATION_BY_REARRANGEMENT",
+        "signature": "AEGINOPRS",
+        "variants": [
+          "PRISON AGE",
+          "s i n g a p o r e",
+          "SIN / ORE / GAP",
+          "SINGAPORE"
+        ],
+        "boundary": "Same nine Latin letters after punctuation/spacing removal and uppercasing. No semantic equivalence, chronology or hidden-canon claim."
+      },
+      "provenance": {
+        "source_artifact": "2021 GPA EN SCRATCH-1.pdf",
+        "internal_date": "2021-07-18",
+        "recovery_status": "V / exact recovered wording",
+        "arrangement_boundary": "Derived exact-fragment arrangement, not a page facsimile; originating prompt remains unavailable."
       }
     },
     "open-air": {
