@@ -1,0 +1,42 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29",
+  "status": "PR_CANDIDATE",
+  "date": "2026-09-29",
+  "route": "/",
+  "version": "0.8.24",
+  "host_delta": "Remove the last stale parallel convergence-dashboard authority: FIELD root now owns the only convergence read, while /nexus/ is a compatibility alias and its board/map remain direct utilities.",
+  "law": "CONVERGENCE READ ≠ AUTHORITY. Root composes QUEUE + federation-atlas read-only; CURRENT owns attention/NOW; RETURN owns durable evidence; board/map utilities cannot mint NEXT.",
+  "changes": [
+    "/index.html — CONVERGE points at embedded convRead; #convRead opens the re-entry fold; NEXUS alias stays exactly reachable",
+    "/nexus/index.html — stale hard-coded dashboard replaced by compatibility alias to /#convRead",
+    "/tools/nexus-surface.test.mjs — tests alias contract plus board/map utility integrity",
+    "/control/FIELD_INDEX_CONTRACT.json — explicit convergence-authority boundary",
+    "/AGENTS.md — canonical convergence re-entry moved to /#convRead",
+    "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 / existing alias grammar"
+  ],
+  "preserves": [
+    "generic READ / RIDE / SOURCE source intent",
+    "one held FIELD object",
+    "CURRENT owns NOW",
+    "RETURN owns durable evidence",
+    "GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE reducer",
+    "NEXUS board + system map as direct utilities",
+    "INTERPHASE action-surface semantics",
+    "no new route, queue, store, planner, shell or dashboard"
+  ],
+  "verify": [
+    "node tools/nexus-surface.test.mjs",
+    "node tools/field-action-aperture-selftest.mjs",
+    "node tools/audit-route-grammar.mjs",
+    "node scripts/check-route-registration.mjs",
+    "public-surface-check",
+    "gitleaks",
+    "browser: /nexus/ resolves to FIELD #convRead and root re-entry fold opens"
+  ],
+  "residue": [
+    "board.html and map.html are retained snapshots/utilities; future use must not promote them into attention or execution authority",
+    "NEXUS uses existing manifest alias grammar: kind=alias, alias_of=/, state=UTILITY; compatibility is role semantics, not a new lifecycle state."
+  ],
+  "stop": "If CI and alias browser proof pass, merge and do not create another convergence dashboard. Reopen only for observed re-entry failure or authority ambiguity."
+}
