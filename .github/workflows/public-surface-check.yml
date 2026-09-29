@@ -52,6 +52,7 @@ jobs:
       - name: Validate JIT FIELD handoff compiler
         run: |
           node tools/field-egress-reducer-selftest.mjs
+          node tools/field-source-witness-selftest.mjs
           node scripts/emit-agent-transcript.mjs --selftest
       - name: Validate FIELD reversibility semantics
         run: node tools/field-reversibility-selftest.mjs
