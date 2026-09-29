@@ -67,7 +67,7 @@ async function rideSource(){
   const fp=story.source_fingerprint;
   const packet=makeReadRidePacket({
     source,label:'PRISON AGE · '+story.title,
-    sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
+    sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE',source_set:'PRISON_AGE',source_id:story.id,title:story.title},
     focus:{char_index:0,source_progress:0},
     from:sourceUrl(),returnAddress:returnUrl(),
     echo:{index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'}
