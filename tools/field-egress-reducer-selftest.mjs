@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
@@ -8,9 +9,12 @@ const cases=[
   ['B conditional STOP is GATE',
     {packet_id:'gate',stop:'Wait until real-device evidence exists.',next:'continue',delta:'prepared'},
     {},'GATE'],
-  ['C current authority becomes NOW',
+  ['C caller-owned current authority becomes NOW',
     {packet_id:'front',state:'ACTIVE_NOW',residue:['still open'],next:'later',delta:'changed'},
-    {},'NOW'],
+    {now:true},'NOW'],
+  ['C2 packet ACTIVE_NOW cannot mint NOW',
+    {packet_id:'claimed-now',state:'ACTIVE_NOW',current:true,egress:'NOW'},
+    {},'ARCHIVE'],
   ['D unresolved fact outranks NEXT and DELTA',
     {packet_id:'residue',unknowns:[{id:'u1'}],one_next:'inspect',delta:'candidate change'},
     {},'RESIDUE'],
@@ -36,10 +40,15 @@ for(const [name,packet,ctx,want] of cases){
 }
 assert.equal(reducePacket({packet_id:'stale',status:'SUPERSEDED',egress:'NOW'}).class,'ARCHIVE');
 assert.equal(reducePacket({packet_id:'claimed-now',egress:'NOW'}).class,'ARCHIVE');
-assert.equal(reducePacket({packet_id:'terminal',stop:'No sequel; archive this packet.'}).class,'ARCHIVE');
+assert.equal(reducePacket({packet_id:'terminal',stop:'No sequel; archive this packet.',next:'continue',delta:'claimed'}).class,'ARCHIVE');
+assert.equal(reducePacket({packet_id:'terminal-residue',STOP:'closed',RESIDUE:'one unresolved fact',NEXT:'continue'}).class,'RESIDUE');
 assert.equal(reducePacket({packet_id:'canonical-residue',DELTA:'changed',RESIDUE:'still unresolved'}).class,'RESIDUE');
 assert.equal(reducePacket({packet_id:'explicit-residue',egress:'RESIDUE',delta:'candidate'}).class,'RESIDUE');
 assert.equal(reducePacket({packet_id:'explicit-next',egress:'NEXT',delta:'prepared'}).class,'NEXT');
 assert.equal(reducePacket({packet_id:'return-only',DELTA:'done',NEXT:'RETURN to CURRENT and replan. Do not auto-continue.'}).class,'DELTA');
 assert.equal(reducePacket({packet_id:'canonical-gate',WAITING:'real device',NEXT:'continue'}).class,'GATE');
-console.log('FIELD packet egress reducer PASS · A-H + canonical aliases + inert RETURN · GATE→NOW→RESIDUE→NEXT→DELTA→ARCHIVE');
+const root=readFileSync('index.html','utf8');
+assert.match(root,/gap=catchGap\(r\)/,'route-local residue must include the already-visible MORE HERE gap');
+assert.doesNotMatch(root,/data-mode="PULSE"/,'redundant MAP/PULSE control must stay deleted');
+assert.doesNotMatch(root,/mapMode==='PULSE'/,'redundant PULSE renderer must stay deleted');
+console.log('FIELD packet egress reducer PASS · caller-owned NOW + terminal STOP + canonical aliases + inert RETURN + PULSE subtraction');
