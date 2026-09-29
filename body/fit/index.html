@@ -358,7 +358,11 @@ function renderHistory(){
 function renderPlain(){$('#plainText').textContent=JSON.stringify(D,null,2)}
 function renderAll(){renderBody();renderHouse();renderFitList();renderObsList();renderSession();renderPatina();renderHistory();renderPlain();if(!$('#view-fuse').hidden)renderFuse()}
 function setView(v){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));document.querySelectorAll('.view').forEach(x=>x.hidden=x.id!=='view-'+v);if(v==='fuse')renderFuse();if(v==='history'){renderPatina();renderHistory()}if(v==='plain')renderPlain()}
-$$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+const HASH_VIEW=Object.freeze({loadout:'fit',sense:'sense',fuse:'fuse',patina:'history',plain:'plain'});
+function viewFromHash(){return HASH_VIEW[String(location.hash||'').replace(/^#/,'').toLowerCase()]||'fit'}
+function setAddressedView(v){setView(v);const h=Object.entries(HASH_VIEW).find(([,x])=>x===v)?.[0]||'loadout';if(location.hash!=='#'+h)history.replaceState(null,'','#'+h)}
+$('.tab').forEach(b=>b.onclick=()=>setAddressedView(b.dataset.view));
+addEventListener('hashchange',()=>setView(viewFromHash()));
 
 function importPacket(j,origin){
  let transformedFrom=null;
@@ -383,7 +387,7 @@ $('#portImport').onclick=()=>{const p=portPacket();if(!p)return alert('No BODY /
 $('#exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='body-fit-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
 $('#clearBtn').onclick=()=>{if(!confirm('Clear BODY / FIT local state in this browser?'))return;D=blank();save();renderAll()};
 $('#saveKit').onclick=saveKit;$('#checkKit').onclick=checkKit;$('#deleteKit').onclick=deleteKit;$('#kitSelect').onchange=()=>{S.prepExtras.clear();checkKit()};$('#attachBody').onclick=attachLatestBody;$('#returnMark').onclick=returnSession;$('#stopSession').onclick=stopSession;
-$('#obsTime').value=dtLocal();renderAll();
+$('#obsTime').value=dtLocal();renderAll();setView(viewFromHash());
 })();
 </script>
 <script src="/showcase-nav.js"></script>
