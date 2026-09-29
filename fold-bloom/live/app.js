@@ -429,7 +429,43 @@ function syncReadEcho(w){
 }
 async function loadReadEcho(packet){
  clearReadEcho();const cfg=packet?.echo;if(!cfg?.index||!cfg?.source_id||!globalThis.FieldSourceEcho)return null;
- try{const u=new URL(cfg.index,location.href);if(u.origin!==location.origin)throw Error('ECHO_ORIGIN');const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw Error('ECHO '+r.status);const index=await r.json(),v=globalThis.FieldSourceEcho.validateIndex(index);if(!v.ok)throw Error(v.errors.join(' / '));if(!globalThis.FieldSourceEcho.sourceValid(index,{sourceId:cfg.source_id,text:packet.source}))throw Error('ECHO_STALE_SOURCE');readEcho={index,url:u.pathname+u.search,sourceId:String(cfg.source_id)};syncReadEcho(readCourseWitness(liveCourse(),liveCourseProgress()));return readEcho}catch(error){console.warn('SOURCE ECHO',error);document.documentElement.dataset.foldBloomSourceEcho='rejected';return null}
+ try{
+  const u=new URL(cfg.index,location.href);if(u.origin!==location.origin)throw Error('ECHO_ORIGIN');
+  const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw Error('ECHO '+r.status);
+  const index=await r.json(),v=globalThis.FieldSourceEcho.validateIndex(index);if(!v.ok)throw Error(v.errors.join(' / '));
+  if(!globalThis.FieldSourceEcho.sourceValid(index,{sourceId:cfg.source_id,text:packet.source}))throw Error('ECHO_STALE_SOURCE');
+  readEcho={index,url:u.pathname+u.search,sourceId:String(cfg.source_id),hit:null};
+  if(packet?.sourceIdentity?.source_set==='PRISON_AGE')restoreEchoThread();
+  syncReadEcho(readCourseWitness(liveCourse(),liveCourseProgress()));return readEcho
+ }catch(error){console.warn('SOURCE ECHO',error);document.documentElement.dataset.foldBloomSourceEcho='rejected';return null}
+}
+async function followReadEcho(){
+ const hit=readEcho?.hit,R=globalThis.FieldSourceEcho,T=globalThis.PrisonAgeEchoThread;
+ if(!isEchoWalk()||!hit?.entry||!R||!T)return false;
+ const fromWitness=readCourseWitness(liveCourse(),liveCourseProgress()),from=echoPoint(fromWitness);
+ if(!from)return false;
+ const e=hit.entry,src=(readEcho.index?.sources||[]).find(x=>x.id===e.source_id);
+ if(!src?.path)return false;
+ try{
+  const response=await fetch(src.path,{cache:'no-store'});if(!response.ok)throw Error('ECHO_TARGET '+response.status);
+  const source=await response.text();
+  if(!R.sourceValid(readEcho.index,{sourceId:e.source_id,text:source}))throw Error('ECHO_TARGET_STALE');
+  if(source.slice(Number(e.start),Number(e.end))!==String(e.text||''))throw Error('ECHO_TARGET_SPAN');
+  let thread=ensureEchoThread()||T.create(from);
+  const to={source_id:e.source_id,path:e.path,title:e.title,start:Number(e.start),end:Number(e.end),address:e.address};
+  thread=T.append(thread,{from,to,evidence:{entry_id:e.id,shared:hit.shared,phrases:hit.phrases,score:hit.score}});
+  readEchoThread=thread;saveEchoThread();
+  const fp=src.fingerprint||null,packet=makeReadRidePacket({
+    source,label:e.title,
+    sourceIdentity:{address:e.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE',source_set:'PRISON_AGE',source_id:e.source_id,title:e.title},
+    focus:{char_index:Number(e.start),source_progress:Number(e.start)/Math.max(1,source.length)},
+    from:'/fold-bloom/live/?experience=echo-walk',
+    returnAddress:'/prison-age/?story='+encodeURIComponent(e.source_id),
+    echo:{index:readEcho.url,source_id:e.source_id,source_path:e.path,source_fingerprint:fp,authority:'EVIDENCE_ONLY'}
+  });
+  loadReadRidePacket(packet,{announce:false});courseGrain='PARAGRAPH';readRide.course=null;setCourseMode('STEP',false);drawCourseMap(true);updateTextWitness();update();
+  document.documentElement.dataset.foldBloomEchoWalk='followed';toast('FOLLOW ECHO · '+e.title);return true
+ }catch(error){console.warn('FOLLOW ECHO',error);document.documentElement.dataset.foldBloomEchoWalk='rejected';toast('ECHO DOOR CLOSED');return false}
 }
 function updateTextWitness(){
   const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
