@@ -1,59 +1,93 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#060606"><title>PRISON AGE // SOURCE</title>
+<meta name="theme-color" content="#050505"><title>PRISON AGE // SOURCE CONSTELLATION</title>
 <style>
-:root{--bg:#060606;--ink:#efeee9;--mut:#8a8e8b;--line:#2b2f2c;--hot:#e86f43;--cool:#86d7ff;--gold:#d6b36a}
+:root{--bg:#050505;--ink:#efeee9;--mut:#858b87;--line:#272c29;--hot:#e86f43;--cool:#86d7ff;--gold:#d6b36a;--deep:#0b0d0c}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-body{min-height:100dvh}a,button{font:inherit;color:inherit;background:#090909;border:1px solid var(--line);border-radius:0;text-decoration:none}button{cursor:pointer}
-.app{min-height:100dvh;max-width:1120px;margin:auto;padding:max(10px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));display:grid;grid-template-rows:auto 1fr auto}
-header{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding:4px 0 9px}.ey{color:var(--hot);font-size:8px;letter-spacing:.16em}.brand{font:900 clamp(23px,6vw,48px)/.85 system-ui,sans-serif;letter-spacing:-.055em}.head{display:flex;gap:5px}.head a{padding:7px 9px}
-main{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:16px;min-height:0;padding:18px 0}
-.source{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;min-height:0}.num{font:900 clamp(90px,20vw,220px)/.72 system-ui,sans-serif;letter-spacing:-.09em;color:#111411;margin-left:-.045em}.title{font:900 clamp(32px,7vw,82px)/.86 system-ui,sans-serif;letter-spacing:-.06em;max-width:920px;margin-top:-.62em;position:relative}.title b{color:var(--hot)}
-.meta{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0;color:var(--mut);font-size:8px;letter-spacing:.08em}.meta span{border-top:1px solid var(--line);padding-top:4px}.meta b{color:#cbd0cc}
-.preview{align-self:center;max-width:780px;font:clamp(18px,3vw,32px)/1.45 Georgia,'Times New Roman',serif;white-space:pre-wrap;text-wrap:pretty;padding:18px 0;color:#e7e4dc}.preview.loading{color:#565c58}
-.law{font-size:9px;color:#8e9993;border-left:2px solid #344039;padding:8px 10px;max-width:760px}.law b{color:#c8d1cc}
+body{min-height:100dvh;background-image:linear-gradient(#0a0d0b 1px,transparent 1px),linear-gradient(90deg,#0a0d0b 1px,transparent 1px);background-size:48px 48px}
+a,button{font:inherit;color:inherit;background:#080908;border:1px solid var(--line);border-radius:0;text-decoration:none}button{cursor:pointer}
+.app{min-height:100dvh;max-width:1240px;margin:auto;padding:max(10px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
+header{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding:4px 0 9px;position:relative;z-index:3}.ey{color:var(--hot);font-size:8px;letter-spacing:.16em}.brand{font:900 clamp(22px,5vw,44px)/.85 system-ui,sans-serif;letter-spacing:-.055em}.head{display:flex;gap:5px;flex-wrap:wrap}.head a,.head button{padding:7px 9px}
+.threshold{min-height:min(70dvh,740px);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:18px;align-items:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden;padding:22px 0}
+.threshold:before{content:'AEGINOPRS';position:absolute;right:-.05em;bottom:-.17em;font:900 clamp(80px,20vw,240px)/.75 system-ui,sans-serif;letter-spacing:-.08em;color:#0b0e0c;z-index:0;pointer-events:none}
+.root{position:relative;z-index:1}.rootKicker{color:var(--gold);font-size:9px;letter-spacing:.16em}.rootWord{font:900 clamp(58px,12vw,154px)/.72 system-ui,sans-serif;letter-spacing:-.08em;max-width:900px;margin:12px 0 8px;overflow-wrap:anywhere;transition:opacity .12s ease,transform .18s ease,color .18s ease}.rootWord.swap{opacity:.18;transform:translateY(5px)}.rootWord[data-variant="0"]{color:var(--ink)}.rootWord[data-variant="1"],.rootWord[data-variant="3"]{color:var(--cool)}.rootWord[data-variant="2"]{color:var(--hot)}
+.signature{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.signature i{font-style:normal;border-top:1px solid #424842;padding:4px 5px 0;color:#b8c0bb;font-weight:900}
+.rootExact{max-width:690px;white-space:pre-wrap;font:clamp(16px,2.5vw,24px)/1.45 Georgia,'Times New Roman',serif;color:#ddd9cf;border-left:2px solid #3c463f;padding:6px 0 6px 14px;margin:16px 0;min-height:150px}.rootExact.loading{color:#555d58}
+.rootLaw{max-width:720px;color:var(--mut);font-size:9px}.rootLaw b{color:#cdd3cf}.rootActions{display:flex;gap:5px;flex-wrap:wrap;margin-top:16px}.rootActions button,.rootActions a{padding:10px 12px;min-height:40px}.rootActions .rideRoot{border-color:var(--cool);color:#d2f4ff;font-weight:900}.rootActions .readRoot{border-color:var(--hot);color:#ffd6c7;font-weight:900}
+.rootMeta{position:relative;z-index:1;border-left:1px solid var(--line);padding-left:16px;display:grid;gap:12px}.rootMeta h2{font:900 clamp(22px,4vw,42px)/.9 system-ui,sans-serif;letter-spacing:-.045em;margin:0}.rootMeta p{margin:0;color:#a4aaa6}.fact{border-top:1px solid var(--line);padding-top:7px}.fact b{display:block;color:var(--gold);font-size:8px;letter-spacing:.1em}.fact span{display:block;margin-top:3px;color:#c9cec9}
+.relationLaw{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:10px 0;color:#8f9892;font-size:9px}.relationLaw b{color:#d6ddd8}.relationLaw .neq{color:var(--hot);font:900 22px/1 system-ui,sans-serif}.relationLaw div:last-child{text-align:right}
+.movementHead{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:20px 0 8px}.movementHead h2{margin:0;font:900 clamp(26px,5vw,52px)/.85 system-ui,sans-serif;letter-spacing:-.05em}.movementHead span{color:var(--mut);font-size:9px;max-width:560px;text-align:right}
+main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;min-height:0;padding:12px 0 24px}
+.source{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;min-height:0;border-top:1px solid var(--line);padding-top:10px}.num{font:900 clamp(82px,18vw,190px)/.72 system-ui,sans-serif;letter-spacing:-.09em;color:#101411;margin-left:-.045em}.title{font:900 clamp(30px,6vw,74px)/.86 system-ui,sans-serif;letter-spacing:-.06em;max-width:900px;margin-top:-.58em;position:relative}.title b{color:var(--hot)}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0;color:var(--mut);font-size:8px;letter-spacing:.08em}.meta span{border-top:1px solid var(--line);padding-top:4px}.preview{align-self:center;max-width:820px;font:clamp(18px,3vw,31px)/1.48 Georgia,'Times New Roman',serif;white-space:pre-wrap;text-wrap:pretty;padding:22px 0;color:#e7e4dc}.preview.loading{color:#565c58}
+.law{font-size:9px;color:#8e9993;border-left:2px solid #344039;padding:8px 10px;max-width:780px}.law b{color:#c8d1cc}
 .actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}.actions button,.actions a{padding:11px 13px;min-height:42px}.actions .read{border-color:var(--hot);color:#ffd4c3;font-weight:900}.actions .ride{border-color:var(--cool);color:#cef1ff;font-weight:900}.actions .raw{color:#b9bdb9}.status{margin-top:8px;font-size:8px;color:var(--mut)}
-aside{border-left:1px solid var(--line);padding-left:12px;display:grid;align-content:start;gap:5px}.asideTitle{font-size:8px;color:var(--mut);letter-spacing:.14em;margin-bottom:3px}.storyBtn{text-align:left;padding:10px;min-height:58px}.storyBtn.on{border-color:var(--hot);background:#120b08}.storyBtn b{display:block}.storyBtn span{display:block;color:var(--mut);font-size:8px;margin-top:4px}.archive{margin-top:14px;border-top:1px solid var(--line);padding-top:10px;color:#777f7a;font-size:9px}.archive a{display:inline-block;margin-top:7px;padding:7px 9px}
+aside{border-left:1px solid var(--line);padding-left:12px;display:grid;align-content:start;gap:5px}.asideTitle{font-size:8px;color:var(--mut);letter-spacing:.14em;margin-bottom:3px}.storyBtn{text-align:left;padding:12px;min-height:74px;position:relative;overflow:hidden}.storyBtn:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#1d2420}.storyBtn.on{border-color:var(--hot);background:#110b08}.storyBtn.on:before{background:var(--hot)}.storyBtn b{display:block}.storyBtn span{display:block;color:var(--mut);font-size:8px;margin-top:4px}.storyBtn em{display:block;color:#aeb7b1;font-size:8px;font-style:normal;margin-top:7px}
+.relationKey{margin-top:12px;border-top:1px solid var(--line);padding-top:10px;display:grid;gap:6px;color:#7f8882;font-size:8px}.relationKey b{color:#b9c2bc}.relationKey i{font-style:normal;color:var(--cool)}
 footer{border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:8px}.route{color:#a7b1ac}
-@media(max-width:760px){main{grid-template-columns:1fr}.source{min-height:72dvh}.preview{font-size:clamp(19px,6vw,29px);padding:24px 0}.title{font-size:clamp(32px,10vw,58px)}.num{font-size:38vw}aside{border-left:0;border-top:1px solid var(--line);padding:12px 0 0;grid-template-columns:repeat(2,minmax(0,1fr))}.asideTitle,.archive{grid-column:1/-1}.storyBtn{min-height:70px}.actions{position:sticky;bottom:max(8px,env(safe-area-inset-bottom));z-index:5;background:#060606e8;padding:7px 0}.actions button,.actions a{flex:1 1 auto;text-align:center}}
+@media(max-width:820px){.threshold{grid-template-columns:1fr;min-height:auto;padding:30px 0 24px}.rootMeta{border-left:0;border-top:1px solid var(--line);padding:14px 0 0;grid-template-columns:repeat(2,minmax(0,1fr))}.rootMeta h2,.rootMeta>p{grid-column:1/-1}.relationLaw{grid-template-columns:1fr}.relationLaw .neq{display:none}.relationLaw div:last-child{text-align:left}.movementHead{display:block}.movementHead span{display:block;text-align:left;margin-top:7px}.rootWord{font-size:clamp(54px,18vw,100px)}main{grid-template-columns:1fr}.source{min-height:68dvh}.preview{font-size:clamp(19px,6vw,29px);padding:24px 0}.title{font-size:clamp(32px,10vw,58px)}.num{font-size:36vw}aside{border-left:0;border-top:1px solid var(--line);padding:12px 0 0;grid-template-columns:repeat(2,minmax(0,1fr))}.asideTitle,.relationKey{grid-column:1/-1}.storyBtn{min-height:82px}.actions{position:sticky;bottom:max(8px,env(safe-area-inset-bottom));z-index:5;background:#050505e8;padding:7px 0}.actions button,.actions a{flex:1 1 auto;text-align:center}}
 </style></head>
 <body><div class="app">
-<header><div><div class="ey">FIELD / PRISON AGE</div><div class="brand">SOURCE</div></div><div class="head"><a href="/">FIELD</a><a href="/prison-age/sources.json">PROVENANCE</a></div></header>
+<header><div><div class="ey">FIELD / PRISON AGE</div><div class="brand">SOURCE CONSTELLATION</div></div><div class="head"><a href="/">FIELD</a><a href="/prison-age/sources.json">PROVENANCE</a><button id="copyLink">COPY LINK</button></div></header>
+
+<section class="threshold" aria-label="Recovered 2021 Prison Age proto-root">
+  <div class="root">
+    <div class="rootKicker">RECOVERED PROTO-ROOT · 2021-07-18 · EXACT WORDING</div>
+    <div id="rootWord" class="rootWord" data-variant="0">PRISON AGE</div>
+    <div id="signature" class="signature"></div>
+    <div id="rootExact" class="rootExact loading">Loading exact recovered source…</div>
+    <div class="rootLaw"><b>RECURRENCE LAW</b> · These visible forms conserve the same nine Latin letters after punctuation/spacing removal and uppercasing. The relation is mechanical only. It does not assert semantic equivalence, chronology or hidden canon.</div>
+    <div class="rootActions"><button id="rearrangeBtn">REARRANGE →</button><button id="rootReadBtn" class="readRoot">READ ROOT →</button><button id="rootRideBtn" class="rideRoot">RIDE ROOT →</button><a id="rootRaw" href="/fold-bloom/live/authored/prison-age-2021.txt">SOURCE</a></div>
+  </div>
+  <div class="rootMeta">
+    <h2>ONE SOURCE.<br>UNEQUAL PROJECTIONS.</h2>
+    <p>No connective story is generated here. The recovered root and later sourced movements remain provenance-distinct; the experience is the movement between exact source, representation, recurrence, ECHO and RETURN.</p>
+    <div class="fact"><b>AUTHORITY</b><span>RECOVERED_AUTHORED_SOURCE</span></div>
+    <div class="fact"><b>ARTIFACT</b><span>2021 GPA EN SCRATCH-1.pdf</span></div>
+    <div class="fact"><b>RELATION</b><span>CONSERVATION_BY_REARRANGEMENT · AEGINOPRS</span></div>
+    <div class="fact"><b>BOUNDARY</b><span>Recovered root ≠ anthology story ≠ later co-created strata.</span></div>
+  </div>
+</section>
+
+<div class="relationLaw"><div><b>RECURRENCE</b> · within one recovered source · exact rearrangement relation</div><div class="neq">≠</div><div><b>ECHO</b> · across later sources · exact lexical evidence only</div></div>
+<div class="movementHead"><h2>SOURCED MOVEMENTS</h2><span>Four exact 2026 anthology/continuation sources. They are not presented as a generated sequence. Select one exact movement before READ or RIDE.</span></div>
 <main>
 <section class="source">
-<div><div id="number" class="num">08</div><div id="title" class="title">THE SUCCESSFUL ESCAPE<br><b>CHANGES THE NEXT PRISON</b></div></div>
+<div><div id="number" class="num">03</div><div id="title" class="title">OPEN <b>AIR</b></div></div>
 <div class="meta"><span id="season">SEASON V</span><span id="class">EXACT ANTHOLOGY STORY</span><span id="lines">SOURCE LINES · —</span></div>
-<div><div id="preview" class="preview loading">Loading exact source…</div><div class="law"><b>SOURCE LAW</b> · The story is not generated here. READFIELD and FOLD//BLOOM LIVE are unequal projections of the same addressed bytes. Traversal may leave evidence; it does not rewrite the source or prove comprehension.</div></div>
+<div><div id="preview" class="preview loading">Loading exact source…</div><div class="law"><b>SOURCE LAW</b> · The story is not generated here. READFIELD and FOLD//BLOOM LIVE are unequal projections of the same addressed bytes. Cross-source ECHO appears only when exact lexical evidence earns it. Traversal may leave evidence; it does not rewrite the source or prove comprehension.</div></div>
 <div><div class="actions"><button id="readBtn" class="read">READ →</button><button id="rideBtn" class="ride">RIDE →</button><a id="rawBtn" class="raw" href="#">SOURCE</a><a id="returnField" class="raw" href="/?focus=%2Fprison-age%2F">RETURN FIELD</a></div><div id="status" class="status">Exact source bytes remain primary · READFIELD reads · FOLD//BLOOM LIVE traverses · both RETURN exactly.</div></div>
 </section>
-<aside><div class="asideTitle">SOURCED MOVEMENTS / SOURCE ORDER</div><div id="storyList"></div></aside>
+<aside><div class="asideTitle">MOVEMENTS / EXPLICIT SOURCE CHOICE</div><div id="storyList"></div><div class="relationKey"><div><b>ROOT</b> · recovered exact wording / derived arrangement</div><div><b>RECURRENCE</b> · within-source conservation relation</div><div><b>ECHO</b> · cross-source exact-fragment evidence</div><i>None asserts theme, intent, causality, canon order, equivalence or comprehension.</i></div></aside>
 </main>
-<footer><span id="address" class="route">—</span><span>READ / RIDE / RETURN</span></footer>
+<footer><span id="address" class="route">—</span><span>READ / RIDE / SOURCE / RETURN</span></footer>
 </div>
 <script>
-
-const $=id=>document.getElementById(id),PACK='/prison-age/sources.json';
-let pack=null,story=null,source='';
+const $=id=>document.getElementById(id),PACK='/prison-age/sources.json',ROOT_ID='proto-root-2021';
+let pack=null,story=null,source='',rootStory=null,rootSource='',rootIndex=0;
 const q=new URLSearchParams(location.search),intent=['read','ride'].includes(q.get('intent'))?q.get('intent'):null;
 const cleanPreview=raw=>{
   const lines=String(raw||'').replace(/\r/g,'').split('\n').map(x=>x.trim()).filter(Boolean);
-  const prose=lines.filter(x=>!/^\d+(?:\/\d+)?$/.test(x)&&!/^UNIVERSE\b/.test(x)&&!/^TOKEN\s*\/\//.test(x)&&!/^MARGIN\s*\/\//.test(x)&&!/^[-·]{8,}$/.test(x)&&!/^#/.test(x)&&!/^(Source|Editorial status):/i.test(x)&&!/^\*\*/.test(x)&&!/^\[ … SOURCE PASSAGE OMITTED … \]$/.test(x));
+  const prose=lines.filter(x=>!/^(?:\d+|\d+\/\d+)$/.test(x)&&!/^UNIVERSE\b/.test(x)&&!/^TOKEN\s*\/\//.test(x)&&!/^MARGIN\s*\/\//.test(x)&&!/^[-·]{8,}$/.test(x)&&!/^#/.test(x)&&!/^(Source|Editorial status):/i.test(x)&&!/^(?:\*\*)/.test(x)&&!/^\[ … SOURCE PASSAGE OMITTED … \]$/.test(x));
   return prose.slice(0,3).join('\n\n');
 };
 const sourceUrl=()=>'/prison-age/?story='+encodeURIComponent(story.id)+(intent?'&intent='+encodeURIComponent(intent):'')+(q.get('return')==='field'?'&return=field':'');
 const returnUrl=()=>q.get('return')==='field'?'/?focus=%2Fprison-age%2F':sourceUrl();
 function updateUrl(){history.replaceState(null,'',sourceUrl())}
+function esc(s){return String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+function movementStories(){return Object.values(pack?.stories||{}).filter(x=>x.id!==ROOT_ID)}
 function renderList(){
-  $('storyList').innerHTML=Object.values(pack.stories).map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+x.id+'"><b>'+x.number+' · '+x.title+'</b><span>'+x.source_class.replaceAll('_',' ')+'</span></button>').join('');
+  $('storyList').innerHTML=movementStories().map(x=>'<button class="storyBtn '+(x.id===story?.id?'on':'')+'" data-story="'+esc(x.id)+'"><b>'+esc(x.number)+' · '+esc(x.title)+'</b><span>'+esc(x.source_class.replaceAll('_',' '))+'</span><em>'+esc(x.season)+'</em></button>').join('');
   $('storyList').querySelectorAll('[data-story]').forEach(b=>b.onclick=async()=>{await loadStory(b.dataset.story);if(intent==='read')return readSource();if(intent==='ride')return rideSource()});
 }
 async function loadStory(id){
-  story=pack.stories[id]||pack.stories[pack.default];source='';
+  const rootRequested=id===ROOT_ID,fallback=pack.stories[pack.default],candidate=pack.stories[id];
+  story=candidate&&candidate.id!==ROOT_ID?candidate:fallback;source='';
   $('number').textContent=story.number;$('title').textContent=story.title;
   $('season').textContent=story.season.toUpperCase();$('class').textContent=story.source_class.replaceAll('_',' ');$('lines').textContent='SOURCE LINES · '+story.source_lines;
   $('rawBtn').href=story.path;$('address').textContent=story.path;$('preview').className='preview loading';$('preview').textContent='Loading exact source…';
-  updateUrl();renderList();
+  if(!rootRequested)updateUrl();renderList();
   try{const r=await fetch(story.path,{cache:'no-store'});if(!r.ok)throw Error('SOURCE '+r.status);source=await r.text();$('preview').textContent=cleanPreview(source);$('preview').className='preview';$('status').textContent='EXACT SOURCE READY · '+source.length+' chars · '+story.path}
   catch(e){$('preview').textContent='Source unavailable: '+String(e.message||e);$('status').textContent='SOURCE LOAD FAILED'}
 }
@@ -65,17 +99,11 @@ function readSource(){
 }
 async function rideSource(){
   if(!story||!source.trim())return;
-  if(story.authored_reader?.id){
-    const u=new URL(story.authored_reader.target||('/fold-bloom/live/?reader='+encodeURIComponent(story.authored_reader.id)),location.origin);
-    u.searchParams.set('reader_return',returnUrl());
-    $('status').textContent='HANDOFF READY · RECOVERED AUTHORED SOURCE → PROVENANCE / RECURRENCE / RETURN · OWNER '+String(story.authored_reader.authority||'RECOVERED_AUTHORED_SOURCE');
-    location.href=u.pathname+u.search;return;
-  }
   const {makeReadRidePacket,READ_RIDE_STORAGE}=await import('/fold-bloom/read-course.js');
   const fp=story.source_fingerprint;
   const packet=makeReadRidePacket({
     source,label:'PRISON AGE · '+story.title,
-    sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
+    sourceIdentity:{id:story.id,address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
     focus:{char_index:0,source_progress:0},
     from:sourceUrl(),returnAddress:returnUrl(),
     echo:{index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'}
@@ -84,8 +112,31 @@ async function rideSource(){
   $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
   location.href='/fold-bloom/live/?source=readfield&course=STEP';
 }
-$('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
-window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent}),load:loadStory,ride:rideSource,read:readSource});
-function applyIntentStatus(){if(intent==='read')$('status').textContent='READ INTENT · choose an exact source movement; READFIELD opens only after selection.';else if(intent==='ride')$('status').textContent='RIDE INTENT · choose an exact source movement; FOLD//BLOOM LIVE opens only after selection.'}
-fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);applyIntentStatus()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
+async function loadRoot(){
+  rootStory=pack?.stories?.[ROOT_ID]||null;if(!rootStory)return null;
+  const rel=rootStory.recurrence||{},letters=String(rel.signature||'AEGINOPRS');
+  $('signature').innerHTML=[...letters].map(x=>'<i>'+esc(x)+'</i>').join('');
+  $('signature').title=String(rel.boundary||'');
+  $('rootRaw').href=rootStory.path;
+  try{const r=await fetch(rootStory.path,{cache:'no-store'});if(!r.ok)throw Error('ROOT '+r.status);rootSource=await r.text();$('rootExact').textContent=rootSource.trim();$('rootExact').classList.remove('loading')}
+  catch(e){$('rootExact').textContent='Recovered source unavailable: '+String(e.message||e)}
+  return rootStory
+}
+function rearrangeRoot(){
+  const variants=rootStory?.recurrence?.variants||[];if(!variants.length)return;
+  rootIndex=(rootIndex+1)%variants.length;const w=$('rootWord');w.classList.add('swap');
+  setTimeout(()=>{w.dataset.variant=String(rootIndex);w.textContent=variants[rootIndex];w.classList.remove('swap')},120)
+}
+function rootReturnUrl(){return q.get('return')==='field'?'/?focus=%2Fprison-age%2F':'/prison-age/?story='+encodeURIComponent(ROOT_ID)}
+function readRoot(){
+  if(!rootStory)return;const u=new URL('/docs/',location.origin);u.searchParams.set('src',rootStory.path);u.searchParams.set('return',rootReturnUrl());u.searchParams.set('ap_scale','PARAGRAPH');u.searchParams.set('ap_char','0');location.href=u.pathname+u.search
+}
+function rideRoot(){
+  if(!rootStory?.authored_reader)return;const u=new URL(rootStory.authored_reader.target,location.origin);u.searchParams.set('reader_return',rootReturnUrl());location.href=u.pathname+u.search
+}
+function applyIntentStatus(){if(intent==='read')$('status').textContent='READ INTENT · choose an exact sourced movement below, or choose READ ROOT above.';else if(intent==='ride')$('status').textContent='RIDE INTENT · choose an exact sourced movement below, or choose RIDE ROOT above.'}
+$('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;$('rearrangeBtn').onclick=rearrangeRoot;$('rootReadBtn').onclick=readRoot;$('rootRideBtn').onclick=rideRoot;
+$('copyLink').onclick=async()=>{try{await navigator.clipboard.writeText(location.href);$('copyLink').textContent='COPIED'}catch(_){$('copyLink').textContent='COPY FAILED'}setTimeout(()=>$('copyLink').textContent='COPY LINK',1200)};
+window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent,root:rootStory?{id:rootStory.id,path:rootStory.path,hash:rootStory.source_fingerprint,recurrence:rootStory.recurrence}:null,rootVariant:(rootStory?.recurrence?.variants||[])[rootIndex]||null}),load:loadStory,ride:rideSource,read:readSource,rideRoot,readRoot,rearrangeRoot});
+fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadRoot();await loadStory(q.get('story')||pack.default);applyIntentStatus()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
 </script></body></html>
