@@ -94,6 +94,7 @@ jobs:
           node tools/sleeper-route-witness-smoke.mjs
           node tools/sleeper-nine-gate-ux-smoke.mjs
           node tools/prison-age-field-selftest.cjs
+          node tools/source-echo-selftest.cjs
           node tools/prison-age-field-smoke.mjs
           node tools/sleeper-dayline-carrier-selftest.cjs
           node tools/interphase-dayline-selftest.cjs
