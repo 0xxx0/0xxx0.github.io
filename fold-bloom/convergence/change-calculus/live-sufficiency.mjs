@@ -1,4 +1,3 @@
-import assert from 'node:assert/strict';
 import {
   createState,rotateSteps,release,availableForecasts,forecastMatchesCall,N,wrap
 } from '../../live/engine.js';
@@ -197,15 +196,16 @@ export function runLiveForecastFactorization({seeds=96,rounds=24}={}){
   };
 }
 
-if(import.meta.url===new URL(process.argv[1], 'file://').href){
+const isCli=typeof process!=='undefined'&&process?.argv?.[1]&&import.meta.url===new URL(process.argv[1], 'file://').href;
+if(isCli){
   const out=runLiveMacrostateSufficiency();
   const factor=runLiveForecastFactorization();
-  assert.ok(out.samples>100,'expected substantial native LIVE sample set');
-  assert.ok(out.hexCounterexample,'expected same hex quotient with unequal native futures');
-  assert.equal(out.hexControlSufficient,false);
-  assert.ok(factor.samples>100,'expected substantial forecast factorization sample set');
-  assert.equal(factor.topology_factor.reproduces_structural_forecasts,true);
-  assert.equal(factor.full_factor.reproduces_full_forecasts,true);
-  assert.equal(factor.charge_residue.affects_full_forecast,true);
+  if(!(out.samples>100))throw new Error('expected substantial native LIVE sample set');
+  if(!out.hexCounterexample)throw new Error('expected same hex quotient with unequal native futures');
+  if(out.hexControlSufficient!==false)throw new Error('expected HEX control sufficiency falsification');
+  if(!(factor.samples>100))throw new Error('expected substantial forecast factorization sample set');
+  if(!factor.topology_factor.reproduces_structural_forecasts)throw new Error('topology factor failed structural forecast reconstruction');
+  if(!factor.full_factor.reproduces_full_forecasts)throw new Error('full factor failed full forecast reconstruction');
+  if(!factor.charge_residue.affects_full_forecast)throw new Error('expected charge residue witness');
   console.log(JSON.stringify({macrostate:out,factorization:factor},null,2));
 }
