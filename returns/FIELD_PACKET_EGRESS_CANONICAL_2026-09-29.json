@@ -1,0 +1,71 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_PACKET_EGRESS_CANONICAL_2026-09-29",
+  "status": "CANDIDATE_PENDING_CI",
+  "date": "2026-09-29",
+  "route": "/",
+  "host_delta": "Complete the merged FIELD packet-egress reducer without forking it: preserve recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence and add the strict field-work-packet/v0.1 lane for new packets.",
+  "before": "PR #557 restored the recovered one-bucket precedence, conditional STOP semantics and packet-label non-promotion, but new packets still lacked required OBJECT/AUTHORITY, evidence-gated DELTA, NEXT≤3 enforcement, and explicit RETURN disposition handling.",
+  "changes": [
+    "/lib/field-egress-reducer.mjs — strict canonical lane dispatches before the legacy recovery adapter while preserving PR #557 precedence",
+    "/control/FIELD_PACKET_EGRESS.json — canonical fields, STOP law, RETURN dispositions, precedence and legacy boundary",
+    "/tools/field-egress-reducer-selftest.mjs — legacy A-H stays green plus canonical authority/evidence/STOP/RETURN/NEXT cases",
+    "/control/FIELD_INDEX_CONTRACT.json — strict-lane law + recoverable contract pointer",
+    "/AGENTS.md — future workers prefer canonical packets; historical packet shapes remain recovery-compatible"
+  ],
+  "canonical_fields": [
+    "OBJECT",
+    "AUTHORITY",
+    "STATE_IN",
+    "DELTA",
+    "EVIDENCE",
+    "STATE_OUT",
+    "RESIDUE",
+    "WAITING",
+    "NEXT",
+    "STOP"
+  ],
+  "precedence": [
+    "GATE",
+    "NOW",
+    "RESIDUE",
+    "NEXT",
+    "DELTA",
+    "ARCHIVE"
+  ],
+  "return_dispositions": {
+    "CLOSE": "ARCHIVE",
+    "RESIDUE": "RESIDUE",
+    "WAITING": "GATE",
+    "CONTRADICTION": "RESIDUE",
+    "TRIGGER": "NEXT only with bounded executable NEXT + explicit execution authorization; otherwise GATE"
+  },
+  "proved_by_test": [
+    "historical packets cannot self-promote",
+    "packet egress labels cannot mint GATE/NOW",
+    "missing OBJECT/AUTHORITY quarantines canonical packets to ARCHIVE",
+    "conditional STOP → GATE; terminal STOP + residue → RESIDUE; completed terminal STOP → ARCHIVE",
+    "GATE outranks NOW/NEXT; ordinary NOW outranks residue/next/delta",
+    "RETURN CLOSE → ARCHIVE; CONTRADICTION → RESIDUE; WAITING → GATE",
+    "canonical DELTA without EVIDENCE → RESIDUE; evidenced DELTA → DELTA",
+    "NEXT >3 → RESIDUE; NEXT 1..3 → NEXT",
+    "TRIGGER without executable/authorized NEXT → GATE; authorized bounded TRIGGER → NEXT"
+  ],
+  "preserves": [
+    "CURRENT owns NOW",
+    "PR #557 recovered precedence",
+    "legacy packet recoverability",
+    "packet authority remains NONE",
+    "native host/source mutation authority",
+    "no new route, dashboard, queue, planner, store, priority, or packet cache"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest"
+  ],
+  "residue": [
+    "Do not migrate historical packet bodies merely to satisfy the new schema.",
+    "Do not render another packet dashboard. Propagate the strict lane only through existing FIELD handoff consumers."
+  ],
+  "stop": "After exact-head CI, merge and return to ordinary FIELD work. No packet-model expansion without a failed real consumer."
+}
