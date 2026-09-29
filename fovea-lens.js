@@ -36,15 +36,20 @@
  *              release `f` selects; Esc cancels.
  *   tap `f`, the foot ◎ FOVEA button and the semantic-scale ◎ FOVEA button
  *   still toggle the lens (tap `f` now toggles on key release).
- *   Esc closes the RADIAL, else turns the lens off.
+ *   Esc closes the GLYPH figure, else the RADIAL, else turns the lens off.
  *   Selecting FOVEA activates the lens AT the gesture point (pin + read).
+ *   Selecting GLYPH composes the held route's glyph, full size, at the point.
  *
  * SLOT EXTENSION (unified interphase hook): slots are DATA — see SLOTS and
- * FoveaLens.radial.register({id,label,angle,run}). The reserved GLYPH slot
- * marks where the interphase glyph operations plug in. Not built here.
+ * FoveaLens.radial.register({id,label,angle,run}). GLYPH is the first built-in
+ * interphase glyph operation: it composes the held route's glyph from the same
+ * public surfaces heldGlyph() reads, full size, into a transient #foveaGlyphFig
+ * div near the gesture point — display only, pointer-events none, z-index below
+ * the lens. Esc closes it first; the next GLYPH use replaces it.
  *
  * OFF BY DEFAULT. Foot button, ◎ FOVEA, `f`, or the gesture.
- * Deletable: this file, the #foveaLens/#foveaRadial CSS, the toggles. Nothing else.
+ * Deletable: this file, the #foveaLens/#foveaRadial CSS, the toggles, and the
+ * runtime-added #foveaGlyphFig div. Nothing else.
  */
 (()=>{'use strict';
 const H=()=>window.FieldLensHost;
@@ -224,6 +229,68 @@ function burst(col){
 }
 
 /* ==================================================================
+ * GLYPH — the held object's composed glyph, full size, at the gesture
+ * point: the same figure the visor runs at 58px, composed here from the
+ * surfaces the page already exposes (route map + CURRENT heads +
+ * FieldInterphase representation), into a transient #foveaGlyphFig div.
+ * Display only — pointer-events none, z-index below the lens; it never
+ * acts and never traps a click. Esc dismisses it first, the next GLYPH
+ * use replaces it. A missing global or route = silent no-op, no error.
+ * ================================================================== */
+let headsP=null,figSeq=0;
+function headList(){                                  // CURRENT.json, fetched once
+  if(!headsP)headsP=fetch('./control/CURRENT.json').then(r=>r.ok?r.json():null)
+    .then(j=>Array.isArray(j&&j.current_heads)?j.current_heads:[]).catch(()=>[]);
+  return headsP;
+}
+async function figFor(href){                          // size-300 figure for one route
+  const M=MAP(),r=M?.get?.(href);
+  if(!r||!window.InterphaseGlyph)return null;
+  const h=(await headList()).find(x=>x.route===r.href);
+  const children=M.all?[...M.all().values()].filter(x=>x.parent===r.href):[];
+  let rep=null;try{rep=window.FieldInterphase?.glyph?.(href)?.representation||null}catch(_){}
+  const opt={children,size:300,...(rep?{representation:rep}:{})};
+  try{
+    if(h&&window.ProjectHeadGlyph)return window.ProjectHeadGlyph.svg(h,r,opt);
+    const d=window.FieldInterphase?.describe?.(href);
+    if(!d)return null;
+    try{return window.InterphaseGlyph.svg(d,{size:300})}
+    catch(_){
+      /* A childless route asks interphase-ring for a 1-node depth ring and the
+         ring asserts count>=2 (pre-existing). Fold the degenerate depth away
+         and draw the rest of the figure rather than lose the projection. */
+      return window.InterphaseGlyph.svg({...d,parent:null,address:d.address?{...d.address,parent:null}:null,children:[]},{size:300});
+    }
+  }catch(_){return null}
+}
+function glyphClose(){
+  figSeq++;
+  const f=document.getElementById('foveaGlyphFig');
+  if(f){f.remove();return true}
+  return false;
+}
+function glyphZoom(pt){
+  const e=document.elementFromPoint(pt.x,pt.y);
+  const chip=e?.closest?.('.feedChip,.mapNode,.axisToken,[data-href]');
+  const href=(chip?.dataset?.href)||H()?.focus?.()?.href||window.__fieldAct?.focusHref?.()||'';
+  if(!href)return;
+  const seq=++figSeq;
+  figFor(href).then(svg=>{
+    if(!svg||seq!==figSeq)return;
+    let f=document.getElementById('foveaGlyphFig');
+    if(!f){
+      f=document.createElement('div');f.id='foveaGlyphFig';f.setAttribute('aria-hidden','true');
+      f.style.cssText='position:fixed;pointer-events:none;z-index:9997;background:#05070b;border:1px solid #2a3439;box-shadow:0 8px 40px #000b';
+      document.body.appendChild(f);
+    }
+    f.style.left=clamp(pt.x+14,8,Math.max(8,innerWidth-308))+'px';
+    f.style.top=clamp(pt.y+14,8,Math.max(8,innerHeight-308))+'px';
+    f.innerHTML=svg;
+    const g=f.querySelector('svg');if(g){g.setAttribute('width','300');g.setAttribute('height','300');g.style.display='block'}
+  }).catch(()=>{});
+}
+
+/* ==================================================================
  * THE RADIAL — the summon gesture's menu. Gesture in, choice out.
  * Slots are DATA. This array is the extension seam for the unified
  * interphase glyph operations (SLOTS / FoveaLens.radial.register).
@@ -239,7 +306,9 @@ const SLOTS=[
   {id:'OPEN',label:'OPEN',angle:30,run:pt=>{
     const t=probe(pt.x,pt.y);if(t?.href)window.__fieldAct?.open?.(t.href);else burst('#ed7447');
   }},
-  {id:'GLYPH',label:'GLYPH',angle:90,reserved:true,note:'reserved — unified interphase glyph slots'}
+  /* GLYPH — the held route's glyph, full size, at the gesture point (figFor).
+     Display only; Esc closes the figure first, the next GLYPH use replaces it. */
+  {id:'GLYPH',label:'GLYPH',angle:90,note:'held glyph, full size — display only',run:pt=>glyphZoom(pt)}
 ];
 let radialEl=null,radialOpen=false,radialMode=null,hotSlot=-1,rx=0,ry=0;
 let armTimer=0,armX=0,armY=0,armId=null,keyTimer=0,keyDownAt=0,suppressClicks=0,suppressTimer=0;
@@ -349,6 +418,7 @@ function onKeyUp(e){
   keyHoldEnd();
 }
 function onEscape(){
+  if(glyphClose())return true;                 // the GLYPH figure dismisses first
   if(radialOpen){radialClose();return true}
   if(on){toggle(false);return true}
   return false;
@@ -418,7 +488,10 @@ function onPointerCancel(e){if(e.pointerId===armId){clearTimeout(armTimer);armId
 function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType))el.style.opacity='0'}
 function onEnter(){if(el&&on)el.style.opacity='1'}
 function onKey(e){
-  if(e.key==='Escape'){if(onEscape())e.preventDefault();return}
+  /* ONE press = ONE step. Escape used to fire onEscape twice (keydown AND
+     keyup), so a single press dismissed two surfaces; with the figure in the
+     staircase that would close it and toggle the lens in the same press. */
+  if(e.key==='Escape'){if(e.type==='keydown'&&!e.repeat&&onEscape())e.preventDefault();return}
   if(e.key!=='f')return;
   if(e.type==='keydown')onKeyDown(e);else onKeyUp(e);
 }
