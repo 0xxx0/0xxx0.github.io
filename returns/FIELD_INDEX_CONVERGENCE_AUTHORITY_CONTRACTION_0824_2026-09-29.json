@@ -1,0 +1,31 @@
+{
+  "schema": "0xxx0/return/field-index-convergence-authority-contraction/v0.1",
+  "created_at": "2026-09-29T22:08:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "branch": "field/convergence-read-authority-current-20260929-r2",
+  "route": "/",
+  "version": "0.8.24",
+  "law": "CONVERGENCE READ ≠ AUTHORITY",
+  "purpose": "Remove the redundant NEXUS convergence authority claim while retaining its board/map utilities and FIELD's already-existing convergence read.",
+  "delta": [
+    "FIELD re-entry changes CONVERGE / NEXUS to CONVERGE / READ at #convRead",
+    "/nexus/ becomes a compatibility redirect to /#convRead",
+    "board.html and map.html remain direct utility surfaces",
+    "hash re-entry opens FIELD's existing re-entry fold and scrolls to the convergence read",
+    "CURRENT remains sole attention/NOW owner; RETURN remains durable evidence owner"
+  ],
+  "non_delta": [
+    "no new convergence mechanism",
+    "no new queue/store/planner/shell",
+    "no six-family project registry",
+    "no effect or source authority",
+    "no change to native host actions or canonical action surface"
+  ],
+  "verification": {
+    "nexus_surface": "PENDING PR CI",
+    "route_registration": "PENDING PR CI",
+    "public_surface": "PENDING PR CI",
+    "gitleaks": "PENDING PR CI"
+  },
+  "donor": "PR #626 is retained only as stale reconstruction evidence; this successor is rebuilt from current master."
+}
