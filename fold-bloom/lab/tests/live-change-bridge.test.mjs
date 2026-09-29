@@ -104,6 +104,17 @@ test('same hex windows can retain unequal post-release native NEXT apertures',()
   assert.equal(from.event_refs.at(-1).native_after.candidate_count,2);
 });
 
+test('native forecast witness rejects the wrong schema or authority',()=>{
+  const valid=native(1,0,{verb:'BLOOM',chain:1,candidates:1},[{slot:0,verb:'BLOOM',chain:1,span:0,power:1}]);
+  let s=createLiveChangeBridgeState();
+  s=reduceLiveChangeBridge(s,op(1,'BLOOM',{nativeForecast:{...valid,authority:'EFFECT'}}));
+  assert.equal(s.operations[0].native_after,null);
+  s=reduceLiveChangeBridge(s,op(2,'FOLD',{nativeForecast:{...valid,schema:'OTHER'}}));
+  assert.equal(s.operations[1].native_after,null);
+  s=reduceLiveChangeBridge(s,op(3,'FOLD',{nativeForecast:valid}));
+  assert.equal(s.operations[2].native_after.authority,'NATIVE_EVIDENCE');
+});
+
 test('authority-NONE steering witness may travel beside LIVE evidence but does not become control',()=>{
   let s=createLiveChangeBridgeState();
   s=reduceLiveChangeBridge(s,{
