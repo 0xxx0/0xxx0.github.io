@@ -1,29 +1,28 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE_PRECEDENCE_REPAIR",
+  "status": "CANDIDATE_HARDENED_PENDING_CI",
   "date": "2026-09-29",
   "route": "/",
-  "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
-  "law": "Packet presence does not create continuation. Historical/superseded material collapses to ARCHIVE unless current authority explicitly reactivates it. Canonical one-bucket precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; only CURRENT/explicit selection may produce NOW.",
+  "host_delta": "One canonical FIELD egress mechanism: preserve recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence, harden NOW/DELTA authority, retain alias/terminal RETURN compatibility, and give new field-work-packet/v0.1 packets strict OBJECT/AUTHORITY/STOP/RETURN/NEXT bounds.",
+  "law": "Packet presence does not create continuation. Packet-local fields/labels cannot grant NOW; caller CURRENT/selection context does. GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. Conditional STOP → GATE; terminal STOP keeps unresolved material as RESIDUE and otherwise closes. Unwitnessed material DELTA → RESIDUE. Canonical packets require OBJECT + AUTHORITY and NEXT ≤3.",
   "changes": [
-    "/lib/field-egress-reducer.mjs — pure deterministic reducer + hard non-promotion boundary",
-    "/tools/field-egress-reducer-selftest.mjs — A-H acceptance cases",
-    "/scripts/emit-agent-transcript.mjs — compact current egress projection + --reduce <packet.json>",
-    "/control/FIELD_INDEX_CONTRACT.json — packet egress law",
-    "/AGENTS.md — machine re-entry documents bounded reducer",
-    "/showcase-manifest.json — FIELD root touch only; no new route/version",
-    "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate",
-    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence",
-    "/lib/field-egress-reducer.mjs + selftest — accept canonical uppercase egress aliases and treat RETURN-to-CURRENT/replan-only prose as terminal rather than NEXT"
+    "/lib/field-egress-reducer.mjs — merged precedence + alias/inert-RETURN compatibility + caller-owned NOW + witnessed DELTA + strict canonical lane",
+    "/control/FIELD_PACKET_EGRESS.json — recoverable field-work-packet/v0.1 contract",
+    "/tools/field-egress-reducer-selftest.mjs — legacy recovery + authority/evidence + canonical STOP/RETURN/NEXT proofs",
+    "/control/FIELD_INDEX_CONTRACT.json — one combined packet law + contract pointer",
+    "/AGENTS.md — new workers use the canonical lane; historical shapes remain recovery-compatible",
+    "/scripts/emit-agent-transcript.mjs — existing transient consumer remains the machine projection; no second packet surface"
   ],
   "preserves": [
     "CURRENT owns NOW",
-    "WAITING owns human/world dependencies",
+    "WAITING/human-world dependencies own GATE",
+    "recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence",
+    "uppercase aliases and inert RETURN-to-CURRENT/replan compatibility",
     "historical worker packets remain non-runnable by presence",
     "packet authority remains NONE",
     "host/source mutation authority remains native",
-    "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
+    "no new route, dashboard, queue, store, planner, priority, or canonical packet cache"
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
@@ -31,8 +30,9 @@
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
   "residue": [
-    "The reducer classifies packet egress only; it does not decide project priority, execute NEXT, or allow packet labels to manufacture NOW/GATE. RETURN-to-CURRENT/replan-only prose is terminal re-entry, not continuation.",
-    "External/private packets are reduced only when explicitly supplied to the existing transcript CLI."
+    "The reducer classifies egress only; it never executes NEXT or decides project priority.",
+    "Historical packet bodies are not migrated to the canonical schema; the compatibility adapter exists for recovery.",
+    "Do not render another packet dashboard. Existing transient FIELD consumers are sufficient until a failed real consumer proves otherwise."
   ],
-  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress."
+  "stop": "Merge only on exact-head CI. After merge, stop packet-model work unless a real FIELD consumer fails."
 }
