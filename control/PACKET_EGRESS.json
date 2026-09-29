@@ -1,7 +1,7 @@
 {
   "schema": "field-packet-egress-projection/v0.1",
   "generated_at": null,
-  "current_updated": "2026-09-29T12:22:30+08:00",
+  "current_updated": "2026-09-29T16:45:00+08:00",
   "authority": "DERIVED_PROJECTION_ONLY / CURRENT REMAINS ATTENTION AUTHORITY",
   "laws": [
     "PACKET != CONTROL.",
@@ -76,13 +76,13 @@
     },
     {
       "schema": "field-packet-egress/v0.1",
-      "id": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29",
-      "source": "returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+      "id": "FIELD_INDEX_PACKET_EGRESS_2026-09-29",
+      "source": "returns/FIELD_INDEX_PACKET_EGRESS_2026-09-29.json",
       "source_kind": "RETURN_ADAPTER",
       "route": "/",
-      "object": "FIELD Index first-contact visor over the exact current interphase-carrier/v0.1 frame",
+      "object": "FIELD INDEX / packet + RETURN egress convergence",
       "authority": "EVIDENCE_ONLY / ADAPTED RETURN",
-      "state_out": "MERGED_MACHINE_GREEN",
+      "state_out": "IMPLEMENTED_CANDIDATE / CI_PENDING",
       "category": "DELTA",
       "facets": [
         "DELTA",
@@ -96,9 +96,9 @@
       "residue_present": true,
       "waiting_present": false,
       "next": [
-        "RETURN to CURRENT and replan. Do not resurrect /awake/ as a second app; future refinement should occur through FIELD/native host friction only."
+        "After CI, merge if green. Then RETURN to CURRENT and select an existing conversion head; do not extend the reducer into autonomous routing or another control plane."
       ],
-      "stop": null,
+      "stop": "No packet may activate itself, mutate CURRENT/QUEUE, autoplay NEXT, or manufacture user obligations. Do not add more egress categories without a concrete classification failure.",
       "head_lineage": "field-index"
     },
     {
