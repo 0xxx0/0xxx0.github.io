@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-29T21:21:00+08:00",
+        "updated_at": "2026-09-29T21:29:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -24,11 +24,12 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. The visor consumes the same interphase-action-surface/v0.1 now used by DAYLINE: HOLD focus, TURN/RELEASE over unchanged native moves, TRACE witness, exact RETURN. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE express operation intent only; exact source selection and effect authority remain with the native host.",
+      "role": "FIELD INDEX root: one glyph field + one held object + one first-contact visor over the canonical INTERPHASE action surface. Generic HOLD / TURN / RELEASE / TRACE / RETURN comes from the shared carrier; host-specific labels and exact targets derive from the held manifest route operation + AVAILABLE exit paths, never a FIELD-owned capability table. Held/CATCH packet egress remains GATE / NOW / RESIDUE / NEXT / DELTA / ARCHIVE with no mutation authority. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE express operation intent only; exact source selection and effect authority remain with the native host.",
       "receipt": "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
       "machine_view": "FIELD",
       "version": "0.8.23",
       "transfer": [
+        "host-action derivation: FIELD no longer carries a per-host CAPABILITY_PROJECTION table; native hints come from manifest route.operation + AVAILABLE field.exit_paths, so exact targets remain host-owned",
         "0.8.23 action-surface convergence: AWAKE visor derives cadence, HOLD, TURN/RELEASE moves, TRACE and RETURN from interphase-action-surface/v0.1; duplicated hardcoded visor grammar removed; native labels/authority unchanged",
         "packet egress boundary: only explicit external/world/human WAITING → GATE; generic unresolved/internal WAITING → RESIDUE across string/object/array/named dependency shapes; metadata key names/container presence cannot mint externality",
         "packet egress compatibility convergence: uppercase canonical aliases + inert RETURN-to-CURRENT/replan semantics preserved under caller-authorized NOW and witnessed DELTA; FIELD route-touch DELTA is host-attested from its own manifest/local-boundary witness",
@@ -108,7 +109,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
+      "latest_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {

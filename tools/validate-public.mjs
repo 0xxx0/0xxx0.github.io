@@ -316,7 +316,15 @@ check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
 check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missing held-object + glyph-field compositor');
 check(home.includes('id="fieldVisor"')&&home.includes('YOU’RE A WAKE.')&&home.includes('id="fieldVisorOpen"'),'FIELD root missing AWAKE / INTERPHASE first-contact visor');
 check(home.includes('function fieldCarrierForFocus()')&&home.includes('window.FieldIndexCarrier')&&home.includes("field.interphase.visor.seen.v01"),'FIELD visor is not bound to the current INTERPHASE carrier');
-check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&!home.includes("h.startsWith('/fold-bloom/')||h==='/docs/'"),'FIELD carrier launders READFIELD ownership into FOLD//BLOOM');
+check(
+  !home.includes('CAPABILITY_PROJECTION')&&
+  home.includes('function nativeRouteOwner(r)')&&
+  home.includes('function nativeRouteActions(r)')&&
+  home.includes('r?.field?.exit_paths')&&
+  home.includes('owner:nativeRouteOwner(focus)')&&
+  home.includes('actions:nativeRouteActions(focus)'),
+  'FIELD host actions must derive from the held manifest route; parallel per-host ownership tables are forbidden'
+);
 const interphaseCarrier=read('lib/interphase-carrier.js');
 check(
   home.includes('function fieldActionSurface(')&&
