@@ -117,12 +117,13 @@ jobs:
           node tools/project-head-glyph-selftest.cjs
           node tools/interphase-dom-form-selftest.cjs
           node tools/interphase-ring-selftest.cjs
-      - name: Validate Two Dial causal RETURN
+      - name: Validate Two Dial causal RETURN + gesture boundary
         run: |
           node --check fold-bloom/two-dial/core1.js
           node --check fold-bloom/two-dial/core2.js
           node --check fold-bloom/two-dial/app-runtime.js
           node tools/two-dial-causal-return-selftest.cjs
+          node tools/two-dial-gesture-boundary-selftest.cjs
       - name: Validate FIELD COAXIALITY audit
         run: node tools/field-coaxiality-audit.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
