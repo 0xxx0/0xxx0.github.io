@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29",
-  "status": "CANDIDATE_PRECEDENCE_REPAIR",
+  "status": "CANDIDATE_AUTHORITY_HARDENING",
   "date": "2026-09-29",
   "route": "/",
   "host_delta": "Fold packet aggregation into the existing transient FIELD machine handoff: every packet reduces to exactly one of NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE without becoming a queue, store, route, or authority source.",
-  "law": "Packet presence does not create continuation. Historical/superseded material collapses to ARCHIVE unless current authority explicitly reactivates it. Canonical one-bucket precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; conditional STOP → GATE; unresolved fact → RESIDUE; only CURRENT/explicit selection may produce NOW.",
+  "law": "Packet egress is derived, never packet-authorized. Canonical precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE. Only caller-supplied CURRENT/explicit selection context can create NOW; packet current/state/egress labels cannot. Unwitnessed material change is RESIDUE. STOP suppresses continuation; historical/superseded material remains ARCHIVE unless explicitly reactivated.",
   "changes": [
     "/lib/field-egress-reducer.mjs — pure deterministic reducer + hard non-promotion boundary",
     "/tools/field-egress-reducer-selftest.mjs — A-H acceptance cases",
@@ -14,8 +14,7 @@
     "/AGENTS.md — machine re-entry documents bounded reducer",
     "/showcase-manifest.json — FIELD root touch only; no new route/version",
     "/.github/workflows/public-surface-check.yml — run A-H reducer proof inside existing JIT FIELD handoff gate",
-    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence",
-    "/lib/field-egress-reducer.mjs + selftest — accept canonical uppercase egress aliases and treat RETURN-to-CURRENT/replan-only prose as terminal rather than NEXT"
+    "/lib/field-egress-reducer.mjs + /tools/field-egress-reducer-selftest.mjs — restore recovered GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE precedence"
   ],
   "preserves": [
     "CURRENT owns NOW",
@@ -26,13 +25,22 @@
     "no new route, dashboard, queue, store, planner, ontology, or canonical packet cache"
   ],
   "verify": [
-    "node tools/field-egress-reducer-selftest.mjs",
+    "node tools/field-egress-reducer-selftest.mjs  # A-Q + global precedence",
     "node scripts/emit-agent-transcript.mjs --selftest",
     "node scripts/emit-agent-transcript.mjs --reduce returns/WORKER_AUTHORITY_CONTRACTION_2026-09-25.json"
   ],
   "residue": [
-    "The reducer classifies packet egress only; it does not decide project priority, execute NEXT, or allow packet labels to manufacture NOW/GATE. RETURN-to-CURRENT/replan-only prose is terminal re-entry, not continuation.",
-    "External/private packets are reduced only when explicitly supplied to the existing transcript CLI."
+    "The reducer classifies egress only; it does not choose project priority or execute NEXT.",
+    "Legacy packets without explicit EVIDENCE can no longer claim DELTA merely by naming a change; they remain RESIDUE until witnessed.",
+    "External/private packets are reduced only when explicitly supplied to the existing transient transcript CLI."
   ],
-  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress."
+  "stop": "Do not render another packet dashboard. Propagate only if a real consumer needs the reduced egress.",
+  "correction": [
+    "PR #557 restored canonical precedence but still allowed packet.current / ACTIVE_NOW state to create NOW without caller authority.",
+    "NOW now requires caller-supplied context.now or context.selected; authority.can_select_now=false blocks that promotion and survives as RESIDUE.",
+    "Packet egress/egress_class/field_egress is advisory only and cannot manufacture NOW, NEXT, DELTA, RESIDUE or GATE.",
+    "DELTA requires material change plus sufficient evidence; an unwitnessed material-change claim reduces to RESIDUE.",
+    "STOP dominates continuation: STOP+condition → GATE; STOP+residue/unwitnessed change → RESIDUE; otherwise STOP → ARCHIVE.",
+    "Canonical exists:false/material:false fields do not manufacture attention."
+  ]
 }
