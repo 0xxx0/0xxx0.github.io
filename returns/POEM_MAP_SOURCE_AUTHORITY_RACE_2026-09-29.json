@@ -2,12 +2,12 @@
   "schema": "confluence-return/v0.1",
   "id": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29",
   "route": "/poetry/map/",
-  "status": "IMPLEMENTED / CI_PENDING",
+  "status": "CANDIDATE / STALE-CANCEL-DISTINGUISHED",
   "date": "2026-09-29",
   "problem": "POEM MAP boot may start an asynchronous FIELD NOW preload. If a human/API explicitly parses a newer local source before that fetch returns, the stale preload could later overwrite the newer source and break source-bound focus RETURN.",
   "cause": "No source-selection epoch separated an older async preload from a newer explicit parse.",
-  "delta": "loadFieldNow captures a sourceEpoch before fetch; every parse advances sourceEpoch; a returning FIELD preload aborts when its captured epoch is no longer current.",
-  "law": "EXPLICIT NEWER SOURCE > STALE ASYNC PRELOAD. Preload is convenience, never source authority.",
+  "delta": "loadFieldNow keeps the source epoch guard, but stale/cancelled preload returns null rather than false; boot falls back to DEMO only on an actual fetch failure (ok===false), so one stale load cannot overwrite/cancel a newer valid load through the fallback path.",
+  "law": "EXPLICIT NEWER SOURCE > STALE ASYNC PRELOAD, and STALE/CANCELLED ≠ UNAVAILABLE. Cancellation must not trigger fallback mutation.",
   "preserves": [
     "Poem Map source/token identity grammar",
     "FIELD NOW preload when no newer source claim occurs",
@@ -24,9 +24,15 @@
     "static": [
       "loadFieldNow captures ++sourceEpoch",
       "post-fetch applies only when epoch===sourceEpoch",
-      "parse() advances sourceEpoch"
+      "stale epoch returns null, not false",
+      "boot DEMO fallback runs only for ok===false",
+      "existing critical browser smoke /__smoke/poem-map is the exact competing-load regression proof"
     ],
-    "ci": "PENDING"
+    "ci": "PENDING_PR_CI"
   },
-  "reentry": "/poetry/map/"
+  "reentry": "/poetry/map/",
+  "residue": [
+    "No new mode/store/workflow; focus-return/source-key behavior is unchanged.",
+    "The repair distinguishes cancellation from availability only."
+  ]
 }

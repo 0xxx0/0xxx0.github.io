@@ -179,7 +179,7 @@ async function loadFieldNow(){
      fetch('../../control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.ok?r.json():({issues:[]})),
      fetch('../../showcase-manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():({routes:[]}))
    ]);
-   if(epoch!==sourceEpoch)return false;
+   if(epoch!==sourceEpoch)return null;
    const fronts=(cur.active_fronts||[]).slice(0,3);
    const heads=(cur.current_heads||[]).slice(0,9);
    const open=(iss.issues||[]).slice(0,12);
@@ -513,7 +513,7 @@ if(bootVerse){
   parse();setMode(bootMode||S.mode||'PAGE');if(restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
 }else{
   render();setMode(bootMode||'PAGE');loadFieldNow().then(ok=>{
-    if(!ok){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
+    if(ok===false){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
     if(bootMode)setMode(bootMode);if(ok&&restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
   });
 }
