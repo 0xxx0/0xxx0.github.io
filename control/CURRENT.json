@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T09:08:00+08:00",
+  "updated": "2026-09-29T09:09:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.20 / ROUTE-LOCAL SEMANTIC SIGNAL / ONE HELD OBJECT / SOURCE-SET NATIVE ACTIONS",
+      "head": "FIELD INDEX 0.8.21 / AWAKE INTERPHASE VISOR / ROUTE-LOCAL SEMANTIC SIGNAL / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. Compact FIELD glyphs and the held-object header now display semantic pattern only from witnesses explicitly owned by that route: unresolved local change, exact-route CURRENT human/world gate, or explicitly route-addressed external issue. The global CATCH aggregate remains global and no longer stains the held object. Exact CURRENT heads may still reveal VIEW-only latent project depth, with the route itself preserved as glyph identity. Prison Age now enters FIELD as one held source-set object with exactly READ / RIDE / SOURCE native operations; READFIELD and FOLD//BLOOM retain projection authority while PRISON_AGE retains source bytes/provenance.",
+      "retained_function": "Fast repo re-entry around one addressed object. FIELD now teaches its actual continuation law in place: first contact may expose a lightweight YOU’RE A WAKE / INTERPHASE visor derived from the same held interphase-carrier/v0.1 used for cross-host continuity. The visor names WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN, shows the real held object and at most three carrier moves, then recedes into the ordinary FIELD held-object surface. Native route/effect authority, CURRENT attention, route-local semantic signal, exact project-head depth and source-set native actions remain unchanged; no /awake/ product shell or second store is promoted.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -88,10 +88,14 @@
         "/returns/FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
         "/tools/field-signal-locality-selftest.cjs",
         "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
-        "/prison-age/release.json"
+        "/prison-age/release.json",
+        "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
+        "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+        "/lib/interphase-carrier.js",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/414"
       ],
-      "version": "0.8.20",
-      "latest_return": "/returns/PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
+      "version": "0.8.21",
+      "latest_return": "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
       "repo_verification": {
         "status": "PASS",
         "field_signal_locality_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/503",
@@ -102,7 +106,8 @@
         "prison_age_field_proof_head": "eb2a5b290f79a699d7799d1eaa3ae66bd312203b",
         "prison_age_field_checks": "PASS · Route Registration 36459813350; public-surface-check 36459813380; gitleaks 36459813346",
         "manifest_truth_commit": "9e817ba5ec3244670fc8bd57c9ca5132bca92289",
-        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; prison-age-field-selftest; prison-age-field-smoke"
+        "local": "PASS · field-signal-selftest; field-signal-locality-selftest; project-head-glyph-selftest; prison-age-field-selftest; prison-age-field-smoke",
+        "awake_interphase_visor": "CANDIDATE_PENDING_CI · exact held carrier + 430×900 browser proof"
       }
     },
     {
