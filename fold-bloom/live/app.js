@@ -496,7 +496,7 @@ function update(){
   $('#textBtn').textContent=textOn?'TEXT AUTO':'TEXT OFF';
   $('#trackToggle').disabled=!!readRide||!liveTrack.sourceActive();
   $('#trackToggle').textContent=readRide?'NO TEXT CLOCK':(liveTrack.sourceActive()?($('#trackAudio').paused?'PLAY SOURCE':'PAUSE SOURCE'):'PLAY / PAUSE');
-  if($('#sourceQuick'))$('#sourceQuick').textContent=authoredReader?'PROVENANCE':readRide?'READ SOURCE':'CHOOSE SONG';
+  if($('#sourceQuick'))$('#sourceQuick').textContent=authoredReader?'PROVENANCE':readRide?.packet?.sourceIdentity?.authority==='PRISON_AGE'?'PRISON AGE / SOURCE':readRide?'READ SOURCE':'CHOOSE SONG';
   syncLayerUI();
   $('#mode').textContent=state.mode;
   const sceneMeta=scenePresentation(state.scene);
