@@ -1,0 +1,86 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_PACKET_EGRESS_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_CANDIDATE / CI_PENDING",
+  "object": "FIELD INDEX / packet + RETURN egress convergence",
+  "trigger": "Cross-thread request to reduce accumulated packets/returns/control into NOW, DELTA, RESIDUE, GATE, NEXT or ARCHIVE so the human is not the manual aggregation bottleneck.",
+  "recovered_contract": {
+    "required_egress": [
+      "OBJECT",
+      "AUTHORITY",
+      "STATE_IN",
+      "DELTA",
+      "EVIDENCE",
+      "STATE_OUT",
+      "RESIDUE",
+      "WAITING",
+      "NEXT",
+      "STOP"
+    ],
+    "categories": [
+      "NOW",
+      "DELTA",
+      "RESIDUE",
+      "GATE",
+      "NEXT",
+      "ARCHIVE"
+    ],
+    "law": "PACKET != CONTROL; CURRENT alone owns NOW; RETURN closes the move; NEXT never inherits authority."
+  },
+  "delta": [
+    "Add /lib/packet-egress.js pure reducer with deterministic primary category plus non-destructive secondary facets.",
+    "Forbid packet self-promotion: AUTHORITY text never produces NOW; only external CURRENT context may do so.",
+    "Adapt heterogeneous existing RETURN records and legacy packet JSON as evidence-only projections; only a packet carrying the complete standardized egress field set is control-eligible, and eligibility still does not authorize NOW.",
+    "Add /scripts/build-packet-egress.mjs to derive /control/PACKET_EGRESS.json from CURRENT latest/last RETURNs plus the bounded machine-readable packet shelf.",
+    "Preserve unstructured Markdown packet sources without interpreting them into CONTROL; explicit example fixtures are ignored.",
+    "Fold packet egress into the existing FIELD CONVERGENCE READ instead of adding another dashboard or root fold.",
+    "Add CI/selftests for category precedence, NOW authority, legacy adaptation, and generated projection drift."
+  ],
+  "first_projection": {
+    "machine_readable_entries": 11,
+    "counts": {
+      "NOW": 0,
+      "DELTA": 8,
+      "RESIDUE": 0,
+      "GATE": 0,
+      "NEXT": 3,
+      "ARCHIVE": 0
+    },
+    "unstructured_legacy": 2,
+    "ignored_examples": 1,
+    "interpretation": "The bounded recovered packet/RETURN set is overwhelmingly completed change plus three suggested continuations; none of it currently earns packet-derived NOW or GATE.",
+    "eighteen_packet_boundary": "No authoritative canonical 18-item packet set was recoverable from current repo/shared context. No guessed 18-way mapping is asserted."
+  },
+  "invariants": [
+    "CURRENT owns attention; QUEUE and packet egress are compatibility/derived projections.",
+    "One primary egress category never erases DELTA/RESIDUE/GATE/NEXT facets or source evidence.",
+    "Adapted RETURN and legacy packet records can never mutate CURRENT or QUEUE.",
+    "Missing aggregation never reports all-clear.",
+    "NEXT is at most three presented continuations and is never execution authority.",
+    "No new project registry, backlog, bus, agent queue or dashboard is created."
+  ],
+  "evidence": [
+    "/lib/packet-egress.js",
+    "/tools/packet-egress-selftest.cjs",
+    "/scripts/build-packet-egress.mjs",
+    "/control/PACKET_EGRESS.json",
+    "/index.html",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/validate-public.mjs",
+    "/.github/workflows/public-surface-check.yml"
+  ],
+  "verification": {
+    "local_contract": "IMPLEMENTED / CI REQUIRED",
+    "generated_projection": "11 machine-readable entries; semantic drift check wired",
+    "route_registration": "PENDING",
+    "public_surface": "PENDING",
+    "lived_use": "NOT A RELEASE GATE; revise only if the aggregation itself causes re-entry friction or misclassification."
+  },
+  "residue": [
+    "Two older Hermes Markdown lane packets remain intentionally unparsed; recovering their semantics is not justified unless they become relevant to CURRENT.",
+    "A canonical historical set of exactly 18 packets remains UNKNOWN rather than reconstructed by guess."
+  ],
+  "next": "After CI, merge if green. Then RETURN to CURRENT and select an existing conversion head; do not extend the reducer into autonomous routing or another control plane.",
+  "stop": "No packet may activate itself, mutate CURRENT/QUEUE, autoplay NEXT, or manufacture user obligations. Do not add more egress categories without a concrete classification failure."
+}
