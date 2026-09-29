@@ -317,7 +317,19 @@ check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missi
 check(home.includes('id="fieldVisor"')&&home.includes('YOU’RE A WAKE.')&&home.includes('id="fieldVisorOpen"'),'FIELD root missing AWAKE / INTERPHASE first-contact visor');
 check(home.includes('function fieldCarrierForFocus()')&&home.includes('window.FieldIndexCarrier')&&home.includes("field.interphase.visor.seen.v01"),'FIELD visor is not bound to the current INTERPHASE carrier');
 check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&!home.includes("h.startsWith('/fold-bloom/')||h==='/docs/'"),'FIELD carrier launders READFIELD ownership into FOLD//BLOOM');
-check(home.includes('WAKE</b><small>SOURCE')&&home.includes('CUT</b><small>FRAME')&&home.includes('HOLD</b><small>FOCUS')&&home.includes('TURN</b><small>OPERATE')&&home.includes('TRACE</b><small>WITNESS')&&home.includes('AGAIN</b><small>RETURN'),'FIELD visor lost recovered WAKE→INTERPHASE correspondence');
+const interphaseCarrier=read('lib/interphase-carrier.js');
+check(
+  home.includes('function fieldActionSurface(')&&
+  home.includes("typeof C.actionSurface!=='function'")&&
+  home.includes("$('fieldVisorCadence').innerHTML=surface.cadence.map")&&
+  interphaseCarrier.includes("Object.freeze({phase:'WAKE',office:'SOURCE'})")&&
+  interphaseCarrier.includes("Object.freeze({phase:'CUT',office:'FRAME'})")&&
+  interphaseCarrier.includes("Object.freeze({phase:'HOLD',office:'FOCUS'})")&&
+  interphaseCarrier.includes("Object.freeze({phase:'TURN',office:'OPERATE'})")&&
+  interphaseCarrier.includes("Object.freeze({phase:'TRACE',office:'WITNESS'})")&&
+  interphaseCarrier.includes("Object.freeze({phase:'AGAIN',office:'RETURN'})"),
+  'FIELD visor lost canonical WAKE→INTERPHASE action-surface correspondence'
+);
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
 if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="STRUCTURE"')&&home.includes('data-mode="RECENT"'),'root missing contracted evidence-bearing map projections');

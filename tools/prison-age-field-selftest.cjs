@@ -78,6 +78,6 @@ assert(sources.stories['last-stall'].source_fingerprint?.value==='1856b483','Las
 const fh=current.current_heads.find(h=>h.lineage==='field-index');
 assert(fh?.route==='/'&&String(fh?.head||'').includes('FIELD INDEX'),'FIELD head missing');
 assert((fh?.evidence||[]).includes('/returns/FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json'),'FIELD head lost Prison Age source-intent evidence');
-assert(fh?.version==='0.8.22','source ECHO must not advance FIELD head');
+assert(fh?.latest_return!=='/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json','source ECHO must not own FIELD head RETURN');
 assert(!(fh?.evidence||[]).includes('/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json'),'projection-depth ECHO must not claim FIELD-head evidence');
 console.log('PRISON AGE → FIELD SOURCE INTENT + ECHO PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');

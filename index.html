@@ -200,9 +200,8 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div><span class="visorEy">YOU’RE A WAKE.</span><h2 id="fieldVisorTitle">Hold one thing long enough to change it lawfully.</h2><p id="fieldVisorRoute">FIELD is loading the held object…</p></div>
     <div class="visorGlyph" id="fieldVisorGlyph" aria-hidden="true"></div>
   </div>
-  <div class="visorCadence" aria-label="Recovered WAKE cadence mapped onto INTERPHASE">
-    <span><b>WAKE</b><small>SOURCE</small></span><span><b>CUT</b><small>FRAME</small></span><span><b>HOLD</b><small>FOCUS</small></span>
-    <span><b>TURN</b><small>OPERATE</small></span><span><b>TRACE</b><small>WITNESS</small></span><span><b>AGAIN</b><small>RETURN</small></span>
+  <div class="visorCadence" id="fieldVisorCadence" aria-label="AWAKE cadence projected from INTERPHASE action surface">
+    <span><b>HOLD</b><small>loading shared action grammar…</small></span>
   </div>
   <div class="visorFrame">
     <div><span>OBJECT / FOCUS</span><b id="fieldVisorHeld">—</b><small id="fieldVisorHeldSub">same object · projection may change</small></div>
@@ -652,21 +651,26 @@ function handoffHeldToDayline(){
 function fieldVisorSeen(){try{return localStorage.getItem(FIELD_VISOR_KEY)==='1'}catch(_){return false}}
 function setFieldVisorSeen(){try{localStorage.setItem(FIELD_VISOR_KEY,'1')}catch(_){}}
 function hideFieldVisor({remember=true}={}){const v=$('fieldVisor');if(!v)return;if(remember)setFieldVisorSeen();v.hidden=true;document.documentElement.dataset.fieldVisor='closed'}
+function fieldActionSurface(carrier=fieldCarrierForFocus()){
+ const C=globalThis.InterphaseCarrier;if(!carrier||!C||typeof C.actionSurface!=='function')return null;
+ try{return C.actionSurface(carrier)}catch(_){return null}
+}
 function renderFieldVisor({force=false}={}){
  const v=$('fieldVisor');if(!v||!focus)return false;
  if(INIT.get('visor')==='0'&&!force){v.hidden=true;return false}
  if(!force&&INIT.get('visor')!=='1'&&fieldVisorSeen()){v.hidden=true;return false}
- const carrier=fieldCarrierForFocus();
- if(!carrier){setTimeout(()=>{try{renderFieldVisor({force})}catch(_){}},90);return false}
+ const carrier=fieldCarrierForFocus(),surface=fieldActionSurface(carrier);
+ if(!carrier||!surface){setTimeout(()=>{try{renderFieldVisor({force})}catch(_){}},90);return false}
  const hg=heldGlyph(focus);
  $('fieldVisorGlyph').innerHTML=hg.svg||routeGlyph(focus,56);
- $('fieldVisorTitle').textContent=carrier.object.label||focus.title||focus.href;
- $('fieldVisorRoute').textContent=carrier.object.address+' · '+carrier.object.owner+' · authority remains native';
- $('fieldVisorHeld').textContent=carrier.focus.label||carrier.focus.id;
- $('fieldVisorHeldSub').textContent=carrier.object.id+' · '+carrier.projection.name+' projection · frame '+carrier.frameId;
- $('fieldVisorMoves').innerHTML=carrier.next.length?carrier.next.map(m=>'<span class="visorMove">'+esc(m.label)+'</span>').join(''):'<em>no cross-host move required</em>';
- $('fieldVisorWitness').textContent=(carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'no witness yet');
- $('fieldVisorReturn').textContent='RETURN → '+carrier.return.address;
+ $('fieldVisorTitle').textContent=surface.object.label||focus.title||focus.href;
+ $('fieldVisorRoute').textContent=surface.object.address+' · '+surface.object.owner+' · '+surface.authority;
+ $('fieldVisorHeld').textContent=surface.hold.label||surface.hold.id;
+ $('fieldVisorHeldSub').textContent=surface.object.id+' · '+carrier.projection.name+' projection · '+surface.hold.action+' · frame '+surface.frameId;
+ $('fieldVisorCadence').innerHTML=surface.cadence.map(x=>'<span><b>'+esc(x.phase)+'</b><small>'+esc(x.office)+'</small></span>').join('');
+ $('fieldVisorMoves').innerHTML=surface.actions.length?surface.actions.map(m=>'<span class="visorMove">'+esc(m.action+' · '+m.label)+'</span>').join(''):'<em>no cross-host move required</em>';
+ $('fieldVisorWitness').textContent=surface.witness.action+' · '+(surface.witness.class||'UNPROVED')+' · '+(surface.witness.summary||'no witness yet');
+ $('fieldVisorReturn').textContent=surface.return.action+' → '+surface.return.address;
  v.hidden=false;document.documentElement.dataset.fieldVisor='ready';return true
 }
 function maybeShowFieldVisor(){if(INIT.get('visor')==='0')return;renderFieldVisor({force:INIT.get('visor')==='1'})}
@@ -1116,7 +1120,7 @@ window.__fieldAct=Object.freeze({
   siblings:()=>{const p=focus?.parent||'/';return (childrenMap().get(p)||[]).map(r=>r.href)}
 });
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
-window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),showVisor:()=>renderFieldVisor({force:true}),hideVisor:()=>hideFieldVisor({remember:false})});
+window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),actionSurface:()=>fieldActionSurface(),showVisor:()=>renderFieldVisor({force:true}),hideVisor:()=>hideFieldVisor({remember:false})});
 })();
 </script>
 <script src="./lib/interphase-field.js"></script>
