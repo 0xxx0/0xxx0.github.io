@@ -197,9 +197,10 @@ export class Renderer {
     }
 
     // Authored verb effects live in the sky/periphery rather than on a score counter.
-    this.skyPulses=this.skyPulses.filter(p=>t-p.t<1150);
+    // WONDER SL5 - residue-lite: sky glyphs live 3.2s (sqrt decay); one slow bounded residue arc per event in _pulses.
+    this.skyPulses=this.skyPulses.filter(p=>t-p.t<3200);
     for(const p of this.skyPulses){
-      const age=clamp((t-p.t)/1150,0,1),life=Math.sin(Math.PI*age),side=clamp(Number(p.side)||0,-1,1);
+      const age=clamp((t-p.t)/3200,0,1),life=Math.sqrt(Math.max(0,1-age)),side=clamp(Number(p.side)||0,-1,1);
       const x=w*.5+side*w*.23,y=h*.23-(Number(p.power)||1)*4,r=18+(Number(p.power)||1)*16+age*46;
       g.save();g.translate(x,y);g.globalAlpha=(this.reducedMotion?.42:.72)*life;
       if(p.kind==='BLOOM'){
@@ -471,7 +472,7 @@ export class Renderer {
   }
   _gate(state,t){const g=this.g,x=this.cx,y=this.cy-this.r-36,col=COLORS[state.targetType],aligned=isAligned(state),f=forecastRelease(state),hit=forecastMatchesCall(state.call,f);g.save();g.strokeStyle=hit?'#fff':col+(aligned?'ff':'aa');g.lineWidth=hit?3:aligned?2.4:1.2;g.beginPath();g.arc(x,y,16+(aligned?3*Math.sin(t*.008):0),0,TAU);g.stroke();g.fillStyle=col+(aligned?'30':'14');g.fill();g.font='700 9px ui-monospace,monospace';g.textAlign='center';g.fillStyle='rgba(255,255,255,.62)';g.fillText(typePresentation(state.targetType).text,x,y-24);g.fillStyle=hit?'rgba(255,255,255,.95)':'rgba(255,255,255,.38)';g.font='800 7px ui-monospace,monospace';g.fillText(callLabel(state.call),x,y+29);g.restore()}
   _causal(state,t){if(!isAligned(state))return;const g=this.g,idx=gateCellIndex(state),cell=state.cells[idx],a=this.slotAngle(idx,state),x=this.cx+Math.cos(a)*this.r,y=this.cy+Math.sin(a)*this.r,col=COLORS[cell.type];g.save();g.setLineDash([3,5]);g.strokeStyle=col+'77';g.lineWidth=1.3;g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(this.cx,this.cy,this.cx,this.cy-this.r-36);g.stroke();g.setLineDash([]);g.restore()}
-  _pulses(state,t){const g=this.g;this.pulses=this.pulses.filter(p=>t-p.t<900);for(const p of this.pulses){const q=clamp((t-p.t)/900,0,1),ev=p.event,col=COLORS[ev.type];g.save();g.translate(this.cx,this.cy);for(const idx of ev.path){const a=this.slotAngle(idx,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r;g.strokeStyle=col+Math.round((1-q)*180).toString(16).padStart(2,'0');g.lineWidth=1.6;g.beginPath();g.arc(x,y,11+q*22,0,TAU);g.stroke()}g.restore()}}
+  _pulses(state,t){const g=this.g;this.pulses=this.pulses.filter(p=>t-p.t<2500);for(const p of this.pulses){const age=t-p.t,q=clamp(age/900,0,1),ev=p.event,col=COLORS[ev.type];g.save();g.translate(this.cx,this.cy);if(age<900){for(const idx of ev.path){const a=this.slotAngle(idx,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r;g.strokeStyle=col+Math.round((1-q)*180).toString(16).padStart(2,'0');g.lineWidth=1.6;g.beginPath();g.arc(x,y,11+q*22,0,TAU);g.stroke()}}const ri=Number(ev.path?.[0]);if(Number.isFinite(ri)){const rq=clamp(age/2500,0,1),a=this.slotAngle(ri,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r;g.strokeStyle=col+Math.round((1-rq)*128).toString(16).padStart(2,'0');g.lineWidth=1.2;g.beginPath();g.arc(x,y,11+(this.reducedMotion?0:rq*8),0,TAU);g.stroke()}g.restore()}}
   _center(state,t){
     const g=this.g,aligned=isAligned(state),charge=state.charge,f=forecastRelease(state),hit=forecastMatchesCall(state.call,f),v=this.gameProjection;
     g.save();g.translate(this.cx,this.cy);const pulse=.5+.5*Math.sin(t*.004+this.beat*.3);
