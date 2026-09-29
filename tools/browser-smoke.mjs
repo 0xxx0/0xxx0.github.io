@@ -212,6 +212,30 @@ function fieldActivationProbeHtml(){
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
+function fieldRumorProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const wait=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await wait(()=>W().FieldLensHost?.focus?.(),12000,'FIELD ready');
+    W().FieldLensHost.project('RUMOR');
+    await wait(()=>W().FieldLensHost.uiState()?.mapMode==='RUMOR'&&D().querySelector('.mapRow'),8000,'RUMOR rows');
+    const rows=[...D().querySelectorAll('.mapRow')],first=rows[0];
+    rec.mode=W().FieldLensHost.uiState().mapMode;
+    rec.count=rows.length;
+    rec.tail=(first?.querySelector('.tiny')?.textContent||'').trim();
+    rec.meta=(first?.querySelector('.rowMeta')?.textContent||'').trim();
+    rec.href=first?.dataset?.href||null;
+    const before=W().FieldLensHost.focus()?.href||null;
+    first?.click();await sleep(120);
+    rec.before=before;rec.after=W().FieldLensHost.focus()?.href||null;rec.path=W().location.pathname;
+    done(rec.mode==='RUMOR'&&rec.count>0&&rec.tail==='MORE HERE'&&rec.meta.includes(' · ')&&rec.href===rec.after&&rec.path==='/',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
 function fieldDaylineHandoffProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
@@ -891,6 +915,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/field-rumor')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldRumorProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-dayline-handoff')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldDaylineHandoffProbeHtml());return;
@@ -1122,6 +1150,12 @@ const CASES=[
     route:'/__smoke/field-activation',
     options:{width:1040,height:820,budget:18000,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
+  },
+  {
+    name:'FIELD RUMOR knowledge-gap projection',
+    route:'/__smoke/field-rumor',
+    options:{width:1040,height:820,budget:16000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"RUMOR"/.test(dom)&&/"count":[1-9][0-9]*/.test(dom)&&/"tail":"MORE HERE"/.test(dom)&&/"path":"\\/"/.test(dom)
   },
   {
     name:'FIELD held route → Dayline action',
