@@ -126,13 +126,19 @@ export class Renderer {
       g.save();g.translate(horizonX,horizonY);
       for(let i=0;i<5;i++){
         const q=(i+1)/5,rx=w*(.09+.30*q)*(1-pressure*.24),ry=h*(.045+.15*q)*(1-pressure*.20);
-        g.strokeStyle=`rgba(255,255,255,${.018+.06*pressure*(1-q*.4)})`;g.lineWidth=.7+pressure*.8;
+        g.strokeStyle=`rgba(255,255,255,${.05+.16*pressure*(1-q*.4)})`;g.lineWidth=.7+pressure*.8;
         g.beginPath();g.ellipse(0,0,rx,ry,0,0,TAU);g.stroke();
       }
-      const side=clamp(.04+.20*pressure,0,.25);
+      const side=clamp(.04+.20*pressure,0,.32);
       g.fillStyle=`rgba(2,4,7,${side})`;
       g.fillRect(0-horizonX,0-horizonY,w*.18*pressure,h);
       g.fillRect(w-horizonX-w*.18*pressure,0-horizonY,w*.18*pressure,h);
+      // WONDER SL4 - floor light band under the horizon, screen blend, alpha bounded by measured pressure.
+      g.globalCompositeOperation='screen';
+      const fl=g.createLinearGradient(0,-8,0,h*.16);
+      fl.addColorStop(0,`rgba(109,189,255,${.12*Math.min(1,pressure)})`);
+      fl.addColorStop(1,'rgba(5,7,11,0)');
+      g.fillStyle=fl;g.fillRect(-horizonX,-8,w,h*.16);
       g.restore();
     }
     // Sparse source event in the far field. DROP > section > surge > phrase.
