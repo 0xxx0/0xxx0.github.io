@@ -1,7 +1,7 @@
 {
   "schema": "field-return/v0.1",
   "date": "2026-09-29",
-  "state": "PENDING_CI",
+  "state": "CANDIDATE / CI_EVIDENCE_ATTACHED",
   "route": "/",
   "objective": "Convert video-game donor research into one missing FIELD capability without adding a game layer or new sovereign surface.",
   "recovered_before_inventing": {
@@ -48,8 +48,20 @@
       "/house/spatial/ → KEEP_COMPAT",
       "/forward-field-proof/triangle/bench/ → SALVAGE_REVIEW"
     ],
-    "ci": ".github/workflows/public-surface-check.yml",
-    "status": "PENDING"
+    "ci": {
+      "workflow": "public-surface-check",
+      "run_id": 36549045524,
+      "tested_head": "5f769984808570ddf286a28632fdc53a1780f8cc",
+      "conclusion": "SUCCESS",
+      "steps": "93/93 completed with no failures",
+      "note": "This metadata attachment is the only delta after the tested head; final PR head must pass CI before merge."
+    },
+    "status": "PENDING",
+    "gitleaks": {
+      "run_id": 36549045251,
+      "tested_head": "5f769984808570ddf286a28632fdc53a1780f8cc",
+      "conclusion": "SUCCESS"
+    }
   },
   "authority": "READ_ONLY AUDIT; no route/file mutation authority",
   "next": "If CI proves the classifier, use it to identify at most one actual retirement candidate. Do not delete anything in this transfer.",
