@@ -1924,11 +1924,12 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-09-29T19:42:15+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RECOVER"
         ]
       },
       "role": "Public Fold/Bloom doorway with an action-first front edge. First contact exposes TRY A RIDE / WATCH A GARDEN / MAP A SONG; REPLAY and the deeper system remain reachable below. LIVE teaches TURN → RELEASE → CHANGE → REPEAT before SOURCE/MAP/RETURN, HEXAGRAM, Two Dial or Lab vocabulary. Hosted GARDEN still uses canonical Ecology authority; the contraction changes onboarding, not engines or source truth.",
@@ -1936,7 +1937,7 @@
       "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
       "receipt": "/returns/FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
       "transfer": [
-        "authored-reader integrated source path: recovered Prison Age 2021 exact-source pack → visible provenance → addressed READ/RIDE → intra-source RECURRENCE → optional LIVE RELEASE → EVIDENCE_ONLY exact READFIELD RETURN; source-native cross-source ECHO stays separate and the shipped TURN→RELEASE first contact is unchanged",
+        "authored-reader current-master candidate: recovered Prison Age 2021 exact-source pack → visible provenance → addressed READ/RIDE → intra-source RECURRENCE → optional LIVE RELEASE → EVIDENCE_ONLY exact READFIELD RETURN; source-native cross-source ECHO stays separate and the shipped TURN→RELEASE first contact is unchanged",
         "FIRST CONTACT ≠ FULL MODEL: plain action precedes system vocabulary",
         "phone LIVE primary row = TURN LEFT / RELEASE / TURN RIGHT; mode/world controls remain secondary and reachable",
         "tests protect route/authority/runtime invariants rather than obsolete onboarding copy",
@@ -2768,7 +2769,6 @@
       "receipt": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
       "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE remains RIDE-first and source-authoritative. PLAY 0.6.1 restores YIJING / HEXAGRAM → CHANGE as the visible finite puzzle surface while retaining the six exact BLOOM/FOLD/SPLIT/RETURN verbs as a lossless substrate. Six relation outcomes project into solid/broken lines, lower/upper trigrams and moving-line change; exact verb provenance remains present underneath. READ/RIDE candidate also admits exact session-local text as an addressed SENTENCE/PARAGRAPH/SECTION STEP course; READFIELD remains text/cursor/RSVP authority and LIVE owns embodied traversal only. Current LIVE also admits IMAGE_SET as a third addressed source beside AUDIO_MAP and READFIELD_TEXT: a device-local declared set owns FRAME/STRIP/SET addresses and a deterministic source clock, so FLOW advances without click/audio while STEP holds and moves exactly one address. Sep-29 GARDEN HOST 0.1 adds one unequal Ecology-owned aperture inside LIVE. Hosting carries orientation only: Ecology loads on entry, LIVE source/generated-sound state is held, no source-clock or RELEASE authority crosses the boundary, and RETURN unloads Ecology then restores held LIVE context. Sep-29 first-use contraction teaches one causal ride loop before architecture: TURN ←/→ until ready → RELEASE → road changes → repeat. On phone the primary row is ← / action / →; advanced controls remain in secondary UI. Engine/source/Ecology/RETURN authority is unchanged.",
       "transfer": [
-        "FIELD source fold: explicit PRISON AGE proto-root RIDE may launch authored-reader with a same-origin resolver/FIELD return override; generic LIVE first contact and ordinary READ/RIDE remain unchanged",
         "Sep-29 first-use contraction: TURN → RELEASE → CHANGE → REPEAT before architecture vocabulary",
         "phone first-use control set = ← / action / →; advanced controls remain secondary",
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
@@ -2950,7 +2950,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-09-29T13:06:49+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2958,7 +2958,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+      "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
       "evidence": {
         "checks": [
           "J-space co-driver: native forecastContext + ephemeral authority-NONE steering preview; candidate ticks/status only, no automatic RELEASE.",
@@ -3096,16 +3096,15 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.6",
+      "title": "TWO DIAL 0.10.5",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.6",
+      "version": "0.10.5",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
-        "gesture boundary: one live pointer owns one dial; canceled preview restores side-local index/raw/wear; release remains the relation commit boundary",
         "causal RETURN v0.2: relation commits retain before/operation/actor+driver/delta/after/provenance; phrase RETURN aggregates them and export carries the latest causal receipt",
         "preserved two-dial relation algebra",
         "7 sound worlds / 6 voice engines / 5 groove skeletons",
@@ -3139,7 +3138,7 @@
             "IDLE non-authority",
             "source-clock/composition-authority distinction"
           ],
-          "reversibility": "preview cancel is side-local reversible; full snapshot/cassette restore exists; committed musical FOLD/BLOOM inverse-or-residue semantics remain unproven",
+          "reversibility": "full",
           "side_effects": "local"
         },
         "emits": {
@@ -3162,8 +3161,7 @@
             "pulse-link module browser boot",
             "same-page local track module browser boot; direct phone/headphone feel remains required",
             "host-owned SAME/NEAR/FAR/OPPOSITE mapping preserves the existing BLOOM/FOLD/RETURN/SPLIT algebra",
-            "causal relation RETURN records before / operation / actor+driver / delta / after / provenance and exported phrase RETURN aggregates matched commits",
-            "one live pointer owns one dial; pointercancel restores preview position/wear; release is the semantic commit boundary"
+            "causal relation RETURN records before / operation / actor+driver / delta / after / provenance and exported phrase RETURN aggregates matched commits"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -3217,7 +3215,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-29T21:28:00+08:00",
+        "updated_at": "2026-09-29T19:23:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -8578,7 +8576,8 @@
         "accepts": {
           "kinds": [
             "same-origin sourced Prison Age story text",
-            "curated source extract with explicit omissions"
+            "curated source extract with explicit omissions",
+            "recovered authored Prison Age proto-root text / derived arrangement with exact provenance"
           ]
         },
         "transforms": {
@@ -8587,7 +8586,7 @@
             "source address",
             "source bytes",
             "source status",
-            "story identity",
+            "source/story identity",
             "return address"
           ],
           "reversibility": "exact story resolver or FIELD focus return",
@@ -8597,6 +8596,7 @@
           "kinds": [
             "READFIELD source projection",
             "field-read-ride/v0.1 traversal handoff",
+            "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
             "field-source-echo-index/v0.1 exact-fragment evidence"
           ],
@@ -8616,7 +8616,7 @@
         "inputs": [
           {
             "medium": "TEXT",
-            "kind": "sourced Prison Age prose",
+            "kind": "provenance-distinct sourced/recovered Prison Age text",
             "interface": "exact story address"
           }
         ],
@@ -8628,7 +8628,7 @@
           },
           {
             "medium": "EXPERIENCE",
-            "kind": "FOLD//BLOOM LIVE STEP traversal",
+            "kind": "generic READ/RIDE or explicit recovered-authored traversal",
             "interface": "RIDE"
           },
           {
@@ -8659,17 +8659,18 @@
         ],
         "owner": "PRISON AGE"
       },
-      "classification": "RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
+      "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
       "evolution": {
-        "mutation": "Rejected bespoke reader/pack removed from runtime; exact source set becomes one FIELD-held object with three native operations.",
+        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
         "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "READ",
+          "RIDE",
+          "SOURCE",
+          "RETURN"
         ]
       },
       "tier": "FIELD"
