@@ -20,7 +20,10 @@ const moveBlock=core2.match(/cv\.onpointermove = e => \{[\s\S]*?\n\};/)?.[0]||''
 assert.ok(moveBlock,'pointermove block missing');
 assert.doesNotMatch(moveBlock,/\bcommit\s*\(/,'pointermove must not commit');
 const upBlock=core2.match(/cv\.onpointerup = e => \{[\s\S]*?\n\};/)?.[0]||'';
+assert.match(upBlock,/!pointers\.size/,'commit must wait for all active pointers to release');
+assert.match(upBlock,/prefs\.mode !== 'DUET' \|\| \(dialTouched\[0\] && dialTouched\[1\]\)/,'DUET must require both dials in the transaction');
 assert.match(upBlock,/commit\(\)/,'pointerup must own relation commit');
+assert.match(core2,/cv\.onpointercancel = e => \{[\s\S]*?dialTouched\[0\] = dialTouched\[1\] = false;/,'cancel must invalidate multi-pointer transaction');
 
 // E_REVERSAL: each manual commit captures exact restorable state; bounded stack;
 // undo cancels pending delayed compose, restores snapshot, and records an undo event.
