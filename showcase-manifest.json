@@ -5612,9 +5612,9 @@
       "kind": "alias",
       "parent": "/",
       "operation": "RETURN",
-      "state": "COMPAT_ALIAS",
+      "state": "UTILITY",
       "showcase_card": false,
-      "role": "Compatibility entry only: /nexus/ returns to the canonical FIELD convergence read. /nexus/board.html and /nexus/map.html remain direct utility projections; none owns NOW, NEXT, RETURN evidence, or execution authority.",
+      "role": "Compatibility alias to the canonical FIELD convergence read at /#convRead. /nexus/board.html and /nexus/map.html remain direct utility projections; none owns NOW, NEXT, RETURN evidence, or execution authority.",
       "index": {
         "updated_at": "2026-09-29T21:22:00+08:00",
         "work_modes": [
@@ -5629,7 +5629,8 @@
         ],
         "return_path": "/#convRead"
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "alias_of": "/"
     },
     {
       "href": "/nexus/board.html",
