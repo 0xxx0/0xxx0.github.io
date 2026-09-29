@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "route": "/dayline/",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "OPERATE",
-  "released": "2026-09-27",
-  "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.2 accepts an optional authority-free interphase-carrier/v0.1 inside existing native handoffs so the source OBJECT/RETURN can survive while Dayline changes FOCUS, runs native effects, records witness and emits a source RETURN offer. Source-owned semantic signals remain projection-only.",
+  "released": "2026-09-29",
+  "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.3 consumes interphase-action-surface/v0.1 directly: the held focus is HOLD, every visible local move shows a shared TURN/RELEASE projection beside its unchanged native label, TRACE remains witness, and RETURN remains exact. Shared verbs add no support or effect authority.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -28,7 +28,9 @@
     "source-owned evidence_signal/proof_boundary across handoff → DayState sourceLink → RETURN",
     "optional interphase-carrier/v0.1 source object identity + exact RETURN",
     "carrier authority NONE / HANDOFF ONLY; move dispatch HOST_NATIVE_ONLY",
-    "source object may survive while Dayline focus/projection/witness change"
+    "source object may survive while Dayline focus/projection/witness change",
+    "native Dayline move labels/handlers beneath shared TURN/RELEASE projection",
+    "interphase-action-surface/v0.1 is presentation/continuation only; no new DayState or source authority"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -62,7 +64,10 @@
     "semantic_signal": "PASS CANDIDATE · source-owned token only; direct/local Dayline frames remain CLEAR; no Dayline inference of Shopping lifecycle.",
     "continuation_carrier": "IMPLEMENTED_CANDIDATE · /lib/interphase-carrier.js",
     "carrier_generic_selftest": "/tools/interphase-carrier-selftest.cjs · CI required on PR",
-    "sleeper_dayline_carrier_loop": "/tools/sleeper-dayline-carrier-selftest.cjs · CI required on PR"
+    "sleeper_dayline_carrier_loop": "/tools/sleeper-dayline-carrier-selftest.cjs · CI required on PR",
+    "action_surface": "IMPLEMENTED_CANDIDATE · DaylineConfluence.actionSurface() over continuationCarrier()",
+    "shared_actions": "HOLD focus · TURN non-EFFECT native move · RELEASE native EFFECT boundary · TRACE witness · RETURN exact continuation",
+    "action_surface_selftest": "tools/interphase-dayline-selftest.cjs · CI required on PR"
   },
   "stop": "Functional correctness is machine/browser verified first. Source-owned signal rendering is projection only; Dayline must not invent domain evidence classes from task wording. Real-world completion remains a WORLD claim.",
   "verification_policy": {
@@ -99,6 +104,8 @@
     ],
     "continuation_carrier": "interphase-carrier/v0.1",
     "continuation_law": "same source OBJECT + RETURN; recipient FOCUS/projection/witness may change; carrier never gains effect authority",
-    "carrier_reference": "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md"
+    "carrier_reference": "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+    "action_surface": "interphase-action-surface/v0.1",
+    "action_law": "shared action != native operation != authority; visible controls retain native labels and native handlers"
   }
 }
