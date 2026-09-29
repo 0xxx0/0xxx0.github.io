@@ -1,0 +1,32 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29",
+  "route": "/poetry/map/",
+  "status": "IMPLEMENTED / CI_PENDING",
+  "date": "2026-09-29",
+  "problem": "POEM MAP boot may start an asynchronous FIELD NOW preload. If a human/API explicitly parses a newer local source before that fetch returns, the stale preload could later overwrite the newer source and break source-bound focus RETURN.",
+  "cause": "No source-selection epoch separated an older async preload from a newer explicit parse.",
+  "delta": "loadFieldNow captures a sourceEpoch before fetch; every parse advances sourceEpoch; a returning FIELD preload aborts when its captured epoch is no longer current.",
+  "law": "EXPLICIT NEWER SOURCE > STALE ASYNC PRELOAD. Preload is convenience, never source authority.",
+  "preserves": [
+    "Poem Map source/token identity grammar",
+    "FIELD NOW preload when no newer source claim occurs",
+    "source_key fail-closed focus restoration",
+    "PAGE/MAP/SETS projections",
+    "existing return URL shape"
+  ],
+  "regression": {
+    "probe": "public-surface critical browser smoke: POEM MAP focus return /__smoke/poem-map-focus-return",
+    "expected": "fixed local source → MAP → L1T2 → full reload → same source_key + mode + selected token",
+    "prior_failure": "source_key text-local:35:* was replaced by CURRENT-derived text-local:4261:* before reload"
+  },
+  "evidence": {
+    "static": [
+      "loadFieldNow captures ++sourceEpoch",
+      "post-fetch applies only when epoch===sourceEpoch",
+      "parse() advances sourceEpoch"
+    ],
+    "ci": "PENDING"
+  },
+  "reentry": "/poetry/map/"
+}
