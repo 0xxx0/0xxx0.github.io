@@ -1,0 +1,30 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_RETURN_REDUCER_2026-09-29",
+  "date": "2026-09-29",
+  "state": "IMPLEMENTED_MACHINE_VERIFIABLE",
+  "object": "FIELD INDEX held-object RETURN projection",
+  "delta": [
+    "Add pure compatibility reducer for heterogeneous RETURN/submission packets.",
+    "Normalize egress to OBJECT / AUTHORITY / STATE_IN / DELTA / EVIDENCE / STATE_OUT / RESIDUE / WAITING / NEXT / STOP.",
+    "Assign exactly one primary disposition by precedence GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE.",
+    "Project the focused current head's latest RETURN directly beneath HELD / PROJECTION; show all six bins but highlight only the reducer result.",
+    "Keep ARCHIVE quiet by default and cap aggregate visible NOW at 2 / NEXT at 3 in the reusable reducer."
+  ],
+  "evidence": [
+    "node tools/field-packet-reducer-selftest.cjs",
+    "existing route-registration and public-surface CI",
+    "root projection reads existing current-head RETURN packets only; no canonical writes"
+  ],
+  "boundaries": [
+    "CURRENT remains sole NOW authority.",
+    "Reducer NEXT is a candidate egress reading only; RETURN does not authorize a sequel.",
+    "No new queue, store, route, planner, canonical packet database, or effect authority.",
+    "Legacy RETURN packet bytes remain unchanged; compatibility happens at read time."
+  ],
+  "residue": [
+    "Many historical RETURN files remain heterogeneous; normalize on read rather than rewriting archive.",
+    "A future ordinary-use pass may justify further visual contraction, but not a second aggregation surface."
+  ],
+  "next": "RETURN to CURRENT and replan"
+}
