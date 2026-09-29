@@ -1,6 +1,6 @@
 {
-  "schema": "0xxx0/sovereign-node-runtime/v0.2",
-  "updated": "2026-09-22",
+  "schema": "0xxx0/sovereign-node-runtime/v0.3",
+  "updated": "2026-09-29",
   "state": "PARKED_EXECUTABLE_INFRASTRUCTURE",
   "purpose": "Keep local/cloud intelligence replaceable while canonical state, authority and evidence remain outside provider runtimes.",
   "attention_rule": "Does not occupy CURRENT unless it unlocks an active conversion or a material security/compatibility event requires action.",
@@ -38,7 +38,7 @@
       },
       "hermes": {
         "role": "bounded supervisor / research / executor adapter",
-        "known_stable_tag": "0.21.3 / v2026.9.14",
+        "known_stable_tag": "0.21.3 reference; newer tags require isolated conversion-relevant proof before promotion",
         "state": "READ_ONLY_BY_DEFAULT"
       },
       "grok_build": {
@@ -101,5 +101,36 @@
     "A real local-vs-cloud or executor decision needs measured evidence.",
     "A provider can materially simplify a current head without creating a new control surface."
   ],
-  "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta."
+  "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta.",
+  "executor_identity": {
+    "law": "A release label is not executable identity. Proof receipts bind the tested model x harness to the actual runtime/backend and artifact bytes where applicable.",
+    "required_when_available": [
+      "source_commit",
+      "model_digest",
+      "harness_commit",
+      "runtime",
+      "runtime_version",
+      "runtime_backend",
+      "runtime_build",
+      "artifact_sha256",
+      "signature_identity",
+      "authority_envelope",
+      "fixture_hash",
+      "result_hash",
+      "RETURN"
+    ],
+    "noncanonical": [
+      "provider reasoning blobs",
+      "provider session ids",
+      "server-side memory"
+    ],
+    "transition_law": "Provider/backend transitions are explicit receipt events; security, invalid-request and authority-denied failures STOP and never trigger silent hopping."
+  },
+  "watch_state": {
+    "purpose": "Persist reconnaissance baselines so future scouts report material deltas instead of rediscovering unchanged ecosystem state.",
+    "path": "/control/SOVEREIGN_NODE_WATCH_STATE.json",
+    "admission": "A finding enters CURRENT only when it unlocks an active conversion or materially changes security, compatibility, deployment, pinning, rollback, authority, or local-vs-cloud placement.",
+    "suppression": "Routine releases, cosmetic changes and ordinary dependency churn remain silent.",
+    "proof_rule": "A new release/tag is evidence to inspect, never promotion authority."
+  }
 }
