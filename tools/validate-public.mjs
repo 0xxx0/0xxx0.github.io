@@ -316,7 +316,17 @@ check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
 check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missing held-object + glyph-field compositor');
 check(home.includes('id="fieldVisor"')&&home.includes('YOU’RE A WAKE.')&&home.includes('id="fieldVisorOpen"'),'FIELD root missing AWAKE / INTERPHASE first-contact visor');
 check(home.includes('function fieldCarrierForFocus()')&&home.includes('window.FieldIndexCarrier')&&home.includes("field.interphase.visor.seen.v01"),'FIELD visor is not bound to the current INTERPHASE carrier');
-check(home.includes("{id:'readfield',match:h=>h==='/docs/',owner:'READFIELD'")&&!home.includes("h.startsWith('/fold-bloom/')||h==='/docs/'"),'FIELD carrier launders READFIELD ownership into FOLD//BLOOM');
+const readfieldRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/docs/');
+const foldBloomRoot=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/');
+check(
+  readfieldRoute?.field?.owner==='READFIELD'&&
+  foldBloomRoot?.field?.owner==='FOLD//BLOOM'&&
+  home.includes("r?.field?.owner||''")&&
+  home.includes("return owner||'FIELD ROUTE'")&&
+  !home.includes("owner:'READFIELD'")&&
+  !home.includes("h.startsWith('/fold-bloom/')||h==='/docs/'"),
+  'FIELD carrier launders READFIELD ownership into FOLD//BLOOM'
+);
 const interphaseCarrier=read('lib/interphase-carrier.js');
 check(
   home.includes('function fieldActionSurface(')&&
