@@ -690,6 +690,28 @@ function foldBloomLiveMobileBehaviorProbeHtml(){
   <\/script></body></html>`;
 }
 
+
+function bodyFitPatinaProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/body/fit/#patina"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('wait '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const patina=await waitFor(()=>{const b=D().querySelector('.tab.on[data-view="history"]'),v=D().getElementById('view-history');return b&&v&&!v.hidden?b:null},10000,'initial patina');
+    rec.initial={hash:W().location.hash,active:patina.dataset.view,historyHidden:D().getElementById('view-history').hidden,fitHidden:D().getElementById('view-fit').hidden};
+    const load=D().querySelector('.tab[data-view="fit"]');load.click();
+    await waitFor(()=>W().location.hash==='#loadout'&&D().querySelector('.tab.on[data-view="fit"]')&&!D().getElementById('view-fit').hidden,5000,'loadout click');
+    rec.loadout={hash:W().location.hash,active:D().querySelector('.tab.on')?.dataset.view||null};
+    W().location.hash='#patina';
+    await waitFor(()=>D().querySelector('.tab.on[data-view="history"]')&&!D().getElementById('view-history').hidden,5000,'hash return');
+    rec.returned={hash:W().location.hash,active:D().querySelector('.tab.on')?.dataset.view||null,law:/MARK = RETURN RECEIPT, NOT REWARD/.test(D().body.textContent)};
+    done(rec.initial.hash==='#patina'&&rec.initial.active==='history'&&!rec.initial.historyHidden&&rec.initial.fitHidden&&rec.loadout.hash==='#loadout'&&rec.loadout.active==='fit'&&rec.returned.hash==='#patina'&&rec.returned.active==='history'&&rec.returned.law,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function careLocusProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/care/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -798,6 +820,10 @@ const server=http.createServer((req,res)=>{
   }
   if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
   if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
+  if(String(req.url||'').startsWith('/__smoke/body-fit-patina')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(bodyFitPatinaProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(careLocusProbeHtml());return;
@@ -993,9 +1019,9 @@ const CASES=[
   },
   {
     name:'BODY/FIT addressed PATINA view',
-    route:'/body/fit/#patina',
-    options:{width:430,height:900,budget:9000,timeout:18000},
-    check:dom=>/BODY \/ FIT/.test(dom)&&/<button class="tab on" data-view="history">PATINA<\/button>/.test(dom)&&dom.includes('id="view-history"')&&!/id="view-history"[^>]*hidden/.test(dom)&&/MARK = RETURN RECEIPT, NOT REWARD/.test(dom)
+    route:'/__smoke/body-fit-patina',
+    options:{width:430,height:900,budget:12000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"hash":"#patina"/.test(dom)&&/"active":"history"/.test(dom)&&/"hash":"#loadout"/.test(dom)&&/"law":true/.test(dom)
   },
   {
     name:'HUMAN PORT',
