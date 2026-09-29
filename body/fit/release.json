@@ -2,10 +2,13 @@
   "schema": "release-receipt/v1",
   "artifact": "BODY / FIT",
   "route": "/body/fit/",
-  "version": "0.3.1-candidate",
+  "version": "0.3.2-candidate",
   "released": "2026-09-22",
   "state": "CANDIDATE",
   "changes": [
+    "Death Stranding donor is bounded to relational preparation → outing → RETURN residue; no likes, score, physical-safety inference or medical inference transfer",
+    "FIELD INDEX may project BODY / FIT native LOADOUT / PATINA / SENSE navigation from a held /body/fit/ object; SET OUT and RETURN remain explicit native BODY / FIT actions",
+    "0.3.2 adds stable #loadout / #sense / #fuse / #patina / #plain view addresses without adding state or authority",
     "minimal BODY BRIDGE Android source now compiles in CI and emits only a bounded raw Health Connect export; CI retains the debug APK transiently instead of committing binaries",
     "accepts 0xxx0/health-connect-export/v0.1 through a pure local transform into the existing BODY sensor-bundle schema; source app/device/recording metadata and ignored record counts remain explicit",
     "hardened 0.3 tab/view switching after catching a runtime selector regression that static syntax alone did not expose",
@@ -46,7 +49,10 @@
     "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session",
     "tab switching uses explicit multi-node selectors; loadout can move LOADOUT ↔ SENSE ↔ FUSE ↔ PATINA ↔ PLAIN without the prior single-selector .forEach failure",
     "Health Connect fixture transforms into four expected observations while preserving Samsung/watch provenance and ignoring unsupported record types explicitly",
-    "BODY BRIDGE :app:assembleDebug passes against AGP 9.4.0, Gradle 9.6, JDK 17 and androidx.health.connect 1.1.0"
+    "BODY BRIDGE :app:assembleDebug passes against AGP 9.4.0, Gradle 9.6, JDK 17 and androidx.health.connect 1.1.0",
+    "hash-addressed BODY / FIT views select the same native tab state and create no second store",
+    "FIELD BODY / FIT shortcuts are navigation-only; SET OUT / RETURN authority remains native",
+    "browser smoke covers FIELD BODY/FIT donor aperture and direct #patina re-entry"
   ],
   "open_gaps": [
     "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
