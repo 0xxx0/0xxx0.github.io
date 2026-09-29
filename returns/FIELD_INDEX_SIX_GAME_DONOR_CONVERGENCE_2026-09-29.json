@@ -1,0 +1,77 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FIELD_INDEX_SIX_GAME_DONOR_CONVERGENCE_2026-09-29",
+  "date": "2026-09-29",
+  "state": "CANDIDATE / SELF_VERIFYING",
+  "route": "/",
+  "objective": "Fold six researched video-game mechanisms into existing FIELD hosts without game skin, a new app, or transferred authority.",
+  "recovered_before_inventing": [
+    "/control/confluence/VIDEO_GAME_DONOR_ATLAS_2026-09-26.md",
+    "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+    "/returns/FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
+    "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
+    "BODY / FIT already owns PREP → SET OUT → RETURN → PATINA → NEXT CUT and already names Death Stranding as a donor",
+    "FIELD host-specific action hints now derive from manifest field.owner + AVAILABLE targeted exit_paths; no parallel capability table"
+  ],
+  "six_game_map": [
+    {
+      "donor": "Outer Wilds",
+      "rule": "WORLD RESET != KNOWLEDGE RESET",
+      "field": "CATCH + ACT / MORE HERE"
+    },
+    {
+      "donor": "Hades",
+      "rule": "FAILED ATTEMPT → RETURN WITH DIFFERENCE",
+      "field": "failure_return"
+    },
+    {
+      "donor": "Death Stranding",
+      "rule": "LOADOUT IS RELATIONAL TO PURPOSE / ENVIRONMENT",
+      "field": "BODY / FIT + manifest-owned native exits"
+    },
+    {
+      "donor": "Into the Breach",
+      "rule": "PREVIEW BEFORE COMMIT",
+      "field": "precommit_telegraph"
+    },
+    {
+      "donor": "Hardspace: Shipbreaker",
+      "rule": "SURVEY DEPENDENCIES BEFORE CUT",
+      "field": "safe-salvage audit"
+    },
+    {
+      "donor": "Terra Nil",
+      "rule": "SUCCESS MAY REMOVE ITS SCAFFOLD",
+      "field": "scaffold_retirement + safe-salvage"
+    }
+  ],
+  "enacted": [
+    "machine-readable six_game_map added to the existing donor-transfer packet",
+    "Death Stranding promoted from donor mention to explicit bounded transfer",
+    "BODY / FIT views are addressable as #loadout / #sense / #fuse / #patina / #plain without a second store",
+    "BODY / FIT manifest owns native LOADOUT / PATINA / SENSE targeted exit paths and owner identity",
+    "FIELD derives those actions through its existing manifest-owned host-action law; FIELD index code gains no per-host table",
+    "browser smoke covers FIELD BODY/FIT derived aperture and direct PATINA re-entry"
+  ],
+  "authority": {
+    "field": "holds/address-selects and navigates only; no BODY/FIT state mutation",
+    "body_fit": "owns loadout, SET OUT, RETURN, PATINA, sensor/fitting state and browser-local persistence",
+    "manifest": "owns public route owner/action hints only; target link does not grant effect authority",
+    "game_donors": "mechanism/provenance donors only"
+  },
+  "nonclaims": [
+    "No claim that the six mechanics form a universal game theory.",
+    "No quest log, XP, reputation score, game economy or copied game visual skin.",
+    "No claim that BODY / FIT preparation proves physical safety, medical meaning or improved outcomes."
+  ],
+  "proof": {
+    "donor_validator": "scripts/check-game-donor-transfer.mjs",
+    "salvage": "tools/field-salvage-selftest.mjs",
+    "browser": "tools/browser-smoke.mjs",
+    "route_registration": ".github/workflows/route-registration.yml",
+    "public_surface": ".github/workflows/public-surface-check.yml",
+    "status": "PENDING_BRANCH_CI"
+  },
+  "retirement": "Remove any donor projection that adds translation/clutter without preserving a distinct useful invariant. BODY/FIT state survives removal of FIELD/manifest shortcuts.",
+  "return": "/"
+}
