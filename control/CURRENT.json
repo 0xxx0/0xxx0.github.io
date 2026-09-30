@@ -338,12 +338,12 @@
     },
     {
       "lineage": "path-poetry",
-      "head": "VERSE COPILOT 0.3.1 / POEM MAP ENGINE 0.2.6",
+      "head": "VERSE COPILOT 0.3.2 / POEM MAP ENGINE 0.2.6",
       "state": "ACTIVE_CANDIDATE / WRITING_FIRST / OPTIONAL_PATH_GRID",
       "route": "/poetry/map/",
-      "retained_function": "Writing-first co-creative instrument: source → select → ask → compare → choose → optional transform → RETURN. The proved Poem Map 0.2.6 engine remains underneath for stable text/token identity, candidate preview/adopt/lock/undo, source-bound focus return and optional relation projections. MAP/SETS/PATH no longer define the product face. Recovered Market+Solver, Pathweaver, Grid Path and Cell Foundry remain explicit unequal machines; Verse Atlas remains the Jueju-native study/evidence specialist. 0.3.1 adds a bounded language-lens layer without moving authoring authority: selected-token CText evidence lookup; local English-Jueju 4×5/4×7 transfer packs with explicit preserved/lost constraints; COPE and Wenyan remain external specialist engines; Wordless remains an interaction donor rather than lexical semantics.",
-      "version": "0.3.1",
-      "latest_return": "/returns/VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
+      "retained_function": "Writing-first co-creative instrument: source → select → ask → compare → choose → optional transform → RETURN. The proved Poem Map 0.2.6 engine remains underneath for stable text/token identity, candidate preview/adopt/lock/undo, source-bound focus return and optional relation projections. MAP/SETS/PATH no longer define the product face. Recovered Market+Solver, Pathweaver, Grid Path and Cell Foundry remain explicit unequal machines; Verse Atlas remains the Jueju-native study/evidence specialist. 0.3.1 added the bounded language-lens layer without moving authoring authority: selected-token CText evidence lookup; local English-Jueju 4×5/4×7 transfer packs; COPE/Wenyan external; Wordless interaction-only. 0.3.2 closes the behavioral gap: repeated AABA groups are actually checked with the disclosed approximate sound-tail heuristic; direct English-Jueju entry opens an empty four-line board; 2+3 / 2+2+3 appears as WORDLESS BOARD; 起→承→轉→合 remains AUTHOR JUDGMENT.",
+      "version": "0.3.2",
+      "latest_return": "/returns/VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
       "evidence": [
         "/poetry/map/release.json",
         "/returns/VERSE_SOURCE_SPINE_2026-09-25.md",
@@ -359,20 +359,23 @@
         "/control/confluence/VERSE_COPILOT_RECOVERY.md",
         "/control/confluence/VERSE_LINEAGE.md",
         "/returns/VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/709"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/709",
+        "/returns/VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/719"
       ],
       "repo_verification": {
-        "route_registration_run": 36677031278,
-        "public_surface_run": 36677031248,
+        "route_registration_run": 36678189168,
+        "public_surface_run": 36678189176,
         "convergence_validate_run": 36196361631,
         "pages_deployment_run": 36196360431,
-        "status": "PASS / PR 709 EXACT-HEAD",
-        "browser": "PASS · public-surface-check 36677031248 including current Poem Map critical browser smoke, English-Jueju transfer selftest and focus-bounded CText lookup",
+        "status": "PASS / PR 719 EXACT-HEAD",
+        "browser": "PASS · critical browser smoke: POEM MAP + POEM MAP English Jueju board + focus return · 86 cases total",
         "recenter_merge": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
         "verified_master": "4031fd0d5d4267481579db3d3ccea411d5acff11",
-        "gitleaks_run": 36677031230,
+        "gitleaks_run": 36678189290,
         "language_lenses_merge": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49",
-        "verified_head": "d60120d0511038a7f76c2977328e733b59f978d7"
+        "verified_head": "dc3f871d5bb8ca62edea7d957569d1407678dba0",
+        "english_jueju_behavior_merge": "0cacf1ea8da9b640af1990f4bf36303f3975cce6"
       }
     },
     {
