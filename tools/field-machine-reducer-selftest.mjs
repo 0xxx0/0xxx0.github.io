@@ -44,14 +44,16 @@ assert.ok(live.packet_count>=1,'real control/packets shelf must expose packets')
 assert.equal(live.counts.NOW,0,'real packet shelf cannot self-authorize NOW');
 
 const contributionCases=[
-  ['dirty-delta',{id:'dirty',host:'/',changes_existing_head:true,ci:'FAIL',mergeable:true},'DELTA','REPAIR'],
-  ['map-donor',{id:'map',host:'/',donor_only:true,architectural_only:true,ci:'PASS',mergeable:true},'DONOR','HOLD'],
-  ['repair-merge',{id:'repair',host:'/comms/',changes_existing_head:true,ci:'PASS',mergeable:true},'DELTA','MERGE'],
-  ['superseded',{id:'echo',host:'/docs/',changes_existing_head:true,ci:'PASS',mergeable:true,superseded:true},'DELTA','DROP'],
-  ['frontier-donor',{id:'frontier',host:'skills/research-design-loop',architectural_only:true,transfer_applied:false,ci:'PASS',mergeable:true},'DONOR','HOLD'],
-  ['external-donor-blocked',{id:'blocked-donor',host:'/',external_donor:true,donor_gate:'PARK',changes_existing_head:true,ci:'PASS',mergeable:true},'DONOR','HOLD'],
-  ['external-donor-admitted',{id:'admitted-donor',host:'/',external_donor:true,donor_gate:'PASS',changes_existing_head:true,ci:'PASS',mergeable:true},'DELTA','MERGE'],
-  ['unresolved',{id:'orphan',ci:'PASS',mergeable:true},'UNRESOLVED','HOLD']
+  ['dirty-delta',{id:'dirty',host:'/',changes_existing_head:true,ci:'FAIL',exact_head:true,base_current:true,mergeable:true},'DELTA','REPAIR'],
+  ['map-donor',{id:'map',host:'/',donor_only:true,architectural_only:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+  ['repair-merge',{id:'repair',host:'/comms/',changes_existing_head:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DELTA','MERGE'],
+  ['superseded',{id:'echo',host:'/docs/',changes_existing_head:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true,superseded:true},'DELTA','DROP'],
+  ['frontier-donor',{id:'frontier',host:'skills/research-design-loop',architectural_only:true,transfer_applied:false,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+  ['external-donor-blocked',{id:'blocked-donor',host:'/',external_donor:true,donor_gate:'PARK',changes_existing_head:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+  ['external-donor-admitted',{id:'admitted-donor',host:'/',external_donor:true,donor_gate:'PASS',changes_existing_head:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DELTA','MERGE'],
+  ['stale-head',{id:'stale-head',host:'/',changes_existing_head:true,ci:'PASS',exact_head:false,base_current:true,mergeable:true},'DELTA','REPAIR'],
+  ['stale-base',{id:'stale-base',host:'/',changes_existing_head:true,ci:'PASS',exact_head:true,base_current:false,mergeable:true},'DELTA','REPAIR'],
+  ['unresolved',{id:'orphan',ci:'PASS',exact_head:true,base_current:true,mergeable:true},'UNRESOLVED','HOLD']
 ];
 for(const [name,packet,wantClass,wantDisposition] of contributionCases){
   const p=write(name+'.json',packet),r=run(['--converge',p]);
