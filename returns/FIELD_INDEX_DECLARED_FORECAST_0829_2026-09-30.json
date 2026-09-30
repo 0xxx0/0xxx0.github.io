@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30",
+  "date": "2026-09-30",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD root held-object pre-commit forecast",
+  "sources": [
+    "FIELD INDEX 0.8.28 merged + exact-head verified",
+    "control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json#precommit-telegraph",
+    "control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md#Into-the-Breach",
+    "closed PR #730 donor",
+    "closed PR #731 donor"
+  ],
+  "operation": "DECLARED ACTION → FORECAST → HUMAN/NATIVE COMMIT → WITNESS / RETURN",
+  "delta": [
+    "interphase-action-forecast/v0.1 derives a bounded reading from declared move authority",
+    "forecast fields: effect class, authority/commit boundary, target, source-mutation class, reversibility",
+    "FIELD shows the forecast inside the existing held object and updates it on pointer/focus/touch of visible moves",
+    "native manifest actions remain navigation into the owning host; forecast never substitutes for native commit",
+    "no new panel, route, store, queue, executor or action count"
+  ],
+  "authority": [
+    "FORECAST authority: NONE / READING ONLY",
+    "CURRENT owns NOW",
+    "native hosts own commit/effect",
+    "RETURN owns durable observed consequence"
+  ],
+  "rejected": [
+    "perfect-information claims",
+    "prediction of undeclared domain outcomes",
+    "undo claims for irreversible host effects",
+    "restoring capTrial or sibling HELD/NEXT/WITNESS geometry",
+    "forecast-triggered execution"
+  ],
+  "verification": {
+    "carrier_selftest": "REQUIRED",
+    "field_aperture_selftest": "REQUIRED",
+    "public_validator": "REQUIRED",
+    "browser_forecast": "REQUIRED",
+    "gitleaks": "REQUIRED",
+    "critical_browser": "REQUIRED"
+  },
+  "falsifier": "Fail if forecast executes an action, claims an undeclared outcome, increases visible actions beyond three, escapes the held object, hides exact RETURN, or transfers source/effect authority.",
+  "next": "Run exact-head CI; merge only if existing FIELD/Prison Age/Dayline/Verse/FOLD//BLOOM contracts remain green."
+}
