@@ -3,7 +3,7 @@
   "date": "2026-09-30",
   "route": "/fold-bloom/lab/",
   "version": "0.3.6 + LIVE_RESIDUE_SUPPORT_0.1",
-  "state": "CANDIDATE_TRUTH_REPAIR",
+  "state": "MERGED_CI_GREEN",
   "authority": "WITNESS_ONLY",
   "merged_mechanism": {
     "pr": 649,
@@ -43,6 +43,49 @@
     "attach merged live-residue/support mechanism to LAB release + manifest",
     "record exact PR #649 proof without changing FIELD root or LAB version"
   ],
-  "repair_proof_status": "PENDING_CURRENT_PR",
-  "stop": "After repair CI is green, merge and seal this receipt. Do not add another control/steering layer without a concrete ordinary-use failure."
+  "repair_proof_status": "PASS / PR 656 + PR 657 EXACT-HEAD",
+  "stop": "Merged truth calculus and perceptual aperture are sealed. Do not add another steering/control layer without a concrete ordinary-use failure or a new native-host dependency that this witness cannot represent.",
+  "repair_proof": {
+    "pr": 656,
+    "proof_head": "5d3b526284e974af6888b96c812bb1a1a32d7d8e",
+    "merge_sha": "cedaba3845222fc7e733257551204c1b70024da9",
+    "route_registration": {
+      "run": 36658273360,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36658273351,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36658273323,
+      "conclusion": "success"
+    },
+    "scope": "truth/receipt repair only; no runtime/UI/authority change"
+  },
+  "perceptual_aperture": {
+    "pr": 657,
+    "proof_head": "52ee1f79faefeaa62b00be062775df79006f6fc4",
+    "merge_sha": "88dca26663bc09bfd7574a54bb16afa05ce1249f",
+    "route_registration": {
+      "run": 36658818946,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36658818933,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36658818948,
+      "conclusion": "success"
+    },
+    "proved": [
+      "12-slot stable LIVE address field projects the current native lawful aperture without becoming host control",
+      "J-space-supported slots remain a CALCULATION_ONLY subset of native forecasts",
+      "slot focus is VIEW_ONLY and returns an exact field://lab/live/<instance>/seq/<seq>/slot/<n> address",
+      "client-to-logical canvas mapping keeps touch hit-testing stable across CSS/backing-size drift",
+      "empty-slot truth is NATIVE=0; model support is a separate signal"
+    ],
+    "authority": "VIEW_ONLY / CALCULATION_ONLY; LIVE retains effect authority"
+  }
 }

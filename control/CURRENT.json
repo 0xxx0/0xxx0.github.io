@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T09:54:00+08:00",
+  "updated": "2026-09-30T10:17:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -102,84 +102,105 @@
       "version": "0.8.25",
       "latest_return": "/returns/FIELD_INDEX_HELD_GUIDE_CONTRACTION_0825_2026-09-30.json",
       "repo_verification": {
-        "status": "PASS / PR 636 EXACT-HEAD",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
-        "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
-        "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
+        "status": "PASS / PR 654 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
+        "merge_sha": "fc9ea30452025d74ed78528088b718028169496a",
+        "proof_head": "38a7641dab1d613300cdb7a1b415fdaab0d42fef",
         "checks": {
           "route_registration": {
-            "run": 36580603188,
+            "run": 36657822100,
             "conclusion": "success"
           },
           "public_surface": {
-            "run": 36580602549,
+            "run": 36657822097,
             "conclusion": "success"
           },
           "gitleaks": {
-            "run": 36580602546,
+            "run": 36657822129,
             "conclusion": "success"
           }
         },
-        "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
+        "browser": "PASS · public-surface-check 36657822097 including held-guide browser invariant and critical browser smoke",
         "predecessor": {
-          "status": "PASS / PR 601 EXACT-HEAD",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
-          "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
-          "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+          "status": "PASS / PR 636 EXACT-HEAD",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
+          "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+          "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
           "checks": {
             "route_registration": {
-              "run": 36564168802,
+              "run": 36580603188,
               "conclusion": "success"
             },
             "public_surface": {
-              "run": 36564168856,
+              "run": 36580602549,
               "conclusion": "success"
             },
             "gitleaks": {
-              "run": 36564168889,
+              "run": 36580602546,
               "conclusion": "success"
             }
           },
-          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
+          "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
           "predecessor": {
-            "status": "PASS / PR 533 EXACT-HEAD",
-            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
-            "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
-            "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+            "status": "PASS / PR 601 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+            "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+            "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
             "checks": {
               "route_registration": {
-                "run": 36508540373,
+                "run": 36564168802,
                 "conclusion": "success"
               },
               "public_surface": {
-                "run": 36508540378,
+                "run": 36564168856,
                 "conclusion": "success"
               },
               "gitleaks": {
-                "run": 36508540355,
+                "run": 36564168889,
                 "conclusion": "success"
               }
             },
-            "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+            "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
             "predecessor": {
-              "status": "PASS / PR 528 EXACT-HEAD",
-              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-              "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+              "status": "PASS / PR 533 EXACT-HEAD",
+              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+              "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+              "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
               "checks": {
                 "route_registration": {
-                  "run": 36507219876,
+                  "run": 36508540373,
                   "conclusion": "success"
                 },
                 "public_surface": {
-                  "run": 36507220022,
+                  "run": 36508540378,
                   "conclusion": "success"
                 },
                 "gitleaks": {
-                  "run": 36507219919,
+                  "run": 36508540355,
                   "conclusion": "success"
                 }
               },
-              "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+              "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+              "predecessor": {
+                "status": "PASS / PR 528 EXACT-HEAD",
+                "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+                "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+                "checks": {
+                  "route_registration": {
+                    "run": 36507219876,
+                    "conclusion": "success"
+                  },
+                  "public_surface": {
+                    "run": 36507220022,
+                    "conclusion": "success"
+                  },
+                  "gitleaks": {
+                    "run": 36507219919,
+                    "conclusion": "success"
+                  }
+                },
+                "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+              }
             }
           }
         }
@@ -572,7 +593,7 @@
         }
       ],
       "merge_sha": "e255cda1dd1c3931a7ef103560555836b1e57275",
-      "latest_return": "/returns/FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29.json",
+      "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json",
       "latest_merge": "e255cda1dd1c3931a7ef103560555836b1e57275",
       "version": "0.1.7 + PLAY 0.6.1 / LAB 0.3.6 / ECOLOGY 0.2.1 / VOICE 0.2",
       "repo_verification": {
@@ -611,7 +632,24 @@
         "public_root_browser": "PASS · public-surface-check 36421730487 step 79",
         "public_living_field_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
         "live_garden_host": "CANDIDATE · current-master successor to PR #532 · static + browser contract added; exact-head CI required before promotion",
-        "live_direct_choice": "PASS · PR #544 merged e255cda1 · tested head 57e5442d · Route 36546083210 PASS · public-surface 36546083221 PASS · gitleaks 36546083229 PASS · J-space/direct-choice browser seam PASS"
+        "live_direct_choice": "PASS · PR #544 merged e255cda1 · tested head 57e5442d · Route 36546083210 PASS · public-surface 36546083221 PASS · gitleaks 36546083229 PASS · J-space/direct-choice browser seam PASS",
+        "lab_live_support": {
+          "status": "PASS / PR 656 EXACT-HEAD",
+          "proof_head": "5d3b526284e974af6888b96c812bb1a1a32d7d8e",
+          "merge_sha": "cedaba3845222fc7e733257551204c1b70024da9",
+          "route_registration_run": 36658273360,
+          "public_surface_run": 36658273323,
+          "gitleaks_run": 36658273351
+        },
+        "lab_native_aperture": {
+          "status": "PASS / PR 657 EXACT-HEAD",
+          "proof_head": "52ee1f79faefeaa62b00be062775df79006f6fc4",
+          "merge_sha": "88dca26663bc09bfd7574a54bb16afa05ce1249f",
+          "route_registration_run": 36658818946,
+          "public_surface_run": 36658818948,
+          "gitleaks_run": 36658818933,
+          "boundary": "stable address space > native host aperture > CALCULATION_ONLY support subset > VIEW_ONLY focus; LIVE retains effect authority"
+        }
       },
       "next_executable": {
         "id": "fold-bloom-direct-choice-hold",
