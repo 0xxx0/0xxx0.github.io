@@ -119,6 +119,15 @@
     "result": "PASS",
     "lifecycle_invariance": "WATCH → ACCEPT RECEIPT → WATCH",
     "native_effect": "RECEIPT_ONLY / EVIDENCE_ONLY",
-    "comms_regression": "PASS in same public-surface-check 36165271722"
+    "comms_regression": "PASS in same public-surface-check 36165271722",
+    "one_object_grammar": {
+      "pr": 650,
+      "merge_sha": "5fc84f18bc026619357caa8dbc1ffd1207dd4cbb",
+      "proof_head": "d6f6bd267c18d1db75c2084a9c1d4bb803da470e",
+      "route_registration_run": 36657026837,
+      "public_surface_run": 36657026846,
+      "gitleaks_run": 36657026748,
+      "result": "PASS"
+    }
   }
 }
