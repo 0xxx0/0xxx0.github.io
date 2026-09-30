@@ -1,0 +1,48 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/lab/",
+  "version": "0.3.6 + LIVE_RESIDUE_SUPPORT_0.1",
+  "state": "CANDIDATE_TRUTH_REPAIR",
+  "authority": "WITNESS_ONLY",
+  "merged_mechanism": {
+    "pr": 649,
+    "proof_head": "6e02caa4bbf14da3fd6c2fda82de255179e8dfed",
+    "merge_sha": "412caa7273e079d448b52414206bea11dbd478a5",
+    "route_registration": {
+      "run": 36657375498,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36657375488,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36657375511,
+      "conclusion": "success"
+    }
+  },
+  "mechanism": [
+    "one LIVE pulse instance → exact six-release history",
+    "exact history → lossy HEX quotient + visible residue",
+    "post-release forecastContext(state) → NATIVE_EVIDENCE",
+    "same-HEX captures may retain unequal native NEXT apertures",
+    "authority-NONE direction → C(direction,s) over current native forecasts",
+    "C exposes 0/1/N candidates + ambiguity as CALCULATION_ONLY",
+    "RETURN preserves witness only"
+  ],
+  "laws": [
+    "ONE SIX-RELEASE WINDOW = ONE LIVE PULSE INSTANCE.",
+    "UNSCOPED OR CROSS-INSTANCE CAPTURES ARE INVALID EVIDENCE.",
+    "SAME HEX ≠ SAME NATIVE NEXT DOES NOT PROMOTE HEX TO CONTROL STATE.",
+    "HOST-RELATIVE SUPPORT ≠ PERMISSION ≠ EFFECT.",
+    "COMMIT INVALIDATES THE OLD APERTURE; RE-RESOLVE."
+  ],
+  "truth_repair": [
+    "restore generate-convergence-strip.mjs --selftest accidentally dropped by PR #649 workflow snapshot",
+    "attach merged live-residue/support mechanism to LAB release + manifest",
+    "record exact PR #649 proof without changing FIELD root or LAB version"
+  ],
+  "repair_proof_status": "PENDING_CURRENT_PR",
+  "stop": "After repair CI is green, merge and seal this receipt. Do not add another control/steering layer without a concrete ordinary-use failure."
+}
