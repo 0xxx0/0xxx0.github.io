@@ -160,7 +160,8 @@ function restore(x) {
   return true;
 }
 function saveLocal() {
-  if (demo?.preview) return;
+  // H_COMPRESSION trials are evidence only; never persist trial mutations.
+  if (demo?.preview || /(?:^|[?&])compression=(?:TWO|PLAIN)(?:&|$)/i.test(location.search)) return;
   try {
     localStorage.setItem(STORE, JSON.stringify(minimalSnapshot()));
   } catch (e) {}
