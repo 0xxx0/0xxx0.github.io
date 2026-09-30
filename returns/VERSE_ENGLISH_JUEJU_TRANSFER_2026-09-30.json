@@ -1,0 +1,56 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_ENGLISH_JUEJU_TRANSFER_2026-09-30",
+  "date": "2026-09-30",
+  "state": "CANDIDATE_PENDING_CI",
+  "object": "Verse Copilot form adapter + word/language donor convergence",
+  "observed": [
+    "English Jueju was still classified as NOT_IMPLEMENTED / OPEN while University of Oklahoma teaching materials provide an explicit modern transfer grammar.",
+    "Wenyan, COPE, CText and Wordless were recovered and visible in Foundry, but only as signposts rather than a concrete current writing capability.",
+    "Current Copilot already has plural form adapters, candidate preview/adopt ancestry, and optional path/quarry depth; another editor is unnecessary."
+  ],
+  "delta": [
+    "Add EN JUEJU 7 and EN JUEJU 5 inside the existing Copilot form system.",
+    "Check exact 4-line and 5/7-word envelopes, approximate monosyllabic words and AABA rhyme groups without scoring literary value.",
+    "Render the compositional grouping as WORDLESS BOARD 2|3 or 2|2|3 before explanatory prose.",
+    "Keep 起→承→轉→合 as AUTHOR JUDGMENT rather than machine-scored semantics.",
+    "Deep-link form=<adapter> so the poetry hub and Foundry can open the current Copilot directly in English-Jueju transfer mode.",
+    "Keep CText, COPE, Wenyan and primary English-Jueju rules reachable in optional evidence/quarry depth."
+  ],
+  "provenance": {
+    "english_jueju": {
+      "source": "University of Oklahoma · Institute for US-China Issues · Newman Prize for English Jueju",
+      "url": "https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju",
+      "retained": [
+        "four lines",
+        "five or seven monosyllabic English words per line",
+        "2+3 / 2+2+3 grouping",
+        "AABA rhyme",
+        "起承轉合 thematic progression"
+      ],
+      "open": [
+        "deeper vowel/sound parallelism",
+        "meaning parallelism",
+        "historical Chinese phonology equivalence"
+      ]
+    },
+    "cope": "editor-first regulated-verse constraint/error donor only",
+    "ctext": "corpus/provenance evidence only",
+    "wenyan": "language↔code projection only; executable integration still requires compiler-verified atom",
+    "wordless": "gesture-first visible scaffold only; no lexical semantics"
+  },
+  "invariants": [
+    "Poem source and explicit author adoption remain sovereign.",
+    "English transfer != Tang prosody.",
+    "Heuristic monosyllable/rhyme checks != literary-quality score.",
+    "COPE/CText/Wenyan/Wordless do not acquire poem authority.",
+    "Path/grid/game remain optional projections and donors.",
+    "No new editor, global store, or universal language ontology."
+  ],
+  "proof": {
+    "selftest": "English Jueju 7 transfer adapter validates slot/rhyme scaffold",
+    "browser": "PENDING_PR_CI · existing Poem Map smoke + dedicated ?form=enjueju7 deep-link case",
+    "route_registration": "PENDING_PR_CI"
+  },
+  "next": "If CI is green, merge and sync only the path-poetry head/manifest version. Then USE FIRST; deepen COPE/CText or Wenyan only for a named writing/evidence/execution defect."
+}
