@@ -727,7 +727,7 @@ function careFaceProbeHtml(){
   const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const btn=await waitFor(()=>D().getElementById('openFace'));
+    // DOM presence precedes CARE boot; wait for a rendered body-plan zone so FACE handlers are bound before click.\n    const btn=await waitFor(()=>D().querySelector('#map .zone')&&D().getElementById('openFace'));
     btn.click();
     const modal=await waitFor(()=>{const m=D().getElementById('faceModal');return m&&m.classList.contains('open')?m:null});
     rec.faceModal=true;
