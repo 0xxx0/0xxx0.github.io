@@ -21,7 +21,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
   const debug={title:D().getElementById('apTitle')?.textContent||'',open:D().getElementById('apOpen')?.textContent||'',meta:D().getElementById('apMeta')?.textContent||'',moves:[...D().querySelectorAll('#capMoves .capMove')].map(x=>x.textContent?.trim()||''),load:D().getElementById('axialMeta')?.textContent||'',href:W().location.href};
   throw Error('FIELD held source set · '+JSON.stringify(debug)+' · '+String(e?.message||e));
  }
- const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').trim().replace(/\s*→$/,''),href:a.getAttribute('href')||''}));
+ const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').replace(/→/g,'').trim(),href:a.getAttribute('href')||''}));
  rec.field={held:D().getElementById('apTitle')?.textContent||'',owner:D().getElementById('apMeta')?.textContent||'',moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
  if(!/PRISON_AGE/.test(rec.field.owner))throw Error('FIELD native owner');
