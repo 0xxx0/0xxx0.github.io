@@ -195,11 +195,47 @@ function cliAssessContribution(p={}){
   };
 }
 
+function cliUsage(){
+  return {
+    schema:'field-machine-entrypoint-help/v0.1',
+    authority:'NONE',
+    entrypoint:'scripts/emit-agent-transcript.mjs',
+    modes:[
+      {mode:'transcript',command:'node scripts/emit-agent-transcript.mjs',purpose:'bounded current handoff; no live φ focus or mutation authority'},
+      {mode:'transcript-json',command:'node scripts/emit-agent-transcript.mjs --json',purpose:'structured bounded current handoff'},
+      {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
+      {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'}
+    ],
+    converge_attestations:{
+      merge_requires:['ci PASS','exact_head true','base_current true','mergeable true'],
+      base_current:'derive from native ancestry: compare(master,candidate_head).behind_by === 0',
+      external_donor:'research donor admission PASS is necessary but never grants host/effect authority'
+    },
+    laws:[
+      'ONE MACHINE ENTRYPOINT; MANY READ-ONLY REDUCTIONS.',
+      'THE REDUCER CLASSIFIES; IT DOES NOT PRIORITIZE, EXECUTE, MERGE OR MUTATE.',
+      'NOW REQUIRES EXPLICIT CALLER CONTEXT.',
+      'MERGE OUTPUT IS ADVISORY; NATIVE HOST/GITHUB AUTHORITY REMAINS NATIVE.'
+    ]
+  };
+}
+function cliUsageText(u){
+  const out=['FIELD / MACHINE ENTRYPOINT','authority: '+u.authority,''];
+  for(const m of u.modes)out.push(m.command+'\n  '+m.purpose);
+  out.push('','MERGE projection requires: '+u.converge_attestations.merge_requires.join(' · '));
+  out.push('base_current: '+u.converge_attestations.base_current);
+  out.push('external donor: '+u.converge_attestations.external_donor,'','No mode mutates GitHub, CURRENT, native hosts, or effect authority.','');
+  return out.join('\n');
+}
+
 const cliArgs=process.argv.slice(2);
 const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
-if(reduceAt>=0&&convergeAt>=0){console.error('choose one: --reduce or --converge');process.exit(2)}
-if(reduceAt>=0){
+if(cliArgs.includes('--help')){
+  const usage=cliUsage();
+  process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
+}else if(reduceAt>=0&&convergeAt>=0){console.error('choose one: --reduce or --converge');process.exit(2)}
+else if(reduceAt>=0){
   const source=cliArgs[reduceAt+1];
   if(!source||source.startsWith('--')){console.error('FIELD reduce requires a JSON packet path or directory');process.exit(2)}
   try{process.stdout.write(JSON.stringify(cliReduceSource(source,cliArgs),null,2)+'\n')}
