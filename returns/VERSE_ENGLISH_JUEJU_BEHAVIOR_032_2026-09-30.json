@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30",
   "date": "2026-09-30",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "objective": "Turn the already-merged English-Jueju language lens from a declared form into a behaviorally proved composition board without expanding Verse authority.",
   "object": "one Verse source + optional English-Jueju 5/7 transfer form",
   "operation": "FORM → EMPTY BOARD / HELD SOURCE → CHECK ENVELOPE → AUTHOR JUDGMENT → RETURN",
@@ -41,11 +41,29 @@
     "current_adapter": "/poetry/map/?form=enjueju7"
   },
   "proof": {
-    "static_contract": "IMPLEMENTED",
-    "behavior_selftest": "PENDING_PR_CI · English Jueju transfer behavior is checked",
-    "direct_entry_browser": "PENDING_PR_CI · POEM MAP English Jueju board",
-    "route_registration": "PENDING_PR_CI",
-    "gitleaks": "PENDING_PR_CI"
+    "static_contract": "PASS",
+    "behavior_selftest": "PASS · English Jueju transfer behavior is checked",
+    "direct_entry_browser": "PASS · POEM MAP English Jueju board /poetry/map/?form=enjueju7",
+    "critical_browser_smoke": {
+      "run": 36678189176,
+      "conclusion": "success",
+      "cases": 86,
+      "also_preserved": [
+        "POEM MAP",
+        "POEM MAP focus return"
+      ]
+    },
+    "route_registration": {
+      "run": 36678189168,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36678189290,
+      "conclusion": "success"
+    },
+    "pull_request": 719,
+    "proof_head": "dc3f871d5bb8ca62edea7d957569d1407678dba0",
+    "merge_sha": "0cacf1ea8da9b640af1990f4bf36303f3975cce6"
   },
-  "next": "If CI is green, merge and update only current Verse version/proof metadata. Then USE FIRST. Wenyan remains parked until a concrete executable projection is requested and a compiler atom is verified."
+  "next": "USE FIRST. The next transfer must come from a concrete writing/evidence/execution defect. Wenyan stays external until a compiler atom is verified; deeper English-Jueju sound/meaning parallelism stays OPEN until a sourced rule is deliberately implemented."
 }
