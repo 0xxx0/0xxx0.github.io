@@ -14,6 +14,14 @@ need(html.includes('function rewindCaughtUp()'),'rewind function missing');
 need(html.includes('pushCatchupHistory('),'acknowledgement does not retain a prior local boundary');
 need(/setCatchupSeen\(prior(?:\.previous\|\|0)?\)|saveCatchupItems\(items\)/.test(html),'REWIND does not restore bulk or per-route local state');
 need(html.includes("$('catchupRewind').onclick=rewindCaughtUp"),'REWIND control is not wired');
+need(html.includes('function latestCatchupAction()'),'latest local orientation action is not recoverable');
+need(html.includes('function undoHeldSeen(href)'),'held-route immediate undo missing');
+need(html.includes("held.textContent=undoable?'UNDO SEEN':'SEEN'"),'held control does not expose point-of-action UNDO SEEN');
+need(html.includes("held.dataset.orientationAction=undoable?'undo':'seen'"),'held SEEN/UNDO mode is not explicit');
+need(html.includes("last?.kind==='route'&&last.href===focus.href"),'UNDO SEEN is not scoped to the newest matching held route');
+need(html.includes("pushCatchupHistory({kind:'route',href,previous,applied:stamp,at:Date.now()})"),'route SEEN does not retain previous/applied/action-time state');
+need(/newer local SEEN or MARK ALL/.test(contract.ui_contract?.root_orientation||''),'root orientation contract lacks immediate-undo supersession rule');
+
 
 const ops=new Map((sem.operations||[]).map(x=>[x.id,x]));
 for(const id of ['UNDO','REWIND','REVERT','RETURN']) need(ops.has(id),'interaction semantic missing '+id);
