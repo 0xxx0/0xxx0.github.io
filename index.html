@@ -44,7 +44,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .aperture{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center;min-width:34px}.apGlyph[data-project-head="1"]{width:58px}.apGlyph[data-project-head="1"] svg{width:58px;height:58px}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
-.apFlow{display:flex;align-items:flex-start;gap:8px 14px;flex-wrap:wrap;border-top:1px solid #20282c;margin-top:6px;padding-top:5px}.apNext,.apOutcome{display:flex;align-items:flex-start;gap:6px;min-width:0}.apOutcome{flex:1 1 280px}.apFlowK{flex:none;color:var(--mut);font-size:5.8px;letter-spacing:.12em;padding-top:2px}.apOutcomeText{min-width:0;line-height:1.35}
+.apFlow{display:flex;align-items:flex-start;gap:8px 14px;flex-wrap:wrap;border-top:1px solid #20282c;margin-top:6px;padding-top:5px}.apNext,.apOutcome{display:flex;align-items:flex-start;gap:6px;min-width:0}.apOutcome{flex:1 1 280px}.apFlowK{flex:none;color:var(--mut);font-size:5.8px;letter-spacing:.12em;padding-top:2px}.apOutcomeText{min-width:0;line-height:1.35}.apForecast{display:flex;align-items:flex-start;gap:6px;flex:1 0 100%;min-width:0}.capForecast{color:#9fb0b7;font-size:6.5px;line-height:1.35;overflow-wrap:anywhere}
 .focusDepth{border-top:1px solid var(--line);background:#080b0d}
 .focusDepth>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 7px;cursor:pointer;color:var(--mut)}
 .focusDepth>summary::-webkit-details-marker{display:none}.focusDepth>summary b{font-size:7px;letter-spacing:.13em;color:var(--gold)}.focusDepth>summary span{font-size:6px}
@@ -159,7 +159,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .axialHead{align-items:flex-start;padding:9px}.axialHead b{font-size:12px}.axialHead span,.axialHead button{font-size:10px}.axialHead button{min-height:42px;padding:8px}
  .axisName{font-size:10px}.axisName b{font-size:11px}.axisToken{height:44px;font-size:11px}.axisToken small,.axisToken .sub{font-size:9px}
  .aperture{grid-template-columns:auto minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apGlyph[data-project-head="1"]{width:52px}.apGlyph[data-project-head="1"] svg{width:52px;height:52px}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
- .apFlow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;padding-top:7px}.apNext,.apOutcome{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px}.apFlowK{font-size:9px}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}.capReturn{margin-left:0}
+ .apFlow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;padding-top:7px}.apNext,.apOutcome,.apForecast{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px}.apFlowK{font-size:9px}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}.capReturn{margin-left:0}
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
  .focusDepth>summary{min-height:42px;padding:8px}.focusDepth>summary b,.focusDepth>summary span{font-size:10px}.refineTools a,.refineTools button{min-height:42px;font-size:10px}.fieldGesture{font-size:9px;padding:7px}.fieldGesture button{min-height:40px;font-size:10px}
 }
@@ -233,6 +233,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
       <div class="apFlow" id="apFlow" aria-label="Held object continuation">
         <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
         <div class="apOutcome"><span class="apFlowK">WITNESS → RETURN</span><div class="apOutcomeText"><span class="capWitness" id="capWitness">—</span><span class="capReturn" id="capReturn">—</span></div></div>
+        <div class="apForecast"><span class="apFlowK">FORECAST</span><span class="capForecast" id="capForecast">—</span></div>
       </div>
     </div>
     <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
@@ -486,7 +487,7 @@ function nativeRouteActions(r){
  return manifestExitPaths(r)
   .filter(x=>String(x?.status||'').toUpperCase()==='AVAILABLE'&&typeof x?.target==='string'&&x.target.trim())
   .slice(0,3)
-  .map(x=>({label:String(x.via||x.class||r?.operation||'OPEN').trim(),target:x.target.startsWith('/')?'.'+x.target:x.target}));
+  .map((x,i)=>({id:String(x.class||x.via||('NATIVE_'+(i+1))).trim(),label:String(x.via||x.class||r?.operation||'OPEN').trim(),target:x.target.startsWith('/')?'.'+x.target:x.target,authority:'NAVIGATION',reversibility:'EXACT_RETURN'}));
 }
 function nativeRouteMoves(r){
  const actions=nativeRouteActions(r);if(actions.length)return actions.map(x=>x.label);
@@ -547,9 +548,9 @@ function heldDaylineAllowed(){
 }
 function fieldCarrierMoves(route){
  return[
-  {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route},
-  ...(heldDaylineAllowed()?[{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'}]:[]),
-  {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route)}
+  {id:'OPEN_NATIVE',label:'OPEN NATIVE',authority:'NAVIGATION',target:route,reversibility:'EXACT_RETURN'},
+  ...(heldDaylineAllowed()?[{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_ACCEPTS_THEN_RETURN'}]:[]),
+  {id:'TRACE',label:'TRACE / VERIFY',authority:'VIEW',target:'/?focus='+encodeURIComponent(route),reversibility:'NONE_REQUIRED'}
  ].slice(0,3)
 }
 function daylineReturnForFocus(route){
@@ -640,23 +641,39 @@ function fieldActionSurface(carrier=fieldCarrierForFocus()){
  const C=globalThis.InterphaseCarrier;if(!carrier||!C||typeof C.actionSurface!=='function')return null;
  try{return C.actionSurface(carrier)}catch(_){return null}
 }
+function forecastHeldMove(move){
+ const C=globalThis.InterphaseCarrier;if(!move||!C||typeof C.forecastAction!=='function')return null;
+ try{return C.forecastAction(move)}catch(_){return null}
+}
+function heldForecastText(move){
+ const f=forecastHeldMove(move);if(!f)return 'UNAVAILABLE · no declared action forecast';
+ return [f.effect,'COMMIT '+f.commit,'TARGET '+(f.target||'—'),'REV '+(f.reversibility||'HOST_DEFINED')].join(' · ')
+}
+function bindHeldForecast(el,move){
+ if(!el||!move)return;
+ const show=()=>{const out=$('capForecast');if(out)out.textContent=heldForecastText(move)};
+ el.onmouseenter=show;el.onfocus=show;el.ontouchstart=show
+}
 function renderHeldContinuation(){
- if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';$('capForecast').textContent='UNAVAILABLE · no addressed object';return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
- const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');
+ const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let primaryForecastMove=null;
  if(nativeActions.length){
-  const [primary,...rest]=nativeActions;
-  open.textContent=primary.label+' →';open.href=primary.target;
+  const [primary,...rest]=nativeActions;primaryForecastMove=primary;
+  open.textContent=primary.label+' →';open.href=primary.target;bindHeldForecast(open,primary);
   $('capMoves').innerHTML=rest.slice(0,2).map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  [...$('capMoves').querySelectorAll('.capMove')].forEach((el,i)=>bindHeldForecast(el,rest[i]));
  }else{
-  open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;
+  const primary={id:'OPEN_HELD',label:n?'DO / OPEN':'OPEN',authority:'NAVIGATION',target:href,reversibility:'EXACT_RETURN'};primaryForecastMove=primary;
+  open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;bindHeldForecast(open,primary);
   const extras=[];
   if(heldDaylineAllowed())extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
   else extras.push('<button class="capMove" data-cap-copy>COPY ACTION</button>');
   $('capMoves').innerHTML=extras.join('');
-  const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
-  const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
+  const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn){copyBtn.onclick=copyHeldAction;const local=()=>{$('capForecast').textContent='LOCAL_COPY · COMMIT CLIPBOARD · TARGET LOCAL · REV OVERWRITE'};copyBtn.onmouseenter=local;copyBtn.onfocus=local;copyBtn.ontouchstart=local}
+  const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn){daylineBtn.onclick=handoffHeldToDayline;bindHeldForecast(daylineBtn,{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_ACCEPTS_THEN_RETURN'})}
  }
+ $('capForecast').textContent=heldForecastText(primaryForecastMove);
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):('RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
 }
