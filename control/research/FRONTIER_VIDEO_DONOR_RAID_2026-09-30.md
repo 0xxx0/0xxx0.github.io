@@ -234,3 +234,22 @@ Important contraction:
 9. RETURN and re-read CURRENT.
 
 This turns channel research into a repeatable instrument without making media consumption itself a front.
+
+### First real field transition — Weco AIDE²
+
+Primary recovery is now complete for the Jiang/Weco seed:
+
+- Weco primary report: `https://www.weco.ai/blog/first-evidence-of-recursive-self-improvement`
+- technical report: `arXiv:2609.26457`
+- reward-hacking method: `arXiv:2605.21384` / Weco SpecBench
+- executable packet: `control/research/WECO_AIDE2_DONOR_2026-09-30.json`
+
+The packet binds the fixed substrate, mutable harness surface, development metric, held-out acceptance, reward-hack check, host invariant and explicit non-transfer claims. It intentionally leaves `REPLICA` and `TRANSFER_TEST` unpassed.
+
+Therefore the donor field now reduces the real source as:
+
+```
+RECOVER_PRIMARY  →  REPLICATE
+```
+
+The next action is not “believe Weco” or “add self-improvement.” It is one bounded local replica at fixed model/tool budget against independent held-out repo fixtures. Until that passes, TRANSFER remains denied.
