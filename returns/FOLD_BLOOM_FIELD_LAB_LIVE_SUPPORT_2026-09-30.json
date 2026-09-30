@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/lab/",
+  "version": "0.3.6 + LIVE_RESIDUE_SUPPORT_0.1",
+  "state": "CANDIDATE",
+  "authority": "WITNESS_ONLY",
+  "objective": "Make abstraction loss and model-direction support inspectable from actual LIVE play while preserving native host authority.",
+  "mechanism": [
+    "committed LIVE release → existing field-pulse/v0.1 operation + bounded post-release forecastContext(state)",
+    "one LIVE pulse instance → rolling six-release exact window",
+    "exact window → binary HEX quotient + explicit quotient residue",
+    "FROM / TO → exact delta + quotient delta + native NEXT comparison",
+    "authority-NONE J-space direction → explicit control vocabulary → C(direction,s) over the latest witnessed native aperture",
+    "support emits 0/1/N lawful candidates + log2(|C|) ambiguity as CALCULATION_ONLY",
+    "commit changes native aperture → support must be re-resolved",
+    "RETURN preserves witness only"
+  ],
+  "laws": [
+    "ONE SIX-RELEASE WINDOW = ONE LIVE PULSE INSTANCE.",
+    "UNSCOPED OR CROSS-INSTANCE CAPTURES ARE INVALID EVIDENCE.",
+    "SAME HEX ≠ SAME NATIVE NEXT is a control-sufficiency counterexample, not a control promotion.",
+    "HOST-RELATIVE SUPPORT ≠ PERMISSION ≠ EFFECT.",
+    "HISTORY / HEX / J-SPACE WITNESS ≠ NATIVE CONTROL STATE.",
+    "LAB NEVER CALLS LIVE release()."
+  ],
+  "proof_required": [
+    "node fold-bloom/convergence/jspace-steering/selftest.mjs",
+    "node --test fold-bloom/lab/tests/live-change-bridge.test.mjs",
+    "node tools/fold-bloom-lab-live-change-smoke.mjs",
+    "node tools/fold-bloom-live-lab-change-bridge-smoke.mjs",
+    "node scripts/generate-convergence-strip.mjs --selftest",
+    "Route Registration",
+    "gitleaks",
+    "full public-surface-check + critical browser smoke"
+  ],
+  "proof_status": "RUNNING_ON_FINAL_CURRENT_MASTER_PR",
+  "residue": [
+    "The deterministic same-HEX/unequal-NEXT fixture proves representational insufficiency, not causal model steering.",
+    "The real LIVE→LAB bridge proves transport and native-witness parity, not frequency of naturally occurring counterexamples.",
+    "C(direction,s) states only whether the current native aperture contains matching lawful candidates; it is not a ranking, causal claim or permission.",
+    "J-space causal promotion remains blocked by independent intervention/control/receipt obligations."
+  ],
+  "stop": "If exact-head proof is green, merge and observe. Do not add another steering layer until real use produces a specific missing function."
+}
