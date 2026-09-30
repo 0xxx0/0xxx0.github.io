@@ -1,4 +1,5 @@
 const I=require('../lib/interphase-core.js');
+const M=require('../lib/interphase-mapping.js');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 const src={a:{items:[{v:1},{v:2},{v:3}]}};
 const o=I.optic.compose(I.optic.prop('a'),I.optic.prop('items'),I.optic.all(),I.optic.prop('v'));
@@ -26,4 +27,23 @@ const w=h.write('x',{value:'b'});
 assert(w.ok&&!w.no_op&&store.x.value==='b','write');
 const no=h.write('x',{value:'b'});
 assert(no.ok&&no.no_op,'no-op write');
+
+const sameProjection=x=>({macro:x.macro});
+const nativeAperture=x=>x.hidden==='A'?['TURN']:['RELEASE'];
+const collapsed=M.checkControlSufficiencyPair({
+  left:{macro:'same',hidden:'A'},
+  right:{macro:'same',hidden:'B'},
+  project:sameProjection,
+  aperture:nativeAperture
+});
+assert(collapsed.counterexample&&!collapsed.pass,'same projection / unequal aperture must falsify control sufficiency');
+assert(collapsed.residue==='PROJECTION_COLLAPSES_LAWFUL_APERTURE','control-sufficiency residue missing');
+const preserved=M.checkControlSufficiencyPair({
+  left:{macro:'same',hidden:'A'},
+  right:{macro:'same',hidden:'A'},
+  project:sameProjection,
+  aperture:nativeAperture
+});
+assert(preserved.pass&&!preserved.counterexample,'equal tested aperture should not manufacture a counterexample');
+
 console.log('INTERPHASE SELFTEST PASS',I.VERSION);
