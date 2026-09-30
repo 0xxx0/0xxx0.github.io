@@ -946,3 +946,191 @@ WITNESS / RETURN
 This gives STEP, J-space and FOLD//BLOOM one shared non-equivalence law: **a representation may help describe or nominate an option, but the current native dependency factor owns what options actually exist.**
 
 The applied-research surface exposes this as an explicit `RUN SUFFICIENCY + FACTOR AUDIT` action. It remains research-only and performs no LIVE commit.
+
+
+## 2026-09-30 — LIVE release window → LAB change witness
+
+FIELD LAB DATA now has a bounded bridge from **observed LIVE play** into the existing change calculus. It reuses `field-pulse/v0.1`; no second bus, store, or control path was added.
+
+The seam is:
+
+```text
+LIVE release()
+  → FIELD PULSE operation { BLOOM | FOLD | SPLIT | RETURN }
+      + bounded post-release native forecast aperture
+  → rolling six-release exact window
+  → Q : V^6 → B^6
+  → hex/change witness
+  → optional FROM / TO capture
+  → exact-vs-quotient residue
+      + native NEXT comparison
+  → STEP / lattice / INK / RETURN
+```
+
+Implementation:
+
+- `/fold-bloom/lab/live-change-bridge.js`
+- `/fold-bloom/lab/tests/live-change-bridge.test.mjs`
+- `/tools/fold-bloom-lab-live-change-smoke.mjs`
+- `/tools/fold-bloom-live-lab-change-bridge-smoke.mjs`
+
+### What becomes experiential
+
+A person can run LIVE in another tab, make releases, then see LAB accumulate the last six exact operations. Each committed release now also publishes the bounded post-release `forecastContext(state)` witness already owned by LIVE. LAB preserves the native structural comparison fields (`slot`, `type`, `verb`, `chain`, cascade `path`, `edgeAdded`, `span`) plus cadence/power residue, matching the existing forecast-factorization proof rather than comparing a weakened surrogate. Once six exist, LAB keeps three unequal readings together:
+
+- the exact ordered verb window;
+- its binary hex projection; and
+- the most recent native lawful NEXT aperture (`NATIVE_EVIDENCE`).
+
+`CAPTURE → FROM` and `CAPTURE → TO` freeze exact event refs, the projected bits and the observed post-release native NEXT aperture. The existing state/change machinery then receives the projected endpoints while the bridge retains the exact verbs and native support evidence.
+
+This makes quotient loss inspectable from lived play. Two captured windows may have the **same hex endpoints** while every exact verb changed. LAB reports this explicitly as:
+
+```text
+EXACT Δ
+HEX Δ
+INVISIBLE EXACT Δ
+64× exact-form fiber
+NATIVE NEXT · SAME | DIFF
+```
+
+The point is not to make hex state more authoritative. The point is to let the user feel and inspect where the abstraction stops carrying the run. If two captures share one hex address while their native NEXT apertures differ, LAB labels that as a **lived control-sufficiency counterexample** rather than silently promoting the quotient.
+
+### J-space beside the run, never above it
+
+The same bridge may display a contemporaneous `kind=steering` FIELD PULSE only when `steeringDescriptor()` accepts it, including the invariant:
+
+```text
+data.authority = NONE
+```
+
+That steering witness travels beside the LIVE evidence in LAB RETURN. It does not:
+
+- call `release()`;
+- replace `availableForecasts()`;
+- select a STEP edge;
+- persist native support across a commit;
+- become a causal steering claim.
+
+An invalid/effect-authority steering pulse is ignored.
+
+### RETURN law
+
+LAB RETURN now may preserve:
+
+- current rolling LIVE exact window;
+- FROM / TO captured exact forms and event refs;
+- exact-vs-hex comparison;
+- bounded post-release native forecast evidence and native-NEXT comparison;
+- optional authority-NONE steering witness.
+
+The bridge is therefore a **research witness over real play**, not a new gameplay state machine.
+
+### Proof gates
+
+Run:
+
+```sh
+node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
+node tools/fold-bloom-lab-live-change-smoke.mjs
+node tools/fold-bloom-live-lab-change-bridge-smoke.mjs
+```
+
+The deterministic LAB browser proof injects two six-release windows with the same hex projection but six exact same-polarity edits and intentionally unequal native NEXT apertures. It requires `EXACT Δ 6 / HEX Δ 0 / INVISIBLE 6 / NATIVE NEXT DIFF`, verifies both event windows and native evidence survive RETURN, and verifies an `AUTHORITY EFFECT` steering pulse cannot overwrite the accepted `AUTHORITY NONE` witness.
+
+A separate end-to-end browser proof runs actual `/fold-bloom/live/` and `/fold-bloom/lab/` iframes together, executes six lawful LIVE releases through the public interaction surface, and requires LAB's observed exact window to equal LIVE's own last-six history while the retained native candidate count/target equal LIVE's current `forecastContext`. This proves the real BroadcastChannel seam, not merely the message schema.
+
+
+## 2026-09-30 — direction support becomes host-relative
+
+The LIVE→LAB bridge now folds the steering donor one step deeper without promoting it.
+
+A model-side direction label is no longer displayed as an isolated hint. LAB asks a narrower, reproducible question against the **current witnessed native aperture**:
+
+```text
+C(direction, s)
+  = { f ∈ nativeForecasts(s)
+      | verb(f) = vocabulary(direction) }
+```
+
+The shared primitive lives in `/fold-bloom/convergence/jspace-steering/steering-calculus.mjs` as:
+
+```text
+directionSupportCalculation(direction, nativeForecasts)
+```
+
+It exposes:
+
+- mapped control verb, if any;
+- current native candidate count `|C|`;
+- candidate slots and bounded candidate witnesses;
+- `a = log2(|C|)` candidate-ambiguity bits when `|C| > 0`;
+- one of `OUTSIDE_CONTROL_VOCABULARY`, `NO_NATIVE_CANDIDATE`, `UNIQUE_NATIVE_CANDIDATE`, or `MULTIPLE_NATIVE_CANDIDATES`;
+- `authority: CALCULATION_ONLY`.
+
+This is deliberately **host-relative**. The latest native aperture is retained as its own witness lane and does not wait for the six-release history window to become complete; the history window exists for the exact-form/HEX quotient experiment, not for host support. The same accepted authority-NONE direction may be supported in one native aperture and unsupported after a LIVE commit changes the host state. The browser proof now demonstrates exactly that transition.
+
+The important law is:
+
+```text
+MODEL DIRECTION
+  → query current lawful host aperture
+  → expose 0 / 1 / N support
+  → preserve ambiguity + residue
+  → host alone may commit
+  → commit invalidates the old aperture
+  → re-resolve
+```
+
+Not:
+
+```text
+MODEL DIRECTION
+  → universal semantic command
+  → cached permission
+  → execution
+```
+
+### Experience refinement
+
+When LIVE FROM/TO captures remain attached to the current LAB endpoints, the DATA field now renders the exact operation symbols beside their corresponding binary lines.
+
+This means a same-polarity edit such as:
+
+```text
+BLOOM → FOLD
+```
+
+can remain visually marked as an **exact change** even while:
+
+```text
+q(BLOOM) = q(FOLD) = 1
+```
+
+and the hex line therefore does not move.
+
+The field also carries a compact witness for:
+
+```text
+EXACT Δ
+HEX Δ
+INVISIBLE EXACT Δ
+NATIVE NEXT SAME|DIFF
+MODEL direction → |C| + ambiguity
+```
+
+so the user does not need to reconstruct the convergence from panel prose.
+
+This is the intended experiential direction for future transfers: make abstraction loss, lawful support and authority boundaries **perceptible at the manipulation site**, not merely documented afterward.
+
+### RETURN extension
+
+`liveChangeBridgeReturn(...)` now preserves a separate `steering_support` witness beside:
+
+- the authority-NONE steering context;
+- the exact LIVE release window;
+- the hex quotient;
+- FROM/TO captures;
+- native NEXT evidence.
+
+The returned support witness remains calculation-only and names the exact native aperture against which it was resolved.
