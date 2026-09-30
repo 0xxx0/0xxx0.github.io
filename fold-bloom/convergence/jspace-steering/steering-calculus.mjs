@@ -58,18 +58,18 @@ export function steeringSupportCalculation(trace,target,nativeForecasts=[],vocab
   const forecasts=Array.isArray(nativeForecasts)?nativeForecasts:[];
   const weighted=conditionalTopKWeights(cell.top);
   const rows=weighted.map((token,i)=>{
-    const normalized=upper(token.token),verb=vocabulary[normalized]||null;
-    const candidates=verb?forecasts.filter(x=>String(x?.verb||'').toUpperCase()===verb):[];
+    const directionSupport=directionSupportCalculation(token.token,forecasts,vocabulary);
     return {
       rank:Number.isInteger(token.rank)?token.rank:i+1,
       token_id:token.token_id,
       token:token.token,
       logit:finite(token.logit)?Number(token.logit):null,
       conditional_weight:token.conditional_weight,
-      mapped_verb:verb,
-      native_candidate_count:candidates.length,
-      support:!verb?'OUTSIDE_CONTROL_VOCABULARY':candidates.length?'NATIVE_SUPPORT':'NO_NATIVE_CANDIDATE',
-      candidate_slots:candidates.map(x=>x.slot).filter(Number.isFinite)
+      mapped_verb:directionSupport.mapped_verb,
+      native_candidate_count:directionSupport.native_candidate_count,
+      candidate_ambiguity_bits:directionSupport.candidate_ambiguity_bits,
+      support:!directionSupport.mapped_verb?'OUTSIDE_CONTROL_VOCABULARY':directionSupport.native_candidate_count?'NATIVE_SUPPORT':'NO_NATIVE_CANDIDATE',
+      candidate_slots:[...directionSupport.candidate_slots]
     };
   });
   const weightBasis=rows.every(x=>x.conditional_weight!==null)?'TOP_K_CONDITIONAL':'RANK_ONLY';
@@ -97,7 +97,7 @@ export function steeringSupportCalculation(trace,target,nativeForecasts=[],vocab
       token:top?.token??null,
       mapped_verb:top?.mapped_verb??null,
       native_candidate_count:top?.native_candidate_count??0,
-      candidate_ambiguity_bits:(top?.native_candidate_count??0)>0?round(Math.log2(top.native_candidate_count)):null,
+      candidate_ambiguity_bits:top?.candidate_ambiguity_bits??null,
       status:!top?'EMPTY':!top.mapped_verb?'UNMAPPED':top.native_candidate_count===0?'UNSUPPORTED':top.native_candidate_count===1?'UNIQUE_NATIVE_CANDIDATE':'MULTIPLE_NATIVE_CANDIDATES'
     },
     residue:{
