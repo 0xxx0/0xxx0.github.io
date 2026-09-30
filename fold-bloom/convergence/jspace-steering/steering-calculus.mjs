@@ -33,7 +33,7 @@ export function directionSupportCalculation(direction,nativeForecasts=[],vocabul
     mapped_verb:mappedVerb,
     native_candidate_count:count,
     candidate_ambiguity_bits:count>0?round(Math.log2(count)):null,
-    candidate_slots:candidates.map(x=>Number(x?.slot)).filter(Number.isFinite),
+    candidate_slots:candidates.map(x=>Number.isFinite(Number(x?.slot))?Number(x.slot):null).filter(x=>x!==null),
     candidates:candidates.map(x=>({
       slot:Number.isFinite(Number(x?.slot))?Number(x.slot):null,
       verb:upper(x?.verb),
