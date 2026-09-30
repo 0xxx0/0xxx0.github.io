@@ -10,7 +10,7 @@ import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,te
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,residueLadder} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
-import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
+import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveConvergenceFrontier,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.3';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -602,7 +602,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateConvergence:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -680,6 +680,7 @@ function handleLiveChangePulse(message){
   if(next===liveChange.bridge)return;
   liveChange.bridge=next;
   syncLiveChangeUI();
+  if(data.stateCalc?.ok)syncStateStepUI();
 }
 function captureLiveChange(role){
   const captured=captureLiveChangeWindow(liveChange.bridge,role);
@@ -775,6 +776,10 @@ function refreshStateFrontier(){
   data.stateFrontier=calc?.ok&&step?.ok
     ?stateFrontierCalculation($('#stateFrom')?.value,$('#stateTo')?.value,step.selected_order,data.stateStepCursor)
     :null;
+  const attached=attachedLiveConvergenceWitness();
+  data.stateConvergence=attached
+    ?liveConvergenceFrontier(liveChange.bridge,liveChange.from,liveChange.to,data.stateFrontier)
+    :null;
   return data.stateFrontier;
 }
 function syncStateFrontierUI(frontier=refreshStateFrontier()){
@@ -782,15 +787,30 @@ function syncStateFrontierUI(frontier=refreshStateFrontier()){
   box.replaceChildren();
   if(!frontier?.ok){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · UNRESOLVED';box.append(span);return}
   if(!frontier.candidates.length){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · TARGET REACHED · '+frontier.current.token;box.append(span);return}
+  const converged=data.stateConvergence?.ok?data.stateConvergence:null;
+  const byLine=new Map((converged?.candidates||[]).map(x=>[x.line,x]));
   for(const candidate of frontier.candidates){
     const button=document.createElement('button');
     button.type='button';button.className=candidate.selected_by_current_order?'cool':'';
     button.dataset.stateNextLine=String(candidate.line);
-    const before=candidate.before_trigram?.glyph||'',after=candidate.after_trigram?.glyph||'';
-    button.textContent='L'+candidate.line+' · '+candidate.transition+' = '+candidate.iching_line_value+' · '+before+'→'+after+' · '+candidate.future_paths_after+' FUTURE';
-    button.title='Choose L'+candidate.line+' next · path '+(candidate.order_index_if_chosen+1)+'/'+(data.stateStep?.possible_one_line_orders||1)+' · '+candidate.histories_collapsed_at_successor+' histories meet at successor';
+    const before=candidate.before_trigram?.glyph||'',after=candidate.after_trigram?.glyph||'',joined=byLine.get(candidate.line);
+    const exact=joined?.exact?(' · '+joined.exact.from_verb+'→'+joined.exact.to_verb):'';
+    const support=joined?.support?(' · HOST C='+joined.support.native_candidate_count+(joined.support.model_direction_aligned?' · MODEL ✓':' · MODEL —')):'';
+    button.textContent='L'+candidate.line+' · '+candidate.transition+' = '+candidate.iching_line_value+' · '+before+'→'+after+exact+support+' · '+candidate.future_paths_after+' FUTURE';
+    button.title='Choose L'+candidate.line+' next · path '+(candidate.order_index_if_chosen+1)+'/'+(data.stateStep?.possible_one_line_orders||1)+' · '+candidate.histories_collapsed_at_successor+' histories meet at successor · preview only';
     button.onclick=()=>steerStateNextLine(candidate.line);
     box.append(button);
+  }
+  if(converged){
+    const p=converged.exact_path_projection,summary=document.createElement('span');
+    summary.className='stateFrontierEmpty';
+    summary.textContent='PATH FIBER · '+p.exact_path_count+' EXACT ORDERS → '+p.quotient_visible_path_count+' HEX-VISIBLE ORDERS · '+p.exact_paths_per_visible_path+'× / '+p.path_information_loss_bits+'b RESIDUE';
+    box.append(summary);
+    for(const row of converged.quotient_invisible_residue||[]){
+      const span=document.createElement('span');span.className='stateFrontierEmpty';
+      span.textContent='EXACT RESIDUE · L'+row.line+' · '+row.from_verb+'→'+row.to_verb+' · q SAME · HOST C='+row.support.native_candidate_count+(row.support.model_direction_aligned?' · MODEL ✓':' · MODEL —');
+      box.append(span);
+    }
   }
 }
 function syncStateStepUI(){
@@ -841,6 +861,8 @@ function syncStateChange({preserveOrder=false}={}){
   data.stateStep=calc?.ok?steppedStatePath(from,to,indexed?.ok?indexed.order:null):null;
   data.stateLattice=calc?.ok?changeLatticeCalculation(from,to):null;
   data.stateFrontier=calc?.ok&&data.stateStep?.ok?stateFrontierCalculation(from,to,data.stateStep.selected_order,data.stateStepCursor):null;
+  const attached=attachedLiveConvergenceWitness();
+  data.stateConvergence=attached?liveConvergenceFrontier(liveChange.bridge,liveChange.from,liveChange.to,data.stateFrontier):null;
   data.stateResidue=residueLadder({state:calc,stateStep:data.stateStep,lattice:data.stateLattice});
   if($('#stateToken'))$('#stateToken').textContent=change.token;
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
@@ -1322,7 +1344,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue,liveWitness=liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to});
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,nativeFocus:nativeApertureFocusEvidence(),stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,nativeFocus:nativeApertureFocusEvidence(),stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,convergence:data.stateConvergence?.ok?{authority:data.stateConvergence.authority,exactPathProjection:{...data.stateConvergence.exact_path_projection},modelDirection:data.stateConvergence.model_direction?{...data.stateConvergence.model_direction}:null,candidates:data.stateConvergence.candidates.map(x=>({line:x.line,exact:x.exact?{...x.exact}:null,support:x.support?{...x.support}:null})),quotientInvisibleResidue:data.stateConvergence.quotient_invisible_residue.map(x=>({line:x.line,fromVerb:x.from_verb,toVerb:x.to_verb,support:{...x.support}}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -1369,5 +1391,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,convergence:data.stateConvergence,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{stopLiveChangePulse?.()}catch(_){}try{fieldPulse.close?.()}catch(_){}});
