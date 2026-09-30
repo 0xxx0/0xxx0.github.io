@@ -1,0 +1,50 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30",
+  "date": "2026-09-30",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD INDEX 0.8.27 / held-route SEEN point-of-action inverse",
+  "trigger": "Direct user request after accidental catch-up acknowledgement: the smallest undo flow must say what local state is retained, how long reversal remains available, and what a newer catch-up action does.",
+  "recovered_not_invented": [
+    "/control/INTERACTION_SEMANTICS.json already distinguishes UNDO / REWIND / REVERT / RETURN.",
+    "/control/FIELD_INDEX_CONTRACT.json already requires local acknowledgement to be rewindable.",
+    "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json already moved route-local SEEN onto the held object and global history into STATUS."
+  ],
+  "delta": [
+    "After route-local SEEN, the same held-object control becomes UNDO SEEN instead of disappearing.",
+    "Each new route SEEN retains only href, previous route-local boundary, applied route-local boundary and local action time inside the existing bounded browser-local history.",
+    "UNDO SEEN is available across reloads while that route-SEEN remains the newest local orientation mutation and the held route has not acquired a newer unresolved manifest touch.",
+    "A subsequent route SEEN or MARK ALL becomes the new immediate undo target. The previous action remains in the existing 40-entry STATUS → ORIENTATION / LOCAL history.",
+    "If the route receives a newer manifest index touch, the held control reads SEEN for that new change; it does not surface an obsolete inverse as the primary action.",
+    "Collapsed REWIND remains the fallback for older local orientation actions and legacy state."
+  ],
+  "state_retained": {
+    "canonical": "NONE",
+    "local_keys": [
+      "field.catchup.items.v02",
+      "field.catchup.history.v01",
+      "field.catchup.seen.v01 (legacy/bulk compatibility)"
+    ],
+    "latest_route_entry": "{ kind:'route', href, previous, applied, at }",
+    "history_bound": 40
+  },
+  "reversibility_window": {
+    "immediate": "Until another local orientation mutation (SEEN or MARK ALL) becomes newer; persists across reload because the latest history entry is localStorage-backed.",
+    "older": "Still reachable through STATUS → ORIENTATION / LOCAL REWIND while retained in the bounded 40-entry history.",
+    "not_time_based": "No arbitrary timeout; the meaningful boundary is a newer orientation action, not elapsed wall-clock time."
+  },
+  "authority": [
+    "SEEN / UNDO SEEN mutate browser-local orientation only.",
+    "No CURRENT, manifest, Git, WAITING, issue, priority, native source, effect or RETURN authority changes.",
+    "REWIND is context-history reversal, not domain/world undo."
+  ],
+  "verification": {
+    "static": [
+      "tools/field-reversibility-selftest.mjs",
+      "tools/field-action-aperture-selftest.mjs"
+    ],
+    "public": "public-surface-check must remain green before merge.",
+    "falsifier": "If UNDO SEEN can target anything except the newest matching route-local SEEN, or if a newer manifest touch is hidden by an old inverse, fail the change."
+  },
+  "stop": "Do not add a toast framework, global undo manager, new event store, server read state or resurrect FIELD / CATCH + ACT."
+}

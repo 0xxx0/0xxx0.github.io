@@ -12,6 +12,10 @@ need(html.includes('id="orientationFold"'),'local orientation residue missing fr
 need(html.includes("CATCHUP_ITEM_KEY='field.catchup.items.v02'"),'per-route seen state missing');
 need(html.includes('function markRouteCaughtUp'),'one-by-one SEEN missing');
 need(html.includes('id="apSeen"')&&html.includes("$('apSeen').onclick"),'held-object SEEN missing or unwired');
+need(html.includes('UNDO SEEN'),'held-object point-of-action inverse missing');
+need(html.includes('function undoHeldSeen(href)'),'held-object inverse function missing');
+need(/same held control becomes UNDO SEEN/.test(contract.ui_contract?.root_orientation||''),'held-object inverse not specified at canonical owner');
+
 need(html.includes('data-wait-hold'),'CURRENT gate HOLD missing from REALITY owner');
 need(html.includes('function copyHeldAction'),'action handoff missing');
 need(html.includes('function handoffHeldToDayline'),'held Dayline action missing');
