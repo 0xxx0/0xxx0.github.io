@@ -69,7 +69,12 @@ export function runLiveMacrostateSufficiency({
       if(!form)continue;
       samples++;
       const exact=formToken(form),hex=hexProjection(form).token,signature=forecastSignature(state);
-      const record={seed,round:round+1,seq:state.seq,exact,hex,form:[...form],signature,behavior:behaviorSummary(state)};
+      const record={
+        seed,round:round+1,seq:state.seq,exact,hex,form:[...form],signature,
+        behavior:behaviorSummary(state),
+        forecast_factor:liveForecastFactor(state,{includeCharge:true}),
+        native_forecasts:availableForecasts(state).map(cleanFullForecast).sort((a,b)=>a.slot-b.slot||a.verb.localeCompare(b.verb))
+      };
       const prevHex=byHex.get(hex);
       if(!hexCounterexample&&prevHex&&prevHex.signature!==signature){
         hexCounterexample={macrostate:hex,a:prevHex,b:record};
@@ -122,6 +127,55 @@ export function liveForecastFactor(state,{includeCharge=true}={}){
     anchors:[...(state?.anchors||[])],
     creases:(state?.creases||[]).map(e=>[...e]),
     ...(includeCharge?{charge:Number(state?.charge)||0}:{})
+  };
+}
+
+const equalJson=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const factorFields=Object.freeze(['cell_types','target_type','anchors','creases','charge']);
+
+export function explainControlLossCounterexample(counterexample){
+  const a=counterexample?.a,b=counterexample?.b,macrostate=String(counterexample?.macrostate||'');
+  if(!a||!b||!macrostate)return {ok:false,schema:LIVE_SUFFICIENCY_SCHEMA+'/control-loss-witness',reason:'COUNTEREXAMPLE_REQUIRED'};
+  if(a.hex!==macrostate||b.hex!==macrostate)return {ok:false,schema:LIVE_SUFFICIENCY_SCHEMA+'/control-loss-witness',reason:'SAME_PROJECTION_REQUIRED'};
+  const fa=a.forecast_factor,fb=b.forecast_factor;
+  if(!fa||!fb)return {ok:false,schema:LIVE_SUFFICIENCY_SCHEMA+'/control-loss-witness',reason:'FORECAST_FACTOR_REQUIRED'};
+  const factorDelta=factorFields.filter(field=>!equalJson(fa[field],fb[field])).map(field=>({
+    field,a:fa[field]??null,b:fb[field]??null
+  }));
+  const aForecasts=Array.isArray(a.native_forecasts)?a.native_forecasts:[],bForecasts=Array.isArray(b.native_forecasts)?b.native_forecasts:[];
+  const byA=new Map(aForecasts.map(x=>[Number(x.slot),x])),byB=new Map(bForecasts.map(x=>[Number(x.slot),x]));
+  const slots=[...new Set([...byA.keys(),...byB.keys()])].sort((x,y)=>x-y);
+  const onlyA=slots.filter(slot=>byA.has(slot)&&!byB.has(slot));
+  const onlyB=slots.filter(slot=>byB.has(slot)&&!byA.has(slot));
+  const sharedChanged=slots.filter(slot=>byA.has(slot)&&byB.has(slot)&&!equalJson(byA.get(slot),byB.get(slot)));
+  return {
+    ok:true,
+    schema:LIVE_SUFFICIENCY_SCHEMA+'/control-loss-witness',
+    authority:'EVIDENCE_ONLY',
+    projection:{kind:'HEX_HISTORY_QUOTIENT',token:macrostate,same:true},
+    property:'NEXT_LAWFUL_FORECAST_SET + CALL + TARGET_TYPE',
+    a:{
+      seed:a.seed,round:a.round,seq:a.seq,exact:a.exact,form:[...(a.form||[])],
+      behavior:a.behavior,forecast_factor:fa,native_forecasts:aForecasts
+    },
+    b:{
+      seed:b.seed,round:b.round,seq:b.seq,exact:b.exact,form:[...(b.form||[])],
+      behavior:b.behavior,forecast_factor:fb,native_forecasts:bForecasts
+    },
+    native_equal:a.signature===b.signature,
+    factor_delta:factorDelta,
+    aperture_delta:{
+      a_candidate_count:aForecasts.length,
+      b_candidate_count:bForecasts.length,
+      only_a_slots:onlyA,
+      only_b_slots:onlyB,
+      shared_changed_slots:sharedChanged
+    },
+    residue:{
+      keeps:'same six-bit HEX history projection '+macrostate,
+      drops:'exact recent verb identity and native forecast-factor detail needed to distinguish these lawful NEXT apertures'
+    },
+    law:'same projected history plus unequal lawful native NEXT proves projection loss for this named control property; the witness explains the dropped native factor without promoting the projection to effect authority'
   };
 }
 
@@ -207,5 +261,9 @@ if(isCli){
   if(!factor.topology_factor.reproduces_structural_forecasts)throw new Error('topology factor failed structural forecast reconstruction');
   if(!factor.full_factor.reproduces_full_forecasts)throw new Error('full factor failed full forecast reconstruction');
   if(!factor.charge_residue.affects_full_forecast)throw new Error('expected charge residue witness');
-  console.log(JSON.stringify({macrostate:out,factorization:factor},null,2));
+  const controlLoss=explainControlLossCounterexample(out.hexCounterexample);
+  if(!controlLoss.ok)throw new Error('expected explainable HEX control-loss counterexample');
+  if(controlLoss.projection.same!==true||controlLoss.native_equal!==false)throw new Error('expected same projection with unequal native aperture');
+  if(!controlLoss.factor_delta.length)throw new Error('expected at least one differing native factor field');
+  console.log(JSON.stringify({macrostate:out,factorization:factor,controlLoss},null,2));
 }
