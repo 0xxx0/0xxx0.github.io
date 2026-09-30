@@ -1,3 +1,74 @@
+function cloneCommitSnapshot(x = minimalSnapshot()) {
+  if (typeof structuredClone === 'function') return structuredClone(x);
+  return JSON.parse(JSON.stringify(x));
+}
+function syncUndoControl() {
+  const b = $('#undoBtn');
+  if (!b) return;
+  b.disabled = !commitUndoSnapshot;
+  b.textContent = commitUndoSnapshot ? 'UNDO LAST COMMIT' : 'UNDO LAST COMMIT · —';
+}
+function beginCommitUndoCandidate() {
+  if (demo?.preview) return false;
+  pendingCommitUndoSnapshot = cloneCommitSnapshot();
+  return true;
+}
+function discardCommitUndoCandidate() {
+  pendingCommitUndoSnapshot = null;
+}
+function armCommitUndo() {
+  if (!pendingCommitUndoSnapshot || demo?.preview) return false;
+  commitUndoSnapshot = cloneCommitSnapshot(pendingCommitUndoSnapshot);
+  pendingCommitUndoSnapshot = null;
+  syncUndoControl();
+  return true;
+}
+function registerCommitComposeTimer(id) {
+  pendingComposeTimers.add(id);
+  return id;
+}
+function settleCommitComposeTimer(id) {
+  pendingComposeTimers.delete(id);
+}
+function cancelPendingComposeTimers() {
+  for (const id of pendingComposeTimers) clearTimeout(id);
+  pendingComposeTimers.clear();
+}
+function invalidateCommitUndo() {
+  commitUndoSnapshot = null;
+  pendingCommitUndoSnapshot = null;
+  syncUndoControl();
+}
+function clearCommitUndo() {
+  cancelPendingComposeTimers();
+  invalidateCommitUndo();
+}
+function undoLastCommit() {
+  if (!commitUndoSnapshot) {
+    toast('NOTHING TO UNDO');
+    return false;
+  }
+  const snap = cloneCommitSnapshot(commitUndoSnapshot);
+  cancelPendingComposeTimers();
+  commitUndoSnapshot = null;
+  pendingCommitUndoSnapshot = null;
+  pointers.clear();
+  dialTouched[0] = dialTouched[1] = false;
+  live.vL = live.vR = 0;
+  live.mode = 'STILL';
+  const ok = restore(snap);
+  if (!ok) {
+    syncUndoControl();
+    toast('UNDO FAILED');
+    return false;
+  }
+  updatePreview();
+  saveLocal();
+  syncUndoControl();
+  toast('UNDONE · LAST COMMIT');
+  return true;
+}
+
 function minimalSnapshot() {
   return {
     schema: SCHEMA,
@@ -224,6 +295,7 @@ function renderSaves() {
     row.className = 'saveitem';
     row.innerHTML = `<button class="secondary">${x.name}</button><button class="secondary">×</button>`;
     row.children[0].onclick = () => {
+      clearCommitUndo();
       restore(x.snap);
       closeDrawer();
       toast('LOADED');
@@ -249,6 +321,7 @@ function importCode() {
   }
   txt = txt.replace(/^FOLDBLOOM2:/, '');
   try {
+    clearCommitUndo();
     restore(b64dec(txt));
     saveLocal();
     toast('IMPORTED');
@@ -257,6 +330,7 @@ function importCode() {
   }
 }
 function newField() {
+  clearCommitUndo();
   rngState = Date.now() >>> 0 || 1;
   L = R = rawL = rawR = 0;
   score = chain = splitCharge = fulfilled = 0;
@@ -322,6 +396,7 @@ function syncUI() {
 }
 function setMode(m) {
   if(demo.on)stopDemo(true);
+  invalidateCommitUndo();
   prefs.mode = m;
   document.body.classList.toggle('duet',m==='DUET');
   emit('mode', { mode: m });
@@ -330,11 +405,12 @@ function setMode(m) {
 }
 function setWorld(w) {
   if(demo.on)stopDemo(true);
+  invalidateCommitUndo();
   prefs.world = w; applyWorldAudio(); emit('world', { world: w }); syncUI(); saveLocal(); toast(w);
 }
-function setVoice(v) { if(demo.on)stopDemo(true); prefs.voice=v; applyWorldAudio(); emit('voice',{voice:v}); syncUI(); saveLocal(); toast(v); }
-function setGroove(v) { if(demo.on)stopDemo(true); prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
-function setScope(v) { if(demo.on)stopDemo(true); prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
+function setVoice(v) { if(demo.on)stopDemo(true); invalidateCommitUndo(); prefs.voice=v; applyWorldAudio(); emit('voice',{voice:v}); syncUI(); saveLocal(); toast(v); }
+function setGroove(v) { if(demo.on)stopDemo(true); invalidateCommitUndo(); prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
+function setScope(v) { if(demo.on)stopDemo(true); invalidateCommitUndo(); prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
 function setMenuPane(v){ $('#drawer').dataset.pane=v; $$('#menuTabs [data-pane]').forEach(b=>b.classList.toggle('active',b.dataset.pane===v)); }
 async function requestWide(){
   if(innerWidth>innerHeight){toast('WIDE · BOTH DIALS');return true;}
@@ -368,6 +444,7 @@ $$('.choice[data-mode]').forEach(
 $$('.choice[data-surface]').forEach(
   b =>
     (b.onclick = () => {
+      invalidateCommitUndo();
       prefs.surface = b.dataset.surface;
       syncUI();
       saveLocal();
@@ -397,6 +474,7 @@ $('#copyBtn').onclick = copyCode;
 $('#exportBtn').onclick = exportPacket;
 $('#saveBtn').onclick = saveCassette;
 $('#importBtn').onclick = importCode;
+$('#undoBtn').onclick = undoLastCommit;
 $('#newBtn').onclick = () => {
   let b = $('#newBtn'),
     now = Date.now();
@@ -412,11 +490,13 @@ $('#newBtn').onclick = () => {
   closeDrawer();
 };
 $('#hapticBtn').onclick = () => {
+  invalidateCommitUndo();
   prefs.haptic = !prefs.haptic;
   syncUI();
   saveLocal();
 };
 $('#quietBtn').onclick = () => {
+  invalidateCommitUndo();
   prefs.quiet = !prefs.quiet;
   syncUI();
   saveLocal();
@@ -428,6 +508,7 @@ $('#quietBtn').onclick = () => {
 ].forEach(
   ([id, k]) =>
     ($('#' + id).oninput = e => {
+      invalidateCommitUndo();
       prefs[k] = +e.target.value / 100;
       $('#' + id + 'V').textContent = e.target.value;
       saveLocal();
@@ -460,6 +541,7 @@ if (!phrasePlan?.length) beginPhrase(['BLOOM', 'FOLD', 'SPLIT', 'RETURN']);
 setMenuPane('PLAY');
 syncUI();
 renderSaves();
+syncUndoControl();
 hud();
 // D1: auto-enter on deep-link mode (including DUET)
 if (launchMode) {

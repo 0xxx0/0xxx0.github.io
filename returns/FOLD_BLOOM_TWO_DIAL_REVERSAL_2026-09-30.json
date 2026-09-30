@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_REVERSAL_2026-09-30",
+  "status": "CANDIDATE",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Close COAXIALITY E_REVERSAL for Two Dial without adding root chrome: capture one deep-cloned pre-gesture snapshot, arm it only at release/commit, restore it through the existing snapshot substrate, and cancel delayed compose mutation.",
+  "law": "Cheap/local committed transformation is reversible only when residue is exact and bounded; causal RETURN explains a change, UNDO actually restores it.",
+  "changes": [
+    "/fold-bloom/two-dial/core1.js — 0.10.7 reversible-commit state + undo residue/timer holders",
+    "/fold-bloom/two-dial/core2.js — first-pointer pre-gesture capture, commit-boundary arm, cancel discard, tracked delayed compose timer",
+    "/fold-bloom/two-dial/app-runtime.js — deep-clone snapshot residue + exact one-level UNDO + ambiguity invalidation",
+    "/fold-bloom/two-dial/index.html — UNDO LAST COMMIT inside existing STATE/SESSION pane",
+    "/tools/two-dial-reversal-selftest.cjs — executable reversal contract",
+    "/control/FIELD_COAXIALITY_AUDIT.json — E PASS; H remains INDETERMINATE with fixed PLAIN_PAIR_6X6 baseline",
+    "/showcase-manifest.json + /fold-bloom/two-dial/release.json — 0.10.7 evidence touch"
+  ],
+  "preserves": [
+    "two-dial relation algebra and host-owned semantics",
+    "pointer release as semantic commit boundary",
+    "causal RETURN v0.2 and borrowed-clock authorship boundary",
+    "no FIELD root UI or new state store",
+    "cassette/import/reset remain explicit session boundaries"
+  ],
+  "boundary": {
+    "reversible": "composition/state mutation caused by the most recent committed dial gesture within the current unambiguous session",
+    "not_reversible": "sound already heard; external source time; a prior commit after later settings/import/reset changes",
+    "H_COMPRESSION": "still unresolved; ordinary-use comparison against PLAIN_PAIR_6X6 required before KEEP"
+  },
+  "verify": [
+    "node tools/two-dial-causal-return-selftest.cjs",
+    "node tools/two-dial-gesture-boundary-selftest.cjs",
+    "node tools/two-dial-reversal-selftest.cjs",
+    "public-surface-check + route registration + gitleaks"
+  ],
+  "reentry": "/fold-bloom/two-dial/"
+}
