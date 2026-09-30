@@ -155,7 +155,7 @@
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
       "decision": "PROVE_OR_DECOAXIALIZE",
-      "repair_boundary": "A-G are proved. H_COMPRESSION remains ordinary-use gated. The plain baseline is corrected to preserve TWO DIAL's existing semantic commit boundary: PLAY/OPEN/SCALE commit on each axis release/change; DUET preserves the host's existing coalescing rule. No extra COMMIT control is allowed because it would suppress intermediate causal consequences and change undo/phrase/memory trajectories. Do not promote to KEEP until ordinary use compares this functionally equivalent baseline.",
+      "repair_boundary": "A-G are proved. H_COMPRESSION remains ordinary-use gated, but the parity-correct baseline is now runnable: compare native TWO_DIAL against PLAIN_PAIR_6X6_RELEASE_COMMIT over the same 36 pair states, same release/change commit schedule and same consequence/RETURN path. Promote only from comparable ordinary-use returns; otherwise de-coaxialize/delete.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -218,12 +218,13 @@
             "No durable ordinary-use comparison yet demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler functionally equivalent non-coaxial control.",
             "The previous PLAIN_PAIR_6X6 + explicit COMMIT proposal was rejected as non-equivalent: current PLAY/OPEN/SCALE semantics commit on each pointer release, so sequentially changing both dials may lawfully produce an intermediate causal consequence.",
             "Corrected baseline PLAIN_PAIR_6X6_RELEASE_COMMIT uses two independent six-position plain controls + explicit relation readout and preserves the same release/change commit boundary, including DUET coalescing; it adds no separate COMMIT control.",
-            "/tools/two-dial-compression-baseline-selftest.cjs locks baseline/host commit-boundary parity; /returns/FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json records the correction."
+            "/tools/two-dial-compression-baseline-selftest.cjs locks baseline/host commit-boundary parity; /returns/FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json records the correction.",
+            "/fold-bloom/two-dial/compression-audit.js makes the corrected baseline runnable without adding a separate COMMIT control; /tools/two-dial-compression-harness-selftest.cjs proves same-path/non-persistent/evidence-only boundaries."
           ]
         }
       },
       "compression_gate": {
-        "status": "ORDINARY_USE_REQUIRED",
+        "status": "RUNNABLE_ORDINARY_USE_REQUIRED",
         "baseline": "PLAIN_PAIR_6X6_RELEASE_COMMIT",
         "controlled": [
           "same 36 MATTER×HARMONY pair states",
@@ -251,7 +252,22 @@
         },
         "pass": "Ordinary use shows TWO_DIAL reaches and revisits intended pair/relation states with less exposed interaction or learning burden while retaining the same functional state space, causal commit trajectory and RETURN.",
         "fail": "PLAIN_PAIR_6X6_RELEASE_COMMIT is equal or easier to understand/operate, or TWO_DIAL requires additional explanation/mode memory that cancels its control compression.",
-        "boundary": "Do not infer PASS from code size, aesthetics, novelty, task completion alone, synthetic action counts alone, or subjective preference without a same-task baseline. Machine checks establish functional parity; H remains INDETERMINATE until ordinary use supplies comparative burden evidence."
+        "boundary": "Do not infer PASS from code size, aesthetics, novelty, task completion alone, synthetic action counts alone, or subjective preference without a same-task baseline. Machine checks establish functional parity; H remains INDETERMINATE until ordinary use supplies comparative burden evidence.",
+        "entrypoints": {
+          "TWO_DIAL": "/fold-bloom/two-dial/?compression=TWO",
+          "PLAIN_PAIR_6X6_RELEASE_COMMIT": "/fold-bloom/two-dial/?compression=PLAIN"
+        },
+        "task_set": "Five fixed exact-pair tasks cover SAME, NEAR, FAR, OPPOSITE, then revisit SAME.",
+        "evidence_packet": "fold-bloom-compression-return/v0.1",
+        "measurements": [
+          "inputs",
+          "commits",
+          "elapsed_ms",
+          "clarity 1..5",
+          "reach intent 1..5",
+          "revisit 1..5",
+          "free observation"
+        ]
       }
     }
   ],
