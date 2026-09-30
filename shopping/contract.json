@@ -2,9 +2,9 @@
   "schema": "capability-contract/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.5",
+  "version": "0.4.1",
   "role": "procurement/resource-acquisition adapter under Forward Center Mass",
-  "kernel": "Shopping is an input-output transformation field: need enters, verified capability exits. Lifecycle truth remains native; evidence posture may be projected through the shared FIELD signal grammar without changing state.",
+  "kernel": "Shopping is an input-output transformation field: need enters, verified capability exits. Lifecycle truth remains native; bounded temporal market evidence may accumulate on the exact item without becoming lifecycle, ownership or purchase authority.",
   "accepts": {
     "kinds": [
       "capability gap",
@@ -30,7 +30,11 @@
       "BODY/OPERATING W/D/H",
       "mass",
       "maintenance burden",
-      "dependencies/consumables"
+      "dependencies/consumables",
+      "availability / variant",
+      "target landed SGD",
+      "bounded offer history (max 12 snapshots)",
+      "return policy / warranty"
     ]
   },
   "transforms": {
@@ -68,7 +72,8 @@
       "exact Shopping item/state must revalidate before HOUSE fit receipt acceptance",
       "Shopping-owned evidence signal/boundary remains source metadata through HOUSE",
       "Port object identity/hash/scope/focus on explicit candidate import",
-      "unknown SKU/seller remain unknown until explicit evidence"
+      "unknown SKU/seller remain unknown until explicit evidence",
+      "bounded market snapshots are evidence only; temporal price/availability observations never mutate lifecycle, ownership or authority"
     ],
     "reversibility": "full",
     "side_effects": "browser-local only"
@@ -88,7 +93,9 @@
       "atlas-dayline-handoff/v0.1 with source-owned evidence witness",
       "house-shopping-fit/v0.1 source envelope",
       "shopping-house-fit-receipt/v0.1 evidence",
-      "explicit Port-derived VERIFY candidate"
+      "explicit Port-derived VERIFY candidate",
+      "shopping-market-snapshot/v0.1 bounded offer tape",
+      "market target/history summary in agent packet"
     ],
     "machine_readable": true,
     "human_readable": true
@@ -127,7 +134,10 @@
       "fit PASS/FAIL screens dimensional envelope only",
       "accepted fit receipt does not mutate procurement lifecycle",
       "Port candidate import is explicit and conservative VERIFY",
-      "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence"
+      "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence",
+      "market tape is capped at 12 local snapshots per exact item",
+      "snapshot preserves exact SKU/seller/source + landed SGD + availability/variant + return/warranty",
+      "target hit is a derived witness only; it never buys, messages, or promotes lifecycle"
     ],
     "return_path": "/shopping/"
   }
