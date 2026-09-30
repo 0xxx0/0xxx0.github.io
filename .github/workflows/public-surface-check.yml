@@ -133,6 +133,7 @@ jobs:
           node tools/two-dial-gesture-boundary-selftest.cjs
           node tools/two-dial-reversal-selftest.cjs
           node tools/two-dial-compression-baseline-selftest.cjs
+          node tools/two-dial-compression-harness-selftest.cjs
       - name: Validate FIELD COAXIALITY audit
         run: node tools/field-coaxiality-audit.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
