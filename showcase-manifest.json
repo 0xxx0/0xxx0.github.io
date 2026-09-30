@@ -3345,6 +3345,89 @@
       "tier": "FIELD"
     },
     {
+      "href": "/forward-field-proof/readfield-map-e1/",
+      "title": "READFIELD MAP E1 · LINE ↔ DATADISC",
+      "kind": "experiment",
+      "parent": "/forward-field-proof/",
+      "operation": "PROVE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Bounded topology-only proof for the canonical /docs/ READFIELD host. LINE and DISC consume the same addressed paragraph units and section-boundary marks; the trial measures interruption recovery latency and normalized source-position error. The exact 2019 DataDisc is a frozen donor, not authority. Pass transfers at most one map mechanism into READFIELD; failure parks/composts the experiment.",
+      "receipt": "/forward-field-proof/readfield-map-e1/release.json",
+      "transfer": [
+        "information-matched LINE ↔ DISC source-position comparator",
+        "local interruption/reorientation evidence receipt",
+        "explicit transfer/hold/reject thresholds"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed text fixture",
+            "pasted text"
+          ],
+          "requires": [
+            "at least 8 paragraph units"
+          ],
+          "optional": [
+            "synthetic fixture"
+          ]
+        },
+        "transforms": {
+          "verb": "render the same normalized source positions as LINE or one-ring DISC, interrupt, then measure reorientation response",
+          "preserves": [
+            "source text",
+            "paragraph addresses",
+            "section boundaries",
+            "target identity",
+            "metric definitions"
+          ],
+          "reversibility": "full / browser-local",
+          "side_effects": "localStorage trial evidence + explicit JSON export"
+        },
+        "emits": {
+          "kinds": [
+            "paired LINE/DISC trial receipts",
+            "pilot disposition"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/forward-field-proof/readfield-map-e1/release.json",
+          "checks": [
+            "same source hash and unit list across conditions",
+            "same tick count and section-boundary encoding",
+            "target highlight removed before response",
+            "no hierarchy/spiral/glyph/status-channel advantage in DISC"
+          ],
+          "return_path": "/forward-field-proof/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-30T15:40:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "RESEARCH"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/docs/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does a stable angular source-position map improve interruption recovery and positional memory enough to justify a richer READFIELD minimap?",
+        "baseline": "LINE: normalized source position rendered linearly with the same paragraph ticks and section boundaries.",
+        "mutation": "DISC: the same ticks and boundaries rendered on one clockwise ring. No spiral, hierarchy, compound glyph payload, semantic weighting or extra status channel.",
+        "evidence_gate": "Pilot transfer candidate only if DISC median response latency is at least 15% faster AND median normalized positional error at least 20% lower than LINE. Mixed results HOLD; equivalence keeps LINE by simplicity.",
+        "next_if_pass": "Transfer only the surviving map-position mechanism into /docs/ behind a reversible projection; then test richer DataDisc semantics one mutation at a time.",
+        "next_if_fail": "Keep LINE as the READFIELD baseline and preserve E1 + 2019 DataDisc as donor/negative knowledge; no beautification debt."
+      },
+      "field": {
+        "owner": "FIELD/PROOF"
+      }
+    },
+    {
       "href": "/forward-field-proof/triangle/",
       "title": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
       "kind": "workbench",
