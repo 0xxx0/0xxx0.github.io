@@ -1,0 +1,30 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_MIXED_NEWS_SCENE_2026-09-30",
+  "date": "2026-09-30",
+  "state": "BOUNDED_PUBLIC_SAFE_DELTA",
+  "object": "LACONIC / ICONIC — mixed-valence support trajectory",
+  "source": {
+    "kind": "current-conversation donor",
+    "handling": "mechanism only; no private names, diagnoses, pregnancy details, or raw message dump retained"
+  },
+  "delta": [
+    "Added scene:mixed-news to laconic/scenes.json.",
+    "Preserved distinct routes for good news, difficult news, both-at-once, guilt about joy, practical help, witness, and no-reply.",
+    "Reused existing CARE lane and branching scene grammar; no new route, ontology, transport or state store created."
+  ],
+  "proof": [
+    {
+      "kind": "bytes",
+      "path": "/laconic/scenes.json",
+      "scene_id": "scene:mixed-news"
+    },
+    {
+      "kind": "schema",
+      "path": "/laconic/scenes.schema.json",
+      "claim": "scene uses existing v0.2 scene/node/choice shape"
+    }
+  ],
+  "boundary": "DRAFT only. The scene does not send messages, infer hidden emotional states, provide medical advice, or promote private source material into public canon.",
+  "return": "/laconic/"
+}
