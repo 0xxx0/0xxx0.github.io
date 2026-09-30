@@ -752,7 +752,7 @@ function focusNativeApertureSlot(slot){
   setAddress('field://lab/live/'+encodeURIComponent(instance)+'/seq/'+(evidence?.seq??'open')+'/slot/'+n);
   setStatus(evidence?.available
     ?'NATIVE APERTURE · SLOT '+n+' · '+evidence.forecast.verb+(evidence.model_supported?' · MODEL SUPPORT':'')+' · INSPECT ONLY'
-    :'NATIVE APERTURE · SLOT '+n+' · SUPPORT=0 · INSPECT ONLY');
+    :'NATIVE APERTURE · SLOT '+n+' · NATIVE=0 · MODEL SUPPORT=0 · INSPECT ONLY');
   recordLabTrace('NATIVE_APERTURE_FOCUS');
   return evidence;
 }
@@ -1097,8 +1097,15 @@ $('#stateInk')?.addEventListener('click',()=>{
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
+function canvasPoint(e){
+  const r=canvas.getBoundingClientRect();
+  return {
+    x:(e.clientX-r.left)*(W/Math.max(1,r.width)),
+    y:(e.clientY-r.top)*(H/Math.max(1,r.height))
+  };
+}
 canvas.addEventListener('pointerdown',e=>{
-  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
+  const {x,y}=canvasPoint(e);mx=x/W;my=y/H;
   if(mode==='PULSE'){
     const cx=W/2,cy=H/2,rr=Math.min(W,H)*.245,d=Math.hypot(x-cx,y-cy);
     if(d<rr*.30){pulse.playing?stopPulse():startPulse();setStatus('PULSE · '+(pulse.playing?'PLAY':'STOP'));return}
@@ -1124,7 +1131,7 @@ canvas.addEventListener('pointerdown',e=>{
   }
 });
 canvas.addEventListener('pointermove',e=>{
-  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
+  const {x,y}=canvasPoint(e);mx=x/W;my=y/H;
   if(mode==='INK'&&ink.down){const now=performance.now(),dt=Math.max(4,now-ink.lastT),sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY)/(dt/16.7);inkStroke(ink.lastX??x,ink.lastY??y,x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y;ink.lastT=now}
   if(mode==='DATA'){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
 });
