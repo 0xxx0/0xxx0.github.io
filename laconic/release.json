@@ -2,10 +2,11 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.3.2",
-  "released": "2026-09-29",
+  "version": "0.3.3",
+  "released": "2026-09-30",
   "state": "ACTIVE",
   "changes": [
+    "v0.3.3 — added public-safe MIXED NEWS / HOLD BOTH CARE trajectory for simultaneous good + difficult news, preserving joy, fear, witness, practical help and no-reply as separate lawful branches without importing private case details.",
     "v0.3.2 — branch-level receipt: verdicts inside a scene are keyed scene#node, carry the trail, and record `used` (ADOPTION) separately from KEEP (taste) plus a short `why`. Backward-compatible with existing v01 local state.",
     "renamed the recovered-fragments surface to VAULT and kept the active drafting layer small",
     "made the exact 2025 60-line Iconic/Laconic source bank browseable by original category without bulk-promoting it into current LINES",
@@ -71,7 +72,8 @@
   "return": "/laconic/",
   "verification": [
     "shared /showcase-nav.js showcase RETURN adapter present",
-    "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
+    "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json",
+    "/returns/LACONIC_MIXED_NEWS_SCENE_2026-09-30.json"
   ],
   "current_classification": {
     "reviewed_at": "2026-09-26T01:09:00+08:00",
