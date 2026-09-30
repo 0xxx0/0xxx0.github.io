@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.27 / POINT-OF-ACTION UNDO SEEN / ONE HELD OBJECT",
+      "head": "FIELD INDEX 0.8.28 / PRE-COMMIT FORECAST / POINT-OF-ACTION UNDO SEEN / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. Generic HOLD / TURN / RELEASE / TRACE / RETURN stays carrier-derived; host-specific owner/action hints stay manifest-derived from explicit native ownership and AVAILABLE exit paths, never from a FIELD-owned capability table. Convergence remains one read-only projection inside FIELD root, composed from QUEUE + federation-atlas; /nexus/ remains compatibility-only while board/map remain utilities. CURRENT alone owns attention/NOW; RETURN alone owns durable evidence. Packet egress precedence, native source/effect authority and exact RETURN remain unchanged. The held object remains the sole working guide. The retired FIELD / CATCH + ACT aggregate stays retired. Exact-route SEEN is browser-local orientation on the held object: after SEEN, the same control becomes UNDO SEEN while that route action remains the newest local orientation mutation; a newer SEEN or MARK ALL supersedes the immediate inverse and older actions remain in bounded STATUS → ORIENTATION history. REALITY, ISSUES, local orientation history and Git evidence remain under STATUS. No local acknowledgement resolves canonical FIELD, CURRENT, WAITING, issues or native state.",
+      "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. Generic HOLD / TURN / RELEASE / TRACE / RETURN stays carrier-derived; host-specific owner/action hints stay manifest-derived from explicit native ownership and AVAILABLE exit paths, never from a FIELD-owned capability table. Convergence remains one read-only projection inside FIELD root, composed from QUEUE + federation-atlas; /nexus/ remains compatibility-only while board/map remain utilities. CURRENT alone owns attention/NOW; RETURN alone owns durable evidence. Packet egress precedence, native source/effect authority and exact RETURN remain unchanged. The held object remains the sole working guide. The retired FIELD / CATCH + ACT aggregate stays retired. Exact-route SEEN is browser-local orientation on the held object: after SEEN, the same control becomes UNDO SEEN while that route action remains the newest local orientation mutation; a newer SEEN or MARK ALL supersedes the immediate inverse and older actions remain in bounded STATUS → ORIENTATION history. REALITY, ISSUES, local orientation history and Git evidence remain under STATUS. No local acknowledgement resolves canonical FIELD, CURRENT, WAITING, issues or native state. FIELD 0.8.28 preserves the 0.8.27 point-of-action inverse and makes the existing Into-the-Breach precommit_telegraph contract executable through interphase-action-forecast/v0.1 inside the held NEXT aperture. Forecast is declaration-derived VIEW evidence only: effect class, commit boundary, target and reversibility; native owner still commits and WITNESS/RETURN still establishes consequence.",
       "evidence": [
         "/returns/FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
         "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
@@ -99,160 +99,167 @@
         "/tools/validate-public.mjs",
         "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
         "/tools/field-action-aperture-selftest.mjs",
-        "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json"
+        "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
+        "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+        "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md",
+        "/returns/FIELD_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json"
       ],
-      "version": "0.8.27",
-      "latest_return": "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
+      "version": "0.8.28",
+      "latest_return": "/returns/FIELD_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json",
       "repo_verification": {
-        "status": "PASS / PR 700",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
-        "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
-        "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
-        "checks": {
-          "route_registration": {
-            "run": 36676498495,
-            "conclusion": "success"
-          },
-          "public_surface": {
-            "run": 36676498556,
-            "conclusion": "success"
-          },
-          "gitleaks": {
-            "run": 36676498421,
-            "conclusion": "success"
-          }
-        },
-        "browser": "PASS · public-surface-check 36676498556 including FIELD reversibility semantics, held-action aperture guards and critical browser smoke.",
-        "post_merge": {
-          "pages": {
-            "run": 36676805082,
-            "conclusion": "success"
-          },
-          "gitleaks": {
-            "run": 36676854000,
-            "conclusion": "success"
-          }
-        },
-        "note": "Behavioral proof ran on PR #700 after CURRENT↔manifest alignment. Merge SHA also passed Pages and push gitleaks. No claim that the post-merge metadata-only seal was part of the earlier behavioral test.",
+        "status": "PENDING / PRECOMMIT FORECAST PR",
+        "note": "Fresh 0.8.28 candidate is based on current master, including Verse 0.3.1 and proven FIELD 0.8.27 UNDO SEEN; static + browser checks must pass before merge.",
         "predecessor": {
-          "status": "PASS / PR 675 EXACT-HEAD",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
-          "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
-          "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
+          "status": "PASS / PR 700",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
+          "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
+          "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
           "checks": {
             "route_registration": {
-              "run": 36662030164,
+              "run": 36676498495,
               "conclusion": "success"
             },
             "public_surface": {
-              "run": 36662030136,
+              "run": 36676498556,
               "conclusion": "success"
             },
             "gitleaks": {
-              "run": 36662030161,
+              "run": 36676498421,
               "conclusion": "success"
             }
           },
-          "browser": "PASS · public-surface-check 36662030136 attempt 2 including owner-based FIELD root and critical browser smoke; attempt 1 failed only on transient CARE face-probe readiness. PR 678 subsequently removed that probe boot race without weakening assertions.",
+          "browser": "PASS · public-surface-check 36676498556 including FIELD reversibility semantics, held-action aperture guards and critical browser smoke.",
+          "post_merge": {
+            "pages": {
+              "run": 36676805082,
+              "conclusion": "success"
+            },
+            "gitleaks": {
+              "run": 36676854000,
+              "conclusion": "success"
+            }
+          },
+          "note": "Behavioral proof ran on PR #700 after CURRENT↔manifest alignment. Merge SHA also passed Pages and push gitleaks. No claim that the post-merge metadata-only seal was part of the earlier behavioral test.",
           "predecessor": {
-            "status": "PASS / PR 654 EXACT-HEAD",
-            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
-            "merge_sha": "fc9ea30452025d74ed78528088b718028169496a",
-            "proof_head": "38a7641dab1d613300cdb7a1b415fdaab0d42fef",
+            "status": "PASS / PR 675 EXACT-HEAD",
+            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
+            "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
+            "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
             "checks": {
               "route_registration": {
-                "run": 36657822100,
+                "run": 36662030164,
                 "conclusion": "success"
               },
               "public_surface": {
-                "run": 36657822097,
+                "run": 36662030136,
                 "conclusion": "success"
               },
               "gitleaks": {
-                "run": 36657822129,
+                "run": 36662030161,
                 "conclusion": "success"
               }
             },
-            "browser": "PASS · public-surface-check 36657822097 including held-guide browser invariant and critical browser smoke",
+            "browser": "PASS · public-surface-check 36662030136 attempt 2 including owner-based FIELD root and critical browser smoke; attempt 1 failed only on transient CARE face-probe readiness. PR 678 subsequently removed that probe boot race without weakening assertions.",
             "predecessor": {
-              "status": "PASS / PR 636 EXACT-HEAD",
-              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
-              "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
-              "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
+              "status": "PASS / PR 654 EXACT-HEAD",
+              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
+              "merge_sha": "fc9ea30452025d74ed78528088b718028169496a",
+              "proof_head": "38a7641dab1d613300cdb7a1b415fdaab0d42fef",
               "checks": {
                 "route_registration": {
-                  "run": 36580603188,
+                  "run": 36657822100,
                   "conclusion": "success"
                 },
                 "public_surface": {
-                  "run": 36580602549,
+                  "run": 36657822097,
                   "conclusion": "success"
                 },
                 "gitleaks": {
-                  "run": 36580602546,
+                  "run": 36657822129,
                   "conclusion": "success"
                 }
               },
-              "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
+              "browser": "PASS · public-surface-check 36657822097 including held-guide browser invariant and critical browser smoke",
               "predecessor": {
-                "status": "PASS / PR 601 EXACT-HEAD",
-                "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
-                "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
-                "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+                "status": "PASS / PR 636 EXACT-HEAD",
+                "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
+                "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+                "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
                 "checks": {
                   "route_registration": {
-                    "run": 36564168802,
+                    "run": 36580603188,
                     "conclusion": "success"
                   },
                   "public_surface": {
-                    "run": 36564168856,
+                    "run": 36580602549,
                     "conclusion": "success"
                   },
                   "gitleaks": {
-                    "run": 36564168889,
+                    "run": 36580602546,
                     "conclusion": "success"
                   }
                 },
-                "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
+                "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
                 "predecessor": {
-                  "status": "PASS / PR 533 EXACT-HEAD",
-                  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
-                  "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
-                  "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+                  "status": "PASS / PR 601 EXACT-HEAD",
+                  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+                  "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+                  "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
                   "checks": {
                     "route_registration": {
-                      "run": 36508540373,
+                      "run": 36564168802,
                       "conclusion": "success"
                     },
                     "public_surface": {
-                      "run": 36508540378,
+                      "run": 36564168856,
                       "conclusion": "success"
                     },
                     "gitleaks": {
-                      "run": 36508540355,
+                      "run": 36564168889,
                       "conclusion": "success"
                     }
                   },
-                  "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+                  "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
                   "predecessor": {
-                    "status": "PASS / PR 528 EXACT-HEAD",
-                    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-                    "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+                    "status": "PASS / PR 533 EXACT-HEAD",
+                    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+                    "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+                    "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
                     "checks": {
                       "route_registration": {
-                        "run": 36507219876,
+                        "run": 36508540373,
                         "conclusion": "success"
                       },
                       "public_surface": {
-                        "run": 36507220022,
+                        "run": 36508540378,
                         "conclusion": "success"
                       },
                       "gitleaks": {
-                        "run": 36507219919,
+                        "run": 36508540355,
                         "conclusion": "success"
                       }
                     },
-                    "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+                    "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+                    "predecessor": {
+                      "status": "PASS / PR 528 EXACT-HEAD",
+                      "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+                      "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+                      "checks": {
+                        "route_registration": {
+                          "run": 36507219876,
+                          "conclusion": "success"
+                        },
+                        "public_surface": {
+                          "run": 36507220022,
+                          "conclusion": "success"
+                        },
+                        "gitleaks": {
+                          "run": 36507219919,
+                          "conclusion": "success"
+                        }
+                      },
+                      "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+                    }
                   }
                 }
               }
@@ -1280,7 +1287,7 @@
     "human_gate_rule": "Do not ask the human to test something the executor can verify. If a final device/world/subjective property remains, mark that property UNKNOWN/OPTIONAL_EVIDENCE and continue all independent verification.",
     "game_donor_transfer": {
       "failure_return": "After a bounded failed attempt, RETURN must contain new evidence/residue or explicitly classify the attempt as duplicate/no-new-information; do not blind-retry to manufacture progress.",
-      "precommit_telegraph": "When a host can predict effects, preview affected addresses plus reversible/irreversible boundary before authoritative commit. Unknown effects remain UNKNOWN; preview never grants authority.",
+      "precommit_telegraph": "When a host declares a move, expose its affected target plus declared effect class, commit boundary and reversibility before activation. FIELD/INTERPHASE may project this forecast but cannot execute, mint authority or predict undeclared outcomes; post-action truth still requires WITNESS/RETURN.",
       "ghost_state": "PROPOSED/GHOST may carry configuration and exact address while remaining non-real, non-actuating and non-proof. Promotion requires explicit resources/authority/enactment evidence.",
       "scaffold_retirement": "Temporary helpers, migration shims, compatibility surfaces and proof scaffolds should name a retirement condition when introduced; success may reduce infrastructure, but deletion never outranks provenance.",
       "safe_salvage": "Before retiring an addressed surface, survey CURRENT/head authority, children, compatibility aliases and live runtime/tooling references; preserve transferable mechanism/provenance/RETURN; FROZEN_DONOR and compatibility aliases are not debt; RETIRE_CANDIDATE never authorizes deletion."
