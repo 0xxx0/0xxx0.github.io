@@ -786,8 +786,8 @@ function syncStateFrontierUI(frontier=refreshStateFrontier()){
   const box=$('#stateFrontierRead');if(!box)return;
   box.replaceChildren();
   if(!frontier?.ok){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · UNRESOLVED';box.append(span);return}
-  if(!frontier.candidates.length){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · TARGET REACHED · '+frontier.current.token;box.append(span);return}
   const converged=data.stateConvergence?.ok?data.stateConvergence:null;
+  if(!frontier.candidates.length){const span=document.createElement('span');span.className='stateFrontierEmpty';span.textContent='NEXT · QUOTIENT TARGET REACHED · '+frontier.current.token;box.append(span)}
   const byLine=new Map((converged?.candidates||[]).map(x=>[x.line,x]));
   for(const candidate of frontier.candidates){
     const button=document.createElement('button');
