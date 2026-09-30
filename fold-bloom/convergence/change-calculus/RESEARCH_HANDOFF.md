@@ -394,13 +394,33 @@ The right abstraction is often not the smallest one. It is the smallest one whos
 
 ## Applied experiments
 
-### E1 — HEX quotient counterexample search
+### E1 — HEX quotient control-loss witness
 
-Goal: find two exact six-verb forms with the same binary hex state but meaningfully unequal downstream Fold/Bloom evidence.
+Goal: make projection loss directly inspectable rather than merely asserted.
 
-Current proof already shows syntactic inequality. Next step is behavioral inequality using native snapshots.
+The native search already falsifies HEX control sufficiency for the named property `NEXT_LAWFUL_FORECAST_SET + CALL + TARGET_TYPE`. FIELD LAB now converts that proof into one reversible A/B investigation inside the existing calculation-tape lane:
 
-**Promotion condition:** either demonstrate a bounded property preserved across each tested fiber, or preserve the exact form beside the quotient forever.
+```text
+PROVE LOSS
+→ deterministic lawful LIVE search
+→ first same-HEX / unequal-native-NEXT pair
+→ freeze exact recent verbs + native forecast apertures + native dependency factors
+→ A ↔ B
+→ HEX label stays fixed while lawful NEXT changes
+→ RETURN carries the witness
+```
+
+The witness exposes which current forecast-factor fields differ (`cell_types / target_type / anchors / creases / charge`) and which forecast slots exist only on A, only on B, or survive at the same slot with changed consequence.
+
+This is deliberately stronger than a static warning and deliberately weaker than a new controller:
+
+- it never calls `release()`;
+- it does not claim HEX is globally useless;
+- it proves only that this projection is insufficient for the named control property on the witnessed pair;
+- it does not rank or select a native action;
+- model/J-space evidence remains separate and cannot inherit host effect authority.
+
+**Promotion condition:** a compact projection may own a named control property only after bounded native evidence fails to produce unequal lawful consequences across its collapsed states. Until then, preserve the dropped residue or re-resolve through the native host.
 
 ### E2 — STEP commutator
 
@@ -463,6 +483,56 @@ This identifies the smallest sufficient layer for each task instead of assuming 
 - Recent compositional state-abstraction work: arXiv:2606.25357
 
 These sources motivate tests. They do not certify the current repo abstractions.
+
+
+## 2026-09-30 — LAB convergence calculation tape
+
+FIELD LAB DATA now projects the already-existing change/steering mechanisms as one compact inspectable tape:
+
+```text
+SOURCE → QUOTIENT → PATH → NEXT → NATIVE → MODEL → RETURN
+```
+
+This is a **derived witness**, not another reducer, bus, store, state machine, or authority source.
+
+Stage ownership remains unequal:
+
+- **SOURCE** — supplied six-bit endpoint pair.
+- **QUOTIENT** — transparent (d_H), moving-line set and collapsed temporal-order residue.
+- **PATH** — one factoradic maximal chain with an exact path address.
+- **NEXT** — every remaining one-line successor from the witnessed prefix plus remaining path multiplicity.
+- **NATIVE** — the latest LIVE-owned lawful forecast aperture witnessed through the existing FIELD PULSE bridge.
+- **MODEL** — only (C(direction,s)), the subset of the current native aperture matching the authority-NONE direction witness, plus (a=log_2|C|).
+- **RETURN** — exact address for re-entering the inspected calculation.
+
+The new pure `calculationTape(...)` projection lives in the existing change-calculus kernel and is covered by the normal selftest. LAB renders the seven stages as tap-to-inspect VIEW operations and includes the tape in its ordinary DATA RETURN. Clicking a stage may change only the LAB witness address/status; it does not select a NEXT edge, call LIVE `release()`, cast I Ching, or promote J-space support.
+
+The key experiential reduction is that the former adjacent STATE/STEP and LIVE/J-space panels now share one visible provenance spine. The user can see where information is compressed, where order is restored, where abstract possibility becomes host-lawful support, and where model support stops before effect authority.
+
+
+## 2026-09-30 — perceptual falsifier inside the tape
+
+The calculation tape is the convergence spine. The A/B control-loss witness is a bounded experiment inside that spine, not an eighth stage and not another state owner.
+
+Reducer move:
+
+```text
+projection warning
+→ executable falsifier
+→ replayable A/B witness
+→ exact dropped factor
+→ RETURN
+```
+
+When a representation is known to be lossy, prefer this pattern over another explanatory layer: expose one concrete pair the representation collapses, show the downstream lawful difference, name the residue, and preserve the owner that can re-resolve it.
+
+Owners remain unequal:
+
+- I Ching / HEX = readable structural projection;
+- STEP / lattice = finite path/order calculation;
+- J-space = read/support research evidence;
+- LIVE = native lawful forecast/effect authority;
+- LAB = comparison, preview and RETURN only.
 
 ## Stop rules
 
