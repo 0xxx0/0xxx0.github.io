@@ -44,7 +44,9 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   rec.supportA=D().getElementById('liveChangeSupport').textContent;
   rec.liveA=W().FoldBloomFieldLab.liveChange();
   const cv=D().getElementById('field'),cr=cv.getBoundingClientRect(),cw=cr.width,ch=cr.height,rr=Math.max(96,Math.min(180,Math.min(cw,ch)*.43)),aa=-Math.PI/2+2*Math.PI*2/12;
-  cv.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:77,clientX:cr.left+cw*.5+Math.cos(aa)*rr,clientY:cr.top+ch*.505+Math.sin(aa)*rr,pointerType:'touch',isPrimary:true}));
+  const haloX=cr.left+cw*.5+Math.cos(aa)*rr,haloY=cr.top+ch*.505+Math.sin(aa)*rr,haloHit=D().elementFromPoint(haloX,haloY);
+  rec.haloHit=haloHit?.id||haloHit?.tagName||null;
+  cv.dispatchEvent(new (W().PointerEvent)('pointerdown',{bubbles:true,pointerId:77,clientX:haloX,clientY:haloY,pointerType:'touch',isPrimary:true}));
   await wait(()=>D().getElementById('liveNativeFocus').textContent.includes('SLOT 2'),1500,'native halo slot focus');
   rec.focusA=D().getElementById('liveNativeFocus').textContent;
   rec.focusAddressA=D().getElementById('addressRead').textContent;
@@ -77,7 +79,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.steering.includes('FOLD')&&rec.steering.includes('AUTHORITY NONE')&&!rec.steering.includes('RETURN')&&
     rec.supportA.includes('C=1')&&rec.supportA.includes('UNIQUE_NATIVE_CANDIDATE')&&rec.supportB.includes('C=0')&&rec.supportB.includes('NO_NATIVE_CANDIDATE')&&rec.support===rec.supportB&&
     rec.liveA?.native_latest?.candidate_count===2&&rec.liveA?.steering_support?.native_candidate_count===1&&rec.liveA?.steering_support?.candidate_slots?.join(',')==='2'&&
-    rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
+    rec.haloHit==='field'&&rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
     rec.focusAddressA==='field://lab/live/probe-live-instance-123456/seq/6/slot/2'&&
     rec.liveB?.native_latest?.candidate_count===1&&rec.liveB?.steering_support?.native_candidate_count===0&&rec.focusB.includes('SLOT 2')&&rec.focusB.includes('NO LAWFUL FORECAST')&&
     rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-li')&&
