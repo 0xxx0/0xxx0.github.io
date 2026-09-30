@@ -55,7 +55,8 @@ export function assessOneAxisProof(packet={}) {
   const max_state=classify(packet, unique);
   const requested=String(packet.requested_state || 'TESTED').trim().toUpperCase();
   const rank={SPECIFIED:0,BUILT:1,TESTED:2,ADOPTED:3};
-  const allowed = Object.hasOwn(rank,requested) && rank[requested] <= rank[max_state];
+  const identityValid = !unique.some(x=>['OBJECT_ID','SPEC_REF'].includes(x));
+  const allowed = Object.hasOwn(rank,requested) && identityValid && rank[requested] <= rank[max_state];
 
   return {
     schema:'field/one-axis-physical-proof-gate/v0.1',
@@ -81,6 +82,7 @@ export function assessOneAxisProof(packet={}) {
         : null
     },
     authority:'EVIDENCE-STRUCTURE GATE ONLY / PHYSICAL TRUTH REMAINS WITH OBSERVATION + EVIDENCE REFS',
+    performance:'NOT ASSESSED — numeric tolerances remain owned by the exact spec_ref; TESTED means the required observations exist, not that a universal accuracy threshold passed.',
     adoption:'NOT ASSESSED — TESTED does not imply ADOPTED',
     next:max_state === 'TESTED'
       ? 'Physical test packet is structurally eligible for human/repository review; preserve raw evidence refs.'
