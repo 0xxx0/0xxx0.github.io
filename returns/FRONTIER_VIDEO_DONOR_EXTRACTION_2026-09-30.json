@@ -1,0 +1,52 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-09-30",
+  "object": "external frontier-video donor extraction into the existing research-design loop",
+  "status": "BOUNDED_RESEARCH_SKILL_DELTA",
+  "state": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head.",
+  "delta": [
+    "research-design-loop advanced from 0.1.0 to 0.2.0 with an external donor/transcript evidence hierarchy and MECHANISM / SCOUT / SYNTHESIS role separation.",
+    "Added SOURCE → CLAIM → PRIMARY REF → REPLICA → TRANSFER TEST → DISPOSITION → RETURN before external material can become a host delta.",
+    "Added fixed-vs-mutated substrate, development-vs-held-out metric, reward-hack and falsifier checks for harness/self-improvement claims.",
+    "Added a representation-level gate that preserves exact source/address identity outside lossy latent or embedding projections.",
+    "Added a bounded harness self-inspection record for agent/runtime debugging without granting effect authority.",
+    "Recorded seven initial donor/scout/synthesis extractions without creating a new route, queue, state store or video archive."
+  ],
+  "evidence": {
+    "repository": [
+      "skills/research-design-loop/SKILL.md",
+      "control/research/FRONTIER_VIDEO_DONOR_RAID_2026-09-30.md",
+      "control/research/INGEST_SOLVED_PROBLEM_RAID_2026-09-21.md",
+      "control/confluence/DEEP_DONOR_ORIENTATION_2026-09-26.md",
+      "control/HERMES.md"
+    ],
+    "external": [
+      "MLST — Zhengyao Jiang, When AI Research Starts Moving Faster Than Human Research, 2026-09-26",
+      "MLST — Edward Hughes, How Replication Could Teach Machines What Good Science Looks Like, 2026-09-11",
+      "MLST — Matthieu Wyart, AI Is Learning at the Wrong Level of Abstraction, 2026-08-10",
+      "AI Search — DeepSeek V4.1 Flash video, 2026-09",
+      "AI Search — Claude Opus 5.5 is ridiculous, 2026-09-24",
+      "Lex Fridman #491 — Peter Steinberger / OpenClaw",
+      "Lex Fridman #490 — State of AI in 2026"
+    ]
+  },
+  "value": [
+    "External research can now enter FIELD as falsifiable donor evidence rather than summary accumulation.",
+    "Fast news channels can contribute discovery without inheriting evidence authority.",
+    "Self-improvement and critic-loop claims must survive independent held-out acceptance rather than self-scoring.",
+    "Agent self-inspection can improve diagnosis while preserving native host authority and RETURN."
+  ],
+  "authority": "Explicit user request on 2026-09-30 to find and implement extractions from ML Street Talk, AI Search and Lex Fridman anchored in shared FIELD context.",
+  "runtime_changes": "NONE",
+  "public_surface_changes": "NONE",
+  "residue": [
+    "The new gate has architectural evidence only until a current head consumes one donor and the gate changes an actual disposition or acceptance decision.",
+    "Primary papers/code for individual scouted claims must still be recovered before technical promotion.",
+    "No continuous channel watcher or transcript mirror was added."
+  ],
+  "waiting": [],
+  "next": [
+    "Use the Weco/Hughes combination on one real harness/reducer experiment: hold the model/tool budget fixed, reproduce a named baseline, tune on development fixtures, then judge on held-out repo fixtures."
+  ],
+  "stop": "No new research dashboard, transcript corpus, permanent live front, agent authority layer or source store."
+}
