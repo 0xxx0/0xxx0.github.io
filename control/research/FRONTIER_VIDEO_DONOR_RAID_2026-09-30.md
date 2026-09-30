@@ -38,7 +38,7 @@ Derived transcript consulted: https://podcastrex.com/shows/machine-learning-stre
 
 **Falsifier:** improvement disappears on unseen fixtures, depends on changing the base model/tool budget, or only raises the internal tuning metric.
 
-**Disposition:** TRANSFER — implemented as the optimization/self-improvement gate in `research-design-loop 0.2.0`.
+**Disposition:** DONOR ONLY / PARK — the rule is encoded, but no host transfer is admitted until primary-reference recovery, a bounded replica and independent held-out transfer acceptance pass the executable gate.
 
 ### 2. MLST — Edward Hughes / replication as scientific judgment
 
@@ -53,7 +53,7 @@ Derived episode index consulted: https://podwise.ai/episodes/8897282
 
 **Falsifier:** the claimed observable cannot be recovered or the local replica only works after silently changing the problem.
 
-**Disposition:** TRANSFER — implemented as REPLICATE BEFORE TRANSFER.
+**Disposition:** DONOR ONLY / PARK — REPLICATE BEFORE TRANSFER is encoded as a gate, but this episode/index is not proof of any host transfer.
 
 ### 3. MLST — Matthieu Wyart / abstraction level
 
@@ -96,7 +96,7 @@ Published 2026-09-24. Derived caption source: https://prepublish.ai/youtube-tran
 
 **Falsifier:** critic score rises while the independent acceptance test does not.
 
-**Disposition:** TRANSFER as a boundary, not as a new critic subsystem.
+**Disposition:** DONOR ONLY / PARK — the critic-loop lesson informs the gate, but no critic subsystem or host transfer is admitted without independent held-out acceptance.
 
 ### 6. Lex Fridman #491 — Peter Steinberger / OpenClaw
 
@@ -117,7 +117,7 @@ Video: https://www.youtube.com/watch?v=YFjfBk8HI5o
 
 **Falsifier:** self-inspection adds ceremony without reducing diagnosis ambiguity or causes the worker to infer permissions it does not have.
 
-**Disposition:** TRANSFER the self-inspection gate; PARK the autonomy patterns.
+**Disposition:** DONOR ONLY / PARK — self-inspection fields remain a candidate diagnostic contract; no executor permission or host behavior changes until a bounded diagnosis test shows benefit. Autonomy patterns remain PARK.
 
 ### 7. Lex Fridman #490 — State of AI in 2026
 
@@ -180,9 +180,9 @@ Do not create a permanent research front.
 **HYPOTHESIS:** if one external donor is forced through PRIMARY REF → REPLICA → HELD_OUT TRANSFER TEST, then at least one unsupported claim will be demoted or sharpened before host mutation.  
 **BASELINE:** current 0.1 loop, which requires donor mechanism/invariant/falsifier but does not explicitly require primary-reference recovery, replication, held-out separation, or anti-Goodhart checks.  
 **FALSIFIER:** the added gate cannot change a disposition or acceptance decision on a real donor and only adds prose burden.  
-**SPECIMEN:** `research-design-loop 0.2.0`, this bounded raid, and one later real transfer test.  
-**EVIDENCE NOW:** architectural/documentary only.  
-**LIVED/REAL TRANSFER:** open until the next current head actually consumes one donor.
+**SPECIMEN:** `research-design-loop 0.2.1` + `tools/research-donor-gate.mjs` + its deterministic self-test + this bounded raid.  
+**EVIDENCE NOW:** executable. The current Jiang harness claim, AI Search DeepSeek scout claim and Lex/OpenClaw self-inspection claim are forced to PARK when replica/primary/held-out evidence is absent; positive controls prove the gate can admit evidence-complete candidates without granting host authority.  
+**LIVED/REAL TRANSFER:** still open. The gate changes admission decisions now, but no current host is promoted by the gate itself.
 
 ## Stop
 
