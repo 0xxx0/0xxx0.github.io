@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-30T15:46:00+08:00",
+        "updated_at": "2026-09-30T16:20:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -24,11 +24,12 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one addressed held object whose own body carries native owner/action, NEXT, witness and exact RETURN, plus contextual SEEN ⇄ UNDO SEEN at the point of action; one compact glyph field; one immediate PLAY action; latent REFINE / PROVE and collapsed STATUS residue. No duplicate HELD/NEXT/WITNESS dashboard. Generic READ / RIDE / SOURCE intent remains source-neutral; CURRENT owns attention/NOW, RETURN owns durable evidence, and native hosts retain source/effect authority.",
-      "receipt": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
+      "role": "FIELD INDEX root: one addressed held object with native owner/action, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN, and one read-only pre-commit FORECAST for the currently pointed move. Forecast exposes only declared effect class, commit boundary, target, source-mutation class and reversibility; it never executes or predicts undeclared outcomes. Generic READ / RIDE / SOURCE intent remains source-neutral; CURRENT owns attention/NOW, native hosts own commit/effect, RETURN owns durable evidence.",
+      "receipt": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
       "machine_view": "FIELD",
-      "version": "0.8.28",
+      "version": "0.8.29",
       "transfer": [
+        "0.8.29 declared forecast: inside the existing held object, point at any visible move to read effect class · commit boundary · target · source-mutation class · reversibility before commit; FORECAST ≠ EFFECT, action count and native authority unchanged",
         "0.8.28 frame→object contraction: preserve point-of-action SEEN ⇄ UNDO SEEN while deleting the sibling HELD/NEXT/WITNESS frame; continuation lives inside the held aperture; first explicit native action becomes the primary edge, ≤2 additional native actions remain inline, proof/history stay latent",
         "0.8.27 point-of-action reversal: held-route SEEN flips to UNDO SEEN immediately; latest local inverse survives reload until a newer SEEN/MARK ALL supersedes it, while older inverses remain in bounded ORIENTATION history; no canonical state moves",
         "0.8.26 CATCH contraction: dissolve the root attention aggregate; held route owns contextual SEEN + MORE HERE/egress residue, STATUS owns reversible local orientation + REALITY/issues/Git evidence; no canonical state or authority moves",
@@ -115,7 +116,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
+      "latest_return": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
