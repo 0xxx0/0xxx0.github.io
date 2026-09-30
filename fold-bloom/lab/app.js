@@ -898,7 +898,7 @@ function drawStateChange(){
       ctx.font='700 6px ui-monospace';ctx.fillStyle=invisible?'#ef7849':'#5f6d75';
       ctx.textAlign='right';ctx.fillText(LIVE_VERB_SHORT[fromVerb]||String(fromVerb||'').slice(0,3),leftX-w*.68,y+2);
       ctx.textAlign='left';ctx.fillText(LIVE_VERB_SHORT[toVerb]||String(toVerb||'').slice(0,3),rightX+w*.68,y+2);
-      if(invisible){ctx.textAlign='center';ctx.fillStyle='#ef7849';ctx.fillText('EXACT≠ · q=',midX,y+10)}
+      if(invisible){ctx.textAlign='center';ctx.fillStyle='#ef7849';ctx.fillText('EXACT≠ · q SAME',midX,y+10)}
       ctx.textAlign='center';
     }
     if(changed){
