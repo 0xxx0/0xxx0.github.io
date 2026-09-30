@@ -189,3 +189,48 @@ Do not create a permanent research front.
 Do not ingest entire channel archives, mirror transcripts into the repository, auto-promote summaries, create a new research dashboard, or let recency occupy CURRENT.
 
 The durable unit is not “video watched.” It is **one source-backed mechanism that survives a replica/transfer test and returns to an existing host**.
+
+
+## Operational convergence — stateless donor field
+
+The admission gate answers whether evidence is sufficient. It did not yet answer the operator question: **given several candidates, what exact bounded move resolves one donor next without manufacturing a research backlog?**
+
+That gap is now compiled by `tools/research-donor-field.mjs`.
+
+```
+BATCH
+  ↓ assessDonor()
+EVIDENCE LANE
+  ↓ explicit SOURCE_ID selection only
+ONE EVIDENCE-DEBT ACTION
+  ↓ lib/field-egress-reducer.mjs
+NEXT / ARCHIVE
+  ↓
+REPLICA OR TRANSFER TEST
+  ↓
+RETURN
+```
+
+Important contraction:
+
+- the field is a stateless projection, not a source store;
+- it does not rank or auto-select donors;
+- evidence debt becomes one bounded `NEXT` only after explicit selection;
+- a deliberately parked donor compiles to `ARCHIVE`;
+- an evidence-complete donor compiles only to host review, never effect authority;
+- the compiler reuses FIELD egress rather than creating a research-specific task state machine.
+
+### Ordinary use
+
+1. Collect a bounded set of source-backed candidate packets.
+2. Run `node tools/research-donor-field.mjs batch.json`.
+3. Read lanes; do not interpret ordering as priority.
+4. Select one exact source only when CURRENT/user selection makes it relevant:
+   `node tools/research-donor-field.mjs batch.json --select "<SOURCE_ID>"`
+5. Execute only the emitted bounded evidence action.
+6. Add resulting primary/replica/transfer evidence to the candidate.
+7. Re-run the gate/compiler.
+8. If `READY`, hand the mechanism to the native host for acceptance. If not, PARK or continue only the selected evidence debt.
+9. RETURN and re-read CURRENT.
+
+This turns channel research into a repeatable instrument without making media consumption itself a front.
