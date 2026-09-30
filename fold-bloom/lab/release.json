@@ -54,7 +54,11 @@
     "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link.",
     "DATA exposes the moving-line set as one Boolean change lattice: 2^k reachable intermediate states, k·2^(k-1) lawful one-line edges, k! maximal STEP chains, and stable factoradic path addresses.",
     "Direct local steering preserves the already-witnessed STEP prefix and reorders only the future suffix; steerStepOrder remains CALCULATION_ONLY and never calls LIVE release().",
-    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence."
+    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence.",
+    "Sep-30 DATA live-change witness observes the last six committed LIVE release verbs through existing field-pulse/v0.1, preserving exact ordered form beside its lossy binary HEX projection.",
+    "Each committed LIVE release may carry bounded post-release forecastContext(state) as NATIVE_EVIDENCE; same-HEX captures can therefore expose unequal native NEXT apertures without promoting HEX into control state.",
+    "LIVE change evidence is scoped to one FIELD PULSE instance. Instance change resets rolling history/native witness/captures; cross-instance or unscoped capture comparisons are rejected.",
+    "The latest accepted authority-NONE J-space direction is resolved against the current witnessed native aperture as host-relative C(direction,s): 0/1/N candidates + log2(|C|) ambiguity, authority CALCULATION_ONLY. A commit invalidates the old aperture and support must be recomputed."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -80,7 +84,10 @@
     "STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT. Shared geometry/address never transfers control authority between CHANGE CALCULUS, I Ching, J-space/J-Lens, LIVE, or INK.",
     "I Ching remains a structural/corpus lookup lens over supplied state; no cast or divinatory control authority is created by DATA or CHANGE CALCULUS.",
     "J-space/J-Lens support remains evidence/preview only; no support result may promote itself into LIVE effect authority or commit RELEASE.",
-    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship."
+    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship.",
+    "LIVE history, HEX quotient and J-space direction are witness/preview only; none substitutes for current LIVE forecastContext or grants RELEASE authority.",
+    "ONE SIX-RELEASE WINDOW = ONE LIVE PULSE INSTANCE. Different LIVE instances/runs cannot be interleaved into one witness or causal pair.",
+    "HOST-RELATIVE SUPPORT ≠ PERMISSION. directionSupportCalculation only annotates candidates already lawful in the current native aperture; it creates no operation, queue, rank authority or cached permission."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -122,7 +129,11 @@
     "live_mobile_regression": "PASS · public-surface-check 36410051617 step 79",
     "critical_browser_smoke": "PASS · public-surface-check 36410051617 step 80",
     "change_lattice_merge_sha": "639a25a92570787fb02502f013744cd473c4b1e7",
-    "latest_proof_merge_sha": "815af862cc90a6b1f34e57559428c1e3a1302fb1"
+    "latest_proof_merge_sha": "815af862cc90a6b1f34e57559428c1e3a1302fb1",
+    "live_change_bridge_unit": "PENDING_PR_CI · instance-scoped exact window + provenance guards + host-relative support",
+    "live_change_browser": "PENDING_PR_CI · same HEX / unequal native NEXT + support C=1→0 after aperture change",
+    "live_change_real_bridge": "PENDING_PR_CI · actual LIVE releases observed in LAB with current native forecast parity",
+    "direction_support_selftest": "PENDING_PR_CI · 0/1/N support + ambiguity remains CALCULATION_ONLY"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md",
@@ -141,5 +152,6 @@
     ],
     "boundary": "Six-bit state is a projection only; underlying domain state remains authoritative."
   },
-  "updated": "2026-09-28"
+  "updated": "2026-09-30",
+  "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json"
 }
