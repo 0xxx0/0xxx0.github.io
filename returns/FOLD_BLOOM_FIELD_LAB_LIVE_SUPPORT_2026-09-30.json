@@ -43,6 +43,23 @@
     "attach merged live-residue/support mechanism to LAB release + manifest",
     "record exact PR #649 proof without changing FIELD root or LAB version"
   ],
-  "repair_proof_status": "PENDING_CURRENT_PR",
-  "stop": "After repair CI is green, merge and seal this receipt. Do not add another control/steering layer without a concrete ordinary-use failure."
+  "repair_proof_status": "PASS / PR 658 PRE-SEAL HEAD",
+  "stop": "After repair CI is green, merge and seal this receipt. Do not add another control/steering layer without a concrete ordinary-use failure.",
+  "repair_proof": {
+    "pr": 658,
+    "proof_head": "9846caa69c2861b7892f6ea2ab992095fbfa9554",
+    "route_registration": {
+      "run": 36658459097,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 36658459009,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36658459037,
+      "conclusion": "success"
+    },
+    "note": "This follow-up changes proof metadata only; runtime/UI/authority behavior is unchanged. The sealed head must pass again before merge."
+  }
 }
