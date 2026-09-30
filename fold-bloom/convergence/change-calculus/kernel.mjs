@@ -497,6 +497,50 @@ export function steppedFormPath(fromForm,toForm,order=null){
   };
 }
 
+
+export function exactQuotientPathCalculation(fromForm,toForm,order=null){
+  const exact=exactFormCalculation(fromForm,toForm);
+  if(!exact.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',reason:exact.reason};
+  const path=steppedFormPath(fromForm,toForm,order);
+  if(!path.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',reason:path.reason};
+  const visible=new Set(exact.lines.filter(x=>x.quotient_changed).map(x=>x.line));
+  const invisible=exact.lines.filter(x=>x.invisible_exact_change).map(x=>({
+    line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,bit:x.from_bit
+  }));
+  const exactOrders=path.possible_one_edit_orders;
+  const quotientOrders=factorial(visible.size);
+  const pathFiber=quotientOrders>0?exactOrders/quotientOrders:exactOrders;
+  const projectedOrder=path.selected_order.filter(line=>visible.has(line));
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',
+    authority:'CALCULATION_ONLY',
+    from_token:exact.from.token,
+    to_token:exact.to.token,
+    exact_changed_lines:path.changed_lines.length,
+    quotient_changed_lines:visible.size,
+    quotient_invisible_exact_changes:invisible.length,
+    exact_path_count:exactOrders,
+    quotient_visible_path_count:quotientOrders,
+    exact_paths_per_visible_path:pathFiber,
+    path_information_loss_bits:pathFiber>0?round(Math.log2(pathFiber)):0,
+    selected_exact_order:[...path.selected_order],
+    projected_visible_order:projectedOrder,
+    invisible_exact_lines:invisible,
+    steps:path.steps.map(x=>({
+      step:x.step,address:x.address,line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,
+      before_token:x.before_token,after_token:x.after_token,quotient_changed:x.quotient_changed
+    })),
+    formulas:{
+      exact_paths:'e! where e = exact changed lines = '+path.changed_lines.length,
+      quotient_visible_paths:'v! where v = quotient-visible changed lines = '+visible.size,
+      path_fiber:'e!/v! = '+pathFiber+' exact one-edit orders per visible quotient order',
+      path_information_loss:'log2(e!/v!) = '+(pathFiber>0?round(Math.log2(pathFiber)):0)+' bits'
+    },
+    law:'projecting exact one-edit paths through the binary quotient removes same-polarity edits and their interleavings; a visible hex STEP path may therefore stand for many exact operation trajectories'
+  };
+}
+
 export function residueLadder({state=null,stateStep=null,lattice=null,exact=null,steering=null,promotion=null}={}){
   const levels=[];
   if(exact?.ok){
@@ -616,6 +660,7 @@ export function appliedResearchFrame(spec={}){
   const lattice=state?.ok?changeLatticeCalculation(spec.fromState,spec.toState):null;
   const exact=spec.fromForm&&spec.toForm?exactFormCalculation(spec.fromForm,spec.toForm):null;
   const step=spec.fromForm&&spec.toForm?steppedFormPath(spec.fromForm,spec.toForm,spec.stepOrder):null;
+  const exact_path_projection=spec.fromForm&&spec.toForm?exactQuotientPathCalculation(spec.fromForm,spec.toForm,spec.stepOrder):null;
   const steering=spec.trace&&spec.target
     ?steeringSupportCalculation(spec.trace,spec.target,spec.nativeForecasts||[],spec.vocabulary)
     :null;
@@ -638,6 +683,7 @@ export function appliedResearchFrame(spec={}){
     change_lattice:lattice,
     exact,
     step,
+    exact_path_projection,
     exact_frontier,
     steering,
     promotion,
