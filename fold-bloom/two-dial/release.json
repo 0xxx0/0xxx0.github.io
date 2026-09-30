@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.7",
+  "version": "0.10.8",
   "route": "/fold-bloom/two-dial/",
   "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
@@ -15,6 +15,8 @@
     "existing relation algebra, musical result path, local cassette restore and optional borrowed-clock authorship boundary"
   ],
   "delta": [
+    "H_COMPRESSION ordinary-use harness: opt-in TWO_DIAL vs PLAIN_PAIR_6X6_RELEASE_COMMIT preserves the same release/change commit schedule with no extra COMMIT control",
+    "trial mutations are non-persistent and copied fold-bloom-compression-return/v0.1 packets are EVIDENCE_ONLY / NO AUTO_PROMOTION",
     "one-level local UNDO captures a deep-cloned pre-gesture composition snapshot and restores it exactly after a committed dial gesture",
     "pending delayed FOLD→BLOOM compose timers are canceled by UNDO so post-restore mutation cannot leak back in",
     "UNDO is invalidated by later control/configuration changes and cassette/import/reset boundaries rather than pretending an ambiguous reversal is exact",
@@ -80,10 +82,11 @@
     "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
     "causal_return_contract": "CHECK: tools/two-dial-causal-return-selftest.cjs; public-surface CI must execute this before merge",
     "gesture_boundary": "CI_REQUIRED: one-pointer/one-dial ownership + canceled-preview rollback static contract; committed FOLD/BLOOM inverse semantics remain an evidence gate.",
-    "reversible_commit_contract": "CHECK: tools/two-dial-reversal-selftest.cjs; pre-gesture deep clone -> release commit -> exact restore; delayed compose canceled"
+    "reversible_commit_contract": "CHECK: tools/two-dial-reversal-selftest.cjs; pre-gesture deep clone -> release commit -> exact restore; delayed compose canceled",
+    "compression_harness": "CHECK: tools/two-dial-compression-harness-selftest.cjs; H remains ordinary-use gated until comparable TWO + PLAIN returns exist"
   },
-  "known_gap": "A/B/C/D/E/F/G now have durable repo proof. H_COMPRESSION remains deliberately INDETERMINATE until ordinary-use comparison against a plain non-coaxial baseline establishes whether the relational instrument removes more interaction/learning burden than it adds. Instrument-quality judgment still requires direct listening.",
+  "known_gap": "A-G have durable repo proof. H_COMPRESSION now has a runnable parity-correct ordinary-use ablation but remains INDETERMINATE until comparable TWO_DIAL and PLAIN_PAIR_6X6_RELEASE_COMMIT returns establish whether the relational instrument removes more interaction/learning burden than it adds.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
-  "return": "/returns/FOLD_BLOOM_TWO_DIAL_GESTURE_BOUNDARY_2026-09-29.json",
+  "return": "/returns/FOLD_BLOOM_TWO_DIAL_COMPRESSION_HARNESS_2026-09-30.json",
   "updated": "2026-09-30"
 }
