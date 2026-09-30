@@ -1,0 +1,36 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_LANGUAGE_LENSES_031_2026-09-30",
+  "date": "2026-09-30",
+  "state": "CANDIDATE_PENDING_CI",
+  "objective": "Make recovered word/language donors usable from the writing-first Verse head without moving source or authorship authority.",
+  "object": "one Verse source + selected token/focus + optional declared form",
+  "operation": "WRITE → SELECT → optional EVIDENCE / FORM lens → CHOOSE → RETURN",
+  "version": "VERSE COPILOT 0.3.1 / POEM MAP ENGINE 0.2.6",
+  "deltas": [
+    "CText becomes an explicit selected-token dictionary/evidence exit; only the clicked focus token enters the URL.",
+    "English Jueju 5/7 become local declared transfer adapters: 4 lines, 5/7 English words, approximate monosyllable checks, AABA, 2+3 / 2+2+3 unit guides, 起→承→轉→合 orientation.",
+    "COPE and Wenyan remain explicit external specialist engines and receive no source automatically.",
+    "Wordless remains an interaction law: visible consequence before explanation; it acquires no lexical or semantic authority."
+  ],
+  "invariants": [
+    "Verse source and explicit author choice remain canonical.",
+    "CText corpus/dictionary evidence is not semantic, literary or authorial truth.",
+    "COPE donor mechanisms do not become Verse source authority.",
+    "Wenyan execution is an unequal language→code projection, not a poetry form.",
+    "English Jueju transfer is not historical Tang phonology, 平仄 equivalence or a literary-quality score.",
+    "No new editor, store, graph, queue or universal language framework is introduced."
+  ],
+  "external_anchors": {
+    "ctext": "https://ctext.org/",
+    "cope": "https://github.com/LingDong-/cope",
+    "wenyan": "https://wy-lang.org/",
+    "english_jueju": "University of Oklahoma / Newman Prize rules surfaced through the explicit source link in the interface"
+  },
+  "proof": {
+    "static_contract": "IMPLEMENTED",
+    "browser_selftest": "PENDING_PR_CI",
+    "full_public_surface": "PENDING_PR_CI"
+  },
+  "next": "If exact-head CI is green, merge this bounded cut, then synchronize CURRENT/manifest/release proof only. Further language work must be named by concrete writing friction."
+}
