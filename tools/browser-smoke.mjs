@@ -990,7 +990,7 @@ function visibleText(dom){
 function fieldRootCheck(dom){
   const checks={
     axial:dom.includes('id="axialLatest"'),
-    projection:dom.includes('FIELD / FOCUS'),
+    projection:dom.includes('id="apProjection"'),
     reentry:dom.includes('class="reentryFold"'),
     now:/NOW \/ CURRENT/.test(dom),
     recover:/RECOVER \/ VAULT/.test(dom),
