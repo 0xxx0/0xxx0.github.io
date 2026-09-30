@@ -72,6 +72,8 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   rec.steering=D().getElementById('liveChangeSteering').textContent;
   rec.support=D().getElementById('liveChangeSupport').textContent;
   rec.apertureMetric=[D().getElementById('liveApertureCount').textContent,D().getElementById('liveSupportCount').textContent];
+  rec.frontier=D().getElementById('stateFrontierRead').textContent;
+  rec.frontierResidue=[...D().querySelectorAll('#stateFrontierRead .stateFrontierEmpty')].map(x=>x.textContent);
   rec.state=[D().getElementById('stateFrom').value,D().getElementById('stateTo').value];
   rec.return={authority:live?.authority,from:live?.from_capture?.exact_form,to:live?.to_capture?.exact_form,comparison:live?.comparison,steering:live?.steering,steeringSupport:live?.steering_support,nativeFocus:packet?.projection?.nativeFocus};
   const pass=rec.windowA.includes('H[110|011]')&&rec.windowB.includes('H[110|011]')&&
@@ -84,6 +86,8 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.focusAddressA==='field://lab/live/probe-live-instance-123456/seq/6/slot/2'&&
     rec.liveB?.native_latest?.candidate_count===1&&rec.liveB?.steering_support?.native_candidate_count===0&&rec.focusB.includes('SLOT 2')&&rec.focusB.includes('NO LAWFUL FORECAST')&&
     rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-li')&&
+    rec.frontier.includes('PATH FIBER · 720 EXACT ORDERS → 1 HEX-VISIBLE ORDERS · 720× / 9.491853b RESIDUE')&&
+    rec.frontierResidue.filter(x=>x.includes('EXACT RESIDUE')).length===6&&rec.frontierResidue.every(x=>!x.includes('AUTHORITY EFFECT'))&&
     rec.state.join(',')==='110|011,110|011'&&live?.authority==='WITNESS_ONLY'&&live?.comparison?.same_hex_endpoints===true&&
     live?.comparison?.quotient_invisible_exact_changes===6&&live?.comparison?.native_next?.same_hex_unequal_native===true&&
     live?.comparison?.native_next?.from?.candidate_count===2&&live?.comparison?.native_next?.to?.candidate_count===1&&
