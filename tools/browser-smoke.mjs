@@ -397,7 +397,7 @@ function readfieldLocalFileProbeHtml(){
   const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().getElementById('localFile')?a:null},14000,'READFIELD local file ready');
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().getElementById('localFile')&&typeof W().openLocalFile==='function'?a:null},14000,'READFIELD local file + openLocalFile seam ready');
     const input=D().getElementById('localFile'),text='# FIELD NOTE\\n\\nalpha beta gamma delta epsilon zeta eta theta\\n\\n## NEXT\\nreview this exact place.';
     const file=new (W().File)([text],'field-note.md',{type:'text/markdown'});
     if(typeof W().openLocalFile!=='function')throw new Error('READFIELD openLocalFile seam unavailable');
