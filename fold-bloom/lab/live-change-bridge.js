@@ -1,5 +1,5 @@
 import {hexProjection} from '../live/hex-projection.js';
-import {exactFormCalculation} from '../convergence/change-calculus/kernel.mjs';
+import {exactFormCalculation,exactQuotientPathCalculation} from '../convergence/change-calculus/kernel.mjs';
 import {steeringDescriptor} from '../../lib/field-pulse.js';
 import {directionSupportCalculation} from '../convergence/jspace-steering/steering-calculus.mjs';
 
@@ -231,6 +231,80 @@ export function liveSteeringSupport(state){
     },
     support_source:'LATEST_NATIVE_APERTURE',
     law:'the last accepted authority-NONE steering direction is compared with the latest witnessed native forecast aperture only; support is descriptive preview evidence and never a commit instruction'
+  };
+}
+
+
+export function liveConvergenceFrontier(state,fromCapture,toCapture,stateFrontier=null){
+  const comparison=compareLiveChangeCaptures(fromCapture,toCapture);
+  if(!comparison.ok)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/convergence-frontier',reason:comparison.reason||'CAPTURES_REQUIRED'};
+  const pathProjection=exactQuotientPathCalculation(fromCapture.exact_form,toCapture.exact_form);
+  if(!pathProjection.ok)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/convergence-frontier',reason:pathProjection.reason};
+  const native=state?.native_latest||state?.window?.native_after||null;
+  const support=liveSteeringSupport(state);
+  const forecasts=Array.isArray(native?.forecasts)?native.forecasts:[];
+  const targetForLine=new Map(
+    exactFormCalculation(fromCapture.exact_form,toCapture.exact_form).lines.map(x=>[x.line,x])
+  );
+  const supportForVerb=verb=>{
+    const rows=forecasts.filter(x=>String(x.verb||'').toUpperCase()===String(verb||'').toUpperCase());
+    const modelAligned=!!(support?.ok&&support.mapped_verb===String(verb||'').toUpperCase());
+    return {
+      native_candidate_count:rows.length,
+      native_candidate_slots:rows.map(x=>x.slot),
+      model_direction_aligned:modelAligned,
+      model_supported_native_count:modelAligned?support.native_candidate_count:0,
+      model_support_status:modelAligned?support.status:'DIRECTION_NOT_ALIGNED'
+    };
+  };
+  const candidates=(stateFrontier?.ok?stateFrontier.candidates:[]).map(x=>{
+    const exact=targetForLine.get(x.line)||null;
+    const targetVerb=exact?.to_verb||null;
+    return {
+      ...clone(x),
+      exact:exact?{
+        from_verb:exact.from_verb,to_verb:exact.to_verb,
+        exact_changed:exact.exact_changed,quotient_changed:exact.quotient_changed
+      }:null,
+      support:targetVerb?supportForVerb(targetVerb):null
+    };
+  });
+  const residue=pathProjection.invisible_exact_lines.map(x=>({
+    ...x,
+    quotient_changed:false,
+    support:supportForVerb(x.to_verb),
+    law:'exact operation changed while the binary quotient stayed at the same lattice vertex'
+  }));
+  return {
+    ok:true,
+    schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/convergence-frontier',
+    authority:'RESEARCH_WITNESS_ONLY',
+    live_instance:fromCapture.live_instance,
+    exact_path_projection:{
+      exact_changed_lines:pathProjection.exact_changed_lines,
+      quotient_changed_lines:pathProjection.quotient_changed_lines,
+      quotient_invisible_exact_changes:pathProjection.quotient_invisible_exact_changes,
+      exact_path_count:pathProjection.exact_path_count,
+      quotient_visible_path_count:pathProjection.quotient_visible_path_count,
+      exact_paths_per_visible_path:pathProjection.exact_paths_per_visible_path,
+      path_information_loss_bits:pathProjection.path_information_loss_bits
+    },
+    state_frontier:stateFrontier?.ok?{
+      cursor:stateFrontier.cursor,
+      current:clone(stateFrontier.current),
+      future_paths:stateFrontier.current_future_paths
+    }:null,
+    candidates,
+    quotient_invisible_residue:residue,
+    model_direction:support?.ok?{
+      label:support.direction_label,
+      mapped_verb:support.mapped_verb,
+      native_candidate_count:support.native_candidate_count,
+      status:support.status,
+      authority:'CALCULATION_ONLY'
+    }:null,
+    native_epoch:native?{seq:native.seq,candidate_count:native.candidate_count,target_type:native.target_type}:null,
+    law:'the manipulation site exposes quotient NEXT edges, exact operation identity, quotient-invisible exact residue, current native support and model-direction alignment together; only the quotient edge is selectable here and no support annotation grants LIVE effect authority'
   };
 }
 
