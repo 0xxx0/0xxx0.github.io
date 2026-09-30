@@ -1503,6 +1503,12 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)&&/"continueInsert":true/.test(dom)&&/"replaceStill":true/.test(dom)&&/"hanCompact":true/.test(dom)&&/"nextLine":true/.test(dom)&&/"englishJueju":true/.test(dom)
   },
   {
+    name:'POEM MAP English Jueju transfer',
+    route:'/poetry/map/?form=enjueju7',
+    options:{width:980,height:760,budget:9000},
+    check:dom=>dom.includes('data-verse-form="enjueju7"')&&/id="constraints"><b>EN JUEJU 7 · TRANSFER<\/b>/.test(dom)&&/WORDLESS BOARD/.test(dom)
+  },
+  {
     name:'POEM MAP focus return',
     route:'/__smoke/poem-map-focus-return',
     options:{width:980,height:760,budget:12000,timeout:18000},
