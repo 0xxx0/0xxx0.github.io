@@ -158,8 +158,11 @@ export function compareLiveChangeCaptures(fromCapture,toCapture){
     return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'FROM_AND_TO_CAPTURES_REQUIRED'};
   }
   const fromInstance=String(fromCapture.live_instance||''),toInstance=String(toCapture.live_instance||'');
+  if(!fromInstance||!toInstance){
+    return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'LIVE_INSTANCE_REQUIRED',from_instance:fromInstance||null,to_instance:toInstance||null};
+  }
   if(fromInstance!==toInstance){
-    return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'LIVE_INSTANCE_MISMATCH',from_instance:fromInstance||null,to_instance:toInstance||null};
+    return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'LIVE_INSTANCE_MISMATCH',from_instance:fromInstance,to_instance:toInstance};
   }
   const exact=exactFormCalculation(fromCapture.exact_form,toCapture.exact_form);
   if(!exact.ok)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:exact.reason};
