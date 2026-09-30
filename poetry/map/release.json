@@ -82,7 +82,13 @@
     "manual BANK inherits the last explicitly requested edit operation and labels it visibly as REPLACE / ADD AFTER / NEXT LINE",
     "additive previews preserve the anchor token in PAGE/MAP; only REPLACE substitutes display text",
     "NEXT LINE revision ancestry records the resulting line address and original anchor token",
-    "source authority epoch: an explicit parse/source selection invalidates any older in-flight FIELD NOW fetch, so stale async preload cannot overwrite newer authored text"
+    "source authority epoch: an explicit parse/source selection invalidates any older in-flight FIELD NOW fetch, so stale async preload cannot overwrite newer authored text",
+    "English Jueju transfer adapters: 4×7 and 4×5 monosyllabic-word forms inside the existing Copilot, not a separate editor",
+    "English Jueju form feedback exposes exact word-count targets, approximate monosyllabic checks, AABA rhyme-group heuristic, and visible 2|2|3 or 2|3 WORDLESS BOARD grouping",
+    "English Jueju keeps 起→承→轉→合 as explicit author judgment rather than pretending to machine-score thematic progression",
+    "English Jueju constraint panel links primary University of Oklahoma rules plus COPE and CText as unequal evidence/donor sources",
+    "form=<adapter> query can deep-link directly into a declared Copilot form without changing source authority",
+    "optional PLAY / PATH / QUARRY depth now keeps CText, COPE, Wenyan and English-Jueju source rules reachable beside recovered word machines"
   ],
   "boundaries": [
     "VERSE COPILOT is the product face; Poem Map is retained as engine lineage / relation projection, not sovereign identity.",
@@ -115,7 +121,11 @@
     "NEXT LINE is explicit: it may fill the immediate blank slot or insert one line after the anchor, but never auto-generates text.",
     "Additive TRY previews may project the candidate beside/below the anchor, but cannot visually impersonate replacement of the anchor token.",
     "FIELD NOW preload is convenience, not source authority: once a newer explicit source parse exists, an older async preload must abort without mutation.",
-    "STALE/CANCELLED preload is not FIELD-unavailable: cancellation returns no mutation signal and may not trigger the TINY DEMO fallback."
+    "STALE/CANCELLED preload is not FIELD-unavailable: cancellation returns no mutation signal and may not trigger the TINY DEMO fallback.",
+    "English Jueju is a declared modern transfer adapter, not historical Tang prosody or evidence that English and Classical Chinese are metrically equivalent.",
+    "Monosyllable and rhyme feedback are lightweight English heuristics; they constrain the declared experiment but do not score literary quality.",
+    "WORDLESS BOARD supplies visible grouping/slot scaffolding only; it does not assign lexical meaning or author choices.",
+    "COPE remains an external regulated-verse editor donor; CText remains corpus/provenance evidence; Wenyan remains a language↔code projection. None acquires poem authority."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -130,7 +140,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "state": "CANDIDATE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -149,7 +159,7 @@
     ],
     "generation_proof_preserved": "/poetry/lab/poem-map/",
     "dom_selector_integrity": "PASS_NO_MISSING_IDS",
-    "current_source_sha": "f98d4edb0ad71e3e6e4707fc6f70db727e841e58",
+    "current_source_sha": "f40c47faf7e34e39b1aa6683d56b06f50b3245c5",
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
@@ -189,13 +199,15 @@
     "recenter_pr": 394,
     "recenter_merge": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
     "verified_master": "4031fd0d5d4267481579db3d3ccea411d5acff11",
-    "source_authority_epoch": "PENDING_PR_CI · exact existing browser focus-return probe must pass after explicit source is chosen before FIELD NOW preload settles"
+    "source_authority_epoch": "PENDING_PR_CI · exact existing browser focus-return probe must pass after explicit source is chosen before FIELD NOW preload settles",
+    "english_jueju_transfer": "PENDING_PR_CI · selftest must prove 4×7 monosyllabic/AABA/2|2|3 transfer scaffold and critical browser smoke must remain green",
+    "english_jueju_primary_source": "University of Oklahoma / Newman Prize for English Jueju teaching materials · source pinned in /poetry/research/sources.json"
   },
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "next_bounded_test": {
     "state": "USE_FIRST",
-    "instruction": "Use the Copilot for ordinary writing. Only transfer another donor mechanism when a concrete writing job cannot be done with the current choice loop.",
-    "stop": "Do not rebuild Market+Solver, Pathweaver or Grid Path inside Copilot merely for visual unity."
+    "instruction": "Use the Copilot on ordinary writing or the English Jueju transfer form. Reopen implementation only for a concrete writing defect or a named evidence need.",
+    "stop": "Do not turn COPE, CText, Wenyan, Wordless, Pathweaver or Grid Path into mandatory Copilot subsystems."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
