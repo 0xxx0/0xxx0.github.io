@@ -31,7 +31,7 @@ details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;p
   <div class="timeline"><div class="timelineHead"><span id="courseAddress">course://replay_score/bound/0@0.0000</span><b id="position">0%</b></div><div class="stepRail"><button id="stepBack" aria-label="Previous addressed cue">←</button><input id="scrub" type="range" min="0" max="1000" value="0"><button id="stepNext" aria-label="Next addressed cue">→</button></div></div>
 </section>
 <aside class="panel">
-  <section class="block"><div class="ey">MESSAGE ARTIFACT · SCORE, NOT VIDEO</div><h1>Shape the moment.</h1><p>LISTEN supplies source time, measured structure and marks. You author the message, word timing and experience.</p>
+  <section class="block"><div class="ey" id="replayEy">MESSAGE ARTIFACT · SCORE, NOT VIDEO</div><h1 id="replayTitle">Shape the moment.</h1><p id="replayLede">LISTEN supplies source time, measured structure and marks. You author the message, word timing and experience.</p>
     <div class="row" style="margin-top:9px"><button id="replay" class="primary">REPLAY</button><button id="pause">PAUSE</button><button id="syncListen">SYNC LISTEN</button><button id="reset">RESET</button></div>
   </section>
 
@@ -73,9 +73,9 @@ details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;p
     </div></details>
   </section>
 
-  <section class="block"><div class="ey">ARTIFACT / SHARE</div>
+  <section class="block"><div class="ey" id="shareEy">ARTIFACT / SHARE</div>
     <div class="grid2"><button id="share" class="primary">SHARE / COPY COMPACT LINK</button><button id="clip">EXPORT VISUAL · WEBM</button><button id="json">EXPORT FULL SCORE JSON</button><a class="btn" id="return" href="../">RETURN</a></div>
-    <div class="mini">LINK <b id="shareLen">not built yet</b> · private/local audio bytes are never embedded. A public source address may travel as a reference.</div>
+    <div class="mini" id="shareHint">LINK <b id="shareLen">not built yet</b> · private/local audio bytes are never embedded. A public source address may travel as a reference.</div>
     <div class="toolrow" style="margin-top:7px"><a class="btn" href="../listen/" data-tool="LISTEN">LISTEN</a><a class="btn" href="../live/" data-tool="LIVE">LIVE</a><a class="btn" href="../lab/" data-tool="LAB">FIELD LAB</a><a class="btn" href="../ink/" data-tool="INK">INK</a></div>
   </section>
 
@@ -85,4 +85,4 @@ details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;p
 </aside>
 </main>
 <footer class="foot"><span>SOURCE / LISTEN EVIDENCE ≠ MESSAGE AUTHORSHIP ≠ EXPERIENCE PREFERENCE</span><span>REPLAY 0.2 · SCORE → CLIP / LINK / RETURN</span></footer>
-</div><script type="module" src="./app.js?v=0.2-step1"></script></body></html>
+</div><script type="module" src="./app.js?v=0.2-external-return1"></script></body></html>
