@@ -30,5 +30,17 @@ assert.equal(selected.status,0,selected.stderr);
 const sel=JSON.parse(selected.stdout);
 assert.equal(sel.items.find(x=>x.packet_id==='next-c').class,'NOW');
 
+// Empirical repository smoke: the actual packet shelf may mix JSON with other
+// source material, but a no-context sweep must remain readable and can never
+// manufacture NOW from packet contents alone.
+const actual=spawnSync(process.execPath,['scripts/reduce-field-egress.mjs','--json','control/packets'],{encoding:'utf8'});
+assert.equal(actual.status,0,actual.stderr);
+const live=JSON.parse(actual.stdout);
+assert.ok(live.file_count>=1,'actual packet shelf must expose at least one JSON file');
+assert.ok(live.packet_count>=1,'actual packet shelf must expose at least one packet');
+assert.equal(live.items.length,live.packet_count);
+assert.ok(live.items.every(x=>['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE'].includes(x.class)));
+assert.equal(live.counts.NOW,0,'packet shelf cannot self-authorize NOW without caller context');
+
 fs.rmSync(dir,{recursive:true,force:true});
-console.log('FIELD egress sweep PASS · directory + array input + counts + explicit selection context');
+console.log('FIELD egress sweep PASS · fixture + actual packet shelf + zero self-authorized NOW');
