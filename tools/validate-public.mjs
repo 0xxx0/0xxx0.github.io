@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { hasPendingCIClaim } from './return-receipt-contract.mjs';
+import { hasPendingCIClaim, isPassVerificationStatus } from './return-receipt-contract.mjs';
 import { htmlTailErrors } from './html-document-integrity.mjs';
 const root=process.cwd(),fail=[];
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
@@ -482,7 +482,7 @@ if(currentCoord&&queueCoord){
   const axialHead=currentCoord.current_heads?.find(x=>x.lineage==='axial'),axialHold=currentCoord.held_fronts?.find(x=>x.id==='machine-representation');
   if(axialRelease?.version){check(axialHead?.head?.includes(axialRelease.version),'CURRENT axial head/version drift');check(axialHold?.center?.includes(axialRelease.version),'CURRENT axial hold/version drift');}
   for(const head of currentCoord.current_heads||[]){
-    if(head?.repo_verification?.status!=='PASS'||!head.latest_return)continue;
+    if(!isPassVerificationStatus(head?.repo_verification?.status)||!head.latest_return)continue;
     const latest=parse(String(head.latest_return).replace(/^\//,''));
     if(!latest)continue;
     check(!/PENDING(?:_|\s|-)*(?:PR(?:_|\s|-)*)?CI/i.test(String(latest.state||'')),'CURRENT PASS head retains pending latest_return state: '+head.lineage);
