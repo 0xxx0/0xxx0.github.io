@@ -9,13 +9,37 @@ import {courseAddressAt,replayCourse,stepCourse} from '../course-nav.js';
 
 const $=id=>document.getElementById(id);
 const cv=$('stage'),ctx=cv.getContext('2d');
-let score=defaultScore(),started=performance.now(),playing=true,scrubP=0,syncListen=false,selectedWord=0,selectedOp=0,recording=false;
+let score=defaultScore(),started=performance.now(),playing=true,scrubP=0,syncListen=false,selectedWord=0,selectedOp=0,recording=false,externalReturnMode=false;
 let dpr=1,w=0,h=0,lastListenPoll=0,listenOk=false,lastProfileSig='';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
 const fmtMs=ms=>{const s=Math.max(0,Number(ms)||0)/1000,m=Math.floor(s/60),r=(s-m*60).toFixed(2).padStart(5,'0');return m+':'+r};
 const html=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const handoffKey='fold-bloom.replay.handoff.v02';
+
+function externalReturnScore(){
+  const base=defaultScore();
+  return normalizeScore({
+    ...base,
+    source:{...base.source,id:'synthetic:external-use-return:fold-bloom',profile_key:'synthetic:external-use-return:fold-bloom',name:'FOLD//BLOOM EXTERNAL USE RETURN',kind:'SYNTHETIC_RETURN'},
+    context:{title:'EXTERNAL USE RETURN',body:'After using /fold-bloom/: what was obvious, confusing, valuable, or blocked? One sentence is enough.'},
+    message:'WHAT WOULD YOU KEEP OR CHANGE?',
+    returnAddress:'/fold-bloom/'
+  });
+}
+function applyExternalReturnUi(on){
+  document.documentElement.dataset.replayExternalReturn=on?'ready':'off';
+  if(!on)return;
+  $('replayEy').textContent='EXTERNAL USE RETURN · COMPACT LINK, NOT FORM';
+  $('replayTitle').textContent='Return what happened.';
+  $('replayLede').textContent='Replace MESSAGE with one sentence: what was obvious, confusing, valuable, or blocked. Then return the compact link.';
+  $('message').placeholder='One sentence · keep / change / confusion / value';
+  $('shareEy').textContent='RETURN / SHARE';
+  $('share').textContent='RETURN / COPY COMPACT LINK';
+  $('shareHint').innerHTML='LINK <b id="shareLen">not built yet</b> · carries authored message/context + compact score evidence; private/local audio bytes are never embedded.';
+}
+function freshScore(){return externalReturnMode?externalReturnScore():defaultScore()}
+function resetHref(){return externalReturnMode?location.pathname+'?return=1':location.pathname}
 
 function listenApi(){
   try{
@@ -282,16 +306,18 @@ document.querySelectorAll('[data-layer]').forEach(b=>b.onclick=()=>{score=setExp
 document.querySelectorAll('[data-scene]').forEach(b=>b.onclick=()=>{score=setExperience(score,{scene:b.dataset.scene});saveExperience()});
 for(const [id,key,scale] of [['solid','solidity',100],['immersion','immersion',100],['drop','dropGain',100],['anticipation','anticipation',100],['motion','motionGain',100],['textOffset','textOffset',100]])$(id).oninput=e=>setProfileKey(key,e.target.value,scale);
 $('share').onclick=()=>{void share()};$('json').onclick=downloadJson;$('clip').onclick=()=>{void exportWebm()};
-$('reset').onclick=()=>{score=defaultScore();syncListen=false;selectedWord=selectedOp=0;history.replaceState(null,'',location.pathname);setPlayhead(0,{seekListen:false});updateUi()};
+$('reset').onclick=()=>{score=freshScore();syncListen=false;selectedWord=selectedOp=0;history.replaceState(null,'',resetHref());setPlayhead(0,{seekListen:false});updateUi();applyExternalReturnUi(externalReturnMode)};
 $('addMarkOp').onclick=()=>{const m=score.evidence.marks[0];if(!m)return;score=addOperation(score,'MESSAGE',m.p);selectedOp=score.operations.length-1;updateOps();updateMeta()};
 document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',e=>{if(a.dataset.tool==='LISTEN'&&window.opener&&!window.opener.closed){try{e.preventDefault();window.opener.focus()}catch(_){}}}));
 
 (async function init(){
   const shared=await fromHash(),handoff=!shared?readHandoff():null;
+  externalReturnMode=!shared&&!handoff&&new URLSearchParams(location.search).get('return')==='1';
   if(handoff)score=scoreFromHandoff(handoff);
+  else if(externalReturnMode)score=externalReturnScore();
   readProfileStore();
   const api=listenApi();if(api&&handoff){syncListen=true;listenOk=true}
-  setPlayhead(0,{seekListen:false});updateUi();
+  setPlayhead(0,{seekListen:false});updateUi();applyExternalReturnUi(externalReturnMode);
   try{
     const probe=await shareUrl(score,location.origin+location.pathname),token=(probe.split('#s=')[1]||''),round=await decodeShare(token);
     const pass=round.source.id===score.source.id&&visualSignature(round)===visualSignature(score);
