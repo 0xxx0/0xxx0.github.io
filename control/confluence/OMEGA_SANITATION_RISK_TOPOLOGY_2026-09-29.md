@@ -150,9 +150,10 @@ This matters because it prevents the false statement that exposure adjustment ha
 ### Existing measurable pieces
 
 1. **SG-PAROS exists.** Singapore OHCA research already uses the Pan-Asian Resuscitation Outcomes Study, an Utstein-style prospective registry populated from dispatch, ambulance, ED and inpatient records; studies have linked it to the Singapore Registry of Births and Deaths.
-2. **Published PAROS location granularity appears too coarse for Ω.** A PAROS-derived model exposes `location_type` as home residence, health-care facility, public building, nursing home, street, industrial area, transport centre, place of recreation, ambulance, or other. Separate Singapore PAROS work exposes event postcode. No public source checked here exposed a canonical `toilet / bathroom / en-route / bath` micro-location variable. This does **not** prove source dispatch/ambulance records lack one; it shifts the next query toward source forms, free text, and the underlying data dictionary.
-3. **HDB EASE already targets the environmental topology** with grab bars, slip-resistant toilet/bathroom floor treatment, entrance-kerb lowering/widening and shower seats.
-4. **BCA Code on Accessibility 2025** requires accessible sanitary-facility doors to swing outward or use sliding/folding designs; its emergency assistance alarm uses a waterproof button/pull-cord 400–600 mm above floor level and alerts responsible personnel. The code also advises access from outside if a person falls behind the door.
+2. **Published PAROS location granularity appears too coarse for Ω, but much of the rescue timeline already exists.** The publicly indexed PAROS v1.0 taxonomy records incident postcode, broad `location type`, emergency-call receipt time, EMS arrival at scene, EMS arrival at patient side, estimated arrest time, witnessed status, bystander CPR and EMS CPR start time. Its standard location types are home residence, healthcare facility, public/commercial building, nursing home, street/highway, industrial place, transport centre, place of recreation, ambulance, or other; no canonical `toilet / bathroom / en-route / bath` category appears in that taxonomy. The current PAROS source page lists newer CRF/data-dictionary versions, so v1.0 must not be assumed to be the current schema. This does **not** prove source dispatch/ambulance records lack finer scene semantics.
+3. **The smallest Singapore gap is therefore narrower than first assumed:** preserve the existing timing/witness chain, then recover or derive `micro_location`, `activity_at_event`, `last_known_well/discovery`, and rescue-access variables from current CRF/source records where lawfully available.
+4. **HDB EASE already targets the environmental topology** with grab bars, slip-resistant toilet/bathroom floor treatment, entrance-kerb lowering/widening and shower seats.
+5. **BCA Code on Accessibility 2025** requires accessible sanitary-facility doors to swing outward or use sliding/folding designs; its emergency assistance alarm uses a waterproof button/pull-cord 400–600 mm above floor level and alerts responsible personnel. The code also advises access from outside if a person falls behind the door.
 
 These design provisions are mechanism-aligned controls. They are not proof of mortality reduction.
 
@@ -161,18 +162,25 @@ These design provisions are mechanism-aligned controls. They are not proof of mo
 Before building any new registry:
 
 ```
-ASK FOR DATA DICTIONARY / SOURCE FIELD:
-scene micro-location?
-activity at collapse?
-door/locked state?
-witnessed?
-last-known-well?
-discovery time?
-call time?
-first-contact / CPR time?
+ALREADY PRESENT IN PUBLICLY INDEXED PAROS TAXONOMY:
+incident postcode
+broad location type
+estimated arrest time
+witnessed status
+bystander CPR
+call received time
+EMS scene arrival
+EMS patient-side arrival
+EMS CPR start time
+
+RECOVER / TEST FOR:
+scene micro-location (toilet / bathroom / en-route / bath)
+activity at event
+last-known-well / discovery time
+door / lock / rescue-access state
 ```
 
-If these fields exist, the cheapest serious study is retrospective linkage, not new sensing infrastructure.
+If the missing fields can be recovered from current CRF/source records or retrospectively coded from existing scene narratives, the cheapest serious study is retrospective linkage—not new sensing infrastructure.
 
 ## INTERVENTION ORDER
 
@@ -237,15 +245,23 @@ age/frailty strata
 ```
 
 ### Ω2 — rescue-latency registry join
-For qualifying falls/OHCA:
+Reuse existing PAROS timing/witness fields where current schema confirms them; add only the missing semantics:
 ```
+EXISTING / REVALIDATE
+ESTIMATED_ARREST
+CALL_RECEIVED
+EMS_SCENE
+EMS_PATIENT_SIDE
+WITNESSED
+BYSTANDER_CPR
+EMS_CPR_START
+
+ADD / DERIVE
 LAST_KNOWN_WELL
-EVENT_ESTIMATE
 DISCOVERY
-HELP_ACTIVATED
-FIRST_CONTACT_OR_CPR
-LOCATION
+MICRO_LOCATION
 ACTIVITY
+DOOR_OR_RESCUE_ACCESS
 ```
 
 Model:
