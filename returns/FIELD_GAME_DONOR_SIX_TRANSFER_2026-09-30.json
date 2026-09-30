@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FIELD_GAME_DONOR_SIX_TRANSFER_2026-09-30",
+  "state": "CURRENT_HOST_ALIGNED",
+  "route": "/",
+  "objective": "Map six high-value video-game mechanisms onto current FIELD owners after the retirement of CATCH + ACT, without adding a game layer or new authority.",
+  "donors": [
+    "Outer Wilds",
+    "Hades",
+    "Death Stranding",
+    "Into the Breach",
+    "Hardspace: Shipbreaker",
+    "Terra Nil"
+  ],
+  "delta": [
+    "Outer Wilds knowledge-gap transfer migrated from retired CATCH + ACT wording to current held-object RESIDUE / MORE HERE.",
+    "Hades failure-return remains an explicit execution-contract law.",
+    "Death Stranding is now represented explicitly as BODY/FIT route/load/world preparation donor; route-friction filtering is bounded PROPOSED residue.",
+    "Into the Breach precommit telegraph remains an explicit execution-contract law.",
+    "Hardspace is separated conceptually as dependency-aware deconstruction/salvage; current classifier is implemented, automatic cut planning is not.",
+    "Terra Nil remains scaffold-retirement law: support names disappearance condition; provenance outranks deletion."
+  ],
+  "current_hosts": {
+    "outer_wilds": "FIELD root held focusResidue",
+    "hades": "CURRENT.execution_contract.game_donor_transfer.failure_return + RETURN",
+    "death_stranding": "/body/fit/",
+    "into_the_breach": "CURRENT.execution_contract.game_donor_transfer.precommit_telegraph",
+    "hardspace": "/lib/field-salvage-core.mjs + scripts/field-salvage-audit.mjs",
+    "terra_nil": "CURRENT.execution_contract.game_donor_transfer.scaffold_retirement + safe_salvage"
+  },
+  "authority": "No donor gains domain authority. Native hosts own mutations; donor records are guidance/proof only.",
+  "nonclaims": [
+    "No universal game ontology.",
+    "No claim of perfect preview.",
+    "No automatic route retirement or deletion.",
+    "No medical/body scoring from Death Stranding loadout semantics.",
+    "No claim that proposed Death Stranding route-friction filtering is implemented."
+  ],
+  "proof": [
+    "scripts/check-game-donor-transfer.mjs",
+    "tools/field-salvage-selftest.mjs",
+    "current FIELD root code places MORE HERE in focusResidue",
+    "/body/fit/release.json + /returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
+  ],
+  "return": "/",
+  "map": "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md"
+}
