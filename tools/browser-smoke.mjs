@@ -1506,7 +1506,7 @@ const CASES=[
     name:'POEM MAP English Jueju transfer',
     route:'/poetry/map/?form=enjueju7',
     options:{width:980,height:760,budget:9000},
-    check:dom=>dom.includes('data-verse-form="enjueju7"')&&/id="constraints"><b>EN JUEJU 7 · TRANSFER<\/b>/.test(dom)&&/WORDLESS BOARD/.test(dom)
+    check:dom=>dom.includes('data-verse-form="enjueju7"')&&dom.includes('EN JUEJU 7 · TRANSFER')&&dom.includes('WORDLESS BOARD')&&dom.includes('2 | 2 | 3')
   },
   {
     name:'POEM MAP focus return',
