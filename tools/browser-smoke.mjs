@@ -239,22 +239,31 @@ function fieldDaylineHandoffProbeHtml(){
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
-function fieldAwakeVisorProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?visor=1&focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+function fieldCarrierInPlaceProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const wait=async(fn,limit=16000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait '+label)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    await wait(()=>W().FieldLensHost?.focus?.()?.href==='/docs/'&&W().FieldIndexCarrier?.current?.()?.object?.id==='/docs/'&&D().documentElement.dataset.fieldVisor==='ready',15000,'FIELD visor ready');
-    const carrier=W().FieldIndexCarrier.current(),surface=W().FieldIndexCarrier.actionSurface(),visor=D().getElementById('fieldVisor');
-    rec.focus=W().FieldLensHost.focus().href;rec.object=carrier.object.id;rec.owner=carrier.object.owner;rec.authority=carrier.authority;rec.actionSchema=surface?.schema||null;rec.hold=surface?.hold?.action||null;rec.next=carrier.next.map(x=>x.label);rec.actions=(surface?.actions||[]).map(x=>x.action+' · '+x.label);rec.return=surface?.return?.address||carrier.return.address;rec.visible=!visor.hidden;rec.cadence=[...D().querySelectorAll('#fieldVisorCadence>span')].map(x=>[(x.querySelector('b')?.textContent||'').trim(),(x.querySelector('small')?.textContent||'').trim()].join(' / '));rec.title=D().getElementById('fieldVisorTitle')?.textContent||'';rec.visibleMoves=[...D().querySelectorAll('#fieldVisorMoves .visorMove')].map(x=>x.textContent.trim());
+    await wait(()=>W().FieldLensHost?.focus?.()?.href==='/docs/'&&W().FieldIndexCarrier?.current?.()?.object?.id==='/docs/'&&D().getElementById('aperture'),15000,'FIELD held carrier ready');
+    const carrier=W().FieldIndexCarrier.current(),surface=W().FieldIndexCarrier.actionSurface();
+    rec.focus=W().FieldLensHost.focus().href;
+    rec.object=carrier.object.id;rec.owner=carrier.object.owner;rec.authority=carrier.authority;
+    rec.actionSchema=surface?.schema||null;rec.hold=surface?.hold?.action||null;
+    rec.next=carrier.next.map(x=>x.label);
+    rec.actions=(surface?.actions||[]).map(x=>x.action+' · '+x.label);
+    rec.return=surface?.return?.address||carrier.return.address;
+    rec.cadence=(surface?.cadence||[]).map(x=>x.phase+' / '+x.office);
+    rec.heldTitle=D().getElementById('apTitle')?.textContent||'';
+    rec.heldPath=D().getElementById('apPath')?.textContent||'';
+    rec.refine=!!D().getElementById('refineFold');
+    rec.duplicateGuide=!!D().getElementById('fieldVisor')||!!D().getElementById('fieldVisorOpen');
+    rec.legacySeen=W().localStorage.getItem('field.interphase.visor.seen.v01');
     rec.overflow=Math.max(D().documentElement.scrollWidth,D().body.scrollWidth)-D().documentElement.clientWidth;
-    D().getElementById('fieldVisorEnter').click();await wait(()=>visor.hidden===true,3000,'visor close');rec.closed=visor.hidden;rec.seen=W().localStorage.getItem('field.interphase.visor.seen.v01');
-    D().getElementById('fieldVisorOpen').click();await wait(()=>visor.hidden===false,3000,'visor reopen');rec.reopened=!visor.hidden;rec.focusAfter=W().FieldLensHost.focus().href;rec.objectAfter=W().FieldIndexCarrier.current()?.object?.id||null;
     const expectedCadence=['WAKE / SOURCE','CUT / FRAME','HOLD / FOCUS','TURN / OPERATE','TRACE / WITNESS','AGAIN / RETURN'];
-    const ok=rec.focus==='/docs/'&&rec.object==='/docs/'&&rec.objectAfter==='/docs/'&&rec.focusAfter==='/docs/'&&rec.owner==='READFIELD'&&rec.authority==='NONE / HANDOFF ONLY'&&rec.actionSchema==='interphase-action-surface/v0.1'&&rec.hold==='HOLD'&&rec.next.length>=1&&rec.next.length<=3&&rec.next.includes('OPEN NATIVE')&&rec.next.includes('INTERPHASE → DAYLINE')&&rec.actions.includes('TURN · OPEN NATIVE')&&rec.actions.includes('TURN · INTERPHASE → DAYLINE')&&JSON.stringify(rec.visibleMoves)===JSON.stringify(rec.actions)&&rec.return==='/?focus=%2Fdocs%2F'&&rec.visible&&rec.closed&&rec.seen==='1'&&rec.reopened&&JSON.stringify(rec.cadence)===JSON.stringify(expectedCadence)&&rec.overflow<=1;
+    const ok=rec.focus==='/docs/'&&rec.object==='/docs/'&&rec.owner==='READFIELD'&&rec.authority==='NONE / HANDOFF ONLY'&&rec.actionSchema==='interphase-action-surface/v0.1'&&rec.hold==='HOLD'&&rec.next.length>=1&&rec.next.length<=3&&rec.next.includes('OPEN NATIVE')&&rec.next.includes('INTERPHASE → DAYLINE')&&rec.actions.includes('TURN · OPEN NATIVE')&&rec.actions.includes('TURN · INTERPHASE → DAYLINE')&&rec.return==='/?focus=%2Fdocs%2F'&&JSON.stringify(rec.cadence)===JSON.stringify(expectedCadence)&&rec.heldPath.includes('/docs/')&&rec.refine&&rec.duplicateGuide===false&&rec.overflow<=1;
     done(ok,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
@@ -895,9 +904,9 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldDaylineHandoffProbeHtml());return;
   }
-  if(String(req.url||'').startsWith('/__smoke/field-awake-visor')){
+  if(String(req.url||'').startsWith('/__smoke/field-carrier-in-place')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
-    res.end(fieldAwakeVisorProbeHtml());return;
+    res.end(fieldCarrierInPlaceProbeHtml());return;
   }
   if(String(req.url||'').startsWith('/__smoke/lens-studio')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
@@ -1130,10 +1139,10 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldFocus":"\/docs\/"/.test(dom)&&/"schema":"atlas-dayline-handoff\/v0\.1"/.test(dom)&&/"before":0/.test(dom)&&/"after":1/.test(dom)&&/"return_to":"\/\?focus=%2Fdocs%2F"/.test(dom)&&/"cleared":true/.test(dom)
   },
   {
-    name:'FIELD AWAKE / INTERPHASE visor',
-    route:'/__smoke/field-awake-visor',
+    name:'FIELD held INTERPHASE carrier in-place',
+    route:'/__smoke/field-carrier-in-place',
     options:{width:520,height:940,budget:18000,timeout:26000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"object":"\/docs\/"/.test(dom)&&/"authority":"NONE \/ HANDOFF ONLY"/.test(dom)&&/"seen":"1"/.test(dom)&&/"reopened":true/.test(dom)&&/"overflow":0/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"object":"\/docs\/"/.test(dom)&&/"authority":"NONE \/ HANDOFF ONLY"/.test(dom)&&/"duplicateGuide":false/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
