@@ -54,7 +54,10 @@
     "FIELD LAB 0.3.6 gives VOICE 0.2 an independent route aperture immediately after RIDE, visible in the initial 390×720 portrait viewport; PULSE remains an optional clock link.",
     "DATA exposes the moving-line set as one Boolean change lattice: 2^k reachable intermediate states, k·2^(k-1) lawful one-line edges, k! maximal STEP chains, and stable factoradic path addresses.",
     "Direct local steering preserves the already-witnessed STEP prefix and reorders only the future suffix; steerStepOrder remains CALCULATION_ONLY and never calls LIVE release().",
-    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence."
+    "A selected addressed path may project into INK as an 8×8 lower/upper-trigram guide; the guide is PROJECTION_ONLY, never paints automatically, and authored pigment remains the RETURN evidence.",
+    "Sep-30 DATA live-change witness: FIELD LAB observes the last six committed FOLD//BLOOM LIVE release verbs through existing field-pulse/v0.1 and keeps the exact ordered form beside its binary HEX projection.",
+    "Each committed LIVE release may carry the bounded post-release forecastContext(state) as NATIVE_EVIDENCE; FROM/TO captures compare exact edits, quotient-visible/invisible edits and the observed native NEXT aperture without acquiring effect authority.",
+    "LIVE change evidence is scoped to one FIELD PULSE instance. An instance switch resets the rolling window/capture pair, event refs preserve instance identity, and cross-instance comparisons are rejected as LIVE_INSTANCE_MISMATCH."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -80,7 +83,9 @@
     "STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT. Shared geometry/address never transfers control authority between CHANGE CALCULUS, I Ching, J-space/J-Lens, LIVE, or INK.",
     "I Ching remains a structural/corpus lookup lens over supplied state; no cast or divinatory control authority is created by DATA or CHANGE CALCULUS.",
     "J-space/J-Lens support remains evidence/preview only; no support result may promote itself into LIVE effect authority or commit RELEASE.",
-    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship."
+    "CHANGE→INK carries geometry and address only. The visible wet-media stroke remains human-authored; LAB RETURN may witness it but may not synthesize brush authorship.",
+    "LIVE change bridge authority is WITNESS_ONLY / RESEARCH_WITNESS_ONLY. Six-event history and HEX never replace current LIVE forecastContext or grant RELEASE authority.",
+    "One six-release LIVE witness window equals one FIELD PULSE instance; evidence from different LIVE tabs/runs must never be interleaved into one window or compared as one causal pair."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -122,7 +127,10 @@
     "live_mobile_regression": "PASS · public-surface-check 36410051617 step 79",
     "critical_browser_smoke": "PASS · public-surface-check 36410051617 step 80",
     "change_lattice_merge_sha": "639a25a92570787fb02502f013744cd473c4b1e7",
-    "latest_proof_merge_sha": "815af862cc90a6b1f34e57559428c1e3a1302fb1"
+    "latest_proof_merge_sha": "815af862cc90a6b1f34e57559428c1e3a1302fb1",
+    "live_change_bridge_unit": "PENDING_PR_CI · instance-scoped rolling window + cross-instance rejection",
+    "live_change_browser": "PENDING_PR_CI · deterministic same-HEX / unequal-native-NEXT witness",
+    "live_change_real_bridge": "PENDING_PR_CI · actual LIVE releases observed in LAB over BroadcastChannel"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md",
@@ -141,5 +149,6 @@
     ],
     "boundary": "Six-bit state is a projection only; underlying domain state remains authoritative."
   },
-  "updated": "2026-09-28"
+  "updated": "2026-09-30",
+  "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_LIVE_CHANGE_WITNESS_2026-09-30.json"
 }
