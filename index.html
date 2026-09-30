@@ -669,7 +669,7 @@ function renderAperture(){
  $('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';
  $('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';
  const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);
- const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){seen.hidden=!unseen;seen.textContent='SEEN';seen.title='Acknowledge this route change locally · reversible under STATUS → ORIENTATION / LOCAL'}
+ const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){const last=latestCatchupAction(),heldStamp=Math.max(0,Number(catchupItems()[focus.href])||0),undoable=!unseen&&last?.kind==='route'&&last.href===focus.href&&Number(last.applied||0)>0&&Number(last.applied)===heldStamp;seen.hidden=!unseen&&!undoable;seen.textContent=undoable?'UNDO SEEN':'SEEN';seen.dataset.orientationAction=undoable?'undo':'seen';seen.title=undoable?'Undo the latest local SEEN for this held route · available until another local orientation action becomes newer.':'Acknowledge this route change locally · reversible immediately here and later under STATUS → ORIENTATION / LOCAL'}
  const gap=catchGap(focus),egress=fieldEgressForRoute(focus),bits=[];if(egress?.class)bits.push('EGRESS '+egress.class);if(gap)bits.push('MORE HERE · '+gap);
  if(residue){residue.hidden=!bits.length;residue.innerHTML=bits.length?'<b>RESIDUE</b>'+esc(bits.join(' · ')):''}
  renderCapabilityTrial();
@@ -693,6 +693,7 @@ function catchupHistory(){
 }
 function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-40)))}catch(_){}}
 function pushCatchupHistory(entry){const xs=catchupHistory();xs.push(entry);saveCatchupHistory(xs)}
+function latestCatchupAction(){const xs=catchupHistory();return xs.length?xs[xs.length-1]:null}
 function catchupItems(){try{const x=JSON.parse(localStorage.getItem(CATCHUP_ITEM_KEY)||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{}}catch(_){return{}}}
 function saveCatchupItems(x){try{localStorage.setItem(CATCHUP_ITEM_KEY,JSON.stringify(x||{}))}catch(_){}}
 function setCatchupSeen(stamp){try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}}
@@ -712,7 +713,7 @@ function applyFocusSignal(){
 function markRouteCaughtUp(href){
  const r=routeMap().get(href);if(!r)return;
  const items=catchupItems(),previous=Math.max(0,Number(items[href])||0),stamp=tsMs(r.index?.updated_at)||Date.now();
- pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderOrientation();renderAperture();renderFeed();updateStatusRail();
+ pushCatchupHistory({kind:'route',href,previous,applied:stamp,at:Date.now()});items[href]=stamp;saveCatchupItems(items);renderOrientation();renderAperture();renderFeed();updateStatusRail();
 }
 function catchGap(r){
  const q=String(r?.evolution?.question||'').replace(/\s+/g,' ').trim();
@@ -731,21 +732,34 @@ function renderOrientation(){
  if(seenLabel)seenLabel.textContent=changed.length+' unresolved local change'+(changed.length===1?'':'s')+' · browser-local only · canonical FIELD unchanged';
  if(rewind)rewind.disabled=!catchupSeen()&&!history.length&&!Object.keys(catchupItems()).length;
  if(mark)mark.disabled=!changed.length;
- const held=$('apSeen');if(held){const unseen=!!focus&&changed.some(r=>r.href===focus.href);held.hidden=!unseen}
+ const held=$('apSeen');
+ if(held){
+  const unseen=!!focus&&changed.some(r=>r.href===focus.href),last=latestCatchupAction(),items=catchupItems(),heldStamp=focus?Math.max(0,Number(items[focus.href])||0):0;
+  const undoable=!!focus&&!unseen&&last?.kind==='route'&&last.href===focus.href&&Number(last.applied||0)>0&&Number(last.applied)===heldStamp;
+  held.hidden=!unseen&&!undoable;held.textContent=undoable?'UNDO SEEN':'SEEN';held.dataset.orientationAction=undoable?'undo':'seen';
+  held.title=undoable?'Undo the latest local SEEN for this held route · available until another local orientation action becomes newer.': 'Acknowledge this route change locally · reversible immediately on this held object and later under STATUS → ORIENTATION / LOCAL';
+ }
 }
 function markCaughtUp(){
  const changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href));if(!changed.length)return;
  const previous=catchupSeen(),stamp=Math.max(...changed.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderOrientation();renderAperture();renderFeed();updateStatusRail();
+ pushCatchupHistory({kind:'bulk',previous,applied:stamp,at:Date.now()});setCatchupSeen(stamp);renderOrientation();renderAperture();renderFeed();updateStatusRail();
+}
+function restoreCatchupAction(prior){
+ if(typeof prior==='number'){setCatchupSeen(prior);return true}
+ if(prior?.kind==='bulk'){setCatchupSeen(prior.previous||0);return true}
+ if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items);return true}
+ return false;
+}
+function undoHeldSeen(href){
+ const history=catchupHistory(),prior=history[history.length-1];
+ if(!prior||prior.kind!=='route'||prior.href!==href)return false;
+ history.pop();saveCatchupHistory(history);restoreCatchupAction(prior);renderOrientation();renderAperture();renderFeed();updateStatusRail();return true;
 }
 function rewindCaughtUp(){
  const history=catchupHistory();
- if(history.length){
-  const prior=history.pop();saveCatchupHistory(history);
-  if(typeof prior==='number'){setCatchupSeen(prior)}
-  else if(prior?.kind==='bulk'){setCatchupSeen(prior.previous||0)}
-  else if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items)}
- }else if(catchupSeen())setCatchupSeen(0);
+ if(history.length){const prior=history.pop();saveCatchupHistory(history);restoreCatchupAction(prior)}
+ else if(catchupSeen())setCatchupSeen(0);
  else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
  renderOrientation();renderAperture();renderFeed();updateStatusRail();
 }
@@ -1052,7 +1066,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderOrientation();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(focus)markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
+$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(!focus)return;if($('apSeen').dataset.orientationAction==='undo')undoHeldSeen(focus.href);else markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
