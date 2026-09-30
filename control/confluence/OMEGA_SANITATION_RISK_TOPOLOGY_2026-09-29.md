@@ -136,7 +136,7 @@ No representative toilet-occupancy distribution sufficient to populate this deno
 ### Existing measurable pieces
 
 1. **SG-PAROS exists.** Singapore OHCA research already uses the Pan-Asian Resuscitation Outcomes Study, an Utstein-style prospective registry populated from dispatch, ambulance, ED and inpatient records; studies have linked it to the Singapore Registry of Births and Deaths.
-2. **The missing fact is field granularity.** Public papers confirm location and event variables exist, but this pass did not establish whether source records expose a reliable `toilet / bathroom / en-route / bath` micro-location field.
+2. **Published PAROS location granularity appears too coarse for Ω.** A PAROS-derived model exposes `location_type` as home residence, health-care facility, public building, nursing home, street, industrial area, transport centre, place of recreation, ambulance, or other. Separate Singapore PAROS work exposes event postcode. No public source checked here exposed a canonical `toilet / bathroom / en-route / bath` micro-location variable. This does **not** prove source dispatch/ambulance records lack one; it shifts the next query toward source forms, free text, and the underlying data dictionary.
 3. **HDB EASE already targets the environmental topology** with grab bars, slip-resistant toilet/bathroom floor treatment, entrance-kerb lowering/widening and shower seats.
 4. **BCA Code on Accessibility 2025** requires accessible sanitary-facility doors to swing outward or use sliding/folding designs; its emergency assistance alarm uses a waterproof button/pull-cord 400–600 mm above floor level and alerts responsible personnel. The code also advises access from outside if a person falls behind the door.
 
@@ -277,6 +277,9 @@ non-response escalation
 - Krauss et al. 2005, inpatient falls — https://onlinelibrary.wiley.com/doi/10.1111/j.1525-1497.2005.40171.x
 - Yap et al. 2003, *Nursing Home Falls: A Local Perspective* — https://annals.edu.sg/nursing-home-falls-a-local-perspective/
 - SG-PAROS / Singapore death-registry linkage example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10960127/
+- PAROS public location-type example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10663550/
+- Singapore PAROS postcode example — https://pmc.ncbi.nlm.nih.gov/articles/PMC7303701/
+- PAROS common data-form/data-dictionary overview — https://pmc.ncbi.nlm.nih.gov/articles/PMC5523101/
 - HDB EASE — https://www.hdb.gov.sg/managing-my-home/upgrading-and-redevelopment/enhancement-for-active-seniors-ease
 - BCA Code on Accessibility in the Built Environment 2025 — https://go.gov.sg/bca-coa2025
 
