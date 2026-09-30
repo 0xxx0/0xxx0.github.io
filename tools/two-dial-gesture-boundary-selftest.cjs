@@ -10,8 +10,8 @@ const release=JSON.parse(fs.readFileSync('fold-bloom/two-dial/release.json','utf
 const audit=JSON.parse(fs.readFileSync('control/FIELD_COAXIALITY_AUDIT.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
 
-assert.match(core1,/0\.10\.7-reversible-commit/);
-assert.match(sw,/const CACHE='fb-two-dial-v0107'/);
+assert.match(core1,/0\.10\.8-compression-ablation/);
+assert.match(sw,/const CACHE='fb-two-dial-v0108'/);
 assert.match(sw,/startsWith\('fb-two-dial-'\)/);
 assert.match(core2,/function pointerSideClaimed\(side\)/);
 assert.match(core2,/if \(pointerSideClaimed\(side\)\) return;/);
@@ -34,7 +34,7 @@ assert.doesNotMatch(cancel,/\bcommit\s*\(/,'pointer cancel must not commit');
 assert.match(core2,/Release is the single semantic commit boundary/);
 assert.match(core2,/cv\.onpointercancel = cancelPointerGesture/);
 
-assert.equal(release.version,'0.10.7');
+assert.equal(release.version,'0.10.8');
 const mechanism=audit.mechanisms.find(m=>m.id==='fold-bloom-two-dial-relation');
 assert.ok(mechanism,'Two Dial audit mechanism missing');
 assert.equal(mechanism.tests.C_GESTURE.verdict,'PASS');
@@ -43,7 +43,7 @@ assert.equal(mechanism.tests.H_COMPRESSION.verdict,'INDETERMINATE');
 assert.equal(mechanism.decision,'PROVE_OR_DECOAXIALIZE');
 
 const route=manifest.routes.find(r=>r.href==='/fold-bloom/two-dial/');
-assert.equal(route.version,'0.10.7');
+assert.equal(route.version,'0.10.8');
 assert.match(route.contract.transforms.reversibility,/one-level local committed-gesture reversal/i);
 assert.match(route.contract.transforms.reversibility,/one-level local committed-gesture reversal/i);
 assert.match(route.contract.transforms.reversibility,/H_COMPRESSION remains ordinary-use gated/i);
