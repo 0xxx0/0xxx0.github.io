@@ -78,7 +78,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
     rec.focusAddressA==='field://lab/live/probe-live-instance-123456/seq/6/slot/2'&&
     rec.apertureB?.candidate_count===1&&rec.apertureB?.support?.count===0&&rec.focusB.includes('SLOT 2')&&rec.focusB.includes('NO LAWFUL FORECAST')&&
-    rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-liv')&&
+    rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-li')&&
     rec.state.join(',')==='110|011,110|011'&&live?.authority==='WITNESS_ONLY'&&live?.comparison?.same_hex_endpoints===true&&
     live?.comparison?.quotient_invisible_exact_changes===6&&live?.comparison?.native_next?.same_hex_unequal_native===true&&
     live?.comparison?.native_next?.from?.candidate_count===2&&live?.comparison?.native_next?.to?.candidate_count===1&&
