@@ -1,11 +1,12 @@
 {
   "schema": "0xxx0/interphase-mapping-contract/v0.1",
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "status": "IMPLEMENTABLE",
   "purpose": "Separate semantic correspondence from geometry so one host object can be lawfully rendered and operated through unequal projections and scales without becoming several objects.",
   "equation": {
     "read": "VIEW = PROJECT(CORRESPOND(HOST), projection, scale, aperture)",
     "operation_commutation": "PROJECT(CANONICAL_OP(HOST)) ~= VIEW_OP(PROJECT(HOST)) for supported operations",
+    "control_sufficiency_pair": "PROJECT(x) = PROJECT(y) AND APERTURE(x) != APERTURE(y) => projection is not control-sufficient for that aperture/property/horizon",
     "get_put": "PUT(source, GET(source)) = source",
     "put_get": "GET(PUT(source, edited_view)) = edited_view"
   },
@@ -75,6 +76,8 @@
     "Unsupported operation or projection paths return SUPPORT=0 with a reason.",
     "Editable projections obey GetPut and PutGet for the edited domain.",
     "A projected operation is lawful only when its canonical counterpart is explicit and the operation square commutes within the declared equivalence.",
+    "Control sufficiency is falsifiable by native lawful consequence: if two native states share a projection but differ in the named lawful next aperture or relevant consequence, that projection remains VIEW + explicit RESIDUE for that property/horizon and cannot own effect authority.",
+    "A passing finite pair check is only absence of that counterexample for the tested pair; it does not certify global control sufficiency.",
     "Selection and multifocus survive projection and scale changes.",
     "Authority is host-owned and cannot increase through projection.",
     "Physical geometry, fit, load and irreversible actuation are canonical only when supplied by a physical host; screen placement is not evidence of physical truth.",
@@ -137,6 +140,7 @@
   "evidence": {
     "proof_donor": "/spikes/003-one-instrument/",
     "runtime_core": "/lib/interphase-core.js",
+    "mapping_helper": "/lib/interphase-mapping.js#checkControlSufficiencyPair",
     "merged_pr": 184
   },
   "action_projection": {
