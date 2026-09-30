@@ -1246,6 +1246,7 @@ const setMenuOpen=open=>{
   if(on)drawer.scrollTop=0;
 };
 $('#menuBtn').onclick=()=>setMenuOpen(!$('#settings').classList.contains('on'));
+$('#mixBtn').onclick=()=>{setMenuOpen(true);const panel=$('#soundControls');if(!panel)return;panel.open=true;requestAnimationFrame(()=>panel.scrollIntoView({block:'start',behavior:'smooth'}))};
 const closeMenuEvent=e=>{e?.preventDefault?.();e?.stopPropagation?.();setMenuOpen(false)};
 $('#closeSettings').addEventListener('pointerdown',closeMenuEvent);
 $('#closeSettings').onclick=closeMenuEvent;
