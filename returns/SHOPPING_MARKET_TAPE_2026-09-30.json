@@ -1,0 +1,38 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_MARKET_TAPE_2026-09-30",
+  "date": "2026-09-30",
+  "object": "SHOPPING FIELD temporal market evidence",
+  "state": "CANDIDATE",
+  "before": "Shopping 0.4.0 retained exact current offer provenance/freshness and landed SGD but could not show how the same exact offer changed over time or whether a human-defined landed-price threshold had been reached.",
+  "delta": [
+    "Add browser-local MARKET TAPE capped at 12 exact-offer snapshots per item.",
+    "Each snapshot preserves checked time, landed SGD, availability, variant, exact SKU, seller/channel, source URL, return policy and warranty.",
+    "Add optional TARGET LANDED SGD and derived target-hit witness.",
+    "Agent packet carries current offer + bounded market summary/history.",
+    "No snapshot or target hit mutates lifecycle or purchase/seller authority."
+  ],
+  "external_donor": {
+    "accepted": [
+      "temporal price history",
+      "fresh product/variant identity",
+      "availability witness",
+      "human-set price threshold",
+      "order/post-purchase continuity as typed evidence"
+    ],
+    "held": [
+      "multi-item basket/consolidation optimization until repeated freight/cart friction appears"
+    ],
+    "rejected": [
+      "autonomous checkout",
+      "payment credentials",
+      "universal merchant trust score",
+      "unbounded crawler/history"
+    ]
+  },
+  "verification": [
+    "/tools/shopping-market-tape-selftest.mjs",
+    "existing Shopping one-object/House fit/Port ingress tests via public-surface-check"
+  ],
+  "return": "/shopping/"
+}

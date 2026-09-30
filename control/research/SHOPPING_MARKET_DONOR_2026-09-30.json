@@ -1,0 +1,45 @@
+{
+  "schema": "field/research-donor-packet/v0.1",
+  "SOURCE_ID": "Shopping market evidence / Google UCP + Amazon price history + Product.ai 2026",
+  "ROLE": "MECHANISM",
+  "CLAIM_KIND": "EVIDENCE",
+  "CLAIM": "Exact product identity plus bounded temporal price/availability observations and explicit human authorization boundaries improve shopping decisions without requiring autonomous checkout or laundering research into purchase truth.",
+  "DISPOSITION": "TRANSFER",
+  "CURRENT_HOST": "/shopping/",
+  "PRIMARY_REF": {
+    "google_ucp_overview": "https://developers.googleblog.com/under-the-hood-universal-commerce-protocol-ucp/",
+    "google_universal_cart": "https://blog.google/products-and-platforms/products/shopping/google-shopping-cart/",
+    "amazon_price_history": "https://www.aboutamazon.com/news/retail/how-to-check-amazon-price-history",
+    "product_ai_divergence": "https://product.ai/research/ai-shopping-divergence-study/",
+    "product_ai_trust": "https://product.ai/research/trust-in-ai-commerce-report/"
+  },
+  "BASELINE": "SHOPPING FIELD 0.4.0 exact item + freshness + landed SGD + purchase gate, but no bounded temporal offer evidence.",
+  "FALSIFIER": "The transferred mechanism loses exact item/SKU/seller/source identity, exceeds its bounded history, changes native lifecycle merely because price/availability changes, or makes autonomous checkout necessary to produce value.",
+  "INVARIANT": "FOUND ≠ BOUGHT ≠ RECEIVED ≠ TESTED ≠ ADOPTED; money and seller contact remain human; exact item identity and RETURN survive.",
+  "NON_TRANSFER": [
+    "autonomous checkout / auto-buy",
+    "payment credential handling",
+    "merchant-global trust score",
+    "universal cart as new Shopping authority",
+    "unbounded market crawler/history database"
+  ],
+  "REPLICA": {
+    "status": "PASS",
+    "observable": "Pure MARKET TAPE test reproduces bounded chronological offer snapshots, min/max/delta/target witness and provenance retention across exact item evidence."
+  },
+  "TRANSFER_TEST": {
+    "status": "PASS",
+    "host": "/shopping/",
+    "independent": true,
+    "result": "Shopping 0.4.1 keeps lifecycle unchanged while market evidence is appended and summarized."
+  },
+  "EVIDENCE": {
+    "refs": [
+      "/tools/shopping-market-tape-selftest.mjs",
+      "/lib/shopping-market-tape.js",
+      "/returns/SHOPPING_MARKET_TAPE_2026-09-30.json"
+    ]
+  },
+  "RETURN_PATH": "/returns/SHOPPING_MARKET_TAPE_2026-09-30.json",
+  "authority": "DONOR EVIDENCE ONLY / NO PURCHASE OR HOST EFFECT AUTHORITY"
+}

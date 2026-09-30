@@ -800,11 +800,11 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.4.0 / ONE HELD THING + SHARED ACTION SURFACE + CLOSED HOUSE/DAYLINE RETURNS",
+      "head": "SHOPPING FIELD 0.4.1 / ONE HELD THING + MARKET TAPE + SHARED ACTION SURFACE + CLOSED HOUSE/DAYLINE RETURNS",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Shopping preserves its detailed browser-local procurement truth while projecting each exact held item through the shared INTERPHASE grammar: one object, derived material phase, <=3 host-native moves, witness/TRACE and exact RETURN. NEED/CANDIDATE/READY/INBOUND/ON_HAND/ADOPTED/CLOSED are presentation phases only; FOUND/VERIFY/WATCH/BOUGHT/RECEIVED/TESTED/etc remain native host evidence and authority. HOUSE fit and Dayline remain OFFER/EVIDENCE loops; money/seller action remains human.",
-      "version": "0.4.0",
+      "retained_function": "Shopping preserves detailed browser-local procurement truth while projecting each exact held item through the shared INTERPHASE grammar. MARKET TAPE adds bounded temporal offer evidence (<=12 snapshots) for landed SGD, availability/variant, exact seller/SKU/source and return/warranty plus an optional target; snapshots and target hits never mutate FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED, money authority or seller contact. HOUSE fit and Dayline remain evidence/offer loops.",
+      "version": "0.4.1",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
@@ -813,9 +813,12 @@
         "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
         "/lib/shopping-interphase.js",
         "/tools/shopping-interphase-selftest.mjs",
-        "/returns/SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json"
+        "/returns/SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json",
+        "/lib/shopping-market-tape.js",
+        "/returns/SHOPPING_MARKET_TAPE_2026-09-30.json",
+        "/control/research/SHOPPING_MARKET_DONOR_2026-09-30.json"
       ],
-      "latest_return": "/returns/SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json",
+      "latest_return": "/returns/SHOPPING_MARKET_TAPE_2026-09-30.json",
       "repo_verification": {
         "status": "PASS / PR 650 EXACT-HEAD",
         "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/650",

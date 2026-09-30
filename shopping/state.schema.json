@@ -346,6 +346,117 @@
                 ]
               }
             }
+          },
+          "offer": {
+            "type": "object",
+            "properties": {
+              "availability": {
+                "enum": [
+                  "UNKNOWN",
+                  "IN_STOCK",
+                  "LOW_STOCK",
+                  "OUT_OF_STOCK",
+                  "PREORDER",
+                  "LOCAL_PICKUP_ONLY"
+                ]
+              },
+              "variant": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "target_landed_sgd": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "return_policy": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "warranty": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "offer_history": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "required": [
+                "schema",
+                "checked_at",
+                "landed_sgd",
+                "availability"
+              ],
+              "properties": {
+                "schema": {
+                  "const": "shopping-market-snapshot/v0.1"
+                },
+                "checked_at": {
+                  "type": "string"
+                },
+                "landed_sgd": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "availability": {
+                  "enum": [
+                    "UNKNOWN",
+                    "IN_STOCK",
+                    "LOW_STOCK",
+                    "OUT_OF_STOCK",
+                    "PREORDER",
+                    "LOCAL_PICKUP_ONLY"
+                  ]
+                },
+                "variant": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "exact_sku": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "seller_channel": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "return_policy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "warranty": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
           }
         }
       }

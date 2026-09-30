@@ -2,9 +2,9 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "released": "2026-09-30",
-  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR",
+  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / MARKET_TAPE",
   "recovered_from": [
     {
       "artifact": "House OS Shopping / Inventory Console",
@@ -77,7 +77,11 @@
     "Added shared Shopping INTERPHASE adapter: exact selected item → derived material phase → <=3 native moves → TRACE → exact RETURN.",
     "Primary visible lifecycle compresses to NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED while detailed native states remain preserved as host-owned residue.",
     "READY is derived from existing purchase-gate evidence; TESTED remains ON_HAND evidence rather than becoming a separate shared phase.",
-    "Shopping now emits interphase-action-surface/v0.1 without gaining purchase, seller-contact, HOUSE, Dayline or FIELD authority."
+    "Shopping now emits interphase-action-surface/v0.1 without gaining purchase, seller-contact, HOUSE, Dayline or FIELD authority.",
+    "Added bounded MARKET TAPE: up to 12 browser-local exact-offer snapshots retaining checked time, landed SGD, availability, variant, exact SKU/seller/source, return policy and warranty.",
+    "Added optional TARGET LANDED SGD; target hit is derived evidence only and cannot trigger purchase, seller contact or lifecycle promotion.",
+    "Agent research packet now carries current offer + bounded market summary/history so research can compare fresh evidence without status laundering.",
+    "External donor admission retained price-history/watch/identity mechanisms while rejecting autonomous checkout and universal-cart authority."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -107,7 +111,12 @@
     "source URL / exact SKU / seller-channel survive Shopping export/agent packet",
     "shared action surface preserves exact item id/address and RETURN",
     "derived material phase never mutates native Shopping lifecycle",
-    "one-object surface exposes at most three HOST_NATIVE_ONLY moves"
+    "one-object surface exposes at most three HOST_NATIVE_ONLY moves",
+    "market snapshot does not mutate native lifecycle",
+    "market history is capped at 12 snapshots",
+    "market target hit is derived from landed SGD only",
+    "market snapshot preserves exact item provenance",
+    "market tape remains browser-local and exportable with the item"
   ],
   "return": "/shopping/",
   "date": "2026-09-30",
