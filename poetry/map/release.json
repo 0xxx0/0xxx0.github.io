@@ -199,8 +199,11 @@
     "recenter_merge": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
     "verified_master": "4031fd0d5d4267481579db3d3ccea411d5acff11",
     "source_authority_epoch": "PENDING_PR_CI · exact existing browser focus-return probe must pass after explicit source is chosen before FIELD NOW preload settles",
-    "language_lenses": "PENDING_PR_CI · selected-token CText URL + no automatic COPE/Wenyan source transfer",
-    "english_jueju_transfer": "PENDING_PR_CI · 4×5/4×7 form declarations + word/mono/AABA/unit support contracts"
+    "language_lenses": "PASS_PR_709 · selected-token CText URL + zero automatic COPE/Wenyan source transfer · public-surface-check 36677031248",
+    "english_jueju_transfer": "PASS_PR_709 · 4×5/4×7 declarations + word/mono/AABA/unit support selftest · public-surface-check 36677031248",
+    "language_lenses_route_registration": "PASS · 36677031278",
+    "language_lenses_gitleaks": "PASS · 36677031230",
+    "language_lenses_merge": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49"
   },
   "updated": "2026-09-30",
   "next_bounded_test": {
