@@ -130,6 +130,27 @@ test('authority-NONE steering witness may travel beside LIVE evidence but does n
   assert.equal(stale,s);
 });
 
+test('native support resolves before the six-release quotient window is complete',()=>{
+  const aperture=native(1,0,{verb:'FOLD',chain:1,candidates:1},[
+    {slot:2,verb:'FOLD',chain:1,cadence:null,span:0,power:1,path:[2]}
+  ]);
+  let s=createLiveChangeBridgeState();
+  s=reduceLiveChangeBridge(s,op(1,'BLOOM',{nativeForecast:aperture}));
+  assert.equal(s.window.ready,false);
+  assert.equal(s.window.count,1);
+  assert.equal(s.native_latest.authority,'NATIVE_EVIDENCE');
+  s=reduceLiveChangeBridge(s,{
+    schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'j',kind:'steering',seq:2,wall:2000,
+    data:{authority:'NONE',direction_label:'FOLD',direction_ref:'dir://fold',strength:.5}
+  },{now:2050});
+  const support=liveSteeringSupport(s);
+  assert.equal(support.ok,true);
+  assert.equal(support.status,'UNIQUE_NATIVE_CANDIDATE');
+  assert.equal(support.native_candidate_count,1);
+  assert.equal(support.native.seq,1);
+  assert.equal(liveChangeBridgeReturn(s).native_latest.seq,1);
+});
+
 test('direction support exposes native candidate ambiguity without acquiring effect authority',()=>{
   const aperture=native(6,0,{verb:'FOLD',chain:2,candidates:2},[
     {slot:2,verb:'FOLD',chain:2,cadence:null,span:2,power:1.3,path:[2,3]},
