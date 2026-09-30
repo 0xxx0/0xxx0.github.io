@@ -3148,7 +3148,7 @@
             "IDLE non-authority",
             "source-clock/composition-authority distinction"
           ],
-          "reversibility": "PASS for one-level local committed-gesture reversal: exact pre-gesture snapshot restore + delayed-compose cancellation. Audible past is not rewound. H_COMPRESSION remains ordinary-use gated against PLAIN_PAIR_6X6.",
+          "reversibility": "PASS for one-level local committed-gesture reversal: exact deep-cloned pre-gesture state restore + delayed-compose cancellation. Audible past is not rewound. H_COMPRESSION remains ordinary-use gated against PLAIN_PAIR_6X6.",
           "side_effects": "local"
         },
         "emits": {
