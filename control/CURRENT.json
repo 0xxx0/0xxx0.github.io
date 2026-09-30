@@ -106,8 +106,34 @@
       "version": "0.8.28",
       "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
       "repo_verification": {
-        "status": "CANDIDATE / CI_REQUIRED",
-        "base_sha": "005d7c091930e283c66936e9babc726d60bc461c",
+        "status": "PASS / MERGE 047ef5ee",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/724",
+        "merge_sha": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+        "tested_head": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+        "checks": {
+          "route_registration": {
+            "run": 36686415264,
+            "conclusion": "success"
+          },
+          "convergence_validate": {
+            "run": 36686415230,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36686415159,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36686415190,
+            "conclusion": "success"
+          },
+          "pages": {
+            "run": 36686414164,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · merge-sha public-surface-check 36686415159 including critical browser smoke, Prison Age FIELD source-intent path, recovered-source checks and frozen City/Painting handlers.",
+        "note": "Proof is on the actual merged Shopping+FIELD tree, not only the pre-merge candidate. Shopping 0.4.1 CURRENT/manifest state remained present after the merge.",
         "predecessor": {
           "status": "PASS / PR 700",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
