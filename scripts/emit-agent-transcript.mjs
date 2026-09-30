@@ -160,13 +160,18 @@ function cliAssessContribution(p={}){
   const evidenceOnly=p.evidence_only===true||kind==='EVIDENCE';
   const returnOnly=p.return_only===true||p.observed_behavior===true||kind==='RETURN';
   const donorOnly=p.donor_only===true||p.architectural_only===true||p.transfer_applied===false||kind==='DONOR';
+  const donorGate=cliToken(cliPick(p,'donor_gate','donor_admission','research_donor_gate'));
+  const externalDonor=p.external_donor===true||cliNonempty(donorGate);
+  const donorGatePass=p.donor_gate_pass===true||/^(PASS|PASSED|ELIGIBLE|TRANSFER|PROMOTE)$/.test(donorGate);
+  const donorBlocked=externalDonor&&!donorGatePass;
   const superseded=p.superseded===true||/SUPERSEDED|OBSOLETE|RETIRED/.test(cliToken(cliPick(p,'state','status','disposition')));
   const ci=cliToken(cliPick(p,'ci','ci_status','verification_status'));
   const ciPass=/^(PASS|SUCCESS|GREEN|VERIFIED)$/.test(ci),ciFail=/^(FAIL|FAILED|ERROR|RED)$/.test(ci);
   const mergeable=p.mergeable===true,notMergeable=p.mergeable===false;
-  let contributionClass=returnOnly?'RETURN':evidenceOnly?'EVIDENCE':material&&hostExplicit?'DELTA':donorOnly&&hostExplicit?'DONOR':!hostExplicit?'UNRESOLVED':'UNRESOLVED';
+  let contributionClass=returnOnly?'RETURN':evidenceOnly?'EVIDENCE':donorBlocked&&hostExplicit?'DONOR':material&&hostExplicit?'DELTA':donorOnly&&hostExplicit?'DONOR':!hostExplicit?'UNRESOLVED':'UNRESOLVED';
   let disposition,reasons=[];
   if(superseded){disposition='DROP';reasons.push('superseded_or_replaced')}
+  else if(donorBlocked){disposition='HOLD';reasons.push('external_donor_gate_not_pass')}
   else if(contributionClass==='DONOR'||contributionClass==='UNRESOLVED'){disposition='HOLD';reasons.push(contributionClass==='DONOR'?'mechanism_without_host_delta':'no_resolved_host_delta')}
   else if(ciFail||notMergeable){disposition='REPAIR';reasons.push(ciFail?'verification_failed':'not_mergeable')}
   else if(ciPass&&mergeable){disposition='MERGE';reasons.push('host_delta_or_evidence_verified')}
@@ -175,6 +180,7 @@ function cliAssessContribution(p={}){
   return {
     schema:'field-contribution-reducer/v0.1',id,class:contributionClass,disposition,reasons,
     host:cliPick(p,'host','route','owner')||null,
+    donor_gate:externalDonor?(donorGate||'MISSING'):null,
     authority:'ADVISORY_ONLY / CALLER_ATTESTED_FACTS / NO REPO OR HOST MUTATION',
     stop:disposition==='MERGE'?'Caller may request native merge after independent exact-head verification.':
       disposition==='REPAIR'?'Repair the named failing/unknown gate, then re-reduce.':
