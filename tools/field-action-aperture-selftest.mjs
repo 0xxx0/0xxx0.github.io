@@ -28,8 +28,15 @@ need(html.includes("projection:{host:'FIELD',name:'RETURN'"),'returned carrier i
 need(html.includes("daylineReturnAuthority:offer.authority"),'returned OFFER_ONLY authority is not surfaced');
 need(html.includes("native source decides consequence"),'returned witness UI obscures source authority boundary');
 need(html.includes('data-cap-dayline'),'DAYLINE action control missing');
+need(html.includes('function renderHeldContinuation()'),'held continuation reducer missing');
+need(html.includes('const [primary,...rest]=nativeActions'),'native action primary/secondary split missing');
+need(html.includes("open.textContent=primary.label+' →';open.href=primary.target"),'first native action does not own primary held edge');
+need(html.includes("rest.slice(0,2)"),'held object can expose more than two secondary native actions');
+need(/FRAME FOLDS INTO OBJECT/.test((contract.laws||[]).join('\n')),'frame→object contraction law missing');
 need(/ADD TO DAY remains Dayline/.test(contract.ui_contract?.root_action_aperture||''),'Dayline mutation boundary missing from contract');
-need(html.includes("const CAP_TRIAL=INIT.get('cap')!=='0'"),'held aperture not default-on');
+need(!html.includes('id="capTrial"')&&!html.includes('CAP_TRIAL'),'duplicate held continuation frame survived');
+need(html.includes('id="apFlow"')&&html.includes('id="capMoves"')&&html.includes('id="capWitness"')&&html.includes('id="capReturn"'),'held object does not own NEXT / witness / RETURN');
+need(html.indexOf('id="apFlow"')>html.indexOf('id="aperture"')&&html.indexOf('id="apFlow"')<html.indexOf('id="feedRail"'),'held continuation escaped the held object');
 need(!html.includes('ACK LOCAL'),'pseudo-action ACK LOCAL survived');
 need(html.includes('data-wait-hold'),'WAITING HOLD action missing');
 need(html.includes('DO →'),'WAITING native DO missing');
