@@ -15,9 +15,13 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=20000
 const W=()=>f.contentWindow,D=()=>W().document;
 (async()=>{try{
  f.src='/?focus=%2Fprison-age%2F';
- await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||'')&&/^READ\\s*→?$/.test(D().getElementById('apOpen')?.textContent?.trim()||'')&&D().querySelectorAll('#capMoves .capMove').length===2,18000,'FIELD held source set');
- const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').trim().replace(/\\s*→$/,''),href:a.getAttribute('href')||''}));
- rec.field={held:D().getElementById('apTitle')?.textContent||'',owner:D().getElementById('apMeta')?.textContent||'',moves,ret:D().getElementById('capReturn')?.textContent||''};
+ await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||''),18000,'FIELD held Prison Age focus');
+ await sleep(300);
+ const primary=D().getElementById('apOpen'),secondary=[...D().querySelectorAll('#capMoves .capMove')];
+ rec.fieldObserved={held:D().getElementById('apTitle')?.textContent||'',primary:primary?.textContent?.trim()||'',secondary:secondary.map(a=>(a.textContent||'').trim()),owner:D().getElementById('apMeta')?.textContent||'',flow:D().getElementById('apFlow')?.textContent?.replace(/\\s+/g,' ').trim()||''};
+ if(!/^READ\\s*→?$/.test(rec.fieldObserved.primary)||secondary.length!==2)throw Error('FIELD held source actions · '+JSON.stringify(rec.fieldObserved));
+ const moves=[primary,...secondary].map(a=>({label:(a.textContent||'').trim().replace(/\\s*→$/,''),href:a.getAttribute('href')||''}));
+ rec.field={held:rec.fieldObserved.held,owner:rec.fieldObserved.owner,moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
  if(!rec.field.owner.includes('PRISON AGE'))throw Error('FIELD native owner');
  if(!moves[0].href.includes('intent=read')||!moves[1].href.includes('intent=ride')||moves.some(x=>x.href.includes('story=open-air')))throw Error('FIELD intent targets must not hide a source choice');
