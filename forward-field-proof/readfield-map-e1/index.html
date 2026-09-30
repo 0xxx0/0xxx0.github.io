@@ -197,6 +197,12 @@ The document ends with an explicit return cue: preserve the source address, chan
 const $=id=>document.getElementById(id);
 const state=load();
 let timer=null;
+if(state.trial&&state.trial.phase!=='result'){
+  state.events.push({seq:(state.seq||0)+1,at:new Date().toISOString(),t_ms:null,event:'trial_abort_reload',trial_id:state.trial.id,condition:state.trial.condition,value:{reason:'active trial cannot resume across reload'}});
+  state.seq=(state.seq||0)+1;
+  state.trial=null;
+  localStorage.setItem(K,JSON.stringify(state));
+}
 
 function fresh(){
   return {source:'',sourceHash:'',units:[],sections:[],first:Math.random()<.5?'LINE':'DISC',trial:null,results:[],events:[],seq:0};
