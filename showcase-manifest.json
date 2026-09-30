@@ -1499,7 +1499,7 @@
       "showcase_card": false,
       "role": "Cross-lineage coordination surface distinguishing authority, donors and transfers. ONE RETURN v2 exact recovered source is canonical Sleeper authority; ASCII POV 0.8 and ASCII/Grid Path neighbors remain unequal derivative/donors. Includes a separately attributed current-executor perspective; it is not user-authored intent or canon.",
       "index": {
-        "updated_at": "2026-09-29T11:34:58+08:00",
+        "updated_at": "2026-09-30T10:29:00+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -3105,15 +3105,16 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.6",
+      "title": "TWO DIAL 0.10.7",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.6",
+      "version": "0.10.7",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
+        "0.10.7 reversible commit: one deep-cloned pre-gesture snapshot becomes UNDO residue only at release/commit; pending delayed compose is canceled on restore; later config changes invalidate ambiguous undo",
         "gesture boundary: one live pointer owns one dial; canceled preview restores side-local index/raw/wear; release remains the relation commit boundary",
         "causal RETURN v0.2: relation commits retain before/operation/actor+driver/delta/after/provenance; phrase RETURN aggregates them and export carries the latest causal receipt",
         "preserved two-dial relation algebra",
@@ -3148,7 +3149,7 @@
             "IDLE non-authority",
             "source-clock/composition-authority distinction"
           ],
-          "reversibility": "preview cancel is side-local reversible; full snapshot/cassette restore exists; committed musical FOLD/BLOOM inverse-or-residue semantics remain unproven",
+          "reversibility": "PASS for one-level local committed-gesture reversal: exact deep-cloned pre-gesture state restore + delayed-compose cancellation. Audible past is not rewound. H_COMPRESSION remains ordinary-use gated against PLAIN_PAIR_6X6.",
           "side_effects": "local"
         },
         "emits": {
@@ -3172,7 +3173,8 @@
             "same-page local track module browser boot; direct phone/headphone feel remains required",
             "host-owned SAME/NEAR/FAR/OPPOSITE mapping preserves the existing BLOOM/FOLD/RETURN/SPLIT algebra",
             "causal relation RETURN records before / operation / actor+driver / delta / after / provenance and exported phrase RETURN aggregates matched commits",
-            "one live pointer owns one dial; pointercancel restores preview position/wear; release is the semantic commit boundary"
+            "one live pointer owns one dial; pointercancel restores preview position/wear; release is the semantic commit boundary",
+            "one-level local committed-gesture UNDO restores a deep-cloned pre-gesture state and cancels pending delayed compose"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -3226,7 +3228,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-29T21:28:00+08:00",
+        "updated_at": "2026-09-30T09:41:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
