@@ -501,7 +501,7 @@ function selftest(){
  a('stable token addresses',toks.length===2&&toks[0].id==='L1T1'&&toks[1].id==='L1T2',toks.map(x=>x.id).join(' · '));
  a('Jueju donor remains four-line open source',JUEJU.split('\n').length===4&&Array.from(JUEJU.split('\n')[0]).length===7,'4 lines / 7-char opener');
  a('form adapters remain plural',['free','haiku','couplet','quatrain','sonnet','villanelle','enjueju7','enjueju5','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
- const ej='Cold moon still pines hold pale light\nDark stream soft reeds catch dawn light\nOld road lone feet turn home slow\nWarm hands near fire guard last light',ejRows=formReportFor(ej,'enjueju7');
+ const ej='Cold moon still pines hold dim light\nDark stream soft reeds catch dawn light\nOld road lone feet turn home slow\nWarm hands near fire guard last light',ejRows=formReportFor(ej,'enjueju7');
  a('English Jueju 7 transfer adapter validates slot/rhyme scaffold',ejRows.filter(r=>r[2]==='warn').length===2&&ejRows.some(r=>r[0]==='WORDLESS BOARD'&&r[1]==='2 | 2 | 3')&&ejRows.some(r=>r[0]==='~RHYME GROUPS'&&r[2]==='pass'),ejRows.map(r=>r[0]+':'+r[1]).join(' · '));
  a('writer-intent dock remains plural',['continue','nextline','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
  const rain=tokenizeLine('rain falls',0)[0],han=tokenizeLine('未始',0)[0];
