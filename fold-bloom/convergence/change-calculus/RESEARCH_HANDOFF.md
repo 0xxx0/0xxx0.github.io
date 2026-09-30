@@ -394,13 +394,33 @@ The right abstraction is often not the smallest one. It is the smallest one whos
 
 ## Applied experiments
 
-### E1 — HEX quotient counterexample search
+### E1 — HEX quotient control-loss witness
 
-Goal: find two exact six-verb forms with the same binary hex state but meaningfully unequal downstream Fold/Bloom evidence.
+Goal: make projection loss directly inspectable rather than merely asserted.
 
-Current proof already shows syntactic inequality. Next step is behavioral inequality using native snapshots.
+The native search already falsifies HEX control sufficiency for the named property `NEXT_LAWFUL_FORECAST_SET + CALL + TARGET_TYPE`. FIELD LAB now converts that proof into one reversible A/B investigation:
 
-**Promotion condition:** either demonstrate a bounded property preserved across each tested fiber, or preserve the exact form beside the quotient forever.
+```text
+PROVE LOSS
+→ deterministic lawful LIVE search
+→ first same-HEX / unequal-native-NEXT pair
+→ freeze exact recent verbs + native forecast apertures + native dependency factors
+→ A ↔ B
+→ HEX label stays fixed while lawful NEXT changes
+→ RETURN carries the witness
+```
+
+The witness exposes which current forecast-factor fields differ (`cell_types / target_type / anchors / creases / charge`) and which forecast slots exist only on A, only on B, or survive at the same slot with changed consequence.
+
+This is deliberately stronger than a static warning and deliberately weaker than a new controller:
+
+- it never calls `release()`;
+- it does not claim HEX is globally useless;
+- it proves only that this projection is insufficient for the named control property on the witnessed pair;
+- it does not rank or select a native action;
+- model/J-space evidence remains separate and cannot inherit host effect authority.
+
+**Promotion condition:** a compact projection may own a named control property only after bounded native evidence fails to produce unequal lawful consequences across its collapsed states. Until then, preserve the dropped residue or re-resolve through the native host.
 
 ### E2 — STEP commutator
 
@@ -1199,3 +1219,28 @@ This is the stronger reusable pattern:
 **stable address space → lawful host aperture → advisory support subset → local focus → host-only commit elsewhere.**
 
 It gives "driving / steering" a concrete geometry while preserving the rule that a co-driver may illuminate a road but does not acquire the steering wheel.
+
+
+## 2026-09-30 convergence — make loss perceptual
+
+Current reducer move:
+
+```text
+projection warning
+→ executable falsifier
+→ replayable A/B witness
+→ exact dropped factor
+→ RETURN
+```
+
+This is the preferred direction for future “solve-for-all” work: when a representation is known to be lossy, do not add another explanatory layer first. Expose one concrete pair the representation collapses, show the downstream lawful difference, name the residue, and preserve the owner that can re-resolve it.
+
+For this lane the owners remain unequal:
+
+- I Ching / HEX: readable structural projection;
+- STEP / lattice: finite path/order calculation;
+- J-space: read/support research evidence;
+- LIVE: native lawful forecast/effect authority;
+- LAB: comparison, preview and RETURN only.
+
+Stop before universal semantic mappings, automatic model→verb binding, or any second control state.
