@@ -1199,3 +1199,69 @@ This is the stronger reusable pattern:
 **stable address space → lawful host aperture → advisory support subset → local focus → host-only commit elsewhere.**
 
 It gives "driving / steering" a concrete geometry while preserving the rule that a co-driver may illuminate a road but does not acquire the steering wheel.
+
+
+## 2026-09-30 — exact path fiber folded into NEXT
+
+The next convergence pass makes one previously hidden loss explicit: endpoint compression and path compression are different.
+
+For an exact six-verb transition let:
+
+- `e` = number of exact changed operation positions;
+- `v` = number of those positions whose binary quotient also changes.
+
+Then:
+
+```text
+exact one-edit paths      = e!
+visible hex STEP paths    = v!
+exact paths / hex path    = e! / v!
+path information residue  = log2(e! / v!)
+```
+
+`exactQuotientPathCalculation(...)` now exposes that witness directly. Same-polarity edits such as `BLOOM→FOLD` and `SPLIT→RETURN` do not merely disappear at the endpoint; their ordering/interleaving can disappear from the visible STEP trajectory as well.
+
+FIELD LAB folds this into the existing DATA/NEXT manipulation site rather than adding a ninth mode or second planner.
+
+When LIVE FROM/TO captures are still attached to the current state endpoints, each existing quotient NEXT candidate now carries:
+
+- its exact target verb;
+- current native candidate count and slots for that verb;
+- whether the accepted authority-NONE J-space direction aligns with that exact verb;
+- remaining abstract future paths.
+
+Exact changes that the hex quotient cannot express appear beside the selectable NEXT edges as **EXACT RESIDUE** rows. They are intentionally not made selectable through the hex lattice.
+
+The same panel also exposes **PATH FIBER**:
+
+```text
+exact operation orders
+  → quotient-visible orders
+  → multiplicity + information residue
+```
+
+This closes a concrete usability gap: the user no longer has to mentally join the state lattice, LIVE exact history, native aperture and model-support panel to know what one candidate means.
+
+### Authority law
+
+```text
+HEX NEXT edge
+  + exact verb witness
+  + native support
+  + model-direction alignment
+  + quotient-invisible residue
+
+≠ LIVE permission
+≠ queued plan
+≠ causal model steering
+```
+
+Selecting NEXT still changes only the calculation path. LIVE alone owns `release()`. A real commit invalidates the current native aperture and requires re-resolution.
+
+### Proof additions
+
+- change-calculus selftest proves path-fiber arithmetic and information-loss values;
+- LIVE-change bridge test proves one visible edge can coexist with quotient-invisible exact changes, two current native candidates and an aligned model direction without acquiring effect authority;
+- LAB RETURN now carries the converged frontier witness beside the existing state frontier and LIVE bridge evidence.
+
+This is the current preferred reducer move: **put residue and support on the decision edge instead of adding another explanatory surface.**
