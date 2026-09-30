@@ -15,10 +15,16 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=20000
 const W=()=>f.contentWindow,D=()=>W().document;
 (async()=>{try{
  f.src='/?focus=%2Fprison-age%2F';
- await wait(()=>/PRISON AGE/.test(D().getElementById('capHeld')?.textContent||'')&&D().querySelectorAll('#capMoves .capMove').length===3,18000,'FIELD held source set');
- const moves=[...D().querySelectorAll('#capMoves .capMove')].map(a=>({label:a.textContent.trim(),href:a.getAttribute('href')||''}));
- rec.field={held:D().getElementById('capHeld').textContent,moves,ret:D().getElementById('capReturn')?.textContent||''};
+ try{
+  await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||'')&&/^READ\s*→?$/.test(D().getElementById('apOpen')?.textContent?.trim()||'')&&D().querySelectorAll('#capMoves .capMove').length===2,18000,'FIELD held source set');
+ }catch(e){
+  const debug={title:D().getElementById('apTitle')?.textContent||'',open:D().getElementById('apOpen')?.textContent||'',meta:D().getElementById('apMeta')?.textContent||'',moves:[...D().querySelectorAll('#capMoves .capMove')].map(x=>x.textContent?.trim()||''),load:D().getElementById('axialMeta')?.textContent||'',href:W().location.href};
+  throw Error('FIELD held source set · '+JSON.stringify(debug)+' · '+String(e?.message||e));
+ }
+ const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').trim().replace(/\s*→$/,''),href:a.getAttribute('href')||''}));
+ rec.field={held:D().getElementById('apTitle')?.textContent||'',owner:D().getElementById('apMeta')?.textContent||'',moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
+ if(!/PRISON_AGE/.test(rec.field.owner))throw Error('FIELD native owner');
  if(!moves[0].href.includes('intent=read')||!moves[1].href.includes('intent=ride')||moves.some(x=>x.href.includes('story=open-air')))throw Error('FIELD intent targets must not hide a source choice');
 
  f.src='/prison-age/?story=open-air&return=field';
