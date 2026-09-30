@@ -19,24 +19,57 @@ export function conditionalTopKWeights(top=[]){
   return xs.map((x,i)=>({...x,conditional_weight:round(raw[i]/z)}));
 }
 
+export function directionSupportCalculation(direction,nativeForecasts=[],vocabulary=DEFAULT_CONTROL_VOCABULARY){
+  const directionLabel=upper(direction),forecasts=Array.isArray(nativeForecasts)?nativeForecasts:[];
+  if(!directionLabel)return {ok:false,schema:STEERING_CALC_SCHEMA+'/direction-support',authority:'CALCULATION_ONLY',reason:'DIRECTION_REQUIRED'};
+  const mappedVerb=vocabulary[directionLabel]||null;
+  const candidates=mappedVerb?forecasts.filter(x=>upper(x?.verb)===mappedVerb):[];
+  const count=candidates.length;
+  return {
+    ok:true,
+    schema:STEERING_CALC_SCHEMA+'/direction-support',
+    authority:'CALCULATION_ONLY',
+    direction_label:directionLabel,
+    mapped_verb:mappedVerb,
+    native_candidate_count:count,
+    candidate_ambiguity_bits:count>0?round(Math.log2(count)):null,
+    candidate_slots:candidates.map(x=>Number.isFinite(Number(x?.slot))?Number(x.slot):null).filter(x=>x!==null),
+    candidates:candidates.map(x=>({
+      slot:Number.isFinite(Number(x?.slot))?Number(x.slot):null,
+      verb:upper(x?.verb),
+      chain:Number(x?.chain)||1,
+      cadence:x?.cadence?upper(x.cadence):null,
+      power:finite(x?.power)?Number(x.power):null,
+      path:Array.isArray(x?.path)?x.path.map(Number):[]
+    })),
+    status:!mappedVerb?'OUTSIDE_CONTROL_VOCABULARY':count===0?'NO_NATIVE_CANDIDATE':count===1?'UNIQUE_NATIVE_CANDIDATE':'MULTIPLE_NATIVE_CANDIDATES',
+    formulas:{
+      host_support:'C(direction,s) = {f in nativeForecasts(s) | verb(f) = vocabulary(direction)}',
+      candidate_ambiguity:'a = log2(|C|) when |C| > 0',
+      decision:'C narrows the current lawful host aperture; it never commits an operation'
+    },
+    law:'direction support is a calculation over an already-lawful native forecast aperture; model/readout authority never becomes host effect authority'
+  };
+}
+
 export function steeringSupportCalculation(trace,target,nativeForecasts=[],vocabulary=DEFAULT_CONTROL_VOCABULARY){
   const cell=readCell(trace,target);
   if(!cell)return {ok:false,reason:'JLENS_CELL_UNRESOLVED'};
   const forecasts=Array.isArray(nativeForecasts)?nativeForecasts:[];
   const weighted=conditionalTopKWeights(cell.top);
   const rows=weighted.map((token,i)=>{
-    const normalized=upper(token.token),verb=vocabulary[normalized]||null;
-    const candidates=verb?forecasts.filter(x=>String(x?.verb||'').toUpperCase()===verb):[];
+    const directionSupport=directionSupportCalculation(token.token,forecasts,vocabulary);
     return {
       rank:Number.isInteger(token.rank)?token.rank:i+1,
       token_id:token.token_id,
       token:token.token,
       logit:finite(token.logit)?Number(token.logit):null,
       conditional_weight:token.conditional_weight,
-      mapped_verb:verb,
-      native_candidate_count:candidates.length,
-      support:!verb?'OUTSIDE_CONTROL_VOCABULARY':candidates.length?'NATIVE_SUPPORT':'NO_NATIVE_CANDIDATE',
-      candidate_slots:candidates.map(x=>x.slot).filter(Number.isFinite)
+      mapped_verb:directionSupport.mapped_verb,
+      native_candidate_count:directionSupport.native_candidate_count,
+      candidate_ambiguity_bits:directionSupport.candidate_ambiguity_bits,
+      support:!directionSupport.mapped_verb?'OUTSIDE_CONTROL_VOCABULARY':directionSupport.native_candidate_count?'NATIVE_SUPPORT':'NO_NATIVE_CANDIDATE',
+      candidate_slots:[...directionSupport.candidate_slots]
     };
   });
   const weightBasis=rows.every(x=>x.conditional_weight!==null)?'TOP_K_CONDITIONAL':'RANK_ONLY';
@@ -64,7 +97,7 @@ export function steeringSupportCalculation(trace,target,nativeForecasts=[],vocab
       token:top?.token??null,
       mapped_verb:top?.mapped_verb??null,
       native_candidate_count:top?.native_candidate_count??0,
-      candidate_ambiguity_bits:(top?.native_candidate_count??0)>0?round(Math.log2(top.native_candidate_count)):null,
+      candidate_ambiguity_bits:top?.candidate_ambiguity_bits??null,
       status:!top?'EMPTY':!top.mapped_verb?'UNMAPPED':top.native_candidate_count===0?'UNSUPPORTED':top.native_candidate_count===1?'UNIQUE_NATIVE_CANDIDATE':'MULTIPLE_NATIVE_CANDIDATES'
     },
     residue:{
