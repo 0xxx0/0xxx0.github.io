@@ -1369,10 +1369,10 @@ const CASES=[
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="OPEN"')&&dom.includes('data-fb-open-exit="on"')&&dom.includes('id="fbOpenExit"')&&/RUN · OPEN/.test(dom)
   },
   {
-    name:'TWO DIAL 0.10.4 idle witness',
+    name:'TWO DIAL 0.10.7 idle witness',
     route:'/fold-bloom/two-dial/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/SOUND FIELD 0\.10\.4/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/IDLE \/ WITNESS/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')&&dom.includes('data-fold-bloom-idle="on"')
+    check:dom=>/SOUND FIELD 0\.10\.7/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/IDLE \/ WITNESS/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')&&dom.includes('data-fold-bloom-idle="on"')
   },
   {
     name:'FOLD BLOOM LISTEN 0.6 source bundle',
@@ -1381,10 +1381,10 @@ const CASES=[
     check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · editable span/.test(dom)&&dom.includes('id="pinStart"')&&dom.includes('id="pinEnd"')&&dom.includes('id="pinPrev"')&&dom.includes('id="pinNext"')&&dom.includes('id="pinImportBtn"')&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useReplay"')&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSaber"')&&/SABER · TWO PHONES/.test(dom)&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
   },
   {
-    name:'TWO DIAL 0.10.4 mobile DUET deep link',
+    name:'TWO DIAL 0.10.7 mobile DUET deep link',
     route:'/fold-bloom/two-dial/?mode=DUET',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/SOUND FIELD 0\.10\.4/i.test(dom)&&dom.includes('id="wideBtn"')&&/MATTER/i.test(dom)&&/HARMONY/i.test(dom)&&/class="[^"]*duet[^"]*"/i.test(dom)
+    check:dom=>/SOUND FIELD 0\.10\.7/i.test(dom)&&dom.includes('id="wideBtn"')&&/MATTER/i.test(dom)&&/HARMONY/i.test(dom)&&/class="[^"]*duet[^"]*"/i.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
