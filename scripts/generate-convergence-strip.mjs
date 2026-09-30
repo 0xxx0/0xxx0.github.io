@@ -10,23 +10,48 @@
  *   control/CURRENT.json      (active fronts, heads, updated)
  *   control/WORKER_BOOT.json  (gaps, execution)
  *   control/QUEUE.json        (live count, max_live)
- *   git                       (commits today, branch count, recent subjects)
+ *   git                       (exact chronology + material convergence activity)
  *
  * Writes:
  *   control/convergence-strip.json   (data)
  *
- * Usage: node scripts/generate-convergence-strip.mjs
+ * Usage:
+ *   node scripts/generate-convergence-strip.mjs
+ *   node scripts/generate-convergence-strip.mjs --selftest
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const TELEMETRY_SUBJECT_PATTERNS=Object.freeze([
+  /^comms: refresh machine-room page\b/i,
+  /^nexus: board refresh\b/i
+]);
+
+export const isGeneratedTelemetrySubject=(subject)=>
+  TELEMETRY_SUBJECT_PATTERNS.some((re)=>re.test(String(subject??'').trim()));
+
+if(process.argv.includes('--selftest')){
+  const cases=[
+    ['comms heartbeat','comms: refresh machine-room page (2026-09-30T01:35Z)',true],
+    ['nexus heartbeat','nexus: board refresh (2026-09-30T01:35Z)',true],
+    ['real comms change','comms: enforce provenance classes',false],
+    ['real nexus change','nexus: contract convergence alias',false],
+    ['merge','Merge pull request #603 from 0xxx0/fix/readfield-loci-smoke-race-20260929',false],
+    ['field delta','FIELD: restore packet aliases and inert RETURN on current master',false]
+  ];
+  for(const [name,subject,want] of cases){
+    const got=isGeneratedTelemetrySubject(subject);
+    if(got!==want)throw new Error(`CONVERGENCE_HISTORY_SELFTEST ${name}: got ${got}, want ${want}`);
+  }
+  console.log('CONVERGENCE material-history filter PASS · telemetry excluded, semantic commits retained');
+  process.exit(0);
+}
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
-const raw = (p, d = '') => (existsSync(join(ROOT, p)) ? readFileSync(join(ROOT, p), 'utf8') : d);
 const git = (cmd, d = '') => { try { return execSync(cmd, { cwd: ROOT, encoding: 'utf8' }).trim(); } catch { return d; } };
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 const current = existsSync(join(ROOT, 'control/CURRENT.json')) ? read('control/CURRENT.json') : {};
 const queue = existsSync(join(ROOT, 'control/QUEUE.json')) ? read('control/QUEUE.json') : {};
@@ -37,11 +62,21 @@ const today = new Date().toISOString().slice(0, 10);
 // silently becomes 0 while the page still says "today". Store the window
 // it was measured over, and let the page print that window.
 const commitWindow = today;
-const commitsInWindow = git(`git log --since="${commitWindow}T00:00:00" --oneline | wc -l`, '0').trim();
+
+const subjectsInWindow=git(`git log --since="${commitWindow}T00:00:00" --format=%s`, '')
+  .split('\n').map((s)=>s.trim()).filter(Boolean);
+const gitCommitsInWindow=subjectsInWindow.length;
+const telemetryCommitsInWindow=subjectsInWindow.filter(isGeneratedTelemetrySubject).length;
+const materialSubjectsInWindow=subjectsInWindow.filter((s)=>!isGeneratedTelemetrySubject(s));
+const commitsInWindow=materialSubjectsInWindow.length;
+
 const commitsTotal = git('git rev-list --count HEAD', '0').trim();
 const branchCount = git('git branch -r | grep -v HEAD | wc -l', '0').trim();
-const recent = git('git log --oneline -3 --format=%s', '')
-  .split('\n').filter(Boolean).map((s) => s.slice(0, 78));
+const recent = git('git log -50 --format=%s', '')
+  .split('\n').map((s)=>s.trim()).filter(Boolean)
+  .filter((s)=>!isGeneratedTelemetrySubject(s))
+  .slice(0,3)
+  .map((s)=>s.slice(0,78));
 
 const fronts = (current.active_fronts || []).map((f) => ({
   id: f.id, state: f.state, center: f.center
@@ -55,8 +90,12 @@ const data = {
   schema: '0xxx0/convergence-strip/v0.1',
   generated: new Date().toISOString(),
   generator: 'scripts/generate-convergence-strip.mjs',
+  activity_semantics: 'material_excluding_generated_telemetry',
   commits_window: commitWindow,
-  commits_in_window: Number(commitsInWindow) || 0,
+  // Compatibility field now means material convergence activity, not raw Git churn.
+  commits_in_window: commitsInWindow,
+  git_commits_in_window: gitCommitsInWindow,
+  telemetry_commits_in_window: telemetryCommitsInWindow,
   commits_total: Number(commitsTotal) || 0,
   branch_count: Number(branchCount) || 0,
   recent_commits: recent,
@@ -75,7 +114,7 @@ const plainMd = [
   ``,
   `_Generated ${data.generated} by scripts/generate-convergence-strip.mjs_`,
   ``,
-  `The field has **${data.commits_in_window} commits on ${data.commits_window}** across **${data.branch_count} branches** (${data.commits_total} on master all-time).`,
+  `The field has **${data.commits_in_window} material commits on ${data.commits_window}** across **${data.branch_count} branches** (${data.git_commits_in_window} exact Git commits in the window; ${data.telemetry_commits_in_window} generated telemetry; ${data.commits_total} on master all-time).`,
   `**${data.live_fronts}** fronts are live, against **${data.current_heads}** current heads.`,
   `There are **${gaps.length}** open gaps.`,
   ``,
@@ -83,7 +122,7 @@ const plainMd = [
   ``,
   ...fronts.map((f) => `- **${f.id}** (${f.state}) — ${f.center}`),
   ``,
-  `## Last commits`,
+  `## Last material commits`,
   ``,
   ...recent.map((s) => `- ${s}`),
   ``,
@@ -93,6 +132,7 @@ const plainMd = [
   ``,
   `## Law`,
   ``,
+  `ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.`,
   `RECOVER BEFORE INVENTING.`,
   ``,
   `Transfer of power: /control/confluence/TRANSFER_OF_POWER_2026-09-22.md`,
