@@ -1,6 +1,6 @@
 {
   "schema": "laconic-iconic-scenes/v0.2",
-  "updated": "2026-09-20",
+  "updated": "2026-09-30",
   "purpose": "Multi-turn response trajectories recovered from the Laconic/Iconic lineage plus bounded new care/celebration scenes. Scene provenance and line provenance remain separate.",
   "provenance_classes": {
     "EXACT": "Scene wording recovered verbatim from an archived assistant response.",
@@ -692,6 +692,155 @@
           "provenance": "NEW",
           "variants": [
             "Then we resume without a committee hearing."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:mixed-news",
+      "title": "MIXED NEWS / HOLD BOTH",
+      "lane": "CARE",
+      "provenance": "RECONSTRUCTED",
+      "source": {
+        "title": "current conversation / mixed-valence support-tree donor",
+        "date": "2026-09-30",
+        "public_safe": true
+      },
+      "note": "Mechanism recovered from a sensitive current-thread case: major good news and major difficult news can coexist. Public wording is newly reconstructed; private people, diagnoses and family details are intentionally omitted.",
+      "start": "mixed:start",
+      "nodes": [
+        {
+          "id": "mixed:start",
+          "speaker": "YOU",
+          "text": "That’s a lot of life arriving at once. Want me to hold the good, the hard, or both?",
+          "provenance": "NEW",
+          "variants": [
+            "Two big truths at once. Which one needs company first?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · THE GOOD",
+              "next": "mixed:good"
+            },
+            {
+              "label": "THEY · THE HARD",
+              "next": "mixed:hard"
+            },
+            {
+              "label": "THEY · BOTH",
+              "next": "mixed:both"
+            },
+            {
+              "label": "THEY · NO REPLY",
+              "next": "mixed:silence"
+            }
+          ]
+        },
+        {
+          "id": "mixed:good",
+          "speaker": "YOU",
+          "text": "Then let the good news have its own oxygen. What part do you want to enjoy first?",
+          "provenance": "NEW",
+          "variants": [
+            "No shrinking it yet. The good part gets to be good."
+          ],
+          "choices": [
+            {
+              "label": "THEY · FEELS GUILTY",
+              "next": "mixed:guilt"
+            },
+            {
+              "label": "THEY · ELABORATES",
+              "next": "mixed:savor"
+            }
+          ]
+        },
+        {
+          "id": "mixed:guilt",
+          "speaker": "YOU",
+          "text": "Joy isn’t betrayal. It can sit beside fear without cancelling it.",
+          "provenance": "NEW",
+          "variants": [
+            "You don’t have to make the feelings agree."
+          ],
+          "choices": []
+        },
+        {
+          "id": "mixed:savor",
+          "speaker": "YOU",
+          "text": "Good. Keep that part warm for a minute.",
+          "provenance": "NEW",
+          "variants": [
+            "Then we don’t optimize it. We let it land."
+          ],
+          "choices": []
+        },
+        {
+          "id": "mixed:hard",
+          "speaker": "YOU",
+          "text": "Then we stay with the hard part. No fixing unless you ask.",
+          "provenance": "NEW",
+          "variants": [
+            "I can witness, think with you, or take one concrete thing off the board."
+          ],
+          "choices": [
+            {
+              "label": "THEY · JUST LISTEN",
+              "next": "mixed:witness"
+            },
+            {
+              "label": "THEY · PRACTICAL",
+              "next": "mixed:practical"
+            }
+          ]
+        },
+        {
+          "id": "mixed:witness",
+          "speaker": "YOU",
+          "text": "You don’t have to make it tidy for me.",
+          "provenance": "NEW",
+          "variants": [
+            "Go at your speed. I can just hold the thread."
+          ],
+          "choices": []
+        },
+        {
+          "id": "mixed:practical",
+          "speaker": "YOU",
+          "text": "Name one small burden I can actually carry.",
+          "provenance": "NEW",
+          "variants": [
+            "One concrete thing. I’ll tell you plainly if I can take it."
+          ],
+          "choices": []
+        },
+        {
+          "id": "mixed:both",
+          "speaker": "YOU",
+          "text": "We don’t have to choose a dominant emotion. I can hold both with you.",
+          "provenance": "NEW",
+          "variants": [
+            "Joy and fear can share the room. Neither needs permission from the other."
+          ],
+          "choices": [
+            {
+              "label": "THEY · TALK",
+              "next": "mixed:witness"
+            },
+            {
+              "label": "THEY · NO REPLY",
+              "next": "mixed:silence"
+            }
+          ]
+        },
+        {
+          "id": "mixed:silence",
+          "speaker": "YOU",
+          "text": "No reply needed. Line stays open.",
+          "provenance": "NEW",
+          "variants": [
+            "You can leave this here. I’ll still be here later."
           ],
           "choices": []
         }
