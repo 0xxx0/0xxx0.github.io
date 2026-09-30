@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30",
   "date": "2026-09-30",
-  "status": "MERGED_GREEN",
+  "status": "MERGED_CI_GREEN",
   "object": "existing scripts/emit-agent-transcript.mjs machine entrypoint",
   "delta": [
     "Extend the existing --reduce path from one JSON packet to file-or-directory sweep without creating a second reducer CLI.",
@@ -75,5 +75,22 @@
     "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority.",
     "The caller/native GitHub worker must derive base_current from commit ancestry (behind_by === 0), not from the PR base SHA field."
   ],
-  "stop": "SHIPPED. Do not create another packet/contribution reducer CLI. Reopen only for a reproduced consumer incompatibility or falsified invariant."
+  "stop": "SHIPPED. Do not create another packet/contribution reducer CLI. Reopen only for a reproduced consumer incompatibility or falsified invariant.",
+  "merge_pr": 692,
+  "merge_sha": "a34fa6162b606bb50a7d1659a96ecf3c0b697eb1",
+  "proof_head": "9844eb22831d694d554a1c1c20be0cf096477f85",
+  "verification": {
+    "gitleaks": {
+      "run": 36666000950,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 36666000971,
+      "conclusion": "success",
+      "critical_browser_smoke": "PASS"
+    },
+    "exact_head": true,
+    "ancestry_current": true
+  },
+  "closed_at": "2026-09-30T11:50:57+08:00"
 }
