@@ -380,7 +380,7 @@ function applyInitialAxial(){
  const r=href&&routeMap().get(href);focus=r||currentMatches()[0]||latest[0]||null;
  if(r){axisState.state=r.state||axisState.state;axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||axisState.mode}
  supportTrail=[latest.length,currentMatches().length].filter((v,i,a)=>i===0||v!==a[i-1]);
- renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();
+ renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex();
 }
 function axes(){
  return[
