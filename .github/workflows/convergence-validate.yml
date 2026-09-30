@@ -157,9 +157,9 @@ jobs:
           findManifests(recoveryDir);
           console.log('Manifested routes:', [...manifested].join('\\n'));
           "
-      - name: Check convergence strip freshness
+      - name: Check convergence strip freshness + authority
         run: |
-          echo "=== Convergence strip freshness ==="
+          echo "=== Convergence strip freshness / authority ==="
           node -e "
           const fs = require('fs');
           const stripPath = './control/convergence-strip.json';
@@ -172,14 +172,31 @@ jobs:
           const cur = JSON.parse(fs.readFileSync('./control/CURRENT.json', 'utf8'));
           const curT = Date.parse(cur.updated);
           const ageMin = Math.round((Date.now() - gen) / 60000);
+          const splitOk =
+            strip.activity_semantics === 'material_excluding_generated_telemetry' &&
+            Number.isFinite(strip.commits_in_window) &&
+            Number.isFinite(strip.git_commits_in_window) &&
+            Number.isFinite(strip.telemetry_commits_in_window);
           console.log('Strip generated: ' + strip.generated + ' (' + ageMin + ' min ago)');
-          console.log('Strip claims: ' + strip.commits_today + ' commits today, ' + strip.branch_count + ' branches, ' + strip.live_fronts + ' live fronts');
+          if (splitOk) {
+            console.log(
+              'Strip activity: ' +
+              strip.commits_in_window + ' material / ' +
+              strip.git_commits_in_window + ' exact Git / ' +
+              strip.telemetry_commits_in_window + ' telemetry on ' +
+              strip.commits_window + '; ' +
+              strip.branch_count + ' branches; ' +
+              strip.live_fronts + ' live fronts'
+            );
+          } else {
+            console.log('STALE DERIVATION: legacy convergence strip has no material/exact/telemetry split; activity metrics are non-authoritative.');
+          }
           if (curT && gen && curT > gen) {
-            console.log('NOTE: CURRENT.json is newer than the strip — regenerate with scripts/generate-convergence-strip.mjs');
+            console.log('STALE DERIVATION: CURRENT.json is newer than the strip — projection remains readable but non-authoritative until regenerated.');
           } else {
             console.log('Strip is at least as new as CURRENT.json');
           }
-          // Never fail the build on freshness — inform only.
+          // Never fail the build on freshness alone — stale projections must be labelled, not promoted into CURRENT authority.
           "
       - name: Write validation report
         if: always()
@@ -187,7 +204,26 @@ jobs:
           echo "Validation run: $(date -u)" > /tmp/validation-report.md
           echo "All checks completed." >> /tmp/validation-report.md
           if [ -f control/convergence-strip.json ]; then
-            echo "Strip: $(node -e "const s=require('./control/convergence-strip.json');console.log(s.commits_today+' commits, '+s.branch_count+' branches, '+s.live_fronts+' fronts')")" >> /tmp/validation-report.md
+            node - <<'NODE' >> /tmp/validation-report.md
+          const s = require('./control/convergence-strip.json');
+          const splitOk =
+            s.activity_semantics === 'material_excluding_generated_telemetry' &&
+            Number.isFinite(s.commits_in_window) &&
+            Number.isFinite(s.git_commits_in_window) &&
+            Number.isFinite(s.telemetry_commits_in_window);
+          if (splitOk) {
+            console.log(
+              'Strip: ' +
+              s.commits_in_window + ' material / ' +
+              s.git_commits_in_window + ' exact Git / ' +
+              s.telemetry_commits_in_window + ' telemetry; ' +
+              s.branch_count + ' branches; ' +
+              s.live_fronts + ' fronts'
+            );
+          } else {
+            console.log('Strip: legacy/stale projection; activity metrics non-authoritative');
+          }
+          NODE
           fi
       - uses: actions/upload-artifact@v4
         if: always()
