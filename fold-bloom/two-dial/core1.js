@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.7-reversible-commit',
+const APP_VERSION = '0.10.8-compression-ablation',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
