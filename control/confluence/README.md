@@ -48,18 +48,85 @@ Five standing rules:
 
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
-## Portfolio fold — 2026-09-28
+## Six-family project map — 2026-09-30
 
-Derived orientation only; this is not a registry, queue, or new authority. Read the apparent project sprawl as six capability families:
+**Role:** derived orientation only. This is not a registry, queue, roadmap, or second source of truth.
 
-- **HOLD / ADDRESS / SCALE** — FIELD, INTERPHASE, FOVEA, Scale Lens, AXIAL.
-- **PATH / TRAVERSAL / RE-ENTRY** — STEP, READ/RIDE, Sleeper RouteWitness.
-- **TRANSFORM / STEERING** — change calculus, I Ching correspondence, J-space/J-Lens.
-- **EXPERIENCE / EXPRESSION** — FOLD//BLOOM, Verse, Sleeper/Nine Gate, Replay/Listen/Ink/Voice.
-- **WORLD LOOPS** — Dayline, HOUSE, Shopping, HUMAN PORT/COMMS.
-- **RECOVERY / PROVENANCE** — vault, migration, exact donors.
+**Authority:** CURRENT owns attention/NOW. Native hosts own domain truth/effects. RETURN owns durable evidence. Manifest owns addressed public surfaces.
 
-A route, PR, worker, experiment, mode or donor is not automatically a project. CURRENT remains attention authority. Prefer **conversion before coordination**.
+### Dependency map
+
+```text
+RECOVERY / PROVENANCE
+        │ exact source · lineage · evidence
+        ▼
+HOLD / ADDRESS / SCALE
+        │ one addressed object · owner · return path
+        ├──────────────► PATH / TRAVERSAL / RE-ENTRY
+        │                      │ route / step / resume witness
+        │                      └──────────────┐
+        ├──────────────► TRANSFORM / STEERING │
+        │                 support only        │
+        │                 ≠ permission        │
+        └─────────────────────────────────────┤
+                                              ▼
+                                  EXPERIENCE / EXPRESSION
+                                    ordinary human use
+                                              │
+                                              ▼
+                                         WORLD LOOPS
+                                  real consequence / receipt
+                                              │
+                                              ▼
+                                      RETURN / PROOF
+                                              │
+                                              └────► CURRENT / RECOVERY
+```
+
+Transform may advise Experience or a world-facing host; it never supplies effect authority. Recovery wakes only for a named blocker. PATH is provenance when order matters, not a mandatory universal schema.
+
+### One-page status
+
+| Family | Depends on | Current proof status | Next concrete move | Stop / boundary |
+| --- | --- | --- | --- | --- |
+| **HOLD / ADDRESS / SCALE** | exact source/provenance + native owner/address | **GREEN / MERGED PASS.** FIELD **0.8.26** is exact-head green: one held object, owner-based residue, no duplicate CATCH aggregate. INTERPHASE/Scale Lens/FOVEA remain projection/detail mechanisms; native authority stays native. | **Hold architecture stable.** During the next external-use conversion, use the existing held-object/RETURN path unchanged. Fix only a reproduced re-entry obstruction; otherwise make no root/scale sequel. | No new shell, project dashboard, global store, scale vocabulary, or FIELD-owned capability table. |
+| **PATH / TRAVERSAL / RE-ENTRY** | HOLD/ADDRESS + exact source identity | **GREEN / MULTI-HOST PROVED.** READFIELD↔LIVE exact SHA/native-unit cursor RETURN is merged; Sleeper has a structurally validated completed human runtime witness; LIVE/STEP/path-space preserve ordered traversal rather than collapsing endpoint to path. | **Exercise existing path machinery inside the next outside-human trial.** Observe whether a person can resume/return without project lore. If they cannot, repair the exact host seam; do not invent a shared Path type first. | Same endpoints ≠ same path. No universal path object until two+ real consumers need identical tissue. |
+| **TRANSFORM / STEERING** | HOLD + PATH where order matters + native lawful candidate set + model/host evidence | **AMBER / STRUCTURAL STRONG, CAUSAL CONTROL BLOCKED.** Change-calculus/LIVE residue support and the 12-slot perceptual aperture are merged green. J-space has one real Qwen2.5-1.5B J-Lens READ trace; no BLOOM/FOLD/SPLIT/RETURN control verb appeared in final top-8 and no causal intervention has been run. | **HOLD unless a current conversion needs steering evidence.** If reopened, execute the already-named causal gate: improve/repeat the lens fit/read evidence, then one bounded external `direction.ref` perturbation with zero/opposite controls and RETURN. | SUPPORT ≠ PERMISSION ≠ EFFECT. No new steering/control UI, no automatic action, no semantic-token authority. |
+| **EXPERIENCE / EXPRESSION** | HOLD; may consume PATH and bounded TRANSFORM evidence | **GREEN / SHIPPED, EXTERNAL RETURN MISSING.** FOLD//BLOOM public **0.1.7** has first-use contraction and direct native choice shipped; LIVE/LAB support is CI green. Sleeper has one completed human RETURN. Verse/READFIELD remain usable siblings. | **NEXT NOW: one context-free outside-human use.** Prefer an already-working public head (default: FOLD//BLOOM public front). Record entry route → first action → friction/value → exact RETURN. No new mode before that evidence. | FIRST CONTACT ≠ FULL MODEL. Shipped mechanisms hold until ordinary-use evidence creates a concrete failure. |
+| **WORLD LOOPS** | HOLD + native host authority + actual human/device/world contact | **GREEN MACHINE LOOP / AMBER WORLD CONSEQUENCE.** Dayline↔Shopping exact-item round trip is machine-verified; host-specific return semantics prevent lifecycle laundering. Real-world completion is explicitly not inferred from browser proof; HOUSE consequence semantics remain unbuilt without a concrete native consequence. | **NEXT AFTER EXPERIENCE: one real reversible consequence through an existing adapter.** Use one already-addressed object → Dayline/world action → before/action/after witness → native-owner RETURN. Do not design another adapter first. | No purchase/status/device/physical claim from UI or CI alone. Native owner decides lifecycle/effect truth. |
+| **RECOVERY / PROVENANCE** | a named missing source/evidence blocker from another family | **GREEN / ACTIVE MAINTENANCE, NOT NOW.** Exact donor/source discipline, migration shelves, and the single machine reducer entrypoint are merged/proved; recovery can classify without minting NOW. Large exact donor corpus remains recoverable. | **No proactive archaeology.** If the selected Experience/World conversion hits a missing exact source, recover only that named object/bytes, prove identity/provenance, feed the consumer, RETURN, then stop. | RECOVER BEFORE INVENTING, but recovery is not substitute work. Donor admission never grants host/effect/merge authority. |
+
+### Execution order
+
+```text
+NOW
+  1. EXPERIENCE / EXPRESSION
+     one outside-human ordinary-use RETURN
+
+THEN
+  2. WORLD LOOPS
+     one real before → action → after → native RETURN
+
+SUPPORT ONLY IF BLOCKED
+  HOLD / ADDRESS / SCALE
+  PATH / TRAVERSAL / RE-ENTRY
+  TRANSFORM / STEERING
+  RECOVERY / PROVENANCE
+
+AFTER EACH MATERIAL MOVE
+  RETURN → re-read CURRENT → explicitly replan
+```
+
+### Current fixed point
+
+The six families are **capability pools**, not six active projects.
+
+A route, PR, worker, experiment, mode, donor, or research lane is not automatically a project. The active surface stays small:
+
+- **Conversion** is NOW.
+- **Recovery/Ingest** is maintenance.
+- The next valuable proof is ordinary use or world consequence, not another coordination layer.
+- Success in one family does not authorize a sequel in that family.
 
 ## Current confluence packets
 
