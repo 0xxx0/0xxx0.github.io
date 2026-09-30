@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {compileDonorField} from './research-donor-field.mjs';
 
 const donors=[
@@ -81,3 +82,13 @@ assert.ok(unresolved.donors[0].blockers.includes('ROLE'));
 assert.throws(()=>compileDonorField(donors,{selected_source_id:'not-present'}),/DONOR_FIELD_SELECTION_NOT_FOUND/);
 
 console.log('research donor field PASS · batch does not self-prioritize · selected donor compiles evidence debt into existing FIELD NEXT · PARK archives · READY still requires host authority');
+
+const weco=JSON.parse(fs.readFileSync(new URL('../control/research/WECO_AIDE2_DONOR_2026-09-30.json',import.meta.url),'utf8'));
+const wecoField=compileDonorField([weco],{selected_source_id:weco.SOURCE_ID});
+assert.equal(wecoField.selected.lane,'REPLICATE','primary recovery should move the real Weco donor beyond RECOVER_PRIMARY');
+assert.equal(wecoField.selected.egress.class,'NEXT');
+assert.match(wecoField.selected.action_packet.NEXT.action,/Run one bounded replica/);
+assert.ok(!wecoField.selected.blockers.includes('PRIMARY_REF'));
+assert.ok(wecoField.selected.blockers.includes('REPLICA_PASS'));
+
+console.log('real donor transition PASS · Weco AIDE2 primary evidence moves RECOVER_PRIMARY → REPLICATE without granting transfer');
