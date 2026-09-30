@@ -157,74 +157,36 @@ jobs:
           findManifests(recoveryDir);
           console.log('Manifested routes:', [...manifested].join('\\n'));
           "
-      - name: Check convergence strip freshness + authority
+      - name: Validate convergence read has one authority path
         run: |
-          echo "=== Convergence strip freshness / authority ==="
-          node -e "
+          echo "=== Convergence read authority ==="
+          node scripts/generate-convergence-strip.mjs --selftest
+          node - <<'NODE'
           const fs = require('fs');
-          const stripPath = './control/convergence-strip.json';
-          if (!fs.existsSync(stripPath)) {
-            console.log('WARNING: convergence-strip.json missing — run scripts/generate-convergence-strip.mjs');
-            process.exit(0);
+          const retired = [
+            'control/convergence-strip.json',
+            'control/convergence-plain.md'
+          ];
+          const present = retired.filter((p) => fs.existsSync(p));
+          if (present.length) {
+            console.error('STATIC CONVERGENCE SNAPSHOT REINTRODUCED: ' + present.join(', '));
+            process.exit(1);
           }
-          const strip = JSON.parse(fs.readFileSync(stripPath, 'utf8'));
-          const gen = Date.parse(strip.generated);
-          const cur = JSON.parse(fs.readFileSync('./control/CURRENT.json', 'utf8'));
-          const curT = Date.parse(cur.updated);
-          const ageMin = Math.round((Date.now() - gen) / 60000);
-          const splitOk =
-            strip.activity_semantics === 'material_excluding_generated_telemetry' &&
-            Number.isFinite(strip.commits_in_window) &&
-            Number.isFinite(strip.git_commits_in_window) &&
-            Number.isFinite(strip.telemetry_commits_in_window);
-          console.log('Strip generated: ' + strip.generated + ' (' + ageMin + ' min ago)');
-          if (splitOk) {
-            console.log(
-              'Strip activity: ' +
-              strip.commits_in_window + ' material / ' +
-              strip.git_commits_in_window + ' exact Git / ' +
-              strip.telemetry_commits_in_window + ' telemetry on ' +
-              strip.commits_window + '; ' +
-              strip.branch_count + ' branches; ' +
-              strip.live_fronts + ' live fronts'
-            );
-          } else {
-            console.log('STALE DERIVATION: legacy convergence strip has no material/exact/telemetry split; activity metrics are non-authoritative.');
+          const field = fs.readFileSync('index.html', 'utf8');
+          if (!field.includes('id="convRead"') ||
+              !field.includes('composed on read from') ||
+              !field.includes('CURRENT</a> owns attention')) {
+            console.error('FIELD live convergence authority contract missing');
+            process.exit(1);
           }
-          if (curT && gen && curT > gen) {
-            console.log('STALE DERIVATION: CURRENT.json is newer than the strip — projection remains readable but non-authoritative until regenerated.');
-          } else {
-            console.log('Strip is at least as new as CURRENT.json');
-          }
-          // Never fail the build on freshness alone — stale projections must be labelled, not promoted into CURRENT authority.
-          "
+          console.log('CONVERGENCE READ PASS · /#convRead is live reading · static snapshots absent');
+          NODE
       - name: Write validation report
         if: always()
         run: |
           echo "Validation run: $(date -u)" > /tmp/validation-report.md
           echo "All checks completed." >> /tmp/validation-report.md
-          if [ -f control/convergence-strip.json ]; then
-            node - <<'NODE' >> /tmp/validation-report.md
-          const s = require('./control/convergence-strip.json');
-          const splitOk =
-            s.activity_semantics === 'material_excluding_generated_telemetry' &&
-            Number.isFinite(s.commits_in_window) &&
-            Number.isFinite(s.git_commits_in_window) &&
-            Number.isFinite(s.telemetry_commits_in_window);
-          if (splitOk) {
-            console.log(
-              'Strip: ' +
-              s.commits_in_window + ' material / ' +
-              s.git_commits_in_window + ' exact Git / ' +
-              s.telemetry_commits_in_window + ' telemetry; ' +
-              s.branch_count + ' branches; ' +
-              s.live_fronts + ' fronts'
-            );
-          } else {
-            console.log('Strip: legacy/stale projection; activity metrics non-authoritative');
-          }
-          NODE
-          fi
+          echo "Convergence: live /#convRead; static convergence snapshots retired; generated telemetry excluded from material history." >> /tmp/validation-report.md
       - uses: actions/upload-artifact@v4
         if: always()
         with:
