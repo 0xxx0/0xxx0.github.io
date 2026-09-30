@@ -358,6 +358,8 @@ if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARK
   check(!home.includes('id="catchupFold"')&&!home.includes('FIELD / CATCH + ACT'),'retired root CATCH aggregate returned');
   check(home.includes('id="apSeen"')&&home.includes('id="focusResidue"'),'held object missing local SEEN / residue ownership');
   check(home.includes('id="apFlow"')&&home.includes('id="capMoves"')&&home.includes('id="capWitness"')&&home.includes('id="capReturn"'),'held object missing inline continuation semantics');
+  check(home.includes('id="capForecast"')&&home.indexOf('id="capForecast"')>held&&home.indexOf('id="capForecast"')<field,'declared forecast escaped held object');
+  check((fi?.laws||[]).some(x=>/^FORECAST ≠ EFFECT/.test(x)),'FIELD contract missing forecast/effect authority boundary');
   check(!home.includes('id="capTrial"'),'duplicate HELD/NEXT/WITNESS frame returned below held object');
   check(!home.includes('id="scaleRail"'),'root regressed to exposed semantic-scale controls');
 }
