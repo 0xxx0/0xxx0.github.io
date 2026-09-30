@@ -152,8 +152,8 @@ This matters because it prevents the false statement that exposure adjustment ha
 ### Existing measurable pieces
 
 1. **SG-PAROS exists.** Singapore OHCA research already uses the Pan-Asian Resuscitation Outcomes Study, an Utstein-style prospective registry populated from dispatch, ambulance, ED and inpatient records; studies have linked it to the Singapore Registry of Births and Deaths.
-2. **Published PAROS location granularity appears too coarse for Ω, but much of the rescue timeline already exists.** The publicly indexed PAROS v1.0 taxonomy records incident postcode, broad `location type`, emergency-call receipt time, EMS arrival at scene, EMS arrival at patient side, estimated arrest time, witnessed status, bystander CPR and EMS CPR start time. Its standard location types are home residence, healthcare facility, public/commercial building, nursing home, street/highway, industrial place, transport centre, place of recreation, ambulance, or other; no canonical `toilet / bathroom / en-route / bath` category appears in that taxonomy. The current PAROS source page lists newer CRF/data-dictionary versions, so v1.0 must not be assumed to be the current schema. This does **not** prove source dispatch/ambulance records lack finer scene semantics.
-3. **The smallest Singapore gap is therefore narrower than first assumed:** preserve the existing timing/witness chain, then recover or derive `micro_location`, `activity_at_event`, `last_known_well/discovery`, and rescue-access variables from current CRF/source records where lawfully available.
+2. **The public canonical PAROS taxonomy is confirmed too coarse for Ω, while much of the rescue timeline already exists.** SCRI's current Source Documents page (last updated 4 Aug 2026) links `PAROS Data Dictionary/Taxonomy (version 2.0)`; the linked official taxonomy is version 2.0 dated 20 Apr 2011. It records incident postcode, broad `location type`, emergency-call receipt time, EMS arrival at scene, EMS arrival at patient side, estimated arrest time, witnessed status, bystander CPR and EMS CPR start time. Its standard location types are home residence, healthcare facility, public/commercial building, nursing home, street/highway, industrial place, transport centre, place of recreation, ambulance, or other. `Other` permits a stated location only when the location is outside those categories. No canonical `toilet / bathroom / en-route / bath` micro-location field appears in v2.0. This still does **not** prove dispatch narratives, ambulance patient-care records, coronial material or other source-layer records lack finer scene semantics.
+3. **The smallest Singapore gap is therefore now explicit:** retain the existing PAROS timing/witness chain; recover or derive only `micro_location`, `activity_at_event`, `last_known_well/discovery`, and rescue-access variables from source-layer records where lawfully available.
 4. **HDB EASE already targets the environmental topology** with grab bars, slip-resistant toilet/bathroom floor treatment, entrance-kerb lowering/widening and shower seats.
 5. **BCA Code on Accessibility 2025** requires accessible sanitary-facility doors to swing outward or use sliding/folding designs; its emergency assistance alarm uses a waterproof button/pull-cord 400–600 mm above floor level and alerts responsible personnel. The code also advises access from outside if a person falls behind the door.
 
@@ -164,7 +164,7 @@ These design provisions are mechanism-aligned controls. They are not proof of mo
 Before building any new registry:
 
 ```
-ALREADY PRESENT IN PUBLICLY INDEXED PAROS TAXONOMY:
+ALREADY PRESENT IN OFFICIAL PAROS TAXONOMY v2.0 (20 APR 2011):
 incident postcode
 broad location type
 estimated arrest time
@@ -312,6 +312,7 @@ non-response escalation
 - Hsieh, Wang & Lu 2019, *Bathtub drowning mortality among older adults in Japan* — https://pubmed.ncbi.nlm.nih.gov/30239269/
 - Tai et al. 2025, *Drowning and Submersion Deaths in Bathtubs and Associated Factors* — https://pubmed.ncbi.nlm.nih.gov/40383633/
 - SG-PAROS / Singapore death-registry linkage example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10960127/
+- Official PAROS Data Dictionary/Taxonomy v2.0 (20 Apr 2011), linked from SCRI Source Documents — https://www.scri.edu.sg/files/PAROS/SD_Data_Related_Documents/3_PAROS_DataDictionary_taxonomy_10.pdf
 - PAROS public location-type example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10663550/
 - Singapore PAROS postcode example — https://pmc.ncbi.nlm.nih.gov/articles/PMC7303701/
 - PAROS common data-form/data-dictionary overview — https://pmc.ncbi.nlm.nih.gov/articles/PMC5523101/
