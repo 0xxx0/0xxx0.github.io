@@ -882,7 +882,8 @@ function syncStateStepUI(){
       const n=Number(moving.alternatives)||1,bits=Number(moving.ambiguity_bits)||0,path=step?.ok?(step.selected_order_index+1)+'/'+step.possible_one_line_orders:'—';
       $('#stateResidueRead').textContent='RESIDUE · Δ SET COLLAPSES '+n+' ORDER'+(n===1?'':'S')+' ('+bits+'b) · PATH '+path+' RESTORES ONE ADDRESSED SEQUENCE · '+ladder.strongest_claim;
     }
-  }  syncCalculationTapeUI();
+  }
+  syncCalculationTapeUI();
 }
 function syncStateChange({preserveOrder=false}={}){
   const from=$('#stateFrom')?.value,to=$('#stateTo')?.value;
