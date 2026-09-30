@@ -1,0 +1,41 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_HELD_FORECAST_0828_2026-09-30",
+  "date": "2026-09-30",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "FIELD root held-object continuation + declared pre-commit action forecast",
+  "lineage": {
+    "structural_donor": "PR #716",
+    "forecast_donor": "PR #717",
+    "supersedes": [
+      "#716 stale/failing branch",
+      "#717 stale/non-mergeable branch"
+    ]
+  },
+  "reducer": "FRAME → OBJECT; FORECAST → PRE-COMMIT WITNESS",
+  "delta": [
+    "remove sibling capTrial / HELD-NEXT-WITNESS frame",
+    "held aperture owns NEXT, WITNESS and RETURN",
+    "first exact native exit becomes primary edge; at most two additional native exits remain inline",
+    "generic routes expose OPEN/DO plus at most one DAYLINE or COPY handoff",
+    "visible action edges expose interphase-action-forecast/v0.1 declared effect, authority/commit boundary, target and reversibility",
+    "TRACE / COMPARE / AXIAL proof remain recoverable under REFINE / PROVE",
+    "SEEN ⇄ UNDO SEEN remains point-of-action orientation only"
+  ],
+  "regression_from_716": "PR #716 lost the Prison Age → FIELD browser re-entry contract after contraction; this candidate requires exact READ/RIDE/SOURCE reachability after the fold.",
+  "boundaries": [
+    "forecast does not execute or predict undeclared outcomes",
+    "native hosts retain effect authority",
+    "CURRENT retains attention authority",
+    "no new store, queue, planner, dashboard or route",
+    "RETURN does not authorize another move"
+  ],
+  "verification": {
+    "field_action_aperture": "PENDING_CI",
+    "prison_age_field_smoke": "PENDING_CI",
+    "critical_browser_smoke": "PENDING_CI",
+    "route_registration": "PENDING_CI",
+    "gitleaks": "PENDING_CI"
+  },
+  "next": "If all machine/browser gates pass, merge and close #716/#717 as superseded. If Prison Age re-entry fails, repair only source-preserving action projection; do not restore the sibling frame."
+}
