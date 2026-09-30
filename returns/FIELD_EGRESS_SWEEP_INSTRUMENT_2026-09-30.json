@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_EGRESS_SWEEP_INSTRUMENT_2026-09-30",
+  "date": "2026-09-30",
+  "status": "PR_CANDIDATE",
+  "object": "FIELD packet reducer / usable batch loop",
+  "host_delta": "Turn the existing pure packet reducer into a batchable command-line instrument that can sweep files or directories, emit one exclusive egress class per packet, and summarize counts without creating a queue, store, planner, or new authority source.",
+  "changes": [
+    "/scripts/reduce-field-egress.mjs",
+    "/tools/field-egress-sweep-selftest.mjs",
+    "/returns/FIELD_EGRESS_SWEEP_INSTRUMENT_2026-09-30.json"
+  ],
+  "laws": [
+    "THE REDUCER CLASSIFIES; IT DOES NOT PRIORITIZE OR EXECUTE.",
+    "NOW STILL REQUIRES EXPLICIT CALLER CONTEXT.",
+    "BATCHING DOES NOT CREATE PERSISTENT STATE.",
+    "DIRECTORY SWEEP IS A VIEW OVER SOURCE PACKETS, NOT A CANONICAL PACKET STORE.",
+    "ONE PACKET -> EXACTLY ONE OF NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE."
+  ],
+  "use": [
+    "node scripts/reduce-field-egress.mjs control/packets",
+    "node scripts/reduce-field-egress.mjs --json returns/FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
+    "node scripts/reduce-field-egress.mjs --selected packet-id path/to/packets"
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node tools/field-egress-sweep-selftest.mjs"
+  ],
+  "residue": [
+    "The sweep does not infer CURRENT priority.",
+    "It does not execute NEXT or mutate source packets.",
+    "A later host may consume JSON output, but that consumer must retain native authority and RETURN."
+  ],
+  "stop": "Do not add another reducer surface. Extend only for a concrete consumer incompatibility or falsified batch invariant."
+}
