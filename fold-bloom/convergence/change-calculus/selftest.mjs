@@ -235,6 +235,11 @@ assert.equal(tape.stages.find(x=>x.id==='MODEL')?.value,'FOLD → FOLD · C=2 ·
 assert.equal(tape.ambiguity.remaining_path_bits,1);
 assert.equal(tape.ambiguity.model_candidate_bits,1);
 assert.match(tape.law,/never grants authority/);
+const openTape=calculationTape({state,stateStep,frontier:frontier0,returnAddress:stateStep.path_address});
+assert.equal(openTape.active_stage,'NEXT');
+assert.equal(openTape.stages.find(x=>x.id==='RETURN')?.ready,true);
+assert.equal(openTape.stages.find(x=>x.id==='NATIVE')?.ready,false);
+assert.equal(openTape.stages.find(x=>x.id==='MODEL')?.ready,false);
 
 const stateOnlyResidue=residueLadder({state,stateStep,lattice});
 assert.equal(stateOnlyResidue.strongest_claim,'ORDERED_PATH_WITNESS');
