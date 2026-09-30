@@ -10,7 +10,7 @@ const release=JSON.parse(fs.readFileSync('fold-bloom/two-dial/release.json','utf
 const audit=JSON.parse(fs.readFileSync('control/FIELD_COAXIALITY_AUDIT.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
 
-assert.match(core1,/0\.10\.6-gesture-boundary/);
+assert.match(core1,/0\.10\.7-reversible-commit/);
 assert.match(sw,/const CACHE='fb-two-dial-v0106'/);
 assert.match(sw,/startsWith\('fb-two-dial-'\)/);
 assert.match(core2,/function pointerSideClaimed\(side\)/);
