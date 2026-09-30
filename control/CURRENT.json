@@ -102,10 +102,10 @@
         "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
         "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
         "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md",
-        "/returns/FIELD_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json"
+        "/returns/FIELD_INDEX_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json"
       ],
       "version": "0.8.28",
-      "latest_return": "/returns/FIELD_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json",
+      "latest_return": "/returns/FIELD_INDEX_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30.json",
       "repo_verification": {
         "status": "PENDING / PRECOMMIT FORECAST PR",
         "note": "Fresh 0.8.28 candidate is based on current master, including Verse 0.3.1 and proven FIELD 0.8.27 UNDO SEEN; static + browser checks must pass before merge.",
