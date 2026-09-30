@@ -27,6 +27,7 @@ function reduceContribution(candidate={}){
   const ci=String(candidate.ci||candidate.ci_state||'UNKNOWN').toUpperCase();
   const evidence=String(candidate.evidence||candidate.evidence_state||'').toUpperCase();
   const exactHead=candidate.exact_head===true;
+  const baseCurrent=candidate.base_current===true;
   const mergeable=candidate.mergeable===true;
   const superseded=candidate.superseded===true;
   const duplicate=candidate.duplicate===true;
@@ -52,9 +53,9 @@ function reduceContribution(candidate={}){
     disposition='HOLD';reason='no explicit host/owner';
   }else if(documentary&&!executable&&!returnObserved){
     disposition='HOLD';reason='documentary/donor value only; no proved capability or observed return';
-  }else if(authorityConflict||!exactHead||!mergeable||ciFail){
+  }else if(authorityConflict||!exactHead||!baseCurrent||!mergeable||ciFail){
     disposition='REPAIR';
-    reason=authorityConflict?'authority conflict':!exactHead?'candidate is not attested against exact current head':!mergeable?'candidate is not mergeable':'verification is failing';
+    reason=authorityConflict?'authority conflict':!exactHead?'candidate is not attested against exact current head':!baseCurrent?'candidate base is not attested current':!mergeable?'candidate is not mergeable':'verification is failing';
   }else if(['DELTA','EVIDENCE','RETURN'].includes(contributionClass)&&ciPass){
     disposition='MERGE';reason='owned bounded contribution with exact-head, mergeability and verification evidence';
   }else if(!ciPass){
@@ -76,7 +77,7 @@ function reduceContribution(candidate={}){
     disposition,
     reason,
     next,
-    attested:{ci,exact_head:exactHead,mergeable,evidence:evidence||null},
+    attested:{ci,exact_head:exactHead,base_current:baseCurrent,mergeable,evidence:evidence||null},
     law:'Candidate facts are caller-attested. The reducer classifies; it does not query GitHub, mint CURRENT/NOW authority, merge, close, or delete anything.'
   };
 }
@@ -232,10 +233,10 @@ if(process.argv.includes('--selftest')){
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('gate:')).some(x=>x.class!=='GATE'))fail.push('human/world gate did not reduce to GATE');
 
   const convergenceFixtures=[
-    [{id:'pr-660',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,mergeable:false},'DELTA','REPAIR'],
-    [{id:'pr-661',host:'CONFLUENCE',documentary_only:true,evidence:'DOCUMENTARY',ci:'PASS',exact_head:true,mergeable:true},'DONOR','HOLD'],
-    [{id:'pr-662',host:'convergence-validate',capability_delta:true,ci:'PASS',exact_head:true,mergeable:true},'DELTA','MERGE'],
-    [{id:'pr-663',host:'READFIELD',capability_delta:true,ci:'PASS',exact_head:true,mergeable:true,superseded:true,unique_residue:true},'DELTA','DROP']
+    [{id:'pr-660',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:false},'DELTA','REPAIR'],
+    [{id:'pr-661',host:'CONFLUENCE',documentary_only:true,evidence:'DOCUMENTARY',ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+    [{id:'pr-662',host:'convergence-validate',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DELTA','MERGE'],
+    [{id:'pr-663',host:'READFIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true,superseded:true,unique_residue:true},'DELTA','DROP']
   ];
   for(const [fixture,wantClass,wantDisposition] of convergenceFixtures){
     const got=reduceContribution(fixture);
@@ -243,6 +244,8 @@ if(process.argv.includes('--selftest')){
   }
   if(!CONTRIBUTION_CLASSES.includes(reduceContribution({}).contribution_class))fail.push('invalid convergence contribution class');
   if(!CONVERGENCE_DISPOSITIONS.includes(reduceContribution({}).disposition))fail.push('invalid convergence disposition');
+  const staleBase=reduceContribution({id:'stale-base',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:false,mergeable:true});
+  if(staleBase.disposition!=='REPAIR')fail.push('stale base must repair before merge');
 
   const shelf=reduceBatch('control/packets');
   if(shelf.file_count<1||shelf.packet_count<1)fail.push('real packet shelf produced empty batch');
