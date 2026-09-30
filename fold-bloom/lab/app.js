@@ -655,8 +655,13 @@ function syncLiveChangeUI(){
   document.documentElement.dataset.fieldLabLiveCompare=cmp?(cmp.quotient_invisible_exact_changes?'residue-visible':'compared'):'open';
 }
 function handleLiveChangePulse(message){
+  const previousInstance=liveChange.bridge?.live_instance||null;
   const next=reduceLiveChangeBridge(liveChange.bridge,message);
   if(next===liveChange.bridge)return;
+  if(previousInstance&&next.live_instance&&next.live_instance!==previousInstance){
+    liveChange.from=null;liveChange.to=null;liveChange.comparison=null;
+    setStatus('LIVE CHANGE · SOURCE INSTANCE CHANGED · CAPTURES RESET');
+  }
   liveChange.bridge=next;
   syncLiveChangeUI();
 }
