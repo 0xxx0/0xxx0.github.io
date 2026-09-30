@@ -1,0 +1,38 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30",
+  "status": "CANDIDATE",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Repair the COAXIALITY H_COMPRESSION experiment boundary without changing runtime: replace the non-equivalent plain baseline that added a final-only COMMIT with a plain two-control baseline that preserves the host's existing release/change semantic commit schedule and intermediate causal consequences.",
+  "finding": "The previous PLAIN_PAIR_6X6 + explicit COMMIT baseline changed causality. In PLAY/OPEN/SCALE, TWO DIAL commits on each pointer release; moving both axes sequentially may therefore emit an intermediate relation consequence, mutate phrase/memory state, and set the one-level undo boundary before the final pair is reached. A final-only COMMIT baseline suppresses that path and cannot isolate geometry.",
+  "changes": [
+    "/control/FIELD_COAXIALITY_AUDIT.json — corrected H baseline to PLAIN_PAIR_6X6_RELEASE_COMMIT; H stays INDETERMINATE",
+    "/tools/two-dial-compression-baseline-selftest.cjs — executable parity guard against reintroducing a final-only COMMIT baseline"
+  ],
+  "preserves": [
+    "TWO DIAL runtime and UI unchanged",
+    "A-G coaxiality evidence unchanged",
+    "H remains ORDINARY_USE_REQUIRED rather than being inferred from static metrics",
+    "same 36 pair states, host relation mapping, consequence path, RETURN/export and undo semantics",
+    "no FIELD root surface, store, queue or authority added"
+  ],
+  "rejected_baseline": {
+    "id": "PLAIN_PAIR_6X6",
+    "reason": "Two independent controls + explicit final COMMIT suppresses intermediate release consequences and therefore changes causal scheduling."
+  },
+  "corrected_baseline": {
+    "id": "PLAIN_PAIR_6X6_RELEASE_COMMIT",
+    "controls": "two independent six-position plain controls + explicit relation readout",
+    "commit_boundary": "PLAY/OPEN/SCALE: each control change/release commits; DUET: match existing coalescing rule",
+    "extra_commit_control": false,
+    "verdict_boundary": "Machine proof can establish functional parity only. Comparative interaction/learning burden still requires ordinary-use evidence."
+  },
+  "verify": [
+    "node tools/two-dial-compression-baseline-selftest.cjs",
+    "node tools/field-coaxiality-audit.cjs",
+    "node tools/two-dial-gesture-boundary-selftest.cjs",
+    "public-surface-check + route registration + gitleaks"
+  ],
+  "reentry": "/control/FIELD_COAXIALITY_AUDIT.json"
+}
