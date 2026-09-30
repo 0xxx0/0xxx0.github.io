@@ -51,7 +51,7 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGesture button{padding:4px 6px;font-size:6.5px}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
-.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px;margin-left:6px}
+.apNextBody{min-width:0}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capForecast{display:block;color:var(--mut);font-size:5.8px;line-height:1.35;margin-top:4px;max-width:72ch}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px;margin-left:6px}
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
@@ -150,7 +150,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .axialHead{align-items:flex-start;padding:9px}.axialHead b{font-size:12px}.axialHead span,.axialHead button{font-size:10px}.axialHead button{min-height:42px;padding:8px}
  .axisName{font-size:10px}.axisName b{font-size:11px}.axisToken{height:44px;font-size:11px}.axisToken small,.axisToken .sub{font-size:9px}
  .aperture{grid-template-columns:auto minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apGlyph[data-project-head="1"]{width:52px}.apGlyph[data-project-head="1"] svg{width:52px;height:52px}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
- .apFlow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;padding-top:7px}.apNext,.apOutcome{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px}.apFlowK{font-size:9px}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}.capReturn{margin-left:0}
+ .apFlow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;padding-top:7px}.apNext,.apOutcome{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px}.apFlowK{font-size:9px}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capForecast{font-size:9px;line-height:1.4}.capWitness,.capReturn{font-size:11px;line-height:1.45}.capReturn{margin-left:0}
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
  .focusDepth>summary{min-height:42px;padding:8px}.focusDepth>summary b,.focusDepth>summary span{font-size:10px}.refineTools a,.refineTools button{min-height:42px;font-size:10px}.fieldGesture{font-size:9px;padding:7px}.fieldGesture button{min-height:40px;font-size:10px}
 }
@@ -223,7 +223,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
       <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
       <p id="apRole">One addressed object; hidden structure remains recoverable below.</p>
       <div class="apFlow" id="apFlow" aria-label="Held object continuation">
-        <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
+        <div class="apNext"><span class="apFlowK">NEXT</span><div class="apNextBody"><div class="capMoves" id="capMoves"></div><span class="capForecast" id="capForecast">FORECAST · —</span></div></div>
         <div class="apOutcome"><span class="apFlowK">WITNESS → RETURN</span><div class="apOutcomeText"><span class="capWitness" id="capWitness">—</span><span class="capReturn" id="capReturn">—</span></div></div>
       </div>
     </div>
@@ -621,23 +621,57 @@ function fieldActionSurface(carrier=fieldCarrierForFocus()){
  const C=globalThis.InterphaseCarrier;if(!carrier||!C||typeof C.actionSurface!=='function')return null;
  try{return C.actionSurface(carrier)}catch(_){return null}
 }
+function fieldForecast(move={}){
+ const C=globalThis.InterphaseCarrier;
+ if(C&&typeof C.forecastAction==='function'){
+  try{return C.forecastAction(move)}catch(_){}
+ }
+ return{schema:'interphase-action-forecast/v0.1',effect:'UNKNOWN',authority:String(move.authority||'VIEW'),commit:'NO_COMMIT',sourceMutation:'NONE',target:String(move.target||''),dispatch:'HOST_NATIVE_ONLY',reversibility:String(move.reversibility||'HOST_DEFINED')}
+}
+function forecastText(f={}){
+ const bits=['FORECAST',f.effect||'UNKNOWN'];
+ if(f.commit)bits.push('COMMIT '+f.commit);
+ if(f.reversibility)bits.push('REV '+f.reversibility);
+ if(f.target)bits.push('→ '+f.target);
+ return bits.join(' · ')
+}
+function bindVisibleForecast(items=[]){
+ const out=$('capForecast');if(!out)return;
+ const xs=(items||[]).filter(Boolean),controls=[$('apOpen'),...$('capMoves').children].filter(Boolean);
+ if(!xs.length){out.textContent='FORECAST · —';controls.forEach(el=>el.removeAttribute('data-forecast'));return}
+ const show=i=>{const f=xs[Math.max(0,Math.min(xs.length-1,i||0))];out.textContent=forecastText(f)};
+ show(0);
+ controls.forEach((el,i)=>{
+  const f=xs[i]||xs[0],txt=forecastText(f);el.dataset.forecast=txt;el.title=txt;
+  el.addEventListener('mouseenter',()=>show(i));el.addEventListener('focus',()=>show(i));el.addEventListener('touchstart',()=>show(i),{passive:true})
+ })
+}
 function renderHeldContinuation(){
- if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ if(!focus){$('capMoves').innerHTML='';$('capForecast').textContent='FORECAST · —';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
- const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');
+ const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let forecasts=[];
  if(nativeActions.length){
   const [primary,...rest]=nativeActions;
   open.textContent=primary.label+' →';open.href=primary.target;
-  $('capMoves').innerHTML=rest.slice(0,2).map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  const secondary=rest.slice(0,2);
+  $('capMoves').innerHTML=secondary.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  forecasts=[primary,...secondary].map(a=>fieldForecast({id:'NATIVE_'+a.label,label:a.label,authority:'NAVIGATION',target:a.target,reversibility:'FIELD_NO_SOURCE_MUTATION'}));
  }else{
   open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;
-  const extras=[];
-  if(heldDaylineAllowed())extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
-  else extras.push('<button class="capMove" data-cap-copy>COPY ACTION</button>');
+  const extras=[],moves=[{id:'OPEN_NATIVE',label:open.textContent.replace(/\s*→$/,''),authority:'NAVIGATION',target:href,reversibility:'FIELD_NO_SOURCE_MUTATION'}];
+  if(heldDaylineAllowed()){
+   extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
+   moves.push({id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_CAN_IGNORE'});
+  }else{
+   extras.push('<button class="capMove" data-cap-copy>COPY ACTION</button>');
+   moves.push({id:'COPY_ACTION',label:'COPY ACTION',authority:'OFFER',target:'clipboard',reversibility:'SOURCE_UNCHANGED'});
+  }
   $('capMoves').innerHTML=extras.join('');
   const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
+  forecasts=moves.map(fieldForecast);
  }
+ bindVisibleForecast(forecasts);
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):('RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
 }
