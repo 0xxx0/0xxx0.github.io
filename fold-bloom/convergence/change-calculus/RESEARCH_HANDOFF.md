@@ -1134,3 +1134,68 @@ This is the intended experiential direction for future transfers: make abstracti
 - native NEXT evidence.
 
 The returned support witness remains calculation-only and names the exact native aperture against which it was resolved.
+
+
+## 2026-09-30 — native aperture becomes perceptual
+
+The previous pass made host-relative support numerically inspectable. The next conversion moves the **current native forecast aperture itself** into the DATA field without adding a controller.
+
+LAB now projects LIVE's latest witnessed `forecastContext(state)` onto a stable twelve-slot halo around the change object:
+
+```text
+12 stable LIVE slots
+  ├─ empty slot             = no lawful forecast now
+  ├─ native forecast slot   = lawful host candidate
+  ├─ model-supported slot   = member of C(direction,s)
+  └─ focused slot           = local evidence/address only
+```
+
+The halo is derived exclusively from `native_latest`; the six-release exact/HEX history remains a different lane. Model support is still the subset:
+
+```text
+C(direction,s) ⊆ nativeForecasts(s)
+```
+
+and never the source of the aperture.
+
+### Interaction boundary
+
+Tapping a halo slot performs only:
+
+```text
+SLOT
+→ VIEW-LOCAL FOCUS
+→ field://lab/live/<instance>/seq/<seq>/slot/<n>
+→ bounded witness detail
+→ RETURN
+```
+
+It does **not** call LIVE, seek the LIVE ring, queue a release, alter STEP order, or grant effect authority. Empty slots remain inspectable as `SUPPORT=0` evidence instead of disappearing.
+
+The focus witness carries:
+
+- LIVE instance;
+- native forecast sequence;
+- stable slot;
+- whether a forecast currently exists;
+- whether the current authority-NONE model direction supports it;
+- bounded verb / chain / cadence / power / path detail.
+
+FIELD LAB RETURN may preserve that focus as `nativeFocus` with `authority: VIEW_ONLY`.
+
+### Why this matters
+
+The steering calculation was previously correct but still panel-shaped. The spatial projection lets a person perceive the important nesting directly:
+
+```text
+ALL 12 stable positions
+  ⊃ current lawful native aperture
+      ⊃ current model-supported subset C
+          ⊃ one locally inspected witness
+```
+
+This is the stronger reusable pattern:
+
+**stable address space → lawful host aperture → advisory support subset → local focus → host-only commit elsewhere.**
+
+It gives "driving / steering" a concrete geometry while preserving the rule that a co-driver may illuminate a road but does not acquire the steering wheel.
