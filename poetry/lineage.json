@@ -1,6 +1,6 @@
 {
   "schema": "verse-lineage/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-30",
   "user_facing_head": {
     "name": "Chinese Poetry Copilot",
     "route": "/poetry/",
@@ -41,7 +41,15 @@
     "JUE/JU game": "separate semantic-reordering mini-game lineage",
     "Jueju": "Chinese regulated-verse/composition lineage",
     "LATIN CONTROL": "geometry/control fixture; no literary claims",
-    "English Jue Ju": "NOT_IMPLEMENTED"
+    "English Jue Ju": "EXPERIMENTAL_TRANSFER_ADAPTER_0.3.1 · 4×5/7 monosyllabic English + 2+3 / 2+2+3 scaffold + AABA heuristic + 起承轉合 author judgment; not Tang prosody"
   },
-  "law": "one path engine != one poetry theory"
+  "law": "one path engine != one poetry theory",
+  "transfer_sources": {
+    "english_jueju": {
+      "source": "University of Oklahoma / Newman Prize for English Jueju teaching materials",
+      "route": "/poetry/map/?form=enjueju7",
+      "source_url": "https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju",
+      "status": "CANDIDATE_PENDING_CI"
+    }
+  }
 }
