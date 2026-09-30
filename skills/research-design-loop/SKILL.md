@@ -1,7 +1,7 @@
 ---
 name: research-design-loop
 description: Run one bounded research → hypothesis → specimen → evidence → disposition loop against a current CONFLUENCE/FIELD head.
-version: 0.1.0
+version: 0.2.0
 platforms: [macos, linux]
 metadata:
   hermes:
@@ -87,6 +87,96 @@ The loop is:
 10. Write a bounded RETURN if the loop materially changed a head or reusable mechanism.
 
 11. Re-read CURRENT before any second loop.
+
+## External donor / transcript gate
+
+Use this gate when a research loop begins from an external paper, talk, podcast, video, transcript, benchmark report or model review.
+
+The external source is a **donor projection**, not authority over the current host.
+
+Preserve this evidence order:
+
+1. original artifact / paper / code / benchmark / specification;
+2. creator-published transcript, captions or show notes;
+3. secondary transcript / summary / review;
+4. current inference.
+
+Record source identity, publication date and useful timestamps/sections. A transcript may preserve words while still being a derived representation; it does not become source identity.
+
+Classify the source role before extracting:
+
+- **MECHANISM** — near-primary technical material that exposes a transferable operation or falsifiable claim;
+- **SCOUT** — fast news/review material used to locate primary artifacts, tests or implementation details;
+- **SYNTHESIS** — broad interview/discussion material used to recover heuristics, failure modes and cross-domain questions.
+
+Role never raises evidence class.
+
+Run external material through:
+
+```
+SOURCE
+→ CLAIM
+→ PRIMARY REF
+→ REPLICA
+→ TRANSFER TEST
+→ DISPOSITION
+→ RETURN
+```
+
+Do not summarize whole channels. Extract only claims that can change one current decision or test.
+
+### Replicate before transfer
+
+Before grafting a donor mechanism into FIELD:
+
+1. name one observable the source claims or demonstrates;
+2. recover the closest primary reference available;
+3. reproduce or approximate that observable on a bounded local fixture;
+4. compare against a baseline;
+5. state the falsifier before changing the host;
+6. transfer only the mechanism that survives.
+
+If replication is impossible, disposition is **PARK** or **DONOR ONLY**, not PROMOTE.
+
+### Optimization / self-improvement gate
+
+For claims that an agent, harness, critic loop, prompt, reducer or scaffold “improves itself,” record:
+
+- **FIXED** — model, tools, data/environment and versions held constant;
+- **MUTATED** — harness/prompt/reducer/tool policy actually changed;
+- **BASELINE** — comparison condition;
+- **DEV_METRIC** — signal used to search or tune;
+- **HELD_OUT** — acceptance tasks not used to tune;
+- **REWARD_HACK_CHECK** — how metric-gaming or self-scoring is detected;
+- **FALSIFIER** — result that would weaken the improvement claim.
+
+A critic score produced inside the same optimization loop is development evidence unless an independent acceptance gate validates it. No held-out evidence means the result remains a donor hypothesis, not a generalized improvement claim.
+
+### Representation-level gate
+
+For claims about latent space, embeddings, abstraction, cache, memory or compressed state:
+
+- preserve exact source/address identity outside the projection;
+- compare at least one raw/carrier baseline with the proposed projection;
+- declare what information is intentionally lossy;
+- test whether the projection preserves the relation needed by the host;
+- never let latent/embedding proximity mint identity, provenance or effect authority.
+
+### Harness self-inspection gate
+
+For agent/runtime work, record the executor's visible self-model before asking it to debug or modify its harness:
+
+```
+VISIBLE_SOURCE
+VISIBLE_DOCS
+VISIBLE_TOOLS
+MODEL_MODE_IF_EXPOSED
+AUTHORITY
+MUTABLE_PATHS
+RETURN_PATH
+```
+
+Unknown fields stay **UNKNOWN**. Better introspection may improve diagnosis; it does not grant new effect authority or bypass native host gates.
 
 ## Decision Rules
 
