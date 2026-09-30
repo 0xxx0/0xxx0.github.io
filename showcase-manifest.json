@@ -18,8 +18,10 @@
       "index": {
         "updated_at": "2026-09-30T15:55:00+08:00",
         "work_modes": [
+          "RECOVER",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "role": "FIELD root holds one addressed object. NEXT, pre-commit FORECAST, WITNESS and RETURN are properties of that object rather than a sibling dashboard. Exact manifest-native exits may become one primary plus at most two secondary moves; generic handoff remains explicit. Forecast exposes only declared effect class, authority/commit boundary, target and reversibility and never executes or predicts an undeclared outcome.",
