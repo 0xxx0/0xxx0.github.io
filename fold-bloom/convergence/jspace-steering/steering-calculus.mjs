@@ -19,6 +19,39 @@ export function conditionalTopKWeights(top=[]){
   return xs.map((x,i)=>({...x,conditional_weight:round(raw[i]/z)}));
 }
 
+export function directionSupportCalculation(direction,nativeForecasts=[],vocabulary=DEFAULT_CONTROL_VOCABULARY){
+  const directionLabel=upper(direction),forecasts=Array.isArray(nativeForecasts)?nativeForecasts:[];
+  if(!directionLabel)return {ok:false,schema:STEERING_CALC_SCHEMA+'/direction-support',authority:'CALCULATION_ONLY',reason:'DIRECTION_REQUIRED'};
+  const mappedVerb=vocabulary[directionLabel]||null;
+  const candidates=mappedVerb?forecasts.filter(x=>upper(x?.verb)===mappedVerb):[];
+  const count=candidates.length;
+  return {
+    ok:true,
+    schema:STEERING_CALC_SCHEMA+'/direction-support',
+    authority:'CALCULATION_ONLY',
+    direction_label:directionLabel,
+    mapped_verb:mappedVerb,
+    native_candidate_count:count,
+    candidate_ambiguity_bits:count>0?round(Math.log2(count)):null,
+    candidate_slots:candidates.map(x=>Number(x?.slot)).filter(Number.isFinite),
+    candidates:candidates.map(x=>({
+      slot:Number.isFinite(Number(x?.slot))?Number(x.slot):null,
+      verb:upper(x?.verb),
+      chain:Number(x?.chain)||1,
+      cadence:x?.cadence?upper(x.cadence):null,
+      power:finite(x?.power)?Number(x.power):null,
+      path:Array.isArray(x?.path)?x.path.map(Number):[]
+    })),
+    status:!mappedVerb?'OUTSIDE_CONTROL_VOCABULARY':count===0?'NO_NATIVE_CANDIDATE':count===1?'UNIQUE_NATIVE_CANDIDATE':'MULTIPLE_NATIVE_CANDIDATES',
+    formulas:{
+      host_support:'C(direction,s) = {f in nativeForecasts(s) | verb(f) = vocabulary(direction)}',
+      candidate_ambiguity:'a = log2(|C|) when |C| > 0',
+      decision:'C narrows the current lawful host aperture; it never commits an operation'
+    },
+    law:'direction support is a calculation over an already-lawful native forecast aperture; model/readout authority never becomes host effect authority'
+  };
+}
+
 export function steeringSupportCalculation(trace,target,nativeForecasts=[],vocabulary=DEFAULT_CONTROL_VOCABULARY){
   const cell=readCell(trace,target);
   if(!cell)return {ok:false,reason:'JLENS_CELL_UNRESOLVED'};
