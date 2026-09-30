@@ -9,7 +9,8 @@
     "Add repeatable --now-id / --selected-id / --reactivate-id caller context; batch contents cannot self-authorize NOW.",
     "Add --converge <candidate.json> as an advisory contribution projection: DELTA / EVIDENCE / DONOR / RETURN / UNRESOLVED plus MERGE / REPAIR / HOLD / DROP.",
     "Contribution convergence consumes caller-attested host, verification, mergeability and supersession facts only; it does not query GitHub or mutate CURRENT, branches, packets, or native hosts.",
-    "CI exercises fixtures plus the real control/packets shelf and requires zero implicit NOW."
+    "CI exercises fixtures plus the real control/packets shelf and requires zero implicit NOW.",
+    "Compose the #689 research donor gate into contribution reduction: external donor candidates with missing/non-PASS admission are DONOR/HOLD; PASS only removes that blocker and does not grant host/effect authority."
   ],
   "empirical_chain": {
     "donor_closed": "#684 documentary research raid reduced to DONOR/RESIDUE and closed with reopen condition",
@@ -28,7 +29,8 @@
       "conclusion": "PASS"
     },
     "batch_donor": "#685 batch sweep behavior salvaged into existing machine entrypoint; no second CLI retained",
-    "contribution_donor": "#687 convergence intent recovered as projection semantics; no parallel reducer engine retained"
+    "contribution_donor": "#687 convergence intent recovered as projection semantics; no parallel reducer engine retained",
+    "research_donor_gate": "#689 executable donor admission; its caller-attested result is consumed before contribution promotion."
   },
   "commands": [
     "node scripts/emit-agent-transcript.mjs",
@@ -55,7 +57,8 @@
   "residue": [
     "The contribution reducer does not fetch live GitHub state; mergeable/CI/superseded facts must be caller-attested or produced by a native GitHub worker.",
     "MERGE output is not merge authority; it is a disposition projection after attested checks.",
-    "No automatic NEXT execution is introduced."
+    "No automatic NEXT execution is introduced.",
+    "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority."
   ],
   "stop": "Do not create another packet/contribution reducer CLI. Extend this entrypoint only for a reproduced consumer incompatibility or falsified invariant."
 }
