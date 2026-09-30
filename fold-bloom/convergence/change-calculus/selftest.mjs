@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
   lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactFormCalculation,
-  steppedFormPath,exactFormFrontierCalculation,residueLadder,appliedResearchFrame
+  steppedFormPath,exactFormFrontierCalculation,residueLadder,calculationTape,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -215,6 +215,27 @@ assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.ambiguity
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HOST_SUPPORT')?.native_candidate_count,3);
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='CAUSAL_GATE')?.failed_obligations,6);
 
+const tape=calculationTape({
+  state,
+  stateStep,
+  frontier:frontier0,
+  native:{authority:'VIEW_ONLY',candidate_count:3,seq:42,live_instance:'fixture-live'},
+  modelSupport:{ok:true,direction_label:'FOLD',mapped_verb:'FOLD',native_candidate_count:2,candidate_ambiguity_bits:1,status:'MULTIPLE_NATIVE_CANDIDATES'},
+  returnAddress:stateStep.path_address
+});
+assert.equal(tape.authority,'RESEARCH_WITNESS_ONLY');
+assert.equal(tape.active_stage,'RETURN');
+assert.deepEqual(tape.stages.map(x=>x.id),['SOURCE','QUOTIENT','PATH','NEXT','NATIVE','MODEL','RETURN']);
+assert.equal(tape.stages.find(x=>x.id==='QUOTIENT')?.value,'d_H 2/6 · Δ{3,5}');
+assert.match(tape.stages.find(x=>x.id==='QUOTIENT')?.drops,/2 temporal orders/);
+assert.equal(tape.stages.find(x=>x.id==='PATH')?.address,stateStep.path_address);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.future_paths,2);
+assert.equal(tape.stages.find(x=>x.id==='NATIVE')?.value,'3 LAWFUL CANDIDATES · SEQ 42');
+assert.equal(tape.stages.find(x=>x.id==='MODEL')?.value,'FOLD → FOLD · C=2 · a=1b');
+assert.equal(tape.ambiguity.remaining_path_bits,1);
+assert.equal(tape.ambiguity.model_candidate_bits,1);
+assert.match(tape.law,/never grants authority/);
+
 const stateOnlyResidue=residueLadder({state,stateStep,lattice});
 assert.equal(stateOnlyResidue.strongest_claim,'ORDERED_PATH_WITNESS');
 assert.deepEqual(stateOnlyResidue.levels.map(x=>x.id),['HEX_STATE','MOVING_SET','ORDER_SPACE','ORDERED_PATH']);
@@ -232,5 +253,6 @@ console.log(JSON.stringify({
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
   promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
   residueLadder:{strongest:frame.residue_ladder.strongest_claim,levels:frame.residue_ladder.levels.map(x=>x.id)},
+  calculationTape:{active:tape.active_stage,stages:tape.stages.map(x=>x.id),ambiguity:tape.ambiguity},
   authority:frame.authority
 },null,2));
