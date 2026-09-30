@@ -4,20 +4,26 @@ import path from 'node:path';
 import {reducePacket,EGRESS_CLASSES} from '../lib/field-egress-reducer.mjs';
 
 const argv=process.argv.slice(2);
-const takeFlag=name=>{
-  const i=argv.indexOf(name);
-  if(i<0)return[];
+const takeFlags=name=>{
   const out=[];
-  for(let j=i+1;j<argv.length&&!argv[j].startsWith('--');j++)out.push(argv[j]);
-  argv.splice(i,1+out.length);
+  for(let i=0;i<argv.length;){
+    if(argv[i]!==name){i++;continue}
+    const value=argv[i+1];
+    if(value==null||value.startsWith('--')){
+      console.error(name+' requires exactly one packet ID; repeat the flag for multiple IDs');
+      process.exit(2);
+    }
+    out.push(value);
+    argv.splice(i,2);
+  }
   return out;
 };
 const json=argv.includes('--json');
 const quiet=argv.includes('--quiet');
-for(const f of ['--json','--quiet']){const i=argv.indexOf(f);if(i>=0)argv.splice(i,1)}
-const nowIds=new Set(takeFlag('--now'));
-const selectedIds=new Set(takeFlag('--selected'));
-const reactivatedIds=new Set(takeFlag('--reactivate'));
+for(const f of ['--json','--quiet']){let i;while((i=argv.indexOf(f))>=0)argv.splice(i,1)}
+const nowIds=new Set(takeFlags('--now'));
+const selectedIds=new Set(takeFlags('--selected'));
+const reactivatedIds=new Set(takeFlags('--reactivate'));
 
 const idOf=p=>String(p?.packet_id||p?.id||p?.task_id||p?.return_id||p?.object?.id||p?.OBJECT?.id||p?.subject||'packet');
 
@@ -38,7 +44,7 @@ function parseFile(file){
 }
 
 if(!argv.length){
-  console.error('usage: node scripts/reduce-field-egress.mjs [--json] [--quiet] [--now ID...] [--selected ID...] [--reactivate ID...] <packet.json|dir> [...]');
+  console.error('usage: node scripts/reduce-field-egress.mjs [--json] [--quiet] [--now ID]... [--selected ID]... [--reactivate ID]... <packet.json|dir> [...]');
   process.exit(2);
 }
 
