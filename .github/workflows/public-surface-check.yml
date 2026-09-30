@@ -47,8 +47,10 @@ jobs:
         run: node scripts/check-human-gate-discipline.mjs
       - name: Validate video-game donor transfers
         run: node scripts/check-game-donor-transfer.mjs
-      - name: Validate external research donor admission
-        run: node tools/research-donor-gate-selftest.mjs
+      - name: Validate external research donor admission + field reduction
+        run: |
+          node tools/research-donor-gate-selftest.mjs
+          node tools/research-donor-field-selftest.mjs
       - name: Validate FIELD safe salvage / retirement
         run: |
           node tools/field-salvage-selftest.mjs

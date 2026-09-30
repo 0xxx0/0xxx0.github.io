@@ -1,0 +1,52 @@
+{
+  "schema": "field/research-donor-packet/v0.1",
+  "SOURCE_ID": "Weco AIDE2 / 2026-07-14 / arXiv:2609.26457",
+  "ROLE": "MECHANISM",
+  "CLAIM_KIND": "OPTIMIZATION",
+  "CLAIM": "A fixed-model outer research loop can improve an inner agent harness under a fixed cost budget, with gains that survive held-out evaluation and with reward-hacking resistance measured outside the visible optimization signal.",
+  "DISPOSITION": "TRANSFER",
+  "CURRENT_HOST": "research-design-loop",
+  "PRIMARY_REF": {
+    "technical_report": "https://arxiv.org/abs/2609.26457",
+    "primary_report": "https://www.weco.ai/blog/first-evidence-of-recursive-self-improvement",
+    "reward_hacking_method": "https://arxiv.org/abs/2605.21384",
+    "reward_hacking_report": "https://www.weco.ai/blog/specbench"
+  },
+  "BASELINE": "research-design-loop 0.3.0 + research donor gate/field compiler before any donor-derived harness mutation",
+  "FALSIFIER": "At fixed model/tool budget, the donor-derived harness change does not improve independent held-out repo acceptance, or improves only the development signal while held-out invariants regress.",
+  "FIXED": "model/version; tool set; development/held-out fixture identities; compute/time cap; native host authority; FIELD egress precedence",
+  "MUTATED": "one bounded research harness, prompt, reducer, or verification-policy delta only",
+  "DEV_METRIC": "development fixtures visible to the candidate loop; never used as final acceptance",
+  "HELD_OUT": "independent repo fixtures withheld from tuning and used only for acceptance",
+  "REWARD_HACK_CHECK": "compare visible/development success with independent held-out host invariants; self-critic score cannot accept its own mutation",
+  "INVARIANT": "source identity, host authority, RETURN, and FIELD egress precedence remain unchanged by the donor-derived mutation",
+  "NON_TRANSFER": [
+    "claims of general recursive self-improvement beyond the reproduced bounded mechanism",
+    "ambient autonomous rewriting of production code",
+    "model-weight modification",
+    "permission expansion",
+    "self-scored acceptance"
+  ],
+  "REPLICA": {
+    "status": "NOT_RUN",
+    "observable": "A donor-derived bounded harness/evaluation change must outperform or reject more false-positive development wins than the baseline on independent held-out repo fixtures at the same budget."
+  },
+  "TRANSFER_TEST": {
+    "status": "NOT_RUN",
+    "host": "research-design-loop",
+    "independent": false
+  },
+  "EVIDENCE": {
+    "primary": [
+      "Weco AIDE2 report / arXiv:2609.26457",
+      "Weco SpecBench / arXiv:2605.21384"
+    ],
+    "source_observables": [
+      "100 outer-loop harness rewrites under a fixed evaluation protocol",
+      "held-out benchmark evaluation beyond the optimization tasks",
+      "reported reward-hacking rate reduction on a held-out GPU-kernel benchmark"
+    ]
+  },
+  "RETURN_PATH": "returns/FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
+  "authority": "DONOR EVIDENCE ONLY / NO ATTENTION OR HOST EFFECT AUTHORITY"
+}
