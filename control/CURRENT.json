@@ -846,7 +846,25 @@
       ],
       "latest_return": "/returns/SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
       "repo_verification": {
-        "status": "PENDING / PR HEAD",
+        "status": "PASS / PR 739 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/739",
+        "merge_sha": "aee12edf504145828c8fa0eebabc8a67a722fa69",
+        "proof_head": "9af9d903021417fc95c2a64fd6ffb27a912cd276",
+        "checks": {
+          "route_registration": {
+            "run": 36703842994,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36703842940,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36703843106,
+            "conclusion": "success"
+          }
+        },
+        "shopping_phase_surface": "PASS",
         "predecessor": {
           "status": "PASS / PR 650 EXACT-HEAD",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/650",
