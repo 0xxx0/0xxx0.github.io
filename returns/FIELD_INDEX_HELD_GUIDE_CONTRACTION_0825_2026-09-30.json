@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_HELD_GUIDE_CONTRACTION_0825_2026-09-30",
+  "date": "2026-09-30",
+  "state": "SHIPPED_CANDIDATE",
+  "object": "FIELD Index / AWAKE onboarding folded into the held object",
+  "before": "FIELD 0.8.24 placed a first-contact AWAKE / INTERPHASE visor above the canonical held-object surface. It truthfully mirrored the same carrier, but duplicated OBJECT / FOCUS / NEXT≤3 / WITNESS / RETURN and added a browser-local seen bit plus WAKE / GUIDE chrome.",
+  "delta": [
+    "Delete the AWAKE visor CSS, markup, header GUIDE control, render loop and first-contact localStorage state.",
+    "Retire ?visor=1 / ?visor=0 as UI modes; legacy query parameters become inert.",
+    "Keep fieldCarrierForFocus() and InterphaseCarrier.actionSurface() unchanged as the canonical machine-readable guidance law.",
+    "Keep the six recovered WAKE→INTERPHASE cadence pairs in the shared carrier rather than rendering a parallel dashboard.",
+    "Keep the existing held object and REFINE / PROVE depth as the only OBJECT / FOCUS / lawful moves / WITNESS / RETURN surface.",
+    "Contract FieldIndexCarrier to current() + actionSurface(); no showVisor/hideVisor UI API remains.",
+    "Rewrite browser proof around exact /docs/ focus, READFIELD ownership, NONE / HANDOFF ONLY authority, NEXT≤3, exact RETURN, canonical cadence, no duplicate guide DOM and zero phone overflow."
+  ],
+  "laws": [
+    "GUIDANCE FOLDS INTO THE OBJECT.",
+    "ONBOARDING ≠ SECOND SURFACE.",
+    "SAME CARRIER / FEWER REPRESENTATIONS.",
+    "WAKE CADENCE IS LINEAGE + ACTION GRAMMAR, NOT ROOT CHROME."
+  ],
+  "evidence": [
+    "/index.html",
+    "/lib/interphase-carrier.js",
+    "/tools/browser-smoke.mjs",
+    "/tools/validate-public.mjs",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
+    "/returns/FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json"
+  ],
+  "verification": {
+    "machine": "PENDING CI: validate-public must reject visor/localStorage regression; browser smoke must prove held carrier/action surface in place; Route Registration and gitleaks remain required.",
+    "human": "No mandatory human gate. The contraction directly removes the previously reported obstruction above the working surface.",
+    "falsifier": "If removing the visor makes the held-object action grammar inaccessible, repair the held object or REFINE / PROVE disclosure; do not restore a duplicate onboarding panel."
+  },
+  "residue": "The 0.8.22 AWAKE visor remains historical lineage evidence. Its useful invariant survives as InterphaseCarrier.ATTENTION_GRAMMAR and actionSurface(); its duplicate first-contact UI does not.",
+  "next": "After CI, contract CATCH + ACT: keep only source disaggregation and reversible acknowledgement not already carried by route-local semantic signal / held-object residue.",
+  "version": "0.8.25"
+}
