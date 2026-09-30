@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.6-gesture-boundary',
+const APP_VERSION = '0.10.7-reversible-commit',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -224,6 +224,9 @@ let rngState = Date.now() >>> 0 || 1,
   gR = null;
 const OUT_GAIN = 0.68;
 let demo = { on: false, i: 0, timer: 0, prevMode: 'PLAY', raf: 0, preview: false, startState: null };
+let commitUndoSnapshot = null,
+  pendingCommitUndoSnapshot = null,
+  pendingComposeTimers = new Set();
 function wrap(n, m) {
   return ((n % m) + m) % m;
 }
@@ -293,6 +296,7 @@ function updatePulseContext(data = {}, wall = Date.now()) {
   return { ...pulseLink, active: pulseIsLive(), tempo: pulseTempo() };
 }
 function setPulseLink(enabled) {
+  if (typeof invalidateCommitUndo === 'function') invalidateCommitUndo();
   prefs.pulseLink = !!enabled;
   emit('pulse-link', { enabled: prefs.pulseLink });
   saveLocal();
