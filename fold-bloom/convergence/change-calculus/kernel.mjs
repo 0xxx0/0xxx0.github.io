@@ -497,6 +497,44 @@ export function steppedFormPath(fromForm,toForm,order=null){
   };
 }
 
+
+export function exactQuotientPathCalculation(fromForm,toForm,order=null){
+  const exact=exactFormCalculation(fromForm,toForm);
+  if(!exact.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',reason:exact.reason};
+  const path=steppedFormPath(fromForm,toForm,order);
+  if(!path.ok)return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',reason:path.reason};
+  const visible=new Set(exact.lines.filter(x=>x.quotient_changed).map(x=>x.line));
+  const invisible=exact.lines.filter(x=>x.invisible_exact_change).map(x=>({
+    line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,bit:x.from_bit
+  }));
+  const exactOrders=path.possible_one_edit_orders;
+  const quotientOrders=factorial(visible.size);
+  const pathFiber=quotientOrders>0?exactOrders/quotientOrders:exactOrders;
+  const projectedOrder=path.selected_order.filter(line=>visible.has(line));
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/exact-path-projection',
+    authority:'CALCULATION_ONLY',
+    from_token:exact.from.token,
+    to_token:exact.to.token,
+    exact_changed_lines:path.changed_lines.length,
+    quotient_changed_lines:visible.size,
+    quotient_invisible_exact_changes:invisible.length,
+    exact_path_count:exactOrders,
+    quotient_visible_path_count:quotientOrders,
+    exact_paths_per_visible_path:pathFiber,
+    path_information_loss_bits:pathFiber>0?round(Math.log2(pathFiber)):0,
+    selected_exact_order:[...path.selected_order],
+    projected_visible_order:projectedOrder,
+    invisible_exact_lines:invisible,
+    steps:path.steps.map(x=>({
+      step:x.step,address:x.address,line:x.line,from_verb:x.from_verb,to_verb:x.to_verb,
+      before_token:x.before_token,after_token:x.after_token,quotient_changed:x.quotient_changed
+    })),
+    law:'projecting exact one-edit paths through the binary quotient removes same-polarity edits and their interleavings; a visible hex STEP path may therefore stand for many exact operation trajectories'
+  };
+}
+
 export function residueLadder({state=null,stateStep=null,lattice=null,exact=null,steering=null,promotion=null}={}){
   const levels=[];
   if(exact?.ok){
@@ -610,6 +648,174 @@ export function residueLadder({state=null,stateStep=null,lattice=null,exact=null
   };
 }
 
+
+export function calculationTape({
+  state=null,
+  stateStep=null,
+  frontier=null,
+  native=null,
+  modelSupport=null,
+  exactPath=null,
+  returnAddress=null
+}={}){
+  const cursor=frontier?.ok
+    ?Math.max(0,Math.trunc(Number(frontier.cursor)||0))
+    :0;
+  const pathReady=!!stateStep?.ok;
+  const pathCount=pathReady?Math.max(1,Number(stateStep.possible_one_line_orders)||1):null;
+  const pathIndex=pathReady?Math.max(0,Number(stateStep.selected_order_index)||0):null;
+  const futurePaths=frontier?.ok?Math.max(1,Number(frontier.current_future_paths)||1):null;
+  const nativeCount=native?Math.max(0,Number(native.candidate_count)||0):null;
+  const supportOk=!!modelSupport?.ok;
+  const supportCount=supportOk?Math.max(0,Number(modelSupport.native_candidate_count)||0):null;
+  const ambiguity=supportOk&&Number.isFinite(Number(modelSupport.candidate_ambiguity_bits))
+    ?round(Number(modelSupport.candidate_ambiguity_bits))
+    :null;
+  const exactPathOk=!!exactPath?.ok;
+  const nativeRows=Array.isArray(native?.forecasts)
+    ?native.forecasts.map(x=>x?.forecast||x).filter(x=>x&&CONTROL_VERBS.includes(String(x.verb||'').toUpperCase()))
+    :[];
+  const supportForVerb=verb=>{
+    const target=String(verb||'').toUpperCase(),rows=nativeRows.filter(x=>String(x.verb||'').toUpperCase()===target);
+    const aligned=supportOk&&String(modelSupport.mapped_verb||'').toUpperCase()===target;
+    return {
+      native_candidate_count:rows.length,
+      native_candidate_slots:rows.map(x=>Number(x.slot)).filter(Number.isFinite),
+      model_direction_aligned:aligned,
+      model_supported_native_count:aligned?supportCount:0,
+      model_support_status:aligned?(modelSupport.status||'RESOLVED'):'DIRECTION_NOT_ALIGNED'
+    };
+  };
+  const exactByLine=new Map(exactPathOk?(exactPath.steps||[]).map(x=>[Number(x.line),x]):[]);
+  const exactNext=frontier?.ok?(frontier.candidates||[]).map(x=>{
+    const exact=exactByLine.get(Number(x.line))||null,targetVerb=exact?.to_verb||null;
+    return {
+      line:x.line,
+      after_token:x.after_token,
+      exact:exact?{from_verb:exact.from_verb,to_verb:exact.to_verb,quotient_changed:!!exact.quotient_changed}:null,
+      support:targetVerb?supportForVerb(targetVerb):null
+    };
+  }):[];
+  const exactResidue=exactPathOk?(exactPath.invisible_exact_lines||[]).map(x=>({...x,support:supportForVerb(x.to_verb)})):[];
+  const stage=(id,ready,value,authority,extra={})=>({
+    id,
+    ready:!!ready,
+    value:String(value??'OPEN'),
+    authority,
+    ...extra
+  });
+  const stages=[
+    stage(
+      'SOURCE',
+      state?.ok,
+      state?.ok?state.from.token+' → '+state.to.token:'UNRESOLVED',
+      'INPUT_WITNESS',
+      {keeps:'supplied endpoints',drops:'none inside the supplied endpoint pair'}
+    ),
+    stage(
+      'QUOTIENT',
+      state?.ok,
+      state?.ok?'d_H '+state.metrics.hamming_distance+'/6 · '+state.mask:'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:'d_H = Σ_i [from_i ≠ to_i]',
+        keeps:state?.ok?state.metrics.hamming_distance+' addressed moving line(s)':'none',
+        drops:exactPathOk&&exactPath.quotient_invisible_exact_changes>0
+          ?exactPath.quotient_invisible_exact_changes+' exact operation edit(s) are quotient-invisible; '+exactPath.exact_paths_per_visible_path+' exact path(s) collapse into each visible quotient path'
+          :state?.ok&&state.metrics.one_line_step_orders>1
+            ?state.metrics.one_line_step_orders+' temporal orders collapse into the unordered moving set'
+            :'no temporal-order ambiguity at this endpoint pair',
+        exact_residue_count:exactPathOk?exactPath.quotient_invisible_exact_changes:null
+      }
+    ),
+    stage(
+      'PATH',
+      pathReady,
+      pathReady?'ORDER '+(pathIndex+1)+'/'+pathCount+' · STEP '+cursor+'/'+stateStep.steps.length+(exactPathOk?' · FIBER '+exactPath.exact_paths_per_visible_path+'× / '+exactPath.path_information_loss_bits+'b':''):'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:exactPathOk?'factoradic quotient path; exact path fiber = e!/v!; residue bits = log2(e!/v!)':'factoradic rank ↔ one maximal one-line path',
+        address:pathReady?stateStep.path_address:null,
+        ambiguity_bits:pathReady?stateStep.order_ambiguity_bits:null,
+        exact_path_count:exactPathOk?exactPath.exact_path_count:null,
+        quotient_visible_path_count:exactPathOk?exactPath.quotient_visible_path_count:null,
+        exact_paths_per_visible_path:exactPathOk?exactPath.exact_paths_per_visible_path:null,
+        path_information_loss_bits:exactPathOk?exactPath.path_information_loss_bits:null
+      }
+    ),
+    stage(
+      'NEXT',
+      frontier?.ok,
+      frontier?.ok
+        ?(frontier.candidates.length
+          ?frontier.candidates.length+' EDGE'+(frontier.candidates.length===1?'':'S')+' · '+futurePaths+' FUTURE PATH'+(futurePaths===1?'':'S')+(exactResidue.length?' · EXACT RESIDUE '+exactResidue.length:'')
+          :'QUOTIENT TARGET REACHED · '+frontier.current.token+(exactResidue.length?' · EXACT RESIDUE '+exactResidue.length:''))
+        :'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:'remaining quotient successors; future paths = (remaining lines)!; exact residue stays visible even when quotient target is reached',
+        address:frontier?.ok?frontier.current.address:null,
+        future_paths:futurePaths,
+        exact_candidates:exactNext,
+        exact_residue:exactResidue
+      }
+    ),
+    stage(
+      'NATIVE',
+      !!native,
+      native
+        ?nativeCount+' LAWFUL CANDIDATE'+(nativeCount===1?'':'S')+(native.seq!=null?' · SEQ '+native.seq:'')
+        :'NO HOST WITNESS',
+      native?.authority||'WITNESS_ONLY',
+      {
+        keeps:'current host-owned lawful aperture',
+        drops:'support expires after host commit; this tape never executes it',
+        live_instance:native?.live_instance||null
+      }
+    ),
+    stage(
+      'MODEL',
+      supportOk,
+      supportOk
+        ?String(modelSupport.direction_label||modelSupport.direction||'DIRECTION')+' → '+String(modelSupport.mapped_verb||'∅')+' · C='+supportCount+' · a='+(ambiguity==null?'—':ambiguity+'b')
+        :'NO CURRENT SUPPORT WITNESS',
+      'CALCULATION_ONLY',
+      {
+        formula:'C(direction,s) = current lawful native candidates matching the mapped direction; a = log2(|C|)',
+        candidate_count:supportCount,
+        ambiguity_bits:ambiguity,
+        status:modelSupport?.status||modelSupport?.reason||null
+      }
+    ),
+    stage(
+      'RETURN',
+      !!returnAddress,
+      returnAddress||frontier?.current?.address||stateStep?.path_address||'OPEN',
+      'EVIDENCE_ONLY',
+      {
+        keeps:'address needed to re-enter the inspected calculation',
+        drops:'RETURN preserves evidence; it grants no host/model authority'
+      }
+    )
+  ];
+  const firstOpen=stages.findIndex(x=>!x.ready);
+  const active=firstOpen<0?'RETURN':stages[Math.max(0,firstOpen-1)].id;
+  return {
+    schema:CHANGE_CALCULUS_SCHEMA+'/calculation-tape',
+    authority:'RESEARCH_WITNESS_ONLY',
+    active_stage:active,
+    stages,
+    ambiguity:{
+      endpoint_order_bits:state?.ok?state.metrics.step_order_ambiguity_bits:null,
+      selected_path_bits:pathReady?stateStep.order_ambiguity_bits:null,
+      remaining_path_bits:frontier?.ok?frontier.current_future_order_ambiguity_bits:null,
+      exact_path_fiber_bits:exactPathOk?exactPath.path_information_loss_bits:null,
+      model_candidate_bits:ambiguity
+    },
+    law:'SOURCE → QUOTIENT → PATH → NEXT → NATIVE → MODEL → RETURN is one inspectable evidence tape over existing witnesses; readiness at one stage never grants authority to the next'
+  };
+}
+
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
@@ -643,6 +849,7 @@ export function appliedResearchFrame(spec={}){
     promotion,
     promotion_evidence_source:spec.promotionEvidence?'SUPPLIED':'CURRENT_EVIDENCE_2026_09_27',
     alignment,
+    exact_path_projection:exact?.ok?exactQuotientPathCalculation(spec.fromForm,spec.toForm,spec.stepOrder):null,
     residue_ladder,
     residue:[
       'I Ching names/text are an optional lookup lens over the six-bit state; no divinatory authority is inferred by this calculation',

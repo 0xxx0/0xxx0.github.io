@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
   lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactFormCalculation,
-  steppedFormPath,exactFormFrontierCalculation,residueLadder,appliedResearchFrame
+  steppedFormPath,exactQuotientPathCalculation,exactFormFrontierCalculation,residueLadder,calculationTape,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -137,6 +137,23 @@ assert.ok(stepped.path_address.includes('/order/0-of-720'));
 assert.equal(stepped.steps.filter(x=>x.quotient_changed).length,2);
 assert.equal(steppedFormPath(fromForm,toForm,[3,5]).ok,false);
 
+const pathProjection=exactQuotientPathCalculation(fromForm,toForm);
+assert.equal(pathProjection.ok,true);
+assert.equal(pathProjection.exact_changed_lines,6);
+assert.equal(pathProjection.quotient_changed_lines,2);
+assert.equal(pathProjection.quotient_invisible_exact_changes,4);
+assert.equal(pathProjection.exact_path_count,720);
+assert.equal(pathProjection.quotient_visible_path_count,2);
+assert.equal(pathProjection.exact_paths_per_visible_path,360);
+assert.equal(pathProjection.path_information_loss_bits,8.491853);
+assert.deepEqual(pathProjection.projected_visible_order,[3,5]);
+assert.deepEqual(pathProjection.invisible_exact_lines.map(x=>x.line),[1,2,4,6]);
+const selectedPathProjection=exactQuotientPathCalculation(fromForm,toForm,[5,3,1,2,4,6]);
+assert.equal(selectedPathProjection.ok,true);
+assert.deepEqual(selectedPathProjection.projected_visible_order,[5,3]);
+assert.equal(selectedPathProjection.exact_paths_per_visible_path,360);
+assert.equal(selectedPathProjection.path_information_loss_bits,8.491853);
+
 const weights=conditionalTopKWeights([
   {token_id:1,token:'FOLD',logit:4,rank:1},
   {token_id:2,token:'RETURN',logit:3,rank:2},
@@ -193,6 +210,8 @@ assert.equal(frame.state_frontier.current_future_paths,2);
 assert.equal(frame.state_frontier.candidates.length,2);
 assert.equal(frame.change_lattice.vertices,4);
 assert.equal(frame.exact_frontier.current_future_paths,720);
+assert.equal(frame.exact_path_projection.exact_paths_per_visible_path,360);
+assert.equal(frame.exact_path_projection.path_information_loss_bits,8.491853);
 assert.equal(frame.exact_frontier.candidates.find(x=>x.to_verb==='FOLD')?.support_status,'CURRENT_EPOCH_NATIVE_SUPPORT');
 assert.equal(frame.change_lattice.maximal_one_line_paths,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
@@ -215,6 +234,51 @@ assert.equal(frame.residue_ladder.levels.find(x=>x.id==='MOVING_SET')?.ambiguity
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='HOST_SUPPORT')?.native_candidate_count,3);
 assert.equal(frame.residue_ladder.levels.find(x=>x.id==='CAUSAL_GATE')?.failed_obligations,6);
 
+const tape=calculationTape({
+  state,
+  stateStep,
+  frontier:frontier0,
+  native:{
+    authority:'VIEW_ONLY',candidate_count:3,seq:42,live_instance:'fixture-live',
+    forecasts:[
+      {slot:2,forecast:{slot:2,verb:'FOLD',chain:2,power:1.3}},
+      {slot:8,forecast:{slot:8,verb:'FOLD',chain:1,power:1}},
+      {slot:5,forecast:{slot:5,verb:'RETURN',chain:1,power:.9}}
+    ]
+  },
+  modelSupport:{ok:true,direction_label:'FOLD',mapped_verb:'FOLD',native_candidate_count:2,candidate_ambiguity_bits:1,status:'MULTIPLE_NATIVE_CANDIDATES'},
+  exactPath:pathProjection,
+  returnAddress:stateStep.path_address
+});
+assert.equal(tape.authority,'RESEARCH_WITNESS_ONLY');
+assert.equal(tape.active_stage,'RETURN');
+assert.deepEqual(tape.stages.map(x=>x.id),['SOURCE','QUOTIENT','PATH','NEXT','NATIVE','MODEL','RETURN']);
+assert.equal(tape.stages.find(x=>x.id==='QUOTIENT')?.value,'d_H 2/6 · Δ{3,5}');
+assert.match(tape.stages.find(x=>x.id==='QUOTIENT')?.drops,/4 exact operation edit/);
+assert.equal(tape.stages.find(x=>x.id==='PATH')?.address,stateStep.path_address);
+assert.match(tape.stages.find(x=>x.id==='PATH')?.value,/FIBER 360× \/ 8\.491853b/);
+assert.equal(tape.stages.find(x=>x.id==='PATH')?.exact_paths_per_visible_path,360);
+assert.equal(tape.stages.find(x=>x.id==='QUOTIENT')?.exact_residue_count,4);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.future_paths,2);
+assert.match(tape.stages.find(x=>x.id==='NEXT')?.value,/EXACT RESIDUE 4/);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_residue.length,4);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_candidates.find(x=>x.line===3)?.exact?.to_verb,'FOLD');
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_candidates.find(x=>x.line===3)?.support?.native_candidate_count,2);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_candidates.find(x=>x.line===3)?.support?.model_direction_aligned,true);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_residue.find(x=>x.line===4)?.support?.model_direction_aligned,true);
+assert.equal(tape.stages.find(x=>x.id==='NEXT')?.exact_residue.find(x=>x.line===6)?.support?.native_candidate_count,1);
+assert.equal(tape.stages.find(x=>x.id==='NATIVE')?.value,'3 LAWFUL CANDIDATES · SEQ 42');
+assert.equal(tape.stages.find(x=>x.id==='MODEL')?.value,'FOLD → FOLD · C=2 · a=1b');
+assert.equal(tape.ambiguity.remaining_path_bits,1);
+assert.equal(tape.ambiguity.exact_path_fiber_bits,8.491853);
+assert.equal(tape.ambiguity.model_candidate_bits,1);
+assert.match(tape.law,/never grants authority/);
+const openTape=calculationTape({state,stateStep,frontier:frontier0,returnAddress:stateStep.path_address});
+assert.equal(openTape.active_stage,'NEXT');
+assert.equal(openTape.stages.find(x=>x.id==='RETURN')?.ready,true);
+assert.equal(openTape.stages.find(x=>x.id==='NATIVE')?.ready,false);
+assert.equal(openTape.stages.find(x=>x.id==='MODEL')?.ready,false);
+
 const stateOnlyResidue=residueLadder({state,stateStep,lattice});
 assert.equal(stateOnlyResidue.strongest_claim,'ORDERED_PATH_WITNESS');
 assert.deepEqual(stateOnlyResidue.levels.map(x=>x.id),['HEX_STATE','MOVING_SET','ORDER_SPACE','ORDERED_PATH']);
@@ -232,5 +296,6 @@ console.log(JSON.stringify({
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
   promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
   residueLadder:{strongest:frame.residue_ladder.strongest_claim,levels:frame.residue_ladder.levels.map(x=>x.id)},
+  calculationTape:{active:tape.active_stage,stages:tape.stages.map(x=>x.id),ambiguity:tape.ambiguity},
   authority:frame.authority
 },null,2));

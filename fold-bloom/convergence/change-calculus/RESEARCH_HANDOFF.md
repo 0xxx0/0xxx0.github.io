@@ -394,13 +394,33 @@ The right abstraction is often not the smallest one. It is the smallest one whos
 
 ## Applied experiments
 
-### E1 — HEX quotient counterexample search
+### E1 — HEX quotient control-loss witness
 
-Goal: find two exact six-verb forms with the same binary hex state but meaningfully unequal downstream Fold/Bloom evidence.
+Goal: make projection loss directly inspectable rather than merely asserted.
 
-Current proof already shows syntactic inequality. Next step is behavioral inequality using native snapshots.
+The native search already falsifies HEX control sufficiency for the named property `NEXT_LAWFUL_FORECAST_SET + CALL + TARGET_TYPE`. FIELD LAB now converts that proof into one reversible A/B investigation inside the existing calculation-tape lane:
 
-**Promotion condition:** either demonstrate a bounded property preserved across each tested fiber, or preserve the exact form beside the quotient forever.
+```text
+PROVE LOSS
+→ deterministic lawful LIVE search
+→ first same-HEX / unequal-native-NEXT pair
+→ freeze exact recent verbs + native forecast apertures + native dependency factors
+→ A ↔ B
+→ HEX label stays fixed while lawful NEXT changes
+→ RETURN carries the witness
+```
+
+The witness exposes which current forecast-factor fields differ (`cell_types / target_type / anchors / creases / charge`) and which forecast slots exist only on A, only on B, or survive at the same slot with changed consequence.
+
+This is deliberately stronger than a static warning and deliberately weaker than a new controller:
+
+- it never calls `release()`;
+- it does not claim HEX is globally useless;
+- it proves only that this projection is insufficient for the named control property on the witnessed pair;
+- it does not rank or select a native action;
+- model/J-space evidence remains separate and cannot inherit host effect authority.
+
+**Promotion condition:** a compact projection may own a named control property only after bounded native evidence fails to produce unequal lawful consequences across its collapsed states. Until then, preserve the dropped residue or re-resolve through the native host.
 
 ### E2 — STEP commutator
 
@@ -463,6 +483,56 @@ This identifies the smallest sufficient layer for each task instead of assuming 
 - Recent compositional state-abstraction work: arXiv:2606.25357
 
 These sources motivate tests. They do not certify the current repo abstractions.
+
+
+## 2026-09-30 — LAB convergence calculation tape
+
+FIELD LAB DATA now projects the already-existing change/steering mechanisms as one compact inspectable tape:
+
+```text
+SOURCE → QUOTIENT → PATH → NEXT → NATIVE → MODEL → RETURN
+```
+
+This is a **derived witness**, not another reducer, bus, store, state machine, or authority source.
+
+Stage ownership remains unequal:
+
+- **SOURCE** — supplied six-bit endpoint pair.
+- **QUOTIENT** — transparent (d_H), moving-line set and collapsed temporal-order residue.
+- **PATH** — one factoradic maximal chain with an exact path address.
+- **NEXT** — every remaining one-line successor from the witnessed prefix plus remaining path multiplicity.
+- **NATIVE** — the latest LIVE-owned lawful forecast aperture witnessed through the existing FIELD PULSE bridge.
+- **MODEL** — only (C(direction,s)), the subset of the current native aperture matching the authority-NONE direction witness, plus (a=log_2|C|).
+- **RETURN** — exact address for re-entering the inspected calculation.
+
+The new pure `calculationTape(...)` projection lives in the existing change-calculus kernel and is covered by the normal selftest. LAB renders the seven stages as tap-to-inspect VIEW operations and includes the tape in its ordinary DATA RETURN. Clicking a stage may change only the LAB witness address/status; it does not select a NEXT edge, call LIVE `release()`, cast I Ching, or promote J-space support.
+
+The key experiential reduction is that the former adjacent STATE/STEP and LIVE/J-space panels now share one visible provenance spine. The user can see where information is compressed, where order is restored, where abstract possibility becomes host-lawful support, and where model support stops before effect authority.
+
+
+## 2026-09-30 — perceptual falsifier inside the tape
+
+The calculation tape is the convergence spine. The A/B control-loss witness is a bounded experiment inside that spine, not an eighth stage and not another state owner.
+
+Reducer move:
+
+```text
+projection warning
+→ executable falsifier
+→ replayable A/B witness
+→ exact dropped factor
+→ RETURN
+```
+
+When a representation is known to be lossy, prefer this pattern over another explanatory layer: expose one concrete pair the representation collapses, show the downstream lawful difference, name the residue, and preserve the owner that can re-resolve it.
+
+Owners remain unequal:
+
+- I Ching / HEX = readable structural projection;
+- STEP / lattice = finite path/order calculation;
+- J-space = read/support research evidence;
+- LIVE = native lawful forecast/effect authority;
+- LAB = comparison, preview and RETURN only.
 
 ## Stop rules
 
@@ -1199,3 +1269,69 @@ This is the stronger reusable pattern:
 **stable address space → lawful host aperture → advisory support subset → local focus → host-only commit elsewhere.**
 
 It gives "driving / steering" a concrete geometry while preserving the rule that a co-driver may illuminate a road but does not acquire the steering wheel.
+
+
+## 2026-09-30 — #705 donor reduced into the single calculation tape
+
+The convergence reducer held PR #705 as donor-only because #714 owns this LAB/change-calculus/J-space surface. Its unique residue is now folded into the existing seven-stage tape rather than maintained as a second convergence object.
+
+For exact six-verb FROM/TO evidence let:
+
+- `e` = exact operation positions that changed;
+- `v` = positions whose binary HEX quotient changed.
+
+The tape now preserves the distinct trajectory compression:
+
+```text
+exact one-edit paths      = e!
+visible quotient paths    = v!
+path fiber                = e! / v!
+path residue bits         = log2(e! / v!)
+```
+
+This matters beyond endpoint fiber. Same-polarity edits such as `BLOOM→FOLD` or `SPLIT→RETURN` can disappear from the quotient **and from the visible STEP trajectory/interleaving**.
+
+### Single-tape experience
+
+No stage was added.
+
+- **QUOTIENT** names how many exact operation edits are invisible.
+- **PATH** exposes the exact-path fiber and residue bits when attached LIVE exact evidence matches the current state endpoints.
+- **NEXT** keeps exact target verbs beside the abstract edge, including current native candidate count and authority-NONE model-direction alignment.
+- Exact edits with no quotient edge remain visible as **EXACT RESIDUE inside NEXT**, not as a second panel/plan.
+- If the HEX quotient is already at `TARGET REACHED`, exact residue is still rendered. Quotient completion is not allowed to erase lower-level change.
+
+The current native aperture remains the only source for candidate support. Model alignment only annotates whether the accepted authority-NONE direction names the same exact target verb.
+
+```text
+HEX TARGET REACHED
+  ≠ exact operation identity preserved
+  ≠ native support
+  ≠ permission
+  ≠ effect
+```
+
+A host commit still invalidates the old native-support witness and requires re-resolution.
+
+### Proof requirement
+
+The existing calculus selftest now proves path-fiber arithmetic and exact/native/model annotations on the tape. Browser proof must additionally require that same-HEX / six-exact-edit evidence remains visibly present inside the tape rather than disappearing behind `TARGET REACHED`.
+
+
+## 2026-09-30 — selected STEP × exact-fiber attachment
+
+When same-LIVE-instance FROM/TO captures are attached to the current six-bit endpoints, LAB may enrich the existing tape with the exact operation fiber.
+
+The attachment law is deliberately asymmetric:
+
+```text
+selected quotient-visible STEP order
+→ preserve that visible order exactly
+→ append quotient-invisible exact edits in canonical addressed line order
+→ mark this as ONE REPRESENTATIVE
+→ retain e!/v! and log2(e!/v!) as the collapsed exact-path fiber
+```
+
+The representative is not claimed to be historical execution order. It exists so PATH/NEXT can expose exact verb residue and current native/model support without inventing hidden chronology.
+
+If captures detach from the current endpoints, come from different LIVE instances, or cannot preserve the selected visible order, the exact-path attachment disappears rather than guessing.
