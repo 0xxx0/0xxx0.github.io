@@ -155,7 +155,7 @@
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
       "decision": "PROVE_OR_DECOAXIALIZE",
-      "repair_boundary": "Gesture ownership (C) is now statically proved; causal RETURN (G) and LIVE provenance (F) remain proved. Do not promote to KEEP: E_REVERSAL is still open for committed musical FOLD/BLOOM inverse-or-residue semantics, and H_COMPRESSION still requires a plain non-coaxial ordinary-use baseline. Canceled pointer preview is reversible, but causal history is not cosmetic UNDO.",
+      "repair_boundary": "A-G are now proved. Do not promote to KEEP until H_COMPRESSION is tested against a named plain non-coaxial baseline under ordinary use. If the two-dial relation does not reduce exposed interaction/learning burden while retaining function, de-coaxialize/delete rather than add explanation chrome.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -187,11 +187,12 @@
           ]
         },
         "E_REVERSAL": {
-          "verdict": "INDETERMINATE",
+          "verdict": "PASS",
           "evidence": [
-            "/fold-bloom/two-dial/core2.js: pointerGestureStart() retains side-local index/raw/wear residue and pointercancel restores it, so canceled preview no longer leaks local state",
-            "/fold-bloom/two-dial/app-runtime.js: full local snapshot/cassette restore exists, but it is not an automatic inverse for each committed musical operation",
-            "Committed FOLD/BLOOM transformations alter pattern/form/music/motif in ways not yet proved exact- or tolerance-reopenable; causal RETURN explains them but does not itself constitute UNDO"
+            "/fold-bloom/two-dial/core2.js: first live pointer captures one pre-gesture undo candidate; release arms it only at the semantic commit boundary; pointercancel discards an uncommitted candidate",
+            "/fold-bloom/two-dial/app-runtime.js: cloneCommitSnapshot() deep-clones the existing complete local snapshot; undoLastCommit() restores it, clears live pointer velocity/touch state, persists the restored state, and cancels pending delayed compose timers",
+            "/fold-bloom/two-dial/index.html: UNDO LAST COMMIT is exposed only inside the existing STATE/SESSION pane, not as new root chrome",
+            "/tools/two-dial-reversal-selftest.cjs: executable static contract proof for deep-clone residue, commit arming, delayed-compose cancellation, exact restore path and audit verdict"
           ]
         },
         "F_LIVE": {
@@ -214,9 +215,28 @@
         "H_COMPRESSION": {
           "verdict": "INDETERMINATE",
           "evidence": [
-            "No durable baseline comparison currently demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler non-coaxial control surface."
+            "No durable ordinary-use comparison yet demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler functionally equivalent non-coaxial control.",
+            "H gate baseline is fixed as two independent six-position plain controls + explicit relation readout + COMMIT, preserving the same 36 pair states and host relation mapping without coaxial/radial geometry."
           ]
         }
+      },
+      "compression_gate": {
+        "status": "ORDINARY_USE_REQUIRED",
+        "baseline": "PLAIN_PAIR_6X6",
+        "controlled": [
+          "same 36 MATTER×HARMONY pair states",
+          "same SAME/NEAR/FAR/OPPOSITE host mapping",
+          "same BLOOM/FOLD/RETURN/SPLIT consequence path",
+          "same world/voice/groove/scope",
+          "same RETURN/export law"
+        ],
+        "varied": [
+          "TWO_DIAL: direct cyclic spatial manipulation",
+          "PLAIN_PAIR_6X6: two independent six-position plain controls + explicit relation readout + COMMIT"
+        ],
+        "pass": "Ordinary use shows TWO_DIAL reaches and revisits intended pair/relation states with less exposed interaction or learning burden while retaining the same functional state space and RETURN.",
+        "fail": "PLAIN_PAIR_6X6 is equal or easier to understand/operate, or TWO_DIAL requires additional explanation/mode memory that cancels its control compression.",
+        "boundary": "Do not infer PASS from code size, aesthetics, novelty, task completion alone, or subjective preference without a same-task baseline."
       }
     }
   ],
