@@ -3,7 +3,7 @@
   "id": "SHOPPING_PHASE_FIRST_SURFACE_2026-09-30",
   "date": "2026-09-30",
   "object": "Shopping shared phase-first field surface",
-  "state": "CANDIDATE_CI",
+  "state": "MERGED_CI_GREEN",
   "before": "Shopping already projected each exact item through the shared one-object grammar, but the primary sidebar still filtered by the detailed native lifecycle and list headers still foregrounded native state. The visible surface therefore exposed two competing state grammars.",
   "delta": [
     "Replace primary sidebar STATE filter with derived PHASE filter: NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED.",
@@ -33,6 +33,22 @@
       "Route Registration",
       "gitleaks"
     ],
-    "result": "PENDING_PR_HEAD"
+    "selftest": "PASS · /tools/shopping-phase-surface-selftest.mjs",
+    "public_surface": {
+      "run": 36703842940,
+      "result": "PASS"
+    },
+    "route_registration": {
+      "run": 36703842994,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 36703843106,
+      "result": "PASS"
+    },
+    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/739",
+    "merge_sha": "aee12edf504145828c8fa0eebabc8a67a722fa69",
+    "proof_head": "9af9d903021417fc95c2a64fd6ffb27a912cd276",
+    "result": "PASS"
   }
 }
