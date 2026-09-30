@@ -47,7 +47,8 @@
     "BATCHING CREATES NO PERSISTENT STATE.",
     "CONTRIBUTION DISPOSITION IS ADVISORY AND CALLER-ATTESTED; NATIVE HOST/GITHUB AUTHORITY REMAINS NATIVE.",
     "ONE PACKET -> EXACTLY ONE OF NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE.",
-    "MERGE PROJECTION REQUIRES EXACT_HEAD + BASE_CURRENT + MERGEABLE + VERIFIED; ANY UNKNOWN/STALE BOUNDARY REPAIRS FIRST."
+    "MERGE PROJECTION REQUIRES EXACT_HEAD + BASE_CURRENT + MERGEABLE + VERIFIED; ANY UNKNOWN/STALE BOUNDARY REPAIRS FIRST.",
+    "BASE_CURRENT IS ANCESTRY, NOT METADATA: native compare(master, candidate_head).behind_by MUST EQUAL 0; PR base-pointer equality alone does not establish currency."
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
@@ -60,7 +61,8 @@
     "The contribution reducer does not fetch live GitHub state; mergeable/CI/superseded facts must be caller-attested or produced by a native GitHub worker.",
     "MERGE output is not merge authority; it is a disposition projection after attested checks.",
     "No automatic NEXT execution is introduced.",
-    "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority."
+    "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority.",
+    "The caller/native GitHub worker must derive base_current from commit ancestry (behind_by === 0), not from the PR base SHA field."
   ],
   "stop": "Do not create another packet/contribution reducer CLI. Extend this entrypoint only for a reproduced consumer incompatibility or falsified invariant."
 }
