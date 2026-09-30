@@ -38,6 +38,8 @@ test('only lawful LIVE operation pulses enter the six-release witness window',()
   assert.equal(s.operations.length,0);
   for(const [i,verb] of ['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'].entries())s=reduceLiveChangeBridge(s,op(i+1,verb));
   assert.equal(s.schema,LIVE_CHANGE_BRIDGE_SCHEMA);
+  assert.equal(s.live_instance,'live-a');
+  assert.equal(s.window.live_instance,'live-a');
   assert.equal(s.window.ready,true);
   assert.deepEqual(s.window.exact_form,['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD']);
   assert.equal(s.window.hex_token,'H[110|011]');
@@ -48,21 +50,52 @@ test('only lawful LIVE operation pulses enter the six-release witness window',()
   assert.equal(s.window.last_seq,7);
 });
 
+test('LIVE instance switch resets exact/native evidence and cross-instance captures cannot compare',()=>{
+  const aperture=native(6,0,{verb:'FOLD',chain:1,candidates:1},[
+    {slot:2,verb:'FOLD',chain:1,cadence:null,span:0,power:1,path:[2]}
+  ]);
+  let a=createLiveChangeBridgeState();
+  for(const [i,verb] of ['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'].entries()){
+    a=reduceLiveChangeBridge(a,op(i+1,verb,i===5?{nativeForecast:aperture}:{}));
+  }
+  const from=captureLiveChangeWindow(a,'FROM');
+  assert.equal(from.live_instance,'live-a');
+  assert.equal(a.native_latest.authority,'NATIVE_EVIDENCE');
+
+  let mixed=reduceLiveChangeBridge(a,{...op(1,'RETURN'),instance:'live-b'});
+  assert.equal(mixed.live_instance,'live-b');
+  assert.equal(mixed.operations.length,1);
+  assert.equal(mixed.window.ready,false);
+  assert.equal(mixed.window.count,1);
+  assert.equal(mixed.native_latest,null);
+  for(const [i,verb] of ['SPLIT','RETURN','BLOOM','FOLD','RETURN'].entries()){
+    mixed=reduceLiveChangeBridge(mixed,{...op(i+2,verb),instance:'live-b'});
+  }
+  const to=captureLiveChangeWindow(mixed,'TO');
+  assert.equal(to.live_instance,'live-b');
+  assert.equal(to.event_refs.every(x=>x.instance==='live-b'),true);
+  const comparison=compareLiveChangeCaptures(from,to);
+  assert.equal(comparison.ok,false);
+  assert.equal(comparison.reason,'LIVE_INSTANCE_MISMATCH');
+});
+
 test('capture freezes exact LIVE provenance beside the lossy hex projection',()=>{
   let s=createLiveChangeBridgeState();
   for(const [i,verb] of ['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'].entries())s=reduceLiveChangeBridge(s,op(i+1,verb));
   const c=captureLiveChangeWindow(s,'FROM');
   assert.equal(c.ok,true);
   assert.equal(c.role,'FROM');
+  assert.equal(c.live_instance,'live-a');
   assert.equal(c.event_refs.length,6);
+  assert.equal(c.event_refs.every(x=>x.instance==='live-a'),true);
   assert.equal(c.event_refs[0].seq,1);
   assert.equal(c.hex_token,'H[110|011]');
   assert.deepEqual(c.exact_form,['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD']);
 });
 
 test('comparison keeps same-polarity exact edits as quotient residue',()=>{
-  const from={ok:true,exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:1,last_seq:6};
-  const to={ok:true,exact_form:['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:7,last_seq:12};
+  const from={ok:true,live_instance:'live-a',exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:1,last_seq:6};
+  const to={ok:true,live_instance:'live-a',exact_form:['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:7,last_seq:12};
   const c=compareLiveChangeCaptures(from,to);
   assert.equal(c.ok,true);
   assert.equal(c.same_hex_endpoints,true);
@@ -71,6 +104,14 @@ test('comparison keeps same-polarity exact edits as quotient residue',()=>{
   assert.equal(c.quotient_invisible_exact_changes,6);
   assert.equal(c.invisible_lines.length,6);
   assert.equal(c.exact_forms_per_hexagram,64);
+});
+
+test('comparison rejects unscoped capture-like objects',()=>{
+  const from={ok:true,exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],bits:[1,1,0,0,1,1]};
+  const to={...from};
+  const c=compareLiveChangeCaptures(from,to);
+  assert.equal(c.ok,false);
+  assert.equal(c.reason,'LIVE_INSTANCE_REQUIRED');
 });
 
 test('same hex windows can retain unequal post-release native NEXT apertures',()=>{
