@@ -45,6 +45,7 @@ export function createLiveChangeBridgeState(){
     authority:'WITNESS_ONLY',
     operations:[],
     window:null,
+    native_latest:null,
     steering:null,
     last_message:null
   };
@@ -104,11 +105,13 @@ export function reduceLiveChangeBridge(state,message,{now=Date.now(),steeringMax
   const steering=steeringDescriptor(message,now,steeringMaxAgeMs);
   if(!op&&!steering)return current;
   const operations=op?[...(current.operations||[]),op].slice(-LIVE_CHANGE_WINDOW):[...(current.operations||[])];
+  const nativeLatest=op?.native_after?clone(op.native_after):(current.native_latest?clone(current.native_latest):null);
   return {
     schema:LIVE_CHANGE_BRIDGE_SCHEMA,
     authority:'WITNESS_ONLY',
     operations,
     window:compileWindow(operations),
+    native_latest:nativeLatest,
     steering:steering?{
       source:steering.source,
       seq:steering.seq,
@@ -189,7 +192,7 @@ export function compareLiveChangeCaptures(fromCapture,toCapture){
 }
 
 export function liveSteeringSupport(state){
-  const steering=state?.steering||null,native=state?.window?.native_after||null;
+  const steering=state?.steering||null,native=state?.native_latest||state?.window?.native_after||null;
   if(!steering)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/steering-support',authority:'CALCULATION_ONLY',reason:'STEERING_WITNESS_REQUIRED'};
   if(!native)return {
     ok:false,
@@ -220,11 +223,12 @@ export function liveChangeBridgeReturn(state,{fromCapture=null,toCapture=null}={
     schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/return',
     authority:'WITNESS_ONLY',
     live_window:state?.window?.ready?clone(state.window):null,
+    native_latest:state?.native_latest?clone(state.native_latest):null,
     steering:state?.steering?clone(state.steering):null,
     steering_support:liveSteeringSupport(state),
     from_capture:fromCapture?.ok?clone(fromCapture):null,
     to_capture:toCapture?.ok?clone(toCapture):null,
     comparison:comparison.ok?comparison:null,
-    law:'RETURN preserves observed LIVE release provenance, quotient residue, bounded native-next evidence and any contemporaneous authority-NONE steering witness without converting any of them into control state'
+    law:'RETURN preserves observed LIVE release provenance, the independently current native aperture, quotient residue, bounded native-next evidence and any contemporaneous authority-NONE steering witness without converting any of them into control state'
   };
 }
