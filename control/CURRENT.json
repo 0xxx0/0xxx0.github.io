@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-29T22:18:00+08:00",
+  "updated": "2026-09-30T09:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -696,19 +696,22 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3.5 / PORT WORLD-IN + CLOSED DAYLINE/HOUSE RETURNS + SOURCE SIGNAL / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.4.0 / ONE HELD THING + SHARED ACTION SURFACE + CLOSED HOUSE/DAYLINE RETURNS",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Shopping now spans WORLD_IN→WORLD_THROUGH without status laundering: HUMAN PORT may offer an exact object/focus as a candidate; explicit ADD AS VERIFY creates the browser-local item while retaining object/hash provenance and literal source URL. Shopping then owns freshness, landed cost, SKU/seller verification, lifecycle, evidence patterns, Dayline completion receipts and HOUSE dimensional fit receipts. Money/seller contact and ownership/adoption remain human/evidence-backed.",
-      "version": "0.3.5",
+      "retained_function": "Shopping preserves its detailed browser-local procurement truth while projecting each exact held item through the shared INTERPHASE grammar: one object, derived material phase, <=3 host-native moves, witness/TRACE and exact RETURN. NEED/CANDIDATE/READY/INBOUND/ON_HAND/ADOPTED/CLOSED are presentation phases only; FOUND/VERIFY/WATCH/BOUGHT/RECEIVED/TESTED/etc remain native host evidence and authority. HOUSE fit and Dayline remain OFFER/EVIDENCE loops; money/seller action remains human.",
+      "version": "0.4.0",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
         "/returns/SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
         "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
-        "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json"
+        "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
+        "/lib/shopping-interphase.js",
+        "/tools/shopping-interphase-selftest.mjs",
+        "/returns/SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json"
       ],
-      "latest_return": "/returns/HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json"
+      "latest_return": "/returns/SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json"
     },
     {
       "lineage": "triangle",

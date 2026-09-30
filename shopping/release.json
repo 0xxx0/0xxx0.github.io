@@ -2,9 +2,9 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.5",
-  "released": "2026-09-27",
-  "state": "ACTIVE_ADAPTER",
+  "version": "0.4.0",
+  "released": "2026-09-30",
+  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR",
   "recovered_from": [
     {
       "artifact": "House OS Shopping / Inventory Console",
@@ -73,7 +73,11 @@
     "Added explicit HUMAN PORT → Shopping candidate ingress: one exact Port object/focus becomes a short-lived OFFER_ONLY / CANDIDATE_ONLY Shopping offer.",
     "Shopping shows the pending Port offer separately and requires explicit ADD AS VERIFY before browser-local ledger mutation.",
     "Added first-class SOURCE URL / EXACT SKU / SELLER-CHANNEL fields so evidence required by the Shopping contract and agent packet is no longer dropped by the ledger UI.",
-    "Port carries a literal URL when present but deliberately does not infer SKU/seller or ownership state."
+    "Port carries a literal URL when present but deliberately does not infer SKU/seller or ownership state.",
+    "Added shared Shopping INTERPHASE adapter: exact selected item → derived material phase → <=3 native moves → TRACE → exact RETURN.",
+    "Primary visible lifecycle compresses to NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED while detailed native states remain preserved as host-owned residue.",
+    "READY is derived from existing purchase-gate evidence; TESTED remains ON_HAND evidence rather than becoming a separate shared phase.",
+    "Shopping now emits interphase-action-surface/v0.1 without gaining purchase, seller-contact, HOUSE, Dayline or FIELD authority."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -100,10 +104,13 @@
     "Port candidate cannot auto-save to Shopping",
     "Port candidate imports only as VERIFY / source_kind other",
     "Port object id/hash/scope/focus survive as source_ref evidence",
-    "source URL / exact SKU / seller-channel survive Shopping export/agent packet"
+    "source URL / exact SKU / seller-channel survive Shopping export/agent packet",
+    "shared action surface preserves exact item id/address and RETURN",
+    "derived material phase never mutates native Shopping lifecycle",
+    "one-object surface exposes at most three HOST_NATIVE_ONLY moves"
   ],
   "return": "/shopping/",
-  "date": "2026-09-25",
+  "date": "2026-09-30",
   "validation": {
     "dayline_closed_loop_pr": 379,
     "merge_sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621",
