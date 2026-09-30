@@ -1,0 +1,50 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-09-30",
+  "object": "electronics, repair and robotics historical handover convergence",
+  "status": "BOUNDED_EVIDENCE_RETURN",
+  "state": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
+  "delta": [
+    "Recovered direct lineage from a November 2024 Android-robotics comparison through its November 2025 role/bus reframing to the later phone-to-USB-CDC-to-MCU cassette pattern; the mature architecture is not backdated to 2024.",
+    "Separated specification from embodiment for PhoneCassette and the One-Axis Motion Platform: detailed diagrams, BOMs, interfaces and loggers are SPEC evidence, not proof of a fabricated or tested machine.",
+    "Retained the lowest-regret device allocation: old Android phones take fixed-camera, rover-brain, microphone/display and disposable-field roles first; current high-capability phones remain flexible compute/control/lab nodes.",
+    "Promoted two repair invariants: exact model/revision must match service instructions before model-specific action; energized or heat-producing machinery is observation-only, with chemical treatment performed only de-energized and component-compatible.",
+    "Unified hardware proof state as SPECIFIED != BUILT != TESTED != ADOPTED and preserved unresolved build/test gaps instead of laundering them into current capability.",
+    "Held the alleged older portable-gearing ancestor outside canon because the strongest recovered pre-chat evidence lacks eligible conversation provenance."
+  ],
+  "evidence": {
+    "private_source_class": [
+      "historical ChatGPT conversation exports",
+      "retained generated artifacts with creation metadata",
+      "current handover extraction session"
+    ],
+    "repository_hosts": [
+      "AGENTS.md",
+      "llms.txt",
+      "returns/",
+      "foundry/"
+    ],
+    "not_committed": "Raw private conversation text, personal incident detail and external account material remain outside the public repository."
+  },
+  "value": [
+    "Future workers can distinguish historical architecture lineage from later refinement without false backdating.",
+    "Hardware proposals cannot become machine-state claims without physical receipts.",
+    "Repair guidance now fails closed on identity mismatch and energized chemical intervention.",
+    "Device allocation preserves scarce mobile capability while reusing older hardware for bounded roles.",
+    "The return reduces repeated re-derivation without creating another runtime, dashboard, authority store or project."
+  ],
+  "authority": "Explicit user request on 2026-09-30 to keep the convergence empirical, visible in the repository and folded into existing FIELD discipline.",
+  "runtime_changes": "NONE",
+  "public_surface_changes": "NONE",
+  "residue": [
+    "Original conversation title for the July 13, 2026 One-Axis Motion Platform artifact remains unavailable; Convergence Foundry is the nearest recoverable project context.",
+    "Earliest conversation title for the 2026 Pixel allocation decision remains unresolved even though the decision is strongly attested by August-September artifacts.",
+    "No hard physical build proof has been recovered for PhoneCassette, the old-phone rover, the One-Axis platform or the earlier radial electronics proposal.",
+    "The pre-chat portable-gearing ancestor remains external evidence only until eligible conversation provenance appears."
+  ],
+  "waiting": [],
+  "next": [
+    "Promote nothing further until a physical receipt closes one of the unresolved build/test gaps or new source evidence resolves provenance."
+  ],
+  "stop": "No new hardware route, dashboard, state store, architecture layer or authority surface."
+}
