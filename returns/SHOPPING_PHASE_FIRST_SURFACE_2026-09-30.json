@@ -1,0 +1,38 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_PHASE_FIRST_SURFACE_2026-09-30",
+  "date": "2026-09-30",
+  "object": "Shopping shared phase-first field surface",
+  "state": "CANDIDATE_CI",
+  "before": "Shopping already projected each exact item through the shared one-object grammar, but the primary sidebar still filtered by the detailed native lifecycle and list headers still foregrounded native state. The visible surface therefore exposed two competing state grammars.",
+  "delta": [
+    "Replace primary sidebar STATE filter with derived PHASE filter: NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED.",
+    "Use ShoppingInterphase.phaseOf(item) for filtering and primary list-state recognition.",
+    "Retain the exact native Shopping lifecycle as an explicit secondary `native …` residue tag and editable inspector field.",
+    "Add a dedicated selftest proving the shared phase is primary while native lifecycle remains visible and host-owned."
+  ],
+  "invariants": [
+    "no native Shopping lifecycle value is deleted or rewritten",
+    "derived phase never mutates FOUND/VERIFY/WATCH/BOUGHT/RECEIVED/TESTED/ADOPTED truth",
+    "READY remains gate-derived rather than manually laundered",
+    "money movement and seller contact remain human/native authority",
+    "HOUSE and Dayline evidence loops remain unchanged",
+    "private populated inventories remain browser-local/imported, never committed as public seed"
+  ],
+  "evidence": [
+    "/shopping/",
+    "/lib/shopping-interphase.js",
+    "/tools/shopping-interphase-selftest.mjs",
+    "/tools/shopping-phase-surface-selftest.mjs"
+  ],
+  "return": "/shopping/",
+  "stop": "Do not delete the native lifecycle merely because the compact phase projection is easier to scan.",
+  "validation": {
+    "required_checks": [
+      "public-surface-check",
+      "Route Registration",
+      "gitleaks"
+    ],
+    "result": "PENDING_PR_HEAD"
+  }
+}

@@ -2,9 +2,9 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "released": "2026-09-30",
-  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / MARKET_TAPE",
+  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / MARKET_TAPE / PHASE_FIRST_SURFACE",
   "recovered_from": [
     {
       "artifact": "House OS Shopping / Inventory Console",
@@ -81,7 +81,10 @@
     "Added bounded MARKET TAPE: up to 12 browser-local exact-offer snapshots retaining checked time, landed SGD, availability, variant, exact SKU/seller/source, return policy and warranty.",
     "Added optional TARGET LANDED SGD; target hit is derived evidence only and cannot trigger purchase, seller contact or lifecycle promotion.",
     "Agent research packet now carries current offer + bounded market summary/history so research can compare fresh evidence without status laundering.",
-    "External donor admission retained price-history/watch/identity mechanisms while rejecting autonomous checkout and universal-cart authority."
+    "External donor admission retained price-history/watch/identity mechanisms while rejecting autonomous checkout and universal-cart authority.",
+    "Primary Shopping field filter now uses the shared material phase projection (NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED) rather than exposing the detailed native lifecycle as the top-level navigation grammar.",
+    "List recognition now foregrounds derived material phase while preserving the exact native Shopping state as explicit visible residue.",
+    "Detailed native lifecycle remains editable/host-owned; phase filtering is projection only and cannot mutate procurement truth."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -116,7 +119,10 @@
     "market history is capped at 12 snapshots",
     "market target hit is derived from landed SGD only",
     "market snapshot preserves exact item provenance",
-    "market tape remains browser-local and exportable with the item"
+    "market tape remains browser-local and exportable with the item",
+    "phase filter derives from ShoppingInterphase.PHASES",
+    "phase-first list rendering keeps native Shopping state visible as residue",
+    "no native lifecycle value is deleted by surface contraction"
   ],
   "return": "/shopping/",
   "date": "2026-09-30",
@@ -137,6 +143,10 @@
       "public_surface_run": 36657026846,
       "gitleaks_run": 36657026748,
       "result": "PASS"
+    },
+    "phase_first_surface": {
+      "result": "PENDING_PR_HEAD",
+      "selftest": "/tools/shopping-phase-surface-selftest.mjs"
     }
   }
 }

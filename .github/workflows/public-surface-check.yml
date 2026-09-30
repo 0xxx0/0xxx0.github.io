@@ -39,6 +39,8 @@ jobs:
         run: node tools/shopping-market-tape-selftest.mjs
       - name: Validate Shopping ↔ HOUSE fit closed loop
         run: node tools/shopping-house-fit-selftest.mjs
+      - name: Validate Shopping shared phase surface
+        run: node tools/shopping-phase-surface-selftest.mjs
       - name: Validate HUMAN PORT → Shopping candidate ingress
         run: node tools/port-shopping-selftest.mjs
       - name: Validate global mobile route simplification
