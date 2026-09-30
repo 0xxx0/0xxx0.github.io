@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {hasPendingCIClaim,pendingCIClaims} from './return-receipt-contract.mjs';
+import {hasPendingCIClaim,isPassVerificationStatus,pendingCIClaims} from './return-receipt-contract.mjs';
 
 test('PASS receipt with verification text that still says CI pending is rejected',()=>{
   const receipt={status:'MERGED_VERIFIED',verification:['PR #416 CI pending'],proof:{status:'PASS'}};
@@ -22,4 +22,12 @@ test('nested and array verification claims are scanned without field allowlists'
 
 test('completed verification is allowed',()=>{
   assert.equal(hasPendingCIClaim({status:'PASS',verification:['CI PASS'],proof:{run:123,result:'PASS'}}),false);
+});
+
+test('exact and enriched PASS verification statuses share one guard',()=>{
+  assert.equal(isPassVerificationStatus('PASS'),true);
+  assert.equal(isPassVerificationStatus('PASS / PR 724 EXACT-HEAD'),true);
+  assert.equal(isPassVerificationStatus(' pass / pr 719 exact-head '),true);
+  assert.equal(isPassVerificationStatus('CANDIDATE / CI_REQUIRED'),false);
+  assert.equal(isPassVerificationStatus('FAIL'),false);
 });
