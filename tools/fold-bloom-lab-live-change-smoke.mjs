@@ -42,12 +42,17 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   emit({schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'probe-model',kind:'steering',seq:20,wall:Date.now(),data:{authority:'NONE',direction_label:'FOLD',direction_ref:'dir://fold',request_id:'req-probe',strength:.75}});
   await wait(()=>D().documentElement.dataset.fieldLabLiveSupport==='unique-native-candidate',1500,'unique steering support');
   rec.supportA=D().getElementById('liveChangeSupport').textContent;
+  rec.apertureA=W().FoldBloomFieldLab.nativeAperture();
+  W().FoldBloomFieldLab.inspectNativeSlot(2);
+  rec.focusA=D().getElementById('liveNativeFocus').textContent;
   b.forEach((verb,i)=>emit(op(i+7,verb,i===5?nativeB:null)));
   await wait(()=>D().getElementById('liveChangeWindow').textContent.includes('#7–12'),3000,'second live window');
   D().getElementById('liveCaptureTo').click();
   await wait(()=>D().documentElement.dataset.fieldLabLiveCompare==='residue-visible',2500,'comparison');
   await wait(()=>D().documentElement.dataset.fieldLabLiveSupport==='no-native-candidate',1500,'support follows native aperture');
   rec.supportB=D().getElementById('liveChangeSupport').textContent;
+  rec.apertureB=W().FoldBloomFieldLab.nativeAperture();
+  rec.focusB=D().getElementById('liveNativeFocus').textContent;
   await wait(()=>D().getElementById('liveChangeSteering').textContent.includes('FOLD'),1500,'steering witness');
   emit({schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'probe-model',kind:'steering',seq:21,wall:Date.now(),data:{authority:'EFFECT',direction_label:'RETURN',strength:1}});
   await sleep(80);
@@ -60,6 +65,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   rec.native=D().getElementById('liveChangeNative').textContent;
   rec.steering=D().getElementById('liveChangeSteering').textContent;
   rec.support=D().getElementById('liveChangeSupport').textContent;
+  rec.apertureMetric=[D().getElementById('liveApertureCount').textContent,D().getElementById('liveSupportCount').textContent];
   rec.state=[D().getElementById('stateFrom').value,D().getElementById('stateTo').value];
   rec.return={authority:live?.authority,from:live?.from_capture?.exact_form,to:live?.to_capture?.exact_form,comparison:live?.comparison,steering:live?.steering,steeringSupport:live?.steering_support};
   const pass=rec.windowA.includes('H[110|011]')&&rec.windowB.includes('H[110|011]')&&
@@ -67,6 +73,10 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.native.includes('SAME HEX ≠ SAME NEXT')&&rec.native.includes('FROM 2 CANDIDATES')&&rec.native.includes('TO 1 CANDIDATES')&&
     rec.steering.includes('FOLD')&&rec.steering.includes('AUTHORITY NONE')&&!rec.steering.includes('RETURN')&&
     rec.supportA.includes('C=1')&&rec.supportA.includes('UNIQUE_NATIVE_CANDIDATE')&&rec.supportB.includes('C=0')&&rec.supportB.includes('NO_NATIVE_CANDIDATE')&&rec.support===rec.supportB&&
+    rec.apertureA?.authority==='VIEW_ONLY'&&rec.apertureA?.candidate_count===2&&rec.apertureA?.support?.count===1&&rec.apertureA?.support?.slots?.join(',')==='2'&&
+    rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
+    rec.apertureB?.candidate_count===1&&rec.apertureB?.support?.count===0&&rec.focusB.includes('SLOT 2')&&rec.focusB.includes('NO LAWFUL FORECAST')&&
+    rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-live')&&
     rec.state.join(',')==='110|011,110|011'&&live?.authority==='WITNESS_ONLY'&&live?.comparison?.same_hex_endpoints===true&&
     live?.comparison?.quotient_invisible_exact_changes===6&&live?.comparison?.native_next?.same_hex_unequal_native===true&&
     live?.comparison?.native_next?.from?.candidate_count===2&&live?.comparison?.native_next?.to?.candidate_count===1&&
