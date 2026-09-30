@@ -16,8 +16,15 @@ const b=D().getElementById('stepBack'),n=D().getElementById('stepNext'),scrub=D(
 const a=api.step(1),p1=Number(scrub.value),addr1=D().documentElement.dataset.replayCourseAddress||'';
 const z=api.step(1),p2=Number(scrub.value),addr2=D().documentElement.dataset.replayCourseAddress||'';
 const back=api.step(-1),p3=Number(scrub.value);
-const pass=!!b&&!!n&&a.p>0&&z.p>a.p&&p2>p1&&p3<p2&&addr1.startsWith('course://replay_score/')&&addr2.startsWith('course://replay_score/')&&D().documentElement.dataset.replayStep==='ready';
-o.textContent=(pass?'PASS ':'FAIL ')+JSON.stringify({a:a.p,z:z.p,back:back.p,p1,p2,p3,addr1,addr2,buttons:!!b&&!!n});
+const defaultPass=!!b&&!!n&&a.p>0&&z.p>a.p&&p2>p1&&p3<p2&&addr1.startsWith('course://replay_score/')&&addr2.startsWith('course://replay_score/')&&D().documentElement.dataset.replayStep==='ready';
+f.src='/fold-bloom/replay/?return=1';
+const returnApi=await wait(()=>W().FoldBloomReplay?.boot==='ready'&&D().documentElement.dataset.replayExternalReturn==='ready'&&W().FoldBloomReplay,12000);
+const returnState=returnApi.state(),returnUrl=await returnApi.share(),returnRoundtrip=D().documentElement.dataset.replayShareRoundtrip;
+const returnPass=returnState.source.id==='synthetic:external-use-return:fold-bloom'&&returnState.context.title==='EXTERNAL USE RETURN'&&returnState.returnAddress==='/fold-bloom/'&&
+  D().getElementById('replayTitle').textContent==='Return what happened.'&&D().getElementById('share').textContent==='RETURN / COPY COMPACT LINK'&&
+  returnRoundtrip==='pass'&&returnUrl.includes('/fold-bloom/replay/#s=');
+const pass=defaultPass&&returnPass;
+o.textContent=(pass?'PASS ':'FAIL ')+JSON.stringify({default:{a:a.p,z:z.p,back:back.p,p1,p2,p3,addr1,addr2,buttons:!!b&&!!n},externalReturn:{source:returnState.source.id,title:returnState.context.title,returnAddress:returnState.returnAddress,shareButton:D().getElementById('share').textContent,roundtrip:returnRoundtrip,url:returnUrl.slice(0,96)}});
 })().catch(e=>{o.textContent='FAIL '+JSON.stringify({error:String(e?.stack||e)})});
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const f=resolveFile(req.url);if(!f){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(f),'cache-control':'no-store'});fs.createReadStream(f).pipe(res)});
