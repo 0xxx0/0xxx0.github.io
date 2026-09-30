@@ -31,7 +31,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   const native=(seq,targetType,call,forecasts)=>({schema:'FOLD_BLOOM_FORECAST_CONTEXT_0.1',authority:'NATIVE_EVIDENCE',seq,rotation:0,gate:0,targetType,anchors:[null,null,null],creases:[],charge:.2,call,mode:'RATCHET',forecasts});
   const nativeA=native(6,0,{verb:'FOLD',chain:2,candidates:1},[{slot:2,type:0,typeName:'EMBER',verb:'FOLD',cadence:null,chain:2,span:2,power:1.3,path:[2],edgeAdded:[0,2]},{slot:5,type:0,typeName:'EMBER',verb:'RETURN',cadence:null,chain:1,span:0,power:.9,path:[5],edgeAdded:null}]);
   const nativeB=native(12,1,{verb:'RETURN',chain:1,candidates:1},[{slot:3,type:1,typeName:'WATER',verb:'BLOOM',cadence:null,chain:1,span:0,power:1,path:[3],edgeAdded:null}]);
-  const op=(seq,verb,nativeForecast=null)=>({schema:'field-pulse/v0.1',source:'FOLD_BLOOM_LIVE',instance:'probe-live',kind:'operation',seq,wall:1000+seq,data:{operation:verb,slot:seq%12,chain:1,charge:.2,trackTime:seq*.5,...(nativeForecast?{nativeForecast}:{})}});
+  const op=(seq,verb,nativeForecast=null)=>({schema:'field-pulse/v0.1',source:'FOLD_BLOOM_LIVE',instance:'probe-live-instance-123456',kind:'operation',seq,wall:1000+seq,data:{operation:verb,slot:seq%12,chain:1,charge:.2,trackTime:seq*.5,...(nativeForecast?{nativeForecast}:{})}});
   const a=['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'];
   const b=['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'];
   a.forEach((verb,i)=>emit(op(i+1,verb,i===5?nativeA:null)));
@@ -45,6 +45,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   rec.apertureA=W().FoldBloomFieldLab.nativeAperture();
   W().FoldBloomFieldLab.inspectNativeSlot(2);
   rec.focusA=D().getElementById('liveNativeFocus').textContent;
+  rec.focusAddressA=D().getElementById('addressRead').textContent;
   b.forEach((verb,i)=>emit(op(i+7,verb,i===5?nativeB:null)));
   await wait(()=>D().getElementById('liveChangeWindow').textContent.includes('#7–12'),3000,'second live window');
   D().getElementById('liveCaptureTo').click();
@@ -75,8 +76,9 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.supportA.includes('C=1')&&rec.supportA.includes('UNIQUE_NATIVE_CANDIDATE')&&rec.supportB.includes('C=0')&&rec.supportB.includes('NO_NATIVE_CANDIDATE')&&rec.support===rec.supportB&&
     rec.apertureA?.authority==='VIEW_ONLY'&&rec.apertureA?.candidate_count===2&&rec.apertureA?.support?.count===1&&rec.apertureA?.support?.slots?.join(',')==='2'&&
     rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
+    rec.focusAddressA==='field://lab/live/probe-live-instance-123456/seq/6/slot/2'&&
     rec.apertureB?.candidate_count===1&&rec.apertureB?.support?.count===0&&rec.focusB.includes('SLOT 2')&&rec.focusB.includes('NO LAWFUL FORECAST')&&
-    rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-live')&&
+    rec.apertureMetric.join(',')==='1/12,0'&&rec.windowA.includes('probe-liv')&&
     rec.state.join(',')==='110|011,110|011'&&live?.authority==='WITNESS_ONLY'&&live?.comparison?.same_hex_endpoints===true&&
     live?.comparison?.quotient_invisible_exact_changes===6&&live?.comparison?.native_next?.same_hex_unequal_native===true&&
     live?.comparison?.native_next?.from?.candidate_count===2&&live?.comparison?.native_next?.to?.candidate_count===1&&
