@@ -16,18 +16,16 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-30T13:58:00+08:00",
+        "updated_at": "2026-09-30T15:55:00+08:00",
         "work_modes": [
-          "RECOVER",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       },
-      "role": "FIELD INDEX root: one glyph field + one held object + one immediate PLAY action, followed only by collapsed STATUS residue. Route-local semantic pattern and contextual SEEN belong to the addressed object. The latest held-route SEEN immediately becomes UNDO SEEN at the same point of action until another local orientation mutation supersedes it; older local inverses remain under STATUS → ORIENTATION. REALITY, ISSUES, Git chronology, heads, map and ports remain owner-scoped STATUS residue. Generic READ / RIDE / SOURCE intent remains source-neutral; CURRENT owns attention/NOW, RETURN owns durable evidence, and native hosts retain source/effect authority.",
-      "receipt": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
+      "role": "FIELD root holds one addressed object. NEXT, pre-commit FORECAST, WITNESS and RETURN are properties of that object rather than a sibling dashboard. Exact manifest-native exits may become one primary plus at most two secondary moves; generic handoff remains explicit. Forecast exposes only declared effect class, authority/commit boundary, target and reversibility and never executes or predicts an undeclared outcome.",
+      "receipt": "/returns/FIELD_INDEX_HELD_FORECAST_0828_2026-09-30.json",
       "machine_view": "FIELD",
-      "version": "0.8.27",
+      "version": "0.8.28",
       "transfer": [
         "0.8.27 point-of-action reversal: held-route SEEN flips to UNDO SEEN immediately; latest local inverse survives reload until a newer SEEN/MARK ALL supersedes it, while older inverses remain in bounded ORIENTATION history; no canonical state moves",
         "0.8.26 CATCH contraction: dissolve the root attention aggregate; held route owns contextual SEEN + MORE HERE/egress residue, STATUS owns reversible local orientation + REALITY/issues/Git evidence; no canonical state or authority moves",
@@ -102,7 +100,10 @@
         "NAV / INSPECT / LENS remain distinct operations",
         "safe local focus→second-click OPEN friction cut",
         "0.8.14 INTERPHASE propagation: FIELD held route → FieldInterphase projection witness → existing atlas-dayline-handoff/v0.1 → DaylineInterphase FOVEA/LINE/RING → native Dayline moves/WITNESS/RETURN",
-        "INTERPHASE projection never gains Dayline effect authority; FIELD/native owners retain domain truth"
+        "INTERPHASE projection never gains Dayline effect authority; FIELD/native owners retain domain truth",
+        "FRAME → OBJECT: NEXT + WITNESS/RETURN fold into the held aperture; sibling continuation frame retired",
+        "FORECAST BEFORE COMMIT: each exposed move carries declared effect/authority/target/reversibility only",
+        "native source exits remain exact: Prison Age READ / RIDE / SOURCE survives contraction"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
