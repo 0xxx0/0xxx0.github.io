@@ -1,0 +1,41 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-09-30",
+  "object": "One-Axis physical proof promotion gate",
+  "status": "EXECUTABLE_CAPABILITY_DELTA",
+  "state": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
+  "delta": [
+    "Added tools/one-axis-physical-proof-gate.mjs to classify a One-Axis packet no higher than SPECIFIED, BUILT or TESTED from explicit physical evidence fields.",
+    "TESTED now requires ten unloaded and ten loaded measured runs, thermal observations, explicit anomalies, interruption recovery, return-to-zero, payload-adapter swap and evidence references.",
+    "The gate computes error summaries but does not invent pass tolerances; acceptance of physical quality remains attached to the referenced specification and observations.",
+    "ADOPTED is deliberately outside the gate: TESTED never implies repeated real-world adoption.",
+    "Added deterministic self-tests proving incomplete packets fail closed and a structurally complete synthetic packet reaches TESTED only."
+  ],
+  "evidence": {
+    "repository": [
+      "tools/one-axis-physical-proof-gate.mjs",
+      "tools/one-axis-physical-proof-gate-selftest.mjs",
+      ".github/workflows/public-surface-check.yml"
+    ],
+    "source_return": "returns/HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json"
+  },
+  "value": [
+    "Future workers can feed a physical receipt to one command instead of re-arguing proof state from prose.",
+    "Rich diagrams/BOMs can no longer satisfy the TESTED gate by themselves.",
+    "The gate preserves the physical-world boundary: software validates evidence structure, not whether a claimed measurement truly occurred.",
+    "The next useful work is a real measurement packet, not another hardware architecture document."
+  ],
+  "authority": "Explicit user request on 2026-09-30 to turn the convergence loop into usable empirical machinery while keeping the reducer tight.",
+  "runtime_changes": "One repository CLI validator plus CI self-test; no public route or actuator authority.",
+  "public_surface_changes": "NONE",
+  "residue": [
+    "No real One-Axis physical receipt exists yet.",
+    "No numeric accuracy tolerance is promoted by this gate; the historical spec versions differ and a real build must bind to an exact spec_ref.",
+    "PhoneCassette and rover paths remain outside this One-Axis-specific gate."
+  ],
+  "waiting": [],
+  "next": [
+    "When physical work occurs, record the raw One-Axis observations and run: node tools/one-axis-physical-proof-gate.mjs <receipt.json>."
+  ],
+  "stop": "Do not generalize this into a universal hardware ontology until a second distinct physical project proves the abstraction is needed."
+}
