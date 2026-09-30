@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
   lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactFormCalculation,
-  steppedFormPath,exactFormFrontierCalculation,residueLadder,appliedResearchFrame
+  steppedFormPath,exactQuotientPathCalculation,exactFormFrontierCalculation,residueLadder,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -137,6 +137,18 @@ assert.ok(stepped.path_address.includes('/order/0-of-720'));
 assert.equal(stepped.steps.filter(x=>x.quotient_changed).length,2);
 assert.equal(steppedFormPath(fromForm,toForm,[3,5]).ok,false);
 
+const pathProjection=exactQuotientPathCalculation(fromForm,toForm);
+assert.equal(pathProjection.ok,true);
+assert.equal(pathProjection.exact_changed_lines,6);
+assert.equal(pathProjection.quotient_changed_lines,2);
+assert.equal(pathProjection.quotient_invisible_exact_changes,4);
+assert.equal(pathProjection.exact_path_count,720);
+assert.equal(pathProjection.quotient_visible_path_count,2);
+assert.equal(pathProjection.exact_paths_per_visible_path,360);
+assert.equal(pathProjection.path_information_loss_bits,8.491853);
+assert.deepEqual(pathProjection.projected_visible_order,[3,5]);
+assert.deepEqual(pathProjection.invisible_exact_lines.map(x=>x.line),[1,2,4,6]);
+
 const weights=conditionalTopKWeights([
   {token_id:1,token:'FOLD',logit:4,rank:1},
   {token_id:2,token:'RETURN',logit:3,rank:2},
@@ -193,6 +205,8 @@ assert.equal(frame.state_frontier.current_future_paths,2);
 assert.equal(frame.state_frontier.candidates.length,2);
 assert.equal(frame.change_lattice.vertices,4);
 assert.equal(frame.exact_frontier.current_future_paths,720);
+assert.equal(frame.exact_path_projection.exact_paths_per_visible_path,360);
+assert.equal(frame.exact_path_projection.path_information_loss_bits,8.491853);
 assert.equal(frame.exact_frontier.candidates.find(x=>x.to_verb==='FOLD')?.support_status,'CURRENT_EPOCH_NATIVE_SUPPORT');
 assert.equal(frame.change_lattice.maximal_one_line_paths,2);
 assert.deepEqual(frame.alignment,{from_matches:true,to_matches:true,law:frame.alignment.law});
