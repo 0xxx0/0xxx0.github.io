@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T10:29:00+08:00",
+  "updated": "2026-09-30T13:57:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -57,10 +57,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.26 / ONE HELD OBJECT + OWNER-BASED RESIDUE / NO CATCH AGGREGATE",
+      "head": "FIELD INDEX 0.8.27 / FRAME→OBJECT / ONE HELD CONTINUATION",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. Generic HOLD / TURN / RELEASE / TRACE / RETURN stays carrier-derived; host-specific owner/action hints stay manifest-derived from explicit native ownership and AVAILABLE exit paths, never from a FIELD-owned capability table. Convergence remains one read-only projection inside FIELD root, composed from QUEUE + federation-atlas; /nexus/ remains compatibility-only while board/map remain utilities. CURRENT alone owns attention/NOW; RETURN alone owns durable evidence. Packet egress precedence, native source/effect authority and exact RETURN remain unchanged. The held object remains the sole working guide. The former FIELD / CATCH + ACT aggregate is retired: exact-route SEEN is contextual on the held object and rewindable; MORE HERE/egress remain collapsed held residue; REALITY, ISSUES, local orientation history and Git evidence live under STATUS. No local acknowledgement resolves canonical FIELD, CURRENT, WAITING, issues or native state.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention. FIELD no longer renders a second HELD / NEXT / WITNESS→RETURN dashboard beneath the object: owner, primary native action, ≤2 additional lawful native moves, witness and exact RETURN live inside the held aperture itself. Host action labels/targets remain manifest-derived; the first exact native action may shape the primary edge without transferring source/effect authority. Local SEEN remains object-owned; proof/refinement stays latent; STATUS remains secondary residue.",
       "evidence": [
         "/returns/FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
         "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
@@ -98,10 +98,11 @@
         "/tools/browser-smoke.mjs",
         "/tools/validate-public.mjs",
         "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
-        "/tools/field-action-aperture-selftest.mjs"
+        "/tools/field-action-aperture-selftest.mjs",
+        "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0827_2026-09-30.json"
       ],
-      "version": "0.8.26",
-      "latest_return": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
+      "version": "0.8.27",
+      "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0827_2026-09-30.json",
       "repo_verification": {
         "status": "PASS / PR 675 EXACT-HEAD",
         "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
