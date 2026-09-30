@@ -602,7 +602,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null,nativeHitNodes:[]};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -989,10 +989,9 @@ function nativeApertureGeometry(){
   return Array.from({length:12},(_,slot)=>{const a=-Math.PI/2+slot*TAU/12;return {slot,x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,a,cx,cy,r}});
 }
 function drawNativeAperture(){
-  const aperture=nativeApertureProjection();data.nativeHitNodes=[];
+  const aperture=nativeApertureProjection();
   if(!aperture.ok)return;
   const nodes=nativeApertureGeometry(),focused=data.nativeFocusSlot;
-  data.nativeHitNodes=nodes.map(n=>({...n,forecast:aperture.forecasts[n.slot]?.forecast||null}));
   ctx.save();
   const {cx,cy,r}=nodes[0];
   ctx.strokeStyle='rgba(95,109,117,.24)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.stroke();
@@ -1013,8 +1012,12 @@ function drawNativeAperture(){
   ctx.globalAlpha=1;ctx.restore();
 }
 function nativeApertureAt(x,y){
+  const aperture=nativeApertureProjection();if(!aperture.ok)return null;
   let best=null,dist=15;
-  for(const n of data.nativeHitNodes||[]){const d=Math.hypot(x-n.x,y-n.y);if(d<dist){best=n;dist=d}}
+  for(const n of nativeApertureGeometry()){
+    const d=Math.hypot(x-n.x,y-n.y);
+    if(d<dist){best={...n,forecast:aperture.forecasts[n.slot]?.forecast||null};dist=d}
+  }
   return best;
 }
 function stateLineAt(x,y){
