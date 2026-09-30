@@ -1068,7 +1068,7 @@ It exposes:
 - one of `OUTSIDE_CONTROL_VOCABULARY`, `NO_NATIVE_CANDIDATE`, `UNIQUE_NATIVE_CANDIDATE`, or `MULTIPLE_NATIVE_CANDIDATES`;
 - `authority: CALCULATION_ONLY`.
 
-This is deliberately **host-relative**. The same accepted authority-NONE direction may be supported in one native aperture and unsupported after a LIVE commit changes the host state. The browser proof now demonstrates exactly that transition.
+This is deliberately **host-relative**. The latest native aperture is retained as its own witness lane and does not wait for the six-release history window to become complete; the history window exists for the exact-form/HEX quotient experiment, not for host support. The same accepted authority-NONE direction may be supported in one native aperture and unsupported after a LIVE commit changes the host state. The browser proof now demonstrates exactly that transition.
 
 The important law is:
 
