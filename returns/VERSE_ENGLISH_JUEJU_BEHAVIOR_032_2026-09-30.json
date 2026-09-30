@@ -1,0 +1,51 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30",
+  "date": "2026-09-30",
+  "state": "CANDIDATE_PENDING_CI",
+  "objective": "Turn the already-merged English-Jueju language lens from a declared form into a behaviorally proved composition board without expanding Verse authority.",
+  "object": "one Verse source + optional English-Jueju 5/7 transfer form",
+  "operation": "FORM → EMPTY BOARD / HELD SOURCE → CHECK ENVELOPE → AUTHOR JUDGMENT → RETURN",
+  "version": "VERSE COPILOT 0.3.2 / POEM MAP ENGINE 0.2.6",
+  "recovered": {
+    "current_head": "PR #709 already merged CText focus lookup, English-Jueju 5/7 declarations, COPE/Wenyan external boundaries and Wordless interaction law.",
+    "concrete_defects": [
+      "AABA was named and candidate-local rhyme support existed, but whole-form repeated rhyme groups were not behaviorally reported.",
+      "Direct ?form=enjueju7 entry with no held source loaded FIELD NOW, producing a 14-line operational corpus under four-line poetry constraints.",
+      "2+3 / 2+2+3 and 起承轉合 were shown as generic guides without making the Wordless-scaffold / author-judgment boundary explicit.",
+      "Word-language lineage/source quarry still described English Jueju as unimplemented/open despite the merged adapter."
+    ]
+  },
+  "delta": [
+    "Whole-form approximate rhyme-group check for repeated scheme letters; AABA tests A1/A2/A4 together while singleton B remains unconstrained by rhyme equality.",
+    "Blank direct English-Jueju entry creates four empty line slots and no generated lexical content.",
+    "Visible WORDLESS BOARD scaffold uses 2 | 3 or 2 | 2 | 3.",
+    "ARC GUIDE marks 起→承→轉→合 as AUTHOR JUDGMENT.",
+    "Behavior selftest uses a 4×7 monosyllabic fixture with AABA endpoints.",
+    "Dedicated browser case proves form deep-link + blank board + scaffold.",
+    "Primary University of Oklahoma / Newman Prize transfer source is pinned in the Verse source quarry.",
+    "Foundry routes English Jueju to the current Verse adapter; COPE/CText/Wenyan/Wordless remain unequal donors."
+  ],
+  "invariants": [
+    "Verse source and explicit author adoption remain canonical.",
+    "Blank form entry adds structure only; it generates no poem text.",
+    "Approximate rhyme-tail match is not Tang rhyme, phonological evidence or literary scoring.",
+    "起承轉合 is never inferred or auto-scored.",
+    "Wordless donates interaction grouping only, not word meaning.",
+    "CText is evidence lookup; COPE is editor/prosody donor; Wenyan is language→code projection.",
+    "Path/grid/game remain optional transformations and do not define poem identity."
+  ],
+  "provenance": {
+    "english_jueju": "University of Oklahoma · Institute for US-China Issues · Newman Prize teaching materials",
+    "source_route": "/poetry/research/sources.json",
+    "current_adapter": "/poetry/map/?form=enjueju7"
+  },
+  "proof": {
+    "static_contract": "IMPLEMENTED",
+    "behavior_selftest": "PENDING_PR_CI · English Jueju transfer behavior is checked",
+    "direct_entry_browser": "PENDING_PR_CI · POEM MAP English Jueju board",
+    "route_registration": "PENDING_PR_CI",
+    "gitleaks": "PENDING_PR_CI"
+  },
+  "next": "If CI is green, merge and update only current Verse version/proof metadata. Then USE FIRST. Wenyan remains parked until a concrete executable projection is requested and a compiler atom is verified."
+}
