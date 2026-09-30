@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T10:28:00+08:00",
+  "updated": "2026-09-30T10:35:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -103,8 +103,8 @@
       "version": "0.8.26",
       "latest_return": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
       "repo_verification": {
-        "status": "PENDING / PR 660 CANDIDATE",
-        "candidate_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/660",
+        "status": "PENDING / PR 667 CANDIDATE",
+        "candidate_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/667",
         "boundary": "0.8.26 changes root ownership/contraction; predecessor PASS must not be promoted to proof of this head.",
         "predecessor": {
           "status": "PASS / PR 654 EXACT-HEAD",
