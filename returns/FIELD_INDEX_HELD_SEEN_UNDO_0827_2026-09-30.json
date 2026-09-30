@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30",
   "date": "2026-09-30",
-  "state": "CANDIDATE / CI_REQUIRED",
+  "state": "MERGED_PASS",
   "object": "FIELD INDEX 0.8.27 / held-route SEEN point-of-action inverse",
   "trigger": "Direct user request after accidental catch-up acknowledgement: the smallest undo flow must say what local state is retained, how long reversal remains available, and what a newer catch-up action does.",
   "recovered_not_invented": [
@@ -44,7 +44,34 @@
       "tools/field-action-aperture-selftest.mjs"
     ],
     "public": "public-surface-check must remain green before merge.",
-    "falsifier": "If UNDO SEEN can target anything except the newest matching route-local SEEN, or if a newer manifest touch is hidden by an old inverse, fail the change."
+    "falsifier": "If UNDO SEEN can target anything except the newest matching route-local SEEN, or if a newer manifest touch is hidden by an old inverse, fail the change.",
+    "pr": 700,
+    "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
+    "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
+    "checks": {
+      "route_registration": {
+        "run": 36676498495,
+        "conclusion": "success"
+      },
+      "public_surface": {
+        "run": 36676498556,
+        "conclusion": "success"
+      },
+      "gitleaks": {
+        "run": 36676498421,
+        "conclusion": "success"
+      },
+      "pages_post_merge": {
+        "run": 36676805082,
+        "conclusion": "success"
+      },
+      "gitleaks_post_merge": {
+        "run": 36676854000,
+        "conclusion": "success"
+      }
+    },
+    "browser": "PASS · full public-surface-check including critical browser smoke.",
+    "note": "Seal records completed proof only; no runtime, manifest, attention or authority delta."
   },
   "stop": "Do not add a toast framework, global undo manager, new event store, server read state or resurrect FIELD / CATCH + ACT."
 }
