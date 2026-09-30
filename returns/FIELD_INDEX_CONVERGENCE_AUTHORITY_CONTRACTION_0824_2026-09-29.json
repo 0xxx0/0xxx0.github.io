@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29",
-  "status": "MERGED_PASS",
+  "status": "MERGED_PASS / MATERIAL_HISTORY_CANDIDATE",
   "date": "2026-09-29",
   "route": "/",
   "version": "0.8.24",
@@ -15,7 +15,9 @@
     "/control/FIELD_INDEX_CONTRACT.json — convergence-authority boundary",
     "/AGENTS.md — canonical convergence re-entry moved to /#convRead",
     "/control/CURRENT.json + /showcase-manifest.json — FIELD 0.8.24 layered over native host-action derivation",
-    "/tools/browser-smoke.mjs — FIELD critical smoke now expects CONVERGE / READ while independently requiring exact ./nexus/ compatibility reachability"
+    "/tools/browser-smoke.mjs — FIELD critical smoke now expects CONVERGE / READ while independently requiring exact ./nexus/ compatibility reachability",
+    "/scripts/generate-convergence-strip.mjs — preserve exact Git chronology while excluding generated comms/nexus heartbeat subjects from material convergence counts and recent-material reading",
+    "/.github/workflows/public-surface-check.yml — prove telemetry/material classification in the existing FIELD handoff gate"
   ],
   "preserves": [
     "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29",
@@ -38,7 +40,8 @@
     "public-surface-check",
     "gitleaks",
     "browser/static hash contract: /nexus/ → /#convRead opens FIELD re-entry",
-    "node tools/browser-smoke.mjs"
+    "node tools/browser-smoke.mjs",
+    "node scripts/generate-convergence-strip.mjs --selftest"
   ],
   "corrections": [
     "r1 preserved /nexus/ exact reachability after FIELD aperture guard exposed its loss",
@@ -49,11 +52,13 @@
     "r3 critical browser smoke exposed one stale UI-label invariant (CONVERGE / NEXUS); updated to CONVERGE / READ + explicit NEXUS alias link without reducing route/boot coverage",
     "r3 folded merged #620 root RECOVER capability back into manifest work_modes and restored the explicit neutral-unowned-route host boundary",
     "r4 applied only the proven convergence seam after fast-forwarding to current master; all concurrent Prison Age, Two Dial, workflow and non-root manifest changes remain untouched",
-    "rebuilt over exact current master after #630/#631/#634; current Prison Age activity grammar and Two Dial cache repair preserved"
+    "rebuilt over exact current master after #630/#631/#634; current Prison Age activity grammar and Two Dial cache repair preserved",
+    "Sep-30 material-history extension enforces the existing TELEMETRY ≠ MATERIAL MUTATION law: comms: refresh machine-room page and nexus: board refresh remain exact Git commits but cannot increase convergence progress counts or occupy recent-material slots."
   ],
   "residue": [
     "board.html and map.html remain snapshots/utilities; they do not gain attention or execution authority",
-    "NEXUS uses existing manifest alias grammar: kind=alias, alias_of=/, state=UTILITY."
+    "NEXUS uses existing manifest alias grammar: kind=alias, alias_of=/, state=UTILITY.",
+    "The external ops-hub writer still emits comms/index.html and nexus/board.html heartbeat commits about every 30 minutes; its generator/trigger is not present in this repository. This patch removes their convergence authority without pretending to stop an external writer."
   ],
   "stop": "Merge only on exact-head green proof. After merge, do not create another convergence dashboard; reopen only for observed re-entry failure or authority ambiguity.",
   "predecessor_return": "/returns/FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
@@ -76,5 +81,16 @@
       }
     }
   },
-  "sealed_at": "2026-09-29T22:18:00+08:00"
+  "sealed_at": "2026-09-29T22:18:00+08:00",
+  "material_history_extension": {
+    "state": "CANDIDATE",
+    "branch": "field/convergence-material-history-20260930",
+    "base_master": "c3e6cec07c30c8c6c5e77ae9f0d06e693624da33",
+    "law": "Exact chronology includes telemetry; material convergence activity excludes generated telemetry.",
+    "telemetry_subjects": [
+      "comms: refresh machine-room page",
+      "nexus: board refresh"
+    ],
+    "stop": "Do not broaden the filter to semantic comms/nexus changes. Only generated heartbeat subjects are non-material."
+  }
 }
