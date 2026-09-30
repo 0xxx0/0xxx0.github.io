@@ -45,6 +45,7 @@ assert.equal(mechanism.tests.F_LIVE.verdict,'PASS');
 assert.equal(mechanism.tests.G_RETURN.verdict,'PASS');
 assert.equal(mechanism.tests.H_COMPRESSION.verdict,'INDETERMINATE');
 assert.equal(mechanism.decision,'PROVE_OR_DECOAXIALIZE');
-assert.equal(mechanism.compression_gate?.baseline,'PLAIN_PAIR_6X6');
+assert.equal(mechanism.compression_gate?.baseline,'PLAIN_PAIR_6X6_RELEASE_COMMIT');
+assert.equal(mechanism.compression_gate?.baseline_contract?.no_extra_commit_control,true);
 
 console.log('TWO DIAL REVERSAL PASS · pre-gesture deep clone → release commit → exact local restore; H remains ordinary-use gated');
