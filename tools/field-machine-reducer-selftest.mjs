@@ -5,6 +5,17 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 
 const run=(args)=>spawnSync(process.execPath,['scripts/emit-agent-transcript.mjs',...args],{encoding:'utf8'});
+const helpRun=run(['--help','--json']);
+assert.equal(helpRun.status,0,helpRun.stderr);
+const help=JSON.parse(helpRun.stdout);
+assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
+assert.equal(help.authority,'NONE');
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','packet-reduce','contribution-converge']);
+assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
+assert.match(help.converge_attestations.base_current,/behind_by === 0/);
+const llms=fs.readFileSync('llms.txt','utf8');
+for(const cmd of help.modes.map(x=>x.command))assert.ok(llms.includes(cmd),'llms.txt missing machine mode: '+cmd);
+assert.ok(llms.includes('node scripts/emit-agent-transcript.mjs --help --json'),'llms.txt missing machine-readable help');
 const dir=fs.mkdtempSync(path.join(os.tmpdir(),'field-machine-reducer-'));
 const write=(name,value)=>{const p=path.join(dir,name);fs.writeFileSync(p,JSON.stringify(value));return p};
 
@@ -66,4 +77,4 @@ for(const [name,packet,wantClass,wantDisposition] of contributionCases){
 }
 
 fs.rmSync(dir,{recursive:true,force:true});
-console.log('FIELD machine reducer surface PASS · packet sweep + real shelf + contribution convergence + zero implicit authority');
+console.log('FIELD machine reducer surface PASS · canonical help + packet sweep + real shelf + contribution convergence + zero implicit authority');
