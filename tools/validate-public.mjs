@@ -357,6 +357,8 @@ if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARK
   check(held>=0&&field>held&&refine>field&&status>refine&&change>status&&waiting>status&&orientation>status,'root missing held field → latent refine → owner-based STATUS residue contraction');
   check(!home.includes('id="catchupFold"')&&!home.includes('FIELD / CATCH + ACT'),'retired root CATCH aggregate returned');
   check(home.includes('id="apSeen"')&&home.includes('id="focusResidue"'),'held object missing local SEEN / residue ownership');
+  check(home.includes('id="apFlow"')&&home.includes('id="capMoves"')&&home.includes('id="capWitness"')&&home.includes('id="capReturn"'),'held object missing inline continuation semantics');
+  check(!home.includes('id="capTrial"'),'duplicate HELD/NEXT/WITNESS frame returned below held object');
   check(!home.includes('id="scaleRail"'),'root regressed to exposed semantic-scale controls');
 }
 check(home.includes('routeGitDrift()')&&home.includes('function tsMs('),'root missing offset-aware INDEX↔GIT drift witness');
