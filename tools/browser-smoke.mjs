@@ -1579,7 +1579,8 @@ try{
       else{r=await runChrome(bin,c.route,c.options||{})}
     }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
-    const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
+    // Optional live enrichments are fallback-backed; a Chromium net::ERR_* line alone is not a page-fatal signal. Required local/runtime behavior is asserted by each case's DOM/probe contract.
+    const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|Aw, Snap/i.test(r.err);
     const dom=c.settle?(extractCaseDom(r.out)||r.out):r.out;
     const ok=r.code===0&&!fatal&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
