@@ -167,20 +167,25 @@ function cliAssessContribution(p={}){
   const superseded=p.superseded===true||/SUPERSEDED|OBSOLETE|RETIRED/.test(cliToken(cliPick(p,'state','status','disposition')));
   const ci=cliToken(cliPick(p,'ci','ci_status','verification_status'));
   const ciPass=/^(PASS|SUCCESS|GREEN|VERIFIED)$/.test(ci),ciFail=/^(FAIL|FAILED|ERROR|RED)$/.test(ci);
+  const exactHead=p.exact_head===true,baseCurrent=p.base_current===true;
   const mergeable=p.mergeable===true,notMergeable=p.mergeable===false;
   let contributionClass=returnOnly?'RETURN':evidenceOnly?'EVIDENCE':donorBlocked&&hostExplicit?'DONOR':material&&hostExplicit?'DELTA':donorOnly&&hostExplicit?'DONOR':!hostExplicit?'UNRESOLVED':'UNRESOLVED';
   let disposition,reasons=[];
   if(superseded){disposition='DROP';reasons.push('superseded_or_replaced')}
   else if(donorBlocked){disposition='HOLD';reasons.push('external_donor_gate_not_pass')}
   else if(contributionClass==='DONOR'||contributionClass==='UNRESOLVED'){disposition='HOLD';reasons.push(contributionClass==='DONOR'?'mechanism_without_host_delta':'no_resolved_host_delta')}
-  else if(ciFail||notMergeable){disposition='REPAIR';reasons.push(ciFail?'verification_failed':'not_mergeable')}
-  else if(ciPass&&mergeable){disposition='MERGE';reasons.push('host_delta_or_evidence_verified')}
-  else {disposition='REPAIR';reasons.push(!ciPass?'verification_not_attested':'mergeability_not_attested')}
+  else if(ciFail||!exactHead||!baseCurrent||notMergeable){
+    disposition='REPAIR';
+    reasons.push(ciFail?'verification_failed':!exactHead?'exact_head_not_attested':!baseCurrent?'current_base_not_attested':'not_mergeable');
+  }
+  else if(ciPass&&exactHead&&baseCurrent&&mergeable){disposition='MERGE';reasons.push('host_delta_or_evidence_verified_on_exact_current_base')}
+  else {disposition='REPAIR';reasons.push(!ciPass?'verification_not_attested':!exactHead?'exact_head_not_attested':!baseCurrent?'current_base_not_attested':'mergeability_not_attested')}
   if(p.architectural_only===true&&!material&&contributionClass!=='DONOR'){contributionClass='DONOR';disposition='HOLD';reasons=['architectural_or_documentary_only']}
   return {
     schema:'field-contribution-reducer/v0.1',id,class:contributionClass,disposition,reasons,
     host:cliPick(p,'host','route','owner')||null,
     donor_gate:externalDonor?(donorGate||'MISSING'):null,
+    attested:{ci:ci||null,exact_head:exactHead,base_current:baseCurrent,mergeable},
     authority:'ADVISORY_ONLY / CALLER_ATTESTED_FACTS / NO REPO OR HOST MUTATION',
     stop:disposition==='MERGE'?'Caller may request native merge after independent exact-head verification.':
       disposition==='REPAIR'?'Repair the named failing/unknown gate, then re-reduce.':
