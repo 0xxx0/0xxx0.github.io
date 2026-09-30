@@ -26,6 +26,10 @@ function reduceContribution(candidate={}){
   const host=one(candidate.host||candidate.owner||'');
   const ci=String(candidate.ci||candidate.ci_state||'UNKNOWN').toUpperCase();
   const evidence=String(candidate.evidence||candidate.evidence_state||'').toUpperCase();
+  const donorGate=String(candidate.donor_gate||candidate.donor_admission||'').toUpperCase();
+  const externalDonor=candidate.external_donor===true||!!donorGate;
+  const donorGatePass=candidate.donor_gate_pass===true||['PASS','PASSED','ELIGIBLE','TRANSFER','PROMOTE'].includes(donorGate);
+  const donorBlocked=externalDonor&&!donorGatePass;
   const exactHead=candidate.exact_head===true;
   const baseCurrent=candidate.base_current===true;
   const mergeable=candidate.mergeable===true;
@@ -42,6 +46,7 @@ function reduceContribution(candidate={}){
 
   let contributionClass='DONOR';
   if(!host)contributionClass='UNRESOLVED';
+  else if(donorBlocked)contributionClass='DONOR';
   else if(returnObserved)contributionClass='RETURN';
   else if(boundedProof&&!candidate.capability_delta&&!candidate.duplicate_removed&&!candidate.law_executable)contributionClass='EVIDENCE';
   else if(executable)contributionClass='DELTA';
@@ -51,6 +56,8 @@ function reduceContribution(candidate={}){
     disposition='DROP';reason=superseded?'superseded by an owning successor':'duplicate representation with no unique residue';
   }else if(contributionClass==='UNRESOLVED'){
     disposition='HOLD';reason='no explicit host/owner';
+  }else if(donorBlocked){
+    disposition='HOLD';reason='external donor admission is not attested PASS';
   }else if(documentary&&!executable&&!returnObserved){
     disposition='HOLD';reason='documentary/donor value only; no proved capability or observed return';
   }else if(authorityConflict||!exactHead||!baseCurrent||!mergeable||ciFail){
@@ -77,8 +84,8 @@ function reduceContribution(candidate={}){
     disposition,
     reason,
     next,
-    attested:{ci,exact_head:exactHead,base_current:baseCurrent,mergeable,evidence:evidence||null},
-    law:'Candidate facts are caller-attested. The reducer classifies; it does not query GitHub, mint CURRENT/NOW authority, merge, close, or delete anything.'
+    attested:{ci,exact_head:exactHead,base_current:baseCurrent,mergeable,evidence:evidence||null,donor_gate:externalDonor?(donorGate||'MISSING'):null},
+    law:'Candidate facts are caller-attested. External-donor eligibility must arrive from the research donor gate; missing/non-PASS admission cannot promote. The reducer classifies; it does not query GitHub, mint CURRENT/NOW authority, merge, close, or delete anything.'
   };
 }
 
@@ -236,7 +243,9 @@ if(process.argv.includes('--selftest')){
     [{id:'pr-660',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:false},'DELTA','REPAIR'],
     [{id:'pr-661',host:'CONFLUENCE',documentary_only:true,evidence:'DOCUMENTARY',ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
     [{id:'pr-662',host:'convergence-validate',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DELTA','MERGE'],
-    [{id:'pr-663',host:'READFIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true,superseded:true,unique_residue:true},'DELTA','DROP']
+    [{id:'pr-663',host:'READFIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true,superseded:true,unique_residue:true},'DELTA','DROP'],
+    [{id:'external-donor-hold',host:'FIELD',external_donor:true,donor_gate:'PARK',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+    [{id:'external-donor-pass',host:'FIELD',external_donor:true,donor_gate:'PASS',bounded_claim_proved:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'EVIDENCE','MERGE']
   ];
   for(const [fixture,wantClass,wantDisposition] of convergenceFixtures){
     const got=reduceContribution(fixture);
