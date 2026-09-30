@@ -1,0 +1,39 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/lab/",
+  "version": "0.3.6 + LIVE_CHANGE_WITNESS_0.1",
+  "state": "CANDIDATE",
+  "authority": "WITNESS_ONLY",
+  "objective": "Make abstraction loss inspectable from actual LIVE play without converting HEX, recent history, J-space or LAB into control authority.",
+  "mechanism": [
+    "committed LIVE release → existing field-pulse/v0.1 operation",
+    "post-release forecastContext(state) → bounded NATIVE_EVIDENCE",
+    "one LIVE pulse instance → rolling six-release exact window",
+    "exact window → binary HEX quotient + explicit 64× fiber residue",
+    "FROM / TO → exact delta + quotient delta + native NEXT comparison",
+    "optional steeringDescriptor authority NONE travels beside evidence",
+    "RETURN preserves witness only"
+  ],
+  "laws": [
+    "ONE SIX-RELEASE WINDOW = ONE LIVE PULSE INSTANCE.",
+    "SAME HEX ≠ SAME NATIVE NEXT is a control-sufficiency counterexample only when exact same-instance captures retain unequal native forecast apertures.",
+    "HISTORY / HEX / J-SPACE WITNESS ≠ NATIVE CONTROL STATE.",
+    "CHOICE ≠ EFFECT; LAB never calls LIVE release()."
+  ],
+  "proof_required": [
+    "node --test fold-bloom/lab/tests/live-change-bridge.test.mjs",
+    "node tools/fold-bloom-lab-live-change-smoke.mjs",
+    "node tools/fold-bloom-live-lab-change-bridge-smoke.mjs",
+    "Route Registration",
+    "gitleaks",
+    "full public-surface-check + critical browser smoke"
+  ],
+  "proof_status": "RUNNING_ON_PR_644",
+  "residue": [
+    "The deterministic same-HEX/unequal-NEXT fixture proves representational insufficiency, not causal model steering.",
+    "The real LIVE→LAB smoke proves the transport and current native witness match, not that naturally occurring same-HEX/unequal-NEXT pairs are frequent.",
+    "J-space remains PREVIEW/WITNESS authority NONE pending independent causal promotion obligations."
+  ],
+  "stop": "After exact-head proof, merge and observe. Do not add another steering/control layer from this result."
+}
