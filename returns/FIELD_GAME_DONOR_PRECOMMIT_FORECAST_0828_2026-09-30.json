@@ -1,0 +1,41 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "FIELD_GAME_DONOR_PRECOMMIT_FORECAST_0828_2026-09-30",
+  "state": "CANDIDATE_SELF_VERIFICATION",
+  "route": "/",
+  "version": "0.8.28",
+  "donor": "Into the Breach",
+  "source_map": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
+  "objective": "Convert the existing precommit_telegraph contract into one executable, authority-free FIELD/INTERPHASE forecast without creating another route, queue, planner or game layer.",
+  "invariant": "FORECAST ≠ EFFECT.",
+  "delta": [
+    "interphase-action-forecast/v0.1 is derived only from the move's declared authority, target, dispatch and reversibility metadata.",
+    "VIEW → READ_ONLY / NO_COMMIT; NAVIGATION → NAVIGATION_ONLY / NAVIGATION; OFFER → OFFER_ONLY / RECEIVER_ACCEPTS; EDIT/EFFECT remain HOST_NATIVE with host-defined mutation/reversal.",
+    "FIELD renders the forecast inside the existing NEXT cell and changes the reading on hover/focus/touch without activating the move.",
+    "FIELD 0.8.27 point-of-action UNDO SEEN remains intact."
+  ],
+  "authority": {
+    "forecast": "VIEW ONLY / NONE",
+    "interphase": "normalization + projection only",
+    "field": "held-object projection/navigation/handoff only",
+    "native_host": "actual commit, effect, reversal and domain truth",
+    "return": "post-action evidence"
+  },
+  "nonclaims": [
+    "No perfect-information claim.",
+    "No prediction of undeclared domain outcomes.",
+    "No automatic action, permission or priority.",
+    "No guarantee of reversibility when the host declares HOST_DEFINED."
+  ],
+  "proof": {
+    "static": "tools/field-action-aperture-selftest.mjs",
+    "browser": "tools/browser-smoke.mjs · FIELD held INTERPHASE carrier in-place",
+    "expected": [
+      "NAVIGATION_ONLY · NAVIGATION · NONE",
+      "OFFER_ONLY · RECEIVER_ACCEPTS · NONE",
+      "READ_ONLY · NO_COMMIT · NONE"
+    ]
+  },
+  "retirement": "If native owners expose the same precommit forecast directly through the shared action surface, retire FIELD-specific forecast chrome and retain only the common carrier contract.",
+  "return": "/"
+}
