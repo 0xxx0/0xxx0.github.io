@@ -12,7 +12,7 @@ It is a field of addressed objects, unequal projections, reusable mechanisms, ex
 
 1. Finish this file. It owns worker/authority law.
 2. Read `/llms.txt` — machine entrypoint and canonical source map.
-3. From a current checkout run `node scripts/emit-agent-transcript.mjs` (or `--json`) and use its bounded NOW / HEADS / HUMAN-WORLD-GATES / EGRESS projection. For one supplied JSON packet, `node scripts/emit-agent-transcript.mjs --reduce <packet.json>` maps it to exactly one FIELD egress class without promoting it. Reducer precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; packet labels cannot mint GATE/NOW authority.
+3. From a current checkout run `node scripts/emit-agent-transcript.mjs` (or `--json`) and use its bounded NOW / HEADS / HUMAN-WORLD-GATES / EGRESS projection. `--reduce <packet.json|directory>` maps packets to exactly one FIELD egress class; repeatable `--now-id`, `--selected-id`, and `--reactivate-id` carry explicit caller context for batch sweeps. `--converge <candidate.json>` projects one contribution class plus `MERGE | REPAIR | HOLD | DROP` from caller-attested host/verification facts; MERGE additionally requires `exact_head:true`, `base_current:true`, `mergeable:true`, and passing verification; `base_current` means native ancestry reports `compare(master, candidate_head).behind_by === 0` (PR base-pointer equality alone is insufficient); external donors must also carry the caller-attested research-donor-gate result, and missing/non-PASS donor admission forces DONOR/HOLD. It is advisory only and never queries or mutates GitHub/CURRENT. Reducer precedence is GATE → NOW → RESIDUE → NEXT → DELTA → ARCHIVE; packet labels cannot mint GATE/NOW authority.
 4. Open full `/control/CURRENT.json` only when a selected head needs retained depth omitted by the transcript. **Authority source ≠ mandatory first-read payload.**
 5. Resolve the selected object in FIELD INDEX / `showcase-manifest.json`; do not ingest the full manifest merely to find one route.
 6. Read only the smallest applicable policies from `/control/POLICY_INDEX.json`.
@@ -127,7 +127,7 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 - System map: `/nexus/map.html`
 - **FIELD Index live sync**: `/` (Φ host/current frame + φ local focus; exact master commits are chronology; manifest rail is a route projection)
 - Machine entrypoint: `/llms.txt`
-- Transient current handoff: `node scripts/emit-agent-transcript.mjs` (or `--json`)
+- Transient current handoff + reducer surface: `node scripts/emit-agent-transcript.mjs` (`--json`, `--reduce <packet|dir>`, or `--converge <candidate.json>`)
 - `/control/WORKER_BOOT.json` is a superseded compatibility pointer, not live state.
 - Submission contract: `/control/SUBMISSION_CONTRACT.json`
 

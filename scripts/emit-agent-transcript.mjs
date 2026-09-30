@@ -100,13 +100,115 @@ function markdown(p){
   return out.join('\n')+'\n';
 }
 
-const reduceAt=process.argv.indexOf('--reduce');
+
+const cliNonempty=v=>{
+  if(v==null)return false;
+  if(Array.isArray(v))return v.length>0;
+  if(typeof v==='object')return Object.keys(v).length>0;
+  return String(v).trim().length>0;
+};
+const cliToken=v=>String(v??'').trim().toUpperCase().replace(/[\s-]+/g,'_');
+const cliId=p=>String(p?.packet_id||p?.id||p?.task_id||p?.return_id||p?.object?.id||p?.OBJECT?.id||p?.subject||'packet');
+const cliPick=(p,...keys)=>{for(const k of keys)if(p?.[k]!=null)return p[k];return null};
+function cliFlagIds(args,name){
+  const out=[];
+  for(let i=0;i<args.length;i++)if(args[i]===name){
+    const v=args[i+1];
+    if(v==null||String(v).startsWith('--'))throw new Error(name+' requires one packet id; repeat flag for multiple ids');
+    out.push(String(v));
+  }
+  return new Set(out);
+}
+function cliWalkJson(p){
+  const st=fs.statSync(p);
+  if(st.isDirectory())return fs.readdirSync(p,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name)).flatMap(d=>cliWalkJson(p.replace(/\/$/,'')+'/'+d.name));
+  return p.endsWith('.json')?[p]:[];
+}
+function cliLoadPackets(source){
+  const files=[...new Set(cliWalkJson(source))].sort();
+  const rows=[];
+  for(const file of files){
+    const raw=read(file),packets=Array.isArray(raw)?raw:[raw];
+    packets.forEach((packet,index)=>rows.push({packet,file,index}));
+  }
+  return {files,rows};
+}
+function cliReduceSource(source,args){
+  const {files,rows}=cliLoadPackets(source);
+  const nowIds=cliFlagIds(args,'--now-id'),selectedIds=cliFlagIds(args,'--selected-id'),reactivatedIds=cliFlagIds(args,'--reactivate-id');
+  const blanket={now:args.includes('--now'),selected:args.includes('--selected'),reactivated:args.includes('--reactivate')};
+  if(rows.length!==1&&(blanket.now||blanket.selected||blanket.reactivated))throw new Error('blanket --now/--selected/--reactivate is single-packet only; use repeatable *-id flags for a sweep');
+  const items=rows.map(({packet,file,index})=>{
+    const id=cliId(packet),context={
+      now:blanket.now||nowIds.has(id),
+      selected:blanket.selected||selectedIds.has(id),
+      reactivated:blanket.reactivated||reactivatedIds.has(id)
+    };
+    return {...reducePacket(packet,context),file,index};
+  });
+  if(items.length===1&&files.length===1&&!fs.statSync(source).isDirectory())return items[0];
+  const counts=Object.fromEntries(EGRESS_CLASSES.map(k=>[k,0]));
+  for(const x of items)counts[x.class]=(counts[x.class]||0)+1;
+  return {schema:'field-egress-sweep/v0.1',authority:'NONE',packet_count:items.length,file_count:files.length,counts,items};
+}
+function cliAssessContribution(p={}){
+  if(!p||typeof p!=='object'||Array.isArray(p))throw new Error('FIELD_CONTRIBUTION_OBJECT_REQUIRED');
+  const id=String(cliPick(p,'id','packet_id','candidate_id','subject')||'contribution');
+  const kind=cliToken(cliPick(p,'kind','contribution_kind','type'));
+  const hostExplicit=p.host_found===false?false:(p.host_found===true||cliNonempty(cliPick(p,'host','route','owner')));
+  const material=p.material_delta===true||p.changes_existing_head===true||p.delta?.material===true||cliNonempty(p.changed_paths);
+  const evidenceOnly=p.evidence_only===true||kind==='EVIDENCE';
+  const returnOnly=p.return_only===true||p.observed_behavior===true||kind==='RETURN';
+  const donorOnly=p.donor_only===true||p.architectural_only===true||p.transfer_applied===false||kind==='DONOR';
+  const donorGate=cliToken(cliPick(p,'donor_gate','donor_admission','research_donor_gate'));
+  const externalDonor=p.external_donor===true||cliNonempty(donorGate);
+  const donorGatePass=p.donor_gate_pass===true||/^(PASS|PASSED|ELIGIBLE|TRANSFER|PROMOTE)$/.test(donorGate);
+  const donorBlocked=externalDonor&&!donorGatePass;
+  const superseded=p.superseded===true||/SUPERSEDED|OBSOLETE|RETIRED/.test(cliToken(cliPick(p,'state','status','disposition')));
+  const ci=cliToken(cliPick(p,'ci','ci_status','verification_status'));
+  const ciPass=/^(PASS|SUCCESS|GREEN|VERIFIED)$/.test(ci),ciFail=/^(FAIL|FAILED|ERROR|RED)$/.test(ci);
+  const exactHead=p.exact_head===true,baseCurrent=p.base_current===true;
+  const mergeable=p.mergeable===true,notMergeable=p.mergeable===false;
+  let contributionClass=returnOnly?'RETURN':evidenceOnly?'EVIDENCE':donorBlocked&&hostExplicit?'DONOR':material&&hostExplicit?'DELTA':donorOnly&&hostExplicit?'DONOR':!hostExplicit?'UNRESOLVED':'UNRESOLVED';
+  let disposition,reasons=[];
+  if(superseded){disposition='DROP';reasons.push('superseded_or_replaced')}
+  else if(donorBlocked){disposition='HOLD';reasons.push('external_donor_gate_not_pass')}
+  else if(contributionClass==='DONOR'||contributionClass==='UNRESOLVED'){disposition='HOLD';reasons.push(contributionClass==='DONOR'?'mechanism_without_host_delta':'no_resolved_host_delta')}
+  else if(ciFail||!exactHead||!baseCurrent||notMergeable){
+    disposition='REPAIR';
+    reasons.push(ciFail?'verification_failed':!exactHead?'exact_head_not_attested':!baseCurrent?'current_base_not_attested':'not_mergeable');
+  }
+  else if(ciPass&&exactHead&&baseCurrent&&mergeable){disposition='MERGE';reasons.push('host_delta_or_evidence_verified_on_exact_current_base')}
+  else {disposition='REPAIR';reasons.push(!ciPass?'verification_not_attested':!exactHead?'exact_head_not_attested':!baseCurrent?'current_base_not_attested':'mergeability_not_attested')}
+  if(p.architectural_only===true&&!material&&contributionClass!=='DONOR'){contributionClass='DONOR';disposition='HOLD';reasons=['architectural_or_documentary_only']}
+  return {
+    schema:'field-contribution-reducer/v0.1',id,class:contributionClass,disposition,reasons,
+    host:cliPick(p,'host','route','owner')||null,
+    donor_gate:externalDonor?(donorGate||'MISSING'):null,
+    attested:{ci:ci||null,exact_head:exactHead,base_current:baseCurrent,mergeable},
+    base_current_semantics:'Caller must derive base_current from native ancestry: compare(master, candidate_head).behind_by === 0. PR base-pointer equality alone is insufficient.',
+    authority:'ADVISORY_ONLY / CALLER_ATTESTED_FACTS / NO REPO OR HOST MUTATION',
+    stop:disposition==='MERGE'?'Caller may request native merge after independent exact-head verification.':
+      disposition==='REPAIR'?'Repair the named failing/unknown gate, then re-reduce.':
+      disposition==='DROP'?'Preserve unique residue/provenance, then stop this lineage.':
+      'Hold without promotion; reopen only when a host delta or missing evidence changes.'
+  };
+}
+
+const cliArgs=process.argv.slice(2);
+const reduceAt=cliArgs.indexOf('--reduce');
+const convergeAt=cliArgs.indexOf('--converge');
+if(reduceAt>=0&&convergeAt>=0){console.error('choose one: --reduce or --converge');process.exit(2)}
 if(reduceAt>=0){
-  const path=process.argv[reduceAt+1];
-  if(!path){console.error('FIELD reduce requires a JSON packet path');process.exit(2)}
-  const packet=read(path);
-  const context={now:process.argv.includes('--now'),selected:process.argv.includes('--selected'),reactivated:process.argv.includes('--reactivate')};
-  process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\n');
+  const source=cliArgs[reduceAt+1];
+  if(!source||source.startsWith('--')){console.error('FIELD reduce requires a JSON packet path or directory');process.exit(2)}
+  try{process.stdout.write(JSON.stringify(cliReduceSource(source,cliArgs),null,2)+'\n')}
+  catch(e){console.error(String(e?.message||e));process.exit(2)}
+}else if(convergeAt>=0){
+  const source=cliArgs[convergeAt+1];
+  if(!source||source.startsWith('--')){console.error('FIELD converge requires a candidate JSON path');process.exit(2)}
+  try{process.stdout.write(JSON.stringify(cliAssessContribution(read(source)),null,2)+'\n')}
+  catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else{
 const sources=load(),packet=compile(sources);
 if(process.argv.includes('--selftest')){
@@ -141,4 +243,5 @@ if(process.argv.includes('--selftest')){
 }else{
   process.stdout.write(markdown(packet));
 }
+
 }

@@ -1,0 +1,68 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30",
+  "date": "2026-09-30",
+  "status": "PR_CANDIDATE",
+  "object": "existing scripts/emit-agent-transcript.mjs machine entrypoint",
+  "delta": [
+    "Extend the existing --reduce path from one JSON packet to file-or-directory sweep without creating a second reducer CLI.",
+    "Add repeatable --now-id / --selected-id / --reactivate-id caller context; batch contents cannot self-authorize NOW.",
+    "Add --converge <candidate.json> as an advisory contribution projection: DELTA / EVIDENCE / DONOR / RETURN / UNRESOLVED plus MERGE / REPAIR / HOLD / DROP.",
+    "Contribution convergence consumes caller-attested host, verification, mergeability and supersession facts only; it does not query GitHub or mutate CURRENT, branches, packets, or native hosts.",
+    "CI exercises fixtures plus the real control/packets shelf and requires zero implicit NOW.",
+    "Compose the #689 research donor gate into contribution reduction: external donor candidates with missing/non-PASS admission are DONOR/HOLD; PASS only removes that blocker and does not grant host/effect authority.",
+    "Contribution MERGE now requires caller-attested exact head, current base, mergeability, and passing verification; stale head/base reduce to REPAIR."
+  ],
+  "empirical_chain": {
+    "donor_closed": "#684 documentary research raid reduced to DONOR/RESIDUE and closed with reopen condition",
+    "held_out_red": {
+      "pr": 686,
+      "head": "0e6594d18c2e595c511a25b8844c85e04f4166f9",
+      "run": 36664669526,
+      "observation": "EVIDENCE:{refs:[]} incorrectly promoted material DELTA to DELTA instead of RESIDUE"
+    },
+    "reducer_repair": {
+      "pr": 688,
+      "merge_sha": "07a232d039f659532108b6283d3a2ced1fdedea4",
+      "proof_head": "4d39979cc14ffeb8bf427f4e32db49b4f2557d87",
+      "public_surface_run": 36664883604,
+      "gitleaks_run": 36664883641,
+      "conclusion": "PASS"
+    },
+    "batch_donor": "#685 batch sweep behavior salvaged into existing machine entrypoint; no second CLI retained",
+    "contribution_donor": "#687 convergence intent recovered as projection semantics; no parallel reducer engine retained",
+    "research_donor_gate": "#689 executable donor admission; its caller-attested result is consumed before contribution promotion."
+  },
+  "commands": [
+    "node scripts/emit-agent-transcript.mjs",
+    "node scripts/emit-agent-transcript.mjs --reduce packet.json",
+    "node scripts/emit-agent-transcript.mjs --reduce control/packets",
+    "node scripts/emit-agent-transcript.mjs --reduce control/packets --selected-id <packet-id>",
+    "node scripts/emit-agent-transcript.mjs --converge candidate.json"
+  ],
+  "laws": [
+    "ONE MACHINE ENTRYPOINT; MANY READ-ONLY REDUCTIONS.",
+    "THE REDUCER CLASSIFIES; IT DOES NOT PRIORITIZE, EXECUTE, MERGE OR MUTATE.",
+    "NOW REQUIRES EXPLICIT CALLER CONTEXT.",
+    "BATCHING CREATES NO PERSISTENT STATE.",
+    "CONTRIBUTION DISPOSITION IS ADVISORY AND CALLER-ATTESTED; NATIVE HOST/GITHUB AUTHORITY REMAINS NATIVE.",
+    "ONE PACKET -> EXACTLY ONE OF NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE.",
+    "MERGE PROJECTION REQUIRES EXACT_HEAD + BASE_CURRENT + MERGEABLE + VERIFIED; ANY UNKNOWN/STALE BOUNDARY REPAIRS FIRST.",
+    "BASE_CURRENT IS ANCESTRY, NOT METADATA: native compare(master, candidate_head).behind_by MUST EQUAL 0; PR base-pointer equality alone does not establish currency."
+  ],
+  "verify": [
+    "node tools/field-egress-reducer-selftest.mjs",
+    "node tools/field-machine-reducer-selftest.mjs",
+    "node scripts/emit-agent-transcript.mjs --selftest",
+    "public-surface-check",
+    "gitleaks"
+  ],
+  "residue": [
+    "The contribution reducer does not fetch live GitHub state; mergeable/CI/superseded facts must be caller-attested or produced by a native GitHub worker.",
+    "MERGE output is not merge authority; it is a disposition projection after attested checks.",
+    "No automatic NEXT execution is introduced.",
+    "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority.",
+    "The caller/native GitHub worker must derive base_current from commit ancestry (behind_by === 0), not from the PR base SHA field."
+  ],
+  "stop": "Do not create another packet/contribution reducer CLI. Extend this entrypoint only for a reproduced consumer incompatibility or falsified invariant."
+}
