@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T15:46:00+08:00",
+  "updated": "2026-09-30T16:00:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -106,8 +106,26 @@
       "version": "0.8.28",
       "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
       "repo_verification": {
-        "status": "CANDIDATE / CI_REQUIRED",
-        "base_sha": "005d7c091930e283c66936e9babc726d60bc461c",
+        "status": "PASS / PR 724 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/724",
+        "merge_sha": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+        "tested_head": "9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38",
+        "checks": {
+          "route_registration": {
+            "run": 36686373816,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36686373704,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36686373732,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 36686373704 exact final PR head: FIELD reversibility, held-action aperture, shared INTERPHASE host laws, critical browser smoke, recovered-source validation, and frozen City/Painting handlers all succeeded.",
+        "note": "Exact-head proof ran on final PR head 9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38 after the current-master COMMS refresh was merged into the branch. PR #724 then merged as 047ef5ee503f6eff16b4a324893a08f247d4a8f6. This seal changes verification metadata only.",
         "predecessor": {
           "status": "PASS / PR 700",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
