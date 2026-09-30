@@ -987,12 +987,38 @@ function textAtId(dom,id){
 function visibleText(dom){
   return String(dom||'').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
+function fieldRootCheck(dom){
+  const checks={
+    axial:dom.includes('id="axialLatest"'),
+    projection:dom.includes('FIELD / FOCUS'),
+    reentry:dom.includes('class="reentryFold"'),
+    now:/NOW \/ CURRENT/.test(dom),
+    recover:/RECOVER \/ VAULT/.test(dom),
+    converge:/CONVERGE \/ READ/.test(dom),
+    nexus:dom.includes('href="./nexus/"'),
+    recovery:dom.includes('href="./recovery/"'),
+    truth_frame:dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"'),
+    catch_surface_retired:!dom.includes('id="catchupFold"')&&!dom.includes('<b>FIELD / CATCH + ACT</b>'),
+    held_seen:dom.includes('id="apSeen"'),
+    held_residue:dom.includes('id="focusResidue"'),
+    orientation:dom.includes('id="orientationFold"')&&/ORIENTATION \/ LOCAL/.test(dom)&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/REWIND/.test(dom)&&/MARK ALL/.test(dom),
+    reality:dom.includes('id="waitingFold"')&&/REALITY GAP \/ YOU/.test(dom),
+    aperture:dom.includes('id="capTrial"'),
+    chronology:dom.includes('id="touchList"'),
+    projection_fold:dom.includes('class="routeProjection"'),
+    authority:/Φ \/ CURRENT/.test(dom),
+    confluence:/CONFLUENCE/.test(dom)
+  };
+  const miss=Object.entries(checks).filter(([,ok])=>!ok).map(([k])=>k);
+  if(miss.length)console.error('FIELD ROOT CONTRACT MISS · '+miss.join(' · '));
+  return !miss.length;
+}
 const CASES=[
   {
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ READ/.test(dom)&&dom.includes('href="./nexus/"')&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&!dom.includes('id="catchupFold"')&&!dom.includes('<b>FIELD / CATCH + ACT</b>')&&dom.includes('id="apSeen"')&&dom.includes('id="focusResidue"')&&dom.includes('id="orientationFold"')&&dom.includes('id="waitingFold"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&dom.includes('id="capTrial"')&&/ORIENTATION \/ LOCAL/.test(dom)&&/REALITY GAP \/ YOU/.test(dom)&&/REWIND/.test(dom)&&/MARK ALL/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:fieldRootCheck
   },
   {
     name:'HUMAN PORT',
