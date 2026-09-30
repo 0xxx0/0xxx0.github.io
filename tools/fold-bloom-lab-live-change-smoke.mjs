@@ -43,6 +43,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   await wait(()=>D().documentElement.dataset.fieldLabLiveSupport==='unique-native-candidate',1500,'unique steering support');
   rec.supportA=D().getElementById('liveChangeSupport').textContent;
   rec.liveA=W().FoldBloomFieldLab.liveChange();
+  W().dispatchEvent(new (W().Event)('resize'));await sleep(80);
   const cv=D().getElementById('field'),cr=cv.getBoundingClientRect(),cw=cr.width,ch=cr.height,rr=Math.max(96,Math.min(180,Math.min(cw,ch)*.43)),aa=-Math.PI/2+2*Math.PI*2/12;
   const haloX=cr.left+cw*.5+Math.cos(aa)*rr,haloY=cr.top+ch*.505+Math.sin(aa)*rr,haloHit=D().elementFromPoint(haloX,haloY);
   rec.haloHit=haloHit?.id||haloHit?.tagName||null;
