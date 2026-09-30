@@ -1,0 +1,39 @@
+{
+  "schema": "showcase-release/v1",
+  "route": "/forward-field-proof/readfield-map-e1/",
+  "title": "READFIELD MAP E1 · LINE ↔ DATADISC",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "date": "2026-09-30",
+  "host": "/docs/",
+  "proof_owner": "/forward-field-proof/",
+  "hypothesis": "Stable angular source position may improve interruption recovery and positional memory relative to an information-matched linear minimap.",
+  "baseline": "LINE: normalized source position rendered linearly.",
+  "mutation": "DISC: the same unit ticks and section boundaries rendered on one clockwise ring. No spiral, hierarchy, compound glyph payload, AI summary, semantic weighting, or extra status channel.",
+  "donor": {
+    "route": "/recovery/media/datadisc/datadisc.html",
+    "exact_role": "FROZEN_DONOR",
+    "observed_mechanism": "2019 donor places 150 compound glyph discs along a two-revolution Archimedean spiral and carries per-disc status channels; E1 intentionally does not copy those additional channels."
+  },
+  "metrics": [
+    "response latency after interruption",
+    "normalized absolute source-position error",
+    "exact-position rate"
+  ],
+  "thresholds": {
+    "transfer": "DISC median RT >=15% faster AND median positional error >=20% lower",
+    "hold_modify": "RT gain 5–15% or mixed speed/error result",
+    "no_transfer": "absolute RT gain <5% AND positional-error gain <10%",
+    "hard_reject": "DISC >10% slower AND no >=15% positional-error benefit"
+  },
+  "return_law": "A completed trial emits local evidence only. Success transfers one mechanism into READFIELD; failure parks/composts the experiment. E1 does not acquire source/cursor authority.",
+  "non_claims": [
+    "pilot/local evidence is not population-level confirmation",
+    "circularity is not assumed superior",
+    "the 2019 DataDisc semantics are not imported into READFIELD"
+  ],
+  "files": [
+    "/forward-field-proof/readfield-map-e1/index.html",
+    "/forward-field-proof/readfield-map-e1/release.json"
+  ]
+}
