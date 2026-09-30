@@ -19,7 +19,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').replace(' →','').trim(),href:a.getAttribute('href')||''}));
  rec.field={held:D().getElementById('apTitle')?.textContent||'',owner:D().getElementById('apMeta')?.textContent||'',moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
- if(!/PRISON_AGE/.test(rec.field.owner))throw Error('FIELD native owner');
+ if(!/PRISON AGE/.test(rec.field.owner))throw Error('FIELD native owner');
  if(!moves[0].href.includes('intent=read')||!moves[1].href.includes('intent=ride')||moves.some(x=>x.href.includes('story=open-air')))throw Error('FIELD intent targets must not hide a source choice');
 
  f.src='/prison-age/?story=open-air&return=field';
@@ -59,6 +59,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
   field_snapshot={
    focus:w.FieldLensHost?.focus?.()?.href||null,
    carrier_object:w.FieldIndexCarrier?.current?.()?.object?.address||null,
+   carrier_owner:w.FieldIndexCarrier?.current?.()?.object?.owner||null,
    title:d.getElementById('apTitle')?.textContent||null,
    meta:d.getElementById('apMeta')?.textContent||null,
    primary:d.getElementById('apOpen')?.textContent?.trim()||null,
