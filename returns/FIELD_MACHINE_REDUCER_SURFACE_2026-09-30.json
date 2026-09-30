@@ -10,7 +10,8 @@
     "Add --converge <candidate.json> as an advisory contribution projection: DELTA / EVIDENCE / DONOR / RETURN / UNRESOLVED plus MERGE / REPAIR / HOLD / DROP.",
     "Contribution convergence consumes caller-attested host, verification, mergeability and supersession facts only; it does not query GitHub or mutate CURRENT, branches, packets, or native hosts.",
     "CI exercises fixtures plus the real control/packets shelf and requires zero implicit NOW.",
-    "Compose the #689 research donor gate into contribution reduction: external donor candidates with missing/non-PASS admission are DONOR/HOLD; PASS only removes that blocker and does not grant host/effect authority."
+    "Compose the #689 research donor gate into contribution reduction: external donor candidates with missing/non-PASS admission are DONOR/HOLD; PASS only removes that blocker and does not grant host/effect authority.",
+    "Contribution MERGE now requires caller-attested exact head, current base, mergeability, and passing verification; stale head/base reduce to REPAIR."
   ],
   "empirical_chain": {
     "donor_closed": "#684 documentary research raid reduced to DONOR/RESIDUE and closed with reopen condition",
@@ -45,7 +46,8 @@
     "NOW REQUIRES EXPLICIT CALLER CONTEXT.",
     "BATCHING CREATES NO PERSISTENT STATE.",
     "CONTRIBUTION DISPOSITION IS ADVISORY AND CALLER-ATTESTED; NATIVE HOST/GITHUB AUTHORITY REMAINS NATIVE.",
-    "ONE PACKET -> EXACTLY ONE OF NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE."
+    "ONE PACKET -> EXACTLY ONE OF NOW / DELTA / RESIDUE / GATE / NEXT / ARCHIVE.",
+    "MERGE PROJECTION REQUIRES EXACT_HEAD + BASE_CURRENT + MERGEABLE + VERIFIED; ANY UNKNOWN/STALE BOUNDARY REPAIRS FIRST."
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
