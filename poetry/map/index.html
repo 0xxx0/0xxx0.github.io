@@ -271,8 +271,27 @@ function wordTokens(line){return line.match(/[A-Za-z'’-]+/g)||[]}
 function lineWords(line){return wordTokens(line).length}
 function lineSyll(line){return wordTokens(line).reduce((n,w)=>n+syllables(w),0)}
 function rhymeTail(line){let w=(line.match(/[A-Za-z'’-]+/g)||[]).at(-1)||'';return soundKey(w).tail}
-function formReport(){let f=FORMS[S.form],lines=S.source.split('\n'),nonblank=lines.filter(x=>x.trim());let rows=[];if(f.lines!=null)rows.push(['LINES',nonblank.length+'/'+f.lines,nonblank.length===f.lines?'pass':'warn']);if(f.words){for(let i=0;i<nonblank.length;i++){let got=lineWords(nonblank[i]);rows.push(['L'+(i+1)+' WORDS',got+'/'+f.words,got===f.words?'pass':'warn'])}}if(f.monosyllabic){for(let i=0;i<nonblank.length;i++){let ws=wordTokens(nonblank[i]),mono=ws.filter(w=>syllables(w)===1).length;rows.push(['L'+(i+1)+' ~MONO',mono+'/'+ws.length,ws.length>0&&mono===ws.length?'pass':'warn'])}}if(f.syll){for(let i=0;i<Math.min(nonblank.length,Array.isArray(f.syll)?f.syll.length:nonblank.length);i++){let target=Array.isArray(f.syll)?f.syll[i]:f.syll,got=lineSyll(nonblank[i]);rows.push(['L'+(i+1)+' ~SYLL',got+'/'+target,got===target?'pass':'warn'])}}if(f.chars){for(let i=0;i<nonblank.length;i++){let got=Array.from(nonblank[i].replace(/\s/g,'')).length;rows.push(['L'+(i+1)+' CHAR',got+'/'+f.chars,got===f.chars?'pass':'warn'])}}if(f.rhyme){rows.push(['RHYME TARGET',f.rhyme,'']);let tails=nonblank.map(rhymeTail).filter(Boolean);if(tails.length)rows.push(['ENDINGS',tails.join(' · '),''])}if(f.units)rows.push(['UNIT GUIDE',f.units,'']);if(f.progression)rows.push(['ARC GUIDE',f.progression,'']);if(f.note)rows.push(['NOTE',f.note,'warn']);if(S.form.startsWith('jueju'))rows.push(['平仄 / HIST. RIME','OPEN','warn']);return rows}
-function renderConstraints(){let f=FORMS[S.form],rows=formReport();$('#constraints').innerHTML='<b>'+f.name+'</b>'+(rows.length?rows.map(r=>'<div class="constraint"><b>'+esc(r[0])+'</b><span class="'+r[2]+'">'+esc(r[1])+'</span></div>').join(''):'<div class="sub" style="margin-top:5px">No mandatory shape.</div>')+'<div class="tiny" style="margin-top:5px">English syllable/rhyme/monosyllable checks are lightweight heuristics. English Jueju is a declared transfer adapter, not historical Tang-prosody validation. Form adapters constrain; they do not score literary value.</div>'}
+function approxRhymeScheme(lines,scheme){
+ const code=String(scheme||'').replace(/[^A-Z]/g,''),tails=lines.map(rhymeTail),groups={};let tested=0,pass=true;
+ for(let i=0;i<Math.min(code.length,tails.length);i++){let g=code[i],t=tails[i];if(!g||!t)continue;(groups[g]||(groups[g]=[])).push(t)}
+ for(let xs of Object.values(groups)){if(xs.length<2)continue;tested++;if(!xs.every(x=>x===xs[0]))pass=false}
+ return{pass:tested>0&&pass,tested,tails}
+}
+function formReport(source=S.source,formKey=S.form){
+ let f=FORMS[formKey]||FORMS.free,lines=String(source||'').split('\n'),nonblank=lines.filter(x=>x.trim()),rows=[];
+ if(f.lines!=null)rows.push(['LINES',nonblank.length+'/'+f.lines,nonblank.length===f.lines?'pass':'warn']);
+ if(f.words){for(let i=0;i<nonblank.length;i++){let got=lineWords(nonblank[i]);rows.push(['L'+(i+1)+' WORDS',got+'/'+f.words,got===f.words?'pass':'warn'])}}
+ if(f.monosyllabic){for(let i=0;i<nonblank.length;i++){let ws=wordTokens(nonblank[i]),mono=ws.filter(w=>syllables(w)===1).length;rows.push(['L'+(i+1)+' ~MONO',mono+'/'+ws.length,ws.length>0&&mono===ws.length?'pass':'warn'])}}
+ if(f.syll){for(let i=0;i<Math.min(nonblank.length,Array.isArray(f.syll)?f.syll.length:nonblank.length);i++){let target=Array.isArray(f.syll)?f.syll[i]:f.syll,got=lineSyll(nonblank[i]);rows.push(['L'+(i+1)+' ~SYLL',got+'/'+target,got===target?'pass':'warn'])}}
+ if(f.chars){for(let i=0;i<nonblank.length;i++){let got=Array.from(nonblank[i].replace(/\s/g,'')).length;rows.push(['L'+(i+1)+' CHAR',got+'/'+f.chars,got===f.chars?'pass':'warn'])}}
+ if(f.rhyme){rows.push(['RHYME TARGET',f.rhyme,'']);let q=approxRhymeScheme(nonblank,f.rhyme);if(q.tails.some(Boolean))rows.push(['ENDINGS',q.tails.filter(Boolean).join(' · '),'']);if(q.tested)rows.push(['~RHYME GROUPS',q.pass?'MATCH':'CHECK',q.pass?'pass':'warn'])}
+ if(f.units){let transfer=String(formKey).startsWith('enjueju');rows.push([transfer?'WORDLESS BOARD':'UNIT GUIDE',transfer?String(f.units).replace(/\+/g,' | '):f.units,''])}
+ if(f.progression){let transfer=String(formKey).startsWith('enjueju');rows.push(['ARC GUIDE',f.progression+(transfer?' · AUTHOR JUDGMENT':''),transfer?'warn':''])}
+ if(f.note)rows.push(['NOTE',f.note,'warn']);
+ if(String(formKey).startsWith('jueju'))rows.push(['平仄 / HIST. RIME','OPEN','warn']);
+ return rows
+}
+function renderConstraints(){document.documentElement.dataset.verseForm=S.form;let f=FORMS[S.form],rows=formReport();$('#constraints').innerHTML='<b>'+f.name+'</b>'+(rows.length?rows.map(r=>'<div class="constraint"><b>'+esc(r[0])+'</b><span class="'+r[2]+'">'+esc(r[1])+'</span></div>').join(''):'<div class="sub" style="margin-top:5px">No mandatory shape.</div>')+'<div class="tiny" style="margin-top:5px">English syllable/rhyme/monosyllable checks are lightweight heuristics. English Jueju is a declared transfer adapter, not historical Tang-prosody validation. Form adapters constrain; they do not score literary value.</div>'}
 function neighborhood(n){if(!n)return[];let map=new Map();for(let e of S.edges){let other=e.a===n.id?e.b:e.b===n.id?e.a:null;if(!other)continue;let o=node(other);if(!o)continue;let pri=e.type==='AUTHOR'?0:e.type==='REPEAT'?1:e.type==='SOUND'?2:3,k=o.id;if(!map.has(k)||map.get(k).pri>pri)map.set(k,{word:o.text,why:e.why,type:e.type,pri,id:o.id})}return [...map.values()].sort((a,b)=>a.pri-b.pri).slice(0,10)}
 function ctextLookupHref(n=node(S.selected)){const token=String(n?.text||'').trim();return token?'https://ctext.org/dictionary.pl?if=en&char='+encodeURIComponent(token):'https://ctext.org/'}
 function renderLanguageLenses(n=node(S.selected)){const a=$('#ctextLookup'),st=$('#languageState');if(a){a.href=ctextLookupHref(n);a.textContent=n?.text?'CTEXT · '+String(n.text).slice(0,10):'CTEXT · LOOKUP'}if(st){const lines=String(S.source||'').split('\n').filter(x=>x.trim()),han=n?.text&&Array.from(n.text).every(isHan);st.textContent=(n?'FOCUS '+n.id+' · '+(han?'HAN TOKEN · CTEXT READY':'TOKEN · CTEXT LOOKUP READY'):'SELECT A TOKEN FOR CTEXT')+' · '+(lines.length===4?'4-LINE SOURCE · EN JUEJU 5/7 AVAILABLE':'EN JUEJU IS OPTIONAL')+' · EXTERNAL ENGINES RECEIVE NOTHING AUTOMATICALLY'}}
@@ -491,6 +510,9 @@ function selftest(){
  a('Jueju donor remains four-line open source',JUEJU.split('\n').length===4&&Array.from(JUEJU.split('\n')[0]).length===7,'4 lines / 7-char opener');
  a('form adapters remain plural',['free','haiku','couplet','quatrain','enjueju5','enjueju7','sonnet','villanelle','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
  a('English Jueju transfer adapters declared',FORMS.enjueju5.lines===4&&FORMS.enjueju5.words===5&&FORMS.enjueju5.rhyme==='AABA'&&FORMS.enjueju7.lines===4&&FORMS.enjueju7.words===7&&FORMS.enjueju7.units==='2+2+3','4×5 / 4×7 · AABA · mono heuristic');
+ const ej='Cold moon still pines hold dim light\nDark stream soft reeds catch dawn light\nOld road lone feet turn home slow\nWarm hands near fire guard last light',ejRows=formReport(ej,'enjueju7');
+ const ejWord=ejRows.filter(r=>/ WORDS$/.test(r[0])),ejMono=ejRows.filter(r=>/ ~MONO$/.test(r[0]));
+ a('English Jueju transfer behavior is checked',ejRows.some(r=>r[0]==='LINES'&&r[2]==='pass')&&ejWord.length===4&&ejWord.every(r=>r[2]==='pass')&&ejMono.length===4&&ejMono.every(r=>r[2]==='pass')&&ejRows.some(r=>r[0]==='~RHYME GROUPS'&&r[2]==='pass')&&ejRows.some(r=>r[0]==='WORDLESS BOARD'&&r[1]==='2 | 2 | 3')&&ejRows.some(r=>r[0]==='ARC GUIDE'&&/AUTHOR JUDGMENT/.test(r[1])),ejRows.map(r=>r[0]+':'+r[1]).join(' · '));
  a('CText lookup is explicit selected-token URL',/dictionary\.pl\?if=en&char=/.test(ctextLookupHref({text:'仁'}))&&ctextLookupHref({text:''})==='https://ctext.org/',ctextLookupHref({text:'仁'}));
  a('writer-intent dock remains plural',['continue','nextline','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
  const rain=tokenizeLine('rain falls',0)[0],han=tokenizeLine('未始',0)[0];
@@ -528,6 +550,8 @@ if(bootVerse){
   S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode(bootMode||'MAP');status(restoreReturnFocus()?'RETURN FOCUS RESTORED · '+bootFocus:'DEMO READY · '+(bootMode||'MAP')+' PROJECTION');
 }else if(S.source){
   parse();setMode(bootMode||S.mode||'PAGE');if(restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
+}else if(bootForm&&String(bootForm).startsWith('enjueju')){
+  S.fieldLoaded=false;$('#source').value='\n\n\n';parse();setForm(bootForm);setMode(bootMode||'PAGE');status('FORM · '+FORMS[bootForm].name+' · EMPTY 4-LINE BOARD');
 }else{
   render();setMode(bootMode||'PAGE');loadFieldNow().then(ok=>{
     if(ok===false){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
@@ -535,6 +559,6 @@ if(bootVerse){
   });
 }
 requestAnimationFrame(draw);
-window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,setForm,formReport,ctextLookupHref,previewCandidate,adoptCandidate,undoRevision,selftest,candidateOperation,candidateEdit,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,poemReturnAddress,restoreReturnFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,setForm,formReport,approxRhymeScheme,ctextLookupHref,previewCandidate,adoptCandidate,undoRevision,selftest,candidateOperation,candidateEdit,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,poemReturnAddress,restoreReturnFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
 })();
 </script></body></html>

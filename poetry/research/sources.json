@@ -1,6 +1,6 @@
 {
   "schema": "verse-source-quarry/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-30",
   "private_recovered": [
     {
       "title": "Systematising Glyph Design forVisualization.pdf",
@@ -59,9 +59,16 @@
       "year": 2026,
       "url": "https://www.research.ed.ac.uk/en/publications/information-visualization-data-materialization-thinking-through-s/",
       "transfer": "3D-fabricated literary scale visualization / physical poem projection"
+    },
+    {
+      "title": "About English Jueju / Composing English Jueju",
+      "organization": "University of Oklahoma · Institute for US-China Issues · Newman Prize for English Jueju",
+      "url": "https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju",
+      "transfer": "primary transfer evidence for four-line 5/7-word monosyllabic English, 2+3 / 2+2+3 grouping, AABA rhyme, and 起承轉合 progression; deeper sound/meaning parallelism remains open"
     }
   ],
   "identity_notes": {
-    "english_cope_memory": "UNRESOLVED: current evidence strongly matches PoeTryMe/Co-PoeTryMe (English + form/seed/surprise + fine-grained word/line alternatives) and may also overlap iPoe's broad form checker. Do not identify the user's historical link as one system until exact prior source is recovered."
+    "english_cope_memory": "UNRESOLVED: current evidence strongly matches PoeTryMe/Co-PoeTryMe (English + form/seed/surprise + fine-grained word/line alternatives) and may also overlap iPoe's broad form checker. Do not identify the user's historical link as one system until exact prior source is recovered.",
+    "english_jueju_transfer": "RESOLVED CURRENT SOURCE: University of Oklahoma / Newman Prize teaching materials ground the implemented English-Jueju transfer adapter. This does not resolve the separate historical 'English COPE memory' identity."
   }
 }
