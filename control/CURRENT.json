@@ -103,9 +103,25 @@
       "version": "0.8.26",
       "latest_return": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
       "repo_verification": {
-        "status": "PENDING / PR 675 CANDIDATE",
-        "candidate_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
-        "boundary": "0.8.26 changes root ownership/contraction; predecessor PASS must not be promoted to proof of this head.",
+        "status": "PASS / PR 675 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
+        "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
+        "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
+        "checks": {
+          "route_registration": {
+            "run": 36662030164,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36662030136,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36662030161,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 36662030136 attempt 2 including owner-based FIELD root and critical browser smoke; attempt 1 failed only on transient CARE face-probe readiness. PR 678 subsequently removed that probe boot race without weakening assertions.",
         "predecessor": {
           "status": "PASS / PR 654 EXACT-HEAD",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
