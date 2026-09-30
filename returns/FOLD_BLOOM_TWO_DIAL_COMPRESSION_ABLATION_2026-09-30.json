@@ -1,0 +1,60 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_ABLATION_2026-09-30",
+  "status": "IMPLEMENTED / EVIDENCE_OPEN",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Make H_COMPRESSION empirically testable without creating a second state authority: the same Two Dial state/consequence path can be exercised through the native coaxial dials or a plain two-control 6x6 baseline.",
+  "law": "A-G proof does not imply H. Compression is earned only if ordinary use shows the coaxial representation reduces interaction/learning burden versus a functionally equivalent plain baseline.",
+  "changes": [
+    "/fold-bloom/two-dial/compression-audit.js — opt-in ?compression=TWO|PLAIN trial over one state/commit path",
+    "/fold-bloom/two-dial/app-runtime.js — compression trials never persist into normal local state",
+    "/fold-bloom/two-dial/index.html — loads the inert-unless-requested audit harness",
+    "/control/FIELD_COAXIALITY_AUDIT.json — H gate now names runnable baseline/entrypoints while remaining INDETERMINATE",
+    "/tools/two-dial-compression-selftest.cjs — proves same-path/evidence-only/static boundaries"
+  ],
+  "controlled": [
+    "36 MATTER x HARMONY pair states",
+    "SAME/NEAR/FAR/OPPOSITE host mapping",
+    "BLOOM/FOLD/RETURN/SPLIT consequence commit path",
+    "world/voice/groove/scope snapshot",
+    "RETURN/export semantics"
+  ],
+  "varied": [
+    "TWO_DIAL direct cyclic spatial manipulation",
+    "PLAIN_PAIR_6X6 two independent six-position controls + explicit relation readout + COMMIT"
+  ],
+  "evidence": {
+    "entrypoints": [
+      "/fold-bloom/two-dial/?compression=TWO",
+      "/fold-bloom/two-dial/?compression=PLAIN"
+    ],
+    "packet": "fold-bloom-compression-return/v0.1",
+    "measurements": [
+      "five fixed exact-pair tasks spanning all four relation classes plus revisit",
+      "input count",
+      "commit count",
+      "elapsed time",
+      "clarity/reach/revisit ratings",
+      "free observation"
+    ],
+    "boundary": "Copied packets are EVIDENCE_ONLY / NO AUTO_PROMOTION. No rating or task completion automatically changes H."
+  },
+  "preserves": [
+    "normal Two Dial route when compression query is absent",
+    "composition authority remains TWO_DIAL_RELATION",
+    "no new route/store/queue/authority",
+    "ordinary local state is not mutated by H trials"
+  ],
+  "residue": [
+    "H_COMPRESSION remains INDETERMINATE until comparable ordinary-use returns exist for BOTH projections",
+    "instrument-quality listening remains a separate human gate"
+  ],
+  "verify": [
+    "node tools/two-dial-compression-selftest.cjs",
+    "public-surface-check",
+    "route registration",
+    "gitleaks"
+  ],
+  "reentry": "/fold-bloom/two-dial/?compression=TWO"
+}
