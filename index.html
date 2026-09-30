@@ -235,7 +235,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
        order is asserted by indexOf() and prose would be matched before the element. -->
   <div class="capTrial" id="capTrial" aria-label="Held object action aperture">
     <div class="capCell"><span class="capK">HELD / PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">focus only · native object remains with owner</span></div>
-    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
+    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div><span class="capSub" id="capForecast">FORECAST · —</span></div>
     <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
   </div>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
@@ -632,23 +632,41 @@ function fieldActionSurface(carrier=fieldCarrierForFocus()){
  const C=globalThis.InterphaseCarrier;if(!carrier||!C||typeof C.actionSurface!=='function')return null;
  try{return C.actionSurface(carrier)}catch(_){return null}
 }
+function actionForecastText(a){
+ const f=a?.forecast||{},bits=['FORECAST',f.effect||'UNKNOWN'];
+ if(f.commit)bits.push('COMMIT '+f.commit);
+ if(f.reversibility)bits.push('REV '+f.reversibility);
+ if(f.target)bits.push('→ '+f.target);
+ return bits.join(' · ')
+}
+function bindActionForecast(items=[]){
+ const out=$('capForecast');if(!out)return;
+ const xs=(items||[]).filter(Boolean);if(!xs.length){out.textContent='FORECAST · —';return}
+ const show=i=>{const x=xs[Math.max(0,Math.min(xs.length-1,i||0))];out.textContent=actionForecastText(x)};
+ show(0);
+ [...$('capMoves').children].forEach((el,i)=>{el.title=actionForecastText(xs[i]||xs[0]);el.addEventListener('mouseenter',()=>show(i));el.addEventListener('focus',()=>show(i));el.addEventListener('touchstart',()=>show(i),{passive:true})})
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capForecast').textContent='FORECAST · —';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=fieldEgressForRoute(focus),egressLabel=egress?.class?('EGRESS · '+egress.class+' · '):'';
  $('capHeld').textContent=(carrier?.object?.owner||c?.owner||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
  $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||'FIELD ROUTE')));
- const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
+ const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],surface=fieldActionSurface(carrier);
+ let forecastItems=[];
  if(nativeActions.length){
   $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  forecastItems=nativeActions.map(a=>({label:a.label,forecast:{effect:'NAVIGATION_ONLY',authority:'NAVIGATION',commit:'NAVIGATION',sourceMutation:'NONE',target:a.target,reversibility:'FIELD_NO_SOURCE_MUTATION'}}));
  }else{
   $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a>'+(canDayline?'<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>':'<button class="capMove" data-cap-copy>COPY ACTION</button>')+'<button class="capMove" data-cap-trace>TRACE</button>';
   const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
   const traceBtn=$('capMoves').querySelector('[data-cap-trace]');if(traceBtn)traceBtn.onclick=openTrace;
+  forecastItems=Array.isArray(surface?.actions)?surface.actions.slice(0,3):[];
  }
+ bindActionForecast(forecastItems);
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
 }
