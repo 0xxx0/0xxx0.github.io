@@ -13,8 +13,8 @@ const field=C.fromProjection(fieldProjection,{
   owner:'FIELD',
   returnAddress:'/?focus=%2Fsleeper%2F',
   next:[
-    {id:'OPEN',label:'OPEN',authority:'NAVIGATION',target:'/sleeper/'},
-    {id:'CARRY',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/'}
+    {id:'OPEN',label:'OPEN',authority:'NAVIGATION',target:'/sleeper/',reversibility:'EXACT_RETURN'},
+    {id:'CARRY',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_ACCEPTS_THEN_RETURN'}
   ],
   witness:{class:'OBSERVED',summary:'manifest route held'}
 });
@@ -27,6 +27,12 @@ const fieldSurface=C.actionSurface(field);
 assert(fieldSurface.schema===C.ACTION_SCHEMA,'action surface schema');
 assert(fieldSurface.hold.action==='HOLD'&&fieldSurface.hold.id===field.focus.id,'focus projects to HOLD');
 assert(fieldSurface.actions.length===field.next.length,'action surface preserves move count');
+assert(fieldSurface.actions[0].forecast.schema===C.ACTION_FORECAST_SCHEMA,'forecast schema');
+assert(fieldSurface.actions[0].forecast.effect==='NAVIGATION_ONLY'&&fieldSurface.actions[0].forecast.commit==='NAVIGATION'&&fieldSurface.actions[0].forecast.sourceMutation==='NONE','navigation forecast');
+assert(fieldSurface.actions[0].forecast.reversibility==='EXACT_RETURN','forecast preserves declared reversibility');
+assert(fieldSurface.actions[1].forecast.effect==='OFFER_ONLY'&&fieldSurface.actions[1].forecast.commit==='RECEIVER_ACCEPTS','offer forecast');
+const effectForecast=C.forecastAction({id:'COMMIT',label:'COMMIT',authority:'EFFECT',target:'host://commit'});
+assert(effectForecast.effect==='HOST_EFFECT'&&effectForecast.commit==='HOST_NATIVE'&&effectForecast.sourceMutation==='HOST_DEFINED','effect forecast stays host-owned');
 assert(fieldSurface.return.action==='RETURN'&&fieldSurface.return.address===field.return.address,'RETURN survives action projection');
 assert(fieldSurface.cadence.map(x=>x.phase+'/'+x.office).join(',')==='WAKE/SOURCE,CUT/FRAME,HOLD/FOCUS,TURN/OPERATE,TRACE/WITNESS,AGAIN/RETURN','attention grammar');
 
