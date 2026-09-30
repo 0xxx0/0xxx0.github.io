@@ -11,4 +11,15 @@
 # Bypass is possible (--no-verify) and that is fine: the point is that skipping it is
 # now a CONSCIOUS act rather than an invisible default.
 
+# CHAIN the private-tree/secret guard. This clone sets `core.hooksPath=.githooks`, which
+# SHADOWS `.git/hooks/pre-push` — so without the call below, the guard that protects the
+# PUBLIC repo never runs on the clone that pushes to it. (Measured 2026-09-30.)
+# CONTROL (must fail):   git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'PUSH REFUSED'   # grep rc 0
+# CONTROL (override allows, proving the finish-line gate below is still reached):
+#   ALLOW_PRIVATE_PUSH=1 git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'finish-line: REFUSED'   # grep rc 0
+GUARD="$(git rev-parse --show-toplevel)/.git/hooks/pre-push"
+if [ -x "$GUARD" ]; then
+  "$GUARD" "$@" || exit $?
+fi
+
 exec python3 "$(git rev-parse --show-toplevel)/tools/finish-line.py" --pre-push
