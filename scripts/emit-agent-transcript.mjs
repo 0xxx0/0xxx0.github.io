@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import path from 'node:path';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 
 const INPUTS={
@@ -16,6 +17,100 @@ const fp=v=>fnv64(JSON.stringify(stable(v)));
 const one=s=>String(s??'').replace(/\s+/g,' ').trim();
 const clip=(s,n=220)=>{s=one(s);return s.length>n?s.slice(0,n-1)+'…':s};
 const depKind=state=>{const s=String(state||'').toUpperCase();if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';if(s.includes('PRIVATE'))return'PRIVATE_INPUT';if(s.includes('ORDINARY_USE')||s.includes('HUMAN_USE'))return'ORDINARY_USE';if(s.includes('PHYSICAL'))return'PHYSICAL';if(s.includes('WORLD'))return'WORLD_EVENT';return'HUMAN_ACTION'};
+
+const CONTRIBUTION_CLASSES=['DELTA','EVIDENCE','DONOR','RETURN','UNRESOLVED'];
+const CONVERGENCE_DISPOSITIONS=['MERGE','REPAIR','HOLD','DROP'];
+
+function reduceContribution(candidate={}){
+  const id=one(candidate.id||candidate.contribution_id||candidate.pr||'candidate');
+  const host=one(candidate.host||candidate.owner||'');
+  const ci=String(candidate.ci||candidate.ci_state||'UNKNOWN').toUpperCase();
+  const evidence=String(candidate.evidence||candidate.evidence_state||'').toUpperCase();
+  const exactHead=candidate.exact_head===true;
+  const baseCurrent=candidate.base_current===true;
+  const mergeable=candidate.mergeable===true;
+  const superseded=candidate.superseded===true;
+  const duplicate=candidate.duplicate===true;
+  const uniqueResidue=candidate.unique_residue===true;
+  const returnObserved=candidate.return_observed===true;
+  const boundedProof=candidate.bounded_claim_proved===true||candidate.bounded_claim_falsified===true;
+  const executable=!!(candidate.capability_delta||candidate.duplicate_removed||candidate.law_executable||boundedProof);
+  const documentary=candidate.documentary_only===true||evidence.includes('DOCUMENT')||evidence.includes('ARCHITECT');
+  const authorityConflict=candidate.authority_conflict===true;
+  const ciPass=['PASS','PASSED','SUCCESS','GREEN'].includes(ci);
+  const ciFail=['FAIL','FAILED','ERROR','RED'].includes(ci);
+
+  let contributionClass='DONOR';
+  if(!host)contributionClass='UNRESOLVED';
+  else if(returnObserved)contributionClass='RETURN';
+  else if(boundedProof&&!candidate.capability_delta&&!candidate.duplicate_removed&&!candidate.law_executable)contributionClass='EVIDENCE';
+  else if(executable)contributionClass='DELTA';
+
+  let disposition='HOLD',reason='insufficient exact evidence for canonical promotion';
+  if(superseded||(duplicate&&!uniqueResidue)){
+    disposition='DROP';reason=superseded?'superseded by an owning successor':'duplicate representation with no unique residue';
+  }else if(contributionClass==='UNRESOLVED'){
+    disposition='HOLD';reason='no explicit host/owner';
+  }else if(documentary&&!executable&&!returnObserved){
+    disposition='HOLD';reason='documentary/donor value only; no proved capability or observed return';
+  }else if(authorityConflict||!exactHead||!baseCurrent||!mergeable||ciFail){
+    disposition='REPAIR';
+    reason=authorityConflict?'authority conflict':!exactHead?'candidate is not attested against exact current head':!baseCurrent?'candidate base is not attested current':!mergeable?'candidate is not mergeable':'verification is failing';
+  }else if(['DELTA','EVIDENCE','RETURN'].includes(contributionClass)&&ciPass){
+    disposition='MERGE';reason='owned bounded contribution with exact-head, mergeability and verification evidence';
+  }else if(!ciPass){
+    disposition='HOLD';reason='verification not attested PASS';
+  }
+
+  const next={
+    MERGE:'merge the exact attested head, then re-read CURRENT',
+    REPAIR:'repair only the named failing gate; do not widen scope',
+    HOLD:'park as residue/donor without occupying CURRENT; reopen only on named evidence',
+    DROP:'preserve any named unique residue at its owner/successor, then close the duplicate'
+  }[disposition];
+
+  return{
+    schema:'field-convergence-reducer/v0.1',
+    authority:'NONE',
+    id,host:host||null,
+    contribution_class:contributionClass,
+    disposition,
+    reason,
+    next,
+    attested:{ci,exact_head:exactHead,base_current:baseCurrent,mergeable,evidence:evidence||null},
+    law:'Candidate facts are caller-attested. The reducer classifies; it does not query GitHub, mint CURRENT/NOW authority, merge, close, or delete anything.'
+  };
+}
+
+
+
+const cliValues=flag=>{
+  const out=[];
+  for(let i=2;i<process.argv.length-1;i++)if(process.argv[i]===flag&&!process.argv[i+1].startsWith('--'))out.push(process.argv[i+1]);
+  return out;
+};
+const packetId=p=>String(p?.packet_id||p?.id||p?.task_id||p?.return_id||p?.object?.id||p?.OBJECT?.id||p?.subject||'packet');
+
+function walkJson(target){
+  const st=fs.statSync(target);
+  if(st.isDirectory())return fs.readdirSync(target,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name)).flatMap(d=>walkJson(path.join(target,d.name)));
+  return target.endsWith('.json')?[target]:[];
+}
+
+function reduceBatch(target,{nowIds=new Set(),selectedIds=new Set(),reactivatedIds=new Set()}={}){
+  const files=[...new Set(walkJson(target))].sort(),items=[];
+  for(const file of files){
+    const raw=read(file),packets=Array.isArray(raw)?raw:[raw];
+    packets.forEach((packet,index)=>{
+      const id=packetId(packet);
+      const reduced=reducePacket(packet,{now:nowIds.has(id),selected:selectedIds.has(id),reactivated:reactivatedIds.has(id)});
+      items.push({...reduced,file,index});
+    });
+  }
+  const counts=Object.fromEntries(EGRESS_CLASSES.map(k=>[k,0]));
+  for(const item of items)counts[item.class]=(counts[item.class]||0)+1;
+  return{schema:'field-egress-sweep/v0.1',authority:'NONE',file_count:files.length,packet_count:items.length,counts,items,law:'Batching is a read-only view over source packets. No packet self-authorizes NOW; per-packet NOW/selection/reactivation context must be supplied by the caller.'};
+}
 
 function load(){
   return {C:read(INPUTS.current),M:read(INPUTS.manifest),W:read(INPUTS.waiting),K:read(INPUTS.contract)};
@@ -100,13 +195,27 @@ function markdown(p){
   return out.join('\n')+'\n';
 }
 
+const convergeAt=process.argv.indexOf('--converge');
 const reduceAt=process.argv.indexOf('--reduce');
-if(reduceAt>=0){
-  const path=process.argv[reduceAt+1];
-  if(!path){console.error('FIELD reduce requires a JSON packet path');process.exit(2)}
-  const packet=read(path);
-  const context={now:process.argv.includes('--now'),selected:process.argv.includes('--selected'),reactivated:process.argv.includes('--reactivate')};
-  process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\n');
+if(convergeAt>=0){
+  const path=process.argv[convergeAt+1];
+  if(!path){console.error('FIELD converge requires a JSON candidate path');process.exit(2)}
+  process.stdout.write(JSON.stringify(reduceContribution(read(path)),null,2)+'\n');
+}else if(reduceAt>=0){
+  const target=process.argv[reduceAt+1];
+  if(!target){console.error('FIELD reduce requires a JSON packet path or directory');process.exit(2)}
+  if(fs.statSync(target).isDirectory()){
+    const batch=reduceBatch(target,{
+      nowIds:new Set(cliValues('--now-id')),
+      selectedIds:new Set(cliValues('--selected-id')),
+      reactivatedIds:new Set(cliValues('--reactivate-id'))
+    });
+    process.stdout.write(JSON.stringify(batch,null,2)+'\n');
+  }else{
+    const packet=read(target);
+    const context={now:process.argv.includes('--now'),selected:process.argv.includes('--selected'),reactivated:process.argv.includes('--reactivate')};
+    process.stdout.write(JSON.stringify(reducePacket(packet,context),null,2)+'\n');
+  }
 }else{
 const sources=load(),packet=compile(sources);
 if(process.argv.includes('--selftest')){
@@ -122,6 +231,27 @@ if(process.argv.includes('--selftest')){
   if(JSON.stringify(packet.egress?.precedence)!==JSON.stringify(EGRESS_PRECEDENCE))fail.push('egress precedence drift');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('front:')).some(x=>x.class!=='NOW'))fail.push('active front did not reduce to NOW');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('gate:')).some(x=>x.class!=='GATE'))fail.push('human/world gate did not reduce to GATE');
+
+  const convergenceFixtures=[
+    [{id:'pr-660',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:false},'DELTA','REPAIR'],
+    [{id:'pr-661',host:'CONFLUENCE',documentary_only:true,evidence:'DOCUMENTARY',ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DONOR','HOLD'],
+    [{id:'pr-662',host:'convergence-validate',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true},'DELTA','MERGE'],
+    [{id:'pr-663',host:'READFIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:true,mergeable:true,superseded:true,unique_residue:true},'DELTA','DROP']
+  ];
+  for(const [fixture,wantClass,wantDisposition] of convergenceFixtures){
+    const got=reduceContribution(fixture);
+    if(got.contribution_class!==wantClass||got.disposition!==wantDisposition)fail.push('convergence fixture '+fixture.id+' => '+got.contribution_class+'/'+got.disposition+' expected '+wantClass+'/'+wantDisposition);
+  }
+  if(!CONTRIBUTION_CLASSES.includes(reduceContribution({}).contribution_class))fail.push('invalid convergence contribution class');
+  if(!CONVERGENCE_DISPOSITIONS.includes(reduceContribution({}).disposition))fail.push('invalid convergence disposition');
+  const staleBase=reduceContribution({id:'stale-base',host:'FIELD',capability_delta:true,ci:'PASS',exact_head:true,base_current:false,mergeable:true});
+  if(staleBase.disposition!=='REPAIR')fail.push('stale base must repair before merge');
+
+  const shelf=reduceBatch('control/packets');
+  if(shelf.file_count<1||shelf.packet_count<1)fail.push('real packet shelf produced empty batch');
+  if(shelf.counts.NOW!==0)fail.push('batch packet shelf self-authorized NOW');
+  if(shelf.items.some(x=>!EGRESS_CLASSES.includes(x.class)))fail.push('batch produced invalid egress class');
+
   const rendered=markdown(packet),structured=JSON.stringify(packet);
   if(rendered.length>10000)fail.push('default transcript exceeds 10k chars: '+rendered.length);
   if(structured.length>20000)fail.push('structured transcript exceeds 20k chars: '+structured.length);
