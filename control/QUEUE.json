@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-25",
+  "updated": "2026-09-30T13:57:00+08:00",
   "max_live": 2,
   "live": [
     {
@@ -74,9 +74,16 @@
     {
       "order": 1,
       "id": "outside-human-release",
-      "move": "Take one already-working creative/tool head to context-free use by another human. No new architecture. Default candidates are existing public Fold/Bloom, Sleeper, Verse/READFIELD, or ROOM surfaces.",
+      "move": "Use the existing /fold-bloom/ context-free first-use doorway. After ordinary use, open /fold-bloom/replay/?return=1, replace MESSAGE with one sentence naming what was obvious, confusing, valuable, or blocked, then return the existing compact REPLAY link. No new architecture or feedback backend.",
       "pass": "Stable public route + first-use path that does not require project lore + one external-use RETURN identifying friction/value.",
-      "status": "MACHINE_PREP_EXECUTABLE / EXTERNAL_RETURN_LATER"
+      "status": "PREPARED_BY_REPLAY_RETURN_MODE / EXTERNAL_RETURN_REQUIRED",
+      "evidence": [
+        "/fold-bloom/",
+        "/fold-bloom/replay/?return=1",
+        "/fold-bloom/replay/app.js",
+        "/tools/fold-bloom-replay-step-smoke.mjs"
+      ],
+      "stop": "Machine preparation ends here. Do not simulate another person's reaction or move to transformation 2 until an actual external-use RETURN exists or CURRENT explicitly replans."
     },
     {
       "order": 2,
