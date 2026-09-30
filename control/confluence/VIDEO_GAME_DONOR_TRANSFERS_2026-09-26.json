@@ -96,7 +96,7 @@
       "donors": [
         "Into the Breach"
       ],
-      "status": "CONTRACT",
+      "status": "IMPLEMENTED_CANDIDATE",
       "recipients": [
         "/",
         "/house/",
@@ -108,9 +108,14 @@
         "undo after irreversible side effect"
       ],
       "contract_key": "precommit_telegraph",
-      "proof_claim": "Execution contract distinguishes preview/configuration from commit/effect.",
+      "proof_claim": "For held /docs/, browser proof exposes NAVIGATION_ONLY / OFFER_ONLY / READ_ONLY forecasts before activation while authority stays NONE / HANDOFF ONLY. Forecast never claims undeclared outcome certainty.",
       "new_sovereign_app": false,
-      "retirement": "No extra UI required when native host already exposes equivalent preview."
+      "retirement": "If native owners universally expose an equivalent pre-commit boundary through the shared action contract, FIELD-specific forecast chrome should fold away while the carrier forecast remains.",
+      "implementation": "INTERPHASE actionSurface emits interphase-action-forecast/v0.1 from declared move authority; FIELD held NEXT projects effect class, commit boundary, target and reversibility before activation. Native host remains the only effect path.",
+      "executable_test": [
+        "tools/field-action-aperture-selftest.mjs",
+        "tools/browser-smoke.mjs · FIELD held INTERPHASE carrier in-place"
+      ]
     },
     {
       "id": "ghost-not-real",
