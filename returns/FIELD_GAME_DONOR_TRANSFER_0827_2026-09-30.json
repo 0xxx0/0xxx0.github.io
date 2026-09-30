@@ -1,0 +1,81 @@
+{
+  "schema": "0xxx0/field-game-donor-transfer/v0.1",
+  "date": "2026-09-30",
+  "route": "/",
+  "version": "0.8.27",
+  "state": "CANDIDATE / SELF_VERIFYING",
+  "objective": "Transfer six researched video-game mechanisms into current FIELD owners without importing game skin, creating a new route, or increasing authority; make one transfer executable.",
+  "donors": {
+    "outer_wilds": {
+      "rule": "UNKNOWN != TASK",
+      "state": "ALREADY_SHIPPED",
+      "host": "held-object MORE HERE / RESIDUE"
+    },
+    "hades": {
+      "rule": "ATTEMPT END != CONTINUITY RESET",
+      "state": "CANDIDATE",
+      "host": "RETURN + packet egress RESIDUE"
+    },
+    "death_stranding": {
+      "rule": "REPEATED PASSAGE MAY EARN INFRASTRUCTURE",
+      "state": "CANDIDATE",
+      "host": "INTERPHASE handoffs + CONFLUENCE/PORTS"
+    },
+    "into_the_breach": {
+      "rule": "FORECAST BEFORE COMMIT",
+      "state": "IMPLEMENTED_THIS_PASS",
+      "host": "INTERPHASE action surface + FIELD held action aperture"
+    },
+    "hardspace_shipbreaker": {
+      "rule": "SUBTRACTION REQUIRES A SALVAGE MAP",
+      "state": "CANDIDATE",
+      "host": "RECOVERY/MIGRATION deletion-repair audit"
+    },
+    "terra_nil": {
+      "rule": "REMOVE SCAFFOLD WHEN CAPABILITY SURVIVES",
+      "state": "CANDIDATE",
+      "host": "FIELD contraction + CI/route retirement"
+    }
+  },
+  "delta": [
+    "Added /control/GAME_DONOR_TRANSFERS.json and human-readable confluence note.",
+    "INTERPHASE actionSurface now attaches interphase-action-forecast/v0.1 to each declared move.",
+    "Forecast is derived only from declared move authority: VIEW→READ_ONLY, NAVIGATION→NAVIGATION_ONLY, OFFER→OFFER_ONLY, EDIT→HOST_EDIT, EFFECT→HOST_EFFECT.",
+    "FIELD NEXT cell exposes the first forecast and updates it on hover/focus/touch without executing the move.",
+    "Native route links are forecast as NAVIGATION_ONLY / FIELD_NO_SOURCE_MUTATION because FIELD only navigates to the host; host effects remain native.",
+    "Added static and browser proof assertions."
+  ],
+  "authority": {
+    "forecast": "VIEW ONLY",
+    "field": "projection + navigation/handoff only",
+    "interphase": "contract normalization only",
+    "native_host": "owns actual mutation/effect/reversal",
+    "current": "owns NOW",
+    "return": "owns durable evidence"
+  },
+  "non_claims": [
+    "Forecast does not predict actual domain outcome.",
+    "Forecast does not guarantee reversibility when host declares HOST_DEFINED.",
+    "Game mechanics are donors, not evidence that FIELD should become a game.",
+    "Candidate transfers are not implementation commitments or backlog items."
+  ],
+  "sources": [
+    "https://store.steampowered.com/app/753640/Outer_Wilds/",
+    "https://www.supergiantgames.com/blog/hades-faq/",
+    "https://www.playstation.com/en-us/games/death-stranding/",
+    "https://www.playstation.com/en-sg/games/death-stranding-2-on-the-beach/",
+    "https://www.subsetgames.com/itb.html",
+    "https://www.focus-entmt.com/en/news/hardspace-shipbreaker-10-is-now-live",
+    "https://freelives.net/terra-nil-press-kit/"
+  ],
+  "verification": {
+    "static": "tools/field-action-aperture-selftest.mjs",
+    "browser": "tools/browser-smoke.mjs · FIELD held INTERPHASE carrier in-place",
+    "expected_forecasts": [
+      "NAVIGATION_ONLY · NAVIGATION · NONE",
+      "OFFER_ONLY · RECEIVER_ACCEPTS · NONE",
+      "READ_ONLY · NO_COMMIT · NONE"
+    ]
+  },
+  "stop": "Do not implement Hades/Death-Stranding/Shipbreaker/Terra-Nil candidates until a named current FIELD friction needs that rule. Prefer deletion/contraction over a game-mechanics dashboard."
+}
