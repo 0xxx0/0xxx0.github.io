@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T10:29:00+08:00",
+  "updated": "2026-09-30T13:58:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -98,7 +98,9 @@
         "/tools/browser-smoke.mjs",
         "/tools/validate-public.mjs",
         "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
-        "/tools/field-action-aperture-selftest.mjs"
+        "/tools/field-action-aperture-selftest.mjs",
+        "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md",
+        "/returns/FIELD_GAME_DONOR_SIX_TRANSFER_2026-09-30.json"
       ],
       "version": "0.8.26",
       "latest_return": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
