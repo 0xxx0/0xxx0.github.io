@@ -82,7 +82,16 @@ const cases=[
     {},'DELTA'],
   ['AA empty packet archives',
     {packet_id:'empty'},
-    {},'ARCHIVE']
+    {},'ARCHIVE'],
+  ['AB empty evidence refs do not witness a delta',
+    {packet_id:'empty-evidence-refs',DELTA:{material:true},EVIDENCE:{refs:[]}},
+    {},'RESIDUE'],
+  ['AC empty evidence object does not witness a delta',
+    {packet_id:'empty-evidence-object',DELTA:{material:true},EVIDENCE:{}},
+    {},'RESIDUE'],
+  ['AD populated evidence refs still witness a delta',
+    {packet_id:'populated-evidence-refs',DELTA:{material:true},EVIDENCE:{refs:['proof://exact-head']}},
+    {},'DELTA']
 ];
 
 assert.deepEqual(EGRESS_CLASSES,['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']);
@@ -102,4 +111,4 @@ const precedence=reducePacket({
 },{now:true});
 assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
 
-console.log('FIELD packet egress reducer PASS · A-AA · value/shape-invariant external GATE + unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');
+console.log('FIELD packet egress reducer PASS · A-AD · value/shape-invariant external GATE + unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');
