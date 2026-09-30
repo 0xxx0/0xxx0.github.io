@@ -145,8 +145,14 @@
       "result": "PASS"
     },
     "phase_first_surface": {
-      "result": "PENDING_PR_HEAD",
-      "selftest": "/tools/shopping-phase-surface-selftest.mjs"
+      "pr": 739,
+      "merge_sha": "aee12edf504145828c8fa0eebabc8a67a722fa69",
+      "proof_head": "9af9d903021417fc95c2a64fd6ffb27a912cd276",
+      "route_registration_run": 36703842994,
+      "public_surface_run": 36703842940,
+      "gitleaks_run": 36703843106,
+      "selftest": "/tools/shopping-phase-surface-selftest.mjs",
+      "result": "PASS"
     }
   }
 }
