@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30",
   "date": "2026-09-30",
-  "state": "SHIPPED_CANDIDATE",
+  "state": "MERGED_PASS",
   "object": "FIELD INDEX / CATCH aggregate dissolved into owners",
   "before": "FIELD 0.8.25 removed the duplicate AWAKE visor, but a second root attention aggregate still followed the held object: FIELD / CATCH + ACT repeated CURRENT/NOW, GitHub issues, reality gates, route HOLD/OPEN, local SEEN, change cards and MORE HERE even though those meanings already had native owners.",
   "delta": [
@@ -33,11 +33,29 @@
     "/tools/browser-smoke.mjs"
   ],
   "verification": {
-    "machine": "PENDING CI: owner-based action/signal/reversibility tests, static public contract, Route Registration, gitleaks and critical browser smoke.",
+    "machine": "PASS / PR 675 exact head 8acbedbbae819badc437840ef3d4b49403e9f891; Route Registration 36662030164 success; public-surface-check 36662030136 attempt 2 success including critical browser smoke; gitleaks 36662030161 success.",
     "human": "No mandatory human gate. This pass removes a reported obstruction and leaves the same held object/action grammar.",
-    "falsifier": "If any unique CATCH behavior becomes unreachable, restore that behavior at its canonical owner or STATUS residue; do not restore the aggregate panel."
+    "falsifier": "If any unique CATCH behavior becomes unreachable, restore that behavior at its canonical owner or STATUS residue; do not restore the aggregate panel.",
+    "pr": 675,
+    "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
+    "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
+    "checks": {
+      "route_registration": {
+        "run": 36662030164,
+        "conclusion": "success"
+      },
+      "public_surface": {
+        "run": 36662030136,
+        "conclusion": "success"
+      },
+      "gitleaks": {
+        "run": 36662030161,
+        "conclusion": "success"
+      }
+    }
   },
   "residue": "Historical CATCH returns/contracts remain provenance. Legacy localStorage key names remain compatibility state only; the user-facing CATCH concept is retired.",
   "next": "After CI, re-sweep STATUS and footer/FOVEA access for duplicate representations; delete only where an exact owner and return path already exist.",
-  "version": "0.8.26"
+  "version": "0.8.26",
+  "sealed_at": "2026-09-30T11:01:43+08:00"
 }
