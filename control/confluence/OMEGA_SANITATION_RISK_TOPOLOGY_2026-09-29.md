@@ -92,6 +92,14 @@ Also:
 
 “Bathroom-related” is a contributory-factor category, not proof that every event occurred physically inside a bathroom. This study is local and old; it cannot support a Singapore prevalence estimate.
 
+### C5 — Japanese older-adult bathtub mortality
+
+**76% | 4,857 bathtub-involved unintentional drowning deaths | 6,377 unintentional drowning deaths | adults aged ≥65 years | bathtub involvement | Japan | 2014 | national mortality data extracted from WHO Cause of Death Query Online | Hsieh, Wang & Lu, 2019 / PMID 30239269**
+
+Independent national death-certificate work later identified **99,930 W65-coded deaths occurring at home | 99,930 qualifying W65-coded home deaths identified | all W65-coded deaths occurring at home captured by the study | people with W65-coded death | home bathtub | Japan | 1995–2020 | national death-certificate descriptive/ecological study | Tai et al., 2025 / PMID 40383633**; incidence was highest at ages 80–84 and peaked in January.
+
+These are bathing/drowning data, not toilet-use data. They justify keeping Japanese older-adult bathing as a separate high-concern subdomain rather than pooling it into a generic “bathroom death” statistic.
+
 ## BASE-RATE INVERSION
 
 Osaka's 849/18,458 event-location share is 4.6%.
@@ -119,12 +127,18 @@ Examples:
 
 No representative toilet-occupancy distribution sufficient to populate this denominator was verified here. **H1 REAL CLUSTER versus H2 EXPOSURE EFFECT therefore remains unresolved.**
 
+### Historical exposure-adjusted signal
+
+Hayashi et al. (1996) studied **149 non-fatal acute myocardial infarctions + 110 sudden cardiac deaths** and compared the activity immediately before onset with expected counts derived from the average time Japanese people spent in each activity. Toilet use was among the activities whose observed incidence was high relative to the uniform-exposure expectation.
+
+This matters because it prevents the false statement that exposure adjustment has never been attempted. It does **not** supply the modern denominator required here: representative toilet person-hours stratified by age, frailty, disease, medication, setting, visit duration and time of day.
+
 ## HYPOTHESIS STATE
 
 | Hypothesis | State | Reason |
 |---|---|---|
-| H1 REAL CLUSTER | PARTIAL | location clustering reproduces; exposure normalization absent |
-| H2 EXPOSURE EFFECT | OPEN | decisive person-time denominator missing |
+| H1 REAL CLUSTER | PARTIAL | location clustering reproduces; a 1996 Japanese activity-time comparison found toilet use elevated versus expected exposure, but modern representative stratified person-time normalization is absent |
+| H2 EXPOSURE EFFECT | OPEN | historical exposure adjustment does not resolve current age/health/setting-specific person-time denominators |
 | H3 POPULATION EFFECT | SUPPORTED | frailty, gait/cognition, illness and care dependence recur |
 | H4 OBSERVABILITY EFFECT | STRONGLY SUPPORTED | witnessing/CPR/rhythm profile worse in toilet-associated fatal OHCA |
 | H5 ACTIVITY EFFECT | SUPPORTED FOR FALLS; PARTIAL PHYSIOLOGY | toileting trajectory extends outside room |
@@ -273,13 +287,17 @@ non-response escalation
 
 - Kiyohara et al. 2013, *Cardiac arrest in the toilet: clinical characteristics and resuscitation profiles* — https://pmc.ncbi.nlm.nih.gov/articles/PMC3590314/
 - Kiyohara et al. 2018, *Out-of-hospital cardiac arrests in the toilet in Japan* — https://pmc.ncbi.nlm.nih.gov/articles/PMC6167395/
+- Hayashi et al. 1996, *Activity immediately before the onset of non-fatal myocardial infarction and sudden cardiac death* — https://pubmed.ncbi.nlm.nih.gov/8996685/
 - Paratz et al. 2025, *Cardiac arrest while using the toilet: not uncommon and associated with adverse resuscitation profile* — https://pmc.ncbi.nlm.nih.gov/articles/PMC12359240/
 - Krauss et al. 2005, inpatient falls — https://onlinelibrary.wiley.com/doi/10.1111/j.1525-1497.2005.40171.x
 - Yap et al. 2003, *Nursing Home Falls: A Local Perspective* — https://annals.edu.sg/nursing-home-falls-a-local-perspective/
+- Hsieh, Wang & Lu 2019, *Bathtub drowning mortality among older adults in Japan* — https://pubmed.ncbi.nlm.nih.gov/30239269/
+- Tai et al. 2025, *Drowning and Submersion Deaths in Bathtubs and Associated Factors* — https://pubmed.ncbi.nlm.nih.gov/40383633/
 - SG-PAROS / Singapore death-registry linkage example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10960127/
 - PAROS public location-type example — https://pmc.ncbi.nlm.nih.gov/articles/PMC10663550/
 - Singapore PAROS postcode example — https://pmc.ncbi.nlm.nih.gov/articles/PMC7303701/
 - PAROS common data-form/data-dictionary overview — https://pmc.ncbi.nlm.nih.gov/articles/PMC5523101/
+- Singapore PAROS source documents / CRF + data dictionary index — https://www.scri.edu.sg/paros/source-documents/
 - HDB EASE — https://www.hdb.gov.sg/managing-my-home/upgrading-and-redevelopment/enhancement-for-active-seniors-ease
 - BCA Code on Accessibility in the Built Environment 2025 — https://go.gov.sg/bca-coa2025
 
