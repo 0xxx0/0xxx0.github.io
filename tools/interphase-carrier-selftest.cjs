@@ -27,6 +27,10 @@ const fieldSurface=C.actionSurface(field);
 assert(fieldSurface.schema===C.ACTION_SCHEMA,'action surface schema');
 assert(fieldSurface.hold.action==='HOLD'&&fieldSurface.hold.id===field.focus.id,'focus projects to HOLD');
 assert(fieldSurface.actions.length===field.next.length,'action surface preserves move count');
+assert(typeof C.forecastAction==='function','forecastAction export');
+assert(fieldSurface.actions[0].forecast?.schema==='interphase-action-forecast/v0.1','navigation forecast schema');
+assert(fieldSurface.actions[0].forecast?.effect==='NAVIGATION_ONLY'&&fieldSurface.actions[0].forecast?.commit==='NAVIGATION'&&fieldSurface.actions[0].forecast?.sourceMutation==='NONE','navigation forecast boundary');
+assert(fieldSurface.actions[1].forecast?.effect==='OFFER_ONLY'&&fieldSurface.actions[1].forecast?.commit==='RECEIVER_ACCEPTS'&&fieldSurface.actions[1].forecast?.sourceMutation==='NONE','offer forecast boundary');
 assert(fieldSurface.return.action==='RETURN'&&fieldSurface.return.address===field.return.address,'RETURN survives action projection');
 assert(fieldSurface.cadence.map(x=>x.phase+'/'+x.office).join(',')==='WAKE/SOURCE,CUT/FRAME,HOLD/FOCUS,TURN/OPERATE,TRACE/WITNESS,AGAIN/RETURN','attention grammar');
 
