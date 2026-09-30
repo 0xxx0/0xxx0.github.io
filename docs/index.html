@@ -24,7 +24,7 @@
 </div>
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
-<div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
+<div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
@@ -57,7 +57,7 @@ const docs=[
 ['CROSS-SYSTEM EXPEDITION','../control/confluence/CROSS_SYSTEM_EXPEDITION.md','Research charter + Hermes wrapper'],
 ['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
 ];
-const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView'),MK=document.querySelector('#markHere'),NM=document.querySelector('#nextMark'),RL=document.querySelector('#rideLive'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste'),LF=document.querySelector('#localFile'),SE=document.querySelector('#sourceEcho'),SEL=document.querySelector('#sourceEchoLink'),SEB=document.querySelector('#sourceEchoBasis');
+const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),EB=document.querySelector('#echoBackLink'),C=document.querySelector('#copyView'),MK=document.querySelector('#markHere'),NM=document.querySelector('#nextMark'),RL=document.querySelector('#rideLive'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste'),LF=document.querySelector('#localFile'),SE=document.querySelector('#sourceEcho'),SEL=document.querySelector('#sourceEchoLink'),SEB=document.querySelector('#sourceEchoBasis');
 let activeRaw='',activeUrl=null,activeLabel='',activeTrailIdentity='',sourceEpoch=0,activeEphemeral=false,trailTimer=null,trailPending=null,sourceEchoIndex=null,sourceEchoSourceId='',sourceEchoUrl='',sourceEchoValidatedKey='';
 const READ_RIDE_RETURN='readfield.read-ride.return.v01';
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
@@ -76,6 +76,17 @@ function scheduleReading(snap){
  if(readingTimer)return;readingTimer=setTimeout(()=>{readingTimer=null;const x=readingPending;readingPending=null;if(x)renderReading(x)},120)
 }
 function sourceEchoFocus(snap){const span=validSnapSpan(snap);if(span)return activeRaw.slice(span.start,span.end);return String(snap?.focus||'')}
+function readerAddressForSnap(snap){
+ const u=new URL(location.href),q=u.searchParams;q.delete('echo_back');q.delete('ride_return');
+ if(activeUrl)q.set('src',activeUrl.pathname+activeUrl.search);
+ if(snap?.scale)q.set('ap_scale',snap.scale);else q.delete('ap_scale');
+ q.set('ap_index',String(Number.isFinite(+snap?.index)?snap.index:0));
+ if(snap?.address)q.set('ap_addr',snap.address);else q.delete('ap_addr');
+ if(Number.isFinite(+snap?.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');
+ q.set('ap_wpm',String(Number.isFinite(+snap?.wpm)?snap.wpm:300));
+ return u.pathname+'?'+q.toString()+u.hash
+}
+function echoBackUrl(value){const u=sameOrigin(value);if(!u||u.pathname!=='/docs/')return null;return u.pathname+u.search+u.hash}
 function sourceEchoHide(reason=''){if(SE)SE.hidden=true;document.documentElement.dataset.readfieldEcho=reason||'off'}
 function sourceEchoRender(snap){
  if(!SE||!sourceEchoIndex||!sourceEchoSourceId||!activeRaw)return sourceEchoHide('off');
@@ -85,6 +96,7 @@ function sourceEchoRender(snap){
  if(!hit)return sourceEchoHide('silent');
  const e=hit.entry,u=new URL('/docs/',location.origin);u.searchParams.set('src',e.path);u.searchParams.set('ap_scale','SENT');u.searchParams.set('ap_char',String(e.start));u.searchParams.set('echo',sourceEchoUrl);u.searchParams.set('echo_source',e.source_id);
  const ret=returnUrl(new URLSearchParams(location.search).get('return'));if(ret)u.searchParams.set('return',ret);
+ const back=readerAddressForSnap(snap);if(back)u.searchParams.set('echo_back',back);
  SEL.href=u.pathname+u.search;SEL.textContent=e.title+' · “'+String(e.text).slice(0,220)+'”';SEB.textContent='shared '+hit.shared.join(' · ')+(hit.phrases.length?' · phrase '+hit.phrases.join(' / '):'')+' · exact fragment · evidence only';SE.hidden=false;document.documentElement.dataset.readfieldEcho='shown';document.documentElement.dataset.readfieldEchoSource=e.source_id;return hit
 }
 async function sourceEchoLoad(url,sourceId){
@@ -368,7 +380,7 @@ RL.onclick=async()=>{
     location.href='/fold-bloom/live/?source=readfield&course=STEP';
   }catch(_){T.textContent='Unable to hand this source to LIVE in the current browser session.'}
 };
-const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}void sourceEchoLoad(Q.get('echo'),Q.get('echo_source'));
+const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return')),echoBack=echoBackUrl(Q.get('echo_back'));if(ret){B.hidden=false;B.href=ret}if(echoBack){EB.hidden=false;EB.href=echoBack;document.documentElement.dataset.readfieldEchoBack='ready'}else{EB.hidden=true;document.documentElement.dataset.readfieldEchoBack='none'}void sourceEchoLoad(Q.get('echo'),Q.get('echo_source'));
 let handoff=null;if(Q.has('handoff')){try{handoff=JSON.parse(sessionStorage.getItem('readfield.handoff.v1')||'null');sessionStorage.removeItem('readfield.handoff.v1')}catch(_){}}
 const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'',local=Q.has('local')?(()=>{try{return JSON.parse(sessionStorage.getItem('docs.reader.local.v1')||'null')}catch(_){return null}})():null;
 if(handoff?.source){const hret=returnUrl(handoff.returnAddress||handoff.from);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO',handoff.sourceIdentity?.hash||handoff.sourceIdentity?.id||'');if(handoff.focus){A.restore?.(handoff.focus);document.documentElement.dataset.readfieldHandoff='focus-restored'}if(handoff.sourceIdentity?.glyph)A.setGlyphWitness?.(handoff.sourceIdentity.glyph)}
