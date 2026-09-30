@@ -112,10 +112,8 @@
       "new_sovereign_app": false,
       "retirement": "If native owners universally expose an equivalent pre-commit boundary through the shared action contract, FIELD-specific forecast chrome should fold away while the carrier forecast remains.",
       "implementation": "INTERPHASE actionSurface emits interphase-action-forecast/v0.1 from declared move authority; FIELD held NEXT projects effect class, commit boundary, target and reversibility before activation. Native host remains the only effect path.",
-      "executable_test": [
-        "tools/field-action-aperture-selftest.mjs",
-        "tools/browser-smoke.mjs · FIELD held INTERPHASE carrier in-place"
-      ]
+      "executable_test": "tools/field-action-aperture-selftest.mjs",
+      "browser_test": "tools/browser-smoke.mjs · FIELD held INTERPHASE carrier in-place"
     },
     {
       "id": "ghost-not-real",
