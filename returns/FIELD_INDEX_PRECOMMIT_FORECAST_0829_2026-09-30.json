@@ -1,0 +1,46 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_PRECOMMIT_FORECAST_0829_2026-09-30",
+  "date": "2026-09-30",
+  "state": "IMPLEMENTED_CANDIDATE / CI_REQUIRED",
+  "object": "FIELD INDEX 0.8.29 / pre-commit forecast over shipped one-object root",
+  "predecessor": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
+  "before": "FIELD 0.8.28 collapses continuation into one held object and preserves exact host-owned actions, but the user sees the action label before commit without a compact statement of the declared effect/commit boundary.",
+  "delta": [
+    "INTERPHASE move normalization retains a reversibility declaration without changing dispatch or authority.",
+    "interphase-action-forecast/v0.1 maps declared move authority to bounded effect class, commit boundary, source-mutation class, target and reversibility.",
+    "interphase-action-surface/v0.1 carries that forecast beside each existing move.",
+    "FIELD held-object NEXT adds one compact FORECAST line beneath the existing visible move set; hover/focus/touch changes only the reading.",
+    "Primary and visible secondary controls receive aligned forecast text; hidden TRACE forecast is not presented as a visible move.",
+    "Native manifest exit actions remain exact navigation targets; generic Dayline remains OFFER_ONLY / RECEIVER_ACCEPTS."
+  ],
+  "preserved": [
+    "FIELD 0.8.28 FRAME→OBJECT geometry",
+    "exact Prison Age READ / RIDE / SOURCE ownership and targets",
+    "visible action count remains one primary plus at most two secondary",
+    "Dayline ADD TO DAY receiver mutation boundary",
+    "CURRENT/NOW authority",
+    "native source/effect authority",
+    "post-action WITNESS/RETURN",
+    "SEEN ⇄ UNDO SEEN browser-local orientation"
+  ],
+  "law": "FORECAST ≠ EFFECT. Forecast is pre-commit VIEW evidence over declarations, not outcome prediction, permission or execution.",
+  "rejected": [
+    "restoring a sibling FRAME/dashboard",
+    "predicting undeclared domain outcomes",
+    "autonomous action execution",
+    "forecast-derived priority or recommendation",
+    "second action store or authority table"
+  ],
+  "verification": {
+    "carrier_selftest": "REQUIRED",
+    "field_action_aperture": "REQUIRED",
+    "prison_age_source_intent": "REQUIRED",
+    "browser_visible_forecast": "REQUIRED",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "gitleaks": "PENDING_CI"
+  },
+  "next": "Run exact-head CI. If green, merge 0.8.29; if forecast causes action/source/authority regression, narrow or remove forecast without changing the shipped one-object root.",
+  "stop": "No second forecast panel, no outcome model, no auto-execute, no restoration of duplicated held geometry."
+}
