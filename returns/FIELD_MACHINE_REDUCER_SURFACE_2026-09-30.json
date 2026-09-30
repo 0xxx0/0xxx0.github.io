@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30",
   "date": "2026-09-30",
-  "status": "PR_CANDIDATE",
+  "status": "MERGED_GREEN",
   "object": "existing scripts/emit-agent-transcript.mjs machine entrypoint",
   "delta": [
     "Extend the existing --reduce path from one JSON packet to file-or-directory sweep without creating a second reducer CLI.",
@@ -31,7 +31,18 @@
     },
     "batch_donor": "#685 batch sweep behavior salvaged into existing machine entrypoint; no second CLI retained",
     "contribution_donor": "#687 convergence intent recovered as projection semantics; no parallel reducer engine retained",
-    "research_donor_gate": "#689 executable donor admission; its caller-attested result is consumed before contribution promotion."
+    "research_donor_gate": "#689 executable donor admission; its caller-attested result is consumed before contribution promotion.",
+    "final_merge": {
+      "pr": 692,
+      "proof_head": "9844eb22831d694d554a1c1c20be0cf096477f85",
+      "merge_sha": "a34fa6162b606bb50a7d1659a96ecf3c0b697eb1",
+      "public_surface_run": 36666000971,
+      "gitleaks_run": 36666000950,
+      "ancestry_at_merge": {
+        "behind_by": 0
+      },
+      "conclusion": "PASS"
+    }
   },
   "commands": [
     "node scripts/emit-agent-transcript.mjs",
@@ -64,5 +75,5 @@
     "Research-donor-gate PASS is necessary only for external-donor admission; it never mints host ownership, CURRENT/NOW, effect permission, or merge authority.",
     "The caller/native GitHub worker must derive base_current from commit ancestry (behind_by === 0), not from the PR base SHA field."
   ],
-  "stop": "Do not create another packet/contribution reducer CLI. Extend this entrypoint only for a reproduced consumer incompatibility or falsified invariant."
+  "stop": "SHIPPED. Do not create another packet/contribution reducer CLI. Reopen only for a reproduced consumer incompatibility or falsified invariant."
 }
