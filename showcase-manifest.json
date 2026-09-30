@@ -7193,16 +7193,18 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.3.5",
+      "title": "SHOPPING FIELD 0.4.0",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.3.5",
+      "version": "0.4.0",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
+        "one exact Shopping item → interphase-action-surface/v0.1 → HOLD / TURN / TRACE / RETURN",
+        "derived NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED material phases preserve native lifecycle as residue",
         "HUMAN PORT exact object/focus → OFFER_ONLY candidate → explicit Shopping VERIFY import",
         "source URL / exact SKU / seller-channel retained as first-class evidence",
         "exact Shopping → HOUSE dimensional screen → OFFER_ONLY return → explicit evidence receipt; lifecycle unchanged",
@@ -7288,10 +7290,20 @@
             "exact Shopping item/state must revalidate before HOUSE fit receipt acceptance",
             "Shopping-owned evidence signal/boundary remains source metadata through HOUSE",
             "Port object identity/hash/scope/focus on explicit candidate import",
-            "unknown SKU/seller remain unknown until explicit evidence"
+            "unknown SKU/seller remain unknown until explicit evidence",
+            "shared material phase is projection only; native Shopping lifecycle remains canonical"
           ],
           "reversibility": "full",
-          "side_effects": "browser-local only"
+          "side_effects": "browser-local only",
+          "shared_projection_states": [
+            "NEED",
+            "CANDIDATE",
+            "READY",
+            "INBOUND",
+            "ON_HAND",
+            "ADOPTED",
+            "CLOSED"
+          ]
         },
         "emits": {
           "kinds": [
@@ -7308,7 +7320,9 @@
             "atlas-dayline-handoff/v0.1 with source-owned evidence witness",
             "house-shopping-fit/v0.1 source envelope",
             "shopping-house-fit-receipt/v0.1 evidence",
-            "explicit Port-derived VERIFY candidate"
+            "explicit Port-derived VERIFY candidate",
+            "interphase-carrier/v0.1 for exact held Shopping item",
+            "interphase-action-surface/v0.1"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -7390,7 +7404,7 @@
         "owner": "SHOPPING"
       },
       "index": {
-        "updated_at": "2026-09-27T16:55:00+08:00",
+        "updated_at": "2026-09-30T09:45:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7399,7 +7413,7 @@
         ]
       },
       "tier": "FIELD",
-      "role": "WORLD_IN/WORLD_THROUGH procurement adapter: explicit Port candidates, native lifecycle/freshness/source evidence, landed cost, Dayline task receipts, HOUSE dimensional fit receipts, and projection-only semantic evidence patterns. No automatic buying, seller contact, ownership or adoption."
+      "role": "WORLD_IN/WORLD_THROUGH procurement adapter projected through one exact held object: compact material phase, <=3 native operations, witness and exact RETURN. Detailed lifecycle/cost/fit/burden remain Shopping-owned residue; no automatic buying, seller contact, ownership or adoption."
     },
     {
       "href": "/showcase-selftest/",
