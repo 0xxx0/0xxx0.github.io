@@ -17,5 +17,8 @@ assert.match(html,/function applyFocusSignal\(\)/,'held-focus signal projection 
 assert.match(html,/FieldSignal\?\.apply\(bar,token\)/,'held-focus signal not applied from route-local token');
 assert.doesNotMatch(html,/FieldSignal\?\.apply\(\$\('focusHead'\),signal\)/,'global CATCH signal still leaks into held object');
 assert.match(html,/route:p\.route\|\|null/,'live GitHub issue refresh must preserve explicit snapshot route when present');
+assert.doesNotMatch(html,/id="catchupFold"/,'retired global CATCH signal surface returned');
+assert.match(html,/id="orientationFold"/,'local orientation residue missing from STATUS');
+assert.match(html,/id="apSeen"/,'route-local acknowledgement missing from held object');
 
-console.log('FIELD SIGNAL LOCALITY PASS · global summary remains global; addressed glyphs receive only owned signal');
+console.log('FIELD SIGNAL LOCALITY PASS · addressed glyphs carry owned signal; orientation remains local residue');
