@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {normalizeTrace,readCell,buildSteeringRequest,witnessSteering,steeringPulse,TRACE_SCHEMA} from './kernel.mjs';
 import {previewFoldBloomDrive} from './fold-bloom-adapter.mjs';
 import {previewInterphaseDrive} from './interphase-adapter.mjs';
+import {directionSupportCalculation} from './steering-calculus.mjs';
 
 function fixture(trace_id='trace-before',token='FOLD'){
   return {
@@ -70,6 +71,13 @@ assert.equal(drive.mapped_verb,chosen);
 assert.ok(drive.candidates.length>=1);
 assert.deepEqual(state,beforeState);
 assert.equal(drive.commit_operation,null);
+const directionSupport=directionSupportCalculation('FOLD',forecasts);
+assert.equal(directionSupport.ok,true);
+assert.equal(directionSupport.status,'UNIQUE_NATIVE_CANDIDATE');
+assert.equal(directionSupport.native_candidate_count,1);
+assert.equal(directionSupport.candidate_ambiguity_bits,0);
+assert.deepEqual(directionSupport.candidate_slots,[2]);
+assert.equal(directionSupport.authority,'CALCULATION_ONLY');
 
 const outside=previewFoldBloomDrive(state,forecasts,fixture('outside','RUGBY'),{layer:12,position:4});
 assert.equal(outside.ok,false);
@@ -86,6 +94,7 @@ console.log(JSON.stringify({
     'field-pulse envelope carries authority NONE',
     'generic INTERPHASE steering preview requires explicit host mapping and preserves host authority',
     'Fold/Bloom preview maps only explicit control vocabulary to native lawful forecasts',
+    'direction support exposes 0/1/N lawful native candidates without commit authority',
     'Fold/Bloom canonical LIVE state remains byte-equivalent under preview'
   ],
   chosenVerb:chosen,
