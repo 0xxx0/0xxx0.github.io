@@ -139,7 +139,8 @@
       <h2 class="sect" style="margin-top:0">Boolean Cube <span>方 — B₃, the trigram lattice</span></h2>
       <canvas id="cubeCanvas" width="760" height="560"></canvas>
       <div id="cubeInfo">pick the <b>inner (lower)</b> trigram, then the <b>outer (upper)</b> — the pair opens the hexagram. drag to rotate.</div>
-      <div class="muted" style="margin-top:8px">eight trigrams = vertices · twelve edges = single-line moves (Hamming 1) · 8×8 = 64 directed pairs = the hexagrams. the diagonal loops on itself.</div>
+      <div class="muted" style="margin-top:8px">eight trigrams = vertices · twelve edges = single-line moves (Hamming 1) · 8×8 = 64 directed pairs = the hexagrams. the diagonal loops on itself.<br>
+      <b>read as a machine:</b> a trigram is the 3-bit register · an edge is one input · one edge crossed = one transition. the cube is the wiring diagram; the hexagrams live on the pair of two trigrams (two registers, 6 bits).</div>
       <div class="row" style="margin-top:10px">
         <button class="ghost" id="cubeReset">reset pick</button>
         <button class="ghost" id="cubeAuto">auto-rotate: off</button>
@@ -151,7 +152,8 @@
     <div class="panel">
       <h2 class="sect" style="margin-top:0">Grid <span>表 — upper × lower, all 64 at once</span></h2>
       <div id="gridBox"></div>
-      <div class="muted" style="margin-top:8px">rows = outer (upper) trigram · columns = inner (lower) · diagonal cells are self-pairs. click any cell → open the hexagram.</div>
+      <div class="muted" style="margin-top:8px">rows = outer (upper) trigram · columns = inner (lower) · diagonal cells are self-pairs. click any cell → open the hexagram.<br>
+      <b>read as a machine:</b> each row/column index is a 3-bit state · a cell is a pair (outer, inner) · the diagonal is the <i>no-op / self-loop</i> (no change).</div>
     </div>
   </section>
 
@@ -270,6 +272,7 @@ function opsPanel(h){
       ${op('Inner 互', '⊂ projection lines 2–5', nuc, 'the nuclear middle')}
     </div>
     <div class="bitrow">${h.binary}  →  ${parseInt(h.binary,2)} / 63</div>
+    <div class="muted" style="font-size:12px;margin-top:4px">state ${h.binary} = №${h.id} · ${parseInt(h.binary,2)} of 64 · each flip below = one input, one transition</div>
     <div class="binom">six lines · ${yang} yang — one of C(6,${yang}) = ${C6[yang]} hexagrams with this count${yang===3?' — the equatorial band (C=20, the most populous)':''}.</div>
     <div class="flips"><span class="muted" style="font-size:12px;margin-right:4px">single-line moves 變爻:</span>${flips.join('')}</div>
   </div>`;
