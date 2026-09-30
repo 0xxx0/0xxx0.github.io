@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30",
   "date": "2026-09-30",
-  "state": "MERGED / VERIFIED",
+  "state": "MERGED_PASS",
   "object": "FIELD INDEX 0.8.28 / frame→object contraction over point-of-action UNDO SEEN",
   "predecessor": "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
   "before": "FIELD 0.8.27 correctly made route-local SEEN immediately reversible on the held object, but ordinary use still rendered a second sibling HELD / NEXT / WITNESS→RETURN grid beneath that same object. The information was useful; the geometry duplicated identity and split continuation across two surfaces.",
@@ -31,35 +31,14 @@
     "/tools/browser-smoke.mjs"
   ],
   "verification": {
-    "source": "PASS on merge SHA 047ef5ee503f6eff16b4a324893a08f247d4a8f6.",
-    "checks": {
-      "route_registration": {
-        "run": 36686415264,
-        "conclusion": "success"
-      },
-      "convergence_validate": {
-        "run": 36686415230,
-        "conclusion": "success"
-      },
-      "public_surface": {
-        "run": 36686415159,
-        "conclusion": "success"
-      },
-      "gitleaks": {
-        "run": 36686415190,
-        "conclusion": "success"
-      },
-      "pages": {
-        "run": 36686414164,
-        "conclusion": "success"
-      }
-    },
-    "browser": "PASS · critical browser smoke plus Prison Age exact source-intent path, recovered-source identities, and frozen City/Painting handlers on the merged tree.",
-    "human": "No human gate required for correctness. Ordinary use may still falsify visual calm; if so, reduce inline wording or secondary actions rather than restore a sibling frame.",
-    "falsifier": "Fail if UNDO SEEN disappears, if native actions exceed one primary + two secondary, if a second held continuation panel returns, or if FIELD acquires native effect authority."
+    "source": "PASS · PR #724 exact head 9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38 · Route Registration 36686373816 · public-surface-check 36686373704 · gitleaks 36686373732.",
+    "browser": "PASS · shared INTERPHASE host laws preserve exact Prison Age READ / RIDE / SOURCE at the single held object; critical browser smoke and public validators pass.",
+    "merged": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+    "human": "No human gate required for correctness. Ordinary use may still falsify visual calm; reduce inline wording or secondary actions rather than restore a sibling frame.",
+    "falsifier": "Fail if UNDO SEEN disappears, native actions exceed one primary + two secondary, a second held continuation panel returns, or FIELD acquires native effect authority."
   },
-  "next": "Ordinary use only. If re-entry friction appears, reduce repetition at the held object/glyph field before adding any control. No new FIELD mechanism is authorized by this RETURN.",
-  "stop": "Do not reintroduce capTrial, a continuation card/grid, global undo manager, onboarding guide, scale mode, second store or authority surface.",
+  "next": "HOLD 0.8.28. Reopen FIELD root only for observed re-entry/action ambiguity; prefer ordinary use/world conversion over another root control.",
+  "stop": "Do not reintroduce capTrial, a continuation card/grid, global undo manager, onboarding guide, scale mode, second store, forecast layer without observed ambiguity, or authority surface.",
   "version": "0.8.28",
   "note": "Sealed from merge-sha evidence after PR #724. The merged tree also preserves Shopping 0.4.1 state."
 }
