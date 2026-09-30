@@ -6,6 +6,11 @@ const run=(commanded,actual,zero_error,thermal_observation='warm / stable')=>({
 });
 const runs=Array.from({length:10},(_,i)=>run(100,100+(i%3-1)*0.2,(i%2?0.1:-0.1)));
 
+const unidentified=assessOneAxisProof({requested_state:'SPECIFIED'});
+assert.equal(unidentified.allowed,false);
+assert.ok(unidentified.blockers.includes('OBJECT_ID'));
+assert.ok(unidentified.blockers.includes('SPEC_REF'));
+
 const specified=assessOneAxisProof({
   object_id:'one-axis:v0.1',
   spec_ref:'Convergence Foundry / ONE_AXIS_PROOF_v0.1'
@@ -45,8 +50,9 @@ assert.equal(tested.max_state,'TESTED');
 assert.equal(tested.allowed,true);
 assert.equal(tested.summary.unloaded_runs,10);
 assert.equal(tested.summary.loaded_runs,10);
-assert.equal(tested.summary.unloaded_max_abs_error,0.2);
+assert.ok(Math.abs(tested.summary.unloaded_max_abs_error-0.2) < 1e-9);
 assert.match(tested.authority,/PHYSICAL TRUTH REMAINS/);
+assert.match(tested.performance,/numeric tolerances remain owned/);
 
 const adopted=assessOneAxisProof({...tested,requested_state:'ADOPTED'});
 assert.equal(adopted.allowed,false);
