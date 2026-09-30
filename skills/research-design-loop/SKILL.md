@@ -1,7 +1,7 @@
 ---
 name: research-design-loop
 description: Run one bounded research → hypothesis → specimen → evidence → disposition loop against a current CONFLUENCE/FIELD head.
-version: 0.2.0
+version: 0.2.1
 platforms: [macos, linux]
 metadata:
   hermes:
@@ -124,6 +124,18 @@ SOURCE
 ```
 
 Do not summarize whole channels. Extract only claims that can change one current decision or test.
+
+### Executable admission check
+
+For a machine-readable donor packet, run:
+
+`node tools/research-donor-gate.mjs <packet.json>`
+
+The gate returns `allowed`, `max_disposition`, and explicit `blockers`. It is an evidence gate only: even a passing `TRANSFER` / `PROMOTE` request remains subject to the native host's authority and cannot mint effect permission.
+
+A promotion-shaped request fails closed to `PARK` unless it has a primary reference, baseline, falsifier, passing bounded replica, passing transfer test, and evidence. Optimization claims additionally require FIXED / MUTATED / DEV_METRIC / HELD_OUT / REWARD_HACK_CHECK plus independent held-out acceptance. Representation claims additionally require exact source/address identity outside the projection, an explicit loss declaration, raw baseline, and a passing host-relation test.
+
+`node tools/research-donor-gate-selftest.mjs` pins these boundaries against the current MLST / AI Search / Lex seed donors and positive controls.
 
 ### Replicate before transfer
 
