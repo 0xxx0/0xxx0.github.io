@@ -314,8 +314,8 @@ check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
 check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
 check(home.includes('id="aperture"')&&home.includes('id="feedRail"'),'root missing held-object + glyph-field compositor');
-check(home.includes('id="fieldVisor"')&&home.includes('YOU’RE A WAKE.')&&home.includes('id="fieldVisorOpen"'),'FIELD root missing AWAKE / INTERPHASE first-contact visor');
-check(home.includes('function fieldCarrierForFocus()')&&home.includes('window.FieldIndexCarrier')&&home.includes("field.interphase.visor.seen.v01"),'FIELD visor is not bound to the current INTERPHASE carrier');
+check(!home.includes('id="fieldVisor"')&&!home.includes('id="fieldVisorOpen"')&&!home.includes("field.interphase.visor.seen.v01"),'FIELD regressed to duplicated onboarding visor/state');
+check(home.includes('function fieldCarrierForFocus()')&&home.includes('function fieldActionSurface(')&&home.includes('window.FieldIndexCarrier'),'FIELD held object lost INTERPHASE carrier/action-surface binding');
 const readfieldRoute=fbAuthorityManifest?.routes?.find(r=>r.href==='/docs/');
 const foldBloomRoot=fbAuthorityManifest?.routes?.find(r=>r.href==='/fold-bloom/');
 check(
@@ -331,17 +331,19 @@ const interphaseCarrier=read('lib/interphase-carrier.js');
 check(
   home.includes('function fieldActionSurface(')&&
   home.includes("typeof C.actionSurface!=='function'")&&
-  home.includes("$('fieldVisorCadence').innerHTML=surface.cadence.map")&&
   interphaseCarrier.includes("Object.freeze({phase:'WAKE',office:'SOURCE'})")&&
   interphaseCarrier.includes("Object.freeze({phase:'CUT',office:'FRAME'})")&&
   interphaseCarrier.includes("Object.freeze({phase:'HOLD',office:'FOCUS'})")&&
   interphaseCarrier.includes("Object.freeze({phase:'TURN',office:'OPERATE'})")&&
   interphaseCarrier.includes("Object.freeze({phase:'TRACE',office:'WITNESS'})")&&
   interphaseCarrier.includes("Object.freeze({phase:'AGAIN',office:'RETURN'})"),
-  'FIELD visor lost canonical WAKE→INTERPHASE action-surface correspondence'
+  'FIELD held carrier lost canonical WAKE→INTERPHASE action-surface correspondence'
 );
 check(!home.includes('href="./awake/"'),'FIELD root regressed to a separate /awake/ product route');
-if(fi)check(!!fi.ui_contract?.root_onboarding_visor,'FIELD INDEX contract missing onboarding-as-projection law');
+if(fi){
+  check(!!fi.ui_contract?.root_onboarding_contraction,'FIELD INDEX contract missing onboarding contraction law');
+  check(!fi.ui_contract?.root_onboarding_visor,'retired onboarding visor contract returned');
+}
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="STRUCTURE"')&&home.includes('data-mode="RECENT"'),'root missing contracted evidence-bearing map projections');
 check(!home.includes('data-mode="PULSE"')&&!home.includes("mapMode==='PULSE'"),'deleted MAP/PULSE projection returned');
 check(home.includes("if(mode==='PULSE')mode='RECENT'")&&home.includes("restoredMapMode==='PULSE'?'RECENT'"),'legacy PULSE projection does not degrade to RECENT');
