@@ -747,9 +747,9 @@ function syncNativeApertureFocusUI(){
 function focusNativeApertureSlot(slot){
   const n=Math.trunc(Number(slot));if(n<0||n>11)return null;
   data.nativeFocusSlot=n;syncNativeApertureFocusUI();
-  const evidence=nativeApertureFocusEvidence(),instance=shortLiveInstance(evidence?.live_instance);
+  const evidence=nativeApertureFocusEvidence(),instance=String(evidence?.live_instance||'unknown');
   setSource('LIVE / NATIVE FORECAST WITNESS');
-  setAddress('field://lab/live/'+instance+'/seq/'+(evidence?.seq??'open')+'/slot/'+n);
+  setAddress('field://lab/live/'+encodeURIComponent(instance)+'/seq/'+(evidence?.seq??'open')+'/slot/'+n);
   setStatus(evidence?.available
     ?'NATIVE APERTURE · SLOT '+n+' · '+evidence.forecast.verb+(evidence.model_supported?' · MODEL SUPPORT':'')+' · INSPECT ONLY'
     :'NATIVE APERTURE · SLOT '+n+' · SUPPORT=0 · INSPECT ONLY');
