@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_LANGUAGE_LENSES_031_2026-09-30",
   "date": "2026-09-30",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "objective": "Make recovered word/language donors usable from the writing-first Verse head without moving source or authorship authority.",
   "object": "one Verse source + selected token/focus + optional declared form",
   "operation": "WRITE → SELECT → optional EVIDENCE / FORM lens → CHOOSE → RETURN",
@@ -28,9 +28,28 @@
     "english_jueju": "University of Oklahoma / Newman Prize rules surfaced through the explicit source link in the interface"
   },
   "proof": {
-    "static_contract": "IMPLEMENTED",
-    "browser_selftest": "PENDING_PR_CI",
-    "full_public_surface": "PENDING_PR_CI"
+    "static_contract": "PASS",
+    "route_registration": {
+      "run": 36677031278,
+      "conclusion": "success"
+    },
+    "public_surface_check": {
+      "run": 36677031248,
+      "conclusion": "success",
+      "includes": [
+        "static Verse language-lens contract",
+        "Poem Map critical browser smoke",
+        "English Jueju transfer adapter selftest",
+        "focus-bounded CText lookup selftest"
+      ]
+    },
+    "gitleaks": {
+      "run": 36677031230,
+      "conclusion": "success"
+    },
+    "pull_request": 709,
+    "proof_head": "d60120d0511038a7f76c2977328e733b59f978d7",
+    "merge_sha": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49"
   },
-  "next": "If exact-head CI is green, merge this bounded cut, then synchronize CURRENT/manifest/release proof only. Further language work must be named by concrete writing friction."
+  "next": "USE FIRST. Open CText only for selected-token evidence; use English-Jueju transfer packs only for a concrete composition. Keep COPE/Wenyan external until a named authoring defect requires a bounded adapter."
 }
