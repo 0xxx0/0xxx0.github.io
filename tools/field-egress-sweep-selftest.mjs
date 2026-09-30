@@ -25,10 +25,11 @@ assert.equal(out.counts.GATE,1);
 assert.equal(out.counts.DELTA,1);
 assert.equal(out.counts.NEXT,1);
 
-const selected=spawnSync(process.execPath,['scripts/reduce-field-egress.mjs','--json','--selected','next-c',dir],{encoding:'utf8'});
+const selected=spawnSync(process.execPath,['scripts/reduce-field-egress.mjs','--json','--selected','next-c','--selected','delta-b',dir],{encoding:'utf8'});
 assert.equal(selected.status,0,selected.stderr);
 const sel=JSON.parse(selected.stdout);
 assert.equal(sel.items.find(x=>x.packet_id==='next-c').class,'NOW');
+assert.equal(sel.items.find(x=>x.packet_id==='delta-b').class,'NOW');
 
 // Empirical repository smoke: the actual packet shelf may mix JSON with other
 // source material, but a no-context sweep must remain readable and can never
