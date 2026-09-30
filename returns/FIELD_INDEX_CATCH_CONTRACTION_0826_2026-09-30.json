@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30",
   "date": "2026-09-30",
-  "state": "SHIPPED_CANDIDATE",
+  "state": "MERGED_MACHINE_GREEN",
   "object": "FIELD INDEX / CATCH aggregate dissolved into owners",
   "before": "FIELD 0.8.25 removed the duplicate AWAKE visor, but a second root attention aggregate still followed the held object: FIELD / CATCH + ACT repeated CURRENT/NOW, GitHub issues, reality gates, route HOLD/OPEN, local SEEN, change cards and MORE HERE even though those meanings already had native owners.",
   "delta": [
@@ -33,11 +33,16 @@
     "/tools/browser-smoke.mjs"
   ],
   "verification": {
-    "machine": "PENDING CI: owner-based action/signal/reversibility tests, static public contract, Route Registration, gitleaks and critical browser smoke.",
+    "public_surface": "PASS · run 36662030136 attempt 2 · complete job",
+    "route_registration": "PASS · run 36662030164",
+    "gitleaks": "PASS · run 36662030161",
+    "browser": "PASS · FIELD root, held-object knowledge-gap, critical browser smoke, recovered-source identities, frozen City/Painting handlers",
+    "merged": "PASS · PR 675 · merge 538a851dd184e08ad5bdbf07fe145f30f6cd1e58 · proof head 8acbedbbae819badc437840ef3d4b49403e9f891",
+    "rerun_context": "Attempt 1 failed only unrelated CARE face-modal smoke by timeout after FIELD cases passed; attempt 2 on the identical proof head passed all checks.",
     "human": "No mandatory human gate. This pass removes a reported obstruction and leaves the same held object/action grammar.",
     "falsifier": "If any unique CATCH behavior becomes unreachable, restore that behavior at its canonical owner or STATUS residue; do not restore the aggregate panel."
   },
   "residue": "Historical CATCH returns/contracts remain provenance. Legacy localStorage key names remain compatibility state only; the user-facing CATCH concept is retired.",
-  "next": "After CI, re-sweep STATUS and footer/FOVEA access for duplicate representations; delete only where an exact owner and return path already exist.",
+  "next": "Re-sweep STATUS and footer/FOVEA access for duplicate representations; delete only where an exact owner and RETURN path already exist.",
   "version": "0.8.26"
 }
