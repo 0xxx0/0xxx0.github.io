@@ -1019,6 +1019,7 @@ const CASES=[
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
+    allowNetErrors:true,
     check:fieldRootCheck
   },
   {
@@ -1581,7 +1582,7 @@ try{
     }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     // Optional live enrichments are fallback-backed; Chromium net::ERR_* stderr is not page-fatal when the case's DOM/probe contract still passes.
-    const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|Aw, Snap/i.test(r.err);
+    const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|Aw, Snap/i.test(r.err)||(!c.allowNetErrors&&/net::ERR_/i.test(r.err));
     const dom=c.settle?(extractCaseDom(r.out)||r.out):r.out;
     const ok=r.code===0&&!fatal&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
