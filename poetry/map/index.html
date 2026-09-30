@@ -73,7 +73,7 @@ details.advanced[open]>summary:after{content:" −"}
  <div class="row" style="margin-top:5px"><button id="mapIt" class="hot">SET SOURCE</button><button id="clear">CLEAR</button></div>
  <div class="row" style="margin-top:5px"><button id="loadField">FIELD NOW</button><button id="loadDemo">TINY DEMO</button><button id="loadJueju">JUEJU DONOR</button></div>
  <details class="advanced" id="formDetails"><summary>FORM / CONSTRAINT PACK</summary>
- <div class="formHead"><select id="form"><option value="free">FREE</option><option value="haiku">HAIKU · 5/7/5</option><option value="couplet">COUPLET · AA</option><option value="quatrain">QUATRAIN · ABAB</option><option value="sonnet">SONNET · 14×~10 · ABAB CDCD EFEF GG</option><option value="villanelle">VILLANELLE · 19 · refrains</option><option value="jueju7">JUEJU · 4×7 CHAR</option><option value="jueju5">JUEJU · 4×5 CHAR</option></select></div>
+ <div class="formHead"><select id="form"><option value="free">FREE</option><option value="haiku">HAIKU · 5/7/5</option><option value="couplet">COUPLET · AA</option><option value="quatrain">QUATRAIN · ABAB</option><option value="sonnet">SONNET · 14×~10 · ABAB CDCD EFEF GG</option><option value="villanelle">VILLANELLE · 19 · refrains</option><option value="enjueju7">EN JUEJU · 4×7 MONO</option><option value="enjueju5">EN JUEJU · 4×5 MONO</option><option value="jueju7">JUEJU · 4×7 CHAR</option><option value="jueju5">JUEJU · 4×5 CHAR</option></select></div>
  <div id="constraints" class="card"></div>
  </details>
  <details class="advanced" id="mapLawDetails"><summary>MAP LAW / APERTURE · ADVANCED</summary>
@@ -126,6 +126,8 @@ details.advanced[open]>summary:after{content:" −"}
   <div class="row"><button id="clearPath">CLEAR PATH</button><button id="capturePath">CAPTURE</button></div>
   <div class="k">Recovered machines</div>
   <div class="row wrap"><a class="chip" href="../../recovery/path-grid/market-solver/">WORD MARKET</a><a class="chip" href="../../recovery/path-grid/anthropy-pathweaver/">PATHWEAVER</a><a class="chip" href="../../recovery/path-grid/grid-path-compiler-v4/">GRID PATH</a><a class="chip" href="../../foundry/verse-atlas/">JUEJU STUDY</a></div>
+  <div class="k">Language / evidence</div>
+  <div class="row wrap"><a class="chip" href="https://ctext.org/" target="_blank" rel="noopener">CTEXT</a><a class="chip" href="https://github.com/LingDong-/cope" target="_blank" rel="noopener">COPE</a><a class="chip" href="https://wy-lang.org/" target="_blank" rel="noopener">WENYAN</a><a class="chip" href="https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju" target="_blank" rel="noopener">EN JUEJU RULES</a></div>
   <div class="k">Projection metrics</div><div class="metricGrid"><div class="metric">TOKENS<b id="mTokens">0</b></div><div class="metric">LINES<b id="mLines">0</b></div><div class="metric">EDGES<b id="mEdges">0</b></div><div class="metric">LOCKS<b id="mLocks">0</b></div></div>
   <div class="k">Captured readings</div><div id="captures" class="card"><span class="sub">No captured paths.</span></div>
  </details>
@@ -163,6 +165,8 @@ const FORMS={
  quatrain:{name:'QUATRAIN',lines:4,rhyme:'ABAB'},
  sonnet:{name:'SONNET',lines:14,syll:10,rhyme:'ABABCDCDEFEFGG'},
  villanelle:{name:'VILLANELLE',lines:19,rhyme:'ABA / refrains',note:'refrain identity is not auto-validated in 0.2'},
+ enjueju7:{name:'EN JUEJU 7 · TRANSFER',lines:4,words:7,monosyllabic:true,rhyme:'AABA',units:[2,2,3],progression:'起 → 承 → 轉 → 合',source_url:'https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju',note:'English transfer experiment · historical Tang 平仄/rime not claimed'},
+ enjueju5:{name:'EN JUEJU 5 · TRANSFER',lines:4,words:5,monosyllabic:true,rhyme:'AABA',units:[2,3],progression:'起 → 承 → 轉 → 合',source_url:'https://www.ou.edu/cas/international-studies/research/institute-for-us-china-issues/us-china-cultural-issues/newman-prize-for-english-jueju/about-english-jueju',note:'English transfer experiment · historical Tang 平仄/rime not claimed'},
  jueju7:{name:'JUEJU 7',lines:4,chars:7,note:'historical 平仄/rime OPEN'},
  jueju5:{name:'JUEJU 5',lines:4,chars:5,note:'historical 平仄/rime OPEN'}
 };
@@ -260,9 +264,30 @@ function setMode(m){S.mode=m;document.querySelector('.app')?.classList.toggle('m
 $$('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 function syllables(w){w=(w.toLowerCase().match(/[a-z]+/g)||[]).join('');if(!w)return 0;if(w.length<=3)return 1;w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').replace(/^y/,'');return Math.max(1,(w.match(/[aeiouy]{1,2}/g)||[]).length)}
 function lineSyll(line){return (line.match(/[A-Za-z'’-]+/g)||[]).reduce((n,w)=>n+syllables(w),0)}
-function rhymeTail(line){let w=(line.match(/[A-Za-z'’-]+/g)||[]).at(-1)||'';return soundKey(w).tail}
-function formReport(){let f=FORMS[S.form],lines=S.source.split('\n'),nonblank=lines.filter(x=>x.trim());let rows=[];if(f.lines!=null)rows.push(['LINES',nonblank.length+'/'+f.lines,nonblank.length===f.lines?'pass':'warn']);if(f.syll){for(let i=0;i<Math.min(nonblank.length,Array.isArray(f.syll)?f.syll.length:nonblank.length);i++){let target=Array.isArray(f.syll)?f.syll[i]:f.syll,got=lineSyll(nonblank[i]);rows.push(['L'+(i+1)+' ~SYLL',got+'/'+target,got===target?'pass':'warn'])}}if(f.chars){for(let i=0;i<nonblank.length;i++){let got=Array.from(nonblank[i].replace(/\s/g,'')).length;rows.push(['L'+(i+1)+' CHAR',got+'/'+f.chars,got===f.chars?'pass':'warn'])}}if(f.rhyme){rows.push(['RHYME TARGET',f.rhyme,'']);let tails=nonblank.map(rhymeTail).filter(Boolean);if(tails.length)rows.push(['ENDINGS',tails.join(' · '),''])}if(f.note)rows.push(['NOTE',f.note,'warn']);if(S.form.startsWith('jueju'))rows.push(['平仄 / HIST. RIME','OPEN','warn']);return rows}
-function renderConstraints(){let f=FORMS[S.form],rows=formReport();$('#constraints').innerHTML='<b>'+f.name+'</b>'+(rows.length?rows.map(r=>'<div class="constraint"><b>'+esc(r[0])+'</b><span class="'+r[2]+'">'+esc(r[1])+'</span></div>').join(''):'<div class="sub" style="margin-top:5px">No mandatory shape.</div>')+'<div class="tiny" style="margin-top:5px">English syllable/rhyme checks are lightweight heuristics in 0.2; form adapters declare constraints, not literary value.</div>'}
+function lineWords(line){return line.match(/[A-Za-z'’-]+/g)||[]}
+function monoCount(line){return lineWords(line).filter(w=>syllables(w)===1).length}
+function rhymeTail(line){let w=lineWords(line).at(-1)||'';return soundKey(w).tail}
+function approxRhymeScheme(lines,scheme){
+ const code=String(scheme||'').replace(/[^A-Z]/g,''),tails=lines.map(rhymeTail),groups={};let tested=0,pass=true;
+ for(let i=0;i<Math.min(code.length,tails.length);i++){const g=code[i],t=tails[i];if(!g||!t)continue;(groups[g]||(groups[g]=[])).push(t)}
+ for(const xs of Object.values(groups)){if(xs.length<2)continue;tested++;if(!xs.every(x=>x===xs[0]))pass=false}
+ return{pass:tested>0&&pass,tested,tails}
+}
+function formReportFor(source,formKey){
+ let f=FORMS[formKey]||FORMS.free,lines=String(source||'').split('\n'),nonblank=lines.filter(x=>x.trim()),rows=[];
+ if(f.lines!=null)rows.push(['LINES',nonblank.length+'/'+f.lines,nonblank.length===f.lines?'pass':'warn']);
+ if(f.words){for(let i=0;i<nonblank.length;i++){let ws=lineWords(nonblank[i]);rows.push(['L'+(i+1)+' WORDS',ws.length+'/'+f.words,ws.length===f.words?'pass':'warn']);if(f.monosyllabic)rows.push(['L'+(i+1)+' ~MONO',monoCount(nonblank[i])+'/'+ws.length,ws.length&&monoCount(nonblank[i])===ws.length?'pass':'warn'])}}
+ if(f.syll){for(let i=0;i<Math.min(nonblank.length,Array.isArray(f.syll)?f.syll.length:nonblank.length);i++){let target=Array.isArray(f.syll)?f.syll[i]:f.syll,got=lineSyll(nonblank[i]);rows.push(['L'+(i+1)+' ~SYLL',got+'/'+target,got===target?'pass':'warn'])}}
+ if(f.chars){for(let i=0;i<nonblank.length;i++){let got=Array.from(nonblank[i].replace(/\s/g,'')).length;rows.push(['L'+(i+1)+' CHAR',got+'/'+f.chars,got===f.chars?'pass':'warn'])}}
+ if(f.units)rows.push(['WORDLESS BOARD',f.units.join(' | '),'pass']);
+ if(f.rhyme){rows.push(['RHYME TARGET',f.rhyme,'']);let q=approxRhymeScheme(nonblank,f.rhyme);if(q.tails.some(Boolean))rows.push(['ENDINGS',q.tails.filter(Boolean).join(' · '),'']);if(q.tested)rows.push(['~RHYME GROUPS',q.pass?'MATCH':'CHECK',q.pass?'pass':'warn'])}
+ if(f.progression)rows.push(['PROGRESSION',f.progression+' · AUTHOR JUDGMENT','warn']);
+ if(f.note)rows.push(['NOTE',f.note,'warn']);
+ if(String(formKey).startsWith('jueju'))rows.push(['平仄 / HIST. RIME','OPEN','warn']);
+ return rows
+}
+function formReport(){return formReportFor(S.source,S.form)}
+function renderConstraints(){document.documentElement.dataset.verseForm=S.form;let f=FORMS[S.form],rows=formReport(),refs=String(S.form).startsWith('enjueju')?'<div class="tiny" style="margin-top:7px"><a href="'+f.source_url+'" target="_blank" rel="noopener">PRIMARY RULES ↗</a> · <a href="https://github.com/LingDong-/cope" target="_blank" rel="noopener">COPE DONOR ↗</a> · <a href="https://ctext.org/" target="_blank" rel="noopener">CTEXT CORPUS ↗</a></div>':'';$('#constraints').innerHTML='<b>'+f.name+'</b>'+(rows.length?rows.map(r=>'<div class="constraint"><b>'+esc(r[0])+'</b><span class="'+r[2]+'">'+esc(r[1])+'</span></div>').join(''):'<div class="sub" style="margin-top:5px">No mandatory shape.</div>')+refs+'<div class="tiny" style="margin-top:5px">English syllable/rhyme checks are lightweight heuristics; form adapters declare constraints, not literary value. WORDLESS BOARD is a visible grouping scaffold only.</div>'}
 function neighborhood(n){if(!n)return[];let map=new Map();for(let e of S.edges){let other=e.a===n.id?e.b:e.b===n.id?e.a:null;if(!other)continue;let o=node(other);if(!o)continue;let pri=e.type==='AUTHOR'?0:e.type==='REPEAT'?1:e.type==='SOUND'?2:3,k=o.id;if(!map.has(k)||map.get(k).pri>pri)map.set(k,{word:o.text,why:e.why,type:e.type,pri,id:o.id})}return [...map.values()].sort((a,b)=>a.pri-b.pri).slice(0,10)}
 function renderPanels(){let n=node(S.selected);$('#mTokens').textContent=S.nodes.length;$('#mLines').textContent=S.source?S.source.split('\n').length:0;$('#mEdges').textContent=S.edges.length;$('#mLocks').textContent=S.locks.size;$('#actions').classList.toggle('hidden',!n);$('#selection').innerHTML=n?'<b style="font:25px ui-serif,serif">'+esc(n.text)+'</b>'+(S.preview&&S.preview.target===n.id?'<div style="color:var(--hot);font:18px ui-serif,serif;margin-top:4px">'+(S.preview.operation==='START_NEXT_LINE'?'↳ L'+(S.preview.lineIndex+1)+' ':S.preview.operation==='INSERT_AFTER'?'+ ':'→ ')+esc(S.preview.word)+' <span class="tiny">PREVIEW / SOURCE UNCHANGED</span></div>':'')+'<div class="sub">'+n.id+' · line '+(n.line+1)+' · token '+(n.index+1)+(S.locks.has(n.id)?' · LOCKED':'')+'</div>':'<span class="sub">Select a word or character in MAP/PAGE.</span>';if(n){let near=neighborhood(n);$('#candidates').innerHTML=near.length?near.map(x=>'<div class="cand"><div><b>'+esc(x.word)+'</b><div class="why">'+esc(x.type)+' · '+esc(x.why)+'</div></div><button data-jump="'+x.id+'">SEE</button></div>').join(''):'<span class="sub">No local relation candidates yet. Try an online word neighborhood or bank your own.</span>';$('#candidates').querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>select(b.dataset.jump));$('#lockBtn').textContent=S.locks.has(n.id)?'UNLOCK':'LOCK';$('#linkBtn').textContent=S.linkPending===n.id?'CANCEL LINK':'LINK NEXT'}renderBank();renderRevisions();renderPath();renderCaptures();renderBottom();renderConstraints()}
 function candidateOperation(x){
@@ -298,6 +323,7 @@ function candidateSupport(x){
  let target=node(x&&x.for)||node(S.selected);if(!target)return{pass:0,total:0,label:'NO TARGET'};
  let f=FORMS[S.form],edit=candidateEdit(S.source,target,x),lines=edit.next.split('\n'),lineIndex=edit.lineIndex,nonblank=lines.filter(v=>v.trim()),checks=[];
  if(f.lines!=null)checks.push({name:'line envelope',ok:nonblank.length<=f.lines});
+ if(f.words){let ws=lineWords(lines[lineIndex]||'');checks.push({name:'word envelope',ok:ws.length<=f.words});if(f.monosyllabic)checks.push({name:'monosyllabic words',ok:ws.every(w=>syllables(w)===1)})}
  if(f.chars){let n=Array.from((lines[lineIndex]||'').replace(/\s/g,'')).length;checks.push({name:'character envelope',ok:n<=f.chars})}
  if(f.syll){let goal=Array.isArray(f.syll)?f.syll[lineIndex]:f.syll;if(goal!=null)checks.push({name:'syllable envelope',ok:lineSyll(lines[lineIndex]||'')<=goal})}
  if(f.rhyme){
@@ -474,7 +500,9 @@ function selftest(){
  const toks=tokenizeLine('rain rain',0);
  a('stable token addresses',toks.length===2&&toks[0].id==='L1T1'&&toks[1].id==='L1T2',toks.map(x=>x.id).join(' · '));
  a('Jueju donor remains four-line open source',JUEJU.split('\n').length===4&&Array.from(JUEJU.split('\n')[0]).length===7,'4 lines / 7-char opener');
- a('form adapters remain plural',['free','haiku','couplet','quatrain','sonnet','villanelle','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
+ a('form adapters remain plural',['free','haiku','couplet','quatrain','sonnet','villanelle','enjueju7','enjueju5','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
+ const ej='Cold moon still pines hold pale light\nDark stream soft reeds catch dawn light\nOld road lone feet turn home slow\nWarm hands near fire guard last light',ejRows=formReportFor(ej,'enjueju7');
+ a('English Jueju 7 transfer adapter validates slot/rhyme scaffold',ejRows.filter(r=>r[2]==='warn').length===2&&ejRows.some(r=>r[0]==='WORDLESS BOARD'&&r[1]==='2 | 2 | 3')&&ejRows.some(r=>r[0]==='~RHYME GROUPS'&&r[2]==='pass'),ejRows.map(r=>r[0]+':'+r[1]).join(' · '));
  a('writer-intent dock remains plural',['continue','nextline','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
  const rain=tokenizeLine('rain falls',0)[0],han=tokenizeLine('未始',0)[0];
  const continued=candidateEdit('rain falls',rain,{word:'keeps',intent:'continue'}),replaced=candidateEdit('rain falls',rain,{word:'snow',intent:'replace'}),hanContinue=candidateEdit('未始',han,{word:'空',intent:'continue'}),jTarget=tokenizeLine(JUEJU.split('\n')[0],0).at(-1),nextLine=candidateEdit(JUEJU,jTarget,{word:'空',intent:'nextline'});
@@ -499,9 +527,9 @@ function recoverVerseHandoff(){
     sessionStorage.removeItem('field.verse.handoff.v01');return h;
   }catch(_){return null}
 }
-const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null,bootFocus=/^L\d+T\d+$/.test(bootQ.get('focus')||'')?bootQ.get('focus'):null,bootSourceKey=/^text-local:\d+:[0-9a-f]{8}$/.test(bootQ.get('source_key')||'')?bootQ.get('source_key'):null;
+const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootForm=FORMS[bootQ.get('form')]?bootQ.get('form'):null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null,bootFocus=/^L\d+T\d+$/.test(bootQ.get('focus')||'')?bootQ.get('focus'):null,bootSourceKey=/^text-local:\d+:[0-9a-f]{8}$/.test(bootQ.get('source_key')||'')?bootQ.get('source_key'):null;
 function restoreReturnFocus(){if(!bootFocus||!bootSourceKey||bootSourceKey!==localTextKey(S.source)||!S.nodes.some(n=>n.id===bootFocus))return false;S.selected=bootFocus;render();renderFocusWheel();return true}
-load();
+load();if(bootForm){S.form=bootForm;$('#form').value=bootForm}
 if(bootVerse){
   S.fieldLoaded=false;$('#source').value=bootVerse.source;parse();setMode('PAGE');
   const line=Math.max(0,Number(bootVerse.focus?.line)||0),focusNode=S.nodes.find(n=>n.line===line)||S.nodes[0]||null;
@@ -514,10 +542,10 @@ if(bootVerse){
 }else{
   render();setMode(bootMode||'PAGE');loadFieldNow().then(ok=>{
     if(ok===false){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
-    if(bootMode)setMode(bootMode);if(ok&&restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
+    if(bootForm){S.form=bootForm;$('#form').value=bootForm;renderPanels()}if(bootMode)setMode(bootMode);if(ok&&restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
   });
 }
 requestAnimationFrame(draw);
-window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,candidateOperation,candidateEdit,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,poemReturnAddress,restoreReturnFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
+window.__POEM_MAP__={S,FORMS,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,formReport,formReportFor,candidateOperation,candidateEdit,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,poemReturnAddress,restoreReturnFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
 })();
 </script></body></html>
