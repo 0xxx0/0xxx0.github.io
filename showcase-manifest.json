@@ -8586,6 +8586,32 @@
       "tier": "FIELD"
     },
     {
+      "href": "/loops/",
+      "title": "LOOPS // RECEIPTS",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "INSPECT",
+      "state": "UTILITY",
+      "family": "COMMS",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-30T17:30:03+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "generated from live loop state by ops-hub scripts/loops.py gallery (362 receipts at 2026-09-30)",
+          "static pass: self-contained one file, no inline JS, no external links, no live state read at load"
+        ],
+        "return_path": "/loops/"
+      },
+      "tier": "FIELD",
+      "role": "Receipt viewer for the looping platform. The machine room at /comms/ shows each loop's CURRENT categorical state; this shows the EVIDENCE behind those states — every receipt artifact a loop has ever constructed, newest first. Read-only projection of ops-hub/data/loops/artifacts/. The loops own no authority and neither does this page."
+    },
+    {
       "href": "/iching/",
       "title": "易經 // I CHING — CAST · TRANSFORM · NUCLEAR",
       "kind": "artifact",

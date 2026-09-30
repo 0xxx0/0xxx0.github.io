@@ -1,0 +1,2050 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>loops</title><style>
+ :root{color-scheme:dark}body{background:#0b0d10;color:#e6e8ea;margin:0;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+ .wrap{max-width:760px;margin:0 auto;padding:30px 20px}
+ h1{font-size:12px;letter-spacing:.2em;color:#5d6672;text-transform:uppercase;margin:0 0 6px}
+ .verbs{color:#7dd3a0;font-size:12px;word-break:break-all;margin:0 0 20px}
+ details{border-top:1px solid #191d22;padding:9px 0} summary{cursor:pointer;color:#c8cdd4}
+ .delta{color:#5d6672;margin-left:10px;font-size:12px}
+ pre{white-space:pre-wrap;color:#aeb6c0;background:#101317;padding:10px;border-radius:6px}
+ input{background:#161a1f;color:#e6e8ea;border:1px solid #262c34;border-radius:6px;padding:6px 10px;font:inherit;width:180px;margin-bottom:12px}
+ .meta{color:#5d6672;font-size:12px;margin:14px 0}
+</style></head><body><div class="wrap">
+<h1>loops — receipts, not reports</h1>
+<div class="verbs">python3 scripts/loops.py status · tick · run fleet · read fleet · show fleet · advise</div>
+<div class="meta">60 receipts · generated 2026-09-30T17:29<br>fleet: 207 ticks / 28 changes · spend: 207 ticks / 135 changes · jobs: 210 ticks / 68 changes · botdoctor: 146 ticks / 55 changes · bottherapist: 146 ticks / 5 changes · collision: 63 ticks / 60 changes</div>
+<input id="q" placeholder="filter (loop name / text)" oninput="f(this.value)">
+<div id="list"><details data-loop="collision"><summary>20260930-1726 · collision<span class="delta"># receipt · collision · 2026-09-30T17:26:57+08:00</span></summary><pre># receipt · collision · 2026-09-30T17:26:57+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T16:55:59+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 4 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=157 non-canonical=0
+stale worktree (clean, 70h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 47h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 69h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 74h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-1726 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T17:26:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T17:26:52+08:00
+
+what changed: 1 ailment(s) · 8 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T16:55:53+08:00
+
+## evidence (raw tool output)
+
+```
+✅ resolved since last check:
+   🔴 cron kestrel/surfaces-push: failing ×3 — Script exited with code 1
+stdout:
+U	comms/index.html
+error: could not
+completed	success	comms: refresh machine-room page (2026-09-30T09:20Z)	convergence-validate	master	push	36695545445	18s	2026-09-30T09:21:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T09:20Z)	Route Registration	master	push	36695545387	11s	2026-09-30T09:21:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T09:20Z)	public-surface-check	master	push	36695545384	2m45s	2026-09-30T09:21:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T09:20Z)	gitleaks	master	push	36695545383	13s	2026-09-30T09:21:01Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36695545213	34s	2026-09-30T09:21:01Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-1726 · jobs<span class="delta"># receipt · jobs · 2026-09-30T17:26:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T17:26:51+08:00
+
+what changed: 1 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T16:55:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="spend"><summary>20260930-1726 · spend<span class="delta"># receipt · spend · 2026-09-30T17:26:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T17:26:51+08:00
+
+what changed: $6.28/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T16:55:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          24 sessions  $5.188
+  kage             10 sessions  $0.705
+  lam4000           2 sessions  $0.134
+  operator         15 sessions  $0.130
+  mahshroom         7 sessions  $0.102
+  thisjustthing     2 sessions  $0.025
+  archive           2 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.20 left on a spare lane ($0.02/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.13 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;64 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.43 left on a spare lane ($0.13/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1655 · collision<span class="delta"># receipt · collision · 2026-09-30T16:55:59+08:00</span></summary><pre># receipt · collision · 2026-09-30T16:55:59+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T16:24:57+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 4 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 34	1
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 69h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 46h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 69h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 73h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-1655 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T16:55:53+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T16:55:53+08:00
+
+what changed: 2 ailment(s) · 8 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T16:24:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+completed	success	comms: refresh machine-room page (2026-09-30T08:52Z)	public-surface-check	master	push	36692509490	2m48s	2026-09-30T08:53:04Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:52Z)	convergence-validate	master	push	36692509352	14s	2026-09-30T08:53:03Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:52Z)	gitleaks	master	push	36692509291	20s	2026-09-30T08:53:03Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:52Z)	Route Registration	master	push	36692509275	11s	2026-09-30T08:53:03Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36692509086	57s	2026-09-30T08:53:03Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="spend"><summary>20260930-1655 · spend<span class="delta"># receipt · spend · 2026-09-30T16:55:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T16:55:51+08:00
+
+what changed: $6.56/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T16:24:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          23 sessions  $5.165
+  kage             10 sessions  $0.697
+  lam4000           3 sessions  $0.439
+  operator         15 sessions  $0.130
+  mahshroom         7 sessions  $0.102
+  thisjustthing     2 sessions  $0.025
+  archive           2 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.20 left on a spare lane ($0.02/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.13 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;64 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.43 left on a spare lane ($0.13/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1624 · collision<span class="delta"># receipt · collision · 2026-09-30T16:24:57+08:00</span></summary><pre># receipt · collision · 2026-09-30T16:24:57+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T15:53:57+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 25 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 32	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 69h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 46h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 68h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 73h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-1624 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T16:24:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T16:24:52+08:00
+
+what changed: 6 ailment(s) · 8 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T15:53:52+08:00
+
+## evidence (raw tool output)
+
+```
+⚠️ Fleet watchdog
+🔴 cron kestrel/surfaces-push: failing ×2 — Script exited with code 1
+stdout:
+U	comms/index.html
+error: could not 
+
+✅ resolved since last check:
+   🟡 cron kestrel/surfaces-push: error
+completed	success	comms: refresh machine-room page (2026-09-30T08:19Z)	convergence-validate	master	push	36688964817	14s	2026-09-30T08:19:10Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:19Z)	Route Registration	master	push	36688964636	12s	2026-09-30T08:19:10Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:19Z)	public-surface-check	master	push	36688964632	2m52s	2026-09-30T08:19:10Z
+completed	success	comms: refresh machine-room page (2026-09-30T08:19Z)	gitleaks	master	push	36688964446	17s	2026-09-30T08:19:10Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36688964153	2m27s	2026-09-30T08:19:09Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-1624 · jobs<span class="delta"># receipt · jobs · 2026-09-30T16:24:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T16:24:51+08:00
+
+what changed: 2 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T15:53:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        surfaces-push                failing  streak=2
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="spend"><summary>20260930-1624 · spend<span class="delta"># receipt · spend · 2026-09-30T16:24:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T16:24:51+08:00
+
+what changed: $6.14/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T15:53:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          23 sessions  $5.115
+  lam4000           3 sessions  $0.439
+  kage              9 sessions  $0.324
+  operator         15 sessions  $0.130
+  mahshroom         7 sessions  $0.102
+  thisjustthing     2 sessions  $0.025
+  archive           2 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.20 left on a spare lane ($0.02/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.14 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;64 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.43 left on a spare lane ($0.13/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1553 · collision<span class="delta"># receipt · collision · 2026-09-30T15:53:57+08:00</span></summary><pre># receipt · collision · 2026-09-30T15:53:57+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T15:22:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 25 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 4	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 68h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 45h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 68h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 72h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-1553 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T15:53:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T15:53:52+08:00
+
+what changed: 2 ailment(s) · 8 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T15:22:53+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+queued		FIELD 0.8.28: fold continuation into the held object	Route Registration	field-frame-into-object-0828-current-20260930	pull_request	36686373816	3s	2026-09-30T07:53:49Z
+queued		FIELD 0.8.28: fold continuation into the held object	gitleaks	field-frame-into-object-0828-current-20260930	pull_request	36686373732	3s	2026-09-30T07:53:49Z
+queued		FIELD 0.8.28: fold continuation into the held object	public-surface-check	field-frame-into-object-0828-current-20260930	pull_request	36686373704	3s	2026-09-30T07:53:49Z
+in_progress		Merge current master into FIELD 0.8.28 candidate	gitleaks	field-frame-into-object-0828-current-20260930	push	36686366159	7s	2026-09-30T07:53:45Z
+in_progress		SHOPPING 0.4.1: bounded MARKET TAPE	public-surface-check	master	push	36686351247	17s	2026-09-30T07:53:35Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-1553 · jobs<span class="delta"># receipt · jobs · 2026-09-30T15:53:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T15:53:51+08:00
+
+what changed: 2 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T15:22:50+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        surfaces-push                error    streak=1
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="collision"><summary>20260930-1522 · collision<span class="delta"># receipt · collision · 2026-09-30T15:22:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T15:22:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T14:51:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 24 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 68h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 45h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 67h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 72h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1522 · spend<span class="delta"># receipt · spend · 2026-09-30T15:22:50+08:00</span></summary><pre># receipt · spend · 2026-09-30T15:22:50+08:00
+
+what changed: $6.46/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T14:51:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          25 sessions  $5.137
+  lam4000           6 sessions  $0.922
+  kage              9 sessions  $0.284
+  mahshroom         6 sessions  $0.089
+  thisjustthing     2 sessions  $0.025
+  archive           2 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.20 left on a spare lane ($0.02/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.27 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1451 · collision<span class="delta"># receipt · collision · 2026-09-30T14:51:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T14:51:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T14:20:54+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 25 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 67h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 44h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 67h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 71h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1451 · spend<span class="delta"># receipt · spend · 2026-09-30T14:51:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T14:51:51+08:00
+
+what changed: $6.40/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T14:20:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          26 sessions  $5.091
+  lam4000           9 sessions  $0.982
+  kage              9 sessions  $0.211
+  mahshroom         6 sessions  $0.089
+  thisjustthing     2 sessions  $0.025
+  archive           2 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.20 left on a spare lane ($0.02/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.27 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1420 · collision<span class="delta"># receipt · collision · 2026-09-30T14:20:54+08:00</span></summary><pre># receipt · collision · 2026-09-30T14:20:54+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T13:49:55+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 67h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 44h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 66h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 71h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1420 · spend<span class="delta"># receipt · spend · 2026-09-30T14:20:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T14:20:51+08:00
+
+what changed: $6.00/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T13:49:50+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          25 sessions  $4.811
+  lam4000           8 sessions  $0.920
+  kage              7 sessions  $0.176
+  mahshroom         4 sessions  $0.078
+  thisjustthing     1 sessions  $0.019
+  archive           2 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.27 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1349 · collision<span class="delta"># receipt · collision · 2026-09-30T13:49:55+08:00</span></summary><pre># receipt · collision · 2026-09-30T13:49:55+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T13:18:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 66h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 43h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 65h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 70h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1349 · spend<span class="delta"># receipt · spend · 2026-09-30T13:49:50+08:00</span></summary><pre># receipt · spend · 2026-09-30T13:49:50+08:00
+
+what changed: $8.32/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T13:18:52+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          28 sessions  $7.131
+  lam4000           8 sessions  $0.920
+  kage              7 sessions  $0.176
+  mahshroom         4 sessions  $0.078
+  thisjustthing     1 sessions  $0.019
+  archive           2 sessions  $0.000
+  operator         12 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1318 · collision<span class="delta"># receipt · collision · 2026-09-30T13:18:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T13:18:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T12:47:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 66h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 43h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 65h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 70h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1318 · spend<span class="delta"># receipt · spend · 2026-09-30T13:18:52+08:00</span></summary><pre># receipt · spend · 2026-09-30T13:18:52+08:00
+
+what changed: $11.80/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T12:47:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          33 sessions  $10.367
+  lam4000           8 sessions  $0.920
+  mahshroom         6 sessions  $0.407
+  kage              7 sessions  $0.084
+  thisjustthing     1 sessions  $0.019
+  archive           4 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1247 · collision<span class="delta"># receipt · collision · 2026-09-30T12:47:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T12:47:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T12:16:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 65h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 42h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 64h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 69h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1247 · spend<span class="delta"># receipt · spend · 2026-09-30T12:47:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T12:47:51+08:00
+
+what changed: $12.13/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T12:16:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          36 sessions  $10.737
+  lam4000           8 sessions  $0.920
+  mahshroom         6 sessions  $0.407
+  kage              7 sessions  $0.052
+  thisjustthing     1 sessions  $0.019
+  archive           6 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1216 · collision<span class="delta"># receipt · collision · 2026-09-30T12:16:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T12:16:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T11:45:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 65h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 42h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 64h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 69h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1216 · spend<span class="delta"># receipt · spend · 2026-09-30T12:16:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T12:16:51+08:00
+
+what changed: $15.21/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T11:45:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          44 sessions  $13.772
+  lam4000           8 sessions  $0.920
+  mahshroom         6 sessions  $0.407
+  thisjustthing     2 sessions  $0.061
+  kage              7 sessions  $0.052
+  archive           6 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1145 · collision<span class="delta"># receipt · collision · 2026-09-30T11:45:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T11:45:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T11:14:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 64h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 41h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 63h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 68h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="spend"><summary>20260930-1145 · spend<span class="delta"># receipt · spend · 2026-09-30T11:45:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T11:45:51+08:00
+
+what changed: $16.16/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T11:14:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          48 sessions  $14.419
+  lam4000          10 sessions  $0.950
+  mahshroom         7 sessions  $0.676
+  thisjustthing     2 sessions  $0.061
+  kage              7 sessions  $0.052
+  archive           6 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.21 left on a spare lane ($0.01/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1114 · collision<span class="delta"># receipt · collision · 2026-09-30T11:14:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T11:14:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T10:43:58+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 8 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 64h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 41h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 63h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 68h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-1043 · collision<span class="delta"># receipt · collision · 2026-09-30T10:43:58+08:00</span></summary><pre># receipt · collision · 2026-09-30T10:43:58+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T10:12:56+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 63h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 40h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 62h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 67h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="bottherapist"><summary>20260930-1043 · bottherapist<span class="delta"># receipt · bottherapist · 2026-09-30T10:43:56+08:00</span></summary><pre># receipt · bottherapist · 2026-09-30T10:43:56+08:00
+
+what changed: 0 promise(s) · inbox 0 · 0 parked — none need you
+
+verb: listen for hurts that need a human: promises, inbox, parked questions
+first seen: 2026-09-30T10:12:54+08:00
+
+## evidence (raw tool output)
+
+```
+inbox — empty · nothing waiting on you
+```
+</pre></details><details data-loop="spend"><summary>20260930-1043 · spend<span class="delta"># receipt · spend · 2026-09-30T10:43:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T10:43:51+08:00
+
+what changed: $17.29/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T10:12:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          52 sessions  $15.486
+  lam4000          12 sessions  $1.020
+  mahshroom         8 sessions  $0.642
+  kage              9 sessions  $0.084
+  thisjustthing     3 sessions  $0.055
+  archive           6 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.22 left on a spare lane ($0.00/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.28 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-1012 · collision<span class="delta"># receipt · collision · 2026-09-30T10:12:56+08:00</span></summary><pre># receipt · collision · 2026-09-30T10:12:56+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T09:41:56+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 63h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 39h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 62h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 67h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-1012 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T10:12:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T10:12:52+08:00
+
+what changed: 1 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T09:41:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+in_progress		browser: require owner-based FIELD residue without CATCH	gitleaks	fi-0826-catch-residue-fc9e	push	36658777421	10s	2026-09-30T02:12:42Z
+completed	success	validate: require owner-based residue without CATCH aggregate	gitleaks	fi-0826-catch-residue-fc9e	push	36658739160	10s	2026-09-30T02:12:13Z
+completed	success	test: guard route-local signal after CATCH contraction	gitleaks	fi-0826-catch-residue-fc9e	push	36658733627	13s	2026-09-30T02:12:08Z
+completed	success	Merge pull request #656 from 0xxx0/fix/lab-live-support-truth-20260930	gitleaks	master	push	36658729553	11s	2026-09-30T02:12:05Z
+completed	success	Merge pull request #656 from 0xxx0/fix/lab-live-support-truth-20260930	Route Registration	master	push	36658729551	16s	2026-09-30T02:12:05Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-1012 · jobs<span class="delta"># receipt · jobs · 2026-09-30T10:12:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T10:12:51+08:00
+
+what changed: 1 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T09:41:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+mahshroom      fleet-pulse                  paused   streak=0
+operator       nightly-memory-consolidation paused   streak=0
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="collision"><summary>20260930-0941 · collision<span class="delta"># receipt · collision · 2026-09-30T09:41:56+08:00</span></summary><pre># receipt · collision · 2026-09-30T09:41:56+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T09:10:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 62h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 39h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 61h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 66h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-0941 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T09:41:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T09:41:52+08:00
+
+what changed: 2 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T09:10:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+queued		LAB: add live change witness on current master	gitleaks	feat/lab-live-change-witness-current-20260930	push	36656340677	3s	2026-09-30T01:41:49Z
+in_progress		LAB: add live change witness on current master	gitleaks	feat/lab-live-change-witness-current-20260930	push	36656336114	7s	2026-09-30T01:41:45Z
+in_progress		RETURN: close FIELD packet egress on current exact-head green	public-surface-check	field/packet-egress-close-current-20260930	pull_request	36656329898	12s	2026-09-30T01:41:40Z
+in_progress		RETURN: close FIELD packet egress on current exact-head green	gitleaks	field/packet-egress-close-current-20260930	pull_request	36656329879	12s	2026-09-30T01:41:40Z
+in_progress		LAB: bind live change witness on current master	gitleaks	feat/lab-live-change-witness-current-20260930	push	366563
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-0941 · jobs<span class="delta"># receipt · jobs · 2026-09-30T09:41:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T09:41:51+08:00
+
+what changed: 2 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T09:10:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        loops-tick                   error    streak=0
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+mahshroom      fleet-pulse                  paused   streak=0
+operator       nightly-memory-consolidation paused   streak=0
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="advise"><summary>20260930-0922 · advise<span class="delta"># receipt · advise · 2026-09-30T09:22:48+08:00</span></summary><pre># receipt · advise · 2026-09-30T09:22:48+08:00
+
+what changed: advice from gpt-oss:20b
+
+## what it saw
+
+Today: 2026-09-30 09:21 (+08)
+
+SYSTEM STATE (state.py):
+- [sev2] key …c86e49 $1.22 left on a spare lane ($0.00/d — no runway projection)  (kage,kestrel,lam4000…)
+- [sev1] OR account $10.29 left of $558 purchased
+
+LOOP OBSERVATIONS (journal, newest first):
+- 09-30T09:10 collision: 8 worktree(s) HOLDING WORK · 7 need you
+- 09-30T09:10 botdoctor: 1 ailment(s) · 10 paused job(s) noted
+- 09-30T09:10 jobs: 1 job(s) in trouble
+- 09-30T08:39 collision: 8 worktree(s) HOLDING WORK · 7 need you
+- 09-30T08:08 collision: 8 worktree(s) HOLDING WORK · 7 need you
+- 09-30T08:08 botdoctor: 2 ailment(s) · 10 paused job(s) noted
+- 09-30T08:08 jobs: 2 job(s) in trouble
+- 09-30T08:08 spend: $17.15/24h across 7 profile(s) · 1 key(s) low
+- 09-30T08:08 fleet: 1 need you
+- 09-30T07:37 collision: 8 worktree(s) HOLDING WORK · 7 need you
+
+CREW ACTIVITY (sessions.py):
+🧵 last 48h — 40
+
+▸ archive
+  ⏰  79m done    9msg  convergence-scout · Sep 30 08:01
+  ⏰  80m done    4msg  archive-watcher · Sep 30 08:01
+  ⏰  19h done    4msg  archive-watcher · Sep 29 13:23
+  ⏰  19h done   66msg  repo-housekeeper · Sep 29 13:22
+  ⏰  20h done    9msg  convergence-scout · Sep 29 13:16
+
+▸ kestrel
+  ⏰  50m done    8msg  arxiv-alignment-triage · Sep 30 08:32
+  ⏰  81m done    2msg  session-to-artifact · Sep 30 08:01
+  ⏰   2h done    2msg  convergence-loop · Sep 30 07:20
+  ⏰   5h done    6msg  session-to-artifact · Sep 30 04:02
+  ⏰   6h done    2msg  convergence-loop · Sep 30 03:18
+
+▸ kage
+  ·  15h done    2msg  Quality-lane model and provider for the 
+  📱  22h live   56msg $0.018  Change group name to ANCHOR WHAT
+  📱  22h live  305msg $0.027  Sammendrag av uforklarte elementer fra #
+  📱  23h live  391msg $0.010  Update Hermes context for FIELD LAB inte
+  ⏰  23h done    4msg  
+
+BRIEF (fleet/ledger/drafts):
+🤖 5/5 bots up
+🧭 3 open
+  🔴 [Observed Telegram group context - context only, not (2d) ⚠️
+  🟡 [The user sent an image~ Here&#x27;s what I can see:
+This (3d) ⚠️
+  🟡 [The user sent an image~ Here&#x27;s what I can see:
+This (2d) ⚠️
+📥 inbox empty — nothing waiting on you
+✅ no alerts
+📋 board refreshed 9m ago
+
+RECENTLY BUILT (newest files):
+- spec: loops-live.html
+- spec: inbox-2026-09-26.md
+- spec: readback-loop-2026-09-26.md
+- spec: comms-layer-2026-09-26.md
+- spec: looping-platform-2026-09-26.md
+- spec: sticker-set-preview.png
+- report: reconciliation-2026-09-20.md
+- report: missions-composable-2026-09-22.md
+- report: strategies-comms-2026-09-22.md
+- report: next-moves-miniapps-2026-09-22.md
+- report: model-benchmark-2026-09-25.md
+- report: convergence-plan-2026-09-20.md
+- script: session-to-skill.py
+- script: session-to-skill.test.py
+
+ALREADY EXISTS (a proposal matching one of these is a DUPLICATE — find the gap instead):
+state.py — &#x27;what needs me?&#x27; (the one aggregating verb; state, not stats)
+brief.py — one terse screen on the fleet
+sessions.py — browse the crew&#x27;s sessions across profiles
+fleet_watchdog.py — health + credits watchdog (already a no-agent cron)
+loops.py — the looping platform itself (this tool: tick/run/read/advise)
+anchor_console.py / anchor_miniapp.py — local + Telegram surfaces over verbs
+digest.py / msgdigest.py — inbox and Telegram message digests
+
+TOOLBOX (existing tools — name: what it does):
+a2a_settlement.py — A2A Settlement Ledger (Production-Grade Sandbox)
+alert_triage.py — alert_triage.py — nightly alert noise -&gt; 4 buckets, one daily report.
+anchor_console.py — anchor_console.py — ANCHOR console as a TOOL, not a dashboard.
+anchor_miniapp.py — anchor_miniapp.py — ANCHOR as a Telegram Mini App.
+anchor_tools.sh — # anchor_tools.sh — single entry point for the ANCHOR toolset.
+apply_operator_alignment.py — Apply the reviewed operator SOUL/MEMORY/USER packet and quiet noisy cr
+archaeology.py — Data Archaeology Pipeline — Survey → Stratify → Extract → Weave
+archive_signal_search.py — Search local Hermes sessions and ChatGPT exports for compact signal sn
+archivist.py — archivist — find &quot;missing&quot; downloaded stuff: search the pen, tidy batc
+attention.py — attention.py — receipts for the ANCHOR message layer: SENT · LANDED · 
+attention_hook.py — attention_hook.py — the reaction ledger writer (a Hermes shell hook).
+attention_readback.py — attention_readback.py — READ-BACK LOOP v1: turn receipts into decision
+axis-index.py — axis-index — one searchable index over every AXIS work artifact.
+backup_twin.sh — # backup_twin.sh v0.3 — bot-agnostic digital twin backup.
+bendemeer_twin_query.py — Bendemeer Twin Graph — queryable CLI (Python stdlib only).
+brief.py — brief — one terse screen on the state of the system.
+budget_watchdog.py — Budget Watchdog — silent until anomaly.
+cat_classify.py — cat_classify.py — Take one audio file, return the most-likely cat inte
+cat_listen.py — cat_listen.py — live cat-intent listener.
+cat_train.py — cat_train.py — train a k-NN cat-intent classifier on a local audio dat
+cat_web.py — cat_web.py — live dashboard for the Note10+ sensor mesh.
+chatgpt_export_status.py — Summarize the local ChatGPT export without importing raw transcripts.
+comms_page.py — comms_page.py — regenerate 0xxx0/comms/index.html — COMMS ON PAGES.
+comms_page.sh — # comms_page.sh — regenerate the 0xxx0 comms page from live state and 
+convergence_json.py — Generate convergence data JSON for the HTML dashboard.
+dashboard_map.py — ROOT = Path(&quot;/Users/mcvoid/void-anchor&quot;)
+day_digest.py — day_digest.py — the end-of-day digest for mcvoid (v1, 2026-09-28).
+digest.py — digest.py — &quot;anything needing you?&quot; — SILENT unless something does.
+digest_dispatcher.py — Digest dispatcher — reads digest-config.yaml and prints a digest to st
+doctor.py — doctor.py — one-command health check for the void-anchor / ops-hub sys
+doctrine_gap_check.py — Check whether key Hermes doctrines are implemented or explicitly gated
+export-ops-hub-mobile-vault.sh — set -euo pipefail
+fb_drift_monitor.sh — # Fold/Bloom drift sentinel — deterministic watched-state fingerprint 
+field_index.py — Field Index — searchable memory of BLIGHT conversations.
+field_index_freshness.py — field_index_freshness.py — T1-T4 staleness checks for the ops-hub fiel
+field_index_rebuild.sh — # field_index_rebuild.sh — rebuild the field index (BLIGHT conversatio
+fleet-outcome-deadman.py — fleet-outcome-deadman — dead-man&#x27;s switch for the outcome watchdog.
+fleet-outcome-watchdog.py — fleet-outcome-watchdog — outcome + freshness watchdog for state-critic
+fleet-self-audit.py — fleet-self-audit — each profile answers for itself.
+fleet_sweep.py — fleet_sweep — what every profile has been doing for the last N hours.
+fleet_watchdog.py — Fleet watchdog — SILENT when healthy, ALERTS when broken.
+fold-metrics.py — fold-metrics.py — FOLD-DOWN / CONVERGENCE scoreboard (read-only, fast,
+gateway-wedge-guard.py — gateway-wedge-guard — supervised guard for the gateway /health wedge.
+glyph.py — glyph.py — render system state as an I Ching hexagram.
+
+## evidence (raw tool output)
+
+```
+COVERED — none.  
+NEXT BUILD — a Telegram verb `/worktree_status` that runs `fleet_sweep` and filters for worktrees holding work.  
+CHAIN — `fleet_sweep` → filter (worktree‑holding) → plain text list.  
+THE VERB — after this I can see which worktrees are stuck and manually release them.  
+THE TRAP — auto‑posting the list as a continuous feed would turn it into a dashboard, not a verb.
+```
+</pre></details><details data-loop="collision"><summary>20260930-0910 · collision<span class="delta"># receipt · collision · 2026-09-30T09:10:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T09:10:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T08:39:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 62h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 38h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 61h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 66h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-0910 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T09:10:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T09:10:52+08:00
+
+what changed: 1 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T08:39:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+completed	success	comms: refresh machine-room page (2026-09-30T01:04Z)	public-surface-check	master	push	36653402785	2m46s	2026-09-30T01:05:03Z
+completed	success	comms: refresh machine-room page (2026-09-30T01:04Z)	Route Registration	master	push	36653402743	15s	2026-09-30T01:05:03Z
+completed	success	comms: refresh machine-room page (2026-09-30T01:04Z)	convergence-validate	master	push	36653402735	14s	2026-09-30T01:05:03Z
+completed	success	comms: refresh machine-room page (2026-09-30T01:04Z)	gitleaks	master	push	36653402724	15s	2026-09-30T01:05:03Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36653402132	37s	2026-09-30T01:05:03Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-0910 · jobs<span class="delta"># receipt · jobs · 2026-09-30T09:10:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T09:10:51+08:00
+
+what changed: 1 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T08:39:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+mahshroom      fleet-pulse                  paused   streak=0
+operator       nightly-memory-consolidation paused   streak=0
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="collision"><summary>20260930-0839 · collision<span class="delta"># receipt · collision · 2026-09-30T08:39:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T08:39:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T08:08:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 61h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 38h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 60h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 65h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0808 · collision<span class="delta"># receipt · collision · 2026-09-30T08:08:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T08:08:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T07:37:54+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 61h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 37h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 60h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 65h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-0808 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T08:08:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T08:08:52+08:00
+
+what changed: 2 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T07:37:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+completed	success	comms: refresh machine-room page (2026-09-30T00:02Z)	convergence-validate	master	push	36648344732	10s	2026-09-30T00:03:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T00:02Z)	gitleaks	master	push	36648344722	11s	2026-09-30T00:03:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T00:02Z)	Route Registration	master	push	36648344718	9s	2026-09-30T00:03:01Z
+completed	success	comms: refresh machine-room page (2026-09-30T00:02Z)	public-surface-check	master	push	36648344668	2m33s	2026-09-30T00:03:01Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36648344084	38s	2026-09-30T00:03:00Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="jobs"><summary>20260930-0808 · jobs<span class="delta"># receipt · jobs · 2026-09-30T08:08:51+08:00</span></summary><pre># receipt · jobs · 2026-09-30T08:08:51+08:00
+
+what changed: 2 job(s) in trouble
+
+verb: keep the machinery honest
+first seen: 2026-09-30T07:37:51+08:00
+
+## evidence (raw tool output)
+
+```
+kage           eyedrops-reminder            paused   streak=0
+kestrel        arxiv-alignment-feed         error    streak=1
+kestrel        glyph-avatar                 paused   streak=0
+kestrel        nexus-board                  paused   streak=0
+kestrel        integrity-audit              error    streak=1
+kestrel        repetition-audit-24h         paused   streak=0
+lam4000        overnight-extraction-kernel-build paused   streak=0
+lam4000        overnight-batch2-extkernel   paused   streak=0
+mahshroom      email-hygiene-check          paused   streak=1
+mahshroom      fleet-pulse                  paused   streak=0
+operator       nightly-memory-consolidation paused   streak=0
+thisjustthing  spy-gateway-health           paused   streak=0
+```
+</pre></details><details data-loop="spend"><summary>20260930-0808 · spend<span class="delta"># receipt · spend · 2026-09-30T08:08:51+08:00</span></summary><pre># receipt · spend · 2026-09-30T08:08:51+08:00
+
+what changed: $17.15/24h across 7 profile(s) · 1 key(s) low
+
+verb: watch the money
+first seen: 2026-09-30T07:37:51+08:00
+
+## evidence (raw tool output)
+
+```
+💸 spend, last 24h
+  kestrel          55 sessions  $15.425
+  lam4000          11 sessions  $0.976
+  mahshroom         7 sessions  $0.634
+  thisjustthing     3 sessions  $0.061
+  kage              7 sessions  $0.056
+  archive           6 sessions  $0.000
+  operator         13 sessions  $0.000
+
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.22 left on a spare lane ($0.00/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.29 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="fleet"><summary>20260930-0808 · fleet<span class="delta"># receipt · fleet · 2026-09-30T08:08:50+08:00</span></summary><pre># receipt · fleet · 2026-09-30T08:08:50+08:00
+
+what changed: 1 need you
+
+verb: keep the fleet standing
+first seen: 2026-09-30T07:37:50+08:00
+
+## evidence (raw tool output)
+
+```
+[
+  {
+    &quot;severity&quot;: 2,
+    &quot;text&quot;: &quot;key \u2026c86e49 $1.22 left on a spare lane ($0.00/d \u2014 no runway projection)  (kage,kestrel,lam4000\u2026)&quot;,
+    &quot;action&quot;: &quot;top up&quot;
+  },
+  {
+    &quot;severity&quot;: 1,
+    &quot;text&quot;: &quot;OR account $10.29 left of $558 purchased&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;5/5 bots up&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;inbox empty \u2014 nothing waiting on you&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;62 active jobs, 0 failing&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;key \u20260246a0 $21.56 left on a spare lane ($0.00/d \u2014 no runway projection)  (operator)&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;console \u00b7 miniapp \u00b7 ollama all answering&quot;,
+    &quot;action&quot;: null
+  },
+  {
+    &quot;severity&quot;: 0,
+    &quot;text&quot;: &quot;no alerts in 24h&quot;,
+    &quot;action&quot;: null
+  }
+]
+```
+</pre></details><details data-loop="collision"><summary>20260930-0737 · collision<span class="delta"># receipt · collision · 2026-09-30T07:37:54+08:00</span></summary><pre># receipt · collision · 2026-09-30T07:37:54+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T07:06:54+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 60h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 37h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 59h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 64h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0706 · collision<span class="delta"># receipt · collision · 2026-09-30T07:06:54+08:00</span></summary><pre># receipt · collision · 2026-09-30T07:06:54+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T06:35:54+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 60h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 36h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 59h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 64h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-0706 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T07:06:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T07:06:52+08:00
+
+what changed: 1 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T06:35:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+completed	success	comms: refresh machine-room page (2026-09-29T23:00Z)	public-surface-check	master	push	36642880368	2m56s	2026-09-29T23:01:01Z
+completed	success	comms: refresh machine-room page (2026-09-29T23:00Z)	gitleaks	master	push	36642880203	15s	2026-09-29T23:01:01Z
+completed	success	comms: refresh machine-room page (2026-09-29T23:00Z)	Route Registration	master	push	36642880184	9s	2026-09-29T23:01:01Z
+completed	success	comms: refresh machine-room page (2026-09-29T23:00Z)	convergence-validate	master	push	36642880144	14s	2026-09-29T23:01:01Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36642879535	39s	2026-09-29T23:01:01Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="collision"><summary>20260930-0635 · collision<span class="delta"># receipt · collision · 2026-09-30T06:35:54+08:00</span></summary><pre># receipt · collision · 2026-09-30T06:35:54+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T06:04:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 59h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 36h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 58h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 63h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="botdoctor"><summary>20260930-0635 · botdoctor<span class="delta"># receipt · botdoctor · 2026-09-30T06:35:52+08:00</span></summary><pre># receipt · botdoctor · 2026-09-30T06:35:52+08:00
+
+what changed: 2 ailment(s) · 10 paused job(s) noted
+
+verb: diagnose machine ailments: fleet, jobs, pipeline
+first seen: 2026-09-30T06:04:52+08:00
+
+## evidence (raw tool output)
+
+```
+(watchdog silent — healthy)
+completed	success	comms: refresh machine-room page (2026-09-29T22:29Z)	convergence-validate	master	push	36639922790	18s	2026-09-29T22:30:01Z
+completed	failure	comms: refresh machine-room page (2026-09-29T22:29Z)	public-surface-check	master	push	36639922653	3m44s	2026-09-29T22:30:01Z
+completed	success	comms: refresh machine-room page (2026-09-29T22:29Z)	Route Registration	master	push	36639922638	13s	2026-09-29T22:30:01Z
+completed	success	comms: refresh machine-room page (2026-09-29T22:29Z)	gitleaks	master	push	36639922629	13s	2026-09-29T22:30:01Z
+completed	success	pages build and deployment	pages-build-deployment	master	dynamic	36639921775	29s	2026-09-29T22:30:00Z
+kage/eyedrops-reminder paused · kestrel/glyph-avatar paused · kestrel/nexus-board paused · kestrel/repetition-audit-24h paused · lam4000/overnight-extraction-kernel-build paused · lam4000/overnight-batch2-extkernel paused · mahshroom/email-hygiene-check paused — Script exited with code 1 stderr: [email-hygiene-check] 🔴 em · mahshroom/fleet-pulse paused · operator/nightly-memory-consolidation paused · thisjustthing/spy-gateway-health paused
+```
+</pre></details><details data-loop="collision"><summary>20260930-0604 · collision<span class="delta"># receipt · collision · 2026-09-30T06:04:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T06:04:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T05:33:54+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 59h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 35h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 58h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 63h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0533 · collision<span class="delta"># receipt · collision · 2026-09-30T05:33:54+08:00</span></summary><pre># receipt · collision · 2026-09-30T05:33:54+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T05:02:55+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 58h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 35h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 57h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 62h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0502 · collision<span class="delta"># receipt · collision · 2026-09-30T05:02:55+08:00</span></summary><pre># receipt · collision · 2026-09-30T05:02:55+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T04:31:53+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 58h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 34h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 57h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 62h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0431 · collision<span class="delta"># receipt · collision · 2026-09-30T04:31:53+08:00</span></summary><pre># receipt · collision · 2026-09-30T04:31:53+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T04:00:57+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 57h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 34h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 56h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 61h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details><details data-loop="collision"><summary>20260930-0400 · collision<span class="delta"># receipt · collision · 2026-09-30T04:00:57+08:00</span></summary><pre># receipt · collision · 2026-09-30T04:00:57+08:00
+
+what changed: 8 worktree(s) HOLDING WORK · 7 need you
+
+verb: witness agents about to lose work or collide: dirty worktrees, divergence, stamp drift
+first seen: 2026-09-30T03:29:57+08:00
+
+## evidence (raw tool output)
+
+```
+DIRTY /Users/mcvoid/Projects/0xxx0.github.io: 5 file(s)
+DIRTY /private/tmp/kestrel-land-007c: 86 file(s)
+DIRTY /private/tmp/kestrel-land-010: 1 file(s)
+DIRTY /private/tmp/wt-conv: 1 file(s)
+DIRTY /Users/mcvoid/.hermes/profiles/kestrel/cache/scratch/voicescratch: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt: 1 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fi-fold/wt2: 11 file(s)
+DIRTY /Users/mcvoid/void-anchor/AXIS/work/fold-bloom-audit/wt: 1 file(s)
+divergence 0xxx0.github.io: 1	0
+manifest routes checked=156 non-canonical=0
+stale worktree (clean, 57h old): /private/tmp/baseline @ 106958d0
+stale worktree (clean, 33h old): /private/tmp/gate-proof @ 3c624116
+stale worktree (clean, 56h old): /private/tmp/housefold @ 75cadfd5
+stale worktree (clean, 61h old): /private/tmp/kestrel-fovea @ 808b6bfd
+```
+</pre></details></div>
+</div><script>
+function f(q){q=q.toLowerCase();document.querySelectorAll('details').forEach(d=>{
+ d.style.display=(!q||d.textContent.toLowerCase().includes(q))?'':'none';});}
+</script></body></html>
