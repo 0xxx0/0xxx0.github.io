@@ -22,6 +22,7 @@ need(html.includes('function copyHeldAction'),'action handoff missing');
 need(html.includes('function handoffHeldToDayline'),'held Dayline action missing');
 need(html.includes('id="capForecast"'),'pre-commit forecast surface missing');
 need(html.includes('class="capCell capHeldCompat"')&&/\.capHeldCompat\{display:none!important\}/.test(html),'duplicate HELD compatibility cell must stay non-visible');
+need(/id="apOpen"[^>]*hidden/.test(html),'legacy apOpen must stay non-visible while capMoves owns the visible <=3 move set');
 need(html.indexOf('id="capTrial"')>html.indexOf('id="aperture"')&&html.indexOf('id="capTrial"')<html.indexOf('id="refineFold"'),'NEXT/WITNESS continuation not folded into held object');
 need(html.includes('function actionForecastText')&&html.includes('function bindActionForecast'),'forecast projection helpers missing');
 need(carrierJs.includes("interphase-action-forecast/v0.1"),'INTERPHASE action forecast schema missing');
