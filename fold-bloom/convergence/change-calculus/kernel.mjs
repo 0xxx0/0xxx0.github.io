@@ -724,8 +724,8 @@ export function calculationTape({
       }
     )
   ];
-  const ready=stages.filter(x=>x.ready);
-  const active=ready.length?ready.at(-1).id:'SOURCE';
+  const firstOpen=stages.findIndex(x=>!x.ready);
+  const active=firstOpen<0?'RETURN':stages[Math.max(0,firstOpen-1)].id;
   return {
     schema:CHANGE_CALCULUS_SCHEMA+'/calculation-tape',
     authority:'RESEARCH_WITNESS_ONLY',
