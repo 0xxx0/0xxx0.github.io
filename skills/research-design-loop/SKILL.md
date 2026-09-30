@@ -1,7 +1,7 @@
 ---
 name: research-design-loop
 description: Run one bounded research → hypothesis → specimen → evidence → disposition loop against a current CONFLUENCE/FIELD head.
-version: 0.2.1
+version: 0.3.0
 platforms: [macos, linux]
 metadata:
   hermes:
@@ -136,6 +136,45 @@ The gate returns `allowed`, `max_disposition`, and explicit `blockers`. It is an
 A promotion-shaped request fails closed to `PARK` unless it has a primary reference, baseline, falsifier, passing bounded replica, passing transfer test, and evidence. Optimization claims additionally require FIXED / MUTATED / DEV_METRIC / HELD_OUT / REWARD_HACK_CHECK plus independent held-out acceptance. Representation claims additionally require exact source/address identity outside the projection, an explicit loss declaration, raw baseline, and a passing host-relation test.
 
 `node tools/research-donor-gate-selftest.mjs` pins these boundaries against the current MLST / AI Search / Lex seed donors and positive controls.
+
+### Stateless donor field compiler
+
+When several admitted candidates exist, do not convert them into a backlog or let the batch choose its own priority.
+
+Run:
+
+`node tools/research-donor-field.mjs <batch.json>`
+
+The input may be a JSON array or `{"donors":[...]}`. The compiler returns each donor's current evidence lane:
+
+- `UNRESOLVED` — source / role / claim is incomplete;
+- `RECOVER_PRIMARY` — the next move is primary-source recovery;
+- `FRAME_TEST` — baseline, falsifier, held-out or representation contract is incomplete;
+- `REPLICATE` — framing is sufficient; reproduce one named observable;
+- `TRANSFER_TEST` — replica exists; test the mechanism in the named host;
+- `READY` — evidence gate passes; native host review is the only lawful next move;
+- `PARK` — deliberately retained without continuation.
+
+The batch never selects a winner. To compile one explicitly selected donor into an executable evidence-debt action:
+
+`node tools/research-donor-field.mjs <batch.json> --select "<exact SOURCE_ID>"`
+
+The selected result emits an action packet and runs it through the existing FIELD egress reducer. An actionable selection becomes FIELD `NEXT`; explicit `PARK` becomes `ARCHIVE`. It never emits `NOW`, never raises host effect authority, and does not persist a queue.
+
+This is the usable loop:
+
+```
+DONOR BATCH
+→ EVIDENCE LANE
+→ EXPLICIT SELECTION
+→ ONE BOUNDED NEXT
+→ REPLICA / TRANSFER EVIDENCE
+→ DONOR GATE
+→ HOST REVIEW
+→ RETURN
+```
+
+`node tools/research-donor-field-selftest.mjs` pins the no-self-priority, PARK→ARCHIVE, evidence-debt→NEXT, and READY-without-effect-authority boundaries.
 
 ### Replicate before transfer
 

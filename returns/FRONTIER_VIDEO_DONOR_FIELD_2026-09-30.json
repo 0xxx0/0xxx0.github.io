@@ -1,0 +1,62 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-09-30",
+  "object": "frontier research donor field as an operational stateless reducer",
+  "status": "BOUNDED_IMPLEMENTED_BRANCH",
+  "state": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
+  "delta": [
+    "Added tools/research-donor-field.mjs, a stateless batch compiler over the existing donor gate.",
+    "Each donor is reduced to one evidence lane: UNRESOLVED, RECOVER_PRIMARY, FRAME_TEST, REPLICATE, TRANSFER_TEST, READY, or PARK.",
+    "The batch explicitly refuses to self-prioritize; an exact SOURCE_ID must be selected before any next action is compiled.",
+    "A selected actionable donor becomes one PREPARE_ONLY action packet and is reduced through the existing FIELD egress reducer to NEXT.",
+    "An explicit PARK compiles through the same egress reducer to ARCHIVE.",
+    "READY means evidence-eligible for native host review only; donor tooling cannot emit NOW or grant host effect authority.",
+    "research-design-loop advanced to 0.3.0 with ordinary-use instructions for batch → lane → explicit selection → one action → evidence → host review → RETURN.",
+    "CI now includes the donor-field self-test alongside the donor admission gate.",
+    "Recovered Weco AIDE² primary evidence into control/research/WECO_AIDE2_DONOR_2026-09-30.json; the real Jiang/Weco donor now reduces from RECOVER_PRIMARY to REPLICATE rather than remaining a podcast-derived claim."
+  ],
+  "evidence": {
+    "repository": [
+      "tools/research-donor-field.mjs",
+      "tools/research-donor-field-selftest.mjs",
+      "tools/research-donor-gate.mjs",
+      "lib/field-egress-reducer.mjs",
+      "skills/research-design-loop/SKILL.md",
+      "control/research/FRONTIER_VIDEO_DONOR_RAID_2026-09-30.md",
+      ".github/workflows/public-surface-check.yml",
+      "control/research/WECO_AIDE2_DONOR_2026-09-30.json"
+    ],
+    "selftest_contract": [
+      "batch does not choose its own priority",
+      "selected evidence debt compiles to existing FIELD NEXT",
+      "PARK compiles to ARCHIVE",
+      "READY still requires native host authority",
+      "unknown selection fails closed"
+    ],
+    "external_primary": [
+      "Weco AIDE² primary report — https://www.weco.ai/blog/first-evidence-of-recursive-self-improvement",
+      "Recursive self-improvement of AI research agents — arXiv:2609.26457",
+      "SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents — arXiv:2605.21384"
+    ]
+  },
+  "value": [
+    "Channel research can now be operated as a bounded instrument rather than read as a research note.",
+    "Evidence debt is converted into one exact action instead of an accumulating backlog.",
+    "The research loop reuses FIELD egress semantics rather than creating a competing workflow state machine.",
+    "Selection authority remains outside the batch and host effect authority remains outside the donor field.",
+    "The first real donor has traversed one field transition: source recovery debt is closed and the next lawful state is a bounded replica."
+  ],
+  "authority": "Explicit user request on 2026-09-30 to turn the donor field and research loop into something usable while keeping convergence empirical and the reducer move tight.",
+  "runtime_changes": "Repository CLI/reducer tooling only; no public runtime route.",
+  "public_surface_changes": "NONE",
+  "residue": [
+    "The compiler intentionally does not fetch transcripts or primary sources itself; source recovery remains a web/recovery operation and exact evidence is fed back into the packet.",
+    "The field intentionally does not rank candidates or persist attention.",
+    "Weco AIDE² transfer remains denied until the bound replica and independent host transfer test pass at fixed model/tool budget."
+  ],
+  "waiting": [],
+  "next": [
+    "When a donor is explicitly selected by CURRENT/user context, feed its bounded packet through the compiler, execute only the emitted evidence action, then RETURN; no automatic sequel."
+  ],
+  "stop": "No donor dashboard, watcher, autonomous media backlog, second egress grammar, host authority layer, or transcript store."
+}
