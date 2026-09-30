@@ -82,7 +82,11 @@
     "manual BANK inherits the last explicitly requested edit operation and labels it visibly as REPLACE / ADD AFTER / NEXT LINE",
     "additive previews preserve the anchor token in PAGE/MAP; only REPLACE substitutes display text",
     "NEXT LINE revision ancestry records the resulting line address and original anchor token",
-    "source authority epoch: an explicit parse/source selection invalidates any older in-flight FIELD NOW fetch, so stale async preload cannot overwrite newer authored text"
+    "source authority epoch: an explicit parse/source selection invalidates any older in-flight FIELD NOW fetch, so stale async preload cannot overwrite newer authored text",
+    "optional LANGUAGE / CORPUS / TRANSFER drawer keeps CText, COPE, Wenyan and English-Jueju transfer beside the writing surface without making any one of them source authority",
+    "CText lookup is explicit and focus-bounded: only the selected token/word is placed in the clicked dictionary URL; the poem/source is never sent automatically",
+    "English Jueju 5 and 7 are declared local transfer adapters: four lines, five/seven English words, approximate monosyllable checks, AABA rhyme target, 2+3 / 2+2+3 unit guides, and 起→承→轉→合 orientation",
+    "COPE and Wenyan remain external specialist engines and receive no source automatically"
   ],
   "boundaries": [
     "VERSE COPILOT is the product face; Poem Map is retained as engine lineage / relation projection, not sovereign identity.",
@@ -115,7 +119,12 @@
     "NEXT LINE is explicit: it may fill the immediate blank slot or insert one line after the anchor, but never auto-generates text.",
     "Additive TRY previews may project the candidate beside/below the anchor, but cannot visually impersonate replacement of the anchor token.",
     "FIELD NOW preload is convenience, not source authority: once a newer explicit source parse exists, an older async preload must abort without mutation.",
-    "STALE/CANCELLED preload is not FIELD-unavailable: cancellation returns no mutation signal and may not trigger the TINY DEMO fallback."
+    "STALE/CANCELLED preload is not FIELD-unavailable: cancellation returns no mutation signal and may not trigger the TINY DEMO fallback.",
+    "English Jueju adapters model the University of Oklahoma/Newman transfer rules as an English experiment; they do not claim historical Tang phonology, 平仄 equivalence, or literary quality.",
+    "English monosyllable and rhyme checks are lightweight local heuristics; they are admissibility hints, not authoritative prosody.",
+    "CText lookup is evidence navigation only: corpus/dictionary presence does not become semantic or authorial truth.",
+    "COPE/Wenyan links are explicit exits. No poem bytes or inferred transformation are transmitted automatically.",
+    "Wordless is retained as an interaction law (visible consequence before explanation), not a lexical/semantic provider."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -130,7 +139,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "state": "CANDIDATE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -189,13 +198,15 @@
     "recenter_pr": 394,
     "recenter_merge": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
     "verified_master": "4031fd0d5d4267481579db3d3ccea411d5acff11",
-    "source_authority_epoch": "PENDING_PR_CI · exact existing browser focus-return probe must pass after explicit source is chosen before FIELD NOW preload settles"
+    "source_authority_epoch": "PENDING_PR_CI · exact existing browser focus-return probe must pass after explicit source is chosen before FIELD NOW preload settles",
+    "language_lenses": "PENDING_PR_CI · selected-token CText URL + no automatic COPE/Wenyan source transfer",
+    "english_jueju_transfer": "PENDING_PR_CI · 4×5/4×7 form declarations + word/mono/AABA/unit support contracts"
   },
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "next_bounded_test": {
     "state": "USE_FIRST",
-    "instruction": "Use the Copilot for ordinary writing. Only transfer another donor mechanism when a concrete writing job cannot be done with the current choice loop.",
-    "stop": "Do not rebuild Market+Solver, Pathweaver or Grid Path inside Copilot merely for visual unity."
+    "instruction": "Use ordinary writing first. Open LANGUAGE / CORPUS only when a selected token or declared form needs evidence. Reopen provider work only if CText/COPE evidence or English-Jueju constraints solve a concrete writing defect.",
+    "stop": "Do not absorb CText, COPE or Wenyan into Verse authority; do not turn English Jueju into a claim of historical equivalence."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
