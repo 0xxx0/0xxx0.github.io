@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   LIVE_CHANGE_BRIDGE_SCHEMA,createLiveChangeBridgeState,reduceLiveChangeBridge,
-  captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn
+  captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveConvergenceFrontier,liveChangeBridgeReturn
 } from '../live-change-bridge.js';
+import {stateFrontierCalculation} from '../../convergence/change-calculus/kernel.mjs';
 
 const op=(seq,verb,extra={})=>({
   schema:'field-pulse/v0.1',
@@ -218,6 +219,49 @@ test('direction support exposes native candidate ambiguity without acquiring eff
   const returned=liveChangeBridgeReturn(s);
   assert.equal(returned.steering_support.status,'MULTIPLE_NATIVE_CANDIDATES');
   assert.equal(returned.authority,'WITNESS_ONLY');
+});
+
+test('converged NEXT exposes exact residue and current host/model support at the same manipulation site',()=>{
+  const aperture=native(1,0,{verb:'SPLIT',chain:1,candidates:2},[
+    {slot:2,verb:'SPLIT',chain:1,cadence:null,span:0,power:1,path:[2]},
+    {slot:7,verb:'SPLIT',chain:2,cadence:null,span:1,power:1.2,path:[7,8]},
+    {slot:5,verb:'FOLD',chain:1,cadence:null,span:0,power:.8,path:[5]}
+  ]);
+  let s=createLiveChangeBridgeState();
+  s=reduceLiveChangeBridge(s,op(1,'BLOOM',{nativeForecast:aperture}));
+  s=reduceLiveChangeBridge(s,{
+    schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'j',kind:'steering',seq:2,wall:2000,
+    data:{authority:'NONE',direction_label:'SPLIT',direction_ref:'dir://split',strength:.6}
+  },{now:2050});
+  const from={
+    ok:true,live_instance:'live-a',
+    exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],
+    hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:1,last_seq:6
+  };
+  const to={
+    ok:true,live_instance:'live-a',
+    exact_form:['FOLD','SPLIT','SPLIT','RETURN','FOLD','FOLD'],
+    hex_token:'H[100|011]',bits:[1,0,0,0,1,1],first_seq:7,last_seq:12
+  };
+  const frontier=stateFrontierCalculation('110|011','100|011',null,0);
+  const x=liveConvergenceFrontier(s,from,to,frontier);
+  assert.equal(x.ok,true);
+  assert.equal(x.authority,'RESEARCH_WITNESS_ONLY');
+  assert.equal(x.exact_path_projection.exact_changed_lines,3);
+  assert.equal(x.exact_path_projection.quotient_changed_lines,1);
+  assert.equal(x.exact_path_projection.exact_paths_per_visible_path,6);
+  assert.equal(x.exact_path_projection.path_information_loss_bits,2.584963);
+  assert.deepEqual(x.quotient_invisible_residue.map(row=>row.line),[1,5]);
+  assert.equal(x.candidates.length,1);
+  assert.equal(x.candidates[0].line,2);
+  assert.equal(x.candidates[0].exact.from_verb,'FOLD');
+  assert.equal(x.candidates[0].exact.to_verb,'SPLIT');
+  assert.equal(x.candidates[0].support.native_candidate_count,2);
+  assert.deepEqual(x.candidates[0].support.native_candidate_slots,[2,7]);
+  assert.equal(x.candidates[0].support.model_direction_aligned,true);
+  assert.equal(x.candidates[0].support.model_supported_native_count,2);
+  assert.equal(x.quotient_invisible_residue[0].support.model_direction_aligned,false);
+  assert.equal(x.native_epoch.seq,1);
 });
 
 test('RETURN keeps window, captures, comparison and steering as witness-only evidence',()=>{
