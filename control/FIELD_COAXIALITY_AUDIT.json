@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/field-coaxiality-audit/v0.1",
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "status": "NORMATIVE_EXECUTABLE",
   "purpose": "Turn FIELD COAXIALITY invariants A-H into a repo-level keep/repair/delete gate. The audit validates claims; it does not create a UI, state store, semantic mapping, or execution authority.",
   "verdicts": {
@@ -155,7 +155,7 @@
       "carrier": "/lib/interphase-ring.js",
       "claim": "Two dial positions share one held relative-state space; the host maps neutral SAME/NEAR/FAR/OPPOSITE relations to BLOOM/FOLD/RETURN/SPLIT.",
       "decision": "PROVE_OR_DECOAXIALIZE",
-      "repair_boundary": "A-G are now proved. Do not promote to KEEP until H_COMPRESSION is tested against a named plain non-coaxial baseline under ordinary use. If the two-dial relation does not reduce exposed interaction/learning burden while retaining function, de-coaxialize/delete rather than add explanation chrome.",
+      "repair_boundary": "A-G are proved. H_COMPRESSION remains ordinary-use gated. The plain baseline is corrected to preserve TWO DIAL's existing semantic commit boundary: PLAY/OPEN/SCALE commit on each axis release/change; DUET preserves the host's existing coalescing rule. No extra COMMIT control is allowed because it would suppress intermediate causal consequences and change undo/phrase/memory trajectories. Do not promote to KEEP until ordinary use compares this functionally equivalent baseline.",
       "tests": {
         "A_STATE": {
           "verdict": "PASS",
@@ -216,27 +216,42 @@
           "verdict": "INDETERMINATE",
           "evidence": [
             "No durable ordinary-use comparison yet demonstrates that the coaxial two-dial interaction removes more exposed interaction/learning burden than a simpler functionally equivalent non-coaxial control.",
-            "H gate baseline is fixed as two independent six-position plain controls + explicit relation readout + COMMIT, preserving the same 36 pair states and host relation mapping without coaxial/radial geometry."
+            "The previous PLAIN_PAIR_6X6 + explicit COMMIT proposal was rejected as non-equivalent: current PLAY/OPEN/SCALE semantics commit on each pointer release, so sequentially changing both dials may lawfully produce an intermediate causal consequence.",
+            "Corrected baseline PLAIN_PAIR_6X6_RELEASE_COMMIT uses two independent six-position plain controls + explicit relation readout and preserves the same release/change commit boundary, including DUET coalescing; it adds no separate COMMIT control.",
+            "/tools/two-dial-compression-baseline-selftest.cjs locks baseline/host commit-boundary parity; /returns/FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json records the correction."
           ]
         }
       },
       "compression_gate": {
         "status": "ORDINARY_USE_REQUIRED",
-        "baseline": "PLAIN_PAIR_6X6",
+        "baseline": "PLAIN_PAIR_6X6_RELEASE_COMMIT",
         "controlled": [
           "same 36 MATTER×HARMONY pair states",
           "same SAME/NEAR/FAR/OPPOSITE host mapping",
           "same BLOOM/FOLD/RETURN/SPLIT consequence path",
           "same world/voice/groove/scope",
-          "same RETURN/export law"
+          "same RETURN/export law",
+          "same semantic commit boundary and intermediate consequence trajectory"
         ],
         "varied": [
           "TWO_DIAL: direct cyclic spatial manipulation",
-          "PLAIN_PAIR_6X6: two independent six-position plain controls + explicit relation readout + COMMIT"
+          "PLAIN_PAIR_6X6_RELEASE_COMMIT: two independent six-position plain controls + explicit relation readout; each control change/release commits under the same mode rules; no separate COMMIT control"
         ],
-        "pass": "Ordinary use shows TWO_DIAL reaches and revisits intended pair/relation states with less exposed interaction or learning burden while retaining the same functional state space and RETURN.",
-        "fail": "PLAIN_PAIR_6X6 is equal or easier to understand/operate, or TWO_DIAL requires additional explanation/mode memory that cancels its control compression.",
-        "boundary": "Do not infer PASS from code size, aesthetics, novelty, task completion alone, or subjective preference without a same-task baseline."
+        "baseline_contract": {
+          "play_open_scale": {
+            "commit": "EACH_CONTROL_RELEASE_OR_CHANGE"
+          },
+          "duet": {
+            "commit": "MATCH_EXISTING_DUET_COALESCING"
+          },
+          "no_extra_commit_control": true,
+          "intermediate_consequence": "PRESERVE",
+          "undo_boundary": "ONE_LAST_SEMANTIC_COMMIT",
+          "purpose": "Vary control geometry only; do not alter causal scheduling."
+        },
+        "pass": "Ordinary use shows TWO_DIAL reaches and revisits intended pair/relation states with less exposed interaction or learning burden while retaining the same functional state space, causal commit trajectory and RETURN.",
+        "fail": "PLAIN_PAIR_6X6_RELEASE_COMMIT is equal or easier to understand/operate, or TWO_DIAL requires additional explanation/mode memory that cancels its control compression.",
+        "boundary": "Do not infer PASS from code size, aesthetics, novelty, task completion alone, synthetic action counts alone, or subjective preference without a same-task baseline. Machine checks establish functional parity; H remains INDETERMINATE until ordinary use supplies comparative burden evidence."
       }
     }
   ],
