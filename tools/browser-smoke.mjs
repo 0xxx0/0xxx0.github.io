@@ -254,6 +254,8 @@ function fieldCarrierInPlaceProbeHtml(){
     rec.actionSchema=surface?.schema||null;rec.hold=surface?.hold?.action||null;
     rec.next=carrier.next.map(x=>x.label);
     rec.actions=(surface?.actions||[]).map(x=>x.action+' · '+x.label);
+    rec.forecasts=(surface?.actions||[]).map(x=>x.forecast?.effect+' · '+x.forecast?.commit+' · '+x.forecast?.sourceMutation);
+    rec.forecastText=D().getElementById('capForecast')?.textContent||'';
     rec.return=surface?.return?.address||carrier.return.address;
     rec.cadence=(surface?.cadence||[]).map(x=>x.phase+' / '+x.office);
     rec.heldTitle=D().getElementById('apTitle')?.textContent||'';
@@ -263,7 +265,7 @@ function fieldCarrierInPlaceProbeHtml(){
     rec.legacySeen=W().localStorage.getItem('field.interphase.visor.seen.v01');
     rec.overflow=Math.max(D().documentElement.scrollWidth,D().body.scrollWidth)-D().documentElement.clientWidth;
     const expectedCadence=['WAKE / SOURCE','CUT / FRAME','HOLD / FOCUS','TURN / OPERATE','TRACE / WITNESS','AGAIN / RETURN'];
-    const ok=rec.focus==='/docs/'&&rec.object==='/docs/'&&rec.owner==='READFIELD'&&rec.authority==='NONE / HANDOFF ONLY'&&rec.actionSchema==='interphase-action-surface/v0.1'&&rec.hold==='HOLD'&&rec.next.length>=1&&rec.next.length<=3&&rec.next.includes('OPEN NATIVE')&&rec.next.includes('INTERPHASE → DAYLINE')&&rec.actions.includes('TURN · OPEN NATIVE')&&rec.actions.includes('TURN · INTERPHASE → DAYLINE')&&rec.return==='/?focus=%2Fdocs%2F'&&JSON.stringify(rec.cadence)===JSON.stringify(expectedCadence)&&rec.heldPath.includes('/docs/')&&rec.refine&&rec.duplicateGuide===false&&rec.overflow<=1;
+    const ok=rec.focus==='/docs/'&&rec.object==='/docs/'&&rec.owner==='READFIELD'&&rec.authority==='NONE / HANDOFF ONLY'&&rec.actionSchema==='interphase-action-surface/v0.1'&&rec.hold==='HOLD'&&rec.next.length>=1&&rec.next.length<=3&&rec.next.includes('OPEN NATIVE')&&rec.next.includes('INTERPHASE → DAYLINE')&&rec.actions.includes('TURN · OPEN NATIVE')&&rec.actions.includes('TURN · INTERPHASE → DAYLINE')&&rec.forecasts.includes('NAVIGATION_ONLY · NAVIGATION · NONE')&&rec.forecasts.includes('OFFER_ONLY · RECEIVER_ACCEPTS · NONE')&&/FORECAST · NAVIGATION_ONLY · COMMIT NAVIGATION/.test(rec.forecastText)&&rec.return==='/?focus=%2Fdocs%2F'&&JSON.stringify(rec.cadence)===JSON.stringify(expectedCadence)&&rec.heldPath.includes('/docs/')&&rec.refine&&rec.duplicateGuide===false&&rec.overflow<=1;
     done(ok,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
@@ -1171,7 +1173,7 @@ const CASES=[
     name:'FIELD held INTERPHASE carrier in-place',
     route:'/__smoke/field-carrier-in-place',
     options:{width:520,height:940,budget:18000,timeout:26000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"object":"\/docs\/"/.test(dom)&&/"authority":"NONE \/ HANDOFF ONLY"/.test(dom)&&/"duplicateGuide":false/.test(dom)&&/"overflow":0/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"object":"\/docs\/"/.test(dom)&&/"authority":"NONE \/ HANDOFF ONLY"/.test(dom)&&/"forecasts":\["NAVIGATION_ONLY · NAVIGATION · NONE","OFFER_ONLY · RECEIVER_ACCEPTS · NONE","READ_ONLY · NO_COMMIT · NONE"\]/.test(dom)&&/"forecastText":"FORECAST · NAVIGATION_ONLY · COMMIT NAVIGATION/.test(dom)&&/"duplicateGuide":false/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
