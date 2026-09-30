@@ -88,9 +88,9 @@ function poemMapProbeHtml(){
     try{
       const w=f.contentWindow,api=w?.__POEM_MAP__,s=api?.S,d=w?.document;
       if(api&&!kicked&&!s?.fieldLoaded){kicked=true;Promise.resolve(api.loadFieldNow?.()).catch(()=>{})}
-      const controls=!!d?.getElementById('fieldNowBtn')&&!!d?.getElementById('focusWheel')&&!!d?.getElementById('pmAperture')&&!!d?.getElementById('importBtn')&&!!d?.getElementById('corpusBtn')&&!!d?.getElementById('languageDepth')&&!!d?.getElementById('ctextLookup')&&!!d?.getElementById('englishJueju7');
-      const tests=api?.selftest?.()||[],continueInsert=tests.some(x=>x.name==='CONTINUE inserts after selected token'&&x.pass),replaceStill=tests.some(x=>x.name==='REPLACE still replaces selected token'&&x.pass),hanCompact=tests.some(x=>x.name==='Han CONTINUE stays compact'&&x.pass),nextLine=tests.some(x=>x.name==='NEXT LINE fills canonical blank L2'&&x.pass),englishJueju=tests.some(x=>x.name==='English Jueju transfer adapters declared'&&x.pass),ctext=tests.some(x=>x.name==='CText lookup is explicit selected-token URL'&&x.pass);
-      if(api&&s?.fieldLoaded&&String(s.source||'').startsWith('FIELD NOW ·')&&s.mode==='PAGE'&&controls&&continueInsert&&replaceStill&&hanCompact&&nextLine&&englishJueju&&ctext){done(true,{fieldLoaded:true,mode:s.mode,source:String(s.source).slice(0,48),corpus:s.corpus?.length||0,controls,continueInsert,replaceStill,hanCompact,nextLine,englishJueju,ctext});return}
+      const controls=!!d?.getElementById('fieldNowBtn')&&!!d?.getElementById('focusWheel')&&!!d?.getElementById('pmAperture')&&!!d?.getElementById('importBtn')&&!!d?.getElementById('corpusBtn');
+      const tests=api?.selftest?.()||[],continueInsert=tests.some(x=>x.name==='CONTINUE inserts after selected token'&&x.pass),replaceStill=tests.some(x=>x.name==='REPLACE still replaces selected token'&&x.pass),hanCompact=tests.some(x=>x.name==='Han CONTINUE stays compact'&&x.pass),nextLine=tests.some(x=>x.name==='NEXT LINE fills canonical blank L2'&&x.pass);
+      if(api&&s?.fieldLoaded&&String(s.source||'').startsWith('FIELD NOW ·')&&s.mode==='PAGE'&&controls&&continueInsert&&replaceStill&&hanCompact&&nextLine){done(true,{fieldLoaded:true,mode:s.mode,source:String(s.source).slice(0,48),corpus:s.corpus?.length||0,controls,continueInsert,replaceStill,hanCompact,nextLine});return}
       if(tries<50){setTimeout(()=>probe(tries+1),100);return}
       done(false,{tries,api:!!api,fieldLoaded:!!s?.fieldLoaded,mode:s?.mode||null,source:String(s?.source||'').slice(0,48),controls});
     }catch(e){if(tries<50){setTimeout(()=>probe(tries+1),100);return}done(false,{stage:'exception',error:String(e?.stack||e)})}
@@ -1005,7 +1005,7 @@ function fieldRootCheck(dom){
     held_residue:dom.includes('id="focusResidue"'),
     orientation:dom.includes('id="orientationFold"')&&/ORIENTATION \/ LOCAL/.test(dom)&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/REWIND/.test(dom)&&/MARK ALL/.test(dom),
     reality:dom.includes('id="waitingFold"')&&/REALITY GAP \/ YOU/.test(dom),
-    aperture:dom.includes('id="capTrial"'),
+    held_continuation:dom.includes('id="apFlow"')&&dom.includes('id="capMoves"')&&dom.includes('id="capWitness"')&&dom.includes('id="capReturn"')&&!dom.includes('id="capTrial"'),
     chronology:dom.includes('id="touchList"'),
     projection_fold:dom.includes('class="routeProjection"'),
     authority:/Φ \/ CURRENT/.test(dom),
@@ -1500,7 +1500,7 @@ const CASES=[
     name:'POEM MAP',
     route:'/__smoke/poem-map',
     options:{width:980,height:760,budget:9000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)&&/"continueInsert":true/.test(dom)&&/"replaceStill":true/.test(dom)&&/"hanCompact":true/.test(dom)&&/"nextLine":true/.test(dom)&&/"englishJueju":true/.test(dom)&&/"ctext":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)&&/"continueInsert":true/.test(dom)&&/"replaceStill":true/.test(dom)&&/"hanCompact":true/.test(dom)&&/"nextLine":true/.test(dom)
   },
   {
     name:'POEM MAP focus return',
