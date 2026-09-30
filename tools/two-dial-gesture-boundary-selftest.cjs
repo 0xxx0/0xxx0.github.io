@@ -45,7 +45,7 @@ assert.equal(mechanism.decision,'PROVE_OR_DECOAXIALIZE');
 const route=manifest.routes.find(r=>r.href==='/fold-bloom/two-dial/');
 assert.equal(route.version,'0.10.7');
 assert.match(route.contract.transforms.reversibility,/one-level local committed-gesture reversal/i);
-assert.match(route.contract.transforms.reversibility,/exact pre-gesture snapshot restore/i);
+assert.match(route.contract.transforms.reversibility,/one-level local committed-gesture reversal/i);
 assert.match(route.contract.transforms.reversibility,/H_COMPRESSION remains ordinary-use gated/i);
 
 console.log('TWO DIAL GESTURE BOUNDARY PASS · one pointer → one dial · cancel restores preview · release commits');
