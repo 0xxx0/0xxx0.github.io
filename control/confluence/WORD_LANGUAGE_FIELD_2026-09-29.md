@@ -61,9 +61,9 @@ CTP URNs, full text and text-analysis tooling can support provenance, lookup and
 
 Reference: University of Oklahoma / Newman Prize for English Jueju.
 
-Role here: **explicit transfer experiment**.
+Role here: **implemented bounded transfer adapter in Verse Copilot**.
 
-A published English-jueju tradition uses four lines with seven syllables, often monosyllabic English, to preserve some Jueju-like structural constraints. This is not historical Tang phonology/prosody. Keep preserved/lost constraints explicit.
+The current adapter supports four-line 5- or 7-word monosyllabic English, 2+3 / 2+2+3 grouping, approximate AABA checking, and 起→承→轉→合 as explicit author judgment. University of Oklahoma / Newman Prize teaching material is the declared current source. This is not historical Tang phonology/prosody; deeper sound/meaning parallelism remains OPEN.
 
 ## Current convergence law
 
@@ -97,5 +97,12 @@ Do not add another editor.
 Use ordinary held-source flow first. The next transfer should be named by friction:
 - if options are weak → graft a COPE/CText-backed evidence provider;
 - if open composition is weak → deepen Pathweaver carry/return;
-- if English-Jueju constraints are genuinely desired → implement a declared transfer adapter with preserved/lost rules;
+- English-Jueju transfer is implemented; reopen only for a concrete writing defect or a named deeper rule/evidence need;
 - if Wenyan becomes active → verify the current compiler atomically before integrating any executable projection.
+
+
+## 2026-09-30 behavior proof
+
+The transfer now earns its place through behavior, not labels alone: AABA repeated groups are checked by the same approximate sound-tail heuristic already disclosed by Verse; direct `?form=enjueju7` entry starts from an empty four-line board rather than forcing FIELD NOW into the form; `2 | 2 | 3` / `2 | 3` is surfaced as a **WORDLESS BOARD** scaffold; and 起承轉合 remains **AUTHOR JUDGMENT**, never an automatic semantic score.
+
+Unequal donor roles remain: **CText = evidence lookup; COPE = regulated-verse editor donor; Wenyan = language→code projection; Wordless = gesture/scaffold donor.**
