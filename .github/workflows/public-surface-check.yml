@@ -66,6 +66,19 @@ jobs:
           node tools/field-machine-reducer-selftest.mjs
           node scripts/emit-agent-transcript.mjs --selftest
           node scripts/generate-convergence-strip.mjs --selftest
+          node - <<'NODE'
+          const fs = require('fs');
+          const retired = ['control/convergence-strip.json','control/convergence-plain.md'];
+          const present = retired.filter((p) => fs.existsSync(p));
+          if (present.length) throw new Error('STATIC CONVERGENCE SNAPSHOT REINTRODUCED: ' + present.join(', '));
+          const field = fs.readFileSync('index.html','utf8');
+          if (!field.includes('id="convRead"') ||
+              !field.includes('composed on read from') ||
+              !field.includes('CURRENT</a> owns attention')) {
+            throw new Error('FIELD live convergence authority contract missing');
+          }
+          console.log('CONVERGENCE READ PASS · one live /#convRead · no static snapshots');
+          NODE
       - name: Validate FIELD reversibility semantics
         run: node tools/field-reversibility-selftest.mjs
       - name: Validate FIELD held action aperture
