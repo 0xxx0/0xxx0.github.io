@@ -37,7 +37,7 @@ Do not merge toilet location, toileting activity, bathing, journey, physiology, 
 
 The previously repeated “11% of in-hospital cardiac arrests occur in toilets” claim is false.
 
-**11.1% | 101 | 907 | adults with non-traumatic cardiac arrest occurring at home or nursing home and transported to one ED | toilet within home/nursing-home setting | Japan | 2006–2009 | retrospective ED cohort | Kiyohara et al. / PMCID PMC3590314**
+**11.1% | 101 toilet arrests | 907 non-traumatic cardiac arrests | adults ≥20 whose arrest occurred at home or a nursing home and who were brought to one teaching-hospital ED | toilet within home/nursing-home setting | Japan, single teaching-hospital catchment | January 2006–December 2009 | retrospective single-centre ED cohort | Inamasu & Miyatake, 2013 / PMCID PMC3590314**
 
 This is not an inpatient-hospital denominator and must never be represented as one.
 
@@ -55,9 +55,9 @@ This demonstrates a reproducible location cluster, not exposure-normalized exces
 
 ### C2 — observability discriminator
 
-**3.0% | 75 toilet-associated fatal OHCAs | 2,463 fatal OHCAs | persons age 5–50 with autopsy-confirmed cardiac or unascertained fatal OHCA | toilet vs elsewhere | Denmark + Victoria, Australia | registry periods reported in study | linked sudden-death/forensic registries | Paratz et al., 2025**
+**3.0% | 75 toilet-associated fatal OHCAs | 2,463 fatal OHCAs | persons age 5–50 with autopsy-confirmed cardiac or unascertained fatal OHCA | toilet vs explicitly non-toilet location | national Denmark + state-wide Victoria, Australia | Denmark 2000–2019; Victoria 2019–2023 | linked sudden-death/forensic/ambulance registries with autopsy inclusion | Paratz et al., 2025**
 
-Within the same study:
+Within the same study, the C2 population/setting/geography/period/method/source metadata above apply to each comparison below; only the available-case denominator changes where stated:
 - witnessed: **13.3% | 10 | 75** toilet vs **32.1% | 753 | 2,388** elsewhere;
 - bystander CPR: **32.0% | 24 | 75** vs **55.7% | 818 | 2,388**;
 - shockable rhythm: **5.9% | 3 | 51 with rhythm data** vs **23.8% | 349 | 1,467 with rhythm data**;
@@ -67,7 +67,7 @@ Interpretation: strong support for an **observability/resuscitation disadvantage
 
 ### C3 — activity ≠ room
 
-**46.9% | 46 toileting-related falls | 98 first inpatient falls | hospitalized adult fallers | toileting need/activity | large urban academic hospital, St Louis, USA | 2003 study window | case-control + adverse-event review | Krauss et al., 2005**
+**46.9% | 46 toileting-related falls | 98 first inpatient falls | hospitalized adults ≥18 who fell | toileting need/activity, not necessarily bathroom location | Barnes-Jewish Hospital, St Louis, Missouri, USA | June 6–July 18, 2003 | case-control study using online adverse-event reports plus clinical data | Krauss et al., 2005**
 
 Only **17.4% | 8 | 46 toileting-related falls** occurred in the bathroom.
 
@@ -83,9 +83,9 @@ urge → bed exit → stand → orient → walk → threshold → transfer → t
 
 ### C4 — Singapore nursing-home signal
 
-**15.9% | 10 bathroom-related falls | 63 documented falls | 95 nursing-home residents | bathroom-related contributory factor | one nursing home | Singapore | 18 months | follow-up study using case notes + examination | Yap et al., 2003**
+**15.9% | 10 bathroom-related falls | 63 documented falls | 95 residents | bathroom-related contributory factor | one voluntary-welfare nursing home | Singapore | 18-month follow-up; exact calendar dates not reported on the public article page | follow-up study using baseline examination/casenotes and end-period casenote review | Yap et al., 2003**
 
-Also:
+Also, the C4 population/setting/geography/period/method/source metadata above apply to these contributory/activity categories:
 - wheelchair/commode related: **22.2% | 14 | 63 falls**;
 - ambulation-related: **31.7% | 20 | 63 falls**;
 - transfer-related: **17.5% | 11 | 63 falls**.
@@ -129,7 +129,9 @@ No representative toilet-occupancy distribution sufficient to populate this deno
 
 ### Historical exposure-adjusted signal
 
-Hayashi et al. (1996) studied **149 non-fatal acute myocardial infarctions + 110 sudden cardiac deaths** and compared the activity immediately before onset with expected counts derived from the average time Japanese people spent in each activity. Toilet use was among the activities whose observed incidence was high relative to the uniform-exposure expectation.
+**259 cases | 149 non-fatal acute myocardial infarctions + 110 sudden cardiac deaths | 259 included cases | people with non-fatal AMI or SCD as defined by the study | activity immediately before onset, not room-location surveillance | Japan; exact patient recruitment geography not established from the accessible abstract | accrual period not stated in the accessible abstract; published 1996 | observed onset activity compared with expected counts derived from average Japanese activity-time under a uniform-incidence assumption | Hayashi et al., 1996 / PMID 8996685**
+
+Toilet use was among the activities whose observed incidence was high relative to the time-use expectation.
 
 This matters because it prevents the false statement that exposure adjustment has never been attempted. It does **not** supply the modern denominator required here: representative toilet person-hours stratified by age, frailty, disease, medication, setting, visit duration and time of day.
 
@@ -301,7 +303,7 @@ non-response escalation
 
 ## SOURCES / PRIMARY ANCHORS
 
-- Kiyohara et al. 2013, *Cardiac arrest in the toilet: clinical characteristics and resuscitation profiles* — https://pmc.ncbi.nlm.nih.gov/articles/PMC3590314/
+- Inamasu & Miyatake 2013, *Cardiac arrest in the toilet: clinical characteristics and resuscitation profiles* — https://pmc.ncbi.nlm.nih.gov/articles/PMC3590314/
 - Kiyohara et al. 2018, *Out-of-hospital cardiac arrests in the toilet in Japan* — https://pmc.ncbi.nlm.nih.gov/articles/PMC6167395/
 - Hayashi et al. 1996, *Activity immediately before the onset of non-fatal myocardial infarction and sudden cardiac death* — https://pubmed.ncbi.nlm.nih.gov/8996685/
 - Paratz et al. 2025, *Cardiac arrest while using the toilet: not uncommon and associated with adverse resuscitation profile* — https://pmc.ncbi.nlm.nih.gov/articles/PMC12359240/
