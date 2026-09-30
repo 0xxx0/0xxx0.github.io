@@ -15,10 +15,11 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=20000
 const W=()=>f.contentWindow,D=()=>W().document;
 (async()=>{try{
  f.src='/?focus=%2Fprison-age%2F';
- await wait(()=>/PRISON AGE/.test(D().getElementById('capHeld')?.textContent||'')&&D().querySelectorAll('#capMoves .capMove').length===3,18000,'FIELD held source set');
- const moves=[...D().querySelectorAll('#capMoves .capMove')].map(a=>({label:a.textContent.trim(),href:a.getAttribute('href')||''}));
- rec.field={held:D().getElementById('capHeld').textContent,moves,ret:D().getElementById('capReturn')?.textContent||''};
+ await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||'')&&/^READ\s*→?$/.test(D().getElementById('apOpen')?.textContent?.trim()||'')&&D().querySelectorAll('#capMoves .capMove').length===2,18000,'FIELD held source set');
+ const primary=D().getElementById('apOpen'),moves=[primary,...D().querySelectorAll('#capMoves .capMove')].map(a=>a).map(a=>({label:(a.textContent||'').trim().replace(/\s*→$/,''),href:a.getAttribute('href')||''}));
+ rec.field={held:D().getElementById('apTitle')?.textContent||'',owner:D().getElementById('apMeta')?.textContent||'',moves,ret:D().getElementById('capReturn')?.textContent||''};
  if(moves.map(x=>x.label).join('|')!=='READ|RIDE|SOURCE')throw Error('FIELD native moves');
+ if(!/PRISON_AGE/.test(rec.field.owner))throw Error('FIELD native owner');
  if(!moves[0].href.includes('intent=read')||!moves[1].href.includes('intent=ride')||moves.some(x=>x.href.includes('story=open-air')))throw Error('FIELD intent targets must not hide a source choice');
 
  f.src='/prison-age/?story=open-air&return=field';
@@ -51,7 +52,22 @@ const W=()=>f.contentWindow,D=()=>W().document;
  rec.ride={authority:live.source.authority,kind:live.source.kind,mode:live.course.mode,grain:live.course.grain,address:live.course.address,ret:live.returnAddress,text:live.witness?.text||''};
  if(live.source.authority!=='PRISON_AGE'||live.source.kind!=='PRISON_AGE_SOURCE'||live.course.mode!=='STEP'||live.course.grain!=='PARAGRAPH'||live.returnAddress!=='/?focus=%2Fprison-age%2F'||!/court/i.test(rec.ride.text))throw Error('RIDE exact selected source/return');
  done(true,rec);
-}catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
+}catch(e){
+ let field_snapshot=null;
+ try{
+  const d=D(),w=W();
+  field_snapshot={
+   focus:w.FieldLensHost?.focus?.()?.href||null,
+   carrier_object:w.FieldIndexCarrier?.current?.()?.object?.address||null,
+   title:d.getElementById('apTitle')?.textContent||null,
+   meta:d.getElementById('apMeta')?.textContent||null,
+   primary:d.getElementById('apOpen')?.textContent?.trim()||null,
+   primary_href:d.getElementById('apOpen')?.getAttribute('href')||null,
+   secondary:[...d.querySelectorAll('#capMoves .capMove')].map(x=>({label:(x.textContent||'').trim(),href:x.getAttribute('href')||null}))
+  };
+ }catch(_){}
+ done(false,{...rec,error:String(e?.stack||e),field_snapshot,href:(()=>{try{return W().location.href}catch(_){return null}})()})
+}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
 function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=470,960','--virtual-time-budget=30000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},42000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
