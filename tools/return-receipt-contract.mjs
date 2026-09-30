@@ -1,3 +1,7 @@
+export function isPassVerificationStatus(status) {
+  return /^PASS(?:\s*\/|$)/i.test(String(status||'').trim());
+}
+
 export function pendingCIClaims(receipt) {
   const out=[];
   const walk=(value,path='$')=>{
