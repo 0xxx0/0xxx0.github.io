@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
+import {isPassVerificationStatus} from './return-receipt-contract.mjs';
 
 const current=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8'));
-const head=(current.current_heads||[]).find(h=>h?.repo_verification?.status==='PASS'&&h.latest_return);
+const passHeads=(current.current_heads||[]).filter(h=>isPassVerificationStatus(h?.repo_verification?.status)&&h.latest_return);
+const head=passHeads.find(h=>String(h.repo_verification.status).trim()!=='PASS')||passHeads[0];
 if(!head){
   console.error('PENDING-CI REJECTION SELFTEST FAIL · no CURRENT PASS head with latest_return');
   process.exit(1);
@@ -45,7 +47,7 @@ try{
   const verificationCase=structuredClone(original);verificationCase.verification_notes=[...(verificationCase.verification_notes||[]),'PR CI pending'];
   requireRejected(verificationCase,markerWhole,'pending verification text');
 
-  console.log('PENDING-CI REJECTION SELFTEST PASS · state + proof + whole-receipt verification mutations fail closed for '+head.lineage);
+  console.log('PENDING-CI REJECTION SELFTEST PASS · exact/enriched PASS status + state + proof + whole-receipt verification mutations fail closed for '+head.lineage+' · '+head.repo_verification.status);
 } finally {
   fs.writeFileSync(receiptPath,originalText);
 }
