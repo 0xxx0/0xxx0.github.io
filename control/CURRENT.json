@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T14:06:00+08:00",
+  "updated": "2026-09-30T14:12:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -104,9 +104,36 @@
       "version": "0.8.27",
       "latest_return": "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
       "repo_verification": {
-        "status": "PENDING / PR 700",
-        "candidate_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
-        "note": "Route Registration + gitleaks passed on initial head; public-surface stopped at CURRENT↔manifest drift before runtime checks. This CURRENT alignment repairs that exact authority mismatch; full rerun required.",
+        "status": "PASS / PR 700",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
+        "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
+        "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
+        "checks": {
+          "route_registration": {
+            "run": 36676498495,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 36676498556,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36676498421,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 36676498556 including FIELD reversibility semantics, held-action aperture guards and critical browser smoke.",
+        "post_merge": {
+          "pages": {
+            "run": 36676805082,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 36676854000,
+            "conclusion": "success"
+          }
+        },
+        "note": "Behavioral proof ran on PR #700 after CURRENT↔manifest alignment. Merge SHA also passed Pages and push gitleaks. No claim that the post-merge metadata-only seal was part of the earlier behavioral test.",
         "predecessor": {
           "status": "PASS / PR 675 EXACT-HEAD",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
