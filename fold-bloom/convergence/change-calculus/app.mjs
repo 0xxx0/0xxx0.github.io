@@ -103,7 +103,7 @@ function calculate(){
     fromForm:form($('#fromForm').value),toForm:form($('#toForm').value),
     trace,target:{layer,position},nativeForecasts:forecasts
   });
-  const s=frame.state,sp=frame.state_step,sf=frame.state_frontier,e=frame.exact,p=frame.step,ef=frame.exact_frontier,j=frame.steering,g=frame.promotion;
+  const s=frame.state,sp=frame.state_step,sf=frame.state_frontier,e=frame.exact,p=frame.step,xp=frame.exact_path_projection,ef=frame.exact_frontier,j=frame.steering,g=frame.promotion;
   if(!s?.ok){$('#stateOut').innerHTML='<h2>STATE</h2><span class="hot">'+esc(s?.reason)+'</span>';return}
   $('#stateOut').innerHTML='<h2>STATE</h2><div class="metrics">'+
     metric('d_H',s.metrics.hamming_distance)+metric('d_H/6',s.metrics.normalized_hamming)+
@@ -126,7 +126,9 @@ function calculate(){
       metric('fiber',e.metrics.exact_forms_per_hexagram+':1')+metric('uniform bits','12→6')+
       metric('exact edits',e.metrics.exact_changed_lines)+metric('visible quotient edits',e.metrics.quotient_changed_lines)+
       metric('invisible exact edits',e.metrics.quotient_invisible_exact_changes)+metric('exact STEP orders',p.possible_one_edit_orders)+
+      (xp?.ok?metric('visible STEP orders',xp.quotient_visible_path_count)+metric('path fiber',xp.exact_paths_per_visible_path+'×')+metric('path loss',xp.path_information_loss_bits+' bits'):'')+
       '</div><p><code>4^6 = 4096 → 2^6 = 64; fiber = 64 exact forms / hexagram</code>. This loses 6 uniform-description bits. Loss does not imply uselessness; it means the quotient cannot silently become full control state.</p>'+
+      (xp?.ok?'<p><code>'+esc(xp.formulas.path_fiber)+'</code>. '+esc(xp.law)+'</p>':'')+
       '<table><thead><tr><th>step</th><th>address</th><th>exact edit</th><th>hex token</th><th>quotient moves?</th></tr></thead><tbody>'+rows+'</tbody></table>'+
       (ef?.ok?exactFrontierWitness(ef):'');
   }
