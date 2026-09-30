@@ -1170,7 +1170,7 @@ SLOT
 → RETURN
 ```
 
-It does **not** call LIVE, seek the LIVE ring, queue a release, alter STEP order, or grant effect authority. Empty slots remain inspectable as `SUPPORT=0` evidence instead of disappearing.
+It does **not** call LIVE, seek the LIVE ring, queue a release, alter STEP order, or grant effect authority. Empty slots remain inspectable as `NATIVE=0` evidence instead of disappearing; model support remains a separate subset label.
 
 The focus witness carries:
 
