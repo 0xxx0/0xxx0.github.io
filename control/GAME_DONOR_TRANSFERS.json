@@ -1,0 +1,134 @@
+{
+  "schema": "field-game-donor-transfers/v0.1",
+  "updated": "2026-09-30",
+  "status": "ACTIVE_DONOR_MAP / NO_NEW_ROUTE",
+  "law": "GAME DONOR != GAME SKIN. Transfer only an abstract mechanism into an existing owner; name non-transfer residue; prove the transfer in the current host.",
+  "donors": [
+    {
+      "id": "outer-wilds-knowledge-gap",
+      "game": "Outer Wilds",
+      "observed_mechanic": "A changing solar-system mystery repeats through a time loop; progress is driven by discovered answers and relationships among clues rather than a conventional task ladder.",
+      "sources": [
+        "https://store.steampowered.com/app/753640/Outer_Wilds/"
+      ],
+      "transferable_rule": "UNKNOWN != TASK. Attach a question/gap to the addressed object; let new knowledge change what is reachable without manufacturing obligation.",
+      "field_host": "FIELD held object / RESIDUE",
+      "implementation": "Already transferred: MORE HERE derives only from route.evolution.question, route.open_gaps, or unresolved declared exits and renders on the held object after CATCH contraction.",
+      "state": "SHIPPED",
+      "proof": [
+        "/showcase-manifest.json root transfer 0.8.15",
+        "/index.html renderAperture() + catchGap()"
+      ],
+      "non_transfer_residue": [
+        "time-loop fiction",
+        "planet-map aesthetic",
+        "quest-board imitation",
+        "completion percentage"
+      ]
+    },
+    {
+      "id": "hades-attempt-continuity",
+      "game": "Hades",
+      "observed_mechanic": "Each escape attempt varies while persistent growth and story discovery continue across attempts.",
+      "sources": [
+        "https://www.supergiantgames.com/blog/hades-faq/"
+      ],
+      "transferable_rule": "ATTEMPT END != CONTINUITY RESET. A failed, aborted, or completed run may leave one durable addressed residue without becoming a backlog.",
+      "field_host": "RETURN + packet egress RESIDUE",
+      "implementation": "Candidate: execution hosts emit one source-addressed residue/witness on failed or aborted attempts; FIELD reducer keeps it RESIDUE unless CURRENT or explicit selection promotes a next move.",
+      "state": "CANDIDATE",
+      "proof_needed": "Synthetic failed/aborted run proves one residue survives while no NOW/NEXT authority is minted.",
+      "non_transfer_residue": [
+        "combat loop",
+        "upgrade economy",
+        "death-as-reward framing",
+        "streak/progression scoring"
+      ]
+    },
+    {
+      "id": "death-stranding-asynchronous-infrastructure",
+      "game": "Death Stranding",
+      "observed_mechanic": "Asynchronous social play lets useful player-built structures/resources appear in other players' worlds; later entries also expose travelled routes and shared infrastructure.",
+      "sources": [
+        "https://www.playstation.com/en-us/games/death-stranding/",
+        "https://www.playstation.com/en-sg/games/death-stranding-2-on-the-beach/"
+      ],
+      "transferable_rule": "REPEATED PASSAGE MAY EARN INFRASTRUCTURE. Helpful traces can accumulate asynchronously before anyone coordinates synchronously.",
+      "field_host": "INTERPHASE handoffs + CONFLUENCE / PORTS",
+      "implementation": "Candidate: derive read-only edge wear from repeated exact handoff/RETURN pairs; after >=3 independent traversals of the same host-to-host edge, surface an adapter candidate under CONFLUENCE/PORTS. Never auto-promote or infer priority.",
+      "state": "CANDIDATE",
+      "proof_needed": "Replay fixture produces deterministic edge counts and candidate threshold without creating route/queue/state authority.",
+      "non_transfer_residue": [
+        "likes/reputation economy",
+        "network-social pressure",
+        "branded strand fiction",
+        "automatic exposure of private traces"
+      ]
+    },
+    {
+      "id": "into-the-breach-forecast",
+      "game": "Into the Breach",
+      "observed_mechanic": "Enemy attacks are telegraphed before the turn resolves, so the player can inspect consequences and choose a counter before commitment.",
+      "sources": [
+        "https://www.subsetgames.com/itb.html"
+      ],
+      "transferable_rule": "FORECAST BEFORE COMMIT. Before a lawful move, expose effect class, authority/commit boundary, target, and reversibility status without executing it.",
+      "field_host": "INTERPHASE action surface + FIELD held action aperture",
+      "implementation": "This transfer: actionSurface() emits deterministic forecasts from move authority; FIELD NEXT shows the first forecast and updates it on focus/hover without adding mutation authority.",
+      "state": "IMPLEMENTING",
+      "proof_needed": "Carrier self-test + FIELD aperture self-test + browser smoke show forecast changes with move focus and no action fires.",
+      "non_transfer_residue": [
+        "perfect-information claim about domain outcomes",
+        "combat framing",
+        "turn economy",
+        "prediction beyond declared host contract"
+      ]
+    },
+    {
+      "id": "hardspace-salvage-cut",
+      "game": "Hardspace: Shipbreaker",
+      "observed_mechanic": "Progress comes from scanning, cutting, dismantling, and salvaging hazardous ships while respecting dependencies and dangerous components.",
+      "sources": [
+        "https://www.focus-entmt.com/en/news/hardspace-shipbreaker-10-is-now-live"
+      ],
+      "transferable_rule": "SUBTRACTION REQUIRES A SALVAGE MAP. Before deletion, identify what survives, what can be cut, what depends on it, and what can become dangerous when separated.",
+      "field_host": "RECOVERY / MIGRATION + deletion/repair audits",
+      "implementation": "Candidate: destructive route/branch retirement packet requires KEEP / CUT / DEPENDENTS / HAZARDS / RETURN. Refuse 'delete as cleanup' when a dependent or unrecovered donor remains.",
+      "state": "CANDIDATE",
+      "proof_needed": "Fixture with one safe retirement and one hazardous dependency; audit must allow first and block second.",
+      "non_transfer_residue": [
+        "debt economy",
+        "industrial scoring",
+        "destruction aesthetic",
+        "literal hazard equivalence"
+      ]
+    },
+    {
+      "id": "terra-nil-scaffold-retirement",
+      "game": "Terra Nil",
+      "observed_mechanic": "Restoration concludes by cleaning up the machinery used to restore the environment, leaving the recovered system rather than permanent builder infrastructure.",
+      "sources": [
+        "https://freelives.net/terra-nil-press-kit/"
+      ],
+      "transferable_rule": "THE SCAFFOLD SHOULD DISAPPEAR WHEN THE CAPABILITY SURVIVES WITHOUT IT.",
+      "field_host": "FIELD contraction + CI / route retirement",
+      "implementation": "Candidate: temporary probes/helpers may declare retire_when + surviving_owner; audit flags scaffolds whose function is already absorbed by a host so the default next move is delete/fold/alias, not preserve chrome.",
+      "state": "CANDIDATE",
+      "proof_needed": "Synthetic manifest fixture marks one absorbed scaffold as retirement-ready while preserving a still-needed proof fixture.",
+      "non_transfer_residue": [
+        "ecological metaphor as universal ontology",
+        "beautification scoring",
+        "automatic deletion without salvage/proof"
+      ]
+    }
+  ],
+  "transfer_order": [
+    "outer-wilds-knowledge-gap",
+    "into-the-breach-forecast",
+    "hades-attempt-continuity",
+    "terra-nil-scaffold-retirement",
+    "hardspace-salvage-cut",
+    "death-stranding-asynchronous-infrastructure"
+  ],
+  "stop": "Do not implement the remaining candidates merely because they are attractive. Each must remove a named FIELD friction and inherit an existing host's authority/RETURN."
+}
