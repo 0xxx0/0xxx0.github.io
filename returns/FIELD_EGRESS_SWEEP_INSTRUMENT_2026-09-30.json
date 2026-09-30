@@ -24,12 +24,13 @@
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
-    "node tools/field-egress-sweep-selftest.mjs"
+    "node tools/field-egress-sweep-selftest.mjs  # fixture + actual control/packets smoke; no-context shelf must emit zero NOW"
   ],
   "residue": [
     "The sweep does not infer CURRENT priority.",
     "It does not execute NEXT or mutate source packets.",
-    "A later host may consume JSON output, but that consumer must retain native authority and RETURN."
+    "A later host may consume JSON output, but that consumer must retain native authority and RETURN.",
+    "The actual control/packets shelf is exercised by the selftest; Markdown is ignored, JSON packet shapes may differ, and no-context sweep must emit zero NOW."
   ],
   "stop": "Do not add another reducer surface. Extend only for a concrete consumer incompatibility or falsified batch invariant."
 }
