@@ -62,6 +62,7 @@ for(const [name,packet,wantClass,wantDisposition] of contributionCases){
   assert.equal(out.class,wantClass,name+' class');
   assert.equal(out.disposition,wantDisposition,name+' disposition');
   assert.match(out.authority,/ADVISORY_ONLY/);
+  assert.match(out.base_current_semantics,/behind_by === 0/);
 }
 
 fs.rmSync(dir,{recursive:true,force:true});
