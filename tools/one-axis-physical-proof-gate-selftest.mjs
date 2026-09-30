@@ -31,7 +31,7 @@ assert.equal(built.max_state,'BUILT');
 assert.equal(built.allowed,false);
 assert.ok(built.blockers.includes('UNLOADED_RUNS_10'));
 
-const tested=assessOneAxisProof({
+const testedPacket={
   object_id:'one-axis:v0.1',
   spec_ref:'Convergence Foundry / ONE_AXIS_PROOF_v0.1',
   safety_boundary:{status:'PASS'},
@@ -45,7 +45,8 @@ const tested=assessOneAxisProof({
   anomalies:[],
   evidence_refs:['photo:assembly-01','clip:motion-01','clip:recovery-01','measurement:zero-01'],
   requested_state:'TESTED'
-});
+};
+const tested=assessOneAxisProof(testedPacket);
 assert.equal(tested.max_state,'TESTED');
 assert.equal(tested.allowed,true);
 assert.equal(tested.summary.unloaded_runs,10);
@@ -54,12 +55,12 @@ assert.ok(Math.abs(tested.summary.unloaded_max_abs_error-0.2) < 1e-9);
 assert.match(tested.authority,/PHYSICAL TRUTH REMAINS/);
 assert.match(tested.performance,/numeric tolerances remain owned/);
 
-const adopted=assessOneAxisProof({...tested,requested_state:'ADOPTED'});
+const adopted=assessOneAxisProof({...testedPacket,requested_state:'ADOPTED'});
 assert.equal(adopted.allowed,false);
 assert.equal(adopted.max_state,'TESTED');
 assert.match(adopted.adoption,/NOT ASSESSED/);
 
-const badFields=assessOneAxisProof({...tested,unloaded_runs:[...runs.slice(0,9),{commanded:100,actual:100,zero_error:0}]});
+const badFields=assessOneAxisProof({...testedPacket,unloaded_runs:[...runs.slice(0,9),{commanded:100,actual:100,zero_error:0}]});
 assert.equal(badFields.allowed,false);
 assert.ok(badFields.blockers.includes('UNLOADED_RUN_FIELDS'));
 
