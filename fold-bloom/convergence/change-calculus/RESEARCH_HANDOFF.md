@@ -1265,3 +1265,14 @@ Selecting NEXT still changes only the calculation path. LIVE alone owns `release
 - LAB RETURN now carries the converged frontier witness beside the existing state frontier and LIVE bridge evidence.
 
 This is the current preferred reducer move: **put residue and support on the decision edge instead of adding another explanatory surface.**
+
+
+### Exact-base refresh — 2026-09-30
+
+The first PR #705 head `f6d23989e6b167e59d4b7213e68fd413444c6bbb` passed:
+
+- Route Registration `36676777690`;
+- gitleaks `36676777742`;
+- full public-surface-check `36676777638`, including change-calculus contracts/browser, LAB boot/mobile/cross-projection, change→INK, synthetic LIVE-change witness, real LIVE→LAB bridge and critical browser smoke.
+
+Because master continued to converge in parallel, the branch was then reconstructed exactly on `d53df5f66b11db6c709b2e36f84c99a4bdb2a5b6` (including FIELD 0.8.27 and the Two Dial compression-baseline correction) before final promotion. The implementation delta remains confined to the same eight LAB/change-calculus files.
