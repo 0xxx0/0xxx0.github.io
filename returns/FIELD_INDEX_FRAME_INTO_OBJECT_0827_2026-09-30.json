@@ -1,0 +1,39 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_FRAME_INTO_OBJECT_0827_2026-09-30",
+  "date": "2026-09-30",
+  "state": "SHIPPED_CANDIDATE",
+  "object": "FIELD Index continuation-frame contraction",
+  "before": "FIELD 0.8.26 correctly reduced the root to one held object plus owner-based residue, but ordinary use still rendered a second three-cell HELD / NEXT / WITNESS→RETURN frame directly beneath the object. The frame repeated the object's identity and split continuation semantics across sibling geometry.",
+  "delta": [
+    "Delete the sibling capTrial HELD/NEXT/WITNESS dashboard and its ?cap trial gate.",
+    "Nest NEXT plus WITNESS→RETURN directly inside the held object's existing aperture body.",
+    "Carry explicit manifest owner into the held object's own metadata instead of repeating owner + title in a second HELD cell.",
+    "When a native host exposes AVAILABLE actions, promote the first exact host action onto the existing primary apOpen edge and keep at most two additional host actions inline.",
+    "For generic routes, retain the primary OPEN/DO edge plus at most one explicit INTERPHASE→DAYLINE or COPY ACTION handoff.",
+    "Keep contextual SEEN on the object; keep TRACE, COMPARE, action-copy and AXIAL proof depth under REFINE / PROVE.",
+    "Retain witness and exact RETURN in ordinary view without giving them a second panel, store, priority or mutation authority."
+  ],
+  "laws": [
+    "FRAME FOLDS INTO OBJECT.",
+    "HELD / NEXT / WITNESS / RETURN describe one addressed object; they are not four surfaces.",
+    "NATIVE HOST ACTIONS MAY SHAPE THE PRIMARY EDGE BUT NEVER TRANSFER EFFECT AUTHORITY TO FIELD.",
+    "VISIBLE CONTINUITY ≠ DASHBOARD."
+  ],
+  "evidence": [
+    "/index.html",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/field-action-aperture-selftest.mjs",
+    "/tools/validate-public.mjs",
+    "/tools/browser-smoke.mjs"
+  ],
+  "verification": {
+    "source": "PENDING exact-head CI: held-action selftest, public validator, route registration, gitleaks and critical browser smoke.",
+    "human": "No human gate required for correctness. Ordinary use may still show whether inline continuation density should be reduced further.",
+    "limit": "Machine proof establishes object/continuation ownership and authority boundaries, not subjective visual calm."
+  },
+  "next": "If green, inspect re-entry + glyph field only for repeated semantics. Prefer deleting or owner-folding repetition; do not add a new guide, dashboard or mode.",
+  "stop": "Do not reintroduce a sibling continuation card/grid merely to make NEXT or RETURN more visually prominent.",
+  "version": "0.8.27",
+  "predecessor": "/returns/FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json"
+}
