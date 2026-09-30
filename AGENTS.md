@@ -56,6 +56,19 @@ Do not create another route, architecture, registry, dashboard, agent or ontolog
 
 **Zero obvious host means unresolved submission, not automatic new project.**
 
+## PARALLEL CONVERGENCE DISCIPLINE
+
+When several workers can touch the same system, convergence means **fewer competing representations with more executable capability**, not merely more coordinated prose.
+
+Before opening a new front:
+
+- Inspect current master and open PRs. If another branch already owns the same object/function, join, rebase, comment, or supersede it; do not create a parallel truth surface.
+- Prefer deltas that **delete duplicate representation, return residue to its native owner, make an existing law executable, or falsify/prove a bounded capability claim**.
+- A new map, seal, receipt, handoff, summary, dashboard, or explanatory file that adds no capability, resolves no live ambiguity/failing gate/authority conflict, and removes no duplication is normally **RESIDUE or DONOR**, not a canonical DELTA.
+- Capability may rise while visible surface area stays constant or shrinks. As effect power rises, support checks, evidence, reversibility where applicable, and exact RETURN must rise with it.
+- **Projection resemblance is not control equivalence.** If two native states project identically but expose different lawful next apertures or relevant consequences, the projection is not control-sufficient for that property/horizon; keep the lost distinction as explicit residue and leave effect authority with the host.
+- When overlap is discovered, leave a short durable note on the owning PR/issue naming the winner, preserved unique residue, and stop condition; then close or park the duplicate rather than letting both accumulate.
+
 ## CONTRIBUTION CLASSES
 
 Every contribution must resolve as one of:
