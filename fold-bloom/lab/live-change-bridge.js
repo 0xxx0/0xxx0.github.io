@@ -42,6 +42,7 @@ export function createLiveChangeBridgeState(){
   return {
     schema:LIVE_CHANGE_BRIDGE_SCHEMA,
     authority:'WITNESS_ONLY',
+    live_instance:null,
     operations:[],
     window:null,
     steering:null,
@@ -52,9 +53,11 @@ export function createLiveChangeBridgeState(){
 function operationEntry(message){
   if(message?.source!==LIVE_SOURCE||message?.kind!=='operation')return null;
   const verb=String(message?.data?.operation||'').toUpperCase();
-  if(!isVerb(verb))return null;
+  const instance=String(message?.instance||'').trim();
+  if(!isVerb(verb)||!instance)return null;
   return {
     verb,
+    instance,
     seq:Math.max(0,Math.trunc(Number(message.seq)||0)),
     wall:Math.max(0,Math.trunc(Number(message.wall)||0)),
     slot:Number.isFinite(Number(message?.data?.slot))?Number(message.data.slot):null,
@@ -76,6 +79,7 @@ function compileWindow(operations){
       exact_form:null,
       hex_token:null,
       bits:null,
+      live_instance:xs[0]?.instance??null,
       first_seq:xs[0]?.seq??null,
       last_seq:xs.at(-1)?.seq??null
     };
@@ -88,12 +92,13 @@ function compileWindow(operations){
     exact_form:exactForm,
     hex_token:projection.token,
     bits:[...(projection.bits||[])],
+    live_instance:xs[0]?.instance??null,
     lower:projection.lower?{...projection.lower}:null,
     upper:projection.upper?{...projection.upper}:null,
     first_seq:xs[0]?.seq??null,
     last_seq:xs.at(-1)?.seq??null,
     native_after:xs.at(-1)?.native_after?clone(xs.at(-1).native_after):null,
-    event_refs:xs.map(x=>({seq:x.seq,wall:x.wall,verb:x.verb,slot:x.slot,chain:x.chain,track_time:x.track_time,native_after:x.native_after?clone(x.native_after):null}))
+    event_refs:xs.map(x=>({instance:x.instance,seq:x.seq,wall:x.wall,verb:x.verb,slot:x.slot,chain:x.chain,track_time:x.track_time,native_after:x.native_after?clone(x.native_after):null}))
   };
 }
 
@@ -102,10 +107,12 @@ export function reduceLiveChangeBridge(state,message,{now=Date.now(),steeringMax
   const op=operationEntry(message);
   const steering=steeringDescriptor(message,now,steeringMaxAgeMs);
   if(!op&&!steering)return current;
-  const operations=op?[...(current.operations||[]),op].slice(-LIVE_CHANGE_WINDOW):[...(current.operations||[])];
+  const instanceChanged=!!(op&&current.live_instance&&op.instance!==current.live_instance);
+  const operations=op?(instanceChanged?[op]:[...(current.operations||[]),op].slice(-LIVE_CHANGE_WINDOW)):[...(current.operations||[])];
   return {
     schema:LIVE_CHANGE_BRIDGE_SCHEMA,
     authority:'WITNESS_ONLY',
+    live_instance:op?op.instance:(current.live_instance||null),
     operations,
     window:compileWindow(operations),
     steering:steering?{
@@ -131,6 +138,7 @@ export function captureLiveChangeWindow(state,role='CAPTURE'){
     schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/capture',
     authority:'WITNESS_ONLY',
     role:String(role||'CAPTURE').toUpperCase(),
+    live_instance:window.live_instance||state?.live_instance||null,
     exact_form:[...window.exact_form],
     hex_token:window.hex_token,
     bits:[...window.bits],
@@ -141,13 +149,17 @@ export function captureLiveChangeWindow(state,role='CAPTURE'){
     event_refs:clone(window.event_refs||[]),
     native_after:window.native_after?clone(window.native_after):null,
     steering:state?.steering?clone(state.steering):null,
-    law:'capture freezes an observed six-release LIVE window and its lossy hex projection; it does not acquire LIVE execution authority'
+    law:'capture freezes one LIVE-instance six-release window and its lossy hex projection; it does not acquire LIVE execution authority'
   };
 }
 
 export function compareLiveChangeCaptures(fromCapture,toCapture){
   if(!fromCapture?.ok||!toCapture?.ok){
     return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'FROM_AND_TO_CAPTURES_REQUIRED'};
+  }
+  const fromInstance=String(fromCapture.live_instance||''),toInstance=String(toCapture.live_instance||'');
+  if(fromInstance!==toInstance){
+    return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:'LIVE_INSTANCE_MISMATCH',from_instance:fromInstance||null,to_instance:toInstance||null};
   }
   const exact=exactFormCalculation(fromCapture.exact_form,toCapture.exact_form);
   if(!exact.ok)return {ok:false,schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',reason:exact.reason};
@@ -161,8 +173,8 @@ export function compareLiveChangeCaptures(fromCapture,toCapture){
     ok:true,
     schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/comparison',
     authority:'RESEARCH_WITNESS_ONLY',
-    from:{hex_token:fromCapture.hex_token,bits:[...fromCapture.bits],exact_form:[...fromCapture.exact_form],first_seq:fromCapture.first_seq,last_seq:fromCapture.last_seq},
-    to:{hex_token:toCapture.hex_token,bits:[...toCapture.bits],exact_form:[...toCapture.exact_form],first_seq:toCapture.first_seq,last_seq:toCapture.last_seq},
+    from:{live_instance:fromInstance||null,hex_token:fromCapture.hex_token,bits:[...fromCapture.bits],exact_form:[...fromCapture.exact_form],first_seq:fromCapture.first_seq,last_seq:fromCapture.last_seq},
+    to:{live_instance:toInstance||null,hex_token:toCapture.hex_token,bits:[...toCapture.bits],exact_form:[...toCapture.exact_form],first_seq:toCapture.first_seq,last_seq:toCapture.last_seq},
     exact_changed_lines:exact.metrics.exact_changed_lines,
     quotient_changed_lines:exact.metrics.quotient_changed_lines,
     quotient_invisible_exact_changes:exact.metrics.quotient_invisible_exact_changes,
@@ -197,6 +209,6 @@ export function liveChangeBridgeReturn(state,{fromCapture=null,toCapture=null}={
     from_capture:fromCapture?.ok?clone(fromCapture):null,
     to_capture:toCapture?.ok?clone(toCapture):null,
     comparison:comparison.ok?comparison:null,
-    law:'RETURN preserves observed LIVE release provenance, quotient residue, bounded native-next evidence and any contemporaneous authority-NONE steering witness without converting any of them into control state'
+    law:'RETURN preserves one-instance LIVE release provenance, quotient residue, bounded native-next evidence and any contemporaneous authority-NONE steering witness without converting any of them into control state'
   };
 }
