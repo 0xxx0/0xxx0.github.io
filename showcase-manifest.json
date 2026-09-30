@@ -5717,7 +5717,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "showcase_card": true,
-      "role": "Writing-first co-creative word/verse doorway. One session-local held source exposes only WRITE / WEAVE / READ as immediate operations; Word Market, Grid Path, Cell Foundry and Verse Atlas remain unequal optional machines. 0.3.1 makes language/corpus work explicit without plugin collapse: CText is focus-bounded evidence lookup, English Jueju is a local declared transfer adapter, and COPE/Wenyan remain external specialist engines. Path/grid/language lenses never become mandatory authorship grammar.",
+      "role": "Writing-first co-creative word/verse doorway. One session-local held source exposes only WRITE / WEAVE / READ as immediate operations; Word Market, Grid Path, Cell Foundry and Verse Atlas remain unequal optional machines. 0.3.2 keeps language/corpus work bounded: CText is focus-bounded evidence lookup; English Jueju is a local transfer board with behaviorally checked approximate AABA + visible Wordless grouping; COPE/Wenyan remain external specialist engines. Path/grid/language lenses never become mandatory authorship grammar.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -5770,10 +5770,12 @@
         "selected-token CText evidence lookup; no automatic poem transmission",
         "local English-Jueju 4×5 / 4×7 transfer adapters with explicit non-equivalence boundary",
         "COPE + Wenyan remain unequal explicit external engines; source authority stays Verse",
-        "Wordless interaction law: visible consequence before explanation, not lexical semantics"
+        "Wordless interaction law: visible consequence before explanation, not lexical semantics",
+        "English-Jueju direct form entry → empty four-line board, never FIELD NOW text",
+        "Wordless Board 2|3 / 2|2|3 + 起承轉合 AUTHOR JUDGMENT boundary"
       ],
       "index": {
-        "updated_at": "2026-09-30T14:15:00+08:00",
+        "updated_at": "2026-09-30T14:30:00+08:00",
         "work_modes": [
           "SPECIFY",
           "OPERATE"
@@ -5840,16 +5842,16 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "VERSE COPILOT 0.3.1",
+      "title": "VERSE COPILOT 0.3.2",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse authoring candidate: readable writing first; selected-token/blank-line focus → explicit intent → possibilities → BANK / TRY / ADOPT / LOCK / UNDO. Poem Map 0.2.6 retains stable source/token identity and optional RELATE/GROUP/path projections. 0.3.1 adds an optional LANGUAGE / CORPUS / TRANSFER depth: selected-token CText evidence lookup, local English-Jueju 5/7 transfer constraints, and explicit COPE/Wenyan exits with zero automatic source transfer.",
+      "role": "Current Verse authoring candidate: readable writing first; selected-token/blank-line focus → explicit intent → possibilities → BANK / TRY / ADOPT / LOCK / UNDO. Poem Map 0.2.6 retains stable source/token identity and optional RELATE/GROUP/path projections. 0.3.2 retains the optional LANGUAGE / CORPUS / TRANSFER depth and behaviorally closes English-Jueju transfer: empty direct-entry board, approximate whole-form AABA grouping, Wordless 2|3 / 2|2|3 scaffold, and 起承轉合 as author judgment.",
       "transfer": [
         "source-authority race closure: stale/cancelled FIELD preload returns null and cannot trigger DEMO fallback; only actual fetch failure returns false",
         "Poem Map 0.2.6 stable source/token/candidate/revision engine retained under Copilot face",
@@ -5863,10 +5865,13 @@
         "source-authority epoch: explicit local parse preempts an older in-flight FIELD NOW preload; stale async source cannot overwrite newer authored text",
         "CText selected-token evidence lookup via explicit external click",
         "English Jueju transfer packs: 4×5 / 4×7 words, approximate monosyllable support, AABA, 2+3 / 2+2+3, 起承轉合 guide",
-        "COPE/Wenyan external specialist exits receive no source automatically"
+        "COPE/Wenyan external specialist exits receive no source automatically",
+        "English-Jueju whole-form approximate AABA group check",
+        "direct ?form=enjueju7 empty four-line board with no generated lexical content",
+        "University of Oklahoma / Newman Prize transfer-source provenance pinned"
       ],
       "index": {
-        "updated_at": "2026-09-30T14:15:00+08:00",
+        "updated_at": "2026-09-30T14:30:00+08:00",
         "work_modes": [
           "INVESTIGATE",
           "IMPLEMENT",
@@ -5875,7 +5880,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
+      "latest_return": "/returns/VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
       "field": {
         "owner": "VERSE"
       }
