@@ -602,7 +602,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[]};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -622,14 +622,18 @@ function captureMatchesState(capture,input){
   const bits=normalizeStateBits(input);
   return !!(capture?.ok&&bits&&capture.bits?.length===bits.length&&capture.bits.every((x,i)=>Number(x)===Number(bits[i])));
 }
+function shortLiveInstance(value){
+  const s=String(value||'').trim();if(!s)return '—';
+  return s.length<=12?s:s.slice(0,8)+'…';
+}
 function liveCaptureLabel(capture){
   if(!capture?.ok)return '—';
-  return capture.hex_token+' · '+capture.exact_form.join('→')+' · LIVE #'+capture.first_seq+'–'+capture.last_seq;
+  return capture.hex_token+' · '+capture.exact_form.join('→')+' · LIVE '+shortLiveInstance(capture.live_instance)+' · #'+capture.first_seq+'–'+capture.last_seq;
 }
 function syncLiveChangeUI(){
   const window=liveChange.bridge?.window,ready=!!window?.ready,fromAttached=captureMatchesState(liveChange.from,$('#stateFrom')?.value),toAttached=captureMatchesState(liveChange.to,$('#stateTo')?.value);
   if($('#liveChangeWindow'))$('#liveChangeWindow').textContent=ready
-    ?'LIVE WINDOW · '+window.hex_token+' · '+window.exact_form.join(' → ')+' · #'+window.first_seq+'–'+window.last_seq
+    ?'LIVE WINDOW · '+shortLiveInstance(window.live_instance)+' · '+window.hex_token+' · '+window.exact_form.join(' → ')+' · #'+window.first_seq+'–'+window.last_seq
     :'LIVE WINDOW · '+(window?.count||0)+'/6 RELEASES · OPEN LIVE IN ANOTHER TAB';
   if($('#liveCaptureFrom')){$('#liveCaptureFrom').disabled=!ready;$('#liveCaptureFrom').classList.toggle('cool',ready)}
   if($('#liveCaptureTo')){$('#liveCaptureTo').disabled=!ready;$('#liveCaptureTo').classList.toggle('cool',ready)}
@@ -644,9 +648,12 @@ function syncLiveChangeUI(){
   if($('#liveChangeNative'))$('#liveChangeNative').textContent=native?.available
     ?'NATIVE NEXT · FROM '+fromNative.candidate_count+' CANDIDATES / TARGET '+fromNative.target_type+' / CALL '+(fromNative.call?.verb||'OPEN')+' → TO '+toNative.candidate_count+' CANDIDATES / TARGET '+toNative.target_type+' / CALL '+(toNative.call?.verb||'OPEN')+(native.same_hex_unequal_native?' · SAME HEX ≠ SAME NEXT':'')
     :'NATIVE NEXT · WAITING FOR POST-RELEASE FORECAST WITNESSES FROM LIVE';
+  const comparisonReason=liveChange.comparison?.reason||null;
   if($('#liveChangeResidue'))$('#liveChangeResidue').textContent=cmp
     ?'QUOTIENT RESIDUE · EXACT Δ '+cmp.exact_changed_lines+' · HEX-VISIBLE '+cmp.quotient_changed_lines+' · INVISIBLE '+cmp.quotient_invisible_exact_changes+' · FIBER '+cmp.exact_forms_per_hexagram+'×'+(cmp.same_hex_endpoints?' · SAME HEX ENDPOINTS':'')+(native?.same_hex_unequal_native?' · CONTROL-SUFFICIENCY COUNTEREXAMPLE OBSERVED':'')
-    :'QUOTIENT RESIDUE · CAPTURE LIVE FROM + TO WINDOWS';
+    :comparisonReason==='LIVE_INSTANCE_MISMATCH'
+      ?'QUOTIENT RESIDUE · LIVE INSTANCE MISMATCH · RECAPTURE FROM + TO FROM ONE LIVE INSTANCE'
+      :'QUOTIENT RESIDUE · CAPTURE LIVE FROM + TO WINDOWS';
   const steering=liveChange.bridge?.steering,support=liveSteeringSupport(liveChange.bridge);
   if($('#liveChangeSteering'))$('#liveChangeSteering').textContent=steering
     ?'J-SPACE WITNESS · '+steering.direction_label+' · STRENGTH '+Number(steering.strength).toFixed(2)+' · AUTHORITY '+steering.authority+(steering.direction_ref?' · '+steering.direction_ref:'')
@@ -660,6 +667,10 @@ function syncLiveChangeUI(){
       $('#liveChangeSupport').textContent='J-SPACE × NATIVE SUPPORT · '+(support?.reason==='NATIVE_FORECAST_WITNESS_REQUIRED'?'WAITING FOR NATIVE NEXT':support?.reason==='STEERING_WITNESS_REQUIRED'?'WAITING FOR DIRECTION':'UNRESOLVED')+' · CALCULATION ONLY';
     }
   }
+  const nativeLatest=liveChange.bridge?.native_latest;
+  if($('#liveApertureCount'))$('#liveApertureCount').textContent=nativeLatest?String(nativeLatest.candidate_count)+'/12':'—';
+  if($('#liveSupportCount'))$('#liveSupportCount').textContent=support?.ok?String(support.native_candidate_count):'—';
+  syncNativeApertureFocusUI();
   document.documentElement.dataset.fieldLabLiveSupport=support?.ok?String(support.status||'resolved').toLowerCase().replace(/_/g,'-'):'open';
   document.documentElement.dataset.fieldLabLiveChange=ready?'window-ready':window?.count?'collecting':'idle';
   document.documentElement.dataset.fieldLabLiveCompare=cmp?(cmp.quotient_invisible_exact_changes?'residue-visible':'compared'):'open';
@@ -691,6 +702,60 @@ function captureLiveChange(role){
 $('#liveCaptureFrom')?.addEventListener('click',()=>captureLiveChange('FROM'));
 $('#liveCaptureTo')?.addEventListener('click',()=>captureLiveChange('TO'));
 syncLiveChangeUI();
+
+function nativeApertureProjection(){
+  const native=liveChange.bridge?.native_latest||null,support=liveSteeringSupport(liveChange.bridge);
+  const supported=new Set(support?.ok?(support.candidate_slots||[]):[]);
+  const bySlot=new Map((native?.forecasts||[]).map(x=>[Number(x.slot),x]));
+  return {
+    ok:!!native,
+    authority:'VIEW_ONLY',
+    live_instance:liveChange.bridge?.live_instance||null,
+    seq:native?.seq??null,
+    gate:native?.gate??null,
+    target_type:native?.target_type??null,
+    call:native?.call||null,
+    candidate_count:native?.candidate_count??0,
+    forecasts:Array.from({length:12},(_,slot)=>({slot,forecast:bySlot.get(slot)||null,model_supported:supported.has(slot)})),
+    support:support?.ok?{direction:support.direction_label,verb:support.mapped_verb,count:support.native_candidate_count,ambiguity_bits:support.candidate_ambiguity_bits,status:support.status,slots:[...support.candidate_slots]}:null
+  };
+}
+function nativeApertureFocusEvidence(){
+  const aperture=nativeApertureProjection(),slot=data.nativeFocusSlot;
+  if(!aperture.ok||!Number.isInteger(slot))return null;
+  const item=aperture.forecasts[slot],forecast=item?.forecast||null;
+  return {
+    authority:'VIEW_ONLY',
+    live_instance:aperture.live_instance,
+    seq:aperture.seq,
+    slot,
+    available:!!forecast,
+    model_supported:!!item?.model_supported,
+    forecast:forecast?{verb:forecast.verb,chain:forecast.chain,cadence:forecast.cadence,power:forecast.power,path:[...(forecast.path||[])]}:null
+  };
+}
+function syncNativeApertureFocusUI(){
+  const el=$('#liveNativeFocus');if(!el)return;
+  const aperture=nativeApertureProjection(),slot=data.nativeFocusSlot;
+  if(!aperture.ok){el.textContent='LIVE APERTURE · WAITING FOR NATIVE NEXT · TAP = INSPECT ONLY';return}
+  if(!Number.isInteger(slot)){el.textContent='LIVE APERTURE · '+aperture.candidate_count+'/12 LAWFUL · TAP A SLOT TO INSPECT · WITNESS ONLY';return}
+  const item=aperture.forecasts[slot],f=item?.forecast;
+  el.textContent=f
+    ?'SLOT '+slot+' · '+f.verb+(f.chain>1?' ×'+f.chain:'')+' · POWER '+Number(f.power||0).toFixed(2)+(f.cadence?' · '+f.cadence:'')+(item.model_supported?' · MODEL-SUPPORTED':'')+' · WITNESS ONLY'
+    :'SLOT '+slot+' · NO LAWFUL FORECAST IN CURRENT APERTURE · WITNESS ONLY';
+}
+function focusNativeApertureSlot(slot){
+  const n=Math.trunc(Number(slot));if(n<0||n>11)return null;
+  data.nativeFocusSlot=n;syncNativeApertureFocusUI();
+  const evidence=nativeApertureFocusEvidence(),instance=String(evidence?.live_instance||'unknown');
+  setSource('LIVE / NATIVE FORECAST WITNESS');
+  setAddress('field://lab/live/'+encodeURIComponent(instance)+'/seq/'+(evidence?.seq??'open')+'/slot/'+n);
+  setStatus(evidence?.available
+    ?'NATIVE APERTURE · SLOT '+n+' · '+evidence.forecast.verb+(evidence.model_supported?' · MODEL SUPPORT':'')+' · INSPECT ONLY'
+    :'NATIVE APERTURE · SLOT '+n+' · NATIVE=0 · MODEL SUPPORT=0 · INSPECT ONLY');
+  recordLabTrace('NATIVE_APERTURE_FOCUS');
+  return evidence;
+}
 
 function stateLabel(desc){
   if(!desc?.valid)return 'INVALID';
@@ -919,6 +984,42 @@ function drawStateChange(){
   ctx.restore();
   drawStateLattice();
 }
+function nativeApertureGeometry(){
+  const cx=W*.5,cy=H*.505,r=Math.max(96,Math.min(180,Math.min(W,H)*.43));
+  return Array.from({length:12},(_,slot)=>{const a=-Math.PI/2+slot*TAU/12;return {slot,x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,a,cx,cy,r}});
+}
+function drawNativeAperture(){
+  const aperture=nativeApertureProjection();
+  if(!aperture.ok)return;
+  const nodes=nativeApertureGeometry(),focused=data.nativeFocusSlot;
+  ctx.save();
+  const {cx,cy,r}=nodes[0];
+  ctx.strokeStyle='rgba(95,109,117,.24)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.stroke();
+  ctx.textAlign='center';ctx.font='700 7px ui-monospace';ctx.fillStyle='#66747b';
+  const support=aperture.support;
+  ctx.fillText('NATIVE APERTURE · '+aperture.candidate_count+'/12'+(support?' · MODEL C='+support.count:' · MODEL OPEN'),cx,cy-r-12);
+  for(const n of nodes){
+    const item=aperture.forecasts[n.slot],f=item?.forecast,supported=!!item?.model_supported,isFocus=focused===n.slot,isGate=Number(aperture.gate)===n.slot;
+    ctx.globalAlpha=f?1:.38;
+    ctx.fillStyle=supported?'#7bd5ff':isFocus?'#ef7849':f?'#d7b46d':'#0a0f13';
+    ctx.strokeStyle=isFocus?'#ef7849':supported?'#7bd5ff':isGate?'#f2f3ef':'#40515b';
+    ctx.lineWidth=isFocus||supported?2:isGate?1.5:1;
+    ctx.beginPath();ctx.arc(n.x,n.y,isFocus?7:supported?6:f?5:3.2,0,TAU);ctx.fill();ctx.stroke();
+    ctx.globalAlpha=1;ctx.fillStyle=f?(supported?'#7bd5ff':'#9aa6ac'):'#52616a';ctx.font='700 6px ui-monospace';
+    ctx.fillText(f?(LIVE_VERB_SHORT[f.verb]||String(f.verb||'').slice(0,3)):'S'+n.slot,n.x,n.y-9);
+    if(f){ctx.fillStyle='#52616a';ctx.font='600 5px ui-monospace';ctx.fillText('S'+n.slot,n.x,n.y+12)}
+  }
+  ctx.globalAlpha=1;ctx.restore();
+}
+function nativeApertureAt(x,y){
+  const aperture=nativeApertureProjection();if(!aperture.ok)return null;
+  let best=null,dist=15;
+  for(const n of nativeApertureGeometry()){
+    const d=Math.hypot(x-n.x,y-n.y);
+    if(d<dist){best={...n,forecast:aperture.forecasts[n.slot]?.forecast||null};dist=d}
+  }
+  return best;
+}
 function stateLineAt(x,y){
   const change=data.stateChange;if(!change?.valid)return -1;
   const {rightX,cy,gap,w}=stateLayout();if(Math.abs(x-rightX)>w*.8)return -1;
@@ -996,8 +1097,15 @@ $('#stateInk')?.addEventListener('click',()=>{
 $('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
 
 /* ---------- POINTER / KEY ---------- */
+function canvasPoint(e){
+  const r=canvas.getBoundingClientRect();
+  return {
+    x:(e.clientX-r.left)*(W/Math.max(1,r.width)),
+    y:(e.clientY-r.top)*(H/Math.max(1,r.height))
+  };
+}
 canvas.addEventListener('pointerdown',e=>{
-  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
+  const {x,y}=canvasPoint(e);mx=x/W;my=y/H;
   if(mode==='PULSE'){
     const cx=W/2,cy=H/2,rr=Math.min(W,H)*.245,d=Math.hypot(x-cx,y-cy);
     if(d<rr*.30){pulse.playing?stopPulse():startPulse();setStatus('PULSE · '+(pulse.playing?'PLAY':'STOP'));return}
@@ -1006,6 +1114,7 @@ canvas.addEventListener('pointerdown',e=>{
     tapPulse();
   }
   if(mode==='DATA'){
+    const nativeSlot=nativeApertureAt(x,y);if(nativeSlot){focusNativeApertureSlot(nativeSlot.slot);return}
     const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}
     const nextLine=stateSteerLineAt(x,y);if(nextLine){steerStateNextLine(nextLine);return}
     const candidate=stateLatticeCandidateAt(x,y);if(candidate){steerStateNextLine(candidate.line);return}
@@ -1022,7 +1131,7 @@ canvas.addEventListener('pointerdown',e=>{
   }
 });
 canvas.addEventListener('pointermove',e=>{
-  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
+  const {x,y}=canvasPoint(e);mx=x/W;my=y/H;
   if(mode==='INK'&&ink.down){const now=performance.now(),dt=Math.max(4,now-ink.lastT),sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY)/(dt/16.7);inkStroke(ink.lastX??x,ink.lastY??y,x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y;ink.lastT=now}
   if(mode==='DATA'){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
 });
@@ -1179,6 +1288,7 @@ function drawData(){
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;if(n.parent>=0&&pos[n.parent]){ctx.strokeStyle='rgba(70,88,99,.45)';ctx.beginPath();ctx.moveTo(pos[n.parent].x,pos[n.parent].y);ctx.lineTo(pos[i].x,pos[i].y);ctx.stroke()}});
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;const f=i===data.focus;ctx.fillStyle=f?'#ef7849':n.depth===0?'#d7b46d':'#7bd5ff';ctx.globalAlpha=f?1:.65;ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,f?7:3.5,0,TAU);ctx.fill();if(f){ctx.globalAlpha=1;const val=typeof n.value==='object'&&n.value!==null?(Array.isArray(n.value)?'ARRAY '+n.value.length:'OBJECT '+Object.keys(n.value).length):String(n.value);ctx.fillStyle='#f2f3ef';ctx.font='900 '+Math.max(18,Math.min(42,Math.min(W,H)*.06))+'px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText(String(n.key||n.path).slice(0,28),W/2,H*.48,Math.max(180,W*.5));ctx.fillStyle='#7bd5ff';ctx.font='700 9px ui-monospace';ctx.fillText(n.path,W/2,H*.53,Math.max(180,W*.64));ctx.fillStyle='#9aa6ac';ctx.font='700 10px ui-monospace';ctx.fillText(val.slice(0,72),W/2,H*.57,Math.max(180,W*.66))}});ctx.globalAlpha=1;
   drawStateChange();
+  drawNativeAperture();
 }
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
@@ -1212,7 +1322,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue,liveWitness=liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to});
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,nativeFocus:nativeApertureFocusEvidence(),stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
