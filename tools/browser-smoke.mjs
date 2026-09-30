@@ -992,7 +992,7 @@ const CASES=[
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ READ/.test(dom)&&dom.includes('href="./nexus/"')&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&dom.includes('id="catchupFold"')&&dom.includes('data-signal="')&&!dom.includes('id="catchupFold" open')&&dom.includes('id="catchupSignals"')&&dom.includes('id="catchupList"')&&dom.includes('class="fold catchReality" id="waitingFold"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/FIELD \/ CATCH \+ ACT/.test(dom)&&dom.includes('id="capTrial"')&&/REWIND/.test(dom)&&/MARK ALL/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ READ/.test(dom)&&dom.includes('href="./nexus/"')&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&!dom.includes('id="catchupFold"')&&!dom.includes('<b>FIELD / CATCH + ACT</b>')&&dom.includes('id="apSeen"')&&dom.includes('id="focusResidue"')&&dom.includes('id="orientationFold"')&&dom.includes('id="waitingFold"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&dom.includes('id="capTrial"')&&/ORIENTATION \/ LOCAL/.test(dom)&&/REALITY GAP \/ YOU/.test(dom)&&/REWIND/.test(dom)&&/MARK ALL/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
@@ -1410,10 +1410,10 @@ const CASES=[
     check:dom=>/SCALE LENS/i.test(dom)&&!dom.includes('load failure')
   },
   {
-    name:'FIELD CATCH knowledge-gap re-entry',
-    route:'/',
+    name:'FIELD held-object knowledge-gap re-entry',
+    route:'/?focus=%2Ffold-bloom%2Flens%2F',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/FIELD \/ CATCH \+ ACT/.test(dom)&&dom.includes('data-catch-gap="1"')&&/MORE HERE/.test(dom)
+    check:dom=>!dom.includes('id="catchupFold"')&&dom.includes('id="focusResidue"')&&/MORE HERE/.test(dom)&&/fold-bloom\/lens/.test(dom)
   },
   {
     name:'DAYLINE CONFLUENCE 0.1',
