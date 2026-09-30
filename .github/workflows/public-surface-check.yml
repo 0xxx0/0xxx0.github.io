@@ -35,6 +35,8 @@ jobs:
           node tools/field-signal-locality-selftest.cjs
       - name: Validate Shopping one-object grammar
         run: node tools/shopping-interphase-selftest.mjs
+      - name: Validate Shopping market tape
+        run: node tools/shopping-market-tape-selftest.mjs
       - name: Validate Shopping ↔ HOUSE fit closed loop
         run: node tools/shopping-house-fit-selftest.mjs
       - name: Validate HUMAN PORT → Shopping candidate ingress
