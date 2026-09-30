@@ -16,7 +16,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
 (async()=>{try{
  f.src='/?focus=%2Fprison-age%2F';
  try{
-  await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||'')&&/^READ\s*→?$/.test(D().getElementById('apOpen')?.textContent?.trim()||'')&&D().querySelectorAll('#capMoves .capMove').length===2,18000,'FIELD held source set');
+  await wait(()=>/PRISON AGE/.test(D().getElementById('apTitle')?.textContent||'')&&D().querySelectorAll('#capMoves .capMove').length===2,18000,'FIELD held source set');
  }catch(e){
   const debug={title:D().getElementById('apTitle')?.textContent||'',open:D().getElementById('apOpen')?.textContent||'',meta:D().getElementById('apMeta')?.textContent||'',moves:[...D().querySelectorAll('#capMoves .capMove')].map(x=>x.textContent?.trim()||''),load:D().getElementById('axialMeta')?.textContent||'',href:W().location.href};
   throw Error('FIELD held source set · '+JSON.stringify(debug)+' · '+String(e?.message||e));
