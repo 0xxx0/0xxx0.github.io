@@ -86,7 +86,13 @@
     "optional LANGUAGE / CORPUS / TRANSFER drawer keeps CText, COPE, Wenyan and English-Jueju transfer beside the writing surface without making any one of them source authority",
     "CText lookup is explicit and focus-bounded: only the selected token/word is placed in the clicked dictionary URL; the poem/source is never sent automatically",
     "English Jueju 5 and 7 are declared local transfer adapters: four lines, five/seven English words, approximate monosyllable checks, AABA rhyme target, 2+3 / 2+2+3 unit guides, and 起→承→轉→合 orientation",
-    "COPE and Wenyan remain external specialist engines and receive no source automatically"
+    "COPE and Wenyan remain external specialist engines and receive no source automatically",
+    "English-Jueju whole-form behavior proof: repeated AABA groups are checked with the already-disclosed approximate Latin sound-tail heuristic rather than merely displayed",
+    "direct ?form=enjueju5/7 entry with no held source opens an empty four-line composition board instead of forcing FIELD NOW into the selected transfer form",
+    "2+3 / 2+2+3 grouping is surfaced as WORDLESS BOARD interaction scaffold; lexical choices remain authored",
+    "起→承→轉→合 is surfaced as ARC GUIDE · AUTHOR JUDGMENT and is never machine-scored",
+    "University of Oklahoma / Newman Prize teaching material is pinned in the Verse source quarry as the current transfer-rule provenance",
+    "Foundry English-Jueju re-entry now routes to the current Verse adapter rather than only to an external description"
   ],
   "boundaries": [
     "VERSE COPILOT is the product face; Poem Map is retained as engine lineage / relation projection, not sovereign identity.",
@@ -124,7 +130,11 @@
     "English monosyllable and rhyme checks are lightweight local heuristics; they are admissibility hints, not authoritative prosody.",
     "CText lookup is evidence navigation only: corpus/dictionary presence does not become semantic or authorial truth.",
     "COPE/Wenyan links are explicit exits. No poem bytes or inferred transformation are transmitted automatically.",
-    "Wordless is retained as an interaction law (visible consequence before explanation), not a lexical/semantic provider."
+    "Wordless is retained as an interaction law (visible consequence before explanation), not a lexical/semantic provider.",
+    "AABA matching is only the current approximate sound-tail heuristic; a passing group is not historical rhyme evidence or literary quality.",
+    "The empty English-Jueju board contains no generated poem text; form selection creates structure only.",
+    "WORDLESS BOARD is interaction/scaffold transfer, not lexical or semantic authority.",
+    "起承轉合 remains an author-facing compositional lens; the runtime does not infer whether a line truly fulfills 起/承/轉/合."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -139,7 +149,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "state": "CANDIDATE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -158,7 +168,7 @@
     ],
     "generation_proof_preserved": "/poetry/lab/poem-map/",
     "dom_selector_integrity": "PASS_NO_MISSING_IDS",
-    "current_source_sha": "f98d4edb0ad71e3e6e4707fc6f70db727e841e58",
+    "current_source_sha": "448ef18a552825e58d0d3bb1474d2261b553da20",
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
@@ -203,13 +213,16 @@
     "english_jueju_transfer": "PASS_PR_709 · 4×5/4×7 declarations + word/mono/AABA/unit support selftest · public-surface-check 36677031248",
     "language_lenses_route_registration": "PASS · 36677031278",
     "language_lenses_gitleaks": "PASS · 36677031230",
-    "language_lenses_merge": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49"
+    "language_lenses_merge": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49",
+    "english_jueju_behavior": "PENDING_PR_CI · 4×7 fixture must pass word/mono/AABA/WORDLESS/ARC behavior selftest",
+    "english_jueju_direct_entry": "PENDING_PR_CI · /poetry/map/?form=enjueju7 must render empty 4-line board + active-form witness in critical browser smoke",
+    "english_jueju_primary_source": "PINNED · /poetry/research/sources.json · University of Oklahoma / Newman Prize teaching materials"
   },
   "updated": "2026-09-30",
   "next_bounded_test": {
     "state": "USE_FIRST",
-    "instruction": "Use ordinary writing first. Open LANGUAGE / CORPUS only when a selected token or declared form needs evidence. Reopen provider work only if CText/COPE evidence or English-Jueju constraints solve a concrete writing defect.",
-    "stop": "Do not absorb CText, COPE or Wenyan into Verse authority; do not turn English Jueju into a claim of historical equivalence."
+    "instruction": "Write with the ordinary Copilot or open the English-Jueju board. Reopen only for a concrete composition defect, a named deeper sound/meaning-parallelism rule, or a verified Wenyan execution need.",
+    "stop": "Do not absorb COPE, CText, Wenyan, Wordless, Pathweaver or Grid Path into one mandatory editor."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
@@ -286,5 +299,5 @@
       "unit": "fixed focus, unequal vocabularies, contextual next move rather than permanent control wall"
     }
   ],
-  "title": "VERSE COPILOT 0.3 · engine lineage: Poem Map 0.2.6"
+  "title": "VERSE COPILOT 0.3.2 · engine lineage: Poem Map 0.2.6"
 }
