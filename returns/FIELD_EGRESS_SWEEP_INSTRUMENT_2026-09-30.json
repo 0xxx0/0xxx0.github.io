@@ -21,7 +21,8 @@
   "use": [
     "node scripts/reduce-field-egress.mjs control/packets",
     "node scripts/reduce-field-egress.mjs --json returns/FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
-    "node scripts/reduce-field-egress.mjs --selected packet-id path/to/packets"
+    "node scripts/reduce-field-egress.mjs --selected packet-id path/to/packets",
+    "node scripts/reduce-field-egress.mjs --selected packet-a --selected packet-b path/to/packets"
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
@@ -34,5 +35,8 @@
     "A later host may consume JSON output, but that consumer must retain native authority and RETURN.",
     "The actual control/packets shelf is exercised by the selftest; Markdown is ignored, JSON packet shapes may differ, and no-context sweep must emit zero NOW."
   ],
-  "stop": "Do not add another reducer surface. Extend only for a concrete consumer incompatibility or falsified batch invariant."
+  "stop": "Do not add another reducer surface. Extend only for a concrete consumer incompatibility or falsified batch invariant.",
+  "corrections": [
+    "Exact-head CI exposed ambiguous variadic context flags: --selected next-c <dir> consumed <dir> as another ID and left no source path. Context flags are now repeatable single-ID flags, so caller authority cannot swallow packet inputs."
+  ]
 }
