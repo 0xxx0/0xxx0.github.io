@@ -65,8 +65,9 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
 
-.catchup{--signal-a:rgba(114,188,231,.13);--signal-b:rgba(237,116,71,.12);margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{position:relative;isolation:isolate;overflow:hidden;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:7px 8px;cursor:pointer;background:#080b0d}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary>*{position:relative;z-index:2}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchup>summary::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .18s ease}.catchup[data-signal="CHANGED"]>summary::before{opacity:.65;background:repeating-linear-gradient(104deg,transparent 0 8px,var(--signal-a) 8px 9px,transparent 9px 18px)}.catchup[data-signal="REALITY"]>summary::before{opacity:.92;background:repeating-linear-gradient(26deg,transparent 0 10px,var(--signal-b) 10px 11px,transparent 11px 20px),repeating-linear-gradient(-28deg,transparent 0 15px,rgba(213,173,104,.08) 15px 16px,transparent 16px 29px)}.catchup[data-signal="GITHUB"]>summary::before{opacity:.75;background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(213,173,104,.12) 13px 14px,transparent 14px 26px)}.catchup[data-signal="MIXED"]>summary::before{opacity:1;background:repeating-linear-gradient(27deg,transparent 0 9px,var(--signal-a) 9px 10px,transparent 10px 19px),repeating-linear-gradient(-29deg,transparent 0 11px,var(--signal-b) 11px 12px,transparent 12px 23px);background-size:37px 37px,43px 43px;animation:signalInterference 7s linear infinite}.catchup[data-signal="MIXED"]{border-color:#50433a}.catchup[data-signal="REALITY"]>summary b,.catchup[data-signal="MIXED"]>summary b{color:#ffd0bd}.catchup[open]>summary{border-bottom:1px solid var(--line)}@keyframes signalInterference{to{background-position:37px 0,-43px 0}}@media(prefers-reduced-motion:reduce){.catchup[data-signal="MIXED"]>summary::before{animation:none}}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchGap{grid-column:2;border-top:1px dotted #263137;padding-top:4px;color:#9aa6aa;font:6.5px/1.35 system-ui,sans-serif}.catchGap b{color:var(--gold);font-size:6px;letter-spacing:.11em;margin-right:4px}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchSignals{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.catchSignal{background:#080b0d;padding:6px 7px;min-width:0}.catchSignalHead{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6px;letter-spacing:.1em}.catchSignalBody{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.catchSignalBody button,.catchSignalBody a{padding:5px 6px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font-size:6.5px;text-decoration:none}.catchSignalBody a.hot{border-color:var(--hot);color:#ffd0bd}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
-.catchReality{margin:0;border-top:1px solid var(--line);padding:0 7px}.catchReality>summary{padding:6px 0}.catchReality[open]>summary{border-bottom:1px solid #1b2429}@media(max-width:760px){.catchGrid,.catchSignals{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a,.catchSignalBody button,.catchSignalBody a{min-height:40px}}
+.focusResidue{padding:6px 7px;border-top:1px solid #1d2529;color:#9aa6aa;font:6.5px/1.42 system-ui,sans-serif}.focusResidue b{color:var(--gold);font:6px ui-monospace,monospace;letter-spacing:.11em;margin-right:5px}
+.orientationBar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 3px;color:var(--mut);font-size:6.5px;border-top:1px solid #1b2429}.orientationActions{display:flex;gap:4px}.orientationActions button{padding:5px 7px;font-size:6.5px}.orientationActions button:disabled{opacity:.34;cursor:default}
+@media(max-width:760px){.orientationBar{align-items:stretch;flex-direction:column;font-size:10px}.orientationActions button{min-height:42px;font-size:10px}}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
 .touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
 .touchRow{display:grid;grid-template-columns:58px minmax(0,1fr) 68px;gap:8px;align-items:center;padding:4px 3px}.touchRow:hover{background:#0d1316}.touchRow code{color:var(--gold);font:6.3px ui-monospace,monospace}.touchRow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:650 7.5px/1.2 system-ui,sans-serif}.touchRow span{text-align:right;color:var(--mut);font-size:5.8px}
@@ -146,10 +147,6 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  nav{gap:6px;padding-bottom:3px}nav a{min-height:42px;display:flex;align-items:center;padding:8px 10px;font-size:10px}
  .reentryFold>summary{min-height:42px}.reentrySeg{padding:8px}.reentrySeg span,.reentrySeg b,.reentryToggle{font-size:10px}.reentryBody a{padding:10px}.reentryBody b{font-size:11px}.reentryBody span{font-size:10px;white-space:normal;line-height:1.35}
  .syncLine{font-size:10px;line-height:1.5;padding:8px;gap:6px 10px}.syncLine #syncFocus{max-width:24ch}
- .catchup>summary{min-height:44px;padding:9px}.catchup>summary b{font-size:12px}.catchup>summary span{font-size:10px;line-height:1.35;text-align:right}
- .catchNow{padding:10px}.catchNow b{font-size:11px}.catchNow span{font-size:14px;line-height:1.45}
- .catchCard{padding:10px;grid-template-columns:34px minmax(0,1fr);gap:8px}.catchCard strong{font-size:15px;line-height:1.2}.catchCard small{font-size:10px;white-space:normal;line-height:1.35}.catchCard p{font-size:13px;line-height:1.45;-webkit-line-clamp:4}
- .catchActions button,.catchActions a,.catchSignalBody button,.catchSignalBody a{min-height:42px;padding:8px 10px;font-size:11px}.catchSignal{padding:9px}.catchSignalHead{font-size:10px}.catchFoot{font-size:10px;padding:8px}.catchFoot button{min-height:42px;padding:8px 10px;font-size:10px}
  .sectionHead{align-items:start;flex-direction:column;gap:4px}.sectionHead b{font-size:12px}.sectionHead span{font-size:10px}
  .axialHead{align-items:flex-start;padding:9px}.axialHead b{font-size:12px}.axialHead span,.axialHead button{font-size:10px}.axialHead button{min-height:42px;padding:8px}
  .axisName{font-size:10px}.axisName b{font-size:11px}.axisToken{height:44px;font-size:11px}.axisToken small,.axisToken .sub{font-size:9px}
@@ -224,7 +221,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div><p id="apRole">One addressed object; hidden structure remains recoverable below.</p></div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button></div>
+    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
   </div>
   <!-- THE FRAME. Current object / focus / next lawful move / witness -> RETURN.
        Surfaced here, at the one-object layer, because UNIFIED_INSTRUMENT_PIVOT_2026-09-25
@@ -253,22 +250,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
       <a href="./field/axial-probe/" title="Disposable AXIAL gesture/reversibility falsification probe; no canonical state authority.">SHADOW PROBE</a>
       <span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span>
     </div>
+    <div class="focusResidue" id="focusResidue" hidden></div>
     <div class="axialRows" id="axialRows"></div>
     <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
   </details>
 </section>
-
-<details class="catchup" id="catchupFold" data-signal="CLEAR">
-  <summary class="fieldSignalBar" data-field-signal="CLEAR"><span class="signalGlyph"></span><b>FIELD / CATCH + ACT</b><span id="catchupMeta">loading attention…</span></summary>
-  <div class="catchNow" id="catchupNow"><b>NOW</b><span>loading current conversion…</span></div>
-  <div class="catchSignals" id="catchupSignals"><div class="catchSignal"><div class="catchSignalHead"><b>YOU</b><span>loading…</span></div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB</b><span>loading…</span></div></div></div>
-  <div class="catchGrid" id="catchupList"><div class="catchEmpty">loading changed addressed heads…</div></div>
-  <details class="fold catchReality" id="waitingFold">
-    <summary><b>REALITY GAP / YOU</b><span id="waitingMeta">repo/CI proof ≠ world proof · derived from CURRENT</span></summary>
-    <div class="foldBody" id="waitingList"></div>
-  </details>
-  <div class="catchFoot"><span id="catchupSeen">Local change boundary: loading…</span><div class="catchFootActions"><button id="catchupRewind" title="Undo the most recent local SEEN / MARK ALL acknowledgement without changing FIELD truth.">REWIND</button><button id="catchupMark" title="Local convenience only. Individual SEEN is preferred.">MARK ALL</button></div></div>
-</details>
 
 <details class="fold" id="statusFold">
   <summary><b>STATUS</b><span class="sRail" id="sRail">loading…</span></summary>
@@ -298,6 +284,16 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <details class="fold" id="issuesFold">
   <summary><b>ISSUES / REPO OPEN LOOPS</b><span id="issueMeta">loading…</span></summary>
   <div class="foldBody" id="issueList"></div>
+</details>
+
+<details class="fold" id="waitingFold">
+  <summary><b>REALITY GAP / YOU</b><span id="waitingMeta">repo/CI proof ≠ world proof · derived from CURRENT</span></summary>
+  <div class="foldBody" id="waitingList"></div>
+</details>
+
+<details class="routeProjection" id="orientationFold">
+  <summary><b>ORIENTATION / LOCAL</b><span id="orientationMeta">browser-local · loading…</span></summary>
+  <div class="orientationBar"><span id="orientationSeen">Local change boundary: loading…</span><div class="orientationActions"><button id="catchupRewind" title="Undo the most recent local SEEN / MARK ALL acknowledgement without changing FIELD truth.">REWIND</button><button id="catchupMark" title="Browser-local convenience only. Held-object SEEN is preferred.">MARK ALL</button></div></div>
 </details>
 
 <details class="fold" id="headsFold">
@@ -341,7 +337,7 @@ const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,
 let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',waitingFailed=false,waitingError='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[],fieldEgressReduce=null;
 const fieldEgressReady=import('./lib/field-egress-reducer.mjs').then(m=>{
  fieldEgressReduce=m.reducePacket;
- queueMicrotask(()=>{try{renderAperture();renderCatchup()}catch(_){}});
+ queueMicrotask(()=>{try{renderAperture();renderOrientation();renderFeed()}catch(_){}});
  return m;
 }).catch(()=>null);
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
@@ -657,18 +653,39 @@ function renderCapabilityTrial(){
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
 }
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
- ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';$('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';$('apMeta').textContent=[focus.state||'—',opOf(focus)].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();
+ const seen=$('apSeen'),residue=$('focusResidue');
+ if(!focus){
+  $('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);
+  $('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';
+  $('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');
+  $('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';
+  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderCapabilityTrial();return;
+ }
+ ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';
+ const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';
+ $('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';
+ $('apMeta').textContent=[focus.state||'—',opOf(focus)].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;
+ $('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');
+ $('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';
+ $('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';
+ const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);
+ const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){seen.hidden=!unseen;seen.textContent='SEEN';seen.title='Acknowledge this route change locally · reversible under STATUS → ORIENTATION / LOCAL'}
+ const gap=catchGap(focus),egress=fieldEgressForRoute(focus),bits=[];if(egress?.class)bits.push('EGRESS '+egress.class);if(gap)bits.push('MORE HERE · '+gap);
+ if(residue){residue.hidden=!bits.length;residue.innerHTML=bits.length?'<b>RESIDUE</b>'+esc(bits.join(' · ')):''}
+ renderCapabilityTrial();
 }
 function updateStatusRail(){
-  const el=document.getElementById('sRail');if(!el)return;
-  const rows=[
-    ['ISSUES',$('issueMeta')?.textContent],
-    ['HEADS',$('headMeta')?.textContent],
-    ['MAP',$('mapMeta')?.textContent],
-    ['PORTS',$('portMeta')?.dataset.live||$('portMeta')?.textContent]
-  ].filter(x=>x[1]&&!/^loading/.test(x[1]));
-  el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
+ const el=document.getElementById('sRail');if(!el)return;
+ const local=unresolvedRouteChanges().length,reality=currentHumanGates().length;
+ const rows=[
+  ['LOCAL',local?local+' unseen':'clear'],
+  ['REALITY',reality?reality+' gate'+(reality===1?'':'s'):'clear'],
+  ['ISSUES',$('issueMeta')?.textContent],
+  ['HEADS',$('headMeta')?.textContent],
+  ['MAP',$('mapMeta')?.textContent],
+  ['PORTS',$('portMeta')?.dataset.live||$('portMeta')?.textContent]
+ ].filter(x=>x[1]&&!/^loading/.test(x[1]));
+ el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
 }
 function catchupSeen(){try{return Math.max(0,Number(localStorage.getItem(CATCHUP_KEY))||0)}catch(_){return 0}}
 function catchupHistory(){
@@ -695,11 +712,7 @@ function applyFocusSignal(){
 function markRouteCaughtUp(href){
  const r=routeMap().get(href);if(!r)return;
  const items=catchupItems(),previous=Math.max(0,Number(items[href])||0),stamp=tsMs(r.index?.updated_at)||Date.now();
- pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderCatchup();renderFeed();
-}
-function catchText(r){
- const s=r?.evolution?.mutation||r?.evolution?.question||r?.role||(Array.isArray(r?.transfer)?r.transfer[0]:'')||'Addressed head changed.';
- return String(s).replace(/\s+/g,' ').trim().slice(0,240)
+ pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderOrientation();renderAperture();renderFeed();updateStatusRail();
 }
 function catchGap(r){
  const q=String(r?.evolution?.question||'').replace(/\s+/g,' ').trim();
@@ -711,42 +724,19 @@ function catchGap(r){
  if(unresolved)return (String(unresolved.status||'OPEN').replaceAll('_',' ')+' · '+String(unresolved.via||'')).replace(/\s+/g,' ').trim().slice(0,260);
  return '';
 }
-function renderCatchup(){
- const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen'),rewind=$('catchupRewind');if(!box||!meta||!now||!seenLabel)return;
- const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href)),pool=changed.slice();
- pool.sort((a,b)=>{
-   const sa=(nowSet.has(a.href)?4:0)+(headSet.has(a.href)?2:0),sb=(nowSet.has(b.href)?4:0)+(headSet.has(b.href)?2:0);
-   return sb-sa||tsMs(b.index?.updated_at)-tsMs(a.index?.updated_at)
- });
- const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
- now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
- const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe),issueCount=(issues||[]).length;
- const signal=window.FieldSignal?.combine({changed:changedCount>0,reality:gates.length>0,external:issueCount>0})||(gates.length?'REALITY':issueCount?'EXTERNAL':changedCount?'CHANGED':'CLEAR');
- $('catchupFold')?.setAttribute('data-signal',issueCount&&signal==='EXTERNAL'?'GITHUB':signal);
- const signalBar=$('catchupFold')?.querySelector(':scope > summary');if(signalBar)window.FieldSignal?.apply(signalBar,signal);
- meta.textContent=(gates.length?gates.length+' REALITY':'REALITY CLEAR')+' · '+(issueCount?issueCount+' GH':'GH CLEAR')+' · '+(changedCount?changedCount+' CHANGE':'CHANGE CLEAR');
- seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
- if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
- const signals=$('catchupSignals');
- if(signals)signals.innerHTML=
-  '<div class="catchSignal"><div class="catchSignalHead"><b>REALITY GAP / CURRENT</b><span>'+gates.length+'</span></div><div class="catchSignalBody">'+
-  (gates.length?gates.map(g=>'<button data-catch-gate="'+esc(g.route||'/')+'" title="'+esc(g.human_move||'')+'">'+esc(dependencyLabel(g.dependency_kind))+' · '+esc((routeMap().get(g.route)?.title||g.route||g.id).slice(0,28))+'</button>').join(''):'<span class="tiny">CLEAR</span>')+
-  '</div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB / OPEN</b><span>'+(issues||[]).length+'</span></div><div class="catchSignalBody">'+
-  ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
-  '</div></div>';
- box.innerHTML=xs.length?xs.map(r=>{
-   const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',egress=fieldEgressForRoute(r),sub=[egress?.class?('EGRESS '+egress.class):'',stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
-   const gap=catchGap(r);
-   return '<article class="catchCard '+(head?'head':'')+'"'+(gap?' data-catch-gap="1"':'')+'>'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div>'+(gap?'<div class="catchGap"><b>MORE HERE</b>'+esc(gap)+'</div>':'')+'<div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
- }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
- box.querySelectorAll('[data-catch-focus],[data-catch-gate]').forEach(b=>b.onclick=()=>{const href=b.dataset.catchFocus||b.dataset.catchGate,r=routeMap().get(href);if(!r)return;focusRoute(r,true,'OTHER');$('aperture')?.scrollIntoView({behavior:'smooth',block:'center'})});
- box.querySelectorAll('[data-catch-seen]').forEach(b=>b.onclick=()=>markRouteCaughtUp(b.dataset.catchSeen));
- $('catchupMark').disabled=!changed.length;
+function unresolvedRouteChanges(){return latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href))}
+function renderOrientation(){
+ const changed=unresolvedRouteChanges(),history=catchupHistory(),meta=$('orientationMeta'),seenLabel=$('orientationSeen'),rewind=$('catchupRewind'),mark=$('catchupMark');
+ if(meta)meta.textContent=(changed.length?changed.length+' unseen':'clear')+' · '+history.length+' rewind'+(history.length===1?'':'s');
+ if(seenLabel)seenLabel.textContent=changed.length+' unresolved local change'+(changed.length===1?'':'s')+' · browser-local only · canonical FIELD unchanged';
+ if(rewind)rewind.disabled=!catchupSeen()&&!history.length&&!Object.keys(catchupItems()).length;
+ if(mark)mark.disabled=!changed.length;
+ const held=$('apSeen');if(held){const unseen=!!focus&&changed.some(r=>r.href===focus.href);held.hidden=!unseen}
 }
 function markCaughtUp(){
  const changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href));if(!changed.length)return;
  const previous=catchupSeen(),stamp=Math.max(...changed.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderCatchup();renderFeed();
+ pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderOrientation();renderAperture();renderFeed();updateStatusRail();
 }
 function rewindCaughtUp(){
  const history=catchupHistory();
@@ -757,7 +747,7 @@ function rewindCaughtUp(){
   else if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items)}
  }else if(catchupSeen())setCatchupSeen(0);
  else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
- renderCatchup();renderFeed();
+ renderOrientation();renderAperture();renderFeed();updateStatusRail();
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
@@ -918,12 +908,12 @@ function renderWaiting(xs){
  $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('aperture')?.scrollIntoView({behavior:'smooth',block:'center'})}));
  const activeById=new Map(groups.active.map(x=>[x.id,x]));
  $('waitingList').querySelectorAll('[data-wait-copy]').forEach(b=>b.addEventListener('click',()=>copyRealityTest(activeById.get(b.dataset.waitCopy),b)));
- updateStatusRail();renderCatchup();
+ updateStatusRail();renderOrientation();
 }
 async function loadWaiting(){try{const r=await fetch('./control/WAITING.json',{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const w=await r.json();waitingUpdated=w.updated||'';waitingFailed=false;waitingError='';renderWaiting(w.items||[])}catch(e){waitingFailed=true;waitingError=(e&&e.message)||'unreachable';renderWaiting(waitingSource||[])}}
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
- $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();renderCatchup();
+ $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();renderOrientation();
 }
 async function loadIssues(){
  let snap={issues:[]};try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
@@ -1060,9 +1050,9 @@ Promise.all([
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
- renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
+ renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderOrientation();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
+$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(focus)markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});

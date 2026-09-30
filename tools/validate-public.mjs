@@ -353,8 +353,10 @@ check(home.includes('>PORTS / EXIT STATE<'),'root missing PORTS / EXIT STATE rea
 check(home.includes('REALITY GAP / YOU')&&(home.includes('ACTIVE / WORLD EVIDENCE REQUIRED')||home.includes('ACTIVE / NEEDS YOUR EVIDENCE'))&&home.includes('PARKED / NOT NEEDED NOW')&&home.includes('HISTORY / REMOVED'),'root missing reality-gap / WAITING lifecycle split');
 if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARKED&&fi.ui_contract?.root_ports,'FIELD INDEX port taxonomy contract missing');}
 {
-  const held=home.indexOf('id="aperture"'),field=home.indexOf('id="feedRail"'),refine=home.indexOf('id="refineFold"'),catchup=home.indexOf('id="catchupFold"'),status=home.indexOf('id="statusFold"'),change=home.indexOf('id="changeFold"');
-  check(held>=0&&field>held&&refine>field&&catchup>refine&&status>catchup&&change>status,'root missing one-object field → latent refine → attention → status contraction');
+  const held=home.indexOf('id="aperture"'),field=home.indexOf('id="feedRail"'),refine=home.indexOf('id="refineFold"'),status=home.indexOf('id="statusFold"'),change=home.indexOf('id="changeFold"'),waiting=home.indexOf('id="waitingFold"'),orientation=home.indexOf('id="orientationFold"');
+  check(held>=0&&field>held&&refine>field&&status>refine&&change>status&&waiting>status&&orientation>status,'root missing held field → latent refine → owner-based STATUS residue contraction');
+  check(!home.includes('id="catchupFold"')&&!home.includes('FIELD / CATCH + ACT'),'retired root CATCH aggregate returned');
+  check(home.includes('id="apSeen"')&&home.includes('id="focusResidue"'),'held object missing local SEEN / residue ownership');
   check(!home.includes('id="scaleRail"'),'root regressed to exposed semantic-scale controls');
 }
 check(home.includes('routeGitDrift()')&&home.includes('function tsMs('),'root missing offset-aware INDEX↔GIT drift witness');
