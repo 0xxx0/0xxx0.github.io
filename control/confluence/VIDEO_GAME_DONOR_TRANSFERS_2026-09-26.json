@@ -1,6 +1,6 @@
 {
   "schema": "field-game-donor-transfer/v0.1",
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "purpose": "Make video-game research pay rent by binding extracted mechanics to current FIELD hosts with explicit non-transfer residue and executable/contractual proof.",
   "selection_gate": [
     "current friction named",
@@ -29,11 +29,11 @@
         "canonical read state",
         "game visual skin"
       ],
-      "implementation": "FIELD / CATCH + ACT route cards derive MORE HERE from evolution.question, open_gaps, or unresolved field.exit_paths only.",
+      "implementation": "FIELD held object renders MORE HERE inside collapsed focus RESIDUE, derived only from evolution.question, open_gaps, or unresolved field.exit_paths. The former CATCH + ACT aggregate is retired.",
       "executable_test": "tools/browser-smoke.mjs",
-      "proof_claim": "Fresh browser root renders at least one MORE HERE knowledge-gap witness when current manifest routes declare one.",
+      "proof_claim": "Current root keeps knowledge-gap evidence attached to the held route in focusResidue without creating task, priority, obligation or canonical read state.",
       "new_sovereign_app": false,
-      "retirement": "No extra store or route; if MORE HERE increases clutter without improving re-entry, delete the projection with no data migration."
+      "retirement": "No extra store or route. If held MORE HERE adds noise without improving re-entry, remove that projection; the source evidence remains owned by manifest/CURRENT."
     },
     {
       "id": "failure-return",
@@ -56,6 +56,40 @@
       "proof_claim": "Execution contract requires failure to emit evidence/residue or stop repeating the same attempt.",
       "new_sovereign_app": false,
       "retirement": "Contract remains only while it prevents duplicate blind retries."
+    },
+    {
+      "id": "route-load-fit",
+      "donors": [
+        "Death Stranding"
+      ],
+      "status": "DONOR",
+      "recipients": [
+        "/body/fit/"
+      ],
+      "invariant": "Preparation should answer expected route/environment friction; loadout quality is relational to body + carried modules + route/world, not inventory completeness.",
+      "non_transfer": [
+        "likes/reputation score",
+        "cargo grade economy",
+        "body productivity score",
+        "digital loadout treated as physical safety proof",
+        "automatic procurement"
+      ],
+      "implementation": "BODY/FIT already owns LOADOUT → SET OUT → RETURN → PATINA → NEXT CUT with known mass/power/service metadata and purpose-specific kits. Proposed bounded coupling: optional route-friction descriptors filter/suggest relevant capabilities without scoring the body or claiming physical safety.",
+      "proof_claim": "Existing BODY/FIT release/RETURN proves the preparation-return carrier; route-friction filtering remains proposed and is not claimed implemented.",
+      "new_sovereign_app": false,
+      "retirement": "If route-friction descriptors do not reduce preparation translation, omit them; preserve the existing loadout/RETURN loop unchanged.",
+      "sources": [
+        {
+          "title": "DEATH STRANDING DIRECTOR'S CUT: Beginner's Guide",
+          "url": "https://kojimaproductions.jp/index.php/en/death-stranding-directors-cut-beginners-guide",
+          "observed": "Official guide ties cargo weight/equipment selection to terrain, route planning and delivery conditions."
+        },
+        {
+          "title": "DEATH STRANDING Tips: Connecting the Eastern Region",
+          "url": "https://www.kojimaproductions.jp/index.php/en/DSTips",
+          "observed": "Official tips explicitly connect route planning, load, equipment and traces/paths left by other players."
+        }
+      ]
     },
     {
       "id": "precommit-telegraph",
@@ -161,7 +195,7 @@
         "/",
         "/control/confluence/"
       ],
-      "invariant": "Before subtracting a surface, survey current/head authority, children, compatibility aliases and live runtime/tooling references; preserve transferable mechanism, provenance and RETURN; retirement classification never authorizes deletion.",
+      "invariant": "Hardspace: deconstruction is a dependency-graph operation whose cut order matters. Terra Nil: temporary support should disappear after capability/world recovery. FIELD combines them conservatively: survey blockers, preserve transferable mechanism/provenance/RETURN, and never let retirement classification authorize deletion.",
       "non_transfer": [
         "destruction spectacle",
         "deletion-as-progress",
@@ -170,7 +204,7 @@
         "automatic deletion",
         "absence of internal references treated as proof of zero external dependence"
       ],
-      "implementation": "Read-only /lib/field-salvage-core.mjs + scripts/field-salvage-audit.mjs classify addressed routes conservatively as KEEP_CURRENT / KEEP_DONOR / KEEP_COMPAT / KEEP / SALVAGE_REVIEW / RETIRE_CANDIDATE / BLOCKED. auto-delete is always false.",
+      "implementation": "Read-only /lib/field-salvage-core.mjs + scripts/field-salvage-audit.mjs classify routes against CURRENT/head authority, children, aliases and live refs. This is the implemented Hardspace-style dependency survey; ordered cut planning is deliberately not automated. Terra-Nil-style scaffold retirement remains contract-owned.",
       "executable_test": "tools/field-salvage-selftest.mjs",
       "proof_claim": "Synthetic classifier proves CURRENT heads, frozen donors, compatibility aliases and live references resist retirement; only an already-explicit SUPERSEDED / DEPRECATED / RETIRED / REMOVED signal with no detected blockers may become RETIRE_CANDIDATE.",
       "new_sovereign_app": false,
@@ -188,5 +222,6 @@
         }
       ]
     }
-  ]
+  ],
+  "current_map": "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md"
 }
