@@ -1,0 +1,37 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30",
+  "date": "2026-09-30",
+  "object": "Shopping Field / shared one-object grammar",
+  "state": "SHIPPED_CANDIDATE",
+  "before": "Shopping had strong lifecycle, fit, landed-cost, Dayline and HOUSE return machinery, but its primary surface still exposed a shopping-specific multi-state flow rather than the shared FIELD object/focus/operation/return grammar.",
+  "delta": [
+    "Add /lib/shopping-interphase.js as a pure adapter over existing Shopping truth and /lib/interphase-carrier.js.",
+    "Derive compact material phases NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED without mutating native lifecycle states.",
+    "Project one exact selected item as HOLD + <=3 HOST_NATIVE_ONLY moves + TRACE witness + exact RETURN.",
+    "Make the compact phase strip primary while retaining detailed native states, cost, gates, fit, burden, receipts and evidence as Shopping-owned residue.",
+    "Keep HOUSE FIT and Dayline as offer/evidence handoffs; no purchase/seller-contact authority is introduced."
+  ],
+  "laws": [
+    "PROJECTION PHASE != NATIVE LIFECYCLE.",
+    "READY IS DERIVED FROM EXISTING EVIDENCE GATES; IT IS NOT OWNERSHIP OR A PURCHASE RECOMMENDATION.",
+    "TESTED IS ON_HAND EVIDENCE; ADOPTED REQUIRES THE NATIVE HOST'S explicit lifecycle truth.",
+    "ONE HELD ITEM -> <=3 NATIVE MOVES -> TRACE -> EXACT RETURN.",
+    "MONEY AND SELLER CONTACT REMAIN HUMAN/NATIVE AUTHORITY."
+  ],
+  "evidence": [
+    "/lib/shopping-interphase.js",
+    "/tools/shopping-interphase-selftest.mjs",
+    "/shopping/",
+    "/shopping/release.json",
+    "/control/CURRENT.json",
+    "/showcase-manifest.json"
+  ],
+  "verification": {
+    "source": "PENDING CI on PR head: Shopping one-object selftest + existing Shopping↔HOUSE fit + full public-surface check + Route Registration + gitleaks.",
+    "human": "Ordinary-use feel remains observational: compact object surface should reduce status bookkeeping without hiding native truth."
+  },
+  "next": "If CI and ordinary use hold, treat Shopping as a domain adapter/preset over the shared FIELD grammar rather than adding another Shopping-specific shell.",
+  "stop": "Do not delete native lifecycle history or let shared action aliases gain purchase, seller, HOUSE or Dayline authority.",
+  "version": "0.4.0"
+}
