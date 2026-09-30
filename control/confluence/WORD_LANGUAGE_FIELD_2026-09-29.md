@@ -61,9 +61,9 @@ CTP URNs, full text and text-analysis tooling can support provenance, lookup and
 
 Reference: University of Oklahoma / Newman Prize for English Jueju.
 
-Role here: **explicit transfer experiment**.
+Role here: **bounded transfer adapter now implemented in Verse Copilot 0.3.1 candidate**.
 
-A published English-jueju tradition uses four lines with seven syllables, often monosyllabic English, to preserve some Jueju-like structural constraints. This is not historical Tang phonology/prosody. Keep preserved/lost constraints explicit.
+The current adapter declares 4×5 or 4×7 monosyllabic English, visible 2+3 / 2+2+3 grouping, an approximate AABA rhyme check, and 起→承→轉→合 as author judgment. It is sourced to University of Oklahoma / Newman Prize teaching materials and explicitly does **not** claim historical Tang phonology/prosody. Deeper sound/meaning parallelism remains OPEN rather than silently approximated.
 
 ## Current convergence law
 
@@ -97,5 +97,16 @@ Do not add another editor.
 Use ordinary held-source flow first. The next transfer should be named by friction:
 - if options are weak → graft a COPE/CText-backed evidence provider;
 - if open composition is weak → deepen Pathweaver carry/return;
-- if English-Jueju constraints are genuinely desired → implement a declared transfer adapter with preserved/lost rules;
+- English Jueju transfer is now present; reopen only for a concrete defect or a named deeper rule such as sound/meaning parallelism;
 - if Wenyan becomes active → verify the current compiler atomically before integrating any executable projection.
+
+
+## 2026-09-30 forward cut
+
+The useful convergence is asymmetric:
+
+- **Wordless** donates visible grouping/gesture: the English-Jueju adapter shows `2 | 3` or `2 | 2 | 3` before prose explanation.
+- **COPE** donates editor-first constraint/error discipline; it does not own our source or candidate choices.
+- **CText** remains addressable corpus/provenance evidence; recurrence is context, not semantic truth.
+- **Wenyan** remains a separate language→code projection. Prior runtime drift means executable integration must start from a compiler-verified atom, not poetic analogy.
+- **English Jueju** is the first bounded transfer that actually enters the current Copilot as a form adapter while preserving the separation above.
