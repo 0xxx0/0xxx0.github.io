@@ -186,6 +186,7 @@ function cliAssessContribution(p={}){
     host:cliPick(p,'host','route','owner')||null,
     donor_gate:externalDonor?(donorGate||'MISSING'):null,
     attested:{ci:ci||null,exact_head:exactHead,base_current:baseCurrent,mergeable},
+    base_current_semantics:'Caller must derive base_current from native ancestry: compare(master, candidate_head).behind_by === 0. PR base-pointer equality alone is insufficient.',
     authority:'ADVISORY_ONLY / CALLER_ATTESTED_FACTS / NO REPO OR HOST MUTATION',
     stop:disposition==='MERGE'?'Caller may request native merge after independent exact-head verification.':
       disposition==='REPAIR'?'Repair the named failing/unknown gate, then re-reduce.':
