@@ -86,8 +86,8 @@ test('capture freezes exact LIVE provenance beside the lossy hex projection',()=
 });
 
 test('comparison keeps same-polarity exact edits as quotient residue',()=>{
-  const from={ok:true,exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:1,last_seq:6};
-  const to={ok:true,exact_form:['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:7,last_seq:12};
+  const from={ok:true,live_instance:'live-a',exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:1,last_seq:6};
+  const to={ok:true,live_instance:'live-a',exact_form:['FOLD','BLOOM','RETURN','SPLIT','FOLD','BLOOM'],hex_token:'H[110|011]',bits:[1,1,0,0,1,1],first_seq:7,last_seq:12};
   const c=compareLiveChangeCaptures(from,to);
   assert.equal(c.ok,true);
   assert.equal(c.same_hex_endpoints,true);
@@ -96,6 +96,14 @@ test('comparison keeps same-polarity exact edits as quotient residue',()=>{
   assert.equal(c.quotient_invisible_exact_changes,6);
   assert.equal(c.invisible_lines.length,6);
   assert.equal(c.exact_forms_per_hexagram,64);
+});
+
+test('comparison rejects unscoped capture-like objects',()=>{
+  const from={ok:true,exact_form:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],bits:[1,1,0,0,1,1]};
+  const to={...from};
+  const c=compareLiveChangeCaptures(from,to);
+  assert.equal(c.ok,false);
+  assert.equal(c.reason,'LIVE_INSTANCE_REQUIRED');
 });
 
 test('same hex windows can retain unequal post-release native NEXT apertures',()=>{
