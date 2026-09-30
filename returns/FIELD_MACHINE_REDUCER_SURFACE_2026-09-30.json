@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30",
   "date": "2026-09-30",
-  "status": "MERGED_CI_GREEN",
+  "status": "MERGED / EXACT_HEAD_GREEN",
   "object": "existing scripts/emit-agent-transcript.mjs machine entrypoint",
   "delta": [
     "Extend the existing --reduce path from one JSON packet to file-or-directory sweep without creating a second reducer CLI.",
@@ -92,5 +92,30 @@
     "exact_head": true,
     "ancestry_current": true
   },
-  "closed_at": "2026-09-30T11:50:57+08:00"
+  "closed_at": "2026-09-30T11:50:57+08:00",
+  "merged_at": "2026-09-30T03:50:57Z",
+  "proof": {
+    "pr": 692,
+    "candidate_head": "9844eb22831d694d554a1c1c20be0cf096477f85",
+    "base_head": "46bfe98d81e0ef7f5781c4b2843438770f36a8e3",
+    "ancestry": {
+      "status": "ahead",
+      "ahead_by": 18,
+      "behind_by": 0,
+      "merge_base": "46bfe98d81e0ef7f5781c4b2843438770f36a8e3"
+    },
+    "public_surface_check": {
+      "run_id": 36666000971,
+      "conclusion": "success",
+      "critical_browser_smoke": "success"
+    },
+    "gitleaks": {
+      "run_id": 36666000950,
+      "conclusion": "success"
+    },
+    "merge_sha": "a34fa6162b606bb50a7d1659a96ecf3c0b697eb1"
+  },
+  "correction": [
+    "A predecessor reducer head failed only at the unrelated FOLD//BLOOM LIVE mobile-controls browser smoke after reducer tests had passed. Current master base independently passed public-surface, and the final exact reducer head passed the same critical browser smoke without any reducer-owned FOLD//BLOOM change."
+  ]
 }
