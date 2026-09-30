@@ -8,7 +8,8 @@
   "changes": [
     "/scripts/reduce-field-egress.mjs",
     "/tools/field-egress-sweep-selftest.mjs",
-    "/returns/FIELD_EGRESS_SWEEP_INSTRUMENT_2026-09-30.json"
+    "/returns/FIELD_EGRESS_SWEEP_INSTRUMENT_2026-09-30.json",
+    "/.github/workflows/public-surface-check.yml"
   ],
   "laws": [
     "THE REDUCER CLASSIFIES; IT DOES NOT PRIORITIZE OR EXECUTE.",
@@ -24,7 +25,8 @@
   ],
   "verify": [
     "node tools/field-egress-reducer-selftest.mjs",
-    "node tools/field-egress-sweep-selftest.mjs  # fixture + actual control/packets smoke; no-context shelf must emit zero NOW"
+    "node tools/field-egress-sweep-selftest.mjs  # fixture + actual control/packets smoke; no-context shelf must emit zero NOW",
+    "CI: public-surface-check / Validate JIT FIELD handoff compiler runs both reducer and sweep selftests"
   ],
   "residue": [
     "The sweep does not infer CURRENT priority.",
