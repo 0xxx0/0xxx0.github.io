@@ -229,7 +229,7 @@ export function liveSteeringSupport(state){
       call:native.call?clone(native.call):null,
       candidate_count:native.candidate_count
     },
-    support_source:'LATEST_WINDOW_NATIVE_APERTURE',
+    support_source:'LATEST_NATIVE_APERTURE',
     law:'the last accepted authority-NONE steering direction is compared with the latest witnessed native forecast aperture only; support is descriptive preview evidence and never a commit instruction'
   };
 }
