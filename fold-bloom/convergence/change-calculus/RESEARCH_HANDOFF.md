@@ -464,6 +464,32 @@ This identifies the smallest sufficient layer for each task instead of assuming 
 
 These sources motivate tests. They do not certify the current repo abstractions.
 
+
+## 2026-09-30 — LAB convergence calculation tape
+
+FIELD LAB DATA now projects the already-existing change/steering mechanisms as one compact inspectable tape:
+
+```text
+SOURCE → QUOTIENT → PATH → NEXT → NATIVE → MODEL → RETURN
+```
+
+This is a **derived witness**, not another reducer, bus, store, state machine, or authority source.
+
+Stage ownership remains unequal:
+
+- **SOURCE** — supplied six-bit endpoint pair.
+- **QUOTIENT** — transparent (d_H), moving-line set and collapsed temporal-order residue.
+- **PATH** — one factoradic maximal chain with an exact path address.
+- **NEXT** — every remaining one-line successor from the witnessed prefix plus remaining path multiplicity.
+- **NATIVE** — the latest LIVE-owned lawful forecast aperture witnessed through the existing FIELD PULSE bridge.
+- **MODEL** — only (C(direction,s)), the subset of the current native aperture matching the authority-NONE direction witness, plus (a=log_2|C|).
+- **RETURN** — exact address for re-entering the inspected calculation.
+
+The new pure `calculationTape(...)` projection lives in the existing change-calculus kernel and is covered by the normal selftest. LAB renders the seven stages as tap-to-inspect VIEW operations and includes the tape in its ordinary DATA RETURN. Clicking a stage may change only the LAB witness address/status; it does not select a NEXT edge, call LIVE `release()`, cast I Ching, or promote J-space support.
+
+The key experiential reduction is that the former adjacent STATE/STEP and LIVE/J-space panels now share one visible provenance spine. The user can see where information is compressed, where order is restored, where abstract possibility becomes host-lawful support, and where model support stops before effect authority.
+
+
 ## Stop rules
 
 - no claim that the I Ching is the latent ontology of the model or host;
