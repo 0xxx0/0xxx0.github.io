@@ -985,7 +985,7 @@ function drawStateChange(){
   drawStateLattice();
 }
 function nativeApertureGeometry(){
-  const cx=W*.5,cy=H*.505,r=Math.max(76,Math.min(136,Math.min(W,H)*.31));
+  const cx=W*.5,cy=H*.505,r=Math.max(96,Math.min(180,Math.min(W,H)*.43));
   return Array.from({length:12},(_,slot)=>{const a=-Math.PI/2+slot*TAU/12;return {slot,x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,a,cx,cy,r}});
 }
 function drawNativeAperture(){
