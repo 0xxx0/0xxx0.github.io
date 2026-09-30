@@ -171,6 +171,8 @@ jobs:
         run: node control/space-scale-selftest.js
       - name: Test return receipt CI-claim contract
         run: node --test tools/return-receipt-contract.test.mjs
+      - name: Validate One-Axis physical proof promotion
+        run: node tools/one-axis-physical-proof-gate-selftest.mjs
       - name: Validate static surface contracts
         run: |
           node tools/html-document-integrity-selftest.mjs
