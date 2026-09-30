@@ -44,15 +44,14 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .aperture{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center;min-width:34px}.apGlyph[data-project-head="1"]{width:58px}.apGlyph[data-project-head="1"] svg{width:58px;height:58px}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
-.capTrial{display:grid;grid-template-columns:minmax(150px,.8fr) minmax(220px,1.25fr) minmax(170px,1fr);gap:1px;border-bottom:1px solid var(--line);background:var(--line)}
+.apFlow{display:flex;align-items:flex-start;gap:8px 14px;flex-wrap:wrap;border-top:1px solid #20282c;margin-top:6px;padding-top:5px}.apNext,.apOutcome{display:flex;align-items:flex-start;gap:6px;min-width:0}.apOutcome{flex:1 1 280px}.apFlowK{flex:none;color:var(--mut);font-size:5.8px;letter-spacing:.12em;padding-top:2px}.apOutcomeText{min-width:0;line-height:1.35}
 .focusDepth{border-top:1px solid var(--line);background:#080b0d}
 .focusDepth>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 7px;cursor:pointer;color:var(--mut)}
 .focusDepth>summary::-webkit-details-marker{display:none}.focusDepth>summary b{font-size:7px;letter-spacing:.13em;color:var(--gold)}.focusDepth>summary span{font-size:6px}
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGesture button{padding:4px 6px;font-size:6.5px}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
-.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
-@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
+.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px;margin-left:6px}
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
@@ -151,7 +150,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
  .axialHead{align-items:flex-start;padding:9px}.axialHead b{font-size:12px}.axialHead span,.axialHead button{font-size:10px}.axialHead button{min-height:42px;padding:8px}
  .axisName{font-size:10px}.axisName b{font-size:11px}.axisToken{height:44px;font-size:11px}.axisToken small,.axisToken .sub{font-size:9px}
  .aperture{grid-template-columns:auto minmax(0,1fr);gap:8px;padding:10px}.apGlyph{grid-row:1 / span 2}.apGlyph[data-project-head="1"]{width:52px}.apGlyph[data-project-head="1"] svg{width:52px;height:52px}.apMeta,.apPath,.apReading{font-size:10px;line-height:1.4}.apBody strong{font-size:18px}.apBody p{font-size:14px;line-height:1.45}.apActions{grid-column:1 / -1;justify-content:flex-start}.apActions a,.apActions button{min-height:42px;padding:8px 10px;font-size:10px}
- .capCell{padding:10px}.capK{font-size:10px}.capV{font-size:14px}.capSub{font-size:10px;line-height:1.4;white-space:normal}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}
+ .apFlow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;padding-top:7px}.apNext,.apOutcome{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px}.apFlowK{font-size:9px}.capMove{min-height:42px;padding:8px 10px;font-size:10px}.capWitness,.capReturn{font-size:11px;line-height:1.45}.capReturn{margin-left:0}
  .feedMore{font-size:10px;line-height:1.4}.feedMore button{min-height:42px;font-size:10px}.feedItem{grid-template-columns:30px minmax(0,1fr);gap:7px;padding:9px 4px}.feedMain strong{font-size:14px}.feedPath{font-size:10px;white-space:normal;overflow-wrap:anywhere}.feedTouch,.feedMode,.feedState{font-size:10px}
  .focusDepth>summary{min-height:42px;padding:8px}.focusDepth>summary b,.focusDepth>summary span{font-size:10px}.refineTools a,.refineTools button{min-height:42px;font-size:10px}.fieldGesture{font-size:9px;padding:7px}.fieldGesture button{min-height:40px;font-size:10px}
 }
@@ -220,23 +219,15 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="axialHead fieldSignalBar" id="focusHead" data-field-signal="CLEAR"><div><span class="signalGlyph" aria-hidden="true"></span><b>FIELD</b> <span id="axialMeta">loading addressed surfaces…</span></div><span class="tiny">one held object</span></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
-    <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div><p id="apRole">One addressed object; hidden structure remains recoverable below.</p></div>
+    <div class="apBody">
+      <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
+      <p id="apRole">One addressed object; hidden structure remains recoverable below.</p>
+      <div class="apFlow" id="apFlow" aria-label="Held object continuation">
+        <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
+        <div class="apOutcome"><span class="apFlowK">WITNESS → RETURN</span><div class="apOutcomeText"><span class="capWitness" id="capWitness">—</span><span class="capReturn" id="capReturn">—</span></div></div>
+      </div>
+    </div>
     <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
-  </div>
-  <!-- THE FRAME. Current object / focus / next lawful move / witness -> RETURN.
-       Surfaced here, at the one-object layer, because UNIFIED_INSTRUMENT_PIVOT_2026-09-25
-       names this as the smallest shared human surface and its stated gap was felt
-       continuity. It was previously rendered inside the REFINE / PROVE disclosure, so the
-       human only saw it after opening that fold — the frame existed and was populated
-       (see renderAperture) but was never visible in ordinary use. The REFINE TOOLS stay
-       folded; the frame is the primary surface and routes are secondary.
-       Law: CONTROL.json active_fronts[id=conversion].
-       NOTE: do not write the refine-fold element's id string in this comment — root
-       order is asserted by indexOf() and prose would be matched before the element. -->
-  <div class="capTrial" id="capTrial" aria-label="Held object action aperture">
-    <div class="capCell"><span class="capK">HELD / PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">focus only · native object remains with owner</span></div>
-    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
-    <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
   </div>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span>tap mark → hold · held mark → open</span><button id="moreLatest">ALL</button></div>
@@ -341,8 +332,6 @@ const fieldEgressReady=import('./lib/field-egress-reducer.mjs').then(m=>{
  return m;
 }).catch(()=>null);
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
-const CAP_TRIAL=INIT.get('cap')!=='0';
-
 const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02',DAYLINE_SOURCE_RETURN_KEY='atlas.dayline.source-return.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
@@ -632,25 +621,25 @@ function fieldActionSurface(carrier=fieldCarrierForFocus()){
  const C=globalThis.InterphaseCarrier;if(!carrier||!C||typeof C.actionSurface!=='function')return null;
  try{return C.actionSurface(carrier)}catch(_){return null}
 }
-function renderCapabilityTrial(){
- const box=$('capTrial');if(!box)return;
- if(!CAP_TRIAL){box.hidden=true;return}
- box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId,egress=fieldEgressForRoute(focus),egressLabel=egress?.class?('EGRESS · '+egress.class+' · '):'';
- $('capHeld').textContent=(carrier?.object?.owner||c?.owner||'FIELD ROUTE')+' · '+(carrier?.object?.label||focus.title||focus.href);
- $('capHeldSub').textContent=egressLabel+(returned?('RETURNED FOCUS · '+(carrier.focus.label||carrier.focus.id)+' · '+carrier.focus.address+' · source authority unchanged'):(focus.href+' · held here; native truth remains with '+(c?.owner||'FIELD ROUTE')));
- const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed(),nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[];
+function renderHeldContinuation(){
+ if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
+ const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');
  if(nativeActions.length){
-  $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  const [primary,...rest]=nativeActions;
+  open.textContent=primary.label+' →';open.href=primary.target;
+  $('capMoves').innerHTML=rest.slice(0,2).map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
  }else{
-  $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a>'+(canDayline?'<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>':'<button class="capMove" data-cap-copy>COPY ACTION</button>')+'<button class="capMove" data-cap-trace>TRACE</button>';
+  open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;
+  const extras=[];
+  if(heldDaylineAllowed())extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
+  else extras.push('<button class="capMove" data-cap-copy>COPY ACTION</button>');
+  $('capMoves').innerHTML=extras.join('');
   const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
-  const traceBtn=$('capMoves').querySelector('[data-cap-trace]');if(traceBtn)traceBtn.onclick=openTrace;
  }
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
- $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):((c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
+ $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):('RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
 }
 function renderAperture(){
  const seen=$('apSeen'),residue=$('focusResidue');
@@ -659,20 +648,19 @@ function renderAperture(){
   $('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';
   $('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');
   $('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';
-  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderCapabilityTrial();return;
+  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();return;
  }
  ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';
  const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';
  $('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';
- $('apMeta').textContent=[focus.state||'—',opOf(focus)].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;
+ const owner=capabilityForFocus()?.owner||'FIELD ROUTE';$('apMeta').textContent=[focus.state||'—',opOf(focus),owner].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;
  $('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');
  $('apProjection').textContent=hg.summary?('HEAD GLYPH · '+hg.summary.childCount+' apertures · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'READING · FIELD';
  $('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed surface.';
- const h=headForFocus();$('apOpen').textContent=h?.next_executable?'DO / OPEN →':'OPEN →';$('apOpen').href='.'+(focus.alias_of||focus.href);
- const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){seen.hidden=!unseen;seen.textContent='SEEN';seen.title='Acknowledge this route change locally · reversible under STATUS → ORIENTATION / LOCAL'}
+  const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){seen.hidden=!unseen;seen.textContent='SEEN';seen.title='Acknowledge this route change locally · reversible under STATUS → ORIENTATION / LOCAL'}
  const gap=catchGap(focus),egress=fieldEgressForRoute(focus),bits=[];if(egress?.class)bits.push('EGRESS '+egress.class);if(gap)bits.push('MORE HERE · '+gap);
  if(residue){residue.hidden=!bits.length;residue.innerHTML=bits.length?'<b>RESIDUE</b>'+esc(bits.join(' · ')):''}
- renderCapabilityTrial();
+ renderHeldContinuation();
 }
 function updateStatusRail(){
  const el=document.getElementById('sRail');if(!el)return;
@@ -1052,7 +1040,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderOrientation();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(focus)markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
+$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(focus)markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyHeldAction;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
