@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#efe7d8">
+<title>READFIELD MAP E1 · LINE ↔ DATADISC</title>
+<style>
+:root{--paper:#efe7d8;--paper2:#e4d8c3;--ink:#171713;--mut:#746b5d;--rule:#9c9283;--red:#a73f2c;--red2:#efd7ca;--blue:#285a83;--blue2:#dce5e9;--green:#496c46;--white:#fffdf7}
+*{box-sizing:border-box}
+html{background:#d9d0c2;color-scheme:light}
+body{margin:0;color:var(--ink);background:linear-gradient(90deg,rgba(23,23,19,.025) 1px,transparent 1px),linear-gradient(rgba(23,23,19,.018) 1px,transparent 1px),#ddd5c8;background-size:32px 32px;font:13px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+button,input,textarea{font:inherit;color:inherit;border-radius:0}
+button{cursor:pointer;min-height:38px;border:1px solid var(--rule);background:transparent;padding:7px 9px;font:9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;text-transform:uppercase}
+button:hover,button:focus-visible{border-color:var(--ink);outline:none}
+button.primary{border-color:var(--red);color:var(--red);background:var(--red2)}
+button.cool{border-color:var(--blue);color:var(--blue);background:var(--blue2)}
+button:disabled{opacity:.35;cursor:default}
+a{color:var(--blue)}
+.app{width:min(1080px,100%);margin:auto;padding:12px 12px 50px}
+.top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;border-bottom:1px solid var(--ink);padding:12px 0}
+.ey,.micro,.mono,.state,.metric,.law{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.ey{font-size:8px;letter-spacing:.16em;color:var(--red)}
+h1{margin:3px 0 0;font:34px/1 Georgia,'Times New Roman',serif}
+.dek{max-width:760px;margin:5px 0 0;color:var(--mut);font:13px/1.55 Georgia,'Times New Roman',serif}
+.topnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.topnav a{border:1px solid var(--rule);padding:7px 8px;text-decoration:none;font:8px ui-monospace,monospace}
+.law{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px solid var(--ink);padding:8px 0;font-size:9px}
+.law b{color:var(--red)}
+.law span{color:var(--mut)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:1px;background:var(--ink);border:1px solid var(--ink);margin-top:10px}
+.pane{background:var(--paper);padding:12px;min-width:0}
+.panelTitle{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:9px}
+.panelTitle b{font:18px Georgia,'Times New Roman',serif}
+.panelTitle span{font:8px ui-monospace,monospace;color:var(--mut);letter-spacing:.08em}
+.sourceTools{display:grid;grid-template-columns:1fr auto auto;gap:5px}
+.sourceTools textarea{grid-column:1/-1;min-height:98px;resize:vertical;border:1px solid var(--rule);background:var(--white);padding:8px;font:10px/1.45 ui-monospace,monospace}
+.statusStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:8px 0}
+.statusStrip div{background:var(--paper);padding:7px}
+.statusStrip b{display:block;font:8px ui-monospace,monospace;color:var(--mut)}
+.statusStrip span{display:block;margin-top:2px;font:15px Georgia,serif}
+.trialControls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin:8px 0}
+.stage{min-height:430px;border:1px solid var(--ink);background:var(--paper);display:grid;grid-template-rows:auto 1fr auto}
+.stageHead{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px;border-bottom:1px solid var(--rule);font:8px ui-monospace,monospace}
+.stageHead strong{color:var(--red);letter-spacing:.1em}
+.stageBody{display:grid;place-items:center;padding:14px;position:relative}
+.stageFoot{padding:7px 9px;border-top:1px solid var(--rule);color:var(--mut);font:8px ui-monospace,monospace}
+.contextCard{width:min(680px,100%);border-left:3px solid var(--red);padding:10px 12px;background:rgba(255,253,247,.7)}
+.contextCard b{display:block;font:9px ui-monospace,monospace;color:var(--red);letter-spacing:.09em}
+.contextCard p{margin:8px 0 0;font:18px/1.5 Georgia,'Times New Roman',serif}
+.mapWrap{width:min(720px,100%);display:grid;place-items:center}
+.lineMap{width:100%;height:150px;display:flex;align-items:center;gap:2px;padding:18px 10px}
+.lineMap button{flex:1 1 0;min-width:3px;height:46px;min-height:0;border:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:transparent;padding:0;position:relative}
+.lineMap button.section{height:74px;border-color:var(--blue)}
+.lineMap button.target{background:var(--red)}
+.lineMap button.response:hover{background:rgba(40,90,131,.22)}
+.discMap{width:min(74vw,390px);aspect-ratio:1}
+.discMap svg{width:100%;height:100%;overflow:visible}
+.discMap circle.base{fill:none;stroke:var(--ink);stroke-width:1}
+.discMap line{stroke:var(--ink);stroke-width:2;cursor:pointer}
+.discMap line.section{stroke:var(--blue);stroke-width:4}
+.discMap line.target{stroke:var(--red);stroke-width:7}
+.discMap line.response:hover{stroke:var(--blue);stroke-width:7}
+.discMap text{fill:var(--mut);font:8px ui-monospace,monospace;text-anchor:middle}
+.interrupt{width:min(560px,100%);text-align:center}
+.interrupt strong{display:block;font:700 clamp(32px,9vw,70px) ui-monospace,monospace;letter-spacing:.18em}
+.interrupt p{color:var(--mut)}
+.interrupt input{width:min(280px,90%);border:1px solid var(--ink);background:var(--white);padding:10px;text-align:center;font:24px ui-monospace,monospace;letter-spacing:.2em}
+.interrupt .ok{color:var(--green)}
+.result{width:min(620px,100%);display:grid;gap:8px}
+.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.resultGrid div{background:var(--paper);padding:10px}
+.resultGrid b{display:block;font:8px ui-monospace,monospace;color:var(--mut)}
+.resultGrid span{display:block;margin-top:4px;font:20px Georgia,serif}
+.metricTable{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.metricRow{display:grid;grid-template-columns:90px repeat(4,1fr);gap:1px}
+.metricRow>*{background:var(--paper);padding:7px}
+.metricRow b{font-size:8px}
+.metricRow span{font:9px ui-monospace,monospace;color:var(--mut)}
+.verdict{border:1px solid var(--ink);padding:10px;margin-top:8px}
+.verdict strong{display:block;font:20px Georgia,serif}
+.verdict p{margin:5px 0 0;color:var(--mut)}
+.receipts{display:grid;gap:4px;max-height:220px;overflow:auto}
+.receipt{border-bottom:1px solid var(--rule);padding:6px 0;font:8px ui-monospace,monospace;color:var(--mut)}
+.receipt b{color:var(--ink)}
+details{margin-top:8px;border:1px solid var(--rule);background:var(--paper)}
+summary{cursor:pointer;padding:8px 9px;font:9px ui-monospace,monospace;letter-spacing:.08em}
+details>div{border-top:1px solid var(--rule);padding:9px}
+.notes{font:10px/1.55 ui-monospace,monospace;color:var(--mut)}
+.notes b{color:var(--ink)}
+.foot{display:flex;justify-content:space-between;gap:14px;margin-top:10px;padding-top:8px;border-top:1px solid var(--ink);color:var(--mut);font:8px ui-monospace,monospace}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);border:1px solid var(--ink);background:var(--paper);padding:8px 10px;font:9px ui-monospace,monospace;opacity:0;pointer-events:none;transition:.15s}
+.toast.on{opacity:1}
+@media(max-width:760px){body{background:var(--paper)}.app{padding:8px 8px 46px}.top{grid-template-columns:1fr}.topnav{justify-content:flex-start}.grid{grid-template-columns:1fr}.stage{min-height:390px}.statusStrip{grid-template-columns:1fr 1fr}.trialControls{grid-template-columns:1fr 1fr}.trialControls button:last-child{grid-column:1/-1}.contextCard p{font-size:16px}.metricRow{grid-template-columns:78px repeat(2,1fr)}.metricRow span:nth-child(n+4){display:none}.foot{display:block}.foot span{display:block;margin-top:4px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div><div class="ey">FIELD / PROOF · E1 · READFIELD HOST · ONE MUTATION</div><h1>LINE ↔ DATADISC</h1><p class="dek">Same addressed text. Same ticks. Same section boundaries. Same response task. Only topology changes. If the disc cannot beat or materially differ from the line, the line stays.</p></div>
+  <nav class="topnav"><a href="../">FIELD / PROOF</a><a href="/docs/">READFIELD</a><a href="/recovery/media/datadisc/datadisc.html">2019 DATADISC DONOR</a></nav>
+</header>
+<div class="law"><b>QUESTION</b><span>Does stable circular source position improve interruption recovery / positional memory enough to justify a richer map?</span></div>
+
+<section class="grid">
+  <div class="pane">
+    <div class="panelTitle"><b>Controlled trial</b><span id="conditionLabel">IDLE</span></div>
+    <div class="sourceTools">
+      <button id="fixture" class="cool">LOAD FIXTURE</button>
+      <button id="useSource">USE SOURCE</button>
+      <button id="clearSource">CLEAR</button>
+      <textarea id="source" spellcheck="false" aria-label="Experiment source"></textarea>
+    </div>
+    <div class="statusStrip">
+      <div><b>SOURCE</b><span id="sourceState">—</span></div>
+      <div><b>UNITS</b><span id="unitState">—</span></div>
+      <div><b>TRIALS</b><span id="trialState">0</span></div>
+      <div><b>NEXT</b><span id="nextState">A</span></div>
+    </div>
+    <div class="trialControls">
+      <button id="newTrial" class="primary">START NEXT TRIAL</button>
+      <button id="export">EXPORT EVIDENCE</button>
+      <button id="reset">RESET DATA</button>
+    </div>
+    <section class="stage">
+      <div class="stageHead"><strong id="phase">READY</strong><span id="phaseMeta">Load a source, then start.</span></div>
+      <div class="stageBody" id="stageBody"></div>
+      <div class="stageFoot" id="stageFoot">E1A / topology only · no hierarchy, spiral, glyph payload, AI summary or semantic weighting.</div>
+    </section>
+  </div>
+
+  <aside class="pane">
+    <div class="panelTitle"><b>Evidence</b><span>browser-local</span></div>
+    <div class="metricTable" id="metrics"></div>
+    <div class="verdict" id="verdict"><strong>INSUFFICIENT DATA</strong><p>Run paired LINE/DISC trials. Pilot disposition appears after ≥4 completed trials per condition.</p></div>
+    <details open><summary>INVARIANTS</summary><div class="notes">
+      <b>I1</b> same source hash + same paragraph units.<br>
+      <b>I2</b> same tick count / section-boundary encoding.<br>
+      <b>I3</b> target highlight exists only during familiarisation.<br>
+      <b>I4</b> response phase exposes geometry only.<br>
+      <b>I5</b> condition alternates from a randomized first side.<br>
+      <b>I6</b> success transfers a mechanism to /docs/; it does not mint a new reader.
+    </div></details>
+    <details><summary>DONOR / ABLATION NOTE</summary><div class="notes">The exact 2019 DataDisc donor uses 150 compound glyph discs on a two-revolution Archimedean spiral (<code>r ∝ θ</code>) with per-disc status channels. E1 intentionally removes all of that richness. The experimental DISC is one information-matched ring so the tested mutation is <b>linear coordinate → stable angular coordinate</b>, not “more channels versus fewer”.</div></details>
+    <details><summary>DECISION LAW</summary><div class="notes">
+      <b>TRANSFER</b>: DISC median RT ≥15% faster and median positional error ≥20% lower.<br>
+      <b>HOLD / MODIFY</b>: RT gain 5–15%, or strong error benefit offset by time cost.<br>
+      <b>NO TRANSFER</b>: |RT gain| &lt;5% and error gain &lt;10%.<br>
+      <b>HARD REJECT</b>: DISC &gt;10% slower with no ≥15% error benefit.<br>
+      Pilot result is not population-level proof.
+    </div></details>
+    <details><summary>RECENT RECEIPTS</summary><div class="receipts" id="receipts"></div></details>
+  </aside>
+</section>
+
+<div class="foot"><span>HOST /docs/ · PROOF OWNER /forward-field-proof/ · DONOR /recovery/media/datadisc/</span><span>FRAME → TEST → SELECT → TRANSFER / PARK / COMPOST → RETURN</span></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="/lib/document-structure.js"></script>
+<script>
+(()=>{'use strict';
+const K='readfield-map-e1/v0.1';
+const FIXTURE=`# Aster Relay / synthetic fixture
+
+The relay records twelve small maintenance windows each day. Operators do not need the whole record at once; they need to recover where a particular observation lived after attention has moved elsewhere.
+
+A blue inspection flag means the sample was visually checked but not altered. The flag is metadata about observation, not evidence that the underlying condition improved.
+
+The first channel is deliberately quiet. Its value is that it provides a stable landmark before later sections introduce denser changes.
+
+# Copper Window
+
+A second cluster contains short bursts separated by long calm intervals. The burst pattern is easy to notice locally but difficult to place globally after interruption.
+
+One note describes a valve opening before the recorder switches range. Another describes the same range switch with no valve event. Their proximity matters more than either sentence in isolation.
+
+A maintenance mark is placed near the middle of this section. It has no priority meaning; it simply gives the reader another positional landmark.
+
+# Glass Route
+
+The route section contains four numbered checkpoints. Checkpoints are sequential, but the operator may revisit them in any order while diagnosing a fault.
+
+The third checkpoint is intentionally described with more words than the others. This creates a visually denser source region without changing its importance.
+
+A return note states that the previous inspection resumed at the second checkpoint after an unrelated phone call. The note exists to make interruption recovery a natural reading task.
+
+# Ember Close
+
+The final section compresses several observations into short lines. Dense endings are useful for testing whether a reader remembers “near the end” or a more specific source location.
+
+A closing mark says that no action was taken because the observed change stayed below the synthetic threshold used by this fixture.
+
+The document ends with an explicit return cue: preserve the source address, change only the representation, and compare what the representation actually buys.`;
+
+const $=id=>document.getElementById(id);
+const state=load();
+let timer=null;
+
+function fresh(){
+  return {source:'',sourceHash:'',units:[],sections:[],first:Math.random()<.5?'LINE':'DISC',trial:null,results:[],events:[],seq:0};
+}
+function load(){
+  try{const x=JSON.parse(localStorage.getItem(K)||'null');if(x&&Array.isArray(x.results))return x}catch(_){}
+  return fresh();
+}
+function save(){localStorage.setItem(K,JSON.stringify(state))}
+function toast(x){const n=$('toast');n.textContent=x;n.classList.add('on');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('on'),1500)}
+function esc(s){return String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+function median(xs){xs=xs.filter(Number.isFinite).slice().sort((a,b)=>a-b);if(!xs.length)return null;const m=Math.floor(xs.length/2);return xs.length%2?xs[m]:(xs[m-1]+xs[m])/2}
+function pct(v){return v==null?'—':Math.round(v*100)+'%'}
+function ms(v){return v==null?'—':(v/1000).toFixed(2)+'s'}
+function hashText(text){
+  if(!crypto?.subtle)return Promise.resolve('fnv:'+fnv(text));
+  return crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)).then(b=>'sha256:'+Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));
+}
+function fnv(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return(h>>>0).toString(16).padStart(8,'0')}
+function record(event,value={}){
+  state.seq++;
+  state.events.push({seq:state.seq,at:new Date().toISOString(),t_ms:state.trial?performance.now()-state.trial.clock0:null,event,trial_id:state.trial?.id||null,condition:state.trial?.condition||null,value});
+  save();
+}
+function parseSource(text){
+  const structure=FieldDocumentStructure.parseDocumentStructure(text,{format:'AUTO'});
+  const units=structure.paragraphs.map((p,i)=>{
+    const section=structure.sections.findIndex(s=>p.start>=s.start&&p.start<s.end);
+    return {id:'p:'+i,index:i,start:p.start,end:p.end,section:Math.max(0,section),text:text.slice(p.start,p.end).trim()};
+  }).filter(x=>x.text);
+  return {structure,units};
+}
+async function useSource(text){
+  text=String(text||'').trim();
+  if(!text){toast('Source is empty.');return}
+  const {structure,units}=parseSource(text);
+  if(units.length<8){toast('Use at least 8 paragraphs for E1.');return}
+  state.source=text;state.units=units;state.sections=structure.sections.map(x=>({address:x.address,start:x.start,end:x.end,label:x.label}));state.sourceHash=await hashText(text);state.trial=null;save();render();toast('Source addressed.');
+}
+function nextCondition(){
+  const n=state.results.length;
+  const first=state.first;
+  return n%2===0?first:(first==='LINE'?'DISC':'LINE');
+}
+function targetIndex(){
+  const n=state.units.length;
+  const k=state.results.length;
+  const x=(k*7 + 3 + (state.source.length%11))%Math.max(1,n-2);
+  return Math.max(1,Math.min(n-2,x));
+}
+function sectionStart(i){
+  if(i<=0)return true;
+  return state.units[i-1]?.section!==state.units[i]?.section;
+}
+function newTrial(){
+  if(!state.units.length){toast('Load the fixture or another source first.');return}
+  if(state.trial){toast('Finish the active trial first.');return}
+  const condition=nextCondition(),target=targetIndex(),id='e1:'+Date.now();
+  state.trial={id,condition,target,phase:'familiarise',started:new Date().toISOString(),clock0:performance.now(),familiarise_ms:8000,interruption_started:null,response_started:null,code:'',code_ok:false};
+  record('trial_start',{target,source_hash:state.sourceHash});
+  render();
+  timer=setTimeout(()=>beginInterrupt(),8000);
+}
+function beginInterrupt(){
+  if(!state.trial||state.trial.phase!=='familiarise')return;
+  clearTimeout(timer);
+  const seed=(state.trial.target+1)*7919+state.results.length*104729;
+  const code=String(Math.abs(seed)%900000+100000).slice(0,6);
+  state.trial.phase='interrupt';state.trial.code=code;state.trial.interruption_started=performance.now();state.trial.code_ok=false;
+  record('interruption_start',{code_length:code.length});
+  render();
+}
+function checkCode(){
+  const t=state.trial;if(!t||t.phase!=='interrupt')return;
+  const want=t.code.split('').reverse().join(''),got=$('interruptionInput')?.value.trim();
+  t.code_ok=got===want;
+  if(t.code_ok){record('interruption_task_correct',{elapsed_ms:performance.now()-t.interruption_started});save();render()}
+  else toast('Reverse the six digits exactly.');
+}
+function beginResponse(){
+  const t=state.trial;if(!t||t.phase!=='interrupt'||!t.code_ok)return;
+  const elapsed=performance.now()-t.interruption_started;
+  if(elapsed<4000){toast('Hold the interruption for at least 4 seconds.');return}
+  t.phase='respond';t.response_started=performance.now();record('response_start',{interruption_ms:elapsed});save();render();
+}
+function answer(i){
+  const t=state.trial;if(!t||t.phase!=='respond')return;
+  const rt=performance.now()-t.response_started,den=Math.max(1,state.units.length-1),err=Math.abs(i-t.target)/den,exact=i===t.target;
+  const result={schema:'readfield-map-e1/trial-v0.1',id:t.id,condition:t.condition,source_hash:state.sourceHash,target_index:t.target,response_index:i,units:state.units.length,rt_ms:Math.round(rt),position_error:+err.toFixed(6),exact,started:t.started,ended:new Date().toISOString()};
+  state.results.push(result);record('response_commit',{response:i,rt_ms:result.rt_ms,position_error:result.position_error,exact});
+  state.trial={...t,phase:'result',result};
+  save();render();
+}
+function closeTrial(){if(!state.trial)return;record('trial_return',{result:state.trial.result||null});state.trial=null;save();render()}
+function mapHTML(condition,{target=null,response=false}={}){
+  const n=state.units.length;
+  if(condition==='LINE'){
+    return '<div class="mapWrap"><div class="lineMap">'+state.units.map((u,i)=>{
+      const cls=[sectionStart(i)?'section':'',target===i?'target':'',response?'response':''].filter(Boolean).join(' ');
+      return '<button class="'+cls+'" data-answer="'+i+'" aria-label="source unit '+(i+1)+'" title="'+(response?'choose source position':'unit '+(i+1))+'"></button>';
+    }).join('')+'</div></div>';
+  }
+  const lines=state.units.map((u,i)=>{
+    const a=-Math.PI/2+(i/n)*Math.PI*2;
+    const inner=sectionStart(i)?72:78,outer=sectionStart(i)?108:99;
+    const x1=120+Math.cos(a)*inner,y1=120+Math.sin(a)*inner,x2=120+Math.cos(a)*outer,y2=120+Math.sin(a)*outer;
+    const cls=[sectionStart(i)?'section':'',target===i?'target':'',response?'response':''].filter(Boolean).join(' ');
+    return '<line class="'+cls+'" data-answer="'+i+'" x1="'+x1.toFixed(2)+'" y1="'+y1.toFixed(2)+'" x2="'+x2.toFixed(2)+'" y2="'+y2.toFixed(2)+'"></line>';
+  }).join('');
+  return '<div class="mapWrap"><div class="discMap"><svg viewBox="0 0 240 240" role="img" aria-label="circular source-position map"><circle class="base" cx="120" cy="120" r="88"></circle>'+lines+'<text x="120" y="118">'+n+' units</text><text x="120" y="131">CLOCKWISE SOURCE</text></svg></div></div>';
+}
+function renderStage(){
+  const body=$('stageBody'),phase=$('phase'),meta=$('phaseMeta'),foot=$('stageFoot'),t=state.trial;
+  body.innerHTML='';
+  if(!state.units.length){phase.textContent='NO SOURCE';meta.textContent='Load the synthetic fixture or paste a document.';body.innerHTML='<div class="contextCard"><b>E1 NEEDS AN ADDRESSED SOURCE</b><p>Use at least eight paragraphs. Both conditions will consume the same paragraph addresses.</p></div>';return}
+  if(!t){phase.textContent='READY';meta.textContent='Next condition '+nextCondition()+' · target hidden until familiarisation.';body.innerHTML=mapHTML(nextCondition(),{});return}
+  $('conditionLabel').textContent='TRIAL '+(state.results.length+1)+' · '+t.condition;
+  if(t.phase==='familiarise'){
+    phase.textContent='FAMILIARISE';meta.textContent='Remember where this paragraph sits. Interruption begins automatically.';
+    body.innerHTML='<div class="result">'+mapHTML(t.condition,{target:t.target})+'<div class="contextCard"><b>CURRENT ADDRESSED UNIT · '+(t.target+1)+' / '+state.units.length+'</b><p>'+esc(state.units[t.target].text)+'</p></div></div>';
+    foot.textContent='Target is highlighted only now. LINE and DISC expose identical units + section boundaries.';
+  }else if(t.phase==='interrupt'){
+    phase.textContent='INTERRUPTION';meta.textContent='Reverse the digits. Minimum 4 s.';
+    const want=t.code.split('').reverse().join('');
+    body.innerHTML='<div class="interrupt"><strong>'+t.code+'</strong><p>Type these six digits in reverse order.</p><input id="interruptionInput" inputmode="numeric" maxlength="6" autocomplete="off" aria-label="Reversed digits"><p class="'+(t.code_ok?'ok':'')+'">'+(t.code_ok?'CORRECT · return when the 4 s floor has passed':'occupy working memory; the map is hidden')+'</p><button id="checkCode" class="'+(t.code_ok?'cool':'primary')+'">'+(t.code_ok?'RETURN TO MAP':'CHECK')+'</button></div>';
+    $('checkCode').onclick=t.code_ok?beginResponse:checkCode;
+    $('interruptionInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode()});
+    setTimeout(()=>$('interruptionInput')?.focus(),30);
+    void want;
+  }else if(t.phase==='respond'){
+    phase.textContent='REORIENT';meta.textContent='Click the remembered source position. Text and target highlight remain hidden.';
+    body.innerHTML=mapHTML(t.condition,{response:true});
+    body.querySelectorAll('[data-answer]').forEach(x=>x.addEventListener('click',()=>answer(+x.dataset.answer)));
+    foot.textContent='Primary endpoint: response latency. Structural endpoint: normalized absolute source-position error.';
+  }else{
+    const r=t.result;
+    phase.textContent='RETURN';meta.textContent=r.exact?'EXACT POSITION':'POSITION ERROR '+pct(r.position_error);
+    body.innerHTML='<div class="result"><div class="resultGrid"><div><b>CONDITION</b><span>'+r.condition+'</span></div><div><b>LATENCY</b><span>'+ms(r.rt_ms)+'</span></div><div><b>ERROR</b><span>'+pct(r.position_error)+'</span></div></div><div class="contextCard"><b>TARGET '+(r.target_index+1)+' · RESPONSE '+(r.response_index+1)+'</b><p>'+esc(state.units[r.target_index].text)+'</p></div><button id="returnTrial" class="primary">RETURN / CLOSE TRIAL</button></div>';
+    $('returnTrial').onclick=closeTrial;
+    foot.textContent='One bounded move closed. The next trial reselects condition/target from returned state.';
+  }
+}
+function group(c){return state.results.filter(x=>x.condition===c)}
+function summary(c){
+  const xs=group(c);return {n:xs.length,rt:median(xs.map(x=>x.rt_ms)),err:median(xs.map(x=>x.position_error)),exact:xs.length?xs.filter(x=>x.exact).length/xs.length:null};
+}
+function gain(base,test){return base&&test?(base-test)/base:null}
+function disposition(){
+  const L=summary('LINE'),D=summary('DISC');
+  if(L.n<4||D.n<4)return {name:'INSUFFICIENT DATA',why:'Run paired LINE/DISC trials. Pilot disposition appears after ≥4 completed trials per condition.'};
+  const rt=gain(L.rt,D.rt),er=gain(L.err,D.err);
+  if(rt>=.15&&er>=.20)return{name:'TRANSFER CANDIDATE',why:'DISC clears both preregistered pilot thresholds: RT ≥15% faster and positional error ≥20% lower.'};
+  if(rt<=-.10&&!(er>=.15))return{name:'HARD REJECT',why:'DISC is >10% slower without a compensating ≥15% positional-error benefit.'};
+  if(Math.abs(rt)<.05&&(er==null||er<.10))return{name:'NO TRANSFER',why:'Practical equivalence on RT and no material positional-memory gain. Keep LINE by simplicity.'};
+  return{name:'HOLD / MODIFY',why:'Mixed effect. Do not promote. Inspect receipts, then change at most one mechanism before another generation.'};
+}
+function renderMetrics(){
+  const L=summary('LINE'),D=summary('DISC');
+  $('metrics').innerHTML='<div class="metricRow"><b></b><span>n</span><span>median RT</span><span>median error</span><span>exact</span></div>'+
+    [['LINE',L],['DISC',D]].map(([n,x])=>'<div class="metricRow"><b>'+n+'</b><span>'+x.n+'</span><span>'+ms(x.rt)+'</span><span>'+pct(x.err)+'</span><span>'+pct(x.exact)+'</span></div>').join('');
+  const v=disposition();$('verdict').innerHTML='<strong>'+v.name+'</strong><p>'+v.why+'</p>';
+}
+function renderReceipts(){
+  const xs=state.results.slice(-8).reverse();
+  $('receipts').innerHTML=xs.length?xs.map(x=>'<div class="receipt"><b>'+x.condition+'</b> · '+ms(x.rt_ms)+' · error '+pct(x.position_error)+' · '+(x.exact?'EXACT':'Δ '+Math.abs(x.response_index-x.target_index)+' units')+'</div>').join(''):'<div class="receipt">No completed trials.</div>';
+}
+function render(){
+  $('source').value=state.source||'';
+  $('sourceState').textContent=state.sourceHash?state.sourceHash.slice(0,12)+'…':'—';
+  $('unitState').textContent=state.units.length||'—';
+  $('trialState').textContent=state.results.length;
+  $('nextState').textContent=nextCondition();
+  $('newTrial').disabled=!!state.trial||!state.units.length;
+  $('useSource').disabled=!!state.trial;
+  $('fixture').disabled=!!state.trial;
+  $('clearSource').disabled=!!state.trial;
+  $('conditionLabel').textContent=state.trial?'TRIAL '+(state.results.length+1)+' · '+state.trial.condition:'IDLE';
+  renderStage();renderMetrics();renderReceipts();save();
+}
+function exportEvidence(){
+  const payload={schema:'readfield-map-e1/evidence-v0.1',generated_at:new Date().toISOString(),host:'/docs/',proof_owner:'/forward-field-proof/',source:{hash:state.sourceHash,chars:state.source.length,units:state.units.length,sections:state.sections},conditions:{LINE:'linear normalized source position',DISC:'clockwise angular normalized source position; one ring only'},results:state.results,events:state.events,summaries:{LINE:summary('LINE'),DISC:summary('DISC')},disposition:disposition(),decision_thresholds:{transfer:{rt_gain_min:.15,error_gain_min:.20},no_transfer:{abs_rt_gain_lt:.05,error_gain_lt:.10},hard_reject:{disc_rt_cost_gt:.10,error_gain_lt:.15}},non_claim:'pilot/local evidence is not population-level confirmation'};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='readfield-map-e1-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('fixture').onclick=()=>{if(state.trial)return;$('source').value=FIXTURE};
+$('useSource').onclick=()=>useSource($('source').value);
+$('clearSource').onclick=()=>{if(state.trial)return;state.source='';state.sourceHash='';state.units=[];state.sections=[];save();render()};
+$('newTrial').onclick=newTrial;
+$('export').onclick=exportEvidence;
+$('reset').onclick=()=>{if(!confirm('Reset all E1 trial evidence on this browser?'))return;const x=fresh();Object.keys(state).forEach(k=>delete state[k]);Object.assign(state,x);localStorage.removeItem(K);$('source').value='';render();toast('E1 reset.')};
+if(!state.source){$('source').value=FIXTURE}else $('source').value=state.source;
+render();
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body>
+</html>
