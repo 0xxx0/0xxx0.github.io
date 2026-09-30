@@ -49,6 +49,8 @@ const contributionCases=[
   ['repair-merge',{id:'repair',host:'/comms/',changes_existing_head:true,ci:'PASS',mergeable:true},'DELTA','MERGE'],
   ['superseded',{id:'echo',host:'/docs/',changes_existing_head:true,ci:'PASS',mergeable:true,superseded:true},'DELTA','DROP'],
   ['frontier-donor',{id:'frontier',host:'skills/research-design-loop',architectural_only:true,transfer_applied:false,ci:'PASS',mergeable:true},'DONOR','HOLD'],
+  ['external-donor-blocked',{id:'blocked-donor',host:'/',external_donor:true,donor_gate:'PARK',changes_existing_head:true,ci:'PASS',mergeable:true},'DONOR','HOLD'],
+  ['external-donor-admitted',{id:'admitted-donor',host:'/',external_donor:true,donor_gate:'PASS',changes_existing_head:true,ci:'PASS',mergeable:true},'DELTA','MERGE'],
   ['unresolved',{id:'orphan',ci:'PASS',mergeable:true},'UNRESOLVED','HOLD']
 ];
 for(const [name,packet,wantClass,wantDisposition] of contributionCases){
