@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T15:46:00+08:00",
+  "updated": "2026-09-30T15:54:11+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -106,34 +106,26 @@
       "version": "0.8.28",
       "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
       "repo_verification": {
-        "status": "PASS / MERGE 047ef5ee",
+        "status": "PASS / PR 724 EXACT-HEAD",
         "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/724",
         "merge_sha": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
-        "tested_head": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+        "proof_head": "9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38",
         "checks": {
           "route_registration": {
-            "run": 36686415264,
-            "conclusion": "success"
-          },
-          "convergence_validate": {
-            "run": 36686415230,
+            "run": 36686373816,
             "conclusion": "success"
           },
           "public_surface": {
-            "run": 36686415159,
+            "run": 36686373704,
             "conclusion": "success"
           },
           "gitleaks": {
-            "run": 36686415190,
-            "conclusion": "success"
-          },
-          "pages": {
-            "run": 36686414164,
+            "run": 36686373732,
             "conclusion": "success"
           }
         },
-        "browser": "PASS · merge-sha public-surface-check 36686415159 including critical browser smoke, Prison Age FIELD source-intent path, recovered-source checks and frozen City/Painting handlers.",
-        "note": "Proof is on the actual merged Shopping+FIELD tree, not only the pre-merge candidate. Shopping 0.4.1 CURRENT/manifest state remained present after the merge.",
+        "browser": "PASS · public-surface-check 36686373704 including shared INTERPHASE host laws, Prison Age READ/RIDE/SOURCE continuity, FIELD frame→object invariants and critical browser smoke.",
+        "note": "PR #724 merged the exact tested head after preserving current Verse 0.3.2 and Shopping 0.4.1 state. This seal changes authority metadata only; it does not claim a second behavioral mutation.",
         "predecessor": {
           "status": "PASS / PR 700",
           "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
