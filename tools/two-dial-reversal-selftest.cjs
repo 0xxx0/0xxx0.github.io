@@ -8,6 +8,7 @@ const core2=fs.readFileSync('fold-bloom/two-dial/core2.js','utf8');
 const runtime=fs.readFileSync('fold-bloom/two-dial/app-runtime.js','utf8');
 const html=fs.readFileSync('fold-bloom/two-dial/index.html','utf8');
 const release=JSON.parse(fs.readFileSync('fold-bloom/two-dial/release.json','utf8'));
+const sw=fs.readFileSync('fold-bloom/two-dial/sw.js','utf8');
 const audit=JSON.parse(fs.readFileSync('control/FIELD_COAXIALITY_AUDIT.json','utf8'));
 
 assert.match(core1,/0\.10\.7-reversible-commit/);
@@ -35,6 +36,7 @@ assert.match(html,/id="undoBtn"/);
 assert.match(html,/UNDO LAST COMMIT/);
 
 assert.equal(release.version,'0.10.7');
+assert.match(sw,/fb-two-dial-v0107/);
 const mechanism=audit.mechanisms.find(m=>m.id==='fold-bloom-two-dial-relation');
 assert.ok(mechanism,'Two Dial audit mechanism missing');
 assert.equal(mechanism.tests.C_GESTURE.verdict,'PASS');
