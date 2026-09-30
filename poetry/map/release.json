@@ -214,9 +214,12 @@
     "language_lenses_route_registration": "PASS · 36677031278",
     "language_lenses_gitleaks": "PASS · 36677031230",
     "language_lenses_merge": "be667a0a9f78b4475c6a4ff61f5b6e498511ad49",
-    "english_jueju_behavior": "PENDING_PR_CI · 4×7 fixture must pass word/mono/AABA/WORDLESS/ARC behavior selftest",
-    "english_jueju_direct_entry": "PENDING_PR_CI · /poetry/map/?form=enjueju7 must render empty 4-line board + active-form witness in critical browser smoke",
-    "english_jueju_primary_source": "PINNED · /poetry/research/sources.json · University of Oklahoma / Newman Prize teaching materials"
+    "english_jueju_behavior": "PASS_PR_719 · 4×7 fixture passes word/mono/AABA/WORDLESS/ARC behavior selftest · public-surface-check 36678189176",
+    "english_jueju_direct_entry": "PASS_PR_719 · critical browser smoke PASS POEM MAP English Jueju board /poetry/map/?form=enjueju7 · public-surface-check 36678189176",
+    "english_jueju_primary_source": "PINNED · /poetry/research/sources.json · University of Oklahoma / Newman Prize teaching materials",
+    "english_jueju_route_registration": "PASS · 36678189168",
+    "english_jueju_gitleaks": "PASS · 36678189290",
+    "english_jueju_behavior_merge": "0cacf1ea8da9b640af1990f4bf36303f3975cce6"
   },
   "updated": "2026-09-30",
   "next_bounded_test": {
