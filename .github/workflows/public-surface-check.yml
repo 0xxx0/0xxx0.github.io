@@ -217,7 +217,7 @@ jobs:
           node --check fold-bloom/lab/app.js
           node --check fold-bloom/lab/text-marks.js
           node --check fold-bloom/lab/lab-return.js
-          node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs fold-bloom/lab/tests/lab-return.test.mjs fold-bloom/lab/tests/change-ink-guide.test.mjs fold-bloom/lab/text-marks.test.mjs fold-bloom/pulse/tests/psychophysics.test.mjs
+          node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs fold-bloom/lab/tests/lab-return.test.mjs fold-bloom/lab/tests/change-ink-guide.test.mjs fold-bloom/lab/tests/live-change-bridge.test.mjs fold-bloom/lab/text-marks.test.mjs fold-bloom/pulse/tests/psychophysics.test.mjs
       - name: Test FOLD BLOOM VOICE pitch + spectrum + temporal core
         run: |
           node --check fold-bloom/voice/pitch.js
@@ -284,6 +284,10 @@ jobs:
         run: node tools/fold-bloom-lab-cross-projection-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB change path to INK
         run: node tools/fold-bloom-lab-change-ink-smoke.mjs
+      - name: Test FOLD BLOOM FIELD LAB live change witness
+        run: node tools/fold-bloom-lab-live-change-smoke.mjs
+      - name: Test real LIVE to FIELD LAB change bridge
+        run: node tools/fold-bloom-live-lab-change-bridge-smoke.mjs
       - name: Test FOLD BLOOM INK FIELD browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM INK FIELD
