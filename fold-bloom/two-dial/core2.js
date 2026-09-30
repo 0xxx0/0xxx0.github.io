@@ -414,6 +414,7 @@ function cancelPointerGesture(e) {
     live.vR = 0;
   }
   dialTouched[p.side] = false;
+  if (!pointers.size && typeof discardCommitUndoCandidate === 'function') discardCommitUndoCandidate();
   classifyMotion();
   liveUpdate();
   updatePreview();
@@ -423,6 +424,8 @@ cv.onpointerdown = e => {
   if (!run) return;
   if (demo.on) stopDemo(true);
   e.preventDefault();
+  // Capture one exact pre-gesture snapshot; it becomes UNDO state only if release commits.
+  if (!pointers.size && typeof beginCommitUndoCandidate === 'function') beginCommitUndoCandidate();
   let side = dialSide(e.clientX, e.clientY),
     raw = rawFromPoint(side, e.clientX, e.clientY);
   // One physical pointer owns at most one dial, and one dial accepts one live pointer.
@@ -446,6 +449,7 @@ cv.onpointerup = e => {
   // Release is the single semantic commit boundary; motion before release is preview/performance.
   const shouldCommit = prefs.mode !== 'DUET' || dialTouched[0] && dialTouched[1] || !pointers.size;
   if (shouldCommit) {
+    if (typeof armCommitUndo === 'function') armCommitUndo();
     live.vL = live.vR = 0;
     classifyMotion();
     liveUpdate();
@@ -555,7 +559,8 @@ function commit() {
   }
   if (special) {
     splitCharge = 0;
-    setTimeout(() => {
+    const composeTimer = setTimeout(() => {
+      if (typeof settleCommitComposeTimer === 'function') settleCommitComposeTimer(composeTimer);
       const composeBefore = causalFrame(), composeDriver = causalDriver();
       chord('BLOOM');
       if (prefs.mode === 'SCALE') {
@@ -582,6 +587,7 @@ function commit() {
       saveLocal();
       hud();
     }, 90);
+    if (typeof registerCommitComposeTimer === 'function') registerCommitComposeTimer(composeTimer);
   }
   if (original === 'SPLIT') splitCharge = 1;
   if (original === 'RETURN') {
