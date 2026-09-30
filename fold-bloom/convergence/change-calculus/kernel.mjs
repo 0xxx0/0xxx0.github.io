@@ -610,6 +610,137 @@ export function residueLadder({state=null,stateStep=null,lattice=null,exact=null
   };
 }
 
+
+export function calculationTape({
+  state=null,
+  stateStep=null,
+  frontier=null,
+  native=null,
+  modelSupport=null,
+  returnAddress=null
+}={}){
+  const cursor=frontier?.ok
+    ?Math.max(0,Math.trunc(Number(frontier.cursor)||0))
+    :0;
+  const pathReady=!!stateStep?.ok;
+  const pathCount=pathReady?Math.max(1,Number(stateStep.possible_one_line_orders)||1):null;
+  const pathIndex=pathReady?Math.max(0,Number(stateStep.selected_order_index)||0):null;
+  const futurePaths=frontier?.ok?Math.max(1,Number(frontier.current_future_paths)||1):null;
+  const nativeCount=native?Math.max(0,Number(native.candidate_count)||0):null;
+  const supportOk=!!modelSupport?.ok;
+  const supportCount=supportOk?Math.max(0,Number(modelSupport.native_candidate_count)||0):null;
+  const ambiguity=supportOk&&Number.isFinite(Number(modelSupport.candidate_ambiguity_bits))
+    ?round(Number(modelSupport.candidate_ambiguity_bits))
+    :null;
+  const stage=(id,ready,value,authority,extra={})=>({
+    id,
+    ready:!!ready,
+    value:String(value??'OPEN'),
+    authority,
+    ...extra
+  });
+  const stages=[
+    stage(
+      'SOURCE',
+      state?.ok,
+      state?.ok?state.from.token+' → '+state.to.token:'UNRESOLVED',
+      'INPUT_WITNESS',
+      {keeps:'supplied endpoints',drops:'none inside the supplied endpoint pair'}
+    ),
+    stage(
+      'QUOTIENT',
+      state?.ok,
+      state?.ok?'d_H '+state.metrics.hamming_distance+'/6 · '+state.mask:'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:'d_H = Σ_i [from_i ≠ to_i]',
+        keeps:state?.ok?state.metrics.hamming_distance+' addressed moving line(s)':'none',
+        drops:state?.ok&&state.metrics.one_line_step_orders>1
+          ?state.metrics.one_line_step_orders+' temporal orders collapse into the unordered moving set'
+          :'no temporal-order ambiguity at this endpoint pair'
+      }
+    ),
+    stage(
+      'PATH',
+      pathReady,
+      pathReady?'ORDER '+(pathIndex+1)+'/'+pathCount+' · STEP '+cursor+'/'+stateStep.steps.length:'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:'factoradic rank ↔ one maximal one-line path',
+        address:pathReady?stateStep.path_address:null,
+        ambiguity_bits:pathReady?stateStep.order_ambiguity_bits:null
+      }
+    ),
+    stage(
+      'NEXT',
+      frontier?.ok,
+      frontier?.ok
+        ?(frontier.candidates.length
+          ?frontier.candidates.length+' EDGE'+(frontier.candidates.length===1?'':'S')+' · '+futurePaths+' FUTURE PATH'+(futurePaths===1?'':'S')
+          :'TARGET REACHED · '+frontier.current.token)
+        :'UNRESOLVED',
+      'CALCULATION_ONLY',
+      {
+        formula:'remaining one-line successors; future paths = (remaining lines)!',
+        address:frontier?.ok?frontier.current.address:null,
+        future_paths:futurePaths
+      }
+    ),
+    stage(
+      'NATIVE',
+      !!native,
+      native
+        ?nativeCount+' LAWFUL CANDIDATE'+(nativeCount===1?'':'S')+(native.seq!=null?' · SEQ '+native.seq:'')
+        :'NO HOST WITNESS',
+      native?.authority||'WITNESS_ONLY',
+      {
+        keeps:'current host-owned lawful aperture',
+        drops:'support expires after host commit; this tape never executes it',
+        live_instance:native?.live_instance||null
+      }
+    ),
+    stage(
+      'MODEL',
+      supportOk,
+      supportOk
+        ?String(modelSupport.direction_label||modelSupport.direction||'DIRECTION')+' → '+String(modelSupport.mapped_verb||'∅')+' · C='+supportCount+' · a='+(ambiguity==null?'—':ambiguity+'b')
+        :'NO CURRENT SUPPORT WITNESS',
+      'CALCULATION_ONLY',
+      {
+        formula:'C(direction,s) = current lawful native candidates matching the mapped direction; a = log2(|C|)',
+        candidate_count:supportCount,
+        ambiguity_bits:ambiguity,
+        status:modelSupport?.status||modelSupport?.reason||null
+      }
+    ),
+    stage(
+      'RETURN',
+      !!returnAddress,
+      returnAddress||frontier?.current?.address||stateStep?.path_address||'OPEN',
+      'EVIDENCE_ONLY',
+      {
+        keeps:'address needed to re-enter the inspected calculation',
+        drops:'RETURN preserves evidence; it grants no host/model authority'
+      }
+    )
+  ];
+  const ready=stages.filter(x=>x.ready);
+  const active=ready.length?ready.at(-1).id:'SOURCE';
+  return {
+    schema:CHANGE_CALCULUS_SCHEMA+'/calculation-tape',
+    authority:'RESEARCH_WITNESS_ONLY',
+    active_stage:active,
+    stages,
+    ambiguity:{
+      endpoint_order_bits:state?.ok?state.metrics.step_order_ambiguity_bits:null,
+      selected_path_bits:pathReady?stateStep.order_ambiguity_bits:null,
+      remaining_path_bits:frontier?.ok?frontier.current_future_order_ambiguity_bits:null,
+      model_candidate_bits:ambiguity
+    },
+    law:'SOURCE → QUOTIENT → PATH → NEXT → NATIVE → MODEL → RETURN is one inspectable evidence tape over existing witnesses; readiness at one stage never grants authority to the next'
+  };
+}
+
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
