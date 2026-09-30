@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_HARNESS_2026-09-30",
+  "status": "IMPLEMENTED / EVIDENCE_OPEN",
+  "date": "2026-09-30",
+  "route": "/fold-bloom/two-dial/",
+  "host_delta": "Make the corrected H_COMPRESSION baseline runnable without changing normal Two Dial behavior or causal scheduling.",
+  "law": "Vary control geometry only. PLAIN_PAIR_6X6_RELEASE_COMMIT must preserve the host's release/change commit boundary, intermediate consequences, undo boundary and RETURN path; H still requires ordinary-use evidence.",
+  "changes": [
+    "/fold-bloom/two-dial/compression-audit.js — opt-in TWO vs parity-correct PLAIN trial",
+    "/fold-bloom/two-dial/app-runtime.js — H trials never persist into normal local state",
+    "/control/FIELD_COAXIALITY_AUDIT.json — corrected baseline becomes runnable, verdict stays INDETERMINATE",
+    "/tools/two-dial-compression-harness-selftest.cjs — executable parity/evidence boundary proof"
+  ],
+  "entrypoints": [
+    "/fold-bloom/two-dial/?compression=TWO",
+    "/fold-bloom/two-dial/?compression=PLAIN"
+  ],
+  "evidence_packet": "fold-bloom-compression-return/v0.1",
+  "boundary": "No score, elapsed time, preference or task completion auto-promotes H. Comparable ordinary-use returns from both representations are required.",
+  "preserves": [
+    "same 36 pair states",
+    "same host relation mapping",
+    "same release/change commit schedule",
+    "same consequence path",
+    "same causal RETURN law",
+    "normal route without compression query",
+    "no new store/queue/authority"
+  ],
+  "verify": [
+    "node tools/two-dial-compression-baseline-selftest.cjs",
+    "node tools/two-dial-compression-harness-selftest.cjs",
+    "node tools/field-coaxiality-audit.cjs",
+    "public-surface-check"
+  ],
+  "reentry": "/fold-bloom/two-dial/?compression=TWO"
+}
