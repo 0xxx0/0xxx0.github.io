@@ -1,0 +1,65 @@
+{
+  "id": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01",
+  "contribution_class": "RETURN",
+  "evidence_class": "RECEIPT",
+  "author": "thisjustthing",
+  "recorded_at": "2026-10-01T03:00:00Z",
+  "observed_window": "2026-10-01T01:04:00Z .. 2026-10-01T02:56:00Z",
+
+  "claim_under_test": "A dependency on PATH is a dependency that works.",
+
+  "observation": {
+    "what_happened": "Every ffmpeg and ffprobe invocation on this host aborted in the dynamic loader for roughly 92 minutes, while both binaries existed, were executable, and passed every presence check (`which`, `command -v`, `shutil.which`).",
+    "first_observed": "2026-10-01T01:04Z — first ffmpeg call of the session aborted: 'Library not loaded: /opt/homebrew/opt/x265/lib/libx265.216.dylib'",
+    "cause": "ffmpeg 8.1.2_1 was linked against libx265.216.dylib (compatibility version 216.0.0). The x265 keg was upgraded to 4.3 on 2026-09-28T06:02Z, which provides libx265.217.dylib; /opt/homebrew/opt/x265 -> Cellar/x265/4.3. The required soname no longer existed anywhere on the system.",
+    "blast_radius": "All media transcode/encode/probe work, in every profile on this host. Silent: no surface reported it, because no surface executes its dependencies.",
+    "resolved_by": "Concurrent session upgraded /opt/homebrew/bin/ffmpeg to 9.0.2 (symlink mtime 2026-10-01T02:36Z), which links libx265.217.dylib and matches the installed keg.",
+    "resolved_at": "2026-10-01T02:36Z",
+    "verification_of_resolution": "ffmpeg -version -> 9.0.2 exit 0; encode smoke test wrote a 8585-byte /tmp/smoke.mp3. Independent: node tools/host-preflight.mjs -> 12/12 load, exit 0."
+  },
+
+  "false_assurance_found": {
+    "location": "scripts/media-refinery-run.py:43",
+    "pattern": "x = shutil.which('ffprobe')  ->  if not x: return {'available': False}",
+    "why_it_is_wrong": "`which` answers 'is the file on PATH', not 'does it load and run'. A binary whose shared libraries are missing is returned by `which` and then dies before main(). The guard therefore reported available:True during a window in which ffprobe could not execute at all.",
+    "same_shape_elsewhere": "Every `command -v` / `which` gate in the fleet carries the same false assurance."
+  },
+
+  "deltas_shipped": [
+    {
+      "path": "tools/host-preflight.mjs",
+      "class": "DELTA",
+      "why": "There was no executable form of AGENTS.md law #3 ('VERIFY THE CLAIM, NOT THE ARTIFACT'). 90 tools in tools/ were route/field smokes; zero executed a host dependency. grep for ffmpeg|x265 across the repo returned nothing.",
+      "does": "Executes each host dependency the fleet shells out to and classifies the result. Distinguishes ABSENT (not on PATH) from LOAD-FAIL (present, loader could not map it, missing soname named) from SIGNAL. Exit 1 if any dependency fails to load, so it is usable as a gate.",
+      "coverage": "node, ffmpeg, ffprobe, lame, afconvert, say, git, gh, sqlite3, jq, mosquitto_sub, mosquitto_pub"
+    },
+    {
+      "path": "scripts/media-refinery-run.py",
+      "class": "DELTA",
+      "why": "Its ffprobe guard returned available:True for a binary that could not run.",
+      "does": "Catches FileNotFoundError and CalledProcessError carrying a loader signature ('Library not loaded', 'dyld', 'image not found', 'Symbol not found', 'cannot open shared object') and returns {'available': False, 'reason': 'ffprobe_load_failed', 'message': <first loader line>}. Non-load failures keep the previous generic shape, so existing consumers are unaffected."
+    }
+  ],
+
+  "falsification": {
+    "method": "Placed a fake ffmpeg/ffprobe earlier on PATH that is present, executable, prints a dyld load-failure line, and exits 134 — the exact 2026-10-01 shape. Re-ran both artifacts.",
+    "which_check_control": "command -v ffmpeg resolved to the fake and was satisfied — the false assurance reproduced.",
+    "host_preflight_result": "PASS 10/12; FAIL ffmpeg and ffprobe with 'missing /opt/homebrew/opt/x265/lib/libx265.216.dylib'; exit 1.",
+    "media_refinery_result": "{'available': false, 'reason': 'ffprobe_load_failed', 'message': 'dyld[999]: Library not loaded: .../libx265.216.dylib'} — asserted in-test.",
+    "healthy_path_result": "On the real host, ffprobe() against a non-media file still returns available:true with a generic CalledProcessError, i.e. the fix does not over-trigger.",
+    "conclusion": "Both artifacts detect the failure they were built to detect, and neither fires on a healthy host."
+  },
+
+  "lesson": "A dependency that is present but does not load is the exact class of failure that reads as success. Test loadability by executing, never by resolving a path. Where a tool is checked at all, the check must run it.",
+
+  "open_residue": [
+    "The host's `which`-style gates elsewhere in the fleet are unaudited; only media-refinery-run.py was fixed.",
+    "A version bump of any shared keg can silently break a dependent binary again. Nothing schedules host-preflight; it only runs when invoked.",
+    "ffmpeg 9.0.2 / x265 4.3 is the current working pair and is the pair the next break should be measured against."
+  ],
+
+  "reproduction": {
+    "host_preflight": "node tools/host-preflight.mjs   (exit 0 = all dependencies load)",
+    "machine_receipt": "node tools/host-preflight.mjs --json"
+  }
+}
