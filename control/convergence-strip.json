@@ -1,15 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-09-22T17:37:40.961Z",
+  "generated": "2026-10-01T02:55:53.857Z",
   "generator": "scripts/generate-convergence-strip.mjs",
-  "commits_window": "2026-09-22",
-  "commits_in_window": 997,
-  "commits_total": 2466,
-  "branch_count": 179,
+  "activity_semantics": "material_excluding_generated_telemetry",
+  "commits_window": "2026-10-01",
+  "commits_in_window": 4,
+  "git_commits_in_window": 48,
+  "telemetry_commits_in_window": 44,
+  "commits_total": 4415,
+  "branch_count": 774,
   "recent_commits": [
-    "THE EMPTY SKY IS MY ONLY WITNESS + collapse six witnesses into one wall",
-    "GOD'S EYE VIEW + fix: a number that cannot name its source is not allowed",
-    "TWINS + LINEAGE — a recovery finding and a lineage"
+    "field-index: state the age of the CURRENT stamp, and flag it past 36h",
+    "recovery/cultural: add index.html — the route I registered without a host page",
+    "recovery/cultural: register the Bao & Noodle saga — 41 of 46 parts"
   ],
   "active_fronts": [
     {
@@ -24,24 +27,7 @@
     }
   ],
   "live_fronts": "2/2",
-  "current_heads": 11,
-  "open_gaps": [
-    {
-      "id": "env0-pdfs",
-      "status": "BLOCKED_EXTERNAL"
-    },
-    {
-      "id": "game-of-names",
-      "status": "BLOCKED"
-    },
-    {
-      "id": "laconic-missing-24",
-      "status": "OPEN"
-    },
-    {
-      "id": "hermes-md-stale",
-      "status": "FIXED"
-    }
-  ],
-  "current_updated": "2026-09-22"
+  "current_heads": 12,
+  "open_gaps": [],
+  "current_updated": "2026-09-30T18:50:00+08:00"
 }
