@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T06:01:00.202Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-01T06:32:04.173Z by scripts/generate-convergence-strip.mjs_
 
-The field has **20 material commits on 2026-10-01** across **775 branches** (76 exact Git commits in the window; 56 generated telemetry; 4443 on master all-time).
+The field has **22 material commits on 2026-10-01** across **775 branches** (80 exact Git commits in the window; 58 generated telemetry; 4447 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- recovery/cultural: fold the rasa protocol specs, Malay poetics, Jinshi lineage
+- convergence: strip refresh (2026-10-01T06:01Z)
 - convergence: strip refresh (2026-10-01T05:29Z)
-- convergence: strip refresh (2026-10-01T04:59Z)
-- host-preflight: fix five defects found by adversarial review
 
 ## Open gaps
 
