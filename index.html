@@ -116,6 +116,15 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:8px;letter-spacing:.12em}.fold>summary span{font-size:7px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
 .issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}
 .glyphGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:3px;padding:3px 0}
+/* Stale-date flag: the CURRENT stamp used to print whatever /control/CURRENT.json said, with no
+   indication it could be days old — a state line that reads as "now" while being history.
+   Reuses the host's own attention token (--hot); no new palette. Threshold 36h = 2× the daily
+   CURRENT refresh cadence, same 2×-interval rule the reliability suite uses for freshness. */
+.staleDate{color:var(--hot);font-weight:600}
+/* The heads fold sets `.fold>summary b{color:var(--ink)}`, which out-specifies `.staleDate` alone —
+   measured in-browser: the class was applied but the colour stayed --ink. Keep the flag visible
+   wherever it lands. */
+.fold>summary b.staleDate{color:var(--hot)}
 .glyphBlock{position:relative;min-width:0;height:57px;padding:4px 2px 3px;display:grid;grid-template-rows:28px 9px 9px;place-items:center;border:1px solid #172126;background:#080c0e;overflow:hidden;text-align:center}
 .glyphBlock:hover,.glyphBlock:focus-visible{border-color:#66757b;background:#11181c}.glyphBlock .fieldGlyph{display:block}.glyphBlock tt{font:7px/1 ui-monospace,monospace;color:var(--mut)}.glyphBlock small{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#657278;font-size:5.6px;letter-spacing:.02em}.glyphBlock i{position:absolute;right:2px;top:1px;font-style:normal;font-size:5.5px;color:var(--mut)}.glyphBlock.build{border-bottom-color:var(--hot)}.glyphBlock.boundary{border-bottom-color:var(--gold)}.glyphBlock.verify{border-bottom-color:var(--cool)}.glyphBlock.parked{opacity:.62}
 .waitSignal{display:grid;grid-template-columns:28px minmax(0,1fr);gap:5px;align-items:start}.waitSignal .fieldGlyph{display:block}.waitSignal b{display:block;font-size:6.4px;color:var(--gold);letter-spacing:.04em}.waitSignal small{display:block;color:var(--mut);font-size:5.3px;letter-spacing:.03em;margin-top:2px}.issueNo{color:var(--hot);font:800 11px system-ui,sans-serif}.rowTitle{font:750 11px/1.12 system-ui,sans-serif}.rowMeta{color:var(--mut);font-size:6.5px;margin-top:2px}.tiny{font-size:6.5px;color:var(--gold)}.tinyButton{border:1px solid var(--line);padding:5px 6px;font-size:7px}.tinyButton.hot{border-color:var(--hot);color:#ffd0bd}.waitRow{display:grid;grid-template-columns:112px minmax(0,1fr) 28px 56px;gap:8px;align-items:start;padding:7px 3px;border-bottom:1px solid #20282c}.waitRow.done{opacity:.42}.waitRow.done .waitMove{text-decoration:line-through}.waitState{font-size:6.5px;color:var(--gold);letter-spacing:.05em}.waitState small{display:block;color:var(--mut);font-size:5.5px;letter-spacing:.04em;margin-top:2px}.waitMove{font:750 10px/1.25 system-ui,sans-serif}.waitWhy{color:var(--mut);font-size:6.5px;margin-top:3px}.waitRoute{font-size:6.5px;color:var(--cool);text-align:right}.waitAck{padding:4px 5px;font-size:6px;min-height:24px}.waitRow.done .waitAck{color:var(--green);border-color:#49684e}
@@ -754,7 +763,11 @@ function rewindCaughtUp(){
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
  const fronts=(current?.active_fronts||[]).length,heads=(current?.current_heads||[]).length;
- cur.textContent=(current?.updated||'—')+' · '+fronts+' fronts · '+heads+' heads';
+ // The prominent truth-frame stamp. Same rule as renderHeads: always state the age, and go hot
+ // past 36h (2× the daily refresh) so the headline can never read "now" while being history.
+ const cu=current?.updated,ageH=cu?((Date.now()-tsMs(cu))/36e5):null;
+ cur.textContent=(cu||'—')+' · '+fronts+' fronts · '+heads+' heads';
+ if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=ageH>36;a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';cur.appendChild(a)}
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
 }
@@ -924,7 +937,11 @@ async function loadIssues(){
  try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO',route:p.route||null}}))}catch(_){}finally{clearTimeout(timeout)}
 }
 function renderHeads(){
- const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained · CURRENT '+(current?.updated||'—');
+ const hs=current?.current_heads||[];const cu=current?.updated,ageH=cu?((Date.now()-tsMs(cu))/36e5):null,hm=$('headMeta');
+ // A state line that always reads "now": state the age, and past 36h (2× the daily CURRENT
+ // refresh) say so in the host's attention colour instead of lying by omission.
+ hm.textContent=hs.length+' retained · CURRENT '+(cu||'—');
+ if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=ageH>36;a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';hm.appendChild(a)}
  $('headList').innerHTML='<div class="glyphGrid">'+hs.map(h=>{const r=routeMap().get(h.route)||{href:h.route,title:h.head,state:h.state,kind:'artifact'},fresh=shortTs(r?.index?.updated_at)||'unindexed',lab=[h.head,h.route,h.state,r.state||'NO MANIFEST ROUTE','manifest '+fresh,h.retained_function||''].filter(Boolean).join(' · ');return '<button class="glyphBlock" data-href="'+esc(h.route)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt><small>'+esc((r.title||h.lineage||h.route).slice(0,18))+'</small></button>'}).join('')+'</div>';
  $('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});updateStatusRail();
 }
