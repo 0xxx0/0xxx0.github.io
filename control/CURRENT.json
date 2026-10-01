@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-30T18:50:00+08:00",
+  "updated": "2026-10-01T11:45:42+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -824,11 +824,11 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.4.2 / ONE HELD THING + PHASE-FIRST SURFACE + MARKET TAPE + CLOSED HOUSE/DAYLINE RETURNS",
+      "head": "SHOPPING FIELD 0.4.3 / ONE HELD THING + PHASE-FIRST SURFACE + MARKET TAPE + CLOSED HOUSE/DAYLINE RETURNS + FRESHNESS TAG (stale=red, aging=warn)",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
       "retained_function": "Shopping preserves detailed browser-local procurement truth while presenting the exact held item through one shared material phase: NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED. The phase is projection only; the exact native lifecycle remains visible residue and authority. MARKET TAPE retains bounded offer evidence. HOUSE fit and Dayline remain evidence/offer loops; money, seller contact, ownership and adoption remain native/human evidence-backed.",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
