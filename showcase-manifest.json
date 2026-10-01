@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-01",
+  "updated": "2026-10-01T17:39:36+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-01T15:41:00+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -1373,7 +1373,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-01T16:18:59+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -6836,10 +6836,11 @@
       "showcase_card": false,
       "role": "Recovered folk and cultural material with provenance: the Bao & Noodle saga (包子與麵條, 41 of 46 parts, six sources, no attributable author) and its English performance adaptation; rasa poetics and the Malay narrative forms (hikayat, pantun) recovered from the operator's own sessions; the RASA PROTOCOL governing specifications (Series Grammar v1, Semantic Validation Schema v1, Plate 09 — the epistemic-control layer, recovered verbatim from chat after having no file anywhere on disk); the Jinshi lineage dossier (incl. the corrected false 1280-jinshi claim); the ALL PATHS / 512-microstory anthology note; and the keris cyber-maker note. Source memory, not current authority.",
       "index": {
-        "updated_at": "2026-10-01T14:15:00+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -6854,10 +6855,11 @@
       "showcase_card": false,
       "role": "Governing specifications recovered verbatim from corpus chat text that had no file behind them. A sweep of 60,510 machine turns found 325 version-bearing artefact names; 62 had no standalone file on disk. Four are recovered here: CANON KERNEL v1 (2026-07-13, the Prison Age / Sig Nap Ore transmedia mythology — its originating ask states the house's own 'one artifact must survive one discriminating test' law), the BLIGHT CONTINUATION KIT v0.1 (2026-03-11, seven named artefacts in one turn: BLIGHT Constitution, Branch Registry, Provenance Ledger, Missingness Ledger, Adjacent Expansion Set, Episode Ledger, Voice Constitution Template), the Labyrinth-Grid Unified Font Spec v1.0 (2025-09-05), and the Conversation Analysis Toolkit v1 (created 2024-12-16, whose load constraint — 'analyze only visible messages, no invention, no external memory, all claims traceable to text' — is the same evidence discipline this house runs on). Source memory, not current authority.",
       "index": {
-        "updated_at": "2026-10-01T14:50:00+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -7436,10 +7438,11 @@
       "showcase_card": false,
       "role": "Sleeper recovery shelf with canonical ONE RETURN v2-era exact source, preserved ASCII POV 0.8 derivative, playable ASCII reconstruction donor, Workfield, Painting / Path and media. Unequal objects are no longer flattened under ASCII 0.8 authority.",
       "index": {
-        "updated_at": "2026-10-01T14:47:48+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -7636,7 +7639,7 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-10-01T16:18:59+08:00",
+        "updated_at": "2026-10-01T17:39:36+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
