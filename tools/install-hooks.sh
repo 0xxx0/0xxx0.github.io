@@ -23,7 +23,7 @@ chmod +x .githooks/* 2>/dev/null || true
 git config core.hooksPath .githooks
 
 echo "install-hooks: hooks now live in .githooks/ (version controlled)"
-echo "  pre-push -> tools/finish-line.py --pre-push"
+echo "  pre-push -> .githooks/pre-push-guard (private trees/secrets) then tools/finish-line.py"
 echo
 echo "  Verify: python3 tools/finish-line.py --check"
 echo "  Bypass (deliberate, visible): git push --no-verify"

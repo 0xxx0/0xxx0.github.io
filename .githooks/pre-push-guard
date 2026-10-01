@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# CONTROL (must-fail, verified 2026-09-30): cd ~/void-anchor && git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'PUSH REFUSED'   # -> grep rc 0; git exit 1. NOTE: shadowed in 0xxx0 (core.hooksPath=.githooks)
+# pre-push-guard — REFUSES a push that would publish private trees or secrets.
+#
+# WHY THIS EXISTS
+#   Twice now, a private directory sat untracked AND unignored in a clone whose
+#   remote is the PUBLIC repo 0xxx0.github.io. One `git add -A` would have
+#   published ~9 GB of private work (ops-hub, hermes-workspace, odysseus-*).
+#   Caught both times by inspection. Not caught by anything automatic.
+#   This is that automatic thing.
+#
+# WHAT IT CHECKS (on the commits actually being pushed)
+#   1. No file under a private tree (AXIS, delete, backups, _archive, ops-hub,
+#      hermes-workspace, odysseus-*, sovereign-node, recovery/operator-model,
+#      _private-review, corpus, ai-media, hermes-runtime).
+#   2. No real .env / credential / key material.
+#   3. No single file over 50 MB (GitHub hard-fails at 100 MB).
+#
+# NOTE ON recovery/: the bare `recovery/` tree is LEGITIMATELY PUBLIC (141 files on
+# origin/master). Only the `recovery/operator-model` subtree is private, so it is
+# carved out precisely. Do not broaden this to bare `recovery` — that would refuse
+# pushes of already-published material.
+#
+# IT FAILS CLOSED on any finding. To override deliberately:
+#   ALLOW_PRIVATE_PUSH=1 git push ...
+#
+# Install: cp this to .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+#   Install in EVERY clone whose remote is the public repo — especially the live
+#   writer clone. A guard only in the clone that does not push guards nothing.
+#   Installed 2026-09-27 in BOTH ~/void-anchor and ~/Projects/0xxx0.github.io.
+#
+# CONTROL (a control that MUST fail — verify this guard is active, one line):
+#   cd ~/void-anchor && git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'PUSH REFUSED'
+#   Expected: the grep matches (guard refuses). Measured 2026-09-30: named
+#   delete/CHANGE_LEDGER.md + 3 more, printed "PUSH REFUSED".
+#   CAUTION: do NOT read $? off a `git push | tail` pipe — the pipe masks git's
+#   exit with the consumer's. Use the grep -q form above, or check the message.
+#   Second control (deliberate override must ALLOW):
+#   ALLOW_PRIVATE_PUSH=1 git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'OVERRIDE'
+
+set -euo pipefail
+
+[ "${ALLOW_PRIVATE_PUSH:-0}" = "1" ] && { echo "pre-push-guard: OVERRIDE — allowing push"; exit 0; }
+
+remote_name="${1:-origin}"
+remote_url="${2:-}"
+zero="0000000000000000000000000000000000000000"
+
+# Only guard pushes to the public showcase repo.
+case "$remote_url" in
+  *0xxx0.github.io*) : ;;
+  *) exit 0 ;;
+esac
+
+PRIVATE_RE='^(ops-hub|hermes-workspace|odysseus-eval|odysseus-native|odysseus|sovereign-node|recovery/operator-model|_private-review|corpus|ai-media|hermes-runtime|AXIS|delete|backups|_archive)(/|$)'
+SECRET_RE='(^|/)\.env$|(^|/)\.env\.|(^|/)id_rsa|(^|/)id_ed25519|(^|/)\.credentials|(^|/)auth\.json$|(^|/)secrets?\.(ya?ml|json)$'
+MAX_BYTES=$((50 * 1024 * 1024))
+
+fail=0
+report() { echo "pre-push-guard: $1" >&2; fail=1; }
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue          # branch deletion
+  if [ "$remote_sha" = "$zero" ]; then
+    range="$local_sha"                             # new branch: scan tip tree
+    files=$(git ls-tree -r --name-only "$local_sha" 2>/dev/null || true)
+  else
+    range="$remote_sha..$local_sha"
+    files=$(git diff --name-only "$range" 2>/dev/null || true)
+  fi
+  [ -z "${files:-}" ] && continue
+
+  while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    if printf '%s' "$f" | grep -qE "$PRIVATE_RE"; then
+      report "PRIVATE TREE in push: $f  (would publish private data)"
+    fi
+    if printf '%s' "$f" | grep -qE "$SECRET_RE"; then
+      report "POSSIBLE SECRET in push: $f"
+    fi
+  done <<< "$files"
+
+  # Oversize objects in the pushed range
+  if [ "$remote_sha" != "$zero" ]; then
+    while IFS= read -r oid; do
+      [ -z "$oid" ] && continue
+      sz=$(git cat-file -s "$oid" 2>/dev/null || echo 0)
+      if [ "$sz" -gt "$MAX_BYTES" ]; then
+        report "OVERSIZE object $oid ($((sz/1024/1024)) MB) in push range"
+      fi
+    done <<< "$(git rev-list --objects "$range" 2>/dev/null | awk '{print $1}' | sort -u | head -5000)"
+  fi
+done
+
+if [ "$fail" -ne 0 ]; then
+  echo "" >&2
+  echo "pre-push-guard: PUSH REFUSED. Fix the finding, or override with:" >&2
+  echo "  ALLOW_PRIVATE_PUSH=1 git push $remote_name <branch>" >&2
+  exit 1
+fi
+
+exit 0

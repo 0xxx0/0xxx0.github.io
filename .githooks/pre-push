@@ -17,7 +17,8 @@
 # CONTROL (must fail):   git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'PUSH REFUSED'   # grep rc 0
 # CONTROL (override allows, proving the finish-line gate below is still reached):
 #   ALLOW_PRIVATE_PUSH=1 git push --dry-run origin HEAD:refs/heads/dont-do-this 2>&1 | grep -q 'finish-line: REFUSED'   # grep rc 0
-GUARD="$(git rev-parse --show-toplevel)/.git/hooks/pre-push"
+GUARD="$(git rev-parse --show-toplevel)/.githooks/pre-push-guard"
+[ -x "$GUARD" ] || GUARD="$(git rev-parse --show-toplevel)/.git/hooks/pre-push"
 if [ -x "$GUARD" ]; then
   "$GUARD" "$@" || exit $?
 fi
