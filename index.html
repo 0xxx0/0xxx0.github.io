@@ -26,7 +26,7 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-.headerPlay{flex:none;min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em}
+.footMenu{position:relative}.footMenu>summary{list-style:none;cursor:pointer;border:1px solid var(--line);padding:4px 7px;font-size:6.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.footMenu>summary::-webkit-details-marker{display:none}.footMenu[open]>summary{color:var(--ink);border-color:#59676d}.footMenu>a{display:block;margin-top:3px;border:1px solid var(--hot);color:#ffd0bd;padding:6px 8px;font-size:6.5px;letter-spacing:.09em;white-space:nowrap}
 .section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* AXIAL / LATEST */
@@ -191,7 +191,6 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1></div>
-  <a class="headerPlay" href="./field-play.html">PLAY →</a>
 </header>
 <details class="reentryFold" id="reentryFold" aria-label="FIELD re-entry and depth">
   <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>READ</b></span><span class="reentryToggle">▶</span></summary>
@@ -319,7 +318,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./field-play.html">PLAY THE FIELD →</a></details><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>

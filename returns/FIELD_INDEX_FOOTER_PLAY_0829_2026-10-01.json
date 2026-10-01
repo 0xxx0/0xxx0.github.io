@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01",
   "date": "2026-10-01",
-  "state": "DRAFT_PENDING_MERGE",
+  "state": "COMPLETE_PENDING_MERGE",
   "object": "FIELD INDEX 0.8.29 / PLAY action moved from header into the footer MORE submenu",
   "predecessor": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
   "before": "FIELD INDEX 0.8.28 rendered the sole PLAY action as a hot-bordered button pinned to the header, competing with the FIELD INDEX identity block for the top-of-page attention band. The game was one click away but at permanent top-of-page cost.",
@@ -25,7 +25,7 @@
     "/tools/validate-public.mjs"
   ],
   "verification": {
-    "source": "PENDING · branch field/footer-play-20261001",
+    "source": "branch field/footer-play-complete-20261001 · completes the index.html delta that 2e92bc67 claimed but never applied",
     "checks": {
       "public_surface": { "conclusion": "PENDING_CI" },
       "route_registration": { "conclusion": "PENDING_CI" },
