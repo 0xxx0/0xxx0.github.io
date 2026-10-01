@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T05:29:59.558Z",
+  "generated": "2026-10-01T06:01:00.202Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-01",
-  "commits_in_window": 19,
-  "git_commits_in_window": 73,
-  "telemetry_commits_in_window": 54,
-  "commits_total": 4440,
+  "commits_in_window": 20,
+  "git_commits_in_window": 76,
+  "telemetry_commits_in_window": 56,
+  "commits_total": 4443,
   "branch_count": 775,
   "recent_commits": [
+    "convergence: strip refresh (2026-10-01T05:29Z)",
     "convergence: strip refresh (2026-10-01T04:59Z)",
-    "host-preflight: fix five defects found by adversarial review",
-    "convergence: strip refresh (2026-10-01T04:28Z)"
+    "host-preflight: fix five defects found by adversarial review"
   ],
   "active_fronts": [
     {
