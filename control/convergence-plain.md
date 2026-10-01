@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T02:55:53.857Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-01T03:26:02.936Z by scripts/generate-convergence-strip.mjs_
 
-The field has **4 material commits on 2026-10-01** across **774 branches** (48 exact Git commits in the window; 44 generated telemetry; 4415 on master all-time).
+The field has **9 material commits on 2026-10-01** across **774 branches** (55 exact Git commits in the window; 46 generated telemetry; 4422 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- field-index: state the age of the CURRENT stamp, and flag it past 36h
-- recovery/cultural: add index.html — the route I registered without a host page
-- recovery/cultural: register the Bao & Noodle saga — 41 of 46 parts
+- index: route stamps take the 7d ladder, not the 36h CURRENT clock
+- index: per-route stamps carry the 36h staleness rule (STALE_H/isStale)
+- host-preflight: execute dependencies, do not resolve their paths
 
 ## Open gaps
 

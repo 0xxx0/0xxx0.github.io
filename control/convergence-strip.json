@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T02:55:53.857Z",
+  "generated": "2026-10-01T03:26:02.936Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-01",
-  "commits_in_window": 4,
-  "git_commits_in_window": 48,
-  "telemetry_commits_in_window": 44,
-  "commits_total": 4415,
+  "commits_in_window": 9,
+  "git_commits_in_window": 55,
+  "telemetry_commits_in_window": 46,
+  "commits_total": 4422,
   "branch_count": 774,
   "recent_commits": [
-    "field-index: state the age of the CURRENT stamp, and flag it past 36h",
-    "recovery/cultural: add index.html — the route I registered without a host page",
-    "recovery/cultural: register the Bao & Noodle saga — 41 of 46 parts"
+    "index: route stamps take the 7d ladder, not the 36h CURRENT clock",
+    "index: per-route stamps carry the 36h staleness rule (STALE_H/isStale)",
+    "host-preflight: execute dependencies, do not resolve their paths"
   ],
   "active_fronts": [
     {
