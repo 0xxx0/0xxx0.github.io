@@ -411,6 +411,13 @@ function supportFor(a,v){
 }
 function axisPosition(values,index){const n=Math.max(0,(values||[]).length),i=n?((Number(index)%n+n)%n):0;return{index:i,label:n?String(i+1).padStart(String(n).length,'0')+'/'+n:'0/0'}}
 function tsMs(t){const n=Date.parse(t);return Number.isFinite(n)?n:0}
+// Staleness rule, in ONE place. 36h = 2× the daily CURRENT refresh cadence. It was inline
+// at two call sites (CURRENT headline + heads fold) and absent from a third (the per-route
+// index stamp), so a route could read "09-30 18:50" with no indication it was history —
+// the same defect the CURRENT stamp was already fixed for, one projection over.
+const STALE_H=36;
+function ageHours(t){const a=tsMs(t);return a>0?(Date.now()-a)/36e5:null}
+function isStale(t){const h=ageHours(t);return h!=null&&h>STALE_H}
 function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
 function routeIndexClock(){return latest[0]?.index?.updated_at||''}
@@ -425,7 +432,7 @@ function routeGitDrift(){
 }
 function tokenHTML(a,v,maxSup){
  const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
- if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(shortTs(r?.index?.updated_at))+(sup?'':' · dead')+'</span></span>'+bar+'</button>'}
+ if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub'+(isStale(r?.index?.updated_at)?' staleDate':'')+'">'+esc(shortTs(r?.index?.updated_at))+(sup?'':' · dead')+'</span></span>'+bar+'</button>'}
  return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+'</small>'+bar+'</button>';
 }
 function renderAxes(){
@@ -767,7 +774,7 @@ function renderSyncLine(){
  // past 36h (2× the daily refresh) so the headline can never read "now" while being history.
  const cu=current?.updated,ageH=cu?((Date.now()-tsMs(cu))/36e5):null;
  cur.textContent=(cu||'—')+' · '+fronts+' fronts · '+heads+' heads';
- if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=ageH>36;a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';cur.appendChild(a)}
+ if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=isStale(cu);a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';cur.appendChild(a)}
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
 }
@@ -941,7 +948,7 @@ function renderHeads(){
  // A state line that always reads "now": state the age, and past 36h (2× the daily CURRENT
  // refresh) say so in the host's attention colour instead of lying by omission.
  hm.textContent=hs.length+' retained · CURRENT '+(cu||'—');
- if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=ageH>36;a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';hm.appendChild(a)}
+ if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=isStale(cu);a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';hm.appendChild(a)}
  $('headList').innerHTML='<div class="glyphGrid">'+hs.map(h=>{const r=routeMap().get(h.route)||{href:h.route,title:h.head,state:h.state,kind:'artifact'},fresh=shortTs(r?.index?.updated_at)||'unindexed',lab=[h.head,h.route,h.state,r.state||'NO MANIFEST ROUTE','manifest '+fresh,h.retained_function||''].filter(Boolean).join(' · ');return '<button class="glyphBlock" data-href="'+esc(h.route)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt><small>'+esc((r.title||h.lineage||h.route).slice(0,18))+'</small></button>'}).join('')+'</div>';
  $('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});updateStatusRail();
 }
