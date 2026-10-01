@@ -294,143 +294,6 @@
       "role": "Reality-first local temporal execution instrument. First-run/reset is empty; HOUSE/SHOPPING/COMMS lend explicit source-owned handoffs. Mobile PLAIN is a scrollable action document, shared route controls avoid the bottom-left working edge, NOW ↻ explicitly synchronizes canonical time when desired, and RETURN distinguishes orientation snapshots from world deltas."
     },
     {
-      "href": "/dayline/",
-      "title": "DAYLINE / CONFLUENCE 0.1",
-      "kind": "workbench",
-      "parent": "/atlas-dayline/",
-      "family": "ATLAS DAYLINE",
-      "operation": "OPERATE",
-      "state": "ACTIVE",
-      "version": "0.3.3",
-      "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.3 consumes the shared INTERPHASE action projection directly: exact focus is HOLD; visible native moves are prefixed TURN or RELEASE without renaming handlers or gaining authority; TRACE/WITNESS and exact RETURN stay native/evidence-bound.",
-      "receipt": "/dayline/release.json",
-      "transfer": [
-        "shared action-surface consumer: Dayline visible controls project HOLD / TURN / RELEASE / TRACE / RETURN while retaining native move labels, native handlers and source authority",
-        "source-owned signal projection: exact handoff metadata may color/pattern the held frame; Dayline never derives domain truth from task text",
-        "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
-        "same atlas-dayline-handoff/v0.1 session envelope from HOUSE / SHOPPING / COMMS",
-        "live CURRENT read-only frame when no local object is held",
-        "one object + 1–3 moves + witness + RETURN",
-        "ordinary document scrolling on phone; no fixed instrument viewport",
-        "Atlas Dayline remains optional radial/scenario projection",
-        "held COMMS source link survives into DayState without becoming canonical source",
-        "RUN → WITNESS → COMPLETE → RETURN emits one exact-source OFFER_ONLY receipt",
-        "completed source-linked focus remains held through RETURN, then releases",
-        "native COMMS explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal + message/range revalidation",
-        "stale or concurrently changed source blocks mutation",
-        "source return effect is host-specific rather than generic: COMMS STATE_PROPOSAL · SHOPPING RECEIPT_ONLY · default EVIDENCE_ONLY",
-        "Shopping Dayline completion cannot promote procurement lifecycle",
-        "HOUSE depth/escape targets canonical /house/ directly; /house/spatial/ is not used as a Dayline front door",
-        "Shopping RETURN is evidence-only: lifecycle remains native and unchanged after receipt acceptance",
-        "FIELD FieldInterphase → existing handoff envelope → DaylineInterphase over same addressed object",
-        "FOVEA / LINE / RING are projection-only; suppressed channels remain explicit residue",
-        "RETURN carries current INTERPHASE selection/focus/projection/residue without authority increase",
-        "optional interphase-carrier/v0.1 rides inside native handoff envelope; exact source OBJECT/RETURN survives while Dayline changes focus and witness",
-        "source-return offer may carry the evolved continuation carrier; carrier itself has no effect authority"
-      ],
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "atlas-dayline-handoff/v0.1",
-            "existing Dayline task",
-            "FIELD route/front",
-            "direct capture",
-            "interphase/v0.2/handoff within existing Dayline envelope",
-            "interphase-carrier/v0.1 optional continuation frame",
-            "interphase-action-surface/v0.1 projection over continuation carrier"
-          ],
-          "requires": [],
-          "optional": [
-            "source route",
-            "time/context",
-            "provenance"
-          ]
-        },
-        "transforms": {
-          "verb": "hold one addressed object, expose only its local lawful action neighborhood, mutate the existing DayState only on explicit action, then RETURN evidence",
-          "preserves": [
-            "source address",
-            "native source authority",
-            "Dayline task identity",
-            "RUN cap",
-            "witness provenance"
-          ],
-          "reversibility": "local DayState operations remain explicit/replayable",
-          "side_effects": "browser-local DayState only"
-        },
-        "emits": {
-          "kinds": [
-            "bounded move set",
-            "witness",
-            "poly-atlas-return-f v3",
-            "atlas-dayline-source-return/v0.1 OFFER_ONLY",
-            "interphase/v0.2 projection witness in RETURN",
-            "evolved interphase-carrier/v0.1 in source-return offer",
-            "interphase-action-surface/v0.1 host-neutral action reading"
-          ],
-          "machine_readable": true,
-          "human_readable": true
-        }
-      },
-      "field": {
-        "roles": [
-          "WORLD_THROUGH",
-          "WORLD_OUT"
-        ],
-        "inputs": [
-          {
-            "medium": "DATA",
-            "kind": "source-addressed handoff / DayState",
-            "interface": "sessionStorage + localStorage"
-          },
-          {
-            "medium": "DATA",
-            "kind": "CURRENT frame",
-            "interface": "read-only fetch"
-          }
-        ],
-        "outputs": [
-          {
-            "medium": "HUMAN_ACTION",
-            "kind": "1–3 lawful moves",
-            "interface": "touch UI"
-          },
-          {
-            "medium": "EVIDENCE",
-            "kind": "RETURN",
-            "interface": "clipboard + local return store"
-          }
-        ],
-        "exit_paths": [
-          {
-            "class": "ATLAS_PROJECTION",
-            "status": "AVAILABLE",
-            "via": "/atlas-dayline/?live=1"
-          },
-          {
-            "class": "NATIVE_SOURCE",
-            "status": "AVAILABLE",
-            "via": "session-local exact-source OFFER_ONLY → explicit native acceptance"
-          },
-          {
-            "class": "HERMES",
-            "status": "BOUNDARY",
-            "via": "explicit copied RETURN only"
-          }
-        ],
-        "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
-      },
-      "index": {
-        "updated_at": "2026-09-29T19:34:00+08:00",
-        "work_modes": [
-          "OPERATE",
-          "VERIFY",
-          "IMPLEMENT"
-        ]
-      }
-    },
-    {
       "href": "/body/",
       "title": "BODY / FIELD 0.2",
       "kind": "system",
@@ -1041,6 +904,32 @@
       "tier": "FIELD"
     },
     {
+      "href": "/comms/",
+      "title": "OPS // COMMS ON PAGES",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "family": "COMMS",
+      "showcase_card": false,
+      "role": "Comms-on-pages: the machine room's live state as a durable public record (resilience layer 2, readable without Tailscale). The six-line system glyph is imported from glyph.py — the same object as the ANCHOR group avatar — beside fleet, open items, digest recency, last receipt and the three loops. Derived aggregate only: no message text, ids, money or personal content. A surface, not an authority.",
+      "index": {
+        "updated_at": "2026-09-26T15:52:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "regenerated from live ops-hub state by scripts/comms_page.py (ops-hub side); sanitised aggregate only",
+          "static pass: one screen no scroll, no inline JS, internal links resolve, mirrors nexus board conventions"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/contact/",
       "title": "CONTACT 0.4",
       "kind": "rendezvous",
@@ -1534,6 +1423,143 @@
       "tier": "FIELD"
     },
     {
+      "href": "/dayline/",
+      "title": "DAYLINE / CONFLUENCE 0.1",
+      "kind": "workbench",
+      "parent": "/atlas-dayline/",
+      "family": "ATLAS DAYLINE",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "0.3.3",
+      "showcase_card": false,
+      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.3 consumes the shared INTERPHASE action projection directly: exact focus is HOLD; visible native moves are prefixed TURN or RELEASE without renaming handlers or gaining authority; TRACE/WITNESS and exact RETURN stay native/evidence-bound.",
+      "receipt": "/dayline/release.json",
+      "transfer": [
+        "shared action-surface consumer: Dayline visible controls project HOLD / TURN / RELEASE / TRACE / RETURN while retaining native move labels, native handlers and source authority",
+        "source-owned signal projection: exact handoff metadata may color/pattern the held frame; Dayline never derives domain truth from task text",
+        "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
+        "same atlas-dayline-handoff/v0.1 session envelope from HOUSE / SHOPPING / COMMS",
+        "live CURRENT read-only frame when no local object is held",
+        "one object + 1–3 moves + witness + RETURN",
+        "ordinary document scrolling on phone; no fixed instrument viewport",
+        "Atlas Dayline remains optional radial/scenario projection",
+        "held COMMS source link survives into DayState without becoming canonical source",
+        "RUN → WITNESS → COMPLETE → RETURN emits one exact-source OFFER_ONLY receipt",
+        "completed source-linked focus remains held through RETURN, then releases",
+        "native COMMS explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal + message/range revalidation",
+        "stale or concurrently changed source blocks mutation",
+        "source return effect is host-specific rather than generic: COMMS STATE_PROPOSAL · SHOPPING RECEIPT_ONLY · default EVIDENCE_ONLY",
+        "Shopping Dayline completion cannot promote procurement lifecycle",
+        "HOUSE depth/escape targets canonical /house/ directly; /house/spatial/ is not used as a Dayline front door",
+        "Shopping RETURN is evidence-only: lifecycle remains native and unchanged after receipt acceptance",
+        "FIELD FieldInterphase → existing handoff envelope → DaylineInterphase over same addressed object",
+        "FOVEA / LINE / RING are projection-only; suppressed channels remain explicit residue",
+        "RETURN carries current INTERPHASE selection/focus/projection/residue without authority increase",
+        "optional interphase-carrier/v0.1 rides inside native handoff envelope; exact source OBJECT/RETURN survives while Dayline changes focus and witness",
+        "source-return offer may carry the evolved continuation carrier; carrier itself has no effect authority"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "atlas-dayline-handoff/v0.1",
+            "existing Dayline task",
+            "FIELD route/front",
+            "direct capture",
+            "interphase/v0.2/handoff within existing Dayline envelope",
+            "interphase-carrier/v0.1 optional continuation frame",
+            "interphase-action-surface/v0.1 projection over continuation carrier"
+          ],
+          "requires": [],
+          "optional": [
+            "source route",
+            "time/context",
+            "provenance"
+          ]
+        },
+        "transforms": {
+          "verb": "hold one addressed object, expose only its local lawful action neighborhood, mutate the existing DayState only on explicit action, then RETURN evidence",
+          "preserves": [
+            "source address",
+            "native source authority",
+            "Dayline task identity",
+            "RUN cap",
+            "witness provenance"
+          ],
+          "reversibility": "local DayState operations remain explicit/replayable",
+          "side_effects": "browser-local DayState only"
+        },
+        "emits": {
+          "kinds": [
+            "bounded move set",
+            "witness",
+            "poly-atlas-return-f v3",
+            "atlas-dayline-source-return/v0.1 OFFER_ONLY",
+            "interphase/v0.2 projection witness in RETURN",
+            "evolved interphase-carrier/v0.1 in source-return offer",
+            "interphase-action-surface/v0.1 host-neutral action reading"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "source-addressed handoff / DayState",
+            "interface": "sessionStorage + localStorage"
+          },
+          {
+            "medium": "DATA",
+            "kind": "CURRENT frame",
+            "interface": "read-only fetch"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "1–3 lawful moves",
+            "interface": "touch UI"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "RETURN",
+            "interface": "clipboard + local return store"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "ATLAS_PROJECTION",
+            "status": "AVAILABLE",
+            "via": "/atlas-dayline/?live=1"
+          },
+          {
+            "class": "NATIVE_SOURCE",
+            "status": "AVAILABLE",
+            "via": "session-local exact-source OFFER_ONLY → explicit native acceptance"
+          },
+          {
+            "class": "HERMES",
+            "status": "BOUNDARY",
+            "via": "explicit copied RETURN only"
+          }
+        ],
+        "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
+      },
+      "index": {
+        "updated_at": "2026-09-29T19:34:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      }
+    },
+    {
       "href": "/dock/",
       "title": "DOCK / ORIENTATION",
       "kind": "control",
@@ -1922,6 +1948,49 @@
       "tier": "FIELD"
     },
     {
+      "href": "/field/axial-probe/",
+      "title": "AXIAL / SHADOW PROBE 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/axial/",
+      "family": "AXIAL",
+      "operation": "VERIFY",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
+      "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
+      "index": {
+        "updated_at": "2026-09-25T19:56:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "EXPERIMENT",
+          "MAKE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "reducer closure: R+2 C+1 A-1 R-2 C-1 A+1 -> [0,0,0] and sum delta [0,0,0]",
+          "path equivalence: R+2 C+2 A+1 and A+1 C+2 R+2 -> same [2,2,+1] state with distinct traces",
+          "human gesture legibility remains untested",
+          "physical transfer remains untested"
+        ],
+        "return_path": "/foundry/axial/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/axial/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can twist / slide / shift remain distinguishable enough that one ring-cylinder-axis body carries state plus reversible transform witness without explanatory translation?",
+        "baseline": "AXIAL digital focus stack + recovered printable compositor concepts; no present physical body and no claim that ring/cylinder/axis gestures are self-evident.",
+        "mutation": "Single disposable digital surrogate with three distinct gesture zones, explicit tuple/delta trace, closure test and same-state/different-path test.",
+        "evidence_gate": "Direct touch use must complete the declared sequences without control ambiguity before any physical semantics are promoted.",
+        "next_if_pass": "Reproduce the same three degrees of freedom with cardboard annulus + sleeve + rod and retain before/gesture/after + ambiguity evidence.",
+        "next_if_fail": "Change the gesture/state mapping in the disposable probe; do not fabricate."
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/fold-bloom/",
       "title": "FOLD//BLOOM · PUBLIC FRONT",
       "kind": "hub",
@@ -1961,128 +2030,6 @@
       "latest_return": "/returns/FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
       "field": {
         "owner": "FOLD//BLOOM"
-      }
-    },
-    {
-      "href": "/fold-bloom/saber/",
-      "title": "FOLD//BLOOM SABER 0.1",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "PLAY / MOTION",
-      "state": "PROOF_REQUIRED",
-      "version": "0.1",
-      "receipt": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
-      "role": "In-family two-phone saber proof over exact FOLD//BLOOM source identity and existing EVENT TAPE. One host phone may also act as LEFT or RIGHT; a second phone pairs directly over WebRTC as the opposite hand. Motion is ephemeral and reduced to bounded swing witnesses; durable output is HIT/GRAZE/MISS trace only.",
-      "transfer": [
-        "LISTEN exact source + EVENT TAPE",
-        "browser-local media vault",
-        "WebRTC DataChannel manual signaling",
-        "bounded monotonic clock offset",
-        "HIT TRACE RETURN"
-      ],
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "fold-bloom-event-tape/v0.1",
-            "exact local source identity",
-            "LEFT/RIGHT phone motion"
-          ],
-          "requires": [
-            "EVENT TAPE"
-          ],
-          "optional": [
-            "browser-local source bytes",
-            "LISTEN addressed marks"
-          ]
-        },
-        "transforms": {
-          "verb": "project existing addressed note events into a two-phone motion course and reduce ephemeral swings to bounded performance witnesses",
-          "preserves": [
-            "source identity",
-            "source/event time",
-            "hand role",
-            "no raw motion retention"
-          ],
-          "reversibility": "full",
-          "side_effects": "local playback + ephemeral peer session + explicit RETURN export only"
-        },
-        "emits": {
-          "kinds": [
-            "SABER COURSE",
-            "HIT/GRAZE/MISS witness",
-            "fold-bloom-saber-return/v0.1"
-          ],
-          "machine_readable": true,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/fold-bloom/saber/release.json",
-          "checks": [
-            "pure course/clock/hit tests",
-            "browser boot",
-            "two-real-phone proof remains required"
-          ],
-          "return_path": "/fold-bloom/saber/"
-        }
-      },
-      "field": {
-        "roles": [
-          "WORLD_THROUGH",
-          "EXPERIMENT"
-        ],
-        "inputs": [
-          {
-            "medium": "SOUND/DATA",
-            "kind": "existing source + EVENT TAPE",
-            "interface": "LISTEN handoff / local vault"
-          },
-          {
-            "medium": "MOTION",
-            "kind": "LEFT/RIGHT bounded IMU witness",
-            "interface": "DeviceMotion + direct WebRTC"
-          }
-        ],
-        "outputs": [
-          {
-            "medium": "LIGHT/HAPTIC",
-            "kind": "note/hit consequence",
-            "interface": "display + vibration"
-          },
-          {
-            "medium": "DATA",
-            "kind": "bounded HIT TRACE RETURN",
-            "interface": "JSON"
-          }
-        ],
-        "exit_paths": [
-          {
-            "class": "REAL_DEVICE_PROOF",
-            "status": "PROOF_REQUIRED",
-            "via": "two phones + one mapped local track"
-          }
-        ],
-        "physical_fit": "Phones are handheld sabers; no claim of absolute 3-D tracking."
-      },
-      "index": {
-        "updated_at": "2026-09-25T09:20:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
-        ]
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can existing exact source timing + EVENT TAPE become a causally legible two-phone saber game without a second media store, retained raw motion, or a permanent multiplayer backend?",
-        "baseline": "Before SABER 0.1, FOLD//BLOOM could export a Beat Saber mapper pack and had a pinned dual-phone contract, but no in-family phone-motion runtime existed.",
-        "mutation": "Add exactly one playable transport projection: Phone A hosts + acts as one hand, Phone B is the opposite hand over direct WebRTC, motion collapses to bounded swing witnesses, and HIT/GRAZE/MISS remains source-time addressed.",
-        "evidence_gate": "Repository tests must prove deterministic course/clock/hit/RETURN laws and browser boot. Promotion additionally requires two real phones playing at least 30 existing EVENT TAPE notes with tolerable causal feel, stable pause/resume address, clean one-phone degradation, and no raw-motion retention.",
-        "next_if_pass": "Refine only observed physical friction: calibration, latency compensation, haptic grammar or richer EVENT TAPE note forms one mutation at a time.",
-        "next_if_fail": "Keep Beat Saber pack export and EVENT TAPE; park/compost the dual-phone runtime while retaining its clock/motion findings as donor evidence."
       }
     },
     {
@@ -2216,6 +2163,84 @@
       "tier": "FIELD"
     },
     {
+      "href": "/fold-bloom/convergence/change-calculus/",
+      "title": "FOLD//BLOOM · CHANGE CALCULUS 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "operation": "VERIFY / CALCULATE",
+      "state": "CANDIDATE",
+      "family": "FOLD // BLOOM",
+      "showcase_card": false,
+      "role": "Applied research witness joining exact Fold/Bloom operation form, six-bit/hex change quotient, one-line STEP paths and J-space→native-support arithmetic while keeping each representation's information loss and authority boundary explicit. I Ching data is lookup lens only; no cast or control sufficiency is inferred.",
+      "receipt": "/returns/FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
+      "index": {
+        "updated_at": "2026-09-29T11:34:58+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "pure selftest covers 4096→64 quotient accounting, 64:1 fibers, moving-line Hamming distance, STEP ordering ambiguity and J-space host-support calculation",
+          "FIELD LAB links to the calculator without importing candidate runtime",
+          "real LIVE macrostate sufficiency and real model intervention remain separate evidence gates"
+        ],
+        "return_path": "/fold-bloom/lab/?mode=DATA"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Which compression is sufficient for which lawful next action: exact verb form, binary change state, stepped path, or J-space readout?",
+        "baseline": "Exact Fold/Bloom verbs, binary state language, STEP traversal and J-space steering donor already exist separately.",
+        "mutation": "Add one transparent calculator over existing contracts; expose information loss, path ambiguity and host-support arithmetic without acquiring execution authority.",
+        "evidence_gate": "Repository selftest/CI must pass; promotion beyond RESEARCH additionally requires behavioral sufficiency tests on real LIVE snapshots and a real small-model J-Lens intervention witness.",
+        "next_if_pass": "Use the calculator to falsify candidate control abstractions; transfer only properties that survive native behavioral tests.",
+        "next_if_fail": "Keep exact representations and residue; remove or narrow the failed abstraction rather than adding hidden state."
+      }
+    },
+    {
+      "href": "/fold-bloom/convergence/geometric-interphase/",
+      "title": "FOLD//BLOOM × INTERPHASE · GEOMETRIC PROOF 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "operation": "VERIFY / PROJECT",
+      "state": "CANDIDATE",
+      "family": "FOLD // BLOOM",
+      "role": "Executable finite-property study of one addressed FOLD//BLOOM host across LINEAR / RADIAL / AXIAL geometry. FOVEA, multifocus, host authority, explicit aperture residue and RETURN are checked; hylomorphic unfold/fold is a projection derivation. Candidate only: no new kernel, theology claim, physical measurement or lived-use promotion.",
+      "index": {
+        "updated_at": "2026-09-26T09:32:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "RESEARCH"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "3 projections × all 64 apertures: identity, focus, authority, visible/residue partition and RETURN PASS",
+          "Node syntax checks PASS",
+          "Research/handoff limits distinguish finite executable checks from Lean formalization and human/device evidence"
+        ],
+        "return_path": "/fold-bloom/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can the existing addressed source/focus survive LINEAR, RADIAL and AXIAL reallocation, with every suppressed facet named and exact caller RETURN preserved?",
+        "baseline": "Current INTERPHASE mapping laws and Fold/Bloom source/map/projection/operation/return contracts exist, but this exact cross-geometry finite property is not yet an executable fixture.",
+        "mutation": "Add one bounded synthetic geometry witness over the existing law: derive three layouts from one addressed host and assert identity, focus, authority, explicit residue and RETURN; introduce no production adapter or state owner.",
+        "evidence_gate": "Route/public-surface CI plus 192 local projection/aperture cases pass; browser interaction remains candidate; real SET/LIVE fixture and device/human claims remain open.",
+        "next_if_pass": "Transfer only the invariant cases into the existing INTERPHASE or SET/LIVE host tests after binding one real current host fixture; no geometry kernel promotion.",
+        "next_if_fail": "Retain this page as a donor and revise/compost the failed invariant; do not change canonical host or source authority."
+      }
+    },
+    {
       "href": "/fold-bloom/ecology/",
       "title": "ECOLOGY 0.2.1",
       "kind": "artifact",
@@ -2336,6 +2361,124 @@
       "tier": "FIELD",
       "role": "Living-field OBSERVE/PLAY instrument with local gene, lineage, law, breeding/audition and RETURN authority. GARDEN may visibly self-progress but touch returns control immediately. The field is mute-readable and now truthfully boots with sound OFF; generated audio is explicit presentation only.",
       "latest_return": "/returns/FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json"
+    },
+    {
+      "href": "/fold-bloom/ink/",
+      "title": "FOLD//BLOOM · INK FIELD 0.4",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "DRAW / TRAIN",
+      "state": "CANDIDATE",
+      "version": "0.4",
+      "tier": "FIELD",
+      "role": "Deterministic wet-media instrument shared with FIELD LAB. Continuous pointer movement is rasterized as swept brush-contact ribbons rather than repeated dabs; pressure, speed and stylus tilt shape contact, coherent bristle lanes persist along the stroke, and water/pigment still evolve separately through paper tooth, evaporation and stain. SUMI/DRY/WASH are interaction regimes, not historical calligraphy claims.",
+      "index": {
+        "updated_at": "2026-09-26T10:35:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 3,
+        "stage": "TEST",
+        "question": "Can continuous swept contact remove the spray/dab signature while preserving materially distinct DRY/SUMI/WASH behavior and deterministic wet-media evolution?",
+        "baseline": "FIELD LAB INK v0.1 used a one-off circular pigment/water diffusion effect with speed-sensitive deposit but no pressure, tilt, paper absorbance, dry-brush/wash regimes or reusable engine.",
+        "mutation": "INK 0.4 replaces drag-time repeated elliptical deposits with a swept brush-contact ribbon for each pointer segment. Coherent bristle lanes follow stroke direction; pressure/speed/tilt and paper tooth still modulate contact; water/pigment diffusion authority is unchanged.",
+        "evidence_gate": "Deterministic tests require approximate pigment-mass invariance across coarse vs dense pointer sampling and a continuous wet centerline without isolated dab gaps; browser boot and repo smoke must remain green. Human phone/stylus feel remains useful evidence, not a precondition for code truth.",
+        "next_if_pass": "Add replayable stroke tape and training comparison (guide path vs produced stroke) without pretending to judge calligraphic quality from geometry alone.",
+        "next_if_fail": "Keep the reusable paper renderer if visually useful; remove training claims and reduce to generative wet-media projection."
+      },
+      "transfer": [
+        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer"
+      ]
+    },
+    {
+      "href": "/fold-bloom/instrument/",
+      "title": "FOLD//BLOOM · CORE INSTRUMENT 0.1",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "role": "Preserved explicit one-instrument shell moved from the public family root. Binds one exact AUDIO/TEXT/SET object, owns FOCUS / projection / RETURN routing through INTERPHASE, and delegates domain operations to LISTEN, LIVE, SET/JOURNEY or READFIELD without copying their truth.",
+      "tier": "FIELD",
+      "index": {
+        "updated_at": "2026-09-23T18:26:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/fold-bloom/lab/",
+      "title": "FOLD//BLOOM · FIELD LAB 0.3.6",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "TRAIN / EXPLORE",
+      "state": "CANDIDATE",
+      "version": "0.3.6",
+      "tier": "FIELD",
+      "role": "Eight independent apertures over unequal canonical engines. Mobile 0.3.6 places VOICE 0.2 second after RIDE in the initial route strip. RIDE, VOICE, PULSE, VERSE, READ, LOCI, INK and DATA preserve separate authority while explicit carry/RETURN tests whether one addressed object survives recursive re-projection. PULSE timing is optional; DRIVE changes presentation only, while LIVE retains source-addressed POV traversal and RETURN. DATA exposes one shared Boolean change lattice and prefix-preserving local steering as CALCULATION_ONLY; selected paths may carry into INK only as PROJECTION_ONLY geometry, with brush authorship retained by the human stroke. Sep-30 DATA additionally keeps one LIVE-instance exact release window, its lossy HEX quotient, current native NEXT evidence, and host-relative authority-NONE model-direction support as unequal witness layers; none acquires LIVE effect authority.",
+      "index": {
+        "updated_at": "2026-09-30T09:58:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE",
+          "TRAIN"
+        ]
+      },
+      "evidence": {
+        "receipt": "/fold-bloom/lab/release.json",
+        "checks": [
+          "read-bridge + addressed text-course deterministic Node tests",
+          "phone-sized browser boot proves canonical APERTURE reader at WORD scale, bound/receded source intake and non-truncated LOCI boot",
+          "existing event-tape + ink-engine + critical browser suites remain required",
+          "text-mark deterministic test + Verse→Poem Map bounded handoff",
+          "Poem Map caller return is same-origin, navigation-only, and protected by public-surface CI",
+          "change-calculus/J-space contracts + direct local steer → witnessed prefix → addressed path → PROJECTION_ONLY INK guide → authored pigment RETURN browser proof",
+          "PR #649 exact-head Route Registration 36657375498 PASS",
+          "PR #649 exact-head gitleaks 36657375488 PASS",
+          "PR #649 exact-head public-surface-check 36657375511 PASS, including live-change unit, deterministic LAB support transition, real LIVE→LAB bridge and critical browser smoke"
+        ],
+        "return_path": "/fold-bloom/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Can one compact shell carry one exact source plus human evidence across eight independent apertures without cloning the host engines or collapsing their authority?",
+        "baseline": "FIELD LAB 0.1 exposed six modes, but READ was a second ghost-race implementation and phone mode selection preserved radial geometry even when it reduced reachability.",
+        "mutation": "0.3.6 places independent VOICE immediately after RIDE in the first portrait route strip; PULSE remains an opt-in clock link, DRIVE remains presentation preference, and LIVE retains source-addressed POV traversal/RETURN. Sep-28 change-order convergence exposes the exact Boolean lattice behind STEP/ORDER/FLOW, permits prefix-preserving calculation-only steering, and carries a selected addressed chain into INK as projection-only guidance; STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT.",
+        "evidence_gate": "CI + phone use on one real poem: mark two locations, VERSE→READ→LOCI→VERSE, open Poem Map at the focused line, then REPLAY one marked moment. Pass only if re-entry becomes easier without semantic/authority drift.",
+        "next_if_pass": "Keep the bridge and refine ergonomics; only then consider promoting a generic addressed-mark contract beyond LAB.",
+        "next_if_fail": "Retain useful source/focus handoffs but remove the extra VERSE shell or local mark layer rather than creating another poetry engine."
+      },
+      "receipt": "/fold-bloom/lab/release.json",
+      "transfer": [
+        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer",
+        "VERSE / READ / LOCI exact-text focus carry",
+        "source-scoped human text marks",
+        "VERSE → Poem Map / REPLAY bounded handoffs",
+        "VERSE recipient → exact Poem Map caller return without back-propagating marks or projection state",
+        "PULSE 0.3.4: quarter-note ground + two polyrhythm rings; LOCK → CROSS → RETURN with signed asynchrony, bias/jitter/phase-correction and return delta",
+        "VOICE 0.2 spectrum trainer is folded inside the same PULSE surface; no eighth Lab mode",
+        "PULSE may pace local voice patterns but cannot author voice exercises or export raw microphone audio",
+        "Sep-28 mobile voice aperture: VOICE is independent and second after RIDE on the first phone screen; PULSE borrowing stays opt-in; DRIVE is presentation-only; LIVE keeps source/POV/traversal/RETURN authority.",
+        "Sep-28 change lattice: shared state-space witness + factoradic chain + prefix-preserving CALCULATION_ONLY steering + PROJECTION_ONLY path→INK guide; no LIVE release, I Ching control authority, J-space promotion, or automatic brush authorship.",
+        "Sep-30 LIVE→LAB residue: one pulse instance → exact six-release form + lossy HEX quotient + post-release NATIVE_EVIDENCE → exact/quotient/native-NEXT comparison → WITNESS_ONLY RETURN; cross-instance/unscoped comparisons are rejected.",
+        "Sep-30 host-relative support: authority-NONE direction → explicit control vocabulary → C(direction,s) over current native forecasts → 0/1/N candidates + ambiguity as CALCULATION_ONLY; any commit invalidates the aperture and forces re-resolution."
+      ],
+      "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json"
     },
     {
       "href": "/fold-bloom/lens/",
@@ -2470,238 +2613,6 @@
       "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
       "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
       "tier": "FIELD"
-    },
-    {
-      "href": "/fold-bloom/instrument/",
-      "title": "FOLD//BLOOM · CORE INSTRUMENT 0.1",
-      "kind": "artifact",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "OPERATE",
-      "state": "ACTIVE",
-      "version": "0.1",
-      "role": "Preserved explicit one-instrument shell moved from the public family root. Binds one exact AUDIO/TEXT/SET object, owns FOCUS / projection / RETURN routing through INTERPHASE, and delegates domain operations to LISTEN, LIVE, SET/JOURNEY or READFIELD without copying their truth.",
-      "tier": "FIELD",
-      "index": {
-        "updated_at": "2026-09-23T18:26:00+08:00",
-        "work_modes": [
-          "OPERATE",
-          "VERIFY"
-        ]
-      }
-    },
-    {
-      "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.3.6",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "TRAIN / EXPLORE",
-      "state": "CANDIDATE",
-      "version": "0.3.6",
-      "tier": "FIELD",
-      "role": "Eight independent apertures over unequal canonical engines. Mobile 0.3.6 places VOICE 0.2 second after RIDE in the initial route strip. RIDE, VOICE, PULSE, VERSE, READ, LOCI, INK and DATA preserve separate authority while explicit carry/RETURN tests whether one addressed object survives recursive re-projection. PULSE timing is optional; DRIVE changes presentation only, while LIVE retains source-addressed POV traversal and RETURN. DATA exposes one shared Boolean change lattice and prefix-preserving local steering as CALCULATION_ONLY; selected paths may carry into INK only as PROJECTION_ONLY geometry, with brush authorship retained by the human stroke. Sep-30 DATA additionally keeps one LIVE-instance exact release window, its lossy HEX quotient, current native NEXT evidence, and host-relative authority-NONE model-direction support as unequal witness layers; none acquires LIVE effect authority.",
-      "index": {
-        "updated_at": "2026-09-30T09:58:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE",
-          "TRAIN"
-        ]
-      },
-      "evidence": {
-        "receipt": "/fold-bloom/lab/release.json",
-        "checks": [
-          "read-bridge + addressed text-course deterministic Node tests",
-          "phone-sized browser boot proves canonical APERTURE reader at WORD scale, bound/receded source intake and non-truncated LOCI boot",
-          "existing event-tape + ink-engine + critical browser suites remain required",
-          "text-mark deterministic test + Verse→Poem Map bounded handoff",
-          "Poem Map caller return is same-origin, navigation-only, and protected by public-surface CI",
-          "change-calculus/J-space contracts + direct local steer → witnessed prefix → addressed path → PROJECTION_ONLY INK guide → authored pigment RETURN browser proof",
-          "PR #649 exact-head Route Registration 36657375498 PASS",
-          "PR #649 exact-head gitleaks 36657375488 PASS",
-          "PR #649 exact-head public-surface-check 36657375511 PASS, including live-change unit, deterministic LAB support transition, real LIVE→LAB bridge and critical browser smoke"
-        ],
-        "return_path": "/fold-bloom/"
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 2,
-        "stage": "TEST",
-        "question": "Can one compact shell carry one exact source plus human evidence across eight independent apertures without cloning the host engines or collapsing their authority?",
-        "baseline": "FIELD LAB 0.1 exposed six modes, but READ was a second ghost-race implementation and phone mode selection preserved radial geometry even when it reduced reachability.",
-        "mutation": "0.3.6 places independent VOICE immediately after RIDE in the first portrait route strip; PULSE remains an opt-in clock link, DRIVE remains presentation preference, and LIVE retains source-addressed POV traversal/RETURN. Sep-28 change-order convergence exposes the exact Boolean lattice behind STEP/ORDER/FLOW, permits prefix-preserving calculation-only steering, and carries a selected addressed chain into INK as projection-only guidance; STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT.",
-        "evidence_gate": "CI + phone use on one real poem: mark two locations, VERSE→READ→LOCI→VERSE, open Poem Map at the focused line, then REPLAY one marked moment. Pass only if re-entry becomes easier without semantic/authority drift.",
-        "next_if_pass": "Keep the bridge and refine ergonomics; only then consider promoting a generic addressed-mark contract beyond LAB.",
-        "next_if_fail": "Retain useful source/focus handoffs but remove the extra VERSE shell or local mark layer rather than creating another poetry engine."
-      },
-      "receipt": "/fold-bloom/lab/release.json",
-      "transfer": [
-        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer",
-        "VERSE / READ / LOCI exact-text focus carry",
-        "source-scoped human text marks",
-        "VERSE → Poem Map / REPLAY bounded handoffs",
-        "VERSE recipient → exact Poem Map caller return without back-propagating marks or projection state",
-        "PULSE 0.3.4: quarter-note ground + two polyrhythm rings; LOCK → CROSS → RETURN with signed asynchrony, bias/jitter/phase-correction and return delta",
-        "VOICE 0.2 spectrum trainer is folded inside the same PULSE surface; no eighth Lab mode",
-        "PULSE may pace local voice patterns but cannot author voice exercises or export raw microphone audio",
-        "Sep-28 mobile voice aperture: VOICE is independent and second after RIDE on the first phone screen; PULSE borrowing stays opt-in; DRIVE is presentation-only; LIVE keeps source/POV/traversal/RETURN authority.",
-        "Sep-28 change lattice: shared state-space witness + factoradic chain + prefix-preserving CALCULATION_ONLY steering + PROJECTION_ONLY path→INK guide; no LIVE release, I Ching control authority, J-space promotion, or automatic brush authorship.",
-        "Sep-30 LIVE→LAB residue: one pulse instance → exact six-release form + lossy HEX quotient + post-release NATIVE_EVIDENCE → exact/quotient/native-NEXT comparison → WITNESS_ONLY RETURN; cross-instance/unscoped comparisons are rejected.",
-        "Sep-30 host-relative support: authority-NONE direction → explicit control vocabulary → C(direction,s) over current native forecasts → 0/1/N candidates + ambiguity as CALCULATION_ONLY; any commit invalidates the aperture and forces re-resolution."
-      ],
-      "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json"
-    },
-    {
-      "href": "/fold-bloom/convergence/geometric-interphase/",
-      "title": "FOLD//BLOOM × INTERPHASE · GEOMETRIC PROOF 0.1",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "operation": "VERIFY / PROJECT",
-      "state": "CANDIDATE",
-      "family": "FOLD // BLOOM",
-      "role": "Executable finite-property study of one addressed FOLD//BLOOM host across LINEAR / RADIAL / AXIAL geometry. FOVEA, multifocus, host authority, explicit aperture residue and RETURN are checked; hylomorphic unfold/fold is a projection derivation. Candidate only: no new kernel, theology claim, physical measurement or lived-use promotion.",
-      "index": {
-        "updated_at": "2026-09-26T09:32:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "RESEARCH"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "3 projections × all 64 apertures: identity, focus, authority, visible/residue partition and RETURN PASS",
-          "Node syntax checks PASS",
-          "Research/handoff limits distinguish finite executable checks from Lean formalization and human/device evidence"
-        ],
-        "return_path": "/fold-bloom/"
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can the existing addressed source/focus survive LINEAR, RADIAL and AXIAL reallocation, with every suppressed facet named and exact caller RETURN preserved?",
-        "baseline": "Current INTERPHASE mapping laws and Fold/Bloom source/map/projection/operation/return contracts exist, but this exact cross-geometry finite property is not yet an executable fixture.",
-        "mutation": "Add one bounded synthetic geometry witness over the existing law: derive three layouts from one addressed host and assert identity, focus, authority, explicit residue and RETURN; introduce no production adapter or state owner.",
-        "evidence_gate": "Route/public-surface CI plus 192 local projection/aperture cases pass; browser interaction remains candidate; real SET/LIVE fixture and device/human claims remain open.",
-        "next_if_pass": "Transfer only the invariant cases into the existing INTERPHASE or SET/LIVE host tests after binding one real current host fixture; no geometry kernel promotion.",
-        "next_if_fail": "Retain this page as a donor and revise/compost the failed invariant; do not change canonical host or source authority."
-      }
-    },
-    {
-      "href": "/fold-bloom/voice/",
-      "title": "FOLD//BLOOM · VOICE 0.2",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "TRAIN / LISTEN",
-      "state": "CANDIDATE",
-      "version": "0.2",
-      "tier": "FIELD",
-      "role": "Local-only pitch/stability/spectrum practice projection. Standalone VOICE exposes spectrogram, centroid and spectral peak; the same trainer is folded into FIELD LAB PULSE. FIELD PULSE may lend tempo/beat and advance a local pattern, but never authors the exercise; no raw microphone audio is recorded or exported.",
-      "index": {
-        "updated_at": "2026-09-26T09:58:00+08:00",
-        "work_modes": [
-          "OPERATE",
-          "TRAIN",
-          "VERIFY"
-        ]
-      },
-      "evidence": {
-        "receipt": "/fold-bloom/voice/release.json",
-        "checks": [
-          "deterministic pitch/pattern Node tests",
-          "mic permission + phone singing proof remains human"
-        ],
-        "return_path": "/fold-bloom/"
-      },
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "local microphone signal",
-            "manual target/pattern controls",
-            "optional FIELD PULSE transport"
-          ],
-          "requires": [
-            "explicit microphone permission"
-          ],
-          "optional": [
-            "LISTEN/AUDIO clock",
-            "FIELD LAB/SYNTH clock"
-          ]
-        },
-        "transforms": {
-          "verb": "estimate local fundamental pitch/stability; compare to a user-selected target pattern; optionally advance target steps from borrowed beat timing",
-          "preserves": [
-            "manual exercise authorship",
-            "external clock non-authority",
-            "no microphone recording/upload",
-            "manual operation without pulse"
-          ],
-          "reversibility": "full",
-          "side_effects": "local microphone permission + explicit JSON RETURN export only"
-        },
-        "evidence": {
-          "receipt": "/fold-bloom/voice/release.json",
-          "return_path": "/fold-bloom/voice/"
-        }
-      },
-      "receipt": "/fold-bloom/voice/release.json",
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 2,
-        "stage": "TEST",
-        "question": "Can local voice practice gain useful spectral feedback and inhabit PULSE timing without adding another Lab mode or moving voice authorship into the timing substrate?",
-        "baseline": "VOICE 0.1 had local pitch/stability plus optional FIELD PULSE timing; spectral shape and embedded PULSE practice were missing.",
-        "mutation": "VOICE 0.2 adds bounded FFT witnesses and reuses the same trainer inside FIELD LAB PULSE; standalone VOICE remains depth, not another engine.",
-        "evidence_gate": "Spectrum tests + phone-sized browser smoke + PULSE embed checks. Human feel may refine ergonomics but is not correctness authority.",
-        "next_if_pass": "Keep one shared practice core; deepen exercises only when they reuse the same detector/timing/evidence boundary.",
-        "next_if_fail": "Remove burdensome embedded/spectral presentation; do not create another voice mode or cloud scoring path."
-      },
-      "transfer": [
-        "shared VOICE detector + FFT spectrum witness reused by FIELD LAB PULSE",
-        "VOICE→PULSE fold reduces surfaces: one practice core, standalone depth + embedded PULSE detail"
-      ]
-    },
-    {
-      "href": "/fold-bloom/ink/",
-      "title": "FOLD//BLOOM · INK FIELD 0.4",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "DRAW / TRAIN",
-      "state": "CANDIDATE",
-      "version": "0.4",
-      "tier": "FIELD",
-      "role": "Deterministic wet-media instrument shared with FIELD LAB. Continuous pointer movement is rasterized as swept brush-contact ribbons rather than repeated dabs; pressure, speed and stylus tilt shape contact, coherent bristle lanes persist along the stroke, and water/pigment still evolve separately through paper tooth, evaporation and stain. SUMI/DRY/WASH are interaction regimes, not historical calligraphy claims.",
-      "index": {
-        "updated_at": "2026-09-26T10:35:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
-        ]
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 3,
-        "stage": "TEST",
-        "question": "Can continuous swept contact remove the spray/dab signature while preserving materially distinct DRY/SUMI/WASH behavior and deterministic wet-media evolution?",
-        "baseline": "FIELD LAB INK v0.1 used a one-off circular pigment/water diffusion effect with speed-sensitive deposit but no pressure, tilt, paper absorbance, dry-brush/wash regimes or reusable engine.",
-        "mutation": "INK 0.4 replaces drag-time repeated elliptical deposits with a swept brush-contact ribbon for each pointer segment. Coherent bristle lanes follow stroke direction; pressure/speed/tilt and paper tooth still modulate contact; water/pigment diffusion authority is unchanged.",
-        "evidence_gate": "Deterministic tests require approximate pigment-mass invariance across coarse vs dense pointer sampling and a continuous wet centerline without isolated dab gaps; browser boot and repo smoke must remain green. Human phone/stylus feel remains useful evidence, not a precondition for code truth.",
-        "next_if_pass": "Add replayable stroke tape and training comparison (guide path vs produced stroke) without pretending to judge calligraphic quality from geometry alone.",
-        "next_if_fail": "Keep the reusable paper renderer if visually useful; remove training claims and reduce to generative wet-media projection."
-      },
-      "transfer": [
-        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer"
-      ]
     },
     {
       "href": "/fold-bloom/listen/",
@@ -2980,6 +2891,183 @@
       }
     },
     {
+      "href": "/fold-bloom/replay/",
+      "title": "FOLD//BLOOM · REPLAY 0.2",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "REPLAY / MESSAGE / SHARE",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "Expressive replay surface: LISTEN may lend exact source identity, addressed interval, measured beat/phrase/section evidence and marks; REPLAY owns authored message/context, word cues and FOLD/BLOOM operation score; LIVE ride-profile preferences remain shared by source key. Compact share links contain the authored artifact + bounded source evidence/reference but never local/private audio bytes. Visual WebM is an output projection, not canonical state.",
+      "index": {
+        "updated_at": "2026-09-25T11:10:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "AUTHOR",
+          "VERIFY",
+          "SHARE"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "LISTEN opens REPLAY with source/interval/map/marks/profile handoff",
+          "source": "fold-bloom/listen/app.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "claim": "word cues + authored operations + experience profile remain distinct from LISTEN evidence",
+          "source": "fold-bloom/replay/score.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "claim": "compact share token round-trips exact normalized artifact without source-byte embedding",
+          "source": "fold-bloom/replay/app.js",
+          "status": "BROWSER_PROOF_REQUIRED"
+        },
+        {
+          "claim": "visual WebM export is projection-only and contains no implicit source audio",
+          "source": "fold-bloom/replay/app.js",
+          "status": "IMPLEMENTED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Can the compact replay score become a useful addressed message instrument by borrowing LISTEN source time/evidence and LIVE experience preference without becoming a second timeline or source store?",
+        "baseline": "MESSAGE REPLAY H1 proved a tiny deterministic score before video, but lacked source-clock sync, word-level authorship, existing experience controls and practical artifact export.",
+        "mutation": "Promote the mechanism to /fold-bloom/replay/: LISTEN handoff + live playhead sync; word cue timing/hold/emphasis; authored operation editing; source-keyed experience profile controls; compressed self-contained share link; JSON + visual WebM outputs.",
+        "evidence_gate": "Route/browser smoke passes AND share encode/decode preserves source id + deterministic signature AND LISTEN exposes REPLAY workflow AND shared link stays bounded for default artifact; lived communicative value remains human evidence.",
+        "next_if_pass": "Use/share one real LISTEN-sourced message artifact. Only direct-use friction may justify deeper timeline/media export work.",
+        "next_if_fail": "Keep the H1 score core as donor; remove the promoted surface rather than building a general editor to rescue it."
+      }
+    },
+    {
+      "href": "/fold-bloom/saber/",
+      "title": "FOLD//BLOOM SABER 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "PLAY / MOTION",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "receipt": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
+      "role": "In-family two-phone saber proof over exact FOLD//BLOOM source identity and existing EVENT TAPE. One host phone may also act as LEFT or RIGHT; a second phone pairs directly over WebRTC as the opposite hand. Motion is ephemeral and reduced to bounded swing witnesses; durable output is HIT/GRAZE/MISS trace only.",
+      "transfer": [
+        "LISTEN exact source + EVENT TAPE",
+        "browser-local media vault",
+        "WebRTC DataChannel manual signaling",
+        "bounded monotonic clock offset",
+        "HIT TRACE RETURN"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "fold-bloom-event-tape/v0.1",
+            "exact local source identity",
+            "LEFT/RIGHT phone motion"
+          ],
+          "requires": [
+            "EVENT TAPE"
+          ],
+          "optional": [
+            "browser-local source bytes",
+            "LISTEN addressed marks"
+          ]
+        },
+        "transforms": {
+          "verb": "project existing addressed note events into a two-phone motion course and reduce ephemeral swings to bounded performance witnesses",
+          "preserves": [
+            "source identity",
+            "source/event time",
+            "hand role",
+            "no raw motion retention"
+          ],
+          "reversibility": "full",
+          "side_effects": "local playback + ephemeral peer session + explicit RETURN export only"
+        },
+        "emits": {
+          "kinds": [
+            "SABER COURSE",
+            "HIT/GRAZE/MISS witness",
+            "fold-bloom-saber-return/v0.1"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/saber/release.json",
+          "checks": [
+            "pure course/clock/hit tests",
+            "browser boot",
+            "two-real-phone proof remains required"
+          ],
+          "return_path": "/fold-bloom/saber/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "EXPERIMENT"
+        ],
+        "inputs": [
+          {
+            "medium": "SOUND/DATA",
+            "kind": "existing source + EVENT TAPE",
+            "interface": "LISTEN handoff / local vault"
+          },
+          {
+            "medium": "MOTION",
+            "kind": "LEFT/RIGHT bounded IMU witness",
+            "interface": "DeviceMotion + direct WebRTC"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT/HAPTIC",
+            "kind": "note/hit consequence",
+            "interface": "display + vibration"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded HIT TRACE RETURN",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "REAL_DEVICE_PROOF",
+            "status": "PROOF_REQUIRED",
+            "via": "two phones + one mapped local track"
+          }
+        ],
+        "physical_fit": "Phones are handheld sabers; no claim of absolute 3-D tracking."
+      },
+      "index": {
+        "updated_at": "2026-09-25T09:20:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can existing exact source timing + EVENT TAPE become a causally legible two-phone saber game without a second media store, retained raw motion, or a permanent multiplayer backend?",
+        "baseline": "Before SABER 0.1, FOLD//BLOOM could export a Beat Saber mapper pack and had a pinned dual-phone contract, but no in-family phone-motion runtime existed.",
+        "mutation": "Add exactly one playable transport projection: Phone A hosts + acts as one hand, Phone B is the opposite hand over direct WebRTC, motion collapses to bounded swing witnesses, and HIT/GRAZE/MISS remains source-time addressed.",
+        "evidence_gate": "Repository tests must prove deterministic course/clock/hit/RETURN laws and browser boot. Promotion additionally requires two real phones playing at least 30 existing EVENT TAPE notes with tolerable causal feel, stable pause/resume address, clean one-phone degradation, and no raw-motion retention.",
+        "next_if_pass": "Refine only observed physical friction: calibration, latency compensation, haptic grammar or richer EVENT TAPE note forms one mutation at a time.",
+        "next_if_fail": "Keep Beat Saber pack export and EVENT TAPE; park/compost the dual-phone runtime while retaining its clock/motion findings as donor evidence."
+      }
+    },
+    {
       "href": "/fold-bloom/set/",
       "title": "FOLD//BLOOM SET 0.1.1",
       "kind": "artifact",
@@ -3241,6 +3329,82 @@
       },
       "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover. PULSE LINK accepts LISTEN/AUDIO or FIELD LAB/SYNTH timing while a local same-page track remains higher priority.",
       "tier": "FIELD"
+    },
+    {
+      "href": "/fold-bloom/voice/",
+      "title": "FOLD//BLOOM · VOICE 0.2",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "TRAIN / LISTEN",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "Local-only pitch/stability/spectrum practice projection. Standalone VOICE exposes spectrogram, centroid and spectral peak; the same trainer is folded into FIELD LAB PULSE. FIELD PULSE may lend tempo/beat and advance a local pattern, but never authors the exercise; no raw microphone audio is recorded or exported.",
+      "index": {
+        "updated_at": "2026-09-26T09:58:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "TRAIN",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/fold-bloom/voice/release.json",
+        "checks": [
+          "deterministic pitch/pattern Node tests",
+          "mic permission + phone singing proof remains human"
+        ],
+        "return_path": "/fold-bloom/"
+      },
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "local microphone signal",
+            "manual target/pattern controls",
+            "optional FIELD PULSE transport"
+          ],
+          "requires": [
+            "explicit microphone permission"
+          ],
+          "optional": [
+            "LISTEN/AUDIO clock",
+            "FIELD LAB/SYNTH clock"
+          ]
+        },
+        "transforms": {
+          "verb": "estimate local fundamental pitch/stability; compare to a user-selected target pattern; optionally advance target steps from borrowed beat timing",
+          "preserves": [
+            "manual exercise authorship",
+            "external clock non-authority",
+            "no microphone recording/upload",
+            "manual operation without pulse"
+          ],
+          "reversibility": "full",
+          "side_effects": "local microphone permission + explicit JSON RETURN export only"
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/voice/release.json",
+          "return_path": "/fold-bloom/voice/"
+        }
+      },
+      "receipt": "/fold-bloom/voice/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Can local voice practice gain useful spectral feedback and inhabit PULSE timing without adding another Lab mode or moving voice authorship into the timing substrate?",
+        "baseline": "VOICE 0.1 had local pitch/stability plus optional FIELD PULSE timing; spectral shape and embedded PULSE practice were missing.",
+        "mutation": "VOICE 0.2 adds bounded FFT witnesses and reuses the same trainer inside FIELD LAB PULSE; standalone VOICE remains depth, not another engine.",
+        "evidence_gate": "Spectrum tests + phone-sized browser smoke + PULSE embed checks. Human feel may refine ergonomics but is not correctness authority.",
+        "next_if_pass": "Keep one shared practice core; deepen exercises only when they reuse the same detector/timing/evidence boundary.",
+        "next_if_fail": "Remove burdensome embedded/spectral presentation; do not create another voice mode or cloud scoring path."
+      },
+      "transfer": [
+        "shared VOICE detector + FFT spectrum witness reused by FIELD LAB PULSE",
+        "VOICE→PULSE fold reduces surfaces: one practice core, standalone depth + embedded PULSE detail"
+      ]
     },
     {
       "href": "/forward-field-proof/",
@@ -4050,49 +4214,6 @@
       "tier": "FIELD"
     },
     {
-      "href": "/field/axial-probe/",
-      "title": "AXIAL / SHADOW PROBE 0.1",
-      "kind": "experiment",
-      "parent": "/foundry/axial/",
-      "family": "AXIAL",
-      "operation": "VERIFY",
-      "state": "PROOF_REQUIRED",
-      "version": "0.1",
-      "showcase_card": false,
-      "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
-      "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
-      "index": {
-        "updated_at": "2026-09-25T19:56:00+08:00",
-        "work_modes": [
-          "VERIFY",
-          "EXPERIMENT",
-          "MAKE"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "reducer closure: R+2 C+1 A-1 R-2 C-1 A+1 -> [0,0,0] and sum delta [0,0,0]",
-          "path equivalence: R+2 C+2 A+1 and A+1 C+2 R+2 -> same [2,2,+1] state with distinct traces",
-          "human gesture legibility remains untested",
-          "physical transfer remains untested"
-        ],
-        "return_path": "/foundry/axial/"
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/foundry/axial/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can twist / slide / shift remain distinguishable enough that one ring-cylinder-axis body carries state plus reversible transform witness without explanatory translation?",
-        "baseline": "AXIAL digital focus stack + recovered printable compositor concepts; no present physical body and no claim that ring/cylinder/axis gestures are self-evident.",
-        "mutation": "Single disposable digital surrogate with three distinct gesture zones, explicit tuple/delta trace, closure test and same-state/different-path test.",
-        "evidence_gate": "Direct touch use must complete the declared sequences without control ambiguity before any physical semantics are promoted.",
-        "next_if_pass": "Reproduce the same three degrees of freedom with cardboard annulus + sleeve + rod and retain before/gesture/after + ambiguity evidence.",
-        "next_if_fail": "Change the gesture/state mapping in the disposable probe; do not fabricate."
-      },
-      "tier": "FIELD"
-    },
-    {
       "href": "/foundry/axial/lab-0.5.1.html",
       "title": "AXIAL / STATE APERTURE 0.5.1",
       "kind": "experiment",
@@ -4839,6 +4960,33 @@
       "tier": "FIELD"
     },
     {
+      "href": "/fovea/",
+      "title": "FOVEA — one field · every surface",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "REPRESENT",
+      "state": "CANDIDATE",
+      "family": "FIELD / FOCUS",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "One-field radial focus over the addressed public surfaces, open proofs and recovered clusters: nothing filtered, foveate to read, hold to act. Projection-only access instrument — curated marks over the public manifest, OPEN hands off to native routes, and no second store, priority or mutation authority is created (the parked Lens FOVEATED comparator remains unaffected).",
+      "index": {
+        "updated_at": "2026-09-27T15:35:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "RELEASE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "single self-contained surface; 25 addressed marks in 7 lanes; card exposes OPEN + COPY NEXT only (authority NONE)",
+          "local headless render verified; route-registration and public-surface checks pass before landing",
+          "registered in showcase-manifest so FIELD INDEX ROUTES / LATEST can see it"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
       "href": "/godseye/",
       "title": "GOD'S EYE VIEW (ACCOUNT)",
       "kind": "control",
@@ -5035,6 +5183,36 @@
       "showcase_card": false
     },
     {
+      "href": "/iching/",
+      "title": "易經 // I CHING — CAST · TRANSFORM · NUCLEAR",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "family": "ICHING",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
+      "index": {
+        "updated_at": "2026-09-28T13:23:53+08:00",
+        "work_modes": [
+          "PLAY",
+          "READ",
+          "INSPECT",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "64/64 hexagrams; binaries verified against the wikisource trigram table plus complement/nuclear invariants (27/28, 61/62, 63↔64, 1↔1, 2↔2)",
+          "zh parsed 64/64 complete; en OCR extraction quality-flagged on 20 known-imperfect passages (per-hexagram _quality field)",
+          "local headless-chrome render + DOM dump verified; live URL verified after deploy"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
       "href": "/inventory/",
       "title": "THE INVENTORY",
       "kind": "hub",
@@ -5225,43 +5403,6 @@
       "tier": "VAULT"
     },
     {
-      "href": "/law-zoo/lab.html",
-      "title": "LAW ZOO // LAB 0.1",
-      "kind": "lab",
-      "parent": "/law-zoo/",
-      "family": "LAW ZOO",
-      "operation": "NAME / RECORD",
-      "state": "CANDIDATE",
-      "version": "0.1",
-      "tier": "FIELD",
-      "role": "Sibling notebook to the frozen LAW ZOO donor family. Names the relation between two mined specimens via lib/interphase-ring.js, using the same four control verbs the FOLD//BLOOM convergence lane consumes (BLOOM / FOLD / RETURN / SPLIT). Records relations to browser-local storage and exports a return file. Does not read, write or modify the five FROZEN_DONOR machines; carries received vocabulary only and links out to the field guide for play.",
-      "index": {
-        "updated_at": "2026-09-28T16:20:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "VERIFY"
-        ]
-      },
-      "evidence": {
-        "receipt": "/law-zoo/lab.release.json",
-        "checks": [
-          "browser smoke 'LAW ZOO LAB names relations' asserts data-algebra=interphase-ring/v0.1, so the verb is produced by the library at runtime rather than hard-coded",
-          "default pick DE JONG DUST x XOR TEXTILE resolves INSTRUMENT->GLYPH = NEAR = FOLD",
-          "zero donor bytes touched; the five machines remain FROZEN_DONOR"
-        ],
-        "return_path": "/law-zoo/"
-      },
-      "field": {
-        "exit_paths": [
-          {
-            "class": "TRANSFER",
-            "status": "AVAILABLE",
-            "via": "EXPORT writes law-zoo-lab-relations/v0.1 JSON (schema, ring algebra version, verb, lenses)"
-          }
-        ]
-      }
-    },
-    {
       "href": "/law-zoo/error_garden.html",
       "title": "ERROR GARDEN",
       "kind": "experiment",
@@ -5327,6 +5468,43 @@
         ]
       },
       "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/lab.html",
+      "title": "LAW ZOO // LAB 0.1",
+      "kind": "lab",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "NAME / RECORD",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Sibling notebook to the frozen LAW ZOO donor family. Names the relation between two mined specimens via lib/interphase-ring.js, using the same four control verbs the FOLD//BLOOM convergence lane consumes (BLOOM / FOLD / RETURN / SPLIT). Records relations to browser-local storage and exports a return file. Does not read, write or modify the five FROZEN_DONOR machines; carries received vocabulary only and links out to the field guide for play.",
+      "index": {
+        "updated_at": "2026-09-28T16:20:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/law-zoo/lab.release.json",
+        "checks": [
+          "browser smoke 'LAW ZOO LAB names relations' asserts data-algebra=interphase-ring/v0.1, so the verb is produced by the library at runtime rather than hard-coded",
+          "default pick DE JONG DUST x XOR TEXTILE resolves INSTRUMENT->GLYPH = NEAR = FOLD",
+          "zero donor bytes touched; the five machines remain FROZEN_DONOR"
+        ],
+        "return_path": "/law-zoo/"
+      },
+      "field": {
+        "exit_paths": [
+          {
+            "class": "TRANSFER",
+            "status": "AVAILABLE",
+            "via": "EXPORT writes law-zoo-lab-relations/v0.1 JSON (schema, ring algebra version, verb, lenses)"
+          }
+        ]
+      }
     },
     {
       "href": "/law-zoo/law_districts.html",
@@ -5694,6 +5872,32 @@
       "sealed": "2026-09-23"
     },
     {
+      "href": "/loops/",
+      "title": "LOOPS // RECEIPTS",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "INSPECT",
+      "state": "UTILITY",
+      "family": "COMMS",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-30T17:30:03+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "generated from live loop state by ops-hub scripts/loops.py gallery (362 receipts at 2026-09-30)",
+          "static pass: self-contained one file, no inline JS, no external links, no live state read at load"
+        ],
+        "return_path": "/loops/"
+      },
+      "tier": "FIELD",
+      "role": "Receipt viewer for the looping platform. The machine room at /comms/ shows each loop's CURRENT categorical state; this shows the EVIDENCE behind those states — every receipt artifact a loop has ever constructed, newest first. Read-only projection of ops-hub/data/loops/artifacts/. The loops own no authority and neither does this page."
+    },
+    {
       "href": "/migration/",
       "title": "MIGRATION / SALVAGE YARD",
       "kind": "control",
@@ -5790,6 +5994,39 @@
         ],
         "return_path": "/"
       },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/physical/print-01/print.html",
+      "title": "PRINT-01 / FIELD ROUTE TILE",
+      "kind": "utility",
+      "parent": "/",
+      "family": "FIELD / PHYSICAL RETURN",
+      "operation": "PROVE",
+      "state": "UTILITY",
+      "version": "0.1.1",
+      "showcase_card": false,
+      "role": "Public print launcher for the canonical PRINT-01 SVG. It exists only to move one addressed proof fixture from repository bytes to paper without relying on ephemeral chat/library attachments. The SVG remains geometry authority; the launcher cannot promote physical proof.",
+      "index": {
+        "updated_at": "2026-09-25T19:34:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/returns/PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
+        "checks": [
+          "launcher references canonical /physical/print-01/field-route-tile-v0.1.svg",
+          "A4 landscape print law is explicit",
+          "100 mm ± 1 mm calibration remains the physical scale gate"
+        ],
+        "return_path": "/"
+      },
+      "transfer": [
+        "stable public access → canonical SVG → one print → measurement/photo RETURN",
+        "support surface only; no geometry or FIELD state authority"
+      ],
       "tier": "FIELD"
     },
     {
@@ -6332,6 +6569,131 @@
       }
     },
     {
+      "href": "/prison-age/",
+      "title": "PRISON AGE",
+      "kind": "artifact",
+      "parent": "/",
+      "family": "PRISON AGE",
+      "operation": "READ / RIDE / SOURCE",
+      "state": "ACTIVE",
+      "version": "0.6",
+      "showcase_card": true,
+      "receipt": "/prison-age/release.json",
+      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
+      "transfer": [
+        "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
+        "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
+        "proto-root RIDE → existing FOLD//BLOOM authored reader → provenance / addressed traversal / RECURRENCE / optional RELEASE → exact resolver/FIELD RETURN",
+        "FIELD action surface remains exactly READ / RIDE / SOURCE; source class selection stays inside PRISON AGE resolver",
+        "FIELD SOURCE → Prison Age source identity/provenance resolver",
+        "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
+        "exact source movement → passive cross-source ECHO evidence in READFIELD",
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "same-origin sourced Prison Age story text",
+            "curated source extract with explicit omissions",
+            "recovered authored Prison Age proto-root text / derived arrangement with exact provenance"
+          ]
+        },
+        "transforms": {
+          "verb": "hold one source set, choose operation intent, require explicit source movement selection, then project through READ or RIDE without changing source authority",
+          "preserves": [
+            "source address",
+            "source bytes",
+            "source status",
+            "source/story identity",
+            "return address"
+          ],
+          "reversibility": "exact story resolver or FIELD focus return",
+          "side_effects": "session-local READ/RIDE handoff only; no source mutation"
+        },
+        "emits": {
+          "kinds": [
+            "READFIELD source projection",
+            "field-read-ride/v0.1 traversal handoff",
+            "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
+            "source identity/provenance view",
+            "field-source-echo-index/v0.1 exact-fragment evidence"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/prison-age/release.json",
+          "return_path": "/?focus=%2Fprison-age%2F"
+        }
+      },
+      "field": {
+        "roles": [
+          "SOURCE_SET",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "TEXT",
+            "kind": "provenance-distinct sourced/recovered Prison Age text",
+            "interface": "exact story address"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "TEXT",
+            "kind": "READFIELD projection",
+            "interface": "READ"
+          },
+          {
+            "medium": "EXPERIENCE",
+            "kind": "generic READ/RIDE or explicit recovered-authored traversal",
+            "interface": "RIDE"
+          },
+          {
+            "medium": "DATA",
+            "kind": "source identity/provenance",
+            "interface": "SOURCE"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "READFIELD",
+            "status": "AVAILABLE",
+            "via": "READ",
+            "target": "/prison-age/?intent=read&return=field"
+          },
+          {
+            "class": "FOLD_BLOOM_LIVE",
+            "status": "AVAILABLE",
+            "via": "RIDE",
+            "target": "/prison-age/?intent=ride&return=field"
+          },
+          {
+            "class": "RAW_SOURCE",
+            "status": "AVAILABLE",
+            "via": "SOURCE",
+            "target": "/prison-age/?return=field"
+          }
+        ],
+        "owner": "PRISON AGE"
+      },
+      "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
+      "evolution": {
+        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
+        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
+      },
+      "index": {
+        "updated_at": "2026-09-29T21:22:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/reader/",
       "title": "ARCHIVE READER / LOCAL SURFACE",
       "kind": "system",
@@ -6461,6 +6823,24 @@
           "OPERATE"
         ]
       },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/recovery/cultural/",
+      "title": "CULTURAL WORKS",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Recovered folk and cultural material with provenance: the Bao & Noodle saga (包子與麵條, 41 of 46 parts, six sources, no attributable author) and its English performance adaptation. Source memory, not current authority.",
+      "index": {
+        "updated_at": "2026-10-01T10:45:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "operation": "RECOVER",
       "tier": "VAULT"
     },
     {
@@ -6641,46 +7021,6 @@
       "tier": "VAULT"
     },
     {
-      "href": "/recovery/media/sleeper-atlas/",
-      "title": "SLEEPER / IMAGES & STORIES",
-      "parent": "/recovery/",
-      "kind": "donor",
-      "state": "FROZEN_DONOR",
-      "version": "2026-09-18",
-      "role": "13 exact project illustrations and original descriptions; local ordered story-pack export.",
-      "operation": "RECOVER / RETRIEVE",
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
-      "index": {
-        "updated_at": "2026-09-21T18:51:00+08:00",
-        "work_modes": [
-          "RECOVER",
-          "IMPLEMENT",
-          "VERIFY",
-          "RELEASE"
-        ]
-      },
-      "field": {
-        "roles": [
-          "SOURCE"
-        ],
-        "inputs": [],
-        "outputs": [
-          {
-            "medium": "DATA",
-            "kind": "source-linked artifact"
-          }
-        ],
-        "exit_paths": [
-          {
-            "status": "AVAILABLE",
-            "via": "/recovery/sleeper/",
-            "class": "RETURN"
-          }
-        ]
-      },
-      "tier": "VAULT"
-    },
-    {
       "href": "/recovery/media/poobaby/",
       "title": "POO BABY / COMIC RUN",
       "parent": "/recovery/media/",
@@ -6726,6 +7066,46 @@
             "via": "local shelf (not in repo)",
             "class": "BOUNDARY",
             "note": "48 MB + 17 MB PDFs stay on the local machine by design; /ai-media/ is gitignored."
+          }
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/recovery/media/sleeper-atlas/",
+      "title": "SLEEPER / IMAGES & STORIES",
+      "parent": "/recovery/",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "version": "2026-09-18",
+      "role": "13 exact project illustrations and original descriptions; local ordered story-pack export.",
+      "operation": "RECOVER / RETRIEVE",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "index": {
+        "updated_at": "2026-09-21T18:51:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "field": {
+        "roles": [
+          "SOURCE"
+        ],
+        "inputs": [],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "source-linked artifact"
+          }
+        ],
+        "exit_paths": [
+          {
+            "status": "AVAILABLE",
+            "via": "/recovery/sleeper/",
+            "class": "RETURN"
           }
         ]
       },
@@ -8134,6 +8514,50 @@
       }
     },
     {
+      "href": "/spikes/003-het12-harness/",
+      "title": "HET12 / PROJECTION CONTRACT HARNESS v2",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "The falsification target: 12 heterogeneous nodes x 5 projections x 10 properties, multi-focus, fault injection, GetPut/PutGet, exact RETURN. 19/19 laws hold; 8 kill criteria clear, 1 untested, 0 hit. Diagnostic manifests, not interfaces.",
+      "index": {
+        "updated_at": "2026-09-23T10:58:55+08:00",
+        "work_modes": [
+          "READ",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "19/19 laws hold on heterogeneous nodes with multi-focus",
+          "source": "spikes/003-het12-harness/README.md",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "all 5 injected projection faults detected",
+          "source": "spikes/003-het12-harness/README.md",
+          "status": "VERIFIED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Does one canonical object support many lawful readings on HETEROGENEOUS material, with identity, attention (multi-focus), semantics, authority, evidence, time and exact RETURN all surviving projection change?",
+        "baseline": "spike 002: 12 heterogeneous nodes, model layer 8/8, projection layer 51/60 with 9 declared failures. No editing, no multi-focus, no fault injection, no ReturnFrame.",
+        "mutation": "Add multi-select + multi-focus with distinct apertures; GetPut/PutGet editing tests; a capability/support map with explicit SUPPORT=0 refusals; a byte-equivalence ReturnFrame; and projection fault injection.",
+        "evidence_gate": "All laws hold AND every injected fault is detected AND every kill criterion is clear or explicitly marked untested.",
+        "next_if_pass": "Render the projections to turn behaviour into observation; split FOLD_VIEW from FOLD_OP and add the kill criterion HET12 cannot yet exercise; then plug in READFIELD as the first real source adapter.",
+        "next_if_fail": "Classify the failure (projection deficiency / host residue / missing canonical relation / missing attention state / missing transaction state / genuinely distinct lineage) before adding any primitive."
+      }
+    },
+    {
       "href": "/spikes/003-one-instrument/",
       "title": "SPIKE 003 / ONE INSTRUMENT",
       "kind": "experiment",
@@ -8183,50 +8607,6 @@
       }
     },
     {
-      "href": "/spikes/003-het12-harness/",
-      "title": "HET12 / PROJECTION CONTRACT HARNESS v2",
-      "kind": "experiment",
-      "parent": "/",
-      "family": "SPIKE",
-      "operation": "COMPOSE",
-      "state": "CANDIDATE",
-      "version": "0.2",
-      "tier": "FIELD",
-      "role": "The falsification target: 12 heterogeneous nodes x 5 projections x 10 properties, multi-focus, fault injection, GetPut/PutGet, exact RETURN. 19/19 laws hold; 8 kill criteria clear, 1 untested, 0 hit. Diagnostic manifests, not interfaces.",
-      "index": {
-        "updated_at": "2026-09-23T10:58:55+08:00",
-        "work_modes": [
-          "READ",
-          "INSPECT",
-          "VERIFY"
-        ]
-      },
-      "evidence": [
-        {
-          "claim": "19/19 laws hold on heterogeneous nodes with multi-focus",
-          "source": "spikes/003-het12-harness/README.md",
-          "status": "VERIFIED"
-        },
-        {
-          "claim": "all 5 injected projection faults detected",
-          "source": "spikes/003-het12-harness/README.md",
-          "status": "VERIFIED"
-        }
-      ],
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/",
-        "generation": 2,
-        "stage": "TEST",
-        "question": "Does one canonical object support many lawful readings on HETEROGENEOUS material, with identity, attention (multi-focus), semantics, authority, evidence, time and exact RETURN all surviving projection change?",
-        "baseline": "spike 002: 12 heterogeneous nodes, model layer 8/8, projection layer 51/60 with 9 declared failures. No editing, no multi-focus, no fault injection, no ReturnFrame.",
-        "mutation": "Add multi-select + multi-focus with distinct apertures; GetPut/PutGet editing tests; a capability/support map with explicit SUPPORT=0 refusals; a byte-equivalence ReturnFrame; and projection fault injection.",
-        "evidence_gate": "All laws hold AND every injected fault is detected AND every kill criterion is clear or explicitly marked untested.",
-        "next_if_pass": "Render the projections to turn behaviour into observation; split FOLD_VIEW from FOLD_OP and add the kill criterion HET12 cannot yet exercise; then plug in READFIELD as the first real source adapter.",
-        "next_if_fail": "Classify the failure (projection deficiency / host residue / missing canonical relation / missing attention state / missing transaction state / genuinely distinct lineage) before adding any primitive."
-      }
-    },
-    {
       "href": "/spikes/004-interphase-sync/",
       "title": "INTERPHASE / ONE THING FOUR VIEWS",
       "kind": "experiment",
@@ -8269,61 +8649,6 @@
         "next_if_pass": "Add multifocus and a support map so an unlawful edit is refused IN THE PAGE, not only in a matrix — the first spike that is both law and mechanism.",
         "next_if_fail": "Synchronisation is not free: reintroduce explicit coordination state and re-test the collapse claim."
       }
-    },
-    {
-      "href": "/twins/",
-      "title": "THE TWINS",
-      "kind": "evidence",
-      "parent": "/witness/",
-      "operation": "PROVE",
-      "state": "STABLE",
-      "family": "WITNESS",
-      "showcase_card": false,
-      "role": "Two independent recoveries of the same export produced the identical 893-conversation set — and shared one blind spot, 13 group chats in a file neither extraction read. Published as evidence that agreement is not completeness.",
-      "index": {
-        "updated_at": "2026-09-25T12:48:00+08:00",
-        "work_modes": [
-          "VERIFY",
-          "IMPLEMENT"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "registered after the WITNESS family was built on master",
-          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
-        ],
-        "return_path": "/"
-      },
-      "tier": "FIELD",
-      "sealed": "2026-09-23"
-    },
-    {
-      "href": "/witness/",
-      "title": "THE EMPTY SKY IS MY ONLY WITNESS",
-      "kind": "hub",
-      "parent": "/",
-      "operation": "ORIENT",
-      "state": "STABLE",
-      "family": "WITNESS",
-      "showcase_card": false,
-      "role": "The wall: archive sky, handshake, silences, twins, lineage and sourced account, now reopened in a bounded way with a second REPO SKY reading over exact static Git history + current manifest/CURRENT/live HEAD. Testimony, construction history and audit remain unequal witnesses.",
-      "index": {
-        "updated_at": "2026-09-25T12:48:00+08:00",
-        "work_modes": [
-          "INSPECT",
-          "VERIFY",
-          "IMPLEMENT"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "registered after the WITNESS family was built on master",
-          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason.",
-          "REOPENED 2026-09-25: named missing witness = repository activity after the archived message/account snapshot; added repo-history + route-census projection without rewriting the message corpus."
-        ],
-        "return_path": "/"
-      },
-      "tier": "FIELD"
     },
     {
       "href": "/spikes/005-expression-transcript/",
@@ -8372,55 +8697,6 @@
         "evidence_gate": "Ten kernel laws pass AND the real-manifest probe can switch routes/channels/projections/checkpoints without mutating manifest/CURRENT state.",
         "next_if_pass": "Use the contract only where it removes a concrete stale-projection/authority/context-copy problem; do not promote biological vocabulary or add a new root dashboard.",
         "next_if_fail": "Keep Φ/φ as notation and identify the exact missing host-boundary primitive instead of expanding the metaphor."
-      }
-    },
-    {
-      "href": "/spikes/fold-bloom-message-replay-001/",
-      "title": "FOLD//BLOOM · MESSAGE REPLAY H1",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
-      "operation": "REPLAY / SHARE",
-      "state": "DONOR",
-      "version": "0.1",
-      "tier": "FIELD",
-      "role": "Historical H1 donor: proved operation-score-before-video. Current continuation is /fold-bloom/replay/; do not evolve the spike as a competing product surface.",
-      "index": {
-        "updated_at": "2026-09-25T11:10:00+08:00",
-        "work_modes": [
-          "PLAY",
-          "INSPECT",
-          "VERIFY"
-        ]
-      },
-      "evidence": [
-        {
-          "claim": "same normalized score produces the same deterministic replay signature",
-          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
-          "status": "TESTED"
-        },
-        {
-          "claim": "share-link encode/decode preserves normalized packet and exact source identity",
-          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
-          "status": "TESTED"
-        },
-        {
-          "claim": "social/lived communicative value is not established by machine checks",
-          "source": "returns/FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
-          "status": "OPEN_HUMAN_GATE"
-        }
-      ],
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can a short source-addressed performance be represented canonically as a compact deterministic message/operation score before committing to video/GIF capture?",
-        "baseline": "Sharing an experiential run as rendered video would preserve appearance but lose editable operation structure, while recording every frame would inflate state and blur source/projection authority.",
-        "mutation": "Represent one synthetic addressed source interval as a small message + operation tape; deterministically render it, retime one BLOOM event, and encode the score into a share URL.",
-        "evidence_gate": "Exact encode/decode round trip AND same-packet replay signature equality AND bounded edit changes signature without changing source id AND packet <1600 bytes AND browser specimen boots.",
-        "next_if_pass": "TRANSFER only: keep compact score as a candidate expressive artifact contract; seek ordinary share/replay use before any LIVE integration or media capture work.",
-        "next_if_fail": "COMPOST the score-first claim; do not build a replay backend or video export layer to rescue it."
       }
     },
     {
@@ -8477,364 +8753,106 @@
       }
     },
     {
-      "href": "/fold-bloom/replay/",
-      "title": "FOLD//BLOOM · REPLAY 0.2",
+      "href": "/spikes/fold-bloom-message-replay-001/",
+      "title": "FOLD//BLOOM · MESSAGE REPLAY H1",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
-      "operation": "REPLAY / MESSAGE / SHARE",
-      "state": "CANDIDATE",
-      "version": "0.2",
+      "operation": "REPLAY / SHARE",
+      "state": "DONOR",
+      "version": "0.1",
       "tier": "FIELD",
-      "role": "Expressive replay surface: LISTEN may lend exact source identity, addressed interval, measured beat/phrase/section evidence and marks; REPLAY owns authored message/context, word cues and FOLD/BLOOM operation score; LIVE ride-profile preferences remain shared by source key. Compact share links contain the authored artifact + bounded source evidence/reference but never local/private audio bytes. Visual WebM is an output projection, not canonical state.",
+      "role": "Historical H1 donor: proved operation-score-before-video. Current continuation is /fold-bloom/replay/; do not evolve the spike as a competing product surface.",
       "index": {
         "updated_at": "2026-09-25T11:10:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "AUTHOR",
-          "VERIFY",
-          "SHARE"
+          "PLAY",
+          "INSPECT",
+          "VERIFY"
         ]
       },
       "evidence": [
         {
-          "claim": "LISTEN opens REPLAY with source/interval/map/marks/profile handoff",
-          "source": "fold-bloom/listen/app.js",
-          "status": "IMPLEMENTED"
+          "claim": "same normalized score produces the same deterministic replay signature",
+          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
+          "status": "TESTED"
         },
         {
-          "claim": "word cues + authored operations + experience profile remain distinct from LISTEN evidence",
-          "source": "fold-bloom/replay/score.js",
-          "status": "IMPLEMENTED"
+          "claim": "share-link encode/decode preserves normalized packet and exact source identity",
+          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
+          "status": "TESTED"
         },
         {
-          "claim": "compact share token round-trips exact normalized artifact without source-byte embedding",
-          "source": "fold-bloom/replay/app.js",
-          "status": "BROWSER_PROOF_REQUIRED"
-        },
-        {
-          "claim": "visual WebM export is projection-only and contains no implicit source audio",
-          "source": "fold-bloom/replay/app.js",
-          "status": "IMPLEMENTED"
+          "claim": "social/lived communicative value is not established by machine checks",
+          "source": "returns/FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
+          "status": "OPEN_HUMAN_GATE"
         }
       ],
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/fold-bloom/",
-        "generation": 2,
+        "generation": 1,
         "stage": "TEST",
-        "question": "Can the compact replay score become a useful addressed message instrument by borrowing LISTEN source time/evidence and LIVE experience preference without becoming a second timeline or source store?",
-        "baseline": "MESSAGE REPLAY H1 proved a tiny deterministic score before video, but lacked source-clock sync, word-level authorship, existing experience controls and practical artifact export.",
-        "mutation": "Promote the mechanism to /fold-bloom/replay/: LISTEN handoff + live playhead sync; word cue timing/hold/emphasis; authored operation editing; source-keyed experience profile controls; compressed self-contained share link; JSON + visual WebM outputs.",
-        "evidence_gate": "Route/browser smoke passes AND share encode/decode preserves source id + deterministic signature AND LISTEN exposes REPLAY workflow AND shared link stays bounded for default artifact; lived communicative value remains human evidence.",
-        "next_if_pass": "Use/share one real LISTEN-sourced message artifact. Only direct-use friction may justify deeper timeline/media export work.",
-        "next_if_fail": "Keep the H1 score core as donor; remove the promoted surface rather than building a general editor to rescue it."
+        "question": "Can a short source-addressed performance be represented canonically as a compact deterministic message/operation score before committing to video/GIF capture?",
+        "baseline": "Sharing an experiential run as rendered video would preserve appearance but lose editable operation structure, while recording every frame would inflate state and blur source/projection authority.",
+        "mutation": "Represent one synthetic addressed source interval as a small message + operation tape; deterministically render it, retime one BLOOM event, and encode the score into a share URL.",
+        "evidence_gate": "Exact encode/decode round trip AND same-packet replay signature equality AND bounded edit changes signature without changing source id AND packet <1600 bytes AND browser specimen boots.",
+        "next_if_pass": "TRANSFER only: keep compact score as a candidate expressive artifact contract; seek ordinary share/replay use before any LIVE integration or media capture work.",
+        "next_if_fail": "COMPOST the score-first claim; do not build a replay backend or video export layer to rescue it."
       }
     },
     {
-      "href": "/physical/print-01/print.html",
-      "title": "PRINT-01 / FIELD ROUTE TILE",
-      "kind": "utility",
-      "parent": "/",
-      "family": "FIELD / PHYSICAL RETURN",
+      "href": "/twins/",
+      "title": "THE TWINS",
+      "kind": "evidence",
+      "parent": "/witness/",
       "operation": "PROVE",
-      "state": "UTILITY",
-      "version": "0.1.1",
+      "state": "STABLE",
+      "family": "WITNESS",
       "showcase_card": false,
-      "role": "Public print launcher for the canonical PRINT-01 SVG. It exists only to move one addressed proof fixture from repository bytes to paper without relying on ephemeral chat/library attachments. The SVG remains geometry authority; the launcher cannot promote physical proof.",
+      "role": "Two independent recoveries of the same export produced the identical 893-conversation set — and shared one blind spot, 13 group chats in a file neither extraction read. Published as evidence that agreement is not completeness.",
       "index": {
-        "updated_at": "2026-09-25T19:34:00+08:00",
+        "updated_at": "2026-09-25T12:48:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY"
-        ]
-      },
-      "evidence": {
-        "receipt": "/returns/PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
-        "checks": [
-          "launcher references canonical /physical/print-01/field-route-tile-v0.1.svg",
-          "A4 landscape print law is explicit",
-          "100 mm ± 1 mm calibration remains the physical scale gate"
-        ],
-        "return_path": "/"
-      },
-      "transfer": [
-        "stable public access → canonical SVG → one print → measurement/photo RETURN",
-        "support surface only; no geometry or FIELD state authority"
-      ],
-      "tier": "FIELD"
-    },
-    {
-      "href": "/comms/",
-      "title": "OPS // COMMS ON PAGES",
-      "kind": "hub",
-      "parent": "/",
-      "operation": "ORIENT",
-      "state": "UTILITY",
-      "family": "COMMS",
-      "showcase_card": false,
-      "role": "Comms-on-pages: the machine room's live state as a durable public record (resilience layer 2, readable without Tailscale). The six-line system glyph is imported from glyph.py — the same object as the ANCHOR group avatar — beside fleet, open items, digest recency, last receipt and the three loops. Derived aggregate only: no message text, ids, money or personal content. A surface, not an authority.",
-      "index": {
-        "updated_at": "2026-09-26T15:52:00+08:00",
-        "work_modes": [
-          "INSPECT",
-          "OPERATE"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "regenerated from live ops-hub state by scripts/comms_page.py (ops-hub side); sanitised aggregate only",
-          "static pass: one screen no scroll, no inline JS, internal links resolve, mirrors nexus board conventions"
-        ],
-        "return_path": "/"
-      },
-      "tier": "FIELD"
-    },
-    {
-      "href": "/loops/",
-      "title": "LOOPS // RECEIPTS",
-      "kind": "hub",
-      "parent": "/",
-      "operation": "INSPECT",
-      "state": "UTILITY",
-      "family": "COMMS",
-      "showcase_card": false,
-      "index": {
-        "updated_at": "2026-09-30T17:30:03+08:00",
-        "work_modes": [
-          "RECOVER",
-          "INSPECT"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "generated from live loop state by ops-hub scripts/loops.py gallery (362 receipts at 2026-09-30)",
-          "static pass: self-contained one file, no inline JS, no external links, no live state read at load"
-        ],
-        "return_path": "/loops/"
-      },
-      "tier": "FIELD",
-      "role": "Receipt viewer for the looping platform. The machine room at /comms/ shows each loop's CURRENT categorical state; this shows the EVIDENCE behind those states — every receipt artifact a loop has ever constructed, newest first. Read-only projection of ops-hub/data/loops/artifacts/. The loops own no authority and neither does this page."
-    },
-    {
-      "href": "/iching/",
-      "title": "易經 // I CHING — CAST · TRANSFORM · NUCLEAR",
-      "kind": "artifact",
-      "parent": "/",
-      "operation": "PLAY",
-      "state": "ACTIVE",
-      "family": "ICHING",
-      "version": "0.1",
-      "tier": "FIELD",
-      "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
-      "index": {
-        "updated_at": "2026-09-28T13:23:53+08:00",
-        "work_modes": [
-          "PLAY",
-          "READ",
-          "INSPECT",
-          "IMPLEMENT",
-          "VERIFY"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "64/64 hexagrams; binaries verified against the wikisource trigram table plus complement/nuclear invariants (27/28, 61/62, 63↔64, 1↔1, 2↔2)",
-          "zh parsed 64/64 complete; en OCR extraction quality-flagged on 20 known-imperfect passages (per-hexagram _quality field)",
-          "local headless-chrome render + DOM dump verified; live URL verified after deploy"
-        ],
-        "return_path": "/"
-      }
-    },
-    {
-      "href": "/fovea/",
-      "title": "FOVEA — one field · every surface",
-      "kind": "artifact",
-      "parent": "/",
-      "operation": "REPRESENT",
-      "state": "CANDIDATE",
-      "family": "FIELD / FOCUS",
-      "version": "0.2",
-      "tier": "FIELD",
-      "role": "One-field radial focus over the addressed public surfaces, open proofs and recovered clusters: nothing filtered, foveate to read, hold to act. Projection-only access instrument — curated marks over the public manifest, OPEN hands off to native routes, and no second store, priority or mutation authority is created (the parked Lens FOVEATED comparator remains unaffected).",
-      "index": {
-        "updated_at": "2026-09-27T15:35:00+08:00",
-        "work_modes": [
-          "IMPLEMENT",
-          "RELEASE"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "single self-contained surface; 25 addressed marks in 7 lanes; card exposes OPEN + COPY NEXT only (authority NONE)",
-          "local headless render verified; route-registration and public-surface checks pass before landing",
-          "registered in showcase-manifest so FIELD INDEX ROUTES / LATEST can see it"
-        ],
-        "return_path": "/"
-      }
-    },
-    {
-      "href": "/fold-bloom/convergence/change-calculus/",
-      "title": "FOLD//BLOOM · CHANGE CALCULUS 0.1",
-      "kind": "experiment",
-      "parent": "/fold-bloom/",
-      "operation": "VERIFY / CALCULATE",
-      "state": "CANDIDATE",
-      "family": "FOLD // BLOOM",
-      "showcase_card": false,
-      "role": "Applied research witness joining exact Fold/Bloom operation form, six-bit/hex change quotient, one-line STEP paths and J-space→native-support arithmetic while keeping each representation's information loss and authority boundary explicit. I Ching data is lookup lens only; no cast or control sufficiency is inferred.",
-      "receipt": "/returns/FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
-      "index": {
-        "updated_at": "2026-09-29T11:34:58+08:00",
-        "work_modes": [
-          "RESEARCH",
           "VERIFY",
           "IMPLEMENT"
         ]
       },
       "evidence": {
         "checks": [
-          "pure selftest covers 4096→64 quotient accounting, 64:1 fibers, moving-line Hamming distance, STEP ordering ambiguity and J-space host-support calculation",
-          "FIELD LAB links to the calculator without importing candidate runtime",
-          "real LIVE macrostate sufficiency and real model intervention remain separate evidence gates"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
-        "return_path": "/fold-bloom/lab/?mode=DATA"
+        "return_path": "/"
       },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/fold-bloom/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Which compression is sufficient for which lawful next action: exact verb form, binary change state, stepped path, or J-space readout?",
-        "baseline": "Exact Fold/Bloom verbs, binary state language, STEP traversal and J-space steering donor already exist separately.",
-        "mutation": "Add one transparent calculator over existing contracts; expose information loss, path ambiguity and host-support arithmetic without acquiring execution authority.",
-        "evidence_gate": "Repository selftest/CI must pass; promotion beyond RESEARCH additionally requires behavioral sufficiency tests on real LIVE snapshots and a real small-model J-Lens intervention witness.",
-        "next_if_pass": "Use the calculator to falsify candidate control abstractions; transfer only properties that survive native behavioral tests.",
-        "next_if_fail": "Keep exact representations and residue; remove or narrow the failed abstraction rather than adding hidden state."
-      }
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
-      "href": "/prison-age/",
-      "title": "PRISON AGE",
-      "kind": "artifact",
+      "href": "/witness/",
+      "title": "THE EMPTY SKY IS MY ONLY WITNESS",
+      "kind": "hub",
       "parent": "/",
-      "family": "PRISON AGE",
-      "operation": "READ / RIDE / SOURCE",
-      "state": "ACTIVE",
-      "version": "0.6",
-      "showcase_card": true,
-      "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
-      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
-      "transfer": [
-        "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
-        "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
-        "proto-root RIDE → existing FOLD//BLOOM authored reader → provenance / addressed traversal / RECURRENCE / optional RELEASE → exact resolver/FIELD RETURN",
-        "FIELD action surface remains exactly READ / RIDE / SOURCE; source class selection stays inside PRISON AGE resolver",
-        "FIELD SOURCE → Prison Age source identity/provenance resolver",
-        "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
-        "exact source movement → passive cross-source ECHO evidence in READFIELD",
-        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
-      ],
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "same-origin sourced Prison Age story text",
-            "curated source extract with explicit omissions",
-            "recovered authored Prison Age proto-root text / derived arrangement with exact provenance"
-          ]
-        },
-        "transforms": {
-          "verb": "hold one source set, choose operation intent, require explicit source movement selection, then project through READ or RIDE without changing source authority",
-          "preserves": [
-            "source address",
-            "source bytes",
-            "source status",
-            "source/story identity",
-            "return address"
-          ],
-          "reversibility": "exact story resolver or FIELD focus return",
-          "side_effects": "session-local READ/RIDE handoff only; no source mutation"
-        },
-        "emits": {
-          "kinds": [
-            "READFIELD source projection",
-            "field-read-ride/v0.1 traversal handoff",
-            "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
-            "source identity/provenance view",
-            "field-source-echo-index/v0.1 exact-fragment evidence"
-          ],
-          "machine_readable": true,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/prison-age/release.json",
-          "return_path": "/?focus=%2Fprison-age%2F"
-        }
-      },
-      "field": {
-        "roles": [
-          "SOURCE_SET",
-          "WORLD_THROUGH"
-        ],
-        "inputs": [
-          {
-            "medium": "TEXT",
-            "kind": "provenance-distinct sourced/recovered Prison Age text",
-            "interface": "exact story address"
-          }
-        ],
-        "outputs": [
-          {
-            "medium": "TEXT",
-            "kind": "READFIELD projection",
-            "interface": "READ"
-          },
-          {
-            "medium": "EXPERIENCE",
-            "kind": "generic READ/RIDE or explicit recovered-authored traversal",
-            "interface": "RIDE"
-          },
-          {
-            "medium": "DATA",
-            "kind": "source identity/provenance",
-            "interface": "SOURCE"
-          }
-        ],
-        "exit_paths": [
-          {
-            "class": "READFIELD",
-            "status": "AVAILABLE",
-            "via": "READ",
-            "target": "/prison-age/?intent=read&return=field"
-          },
-          {
-            "class": "FOLD_BLOOM_LIVE",
-            "status": "AVAILABLE",
-            "via": "RIDE",
-            "target": "/prison-age/?intent=ride&return=field"
-          },
-          {
-            "class": "RAW_SOURCE",
-            "status": "AVAILABLE",
-            "via": "SOURCE",
-            "target": "/prison-age/?return=field"
-          }
-        ],
-        "owner": "PRISON AGE"
-      },
-      "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
-      "evolution": {
-        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
-        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
-      },
+      "operation": "ORIENT",
+      "state": "STABLE",
+      "family": "WITNESS",
+      "showcase_card": false,
+      "role": "The wall: archive sky, handshake, silences, twins, lineage and sourced account, now reopened in a bounded way with a second REPO SKY reading over exact static Git history + current manifest/CURRENT/live HEAD. Testimony, construction history and audit remain unequal witnesses.",
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-09-25T12:48:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "INSPECT",
           "VERIFY",
-          "OPERATE"
+          "IMPLEMENT"
         ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason.",
+          "REOPENED 2026-09-25: named missing witness = repository activity after the archived message/account snapshot; added repo-history + route-census projection without rewriting the message corpus."
+        ],
+        "return_path": "/"
       },
       "tier": "FIELD"
     }
