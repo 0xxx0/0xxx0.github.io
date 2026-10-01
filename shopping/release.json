@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.4.2",
-  "released": "2026-09-30",
+  "version": "0.4.3",
+  "released": "2026-10-01",
   "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / MARKET_TAPE / PHASE_FIRST_SURFACE",
   "recovered_from": [
     {
@@ -40,6 +40,7 @@
     }
   ],
   "changes": [
+    "freshness tag: stale now renders red (--red) and aging renders warn (--gold), so an expired observation is distinguishable at a glance instead of sharing the muted default with unknown",
     "created public local-only Shopping Field under FCM",
     "added conservative import of legacy House OS shopping v0.4 exports",
     "mapped legacy CONFIRMED to VERIFY with a migration note rather than assuming ownership/adoption",
