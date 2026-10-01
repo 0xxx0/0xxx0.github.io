@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01",
+  "date": "2026-10-01",
+  "state": "DRAFT_PENDING_MERGE",
+  "object": "FIELD INDEX 0.8.29 / PLAY action moved from header into the footer MORE submenu",
+  "predecessor": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
+  "before": "FIELD INDEX 0.8.28 rendered the sole PLAY action as a hot-bordered button pinned to the header, competing with the FIELD INDEX identity block for the top-of-page attention band. The game was one click away but at permanent top-of-page cost.",
+  "delta": [
+    "Delete the header .headerPlay affordance and its CSS rule from /index.html.",
+    "Add a .footMenu <details> submenu in the existing footer .foot row.",
+    "Move the sole /field-play.html entry into that submenu as PLAY THE FIELD ->.",
+    "Change navigation only: /field-play.html, its deck, glyph, receipt and authority are untouched."
+  ],
+  "laws": [
+    "ONE ADDRESSED OBJECT PER SURFACE.",
+    "DEPTH BEHIND EXPLICIT REVEAL.",
+    "NAVIGATION DELTA != AUTHORITY DELTA.",
+    "PLAY IS ONE REVEAL AWAY, NOT PERMANENT CHROME."
+  ],
+  "evidence": [
+    "/index.html",
+    "/showcase-manifest.json",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/validate-public.mjs"
+  ],
+  "verification": {
+    "source": "PENDING · branch field/footer-play-20261001",
+    "checks": {
+      "public_surface": { "conclusion": "PENDING_CI" },
+      "route_registration": { "conclusion": "PENDING_CI" },
+      "gitleaks": { "conclusion": "PENDING_CI" }
+    },
+    "browser": "PENDING · header has no PLAY affordance; footer MORE reveals PLAY THE FIELD ->.",
+    "human": "No human gate for correctness. If the footer reveal proves too hidden in ordinary use, promote it rather than restoring a header button."
+  },
+  "next": "Live-verify the deployed /index.html after merge; confirm the header carries identity only and the footer MORE reveals the game.",
+  "stop": "Do not restore a permanent header PLAY button or add a second play entry point.",
+  "version": "0.8.29"
+}
