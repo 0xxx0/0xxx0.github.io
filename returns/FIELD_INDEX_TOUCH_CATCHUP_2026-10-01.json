@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_TOUCH_CATCHUP_2026-10-01",
+  "date": "2026-10-01",
+  "state": "DRAFT_PENDING_MERGE",
+  "object": "FIELD INDEX / route-touch catch-up for 2026-10-01",
+  "before": "The FIELD INDEX rail groups routes by route.index.updated_at, so it reported only 3 marks for 2026-10-01. Eight routes were actually touched by semantic commits today. Five carried a stamp older than their last touch: /control/ (09-29), /fold-bloom/live/ (09-29), /recovery/sleeper/ (09-22), /returns/ (09-29), /shopping/ (09-30). Each violated the MUTATION -> INDEX TOUCH contract: the mutation landed without the same-change stamp.",
+  "delta": [
+    "Stamp /control/ index.updated_at = 2026-10-01T16:18:59+08:00 (newest touch 6d5a865f).",
+    "Stamp /fold-bloom/live/ = 2026-10-01T12:12:35+08:00 (9342765b, a11y guard).",
+    "Stamp /recovery/sleeper/ = 2026-10-01T14:47:48+08:00 (025034f2, GENESIS-SPEC published).",
+    "Stamp /returns/ = 2026-10-01T16:18:59+08:00 (6d5a865f).",
+    "Stamp /shopping/ = 2026-10-01T11:06:44+08:00 (f1e51c16, 0.4.3 freshness tag).",
+    "Stamp value = committer date (%cI) of the newest NON-machine commit touching the route directory today.",
+    "work_modes UNION with existing (order-preserving) -> unchanged for all five; operation/receipt untouched."
+  ],
+  "laws": [
+    "MUTATION -> INDEX TOUCH.",
+    "ATTENTION != RECENCY; route.index.updated_at is curated route-touch metadata, not the Git chronology.",
+    "Machine refresh commits (comms: / nexus: / convergence:) are not semantic FIELD changes and do not stamp."
+  ],
+  "evidence": [
+    "/showcase-manifest.json",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/validate-public.mjs"
+  ],
+  "verification": {
+    "source": "PENDING · branch field/index-touch-catchup-20261001",
+    "checks": {
+      "public_surface": { "conclusion": "PENDING_CI" },
+      "registration": { "conclusion": "PENDING_CI" },
+      "gitleaks": { "conclusion": "PENDING_CI" }
+    },
+    "measured": "before: 8 routes touched today / 3 stamped today / 5 stale. after: 8 / 8 / 0.",
+    "falsifier": "Fail if any route touched by a non-machine commit today still carries a stamp older than that touch."
+  },
+  "next": "If staleness recurs, move the stamp bump into the same commit as the surface change (pre-commit or CI) rather than catching up after the fact.",
+  "stop": "Do not stamp a route from a machine refresh commit, and do not change work_modes or operation in a stamp-only repair.",
+  "version": "0.8.29"
+}
