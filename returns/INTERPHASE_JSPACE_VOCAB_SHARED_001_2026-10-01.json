@@ -1,0 +1,21 @@
+{
+ "id": "INTERPHASE_JSPACE_VOCAB_SHARED_001",
+ "date": "2026-10-01T10:37:58+08:00",
+ "class": "EVIDENCE",
+ "claim": "The interphase ring algebra and the J-space steering calculus share one real control vocabulary, not merely similar words.",
+ "method": "tools/interphase-jspace-vocab-check.mjs \u2014 enumerate every verb relationVerb can emit over a 6-ring; compare both directions against DEFAULT_CONTROL_VOCABULARY.",
+ "result": {
+  "shared_vocabulary": [
+   "BLOOM",
+   "FOLD",
+   "RETURN",
+   "SPLIT"
+  ],
+  "ring_verbs_not_in_steering": [],
+  "steering_verbs_not_emittable": [],
+  "verdict": "exact match, both directions, zero residue"
+ },
+ "consequence": "A LAW ZOO breed-pair can be NAMED with the same four verbs the J-space steering layer already uses. Six specimen pairs were named by the shared vocabulary; NEAR -> FOLD and FAR -> RETURN held for all six.",
+ "provenance": "RECOVERED 2026-10-01 from an untracked file in the shared checkout (tools/scratch/) that was about to be lost to a worktree prune. Rescued to AXIS/work/recovery/worktree-rescue-20261001/ before anything else was touched, then landed here with its relative imports re-pointed for the new depth.",
+ "raw_output": "interphase-ring relationVerb maps : { SAME: 'BLOOM', NEAR: 'FOLD', FAR: 'RETURN', OPPOSITE: 'SPLIT' }\njspace-steering control vocabulary: [ 'BLOOM', 'FOLD', 'SPLIT', 'RETURN' ]\n\nrelationVerb emits over 6-ring: [ 'BLOOM', 'FOLD', 'RETURN', 'SPLIT' ]\nemitted verbs NOT in steering vocabulary: none\nsteering verbs NOT emittable by ring    : none\n\nLAW ZOO has 5 lenses -> ring of 5: 0:SLEEPER(gate) 1:GLYPH 2:INSTRUMENT 3:SPACE 4:ALIEN\n\nspecimen        dominant lens -> ring slot\n  dejong         INSTRUMENT  ->  2\n  cyclic_ca      SLEEPER     ->  0\n  xor_textile    GLYPH       ->  1\n  error_garden   ALIEN       ->  4\n\nbreed-pair relation named by the SHARED vocabulary:\n  dejong         x cyclic_ca      INSTRUMENT\u2192SLEEPER  FAR      => RETURN\n  dejong         x xor_textile    INSTRUMENT\u2192GLYPH  NEAR     => FOLD\n  dejong         x error_garden   INSTRUMENT\u2192ALIEN  FAR      => RETURN\n  cyclic_ca      x xor_textile    SLEEPER\u2192GLYPH  NEAR     => FOLD\n  cyclic_ca      x error_garden   SLEEPER\u2192ALIEN  NEAR     => FOLD\n  xor_textile    x error_garden   GLYPH\u2192ALIEN  FAR      => RETURN\n"
+}
