@@ -37,7 +37,7 @@
       "path": "scripts/media-refinery-run.py",
       "class": "DELTA",
       "why": "Its ffprobe guard returned available:True for a binary that could not run.",
-      "does": "Catches FileNotFoundError and CalledProcessError carrying a loader signature ('Library not loaded', 'dyld', 'image not found', 'Symbol not found', 'cannot open shared object') and returns {'available': False, 'reason': 'ffprobe_load_failed', 'message': <first loader line>}. Non-load failures keep the previous generic shape, so existing consumers are unaffected."
+      "does": "Catches OSError (ENOENT/ENOEXEC/EACCES — the binary could not be run) and CalledProcessError carrying a loader signature ('Library not loaded:', 'dyld[', 'image not found', 'cannot open shared object file', 'Symbol not found:') and returns {'available': False, 'reason': 'ffprobe_load_failed', 'message': <first loader line>}. A CalledProcessError with no loader signature keeps the previous generic shape, because ffprobe genuinely ran and rejected the input. TimeoutExpired gets its own reason ('ffprobe_timeout') so a caller cannot mistake a slow file for a successful probe."
     },
     {
       "path": "scripts/hermes-media-bootstrap.sh",
@@ -49,13 +49,48 @@
   ],
 
   "falsification": {
-    "method": "Placed fake ffmpeg/ffprobe/ollama earlier on PATH that are present, executable, print a dyld load-failure line, and exit 134 — the exact 2026-10-01 shape. Re-ran all three artifacts.",
-    "which_check_control": "command -v ffmpeg and command -v ollama both resolved to the fakes and were satisfied — the false assurance reproduced.",
-    "host_preflight_result": "PASS 10/12; FAIL ffmpeg and ffprobe with 'missing /opt/homebrew/opt/x265/lib/libx265.216.dylib'; exit 1.",
-    "media_refinery_result": "{'available': false, 'reason': 'ffprobe_load_failed', 'message': 'dyld[999]: Library not loaded: .../libx265.216.dylib'} — asserted in-test.",
-    "media_bootstrap_result": "'required command is present but does not run: ollama' plus the loader line; exit 1.",
-    "healthy_path_result": "On the real host, ffprobe() against a non-media file still returns available:true with a generic CalledProcessError, and uv/ollama/hermes all clear the bootstrap guard. `bash -n` on the edited script is clean.",
-    "conclusion": "All three artifacts detect the failure they were built to detect, and none fires on a healthy host."
+    "retracted_claims": [
+      "An earlier revision of this receipt described the fakes as 'the exact 2026-10-01 shape'. They were shell scripts that PRINTED a dyld line and exited 134. A shell script that prints a loader message does not fail to load — it reproduces the message text only, and it exercises none of the ENOEXEC / EBADEXEC / bad-interpreter / timeout paths where the artifacts actually misfired.",
+      "An earlier revision said the media-refinery result was 'asserted in-test'. It was, at the time. It has since been executed for real, and it holds.",
+      "An earlier revision's conclusion claimed blanket coverage ('neither fires on a healthy host') that a message-printing script could not establish."
+    ],
+    "correction": "Falsification was redone with (a) a genuinely unloadable Mach-O — compiled against a dylib that was then deleted, the real 2026-10-01 shape — and (b) an isolated PATH per case containing node and the fake but no real copy of the probed binary, so execvp fallthrough cannot silently substitute a working tool for a broken one.",
+    "results": {
+      "host_preflight": {
+        "ENOEXEC (present, executable, not a valid executable)": "FAIL / EXEC-FAIL / exit 1",
+        "bad interpreter (present, executable, interpreter missing)": "FAIL / BAD-INTERPRETER / exit 1",
+        "genuine unloadable Mach-O (dylib deleted)": "FAIL / LOAD-FAIL naming the missing dylib / exit 1",
+        "code signature invalidated (EBADEXEC)": "FAIL / EXEC-FAIL / exit 1",
+        "absent from PATH": "FAIL / ABSENT / exit 1",
+        "healthy tool whose help text quotes a loader phrase": "PASS — no false-FAIL",
+        "healthy host": "12/12 PASS, exit 0"
+      },
+      "media_refinery": {
+        "real host, ordinary non-media file": "{available: true, error: CalledProcessError} — correct: ffprobe ran and rejected the input",
+        "ENOEXEC ffprobe": "{available: false, reason: ffprobe_load_failed}",
+        "genuine unloadable ffprobe": "{available: false, reason: ffprobe_load_failed}",
+        "healthy-but-quotey ffprobe": "{available: true, error: CalledProcessError} — no false-fail",
+        "hung ffprobe (30s timeout)": "{available: true, reason: ffprobe_timeout, error: TimeoutExpired}"
+      },
+      "media_bootstrap": {
+        "present-but-unloadable ollama": "'required command is present but does not run: ollama' plus the loader line; exit 1",
+        "real uv/ollama/hermes": "all clear the guard; bash -n clean"
+      }
+    },
+    "conclusion": "Every artifact detects the failures it was built to detect, and none fires on a healthy host. That claim is now backed by executed cases rather than by a script that only printed the right words."
+  },
+
+  "adversarial_review": {
+    "by": "delegated subagent, 2026-10-01, verdict SHIP WITH FIXES",
+    "fixed": [
+      "host-preflight reported PASS for a file that was present, executable and passed which() but that the OS refused to execute (ENOEXEC) — the same false assurance the tool exists to kill. Now EXEC-FAIL, exit 1.",
+      "media-refinery's broad `except Exception` still labelled ENOEXEC (an OSError) available:True. OSError is now in the load-fail branch.",
+      "The load-fail pattern was tested against err.message, which embeds the command line — a healthy tool whose help text quotes a loader phrase was reported broken. It is now tested against stderr only, and narrowed to full loader signatures.",
+      "ENOENT was always reported as 'not on PATH' even when the file was present with a missing interpreter. Now distinguished as BAD-INTERPRETER.",
+      "TimeoutExpired returned a bare available:True indistinguishable from success. It now carries reason: ffprobe_timeout."
+    ],
+    "deliberately_not_changed": "A binary that loads and exits non-zero is still PASS. The tool's contract is loadability, not functional correctness — `mosquitto_sub --help` and `afconvert -h` legitimately exit non-zero. The banner says 'N/N dependencies load', which is the claim actually under test.",
+    "survived": "The core claim — that a genuinely unloadable Mach-O is caught and the missing soname named — was verified independently by the reviewer against a real compiled binary, and reproduced here."
   },
 
   "lesson": "A dependency that is present but does not load is the exact class of failure that reads as success. Test loadability by executing, never by resolving a path. Where a tool is checked at all, the check must run it.",

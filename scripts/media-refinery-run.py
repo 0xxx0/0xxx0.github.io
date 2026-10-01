@@ -39,22 +39,28 @@ def discover(root,recursive=True):
         st=p.stat(); out.append({'rel':p.relative_to(root).as_posix(),'path':p,'kind':'image' if p.suffix.lower() in IM else 'video','bytes':st.st_size,'mtime_ns':st.st_mtime_ns})
     return sorted(out,key=lambda x:x['rel'].casefold())
 def snapshot(rows): return hashlib.sha256(''.join(f"{r['rel']}\0{r['bytes']}\0{r['mtime_ns']}\0{r['kind']}\n" for r in rows).encode()).hexdigest()
-LOAD_FAIL=('Library not loaded','dyld','image not found','Symbol not found','cannot open shared object')
+LOAD_FAIL=('Library not loaded:','dyld[','image not found','cannot open shared object file','Symbol not found:')
 def ffprobe(p):
     x=shutil.which('ffprobe')
     if not x:return {'available':False,'reason':'ffprobe_not_found'}
     try:
         q=subprocess.run([x,'-v','error','-show_entries','format=duration,size:stream=codec_type,codec_name,width,height,avg_frame_rate','-of','json',str(p)],capture_output=True,text=True,check=True,timeout=30)
         return {'available':True,**json.loads(q.stdout)}
-    except (FileNotFoundError,subprocess.CalledProcessError) as e:
+    except (OSError,subprocess.CalledProcessError) as e:
         err=(getattr(e,'stderr','') or '')+(getattr(e,'stdout','') or '')
-        if isinstance(e,FileNotFoundError) or any(k in err for k in LOAD_FAIL):
-            # `which` found the file but the loader could not map it (e.g. 2026-10-01:
-            # ffmpeg linked libx265.216.dylib, keg had moved to 4.3/libx265.217).
-            # Reporting available:True here is a false assurance; the tool did not run.
-            first=next((l for l in err.strip().splitlines() if l.strip()),'loader failure')
+        # OSError covers ENOENT (no such file), ENOEXEC (present but not executable)
+        # and EACCES — in every case the binary could not be run at all. A loader
+        # signature in stderr covers a binary that launched and died before main().
+        # Both mean ffprobe is NOT available; reporting available:True here is the
+        # false assurance this branch exists to remove.
+        if isinstance(e,OSError) or any(k in err for k in LOAD_FAIL):
+            first=next((l for l in err.strip().splitlines() if l.strip()),None) or f'{type(e).__name__}: {str(e)[:160]}'
             return {'available':False,'reason':'ffprobe_load_failed','message':first[:200]}
         return {'available':True,'error':type(e).__name__,'message':str(e)[:200]}
+    except subprocess.TimeoutExpired as e:
+        # ffprobe executed and the FILE was too slow: the binary is available.
+        # Distinct reason so a caller does not read available:True as 'we have data'.
+        return {'available':True,'reason':'ffprobe_timeout','error':'TimeoutExpired','message':str(e)[:200]}
     except Exception as e:return {'available':True,'error':type(e).__name__,'message':str(e)[:200]}
 def probe_image(p):
     with Image.open(p) as im:

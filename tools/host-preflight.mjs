@@ -22,11 +22,29 @@
 // tool nobody invokes is residue, not coverage.
 
 import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
 const json = process.argv.includes("--json");
 
 // `loadFail` catches the real failure mode: the process dies before main().
-const LOAD_FAIL = /Library not loaded|dyld|image not found|Symbol not found|cannot open shared object/i;
+// Deliberately narrow. A bare "dyld" or "cannot open shared object" appears in
+// ordinary help and error text; requiring the full loader signature keeps a
+// working tool that merely MENTIONS one from being reported as broken.
+const LOAD_FAIL = /Library not loaded:|dyld\[\d+\]|image not found|cannot open shared object file|Symbol not found:/i;
+
+// Resolve a name on PATH ourselves. execFileSync reports ENOENT both when the
+// binary is absent AND when the file exists but its interpreter does not, and
+// those are different faults. This tells them apart without a subprocess.
+function whichBin(bin) {
+  if (bin.includes("/")) return fs.existsSync(bin) ? bin : null;
+  for (const dir of (process.env.PATH || "").split(":")) {
+    if (!dir) continue;
+    const p = path.join(dir, bin);
+    try { fs.accessSync(p, fs.constants.X_OK); return p; } catch { /* keep looking */ }
+  }
+  return null;
+}
 
 const PROBES = [
   { name: "node",          bin: "node",          args: ["--version"],        why: "all repo tooling is .mjs" },
@@ -50,16 +68,52 @@ function probe({ bin, args }) {
     });
     return { ok: true, detail: out.split("\n")[0].trim() };
   } catch (err) {
-    if (err.code === "ENOENT") return { ok: false, kind: "ABSENT", detail: "not on PATH" };
-    const errText = `${err.stderr || ""}${err.stdout || ""}${err.message || ""}`;
-    if (LOAD_FAIL.test(errText)) {
-      const m = errText.match(/Library not loaded:\s*(\S+)/);
-      return { ok: false, kind: "LOAD-FAIL", detail: m ? `missing ${m[1]}` : "died in loader" };
+    const stderr = typeof err.stderr === "string" ? err.stderr : "";
+    const stdout = typeof err.stdout === "string" ? err.stdout : "";
+    const firstErr = stderr.split("\n").find((l) => l.trim())?.trim() || "";
+
+    // Killed by a signal: never a healthy run. A genuinely unloadable Mach-O
+    // lands here — dyld writes to stderr and the process aborts with SIGABRT.
+    if (err.signal) {
+      const m = stderr.match(/Library not loaded:\s*(\S+)/);
+      if (m) return { ok: false, kind: "LOAD-FAIL", detail: `missing ${m[1]}` };
+      return { ok: false, kind: "SIGNAL", detail: `killed by ${err.signal}${firstErr ? `: ${firstErr}` : ""}` };
     }
-    // Non-zero exit is normal for many CLIs (--help etc). It launched, so it loads.
-    if (err.signal) return { ok: false, kind: "SIGNAL", detail: `killed by ${err.signal}` };
-    const first = `${err.stdout || ""}${err.stderr || ""}`.split("\n").find((l) => l.trim());
-    return { ok: true, detail: (first || `exit ${err.status} (loaded)`).trim() };
+
+    // macOS refuses to execute a binary whose code signature was invalidated
+    // (e.g. a modified Mach-O) with EBADEXEC, which node surfaces as a numeric
+    // "Unknown system error". It is still an execution failure, not a healthy run.
+    if (typeof err.code === "string" && /Unknown system error/i.test(err.code)) {
+      return { ok: false, kind: "EXEC-FAIL", detail: `the OS refused to execute it (${err.code})` };
+    }
+
+    // ENOENT is ambiguous: absent from PATH, OR present with a missing interpreter.
+    if (err.code === "ENOENT") {
+      return whichBin(bin) === null
+        ? { ok: false, kind: "ABSENT", detail: "not on PATH" }
+        : { ok: false, kind: "BAD-INTERPRETER", detail: "on PATH, but its interpreter could not be found" };
+    }
+
+    // The file is present and executable but the OS refused to execute it.
+    if (err.code === "ENOEXEC" || /Exec format error/i.test(stderr)) {
+      return { ok: false, kind: "EXEC-FAIL", detail: "present and executable, but the OS refused to execute it" };
+    }
+
+    // Test stderr ONLY. err.message embeds the command line, and a tool's own
+    // --help text can quote loader phrases — testing it would false-FAIL a
+    // working binary. dyld and ld.so write their diagnostics to stderr.
+    if (LOAD_FAIL.test(stderr)) {
+      const m = stderr.match(/Library not loaded:\s*(\S+)/);
+      return { ok: false, kind: "LOAD-FAIL", detail: m ? `missing ${m[1]}` : (firstErr || "died in loader") };
+    }
+
+    // It launched and produced an exit status: non-zero is normal for CLIs whose
+    // probe arg is --help. A null status here means it never got that far.
+    if (typeof err.status === "number") {
+      const first = (stdout + stderr).split("\n").find((l) => l.trim())?.trim();
+      return { ok: true, detail: err.status === 0 ? (first || "launched (no output)") : `exit ${err.status} (loaded)` };
+    }
+    return { ok: false, kind: "UNKNOWN", detail: firstErr || "launched, but produced no exit status" };
   }
 }
 
