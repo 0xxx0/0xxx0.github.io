@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T08:36:01.503Z",
+  "generated": "2026-10-01T09:07:00.906Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-01",
-  "commits_in_window": 29,
-  "git_commits_in_window": 95,
-  "telemetry_commits_in_window": 66,
-  "commits_total": 4462,
+  "commits_in_window": 20,
+  "git_commits_in_window": 100,
+  "telemetry_commits_in_window": 80,
+  "commits_total": 4467,
   "branch_count": 777,
   "recent_commits": [
-    "FIELD 0.8.29: footer PLAY — complete the move 2e92bc67 only claimed (#741)",
-    "convergence: strip refresh (2026-10-01T08:05Z)",
-    "FIELD 0.8.29: footer play — move PLAY into the footer MORE submenu"
+    "convergence: exclude the strip's own refresh heartbeat from material counts",
+    "hooks: version-control the private-tree guard so a fresh clone cannot lose it",
+    "FIELD 0.8.29: footer PLAY — complete the move 2e92bc67 only claimed (#741)"
   ],
   "active_fronts": [
     {
