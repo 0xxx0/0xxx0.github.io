@@ -6844,6 +6844,24 @@
       "tier": "VAULT"
     },
     {
+      "href": "/recovery/specs-2026-10-01/",
+      "title": "RECOVERED SPECIFICATIONS",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Governing specifications recovered verbatim from corpus chat text that had no file behind them. A sweep of 60,510 machine turns found 325 version-bearing artefact names; 62 had no standalone file on disk. Four are recovered here: CANON KERNEL v1 (2026-07-13, the Prison Age / Sig Nap Ore transmedia mythology — its originating ask states the house's own 'one artifact must survive one discriminating test' law), the BLIGHT CONTINUATION KIT v0.1 (2026-03-11, seven named artefacts in one turn: BLIGHT Constitution, Branch Registry, Provenance Ledger, Missingness Ledger, Adjacent Expansion Set, Episode Ledger, Voice Constitution Template), the Labyrinth-Grid Unified Font Spec v1.0 (2025-09-05), and the Conversation Analysis Toolkit v1 (created 2024-12-16, whose load constraint — 'analyze only visible messages, no invention, no external memory, all claims traceable to text' — is the same evidence discipline this house runs on). Source memory, not current authority.",
+      "index": {
+        "updated_at": "2026-10-01T14:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "operation": "RECOVER",
+      "tier": "VAULT"
+    },
+    {
       "href": "/recovery/env0/",
       "title": "ENV-0 / BODY ↔ HOUSE",
       "kind": "recovery",

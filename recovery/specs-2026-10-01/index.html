@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recovered Specifications</title>
+<style>
+:root{--bg:#0b0c0d;--ink:#e8ebe8;--mut:#7d8a90;--line:#2a3439;--hot:#e0724a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+main{max-width:64rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1{font-size:1.3rem;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .3rem}
+.sub{color:var(--mut);margin:0 0 2.5rem;font-size:.85rem}
+section{border-top:1px solid var(--line);padding:1.6rem 0}
+h2{font-size:1rem;letter-spacing:.06em;margin:0 0 .5rem}
+p{margin:.5rem 0}
+dl{margin:.8rem 0;display:grid;grid-template-columns:9rem 1fr;gap:.25rem 1rem}
+dt{color:var(--mut)}
+dd{margin:0}
+em.q{color:var(--hot);font-style:normal}
+.rule{color:var(--mut);font-size:.82rem;border-left:2px solid var(--line);padding-left:.9rem;margin:1rem 0}
+a{color:#73bce8;text-decoration:none}
+a:hover{text-decoration:underline}
+code{color:var(--mut)}
+.n{color:var(--mut);font-size:.82rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Recovered Specifications</h1>
+<p class="sub">Governing specs that existed only as chat text, with no file behind them. Source memory — not current authority.</p>
+
+<section>
+<h2>What this is</h2>
+<p>A corpus sweep of <strong>60,510 machine turns</strong> found <strong>325 version-bearing artefact
+names</strong>. <strong>62 of them had no standalone file anywhere on disk.</strong> Four are recovered
+here, verbatim.</p>
+<div class="rule">
+<strong>The test applied.</strong> A name is only listed as a loss if all three hold: the name existed in
+the corpus · no file backed it (exact-string search across <code>void-anchor</code>, <code>Projects</code>,
+<code>handover</code>, <code>sovereign-node</code>) · and something references it — otherwise it is an idea
+that was never a document. Names whose repeats are merely byte-identical chat re-exports are marked as such,
+not counted as independent later use.
+</div>
+</section>
+
+<section>
+<h2>CANON KERNEL v1</h2>
+<p>22,681 chars, 2026-07-13. Reconstructs the Singapore-anagram accident into a transmedia mythology:
+<em class="q">Prison Age</em> as master game, <em class="q">Sig Nap Ore</em> as counter-game, MOSS/BOSS as
+control architecture, retrocausality as a playable mechanism.</p>
+<div class="rule">
+The ask that produced it is the house's own law, stated months earlier:
+<em class="q">"Do not add another branch until one artifact survives one discriminating test."</em>
+</div>
+<dl>
+<dt>spec</dt><dd><a href="CANON-KERNEL-v1.md">CANON-KERNEL-v1.md</a> — 24 KB</dd>
+</dl>
+</section>
+
+<section>
+<h2>BLIGHT Continuation Kit v0.1</h2>
+<p>22,455 chars, 2026-03-11. <strong>Seven named artefacts inside one turn</strong>, each file-less on its own:
+BLIGHT Constitution v0.1 · Branch Registry v0.1 · Provenance Ledger v0.1 · Missingness Ledger v0.1 ·
+Adjacent Expansion Set v0.1 · Episode Ledger v0.1 · Voice Constitution Template v0.1.</p>
+<dl>
+<dt>kit</dt><dd><a href="BLIGHT-CONTINUATION-KIT-v0.1.md">BLIGHT-CONTINUATION-KIT-v0.1.md</a> — 25 KB</dd>
+</dl>
+</section>
+
+<section>
+<h2>Labyrinth-Grid Unified Font Spec v1.0</h2>
+<p>6,612 chars, 2025-09-05. The <em class="q">Labyrinthine 9-Fold Modular Font System</em> — core system
+specification for a coherent typographic/symbol set with variations.</p>
+<dl>
+<dt>spec</dt><dd><a href="LABYRINTH-GRID-UNIFIED-FONT-SPEC-v1.0.md">LABYRINTH-GRID-UNIFIED-FONT-SPEC-v1.0.md</a> — 8 KB</dd>
+</dl>
+</section>
+
+<section>
+<h2>Conversation Analysis Toolkit v1</h2>
+<p>Created 2024-12-16, referenced through 2025-11-25. One-touch commands, Thread Report, 24H Review,
+Super-Diagnostic, Linter, Self-Crit Evaluator, meta-index.</p>
+<div class="rule">
+Its load-time constraint is the same discipline this house runs on, written in 2024:
+<em class="q">"analyze only visible messages, no invention, no external memory, all claims traceable to text."</em>
+</div>
+<dl>
+<dt>toolkit</dt><dd><a href="CONVERSATION-ANALYSIS-TOOLKIT-v1.md">CONVERSATION-ANALYSIS-TOOLKIT-v1.md</a> — 8 KB</dd>
+</dl>
+</section>
+
+<section>
+<h2>Not held here</h2>
+<p>The full ranked list of all 62 file-less artefacts — with cid, date, reference counts, the exact disk
+search run, and a proposed route for each — lives in the local recovery lane
+(<code>AXIS/work/spec-recovery-2026-10-01/LOST-SPECS.md</code>). Roughly 56 more are ranked recoverable but
+not yet extracted, including <em class="q">Operator Context v0.1</em> (77 turns, named as the SOUL.md deploy
+source), <em class="q">Forward Field v1.1/v1.2</em>, <em class="q">HOUSE OS v1.1</em>, and
+<em class="q">Persona Voice Matrix v1</em>.</p>
+<p class="n">Two of the recovered specs continue a published lineage: <strong>Series Grammar v2</strong> and
+<strong>Semantic Validation Schema v2</strong> are at
+<a href="/recovery/cultural/">/recovery/cultural/</a>, following the v1 pair recovered there.
+<strong>Canonical Atlas — Genesis Spec v0.1</strong> is at <a href="/recovery/sleeper/">/recovery/sleeper/</a>,
+its origin session being <em class="q">Sleeper Story Enhancement</em>.</p>
+</section>
+
+<section>
+<h2>Provenance discipline</h2>
+<p>This material is <strong>RECOVER-DONOR</strong>. It is preserved, not promoted. Recovering something does
+not make it canonical, and none of it is presented as external authority — it is the operator's own earlier
+work, returned to the surface so it can be found rather than re-derived.</p>
+</section>
+
+</main>
+</body>
+</html>
