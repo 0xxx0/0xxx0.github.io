@@ -26,7 +26,14 @@ import { fileURLToPath } from 'node:url';
 
 const TELEMETRY_SUBJECT_PATTERNS=Object.freeze([
   /^comms: refresh machine-room page\b/i,
-  /^nexus: board refresh\b/i
+  /^nexus: board refresh\b/i,
+  // The strip's OWN refresh tick. ops-hub/scripts/convergence_strip.sh was folded into
+  // the 30m surfaces tick on 2026-10-01 and commits `convergence: strip refresh (...)`.
+  // It is a generated heartbeat like comms/nexus: an exact Git commit that must not raise
+  // the material convergence count or occupy a recent-material slot. Without this entry
+  // the strip measured its own heartbeat as material work (12 such commits on 2026-10-01
+  // inflated the count from 17 to 29). Law: TELEMETRY != MATERIAL MUTATION.
+  /^convergence: strip refresh\b/i
 ]);
 
 export const isGeneratedTelemetrySubject=(subject)=>
@@ -38,6 +45,8 @@ if(process.argv.includes('--selftest')){
     ['nexus heartbeat','nexus: board refresh (2026-09-30T01:35Z)',true],
     ['real comms change','comms: enforce provenance classes',false],
     ['real nexus change','nexus: contract convergence alias',false],
+    ['strip refresh heartbeat','convergence: strip refresh (2026-10-01T08:36Z)',true],
+    ['real convergence change','convergence: separate material activity from telemetry churn',false],
     ['merge','Merge pull request #603 from 0xxx0/fix/readfield-loci-smoke-race-20260929',false],
     ['field delta','FIELD: restore packet aliases and inert RETURN on current master',false]
   ];
