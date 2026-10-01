@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T03:26:02.936Z",
+  "generated": "2026-10-01T03:56:59.845Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-01",
-  "commits_in_window": 9,
-  "git_commits_in_window": 55,
-  "telemetry_commits_in_window": 46,
-  "commits_total": 4422,
-  "branch_count": 774,
+  "commits_in_window": 13,
+  "git_commits_in_window": 61,
+  "telemetry_commits_in_window": 48,
+  "commits_total": 4428,
+  "branch_count": 775,
   "recent_commits": [
-    "index: route stamps take the 7d ladder, not the 36h CURRENT clock",
-    "index: per-route stamps carry the 36h staleness rule (STALE_H/isStale)",
-    "host-preflight: execute dependencies, do not resolve their paths"
+    "returns: fold the 09-29/09-30 returns + trophies from the private trunk",
+    "control: CURRENT /shopping/ 0.4.2->0.4.3 (clears public-surface-check drift)",
+    "media-bootstrap: probe required commands, do not just resolve them"
   ],
   "active_fronts": [
     {
@@ -29,5 +29,5 @@
   "live_fronts": "2/2",
   "current_heads": 12,
   "open_gaps": [],
-  "current_updated": "2026-09-30T18:50:00+08:00"
+  "current_updated": "2026-10-01T11:45:42+08:00"
 }

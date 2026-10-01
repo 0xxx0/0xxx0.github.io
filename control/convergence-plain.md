@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T03:26:02.936Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-01T03:56:59.845Z by scripts/generate-convergence-strip.mjs_
 
-The field has **9 material commits on 2026-10-01** across **774 branches** (55 exact Git commits in the window; 46 generated telemetry; 4422 on master all-time).
+The field has **13 material commits on 2026-10-01** across **775 branches** (61 exact Git commits in the window; 48 generated telemetry; 4428 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- index: route stamps take the 7d ladder, not the 36h CURRENT clock
-- index: per-route stamps carry the 36h staleness rule (STALE_H/isStale)
-- host-preflight: execute dependencies, do not resolve their paths
+- returns: fold the 09-29/09-30 returns + trophies from the private trunk
+- control: CURRENT /shopping/ 0.4.2->0.4.3 (clears public-surface-check drift)
+- media-bootstrap: probe required commands, do not just resolve them
 
 ## Open gaps
 
