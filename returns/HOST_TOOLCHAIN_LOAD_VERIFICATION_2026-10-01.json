@@ -38,24 +38,33 @@
       "class": "DELTA",
       "why": "Its ffprobe guard returned available:True for a binary that could not run.",
       "does": "Catches FileNotFoundError and CalledProcessError carrying a loader signature ('Library not loaded', 'dyld', 'image not found', 'Symbol not found', 'cannot open shared object') and returns {'available': False, 'reason': 'ffprobe_load_failed', 'message': <first loader line>}. Non-load failures keep the previous generic shape, so existing consumers are unaffected."
+    },
+    {
+      "path": "scripts/hermes-media-bootstrap.sh",
+      "class": "DELTA",
+      "why": "Its required-command guard (line 29) was `command -v` only, then it immediately ran `ollama list` under `set -euo pipefail`. A present-but-unloadable ollama passed the guard and died at the next line with an opaque loader error — defeating the friendly 'Install Ollama from https://ollama.com/' hint the guard exists to print.",
+      "does": "After the presence check passes, probes the binary with `--version`. On failure it prints 'required command is present but does not run: <cmd>', echoes the first loader line, and exits 1. This is the media path's own host, so the fix lands where media setup actually happens rather than in a tool nobody invokes.",
+      "falsified": "PATH-prefixed with a present, executable, dyld-failing `ollama`: the guard was satisfied, and the script now exits 1 with 'present but does not run: ollama' plus the missing-soname line. Real uv/ollama/hermes all pass `--version` and clear the guard."
     }
   ],
 
   "falsification": {
-    "method": "Placed a fake ffmpeg/ffprobe earlier on PATH that is present, executable, prints a dyld load-failure line, and exits 134 — the exact 2026-10-01 shape. Re-ran both artifacts.",
-    "which_check_control": "command -v ffmpeg resolved to the fake and was satisfied — the false assurance reproduced.",
+    "method": "Placed fake ffmpeg/ffprobe/ollama earlier on PATH that are present, executable, print a dyld load-failure line, and exit 134 — the exact 2026-10-01 shape. Re-ran all three artifacts.",
+    "which_check_control": "command -v ffmpeg and command -v ollama both resolved to the fakes and were satisfied — the false assurance reproduced.",
     "host_preflight_result": "PASS 10/12; FAIL ffmpeg and ffprobe with 'missing /opt/homebrew/opt/x265/lib/libx265.216.dylib'; exit 1.",
     "media_refinery_result": "{'available': false, 'reason': 'ffprobe_load_failed', 'message': 'dyld[999]: Library not loaded: .../libx265.216.dylib'} — asserted in-test.",
-    "healthy_path_result": "On the real host, ffprobe() against a non-media file still returns available:true with a generic CalledProcessError, i.e. the fix does not over-trigger.",
-    "conclusion": "Both artifacts detect the failure they were built to detect, and neither fires on a healthy host."
+    "media_bootstrap_result": "'required command is present but does not run: ollama' plus the loader line; exit 1.",
+    "healthy_path_result": "On the real host, ffprobe() against a non-media file still returns available:true with a generic CalledProcessError, and uv/ollama/hermes all clear the bootstrap guard. `bash -n` on the edited script is clean.",
+    "conclusion": "All three artifacts detect the failure they were built to detect, and none fires on a healthy host."
   },
 
   "lesson": "A dependency that is present but does not load is the exact class of failure that reads as success. Test loadability by executing, never by resolving a path. Where a tool is checked at all, the check must run it.",
 
   "open_residue": [
-    "The host's `which`-style gates elsewhere in the fleet are unaudited; only media-refinery-run.py was fixed.",
+    "The host's `which`-style gates were swept after this fix: 10 in 0xxx0.github.io, ~296 in ops-hub. Most gate with a clear error or fall back to an alternative and were deliberately left alone; the three fixed here were the ones that could report success while the tool could not run. The sweep is not exhaustive across all profiles.",
     "A version bump of any shared keg can silently break a dependent binary again. Nothing schedules host-preflight; it only runs when invoked.",
-    "ffmpeg 9.0.2 / x265 4.3 is the current working pair and is the pair the next break should be measured against."
+    "ffmpeg 9.0.2 / x265 4.3 is the current working pair and is the pair the next break should be measured against.",
+    "host-preflight probes a fixed list of 12 dependencies. A tool the fleet shells out to that is not in that list is not covered."
   ],
 
   "reproduction": {

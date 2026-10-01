@@ -39,6 +39,18 @@ for cmd in uv ollama hermes; do
     esac
     exit 1
   fi
+  # Present on PATH is not the same as loadable. A binary whose shared libraries
+  # moved can satisfy `command -v` and still die in the dynamic loader — measured
+  # 2026-10-01: ffmpeg was on PATH, executable, and unloadable for ~92 min because
+  # its x265 keg had bumped a soname. Probing it here keeps the friendly install
+  # hint from being defeated by a broken-but-present binary. See tools/host-preflight.mjs.
+  if ! "$cmd" --version >/dev/null 2>&1; then
+    detail="$("$cmd" --version 2>&1 || true)"
+    echo "required command is present but does not run: $cmd" >&2
+    echo "  ${detail%%$'\n'*}" >&2
+    echo "  fix the binary's linkage, not the PATH" >&2
+    exit 1
+  fi
 done
 
 if ! ollama list | awk '{print $1}' | grep -qx "$LOCAL_MODEL"; then
