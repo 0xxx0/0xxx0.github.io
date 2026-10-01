@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T04:28:00.595Z",
+  "generated": "2026-10-01T04:59:00.751Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-01",
-  "commits_in_window": 16,
-  "git_commits_in_window": 66,
-  "telemetry_commits_in_window": 50,
-  "commits_total": 4433,
+  "commits_in_window": 18,
+  "git_commits_in_window": 70,
+  "telemetry_commits_in_window": 52,
+  "commits_total": 4437,
   "branch_count": 775,
   "recent_commits": [
-    "a11y: guard the fold-bloom toast under prefers-reduced-motion (live defect, 1 ",
-    "field-index: refresh the record of touches (control/git-history.json)",
-    "convergence: strip refresh (2026-10-01T03:56Z)"
+    "host-preflight: fix five defects found by adversarial review",
+    "convergence: strip refresh (2026-10-01T04:28Z)",
+    "a11y: guard the fold-bloom toast under prefers-reduced-motion (live defect, 1 "
   ],
   "active_fronts": [
     {
