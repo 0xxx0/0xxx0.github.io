@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T03:56:59.845Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-01T04:28:00.595Z by scripts/generate-convergence-strip.mjs_
 
-The field has **13 material commits on 2026-10-01** across **775 branches** (61 exact Git commits in the window; 48 generated telemetry; 4428 on master all-time).
+The field has **16 material commits on 2026-10-01** across **775 branches** (66 exact Git commits in the window; 50 generated telemetry; 4433 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- returns: fold the 09-29/09-30 returns + trophies from the private trunk
-- control: CURRENT /shopping/ 0.4.2->0.4.3 (clears public-surface-check drift)
-- media-bootstrap: probe required commands, do not just resolve them
+- a11y: guard the fold-bloom toast under prefers-reduced-motion (live defect, 1 
+- field-index: refresh the record of touches (control/git-history.json)
+- convergence: strip refresh (2026-10-01T03:56Z)
 
 ## Open gaps
 
