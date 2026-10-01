@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T07:33:59.932Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-01T08:05:00.277Z by scripts/generate-convergence-strip.mjs_
 
-The field has **25 material commits on 2026-10-01** across **775 branches** (87 exact Git commits in the window; 62 generated telemetry; 4454 on master all-time).
+The field has **27 material commits on 2026-10-01** across **776 branches** (91 exact Git commits in the window; 64 generated telemetry; 4458 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- FIELD 0.8.29: footer play — move PLAY into the footer MORE submenu
+- convergence: strip refresh (2026-10-01T07:33Z)
 - convergence: strip refresh (2026-10-01T07:02Z)
-- recovery: publish recovered specifications — 7 file-less governing specs, 3 ho
-- convergence: strip refresh (2026-10-01T06:32Z)
 
 ## Open gaps
 
