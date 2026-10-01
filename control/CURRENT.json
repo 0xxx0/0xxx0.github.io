@@ -57,7 +57,7 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.28 / FRAME→OBJECT + POINT-OF-ACTION UNDO / ONE HELD CONTINUATION",
+      "head": "FIELD INDEX 0.8.29 / FOOTER PLAY SUBMENU / ONE HELD CONTINUATION",
       "state": "CORE_ACTIVE",
       "route": "/",
       "retained_function": "Fast repo re-entry around one addressed object. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver. Generic HOLD / TURN / RELEASE / TRACE / RETURN stays carrier-derived; host-specific owner/action hints stay manifest-derived from explicit native ownership and AVAILABLE exit paths, never from a FIELD-owned capability table. CURRENT alone owns attention/NOW; RETURN alone owns durable evidence. The held object remains the sole working guide. Its own aperture now carries native owner/action, NEXT, witness and exact RETURN instead of a sibling HELD/NEXT/WITNESS dashboard. Exact-route SEEN remains browser-local orientation at the same object and flips to UNDO SEEN while that route action is the newest local orientation mutation; a newer SEEN or MARK ALL supersedes the immediate inverse and older actions remain in bounded STATUS → ORIENTATION history. The first explicit native action may shape FIELD's primary edge and at most two additional native actions remain inline without transferring source/effect authority. The retired CATCH aggregate stays retired; proof/refinement and older orientation remain latent owners.",
@@ -101,9 +101,11 @@
         "/tools/field-action-aperture-selftest.mjs",
         "/returns/FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
         "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
-        "/tools/field-reversibility-selftest.mjs"
+        "/tools/field-reversibility-selftest.mjs",
+        "/tools/footer-play-selftest.mjs",
+        "/returns/FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01.json"
       ],
-      "version": "0.8.28",
+      "version": "0.8.29",
       "latest_return": "/returns/FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
       "repo_verification": {
         "status": "PASS / PR 724 EXACT-HEAD",

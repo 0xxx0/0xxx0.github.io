@@ -72,7 +72,8 @@ need(html.includes('id="waitingFold"')&&html.indexOf('id="waitingFold"')>html.in
 need(!!contract.ui_contract?.root_attention_signal,'semantic attention contract missing');
 need(/Pattern never changes authority or priority/.test(contract.ui_contract?.root_attention_signal||''),'signal pattern authority boundary missing');
 need((contract.laws||[]).some(x=>/^SIGNALS CONVERGE AT FOCUS/.test(x)),'focus/authority convergence law missing');
-need(html.includes('class="headerPlay" href="./field-play.html"'),'single immediate PLAY action missing');
+need(html.includes('<a href="./field-play.html">PLAY THE FIELD →</a>')&&html.includes('class="footMenu"'),'single immediate PLAY action missing from the footer MORE submenu');
+need(!html.includes('headerPlay'),'header still competes with the identity block for the PLAY action');
 need(!html.includes('<nav>'),'duplicate top-level navigation rail survived');
 const depthStart=html.indexOf('<div class="reentryBody">'),depthEnd=html.indexOf('</details>',depthStart),depth=depthStart>=0&&depthEnd>depthStart?html.slice(depthStart,depthEnd):'';
 for(const href of ['./control/','./recovery/','./nexus/','./witness/','#traceFold','./lens-proof/','./house/','./control/confluence/','./foundry/','./migration/','./returns/','./control/FIELD_INDEX_CONTRACT.json']){
