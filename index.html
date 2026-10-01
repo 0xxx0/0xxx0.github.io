@@ -411,13 +411,17 @@ function supportFor(a,v){
 }
 function axisPosition(values,index){const n=Math.max(0,(values||[]).length),i=n?((Number(index)%n+n)%n):0;return{index:i,label:n?String(i+1).padStart(String(n).length,'0')+'/'+n:'0/0'}}
 function tsMs(t){const n=Date.parse(t);return Number.isFinite(n)?n:0}
-// Staleness rule, in ONE place. 36h = 2× the daily CURRENT refresh cadence. It was inline
-// at two call sites (CURRENT headline + heads fold) and absent from a third (the per-route
-// index stamp), so a route could read "09-30 18:50" with no indication it was history —
-// the same defect the CURRENT stamp was already fixed for, one projection over.
+// Staleness rule, in ONE place per clock. TWO clocks, because they mean different things:
+//   * CURRENT refreshes on a daily cadence, so >36h (2× daily) means the host is behind.
+//   * A ROUTE stamp only moves when the route changes. Measured 2026-10-01: 149/159 route
+//     stamps (94%) are >36h old — flagging them at 36h paints the whole navigation rail red
+//     and the signal becomes noise. Route stamps use the shipped shopping ladder (stale >7d,
+//     78/159 = 49%), which is a real distinction between the live front and history.
 const STALE_H=36;
+const STALE_ROUTE_H=168;
 function ageHours(t){const a=tsMs(t);return a>0?(Date.now()-a)/36e5:null}
 function isStale(t){const h=ageHours(t);return h!=null&&h>STALE_H}
+function isRouteStale(t){const h=ageHours(t);return h!=null&&h>STALE_ROUTE_H}
 function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
 function routeIndexClock(){return latest[0]?.index?.updated_at||''}
@@ -432,7 +436,7 @@ function routeGitDrift(){
 }
 function tokenHTML(a,v,maxSup){
  const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
- if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub'+(isStale(r?.index?.updated_at)?' staleDate':'')+'">'+esc(shortTs(r?.index?.updated_at))+(sup?'':' · dead')+'</span></span>'+bar+'</button>'}
+ if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub'+(isRouteStale(r?.index?.updated_at)?' staleDate':'')+'">'+esc(shortTs(r?.index?.updated_at))+(sup?'':' · dead')+'</span></span>'+bar+'</button>'}
  return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+'</small>'+bar+'</button>';
 }
 function renderAxes(){
