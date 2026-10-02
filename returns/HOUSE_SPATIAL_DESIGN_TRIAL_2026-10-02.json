@@ -1,0 +1,33 @@
+{
+  "schema": "0xxx0/return-receipt/v0.1",
+  "at": "2026-10-02T20:07:00+08:00",
+  "object": "HOUSE / FIELD",
+  "change": "Addressed spatial DESIGN TRIAL 0.1",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "route": "/house/",
+  "result": [
+    "One selected HOUSE address now owns a browser-local design trial loop: BEFORE → INTENT → CHANGE → CONSTRAINTS → VERIFY → AFTER → DECISION → RESIDUE → RETURN.",
+    "No new HOUSE route, canonical model, global store, or actuation authority was created.",
+    "house-design-return/v0.1 fails closed until BEFORE, INTENT, CHANGE, VERIFY, AFTER and DECISION are present.",
+    "Existing house-shopping-fit-return/v0.1 may attach as evidence-only dimensional context; it never becomes purchase/install/safety authority.",
+    "The mechanism is factored out of the monolithic host into house/design-engine.js."
+  ],
+  "verification": {
+    "local_core": "13/13 assertions passed before repository write",
+    "repository_ci": "PENDING_BRANCH_CI",
+    "public_state_refresh": "NOT_PERFORMED — house/state.json remains timestamped historical projection; must refresh through private HOUSEBUS normalizer",
+    "physical_return": "PENDING — issue #8 remains the world gate"
+  },
+  "truth_boundaries": [
+    "ADOPT is a local human decision, not structural/safety/code approval.",
+    "Canonical HOUSE geometry changes only after independent measurement/evidence update.",
+    "Home Assistant / HOUSEBUS retains device truth, permissions and actuation.",
+    "Ownership widens the intervention horizon but does not weaken evidence gates."
+  ],
+  "evidence": [
+    "/house/design-engine.js",
+    "/tools/house-design-selftest.mjs",
+    "/control/confluence/HOUSE_SPATIAL_DESIGN_ENGINE_2026-10-02.md"
+  ],
+  "next": "Complete one real addressed before→change→after trial with no new architecture; then decide whether comparison, calibration, or physical MARK earns promotion."
+}
