@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-01T09:07:00.906Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T09:10:28.852Z by scripts/generate-convergence-strip.mjs_
 
-The field has **20 material commits on 2026-10-01** across **777 branches** (100 exact Git commits in the window; 80 generated telemetry; 4467 on master all-time).
+The field has **5 material commits on 2026-10-02** across **782 branches** (40 exact Git commits in the window; 35 generated telemetry; 4531 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- convergence: exclude the strip's own refresh heartbeat from material counts
-- hooks: version-control the private-tree guard so a fresh clone cannot lose it
-- FIELD 0.8.29: footer PLAY — complete the move 2e92bc67 only claimed (#741)
+- field-index: date labels carry age in colour (#746)
+- browser-smoke: make the suite's verdict independent of which Chromium it finds
+- field-index: derive manifest versions from release receipts + gate the drift
 
 ## Open gaps
 

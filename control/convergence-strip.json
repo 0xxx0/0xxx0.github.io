@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-01T09:07:00.906Z",
+  "generated": "2026-10-02T09:10:28.852Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
-  "commits_window": "2026-10-01",
-  "commits_in_window": 20,
-  "git_commits_in_window": 100,
-  "telemetry_commits_in_window": 80,
-  "commits_total": 4467,
-  "branch_count": 777,
+  "commits_window": "2026-10-02",
+  "commits_in_window": 5,
+  "git_commits_in_window": 40,
+  "telemetry_commits_in_window": 35,
+  "commits_total": 4531,
+  "branch_count": 782,
   "recent_commits": [
-    "convergence: exclude the strip's own refresh heartbeat from material counts",
-    "hooks: version-control the private-tree guard so a fresh clone cannot lose it",
-    "FIELD 0.8.29: footer PLAY — complete the move 2e92bc67 only claimed (#741)"
+    "field-index: date labels carry age in colour (#746)",
+    "browser-smoke: make the suite's verdict independent of which Chromium it finds",
+    "field-index: derive manifest versions from release receipts + gate the drift"
   ],
   "active_fronts": [
     {
