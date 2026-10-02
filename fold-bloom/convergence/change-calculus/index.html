@@ -17,15 +17,16 @@ label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,texta
 <main>
 <div class="note">FOLD//BLOOM · CONVERGENCE / CANDIDATE RESEARCH WITNESS · NO EFFECT AUTHORITY</div>
 <h1>CHANGE CALCULUS</h1>
-<p>One surface for inspecting unequal reductions: exact operation → six-bit quotient; endpoint change → possible one-line STEP paths; J-Lens token readout → already-lawful host support. The I Ching lookup is a lens over the supplied state transition, <b>not a cast</b>.</p>
+<p>One surface for inspecting unequal reductions: exact operation → six-bit quotient; endpoint change → possible one-line STEP paths; counterpath → measurable intermediate divergence; J-Lens token readout → already-lawful host support. The I Ching lookup is a lens over the supplied state transition, <b>not a cast</b>.</p>
 
 <div class="grid">
 <section class="card">
 <h2>STATE / I CHING LENS</h2>
 <label>FROM · six bits bottom→top</label><input id="fromState" value="010|100">
 <label>TO · six bits bottom→top</label><input id="toState" value="011|110">
-<label>STEP PATH INDEX · 0-based factoradic address</label><input id="stateOrderIndex" type="number" min="0" step="1" value="0">
-<p class="note">The index wraps modulo k! for the current moving-line set. It selects one reproducible one-line-at-a-time path; it does not alter either endpoint.</p>
+<label>STEP PATH A INDEX · 0-based factoradic address</label><input id="stateOrderIndex" type="number" min="0" step="1" value="0">
+<label>COUNTERPATH B INDEX · same endpoints, another factoradic address</label><input id="counterOrderIndex" type="number" min="0" step="1" value="1">
+<p class="note">Both indices wrap modulo k! for the current moving-line set. They select reproducible one-line-at-a-time paths; neither alters the endpoints. Counterpath comparison measures abstract trajectory difference only.</p>
 </section>
 <section class="card">
 <h2>EXACT FOLD/BLOOM FORM</h2>
@@ -45,6 +46,7 @@ label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,texta
 
 <section class="card" id="stateOut"><h2>STATE</h2></section>
 <section class="card" id="ichingOut"><h2>I CHING LOOKUP</h2></section>
+<section class="card wide" id="counterpathOut"><h2>COUNTERPATH / COMMUTATOR</h2><p class="note">Compare two addressed STEP orders over the same supplied endpoints.</p></section>
 <section class="card wide" id="formOut"><h2>QUOTIENT / STEP</h2></section>
 <section class="card wide" id="sufficiencyOut"><h2>PROJECTION SUFFICIENCY / FORECAST FACTOR</h2><p class="note">Test the existing HEX and recent-form lenses against native LIVE futures, then verify the smaller mechanistic factor that reconstructs the current <code>availableForecasts()</code> aperture. This is evidence only; no LIVE state is committed.</p><button id="sufficiency">RUN SUFFICIENCY + FACTOR AUDIT · NO COMMIT</button></section>
 <section class="card wide" id="stepOrderOut"><h2>NATIVE STEP / ORDER</h2><p class="note">Run native LIVE transitions to distinguish one-commit forecast alternatives from re-resolved multi-step intent order.</p><button id="commute">RUN NATIVE ORDER SEARCH · NO COMMIT</button></section>
@@ -54,6 +56,7 @@ label{display:block;color:var(--mut);font-size:10px;margin:7px 0 3px}input,texta
 </div>
 </main>
 <script type="module" src="./app.mjs"></script>
+<script type="module" src="./counterpath-ui.mjs"></script>
 
 </body>
 </html>
