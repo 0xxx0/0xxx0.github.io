@@ -1,0 +1,54 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "source-hold-turn-trace-return-blocked-turn-2026-10-03",
+  "result_status": "BLOCKED",
+  "source_object": "tools/source-hold-turn-trace-return-selftest.mjs",
+  "host": "GitHub Contents API / 0xxx0/0xxx0.github.io",
+  "turn_ref": "github-contents-update:tools/source-hold-turn-trace-return-selftest.mjs:expected-sha:2d185e776328479d4b6fc68853a543631c017f95",
+  "before": {
+    "path": "tools/source-hold-turn-trace-return-selftest.mjs",
+    "observed_current_blob_sha": "506ae47bab5c7876652b38ba9a9e6b2e97bcd616",
+    "held_expected_blob_sha": "2d185e776328479d4b6fc68853a543631c017f95"
+  },
+  "after": {
+    "path": "tools/source-hold-turn-trace-return-selftest.mjs",
+    "observed_current_blob_sha": "506ae47bab5c7876652b38ba9a9e6b2e97bcd616",
+    "mutation_applied": false
+  },
+  "observed_delta": "No repository content delta. GitHub rejected the update because the held expected blob SHA was stale; a post-failure fetch showed the target remained at blob 506ae47bab5c7876652b38ba9a9e6b2e97bcd616.",
+  "evidence_refs": [
+    "tools/source-hold-turn-trace-return-selftest.mjs@506ae47bab5c7876652b38ba9a9e6b2e97bcd616",
+    "GitHub Contents API response: HTTP 409 — tools/source-hold-turn-trace-return-selftest.mjs does not match 2d185e776328479d4b6fc68853a543631c017f95"
+  ],
+  "residue": "Optimistic-concurrency guard proved fail-closed: stale HOLD state cannot silently overwrite a newer target. Correct recovery is re-SOURCE/re-HOLD against the current blob; this receipt does not authorize that retry.",
+  "unknowns": [],
+  "unresolved_gate": "Target drift: any retry must first SOURCE the current blob SHA 506ae47bab5c7876652b38ba9a9e6b2e97bcd616 and establish a fresh HOLD. No retry is authorized by this RETURN.",
+  "return_address": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+  "closed_at": "2026-10-03T05:44:00+08:00",
+  "next_authority": "NONE",
+  "trace": {
+    "status": "TRACE_FAIL",
+    "stop_condition": "TURN_REJECTED",
+    "native_result": {
+      "http_status": 409,
+      "message": "tools/source-hold-turn-trace-return-selftest.mjs does not match 2d185e776328479d4b6fc68853a543631c017f95"
+    },
+    "checks": [
+      {
+        "id": "current_target_fetched_before_turn",
+        "status": "PASS",
+        "evidence": "blob 506ae47bab5c7876652b38ba9a9e6b2e97bcd616"
+      },
+      {
+        "id": "stale_expected_sha_rejected",
+        "status": "PASS",
+        "evidence": "HTTP 409 mismatch against 2d185e776328479d4b6fc68853a543631c017f95"
+      },
+      {
+        "id": "target_unchanged_after_rejection",
+        "status": "PASS",
+        "evidence": "post-failure fetch remained blob 506ae47bab5c7876652b38ba9a9e6b2e97bcd616"
+      }
+    ]
+  }
+}
