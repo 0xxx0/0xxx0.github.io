@@ -51,7 +51,8 @@
         "/control/INGEST_FAMILY_REVIEW_2026-09-22.json",
         "/control/HERMES_MEDIA_CURATOR.json",
         "/scripts/media-curator-cycle.py",
-        "/skills/media-curator/SKILL.md"
+        "/skills/media-curator/SKILL.md",
+        "/scripts/media-curator-control.py"
       ]
     }
   ],
@@ -1557,5 +1558,6 @@
     "source_hold_turn_trace_return_selftest": "/tools/source-hold-turn-trace-return-selftest.mjs"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
-  "canonical": {}
+  "canonical": {},
+  "last_media_curator_operating_control": "/scripts/media-curator-control.py"
 }
