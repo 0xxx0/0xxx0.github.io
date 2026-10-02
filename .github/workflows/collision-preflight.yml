@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Prove collision-map semantics
+        run: node tools/collision-map-selftest.mjs
       - name: Compare changed surfaces with open pull requests
         env:
           GITHUB_TOKEN: ${{ github.token }}
