@@ -233,6 +233,9 @@ check('state lens: supplied endpoints derive changing lines without becoming a c
   assert.ok(html.includes('LAB STEP witness: L3 → L5'), 'supplied STEP order witness');
   assert.ok(html.includes('derived line values: 8 7 6 7 6 8'), 'endpoint-derived 6/7/8/9 values');
   assert.ok(html.includes('This is a structural lens over supplied state, not divination.'), 'non-cast boundary');
+  assert.ok(html.includes('RETURN → FIELD LAB'), 'state lens exposes exact return path');
+  assert.ok(html.includes('/fold-bloom/lab/?mode=DATA&amp;stateFrom=010100&amp;stateTo=011110&amp;stateOrder=3%2C5')||html.includes('/fold-bloom/lab/?mode=DATA&stateFrom=010100&stateTo=011110&stateOrder=3%2C5'), 'return path carries endpoints + STEP order');
+  assert.equal(fx.els.get('castPanel').hidden, true, 'random cast controls hidden in supplied-state mode');
   assert.ok(html.includes('class="sect">Transform'), 'supplied TO state renders as transform');
   assert.equal(fx.history.calls.at(-1)[2], '#b=010100&to=011110&order=3%2C5&q=lab', 'state lens hash preserves endpoints + STEP order');
   assert.equal(fx.els.get('seedNote').textContent, 'STATE · 010100 → 011110', 'state witness note');
@@ -241,6 +244,11 @@ check('state lens: supplied endpoints derive changing lines without becoming a c
   assert.equal(h.b, '010100');
   assert.equal(h.to, '011110');
   assert.equal(h.order, '5,3');
+});
+
+check('ordinary cast rendering restores the cast controls after leaving state-lens mode', () => {
+  t.render([7,7,7,7,7,7], '');
+  assert.equal(fx.els.get('castPanel').hidden, false);
 });
 
 check('state lens rejects an invalid supplied order and falls back to the moving-line set', () => {
