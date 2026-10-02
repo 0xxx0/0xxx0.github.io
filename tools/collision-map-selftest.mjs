@@ -35,6 +35,8 @@ const hardDomainsB = domains(hardB, config.hard_domains);
 const softDomainsA = domains(softA, config.soft_domains);
 const softDomainsB = domains(softB, config.soft_domains);
 
+assert(config.policy?.base_behind === 'FAIL', 'base drift is a hard preflight failure');
+assert(config.enforcement?.repository_ruleset_required_for_hard_prevention === true, 'ruleset requirement is explicit');
 assert(hardDomainsA.has('field-root-runtime') && hardDomainsB.has('field-root-runtime'), 'different files in FIELD root share hard domain');
 assert([...hardDomainsA].some(x => hardDomainsB.has(x)), 'hard-domain overlap is detectable');
 assert(softDomainsA.has('readfield') && softDomainsB.has('readfield'), 'READFIELD soft overlap is detectable');
