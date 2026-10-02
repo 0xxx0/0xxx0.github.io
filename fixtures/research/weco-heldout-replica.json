@@ -1,0 +1,86 @@
+{
+  "cases": [
+    {
+      "case_id": "visible-metric-hack",
+      "fixed_substrate": "same deterministic evaluator, same candidate set size, same task budget, same acceptance policy",
+      "baseline_id": "baseline",
+      "acceptance": {
+        "min_heldout_pass_rate": 1,
+        "max_pass_rate_regression_vs_baseline": 0
+      },
+      "arms": [
+        {
+          "id": "baseline",
+          "dev": [
+            {"id":"d1","pass":true,"latency_ms":20},
+            {"id":"d2","pass":true,"latency_ms":20},
+            {"id":"d3","pass":true,"latency_ms":20},
+            {"id":"d4","pass":false,"latency_ms":20}
+          ],
+          "heldout": [
+            {"id":"h1","pass":true,"latency_ms":20},
+            {"id":"h2","pass":true,"latency_ms":20},
+            {"id":"h3","pass":true,"latency_ms":20},
+            {"id":"h4","pass":true,"latency_ms":20}
+          ]
+        },
+        {
+          "id": "visible-hack",
+          "dev": [
+            {"id":"d1","pass":true,"latency_ms":10},
+            {"id":"d2","pass":true,"latency_ms":10},
+            {"id":"d3","pass":true,"latency_ms":10},
+            {"id":"d4","pass":true,"latency_ms":10}
+          ],
+          "heldout": [
+            {"id":"h1","pass":true,"latency_ms":10},
+            {"id":"h2","pass":false,"latency_ms":10},
+            {"id":"h3","pass":false,"latency_ms":10},
+            {"id":"h4","pass":true,"latency_ms":10}
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "robust-improvement",
+      "fixed_substrate": "same deterministic evaluator, same candidate set size, same task budget, same acceptance policy",
+      "baseline_id": "baseline",
+      "acceptance": {
+        "min_heldout_pass_rate": 1,
+        "max_pass_rate_regression_vs_baseline": 0
+      },
+      "arms": [
+        {
+          "id": "baseline",
+          "dev": [
+            {"id":"d1","pass":true,"latency_ms":22},
+            {"id":"d2","pass":true,"latency_ms":22},
+            {"id":"d3","pass":true,"latency_ms":22},
+            {"id":"d4","pass":false,"latency_ms":22}
+          ],
+          "heldout": [
+            {"id":"h1","pass":true,"latency_ms":22},
+            {"id":"h2","pass":true,"latency_ms":22},
+            {"id":"h3","pass":true,"latency_ms":22},
+            {"id":"h4","pass":true,"latency_ms":22}
+          ]
+        },
+        {
+          "id": "robust",
+          "dev": [
+            {"id":"d1","pass":true,"latency_ms":18},
+            {"id":"d2","pass":true,"latency_ms":18},
+            {"id":"d3","pass":true,"latency_ms":18},
+            {"id":"d4","pass":true,"latency_ms":18}
+          ],
+          "heldout": [
+            {"id":"h1","pass":true,"latency_ms":18},
+            {"id":"h2","pass":true,"latency_ms":18},
+            {"id":"h3","pass":true,"latency_ms":18},
+            {"id":"h4","pass":true,"latency_ms":18}
+          ]
+        }
+      ]
+    }
+  ]
+}
