@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T22:11:47+08:00",
+  "updated": "2026-10-02T22:37:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,13 +16,12 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T22:11:47+08:00",
+        "updated_at": "2026-10-02T22:37:00+08:00",
         "work_modes": [
           "RECOVER",
-          "INVESTIGATE",
-          "SPECIFY",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "role": "FIELD INDEX root: one addressed held object with native owner/action, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN, one read-only pre-commit FORECAST for the currently pointed move (declared effect class, commit boundary, target, source-mutation class, reversibility; it never executes or predicts undeclared outcomes), and one compact glyph field. The sole immediate PLAY action lives in the footer MORE submenu. Latent REFINE / PROVE and collapsed STATUS residue. No duplicate HELD/NEXT/WITNESS dashboard. Generic READ / RIDE / SOURCE intent remains source-neutral; CURRENT owns attention/NOW, native hosts own commit/effect, RETURN owns durable evidence.",
@@ -8993,6 +8992,73 @@
           "VERIFY"
         ]
       }
+    },
+    {
+      "href": "/field/moire-route/",
+      "title": "FIELD · MOIRÉ ROUTE 0.1",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "VERIFY / ALIGN",
+      "state": "CANDIDATE",
+      "versionless": true,
+      "family": "FIELD INDEX / REPRESENTATION",
+      "tier": "FIELD",
+      "showcase_card": false,
+      "role": "FIELD INDEX representation specimen: coordinate phase/orientation mismatch becomes interference; alignment is tested against the same unlabeled local adjacency baseline. Lives under REFINE / PROVE as a bounded perceptual instrument, not a new product or FOLD//BLOOM subsystem.",
+      "index": {
+        "updated_at": "2026-10-02T22:37:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "RESEARCH"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "deterministic Node selftest: aligned local-choice accuracy 1.000 vs plain adjacency chance 0.571",
+          "opposite phase drops local-choice accuracy to 0.286 and continuity from 0.821 to 0.180",
+          "route line is hidden by default; REVEAL is ground-truth inspection only",
+          "architectural proxy only; human perceptual superiority remains unproved"
+        ],
+        "return_path": "/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can FIELD make coordinate mismatch perceptible as interference so phase alignment exposes a route cue that a plain local adjacency projection lacks?",
+        "baseline": "Same deterministic graph with START/END visible and equal-looking forward edges; local route choice has chance 1/N.",
+        "mutation": "Encode route-coherent cells with shared phase/orientation and off-route cells with deterministic mismatch; render the mismatch as moire instead of adding decorative pattern.",
+        "evidence_gate": "Node selftest and route/public-surface CI must pass. Promotion to another host additionally requires one real host task and a human/device gate only for irreducible perceptual value.",
+        "next_if_pass": "Keep the mechanism available from FIELD REFINE / PROVE; transfer only the proved relation into Sleeper / ALL MAPS ARE WRONG, Scale Lens / Ministry Ridge, or Atlas Dayline when a real host task needs it.",
+        "next_if_fail": "PARK the interference donor under FIELD research; retain the visual-law index and do not use moiré as wallpaper."
+      },
+      "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "href": "/recovery/semantic-painting-v0.8/",
+      "title": "SEMANTIC PAINTING v0.8 / ATLAS DAYLINE ANCESTOR",
+      "kind": "donor",
+      "parent": "/recovery/",
+      "operation": "RECOVER / REPRESENT",
+      "state": "FROZEN_DONOR",
+      "version": "0.8",
+      "family": "FIELD / VISUAL RECOVERY",
+      "showcase_card": false,
+      "role": "Exact recovered self-contained ancestor of the painting-backed Forward Field / Atlas Dayline representation. Preserves the embedded underpainting and original interaction source as donor evidence only; it does not replace current Dayline or FIELD authority.",
+      "index": {
+        "updated_at": "2026-10-02T22:37:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "recovery": "/recovery/semantic-painting-v0.8/recovery.json",
+        "return_path": "/recovery/"
+      },
+      "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
     }
   ],
   "release_law": [

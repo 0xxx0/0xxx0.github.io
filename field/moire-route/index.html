@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALL MAPS ARE WRONG · Moiré Route</title>
+<style>
+:root{--bg:#0a0c0e;--ink:#e9e4d8;--mute:#8f918e;--line:#32383b;--red:#ba5039;--cyan:#86c8d8;--green:#9fd6a5}
+*{box-sizing:border-box}body{margin:0;background:#0a0c0e;color:var(--ink);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+main{max-width:1180px;margin:auto;padding:20px}.ey{color:var(--mute);letter-spacing:.13em;font-size:10px}h1{font:44px/1 Georgia,serif;margin:6px 0 8px}p{color:#b4b7b2;max-width:860px}
+.grid{display:grid;grid-template-columns:280px 1fr;gap:14px}.panel{border:1px solid var(--line);padding:12px;background:#101417}
+.controls{display:grid;gap:12px}label{display:grid;gap:5px;color:var(--mute)}input{width:100%}button{border:1px solid #566169;background:#141a1e;color:var(--ink);padding:9px;cursor:pointer}
+button:hover{border-color:var(--cyan)}.views{display:grid;grid-template-columns:1fr 1fr;gap:12px}canvas{display:block;width:100%;background:#080b0d;border:1px solid var(--line)}
+.metric{border-top:1px solid var(--line);padding:8px 0}.metric b{display:block;font-size:24px;color:var(--ink)}.pass{color:var(--green)}.fail{color:#f2a19b}
+small{color:var(--mute)}@media(max-width:850px){.grid{grid-template-columns:1fr}.views{grid-template-columns:1fr}h1{font-size:34px}}
+</style>
+<main>
+<div class="ey">FIELD INDEX · REPRESENTATION SPECIMEN · IMAGE→INSTRUMENT</div>
+<h1>ALL MAPS ARE WRONG / MOIRÉ ROUTE</h1>
+<p>Coordinate mismatch is rendered as interference. The moiré view carries no explicit route line: only START/END and phase-dependent coherence. The baseline is the same graph with equal-looking edges. The metric is deliberately narrow: local next-route cue, not general pathfinding or human usability.</p>
+<div class="grid">
+<section class="panel controls">
+<label>PHASE <input id="phase" type="range" min="0" max="628" value="314"><span id="phaseV"></span></label>
+<label>ORIENTATION MISMATCH <input id="rot" type="range" min="-40" max="40" value="0"><span id="rotV"></span></label>
+<button id="best">SNAP BEST PHASE</button>
+<button id="worst">SNAP WORST PHASE</button>
+<button id="reveal">REVEAL / HIDE TRUE ROUTE</button>
+<div class="metric">MOIRÉ LOCAL CHOICE<b id="acc">—</b><small>fraction of route steps where strongest interference cue points to the true next edge</small></div>
+<div class="metric">PLAIN ADJACENCY CHANCE<b id="base">—</b><small>mean 1/N over unlabeled forward choices</small></div>
+<div class="metric">CONTINUITY<b id="cont">—</b><small>route coherence minus off-route coherence, with smoothness</small></div>
+<div class="metric">CURRENT RESULT<b id="result">—</b></div>
+</section>
+<section>
+<div class="views">
+<div class="panel"><div class="ey">INTERFERENCE FIELD</div><canvas id="moire" width="600" height="600"></canvas></div>
+<div class="panel"><div class="ey">PLAIN ADJACENCY</div><canvas id="adj" width="600" height="600"></canvas></div>
+</div>
+<div class="panel" style="margin-top:12px"><div class="ey">PHASE SWEEP</div><canvas id="sweep" width="1000" height="220"></canvas><p><small>cyan = moiré local-choice accuracy · green = plain adjacency chance baseline. A peak above green means phase alignment adds a local route cue under this fixture.</small></p></div>
+</section>
+</div>
+<script type="module" src="./app.mjs"></script>
