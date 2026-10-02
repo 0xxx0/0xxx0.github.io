@@ -17,5 +17,6 @@ need(c.meta.phase==='READY'&&c.meta.sourceState==='VERIFY','derived phase/native
 need(c.next.length<=3&&c.next.every(x=>x.dispatch==='HOST_NATIVE_ONLY'),'move bound/dispatch broken');
 need(a.hold.action==='HOLD'&&a.return.action==='RETURN','shared action surface broken');
 need(S.transitionModel({...base,state:'RECEIVED'}).some(x=>x.id==='PROVE'&&x.to==='ADOPTED'),'ON_HAND proof transition missing');
+const watchMoves=S.nativeMoves({...base,state:'WATCH',watch:{enabled:true}});need(watchMoves.some(x=>x.id==='LOOTER'),'watch-enabled candidate missing LOOTER move');need(watchMoves.length<=3,'watch moves exceed 3');
 if(fail.length){console.error('SHOPPING INTERPHASE FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('SHOPPING INTERPHASE PASS · exact item → derived material phase → <=3 native moves → TRACE/RETURN · native lifecycle retained as residue');
