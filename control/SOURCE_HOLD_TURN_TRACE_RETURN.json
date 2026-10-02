@@ -229,5 +229,136 @@
     "/control/INTERPHASE_MAPPING_CONTRACT.json",
     "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
     "/control/FIELD_INDEX_CONTRACT.json"
-  ]
+  ],
+  "return_schema": {
+    "status_enum": [
+      "CHANGED",
+      "UNCHANGED",
+      "FAILED",
+      "BLOCKED",
+      "UNKNOWN"
+    ],
+    "required_fields": [
+      "result_status",
+      "source_object",
+      "host",
+      "turn_ref",
+      "before",
+      "after",
+      "observed_delta",
+      "evidence_refs",
+      "residue",
+      "unknowns",
+      "unresolved_gate",
+      "return_address",
+      "closed_at",
+      "next_authority"
+    ],
+    "field_semantics": {
+      "result_status": "One status enum; receipt existence never implies success.",
+      "source_object": "Stable object id/address operated on.",
+      "host": "Native authority that owned the TURN.",
+      "turn_ref": "Exact commit/effect/result identifier for the one TURN.",
+      "before": "Relevant pre-TURN state.",
+      "after": "Observed post-TURN state; null only when unavailable and explained in unknowns.",
+      "observed_delta": "Observed difference, not intended difference.",
+      "evidence_refs": "Exact evidence references supporting material claims.",
+      "residue": "Reusable code/artifact/measurement/lesson/options unlocked.",
+      "unknowns": "Claims TRACE did not establish.",
+      "unresolved_gate": "Null or exact remaining human/device/world/policy gate.",
+      "return_address": "Exact re-entry address for the same object/context.",
+      "closed_at": "Timestamp of closure.",
+      "next_authority": "Always NONE at closure; a new move requires fresh SOURCE/HOLD."
+    }
+  },
+  "stop_conditions": {
+    "UNRESOLVED_SOURCE": "Exact host/object/provenance cannot be resolved without consequence-changing ambiguity.",
+    "WAITING_HUMAN_WORLD": "An irreducible human/device/world property is required. Park it; do not occupy NOW.",
+    "TURN_UNSUPPORTED": "Native host does not support the requested move.",
+    "TURN_REJECTED": "Authority/policy/precondition rejects the move.",
+    "TRACE_FAIL": "Observed result violates a declared acceptance condition.",
+    "TRACE_INDETERMINATE": "Required evidence is unavailable; keep the claim UNKNOWN.",
+    "NO_LAWFUL_HIGH_VALUE_MOVE": "No bounded executable move directly advances the selected front; stop rather than forage.",
+    "RETURN_COMPLETE": "Closure written; next_authority is NONE."
+  },
+  "evidence_requirements": [
+    "Run machine-verifiable checks before asking for human/device/world confirmation.",
+    "Classify material TRACE claims as OBSERVED, DERIVED, or UNKNOWN.",
+    "PASS requires sufficient evidence for every declared acceptance condition.",
+    "FAIL preserves the violated condition and evidence.",
+    "INDETERMINATE preserves the missing capability/evidence; it is not PASS.",
+    "Do not claim CI/browser/device/human/world proof unless it actually ran."
+  ],
+  "coding_model_instruction": [
+    "SOURCE: resolve one exact object + native owner + provenance + before-state + desired delta + return address. STOP UNRESOLVED_SOURCE if ambiguity would change the move.",
+    "HOLD: freeze one focus; expose at most 3 host-supported moves; select one TURN; predeclare acceptance checks, commit boundary, reversibility and RETURN address.",
+    "TURN: execute exactly one native operation. EFFECT requires explicit host-native RELEASE/commit. Do not start a second improvement.",
+    "TRACE: run machine-verifiable evidence first; classify claims OBSERVED/DERIVED/UNKNOWN and outcome PASS/FAIL/INDETERMINATE. Missing evidence never becomes PASS.",
+    "RETURN: always close CHANGED/UNCHANGED/FAILED/BLOCKED/UNKNOWN with every required RETURN field; set next_authority=NONE; release focus; re-read CURRENT before any new consequential move."
+  ],
+  "worked_run": {
+    "id": "protocol-contract-refinement-2026-10-02",
+    "source": {
+      "object_id": "0xxx0/source-hold-turn-trace-return/v0.1",
+      "owner": "0xxx0/0xxx0.github.io protocol package",
+      "refs": [
+        {
+          "path": "control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+          "blob_sha": "2195bab0119f302c8e3ad2c0f8cc773cc21bb004"
+        },
+        {
+          "path": "control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+          "blob_sha": "b7de20ed85ce8cbe1a6d44c7b05f6661c0a31671"
+        },
+        {
+          "path": "tools/source-hold-turn-trace-return-selftest.mjs",
+          "blob_sha": "bb91f5aabba6b6c306c7c65639a83c69ae1ef65a"
+        }
+      ],
+      "state_before": "Stage gates existed, but exact RETURN field names and a single copyable coding-model block were not machine-declared."
+    },
+    "hold": {
+      "focus": "existing protocol package only",
+      "desired_delta": "Add exact RETURN schema + compact coding-model instruction + one complete worked run without changing host authority or stage semantics.",
+      "candidate_moves": [
+        "extend machine contract",
+        "mirror exact block/worked run in human protocol",
+        "tighten existing selftest"
+      ],
+      "selected_turn": "one repository commit touching only those three protocol facets",
+      "acceptance_checks": [
+        "JSON parses",
+        "stage order remains SOURCE>HOLD>TURN>TRACE>RETURN",
+        "exact RETURN required_fields match the 14-field schema",
+        "coding block includes <=3 HOLD, one TURN, tri-state evidence, stop conditions and next_authority=NONE",
+        "selftest asserts the new contract",
+        "TURN commit touches only the three declared protocol facets"
+      ],
+      "reversibility": "git revert of the single TURN commit",
+      "return_address": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md"
+    },
+    "turn": {
+      "native_operation": "single Git commit over existing protocol files",
+      "authority": "repository write",
+      "commit_boundary": "Git commit + fast-forward master ref",
+      "touched": [
+        "control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+        "control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+        "tools/source-hold-turn-trace-return-selftest.mjs"
+      ]
+    },
+    "trace": {
+      "required": [
+        "re-fetch all three files from master after commit",
+        "parse JSON",
+        "re-run the selftest assertions against fetched JSON",
+        "inspect TURN commit diff and require only declared files",
+        "record CI/browser status separately; never claim absent checks"
+      ]
+    },
+    "return": {
+      "receipt": "/returns/SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
+      "next_authority": "NONE"
+    }
+  }
 }

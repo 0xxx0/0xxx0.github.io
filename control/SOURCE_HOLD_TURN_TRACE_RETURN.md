@@ -111,6 +111,113 @@ node tools/ship-check.mjs --fast
 
 Then run the smallest feature-specific selftest. Do not claim CI, browser, device, human, or world proof unless it actually ran.
 
+## Copy/paste block for coding models
+
+```text
+SOURCE → HOLD → TURN → TRACE → RETURN
+
+SOURCE
+- Resolve exactly one object + native owner + provenance + before-state + desired delta + return address.
+- STOP UNRESOLVED_SOURCE if ambiguity would change the action.
+
+HOLD
+- Freeze one focus.
+- Expose ≤3 host-supported moves; select exactly one.
+- Predeclare acceptance checks, commit boundary, reversibility, and RETURN address.
+- STOP WAITING_HUMAN_WORLD if the next material claim requires irreducible human/device/world evidence.
+
+TURN
+- Execute exactly one native operation.
+- EFFECT requires explicit host-native RELEASE/commit.
+- Never start a second “while here” improvement.
+
+TRACE
+- Run machine-verifiable checks first.
+- Label material claims OBSERVED / DERIVED / UNKNOWN.
+- Outcome is PASS / FAIL / INDETERMINATE; missing evidence never becomes PASS.
+- Preserve TRACE_FAIL / TRACE_INDETERMINATE instead of upgrading the claim.
+
+RETURN — ALWAYS, including failure/no-op
+result_status: CHANGED | UNCHANGED | FAILED | BLOCKED | UNKNOWN
+source_object: <stable id/address>
+host: <native authority>
+turn_ref: <commit/effect/result id>
+before: <relevant pre-turn state>
+after: <observed post-turn state or null + unknown>
+observed_delta: <observed, not intended, difference>
+evidence_refs: [<exact refs>]
+residue: <reusable artifact/measurement/lesson/options>
+unknowns: [<unproved claims>]
+unresolved_gate: <null | exact remaining gate>
+return_address: <exact re-entry address>
+closed_at: <timestamp>
+next_authority: NONE
+
+STOP: UNRESOLVED_SOURCE | WAITING_HUMAN_WORLD | TURN_UNSUPPORTED | TURN_REJECTED |
+      TRACE_FAIL | TRACE_INDETERMINATE | NO_LAWFUL_HIGH_VALUE_MOVE | RETURN_COMPLETE
+
+After RETURN: release focus; re-read CURRENT before any consequential next move.
+```
+
+## Complete worked repository run
+
+This is a real bounded protocol refinement, not a hypothetical.
+
+**SOURCE**
+
+```text
+object_id: 0xxx0/source-hold-turn-trace-return/v0.1
+owner: 0xxx0/0xxx0.github.io protocol package
+before refs:
+  control/SOURCE_HOLD_TURN_TRACE_RETURN.md
+    blob 2195bab0119f302c8e3ad2c0f8cc773cc21bb004
+  control/SOURCE_HOLD_TURN_TRACE_RETURN.json
+    blob b7de20ed85ce8cbe1a6d44c7b05f6661c0a31671
+  tools/source-hold-turn-trace-return-selftest.mjs
+    blob bb91f5aabba6b6c306c7c65639a83c69ae1ef65a
+desired_delta:
+  exact RETURN fields + one copyable coding-model block + a worked run
+return_to:
+  /control/SOURCE_HOLD_TURN_TRACE_RETURN.md
+```
+
+**HOLD**
+
+```text
+focus: existing protocol package only
+candidate moves:
+  1. extend machine contract
+  2. mirror exact instructions in human docs
+  3. tighten existing selftest
+selected TURN:
+  one Git commit touching only those three facets
+acceptance:
+  JSON parses
+  stage order unchanged
+  exact 14-field RETURN schema present
+  compact block has ≤3 HOLD, one TURN, tri-state evidence, stop conditions, NEXT=NONE
+  selftest asserts additions
+  commit diff touches only declared files
+reversibility:
+  git revert <TURN commit>
+```
+
+**TURN**
+
+Commit the three declared facets as one Git mutation. No FIELD, Dayline, queue, route, host operation or authority changes.
+
+**TRACE**
+
+Re-fetch the files from master, parse the JSON, run the contract assertions, inspect the TURN commit diff, and distinguish local/static proof from any CI/browser/device evidence that did not actually run.
+
+**RETURN**
+
+Closure is written at:
+
+`/returns/SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json`
+
+The receipt carries the actual TURN commit SHA, before/after refs, checks, unknowns, re-entry address, and `next_authority: NONE`.
+
 ## Non-equivalences
 
 These stay distinct:

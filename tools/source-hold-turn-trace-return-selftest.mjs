@@ -17,3 +17,13 @@ assert(p.laws.some(x=>x.includes('RELEASE/commit')),'explicit effect boundary');
 assert(p.laws.some(x=>x.includes('RETURN never auto-authorizes NEXT')),'RETURN no NEXT authority');
 assert(p.worker_rules.some(x=>x.includes('NO_LAWFUL_HIGH_VALUE_MOVE')),'worker stop rule');
 console.log('SOURCE→HOLD→TURN→TRACE→RETURN SELFTEST PASS');
+
+const exactReturnFields=["result_status","source_object","host","turn_ref","before","after","observed_delta","evidence_refs","residue","unknowns","unresolved_gate","return_address","closed_at","next_authority"];
+assert(p.return_schema&&Array.isArray(p.return_schema.required_fields),'return schema present');
+assert(p.return_schema.required_fields.join('|')===exactReturnFields.join('|'),'exact RETURN fields');
+assert(Array.isArray(p.coding_model_instruction)&&p.coding_model_instruction.length===5,'compact coding instruction');
+assert(p.evidence_requirements.some(x=>x.includes('OBSERVED, DERIVED, or UNKNOWN')),'evidence classes');
+assert(p.stop_conditions&&p.stop_conditions.NO_LAWFUL_HIGH_VALUE_MOVE,'stop conditions');
+assert(p.worked_run&&p.worked_run.hold&&p.worked_run.trace,'worked run');
+assert(p.worked_run.return.next_authority==='NONE','worked run next authority');
+console.log('RETURN schema + coding-model block + worked run PASS');
