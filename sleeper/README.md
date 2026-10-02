@@ -1,6 +1,6 @@
 # SLEEPER // ONE RETURN
 
-Canonical repository authority: **ONE RETURN v2-era City Engine source**, recovered exactly from the 2026-09-18 Sites Git bundle.
+Canonical source authority: **ONE RETURN v2-era City Engine source**, recovered exactly from the 2026-09-18 Sites Git bundle.
 
 Core contract:
 
@@ -10,36 +10,37 @@ Figures: **URCHIN / SLOTHCAKE / KITE**. Operators: **CONCH / KERIS / W8 / SPIRAL
 
 Exact source: `/recovery/sleeper/site-source-2026-09-18/`
 
-Historical Work route: `https://sleeper-one-return.metaname.chatgpt.site/one-return` (identity recorded; current reachability not verified by this repair).
+Historical Work route: `https://sleeper-one-return.metaname.chatgpt.site/one-return` (historical deployment identity; not the repository host).
 
-The former top-level **ASCII Sleeper POV 0.8** is preserved at `/sleeper/ascii-pov-0.8/` as a superseded derivative. The later ASCII ONE RETURN reconstruction remains at `/sleeper/one-return/` as a playable donor. Neither substitutes for the v2 City Engine.
+The former top-level **ASCII Sleeper POV 0.8** remains at `/sleeper/ascii-pov-0.8/` as a superseded derivative. The later ASCII ONE RETURN reconstruction remains at `/sleeper/one-return/` as a playable donor. Neither is relabelled as the recovered v2 deployment.
 
+## 2026-10-03 native Pages convergence
 
-## 2026-09-27 convergence seam
+`/sleeper/` is now the one repository-hosted runtime lane. The external redirect is removed.
 
-Sleeper remains authoritative for its own deterministic world compiler and Gate/RETURN contract. Current convergence work should treat it as a **path-evidence host**, not as a skin for Fold/Bloom or a transport app.
+The dependency-free Pages host ports the recovered v2 law into static JavaScript rather than copying the donor wholesale:
+
+- exact FNV-1a source seeding and world key derivation;
+- exact six Verse Cells, three Figure timing/physics profiles and four operators;
+- exact 27×27 seeded DFS city construction plus world-law loop count;
+- distance-stratified placement of the eight proof-bearing Gates;
+- PROVENANCE / TRUTH / COMPRESSION / RETRIEVAL / OPERATION / MEASURE / TRANSFER / RESILIENCE proof protocols;
+- ASCII raycast CITY and linked radial DISC projection;
+- Return Artifact v2 derivation kept schema-compatible;
+- optional full `sleeper-route-witness/v1` sidecar and same-world DISC ghost, evidence-only and unable to fabricate Gate proof.
+
+Authority boundary: **recovered TypeScript remains exact source authority; `/sleeper/` is a static port, not a claim of historical byte identity.**
 
 Reusable seam:
 
 ~~~text
 WORLD_HASH
 → ordered addressed route
-→ enacted gates / observations
-→ optional ghost / donor field
-→ RETURN ARTIFACT
+→ enacted Gates / observations
+→ optional RouteWitness / ghost field
+→ RETURN ARTIFACT V2
 ~~~
 
-This makes Sleeper a strong host for:
-- same-world route comparison;
-- ghost replay;
-- transportation as one concrete route-reading;
-- agent/tool path witnesses;
-- future multi-agent route experiments.
+The research transfer remains mechanical rather than visual: representation may become actionable only when provenance, reversibility and authority remain explicit. Viewfinder/Gorogoa/Carto/Baba Is You/Patrick's Parabox therefore constrain future projection and rule experiments; they do not license decorative feature accumulation.
 
-It may consume STEP/INTERPHASE conventions where they preserve order/address/RETURN, but it must keep City Engine source authority local.
-
-Current cross-field method:
-- /docs/INTERPHASE_RECURSIVE_COMPOSITION_2026-09-27.md
-- /docs/TRON_FORTRESS_TRANSFER_BRIEF_2026-09-27.md
-
-The Fortress donor is research-only. Its first lawful Sleeper experiment is an **ephemeral trail field over the same deterministic city**, compared with and without that residue. Do not alter canonical city topology or introduce multi-agent infrastructure before one trail experiment proves useful.
+Do not mint another Sleeper public route while `/sleeper/` can absorb the work.
