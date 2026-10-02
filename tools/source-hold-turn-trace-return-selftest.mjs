@@ -27,3 +27,13 @@ assert(p.stop_conditions&&p.stop_conditions.NO_LAWFUL_HIGH_VALUE_MOVE,'stop cond
 assert(p.worked_run&&p.worked_run.hold&&p.worked_run.trace,'worked run');
 assert(p.worked_run.return.next_authority==='NONE','worked run next authority');
 console.log('RETURN schema + coding-model block + worked run PASS');
+
+const dc=p.return_schema?.downstream_consequence;
+assert(p.return_schema.optional_fields?.includes('downstream_consequence'),'downstream consequence optional field');
+assert(dc?.status_enum?.join('|')==='SHIPPED_ONLY|USED|PROPAGATED|COUNTERMEASURE|UNKNOWN','downstream consequence enum');
+assert(dc.required_when_present.join('|')==='status|evidence_refs|observed_delta|unknowns','downstream consequence required shape');
+assert(dc.laws.some(x=>x.includes('LIKE / KEEP / PRAISE / PAGE VIEW != USED')),'taste/view != use');
+assert(dc.laws.some(x=>x.includes('second addressed context')),'propagation evidence law');
+assert(dc.laws.some(x=>x.includes('no shared adoption store')),'no adoption authority');
+assert(p.coding_model_instruction[4].includes('optional downstream_consequence'),'coding RETURN consequence instruction');
+console.log('DOWNSTREAM CONSEQUENCE optional evidence block PASS');
