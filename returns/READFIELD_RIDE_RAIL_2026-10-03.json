@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-10-03",
+  "surface": "/docs/",
+  "change": "READFIELD phone workflow exposes the already-implemented exact READFIELD → FOLD//BLOOM LIVE → READFIELD excursion as a first-class RIDE action.",
+  "status": "CANDIDATE_CI_REQUIRED",
+  "base_sha": "b144b6f340e48b6f46fa1e7776eec4d115b7e565",
+  "branch": "readfield-workflow-ride-20261003",
+  "observed": [
+    "READFIELD 0.8.5 already owns exact source/cursor authority and already has a native RIDE LIVE handoff with hash/native-span revalidation on RETURN.",
+    "The phone work rail exposed FAST / REVIEW / PULSE / VOICE / LOCI / REPO but not RIDE, leaving an implemented cross-surface composition buried in viewer chrome."
+  ],
+  "delta": [
+    "Inject one RIDE button into the existing phone work rail through the existing READFIELD INTERPHASE adapter.",
+    "Expose RIDE / MATERIAL as a use case: current sentence/paragraph/section becomes addressed traversal terrain while LIVE owns traversal only.",
+    "Expose FAST → REVIEW → RIDE → RETURN as an explicit workflow composition.",
+    "Keep the native #rideLive handoff as the only execution path; the new controls delegate to it rather than cloning handoff state."
+  ],
+  "preserves": [
+    "READFIELD source + cursor authority",
+    "FOLD//BLOOM LIVE traversal authority",
+    "exact source hash + native-span revalidation before cursor commit on RETURN",
+    "session-local source bytes",
+    "existing RSVP / VOICE / PULSE / LOCI behavior"
+  ],
+  "does_not_create": [
+    "new reader mode",
+    "new source store",
+    "new transport bus",
+    "new cursor authority",
+    "new LIVE source authority"
+  ],
+  "verification": {
+    "node_check": "PASS locally for lib/interphase-readfield.js",
+    "repo_browser_ci": "PENDING",
+    "note": "Local full browser smoke could not be run in the execution container because outbound DNS to github.com is unavailable; exact-head PR CI is the authority."
+  },
+  "next": "Run exact-head route/public/gitleaks CI. Promote only if green; otherwise revise or revert this bounded UI exposure."
+}
