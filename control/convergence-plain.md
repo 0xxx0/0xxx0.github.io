@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T21:34:01.040Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T22:04:59.911Z by scripts/generate-convergence-strip.mjs_
 
-The field has **102 material commits on 2026-10-02** across **864 branches** (196 exact Git commits in the window; 94 generated telemetry; 4687 on master all-time).
+The field has **127 material commits on 2026-10-02** across **867 branches** (224 exact Git commits in the window; 97 generated telemetry; 4715 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- Merge Prison Age source-derived Evidence Atlas
-- Laconic 0.3.7: executable WORK forge loop
-- restore Evidence Atlas manifest projection on current registry
+- Merge state lens + FIELD LAB reducer convergence
+- RETURN: blocked TURN on stale repository target
+- Transport state-lens reducer onto current master replay
 
 ## Open gaps
 
