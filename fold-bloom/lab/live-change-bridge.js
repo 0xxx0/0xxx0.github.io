@@ -234,6 +234,43 @@ export function liveSteeringSupport(state){
   };
 }
 
+export function liveSupportFocusDecision(state){
+  const support=liveSteeringSupport(state);
+  if(!support?.ok)return {
+    ok:false,
+    schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/support-focus',
+    authority:'CALCULATION_ONLY',
+    status:'SUPPORT_UNRESOLVED',
+    focus_slot:null,
+    reason:support?.reason||'SUPPORT_UNRESOLVED',
+    support
+  };
+  const count=Math.max(0,Math.trunc(Number(support.native_candidate_count)||0));
+  const slots=Array.isArray(support.candidate_slots)?support.candidate_slots.map(Number).filter(Number.isInteger):[];
+  if(count===1&&slots.length===1)return {
+    ok:true,
+    schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/support-focus',
+    authority:'CALCULATION_ONLY',
+    status:'UNIQUE_VIEW_FOCUS',
+    focus_slot:slots[0],
+    candidate_count:count,
+    support,
+    law:'exactly one already-lawful native candidate may be focused for inspection; focus remains VIEW ONLY and does not authorize or execute a commit'
+  };
+  return {
+    ok:true,
+    schema:LIVE_CHANGE_BRIDGE_SCHEMA+'/support-focus',
+    authority:'CALCULATION_ONLY',
+    status:count===0?'NO_NATIVE_CANDIDATE':'AMBIGUOUS_NO_AUTO_FOCUS',
+    focus_slot:null,
+    candidate_count:count,
+    support,
+    law:count===0
+      ?'no current lawful native candidate matches the advisory direction, so there is nothing to focus or commit'
+      :'multiple current lawful native candidates match the advisory direction; ambiguity must remain explicit and no candidate may be auto-focused as though selected'
+  };
+}
+
 export function liveChangeBridgeReturn(state,{fromCapture=null,toCapture=null}={}){
   const comparison=compareLiveChangeCaptures(fromCapture,toCapture);
   return {

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   LIVE_CHANGE_BRIDGE_SCHEMA,createLiveChangeBridgeState,reduceLiveChangeBridge,
-  captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn
+  captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveSupportFocusDecision,liveChangeBridgeReturn
 } from '../live-change-bridge.js';
 
 const op=(seq,verb,extra={})=>({
@@ -189,6 +189,12 @@ test('native support resolves before the six-release quotient window is complete
   assert.equal(support.status,'UNIQUE_NATIVE_CANDIDATE');
   assert.equal(support.native_candidate_count,1);
   assert.equal(support.native.seq,1);
+  const focus=liveSupportFocusDecision(s);
+  assert.equal(focus.ok,true);
+  assert.equal(focus.status,'UNIQUE_VIEW_FOCUS');
+  assert.equal(focus.focus_slot,2);
+  assert.equal(focus.authority,'CALCULATION_ONLY');
+  assert.match(focus.law,/does not authorize or execute a commit/);
   assert.equal(liveChangeBridgeReturn(s).native_latest.seq,1);
 });
 
@@ -215,8 +221,25 @@ test('direction support exposes native candidate ambiguity without acquiring eff
   assert.deepEqual(support.candidate_slots,[2,5]);
   assert.equal(support.steering.authority,'NONE');
   assert.equal(support.native.candidate_count,3);
+  const ambiguous=liveSupportFocusDecision(s);
+  assert.equal(ambiguous.ok,true);
+  assert.equal(ambiguous.status,'AMBIGUOUS_NO_AUTO_FOCUS');
+  assert.equal(ambiguous.focus_slot,null);
+  assert.equal(ambiguous.candidate_count,2);
+  assert.match(ambiguous.law,/no candidate may be auto-focused/);
+
+  s=reduceLiveChangeBridge(s,{
+    schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'j',kind:'steering',seq:9,wall:5200,
+    data:{authority:'NONE',direction_label:'BLOOM',direction_ref:'dir://bloom',request_id:'req-3',strength:.4}
+  },{now:5250});
+  const none=liveSupportFocusDecision(s);
+  assert.equal(none.ok,true);
+  assert.equal(none.status,'NO_NATIVE_CANDIDATE');
+  assert.equal(none.focus_slot,null);
+  assert.equal(none.candidate_count,0);
+
   const returned=liveChangeBridgeReturn(s);
-  assert.equal(returned.steering_support.status,'MULTIPLE_NATIVE_CANDIDATES');
+  assert.equal(returned.steering_support.status,'NO_NATIVE_CANDIDATE');
   assert.equal(returned.authority,'WITNESS_ONLY');
 });
 
