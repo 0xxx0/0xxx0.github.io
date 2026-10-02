@@ -99,6 +99,36 @@ DISPOSITION
 
 Delegation creates evidence, not parallel truth. The coordinator integrates into the existing host.
 
+## BOUNDED TRIAD CHECK — COUNCIL DONOR, NOT PERSONA STATE
+
+Use only when recovered evidence still leaves a real transfer ambiguity or an authority boundary is at risk.
+
+This borrows the useful mechanism from Council-of-Selves work — bounded unequal perspectives followed by one synthesis — without creating persistent personas, votes, identities or a second decision authority.
+
+Each contribution is **one line maximum**:
+
+```
+CARTOGRAPHER → What exact source / address / boundary / missing evidence matters?
+ADVERSARY    → What is the strongest falsifier, contradiction or authority leak?
+OPERATOR     → What is the smallest lawful host move or test that changes the decision?
+```
+
+Then reduce once:
+
+```
+SYNTHESIS → DISPOSITION + ONE MOVE + STOP CONDITION
+```
+
+Rules:
+- invoke the triad only when the three questions are materially unequal;
+- evidence outranks every stance;
+- no stance may mint NOW, authority, canon or effect permission;
+- if evidence already determines the disposition, skip the triad;
+- disagreement that cannot change the next move is residue, not another round;
+- after the one move, RETURN and replan from CURRENT.
+
+The goal is error diversity with bounded cost — not role-play.
+
 ## SOURCE DISCIPLINE
 
 Evidence order:
