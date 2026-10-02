@@ -96,6 +96,14 @@ const softSelf = matchingDomains(selfFiles, config.soft_domains);
 const errors = [];
 const warnings = [];
 
+// Resolve the target branch NOW, not merely the base SHA captured when the PR opened.
+// This catches candidates that were green and then drifted behind master before merge.
+const comparison = await api(`${apiBase}/repos/${owner}/${repo}/compare/${encodeURIComponent(pr.base.ref)}...${pr.head.sha}`);
+const baseBehind = Number(comparison.behind_by || 0);
+if (baseBehind > 0 && config.policy?.base_behind === 'FAIL') {
+  errors.push(`base drift: PR head is ${baseBehind} commit(s) behind current ${pr.base.ref}`);
+}
+
 for (const file of selfFiles) {
   if ((config.forbidden_public_paths || []).some(pattern => matches(file, pattern))) {
     errors.push(`forbidden public path: ${file}`);
@@ -145,6 +153,7 @@ for (const other of openPrs) {
 }
 
 console.log(`collision-preflight: PR #${selfNumber}`);
+console.log(`base: ${pr.base.ref} · behind_by=${baseBehind} · compare_status=${comparison.status}`);
 console.log(`changed files: ${selfFiles.length}`);
 console.log(`hard domains: ${[...hardSelf.keys()].join(', ') || 'none'}`);
 console.log(`soft domains: ${[...softSelf.keys()].join(', ') || 'none'}`);
