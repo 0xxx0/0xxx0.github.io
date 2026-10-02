@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T22:36:01.744Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T23:07:00.596Z by scripts/generate-convergence-strip.mjs_
 
-The field has **130 material commits on 2026-10-02** across **874 branches** (230 exact Git commits in the window; 100 generated telemetry; 4721 on master all-time).
+The field has **146 material commits on 2026-10-02** across **882 branches** (249 exact Git commits in the window; 103 generated telemetry; 4740 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- interphase: declare owner + algebra on all 15 correspondence mappings
-- Confluence: six-family project map on current master
-- Dayline lineage: distinguish painting-backed ancestor from current planner
+- return: seal merged FIELD AWAKE visor v2
+- FIELD: restore AWAKE as the professional INTERPHASE visor (#827)
+- HOUSE: capture home-base and loadout game UX donors
 
 ## Open gaps
 

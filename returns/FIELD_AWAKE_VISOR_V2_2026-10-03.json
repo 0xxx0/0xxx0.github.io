@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_AWAKE_VISOR_V2_2026-10-03",
   "date": "2026-10-03",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGED_MACHINE_GREEN",
   "object": "FIELD root first-contact presentation over the live INTERPHASE carrier",
   "source": [
     "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
@@ -40,12 +40,14 @@
   },
   "verification": {
     "branch": "field-awake-visor-v2-current-20261003",
-    "visor_static_selftest": "PENDING_LOCAL",
-    "visor_js_syntax": "PENDING_LOCAL",
-    "field_presentation_loader": "IMPLEMENTED",
-    "route_registration": "PENDING_CI",
-    "public_surface": "PENDING_CI",
-    "gitleaks": "PENDING_CI"
+    "static_contract": "/tools/field-awake-visor-selftest.cjs",
+    "field_presentation_loader": "MERGED",
+    "route_grammar": "PASS inside public-surface-check 37075484163; no route delta introduced",
+    "public_surface": "PASS · 37075484163 including critical browser smoke",
+    "gitleaks": "PASS · 37075484149",
+    "merge": "PR #827 · 50f185ca45d6e0474127f6ea531040ea01cbaba8"
   },
+  "version_law": "Presentation evolution over FIELD 0.8.33; no core version inflation because object/action/authority semantics did not change.",
+  "next": "Use FIELD normally. Refine the visor only from concrete first-contact comprehension/reachability friction; do not split AWAKE back into another app.",
   "stop": "Do not create /awake/, duplicate carrier state, ship recovered image bytes, or add effect authority."
 }
