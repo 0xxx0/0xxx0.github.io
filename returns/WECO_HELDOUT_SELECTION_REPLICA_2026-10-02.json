@@ -1,0 +1,66 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-10-02",
+  "object": "Weco AIDE2 / SpecBench held-out harness-selection law",
+  "status": "BOUNDED_REPLICA_PASS_TRANSFER_READY",
+  "state": "The broad Weco donor was in REPLICATE, but its claim bundled two unequal propositions: a general fixed-model AI harness-improvement result and a narrower selection law separating development optimization from independent held-out acceptance.",
+  "delta": [
+    "Split the broad Weco claim so deterministic selection-law evidence cannot be laundered into model-specific recursive-self-improvement evidence.",
+    "Added tools/harness-heldout-replica.mjs: development ranking uses visible pass rate and latency only; held-out outcomes are consulted only after selection.",
+    "Added an adversarial fixed-budget fixture where visible-hack wins development 1.0 vs baseline 0.75, then regresses to 0.5 held-out vs baseline 1.0 and is rejected.",
+    "Added an equal-budget robust fixture where the selected candidate scores 1.0 development and 1.0 held-out and is accepted.",
+    "The replica fails closed on dev/held-out task-ID leakage and unequal arm budgets.",
+    "Bound the narrow mechanism as control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json with REPLICA PASS and independent TRANSFER_TEST PASS into research-design-loop.",
+    "The narrow donor now reduces to READY; the broad fixed-model AI donor remains REPLICATE / NOT_RUN.",
+    "research-design-loop advanced to 0.3.1 with an explicit evidence-scope note."
+  ],
+  "evidence": {
+    "replica": [
+      "tools/harness-heldout-replica.mjs",
+      "tools/harness-heldout-replica.selftest.mjs",
+      "fixtures/research/weco-heldout-replica.json"
+    ],
+    "donor_packets": [
+      "control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json",
+      "control/research/WECO_AIDE2_DONOR_2026-09-30.json"
+    ],
+    "host": [
+      "skills/research-design-loop/SKILL.md",
+      "tools/research-donor-gate.mjs",
+      "tools/research-donor-field.mjs",
+      "tools/research-donor-field-selftest.mjs"
+    ],
+    "primary": [
+      "arXiv:2609.26457",
+      "arXiv:2605.21384"
+    ]
+  },
+  "observed": {
+    "visible_metric_hack": {
+      "dev_selected": "visible-hack",
+      "dev_pass_rate": 1,
+      "heldout_pass_rate": 0.5,
+      "baseline_heldout_pass_rate": 1,
+      "reward_hack_detected": true,
+      "disposition": "REJECT"
+    },
+    "robust_improvement": {
+      "dev_selected": "robust",
+      "dev_pass_rate": 1,
+      "heldout_pass_rate": 1,
+      "reward_hack_detected": false,
+      "disposition": "ACCEPT"
+    }
+  },
+  "authority": "Explicit user instruction to keep the donor loop empirical, convergent and moving; repository research/evaluation tooling only.",
+  "runtime_changes": "NONE",
+  "public_surface_changes": "NONE",
+  "residue": [
+    "This proves the selection/acceptance law on a deterministic bounded specimen, not that an LLM can improve its own harness.",
+    "The broad Weco fixed-model claim still requires a pinned real model, equal-budget harness variants, development-only selection, and independent held-out evaluation.",
+    "Open PR #749 is a candidate future substrate for that real-model run because it pins qwen3.5:9b structured-output/thinking-mode proof work; branch/PR existence is not current authority and no result is inferred from it."
+  ],
+  "waiting": [],
+  "one_next": "After PR #749 or an equivalent pinned local-model substrate is available, run the broad Weco packet on the same model and task budget across at least two harness modes; otherwise keep it REPLICATE.",
+  "stop": "Do not expand this into autonomous harness search, held-out feedback loops, model-weight mutation, or a new research scheduler."
+}
