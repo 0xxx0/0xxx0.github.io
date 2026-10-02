@@ -1,0 +1,62 @@
+{
+  "schema": "field-return/v1",
+  "id": "DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02",
+  "date": "2026-10-02",
+  "state": "MERGED_CI_GREEN",
+  "object": "DAYLINE / low-click continuous focus over shared Atlas Dayline DayState",
+  "problem": "The system exposed many capable fields and projections but ordinary use still required repeated navigation and hunting. FIELD, AWAKE and ATLAS were being treated as destinations rather than support layers around one current object.",
+  "delta": [
+    "Promote one FLOW / ZERO-HUNT strip inside /dayline/: previous focus, exact primary native move, next focus.",
+    "Rank open local tasks without opening Atlas: existing RUN order wins; remaining tasks use the same DayState value/context/time/setup/dependency/horizon/source signals used by Atlas opportunity ranking.",
+    "Collapse the full 1–3 move set under MORE MOVES; no move or authority is removed.",
+    "Swipe the held focus left/right on touch; Arrow/J/K traverse; Enter invokes the exact primary move; / focuses capture.",
+    "After a local task is completed, select the next ranked open task automatically. Source-linked completion intentionally remains held until RETURN.",
+    "Refresh CURRENT + showcase manifest read-only every 90 seconds while visible. Returning after >90 seconds triggers an AWAKE orientation cue over the held object.",
+    "Atlas remains map/scenario/forecast depth. FIELD remains recovery/coordination depth. Neither is required to operate the next Dayline object."
+  ],
+  "extant_comparison": [
+    "Sunsama Focus Mode centers one current task, supports up/down traversal, quick capture, and automatically advances after completion.",
+    "Linear supports J/K and arrow navigation over focused work plus contextual action surfaces without requiring route-by-route clicking."
+  ],
+  "laws": [
+    "DAILY OPERATION SHOULD NOT REQUIRE BROWSING THE SYSTEM GRAPH.",
+    "ONE HELD OBJECT + ONE PRIMARY MOVE; SECONDARY MOVES STAY ONE DISCLOSURE AWAY.",
+    "AUTO-ADVANCE MAY CHANGE FOCUS, NEVER EXECUTE THE NEXT EFFECT.",
+    "AWAKE = REORIENTATION ON RETURN, NOT A SECOND PRODUCT.",
+    "ATLAS = MAP / COUNTERFACTUAL / FORECAST DEPTH, NOT A REQUIRED CONTROL PANEL.",
+    "FIELD = RECOVERY / COORDINATION DEPTH, NOT A DAILY CLICK TAX."
+  ],
+  "evidence": [
+    "/dayline/index.html",
+    "/dayline/app.css",
+    "/dayline/app.js",
+    "/dayline/release.json"
+  ],
+  "verify": [
+    "node --check dayline/app.js",
+    "public-surface-check / dayline mobile browser smoke",
+    "Route Registration",
+    "gitleaks"
+  ],
+  "falsifier": "If FLOW can select a different canonical object than Atlas from the same DayState under the same local conditions, or if a focus transition triggers an effect without explicit input, stop and repair before merge.",
+  "next": "Use Dayline as the ordinary front door for doing. Open Atlas only when the map/counterfactual adds information; open FIELD only for recovery, provenance, coordination or deeper inspection.",
+  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+  "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+  "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+  "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+  "verification": {
+    "route_registration": {
+      "run": 37058033573,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 37058033600,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 37058033582,
+      "conclusion": "success"
+    }
+  },
+  "browser": "PASS · public-surface-check 37058033600 including Dayline zero-hunt source selftest, FIELD held RUN-dock binding, downstream RETURN contract, mobile/LIVE regressions, critical browser smoke, recovered-source validation and frozen City/Painting handlers."
+}

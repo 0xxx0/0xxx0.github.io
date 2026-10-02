@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/source-hold-turn-trace-return/v0.1",
-  "updated": "2026-10-02T20:06:00+08:00",
+  "updated": "2026-10-03T03:49:00+08:00",
   "status": "OPERATIONAL",
   "purpose": "Reduce a selected object to one lawful bounded move, observed consequence, durable evidence and exact re-entry without creating a new authority plane.",
   "aliases": {
@@ -269,6 +269,39 @@
       "return_address": "Exact re-entry address for the same object/context.",
       "closed_at": "Timestamp of closure.",
       "next_authority": "Always NONE at closure; a new move requires fresh SOURCE/HOLD."
+    },
+    "optional_fields": [
+      "downstream_consequence"
+    ],
+    "downstream_consequence": {
+      "purpose": "Record observed external use/propagation/response without turning adoption into a global lifecycle or inferring impact from publication.",
+      "status_enum": [
+        "SHIPPED_ONLY",
+        "USED",
+        "PROPAGATED",
+        "COUNTERMEASURE",
+        "UNKNOWN"
+      ],
+      "required_when_present": [
+        "status",
+        "evidence_refs",
+        "observed_delta",
+        "unknowns"
+      ],
+      "field_semantics": {
+        "status": "Highest downstream consequence actually evidenced for this RETURN; SHIPPED_ONLY means availability is proved but no later-use claim is made.",
+        "evidence_refs": "Exact addressed witnesses for the downstream claim. Empty evidence cannot promote beyond SHIPPED_ONLY/UNKNOWN.",
+        "observed_delta": "Observed downstream change: use, derivative context, or responsive rule/environment/process change.",
+        "unknowns": "Causal or reach claims not established by the evidence."
+      },
+      "laws": [
+        "LIKE / KEEP / PRAISE / PAGE VIEW != USED.",
+        "USED requires an observed or authored use witness.",
+        "PROPAGATED requires a second addressed context or derivative witness.",
+        "COUNTERMEASURE requires a later rule, environment or process change explicitly responding to the earlier move.",
+        "No downstream witness does not demote a technically SHIPPED artifact; it leaves downstream consequence UNKNOWN or SHIPPED_ONLY.",
+        "The block is evidence-only. It creates no shared adoption store, priority, lifecycle authority or automatic NEXT."
+      ]
     }
   },
   "stop_conditions": {
@@ -294,7 +327,7 @@
     "HOLD: freeze one focus; expose at most 3 host-supported moves; select one TURN; predeclare acceptance checks, commit boundary, reversibility and RETURN address.",
     "TURN: execute exactly one native operation. EFFECT requires explicit host-native RELEASE/commit. Do not start a second improvement.",
     "TRACE: run machine-verifiable evidence first; classify claims OBSERVED/DERIVED/UNKNOWN and outcome PASS/FAIL/INDETERMINATE. Missing evidence never becomes PASS.",
-    "RETURN: always close CHANGED/UNCHANGED/FAILED/BLOCKED/UNKNOWN with every required RETURN field; set next_authority=NONE; release focus; re-read CURRENT before any new consequential move."
+    "RETURN: always close CHANGED/UNCHANGED/FAILED/BLOCKED/UNKNOWN with every required RETURN field; when external consequence is material, attach the optional downstream_consequence evidence block; omission means not measured, not no impact; set next_authority=NONE; release focus; re-read CURRENT before any new consequential move."
   ],
   "worked_run": {
     "id": "protocol-contract-refinement-2026-10-02",
