@@ -82,6 +82,7 @@ function probe(){
     await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[1]===3,2500,'steer L3 second');
     const steered=W().FoldBloomFieldLab.stateStep();
     rec.steering={initial:rec.initialOrder,afterFirst:[...firstSteer.path.selected_order],afterSecond:[...steered.path.selected_order],cursor:steered.cursor,prefix:steered.path.selected_order.slice(0,steered.cursor)};
+    rec.stateLensAfterSteer=D().getElementById('stateIChing').getAttribute('href')||'';
     rec.frontierAfterSteer={current:steered.frontier?.current?.token,futures:steered.frontier?.current_future_paths,next:(steered.frontier?.candidates||[]).map(x=>x.line),selected:(steered.frontier?.candidates||[]).find(x=>x.selected_by_current_order)?.line};
     const dataPacket=W().FoldBloomFieldLab.returnPacket();
     rec.frontierReturn=dataPacket?.projection?.stateChange?.frontier;
@@ -112,7 +113,7 @@ function probe(){
       rec.reducerStart.includes('k=3')&&rec.reducerStart.includes('V=8')&&rec.reducerStart.includes('E=12')&&rec.reducerStart.includes('CHAINS=6')&&rec.reducerStart.includes('NEXT L1')&&
       rec.reducerAfterNext?.cursor===1&&rec.reducerAfterNext?.read.includes('STEP 1/3')&&rec.reducerAfterNext?.address.includes('/step/1')&&
       rec.reducerAfterReturn?.cursor===0&&rec.reducerAfterReturn?.read.includes('STEP 0/3')&&rec.reducerAfterReturn?.address.includes('/order/0-of-6');
-    const pass=rec.beforeMode==='DATA'&&reducerOK&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const pass=rec.beforeMode==='DATA'&&reducerOK&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.stateLensAfterSteer.includes('order=5%2C3%2C1')&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
