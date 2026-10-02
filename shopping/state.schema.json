@@ -457,6 +457,122 @@
                 }
               }
             }
+          },
+          "adventure_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "media": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "thumbnail": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "remote",
+                      "local-thumb",
+                      "generated",
+                      "reference"
+                    ]
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "observed_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "provenance": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "watch": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "cadence_hours": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 720
+              },
+              "query": {
+                "type": "string"
+              },
+              "pickup_hint": {
+                "type": "string"
+              },
+              "last_checked_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "next_due_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "adventures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "occurred_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
           }
         }
       }
