@@ -250,8 +250,8 @@ function openPocketScene(id){
  activeSceneId=scene.id;activeNodeId=scene.start;activeVariant=0;trail=[scene.start];lane='';
  const u=new URL(location.href);u.searchParams.set('view','scenes');u.searchParams.set('scene',scene.id);u.searchParams.delete('card');u.searchParams.delete('deal');
  history.pushState(null,'',u.pathname+u.search+u.hash);
- $('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.tab==='scenes'));
- $('.view').forEach(v=>v.classList.toggle('on',v.id==='view-scenes'));
+ [...document.querySelectorAll('.tabs button')].forEach(x=>x.classList.toggle('on',x.dataset.tab==='scenes'));
+ [...document.querySelectorAll('.view')].forEach(v=>v.classList.toggle('on',v.id==='view-scenes'));
  renderLaneChips();renderSceneList();$('#runner').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderPocket(){
