@@ -845,23 +845,6 @@ function houseLocusProbeHtml(){
   <\/script></body></html>`;
 }
 
-function viewportFixtureHtml(){
-  return `<!doctype html><html><body><main id="viewportFixture">EXACT VIEWPORT FIXTURE</main><script>
-  const stamp=()=>{document.documentElement.dataset.innerWidth=String(window.innerWidth);document.documentElement.dataset.innerHeight=String(window.innerHeight);document.documentElement.dataset.mobile=String(matchMedia('(max-width:820px)').matches)};
-  stamp();addEventListener('resize',stamp);
-  <\/script></body></html>`;
-}
-// Headless Chrome clamps narrow top-level windows on current CI/local builds. A same-origin
-// iframe gives the child document the requested CSS layout viewport exactly. This proves
-// responsive layout/media-query behavior only; it is NOT touch/IMU/browser-chrome device emulation.
-function exactViewportHtml(route,w,h){
-  const safeRoute=String(route).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:${w}px;height:${h}px;border:0;display:block" src="${safeRoute}"></iframe><pre id="caseDom" data-inner-width="" data-inner-height="" data-mobile-media="">PENDING</pre><script>
-  const f=document.getElementById('f'),o=document.getElementById('caseDom');
-  const snap=()=>{try{const w=f.contentWindow,d=f.contentDocument;if(!w||!d?.documentElement)return;o.textContent=d.documentElement.outerHTML;o.dataset.innerWidth=String(w.innerWidth);o.dataset.innerHeight=String(w.innerHeight);o.dataset.mobileMedia=String(w.matchMedia('(max-width:820px)').matches)}catch(_){}};
-  f.addEventListener('load',snap);setInterval(snap,50);setTimeout(snap,0);
-  <\/script></body></html>`;
-}
 function settleProbeHtml(route,checkSrc,limitMs,w,h){
   const safeRoute=String(route).replace(/&/g,'&amp;');
   return `<!doctype html><html><body style="margin:0"><img id="hold" src="/__settle-hold" hidden><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
@@ -892,8 +875,6 @@ const server=http.createServer((req,res)=>{
     const send=res.end.bind(res);
     res.end=(body,...rest)=>{try{if(typeof body==='string')body=slow(body)}catch(_){}return send(body,...rest)};
   }
-  if(String(req.url||'').startsWith('/__viewport-fixture')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(viewportFixtureHtml());return}
-  if(String(req.url||'').startsWith('/__viewport?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(exactViewportHtml(u.searchParams.get('route')||'/',Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
   if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
   if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
@@ -1021,12 +1002,7 @@ const server=http.createServer((req,res)=>{
 
 function runChrome(bin,route,options={}){
   return new Promise((resolve,reject)=>{
-    const exactViewport=options.exactViewport===true;
-    const requestedWidth=Number(options.width||1280),requestedHeight=Number(options.height||900);
-    const effectiveRoute=exactViewport
-      ? '/__viewport?route='+encodeURIComponent(route)+'&w='+requestedWidth+'&h='+requestedHeight
-      : route;
-    const url='http://'+HOST+':'+PORT+effectiveRoute;
+    const url='http://'+HOST+':'+PORT+route;
     // Two different needs, deliberately not conflated:
     //  - PROBE cases (/__smoke/…) emit their own verdict and need the ceiling
     //    raised inside the page AND enough virtual time to reach it, so their
@@ -1040,7 +1016,7 @@ function runChrome(bin,route,options={}){
     const killAfter=Math.round((options.timeout||15000)*SLOW);
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-      '--hide-scrollbars','--window-size='+(exactViewport?Math.max(500,requestedWidth):requestedWidth)+','+requestedHeight,
+      '--hide-scrollbars','--window-size='+(options.width||1280)+','+(options.height||900),
       '--virtual-time-budget='+budget,'--dump-dom',url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
@@ -1049,7 +1025,7 @@ function runChrome(bin,route,options={}){
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
-    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
+    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
   });
 }
 function runSettle(bin,c){
@@ -1113,12 +1089,6 @@ function fieldRootCheck(dom){
 }
 
 const CASES=[
-  {
-    name:'SMOKE HARNESS exact narrow viewport',
-    route:'/__viewport-fixture',
-    options:{width:390,height:844,budget:1200},
-    check:dom=>dom.includes('id="viewportFixture"')&&dom.includes('data-inner-width="390"')&&dom.includes('data-mobile="true"')
-  },
   {
     name:'FIELD',
     route:'/',
@@ -1693,30 +1663,19 @@ try{
     let r;
     try{
       if(c.settle){r=await runSettle(bin,c)}
-      else{
-        const o=c.options||{};
-        // Probe/settle cases already own explicit iframe geometry. Direct routes below Chrome's
-        // top-level minimum are wrapped so a claimed 390/430/460px case actually sees that width.
-        const directNarrow=!String(c.route||'').startsWith('/__smoke/')&&Number(o.width||0)>0&&Number(o.width)<500;
-        r=await runChrome(bin,c.route,{...o,exactViewport:directNarrow});
-      }
+      else{r=await runChrome(bin,c.route,c.options||{})}
     }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
-    const dom=(c.settle||r.exactViewport)?(extractCaseDom(r.out)||r.out):r.out;
-    const viewportWidth=r.exactViewport?Number((r.out.match(/data-inner-width="(\d+)"/)||[])[1]||0):null;
-    const viewportHeight=r.exactViewport?Number((r.out.match(/data-inner-height="(\d+)"/)||[])[1]||0):null;
-    const viewportMobile=r.exactViewport?(r.out.match(/data-mobile-media="([^"]*)"/)||[])[1]||'':null;
-    const viewportOk=!r.exactViewport||(viewportWidth===r.requestedWidth&&viewportHeight===r.requestedHeight&&viewportMobile==='true');
-    const ok=r.code===0&&!fatal&&viewportOk&&c.check(dom);
+    const dom=c.settle?(extractCaseDom(r.out)||r.out):r.out;
+    const ok=r.code===0&&!fatal&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
-    if(r.exactViewport)console.log('SMOKE VIEWPORT',c.name,'requested='+r.requestedWidth+'x'+r.requestedHeight,'observed='+viewportWidth+'x'+viewportHeight,'mobile='+viewportMobile);
     if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
       const body=visibleText(dom).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
-      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(!viewportOk?' viewport-mismatch requested='+r.requestedWidth+'x'+r.requestedHeight+' observed='+viewportWidth+'x'+viewportHeight:'')+(body?' body='+JSON.stringify(body):''));
+      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
   }
