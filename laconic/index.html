@@ -378,9 +378,20 @@ function renderVault(){
    return;
  }
  const ants=(lineageData.parallel_antecedents||[]).filter(vaultMatch).map(x=>'<div class="lineageitem"><div class="meta"><span class="tag EXACT">'+esc(x.evidence_class)+'</span><span class="tag">'+esc(x.date)+'</span></div><b>'+esc(x.id)+'</b><p>'+esc(x.mechanism)+'</p>'+(x.exact?'<p>“'+esc(x.exact)+'”</p>':'')+'<div class="src">'+esc(x.caution||'')+'</div></div>').join('');
- const stages=(lineageData.stages||[]).filter(vaultMatch).map(x=>'<div class="lineageitem"><div class="meta"><span class="tag">'+esc(x.evidence_class)+'</span><span class="tag">'+esc(x.date)+'</span></div><b>'+esc(String(x.stage).padStart(2,'0')+' · '+x.label)+'</b><p>'+esc(x.mechanism||x.mechanism_change||x.adoption||x.exact_interpretation||x.framing||x.user_intent||'Recovered lineage stage.')+'</p></div>').join('');
+ const stagesAll=lineageData.stages||[];
+ const pluralityReq=stagesAll.find(x=>x.label==='MULTI_VOICE_INTERNAL_SELVES_REQUEST');
+ const pluralityScene=stagesAll.find(x=>x.label==='MULTI_SELF_DIALOGUE');
+ const recoveredSelves=pluralityScene?.direct_recovery?.five_selves_request?.recovered_personas||[];
+ const pluralityCard=recoveredSelves.length&&vaultMatch({request:pluralityReq?.user_exact,personas:recoveredSelves})?
+   '<div class="vaultcat"><b>FIVE SELVES / RECOVERED</b><span>exact source · usable lineage · later canon bridge remains open</span></div>'+
+   '<div class="lineageitem"><div class="meta"><span class="tag EXACT">DIRECT SOURCE</span><span class="tag">2024-12-29 → 12-30</span><span class="tag">NOT AUTO-CANON</span></div>'+
+   '<b>FROM LACONIC PERSONA EXPERIMENT → SIMULTANEOUS INNER DIALOGUE</b>'+
+   (pluralityReq?.user_exact?'<p>“'+esc(pluralityReq.user_exact)+'”</p>':'')+
+   '<p>'+recoveredSelves.map(x=>'<span class="tag">'+esc(x)+'</span>').join(' ')+'</p>'+
+   '<div class="src">Exact five-self labels are recovered. Their direct bridge to later Council membership/episodes remains explicitly unproven.</div></div>':'';
+ const stages=stagesAll.filter(vaultMatch).map(x=>'<div class="lineageitem"><div class="meta"><span class="tag">'+esc(x.evidence_class)+'</span><span class="tag">'+esc(x.date)+'</span></div><b>'+esc(String(x.stage).padStart(2,'0')+' · '+x.label)+'</b><p>'+esc(x.mechanism||x.mechanism_change||x.adoption||x.exact_interpretation||x.framing||x.user_intent||'Recovered lineage stage.')+'</p></div>').join('');
  const gaps=(earlyDonors.unresolved||[]).filter(vaultMatch).map(x=>'<div class="lineageitem gapline"><div class="meta"><span class="tag">OPEN</span></div><b>'+esc(x.id)+'</b><p>'+esc(x.missing)+'</p></div>').join('');
- root.innerHTML='<div class="vaultcat"><b>PARALLEL ANTECEDENTS</b><span>do not force a single origin</span></div>'+ants+'<div class="vaultcat"><b>RECOVERED CONVERGENCE</b><span>direct + explicitly marked secondary evidence</span></div>'+stages+'<div class="vaultcat"><b>OPEN SEAMS</b><span>absence is not nonexistence</span></div>'+gaps;
+ root.innerHTML=pluralityCard+'<div class="vaultcat"><b>PARALLEL ANTECEDENTS</b><span>do not force a single origin</span></div>'+ants+'<div class="vaultcat"><b>RECOVERED CONVERGENCE</b><span>direct + explicitly marked secondary evidence</span></div>'+stages+'<div class="vaultcat"><b>OPEN SEAMS</b><span>absence is not nonexistence</span></div>'+gaps;
 }
 $('#vaultModes').onclick=e=>{const m=e.target.dataset.vault;if(!m)return;vaultMode=m;renderVault()};
 $('#vaultQ').oninput=renderVault;
