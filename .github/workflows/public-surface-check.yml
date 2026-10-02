@@ -45,6 +45,10 @@ jobs:
         run: node tools/shopping-house-fit-selftest.mjs
       - name: Test HOUSE addressed design trial return
         run: node tools/house-design-selftest.mjs
+      - name: Test HOUSE runtime witness freshness truth
+        run: node tools/house-runtime-witness-selftest.mjs
+      - name: Test HOUSE reality harness laws
+        run: node tools/house-reality-harness-selftest.mjs
       - name: Validate Shopping shared phase surface
         run: node tools/shopping-phase-surface-selftest.mjs
       - name: Validate HUMAN PORT → Shopping candidate ingress
