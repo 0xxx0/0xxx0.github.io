@@ -309,7 +309,19 @@ function bridgeAddTask(input={},sourceClass='IMPORTED'){
 }
 window.AtlasDayline=Object.freeze({
  version:'branch-i-field-live-0.2.1',
- snapshot:()=>clone(data),
+ snapshot:()=>{
+   // Read-only report of the LIVE view, not just the persisted DayState. `projection` is the
+   // radial<->linear mech (atlas=radial, plain=linear ablation) and `view` the active lens;
+   // without them no external consumer -- the FIELD bridge, feedback packets, field-index
+   // reporting -- can tell which projection the operator is actually looking at. The two
+   // surfaces used to disagree: feedback() reported projection, snapshot() did not.
+   const s=clone(data);
+   s.state.projection=ui.projection;
+   s.state.view=ui.mobileView;
+   s.projection_ms={...ui.projectionMs};
+   s.projection_acts={...ui.projectionActs};
+   return s;
+ },
  addFieldTask:input=>bridgeAddTask(input,'IMPORTED'),
  capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
  applyContexts:input=>{

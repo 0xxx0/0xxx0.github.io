@@ -239,6 +239,58 @@ function fieldDaylineHandoffProbeHtml(){
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
+function atlasDaylineProjectionProbeHtml(){
+  // ATLAS DAYLINE's headline mech is a radial<->linear projection over ONE canonical model.
+  // This probe proves that: the projection is reported to consumers, flipping it does not
+  // disturb canonical task IDs / ranking / aperture, and the body dataset follows along.
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/atlas-dayline/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const result=document.getElementById('probeResult'),f=document.getElementById('f');
+  const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const ids=w=>w.AtlasDayline.snapshot().tasks.map(t=>t.id);
+  const boot=(tries=0)=>{
+    try{
+      const w=f.contentWindow,d=w?.document,A=w?.AtlasDayline;
+      const plain=d?.getElementById('plainProjectionBtn'),atlas=d?.getElementById('atlasProjectionBtn');
+      if(!A?.snapshot||!plain||!atlas){
+        if(tries<50){setTimeout(()=>boot(tries+1),100);return}
+        done(false,{stage:'boot',tries,api:!!A,plainBtn:!!plain,atlasBtn:!!atlas});return
+      }
+      A.capture('projection probe task');
+      const before=A.snapshot(),beforeIds=ids(w),beforeRank=before.tasks.map(t=>t.title);
+      // The app is mobile-first: at a phone width it boots in PLAIN (linear), not ATLAS.
+      // So assert the round-trip rather than a hard-coded start projection.
+      const start=before.state.projection;
+      const otherBtn=start==='plain'?atlas:plain;
+      const backBtn=start==='plain'?plain:atlas;
+      const other=start==='plain'?'atlas':'plain';
+      otherBtn.click();
+      setTimeout(()=>{
+        const mid=A.snapshot(),midIds=ids(w);
+        backBtn.click();
+        setTimeout(()=>{
+          const after=A.snapshot(),afterIds=ids(w);
+          const rec={
+            projectionReported:('projection' in before.state),
+            startProj:start||null,
+            flippedProj:mid.state.projection||null,
+            backProj:after.state.projection||null,
+            expectedFlip:other,
+            bodyProjection:d.body.dataset.projection||null,
+            idsStable:JSON.stringify(beforeIds)===JSON.stringify(midIds)&&JSON.stringify(beforeIds)===JSON.stringify(afterIds),
+            rankStable:JSON.stringify(beforeRank)===JSON.stringify(after.tasks.map(t=>t.title)),
+            lensStable:before.state.lens===after.state.lens&&before.state.lens===mid.state.lens,
+            taskCount:afterIds.length,
+            hasView:('view' in before.state),
+            hasActs:('projection_acts' in before)&&('projection_ms' in before)
+          };
+          done(rec.projectionReported&&(rec.startProj==='atlas'||rec.startProj==='plain')&&rec.flippedProj===rec.expectedFlip&&rec.backProj===rec.startProj&&rec.bodyProjection===rec.startProj&&rec.idsStable&&rec.rankStable&&rec.lensStable&&rec.taskCount>0&&rec.hasView&&rec.hasActs,rec);
+        },200);
+      },200);
+    }catch(e){if(tries<50){setTimeout(()=>boot(tries+1),100);return}done(false,{stage:'exception',error:String(e?.stack||e)})}
+  };
+  setTimeout(()=>boot(),150);
+  <\/script></body></html>`;
+}
 function fieldCarrierInPlaceProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
@@ -904,6 +956,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/atlas-dayline-projection')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(atlasDaylineProjectionProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-dayline-handoff')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldDaylineHandoffProbeHtml());return;
@@ -1445,6 +1501,12 @@ const CASES=[
     route:'/?focus=%2Ffold-bloom%2Flens%2F',
     options:{width:430,height:900,budget:9000,timeout:16000},
     check:dom=>!dom.includes('id="catchupFold"')&&dom.includes('id="focusResidue"')&&/MORE HERE/.test(dom)&&/fold-bloom\/lens/.test(dom)
+  },
+  {
+    name:'ATLAS DAYLINE radial-linear projection reported + stable',
+    route:'/__smoke/atlas-dayline-projection',
+    options:{width:430,height:900,budget:12000,timeout:22000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"projectionReported":true/.test(dom)&&/"flippedProj":"atlas"/.test(dom)&&/"backProj":"plain"/.test(dom)&&/"startProj":"plain"/.test(dom)&&/"bodyProjection":"plain"/.test(dom)&&/"idsStable":true/.test(dom)&&/"rankStable":true/.test(dom)&&/"lensStable":true/.test(dom)&&/"hasActs":true/.test(dom)
   },
   {
     name:'DAYLINE CONFLUENCE 0.1',
