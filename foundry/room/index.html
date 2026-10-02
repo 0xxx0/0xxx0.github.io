@@ -27,8 +27,8 @@ footer{border-top:1px solid var(--line);min-height:112px;display:grid;grid-templ
 <div class="app">
 <header>
   <div class="brand"><div class="ey">FU / FURNISHER / INTERPHASE · GENERATION 4</div><b>MATERIAL DOM</b><span>DOM = program structure · adjacency = seam · fold = cassette · source = same object</span></div>
-  <div class="tools"><button id="prevBtn">←</button><button id="nextBtn">→</button><button id="markBtn">MARK</button><button id="foldBtn">FOLD</button><button id="dissolveBtn">DISSOLVE</button><button id="enterBtn">ENTER</button><button id="backBtn">BACK</button><button id="runBtn">RUN</button><button id="sourceBtn">SOURCE</button><button id="returnBtn">RETURN</button></div>
-  <div class="status" id="status"><b>ROOM 0.4</b><br>structural reflexivity</div>
+  <div class="tools"><button id="prevBtn">←</button><button id="nextBtn">→</button><button id="markBtn">MARK</button><button id="foldBtn">FOLD</button><button id="dissolveBtn">DISSOLVE</button><button id="enterBtn">ENTER</button><button id="backBtn">BACK</button><button id="runBtn">RUN</button><button id="sourceBtn">SOURCE</button><button id="muralBtn">MURAL</button><button id="returnBtn">RETURN</button></div>
+  <div class="status" id="status"><b>ROOM 0.4.1</b><br>structural reflexivity · mural preset</div>
 </header>
 <section class="stage">
   <div class="axis"></div><div class="address" id="address">PROGRAM / <b>ROOT</b></div>
@@ -76,8 +76,8 @@ footer{border-top:1px solid var(--line);min-height:112px;display:grid;grid-templ
 </section>
 <footer>
   <div class="pane"><div class="label">FOCUS APERTURE</div><div class="focusTitle" id="focusTitle">—</div><div class="focusMeta" id="focusMeta">—</div></div>
-  <div class="pane"><div class="label">CURRENT LAW</div><div class="law">The visible nested HTML is the program structure the tiny runtime interprets. FOLD literally wraps sibling DOM blocks into a cassette. Seam type is visible as a deterministic key. No canvas graph sits underneath this surface.</div></div>
-  <div class="pane"><div class="label">REALITY BOUNDARY</div><div class="law">A deterministic key is only an interface witness. A model may fit while the physical result fails its independent contract, or vice versa. No load / safety / buildability is inferred.</div></div>
+  <div class="pane"><div class="label">CURRENT LAW</div><div class="law">The visible nested HTML is the program structure the tiny runtime interprets. FOLD literally wraps sibling DOM blocks into a cassette. Seam type is visible as a deterministic key. MURAL is a preset on this same program, not a second engine.</div></div>
+  <div class="pane"><div class="label">REALITY BOUNDARY</div><div class="law">A deterministic key is only an interface witness. Symbolic force ≠ physical feasibility. A model may fit while the wall, material, reach, time or execution fails its independent contract, or vice versa. No load / safety / buildability is inferred.</div></div>
 </footer>
 </div>
 <script>
@@ -156,6 +156,45 @@ function show(title,text,mode='view'){overlayMode=mode;$('#overlayTitle').textCo
 function applySource(){const t=document.createElement('template');t.innerHTML=$('#overlayText').value.trim();const p=t.content.querySelector('#program');if(!p)throw new Error('SOURCE must contain #program');program().replaceWith(p);focus=p.dataset.entry||topBlocks()[0]?.id;scope=null;mark=null;decorateKeys();event('source_apply');$('#overlay').classList.remove('on');render()}
 function makeReturn(showIt=true){const ret={schema:'0xxx0/material-dom-return/v0.4',route:location.pathname,program_html:source(),run:lastRun,binding:binding(),events:[...events],law:'DOM-as-program / structurally reflexive; not strict homoiconicity',physical_status:'NO LOAD / SAFETY / BUILDABILITY CLAIM',at:new Date().toISOString()};if(showIt)show('RETURN',JSON.stringify(ret,null,2));return ret}
 function invoke(fn){try{fn()}catch(e){show('OPERATION REJECTED',String(e.message||e))}}
+function loadMuralPreset(){
+ const html=`
+      <details class="block" id="intent" data-op="SOURCE" data-type-out="INTENT" open>
+        <summary>VOW <span class="meta">SOURCE → INTENT</span></summary>
+        <div class="body"><div class="op">SOURCE</div><div class="desc value">make one real wall carry one true initiating image</div><p class="seam out"><a rel="next" data-type="INTENT" href="#bound"><strong>INTENT → BOUND</strong><span class="keybits" data-type="INTENT"></span></a></p></div>
+      </details>
+      <details class="block" id="bound" data-op="WRAP" data-type-in="INTENT" data-type-out="CONSTRAINT" open>
+        <summary>BOUND <span class="meta">VOW → CONSTRAINT</span></summary>
+        <div class="body"><div class="op">WALL / BODY / TIME</div><div class="desc">Name the wall, scale, view distance, tools, material and stopping condition. Unknown physical facts stay UNKNOWN.</div><p class="seam out"><a rel="next" data-type="CONSTRAINT" href="#mural-compiler"><strong>CONSTRAINT → MURAL</strong><span class="keybits" data-type="CONSTRAINT"></span></a></p></div>
+      </details>
+      <details class="block cassette" id="mural-compiler" data-op="GROUP" data-type-in="CONSTRAINT" data-type-out="EVIDENCE" open>
+        <summary>MURAL / INITIATION <span class="meta">CASSETTE · VARIATION → STROKE → PROOF</span></summary>
+        <div class="body"><div class="desc">One grammar; many lawful manifestations. The image may be daimonic, leonine, mask-like or serpentine without claiming literal metaphysics.</div>
+          <div class="children">
+            <details class="block" id="search" data-op="CONFIG" data-type-in="CONSTRAINT" data-type-out="CONFIG" open>
+              <summary>VARIATE <span class="meta">CONSTRAINT → CONFIG</span></summary>
+              <div class="body"><div class="op">FACE / WITNESS / HAND / FLOW</div><div class="desc">Generate bounded alternatives: one larger-than-life central face; optional companion/witness figures; reaching/held/slipping hands; serpentine flow; deliberate unfinished edges. Variation is not commitment.</div><p class="seam out"><a rel="next" data-type="CONFIG" href="#compile"><strong>CONFIG → STROKES</strong><span class="keybits" data-type="CONFIG"></span></a></p></div>
+            </details>
+            <details class="block" id="compile" data-op="COMPILE" data-type-in="CONFIG" data-type-out="PATTERN" open>
+              <summary>REDUCE <span class="meta">CONFIG → PATTERN</span></summary>
+              <div class="body"><div class="op">BOLD FIRST</div><div class="desc">Compress the chosen form into an executable hierarchy: a few large brush masses establish face / eyes / mouth / mane / serpent path; fine line earns local depth; iridescent or patterned texture remains peripheral.</div><p class="seam out"><a rel="next" data-type="PATTERN" href="#verify"><strong>PATTERN → PROVE</strong><span class="keybits" data-type="PATTERN"></span></a></p></div>
+            </details>
+            <details class="block" id="verify" data-op="VERIFY" data-type-in="PATTERN" data-type-out="EVIDENCE" open>
+              <summary>PROVE <span class="meta">PATTERN → EVIDENCE</span></summary>
+              <div class="body"><div class="op">DISTANCE / WALL / MATERIAL</div><div class="desc">Check silhouette at room distance, eye/mouth legibility, reachable stroke order, material/time burden, and whether secondary figures strengthen rather than dilute the central field. Model fit and physical fit stay separate.</div>
+                <div class="bind"><div class="bindGrid"><input id="pred" type="number" value="1" aria-label="predicted"><input id="meas" type="number" value="1" aria-label="measured"><input id="tol" type="number" value="0.25" min="0.0001" step="0.05" aria-label="tolerance"><label><input id="contract" type="checkbox"> physical fit observed</label></div><div class="bindResult" id="bindResult"></div></div>
+                <p class="seam out"><a rel="next" data-type="EVIDENCE" href="#return"><strong>EVIDENCE → RETURN</strong><span class="keybits" data-type="EVIDENCE"></span></a></p>
+              </div>
+            </details>
+          </div>
+          <p class="seam out"><a rel="next" data-type="EVIDENCE" href="#return"><strong>CASSETTE OUT → RETURN</strong><span class="keybits" data-type="EVIDENCE"></span></a></p>
+        </div>
+      </details>
+      <details class="block" id="return" data-op="RETURN" data-type-in="EVIDENCE" data-type-out="RECEIPT" open>
+        <summary>RETURN <span class="meta">EVIDENCE → RECEIPT</span></summary>
+        <div class="body"><div class="op">WITNESS</div><div class="desc">Return the actual wall: photo / dimensions / materials / what changed in use. Completion may mark an initiation; the receipt certifies only what actually existed and happened.</div></div>
+      </details>`;
+ program().innerHTML=html;program().dataset.entry='intent';focus='mural-compiler';mark=null;scope=null;lastRun=null;foldN=0;events=[];decorateKeys();syncInputAttrs();updateBinding();event('preset',{id:'mural-initiation'});render();
+}
 function selftest(){
  try{
   const a=run(),ids=a.trace.map(x=>x.id).join(',');
@@ -175,7 +214,7 @@ document.addEventListener('click',e=>{const s=e.target.closest('#program summary
 document.addEventListener('dblclick',e=>{const s=e.target.closest('#program summary');if(s){setFocus(s.parentElement.id);invoke(enter)}});
 document.addEventListener('input',e=>{if(['pred','meas','tol','contract'].includes(e.target.id))syncInputAttrs()});
 $('#prevBtn').onclick=()=>move(-1);$('#nextBtn').onclick=()=>move(1);$('#markBtn').onclick=toggleMark;$('#foldBtn').onclick=()=>invoke(foldSpan);$('#dissolveBtn').onclick=()=>invoke(dissolve);$('#enterBtn').onclick=()=>invoke(enter);$('#backBtn').onclick=back;
-$('#runBtn').onclick=()=>invoke(()=>show('RUN',JSON.stringify(run(),null,2)));$('#sourceBtn').onclick=()=>show('SOURCE / STRUCTURAL DOM',source(),'source');$('#returnBtn').onclick=()=>makeReturn(true);$('#closeOverlay').onclick=()=>$('#overlay').classList.remove('on');$('#applyOverlay').onclick=()=>invoke(applySource);$('#copyOverlay').onclick=()=>navigator.clipboard?.writeText($('#overlayText').value).catch(()=>{});
+$('#runBtn').onclick=()=>invoke(()=>show('RUN',JSON.stringify(run(),null,2)));$('#sourceBtn').onclick=()=>show('SOURCE / STRUCTURAL DOM',source(),'source');$('#muralBtn').onclick=()=>invoke(loadMuralPreset);$('#returnBtn').onclick=()=>makeReturn(true);$('#closeOverlay').onclick=()=>$('#overlay').classList.remove('on');$('#applyOverlay').onclick=()=>invoke(applySource);$('#copyOverlay').onclick=()=>navigator.clipboard?.writeText($('#overlayText').value).catch(()=>{});
 document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if(e.key==='ArrowLeft')move(-1);else if(e.key==='ArrowRight')move(1);else if(e.key==='Enter')invoke(enter);else if(e.key==='Escape')back();else if(e.key.toLowerCase()==='m')toggleMark();else if(e.key.toLowerCase()==='f')invoke(foldSpan)});
 let tx=null;$('#viewport').addEventListener('touchstart',e=>tx=e.touches[0]?.clientX??null,{passive:true});$('#viewport').addEventListener('touchend',e=>{if(tx==null)return;const x=e.changedTouches[0]?.clientX??tx,d=x-tx;tx=null;if(Math.abs(d)>52)move(d>0?-1:1)},{passive:true});
 decorateKeys();syncInputAttrs();render();window.RoomMaterial={run,source,returnReceipt:()=>makeReturn(false),foldSpan,enter,back,binding,snapshot:()=>({entry:program().dataset.entry,top:topBlocks().map(x=>x.id),scope,focus})};
