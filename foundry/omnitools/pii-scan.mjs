@@ -63,7 +63,7 @@ const DETECTORS = [
 ];
 
 const IPV4 = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g;
-const ENTROPY_TOKEN = /[A-Za-z0-9+/_=-]{20,}/g;
+const ENTROPY_CANDIDATE_RE = /[A-Za-z0-9+/_=-]{20,}/g;
 const HEX = /^(?:0x)?[0-9a-fA-F]+$/;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '.venv', 'venv', '.cache', 'dist', 'build']);
@@ -123,8 +123,8 @@ function scanLine(ln, location, lineNo) {
     const priv = /^10\.|^192\.168\.|^127\.|^169\.254\.|^172\.(1[6-9]|2\d|3[01])\./.test(v);
     record('ipv4', priv ? 'low' : 'medium', v, location, lineNo);
   }
-  ENTROPY_TOKEN.lastIndex = 0;
-  if (opts.entropy > 0) while ((m = ENTROPY_TOKEN.exec(ln)) !== null) {
+  ENTROPY_CANDIDATE_RE.lastIndex = 0;
+  if (opts.entropy > 0) while ((m = ENTROPY_CANDIDATE_RE.exec(ln)) !== null) {
     const v = m[0];
     if (HEX.test(v)) continue;                       // shas / content hashes
     if (!/[0-9]/.test(v) || !/[A-Za-z]/.test(v)) continue;
