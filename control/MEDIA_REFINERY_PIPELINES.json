@@ -1,23 +1,51 @@
 {
-  "schema": "0xxx0/media-refinery-pipelines/v0.1",
+  "schema": "0xxx0/media-refinery-pipelines/v0.2",
   "default_profile": "archive-recovery",
   "global": {
     "workers": 4,
-    "exports": {"share": true, "memory": true},
+    "exports": {
+      "share": true,
+      "memory": true
+    },
     "source_mutation": false,
-    "recipes": {"auto_render": false, "max_candidates_per_batch": 4}
+    "recipes": {
+      "auto_render": false,
+      "max_candidates_per_batch": 4
+    }
   },
   "profiles": {
     "archive-recovery": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 24},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 24
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 8},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 4},
-      "videos": {"probe": true, "extract_frames": false},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 8
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 4
+      },
+      "videos": {
+        "probe": true,
+        "extract_frames": false
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "composition_subtype", "axis", "scaffold", "flow", "depth", "surface", "pattern", "meaning"]
+        "required_fields": [
+          "composition_class",
+          "composition_subtype",
+          "axis",
+          "scaffold",
+          "flow",
+          "depth",
+          "surface",
+          "pattern",
+          "meaning"
+        ]
       },
       "domain_constraints": [
         "Recover and deduplicate before any semantic grouping.",
@@ -27,13 +55,32 @@
     },
     "painting-composition": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 16},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 16
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 6},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 6},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 6
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 6
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "composition_subtype", "axis", "scaffold", "flow", "depth", "surface", "pattern", "meaning"]
+        "required_fields": [
+          "composition_class",
+          "composition_subtype",
+          "axis",
+          "scaffold",
+          "flow",
+          "depth",
+          "surface",
+          "pattern",
+          "meaning"
+        ]
       },
       "domain_constraints": [
         "Composition and surface/style must be annotated separately.",
@@ -43,13 +90,31 @@
     },
     "diagram-glyph": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 20},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 20
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 6},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 8},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 6
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 8
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "axis", "scaffold", "surface", "pattern", "meaning", "topology", "text_or_labels"]
+        "required_fields": [
+          "composition_class",
+          "axis",
+          "scaffold",
+          "surface",
+          "pattern",
+          "meaning",
+          "topology",
+          "text_or_labels"
+        ]
       },
       "domain_constraints": [
         "Preserve topology before surface variation.",
@@ -59,13 +124,31 @@
     },
     "anatomy-diagram": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 16},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 16
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 6},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 8},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 6
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 8
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "axis", "scaffold", "surface", "pattern", "meaning", "anatomical_region", "label_state"]
+        "required_fields": [
+          "composition_class",
+          "axis",
+          "scaffold",
+          "surface",
+          "pattern",
+          "meaning",
+          "anatomical_region",
+          "label_state"
+        ]
       },
       "domain_constraints": [
         "Do not infer medical correctness from visual similarity.",
@@ -75,13 +158,30 @@
     },
     "scroll-poetry": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 24},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 24
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 5},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 3},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 5
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 3
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "reading_path", "sequence_role", "surface", "pattern", "meaning", "text_or_poem_anchor"]
+        "required_fields": [
+          "composition_class",
+          "reading_path",
+          "sequence_role",
+          "surface",
+          "pattern",
+          "meaning",
+          "text_or_poem_anchor"
+        ]
       },
       "domain_constraints": [
         "Preserve ordering and reading path as first-class lineage.",
@@ -91,13 +191,29 @@
     },
     "state-mnemonic": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 20},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 20
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 6},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 6},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 6
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 6
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "state_variables", "transition_mapping", "surface", "pattern", "meaning"]
+        "required_fields": [
+          "composition_class",
+          "state_variables",
+          "transition_mapping",
+          "surface",
+          "pattern",
+          "meaning"
+        ]
       },
       "domain_constraints": [
         "STATE mapping must remain inspectable; beauty cannot erase state legibility.",
@@ -107,14 +223,33 @@
     },
     "selective-video": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 12},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 12
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": true, "max_clusters": 5},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 3},
-      "videos": {"probe": true, "extract_frames": false},
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 5
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 3
+      },
+      "videos": {
+        "probe": true,
+        "extract_frames": false
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["composition_class", "motion_role", "camera_role", "event_boundary", "surface", "meaning"]
+        "required_fields": [
+          "composition_class",
+          "motion_role",
+          "camera_role",
+          "event_boundary",
+          "surface",
+          "meaning"
+        ]
       },
       "domain_constraints": [
         "MOVE begins from a stable still/scene recipe; motion is not a substitute for unresolved composition.",
@@ -124,18 +259,74 @@
     },
     "project-proof": {
       "recursive": true,
-      "batching": {"mode": "folder_then_chunk", "max_items": 12},
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 12
+      },
       "contact_sheets": true,
-      "appearance_clustering": {"enabled": false, "max_clusters": 1},
-      "control_maps": {"mode": "exemplars", "max_per_batch": 2},
+      "appearance_clustering": {
+        "enabled": false,
+        "max_clusters": 1
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 2
+      },
       "semantic": {
         "auto_classify": false,
-        "required_fields": ["proof_claim", "project", "artifact_role", "before_after", "surface", "meaning"]
+        "required_fields": [
+          "proof_claim",
+          "project",
+          "artifact_role",
+          "before_after",
+          "surface",
+          "meaning"
+        ]
       },
       "domain_constraints": [
         "Proof media must identify the claim it supports.",
         "Do not optimize presentation before evidence identity is established.",
         "SHARE may be concise; MEMORY must preserve exact lineage."
+      ]
+    },
+    "visual-law-archaeology": {
+      "recursive": true,
+      "batching": {
+        "mode": "folder_then_chunk",
+        "max_items": 16
+      },
+      "contact_sheets": true,
+      "appearance_clustering": {
+        "enabled": true,
+        "max_clusters": 6
+      },
+      "control_maps": {
+        "mode": "exemplars",
+        "max_per_batch": 6
+      },
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": [
+          "composition_class",
+          "composition_subtype",
+          "axis",
+          "scaffold",
+          "flow",
+          "depth",
+          "surface",
+          "pattern",
+          "meaning",
+          "visual_law",
+          "implied_verb",
+          "op_art_role"
+        ]
+      },
+      "domain_constraints": [
+        "Index the visual mechanism that could survive transfer, not just subject matter or style labels.",
+        "visual_law must describe a perceivable relation or transformation; implied_verb must be an operation a user or system could enact.",
+        "op_art_role must be NONE, DECORATIVE_ONLY, or a concrete state relation such as mismatch, phase, reach, uncertainty, residue, or propagation.",
+        "Do not infer artist catalyst, prompt lineage, user reaction, project host, or reference dependence from pixels alone; those require supervisor/source evidence.",
+        "A visually striking image does not become an app candidate until a bounded baseline/falsifier can be named."
       ]
     }
   }
