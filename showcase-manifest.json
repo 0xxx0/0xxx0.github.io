@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T03:55:00+08:00",
+  "updated": "2026-10-03T03:48:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5429,13 +5429,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3.5",
+      "title": "LACONIC / ICONIC 0.3.6",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3.5",
+      "version": "0.3.6",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5446,7 +5446,8 @@
         "exact fragment/operator recovery",
         "exact-source vault browsing",
         "persona/plurality/Council lineage recovery",
-        "pocket trajectory projection"
+        "pocket trajectory projection",
+        "direct-address pocket/scene entry from FIELD"
       ],
       "contract": {
         "accepts": {
@@ -5509,7 +5510,8 @@
             "human-triggered handoff",
             "VAULT/current-layer separation",
             "generic council/proper-name distinction",
-            "POCKET references canonical SCENES; no duplicate content or adoption store"
+            "POCKET references canonical SCENES; no duplicate content or adoption store",
+            "FIELD exposes exactly DRAFT / DEAL ONE / TRAJECTORIES as target-bearing native actions"
           ],
           "return_path": "/laconic/"
         }
@@ -5550,6 +5552,24 @@
         ],
         "exit_paths": [
           {
+            "class": "DRAFT",
+            "status": "AVAILABLE",
+            "via": "DRAFT",
+            "target": "/laconic/?view=lines&return=field"
+          },
+          {
+            "class": "POCKET",
+            "status": "AVAILABLE",
+            "via": "DEAL ONE",
+            "target": "/laconic/?view=pocket&deal=1&return=field"
+          },
+          {
+            "class": "TRAJECTORIES",
+            "status": "AVAILABLE",
+            "via": "TRAJECTORIES",
+            "target": "/laconic/?view=scenes&return=field"
+          },
+          {
             "class": "COMMUNICATION",
             "status": "AVAILABLE",
             "via": "HUMAN PORT"
@@ -5560,10 +5580,11 @@
             "via": "response-move grammar"
           }
         ],
-        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
+        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool.",
+        "owner": "LACONIC / ICONIC"
       },
       "index": {
-        "updated_at": "2026-10-02T23:49:00+08:00",
+        "updated_at": "2026-10-03T03:48:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
