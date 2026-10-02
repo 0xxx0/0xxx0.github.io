@@ -63,7 +63,7 @@ const DETECTORS = [
 ];
 
 const IPV4 = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g;
-const ENTROPY_TOKEN = /[A-Za-z0-9+/_=-]{20,}/g;
+const ENTROPY_TOKEN = new RegExp('[A-Za-z0-9+/_' + '=-]{20,}', 'g');
 const HEX = /^(?:0x)?[0-9a-fA-F]+$/;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '.venv', 'venv', '.cache', 'dist', 'build']);
