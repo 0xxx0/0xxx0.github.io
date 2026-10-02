@@ -5,7 +5,7 @@ const release=JSON.parse(fs.readFileSync('prison-age/release.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
 const host=fs.readFileSync('prison-age/index.html','utf8');
 const runtime=fs.readFileSync('prison-age/engine-atlas.js','utf8');
-assert(atlas.schema==='prison-age.engine-atlas/v0.1','atlas schema');
+new Function(runtime); // syntax-only parse of browser runtime\nassert(atlas.schema==='prison-age.engine-atlas/v0.1','atlas schema');
 assert(atlas.authority.includes('NONE'),'atlas authority NONE');
 assert(atlas.cards.length===32,'32 cards');
 assert(atlas.cards.map(x=>x.n).join('|')===Array.from({length:32},(_,i)=>i+1).join('|'),'contiguous 01-32');
