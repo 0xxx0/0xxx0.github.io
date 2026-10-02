@@ -1,0 +1,71 @@
+/* LISTEN phone geometry — interaction truth, not a second theme.
+   The full-screen field remains sovereign. This file only reserves reliable
+   touch/visibility apertures around fixed chrome on narrow viewports. */
+@media (max-width:760px){
+  :root{
+    --listen-top:calc(max(8px,env(safe-area-inset-top)) + 86px);
+    --listen-bottom:calc(max(8px,env(safe-area-inset-bottom)) + 126px);
+  }
+  html,body,#app{width:100%;height:100svh;min-height:100svh;overflow:hidden;overscroll-behavior:none}
+  #app{position:relative;isolation:isolate}
+  #field,#overlay{display:block;position:fixed;inset:0;width:100vw;height:100svh;max-width:100vw;max-height:100svh}
+  #overlay{touch-action:none;pointer-events:auto}
+  header{left:8px;right:8px;min-width:0}
+  header>div:first-child{min-width:0;max-width:100%}
+  header>div:first-child span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  /* One compact scale rail. It never consumes the field vertically. */
+  .scopeRail{left:8px;right:8px;top:calc(max(8px,env(safe-area-inset-top)) + 34px);width:auto;min-width:0;grid-template-columns:52px repeat(4,minmax(0,1fr));}
+  .scopeRail button{min-width:0;min-height:40px;padding:7px 3px}
+  .railTitle{min-width:0;padding:6px 3px}
+
+  /* Deterministic three-row transport instead of flex-wrap roulette. */
+  .transportBar{
+    left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
+    display:grid;grid-template-columns:48px minmax(0,1fr);grid-template-rows:48px 24px 44px;
+    gap:1px;align-items:stretch;min-width:0;max-width:calc(100vw - 16px);overflow:visible;
+  }
+  .transportBar>*{min-width:0;padding:6px 8px}
+  .glyphBtn{grid-column:1;grid-row:1;width:48px!important;height:48px!important;min-width:48px!important;max-width:48px!important;padding:2px!important}
+  .glyphBtn span,.glyphBtn svg{width:42px!important;height:42px!important}
+  .trackBlock{grid-column:2;grid-row:1;min-width:0!important;width:auto;max-width:none;flex:none!important}
+  .trackBlock div{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .grow{display:none!important}
+  .transportMeta{grid-column:1/-1;grid-row:2;min-width:0;justify-content:space-between;padding:0 7px!important;overflow:hidden}
+  .transportMeta span{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .transportPrimary{grid-column:1/-1;grid-row:3;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;min-width:0;align-self:stretch}
+  .transportPrimary>button,.transportMore>summary{min-width:0!important;min-height:42px;height:42px;padding:0 3px!important;font-size:8px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .transportMore{min-width:0}
+  .transportMoreMenu{right:0;bottom:calc(100% + 5px);width:min(190px,calc(100vw - 16px));max-height:calc(100svh - var(--listen-top) - var(--listen-bottom));overflow:auto}
+
+  /* All modal work surfaces live inside the free field aperture. */
+  .useSheet,.pinSheet{
+    left:8px!important;right:8px!important;top:var(--listen-top)!important;bottom:var(--listen-bottom)!important;
+    width:auto!important;max-width:none!important;max-height:none!important;transform:none!important;overflow:auto!important;overscroll-behavior:contain;
+  }
+  .useGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .useGrid button{min-width:0;min-height:70px;padding:8px}
+  .useGrid span{font-size:9px;line-height:1.35}
+  .pinActions{grid-template-columns:1fr 1fr}.pinActions #pinDelete{grid-column:1/-1}
+
+  /* Intake must fit a phone without hiding the primary file action. */
+  .drop{
+    top:calc(max(8px,env(safe-area-inset-top)) + 80px);bottom:calc(max(8px,env(safe-area-inset-bottom)) + 12px);
+    left:8px;right:8px;inset-block:auto;transform:none;width:auto;max-height:none;padding:14px;overflow:auto;overscroll-behavior:contain;
+  }
+  .drop.over{transform:none}
+  .drop h1{font-size:clamp(38px,15vw,58px);margin:12px 0}
+  .drop p{margin:8px 0 12px}
+  .laws{grid-template-columns:1fr 1fr;margin:10px 0}
+  .savedSource,.sourceAddress{grid-template-columns:minmax(0,1fr)}
+  .chooseButton,.drop button{min-height:44px}
+
+  .centerHud{top:calc((var(--listen-top) + (100svh - var(--listen-bottom)))/2);max-width:calc(100vw - 32px)}
+  footer{display:none}
+}
+@media (max-width:430px){
+  .transportPrimary>button,.transportMore>summary{font-size:7px;letter-spacing:.035em}
+  .useGrid button{min-height:64px;padding:7px}
+  .useGrid span{margin-top:5px;font-size:8.5px}
+  .drop{padding:12px}
+}
