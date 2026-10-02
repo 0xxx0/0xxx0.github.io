@@ -915,6 +915,37 @@ function exactViewportHtml(route,w,h){
   f.addEventListener('load',snap);setInterval(snap,50);setTimeout(snap,0);
   <\/script></body></html>`;
 }
+function houseRealityProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/house/#PLAN"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=16000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const toggle=await waitFor(()=>D().querySelector('.rhToggle'));
+    await waitFor(()=>W().HOUSE_CONTEXT&&W().HOUSE_CONTEXT.address);
+    rec.address=W().HOUSE_CONTEXT.address;
+    toggle.click();
+    const overlay=await waitFor(()=>{const x=D().querySelector('.realityHarness');return x&&!x.hidden?x:null});
+    rec.open=!!overlay;
+    rec.rings=[...D().querySelectorAll('.rhRingLabel')].map(x=>x.textContent.trim());
+    rec.center=D().querySelector('.rhCenterMeta')?.textContent.trim()||'';
+    const harness=D().querySelector('[data-rh-layer="HARNESS"] .rhRing');
+    if(harness)harness.dispatchEvent(new W().MouseEvent('click',{bubbles:true}));
+    await sleep(120);
+    const detail=D().querySelector('.rhDetail')?.textContent||'';
+    rec.harnessDetail=/HARNESS \/ ENV-0/.test(detail);
+    rec.humanAgent=/HUMAN/.test(detail)&&/AGENT/.test(detail);
+    rec.routes=D().querySelectorAll('.rhDetail .rhRoutes a').length;
+    const sr=D().querySelector('.stage').getBoundingClientRect(),or=overlay.getBoundingClientRect();
+    rec.within=or.left>=sr.left-1&&or.right<=sr.right+1&&or.top>=sr.top-1&&or.bottom<=sr.bottom+1;
+    rec.addressStable=rec.center===rec.address&&W().HOUSE_CONTEXT.address===rec.address;
+    done(rec.open&&rec.rings.some(x=>/HARNESS/.test(x))&&rec.harnessDetail&&rec.humanAgent&&rec.routes>0&&rec.within&&rec.addressStable,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function settleProbeHtml(route,checkSrc,limitMs,w,h){
   const safeRoute=String(route).replace(/&/g,'&amp;');
   return `<!doctype html><html><body style="margin:0"><img id="hold" src="/__settle-hold" hidden><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
@@ -962,6 +993,10 @@ const server=http.createServer((req,res)=>{
     res.end(houseLocusProbeHtml());return;
   }
 
+  if(String(req.url||'').startsWith('/__smoke/house-reality')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(houseRealityProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/fold-bloom-live-mobile-behavior')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(foldBloomLiveMobileBehaviorProbeHtml());return;
@@ -1648,6 +1683,13 @@ const CASES=[
     options:{width:460,height:940,settleLimit:24000,timeout:32000},
     settle:true,
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"roomVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"formInPlace":true/.test(dom)&&/"planVisibleAfter":true/.test(dom)&&/"hashUntouched":true/.test(dom)&&/"apertureStillVisible":true/.test(dom)&&/"formBound":true/.test(dom)
+  },
+  {
+    name:'HOUSE REALITY harness',
+    route:'/__smoke/house-reality',
+    options:{width:460,height:940,settleLimit:26000,timeout:34000},
+    settle:true,
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"open":true/.test(dom)&&/"harnessDetail":true/.test(dom)&&/"humanAgent":true/.test(dom)&&/"within":true/.test(dom)&&/"addressStable":true/.test(dom)
   },
   {
     name:'HOUSE SPATIAL',

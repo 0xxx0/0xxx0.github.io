@@ -125,10 +125,20 @@
   if (typeof document === 'undefined' || typeof window === 'undefined') return;
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const FLOW = [
+    {key:'before',label:'BEFORE',hint:'OBSERVE',placeholder:'what is actually true now'},
+    {key:'intent',label:'INTENT',hint:'PREFER',placeholder:'what should become easier?'},
+    {key:'change',label:'CHANGE',hint:'TURN',placeholder:'smallest useful intervention'},
+    {key:'verify',label:'VERIFY',hint:'TEST',placeholder:'what observation discriminates better / worse?'},
+    {key:'after',label:'AFTER',hint:'OBSERVE',placeholder:'what changed in the world?'},
+    {key:'decision',label:'DECIDE',hint:'RETURN',placeholder:''},
+    {key:'return',label:'RETURN',hint:'EXPORT',placeholder:''}
+  ];
   let context = root.HOUSE_CONTEXT || { address: '', label: '', projection: 'PLAN' };
   let trials = [];
   let activeId = null;
   let panel = null;
+  let focusStep = null;
 
   function load() {
     try {
@@ -161,11 +171,42 @@
     return t;
   }
 
+  function inferredStep(t) {
+    if (!t.before) return 'before';
+    if (!t.intent) return 'intent';
+    if (!t.change) return 'change';
+    if (!t.verify) return 'verify';
+    if (!t.after) return 'after';
+    const check = validate(t);
+    return check.ready ? 'return' : 'decision';
+  }
+
   function style() {
     if (document.getElementById('houseDesignStyle')) return;
     const s = document.createElement('style');
     s.id = 'houseDesignStyle';
-    s.textContent = '.designTrial{display:grid;gap:7px}.designTrial label{display:grid;gap:3px;color:var(--mut);font-size:8px;letter-spacing:.08em}.designTrial textarea,.designTrial select{width:100%;min-height:34px;resize:vertical;font:10px/1.4 system-ui,sans-serif;color:var(--ink);background:#0b0f12;border:1px solid var(--line);padding:7px}.designTrial textarea{min-height:54px}.designState{font-size:8px;letter-spacing:.12em;color:var(--cool)}.designMeta{font-size:8px;color:var(--mut)}.designTrial .designActions{display:flex;gap:5px;flex-wrap:wrap}.designTrial button{font-size:8px;min-height:30px}.designTrial .fitAttached{border-left:2px solid var(--cool);padding-left:7px;color:#a8b0b4;font-size:9px}';
+    s.textContent = `
+    #designTrialPanel{overflow:hidden}
+    .designTrial{display:grid;gap:8px}
+    .designHead{display:flex;justify-content:space-between;gap:8px;align-items:start}
+    .designState{font-size:8px;letter-spacing:.12em;color:var(--cool)}
+    .designMeta{font-size:7px;color:var(--mut);margin-top:2px}
+    .designFlow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;position:relative}
+    .designFlow button{position:relative;min-width:0;padding:5px 1px;min-height:42px;border-color:#263137;background:#090e11;color:#718087;font-size:6px;letter-spacing:.06em;overflow:hidden}
+    .designFlow button span{display:block;font-size:5px;color:#59666c;margin-top:2px}
+    .designFlow button.done{color:#c8dde5;border-color:#47616c}.designFlow button.active{color:#f4f7f6;border-color:var(--vio,#b392d6);box-shadow:inset 0 -2px 0 rgba(179,146,214,.5)}
+    .designFlow button.blocked{opacity:.45}
+    .designEditor{border:1px solid var(--line);background:#091014;padding:8px;display:grid;gap:7px}
+    .designEditor label{display:grid;gap:3px;color:var(--mut);font-size:8px;letter-spacing:.08em}
+    .designEditor textarea,.designEditor select{width:100%;min-height:38px;resize:vertical;font:10px/1.4 system-ui,sans-serif;color:var(--ink);background:#0b0f12;border:1px solid var(--line);padding:7px}
+    .designEditor textarea{min-height:58px}
+    .designEditor .primary{border-color:var(--vio,#b392d6);color:#eadfff}
+    .designActions{display:flex;gap:5px;flex-wrap:wrap}.designActions button{font-size:8px;min-height:30px}
+    .fitAttached{border-left:2px solid var(--cool);padding-left:7px;color:#a8b0b4;font-size:9px}
+    .designProof{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .designProof strong{font-size:9px}.designProof small{color:var(--mut);font-size:7px}
+    @media(max-width:850px){.designFlow button{min-height:38px;font-size:5px}.designFlow button span{display:none}}
+    `;
     document.head.appendChild(s);
   }
 
@@ -187,29 +228,51 @@
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
   }
 
-  function bind() {
+  function statusFor(t,key){
+    if(key==='return') return validate(t).ready ? 'done' : 'blocked';
+    if(key==='decision') return t.after ? 'done' : 'blocked';
+    return clean(t[key]) ? 'done' : '';
+  }
+
+  function editorMarkup(t,key,check){
+    if(key==='return'){
+      return '<div class="designEditor"><div class="designProof"><div><strong>'+esc(check.ready?'RETURN READY':'RETURN BLOCKED')+'</strong><br><small>'+esc(check.ready?'bounded physical delta can leave the local trial':'missing '+check.missing.join(' · '))+'</small></div><button class="primary" data-design-return '+(check.ready?'':'disabled')+'>EXPORT RETURN</button></div><div class="note">RETURN preserves the address, before/change/after, verification, decision and residue. It never certifies structural, utility, fire, load or code fitness.</div></div>';
+    }
+    if(key==='decision'){
+      return '<div class="designEditor"><label>DECISION<select data-design-field="decision">'+DECISIONS.map(d=>'<option '+(d===t.decision?'selected':'')+'>'+d+'</option>').join('')+'</select></label><label>RESIDUE · what remains unknown<textarea data-design-field="residue" placeholder="simulation gap / missing measure / side effect">'+esc(t.residue)+'</textarea></label><div class="designActions"><button data-step-next="return">REVIEW RETURN →</button></div></div>';
+    }
+    const def=FLOW.find(x=>x.key===key);
+    const extra=key==='change'
+      ? '<label>CONSTRAINTS · preserve<textarea data-design-field="constraints" placeholder="clearance, access, light, power, budget, safety">'+esc(t.constraints)+'</textarea></label>'+(t.fit_receipt?'<div class="fitAttached">FIT RECEIPT · '+esc(t.fit_receipt.status||'ATTACHED')+' · dimensional evidence only</div>':'')+'<div class="designActions"><button data-design-fit>ATTACH CURRENT FIT</button><button data-step-next="verify">VERIFY →</button></div>'
+      : '<div class="designActions"><button data-step-next="'+esc(FLOW[FLOW.findIndex(x=>x.key===key)+1]?.key||'return')+'">NEXT →</button></div>';
+    return '<div class="designEditor"><label>'+esc(def.label)+' · '+esc(def.hint)+'<textarea data-design-field="'+esc(key)+'" placeholder="'+esc(def.placeholder)+'">'+esc(t[key])+'</textarea></label>'+extra+'</div>';
+  }
+
+  function emitState(t,check){
+    const detail={schema:'house-design-ui-state/v0.1',trial_id:t.id,address:t.address,state:check.state,missing:check.missing.slice(),decision:t.decision,focus_step:focusStep||inferredStep(t),updated_at:t.updated_at};
+    root.HOUSE_DESIGN_STATE=detail;
+    window.dispatchEvent(new CustomEvent('house:design-state',{detail}));
+  }
+
+  function bind(t) {
     panel.querySelectorAll('[data-design-field]').forEach((el) => {
       el.addEventListener('change', () => setField(el.dataset.designField, el.value));
     });
-    panel.querySelector('[data-design-new]').onclick = () => { ensureActive(true); render(); };
-    panel.querySelector('[data-design-fit]').onclick = () => {
-      const t = current(); if (!t) return;
-      let receipt = null;
-      try { receipt = JSON.parse(sessionStorage.getItem('house.shopping.fit.return.v01') || 'null'); } catch (_) {}
-      const next = attachFit(t, receipt);
-      const i = trials.findIndex((x) => x.id === t.id);
-      if (i >= 0) trials[i] = next;
-      persist(); render();
+    panel.querySelectorAll('[data-design-step]').forEach((el)=>el.onclick=()=>{focusStep=el.dataset.designStep;render()});
+    panel.querySelectorAll('[data-step-next]').forEach((el)=>el.onclick=()=>{focusStep=el.dataset.stepNext;render()});
+    const n=panel.querySelector('[data-design-new]');if(n)n.onclick=()=>{ensureActive(true);focusStep='before';render()};
+    const fit=panel.querySelector('[data-design-fit]');if(fit)fit.onclick=()=>{
+      const cur=current(); if(!cur) return;
+      let receipt=null;
+      try { receipt=JSON.parse(sessionStorage.getItem('house.shopping.fit.return.v01')||'null'); } catch (_) {}
+      const next=attachFit(cur,receipt);
+      const i=trials.findIndex(x=>x.id===cur.id);if(i>=0)trials[i]=next;
+      persist();focusStep='change';render();
     };
-    panel.querySelector('[data-design-return]').onclick = () => {
-      const t = current(); if (!t) return;
-      try {
-        const receipt = makeReturn(t);
-        download(receipt.trial_id + '.house-design-return.json', receipt);
-      } catch (e) {
-        const msg = panel.querySelector('[data-design-msg]');
-        msg.textContent = 'RETURN BLOCKED · ' + (e.missing || []).join(' · ');
-      }
+    const ret=panel.querySelector('[data-design-return]');if(ret)ret.onclick=()=>{
+      const cur=current();if(!cur)return;
+      try{const receipt=makeReturn(cur);download(receipt.trial_id+'.house-design-return.json',receipt)}
+      catch(e){const msg=panel.querySelector('[data-design-msg]');if(msg)msg.textContent='RETURN BLOCKED · '+(e.missing||[]).join(' · ')}
     };
   }
 
@@ -224,25 +287,18 @@
     t.address_label = context.label;
     t.projection = context.projection || t.projection;
     const check = validate(t);
-    const fit = t.fit_receipt ? '<div class="fitAttached">FIT RECEIPT · '+esc(t.fit_receipt.status||'ATTACHED')+' · evidence-only dimensional screen</div>' : '';
-    panel.innerHTML = '<div class="k">DESIGN TRIAL · LOCAL / REVERSIBLE-FIRST</div>'+
-      '<div class="designTrial">'+
-      '<div class="designState">'+esc(check.state)+' · '+esc(t.address_label||t.address)+'</div>'+
-      '<div class="designMeta">'+esc(t.address)+' · '+esc(t.projection)+' · '+esc(t.id)+'</div>'+
-      '<label>BEFORE · observed condition<textarea data-design-field="before" placeholder="what is actually true now">'+esc(t.before)+'</textarea></label>'+
-      '<label>INTENT · what should become easier<textarea data-design-field="intent" placeholder="one outcome, not a solution">'+esc(t.intent)+'</textarea></label>'+
-      '<label>CHANGE · smallest reversible intervention<textarea data-design-field="change" placeholder="move / remove / add / route / mark / mount / build">'+esc(t.change)+'</textarea></label>'+
-      '<label>CONSTRAINTS · preserve<textarea data-design-field="constraints" placeholder="clearance, cat path, power, access, light, budget, safety">'+esc(t.constraints)+'</textarea></label>'+
-      '<label>VERIFY · observable test<textarea data-design-field="verify" placeholder="what evidence would discriminate better/worse?">'+esc(t.verify)+'</textarea></label>'+
-      '<label>AFTER · observed result<textarea data-design-field="after" placeholder="what changed in the world?">'+esc(t.after)+'</textarea></label>'+
-      '<label>DECISION<select data-design-field="decision">'+DECISIONS.map((d)=>'<option '+(d===t.decision?'selected':'')+'>'+d+'</option>').join('')+'</select></label>'+
-      '<label>RESIDUE · what remains unknown<textarea data-design-field="residue" placeholder="simulation gap / missing measure / side effect">'+esc(t.residue)+'</textarea></label>'+
-      fit+
-      '<div class="designActions"><button data-design-new>NEW TRIAL</button><button data-design-fit>ATTACH FIT</button><button data-design-return>EXPORT RETURN</button></div>'+
-      '<div class="note" data-design-msg>'+(check.ready?'RETURN READY':'missing · '+esc(check.missing.join(' · ')))+'</div>'+
-      '<div class="note">Local browser state only. ADOPT records a human choice; it does not certify structure, utilities, fire safety, load, code compliance, or HA/HOUSEBUS action.</div>'+
+    if(!focusStep)focusStep=inferredStep(t);
+    const flow=FLOW.map(x=>{
+      const status=statusFor(t,x.key);
+      return '<button data-design-step="'+x.key+'" class="'+status+(focusStep===x.key?' active':'')+'">'+x.label+'<span>'+x.hint+'</span></button>';
+    }).join('');
+    panel.innerHTML='<div class="k">DESIGN TRIAL · ONE LOCUS / ONE DELTA</div><div class="designTrial">'+
+      '<div class="designHead"><div><div class="designState">'+esc(check.state)+' · '+esc(t.address_label||t.address)+'</div><div class="designMeta">'+esc(t.address)+' · '+esc(t.projection)+' · '+esc(t.id)+'</div></div><button data-design-new>NEW</button></div>'+
+      '<div class="designFlow">'+flow+'</div>'+
+      editorMarkup(t,focusStep,check)+
+      '<div class="note" data-design-msg>'+esc(check.ready?'complete · export when the observed consequence is worth keeping':'current gate · '+focusStep)+'</div>'+
       '</div>';
-    bind();
+    bind(t);emitState(t,check);
   }
 
   function boot() {
@@ -258,6 +314,7 @@
       context = Object.assign({}, context, e.detail || {});
       const existing = latestForAddress(context.address);
       activeId = existing ? existing.id : null;
+      focusStep=null;
       render();
     });
   }

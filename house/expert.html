@@ -54,7 +54,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
 </header>
 <div class="kernel"><span class="on">OBJECT</span><span class="on">ADDRESS</span><span class="on">PROJECT</span><span>OPERATE</span><span>RETURN</span></div>
 <div class="bar">
-  <span>generated <b id="gen">—</b></span><span>source age <b id="age">—</b></span>
+  <span>generated <b id="gen">—</b></span><span>snapshot age <b id="age">—</b></span>
   <span>runtime <b id="rt">—</b></span><span>schema <b id="sch">—</b></span>
   <a href="../" aria-label="Field index">← FIELD INDEX</a><a href="../returns/" aria-label="Return field">RETURN →</a>
 </div>
@@ -90,6 +90,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
   <div class="m" id="foot">OBSERVED · INFERRED · STALE · UNAVAILABLE are kept distinct. No private addresses, identifiers, keys, presence data or streams appear here.</div>
 </footer>
 </main>
+<script src="./runtime-witness.js"></script>
 <script>
 (function(){
  var cls={HEALTHY:'h',PARTIAL:'p',OFFLINE:'o',BLOCKED:'o',STAGED:'m',QUARANTINED:'c',UNAVAILABLE:'m',FRESH:'h',AGING:'p',STALE:'o',RECORDED:'m',OBSERVED:'h',UNKNOWN:'p',LOCAL:'h',CLOUD:'c',SAFE:'h',DISABLED:'o',LIVE_IN_HA:'h',LIVE_OUTSIDE_HA:'c',HISTORICALLY_SEEN:'p',NOT_YET_INGESTED:'m',UNRESOLVED:'p',NO_DIRECT_ACTUATION:'m'};
@@ -97,7 +98,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
  function badge(v){return '<span class="tag '+esc(cls[v]||'m')+'">'+esc(v)+'</span>'}
  function table(head,rows){return '<table><thead><tr>'+head.map(function(h){return '<th>'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'}
  function ageStr(s){if(s==null)return 'UNAVAILABLE';if(s<90)return s+'s';if(s<5400)return Math.round(s/60)+'m';if(s<172800)return Math.round(s/3600)+'h';return Math.round(s/86400)+'d'}
- var app=document.getElementById('app'),lastProjection=null;
+ var app=document.getElementById('app'),lastProjection=null,lastWitness=null;
  var BODYKEY='0xxx0.body.field.latest.v01',HOUSEKEY='0xxx0.house.body.context.v01';
  function readLocal(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(_){return null}}
  function renderBodyBridge(){
@@ -105,21 +106,21 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
   if(b){bt.textContent=(b.state&&b.state.label)||'body return';bm.innerHTML='<strong>'+esc(new Date(b.observed_at).toLocaleString())+'</strong> · itch '+esc(b.state&&b.state.itch)+' · pain '+esc(b.state&&b.state.pain)+' · '+esc(b.context&&b.context.place||'')+(b.context&&b.context.area?' / '+esc(b.context.area):'')+'<br>'+esc((b.context&&b.context.environment||[]).join(' · '))}
   else{bt.textContent='none yet';bm.textContent='BODY / FIELD can publish its latest local return here without committing personal state.'}
   var title=document.getElementById('houseLocalTitle'),sel=document.getElementById('houseArea');
-  if(lastProjection){title.textContent=(lastProjection.runtime_health_class||'—')+' · '+(lastProjection.source_age_class||'—');sel.innerHTML='<option value="">area optional</option>'+((lastProjection.areas||[]).map(function(a){return '<option value="'+esc(a.id||a.label)+'">'+esc(a.label||a.id)+'</option>'}).join(''))}
+  if(lastProjection){title.textContent=(lastProjection.runtime_health_class||'—')+' @ GEN · SNAPSHOT '+((lastWitness&&lastWitness.freshness)||'UNKNOWN');sel.innerHTML='<option value="">area optional</option>'+((lastProjection.areas||[]).map(function(a){return '<option value="'+esc(a.id||a.label)+'">'+esc(a.label||a.id)+'</option>'}).join(''))}
   else title.textContent='projection not loaded';
  }
  document.getElementById('attachHouseBody').onclick=function(){
   if(!lastProjection)return;
-  var area=document.getElementById('houseArea').value||null,packet={schema:'0xxx0/house-body-context/v0.1',generated_at:lastProjection.generated_at||null,source_age_class:lastProjection.source_age_class||null,runtime_health_class:lastProjection.runtime_health_class||null,area:area,projection_schema:lastProjection.schema||null,classification:lastProjection.classification||null};
+  var area=document.getElementById('houseArea').value||null,packet={schema:'0xxx0/house-body-context/v0.1',generated_at:lastProjection.generated_at||null,source_age_class:lastProjection.source_age_class||null,snapshot_freshness:(lastWitness&&lastWitness.freshness)||null,runtime_health_class:lastProjection.runtime_health_class||null,area:area,projection_schema:lastProjection.schema||null,classification:lastProjection.classification||null};
   localStorage.setItem(HOUSEKEY,JSON.stringify(packet));document.getElementById('houseLocalTitle').textContent='ATTACHED · '+(packet.runtime_health_class||'—');location.assign('../body/');
  };
  document.getElementById('clearHouseBody').onclick=function(){localStorage.removeItem(HOUSEKEY);renderBodyBridge()};
  renderBodyBridge();
  function render(d){
-  lastProjection=d;renderBodyBridge();
+  lastProjection=d;lastWitness=window.HouseRuntimeWitness?window.HouseRuntimeWitness.describe(d):null;renderBodyBridge();
   document.getElementById('gen').textContent=d.generated_at||'—';
-  document.getElementById('age').textContent=ageStr(d.source_age_seconds)+' ('+(d.source_age_class||'—')+')';
-  document.getElementById('rt').textContent=d.runtime_health_class||'—';
+  document.getElementById('age').textContent=lastWitness?(lastWitness.age_label+' ('+lastWitness.freshness+')'):(ageStr(d.source_age_seconds)+' @ GEN');
+  document.getElementById('rt').textContent=(d.runtime_health_class||'—')+' @ GEN';
   document.getElementById('sch').textContent=d.schema||'—';
   var c=d.counts||{},h='';
   // RUNTIME

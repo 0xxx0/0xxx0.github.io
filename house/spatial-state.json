@@ -66,7 +66,7 @@
     "Every meaningful change may return evidence / receipt to the FIELD return path.",
     "3D/photogrammetry/world views may be used whenever they remain evidence-bounded projections of the same addressed substrate; inferred geometry must not masquerade as measured geometry."
   ],
-  "current_thin_slice": "Use the shared spatial substrate to close one real addressed design trial: verified local observation → reversible intervention → discriminating verification → after-state → RETURN. Calibrate only the geometry the trial actually needs; 3D remains a projection of the same IDs.",
+  "current_thin_slice": "One selected real HOUSE locus -> contextual reality layer -> smallest useful operation -> witness/RETURN. Calibrate or enrich only the layer required by that operation.",
   "not_now": [
     "duplicate House OS architecture",
     "sensor-rich inference before geometry is trustworthy",
@@ -103,8 +103,8 @@
   },
   "operational_head": {
     "route": "/house/",
-    "version": "0.8.0",
-    "status": "RECONSTRUCTED_CURRENT_HEAD + ADDRESSED_DESIGN_TRIAL",
+    "version": "0.9.0",
+    "status": "RECONSTRUCTED_CURRENT_HEAD + DESIGN_TRIAL + REALITY_HARNESS",
     "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
     "machine_model": "/house/spatial/model.json"
   },
@@ -169,5 +169,19 @@
     "storage": "browser local only",
     "physical_gate": "canonical model promotion requires independent measurement/evidence; ADOPT is not structural/safety/code approval",
     "receipt": "/returns/HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json"
+  },
+  "reality_harness": {
+    "status": "ACTIVE_CANDIDATE",
+    "model": "/house/reality-stack.json",
+    "route": "/house/ REALITY ◎",
+    "invariant": "selected spatial address remains stable while the user changes contextual layer or follows a related-project re-entry edge",
+    "physical_layers": "BODY -> HARNESS -> OBJECT -> ROOM -> HOUSE -> NETWORK",
+    "cross_relations": [
+      "TIME",
+      "PEOPLE",
+      "AGENT",
+      "RETURN"
+    ],
+    "authority": "projection/navigation only"
   }
 }
