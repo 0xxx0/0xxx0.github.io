@@ -1,0 +1,204 @@
+{
+  "schema": "0xxx0/source-hold-turn-trace-return/v0.1",
+  "updated": "2026-10-02T20:06:00+08:00",
+  "status": "ACTIVE_PROTOCOL",
+  "purpose": "Default bounded execution loop for humans and coding/agent models. Preserve exact source identity, expose one small lawful move, verify consequence, return evidence, then release authority and replan.",
+  "short": "What exactly? → Hold one thing → Make one bounded move → Prove what changed → Write what came back.",
+  "sequence": [
+    "SOURCE",
+    "HOLD",
+    "TURN",
+    "TRACE",
+    "RETURN"
+  ],
+  "invariants": [
+    "One loop carries one addressed object/focus. Projection changes do not create a new object.",
+    "At most three lawful native moves may be exposed while HOLD is active.",
+    "TURN means one bounded native move. If that move has EFFECT authority, an explicit host-native RELEASE/commit gate is required before dispatch.",
+    "TRACE records observation/evidence only; it never creates permission, priority, identity or authority.",
+    "RETURN closes the move. No second move inherits authority from the first.",
+    "PASS requires executed checks. Missing human/device/world evidence is INDETERMINATE/UNKNOWN, not PASS.",
+    "If a stage cannot satisfy its exit condition, STOP and name the missing condition. Do not forage for substitute work."
+  ],
+  "stages": [
+    {
+      "id": "SOURCE",
+      "question": "What exact thing are we acting on?",
+      "entry": [
+        "A request, signal, issue, object or returned residue exists.",
+        "No exact canonical object/focus is yet fixed for this move, OR a prior RETURN requires fresh replanning."
+      ],
+      "operation": [
+        "Resolve the authoritative owner and exact address/version/ref.",
+        "Separate source facts from derived interpretation.",
+        "Record only the source refs needed to recover the object."
+      ],
+      "exit": [
+        "Exactly one primary object/focus is named.",
+        "Owner + exact address/ref are known.",
+        "If authority/source cannot be resolved, exit STOP_UNKNOWN rather than guessing."
+      ],
+      "example": "Stale architecture-map report → source /nexus/map.html at its current blob SHA; owner is 0xxx0/0xxx0.github.io; /control/CURRENT.json and showcase-manifest.json are supporting sources, not substitute authority."
+    },
+    {
+      "id": "HOLD",
+      "question": "What are we holding constant while we act?",
+      "entry": [
+        "SOURCE exited with an exact object/focus and owner.",
+        "Inspection/read access for the intended move is lawful."
+      ],
+      "operation": [
+        "Freeze object id/address, current focus, objective, constraints and RETURN address.",
+        "Expose 1–3 native moves maximum.",
+        "Name the stop rule and any required commit/release boundary."
+      ],
+      "exit": [
+        "Object/focus can be re-identified after interruption.",
+        "The allowed move set and authority boundary are explicit.",
+        "RETURN address is known before action."
+      ],
+      "example": "Hold the current system-map object; objective = make its architecture current; allowed moves = edit map, verify map, return evidence; stop if the current root/manifest authority disagrees."
+    },
+    {
+      "id": "TURN",
+      "question": "What is the one bounded move?",
+      "entry": [
+        "HOLD is valid.",
+        "One supported native move has been selected.",
+        "Required permissions/constraints are satisfied."
+      ],
+      "operation": [
+        "Preview declared consequence and reversibility when available.",
+        "Perform one bounded native operation only.",
+        "For VIEW/NAVIGATION/OFFER moves, TURN may complete directly.",
+        "For EFFECT moves, cross an explicit host-native RELEASE/commit boundary; the carrier/protocol itself never dispatches effects."
+      ],
+      "exit": [
+        "The native operation was attempted once and produced a result handle, changed artifact, commit/ref, or explicit failure.",
+        "No unrelated second move was started.",
+        "If the move was unsupported or authority was absent, exit STOP_UNSUPPORTED."
+      ],
+      "example": "Patch the existing architecture map and its exact navigation/manifest references as one bounded repo change set; do not use the same authority to start a second redesign."
+    },
+    {
+      "id": "TRACE",
+      "question": "What actually happened?",
+      "entry": [
+        "TURN produced an attempted result or explicit failure."
+      ],
+      "operation": [
+        "Run machine-verifiable checks first: syntax, invariant/unit tests, replay/fixtures, responsive/browser smoke, route/link checks, diff/roundtrip as applicable.",
+        "Record PASS, FAIL or INDETERMINATE per claim.",
+        "Separate repository/software proof from real-device, human, physical or social evidence."
+      ],
+      "exit": [
+        "Every material claim has an evidence ref or is explicitly UNKNOWN/INDETERMINATE.",
+        "Observed consequence is distinguishable from forecast/intention.",
+        "Failure is preserved rather than rewritten as success."
+      ],
+      "example": "Static parse confirms one HTML/SVG document and all 11 requested nodes; committed root link + manifest entry are re-read successfully; live browser rendering remains INDETERMINATE if no browser/CI run is available."
+    },
+    {
+      "id": "RETURN",
+      "question": "What came back, and what is now reusable?",
+      "entry": [
+        "TRACE exists, including failures/unknowns."
+      ],
+      "operation": [
+        "Write durable before → after delta, evidence refs, residue/lesson and unresolved unknowns.",
+        "Record the exact object/result identity needed for re-entry.",
+        "Release the held execution authority.",
+        "Set next = NONE unless a new SOURCE/HOLD cycle explicitly replans."
+      ],
+      "exit": [
+        "A durable receipt or equivalent evidence object exists.",
+        "The loop is closed and resumable from source + evidence.",
+        "No next action is implied by completion alone."
+      ],
+      "example": "Write /returns/SYSTEM_MAP_CONVERGENCE_2026-10-02.json with before/after/evidence/residue; then stop. Any further architecture work begins again at SOURCE."
+    }
+  ],
+  "outcome": {
+    "states": [
+      "RETURNED",
+      "STOP_UNKNOWN",
+      "STOP_UNSUPPORTED",
+      "FAILED",
+      "INDETERMINATE"
+    ],
+    "rule": "RETURNED means the bounded loop closed with durable evidence; it does not mean the domain is solved."
+  },
+  "agent_contract": {
+    "use_when": "Any coding, repo, design, research, planning or world-facing task that can be reduced to one addressed object and one bounded move.",
+    "required_packet": [
+      "source.object_id",
+      "source.owner",
+      "source.address_or_ref",
+      "hold.focus",
+      "hold.objective",
+      "hold.return_address",
+      "hold.moves <= 3",
+      "turn.selected_native_move",
+      "turn.effect_boundary",
+      "trace.checks",
+      "return.delta",
+      "return.evidence_refs",
+      "return.unknowns"
+    ],
+    "prohibitions": [
+      "Do not infer authority from route, projection, chat, branch, score or prior success.",
+      "Do not call an effect TURN-only; EFFECT requires explicit native RELEASE/commit.",
+      "Do not substitute receipt-writing for a useful change.",
+      "Do not claim human/device/world proof from synthetic or repository checks.",
+      "Do not continue into a second move without a fresh SOURCE/HOLD."
+    ],
+    "stop_rule": "If the highest-value next step is genuinely human/world gated, perform at most one directly-related preparatory fallback, RETURN it, then STOP with the exact gate."
+  },
+  "coding_model_template": {
+    "SOURCE": {
+      "object_id": "",
+      "owner": "",
+      "address_or_ref": "",
+      "source_refs": [],
+      "facts": [],
+      "unknowns": []
+    },
+    "HOLD": {
+      "focus": "",
+      "objective": "",
+      "constraints": [],
+      "moves": [],
+      "return_address": "",
+      "stop_rule": ""
+    },
+    "TURN": {
+      "selected_native_move": "",
+      "authority": "VIEW|NAVIGATION|EDIT|EFFECT|OFFER",
+      "effect_boundary": "NONE|HOST_NATIVE_RELEASE",
+      "expected_consequence": "",
+      "reversibility": ""
+    },
+    "TRACE": {
+      "checks": [],
+      "status": "PASS|FAIL|INDETERMINATE",
+      "evidence_refs": [],
+      "unknowns": []
+    },
+    "RETURN": {
+      "before": "",
+      "after": "",
+      "delta": "",
+      "residue": "",
+      "evidence_refs": [],
+      "unknowns": [],
+      "next": "NONE"
+    }
+  },
+  "related": [
+    "/control/CURRENT.json",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "/lib/interphase-carrier.js",
+    "/returns/"
+  ]
+}
