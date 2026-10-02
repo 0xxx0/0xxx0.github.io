@@ -1,30 +1,23 @@
 {
   "schema": "release-receipt/v1",
   "name": "SLEEPER // ONE RETURN",
-  "version": "v2-era / City Engine v0.2 · canonical live route",
-  "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
-  "amended": "2026-09-22",
+  "version": "v2-era / City Engine v0.2 + RETURN BRIDGE 0.1",
+  "state": "CANONICAL_REPOSITORY_RUNTIME_STATIC_PORT",
+  "amended": "2026-10-03",
   "route": "/sleeper/",
   "authority": {
     "exact_source": "/recovery/sleeper/site-source-2026-09-18/",
+    "source_manifest": "/recovery/sleeper/site-source-2026-09-18/manifest.json",
     "source_bundle_commit": "50f886c829dcee98b043c55ef9de0c631fd31987",
+    "source_bundle_boundary": "The commit is attested by the frozen recovery manifest as the 2026-09-18 ChatGPT Sites Git bundle commit; it is not claimed to resolve as a commit in this repository.",
     "core_history_commit": "a9c00285df143f3c2054b2167e86ee2f6db2ae1f",
     "historical_route": "https://sleeper-one-return.metaname.chatgpt.site/",
-    "current_reachability": "USER_RECOVERED_LIVE_2026-09-22"
+    "historical_route_role": "historical deployment reference; no longer the repository redirect target"
   },
   "identity": {
     "compiler": "PHRASE + VERSE CELL + FIGURE → deterministic city",
-    "figures": [
-      "urchin",
-      "slothcake",
-      "kite"
-    ],
-    "operators": [
-      "conch",
-      "keris",
-      "w8",
-      "spiral"
-    ],
+    "figures": ["urchin", "slothcake", "kite"],
+    "operators": ["conch", "keris", "w8", "spiral"],
     "circuit": [
       "PROVENANCE",
       "TRUTH",
@@ -45,7 +38,43 @@
       "production Work build passed",
       "three rendered-route tests passed"
     ],
-    "boundary": "Exact recovered source and prior build evidence do not prove current historical-host reachability or pixel identity of every deployed version."
+    "native_port_review": [
+      "FNV-1a Unicode-code-point hash, NFC/uppercase source normalization and seeded RNG checked against frozen app/lib/seed.ts",
+      "world compiler and deterministic key/loop derivation checked against frozen world-law.ts",
+      "tool Gate decisions and TRUTH / MEASURE / RESILIENCE progress laws checked against frozen protocol.ts",
+      "Return Artifact v2 schema and derivation checked against frozen world-law.ts",
+      "continuous native route evidence explicitly separated from canonical sleeper.route-witness/v0.1"
+    ],
+    "boundary": "Recovered-source tests and historical build evidence support the source law. The repository host is a new static port and does not claim historical deployment byte or pixel identity."
+  },
+  "runtime": {
+    "canonical_address": "/sleeper/",
+    "host_build": "native static port 2026-10-03",
+    "implementation": [
+      "/sleeper/index.html",
+      "/sleeper/native-core.js",
+      "/sleeper/native-engine.js",
+      "/sleeper/native-ui.js",
+      "/sleeper/native.css"
+    ],
+    "source_basis": "/recovery/sleeper/site-source-2026-09-18/",
+    "relation": "Dependency-free GitHub Pages port of the recovered v2-era City Engine law. Frozen recovered TypeScript remains exact source authority.",
+    "preserves": [
+      "deterministic source/cell/figure world compilation",
+      "six Verse Cells and three Figure timing/physics profiles",
+      "27×27 seeded city construction and world-law loop count",
+      "eight distinct proof-bearing Gate protocols",
+      "RETURN_TO_ORIGIN completion condition",
+      "Return Artifact v2 schema and derivation"
+    ],
+    "extensions": {
+      "native_route_trace": "sleeper.native-route-trace/v0.1",
+      "canonical_route_witness": "sleeper.route-witness/v0.1 remains a separate integer/cardinal donor contract and is not versioned or superseded by this float-path trace",
+      "same_world_ghost": "DISC projection only",
+      "authority": "EVIDENCE_ONLY",
+      "rule": "Continuous route evidence may expose traversal and support a same-world ghost but cannot fabricate, replace, or satisfy canonical ONE RETURN Gate proof."
+    },
+    "boundary": "Static JavaScript is a port, not an exact copy of the historical Work deployment. Translation loss and implementation deltas remain explicit."
   },
   "superseded_derivative": {
     "name": "ASCII Sleeper POV 0.8",
@@ -57,16 +86,14 @@
   "playable_donor": {
     "name": "ASCII ONE RETURN / Nine Gate reconstruction",
     "route": "/sleeper/one-return/",
-    "state": "DONOR"
+    "state": "DONOR",
+    "rule": "Useful mechanics may transfer inward, but donor history and authority remain separate from the recovered v2 law."
   },
   "project": "/sleeper/project/",
   "recovery": "/recovery/sleeper/",
-  "receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
-  "runtime": {
-    "canonical_address": "https://sleeper-one-return.metaname.chatgpt.site/",
-    "repository_entry": "/sleeper/",
-    "source_basis": "/recovery/sleeper/site-source-2026-09-18/",
-    "relation": "Repository entry resolves to the recovered live ONE RETURN runtime; recovered source remains the durable source authority.",
-    "boundary": "Live reachability was supplied and directly observed by the user in-session; this executor's web fetch path could not independently resolve the host. No byte-identity claim is made between every historical deployment and the recovered source bundle."
+  "prior_receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+  "convergence": {
+    "rule": "One public SLEEPER head. Port recovered mechanics into /sleeper/; keep exact source in Recovery; keep /sleeper/one-return/ as donor; do not mint /sleeper/v3/.",
+    "next": "Prove the native host end to end, then deepen one recovered mechanic at a time only when it changes player decision, consequence, evidence and RETURN."
   }
 }
