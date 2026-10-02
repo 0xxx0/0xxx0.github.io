@@ -929,13 +929,13 @@ function houseRealityProbeHtml(){
     toggle.click();
     const overlay=await waitFor(()=>{const x=D().querySelector('.realityHarness');return x&&!x.hidden?x:null});
     rec.open=!!overlay;
+    await waitFor(()=>D().querySelectorAll('.rhRingLabel').length>=6&&String(D().querySelector('.rhCenterMeta')?.textContent||'').trim());
     rec.rings=[...D().querySelectorAll('.rhRingLabel')].map(x=>x.textContent.trim());
     rec.center=D().querySelector('.rhCenterMeta')?.textContent.trim()||'';
-    const harness=D().querySelector('[data-rh-layer="HARNESS"] .rhRing');
-    if(harness)harness.dispatchEvent(new (W().MouseEvent)('click',{bubbles:true}));
-    await sleep(120);
-    const detail=D().querySelector('.rhDetail')?.textContent||'';
-    rec.harnessDetail=detail.includes('HARNESS / ENV-0');
+    const harness=await waitFor(()=>D().querySelector('[data-rh-layer="HARNESS"] .rhRing'));
+    harness.dispatchEvent(new (W().MouseEvent)('click',{bubbles:true}));
+    const detail=await waitFor(()=>{const t=D().querySelector('.rhDetail')?.textContent||'';return t.includes('HARNESS / ENV-0')?t:null});
+    rec.harnessDetail=true;
     rec.humanAgent=/HUMAN/.test(detail)&&/AGENT/.test(detail);
     rec.routes=D().querySelectorAll('.rhDetail .rhRoutes a').length;
     const sr=D().querySelector('.stage').getBoundingClientRect(),or=overlay.getBoundingClientRect();
