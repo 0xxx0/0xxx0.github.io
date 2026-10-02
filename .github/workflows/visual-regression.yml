@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Checkout repository (for goldens in compare mode)
         uses: actions/checkout@v4
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run' || github.event_name == 'workflow_run'
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run'
 
       - name: Ensure Chrome + ImageMagick available
         run: |
@@ -156,7 +156,9 @@ jobs:
           retention-days: 14
 
       - name: Compare against goldens
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule'
+        # workflow_run is the authoritative post-Pages path: compare the deployed
+        # master, not merely the commit checkout or a pre-deploy screenshot.
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run'
         id: compare
         run: |
           set -euo pipefail
