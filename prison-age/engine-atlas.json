@@ -1,0 +1,511 @@
+{
+  "schema": "prison-age.engine-atlas/v0.1",
+  "version": "0.1",
+  "status": "DERIVED_VISUAL_INSTRUMENT",
+  "authority": "NONE / CREATIVE CONSTRAINT SURFACE",
+  "law": "The 32 panels are generated visual/interpretive artifacts. They are not Prison Age source prose, canon, behavioral proof, or evidence about the world. They may be used as prompts for observation, reframing and bounded experiments; observed consequences remain separate evidence.",
+  "sheets": [
+    {
+      "range": "01–08",
+      "label": "FOUNDATIONAL ENGINES",
+      "cards": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "range": "09–16",
+      "label": "ROUTE / SIGNAL CYCLE",
+      "cards": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "range": "17–24",
+      "label": "RECURSIVE SYSTEMS CYCLE",
+      "cards": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "range": "25–32",
+      "label": "SOCIAL / AUTHORSHIP CYCLE",
+      "cards": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "n": 1,
+      "title": "THE CITY THAT MEASURED ITS WALLS",
+      "engine": "BOUNDARY ENGINE",
+      "verb": "MEASURE",
+      "family": "STRUCTURE",
+      "operator": "Name the boundary. Measure who benefits from its stability. Move one stone.",
+      "trace": "Record one boundary, one beneficiary, and one reversible change.",
+      "echo": [
+        9,
+        17
+      ]
+    },
+    {
+      "n": 2,
+      "title": "THE PERSON WHO SURVIVED HER CHARACTER",
+      "engine": "ROLE ENGINE",
+      "verb": "UNROLE",
+      "family": "IDENTITY",
+      "operator": "List the roles you perform. Cross one out. Act once without it.",
+      "trace": "Record what changed when one role was withheld without replacing it.",
+      "echo": [
+        13,
+        21,
+        25
+      ]
+    },
+    {
+      "n": 3,
+      "title": "THE DOOR THAT OPENED UNWATCHED",
+      "engine": "SUSPENSION ENGINE",
+      "verb": "SUSPEND",
+      "family": "THRESHOLD",
+      "operator": "Create a safe interval. Let no signal be scored. Re-enter together.",
+      "trace": "Name the interval and what became possible only while evaluation was suspended.",
+      "echo": [
+        16,
+        24,
+        27
+      ]
+    },
+    {
+      "n": 4,
+      "title": "A REASONABLE EXPLANATION",
+      "engine": "EDIT ENGINE",
+      "verb": "COMPARE",
+      "family": "INTERPRETATION",
+      "operator": "Show two cuts. Preserve both. Judge the rule, not the scene.",
+      "trace": "Keep both versions and identify the exact edit that changed the reading.",
+      "echo": [
+        12,
+        20,
+        28
+      ]
+    },
+    {
+      "n": 5,
+      "title": "THE CONTESTANT WHO ENTERED THROUGH THE WIKI",
+      "engine": "HYPERSTITION ENGINE",
+      "verb": "PUBLISH",
+      "family": "SIGNAL",
+      "operator": "Publish a theory. Log the timestamp. Accept the cost. Embrace uncertainty.",
+      "trace": "Separate what existed before publication from what appeared after it.",
+      "echo": [
+        10,
+        18,
+        23
+      ]
+    },
+    {
+      "n": 6,
+      "title": "THE BENCH THAT DEFEATED THE FINALE",
+      "engine": "OPEN AIR ENGINE",
+      "verb": "BUILD",
+      "family": "COMMONS",
+      "operator": "Build something useful. Leave it. Let use, not applause, decide its success.",
+      "trace": "Observe whether anyone returns to the object without prompting.",
+      "echo": [
+        11,
+        19,
+        30,
+        31
+      ]
+    },
+    {
+      "n": 7,
+      "title": "NINE WINDOWS WITHOUT A VERDICT",
+      "engine": "WITNESS ENGINE",
+      "verb": "WITNESS",
+      "family": "EVIDENCE",
+      "operator": "Watch wholly. Name nothing too early. Act later and gently.",
+      "trace": "Keep observations distinct from labels, causes and conclusions.",
+      "echo": [
+        22,
+        29
+      ]
+    },
+    {
+      "n": 8,
+      "title": "THE SHELF OF LIVES PREVENTED BY GOOD ADVICE",
+      "engine": "FIXED POINT ENGINE",
+      "verb": "AUTHOR",
+      "family": "FUTURE",
+      "operator": "Choose one unwritten life. Write the first line.",
+      "trace": "Name the smallest action that makes the counterfactual less hypothetical.",
+      "echo": [
+        32
+      ]
+    },
+    {
+      "n": 9,
+      "title": "THE MAP THAT KNEW TOO MUCH",
+      "engine": "CARTOGRAPHY ENGINE",
+      "verb": "REMAP",
+      "family": "ROUTE",
+      "operator": "Trust no map completely. Learn the territory until you can redraw it from direct contact.",
+      "trace": "Mark where the inherited map and observed route diverge.",
+      "echo": [
+        1,
+        17
+      ]
+    },
+    {
+      "n": 10,
+      "title": "THE MESSAGE THAT TRAVELED ANYWAY",
+      "engine": "CIPHER ENGINE",
+      "verb": "ENCODE",
+      "family": "SIGNAL",
+      "operator": "Hide the meaning in ordinary structure. Test whether the message survives translation.",
+      "trace": "Verify the signal after one lossy relay; do not infer reception from sending.",
+      "echo": [
+        5,
+        18,
+        23
+      ]
+    },
+    {
+      "n": 11,
+      "title": "THE GARDEN THAT BLOOMED IN CONCRETE",
+      "engine": "RESILIENCE ENGINE",
+      "verb": "CULTIVATE",
+      "family": "COMMONS",
+      "operator": "Nurture in secret. Share in season. Leave seeds.",
+      "trace": "Record what regrows after one support is removed.",
+      "echo": [
+        6,
+        19,
+        31
+      ]
+    },
+    {
+      "n": 12,
+      "title": "THE RULE THAT PROTECTS THE ABUSER",
+      "engine": "RULE ENGINE",
+      "verb": "AUDIT",
+      "family": "STRUCTURE",
+      "operator": "Learn the system. Use its language. Test the rule against the harm it permits.",
+      "trace": "Quote the exact rule, the allowed action, and the observed consequence separately.",
+      "echo": [
+        4,
+        20,
+        28
+      ]
+    },
+    {
+      "n": 13,
+      "title": "THE FACE THEY FORCED YOU TO WEAR",
+      "engine": "IDENTITY ENGINE",
+      "verb": "RECLAIM",
+      "family": "IDENTITY",
+      "operator": "Remember your face. Forget their name for you.",
+      "trace": "Distinguish self-chosen description from externally assigned label.",
+      "echo": [
+        2,
+        21,
+        25
+      ]
+    },
+    {
+      "n": 14,
+      "title": "THE LIBRARY THEY BANNED",
+      "engine": "MEMORY ENGINE",
+      "verb": "PRESERVE",
+      "family": "ARCHIVE",
+      "operator": "Collect fragments. Copy carefully. Teach in whispers.",
+      "trace": "Keep provenance with every fragment; absence is not proof of destruction.",
+      "echo": [
+        22,
+        29
+      ]
+    },
+    {
+      "n": 15,
+      "title": "THE SIGNAL THEY COULDN'T JAM",
+      "engine": "FREQUENCY ENGINE",
+      "verb": "RETUNE",
+      "family": "SIGNAL",
+      "operator": "Find the gaps. Send the pulse. Change channel before increasing force.",
+      "trace": "Record which channel failed, which carried, and whether the receiver actually changed state.",
+      "echo": [
+        10,
+        23
+      ]
+    },
+    {
+      "n": 16,
+      "title": "THE KEY THAT OPENS THE NEXT DOOR",
+      "engine": "TRANSITION ENGINE",
+      "verb": "CROSS",
+      "family": "THRESHOLD",
+      "operator": "Close cleanly. Carry lightly. Step through.",
+      "trace": "Name what must remain behind, what must transfer, and the condition for return.",
+      "echo": [
+        3,
+        24,
+        32
+      ]
+    },
+    {
+      "n": 17,
+      "title": "THE ROUTES THEY NEVER MAPPED",
+      "engine": "VOID CARTOGRAPHER",
+      "verb": "TRACE ABSENCE",
+      "family": "ROUTE",
+      "operator": "Walk the edges. Listen for absences. Trace what is consistently avoided.",
+      "trace": "Log repeated omissions before treating them as a route.",
+      "echo": [
+        1,
+        9
+      ]
+    },
+    {
+      "n": 18,
+      "title": "THE MESSAGE THEY HOPED YOU'D ERASE",
+      "engine": "STEGANOGRAPHIC ENGINE",
+      "verb": "DECODE",
+      "family": "SIGNAL",
+      "operator": "Doubt the surface. Shift the lens. Decode the rhythm, not only the words.",
+      "trace": "Show the carrier, extraction rule and recovered message so another person can reproduce it.",
+      "echo": [
+        5,
+        10,
+        23
+      ]
+    },
+    {
+      "n": 19,
+      "title": "THE GARDENERS OF RESILIENCE",
+      "engine": "PERMACULTURE ENGINE",
+      "verb": "DIVERSIFY",
+      "family": "COMMONS",
+      "operator": "Protect the roots. Diversify the beds. Share the surplus.",
+      "trace": "Test whether the system still functions after one node or resource disappears.",
+      "echo": [
+        6,
+        11,
+        31
+      ]
+    },
+    {
+      "n": 20,
+      "title": "THE RULES THAT WERE NEVER WRITTEN",
+      "engine": "SHADOW CODE ENGINE",
+      "verb": "SURFACE",
+      "family": "STRUCTURE",
+      "operator": "Learn both lists. Break selectively. Leave no pattern. Write the hidden rule in the margin.",
+      "trace": "Infer an unwritten rule only from repeated consequences across multiple cases.",
+      "echo": [
+        4,
+        12,
+        28
+      ]
+    },
+    {
+      "n": 21,
+      "title": "THE IDENTITY THEY GAVE YOU",
+      "engine": "IDENTITY IMPLANT ENGINE",
+      "verb": "RENAME",
+      "family": "IDENTITY",
+      "operator": "Remember what they forgot. Reclaim what they renamed. You are more than their record.",
+      "trace": "Keep record identity, social identity and self-description as separate fields.",
+      "echo": [
+        2,
+        13,
+        25
+      ]
+    },
+    {
+      "n": 22,
+      "title": "THE ARCHIVE THEY BURNED",
+      "engine": "FORBIDDEN ARCHIVIST ENGINE",
+      "verb": "SALVAGE",
+      "family": "ARCHIVE",
+      "operator": "Salvage fragments. Cross-verify. Rebuild only what multiple remnants support.",
+      "trace": "Mark reconstructed sections explicitly; never upgrade inference into recovered fact.",
+      "echo": [
+        7,
+        14,
+        29,
+        30
+      ]
+    },
+    {
+      "n": 23,
+      "title": "THE SIGNAL THAT CANNOT BE JAMMED",
+      "engine": "FREQUENCY BREAK ENGINE",
+      "verb": "SPREAD",
+      "family": "SIGNAL",
+      "operator": "Change the channel. Speak in patterns. Put redundancy where listening is weak.",
+      "trace": "Verify independent receipt across more than one path.",
+      "echo": [
+        5,
+        10,
+        15,
+        18
+      ]
+    },
+    {
+      "n": 24,
+      "title": "THE THRESHOLD YOU STEP THROUGH",
+      "engine": "TRANSITION ENGINE",
+      "verb": "RETURN",
+      "family": "THRESHOLD",
+      "operator": "Close the cycle. Carry the tools. Leave a door for the others.",
+      "trace": "Return with one transferable method, one boundary, and one unresolved question.",
+      "echo": [
+        3,
+        16,
+        32
+      ]
+    },
+    {
+      "n": 25,
+      "title": "THE MIRROR THAT STOPPED LYING",
+      "engine": "REFLECTION ENGINE",
+      "verb": "REFLECT",
+      "family": "IDENTITY",
+      "operator": "Compare versions. Discard imposed scripts. Keep what survives contact with evidence.",
+      "trace": "Preserve the before/after descriptions and the observation that forced revision.",
+      "echo": [
+        2,
+        13,
+        21
+      ]
+    },
+    {
+      "n": 26,
+      "title": "THE NETWORK OF QUIET ALLIES",
+      "engine": "MUTUAL AID ENGINE",
+      "verb": "RELAY",
+      "family": "COMMONS",
+      "operator": "Signal lightly. Route resources. Protect each node. Trust small relays.",
+      "trace": "Track whether aid reached the intended node without centralizing unnecessary information.",
+      "echo": [
+        11,
+        19,
+        31
+      ]
+    },
+    {
+      "n": 27,
+      "title": "THE FIRE EXIT DISGUISED AS ROUTINE",
+      "engine": "ESCAPE RHYTHM ENGINE",
+      "verb": "NORMALIZE",
+      "family": "THRESHOLD",
+      "operator": "Repeat safely. Hide complexity in habit. Leave by ordinary doors. Timing matters.",
+      "trace": "A route is real only if it works under normal conditions, not just rehearsal.",
+      "echo": [
+        3,
+        16,
+        24
+      ]
+    },
+    {
+      "n": 28,
+      "title": "THE QUESTION THEY COULDN'T PUNISH",
+      "engine": "INQUIRY ENGINE",
+      "verb": "QUESTION",
+      "family": "EVIDENCE",
+      "operator": "Ask precisely. Trace contradictions. Hold silence. Let the structure answer.",
+      "trace": "Record the question, answer, contradiction and missing evidence without collapsing them.",
+      "echo": [
+        4,
+        12,
+        20
+      ]
+    },
+    {
+      "n": 29,
+      "title": "THE MEMORY THAT RETURNED IN DREAMS",
+      "engine": "DREAM ARCHIVE ENGINE",
+      "verb": "RECALL",
+      "family": "ARCHIVE",
+      "operator": "Record fragments at waking. Sort symbols gently. Do not force recall. Follow recurrence.",
+      "trace": "Treat remembered fragments as memory reports, not automatically as historical fact.",
+      "echo": [
+        7,
+        14,
+        22
+      ]
+    },
+    {
+      "n": 30,
+      "title": "THE TOOL BUILT FROM BROKEN PARTS",
+      "engine": "SALVAGE ENGINE",
+      "verb": "REPURPOSE",
+      "family": "MAKING",
+      "operator": "Inventory ruins. Repurpose fragments. Test under load. Share the blueprint.",
+      "trace": "Keep part provenance, transformation steps and load test result together.",
+      "echo": [
+        6,
+        22
+      ]
+    },
+    {
+      "n": 31,
+      "title": "THE COMMON ROOM OF THE UNAFRAID",
+      "engine": "COLLECTIVE ENGINE",
+      "verb": "CONVENE",
+      "family": "COMMONS",
+      "operator": "Convene. Listen well. Disagree cleanly. Protect the room. Leave wiser.",
+      "trace": "Note whether dissent remained possible and whether anyone's exit became harder.",
+      "echo": [
+        6,
+        11,
+        19,
+        26
+      ]
+    },
+    {
+      "n": 32,
+      "title": "THE FUTURE THAT REQUIRED AUTHORS",
+      "engine": "AUTHORSHIP ENGINE",
+      "verb": "CONTINUE",
+      "family": "FUTURE",
+      "operator": "Write the next rule. Build with others. Leave tools behind. Continue the work.",
+      "trace": "Ship one artifact another person can alter, verify or refuse without asking permission.",
+      "echo": [
+        8,
+        16,
+        24
+      ]
+    }
+  ],
+  "visual_reference": "The four composite poster sheets were generated in the originating conversation. This repository projection reifies their 32 engine identities and protocols without treating raster appearance as source authority."
+}
