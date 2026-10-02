@@ -9035,6 +9035,30 @@
         "next_if_fail": "PARK the interference donor under FIELD research; retain the visual-law index and do not use moiré as wallpaper."
       },
       "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "href": "/recovery/semantic-painting-v0.8/",
+      "title": "SEMANTIC PAINTING v0.8 / ATLAS DAYLINE ANCESTOR",
+      "kind": "donor",
+      "parent": "/recovery/",
+      "operation": "RECOVER / REPRESENT",
+      "state": "FROZEN_DONOR",
+      "version": "0.8",
+      "family": "FIELD / VISUAL RECOVERY",
+      "showcase_card": false,
+      "role": "Exact recovered self-contained ancestor of the painting-backed Forward Field / Atlas Dayline representation. Preserves the embedded underpainting and original interaction source as donor evidence only; it does not replace current Dayline or FIELD authority.",
+      "index": {
+        "updated_at": "2026-10-02T22:37:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "recovery": "/recovery/semantic-painting-v0.8/recovery.json",
+        "return_path": "/recovery/"
+      },
+      "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
     }
   ],
   "release_law": [
