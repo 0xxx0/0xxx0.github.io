@@ -1,8 +1,8 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
-  "version": "0.7",
-  "date": "2026-10-02",
-  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE / DERIVED_ENGINE_ATLAS",
+  "version": "0.6",
+  "date": "2026-09-29",
+  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
   "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
   "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection.",
@@ -49,13 +49,14 @@
       "host": "/prison-age/",
       "authority": "source identity/provenance only"
     },
-    "atlas": {
-      "host": "/prison-age/engine-atlas.html",
+    "derived_atlas": {
+      "host": "/prison-age/",
       "data": "/prison-age/engine-atlas.json",
+      "runtime": "/prison-age/engine-atlas.js",
       "schema": "prison-age.engine-atlas/v0.1",
       "authority": "NONE / DERIVED VISUAL INSTRUMENT",
-      "behavior": "32 generated panel identities become a filterable held-engine surface and a local 3-card HOLD / TURN / TRACE route packet.",
-      "return": "/prison-age/ or exact FIELD focus"
+      "behavior": "ENGINE ATLAS opens inside the canonical source resolver; it holds one generated engine and composes at most three into an authority-NONE HOLD/TURN/TRACE packet.",
+      "return": "close aperture to the exact source-resolver state; FIELD/native actions remain READ / RIDE / SOURCE"
     }
   },
   "retired_runtime": {
@@ -73,9 +74,7 @@
     "The recovered 2021 proto-root is exact recovered wording arranged as a derived traversal pack; it is not an anthology story, page facsimile, generated continuation, or evidence of semantic equivalence.",
     "Authored RECURRENCE is intra-source conservation/rearrangement evidence and remains distinct from cross-source ECHO.",
     "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority.",
-    "ENGINE ATLAS is generated visual/interpretive material, not exact source prose, canon, behavioral proof, or evidence about the world; source bytes remain primary.",
-    "ENGINE ATLAS does not add a fourth FIELD operation; it is reachable inside the existing PRISON AGE source host as a derived projection.",
-    "prison-age.engine-route/v0.1 packets have authority NONE; TRACE text states what would count, not what happened, until an external observation supplies evidence."
+    "ENGINE ATLAS is an in-host derived aperture over generated panel identities; it is not source prose, canon, behavioral proof, a public route, or a fourth FIELD operation."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -94,11 +93,7 @@
     "Proto-root READ enters READFIELD over exact source bytes without cross-source ECHO.",
     "Proto-root RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
     "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged.",
-    "/prison-age/engine-atlas.json loads 32 unique contiguous cards numbered 01–32 across four eight-card cycles.",
-    "ENGINE ATLAS deep-select, family filter and echo links preserve one held engine identity.",
-    "ENGINE ATLAS route builder caps at three engines and emitted prison-age.engine-route/v0.1 packets carry authority NONE plus an explicit RETURN instruction.",
-    "FIELD parent /prison-age/ still exposes exactly READ / RIDE / SOURCE; ENGINE ATLAS is registered only as a nested derived workbench required for live-page reachability.",
-    "/prison-age/engine-atlas.html is registered as a CANDIDATE workbench child of /prison-age/ with operation REPRESENT and authority NONE."
+    "ENGINE ATLAS data contains exactly 32 unique contiguous engines in four 8-card cycles; the in-host aperture emits only authority-NONE packets and introduces no second Prison Age route."
   ],
   "latest_return": "/returns/PRISON_AGE_ENGINE_ATLAS_2026-10-02.json",
   "echo": {
