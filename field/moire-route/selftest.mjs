@@ -1,38 +1,56 @@
+import fs from "node:fs";
 import {
-  makeFixture,evaluateFixture,routeChoiceAccuracy,plainAdjacencyBaseline,continuitySignal
+  buildHeldField,contextRoutes,lineageFor,projectionProfile,
+  representationMismatch,residualMismatch,normalizeProjection
 } from "./core.mjs";
 
-function assert(ok,msg){ if(!ok) throw new Error(msg); }
+const manifest=JSON.parse(fs.readFileSync(new URL("../../showcase-manifest.json",import.meta.url),"utf8"));
+const current=JSON.parse(fs.readFileSync(new URL("../../control/CURRENT.json",import.meta.url),"utf8"));
+const routes=manifest.routes||[];
+const map=new Map(routes.map(r=>[r.href,r]));
 
-const f=makeFixture();
-const aligned=routeChoiceAccuracy(f,0,0);
-const opposite=routeChoiceAccuracy(f,Math.PI,0);
-const base=plainAdjacencyBaseline(f);
-const ca=continuitySignal(f,0,0);
-const cb=continuitySignal(f,Math.PI,0);
-const ev=evaluateFixture(f,{orientation:0,steps:144});
+function assert(ok,msg){if(!ok)throw new Error(msg)}
+function depth(href){
+  let d=0,r=map.get(href),seen=new Set();
+  while(r&&r.href!=="/"&&!seen.has(r.href)){seen.add(r.href);d++;r=map.get(r.parent||"/")}
+  return d;
+}
 
-assert(aligned.cases===f.route.length-1,"all route steps should be testable");
-assert(aligned.accuracy >= 0.85,`aligned route cue too weak: ${aligned.accuracy}`);
-assert(aligned.accuracy - base.localChoiceChance >= 0.20,
-  `aligned cue does not beat adjacency chance enough: ${aligned.accuracy} vs ${base.localChoiceChance}`);
-assert(aligned.accuracy - opposite.accuracy >= 0.30,
-  `phase mismatch does not change route choice enough: ${aligned.accuracy} vs ${opposite.accuracy}`);
-assert(ca-cb >= 0.18,`continuity separation too small: ${ca} vs ${cb}`);
-assert(ev.best.choice.accuracy >= aligned.accuracy-1e-9,"phase sweep should recover aligned-quality cue");
-assert(ev.best.choice.accuracy > ev.baseline.localChoiceChance,"best moire cue should beat plain local adjacency baseline");
+const candidate=[...routes]
+  .filter(r=>r.href!=="/"&&depth(r.href)>=2)
+  .sort((a,b)=>depth(b.href)-depth(a.href)||String(a.href).localeCompare(String(b.href)))[0];
+assert(candidate,"repo must contain one non-root route with depth >= 2");
+
+const held=buildHeldField(manifest,current,candidate.href,"AXIAL_LATEST");
+assert(held.ok,"real manifest route should build");
+assert(held.route===map.get(candidate.href),"held object must be exact manifest object");
+assert(held.lineage.length>=3,"held route should retain real parent lineage");
+assert(held.context.every(r=>map.has(r.href)),"context may contain only manifest routes");
+assert(!held.context.some(r=>/^\d+,\d+$/.test(r.href)),"synthetic grid ids must not survive");
+
+const glyph=representationMismatch(manifest,current,candidate.href,"GLYPH");
+const visual=representationMismatch(manifest,current,candidate.href,"VISUAL");
+const axial=representationMismatch(manifest,current,candidate.href,"AXIAL_LATEST");
+assert(glyph&&visual&&axial,"projection reports must build");
+assert(glyph.irreducible>0,"GLYPH must expose real channel-loss residue for a nontrivial route");
+assert(visual.transformable===0,"VISUAL tree projection must share the canonical tree coordinate frame");
+assert(residualMismatch(axial,1)<=residualMismatch(axial,0)+1e-12,"alignment may not increase transformable residue");
+assert(residualMismatch(axial,1)>=0.68*axial.irreducible-1e-12,"alignment may not erase hidden-channel residue");
+assert(normalizeProjection("bogus")==="AXIAL_LATEST","unknown projections must fail to the root FIELD projection");
+assert(projectionProfile("GLYPH").preserve.includes("href"),"glyph identity/address preservation contract must be represented");
+
+const noHeld=buildHeldField(manifest,current,null,"AXIAL_LATEST");
+assert(!noHeld.ok&&noHeld.reason==="NO_HELD_FIELD_OBJECT","runtime must fail closed without a held object");
 
 console.log(JSON.stringify({
   PASS:true,
-  aligned,
-  opposite,
-  continuity:{aligned:ca,opposite:cb},
-  baseline:base,
-  best:{
-    phase:ev.best.phase,
-    accuracy:ev.best.choice.accuracy,
-    meanMargin:ev.best.choice.meanMargin,
-    continuity:ev.best.continuity
+  held:candidate.href,
+  lineage:lineageFor(manifest,candidate.href).map(r=>r.href),
+  context_count:contextRoutes(manifest,candidate.href).length,
+  mismatch:{
+    axial:{total:axial.total,irreducible:axial.irreducible,transformable:axial.transformable,residual_aligned:residualMismatch(axial,1)},
+    visual:{total:visual.total,irreducible:visual.irreducible,transformable:visual.transformable},
+    glyph:{total:glyph.total,irreducible:glyph.irreducible,transformable:glyph.transformable}
   },
-  scope:ev.scope
+  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed"
 },null,2));
