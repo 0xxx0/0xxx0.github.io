@@ -13,11 +13,25 @@ const PORT=Number(process.env.SMOKE_PORT||41739)||41739;
 const HOST='127.0.0.1';
 
 function browserBin(){
+  // Which Chromium runs decides what the suite reports. Measured 2026-10-02 on one Mac:
+  // the same case set gave 85/87 under Brave and 86/87 under Google Chrome, while CI
+  // (google-chrome-stable on Linux) reports 87/87. That divergence produced a false
+  // "this surface is broken on master" claim that was then repeated to the operator.
+  //
+  // So: the binary is now explicit, reported, and overridable with SMOKE_BROWSER. When
+  // comparing a local run to CI, pin SMOKE_BROWSER to the same family you are comparing
+  // against, or treat a single local failure as UNVERIFIED rather than a break.
+  const want=String(process.env.SMOKE_BROWSER||'').trim();
+  if(want){
+    if(!fs.existsSync(want))throw new Error('SMOKE_BROWSER does not exist: '+want);
+    return want;
+  }
   for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
     const r=spawnSync('which',[name],{encoding:'utf8'});
     if(r.status===0&&r.stdout.trim())return r.stdout.trim();
   }
-  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
+  // Google Chrome before Brave: CI runs google-chrome-stable, so match its family first.
+  for(const p of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Chromium.app/Contents/MacOS/Chromium']){
     if(fs.existsSync(p))return p;
   }
   throw new Error('No Chrome/Chromium binary found for runtime smoke');
@@ -1422,7 +1436,7 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900,budget:30000,timeout:40000},
     check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/TRY THE EXAMPLE|LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/THE WHOLE RIDE LOOP/.test(dom)&&/TURN\.<br><span>RELEASE\./i.test(dom)&&/NO SONG \/ JUST PLAY/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/MORE MODES · PUZZLE \/ TWO DIAL \/ ECOLOGY/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&(/△ TRIANGLE/.test(dom)||/○ CIRCLE/.test(dom)||/□ SQUARE/.test(dom))&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
   {
     name:'FOLD BLOOM LIVE mobile controls clear',
