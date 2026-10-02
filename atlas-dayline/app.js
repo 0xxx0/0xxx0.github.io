@@ -90,7 +90,28 @@ function escapeHtml(x){return String(x??'').replace(/[&<>\"]/g,c=>({'&':'&amp;',
 function render(){taskPoints=new Map();spinePoints=new Map();contextHubPoints=new Map();renderStatic();renderRelationsAndField();renderRoute();renderSpine();renderMargins();renderLedger();renderForecast();renderStrategy();renderOverlay();renderPlain();applyMobileViewport();document.body.dataset.projection=ui.projection;$('#atlasProjectionBtn').classList.toggle('on',ui.projection==='atlas');$('#plainProjectionBtn').classList.toggle('on',ui.projection==='plain');$('#scenarioBtn').classList.toggle('scenario-on',!!ui.scenario);$('#scenarioBadge').textContent=ui.scenario?`PREVIEW ${ui.scenario.now} · ${(ui.scenario.contexts||[]).join('+')}`:'NO COUNTERFACTUAL';save();saveView()}
 
 
-function applyMobileViewport(){const svg=$('#atlas');if(!svg)return;const mobile=window.matchMedia('(max-width:820px)').matches;if(!mobile){svg.setAttribute('viewBox','0 0 1200 2480');return}const boxes={now:'250 90 700 850',field:'205 105 790 820',run:'250 865 700 710',return:'25 1450 1150 370',tide:'25 1875 1150 550',atlas:'0 0 1200 2480'};svg.setAttribute('viewBox',boxes[ui.mobileView]||boxes.now);document.querySelectorAll('[data-mobile-view]').forEach(b=>b.classList.toggle('on',b.dataset.mobileView===ui.mobileView))}
+function applyMobileViewport(){const svg=$('#atlas');if(!svg)return;const mobile=window.matchMedia('(max-width:820px)').matches;if(!mobile){svg.setAttribute('viewBox','0 0 1200 2480');return}
+ /* MOBILE VIEW IS A SCALING OPERATION, NOT A CROP. Operator, verbatim: "advancing is
+  * essentially scaling". These boxes are TARGET REGIONS, not final viewBoxes. Each is
+  * expanded to the aspect ratio of the element it renders into before it is applied, so the
+  * region fills the screen instead of being letterboxed inside it.
+  *
+  * Before, the region was applied verbatim. 'now' is 700x850 = aspect 0.82 while a phone
+  * renders this element much taller than wide, so preserveAspectRatio="meet" scaled by
+  * WIDTH and the drawing filled only ~59% of the available height -- the rest was dead
+  * paper. That is what "not scaled or working great on my phone" actually was: the drawing
+  * was correct but rendered small with empty bands above and below.
+  *
+  * Expanding (rather than cropping) keeps the whole region visible. Overflow past the
+  * 1200x2480 canvas is paper, which is the same ground the drawing sits on. */
+ const boxes={now:'250 90 700 850',field:'205 105 790 820',run:'250 865 700 710',return:'25 1450 1150 370',tide:'25 1875 1150 550',atlas:'0 0 1200 2480'};
+ const bx=(boxes[ui.mobileView]||boxes.now).split(' ').map(Number),x=bx[0],y=bx[1],w=bx[2],h=bx[3];
+ const rc=svg.getBoundingClientRect(),aw=Math.max(1,rc.width),ah=Math.max(1,rc.height),el=aw/ah;
+ let vw=w,vh=h;
+ if(w/h>el)vh=w/el;else vw=h*el;
+ const cx=x+w/2,cy=y+h/2;
+ svg.setAttribute('viewBox',[cx-vw/2,cy-vh/2,vw,vh].map(n=>Math.round(n*10)/10).join(' '));
+ document.querySelectorAll('[data-mobile-view]').forEach(btn=>btn.classList.toggle('on',btn.dataset.mobileView===ui.mobileView))}
 function renderStatic(){clear('#staticLayer');const g=$('#staticLayer'),cx=600,cy=500;
  line(g,18,24,1182,24,{stroke:C.ink,'stroke-width':.55,'stroke-opacity':.55});line(g,18,2456,1182,2456,{stroke:C.ink,'stroke-width':.55,'stroke-opacity':.55});line(g,18,24,18,2456,{stroke:C.ink,'stroke-width':.55,'stroke-opacity':.55});line(g,1182,24,1182,2456,{stroke:C.ink,'stroke-width':.55,'stroke-opacity':.55});[[18,24],[1182,24],[18,2456],[1182,2456]].forEach(([x,y])=>{line(g,x-8,y,x+8,y,{stroke:C.ink,'stroke-width':.6});line(g,x,y-8,x,y+8,{stroke:C.ink,'stroke-width':.6})});
  txt(g,58,72,data.meta.title,{class:'title',fill:C.ink});txt(g,58,96,data.meta.subtitle,{class:'subtitle',fill:C.graph});txt(g,58,120,'BRANCH I / SEE → SIMULATE → COMPARE → ACT → RETURN',{class:'micro',fill:C.ghost});
