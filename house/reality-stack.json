@@ -1,0 +1,581 @@
+{
+  "schema": "house-reality-stack/v0.1",
+  "updated": "2026-10-02",
+  "status": "ACTIVE_INDEX / PROJECTION_ONLY",
+  "title": "HOUSE REALITY STACK",
+  "law": "Index unequal layers around one addressed physical locus. Layer membership is a navigation/projection aid, never a new ontology or authority.",
+  "center": {
+    "object": "selected HOUSE spatial address",
+    "invariant": "ADDRESS remains stable while layer, projection, tool and witness may change",
+    "source": "/house/spatial/model.json"
+  },
+  "axes": {
+    "spatial_containment": "BODY -> HARNESS -> OBJECT -> ROOM -> HOUSE -> NETWORK",
+    "time": "BEFORE -> NOW -> AFTER",
+    "evidence": "SOURCE -> OBSERVE -> ACT -> WITNESS -> RETURN"
+  },
+  "layers": [
+    {
+      "id": "BODY",
+      "label": "BODY",
+      "radius": 56,
+      "channel": "matter",
+      "question": "What can the embodied human sense, reach, carry, tolerate or do here?",
+      "authority": "Human/body evidence; HOUSE selection is context only.",
+      "routes": [
+        {
+          "href": "/body/",
+          "label": "BODY / FIELD",
+          "role": "body observation + context"
+        },
+        {
+          "href": "/bodyplans/",
+          "label": "BODYPLANS",
+          "role": "reference projection"
+        },
+        {
+          "href": "/care/",
+          "label": "CARE / FIELD",
+          "role": "longitudinal care; distinct authority"
+        }
+      ],
+      "donors": [
+        "roomplan"
+      ]
+    },
+    {
+      "id": "HARNESS",
+      "label": "HARNESS / ENV-0",
+      "radius": 92,
+      "channel": "coupling",
+      "question": "What bounded coupling lets a human carry capability, context, tools and feedback into the environment?",
+      "authority": "Interface/coupling projection only; no device, medical, structural or agent authority.",
+      "routes": [
+        {
+          "href": "/recovery/env0/",
+          "label": "ENV-0",
+          "role": "BODY -> GARMENT -> HARNESS -> SUIT -> FURNITURE -> ROOM -> HOUSE recovered grammar"
+        },
+        {
+          "href": "/control/confluence/HOUSE_MARKS.md",
+          "label": "HOUSE MARKS",
+          "role": "reversible physical interface donor"
+        },
+        {
+          "href": "/field/axial-probe/",
+          "label": "AXIAL PROBE",
+          "role": "constraint / coupling proof"
+        }
+      ],
+      "donors": [
+        "dynamicland",
+        "habitat",
+        "playbook"
+      ]
+    },
+    {
+      "id": "OBJECT",
+      "label": "OBJECT / TOOL",
+      "radius": 132,
+      "channel": "matter",
+      "question": "Which tool, fixture, furnishing or acquired capability participates in this operation?",
+      "authority": "Native object/procurement/fabrication owners retain lifecycle and physical truth.",
+      "routes": [
+        {
+          "href": "/shopping/",
+          "label": "SHOPPING",
+          "role": "capability acquisition + adoption proof"
+        },
+        {
+          "href": "/foundry/room/",
+          "label": "ROOM / MATERIAL DOM",
+          "role": "composable physical/digital configuration donor"
+        },
+        {
+          "href": "/foundry/",
+          "label": "FOUNDRY",
+          "role": "artifact / mechanism work"
+        }
+      ],
+      "donors": [
+        "patchwork",
+        "ambsheets"
+      ]
+    },
+    {
+      "id": "ROOM",
+      "label": "ROOM / LOCUS",
+      "radius": 178,
+      "channel": "matter",
+      "question": "What is true at this exact spatial address, and what bounded change can be tried here?",
+      "authority": "HOUSE spatial address + local authored evidence; selection is not occupancy.",
+      "routes": [
+        {
+          "href": "/house/#PLAN",
+          "label": "PLAN",
+          "role": "same-address spatial projection"
+        },
+        {
+          "href": "/house/#TRACE",
+          "label": "TRACE",
+          "role": "ordered addressed path + replay"
+        },
+        {
+          "href": "/house/",
+          "label": "DESIGN TRIAL",
+          "role": "before -> change -> verify -> after -> return"
+        }
+      ],
+      "donors": [
+        "roomplan",
+        "patchwork",
+        "ambsheets"
+      ]
+    },
+    {
+      "id": "HOUSE",
+      "label": "HOUSE",
+      "radius": 226,
+      "channel": "matter",
+      "question": "How do rooms, surfaces, objects, constraints and private runtime relate as one dwelling?",
+      "authority": "HOUSE spatial model coordinates; private HA/HOUSEBUS owns runtime actuation.",
+      "routes": [
+        {
+          "href": "/house/",
+          "label": "HOUSE / FIELD",
+          "role": "canonical human surface"
+        },
+        {
+          "href": "/house/expert.html",
+          "label": "HOUSE / EXPERT",
+          "role": "public-safe runtime/state witness"
+        },
+        {
+          "href": "/returns/",
+          "label": "RETURNS",
+          "role": "evidence leaving operations"
+        }
+      ],
+      "donors": [
+        "homeassistant",
+        "openusd",
+        "ditto",
+        "matter"
+      ]
+    },
+    {
+      "id": "NETWORK",
+      "label": "NETWORK / RUNTIME",
+      "radius": 274,
+      "channel": "information",
+      "question": "Which sensors, entities, messages or runtimes can observe/act, under whose authority?",
+      "authority": "Home Assistant / HOUSEBUS private runtime; public HOUSE remains projection-only.",
+      "routes": [
+        {
+          "href": "/house/expert.html",
+          "label": "RUNTIME WITNESS",
+          "role": "timestamped public-safe projection"
+        },
+        {
+          "href": "/house/",
+          "label": "HOUSE MINI APP",
+          "role": "semantic intent only"
+        },
+        {
+          "href": "/",
+          "label": "FIELD INDEX",
+          "role": "public re-entry / current heads"
+        }
+      ],
+      "donors": [
+        "homeassistant",
+        "ditto",
+        "matter"
+      ]
+    }
+  ],
+  "transverse": [
+    {
+      "id": "TIME",
+      "label": "TIME / EXECUTION",
+      "question": "When does the addressed operation happen and how does it re-enter?",
+      "routes": [
+        {
+          "href": "/dayline/",
+          "label": "DAYLINE",
+          "role": "time/context execution"
+        },
+        {
+          "href": "/house/",
+          "label": "DESIGN BEFORE/AFTER",
+          "role": "physical state delta"
+        }
+      ]
+    },
+    {
+      "id": "PEOPLE",
+      "label": "PEOPLE / COMMS",
+      "question": "Which other human carries obligation, interpretation, consent or consequence?",
+      "routes": [
+        {
+          "href": "/contact/",
+          "label": "HUMAN PORT",
+          "role": "explicit share/copy boundary"
+        },
+        {
+          "href": "/comms/",
+          "label": "COMMS",
+          "role": "source-addressed obligations"
+        }
+      ]
+    },
+    {
+      "id": "AGENT",
+      "label": "AGENT / COMPUTATION",
+      "question": "Which computational worker may inspect, propose or transform, and what authority does it actually hold?",
+      "routes": [
+        {
+          "href": "/",
+          "label": "FIELD",
+          "role": "held object + bounded moves + witness + return"
+        },
+        {
+          "href": "/docs/",
+          "label": "READFIELD",
+          "role": "addressed source/cursor"
+        },
+        {
+          "href": "/control/source-hold-turn-trace-return.html",
+          "label": "SOURCE/HOLD/TURN/TRACE/RETURN",
+          "role": "bounded execution law"
+        }
+      ]
+    },
+    {
+      "id": "RETURN",
+      "label": "EVIDENCE / RETURN",
+      "question": "What observable consequence survives the operation and can be replayed or inspected?",
+      "routes": [
+        {
+          "href": "/returns/",
+          "label": "RETURN FIELD",
+          "role": "receipts / evidence"
+        },
+        {
+          "href": "/house/#TRACE",
+          "label": "TRACE",
+          "role": "addressed local evidence"
+        },
+        {
+          "href": "/house/",
+          "label": "DESIGN RETURN",
+          "role": "before/change/after receipt"
+        }
+      ]
+    }
+  ],
+  "harness_correspondence": {
+    "status": "ANALOGY / NOT IDENTITY",
+    "shared": "Both human and agent harnesses bound capability around a focused object, expose tools under constraints, and require feedback/RETURN before claims are promoted.",
+    "human": [
+      "BODY",
+      "CONTEXT",
+      "HARNESS / TOOLS",
+      "WORLD ACTION",
+      "SENSATION / OBSERVATION",
+      "RETURN"
+    ],
+    "agent": [
+      "MODEL",
+      "CONTEXT",
+      "TOOL / PERMISSION ENVELOPE",
+      "HOST-NATIVE ACTION",
+      "WITNESS / TOOL RESULT",
+      "RETURN"
+    ],
+    "differences": [
+      "Human embodiment, fatigue, comfort, proprioception and physical risk are irreducible to agent context windows.",
+      "Agent tools/permissions are explicit computational capabilities; human affordances are partly tacit and physical.",
+      "Neither harness grants authority merely by carrying context or exposing an action."
+    ],
+    "related": [
+      "/recovery/env0/",
+      "/lib/interphase-carrier.js",
+      "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+      "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md"
+    ]
+  },
+  "donors": {
+    "dynamicland": {
+      "name": "Dynamicland / Realtalk",
+      "url": "https://dynamicland.org/2024/FAQ/",
+      "transfer": "Computation as a property of physical material; visible local objects/claims; environment rather than screen-centric interface."
+    },
+    "habitat": {
+      "name": "Ink & Switch Habitat",
+      "url": "https://www.inkandswitch.com/project/habitat/",
+      "transfer": "Multiple computational/representational models can coexist in one environment."
+    },
+    "playbook": {
+      "name": "Ink & Switch PlayBook",
+      "url": "https://www.inkandswitch.com/project/playbook/",
+      "transfer": "A small material vocabulary with distinct physics can bridge expressive work and programming."
+    },
+    "patchwork": {
+      "name": "Ink & Switch Patchwork",
+      "url": "https://www.inkandswitch.com/project/patchwork/",
+      "transfer": "Low-ceremony branching, history and domain-specific visual diffs for reversible alternatives."
+    },
+    "ambsheets": {
+      "name": "Ink & Switch Ambsheets",
+      "url": "https://www.inkandswitch.com/project/ambsheets/live25/",
+      "transfer": "Possibility spaces and filters make multiple design scenarios inspectable without serial toggling."
+    },
+    "roomplan": {
+      "name": "Apple RoomPlan",
+      "url": "https://developer.apple.com/documentation/roomplan",
+      "transfer": "Sensor-guided capture of walls, openings and recognized objects into a modifiable spatial model."
+    },
+    "homeassistant": {
+      "name": "Home Assistant Areas / Floors",
+      "url": "https://www.home-assistant.io/docs/organizing/areas/",
+      "transfer": "Physical area hierarchy as a targetable runtime organization layer, distinct from individual entities."
+    },
+    "openusd": {
+      "name": "OpenUSD",
+      "url": "https://openusd.org/22.08/glossary.html",
+      "transfer": "Layered composition and overrides preserve source structure while supporting alternate projections/configurations."
+    },
+    "ditto": {
+      "name": "Eclipse Ditto",
+      "url": "https://eclipse.dev/ditto/architecture-overview.html",
+      "transfer": "Separate twin state, policy, search, gateway and connectivity responsibilities instead of one undifferentiated digital twin."
+    },
+    "matter": {
+      "name": "Matter Semantic Tags",
+      "url": "https://csa-iot.org/wp-content/uploads/2023/10/Matter-1.2-Standard-Namespace-Specification.pdf",
+      "transfer": "Standard semantic location/direction/position tags can inform adapters without becoming HOUSE identity."
+    }
+  },
+  "index_rule": "Many-to-many capability index: a project may participate in several reality layers. The visible aperture shows only the nearest three routes; deep_index preserves the wider quarry.",
+  "deep_index": {
+    "BODY": [
+      {
+        "ref": "/body/",
+        "role": "private/body observation and contextual return"
+      },
+      {
+        "ref": "/body/fit/",
+        "role": "sensor-fusion / fit evidence"
+      },
+      {
+        "ref": "/bodyplans/",
+        "role": "body reference projections"
+      },
+      {
+        "ref": "/care/",
+        "role": "longitudinal human care authority"
+      }
+    ],
+    "HARNESS": [
+      {
+        "ref": "/recovery/env0/",
+        "role": "recovered body-house coupling grammar"
+      },
+      {
+        "ref": "/field/axial-probe/",
+        "role": "physical constraint/coupling probe"
+      },
+      {
+        "ref": "/foundry/aperture/",
+        "role": "focus/aperture interaction lineage"
+      },
+      {
+        "ref": "/control/confluence/HOUSE_MARKS.md",
+        "role": "reversible physical mark/interface donor"
+      },
+      {
+        "ref": "/recovery/poly-furnisher/",
+        "role": "reconfigurable physical interface/furniture lineage"
+      }
+    ],
+    "OBJECT": [
+      {
+        "ref": "/shopping/",
+        "role": "capability acquisition through adoption"
+      },
+      {
+        "ref": "/foundry/",
+        "role": "artifact/mechanism fabrication field"
+      },
+      {
+        "ref": "/foundry/room/",
+        "role": "material DOM / compositional room donor"
+      },
+      {
+        "ref": "/recovery/poly-furnisher/",
+        "role": "furnisher / cassette / joint lineage"
+      }
+    ],
+    "ROOM": [
+      {
+        "ref": "/house/#PLAN",
+        "role": "room topology"
+      },
+      {
+        "ref": "/house/#SURFACE",
+        "role": "floor/ceiling/wall addresses"
+      },
+      {
+        "ref": "/house/#SECTION",
+        "role": "vertical section projection"
+      },
+      {
+        "ref": "/house/#3D",
+        "role": "same-ID axonometric projection"
+      },
+      {
+        "ref": "/house/#TRACE",
+        "role": "ordered path / replay"
+      },
+      {
+        "ref": "/house/#CARE",
+        "role": "local household continuity"
+      },
+      {
+        "ref": "/house/",
+        "role": "addressed design trials"
+      }
+    ],
+    "HOUSE": [
+      {
+        "ref": "/house/",
+        "role": "canonical spatial/state/design workbench"
+      },
+      {
+        "ref": "/house/expert.html",
+        "role": "public-safe technical witness"
+      },
+      {
+        "ref": "/house/confluence.json",
+        "role": "layer ownership / authority model"
+      },
+      {
+        "ref": "/house/spatial/model.json",
+        "role": "reconstructed spatial substrate"
+      },
+      {
+        "ref": "/recovery/env0/",
+        "role": "body-to-house coupling lineage"
+      }
+    ],
+    "RUNTIME": [
+      {
+        "ref": "/house/expert.html",
+        "role": "timestamped public runtime projection"
+      },
+      {
+        "ref": "/house/mini.js",
+        "role": "Telegram semantic-intent adapter"
+      },
+      {
+        "ref": "/telegram-webapp.js",
+        "role": "Telegram surface adapter"
+      },
+      {
+        "ref": "/house/state.json",
+        "role": "generated public-safe witness; not live authority"
+      }
+    ],
+    "TIME": [
+      {
+        "ref": "/dayline/",
+        "role": "time/context execution"
+      },
+      {
+        "ref": "/atlas-dayline/",
+        "role": "radial/nonlinear planning lineage"
+      },
+      {
+        "ref": "/house/",
+        "role": "before/after physical design delta"
+      }
+    ],
+    "PEOPLE": [
+      {
+        "ref": "/contact/",
+        "role": "human port explicit share/copy boundary"
+      },
+      {
+        "ref": "/comms/",
+        "role": "source-addressed obligations and communication state"
+      },
+      {
+        "ref": "/continuity/",
+        "role": "case/continuity context"
+      }
+    ],
+    "AGENT": [
+      {
+        "ref": "/",
+        "role": "FIELD held-object/action/re-entry surface"
+      },
+      {
+        "ref": "/docs/",
+        "role": "READFIELD addressed source/cursor"
+      },
+      {
+        "ref": "/lib/interphase-carrier.js",
+        "role": "authority-free cross-host continuity witness"
+      },
+      {
+        "ref": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+        "role": "bounded agent/human execution discipline"
+      },
+      {
+        "ref": "/agent-router.json",
+        "role": "agent routing cases without universal authority"
+      },
+      {
+        "ref": "/nexus/",
+        "role": "system architecture / machine-room projections"
+      }
+    ],
+    "EXPERIENCE": [
+      {
+        "ref": "/fold-bloom/",
+        "role": "source-addressed embodied projection family"
+      },
+      {
+        "ref": "/fold-bloom/live/",
+        "role": "ride / embodied source traversal"
+      },
+      {
+        "ref": "/fold-bloom/lab/",
+        "role": "cross-projection research bench"
+      },
+      {
+        "ref": "/fold-bloom/ink/",
+        "role": "authored material trace / return"
+      }
+    ],
+    "EVIDENCE": [
+      {
+        "ref": "/returns/",
+        "role": "return/evidence field"
+      },
+      {
+        "ref": "/house/#TRACE",
+        "role": "local spatial path evidence"
+      },
+      {
+        "ref": "/house/",
+        "role": "design trial before/change/after receipt"
+      },
+      {
+        "ref": "/control/confluence/",
+        "role": "confluence/successor notes and transfer boundaries"
+      }
+    ]
+  }
+}
