@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T23:08:00+08:00",
+  "updated": "2026-10-02T23:44:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T23:08:00+08:00",
+        "updated_at": "2026-10-02T23:44:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8999,7 +8999,7 @@
     },
     {
       "href": "/field/moire-route/",
-      "title": "FIELD · MOIRÉ ROUTE 0.1",
+      "title": "FIELD · INTERFERENCE / HELD OBJECT 0.2",
       "kind": "experiment",
       "parent": "/",
       "operation": "VERIFY / ALIGN",
@@ -9008,9 +9008,9 @@
       "family": "FIELD INDEX / REPRESENTATION",
       "tier": "FIELD",
       "showcase_card": false,
-      "role": "FIELD INDEX representation specimen: coordinate phase/orientation mismatch becomes interference; alignment is tested against the same unlabeled local adjacency baseline. Lives under REFINE / PROVE as a bounded perceptual instrument, not a new product or FOLD//BLOOM subsystem.",
+      "role": "FIELD INDEX representation instrument. Receives the exact held FIELD route from root, reconstructs its real manifest lineage, and renders mismatch between canonical route facts and the selected FIELD projection. Alignment may compensate coordinate displacement but cannot erase hidden/derived identity, address, content, depth, authority or evidence residue.",
       "index": {
-        "updated_at": "2026-10-02T22:37:00+08:00",
+        "updated_at": "2026-10-02T23:44:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9019,26 +9019,28 @@
       },
       "evidence": {
         "checks": [
-          "deterministic Node selftest: aligned local-choice accuracy 1.000 vs plain adjacency chance 0.571",
-          "opposite phase drops local-choice accuracy to 0.286 and continuity from 0.821 to 0.180",
-          "route line is hidden by default; REVEAL is ground-truth inspection only",
-          "architectural proxy only; human perceptual superiority remains unproved"
+          "runtime requires ?focus=<real manifest route>; no synthetic route fallback",
+          "route context is manifest ancestry + bounded real siblings/children only",
+          "mismatch splits hidden/derived channel residue from transformable coordinate displacement",
+          "alignment cannot erase hidden-channel residue",
+          "selftest reads actual showcase-manifest.json + control/CURRENT.json"
         ],
+        "handoff": "/field/moire-route/RESEARCH_HANDOFF.md",
         "return_path": "/"
       },
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Can FIELD make coordinate mismatch perceptible as interference so phase alignment exposes a route cue that a plain local adjacency projection lacks?",
-        "baseline": "Same deterministic graph with START/END visible and equal-looking forward edges; local route choice has chance 1/N.",
-        "mutation": "Encode route-coherent cells with shared phase/orientation and off-route cells with deterministic mismatch; render the mismatch as moire instead of adding decorative pattern.",
-        "evidence_gate": "Node selftest and route/public-surface CI must pass. Promotion to another host additionally requires one real host task and a human/device gate only for irreducible perceptual value.",
-        "next_if_pass": "Keep the mechanism available from FIELD REFINE / PROVE; transfer only the proved relation into Sleeper / ALL MAPS ARE WRONG, Scale Lens / Ministry Ridge, or Atlas Dayline when a real host task needs it.",
-        "next_if_fail": "PARK the interference donor under FIELD research; retain the visual-law index and do not use moiré as wallpaper."
+        "question": "Can interference over one actually held FIELD object expose where its current representation loses or re-coordinates canonical route facts?",
+        "baseline": "Read the held FIELD object in its current projection without an explicit mismatch report.",
+        "mutation": "Propagate the exact held route and FIELD projection into the interference instrument; compare canonical manifest/CURRENT facts with representation-preserved/derived fields and real route lineage coordinates.",
+        "evidence_gate": "Machine proof must show zero synthetic runtime fixture, exact manifest identity, fail-closed no-focus behavior, and non-erasable channel residue. Human usefulness remains optional observation until one real representation choice is improved.",
+        "next_if_pass": "Use the mismatch report as a bounded REFINE / PROVE lens for held objects; transfer only specific proved mismatch relations to other hosts.",
+        "next_if_fail": "PARK the instrument; keep the visual-law donor without decorative moiré."
       },
-      "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+      "receipt": "/returns/FIELD_MOIRE_HELD_OBJECT_2026-10-02.json"
     },
     {
       "href": "/recovery/semantic-painting-v0.8/",
