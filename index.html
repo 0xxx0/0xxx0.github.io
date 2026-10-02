@@ -267,7 +267,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
       <button id="apTrace">TRACE</button><button id="apProof">COMPARE</button><button id="apCopy">COPY</button>
       <button id="axReset">RESET / NEWEST</button>
       <a href="./field/axial-probe/" title="Disposable AXIAL gesture/reversibility falsification probe; no canonical state authority.">SHADOW PROBE</a>
-      <a href="./field/moire-route/" title="Representation experiment: coordinate mismatch appears as moiré interference; alignment is compared against a plain adjacency baseline.">MOIRÉ ROUTE</a>
+      <a id="moireRouteLink" href="./field/moire-route/" title="Hold one FIELD object first. This instrument receives that exact address and reports mismatch between its canonical route facts and the current FIELD projection.">MOIRÉ ROUTE</a>
       <span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span>
     </div>
     <div class="focusResidue" id="focusResidue" hidden></div>
@@ -371,7 +371,18 @@ function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=tr
 function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=route-pulse focus selections (legacy counter name retained); Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const projectionOf=()=>$('mapFold')?.open?mapMode:'AXIAL_LATEST';
-const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),label=projection==='AXIAL_LATEST'?'FIELD / FOCUS':projection.replace('_',' / ');if(w)w.textContent='READING · '+label;window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
+function syncMoireRouteLink(){
+ const a=$('moireRouteLink');if(!a)return;
+ if(!focus){a.href='./field/moire-route/';a.title='Hold one FIELD object first; the mismatch instrument no longer invents a synthetic route.';a.setAttribute('aria-disabled','true');return}
+ const p=new URLSearchParams({focus:focus.href,projection:projectionOf()});
+ if(axisState.state!=='ANY')p.set('ax_state',axisState.state);
+ if(axisState.operation!=='ANY')p.set('ax_op',axisState.operation);
+ if(axisState.mode!=='ANY')p.set('ax_mode',axisState.mode);
+ a.href='./field/moire-route/?'+p.toString();
+ a.title='Inspect actual representation mismatch for held FIELD object '+focus.href+' · '+projectionOf();
+ a.removeAttribute('aria-disabled');
+}
+const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),label=projection==='AXIAL_LATEST'?'FIELD / FOCUS':projection.replace('_',' / ');if(w)w.textContent='READING · '+label;syncMoireRouteLink();window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
 const opOf=r=>r.operation||r.kind||'—';
 const modesOf=r=>Array.isArray(r.index?.work_modes)&&r.index.work_modes.length?r.index.work_modes:['UNKNOWN'];
 const unique=xs=>[...new Set(xs.filter(Boolean))];
