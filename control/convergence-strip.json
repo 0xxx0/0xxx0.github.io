@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-02T09:10:28.852Z",
+  "generated": "2026-10-02T09:41:00.779Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-02",
-  "commits_in_window": 5,
-  "git_commits_in_window": 40,
-  "telemetry_commits_in_window": 35,
-  "commits_total": 4531,
+  "commits_in_window": 7,
+  "git_commits_in_window": 45,
+  "telemetry_commits_in_window": 38,
+  "commits_total": 4536,
   "branch_count": 782,
   "recent_commits": [
-    "field-index: date labels carry age in colour (#746)",
-    "browser-smoke: make the suite's verdict independent of which Chromium it finds",
-    "field-index: derive manifest versions from release receipts + gate the drift"
+    "showcase-manifest: stamp /recovery/poly-furnisher/ (mutation -> index touch)",
+    "recovery: redact published personal email from PRELUDE-DRAFT-NOTES",
+    "field-index: date labels carry age in colour (#746)"
   ],
   "active_fronts": [
     {
