@@ -14,8 +14,7 @@
 <div id="mobileNav" aria-label="Mobile projection viewport"><button data-mobile-view="now" class="on">NOW</button><button data-mobile-view="field">FIELD</button><button data-mobile-view="run">RUN</button><button data-mobile-view="return">RETURN</button><button data-mobile-view="tide">TIDE</button><button data-mobile-view="atlas">ATLAS</button></div>
 
 <nav id="utilityBar" aria-label="Atlas projection controls">
- <span class="mark">POLY // ATLAS DAYLINE I · <b>LOCAL-ONLY</b></span>
- <button id="atlasProjectionBtn" class="on">ATLAS</button><button id="plainProjectionBtn">PLAIN</button><button id="scenarioBtn">SCENARIO</button><span id="scenarioBadge">NO COUNTERFACTUAL</span><button id="liveModeBtn" title="Read live FIELD state without changing repository authority">LIVE</button><button id="syncNowBtn" title="Explicitly set canonical Dayline NOW from this device clock">NOW ↻</button><button id="quickNewBtn">＋ TASK</button><button id="quickReturnBtn">RETURN</button><button id="quickReplayBtn">REPLAY</button><button id="shareCapsuleBtn">CAPSULE ↗</button>
+ <span class="mark">POLY // ATLAS DAYLINE I · <b>LOCAL-ONLY</b></span><button id="quickNewBtn">＋ TASK</button><button id="quickReturnBtn">RETURN</button><details id="toolbarMore" class="toolbarMore" open><summary>MORE</summary><div class="toolbarTools"><button id="atlasProjectionBtn" class="on">ATLAS</button><button id="plainProjectionBtn">PLAIN</button><button id="scenarioBtn">SCENARIO</button><span id="scenarioBadge">NO COUNTERFACTUAL</span><button id="liveModeBtn" title="Read live FIELD state without changing repository authority">LIVE</button><button id="syncNowBtn" title="Explicitly set canonical Dayline NOW from this device clock">NOW ↻</button><button id="quickReplayBtn">REPLAY</button><button id="shareCapsuleBtn">CAPSULE ↗</button></div></details>
 </nav>
 <section id="plainView" aria-label="Plain list ablation"><div class="plain-head"><div><h1>DAYLINE / PLAIN ABLATION</h1><div class="plain-sub">SAME TASK IDS · SAME RANKING · SAME RUN · NO SPATIAL CLAIM</div></div><div id="plainState" class="plain-state"></div></div><div id="plainAnchors"></div><div id="plainList" class="plain-list"></div><div id="plainFoot" class="plain-foot"></div></section>
 
@@ -57,6 +56,6 @@
 <div id="toast"></div>
 
 <script defer src="./app.js"></script>
-<script defer src="./field-bridge.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>{const m=document.getElementById("toolbarMore");if(!m)return;const q=matchMedia("(max-width:820px)");const sync=()=>q.matches?m.removeAttribute("open"):m.setAttribute("open","");sync();q.addEventListener?.("change",sync)});</script><script defer src="./field-bridge.js"></script>
 <script src="/showcase-nav.js" defer></script></body>
 </html>

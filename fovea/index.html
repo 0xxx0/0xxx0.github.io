@@ -27,7 +27,7 @@
   #card .btn{display:inline-block;font:inherit;font-size:11px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;margin:0 6px 0 0;text-decoration:none}
   #card .btn:hover{border-color:var(--acc);color:var(--acc)}
   #card .btn.primary{border-color:var(--acc);color:var(--acc)}
-</style>
+.mapJump{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.1em}.mapJump select{flex:1;min-width:0;background:#0a0c0f;color:var(--fg);border:1px solid var(--line);padding:8px;font:inherit}@media(max-width:600px){main{padding:12px 8px}header h1{font-size:22px}header .sub{font-size:10px;margin-bottom:8px}#fovea .bar{padding:7px 9px;gap:7px}.mapJump{padding:6px 8px}#fovea .foot{padding:6px 8px;font-size:8px}#card{left:7px;bottom:7px;max-width:calc(100vw - 34px)}}</style>
 </head>
 <body>
 <main>
@@ -37,15 +37,15 @@
   </header>
   <div id="fovea">
     <div class="bar">
-      <b>FOVEA 0.2</b>
+      <b>FOVEA 0.3</b>
       <span id="c1">…</span>
       <span class="sp"></span>
       <span>foveate to read · tap to hold · esc releases</span>
     </div>
-    <canvas id="cv"></canvas>
+    <canvas id="cv" aria-label="Fovea map of working and recovered site routes"></canvas><label class="mapJump" for="jumpTo">FIND ROUTE<select id="jumpTo"><option value="">Choose a route…</option></select></label>
     <div class="foot">
       <span>○ running · □ waiting · — parked · marks are a reading; the manifest is the address book · <a href="/">FIELD INDEX</a> · <a href="/field-play.html">FIELD / PLAY</a></span>
-      <span>v0.2 · 2026-09-27</span>
+      <span>v0.3 · 2026-10-03</span>
     </div>
     <div id="card">
       <div class="t"></div>
@@ -84,6 +84,7 @@
     {t:"RECOVERY FAMILIES ×24",l:"RECOVERED",k:"park",n:"manifested · parked"},
     {t:"JUNE ARCHIVE",l:"RECOVERED",k:"park",n:"protected · sole-source"}
   ];
+  var jump=document.getElementById("jumpTo"); DATA.forEach(function(d,i){var o=document.createElement("option");o.value=String(i);o.textContent=d.t+" · "+d.l;jump.appendChild(o);});
   var LANES = ["PLAY","REPRESENT","PLAN","PROVE","CAPTURE","OPEN","RECOVERED"];
   var BOX = {PLAY:[14,26,272,216],REPRESENT:[298,26,284,216],PLAN:[594,26,272,216],
              PROVE:[14,258,272,104],CAPTURE:[298,258,284,104],OPEN:[594,258,272,104],
@@ -154,13 +155,14 @@
     };
   }
   function mapEv(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};}
+  jump.addEventListener("change",function(){if(jump.value==="")return;var p=pts[Number(jump.value)];if(!p)return;held=p;LMx=p.x;LMy=p.y;showCard(p);draw(LMx,LMy);});
   function release(){held=null;card.style.display='none';draw(LMx,LMy);}
   cv.addEventListener('pointermove',function(e){var m=mapEv(e);LMx=m.x;LMy=m.y;draw(LMx,LMy);});
   cv.addEventListener('pointerleave',function(){LMx=null;LMy=null;draw(null,null);});
   cv.addEventListener('pointerdown',function(e){
     e.preventDefault();
     var m=mapEv(e);LMx=m.x;LMy=m.y;
-    var best=null,bd=34;
+    var best=null,bd=Math.max(34,30*W/Math.max(1,cv.getBoundingClientRect().width));
     pts.forEach(function(p){var d=Math.hypot(p.x-m.x,p.y-m.y);if(d<bd){bd=d;best=p;}});
     if(best){held=best;showCard(best);}else{held=null;card.style.display='none';}
     draw(m.x,m.y);
