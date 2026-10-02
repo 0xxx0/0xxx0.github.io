@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/hermes-media-curator/v0.1",
   "id": "FIELD-HERMES-MEDIA-CURATOR",
-  "updated": "2026-09-22",
+  "updated": "2026-10-03",
   "purpose": "Use Hermes as a bounded supervisor over MEDIA REFINERY while local vision handles bulk semantic annotation.",
   "roles": {
     "deterministic_refinery": {
@@ -47,6 +47,20 @@
         "delegate exception review",
         "schedule only after bounded proof"
       ]
+    },
+    "operating_control": {
+      "implementation": "/scripts/media-curator-control.py",
+      "authority": [
+        "configure local source/output/model state",
+        "doctor host/model readiness",
+        "run bounded pilot",
+        "run single-flight overnight cycle",
+        "expose status + literal semantic search",
+        "install paused Hermes jobs after pilot proof",
+        "resume/pause the pair explicitly"
+      ],
+      "source_mutation": false,
+      "rendering": false
     }
   },
   "model_policy": {
@@ -81,7 +95,7 @@
     "MEDIA ROOT (read-only)",
     "REFINERY DISCOVER/HASH/DEDUPE",
     "BATCH + CONTACT SHEET",
-    "LOCAL QWEN3-VL SEMANTIC OVERLAY",
+    "LOCAL QWEN3.5 SEMANTIC OVERLAY",
     "OVERLAY VALIDATION",
     "ACCEPT or bounded RETRY/HOLD",
     "REFINERY RERUN",
@@ -110,7 +124,8 @@
       "overlay-validation/",
       "semantic-overlays/",
       "recipe-queue.json",
-      "morning-return.json"
+      "morning-return.json",
+      "pilot-proof.json"
     ],
     "derived": [
       "contact-sheets/",
@@ -126,6 +141,28 @@
       "all attempted batches either accepted or explicitly held",
       "morning-return exists",
       "recipe queue changes only after accepted overlay evidence"
-    ]
+    ],
+    "control": "/scripts/media-curator-control.py pilot --max-batches 3"
+  },
+  "scheduler": {
+    "nightly": {
+      "mode": "Hermes no-agent script-only cron",
+      "default_schedule": "daily at 01:00",
+      "function": "run deterministic refinery + local Qwen3.5 semantic cycle; stdout is compact return",
+      "model_spend": "no Hermes/provider inference; local Ollama only",
+      "concurrency": "single-flight lock in output root"
+    },
+    "morning": {
+      "mode": "Hermes agent cron + media-curator skill",
+      "default_schedule": "daily at 07:00",
+      "function": "read morning RETURN; adjudicate at most 3 held/high-value batches; rerun deterministic curator only if evidence changed",
+      "forbidden": [
+        "source moves/renames/deletes",
+        "rendering",
+        "TRANSLATE"
+      ]
+    },
+    "install_state": "PAUSED_BY_DEFAULT_AFTER_PILOT",
+    "health": "hermes -p media-curator cron doctor"
   }
 }
