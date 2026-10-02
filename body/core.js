@@ -56,6 +56,7 @@ var CAMPAIGN_NEXT={
 };
 function campaignTransition(campaign,action,payload,now){
  if(!campaign||!campaign.state)return{ok:false,reason:'missing_campaign_state',campaign:campaign||null};
+ if(action==='BEGIN_TEST'&&campaign.safety_class!=='LOW_RISK_SELF_EXPERIMENT')return{ok:false,reason:'safety_class_blocks_test',from:campaign.state,action:action,campaign:campaign};
  var next=CAMPAIGN_NEXT[campaign.state]&&CAMPAIGN_NEXT[campaign.state][action];
  if(!next)return{ok:false,reason:'illegal_transition',from:campaign.state,action:action,campaign:campaign};
  var c=JSON.parse(JSON.stringify(campaign)),ts=now||new Date().toISOString();
