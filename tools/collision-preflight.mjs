@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
-import path from 'node:path';
 
 const CONFIG_PATH = process.env.FIELD_COLLISION_MAP || 'control/coordination/COLLISION_MAP.json';
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
@@ -33,15 +32,13 @@ function parseClaim(body = '') {
 }
 
 function annotate(kind, text) {
-  const safe = text.replace(/\r?\n/g, '%0A');
-  console.log(`::${kind}::${safe}`);
+  console.log(`::${kind}::${text.replace(/\r?\n/g, '%0A')}`);
 }
 
-async function api(url, token) {
+async function api(url) {
   const res = await fetch(url, {
     headers: {
       Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
       'X-GitHub-Api-Version': '2022-11-28',
       'User-Agent': 'field-collision-preflight'
     }
@@ -50,20 +47,20 @@ async function api(url, token) {
   return res.json();
 }
 
-async function listFiles(apiBase, owner, repo, number, token) {
+async function listFiles(apiBase, owner, repo, number) {
   const files = [];
   for (let page = 1; page <= 10; page += 1) {
-    const batch = await api(`${apiBase}/repos/${owner}/${repo}/pulls/${number}/files?per_page=100&page=${page}`, token);
+    const batch = await api(`${apiBase}/repos/${owner}/${repo}/pulls/${number}/files?per_page=100&page=${page}`);
     files.push(...batch.map(x => x.filename));
     if (batch.length < 100) break;
   }
   return files;
 }
 
-async function listOpenPrs(apiBase, owner, repo, token) {
+async function listOpenPrs(apiBase, owner, repo) {
   const prs = [];
   for (let page = 1; page <= 10; page += 1) {
-    const batch = await api(`${apiBase}/repos/${owner}/${repo}/pulls?state=open&per_page=100&page=${page}`, token);
+    const batch = await api(`${apiBase}/repos/${owner}/${repo}/pulls?state=open&per_page=100&page=${page}`);
     prs.push(...batch);
     if (batch.length < 100) break;
   }
@@ -83,14 +80,15 @@ if (!pr) {
   process.exit(0);
 }
 
-const token = process.env.GITHUB_TOKEN;
-if (!token) throw new Error('GITHUB_TOKEN is required for PR collision comparison.');
+if (event.repository?.private) {
+  throw new Error('collision-preflight is credential-free by design and supports only this public repository.');
+}
 
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || event.repository?.full_name || '').split('/');
 if (!owner || !repo) throw new Error('Cannot resolve repository identity.');
 const apiBase = process.env.GITHUB_API_URL || 'https://api.github.com';
 const selfNumber = pr.number;
-const selfFiles = await listFiles(apiBase, owner, repo, selfNumber, token);
+const selfFiles = await listFiles(apiBase, owner, repo, selfNumber);
 const claim = parseClaim(pr.body || '');
 const hardSelf = matchingDomains(selfFiles, config.hard_domains);
 const softSelf = matchingDomains(selfFiles, config.soft_domains);
@@ -120,27 +118,23 @@ if (!claim) {
   }
 }
 
-const openPrs = (await listOpenPrs(apiBase, owner, repo, token)).filter(other => other.number !== selfNumber);
+const openPrs = (await listOpenPrs(apiBase, owner, repo)).filter(other => other.number !== selfNumber);
 for (const other of openPrs) {
-  const otherFiles = await listFiles(apiBase, owner, repo, other.number, token);
+  const otherFiles = await listFiles(apiBase, owner, repo, other.number);
   const exact = selfFiles.filter(file => otherFiles.includes(file));
-  if (exact.length) {
-    errors.push(`PR #${other.number} exact-file overlap: ${exact.join(', ')}`);
-  }
+  if (exact.length) errors.push(`PR #${other.number} exact-file overlap: ${exact.join(', ')}`);
 
   const hardOther = matchingDomains(otherFiles, config.hard_domains);
   for (const [domain, files] of hardSelf) {
     if (hardOther.has(domain)) {
-      const theirs = hardOther.get(domain);
-      errors.push(`PR #${other.number} hard-domain overlap '${domain}': ours [${files.join(', ')}] vs theirs [${theirs.join(', ')}]`);
+      errors.push(`PR #${other.number} hard-domain overlap '${domain}': ours [${files.join(', ')}] vs theirs [${hardOther.get(domain).join(', ')}]`);
     }
   }
 
   const softOther = matchingDomains(otherFiles, config.soft_domains);
   for (const [domain, files] of softSelf) {
     if (softOther.has(domain)) {
-      const theirs = softOther.get(domain);
-      warnings.push(`PR #${other.number} shares soft domain '${domain}': ours [${files.join(', ')}] vs theirs [${theirs.join(', ')}]`);
+      warnings.push(`PR #${other.number} shares soft domain '${domain}': ours [${files.join(', ')}] vs theirs [${softOther.get(domain).join(', ')}]`);
     }
   }
 
@@ -154,7 +148,6 @@ console.log(`collision-preflight: PR #${selfNumber}`);
 console.log(`changed files: ${selfFiles.length}`);
 console.log(`hard domains: ${[...hardSelf.keys()].join(', ') || 'none'}`);
 console.log(`soft domains: ${[...softSelf.keys()].join(', ') || 'none'}`);
-console.log(`claim: ${claim ? JSON.stringify(claim) : 'none'}`);
 console.log(`other open PRs inspected: ${openPrs.length}`);
 
 for (const warning of [...new Set(warnings)]) annotate('warning', warning);
