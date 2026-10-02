@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-02T20:07:00+08:00",
+  "updated": "2026-10-02T21:49:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -58,10 +58,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.30 / DECLARED FORECAST + FOOTER PLAY / ONE HELD OBJECT",
+      "head": "FIELD INDEX 0.8.30 / ADVANCE-AS-SCALE / DECLARED FORECAST + FOOTER PLAY / ONE HELD OBJECT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. FIELD 0.8.28 FRAME→OBJECT and point-of-action UNDO remain intact. FIELD 0.8.29 adds a read-only pre-commit FORECAST inside that same held object for the currently pointed move: effect class, authority/commit boundary, target, source-mutation class and declared reversibility. Forecast derives from interphase-action-forecast/v0.1 over the shared carrier or from the exact visible navigation edge; it does not execute, predict undeclared domain outcomes, mint permission, or transfer native source/effect authority. Host-owned actions remain ≤3; CURRENT owns NOW, native hosts own commit/effect, WITNESS/RETURN owns observed consequence. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver.",
+      "retained_function": "Advance-as-scale is presentation-only on commit: the exact held route scales automatically into navigation, reduced-motion bypasses animation, and a hard fallback prevents transition machinery from blocking advance. Fast repo re-entry around one addressed object. FIELD 0.8.28 FRAME→OBJECT and point-of-action UNDO remain intact. FIELD 0.8.29 adds a read-only pre-commit FORECAST inside that same held object for the currently pointed move: effect class, authority/commit boundary, target, source-mutation class and declared reversibility. Forecast derives from interphase-action-forecast/v0.1 over the shared carrier or from the exact visible navigation edge; it does not execute, predict undeclared domain outcomes, mint permission, or transfer native source/effect authority. Host-owned actions remain ≤3; CURRENT owns NOW, native hosts own commit/effect, WITNESS/RETURN owns observed consequence. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver.",
       "evidence": [
         "/returns/FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
         "/returns/FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
@@ -109,7 +109,7 @@
         "/tools/interphase-carrier-selftest.cjs"
       ],
       "version": "0.8.30",
-      "latest_return": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
+      "latest_return": "/returns/FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02.json",
       "repo_verification": {
         "status": "CANDIDATE / CI_REQUIRED",
         "base_sha": "4ebc6dab41c09cdb6ff230bfd55f580637973f57",
