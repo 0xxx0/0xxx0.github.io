@@ -24,13 +24,6 @@
       "reason": "receipt lags the live head: control/CURRENT.json and the manifest both say 0.7.8 while the receipt still records 0.7.7 (last bumped 2026-09-27). Reconcile by bumping the receipt, not by downgrading the projection."
     },
     {
-      "route": "/laconic/",
-      "manifest_version": "0.3.2",
-      "release_version": "0.3.3",
-      "release_file": "laconic/release.json",
-      "reason": "the manifest appears regressed 0.3.3 -> 0.3.2 by commit 005d7c09 ('register Verse Copilot 0.3.2 behavior proof') while the receipt records 0.3.3 released 2026-09-30. Not a CURRENT head, so nothing corroborates 0.3.2; reconcile with the route owner before removing this entry."
-    },
-    {
       "route": "/recovery/sleeper/one-return-recon-0.2/",
       "manifest_version": "0.2",
       "release_version": "reified-0.2 + grid-receipt-seam-1",
