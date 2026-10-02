@@ -34,6 +34,16 @@
     <div class="focusMeta" id="focusMeta"></div>
   </section>
 
+  <section class="flow" id="flow" aria-label="Dayline focus flow">
+    <div class="sectionHead"><span>FLOW / ZERO-HUNT</span><span id="flowPosition">—</span></div>
+    <div class="flowControls">
+      <button id="prevFocusBtn" aria-label="Previous focus">←</button>
+      <button id="flowPrimaryBtn" class="flowPrimary">RECOVERING…</button>
+      <button id="nextFocusBtn" aria-label="Next focus">→</button>
+    </div>
+    <div class="flowHint" id="flowHint">SWIPE FOCUS ←/→ · ↑↓ OR J/K · ENTER = PRIMARY · / = CAPTURE</div>
+  </section>
+
   <section class="interphase" id="interphaseRail" aria-label="INTERPHASE projection over held Dayline object">
     <div class="sectionHead"><span>INTERPHASE</span><span id="ipProjection">FOVEA</span></div>
     <div class="ipObject" id="ipObject">DAYLINE · recovering…</div>
@@ -41,10 +51,10 @@
     <div class="ipTools"><button data-ip-projection="FOVEA">FOVEA</button><button data-ip-projection="LINE">LINE</button><button data-ip-projection="RING">RING</button><span id="ipResidue">—</span></div>
   </section>
 
-  <section class="next">
-    <div class="sectionHead"><span>NEXT / 1–3</span><span id="moveCount">0</span></div>
+  <details class="next" id="moveDetails">
+    <summary class="sectionHead"><span>MORE MOVES / 1–3</span><span id="moveCount">0</span></summary>
     <div class="moves" id="moves"></div>
-  </section>
+  </details>
 
   <section class="witness">
     <div class="sectionHead"><span>WITNESS</span><span id="witnessState">—</span></div>
