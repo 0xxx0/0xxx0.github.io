@@ -73,6 +73,13 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .touchFiles{padding:4px 3px 5px 69px;border-top:1px solid #121a1e}.touchImpact{color:var(--mut);font-size:6px;margin-bottom:3px}.touchFile{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:2px 0;border-top:1px solid #11191d}.touchFile:first-of-type{border-top:0}.touchFile code{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#95a1a5;font-size:6px}.touchRouteTag{color:var(--cool);font-size:5.8px;white-space:nowrap}.touchRouteTag.shared{color:var(--gold)}.touchCommitLink{display:inline-block;margin-top:4px;color:var(--gold);font-size:6px}.touchFail{padding:7px 3px;color:var(--mut);font-size:7px}
 .routeProjection{margin-top:6px;border-top:1px solid var(--line)}.routeProjection>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:8px;padding:6px 2px;color:var(--mut)}.routeProjection>summary::-webkit-details-marker{display:none}.routeProjection>summary b{font-size:7px;letter-spacing:.11em;color:var(--ink)}.routeProjection>summary span{font-size:6.5px}
 .feedDay{flex:none;align-self:stretch;display:grid;place-items:center;padding:0 3px;border-left:1px solid #20282c;border-right:1px solid #20282c;color:#59666c;font:5.5px/1 ui-monospace,monospace;letter-spacing:.05em;writing-mode:vertical-rl;transform:rotate(180deg)}
+/* Date labels carry AGE, not just identity. The rail is sorted newest-first and the eye
+   should find "what changed today" without reading the digits. Same two accents the rest
+   of the surface already uses (#ffd0bd warm, #72bce7 cool), so no new colour enters the
+   palette. Colour is the only change: geometry, type and borders stay put. */
+.feedDay[data-age="0"]{color:#ffd0bd}
+.feedDay[data-age="1"]{color:#72bce7}
+.feedDay[data-age="2"]{color:#66757b}
 @media(max-width:760px){.syncLine #syncRepo{margin-left:0}.touchRow{grid-template-columns:52px minmax(0,1fr)}.touchRow span{display:none}}
 .foldBody.nested{padding-left:8px;border-left:1px solid #1b2429}
 .foldBody.nested details.fold{margin-top:6px;border-top:0}
@@ -424,6 +431,7 @@ function isStale(t){const h=ageHours(t);return h!=null&&h>STALE_H}
 function isRouteStale(t){const h=ageHours(t);return h!=null&&h>STALE_ROUTE_H}
 function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
+function dayAge(t){if(!t)return null;const d=new Date(String(t));if(!Number.isFinite(d.getTime()))return null;const now=new Date();const a=new Date(d.getFullYear(),d.getMonth(),d.getDate()),b=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.round((b-a)/86400000)}
 function routeIndexClock(){return latest[0]?.index?.updated_at||''}
 function isTelemetryCommit(c){return /^nexus:\s*board refresh\b/i.test(String(c?.subject||''))}
 function materialRepoTouches(){return repoTouches.filter(c=>!isTelemetryCommit(c))}
@@ -874,7 +882,7 @@ function renderFeed(){
  if($('feedMeta'))$('feedMeta').textContent=xs.length+' shown · '+routes.length+' addressed · '+routeGitDrift();
  for(const r of xs){
    const d=shortDay(r.index?.updated_at||'');
-   if(d&&d!==lastDay){parts.push('<span class="feedDay" title="manifest index day '+esc(d)+'">'+esc(d)+'</span>');lastDay=d}
+   if(d&&d!==lastDay){const age=dayAge(r.index?.updated_at||'');parts.push('<span class="feedDay"'+(age!=null?' data-age="'+Math.min(Math.max(age,0),3)+'"':'')+' title="manifest index day '+esc(d)+(age!=null?' · '+age+'d ago':'')+'">'+esc(d)+'</span>');lastDay=d}
    const signal=routeSignal(r),lab=[r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/'),signal!=='CLEAR'?signal:null].filter(Boolean).join(' · ');
    parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt></button>');
  }
