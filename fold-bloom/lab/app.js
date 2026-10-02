@@ -10,7 +10,7 @@ import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,te
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
-import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
+import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveSupportFocusDecision,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -1038,19 +1038,21 @@ function reducerAdvance(){
   return x;
 }
 function reducerInspectSupport(){
-  const support=liveSteeringSupport(liveChange.bridge);
-  if(!support?.ok){setStatus('REDUCER · SUPPORT OPEN · '+(support?.reason||'NO DIRECTION/APERTURE'));return support}
-  const count=Number(support.native_candidate_count)||0;
-  if(count!==1){
-    setStatus('REDUCER · SUPPORT C='+count+' · '+(count>1?'AMBIGUOUS · NO AUTO-CHOICE':'NO LAWFUL MATCH')+' · PREVIEW ONLY');
-    recordLabTrace('REDUCER_SUPPORT_'+(count>1?'AMBIGUOUS':'EMPTY'));
-    return support;
+  const decision=liveSupportFocusDecision(liveChange.bridge),support=decision.support;
+  if(!decision.ok){
+    setStatus('REDUCER · SUPPORT OPEN · '+(decision.reason||'NO DIRECTION/APERTURE'));
+    return decision;
   }
-  const slot=support.candidate_slots?.[0];
-  if(Number.isInteger(Number(slot)))focusNativeApertureSlot(Number(slot));
+  if(decision.status!=='UNIQUE_VIEW_FOCUS'){
+    setStatus('REDUCER · SUPPORT C='+decision.candidate_count+' · '+(decision.status==='AMBIGUOUS_NO_AUTO_FOCUS'?'AMBIGUOUS · NO AUTO-CHOICE':'NO LAWFUL MATCH')+' · PREVIEW ONLY');
+    recordLabTrace('REDUCER_SUPPORT_'+(decision.status==='AMBIGUOUS_NO_AUTO_FOCUS'?'AMBIGUOUS':'EMPTY'));
+    return decision;
+  }
+  const slot=decision.focus_slot;
+  focusNativeApertureSlot(slot);
   setStatus('REDUCER · UNIQUE NATIVE SUPPORT · SLOT '+slot+' · INSPECT ONLY · NO COMMIT');
   recordLabTrace('REDUCER_SUPPORT_UNIQUE');
-  return support;
+  return decision;
 }
 function reducerReturn(){
   data.stateFlow=false;
