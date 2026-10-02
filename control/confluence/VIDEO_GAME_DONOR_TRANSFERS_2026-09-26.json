@@ -1,6 +1,6 @@
 {
   "schema": "field-game-donor-transfer/v0.1",
-  "updated": "2026-09-30",
+  "updated": "2026-10-03",
   "purpose": "Make video-game research pay rent by binding extracted mechanics to current FIELD hosts with explicit non-transfer residue and executable/contractual proof.",
   "selection_gate": [
     "current friction named",
@@ -40,7 +40,7 @@
       "donors": [
         "Hades"
       ],
-      "status": "CONTRACT",
+      "status": "IMPLEMENTED_CANDIDATE",
       "recipients": [
         "/",
         "/dayline/",
@@ -53,9 +53,11 @@
         "punishment economy"
       ],
       "contract_key": "failure_return",
-      "proof_claim": "Execution contract requires failure to emit evidence/residue or stop repeating the same attempt.",
+      "implementation": "field-egress-reducer accepts explicit FAILURE_RETURN / failure_return with four bounded classes: NEW_EVIDENCE, CHANGED_ASSUMPTION, NARROWED_UNKNOWN, DUPLICATE_NO_NEW_INFO. Material failure returns survive as RESIDUE; duplicate-no-new-info cannot manufacture NEXT; contradictory duplicate + material residue is preserved for review rather than discarded.",
+      "executable_test": "tools/field-egress-reducer-selftest.mjs",
+      "proof_claim": "Packet egress now makes the Hades-style failure-return law executable without inferring failure meaning from generic prose or rewarding failure with score/progression.",
       "new_sovereign_app": false,
-      "retirement": "Contract remains only while it prevents duplicate blind retries."
+      "retirement": "Keep the explicit failure-return field only while it prevents duplicate blind retries; fold it into a broader typed RETURN contract if another current owner supersedes the same semantics."
     },
     {
       "id": "route-load-fit",
@@ -96,7 +98,7 @@
       "donors": [
         "Into the Breach"
       ],
-      "status": "CONTRACT",
+      "status": "IMPLEMENTED_CANDIDATE",
       "recipients": [
         "/",
         "/house/",
@@ -108,7 +110,9 @@
         "undo after irreversible side effect"
       ],
       "contract_key": "precommit_telegraph",
-      "proof_claim": "Execution contract distinguishes preview/configuration from commit/effect.",
+      "implementation": "FIELD held-object FORECAST derives effect class, authority/commit boundary, target, source-mutation class and reversibility from declared action metadata. The forecast is reading-only and native hosts retain commit/effect authority.",
+      "executable_test": "tools/field-action-aperture-selftest.mjs",
+      "proof_claim": "FIELD 0.8.29 shipped declared pre-commit FORECAST without claiming perfect information or moving native commit authority.",
       "new_sovereign_app": false,
       "retirement": "No extra UI required when native host already exposes equivalent preview."
     },
