@@ -237,7 +237,7 @@
       "path": "foundry/omnitools/pii-scan.mjs",
       "kind": "secret",
       "value_sha256": "3ff6aed0dff8c0e98f29ffdbd9df4740f2cf2d37066e8d4b3267cda8ae2871b2",
-      "why": "code fragment captured by the key=value heuristic: line 66 declares the scanner's own ENTROPY_TOKEN regex (`const ENTROPY_TOKEN = /[A-Za-z0-9+/_=-]{20,}/g`); verified benign source code, not a credential, 2026-10-03"
+      "why": "code fragment captured by the key=value heuristic: line 66 declares the scanner's own entropy-token regular expression; verified benign source code, not a credential, 2026-10-03"
     }
   ]
 }
