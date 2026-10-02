@@ -20,6 +20,16 @@ Structured form:
 
 `node scripts/emit-agent-transcript.mjs --json`
 
+Compressed current field read:
+
+`node scripts/emit-agent-transcript.mjs --crystal`
+
+Structured crystal:
+
+`node scripts/emit-agent-transcript.mjs --crystal --json`
+
+CRYSTAL composes the existing bounded handoff with every CURRENT head/path, addressed archive scale, and the real JSON packet-shelf egress. It is transient authority `NONE`: archive size does not create NOW, stored packets do not self-select, and native hosts retain effect authority.
+
 Discover the complete machine surface from the same executable:
 
 `node scripts/emit-agent-transcript.mjs --help`
