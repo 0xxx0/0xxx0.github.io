@@ -30,5 +30,46 @@ function testDelta(test,afterEvent){
 function addressKey(a){
  if(!a)return null;return [a.plan_id||'',a.geometry_version||'',a.view||'',a.selection_mode||'',(a.region_ids||[]).slice().sort().join(',')].join('|')
 }
-g.BodyFieldCore={clamp:clamp,mean:mean,targetValue:targetValue,factorKeys:factorKeys,coverage:coverage,contrasts:contrasts,lagContrasts:lagContrasts,testDelta:testDelta,addressKey:addressKey};
+var DERIVEDNESS={D0:0,D1:1,D2:2,D3:3,D4:4};
+function admitsDerivedness(maxClass,observedClass){
+ if(maxClass==null||maxClass==='')return true;
+ return Object.prototype.hasOwnProperty.call(DERIVEDNESS,maxClass)&&Object.prototype.hasOwnProperty.call(DERIVEDNESS,observedClass)&&DERIVEDNESS[observedClass]<=DERIVEDNESS[maxClass]
+}
+function campaignEvidenceGate(campaign,seen){
+ var gate=campaign&&campaign.evidence_gate||{},x=seen||{},r=Number(x.returns||0),d=Number(x.days||0),unmet=[];
+ if(gate.minimum_returns!=null&&r<Number(gate.minimum_returns))unmet.push({metric:'returns',have:r,need:Number(gate.minimum_returns)});
+ if(gate.minimum_days!=null&&d<Number(gate.minimum_days))unmet.push({metric:'days',have:d,need:Number(gate.minimum_days)});
+ return {pass:unmet.length===0,unmet:unmet,returns:r,days:d}
+}
+function campaignBurdenAllows(campaign,usage){
+ var b=campaign&&campaign.burden_budget||{},u=usage||{},prompts=Number(u.active_prompts||0),seconds=Number(u.manual_seconds||0),exceeded=[];
+ if(b.max_active_prompts_per_day!=null&&prompts>=Number(b.max_active_prompts_per_day))exceeded.push({metric:'active_prompts',have:prompts,limit:Number(b.max_active_prompts_per_day)});
+ if(b.max_manual_seconds_per_return!=null&&seconds>Number(b.max_manual_seconds_per_return))exceeded.push({metric:'manual_seconds',have:seconds,limit:Number(b.max_manual_seconds_per_return)});
+ return {pass:exceeded.length===0,exceeded:exceeded}
+}
+var CAMPAIGN_NEXT={
+ DRAFT:{OPEN:'CALIBRATING',ABORT:'ABORTED'},
+ CALIBRATING:{BEGIN_TEST:'TESTING',RETURN:'RETURNED',ABORT:'ABORTED'},
+ TESTING:{RETURN:'RETURNED',ABORT:'ABORTED'},
+ RETURNED:{FADE:'FADED',ABORT:'ABORTED'},
+ FADED:{},ABORTED:{}
+};
+function campaignTransition(campaign,action,payload,now){
+ if(!campaign||!campaign.state)return{ok:false,reason:'missing_campaign_state',campaign:campaign||null};
+ var next=CAMPAIGN_NEXT[campaign.state]&&CAMPAIGN_NEXT[campaign.state][action];
+ if(!next)return{ok:false,reason:'illegal_transition',from:campaign.state,action:action,campaign:campaign};
+ var c=JSON.parse(JSON.stringify(campaign)),ts=now||new Date().toISOString();
+ if(action==='RETURN'){
+  var p=payload||{},allowed=['KEEP','DROP','UNKNOWN','ABORT'];
+  if(!allowed.includes(p.disposition))return{ok:false,reason:'return_disposition_required',from:campaign.state,action:action,campaign:campaign};
+  c.return=p;
+  if(p.disposition==='ABORT')next='ABORTED'
+ }
+ c.state=next;
+ if(action==='OPEN'){if(!c.opened_at)c.opened_at=ts;c.aperture='CAMPAIGN'}
+ if(action==='FADE'){c.aperture=c.fade_condition&&c.fade_condition.next_aperture||'GLANCE';c.closed_at=ts}
+ if(action==='ABORT'||next==='ABORTED')c.closed_at=ts;
+ return{ok:true,from:campaign.state,to:next,campaign:c}
+}
+g.BodyFieldCore={clamp:clamp,mean:mean,targetValue:targetValue,factorKeys:factorKeys,coverage:coverage,contrasts:contrasts,lagContrasts:lagContrasts,testDelta:testDelta,addressKey:addressKey,admitsDerivedness:admitsDerivedness,campaignEvidenceGate:campaignEvidenceGate,campaignBurdenAllows:campaignBurdenAllows,campaignTransition:campaignTransition};
 })(typeof window!=='undefined'?window:globalThis);
