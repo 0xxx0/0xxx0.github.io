@@ -43,6 +43,10 @@ jobs:
         run: node tools/shopping-market-tape-selftest.mjs
       - name: Validate Shopping ↔ HOUSE fit closed loop
         run: node tools/shopping-house-fit-selftest.mjs
+      - name: Validate Shopping adventure + SHOP LOOTER evidence loop
+        run: |
+          node tools/shopping-adventure-looter-selftest.mjs
+          node tools/shopping-interphase-selftest.mjs
       - name: Test HOUSE addressed design trial return
         run: node tools/house-design-selftest.mjs
       - name: Validate Shopping shared phase surface
