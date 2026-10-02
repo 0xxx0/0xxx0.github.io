@@ -100,3 +100,12 @@
   }
   return Object.freeze({EXPORT_SCHEMA,BUNDLE_SCHEMA,OBS_SCHEMA,transformRecord,transformExport});
 });
+
+/* BODY/FIT route-friction projection is deliberately loaded only in a browser.
+   The Health Connect transformer remains a pure CommonJS-capable module in tests. */
+if(typeof document!=='undefined'){
+  const s=document.createElement('script');
+  s.src='./route-friction.js';
+  s.defer=true;
+  (document.head||document.documentElement).appendChild(s);
+}
