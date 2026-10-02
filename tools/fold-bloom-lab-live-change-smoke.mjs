@@ -42,7 +42,20 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
   emit({schema:'field-pulse/v0.1',source:'MODEL_RESEARCH',instance:'probe-model',kind:'steering',seq:20,wall:Date.now(),data:{authority:'NONE',direction_label:'FOLD',direction_ref:'dir://fold',request_id:'req-probe',strength:.75}});
   await wait(()=>D().documentElement.dataset.fieldLabLiveSupport==='unique-native-candidate',1500,'unique steering support');
   rec.supportA=D().getElementById('liveChangeSupport').textContent;
-  rec.liveA=W().FoldBloomFieldLab.liveChange();
+  const beforeReducerSupport=W().FoldBloomFieldLab.liveChange();
+  D().getElementById('stateReduceSupport').click();
+  await wait(()=>D().getElementById('liveNativeFocus').textContent.includes('SLOT 2'),1500,'reducer unique support focus');
+  const afterReducerSupport=W().FoldBloomFieldLab.liveChange();
+  rec.reducerSupport={
+    button:D().getElementById('stateReduceSupport').textContent,
+    focus:D().getElementById('liveNativeFocus').textContent,
+    status:D().getElementById('status').textContent,
+    beforeLastSeq:beforeReducerSupport?.live_window?.last_seq,
+    afterLastSeq:afterReducerSupport?.live_window?.last_seq,
+    beforeNativeSeq:beforeReducerSupport?.native_latest?.seq,
+    afterNativeSeq:afterReducerSupport?.native_latest?.seq
+  };
+  rec.liveA=afterReducerSupport;
   W().dispatchEvent(new (W().Event)('resize'));await sleep(80);
   const cv=D().getElementById('field'),cr=cv.getBoundingClientRect(),cw=cr.width,ch=cr.height,rr=Math.max(96,Math.min(180,Math.min(cw,ch)*.43)),aa=-Math.PI/2+2*Math.PI*2/12;
   const haloX=cr.left+cw*.5+Math.cos(aa)*rr,haloY=cr.top+ch*.505+Math.sin(aa)*rr,haloHit=D().elementFromPoint(haloX,haloY);
@@ -79,6 +92,8 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.native.includes('SAME HEX ≠ SAME NEXT')&&rec.native.includes('FROM 2 CANDIDATES')&&rec.native.includes('TO 1 CANDIDATES')&&
     rec.steering.includes('FOLD')&&rec.steering.includes('AUTHORITY NONE')&&!rec.steering.includes('RETURN')&&
     rec.supportA.includes('C=1')&&rec.supportA.includes('UNIQUE_NATIVE_CANDIDATE')&&rec.supportB.includes('C=0')&&rec.supportB.includes('NO_NATIVE_CANDIDATE')&&rec.support===rec.supportB&&
+    rec.reducerSupport?.button==='SUPPORT · C=1'&&rec.reducerSupport?.focus.includes('SLOT 2')&&rec.reducerSupport?.focus.includes('MODEL-SUPPORTED')&&rec.reducerSupport?.status.includes('UNIQUE NATIVE SUPPORT')&&rec.reducerSupport?.status.includes('NO COMMIT')&&
+    rec.reducerSupport?.beforeLastSeq===6&&rec.reducerSupport?.afterLastSeq===6&&rec.reducerSupport?.beforeNativeSeq===6&&rec.reducerSupport?.afterNativeSeq===6&&
     rec.liveA?.native_latest?.candidate_count===2&&rec.liveA?.steering_support?.native_candidate_count===1&&rec.liveA?.steering_support?.candidate_slots?.join(',')==='2'&&
     rec.haloHit==='field'&&rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
     rec.focusAddressA==='field://lab/live/probe-live-instance-123456/seq/6/slot/2'&&
