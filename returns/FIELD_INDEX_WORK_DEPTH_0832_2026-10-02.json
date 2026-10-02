@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_WORK_DEPTH_0832_2026-10-02",
   "date": "2026-10-02",
-  "state": "CANDIDATE / EXACT_HEAD_CI_REQUIRED",
+  "state": "PASS / PR 779 EXACT-HEAD",
   "object": "FIELD INDEX 0.8.32 / HELD WORK DEPTH",
   "predecessor": "/returns/FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02.json",
   "operation": "CURRENT HEAD → HOLD → DEPTH / WORK → RELATION REFOCUS | PROOF OPEN → NATIVE MOVE / RETURN",
@@ -24,12 +24,12 @@
     "Counts, order, descendant density and proof density do not imply priority or quality."
   ],
   "verification": {
-    "held_work_depth_browser": "REQUIRED",
-    "current_head_entry": "PRESERVE VERIFIED 0.8.31 behavior",
-    "advance_as_scale_browser": "REQUIRED",
-    "public_surface_check": "REQUIRED",
-    "route_registration": "REQUIRED",
-    "gitleaks": "REQUIRED"
+    "proof_head": "f857e7ea3718437ab16d3f52df0de04717da154a",
+    "route_registration": "success · run 37026048193",
+    "public_surface": "success · run 37026047586 · 107/107",
+    "gitleaks": "success · run 37026048352",
+    "browser": "PASS · FIELD held work depth + advance-as-scale + critical browser smoke",
+    "recheck_after_truth_seal": "REQUIRED"
   },
   "falsifier": "Fail if DEPTH / WORK appears without an explicitly held address, creates another persistent dashboard/map/store, ranks heads, navigates on one relation activation, hides native/source authority, loses transform/proof history, breaks CURRENT-head entry, or regresses advance navigation/reduced-motion/fallback.",
   "residue": [
