@@ -1,0 +1,43 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_COUNCIL_LINEAGE_PROJECTION_2026-10-03",
+  "date": "2026-10-03",
+  "state": "BOUNDED_EXISTING_OBJECT_PROJECTION",
+  "object": "LACONIC / ICONIC — FIVE SELVES / RECOVERED",
+  "host": "/laconic/",
+  "delta": [
+    "Made the exact recovered 2024-12-29 request for 5–6 internal-persona voices visible inside the existing VAULT / LINEAGE projection.",
+    "Projected the exact recovered 2024-12-30 five-self labels: The Overthinking Strategist, The Chaotic Wildcard, The Dramatic Overachiever, The Overly Honest Realist, The Self-Aware Clown.",
+    "Kept the direct bridge from this early five-self cast to later Council membership/episodes explicitly OPEN.",
+    "Preserved the already-landed 0.3.6 FIELD execution seam; added no new FIELD action.",
+    "Reused existing persona-to-council-lineage.json as source; introduced no new persona/canon store or route."
+  ],
+  "proof": [
+    {
+      "kind": "bytes",
+      "path": "/laconic/index.html",
+      "claim": "LINEAGE derives and renders the FIVE SELVES / RECOVERED card from existing lineage data"
+    },
+    {
+      "kind": "source",
+      "path": "/laconic/recovered/persona-to-council-lineage.json",
+      "claim": "exact multi-voice request and recovered five labels remain the source"
+    },
+    {
+      "kind": "field",
+      "path": "/showcase-manifest.json",
+      "claim": "same /laconic/ FIELD object reports 0.4 and exact five-self recovered plurality projection while retaining existing FIELD actions"
+    },
+    {
+      "kind": "syntax",
+      "claim": "modified inline JavaScript compiled successfully in V8 syntax check; manifest JSON parsed successfully before write"
+    }
+  ],
+  "boundaries": [
+    "EXACT SOURCE != USER-ADOPTED != CURRENT CANON.",
+    "No new Council route, persona object class, adoption store, FIELD action, or effect authority.",
+    "Functional drafting voices remain separate from recovered early selves.",
+    "DRAFT remains distinct from SEND; HUMAN PORT remains the external boundary."
+  ],
+  "return": "/?focus=%2Flaconic%2F"
+}
