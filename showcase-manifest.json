@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T22:37:00+08:00",
+  "updated": "2026-10-02T23:08:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T22:37:00+08:00",
+        "updated_at": "2026-10-02T23:08:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -24,12 +24,16 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: one addressed held object with native owner/action, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN, one read-only pre-commit FORECAST for the currently pointed move (declared effect class, commit boundary, target, source-mutation class, reversibility; it never executes or predicts undeclared outcomes), and one compact glyph field. The sole immediate PLAY action lives in the footer MORE submenu. Latent REFINE / PROVE and collapsed STATUS residue. No duplicate HELD/NEXT/WITNESS dashboard. Generic READ / RIDE / SOURCE intent remains source-neutral; CURRENT owns attention/NOW, native hosts own commit/effect, RETURN owns durable evidence.",
+      "role": "FIELD INDEX root: enter unheld from addressable CURRENT heads; one addressed held object owns native owner/action, automatic advance-as-scale presentation on commit, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN and read-only pre-commit FORECAST. A collapsed DEPTH / WORK wake on that same object recovers accumulated retained capability, declared transforms, proof refs, descendant/related surfaces, versions, exits and named open future directly from CURRENT + manifest. Relation marks refocus the same route identity. The wake is projection-only: no priority, state, backlog, source/effect authority or second map. The merged FIELD moiré specimen remains an unequal REFINE / PROVE representation instrument, not root authority. Latent REFINE / PROVE and collapsed STATUS remain secondary; RECENT remains chronology only.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
+      "receipt": "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
       "machine_view": "FIELD",
-      "version": "0.8.30",
+      "version": "0.8.32",
       "transfer": [
+        "0.8.32 held work depth: one selected CURRENT head casts a collapsed read-only wake of retained capability, every declared transform, proof/receipt refs, descendant/related surfaces, versions, exits and named open future; relation marks refocus the same FIELD identity and nothing in the wake creates state, rank, backlog or authority.",
+        "0.8.31 CURRENT-head entry: unqualified FIELD entry begins unheld and presents addressable CURRENT.current_heads on the existing glyph rail; one activation holds, second activation opens, RECENT remains a secondary chronology lens and head order is not rank.",
+        "0.8.30 advance-as-scale: second activation advances the exact held route through an automatic transform/opacity scale transition; reduced-motion bypasses animation and a hard fallback prevents transition machinery from blocking native navigation.",
+        "2026-10-02 visual-law fold retained: /field/moire-route/ remains a bounded REFINE / PROVE representation specimen and recovered Semantic Painting v0.8 remains FROZEN_DONOR; neither gains CURRENT/root authority.",
         "0.8.29 footer play: move the sole PLAY action out of the FIELD INDEX header into a MORE submenu in the footer, so the header carries identity and re-entry only and the game stays exactly one reveal away. Navigation delta only; no authority, state or receipt change on /field-play.html.",
         "0.8.29 declared forecast: inside the existing held object, point at any visible move to read effect class · commit boundary · target · source-mutation class · reversibility before commit; FORECAST ≠ EFFECT, action count and native authority unchanged",
         "0.8.28 frame→object contraction: preserve point-of-action SEEN ⇄ UNDO SEEN while deleting the sibling HELD/NEXT/WITNESS frame; continuation lives inside the held aperture; first explicit native action becomes the primary edge, ≤2 additional native actions remain inline, proof/history stay latent",
@@ -118,7 +122,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
+      "latest_return": "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {

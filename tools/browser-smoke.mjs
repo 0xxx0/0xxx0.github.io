@@ -206,6 +206,59 @@ function listenPreviewProbeHtml(){
   <\/script></body></html>`;
 }
 
+function fieldAdvanceScaleProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(40)}throw Error('waitFor timeout: '+label)};
+  const W=()=>f.contentWindow,D=()=>W().document;
+  const loadRoot=async focus=>{
+    f.src='/?focus='+encodeURIComponent(focus);
+    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===focus&&D().getElementById('apGlyph'),16000,'FIELD root '+focus);
+    W().FieldLensHost.project('STRUCTURE');
+    return await waitFor(()=>D().querySelector('.mapRow[data-href="'+focus+'"]'),10000,'FIELD addressed row '+focus);
+  };
+  (async()=>{
+    const nativeRow=await loadRoot('/fold-bloom/');
+    const mark=D().getElementById('apGlyph');
+    rec.nativeAnimate=typeof mark.animate==='function';
+    const nativeStart=performance.now();
+    nativeRow.click();
+    await sleep(72);
+    rec.midTransform=W().getComputedStyle(mark).transform;
+    rec.midOpacity=Number(W().getComputedStyle(mark).opacity);
+    await waitFor(()=>W().location.pathname==='/fold-bloom/',4000,'native animated advance');
+    rec.nativeElapsed=Math.round(performance.now()-nativeStart);
+
+    const reducedRow=await loadRoot('/docs/');
+    const reducedMark=D().getElementById('apGlyph');
+    let reducedAnimateCalls=0;
+    reducedMark.animate=()=>{reducedAnimateCalls++;return{finished:new Promise(()=>{})}};
+    W().matchMedia=()=>({matches:true});
+    const reducedStart=performance.now();
+    reducedRow.click();
+    rec.reducedAnimateCalls=reducedAnimateCalls;
+    await waitFor(()=>W().location.pathname==='/docs/',3000,'reduced-motion advance');
+    rec.reducedElapsed=Math.round(performance.now()-reducedStart);
+
+    const fallbackRow=await loadRoot('/fold-bloom/listen/');
+    const fallbackMark=D().getElementById('apGlyph');
+    fallbackMark.animate=()=>({finished:new Promise(()=>{})});
+    const fallbackStart=performance.now();
+    fallbackRow.click();
+    await waitFor(()=>W().location.pathname==='/fold-bloom/listen/',2600,'hard-fallback advance');
+    rec.fallbackElapsed=Math.round(performance.now()-fallbackStart);
+
+    const scaled=rec.midTransform&&rec.midTransform!=='none'&&Number.isFinite(rec.midOpacity)&&rec.midOpacity<1;
+    const nativeBound=rec.nativeElapsed>=180&&rec.nativeElapsed<1800;
+    const reducedBound=rec.reducedAnimateCalls===0&&rec.reducedElapsed<1200;
+    const fallbackBound=rec.fallbackElapsed>=500&&rec.fallbackElapsed<1800;
+    done(rec.nativeAnimate&&scaled&&nativeBound&&reducedBound&&fallbackBound,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),path:f.contentWindow?.location?.pathname||null,...rec}));
+  <\/script></body></html>`;
+}
+
 function fieldActivationProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -985,6 +1038,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(listenIntakeProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/field-advance-scale')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldAdvanceScaleProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-activation')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
@@ -1128,6 +1185,12 @@ const CASES=[
     check:fieldRootCheck
   },
   {
+    name:'FIELD held work depth',
+    route:'/?focus=%2Ffold-bloom%2F',
+    options:{width:430,height:900,budget:10000,timeout:18000},
+    check:dom=>/transformations · \d+ proof · \d+ surfaces/.test(textAtId(dom,'workDepthMeta'))&&dom.includes('id="workDepthBody"')&&dom.includes('data-work-stat="transfers"')&&dom.includes('data-work-stat="proof"')&&dom.includes('data-work-stat="surfaces"')&&dom.includes('data-work-section="transfers"')&&dom.includes('data-work-section="proof"')&&dom.includes('data-work-section="relations"')&&dom.includes('data-work-section="future"')&&/FOLD\/\/BLOOM/.test(dom)
+  },
+  {
     name:'HUMAN PORT',
     route:'/port/',
     check:dom=>dom.includes('id="payload"')&&dom.includes('PORT INTAKE')
@@ -1258,6 +1321,12 @@ const CASES=[
     route:'/__smoke/lens-proof',
     options:{width:430,height:900,budget:9000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
+  },
+  {
+    name:'FIELD advance-as-scale transition',
+    route:'/__smoke/field-advance-scale',
+    options:{width:430,height:900,budget:14000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"nativeAnimate":true/.test(dom)&&/"reducedAnimateCalls":0/.test(dom)
   },
   {
     name:'FIELD focus + addressed re-entry',
