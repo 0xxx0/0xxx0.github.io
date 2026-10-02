@@ -299,3 +299,27 @@ RETURN = never lose the source.
 ~~~
 
 J-space may later preview which existing aperture is useful next; it does not gain source or effect authority. I Ching remains a lossy ambiguity-preserving relation lens. Fortress remains a donor for route residue/ghosts, not a new reading ontology.
+
+
+## ARCHAEOLOGY → SHIP COORDINATOR — 2026-10-02
+
+Paste-ready coordinator prompt:
+
+- `/control/prompts/HERMES_ARCHAEOLOGY_TO_SHIP_2026-10-02.md`
+
+Use it when Telegram/Hermes workers are recovering scattered chats, media, files, repo fossils or research donors and the goal is to turn recovery into immediate learning + bounded implementation.
+
+It does **not** create another state store or execution framework. It composes:
+- RECOVER BEFORE INVENTING;
+- `SOURCE → HOLD → TURN → TRACE → RETURN`;
+- `/skills/research-design-loop/SKILL.md`;
+- `/skills/media-curator/SKILL.md`;
+- `/skills/mechanism-extractor/SKILL.md`.
+
+Default reduction:
+
+```
+RECOVERED FACT → MECHANISM → CURRENT IMPLICATION → SMALLEST TESTABLE CHANGE
+```
+
+Telegram remains ingress/coordination. Existing GitHub/native hosts remain durable truth.

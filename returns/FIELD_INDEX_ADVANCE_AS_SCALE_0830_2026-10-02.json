@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02",
+  "date": "2026-10-02",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD INDEX 0.8.30 advance-as-scale transition",
+  "sources": [
+    "master commit 221ecee263e50abf27589575b9e8247fa9f1d79b — field-index: advancing is scaling",
+    "/index.html#advanceInto",
+    "/tools/browser-smoke.mjs#__smoke/field-advance-scale",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "operation": "HELD OBJECT → ADVANCE → SCALE TRANSITION → NATIVE ROUTE",
+  "delta": [
+    "The already-shipped advanceInto path is now exercised as user-visible behavior rather than inferred from source text.",
+    "Browser proof observes a real transform/opacity scale transition before navigation.",
+    "Browser proof forces prefers-reduced-motion and requires immediate fall-through without invoking animation.",
+    "Browser proof supplies a never-resolving animation promise and requires the hard fallback to navigate anyway.",
+    "No scale control, route, store, queue, planner, authority source or additional user action is introduced."
+  ],
+  "authority": [
+    "Scale is presentation/transition only.",
+    "Focused route remains the addressed object.",
+    "Native host owns route state/effect after navigation.",
+    "Reduced-motion preference overrides transition presentation.",
+    "RETURN semantics are unchanged."
+  ],
+  "verification": {
+    "critical_browser_case": "FIELD advance-as-scale transition",
+    "public_surface_check": "REQUIRED",
+    "gitleaks": "REQUIRED",
+    "convergence_validate": "REQUIRED"
+  },
+  "falsifier": "Fail if advance adds representation controls, fails to visibly scale under normal motion, animates despite reduced-motion, can be stranded by an unresolved animation promise, changes the addressed target, or transfers native authority.",
+  "residue": [
+    "This proves the FIELD root transition only; it does not claim cross-document visual continuity inside every destination host.",
+    "Cross-document View Transition API work remains unnecessary unless real use demonstrates a discontinuity that this bounded transition cannot solve."
+  ],
+  "stop": "After exact-head green proof, hold the mechanism. Reopen only on a reproduced navigation, reduced-motion, performance, or continuity failure."
+}

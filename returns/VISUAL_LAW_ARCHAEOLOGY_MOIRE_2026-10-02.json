@@ -1,0 +1,49 @@
+{
+  "schema": "field-return/v1",
+  "id": "VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02",
+  "date": "2026-10-02",
+  "state": "CANDIDATE_BRANCH_FIELD_INDEX_INTEGRATED",
+  "object": "visual archaeology -> exact recovery -> visual-law index -> FIELD INDEX moire-route specimen -> Hermes coordinator loop",
+  "recovered": [
+    "/recovery/semantic-painting-v0.8/ exact Library source including embedded underpainting",
+    "/recovery/naming/B260728B-visual-law-v0.1.json seeded from exact hashed batch metadata + reviewed semantic overlay"
+  ],
+  "changed": [
+    "MEDIA REFINERY gains visual-law-archaeology profile without making source/history fields pixel-inferable",
+    "media-curator gains image -> visual law -> verb -> state -> baseline/falsifier discipline",
+    "FIELD INDEX REFINE / PROVE gains deterministic moire-route specimen and selftest",
+    "Hermes gains paste-ready archaeology-to-ship coordinator prompt wired into existing SOURCE/HOLD/TURN/TRACE/RETURN + research-design-loop + mechanism-extractor",
+    "Hermes archaeology coordinator folds the Council-of-Selves donor into a bounded Cartographer / Adversary / Operator triad; each contributes one line, synthesis emits one disposition/move/stop, and no persona state or authority is created",
+    "Hermes conversion/recovery loop gains a Prison-Age-derived downstream consequence check: SHIPPED / USED / PROPAGATED / COUNTERMEASURE remain evidence claims rather than FIELD lifecycle states"
+  ],
+  "test": {
+    "command": "node field/moire-route/selftest.mjs",
+    "execution": "PASS on local copy of branch core/selftest source",
+    "aligned_local_choice_accuracy": 1,
+    "opposite_phase_accuracy": 0.2857142857142857,
+    "plain_adjacency_local_choice_chance": 0.5714285714285714,
+    "continuity_aligned": 0.8207437336012868,
+    "continuity_opposite": 0.17956823699870336,
+    "best_phase_accuracy": 1,
+    "scope": "Architectural proxy only; does not establish human perceptual superiority."
+  },
+  "evidence": [
+    "/field/moire-route/selftest.mjs",
+    "/field/moire-route/RESEARCH_HANDOFF.md",
+    "/control/MEDIA_REFINERY.json",
+    "/control/MEDIA_REFINERY_PIPELINES.json",
+    "/control/prompts/HERMES_ARCHAEOLOGY_TO_SHIP_2026-10-02.md",
+    "/control/prompts/HERMES_ARCHAEOLOGY_TO_SHIP_2026-10-02.md#bounded-triad-check--council-donor-not-persona-state",
+    "Laconic 0.3.2 actual-use receipt (commit c45ac18c) demonstrates USED/ADOPTED as evidence distinct from KEEP/taste",
+    "FOLD//BLOOM REPLAY external-use RETURN (commit ba9eec78) demonstrates prepared external-return evidence without falsely claiming adoption",
+    "/showcase-manifest.json#routes[/field/moire-route/]"
+  ],
+  "residue": [
+    "Run repo CI/ship checks on the exact PR head after FIELD INDEX relocation.",
+    "Human perceptual comparison remains optional future evidence only after machine checks.",
+    "Prompt-lineage / artist-catalyst / user-reaction fields remain source-join work, not visual-model inference.",
+    "Council cast/voice canon remains source-side; only the bounded disagreement mechanism transfers into Hermes coordination.",
+    "Do not extract a shared ADOPTION store yet: Laconic has actual-use evidence while FOLD//BLOOM currently has only an external-return capture path; generalization waits for a second real adoption/propagation witness."
+  ],
+  "next": "If CI is green, merge as FIELD INDEX recovery + research donor. Do not promote moire into another product host until a real host task beats its plain baseline."
+}

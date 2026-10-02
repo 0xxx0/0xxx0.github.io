@@ -137,6 +137,23 @@
         "Do not optimize presentation before evidence identity is established.",
         "SHARE may be concise; MEMORY must preserve exact lineage."
       ]
-    }
-  }
+    },
+    "visual-law-archaeology": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 16},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 6},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 6},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "composition_subtype", "axis", "scaffold", "flow", "depth", "surface", "pattern", "meaning", "visual_law", "implied_verb", "op_art_role"]
+      },
+      "domain_constraints": [
+        "Index the visual mechanism that could survive transfer, not just subject matter or style labels.",
+        "visual_law must describe a perceivable relation or transformation; implied_verb must be an operation a user or system could enact.",
+        "op_art_role must be NONE, DECORATIVE_ONLY, or a concrete state relation such as mismatch, phase, reach, uncertainty, residue, or propagation.",
+        "Do not infer artist catalyst, prompt lineage, user reaction, project host, or reference dependence from pixels alone; those require supervisor/source evidence.",
+        "A visually striking image does not become an app candidate until a bounded baseline/falsifier can be named."
+      ]
+    } }
 }
