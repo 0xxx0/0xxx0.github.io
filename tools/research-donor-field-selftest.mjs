@@ -92,3 +92,12 @@ assert.ok(!wecoField.selected.blockers.includes('PRIMARY_REF'));
 assert.ok(wecoField.selected.blockers.includes('REPLICA_PASS'));
 
 console.log('real donor transition PASS · Weco AIDE2 primary evidence moves RECOVER_PRIMARY → REPLICATE without granting transfer');
+
+const wecoSelection=JSON.parse(fs.readFileSync(new URL('../control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json',import.meta.url),'utf8'));
+const wecoSelectionField=compileDonorField([wecoSelection],{selected_source_id:wecoSelection.SOURCE_ID});
+assert.equal(wecoSelectionField.selected.lane,'READY','bounded held-out selection law should be evidence-complete after replica + independent transfer test');
+assert.equal(wecoSelectionField.selected.egress.class,'NEXT');
+assert.match(wecoSelectionField.selected.action_packet.NEXT.action,/native host acceptance and authority/);
+assert.equal(wecoSelectionField.selected.action_packet.AUTHORITY.host_effect,false);
+
+console.log('claim split PASS · narrow Weco selection law READY while broader fixed-model AI claim remains REPLICATE');
