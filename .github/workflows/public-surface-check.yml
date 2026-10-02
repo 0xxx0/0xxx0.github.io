@@ -59,6 +59,7 @@ jobs:
         run: |
           node tools/research-donor-gate-selftest.mjs
           node tools/research-donor-field-selftest.mjs
+          node tools/harness-heldout-replica.selftest.mjs
       - name: Validate FIELD safe salvage / retirement
         run: |
           node tools/field-salvage-selftest.mjs
