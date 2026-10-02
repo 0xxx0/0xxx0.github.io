@@ -384,7 +384,7 @@ function render(vals, q, opts={}){
   document.getElementById('shareBtn').style.display=stateMode?'none':'';
   const f = new URLSearchParams();
   if(stateMode){
-    f.set('b', bits); f.set('to', tbits.join('')); if(q) f.set('q', q);
+    f.set('b', bits); f.set('to', tbits.join('')); if(opts.stepOrder?.length) f.set('order', opts.stepOrder.join(',')); if(q) f.set('q', q);
     document.getElementById('seedNote').textContent = 'STATE · '+bits+' → '+tbits.join('');
   }else{
     f.set('c', vals.join('')); if(q) f.set('q', q);
