@@ -197,3 +197,25 @@ answerable going forward (by the branch receipt) but cannot be recovered retroac
 Recovery rule: **generic council image ≠ proper-name project; interacting characters ≠ internal selves; persona mode ≠ simultaneous plurality; later canon ≠ proof of earlier identity.**
 
 2026-09-22 exact-source pass: the 5–6 internal-voice request is independently reverified in the current export/search corpus, but its direct original message node and generated voice set remain unrecovered. Later Council casts and later multi-persona scenes are therefore not accepted as substitutes.
+
+
+## v0.3.5 — POCKET MOVES / SCENE PROJECTION
+
+The POCKET view is deliberately **not** a fifth object class or another canon store.
+
+It projects eight existing SCENES as a carryable deck:
+
+- SCRIPT PRESSURE / NAME THE MOVE
+- CARE / CHOOSE THE KIND
+- MIXED NEWS / HOLD BOTH
+- REPAIR / AFTER A GAP
+- GOOD NEWS / CAPITALIZE
+- HOW ARE YOU?
+- WHAT DO YOU DO?
+- WHY DID YOU DO THAT?
+
+Each card reads its title, lane, provenance and opening move from the canonical scene object. **PLAY** enters that exact branch tree. **COPY** copies the current scene's opening line. **USED** writes to the same browser-local branch receipt keyed by `scene#start-node`; it does not create a second adoption store.
+
+`DEAL ONE` is a transient projection only. It selects no canonical priority and grants no authority.
+
+The design law is: **delight may add an aperture; it may not duplicate the object behind it.**
