@@ -5283,13 +5283,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3.4",
+      "title": "LACONIC / ICONIC 0.3.5",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5299,7 +5299,8 @@
         "provenance-aware curation",
         "exact fragment/operator recovery",
         "exact-source vault browsing",
-        "persona/plurality/Council lineage recovery"
+        "persona/plurality/Council lineage recovery",
+        "pocket trajectory projection"
       ],
       "contract": {
         "accepts": {
@@ -5345,7 +5346,8 @@
             "HUMAN PORT handoff",
             "recovered exact fragment",
             "browseable exact-source vault",
-            "lineage/open-gap projection"
+            "lineage/open-gap projection",
+            "pocket scene projection"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -5360,7 +5362,8 @@
             "no transport credentials",
             "human-triggered handoff",
             "VAULT/current-layer separation",
-            "generic council/proper-name distinction"
+            "generic council/proper-name distinction",
+            "POCKET references canonical SCENES; no duplicate content or adoption store"
           ],
           "return_path": "/laconic/"
         }
@@ -5414,7 +5417,7 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-10-02T21:34:00+08:00",
+        "updated_at": "2026-10-02T23:49:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#080a0b">
-<title>LACONIC / ICONIC 0.3</title>
+<title>LACONIC / ICONIC 0.3.5</title>
 <style>
 :root{--bg:#080a0b;--panel:#0b0f11;--ink:#edf1ed;--muted:#7f8b91;--line:#30383d;--hot:#e87548;--cool:#79bde7;--green:#95d59e;--gold:#d5ad68;--violet:#c6a6e8}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -17,8 +17,10 @@ header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;
 header p{max-width:700px;margin:12px 0 0;color:#aab3b6;font:12px/1.6 system-ui,-apple-system,sans-serif}
 .law{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}.law div{background:#0a0d0f;padding:9px 11px}.law b{color:var(--green);font-size:8px;letter-spacing:.13em}.law span{display:block;margin-top:3px;color:#a6b0b4;font:10px/1.45 system-ui,sans-serif}
 .flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}.flow span{background:#0a0d0f;padding:8px;text-align:center;font-size:8px;letter-spacing:.1em}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 10px}.tabs button{border:0;background:#0a0d0f;color:#8f9ba0;padding:11px;font-size:8px;letter-spacing:.13em}.tabs button.on{background:#12191d;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 10px}.tabs button{border:0;background:#0a0d0f;color:#8f9ba0;padding:11px;font-size:8px;letter-spacing:.13em}.tabs button.on{background:#12191d;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
 .view{display:none}.view.on{display:block}
+.pockethead{display:flex;justify-content:space-between;gap:12px;align-items:end;border:1px solid var(--line);background:#0a0d0f;padding:12px;margin-bottom:10px}.pockethead b{font-size:9px;letter-spacing:.15em}.pockethead p{margin:4px 0 0;color:#8c989d;font:10px/1.45 system-ui,sans-serif;max-width:680px}.pocketactions{display:flex;gap:1px;background:var(--line);flex:0 0 auto}.pocketactions button,.pocketactions a{border:0;background:#0b1012;color:var(--ink);padding:9px 11px;text-decoration:none;font-size:8px;letter-spacing:.1em}
+.pocketgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.pocketgrid.dealt{grid-template-columns:minmax(0,560px);justify-content:center;background:transparent;border:0}.pocketcard{min-height:260px;background:#0a0d0f;padding:13px;display:flex;flex-direction:column;position:relative;overflow:hidden}.pocketcard:before{content:attr(data-num);position:absolute;right:7px;top:-18px;font:900 88px/1 system-ui,sans-serif;color:#11171a;letter-spacing:-.08em;pointer-events:none}.pocketcard>*{position:relative}.pocketmeta{display:flex;gap:5px;flex-wrap:wrap}.pocketverb{margin-top:34px;color:var(--hot);font-size:8px;letter-spacing:.17em}.pockettitle{margin-top:5px;font:800 20px/1 system-ui,sans-serif;letter-spacing:-.035em}.pocketline{margin:16px 0 auto;font:16px/1.4 Georgia,'Times New Roman',serif;color:#e8e6df}.pocketfoot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);margin:14px -13px -13px}.pocketfoot button{border:0;background:#0b1012;color:#bcc7cb;padding:10px 6px;font-size:7px;letter-spacing:.09em}.pocketfoot button:hover{background:#12191d;color:#fff}.pocketfoot button.on{color:#b6e5bd;box-shadow:inset 0 -2px 0 var(--green)}.pocketempty{border:1px solid var(--line);padding:18px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:340px 1fr;gap:12px}.panel{border:1px solid var(--line);background:var(--panel)}.ph{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}.ph b{font-size:9px;letter-spacing:.15em}.ph span{font-size:8px;color:var(--muted)}
 .field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:94px;resize:vertical;font:12px/1.5 system-ui,sans-serif}.quickscenes{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.quickscenes button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.08em}.quickscenes button:hover,.quickscenes button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--hot)}.handoffnote{display:none;border-bottom:1px solid var(--line);padding:8px 10px;color:var(--gold);font-size:8px}.handoffnote.on{display:block}
 .chips{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.chips button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.09em}.chips button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}.voice button.on{box-shadow:inset 0 -2px 0 var(--gold)}
@@ -38,7 +40,7 @@ header p{max-width:700px;margin:12px 0 0;color:#aab3b6;font:12px/1.6 system-ui,-
 .fragments{border:1px solid var(--line)}.fragment{display:grid;grid-template-columns:90px 1fr 130px auto;gap:12px;align-items:center;border-bottom:1px solid #242b2f;padding:11px}.fragment:last-child{border-bottom:0}.fragment .text{font:14px/1.35 system-ui,sans-serif}.fragment button{border:1px solid var(--line);background:#0b1012;color:var(--ink);padding:7px;font-size:7px}.origin{font-size:8px;color:#819097}.src{font-size:8px;color:#66747a}.vaultbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-bottom:0}.vaultbar button{border:0;background:#0a0d0f;color:#8f9ba0;padding:10px;font-size:8px;letter-spacing:.1em}.vaultbar button.on{color:#fff;box-shadow:inset 0 -2px 0 var(--gold);background:#12191d}.vaultsearch{border:1px solid var(--line);border-bottom:0}.vaultsearch input{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:11px;outline:none}.vaultcat{border:1px solid var(--line);border-bottom:0;background:#0b0f11;padding:10px 12px;display:flex;justify-content:space-between;gap:12px}.vaultcat b{font-size:9px;letter-spacing:.13em}.vaultcat span{color:var(--muted);font-size:8px}.lineageitem{border-bottom:1px solid #242b2f;padding:12px;background:#0a0d0f}.lineageitem:last-child{border-bottom:0}.lineageitem b{font-size:10px;letter-spacing:.06em}.lineageitem p{margin:6px 0 0;color:#aab3b6;font:11px/1.5 system-ui,sans-serif}.gapline{border-left:2px solid var(--hot)}
 .recover{border:1px solid var(--line)}.recover .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}.recover .row>*{border:0;border-right:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:10px}.recover textarea{width:100%;min-height:220px;border:0;background:#0a0d0f;color:var(--ink);padding:12px;resize:vertical}.recover .buttons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.recover .buttons button{border:0;background:#0a0d0f;color:var(--ink);padding:11px}
 footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}footer a{color:#8fcdf2}
-@media(max-width:800px){header,.grid,.scenegrid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.tabs{grid-template-columns:1fr 1fr}.fragment{grid-template-columns:1fr auto}.fragment .origin,.fragment .src{grid-column:1}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
+@media(max-width:800px){header,.grid,.scenegrid{grid-template-columns:1fr}.pockethead{align-items:stretch;flex-direction:column}.pocketactions{width:100%}.pocketactions button,.pocketactions a{flex:1;text-align:center}.pocketgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.pocketcard{min-height:230px}.flow{grid-template-columns:1fr}.flow span{text-align:left}.tabs{grid-template-columns:1fr 1fr}.fragment{grid-template-columns:1fr auto}.fragment .origin,.fragment .src{grid-column:1}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
 </style>
 </head>
 <body><main>
@@ -56,6 +58,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 <nav class="tabs">
 <button class="on" data-tab="lines">WRITE</button>
 <button data-tab="scenes">TRAJECTORIES</button>
+<button data-tab="pocket">POCKET</button>
 <button data-tab="fragments">ARCHIVE</button>
 <button data-tab="recover">RECOVER</button>
 </nav>
@@ -92,6 +95,14 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </div>
 </section>
 
+<section id="view-pocket" class="view">
+<div class="pockethead">
+<div><b>POCKET MOVES / EIGHT LIVE TRAJECTORIES</b><p>A deck, not another canon. Every card is a projection of an existing SCENE. Deal one when reality feels over-described; PLAY opens the real branching trajectory; USED writes to the same local adoption receipt.</p></div>
+<div class="pocketactions"><button id="dealPocket">DEAL ONE</button><button id="showPocket">SHOW ALL</button><a href="/?focus=%2Flaconic%2F">RETURN FIELD</a></div>
+</div>
+<div id="pocketGrid" class="pocketgrid"><div class="pocketempty">Loading existing trajectories…</div></div>
+</section>
+
 <section id="view-fragments" class="view">
 <div class="ph" style="border:1px solid var(--line);border-bottom:0"><b>VAULT / RECOVERED SOURCE</b><span>exact ≠ adopted ≠ current canon</span></div>
 <div id="vaultModes" class="vaultbar">
@@ -126,6 +137,18 @@ let bank=null, scenesData=null, fragmentsData=null, historicData=null, lexiconDa
 let move='', voice='', showDropped=false, selectedId=null;
 let vaultMode='STARS';
 let lane='', activeSceneId='', activeNodeId='', activeVariant=0, trail=[];
+let pocketDealId='';
+const pocketSceneIds=['scene:name-the-move','scene:care-modes','scene:mixed-news','scene:repair-gap','scene:good-news','scene:how-are-you','scene:what-do-you-do','scene:why-did-you-do-that'];
+const pocketVerbs=Object.freeze({
+ 'scene:name-the-move':'RECTIFY',
+ 'scene:care-modes':'CHOOSE',
+ 'scene:mixed-news':'HOLD BOTH',
+ 'scene:repair-gap':'RE-ENTER',
+ 'scene:good-news':'AMPLIFY',
+ 'scene:how-are-you':'DEPTH',
+ 'scene:what-do-you-do':'FRAME',
+ 'scene:why-did-you-do-that':'REASON'
+});
 const storeKey='laconic.iconic.verdicts.v01';   // key kept so existing local verdicts survive
 // VERDICT v02. v01 stored a bare string: {id:'KEEP'|'DROP'} — flat, line-level, and with no
 // room for WHY or for adoption, which is the one evidence type the promotion rule needs
@@ -218,6 +241,41 @@ function openHumanPortDraft(t){
  }catch(_){location.assign('../contact/?mode=REPLY')}
 }
 function sceneById(id){return scenesData?.scenes.find(x=>x.id===id)}
+function openPocketScene(id){
+ const scene=sceneById(id);if(!scene)return;
+ activeSceneId=scene.id;activeNodeId=scene.start;activeVariant=0;trail=[scene.start];lane='';
+ $('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.tab==='scenes'));
+ $('.view').forEach(v=>v.classList.remove('on'));$('#view-scenes').classList.add('on');
+ renderLaneChips();renderSceneList();$('#runner').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderPocket(){
+ const root=$('#pocketGrid');if(!root||!scenesData)return;
+ let xs=pocketSceneIds.map(sceneById).filter(Boolean);
+ if(pocketDealId)xs=xs.filter(x=>x.id===pocketDealId);
+ root.classList.toggle('dealt',!!pocketDealId);
+ root.innerHTML=xs.map((scene,i)=>{
+   const node=nodeById(scene,scene.start),rk=scene.id+'#'+scene.start,used=isUsed(verdicts()[rk]);
+   const n=pocketDealId?String(pocketSceneIds.indexOf(scene.id)+1).padStart(2,'0'):String(i+1).padStart(2,'0');
+   return '<article class="pocketcard" data-num="'+n+'" data-pocket="'+esc(scene.id)+'">'+
+     '<div class="pocketmeta"><span class="tag">'+esc(scene.lane)+'</span><span class="tag '+esc(scene.provenance)+'">'+esc(scene.provenance)+'</span></div>'+
+     '<div class="pocketverb">'+esc(pocketVerbs[scene.id]||'MOVE')+'</div><div class="pockettitle">'+esc(scene.title)+'</div>'+
+     '<div class="pocketline">“'+esc(node?.text||'')+'”</div>'+
+     '<div class="pocketfoot"><button data-pocket-copy="'+esc(scene.id)+'">COPY</button><button data-pocket-play="'+esc(scene.id)+'">PLAY →</button><button data-pocket-use="'+esc(scene.id)+'" class="'+(used?'on':'')+'">'+(used?'USED ✓':'USED')+'</button></div></article>';
+ }).join('')||'<div class="pocketempty">Pocket projection unavailable.</div>';
+}
+function dealPocket(){
+ const xs=pocketSceneIds.filter(id=>sceneById(id));if(!xs.length)return;
+ if(globalThis.crypto?.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);pocketDealId=xs[a[0]%xs.length]}else pocketDealId=xs[Math.floor(Math.random()*xs.length)];
+ renderPocket();
+}
+$('#dealPocket').onclick=dealPocket;
+$('#showPocket').onclick=()=>{pocketDealId='';renderPocket()};
+$('#pocketGrid').onclick=e=>{
+ const copyId=e.target.dataset.pocketCopy,playId=e.target.dataset.pocketPlay,useId=e.target.dataset.pocketUse;
+ if(copyId){const s=sceneById(copyId),n=s&&nodeById(s,s.start);if(n)copyText(n.text,e.target);return}
+ if(playId){openPocketScene(playId);return}
+ if(useId){const s=sceneById(useId);if(!s)return;const rk=s.id+'#'+s.start;setVerdict(rk,{used:!isUsed(verdicts()[rk]),scene:s.id,node:s.start,trail:[s.start]});renderPocket()}
+};
 function nodeById(scene,id){return scene?.nodes.find(x=>x.id===id)}
 function renderLaneChips(){
  if(!scenesData)return;
@@ -334,7 +392,7 @@ const loadJson=async(url,fallback=null)=>{try{const r=await fetch(url,{cache:'no
   loadJson('./recovered/persona-to-council-lineage.json',{parallel_antecedents:[],stages:[]}),
   loadJson('./recovered/early-plurality-donors-2024.json',{unresolved:[]})
  ]);
- makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();renderSceneList();renderVault();
+ makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();renderSceneList();renderPocket();renderVault();
 })();
 })();
 </script>

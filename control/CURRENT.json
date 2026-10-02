@@ -892,35 +892,10 @@
       ],
       "latest_return": "/returns/SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
       "repo_verification": {
-        "status": "CANDIDATE / CURRENT-MASTER REPLAY / CI_REQUIRED",
-        "source_pr": 776,
-        "source_head": "8b1fc3ac4bd61a89c0f0525c6439a2e4d10041ac",
-        "predecessor_evidence": {
-          "status": "FOCUSED PASS / PR 762 · FULL PUBLIC SUITE BASE-BLOCKED",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/762",
-          "implementation_proof_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
-          "checks": {
-            "shopping_check": {
-              "run": 37010315436,
-              "conclusion": "success"
-            },
-            "route_registration": {
-              "run": 37010315506,
-              "conclusion": "success"
-            },
-            "gitleaks": {
-              "run": 37010315433,
-              "conclusion": "success"
-            },
-            "public_surface": {
-              "run": 37010315424,
-              "conclusion": "failure",
-              "blocker": "unrelated base drift /laconic/ manifest 0.3.2 vs release 0.3.4"
-            }
-          },
-          "boundary": "Do not claim the full public-surface suite green for this head until the independent /laconic/ version mismatch on master is repaired."
-        },
-        "boundary": "This replay preserves current master truth outside Shopping. Promote verification only from the exact replay head."
+        "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
+        "source_pr": 781,
+        "source_head": "b0c0bcf79f261a4d77871be273614217941a787b",
+        "boundary": "Promote only from the exact ancestry-current replay head after all Shopping/public/route/gitleaks checks pass."
       }
     },
     {

@@ -56,6 +56,17 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .workStats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid #20292e;background:#090d0f}.workStat{padding:5px 6px;border-right:1px solid #20292e;min-width:0}.workStat:last-child{border-right:0}.workStat b{display:block;font:800 12px/1 system-ui,sans-serif;color:var(--ink)}.workStat span{display:block;margin-top:2px;color:var(--mut);font-size:5.6px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .workGrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.9fr);gap:7px}.workPane{border:1px solid #20292e;background:#090d0f;min-width:0}.workPane h3{display:flex;justify-content:space-between;gap:8px;margin:0;padding:5px 6px;border-bottom:1px solid #20292e;font-size:6px;letter-spacing:.12em;color:var(--gold)}.workPane h3 span{color:var(--mut);font-weight:400}.workStack{max-height:224px;overflow:auto}.workLine{padding:5px 6px;border-bottom:1px solid #161e22;color:#aab4b8;font:6.8px/1.4 system-ui,sans-serif}.workLine:last-child{border-bottom:0}.workLine b{color:var(--ink);font-weight:650}.workRefs{display:flex;flex-wrap:wrap;gap:3px;padding:5px 6px;max-height:132px;overflow:auto}.workRef{border:1px solid #2b373d;padding:3px 5px;font-size:5.8px;color:var(--cool);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.workRef:hover{border-color:var(--cool)}
 .workRelations{display:flex;gap:2px;flex-wrap:wrap;padding:5px 6px;max-height:112px;overflow:auto}.workRel{width:31px;height:31px;padding:1px;display:grid;place-items:center;border:1px solid #1b2529;background:#080c0e}.workRel:hover,.workRel.on{border-color:var(--cool);background:#10171a}.workRemainder{align-self:center;color:var(--mut);font-size:6px;padding:4px}.workFuture{padding:5px 6px;display:grid;gap:4px}.workFuture div{border-left:2px solid #344149;padding-left:6px;color:#aab4b8;font:6.8px/1.42 system-ui,sans-serif}.workFuture div.now{border-left-color:var(--hot);color:var(--ink)}.workEmpty{padding:8px;color:var(--mut);font-size:6.5px}
+.triadLens{border:1px solid #20292e;background:#080b0d}
+.triadLens h3{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0;padding:5px 6px;border-bottom:1px solid #20292e;font-size:6px;letter-spacing:.12em;color:var(--gold)}
+.triadLens h3 span{color:var(--mut);font-weight:400}
+.triadGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.triadCell{appearance:none;text-align:left;border:0;border-right:1px solid #20292e;background:#090d0f;padding:7px;min-height:76px;color:var(--ink);cursor:pointer}
+.triadCell:last-child{border-right:0}.triadCell:hover,.triadCell:focus-visible{background:#10171a;outline:1px solid #59676d;outline-offset:-1px}
+.triadCell b{display:block;font-size:7px;letter-spacing:.12em;margin-bottom:4px}.triadCell strong{display:block;font:750 10px/1.2 system-ui,sans-serif}.triadCell p{margin:4px 0 0;color:#89969b;font:6.7px/1.38 system-ui,sans-serif}
+.triadCell.keris b{color:var(--hot)}.triadCell.conch b{color:var(--cool)}.triadCell.weight b{color:var(--green)}
+.triadFooter{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;padding:5px 6px;border-top:1px solid #20292e;color:var(--mut);font-size:5.8px}
+.triadFooter .seeper{color:var(--gold);min-width:0;overflow-wrap:anywhere}.triadFooter .copyHint{white-space:nowrap}
+@media(max-width:760px){.triadGrid{grid-template-columns:1fr}.triadCell{border-right:0;border-bottom:1px solid #20292e;min-height:0}.triadCell:last-child{border-bottom:0}}
 @media(max-width:760px){.workLead{grid-template-columns:1fr}.workHeadState{text-align:left;max-width:none}.workStats{grid-template-columns:repeat(3,1fr)}.workStat:nth-child(3){border-right:0}.workStat:nth-child(-n+3){border-bottom:1px solid #20292e}.workGrid{grid-template-columns:1fr}.workStack{max-height:190px}.workDepth>summary{min-height:34px}.workDepth>summary b{font-size:8px}.workDepth>summary span{font-size:7px}}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGestureActions{display:flex;align-items:center;gap:4px}.fieldGesture button{padding:4px 6px;font-size:6.5px}.feedEmpty{padding:8px 2px;color:var(--mut);font-size:7px}.feedEmpty a{color:var(--cool)}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
@@ -607,6 +618,22 @@ function workRelations(r){
  const rest=desc.filter(x=>x.parent!==r.href).sort((a,b)=>(headSet.has(b.href)-headSet.has(a.href))||String(b.index?.updated_at||'').localeCompare(String(a.index?.updated_at||'')));
  return [...(parent?[parent]:[]),...direct,...rest]
 }
+function triadProjection(r,h,desc,proof,future){
+ const retained=String(h?.retained_function||r?.role||r?.contract?.transforms?.verb||r?.title||r?.href||'held object').trim();
+ const owner=nativeRouteOwner(r),rels=workRelations(r),transfers=Array.isArray(r?.transfer)?r.transfer:[];
+ const next=h?.next_executable||null,exits=manifestExitPaths(r).filter(x=>String(x?.status||'').toUpperCase()==='AVAILABLE');
+ const gaps=[...(Array.isArray(h?.unknowns)?h.unknowns:[]),...(Array.isArray(h?.open_gaps)?h.open_gaps:[]),...(Array.isArray(r?.open_gaps)?r.open_gaps:[])].filter(Boolean);
+ const keris={key:'KERIS',cls:'keris',verb:'DISTINGUISH',title:retained,detail:'Hold the exact retained function; cut representation that does not change this capability.'};
+ const conch={key:'CONCH',cls:'conch',verb:'CONTEXT',title:rels.length+' related · '+transfers.length+' transforms',detail:'Owner '+owner+' · preserve relation/context before changing the held object.'};
+ const wtitle=next?.objective||next?.id||(exits[0]&&[exits[0].via,exits[0].target].filter(Boolean).join(' → '))||(proof.length?'Proof-bearing hold':'No declared move');
+ const weight={key:'W8',cls:'weight',verb:'CONSEQUENCE',title:String(wtitle),detail:proof.length+' proof refs · '+future.length+' named open · consequence must return to this address.'};
+ return{cells:[keris,conch,weight],seeper:gaps.length?('SEEPER · '+String(gaps[0])):'SEEPER · no named unresolved gap; absence of a gap is not proof.'}
+}
+async function copyTriadCell(cell){
+ if(!focus||!cell)return;
+ const txt=[cell.key+' / '+cell.verb,cell.title,cell.detail,'RETURN → '+focus.href].join('\n');
+ try{await navigator.clipboard.writeText(txt);const m=$('workDepthMeta');if(m)m.textContent=cell.key+' copied · exact return '+focus.href}catch(_){prompt('Copy '+cell.key+' lens:',txt)}
+}
 function renderWorkDepth(){
  const meta=$('workDepthMeta'),body=$('workDepthBody');if(!meta||!body)return;
  if(!focus){
@@ -614,7 +641,7 @@ function renderWorkDepth(){
   body.innerHTML='<div class="workEmpty">Choose one CURRENT head. DEPTH / WORK is a read-only projection of manifest + CURRENT; it creates no priority, state, or authority.</div>';
   return
  }
- const h=headForFocus(),desc=workDescendants(focus),proof=workProofRefs(focus,h),transfers=Array.isArray(focus.transfer)?focus.transfer:[],versions=Array.isArray(focus.versions)?focus.versions:[],exits=manifestExitPaths(focus),future=workFutureItems(focus,h),rels=workRelations(focus),shownRels=rels.slice(0,42);
+ const h=headForFocus(),desc=workDescendants(focus),proof=workProofRefs(focus,h),transfers=Array.isArray(focus.transfer)?focus.transfer:[],versions=Array.isArray(focus.versions)?focus.versions:[],exits=manifestExitPaths(focus),future=workFutureItems(focus,h),rels=workRelations(focus),shownRels=rels.slice(0,42),triad=triadProjection(focus,h,desc,proof,future);
  meta.textContent=transfers.length+' transformations · '+proof.length+' proof · '+desc.length+' surfaces · '+future.length+' open';
  const stats=[
   ['transfers',transfers.length,'TRANSFORMS'],
@@ -637,6 +664,7 @@ function renderWorkDepth(){
  body.innerHTML=
   '<div class="workLead"><div><div class="workEy">HELD LINEAGE · '+esc(h?.lineage||focus.family||focus.kind||'ROUTE')+'</div><strong>'+esc(headLabel)+'</strong><p>'+esc(cap)+'</p></div><div class="workHeadState">'+esc([h?.version||focus.version,h?.state||focus.state].filter(Boolean).join(' · '))+'</div></div>'+
   '<div class="workStats">'+stats.map(([k,n,l])=>'<div class="workStat" data-work-stat="'+k+'"><b>'+n+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+  '<section class="triadLens" aria-label="Held object operational triad"><h3><span>KERIS / CONCH / W8</span><span>read-only lens · tap to copy</span></h3><div class="triadGrid">'+triad.cells.map((x,i)=>'<button class="triadCell '+x.cls+'" data-triad="'+i+'" title="Copy '+x.key+' lens"><b>'+esc(x.key)+' · '+esc(x.verb)+'</b><strong>'+esc(x.title)+'</strong><p>'+esc(x.detail)+'</p></button>').join('')+'</div><div class="triadFooter"><span class="seeper">'+esc(triad.seeper)+'</span><span class="copyHint">NO NEW AUTHORITY · RETURN '+esc(focus.href)+'</span></div></section>'+
   '<div class="workGrid">'+
    '<section class="workPane" data-work-section="transfers"><h3><span>TRANSFORMED / BUILT</span><span>'+transfers.length+'</span></h3><div class="workStack">'+transferHtml+'</div></section>'+
    '<div class="workSide">'+
@@ -645,7 +673,8 @@ function renderWorkDepth(){
     '<section class="workPane" data-work-section="future"><h3><span>OPEN FUTURE</span><span>'+future.length+'</span></h3><div class="workFuture">'+futureHtml+'</div></section>'+
    '</div>'+
   '</div>';
- body.querySelectorAll('[data-work-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.workHref);if(r)focusRoute(r,true,'OTHER')})
+ body.querySelectorAll('[data-work-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.workHref);if(r)focusRoute(r,true,'OTHER')});
+ body.querySelectorAll('[data-triad]').forEach(b=>b.onclick=()=>copyTriadCell(triad.cells[Number(b.dataset.triad)]))
 }
 function fieldEgressForRoute(r){
  if(!r||!fieldEgressReduce)return null;
