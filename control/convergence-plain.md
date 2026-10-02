@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T20:01:01.910Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T20:32:01.304Z by scripts/generate-convergence-strip.mjs_
 
-The field has **89 material commits on 2026-10-02** across **860 branches** (174 exact Git commits in the window; 85 generated telemetry; 4665 on master all-time).
+The field has **102 material commits on 2026-10-02** across **864 branches** (190 exact Git commits in the window; 88 generated telemetry; 4681 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- MEDIA CURATOR: make the local image loop operable
-- ui: fit LISTEN workflows on phone
-- returns: amend Laconic field action runtime proof
+- Merge Prison Age source-derived Evidence Atlas
+- Laconic 0.3.7: executable WORK forge loop
+- restore Evidence Atlas manifest projection on current registry
 
 ## Open gaps
 
