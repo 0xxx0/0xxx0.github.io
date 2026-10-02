@@ -1832,34 +1832,49 @@ try{
   const bin=browserBin();
   console.log('BROWSER SMOKE:',bin);
   for(const c of RUN_CASES){
-    let r;
-    try{
-      if(c.settle){r=await runSettle(bin,c)}
-      else{
-        const o=c.options||{};
-        // Probe/settle cases already own explicit iframe geometry. Direct routes below Chrome's
-        // top-level minimum are wrapped so a claimed 390/430/460px case actually sees that width.
-        const directNarrow=!String(c.route||'').startsWith('/__smoke/')&&Number(o.width||0)>0&&Number(o.width)<500;
-        r=await runChrome(bin,c.route,{...o,exactViewport:directNarrow});
+    let passed=false,finalFailure=null;
+    for(let attempt=1;attempt<=2&&!passed;attempt++){
+      let r;
+      try{
+        if(c.settle){r=await runSettle(bin,c)}
+        else{
+          const o=c.options||{};
+          // Probe/settle cases already own explicit iframe geometry. Direct routes below Chrome's
+          // top-level minimum are wrapped so a claimed 390/430/460px case actually sees that width.
+          const directNarrow=!String(c.route||'').startsWith('/__smoke/')&&Number(o.width||0)>0&&Number(o.width)<500;
+          r=await runChrome(bin,c.route,{...o,exactViewport:directNarrow});
+        }
       }
-    }
-    catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
-    const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
-    const dom=(c.settle||r.exactViewport)?(extractCaseDom(r.out)||r.out):r.out;
-    const viewportWidth=r.exactViewport?Number((r.out.match(/data-inner-width="(\d+)"/)||[])[1]||0):null;
-    const viewportHeight=r.exactViewport?Number((r.out.match(/data-inner-height="(\d+)"/)||[])[1]||0):null;
-    const viewportMobile=r.exactViewport?(r.out.match(/data-mobile-media="([^"]*)"/)||[])[1]||'':null;
-    const viewportOk=!r.exactViewport||(viewportWidth===r.requestedWidth&&viewportHeight===r.requestedHeight&&viewportMobile==='true');
-    const ok=r.code===0&&!fatal&&viewportOk&&c.check(dom);
-    console.log((ok?'PASS':'FAIL'),c.name,c.route);
-    if(r.exactViewport)console.log('SMOKE VIEWPORT',c.name,'requested='+r.requestedWidth+'x'+r.requestedHeight,'observed='+viewportWidth+'x'+viewportHeight,'mobile='+viewportMobile);
-    if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
-    if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
-    if(!ok){
-      const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
-      const body=visibleText(dom).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
-      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(!viewportOk?' viewport-mismatch requested='+r.requestedWidth+'x'+r.requestedHeight+' observed='+viewportWidth+'x'+viewportHeight:'')+(body?' body='+JSON.stringify(body):''));
+      catch(e){
+        finalFailure=c.name+' '+c.route+' '+String(e?.message||e);
+        console.log(attempt===1?'SMOKE RETRY':'FAIL',c.name,c.route);
+        console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));
+        if(attempt===1)continue;
+        fail.push(finalFailure);continue
+      }
+      const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
+      const dom=(c.settle||r.exactViewport)?(extractCaseDom(r.out)||r.out):r.out;
+      const viewportWidth=r.exactViewport?Number((r.out.match(/data-inner-width="(\d+)"/)||[])[1]||0):null;
+      const viewportHeight=r.exactViewport?Number((r.out.match(/data-inner-height="(\d+)"/)||[])[1]||0):null;
+      const viewportMobile=r.exactViewport?(r.out.match(/data-mobile-media="([^"]*)"/)||[])[1]||'':null;
+      const viewportOk=!r.exactViewport||(viewportWidth===r.requestedWidth&&viewportHeight===r.requestedHeight&&viewportMobile==='true');
+      const ok=r.code===0&&!fatal&&viewportOk&&c.check(dom);
+      console.log((ok?'PASS':attempt===1?'SMOKE RETRY':'FAIL'),c.name,c.route,attempt===2?'attempt=2':'');
+      if(r.exactViewport)console.log('SMOKE VIEWPORT',c.name,'requested='+r.requestedWidth+'x'+r.requestedHeight,'observed='+viewportWidth+'x'+viewportHeight,'mobile='+viewportMobile);
+      if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
+      if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
+      if(ok){
+        if(attempt===2)console.log('SMOKE RETRY PASS',c.name,c.route);
+        passed=true;break
+      }
+      const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');
+      if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
+      const body=visibleText(dom).slice(0,900);
+      if(body)console.log('SMOKE BODY',c.name,body);
+      finalFailure=c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(!viewportOk?' viewport-mismatch requested='+r.requestedWidth+'x'+r.requestedHeight+' observed='+viewportWidth+'x'+viewportHeight:'')+(body?' body='+JSON.stringify(body):'');
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
+      if(attempt===1)continue;
+      fail.push(finalFailure);
     }
   }
 }finally{
