@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T12:16:03.242Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T12:47:02.601Z by scripts/generate-convergence-strip.mjs_
 
-The field has **27 material commits on 2026-10-02** across **791 branches** (81 exact Git commits in the window; 54 generated telemetry; 4572 on master all-time).
+The field has **45 material commits on 2026-10-02** across **798 branches** (102 exact Git commits in the window; 57 generated telemetry; 4593 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- CURRENT: register bounded operational protocol
-- Machine entrypoint: point workers to bounded execution protocol
-- Agents: adopt bounded SOURCE HOLD TURN TRACE RETURN protocol
+- CI: make visual regression follow tracked master changes (#758)
+- ci: run visual regression on tracked master surface changes
+- RETURN: worked SOURCE HOLD TURN TRACE RETURN run
 
 ## Open gaps
 
