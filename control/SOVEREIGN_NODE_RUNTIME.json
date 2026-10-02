@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/sovereign-node-runtime/v0.2",
-  "updated": "2026-09-22",
+  "updated": "2026-10-02",
   "state": "PARKED_EXECUTABLE_INFRASTRUCTURE",
   "purpose": "Keep local/cloud intelligence replaceable while canonical state, authority and evidence remain outside provider runtimes.",
   "attention_rule": "Does not occupy CURRENT unless it unlocks an active conversion or a material security/compatibility event requires action.",
@@ -33,12 +33,12 @@
     "agent": {
       "openclaw": {
         "role": "replaceable AgentExecutor candidate",
-        "test_target": "2026.9.5 or later security-equivalent pinned build",
+        "test_target": "2026.9.5 pinned baseline; 2026.9.7 docs candidate may be isolated-tested only after artifact/release provenance is unambiguous",
         "state": "TEST_NOT_CANON"
       },
       "hermes": {
         "role": "bounded supervisor / research / executor adapter",
-        "known_stable_tag": "0.21.3 / v2026.9.14",
+        "known_stable_tag": "0.21.3 / v2026.9.14 (reverified 2026-10-02; no newer tagged release found)",
         "state": "READ_ONLY_BY_DEFAULT"
       },
       "grok_build": {
@@ -88,11 +88,13 @@
   "proofs": {
     "baseline_freeze": "/scripts/sovereign-node-freeze.sh",
     "bakeoff_fixture": "/scripts/sovereign-node-bakeoff-init.py",
-    "ollama_endurance": "/scripts/sovereign-node-qwen-endurance.py",
+    "ollama_endurance": "/scripts/sovereign-node-qwen-endurance.py --structured now exercises Ollama format schema with think=default|true|false and stops on the first malformed/schema-invalid result.",
     "executor_prompt": "/control/prompts/SOVEREIGN_NODE_EXECUTOR.md",
     "scout_prompt": "/control/prompts/SOVEREIGN_NODE_SCOUT.md",
     "return_prompt": "/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md",
-    "reentry_prompt": "/control/prompts/SOVEREIGN_NODE_REENTRY.md"
+    "reentry_prompt": "/control/prompts/SOVEREIGN_NODE_REENTRY.md",
+    "ollama_candidate": "v0.34.4: single-pass structured outputs for thinking models; TEST on exact qwen3.5:9b MEDIA REFINERY contract before promotion.",
+    "ollama_mlx_boundary": "v0.40.0-rc0: supported Apple-Silicon architectures auto-route through MLX; WATCH prerelease. Runtime/backend identity must be observable before any future promotion."
   },
   "reopen_when": [
     "A material security/compatibility change affects an installed provider.",
@@ -101,5 +103,11 @@
     "A real local-vs-cloud or executor decision needs measured evidence.",
     "A provider can materially simplify a current head without creating a new control surface."
   ],
-  "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta."
+  "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta.",
+  "recon_corrections_2026_10_02": [
+    "Retract prior Hermes 0.21.5 claim: official releases still identify 0.21.3 / v2026.9.14 as latest.",
+    "Ollama v0.34.4 is verified stable and directly relevant to structured typed receipts.",
+    "Ollama v0.40.0-rc0 is verified prerelease and changes effective Apple-Silicon runtime selection by automatically using MLX for supported architectures.",
+    "OpenClaw docs list v2026.9.7, while the GitHub releases listing observed during recon lagged at 2026.9.6; do not treat 9.7 as a production pin until exact artifact provenance is resolved."
+  ]
 }
