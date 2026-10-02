@@ -82,6 +82,8 @@ jobs:
         run: node tools/field-reversibility-selftest.mjs
       - name: Validate FIELD held action aperture
         run: node tools/field-action-aperture-selftest.mjs
+      - name: Validate FIELD held-object interference
+        run: node field/moire-route/selftest.mjs
       - name: Validate footer MORE submenu carries the one PLAY action
         run: node tools/footer-play-selftest.mjs
       - name: Validate LensState laws and round trip
