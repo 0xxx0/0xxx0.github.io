@@ -1,9 +1,12 @@
-name: LISTEN Mobile Geometry
+name: FOLD BLOOM Geometry
 
 on:
   pull_request:
     paths:
       - 'fold-bloom/listen/**'
+      - 'fold-bloom/lens/**'
+      - 'fold-bloom/tests/polar-geometry.test.mjs'
+      - 'lib/polar-control.js'
       - 'tools/fold-bloom-listen-mobile-geometry-smoke.mjs'
       - '.github/workflows/listen-mobile-geometry.yml'
   workflow_dispatch:
@@ -12,10 +15,14 @@ permissions:
   contents: read
 
 jobs:
-  phone-geometry:
+  geometry:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Test shared polar geometry
+        run: node --test fold-bloom/tests/polar-geometry.test.mjs
+      - name: Test Scale Lens projection geometry
+        run: node --test fold-bloom/lens/tests/spatial-geometry.test.mjs
       - name: Run LISTEN phone geometry smoke
         run: node tools/fold-bloom-listen-mobile-geometry-smoke.mjs
