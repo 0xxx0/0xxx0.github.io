@@ -22,4 +22,21 @@ assert.match(js,/e\.key==='\/'/,'capture shortcut missing');
 assert.match(css,/\.flow\{position:sticky/,'FLOW should remain reachable without a new route');
 assert.doesNotMatch(js,/setInterval\([^\n]*triggerPrimary/,'refresh must never auto-execute primary effects');
 
-console.log('DAYLINE FLOW source selftest PASS · one held object · one explicit primary · zero-hunt traversal · passive AWAKE refresh');
+// Lineage guard: current Atlas Dayline and the exact recovered painting-backed
+// ancestor are deliberately related but authority-distinct objects.
+const atlasRelease=JSON.parse(fs.readFileSync('atlas-dayline/release.json','utf8'));
+const paintingRecovery=JSON.parse(fs.readFileSync('recovery/semantic-painting-v0.8/recovery.json','utf8'));
+const paintingHtml=fs.readFileSync('recovery/semantic-painting-v0.8/index.html','utf8');
+assert.equal(atlasRelease.route,'/atlas-dayline/','current Atlas Dayline route drifted');
+assert.equal(paintingRecovery.id,'SEMANTIC-PAINTING-V0.8-ATLAS-DAYLINE','painting donor identity drifted');
+assert.equal(paintingRecovery.role,'DONOR_EXACT_SOURCE','painting ancestor must remain donor authority');
+assert.ok(paintingRecovery.lineage.ancestor_of.includes('/atlas-dayline/'),'painting ancestor must declare current Atlas Dayline descendant');
+assert.equal(atlasRelease.historical_donor?.id,paintingRecovery.id,'current release must point back to exact recovered donor');
+assert.equal(atlasRelease.historical_donor?.relationship,'EXACT_RECOVERED_ANCESTOR_DONOR','current release must not flatten donor into current authority');
+assert.match(paintingHtml,/<title>POLY \/\/ Forward Field — Semantic Painting v0\.8 · Atlas Dayline<\/title>/,'exact recovered painting title missing');
+assert.match(paintingHtml,/YOU’RE AWAKE \/\//,'painting-backed source must retain its visible AWAKE identity');
+assert.match(paintingHtml,/class="underpainting"/,'painting-backed source must retain literal underpainting layer');
+assert.match(paintingRecovery.identity_witness?.boundary||'',/NOT THE CURRENT BRANCH I ATLAS DAYLINE PLANNER/,'recovery boundary must reject current/donor conflation');
+assert.match(atlasRelease.historical_donor?.boundary||'',/not this current Branch I planning surface/,'current release must reject painting/current conflation');
+
+console.log('DAYLINE FLOW source selftest PASS · one held object · one explicit primary · zero-hunt traversal · passive AWAKE refresh · painting ancestor authority distinct');
