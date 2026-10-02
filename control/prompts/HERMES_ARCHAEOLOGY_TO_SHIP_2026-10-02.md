@@ -154,6 +154,30 @@ ADOPTED
 
 Never launder one state into another.
 
+## DOWNSTREAM CONSEQUENCE CHECK — PRISON AGE DONOR, NOT FIELD LIFECYCLE
+
+For conversion work, distinguish publication from consequence:
+
+```
+SHIPPED       → artifact became available
+USED          → another human/world actor actually used it
+PROPAGATED    → the use was copied, adapted, remixed, or carried into another context
+COUNTERMEASURE→ a later environment/process changed in response to that use
+```
+
+These are evidence claims, not mandatory lifecycle states.
+
+Rules:
+- LIKE / KEEP / praise / page view ≠ USED;
+- USED requires an observed or authored use witness;
+- PROPAGATED requires a second addressed context or derivative witness;
+- COUNTERMEASURE requires a later rule/environment/process change that explicitly responds to the earlier move;
+- absence of downstream evidence does not demote a technically shipped artifact;
+- never invent fandom, adoption, impact or institutional response;
+- if downstream evidence exists, preserve the causal chain in RETURN rather than flattening it into a popularity score.
+
+This transfers the Prison Age generators **EVENT → EDIT → FANDOM → REALITY**, **TOOL → CULTURE**, and **SUCCESSFUL ESCAPE → NEXT PRISON** as a falsifiable consequence lens only. Fiction, fandom aesthetics and narrative governance remain non-transfer residue.
+
 ## ARCHIVAL EXTRACTION
 
 For each candidate artifact recover:
