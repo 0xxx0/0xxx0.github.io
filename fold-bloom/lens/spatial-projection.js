@@ -1,35 +1,17 @@
 'use strict';
-// Shared primitives are published: $ (selector idiom) lives in lib/dom.js,
-// clamp lives in lib/polar-control.js. Both bodies were byte-identical to the
-// local copies that used to sit here (verified in
-// 06-fb-lens-eco/harness/verify-spatial-projection.mjs).
+// Spatial projection is deliberately presentation-only. Object identity,
+// aperture, projection and RETURN authority remain in ScaleLensSpatialAPI.
 import { $ } from '/lib/dom.js';
-import { clamp } from '/lib/polar-control.js';
+import { M,lensViewMatrix,lineageSlabMatrix,clampLensPitch,clampLensDepth } from './spatial-geometry.js';
 (()=> {
   const api=window.ScaleLensSpatialAPI;
   const toggle=$('#spatialToggle'), reset=$('#spatialReset'), viewport=$('#spatialViewport'), stage=$('#spatialStage'), meta=$('#spatialMeta');
   if(!api||!toggle||!reset||!viewport||!stage||!meta)return;
 
-  const rad=d=>d*Math.PI/180;
-  const M={
-    id:()=>[1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
-    mul:(a,b)=>{const o=Array(16).fill(0);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o},
-    t:(x=0,y=0,z=0)=>[1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1],
-    rx:a=>{const c=Math.cos(a),s=Math.sin(a);return[1,0,0,0, 0,c,s,0, 0,-s,c,0, 0,0,0,1]},
-    ry:a=>{const c=Math.cos(a),s=Math.sin(a);return[c,0,-s,0, 0,1,0,0, s,0,c,0, 0,0,0,1]},
-    sc:(x=1,y=x,z=x)=>[x,0,0,0, 0,y,0,0, 0,0,z,0, 0,0,0,1],
-    css:m=>'matrix3d('+m.map(n=>Math.abs(n)<1e-10?0:+n.toFixed(6)).join(',')+')'
-  };
-
   let active=false,yaw=-27,pitch=17,depth=-115,drag=null,suppressClick=false,last=null;
 
-  function viewMatrix(){
-    return M.mul(M.t(0,0,depth),M.mul(M.rx(rad(pitch)),M.ry(rad(yaw))));
-  }
-  function slabMatrix(i,n,count){
-    const center=(count-1)/2,x=(i-center)*118,y=((n.hash>>>0)%37)-18,z=(i-count+1)*58,twist=(((n.hash>>>0)%11)-5)*1.1;
-    return M.mul(M.t(x,y,z),M.mul(M.ry(rad(twist)),M.sc(n.id===last?.selectedId?1.05:1)));
-  }
+  function viewMatrix(){return lensViewMatrix({yaw,pitch,depth})}
+  function slabMatrix(i,n,count){return lineageSlabMatrix(i,n,count,{selectedId:last?.selectedId||null})}
   function face(name){const x=document.createElement('span');x.className='spatialFace '+name;return x}
   function slab(n,i,count){
     const b=document.createElement('button');b.type='button';b.className='spatialSlab'+(n.id===last.selectedId?' selected':'');b.dataset.id=n.id;
@@ -62,10 +44,10 @@ import { clamp } from '/lib/polar-control.js';
   toggle.addEventListener('click',()=>setView(!active));
   reset.addEventListener('click',resetView);
   viewport.addEventListener('pointerdown',e=>{if(!active)return;drag={x:e.clientX,y:e.clientY,yaw,pitch,moved:false};viewport.setPointerCapture?.(e.pointerId)});
-  viewport.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.moved=true;yaw=drag.yaw+dx*.32;pitch=clamp(drag.pitch-dy*.28,-70,70);applyView()});
+  viewport.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.moved=true;yaw=drag.yaw+dx*.32;pitch=clampLensPitch(drag.pitch-dy*.28);applyView()});
   viewport.addEventListener('pointerup',e=>{if(!drag)return;suppressClick=drag.moved;drag=null;viewport.releasePointerCapture?.(e.pointerId);setTimeout(()=>suppressClick=false,0)});
   viewport.addEventListener('pointercancel',()=>{drag=null});
-  viewport.addEventListener('wheel',e=>{if(!active)return;e.preventDefault();depth=clamp(depth-Math.sign(e.deltaY)*28,-520,150);applyView()},{passive:false});
+  viewport.addEventListener('wheel',e=>{if(!active)return;e.preventDefault();depth=clampLensDepth(depth-Math.sign(e.deltaY)*28);applyView()},{passive:false});
   viewport.addEventListener('dblclick',resetView);
   window.addEventListener('scale-lens:state',e=>render(e.detail));
   window.addEventListener('keydown',e=>{const tag=e.target?.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||e.metaKey||e.ctrlKey||e.altKey)return;if(e.key.toLowerCase()==='v')setView(!active);else if(active&&e.key.toLowerCase()==='r')resetView()});
