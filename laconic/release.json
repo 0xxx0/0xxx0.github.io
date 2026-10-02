@@ -2,10 +2,11 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.3.5",
-  "released": "2026-10-02",
+  "version": "0.3.6",
+  "released": "2026-10-03",
   "state": "ACTIVE",
   "changes": [
+    "v0.3.6 — repaired Pocket PLAY runtime selection and closed FIELD→LACONIC execution seam: DRAFT / DEAL ONE / TRAJECTORIES are exact target-bearing native actions; ?view, ?scene and ?card deep links recover the same canonical LINE/SCENE/Pocket projections without a new route or store.",
     "v0.3.5 — added POCKET MOVES as a delight-first projection of eight existing SCENES: deal one or show all, copy the canonical opening move, play the canonical branch tree, and mark USED through the existing branch receipt. No new route, object class, content store or adoption store.",
     "v0.3.4 — added SCRIPT PRESSURE / NAME THE MOVE: a nine-node PLAY trajectory that turns ambiguous social pressure into observation / request / role-cast / unresolved, then routes each to evidence, explicit asking, consent/boundary, or lawful noncompliance.",
     "v0.3.3 — added public-safe MIXED NEWS / HOLD BOTH CARE trajectory for simultaneous good + difficult news, preserving joy, fear, witness, practical help and no-reply as separate lawful branches without importing private case details.",
@@ -73,7 +74,10 @@
     "POCKET projects existing SCENES rather than duplicating their text into a fifth object class",
     "PLAY resolves to the canonical scene runner",
     "USED reuses the existing scene#node adoption receipt",
-    "DEAL ONE remains transient view state with no authority"
+    "DEAL ONE remains transient view state with no authority",
+    "Pocket PLAY uses plural selector helper and opens the canonical scene runner",
+    "FIELD held Laconic exposes exactly three target-bearing actions: DRAFT / DEAL ONE / TRAJECTORIES",
+    "view/scene/card query state addresses existing projections only; it does not create new canon or persistence"
   ],
   "return": "/laconic/",
   "verification": [
@@ -81,12 +85,13 @@
     "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json",
     "/returns/LACONIC_MIXED_NEWS_SCENE_2026-09-30.json",
     "/returns/LACONIC_NAME_THE_MOVE_2026-10-02.json",
-    "/returns/LACONIC_POCKET_MOVES_2026-10-02.json"
+    "/returns/LACONIC_POCKET_MOVES_2026-10-02.json",
+    "/returns/LACONIC_FIELD_ACTIONS_2026-10-03.json"
   ],
   "current_classification": {
-    "reviewed_at": "2026-10-02T23:49:00+08:00",
+    "reviewed_at": "2026-10-03T03:48:00+08:00",
     "state": "ACTIVE",
-    "basis": "Current communications head now couples bounded line/scene drafting, provenance-visible vault recovery, and a pocket projection that makes eight existing trajectories immediately playable without duplicating canonical content.",
+    "basis": "Current communications head is directly operable from FIELD through three bounded native actions while preserving LINE/SCENE/VAULT/Pocket as unequal projections on one route.",
     "provenance_note": "Historical abundance is browseable but does not gain adoption/canon status by visibility."
   }
 }
