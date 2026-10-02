@@ -1,12 +1,12 @@
 {
   "schema": "body-field-contract/v0.2",
-  "updated": "2026-09-21",
+  "updated": "2026-10-03",
   "title": "BODY / FIELD",
-  "purpose": "Private-local embodied state instrument over shared body plans: fast NOW capture, cyclic PULSE replay, bounded TEST loops and typed BODY↔HOUSE context without diagnostic or causal overclaim.",
+  "purpose": "Private-local embodied state instrument over shared body plans: fast NOW capture, cyclic PULSE replay, bounded TEST loops, bounded calibration CAMPAIGNs and typed BODY↔HOUSE context without diagnostic or causal overclaim.",
   "operation": "OBSERVE",
-  "kernel": "OBJECT -> ADDRESS -> OBSERVE -> PROJECT -> TEST -> RETURN",
+  "kernel": "OBJECT -> ADDRESS -> OBSERVE -> PROJECT -> TEST -> RETURN -> FADE",
   "authority_split": {
-    "body": "self-observation, body address, locally retained state history",
+    "body": "self-observation, body address, locally retained state history and bounded calibration campaign state",
     "care": "episode / clinician-vet handoff and care-course coordination",
     "house": "environment/device state authority remains private Home Assistant / HOUSEBUS",
     "env0": "typed relation bridge between BODY observation and WORLD/HOUSE context"
@@ -15,19 +15,23 @@
     "NOW": "one-gesture valence/activation + compact signals + optional body address/context",
     "PULSE": "same events on cyclic day/time field plus sample-gated same-return or next-return<=12h descriptive factor contrasts",
     "TEST": "one explicit intervention/action against one selected outcome with before/after return",
+    "CAMPAIGN": "bounded calibration state over selected streams with declared evidence gate, burden budget, derivedness cap and explicit FADE back to a lower monitoring aperture",
     "BRIDGE": "same-origin localStorage BODY↔HOUSE context envelopes; no public personal state",
     "PLAIN": "canonical local JSON ablation/export"
   },
   "evidence_laws": [
     "OBSERVATION != DIAGNOSIS",
     "DESCRIPTIVE CONTRAST != CAUSE",
+    "CAMPAIGN EVIDENCE GATE != CAUSAL PROOF",
+    "DERIVED SCORE != DIRECT OBSERVATION",
     "HOUSE CONTEXT != BODY TRUTH",
     "REFERENCE BODY PLAN != PERSONAL ANATOMY",
     "ACTIVE SELF-REPORT and PASSIVE/ENVIRONMENT CONTEXT remain source-distinct",
     "MISSING != ZERO",
     "BODY EVENT != CARE CASE until explicit import",
     "UNTOUCHED != ZERO",
-    "LAGGED CONTRAST != DELAYED CAUSATION"
+    "LAGGED CONTRAST != DELAYED CAUSATION",
+    "FADE is an explicit reduction of monitoring aperture, not a claim that a question is permanently solved"
   ],
   "storage": {
     "case_state": "localStorage 0xxx0.body.field.v02",
@@ -39,6 +43,13 @@
     "registry": "/bodyplans/registry.js",
     "address": "plan_id + geometry_version + view + selection_mode + region_ids"
   },
+  "campaign": {
+    "schema": "/body/campaign.schema.json",
+    "states": ["DRAFT","CALIBRATING","TESTING","RETURNED","FADED","ABORTED"],
+    "apertures": ["CLOSED","GLANCE","CAMPAIGN","LIVE"],
+    "runtime_law": "Only declared transitions advance state. Evidence gates report sufficiency only. Burden budgets can suppress further prompting. RETURN requires an explicit disposition. FADE lowers aperture according to the campaign declaration.",
+    "authority": "No diagnostic, prescription, medication-change or autonomous treatment authority."
+  },
   "exits": {
     "care": "/care/ via explicit browser-local handoff; CARE requires user import into current case",
     "house": "/house/",
@@ -48,6 +59,6 @@
   "core": {
     "path": "/body/core.js",
     "selftest": "/body/selftest.js",
-    "role": "pure state/factor/contrast/test/address functions reusable by other clients"
+    "role": "pure state/factor/contrast/test/address plus campaign transition/evidence/burden/derivedness functions reusable by other clients"
   }
 }
