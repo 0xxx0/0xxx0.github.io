@@ -92,6 +92,13 @@ hermes -p "$PROFILE" config set skills.config.media-curator.out_dir "$OUT_DIR"
 hermes -p "$PROFILE" config set skills.config.media-curator.profile "archive-recovery"
 hermes -p "$PROFILE" config set skills.config.media-curator.semantic_model "$LOCAL_MODEL"
 
+CONTROL_CONFIG="$HOME/.0xxx0-media/media-curator.json"
+uv run "$ROOT/scripts/media-curator-control.py" --config "$CONTROL_CONFIG" configure "$MEDIA_ROOT" \
+  --out "$OUT_DIR" \
+  --repo-root "$ROOT" \
+  --profile "archive-recovery" \
+  --model "$LOCAL_MODEL"
+
 echo
 echo "MEDIA CURATOR profile prepared."
 echo "source: $MEDIA_ROOT"
@@ -110,9 +117,18 @@ echo "  -> API key: ollama"
 echo "  -> model: $HERMES_LOCAL_MODEL"
 echo "  -> context: 65536"
 echo
-echo "First bounded run:"
-echo "  hermes -p $PROFILE chat --toolsets 'terminal,file,skills,vision,delegation' -q \\"
-echo "    'Use the media-curator skill. Run a dry pass, then process at most 3 pending batches and report the morning return. Do not render or mutate source media.'"
+echo "Operating control:"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG doctor"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG pilot"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG status"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG search radial portal"
 echo
-echo "After that succeeds, remove the 3-batch bound for an overnight run."
-echo "Cron is intentionally not created automatically; schedule it only after the bounded run is clean."
+echo "After the 3-batch pilot is clean, install the two Hermes jobs PAUSED:"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG install-cron"
+echo
+echo "Then deliberately enable the operating loop:"
+echo "  uv run $ROOT/scripts/media-curator-control.py --config $CONTROL_CONFIG cron resume"
+echo
+echo "Night: script-only bulk curation (no Hermes LLM turn)."
+echo "Morning: Hermes reads RETURN and adjudicates at most 3 held/high-value batches."
+echo "Health: hermes -p $PROFILE cron doctor"
