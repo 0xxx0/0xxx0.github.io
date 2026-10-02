@@ -115,8 +115,24 @@
       "version": "0.8.32",
       "latest_return": "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
       "repo_verification": {
-        "status": "CANDIDATE / EXACT_HEAD_CI_REQUIRED",
-        "base_sha": "1206354f2296bec846de515d977bc138f763c7a0",
+        "status": "PASS / PR 779 EXACT-HEAD",
+        "proof_head": "f857e7ea3718437ab16d3f52df0de04717da154a",
+        "base_sha": "10babfdea30ebb09685204f48c75c30ee87982bf",
+        "checks": {
+          "route_registration": {
+            "run": 37026048193,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 37026047586,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 37026048352,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 37026047586 completed 107/107 including held WORK depth, advance-as-scale normal/reduced/fallback, CURRENT-head entry, Prison Age source-neutral re-entry, merged visual-law/moiré surfaces, and critical browser smoke.",
         "predecessor": {
           "status": "CANDIDATE / CI_REQUIRED",
           "base_sha": "4ebc6dab41c09cdb6ff230bfd55f580637973f57",
