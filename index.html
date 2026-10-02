@@ -480,9 +480,42 @@ function focusRoute(r,align,source='OTHER'){
  if(source!=='SYSTEM')noteFocus(source,!!r);
  const xs=currentMatches();supportTrail.push(xs.length);renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();notifyFieldIndex();
 }
+/* ADVANCING IS SCALING -- enter by scaling, not by page-load.
+ *
+ * Operator, verbatim (2026-10-02): "my thoughts w zooming ui and leveraging tricks for
+ * performance in human perception is that advancing is essentially scaling". Near-identical
+ * wording is already in the archive from 2026-09-22 (corpus row 62412): "the experience of
+ * progress visually as essentially scaling into like those mandelbrot fractal type
+ * visualisations". And the stated purpose of AXIAL is "to move into through form fields".
+ *
+ * This is deliberately NOT a scale control. FIELD 0.8.17 removed a seven-button semantic
+ * scale rail (FIELD/ROUTE/OBJECT bands, plus/minus/FIT/FOVEA) and put a stop condition on the
+ * file: "Do not add replacement scale controls ... to compensate for the removed rail",
+ * because "projection density ... must not require the user to operate representation
+ * machinery". That removal was correct and is not reversed here. The zoom is not a CONTROL,
+ * it is the TRANSITION: it happens exactly when the user advances, and they never touch
+ * representation machinery. Zero new controls, zero new buttons.
+ *
+ * Progressive enhancement + graceful degradation: if the user prefers reduced motion, or the
+ * browser has no Web Animations API, this falls straight through to the page-load it always
+ * was. The advance is never blocked by the animation. */
+let advancing=false;
+function advanceInto(href){
+ const go=()=>{if(advancing)return;advancing=true;location.assign(href)};
+ const mark=document.getElementById('apGlyph');
+ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduce||!mark||typeof mark.animate!=='function'){go();return}
+ try{
+  const a=mark.animate(
+   [{transform:'scale(1)',opacity:1},{transform:'scale(1.75)',opacity:.12}],
+   {duration:280,easing:'cubic-bezier(.2,.75,.25,1)',fill:'forwards'});
+  a.finished.then(go,go);
+  setTimeout(go,560);   // hard fallback: the advance must never be held hostage to an animation
+ }catch(_){go()}
+}
 function focusOrOpen(r,source='OTHER'){
  if(!r)return;
- if(focus?.href===r.href){noteOpen();location.assign('.'+(r.alias_of||r.href));return}
+ if(focus?.href===r.href){noteOpen();advanceInto('.'+(r.alias_of||r.href));return}
  focusRoute(r,true,source)
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
