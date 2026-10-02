@@ -1,0 +1,28 @@
+{
+  "schema": "validation-receipt/v1",
+  "artifact": "BODY / FIELD campaign reducer",
+  "date": "2026-10-03",
+  "base": "c4c97cf64cff86a3fafb0a25123cbb8de96eec65",
+  "validated_through": "4057ec681253fd7aa11bd85d460b519d08b6ed36",
+  "scope": [
+    "body/core.js",
+    "body/selftest.js",
+    "body/contract.json",
+    "body/campaign.schema.json"
+  ],
+  "result": "PASS_WITH_SURFACE_GAP",
+  "checks": [
+    "Node execution of body/core.js + body/selftest.js: 20/20 PASS",
+    "Existing 13 BODY kernel invariants remain PASS",
+    "D0-D4 derivedness cap admits lower/equal classes and rejects higher classes",
+    "Evidence gate blocks insufficient declared coverage and passes declared coverage",
+    "Burden budget suppresses prompts at the configured daily ceiling",
+    "DRAFT opens only into CALIBRATING with CAMPAIGN aperture",
+    "Illegal FADE from DRAFT is rejected without mutating the campaign",
+    "RETURN requires an explicit KEEP/DROP/UNKNOWN/ABORT disposition",
+    "RETURNED can FADE to the declared lower aperture and closes the campaign",
+    "No route, storage key, diagnostic authority, treatment authority, medication action, readiness score or causal estimator added"
+  ],
+  "remaining_gap": "The reducer is executable through the existing BODY core but no control in /body/ invokes campaign transitions yet. Next delta should surface a compact campaign/aperture control inside the canonical /body/ route rather than create another route.",
+  "stop_condition": "Do not merge a separate campaign app or sovereign route. UI work must reuse /body/, local private state, campaign.schema.json and BodyFieldCore campaign functions."
+}
