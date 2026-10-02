@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T11:55:25+08:00",
+  "updated": "2026-10-02T17:17:55+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -7370,10 +7370,11 @@
       "role": "Exact 2019–2021 executable + intent/contraction evidence family; later survey spec remains interpretive rather than source evidence.",
       "receipt": "/recovery/poly-furnisher/manifest.json",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-10-02T17:17:55+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
