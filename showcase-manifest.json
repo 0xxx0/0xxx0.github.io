@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T20:06:00+08:00",
+  "updated": "2026-10-02T21:34:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T20:06:00+08:00",
+        "updated_at": "2026-10-02T20:46:52+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -5410,7 +5410,7 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-10-02T20:30:00+08:00",
+        "updated_at": "2026-10-02T21:34:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
