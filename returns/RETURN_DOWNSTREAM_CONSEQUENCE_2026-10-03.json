@@ -36,8 +36,7 @@
     "Council bounded triad remains in Hermes archaeology coordination; it is independent of consequence status."
   ],
   "unknowns": [
-    "No new real human/world adoption was produced by this repository change.",
-    "CI and browser checks are not yet observed for this branch at receipt creation time."
+    "No new real human/world adoption was produced by this repository change."
   ],
   "unresolved_gate": "Real USED / PROPAGATED / COUNTERMEASURE claims remain human/world evidence gated per native host.",
   "return_address": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
@@ -46,12 +45,33 @@
   "downstream_consequence": {
     "status": "SHIPPED_ONLY",
     "evidence_refs": [
-      "branch commits c067e8b2, 6dffd815, 5e5fce69"
+      "merge 5e5da7b201155abaffe3b7aba322c63254caef12",
+      "exact proof head 061e645cc8545e04506e3adc21cd6e643701ff80",
+      "public-surface-check 37058033600",
+      "gitleaks 37058033582"
     ],
-    "observed_delta": "Protocol implementation exists on a branch; no external-use claim is made.",
+    "observed_delta": "Protocol implementation is merged on master and machine/browser verified; no external-use claim is made.",
     "unknowns": [
-      "Merge/CI pending",
       "No downstream human/world use observed"
     ]
-  }
+  },
+  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+  "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+  "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+  "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+  "verification": {
+    "route_registration": {
+      "run": 37058033573,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 37058033600,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 37058033582,
+      "conclusion": "success"
+    }
+  },
+  "sealed_at": "2026-10-03T04:06:36+08:00"
 }
