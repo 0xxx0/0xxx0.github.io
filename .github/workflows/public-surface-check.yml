@@ -121,6 +121,8 @@ jobs:
         run: node tools/dayline-comms-real-loop-smoke.mjs
       - name: Test Dayline Shopping exact-item RETURN loop
         run: node tools/dayline-shopping-real-loop-smoke.mjs
+      - name: Validate Dayline zero-hunt ordinary flow
+        run: node tools/dayline-flow-source-selftest.mjs
       - name: Validate BODY FIT Health Connect transform
         run: node body/fit/health-connect-selftest.cjs
       - name: Validate INTERPHASE ROOM projection core
