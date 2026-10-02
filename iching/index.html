@@ -194,12 +194,13 @@ async function load(){
   buildGrid(); buildWalk(); initCube();
   const h = parseHash();
   if (h.c){ switchView('read'); render(h.c.split('').map(Number), h.q || ''); }
+  else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || ''); }
   else if (h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q || ''); }
   else if (h.view) switchView(h.view);
 }
 function parseHash(){
   const f = new URLSearchParams(location.hash.slice(1));
-  return { c: f.get('c'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
+  return { c: f.get('c'), b: f.get('b'), to: f.get('to'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
 }
 function switchView(name){
   currentView = name;
@@ -314,12 +315,12 @@ function lensPanels(h, chgSet){
   html += `</ul></div>`;
   return html;
 }
-function render(vals, q){
+function render(vals, q, opts={}){
   const bits = vals.map(v=> (v===7||v===9)?'1':'0').join('');
   const chgSet = new Set();
   vals.forEach((v,i)=>{ if(v===6||v===9) chgSet.add(i+1); });
-  const prim = HEX.byBin[bits];
-  if(!prim){ document.getElementById('out').innerHTML = '<div class="panel">unknown cast</div>'; return; }
+  const prim = HEX.byBin[bits], stateMode = opts.mode === 'STATE';
+  if(!prim){ document.getElementById('out').innerHTML = '<div class="panel">unknown '+(stateMode?'state':'cast')+'</div>'; return; }
   let tbits = bits.split('');
   chgSet.forEach(i=>{ const k=i-1; tbits[k] = tbits[k]==='1'?'0':'1'; });
   const trans = chgSet.size ? HEX.byBin[tbits.join('')] : null;
@@ -328,7 +329,8 @@ function render(vals, q){
   const chgStr = chgList.length? chgList.map(i=>`line ${i}`).join(', ') : 'none';
 
   let html = '';
-  if(q) html += `<div class="panel"><span class="muted">your question:</span> <b>${escapeHtml(q)}</b></div>`;
+  if(q) html += `<div class="panel"><span class="muted">${stateMode?'context':'your question'}:</span> <b>${escapeHtml(q)}</b></div>`;
+  if(stateMode) html += `<div class="panel"><b>STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST</b><div class="muted" style="margin-top:6px">This view applies the same six-line structural reading to an explicit binary transition. Changing lines and 6/7/8/9 values are calculated from FROM→TO; no random casting occurred.</div></div>`;
   html += `
   <div class="panel">
     <div class="fig-wrap">
@@ -339,10 +341,10 @@ function render(vals, q){
       </div>
     </div>
     <div class="tossrow">${vals.map((v,i)=>`<div class="toss ${(v===6||v===9)?'c':''}" title="line ${i+1} (bottom to top)">${v}</div>`).join('')}</div>
-    <div class="muted" style="margin-top:6px">changing lines: ${chgStr} · this cast bottom→top: ${vals.join(' ')} · (6 old yin &amp; 9 old yang change; 7 yang, 8 yin)</div>
+    <div class="muted" style="margin-top:6px">${stateMode?'derived line values':'changing lines'}: ${stateMode?vals.join(' '):chgStr+' · this cast bottom→top: '+vals.join(' ')} · (6 old yin changes→yang; 9 old yang changes→yin; 7/8 stable)</div>
     <div class="howto">
-      <b>reading:</b> the <b>changing lines</b> are the message · the <b>transform</b> (之卦) is where it moves ·
-      the <b>nuclear</b> (互卦) is the hidden middle · <b>sequence</b> is where it stands. no changing lines → the condition itself is the reading.
+      <b>${stateMode?'state reading':'reading'}:</b> the <b>changing lines</b> expose addressed differences · the <b>transform</b> (之卦) is the supplied TO state ·
+      the <b>nuclear</b> (互卦) is the inner projection · <b>sequence</b> is the classical ordering. ${stateMode?'This is a structural lens over supplied state, not divination.':'No changing lines → the condition itself is the reading.'}
     </div>
   </div>`;
   html += lensPanels(prim, chgSet);
@@ -379,13 +381,28 @@ function render(vals, q){
   document.getElementById('out').innerHTML = html;
   wireLinks();
   document.getElementById('copyBtn').style.display='';
-  document.getElementById('shareBtn').style.display='';
+  document.getElementById('shareBtn').style.display=stateMode?'none':'';
   const f = new URLSearchParams();
-  f.set('c', vals.join('')); if(q) f.set('q', q);
+  if(stateMode){
+    f.set('b', bits); f.set('to', tbits.join('')); if(q) f.set('q', q);
+    document.getElementById('seedNote').textContent = 'STATE · '+bits+' → '+tbits.join('');
+  }else{
+    f.set('c', vals.join('')); if(q) f.set('q', q);
+    document.getElementById('seedNote').textContent = `#${vals.join('')}`;
+  }
   history.replaceState(null,'','#'+f.toString());
-  document.getElementById('seedNote').textContent = `#${vals.join('')}`;
-  window.__share = ()=>drawShare(prim, chgSet, vals, q, trans);
+  window.__share = stateMode ? null : ()=>drawShare(prim, chgSet, vals, q, trans);
   cubeCurrent = prim.id; if(currentView==='cube') drawCube();
+}
+function normalizeStateBits(value){
+  const raw=String(value||'').replace(/[^01]/g,'');
+  return raw.length===6?raw:null;
+}
+function renderState(fromValue,toValue,q=''){
+  const from=normalizeStateBits(fromValue),to=normalizeStateBits(toValue);
+  if(!from||!to){document.getElementById('out').innerHTML='<div class="panel">state lens needs two six-bit endpoints</div>';return}
+  const vals=[...from].map((bit,i)=>bit===to[i]?(bit==='1'?7:8):(bit==='1'?9:6));
+  render(vals,q,{mode:'STATE'});
 }
 function renderHex(id, q){
   const h = HEX.byId[id];
