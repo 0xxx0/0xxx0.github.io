@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveSupportFocusDecision,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
@@ -1595,7 +1595,20 @@ $('#exportLabReturn')?.addEventListener('click',()=>{
 document.documentElement.dataset.fieldLabReturn='ready';
 
 const bootQuery=new URLSearchParams(location.search),initialMode=String(bootQuery.get('mode')||'RIDE').toUpperCase();
-let verseHandoffRestored=false,lociHandoffRestored=false;
+let verseHandoffRestored=false,lociHandoffRestored=false,stateLensRestored=false;
+if(initialMode==='DATA'&&bootQuery.has('stateFrom')&&bootQuery.has('stateTo')){
+  const from=normalizeStateBits(bootQuery.get('stateFrom')),to=normalizeStateBits(bootQuery.get('stateTo'));
+  if(from&&to){
+    $('#stateFrom').value=formatState(from);$('#stateTo').value=formatState(to);syncStateChange();
+    const order=String(bootQuery.get('stateOrder')||'').split(',').map(Number).filter(Number.isInteger);
+    if(order.length){
+      const ranked=stepOrderRank(data.stateCalc?.moving||[],order);
+      if(ranked.ok){data.stateOrderIndex=ranked.index;syncStateChange({preserveOrder:true})}
+    }
+    stateLensRestored=true;
+    document.documentElement.dataset.fieldLabStateLens='restored';
+  }
+}
 if(initialMode==='VERSE'&&bootQuery.has('handoff')){
   const h=recoverVerseInboundHandoff();
   if(h?.source){
@@ -1620,6 +1633,12 @@ document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP');setStatus('VERSE · SOURCE + LINE FOCUS RESTORED')}
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
+if(stateLensRestored){
+  const step=data.stateStep;
+  setSource('STATE / RETURNED FROM I CHING LENS');
+  setAddress(step?.path_address||'field://lab/data/state');
+  setStatus('DATA · STATE LENS RETURN · '+(step?.selected_order?.length?step.selected_order.map(x=>'L'+x).join(' → '):'STABLE')+' · PREVIEW RESTORED');
+}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
 window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,calculationTape:()=>currentCalculationTape(),stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),controlLoss:()=>data.controlLoss?.ok?JSON.parse(JSON.stringify({...data.controlLoss,face:data.controlLossFace})):null,ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
