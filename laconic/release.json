@@ -6,6 +6,7 @@
   "released": "2026-10-03",
   "state": "ACTIVE",
   "changes": [
+    "0.3.6 runtime repair — Pocket PLAY now uses explicit querySelectorAll iteration; prior single-element querySelector iteration was invalid at runtime.",
     "v0.3.6 — repaired Pocket PLAY runtime selection and closed FIELD→LACONIC execution seam: DRAFT / DEAL ONE / TRAJECTORIES are exact target-bearing native actions; ?view, ?scene and ?card deep links recover the same canonical LINE/SCENE/Pocket projections without a new route or store.",
     "v0.3.5 — added POCKET MOVES as a delight-first projection of eight existing SCENES: deal one or show all, copy the canonical opening move, play the canonical branch tree, and mark USED through the existing branch receipt. No new route, object class, content store or adoption store.",
     "v0.3.4 — added SCRIPT PRESSURE / NAME THE MOVE: a nine-node PLAY trajectory that turns ambiguous social pressure into observation / request / role-cast / unresolved, then routes each to evidence, explicit asking, consent/boundary, or lawful noncompliance.",
