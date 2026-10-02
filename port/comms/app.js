@@ -331,5 +331,6 @@ window.CommsSpine={
   version:'0.1',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
   loadSource,loadReturn,returnObject,spotMachine,
+  locateSignal:id=>{const sig=signals().find(x=>x.id===id);if(!sig)return false;jumpSignal(sig);return true},
   buildAgentPacket:()=>buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title})
 };
