@@ -34,6 +34,8 @@ def main() -> None:
     ap.add_argument("--append", action="store_true")
     ap.add_argument("--host", default="http://127.0.0.1:11434")
     ap.add_argument("--timeout", type=int, default=600)
+    ap.add_argument("--structured", action="store_true", help="Send an exact JSON schema via Ollama format and validate the returned envelope.")
+    ap.add_argument("--think", choices=["default", "true", "false"], default="default")
     args = ap.parse_args()
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -47,6 +49,16 @@ def main() -> None:
             {"role": "user", "content": f'Return {{"marker":"{marker}","square":{i*i}}}'}
         )
 
+        schema = {
+            "type": "object",
+            "properties": {
+                "marker": {"type": "string", "const": marker},
+                "square": {"type": "integer", "const": i * i},
+            },
+            "required": ["marker", "square"],
+            "additionalProperties": False,
+        }
+
         body = {
             "model": args.model,
             "messages": messages,
@@ -58,6 +70,11 @@ def main() -> None:
                 "temperature": 0,
             },
         }
+
+        if args.structured:
+            body["format"] = schema
+        if args.think != "default":
+            body["think"] = args.think == "true"
 
         t0 = time.monotonic()
         data: dict = {}
@@ -79,6 +96,23 @@ def main() -> None:
         wall = time.monotonic() - t0
         content = ((data.get("message") or {}).get("content") or "")
 
+        structured_valid = None
+        structured_error = None
+        if status == "ok" and args.structured:
+            try:
+                parsed = json.loads(content)
+                structured_valid = (
+                    isinstance(parsed, dict)
+                    and parsed.get("marker") == marker
+                    and parsed.get("square") == i * i
+                    and set(parsed) == {"marker", "square"}
+                )
+                if not structured_valid:
+                    structured_error = "schema/value mismatch"
+            except Exception as exc:
+                structured_valid = False
+                structured_error = f"{type(exc).__name__}: {exc}"
+
         if status == "ok":
             messages.append({"role": "assistant", "content": content})
 
@@ -89,6 +123,10 @@ def main() -> None:
             "error": error,
             "model": args.model,
             "context": args.context,
+            "structured": args.structured,
+            "think": args.think,
+            "structured_valid": structured_valid,
+            "structured_error": structured_error,
             "wall_s": round(wall, 6),
             "response_sha256": hashlib.sha256(content.encode()).hexdigest(),
             "response_chars": len(content),
@@ -105,8 +143,8 @@ def main() -> None:
         with args.out.open("a", encoding="utf-8") as f:
             f.write(json.dumps(row) + "\n")
 
-        print(i, status, round(wall, 2), flush=True)
-        if status != "ok":
+        print(i, status, round(wall, 2), structured_valid if args.structured else "", flush=True)
+        if status != "ok" or (args.structured and not structured_valid):
             break
 
 
