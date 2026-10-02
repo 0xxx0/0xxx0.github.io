@@ -2,150 +2,128 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FIELD // SYSTEM MAP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07090a">
+<title>FIELD // ARCHITECTURE MAP</title>
 <style>
 :root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,monospace}
-body{padding:20px}
-main{width:min(1100px,100%);margin:auto}
-h1{font:900 28px/1 system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 4px}
-h1 span{color:var(--hot)}
-.ey{font-size:7px;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
-header{margin-bottom:20px}
-.sub{color:var(--mut);font-size:9px}
-
-.map{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:20px}
-.node{background:var(--p);padding:10px;min-height:80px;position:relative}
-.node .label{font-size:7px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
-.node .name{font:800 14px/1.1 system-ui,sans-serif;margin:3px 0 2px}
-.node .desc{font-size:8px;color:var(--mut);line-height:1.3}
-
-/* Connection lines as pseudo-elements */
-.node.primary{border-left:2px solid var(--hot)}
-.node.secondary{border-left:2px solid var(--cool)}
-.node.frozen{border-left:2px solid var(--mut);opacity:.6}
-.node.emerge{border-left:2px solid var(--gold)}
-
-.flow{grid-column:1/-1;background:var(--p2);padding:6px 10px;font-size:8px;color:var(--mut);display:flex;gap:12px;align-items:center;border-top:1px solid var(--line)}
-.flow span{color:var(--hot);font-weight:700}
-
-.status{margin-top:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.stat{border:1px solid var(--line);background:var(--p);padding:8px}
-.stat b{display:block;font-size:18px;font-family:system-ui,sans-serif}
-.stat span{font-size:6px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
-
-.legend{display:flex;gap:14px;margin:12px 0;font-size:8px}
-.legend span::before{content:'';display:inline-block;width:8px;height:8px;margin-right:4px;vertical-align:middle;border-radius:0}
-
-@media(max-width:700px){.map{grid-template-columns:1fr 1fr}.status{grid-template-columns:repeat(3,1fr)}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(24px,env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}main{width:min(1180px,100%);margin:auto}
+header{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;padding:14px 0 10px;border-bottom:1px solid var(--line)}
+.ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:4px 0 0;font:900 clamp(30px,6vw,58px)/.88 system-ui,sans-serif;letter-spacing:-.06em}.sub{color:#9ca7ab;font:10px/1.5 system-ui,sans-serif;max-width:610px}
+.law{font-size:7px;color:var(--mut);text-align:right}.law b{color:var(--ink);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:10px;padding:8px 0;color:var(--mut);font-size:7px;border-bottom:1px solid var(--line)}.key{display:flex;align-items:center;gap:5px}.sw{width:20px;height:2px;background:currentColor}
+.stage{overflow-x:auto;border:1px solid var(--line);background:#080b0d;margin-top:10px}.stage svg{display:block;width:100%;min-width:960px;height:auto}
+.node rect{fill:#0b0f11;stroke:#39454b;stroke-width:1}.node:hover rect,.node:focus rect{stroke:#edf0ed;stroke-width:1.5}.node text{pointer-events:none}.node .k{font:700 8px ui-monospace,monospace;letter-spacing:.12em;fill:#7d898f}.node .n{font:800 18px system-ui,sans-serif;fill:#edf0ed}.node .d{font:8px ui-monospace,monospace;fill:#96a2a7}.node.root rect{stroke:var(--hot);stroke-width:2}.node.exec rect{stroke:var(--green)}.node.test rect{stroke:var(--cool)}.node.repr rect{stroke:#53636b}.node.bound rect{stroke:var(--gold)}.node.return rect{stroke:var(--hot);stroke-width:2}
+.arrow{fill:none;stroke-width:2}.capture{stroke:var(--gold)}.execute{stroke:var(--green)}.test{stroke:var(--cool)}.returnPath{stroke:var(--hot)}.support{stroke:#56646a;stroke-width:1.2;stroke-dasharray:5 5}.arrowLabel{font:700 7px ui-monospace,monospace;letter-spacing:.12em}.capTxt{fill:var(--gold)}.exeTxt{fill:var(--green)}.testTxt{fill:var(--cool)}.retTxt{fill:var(--hot)}.supTxt{fill:#7d898f}
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.band>div{background:var(--p);padding:9px}.band b{display:block;font-size:8px;letter-spacing:.11em}.band span{display:block;color:var(--mut);font-size:7px;margin-top:3px}
+.mobile{display:none;margin-top:10px}.mrow{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;padding:8px 0;border-bottom:1px solid #20282c}.mrow b{font-size:8px;letter-spacing:.1em}.mrow span{color:var(--mut);font-size:8px}.mrow a{color:var(--cool)}
+footer{display:flex;justify-content:space-between;gap:12px;padding:9px 0;color:#657278;font-size:7px}.hot{color:var(--hot)}
+@media(max-width:720px){header{grid-template-columns:1fr}.law{text-align:left}.stage{display:none}.mobile{display:block}.band{grid-template-columns:1fr 1fr}footer{display:block}footer span{display:block;margin-top:4px}}
 </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="ey">0xxx0 // FIELD</div>
-  <h1>SYSTEM <span>MAP</span></h1>
-  <div class="sub">Every active system, its state, and how they converge</div>
+  <div><div class="ey">0xxx0 // CONTROL PROJECTION · 2026-10-02</div><h1>FIELD <span class="hot">ARCHITECTURE</span></h1><div class="sub">One addressed object moves through unequal surfaces. Capture admits it; FIELD holds it; native hosts act; PROOF tests representation; RETURN keeps the observed delta.</div></div>
+  <div class="law"><b>AUTHORITY</b><br>CURRENT → NOW<br>NATIVE HOST → COMMIT / EFFECT<br>RETURN → DURABLE EVIDENCE</div>
 </header>
 
-<div class="legend">
-  <span style="color:var(--hot)">● ACTIVE</span>
-  <span style="color:var(--cool)">● EMERGING</span>
-  <span style="color:var(--gold)">● NEW DOMAIN</span>
-  <span style="color:var(--mut)">● FROZEN</span>
+<div class="legend" aria-label="Flow legend">
+  <span class="key" style="color:var(--gold)"><i class="sw"></i>CAPTURE</span>
+  <span class="key" style="color:var(--green)"><i class="sw"></i>EXECUTE</span>
+  <span class="key" style="color:var(--cool)"><i class="sw"></i>TEST / REPRESENT</span>
+  <span class="key" style="color:var(--hot)"><i class="sw"></i>RETURN</span>
+  <span class="key"><i class="sw"></i>CONTEXT / SUPPORT</span>
 </div>
 
-<div class="map">
-  <!-- Row 1: Core -->
-  <div class="node primary">
-    <div class="label">ROOT</div>
-    <div class="name">FIELD INDEX</div>
-    <div class="desc">Capability + I/O grammar · Public surface · Route hub</div>
-  </div>
-  <div class="node primary">
-    <div class="label">CONVERGENCE</div>
-    <div class="name">FIELD PULSE</div>
-    <div class="desc">LISTEN · READFIELD · TWO DIAL composing into one active surface</div>
-  </div>
-  <div class="node primary">
-    <div class="label">RECOVERY</div>
-    <div class="name">MIGRATION</div>
-    <div class="desc">13 frozen donor families · 255 Laconic items · 2 blocked</div>
-  </div>
+<div class="stage" aria-label="Architecture map">
+<svg viewBox="0 0 1160 760" role="img" aria-labelledby="mapTitle mapDesc">
+<title id="mapTitle">FIELD architecture map</title>
+<desc id="mapDesc">Human Port enters through Router and Policy into Showcase Field Index. Field Index holds one addressed object. Atlas Dayline executes in time. Field Proof tests representations. FCM is an optional attention reducer. Scale Lens, Verse Atlas, Sleeper and AXIAL are unequal specialist projections. Observed changes return as durable evidence.</desc>
+<defs>
+  <marker id="mCap" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#d5ad68"/></marker>
+  <marker id="mExec" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#98d49b"/></marker>
+  <marker id="mTest" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#72bce7"/></marker>
+  <marker id="mRet" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#ed7447"/></marker>
+  <marker id="mSup" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#56646a"/></marker>
+</defs>
 
-  <!-- Row 2: Active systems -->
-  <div class="node primary">
-    <div class="label">SLEEPER</div>
-    <div class="name">CITY ENGINE</div>
-    <div class="desc">Live at chatgpt.site · 10-field Atlas · Lab · Painting · Interphase</div>
-  </div>
-  <div class="node primary">
-    <div class="label">FOLD//BLOOM</div>
-    <div class="name">LIVE 0.7</div>
-    <div class="desc">Two Dial · Ecology 0.2 · Scale Lens · Motion · Gameplay · Trackfield</div>
-  </div>
-  <div class="node secondary">
-    <div class="label">HUMAN PORT</div>
-    <div class="name">CONTACT</div>
-    <div class="desc">Address → Interpret → Policy → Transform → Return</div>
-  </div>
+<!-- capture boundary -->
+<a class="node bound" href="/port/" tabindex="0"><g transform="translate(24 56)"><rect width="190" height="86"/><text x="14" y="20" class="k">CAPTURE / PEOPLE</text><text x="14" y="46" class="n">HUMAN PORT</text><text x="14" y="65" class="d">addressed object aperture</text></g></a>
+<a class="node bound" href="/router-bench/" tabindex="0"><g transform="translate(244 56)"><rect width="170" height="86"/><text x="14" y="20" class="k">ROUTE</text><text x="14" y="46" class="n">ROUTER</text><text x="14" y="65" class="d">classify · connect · skip</text></g></a>
+<a class="node bound" href="/person-resource-policy.schema.json" tabindex="0"><g transform="translate(444 56)"><rect width="170" height="86"/><text x="14" y="20" class="k">BOUNDARY</text><text x="14" y="46" class="n">POLICY</text><text x="14" y="65" class="d">permission · limits · locks</text></g></a>
 
-  <!-- Row 3: Emerging -->
-  <div class="node emerge">
-    <div class="label">NEW</div>
-    <div class="name">SHOPPING FIELD</div>
-    <div class="desc">Physical procurement as FIELD projection · 4 branches</div>
-  </div>
-  <div class="node emerge">
-    <div class="label">NEW</div>
-    <div class="name">MEDIA CURATOR</div>
-    <div class="desc">Local VLM pipeline · Ollama qwen3-vl · 5.2GB image archive</div>
-  </div>
-  <div class="node secondary">
-    <div class="label">HOUSE</div>
-    <div class="name">SPATIAL</div>
-    <div class="desc">Physical home projection · Traces · Receipts</div>
-  </div>
+<!-- root -->
+<a class="node root" href="/" tabindex="0"><g transform="translate(400 214)"><rect width="360" height="118"/><text x="18" y="24" class="k">SHOWCASE / FIELD INDEX · ROOT</text><text x="18" y="58" class="n">ONE HELD OBJECT</text><text x="18" y="80" class="d">focus · ≤3 lawful moves · witness · exact RETURN</text><text x="18" y="98" class="d">FORECAST is read-only · native owner keeps authority</text></g></a>
 
-  <!-- Row 4: Frozen / Donor -->
-  <div class="node frozen">
-    <div class="label">FROZEN</div>
-    <div class="name">AXIAL</div>
-    <div class="desc">State aperture · Compositor · Focus stack</div>
-  </div>
-  <div class="node frozen">
-    <div class="label">FROZEN</div>
-    <div class="name">POLY/FURNISHER</div>
-    <div class="desc">2019-2021 core evidence · KRAKEN · Interphase lineage</div>
-  </div>
-  <div class="node frozen">
-    <div class="label">FROZEN</div>
-    <div class="name">PATH GRID V4</div>
-    <div class="desc">Grid compiler · Verse Atlas · Foundry federation</div>
-  </div>
+<!-- attention reducer -->
+<a class="node repr" href="/fcm/" tabindex="0"><g transform="translate(24 224)"><rect width="250" height="96"/><text x="14" y="20" class="k">OPTIONAL REDUCER · DONOR</text><text x="14" y="48" class="n">FCM</text><text x="14" y="68" class="d">NOW / NEXT / HOLD / DROP</text><text x="14" y="83" class="d">≤3 fronts · not canonical NOW</text></g></a>
 
-  <!-- Flow -->
-  <div class="flow">
-    <span>→</span> ENTER → ADDRESS → STATE → TRANSFORM → PROJECT → ACT → MEASURE → RETURN
-    <span>→</span>
-    RECOVER → CORRECT → CONVERGE → VALIDATE → SEAL
-  </div>
+<!-- execute and prove -->
+<a class="node exec" href="/atlas-dayline/" tabindex="0"><g transform="translate(238 408)"><rect width="270" height="104"/><text x="14" y="20" class="k">EXECUTION / TIME</text><text x="14" y="49" class="n">ATLAS DAYLINE</text><text x="14" y="70" class="d">time · commitments · RUN · source handoff</text><text x="14" y="87" class="d">reality first · mobile reach</text></g></a>
+<a class="node test" href="/forward-field-proof/" tabindex="0"><g transform="translate(650 408)"><rect width="270" height="104"/><text x="14" y="20" class="k">TEST / ABLATE</text><text x="14" y="49" class="n">FIELD / PROOF</text><text x="14" y="70" class="d">PLAIN vs FIELD · interruption recovery</text><text x="14" y="87" class="d">constraints · opportunity noticing</text></g></a>
+
+<!-- specialist projections -->
+<a class="node repr" href="/fold-bloom/lens/" tabindex="0"><g transform="translate(852 52)"><rect width="280" height="76"/><text x="14" y="18" class="k">REPRESENT</text><text x="14" y="43" class="n">SCALE LENS</text><text x="14" y="61" class="d">unequal views · stable identity · exact caller return</text></g></a>
+<a class="node repr" href="/foundry/verse-atlas/" tabindex="0"><g transform="translate(852 146)"><rect width="280" height="76"/><text x="14" y="18" class="k">ADDRESS / PATH</text><text x="14" y="43" class="n">VERSE ATLAS</text><text x="14" y="61" class="d">typed traversal · path/glyph · replayable return</text></g></a>
+<a class="node repr" href="/sleeper/" tabindex="0"><g transform="translate(852 240)"><rect width="280" height="76"/><text x="14" y="18" class="k">ALTERNATE LAW FIELD</text><text x="14" y="43" class="n">SLEEPER</text><text x="14" y="61" class="d">city engine · gates · witness · one return</text></g></a>
+<a class="node test" href="/foundry/axial/" tabindex="0"><g transform="translate(852 334)"><rect width="280" height="76"/><text x="14" y="18" class="k">ORIENT / TRANSFORM</text><text x="14" y="43" class="n">AXIAL</text><text x="14" y="61" class="d">focus stack · state aperture · engineering witness</text></g></a>
+
+<!-- return -->
+<a class="node return" href="/returns/" tabindex="0"><g transform="translate(400 612)"><rect width="360" height="96"/><text x="18" y="22" class="k">RETURN / DURABLE EVIDENCE</text><text x="18" y="52" class="n">OBSERVED DELTA</text><text x="18" y="72" class="d">before → after · evidence · residue · provenance</text></g></a>
+
+<!-- arrows -->
+<path d="M214 99H244" class="arrow capture" marker-end="url(#mCap)"/>
+<path d="M414 99H444" class="arrow capture" marker-end="url(#mCap)"/>
+<path d="M529 142V198H580V214" class="arrow capture" marker-end="url(#mCap)"/>
+<text x="545" y="189" class="arrowLabel capTxt">CAPTURE</text>
+
+<path d="M400 270H292" class="arrow support" marker-end="url(#mSup)"/>
+<text x="306" y="260" class="arrowLabel supTxt">REDUCE</text>
+
+<path d="M500 332V370H373V408" class="arrow execute" marker-end="url(#mExec)"/>
+<text x="378" y="368" class="arrowLabel exeTxt">EXECUTE</text>
+<path d="M660 332V370H785V408" class="arrow test" marker-end="url(#mTest)"/>
+<text x="705" y="368" class="arrowLabel testTxt">TEST</text>
+
+<path d="M760 244H818V90H852" class="arrow test" marker-end="url(#mTest)"/>
+<path d="M760 262H820V184H852" class="arrow test" marker-end="url(#mTest)"/>
+<path d="M760 280H820V278H852" class="arrow test" marker-end="url(#mTest)"/>
+<path d="M760 300H820V372H852" class="arrow test" marker-end="url(#mTest)"/>
+<text x="770" y="235" class="arrowLabel testTxt">REPRESENT / EXPLORE</text>
+
+<path d="M373 512V562H500V612" class="arrow returnPath" marker-end="url(#mRet)"/>
+<path d="M785 512V562H660V612" class="arrow returnPath" marker-end="url(#mRet)"/>
+<path d="M980 410V575H742V624" class="arrow returnPath" marker-end="url(#mRet)"/>
+<text x="522" y="584" class="arrowLabel retTxt">RETURN</text>
+<path d="M580 612V550H1080V316" class="arrow support" marker-end="url(#mSup)"/>
+<text x="900" y="542" class="arrowLabel supTxt">EVIDENCE CAN REFINE SPECIALISTS; NEVER SILENTLY MINT AUTHORITY</text>
+</svg>
 </div>
 
-<div class="status">
-  <div class="stat"><b class="hot">18</b><span>Active branches</span></div>
-  <div class="stat"><b class="cool">4</b><span>Emerging domains</span></div>
-  <div class="stat"><b class="green">169</b><span>PRs merged</span></div>
-  <div class="stat"><b class="gold">10</b><span>Remote workers</span></div>
-  <div class="stat"><b>2</b><span>Blocked items</span></div>
-  <div class="stat"><b class="green">3</b><span>Actions passing</span></div>
+<div class="mobile" aria-label="Architecture map mobile reading">
+  <div class="mrow"><b>CAPTURE</b><span><a href="/port/">HUMAN PORT</a> → <a href="/router-bench/">ROUTER</a> → <a href="/person-resource-policy.schema.json">POLICY</a> → <a href="/">SHOWCASE / FIELD INDEX</a></span></div>
+  <div class="mrow"><b>HOLD</b><span><a href="/">FIELD INDEX</a> preserves one addressed object, focus, ≤3 lawful operations, witness and exact RETURN. <a href="/fcm/">FCM</a> is an optional attention reducer, not canonical NOW.</span></div>
+  <div class="mrow"><b>EXECUTE</b><span><a href="/atlas-dayline/">ATLAS DAYLINE</a> binds the held object to time, commitments and RUN.</span></div>
+  <div class="mrow"><b>TEST</b><span><a href="/forward-field-proof/">FIELD / PROOF</a> compares PLAIN vs richer representation and scores recovery, constraints and opportunities.</span></div>
+  <div class="mrow"><b>PROJECT</b><span><a href="/fold-bloom/lens/">SCALE LENS</a> · <a href="/foundry/verse-atlas/">VERSE ATLAS</a> · <a href="/sleeper/">SLEEPER</a> · <a href="/foundry/axial/">AXIAL</a> remain unequal specialist hosts.</span></div>
+  <div class="mrow"><b>RETURN</b><span><a href="/returns/">RETURN</a> stores observed delta and residue; CURRENT may replan after evidence exists.</span></div>
 </div>
 
-<div style="font-size:7px;color:var(--mut);text-align:center;margin-top:20px">
-  Convergence state · Self-verifying · 2026-09-22 · Systems converge on transaction language, not visual language
+<div class="band">
+  <div><b>CAPTURE</b><span>world / person → addressed object</span></div>
+  <div><b>EXECUTION</b><span>held object → native action → consequence</span></div>
+  <div><b>TESTING</b><span>same object → unequal projections → measured difference</span></div>
+  <div><b>RETURN</b><span>observed change → durable evidence → re-entry</span></div>
 </div>
+
+<footer>
+  <a href="/">← FIELD INDEX</a>
+  <span>SOURCE → HOLD → TURN → TRACE → RETURN · map is projection-only; no authority or state lives here</span>
+</footer>
 </main>
 </body>
 </html>
