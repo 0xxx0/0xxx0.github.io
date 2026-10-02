@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.18"><link rel="manifest" href="./manifest.webmanifest">
+<title>FOLD//BLOOM — LIVE 0.13</title><link rel="stylesheet" href="./app.css?v=0.13.19"><link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
 <div id="app"><canvas id="field"></canvas><img id="imageStage" alt="Addressed image from the local set" hidden><audio id="trackAudio" preload="metadata"></audio><input id="trackFile" type="file" accept="audio/*,.mp3,.m4a,.mp4,.wav,.flac,.ogg,.aac,.webm,.lrc,.vtt,.srt,.txt,.md" multiple hidden><input id="readFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json" hidden><input id="imageFile" type="file" accept="image/*" multiple hidden>
@@ -70,7 +70,15 @@
 </details>
 <div class="control layerControl"><label><span>LAYER</span><span id="layerRead">IMMERSION</span></label><div class="row layerModes"><button data-layer-mode="SOURCE">SOURCE</button><button data-layer-mode="MAP">MAP</button><button class="on" data-layer-mode="IMMERSION">IMMERSION</button></div><div class="small" id="layerLaw">SOURCE = original audio. MAP = measured BEAT / PHRASE / SECTION terrain. IMMERSION = MAP + experience response. FIELD synth remains a separate explicit opt-in.</div></div>
 <div class="control"><label><span>RIDE MODE</span><span>RATCHET / FLOW</span></label><div class="row"><button id="modeDrawerBtn" aria-label="Toggle ride mode between RATCHET and FLOW">RIDE MODE · RATCHET</button></div><div class="small">Same control as the MODE button: RATCHET holds each release in place; FLOW lets the road move with the source.</div></div>
-<div class="control"><label><span>EXPERIENCE</span><span id="xpPresetRead">NORMAL</span></label><div class="row xpPresets"><button data-xp-preset="NORMAL">NORMAL</button><button data-xp-preset="DRIVE">DRIVE</button><button data-xp-preset="TRANCE">TRANCE</button><button data-xp-preset="SOFT">SOFT</button></div><div class="small">SOUND PALETTE + WORLD: DEEP (SINE) · TRANCE (SAW) · WOOD (TRIANGLE) · VOID (SPARSE). Presets change synth rhythm and tone plus field presentation. Ring cells use three visible shape families: △ TRIANGLE · ○ CIRCLE · □ SQUARE. Each shape remembers its own last anchor; same-shape links/cascades help determine BLOOM / FOLD / SPLIT / RETURN. Old receipts may call them EMBER · WATER · MOSS.</div></div>
+<div class="control"><label><span>EXPERIENCE</span><span id="xpPresetRead">NORMAL</span></label><div class="row xpPresets"><button data-xp-preset="NORMAL">NORMAL</button><button data-xp-preset="DRIVE">DRIVE</button><button data-xp-preset="TRANCE">TRANCE</button><button data-xp-preset="SOFT">SOFT</button></div><div class="small">SOUND PALETTE + WORLD: DEEP (SINE) · TRANCE (SAW) · WOOD (TRIANGLE) · VOID (SPARSE). Presets change synth rhythm and tone plus field presentation. Ring cells use three visible shape families: △ TRIANGLE · ○ CIRCLE · □ SQUARE. Each shape remembers its own last anchor; same-shape links/cascades help determine BLOOM / FOLD / SPLIT / RETURN. Old receipts may call them EMBER · WATER · MOSS.</div>
+<details class="drawerMore shapeTrace" id="shapeTrace"><summary>THREE SHAPE MEMORIES · △ ○ □</summary>
+  <div class="small">These are parallel memory channels, not three fixed powers. Each keeps its own last landing; links and matching neighbours shape the forecast. The current target is marked. Peak tier and links show what this run has actually built.</div>
+  <div class="shapeFamilyRows" role="list" aria-label="Live shape-family memory">
+    <div class="shapeFamily familyTriangle" data-family-row="0" role="listitem"><b>△ TRIANGLE</b><span data-family-detail>ANCHOR —</span><em data-family-target></em></div>
+    <div class="shapeFamily familyCircle" data-family-row="1" role="listitem"><b>○ CIRCLE</b><span data-family-detail>ANCHOR —</span><em data-family-target></em></div>
+    <div class="shapeFamily familySquare" data-family-row="2" role="listitem"><b>□ SQUARE</b><span data-family-detail>ANCHOR —</span><em data-family-target></em></div>
+  </div>
+</details></div>
 <details class="calibrate"><summary>CALIBRATE / ADVANCED</summary><div class="control rideTune"><label><span>TERRAIN SOLIDITY</span><span id="solidVal">100%</span></label><input id="solidTune" type="range" min="72" max="100" step="1" value="100"></div><div class="control rideTune"><label><span>IMMERSION</span><span id="immersionVal">1.00×</span></label><input id="immersionTune" type="range" min="55" max="145" step="1" value="100"></div><div class="control rideTune"><label><span>ANTICIPATION</span><span id="anticipationVal">1.00×</span></label><input id="anticipationTune" type="range" min="55" max="180" step="1" value="100"></div><div class="control rideTune"><label><span>MOTION / BODY</span><span id="motionGainVal">1.00×</span></label><input id="motionGainTune" type="range" min="45" max="165" step="1" value="100"></div><div class="control rideTune"><label><span>DROP / PLUNGE</span><span id="dropGainVal">1.00×</span></label><input id="dropGainTune" type="range" min="55" max="185" step="1" value="100"></div><div class="control rideTune"><label><span>TEXT SYNC</span><span id="textSyncVal">+0.00s</span></label><input id="textSyncTune" type="range" min="-800" max="800" step="5" value="0"></div><div class="small">Experience calibration only; AUDIO MAP evidence stays untouched.</div></details>
 <details class="drawerMore" id="soundControls"><summary>SOUND + INSTRUMENTS</summary>
   <div class="control"><label><span>SOURCE TRACK</span><span>original audio</span></label><input id="trackVol" type="range" min="0" max="100" value="78" aria-label="Source track volume"></div>
@@ -96,7 +104,7 @@
 </details>
 <div class="receipt" id="build"></div></aside>
 </div>
-<script src="../../lib/read-trail.js"></script><script src="../../lib/source-echo.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.24"></script>
+<script src="../../lib/read-trail.js"></script><script src="../../lib/source-echo.js"></script><script src="../../lib/interphase-carrier.js"></script><script type="module" src="./app.js?v=0.13.25"></script>
 <script type="module" src="./vault-handoff.js"></script>
 <script type="module" src="./play.js?v=0.6.4"></script>
 <script type="module">
