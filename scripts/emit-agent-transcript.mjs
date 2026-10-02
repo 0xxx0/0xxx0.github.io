@@ -100,6 +100,58 @@ function markdown(p){
   return out.join('\n')+'\n';
 }
 
+function compileCrystal(sources){
+  const p=compile(sources),routes=sources.M.routes||sources.M.entries||[];
+  const packetSweep=fs.existsSync('control/packets')?cliReduceSource('control/packets',[]):{schema:'field-egress-sweep/v0.1',authority:'NONE',packet_count:0,file_count:0,counts:Object.fromEntries(EGRESS_CLASSES.map(k=>[k,0])),items:[]};
+  const path=x=>({
+    lineage:x.lineage||null,
+    route:x.route||null,
+    state:x.state||null,
+    head:x.head||null,
+    next:x.next_executable?{
+      id:x.next_executable.id||null,
+      state:x.next_executable.state||null,
+      objective:x.next_executable.objective||null
+    }:null
+  });
+  return {
+    schema:'field-crystal/v0.1',
+    authority:'NONE',
+    revision:p.phi.expression_revision,
+    updated:p.now.updated,
+    active_fronts:p.now.active_fronts.map(x=>({id:x.id||null,state:x.state||null,center:x.center||null,objective:x.objective||null})),
+    next_single_action:p.now.next_single_action||null,
+    paths:p.heads.map(path),
+    human_world_gates:p.human_world_gates,
+    archive:{addressed_route_count:routes.filter(x=>x?.href).length,current_head_count:p.heads.length,law:'Large archive; small active surface. Archive scale does not create NOW.'},
+    packets:{schema:packetSweep.schema,authority:packetSweep.authority,file_count:packetSweep.file_count,packet_count:packetSweep.packet_count,counts:packetSweep.counts,items:packetSweep.items.map(x=>({packet_id:x.packet_id,class:x.class,reason:x.reason,file:x.file}))},
+    return:{target:'/',law:'CRYSTAL is a transient read. Select one addressed object, perform at most one newly authorized bounded move, TRACE, RETURN, then re-read current truth.'},
+    laws:[
+      'Compression retains identity, residue and RETURN.',
+      'Stored packets do not self-authorize NOW.',
+      'Paths remain unequal native hosts; CRYSTAL is not a universal shell or state store.',
+      'No priority, mutation, merge authority or effect permission is created by this projection.'
+    ]
+  };
+}
+
+function crystalMarkdown(c){
+  const out=['# FIELD CRYSTAL','revision: '+c.revision,'authority: NONE','updated: '+(c.updated||'—'),''];
+  out.push('## FIELD','- active fronts '+c.active_fronts.length+' · current heads '+c.paths.length+' · addressed routes '+c.archive.addressed_route_count+' · JSON packets '+c.packets.packet_count);
+  for(const f of c.active_fronts)out.push('- NOW · '+(f.id||'front')+' ['+(f.state||'UNKNOWN')+'] — '+clip(f.objective||f.center||''));
+  out.push('','## PATHS');
+  for(const p of c.paths)out.push('- '+(p.route||'—')+' · '+(p.lineage||'—')+' · '+(p.state||'—')+(p.next?' · NEXT '+(p.next.id||p.next.state||'declared'):''));
+  out.push('','## PACKET SHELF','- '+EGRESS_CLASSES.map(k=>k+' '+(c.packets.counts[k]||0)).join(' · '));
+  for(const x of c.packets.items)out.push('- '+x.class+' · '+x.packet_id+' · '+x.reason);
+  out.push('','## NEXT');
+  const n=c.next_single_action||{};out.push('- '+(n.id||'—')+' — '+clip(n.instruction||''));
+  out.push('','## GATES');
+  if(!c.human_world_gates.length)out.push('- CLEAR');
+  for(const g of c.human_world_gates)out.push('- '+(g.route||'—')+' · '+g.dependency_kind+' · '+clip(g.objective));
+  out.push('','## RETURN','- '+c.return.law,'');
+  return out.join('\n')+'\n';
+}
+
 
 const cliNonempty=v=>{
   if(v==null)return false;
@@ -203,6 +255,7 @@ function cliUsage(){
     modes:[
       {mode:'transcript',command:'node scripts/emit-agent-transcript.mjs',purpose:'bounded current handoff; no live φ focus or mutation authority'},
       {mode:'transcript-json',command:'node scripts/emit-agent-transcript.mjs --json',purpose:'structured bounded current handoff'},
+      {mode:'crystal',command:'node scripts/emit-agent-transcript.mjs --crystal [--json]',purpose:'one transient compressed read across current fronts, every CURRENT path, archive scale, packet-shelf egress, NEXT and RETURN'},
       {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'}
     ],
@@ -231,9 +284,16 @@ function cliUsageText(u){
 const cliArgs=process.argv.slice(2);
 const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
+const crystalMode=cliArgs.includes('--crystal');
 if(cliArgs.includes('--help')){
   const usage=cliUsage();
   process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
+}else if(crystalMode&&(reduceAt>=0||convergeAt>=0)){console.error('choose one: --crystal, --reduce, or --converge');process.exit(2)}
+else if(crystalMode){
+  try{
+    const c=compileCrystal(load());
+    process.stdout.write(cliArgs.includes('--json')?JSON.stringify(c,null,2)+'\n':crystalMarkdown(c));
+  }catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else if(reduceAt>=0&&convergeAt>=0){console.error('choose one: --reduce or --converge');process.exit(2)}
 else if(reduceAt>=0){
   const source=cliArgs[reduceAt+1];
@@ -260,6 +320,18 @@ if(process.argv.includes('--selftest')){
   if(JSON.stringify(packet.egress?.precedence)!==JSON.stringify(EGRESS_PRECEDENCE))fail.push('egress precedence drift');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('front:')).some(x=>x.class!=='NOW'))fail.push('active front did not reduce to NOW');
   if((packet.egress?.items||[]).filter(x=>x.packet_id.startsWith('gate:')).some(x=>x.class!=='GATE'))fail.push('human/world gate did not reduce to GATE');
+
+  const crystal=compileCrystal(sources);
+  if(crystal.authority!=='NONE')fail.push('CRYSTAL acquired authority');
+  if(crystal.paths.length!==packet.heads.length)fail.push('CRYSTAL path count drift');
+  if(crystal.archive.addressed_route_count<crystal.paths.length)fail.push('CRYSTAL archive scale smaller than current heads');
+  if((crystal.packets.counts.NOW||0)!==0)fail.push('packet shelf self-authorized NOW inside CRYSTAL');
+  if(crystal.packets.packet_count!==crystal.packets.items.length)fail.push('CRYSTAL packet count mismatch');
+  const verse=read('control/packets/HERMES_VERSE_PUZZLE_MODEL_2026-09-23.json');
+  if(reducePacket(verse,{}).class!=='ARCHIVE')fail.push('real Verse packet should archive without caller selection');
+  if(reducePacket(verse,{selected:true}).class!=='NOW')fail.push('real Verse packet should become NOW only under explicit selection');
+  if(!crystal.return?.target)fail.push('CRYSTAL RETURN target missing');
+
   const rendered=markdown(packet),structured=JSON.stringify(packet);
   if(rendered.length>10000)fail.push('default transcript exceeds 10k chars: '+rendered.length);
   if(structured.length>20000)fail.push('structured transcript exceeds 20k chars: '+structured.length);
