@@ -36,6 +36,8 @@ need(html.includes('data-cap-dayline'),'DAYLINE action control missing');
 need(/ADD TO DAY remains Dayline/.test(contract.ui_contract?.root_action_aperture||''),'Dayline mutation boundary missing from contract');
 need(!html.includes('id="capTrial"')&&!html.includes('CAP_TRIAL'),'duplicate held continuation frame survived');
 need(html.includes('id="apFlow"')&&html.includes('id="capMoves"')&&html.includes('id="capWitness"')&&html.includes('id="capReturn"'),'held object does not own NEXT / witness / RETURN');
+need(html.includes('id="runDock"')&&html.includes('id="runDockTurn"')&&html.includes('id="runDockTrace"')&&html.includes('id="runDockReturn"'),'persistent held command dock missing');
+need(/PERSISTENT COMMAND SURFACE ≠ SECOND FRAME/.test((contract.laws||[]).join('\n')),'persistent command dock authority boundary missing');
 need(html.indexOf('id="apFlow"')>html.indexOf('id="aperture"')&&html.indexOf('id="apFlow"')<html.indexOf('id="feedRail"'),'held continuation escaped the held object');
 need(html.includes('function renderHeldContinuation()'),'held continuation reducer missing');
 need(html.includes('id="capForecast"'),'held object forecast reading missing');
