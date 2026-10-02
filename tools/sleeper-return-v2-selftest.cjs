@@ -32,3 +32,4 @@ assert(/TRANSFER occurred before/.test(bad(x=>{
   x.cell.witness=x.proofs.map(p=>p.token).join(' · ');
 })),'TRANSFER prerequisite tamper');
 console.log('SLEEPER RETURN V2 SELFTEST PASS · WORLD',r.derived.worldKey,'· TRANSFER',r.derived.transferTool.toUpperCase(),'· DOMINANT',r.derived.dominantOperator.toUpperCase());
+require('./sleeper-native-port-selftest.cjs');

@@ -2,22 +2,70 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050708">
-<meta name="robots" content="noindex,nofollow">
-<title>SLEEPER // ONE RETURN</title>
-<style>
-:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#050708;color:#eef2ef;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{display:grid;place-items:center;padding:18px}main{width:min(820px,100%);border:1px solid #2b363b;background:#0b0f11;padding:18px}.ey{font-size:8px;letter-spacing:.16em;color:#ef7447}h1{font:900 clamp(48px,11vw,100px)/.8 system-ui,sans-serif;letter-spacing:-.075em;margin:12px 0 18px}p{color:#aab5b9;max-width:680px}a{color:#72c9e7;text-decoration:none;border-bottom:1px solid currentColor}.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.state{color:#d8b26a;margin-top:14px}
-</style>
-<script>
-(()=>{const target='https://sleeper-one-return.metaname.chatgpt.site/';const suffix=location.search+location.hash;try{location.replace(target+suffix)}catch{location.href=target+suffix}})();
-</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>SLEEPER // ONE RETURN — native convergence</title>
+<link rel="stylesheet" href="./native.css">
+
 </head>
-<body><main>
-<div class="ey">SLEEPER / CANONICAL RUNTIME ROUTE</div>
-<h1>ONE RETURN</h1>
-<p>The recovered live SLEEPER // ONE RETURN City Engine is the canonical runtime. This repository preserves its recovered source, lineage, derivatives and donors without making them compete for the same identity.</p>
-<p class="state">Redirecting to the live recovered runtime…</p>
-<div class="links"><a href="https://sleeper-one-return.metaname.chatgpt.site/">ENTER ONE RETURN ↗</a><a href="/sleeper/project/">LINEAGE / PROJECT</a><a href="/recovery/sleeper/site-source-2026-09-18/">EXACT RECOVERED SOURCE</a><a href="/sleeper/ascii-pov-0.8/">POV 0.8</a><a href="/sleeper/one-return/">ASCII DONOR</a><a href="/">FIELD</a></div>
-<noscript><p>JavaScript is disabled. <a href="https://sleeper-one-return.metaname.chatgpt.site/">Open SLEEPER // ONE RETURN.</a></p></noscript>
-</main></body></html>
+<body>
+<section id="boot">
+  <div class="boot-inner">
+    <div class="sigil">回</div>
+    <div>
+      <div class="title caps">SLEEPER // ONE RETURN</div>
+      <div class="tiny gold caps" style="margin-top:8px">CITY ENGINE v0.2 LAW · NATIVE STATIC CONVERGENCE</div>
+    </div>
+    <div class="lede">A phrase becomes a deterministic city. Eight Gates demand eight different kinds of evidence. Return to the coordinate you began from. The city, proof ledger, and Return Artifact below are ported from the recovered v2-era source law; the host is a dependency-free GitHub Pages implementation.</div>
+    <div class="form">
+      <label class="wide">PHRASE / SOURCE<textarea id="source" maxlength="120">ALL MAPS ARE WRONG. SOME BECOME DOORS.</textarea></label>
+      <label>VERSE CELL<select id="cell"></select></label>
+      <label>FIGURE<select id="figure"></select></label>
+    </div>
+    <div id="worldPreview" class="world-preview tiny"></div>
+    <div class="boot-actions"><button id="enter" class="primary caps">CUT A CITY</button><button id="resume" class="secondary caps hidden">RESUME LAST WORLD</button></div>
+    <div class="provenance">PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding an evidence-only full RouteWitness/ghost sidecar. Historical deployment byte identity is not claimed.</div>
+  </div>
+</section>
+
+<main id="app" class="hidden">
+  <header class="topbar">
+    <button id="menuBtn" class="caps">FIELD</button>
+    <span class="brand tiny caps">ONE RETURN</span><span class="world tiny" id="worldKey"></span>
+    <span class="tiny dim" id="projectionLabel">CITY</span>
+    <div class="stats"><span>GATES <b id="gateCount">0/8</b></span><span class="hide-mobile">STEP <b id="stepCount">0</b></span><span>TIME <b id="timeCount">0:00</b></span></div>
+  </header>
+  <section class="stage">
+    <div id="view-wrap">
+      <canvas id="view"></canvas>
+      <div class="overlay"><div id="note" class="cross-note"></div></div>
+      <div class="mobile">
+        <div class="pad"><button class="up" data-hold="w">↑</button><button class="left" data-hold="q">←</button><button class="down" data-hold="s">↓</button><button class="right" data-hold="e">→</button></div>
+        <div class="turnpad"><button data-hold="a">↶</button><button data-hold="d">↷</button></div>
+      </div>
+    </div>
+    <aside id="side" class="side">
+      <div class="section"><h2>ACTIVE APERTURE</h2><div id="nearGate" class="small">NO GATE IN RANGE</div><div class="progress"><i id="gateProgress"></i></div></div>
+      <div class="section"><h2>EIGHT GATES</h2><div id="gates" class="gate-list"></div></div>
+      <div class="section"><h2>PROOF LEDGER</h2><div id="proofs" class="proofs">NO PROOFS YET.</div></div>
+      <div class="section"><h2>TRACE</h2><div id="log" class="log"></div></div>
+    </aside>
+  </section>
+  <footer class="tools">
+    <button class="tool" data-tool="conch"><b>CONCH</b><span>C · signal/source</span></button>
+    <button class="tool" data-tool="keris"><b>KERIS</b><span>K · smallest cut</span></button>
+    <button class="tool" data-tool="w8"><b>W8</b><span>8 · anchor/return</span></button>
+    <button class="tool" data-tool="spiral"><b>SPIRAL</b><span>P · projection</span></button>
+    <button id="returnBtn" disabled class="caps">RETURN SEALED</button>
+  </footer>
+</main>
+<div id="modal" class="hidden"><div id="modalCard" class="modal-card"></div></div>
+
+<script src="./native-core.js"></script>
+<script src="./native-engine.js"></script>
+<script>
+const baseNewGame=newGame;
+newGame=function(...args){const next=baseNewGame(...args);next.lastHudAt=0;return next};
+</script>
+<script src="./native-ui.js"></script>
+</body>
+</html>
