@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-02T20:30:00+08:00",
+  "updated": "2026-10-02T23:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -868,29 +868,28 @@
       ],
       "latest_return": "/returns/SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
       "repo_verification": {
-        "status": "FOCUSED PASS / PR 762 · FULL PUBLIC SUITE BASE-BLOCKED",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/762",
-        "implementation_proof_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
+        "status": "PASS / PR 776 IMPLEMENTATION HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/776",
+        "implementation_proof_head": "8b1fc3ac4bd61a89c0f0525c6439a2e4d10041ac",
         "checks": {
           "shopping_check": {
-            "run": 37010315436,
+            "run": 37017717612,
             "conclusion": "success"
           },
           "route_registration": {
-            "run": 37010315506,
+            "run": 37017717504,
             "conclusion": "success"
           },
           "gitleaks": {
-            "run": 37010315433,
+            "run": 37017717505,
             "conclusion": "success"
           },
           "public_surface": {
-            "run": 37010315424,
-            "conclusion": "failure",
-            "blocker": "unrelated base drift /laconic/ manifest 0.3.2 vs release 0.3.4"
+            "run": 37017717214,
+            "conclusion": "success"
           }
         },
-        "boundary": "Do not claim the full public-surface suite green for this head until the independent /laconic/ version mismatch on master is repaired."
+        "boundary": "Shopping implementation head passed shopping-check, route registration, gitleaks and public-surface. This CURRENT edit is receipt-only; final branch head must remain green before merge."
       }
     },
     {
