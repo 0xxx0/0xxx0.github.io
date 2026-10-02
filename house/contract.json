@@ -1,10 +1,10 @@
 {
-  "schema": "house-field-contract/v0.4",
+  "schema": "house-field-contract/v0.5",
   "updated": "2026-10-02",
   "title": "HOUSE / FIELD",
-  "purpose": "Canonical public-safe HOUSE instrument: spatial addressing/projection and local addressed design trials at /house/, timestamped technical state depth at /house/expert.html, and private actuation authority in Home Assistant / HOUSEBUS.",
+  "purpose": "Canonical public-safe HOUSE instrument: one addressed dwelling locus projected through spatial/state/design views, a contextual reality-harness index around that locus, truthful timestamped runtime witness depth, and private actuation authority in Home Assistant / HOUSEBUS.",
   "current_surface": {
-    "kind": "interactive spatial/state/design workbench",
+    "kind": "contextual spatial/state/design workbench with reality-harness aperture",
     "route": "/house/",
     "queries_runtime": false,
     "control_endpoint": false,
@@ -12,7 +12,7 @@
     "substrate": "/house/spatial/model.json",
     "local_state": "browser localStorage only",
     "public_state_witness": "/house/state.json (timestamped snapshot; not live)",
-    "semantics": "One addressed object, many projections. Selection and local authored state do not imply presence or actuation."
+    "semantics": "One addressed object, many unequal projections. REALITY ◎ indexes neighboring physical/computational layers without changing identity or authority. Selection/local authored state do not imply presence or actuation."
   },
   "epistemic_classes": [
     "OBSERVED",
@@ -35,7 +35,7 @@
     "operational security details"
   ],
   "enforcement": "The generator builds the public document by whitelist and then scans the serialized JSON for forbidden patterns; it refuses to write on any match. The committed state.json carries its own sanitization result.",
-  "kernel_role": "OBJECT -> ADDRESS -> PROJECT -> bounded DESIGN/TRIAL at canonical /house/. OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus explicit local/exported receipts.",
+  "kernel_role": "OBJECT -> ADDRESS -> PROJECT -> bounded DESIGN/TRIAL -> WITNESS -> RETURN at canonical /house/. REALITY ◎ supplies layer/project re-entry around the same address. OPERATE remains private Home Assistant / HOUSEBUS.",
   "return_path": "/returns/",
   "machine_state": "/house/state.json",
   "spatial_state": {
@@ -48,7 +48,7 @@
     "schema": "0xxx0/house-body-context/v0.1",
     "transport": "same-origin browser localStorage only",
     "receives": "0xxx0.body.field.latest.v01 (latest local BODY return for local display only)",
-    "emits": "0xxx0.house.body.context.v0.1 from canonical /house/: selected spatial address + timestamped public HOUSE projection metadata, browser-local only",
+    "emits": "0xxx0.house.body.context.v0.1 from canonical /house/: selected spatial address + timestamped public HOUSE projection metadata, browser-local only; includes read-time snapshot_freshness when available",
     "authority": "context only; selected HOUSE address is not presence or causation, does not write BODY observations into house/state.json, and grants no actuation authority",
     "privacy": "personal BODY state remains browser-local; no public projection includes it",
     "entry": "/house/ SELECTED ADDRESS → BODY CONTEXT"
@@ -95,5 +95,40 @@
     "optional_evidence": "current house-shopping-fit-return/v0.1 may attach as evidence-only dimensional context",
     "authority": "local design reasoning/receipt only; no canonical geometry mutation, HA/HOUSEBUS actuation, structural/safety/code approval or purchase/install authority",
     "promotion": "canonical geometry/state changes require independent measurement/evidence update; permanent work keeps external structural/services/code gates where relevant"
+  },
+  "reality_harness": {
+    "schema": "house-reality-stack/v0.1",
+    "model": "/house/reality-stack.json",
+    "runtime": "/house/reality-harness.js",
+    "visible_operation": "REALITY ◎ opens a contextual aperture around the current selected HOUSE address",
+    "physical_layers": "BODY -> HARNESS -> OBJECT -> ROOM -> HOUSE -> NETWORK",
+    "transverse_axes": [
+      "BEFORE -> NOW -> AFTER",
+      "SOURCE -> OBSERVE -> ACT -> WITNESS -> RETURN"
+    ],
+    "satellites": [
+      "AGENT",
+      "PEOPLE",
+      "TIME",
+      "RETURN"
+    ],
+    "env0_interpretation": "ENV-0 is a recovered human body-house coupling/harness lineage. Its analogy to agent harnesses is bounded to context/capability/constraint/witness/RETURN; actor identities and authorities remain unequal.",
+    "authority": "projection/navigation only; no geometry, HA/HOUSEBUS, agent, medical, structural, procurement or social authority",
+    "research": "/control/research/HOUSE_HUMAN_HARNESS_SOTA_2026-10-02.md"
+  },
+  "runtime_witness": {
+    "source": "/house/state.json",
+    "reader": "/house/runtime-witness.js",
+    "rule": "Freshness is recomputed from generated_at at read time. Embedded source_age_class/runtime_health_class describe the source/runtime at generation time only.",
+    "classes": [
+      "CURRENT <=15m",
+      "RECENT <=2h",
+      "AGED <=24h",
+      "STALE >24h",
+      "CLOCK_SKEW",
+      "UNKNOWN"
+    ],
+    "authority": "timestamped public-safe projection only; never live presence/safety/actuation truth",
+    "refresh_boundary": "Actual content refresh still requires the private HOUSEBUS whitelist normalizer plus access to current runtime source."
   }
 }
