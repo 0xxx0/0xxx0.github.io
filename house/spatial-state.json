@@ -1,6 +1,6 @@
 {
   "schema": "spatial-state-lineage/v0.5",
-  "updated": "2026-09-25",
+  "updated": "2026-10-02",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
   "status": "ACTIVE / COORDINATED",
@@ -66,7 +66,7 @@
     "Every meaningful change may return evidence / receipt to the FIELD return path.",
     "3D/photogrammetry/world views may be used whenever they remain evidence-bounded projections of the same addressed substrate; inferred geometry must not masquerade as measured geometry."
   ],
-  "current_thin_slice": "Recover/calibrate the shared spatial substrate: verified XY plan + first-class floor/ceiling/wall surfaces + one useful section + explicit HA entity mapping. 3D may derive immediately from those same IDs.",
+  "current_thin_slice": "Use the shared spatial substrate to close one real addressed design trial: verified local observation → reversible intervention → discriminating verification → after-state → RETURN. Calibrate only the geometry the trial actually needs; 3D remains a projection of the same IDs.",
   "not_now": [
     "duplicate House OS architecture",
     "sensor-rich inference before geometry is trustworthy",
@@ -103,8 +103,8 @@
   },
   "operational_head": {
     "route": "/house/",
-    "version": "0.7.7",
-    "status": "RECONSTRUCTED_CURRENT_HEAD",
+    "version": "0.8.0",
+    "status": "RECONSTRUCTED_CURRENT_HEAD + ADDRESSED_DESIGN_TRIAL",
     "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
     "machine_model": "/house/spatial/model.json"
   },
@@ -158,5 +158,16 @@
     "current_encoding": "centerline = ordered room addresses; width = segment traversal count; opacity fixed; no Z encoding",
     "return": "export JSON",
     "runtime_boundary": "Future OBSERVED traces consume typed HA/HOUSEBUS public-safe state; public workbench never becomes runtime authority."
+  },
+  "design_trial": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "route": "/house/",
+    "schema": "house-design-trial/v0.1",
+    "return_schema": "house-design-return/v0.1",
+    "binding": "current selected HOUSE address",
+    "sequence": "BEFORE -> INTENT -> CHANGE -> CONSTRAINTS -> VERIFY -> AFTER -> DECISION -> RESIDUE -> RETURN",
+    "storage": "browser local only",
+    "physical_gate": "canonical model promotion requires independent measurement/evidence; ADOPT is not structural/safety/code approval",
+    "receipt": "/returns/HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json"
   }
 }
