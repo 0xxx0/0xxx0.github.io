@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/redaction-aperture-allow/v0.1",
-  "updated": "2026-09-28",
+  "updated": "2026-10-03",
   "gate": "scripts/check-redaction-aperture.py",
   "redactor": "scripts/redact.py (vendored byte-identical copy of ~/void-anchor/AXIS/reusable/scripts/redact.py; sha256 fe9e54b9bf8c7925509da7ccc54b8e00dcbeba80f4d04fb0a5d08162ddc66041)",
   "policy": "Entries are EXACT (path, kind, sha256-of-value) triples, each with a why. The value itself is never stored. Never add a pattern or a family: add the one exact triple for the one finding you verified benign (`python3 scripts/check-redaction-aperture.py --hash '<exact value>'` prints the hash). allow_any entries drop the path pin and are reserved for values that are benign everywhere (e.g. the operator's own published username).",
@@ -232,6 +232,12 @@
       "kind": "email",
       "value_sha256": "e8f39b3e1382367d6d41ab34dc270d4e7533f978c9e9a775dfe2185b2f96b96c",
       "why": "synthetic fixture address (example.com / example.test family) in a selftest or doc"
+    },
+    {
+      "path": "foundry/omnitools/pii-scan.mjs",
+      "kind": "secret",
+      "value_sha256": "3ff6aed0dff8c0e98f29ffdbd9df4740f2cf2d37066e8d4b3267cda8ae2871b2",
+      "why": "code fragment captured by the key=value heuristic: line 66 declares the scanner's own ENTROPY_TOKEN regex (`const ENTROPY_TOKEN = /[A-Za-z0-9+/_=-]{20,}/g`); verified benign source code, not a credential, 2026-10-03"
     }
   ]
 }
