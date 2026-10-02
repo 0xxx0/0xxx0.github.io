@@ -106,3 +106,54 @@ A successful run has:
 - `memory/morning-return.json`
 
 The final return must state that source media was not mutated and rendering was not performed.
+
+
+## Visual-Law Archaeology Mode
+
+Use this mode when the goal is not merely to caption or cluster images, but to discover which visual relations can become working instruments.
+
+Run the normal curator with:
+
+```
+--profile visual-law-archaeology
+```
+
+The bulk visual worker may return only pixel-supported fields:
+
+```
+composition / surface / pattern / meaning
+visual_law
+implied_verb
+op_art_role
+```
+
+Then Hermes/supervisor joins source evidence separately:
+
+```
+CATALYST_EVIDENCE
+USER_REACTION_EVIDENCE
+REFERENCE_DEPENDENCE
+HOST_CANDIDATE
+APP_TEST
+DISPOSITION
+```
+
+Do not let a vision model infer those source/history fields from pixels.
+
+For every candidate instrument, require:
+
+```
+IMAGE
+→ VISUAL LAW
+→ VERB
+→ REAL STATE
+→ BASELINE
+→ FALSIFIER
+→ BOUNDED SPECIMEN
+→ EVIDENCE
+→ DISPOSITION
+```
+
+If the visual law cannot name a real state relation, keep it as PRESERVE/DONOR rather than inventing an app.
+
+For op-art specifically, interference must encode something measurable such as coordinate mismatch, phase error, reach, uncertainty, residue, or propagation. Decorative moiré is not a successful transfer.

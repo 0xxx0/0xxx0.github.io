@@ -191,5 +191,46 @@
     "bootstrap": "/scripts/hermes-media-bootstrap.sh",
     "bulk_default": "qwen3-vl:8b via local Ollama",
     "authority": "semantic overlay + validation only; no source mutation or rendering"
+  },
+  "visual_law_archaeology_v0_1": {
+    "purpose": "Turn reviewed images into transferable visual mechanisms without confusing appearance, lineage, reaction, or host authority.",
+    "pipeline_profile": "visual-law-archaeology",
+    "bulk_semantic_fields": [
+      "composition_class",
+      "composition_subtype",
+      "axis",
+      "scaffold",
+      "flow",
+      "depth",
+      "surface",
+      "pattern",
+      "meaning",
+      "visual_law",
+      "implied_verb",
+      "op_art_role"
+    ],
+    "supervisor_source_fields": [
+      "catalyst_evidence",
+      "user_reaction_evidence",
+      "reference_dependence",
+      "host_candidate",
+      "app_test",
+      "disposition"
+    ],
+    "dispositions": [
+      "PRESERVE",
+      "DONOR",
+      "TEST",
+      "TRANSFER",
+      "PARK",
+      "REJECT"
+    ],
+    "laws": [
+      "VISUAL LAW != STYLE LABEL.",
+      "PIXELS MAY SUGGEST A MECHANISM; THEY DO NOT PROVE PROMPT LINEAGE, ARTIST DEPENDENCE, OR USER REACTION.",
+      "OP-ART EARNS SPACE ONLY WHEN INTERFERENCE, PHASE, FIGURE/GROUND, AFTERIMAGE OR DENSITY MAPS TO REAL STATE.",
+      "IMAGE -> VERB -> REAL STATE -> BASELINE -> FALSIFIER -> SPECIMEN -> EVIDENCE -> DISPOSITION.",
+      "PRIVATE RESERVOIR REMAINS PRIVATE BY DEFAULT; COMPACT HASHED OVERLAYS MAY ENTER REPO."
+    ]
   }
 }
