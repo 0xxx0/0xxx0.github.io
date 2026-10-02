@@ -10,12 +10,22 @@ assert.equal(helpRun.status,0,helpRun.stderr);
 const help=JSON.parse(helpRun.stdout);
 assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
 assert.equal(help.authority,'NONE');
-assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','packet-reduce','contribution-converge']);
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge']);
 assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
 assert.match(help.converge_attestations.base_current,/behind_by === 0/);
 const llms=fs.readFileSync('llms.txt','utf8');
 for(const cmd of help.modes.map(x=>x.command))assert.ok(llms.includes(cmd),'llms.txt missing machine mode: '+cmd);
 assert.ok(llms.includes('node scripts/emit-agent-transcript.mjs --help --json'),'llms.txt missing machine-readable help');
+
+const crystalRun=run(['--crystal','--json']);
+assert.equal(crystalRun.status,0,crystalRun.stderr);
+const crystal=JSON.parse(crystalRun.stdout);
+assert.equal(crystal.schema,'field-crystal/v0.1');
+assert.equal(crystal.authority,'NONE');
+assert.ok(crystal.paths.length>=1,'CRYSTAL must expose current paths');
+assert.ok(crystal.archive.addressed_route_count>=crystal.paths.length,'CRYSTAL archive scale must contain current heads');
+assert.equal(crystal.packets.counts.NOW,0,'CRYSTAL packet shelf cannot self-authorize NOW');
+assert.ok(crystal.return?.target,'CRYSTAL must retain RETURN');
 const dir=fs.mkdtempSync(path.join(os.tmpdir(),'field-machine-reducer-'));
 const write=(name,value)=>{const p=path.join(dir,name);fs.writeFileSync(p,JSON.stringify(value));return p};
 
