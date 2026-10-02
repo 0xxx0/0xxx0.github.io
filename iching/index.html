@@ -317,9 +317,12 @@ function lensPanels(h, chgSet){
 }
 function render(vals, q, opts={}){
   const bits = vals.map(v=> (v===7||v===9)?'1':'0').join('');
+  const stateMode = opts.mode === 'STATE';
+  const castPanel = document.getElementById('castPanel');
+  if(castPanel) castPanel.hidden = stateMode;
   const chgSet = new Set();
   vals.forEach((v,i)=>{ if(v===6||v===9) chgSet.add(i+1); });
-  const prim = HEX.byBin[bits], stateMode = opts.mode === 'STATE';
+  const prim = HEX.byBin[bits];
   if(!prim){ document.getElementById('out').innerHTML = '<div class="panel">unknown '+(stateMode?'state':'cast')+'</div>'; return; }
   let tbits = bits.split('');
   chgSet.forEach(i=>{ const k=i-1; tbits[k] = tbits[k]==='1'?'0':'1'; });
@@ -330,7 +333,11 @@ function render(vals, q, opts={}){
 
   let html = '';
   if(q) html += `<div class="panel"><span class="muted">${stateMode?'context':'your question'}:</span> <b>${escapeHtml(q)}</b></div>`;
-  if(stateMode) html += `<div class="panel"><b>STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST</b><div class="muted" style="margin-top:6px">This view applies the same six-line structural reading to an explicit binary transition. Changing lines and 6/7/8/9 values are calculated from FROM→TO; no random casting occurred.${opts.stepOrder?.length?' LAB STEP witness: '+opts.stepOrder.map(x=>'L'+x).join(' → ')+' — path order is supplied experiment metadata, not a classical Yi claim.':''}</div></div>`;
+  if(stateMode){
+    const lab = new URLSearchParams({mode:'DATA',stateFrom:bits,stateTo:tbits.join('')});
+    if(opts.stepOrder?.length) lab.set('stateOrder',opts.stepOrder.join(','));
+    html += `<div class="panel"><b>STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST</b><div class="muted" style="margin-top:6px">This view applies the same six-line structural reading to an explicit binary transition. Changing lines and 6/7/8/9 values are calculated from FROM→TO; no random casting occurred.${opts.stepOrder?.length?' LAB STEP witness: '+opts.stepOrder.map(x=>'L'+x).join(' → ')+' — path order is supplied experiment metadata, not a classical Yi claim.':''}</div><div style="margin-top:10px"><a class="tel" href="/fold-bloom/lab/?${lab.toString()}">RETURN → FIELD LAB</a></div></div>`;
+  }
   html += `
   <div class="panel">
     <div class="fig-wrap">
@@ -408,6 +415,8 @@ function renderState(fromValue,toValue,q='',orderValue=''){
   render(vals,q,{mode:'STATE',stepOrder});
 }
 function renderHex(id, q){
+  const castPanel = document.getElementById('castPanel');
+  if(castPanel) castPanel.hidden = false;
   const h = HEX.byId[id];
   if(!h){ document.getElementById('out').innerHTML = '<div class="panel">unknown hexagram</div>'; return; }
   const nuc = HEX.byId[h.nuclear_id];
