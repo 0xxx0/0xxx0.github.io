@@ -1,0 +1,38 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import { fileURLToPath } from 'node:url';
+
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+let pass=0,fail=0;
+const ok=(name,cond,detail='')=>{if(cond){pass++;console.log('  PASS  '+name)}else{fail++;console.log('  FAIL  '+name+(detail?' — '+detail:''))}};
+const model=JSON.parse(fs.readFileSync(path.join(ROOT,'house/reality-stack.json'),'utf8'));
+console.log('\n[HOUSE reality stack]');
+ok('schema',model.schema==='house-reality-stack/v0.1');
+const ids=(model.layers||[]).map(x=>x.id);
+ok('required containment layers present',['BODY','HARNESS','OBJECT','ROOM','HOUSE','NETWORK'].every(x=>ids.includes(x)),ids.join(','));
+ok('containment layer ids unique',new Set(ids).size===ids.length);
+const trans=(model.transverse||[]).map(x=>x.id);
+ok('transverse axes/satellites present',['TIME','PEOPLE','AGENT','RETURN'].every(x=>trans.includes(x)),trans.join(','));
+ok('ENV-0 kept as analogy not identity',model.harness_correspondence?.status==='ANALOGY / NOT IDENTITY');
+ok('human and agent harness sequences both explicit',model.harness_correspondence?.human?.length>=5&&model.harness_correspondence?.agent?.length>=5);
+ok('differences preserved',model.harness_correspondence?.differences?.length>=3);
+const internal=[...(model.layers||[]),...(model.transverse||[])].flatMap(x=>x.routes||[]);
+ok('all internal routes are same-origin paths',internal.every(x=>typeof x.href==='string'&&x.href.startsWith('/')));
+const donors=Object.values(model.donors||{});
+ok('current extant donor index is substantial',donors.length>=9,String(donors.length));
+ok('external donors use explicit https URLs',donors.every(x=>/^https:\/\//.test(x.url||'')));
+
+const src=fs.readFileSync(path.join(ROOT,'house/reality-harness.js'),'utf8');
+const ctx={console,module:{exports:{}},exports:{}};ctx.globalThis=ctx;
+vm.createContext(ctx);vm.runInContext(src,ctx,{filename:'house/reality-harness.js'});
+const C=ctx.module.exports;
+ok('harness core resolves layers',C.layerById(model,'HARNESS')?.id==='HARNESS');
+ok('harness limits visible routes',C.routeLimit(C.layerById(model,'HOUSE'),2).length===2);
+ok('module listens to selected locus',/house:selection/.test(src));
+ok('module consumes design witness',/house:design-state/.test(src));
+ok('module consumes runtime witness',/house:runtime-witness/.test(src));
+const html=fs.readFileSync(path.join(ROOT,'house/index.html'),'utf8');
+ok('/house/ loads reality harness',/reality-harness\.js/.test(html));
+console.log(`\n${pass} passed, ${fail} failed`);
+if(fail)process.exit(1);
