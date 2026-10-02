@@ -1,0 +1,55 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_MOIRE_HELD_OBJECT_2026-10-02",
+  "date": "2026-10-02",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD INDEX / INTERFERENCE / HELD OBJECT 0.2",
+  "source": {
+    "host": "/",
+    "route": "/field/moire-route/",
+    "truth_sources": [
+      "/showcase-manifest.json",
+      "/control/CURRENT.json"
+    ],
+    "propagation": "FIELD root REFINE / PROVE link carries exact focus route + current projection + active AXIAL tuple."
+  },
+  "delta": [
+    "Removed runtime synthetic 6x6 route/spur fixture.",
+    "The instrument now fails closed without a real held FIELD address.",
+    "Real manifest ancestry + bounded siblings/children replace synthetic route context.",
+    "Representation mismatch is computed from actual route/CURRENT facts across identity/address/content/depth/authority/evidence.",
+    "Coordinate displacement is separated from hidden/derived channel residue.",
+    "ALIGN may compensate coordinate displacement but cannot erase hidden information residue.",
+    "COPY REPORT emits field-representation-mismatch/v0.2 without mutating canonical FIELD state."
+  ],
+  "machine_evidence": {
+    "selftest": "node field/moire-route/selftest.mjs",
+    "ci": "PENDING",
+    "assertions": [
+      "context contains only manifest route identities",
+      "synthetic grid ids absent",
+      "VISUAL shares canonical tree frame",
+      "GLYPH exposes non-zero channel residue",
+      "full coordinate alignment cannot erase channel residue",
+      "no held address fails closed"
+    ]
+  },
+  "boundary": [
+    "HELD OBJECT != PROJECTION",
+    "PROJECTION MISMATCH != OBJECT ERROR",
+    "ALIGNMENT != RECOVERY OF HIDDEN INFORMATION",
+    "VIEW EVIDENCE != CANONICAL STATE"
+  ],
+  "evidence": [
+    "/field/moire-route/core.mjs",
+    "/field/moire-route/app.mjs",
+    "/field/moire-route/selftest.mjs",
+    "/field/moire-route/RESEARCH_HANDOFF.md",
+    "/showcase-manifest.json"
+  ],
+  "residue": [
+    "Human usefulness remains unproved until one real representation choice is improved by the report.",
+    "No other host inherits moire authority from this candidate."
+  ],
+  "next": "Run exact-head CI. If green, observe one real held object across at least two FIELD projections before any further promotion."
+}
