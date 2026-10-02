@@ -5,6 +5,7 @@
   "state": "BOUNDED_EXECUTION_SEAM_CLOSED",
   "object": "FIELD φ /laconic/ → LACONIC / ICONIC",
   "delta": [
+    "Runtime repair: Pocket PLAY now iterates document.querySelectorAll('.tabs button') and document.querySelectorAll('.view'); the earlier single-element selector path was invalid.",
     "Repaired Pocket PLAY runtime selector bug: querySelector result was incorrectly treated as an iterable; PLAY now switches to the canonical scene runner.",
     "Added addressable ?view, ?scene and ?card projections on the existing /laconic/ route.",
     "Added exactly three target-bearing FIELD native actions: DRAFT / DEAL ONE / TRAJECTORIES.",
@@ -30,6 +31,11 @@
       "kind": "field_contract",
       "path": "/showcase-manifest.json",
       "claim": "three AVAILABLE target-bearing exit paths on /laconic/"
+    },
+    {
+      "kind": "runtime_static",
+      "path": "/laconic/index.html",
+      "claim": "openPocketScene uses document.querySelectorAll for both tab and view collections"
     }
   ],
   "boundaries": [
