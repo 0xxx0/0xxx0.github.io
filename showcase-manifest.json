@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T20:06:00+08:00",
+  "updated": "2026-10-02T20:40:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -8992,6 +8992,48 @@
           "VERIFY"
         ]
       }
+    },
+    {
+      "href": "/fold-bloom/convergence/moire-route/",
+      "title": "FOLD//BLOOM · MOIRÉ ROUTE 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "operation": "VERIFY / ALIGN",
+      "state": "CANDIDATE",
+      "versionless": true,
+      "family": "FOLD // BLOOM",
+      "showcase_card": false,
+      "role": "Image→instrument research specimen: coordinate phase/orientation mismatch becomes interference; alignment is tested against an unlabeled local adjacency baseline. Donor only for Sleeper / Scale Lens / Atlas Dayline until a real host task survives the baseline and falsifier.",
+      "index": {
+        "updated_at": "2026-10-02T20:40:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "deterministic Node selftest: aligned local-choice accuracy 1.000 vs plain adjacency chance 0.571",
+          "opposite phase drops local-choice accuracy to 0.286 and continuity from 0.821 to 0.180",
+          "route line is hidden by default; REVEAL is ground-truth inspection only",
+          "architectural proxy only; human perceptual superiority remains unproved"
+        ],
+        "return_path": "/fold-bloom/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can coordinate mismatch be made perceptible as interference so phase alignment exposes a route cue that a plain local adjacency projection lacks?",
+        "baseline": "Same deterministic graph with START/END visible and equal-looking forward edges; local route choice has chance 1/N.",
+        "mutation": "Encode route-coherent cells with shared phase/orientation and off-route cells with deterministic mismatch; render the mismatch as moire instead of adding decorative pattern.",
+        "evidence_gate": "Node selftest and route/public-surface CI must pass. Promotion to a host additionally requires one real host task and a human/device gate only for irreducible perceptual value.",
+        "next_if_pass": "Transfer the mechanism, not the skin, into one existing host such as Sleeper ALL MAPS ARE WRONG or Scale Lens / Ministry Ridge.",
+        "next_if_fail": "PARK the interference donor; retain the visual-law index and do not use moire as wallpaper."
+      },
+      "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
     }
   ],
   "release_law": [
