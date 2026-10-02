@@ -5429,13 +5429,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3.6",
+      "title": "LACONIC / ICONIC 0.3.7",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3.6",
+      "version": "0.3.7",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5447,7 +5447,8 @@
         "exact-source vault browsing",
         "persona/plurality/Council lineage recovery",
         "pocket trajectory projection",
-        "direct-address pocket/scene entry from FIELD"
+        "direct-address pocket/scene entry from FIELD",
+        "craft/work forge cadence"
       ],
       "contract": {
         "accepts": {
@@ -5457,7 +5458,8 @@
             "drafting constraint",
             "multi-turn exchange",
             "observed interaction note",
-            "historical source query"
+            "historical source query",
+            "self-directed work cue"
           ],
           "requires": [],
           "optional": [
@@ -5466,11 +5468,12 @@
             "scene lane",
             "source provenance",
             "source ref",
-            "tentative support mode"
+            "tentative support mode",
+            "forge phase"
           ]
         },
         "transforms": {
-          "verb": "preserve what was observed, choose a bounded response move, use LINE/SCENE for current drafting, and use VAULT for exact historical source/lineage without silently promoting it",
+          "verb": "preserve what was observed, choose a bounded response move, use LINE/SCENE for current drafting, project selected LINE objects through a transient WORK forge cadence, and use VAULT for exact historical source/lineage without silently promoting it",
           "preserves": [
             "source provenance",
             "observed/possible distinction",
@@ -5479,7 +5482,9 @@
             "no-send default",
             "trajectory/return path",
             "historical source/adoption distinction",
-            "multi-donor lineage uncertainty"
+            "multi-donor lineage uncertainty",
+            "WORK/LINE identity",
+            "transient cadence without authority"
           ],
           "reversibility": "full",
           "side_effects": "local"
@@ -5494,7 +5499,8 @@
             "recovered exact fragment",
             "browseable exact-source vault",
             "lineage/open-gap projection",
-            "pocket scene projection"
+            "pocket scene projection",
+            "transient work cadence"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -5511,7 +5517,9 @@
             "VAULT/current-layer separation",
             "generic council/proper-name distinction",
             "POCKET references canonical SCENES; no duplicate content or adoption store",
-            "FIELD exposes exactly DRAFT / DEAL ONE / TRAJECTORIES as target-bearing native actions"
+            "FIELD exposes exactly DRAFT / DEAL ONE / TRAJECTORIES as target-bearing native actions",
+            "WORK references bank LINE objects; no duplicate content store",
+            "WORK AUTO stops outside the WORK view and cannot mutate canon"
           ],
           "return_path": "/laconic/"
         }
@@ -5531,6 +5539,11 @@
             "medium": "DATA",
             "kind": "observed interaction note",
             "interface": "text"
+          },
+          {
+            "medium": "DATA",
+            "kind": "self-directed work cue",
+            "interface": "local"
           }
         ],
         "outputs": [
@@ -5547,6 +5560,11 @@
           {
             "medium": "EVIDENCE",
             "kind": "curation state",
+            "interface": "local"
+          },
+          {
+            "medium": "DATA",
+            "kind": "transient work cadence",
             "interface": "local"
           }
         ],
@@ -5580,11 +5598,11 @@
             "via": "response-move grammar"
           }
         ],
-        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool.",
+        "physical_fit": "Coordination/handoff for physical work; WORK is a local cadence aid, not a manipulation or actuation tool.",
         "owner": "LACONIC / ICONIC"
       },
       "index": {
-        "updated_at": "2026-10-03T03:48:00+08:00",
+        "updated_at": "2026-10-03T04:00:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
@@ -9313,7 +9331,7 @@
     "tag_policy_bridge": "TAG-style labels remain disposable projections/lenses over canonical state. person_tags/resource_tags/context_tags may select applicable policies with provenance, but tags never create grants, denies, locks or authority.",
     "policy_trace_regression": "Negative verifier vectors pin sequence, causal ordering, gate finality, privacy and tag-provenance failures so future implementations cannot silently weaken verification.",
     "donor_transplant": "CONFLUENCE donor law: recover a bounded transferable mechanism, preserve source/recipient identities and evidence class, distinguish graft/clone/seed/compost, and require recipient-side RETURN before adoption. TAG projections may discover donors but never establish lineage or authority.",
-    "laconic": "v0.3 couples a deliberately small current LINE/SCENE instrument to a browseable exact-source VAULT. Historical assistant output remains source-donor material unless adoption/reuse evidence promotes it; persona/plurality/Council lineage is represented as multi-donor convergence with open seams.",
+    "laconic": "v0.3.7 preserves direct FIELD operation plus the small LINE/SCENE communications instrument and exact-source VAULT, then adds WORK as a projection of existing LINE objects: HEAT → FORM → COOL → POLISH → REPEAT with transient ALT/NEXT/AUTO; no fifth content class or second store.",
     "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion.",
     "sitemap_manifest": "All repository directory index surfaces are now explicitly addressable in the manifest. Redirect/lens doors use kind=alias so completeness does not imply independent project status.",
     "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator.",
