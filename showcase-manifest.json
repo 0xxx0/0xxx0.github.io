@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T23:44:00+08:00",
+  "updated": "2026-10-03T00:15:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1456,12 +1456,18 @@
       "parent": "/atlas-dayline/",
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
-      "state": "ACTIVE",
-      "version": "0.3.3",
+      "state": "PR_CANDIDATE",
+      "version": "0.4.0",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.3 consumes the shared INTERPHASE action projection directly: exact focus is HOLD; visible native moves are prefixed TURN or RELEASE without renaming handlers or gaining authority; TRACE/WITNESS and exact RETURN stay native/evidence-bound.",
-      "receipt": "/dayline/release.json",
+      "role": "Low-click daily cockpit over the existing Atlas Dayline DayState and first-class INTERPHASE host. FLOW / ZERO-HUNT keeps one ranked object held, exposes the exact first native move as the primary action, lets touch/keyboard traverse adjacent work without route hunting, auto-advances focus after local completion, refreshes live CURRENT/manifest read-only, and uses AWAKE as return-to-tab reorientation. Atlas is optional map/scenario depth; FIELD is recovery/coordination depth.",
+      "receipt": "/returns/DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
       "transfer": [
+        "0.4.0 FLOW / ZERO-HUNT: one ranked held task + one explicit primary native move; full ≤3 moves remain one collapsed disclosure away.",
+        "Touch swipe and Arrow/J/K move focus; Enter invokes the existing first native move; / focuses capture.",
+        "Local completion advances focus to the next ranked open Dayline task without executing it; source-linked completion stays held through exact RETURN.",
+        "CURRENT + manifest refresh passively every 90s while visible and never adopt/mutate tasks or NOW authority.",
+        "AWAKE is implemented as return-to-tab orientation after a meaningful absence, over the same held object; no /awake/ product route.",
+        "Atlas remains optional radial/scenario/forecast depth over the same DayState; FIELD remains recovery/coordination depth.",
         "shared action-surface consumer: Dayline visible controls project HOLD / TURN / RELEASE / TRACE / RETURN while retaining native move labels, native handlers and source authority",
         "source-owned signal projection: exact handoff metadata may color/pattern the held frame; Dayline never derives domain truth from task text",
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -1578,7 +1584,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-29T19:34:00+08:00",
+        "updated_at": "2026-10-02T23:47:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
