@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {TRACE_SCHEMA} from '../jspace-steering/kernel.mjs';
 import {
   lineTransitionValue,transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactFormCalculation,
-  steppedFormPath,exactQuotientPathCalculation,exactFormFrontierCalculation,residueLadder,calculationTape,appliedResearchFrame
+  steppedFormPath,exactQuotientPathCalculation,exactFormFrontierCalculation,residueLadder,calculationTape,calculationFocusProjection,appliedResearchFrame
 } from './kernel.mjs';
 import {conditionalTopKWeights,steeringSupportCalculation} from '../jspace-steering/steering-calculus.mjs';
 
@@ -273,6 +273,27 @@ assert.equal(tape.ambiguity.remaining_path_bits,1);
 assert.equal(tape.ambiguity.exact_path_fiber_bits,8.491853);
 assert.equal(tape.ambiguity.model_candidate_bits,1);
 assert.match(tape.law,/never grants authority/);
+const autoFocus=calculationFocusProjection(tape,'AUTO');
+assert.equal(autoFocus.ok,true);
+assert.equal(autoFocus.requested,'AUTO');
+assert.equal(autoFocus.follows_active,true);
+assert.equal(autoFocus.stage_id,'RETURN');
+assert.equal(autoFocus.visuals.tree,true);
+assert.equal(autoFocus.visuals.native,true);
+const pathFocus=calculationFocusProjection(tape,'PATH');
+assert.equal(pathFocus.follows_active,false);
+assert.equal(pathFocus.stage_id,'PATH');
+assert.equal(pathFocus.visuals.state,true);
+assert.equal(pathFocus.visuals.lattice,true);
+assert.equal(pathFocus.visuals.native,false);
+assert.match(pathFocus.formula,/factoradic/);
+const modelFocus=calculationFocusProjection(tape,'MODEL');
+assert.equal(modelFocus.visuals.native,true);
+assert.equal(modelFocus.visuals.state,false);
+assert.equal(modelFocus.stage_authority,'CALCULATION_ONLY');
+const quotientFocus=calculationFocusProjection(tape,'QUOTIENT');
+assert.equal(quotientFocus.visuals.control_loss,true);
+assert.equal(calculationFocusProjection({},'PATH').ok,false);
 const openTape=calculationTape({state,stateStep,frontier:frontier0,returnAddress:stateStep.path_address});
 assert.equal(openTape.active_stage,'NEXT');
 assert.equal(openTape.stages.find(x=>x.id==='RETURN')?.ready,true);
@@ -296,6 +317,6 @@ console.log(JSON.stringify({
   steering:{basis:steering.weight_basis,top:steering.top,hostSupportedWeight:steering.host_supported_weight},
   promotion:{status:frame.promotion.status,summary:frame.promotion.summary,reasons:frame.promotion.reasons},
   residueLadder:{strongest:frame.residue_ladder.strongest_claim,levels:frame.residue_ladder.levels.map(x=>x.id)},
-  calculationTape:{active:tape.active_stage,stages:tape.stages.map(x=>x.id),ambiguity:tape.ambiguity},
+  calculationTape:{active:tape.active_stage,stages:tape.stages.map(x=>x.id),ambiguity:tape.ambiguity,focus:{auto:autoFocus.stage_id,path:pathFocus.visuals,model:modelFocus.visuals}},
   authority:frame.authority
 },null,2));
