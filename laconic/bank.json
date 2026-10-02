@@ -1,6 +1,6 @@
 {
   "schema": "laconic-iconic-bank/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-10-03",
   "title": "LACONIC / ICONIC RECOVERY",
   "status": "RECONSTRUCTED_RUNTIME_WITH_NEW_SEED_LINES",
   "principle": "Anticipate recurring exchanges; compress without flattening; preserve provenance; select Pareto winners; grow winners into trajectories; never confuse drafting with permission to send.",
@@ -27,7 +27,8 @@
     {"id":"gratitude","label":"GRATITUDE","default_move":"ACK"},
     {"id":"affection","label":"AFFECTION","default_move":"DRAFT"},
     {"id":"close","label":"CLOSE","default_move":"ACK"},
-    {"id":"challenge","label":"CHALLENGE","default_move":"DRAFT"}
+    {"id":"challenge","label":"CHALLENGE","default_move":"DRAFT"},
+    {"id":"work","label":"WORK","default_move":"ACT"}
   ],
   "lines": [
     {"id":"li:receipt:cut:01","text":"Received. I have the coordinate.","provenance":"NEW","scenario":"receipt","move":"ACK","voice":"CUT","tags":["receipt","clear","no-action"],"next":["li:close:cut:01"]},
@@ -59,6 +60,22 @@
     {"id":"li:close:odd:01","text":"We have the shape. Stop cutting.","provenance":"NEW","scenario":"close","move":"ACK","voice":"ODD","tags":["close","memorable"],"next":[]},
     {"id":"li:challenge:cut:01","text":"Try me.","provenance":"NEW","scenario":"challenge","move":"DRAFT","voice":"CUT","tags":["challenge","play"],"next":[]},
     {"id":"li:challenge:glint:01","text":"Convince me in one sentence.","provenance":"NEW","scenario":"challenge","move":"DRAFT","voice":"GLINT","tags":["challenge","constraint"],"next":["li:clarify:gravity:01"]},
-    {"id":"li:challenge:gravity:01","text":"Show me the smallest proof.","provenance":"NEW","scenario":"challenge","move":"DRAFT","voice":"GRAVITY","tags":["challenge","evidence"],"next":["li:accept:cut:01","li:decline:cut:01"]}
+    {"id":"li:challenge:gravity:01","text":"Show me the smallest proof.","provenance":"NEW","scenario":"challenge","move":"DRAFT","voice":"GRAVITY","tags":["challenge","evidence"],"next":["li:accept:cut:01","li:decline:cut:01"]},
+    {"id":"li:work:maxim:01","text":"工不十，具不易","provenance":"EXACT","source_ref":"current conversation / 2026-10-03 / user","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","maxim","user-authored"],"phase":"CENTER","next":["li:work:heat:01"]},
+    {"id":"li:work:heat:01","text":"Sweat tempers intention.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","heat"],"phase":"HEAT","next":["li:work:form:01"]},
+    {"id":"li:work:heat:02","text":"Burn error into insight.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","heat"],"phase":"HEAT","next":["li:work:form:01"]},
+    {"id":"li:work:heat:03","text":"Control contains fire.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","heat"],"phase":"HEAT","next":["li:work:form:01"]},
+    {"id":"li:work:form:01","text":"Friction teaches shape.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","form"],"phase":"FORM","next":["li:work:cool:01"]},
+    {"id":"li:work:form:02","text":"Grip defines geometry.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","form"],"phase":"FORM","next":["li:work:cool:01"]},
+    {"id":"li:work:form:03","text":"Accuracy honors material.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","form"],"phase":"FORM","next":["li:work:cool:01"]},
+    {"id":"li:work:cool:01","text":"Cut clean, breathe slow.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","cool","breath"],"phase":"COOL","next":["li:work:polish:01"]},
+    {"id":"li:work:cool:02","text":"Stillness sets alignment.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","cool"],"phase":"COOL","next":["li:work:polish:01"]},
+    {"id":"li:work:cool:03","text":"Rest authenticates labor.","provenance":"NEW","scenario":"work","move":"ACT","voice":"OPEN","tags":["work","craft","forge","cool","rest"],"phase":"COOL","next":["li:work:polish:01"]},
+    {"id":"li:work:polish:01","text":"Polish reveals structure.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","polish"],"phase":"POLISH","next":["li:work:repeat:01"]},
+    {"id":"li:work:polish:02","text":"Error drafts improvement.","provenance":"NEW","scenario":"work","move":"ACT","voice":"OPEN","tags":["work","craft","forge","polish","error"],"phase":"POLISH","next":["li:work:repeat:01"]},
+    {"id":"li:work:polish:03","text":"Completion humbles mastery.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","polish"],"phase":"POLISH","next":["li:work:repeat:01"]},
+    {"id":"li:work:repeat:01","text":"Skill remembers repetition.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","repeat"],"phase":"REPEAT","next":["li:work:heat:01"]},
+    {"id":"li:work:repeat:02","text":"Measure, mark, make.","provenance":"NEW","scenario":"work","move":"ACT","voice":"CUT","tags":["work","craft","forge","repeat"],"phase":"REPEAT","next":["li:work:heat:01"]},
+    {"id":"li:work:repeat:03","text":"Work outlives will.","provenance":"NEW","scenario":"work","move":"ACT","voice":"GRAVITY","tags":["work","craft","forge","repeat"],"phase":"REPEAT","next":["li:work:heat:01"]}
   ]
 }
