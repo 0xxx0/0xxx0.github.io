@@ -1,4 +1,4 @@
-# LACONIC / ICONIC 0.3
+# LACONIC / ICONIC 0.3.6
 
 ## JOB
 
@@ -49,6 +49,24 @@ The scene layer separates:
 - **REPAIR** — low-friction re-entry after gaps or residue.
 
 This prevents "be funny" from overwriting context.
+
+## WORK / FORGE PROJECTION
+
+WORK is a **projection of existing LINE objects**, not a fifth object class and not a second canon store.
+
+The current work set uses one user-authored maxim plus fifteen bounded NEW line candidates arranged as:
+
+`HEAT → FORM → COOL → POLISH → REPEAT`
+
+The maxim is preserved as the exact current-thread source **「工不十，具不易」**. The five phases are operational cadence, not a universal ontology.
+
+The visible WORK surface exposes only three transient moves:
+
+- **ALT / SAME PHASE** — rotate among the three LINE candidates for the held phase.
+- **NEXT** — advance exactly one phase.
+- **AUTO · 12S** — repeat NEXT every twelve seconds while WORK remains open; leaving WORK stops it.
+
+No work-session state is promoted, scheduled, sent, or stored as repository authority. WRITE excludes the WORK scenario so the communications bank remains bounded.
 
 ## PSYCH / EMOTION RESEARCH BOUNDARY
 
