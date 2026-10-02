@@ -1,0 +1,53 @@
+{
+  "schema": "field/research-donor-packet/v0.1",
+  "SOURCE_ID": "Weco AIDE2 + SpecBench / held-out selection law / 2026-10-02 replica",
+  "ROLE": "MECHANISM",
+  "CLAIM_KIND": "OPTIMIZATION",
+  "CLAIM": "Separating development-only harness selection from independent held-out acceptance can reject a visible-metric improvement that regresses hidden invariants, while still accepting a robust improvement under the same fixed task budget.",
+  "DISPOSITION": "TRANSFER",
+  "CURRENT_HOST": "research-design-loop",
+  "PRIMARY_REF": {
+    "aide2": "https://arxiv.org/abs/2609.26457",
+    "specbench": "https://arxiv.org/abs/2605.21384",
+    "primary_report": "https://www.weco.ai/blog/first-evidence-of-recursive-self-improvement"
+  },
+  "BASELINE": "development-only selector: rank candidates by visible pass rate then latency, with no independent acceptance gate",
+  "FALSIFIER": "The adversarial visible-metric candidate cannot win development selection while regressing held-out behavior, or independent held-out acceptance fails to reject it, or the same acceptance rule rejects the robust candidate.",
+  "FIXED": "same deterministic evaluator; same baseline; same arms per case; same dev/held-out task counts; disjoint task IDs; same acceptance threshold; no host-effect authority",
+  "MUTATED": "selection/acceptance policy only: add independent held-out threshold plus baseline non-regression after dev-only candidate selection",
+  "DEV_METRIC": "visible/dev pass rate descending, then mean latency ascending, then stable id",
+  "HELD_OUT": "disjoint h1-h4 tasks unseen by the dev selector; used only after candidate selection",
+  "REWARD_HACK_CHECK": "flag when a non-baseline candidate improves visible pass rate but regresses held-out pass rate",
+  "REPLICA": {
+    "status": "PASS",
+    "observable": "dev-only selection chooses visible-hack at 1.0 dev pass rate and 0.5 held-out pass rate; independent acceptance rejects it; robust candidate reaches 1.0/1.0 and is accepted",
+    "fixture": "fixtures/research/weco-heldout-replica.json",
+    "selftest": "tools/harness-heldout-replica.selftest.mjs"
+  },
+  "TRANSFER_TEST": {
+    "status": "PASS",
+    "host": "research-design-loop",
+    "independent": true,
+    "result": "research donor optimization admission already requires held-out identity plus independent transfer acceptance; the replica now supplies direct falsification evidence for that rule without granting host effects"
+  },
+  "EVIDENCE": {
+    "refs": [
+      "tools/harness-heldout-replica.mjs",
+      "tools/harness-heldout-replica.selftest.mjs",
+      "fixtures/research/weco-heldout-replica.json",
+      "tools/research-donor-gate.mjs",
+      "tools/research-donor-field.mjs"
+    ],
+    "scope": "selection-law replica only; not evidence that an LLM can recursively improve its own harness"
+  },
+  "INVARIANT": "held-out tasks never influence development ranking; acceptance never grants host effect authority; baseline and candidate budgets remain equal",
+  "NON_TRANSFER": [
+    "general recursive self-improvement",
+    "claims about qwen3.5:9b or any other model performance",
+    "automatic fallback to second-best candidates after held-out rejection",
+    "using held-out outcomes as search feedback",
+    "permission expansion or production self-rewrite"
+  ],
+  "RETURN_PATH": "returns/WECO_HELDOUT_SELECTION_REPLICA_2026-10-02.json",
+  "authority": "EVIDENCE ONLY / NO ATTENTION OR HOST EFFECT AUTHORITY"
+}
