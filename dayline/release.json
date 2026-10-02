@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "route": "/dayline/",
-  "state": "MERGED_ACTIVE_CANDIDATE",
+  "state": "PR_CANDIDATE",
   "operation": "OPERATE",
-  "released": "2026-09-29",
-  "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. 0.3.3 consumes interphase-action-surface/v0.1 directly: the held focus is HOLD, every visible local move shows a shared TURN/RELEASE projection beside its unchanged native label, TRACE remains witness, and RETURN remains exact. Shared verbs add no support or effect authority.",
+  "released": "2026-10-02",
+  "role": "Mobile-first continuous execution projection over the shared Atlas Dayline DayState. 0.4.0 makes Dayline the low-click daily cockpit: one ranked held task, one primary move, swipe/keyboard focus traversal, automatic local next-focus after completion, collapsed secondary moves, passive live CURRENT refresh, and AWAKE resume after returning to the tab. Atlas remains an optional map/analysis projection rather than a required operating step.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -30,7 +30,13 @@
     "carrier authority NONE / HANDOFF ONLY; move dispatch HOST_NATIVE_ONLY",
     "source object may survive while Dayline focus/projection/witness change",
     "native Dayline move labels/handlers beneath shared TURN/RELEASE projection",
-    "interphase-action-surface/v0.1 is presentation/continuation only; no new DayState or source authority"
+    "interphase-action-surface/v0.1 is presentation/continuation only; no new DayState or source authority",
+    "same Atlas Dayline canonical task fields and local DayState store; FLOW is a projection over existing tasks",
+    "Atlas Dayline remains optional map/scenario/forecast depth; ordinary execution does not require opening Atlas or FIELD",
+    "primary FLOW action is always the existing first native Dayline move; no automatic effect execution",
+    "source-linked completed task remains held until exact RETURN/source offer rather than auto-advancing",
+    "passive CURRENT/manifest refresh is read-only and cannot create tasks or NOW authority",
+    "AWAKE resume is a visibility-return orientation cue, not a second app or state machine"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -67,7 +73,13 @@
     "sleeper_dayline_carrier_loop": "/tools/sleeper-dayline-carrier-selftest.cjs · CI required on PR",
     "action_surface": "IMPLEMENTED_CANDIDATE · DaylineConfluence.actionSurface() over continuationCarrier()",
     "shared_actions": "HOLD focus · TURN non-EFFECT native move · RELEASE native EFFECT boundary · TRACE witness · RETURN exact continuation",
-    "action_surface_selftest": "tools/interphase-dayline-selftest.cjs · CI required on PR"
+    "action_surface_selftest": "tools/interphase-dayline-selftest.cjs · CI required on PR",
+    "flow_zero_hunt": "CANDIDATE · one primary action + previous/next focus + swipe + J/K/arrow traversal + Enter primary + / capture",
+    "flow_ranking": "CANDIDATE · RUN order first, then Atlas-compatible local opportunity score over existing DayState fields",
+    "auto_advance": "CANDIDATE · local DONE selects next ranked open task; source-linked DONE stays held for RETURN",
+    "passive_live_refresh": "CANDIDATE · CURRENT + manifest refresh every 90s while visible; no mutation/adoption",
+    "awake_resume": "CANDIDATE · after >90s hidden, visible return refreshes live state and surfaces exact held title",
+    "secondary_moves": "CANDIDATE · 1–3 native moves remain available under collapsed MORE MOVES; FLOW primary mirrors move[0]"
   },
   "stop": "Functional correctness is machine/browser verified first. Source-owned signal rendering is projection only; Dayline must not invent domain evidence classes from task wording. Real-world completion remains a WORLD claim.",
   "verification_policy": {
@@ -106,6 +118,6 @@
     "continuation_law": "same source OBJECT + RETURN; recipient FOCUS/projection/witness may change; carrier never gains effect authority",
     "carrier_reference": "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
     "action_surface": "interphase-action-surface/v0.1",
-    "action_law": "shared action != native operation != authority; visible controls retain native labels and native handlers"
+    "action_law": "shared action != native operation != authority; FLOW primary mirrors the exact first native move and never executes without explicit user input"
   }
 }

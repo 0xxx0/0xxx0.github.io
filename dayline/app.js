@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const STORE='poly-atlas-dayline-branch-i-public-v1',RETURN_STORE='poly-atlas-dayline-branch-i-public-last-return',HANDOFF='atlas.dayline.handoff.v01',SOURCE_RETURN='atlas.dayline.source-return.v01';
 const $=s=>document.querySelector(s),clone=x=>JSON.parse(JSON.stringify(x)),clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-let current=null,manifest=null,day=null,handoff=null,sessionStart=null,sessionEventStart=0,lastMoves=[],frame=null;
+let current=null,manifest=null,day=null,handoff=null,sessionStart=null,sessionEventStart=0,lastMoves=[],frame=null,hiddenAt=0,liveRefreshBusy=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const hm=s=>{const a=String(s||'00:00').split(':').map(Number);return (Number.isFinite(a[0])?a[0]:0)*60+(Number.isFinite(a[1])?a[1]:0)};
 const mh=m=>{m=Math.round(m);return String(Math.floor(m/60)%24).padStart(2,'0')+':'+String((m%60+60)%60).padStart(2,'0')};
@@ -18,6 +18,29 @@ function checkpoint(label='CHANGE'){day.undo=Array.isArray(day.undo)?day.undo:[]
 function hash(x){let h=2166136261,s=JSON.stringify({tasks:x.tasks,anchors:x.anchors,state:x.state,evidence:x.evidence});for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return(h>>>0).toString(16).padStart(8,'0')}
 function taskById(id){return day.tasks.find(t=>t.id===id)}
 function openTasks(){return day.tasks.filter(t=>t.status!=='done')}
+function openDeps(t){return(t.depends||[]).filter(id=>{const x=taskById(id);return x&&x.status!=='done'})}
+function nextGapMinutes(now=hm(day.state.now)){
+ const anchors=(day.anchors||[]).map(a=>({a,start:hm(a.start),end:hm(a.end)})).sort((x,y)=>x.start-y.start);
+ const inside=anchors.find(x=>now>=x.start&&now<x.end);if(inside)return 0;
+ const next=anchors.find(x=>x.start>=now);return Math.max(0,(next?next.start:hm(day.meta.dayEnd))-now)
+}
+function flowScore(t){
+ const now=hm(day.state.now),act=new Set(day.state.contexts||[]),ctx=t.contexts||[],hits=ctx.filter(c=>act.has(c)),match=ctx.length?hits.length/ctx.length:1,start=hm(t.earliest||day.meta.dayStart),end=hm(t.latest||day.meta.dayEnd),missed=now>end,inWindow=!missed&&now>=start&&now<=end,untilStart=Math.max(0,start-now),untilEnd=end-now,blocked=openDeps(t),horizon=Number(day.state.horizon)||180,lookFit=(+t.duration||15)<=horizon,gap=nextGapMinutes(now),gapFit=(+t.duration||15)<=gap;
+ const setup=Math.max(0,(+t.setup||0)*9-hits.length*7),timePenalty=missed?72:(inWindow?0:Math.min(50,untilStart/9)),depPenalty=blocked.length*30,horizonPenalty=lookFit?0:18,gapPenalty=(inWindow&&!gapFit)?16:0,urgency=inWindow?Math.max(0,30-Math.max(0,untilEnd)/14):0,sourcePart=({USER:12,IMPORTED:0,WORKING_SPEC:-10,DERIVED:-14}[t.sourceClass||'USER']??0);
+ return Math.round((+t.value||3)*18+match*36+urgency-(setup+timePenalty+depPenalty+horizonPenalty+gapPenalty)*.64+(lookFit?10:0)+(gapFit&&inWindow?8:0)+sourcePart)
+}
+function flowTasks(){
+ const rank=new Map((day.state.route||[]).map((id,i)=>[id,i]));
+ return openTasks().map((t,i)=>({t,i,score:flowScore(t)})).sort((a,b)=>{
+  const ar=rank.has(a.t.id)?rank.get(a.t.id):999,br=rank.has(b.t.id)?rank.get(b.t.id):999;
+  return ar-br||b.score-a.score||a.i-b.i
+ }).map(x=>x.t)
+}
+function focusByStep(delta){
+ const xs=flowTasks();if(!xs.length){toast('No open Dayline tasks');return}
+ const held=frameView(chooseFrame()).task;let i=held?xs.findIndex(t=>t.id===held.id):-1;if(i<0)i=0;else i=(i+delta+xs.length)%xs.length;
+ day.state.selected=xs[i].id;event('FOCUS',xs[i].id,'flow-step');saveDay();render()
+}
 const LEGACY_IDS=new Set(['t:backup-verify','t:bench-reset','t:ipcam','t:print-test','t:wall-measure','t:maker-cart','t:litterbox','t:pickup','t:support-call']);
 function isLegacySeed(){return day.tasks.length===9&&day.tasks.every(t=>LEGACY_IDS.has(t.id)&&t.provenance==='direct-day-plan')}
 function sourceRoute(raw){const s=String(raw||'');const m=s.match(/(\/[^#|\s]+)/);return m?m[1]:''}
@@ -54,7 +77,10 @@ function applyHandoff(){if(!handoff)return;const h=handoff,p=h.payload||{};if(h.
  sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff accepted')}
 function clearHandoff(){sessionStorage.removeItem(HANDOFF);handoff=null;render();toast('Handoff cleared')}
 function runTask(id){if(day.state.route.includes(id))return;if(day.state.route.length>=3){toast('RUN is full · 3/3');return}checkpoint('ACT');day.state.route.push(id);day.state.selected=id;event('ACT',id,'dayline-confluence');saveDay();render()}
-function completeTask(id){const t=taskById(id);if(!t)return;checkpoint('DONE');t.status='done';day.state.route=day.state.route.filter(x=>x!==id);event('DONE',id);saveDay();render();toast('Marked done')}
+function completeTask(id){const t=taskById(id);if(!t)return;checkpoint('DONE');t.status='done';day.state.route=day.state.route.filter(x=>x!==id);event('DONE',id);
+ if(!t.sourceLink){const next=flowTasks().find(x=>x.id!==id);day.state.selected=next?.id||null;if(next)event('FOCUS',next.id,'auto-after-done')}
+ saveDay();render();toast(t.sourceLink?'Marked done · RETURN to source':'Done · advanced')}
+
 function reopenTask(id){const t=taskById(id);if(!t)return;checkpoint('REOPEN');t.status='open';day.state.selected=id;event('REOPEN',id);saveDay();render()}
 function resetLegacy(){if(!isLegacySeed())return;const old=core();day=normalize(null);day.undo=[{at:new Date().toISOString(),label:'LEGACY_SAMPLE_RESET',core:old}];event('RESET_LEGACY_SAMPLE','','retired direct-day-plan fixture');saveDay();sessionStart=core();sessionEventStart=day.events.length;render();toast('Legacy sample cleared · undo preserved')}
 function adoptFrame(){if(frame.kind==='front'){const x=frame.front;addTask({title:x.objective||x.center||x.id,contexts:[...day.state.contexts],value:5,duration:25,sourceClass:'IMPORTED',provenance:'FIELD CURRENT '+(current?.updated||'')+' · '+x.id,fieldRef:'/control/CURRENT.json#active_fronts/'+x.id});render();toast('Adopted into today');return}
@@ -79,6 +105,19 @@ function movesFor(f){
  out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('HOUSE ↗','/house/'));out.push(hrefMove('COMMS ↗','/port/comms/'));return out
 }
 function renderMoves(xs){const host=$('#moves');host.textContent='';xs.forEach((m,i)=>{const shared=sharedActionForMove(m),label=String(i+1).padStart(2,'0')+' · '+shared+' · '+m.label;if(m.href){const a=document.createElement('a');a.href=m.href;a.className=m.cls||'';a.textContent=label;host.appendChild(a)}else{const b=document.createElement('button');b.className=m.cls||'';b.textContent=label;b.onclick=m.action;host.appendChild(b)}});$('#moveCount').textContent=xs.length+'/3'}
+function triggerPrimary(){
+ frame=chooseFrame();const m=movesFor(frame)[0];if(!m){toast('No current move');return}
+ if(m.href){location.assign(m.href);return}
+ if(typeof m.action==='function')m.action()
+}
+function renderFlow(){
+ const xs=flowTasks(),v=frameView(frame),held=v.task,i=held?xs.findIndex(t=>t.id===held.id):-1,m=lastMoves[0],btn=$('#flowPrimaryBtn');
+ $('#flowPosition').textContent=held&&i>=0?(i+1)+' / '+xs.length:(frame.kind==='front'?'FIELD NOW':frame.kind.toUpperCase());
+ btn.disabled=!m;btn.textContent=m?(sharedActionForMove(m)+' · '+m.label):'NO MOVE';
+ btn.className='flowPrimary '+(m?.cls||'');
+ $('#prevFocusBtn').disabled=xs.length<2;$('#nextFocusBtn').disabled=xs.length<2;
+ $('#flowHint').textContent=xs.length>1?'SWIPE FOCUS ←/→ · '+xs.length+' OPEN · ENTER = PRIMARY · / = CAPTURE':'ENTER = PRIMARY · / = CAPTURE · ATLAS IS MAP, NOT REQUIRED'
+}
 function interphaseObject(){
  const held=chooseFrame(),v=frameView(held),t=v.task||null,last=t?lastWitnessFor(t.id):null,src=t?.sourceLink||null;
  const id=t?.id||(held.kind==='route'?'route:'+held.route?.href:held.kind==='front'?'front:'+held.front?.id:held.kind==='handoff'?'handoff:'+held.handoff?.id:held.kind==='legacy'?'legacy:sample':'dayline:empty');
@@ -139,12 +178,27 @@ function render(){
  frame=chooseFrame();const v=frameView(frame),dev=mh(deviceMinute(day)),drift=hm(day.state.now)-hm(dev),last=v.task?lastWitnessFor(v.task.id):null,sourceEvidenceState=sourceEvidence(frame);document.body.dataset.clockDrift=Math.abs(drift)>=10?'1':'0';
  $('#truth').textContent='CURRENT '+(current?.updated||'—')+' · NOW '+day.state.now+(drift?' · clock '+(drift>0?'+':'')+drift+'m':'');
  $('#owner').textContent=v.owner;$('#address').textContent=v.address;$('#focusTitle').textContent=v.title;$('#focusMeta').textContent=(v.meta||'')+(sourceEvidenceState.token!=='CLEAR'?'\nSOURCE EVIDENCE · '+sourceEvidenceState.token+(sourceEvidenceState.owner?' · '+sourceEvidenceState.owner:'')+(sourceEvidenceState.boundary?'\n'+sourceEvidenceState.boundary:''):'');window.FieldSignal?.apply(document.querySelector('.frame'),sourceEvidenceState.token);lastMoves=movesFor(frame);renderMoves(lastMoves);
- const witnessable=!!v.task;$('#witnessInput').disabled=!witnessable;$('#witnessBtn').disabled=!witnessable;$('#witnessState').textContent=witnessable?(last?'RECORDED':'READY'):'ACCEPT / ADOPT FIRST';$('#lastWitness').textContent=last?(new Date(last.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+last.note):'';
+ renderFlow();const witnessable=!!v.task;$('#witnessInput').disabled=!witnessable;$('#witnessBtn').disabled=!witnessable;$('#witnessState').textContent=witnessable?(last?'RECORDED':'READY'):'ACCEPT / ADOPT FIRST';$('#lastWitness').textContent=last?(new Date(last.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+last.note):'';
  const stored=(()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch(_){return null}})();$('#returnClass').textContent=stored?.returnClass||'READY';renderSourceReturn();renderDepth();document.body.dataset.daylineWorkfield='ready';window.dispatchEvent(new CustomEvent('dayline:state',{detail:{object:interphaseObject()}}))
 }
-async function boot(){day=loadDay();handoff=safeHandoff();sessionStart=core();sessionEventStart=day.events.length;const [c,m]=await Promise.all([fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)]);current=c;manifest=m;render()}
+async function refreshLive({announce=false}={}){
+ if(liveRefreshBusy)return;liveRefreshBusy=true;
+ try{
+  const [c,m]=await Promise.all([fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)]);
+  const changed=(c?.updated||'')!==(current?.updated||'')||(m?.updated||'')!==(manifest?.updated||'');if(c)current=c;if(m)manifest=m;if(changed)render();
+  if(announce){const title=frameView(chooseFrame()).title;toast('AWAKE · '+String(title||'Dayline').slice(0,54))}
+ }finally{liveRefreshBusy=false}
+}
+async function boot(){day=loadDay();handoff=safeHandoff();sessionStart=core();sessionEventStart=day.events.length;await refreshLive();render();
+ setInterval(()=>{if(!document.hidden)refreshLive()},90000)
+}
 $('#captureForm').onsubmit=e=>{e.preventDefault();const i=$('#captureInput'),title=i.value.trim();if(!title)return;addTask({title,contexts:[...day.state.contexts],duration:25,value:4,provenance:'dayline-confluence direct capture'});i.value='';render();toast('Captured')};
 $('#witnessBtn').onclick=recordWitness;$('#returnBtn').onclick=doReturn;$('#syncNowBtn').onclick=syncNow;
+$('#prevFocusBtn').onclick=()=>focusByStep(-1);$('#nextFocusBtn').onclick=()=>focusByStep(1);$('#flowPrimaryBtn').onclick=triggerPrimary;
+let touchStart=null;document.querySelector('.frame').addEventListener('touchstart',e=>{const t=e.changedTouches?.[0];if(t)touchStart={x:t.clientX,y:t.clientY}}, {passive:true});
+document.querySelector('.frame').addEventListener('touchend',e=>{if(!touchStart)return;const t=e.changedTouches?.[0];if(!t)return;const dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>58&&Math.abs(dx)>Math.abs(dy)*1.25)focusByStep(dx<0?1:-1)}, {passive:true});
+window.addEventListener('keydown',e=>{if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowDown'||e.key.toLowerCase()==='j'){e.preventDefault();focusByStep(1)}else if(e.key==='ArrowUp'||e.key.toLowerCase()==='k'){e.preventDefault();focusByStep(-1)}else if(e.key==='Enter'){e.preventDefault();triggerPrimary()}else if(e.key==='/'){e.preventDefault();$('#captureInput').focus()}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){hiddenAt=Date.now();return}const away=hiddenAt?Date.now()-hiddenAt:0;hiddenAt=0;refreshLive({announce:away>90000})});
 window.DaylineConfluence=Object.freeze({
  snapshot:()=>clone(day),returnPacket:()=>returnPacket(),acceptHandoff:()=>applyHandoff(),sourceReturn:()=>clone(readSourceReturn()),
  interphaseObject:()=>clone(interphaseObject()),
