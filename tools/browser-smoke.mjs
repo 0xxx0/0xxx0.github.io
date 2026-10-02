@@ -1570,14 +1570,28 @@ const CASES=[
     check:dom=>/TURN\.<br><span>RELEASE\./i.test(dom)&&/NO SONG \/ JUST PLAY/i.test(dom)&&/MORE MODES · PUZZLE \/ TWO DIAL \/ ECOLOGY/i.test(dom)&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
   },
   {
+    // settle-gated 2026-10-02: this check asserts data-fold-bloom-perf,
+    // data-trackfield-source and data-trackfield-motion, all written from inside the
+    // rAF loop's 100 Hz HUD block. Under `--virtual-time-budget --dump-dom` Chrome does
+    // NOT reliably drive rAF (measured 0-1 frames in 3/8 and 5/8 cold runs, at both
+    // 30000 and 120000 budget), so a single-moment dump raced the first HUD tick and
+    // produced nondeterministic FAILs on a healthy surface. Every clause here is a
+    // steady-state condition, so settle is the correct gate: it waits for the predicate
+    // and still FAILs if the attributes are genuinely never written.
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
-    options:{width:430,height:900,budget:30000,timeout:40000},
+    options:{width:430,height:900,budget:30000,settleLimit:20000,timeout:30000},
+    settle:true,
     check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/TRY THE EXAMPLE|LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/THE WHOLE RIDE LOOP/.test(dom)&&/TURN\.<br><span>RELEASE\./i.test(dom)&&/NO SONG \/ JUST PLAY/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/MORE MODES · PUZZLE \/ TWO DIAL \/ ECOLOGY/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&(/△ TRIANGLE/.test(dom)||/○ CIRCLE/.test(dom)||/□ SQUARE/.test(dom))&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
   {
+    // settle-gated 2026-10-02: data-fb-primary-controls is written by
+    // schedulePrimaryControlCheck() after a DOUBLE rAF, so the same single-moment dump
+    // race applies (measured absent in 3/8 cold runs). Settle waits for the control
+    // layout to be measured instead of asserting it at an arbitrary frame.
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900,budget:9000,settleLimit:16000,timeout:24000},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-loop-archetype="FORM_CHANGE"')&&dom.includes('data-fb-instrument="HEX"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-form-visual="exact-verbs-underlay"')&&dom.includes('data-fb-hex-visual="six-lines"')&&dom.includes('data-fb-view="ride"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
   },
   {
@@ -1794,7 +1808,22 @@ const CASES=[
   }
 ];
 
-await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));
+// One port, one run. A second harness sharing this port used to die here with
+// an unhandled EADDRINUSE crash, while a stray kill of the port's holder could
+// take the first run's server or Chrome down mid-case -> false FAILs. Fail
+// fast with the remedy instead, so a collision can never read as a verdict.
+await new Promise((resolve,reject)=>{
+  const onListenError=e=>reject(e);
+  server.once('error',onListenError);
+  server.listen(PORT,HOST,()=>{server.removeListener('error',onListenError);resolve()});
+}).catch(e=>{
+  if(e&&e.code==='EADDRINUSE'){
+    console.error('BROWSER SMOKE: cannot bind '+HOST+':'+PORT+' — port already in use (another smoke run may be live).');
+    console.error('Re-run with a unique port: SMOKE_PORT=<free port> node tools/browser-smoke.mjs');
+    process.exit(1);
+  }
+  throw e;
+});
 const smokeOnly=String(process.env.SMOKE_ONLY||'').trim();
 const RUN_CASES=smokeOnly?CASES.filter(c=>c.name===smokeOnly):CASES;
 if(smokeOnly&&!RUN_CASES.length)throw new Error('unknown SMOKE_ONLY '+smokeOnly);

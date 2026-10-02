@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<meta name="robots" content="noindex,nofollow">
+<title>RESHAPE · OMNITOOL</title>
+<style>
+:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px 28px}main{width:min(1180px,100%);margin:auto}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:var(--p);border:1px solid var(--line);border-radius:0;padding:8px 11px;cursor:pointer;letter-spacing:.08em}button:hover{border-color:var(--cool);color:#d8f2ff}button.on{border-color:var(--gold);color:var(--gold)}textarea{width:100%;background:var(--p);color:var(--ink);border:1px solid var(--line);border-radius:0;padding:10px;font:inherit;resize:vertical}
+header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(38px,8vw,72px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}.dek{margin-top:12px;color:#aab4b7;font:12px/1.65 system-ui,sans-serif;max-width:72ch}.dek b{color:var(--ink)}
+.bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.bar label{color:var(--muted);font-size:9px;letter-spacing:.08em;cursor:pointer}.bar .hint{color:var(--muted);font-size:8px;margin-left:auto}
+.k{color:var(--cool);font-size:8px;letter-spacing:.12em;margin:12px 0 6px}
+.detect{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.detect div{background:var(--p);padding:8px 12px;flex:1}.detect b{display:block;font-size:13px}.detect span{color:var(--muted);font-size:7px;letter-spacing:.11em}
+footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
+@media(max-width:760px){footer{display:block}}
+</style>
+</head>
+<body><main>
+<header>
+  <div class="ey">FOUNDRY / OMNITOOLS · DATA EXPORT DESK 0.1</div>
+  <h1>RE-<br>SHAPE.</h1>
+  <div class="dek"><b>Paste data. Choose its next shape.</b> JSON, NDJSON, CSV or TSV in — JSON, CSV or NDJSON out. Nested objects flatten to dot-paths so nothing is silently dropped. A dump/export helper that lives in one file and never phones home.</div>
+</header>
+
+<div class="bar">
+  <button id="toJSON" class="on">→ JSON</button>
+  <button id="toCSV">→ CSV</button>
+  <button id="toNDJSON">→ NDJSON</button>
+  <button id="download">DOWNLOAD</button>
+  <label><input type="checkbox" id="flat" checked> FLATTEN NESTED</label>
+  <span class="hint" id="hint">input format is auto-detected</span>
+</div>
+
+<div class="detect" id="detect">
+  <div><b>—</b><span>DETECTED INPUT</span></div>
+  <div><b>—</b><span>ROWS</span></div>
+  <div><b>—</b><span>COLUMNS</span></div>
+</div>
+
+<div class="k">IN · SOURCE</div>
+<textarea id="in" rows="10" spellcheck="false" placeholder='{"a":{"b":1},"c":[1,2]}&#10;&#10;or csv:&#10;name,qty&#10;apple,3'></textarea>
+
+<div class="k">OUT · RESULT</div>
+<textarea id="out" rows="12" spellcheck="false" readonly placeholder="result appears here"></textarea>
+
+<footer><span>QUOTES AND EMBEDDED NEWLINES ARE HONORED IN CSV/TSV · FLATTEN USES DOT PATHS</span><span id="stamp">reshaper 0.1</span></footer>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var target='json', rows=[], header=[], fmt='—';
+
+function flat(o,pre,out){
+  out=out||{};pre=pre||'';
+  if(o&&typeof o==='object'&&!Array.isArray(o)){
+    var ks=Object.keys(o);
+    if(!ks.length&&pre)out[pre]='';
+    for(var i=0;i<ks.length;i++)flat(o[ks[i]],pre?pre+'.'+ks[i]:ks[i],out);
+  }else if(Array.isArray(o)){
+    if(!o.length&&pre)out[pre]='';
+    for(var j=0;j<o.length;j++)flat(o[j],pre+'['+j+']',out);
+  }else if(pre)out[pre]=o;
+  return out;
+}
+function parseCSV(text,delim){
+  var rows=[],row=[],cur='',q=false,i;
+  for(i=0;i<text.length;i++){
+    var c=text[i];
+    if(q){
+      if(c==='"'&&text[i+1]==='"'){cur+='"';i++}
+      else if(c==='"')q=false;
+      else cur+=c;
+    }else if(c==='"')q=true;
+    else if(c===delim){row.push(cur);cur=''}
+    else if(c==='\n'){row.push(cur);cur='';if(row.some(function(x){return x!==''}))rows.push(row);row=[]}
+    else if(c!=='\r')cur+=c;
+  }
+  row.push(cur);
+  if(row.some(function(x){return x!==''}))rows.push(row);
+  return rows;
+}
+function detect(text){
+  var t=text.trim();
+  if(!t)return{fmt:'—'};
+  if((t[0]==='{'||t[0]==='[')){
+    try{var v=JSON.parse(t);return{fmt:'JSON',data:v}}catch(e){}
+  }
+  var lines=t.split('\n');
+  var nd=[];
+  try{
+    for(var i=0;i<lines.length;i++){if(lines[i].trim())nd.push(JSON.parse(lines[i]))}
+    if(nd.length)return{fmt:'NDJSON',data:nd};
+  }catch(e){}
+  if(t.indexOf('\t')>=0&&t.split('\n')[0].indexOf('\t')>=0)return{fmt:'TSV',data:parseCSV(t,'\t')};
+  return{fmt:'CSV',data:parseCSV(t,',')};
+}
+function toRecords(parsed){
+  var useFlat=$('flat').checked, d=parsed.data, recs=[], i, j;
+  if(parsed.fmt==='JSON'||parsed.fmt==='NDJSON'){
+    var arr=Array.isArray(d)?d:[d];
+    for(i=0;i<arr.length;i++){
+      var x=arr[i];
+      if(x&&typeof x==='object'&&!Array.isArray(x))recs.push(useFlat?flat(x):x);
+      else recs.push(useFlat?flat({value:x}):{value:x});
+    }
+    // arrays of arrays become column-1..n rows
+    if(Array.isArray(d)&&d.length&&Array.isArray(d[0])){
+      recs=[];
+      for(i=0;i<d.length;i++){var o={};for(j=0;j<d[i].length;j++)o['c'+(j+1)]=d[i][j];recs.push(o)}
+    }
+  }else{
+    var raw=d, h=raw.length?raw[0]:[];
+    for(i=1;i<raw.length;i++){
+      var r={};
+      for(j=0;j<h.length;j++)r[h[j]!==''?h[j]:'c'+(j+1)]=raw[i][j]!==undefined?raw[i][j]:'';
+      recs.push(r);
+    }
+  }
+  header=[];
+  for(i=0;i<recs.length;i++){var ks=Object.keys(recs[i]);for(j=0;j<ks.length;j++)if(header.indexOf(ks[j])<0)header.push(ks[j])}
+  rows=recs;
+  return recs;
+}
+function toCSV(){
+  function cell(v){
+    var s=v===null||v===undefined?'':(typeof v==='object'?JSON.stringify(v):String(v));
+    return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;
+  }
+  var out=[header.map(cell).join(',')];
+  for(var i=0;i<rows.length;i++)out.push(header.map(function(h){return cell(rows[i][h])}).join(','));
+  return out.join('\n');
+}
+function render(){
+  var text=$('in').value, parsed=detect(text);
+  fmt=parsed.fmt;
+  if(fmt==='—'){$('detect').innerHTML='<div><b>—</b><span>DETECTED INPUT</span></div><div><b>—</b><span>ROWS</span></div><div><b>—</b><span>COLUMNS</span></div>';return}
+  try{
+    toRecords(parsed);
+    $('detect').innerHTML='<div><b>'+fmt+'</b><span>DETECTED INPUT</span></div><div><b>'+rows.length+'</b><span>ROWS</span></div><div><b>'+header.length+'</b><span>COLUMNS</span></div>';
+    if(target==='json')$('out').value=JSON.stringify(rows,null,2);
+    else if(target==='csv')$('out').value=toCSV();
+    else $('out').value=rows.map(function(r){return JSON.stringify(r)}).join('\n');
+    $('hint').textContent=fmt.toLowerCase()+' → '+target+' · '+rows.length+' row(s), '+header.length+' column(s)';
+  }catch(e){$('out').value='';$('hint').textContent='parse failed: '+e.message}
+}
+function setTarget(t){target=t;$('toJSON').classList.toggle('on',t==='json');$('toCSV').classList.toggle('on',t==='csv');$('toNDJSON').classList.toggle('on',t==='ndjson');render()}
+$('toJSON').onclick=function(){setTarget('json')};
+$('toCSV').onclick=function(){setTarget('csv')};
+$('toNDJSON').onclick=function(){setTarget('ndjson')};
+$('flat').onchange=render;
+$('in').addEventListener('input',render);
+$('download').onclick=function(){
+  if(!$('out').value){$('hint').textContent='nothing to download';return}
+  var ext=target==='csv'?'csv':target==='ndjson'?'ndjson':'json';
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([$('out').value],{type:'text/plain'}));
+  a.download='reshaped.'+ext;a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+  $('hint').textContent='downloaded reshaped.'+ext;
+};
+})();
+</script>
+</body></html>

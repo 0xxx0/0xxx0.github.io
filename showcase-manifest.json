@@ -4998,6 +4998,74 @@
       "tier": "FIELD"
     },
     {
+      "href": "/foundry/omnitools/",
+      "title": "FOUNDRY / OMNITOOLS 0.1",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "TRANSFORM",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "role": "Small self-contained omnitools: one file is one complete tested instrument — repo/PII pattern extractor, paste-text PII lens, text-analysis suite, Tamil/Chinese/English re-reading overlay, data reshaping desk, HTML munging CLI.",
+      "transfer": [
+        "repo/PII pattern extraction",
+        "entropy secret scoring",
+        "trilingual re-reading overlay",
+        "data format reshaping",
+        "scrape munging"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "text, data or scraped HTML",
+            "interface": "paste / file / stdin / git repo path"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "EVIDENCE",
+            "kind": "findings, measurements, reshaped data",
+            "interface": "JSON / CSV / NDJSON / text"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "IMPLEMENTATION",
+            "status": "AVAILABLE",
+            "via": "run the tool on the addressed input"
+          }
+        ],
+        "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
+      },
+      "index": {
+        "updated_at": "2026-10-02T21:28:33+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Do compact self-contained tools remove real friction (PII exposure, text measurement, alignment, data movement) without adding surface area?",
+        "baseline": "Manual git grep, ad-hoc scripts and one-off pages per task.",
+        "mutation": "Six tested single-file instruments under one /foundry/omnitools/ gateway.",
+        "evidence_gate": "Each tool resolves one real task end-to-end on a fixture before it is listed; HTML tools additionally pass node --check and a live browser exercise.",
+        "next_if_pass": "Promote surviving tools to ACTIVE; grow the batch by composition and forward evolution of existing local/field-index material.",
+        "next_if_fail": "Keep as CANDIDATE/DONOR; do not expand the batch."
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/fovea/",
       "title": "FOVEA — one field · every surface",
       "kind": "artifact",

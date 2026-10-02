@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<meta name="robots" content="noindex,nofollow">
+<title>TEXT LENS · OMNITOOL</title>
+<style>
+:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px 28px}main{width:min(1180px,100%);margin:auto}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:var(--p);border:1px solid var(--line);border-radius:0;padding:8px 11px;cursor:pointer;letter-spacing:.08em}button:hover{border-color:var(--cool);color:#d8f2ff}textarea{width:100%;background:var(--p);color:var(--ink);border:1px solid var(--line);border-radius:0;padding:10px;font:inherit;resize:vertical}
+header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(38px,8vw,72px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}.dek{margin-top:12px;color:#aab4b7;font:12px/1.65 system-ui,sans-serif;max-width:72ch}.dek b{color:var(--ink)}
+.bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.bar .hint{color:var(--muted);font-size:8px;margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.cell{background:var(--p);padding:11px;min-height:118px}.cell h2{margin:0 0 8px;font:800 13px/1 system-ui,-apple-system,sans-serif;letter-spacing:-.02em}.cell .k{color:var(--cool);font-size:7px;letter-spacing:.12em}.kv{display:flex;justify-content:space-between;gap:10px;padding:2px 0;border-bottom:1px solid #161d21}.kv:last-child{border-bottom:0}.kv b{font-weight:700}.kv span{color:var(--muted)}
+.mix{display:flex;height:9px;margin:4px 0 8px;border:1px solid var(--line)}.mix i{display:block;height:100%}
+.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{border:1px solid var(--line);padding:2px 5px;font-size:9px}.chip b{color:var(--gold)}
+footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}footer{display:block}}
+</style>
+</head>
+<body><main>
+<header>
+  <div class="ey">FOUNDRY / OMNITOOLS · TEXT ANALYSIS SUITE 0.1</div>
+  <h1>TEXT<br>LENS.</h1>
+  <div class="dek"><b>One paste. Nine readings.</b> Structure, length, entropy, readability, script mix, word and bigram ranks, lexical diversity. It re-measures as you type; no button needed. Everything runs in this file, offline.</div>
+</header>
+
+<div class="bar">
+  <button id="copy">COPY REPORT</button>
+  <button id="clear">CLEAR</button>
+  <span class="hint" id="hint">analysis updates on input</span>
+</div>
+
+<textarea id="in" rows="10" spellcheck="false" placeholder="paste any text — prose, logs, poetry, corpus…"></textarea>
+<div class="grid" id="grid"></div>
+
+<footer><span>ENTROPY IS SHANNON OVER CHARACTERS · READABILITY IS AN APPROXIMATION</span><span id="stamp">text-lens 0.1</span></footer>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
+var STOP=('the a an and or but if then than that this these those is are was were be been being am do does did have has had i you he she it we they them his her its our your their me him us mine yours of in on at to for with from by as so not no nor up down out over under about into after before between during').split(' ');
+function shannon(s){var f={},i,p,h=0;for(i=0;i<s.length;i++)f[s[i]]=(f[s[i]]||0)+1;for(var k in f){p=f[k]/s.length;h-=p*Math.log2(p)}return h}
+function syll(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(!w)return 0;var m=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').match(/[aeiouy]{1,2}/g);return m?m.length:1}
+var last=null;
+
+function analyze(){
+  var t=$('in').value;
+  var chars=t.length, words=t.match(/[\p{L}\p{N}'’-]+/gu)||[], sents=(t.match(/[^.!?…]+[.!?…]+/g)||[]).filter(function(s){return /[\p{L}\p{N}]/u.test(s)});
+  var lines=t.split('\n'), paras=t.split(/\n\s*\n/).filter(function(p){return /[\p{L}\p{N}]/u.test(p)});
+  if(!sents.length&&words.length)sents=[t];
+  var uniq={},i,w;
+  for(i=0;i<words.length;i++){w=words[i].toLowerCase();uniq[w]=(uniq[w]||0)+1}
+  var ukeys=Object.keys(uniq), hapax=ukeys.filter(function(k){return uniq[k]===1}).length;
+  var wc={},j;
+  for(i=0;i<words.length;i++){w=words[i].toLowerCase();if(w.length<2||STOP.indexOf(w)>=0)continue;wc[w]=(wc[w]||0)+1}
+  var top=Object.keys(wc).map(function(k){return [k,wc[k]]}).sort(function(a,b){return b[1]-a[1]||a[0].localeCompare(b[0])}).slice(0,12);
+  var bg={}, toks=words.map(function(x){return x.toLowerCase()});
+  for(i=0;i+1<toks.length;i++){var b=toks[i]+' '+toks[i+1];if(STOP.indexOf(toks[i])>=0&&STOP.indexOf(toks[i+1])>=0)continue;bg[b]=(bg[b]||0)+1}
+  var topB=Object.keys(bg).map(function(k){return [k,bg[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,10).filter(function(x){return x[1]>1});
+  var scripts={Latin:/\p{Script=Latin}/u,CJK:/\p{Script=Han}|\p{Script=Hiragana}|\p{Script=Katakana}/u,Tamil:/\p{Script=Tamil}/u,Cyrillic:/\p{Script=Cyrillic}/u,Arabic:/\p{Script=Arabic}/u,Digits:/\d/u,Punct:/[\p{P}\p{S}]/u,Space:/\s/u};
+  var mix={},total=chars||1,k;
+  for(k in scripts){var n=(t.match(new RegExp(scripts[k].source,'gu'))||[]).length;mix[k]=n;mix[k]=Math.round(1000*n/total)/10}
+  mix.Other=Math.max(0,Math.round(1000*(chars-Object.keys(mix).reduce(function(a,x){return a+mix[x]},0))/total)/10);
+  var avgW=words.length?words.reduce(function(a,x){return a+x.length},0)/words.length:0;
+  var avgS=sents.length?words.length/sents.length:0;
+  var sylAvg=words.length?words.reduce(function(a,x){return a+syll(x)},0)/words.length:0;
+  var longest=words.slice().sort(function(a,b){return b.length-a.length})[0]||'—';
+  var flesch=words.length&&sents.length?Math.round((206.835-1.015*(words.length/sents.length)-84.6*(words.reduce(function(a,x){return a+syll(x)},0)/words.length))*10)/10:null;
+  var wlen=words.map(function(x){return x.length}).sort(function(a,b){return a-b});
+  last={
+    chars:chars,words:words.length,unique:ukeys.length,hapax:hapax,lines:lines.length,
+    paragraphs:paras.length,sentences:sents.length,avg_word:+avgW.toFixed(2),avg_sentence:+avgS.toFixed(2),
+    longest_word:longest,char_entropy:+shannon(t).toFixed(3),word_entropy:+shannon(toks.join(' ')).toFixed(3),
+    flesch:flesch,ttr:words.length?+(ukeys.length/words.length).toFixed(3):0,
+    syl_avg:+sylAvg.toFixed(2),
+    median_word:wlen.length?wlen[Math.floor(wlen.length/2)]:0,script_mix:mix,top_words:top,top_bigrams:topB
+  };
+  render();
+}
+function kv(k,v){return '<div class="kv"><b>'+esc(v)+'</b><span>'+esc(k)+'</span></div>'}
+function render(){
+  var d=last;if(!d){$('grid').innerHTML='';return}
+  var MIXC={Latin:'var(--cool)',CJK:'var(--hot)',Tamil:'var(--gold)',Cyrillic:'var(--green)',Arabic:'#c69483',Digits:'#879296',Punct:'#4b585e',Space:'#283239',Other:'#5c6a70'};
+  var mixbar=Object.keys(d.script_mix).map(function(k){var v=d.script_mix[k];return v>0?'<i style="width:'+Math.max(0.4,v)+'%;background:'+(MIXC[k]||'#333')+'" title="'+k+' '+v+'%"></i>':''}).join('');
+  var mixchips=Object.keys(d.script_mix).map(function(k){var v=d.script_mix[k];return v>0?'<span class="chip">'+k+' <b>'+v+'%</b></span>':''}).join('');
+  $('grid').innerHTML=
+   '<div class="cell"><h2>STRUCTURE</h2><div class="k">COUNTS</div>'+kv('characters',d.chars)+kv('words',d.words)+kv('unique words',d.unique)+kv('sentences',d.sentences)+kv('paragraphs',d.paragraphs)+kv('lines',d.lines)+'</div>'+
+   '<div class="cell"><h2>LENGTH</h2><div class="k">DISTRIBUTION</div>'+kv('avg word',d.avg_word)+kv('median word',d.median_word)+kv('avg sentence (words)',d.avg_sentence)+kv('longest word',d.longest_word)+'</div>'+
+   '<div class="cell"><h2>ENTROPY</h2><div class="k">SHANNON · bits per unit</div>'+kv('char entropy',d.char_entropy)+kv('word-run entropy',d.word_entropy)+kv('TTR (unique/total)',d.ttr)+kv('hapax share',d.words?Math.round(1000*d.hapax/d.words)/10+'%':'—')+'</div>'+
+   '<div class="cell"><h2>READABILITY</h2><div class="k">APPROXIMATION</div>'+kv('Flesch reading ease',d.flesch==null?'—':d.flesch)+kv('band',d.flesch==null?'—':d.flesch>=90?'very easy':d.flesch>=70?'easy':d.flesch>=60?'standard':d.flesch>=50?'difficult':'very difficult')+kv('words / sentence',d.avg_sentence)+kv('syllables / word',d.syl_avg)+'</div>'+
+   '<div class="cell"><h2>SCRIPT MIX</h2><div class="k">SHARE OF CHARACTERS</div><div class="mix">'+mixbar+'</div><div class="chips">'+mixchips+'</div></div>'+
+   '<div class="cell"><h2>TOP WORDS</h2><div class="k">STOPWORDS REMOVED</div><div class="chips">'+(d.top_words.map(function(x){return '<span class="chip">'+esc(x[0])+' <b>'+x[1]+'</b></span>'}).join('')||'<span class="chip">—</span>')+'</div></div>'+
+   '<div class="cell"><h2>TOP BIGRAMS</h2><div class="k">ADJACENT PAIRS</div><div class="chips">'+(d.top_bigrams.map(function(x){return '<span class="chip">'+esc(x[0])+' <b>'+x[1]+'</b></span>'}).join('')||'<span class="chip">—</span>')+'</div></div>'+
+   '<div class="cell"><h2>DIVERSITY</h2><div class="k">VOCABULARY SHAPE</div>'+kv('TTR',d.ttr)+kv('hapax count',d.hapax)+kv('unique words',d.unique)+kv('total words',d.words)+'</div>'+
+   '<div class="cell"><h2>SHAPE</h2><div class="k">DOCUMENT FRAME</div>'+kv('lines',d.lines)+kv('paragraphs',d.paragraphs)+kv('sentences',d.sentences)+kv('chars/line',d.lines?Math.round(d.chars/d.lines):0)+'</div>';
+}
+var timer=null;
+$('in').addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(analyze,140)});
+$('copy').onclick=function(){
+  var payload=JSON.stringify(last||{},null,2);
+  (navigator.clipboard&&navigator.clipboard.writeText(payload)||Promise.reject()).then(function(){$('hint').textContent='report copied'},function(){$('hint').textContent='copy blocked'});
+};
+$('clear').onclick=function(){$('in').value='';analyze();$('hint').textContent='cleared'};
+analyze();
+})();
+</script>
+</body></html>

@@ -18,6 +18,11 @@ jobs:
       # individual limits would re-drift; this raises them all at once. The
       # limits are maxima — normal runs are unaffected, only the tail is.
       SMOKE_SLOW: "2"
+      # Pin the browser-smoke server port. The default 41739 is shared with
+      # every local/agent run on one machine, and two runs on one port kill
+      # each other (EADDRINUSE, or killed Chrome -> false FAILs). Any parallel
+      # smoke invocation must export a unique SMOKE_PORT; CI pins its own here.
+      SMOKE_PORT: "43177"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

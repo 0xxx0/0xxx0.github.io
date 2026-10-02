@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<meta name="robots" content="noindex,nofollow">
+<title>RE-READER · OMNITOOL</title>
+<style>
+:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px 28px}main{width:min(1180px,100%);margin:auto}a{color:inherit;text-decoration:none}button,select{font:inherit;color:inherit;background:var(--p);border:1px solid var(--line);border-radius:0;padding:8px 11px;cursor:pointer;letter-spacing:.08em}button:hover,select:hover{border-color:var(--cool);color:#d8f2ff}button.on{border-color:var(--gold);color:var(--gold)}textarea{width:100%;background:var(--p);color:var(--ink);border:1px solid var(--line);border-radius:0;padding:10px;font:inherit;resize:vertical}
+header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(38px,8vw,72px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}.dek{margin-top:12px;color:#aab4b7;font:12px/1.65 system-ui,sans-serif;max-width:72ch}.dek b{color:var(--ink)}
+.bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.bar .hint{color:var(--muted);font-size:8px;margin-left:auto}
+.edit{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.edit>div{background:var(--p);padding:10px}.edit .k{color:var(--cool);font-size:8px;letter-spacing:.12em;margin-bottom:6px}
+.read{margin-top:14px;border:1px solid var(--line)}
+.row{display:grid;grid-template-columns:38px 1fr 1fr 1fr;border-bottom:1px solid var(--line);cursor:pointer}
+.row:last-child{border-bottom:0}.row:hover{background:#11181c}.row:hover .c{box-shadow:inset 0 2px var(--gold)}
+.n{padding:12px 8px;color:var(--muted);font-size:8px;border-right:1px solid var(--line);text-align:right}
+.c{padding:12px 14px;border-right:1px solid var(--line);font-size:15px;line-height:1.85;overflow-wrap:anywhere}
+.c:last-child{border-right:0}
+.c.ta{font-family:'Tamil MN','Sangam MN','Noto Sans Tamil',serif}
+.c.zh{font-family:'PingFang TC','Songti SC','Noto Serif TC',serif}
+.c.en{font-family:Georgia,'Times New Roman',serif;color:#c9d2d4}
+.veil .c:not(.keep){filter:blur(6px);opacity:.55;user-select:none}
+.veil .row.open .c{filter:none;opacity:1;user-select:auto}
+.row.open{background:#12191e}
+.empty{padding:26px;color:var(--muted);text-align:center}
+footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
+@media(max-width:860px){.edit{grid-template-columns:1fr}.row{grid-template-columns:28px 1fr}.n{padding:10px 4px}.c{border-right:0;border-bottom:1px solid var(--line);font-size:14px}footer{display:block}}
+</style>
+</head>
+<body><main>
+<header>
+  <div class="ey">FOUNDRY / OMNITOOLS · MULTILINGUAL RE-READING 0.1</div>
+  <h1>RE-<br>READER.</h1>
+  <div class="dek"><b>Three scripts. One row. Your eyes first.</b> Paste தமிழ் / 中文 / English in parallel blocks (blank line = one segment). Veil hides the languages you are not reading yet; click a row to reveal exactly that row. A re-reading instrument — like a reader extension, but yours, offline, and honest about alignment.</div>
+</header>
+
+<div class="bar">
+  <button id="align" class="on">ALIGN</button>
+  <button id="veil">VEIL</button>
+  <select id="keep" title="script kept clear under veil">
+    <option value="ta">KEEP · தமிழ்</option>
+    <option value="zh">KEEP · 中文</option>
+    <option value="en" selected>KEEP · ENGLISH</option>
+  </select>
+  <button id="reset">RESET</button>
+  <span class="hint" id="hint">blank line separates segments</span>
+</div>
+
+<div class="edit" id="edit">
+  <div><div class="k">தமிழ் · TAMIL</div><textarea id="ta" rows="6" spellcheck="false" placeholder="வணக்கம் உலகமே&#10;&#10;இரண்டாம் பத்தி"></textarea></div>
+  <div><div class="k">中文 · CHINESE</div><textarea id="zh" rows="6" spellcheck="false" placeholder="你好，世界&#10;&#10;第二段"></textarea></div>
+  <div><div class="k">ENGLISH</div><textarea id="en" rows="6" spellcheck="false" placeholder="Hello, world&#10;&#10;Second paragraph"></textarea></div>
+</div>
+
+<div class="read" id="read"><div class="empty">no alignment yet · press ALIGN</div></div>
+
+<footer><span>SEGMENT COUNTS MAY UNEQUAL · MISALIGNMENT IS SHOWN, NOT HIDDEN</span><span id="stamp">re-reader 0.1</span></footer>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
+function segs(id){
+  var t=$(id).value.trim();
+  if(!t)return[];
+  var parts=t.split(/\n\s*\n/).map(function(s){return s.replace(/\s+/g,' ').trim()}).filter(Boolean);
+  return parts.length>1?parts:t.split('\n').map(function(s){return s.trim()}).filter(Boolean);
+}
+var veil=false, open={};
+function align(){
+  var cols={ta:segs('ta'),zh:segs('zh'),en:segs('en')};
+  var n=Math.max(cols.ta.length,cols.zh.length,cols.en.length,1);
+  if(!cols.ta.length&&!cols.zh.length&&!cols.en.length){$('read').innerHTML='<div class="empty">no alignment yet · press ALIGN</div>';return}
+  var html='';
+  for(var i=0;i<n;i++){
+    html+='<div class="row'+(open[i]?' open':'')+'" data-i="'+i+'"><div class="n">'+(i+1)+'</div>'+
+      '<div class="c ta">'+(cols.ta[i]?esc(cols.ta[i]):'<span style="color:var(--muted)">— missing —</span>')+'</div>'+
+      '<div class="c zh">'+(cols.zh[i]?esc(cols.zh[i]):'<span style="color:var(--muted)">— missing —</span>')+'</div>'+
+      '<div class="c en">'+(cols.en[i]?esc(cols.en[i]):'<span style="color:var(--muted)">— missing —</span>')+'</div></div>';
+  }
+  var warn=[];
+  if(cols.ta.length!==n||cols.zh.length!==n||cols.en.length!==n)warn.push('segments ta '+cols.ta.length+' / zh '+cols.zh.length+' / en '+cols.en.length+' — unequal, aligned by index');
+  $('read').innerHTML=html;
+  $('hint').textContent=warn.length?warn[0]:(n+' aligned segment(s) · '+(veil?'veiled':'open'));
+  applyKeep();
+  var rows=$('read').querySelectorAll('.row');
+  for(var r=0;r<rows.length;r++)rows[r].addEventListener('click',function(){
+    var i=this.getAttribute('data-i');open[i]=!open[i];this.classList.toggle('open',!!open[i]);
+  });
+}
+function applyKeep(){
+  var k=$('keep').value, cs=$('read').querySelectorAll('.c');
+  for(var i=0;i<cs.length;i++)cs[i].classList.toggle('keep',cs[i].classList.contains(k));
+}
+$('align').onclick=align;
+$('veil').onclick=function(){veil=!veil;this.classList.toggle('on',veil);this.textContent=veil?'UNVEIL':'VEIL';$('read').classList.toggle('veil',veil);$('hint').textContent=veil?'veil on · click a row to reveal it':'veil off'};
+$('keep').onchange=applyKeep;
+$('reset').onclick=function(){open={};veil=false;$('veil').classList.remove('on');$('veil').textContent='VEIL';$('read').classList.remove('veil');$('ta').value='';$('zh').value='';$('en').value='';$('read').innerHTML='<div class="empty">no alignment yet · press ALIGN</div>';$('hint').textContent='reset'};
+})();
+</script>
+</body></html>

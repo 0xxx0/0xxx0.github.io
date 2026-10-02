@@ -1,0 +1,38 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "FOUNDRY / OMNITOOLS",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "date": "2026-10-02",
+  "route": "/foundry/omnitools/",
+  "parent": "/foundry/",
+  "operation": "TRANSFORM",
+  "claim": "A first batch of small self-contained omnitools: each file is one complete instrument (HTML+IIFE or zero-dependency Node CLI), offline, testable, with 1-3 reachable operations. Head tool is the repo/PII pattern extractor that this surface needed after a personal address had to be found in a public repo by manual git grep.",
+  "tools": [
+    {"id": "pii-scan", "file": "pii-scan.mjs", "kind": "cli", "verdict": "TESTED", "evidence": "fixture repo with planted fake secrets; tree+history scan found all 11 planted classes at correct file:line; --json/--redact/--fail-on exit codes verified; real public repo tree scan runs clean of personal mail domains (values withheld)"},
+    {"id": "pii-lens", "file": "pii-lens.html", "kind": "html", "verdict": "TESTED", "evidence": "node --check clean; live browser run: 10 findings on planted sample at correct lines, mask/reveal verified, zero console errors"},
+    {"id": "text-lens", "file": "text-lens.html", "kind": "html", "verdict": "TESTED", "evidence": "node --check clean; live browser run on trilingual sample: counts/entropy/Flesch band/script mix (Latin 67.4% · Tamil 8.6% · CJK 3.7%)/word+bigram ranks all computed, zero console errors"},
+    {"id": "re-reader", "file": "re-reader.html", "kind": "html", "verdict": "TESTED", "evidence": "node --check clean; live browser run: 3 ta/zh/en segments aligned by index, VEIL toggles blur, row click reveals exactly one row, KEEP column honored, zero console errors"},
+    {"id": "reshaper", "file": "reshaper.html", "kind": "html", "verdict": "TESTED", "evidence": "node --check clean; live browser run: CSV quoted-comma/embedded-newline/escaped-quote round trip correct; nested JSON flattened to dot-paths + array indices with empty arrays preserved; zero console errors"},
+    {"id": "html-munge", "file": "html-munge.mjs", "kind": "cli", "verdict": "TESTED", "evidence": "fixture page through all 6 modes (text/md/links/tables/meta/json) plus stdin mode; script/style content stripped; entities decoded"}
+  ],
+  "mutation": "NEW ROUTE /foundry/omnitools/ + 6 tools + index; showcase-manifest route added; one FOUNDRY gateway card added under 02 / OPERATE",
+  "known_limits": [
+    "pii-scan regex detectors are heuristics: real-name is keyword-anchored and low confidence; entropy sweep trades recall for noise (default 4.5 bits/char, pure-hex skipped).",
+    "pii-scan history scan reports patch positions (hist:<sha>:<path>:<line>); deleted-line numbers refer to the pre-image file.",
+    "html-munge is regex-based, not a DOM: malformed markup or deeply nested tables may extract imperfectly.",
+    "re-reader aligns segments by index only; unequal block counts are displayed as missing, not silently padded.",
+    "Flesch readability in text-lens is an approximation (English syllable heuristic) and meaningless for Tamil/Chinese input.",
+    "Browser tools are client-side only and never transmit pasted content."
+  ],
+  "evidence": {
+    "receipt": "/foundry/omnitools/release.json",
+    "checks": [
+      "every HTML tool: node --check on each <script> block",
+      "every HTML tool: exercised live in a browser with assertions on rendered results",
+      "both CLIs: run against real fixtures with asserted output",
+      "pii-scan: calibrated against the real public repo (noise reduced: phone 1551→8, real-name 218→5 at default settings)"
+    ],
+    "return_path": "/foundry/"
+  }
+}
