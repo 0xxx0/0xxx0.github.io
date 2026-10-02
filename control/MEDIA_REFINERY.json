@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/media-refinery-contract/v0.1",
   "id": "FIELD-MEDIA-REFINERY",
-  "updated": "2026-09-22",
+  "updated": "2026-10-03",
   "primary_abstraction": "PAINT = Composition × Surface × Pattern × Meaning × Transformation",
   "laws": [
     "RECOVER BEFORE GENERATE",
@@ -189,8 +189,18 @@
     "cycle": "/scripts/media-curator-cycle.py",
     "hermes_skill": "/skills/media-curator/SKILL.md",
     "bootstrap": "/scripts/hermes-media-bootstrap.sh",
-    "bulk_default": "qwen3-vl:8b via local Ollama",
-    "authority": "semantic overlay + validation only; no source mutation or rendering"
+    "bulk_default": "qwen3.5:9b via local Ollama",
+    "authority": "semantic overlay + validation only; no source mutation or rendering",
+    "control": "/scripts/media-curator-control.py",
+    "operating_loop": {
+      "configure": "persist exact source/out/repo/profile/model local config",
+      "doctor": "verify binaries/source/model/repo before work",
+      "pilot": "bounded three-batch proof",
+      "overnight": "single-flight local VLM/refinery cycle; no Hermes agent turn",
+      "morning": "Hermes reads morning-return and adjudicates at most three held/high-value batches",
+      "search": "literal path + reviewed semantic-overlay retrieval over indexed media",
+      "cron": "install paused script-only nightly + bounded morning agent jobs; explicit resume/pause"
+    }
   },
   "visual_law_archaeology_v0_1": {
     "purpose": "Turn reviewed images into transferable visual mechanisms without confusing appearance, lineage, reaction, or host authority.",

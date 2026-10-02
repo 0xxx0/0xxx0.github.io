@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_FIELD_ACTIONS_2026-10-03",
+  "date": "2026-10-03",
+  "state": "BOUNDED_EXECUTION_SEAM_CLOSED",
+  "object": "FIELD φ /laconic/ → LACONIC / ICONIC",
+  "delta": [
+    "Runtime repair: Pocket PLAY now iterates document.querySelectorAll('.tabs button') and document.querySelectorAll('.view'); the earlier single-element selector path was invalid.",
+    "Repaired Pocket PLAY runtime selector bug: querySelector result was incorrectly treated as an iterable; PLAY now switches to the canonical scene runner.",
+    "Added addressable ?view, ?scene and ?card projections on the existing /laconic/ route.",
+    "Added exactly three target-bearing FIELD native actions: DRAFT / DEAL ONE / TRAJECTORIES.",
+    "Added explicit FIELD return link inside LACONIC; no new route, queue, store or authority."
+  ],
+  "targets": [
+    "/laconic/?view=lines&return=field",
+    "/laconic/?view=pocket&deal=1&return=field",
+    "/laconic/?view=scenes&return=field"
+  ],
+  "proof": [
+    {
+      "kind": "syntax",
+      "path": "/laconic/index.html",
+      "claim": "inline JavaScript compiles after repair"
+    },
+    {
+      "kind": "runtime_static",
+      "path": "/laconic/index.html",
+      "claim": "Pocket PLAY uses plural selector helper and exact scene address"
+    },
+    {
+      "kind": "field_contract",
+      "path": "/showcase-manifest.json",
+      "claim": "three AVAILABLE target-bearing exit paths on /laconic/"
+    },
+    {
+      "kind": "runtime_static",
+      "path": "/laconic/index.html",
+      "claim": "openPocketScene uses document.querySelectorAll for both tab and view collections"
+    }
+  ],
+  "boundaries": [
+    "Query parameters select projections only; they do not mint canonical state or NOW authority.",
+    "DEAL ONE is transient choice; exact dealt card is then represented by ?card.",
+    "DRAFT remains distinct from SEND; HUMAN PORT remains the external communication boundary."
+  ],
+  "return": "/?focus=%2Flaconic%2F"
+}

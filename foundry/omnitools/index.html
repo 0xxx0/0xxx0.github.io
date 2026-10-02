@@ -1,56 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07090b">
-<meta name="robots" content="noindex,nofollow">
-<title>OMNITOOLS · FOUNDRY</title>
-<style>
-:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}a{color:inherit;text-decoration:none}
-main{width:min(1180px,100%);margin:auto}header{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;padding:34px 0 18px;border-bottom:1px solid var(--line)}
-.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(46px,10vw,104px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.08em}.dek{color:#aab4b7;font:12px/1.65 system-ui,sans-serif}.dek b{color:var(--ink)}
-.law{margin-top:12px;border-left:2px solid var(--gold);padding:8px 10px;background:#11120f;color:#c0b9a5}
-.stratum{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}.rail{padding:18px 12px 18px 0}.rail b{font:800 15px system-ui,sans-serif}.rail p{margin:6px 0 0;color:var(--muted);font-size:8px}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line)}
-.card{display:block;background:var(--p);padding:15px;min-height:144px;position:relative}.card:hover{background:#11181c}.card.primary{box-shadow:inset 3px 0 var(--gold)}.card.cool{box-shadow:inset 3px 0 var(--cool)}.card.hot{box-shadow:inset 3px 0 var(--hot)}
-.card .k{color:var(--muted);font-size:7px;letter-spacing:.11em}.card h2{margin:18px 0 7px;font:800 20px/.95 system-ui,sans-serif;letter-spacing:-.035em}.card p{margin:0;color:#9fa9ac;font:9px/1.55 system-ui,sans-serif;max-width:56ch}.card .use{margin-top:8px;color:var(--green);font-size:8px;word-break:break-all}
-.arrow{position:absolute;right:12px;top:11px;color:#647177}
-footer{display:flex;justify-content:space-between;gap:20px;padding:12px 0 0;color:#657178;font-size:8px}
-@media(max-width:720px){header{grid-template-columns:1fr}.stratum{grid-template-columns:1fr}.rail{padding-bottom:10px}.cards{grid-template-columns:1fr;border-left:0}footer{display:block}footer span{display:block;margin-top:4px}}
-</style>
-</head>
-<body><main>
-<header>
-  <div><div class="ey">FOUNDRY / OMNITOOLS · BATCH 0.1</div><h1>SMALL<br>SHARP<br>TOOLS.</h1></div>
-  <div class="dek"><b>Each file is the whole tool.</b> Self-contained instruments — one useful thing each, offline, copy-pasteable, no build step and no dependencies. Two run in the terminal; four run in the browser. Every one is tested against a real fixture before it is listed here.<div class="law"><b>OPERATIONS LAW:</b> 1–3 reachable operations per tool · depth behind explicit reveal · values masked until asked for.</div></div>
-</header>
-
-<section class="stratum">
-  <div class="rail"><b>01 / EXPOSE</b><p>Find what identifies before the world does.</p></div>
-  <div class="cards">
-    <a class="card primary" href="./pii-scan.mjs"><span class="arrow">↗</span><div class="k">CLI · NODE ≥18 · ZERO DEPS</div><h2>PII-SCAN</h2><p>Repo/PII pattern extractor: scans a git working tree and full history for emails, handles, secrets, keys, tokens, IPs, phones and probable names. Regex detectors + Shannon-entropy scoring, redaction mode, JSON output, fail-on severity for CI.</p><div class="use">node pii-scan.mjs ~/repo --history --redact</div></a>
-    <a class="card primary" href="./pii-lens.html"><span class="arrow">↗</span><div class="k">BROWSER · OFFLINE</div><h2>PII LENS</h2><p>The same detector family for pasted or dropped text. Scan a snippet, a log, a diff or a file without leaving the page. Values stay masked until REVEAL; findings export as JSON.</p><div class="use">./pii-lens.html</div></a>
-  </div>
-</section>
-
-<section class="stratum">
-  <div class="rail"><b>02 / READ</b><p>Text becomes measurable, then re-readable.</p></div>
-  <div class="cards">
-    <a class="card cool" href="./text-lens.html"><span class="arrow">↗</span><div class="k">BROWSER · OFFLINE</div><h2>TEXT LENS</h2><p>Compact text-analysis suite: structure, lengths, Shannon entropy, Flesch band, script mix (Latin/CJK/Tamil/…), word and bigram ranks, lexical diversity. Re-measures as you type.</p><div class="use">./text-lens.html</div></a>
-    <a class="card hot" href="./re-reader.html"><span class="arrow">↗</span><div class="k">BROWSER · OFFLINE</div><h2>RE-READER</h2><p>Tamil / Chinese / English re-reading overlay. Parallel blocks align by segment; VEIL hides the languages you are not reading yet and one click reveals exactly one row. Misalignment is shown, never hidden.</p><div class="use">./re-reader.html</div></a>
-  </div>
-</section>
-
-<section class="stratum">
-  <div class="rail"><b>03 / MOVE</b><p>Data and scraped pages change shape without losing bytes.</p></div>
-  <div class="cards">
-    <a class="card cool" href="./reshaper.html"><span class="arrow">↗</span><div class="k">BROWSER · OFFLINE</div><h2>RESHAPE</h2><p>Data export desk: JSON / NDJSON / CSV / TSV in, JSON / CSV / NDJSON out. Quotes and embedded newlines honored; nested objects flatten to dot-paths so nothing is silently dropped.</p><div class="use">./reshaper.html</div></a>
-    <a class="card hot" href="./html-munge.mjs"><span class="arrow">↗</span><div class="k">CLI · NODE ≥18 · ZERO DEPS</div><h2>HTML-MUNGE</h2><p>Scraped HTML to plain data: text, markdown, NDJSON link lists, table rows, or page meta. Reads a file, a URL or stdin. Script/style noise stripped before anything is measured.</p><div class="use">node html-munge.mjs page.html --mode tables</div></a>
-  </div>
-</section>
-
-<footer><span>SELF-CONTAINED BY CONTRACT · ONE FILE IS THE WHOLE TOOL · TESTED BEFORE LISTED</span><span><a href="../">← FOUNDRY</a> · omnitools 0.1 · 2026-10-02</span></footer>
-</main>
-</body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090b"><meta name="robots" content="noindex,nofollow"><title>OMNITOOLS · WORKBENCH 0.2</title><style>:root{color-scheme:dark;--bg:#07090b;--ink:#edf0eb;--muted:#879296;--line:#283239;--gold:#d9ad62}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font:12px/1.4 ui-monospace,Menlo,Consolas,monospace}body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}header{height:52px;display:flex;align-items:center;gap:14px;padding:0 14px;border-bottom:1px solid var(--line)}header b{font:800 15px system-ui}header span{color:var(--muted);font-size:9px}.home{margin-left:auto;color:var(--muted);text-decoration:none;font-size:9px}nav{height:44px;display:flex;gap:1px;padding:1px;background:var(--line)}nav button{flex:1;min-width:0;border:0;background:var(--bg);color:var(--muted);font:800 9px ui-monospace;letter-spacing:.08em}nav button[aria-selected=true]{background:#172027;color:var(--ink);box-shadow:inset 0 -2px var(--gold)}#stage{height:calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}iframe{display:block;width:100%;height:100%;border:0;background:var(--bg)}iframe[hidden]{display:none}#tools{position:fixed;z-index:4;right:8px;top:calc(58px + env(safe-area-inset-top));max-width:min(370px,calc(100vw - 16px));padding:12px;border:1px solid var(--line);background:#0b1014;box-shadow:0 12px 40px #0009;display:none}#tools.open{display:block}#tools b{display:block;color:var(--gold);font-size:8px;letter-spacing:.12em;margin-bottom:6px}#tools code{display:block;white-space:pre-wrap;color:#c7d1d3;font-size:9px}#toolToggle{position:fixed;z-index:5;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));border:1px solid var(--line);background:#10171b;color:var(--ink);padding:9px 11px;font:800 8px ui-monospace;letter-spacing:.1em}@media(max-width:520px){header{height:48px;padding:0 10px}header b{font-size:13px}header span{font-size:7px}nav{height:42px}nav button{font-size:8px;padding:0 4px}#stage{height:calc(100dvh - 90px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}#toolToggle{right:8px;bottom:calc(8px + env(safe-area-inset-bottom))}}</style></head><body>
+<header><b>OMNITOOLS / 0.2</b><span>ONE INPUT · FOUR WORKING MOVES · LOCAL BY DEFAULT</span><a class="home" href="../">FOUNDRY ↗</a></header>
+<nav role="tablist" aria-label="Choose a tool"><button role="tab" aria-selected="true" data-tool="pii-lens.html">SCAN</button><button role="tab" aria-selected="false" data-tool="text-lens.html">READ</button><button role="tab" aria-selected="false" data-tool="re-reader.html">ALIGN</button><button role="tab" aria-selected="false" data-tool="reshaper.html">RESHAPE</button></nav>
+<main id="stage"><iframe class="toolPane" title="Sensitive text scan" data-tool="pii-lens.html" src="./pii-lens.html" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe><iframe class="toolPane" title="Text analysis" data-tool="text-lens.html" src="./text-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe><iframe class="toolPane" title="Multilingual alignment" data-tool="re-reader.html" src="./re-reader.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe><iframe class="toolPane" title="Data reshape" data-tool="reshaper.html" src="./reshaper.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe></main>
+<button id="toolToggle" aria-expanded="false" aria-controls="tools">CLI / HELP</button><aside id="tools" aria-hidden="true"><b>WHEN A COMMAND IS THE RIGHT FIT</b><code>REPO SCAN · node pii-scan.mjs ~/repo --history --redact
+HTML EXTRACT · node html-munge.mjs page.html --mode tables
+MODES · text | md | links | tables | meta | json
+DATA IN · JSON | NDJSON | CSV | TSV
+EXPORT · JSON | CSV | NDJSON</code><p>Browser tools keep their local processing. Nothing is uploaded by this launcher.</p></aside>
+<script>(()=>{'use strict';const panes=[...document.querySelectorAll('.toolPane')],ts=[...document.querySelectorAll('[data-tool][role="tab"]')],h=document.getElementById('tools'),b=document.getElementById('toolToggle');function select(i){panes.forEach((p,j)=>p.hidden=i!==j);ts.forEach((t,j)=>{t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1})}ts.forEach((t,i)=>t.addEventListener('click',()=>select(i)));b.onclick=()=>{const o=h.classList.toggle('open');h.setAttribute('aria-hidden',String(!o));b.setAttribute('aria-expanded',String(o));b.textContent=o?'CLOSE HELP':'CLI / HELP'};document.addEventListener('keydown',e=>{if(e.altKey&&['1','2','3','4'].includes(e.key)){e.preventDefault();select(Number(e.key)-1);ts[Number(e.key)-1].focus()}if(e.key==='Escape'&&h.classList.contains('open'))b.click()})})();</script></body></html>

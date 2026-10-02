@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T03:17:00+08:00",
+  "updated": "2026-10-03T03:48:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -4999,22 +4999,23 @@
     },
     {
       "href": "/foundry/omnitools/",
-      "title": "FOUNDRY / OMNITOOLS 0.1",
+      "title": "FOUNDRY / OMNITOOLS 0.2",
       "kind": "workbench",
       "parent": "/foundry/",
       "family": "FOUNDRY / OMNITOOLS",
       "operation": "TRANSFORM",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/foundry/omnitools/release.json",
       "showcase_card": false,
-      "role": "Small self-contained omnitools: one file is one complete tested instrument — repo/PII pattern extractor, paste-text PII lens, text-analysis suite, Tamil/Chinese/English re-reading overlay, data reshaping desk, HTML munging CLI.",
+      "role": "One-screen workbench for scan, read, align and reshape. A single active tool surface preserves local processing; repository and HTML CLI tools remain reachable from one compact help aperture.",
       "transfer": [
         "repo/PII pattern extraction",
         "entropy secret scoring",
         "trilingual re-reading overlay",
         "data format reshaping",
-        "scrape munging"
+        "scrape munging",
+        "Four browser tools share one focused workbench and viewport; direct tool routes remain addressable without becoming root cards."
       ],
       "field": {
         "roles": [
@@ -5045,10 +5046,11 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-03T00:41:21+08:00",
+        "updated_at": "2026-10-03T03:55:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "evolution": {
@@ -5058,12 +5060,84 @@
         "stage": "TEST",
         "question": "Do compact self-contained tools remove real friction (PII exposure, text measurement, alignment, data movement) without adding surface area?",
         "baseline": "Manual git grep, ad-hoc scripts and one-off pages per task.",
-        "mutation": "Six tested single-file instruments under one /foundry/omnitools/ gateway.",
+        "mutation": "Replace the six-card catalog with a viewport-filling launcher: SCAN / READ / ALIGN / RESHAPE tabs + one active local tool + collapsed CLI help.",
         "evidence_gate": "Each tool resolves one real task end-to-end on a fixture before it is listed; HTML tools additionally pass node --check and a live browser exercise.",
-        "next_if_pass": "Promote surviving tools to ACTIVE; grow the batch by composition and forward evolution of existing local/field-index material.",
+        "next_if_pass": "Keep the four tools that complete actual source-to-result work; merge or remove a tool only when a task is proven redundant.",
         "next_if_fail": "Keep as CANDIDATE/DONOR; do not expand the batch."
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/pii-lens.html",
+      "title": "OMNITOOLS / SCAN",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "SCAN",
+      "state": "UTILITY",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Identify and mask sensitive values in pasted or dropped text.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/foundry/omnitools/text-lens.html",
+      "title": "OMNITOOLS / READ",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "READ",
+      "state": "UTILITY",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Measure structure and script composition for one local text source.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/foundry/omnitools/re-reader.html",
+      "title": "OMNITOOLS / ALIGN",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "ALIGN",
+      "state": "UTILITY",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Reveal one indexed multilingual segment at a time.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/foundry/omnitools/reshaper.html",
+      "title": "OMNITOOLS / RESHAPE",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "RESHAPE",
+      "state": "UTILITY",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Convert JSON, NDJSON, CSV or TSV between export shapes.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
     },
     {
       "href": "/fovea/",
@@ -5355,13 +5429,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3.5",
+      "title": "LACONIC / ICONIC 0.3.6",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3.5",
+      "version": "0.3.6",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5372,7 +5446,8 @@
         "exact fragment/operator recovery",
         "exact-source vault browsing",
         "persona/plurality/Council lineage recovery",
-        "pocket trajectory projection"
+        "pocket trajectory projection",
+        "direct-address pocket/scene entry from FIELD"
       ],
       "contract": {
         "accepts": {
@@ -5435,7 +5510,8 @@
             "human-triggered handoff",
             "VAULT/current-layer separation",
             "generic council/proper-name distinction",
-            "POCKET references canonical SCENES; no duplicate content or adoption store"
+            "POCKET references canonical SCENES; no duplicate content or adoption store",
+            "FIELD exposes exactly DRAFT / DEAL ONE / TRAJECTORIES as target-bearing native actions"
           ],
           "return_path": "/laconic/"
         }
@@ -5476,6 +5552,24 @@
         ],
         "exit_paths": [
           {
+            "class": "DRAFT",
+            "status": "AVAILABLE",
+            "via": "DRAFT",
+            "target": "/laconic/?view=lines&return=field"
+          },
+          {
+            "class": "POCKET",
+            "status": "AVAILABLE",
+            "via": "DEAL ONE",
+            "target": "/laconic/?view=pocket&deal=1&return=field"
+          },
+          {
+            "class": "TRAJECTORIES",
+            "status": "AVAILABLE",
+            "via": "TRAJECTORIES",
+            "target": "/laconic/?view=scenes&return=field"
+          },
+          {
             "class": "COMMUNICATION",
             "status": "AVAILABLE",
             "via": "HUMAN PORT"
@@ -5486,10 +5580,11 @@
             "via": "response-move grammar"
           }
         ],
-        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
+        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool.",
+        "owner": "LACONIC / ICONIC"
       },
       "index": {
-        "updated_at": "2026-10-02T23:49:00+08:00",
+        "updated_at": "2026-10-03T03:48:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
