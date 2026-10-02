@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03",
   "date": "2026-10-03",
-  "state": "CANDIDATE / CI_REQUIRED",
+  "state": "MERGED_CI_GREEN",
   "object": "FIELD INDEX 0.8.33 / PERSISTENT RUN DOCK",
   "predecessor": "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
   "operation": "CURRENT HEAD → HOLD → persistent TURN / TRACE / RETURN → native owner → exact FIELD re-entry",
@@ -21,13 +21,16 @@
     "Native hosts retain effect/commit authority; the dock is navigation/view projection only."
   ],
   "verification": {
-    "branch": "chatgpt/field-run-dock-0833",
-    "proof_head": null,
-    "field_action_aperture": "pending",
-    "route_registration": "pending",
-    "public_surface": "pending",
-    "gitleaks": "pending",
-    "browser": "pending"
+    "branch": "converge/execution-spine-20261003",
+    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+    "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+    "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+    "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+    "field_action_aperture": "PASS inside public-surface-check 37058033600",
+    "route_registration": "PASS 37058033573",
+    "public_surface": "PASS 37058033600",
+    "gitleaks": "PASS 37058033582",
+    "browser": "PASS · public-surface-check 37058033600 including Dayline zero-hunt source selftest, FIELD held RUN-dock binding, downstream RETURN contract, mobile/LIVE regressions, critical browser smoke, recovered-source validation and frozen City/Painting handlers."
   },
   "falsifier": "Fail if the dock appears unheld, invents an action not present on the canonical aperture, exceeds TURN/TRACE/RETURN, hides content on mobile, changes CURRENT/manifest/native state, or breaks exact focus re-entry.",
   "residue": [
