@@ -31,7 +31,10 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   await wait(()=>D().getElementById('docAperture').snapshot()?.kind==='TEXT',5000,'paste source');
   const ap=D().getElementById('docAperture'),para=ap.scaleIndex('PARA');ap.setScale(para);ap.setPos(0);await sleep(80);
   rec.start=ap.snapshot();rec.sourceText=D().getElementById('text').textContent;
-  D().getElementById('rideLive').click();
+  const rideDoor=await wait(()=>{const b=D().querySelector('[data-reader-handoff="ride"]');return b&&!b.disabled&&D().documentElement.dataset.readfieldRideDoor==='ready'?b:null},5000,'RIDE doorway');
+  rec.rideDoor={ready:D().documentElement.dataset.readfieldRideDoor,label:(rideDoor.textContent||'').trim(),native:!!D().getElementById('rideLive'),insideRail:!!rideDoor.closest('.workRail')};
+  if(rec.rideDoor.label!=='RIDE ↗'||!rec.rideDoor.native||rec.rideDoor.insideRail)throw Error('RIDE doorway contract');
+  rideDoor.click();
   await wait(()=>W().location.pathname==='/fold-bloom/live/'&&W().FoldBloomLive?.read?.current?.(),16000,'LIVE handoff');
   const api=W().FoldBloomLive,first=api.read.current();rec.liveStart=first;rec.sourceId=first.source.id;
   for(let i=0;i<3;i++){api.course.step(1);await sleep(100)}
@@ -79,8 +82,8 @@ const W=()=>f.contentWindow,D=()=>W().document,same=(a,b)=>a&&b&&Number(a.start)
   rec.malformed={result:badResult,before:beforeBad.span,after:afterBad.span};
   if(badResult.ok||badResult.reason!=='MALFORMED_VISIT'||!same(beforeBad.span,afterBad.span))throw Error('malformed zero-mutation failed');
 
-  const ok=rec.visited.length===6&&same(rec.returned.span,final)&&rec.stale.result.reason==='STALE_SOURCE'&&rec.malformed.result.reason==='MALFORMED_VISIT';
-  done(ok,{sourceId:rec.sourceId,steps:5,backtrack:true,visited:rec.visited,final,returned:rec.returned.span,stale:rec.stale.result,malformed:rec.malformed.result,exact:ok});
+  const ok=rec.rideDoor.ready==='ready'&&rec.rideDoor.label==='RIDE ↗'&&!rec.rideDoor.insideRail&&rec.visited.length===6&&same(rec.returned.span,final)&&rec.stale.result.reason==='STALE_SOURCE'&&rec.malformed.result.reason==='MALFORMED_VISIT';
+  done(ok,{rideDoor:rec.rideDoor,sourceId:rec.sourceId,steps:5,backtrack:true,visited:rec.visited,final,returned:rec.returned.span,stale:rec.stale.result,malformed:rec.malformed.result,exact:ok});
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
