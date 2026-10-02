@@ -2,10 +2,10 @@
   "schema": "field-return/v0.1",
   "date": "2026-10-03",
   "artifact": "FIELD / CONVERGENCE adapter",
-  "route": "/field-convergence.html",
-  "status": "CANDIDATE / LOCAL_CORE_PASS / INLINE_JS_PASS / CI_REQUIRED",
+  "route": "/recovery/field-convergence-20261003.html",
+  "status": "CANDIDATE / LOCAL_CORE_PASS / INLINE_JS_PASS / CI_REQUIRED / UNPROMOTED_DONOR",
   "problem": "Recent CAP-IR/media/action work existed outside the repository while FIELD already owned held-object selection and native one-hop actions. Adding another core surface or resolver would duplicate authority.",
-  "bounded_move": "Add one unregistered REFINE / PROVE adapter that reads the existing showcase manifest and compiles the same held route into three unequal packets: proposal-only ACTION, view-only MEDIA, evidence-only RETURN. Keep it outside the canonical route set until it proves a real workflow delta.",
+  "bounded_move": "Add one pure adapter plus an explicitly unpromoted RECOVERY / REFINE / PROVE donor that reads the existing showcase manifest and compiles the same held route into three unequal packets: proposal-only ACTION, view-only MEDIA, evidence-only RETURN.",
   "preserves": [
     "manifest route identity",
     "native owner/action authority",
@@ -24,15 +24,15 @@
   ],
   "files": [
     "/lib/field-convergence-adapter.js",
-    "/field-convergence.html",
+    "/recovery/field-convergence-20261003.html",
     "/tools/field-convergence-adapter-selftest.cjs"
   ],
   "checks": {
     "pure_core": "PASS locally: AVAILABLE explicit exits only; ACTION=PROPOSAL_ONLY; MEDIA=VIEW_ONLY with explicit hides/forbids; RETURN=EVIDENCE_ONLY + NONE_UNTIL_REPLAN",
     "inline_js": "PASS locally: all inline scripts compile",
-    "browser": "CI_REQUIRED / branch proof surface not promoted",
+    "browser": "CI_REQUIRED / recovery donor is not a canonical runtime",
     "canonical_route_registration": "INTENTIONALLY NONE until workflow delta is demonstrated"
   },
   "return": "/?focus=/",
-  "next": "Use one real existing FIELD-held route to emit both an ACTION handoff and a MEDIA contract. If that changes an actual action/media workflow and CI/public proof is clean, fold only the useful output control into existing FIELD REFINE / PROVE. Otherwise retain as bounded donor."
+  "next": "Use one real existing FIELD-held route (first fixture: PRISON AGE) to emit both an ACTION handoff and a MEDIA contract. If that changes an actual action/media workflow and CI/public proof is clean, fold only the useful output control into existing FIELD REFINE / PROVE. Otherwise retain/compost as bounded donor."
 }
