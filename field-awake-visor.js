@@ -71,6 +71,8 @@ function mount(){
  root.querySelector('[data-awake-close]').onclick=()=>hide();root.querySelector('[data-awake-enter]').onclick=enter;trigger.onclick=()=>show({force:true});
  window.addEventListener('field-index:state',()=>{if(root&&!root.hidden)render()});
  document.documentElement.dataset.fieldAwakeVisor='mounted';
+ const autoSuppressed=QUERY.get('visor')==='0'||(QUERY.get('visor')!=='1'&&seen());
+ if(autoSuppressed){document.documentElement.dataset.fieldAwakeVisor='ready';return}
  let tries=0;const boot=()=>{if(show({force:QUERY.get('visor')==='1'}))return;if(++tries<80)setTimeout(boot,75);else document.documentElement.dataset.fieldAwakeVisor='ready'};boot()
 }
 window.FieldAwakeVisor=Object.freeze({show:()=>show({force:true}),hide:()=>hide({rememberSeen:false}),render,state:()=>({open:!!root&&!root.hidden,frameId:lastFrame,donor:DONOR})});
