@@ -1,0 +1,92 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALL MAPS ARE WRONG · Moiré Route</title>
+<style>
+:root{--bg:#0a0c0e;--ink:#e9e4d8;--mute:#8f918e;--line:#32383b;--red:#ba5039;--cyan:#86c8d8;--green:#9fd6a5}
+*{box-sizing:border-box}body{margin:0;background:#0a0c0e;color:var(--ink);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+main{max-width:1180px;margin:auto;padding:20px}.ey{color:var(--mute);letter-spacing:.13em;font-size:10px}h1{font:44px/1 Georgia,serif;margin:6px 0 8px}p{color:#b4b7b2;max-width:860px}
+.grid{display:grid;grid-template-columns:280px 1fr;gap:14px}.panel{border:1px solid var(--line);padding:12px;background:#101417}
+.controls{display:grid;gap:12px}label{display:grid;gap:5px;color:var(--mute)}input{width:100%}button{border:1px solid #566169;background:#141a1e;color:var(--ink);padding:9px;cursor:pointer}
+button:hover{border-color:var(--cyan)}.views{display:grid;grid-template-columns:1fr 1fr;gap:12px}canvas{display:block;width:100%;background:#080b0d;border:1px solid var(--line)}
+.metric{border-top:1px solid var(--line);padding:8px 0}.metric b{display:block;font-size:24px;color:var(--ink)}.pass{color:var(--green)}.fail{color:#f2a19b}
+small{color:var(--mute)}@media(max-width:850px){.grid{grid-template-columns:1fr}.views{grid-template-columns:1fr}h1{font-size:34px}}
+</style>
+<main>
+<div class="ey">FOLD//BLOOM · CONVERGENCE SPECIMEN · IMAGE→INSTRUMENT</div>
+<h1>ALL MAPS ARE WRONG / MOIRÉ ROUTE</h1>
+<p>Coordinate mismatch is rendered as interference. The moiré view carries no explicit route line: only START/END and phase-dependent coherence. The baseline is the same graph with equal-looking edges. The metric is deliberately narrow: local next-route cue, not general pathfinding or human usability.</p>
+<div class="grid">
+<section class="panel controls">
+<label>PHASE <input id="phase" type="range" min="0" max="628" value="314"><span id="phaseV"></span></label>
+<label>ORIENTATION MISMATCH <input id="rot" type="range" min="-40" max="40" value="0"><span id="rotV"></span></label>
+<button id="best">SNAP BEST PHASE</button>
+<button id="worst">SNAP WORST PHASE</button>
+<button id="reveal">REVEAL / HIDE TRUE ROUTE</button>
+<div class="metric">MOIRÉ LOCAL CHOICE<b id="acc">—</b><small>fraction of route steps where strongest interference cue points to the true next edge</small></div>
+<div class="metric">PLAIN ADJACENCY CHANCE<b id="base">—</b><small>mean 1/N over unlabeled forward choices</small></div>
+<div class="metric">CONTINUITY<b id="cont">—</b><small>route coherence minus off-route coherence, with smoothness</small></div>
+<div class="metric">CURRENT RESULT<b id="result">—</b></div>
+</section>
+<section>
+<div class="views">
+<div class="panel"><div class="ey">INTERFERENCE FIELD</div><canvas id="moire" width="600" height="600"></canvas></div>
+<div class="panel"><div class="ey">PLAIN ADJACENCY</div><canvas id="adj" width="600" height="600"></canvas></div>
+</div>
+<div class="panel" style="margin-top:12px"><div class="ey">PHASE SWEEP</div><canvas id="sweep" width="1000" height="220"></canvas><p><small>cyan = moiré local-choice accuracy · green = plain adjacency chance baseline. A peak above green means phase alignment adds a local route cue under this fixture.</small></p></div>
+</section>
+</div>
+<script type="module">
+import {makeFixture,nodeCue,routeChoiceAccuracy,plainAdjacencyBaseline,continuitySignal,phaseSweep,localFrame,TAU} from "./core.mjs";
+const f=makeFixture(), q=s=>document.querySelector(s), phase=q("#phase"), rot=q("#rot");
+const mc=q("#moire").getContext("2d"), ac=q("#adj").getContext("2d"), sc=q("#sweep").getContext("2d");
+let reveal=false, sweep=phaseSweep(f,{orientation:0});
+const C=100, P=id=>{const {x,y}=f.coords.get(id);return {x:x*C+C/2,y:y*C+C/2}};
+const edgeKey=(a,b)=>a<b?a+"|"+b:b+"|"+a;
+const routeEdges=new Set(f.route.slice(0,-1).map((x,i)=>edgeKey(x,f.route[i+1])));
+
+function drawM(){
+  const ph=+phase.value/100, ro=(+rot.value/40)*(Math.PI/2);
+  mc.clearRect(0,0,600,600);mc.fillStyle="#080b0d";mc.fillRect(0,0,600,600);
+  for(const [id,p] of f.coords){
+    const cue=nodeCue(f,id,ph,ro), fr=localFrame(f,id);
+    const x=p.x*C,y=p.y*C;
+    mc.fillStyle=`rgba(120,190,210,${0.03+cue*0.18})`;mc.fillRect(x,y,C,C);
+    mc.save();mc.beginPath();mc.rect(x,y,C,C);mc.clip();mc.translate(x+C/2,y+C/2);
+    const phasePx=(fr.phaseOffset+ph)*10;
+    mc.rotate(fr.route?ro:fr.angleOffset+ro);
+    mc.strokeStyle=`rgba(230,230,220,${0.10+cue*0.32})`;mc.lineWidth=1;
+    for(let z=-140;z<140;z+=9){mc.beginPath();mc.moveTo(z+phasePx,-90);mc.lineTo(z+phasePx,90);mc.stroke()}
+    mc.rotate(fr.route?0:-(fr.angleOffset*0.55));
+    mc.strokeStyle=`rgba(130,205,220,${0.09+cue*0.28})`;
+    for(let z=-140;z<140;z+=10){mc.beginPath();mc.moveTo(-90,z-phasePx);mc.lineTo(90,z-phasePx);mc.stroke()}
+    mc.restore();
+  }
+  mc.strokeStyle="rgba(255,255,255,.08)";for(let i=0;i<=6;i++){mc.beginPath();mc.moveTo(i*C,0);mc.lineTo(i*C,600);mc.stroke();mc.beginPath();mc.moveTo(0,i*C);mc.lineTo(600,i*C);mc.stroke()}
+  if(reveal){mc.strokeStyle="rgba(186,80,57,.9)";mc.lineWidth=4;mc.beginPath();f.route.forEach((id,i)=>{const p=P(id);i?mc.lineTo(p.x,p.y):mc.moveTo(p.x,p.y)});mc.stroke()}
+  mark(mc,f.start,"S","#9fd6a5");mark(mc,f.end,"E","#eaa1b5");
+}
+function drawA(){
+  ac.clearRect(0,0,600,600);ac.fillStyle="#080b0d";ac.fillRect(0,0,600,600);ac.lineCap="round";
+  for(const [a,ns] of f.edges)for(const b of ns)if(a<b){const A=P(a),B=P(b);ac.strokeStyle=reveal&&routeEdges.has(edgeKey(a,b))?"#ba5039":"#697278";ac.lineWidth=reveal&&routeEdges.has(edgeKey(a,b))?5:2;ac.beginPath();ac.moveTo(A.x,A.y);ac.lineTo(B.x,B.y);ac.stroke()}
+  for(const id of f.edges.keys()){const p=P(id);ac.fillStyle="#d6d7d3";ac.beginPath();ac.arc(p.x,p.y,5,0,TAU);ac.fill()}
+  mark(ac,f.start,"S","#9fd6a5");mark(ac,f.end,"E","#eaa1b5");
+}
+function mark(c,id,t,color){const p=P(id);c.fillStyle=color;c.beginPath();c.arc(p.x,p.y,15,0,TAU);c.fill();c.fillStyle="#071012";c.font="bold 13px monospace";c.textAlign="center";c.textBaseline="middle";c.fillText(t,p.x,p.y)}
+function drawSweep(){
+  const base=plainAdjacencyBaseline(f).localChoiceChance,w=1000,h=220,pad=24;
+  sc.clearRect(0,0,w,h);sc.fillStyle="#080b0d";sc.fillRect(0,0,w,h);
+  sc.strokeStyle="rgba(255,255,255,.09)";for(let i=0;i<=4;i++){const y=pad+(h-2*pad)*i/4;sc.beginPath();sc.moveTo(pad,y);sc.lineTo(w-pad,y);sc.stroke()}
+  const by=pad+(h-2*pad)*(1-base);sc.strokeStyle="#9fd6a5";sc.lineWidth=2;sc.beginPath();sc.moveTo(pad,by);sc.lineTo(w-pad,by);sc.stroke();
+  sc.strokeStyle="#86c8d8";sc.lineWidth=3;sc.beginPath();sweep.rows.forEach((r,i)=>{const x=pad+(w-2*pad)*i/(sweep.rows.length-1),y=pad+(h-2*pad)*(1-r.choice.accuracy);i?sc.lineTo(x,y):sc.moveTo(x,y)});sc.stroke();
+}
+function render(){
+  const ph=+phase.value/100, ro=(+rot.value/40)*(Math.PI/2), choice=routeChoiceAccuracy(f,ph,ro), base=plainAdjacencyBaseline(f), cont=continuitySignal(f,ph,ro);
+  q("#phaseV").textContent=ph.toFixed(2)+" rad";q("#rotV").textContent=(ro*180/Math.PI).toFixed(1)+"°";q("#acc").textContent=choice.accuracy.toFixed(2);q("#base").textContent=base.localChoiceChance.toFixed(2);q("#cont").textContent=cont.toFixed(2);
+  const d=choice.accuracy-base.localChoiceChance;q("#result").textContent=(d>=0?"+":"")+d.toFixed(2);q("#result").className=d>0.12?"pass":d<0?"fail":"";
+  drawM();drawA();drawSweep();
+}
+phase.oninput=render;rot.oninput=()=>{sweep=phaseSweep(f,{orientation:(+rot.value/40)*(Math.PI/2)});render()};
+q("#best").onclick=()=>{phase.value=Math.round(sweep.best.phase*100);render()};q("#worst").onclick=()=>{phase.value=Math.round(sweep.worst.phase*100);render()};q("#reveal").onclick=()=>{reveal=!reveal;render()};
+render();
+</script>
