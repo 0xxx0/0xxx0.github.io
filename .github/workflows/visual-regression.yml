@@ -8,15 +8,11 @@ name: visual-regression
 on:
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
-  push:
-    branches:
-      - master
-    paths:
-      - 'index.html'
-      - 'fold-bloom/**'
-      - 'docs/**'
-      - 'tools/golden/**'
-      - '.github/workflows/visual-regression.yml'
+  workflow_run:
+    workflows:
+      - "pages build and deployment"
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       mode:
@@ -35,12 +31,13 @@ permissions:
 
 jobs:
   visual-regression:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Checkout repository (for goldens in compare mode)
         uses: actions/checkout@v4
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule'
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run' || github.event_name == 'workflow_run'
 
       - name: Ensure Chrome + ImageMagick available
         run: |
@@ -97,7 +94,7 @@ jobs:
         run: |
           set -euo pipefail
           MODE="${{ github.event.inputs.mode }}"
-          if [ -z "$MODE" ] && [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_run" ]; }; then
             MODE="compare"
           fi
           echo "Running in ${MODE:-capture} mode (capturing screenshots)"
