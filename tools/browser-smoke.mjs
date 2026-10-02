@@ -1083,7 +1083,7 @@ function fieldRootCheck(dom){
     authority:/Φ \/ CURRENT/.test(dom),
     confluence:/CONFLUENCE/.test(dom),
     current_heads_entry:dom.includes('id="feedScope"')&&/CURRENT HEADS/.test(textAtId(dom,'feedInstruction')),
-    explicit_initial_hold:/focus=r\\|\\|null/.test(dom)&&/Choose one CURRENT head/.test(textAtId(dom,'apTitle'))
+    explicit_initial_hold:dom.includes('focus=r||null')&&/Choose one CURRENT head/.test(textAtId(dom,'apTitle'))
   };
   const miss=Object.entries(checks).filter(([,ok])=>!ok).map(([k])=>k);
   if(miss.length)console.error('FIELD ROOT CONTRACT MISS · '+miss.join(' · '));
