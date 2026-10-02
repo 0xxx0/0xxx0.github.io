@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-03T04:10:00+08:00",
+  "updated": "2026-10-03T04:06:36+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -117,10 +117,10 @@
       "version": "0.8.33",
       "latest_return": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
       "repo_verification": {
-        "status": "PASS / PR 807 EXECUTION SPINE EXACT-HEAD",
+        "status": "PASS / PR 807 EXACT-HEAD",
         "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
-        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
         "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
         "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
         "checks": {
           "route_registration": {
@@ -129,16 +129,14 @@
           },
           "public_surface": {
             "run": 37058033600,
-            "conclusion": "success",
-            "steps": "112/112"
+            "conclusion": "success"
           },
           "gitleaks": {
             "run": 37058033582,
             "conclusion": "success"
           }
         },
-        "browser": "PASS · public-surface-check 37058033600 including critical browser smoke, recovered-source validation, frozen City/Painting compatibility, Dayline zero-hunt, FIELD run-dock binding and RETURN protocol checks.",
-        "note": "Behavioral proof ran on exact PR #807 head before merge. This CURRENT edit is a metadata-only seal.",
+        "browser": "PASS · public-surface-check 37058033600 including Dayline zero-hunt source selftest, FIELD held RUN-dock binding, downstream RETURN contract, mobile/LIVE regressions, critical browser smoke, recovered-source validation and frozen City/Painting handlers.",
         "predecessor": {
           "status": "CANDIDATE / EXECUTION SPINE / CI_REQUIRED",
           "branch": "converge/execution-spine-20261003",
@@ -872,10 +870,10 @@
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "latest_return": "/returns/DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
       "repo_verification": {
-        "status": "PASS / PR 807 EXECUTION SPINE EXACT-HEAD",
+        "status": "PASS / PR 807 EXACT-HEAD",
         "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
-        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
         "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
         "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
         "checks": {
           "route_registration": {
@@ -884,17 +882,14 @@
           },
           "public_surface": {
             "run": 37058033600,
-            "conclusion": "success",
-            "steps": "112/112"
+            "conclusion": "success"
           },
           "gitleaks": {
             "run": 37058033582,
             "conclusion": "success"
           }
         },
-        "browser": "PASS · public-surface-check 37058033600 including critical browser smoke, recovered-source validation, frozen City/Painting compatibility, Dayline zero-hunt, FIELD run-dock binding and RETURN protocol checks.",
-        "note": "Behavioral proof ran on exact PR #807 head before merge. This CURRENT edit is a metadata-only seal.",
-        "predecessor": null
+        "browser": "PASS · public-surface-check 37058033600 including Dayline zero-hunt source selftest, FIELD held RUN-dock binding, downstream RETURN contract, mobile/LIVE regressions, critical browser smoke, recovered-source validation and frozen City/Painting handlers."
       }
     },
     {
