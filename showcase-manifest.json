@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T03:17:00+08:00",
+  "updated": "2026-10-03T03:55:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5014,7 +5014,8 @@
         "entropy secret scoring",
         "trilingual re-reading overlay",
         "data format reshaping",
-        "scrape munging"
+        "scrape munging",
+        "Oct-03 visibility/self-scan repair: four browser child instruments are explicitly addressed under Omnitools and the entropy-candidate regex identifier no longer resembles a token assignment to the global redaction aperture; detector semantics and thresholds are unchanged."
       ],
       "field": {
         "roles": [
@@ -5045,7 +5046,7 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-03T00:41:21+08:00",
+        "updated_at": "2026-10-03T03:55:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -9174,6 +9175,126 @@
         "return_path": "/recovery/"
       },
       "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "href": "/foundry/omnitools/pii-lens.html",
+      "title": "OMNITOOLS / PII LENS",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "VERIFY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "role": "Paste/file privacy lens for bounded local PII inspection. Child instrument; no standalone showcase card.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/foundry/omnitools/release.json",
+        "checks": [
+          "registered child instrument",
+          "same-origin local tool",
+          "no standalone showcase card"
+        ],
+        "return_path": "/foundry/omnitools/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/re-reader.html",
+      "title": "OMNITOOLS / RE-READER",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "READ",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "role": "Local trilingual re-reading overlay for text inspection. Child instrument; no standalone showcase card.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/foundry/omnitools/release.json",
+        "checks": [
+          "registered child instrument",
+          "same-origin local tool",
+          "no standalone showcase card"
+        ],
+        "return_path": "/foundry/omnitools/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/reshaper.html",
+      "title": "OMNITOOLS / RESHAPER",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "TRANSFORM",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "role": "Local data reshaping desk for bounded format changes. Child instrument; no standalone showcase card.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/foundry/omnitools/release.json",
+        "checks": [
+          "registered child instrument",
+          "same-origin local tool",
+          "no standalone showcase card"
+        ],
+        "return_path": "/foundry/omnitools/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/text-lens.html",
+      "title": "OMNITOOLS / TEXT LENS",
+      "kind": "tool",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "operation": "VERIFY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "role": "Local text-analysis lens for measurements and structural inspection. Child instrument; no standalone showcase card.",
+      "index": {
+        "updated_at": "2026-10-03T03:55:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/foundry/omnitools/release.json",
+        "checks": [
+          "registered child instrument",
+          "same-origin local tool",
+          "no standalone showcase card"
+        ],
+        "return_path": "/foundry/omnitools/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
