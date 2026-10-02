@@ -1,4 +1,4 @@
-# LACONIC / ICONIC 0.3
+# LACONIC / ICONIC 0.4
 
 ## JOB
 
@@ -198,6 +198,19 @@ Recovery rule: **generic council image ≠ proper-name project; interacting char
 
 2026-09-22 exact-source pass: the 5–6 internal-voice request is independently reverified in the current export/search corpus, but its direct original message node and generated voice set remain unrecovered. Later Council casts and later multi-persona scenes are therefore not accepted as substitutes.
 
+
+## v0.4 — FIVE SELVES / LINEAGE PROJECTION
+
+The LINEAGE vault now turns already-recovered plurality evidence into a visible, bounded projection instead of leaving the exact five-self source chain buried in recovery JSON.
+
+It derives, without copying into a new store:
+- the exact 2024-12-29 request for 5–6 distinct internal-persona voices;
+- the exact recovered five labels from the immediate 2024-12-30 output: **The Overthinking Strategist · The Chaotic Wildcard · The Dramatic Overachiever · The Overly Honest Realist · The Self-Aware Clown**;
+- the explicit boundary that this direct early cast is **not automatically identical to later Council canon**.
+
+This builds on 0.3.6's direct FIELD execution seam but does not add another action, route, object class, or state store.
+
+Design law: **make provenance usable without upgrading its authority.**
 
 ## v0.3.5 — POCKET MOVES / SCENE PROJECTION
 
