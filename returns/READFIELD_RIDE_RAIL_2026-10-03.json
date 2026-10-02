@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-10-03",
+  "surface": "/docs/",
+  "change": "READFIELD phone workflow exposes the already-implemented exact READFIELD → FOLD//BLOOM LIVE → READFIELD excursion as a first-class RIDE action.",
+  "status": "CANDIDATE_CI_REQUIRED",
+  "base_sha": "8651bd325697c5c981bbf55d788bf83c6f50ffb8",
+  "branch": "readfield-ride-current-20261003",
+  "donor_pr": 822,
+  "observed": [
+    "READFIELD 0.8.5 already owns exact source/cursor authority and already has a native RIDE LIVE handoff with hash/native-span revalidation on RETURN.",
+    "The phone work rail exposed FAST / REVIEW / PULSE / VOICE / LOCI / REPO but not RIDE, leaving an implemented cross-surface composition buried in viewer chrome."
+  ],
+  "delta": [
+    "Inject one RIDE button into the existing phone work rail through the existing READFIELD INTERPHASE adapter.",
+    "Keep seven desktop work-rail slots coherent while mobile retains the existing horizontal rail behavior.",
+    "Expose RIDE / MATERIAL as a use case: current sentence/paragraph/section becomes addressed traversal terrain while LIVE owns traversal only.",
+    "Expose FAST → REVIEW → RIDE → RETURN as an explicit workflow composition.",
+    "Keep the native #rideLive handoff as the only execution path; the new controls delegate to it rather than cloning handoff state."
+  ],
+  "preserves": [
+    "READFIELD source + cursor authority",
+    "FOLD//BLOOM LIVE traversal authority",
+    "exact source hash + native-span revalidation before cursor commit on RETURN",
+    "session-local source bytes",
+    "existing RSVP / VOICE / PULSE / LOCI behavior"
+  ],
+  "does_not_create": [
+    "new reader mode",
+    "new source store",
+    "new transport bus",
+    "new cursor authority",
+    "new LIVE source authority"
+  ],
+  "verification": {
+    "repo_browser_ci": "PENDING",
+    "authority": "Exact-head PR CI is authoritative; promote only after route/public/gitleaks gates pass."
+  },
+  "next": "If exact-head CI passes, merge this exposure and close PR #822 as superseded donor transport. Ordinary phone use then decides whether further rail compression is warranted."
+}
