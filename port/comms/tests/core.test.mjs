@@ -185,3 +185,5 @@ test('RETURN round-trips MACHINE provenance and dismissal residue',()=>{
   assert.equal(st.states[m.id],'DROPPED');
   assert.equal(st.humanMarks.some(x=>x.id===owned.id&&x.confidence===1),true);
 });
+
+import './transport.test.mjs';
