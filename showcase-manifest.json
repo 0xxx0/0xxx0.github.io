@@ -9181,6 +9181,94 @@
         "return_path": "/recovery/"
       },
       "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "href": "/foundry/omnitools/pii-lens.html",
+      "title": "PII LENS · OMNITOOL",
+      "kind": "utility",
+      "operation": "VERIFY",
+      "role": "Local browser paste/drop PII and secret scanner with masked findings, explicit reveal and JSON export; no network call or mutation authority.",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "index": {
+        "updated_at": "2026-10-03T03:38:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/re-reader.html",
+      "title": "RE-READER · OMNITOOL",
+      "kind": "utility",
+      "operation": "READ",
+      "role": "Local Tamil/Chinese/English aligned re-reading overlay with veil/reveal controls; a reading aid only, with source text remaining authoritative.",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "index": {
+        "updated_at": "2026-10-03T03:38:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/reshaper.html",
+      "title": "RESHAPE · OMNITOOL",
+      "kind": "utility",
+      "operation": "TRANSFORM",
+      "role": "Local JSON/NDJSON/CSV/TSV reshaping desk with dot-path flattening and explicit export; input bytes remain local.",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "index": {
+        "updated_at": "2026-10-03T03:38:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/omnitools/text-lens.html",
+      "title": "TEXT LENS · OMNITOOL",
+      "kind": "utility",
+      "operation": "INSPECT",
+      "role": "Local text measurement surface for counts, entropy, readability, script mix and bigrams; measurements are descriptive evidence, not semantic authority.",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "index": {
+        "updated_at": "2026-10-03T03:38:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
