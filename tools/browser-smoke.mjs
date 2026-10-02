@@ -932,7 +932,7 @@ function houseRealityProbeHtml(){
     rec.rings=[...D().querySelectorAll('.rhRingLabel')].map(x=>x.textContent.trim());
     rec.center=D().querySelector('.rhCenterMeta')?.textContent.trim()||'';
     const harness=D().querySelector('[data-rh-layer="HARNESS"] .rhRing');
-    if(harness)harness.dispatchEvent(new W().MouseEvent('click',{bubbles:true}));
+    if(harness)harness.dispatchEvent(new (W().MouseEvent)('click',{bubbles:true}));
     await sleep(120);
     const detail=D().querySelector('.rhDetail')?.textContent||'';
     rec.harnessDetail=detail.includes('HARNESS / ENV-0');
