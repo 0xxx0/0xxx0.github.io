@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"shopping-adventure-pack/v0.1",
+  "title":"Shopping Adventure Pack",
+  "type":"object",
+  "required":["schema","adventure","items"],
+  "properties":{
+    "schema":{"const":"shopping-adventure-pack/v0.1"},
+    "adventure":{
+      "type":"object",
+      "required":["id","label"],
+      "properties":{
+        "id":{"type":"string"},
+        "label":{"type":"string"},
+        "occurred_at":{"type":["string","null"]},
+        "source_refs":{"type":"array","items":{"type":"string"}},
+        "notes":{"type":"string"}
+      }
+    },
+    "items":{"type":"array","items":{"type":"object","required":["id","label"],"properties":{"id":{"type":"string"},"label":{"type":"string"}}}}
+  }
+}
