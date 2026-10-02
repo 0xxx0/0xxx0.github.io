@@ -49,6 +49,14 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .focusDepth>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 7px;cursor:pointer;color:var(--mut)}
 .focusDepth>summary::-webkit-details-marker{display:none}.focusDepth>summary b{font-size:7px;letter-spacing:.13em;color:var(--gold)}.focusDepth>summary span{font-size:6px}
 .focusDepth[open]>summary{border-bottom:1px solid var(--line)}.refineTools{display:flex;flex-wrap:wrap;gap:4px;padding:6px 7px;border-bottom:1px solid var(--line)}
+.workDepth{border-top:1px solid var(--line);background:#080b0d}
+.workDepth>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 7px;cursor:pointer;color:var(--mut)}
+.workDepth>summary::-webkit-details-marker{display:none}.workDepth>summary b{font-size:7px;letter-spacing:.13em;color:var(--cool)}.workDepth>summary span{font-size:6px;text-align:right}.workDepth[open]>summary{border-bottom:1px solid var(--line)}
+.workDepthBody{padding:7px;display:grid;gap:7px}.workLead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start}.workLead strong{display:block;font:750 12px/1.15 system-ui,sans-serif}.workLead p{margin:4px 0 0;color:#95a1a5;font:7px/1.42 system-ui,sans-serif;max-width:100ch}.workEy{color:var(--gold);font-size:5.8px;letter-spacing:.12em;margin-bottom:2px}.workHeadState{font-size:6px;color:var(--mut);text-align:right;max-width:32ch}
+.workStats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid #20292e;background:#090d0f}.workStat{padding:5px 6px;border-right:1px solid #20292e;min-width:0}.workStat:last-child{border-right:0}.workStat b{display:block;font:800 12px/1 system-ui,sans-serif;color:var(--ink)}.workStat span{display:block;margin-top:2px;color:var(--mut);font-size:5.6px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.workGrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.9fr);gap:7px}.workPane{border:1px solid #20292e;background:#090d0f;min-width:0}.workPane h3{display:flex;justify-content:space-between;gap:8px;margin:0;padding:5px 6px;border-bottom:1px solid #20292e;font-size:6px;letter-spacing:.12em;color:var(--gold)}.workPane h3 span{color:var(--mut);font-weight:400}.workStack{max-height:224px;overflow:auto}.workLine{padding:5px 6px;border-bottom:1px solid #161e22;color:#aab4b8;font:6.8px/1.4 system-ui,sans-serif}.workLine:last-child{border-bottom:0}.workLine b{color:var(--ink);font-weight:650}.workRefs{display:flex;flex-wrap:wrap;gap:3px;padding:5px 6px;max-height:132px;overflow:auto}.workRef{border:1px solid #2b373d;padding:3px 5px;font-size:5.8px;color:var(--cool);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.workRef:hover{border-color:var(--cool)}
+.workRelations{display:flex;gap:2px;flex-wrap:wrap;padding:5px 6px;max-height:112px;overflow:auto}.workRel{width:31px;height:31px;padding:1px;display:grid;place-items:center;border:1px solid #1b2529;background:#080c0e}.workRel:hover,.workRel.on{border-color:var(--cool);background:#10171a}.workRemainder{align-self:center;color:var(--mut);font-size:6px;padding:4px}.workFuture{padding:5px 6px;display:grid;gap:4px}.workFuture div{border-left:2px solid #344149;padding-left:6px;color:#aab4b8;font:6.8px/1.42 system-ui,sans-serif}.workFuture div.now{border-left-color:var(--hot);color:var(--ink)}.workEmpty{padding:8px;color:var(--mut);font-size:6.5px}
+@media(max-width:760px){.workLead{grid-template-columns:1fr}.workHeadState{text-align:left;max-width:none}.workStats{grid-template-columns:repeat(3,1fr)}.workStat:nth-child(3){border-right:0}.workStat:nth-child(-n+3){border-bottom:1px solid #20292e}.workGrid{grid-template-columns:1fr}.workStack{max-height:190px}.workDepth>summary{min-height:34px}.workDepth>summary b{font-size:8px}.workDepth>summary span{font-size:7px}}
 .refineTools a,.refineTools button{padding:5px 7px;font-size:6.5px}.fieldGesture{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px;color:var(--mut);font-size:6px;border-top:1px solid var(--line)}
 .fieldGestureActions{display:flex;align-items:center;gap:4px}.fieldGesture button{padding:4px 6px;font-size:6.5px}.feedEmpty{padding:8px 2px;color:var(--mut);font-size:7px}.feedEmpty a{color:var(--cool)}.axialHead.fieldSignalBar .signalGlyph{width:15px;height:15px;margin-right:4px;vertical-align:middle}
 .capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px;margin-left:6px}
@@ -245,6 +253,10 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     </div>
     <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
   </div>
+  <details class="workDepth" id="workDepth">
+    <summary><b>DEPTH / WORK</b><span id="workDepthMeta">hold one CURRENT head</span></summary>
+    <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Choose one CURRENT head to recover its accumulated work without changing authority.</div></div>
+  </details>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span id="feedInstruction">CURRENT HEADS · choose one to hold; held head opens on second tap</span><div class="fieldGestureActions"><button id="feedScope" title="Show recently touched routes; recency is not priority">RECENT</button><button id="moreLatest">ALL</button></div></div>
 
@@ -547,6 +559,89 @@ function headForRoute(r){
  return current.current_heads.find(h=>h.route===r.href)||current.current_heads.find(h=>r.href&&h.route&&h.route!=='/'&&r.href.startsWith(h.route))||null;
 }
 function headForFocus(){return headForRoute(focus)}
+function workDescendants(r){
+ if(!r)return[];
+ const out=[],seen=new Set([r.href]),queue=[r.href];
+ while(queue.length){
+  const p=queue.shift();
+  for(const x of routes){
+   if(x.parent!==p||seen.has(x.href))continue;
+   seen.add(x.href);out.push(x);queue.push(x.href);
+  }
+ }
+ return out
+}
+function workProofRefs(r,h){
+ const refs=[
+  ...(Array.isArray(h?.evidence)?h.evidence:[]),
+  h?.latest_return,h?.last_return,
+  r?.receipt,r?.latest_return,r?.interphase_return,r?.convergence_return,r?.axial_support_return,r?.policy_trace_return,
+  r?.contract?.evidence?.receipt
+ ].filter(Boolean).map(String);
+ return [...new Set(refs)]
+}
+function workRefHref(ref){
+ if(/^https?:\/\//i.test(ref))return ref;
+ if(ref.startsWith('/'))return'.'+ref;
+ return null
+}
+function workRefLabel(ref){
+ const clean=String(ref||'').replace(/^https?:\/\/github\.com\/0xxx0\/0xxx0\.github\.io\//,'GH /').replace(/^\.??\//,'/');
+ const parts=clean.split('/').filter(Boolean);return(parts.at(-1)||clean).slice(0,58)
+}
+function workFutureItems(r,h){
+ const out=[],n=h?.next_executable;
+ if(n)out.push({now:true,text:[n.state,n.objective||n.id].filter(Boolean).join(' · ')});
+ for(const x of Array.isArray(r?.open_gaps)?r.open_gaps:[])if(x)out.push({text:String(x)});
+ if(r?.evolution?.question)out.push({text:'EVOLVE · '+r.evolution.question});
+ for(const e of manifestExitPaths(r)){
+  const st=String(e?.status||'AVAILABLE').toUpperCase();
+  if(st!=='AVAILABLE'&&!['CANDIDATE','REFERENCE','DONOR','DEFERRED'].includes(st))out.push({text:[st,e.class,e.via].filter(Boolean).join(' · ')})
+ }
+ return out
+}
+function workRelations(r){
+ if(!r)return[];
+ const desc=workDescendants(r),parent=r.parent&&r.parent!=='/'?routeMap().get(r.parent):null;
+ const direct=routes.filter(x=>x.parent===r.href);
+ const rest=desc.filter(x=>x.parent!==r.href).sort((a,b)=>(headSet.has(b.href)-headSet.has(a.href))||String(b.index?.updated_at||'').localeCompare(String(a.index?.updated_at||'')));
+ return [...(parent?[parent]:[]),...direct,...rest]
+}
+function renderWorkDepth(){
+ const meta=$('workDepthMeta'),body=$('workDepthBody');if(!meta||!body)return;
+ if(!focus){
+  meta.textContent='hold one CURRENT head';
+  body.innerHTML='<div class="workEmpty">Choose one CURRENT head. DEPTH / WORK is a read-only projection of manifest + CURRENT; it creates no priority, state, or authority.</div>';
+  return
+ }
+ const h=headForFocus(),desc=workDescendants(focus),proof=workProofRefs(focus,h),transfers=Array.isArray(focus.transfer)?focus.transfer:[],versions=Array.isArray(focus.versions)?focus.versions:[],exits=manifestExitPaths(focus),future=workFutureItems(focus,h),rels=workRelations(focus),shownRels=rels.slice(0,42);
+ meta.textContent=transfers.length+' transformations · '+proof.length+' proof · '+desc.length+' surfaces · '+future.length+' open';
+ const stats=[
+  ['transfers',transfers.length,'TRANSFORMS'],
+  ['proof',proof.length,'PROOF'],
+  ['surfaces',desc.length,'SURFACES'],
+  ['versions',versions.length,'VERSIONS'],
+  ['exits',exits.length,'EXITS'],
+  ['future',future.length,'OPEN']
+ ];
+ const headLabel=h?.head||focus.title||focus.href,cap=h?.retained_function||focus.role||focus.contract?.transforms?.verb||'Addressed capability; no retained-function text declared.';
+ const proofHtml=proof.length?proof.map(ref=>{const href=workRefHref(ref),external=/^https?:\/\//i.test(ref);return href?'<a class="workRef" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+' title="'+esc(ref)+'">'+esc(workRefLabel(ref))+'</a>':'<span class="workRef" title="'+esc(ref)+'">'+esc(workRefLabel(ref))+'</span>'}).join(''):'<span class="workEmpty">No explicit proof refs on this held object.</span>';
+ const relHtml=shownRels.length?shownRels.map(r=>'<button class="workRel '+(headSet.has(r.href)?'on':'')+'" data-work-href="'+esc(r.href)+'" title="'+esc((headSet.has(r.href)?'CURRENT HEAD · ':'')+(r.title||r.href)+' · '+r.href)+'">'+routeGlyph(r,22)+'</button>').join('')+(rels.length>shownRels.length?'<span class="workRemainder">+'+(rels.length-shownRels.length)+'</span>'):'<span class="workEmpty">No child/parent surfaces declared.</span>';
+ const transferHtml=transfers.length?transfers.map((x,i)=>'<div class="workLine"><b>'+String(i+1).padStart(2,'0')+'</b> '+esc(String(x))+'</div>').join(''):'<div class="workEmpty">No transfer history declared on this route.</div>';
+ const futureHtml=future.length?future.map(x=>'<div class="'+(x.now?'now':'')+'">'+esc(x.text)+'</div>').join(''):'<div>HOLD · no named unresolved future on this object.</div>';
+ body.innerHTML=
+  '<div class="workLead"><div><div class="workEy">HELD LINEAGE · '+esc(h?.lineage||focus.family||focus.kind||'ROUTE')+'</div><strong>'+esc(headLabel)+'</strong><p>'+esc(cap)+'</p></div><div class="workHeadState">'+esc([h?.version||focus.version,h?.state||focus.state].filter(Boolean).join(' · '))+'</div></div>'+
+  '<div class="workStats">'+stats.map(([k,n,l])=>'<div class="workStat" data-work-stat="'+k+'"><b>'+n+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+  '<div class="workGrid">'+
+   '<section class="workPane" data-work-section="transfers"><h3><span>TRANSFORMED / BUILT</span><span>'+transfers.length+'</span></h3><div class="workStack">'+transferHtml+'</div></section>'+
+   '<div class="workSide">'+
+    '<section class="workPane" data-work-section="proof"><h3><span>PROOF / RECEIPTS</span><span>'+proof.length+'</span></h3><div class="workRefs">'+proofHtml+'</div></section>'+
+    '<section class="workPane" data-work-section="relations"><h3><span>SURFACES / RELATIONS</span><span>'+rels.length+'</span></h3><div class="workRelations">'+relHtml+'</div></section>'+
+    '<section class="workPane" data-work-section="future"><h3><span>OPEN FUTURE</span><span>'+future.length+'</span></h3><div class="workFuture">'+futureHtml+'</div></section>'+
+   '</div>'+
+  '</div>';
+ body.querySelectorAll('[data-work-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.workHref);if(r)focusRoute(r,true,'OTHER')})
+}
 function fieldEgressForRoute(r){
  if(!r||!fieldEgressReduce)return null;
  const h=headForRoute(r),gate=currentHumanGates().find(g=>g.route===r.href)||null,n=h?.next_executable||null;
@@ -729,7 +824,7 @@ function renderAperture(){
   $('apPath').textContent=impossible?[axisState.state,axisState.operation,axisState.mode].join(' × '):(current?.current_heads||[]).length+' retained · choose an address below · order is not rank';
   $('apProjection').textContent=impossible?'ADJUST ONE AXIS OR RESET':'SOURCE → HOLD → TURN → TRACE → RETURN';
   $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'CURRENT asks for one bounded conversion on an existing head. Choose a CURRENT head below; its native move, forecast, witness and RETURN stay attached to that object. Head order is not priority.';
-  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();return;
+  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();renderWorkDepth();return;
  }
  ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';
  const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';
@@ -741,7 +836,7 @@ function renderAperture(){
   const unseen=tsMs(focus.index?.updated_at)>routeCaughtUpAt(focus.href);if(seen){const last=latestCatchupAction(),heldStamp=Math.max(0,Number(catchupItems()[focus.href])||0),undoable=!unseen&&last?.kind==='route'&&last.href===focus.href&&Number(last.applied||0)>0&&Number(last.applied)===heldStamp;seen.hidden=!unseen&&!undoable;seen.textContent=undoable?'UNDO SEEN':'SEEN';seen.dataset.orientationAction=undoable?'undo':'seen';seen.title=undoable?'Undo the latest local SEEN for this held route · available until another local orientation action becomes newer.':'Acknowledge this route change locally · reversible immediately here and later under STATUS → ORIENTATION / LOCAL'}
  const gap=catchGap(focus),egress=fieldEgressForRoute(focus),bits=[];if(egress?.class)bits.push('EGRESS '+egress.class);if(gap)bits.push('MORE HERE · '+gap);
  if(residue){residue.hidden=!bits.length;residue.innerHTML=bits.length?'<b>RESIDUE</b>'+esc(bits.join(' · ')):''}
- renderHeldContinuation();
+ renderHeldContinuation();renderWorkDepth();
 }
 function updateStatusRail(){
  const el=document.getElementById('sRail');if(!el)return;
