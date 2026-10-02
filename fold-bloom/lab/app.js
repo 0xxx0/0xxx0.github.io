@@ -8,7 +8,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape,calculationFocusProjection} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
 import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
@@ -602,7 +602,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null,controlLoss:null,controlLossFace:'A',controlLossBusy:false};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null,stateCalc:null,stateStep:null,stateLattice:null,stateFrontier:null,stateResidue:null,stateStepCursor:0,stateOrderIndex:0,stateFlow:false,stateFlowAt:0,stateLatticeHits:[],nativeFocusSlot:null,controlLoss:null,controlLossFace:'A',controlLossBusy:false,calcFocus:'AUTO'};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -800,23 +800,41 @@ function currentCalculationTape(){
     returnAddress
   });
 }
+function currentCalculationFocus(tape=currentCalculationTape()){
+  return calculationFocusProjection(tape,data.calcFocus);
+}
+function syncCalculationFocusInspector(focus=currentCalculationFocus()){
+  if(!focus?.ok)return focus;
+  if($('#calculationFocus'))$('#calculationFocus').textContent=(focus.follows_active?'FOLLOW · ':'PIN · ')+focus.stage_id+' · '+focus.value+' · '+focus.stage_authority;
+  if($('#calculationFormula'))$('#calculationFormula').textContent='FORMULA · '+(focus.formula||'NO ADDITIONAL FORMULA AT THIS STAGE');
+  if($('#calculationKeeps'))$('#calculationKeeps').textContent='KEEPS · '+(focus.keeps||'DECLARED WITNESS ONLY');
+  if($('#calculationDrops'))$('#calculationDrops').textContent='DROPS / EXPIRES · '+(focus.drops||'NONE DECLARED');
+  if($('#calculationAuto')){
+    $('#calculationAuto').textContent=focus.follows_active?'FOLLOWING':'FOLLOW ACTIVE';
+    $('#calculationAuto').classList.toggle('cool',focus.follows_active);
+  }
+  document.documentElement.dataset.fieldLabCalcFocus=String(focus.requested||'AUTO').toLowerCase();
+  return focus;
+}
 function syncCalculationTapeUI(){
-  const tape=currentCalculationTape(),box=$('#calculationTape'),read=$('#calculationTapeRead');
+  const tape=currentCalculationTape(),focus=currentCalculationFocus(tape),box=$('#calculationTape'),read=$('#calculationTapeRead');
   if(read){
     const path=tape.stages.find(x=>x.id==='PATH'),next=tape.stages.find(x=>x.id==='NEXT'),native=tape.stages.find(x=>x.id==='NATIVE'),model=tape.stages.find(x=>x.id==='MODEL');
-    read.textContent='CALC TAPE · ACTIVE '+tape.active_stage+
+    read.textContent='CALC TAPE · '+(focus.follows_active?'FOLLOW ':'PIN ')+focus.stage_id+
       ' · '+path.value+
       ' · '+next.value+
       (native.ready?' · '+native.value:'')+
       (model.ready?' · '+model.value:'');
   }
+  syncCalculationFocusInspector(focus);
   if(!box)return tape;
   box.replaceChildren();
   for(const stage of tape.stages){
     const button=document.createElement('button');
     button.type='button';
-    button.className='calcStage'+(stage.id===tape.active_stage?' cool':'')+(stage.ready?' ready':' open');
+    button.className='calcStage'+(stage.id===focus.stage_id?' cool':'')+(stage.ready?' ready':' open');
     button.dataset.calcStage=stage.id;
+    button.setAttribute('aria-pressed',stage.id===focus.stage_id?'true':'false');
     const value=document.createElement('b');value.textContent=stage.id;
     const detail=document.createElement('span');detail.textContent=stage.value;
     const authority=document.createElement('i');authority.textContent=stage.authority;
@@ -840,16 +858,26 @@ function syncCalculationTapeUI(){
     const title=[stage.formula,stage.keeps,stage.drops].filter(Boolean).join(' · ');
     if(title)button.title=title;
     button.onclick=()=>{
+      data.calcFocus=stage.id;
+      syncCalculationTapeUI();
       if(stage.address)setAddress(stage.address);
       setSource('CHANGE CALCULUS / DERIVED WITNESS');
-      setStatus('CALC TAPE · '+stage.id+' · '+stage.value+' · '+stage.authority);
-      recordLabTrace('CALC_TAPE_'+stage.id);
+      setStatus('CALC APERTURE · '+stage.id+' · '+stage.value+' · '+stage.authority+' · VIEW ONLY');
+      recordLabTrace('CALC_FOCUS_'+stage.id);
     };
     box.append(button);
   }
   document.documentElement.dataset.fieldLabCalcTape=tape.active_stage.toLowerCase();
   return tape;
 }
+$('#calculationAuto')?.addEventListener('click',()=>{
+  data.calcFocus='AUTO';
+  const focus=syncCalculationTapeUI()&&currentCalculationFocus();
+  if(focus?.address)setAddress(focus.address);
+  setSource('CHANGE CALCULUS / DERIVED WITNESS');
+  setStatus('CALC APERTURE · FOLLOW ACTIVE · '+(focus?.stage_id||'OPEN')+' · VIEW ONLY');
+  recordLabTrace('CALC_FOCUS_AUTO');
+});
 
 function controlLossRecord(){
   const witness=data.controlLoss;if(!witness?.ok)return null;
@@ -1095,7 +1123,7 @@ function drawLiveConvergenceHeader(witness){
   }
   ctx.restore();
 }
-function drawStateChange(){
+function drawStateChange({lattice=true}={}){
   const change=data.stateChange;if(!change?.valid)return;
   const {leftX,midX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving),step=data.stateStep,cursor=data.stateStepCursor;
   const liveWitness=attachedLiveConvergenceWitness(),invisibleExact=new Set(liveWitness?.cmp?.invisible_lines?.map(x=>x.line)||[]);
@@ -1137,7 +1165,7 @@ function drawStateChange(){
     ctx.fillText('PATH '+(step.selected_order_index+1)+'/'+step.possible_one_line_orders+' · STEP '+cursor+'/'+step.steps.length,midX,cy+gap*3.7);
   }
   ctx.restore();
-  drawStateLattice();
+  if(lattice)drawStateLattice();
 }
 function nativeApertureGeometry(){
   const cx=W*.5,cy=H*.505,r=Math.max(96,Math.min(180,Math.min(W,H)*.43));
@@ -1269,10 +1297,13 @@ canvas.addEventListener('pointerdown',e=>{
     tapPulse();
   }
   if(mode==='DATA'){
-    const nativeSlot=nativeApertureAt(x,y);if(nativeSlot){focusNativeApertureSlot(nativeSlot.slot);return}
-    const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}
-    const nextLine=stateSteerLineAt(x,y);if(nextLine){steerStateNextLine(nextLine);return}
-    const candidate=stateLatticeCandidateAt(x,y);if(candidate){steerStateNextLine(candidate.line);return}
+    const focus=currentCalculationFocus();
+    if(focus?.visuals?.native){const nativeSlot=nativeApertureAt(x,y);if(nativeSlot){focusNativeApertureSlot(nativeSlot.slot);return}}
+    if(focus?.visuals?.state){
+      const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}
+      const nextLine=stateSteerLineAt(x,y);if(nextLine){steerStateNextLine(nextLine);return}
+      if(focus?.visuals?.lattice){const candidate=stateLatticeCandidateAt(x,y);if(candidate){steerStateNextLine(candidate.line);return}}
+    }
   }
   if(mode==='VOICE'){return {kind:'VOICE',pattern:voice.pattern,baseMidi:voice.baseMidi,clock:voice.linked?'PULSE_LINKED':'FREE',mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace)}}
   if(mode==='VERSE'){
@@ -1288,7 +1319,7 @@ canvas.addEventListener('pointerdown',e=>{
 canvas.addEventListener('pointermove',e=>{
   const {x,y}=canvasPoint(e);mx=x/W;my=y/H;
   if(mode==='INK'&&ink.down){const now=performance.now(),dt=Math.max(4,now-ink.lastT),sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY)/(dt/16.7);inkStroke(ink.lastX??x,ink.lastY??y,x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y;ink.lastT=now}
-  if(mode==='DATA'){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
+  if(mode==='DATA'&&currentCalculationFocus()?.visuals?.tree){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
 });
 canvas.addEventListener('pointerup',()=>{ink.down=false;ink.lastX=ink.lastY=null});
 canvas.addEventListener('pointercancel',()=>{ink.down=false;ink.lastX=ink.lastY=null});
@@ -1451,14 +1482,29 @@ function drawControlLossWitness(){
   ctx.globalAlpha=1;ctx.fillStyle='#69767d';ctx.font='700 7px ui-monospace';
   ctx.fillText('A↔B changes lawful aperture; HEX label does not',W/2,y+27);ctx.restore();
 }
-function drawData(){
-  clear(.18);const pos=dataPositions();ctx.lineWidth=1;
+function drawDataTree(){
+  const pos=dataPositions();ctx.lineWidth=1;
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;if(n.parent>=0&&pos[n.parent]){ctx.strokeStyle='rgba(70,88,99,.45)';ctx.beginPath();ctx.moveTo(pos[n.parent].x,pos[n.parent].y);ctx.lineTo(pos[i].x,pos[i].y);ctx.stroke()}});
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;const f=i===data.focus;ctx.fillStyle=f?'#ef7849':n.depth===0?'#d7b46d':'#7bd5ff';ctx.globalAlpha=f?1:.65;ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,f?7:3.5,0,TAU);ctx.fill();if(f){ctx.globalAlpha=1;const val=typeof n.value==='object'&&n.value!==null?(Array.isArray(n.value)?'ARRAY '+n.value.length:'OBJECT '+Object.keys(n.value).length):String(n.value);ctx.fillStyle='#f2f3ef';ctx.font='900 '+Math.max(18,Math.min(42,Math.min(W,H)*.06))+'px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText(String(n.key||n.path).slice(0,28),W/2,H*.48,Math.max(180,W*.5));ctx.fillStyle='#7bd5ff';ctx.font='700 9px ui-monospace';ctx.fillText(n.path,W/2,H*.53,Math.max(180,W*.64));ctx.fillStyle='#9aa6ac';ctx.font='700 10px ui-monospace';ctx.fillText(val.slice(0,72),W/2,H*.57,Math.max(180,W*.66))}});ctx.globalAlpha=1;
-  drawStateChange();
-  drawNativeAperture();
-  drawControlLossWitness();
 }
+function drawCalculationReturnFocus(focus){
+  if(!focus?.visuals?.return_address)return;
+  ctx.save();ctx.textAlign='center';ctx.fillStyle='#d7b46d';ctx.font='800 8px ui-monospace';
+  ctx.fillText('RETURN · EXACT RE-ENTRY ADDRESS',W/2,H*.12);
+  ctx.fillStyle='#9aa6ac';ctx.font='700 7px ui-monospace';ctx.fillText(String(focus.address||'OPEN').slice(0,96),W/2,H*.145,Math.max(180,W*.78));
+  ctx.restore();
+}
+function drawData(){
+  clear(.18);
+  const focus=currentCalculationFocus();
+  if(!focus?.ok)return;
+  if(focus.visuals.tree)drawDataTree();
+  if(focus.visuals.state)drawStateChange({lattice:focus.visuals.lattice});
+  if(focus.visuals.native)drawNativeAperture();
+  if(focus.visuals.control_loss)drawControlLossWitness();
+  drawCalculationReturnFocus(focus);
+}
+
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
@@ -1491,7 +1537,7 @@ function currentProjectionEvidence(){
   }
   if(mode==='DATA'){
     const change=data.stateChange,calc=data.stateCalc,step=data.stateStep,lattice=data.stateLattice,ladder=data.stateResidue,liveWitness=liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to});
-    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,nativeFocus:nativeApertureFocusEvidence(),calculationTape:currentCalculationTape(),controlLoss:data.controlLoss?.ok?{schema:data.controlLoss.schema,authority:data.controlLoss.authority,projection:data.controlLoss.projection,face:data.controlLossFace,samples:data.controlLoss.samples??null,nativeEqual:data.controlLoss.native_equal,factorDelta:data.controlLoss.factor_delta.map(x=>x.field),apertureDelta:data.controlLoss.aperture_delta,a:{seed:data.controlLoss.a.seed,round:data.controlLoss.a.round,exact:data.controlLoss.a.exact},b:{seed:data.controlLoss.b.seed,round:data.controlLoss.b.round,exact:data.controlLoss.b.exact}}:null,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,liveChange:liveWitness,nativeFocus:nativeApertureFocusEvidence(),calculationTape:currentCalculationTape(),calculationFocus:currentCalculationFocus(),controlLoss:data.controlLoss?.ok?{schema:data.controlLoss.schema,authority:data.controlLoss.authority,projection:data.controlLoss.projection,face:data.controlLossFace,samples:data.controlLoss.samples??null,nativeEqual:data.controlLoss.native_equal,factorDelta:data.controlLoss.factor_delta.map(x=>x.field),apertureDelta:data.controlLoss.aperture_delta,a:{seed:data.controlLoss.a.seed,round:data.controlLoss.a.round,exact:data.controlLoss.a.exact},b:{seed:data.controlLoss.b.seed,round:data.controlLoss.b.round,exact:data.controlLoss.b.exact}}:null,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits),calculation:calc?.ok?{hamming:calc.metrics.hamming_distance,normalizedHamming:calc.metrics.normalized_hamming,stable:calc.metrics.stable_lines,lineValues:[...calc.iching_projection.line_values],stepOrders:calc.metrics.one_line_step_orders,orderAmbiguityBits:calc.metrics.step_order_ambiguity_bits}:null,step:step?.ok?{order:[...step.selected_order],orderIndex:step.selected_order_index,orderCount:step.possible_one_line_orders,pathAddress:step.path_address,cursor:data.stateStepCursor,flow:data.stateFlow,flowClock:stateFlowClock().label,path:step.steps.map(x=>({address:x.address,line:x.line,lineValue:x.iching_line_value,before:x.before_token,after:x.after_token}))}:null,frontier:data.stateFrontier?.ok?{current:data.stateFrontier.current.token,currentAddress:data.stateFrontier.current.address,futurePaths:data.stateFrontier.current_future_paths,historyCount:data.stateFrontier.current_histories_collapsed,candidates:data.stateFrontier.candidates.map(x=>({line:x.line,transition:x.transition,lineValue:x.iching_line_value,after:x.after_token,futurePaths:x.future_paths_after,historyCount:x.histories_collapsed_at_successor,orderIndex:x.order_index_if_chosen}))}:null,lattice:lattice?.ok?{dimensions:lattice.dimensions,vertices:lattice.vertices,edges:lattice.edges,maximalChains:lattice.maximal_one_line_paths,widestRank:lattice.widest_rank}:null,residue:ladder?{strongestClaim:ladder.strongest_claim,levels:ladder.levels.map(x=>({id:x.id,claim:x.claim,authority:x.authority}))}:null}:null};
   }
   return {kind:'RIDE',target:'/fold-bloom/live/'};
 }
@@ -1538,5 +1584,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,calculationTape:()=>currentCalculationTape(),stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),controlLoss:()=>data.controlLoss?.ok?JSON.parse(JSON.stringify({...data.controlLoss,face:data.controlLossFace})):null,ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,calculationTape:()=>currentCalculationTape(),calculationFocus:()=>currentCalculationFocus(),stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),controlLoss:()=>data.controlLoss?.ok?JSON.parse(JSON.stringify({...data.controlLoss,face:data.controlLossFace})):null,ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{stopLiveChangePulse?.()}catch(_){}try{fieldPulse.close?.()}catch(_){}});
