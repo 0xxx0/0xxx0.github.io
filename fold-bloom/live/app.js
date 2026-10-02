@@ -488,7 +488,7 @@ function renderFamilyTrace(){
     row.classList.toggle('isTarget',trace.target);
     row.setAttribute('aria-current',trace.target?'true':'false');
     const detail=row.querySelector('[data-family-detail]');
-    if(detail)detail.textContent=`${trace.anchor===null?'ANCHOR —':`ANCHOR ${String(trace.anchor+1).padStart(2,'0')}`} · ${trace.nodes} CELLS · ${trace.links} LINKS · PEAK T${trace.peakTier}`;
+    if(detail)detail.textContent=`${trace.anchor===null?'ANCHOR —':`ANCHOR G${String(trace.anchor).padStart(2,'0')}`} · ${trace.nodes} CELLS · ${trace.links} LINKS · PEAK T${trace.peakTier}`;
     const target=row.querySelector('[data-family-target]');
     if(target)target.textContent=trace.target?'TARGET':'';
   }
