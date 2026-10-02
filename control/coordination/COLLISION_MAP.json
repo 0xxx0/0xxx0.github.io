@@ -8,8 +8,9 @@
     "native release metadata",
     "/returns/"
   ],
-  "law": "Detect overlap before merge; never mint project state, priority, permission, or a second owner.",
+  "law": "Detect overlap and stale ancestry before merge; never mint project state, priority, permission, or a second owner.",
   "policy": {
+    "base_behind": "FAIL",
     "exact_file_overlap": "FAIL",
     "hard_domain_overlap": "FAIL",
     "soft_domain_overlap": "WARN",
@@ -38,7 +39,14 @@
     "keys": ["authority-owner","surface","class","publication","return","stop"],
     "classes": ["DELTA","EVIDENCE","DONOR","RETURN","UNRESOLVED"]
   },
+  "enforcement": {
+    "workflow_check": "collision-preflight",
+    "repository_ruleset_required_for_hard_prevention": true,
+    "observed_repository_enforcement_at_design_time": "UNPROTECTED / NO RULESETS",
+    "note": "Without branch protection/ruleset-required checks, this workflow is advisory even when it fails."
+  },
   "notes": [
+    "A candidate already behind its target base fails when this PR-event check runs.",
     "Exact-file and hard-domain overlap are merge hazards and fail the check.",
     "Soft-domain overlap is a review signal only; native hosts may contain independent deltas.",
     "Unique receipts and confluence notes do not collide merely because they share a directory.",
