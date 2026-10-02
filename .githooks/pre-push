@@ -23,4 +23,36 @@ if [ -x "$GUARD" ]; then
   "$GUARD" "$@" || exit $?
 fi
 
-exec python3 "$(git rev-parse --show-toplevel)/tools/finish-line.py" --pre-push
+TOP="$(git rev-parse --show-toplevel)"
+
+# finish-line first: it fetches origin, so the stamp check below reads a FRESH
+# origin/master. Judging against a stale ref is how a gate gives a confident wrong answer.
+python3 "$TOP/tools/finish-line.py" --pre-push || exit $?
+
+# CHAIN the FIELD INDEX stamp contract: MUTATION -> INDEX TOUCH.
+# control/FIELD_INDEX_CONTRACT.json requires a change that touches a route to bump that
+# route's index.updated_at IN THE SAME CHANGE. The CI step for this is REPORT-ONLY by
+# design (a blocking CI gate stops concurrent writers); the refusal belongs here, where it
+# stops only the actor about to make the claim.
+#
+# Scoped to origin/master..HEAD — only the commits THIS push claims, never another
+# session's. Measured 2026-10-01: five routes were mutated and never stamped, so the FIELD
+# INDEX rail under-reported the day (3 marks for a day with 8 touched routes). The CI
+# comment above claimed this refusal already existed here; it did not.
+#
+# Bypass consciously: git push --no-verify
+if git -C "$TOP" rev-parse --verify -q origin/master >/dev/null 2>&1; then
+  STAMP_OUT="$(python3 "$TOP/tools/fi-mutation-contract.py" --from-git origin/master..HEAD --check 2>&1)"
+  if [ $? -ne 0 ]; then
+    echo "finish-line: REFUSED — route stamp older than the commit that touched it." >&2
+    echo "$STAMP_OUT" >&2
+    echo "" >&2
+    echo "  MUTATION -> INDEX TOUCH: stamp the route in the SAME change as the mutation." >&2
+    echo "  Fix:  python3 tools/fi-mutation-contract.py --from-git origin/master..HEAD --modes <MODES> --dry-run" >&2
+    echo "        then re-run without --dry-run, commit the stamp, and push again." >&2
+    echo "  Conscious bypass: git push --no-verify" >&2
+    exit 1
+  fi
+fi
+
+exit 0

@@ -24,6 +24,7 @@ git config core.hooksPath .githooks
 
 echo "install-hooks: hooks now live in .githooks/ (version controlled)"
 echo "  pre-push -> .githooks/pre-push-guard (private trees/secrets) then tools/finish-line.py"
+echo "              then the FIELD INDEX stamp gate (MUTATION -> INDEX TOUCH)"
 echo
 echo "  Verify: python3 tools/finish-line.py --check"
 echo "  Bypass (deliberate, visible): git push --no-verify"

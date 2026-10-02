@@ -216,6 +216,49 @@ def semantic_paths_and_stamp(rng):
     return sorted(set(paths)), commits[-1][2], len(commits)
 
 
+def route_touch_dates(rng, routes):
+    """href -> the newest non-generated commit date that touched THAT route.
+
+    This is the value the contract actually compares against: a route's stamp must not be
+    older than the commit that last touched the route itself -- not the newest commit in
+    the range.
+    """
+    out = {}
+    for sha, _subject, ciso in semantic_commits(rng):
+        o = subprocess.run(["git", "diff-tree", "--no-commit-id", "--name-only", "-r", sha],
+                           capture_output=True, text=True)
+        if o.returncode != 0:
+            continue
+        paths = [l for l in o.stdout.splitlines() if l.strip()]
+        hit, _unmatched = hrefs_for_paths(paths, routes)
+        for h in hit:
+            if h not in out or ciso > out[h]:
+                out[h] = ciso
+    return out
+
+
+def semantic_stamp_for_routes(rng, routes):
+    """Newest non-generated commit in the range whose touched paths map to >=1 ROUTE.
+
+    A follow-up commit that only writes showcase-manifest.json (the stamp commit itself, or
+    any bookkeeping file) maps to no route. Letting it advance the stamp makes the stamp it
+    just wrote read as stale against its own commit -- so a correctly-stamped push could
+    never pass --check. Measured 2026-10-01: applying the tool's own printed fix and
+    re-running --check refused the result.
+    """
+    newest = None
+    for sha, _subject, ciso in semantic_commits(rng):
+        out = subprocess.run(["git", "diff-tree", "--no-commit-id", "--name-only", "-r", sha],
+                             capture_output=True, text=True)
+        if out.returncode != 0:
+            continue
+        paths = [l for l in out.stdout.splitlines() if l.strip()]
+        hit, _unmatched = hrefs_for_paths(paths, routes)
+        if hit and (newest is None or ciso > newest):
+            newest = ciso
+    return newest
+
+
 def stamp_from_git(rng):
     """Commit date of the newest commit in the range, ISO8601 with offset."""
     out = subprocess.run(["git", "log", "-1", "--format=%cI", rng],
@@ -257,7 +300,11 @@ def main() -> int:
     if args.from_git:
         sem_paths, sem_stamp, sem_n = semantic_paths_and_stamp(args.from_git)
         wanted, unmatched = hrefs_for_paths(sem_paths, routes)
-        at = args.at or sem_stamp or stamp_from_git(args.from_git)
+        # The stamp is the newest commit that actually touched a ROUTE -- never a commit that
+        # only wrote bookkeeping (the manifest itself). Otherwise the stamp a writer just
+        # committed reads as stale against the commit that carried it.
+        route_stamp = semantic_stamp_for_routes(args.from_git, routes)
+        at = args.at or route_stamp or sem_stamp or stamp_from_git(args.from_git)
         if sem_n == 0 and not args.at:
             print(f"NO SEMANTIC COMMITS in {args.from_git} (all were generated "
                   f"nexus:/comms:/convergence: refreshes) — nothing to stamp. Exiting clean.")
@@ -290,11 +337,13 @@ def main() -> int:
         return 3
 
     changed, skipped = [], []
+    recorded_before = {}
     for href in wanted:
         r = by_href[href]
         idx = r.setdefault("index", {})
         before_modes = list(idx.get("work_modes", []))
         before_at = idx.get("updated_at")
+        recorded_before[href] = before_at
         # No-op guard: a derived stamp not newer than what is recorded means this route did
         # not actually change in the range. Skip rather than re-stamp, which keeps a
         # re-run over an overlapping range idempotent.
@@ -320,16 +369,35 @@ def main() -> int:
         assert a == b, f"operation changed for {href}"
 
     if args.check:
-        if changed:
-            print(f"STALE: {len(changed)} route(s) are registered but older than the "
+        # Per-ROUTE staleness. The contract is "the route's stamp must not be older than the
+        # commit that last touched THAT ROUTE" -- a single range-wide stamp is wrong in both
+        # directions: a later commit touching a different route would falsely flag an
+        # earlier, correctly-stamped one, and a bookkeeping commit would falsely flag
+        # everything. Compare each route against its own newest touch.
+        if args.at:
+            touches = {h: args.at for h in wanted}
+        else:
+            touches = route_touch_dates(args.from_git, routes)
+        stale = []
+        for href in sorted(touches):
+            if href not in by_href:
+                continue
+            # recorded_before, NOT the live manifest: the apply loop above has already
+            # written `at` into the in-memory route, so reading it back would compare the
+            # stamp against itself and never find anything stale.
+            recorded = recorded_before.get(href)
+            if not recorded or str(recorded) < str(touches[href]):
+                stale.append((href, recorded, touches[href]))
+        if stale:
+            print(f"STALE: {len(stale)} route(s) are registered but older than the "
                   f"commit that last touched them.", file=sys.stderr)
-            for href, b_at, a_at, _b_m, _a_m in changed:
+            for href, b_at, a_at in stale:
                 print(f"  {href}: recorded {b_at}, commit says {a_at}", file=sys.stderr)
             print(f"\nRun this to fix, then commit showcase-manifest.json:\n"
                   f"  python3 tools/fi-mutation-contract.py --from-git {args.from_git} "
                   f"--modes IMPLEMENT,VERIFY", file=sys.stderr)
             return 1
-        print(f"FI RECENCY OK: {len(skipped)} route(s) checked, none stale")
+        print(f"FI RECENCY OK: {len(touches)} route(s) checked, none stale")
         return 0
 
     if changed and not args.dry_run:
