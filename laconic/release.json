@@ -6,6 +6,8 @@
   "released": "2026-10-03",
   "state": "ACTIVE",
   "changes": [
+    "v0.3.6 — WORK / FORGE projects existing LINE objects into a five-phase HEAT → FORM → COOL → POLISH → REPEAT cadence with ALT, NEXT and transient 12-second AUTO. The exact user-authored maxim 「工不十，具不易」 is preserved with source provenance; fifteen NEW work lines remain ordinary LINE objects. WRITE excludes the WORK scenario, so no fifth object class, route, canon store or authority layer is created.",
+    "v0.3.6 — repaired Laconic view switching: tab/view collections now use the plural selector helper rather than calling forEach on querySelector results.",
     "v0.3.6 — repaired Pocket PLAY runtime selection and closed FIELD→LACONIC execution seam: DRAFT / DEAL ONE / TRAJECTORIES are exact target-bearing native actions; ?view, ?scene and ?card deep links recover the same canonical LINE/SCENE/Pocket projections without a new route or store.",
     "v0.3.5 — added POCKET MOVES as a delight-first projection of eight existing SCENES: deal one or show all, copy the canonical opening move, play the canonical branch tree, and mark USED through the existing branch receipt. No new route, object class, content store or adoption store.",
     "v0.3.4 — added SCRIPT PRESSURE / NAME THE MOVE: a nine-node PLAY trajectory that turns ambiguous social pressure into observation / request / role-cast / unresolved, then routes each to evidence, explicit asking, consent/boundary, or lawful noncompliance.",
@@ -77,7 +79,12 @@
     "DEAL ONE remains transient view state with no authority",
     "Pocket PLAY uses plural selector helper and opens the canonical scene runner",
     "FIELD held Laconic exposes exactly three target-bearing actions: DRAFT / DEAL ONE / TRAJECTORIES",
-    "view/scene/card query state addresses existing projections only; it does not create new canon or persistence"
+    "view/scene/card query state addresses existing projections only; it does not create new canon or persistence",
+    "WORK derives only from bank.json LINE objects tagged scenario=work; no duplicate work content store",
+    "WORK phase order is exactly HEAT → FORM → COOL → POLISH → REPEAT",
+    "WORK AUTO is transient and stops when the view closes",
+    "WRITE excludes scenario=work so the response bank remains bounded",
+    "tab/view switching binds querySelectorAll collections"
   ],
   "return": "/laconic/",
   "verification": [
@@ -89,9 +96,9 @@
     "/returns/LACONIC_FIELD_ACTIONS_2026-10-03.json"
   ],
   "current_classification": {
-    "reviewed_at": "2026-10-03T03:48:00+08:00",
+    "reviewed_at": "2026-10-03T03:55:00+08:00",
     "state": "ACTIVE",
-    "basis": "Current communications head is directly operable from FIELD through three bounded native actions while preserving LINE/SCENE/VAULT/Pocket as unequal projections on one route.",
+    "basis": "Current communications head keeps bounded LINE/SCENE drafting, provenance-visible recovery, POCKET scene projection, and a WORK projection that reuses LINE objects for a transient five-phase craft cadence without adding a new canon/store.",
     "provenance_note": "Historical abundance is browseable but does not gain adoption/canon status by visibility."
   }
 }
