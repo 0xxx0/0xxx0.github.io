@@ -1,0 +1,88 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "source-hold-turn-trace-return-worked-run-2026-10-02",
+  "result_status": "CHANGED",
+  "source_object": "0xxx0/source-hold-turn-trace-return/v0.1",
+  "host": "0xxx0/0xxx0.github.io repository",
+  "turn_ref": "37b655e5d8f82a9249ba1b83b750633e95e188cd",
+  "before": {
+    "control/SOURCE_HOLD_TURN_TRACE_RETURN.md": "2195bab0119f302c8e3ad2c0f8cc773cc21bb004",
+    "control/SOURCE_HOLD_TURN_TRACE_RETURN.json": "b7de20ed85ce8cbe1a6d44c7b05f6661c0a31671",
+    "tools/source-hold-turn-trace-return-selftest.mjs": "bb91f5aabba6b6c306c7c65639a83c69ae1ef65a"
+  },
+  "after": {
+    "control/SOURCE_HOLD_TURN_TRACE_RETURN.md": "89a56004b2cdfc61945be07d03c9e3d5335adb9f",
+    "control/SOURCE_HOLD_TURN_TRACE_RETURN.json": "f19a855c6c2eb48769bca6608d221f80070413c8",
+    "tools/source-hold-turn-trace-return-selftest.mjs": "2d185e776328479d4b6fc68853a543631c017f95"
+  },
+  "observed_delta": "The existing operational protocol now machine-declares the exact 14-field RETURN schema, stop conditions and evidence requirements; human docs contain one copyable coding-model block plus a complete worked run; the existing selftest asserts those additions. The single TURN commit touched only the three declared protocol facets.",
+  "evidence_refs": [
+    "https://github.com/0xxx0/0xxx0.github.io/commit/37b655e5d8f82a9249ba1b83b750633e95e188cd",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "/tools/source-hold-turn-trace-return-selftest.mjs"
+  ],
+  "evidence_checks": [
+    {
+      "id": "json_parse",
+      "pass": true
+    },
+    {
+      "id": "stage_order",
+      "pass": true
+    },
+    {
+      "id": "return_fields_exact",
+      "pass": true
+    },
+    {
+      "id": "coding_block",
+      "pass": true
+    },
+    {
+      "id": "evidence_tri_state",
+      "pass": true
+    },
+    {
+      "id": "stop_conditions",
+      "pass": true
+    },
+    {
+      "id": "worked_run",
+      "pass": true
+    },
+    {
+      "id": "human_projection",
+      "pass": true
+    },
+    {
+      "id": "selftest_projection",
+      "pass": true
+    },
+    {
+      "id": "declared_files_only",
+      "pass": true
+    }
+  ],
+  "residue": "Copyable coding-model instruction; exact RETURN field contract; machine-readable worked run; tightened selftest.",
+  "unknowns": [
+    "No GitHub workflow run was attached to the TURN commit at TRACE time; CI proof is not claimed.",
+    "No browser/device/human/world evidence was required for this control-contract refinement."
+  ],
+  "unresolved_gate": null,
+  "return_address": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+  "closed_at": "2026-10-02T12:28:09Z",
+  "next_authority": "NONE",
+  "trace": {
+    "status": "PASS_STATIC_CONTRACT",
+    "touched_files": [
+      "control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+      "control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+      "tools/source-hold-turn-trace-return-selftest.mjs"
+    ],
+    "workflow_runs": [],
+    "combined_status": {
+      "statuses": []
+    }
+  }
+}
