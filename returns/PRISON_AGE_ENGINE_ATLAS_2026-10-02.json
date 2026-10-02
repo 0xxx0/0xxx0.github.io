@@ -1,0 +1,52 @@
+{
+  "schema": "0xxx0/prison-age-engine-atlas-return/v0.1",
+  "date": "2026-10-02",
+  "status": "IMPLEMENTED / TARGETED_STATIC_PROOF_PASS / PR_GATE_REQUIRED",
+  "host": "/prison-age/",
+  "field_object": "/prison-age/",
+  "contribution_class": [
+    "DELTA",
+    "RETURN"
+  ],
+  "delta": [
+    "reify the four generated 01–32 poster cycles as one filterable ENGINE ATLAS inside the existing PRISON AGE host",
+    "preserve one held engine across card, cycle, family-filter and echo projections",
+    "compose at most three selected engines into a local HOLD / TURN / TRACE packet with explicit RETURN",
+    "keep generated visual interpretation distinct from source prose, canon and behavioral evidence",
+    "keep FIELD native action surface exactly READ / RIDE / SOURCE and add no new manifest route"
+  ],
+  "invariants": [
+    "GENERATED IMAGE ≠ SOURCE BYTES ≠ CANON ≠ RECEIPT",
+    "TRACE PROMPT ≠ OBSERVED CONSEQUENCE",
+    "ENGINE ATLAS authority = NONE",
+    "FIELD READ / RIDE / SOURCE remains three operations",
+    "source pack blob remains unchanged",
+    "one addressed /prison-age/ FIELD object remains canonical"
+  ],
+  "evidence": {
+    "bytes": [
+      "/prison-age/engine-atlas.html",
+      "/prison-age/engine-atlas.json",
+      "/prison-age/index.html",
+      "/prison-age/release.json",
+      "/showcase-manifest.json"
+    ],
+    "targeted_checks": [
+      "engine-atlas.json parses",
+      "32 cards exist with unique contiguous numbers 01–32",
+      "four cycles cover 01–32 exactly once",
+      "inline atlas JavaScript parses",
+      "atlas loads /prison-age/engine-atlas.json",
+      "atlas emits prison-age.engine-route/v0.1 with authority NONE and explicit RETURN",
+      "source resolver links atlas",
+      "manifest contains exactly one /prison-age/ route and no engine-atlas route",
+      "/prison-age/ manifest operation remains READ / RIDE / SOURCE",
+      "release native_actions remains READ / RIDE / SOURCE",
+      "branch and master /prison-age/sources.json blob SHA are identical at targeted verification"
+    ],
+    "targeted_result": "PASS"
+  },
+  "proof_gate": "Full repository ship-check, public-surface redaction gate and applicable GitHub CI must pass on exact PR head before merge; targeted connector checks do not substitute for those repository-wide gates.",
+  "authority": "Representation only. PRISON_AGE remains source authority; FIELD remains the addressed action aperture; copied engine-route packets have no effect authority.",
+  "return": "/?focus=%2Fprison-age%2F"
+}
