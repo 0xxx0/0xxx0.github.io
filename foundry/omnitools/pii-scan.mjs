@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-// foundry/omnitools/pii-scan.mjs — REPO / PII PATTERN EXTRACTOR 0.1
+// foundry/omnitools/pii-scan.mjs — REPO / PII PATTERN EXTRACTOR 0.2
 //
 // Scan a git repo's working tree and (optionally) its full history for emails,
 // handles, secrets, keys, tokens, IPs, phone numbers and probable real names.
-// Regex detectors + Shannon-entropy scoring. Zero dependencies, fully offline.
+// Regex detectors + Shannon-entropy scoring. Zero dependencies, fully offline
+// (one deliberate exception: --verify opts into read-only liveness probes).
 //
 // USAGE
 //   node pii-scan.mjs [target] [options]        target defaults to cwd
@@ -16,10 +17,36 @@
 //                      candidates (default 4.5; `off` disables the sweep)
 //   --no-tree          skip the working tree (history only)
 //   --max-file BYTES   per-file size cap (default 2000000)
-//   --fail-on SEV      exit 1 when findings at/above SEV exist
+//   --fail-on SEV      exit 1 when findings at/above SEV exist that are NOT
+//                      covered by the baseline
 //                      (critical|high|medium|low|off — default off)
+//   --baseline PATH    acknowledged-findings file
+//                      (default <target>/.pii-scan-baseline.json)
+//   --update-baseline  merge every current finding into the baseline file,
+//                      report what was acknowledged, and exit 0
+//   --verify           opt in to online liveness checks (read-only provider
+//                      API GETs) for the detectors where that is meaningful;
+//                      findings then carry verified: true|false. WITHOUT this
+//                      flag every finding is verified:"unchecked" and nothing
+//                      touches the network.
 //
-// EXIT  0 clean (or --fail-on off) · 1 findings at/above --fail-on · 2 usage
+// BASELINE (detect-secrets style)
+//   A finding fingerprints as `detector:file:sha256(value)[0:16]` — rule id,
+//   file path and the hashed value only. Line numbers and commit shas are
+//   excluded on purpose so a fingerprint survives line moves, new commits and
+//   history re-scans; the value is hashed and only a first2…last2 hint is
+//   stored, so the committed baseline file never contains a cleartext secret.
+//   Baselined findings are still REPORTED (tagged `baselined`) — they are
+//   excluded only from --fail-on. Acknowledgement is loud, never silent.
+//
+// VERIFIED (TruffleHog-style confidence axis)
+//   verified:"unchecked" (default, offline) · verified:true (live credential,
+//   rotate now) · verified:false (pattern matched but provider says dead).
+//   Probes exist for github-token, npm-token and stripe-key; every other
+//   detector stays "unchecked" even under --verify.
+//
+// EXIT  0 clean / baselined-only (or --fail-on off, or --update-baseline)
+//       1 NEW findings at/above --fail-on · 2 usage
 //
 // DETECTORS  private-key aws-access-key github-token slack-token google-api-key
 //            npm-token stripe-key jwt url-credentials bearer-header
@@ -28,8 +55,13 @@
 
 'use strict';
 import { spawn } from 'node:child_process';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { basename, join, relative } from 'node:path';
+
+const VERSION = '0.2';
+const BASELINE_SCHEMA = 'pii-scan-baseline/v1';
+const BASELINE_DEFAULT = '.pii-scan-baseline.json';
 
 const SEV = { critical: 4, high: 3, medium: 2, low: 1 };
 const sevOf = s => SEV[s] || 0;
@@ -71,17 +103,20 @@ const SKIP_FILES = /\.(png|jpe?g|gif|webp|avif|ico|bmp|tiff?|mp[34]|m4a|mov|avi|
 const LOCKS = new Set(['package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'composer.lock', 'poetry.lock', 'Cargo.lock', 'go.sum']);
 
 const arg = (process.argv.slice(2));
-const opts = { history: false, json: false, redact: false, entropy: 4.5, tree: true, maxFile: 2_000_000, failOn: 'off', maxCommits: 0, target: null };
+const opts = { history: false, json: false, redact: false, entropy: 4.5, tree: true, maxFile: 2_000_000, failOn: 'off', maxCommits: 0, target: null, baseline: null, updateBaseline: false, verify: false };
 for (let i = 0; i < arg.length; i++) {
   const a = arg[i];
   if (a === '--history') opts.history = true;
   else if (a === '--json') opts.json = true;
   else if (a === '--redact') opts.redact = true;
   else if (a === '--no-tree') opts.tree = false;
+  else if (a === '--update-baseline') opts.updateBaseline = true;
+  else if (a === '--verify') opts.verify = true;
   else if (a === '--entropy') { const v = arg[++i]; opts.entropy = v === 'off' ? 0 : Number(v); }
   else if (a === '--max-file') opts.maxFile = Number(arg[++i]);
   else if (a === '--max-commits') opts.maxCommits = Number(arg[++i]);
   else if (a === '--fail-on') opts.failOn = arg[++i];
+  else if (a === '--baseline') opts.baseline = arg[++i];
   else if (a === '-h' || a === '--help') {
     const head = readFileSync(new URL(import.meta.url), 'utf8').split('\n').filter(l => l.startsWith('//') || l.startsWith('#!')).map(l => l.replace(/^(\/\/ ?|#!)/, '')).join('\n');
     console.log(head); process.exit(0);
@@ -93,6 +128,60 @@ if (opts.failOn !== 'off' && !SEV[opts.failOn]) { console.error('--fail-on must 
 
 const target = resolveTarget(opts.target || '.');
 function resolveTarget(p) { try { return statSync(p).isDirectory() ? p : join(p, '..'); } catch { return p; } }
+
+// ── BASELINE (detect-secrets style) ──────────────────────────────────────────
+// fingerprint = detector:file:sha256(value)[0:16]. No line numbers, no commit
+// shas: entries survive line moves, new commits and history re-scans. Values
+// are hashed; only a first2…last2 hint is stored, never the secret itself.
+const baselinePath = opts.baseline ? opts.baseline : join(target, BASELINE_DEFAULT);
+const baselineName = basename(baselinePath);
+function fpFile(location) {
+  return location.startsWith('hist:') ? location.slice(5).split(':').slice(1).join(':') : location;
+}
+function fingerprint(f) {
+  return f.detector + ':' + fpFile(f.location) + ':' + createHash('sha256').update(f.value, 'utf8').digest('hex').slice(0, 16);
+}
+function hint(v) { return v.length <= 6 ? '***' : v.slice(0, 2) + '…' + v.slice(-2) + ' [' + v.length + 'ch]'; }
+
+let baseline = { findings: {} };
+let baselinePresent = false;
+if (existsSync(baselinePath)) {
+  try {
+    const b = JSON.parse(readFileSync(baselinePath, 'utf8'));
+    if (!b || typeof b.findings !== 'object' || !b.findings) throw new Error('no findings map');
+    baseline = b; baselinePresent = true;
+  } catch (e) { console.error('baseline unreadable (' + e.message + '): ' + baselinePath); process.exit(2); }
+}
+
+// ── VERIFIED (TruffleHog-style confidence axis) ──────────────────────────────
+// Read-only provider API GETs. Reachable ONLY under --verify; without the flag
+// this file never imports a network path and nothing leaves the machine.
+const PROBES = {
+  'github-token': async v => {
+    const r = await fetch('https://api.github.com/user', { headers: { authorization: 'Bearer ' + v, accept: 'application/vnd.github+json', 'user-agent': 'pii-scan/' + VERSION }, signal: AbortSignal.timeout(5000) });
+    return r.status === 200 ? true : (r.status === 401 || r.status === 403 ? false : 'unchecked');
+  },
+  'npm-token': async v => {
+    const r = await fetch('https://registry.npmjs.org/-/whoami', { headers: { authorization: 'Bearer ' + v, 'user-agent': 'pii-scan/' + VERSION }, signal: AbortSignal.timeout(5000) });
+    return r.status === 200 ? true : (r.status === 401 || r.status === 403 ? false : 'unchecked');
+  },
+  'stripe-key': async v => {
+    const r = await fetch('https://api.stripe.com/v1/charges?limit=1', { headers: { authorization: 'Bearer ' + v, 'user-agent': 'pii-scan/' + VERSION }, signal: AbortSignal.timeout(5000) });
+    return r.status === 200 ? true : (r.status === 401 || r.status === 403 ? false : 'unchecked');
+  },
+};
+const probeCache = new Map();
+async function applyVerified() {
+  for (const f of findings) {
+    f.verified = 'unchecked';
+    const probe = opts.verify && PROBES[f.detector];
+    if (!probe) continue;
+    const ck = f.detector + '|' + f.value;
+    if (probeCache.has(ck)) { f.verified = probeCache.get(ck); continue; }
+    try { f.verified = await probe(f.value); } catch { f.verified = 'unchecked'; }
+    probeCache.set(ck, f.verified);
+  }
+}
 
 const findings = [];
 const scanned = { files: 0, bytes: 0, skipped: 0, commits: 0 };
@@ -145,7 +234,7 @@ function walk(dir) {
     const p = join(dir, e.name);
     if (e.isDirectory()) { if (!SKIP_DIRS.has(e.name) && !e.name.startsWith('.git')) walk(p); continue; }
     if (!e.isFile()) continue;
-    if (SKIP_FILES.test(e.name) || LOCKS.has(e.name)) { scanned.skipped++; continue; }
+    if (SKIP_FILES.test(e.name) || LOCKS.has(e.name) || e.name === BASELINE_DEFAULT || e.name === baselineName) { scanned.skipped++; continue; }
     let st, buf;
     try { st = statSync(p); if (st.size > opts.maxFile) { scanned.skipped++; continue; } buf = readFileSync(p); } catch { continue; }
     if (buf.includes(0)) { scanned.skipped++; continue; }   // binary
@@ -194,17 +283,56 @@ function mask(v) {
 
 if (opts.tree) walk(target);
 if (opts.history) await scanHistory();
+await applyVerified();
 
 findings.sort((a, b) => sevOf(b.severity) - sevOf(a.severity) || a.detector.localeCompare(b.detector) || (a.line ?? 0) - (b.line ?? 0));
+
+for (const f of findings) {
+  f.fingerprint = fingerprint(f);
+  f.baselined = Object.prototype.hasOwnProperty.call(baseline.findings, f.fingerprint);
+}
 
 const counts = {};
 for (const f of findings) counts[f.detector] = (counts[f.detector] || 0) + 1;
 
+// --update-baseline: acknowledge (merge, never purge) and write. Loud, not
+// silent — the report below still lists every acknowledged finding.
+let baselineAdded = 0;
+if (opts.updateBaseline) {
+  const entries = {};
+  for (const k of Object.keys(baseline.findings).sort()) entries[k] = baseline.findings[k];
+  for (const f of findings) {
+    if (!Object.prototype.hasOwnProperty.call(entries, f.fingerprint)) baselineAdded++;
+    entries[f.fingerprint] = entries[f.fingerprint] || {
+      detector: f.detector, severity: f.severity, file: fpFile(f.location),
+      value_hint: hint(f.value), first_seen: new Date().toISOString(),
+    };
+  }
+  const doc = {
+    schema: BASELINE_SCHEMA,
+    tool: 'pii-scan',
+    tool_version: VERSION,
+    fingerprint_rule: 'detector:file:sha256(value)[0:16] — line numbers and commit shas excluded so entries survive line moves and new commits; values stored hashed + masked, never in clear',
+    updated: new Date().toISOString(),
+    findings: entries,
+  };
+  writeFileSync(baselinePath, JSON.stringify(doc, null, 2) + '\n');
+  baseline = doc;
+  baselinePresent = true;
+}
+
+const baselinedCount = findings.filter(f => f.baselined).length;
+
 if (opts.json) {
-  console.log(JSON.stringify({ tool: 'pii-scan', version: '0.1', target, scanned, counts, findings: findings.map(f => ({ ...f, value: mask(f.value) })) }, null, 2));
+  console.log(JSON.stringify({
+    tool: 'pii-scan', version: VERSION, target, scanned, counts,
+    baseline: { path: baselinePath, present: baselinePresent, entries: Object.keys(baseline.findings).length, updated: baseline.updated ?? null },
+    verify: opts.verify ? 'probed' : 'offline',
+    findings: findings.map(f => ({ ...f, value: mask(f.value) })),
+  }, null, 2));
 } else {
   const scope = `tree:${scanned.files} files (${(scanned.bytes / 1024).toFixed(1)} kB${scanned.skipped ? ', ' + scanned.skipped + ' skipped' : ''})` + (opts.history ? ` · history:${scanned.commits} commits` : '');
-  console.log(`pii-scan.mjs 0.1 — ${findings.length} finding(s) over ${scope}`);
+  console.log(`pii-scan.mjs ${VERSION} — ${findings.length} finding(s)${baselinedCount ? ` (${baselinedCount} baselined)` : ''} over ${scope}`);
   if (!findings.length) console.log('  clean.');
   let last = null;
   for (const f of findings) {
@@ -215,10 +343,15 @@ if (opts.json) {
       console.log(`\n${f.severity.toUpperCase().padEnd(8)} ${f.detector}  ×${n}`);
     }
     const ent = f.entropy !== null ? `  H=${f.entropy}` : '';
-    console.log(`  ${mask(f.value)}${ent}  @ ${f.location}:${f.line ?? '-'}`);
+    const ver = f.verified === true ? '  verified:live' : f.verified === false ? '  verified:dead' : '';
+    const bl = f.baselined ? '  ~baselined' : '';
+    console.log(`  ${mask(f.value)}${ent}${ver}${bl}  @ ${f.location}:${f.line ?? '-'}`);
   }
   console.log('\ncounts ' + JSON.stringify(counts));
+  if (opts.updateBaseline) console.log(`baseline ${baselinePath} — ${baselineAdded} added, ${Object.keys(baseline.findings).length} total (acknowledged findings still reported above; --fail-on now ignores them)`);
+  else if (baselinePresent && baselinedCount) console.log(`baseline ${baselinePath} — ${baselinedCount} of ${findings.length} acknowledged (still reported, not failed)`);
 }
 
-const worst = findings.reduce((a, f) => Math.max(a, sevOf(f.severity)), 0);
-process.exit(opts.failOn !== 'off' && worst >= sevOf(opts.failOn) ? 1 : 0);
+const active = findings.filter(f => !f.baselined);
+const worst = active.reduce((a, f) => Math.max(a, sevOf(f.severity)), 0);
+process.exit(opts.updateBaseline ? 0 : (opts.failOn !== 'off' && worst >= sevOf(opts.failOn) ? 1 : 0));
