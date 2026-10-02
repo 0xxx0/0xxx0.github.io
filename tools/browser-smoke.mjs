@@ -214,7 +214,7 @@ function fieldActivationProbeHtml(){
   const waitFor=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document,href='/fold-bloom/';
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href,10000,'FIELD ready');
+    await waitFor(()=>typeof W().FieldLensHost?.project==='function',10000,'FIELD ready');
     W().FieldLensHost.project('STRUCTURE');
     const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'),10000,'target row');
     row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&new URLSearchParams(W().location.search).get('focus')===href,10000,'focus address');
@@ -1105,7 +1105,9 @@ function fieldRootCheck(dom){
     chronology:dom.includes('id="touchList"'),
     projection_fold:dom.includes('class="routeProjection"'),
     authority:/Φ \/ CURRENT/.test(dom),
-    confluence:/CONFLUENCE/.test(dom)
+    confluence:/CONFLUENCE/.test(dom),
+    current_heads_entry:dom.includes('id="feedScope"')&&/CURRENT HEADS/.test(textAtId(dom,'feedInstruction')),
+    explicit_initial_hold:dom.includes('focus=r||null')&&/Choose one CURRENT head/.test(textAtId(dom,'apTitle'))
   };
   const miss=Object.entries(checks).filter(([,ok])=>!ok).map(([k])=>k);
   if(miss.length)console.error('FIELD ROOT CONTRACT MISS · '+miss.join(' · '));

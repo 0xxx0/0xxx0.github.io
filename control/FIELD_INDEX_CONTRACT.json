@@ -1,6 +1,6 @@
 {
   "schema": "field-index-contract/v0.4",
-  "updated": "2026-09-30",
+  "updated": "2026-10-02",
   "purpose": "Keep FIELD INDEX usable under growth: exact Git repository chronology for literal change, CURRENT for attention, showcase-manifest for addressed route projection, and one shared focus identity across AXIAL / route projections / map without allowing any projection to impersonate authority.",
   "laws": [
     "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; Git commits own literal repository mutation chronology; route.index.updated_at is curated route-touch metadata only.",
@@ -61,11 +61,11 @@
     "FORECAST ≠ EFFECT. Before an exposed move commits, FIELD may project only declared effect class, authority/commit boundary, target, source-mutation class and reversibility from the shared action contract. UNKNOWN stays UNKNOWN. A forecast cannot execute the move, predict undeclared domain outcomes, mint permission, or replace post-action WITNESS / RETURN."
   ],
   "root_order": {
-    "default": "AXIAL_LATEST",
+    "default": "CURRENT_HEADS",
     "recent_key": "route.index.updated_at",
     "recent_tie_break": "manifest order",
     "structure_key": "route.parent + manifest identity",
-    "meaning": "Git master commits are the literal mutation chronology. AXIAL + manifest route dates are unequal addressed projections for focus/re-entry; neither may rewrite Git history or CURRENT attention."
+    "meaning": "CURRENT.current_heads supplies the default, non-ranked entry choices on the shared address rail. A head must be explicitly held before it becomes the active object. RECENT remains a secondary route.index.updated_at chronology lens. Git commits remain literal repository chronology; neither head order nor route recency creates priority or changes CURRENT attention."
   },
   "activity_modes": {
     "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
@@ -94,23 +94,23 @@
   },
   "ui_contract": {
     "root_now": "CURRENT.active_fronts are encoded as NOW attention marks on the shared route glyph/focus rather than a persistent dashboard block.",
-    "root_heads": "CURRENT.current_heads remains a collapsed lineage reading; selecting a head updates the shared focus and does not navigate until OPEN.",
+    "root_heads": "CURRENT.current_heads is the default scope of the existing addressed field rail, filtered to addressable non-root heads. One activation selects shared focus; activating the held head again opens its native address. Recorded order is not rank. The root FIELD object is already present as the surface.",
     "root_map": "MAP is collapsed by default. VISUAL/STRUCTURE/EVOLVE/VERSIONS/RECENT share the same manifest-route focus used by AXIAL / ROUTES; the runtime projection id AXIAL_LATEST is retained only for compatibility.",
-    "root_recent": "Expose route.index.updated_at only as a manifest-route RECENT lens. Exact repository history is Git commits; route recency never implies priority.",
+    "root_recent": "RECENT is a one-toggle scope on the same field rail. It exposes route.index.updated_at as chronology only, never priority; ALL expands that chronology. HEADS, RECENT, AXIAL and MAP preserve one shared route focus.",
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
     "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state.",
     "root_map_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
     "root_visual": "VISUAL is the default human sitemap projection: navigable parent/child field graph over manifest identity. STRUCTURE remains the exhaustive textual reading.",
     "root_link_audit": "/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json",
-    "root_move_gate": "Render CURRENT.execution_contract as a compact MOVE GATE adjacent to NOW: one bounded move → evidence-bearing RETURN → explicit replan. It is a control law, not another project/front.",
+    "root_move_gate": "With no explicit focus, begin unheld and show addressable CURRENT heads as choices; do not auto-focus the most recently touched route. CURRENT.next_single_action asks for one deliberate conversion choice. After a head is held, keep its existing host-declared ≤3 lawful moves, forecast, witness and exact RETURN inside that same object. Selecting is not committing; native host owns effects.",
     "root_scale": "Presentation density is automatic and internal. FIELD does not expose FIELD/ROUTE/OBJECT as root modes; ROUTE remains an address/projection term, not a user control. MAP depth remains an optional topology instrument under STATUS. Focus identity and native authority are invariant across presentation changes.",
     "root_scale_lens_handoff": "Selected MAP route may be copied locally into SCALE LENS via scale.lens.handoff.v01. This is a projection handoff; Lens cannot mutate canonical FIELD manifest state. FIELD reuses the Lens law 'stable focus across zoom' but does not duplicate the deep-lab domain/scope machinery.",
     "root_fovea_scale": "FOVEA is optional local detail over the same FIELD focus, not a global scale control or second store. Its readout exposes object identity/state rather than presentation-scale vocabulary. Pointer/radial gestures may HOLD or OPEN native addresses but do not change CURRENT attention, priority or authority.",
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "Identity folding is permitted only inside secondary projections where repetition harms legibility. ROUTES / LIVE SURFACE keeps one visible chip per addressed surface; exact Git mutations remain separately recoverable under collapsed CHANGE / GIT.",
-    "root_latest": "The compact glyph field is the primary addressed-surface projection. Each mark may carry its own route-local semantic signal. Activating a mark once changes shared focus; activating the held mark again opens its native address. Locally unseen change is acknowledged from the held object, not a duplicate change-card feed. Literal repository chronology stays under STATUS → CHANGE / GIT; glyph-field signal/order never becomes Git history or priority.",
+    "root_latest": "The shared glyph rail defaults to addressable CURRENT heads so the operator can choose an existing conversion surface without recency masquerading as NOW. RECENT is a secondary scope over the same identities. One activation changes shared focus; activating the held mark again opens its native address. Literal repository chronology stays under STATUS → CHANGE / GIT. Neither head order, glyph signal nor route recency becomes priority.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
     "root_density": "/field-presentation.js adapts MARK / COMPACT / FULL to viewport width as a presentation-only projection. Legacy explicit density locks are cleared on boot. Compression may reduce repeated tokens toward glyph marks only when the hidden detail remains recoverable through the held object, REFINE / PROVE, STATUS, or native owner.",
     "root_glyph": " /field-glyph.js remains the compact identity/state mark. Exact CURRENT heads may compose the same mark inside the existing VIEW-only project-head/interphase glyph witness. Semantic signal is orthogonal: the surrounding FIELD mark/header pattern derives from route-owned change/reality/external witnesses and cannot alter glyph identity, project state or native authority.",
