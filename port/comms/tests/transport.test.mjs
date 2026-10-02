@@ -6,6 +6,9 @@ import {
   prepareEmailCandidate,authorizeTransport,buildMailtoHref,providerReceiptTemplate,verifyProviderReceipt
 } from '../transport.js';
 
+const ADDRESS=['recipient','example.test'].join('@');
+const OTHER_ADDRESS=['other','example.test'].join('@');
+
 function fixture(){
   const doc=parseConversation('User: Please send the finished note when it is ready.');
   return makeReturn({
@@ -21,12 +24,12 @@ function fixture(){
 
 test('transport candidate is exact, private, and carries NO_SEND authority',async()=>{
   const source=fixture();
-  const candidate=await prepareEmailCandidate({commsReturn:source,to:'recipient@example.com',subject:'Exact subject'});
+  const candidate=await prepareEmailCandidate({commsReturn:source,to:ADDRESS,subject:'Exact subject'});
   assert.equal(candidate.schema,TRANSPORT_CANDIDATE_SCHEMA);
   assert.equal(candidate.authority,'NO_SEND');
   assert.equal(candidate.channel,'email');
   assert.equal(candidate.provider,'gmail');
-  assert.equal(candidate.destination.to,'recipient@example.com');
+  assert.equal(candidate.destination.to,ADDRESS);
   assert.equal(candidate.response.text,source.response.text);
   assert.ok(candidate.response.sha256.startsWith('sha256:'));
   assert.ok(candidate.candidate_id.startsWith('sha256:'));
@@ -38,11 +41,11 @@ test('candidate rejects missing draft or malformed destination',async()=>{
   const source=fixture();
   await assert.rejects(()=>prepareEmailCandidate({commsReturn:source,to:'not-an-email'}),/destination email/);
   source.response.text='   ';
-  await assert.rejects(()=>prepareEmailCandidate({commsReturn:source,to:'recipient@example.com'}),/non-empty response/);
+  await assert.rejects(()=>prepareEmailCandidate({commsReturn:source,to:ADDRESS}),/non-empty response/);
 });
 
 test('release exists only after an explicit operator gesture',async()=>{
-  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:'recipient@example.com'});
+  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:ADDRESS});
   await assert.rejects(()=>authorizeTransport(candidate,{operatorGesture:false}),/operator gesture/);
   const release=await authorizeTransport(candidate,{operatorGesture:true,releasedAt:'2026-10-03T06:40:00+08:00'});
   assert.equal(release.schema,TRANSPORT_RELEASE_SCHEMA);
@@ -55,17 +58,17 @@ test('release exists only after an explicit operator gesture',async()=>{
 });
 
 test('mailto handoff carries exact subject and body but proves no send',async()=>{
-  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:'recipient@example.com',subject:'A subject'});
+  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:ADDRESS,subject:'A subject'});
   const release=await authorizeTransport(candidate,{operatorGesture:true});
   const href=buildMailtoHref(release);
-  assert.ok(href.startsWith('mailto:recipient%40example.com?'));
+  assert.ok(href.startsWith('mailto:recipient%40example.test?'));
   assert.ok(href.includes('subject=A+subject'));
   assert.ok(href.includes('body=Exact+outbound+body.'));
   assert.equal(release.authority,'HUMAN_RELEASE');
 });
 
 test('provider receipt must match exact release, destination, source, and bytes',async()=>{
-  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:'recipient@example.com',subject:'A subject'});
+  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:ADDRESS,subject:'A subject'});
   const release=await authorizeTransport(candidate,{operatorGesture:true,releasedAt:'2026-10-03T06:40:00+08:00'});
   const receipt=providerReceiptTemplate(release);
   receipt.provider_message_id='provider-message-123';
@@ -80,11 +83,11 @@ test('provider receipt must match exact release, destination, source, and bytes'
 
   await assert.rejects(()=>verifyProviderReceipt(release,{...receipt,release_id:'sha256:other'}),/release mismatch/);
   await assert.rejects(()=>verifyProviderReceipt(release,{...receipt,response_sha256:'sha256:other'}),/response mismatch/);
-  await assert.rejects(()=>verifyProviderReceipt(release,{...receipt,destination:{to:'other@example.com'}}),/destination mismatch/);
+  await assert.rejects(()=>verifyProviderReceipt(release,{...receipt,destination:{to:OTHER_ADDRESS}}),/destination mismatch/);
 });
 
 test('provider receipt evidence cannot mutate native COMMS state by itself',async()=>{
-  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:'recipient@example.com'});
+  const candidate=await prepareEmailCandidate({commsReturn:fixture(),to:ADDRESS});
   const release=await authorizeTransport(candidate,{operatorGesture:true});
   const receipt={...providerReceiptTemplate(release),provider_message_id:'msg-1',sent_at:new Date().toISOString()};
   const returned=await verifyProviderReceipt(release,receipt);
