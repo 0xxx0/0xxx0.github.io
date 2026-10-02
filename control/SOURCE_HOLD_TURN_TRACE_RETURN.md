@@ -1,7 +1,7 @@
 # SOURCE → HOLD → TURN → TRACE → RETURN
 
 Status: OPERATIONAL PROTOCOL 0.1  
-Updated: 2026-10-02T20:06:00+08:00  
+Updated: 2026-10-03T03:49:00+08:00  
 Role: bounded execution grammar over existing host-owned state. **Not** a new ontology, queue, planner, store, router, or effect authority.
 
 ## The rule
@@ -153,6 +153,21 @@ return_address: <exact re-entry address>
 closed_at: <timestamp>
 next_authority: NONE
 
+OPTIONAL — only when external consequence is material
+downstream_consequence:
+  status: SHIPPED_ONLY | USED | PROPAGATED | COUNTERMEASURE | UNKNOWN
+  evidence_refs: [<exact addressed witnesses>]
+  observed_delta: <observed external use / derivative context / responsive rule change>
+  unknowns: [<causal or reach claims not established>]
+
+Rules:
+- LIKE / KEEP / PRAISE / PAGE VIEW != USED
+- USED requires an observed or authored use witness
+- PROPAGATED requires a second addressed context or derivative witness
+- COUNTERMEASURE requires a later rule/environment/process change explicitly responding to the earlier move
+- omission means “not measured”, never “no impact”
+- this block is evidence-only: no shared adoption store, lifecycle authority, priority, or automatic NEXT
+
 STOP: UNRESOLVED_SOURCE | WAITING_HUMAN_WORLD | TURN_UNSUPPORTED | TURN_REJECTED |
       TRACE_FAIL | TRACE_INDETERMINATE | NO_LAWFUL_HIGH_VALUE_MOVE | RETURN_COMPLETE
 
@@ -233,7 +248,25 @@ RETURN ≠ UNDO
 RETURN ≠ NEXT
 RECEIPT ≠ SUCCESS
 UNKNOWN ≠ FAIL
+SHIPPED ≠ USED ≠ PROPAGATED ≠ COUNTERMEASURE
 ```
+
+
+## Downstream consequence — optional evidence, not lifecycle
+
+When the selected front is explicitly about real use, sharing, adoption, or world contact, RETURN may carry one optional `downstream_consequence` block.
+
+This is the operational transfer of the useful Prison Age consequence mechanism into FIELD: **an event is not its later interpretation, reuse, propagation, or countermeasure**. The distinction is falsifiable and evidence-bound; the fiction/governance layer does not transfer.
+
+```text
+SHIPPED_ONLY   artifact availability proved; no later-use claim made
+USED           another human/world actor actually used it
+PROPAGATED     that use appears in a second addressed context or derivative
+COUNTERMEASURE a later rule/environment/process explicitly changed in response
+UNKNOWN        the downstream property was not established
+```
+
+The highest status must be supported by exact evidence refs. Absence of downstream evidence does not make a shipped artifact unsuccessful; it simply does not justify a stronger consequence claim.
 
 ## Stop conditions
 
