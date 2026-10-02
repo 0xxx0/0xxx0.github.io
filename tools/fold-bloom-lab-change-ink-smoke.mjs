@@ -57,6 +57,14 @@ function probe(){
     D().getElementById('stateTo').value='111|110';
     D().getElementById('stateProject').click();
     await sleep(80);
+    rec.stateLensHref=D().getElementById('stateIChing').getAttribute('href')||'';
+    rec.reducerStart=D().getElementById('stateReducerRead').textContent||'';
+    D().getElementById('stateReduceNext').click();
+    await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===1,1500,'reducer NEXT preview');
+    rec.reducerAfterNext={cursor:W().FoldBloomFieldLab.stateStep().cursor,read:D().getElementById('stateReducerRead').textContent||'',address:D().getElementById('addressRead').textContent||''};
+    D().getElementById('stateReduceReturn').click();
+    await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===0,1500,'reducer RETURN');
+    rec.reducerAfterReturn={cursor:W().FoldBloomFieldLab.stateStep().cursor,read:D().getElementById('stateReducerRead').textContent||'',address:D().getElementById('addressRead').textContent||''};
     const frontierStart=W().FoldBloomFieldLab.stateStep().frontier;
     rec.frontierStart={current:frontierStart?.current?.token,futures:frontierStart?.current_future_paths,next:(frontierStart?.candidates||[]).map(x=>x.line),buttons:[...D().querySelectorAll('#stateFrontierRead [data-state-next-line]')].map(x=>Number(x.dataset.stateNextLine))};
     const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),h=box.height,gap=Math.max(22,Math.min(38,h*.055)),cy=h*.51;
@@ -100,7 +108,11 @@ function probe(){
     const frontierOK=rec.frontierStart?.current==='H[010|100]'&&rec.frontierStart?.futures===6&&rec.frontierStart?.next?.join(',')==='1,3,5'&&rec.frontierStart?.buttons?.join(',')==='1,3,5'&&
       rec.frontierAfterStep?.current==='H[010|110]'&&rec.frontierAfterStep?.futures===2&&rec.frontierAfterStep?.next?.join(',')==='1,3'&&rec.frontierAfterStep?.buttons?.join(',')==='1,3'&&
       rec.frontierAfterSteer?.selected===3&&rec.frontierReturn?.current==='H[010|110]'&&rec.frontierReturn?.futurePaths===2&&rec.frontierReturn?.candidates?.length===2;
-    const pass=rec.beforeMode==='DATA'&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const reducerOK=rec.stateLensHref.includes('/iching/#b=010100&to=111110&order=1%2C3%2C5')&&
+      rec.reducerStart.includes('k=3')&&rec.reducerStart.includes('V=8')&&rec.reducerStart.includes('E=12')&&rec.reducerStart.includes('CHAINS=6')&&rec.reducerStart.includes('NEXT L1')&&
+      rec.reducerAfterNext?.cursor===1&&rec.reducerAfterNext?.read.includes('STEP 1/3')&&rec.reducerAfterNext?.address.includes('/step/1')&&
+      rec.reducerAfterReturn?.cursor===0&&rec.reducerAfterReturn?.read.includes('STEP 0/3')&&rec.reducerAfterReturn?.address.includes('/order/0-of-6');
+    const pass=rec.beforeMode==='DATA'&&reducerOK&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
