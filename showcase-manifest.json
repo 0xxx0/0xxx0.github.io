@@ -5429,13 +5429,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.3.6",
+      "title": "LACONIC / ICONIC 0.4",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.3.6",
+      "version": "0.4",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -5446,6 +5446,7 @@
         "exact fragment/operator recovery",
         "exact-source vault browsing",
         "persona/plurality/Council lineage recovery",
+        "exact five-self recovered plurality projection",
         "pocket trajectory projection",
         "direct-address pocket/scene entry from FIELD"
       ],
@@ -5510,6 +5511,7 @@
             "human-triggered handoff",
             "VAULT/current-layer separation",
             "generic council/proper-name distinction",
+            "five-self projection derives from recovered lineage evidence without canon promotion",
             "POCKET references canonical SCENES; no duplicate content or adoption store",
             "FIELD exposes exactly DRAFT / DEAL ONE / TRAJECTORIES as target-bearing native actions"
           ],
@@ -5584,7 +5586,7 @@
         "owner": "LACONIC / ICONIC"
       },
       "index": {
-        "updated_at": "2026-10-03T03:48:00+08:00",
+        "updated_at": "2026-10-03T03:49:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
