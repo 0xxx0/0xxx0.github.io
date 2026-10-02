@@ -8,9 +8,9 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
-import {transparentStateCalculation,stepOrderAt,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
+import {transparentStateCalculation,stepOrderAt,stepOrderRank,steerStepOrder,steppedStatePath,changeLatticeCalculation,stateFrontierCalculation,exactQuotientPathCalculation,residueLadder,calculationTape} from '../convergence/change-calculus/kernel.mjs';
 import {changePathInkGuide} from './change-ink-guide.js?v=0.1';
-import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
+import {createLiveChangeBridgeState,reduceLiveChangeBridge,captureLiveChangeWindow,compareLiveChangeCaptures,liveSteeringSupport,liveSupportFocusDecision,liveChangeBridgeReturn} from './live-change-bridge.js?v=0.2';
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
@@ -675,6 +675,7 @@ function syncLiveChangeUI(){
   document.documentElement.dataset.fieldLabLiveChange=ready?'window-ready':window?.count?'collecting':'idle';
   document.documentElement.dataset.fieldLabLiveCompare=cmp?(cmp.quotient_invisible_exact_changes?'residue-visible':'compared'):'open';
   syncCalculationTapeUI();
+  syncStateReducerUI();
 }
 function handleLiveChangePulse(message){
   const next=reduceLiveChangeBridge(liveChange.bridge,message);
@@ -949,6 +950,7 @@ function syncStateFrontierUI(frontier=refreshStateFrontier()){
 }
 function syncStateStepUI(){
   const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock(),frontier=refreshStateFrontier();
+  if($('#stateIChing'))$('#stateIChing').href=stateLensHref(data.stateChange);
   if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
   if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
   if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
@@ -985,6 +987,84 @@ function syncStateStepUI(){
     }
   }
   syncCalculationTapeUI();
+  syncStateReducerUI();
+}
+function stateLensHref(change=data.stateChange){
+  if(!change?.valid)return '/iching/';
+  const f=new URLSearchParams({b:change.from.bits.join(''),to:change.to.bits.join('')});
+  const order=data.stateStep?.ok?data.stateStep.selected_order:[];
+  if(order?.length)f.set('order',order.join(','));
+  return '/iching/#'+f.toString();
+}
+function reducerNextCandidate(){
+  const frontier=data.stateFrontier?.ok?data.stateFrontier:refreshStateFrontier();
+  if(!frontier?.ok)return null;
+  return frontier.candidates.find(x=>x.selected_by_current_order)||frontier.candidates[0]||null;
+}
+function syncStateReducerUI(){
+  const next=reducerNextCandidate(),step=data.stateStep,calc=data.stateCalc,lattice=data.stateLattice;
+  const support=liveSteeringSupport(liveChange.bridge),nextButton=$('#stateReduceNext'),supportButton=$('#stateReduceSupport'),read=$('#stateReducerRead');
+  if(nextButton){
+    nextButton.disabled=!next;
+    nextButton.textContent=next?'NEXT · L'+next.line:'NEXT · TARGET';
+  }
+  if(supportButton){
+    const count=support?.ok?Number(support.native_candidate_count)||0:0;
+    supportButton.disabled=!support?.ok||count===0;
+    supportButton.textContent=support?.ok?'SUPPORT · C='+count:'SUPPORT · OPEN';
+    supportButton.classList.toggle('cool',support?.ok&&count===1);
+  }
+  if(read){
+    const k=calc?.ok?calc.metrics.hamming_distance:0,v=lattice?.ok?lattice.vertices:1,e=lattice?.ok?lattice.edges:0,chains=lattice?.ok?lattice.maximal_one_line_paths:1;
+    const cursor=data.stateStepCursor,total=step?.steps?.length||0;
+    const native=support?.ok
+      ?'MODEL '+support.direction_label+' → C='+support.native_candidate_count+(support.native_candidate_count===1?' UNIQUE':support.native_candidate_count>1?' AMBIGUOUS':' UNSUPPORTED')
+      :'MODEL/NATIVE · '+(support?.reason||'OPEN');
+    const addr=data.stateFrontier?.current?.address||step?.path_address||'return://open';
+    read.textContent='REDUCER · k='+k+' · V='+v+' · E='+e+' · CHAINS='+chains+' · STEP '+cursor+'/'+total+' · NEXT '+(next?'L'+next.line:'TARGET')+' · '+native+' · RETURN '+addr;
+  }
+  document.documentElement.dataset.fieldLabReducer=next?'open':'target';
+}
+function reducerAdvance(){
+  const step=data.stateStep;
+  if(!step?.ok||!step.steps.length){setStatus('REDUCER · STABLE ENDPOINT · NOTHING TO STEP');return null}
+  if(data.stateStepCursor>=step.steps.length){setStatus('REDUCER · TARGET REACHED · RETURN OR CHOOSE ANOTHER ORDER');syncStateReducerUI();return null}
+  data.stateFlow=false;
+  const x=step.steps[data.stateStepCursor];
+  data.stateStepCursor+=1;
+  syncStateStepUI();
+  setAddress(x.address);
+  setStatus('REDUCER · NEXT L'+x.line+' · '+x.before_token+' → '+x.after_token+' · PREVIEW ONLY');
+  recordLabTrace('REDUCER_NEXT');
+  return x;
+}
+function reducerInspectSupport(){
+  const decision=liveSupportFocusDecision(liveChange.bridge),support=decision.support;
+  if(!decision.ok){
+    setStatus('REDUCER · SUPPORT OPEN · '+(decision.reason||'NO DIRECTION/APERTURE'));
+    return decision;
+  }
+  if(decision.status!=='UNIQUE_VIEW_FOCUS'){
+    setStatus('REDUCER · SUPPORT C='+decision.candidate_count+' · '+(decision.status==='AMBIGUOUS_NO_AUTO_FOCUS'?'AMBIGUOUS · NO AUTO-CHOICE':'NO LAWFUL MATCH')+' · PREVIEW ONLY');
+    recordLabTrace('REDUCER_SUPPORT_'+(decision.status==='AMBIGUOUS_NO_AUTO_FOCUS'?'AMBIGUOUS':'EMPTY'));
+    return decision;
+  }
+  const slot=decision.focus_slot;
+  focusNativeApertureSlot(slot);
+  setStatus('REDUCER · UNIQUE NATIVE SUPPORT · SLOT '+slot+' · INSPECT ONLY · NO COMMIT');
+  recordLabTrace('REDUCER_SUPPORT_UNIQUE');
+  return decision;
+}
+function reducerReturn(){
+  data.stateFlow=false;
+  data.stateStepCursor=0;
+  data.nativeFocusSlot=null;
+  syncStateStepUI();
+  syncNativeApertureFocusUI();
+  const address=data.stateStep?.path_address||'field://lab/data/state';
+  setAddress(address);
+  setStatus('REDUCER · RETURN · PREVIEW + NATIVE FOCUS RESET · LIVE UNTOUCHED');
+  recordLabTrace('REDUCER_RETURN');
 }
 function syncStateChange({preserveOrder=false}={}){
   const from=$('#stateFrom')?.value,to=$('#stateTo')?.value;
@@ -1001,6 +1081,7 @@ function syncStateChange({preserveOrder=false}={}){
   if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
   if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
   if($('#stateDelta'))$('#stateDelta').textContent=change.moving.length?change.moving.join(','):'∅';
+  if($('#stateIChing'))$('#stateIChing').href=stateLensHref(change);
   syncStateStepUI();
   if(change.valid){setSource('STATE / LOCAL');setStatus('DATA · '+change.token+' · d_H '+calc.metrics.hamming_distance+' · '+calc.metrics.one_line_step_orders+' STEP ORDER'+(calc.metrics.one_line_step_orders===1?'':'S'));setAddress('field://lab/data/state/'+formatState(change.to.bits))}
   else setStatus('DATA · STATE NEEDS SIX 0/1 BITS');
@@ -1242,6 +1323,9 @@ $('#stateFlow')?.addEventListener('click',()=>{
   data.stateFlow=!data.stateFlow;data.stateFlowAt=performance.now();syncStateStepUI();
   setStatus('STATE FLOW · '+(data.stateFlow?stateFlowClock().label:'PAUSED')+' · WITNESS ONLY');
 });
+$('#stateReduceNext')?.addEventListener('click',reducerAdvance);
+$('#stateReduceSupport')?.addEventListener('click',reducerInspectSupport);
+$('#stateReduceReturn')?.addEventListener('click',reducerReturn);
 $('#stateResearch')?.addEventListener('click',e=>{const change=syncStateChange();if(!change.valid){e.preventDefault();return}e.preventDefault();const q=new URLSearchParams({from:formatState(change.from.bits),to:formatState(change.to.bits),order:String(data.stateStep?.selected_order_index||0),fromLab:'1'});location.href='/fold-bloom/convergence/change-calculus/?'+q.toString()});
 $('#stateInk')?.addEventListener('click',()=>{
   const guide=changePathInkGuide(data.stateStep);
@@ -1511,7 +1595,20 @@ $('#exportLabReturn')?.addEventListener('click',()=>{
 document.documentElement.dataset.fieldLabReturn='ready';
 
 const bootQuery=new URLSearchParams(location.search),initialMode=String(bootQuery.get('mode')||'RIDE').toUpperCase();
-let verseHandoffRestored=false,lociHandoffRestored=false;
+let verseHandoffRestored=false,lociHandoffRestored=false,stateLensRestored=false;
+if(initialMode==='DATA'&&bootQuery.has('stateFrom')&&bootQuery.has('stateTo')){
+  const from=normalizeStateBits(bootQuery.get('stateFrom')),to=normalizeStateBits(bootQuery.get('stateTo'));
+  if(from&&to){
+    $('#stateFrom').value=formatState(from);$('#stateTo').value=formatState(to);syncStateChange();
+    const order=String(bootQuery.get('stateOrder')||'').split(',').map(Number).filter(Number.isInteger);
+    if(order.length){
+      const ranked=stepOrderRank(data.stateCalc?.moving||[],order);
+      if(ranked.ok){data.stateOrderIndex=ranked.index;syncStateChange({preserveOrder:true})}
+    }
+    stateLensRestored=true;
+    document.documentElement.dataset.fieldLabStateLens='restored';
+  }
+}
 if(initialMode==='VERSE'&&bootQuery.has('handoff')){
   const h=recoverVerseInboundHandoff();
   if(h?.source){
@@ -1536,6 +1633,12 @@ document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP');setStatus('VERSE · SOURCE + LINE FOCUS RESTORED')}
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
+if(stateLensRestored){
+  const step=data.stateStep;
+  setSource('STATE / RETURNED FROM I CHING LENS');
+  setAddress(step?.path_address||'field://lab/data/state');
+  setStatus('DATA · STATE LENS RETURN · '+(step?.selected_order?.length?step.selected_order.map(x=>'L'+x).join(' → '):'STABLE')+' · PREVIEW RESTORED');
+}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
 window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,mode:pulse.mode,lane:pulse.lane,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,linked:voice.linked,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,training:summarizeVoiceTrace(voice.trace),spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,changeCalc:()=>data.stateCalc,calculationTape:()=>currentCalculationTape(),stateStep:()=>({path:data.stateStep,lattice:data.stateLattice,frontier:data.stateFrontier,cursor:data.stateStepCursor,flow:data.stateFlow,clock:stateFlowClock(),next:(data.stateFrontier?.candidates||[]).map(x=>({...x}))}),liveChange:()=>liveChangeBridgeReturn(liveChange.bridge,{fromCapture:liveChange.from,toCapture:liveChange.to}),controlLoss:()=>data.controlLoss?.ok?JSON.parse(JSON.stringify({...data.controlLoss,face:data.controlLossFace})):null,ink:()=>({mode:ink.mode,guide:ink.pathGuide?.ok?ink.pathGuide:null,glyph:ink.pathGuide?null:INK_GUIDES[ink.guide]}),trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};

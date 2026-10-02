@@ -57,6 +57,14 @@ function probe(){
     D().getElementById('stateTo').value='111|110';
     D().getElementById('stateProject').click();
     await sleep(80);
+    rec.stateLensHref=D().getElementById('stateIChing').getAttribute('href')||'';
+    rec.reducerStart=D().getElementById('stateReducerRead').textContent||'';
+    D().getElementById('stateReduceNext').click();
+    await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===1,1500,'reducer NEXT preview');
+    rec.reducerAfterNext={cursor:W().FoldBloomFieldLab.stateStep().cursor,read:D().getElementById('stateReducerRead').textContent||'',address:D().getElementById('addressRead').textContent||''};
+    D().getElementById('stateReduceReturn').click();
+    await wait(()=>W().FoldBloomFieldLab.stateStep().cursor===0,1500,'reducer RETURN');
+    rec.reducerAfterReturn={cursor:W().FoldBloomFieldLab.stateStep().cursor,read:D().getElementById('stateReducerRead').textContent||'',address:D().getElementById('addressRead').textContent||''};
     const frontierStart=W().FoldBloomFieldLab.stateStep().frontier;
     rec.frontierStart={current:frontierStart?.current?.token,futures:frontierStart?.current_future_paths,next:(frontierStart?.candidates||[]).map(x=>x.line),buttons:[...D().querySelectorAll('#stateFrontierRead [data-state-next-line]')].map(x=>Number(x.dataset.stateNextLine))};
     const canvas=D().getElementById('field'),box=canvas.getBoundingClientRect(),h=box.height,gap=Math.max(22,Math.min(38,h*.055)),cy=h*.51;
@@ -74,6 +82,7 @@ function probe(){
     await wait(()=>W().FoldBloomFieldLab.stateStep().path?.selected_order?.[1]===3,2500,'steer L3 second');
     const steered=W().FoldBloomFieldLab.stateStep();
     rec.steering={initial:rec.initialOrder,afterFirst:[...firstSteer.path.selected_order],afterSecond:[...steered.path.selected_order],cursor:steered.cursor,prefix:steered.path.selected_order.slice(0,steered.cursor)};
+    rec.stateLensAfterSteer=D().getElementById('stateIChing').getAttribute('href')||'';
     rec.frontierAfterSteer={current:steered.frontier?.current?.token,futures:steered.frontier?.current_future_paths,next:(steered.frontier?.candidates||[]).map(x=>x.line),selected:(steered.frontier?.candidates||[]).find(x=>x.selected_by_current_order)?.line};
     const dataPacket=W().FoldBloomFieldLab.returnPacket();
     rec.frontierReturn=dataPacket?.projection?.stateChange?.frontier;
@@ -97,10 +106,30 @@ function probe(){
     rec.returnGuide=projection.guide;
     rec.pigment=projection.pigment;
     rec.water=projection.water;
+
+    f.src='/fold-bloom/lab/?mode=DATA&stateFrom=010100&stateTo=111110&stateOrder=5%2C3%2C1';
+    await wait(()=>D().documentElement.dataset.fieldLabStateLens==='restored'&&W().FoldBloomFieldLab?.stateStep?.().path?.selected_order?.join(',')==='5,3,1',8000,'I Ching → LAB state lens return');
+    const restored=W().FoldBloomFieldLab.stateStep();
+    rec.stateLensRoundTrip={
+      from:D().getElementById('stateFrom').value,
+      to:D().getElementById('stateTo').value,
+      order:[...(restored.path?.selected_order||[])],
+      orderIndex:restored.path?.selected_order_index,
+      address:D().getElementById('addressRead').textContent||'',
+      source:D().getElementById('sourceRead').textContent||'',
+      href:D().getElementById('stateIChing').getAttribute('href')||''
+    };
     const frontierOK=rec.frontierStart?.current==='H[010|100]'&&rec.frontierStart?.futures===6&&rec.frontierStart?.next?.join(',')==='1,3,5'&&rec.frontierStart?.buttons?.join(',')==='1,3,5'&&
       rec.frontierAfterStep?.current==='H[010|110]'&&rec.frontierAfterStep?.futures===2&&rec.frontierAfterStep?.next?.join(',')==='1,3'&&rec.frontierAfterStep?.buttons?.join(',')==='1,3'&&
       rec.frontierAfterSteer?.selected===3&&rec.frontierReturn?.current==='H[010|110]'&&rec.frontierReturn?.futurePaths===2&&rec.frontierReturn?.candidates?.length===2;
-    const pass=rec.beforeMode==='DATA'&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
+    const reducerOK=rec.stateLensHref.includes('/iching/#b=010100&to=111110&order=1%2C3%2C5')&&
+      rec.reducerStart.includes('k=3')&&rec.reducerStart.includes('V=8')&&rec.reducerStart.includes('E=12')&&rec.reducerStart.includes('CHAINS=6')&&rec.reducerStart.includes('NEXT L1')&&
+      rec.reducerAfterNext?.cursor===1&&rec.reducerAfterNext?.read.includes('STEP 1/3')&&rec.reducerAfterNext?.address.includes('/step/1')&&
+      rec.reducerAfterReturn?.cursor===0&&rec.reducerAfterReturn?.read.includes('STEP 0/3')&&rec.reducerAfterReturn?.address.includes('/order/0-of-6');
+    const roundTripOK=rec.stateLensRoundTrip?.from==='010|100'&&rec.stateLensRoundTrip?.to==='111|110'&&rec.stateLensRoundTrip?.order?.join(',')==='5,3,1'&&
+      rec.stateLensRoundTrip?.orderIndex===5&&rec.stateLensRoundTrip?.address.includes('/order/5-of-6')&&rec.stateLensRoundTrip?.source==='STATE / RETURNED FROM I CHING LENS'&&
+      rec.stateLensRoundTrip?.href.includes('order=5%2C3%2C1');
+    const pass=rec.beforeMode==='DATA'&&reducerOK&&roundTripOK&&frontierOK&&rec.steering.initial.join(',')==='3,5'&&rec.steering.afterFirst.join(',')==='5,1,3'&&rec.steering.afterSecond.join(',')==='5,3,1'&&rec.stateLensAfterSteer.includes('order=5%2C3%2C1')&&rec.steering.cursor===1&&rec.steering.prefix.join(',')==='5'&&rec.afterMode==='INK'&&rec.guideAuthority==='PROJECTION_ONLY'&&
       rec.guideAddress===rec.pathAddress&&rec.address===rec.pathAddress&&rec.guideStates===rec.order.length+1&&
       rec.returnKind==='INK'&&rec.returnGuide?.kind==='CHANGE_PATH'&&rec.returnGuide?.address===rec.pathAddress&&
       Number(rec.pigment)>0&&Number(rec.water)>0;
@@ -114,9 +143,9 @@ const server=http.createServer((req,res)=>{
   res.writeHead(200,{'content-type':contentType(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res);
 });
 function run(bin){return new Promise((resolve,reject)=>{
-  const args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=450,980','--virtual-time-budget=11000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];
+  const args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=450,980','--virtual-time-budget=16000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];
   const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let stdout='',stderr='';
-  const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('change→INK smoke timeout'))},22000);
+  const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('change→INK smoke timeout'))},28000);
   p.stdout.on('data',d=>stdout+=d);p.stderr.on('data',d=>stderr+=d);
   p.on('error',e=>{clearTimeout(timer);reject(e)});
   p.on('close',code=>{clearTimeout(timer);resolve({code,stdout,stderr})});
