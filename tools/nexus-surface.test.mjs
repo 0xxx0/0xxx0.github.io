@@ -29,7 +29,7 @@ check('pages: alias + utility pages load with expected titles', () => {
   assert.ok(MAP.length > 3000, 'map too small');
   assert.ok(INDEX.includes('<title>NEXUS // FIELD alias</title>'), 'alias title');
   assert.ok(BOARD.includes('<title>OPS // multi-agent board</title>'), 'board title');
-  assert.ok(MAP.includes('<title>FIELD // SYSTEM MAP</title>'), 'map title');
+  assert.ok(MAP.includes('<title>FIELD // ARCHITECTURE MAP</title>'), 'map title');
 });
 
 check('links: every local link resolves to a real repo path (incl. src/return targets)', () => {
@@ -45,7 +45,9 @@ check('links: every local link resolves to a real repo path (incl. src/return ta
       if (/^(https?:|mailto:|#)/.test(target)) continue;
       checked++;
       const rel = target.split('?')[0].split('#')[0];
-      const resolved = path.resolve(ROOT, path.dirname(page), rel);
+      const resolved = rel.startsWith('/')
+        ? path.resolve(ROOT, rel.slice(1))
+        : path.resolve(ROOT, path.dirname(page), rel);
       if (!resolved.startsWith(ROOT) || !fs.existsSync(resolved)) missing.push(`${page} → ${target}`);
       const query = target.includes('?') ? target.slice(target.indexOf('?') + 1) : '';
       for (const qp of query.matchAll(/(?:^|&)(?:src|return)=([^&]*)/g)) {
@@ -125,29 +127,33 @@ check('board: branch table rows complete (4 cells, non-empty cells)', () => {
     }
   });
 
-check('map: every node complete (label/name/desc), classes from the four states', () => {
-  const nodes = MAP.split('<div class="node ').slice(1);
+check('map: every architecture node carries role / name / description and a lawful class', () => {
+  const nodes = [...MAP.matchAll(/<a class="node ([^"]+)"[^>]*>[\\s\\S]*?<\\/a>/g)];
   assert.ok(nodes.length >= 8, `only ${nodes.length} map nodes`);
-  const classes = new Set(['primary', 'secondary', 'frozen', 'emerge']);
-  for (const block of nodes) {
-    const cls = block.slice(0, block.indexOf('"'));
-    assert.ok(classes.has(cls), `map node class "${cls}" outside the four states`);
-    for (const field of ['label', 'name', 'desc'])
+  const classes = new Set(['root', 'exec', 'test', 'repr', 'bound', 'return']);
+  for (const match of nodes) {
+    const cls = match[1].trim();
+    assert.ok(classes.has(cls), `map node class "${cls}" outside current architecture classes`);
+    const block = match[0];
+    for (const field of ['k', 'n', 'd'])
       assert.ok((block.match(new RegExp(`class="${field}">([^<]*)<`)) || [])[1]?.trim(),
         `map node ${cls} has empty ${field}`);
   }
 });
 
-check('map: legend names the four states', () => {
-  for (const state of ['● ACTIVE', '● EMERGING', '● NEW DOMAIN', '● FROZEN'])
-    assert.ok(MAP.includes(state), `legend missing ${state}`);
+check('map: legend names the current flow classes', () => {
+  for (const label of ['CAPTURE', 'EXECUTE', 'TEST / REPRESENT', 'RETURN', 'CONTEXT / SUPPORT'])
+    assert.ok(MAP.includes(label), `legend missing ${label}`);
 });
 
-check('map: the two flow verb chains are exactly the house law', () => {
-  assert.ok(MAP.includes('ENTER → ADDRESS → STATE → TRANSFORM → PROJECT → ACT → MEASURE → RETURN'),
-    'ENTER…RETURN chain');
-  assert.ok(MAP.includes('RECOVER → CORRECT → CONVERGE → VALIDATE → SEAL'),
-    'RECOVER…SEAL chain');
+check('map: capture / authority / return laws remain explicit', () => {
+  assert.ok(MAP.includes('HUMAN PORT</a> → <a href="/router-bench/">ROUTER</a> → <a href="/person-resource-policy.schema.json">POLICY</a>'),
+    'capture boundary chain');
+  assert.ok(MAP.includes('CURRENT → NOW'), 'CURRENT authority');
+  assert.ok(MAP.includes('NATIVE HOST → COMMIT / EFFECT'), 'native effect authority');
+  assert.ok(MAP.includes('RETURN → DURABLE EVIDENCE'), 'return authority');
+  assert.ok(MAP.includes('SOURCE → HOLD → TURN → TRACE → RETURN'), 'map projection chain');
+  assert.ok(MAP.includes('no authority or state lives here'), 'projection-only boundary');
 });
 
 const fails = checks.filter(([, e]) => e);
