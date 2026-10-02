@@ -176,15 +176,15 @@
       "result": "PASS"
     },
     "visual_adventure_looter": {
-      "pr": 762,
-      "implementation_proof_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
-      "shopping_check_run": 37010315436,
-      "route_registration_run": 37010315506,
-      "gitleaks_run": 37010315433,
-      "focused_result": "PASS",
-      "public_surface_run": 37010315424,
-      "public_surface_result": "BLOCKED BY UNRELATED BASE RELEASE-VERSION DRIFT: /laconic/ manifest 0.3.2 vs release 0.3.4",
-      "note": "Focused Shopping proofs, Route Registration and gitleaks passed on the implementation head. Full public-surface is not claimed green until the unrelated master /laconic/ release-version drift is repaired."
+      "pr": 781,
+      "proof_head": "f5b6749eb340053d5dbec7a75e1f380c77c65980",
+      "merge_sha": "a4b6c41d62be72d616809b3f08360488e132d326",
+      "shopping_check_run": 37030418597,
+      "route_registration_run": 37030418637,
+      "gitleaks_run": 37030418793,
+      "public_surface_run": 37030418635,
+      "result": "PASS / EXACT-HEAD CURRENT-MASTER REPLAY",
+      "note": "Supersedes the earlier PR 762 focused proof/base-blocker record."
     }
   }
 }

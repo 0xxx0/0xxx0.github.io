@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-02T23:45:00+08:00",
+  "updated": "2026-10-03T00:12:22+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -867,10 +867,32 @@
         "/house/release.json"
       ],
       "repo_verification": {
-        "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
-        "source_pr": 782,
-        "source_head": "b59aff0e3316adb0809488d80e4c47ec26f1d542",
-        "boundary": "Promote only from the exact Shopping-inclusive replay head after runtime/reality selftests and browser/public proof pass."
+        "status": "PASS / PR 782 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/782",
+        "merge_sha": "a9f1461ecc0ee3bdf76f0753eb24a4f92b81e29f",
+        "proof_head": "aff5644b0e177097625566f9a5fba1a27d68add5",
+        "checks": {
+          "route_registration": {
+            "run": 37031868781,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 37031868627,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 37031868775,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 37031868775 completed 110/110 including repaired HOUSE REALITY harness, runtime witness freshness, Shopping 0.5, FIELD 0.8.32 and critical browser smoke.",
+        "note": "Two probe-only defects were repaired before the final exact-head pass: nested regex escaping and child-window MouseEvent construction. HOUSE runtime semantics were unchanged by those repairs.",
+        "predecessor": {
+          "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
+          "source_pr": 782,
+          "source_head": "b59aff0e3316adb0809488d80e4c47ec26f1d542",
+          "boundary": "Promote only from the exact Shopping-inclusive replay head after runtime/reality selftests and browser/public proof pass."
+        }
       }
     },
     {
@@ -906,10 +928,35 @@
       ],
       "latest_return": "/returns/SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
       "repo_verification": {
-        "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
-        "source_pr": 781,
-        "source_head": "b0c0bcf79f261a4d77871be273614217941a787b",
-        "boundary": "Promote only from the exact ancestry-current replay head after all Shopping/public/route/gitleaks checks pass."
+        "status": "PASS / PR 781 EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/781",
+        "merge_sha": "a4b6c41d62be72d616809b3f08360488e132d326",
+        "proof_head": "f5b6749eb340053d5dbec7a75e1f380c77c65980",
+        "checks": {
+          "shopping_check": {
+            "run": 37030418597,
+            "conclusion": "success"
+          },
+          "route_registration": {
+            "run": 37030418637,
+            "conclusion": "success"
+          },
+          "gitleaks": {
+            "run": 37030418793,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 37030418635,
+            "conclusion": "success"
+          }
+        },
+        "note": "Current-master semantic replay preserved newer FIELD/Laconic truth and removed duplicated post-HTML Shopping residue before exact-head verification.",
+        "predecessor": {
+          "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
+          "source_pr": 781,
+          "source_head": "b0c0bcf79f261a4d77871be273614217941a787b",
+          "boundary": "Promote only from the exact ancestry-current replay head after all Shopping/public/route/gitleaks checks pass."
+        }
       }
     },
     {

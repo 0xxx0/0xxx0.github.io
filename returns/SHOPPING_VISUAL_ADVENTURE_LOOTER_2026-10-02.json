@@ -3,7 +3,7 @@
   "id": "SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02",
   "date": "2026-10-02",
   "object": "Shopping Field visual/adventure/market-watch convergence",
-  "state": "IMPLEMENTED_FOCUSED_VERIFIED / FULL_SUITE_BASE_BLOCKED",
+  "state": "MERGED_VERIFIED",
   "source": "SHOPPING FIELD 0.4.3 + recovered FI-SHOP/DataDisc thumbnail/liveness donor + watch-before-buy / scheduled liveness intent",
   "delta": [
     "LIST and LOOT are unequal projections over the same browser-local Shopping ledger.",
@@ -45,26 +45,27 @@
     "/control/confluence/SHOPPING_LOOTER_ADVENTURE_2026-10-02.md"
   ],
   "validation": {
-    "pr": 762,
-    "implementation_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
+    "pr": 781,
+    "proof_head": "f5b6749eb340053d5dbec7a75e1f380c77c65980",
+    "merge_sha": "a4b6c41d62be72d616809b3f08360488e132d326",
     "shopping_check": {
-      "run": 37010315436,
+      "run": 37030418597,
       "result": "PASS"
     },
     "route_registration": {
-      "run": 37010315506,
+      "run": 37030418637,
       "result": "PASS"
     },
     "gitleaks": {
-      "run": 37010315433,
+      "run": 37030418793,
       "result": "PASS"
     },
     "public_surface": {
-      "run": 37010315424,
-      "result": "FAIL / UNRELATED BASE BLOCKER",
-      "blocker": "/laconic/ manifest version 0.3.2 disagrees with laconic/release.json 0.3.4 on master"
+      "run": 37030418635,
+      "result": "PASS"
     },
-    "merge_gate": "Re-run exact metadata head. Do not claim full public-surface PASS until independent base blocker is repaired."
+    "predecessor_pr": 762,
+    "note": "Current-master replay composed shared CURRENT/manifest/workflow semantically; exact-head full suite passed."
   },
   "return": "/shopping/",
   "stop": "Do not add autonomous checkout or a second Shopping state store. Next real-world proof is one <=3-item SHOP LOOTER cycle after the private trial pack is imported."
