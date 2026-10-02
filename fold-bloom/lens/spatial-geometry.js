@@ -1,4 +1,4 @@
-import {clamp} from '/lib/polar-control.js';
+import {clamp} from '../../lib/polar-control.js';
 
 export const rad=d=>Number(d||0)*Math.PI/180;
 export const M=Object.freeze({
