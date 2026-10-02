@@ -935,7 +935,7 @@ function houseRealityProbeHtml(){
     if(harness)harness.dispatchEvent(new W().MouseEvent('click',{bubbles:true}));
     await sleep(120);
     const detail=D().querySelector('.rhDetail')?.textContent||'';
-    rec.harnessDetail=/HARNESS \/ ENV-0/.test(detail);
+    rec.harnessDetail=detail.includes('HARNESS / ENV-0');
     rec.humanAgent=/HUMAN/.test(detail)&&/AGENT/.test(detail);
     rec.routes=D().querySelectorAll('.rhDetail .rhRoutes a').length;
     const sr=D().querySelector('.stage').getBoundingClientRect(),or=overlay.getBoundingClientRect();
