@@ -1,0 +1,108 @@
+{
+  "schema": "0xxx0/collision-map/v0.1",
+  "role": "NON_AUTHORITY_COORDINATION_GUARD",
+  "authority": "NONE",
+  "authority_sources": [
+    "/control/CURRENT.json",
+    "/showcase-manifest.json",
+    "native release metadata",
+    "/returns/"
+  ],
+  "law": "Detect overlap before merge; never mint project state, priority, permission, or a second owner.",
+  "policy": {
+    "exact_file_overlap": "FAIL",
+    "hard_domain_overlap": "FAIL",
+    "soft_domain_overlap": "WARN",
+    "missing_claim": "WARN",
+    "missing_claim_on_hard_domain": "FAIL",
+    "forbidden_public_path": "FAIL"
+  },
+  "hard_domains": [
+    {
+      "id": "attention-authority",
+      "paths": ["control/CURRENT.json"],
+      "reason": "Attention state must serialize."
+    },
+    {
+      "id": "public-registry-authority",
+      "paths": ["showcase-manifest.json", "return-index.json", "manifest.json"],
+      "reason": "Global public identity/return registries must serialize."
+    },
+    {
+      "id": "field-root-runtime",
+      "paths": [
+        "index.html",
+        "field-aperture.js",
+        "field-glyph.js",
+        "field-lens.js",
+        "field-presentation.js",
+        "field-signals.js",
+        "interphase-extension.js",
+        "interphase-extension.css",
+        "lib/interphase-carrier.js",
+        "lib/interphase-field.js"
+      ],
+      "reason": "FIELD root and its shared carrier are one mutable runtime boundary."
+    }
+  ],
+  "soft_domains": [
+    {
+      "id": "dayline",
+      "paths": ["dayline/**", "atlas-dayline/**", "lib/interphase-dayline.js"]
+    },
+    {
+      "id": "readfield",
+      "paths": ["docs/**", "reader/**", "lib/interphase-readfield.js"]
+    },
+    {
+      "id": "fold-bloom",
+      "paths": ["fold-bloom/**"]
+    },
+    {
+      "id": "sleeper",
+      "paths": ["sleeper/**"]
+    },
+    {
+      "id": "house",
+      "paths": ["house/**"]
+    },
+    {
+      "id": "poetry",
+      "paths": ["poetry/**"]
+    },
+    {
+      "id": "recovery",
+      "paths": ["recovery/**", "migration/**"]
+    },
+    {
+      "id": "shared-library",
+      "paths": ["lib/**"]
+    }
+  ],
+  "forbidden_public_paths": [
+    ".env",
+    ".env/**",
+    "private/**",
+    "secrets/**",
+    "credentials/**",
+    "personal/**"
+  ],
+  "claim_block": {
+    "marker": "FIELD-TRANSACTION",
+    "keys": [
+      "authority-owner",
+      "surface",
+      "class",
+      "publication",
+      "return",
+      "stop"
+    ],
+    "classes": ["DELTA", "EVIDENCE", "DONOR", "RETURN", "UNRESOLVED"]
+  },
+  "notes": [
+    "Exact-file and hard-domain overlap are merge hazards and fail the check.",
+    "Soft-domain overlap is a review signal only; native hosts may contain independent deltas.",
+    "Unique receipts and confluence notes do not collide merely because they share a directory.",
+    "This guard does not replace native tests, CURRENT, repository rulesets, or human release authority."
+  ]
+}
