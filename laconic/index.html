@@ -126,7 +126,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </section>
 </section>
 
-<footer><span>PLAY ↔ CARE · LINE ↔ SCENE · OBSERVED ↔ POSSIBLE ↔ MOVE</span><span><a href="./research/response-principles.md">RESEARCH DONORS →</a> · <a href="../port/">HUMAN PORT →</a> · <a href="./README.md">CONTRACT →</a></span></footer>
+<footer><span>PLAY ↔ CARE · LINE ↔ SCENE · OBSERVED ↔ POSSIBLE ↔ MOVE</span><span><a href="/?focus=%2Flaconic%2F">FIELD φ →</a> · <a href="./research/response-principles.md">RESEARCH DONORS →</a> · <a href="../port/">HUMAN PORT →</a> · <a href="./README.md">CONTRACT →</a></span></footer>
 
 <script>
 (()=>{'use strict';
@@ -164,11 +164,15 @@ const vOf=x=>{const n=normVerdict(x);return n?n.v:''};
 const isUsed=x=>{const n=normVerdict(x);return !!(n&&n.used)};
 function setVerdict(id,patch){const v=verdicts();const cur=normVerdict(v[id])||{v:'',why:'',used:false};v[id]={...cur,...patch};if(!v[id].v&&!v[id].why&&!v[id].used)delete v[id];save(v);}
 
-$$('.tabs button').forEach(b=>b.onclick=()=>{
-  $$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
-  $$('.view').forEach(v=>v.classList.remove('on'));
-  $('#view-'+b.dataset.tab).classList.add('on');
-});
+const VALID_VIEWS=new Set(['lines','scenes','pocket','fragments','recover']);
+function setView(name,{replace=false}={}){
+ name=VALID_VIEWS.has(name)?name:'lines';
+ $('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.tab===name));
+ $('.view').forEach(v=>v.classList.toggle('on',v.id==='view-'+name));
+ const u=new URL(location.href);u.searchParams.set('view',name);
+ if(replace)history.replaceState(null,'',u.pathname+u.search+u.hash);else history.pushState(null,'',u.pathname+u.search+u.hash);
+}
+$('.tabs button').forEach(b=>b.onclick=()=>setView(b.dataset.tab));
 
 function lineScore(x,q){
  const vt=vOf(verdicts()[x.id]);
@@ -244,8 +248,10 @@ function sceneById(id){return scenesData?.scenes.find(x=>x.id===id)}
 function openPocketScene(id){
  const scene=sceneById(id);if(!scene)return;
  activeSceneId=scene.id;activeNodeId=scene.start;activeVariant=0;trail=[scene.start];lane='';
+ const u=new URL(location.href);u.searchParams.set('view','scenes');u.searchParams.set('scene',scene.id);u.searchParams.delete('card');u.searchParams.delete('deal');
+ history.pushState(null,'',u.pathname+u.search+u.hash);
  $('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.tab==='scenes'));
- $('.view').forEach(v=>v.classList.remove('on'));$('#view-scenes').classList.add('on');
+ $('.view').forEach(v=>v.classList.toggle('on',v.id==='view-scenes'));
  renderLaneChips();renderSceneList();$('#runner').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderPocket(){
@@ -263,13 +269,21 @@ function renderPocket(){
      '<div class="pocketfoot"><button data-pocket-copy="'+esc(scene.id)+'">COPY</button><button data-pocket-play="'+esc(scene.id)+'">PLAY →</button><button data-pocket-use="'+esc(scene.id)+'" class="'+(used?'on':'')+'">'+(used?'USED ✓':'USED')+'</button></div></article>';
  }).join('')||'<div class="pocketempty">Pocket projection unavailable.</div>';
 }
-function dealPocket(){
- const xs=pocketSceneIds.filter(id=>sceneById(id));if(!xs.length)return;
- if(globalThis.crypto?.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);pocketDealId=xs[a[0]%xs.length]}else pocketDealId=xs[Math.floor(Math.random()*xs.length)];
+function setPocketCard(id,{replace=false}={}){
+ pocketDealId=pocketSceneIds.includes(id)&&sceneById(id)?id:'';
+ const u=new URL(location.href);
+ if(pocketDealId)u.searchParams.set('card',pocketDealId);else{u.searchParams.delete('card');u.searchParams.delete('deal')}
+ if(replace)history.replaceState(null,'',u.pathname+u.search+u.hash);else history.pushState(null,'',u.pathname+u.search+u.hash);
  renderPocket();
 }
+function dealPocket(){
+ const xs=pocketSceneIds.filter(id=>sceneById(id));if(!xs.length)return;
+ let id;
+ if(globalThis.crypto?.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);id=xs[a[0]%xs.length]}else id=xs[Math.floor(Math.random()*xs.length)];
+ setPocketCard(id);
+}
 $('#dealPocket').onclick=dealPocket;
-$('#showPocket').onclick=()=>{pocketDealId='';renderPocket()};
+$('#showPocket').onclick=()=>setPocketCard('');
 $('#pocketGrid').onclick=e=>{
  const copyId=e.target.dataset.pocketCopy,playId=e.target.dataset.pocketPlay,useId=e.target.dataset.pocketUse;
  if(copyId){const s=sceneById(copyId),n=s&&nodeById(s,s.start);if(n)copyText(n.text,e.target);return}
@@ -327,7 +341,7 @@ function renderRunner(){
  $('#receiptWhy').onchange=e=>{setVerdict(rk,{why:e.target.value.trim(),scene:scene.id,node:node.id,trail:trail.slice()});renderRunner()};
 }
 $('#laneChips').onclick=e=>{if(e.target.dataset.lane===undefined)return;lane=e.target.dataset.lane;renderLaneChips();renderSceneList()};
-$('#sceneList').onclick=e=>{const b=e.target.closest('[data-scene]');if(!b)return;activeSceneId=b.dataset.scene;const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];renderSceneList()};
+$('#sceneList').onclick=e=>{const b=e.target.closest('[data-scene]');if(!b)return;activeSceneId=b.dataset.scene;const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];const u=new URL(location.href);u.searchParams.set('view','scenes');u.searchParams.set('scene',activeSceneId);history.replaceState(null,'',u.pathname+u.search+u.hash);renderSceneList()};
 $('#runner').onclick=e=>{
  if(e.target.dataset.variant!==undefined){activeVariant=Number(e.target.dataset.variant);renderRunner();return}
  if(e.target.dataset.next){activeNodeId=e.target.dataset.next;activeVariant=0;trail.push(activeNodeId);renderRunner();return}
@@ -392,7 +406,14 @@ const loadJson=async(url,fallback=null)=>{try{const r=await fetch(url,{cache:'no
   loadJson('./recovered/persona-to-council-lineage.json',{parallel_antecedents:[],stages:[]}),
   loadJson('./recovered/early-plurality-donors-2024.json',{unresolved:[]})
  ]);
- makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();renderSceneList();renderPocket();renderVault();
+ makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();
+ const uq=new URLSearchParams(location.search),requestedView=VALID_VIEWS.has(uq.get('view'))?uq.get('view'):'lines';
+ const requestedScene=uq.get('scene');
+ if(requestedScene&&sceneById(requestedScene)){activeSceneId=requestedScene;activeNodeId=sceneById(requestedScene).start;trail=[activeNodeId]}
+ const requestedCard=uq.get('card');
+ if(requestedCard&&pocketSceneIds.includes(requestedCard)&&sceneById(requestedCard))pocketDealId=requestedCard;
+ renderSceneList();renderPocket();renderVault();setView(requestedView,{replace:true});
+ if(requestedView==='pocket'&&uq.get('deal')==='1'&&!pocketDealId)dealPocket();
 })();
 })();
 </script>
