@@ -56,6 +56,7 @@ function unavailable(){
   window.dispatchEvent(new CustomEvent('house:runtime-witness',{detail:x}));
 }
 function boot(){
+  if(!document.getElementById('houseRuntime'))return;
   fetch('./state.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(render).catch(unavailable);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
