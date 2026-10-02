@@ -214,7 +214,7 @@ function fieldActivationProbeHtml(){
   const waitFor=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document,href='/fold-bloom/';
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href,10000,'FIELD ready');
+    await waitFor(()=>typeof W().FieldLensHost?.project==='function',10000,'FIELD ready');
     W().FieldLensHost.project('STRUCTURE');
     const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'),10000,'target row');
     row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&new URLSearchParams(W().location.search).get('focus')===href,10000,'focus address');
