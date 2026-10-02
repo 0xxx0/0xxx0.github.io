@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-02T11:45:04.217Z",
+  "generated": "2026-10-02T12:16:03.242Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-02",
-  "commits_in_window": 13,
-  "git_commits_in_window": 64,
-  "telemetry_commits_in_window": 51,
-  "commits_total": 4555,
-  "branch_count": 790,
+  "commits_in_window": 27,
+  "git_commits_in_window": 81,
+  "telemetry_commits_in_window": 54,
+  "commits_total": 4572,
+  "branch_count": 791,
   "recent_commits": [
-    "Test: align Nexus map contract with architecture projection",
-    "RETURN: system architecture convergence map",
-    "Manifest: register current architecture projection"
+    "CURRENT: register bounded operational protocol",
+    "Machine entrypoint: point workers to bounded execution protocol",
+    "Agents: adopt bounded SOURCE HOLD TURN TRACE RETURN protocol"
   ],
   "active_fronts": [
     {
@@ -29,5 +29,5 @@
   "live_fronts": "2/2",
   "current_heads": 12,
   "open_gaps": [],
-  "current_updated": "2026-10-01T11:45:42+08:00"
+  "current_updated": "2026-10-02T20:06:00+08:00"
 }
