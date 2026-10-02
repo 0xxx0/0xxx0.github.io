@@ -8,11 +8,15 @@ name: visual-regression
 on:
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
-  workflow_run:
-    workflows:
-      - "pages build and deployment"
-    types:
-      - completed
+  push:
+    branches:
+      - master
+    paths:
+      - 'index.html'
+      - 'fold-bloom/**'
+      - 'docs/**'
+      - 'tools/golden/**'
+      - '.github/workflows/visual-regression.yml'
   workflow_dispatch:
     inputs:
       mode:
@@ -31,13 +35,11 @@ permissions:
 
 jobs:
   visual-regression:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Checkout repository (for goldens in compare mode)
         uses: actions/checkout@v4
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run' || github.event_name == 'workflow_run'
 
       - name: Ensure Chrome + ImageMagick available
         run: |
@@ -90,14 +92,25 @@ jobs:
         id: capture
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
-          BASE_URL: https://0xxx0.github.io
+          BASE_URL: http://127.0.0.1:8765
         run: |
           set -euo pipefail
           MODE="${{ github.event.inputs.mode }}"
-          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_run" ]; }; then
+          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ]; }; then
             MODE="compare"
           fi
-          echo "Running in ${MODE:-capture} mode (capturing screenshots)"
+          echo "Running in ${MODE:-capture} mode (capturing screenshots from exact checkout ${GITHUB_SHA})"
+
+          # Serve this exact checkout on the same CI runner that renders the screenshots.
+          # This removes Pages deployment lag while preserving Chrome/font parity.
+          python3 -m http.server 8765 --directory "${GITHUB_WORKSPACE}" >/tmp/visual-regression-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8765/ >/dev/null; then break; fi
+            sleep 0.2
+          done
+          curl -fsS http://127.0.0.1:8765/ >/dev/null
 
           # Routes to capture (5 stable routes per spec)
           ROUTES=(
@@ -156,7 +169,7 @@ jobs:
           retention-days: 14
 
       - name: Compare against goldens
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule'
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'push'
         id: compare
         run: |
           set -euo pipefail
