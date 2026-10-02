@@ -1020,7 +1020,7 @@ The existence of the substratum was denied by Berkeley. In his Three Dialogues B
 
                                 "'hey"... it said. lol. stay positive! spread humour! pain is our friend!  some rndm stuff i found while cleaning up: ()=[ ],x,+,  ,-,>,0;
 
-                                URC HIN <sleepurchin@gmail.com>
+                                URC HIN <[email redacted 2026-10-02 — was published PII]>
                                 4:59 PM (0 minutes ago)
                                 to Amy
 
