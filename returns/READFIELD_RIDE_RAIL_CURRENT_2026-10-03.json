@@ -2,19 +2,19 @@
   "schema": "0xxx0/return/v0.1",
   "date": "2026-10-03",
   "surface": "/docs/",
-  "change": "Expose the already-shipped READFIELD → FOLD//BLOOM LIVE → READFIELD excursion as a first-class phone work-rail RIDE action.",
+  "change": "Expose the already-shipped READFIELD → FOLD//BLOOM LIVE → READFIELD excursion as a first-class phone RIDE handoff beside the existing six-job rail.",
   "status": "CANDIDATE_CI_REQUIRED",
   "base_sha": "8651bd325697c5c981bbf55d788bf83c6f50ffb8",
   "branch": "readfield-ride-rail-current-20261003",
   "donor": "PR #822 / readfield-workflow-ride-20261003",
   "observed": [
-    "CURRENT names RIDE LIVE as retained READFIELD capability, but the visible phone rail still exposes only FAST / REVIEW / PULSE / VOICE / LOCI / REPO.",
+    "CURRENT and the /docs/ manifest already retain RIDE LIVE as a READFIELD capability, while the visible six-job phone rail remains FAST / REVIEW / PULSE / VOICE / LOCI / REPO.",
     "The native #rideLive handoff already owns exact source-hash + native-span carriage and fail-closed RETURN revalidation; no new execution path is required."
   ],
   "delta": [
-    "Add one RIDE doorway to the existing work rail through lib/interphase-readfield.js and delegate it to the native #rideLive control.",
-    "Add one collapsed RIDE / MATERIAL use-case card and one FAST → REVIEW → RIDE → RETURN chain without creating a new mode or store.",
-    "Keep the desktop rail on one row by expanding its existing grid to seven columns only while the doorway is installed; phone remains the existing horizontal sticky rail."
+    "Keep the canonical six-job work rail unchanged and add one adjacent RIDE handoff in the existing workNow strip through lib/interphase-readfield.js.",
+    "Delegate the doorway directly to native #rideLive; do not clone packet state, cursor state or traversal logic.",
+    "Add one collapsed RIDE / MATERIAL use-case card and one FAST → REVIEW → RIDE → RETURN chain as explanation only."
   ],
   "authority": {
     "source_cursor": "READFIELD",
@@ -22,7 +22,7 @@
     "handoff": "NAVIGATION_ONLY",
     "return": "EVIDENCE_ONLY until READFIELD revalidates exact source identity and native span"
   },
-  "falsifier": "Fail if RIDE appears without an active source, creates a second handoff state, mutates READFIELD cursor before verified RETURN, breaks the mobile work rail, or bypasses the native #rideLive path.",
-  "next": "Require exact-head Route Registration, public-surface browser checks and gitleaks. If green, merge as a use-surface conversion and close the stale donor PR #822 as superseded.",
+  "falsifier": "Fail if RIDE appears without an active source, changes the six canonical work jobs, creates a second handoff state, mutates READFIELD cursor before verified RETURN, breaks the mobile work deck, or bypasses the native #rideLive path.",
+  "next": "Require exact-head public-surface/browser and gitleaks checks. If green, merge as a use-surface conversion and close stale donor PR #822 as superseded.",
   "stop": "Do not add a workflow engine, second source store, second cursor authority or new LIVE text authority."
 }
