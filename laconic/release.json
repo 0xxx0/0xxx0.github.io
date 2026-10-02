@@ -2,10 +2,11 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.3.6",
+  "version": "0.4",
   "released": "2026-10-03",
   "state": "ACTIVE",
   "changes": [
+    "v0.4 — LINEAGE now surfaces the exact recovered 5–6 internal-voice request and recovered five-self labels as a bounded provenance projection; the later Council bridge remains visibly OPEN and nothing is auto-promoted to canon.",
     "0.3.6 runtime repair — Pocket PLAY now uses explicit querySelectorAll iteration; prior single-element querySelector iteration was invalid at runtime.",
     "v0.3.6 — repaired Pocket PLAY runtime selection and closed FIELD→LACONIC execution seam: DRAFT / DEAL ONE / TRAJECTORIES are exact target-bearing native actions; ?view, ?scene and ?card deep links recover the same canonical LINE/SCENE/Pocket projections without a new route or store.",
     "v0.3.5 — added POCKET MOVES as a delight-first projection of eight existing SCENES: deal one or show all, copy the canonical opening move, play the canonical branch tree, and mark USED through the existing branch receipt. No new route, object class, content store or adoption store.",
@@ -78,7 +79,8 @@
     "DEAL ONE remains transient view state with no authority",
     "Pocket PLAY uses plural selector helper and opens the canonical scene runner",
     "FIELD held Laconic exposes exactly three target-bearing actions: DRAFT / DEAL ONE / TRAJECTORIES",
-    "view/scene/card query state addresses existing projections only; it does not create new canon or persistence"
+    "view/scene/card query state addresses existing projections only; it does not create new canon or persistence",
+    "FIVE SELVES projection derives only from existing recovered lineage data; no second persona/canon store introduced."
   ],
   "return": "/laconic/",
   "verification": [
@@ -87,12 +89,13 @@
     "/returns/LACONIC_MIXED_NEWS_SCENE_2026-09-30.json",
     "/returns/LACONIC_NAME_THE_MOVE_2026-10-02.json",
     "/returns/LACONIC_POCKET_MOVES_2026-10-02.json",
-    "/returns/LACONIC_FIELD_ACTIONS_2026-10-03.json"
+    "/returns/LACONIC_FIELD_ACTIONS_2026-10-03.json",
+    "/returns/LACONIC_COUNCIL_LINEAGE_PROJECTION_2026-10-03.json"
   ],
   "current_classification": {
-    "reviewed_at": "2026-10-03T03:48:00+08:00",
+    "reviewed_at": "2026-10-03T03:49:00+08:00",
     "state": "ACTIVE",
-    "basis": "Current communications head is directly operable from FIELD through three bounded native actions while preserving LINE/SCENE/VAULT/Pocket as unequal projections on one route.",
+    "basis": "Current communications head is directly operable from FIELD and now exposes its exact recovered five-self plurality lineage without collapsing source into adoption or later canon.",
     "provenance_note": "Historical abundance is browseable but does not gain adoption/canon status by visibility."
   }
 }
