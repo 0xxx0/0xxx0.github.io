@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T04:10:00+08:00",
+  "updated": "2026-10-03T04:07:11+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -293,7 +293,7 @@
         "owner": "DAYLINE"
       },
       "index": {
-        "updated_at": "2026-10-02T20:21:56+08:00",
+        "updated_at": "2026-10-03T04:07:11+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -2662,7 +2662,7 @@
       "state": "CANDIDATE",
       "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human BOOKMARK / FLAG / editable ARC marks without conflating those facets. fold-bloom-annotations/v0.2 now round-trips source-safe authored marks through SHARE/IMPORT and AUDIO MAP while preserving analysis authority. Beat Saber export remains a bounded external pack; FOLD//BLOOM SABER 0.1 is implemented as a distinct dual-phone WebRTC motion proof and remains gated on two-real-phone lived evidence.",
       "index": {
-        "updated_at": "2026-09-25T11:39:46+08:00",
+        "updated_at": "2026-10-03T04:07:11+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5155,14 +5155,15 @@
       "operation": "REPRESENT",
       "state": "CANDIDATE",
       "family": "FIELD / FOCUS",
-      "version": "0.2",
+      "version": "0.3",
       "tier": "FIELD",
       "role": "One-field radial focus over the addressed public surfaces, open proofs and recovered clusters: nothing filtered, foveate to read, hold to act. Projection-only access instrument — curated marks over the public manifest, OPEN hands off to native routes, and no second store, priority or mutation authority is created (the parked Lens FOVEATED comparator remains unaffected).",
       "index": {
-        "updated_at": "2026-09-27T15:35:00+08:00",
+        "updated_at": "2026-10-03T04:07:11+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "RELEASE"
+          "RELEASE",
+          "OPERATE"
         ]
       },
       "evidence": {
