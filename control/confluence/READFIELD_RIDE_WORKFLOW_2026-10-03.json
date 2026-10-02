@@ -1,0 +1,28 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "date": "2026-10-03",
+  "name": "READFIELD RIDE WORKFLOW",
+  "status": "CANDIDATE_CI_REQUIRED",
+  "source_head": "/docs/ · READFIELD / RSVP 0.8.5",
+  "receiver": "/fold-bloom/live/",
+  "problem": "An exact cross-surface capability existed but was not on the phone work rail, so the user had to know that viewer-head RIDE LIVE chrome was the doorway.",
+  "transfer_unit": "Current READFIELD source identity + exact addressed cursor/span → existing field-read-ride/v0.1 carrier → LIVE traversal → existing readfield-course-witness/v0.1 exact RETURN.",
+  "interface_delta": "Surface RIDE beside the existing phone work actions and explain the composition as FAST → REVIEW → RIDE → RETURN. Delegate to the existing native handoff; do not duplicate state.",
+  "authority": {
+    "source_cursor": "READFIELD",
+    "traversal": "FOLD//BLOOM LIVE",
+    "handoff": "NAVIGATION_ONLY",
+    "return": "EVIDENCE_ONLY until READFIELD revalidates exact source identity and native span"
+  },
+  "use_cases": [
+    "Skim a long report rapidly, stop on a difficult sentence, traverse the addressed material spatially, and return to the same validated reading position.",
+    "Use a poem, lyric, procedure or conceptual passage as a material course without turning LIVE into text authority.",
+    "Switch between temporal RSVP focus and spatial traversal while preserving one source identity rather than rebuilding context."
+  ],
+  "files": [
+    "/lib/interphase-readfield.js",
+    "/returns/READFIELD_RIDE_RAIL_2026-10-03.json"
+  ],
+  "donor": "PR #822 / readfield-workflow-ride-20261003",
+  "stop_condition": "Do not add another workflow engine. If this doorway survives exact-head browser CI, let ordinary phone use determine whether any further rail compression is warranted."
+}
