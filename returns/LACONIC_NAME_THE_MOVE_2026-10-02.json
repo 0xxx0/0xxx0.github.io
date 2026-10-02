@@ -1,0 +1,38 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_NAME_THE_MOVE_2026-10-02",
+  "date": "2026-10-02",
+  "state": "BOUNDED_MECHANISM_TRANSFER",
+  "object": "LACONIC / ICONIC — SCRIPT PRESSURE / NAME THE MOVE",
+  "donors": [
+    "Prison Age: imposed scripts can be inspected and rewritten rather than merely obeyed or escaped",
+    "Naming / rectification: classify the thing before acting on the label",
+    "Sleeper Scripts: inherited or ambient narratives become visible when named",
+    "Laconic multi-turn grammar: predictable branches become compact real-world moves"
+  ],
+  "delta": [
+    "Added one nine-node PLAY scene to laconic/scenes.json.",
+    "The start move classifies ambiguous pressure as observation / request / role-cast / unresolved.",
+    "Branches convert observation to testable claim, request to explicit ask, role-cast to consent/boundary, and unresolved pressure to lawful noncompliance.",
+    "One comic ancestral echo ('The Ministry has lost jurisdiction.') is optional variant only, not a factual claim."
+  ],
+  "proof": [
+    {
+      "kind": "bytes",
+      "path": "/laconic/scenes.json",
+      "scene_id": "scene:name-the-move"
+    },
+    {
+      "kind": "schema",
+      "path": "/laconic/scenes.schema.json",
+      "claim": "existing scene/node/choice grammar reused; no new lane, schema, route or state store"
+    }
+  ],
+  "boundaries": [
+    "DRAFT ≠ SEND.",
+    "No hidden-control, motive, diagnosis or conspiracy claim is inferred from ordinary social ambiguity.",
+    "No private ancestral source text or person-specific material is published.",
+    "The mechanism is a conversational classification aid, not a truth oracle."
+  ],
+  "return": "/laconic/"
+}
