@@ -47,3 +47,14 @@ Deepen selectively: open only the specific CURRENT head / manifest route / WAITI
 Before pushing, run the CI gate list locally: `node tools/ship-check.mjs` (`--fast`, `--json`, `--only <regex>`).
 
 Public-surface redaction gate: `python3 scripts/check-redaction-aperture.py` (unredacted sensitive material fails the push; exact-triple allowlist in `scripts/redaction-aperture-allow.json`).
+
+
+Bounded execution protocol (human + coding workers):
+
+`SOURCE → HOLD → TURN → TRACE → RETURN`
+
+- machine contract: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.json`
+- one-page operating notes + packet template: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
+- selftest: `node tools/source-hold-turn-trace-return-selftest.mjs`
+
+Use it after selecting an object: one exact source, one held focus, ≤3 lawful moves, one TURN, machine-verifiable TRACE where possible, then RETURN. EFFECT requires explicit native commit/RELEASE. After RETURN re-read CURRENT; no second move inherits authority.
