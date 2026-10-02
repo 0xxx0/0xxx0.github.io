@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-02T23:08:00+08:00",
+  "updated": "2026-10-02T23:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -861,11 +861,11 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.4.3 / ONE HELD THING + PHASE-FIRST SURFACE + MARKET TAPE + CLOSED HOUSE/DAYLINE RETURNS + FRESHNESS TAG (stale=red, aging=warn)",
+      "head": "SHOPPING FIELD 0.5.0 / VISUAL LOOT + ADVENTURE MERGE + SHOP LOOTER + ONE HELD THING",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Shopping preserves detailed browser-local procurement truth while presenting the exact held item through one shared material phase: NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED. The phase is projection only; the exact native lifecycle remains visible residue and authority. MARKET TAPE retains bounded offer evidence. HOUSE fit and Dayline remain evidence/offer loops; money, seller contact, ownership and adoption remain native/human evidence-backed.",
-      "version": "0.4.3",
+      "retained_function": "Shopping remains one browser-local procurement ledger projected through one exact held item and shared material phase. 0.5 adds LIST↔LOOT image-led recognition, additive Adventure intake for prior/future shopping raids, and an explicit SHOP LOOTER watch/return loop that refreshes exact market evidence into MARKET TAPE. Images remain provenance aids; watch/cron remains research-only; HOUSE fit, Dayline proof, money, seller contact, possession and adoption retain their existing host/human authority boundaries.",
+      "version": "0.5.0",
       "evidence": [
         "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
         "/returns/SHOPPING_SIGNAL_FIELD_2026-09-26.json",
@@ -879,51 +879,48 @@
         "/returns/SHOPPING_MARKET_TAPE_2026-09-30.json",
         "/control/research/SHOPPING_MARKET_DONOR_2026-09-30.json",
         "/returns/SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
-        "/tools/shopping-phase-surface-selftest.mjs"
+        "/tools/shopping-phase-surface-selftest.mjs",
+        "/lib/shopping-adventure.js",
+        "/lib/shopping-looter.js",
+        "/shopping/adventure.schema.json",
+        "/scripts/shopping-looter-packet.mjs",
+        "/skills/shopping-looter/SKILL.md",
+        "/control/confluence/SHOPPING_LOOTER_ADVENTURE_2026-10-02.md",
+        "/tools/shopping-adventure-looter-selftest.mjs",
+        "/tools/shopping-visual-selftest.mjs",
+        "/returns/SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json"
       ],
-      "latest_return": "/returns/SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
+      "latest_return": "/returns/SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
       "repo_verification": {
-        "status": "PASS / PR 739 EXACT-HEAD",
-        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/739",
-        "merge_sha": "aee12edf504145828c8fa0eebabc8a67a722fa69",
-        "proof_head": "9af9d903021417fc95c2a64fd6ffb27a912cd276",
-        "checks": {
-          "route_registration": {
-            "run": 36703842994,
-            "conclusion": "success"
-          },
-          "public_surface": {
-            "run": 36703842940,
-            "conclusion": "success"
-          },
-          "gitleaks": {
-            "run": 36703843106,
-            "conclusion": "success"
-          }
-        },
-        "shopping_phase_surface": "PASS",
-        "predecessor": {
-          "status": "PASS / PR 650 EXACT-HEAD",
-          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/650",
-          "merge_sha": "5fc84f18bc026619357caa8dbc1ffd1207dd4cbb",
-          "proof_head": "d6f6bd267c18d1db75c2084a9c1d4bb803da470e",
+        "status": "CANDIDATE / CURRENT-MASTER REPLAY / CI_REQUIRED",
+        "source_pr": 776,
+        "source_head": "8b1fc3ac4bd61a89c0f0525c6439a2e4d10041ac",
+        "predecessor_evidence": {
+          "status": "FOCUSED PASS / PR 762 · FULL PUBLIC SUITE BASE-BLOCKED",
+          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/762",
+          "implementation_proof_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
           "checks": {
-            "route_registration": {
-              "run": 36657026837,
+            "shopping_check": {
+              "run": 37010315436,
               "conclusion": "success"
             },
-            "public_surface": {
-              "run": 36657026846,
+            "route_registration": {
+              "run": 37010315506,
               "conclusion": "success"
             },
             "gitleaks": {
-              "run": 36657026748,
+              "run": 37010315433,
               "conclusion": "success"
+            },
+            "public_surface": {
+              "run": 37010315424,
+              "conclusion": "failure",
+              "blocker": "unrelated base drift /laconic/ manifest 0.3.2 vs release 0.3.4"
             }
           },
-          "shopping_interphase": "PASS",
-          "shopping_house_fit": "PASS"
-        }
+          "boundary": "Do not claim the full public-surface suite green for this head until the independent /laconic/ version mismatch on master is repaired."
+        },
+        "boundary": "This replay preserves current master truth outside Shopping. Promote verification only from the exact replay head."
       }
     },
     {
