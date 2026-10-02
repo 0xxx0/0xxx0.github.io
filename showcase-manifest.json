@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T23:08:00+08:00",
+  "updated": "2026-10-02T23:45:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -7797,16 +7797,22 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.4.3",
+      "title": "SHOPPING FIELD 0.5.0",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.4.3",
+      "version": "0.5.0",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
+        "watch config carries enabled/cadence/query/pickup hint; recurrence is evidence refresh only and requires bounded manual proof before scheduling",
+        "SHOP LOOTER: explicit watched CANDIDATE/READY item → bounded research packet → exact return → MARKET TAPE; lifecycle unchanged",
+        "per-item adventure_ids[] preserves which raids/episodes contributed evidence",
+        "shopping-adventure-pack/v0.1 additive intake for prior/future shopping raids; stable ids merge missing evidence without overwriting current local truth",
+        "provenance thumbnail per held item: remote exact-source image or browser-local compressed thumbnail; image never proves SKU/seller/condition/ownership",
+        "LIST ↔ LOOT visual projection over one canonical browser-local Shopping ledger; image-led recognition never creates a second store or lifecycle",
         "native FOUND/VERIFY/WATCH/BOUGHT/RECEIVED/TESTED/etc remain explicit host-owned residue, never deleted or rewritten by the phase projection",
         "phase-first field surface: NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED is the primary visible filter over one exact held item",
         "MARKET TAPE: <=12 exact-offer observations preserve landed SGD + availability/variant + seller/SKU/source + return/warranty without changing lifecycle",
@@ -7844,7 +7850,11 @@
             "receipt/purchase record",
             "legacy House OS shopping export",
             "aesthetic/materialization idea",
-            "HUMAN PORT candidate offer"
+            "HUMAN PORT candidate offer",
+            "shopping adventure pack",
+            "SHOP LOOTER evidence return",
+            "provenance thumbnail",
+            "watched market candidate"
           ],
           "optional": [
             "lane: ESSENTIAL | CAPABILITY | EXPEDITION",
@@ -7864,7 +7874,10 @@
             "availability / variant",
             "target landed SGD",
             "bounded offer history",
-            "return policy / warranty"
+            "return policy / warranty",
+            "thumbnail media provenance",
+            "adventure ids",
+            "watch enabled/cadence/query/pickup hint"
           ]
         },
         "transforms": {
@@ -7905,7 +7918,12 @@
             "unknown SKU/seller remain unknown until explicit evidence",
             "shared material phase is projection only; native Shopping lifecycle remains canonical",
             "bounded temporal market evidence remains Shopping-owned evidence, never lifecycle truth",
-            "native lifecycle remains visible/editable residue when shared phase is primary"
+            "native lifecycle remains visible/editable residue when shared phase is primary",
+            "image/thumbnail is provenance projection only; never identity/ownership proof",
+            "adventure merge fills missing evidence but does not overwrite existing non-empty local truth",
+            "SHOP LOOTER may add market evidence but cannot mutate lifecycle, purchase authority or seller-contact authority",
+            "exact id + source state + source URL revalidate before looter return acceptance",
+            "cron/scheduled refresh remains supervisor-owned and evidence-only after bounded proof"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only",
@@ -7937,7 +7955,12 @@
             "explicit Port-derived VERIFY candidate",
             "interphase-carrier/v0.1 for exact held Shopping item",
             "interphase-action-surface/v0.1",
-            "bounded market tape + target summary"
+            "bounded market tape + target summary",
+            "shopping-adventure-pack/v0.1",
+            "shopping-looter-packet/v0.1",
+            "shopping-looter-return/v0.1",
+            "provenance thumbnail metadata",
+            "watch configuration"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -7961,7 +7984,13 @@
             "Port candidate import is explicit and conservative VERIFY",
             "source URL / exact SKU / seller-channel are ledger fields and agent-packet evidence",
             "shared phase is the primary field filter",
-            "native lifecycle remains visible as residue"
+            "native lifecycle remains visible as residue",
+            "LIST/LOOT projection shares one ledger",
+            "adventure merge preserves current local truth",
+            "looter return preserves native lifecycle",
+            "thumbnail remains provenance-only",
+            "watch action remains <=3 native moves",
+            "focused shopping-check validates runtime parse + adventure/looter laws"
           ],
           "return_path": "/shopping/"
         }
@@ -8002,6 +8031,11 @@
         ],
         "exit_paths": [
           {
+            "class": "MARKET_WATCH",
+            "status": "BOUNDED_PROOF_REQUIRED",
+            "via": "SHOP LOOTER packet/return; manual <=3-item cycle before Hermes/cron recurrence"
+          },
+          {
             "class": "RESEARCH",
             "status": "AVAILABLE",
             "via": "bounded agent packet"
@@ -8021,7 +8055,7 @@
         "owner": "SHOPPING"
       },
       "index": {
-        "updated_at": "2026-10-01T11:06:44+08:00",
+        "updated_at": "2026-10-02T20:30:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8030,7 +8064,7 @@
         ]
       },
       "tier": "FIELD",
-      "role": "WORLD_IN/WORLD_THROUGH procurement adapter projected through one exact held object. Shared material phase is the primary recognition/filter grammar; detailed lifecycle, cost, fit, burden and MARKET TAPE remain Shopping-owned residue. No automatic buying, seller contact, ownership or adoption."
+      "role": "WORLD_IN/WORLD_THROUGH procurement adapter projected through one exact held object. Shared material phase remains primary; LIST↔LOOT adds visual recognition, Adventure packs recover shopping history, and SHOP LOOTER refreshes explicit watched market evidence into MARKET TAPE. Images/evidence never grant purchase, seller-contact, ownership or adoption authority."
     },
     {
       "href": "/showcase-selftest/",

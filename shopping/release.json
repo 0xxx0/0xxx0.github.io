@@ -2,9 +2,9 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.4.3",
-  "released": "2026-10-01",
-  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / MARKET_TAPE / PHASE_FIRST_SURFACE",
+  "version": "0.5.0",
+  "released": "2026-10-02",
+  "state": "ACTIVE_ADAPTER / ONE_OBJECT_GRAMMAR / VISUAL_LOOT / ADVENTURE_MERGE / SHOP_LOOTER / MARKET_TAPE",
   "recovered_from": [
     {
       "artifact": "House OS Shopping / Inventory Console",
@@ -85,7 +85,18 @@
     "External donor admission retained price-history/watch/identity mechanisms while rejecting autonomous checkout and universal-cart authority.",
     "Primary Shopping field filter now uses the shared material phase projection (NEED / CANDIDATE / READY / INBOUND / ON_HAND / ADOPTED / CLOSED) rather than exposing the detailed native lifecycle as the top-level navigation grammar.",
     "List recognition now foregrounds derived material phase while preserving the exact native Shopping state as explicit visible residue.",
-    "Detailed native lifecycle remains editable/host-owned; phase filtering is projection only and cannot mutate procurement truth."
+    "Detailed native lifecycle remains editable/host-owned; phase filtering is projection only and cannot mutate procurement truth.",
+    "Added LIST ↔ LOOT as unequal projections over the same browser-local Shopping ledger; LOOT adds image-led recognition without creating a second store or lifecycle.",
+    "Added provenance thumbnails: remote listing/product image URLs or compressed browser-local image thumbnails; thumbnails are recognition/provenance aids and never prove SKU, seller, condition, possession, fit or adoption.",
+    "Added additive shopping-adventure-pack/v0.1 intake so prior raids, chat extractions, screenshots and future shopping episodes can merge by stable id without overwriting existing non-empty local truth.",
+    "Adventure provenance is retained through top-level adventures[] plus per-item adventure_ids[].",
+    "Added SHOP LOOTER watch configuration per item: explicit enabled flag, cadence, query and pickup/logistics hint.",
+    "Added shopping-looter-packet/v0.1 and shopping-looter-return/v0.1 evidence loop; exact item id, source lifecycle and source URL are revalidated before returned evidence enters MARKET TAPE.",
+    "SHOP LOOTER may refresh public listing evidence and one trustworthy thumbnail URL but cannot purchase, message sellers, log in, change accounts, enter payment data or mutate Shopping lifecycle.",
+    "Added deterministic scripts/shopping-looter-packet.mjs and Hermes skill /skills/shopping-looter/SKILL.md.",
+    "Cron/scheduling remains gated behind one bounded manual proof of at most three watched items; recurrence refreshes evidence only.",
+    "Watch-enabled CANDIDATE/READY objects expose MARKET WATCH through the shared INTERPHASE action surface while preserving the <=3 native move law.",
+    "Agent research packets now carry adventure provenance, safe thumbnail metadata and watch configuration."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -123,10 +134,19 @@
     "market tape remains browser-local and exportable with the item",
     "phase filter derives from ShoppingInterphase.PHASES",
     "phase-first list rendering keeps native Shopping state visible as residue",
-    "no native lifecycle value is deleted by surface contraction"
+    "no native lifecycle value is deleted by surface contraction",
+    "LIST and LOOT views use one local ledger and do not mint second object identity",
+    "inline Shopping runtime parses under vm.Script",
+    "adventure merge preserves existing non-empty local truth and adds provenance",
+    "SHOP LOOTER return is rejected when exact item lifecycle/source identity is stale",
+    "SHOP LOOTER evidence return leaves native lifecycle unchanged",
+    "returned offer evidence appends to bounded MARKET TAPE",
+    "thumbnail evidence retains provenance and does not promote identity/ownership",
+    "watch-enabled INTERPHASE projection still exposes <=3 HOST_NATIVE_ONLY moves",
+    "cron is a supervisor policy after bounded proof, not app-side automatic authority"
   ],
   "return": "/shopping/",
-  "date": "2026-09-30",
+  "date": "2026-10-02",
   "validation": {
     "dayline_closed_loop_pr": 379,
     "merge_sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621",
@@ -154,6 +174,17 @@
       "gitleaks_run": 36703843106,
       "selftest": "/tools/shopping-phase-surface-selftest.mjs",
       "result": "PASS"
+    },
+    "visual_adventure_looter": {
+      "pr": 762,
+      "implementation_proof_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
+      "shopping_check_run": 37010315436,
+      "route_registration_run": 37010315506,
+      "gitleaks_run": 37010315433,
+      "focused_result": "PASS",
+      "public_surface_run": 37010315424,
+      "public_surface_result": "BLOCKED BY UNRELATED BASE RELEASE-VERSION DRIFT: /laconic/ manifest 0.3.2 vs release 0.3.4",
+      "note": "Focused Shopping proofs, Route Registration and gitleaks passed on the implementation head. Full public-surface is not claimed green until the unrelated master /laconic/ release-version drift is repaired."
     }
   }
 }
