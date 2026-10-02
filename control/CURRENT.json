@@ -117,201 +117,225 @@
       "version": "0.8.33",
       "latest_return": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
       "repo_verification": {
-        "status": "CANDIDATE / EXECUTION SPINE / CI_REQUIRED",
-        "branch": "converge/execution-spine-20261003",
-        "predecessor": {
-          "status": "PASS / PR 779 EXACT-HEAD",
-          "proof_head": "f857e7ea3718437ab16d3f52df0de04717da154a",
-          "base_sha": "10babfdea30ebb09685204f48c75c30ee87982bf",
-          "checks": {
-            "route_registration": {
-              "run": 37026048193,
-              "conclusion": "success"
-            },
-            "public_surface": {
-              "run": 37026047586,
-              "conclusion": "success"
-            },
-            "gitleaks": {
-              "run": 37026048352,
-              "conclusion": "success"
-            }
+        "status": "PASS / PR 807 EXECUTION SPINE EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+        "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+        "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+        "checks": {
+          "route_registration": {
+            "run": 37058033573,
+            "conclusion": "success"
           },
-          "browser": "PASS · public-surface-check 37026047586 completed 107/107 including held WORK depth, advance-as-scale normal/reduced/fallback, CURRENT-head entry, Prison Age source-neutral re-entry, merged visual-law/moiré surfaces, and critical browser smoke.",
+          "public_surface": {
+            "run": 37058033600,
+            "conclusion": "success",
+            "steps": "112/112"
+          },
+          "gitleaks": {
+            "run": 37058033582,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 37058033600 including critical browser smoke, recovered-source validation, frozen City/Painting compatibility, Dayline zero-hunt, FIELD run-dock binding and RETURN protocol checks.",
+        "note": "Behavioral proof ran on exact PR #807 head before merge. This CURRENT edit is a metadata-only seal.",
+        "predecessor": {
+          "status": "CANDIDATE / EXECUTION SPINE / CI_REQUIRED",
+          "branch": "converge/execution-spine-20261003",
           "predecessor": {
-            "status": "CANDIDATE / CI_REQUIRED",
-            "base_sha": "4ebc6dab41c09cdb6ff230bfd55f580637973f57",
-            "predecessor": {
-              "status": "PASS / PR 724 EXACT-HEAD",
-              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/724",
-              "merge_sha": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
-              "tested_head": "9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38",
-              "checks": {
-                "route_registration": {
-                  "run": 36686373816,
-                  "conclusion": "success"
-                },
-                "public_surface": {
-                  "run": 36686373704,
-                  "conclusion": "success"
-                },
-                "gitleaks": {
-                  "run": 36686373732,
-                  "conclusion": "success"
-                }
+            "status": "PASS / PR 779 EXACT-HEAD",
+            "proof_head": "f857e7ea3718437ab16d3f52df0de04717da154a",
+            "base_sha": "10babfdea30ebb09685204f48c75c30ee87982bf",
+            "checks": {
+              "route_registration": {
+                "run": 37026048193,
+                "conclusion": "success"
               },
-              "browser": "PASS · public-surface-check 36686373704 exact final PR head: FIELD reversibility, held-action aperture, shared INTERPHASE host laws, critical browser smoke, recovered-source validation, and frozen City/Painting handlers all succeeded.",
-              "note": "Exact-head proof ran on final PR head 9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38 after the current-master COMMS refresh was merged into the branch. PR #724 then merged as 047ef5ee503f6eff16b4a324893a08f247d4a8f6. This seal changes verification metadata only.",
+              "public_surface": {
+                "run": 37026047586,
+                "conclusion": "success"
+              },
+              "gitleaks": {
+                "run": 37026048352,
+                "conclusion": "success"
+              }
+            },
+            "browser": "PASS · public-surface-check 37026047586 completed 107/107 including held WORK depth, advance-as-scale normal/reduced/fallback, CURRENT-head entry, Prison Age source-neutral re-entry, merged visual-law/moiré surfaces, and critical browser smoke.",
+            "predecessor": {
+              "status": "CANDIDATE / CI_REQUIRED",
+              "base_sha": "4ebc6dab41c09cdb6ff230bfd55f580637973f57",
               "predecessor": {
-                "status": "PASS / PR 700",
-                "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
-                "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
-                "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
+                "status": "PASS / PR 724 EXACT-HEAD",
+                "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/724",
+                "merge_sha": "047ef5ee503f6eff16b4a324893a08f247d4a8f6",
+                "tested_head": "9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38",
                 "checks": {
                   "route_registration": {
-                    "run": 36676498495,
+                    "run": 36686373816,
                     "conclusion": "success"
                   },
                   "public_surface": {
-                    "run": 36676498556,
+                    "run": 36686373704,
                     "conclusion": "success"
                   },
                   "gitleaks": {
-                    "run": 36676498421,
+                    "run": 36686373732,
                     "conclusion": "success"
                   }
                 },
-                "browser": "PASS · public-surface-check 36676498556 including FIELD reversibility semantics, held-action aperture guards and critical browser smoke.",
-                "post_merge": {
-                  "pages": {
-                    "run": 36676805082,
-                    "conclusion": "success"
-                  },
-                  "gitleaks": {
-                    "run": 36676854000,
-                    "conclusion": "success"
-                  }
-                },
-                "note": "Behavioral proof ran on PR #700 after CURRENT↔manifest alignment. Merge SHA also passed Pages and push gitleaks. No claim that the post-merge metadata-only seal was part of the earlier behavioral test.",
+                "browser": "PASS · public-surface-check 36686373704 exact final PR head: FIELD reversibility, held-action aperture, shared INTERPHASE host laws, critical browser smoke, recovered-source validation, and frozen City/Painting handlers all succeeded.",
+                "note": "Exact-head proof ran on final PR head 9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38 after the current-master COMMS refresh was merged into the branch. PR #724 then merged as 047ef5ee503f6eff16b4a324893a08f247d4a8f6. This seal changes verification metadata only.",
                 "predecessor": {
-                  "status": "PASS / PR 675 EXACT-HEAD",
-                  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
-                  "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
-                  "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
+                  "status": "PASS / PR 700",
+                  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/700",
+                  "merge_sha": "7465373a22a038a24492e8e88fd81b0eccb272f4",
+                  "tested_head": "4e71cbdd184d372431ff322f13c01a00f74e21dc",
                   "checks": {
                     "route_registration": {
-                      "run": 36662030164,
+                      "run": 36676498495,
                       "conclusion": "success"
                     },
                     "public_surface": {
-                      "run": 36662030136,
+                      "run": 36676498556,
                       "conclusion": "success"
                     },
                     "gitleaks": {
-                      "run": 36662030161,
+                      "run": 36676498421,
                       "conclusion": "success"
                     }
                   },
-                  "browser": "PASS · public-surface-check 36662030136 attempt 2 including owner-based FIELD root and critical browser smoke; attempt 1 failed only on transient CARE face-probe readiness. PR 678 subsequently removed that probe boot race without weakening assertions.",
+                  "browser": "PASS · public-surface-check 36676498556 including FIELD reversibility semantics, held-action aperture guards and critical browser smoke.",
+                  "post_merge": {
+                    "pages": {
+                      "run": 36676805082,
+                      "conclusion": "success"
+                    },
+                    "gitleaks": {
+                      "run": 36676854000,
+                      "conclusion": "success"
+                    }
+                  },
+                  "note": "Behavioral proof ran on PR #700 after CURRENT↔manifest alignment. Merge SHA also passed Pages and push gitleaks. No claim that the post-merge metadata-only seal was part of the earlier behavioral test.",
                   "predecessor": {
-                    "status": "PASS / PR 654 EXACT-HEAD",
-                    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
-                    "merge_sha": "fc9ea30452025d74ed78528088b718028169496a",
-                    "proof_head": "38a7641dab1d613300cdb7a1b415fdaab0d42fef",
+                    "status": "PASS / PR 675 EXACT-HEAD",
+                    "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/675",
+                    "merge_sha": "538a851dd184e08ad5bdbf07fe145f30f6cd1e58",
+                    "proof_head": "8acbedbbae819badc437840ef3d4b49403e9f891",
                     "checks": {
                       "route_registration": {
-                        "run": 36657822100,
+                        "run": 36662030164,
                         "conclusion": "success"
                       },
                       "public_surface": {
-                        "run": 36657822097,
+                        "run": 36662030136,
                         "conclusion": "success"
                       },
                       "gitleaks": {
-                        "run": 36657822129,
+                        "run": 36662030161,
                         "conclusion": "success"
                       }
                     },
-                    "browser": "PASS · public-surface-check 36657822097 including held-guide browser invariant and critical browser smoke",
+                    "browser": "PASS · public-surface-check 36662030136 attempt 2 including owner-based FIELD root and critical browser smoke; attempt 1 failed only on transient CARE face-probe readiness. PR 678 subsequently removed that probe boot race without weakening assertions.",
                     "predecessor": {
-                      "status": "PASS / PR 636 EXACT-HEAD",
-                      "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
-                      "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
-                      "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
+                      "status": "PASS / PR 654 EXACT-HEAD",
+                      "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/654",
+                      "merge_sha": "fc9ea30452025d74ed78528088b718028169496a",
+                      "proof_head": "38a7641dab1d613300cdb7a1b415fdaab0d42fef",
                       "checks": {
                         "route_registration": {
-                          "run": 36580603188,
+                          "run": 36657822100,
                           "conclusion": "success"
                         },
                         "public_surface": {
-                          "run": 36580602549,
+                          "run": 36657822097,
                           "conclusion": "success"
                         },
                         "gitleaks": {
-                          "run": 36580602546,
+                          "run": 36657822129,
                           "conclusion": "success"
                         }
                       },
-                      "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
+                      "browser": "PASS · public-surface-check 36657822097 including held-guide browser invariant and critical browser smoke",
                       "predecessor": {
-                        "status": "PASS / PR 601 EXACT-HEAD",
-                        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
-                        "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
-                        "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
+                        "status": "PASS / PR 636 EXACT-HEAD",
+                        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/636",
+                        "merge_sha": "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+                        "proof_head": "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
                         "checks": {
                           "route_registration": {
-                            "run": 36564168802,
+                            "run": 36580603188,
                             "conclusion": "success"
                           },
                           "public_surface": {
-                            "run": 36564168856,
+                            "run": 36580602549,
                             "conclusion": "success"
                           },
                           "gitleaks": {
-                            "run": 36564168889,
+                            "run": 36580602546,
                             "conclusion": "success"
                           }
                         },
-                        "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
+                        "browser": "PASS · public-surface-check 36580602549 completed successfully including critical browser smoke",
                         "predecessor": {
-                          "status": "PASS / PR 533 EXACT-HEAD",
-                          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
-                          "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
-                          "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
+                          "status": "PASS / PR 601 EXACT-HEAD",
+                          "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/601",
+                          "merge_sha": "4976fd16da8f35db4808b689188e28bfdba7215a",
+                          "proof_head": "78d9a166b1f06fd44202dd15d201969c23d117a9",
                           "checks": {
                             "route_registration": {
-                              "run": 36508540373,
+                              "run": 36564168802,
                               "conclusion": "success"
                             },
                             "public_surface": {
-                              "run": 36508540378,
+                              "run": 36564168856,
                               "conclusion": "success"
                             },
                             "gitleaks": {
-                              "run": 36508540355,
+                              "run": 36564168889,
                               "conclusion": "success"
                             }
                           },
-                          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+                          "browser": "PASS · FIELD AWAKE / INTERPHASE visor 0.8.23 consumes interphase-action-surface/v0.1: /docs/ HOLD; TURN · OPEN NATIVE; TURN · INTERPHASE → DAYLINE; six carrier cadence pairs; exact RETURN; close/reopen; zero overflow.",
                           "predecessor": {
-                            "status": "PASS / PR 528 EXACT-HEAD",
-                            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
-                            "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+                            "status": "PASS / PR 533 EXACT-HEAD",
+                            "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/533",
+                            "merge_sha": "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+                            "proof_head": "dc028d88efb7054a19d411a37c35d9fc8a5875a9",
                             "checks": {
                               "route_registration": {
-                                "run": 36507219876,
+                                "run": 36508540373,
                                 "conclusion": "success"
                               },
                               "public_surface": {
-                                "run": 36507220022,
+                                "run": 36508540378,
                                 "conclusion": "success"
                               },
                               "gitleaks": {
-                                "run": 36507219919,
+                                "run": 36508540355,
                                 "conclusion": "success"
                               }
                             },
-                            "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+                            "browser": "PASS · FIELD AWAKE / INTERPHASE visor 430×900 · exact /docs/ focus + READFIELD owner + NONE/HANDOFF ONLY + six cadence pairs + close/reopen + zero overflow",
+                            "predecessor": {
+                              "status": "PASS / PR 528 EXACT-HEAD",
+                              "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/528",
+                              "proof_head": "f478cee439eea4b9fa513f7c7c97728d1ced4846",
+                              "checks": {
+                                "route_registration": {
+                                  "run": 36507219876,
+                                  "conclusion": "success"
+                                },
+                                "public_surface": {
+                                  "run": 36507220022,
+                                  "conclusion": "success"
+                                },
+                                "gitleaks": {
+                                  "run": 36507219919,
+                                  "conclusion": "success"
+                                }
+                              },
+                              "local": "PASS · explicit source intent static checks; FIELD reversibility; Prison Age selftest; browser source chooser → READFIELD/FOLD//BLOOM exact selection."
+                            }
                           }
                         }
                       }
@@ -846,7 +870,32 @@
         "/tools/dayline-flow-source-selftest.mjs"
       ],
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
-      "latest_return": "/returns/DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json"
+      "latest_return": "/returns/DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
+      "repo_verification": {
+        "status": "PASS / PR 807 EXECUTION SPINE EXACT-HEAD",
+        "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+        "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+        "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+        "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+        "checks": {
+          "route_registration": {
+            "run": 37058033573,
+            "conclusion": "success"
+          },
+          "public_surface": {
+            "run": 37058033600,
+            "conclusion": "success",
+            "steps": "112/112"
+          },
+          "gitleaks": {
+            "run": 37058033582,
+            "conclusion": "success"
+          }
+        },
+        "browser": "PASS · public-surface-check 37058033600 including critical browser smoke, recovered-source validation, frozen City/Painting compatibility, Dayline zero-hunt, FIELD run-dock binding and RETURN protocol checks.",
+        "note": "Behavioral proof ran on exact PR #807 head before merge. This CURRENT edit is a metadata-only seal.",
+        "predecessor": null
+      }
     },
     {
       "lineage": "house-spatial",
