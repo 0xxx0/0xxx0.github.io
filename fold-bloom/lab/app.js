@@ -950,6 +950,7 @@ function syncStateFrontierUI(frontier=refreshStateFrontier()){
 }
 function syncStateStepUI(){
   const calc=data.stateCalc,step=data.stateStep,cursor=data.stateStepCursor,clock=stateFlowClock(),frontier=refreshStateFrontier();
+  if($('#stateIChing'))$('#stateIChing').href=stateLensHref(data.stateChange);
   if($('#stateHamming'))$('#stateHamming').textContent=calc?.ok?calc.metrics.hamming_distance+'/6':'—';
   if($('#stateStable'))$('#stateStable').textContent=calc?.ok?String(calc.metrics.stable_lines):'—';
   if($('#stateOrders'))$('#stateOrders').textContent=step?.ok?String(step.possible_one_line_orders):'—';
