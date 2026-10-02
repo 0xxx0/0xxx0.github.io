@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T18:19:17+08:00",
+  "updated": "2026-10-02T19:00:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T15:58:15+08:00",
+        "updated_at": "2026-10-02T19:00:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -6020,7 +6020,7 @@
     },
     {
       "href": "/nexus/map.html",
-      "title": "FIELD // SYSTEM MAP",
+      "title": "FIELD // ARCHITECTURE MAP 0.2",
       "kind": "hub",
       "parent": "/nexus/",
       "operation": "ORIENT",
@@ -6028,13 +6028,13 @@
       "versionless": true,
       "family": "NEXUS",
       "showcase_card": false,
-      "role": "System map of the field: how the surfaces relate and which ones are load-bearing. Orientation aid for a cold reader.",
+      "role": "Current one-page architecture projection: HUMAN PORT → Router → Policy → SHOWCASE/FIELD INDEX; FIELD holds one addressed object; Atlas Dayline executes; FIELD / PROOF tests representations; FCM remains an optional attention reducer/donor; Scale Lens, Verse Atlas, Sleeper and AXIAL stay unequal specialist hosts; RETURN closes observed consequence. Projection-only: no NOW, commit/effect or evidence authority.",
       "index": {
-        "updated_at": "2026-09-25T12:46:00+08:00",
+        "updated_at": "2026-10-02T19:00:00+08:00",
         "work_modes": [
-          "INSPECT",
-          "VERIFY",
-          "IMPLEMENT"
+          "RECOVER",
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "evidence": {
@@ -6043,7 +6043,9 @@
         ],
         "return_path": "/"
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "version": "0.2",
+      "receipt": "/returns/SYSTEM_MAP_CONVERGENCE_2026-10-02.json"
     },
     {
       "href": "/physical/print-01/print.html",
