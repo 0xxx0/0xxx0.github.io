@@ -1,0 +1,126 @@
+{
+  "schema": "0xxx0/prison-age-evidence-atlas-return/v0.1",
+  "generated_at": "2026-10-03T03:59:54+08:00",
+  "status": "PREDECESSOR_PROOF_SEALED / RECEIPT_HEAD_CI_REQUIRED",
+  "source_host": {
+    "route": "/prison-age/",
+    "version": "0.6",
+    "authority": "PRISON_AGE",
+    "native_actions": [
+      "READ",
+      "RIDE",
+      "SOURCE"
+    ],
+    "mutation": "NONE"
+  },
+  "instrument": {
+    "schema": "prison-age.evidence-atlas/v0.1",
+    "authority": "EVIDENCE_ONLY",
+    "data": "/prison-age/evidence-atlas.json",
+    "runtime": "/prison-age/evidence-atlas.js",
+    "cards": 32,
+    "source_pairs": 6,
+    "route_schema": "prison-age.evidence-route/v0.1"
+  },
+  "law": "Two exact addressed source fragments plus explicit lexical/phrase overlap may be exposed as evidence. The atlas does not assert theme, intent, causality, canon order, equivalence, comprehension or interpretation.",
+  "implementation": [
+    "/prison-age/evidence-atlas.json",
+    "/prison-age/evidence-atlas.js",
+    "/prison-age/index.html",
+    "/prison-age/release.json",
+    "/tools/prison-age-evidence-atlas-selftest.cjs",
+    "/tools/prison-age-evidence-atlas-smoke.mjs"
+  ],
+  "selection": {
+    "source_index": "/prison-age/echo-index.json",
+    "scope": "four 2026 Prison Age sources participating in cross-source ECHO",
+    "excludes": "provenance-distinct recovered 2021 proto-root; it retains authored RECURRENCE",
+    "rule": "shared phrase count → evidence score → shared term count → canonical pair id; max 6 cards per source pair and max 18 involvements per source"
+  },
+  "predecessor_proof": {
+    "head": "a6001fc01c9da4d9e83db630aee6e57dc850c09a",
+    "route_registration": {
+      "run": 37057650596,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 37057650418,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 37057650432,
+      "conclusion": "failure",
+      "bounded_reason": "All Prison Age source contract, ECHO, Evidence Atlas selftest and browser smoke checks passed. The later static-surface contract failed only because /returns/PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json did not yet exist."
+    }
+  },
+  "proofs": {
+    "canonical_source_contract": "PASS · Prison Age host remains version 0.6 with canonical status FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE and exactly READ / RIDE / SOURCE FIELD actions.",
+    "atlas_derivation": "PASS · 32 exact cross-source relations, all six 2026 source pairs, authority EVIDENCE_ONLY, no generated engine/operator labels.",
+    "deep_link": "PASS · ?atlas=evidence&card=4 restores exact held relation after source resolver boot.",
+    "exact_bytes": "PASS · card 4 exact fragments equal source slices at Last Stall 2432–2462 and Open Air 950–1010.",
+    "exact_read_addresses": "PASS · READ A/B enter READFIELD at the exact source path + character offset.",
+    "trail": "PASS · fourth add evicts oldest; held trail remains capped at three cards and emits prison-age.evidence-route/v0.1 with EVIDENCE_ONLY authority.",
+    "return_source": "PASS · closing atlas removes atlas/card query state and returns to source resolver.",
+    "existing_echo": "PASS · READFIELD→LIVE ECHO continuity and exact nested RETURN regression remain green on predecessor proof head."
+  },
+  "browser_witness": {
+    "held": {
+      "card": 4,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "shared": [
+        "ceiling",
+        "floor",
+        "touched"
+      ],
+      "phrases": [
+        "the ceiling",
+        "the floor",
+        "touched the"
+      ]
+    },
+    "a": {
+      "source": "last-stall",
+      "start": 2432,
+      "end": 2462,
+      "address": "source-echo://last-stall/2432-2462",
+      "exact": true
+    },
+    "b": {
+      "source": "open-air",
+      "start": 950,
+      "end": 1010,
+      "address": "source-echo://open-air/950-1010",
+      "exact": true
+    },
+    "evidence_route": {
+      "schema": "prison-age.evidence-route/v0.1",
+      "authority": "EVIDENCE_ONLY",
+      "cards": [
+        8,
+        25,
+        30
+      ]
+    },
+    "truth": {
+      "cards": 32,
+      "source_pairs": 6,
+      "no_generated_engine_labels": true
+    }
+  },
+  "boundaries": [
+    "No source bytes are changed.",
+    "No generated Prison Age story prose, connective narrative, engine identity, operator prompt or thematic summary is introduced.",
+    "FIELD remains READ / RIDE / SOURCE only.",
+    "The atlas is an in-host SOURCE aperture, not a fourth FIELD action and not a second Prison Age route.",
+    "The recovered 2021 proto-root remains provenance-distinct and outside this cross-source atlas.",
+    "The source host stays version 0.6; Evidence Atlas is projection depth 0.1.",
+    "This receipt does not upgrade lexical recurrence into semantic interpretation.",
+    "Merge requires Route Registration + gitleaks + full public-surface PASS on the receipt-bearing exact head."
+  ],
+  "supersedes_direction": {
+    "pr": 785,
+    "note": "Preserves atlas/filter/held/max-three interaction but replaces generated 32 engine identities/operators with exact source-derived relation evidence. Close #785 if this instrument lands green."
+  },
+  "next_gate": "Run full CI on the receipt-bearing head. If green and mergeable, merge #794, close #785, and post-merge verify master truth."
+}
