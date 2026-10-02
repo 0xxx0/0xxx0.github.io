@@ -73,3 +73,15 @@ let ro;try{ro=new ResizeObserver(()=>apply('layout'));ro.observe(document.docume
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>apply('boot'),{once:true}):apply('boot');
 window.FieldPresentation=Object.freeze({LEVELS,levelFor,baseline,effective,state,apply,choose,setDensity,setBand,step,fit});
 })();
+
+(()=>{'use strict';
+/* AWAKE is a presentation projection over the live FIELD INTERPHASE carrier.
+   It must never become a route, store, planner or effect authority. */
+function load(){
+ import('./field-awake-visor.js').catch(error=>{
+  document.documentElement.dataset.fieldAwakeVisor='error';
+  console.error('FIELD AWAKE visor failed to load',error);
+ });
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load,{once:true}):queueMicrotask(load);
+})();

@@ -1,0 +1,51 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_AWAKE_VISOR_V2_2026-10-03",
+  "date": "2026-10-03",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "FIELD root first-contact presentation over the live INTERPHASE carrier",
+  "source": [
+    "/control/confluence/FIELD_AWAKE_INTERPHASE_2026-09-29.md",
+    "/recovery/semantic-painting-v0.8/",
+    "PR #533"
+  ],
+  "recovered": {
+    "source_voice": "YOU'RE A WAKE",
+    "switchboard": "GRAIN → CUT → HOLD → TURN → ACT → TRACE → SLEEP",
+    "painting_donor": "POLY // Forward Field — Semantic Painting v0.8 · Atlas Dayline · visible YOU’RE AWAKE // FORWARD FIELD · embedded WebP underpainting",
+    "current_mapping": "WAKE/SOURCE → CUT/FRAME → HOLD/FOCUS → TURN/OPERATE → TRACE/WITNESS → AGAIN/RETURN"
+  },
+  "delta": [
+    "restore AWAKE as a FIELD-owned first-contact presentation rather than a product route",
+    "read only the current FieldIndexCarrier INTERPHASE frame",
+    "show the same live object/focus, no more than three moves, witness and exact return",
+    "derive underpainting/negative-space visual law from the exact recovered painting donor with CSS only",
+    "add one browser-local v02 seen bit plus explicit visor force/suppress query controls",
+    "provide a WAKE / VISOR reopen control while ENTER FIELD only returns to the existing aperture",
+    "avoid carrier polling entirely after the visor has already been seen or explicitly suppressed"
+  ],
+  "authority": [
+    "FIELD remains the one product surface",
+    "INTERPHASE remains continuity protocol / narrow waist",
+    "native hosts retain meaning and effect authority",
+    "AWAKE remains attentional grammar",
+    "Semantic Painting v0.8 remains recovered ancestor/donor authority, not current FIELD truth"
+  ],
+  "performance": {
+    "new_image_payload": false,
+    "new_truth_fetch": false,
+    "new_route": false,
+    "new_store": false,
+    "seen_or_suppressed_polling": false
+  },
+  "verification": {
+    "branch": "field-awake-visor-v2-current-20261003",
+    "visor_static_selftest": "PENDING_LOCAL",
+    "visor_js_syntax": "PENDING_LOCAL",
+    "field_presentation_loader": "IMPLEMENTED",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "gitleaks": "PENDING_CI"
+  },
+  "stop": "Do not create /awake/, duplicate carrier state, ship recovered image bytes, or add effect authority."
+}
