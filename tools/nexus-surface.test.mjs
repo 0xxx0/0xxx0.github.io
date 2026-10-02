@@ -128,7 +128,7 @@ check('board: branch table rows complete (4 cells, non-empty cells)', () => {
   });
 
 check('map: every architecture node carries role/name/description and a lawful architecture class', () => {
-  const nodes = [...MAP.matchAll(/<a class="node ([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)];
+  const nodes = [...MAP.matchAll(/<a class="node ([^"]+)"[^>]*>([^]*?)<\/a>/g)];
   assert.ok(nodes.length >= 10, `only ${nodes.length} architecture nodes`);
   const classes = new Set(['bound', 'root', 'exec', 'test', 'repr', 'return']);
   for (const [, classText, block] of nodes) {
