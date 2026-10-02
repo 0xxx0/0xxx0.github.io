@@ -17,7 +17,7 @@ for(const [id,x] of Object.entries(sources.stories)){
   assert(!Object.prototype.hasOwnProperty.call(x,'engine'),id+' interpretive engine removed');
   assert(!Object.prototype.hasOwnProperty.call(x,'token'),id+' interpretive token removed');
 }
-assert(release.status==='FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE / DERIVED_ENGINE_ATLAS','release source-set + authored path + echo + derived atlas depth');
+assert(release.status==='FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE','release source-set + authored path + echo depth');
 assert(release.operation==='READ / RIDE / SOURCE · passive ECHO in READ/RIDE','release operations');
 assert(release.echo?.schema==='field-source-echo-index/v0.1'&&release.echo?.authority==='EVIDENCE_ONLY','echo release boundary');
 assert(release.field.native_actions.join('|')==='READ|RIDE|SOURCE','FIELD native actions');
@@ -60,14 +60,11 @@ assert(proto?.authored_reader?.id==='prison-age-2021'&&proto.echo===false,'2021 
 assert(active.includes('story.authored_reader?.id'),'resolver authored RIDE seam');
 
 const prisonRoutes=manifest.routes.filter(r=>r.family==='PRISON AGE'||r.href==='/prison-age/'||String(r.href||'').startsWith('/prison-age/'));
-assert(prisonRoutes.length===2,'one canonical Prison Age route + one derived atlas workbench');
-const route=prisonRoutes.find(r=>r.href==='/prison-age/');
-const atlasRoute=prisonRoutes.find(r=>r.href==='/prison-age/engine-atlas.html');
-assert(route?.tier==='FIELD'&&route.state==='ACTIVE','canonical active FIELD source route');
-assert(atlasRoute?.parent==='/prison-age/'&&atlasRoute.kind==='workbench'&&atlasRoute.state==='CANDIDATE','derived atlas route boundary');
-assert(atlasRoute.operation==='REPRESENT'&&String(atlasRoute.role||'').includes('not source prose'),'derived atlas representation-only authority');
+assert(prisonRoutes.length===1,'exactly one Prison Age manifest route');
+const route=prisonRoutes[0];
+assert(route.href==='/prison-age/'&&route.tier==='FIELD'&&route.state==='ACTIVE','single active FIELD route');
 assert(route.operation==='READ / RIDE / SOURCE','FIELD route operation');
-assert(route.version==='0.7','FIELD route version');
+assert(route.version==='0.6','FIELD route version');
 assert((route.contract?.emits?.kinds||[]).includes('field-source-echo-index/v0.1 exact-fragment evidence'),'FIELD route echo evidence');
 assert(route.field.exit_paths.length===3,'exactly three native exits');
 assert(fs.existsSync('prison-age/echo-index.json')&&fs.existsSync('lib/source-echo.js'),'source echo evidence assets');
@@ -97,4 +94,4 @@ assert(!String(fh?.retained_function||'').includes('Prison Age source-intent sem
 assert(!(fh?.evidence||[]).some(x=>/PRISON_AGE/.test(String(x))),'FIELD current-head evidence must not depend on Prison Age donor receipts');
 assert(fh?.latest_return!=='/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json','source ECHO must not own FIELD head RETURN');
 assert(!(fh?.evidence||[]).includes('/returns/PRISON_AGE_SOURCE_ECHO_2026-09-29.json'),'projection-depth ECHO must not claim FIELD-head evidence');
-console.log('PRISON AGE SOURCE CONTRACT + GENERIC FIELD INTENT + ECHO + ENGINE ATLAS PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· SOURCE ROUTE READ/RIDE/SOURCE · DERIVED WORKBENCH REPRESENT');
+console.log('PRISON AGE SOURCE CONTRACT + GENERIC FIELD INTENT + ECHO PASS',Object.fromEntries(Object.entries(expected).map(([id,x])=>[id,x[2]])),'· ONE ROUTE · READ/RIDE/SOURCE');
