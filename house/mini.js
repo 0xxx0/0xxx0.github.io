@@ -58,3 +58,14 @@
   out.className = "m";
   panel.appendChild(out);
 })();
+
+/* BASE CAMP is a projection over the canonical HOUSE locus, loaded after the
+ * Mini App adapter so browser and Telegram entry share one home-base face. */
+(function(){
+  if(document.querySelector('script[data-house-base-camp]'))return;
+  var s=document.createElement('script');
+  s.src='./base-camp.js';
+  s.defer=true;
+  s.dataset.houseBaseCamp='1';
+  document.head.appendChild(s);
+})();
