@@ -1489,7 +1489,10 @@
     "field_salvage_policy": "/control/FIELD_SALVAGE_POLICY.json",
     "game_donor_salvage_return": "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
     "operational_protocol": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
-    "operational_protocol_human": "/control/source-hold-turn-trace-return.html"
+    "operational_protocol_human": "/control/source-hold-turn-trace-return.html",
+    "source_hold_turn_trace_return": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+    "source_hold_turn_trace_return_contract": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "source_hold_turn_trace_return_selftest": "/tools/source-hold-turn-trace-return-selftest.mjs"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
