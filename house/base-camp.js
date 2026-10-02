@@ -63,7 +63,9 @@
 
   function roleFor(x){
     if(x.state==='SERVICE')return 'RETURN BIN';
-    if(x.home_address===locus())return 'READY / STASH';
+    if(x.home_address===locus()&&x.state==='READY')return 'READY RACK';
+    if(x.home_address===locus()&&x.state==='UNKNOWN')return 'STASH / UNKNOWN';
+    if(x.home_address===locus())return 'STASH';
     return 'MOBILE';
   }
   function itemHtml(x){
@@ -94,8 +96,8 @@
   function runHtml(run){
     if(!run)return '<div class="baseEmpty">No set-out witness yet.</div>';
     const kit=(run.items||[]).map(x=>x.label).join(' · ')||'no item refs';
-    if(run.state==='OUT')return '<div class="baseRun"><strong>OUT · '+h(run.purpose||'unnamed run')+'</strong><small>'+h(run.address)+' · '+h(kit)+' · '+h((run.frictions||[]).join(' / ')||'no friction tags')+'</small><label class="note" style="display:block;margin-top:8px">WHAT RETURNED DIFFERENT?<input id="baseReturnNote" class="baseReturn" placeholder="low battery / dirty / misplaced / nothing changed / unknown"></label><div class="baseButtons" style="margin-top:6px"><button id="baseReturnRun">RETURN TO BASE</button></div></div>';
-    return '<div class="baseRun"><strong>RETURNED · '+h(run.purpose||'unnamed run')+'</strong><small>'+h(run.address)+' · '+h(run.return_note||'no discrepancy recorded')+' · '+h((run.returned_at||'').slice(0,16).replace('T',' '))+'</small></div>';
+    if(run.state==='OUT')return '<div class="baseRun"><strong>OUT · '+h(run.purpose||'unnamed run')+'</strong><small>'+h(run.address)+' · '+h(kit)+' · '+h((run.frictions||[]).join(' / ')||'no friction tags')+'</small><label class="note" style="display:block;margin-top:8px">WHAT RETURNED DIFFERENT?<input id="baseReturnNote" class="baseReturn" placeholder="observed difference / no change / unknown"></label><div class="baseButtons" style="margin-top:6px"><button data-base-return="READY">RETURN · READY</button><button data-base-return="SERVICE">RETURN · SERVICE</button><button data-base-return="UNKNOWN">RETURN · UNKNOWN</button></div></div>';
+    return '<div class="baseRun"><strong>RETURNED · '+h(run.purpose||'unnamed run')+' · '+h(run.return_state||'UNKNOWN')+'</strong><small>'+h(run.address)+' · '+h(run.return_note||'no discrepancy recorded')+' · '+h((run.returned_at||'').slice(0,16).replace('T',' '))+'</small></div>';
   }
 
   function wireBase(){
@@ -108,7 +110,7 @@
     q('baseSetOut').onclick=setOut;
     q('baseOpenFit').onclick=()=>location.assign('/body/fit/');
     q('baseOpenCare').onclick=()=>{view='CARE';history.replaceState(null,'','#CARE');render()};
-    q('baseReturnRun')?.addEventListener('click',returnRun);
+    document.querySelectorAll('[data-base-return]').forEach(b=>b.onclick=()=>returnRun(b.dataset.baseReturn));
   }
 
   function setOut(){
@@ -125,17 +127,18 @@
     location.assign('/dayline/?handoff=house-base');
   }
 
-  function returnRun(){
+  function returnRun(returnState='UNKNOWN'){
     const run=B.runs.find(x=>x.state==='OUT');if(!run)return;
+    const state=['READY','SERVICE','UNKNOWN'].includes(returnState)?returnState:'UNKNOWN';
     const el=document.getElementById('baseReturnNote'),note=(el?.value||'').trim();
     if(!note){push('BASE CAMP · RETURN needs observed difference / no-change / unknown');return}
-    run.state='RETURNED';run.returned_at=new Date().toISOString();run.return_note=note;
-    if(Array.isArray(S?.care)){
-      const id='care-'+Date.now().toString(36);
-      S.care.push({schema:'house-care-episode/v0.1',id,created_at:new Date().toISOString(),updated_at:new Date().toISOString(),address:run.address,label:run.label,kind:'MAINTENANCE',observed:note,action:'Inspect / service returned BASE CAMP kit',return_condition:'READY or explicit residue',state:'OPEN',receipt:'',source_run:run.id});
+    run.state='RETURNED';run.returned_at=new Date().toISOString();run.return_note=note;run.return_state=state;
+    if(state!=='READY'&&Array.isArray(S?.care)){
+      const id='care-'+Date.now().toString(36),watch=state==='UNKNOWN';
+      S.care.push({schema:'house-care-episode/v0.1',id,created_at:new Date().toISOString(),updated_at:new Date().toISOString(),address:run.address,label:run.label,kind:'MAINTENANCE',observed:note,action:watch?'Resolve returned-kit uncertainty':'Inspect / service returned BASE CAMP kit',return_condition:'READY or explicit residue',state:watch?'WATCH':'OPEN',receipt:'',source_run:run.id});
       save();
     }
-    saveBase();push('BASE CAMP · RETURN · service residue attached to CARE');renderBase();
+    saveBase();push('BASE CAMP · RETURN · '+state+(state==='READY'?'':' · residue → CARE'));renderBase();
   }
 
   function selftest(){
