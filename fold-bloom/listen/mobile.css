@@ -51,7 +51,7 @@
   /* Intake must fit a phone without hiding the primary file action. */
   .drop{
     top:calc(max(8px,env(safe-area-inset-top)) + 80px);bottom:calc(max(8px,env(safe-area-inset-bottom)) + 12px);
-    left:8px;right:8px;inset-block:auto;transform:none;width:auto;max-height:none;padding:14px;overflow:auto;overscroll-behavior:contain;
+    left:8px;right:8px;transform:none;width:auto;max-height:none;padding:14px;overflow:auto;overscroll-behavior:contain;
   }
   .drop.over{transform:none}
   .drop h1{font-size:clamp(38px,15vw,58px);margin:12px 0}
@@ -60,7 +60,7 @@
   .savedSource,.sourceAddress{grid-template-columns:minmax(0,1fr)}
   .chooseButton,.drop button{min-height:44px}
 
-  .centerHud{top:calc((var(--listen-top) + (100svh - var(--listen-bottom)))/2);max-width:calc(100vw - 32px)}
+  .centerHud{top:50%;max-width:calc(100vw - 32px)}
   footer{display:none}
 }
 @media (max-width:430px){
