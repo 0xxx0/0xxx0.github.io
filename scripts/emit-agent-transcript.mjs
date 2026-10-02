@@ -255,7 +255,7 @@ function cliUsage(){
     modes:[
       {mode:'transcript',command:'node scripts/emit-agent-transcript.mjs',purpose:'bounded current handoff; no live φ focus or mutation authority'},
       {mode:'transcript-json',command:'node scripts/emit-agent-transcript.mjs --json',purpose:'structured bounded current handoff'},
-      {mode:'crystal',command:'node scripts/emit-agent-transcript.mjs --crystal [--json]',purpose:'one transient compressed read across current fronts, every CURRENT path, archive scale, packet-shelf egress, NEXT and RETURN'},
+      {mode:'crystal',command:'node scripts/emit-agent-transcript.mjs --crystal',purpose:'one transient compressed read across current fronts, every CURRENT path, archive scale, packet-shelf egress, NEXT and RETURN; add --json for structured output'},
       {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'}
     ],
