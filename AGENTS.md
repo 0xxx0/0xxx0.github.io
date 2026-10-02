@@ -44,6 +44,17 @@ Then:
 SOURCE → ADDRESS → STATE → TRANSFORM → PROVE → RETURN
 ```
 
+For bounded operational work, use the smaller executable projection:
+
+```
+SOURCE → HOLD → TURN → TRACE → RETURN
+```
+
+Contract: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.json`  
+Human/worker protocol: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
+
+It does **not** replace host semantics: HOLD is focus, TURN selects one native move, EFFECT requires explicit native RELEASE/commit, TRACE separates observed/derived/unknown, and RETURN closes before replanning.
+
 ## BEFORE CREATING ANYTHING
 
 **Find the host.**
