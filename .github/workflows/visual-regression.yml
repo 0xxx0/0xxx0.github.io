@@ -6,13 +6,10 @@ name: visual-regression
 # Added 2026-09-28 by kestrel (W28 steal-adoption move 3).
 
 on:
+  push:
+    branches: [master]            # wait for same-SHA Pages deploy, then compare live site
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
-  workflow_run:
-    workflows:
-      - "pages build and deployment"
-    types:
-      - completed
   workflow_dispatch:
     inputs:
       mode:
@@ -31,13 +28,41 @@ permissions:
 
 jobs:
   visual-regression:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout repository (for goldens in compare mode)
+      - name: Checkout repository
         uses: actions/checkout@v4
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run'
+
+      - name: Wait for same-SHA Pages deployment
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "Waiting for Pages deployment of $GITHUB_SHA"
+          for i in $(seq 1 60); do
+            row=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$GITHUB_SHA&per_page=100" \
+              --jq '.workflow_runs[] | select(.name == "pages build and deployment") | [.id,.status,(.conclusion // "")] | @tsv' \
+              | head -1)
+            if [ -n "$row" ]; then
+              run_id=$(printf '%s\n' "$row" | cut -f1)
+              status=$(printf '%s\n' "$row" | cut -f2)
+              conclusion=$(printf '%s\n' "$row" | cut -f3)
+              echo "Pages run $run_id · $status · ${conclusion:-pending}"
+              if [ "$status" = "completed" ]; then
+                if [ "$conclusion" = "success" ]; then
+                  echo "Pages deployment complete for $GITHUB_SHA"
+                  exit 0
+                fi
+                echo "::error::Pages deployment $run_id concluded $conclusion"
+                exit 1
+              fi
+            fi
+            sleep 5
+          done
+          echo "::error::Timed out waiting for Pages deployment of $GITHUB_SHA"
+          exit 1
 
       - name: Ensure Chrome + ImageMagick available
         run: |
@@ -94,7 +119,7 @@ jobs:
         run: |
           set -euo pipefail
           MODE="${{ github.event.inputs.mode }}"
-          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_run" ]; }; then
+          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ]; }; then
             MODE="compare"
           fi
           echo "Running in ${MODE:-capture} mode (capturing screenshots)"
@@ -156,9 +181,9 @@ jobs:
           retention-days: 14
 
       - name: Compare against goldens
-        # workflow_run is the authoritative post-Pages path: compare the deployed
-        # master, not merely the commit checkout or a pre-deploy screenshot.
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run'
+        # Push mode waits above for the same SHA's Pages deployment to complete,
+        # so this compares the deployed master rather than a pre-deploy snapshot.
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'push'
         id: compare
         run: |
           set -euo pipefail
