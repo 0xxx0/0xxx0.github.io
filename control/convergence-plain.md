@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T18:59:03.121Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T19:29:59.352Z by scripts/generate-convergence-strip.mjs_
 
-The field has **75 material commits on 2026-10-02** across **836 branches** (154 exact Git commits in the window; 79 generated telemetry; 4645 on master all-time).
+The field has **77 material commits on 2026-10-02** across **836 branches** (159 exact Git commits in the window; 82 generated telemetry; 4650 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- index: stamp /control/ for the correspondence registry change
+- control: correspondence registry 12 -> 15 hosts, indexed in POLICY_INDEX
 - fi: stamp /foundry/ + /foundry/omnitools/ for the omnitools mutation (index to
-- foundry/omnitools: first batch — 6 self-contained tools, incl. repo/PII histor
-- returns: seal Shopping 0.5 + HOUSE 0.9 exact-head proof
 
 ## Open gaps
 
