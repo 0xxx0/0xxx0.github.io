@@ -1,0 +1,21 @@
+name: LISTEN Mobile Geometry
+
+on:
+  pull_request:
+    paths:
+      - 'fold-bloom/listen/**'
+      - 'tools/fold-bloom-listen-mobile-geometry-smoke.mjs'
+      - '.github/workflows/listen-mobile-geometry.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phone-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run LISTEN phone geometry smoke
+        run: node tools/fold-bloom-listen-mobile-geometry-smoke.mjs
