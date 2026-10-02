@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T17:17:55+08:00",
+  "updated": "2026-10-02T18:19:17+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -195,7 +195,9 @@
         "mobile route controls moved off bottom-left",
         "explicit device-clock NOW ↻ sync",
         "RETURN clock witness + ORIENTATION_SNAPSHOT/WORLD_DELTA",
-        "successor candidate /dayline/ tests one-object continuous mobile execution while Atlas remains deep projection"
+        "successor candidate /dayline/ tests one-object continuous mobile execution while Atlas remains deep projection",
+        "radial↔linear projection state reported to consumers: snapshot().state carries projection + view, the feedback packet carries projection_ms / projection_acts, and a runtime probe proves the flip/flip-back round trip with canonical IDs/ranking/aperture untouched (#744)",
+        "rule home consolidated to this route's README.md: the vault research brief is retained only as the citation annex, and the AXIS scratch copy + make-grammar UI plan are folded in — one canonical home, three duplicate addresses removed"
       ],
       "contract": {
         "accepts": {
@@ -286,15 +288,18 @@
         "owner": "DAYLINE"
       },
       "index": {
-        "updated_at": "2026-10-02T10:52:59+08:00",
+        "updated_at": "2026-10-02T18:19:17+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT",
+          "RELEASE"
         ]
       },
       "tier": "FIELD",
+      "rules": "/atlas-dayline/README.md",
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
-      "role": "Reality-first local temporal execution instrument. First-run/reset is empty; HOUSE/SHOPPING/COMMS lend explicit source-owned handoffs. Mobile PLAIN is a scrollable action document, shared route controls avoid the bottom-left working edge, NOW ↻ explicitly synchronizes canonical time when desired, and RETURN distinguishes orientation snapshots from world deltas."
+      "role": "Reality-first local temporal execution instrument with ONE canonical rule home — this route's README.md. Radial↔linear is one canon: snapshot()/feedback report the active projection to FIELD, feedback and FIELD-INDEX consumers, and a runtime probe proves the flip/flip-back round trip. First-run/reset is empty; HOUSE/SHOPPING/COMMS lend explicit source-owned handoffs. Mobile PLAIN is a scrollable action document, shared route controls avoid the bottom-left working edge, NOW ↻ explicitly synchronizes canonical time when desired, and RETURN distinguishes orientation snapshots from world deltas."
     },
     {
       "href": "/body/",
