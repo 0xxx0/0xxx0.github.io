@@ -1,7 +1,7 @@
 ---
 name: research-design-loop
 description: Run one bounded research → hypothesis → specimen → evidence → disposition loop against a current CONFLUENCE/FIELD head.
-version: 0.3.0
+version: 0.3.1
 platforms: [macos, linux]
 metadata:
   hermes:
@@ -202,6 +202,8 @@ For claims that an agent, harness, critic loop, prompt, reducer or scaffold “i
 - **FALSIFIER** — result that would weaken the improvement claim.
 
 A critic score produced inside the same optimization loop is development evidence unless an independent acceptance gate validates it. No held-out evidence means the result remains a donor hypothesis, not a generalized improvement claim.
+
+Bounded empirical support: `tools/harness-heldout-replica.mjs` + `fixtures/research/weco-heldout-replica.json` now reproduce the narrow selection law behind this gate. A development-only selector picks a visible-metric winner that regresses held-out behavior; independent acceptance rejects it, while an equally-budgeted robust candidate passes. This supports **dev selection ≠ acceptance** only. It does not establish recursive self-improvement or any model-specific gain.
 
 ### Representation-level gate
 
