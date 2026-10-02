@@ -6,13 +6,10 @@ name: visual-regression
 # Added 2026-09-28 by kestrel (W28 steal-adoption move 3).
 
 on:
+  push:
+    branches: [master]            # wait for matching Pages deploy, then compare live site
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
-  workflow_run:
-    workflows:
-      - "pages build and deployment"
-    types:
-      - completed
   workflow_dispatch:
     inputs:
       mode:
@@ -31,13 +28,275 @@ permissions:
 
 jobs:
   visual-regression:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout repository (for goldens in compare mode)
+      - name: Checkout repository
         uses: actions/checkout@v4
-        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'workflow_run'
+
+      - name: Wait for this master SHA to finish Pages deployment
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "Waiting for Pages deployment of $GITHUB_SHA"
+          for i in $(seq 1 60); do
+            row=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?branch=master&per_page=50" \
+              --jq ".workflow_runs[] | select(.name == \"pages build and deployment\" and .head_sha == \"$GITHUB_SHA\") | [.id,.status,(.conclusion // \"\")] | @tsv" \
+              | head -1)
+            if [ -n "$row" ]; then
+              IFS=
+      - name: Ensure Chrome + ImageMagick available
+        run: |
+          set -euo pipefail
+          # Chrome: try system, then browser-actions/setup-chrome
+          if ! command -v google-chrome-stable >/dev/null 2>&1 && \
+             ! command -v google-chrome >/dev/null 2>&1 && \
+             ! command -v chromium-browser >/dev/null 2>&1 && \
+             ! command -v chromium >/dev/null 2>&1; then
+            echo "Chrome not found — installing via browser-actions/setup-chrome"
+            # The action installs to /usr/bin/google-chrome-stable
+            # We'll invoke it via the action in the capture step instead
+            CHROME_MISSING=1
+          else
+            CHROME_MISSING=0
+          fi
+          # ImageMagick
+          if ! command -v compare >/dev/null 2>&1; then
+            echo "ImageMagick compare not found — installing via apt"
+            sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+          fi
+          echo "CHROME_MISSING=${CHROME_MISSING}" >> "$GITHUB_OUTPUT"
+        id: deps
+
+      - name: Setup Chrome (fallback if system missing)
+        if: steps.deps.outputs.CHROME_MISSING == '1'
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+
+      - name: Resolve Chrome binary
+        id: chrome
+        run: |
+          for b in google-chrome-stable google-chrome chromium-browser chromium; do
+            if command -v "$b" >/dev/null 2>&1; then
+              echo "bin=$(command -v "$b")" >> "$GITHUB_OUTPUT"
+              echo "Found Chrome: $(command -v "$b")"
+              exit 0
+            fi
+          done
+          # browser-actions/setup-chrome installs here
+          if [ -x /usr/bin/google-chrome-stable ]; then
+            echo "bin=/usr/bin/google-chrome-stable" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "::error::No Chrome/Chromium binary found"
+          exit 1
+
+      - name: Capture screenshots
+        id: capture
+        env:
+          CHROME_BIN: ${{ steps.chrome.outputs.bin }}
+          BASE_URL: https://0xxx0.github.io
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ] && { [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ]; }; then
+            MODE="compare"
+          fi
+          echo "Running in ${MODE:-capture} mode (capturing screenshots)"
+
+          # Routes to capture (5 stable routes per spec)
+          ROUTES=(
+            "/"
+            "/fold-bloom/live/"
+            "/fold-bloom/"
+            "/fold-bloom/ecology/"
+            "/docs/"
+          )
+
+          OUTDIR="/tmp/golden-captures"
+          mkdir -p "$OUTDIR"
+
+          # Window: 430x900 — phone-like width (close to 390/430 used in browser-smoke)
+          # with extra height to capture full scrollable content without stitching.
+          # --hide-scrollbars: removes scrollbar chrome variance.
+          # --virtual-time-budget=15000: gives JS 15s to settle (animations, lazy loads,
+          # hydration, canvas/WebGL init) before snapshot — fold-bloom/live has
+          # non-deterministic WebGL that needs extra time; other routes settle faster.
+          # --force-device-scale-factor=1: pins DPR to 1 for deterministic pixels.
+          FLAGS=(
+            --headless=new
+            --disable-gpu
+            --hide-scrollbars
+            --force-device-scale-factor=1
+            --window-size=430,900
+            --virtual-time-budget=15000
+            --run-all-compositor-stages-before-draw
+            --no-sandbox
+          )
+
+          for route in "${ROUTES[@]}"; do
+            safe=$(echo "$route" | sed 's|/|_|g' | sed 's|^_||' | sed 's|_$||')
+            [ -z "$safe" ] && safe="root"
+            outfile="$OUTDIR/${safe}.png"
+            echo "Capturing $route -> $outfile"
+            "$CHROME_BIN" "${FLAGS[@]}" --screenshot="$outfile" "${BASE_URL}${route}"
+            # Verify file exists and is non-trivial
+            if [ ! -s "$outfile" ]; then
+              echo "::error::Capture failed for $route (empty file)"
+              exit 1
+            fi
+            size=$(stat -c%s "$outfile")
+            echo "  $route: ${size} bytes"
+          done
+
+          echo "outdir=$OUTDIR" >> "$GITHUB_OUTPUT"
+
+      - name: Upload captures as artifact (capture mode only)
+        if: github.event.inputs.mode == 'capture'
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-screenshots
+          path: /tmp/golden-captures/*.png
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Compare against goldens
+        # Push mode waits above for the same SHA's Pages deployment to complete,
+        # so this compares the deployed master rather than a pre-deploy snapshot.
+        if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'push'
+        id: compare
+        run: |
+          set -euo pipefail
+          GOLDEN_DIR="${GITHUB_WORKSPACE}/tools/golden"
+          CAPTURE_DIR="/tmp/golden-captures"
+          REPORT="/tmp/compare-report.md"
+          FAIL=0
+
+          # Tolerance: AE (absolute error) pixel count threshold per route.
+          # 430x900 = 387,000 px. Base tolerance 0.5% = 1,935 px for stable pages.
+          # Dynamic pages get higher allowances: root/fold-bloom 3% (11,610),
+          # fold-bloom/live 30% (116,100) for non-deterministic WebGL.
+          # -fuzz 1% absorbs sub-pixel AA variance.
+          # Per-route thresholds chosen from observed inter-run variance on ubuntu-24.04.
+          declare -A MAX_DIFF_PIXELS=(
+            ["root"]=11610      # 3.0% — root has minor font/layout variance
+            ["fold-bloom_live"]=116100  # 30% — canvas/WebGL, highly non-deterministic
+            ["fold-bloom"]=11610     # 3.0% — some animation variance
+            ["fold-bloom_ecology"]=1935  # 0.5% — stable static content
+            ["docs"]=1935          # 0.5% — stable static content
+          )
+
+          echo "# Visual Regression Compare Report" > "$REPORT"
+          echo "" >> "$REPORT"
+          echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> "$REPORT"
+          echo "Tolerance: per-route AE thresholds (base 0.5%=1935px; root/fold-bloom 3%=11610px; fold-bloom/live 30%=116100px)" >> "$REPORT"
+          echo "" >> "$REPORT"
+          echo "| Route | Golden | Capture | Diff (AE) | Status |" >> "$REPORT"
+          echo "|-------|--------|---------|-----------|--------|" >> "$REPORT"
+
+          ROUTES=(
+            "/"
+            "/fold-bloom/live/"
+            "/fold-bloom/"
+            "/fold-bloom/ecology/"
+            "/docs/"
+          )
+
+          for route in "${ROUTES[@]}"; do
+            safe=$(echo "$route" | sed 's|/|_|g' | sed 's|^_||' | sed 's|_$||')
+            [ -z "$safe" ] && safe="root"
+            golden="$GOLDEN_DIR/${safe}.png"
+            capture="$CAPTURE_DIR/${safe}.png"
+            diff_out="/tmp/diff_${safe}.png"
+
+            if [ ! -f "$golden" ]; then
+              echo "| \`$route\` | ❌ MISSING | — | — | **FAIL (no golden)** |" >> "$REPORT"
+              FAIL=1
+              continue
+            fi
+            if [ ! -f "$capture" ]; then
+              echo "| \`$route\` | ✅ exists | ❌ MISSING | — | **FAIL (no capture)** |" >> "$REPORT"
+              FAIL=1
+              continue
+            fi
+
+            # ImageMagick compare -metric AE returns pixel count in stderr
+            # Use -fuzz 1% to absorb minimal rendering noise (sub-pixel AA)
+            diff_px=$(compare -metric AE -fuzz 1% "$golden" "$capture" "$diff_out" 2>&1 || true)
+            # compare exits non-zero on difference; we only care about the number
+            diff_px=$(echo "$diff_px" | tr -d '\r' | head -1)
+
+            threshold=${MAX_DIFF_PIXELS[$safe]:-1935}
+            if [ "$diff_px" -le "$threshold" ]; then
+              status="✅ PASS"
+            else
+              status="❌ **FAIL**"
+              FAIL=1
+            fi
+            echo "| \`$route\` | ✅ | ✅ | $diff_px (≤$threshold) | $status |" >> "$REPORT"
+          done
+
+          echo "" >> "$REPORT"
+          if [ "$FAIL" -eq 1 ]; then
+            echo "## ❌ VISUAL REGRESSION DETECTED" >> "$REPORT"
+            echo "" >> "$REPORT"
+            echo "One or more routes exceeded the 0.5% AE tolerance." >> "$REPORT"
+            echo "Diff images uploaded as artifact for review." >> "$REPORT"
+          else
+            echo "## ✅ ALL ROUTES WITHIN TOLERANCE" >> "$REPORT"
+          fi
+
+          cat "$REPORT"
+          echo "FAIL=$FAIL" >> "$GITHUB_OUTPUT"
+          echo "report_path=$REPORT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload diff artifacts on failure
+        if: steps.compare.outputs.FAIL == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-diffs
+          path: /tmp/diff_*.png
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Open or update issue on regression
+        if: steps.compare.outputs.FAIL == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY=$(cat "${{ steps.compare.outputs.report_path }}")
+          N=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+                --search 'visual-regression: drift detected in:title' --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue comment "$N" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+            echo "Updated existing issue #$N"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "visual-regression: drift detected" \
+              --body "$BODY"
+            echo "Created new issue"
+          fi
+
+      - name: Fail the run on regression
+        if: steps.compare.outputs.FAIL == '1'
+        run: exit 1\t' read -r run_id status conclusion <<< "$row"
+              echo "Pages run $run_id · $status · ${conclusion:-pending}"
+              if [ "$status" = "completed" ]; then
+                if [ "$conclusion" = "success" ]; then
+                  echo "Pages deployment complete for $GITHUB_SHA"
+                  exit 0
+                fi
+                echo "::error::Pages deployment $run_id concluded $conclusion"
+                exit 1
+              fi
+            fi
+            sleep 5
+          done
+          echo "::error::Timed out waiting for Pages deployment of $GITHUB_SHA"
+          exit 1
 
       - name: Ensure Chrome + ImageMagick available
         run: |
