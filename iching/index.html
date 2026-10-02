@@ -194,13 +194,13 @@ async function load(){
   buildGrid(); buildWalk(); initCube();
   const h = parseHash();
   if (h.c){ switchView('read'); render(h.c.split('').map(Number), h.q || ''); }
-  else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || ''); }
+  else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || '', h.order || ''); }
   else if (h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q || ''); }
   else if (h.view) switchView(h.view);
 }
 function parseHash(){
   const f = new URLSearchParams(location.hash.slice(1));
-  return { c: f.get('c'), b: f.get('b'), to: f.get('to'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
+  return { c: f.get('c'), b: f.get('b'), to: f.get('to'), order: f.get('order'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
 }
 function switchView(name){
   currentView = name;
@@ -330,7 +330,7 @@ function render(vals, q, opts={}){
 
   let html = '';
   if(q) html += `<div class="panel"><span class="muted">${stateMode?'context':'your question'}:</span> <b>${escapeHtml(q)}</b></div>`;
-  if(stateMode) html += `<div class="panel"><b>STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST</b><div class="muted" style="margin-top:6px">This view applies the same six-line structural reading to an explicit binary transition. Changing lines and 6/7/8/9 values are calculated from FROM→TO; no random casting occurred.</div></div>`;
+  if(stateMode) html += `<div class="panel"><b>STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST</b><div class="muted" style="margin-top:6px">This view applies the same six-line structural reading to an explicit binary transition. Changing lines and 6/7/8/9 values are calculated from FROM→TO; no random casting occurred.${opts.stepOrder?.length?' LAB STEP witness: '+opts.stepOrder.map(x=>'L'+x).join(' → ')+' — path order is supplied experiment metadata, not a classical Yi claim.':''}</div></div>`;
   html += `
   <div class="panel">
     <div class="fig-wrap">
@@ -398,11 +398,14 @@ function normalizeStateBits(value){
   const raw=String(value||'').replace(/[^01]/g,'');
   return raw.length===6?raw:null;
 }
-function renderState(fromValue,toValue,q=''){
+function renderState(fromValue,toValue,q='',orderValue=''){
   const from=normalizeStateBits(fromValue),to=normalizeStateBits(toValue);
   if(!from||!to){document.getElementById('out').innerHTML='<div class="panel">state lens needs two six-bit endpoints</div>';return}
+  const moving=[...from].map((bit,i)=>bit!==to[i]?i+1:null).filter(Boolean);
+  const requested=String(orderValue||'').split(',').map(Number).filter(Number.isInteger);
+  const stepOrder=requested.length===moving.length&&new Set(requested).size===moving.length&&requested.every(x=>moving.includes(x))?requested:moving;
   const vals=[...from].map((bit,i)=>bit===to[i]?(bit==='1'?7:8):(bit==='1'?9:6));
-  render(vals,q,{mode:'STATE'});
+  render(vals,q,{mode:'STATE',stepOrder});
 }
 function renderHex(id, q){
   const h = HEX.byId[id];
