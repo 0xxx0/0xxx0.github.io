@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-01T11:45:42+08:00",
+  "updated": "2026-10-02T20:06:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -10,6 +10,7 @@
     "SUBSTANCE GENERATES FORM: derive interface geometry and controls from OBJECT → ADDRESS → RELATIONS → OPERATORS → CONSEQUENCE → RETURN; typography and chrome remain subordinate on working surfaces.",
     "SOURCE → ADDRESS → STATE → TRANSFORM → PROJECTION → PROVE → RETURN",
     "EXECUTE ONE BOUNDED MOVE → RETURN → REPLAN; NO SECOND MOVE INHERITS AUTHORITY",
+    "SOURCE → HOLD → TURN → TRACE → RETURN IS THE DEFAULT BOUNDED EXECUTION LOOP. SOURCE fixes authority/address; HOLD preserves one focus + ≤3 lawful native moves + return path; TURN performs one bounded native move and EFFECT still requires explicit host-native RELEASE/commit; TRACE records actual consequence with PASS/FAIL/INDETERMINATE; RETURN closes authority and next defaults to NONE until a fresh replan.",
     "WORKING AGENCY/CARE LENS (NOT ONTOLOGY): for cross-scale work name the problem space, preferred state, observation/action boundary, competency, horizon and care scope; CARE SCOPE ≠ COMPETENCE ≠ AUTHORITY; every scale change retains RETURN.",
     "NO NEW CORE WITHOUT A MISSING FUNCTION",
     "A REAL-DEVICE/HUMAN GATE MUST NAME THE PHYSICAL OR SUBJECTIVE PROPERTY THAT CANNOT BE SIMULATED (e.g. IMU fidelity, tactile feel, true transport latency, lived burden). It may limit that claim only; it must not freeze unrelated executable work.",
@@ -1486,7 +1487,9 @@
     "video_game_donor_transfers": "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json",
     "care_diegetic_locus": "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
     "field_salvage_policy": "/control/FIELD_SALVAGE_POLICY.json",
-    "game_donor_salvage_return": "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json"
+    "game_donor_salvage_return": "/returns/FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
+    "operational_protocol": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "operational_protocol_human": "/control/source-hold-turn-trace-return.html"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
