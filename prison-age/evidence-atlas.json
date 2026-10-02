@@ -1,0 +1,1021 @@
+{
+  "schema": "prison-age.evidence-atlas/v0.1",
+  "version": "0.1",
+  "generated_at": "2026-10-03T03:44:00+08:00",
+  "status": "SOURCE_DERIVED_EVIDENCE_INSTRUMENT",
+  "authority": "EVIDENCE_ONLY",
+  "law": "Every card is derived from two exact authored/source fragments already present in field-source-echo-index/v0.1. Cards expose addresses and lexical evidence only; they do not assert theme, intent, causality, canon order, equivalence or interpretation.",
+  "source_index": "/prison-age/echo-index.json",
+  "scope": "Four 2026 Prison Age sources participating in cross-source ECHO. The provenance-distinct 2021 proto-root remains outside this atlas and keeps its authored RECURRENCE projection.",
+  "selection": {
+    "cards": 32,
+    "max_per_source_pair": 6,
+    "max_per_source": 18,
+    "sort": "shared phrase count → evidence score → shared term count → canonical pair id"
+  },
+  "cards": [
+    {
+      "n": 1,
+      "class": "PHRASE",
+      "pair": "fandom-court↔open-air",
+      "score": 51,
+      "shared": [
+        "appearing",
+        "ask",
+        "natural",
+        "protected",
+        "rule"
+      ],
+      "phrases": [
+        "appearing natural",
+        "ask which",
+        "being protected",
+        "by appearing",
+        "is being",
+        "margin ask",
+        "protected by",
+        "rule is",
+        "which rule"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 3990,
+        "end": 4055,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://fandom-court/3990-4055"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 3846,
+        "end": 3911,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://open-air/3846-3911"
+      }
+    },
+    {
+      "n": 2,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 51,
+      "shared": [
+        "appearing",
+        "ask",
+        "natural",
+        "protected",
+        "rule"
+      ],
+      "phrases": [
+        "appearing natural",
+        "ask which",
+        "being protected",
+        "by appearing",
+        "is being",
+        "margin ask",
+        "protected by",
+        "rule is",
+        "which rule"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 3990,
+        "end": 4055,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://fandom-court/3990-4055"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 3608,
+        "end": 3673,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://successful-escape/3608-3673"
+      }
+    },
+    {
+      "n": 3,
+      "class": "PHRASE",
+      "pair": "open-air↔successful-escape",
+      "score": 51,
+      "shared": [
+        "appearing",
+        "ask",
+        "natural",
+        "protected",
+        "rule"
+      ],
+      "phrases": [
+        "appearing natural",
+        "ask which",
+        "being protected",
+        "by appearing",
+        "is being",
+        "margin ask",
+        "protected by",
+        "rule is",
+        "which rule"
+      ],
+      "a": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 3846,
+        "end": 3911,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://open-air/3846-3911"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 3608,
+        "end": 3673,
+        "text": "MARGIN // Ask which rule is being protected by appearing natural.",
+        "address": "source-echo://successful-escape/3608-3673"
+      }
+    },
+    {
+      "n": 4,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 26.25,
+      "shared": [
+        "ceiling",
+        "floor",
+        "touched"
+      ],
+      "phrases": [
+        "the ceiling",
+        "the floor",
+        "touched the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 2432,
+        "end": 2462,
+        "text": "The ceiling touched the floor.",
+        "address": "source-echo://last-stall/2432-2462"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 950,
+        "end": 1010,
+        "text": "A loose receipt rose from the floor and touched the ceiling.",
+        "address": "source-echo://open-air/950-1010"
+      }
+    },
+    {
+      "n": 5,
+      "class": "PHRASE",
+      "pair": "fandom-court↔open-air",
+      "score": 15.75,
+      "shared": [
+        "city",
+        "remained"
+      ],
+      "phrases": [
+        "city remained",
+        "the city"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 428,
+        "end": 500,
+        "text": "Others insisted the city remained summer-bright until the final episode.",
+        "address": "source-echo://fandom-court/428-500"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 3634,
+        "end": 3682,
+        "text": "The city remained enclosed for years after that.",
+        "address": "source-echo://open-air/3634-3682"
+      }
+    },
+    {
+      "n": 6,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 12.75,
+      "shared": [
+        "less"
+      ],
+      "phrases": [
+        "less than",
+        "than a"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 1223,
+        "end": 1271,
+        "text": "PooBaby weighed less than a damp complaint form.",
+        "address": "source-echo://last-stall/1223-1271"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 912,
+        "end": 949,
+        "text": "The effect lasted less than a second.",
+        "address": "source-echo://open-air/912-949"
+      }
+    },
+    {
+      "n": 7,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 12.75,
+      "shared": [
+        "next"
+      ],
+      "phrases": [
+        "next prison",
+        "the next"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3219,
+        "end": 3297,
+        "text": "The next prison would be a system in which help required permanent legibility.",
+        "address": "source-echo://last-stall/3219-3297"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 3,
+        "end": 48,
+        "text": "The Successful Escape Changes the Next Prison",
+        "address": "source-echo://successful-escape/3-48"
+      }
+    },
+    {
+      "n": 8,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 13.5,
+      "shared": [
+        "previous",
+        "seasons"
+      ],
+      "phrases": [
+        "previous seasons"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 884,
+        "end": 1041,
+        "text": "They trained models on previous seasons, generated candidate scenes, voted on emotional legitimacy and released a community cut titled SEASON FOUR: RESTORED.",
+        "address": "source-echo://fandom-court/884-1041"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 793,
+        "end": 884,
+        "text": "Every ingenious technique from previous seasons had become a tutorial embedded in security.",
+        "address": "source-echo://successful-escape/793-884"
+      }
+    },
+    {
+      "n": 9,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 11.75,
+      "shared": [
+        "knew",
+        "official"
+      ],
+      "phrases": [
+        "knew the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 1864,
+        "end": 1981,
+        "text": "They now knew the obstruction's width, the door's radius and the distance between official success and usable motion.",
+        "address": "source-echo://last-stall/1864-1981"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 1085,
+        "end": 1135,
+        "text": "Lio knew the official answer: pressure correction.",
+        "address": "source-echo://open-air/1085-1135"
+      }
+    },
+    {
+      "n": 10,
+      "class": "PHRASE",
+      "pair": "fandom-court↔last-stall",
+      "score": 8.75,
+      "shared": [
+        "name"
+      ],
+      "phrases": [
+        "name and"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 1426,
+        "end": 1491,
+        "text": "He entered the forum under his legal name and posted seven words:",
+        "address": "source-echo://fandom-court/1426-1491"
+      },
+      "b": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3754,
+        "end": 3790,
+        "text": "The stock check had a name and time.",
+        "address": "source-echo://last-stall/3754-3790"
+      }
+    },
+    {
+      "n": 11,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "entered"
+      ],
+      "phrases": [
+        "entered the"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 1426,
+        "end": 1491,
+        "text": "He entered the forum under his legal name and posted seven words:",
+        "address": "source-echo://fandom-court/1426-1491"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 2650,
+        "end": 2680,
+        "text": "They entered the control room.",
+        "address": "source-echo://successful-escape/2650-2680"
+      }
+    },
+    {
+      "n": 12,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "fandom"
+      ],
+      "phrases": [
+        "the fandom"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 1841,
+        "end": 1867,
+        "text": "The Fandom Court convened.",
+        "address": "source-echo://fandom-court/1841-1867"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 885,
+        "end": 905,
+        "text": "The fandom loved it.",
+        "address": "source-echo://successful-escape/885-905"
+      }
+    },
+    {
+      "n": 13,
+      "class": "PHRASE",
+      "pair": "fandom-court↔last-stall",
+      "score": 8.75,
+      "shared": [
+        "production"
+      ],
+      "phrases": [
+        "did not"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 1916,
+        "end": 2085,
+        "text": "Evidence was projected across a virtual courtroom: production calendars, dream journals, fan edits, alleged memory contamination, metadata from files that did not exist.",
+        "address": "source-echo://fandom-court/1916-2085"
+      },
+      "b": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 2089,
+        "end": 2254,
+        "text": "It did not show the carton, the empty dispenser, the too-high alarm, the ambiguous vent, the masked call, the unofficial creature or the chair performing Production.",
+        "address": "source-echo://last-stall/2089-2254"
+      }
+    },
+    {
+      "n": 14,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "fandom"
+      ],
+      "phrases": [
+        "the fandom"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 2253,
+        "end": 2321,
+        "text": "The tape contained footage of the fandom reconstructing season four.",
+        "address": "source-echo://fandom-court/2253-2321"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 885,
+        "end": 905,
+        "text": "The fandom loved it.",
+        "address": "source-echo://successful-escape/885-905"
+      }
+    },
+    {
+      "n": 15,
+      "class": "PHRASE",
+      "pair": "fandom-court↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "about"
+      ],
+      "phrases": [
+        "about the"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 2521,
+        "end": 2558,
+        "text": "The same sentence about the red door.",
+        "address": "source-echo://fandom-court/2521-2558"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 1252,
+        "end": 1316,
+        "text": "Her cellmate, a child called Sable, knew nothing about the show.",
+        "address": "source-echo://successful-escape/1252-1316"
+      }
+    },
+    {
+      "n": 16,
+      "class": "PHRASE",
+      "pair": "fandom-court↔last-stall",
+      "score": 8.75,
+      "shared": [
+        "old"
+      ],
+      "phrases": [
+        "the old"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 3410,
+        "end": 3489,
+        "text": "In its final minute, the old footage showed Ione drawing the same four columns.",
+        "address": "source-echo://fandom-court/3410-3489"
+      },
+      "b": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 4016,
+        "end": 4061,
+        "text": "Above the exit, the old sentence had changed.",
+        "address": "source-echo://last-stall/4016-4061"
+      }
+    },
+    {
+      "n": 17,
+      "class": "PHRASE",
+      "pair": "fandom-court↔open-air",
+      "score": 8.75,
+      "shared": [
+        "city"
+      ],
+      "phrases": [
+        "the city"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 428,
+        "end": 500,
+        "text": "Others insisted the city remained summer-bright until the final episode.",
+        "address": "source-echo://fandom-court/428-500"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 1812,
+        "end": 1852,
+        "text": "The city detected behavioural anomalies.",
+        "address": "source-echo://open-air/1812-1852"
+      }
+    },
+    {
+      "n": 18,
+      "class": "PHRASE",
+      "pair": "fandom-court↔open-air",
+      "score": 8.75,
+      "shared": [
+        "city"
+      ],
+      "phrases": [
+        "the city"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 428,
+        "end": 500,
+        "text": "Others insisted the city remained summer-bright until the final episode.",
+        "address": "source-echo://fandom-court/428-500"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 2164,
+        "end": 2240,
+        "text": "He followed them through maintenance tunnels to the oldest wall of the city.",
+        "address": "source-echo://open-air/2164-2240"
+      }
+    },
+    {
+      "n": 19,
+      "class": "PHRASE",
+      "pair": "fandom-court↔open-air",
+      "score": 8.75,
+      "shared": [
+        "city"
+      ],
+      "phrases": [
+        "the city"
+      ],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 428,
+        "end": 500,
+        "text": "Others insisted the city remained summer-bright until the final episode.",
+        "address": "source-echo://fandom-court/428-500"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 2767,
+        "end": 2839,
+        "text": "The city had trained him to believe that control and care were synonyms.",
+        "address": "source-echo://open-air/2767-2839"
+      }
+    },
+    {
+      "n": 20,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 8.75,
+      "shared": [
+        "ceiling"
+      ],
+      "phrases": [
+        "the ceiling"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 1439,
+        "end": 1479,
+        "text": "The partition did not reach the ceiling.",
+        "address": "source-echo://last-stall/1439-1479"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 950,
+        "end": 1010,
+        "text": "A loose receipt rose from the floor and touched the ceiling.",
+        "address": "source-echo://open-air/950-1010"
+      }
+    },
+    {
+      "n": 21,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "empty"
+      ],
+      "phrases": [
+        "the empty"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 2089,
+        "end": 2254,
+        "text": "It did not show the carton, the empty dispenser, the too-high alarm, the ambiguous vent, the masked call, the unofficial creature or the chair performing Production.",
+        "address": "source-echo://last-stall/2089-2254"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 2980,
+        "end": 3101,
+        "text": "Sable poured it into the empty mould, which produced no key at all—only a small tool with a handle and an unfinished end.",
+        "address": "source-echo://successful-escape/2980-3101"
+      }
+    },
+    {
+      "n": 22,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 8.75,
+      "shared": [
+        "reached"
+      ],
+      "phrases": [
+        "reached the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 2917,
+        "end": 2953,
+        "text": "Together they reached the partition.",
+        "address": "source-echo://last-stall/2917-2953"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 2884,
+        "end": 2919,
+        "text": "Security officers reached the door.",
+        "address": "source-echo://open-air/2884-2919"
+      }
+    },
+    {
+      "n": 23,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "next"
+      ],
+      "phrases": [
+        "the next"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3219,
+        "end": 3297,
+        "text": "The next prison would be a system in which help required permanent legibility.",
+        "address": "source-echo://last-stall/3219-3297"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 204,
+        "end": 273,
+        "text": "Every proven escape becomes security architecture in the next season.",
+        "address": "source-echo://successful-escape/204-273"
+      }
+    },
+    {
+      "n": 24,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "pressed"
+      ],
+      "phrases": [
+        "pressed the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3299,
+        "end": 3345,
+        "text": "PooBaby pressed the blank sheet over the lens.",
+        "address": "source-echo://last-stall/3299-3345"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 3163,
+        "end": 3218,
+        "text": "Sable pressed the unfinished end against the doorframe.",
+        "address": "source-echo://successful-escape/3163-3218"
+      }
+    },
+    {
+      "n": 25,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "camera"
+      ],
+      "phrases": [
+        "the camera"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3478,
+        "end": 3511,
+        "text": "Together, they mapped the camera.",
+        "address": "source-echo://last-stall/3478-3511"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 1428,
+        "end": 1456,
+        "text": "Sable pointed to the camera.",
+        "address": "source-echo://successful-escape/1428-1456"
+      }
+    },
+    {
+      "n": 26,
+      "class": "PHRASE",
+      "pair": "last-stall↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "mapped"
+      ],
+      "phrases": [
+        "mapped the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3478,
+        "end": 3511,
+        "text": "Together, they mapped the camera.",
+        "address": "source-echo://last-stall/3478-3511"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 1976,
+        "end": 2017,
+        "text": "She mapped the prison’s learning process.",
+        "address": "source-echo://successful-escape/1976-2017"
+      }
+    },
+    {
+      "n": 27,
+      "class": "PHRASE",
+      "pair": "last-stall↔open-air",
+      "score": 8.75,
+      "shared": [
+        "reached"
+      ],
+      "phrases": [
+        "reached the"
+      ],
+      "a": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3601,
+        "end": 3634,
+        "text": "The alarm cord reached the floor.",
+        "address": "source-echo://last-stall/3601-3634"
+      },
+      "b": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 2884,
+        "end": 2919,
+        "text": "Security officers reached the door.",
+        "address": "source-echo://open-air/2884-2919"
+      }
+    },
+    {
+      "n": 28,
+      "class": "PHRASE",
+      "pair": "open-air↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "enough"
+      ],
+      "phrases": [
+        "enough to"
+      ],
+      "a": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 1727,
+        "end": 1811,
+        "text": "One crossed a room cold enough to make strangers move closer without discussing why.",
+        "address": "source-echo://open-air/1727-1811"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 2338,
+        "end": 2435,
+        "text": "The contestants created seven fake escape narratives, each plausible enough to attract a faction.",
+        "address": "source-echo://successful-escape/2338-2435"
+      }
+    },
+    {
+      "n": 29,
+      "class": "PHRASE",
+      "pair": "open-air↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "beyond"
+      ],
+      "phrases": [
+        "beyond the"
+      ],
+      "a": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 479,
+        "end": 592,
+        "text": "Children coloured suns from archived diagrams and were corrected when they drew rays extending beyond the circle.",
+        "address": "source-echo://open-air/479-592"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 404,
+        "end": 462,
+        "text": "Beyond the threshold lay daylight and a sign reading EXIT.",
+        "address": "source-echo://successful-escape/404-462"
+      }
+    },
+    {
+      "n": 30,
+      "class": "PHRASE",
+      "pair": "open-air↔successful-escape",
+      "score": 8.75,
+      "shared": [
+        "archived"
+      ],
+      "phrases": [
+        "from archived"
+      ],
+      "a": {
+        "source_id": "open-air",
+        "title": "Open Air",
+        "path": "/prison-age/stories/03-open-air.md",
+        "start": 479,
+        "end": 592,
+        "text": "Children coloured suns from archived diagrams and were corrected when they drew rays extending beyond the circle.",
+        "address": "source-echo://open-air/479-592"
+      },
+      "b": {
+        "source_id": "successful-escape",
+        "title": "The Successful Escape Changes the Next Prison",
+        "path": "/prison-age/stories/08-successful-escape.md",
+        "start": 569,
+        "end": 616,
+        "text": "The new prison was built from archived escapes.",
+        "address": "source-echo://successful-escape/569-616"
+      }
+    },
+    {
+      "n": 31,
+      "class": "TERM",
+      "pair": "fandom-court↔last-stall",
+      "score": 7.75,
+      "shared": [
+        "released",
+        "trained"
+      ],
+      "phrases": [],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 884,
+        "end": 1041,
+        "text": "They trained models on previous seasons, generated candidate scenes, voted on emotional legitimacy and released a community cut titled SEASON FOUR: RESTORED.",
+        "address": "source-echo://fandom-court/884-1041"
+      },
+      "b": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 3636,
+        "end": 3693,
+        "text": "The door could be released from outside by trained staff.",
+        "address": "source-echo://last-stall/3636-3693"
+      }
+    },
+    {
+      "n": 32,
+      "class": "TERM",
+      "pair": "fandom-court↔last-stall",
+      "score": 4.75,
+      "shared": [
+        "line"
+      ],
+      "phrases": [],
+      "a": {
+        "source_id": "fandom-court",
+        "title": "The Fandom Court",
+        "path": "/prison-age/stories/05-fandom-court.md",
+        "start": 1130,
+        "end": 1218,
+        "text": "A supporting performer described an improvised line found nowhere in the reconstruction.",
+        "address": "source-echo://fandom-court/1130-1218"
+      },
+      "b": {
+        "source_id": "last-stall",
+        "title": "The Last Stall / Extract",
+        "path": "/prison-age/stories/07-last-stall-extract.md",
+        "start": 2334,
+        "end": 2400,
+        "text": "It folded the plan through the section line leaked by Cultivators.",
+        "address": "source-echo://last-stall/2334-2400"
+      }
+    }
+  ]
+}
