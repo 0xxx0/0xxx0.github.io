@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T23:08:00+08:00",
+  "updated": "2026-10-02T23:48:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -6640,11 +6640,11 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.6",
+      "version": "0.7",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
-      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
+      "latest_return": "/returns/PRISON_AGE_ENGINE_ATLAS_2026-10-02.json",
+      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence. ENGINE ATLAS is an internal derived visual instrument with authority NONE; it does not widen FIELD's READ / RIDE / SOURCE operation surface or source canon.",
       "transfer": [
         "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
         "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
@@ -6653,7 +6653,9 @@
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
         "exact source movement → passive cross-source ECHO evidence in READFIELD",
-        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE",
+        "generated panel sequence → 32-card derived engine atlas; source/canon authority remains NONE",
+        "engine selection → local HOLD / TURN / TRACE packet with explicit RETURN; no effect authority"
       ],
       "contract": {
         "accepts": {
@@ -6681,7 +6683,8 @@
             "field-read-ride/v0.1 traversal handoff",
             "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
-            "field-source-echo-index/v0.1 exact-fragment evidence"
+            "field-source-echo-index/v0.1 exact-fragment evidence",
+            "prison-age.engine-route/v0.1 creative constraint packet (authority NONE)"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -6744,11 +6747,11 @@
       },
       "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
       "evolution": {
-        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
-        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
+        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection. A bounded derived ENGINE ATLAS reifies the 32 generated panels as selectable lenses and a three-step route packet without changing source authority.",
+        "question": "Can a generated visual projection become a useful bounded instrument without becoming source authority or behavioral proof?"
       },
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-10-02T23:48:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
