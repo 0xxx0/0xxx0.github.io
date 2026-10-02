@@ -48,18 +48,55 @@ Five standing rules:
 
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
-## Portfolio fold — 2026-09-28
+## Six-family project map — 2026-10-03
 
-Derived orientation only; this is not a registry, queue, or new authority. Read the apparent project sprawl as six capability families:
+**Derived orientation only.** This map is not a registry, queue, dashboard, priority source, project state, or sequel authority. `CURRENT` owns attention; native hosts own domain truth/effects; the manifest owns public addresses; RETURN owns evidence.
 
-- **HOLD / ADDRESS / SCALE** — FIELD, INTERPHASE, FOVEA, Scale Lens, AXIAL.
-- **PATH / TRAVERSAL / RE-ENTRY** — STEP, READ/RIDE, Sleeper RouteWitness.
-- **TRANSFORM / STEERING** — change calculus, I Ching correspondence, J-space/J-Lens.
-- **EXPERIENCE / EXPRESSION** — FOLD//BLOOM, Verse, Sleeper/Nine Gate, Replay/Listen/Ink/Voice.
-- **WORLD LOOPS** — Dayline, HOUSE, Shopping, HUMAN PORT/COMMS.
-- **RECOVERY / PROVENANCE** — vault, migration, exact donors.
+Default dependency flow:
 
-A route, PR, worker, experiment, mode or donor is not automatically a project. CURRENT remains attention authority. Prefer **conversion before coordination**.
+```text
+RECOVERY / PROVENANCE --only when a named gap exists--┐
+                                                     v
+                                           HOLD / ADDRESS / SCALE
+                                              /             \
+                                             v               v
+                                PATH / TRAVERSAL      TRANSFORM / STEERING
+                                             \               /
+                                              \             /
+                                               v           v
+                                         EXPERIENCE / EXPRESSION
+                                                   |
+                                                   v
+                                              WORLD LOOPS
+                                                   |
+                                                   v
+                                             RETURN / PROOF
+                                              /          \
+                                             v            v
+                                      HOLD / REPLAN   RECOVERY if blocked
+```
+
+The graph is a default execution reading, not an ontology: a valid native host may skip intermediate families. A route, PR, worker, experiment, mode or donor is not automatically a project.
+
+| Family | Depends on | Current proof posture | Next concrete move | Stop / authority boundary |
+| --- | --- | --- | --- | --- |
+| **HOLD / ADDRESS / SCALE** | `CURRENT` + manifest address + native host + INTERPHASE/RETURN | **CORE PROVED.** FIELD 0.8.33 is exact-head green through PR #807: one held object, held WORK depth, persistent canonical RUN dock, ≤3 lawful moves, TRACE/WITNESS and exact RETURN. | **Use, do not redesign.** Let FIELD choose/hold the next conversion object; change this family only if cold entry, exact focus, RUN reachability or RETURN actually breaks. | No new shell, scale mode, project registry, priority engine, or second object frame. |
+| **PATH / TRAVERSAL / RE-ENTRY** | exact source identity + native address unit + host traversal authority + witness/RETURN | **PROVED.** READFIELD↔LIVE exact cursor RETURN is green; merged PR #495 makes `RELEASE→STEP` explicit and proves one lawful RELEASE advances exactly one addressed grain without laundering source authority; Sleeper retains its separate RouteWitness lineage. | **One real-source traversal check, then park.** Run an existing READ/RIDE or equivalent source through `SOURCE → STEP/RELEASE→STEP → exact RETURN`; only reopen shared-path design if exact re-entry fails. | No universal `Path` object. Endpoint equality does not imply path equality; navigation policy never grants effect authority. |
+| **TRANSFORM / STEERING** | native forecast aperture + exact state/change witness + change calculus + optional I Ching/J-space projections | **MECHANISM PROVED / CAUSAL PROMOTION BLOCKED.** Change-lattice, native-support and VIEW-only focus proofs are green. J-space causal steering remains blocked by the existing promotion gate/negative semantic evidence. PR #793 is the current bounded reducer candidate (`OBSERVE → CALCULATE → NEXT → SUPPORT → WITNESS → RETURN`); Route Registration and gitleaks are green, full public-surface final-head proof is the remaining gate. | **Finish #793 only.** If final-head public-surface passes, merge the reducer; otherwise repair or park. After that, no more steering expansion unless a named failed causal obligation can be attacked with real intervention/control evidence. | `STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`. Model support can focus VIEW evidence only; LIVE/native host retains commit authority. |
+| **EXPERIENCE / EXPRESSION** | held source/address + path/re-entry; transform/steering only as optional evidence/projection | **SHIPPED / OBSERVE.** FOLD//BLOOM public 0.1.7 is repo-proved: contracted first use, direct lawful choice, READ/RIDE exact RETURN, LIVE 0.13, LAB 0.3.6, LISTEN/INK/VOICE and Garden/Ecology remain unequal projections. Current next state is explicitly `SHIPPED / OBSERVE_ONLY`. | **Outside-human release.** Use one existing public head—default FOLD//BLOOM root—as a context-free first-use experience for another human; record one external-use RETURN: what they could do without lore, where they stalled, what was valuable. | Do not answer missing lived/external evidence with another mode, donor import, visual grammar, or onboarding framework. |
+| **WORLD LOOPS** | held object + Dayline/native execution adapter + explicit host commit + consequence witness + RETURN | **MACHINE CLOSED LOOP PROVED / WORLD CONSEQUENCE OPEN.** PR #807 merged exact-head: FIELD hold → Dayline 0.4 zero-hunt RUN → typed consequence RETURN. HOUSE 0.9.0 and Shopping 0.5.0 are also exact-head green; their real private/physical consequences are not inferred from CI. | **One actual consequence.** Take one already-held object through the existing spine into one existing HOUSE or Shopping/other world adapter; record `before → action → after → native RETURN` and downstream consequence class. No new adapter unless the current one demonstrably cannot express the move. | Machine proof ≠ world proof. No purchase, device actuation, send, lifecycle promotion, or physical truth without native/human authority. |
+| **RECOVERY / PROVENANCE** | a named blocker from another family; exact source/provenance boundary | **OPERABLE MAINTENANCE.** CURRENT keeps recovery-ingest as maintenance, not NOW. PR #801 merged the existing Media Refinery + Hermes curator into one runnable local control surface with doctor/pilot/overnight/status/search, three-batch proof gate, paused-by-default scheduling, read-only source law. | **Idle until summoned.** When another family emits an exact blocker, run one bounded recovery/curator cycle and RETURN either exact source/hash/provenance or `BLOCKED`. With no blocker: STOP. | Recovery cannot mint NOW, priority, a new ontology, or substitute archaeology for conversion. |
+
+### Current management decision
+
+The six families are **capability pools, not six simultaneous projects**. The current execution order is:
+
+1. **Experience / Expression** — obtain one context-free outside-human ordinary-use RETURN from an existing public head.
+2. **World Loops** — obtain one real before → action → after → native RETURN through the already-proved execution spine.
+3. **Transform / Steering** — finish the already-open #793 reducer proof only; no sequel authority follows a green build.
+4. **Re-read CURRENT and replan.** Hold/Path/Recovery wake only when one of those conversions exposes a concrete blocker.
+
+The map is successful when it makes the next move smaller. If maintaining the map becomes work in its own right, delete or contract it.
 
 ## Current confluence packets
 
