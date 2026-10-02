@@ -1335,3 +1335,78 @@ selected quotient-visible STEP order
 The representative is not claimed to be historical execution order. It exists so PATH/NEXT can expose exact verb residue and current native/model support without inventing hidden chronology.
 
 If captures detach from the current endpoints, come from different LIVE instances, or cannot preserve the selected visible order, the exact-path attachment disappears rather than guessing.
+
+
+## 2026-10-03 — STATE LENS + compact REDUCER convergence
+
+This pass removes one remaining experience seam without creating another state authority.
+
+### I Ching state lens
+
+FIELD LAB can now open its supplied six-bit endpoints directly in `/iching/` as:
+
+```text
+FROM bits
+→ derived 6/7/8/9 line values
+→ marked moving lines
+→ supplied TO transform
+→ classical Judgment / Image / Lines / Nuclear / Sequence lenses
+```
+
+Hard boundary:
+
+```text
+SUPPLIED STATE TRANSITION ≠ RANDOM CAST
+```
+
+The I Ching surface labels this explicitly as **STATE LENS · SUPPLIED ENDPOINTS · NOT A CAST**. The current LAB STEP order may travel with the link, but it is displayed as non-classical experiment metadata, not attributed to the Yi text.
+
+This gives the same state transition three unequal but connected witnesses:
+
+1. FIELD LAB calculation / lattice / path address;
+2. I Ching structural + textual lens;
+3. optional STEP→INK geometric projection.
+
+They share endpoints and addresses. They do not share authority.
+
+### Compact reducer
+
+DATA now has one operational row:
+
+```text
+NEXT → SUPPORT → RETURN
+```
+
+- **NEXT** walks one step on the already-selected addressed preview path. It never calls LIVE.
+- **SUPPORT** reads the current authority-NONE J-space direction against the latest native LIVE forecast aperture.
+  - `C=0`: no lawful mapped candidate.
+  - `C=1`: LAB may focus that one already-lawful native candidate for inspection.
+  - `C>1`: LAB refuses automatic choice and reports ambiguity.
+- **RETURN** resets STEP preview and native focus only. LIVE remains untouched.
+
+The compact readout keeps the transparent mechanics in one line:
+
+```text
+k · V=2^k · E=k·2^(k-1) · CHAINS=k! · STEP · NEXT · C(direction,s) · RETURN address
+```
+
+This is a reducer of existing mechanisms, not a new planner.
+
+### Successor rule
+
+Do not extend this into auto-commit.
+
+The strongest lawful future composition is still:
+
+```text
+OBSERVE
+→ CALCULATE
+→ PREVIEW ONE ADDRESSED PATH
+→ INSPECT CURRENT NATIVE SUPPORT
+→ HUMAN / HOST COMMIT ELSEWHERE
+→ REFRESH APERTURE
+→ WITNESS
+→ RETURN
+```
+
+Any implementation that carries native support across a real commit, treats STEP order as classical I Ching doctrine, or converts `C=1` into effect authority regresses the evidence boundary.
