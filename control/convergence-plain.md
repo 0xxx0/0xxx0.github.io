@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T10:12:00.445Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T10:43:00.969Z by scripts/generate-convergence-strip.mjs_
 
-The field has **7 material commits on 2026-10-02** across **782 branches** (48 exact Git commits in the window; 41 generated telemetry; 4539 on master all-time).
+The field has **8 material commits on 2026-10-02** across **784 branches** (52 exact Git commits in the window; 44 generated telemetry; 4543 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- atlas-dayline: one canonical rule home + visible shipped state (#748)
 - showcase-manifest: stamp /recovery/poly-furnisher/ (mutation -> index touch)
 - recovery: redact published personal email from PRELUDE-DRAFT-NOTES
-- field-index: date labels carry age in colour (#746)
 
 ## Open gaps
 

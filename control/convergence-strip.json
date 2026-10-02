@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-02T10:12:00.445Z",
+  "generated": "2026-10-02T10:43:00.969Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-02",
-  "commits_in_window": 7,
-  "git_commits_in_window": 48,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 4539,
-  "branch_count": 782,
+  "commits_in_window": 8,
+  "git_commits_in_window": 52,
+  "telemetry_commits_in_window": 44,
+  "commits_total": 4543,
+  "branch_count": 784,
   "recent_commits": [
+    "atlas-dayline: one canonical rule home + visible shipped state (#748)",
     "showcase-manifest: stamp /recovery/poly-furnisher/ (mutation -> index touch)",
-    "recovery: redact published personal email from PRELUDE-DRAFT-NOTES",
-    "field-index: date labels carry age in colour (#746)"
+    "recovery: redact published personal email from PRELUDE-DRAFT-NOTES"
   ],
   "active_fronts": [
     {
