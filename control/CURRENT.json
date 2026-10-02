@@ -842,13 +842,21 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.8.0 · ADDRESSED SPATIAL DESIGN TRIAL",
-      "state": "ACTIVE / DESIGN_RETURN_CANDIDATE",
+      "head": "HOUSE / FIELD 0.9.0 · REALITY HARNESS + ADDRESSED DESIGN",
+      "state": "ACTIVE / CONTEXTUAL_REALITY_CANDIDATE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ keeps one addressed physical substrate across PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS and now attaches one browser-local DESIGN TRIAL to the selected address: BEFORE → INTENT → CHANGE → CONSTRAINTS → VERIFY → AFTER → ADOPT|REVISE|REVERT|HOLD → RETURN. The trial does not mutate canonical geometry, does not certify structural/safety/code fitness, and grants no HA/HOUSEBUS authority. Existing Shopping FIT may attach only as evidence-only dimensional context. Public runtime state remains the timestamped historical projection until regenerated through the private HOUSEBUS whitelist normalizer.",
-      "version": "0.8.0",
-      "latest_return": "/returns/HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json",
+      "retained_function": "Canonical /house/ holds one exact spatial locus while REALITY ◎ exposes neighboring unequal layers without changing source identity: BODY → HARNESS/ENV-0 → OBJECT → ROOM → HOUSE → NETWORK, crossed by TIME, PEOPLE, AGENT and RETURN. DESIGN remains one bounded before→change→verify→after loop. Runtime witness freshness is recomputed from generated_at at read time; actual witness bytes still require the private HOUSEBUS whitelist normalizer. ENV-0↔agent-harness is an explicit analogy of bounded coupling/context/tools/witness/RETURN, not an identity or authority merge.",
+      "version": "0.9.0",
+      "latest_return": "/returns/HOUSE_REALITY_HARNESS_2026-10-02.json",
       "evidence": [
+        "/tools/house-runtime-witness-selftest.mjs",
+        "/tools/house-reality-harness-selftest.mjs",
+        "/house/runtime-witness.js",
+        "/house/reality-harness.js",
+        "/house/reality-stack.json",
+        "/control/research/HOUSE_HUMAN_HARNESS_SOTA_2026-10-02.md",
+        "/control/confluence/HOUSE_REALITY_HARNESS_INTERFACE_2026-10-02.md",
+        "/returns/HOUSE_REALITY_HARNESS_2026-10-02.json",
         "/house/design-engine.js",
         "/tools/house-design-selftest.mjs",
         "/control/confluence/HOUSE_SPATIAL_DESIGN_ENGINE_2026-10-02.md",
@@ -857,7 +865,13 @@
         "/returns/CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
         "/returns/SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
         "/house/release.json"
-      ]
+      ],
+      "repo_verification": {
+        "status": "CANDIDATE / ANCESTRY-CURRENT REPLAY / CI_REQUIRED",
+        "source_pr": 782,
+        "source_head": "b59aff0e3316adb0809488d80e4c47ec26f1d542",
+        "boundary": "Promote only from the exact Shopping-inclusive replay head after runtime/reality selftests and browser/public proof pass."
+      }
     },
     {
       "lineage": "shopping-field",
@@ -1495,5 +1509,6 @@
     "source_hold_turn_trace_return_contract": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
     "source_hold_turn_trace_return_selftest": "/tools/source-hold-turn-trace-return-selftest.mjs"
   },
-  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+  "canonical": {}
 }

@@ -221,7 +221,7 @@
     "vertical/section measurements",
     "which cognitive/spatial projections improve real tasks versus merely delight"
   ],
-  "next_safe_delta": "Complete one real addressed DESIGN TRIAL in ordinary house work and return the observed delta. Refresh public runtime state only through the private HOUSEBUS normalizer. Calibrate only geometry demanded by the chosen trial.",
+  "next_safe_delta": "Use REALITY ◎ during one actual HOUSE design trial. If a neighboring layer removes re-entry/search friction, keep it; otherwise contract it. Physical/state promotion still requires recipient-side evidence. Refresh runtime bytes only through the private HOUSEBUS normalizer.",
   "mark_projection_candidate": {
     "id": "MARK",
     "status": "CONFLUENCE_DONOR / PROOF_REQUIRED",
@@ -346,5 +346,39 @@
     ],
     "promotion_gate": "One bounded physical RETURN must show an observed improvement or a useful negative result before adding more design machinery.",
     "receipt": "/returns/HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json"
+  },
+  "reality_harness": {
+    "id": "REALITY_HARNESS",
+    "status": "ACTIVE_CANDIDATE / PROJECTION_ONLY",
+    "model": "/house/reality-stack.json",
+    "runtime": "/house/reality-harness.js",
+    "center": "current selected HOUSE spatial address",
+    "containment": [
+      "BODY",
+      "HARNESS",
+      "OBJECT",
+      "ROOM",
+      "HOUSE",
+      "NETWORK"
+    ],
+    "transverse": [
+      "TIME",
+      "PEOPLE",
+      "AGENT",
+      "RETURN"
+    ],
+    "axes": [
+      "BEFORE -> NOW -> AFTER",
+      "SOURCE -> OBSERVE -> ACT -> WITNESS -> RETURN"
+    ],
+    "law": "A layer is a contextual reading/re-entry surface around the same addressed locus; no layer selection mutates source identity or transfers authority.",
+    "env0": "Human capability/coupling harness donor. Agent-harness analogy is bounded to context, tools, constraints, witness and RETURN; embodiment/permission/risk remain unequal.",
+    "research": "/control/research/HOUSE_HUMAN_HARNESS_SOTA_2026-10-02.md"
+  },
+  "runtime_witness_readtime": {
+    "source": "/house/state.json",
+    "reader": "/house/runtime-witness.js",
+    "rule": "Recompute snapshot freshness from generated_at when read. Never surface the snapshot's source_age_class as present-time freshness.",
+    "private_refresh": "HOUSEBUS whitelist normalizer + current runtime access required; unavailable from public repo alone."
   }
 }
