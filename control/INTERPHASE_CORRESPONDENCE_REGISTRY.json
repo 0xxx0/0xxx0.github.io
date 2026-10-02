@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-correspondence-registry/v0.1",
-  "updated": "2026-09-24",
+  "updated": "2026-10-02",
   "status": "WORKING_REGISTRY",
   "law": "Correspondence names semantic facets and host-owned operations; projection names placement. Residue is preserved instead of forcing equivalence.",
   "mappings": [
@@ -111,7 +111,7 @@
       "status": "CURRENT_DOMAIN_HOST",
       "evidence": [
         "/fold-bloom/set/",
-        "/fold-bloom/experience-set/"
+        "/fold-bloom/experience-set/experience-set.js"
       ],
       "canonical_truth": "ordered exact source references + weight/seam authorship",
       "facets": {
@@ -252,6 +252,73 @@
       },
       "residue": [
         "rendered geometry is never physical proof; load/fit/tolerance/safety require measured evidence"
+      ]
+    },
+    {
+      "host_id": "SHOPPING",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/shopping/",
+        "/lib/shopping-interphase.js",
+        "/tools/shopping-interphase-selftest.mjs"
+      ],
+      "canonical_truth": "exact browser-local item identity + native procurement lifecycle; shared material phase is derived projection only",
+      "facets": {
+        "SOURCE": "exact selected item (id / kind need|thing / label / source URL / observed evidence)",
+        "FRAME": "native lifecycle state + six-part purchase gate + lane; derived material phase NEED..CLOSED",
+        "FOCUS": "selected item at its phase aperture (NEED / VERIFY / DECIDE / RECEIVE / PROVE / SYSTEM / HISTORY)",
+        "OPERATE": "native transitions FIND / VERIFY / ACQUIRE / RECEIVE / PROVE / CLOSE + <=3 bounded moves (AGENT_PACKET / LOOTER / HOUSE_FIT / OPEN_SOURCE / DAYLINE); HOST_NATIVE_ONLY",
+        "WITNESS": "six-part purchase-gate evidence + phase/state summary + source-owned evidenceRefs",
+        "RETURN": "exact item address /shopping/#<id> + RETURN TO SHOPPING"
+      },
+      "residue": [
+        "detailed lifecycle values and ledger fields remain host-owned; the shared phase never mutates native state",
+        "purchase, seller contact, money movement and adoption remain human/evidence-gated; no projection or carrier can act"
+      ]
+    },
+    {
+      "host_id": "DAYLINE",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/dayline/",
+        "/lib/interphase-dayline.js",
+        "/tools/interphase-dayline-selftest.cjs"
+      ],
+      "canonical_truth": "session-local DayState workfield holding one object; exact source link + RETURN carried; the adapter is read-only (VIEW)",
+      "facets": {
+        "SOURCE": "held object + exact source link (sourceLink.route / inherited handoff envelope)",
+        "FRAME": "owner / DayState workfield context + projection presentation (PAGE / FOVEA / LINE / RING)",
+        "FOCUS": "one held object (title) at aperture WORK",
+        "OPERATE": "native moves projected as HOLD / TURN / RELEASE without renaming handlers; DAYLINE_NATIVE_EFFECTS_ONLY",
+        "WITNESS": "witness RECORDED / OPEN + afterChecksum / eventIds / return class (WORLD_DELTA / ORIENTATION_SNAPSHOT)",
+        "RETURN": "exact return_to + OFFER_ONLY source return; the native source accepts, rejects, defers or ignores"
+      },
+      "residue": [
+        "scheduling, execution slot, urgency and local DayState mutation remain Dayline-native; the read-only adapter adds no effect authority",
+        "source acceptance authority stays with the source host; Dayline never promotes source state"
+      ]
+    },
+    {
+      "host_id": "INTERPHASE_CARRIER",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "evidence": [
+        "/lib/interphase-carrier.js",
+        "/tools/interphase-carrier-selftest.cjs",
+        "/control/confluence/INTERPHASE_CARRIER_2026-09-27.md",
+        "/returns/INTERPHASE_CARRIER_2026-09-27.json"
+      ],
+      "canonical_truth": "ephemeral authority-free continuation frame across host boundaries; object identity stays stable while focus / projection / witness may change; RETURN explicit",
+      "facets": {
+        "SOURCE": "stable object identity (id / owner / address / contract) + sourceRefs",
+        "FRAME": "projection + lineage (host / name / channels / residue; parentFrameId / handoffId): the declared cut of a continuation",
+        "FOCUS": "current focus id / label / address / aperture",
+        "OPERATE": "next typed moves (VIEW / NAVIGATION / EDIT / EFFECT / OFFER; HOLD / TURN / RELEASE / TRACE / RETURN) with pre-commit forecast (effect / authority / commit / sourceMutation / reversibility); dispatch HOST_NATIVE_ONLY - the carrier executes nothing",
+        "WITNESS": "witness class UNPROVED / OBSERVED / EVIDENCE / RETURN + evidenceRefs; stable frameId hash over object / focus / return / projection",
+        "RETURN": "exact return address / owner / label; sameObject identity check across frames"
+      },
+      "residue": [
+        "the carrier carries no domain payload, semantics or effects; authority is fixed NONE / HANDOFF ONLY",
+        "native handoff envelopes remain the domain transport (a recipient may ignore the carrier); frames are session-ephemeral, not canonical history"
       ]
     }
   ]
