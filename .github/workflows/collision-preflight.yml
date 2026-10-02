@@ -20,6 +20,4 @@ jobs:
       - name: Prove collision-map semantics
         run: node tools/collision-map-selftest.mjs
       - name: Compare changed surfaces with open pull requests
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
         run: node tools/collision-preflight.mjs
