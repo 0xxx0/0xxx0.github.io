@@ -48,6 +48,15 @@
     "source": {
       "host": "/prison-age/",
       "authority": "source identity/provenance only"
+    },
+    "evidence_atlas": {
+      "host": "/prison-age/?atlas=evidence",
+      "data": "/prison-age/evidence-atlas.json",
+      "runtime": "/prison-age/evidence-atlas.js",
+      "schema": "prison-age.evidence-atlas/v0.1",
+      "authority": "EVIDENCE_ONLY",
+      "behavior": "32 source-derived cross-source relation cards. Each card shows two exact addressed fragments plus shared lexical evidence; one held relation and at most three relations may be collected into a typed evidence trail.",
+      "return": "RETURN SOURCE closes the aperture to the exact source-resolver state; FIELD/native actions remain READ / RIDE / SOURCE."
     }
   },
   "retired_runtime": {
@@ -64,7 +73,11 @@
     "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material.",
     "The recovered 2021 proto-root is exact recovered wording arranged as a derived traversal pack; it is not an anthology story, page facsimile, generated continuation, or evidence of semantic equivalence.",
     "Authored RECURRENCE is intra-source conservation/rearrangement evidence and remains distinct from cross-source ECHO.",
-    "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority."
+    "The authored-reader launch may preserve an explicit same-origin resolver/FIELD return address; this moves no source or effect authority.",
+    "EVIDENCE ATLAS cards are deterministically selected from field-source-echo-index/v0.1; they contain no generated engine/operator narrative.",
+    "EVIDENCE ATLAS exposes exact fragment pairs, source addresses and lexical evidence only; it cannot assert theme, intent, causality, canon order, equivalence or interpretation.",
+    "The provenance-distinct 2021 proto-root remains outside the cross-source atlas and keeps its authored RECURRENCE projection.",
+    "EVIDENCE ATLAS is an in-host SOURCE aperture, not a fourth FIELD action or a second Prison Age route."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -82,9 +95,13 @@
     "Resolver exposes proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity.",
     "Proto-root READ enters READFIELD over exact source bytes without cross-source ECHO.",
     "Proto-root RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
-    "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged."
+    "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged.",
+    "EVIDENCE ATLAS contains exactly 32 cross-source exact-fragment relations derived from the shipped ECHO index and spans all six 2026 source pairs.",
+    "Each Evidence Atlas READ link addresses the exact source path and char offset in READFIELD.",
+    "Evidence trail is capped at three cards and emits prison-age.evidence-route/v0.1 with authority EVIDENCE_ONLY.",
+    "Shareable ?atlas=evidence&card=N restores the selected exact relation."
   ],
-  "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+  "latest_return": "/returns/PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
   "echo": {
     "schema": "field-source-echo-index/v0.1",
     "index": "/prison-age/echo-index.json",

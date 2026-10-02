@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T04:07:11+08:00",
+  "updated": "2026-10-03T03:44:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -6837,8 +6837,8 @@
       "version": "0.6",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
-      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
+      "latest_return": "/returns/PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
+      "role": "FIELD-held provenance-distinct source set. READFIELD reads exact bytes; ordinary RIDE traverses them in FOLD//BLOOM LIVE; SOURCE also contains a source-derived EVIDENCE ATLAS of 32 exact cross-source relations. FIELD still exposes READ / RIDE / SOURCE only.",
       "transfer": [
         "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
         "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
@@ -6847,7 +6847,10 @@
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
         "exact source movement → passive cross-source ECHO evidence in READFIELD",
-        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE",
+        "SOURCE → EVIDENCE ATLAS: 32 exact cross-source fragment relations derived from shipped ECHO evidence",
+        "EVIDENCE ATLAS card → READ A/B exact source offset in READFIELD",
+        "up to three held relation cards → prison-age.evidence-route/v0.1 evidence-only trail"
       ],
       "contract": {
         "accepts": {
@@ -6875,7 +6878,9 @@
             "field-read-ride/v0.1 traversal handoff",
             "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
-            "field-source-echo-index/v0.1 exact-fragment evidence"
+            "field-source-echo-index/v0.1 exact-fragment evidence",
+            "prison-age.evidence-atlas/v0.1 source-derived relation view",
+            "prison-age.evidence-route/v0.1 evidence-only trail"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -6942,7 +6947,7 @@
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-10-03T03:44:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
