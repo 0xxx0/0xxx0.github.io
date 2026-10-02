@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-correspondence-registry/v0.1",
-  "updated": "2026-10-02",
+  "updated": "2026-10-03",
   "status": "WORKING_REGISTRY",
   "law": "Correspondence names semantic facets and host-owned operations; projection names placement. Residue is preserved instead of forcing equivalence.",
   "mappings": [
@@ -22,7 +22,13 @@
       },
       "residue": [
         "FIELD route semantics and navigation graph remain host-specific"
-      ]
+      ],
+      "owner": "/showcase-manifest.json",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/showcase-manifest.json",
+      "complement": "route/focus source -> projection: route identity, safe address and crossing survive; session focus/navigation state is not carried back. projection -> source: no write path (a view cannot increase authority).",
+      "merge": "union",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "READFIELD",
@@ -43,7 +49,13 @@
       },
       "residue": [
         "segmentation, language, RSVP scheduler and voice remain READFIELD-specific"
-      ]
+      ],
+      "owner": "/field-aperture.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/field-aperture.js",
+      "complement": "source text/JSON + cursor -> projection: the addressed unit and char anchor survive; segmentation, language, RSVP scheduler and voice are dropped. projection -> source: seek/scale are VIEW state only, no write-back.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "SCALE_LENS",
@@ -64,7 +76,13 @@
       },
       "residue": [
         "domain-specific parser/graph semantics and lens descriptors remain Lens-owned"
-      ]
+      ],
+      "owner": "/lens-state.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/lens-state.js",
+      "complement": "object graph + LensState -> projection: selected identity and stack order survive; domain parser/graph semantics and lens descriptors are dropped. projection -> source: no mutation (typed admissibility only).",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "FOLD_BLOOM_ROOT",
@@ -84,7 +102,13 @@
       },
       "residue": [
         "does not own raw media, text reader state, set authorship, or LIVE world state"
-      ]
+      ],
+      "owner": "/fold-bloom/instrument-support.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/fold-bloom/instrument-support.js",
+      "complement": "active-object pointer -> projection: kind/support/route survive; the pointer never becomes domain truth. projection -> source: no write-back (raw media, reader state, set authorship and LIVE world state stay with their own hosts).",
+      "merge": "none-requires-coordination",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "LISTEN",
@@ -104,7 +128,13 @@
       },
       "residue": [
         "audio decode/features/playback clock remain LISTEN-specific"
-      ]
+      ],
+      "owner": "/fold-bloom/listen/",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/fold-bloom/listen/index.html",
+      "complement": "audio identity + AUDIO MAP + pins -> projection: exact identity and source-addressed pins survive; decode, features and playback clock are dropped. projection -> source: no write-back.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "SET",
@@ -124,7 +154,13 @@
       },
       "residue": [
         "composition authority is SET-owned; raw media is not stored in set state"
-      ]
+      ],
+      "owner": "/fold-bloom/experience-set/experience-set.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/fold-bloom/experience-set/experience-set.js",
+      "complement": "ordered source refs + weight/seam authorship -> projection: order and exact refs survive; raw media is neither stored nor projected back. projection -> source: composition authority stays SET-owned; no projection becomes a source store.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "LIVE",
@@ -148,7 +184,15 @@
       "residue": [
         "SET-wide LIVE fusion is implemented; direct 2–3-source phone validation remains a WAITING_ON_HUMAN gate",
         "world/game mechanics remain LIVE-specific and are not generic projections"
-      ]
+      ],
+      "owner": "/fold-bloom/live/set-ride-core.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/fold-bloom/live/set-ride-core.js",
+      "complement": "embodied ride/world state over exact source timing -> projection: sourceTime/journeyTime and seam identity survive; world/game mechanics are dropped. projection -> source: no write-back (SET keeps composition/seam authority; phone validation stays a human gate).",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [
+        "PROJECT(seam op CUT/DISSOLVE/CARRY/RESET/RETURN) = VIEW_SEAM_OP(PROJECT) over the unified dual-clock RIDE state"
+      ],
+      "commutes_tested": "/Users/mcvoid/Projects/0xxx0.github.io/fold-bloom/live/tests/set-ride-core.test.mjs"
     },
     {
       "host_id": "ROOM_STRUCTURAL_DOM",
@@ -168,7 +212,13 @@
       },
       "residue": [
         "ROOM FOLD may be a canonical structural operation, not merely a projection; split FOLD_VIEW from FOLD_OP"
-      ]
+      ],
+      "owner": "/foundry/room/",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/foundry/room/index.html",
+      "complement": "structural #program DOM + typed seams -> projection: block order, cassette structure and typed seams survive; FOLD may be a canonical structural operation rather than a view (FOLD_VIEW vs FOLD_OP split stays open). projection -> source: no write-back.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "AXIAL",
@@ -187,7 +237,13 @@
       },
       "residue": [
         "physical consequence and operator typing remain AXIAL/host-specific"
-      ]
+      ],
+      "owner": "/foundry/axial/",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/foundry/axial/index.html",
+      "complement": "typed state aperture + operator/frame transaction state -> projection: aperture and frame typing survive; physical consequence and operator typing are dropped. projection -> source: no write-back (orientation may not actuate).",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "GENERIC_FORM",
@@ -213,7 +269,15 @@
       },
       "residue": [
         "submit/effects remain host-owned; placement never grants authority"
-      ]
+      ],
+      "owner": "/lib/interphase-dom.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/tools/interphase-mapping-selftest.cjs",
+      "complement": "native form control value -> projection: object id and semantic facet survive; placement/visibility never grants authority. projection -> source: submit and effects remain host-owned (a view may not commit).",
+      "merge": "none-requires-coordination",
+      "commutes_claimed": [
+        "PROJECT(EDIT(host)) = VIEW_EDIT(PROJECT(host)) for the FOCUS_INPUT value edit"
+      ],
+      "commutes_tested": "/Users/mcvoid/Projects/0xxx0.github.io/tools/interphase-mapping-selftest.cjs"
     },
     {
       "host_id": "RECOVERY_PACKET",
@@ -233,7 +297,13 @@
       },
       "residue": [
         "promotion, merge and deletion remain MIGRATION/FIELD INTAKE authority"
-      ]
+      ],
+      "owner": "/lib/interphase-recovery.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/control/schemas/interphase-recovery-packet.schema.json",
+      "complement": "evidence-grounded artifacts + claims -> projection: exact refs, conflicts, UNKNOWN and anti-merge holds survive; prose-only synthesis is dropped. projection -> source: promotion/merge/deletion stay MIGRATION/FIELD INTAKE authority; packets are append-only and superseded, never mutated.",
+      "merge": "append-only-gset",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "PHYSICAL_MAKE",
@@ -252,7 +322,13 @@
       },
       "residue": [
         "rendered geometry is never physical proof; load/fit/tolerance/safety require measured evidence"
-      ]
+      ],
+      "owner": "UNKNOWN - needs owner",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/control/INTERPHASE_MAPPING_CONTRACT.json",
+      "complement": "measured physical object/assembly state -> projection: addressed identity, declared controls and proposed projections survive; dimensions, tolerances, fit, load and safety are dropped. projection -> source: no write-back - rendered geometry is never physical proof and fit requires measured evidence.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [],
+      "commutes_tested": false
     },
     {
       "host_id": "SHOPPING",
@@ -274,7 +350,15 @@
       "residue": [
         "detailed lifecycle values and ledger fields remain host-owned; the shared phase never mutates native state",
         "purchase, seller contact, money movement and adoption remain human/evidence-gated; no projection or carrier can act"
-      ]
+      ],
+      "owner": "/shopping/",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/shopping/index.html",
+      "complement": "browser-local item identity + native procurement lifecycle -> projection: exact item identity and a derived material phase survive; detailed lifecycle values and ledger fields are dropped. projection -> source: no write-back - purchase, seller contact, money movement and adoption stay human/evidence-gated; the shared phase never mutates native state.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [
+        "native lifecycle -> derived shared material phase (the phase never mutates native state)"
+      ],
+      "commutes_tested": "/Users/mcvoid/Projects/0xxx0.github.io/tools/shopping-interphase-selftest.mjs"
     },
     {
       "host_id": "DAYLINE",
@@ -296,7 +380,15 @@
       "residue": [
         "scheduling, execution slot, urgency and local DayState mutation remain Dayline-native; the read-only adapter adds no effect authority",
         "source acceptance authority stays with the source host; Dayline never promotes source state"
-      ]
+      ],
+      "owner": "/dayline/",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/dayline/index.html",
+      "complement": "session-local DayState workfield holding one object -> projection: the held object, exact source link and RETURN survive (VIEW only); scheduling, execution slot and urgency are dropped. projection -> source: read-only - the adapter adds no effect authority and Dayline never promotes source state.",
+      "merge": "lww-with-single-writer",
+      "commutes_claimed": [
+        "FIELD -> DAYLINE continuity: PROJECT(focus/projection witness) = VIEW_OP(PROJECT) with no authority increase"
+      ],
+      "commutes_tested": "/Users/mcvoid/Projects/0xxx0.github.io/tools/interphase-dayline-selftest.cjs"
     },
     {
       "host_id": "INTERPHASE_CARRIER",
@@ -319,7 +411,15 @@
       "residue": [
         "the carrier carries no domain payload, semantics or effects; authority is fixed NONE / HANDOFF ONLY",
         "native handoff envelopes remain the domain transport (a recipient may ignore the carrier); frames are session-ephemeral, not canonical history"
-      ]
+      ],
+      "owner": "/lib/interphase-carrier.js",
+      "canonical_copy": "/Users/mcvoid/Projects/0xxx0.github.io/lib/interphase-carrier.js",
+      "complement": "stable object identity -> projection: identity, address and focus survive across frames; domain payload, semantics and effects are dropped. projection -> source: nothing - authority is fixed NONE / HANDOFF ONLY and frames are session-ephemeral, not canonical history.",
+      "merge": "append-only-gset",
+      "commutes_claimed": [
+        "sameObject identity across frames; native move -> shared verb classification at VIEW authority"
+      ],
+      "commutes_tested": "/Users/mcvoid/Projects/0xxx0.github.io/tools/interphase-carrier-selftest.cjs"
     }
   ]
 }
