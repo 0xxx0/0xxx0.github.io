@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02",
+  "date": "2026-10-02",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD INDEX 0.8.31 / CURRENT HEADS ENTRY",
+  "predecessor": "/returns/FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
+  "before": "An unqualified FIELD entry auto-focused the newest route touch. CURRENT.current_heads and the next-single-action contract were behind a collapsed STATUS aperture; the initial held route could therefore look like the convergence choice even though recency is not attention or priority.",
+  "delta": [
+    "Begin with no held route unless an exact focus address is supplied; do not assign a route from manifest recency.",
+    "Reuse the existing glyph rail as the default CURRENT HEADS chooser, in CURRENT's recorded order, excluding the root route because FIELD is already the current surface.",
+    "Keep RECENT and ALL as secondary views over the same route identities; label recency as chronology, not priority.",
+    "One activation selects shared focus; a second activation opens the held route through the existing scale-on-advance transition.",
+    "The existing held-object aperture remains the only place for native moves (≤3), forecast, witness and exact RETURN."
+  ],
+  "authority": [
+    "CURRENT owns attention and source of the candidate heads.",
+    "FIELD selection changes focus only; it does not commit or mutate the host.",
+    "Native hosts own effects; RETURN owns observed evidence.",
+    "Head order and route recency do not imply priority."
+  ],
+  "preserved": [
+    "No new queue, store, dashboard, planner, shell or route.",
+    "No synthesized head ranking; existing CURRENT order is displayed as recorded.",
+    "RECENT, AXIAL, MAP, LENS, TRACE, forecast and RETURN retain their existing owners and shared focus contract."
+  ],
+  "evidence": [
+    "/index.html",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/showcase-manifest.json",
+    "/tools/browser-smoke.mjs",
+    "/control/CURRENT.json"
+  ],
+  "verification": {
+    "exact_head": "PENDING_PR",
+    "checks": {
+      "route_registration": "PENDING_CI",
+      "public_surface": "PENDING_CI",
+      "gitleaks": "PENDING_CI",
+      "convergence_validate": "PENDING_CI"
+    },
+    "browser": "PENDING · root begins without a route focus, exposes addressable CURRENT heads, selecting one holds it, and the same held mark opens only on the second activation."
+  },
+  "falsifier": "Fail if no-query entry silently focuses the most recent route; a CURRENT head cannot be selected from the rail; RECENT implies priority; one activation both focuses and navigates; or the held-object native move/forecast/witness/RETURN contract regresses.",
+  "next": "Run exact-head route registration and browser smoke. If green, merge and verify the deployed no-query entry at mobile width.",
+  "stop": "Do not add another control surface or infer a highest-ranked head."
+}
