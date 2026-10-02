@@ -626,7 +626,12 @@ function renderWorkDepth(){
  ];
  const headLabel=h?.head||focus.title||focus.href,cap=h?.retained_function||focus.role||focus.contract?.transforms?.verb||'Addressed capability; no retained-function text declared.';
  const proofHtml=proof.length?proof.map(ref=>{const href=workRefHref(ref),external=/^https?:\/\//i.test(ref);return href?'<a class="workRef" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+' title="'+esc(ref)+'">'+esc(workRefLabel(ref))+'</a>':'<span class="workRef" title="'+esc(ref)+'">'+esc(workRefLabel(ref))+'</span>'}).join(''):'<span class="workEmpty">No explicit proof refs on this held object.</span>';
- const relHtml=shownRels.length?shownRels.map(r=>'<button class="workRel '+(headSet.has(r.href)?'on':'')+'" data-work-href="'+esc(r.href)+'" title="'+esc((headSet.has(r.href)?'CURRENT HEAD · ':'')+(r.title||r.href)+' · '+r.href)+'">'+routeGlyph(r,22)+'</button>').join('')+(rels.length>shownRels.length?'<span class="workRemainder">+'+(rels.length-shownRels.length)+'</span>'):'<span class="workEmpty">No child/parent surfaces declared.</span>';
+ const relHtml=shownRels.length
+  ? shownRels.map(r=>{
+      const title=(headSet.has(r.href)?'CURRENT HEAD · ':'')+(r.title||r.href)+' · '+r.href;
+      return '<button class="workRel '+(headSet.has(r.href)?'on':'')+'" data-work-href="'+esc(r.href)+'" title="'+esc(title)+'">'+routeGlyph(r,22)+'</button>';
+    }).join('')+(rels.length>shownRels.length?'<span class="workRemainder">+'+(rels.length-shownRels.length)+'</span>':'')
+  : '<span class="workEmpty">No child/parent surfaces declared.</span>';
  const transferHtml=transfers.length?transfers.map((x,i)=>'<div class="workLine"><b>'+String(i+1).padStart(2,'0')+'</b> '+esc(String(x))+'</div>').join(''):'<div class="workEmpty">No transfer history declared on this route.</div>';
  const futureHtml=future.length?future.map(x=>'<div class="'+(x.now?'now':'')+'">'+esc(x.text)+'</div>').join(''):'<div>HOLD · no named unresolved future on this object.</div>';
  body.innerHTML=
