@@ -29,7 +29,7 @@ check('pages: alias + utility pages load with expected titles', () => {
   assert.ok(MAP.length > 3000, 'map too small');
   assert.ok(INDEX.includes('<title>NEXUS // FIELD alias</title>'), 'alias title');
   assert.ok(BOARD.includes('<title>OPS // multi-agent board</title>'), 'board title');
-  assert.ok(MAP.includes('<title>FIELD // SYSTEM MAP</title>'), 'map title');
+  assert.ok(MAP.includes('<title>FIELD // ARCHITECTURE MAP</title>'), 'map title');
 });
 
 check('links: every local link resolves to a real repo path (incl. src/return targets)', () => {
@@ -45,7 +45,9 @@ check('links: every local link resolves to a real repo path (incl. src/return ta
       if (/^(https?:|mailto:|#)/.test(target)) continue;
       checked++;
       const rel = target.split('?')[0].split('#')[0];
-      const resolved = path.resolve(ROOT, path.dirname(page), rel);
+      const resolved = rel.startsWith('/')
+        ? path.resolve(ROOT, rel.slice(1))
+        : path.resolve(ROOT, path.dirname(page), rel);
       if (!resolved.startsWith(ROOT) || !fs.existsSync(resolved)) missing.push(`${page} → ${target}`);
       const query = target.includes('?') ? target.slice(target.indexOf('?') + 1) : '';
       for (const qp of query.matchAll(/(?:^|&)(?:src|return)=([^&]*)/g)) {
@@ -125,29 +127,32 @@ check('board: branch table rows complete (4 cells, non-empty cells)', () => {
     }
   });
 
-check('map: every node complete (label/name/desc), classes from the four states', () => {
-  const nodes = MAP.split('<div class="node ').slice(1);
-  assert.ok(nodes.length >= 8, `only ${nodes.length} map nodes`);
-  const classes = new Set(['primary', 'secondary', 'frozen', 'emerge']);
-  for (const block of nodes) {
-    const cls = block.slice(0, block.indexOf('"'));
-    assert.ok(classes.has(cls), `map node class "${cls}" outside the four states`);
-    for (const field of ['label', 'name', 'desc'])
+check('map: every architecture node carries role/name/description and a lawful architecture class', () => {
+  const nodes = [...MAP.matchAll(/<a class="node ([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)];
+  assert.ok(nodes.length >= 10, `only ${nodes.length} architecture nodes`);
+  const classes = new Set(['bound', 'root', 'exec', 'test', 'repr', 'return']);
+  for (const [, classText, block] of nodes) {
+    const nodeClasses = classText.trim().split(/\\s+/);
+    assert.ok(nodeClasses.some(cls => classes.has(cls)),
+      `map node classes "${classText}" lack architecture role`);
+    for (const field of ['k', 'n', 'd'])
       assert.ok((block.match(new RegExp(`class="${field}">([^<]*)<`)) || [])[1]?.trim(),
-        `map node ${cls} has empty ${field}`);
+        `map node ${classText} has empty ${field}`);
   }
 });
 
-check('map: legend names the four states', () => {
-  for (const state of ['● ACTIVE', '● EMERGING', '● NEW DOMAIN', '● FROZEN'])
+check('map: legend names the architecture flow classes', () => {
+  for (const state of ['CAPTURE', 'EXECUTE', 'TEST / REPRESENT', 'RETURN', 'CONTEXT / SUPPORT'])
     assert.ok(MAP.includes(state), `legend missing ${state}`);
 });
 
-check('map: the two flow verb chains are exactly the house law', () => {
-  assert.ok(MAP.includes('ENTER → ADDRESS → STATE → TRANSFORM → PROJECT → ACT → MEASURE → RETURN'),
-    'ENTER…RETURN chain');
-  assert.ok(MAP.includes('RECOVER → CORRECT → CONVERGE → VALIDATE → SEAL'),
-    'RECOVER…SEAL chain');
+check('map: architecture law preserves capture → hold → action/test → RETURN and authority boundaries', () => {
+  for (const stage of ['CAPTURE', 'HOLD', 'EXECUTE', 'TEST', 'PROJECT', 'RETURN'])
+    assert.ok(MAP.includes(`<div class="mrow"><b>${stage}</b>`), `mobile architecture row missing ${stage}`);
+  assert.ok(MAP.includes('SOURCE → HOLD → TURN → TRACE → RETURN'), 'source→return footer chain');
+  assert.ok(MAP.includes('CURRENT → NOW'), 'CURRENT attention authority');
+  assert.ok(MAP.includes('NATIVE HOST → COMMIT / EFFECT'), 'native effect authority');
+  assert.ok(MAP.includes('RETURN → DURABLE EVIDENCE'), 'return evidence authority');
 });
 
 const fails = checks.filter(([, e]) => e);
