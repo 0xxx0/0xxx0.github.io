@@ -8,6 +8,15 @@ name: visual-regression
 on:
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
+  push:
+    branches:
+      - master
+    paths:
+      - 'index.html'
+      - 'fold-bloom/**'
+      - 'docs/**'
+      - 'tools/golden/**'
+      - '.github/workflows/visual-regression.yml'
   workflow_dispatch:
     inputs:
       mode:
