@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T19:00:00+08:00",
+  "updated": "2026-10-02T20:06:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-02T19:00:00+08:00",
+        "updated_at": "2026-10-02T20:06:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -6030,7 +6030,7 @@
       "showcase_card": false,
       "role": "Current one-page architecture projection: HUMAN PORT → Router → Policy → SHOWCASE/FIELD INDEX; FIELD holds one addressed object; Atlas Dayline executes; FIELD / PROOF tests representations; FCM remains an optional attention reducer/donor; Scale Lens, Verse Atlas, Sleeper and AXIAL stay unequal specialist hosts; RETURN closes observed consequence. Projection-only: no NOW, commit/effect or evidence authority.",
       "index": {
-        "updated_at": "2026-10-02T19:00:00+08:00",
+        "updated_at": "2026-10-02T20:06:00+08:00",
         "work_modes": [
           "RECOVER",
           "OPERATE",
@@ -8971,6 +8971,24 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/control/source-hold-turn-trace-return.html",
+      "title": "SOURCE → HOLD → TURN → TRACE → RETURN",
+      "kind": "control",
+      "state": "ACTIVE",
+      "parent": "/control/",
+      "version": "0.1",
+      "operation": "OPERATE",
+      "role": "Default bounded execution protocol for humans and agents: resolve exact SOURCE, HOLD one addressed focus with ≤3 lawful native moves, TURN once (EFFECT requires host-native RELEASE/commit), TRACE actual consequence, RETURN durable evidence, then release authority and replan.",
+      "receipt": "/returns/SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
+      "index": {
+        "updated_at": "2026-10-02T20:06:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
