@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T03:44:00+08:00",
+  "updated": "2026-10-03T03:50:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5021,7 +5021,8 @@
         "entropy secret scoring",
         "trilingual re-reading overlay",
         "data format reshaping",
-        "scrape munging"
+        "scrape munging",
+        "browser child surfaces registered as addressed routes after route-registration gate exposed host/index drift"
       ],
       "field": {
         "roles": [
@@ -9181,6 +9182,99 @@
         "return_path": "/recovery/"
       },
       "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "kind": "instrument",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "tier": "FIELD",
+      "href": "/foundry/omnitools/pii-lens.html",
+      "title": "PII LENS · OMNITOOL",
+      "operation": "VERIFY",
+      "role": "Offline pasted-text privacy/security detector. Finds and masks likely identifiers/secrets; REVEAL and JSON export remain local.",
+      "index": {
+        "updated_at": "2026-10-03T00:41:21+08:00",
+        "work_modes": [
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "kind": "instrument",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "tier": "FIELD",
+      "href": "/foundry/omnitools/text-lens.html",
+      "title": "TEXT LENS · OMNITOOL",
+      "operation": "READ / VERIFY",
+      "role": "Offline text measurement lens for structure, entropy, script mix, lexical ranks and approximate readability.",
+      "index": {
+        "updated_at": "2026-10-03T00:41:21+08:00",
+        "work_modes": [
+          "READ",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "kind": "instrument",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "tier": "FIELD",
+      "href": "/foundry/omnitools/re-reader.html",
+      "title": "RE-READER · OMNITOOL",
+      "operation": "READ",
+      "role": "Offline Tamil / Chinese / English parallel re-reading instrument with explicit segment alignment and reversible veil/reveal.",
+      "index": {
+        "updated_at": "2026-10-03T00:41:21+08:00",
+        "work_modes": [
+          "READ"
+        ]
+      }
+    },
+    {
+      "kind": "instrument",
+      "parent": "/foundry/omnitools/",
+      "family": "FOUNDRY / OMNITOOLS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/omnitools/release.json",
+      "showcase_card": false,
+      "evidence": [
+        "/foundry/omnitools/release.json"
+      ],
+      "tier": "FIELD",
+      "href": "/foundry/omnitools/reshaper.html",
+      "title": "OMNITOOLS / RESHAPE",
+      "operation": "TRANSFORM",
+      "role": "Offline JSON / NDJSON / CSV / TSV reshape desk with explicit flattening and downloadable transformed output.",
+      "index": {
+        "updated_at": "2026-10-03T00:41:21+08:00",
+        "work_modes": [
+          "IMPLEMENT"
+        ]
+      }
     }
   ],
   "release_law": [
