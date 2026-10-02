@@ -1,66 +1,127 @@
-# MOIRÉ ROUTE / ALL MAPS ARE WRONG — RESEARCH HANDOFF
+# FIELD / MOIRÉ HELD-OBJECT MISMATCH — RESEARCH HANDOFF
 
 **Date:** 2026-10-02  
-**Class:** EVIDENCE / bounded specimen  
-**Host:** FIELD INDEX representation research; possible donor to Sleeper / Scale Lens / Atlas Dayline  
-**Authority:** NONE outside this specimen
+**Class:** EVIDENCE / representation instrument  
+**Host:** FIELD INDEX → REFINE / PROVE  
+**Authority:** VIEW / EVIDENCE ONLY
 
 ## Question
 
-Can coordinate mismatch become visible interference, such that phase alignment exposes a continuous route more clearly than an unlabeled local adjacency view?
+Can the earlier moiré donor stop operating on a synthetic graph and instead report representation mismatch for the exact FIELD object the operator has deliberately held?
 
-## Donor
+## Source
 
-Recovered visual-law lineage:
-- `/recovery/naming/B260728B-visual-law-v0.1.json`
-- B260728B seq 4: ISOMETRIC_LABYRINTH / route
-- B260728B seq 5: TILTED_GATE / rotate the frame, not the world
-- Sleeper field: ALL MAPS ARE WRONG
+The instrument now receives the FIELD focus by address:
 
-No donor image bytes are copied here.
+```
+/field/moire-route/?focus=<manifest route>&projection=<current FIELD projection>
+```
 
-## Hypothesis
+FIELD root constructs that link from the actual held object. If no object is held, the instrument fails closed and returns to FIELD; it does not manufacture a fixture.
 
-A route encoded by a coherent local coordinate field will gain a usable next-edge cue when the global phase/orientation agrees with it. Coordinate disagreement should appear as interference/noise rather than as a decorative overlay.
+Truth sources:
 
-## Baseline
+- `/showcase-manifest.json`
+- `/control/CURRENT.json`
+- the exact `focus` route propagated from FIELD root
 
-Plain local adjacency:
-- identical edge appearance;
-- START and END visible;
-- no route labels;
-- local next choice has chance `1/N` among forward neighbors.
+## Real route context
 
-This is deliberately a **local perceptual baseline**, not a claim about graph algorithms. A graph search with full topology can of course solve the route.
+The old deterministic 6×6 route/spur fixture is removed from runtime.
 
-## Specimen
+The visible route is now the actual manifest lineage:
 
-`core.mjs`
-- deterministic 6×6 fixture;
-- one true route plus spurs;
-- route nodes share one coordinate phase;
-- off-route nodes carry deterministic phase/orientation offsets;
-- cue strength is generated from phase + orientation agreement.
+```
+/ → parent → … → held route
+```
 
-`index.html`
-- moiré field: no route line by default;
-- plain adjacency: equal-looking edges;
-- phase/orientation controls;
-- BEST/WORST phase;
-- optional ground-truth reveal.
+Context branches are real manifest siblings/children only.
 
-## Metrics
+## Representation mismatch
 
-1. **Local route-choice accuracy** — at each forward step, does the strongest interference cue point to the true next edge?
-2. **Plain adjacency chance** — mean `1/N` under identical-looking local choices.
-3. **Continuity signal** — route coherence minus off-route coherence, with step smoothness.
+Canonical FIELD route facts are grouped into the channels already used by `lib/interphase-field.js`:
+
+```
+identity
+address
+content
+depth
+authority
+evidence
+```
+
+The instrument compares those actual facts with fields retained or derived by extant FIELD projections:
+
+- FIELD / AXIAL
+- FIELD / VISUAL MAP
+- FIELD / STRUCTURE
+- FIELD / EVOLVE
+- FIELD / VERSIONS
+- FIELD / RECENT
+- FIELD / GLYPH
+
+Mismatch has two parts:
+
+### 1. hidden / derived channel residue
+
+A fact present in manifest/CURRENT but not preserved by the selected representation remains interference residue.
+
+Derived glyph facts are not treated as identical to preserved source facts.
+
+### 2. coordinate displacement
+
+The real manifest parent tree is the canonical address frame.
+
+Each extant FIELD projection is modeled using the fields it actually orders by:
+- AXIAL → state × operation/work-mode;
+- VISUAL → manifest parent tree;
+- STRUCTURE → route-address order;
+- EVOLVE → evolution stage;
+- VERSIONS → version;
+- RECENT → route update time;
+- GLYPH → kind × operation.
+
+The held route and its lineage therefore occupy two lawful coordinate frames rather than a fabricated maze.
+
+## Alignment law
+
+`ALIGN COORDINATES` may compensate only the transformable coordinate displacement.
+
+It may **not** erase hidden/derived channel residue.
+
+So:
+
+```
+raw mismatch
+= channel residue + coordinate displacement
+
+aligned visible interference
+= channel residue + compensated coordinate displacement
+```
+
+A representation that omits authority/evidence cannot be made truthful merely by visually aligning it.
+
+## Runtime behavior
+
+- HOLD a route on FIELD root.
+- Enter **REFINE / PROVE → MOIRÉ ROUTE**.
+- FIELD propagates `focus`, current projection, and active AXIAL tuple.
+- Instrument resolves that exact route against current manifest/CURRENT.
+- Moiré field shows canonical × projection interference.
+- Coordinate panel shows the real manifest route context against the selected projection coordinates.
+- Channel table names exact retained / derived / hidden fields.
+- COPY REPORT emits `field-representation-mismatch/v0.2`.
+- RETURN restores the same FIELD focus address.
 
 ## Falsifier
 
-Hold/PARK the mechanism if:
-- best phase fails to beat plain local adjacency chance;
-- aligned vs opposite phase does not materially separate;
-- the visual field requires explicit route strokes/labels to work.
+PARK this instrument if it cannot do at least one of:
+
+1. expose a real channel loss that is not obvious in the compressed representation;
+2. distinguish transformable coordinate drift from irreducible information loss;
+3. help choose a more suitable representation for one held FIELD object.
+
+Do not promote interference as decoration.
 
 ## Verification
 
@@ -70,27 +131,22 @@ Run:
 node field/moire-route/selftest.mjs
 ```
 
-The selftest requires:
-- aligned accuracy ≥ 0.85;
-- aligned advantage over adjacency chance ≥ 0.20;
-- aligned advantage over opposite phase ≥ 0.30;
-- continuity separation ≥ 0.18.
+The selftest reads the repository's actual `showcase-manifest.json` and `control/CURRENT.json`, selects a real deep manifest route, and verifies:
+
+- runtime context contains only manifest route identities;
+- synthetic grid IDs are absent;
+- VISUAL shares canonical tree coordinates;
+- GLYPH retains non-zero channel residue;
+- full alignment cannot erase hidden-channel residue;
+- no held address fails closed.
 
 ## Boundary
 
-This is **architectural proxy evidence only**.
+This is representation evidence, not correctness authority.
 
-It does not establish:
-- superior human route-finding;
-- superior navigation to a normal map;
-- value as a current product surface.
-
-A human comparison is justified only after the mechanism survives machine checks and is transplanted into one real host task.
-
-## Transfer if it survives
-
-1. **Sleeper / ALL MAPS ARE WRONG** — phase alignment reveals one lawful route through a scrambled projection.
-2. **Scale Lens / Ministry Ridge** — interference encodes disagreement between two coordinate systems.
-3. **Atlas Dayline** — only if there is a real pair of temporal/reference coordinates whose mismatch matters.
-
-Do not use moiré as wallpaper.
+```
+HELD OBJECT ≠ PROJECTION
+PROJECTION MISMATCH ≠ OBJECT ERROR
+ALIGNMENT ≠ RECOVERY OF HIDDEN INFORMATION
+VIEW EVIDENCE ≠ CANONICAL STATE
+```
