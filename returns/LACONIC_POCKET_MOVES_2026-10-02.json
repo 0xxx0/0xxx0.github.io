@@ -1,0 +1,53 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_POCKET_MOVES_2026-10-02",
+  "date": "2026-10-02",
+  "state": "BOUNDED_EXISTING_OBJECT_PROJECTION",
+  "object": "LACONIC / ICONIC — POCKET MOVES",
+  "host": "/laconic/",
+  "delta": [
+    "Added POCKET as a fifth view inside the existing LACONIC route; no new route or canonical object class.",
+    "Projected exactly eight existing SCENES as cards using each scene's canonical title, lane, provenance and start-node text.",
+    "Added DEAL ONE / SHOW ALL as transient view state only.",
+    "PLAY enters the canonical scene runner; COPY copies the canonical start-node line.",
+    "USED writes to the pre-existing browser-local branch receipt key scene#start-node."
+  ],
+  "projected_scene_ids": [
+    "scene:name-the-move",
+    "scene:care-modes",
+    "scene:mixed-news",
+    "scene:repair-gap",
+    "scene:good-news",
+    "scene:how-are-you",
+    "scene:what-do-you-do",
+    "scene:why-did-you-do-that"
+  ],
+  "proof": [
+    {
+      "kind": "bytes",
+      "path": "/laconic/index.html",
+      "claim": "POCKET view and projection logic present"
+    },
+    {
+      "kind": "source",
+      "path": "/laconic/scenes.json",
+      "claim": "all eight projected scene IDs and start nodes resolve"
+    },
+    {
+      "kind": "field",
+      "path": "/showcase-manifest.json",
+      "claim": "same /laconic/ FIELD object now reports 0.3.5 and pocket trajectory projection"
+    },
+    {
+      "kind": "syntax",
+      "claim": "inline JavaScript compiled successfully in V8 syntax check"
+    }
+  ],
+  "boundaries": [
+    "No scene text duplicated into a second content file.",
+    "No second KEEP/USED/adoption store introduced.",
+    "DEAL ONE does not select NOW, priority or authority.",
+    "DRAFT remains distinct from SEND; HUMAN PORT remains the external boundary."
+  ],
+  "return": "/laconic/"
+}

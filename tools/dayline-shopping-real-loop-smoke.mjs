@@ -57,6 +57,10 @@ const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Da
   rec.final={state:item.state,receipts:receipts.length,last};
   rec.offerConsumed=!W().sessionStorage.getItem('atlas.dayline.source-return.v01');
   rec.overflow=Math.max(D().documentElement.scrollWidth,D().body.scrollWidth)-D().documentElement.clientWidth;
+  if(rec.overflow>1){
+    const vw=D().documentElement.clientWidth;
+    rec.widest=[...D().body.querySelectorAll('*')].map((el,i)=>{const r=el.getBoundingClientRect();return{tag:el.tagName,id:el.id||'',cls:String(el.className||'').slice(0,80),left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,text:String(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,90),html:String(el.outerHTML||'').slice(0,420)}}).filter(x=>x.right>vw+1||x.width>vw+1||x.scrollWidth>x.clientWidth+1).sort((a,b)=>Math.max(b.right,b.scrollWidth)-Math.max(a.right,a.scrollWidth)).slice(0,12);
+  }
   const ok=rec.initial.state==='WATCH'&&
     rec.offer.authority==='OFFER_ONLY'&&rec.offer.native_effect==='RECEIPT_ONLY'&&rec.offer.proposed_native_state==='UNCHANGED'&&
     rec.offer.source?.route==='/shopping/'&&rec.offer.source?.object_id==='example-power'&&rec.offer.source?.state==='WATCH'&&

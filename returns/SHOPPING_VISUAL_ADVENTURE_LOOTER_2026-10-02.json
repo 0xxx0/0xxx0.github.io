@@ -1,0 +1,71 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02",
+  "date": "2026-10-02",
+  "object": "Shopping Field visual/adventure/market-watch convergence",
+  "state": "IMPLEMENTED_FOCUSED_VERIFIED / FULL_SUITE_BASE_BLOCKED",
+  "source": "SHOPPING FIELD 0.4.3 + recovered FI-SHOP/DataDisc thumbnail/liveness donor + watch-before-buy / scheduled liveness intent",
+  "delta": [
+    "LIST and LOOT are unequal projections over the same browser-local Shopping ledger.",
+    "Items may carry one provenance thumbnail: remote exact-source image or compressed local image; no image upgrades truth.",
+    "shopping-adventure-pack/v0.1 merges old raids/episodes additively by stable id and records adventure provenance.",
+    "SHOP LOOTER adds explicit watch config, bounded packet compiler, Hermes skill and exact evidence-only return into MARKET TAPE.",
+    "Watch-enabled CANDIDATE/READY items expose MARKET WATCH through existing INTERPHASE while retaining <=3 moves.",
+    "Cron is deliberately not activated by the app; one <=3-item manual proof is required before recurring supervision."
+  ],
+  "connections": {
+    "field": "same exact held object + shared action surface; no new sovereign Shopping shell",
+    "house": "HOUSE remains physical fit/place evidence owner",
+    "dayline": "Dayline remains physical proof/task witness owner",
+    "human_port": "screenshots/text/URLs may enter as candidate/adventure evidence",
+    "market_tape": "canonical bounded temporal offer evidence sink for looter returns",
+    "media_refinery": "optional future local screenshot/image dedupe donor; bulk media stays outside repo",
+    "hermes": "bounded market watcher/supervisor after manual proof"
+  },
+  "invariants": [
+    "one Shopping ledger",
+    "image != identity != ownership",
+    "adventure merge does not overwrite existing local truth",
+    "looter result cannot mutate lifecycle",
+    "no purchase, seller message, login, account change or payment authority",
+    "exact item/state/source revalidation before returned evidence is accepted",
+    "SHOP LOOTER refresh != READY/BUY/ADOPT",
+    "private populated inventories remain browser-local / explicit export and are not committed"
+  ],
+  "evidence": [
+    "/lib/shopping-adventure.js",
+    "/lib/shopping-looter.js",
+    "/shopping/adventure.schema.json",
+    "/shopping/",
+    "/shopping/state.schema.json",
+    "/scripts/shopping-looter-packet.mjs",
+    "/skills/shopping-looter/SKILL.md",
+    "/tools/shopping-adventure-looter-selftest.mjs",
+    "/tools/shopping-visual-selftest.mjs",
+    "/control/confluence/SHOPPING_LOOTER_ADVENTURE_2026-10-02.md"
+  ],
+  "validation": {
+    "pr": 762,
+    "implementation_head": "771bba8f579fa7a6173d4cf6abc17e5e33c8e361",
+    "shopping_check": {
+      "run": 37010315436,
+      "result": "PASS"
+    },
+    "route_registration": {
+      "run": 37010315506,
+      "result": "PASS"
+    },
+    "gitleaks": {
+      "run": 37010315433,
+      "result": "PASS"
+    },
+    "public_surface": {
+      "run": 37010315424,
+      "result": "FAIL / UNRELATED BASE BLOCKER",
+      "blocker": "/laconic/ manifest version 0.3.2 disagrees with laconic/release.json 0.3.4 on master"
+    },
+    "merge_gate": "Re-run exact metadata head. Do not claim full public-surface PASS until independent base blocker is repaired."
+  },
+  "return": "/shopping/",
+  "stop": "Do not add autonomous checkout or a second Shopping state store. Next real-world proof is one <=3-item SHOP LOOTER cycle after the private trial pack is imported."
+}

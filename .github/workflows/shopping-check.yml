@@ -1,0 +1,26 @@
+name: shopping-check
+on:
+  pull_request:
+    paths:
+      - 'shopping/**'
+      - 'lib/shopping-*.js'
+      - 'tools/shopping-*.mjs'
+      - 'scripts/shopping-looter-packet.mjs'
+      - 'skills/shopping-looter/**'
+      - 'control/confluence/SHOPPING_LOOTER_ADVENTURE_2026-10-02.md'
+      - '.github/workflows/shopping-check.yml'
+jobs:
+  shopping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          node tools/shopping-interphase-selftest.mjs
+          node tools/shopping-market-tape-selftest.mjs
+          node tools/shopping-house-fit-selftest.mjs
+          node tools/shopping-phase-surface-selftest.mjs
+          node tools/shopping-adventure-looter-selftest.mjs
+          node tools/shopping-visual-selftest.mjs
