@@ -1,0 +1,25 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "source-hold-turn-trace-return-protocol-2026-10-02",
+  "timestamp": "2026-10-02T20:06:00+08:00",
+  "source": "/control/source-hold-turn-trace-return.html",
+  "before": "The architecture had converged on SOURCE → HOLD → TURN → TRACE → RETURN, but the loop existed mainly as shorthand across FIELD/INTERPHASE laws and was not yet a concise human/agent operational contract with explicit entry/exit conditions.",
+  "after": "A single active protocol now defines exact entry/exit conditions, concrete examples, EFFECT→RELEASE compatibility, PASS/FAIL/INDETERMINATE evidence semantics, stop rules, agent handoff packet and next:NONE after RETURN. FIELD footer and system map link to it without enlarging the primary action surface.",
+  "evidence": [
+    "/control/source-hold-turn-trace-return.html",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "/control/CURRENT.json",
+    "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "/lib/interphase-carrier.js",
+    "/",
+    "/nexus/map.html"
+  ],
+  "residue": {
+    "user_rule": "What exactly? → Hold one thing → Make one bounded move → Prove what changed → Write what came back.",
+    "agent_rule": "One addressed object/focus; ≤3 native moves; one TURN; EFFECT requires native RELEASE; TRACE never creates authority; RETURN sets next:NONE.",
+    "unknowns": [
+      "No claim that every existing route has yet adopted this protocol internally; it is the default control contract and handoff grammar, not a silent rewrite of host-native logic."
+    ]
+  }
+}
