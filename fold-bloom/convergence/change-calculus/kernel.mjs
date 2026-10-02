@@ -816,6 +816,46 @@ export function calculationTape({
   };
 }
 
+export function calculationFocusProjection(tape,requested='AUTO'){
+  if(tape?.schema!==CHANGE_CALCULUS_SCHEMA+'/calculation-tape'||!Array.isArray(tape.stages)){
+    return {ok:false,schema:CHANGE_CALCULUS_SCHEMA+'/calculation-focus',reason:'CALCULATION_TAPE_REQUIRED'};
+  }
+  const ids=new Set(tape.stages.map(x=>String(x?.id||'').toUpperCase()).filter(Boolean));
+  const raw=String(requested||'AUTO').toUpperCase();
+  const manual=raw!=='AUTO'&&ids.has(raw);
+  const stageId=manual?raw:String(tape.active_stage||tape.stages.find(x=>x?.ready)?.id||'SOURCE').toUpperCase();
+  const stage=tape.stages.find(x=>String(x?.id||'').toUpperCase()===stageId)||tape.stages[0];
+  const focusedVisuals={
+    SOURCE:{tree:false,state:true,lattice:false,native:false,control_loss:false,return_address:false},
+    QUOTIENT:{tree:false,state:true,lattice:false,native:false,control_loss:true,return_address:false},
+    PATH:{tree:false,state:true,lattice:true,native:false,control_loss:false,return_address:false},
+    NEXT:{tree:false,state:true,lattice:true,native:false,control_loss:false,return_address:false},
+    NATIVE:{tree:false,state:false,lattice:false,native:true,control_loss:false,return_address:false},
+    MODEL:{tree:false,state:false,lattice:false,native:true,control_loss:false,return_address:false},
+    RETURN:{tree:false,state:true,lattice:false,native:false,control_loss:false,return_address:true}
+  };
+  const visuals=manual
+    ?{...(focusedVisuals[stageId]||focusedVisuals.SOURCE)}
+    :{tree:true,state:true,lattice:true,native:true,control_loss:true,return_address:false};
+  return {
+    ok:true,
+    schema:CHANGE_CALCULUS_SCHEMA+'/calculation-focus',
+    authority:'VIEW_ONLY',
+    requested:manual?stageId:'AUTO',
+    follows_active:!manual,
+    stage_id:stageId,
+    ready:!!stage?.ready,
+    value:String(stage?.value??'OPEN'),
+    stage_authority:String(stage?.authority||'UNKNOWN'),
+    address:stage?.address||null,
+    formula:stage?.formula||null,
+    keeps:stage?.keeps||null,
+    drops:stage?.drops||null,
+    visuals,
+    law:'calculation focus changes only which existing witnesses are visible together; it never changes source state, native support, steering evidence or effect authority'
+  };
+}
+
 export function appliedResearchFrame(spec={}){
   const state=transparentStateCalculation(spec.fromState,spec.toState);
   const stateStep=state?.ok?steppedStatePath(spec.fromState,spec.toState,spec.stateStepOrder):null;
