@@ -31,7 +31,7 @@ function mount(){
       <b>COMMS TRANSPORT / ONE EXACT MESSAGE</b>
       <span id="transportStatus">NO RELEASE · candidate ≠ send</span>
       <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:5px;margin-top:8px">
-        <input id="transportTo" type="email" autocomplete="email" placeholder="recipient@example.com" aria-label="Email recipient" style="width:100%;background:#0b1114;border:1px solid #2a353a;padding:8px">
+        <input id="transportTo" type="email" autocomplete="email" placeholder="email destination" aria-label="Email recipient" style="width:100%;background:#0b1114;border:1px solid #2a353a;padding:8px">
         <input id="transportSubject" maxlength="180" placeholder="subject (optional)" aria-label="Email subject" style="width:100%;background:#0b1114;border:1px solid #2a353a;padding:8px">
       </div>
     </div>
