@@ -991,6 +991,8 @@ function syncStateStepUI(){
 function stateLensHref(change=data.stateChange){
   if(!change?.valid)return '/iching/';
   const f=new URLSearchParams({b:change.from.bits.join(''),to:change.to.bits.join('')});
+  const order=data.stateStep?.ok?data.stateStep.selected_order:[];
+  if(order?.length)f.set('order',order.join(','));
   return '/iching/#'+f.toString();
 }
 function reducerNextCandidate(){
