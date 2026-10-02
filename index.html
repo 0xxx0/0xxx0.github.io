@@ -76,6 +76,12 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
 .feedMore{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 3px;color:var(--mut);font-size:6.5px}.routeSurface{margin-top:10px}.feedMore button{padding:5px 7px;font-size:7px}
 
+/* PERSISTENT RUN DOCK — the held object's existing action surface, kept reachable while scrolling.
+   Mirrors aperture state only; no new action table, authority, or store. */
+.runDock{position:fixed;left:50%;bottom:max(8px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9996;width:min(900px,calc(100vw - 18px));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:7px 8px;border:1px solid #344149;background:rgba(8,11,13,.96);box-shadow:0 8px 28px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+.runDock[hidden]{display:none!important}body.runDockOn{padding-bottom:88px}.runDockHold{min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 7px;align-items:baseline}.runDockHold span{color:var(--gold);font-size:6px;letter-spacing:.13em}.runDockHold b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:750 10px/1.2 system-ui,sans-serif}.runDockHold code{grid-column:2;color:var(--cool);font:6px/1.2 ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.runDockActions{display:flex;gap:4px;align-items:center}.runDockActions a,.runDockActions button{min-height:34px;padding:6px 8px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font:700 7px/1 system-ui,sans-serif;text-decoration:none;display:grid;place-items:center}.runDockActions .turn{border-color:var(--hot);color:#ffd0bd}.runDockActions .return{border-color:var(--cool);color:var(--cool)}.runDockRead{grid-column:1/-1;display:flex;gap:8px;min-width:0;padding-top:4px;border-top:1px solid #20292e;color:var(--mut);font-size:6px}.runDockRead b{color:var(--ink);font-weight:600}.runDockRead span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.runDockRead .forecast{margin-left:auto;text-align:right}
+@media(max-width:760px){body.runDockOn{padding-bottom:124px}.runDock{bottom:max(4px,env(safe-area-inset-bottom));width:calc(100vw - 8px);grid-template-columns:1fr;padding:6px}.runDockHold b{font-size:11px}.runDockHold code{font-size:7px}.runDockActions{display:grid;grid-template-columns:minmax(0,1fr) 72px 72px}.runDockActions a,.runDockActions button{min-height:42px;font-size:9px}.runDockRead{display:grid;grid-template-columns:1fr;gap:3px;font-size:7px}.runDockRead .forecast{margin-left:0;text-align:left}}
+
 /* STATUS RAIL — 5 stacked bars -> 1 inline row (2026-09-23) */
 .sRail{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:6.5px;color:var(--mut);letter-spacing:.04em}
 .sRail i{font-style:normal;color:var(--gold);letter-spacing:.12em;font-size:6px;margin-right:3px}
@@ -349,6 +355,12 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 
   </div>
 </details>
+
+<div class="runDock" id="runDock" hidden aria-label="Held object command dock">
+  <div class="runDockHold"><span>HOLD</span><b id="runDockTitle">—</b><code id="runDockPath">—</code></div>
+  <div class="runDockActions"><a class="turn" id="runDockTurn" href="#">TURN</a><button id="runDockTrace" type="button">TRACE</button><a class="return" id="runDockReturn" href="#">RETURN</a></div>
+  <div class="runDockRead"><span id="runDockWitness"><b>WITNESS</b> —</span><span class="forecast" id="runDockForecast"><b>FORECAST</b> —</span></div>
+</div>
 
 <div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a></details><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
@@ -837,7 +849,7 @@ function bindHeldForecast(el,move){
  el.onmouseenter=show;el.onfocus=show;el.ontouchstart=show
 }
 function renderHeldContinuation(){
- if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='NO MOVE · select one CURRENT head';$('capReturn').textContent='RETURN → FIELD · hold an address first';$('capForecast').textContent='NO ACTION · nothing executed';return}
+ if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='NO MOVE · select one CURRENT head';$('capReturn').textContent='RETURN → FIELD · hold an address first';$('capForecast').textContent='NO ACTION · nothing executed';renderRunDock();return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
  const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let primaryForecastMove=null;
  if(nativeActions.length){
@@ -858,6 +870,18 @@ function renderHeldContinuation(){
  $('capForecast').textContent=heldForecastText(primaryForecastMove);
  $('capWitness').textContent=returned?((carrier.witness.class||'UNPROVED')+' · '+(carrier.witness.summary||'Dayline returned without a witness')):(n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh));
  $('capReturn').textContent=returned?('DAYLINE RETURN · '+carrier.return.address+' · '+carrier.meta.daylineReturnAuthority+' · native source decides consequence'):('RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:''));
+ renderRunDock();
+}
+function renderRunDock(){
+ const dock=$('runDock');if(!dock)return;
+ if(!focus){dock.hidden=true;document.body.classList.remove('runDockOn');return}
+ const turn=$('runDockTurn'),trace=$('runDockTrace'),ret=$('runDockReturn'),native=$('apOpen');
+ dock.hidden=false;document.body.classList.add('runDockOn');
+ $('runDockTitle').textContent=focus.title||focus.href;$('runDockPath').textContent=focus.href;
+ const href=native?.getAttribute('href')||('.'+(focus.alias_of||focus.href));turn.href=href;turn.textContent=(native?.textContent||'TURN').trim();turn.title=$('capForecast')?.textContent||'Existing held-object move';
+ trace.onclick=()=>$('apTrace')?.click();ret.href='/?focus='+encodeURIComponent(focus.href);
+ $('runDockWitness').innerHTML='<b>WITNESS</b> '+esc($('capWitness')?.textContent||'—');
+ $('runDockForecast').innerHTML='<b>FORECAST</b> '+esc($('capForecast')?.textContent||'—');
 }
 function renderAperture(){
  const seen=$('apSeen'),residue=$('focusResidue');

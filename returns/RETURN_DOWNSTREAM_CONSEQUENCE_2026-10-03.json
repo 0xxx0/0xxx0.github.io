@@ -1,0 +1,77 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03",
+  "result_status": "CHANGED",
+  "source_object": "0xxx0/source-hold-turn-trace-return/v0.1",
+  "host": "0xxx0/0xxx0.github.io protocol package",
+  "turn_ref": "5e5fce694c2238d427509a83de3036e6d866280e",
+  "before": {
+    "json_blob": "f19a855c6c2eb48769bca6608d221f80070413c8",
+    "md_blob": "89a56004b2cdfc61945be07d03c9e3d5335adb9f",
+    "selftest_blob": "2d185e776328479d4b6fc68853a543631c017f95",
+    "state": "RETURN recorded technical closure but downstream use/propagation/countermeasure distinctions existed only as prose in the archaeology coordinator."
+  },
+  "after": {
+    "json_content_sha": "f5ab2987888e22bab3990c826f2fe667134d3390",
+    "md_content_sha": "6622f516774ea3746858c1f4589967468f23b42d",
+    "selftest_content_sha": "506ae47bab5c7876652b38ba9a9e6b2e97bcd616",
+    "state": "RETURN contract exposes an optional evidence-only downstream_consequence block with typed levels and falsifiable promotion laws."
+  },
+  "observed_delta": [
+    "Add optional RETURN field downstream_consequence; no required RETURN field changed.",
+    "Typed consequence evidence: SHIPPED_ONLY / USED / PROPAGATED / COUNTERMEASURE / UNKNOWN.",
+    "USED requires observed/authored use; PROPAGATED requires a second addressed context or derivative; COUNTERMEASURE requires an explicit responsive rule/environment/process change.",
+    "LIKE/KEEP/PRAISE/PAGE VIEW cannot promote to USED.",
+    "No shared adoption store, lifecycle authority, priority or automatic NEXT is created."
+  ],
+  "evidence_refs": [
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+    "/tools/source-hold-turn-trace-return-selftest.mjs",
+    "/control/prompts/HERMES_ARCHAEOLOGY_TO_SHIP_2026-10-02.md"
+  ],
+  "residue": [
+    "Prison Age EVENT→EDIT→FANDOM→REALITY / TOOL→CULTURE / ESCAPE→COUNTERMEASURE survives as evidence grammar, not fiction/governance.",
+    "Laconic actual-use evidence remains a native example; FOLD//BLOOM external-return remains a weaker external-contact example.",
+    "Council bounded triad remains in Hermes archaeology coordination; it is independent of consequence status."
+  ],
+  "unknowns": [
+    "No new real human/world adoption was produced by this repository change."
+  ],
+  "unresolved_gate": "Real USED / PROPAGATED / COUNTERMEASURE claims remain human/world evidence gated per native host.",
+  "return_address": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+  "closed_at": "2026-10-03T03:49:00+08:00",
+  "next_authority": "NONE",
+  "downstream_consequence": {
+    "status": "SHIPPED_ONLY",
+    "evidence_refs": [
+      "merge 5e5da7b201155abaffe3b7aba322c63254caef12",
+      "exact proof head 061e645cc8545e04506e3adc21cd6e643701ff80",
+      "public-surface-check 37058033600",
+      "gitleaks 37058033582"
+    ],
+    "observed_delta": "Protocol implementation is merged on master and machine/browser verified; no external-use claim is made.",
+    "unknowns": [
+      "No downstream human/world use observed"
+    ]
+  },
+  "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/807",
+  "merge_sha": "5e5da7b201155abaffe3b7aba322c63254caef12",
+  "proof_head": "061e645cc8545e04506e3adc21cd6e643701ff80",
+  "base_sha": "b0419535d6ece013e5c140222f9ce9370a9e27a1",
+  "verification": {
+    "route_registration": {
+      "run": 37058033573,
+      "conclusion": "success"
+    },
+    "public_surface": {
+      "run": 37058033600,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 37058033582,
+      "conclusion": "success"
+    }
+  },
+  "sealed_at": "2026-10-03T04:06:36+08:00"
+}
