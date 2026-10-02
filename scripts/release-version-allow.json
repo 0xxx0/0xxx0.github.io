@@ -1,0 +1,55 @@
+{
+  "schema": "0xxx0/release-version-allow/v0.1",
+  "what": "Exact (route, manifest_version, release_version) triples the release-version gate accepts BY NAME. Anything not listed fails. An entry only suppresses the exact triple it records: change any side and the gate is red. Entries that match no live pair are reported, never silently honoured.",
+  "entries": [
+    {
+      "route": "/fold-bloom/live/",
+      "manifest_version": "0.13",
+      "release_version": "LIVE 0.13 + PLAY 0.6.1 + SOURCE ECHO 0.1",
+      "release_file": "fold-bloom/live/release.json",
+      "reason": "manifest carries a curated short label ('0.13') while the receipt carries the fuller canonical version ('LIVE 0.13 + PLAY 0.6.1 + SOURCE ECHO 0.1'). Owned by the fold-bloom session; reconcile rather than force."
+    },
+    {
+      "route": "/foundry/aperture/",
+      "manifest_version": "0.7 alias",
+      "release_version": "0.7",
+      "release_file": "foundry/aperture/release.json",
+      "reason": "manifest carries '0.7 alias' while the receipt records '0.7'. Owned by the foundry session; reconcile rather than force."
+    },
+    {
+      "route": "/house/",
+      "manifest_version": "0.7.8",
+      "release_version": "0.7.7",
+      "release_file": "house/release.json",
+      "reason": "receipt lags the live head: control/CURRENT.json and the manifest both say 0.7.8 while the receipt still records 0.7.7 (last bumped 2026-09-27). Reconcile by bumping the receipt, not by downgrading the projection."
+    },
+    {
+      "route": "/laconic/",
+      "manifest_version": "0.3.2",
+      "release_version": "0.3.3",
+      "release_file": "laconic/release.json",
+      "reason": "the manifest appears regressed 0.3.3 -> 0.3.2 by commit 005d7c09 ('register Verse Copilot 0.3.2 behavior proof') while the receipt records 0.3.3 released 2026-09-30. Not a CURRENT head, so nothing corroborates 0.3.2; reconcile with the route owner before removing this entry."
+    },
+    {
+      "route": "/recovery/sleeper/one-return-recon-0.2/",
+      "manifest_version": "0.2",
+      "release_version": "reified-0.2 + grid-receipt-seam-1",
+      "release_file": "recovery/sleeper/one-return-recon-0.2/release.json",
+      "reason": "manifest carries '0.2' while the receipt records the fuller 'reified-0.2 + grid-receipt-seam-1'. FROZEN_DONOR recovery receipt; reconcile rather than force."
+    },
+    {
+      "route": "/sleeper/",
+      "manifest_version": "v2-era / City Engine v0.2 + RETURN BRIDGE 0.1",
+      "release_version": "v2-era / City Engine v0.2 · canonical live route",
+      "release_file": "sleeper/release.json",
+      "reason": "receipt carries the older prose label ('canonical live route') while control/CURRENT.json and the manifest agree on the newer 'RETURN BRIDGE 0.1' head. Corroborated by a second source; reconcile with the route owner."
+    },
+    {
+      "route": "/sleeper/one-return/",
+      "manifest_version": "ascii-reified-0.2 + route-witness-0.1 + threshold-theatre-0.1.1",
+      "release_version": "reified-0.2 + grid-receipt-seam-1 + route-witness-0.1 + threshold-theatre-0.1.1",
+      "release_file": "sleeper/one-return/release.json",
+      "reason": "manifest and receipt carry different prose labels ('ascii-reified-0.2 + ...' vs 'reified-0.2 + ...'); the receipt is the canonical home. Owned by the sleeper session; reconcile rather than force."
+    }
+  ]
+}

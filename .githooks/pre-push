@@ -55,4 +55,24 @@ if git -C "$TOP" rev-parse --verify -q origin/master >/dev/null 2>&1; then
   fi
 fi
 
+# CHAIN the FIELD INDEX version-coherence gate: the manifest must not restate a
+# version its own release receipt does not ("one fact, one authoritative home").
+# The manifest carries a version DERIVED from <route>/release.json; this refuses a
+# push that would land a projection contradicting its receipt. Refuse locally
+# (stops only the actor about to make the claim); it also runs in CI on master.
+# Guarded on the script's presence so older checkouts — which share this hook via
+# core.hooksPath — keep pushing until they pull the gate.
+if [ -f "$TOP/scripts/check-release-versions.mjs" ] && command -v node >/dev/null 2>&1; then
+  RELVER_OUT="$(node "$TOP/scripts/check-release-versions.mjs" 2>&1)"
+  if [ $? -ne 0 ]; then
+    echo "finish-line: REFUSED — FIELD INDEX restates a version its release receipt does not." >&2
+    echo "$RELVER_OUT" >&2
+    echo "" >&2
+    echo "  Derive the version from the route's release.json, or — for a known, owned" >&2
+    echo "  disagreement — pin the exact triple in scripts/release-version-allow.json." >&2
+    echo "  Conscious bypass: git push --no-verify" >&2
+    exit 1
+  fi
+fi
+
 exit 0

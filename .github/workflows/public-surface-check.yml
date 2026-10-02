@@ -25,6 +25,10 @@ jobs:
           node-version: '22'
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
+      - name: Validate manifest ↔ release-receipt version coherence
+        run: node scripts/check-release-versions.mjs
+      - name: Prove the release-version gate can fail
+        run: node tools/check-release-versions-selftest.mjs
       - name: Validate reality-gap proof gates
         run: node scripts/check-reality-gaps.mjs
       - name: Validate reality-gap coverage
