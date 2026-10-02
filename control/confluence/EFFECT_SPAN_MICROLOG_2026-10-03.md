@@ -61,6 +61,26 @@ A later witness may reference that `span_id` plus its own evidence digest. The j
 
 A native reducer still evaluates the witness.
 
+## Adversarial check — HOUSE
+
+HOUSE sharpens rather than falsifies the hypothesis.
+
+Its design trial already separates `before → intervention → verify → after → decision`, and imported fit material remains evidence-only. Its runtime witness independently classifies snapshot freshness instead of treating historical state as live truth.
+
+Therefore a physical effect cannot collapse into one generic receipt:
+
+```text
+COMMAND ACCEPTED ≠ PHYSICAL STATE OBSERVED ≠ INTENDED CONDITION VERIFIED
+```
+
+One effect span may accumulate multiple **unequal witnesses** bound to the same `span_id`. Each witness must state the narrow claim it can support. A command acknowledgement can support “host accepted command”; telemetry may support “device reported state”; a fresh sensor/human observation may support “physical condition observed”. None automatically promotes the others.
+
+This yields an important refinement:
+
+> Bind evidence to the released effect, but let the native reducer decide which claim that evidence is sufficient to establish.
+
+Do not create a universal witness ladder. Different domains may require different witness classes, freshness limits, independence rules, or verification thresholds.
+
 ## First real experiment
 
 Use the COMMS seam because it already has a concrete external boundary:
@@ -72,7 +92,7 @@ Use the COMMS seam because it already has a concrete external boundary:
 5. Import a provider receipt tied to the exact release/source/response digest.
 6. Produce `EVIDENCE_ONLY / SENT_CONFIRMED` RETURN.
 7. Confirm native COMMS state remains unchanged until the human/native COMMS reducer chooses what that evidence means.
-8. Only then ask whether the same causal-join helper cleanly serves a second live effect seam (HOUSE is the likely adversarial case because physical state can diverge after command acknowledgement).
+8. Only then test a second live effect seam where acceptance and observation diverge; HOUSE is the adversarial case.
 
 ## Promotion gate
 
