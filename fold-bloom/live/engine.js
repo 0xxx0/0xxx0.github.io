@@ -12,6 +12,24 @@ export function typePresentation(type){
   const i=clamp(Math.trunc(Number(type)||0),0,TYPE_COUNT-1),m=TYPE_PRESENTATION[i];
   return {...m,text:m.glyph+' '+m.label};
 }
+export function familyTrace(s,type){
+  const i=clamp(Math.trunc(Number(type)||0),0,TYPE_COUNT-1);
+  const familyCells=(s?.cells||[]).filter(c=>c.type===i);
+  const links=(s?.creases||[]).filter(([a,b])=>s.cells[a]?.type===i&&s.cells[b]?.type===i).length;
+  return {
+    schema:'FOLD_BLOOM_FAMILY_TRACE_0.1',
+    authority:'NATIVE_EVIDENCE',
+    type:i,
+    label:TYPE_PRESENTATION[i].label,
+    glyph:TYPE_PRESENTATION[i].glyph,
+    target:s?.targetType===i,
+    anchor:Array.isArray(s?.anchors)?(s.anchors[i]??null):null,
+    nodes:familyCells.length,
+    links,
+    peakTier:Math.max(1,...familyCells.map(c=>clamp(Math.trunc(Number(c.tier)||1),1,4)))
+  };
+}
+
 export const VERBS = ['BLOOM','FOLD','SPLIT','RETURN'];
 
 export const DEFAULT_TYPES = Object.freeze([0,1,0,2,1,0,1,2,0,2,1,2]);
