@@ -16,11 +16,12 @@ The repository is active enough that collisions are not only textual Git conflic
 
 ## Collision classes
 
-1. **Exact-file collision — FAIL.** Two open PRs change the same file.
-2. **Hard-domain collision — FAIL.** Two open PRs mutate one serialized boundary (`CURRENT`, public registries, FIELD root/shared carrier).
-3. **Soft-domain collision — WARN.** Two PRs touch the same native host family but may still be independent.
-4. **Public-boundary violation — FAIL.** A PR introduces a path reserved for private/secret material.
-5. **Missing transaction claim — WARN**, except on hard domains where it fails.
+1. **Base drift — FAIL.** At PR-check time, the head must not be behind its current target branch.
+2. **Exact-file collision — FAIL.** Two open PRs change the same file.
+3. **Hard-domain collision — FAIL.** Two open PRs mutate one serialized boundary (`CURRENT`, public registries, FIELD root/shared carrier).
+4. **Soft-domain collision — WARN.** Two PRs touch the same native host family but may still be independent.
+5. **Public-boundary violation — FAIL.** A PR introduces a path reserved for private/secret material.
+6. **Missing transaction claim — WARN**, except on hard domains where it fails.
 
 Configuration: `COLLISION_MAP.json`  
 Executable check: `/tools/collision-preflight.mjs`  
@@ -77,6 +78,24 @@ No bidirectional bulk mirror is implied.
 - Soft-domain overlap means inspect the actual functional boundary; do not invent a global lock.
 - Unique receipts and confluence notes do not collide merely because they share a directory.
 - A coordination artifact that changes no capability and resolves no live ambiguity remains non-authoritative support material.
+
+## Enforcement boundary
+
+The workflow can detect and report violations. It becomes **preventive** only when the target branch requires it.
+
+Observed when this guard was designed:
+
+- `master` was unprotected;
+- repository rulesets were empty.
+
+Therefore the repository-admin target state is deliberately small:
+
+1. require a pull request before merging to `master`;
+2. require status checks `collision-preflight`, `gitleaks`, and `public-surface-check`;
+3. require branches to be up to date before merging;
+4. block force-push/deletion of `master` unless a consciously chosen emergency bypass is required.
+
+Until that repository-level rule is active, a red check is a strong decision signal but can still be bypassed by a writer/admin. Do not call this layer self-enforcing before that changes.
 
 ## Global-check diagnosis rule
 
