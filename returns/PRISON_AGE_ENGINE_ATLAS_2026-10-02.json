@@ -1,7 +1,7 @@
 {
-  "schema": "0xxx0/prison-age-engine-atlas-return/v0.1",
-  "date": "2026-10-02",
-  "status": "IMPLEMENTED / TARGETED_STATIC_PROOF_PASS / CI_PROOF_REQUIRED",
+  "schema": "0xxx0/prison-age-engine-atlas-return/v0.2",
+  "date": "2026-10-03",
+  "status": "CANDIDATE / IN_HOST_CONTRACTION / CI_REQUIRED",
   "host": "/prison-age/",
   "field_object": "/prison-age/",
   "contribution_class": [
@@ -9,46 +9,29 @@
     "RETURN"
   ],
   "delta": [
-    "reify the four generated 01–32 poster cycles as one filterable ENGINE ATLAS inside the existing PRISON AGE host",
-    "preserve one held engine across card, cycle, family-filter and echo projections",
-    "compose at most three selected engines into a local HOLD / TURN / TRACE packet with explicit RETURN",
-    "keep generated visual interpretation distinct from source prose, canon and behavioral evidence",
-    "keep FIELD parent native action surface exactly READ / RIDE / SOURCE while registering the live atlas as a nested CANDIDATE workbench"
+    "retain 32 generated panel identities as one filterable derived ENGINE ATLAS inside the canonical Prison Age source resolver",
+    "preserve one held engine across family/echo projections",
+    "compose at most three engines into HOLD / TURN / TRACE with an explicit RETURN",
+    "remove the standalone atlas HTML route rather than widening Prison Age route/source authority"
   ],
   "invariants": [
-    "GENERATED IMAGE ≠ SOURCE BYTES ≠ CANON ≠ RECEIPT",
-    "TRACE PROMPT ≠ OBSERVED CONSEQUENCE",
-    "ENGINE ATLAS authority = NONE",
-    "FIELD READ / RIDE / SOURCE remains three operations",
-    "source pack blob remains unchanged",
-    "the nested atlas route does not become source authority; /prison-age/ remains the canonical source-set object"
+    "ONE PRISON AGE ROUTE",
+    "SOURCE HOST VERSION 0.6",
+    "FIELD NATIVE ACTIONS = READ / RIDE / SOURCE",
+    "GENERATED PANEL ≠ SOURCE BYTES ≠ CANON ≠ RECEIPT",
+    "ENGINE ROUTE authority = NONE",
+    "TRACE PROMPT ≠ OBSERVED CONSEQUENCE"
   ],
-  "evidence": {
-    "bytes": [
-      "/prison-age/engine-atlas.html",
-      "/prison-age/engine-atlas.json",
-      "/prison-age/index.html",
-      "/prison-age/release.json",
-      "/showcase-manifest.json"
-    ],
-    "targeted_checks": [
-      "engine-atlas.json parses",
-      "32 cards exist with unique contiguous numbers 01–32",
-      "four cycles cover 01–32 exactly once",
-      "inline atlas JavaScript parses",
-      "atlas loads /prison-age/engine-atlas.json",
-      "atlas emits prison-age.engine-route/v0.1 with authority NONE and explicit RETURN",
-      "source resolver links atlas",
-      "manifest contains exactly one canonical /prison-age/ source route plus one nested /prison-age/engine-atlas.html workbench required by route registration",
-      "/prison-age/ manifest operation remains READ / RIDE / SOURCE",
-      "release native_actions remains READ / RIDE / SOURCE",
-      "branch and master /prison-age/sources.json blob SHA are identical at targeted verification"
-    ],
-    "targeted_result": "PASS",
-    "route_registration_fix": "Initial CI correctly rejected the unregistered live HTML page; the atlas is explicitly registered as a nested CANDIDATE workbench without widening parent native actions.",
-    "contract_test_update": "Prison Age host selftest is strengthened for v0.7: exactly one ACTIVE canonical source route plus one CANDIDATE derived atlas workbench; parent READ/RIDE/SOURCE and source-byte invariants remain mandatory."
-  },
-  "proof_gate": "GitHub Route Registration, gitleaks and public-surface-check must pass on the exact rebased PR head before merge.",
-  "authority": "Representation only. PRISON_AGE remains source authority; FIELD remains the addressed action aperture; copied engine-route packets have no effect authority.",
-  "return": "/?focus=%2Fprison-age%2F"
+  "evidence": [
+    "/prison-age/engine-atlas.json",
+    "/prison-age/engine-atlas.js",
+    "/prison-age/index.html",
+    "/prison-age/release.json",
+    "/tools/prison-age-field-selftest.cjs",
+    "/tools/prison-age-engine-atlas-selftest.cjs"
+  ],
+  "authority": "Representation only. PRISON_AGE remains source authority; FIELD remains the addressed action aperture; the internal atlas creates no effect authority.",
+  "return": "close ENGINE ATLAS to the same /prison-age/ source resolver; FIELD return remains /?focus=%2Fprison-age%2F",
+  "proof_gate": "Exact-head Route Registration + gitleaks + public-surface-check must pass.",
+  "stop": "Do not restore a standalone atlas route unless an independently owned host function is proved."
 }
