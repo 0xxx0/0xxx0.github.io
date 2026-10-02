@@ -356,5 +356,226 @@
       "url": "https://csa-iot.org/wp-content/uploads/2023/10/Matter-1.2-Standard-Namespace-Specification.pdf",
       "transfer": "Standard semantic location/direction/position tags can inform adapters without becoming HOUSE identity."
     }
+  },
+  "index_rule": "Many-to-many capability index: a project may participate in several reality layers. The visible aperture shows only the nearest three routes; deep_index preserves the wider quarry.",
+  "deep_index": {
+    "BODY": [
+      {
+        "ref": "/body/",
+        "role": "private/body observation and contextual return"
+      },
+      {
+        "ref": "/body/fit/",
+        "role": "sensor-fusion / fit evidence"
+      },
+      {
+        "ref": "/bodyplans/",
+        "role": "body reference projections"
+      },
+      {
+        "ref": "/care/",
+        "role": "longitudinal human care authority"
+      }
+    ],
+    "HARNESS": [
+      {
+        "ref": "/recovery/env0/",
+        "role": "recovered body-house coupling grammar"
+      },
+      {
+        "ref": "/field/axial-probe/",
+        "role": "physical constraint/coupling probe"
+      },
+      {
+        "ref": "/foundry/aperture/",
+        "role": "focus/aperture interaction lineage"
+      },
+      {
+        "ref": "/control/confluence/HOUSE_MARKS.md",
+        "role": "reversible physical mark/interface donor"
+      },
+      {
+        "ref": "/recovery/poly-furnisher/",
+        "role": "reconfigurable physical interface/furniture lineage"
+      }
+    ],
+    "OBJECT": [
+      {
+        "ref": "/shopping/",
+        "role": "capability acquisition through adoption"
+      },
+      {
+        "ref": "/foundry/",
+        "role": "artifact/mechanism fabrication field"
+      },
+      {
+        "ref": "/foundry/room/",
+        "role": "material DOM / compositional room donor"
+      },
+      {
+        "ref": "/recovery/poly-furnisher/",
+        "role": "furnisher / cassette / joint lineage"
+      }
+    ],
+    "ROOM": [
+      {
+        "ref": "/house/#PLAN",
+        "role": "room topology"
+      },
+      {
+        "ref": "/house/#SURFACE",
+        "role": "floor/ceiling/wall addresses"
+      },
+      {
+        "ref": "/house/#SECTION",
+        "role": "vertical section projection"
+      },
+      {
+        "ref": "/house/#3D",
+        "role": "same-ID axonometric projection"
+      },
+      {
+        "ref": "/house/#TRACE",
+        "role": "ordered path / replay"
+      },
+      {
+        "ref": "/house/#CARE",
+        "role": "local household continuity"
+      },
+      {
+        "ref": "/house/",
+        "role": "addressed design trials"
+      }
+    ],
+    "HOUSE": [
+      {
+        "ref": "/house/",
+        "role": "canonical spatial/state/design workbench"
+      },
+      {
+        "ref": "/house/expert.html",
+        "role": "public-safe technical witness"
+      },
+      {
+        "ref": "/house/confluence.json",
+        "role": "layer ownership / authority model"
+      },
+      {
+        "ref": "/house/spatial/model.json",
+        "role": "reconstructed spatial substrate"
+      },
+      {
+        "ref": "/recovery/env0/",
+        "role": "body-to-house coupling lineage"
+      }
+    ],
+    "RUNTIME": [
+      {
+        "ref": "/house/expert.html",
+        "role": "timestamped public runtime projection"
+      },
+      {
+        "ref": "/house/mini.js",
+        "role": "Telegram semantic-intent adapter"
+      },
+      {
+        "ref": "/telegram-webapp.js",
+        "role": "Telegram surface adapter"
+      },
+      {
+        "ref": "/house/state.json",
+        "role": "generated public-safe witness; not live authority"
+      }
+    ],
+    "TIME": [
+      {
+        "ref": "/dayline/",
+        "role": "time/context execution"
+      },
+      {
+        "ref": "/atlas-dayline/",
+        "role": "radial/nonlinear planning lineage"
+      },
+      {
+        "ref": "/house/",
+        "role": "before/after physical design delta"
+      }
+    ],
+    "PEOPLE": [
+      {
+        "ref": "/contact/",
+        "role": "human port explicit share/copy boundary"
+      },
+      {
+        "ref": "/comms/",
+        "role": "source-addressed obligations and communication state"
+      },
+      {
+        "ref": "/continuity/",
+        "role": "case/continuity context"
+      }
+    ],
+    "AGENT": [
+      {
+        "ref": "/",
+        "role": "FIELD held-object/action/re-entry surface"
+      },
+      {
+        "ref": "/docs/",
+        "role": "READFIELD addressed source/cursor"
+      },
+      {
+        "ref": "/lib/interphase-carrier.js",
+        "role": "authority-free cross-host continuity witness"
+      },
+      {
+        "ref": "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+        "role": "bounded agent/human execution discipline"
+      },
+      {
+        "ref": "/agent-router.json",
+        "role": "agent routing cases without universal authority"
+      },
+      {
+        "ref": "/nexus/",
+        "role": "system architecture / machine-room projections"
+      }
+    ],
+    "EXPERIENCE": [
+      {
+        "ref": "/fold-bloom/",
+        "role": "source-addressed embodied projection family"
+      },
+      {
+        "ref": "/fold-bloom/live/",
+        "role": "ride / embodied source traversal"
+      },
+      {
+        "ref": "/fold-bloom/lab/",
+        "role": "cross-projection research bench"
+      },
+      {
+        "ref": "/fold-bloom/ink/",
+        "role": "authored material trace / return"
+      }
+    ],
+    "EVIDENCE": [
+      {
+        "ref": "/returns/",
+        "role": "return/evidence field"
+      },
+      {
+        "ref": "/house/#TRACE",
+        "role": "local spatial path evidence"
+      },
+      {
+        "ref": "/house/",
+        "role": "design trial before/change/after receipt"
+      },
+      {
+        "ref": "/control/confluence/",
+        "role": "confluence/successor notes and transfer boundaries"
+      }
+    ]
   }
 }
