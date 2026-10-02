@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/instrument-charters/v0.1",
-  "updated": "2026-09-27",
+  "updated": "2026-10-03",
   "purpose": "A compact maturity contract for instruments that have become important enough to survive beyond one experiment.",
   "maturity_gate": {
     "required_when": "STABLE, or an EXPERIMENT has a retained unique mechanism/public route and is being used as a donor for other work.",
@@ -69,17 +69,18 @@
       "id": "laconic-iconic",
       "route": "/laconic/",
       "maturity": "ACTIVE_EXPERIMENT",
-      "PASSION": "Preserve contact, character, wit, and care when communication must become small.",
-      "PURPOSE": "Turn an observed exchange into a bounded response move or trajectory while keeping provenance and human agency explicit.",
-      "POWER": "Treat LINE, SCENE, CARE, PLAY, CELEBRATE, REPAIR, and FRAGMENT as projections/paths rather than one flattened response bank.",
+      "PASSION": "Preserve contact, character, wit, care, and work cadence when language must become small.",
+      "PURPOSE": "Turn an observed exchange into a bounded response move or trajectory, and project a small subset of LINE objects into a self-directed work cadence, while keeping provenance and human agency explicit.",
+      "POWER": "Treat LINE, SCENE, CARE, PLAY, CELEBRATE, REPAIR, FRAGMENT, and WORK as unequal projections/paths rather than one flattened response bank; WORK reuses LINE objects and adds no fifth content class.",
       "PROOF": [
         "exact recovered scenes remain distinguishable from new work",
         "branch integrity holds",
-        "real-use receipts show a chosen path helped more than unconstrained drafting or did not"
+        "real-use receipts show a chosen path helped more than unconstrained drafting or did not",
+        "WORK cycles the same LINE ids through HEAT → FORM → COOL → POLISH → REPEAT; transient auto cadence cannot mutate canon"
       ],
       "PROMISE": "No hidden diagnosis, no sentiment-as-truth, no automatic sending, no recovered/new provenance collapse.",
-      "PRICE": "More structure than ordinary drafting; only recurring or consequential exchanges deserve it.",
-      "RETURN": "chosen draft or trajectory + provenance + branch state + unresolved next move",
+      "PRICE": "More structure than ordinary drafting or a plain mantra list; only recurring/consequential exchanges or work cadence should pay for it.",
+      "RETURN": "chosen draft or trajectory, or transient work set + provenance + branch/phase state + unresolved next move",
       "motifs": [
         "motif:typed-path",
         "motif:one-return",
