@@ -25,11 +25,14 @@
     "ambient autonomous rewriting of production code",
     "model-weight modification",
     "permission expansion",
-    "self-scored acceptance"
+    "self-scored acceptance",
+    "treating the deterministic held-out selection replica as proof of fixed-model LLM harness improvement"
   ],
   "REPLICA": {
     "status": "NOT_RUN",
-    "observable": "A donor-derived bounded harness/evaluation change must outperform or reject more false-positive development wins than the baseline on independent held-out repo fixtures at the same budget."
+    "observable": "On one pinned real local model, a bounded harness variant selected using development fixtures must survive independent held-out repo fixtures at the same model/tool/task budget.",
+    "selection_law_replica": "PASS in control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json",
+    "note": "The deterministic selection-law replica narrows the method and does not satisfy this broader fixed-model AI claim."
   },
   "TRANSFER_TEST": {
     "status": "NOT_RUN",
@@ -45,8 +48,22 @@
       "100 outer-loop harness rewrites under a fixed evaluation protocol",
       "held-out benchmark evaluation beyond the optimization tasks",
       "reported reward-hacking rate reduction on a held-out GPU-kernel benchmark"
-    ]
+    ],
+    "bounded_replica": "control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json"
   },
   "RETURN_PATH": "returns/FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
-  "authority": "DONOR EVIDENCE ONLY / NO ATTENTION OR HOST EFFECT AUTHORITY"
+  "authority": "DONOR EVIDENCE ONLY / NO ATTENTION OR HOST EFFECT AUTHORITY",
+  "CLAIM_SPLIT": {
+    "selection_law": {
+      "packet": "control/research/WECO_HELDOUT_SELECTION_DONOR_2026-10-02.json",
+      "state": "REPLICA_PASS / TRANSFER_TEST_PASS",
+      "scope": "held-out acceptance catches visible-metric reward hacking under a fixed synthetic task budget"
+    },
+    "fixed_model_ai_improvement": {
+      "state": "REPLICA_NOT_RUN",
+      "next_host_candidate": "Sovereign Node qwen3.5:9b structured-output proof",
+      "candidate_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/749",
+      "required_observation": "same pinned local model + equal task budget + at least two harness modes + dev-only selection + independent held-out acceptance"
+    }
+  }
 }
