@@ -1,0 +1,30 @@
+{
+  "schema": "0xxx0/recovery/exact-source/v0.1",
+  "id": "SEMANTIC-PAINTING-V0.8-ATLAS-DAYLINE",
+  "recovered_at": "2026-10-02",
+  "role": "DONOR_EXACT_SOURCE",
+  "contribution_class": "DONOR",
+  "evidence_class": "BYTES",
+  "source": {
+    "library_file_id": "file_00000000e1ac8211a8ed8cf424334e8e",
+    "library_name": "poly-forward-field-semantic-painting-v0.8-atlas-dayline.html",
+    "library_created_at": "2026-09-15T18:34:47.391016+00:00",
+    "recovered_bytes": 326404,
+    "note": "Exact UTF-8 source recovered from the user's Library. Embedded WebP underpainting remains inside the HTML."
+  },
+  "repo_path": "/recovery/semantic-painting-v0.8/",
+  "lineage": {
+    "ancestor_of": [
+      "/atlas-dayline/",
+      "/forward-field-proof/"
+    ],
+    "claim": "Recovered ancestor/donor only; does not replace current host authority.",
+    "distinctive_mechanism": "Painting is an atmospheric underlayer while reach, time, uncertainty, trace and RETURN are generated from live state."
+  },
+  "boundaries": [
+    "Do not promote this recovered route to current planning authority.",
+    "Do not treat the embedded painting as behavioral proof.",
+    "Use it to compare painting-backed representation against current FIELD/Dayline hosts."
+  ],
+  "next_test": "Extract visual-law donors from the recovered source and compare one bounded representation against a plain baseline."
+}
