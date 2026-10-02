@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-02T12:47:02.601Z",
+  "generated": "2026-10-02T16:49:12.913Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-02",
-  "commits_in_window": 45,
-  "git_commits_in_window": 102,
-  "telemetry_commits_in_window": 57,
-  "commits_total": 4593,
-  "branch_count": 798,
+  "commits_in_window": 75,
+  "git_commits_in_window": 141,
+  "telemetry_commits_in_window": 66,
+  "commits_total": 4632,
+  "branch_count": 836,
   "recent_commits": [
-    "CI: make visual regression follow tracked master changes (#758)",
-    "ci: run visual regression on tracked master surface changes",
-    "RETURN: worked SOURCE HOLD TURN TRACE RETURN run"
+    "fi: stamp /foundry/ + /foundry/omnitools/ for the omnitools mutation (index to",
+    "foundry/omnitools: first batch — 6 self-contained tools, incl. repo/PII histor",
+    "returns: seal Shopping 0.5 + HOUSE 0.9 exact-head proof"
   ],
   "active_fronts": [
     {
@@ -29,5 +29,5 @@
   "live_fronts": "2/2",
   "current_heads": 12,
   "open_gaps": [],
-  "current_updated": "2026-10-02T20:07:00+08:00"
+  "current_updated": "2026-10-03T00:12:22+08:00"
 }

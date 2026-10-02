@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T12:47:02.601Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T16:49:12.913Z by scripts/generate-convergence-strip.mjs_
 
-The field has **45 material commits on 2026-10-02** across **798 branches** (102 exact Git commits in the window; 57 generated telemetry; 4593 on master all-time).
+The field has **75 material commits on 2026-10-02** across **836 branches** (141 exact Git commits in the window; 66 generated telemetry; 4632 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- CI: make visual regression follow tracked master changes (#758)
-- ci: run visual regression on tracked master surface changes
-- RETURN: worked SOURCE HOLD TURN TRACE RETURN run
+- fi: stamp /foundry/ + /foundry/omnitools/ for the omnitools mutation (index to
+- foundry/omnitools: first batch — 6 self-contained tools, incl. repo/PII histor
+- returns: seal Shopping 0.5 + HOUSE 0.9 exact-head proof
 
 ## Open gaps
 
