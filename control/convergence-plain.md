@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T10:43:00.969Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-02T11:14:04.254Z by scripts/generate-convergence-strip.mjs_
 
-The field has **8 material commits on 2026-10-02** across **784 branches** (52 exact Git commits in the window; 44 generated telemetry; 4543 on master all-time).
+The field has **13 material commits on 2026-10-02** across **789 branches** (60 exact Git commits in the window; 47 generated telemetry; 4551 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- atlas-dayline: one canonical rule home + visible shipped state (#748)
-- showcase-manifest: stamp /recovery/poly-furnisher/ (mutation -> index touch)
-- recovery: redact published personal email from PRELUDE-DRAFT-NOTES
+- Test: align Nexus map contract with architecture projection
+- RETURN: system architecture convergence map
+- Manifest: register current architecture projection
 
 ## Open gaps
 
