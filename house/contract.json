@@ -1,10 +1,10 @@
 {
-  "schema": "house-field-contract/v0.3",
-  "updated": "2026-09-26",
+  "schema": "house-field-contract/v0.4",
+  "updated": "2026-10-02",
   "title": "HOUSE / FIELD",
-  "purpose": "Canonical public-safe HOUSE instrument: spatial addressing and projection at /house/, timestamped technical state depth at /house/expert.html, and private actuation authority in Home Assistant / HOUSEBUS.",
+  "purpose": "Canonical public-safe HOUSE instrument: spatial addressing/projection and local addressed design trials at /house/, timestamped technical state depth at /house/expert.html, and private actuation authority in Home Assistant / HOUSEBUS.",
   "current_surface": {
-    "kind": "interactive spatial/state workbench",
+    "kind": "interactive spatial/state/design workbench",
     "route": "/house/",
     "queries_runtime": false,
     "control_endpoint": false,
@@ -35,7 +35,7 @@
     "operational security details"
   ],
   "enforcement": "The generator builds the public document by whitelist and then scans the serialized JSON for forbidden patterns; it refuses to write on any match. The committed state.json carries its own sanitization result.",
-  "kernel_role": "OBJECT -> ADDRESS -> PROJECT at canonical /house/. OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus receipt evidence.",
+  "kernel_role": "OBJECT -> ADDRESS -> PROJECT -> bounded DESIGN/TRIAL at canonical /house/. OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus explicit local/exported receipts.",
   "return_path": "/returns/",
   "machine_state": "/house/state.json",
   "spatial_state": {
@@ -77,5 +77,23 @@
     "authority": "HOUSE owns dimensional screen only; Shopping owns candidate/lifecycle; return cannot purchase, install, promote ownership or adoption, and cannot mutate canonical HOUSE geometry or HA/HOUSEBUS",
     "semantic_signal": "source-owned Shopping pattern is rendered as projection only; HOUSE does not combine/reclassify it",
     "return": "exact Shopping item explicitly revalidates and accepts fit receipt; changed item/state becomes stale/read-only"
+  },
+  "design_trial": {
+    "schema": "house-design-trial/v0.1",
+    "return_schema": "house-design-return/v0.1",
+    "route": "/house/",
+    "storage": "browser localStorage house.design.trials.v01 only",
+    "address_binding": "current canonical HOUSE selected address + projection",
+    "sequence": "BEFORE -> INTENT -> CHANGE -> CONSTRAINTS -> VERIFY -> AFTER -> DECISION -> RESIDUE -> RETURN",
+    "decisions": [
+      "ADOPT",
+      "REVISE",
+      "REVERT",
+      "HOLD"
+    ],
+    "return_gate": "BEFORE, INTENT, CHANGE, VERIFY, AFTER and DECISION required; otherwise fail closed",
+    "optional_evidence": "current house-shopping-fit-return/v0.1 may attach as evidence-only dimensional context",
+    "authority": "local design reasoning/receipt only; no canonical geometry mutation, HA/HOUSEBUS actuation, structural/safety/code approval or purchase/install authority",
+    "promotion": "canonical geometry/state changes require independent measurement/evidence update; permanent work keeps external structural/services/code gates where relevant"
   }
 }

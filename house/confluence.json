@@ -1,6 +1,6 @@
 {
   "schema": "house-confluence-model/v0.2",
-  "updated": "2026-09-25",
+  "updated": "2026-10-02",
   "title": "HOUSE CONFLUENCE MODEL",
   "status": "DRAFT / ACTIVE",
   "law": "Confluence coordinates unequal lineages through shared addresses, transforms and receipts; it does not require vocabulary collapse.",
@@ -221,7 +221,7 @@
     "vertical/section measurements",
     "which cognitive/spatial projections improve real tasks versus merely delight"
   ],
-  "next_safe_delta": "Use canonical /house/ in ordinary phone/home work and collect one bounded physical RETURN that tests whether spatial address + projection lowers ambiguity or re-entry cost. Do not expand geometry, sensors or glyph layers merely because the root is now coherent.",
+  "next_safe_delta": "Complete one real addressed DESIGN TRIAL in ordinary house work and return the observed delta. Refresh public runtime state only through the private HOUSEBUS normalizer. Calibrate only geometry demanded by the chosen trial.",
   "mark_projection_candidate": {
     "id": "MARK",
     "status": "CONFLUENCE_DONOR / PROOF_REQUIRED",
@@ -318,5 +318,33 @@
       "relation": "distinct specialized longitudinal health/care projection",
       "law": "HOUSE #CARE must not absorb medical/self-care cases merely because both use the word CARE"
     }
+  },
+  "design_trial": {
+    "id": "DESIGN_TRIAL",
+    "status": "ACTIVE_CANDIDATE / LOCAL_ONLY",
+    "source": "/house/",
+    "reads_from": [
+      "HOUSE_1 selected spatial address",
+      "user-authored HOUSE_2 observation/evidence",
+      "optional Shopping fit receipt as evidence-only context"
+    ],
+    "operation": "BEFORE -> INTENT -> CHANGE -> CONSTRAINTS -> VERIFY -> AFTER -> DECISION -> RESIDUE -> RETURN",
+    "decisions": [
+      "ADOPT",
+      "REVISE",
+      "REVERT",
+      "HOLD"
+    ],
+    "persistence": "browser localStorage only + explicit JSON RETURN export",
+    "invariants": [
+      "one exact HOUSE address remains bound across the trial",
+      "before/after are human observations unless separately evidenced",
+      "ADOPT is not structural/safety/code approval",
+      "canonical geometry is unchanged by local trials",
+      "HA/HOUSEBUS retains device truth and actuation",
+      "Shopping fit evidence does not grant purchase/install authority"
+    ],
+    "promotion_gate": "One bounded physical RETURN must show an observed improvement or a useful negative result before adding more design machinery.",
+    "receipt": "/returns/HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json"
   }
 }
