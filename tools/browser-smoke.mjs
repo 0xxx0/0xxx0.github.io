@@ -207,7 +207,7 @@ function listenPreviewProbeHtml(){
 }
 
 function fieldAdvanceScaleProbeHtml(){
-  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Ffold-bloom%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -216,36 +216,37 @@ function fieldAdvanceScaleProbeHtml(){
   const loadRoot=async focus=>{
     f.src='/?focus='+encodeURIComponent(focus);
     await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===focus&&D().getElementById('apGlyph'),16000,'FIELD root '+focus);
-    return D().querySelector('.feedChip[data-href="'+focus+'"]')||D().querySelector('.mapRow[data-href="'+focus+'"]');
+    W().FieldLensHost.project('STRUCTURE');
+    return await waitFor(()=>D().querySelector('.mapRow[data-href="'+focus+'"]'),10000,'FIELD addressed row '+focus);
   };
   (async()=>{
-    await loadRoot('/fold-bloom/');
+    const nativeRow=await loadRoot('/fold-bloom/');
     const mark=D().getElementById('apGlyph');
     rec.nativeAnimate=typeof mark.animate==='function';
     const nativeStart=performance.now();
-    W().__fieldAct.open('/fold-bloom/');
+    nativeRow.click();
     await sleep(72);
     rec.midTransform=W().getComputedStyle(mark).transform;
     rec.midOpacity=Number(W().getComputedStyle(mark).opacity);
     await waitFor(()=>W().location.pathname==='/fold-bloom/',4000,'native animated advance');
     rec.nativeElapsed=Math.round(performance.now()-nativeStart);
 
-    await loadRoot('/docs/');
+    const reducedRow=await loadRoot('/docs/');
     const reducedMark=D().getElementById('apGlyph');
     let reducedAnimateCalls=0;
     reducedMark.animate=()=>{reducedAnimateCalls++;return{finished:new Promise(()=>{})}};
     W().matchMedia=()=>({matches:true});
     const reducedStart=performance.now();
-    W().__fieldAct.open('/docs/');
+    reducedRow.click();
     rec.reducedAnimateCalls=reducedAnimateCalls;
     await waitFor(()=>W().location.pathname==='/docs/',3000,'reduced-motion advance');
     rec.reducedElapsed=Math.round(performance.now()-reducedStart);
 
-    await loadRoot('/fold-bloom/listen/');
+    const fallbackRow=await loadRoot('/fold-bloom/listen/');
     const fallbackMark=D().getElementById('apGlyph');
     fallbackMark.animate=()=>({finished:new Promise(()=>{})});
     const fallbackStart=performance.now();
-    W().__fieldAct.open('/fold-bloom/listen/');
+    fallbackRow.click();
     await waitFor(()=>W().location.pathname==='/fold-bloom/listen/',2600,'hard-fallback advance');
     rec.fallbackElapsed=Math.round(performance.now()-fallbackStart);
 
@@ -255,7 +256,7 @@ function fieldAdvanceScaleProbeHtml(){
     const fallbackBound=rec.fallbackElapsed>=500&&rec.fallbackElapsed<1800;
     done(rec.nativeAnimate&&scaled&&nativeBound&&reducedBound&&fallbackBound,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),path:f.contentWindow?.location?.pathname||null,...rec}));
-  <\/script></body></html>\`;
+  <\/script></body></html>`;
 }
 
 function fieldActivationProbeHtml(){
