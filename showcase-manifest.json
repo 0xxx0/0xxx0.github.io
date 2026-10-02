@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-02T23:44:00+08:00",
+  "updated": "2026-10-02T23:48:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -6644,11 +6644,11 @@
       "family": "PRISON AGE",
       "operation": "READ / RIDE / SOURCE",
       "state": "ACTIVE",
-      "version": "0.6",
+      "version": "0.7",
       "showcase_card": true,
       "receipt": "/prison-age/release.json",
-      "latest_return": "/returns/PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
-      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence.",
+      "latest_return": "/returns/PRISON_AGE_ENGINE_ATLAS_2026-10-02.json",
+      "role": "FIELD-held provenance-distinct source set. FIELD exposes READ / RIDE / SOURCE only; SOURCE resolves four 2026 movements plus the recovered 2021 proto-root without flattening their provenance. READFIELD reads exact bytes. Ordinary RIDE uses generic field-read-ride/v0.1; explicit proto-root RIDE enters the authored RECURRENCE projection in FOLD//BLOOM LIVE. ECHO remains separate evidence-only cross-source recurrence. ENGINE ATLAS is an internal derived visual instrument with authority NONE; it does not widen FIELD's READ / RIDE / SOURCE operation surface or source canon.",
       "transfer": [
         "SOURCE resolver now admits proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity",
         "proto-root READ → READFIELD exact source bytes; no cross-source ECHO context is minted",
@@ -6657,7 +6657,9 @@
         "FIELD SOURCE → Prison Age source identity/provenance resolver",
         "READ/RIDE → exact FIELD held object RETURN when launched from FIELD",
         "exact source movement → passive cross-source ECHO evidence in READFIELD",
-        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE"
+        "READ/RIDE echo context → same evidence-only ECHO aperture in FOLD//BLOOM LIVE",
+        "generated panel sequence → 32-card derived engine atlas; source/canon authority remains NONE",
+        "engine selection → local HOLD / TURN / TRACE packet with explicit RETURN; no effect authority"
       ],
       "contract": {
         "accepts": {
@@ -6685,7 +6687,8 @@
             "field-read-ride/v0.1 traversal handoff",
             "FOLD//BLOOM authored-reader recurrence projection for explicit recovered proto-root",
             "source identity/provenance view",
-            "field-source-echo-index/v0.1 exact-fragment evidence"
+            "field-source-echo-index/v0.1 exact-fragment evidence",
+            "prison-age.engine-route/v0.1 creative constraint packet (authority NONE)"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -6748,11 +6751,11 @@
       },
       "classification": "RECOVERED_2021_AUTHORED_SOURCE + RECOVERED_2026_SOURCE / FIELD_SOURCE_SET",
       "evolution": {
-        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection.",
-        "question": "Does changing representation deepen encounter while the authored prose remains primary?"
+        "mutation": "One provenance-distinct source set holds four 2026 movements plus the recovered 2021 proto-root; rejected bespoke reader remains removed while explicit proto-root RIDE reuses the existing authored-reader projection. A bounded derived ENGINE ATLAS reifies the 32 generated panels as selectable lenses and a three-step route packet without changing source authority.",
+        "question": "Can a generated visual projection become a useful bounded instrument without becoming source authority or behavioral proof?"
       },
       "index": {
-        "updated_at": "2026-09-29T21:22:00+08:00",
+        "updated_at": "2026-10-02T23:48:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9106,6 +9109,108 @@
         "return_path": "/recovery/"
       },
       "receipt": "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+    },
+    {
+      "href": "/prison-age/engine-atlas.html",
+      "title": "PRISON AGE / ENGINE ATLAS 01–32",
+      "kind": "workbench",
+      "parent": "/prison-age/",
+      "family": "PRISON AGE",
+      "operation": "REPRESENT",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "receipt": "/returns/PRISON_AGE_ENGINE_ATLAS_2026-10-02.json",
+      "role": "Derived visual instrument over 32 generated Prison Age panel identities. Holds one engine across card/cycle/filter/echo projections and can compose up to three engines into an authority-NONE HOLD / TURN / TRACE packet. It is not source prose, canon, behavioral proof, or a fourth native operation on the parent /prison-age/ source object.",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "prison-age.engine-atlas/v0.1 card identity"
+          ]
+        },
+        "transforms": {
+          "verb": "hold, relate and compose generated engine identities without mutating Prison Age source authority",
+          "preserves": [
+            "engine number",
+            "engine label",
+            "operator wording",
+            "trace condition",
+            "parent return address"
+          ],
+          "reversibility": "selection/filter/cycle changes are local; exact parent return remains available",
+          "side_effects": "browser-local selection only; clipboard write only on explicit COPY PACKET"
+        },
+        "emits": {
+          "kinds": [
+            "prison-age.engine-route/v0.1 creative constraint packet"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/PRISON_AGE_ENGINE_ATLAS_2026-10-02.json",
+          "return_path": "/?focus=%2Fprison-age%2F"
+        }
+      },
+      "field": {
+        "roles": [
+          "REPRESENT",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "generated panel identity / engine constraint",
+            "interface": "card selection"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "authority-NONE three-phase engine route packet",
+            "interface": "COPY PACKET"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PARENT_SOURCE",
+            "status": "AVAILABLE",
+            "via": "SOURCE",
+            "target": "/prison-age/"
+          },
+          {
+            "class": "FIELD_RETURN",
+            "status": "AVAILABLE",
+            "via": "FIELD",
+            "target": "/?focus=%2Fprison-age%2F"
+          }
+        ],
+        "owner": "PRISON AGE / DERIVED PROJECTION"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/prison-age/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does turning the generated 01–32 visual sequence into selectable engine constraints improve bounded action without confusing interpretation with evidence?",
+        "baseline": "Four generated composite poster sheets viewed as static images.",
+        "mutation": "Engine identities become addressable, filterable, cross-linked and composable into a maximum three-step HOLD / TURN / TRACE route packet.",
+        "evidence_gate": "Route registration + public-surface checks pass; subsequent use must produce observed RETURN evidence before any usability claim.",
+        "next_if_pass": "Keep as a nested derived projection and let observed reuse determine whether any mechanism transfers elsewhere.",
+        "next_if_fail": "Retain the four images and engine data as donor material; do not expand parent authority or invent another system."
+      },
+      "index": {
+        "updated_at": "2026-10-02T23:48:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "privacy": {
+        "class": "PUBLIC"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
