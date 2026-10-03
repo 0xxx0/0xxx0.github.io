@@ -19,7 +19,9 @@ jobs:
           node-version: '22'
       - name: Prove BENCH decision laws
         run: node tools/omnitools-bench-selftest.mjs
-      - name: Check pure bench module syntax
-        run: node --check foundry/omnitools/bench.mjs
+      - name: Check instrument module syntax
+        run: |
+          node --check foundry/omnitools/bench.mjs
+          node --check foundry/omnitools/instrument-app.mjs
       - name: Validate Omnitools workbench contract
         run: node tools/omnitools-workbench-selftest.mjs
