@@ -4,16 +4,19 @@
  *
  * Critical law: a checkout may prove only itself. Evidence from another clone,
  * $HOME path, sibling worktree, or absolute filesystem path cannot make this
- * checkout green.
+ * checkout green. Legacy absolute strings that merely serialize a path *inside
+ * this repository* are normalized to the current checkout before resolution;
+ * the external filesystem location itself is never consulted.
  *
  * Exit: 0 CLEAN · 1 VIOLATIONS · 2 usage · 3 INDETERMINATE.
  */
 import {readFileSync,existsSync} from 'node:fs';
-import {join,resolve,sep} from 'node:path';
+import {basename,join,resolve,sep} from 'node:path';
 
 const argv=process.argv.slice(2),asJson=argv.includes('--json'),rootArg=argv.indexOf('--root');
 if(rootArg>=0&&!argv[rootArg+1]){console.error('usage: check-interphase.mjs [--root <checkout>] [--json]');process.exit(2)}
 const ROOT=resolve(rootArg>=0?argv[rootArg+1]:process.cwd());
+const REPO_DIR=basename(ROOT);
 const REGISTRY=join(ROOT,'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json');
 const MANIFEST=join(ROOT,'showcase-manifest.json');
 const FACETS=['SOURCE','FRAME','FOCUS','OPERATE','WITNESS','RETURN'];
@@ -27,8 +30,14 @@ function die(code,msg){
 }
 function repoPath(raw){
  const s=String(raw??'').trim();if(!s)return null;
- // Registry paths beginning '/' are published-surface addresses, not host FS roots.
- const rel=s.startsWith('/')?s.slice(1):s;
+ // Published addresses (/foo/bar.js) resolve from this checkout. Older registry
+ // records sometimes serialized the same repo-relative path behind an absolute
+ // clone prefix (.../<repo-dir>/foo/bar.js). Strip only through the *last*
+ // matching repo-directory segment, then resolve the suffix under ROOT. We do
+ // not stat/read the serialized external path, so another clone cannot prove us.
+ const marker=`/${REPO_DIR}/`;
+ const at=s.lastIndexOf(marker);
+ const rel=at>=0?s.slice(at+marker.length):(s.startsWith('/')?s.slice(1):s);
  const full=resolve(ROOT,rel),prefix=ROOT.endsWith(sep)?ROOT:ROOT+sep;
  if(full===ROOT||!full.startsWith(prefix))return null;
  return full;
@@ -86,8 +95,9 @@ for(const m of reg.mappings){
  // R8: merge algebra must be one of the declared forms.
  if(!MERGE.includes(String(m.merge||'')))fail('R8',id,`merge ${JSON.stringify(m.merge??null)} is not one of: ${MERGE.join(' | ')}`);
 
- // R9: claimed commutation requires a test in this checkout. Absolute host paths
- // deliberately fail because repoPath interprets '/' as the published-root address.
+ // R9: claimed commutation requires a test in this checkout. A legacy absolute
+ // clone prefix may identify the in-repo suffix, but only the current checkout
+ // is resolved; no external absolute path can satisfy the rule directly.
  const claimed=Array.isArray(m.commutes_claimed)?m.commutes_claimed:[];
  if(claimed.length){
   const t=typeof m.commutes_tested==='string'?m.commutes_tested:'';
