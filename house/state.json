@@ -1,9 +1,9 @@
 {
  "schema": "housebus-public-projection/v1",
  "classification": "PUBLIC PROJECTION \u2014 generated, whitelist-only. Private runtime authority remains Home Assistant / HOUSEBUS.",
- "generated_at": "2026-09-20T12:20:41+00:00",
+ "generated_at": "2026-10-03T01:57:15+00:00",
  "generator": "HOUSEBUS private normalizer (scripts/project-public.py)",
- "source_age_seconds": 13682,
+ "source_age_seconds": 18471,
  "source_age_class": "FRESH",
  "runtime_health_class": "HEALTHY",
  "runtime": {
@@ -17,13 +17,13 @@
   "mqtt": {
    "class": "HEALTHY",
    "epistemic": "OBSERVED",
-   "note": "pre-existing household broker (phone/pixel mesh); HA broker not yet installed"
+   "note": "two brokers, no shared state: the pre-existing household bus, and the HA add-on broker (authenticated-only, integration loaded)"
   },
   "tuya_lan": {
    "class": "HEALTHY",
    "epistemic": "OBSERVED",
    "devices_visible": 5,
-   "source_age_seconds": 13682,
+   "source_age_seconds": 18471,
    "source_age_class": "FRESH",
    "note": "LAN discovery is lossy: 0-6 devices per scan across 230 scans"
   },
@@ -37,8 +37,8 @@
    "epistemic": "OBSERVED",
    "count": 1,
    "latest_utc": "2026-09-20T12:01:58",
-   "source_age_seconds": 1068,
-   "source_age_class": "FRESH",
+   "source_age_seconds": 1086863,
+   "source_age_class": "STALE",
    "note": "HA backup manager snapshot; a baseline is taken before experimentation"
   },
   "hacs": {
@@ -71,7 +71,8 @@
    "BLOCKED": 0,
    "RETIRED": 0
   },
-  "unresolved_identities": 10,
+  "objects_live": 36,
+  "unresolved_identities": 14,
   "policies": 13
  },
  "objects": [
@@ -92,7 +93,7 @@
    "control": "none",
    "confidence": "medium",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
   },
@@ -112,7 +113,7 @@
    "control": "none",
    "confidence": "low",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
   },
@@ -128,7 +129,7 @@
    "control": "none",
    "confidence": "low",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
   },
@@ -160,7 +161,7 @@
    "control": "none",
    "confidence": "high",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
   },
@@ -181,7 +182,7 @@
    "control": "limited",
    "confidence": "medium",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 0,
    "epistemic": "OBSERVED"
   },
@@ -201,7 +202,7 @@
    "control": "none",
    "confidence": "high",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
   },
@@ -223,9 +224,1062 @@
    "control": "none",
    "confidence": "medium",
    "last_verified": "2026-09-19",
-   "last_verified_class": "AGING",
+   "last_verified_class": "STALE",
    "open_questions": 1,
    "epistemic": "OBSERVED"
+  }
+ ],
+ "objects_live": [
+  {
+   "object_id": "air-touch-v5",
+   "label": "Air Touch V5",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "fixture",
+   "domains": [
+    "fan",
+    "select",
+    "sensor",
+    "switch"
+   ],
+   "capabilities": [
+    "power",
+    "preset",
+    "speed",
+    "telemetry",
+    "timer"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 8,
+   "entities_total": 8,
+   "observed_state": {
+    "fan": "on",
+    "select": "cancel",
+    "sensor": "7.0",
+    "switch": "on"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [
+    "fan_on",
+    "fan_off",
+    "set_speed",
+    "set_preset",
+    "set_timer"
+   ]
+  },
+  {
+   "object_id": "bedroom-off",
+   "label": "BEDROOM OFF",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "bedroom-on",
+   "label": "BEDROOM ON",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "cat-activity-signal",
+   "label": "Cat activity (resource signal)",
+   "area": "unknown",
+   "area_epistemic": "OBSERVED",
+   "kind": "signal",
+   "domains": [],
+   "capabilities": [
+    "resource_observation"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 0,
+   "entities_total": 0,
+   "observed_state": null,
+   "epistemic": "OBSERVED",
+   "epistemic_note": "cat_identity stays UNKNOWN; this is a resource-level observation, never per-cat",
+   "control_locality": "MESH",
+   "integration_class": "mqtt-household-bus",
+   "actuation": "REVIEW",
+   "signals": [
+    "cat_activity"
+   ],
+   "correlated_to": null,
+   "safe_operations": []
+  },
+  {
+   "object_id": "cove",
+   "label": "Cove",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "enter-sleep-mode",
+   "label": "Enter sleep mode",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "litter-box",
+   "label": "Litter Box",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "mechanism",
+   "domains": [
+    "number"
+   ],
+   "capabilities": [
+    "setting"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "number": "3.0"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "DISABLED_MECHANISM",
+   "safe_operations": []
+  },
+  {
+   "object_id": "living",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "living-2",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "living-3",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "living-4",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "living-5",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "living-6",
+   "label": "Living",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "living-ceiling-fan",
+   "label": "Living Ceiling Fan",
+   "area": "living",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "fan",
+    "light",
+    "select"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power",
+    "preset",
+    "speed",
+    "timer"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 3,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "master-bedroom",
+   "label": "Master Bedroom",
+   "area": "master_bedroom",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "master-bedroom-2",
+   "label": "Master Bedroom",
+   "area": "master_bedroom",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "master-bedroom-3",
+   "label": "Master Bedroom",
+   "area": "master_bedroom",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "master-bedroom-fan",
+   "label": "Master Bedroom Fan",
+   "area": "master_bedroom",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "fan",
+    "light",
+    "select"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power",
+    "preset",
+    "speed",
+    "timer"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 3,
+   "entities_total": 3,
+   "observed_state": {
+    "fan": "on",
+    "light": "off",
+    "select": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [
+    "turn_on",
+    "turn_off",
+    "set_brightness",
+    "fan_on",
+    "fan_off",
+    "set_speed",
+    "set_preset",
+    "set_timer"
+   ]
+  },
+  {
+   "object_id": "mistral-10-dc-high-velocity-desk-fan",
+   "label": "Mistral 10\u201d DC High Velocity Desk Fan",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "fixture",
+   "domains": [
+    "fan",
+    "select"
+   ],
+   "capabilities": [
+    "power",
+    "preset",
+    "speed",
+    "timer"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 3,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "note10plus",
+   "label": "Galaxy Note10+ home node",
+   "area": "roaming",
+   "area_epistemic": "OBSERVED",
+   "kind": "node",
+   "domains": [],
+   "capabilities": [
+    "sensors",
+    "camera",
+    "microphone",
+    "mqtt_publish",
+    "adb"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 0,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "its own last heartbeat reports adb offline, wifi absent, resolve 'repair exhausted' \u2014 the node is not reachable",
+   "control_locality": "MESH",
+   "integration_class": "mqtt-household-bus",
+   "actuation": "REVIEW",
+   "signals": [
+    "heartbeat",
+    "app_state",
+    "screen_state",
+    "device_state",
+    "fleet_status",
+    "presence_device"
+   ],
+   "correlated_to": "node.note10plus (inventory/devices.yaml, status ADOPTED)",
+   "safe_operations": []
+  },
+  {
+   "object_id": "pixel-node-field",
+   "label": "Pixel node \u2014 FIELD role",
+   "area": "roaming",
+   "area_epistemic": "OBSERVED",
+   "kind": "node",
+   "domains": [],
+   "capabilities": [
+    "sensors",
+    "mesh_peer"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 0,
+   "entities_total": 0,
+   "observed_state": null,
+   "epistemic": "OBSERVED",
+   "epistemic_note": "observed on the household bus",
+   "control_locality": "MESH",
+   "integration_class": "mqtt-household-bus",
+   "actuation": "REVIEW",
+   "signals": [
+    "announce",
+    "heartbeat",
+    "battery"
+   ],
+   "correlated_to": null,
+   "safe_operations": []
+  },
+  {
+   "object_id": "pixel-node-lab",
+   "label": "Pixel node \u2014 LAB role",
+   "area": "roaming",
+   "area_epistemic": "OBSERVED",
+   "kind": "node",
+   "domains": [],
+   "capabilities": [
+    "sensors",
+    "mesh_peer"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 0,
+   "entities_total": 0,
+   "observed_state": null,
+   "epistemic": "OBSERVED",
+   "epistemic_note": "observed on the household bus",
+   "control_locality": "MESH",
+   "integration_class": "mqtt-household-bus",
+   "actuation": "REVIEW",
+   "signals": [
+    "announce",
+    "heartbeat",
+    "battery"
+   ],
+   "correlated_to": null,
+   "safe_operations": []
+  },
+  {
+   "object_id": "study-room",
+   "label": "Study Room",
+   "area": "study",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "study-room-2",
+   "label": "Study Room",
+   "area": "study",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "study-room-3",
+   "label": "Study Room",
+   "area": "study",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "light"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "study-room-fan",
+   "label": "Study Room Fan",
+   "area": "study",
+   "area_epistemic": "INFERRED",
+   "kind": "fixture",
+   "domains": [
+    "fan",
+    "light",
+    "select"
+   ],
+   "capabilities": [
+    "brightness",
+    "color_temp",
+    "power",
+    "preset",
+    "speed",
+    "timer"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 3,
+   "entities_total": 3,
+   "observed_state": {
+    "fan": "on",
+    "light": "off",
+    "select": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [
+    "turn_on",
+    "turn_off",
+    "set_brightness",
+    "fan_on",
+    "fan_off",
+    "set_speed",
+    "set_preset",
+    "set_timer"
+   ]
+  },
+  {
+   "object_id": "study-wireless-scene-switch",
+   "label": "Study Wireless Scene Switch ",
+   "area": "study",
+   "area_epistemic": "INFERRED",
+   "kind": "device",
+   "domains": [
+    "event"
+   ],
+   "capabilities": [
+    "button_input"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 4,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "the-poopervisor",
+   "label": "The Poopervisor",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "mechanism",
+   "domains": [
+    "button",
+    "number",
+    "sensor",
+    "switch"
+   ],
+   "capabilities": [
+    "button",
+    "power",
+    "setting",
+    "telemetry"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 6,
+   "entities_total": 6,
+   "observed_state": {
+    "button": "unknown",
+    "number": "6.0",
+    "sensor": "4.0",
+    "switch": "off"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "DISABLED_MECHANISM",
+   "safe_operations": []
+  },
+  {
+   "object_id": "turn-off",
+   "label": "Turn Off",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "turn-off-2",
+   "label": "Turn Off",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "turn-off-3",
+   "label": "Turn Off",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "turn-on",
+   "label": "Turn On",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "turn-on-2",
+   "label": "Turn On",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "turn-on-3",
+   "label": "Turn On",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "scene",
+   "domains": [
+    "scene"
+   ],
+   "capabilities": [
+    "scene_trigger"
+   ],
+   "availability": "AVAILABLE",
+   "entities_reporting": 1,
+   "entities_total": 1,
+   "observed_state": {
+    "scene": "unknown"
+   },
+   "epistemic": "OBSERVED",
+   "epistemic_note": "state read from the object now",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": [],
+   "label_disambiguated": false,
+   "note": "HA's imported name for this device does not distinguish it from its siblings; the index is positional, not a physical mapping"
+  },
+  {
+   "object_id": "zigbee-bluetooth-gateway",
+   "label": "Zigbee + Bluetooth Gateway",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "device",
+   "domains": [
+    "binary_sensor"
+   ],
+   "capabilities": [
+    "diagnostic"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  },
+  {
+   "object_id": "zigbee-bluetooth-gateway-2",
+   "label": "Zigbee + Bluetooth Gateway 2",
+   "area": "unknown",
+   "area_epistemic": "UNKNOWN",
+   "kind": "device",
+   "domains": [
+    "binary_sensor"
+   ],
+   "capabilities": [
+    "diagnostic"
+   ],
+   "availability": "UNKNOWN",
+   "entities_reporting": 0,
+   "entities_total": 1,
+   "observed_state": null,
+   "epistemic": "UNKNOWN",
+   "epistemic_note": "not communicating \u2014 physical state UNKNOWN, not OFF",
+   "control_locality": "CLOUD",
+   "integration_class": "tuya",
+   "actuation": "REVIEW",
+   "safe_operations": []
+  }
+ ],
+ "identity_rules": [
+  {
+   "id": "address_is_not_identity",
+   "rule": "A network address is never an object identity. Objects are keyed on device id / product key / registry id, never on an IP.",
+   "evidence": [
+    "an address that hosted a Midea-OUI appliance in June now hosts the HAOS guest \u2014 the same address, a different object",
+    "the guest's own lease moved twice within a single session while the guest kept its identity (DHCP churn is not an identity event)"
+   ],
+   "consequence": "all scripts address the guest by its mDNS name, never by address",
+   "epistemic": "OBSERVED"
+  },
+  {
+   "id": "cat_resource_state_is_not_cat_identity",
+   "rule": "Litter-box telemetry is RESOURCE state. `cat_weight` is one observed measurement; `excretion_times_day` is a resource count. Neither identifies which cat, and neither is divided between cats.",
+   "constraints": [
+    "cat_identity = UNKNOWN unless independently resolved",
+    "no per-cat visit/excretion attribution from weight alone",
+    "individual attribution is a separate inference layer (vision/camera, phone sensors, repeated weight clustering) carrying its own confidence and provenance"
+   ],
+   "objects_affected": [
+    "litter-box",
+    "the-poopervisor"
+   ],
+   "epistemic": "DECIDED"
+  },
+  {
+   "id": "mechanism_actuation_disabled",
+   "rule": "Mechanism objects expose state; they are not actuated by automation until a safety case exists.",
+   "objects_affected": [
+    "litter-box",
+    "the-poopervisor"
+   ],
+   "epistemic": "DECIDED"
+  },
+  {
+   "id": "public_id_uniqueness",
+   "rule": "Every public object_id is unique and stable, and uniqueness is never manufactured by inventing a physical distinction. Where HA's own name does not distinguish siblings, the record says so (`label_disambiguated: false`) and the index is positional.",
+   "evidence": [
+    "six imported Smart Bulbs, three bedroom bulbs and three study bulbs arrive from HA with the same name and no distinguishing index"
+   ],
+   "epistemic": "DECIDED"
+  },
+  {
+   "id": "reachability_is_not_state",
+   "rule": "An object that is not reporting has UNKNOWN physical state. Its last reported value is not its current value.",
+   "epistemic": "DECIDED"
   }
  ],
  "capabilities": [
@@ -345,18 +1399,23 @@
   },
   {
    "id": "mqtt_ha",
+   "class": "HEALTHY",
+   "role": "HA broker (Mosquitto add-on), authenticated-only, integration loaded"
+  },
+  {
+   "id": "mqtt_readonly_ingest",
    "class": "BLOCKED",
-   "role": "HA broker (Mosquitto App)"
+   "role": "read-only bridge from the household bus \u2014 needs one read-only user on the host broker"
   },
   {
    "id": "hacs",
-   "class": "BLOCKED",
+   "class": "STAGED",
    "role": "custom integration manager"
   },
   {
    "id": "tuya_account",
-   "class": "BLOCKED",
-   "role": "account/device census"
+   "class": "IMPORTED",
+   "role": "official Tuya cloud integration loaded and reporting"
   },
   {
    "id": "tuya_local",
@@ -376,58 +1435,51 @@
  ],
  "recent_receipts": [
   {
-   "date": "2026-09-20",
-   "id": "K",
+   "date": "2026-09-27",
+   "id": "S",
    "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "A",
-   "title": "Host reconnaissance",
+   "date": "2026-09-27",
+   "id": "T",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "B",
-   "title": "Canonical repository established",
+   "date": "2026-09-27",
+   "id": "U",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "C",
-   "title": "Hypervisor decision checked against current docs",
+   "date": "2026-09-27",
+   "id": "V",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "D",
-   "title": "Bounded LAN inventory pass",
+   "date": "2026-09-27",
+   "id": "W",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "E",
-   "title": "Device lanes + image staging",
+   "date": "2026-09-25",
+   "id": "Q",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   },
   {
-   "date": "2026-09-19",
-   "id": "F",
-   "title": "Device identification by product-key match",
-   "path": "/house/",
-   "state": "RECORDED"
-  },
-  {
-   "date": "2026-09-19",
-   "id": "G",
-   "title": "HAOS VM built, bridged, running",
+   "date": "2026-09-25",
+   "id": "R",
+   "title": "Recorded receipt",
    "path": "/house/",
    "state": "RECORDED"
   }
@@ -436,8 +1488,8 @@
   {
    "id": "petree_vs_lan_litter",
    "question": "Is the LAN-visible litter box the PETREE 2.0 unit, or a second, different box?",
-   "confidence": "low",
-   "next_evidence": "Smart Life device info page: device id + product id + display name for the unit in the study"
+   "confidence": "medium",
+   "next_evidence": "Smart Life device-info page for the object named 'Litter Box': device id + product id + display name"
   },
   {
    "id": "tuya_unmapped_keys",
@@ -448,7 +1500,7 @@
   {
    "id": "ovlaim_unit_count",
    "question": "Does the Ovlaim ceiling fan-with-light product key represent one physical unit or two?",
-   "confidence": "medium",
+   "confidence": "high",
    "next_evidence": "Smart Life display names for both device ids; physical room check"
   },
   {
@@ -467,7 +1519,13 @@
    "id": "catlink_family_mapping",
    "question": "Which hasscc/catlink device family does the CATLINK Scooper Luxury Pro-X correspond to?",
    "confidence": "low",
-   "next_evidence": "vendor model/serial from the unit's label or the CATLINK app, read WITHOUT powering the unit on"
+   "next_evidence": "not reachable until resolved.catlink_account_binding is cleared"
+  },
+  {
+   "id": "catlink_account_binding",
+   "question": "The CATLINK refuses to pair because it is registered to a previous user. Who releases the binding, and does it release at all?",
+   "confidence": "high",
+   "next_evidence": "the device number printed on the unit body or packaging, taken to CATLINK support or the seller for an unbind \u2014 no power-on required"
   },
   {
    "id": "privacy_mac_hosts",
@@ -491,7 +1549,25 @@
    "id": "house_mqtt_convergence",
    "question": "When, if ever, should the host phone-mesh bus and the HAOS broker converge?",
    "confidence": "medium",
-   "next_evidence": "observed ESPHome/custom-node needs after HA is online"
+   "next_evidence": "owner approval to append one bridge block to the host mosquitto.conf + SIGHUP"
+  },
+  {
+   "id": "litter_box_vendor",
+   "question": "What vendor/model is the HA object 'Litter Box' (product key [key]), and is it the PETREE under an OEM key?",
+   "confidence": "low",
+   "next_evidence": "Smart Life device info page for that device: name, product name, device id"
+  },
+  {
+   "id": "third_bridge_tile",
+   "question": "Three physical bridge tiles are reported, but only two gateway objects are imported. Which tile is which imported gateway, and where is the third?",
+   "confidence": "medium",
+   "next_evidence": "T1/T2 power experiment (not yet run) + a check of the account for a third gateway"
+  },
+  {
+   "id": "living_ceiling_fan_key",
+   "question": "Which product key does the Living Ceiling Fan (bf033e4c\u2026) use, and why has it never appeared on the LAN while its two sibling fans did?",
+   "confidence": "low",
+   "next_evidence": "read its product key from the Tuya account/device info"
   }
  ],
  "policy_summary": {
