@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 
 const html=fs.readFileSync('index.html','utf8');
+const presentation=fs.readFileSync('field-presentation.js','utf8');
 const sem=JSON.parse(fs.readFileSync('control/INTERACTION_SEMANTICS.json','utf8'));
 const contract=JSON.parse(fs.readFileSync('control/FIELD_INDEX_CONTRACT.json','utf8'));
 const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
@@ -22,6 +23,15 @@ need(html.includes("last?.kind==='route'&&last.href===focus.href"),'UNDO SEEN is
 need(html.includes("pushCatchupHistory({kind:'route',href,previous,applied:stamp,at:Date.now()})"),'route SEEN does not retain previous/applied/action-time state');
 need(/newer local SEEN or MARK ALL/.test(contract.ui_contract?.root_orientation||''),'root orientation contract lacks immediate-undo supersession rule');
 
+// First-visit orientation must not masquerade repository history as current work.
+// It is local-only, seeded once, and the existing REWIND path remains authoritative
+// for restoring a historical local diff after the operator deliberately asks for it.
+need(presentation.includes("ORIENTATION_BOOT_KEY='field.catchup.bootstrap.v01'"),'first-visit orientation bootstrap marker missing');
+need(presentation.includes("location.pathname!=='/'"),'orientation bootstrap is not root-scoped');
+need(presentation.includes("!seen&&!hasItems&&!hasHistory&&!localStorage.getItem(ORIENTATION_BOOT_KEY)"),'bootstrap does not require a genuinely empty local orientation history');
+need(presentation.includes("localStorage.setItem(CATCHUP_SEEN_KEY,String(at))"),'first visit does not establish a local bulk orientation boundary');
+need(presentation.includes('canonical FIELD unchanged'),'bootstrap does not state its non-authoritative boundary');
+need(!presentation.includes('localStorage.removeItem(ORIENTATION_BOOT_KEY)'),'bootstrap marker can be silently cleared and re-seeded');
 
 const ops=new Map((sem.operations||[]).map(x=>[x.id,x]));
 for(const id of ['UNDO','REWIND','REVERT','RETURN']) need(ops.has(id),'interaction semantic missing '+id);
@@ -39,4 +49,4 @@ if(fail.length){
   console.error('FIELD reversibility FAIL · '+fail.join(' · '));
   process.exit(1);
 }
-console.log('FIELD reversibility PASS · local acknowledgement → REWIND · UNDO ≠ REWIND ≠ REVERT ≠ RETURN');
+console.log('FIELD reversibility PASS · first visit baselines LOCAL orientation · local acknowledgement → REWIND · UNDO ≠ REWIND ≠ REVERT ≠ RETURN');
