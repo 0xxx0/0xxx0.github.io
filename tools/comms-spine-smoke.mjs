@@ -5,15 +5,20 @@ import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 
 const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
+const rawSlow=Number(process.env.SMOKE_SLOW||1);
+const SLOW=Number.isFinite(rawSlow)&&rawSlow>=1?Math.min(rawSlow,6):1;
+const PROBE_WAIT_MS=Math.round(16000*SLOW);
+const VIRTUAL_BUDGET_MS=Math.round(24000*SLOW);
+const HARD_TIMEOUT_MS=Math.round(36000*SLOW);
 function browserBin(){for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium','brave-browser','brave']){const r=spawnSync('which',[name],{encoding:'utf8'});if(r.status===0&&r.stdout.trim())return r.stdout.trim()}for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){if(fs.existsSync(p))return p}throw Error('No Chrome/Chromium')}
 function type(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
 function fileFor(url){let clean=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!clean)clean='index.html';if(clean.endsWith('/'))clean+='index.html';const p=path.normalize(path.join(ROOT,clean));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;return null}
 function probe(){return '<!doctype html><html><body><iframe id="f" style="width:430px;height:900px;border:0"></iframe><pre id="probeResult">PENDING</pre><script>'+
 "const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let doneFlag=false;"+
 "const done=(ok,data)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};"+
-"const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=16000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait timeout '+label)};"+
+"const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit="+PROBE_WAIT_MS+",label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait timeout '+label)};"+
 "(async()=>{f.src='/port/comms/?demo=1';const W=()=>f.contentWindow,D=()=>W().document;"+
-"await wait(()=>D().documentElement.dataset.commsSpine==='ready',16000,'ready');rec.messages=D().documentElement.dataset.commsMessages;rec.signals0=Number(D().documentElement.dataset.commsSignals||0);rec.open0=Number(D().documentElement.dataset.commsOpen||0);"+
+"await wait(()=>D().documentElement.dataset.commsSpine==='ready',"+PROBE_WAIT_MS+",'ready');rec.messages=D().documentElement.dataset.commsMessages;rec.signals0=Number(D().documentElement.dataset.commsSignals||0);rec.open0=Number(D().documentElement.dataset.commsOpen||0);"+
 "const firstClause=D().querySelector('.clause');firstClause.click();D().querySelector('[data-mark=\"NOTE\"]').click();await sleep(120);rec.signals1=Number(D().documentElement.dataset.commsSignals||0);"+
 "const doc=W().CommsSpine.state().doc,c0=doc.messages[0].clauses[0],c2=doc.messages[0].clauses[2];"+
 "const m1=W().CommsSpine.spotMachine({kind:'WAITING',messageId:c0.messageId,clauseId:c0.id,speaker:'USER',start:c0.start,end:c0.end,text:c0.text});"+
@@ -46,9 +51,10 @@ function probe(){return '<!doctype html><html><body><iframe id="f" style="width:
 '</scr'+'ipt></body></html>'}
 const server=http.createServer((req,res)=>{if(String(req.url).startsWith('/__comms')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res)});
 await new Promise(r=>server.listen(PORT,HOST,r));PORT=server.address().port;
-const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=24000','--dump-dom','http://'+HOST+':'+PORT+'/__comms'];
-const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},36000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
+const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget='+VIRTUAL_BUDGET_MS,'--dump-dom','http://'+HOST+':'+PORT+'/__comms'];
+const result=await new Promise(resolve=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='',timedOut=false;const timer=setTimeout(()=>{timedOut=true;p.kill('SIGKILL')},HARD_TIMEOUT_MS);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,timedOut})})});
 server.close();
+if(result.timedOut){console.error('COMMS SPINE SMOKE TIMEOUT · slow='+SLOW+' · probe='+PROBE_WAIT_MS+'ms · virtual='+VIRTUAL_BUDGET_MS+'ms · hard='+HARD_TIMEOUT_MS+'ms');console.error(result.out.slice(-7000));console.error(result.err.slice(-1600));process.exit(1)}
 const pass=/id="probeResult">PASS /.test(result.out)&&/"packet":"comms-spine-agent-packet\/v0.1"/.test(result.out)&&/"human":[1-9]/.test(result.out)&&/"covered":[1-9]/.test(result.out)&&/"confirmFlips":true/.test(result.out)&&/"dismissFlips":true/.test(result.out)&&/"cardGrammar3":true/.test(result.out);
 if(!pass){console.error('COMMS SPINE SMOKE FAIL');console.error(result.out.slice(-7000));console.error(result.err.slice(-1600));process.exit(1)}
 console.log('COMMS SPINE 0.1 PHONE SMOKE PASS');
