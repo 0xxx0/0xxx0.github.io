@@ -1,0 +1,56 @@
+{
+  "schema": "field-return/v1",
+  "id": "ENV0_HOMEBASE_OPERATOR_PROJECTION_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "ENV-0 recovered BODY↔HOUSE grammar projected as a homebase ready-room over HOUSE place + BODY/FIT loadout references",
+  "operation": "PLACE → PREP → SET OUT → RETURN → SERVICE → READY",
+  "host": "/recovery/env0/",
+  "source_authority": [
+    "/recovery/env0/manifest.json",
+    "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+    "/recovery/env0/ENV0_symbols_A2_v0_1.svg"
+  ],
+  "reducer_correction": "During replay, master merged the Death Stranding route-friction transfer into BODY/FIT. The candidate was corrected before PR creation: ENV-0 no longer owns manual inventory/loadout declarations; BODY/FIT remains the sole fitting/kit/friction authority and ENV-0 only references it read-only.",
+  "donor_lineage": {
+    "pr": 825,
+    "status": "SUPERSEDED / DONOR PRESERVED",
+    "transfers": [
+      "Ultima Online → persistent addressed home + staged edit/commit/revert boundary",
+      "Warframe Orbiter → useful functions embedded as spatial homebase stations",
+      "Death Stranding → deliberate preparation + carried/load constraints before departure"
+    ]
+  },
+  "delta": [
+    "Existing /recovery/env0/ becomes a derived HOMEBASE / HUMAN HARNESS projection while exact recovered masters remain frozen.",
+    "One session-local operator view holds PLACE, one TASK, one selected BODY/FIT kit reference, phase and service residue.",
+    "ENV-0 reads BODY/FIT local state and the native BODY/FIT route-friction projection; it does not copy/edit fitting, kit membership or friction declarations.",
+    "Readiness is explicitly derived: NO_TASK | NO_KIT | KIT_ATTENTION | FRICTION_OPEN | DECLARED_READY.",
+    "DECLARED_READY means no known gap in current BODY/FIT declarations; it never means adequate, safe, physically present or complete.",
+    "Existing browser-local HOUSE context may seed PLACE; selection remains context only and never proves presence.",
+    "RETURN exports exact kit/fitting references plus friction witness and service residue, then points back to /house/."
+  ],
+  "authority": [
+    "HOUSE owns place/spatial truth.",
+    "BODY/FIT owns fittings, kits and route-friction declarations.",
+    "ENV-0 owns only the temporary operator composition.",
+    "Home Assistant/HOUSEBUS retains private device/effect authority.",
+    "RETURN is evidence-only and cannot claim physical completion."
+  ],
+  "non_transfer": [
+    "no quest manager",
+    "no XP / score / rarity",
+    "no infinite bag",
+    "no automatic optimization",
+    "no second inventory/loadout store",
+    "no HOUSEBUS actuation",
+    "no new public route"
+  ],
+  "verification": {
+    "local_core_selftest": "PASS target · HOUSE place + BODY/FIT references + declared readiness + zero BODY/FIT mutation + RETURN boundary",
+    "command": "node tools/env0-homebase-selftest.cjs",
+    "repo_ci": "PENDING_PR"
+  },
+  "next": "If ordinary use proves the composition useful, make HOUSE selected-locus → ENV-0 ready-room entry more obvious without moving BODY/FIT authority. Do not invent item identity or location to complete the picture.",
+  "stop": "No second inventory/loadout system. Extend only from an observed homebase/task discrepancy or exact HOUSE object identity becoming available."
+}
