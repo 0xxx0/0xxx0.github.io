@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T06:21:02.043Z",
+  "generated": "2026-10-03T06:51:59.222Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
-  "commits_in_window": 170,
-  "git_commits_in_window": 240,
-  "telemetry_commits_in_window": 70,
-  "commits_total": 4864,
-  "branch_count": 976,
+  "commits_in_window": 173,
+  "git_commits_in_window": 246,
+  "telemetry_commits_in_window": 73,
+  "commits_total": 4870,
+  "branch_count": 977,
   "recent_commits": [
     "desk: refresh public field data",
-    "field index: stamp /control/ + /returns/ for the browser resolver landing",
-    "smoke: one browser resolver for all 28 tests (28/28 green on macOS)"
+    "FIELD: landing light mode + desk live GitHub sync + FCM freshness (#916)",
+    "Omnitools: one work object + conservative Bench + exact Return"
   ],
   "active_fronts": [
     {
