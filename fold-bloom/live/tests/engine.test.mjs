@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   createState, rotateSteps, release, canRelease, gateCellIndex, restore, snapshot,
   setMode, forecastAtSlot, forecastRelease, availableForecasts, selectCall,
-  forecastMatchesCall, typePresentation
+  forecastMatchesCall, typePresentation, familyTrace
 } from '../engine.js';
 
 function align(s){for(let i=0;i<12&&!canRelease(s);i++)s=rotateSteps(s,1);return s}
@@ -21,6 +21,7 @@ test('repeated type at different slot writes a crease and future cascade can tra
  let s=createState(55);s=align(s);let first=release(s);s=first.state;const type=first.event.type,firstSlot=first.event.slot;
  s.targetType=type;s.call=selectCall(s);let guard=0;do{s=rotateSteps(s,1);guard++}while((!canRelease(s)||gateCellIndex(s)===firstSlot)&&guard<24);
  assert.ok(canRelease(s));const second=release(s);assert.ok(second.event.edgeAdded);assert.equal(second.state.creases.length,1);assert.ok(second.event.path.length>=2);
+ const trace=familyTrace(second.state,type);assert.equal(trace.anchor,second.event.slot);assert.equal(trace.links,1);assert.equal(trace.nodes,second.state.cells.filter(c=>c.type===type).length);
 });
 
 test('FLOW caps charge and mode survives snapshot restore',()=>{
@@ -82,4 +83,14 @@ test('cell families expose mechanical labels while preserving legacy aliases',()
       {id:2,label:'SQUARE',glyph:'□',legacy:'MOSS',mechanic:'same-shape memory / anchor family',text:'□ SQUARE'}
     ]
   );
+});
+
+test('family trace is a read-only native witness for three parallel memory channels',()=>{
+ const s=createState(525),before=snapshot(s);
+ const traces=[0,1,2].map(type=>familyTrace(s,type));
+ assert.deepEqual(snapshot(s),before);
+ assert.equal(traces.filter(x=>x.target).length,1);
+ assert.deepEqual(traces.map(x=>x.glyph),['△','○','□']);
+ assert.ok(traces.every(x=>x.authority==='NATIVE_EVIDENCE'&&x.anchor===null));
+ assert.equal(traces.reduce((n,x)=>n+x.nodes,0),12);
 });

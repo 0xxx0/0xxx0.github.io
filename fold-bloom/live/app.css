@@ -164,3 +164,13 @@ html[data-fold-bloom-authored-reader="on"] .autoQuick{opacity:.35}
    identical; only the movement goes. */
 @keyframes fbToastFade{0%{opacity:0}24%{opacity:1}72%{opacity:.9}100%{opacity:0}}
 @media (prefers-reduced-motion: reduce){.toast.on{animation:fbToastFade .72s ease}}
+
+.shapeFamilyRows{display:grid;gap:4px;margin-top:8px}
+.shapeFamily{display:grid;grid-template-columns:minmax(86px,auto) minmax(0,1fr) auto;gap:7px;align-items:center;padding:7px 6px;border-left:2px solid var(--line);background:rgba(255,255,255,.025);font-size:7px;color:var(--mut)}
+.shapeFamily b{white-space:nowrap;color:var(--ink);font-size:7px;letter-spacing:.04em}
+.shapeFamily span{line-height:1.35}
+.shapeFamily em{font-style:normal;font-size:6px;font-weight:900;letter-spacing:.08em;color:#fff}
+.shapeFamily.isTarget{background:rgba(255,255,255,.09);color:var(--ink)}
+.familyTriangle{border-left-color:var(--hot)}
+.familyCircle{border-left-color:var(--cool)}
+.familySquare{border-left-color:var(--green)}

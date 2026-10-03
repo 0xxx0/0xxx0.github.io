@@ -20,7 +20,8 @@ test('LIVE teaches one turn-release-change loop before deeper vocabulary',()=>{
   assert.match(live,/TURN\.<br><span>RELEASE\.<\/span>/);
   assert.match(live,/TRY THE EXAMPLE/);
   assert.match(live,/NO SONG \/ JUST PLAY/);
-  assert.match(app,/TURN UNTIL READY/);
+  assert.ok(app.includes('TURN TO ${releaseFamily.text}'));
+  assert.ok(app.includes('Active target family: ${activeFamily.label}'));
   assert.match(play,/TURN ← \/ → UNTIL THE CENTER ACTION LIGHTS/);
 });
 

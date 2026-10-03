@@ -1,4 +1,4 @@
-import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, forecastContext, clamp, N } from './engine.js?v=0.13.2';
+import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, familyTrace, forecastContext, clamp, N } from './engine.js?v=0.13.3';
 import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.14';
 import { Renderer } from './render.js?v=0.13.9';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
@@ -480,11 +480,28 @@ function syncAutopilotUI(){
   const intro=$('#demoBtn');if(intro)intro.textContent=demo.on?'TAKE OVER →':'AUTOPILOT →';
 }
 
+function renderFamilyTrace(){
+  for(let type=0;type<3;type++){
+    const row=document.querySelector(`[data-family-row="${type}"]`);
+    if(!row)continue;
+    const trace=familyTrace(state,type);
+    row.classList.toggle('isTarget',trace.target);
+    row.setAttribute('aria-current',trace.target?'true':'false');
+    const detail=row.querySelector('[data-family-detail]');
+    if(detail)detail.textContent=`${trace.anchor===null?'ANCHOR —':`ANCHOR G${String(trace.anchor).padStart(2,'0')}`} · ${trace.nodes} CELLS · ${trace.links} LINKS · PEAK T${trace.peakTier}`;
+    const target=row.querySelector('[data-family-target]');
+    if(target)target.textContent=trace.target?'TARGET':'';
+  }
+}
+
 function update(){
   const calc=currentLiveCalculation();
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
-  $('#target').textContent=typePresentation(state.targetType).text;
+  const activeFamily=typePresentation(state.targetType);
+  $('#target').textContent=activeFamily.text;
+  $('#target').setAttribute('aria-label',`Active target family: ${activeFamily.label}`);
+  renderFamilyTrace();
   $('#call').textContent=callLabel(state.call);
   $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
   $('#timing').textContent=layerMode!=='SOURCE'&&linkedTrack?.playing?timingNow().label:'—';
@@ -509,8 +526,9 @@ function update(){
   document.querySelectorAll('[data-sound-scene]').forEach(b=>{const selected=b.dataset.soundScene===state.scene;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected))});
   const releaseReady=canRelease(state),releaseControl=$('#releaseBtn');
   releaseControl.disabled=!releaseReady;
-  releaseControl.textContent=releaseReady?releaseLabel():'TURN UNTIL READY';
-  releaseControl.setAttribute('aria-label',releaseReady?releaseLabel():'Turn left or right until the release action is ready');
+  const releaseFamily=typePresentation(state.targetType);
+  releaseControl.textContent=releaseReady?`${releaseFamily.glyph} ${releaseLabel()}`:`TURN TO ${releaseFamily.text}`;
+  releaseControl.setAttribute('aria-label',releaseReady?`${releaseFamily.label} family. ${releaseLabel()}`:`Turn until the gate reaches a ${releaseFamily.label} cell`);
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText(calc);
   syncCalculationUI(calc);
