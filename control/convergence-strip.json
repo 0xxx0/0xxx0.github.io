@@ -1,18 +1,15 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T15:38:59.966Z",
+  "generated": "2026-10-03T16:10:00.486Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
   "commits_in_window": 175,
-  "git_commits_in_window": 299,
-  "telemetry_commits_in_window": 124,
-  "commits_total": 4923,
+  "git_commits_in_window": 302,
+  "telemetry_commits_in_window": 127,
+  "commits_total": 4926,
   "branch_count": 978,
-  "recent_commits": [
-    "desk: refresh public field data",
-    "interphase-genesis: recover the genesis as a running spine (#917)"
-  ],
+  "recent_commits": [],
   "active_fronts": [
     {
       "id": "conversion",
