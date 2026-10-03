@@ -1,0 +1,30 @@
+{
+  "id": "co:resource-turn:esp32-cam-power:001",
+  "kind": "resource_turn",
+  "host": {
+    "domain": "hardware_fleet",
+    "object_ref": "esp32-cam-node-bundle",
+    "authority_ref": "inventory"
+  },
+  "address": {
+    "blocked_ref": "project:spatial-perception-mesh",
+    "gap": "Stable ESP32-CAM deployment is blocked by unverified board/power inventory.",
+    "desired_capability": "One ESP32-CAM node can run continuously on a known-good power path."
+  },
+  "contract_ref": "/confluence/resource-turn/resource-turn.contract.json",
+  "state": "returned",
+  "hold": {
+    "move": "verify",
+    "candidate_ref": "inventory:existing-esp32-cam-power-path",
+    "already_have_refs": ["inventory:esp32-cam", "inventory:power-supplies"],
+    "cost_vector_ref": null,
+    "adoption_proof": "One ESP32-CAM runs for 24 hours without brownout on the verified supply/connector path."
+  },
+  "evidence_refs": ["evidence:board-and-supply-inventory"],
+  "return": {
+    "status": "partial",
+    "capability_delta": "Exact board/supply/connector path is identified; continuous operation is not yet proven.",
+    "unlocked_refs": ["turn:esp32-cam-24h-runtime-test"],
+    "return_address": "project:spatial-perception-mesh"
+  }
+}
