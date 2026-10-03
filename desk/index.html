@@ -100,6 +100,7 @@ footer{margin:26px 0 12px;border-top:1px solid var(--line);padding-top:11px;
   </header>
 
   <div class="stats" id="stats"></div>
+  <div class="count-row" id="buckets"></div>
 
   <div class="bar" id="bar">
     <button class="on" data-view="returns">RETURNS</button>
@@ -157,38 +158,51 @@ function stateClass(s){s=String(s).toLowerCase();
   if(/draft|running|active|partial|retract/.test(s))return 'gold';
   return '';}
 
+function bucketState(s){s=String(s).toUpperCase();
+  if(/MERGED|SHIPPED|DEPLOYED|PASS|VERIFIED|PROVED|GREEN|COMPLETE|RECONCILED/.test(s))return 'Merged/Verified';
+  if(/CANDIDATE|PR_|READY|IMPLEMENTED|INTEGRATED/.test(s))return 'Candidate';
+  if(/DRAFT|PENDING|ACTIVE|RUNNING|RETURNED/.test(s))return 'Draft/Active';
+  if(/FROZEN|PARKED|RECOVER|HISTORICAL|DONOR|BOUNDED/.test(s))return 'Frozen/Recover';
+  return 'Other';}
+
 function renderStats(){
   const c=DATA.counts||{};
-  const blocked=(c.states&&(c.states.BLOCKED||0))||0;
-  const items=[
+  const buckets={};
+  (DATA.returns||[]).forEach(r=>{const b=bucketState(r.state);buckets[b]=(buckets[b]||0)+1;});
+  const order=['Merged/Verified','Candidate','Draft/Active','Frozen/Recover','Other'];
+  $('#stats').innerHTML=[
     [DATA.returns.length,'RETURNS','cool'],
     [DATA.routes.length,'ROUTES',''],
-    [c.states?Object.keys(c.states).length:0,'STATES',''],
-    [blocked,'BLOCKED','hot'],
-  ];
-  $('#stats').innerHTML=items.map(([n,l,k])=>
-    `<div class="stat ${k}"><b>${n}</b><span>${l}</span></div>`).join('');
-  if(c.states){
-    $('#n-returns').textContent=Object.entries(c.states)
-      .map(([k,v])=>`${k}:${v}`).join('  ');
-  }
+    [Object.values(buckets).reduce((a,b)=>a+b,0),'RECEIPTS',''],
+    [buckets['Candidate']||0,'CANDIDATE','hot'],
+    [buckets['Draft/Active']||0,'ACTIVE','gold'],
+    [buckets['Merged/Verified']||0,'VERIFIED','green'],
+  ].map(([n,l,k])=>`<div class="stat ${k}"><b>${n}</b><span>${l}</span></div>`).join('');
+  $('#n-returns').textContent=`${DATA.returns.length} receipts · ${order.filter(b=>buckets[b]).length} buckets`;
+  const cr=document.getElementById('buckets');
+  if(cr) cr.innerHTML=order.filter(b=>buckets[b]).map(b=>
+    `<div><b>${buckets[b]}</b> ${b}</div>`).join('');
 }
 
 function renderReturns(){
   const q=($('#q-returns').value||'').toLowerCase();
   const rs=(DATA.returns||[]).filter(r=>!q||JSON.stringify(r).toLowerCase().includes(q));
+  const clip=(s,n)=>{s=String(s||'');return s.length>n?s.slice(0,n-1)+'…':s;};
   $('#list-returns').innerHTML=rs.slice(0,150).map(r=>{
-    const checks=r.checks?Object.entries(r.checks).map(([k,v])=>
-      `<span class="k ${stateClass(v)}">${esc(k)}:${esc(v)}</span>`).join(''):'';
+    const st=clip(r.state,26);
+    const checks=r.checks?Object.entries(r.checks).slice(0,6).map(([k,v])=>
+      `<span class="k ${stateClass(v)}">${esc(clip(k,18))}:${esc(clip(v,14))}</span>`).join(''):'';
+    const title=clip(r.object,90)||clip(r.id,90);
     return `<details><summary>
-      <span class="k ${stateClass(r.state)}">${esc(r.state||'')}</span>
-      <b>${esc(r.id)}</b> <span class="dim">${esc(r.date)}</span></summary>
+      <span class="k ${stateClass(r.state)}">${esc(st||'—')}</span>
+      <b>${esc(title)}</b> <span class="dim">${esc(r.date)}</span></summary>
       <div style="padding:2px 11px 11px">
+        <div class="m dim">id · ${esc(r.id)}</div>
         ${r.object?`<div>${esc(r.object)}</div>`:''}
         ${checks?`<div class="m">${checks}</div>`:''}
-        ${r.measured?`<pre>measured · ${esc(r.measured)}</pre>`:''}
-        ${r.next?`<pre>next · ${esc(r.next)}</pre>`:''}
-        ${(r.laws||[]).length?`<pre>law · ${esc(r.laws.join(' · '))}</pre>`:''}
+        ${r.measured?`<pre>measured · ${esc(clip(r.measured,220))}</pre>`:''}
+        ${r.next?`<pre>next · ${esc(clip(r.next,200))}</pre>`:''}
+        ${(r.laws||[]).length?`<pre>law · ${esc(r.laws.map(l=>clip(l,60)).join(' · '))}</pre>`:''}
         <div class="m dim">returns/${esc(r.file)}</div>
       </div></details>`;
   }).join('')||'<div class="row dim">no returns</div>';
