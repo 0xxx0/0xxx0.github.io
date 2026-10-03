@@ -14,6 +14,7 @@ const f=document.getElementById('f'),out=document.getElementById('probeResult'),
 const done=(ok,x)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=18000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
 const W=()=>f.contentWindow,D=()=>W().document;
+const renderedHeld=()=>{const p=W().PrisonAgePassage?.packet?.(),h=p?.nodes?.at(-1);return h&&D().getElementById('papSource')?.textContent.includes(h.title)&&D().querySelector('#papContext mark')?h:null};
 (async()=>{try{
  f.src='/prison-age/?passage=1&return=field';
  await wait(()=>W().PrisonAgePassage?.snapshot&&D().getElementById('paPassage')&&!D().getElementById('paPassage').hidden,18000,'passage intro');
@@ -21,7 +22,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(doors.length!==4||!/Nothing between fragments is written for you/.test(rec.intro.law))throw Error('passage threshold');
 
  doors[0].click();
- await wait(()=>W().PrisonAgePassage.snapshot().trail.length===1&&D().getElementById('papRoute').classList.contains('on')&&D().querySelector('#papContext mark'),5000,'verified entry route');
+ await wait(()=>W().PrisonAgePassage.snapshot().trail.length===1&&D().getElementById('papRoute').classList.contains('on')&&renderedHeld(),5000,'verified entry route');
  let snap=W().PrisonAgePassage.snapshot(),packet=W().PrisonAgePassage.packet(),held=packet.nodes.at(-1);
  rec.enter={trail:snap.trail,current:snap.current,source:held.source_id,address:held.address,text:held.text,mark:!!D().querySelector('#papContext mark')};
  if(!rec.enter.mark||!held.address.startsWith('source-echo://'))throw Error('exact addressed context');
@@ -31,12 +32,12 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(!read.includes('src='+encodeURIComponent(held.path))||!read.includes('ap_char='+held.start)||!read.includes('return='))throw Error('exact READ context');
 
  const beforeSource=held.source_id;D().getElementById('papCross').click();
- await wait(()=>{const p=W().PrisonAgePassage.packet();return W().PrisonAgePassage.snapshot().trail.length===2&&p?.nodes?.at(-1)?.source_id!==beforeSource&&D().querySelector('#papContext mark')&&D().querySelector('#papTurns [data-turn]')},5000,'cross echo render');
+ await wait(()=>{const h=renderedHeld();return W().PrisonAgePassage.snapshot().trail.length===2&&h?.source_id!==beforeSource&&D().querySelector('#papTurns [data-turn]')},5000,'cross echo render');
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.cross={source:held.source_id,transition:packet.transitions[0]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.cross.transition!=='CROSS_ECHO'||held.source_id===beforeSource)throw Error('cross evidence law');
 
  const turn=[...D().querySelectorAll('#papTurns [data-turn]')][0];if(!turn)throw Error('turn source missing');const crossSource=held.source_id,turnKey=turn.dataset.turn;turn.click();
- await wait(()=>W().PrisonAgePassage.snapshot().trail.length===3&&W().PrisonAgePassage.snapshot().current===turnKey&&D().querySelector('#papContext mark'),5000,'turn source render');
+ await wait(()=>{const h=renderedHeld();return W().PrisonAgePassage.snapshot().trail.length===3&&W().PrisonAgePassage.snapshot().current===turnKey&&h?.key===turnKey},5000,'turn source render');
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.turn={source:held.source_id,transition:packet.transitions[1]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.turn.transition!=='TURN_SOURCE'||held.source_id!==crossSource)throw Error('same-source turn law');
 
@@ -51,7 +52,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  const expectedTrail=packet.nodes.map(x=>x.key),sharePath=W().PrisonAgePassage.snapshot().url,core=W().PrisonAgePassageCore,decoded=core.decodeTrail(new URL(W().location.href).searchParams.get('trail'));rec.share={decoded,valid:core.validateTrail(await fetch('/prison-age/evidence-atlas.json').then(r=>r.json()),decoded).ok,path:sharePath};
  if(decoded.length!==3||!rec.share.valid)throw Error('share route encode');
  f.src=sharePath;
- await wait(()=>W().PrisonAgePassage?.snapshot&&JSON.stringify(W().PrisonAgePassage.snapshot().trail)===JSON.stringify(expectedTrail)&&D().querySelector('#papContext mark'),12000,'shared route reload');
+ await wait(()=>W().PrisonAgePassage?.snapshot&&JSON.stringify(W().PrisonAgePassage.snapshot().trail)===JSON.stringify(expectedTrail)&&renderedHeld(),12000,'shared route reload');
  const restored=W().PrisonAgePassage.packet();rec.share.restored=restored.nodes.map(x=>x.key);rec.share.exact=restored.nodes.every((n,i)=>n.key===packet.nodes[i].key&&n.address===packet.nodes[i].address&&n.text===packet.nodes[i].text);
  if(!rec.share.exact)throw Error('share route exact restore');
 
