@@ -1,73 +1,35 @@
 #!/usr/bin/env python3
-"""pre-commit-search-check — SEARCH-DON'T-ASK enforcement for new artifacts.
+"""pre-commit-search-check — search-first + standing-policy admission guard.
 
-WHY THIS EXISTS
----------------
-Agents routinely create new files/routes/docs without first searching the corpus,
-field index, or existing codebase — producing duplicates, contradictions, and
-orphaned work. The house law is "SEARCH, DON'T ASK" (substrate → corpus → web
-→ operator) but nothing enforces it.
+Two different failures are caught here:
 
-This hook catches the real failure: an agent creating a NEW artifact (new file,
-route, doc) without first searching. It runs at pre-commit so the reminder
-appears before the commit is made, not after a push is refused.
+1. SEARCH-DON'T-ASK: a worker creates a substantial new artifact without searching first.
+   This remains advisory by default because generic artifact creation is not always unsafe.
 
-EXTANT SEARCH TOOLS (use these, don't invent)
----------------------------------------------
-1. Field Index (ops-hub):  python3 ~/void-anchor/ops-hub/scripts/field_index.py --search "<query>"
-   Searches all Hermes conversation history + machine notice streams.
+2. RULE-LIKE FILE != AUTHORITY: a new LAW / RULE / POLICY / CHARTER / MANDATE file
+   appears outside an explicitly non-authoritative evidence/history shelf without being
+   admitted through control/POLICY_INDEX.json. This REFUSES by default. Standing policy
+   is consequential shared state; adding another plausible-looking rule file must never
+   silently create a second authority surface.
 
-2. Corpus DB (FTS5):       ~/sovereign-node/corpus/corpus.db
-   Use the recall tool or direct sqlite3 FTS5 queries.
-
-3. Recall skill:           recall --query "<query>"  (searches all memory at once)
-
-4. Code search (this repo): rg "<pattern>"  or  git grep "<pattern>"
-
-5. Web search:             web_search "<query>"  (Hermes tool)
-
-WHAT THIS HOOK DOES
--------------------
-- Runs on `git commit` (pre-commit)
-- Detects NEW files being added (--diff-filter=A)
-- For new files >= threshold lines (default 10), prints a SEARCH-DON'T-ASK
-  reminder with the exact search commands to run FIRST
-- Advisory by default (exit 0) — "never block the shared trunk"
-- Configurable refusal: set SEARCH_FIRST_REFUSE=1 to exit 1 on violation
-
-CONFIGURATION
--------------
-Environment variables:
-  SEARCH_FIRST_REFUSE=1     # refuse (exit 1) instead of advisory (default 0)
-  SEARCH_FIRST_THRESHOLD=10 # minimum lines in new file to trigger (default 10)
-  SEARCH_FIRST_SKIP=1       # skip this check entirely (for emergencies)
-
-BYPASS
-------
-Deliberate, visible bypass:
-  SEARCH_FIRST_SKIP=1 git commit -m "msg"
-  # or
-  git commit --no-verify -m "msg"
-
-INSTALLATION
-------------
-Installed via: sh tools/install-hooks.sh
-Which wires it into .githooks/pre-commit (version-controlled via core.hooksPath)
+Installed via `sh tools/install-hooks.sh`, which uses the versioned .githooks path.
+A conscious `git commit --no-verify` remains possible; PR CI repeats policy admission.
 """
 
+import argparse
+import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-# Configurable via environment
 REFUSE = os.environ.get("SEARCH_FIRST_REFUSE", "0") == "1"
 THRESHOLD = int(os.environ.get("SEARCH_FIRST_THRESHOLD", "10"))
 SKIP = os.environ.get("SEARCH_FIRST_SKIP", "0") == "1"
 
-# File patterns that are exempt (generated, config, etc.)
 EXEMPT_PATTERNS = [
     r"\.lock$",
     r"package-lock\.json$",
@@ -81,7 +43,6 @@ EXEMPT_PATTERNS = [
     r"\.map$",
 ]
 
-# File extensions that count as "artifacts" worth searching for
 ARTIFACT_EXTS = {
     ".py", ".js", ".mjs", ".ts", ".tsx", ".jsx",
     ".md", ".mdx", ".txt", ".rst",
@@ -93,12 +54,23 @@ ARTIFACT_EXTS = {
     ".c", ".cpp", ".h", ".hpp",
 }
 
+POLICY_LIKE = re.compile(r"(^|[._-])(LAW|RULES?|POLICY|CHARTER|MANDATE)([._-]|$)", re.I)
+NON_AUTHORITY_SHELVES = (
+    "returns/",
+    "recovery/",
+    "control/confluence/",
+    "control/prompts/",
+    "control/research/",
+    "docs/",
+    "research/",
+)
+
 
 def git(*args: str) -> tuple[int, str]:
     try:
         p = subprocess.run(
             ["git", "-C", str(REPO), *args],
-            capture_output=True, text=True, timeout=15
+            capture_output=True, text=True, timeout=20
         )
         return p.returncode, (p.stdout or "").strip()
     except Exception as e:
@@ -106,16 +78,11 @@ def git(*args: str) -> tuple[int, str]:
 
 
 def is_exempt(path: str) -> bool:
-    import re
-    for pat in EXEMPT_PATTERNS:
-        if re.search(pat, path):
-            return True
-    return False
+    return any(re.search(pat, path) for pat in EXEMPT_PATTERNS)
 
 
 def is_artifact(path: str) -> bool:
-    from pathlib import Path as P
-    return P(path).suffix in ARTIFACT_EXTS
+    return Path(path).suffix in ARTIFACT_EXTS
 
 
 def count_lines(path: str) -> int:
@@ -128,69 +95,131 @@ def count_lines(path: str) -> int:
         return 0
 
 
-def get_new_files() -> list[str]:
-    """Get list of new files being added in this commit (staged, diff-filter=A)."""
+def staged_new_files() -> list[str]:
     rc, out = git("diff", "--cached", "--name-only", "--diff-filter=A")
     if rc != 0 or not out:
         return []
     return [f for f in out.splitlines() if f]
 
 
-def print_reminder(new_files: list[str]) -> None:
-    """Print the SEARCH-DON'T-ASK reminder with exact commands."""
+def diff_new_files(base: str) -> list[str]:
+    rc, out = git("diff", "--name-only", "--diff-filter=A", f"{base}...HEAD")
+    if rc != 0:
+        raise RuntimeError(f"cannot inspect policy additions against {base}: {out}")
+    return [f for f in out.splitlines() if f]
+
+
+def policy_index() -> dict:
+    # In pre-commit mode the staged index is authoritative for the commit being formed.
+    rc, staged = git("show", ":control/POLICY_INDEX.json")
+    raw = staged if rc == 0 and staged else (REPO / "control/POLICY_INDEX.json").read_text()
+    return json.loads(raw)
+
+
+def indexed_policy_paths() -> set[str]:
+    data = policy_index()
+    out = set()
+    for item in data.get("authorities", []):
+        path = str(item.get("path") or "").strip().lstrip("/")
+        if path:
+            out.add(path)
+    return out
+
+
+def is_rule_like(path: str) -> bool:
+    return bool(POLICY_LIKE.search(Path(path).name))
+
+
+def is_explicit_non_authority(path: str) -> bool:
+    return path.startswith(NON_AUTHORITY_SHELVES)
+
+
+def policy_violations(new_files: list[str]) -> list[str]:
+    candidates = [f for f in new_files if is_rule_like(f) and not is_explicit_non_authority(f)]
+    if not candidates:
+        return []
+    try:
+        admitted = indexed_policy_paths()
+    except Exception as e:
+        return [f"POLICY_INDEX unreadable while admitting {', '.join(candidates)}: {e}"]
+    return [f for f in candidates if f.lstrip("/") not in admitted]
+
+
+def print_policy_refusal(paths: list[str]) -> None:
     print("\n" + "=" * 70, file=sys.stderr)
-    print("SEARCH-DON'T-ASK: New artifact(s) detected without prior search", file=sys.stderr)
+    print("POLICY AUTHORITY: REFUSED", file=sys.stderr)
     print("=" * 70, file=sys.stderr)
+    print("RULE-LIKE FILE != AUTHORITY", file=sys.stderr)
     print("", file=sys.stderr)
-    print("New files in this commit:", file=sys.stderr)
+    for f in paths:
+        print(f"  unindexed standing-policy candidate: {f}", file=sys.stderr)
+    print("", file=sys.stderr)
+    print("Resolve one of these ways:", file=sys.stderr)
+    print("  1. Amend/reference an existing indexed policy instead of adding a synonym.", file=sys.stderr)
+    print("  2. If this truly is standing authority, add it to control/POLICY_INDEX.json", file=sys.stderr)
+    print("     in the SAME change with explicit scope, authority, status and consumers.", file=sys.stderr)
+    print("  3. If it is evidence/history/donor prose, place it in returns/, recovery/,", file=sys.stderr)
+    print("     control/confluence/, control/prompts/, docs/ or research/ where it cannot", file=sys.stderr)
+    print("     silently masquerade as standing policy.", file=sys.stderr)
+    print("", file=sys.stderr)
+    print("Conscious emergency bypass: git commit --no-verify", file=sys.stderr)
+    print("PR CI will still re-run the admission check.", file=sys.stderr)
+    print("=" * 70, file=sys.stderr)
+
+
+def print_reminder(new_files: list[str]) -> None:
+    print("\n" + "=" * 70, file=sys.stderr)
+    print("SEARCH-DON'T-ASK: substantial new artifact(s) detected", file=sys.stderr)
+    print("=" * 70, file=sys.stderr)
     for f in new_files:
-        lines = count_lines(f)
-        print(f"  {f}  ({lines} lines)", file=sys.stderr)
+        print(f"  {f}  ({count_lines(f)} lines)", file=sys.stderr)
     print("", file=sys.stderr)
     print("HOUSE LAW: SEARCH, DON'T ASK", file=sys.stderr)
     print("  substrate → corpus → web → operator", file=sys.stderr)
-    print("  Before creating NEW artifacts, you MUST search first.", file=sys.stderr)
     print("", file=sys.stderr)
-    print("RUN THESE SEARCHES NOW:", file=sys.stderr)
-    print("", file=sys.stderr)
-    print("  # 1. Field Index (all Hermes conversations + machine notices)", file=sys.stderr)
-    print("  python3 ~/void-anchor/ops-hub/scripts/field_index.py --search \"<your topic>\"", file=sys.stderr)
-    print("", file=sys.stderr)
-    print("  # 2. Corpus DB (FTS5) — direct query or recall skill", file=sys.stderr)
-    print("  recall --query \"<your topic>\"", file=sys.stderr)
-    print("  # or: sqlite3 ~/sovereign-node/corpus/corpus.db \"SELECT * FROM corpus WHERE content MATCH '<topic>'\"", file=sys.stderr)
-    print("", file=sys.stderr)
-    print("  # 3. Code search (this repo)", file=sys.stderr)
+    print("Search existing work first, e.g.:", file=sys.stderr)
+    print("  python3 ~/void-anchor/ops-hub/scripts/field_index.py --search \"<topic>\"", file=sys.stderr)
+    print("  recall --query \"<topic>\"", file=sys.stderr)
     print("  rg \"<pattern>\"", file=sys.stderr)
     print("  git grep \"<pattern>\"", file=sys.stderr)
-    print("", file=sys.stderr)
-    print("  # 4. Web search", file=sys.stderr)
-    print("  web_search \"<query>\"", file=sys.stderr)
-    print("", file=sys.stderr)
     if REFUSE:
-        print("REFUSING COMMIT — set SEARCH_FIRST_REFUSE=0 for advisory mode", file=sys.stderr)
-        print("  (or SEARCH_FIRST_SKIP=1 to skip this check once)", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("REFUSING COMMIT — SEARCH_FIRST_REFUSE=0 returns this generic check to advisory.", file=sys.stderr)
     else:
-        print("ADVISORY ONLY — commit will proceed. To enable refusal:", file=sys.stderr)
-        print("  export SEARCH_FIRST_REFUSE=1", file=sys.stderr)
-        print("  # or for one commit: SEARCH_FIRST_REFUSE=1 git commit ...", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("ADVISORY ONLY for generic artifacts. Policy admission above is always strict.", file=sys.stderr)
     print("=" * 70, file=sys.stderr)
 
 
 def main() -> int:
-    if SKIP:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--policy-diff", metavar="BASE", help="CI mode: check newly added policy-like files against BASE...HEAD")
+    args = ap.parse_args()
+
+    if SKIP and not args.policy_diff:
         return 0
 
-    new_files = get_new_files()
+    try:
+        new_files = diff_new_files(args.policy_diff) if args.policy_diff else staged_new_files()
+    except Exception as e:
+        print(f"POLICY AUTHORITY: REFUSED — {e}", file=sys.stderr)
+        return 1
+
+    bad_policy = policy_violations(new_files)
+    if bad_policy:
+        print_policy_refusal(bad_policy)
+        return 1
+
+    if args.policy_diff:
+        print(f"POLICY AUTHORITY PASS · {len(new_files)} added file(s) inspected · standing policy remains indexed")
+        return 0
+
     if not new_files:
         return 0
 
-    # Filter to artifact files above threshold
     triggering = []
     for f in new_files:
-        if is_exempt(f):
-            continue
-        if not is_artifact(f):
+        if is_exempt(f) or not is_artifact(f):
             continue
         if count_lines(f) >= THRESHOLD:
             triggering.append(f)
@@ -199,7 +228,6 @@ def main() -> int:
         return 0
 
     print_reminder(triggering)
-
     return 1 if REFUSE else 0
 
 
