@@ -3,8 +3,8 @@
 const CORE=root.PrisonAgePassageCore,ATLAS='/prison-age/evidence-atlas.json',PACK='/prison-age/sources.json';
 if(!CORE)return;
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let atlas=null,pack=null,trail=[],current=null,sourceCache=new Map(),mode='CLOSED';
-const initial=new URLSearchParams(location.search);
+let atlas=null,pack=null,trail=[],current=null,sourceCache=new Map(),mode='CLOSED',renderSeq=0;
+const bootQuery=new URLSearchParams(location.search);
 
 function style(){
   if($('paPassageStyle'))return;
@@ -35,22 +35,24 @@ function renderTrail(){
   $('papTrailLaw').textContent='READER PATH · '+trail.length+' / '+CORE.MAX_TRAIL+' · exact source spans only · evidence only';
 }
 function renderIntro(){
-  mode='INTRO';$('papIntro').hidden=false;$('papRoute').classList.remove('on');$('papReturn').classList.remove('on');
+  renderSeq++;current=null;mode='INTRO';$('papIntro').hidden=false;$('papRoute').classList.remove('on');$('papReturn').classList.remove('on');
   const entries=CORE.entryNodes(atlas);$('papDoors').innerHTML=entries.map(n=>'<button class="papDoor" data-enter="'+n.key+'"><span class="papDoorNum">'+esc(sourceMeta(n.endpoint.source_id)?.number||String(n.card).padStart(2,'0'))+'</span><span class="papDoorTitle">'+esc(n.endpoint.title)+'</span><span class="papDoorText">'+esc(n.endpoint.text)+'</span></button>').join('');
   $('papDoors').querySelectorAll('[data-enter]').forEach(b=>b.onclick=()=>enter(b.dataset.enter));renderTrail();writeUrl()
 }
 async function renderNode(){
-  current=CORE.nodeOf(atlas,trail.at(-1));if(!current)return renderIntro();mode='ROUTE';$('papIntro').hidden=true;$('papReturn').classList.remove('on');$('papRoute').classList.add('on');
-  const meta=sourceMeta(current.endpoint.source_id),raw=await sourceText(current),c=CORE.choices(atlas,current.key,trail);
-  $('papSource').textContent=(meta?.number||'—')+' · '+current.endpoint.title+' · '+String(meta?.source_class||'SOURCE').replaceAll('_',' ');
-  $('papFragment').textContent=current.endpoint.text;$('papContext').innerHTML=paragraph(raw,Number(current.endpoint.start),Number(current.endpoint.end));
-  $('papEvidence').innerHTML='<b>'+esc(current.class)+'</b> · '+esc(evidenceLabel(current))+' · '+esc(current.endpoint.address)+' · evidence score '+current.score;
+  const seq=++renderSeq,heldKey=trail.at(-1),held=CORE.nodeOf(atlas,heldKey);current=held;if(!held)return renderIntro();mode='ROUTE';
+  const meta=sourceMeta(held.endpoint.source_id),raw=await sourceText(held);
+  if(seq!==renderSeq||trail.at(-1)!==heldKey)return;
+  const c=CORE.choices(atlas,held.key,trail);
+  $('papIntro').hidden=true;$('papReturn').classList.remove('on');$('papRoute').classList.add('on');
+  $('papSource').textContent=(meta?.number||'—')+' · '+held.endpoint.title+' · '+String(meta?.source_class||'SOURCE').replaceAll('_',' ');
+  $('papFragment').textContent=held.endpoint.text;$('papContext').innerHTML=paragraph(raw,Number(held.endpoint.start),Number(held.endpoint.end));
+  $('papEvidence').innerHTML='<b>'+esc(held.class)+'</b> · '+esc(evidenceLabel(held))+' · '+esc(held.endpoint.address)+' · evidence score '+held.score;
   $('papCross').disabled=!c.cross;$('papCross').textContent=c.cross?'CROSS ECHO → '+c.cross.endpoint.title:'CROSS ECHO';$('papCross').onclick=()=>c.cross&&move(c.cross.key);
   $('papTurns').innerHTML=c.turns.map(n=>'<button class="papTurn" data-turn="'+n.key+'"><b>TURN · '+esc(evidenceLabel(n))+'</b><span>'+esc(n.endpoint.text)+'</span></button>').join('')||'<button disabled>NO UNUSED SOURCE TURN</button>';
-  $('papTurns').querySelectorAll('[data-turn]').forEach(b=>b.onclick=()=>move(b.dataset.turn));
-  $('papRead').href=readHref(current);$('papRead').onclick=null;$('papRide').onclick=()=>void rideCurrent();$('papRaw').href=current.endpoint.path;
+  $('papRead').href=readHref(held);$('papRead').onclick=null;$('papRide').onclick=()=>void rideCurrent();$('papRaw').href=held.endpoint.path;
   $('papReturnBtn').disabled=trail.length<2;renderTrail();writeUrl();
-  $('papState').textContent='HELD '+current.key.toUpperCase()+' · '+current.endpoint.source_id+' · '+trail.length+' steps';
+  $('papState').textContent='HELD '+held.key.toUpperCase()+' · '+held.endpoint.source_id+' · '+trail.length+' steps';
 }
 function enter(key){trail=[CORE.parseNode(key)?.key].filter(Boolean);return renderNode()}
 function move(key){try{trail=CORE.append(atlas,trail,key);return renderNode()}catch(e){$('papState').textContent='MOVE REJECTED · '+String(e.message||e)}}
@@ -66,7 +68,7 @@ async function rideCurrent(){
   try{const mod=await import('/fold-bloom/read-course.js'),packet=await makeRidePacket();sessionStorage.setItem(mod.READ_RIDE_STORAGE,JSON.stringify(packet));$('papState').textContent='RIDE READY · exact source + exact char address · RETURN PASSAGE';location.href='/fold-bloom/live/?source=readfield&course=STEP'}catch(e){$('papState').textContent='RIDE REJECTED · '+String(e.message||e)}
 }
 function renderReturn(){
-  if(!trail.length)return renderIntro();const packet=CORE.routePacket(atlas,trail);mode='RETURN';$('papIntro').hidden=true;$('papRoute').classList.remove('on');$('papReturn').classList.add('on');
+  if(!trail.length)return renderIntro();renderSeq++;const packet=CORE.routePacket(atlas,trail);mode='RETURN';$('papIntro').hidden=true;$('papRoute').classList.remove('on');$('papReturn').classList.add('on');
   $('papReturnBody').innerHTML=packet.nodes.map((n,i)=>{const seam=i?'<div class="papSeam">'+esc(transitionLabel(packet.nodes[i-1].key,n.key))+'</div>':'';return seam+'<div class="papReturnNode"><div class="src">'+String(i+1).padStart(2,'0')+' · '+esc(n.title)+' · '+esc(n.address)+'</div><p>'+esc(n.text)+'</p></div>'}).join('');
   $('papReturnMeta').textContent=packet.nodes.length+' exact source spans · '+packet.transitions.filter(x=>x.kind==='CROSS_ECHO').length+' cross-source echoes · '+packet.transitions.filter(x=>x.kind==='TURN_SOURCE').length+' source turns · authority EVIDENCE ONLY';renderTrail();writeUrl()
 }
@@ -78,9 +80,9 @@ async function shareRoute(){
   try{await navigator.clipboard.writeText(url);$('papShare').textContent='LINK COPIED';setTimeout(()=>$('papShare').textContent='SHARE PASSAGE',1000)}catch(_){location.hash='share'}
 }
 function open(){
-  $('paPassage').hidden=false;const raw=initial.get('trail')||new URLSearchParams(location.search).get('trail'),v=CORE.validateTrail(atlas,CORE.decodeTrail(raw));trail=v.ok?v.trail:[];if(trail.length)void renderNode();else renderIntro()
+  $('paPassage').hidden=false;const raw=new URLSearchParams(location.search).get('trail'),v=CORE.validateTrail(atlas,CORE.decodeTrail(raw));trail=v.ok?v.trail:[];if(trail.length)void renderNode();else renderIntro()
 }
-function close(){ $('paPassage').hidden=true;const u=new URL(location.href);u.searchParams.delete('passage');u.searchParams.delete('trail');history.replaceState(null,'',u.pathname+u.search+u.hash)}
+function close(){renderSeq++;current=null;$('paPassage').hidden=true;const u=new URL(location.href);u.searchParams.delete('passage');u.searchParams.delete('trail');history.replaceState(null,'',u.pathname+u.search+u.hash)}
 function rootRide(){const meta=pack?.stories?.['proto-root-2021'];if(!meta?.authored_reader)return;const u=new URL(meta.authored_reader.target,location.origin);u.searchParams.set('reader_return',currentUrl());location.href=u.pathname+u.search}
 function reset(){trail=[];renderIntro()}
 function mount(){
@@ -90,8 +92,9 @@ async function init(){
   style();const box=document.createElement('section');box.id='paPassage';box.className='paPassage';box.hidden=true;box.innerHTML=`<div class="papShell"><header class="papHead"><div><div class="papEy">PRISON AGE / EXACT SOURCE ROUTE</div><h2>PASSAGE</h2></div><div class="papHeadActions"><button id="papShare">SHARE PASSAGE</button><button id="papClose">RETURN SOURCE</button></div></header><main class="papMain"><section id="papIntro" class="papIntro"><div class="papEy">NOT A GENERATED STORY</div><h3>THE STORY IS <b>THE PATH</b></h3><div class="papIntroLaw">Choose an exact authored fragment. CROSS ECHO may move only across one shipped lexical/phrase relation. TURN stays inside the same source and moves to another evidenced relation. Nothing between fragments is written for you.</div><div class="papRoot"><div><div class="papEy">2021 / PROVENANCE-DISTINCT ROOT</div><strong>PRISON AGE · 9 GATE CITY · SINGAPORE</strong><span>Recovered authored fragment. Separate recurrence law; not flattened into the 2026 cross-source atlas.</span></div><button id="papRootRide">RIDE ROOT</button></div><div id="papDoors" class="papDoors"></div></section><section id="papRoute" class="papRoute"><div class="papStage"><div id="papSource" class="papSource">—</div><div id="papFragment" class="papFragment">—</div><div id="papContext" class="papContext"></div><div id="papEvidence" class="papEvidence"></div><div class="papActions"><button id="papCross" class="papCross">CROSS ECHO</button><a id="papRead" class="papRead">READ CONTEXT</a><button id="papRide" class="papRide">RIDE CONTEXT</button><a id="papRaw">SOURCE</a><button id="papReturnBtn">RETURN / SEE PASSAGE</button></div><div id="papTurns" class="papTurns"></div></div><aside class="papTrail"><h4>YOUR PASSAGE</h4><div id="papTrailList"></div><div id="papTrailLaw" class="papTrailLaw"></div></aside></section><section id="papReturn" class="papReturn"><div class="papEy">RETURN / READER-MADE SEQUENCE</div><h3>WHAT <b>SURVIVED</b></h3><div id="papReturnMeta" class="papEvidence"></div><div id="papReturnBody"></div><div class="papReturnActions"><button id="papAgain">BEGIN AGAIN</button><button id="papCopy">COPY WITNESS</button><button id="papShare2">SHARE PASSAGE</button></div></section></main><footer class="papStatus"><span id="papState">SOURCE-DERIVED · EVIDENCE ONLY</span><span><b>RECURRENCE ≠ ECHO ≠ NARRATIVE CLAIM</b></span></footer></div>`;document.body.appendChild(box);mount();
   [atlas,pack]=await Promise.all([fetch(ATLAS,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('ATLAS '+r.status);return r.json()}),fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()})]);
   $('papClose').onclick=close;$('papShare').onclick=shareRoute;$('papShare2').onclick=shareRoute;$('papReturnBtn').onclick=renderReturn;$('papAgain').onclick=reset;$('papCopy').onclick=copyRoute;$('papRootRide').onclick=rootRide;
-  if(initial.get('passage')==='1')open()
+  $('papTurns').onclick=e=>{const b=e.target.closest?.('[data-turn]');if(b&&$('papTurns').contains(b))move(b.dataset.turn)};
+  if(bootQuery.get('passage')==='1')open()
 }
-root.PrisonAgePassage=Object.freeze({open,close,reset,renderReturn,makeRidePacket,packet:()=>atlas?CORE.routePacket(atlas,trail):null,snapshot:()=>({mode,trail:[...trail],current:current?current.key:null,url:currentUrl()})});
+root.PrisonAgePassage=Object.freeze({open,close,reset,renderReturn,makeRidePacket,packet:()=>atlas?CORE.routePacket(atlas,trail):null,snapshot:()=>({mode,trail:[...trail],current:current?current.key:null,url:currentUrl(),renderSeq})});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>void init().catch(e=>console.warn('PASSAGE',e)));else void init().catch(e=>console.warn('PASSAGE',e));
 })(globalThis);
