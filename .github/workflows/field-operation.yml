@@ -1,0 +1,34 @@
+name: field-operation
+on:
+  pull_request:
+    paths:
+      - 'tools/field-operation.mjs'
+      - 'control/SOURCE_HOLD_TURN_TRACE_RETURN.json'
+      - 'showcase-manifest.json'
+      - 'control/CURRENT.json'
+      - 'llms.txt'
+  push:
+    branches: [master]
+    paths:
+      - 'tools/field-operation.mjs'
+      - 'control/SOURCE_HOLD_TURN_TRACE_RETURN.json'
+      - 'showcase-manifest.json'
+      - 'control/CURRENT.json'
+      - 'llms.txt'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check FIELD operation tool syntax
+        run: node --check tools/field-operation.mjs
+      - name: Prove SOURCE HOLD TURN TRACE RETURN staging
+        run: node tools/field-operation.mjs --selftest
+      - name: Stage one real current object
+        run: node tools/field-operation.mjs --source /field-intake/ --markdown
