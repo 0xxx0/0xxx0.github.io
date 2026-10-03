@@ -18,6 +18,12 @@ function matchingDomains(files, domains = []) {
   return out;
 }
 
+function intersectDomains(a, b) {
+  const hits = [];
+  for (const [id, files] of a) if (b.has(id)) hits.push({id, ours:files, theirs:b.get(id)});
+  return hits;
+}
+
 function parseClaim(body = '') {
   const match = body.match(/<!--\s*FIELD-TRANSACTION\s*([\s\S]*?)-->/i);
   if (!match) return null;
@@ -96,12 +102,52 @@ const softSelf = matchingDomains(selfFiles, config.soft_domains);
 const errors = [];
 const warnings = [];
 
-// Resolve the target branch NOW, not merely the base SHA captured when the PR opened.
-// This catches candidates that were green and then drifted behind master before merge.
+// Two different freshness questions matter:
+// 1) Is the topic head behind today's target branch? Useful chronology signal.
+// 2) Did the target move AFTER this PR event was assembled, and did that movement
+//    touch the same exact/hard/soft surfaces? That is the collision signal.
 const comparison = await api(`${apiBase}/repos/${owner}/${repo}/compare/${encodeURIComponent(pr.base.ref)}...${pr.head.sha}`);
 const baseBehind = Number(comparison.behind_by || 0);
-if (baseBehind > 0 && config.policy?.base_behind === 'FAIL') {
-  errors.push(`base drift: PR head is ${baseBehind} commit(s) behind current ${pr.base.ref}`);
+const baseRef = await api(`${apiBase}/repos/${owner}/${repo}/branches/${encodeURIComponent(pr.base.ref)}`);
+const currentBaseSha = baseRef.commit?.sha || pr.base.sha;
+let interveningFiles = [];
+if (currentBaseSha && pr.base.sha && currentBaseSha !== pr.base.sha) {
+  try {
+    const delta = await api(`${apiBase}/repos/${owner}/${repo}/compare/${pr.base.sha}...${currentBaseSha}`);
+    interveningFiles = (delta.files || []).map(x => x.filename);
+  } catch (err) {
+    warnings.push(`base moved after PR event but intervening file classification failed: ${err.message}`);
+  }
+}
+
+if (baseBehind > 0) {
+  if (hardSelf.size && config.policy?.base_drift_on_hard_candidate === 'FAIL') {
+    errors.push(`hard-authority candidate is ${baseBehind} commit(s) behind current ${pr.base.ref}`);
+  } else {
+    warnings.push(`base drift: PR head is ${baseBehind} commit(s) behind current ${pr.base.ref}; merge-result checks remain required`);
+  }
+}
+
+if (interveningFiles.length) {
+  const exactBase = selfFiles.filter(file => interveningFiles.includes(file));
+  if (exactBase.length && config.policy?.base_drift_exact_overlap === 'FAIL') {
+    errors.push(`moving-base exact-file overlap: ${exactBase.join(', ')}`);
+  }
+  const hardBase = matchingDomains(interveningFiles, config.hard_domains);
+  for (const hit of intersectDomains(hardSelf, hardBase)) {
+    if (config.policy?.base_drift_hard_domain_overlap === 'FAIL') {
+      errors.push(`moving-base hard-domain overlap '${hit.id}': ours [${hit.ours.join(', ')}] vs base [${hit.theirs.join(', ')}]`);
+    }
+  }
+  const softBase = matchingDomains(interveningFiles, config.soft_domains);
+  for (const hit of intersectDomains(softSelf, softBase)) {
+    if (config.policy?.base_drift_soft_domain_overlap === 'WARN') {
+      warnings.push(`moving-base soft-domain overlap '${hit.id}': ours [${hit.ours.join(', ')}] vs base [${hit.theirs.join(', ')}]`);
+    }
+  }
+  if (!exactBase.length && !intersectDomains(hardSelf, hardBase).length && !intersectDomains(softSelf, softBase).length) {
+    warnings.push(`base advanced after PR event across ${interveningFiles.length} unrelated file(s)`);
+  }
 }
 
 for (const file of selfFiles) {
@@ -115,9 +161,7 @@ if (!claim) {
   if (hardSelf.size && config.policy?.missing_claim_on_hard_domain === 'FAIL') errors.push(message);
   else warnings.push(message);
 } else {
-  for (const key of config.claim_block?.keys || []) {
-    if (!claim[key]) warnings.push(`claim missing key: ${key}`);
-  }
+  for (const key of config.claim_block?.keys || []) if (!claim[key]) warnings.push(`claim missing key: ${key}`);
   const allowed = new Set(config.claim_block?.classes || []);
   if (claim.class && !allowed.has(claim.class.toUpperCase())) warnings.push(`unknown contribution class: ${claim.class}`);
   const matched = new Set([...hardSelf.keys(), ...softSelf.keys()]);
@@ -133,17 +177,13 @@ for (const other of openPrs) {
   if (exact.length) errors.push(`PR #${other.number} exact-file overlap: ${exact.join(', ')}`);
 
   const hardOther = matchingDomains(otherFiles, config.hard_domains);
-  for (const [domain, files] of hardSelf) {
-    if (hardOther.has(domain)) {
-      errors.push(`PR #${other.number} hard-domain overlap '${domain}': ours [${files.join(', ')}] vs theirs [${hardOther.get(domain).join(', ')}]`);
-    }
+  for (const hit of intersectDomains(hardSelf, hardOther)) {
+    errors.push(`PR #${other.number} hard-domain overlap '${hit.id}': ours [${hit.ours.join(', ')}] vs theirs [${hit.theirs.join(', ')}]`);
   }
 
   const softOther = matchingDomains(otherFiles, config.soft_domains);
-  for (const [domain, files] of softSelf) {
-    if (softOther.has(domain)) {
-      warnings.push(`PR #${other.number} shares soft domain '${domain}': ours [${files.join(', ')}] vs theirs [${softOther.get(domain).join(', ')}]`);
-    }
+  for (const hit of intersectDomains(softSelf, softOther)) {
+    warnings.push(`PR #${other.number} shares soft domain '${hit.id}': ours [${hit.ours.join(', ')}] vs theirs [${hit.theirs.join(', ')}]`);
   }
 
   const otherClaim = parseClaim(other.body || '');
@@ -153,8 +193,8 @@ for (const other of openPrs) {
 }
 
 console.log(`collision-preflight: PR #${selfNumber}`);
-console.log(`base: ${pr.base.ref} · behind_by=${baseBehind} · compare_status=${comparison.status}`);
-console.log(`changed files: ${selfFiles.length}`);
+console.log(`base: ${pr.base.ref} · event_base=${pr.base.sha} · current_base=${currentBaseSha} · behind_by=${baseBehind} · compare_status=${comparison.status}`);
+console.log(`changed files: ${selfFiles.length} · intervening base files: ${interveningFiles.length}`);
 console.log(`hard domains: ${[...hardSelf.keys()].join(', ') || 'none'}`);
 console.log(`soft domains: ${[...softSelf.keys()].join(', ') || 'none'}`);
 console.log(`other open PRs inspected: ${openPrs.length}`);
