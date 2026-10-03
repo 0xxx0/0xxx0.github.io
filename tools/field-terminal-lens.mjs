@@ -46,11 +46,6 @@ function glyphToken(route,head,ascii=false){
   if(ascii)return '['+r.kind+'/'+r.operation+']';
   return FG.mnemonic(r);
 }
-function compactNext(head={}){
-  const n=head.next_executable;
-  if(!n)return 'next=—';
-  return 'next='+text(n.state||n.id||n.objective||'DECLARED');
-}
 function overviewModel(sources,ascii=false){
   const rows=[];
   for(const head of arr(sources.current.current_heads)){
@@ -152,7 +147,7 @@ function selftest(){
   ok(plain.includes('RETURN')&&plain.includes('next_authority NONE'),'return visible');
   const own=fs.readFileSync(fileURLToPath(import.meta.url),'utf8');
   ok(!/\bfetch\s*\(/.test(own),'lens must not network');
-  ok(!/\b(?:writeFile|appendFile|createWriteStream|rmSync|unlinkSync|renameSync)\b/.test(own),'lens must not write');
+  ok(!/\b(?:fs\.)?(?:writeFile|appendFile|createWriteStream|rmSync|unlinkSync|renameSync)\s*\(/.test(own),'lens must not write');
   if(fail.length){console.error('FIELD TERMINAL LENS SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
   console.log('FIELD TERMINAL LENS SELFTEST PASS · same object → glyph/text projection → ≤3 moves → exact RETURN · authority NONE');
 }
