@@ -1,0 +1,58 @@
+name: field-stage-handoff
+on:
+  pull_request:
+    paths:
+      - 'tools/field-stage-handoff.mjs'
+      - 'lib/field-crew-handoff.mjs'
+      - 'scripts/emit-agent-transcript.mjs'
+      - 'control/SUBMISSION_CONTRACT.json'
+      - 'control/CURRENT.json'
+      - 'showcase-manifest.json'
+      - 'llms.txt'
+      - '.github/workflows/field-stage-handoff.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'tools/field-stage-handoff.mjs'
+      - 'lib/field-crew-handoff.mjs'
+      - 'scripts/emit-agent-transcript.mjs'
+      - 'control/SUBMISSION_CONTRACT.json'
+      - 'control/CURRENT.json'
+      - 'showcase-manifest.json'
+      - 'llms.txt'
+      - '.github/workflows/field-stage-handoff.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check staging helper syntax
+        run: node --check tools/field-stage-handoff.mjs
+      - name: Prove exact-object staging stays authority NONE
+        run: node tools/field-stage-handoff.mjs --selftest
+      - name: Round-trip staged object through canonical crew handoff
+        run: |
+          node tools/field-stage-handoff.mjs --source field-index --submission > /tmp/field-submission.json
+          node scripts/emit-agent-transcript.mjs --handoff /tmp/field-submission.json --json > /tmp/field-handoff.json
+          node - <<'NODE'
+          const fs=require('fs');
+          const s=JSON.parse(fs.readFileSync('/tmp/field-submission.json','utf8'));
+          const h=JSON.parse(fs.readFileSync('/tmp/field-handoff.json','utf8'));
+          if(s.object_ref!=='/')throw Error('staged source drift');
+          if(h.schema!=='field-crew-handoff/v0.1')throw Error('handoff schema drift');
+          if(h.authority!=='NONE / TRANSIENT HANDOFF ONLY')throw Error('handoff acquired authority');
+          if(h.source.object_ref!=='/'||h.hold.focus!=='/'||h.return.target!=='/')throw Error('object/return continuity drift');
+          if((h.hold.moves||[]).length>3)throw Error('move bound drift');
+          if((h.hold.moves||[]).some(m=>m.authority!=='OFFER'))throw Error('derived move authority drift');
+          console.log('FIELD STAGE → CREW HANDOFF ROUNDTRIP PASS · '+h.context_handle+' · '+h.status.state);
+          NODE
+      - name: Preserve bounded execution protocol
+        run: node tools/source-hold-turn-trace-return-selftest.mjs
+      - name: Preserve machine entrypoint reducer
+        run: node scripts/emit-agent-transcript.mjs --selftest

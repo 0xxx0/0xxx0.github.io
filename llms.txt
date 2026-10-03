@@ -60,6 +60,22 @@ Structured form:
 
 Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves and selected TURN on an unresolved object fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
 
+When the object is already known but nobody should hand-copy CURRENT/manifest context, prefill that **same** submission/handoff contract from one exact route or CURRENT lineage:
+
+`node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> --submission > /tmp/field-submission.json`
+
+Then pass it through the canonical handoff entrypoint:
+
+`node scripts/emit-agent-transcript.mjs --handoff /tmp/field-submission.json --json`
+
+For a direct readable/structured projection of the identical contract:
+
+`node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage>`
+
+`node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> --json`
+
+The staging helper is **not** a second packet dialect or authority source. It resolves exactly one existing object, derives at most three `OFFER` moves only from the manifest's declared operation plus `AVAILABLE` exits, and feeds `/control/SUBMISSION_CONTRACT.json` → `field-crew-handoff/v0.1`. Unknown/ambiguous objects fail closed; selecting a move still grants no EFFECT authority.
+
 The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.
 
 Deepen selectively: open only the specific CURRENT head / manifest route / WAITING item required by the selected object. Canonical authority remains in the source files; selective reading does not create a second store.
@@ -76,6 +92,7 @@ Bounded execution protocol (human + coding workers):
 - machine contract: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.json`
 - one-page operating notes + packet template: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
 - submission / crew bridge: `/control/SUBMISSION_CONTRACT.json`
+- exact-object staging helper: `node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage>`
 - selftest: `node tools/source-hold-turn-trace-return-selftest.mjs`
 
 Use it after selecting an object: one exact source, one held focus, ≤3 lawful moves, one TURN, machine-verifiable TRACE where possible, then RETURN. EFFECT requires explicit native commit/RELEASE. After RETURN re-read CURRENT; no second move inherits authority.
