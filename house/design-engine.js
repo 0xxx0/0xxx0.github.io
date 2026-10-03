@@ -220,7 +220,7 @@
         'This receipt records an addressed design trial and its observed result.',
         'Witnesses are claim-scoped evidence attached to this exact trial; they do not create effect authority.',
         'ADOPT is a local human decision, not structural/safety approval.',
-        'REVERT means a separate corrective trial is required; it is not an undo token for physical reality.',
+        'REVERT means a separate corrective trial is required; it is not an undo primitive for physical reality.',
         'No Home Assistant/HOUSEBUS actuation authority is granted.',
         'Canonical HOUSE geometry changes only after independent measurement/evidence update.'
       ],
