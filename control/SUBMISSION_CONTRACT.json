@@ -54,6 +54,70 @@
       "law": "EFFECT remains inert until the native host's explicit RELEASE/commit boundary is crossed."
     }
   },
+  "minimum_execution_projection": {
+    "schema": "field-crew-turn/v0.1",
+    "purpose": "Smallest executable same-object packet for a human, agent, or future crew member after host/object resolution. It is a projection of this contract plus SOURCE→HOLD→TURN→TRACE→RETURN, not a new planner, queue, memory or authority source.",
+    "shape": {
+      "source": {
+        "object": "Stable addressed object id/route/head",
+        "owner": "Native authority that owns truth/effect for this object"
+      },
+      "hold": {
+        "delta": "One observable before→after change or question"
+      },
+      "turn": {
+        "move": "Exactly one host-native operation",
+        "release": "NONE for non-effect work; otherwise the exact native commit/RELEASE boundary"
+      },
+      "trace": {
+        "status": "CHANGED | UNCHANGED | FAILED | BLOCKED | UNKNOWN",
+        "result": "Observed result, not intended result",
+        "evidence": "Zero or more exact evidence refs; empty evidence cannot justify CHANGED/UNCHANGED behavioral claims"
+      },
+      "return": {
+        "gate": "null or the exact unresolved human/device/world/policy/evidence gate",
+        "to": "Exact re-entry address for the same object/context"
+      }
+    },
+    "leaf_count": 10,
+    "invariants": [
+      "source.object is immutable across the packet; a different object requires a new SOURCE.",
+      "source.owner is native authority, not the current human/model/worker identity.",
+      "hold.delta names one observable change; it does not become priority or NEXT authority.",
+      "turn.move is exactly one operation. A second move requires RETURN then a fresh HOLD.",
+      "turn.release must be NONE unless the native host explicitly owns the named commit/RELEASE boundary.",
+      "trace.status never implies proof by itself; evidence supports material claims and UNKNOWN is valid.",
+      "return.gate preserves what still blocks truth/effect without occupying NOW.",
+      "RETURN closes authority. There is deliberately no next field and no actor field."
+    ],
+    "human_shorthand": "@<object> [owner:<owner>] Δ <delta> → <move> / release:<boundary> → <status>: <result> [evidence] ↩ <to> [gate:<gate|null>]",
+    "example": {
+      "source": {
+        "object": "/docs/",
+        "owner": "READFIELD"
+      },
+      "hold": {
+        "delta": "Make one existing reader action reachable with less interaction cost without changing source/cursor authority"
+      },
+      "turn": {
+        "move": "Patch the existing /docs/ host action surface",
+        "release": "HOST_NATIVE Git commit"
+      },
+      "trace": {
+        "status": "CHANGED",
+        "result": "Existing action is reachable from the current surface; source/cursor authority unchanged",
+        "evidence": [
+          "commit:<sha>",
+          "selftest:<run>"
+        ]
+      },
+      "return": {
+        "gate": null,
+        "to": "/?focus=%2Fdocs%2F"
+      }
+    },
+    "intake_boundary": "Use the full submission envelope when object_ref is UNRESOLVED, host resolution is still required, donor/contribution classification matters, or evidence class/source provenance must be established. Once one exact object+owner are resolved, the minimum projection is sufficient for bounded execution/handoff."
+  },
   "crew_handoff_projection": {
     "compiler": "node scripts/emit-agent-transcript.mjs --handoff <submission.json>",
     "structured": "node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json",
