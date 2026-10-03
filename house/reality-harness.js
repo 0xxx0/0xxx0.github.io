@@ -11,7 +11,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=Core;
 if(typeof document==='undefined'||typeof window==='undefined')return;
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let model=null, overlay=null, toggle=null, detail=null, active='ROOM';
+let model=null, modelPromise=null, overlay=null, toggle=null, detail=null, active='ROOM';
 let context=root.HOUSE_CONTEXT||{address:'',label:'',projection:'PLAN'};
 let designState=null, runtimeWitness=null;
 
@@ -107,7 +107,8 @@ function render(){
  renderDetail();
  bindLayerClicks();
 }
-function open(){
+async function open(){
+ if(!model&&modelPromise)try{await modelPromise}catch(_){}
  overlay.hidden=false;toggle.classList.add('on');toggle.setAttribute('aria-expanded','true');render();
 }
 function close(){
@@ -123,12 +124,12 @@ function boot(){
  overlay=document.createElement('div');overlay.className='realityHarness';overlay.hidden=true;
  overlay.innerHTML='<div class="rhGrid"><div class="rhField"></div><div class="rhDetail"></div></div>';
  stage.appendChild(overlay);detail=overlay.querySelector('.rhDetail');
- toggle.onclick=()=>overlay.hidden?open():close();
+ modelPromise=fetch('./reality-stack.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(d=>{model=d;root.HOUSE_REALITY_STACK=d;if(!overlay.hidden)render();return d}).catch(err=>{detail.innerHTML='<div class="warn">REALITY STACK UNAVAILABLE · '+esc(err.message)+'</div>';throw err});
+ toggle.onclick=()=>overlay.hidden?void open():close();
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)close()});
  window.addEventListener('house:selection',e=>{context=Object.assign({},context,e.detail||{});if(!overlay.hidden)render()});
  window.addEventListener('house:design-state',e=>{designState=e.detail||null;if(!overlay.hidden&&(active==='ROOM'||active==='RETURN'))renderDetail()});
  window.addEventListener('house:runtime-witness',e=>{runtimeWitness=e.detail||null;if(!overlay.hidden&&(active==='HOUSE'||active==='NETWORK'))renderDetail()});
- fetch('./reality-stack.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(d=>{model=d;root.HOUSE_REALITY_STACK=d;if(!overlay.hidden)render()}).catch(err=>{detail.innerHTML='<div class="warn">REALITY STACK UNAVAILABLE · '+esc(err.message)+'</div>'});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })(typeof globalThis!=='undefined'?globalThis:this);
