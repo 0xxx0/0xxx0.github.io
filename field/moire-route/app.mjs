@@ -2,6 +2,7 @@ import {
   TAU,buildHeldField,normalizeProjection,projectionProfile,
   representationMismatch,residualMismatch,lineageAngles
 } from "./core.mjs";
+import {mountPaintingPlainTrial} from "./painting-plain.mjs";
 
 const q=s=>document.querySelector(s);
 const params=new URLSearchParams(location.search);
@@ -101,14 +102,11 @@ function drawMoiré(){
   const bPhase=a.phase*(1-compensation);
   drawLineField(mc,w,h,a.canonical,0,11,.34,"#dfe5df");
   drawLineField(mc,w,h,bAngle,bPhase,10.4,.24+.42*res,"#72bce7");
-
-  // Hidden/derived channels remain as a non-alignable residue field.
   const hidden=report.channels.reduce((n,r)=>n+r.hidden.length+r.derived.length*.45,0);
   if(hidden>0){
     const residueAngle=a.canonical+0.42+report.irreducible*.8;
     drawLineField(mc,w,h,residueAngle,report.irreducible*Math.PI,17,.08+.30*report.irreducible,"#ed7447");
   }
-
   const g=mc.createRadialGradient(w*.5,h*.5,10,w*.5,h*.5,w*.55);
   g.addColorStop(0,"rgba(255,255,255,0)");g.addColorStop(1,"rgba(0,0,0,.72)");mc.fillStyle=g;mc.fillRect(0,0,w,h);
   mc.fillStyle="rgba(8,10,12,.74)";mc.fillRect(18,18,w-36,76);
@@ -172,6 +170,7 @@ async function boot(){
     held=buildHeldField(manifest,current,focusHref,projectionEl.value);
     if(!held.ok){q("#noHeld").hidden=false;q("#noHeld p").textContent="Held address cannot be resolved against the current manifest: "+held.reason+" · "+(held.href||focusHref);return}
     q("#instrument").hidden=false;loadReport();
+    mountPaintingPlainTrial({manifest,current,held});
   }catch(err){
     q("#noHeld").hidden=false;q("#noHeld p").textContent="Could not load FIELD truth sources. "+String(err?.message||err);
   }
