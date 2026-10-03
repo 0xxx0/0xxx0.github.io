@@ -152,6 +152,64 @@ If `WORLD_RETURN`, workers may still:
 
 They must not invent the result.
 
+## Natural-language front door / operator burden ceiling
+
+The operator is **not** required to maintain Crew Seam state or speak its schema.
+
+Ordinary input may be incomplete, associative, self-correcting, shorthand, or mixed across levels of abstraction. The worker owns the translation burden.
+
+For a substantial request, internally compile only the smallest useful interpretation:
+
+```text
+OBJECTIVE
+DELIVERABLE
+RELEVANT CONTEXT
+CONSTRAINTS
+SUCCESS / EVIDENCE
+UNCERTAINTY
+METHOD
+```
+
+Then resolve that interpretation against the existing HOUSE object/frame. Do not expose this scaffold unless it repairs a material ambiguity or the operator asks for it.
+
+Adaptive depth:
+
+```text
+L0 DIRECT
+  obvious / cheap / reversible
+  → answer, inspect, navigate or make the bounded lawful move
+
+L1 COMPILE
+  multi-part / analytical / artifact work
+  → internal task contract → ≤3 useful moves
+
+L2 DEEP
+  archival / costly / code / multi-source / consequence-bearing
+  → recover → compile → execute/check → TRACE → RETURN
+```
+
+Escalate only when the task requires it. Do not run a heavyweight rewrite/self-audit loop on every utterance merely because one exists.
+
+### Operator fast path
+
+```text
+say the thing naturally
+  → worker finds exact object + current frame
+  → worker continues all lawful NONE-gated work
+  → worker exposes ≤3 proposals only when useful
+  → operator touches the loop only at real PING / CHOOSE / WORLD_RETURN gates
+  → WRONG_FRAME repairs the model instead of demanding a better prompt
+```
+
+Human-compliance failure means any of:
+- the operator must repeatedly re-brief the same object/intent;
+- the operator must translate normal language into machine syntax;
+- the operator must manually curate worker state to keep work coherent;
+- workers ask questions whose answers can already be recovered from native state/source;
+- coordination output becomes longer than the work it enables.
+
+Related donor, not authority: `/control/confluence/CHATGPT_THREAD_SEMANTIC_COMPACTION_DONOR_2026-10-03.md`.
+
 ## INTERPHASE bridge
 
 Crew Seam does not replace `interphase-carrier/v0.1`.
@@ -256,10 +314,11 @@ Narrow or remove it if:
 
 Use one real HOUSE design task with two workers/threads:
 
-1. worker A leaves exact locus + intent + next/proof in Crew Seam;
-2. worker B receives only the frame and relevant native source;
-3. worker B returns ≤3 OFFER_ONLY proposals;
-4. operator uses KEEP/PARK/WRONG_FRAME only if useful;
-5. compare briefing length, wrong assumptions and time-to-useful-action against an ordinary chat handoff.
+1. operator gives worker A an ordinary natural-language request; no Crew schema is supplied manually;
+2. worker A resolves exact locus + intent + constraints + next/proof in Crew Seam;
+3. worker B receives only the frame and relevant native source;
+4. worker B returns ≤3 OFFER_ONLY proposals;
+5. operator uses KEEP/PARK/WRONG_FRAME only if useful or answers a real human gate;
+6. compare briefing length, clarification burden, wrong assumptions, unnecessary operator interruptions and time-to-useful-action against an ordinary chat handoff.
 
-**Goal: shared state sufficient for coordinated action, not maximal shared context.**
+**Goal: shared state sufficient for coordinated action, not maximal shared context — and not operator-maintained orchestration.**
