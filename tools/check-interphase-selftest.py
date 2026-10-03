@@ -4,6 +4,8 @@
 Every mutation runs against an isolated scratch checkout. The test also creates a
 real file OUTSIDE that checkout and proves it cannot satisfy R9: another tree,
 absolute host path, or sibling worktree is not evidence for the checkout under test.
+Legacy absolute strings that merely serialize a path inside this repository are
+normalized to the fixture checkout before seeding, matching the gate's ROOT_ONLY law.
 """
 import json
 import os
@@ -38,7 +40,12 @@ COMMUTE_PATHS = sorted({
 
 
 def repo_rel(value: str) -> Path:
-    return Path(value.lstrip("/"))
+    """Interpret published or legacy clone paths as addresses inside this repo only."""
+    s = str(value or "").strip()
+    marker = f"/{REPO.name}/"
+    at = s.rfind(marker)
+    rel = s[at + len(marker):] if at >= 0 else s.lstrip("/")
+    return Path(rel)
 
 
 def seed(root: Path):
@@ -48,10 +55,11 @@ def seed(root: Path):
     (root / "control").mkdir(parents=True)
     shutil.copy(REPO / "showcase-manifest.json", root / "showcase-manifest.json")
     for raw in sorted(set(EVIDENCE_PATHS + COMMUTE_PATHS)):
-        src = REPO / repo_rel(raw)
+        rel = repo_rel(raw)
+        src = REPO / rel
         if not src.exists() or not src.is_file():
             continue
-        dst = root / repo_rel(raw)
+        dst = root / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         if not dst.exists():
             os.symlink(src, dst)
