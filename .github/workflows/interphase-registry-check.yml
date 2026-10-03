@@ -1,0 +1,35 @@
+name: interphase-registry-check
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/check-interphase.mjs'
+      - 'tools/check-interphase-selftest.py'
+      - 'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json'
+      - 'showcase-manifest.json'
+      - '.github/workflows/interphase-registry-check.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'scripts/check-interphase.mjs'
+      - 'tools/check-interphase-selftest.py'
+      - 'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json'
+      - 'showcase-manifest.json'
+      - '.github/workflows/interphase-registry-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate current-checkout INTERPHASE correspondence
+        run: node scripts/check-interphase.mjs --json
+      - name: Prove the gate fails closed, including cross-checkout decoys
+        run: python3 tools/check-interphase-selftest.py
