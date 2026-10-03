@@ -1,0 +1,45 @@
+{
+  "schema": "house-crew-handoff/v0.1",
+  "handoff_id": "house-env0-proof-01-tool-home",
+  "created_at": "2026-10-03T13:37:00+08:00",
+  "authority": "OFFER_ONLY",
+  "subject": {
+    "house_address": "living_dining",
+    "label": "Living / Dining",
+    "harness_phase": "EQUIPPED",
+    "active_layer": "HARNESS"
+  },
+  "task": {
+    "intent": "Reduce tool-return friction at the selected work locus without degrading circulation.",
+    "stage": "change",
+    "desired_output": "Return up to three reversible tool-home or placement proposals. For each, state the discriminating verification and any physical fact still missing."
+  },
+  "constraints": [
+    "Keep the main passage clear.",
+    "Prefer reversible placement before drilling or permanent fabrication."
+  ],
+  "capabilities": [
+    "Existing temporary clamps / rails may be considered.",
+    "Existing HOUSE spatial address and model may be inspected."
+  ],
+  "evidence": [],
+  "human_gate": {
+    "class": "NONE",
+    "reason": "Worker B may inspect/check/propose without interrupting the human. Physical placement remains a later human/world action."
+  },
+  "allowed_moves": ["CHECK", "PROPOSE"],
+  "next": [
+    "Inspect the named native sources for relevant known constraints.",
+    "Return only proposals that preserve unknown measurements as unknown."
+  ],
+  "witness_needed": "Do not invent passage width, load capacity, reach comfort or after-state. Put any such missing fact in `missing`; use WORLD_RETURN only when that fact blocks a conclusion.",
+  "source_refs": [
+    "/house/human-harness.json",
+    "/house/contract.json",
+    "/house/spatial/model.json",
+    "/house/crew-card.json"
+  ],
+  "return_schema": "house-crew-return/v0.1",
+  "privacy": "BOUNDED_OPERATIONAL_STATE_ONLY / NO_TRANSCRIPT",
+  "return_to": "/house/"
+}

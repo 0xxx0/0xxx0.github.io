@@ -1,0 +1,141 @@
+{
+  "schema": "house-human-harness/v0.1",
+  "updated": "2026-10-03",
+  "status": "ACTIVE_CANDIDATE / COORDINATION_AND_INTERFACE_MODEL",
+  "title": "ENV-0 / HOUSE HUMAN HARNESS",
+  "law": "Keep one physical HOUSE locus stable while the human changes coupling, tool, action and evidence state. Harness state may coordinate action; it never manufactures world evidence or transfers native authority.",
+  "center": {
+    "object": "selected HOUSE spatial address",
+    "identity_rule": "The HOUSE address remains stable across layer and execution-state changes unless an explicit REFRAME binds another locus.",
+    "public_authority": "NONE / PROJECTION AND COORDINATION ONLY"
+  },
+  "interface": {
+    "aperture": "REALITY ◎ / HARNESS",
+    "center_label": "LOCUS",
+    "status_line": "PHASE · HUMAN GATE · EFFECT AUTHORITY",
+    "layer_labels": [
+      "YOU / BODY",
+      "LOADOUT / HARNESS",
+      "TOUCH / OBJECT",
+      "HERE / ROOM",
+      "HOME / HOUSE",
+      "RUNTIME / NETWORK"
+    ],
+    "phase_rail": "UNBOUND → ORIENTED → EQUIPPED → ENGAGED → ACTED → WITNESSED → RETURNED",
+    "human_gate_pill": "NONE | PING | CHOOSE | WORLD_RETURN",
+    "crew_satellite": "Shows only the current crew frame, ≤3 permitted non-effectful moves, and any bounded worker offer.",
+    "progressive_rule": "Show the active layer, current phase, current gate and next ≤3 moves. Deep state stays machine-readable rather than becoming a mega-panel."
+  },
+  "layers": [
+    {
+      "id": "BODY",
+      "label": "YOU / BODY",
+      "role": "Embodied capability and fresh human/world observation: reach, posture, comfort, effort, attention, carried load and direct sensation when relevant.",
+      "authority": "Human evidence. HOUSE selection never implies presence, capability or condition.",
+      "writes": ["fresh observation", "subjective fit/effort when explicitly supplied"]
+    },
+    {
+      "id": "HARNESS",
+      "label": "LOADOUT / HARNESS",
+      "role": "The bounded coupling set carried into the task: tools, marks, surfaces, cassettes, fixtures, instructions, context and feedback channels.",
+      "authority": "Capability description only. Listing a tool does not grant permission to use it.",
+      "writes": ["selected capabilities", "known constraints", "loadout"]
+    },
+    {
+      "id": "OBJECT",
+      "label": "TOUCH / OBJECT",
+      "role": "The immediate thing, fixture, tool, surface or mechanism being inspected, changed or verified.",
+      "authority": "Native lifecycle/physical truth remains with the object owner and world evidence.",
+      "writes": ["target object", "proposed operation", "object evidence"]
+    },
+    {
+      "id": "ROOM",
+      "label": "HERE / ROOM",
+      "role": "Exact HOUSE address, clearances, access path and local environmental constraints around the operation.",
+      "authority": "HOUSE spatial address plus authored measurements/evidence; selection is not occupancy.",
+      "writes": ["address", "local dimensions", "surface/path evidence"]
+    },
+    {
+      "id": "HOUSE",
+      "label": "HOME / HOUSE",
+      "role": "Whole-dwelling topology, permanence, resources, maintenance and cross-room consequence.",
+      "authority": "HOUSE coordinates projections; ownership does not waive structural, utility, fire, code or safety proof.",
+      "writes": ["dwelling-level constraints", "adoption/residue", "return linkage"]
+    },
+    {
+      "id": "NETWORK",
+      "label": "RUNTIME / NETWORK",
+      "role": "Sensors, digital services, agents and private runtime that can observe or act under explicit host permissions.",
+      "authority": "Home Assistant / HOUSEBUS retains private device truth, permissions and actuation. External workers remain OFFER_ONLY unless a separate native host grants tools.",
+      "writes": ["timestamped witness", "host-native result", "coordination offer"]
+    }
+  ],
+  "phases": [
+    {"id":"UNBOUND","meaning":"No exact HOUSE locus is bound.","active_layer":"ROOM"},
+    {"id":"ORIENTED","meaning":"Exact locus, task intent and known constraints are visible enough to reason about the work.","active_layer":"ROOM"},
+    {"id":"EQUIPPED","meaning":"Relevant harness/loadout and capabilities are selected or proposed.","active_layer":"HARNESS"},
+    {"id":"ENGAGED","meaning":"Exact object/contact/operation and discriminating verification are identified.","active_layer":"OBJECT"},
+    {"id":"ACTED","meaning":"A human or separately authorized native host caused a bounded effect. Public HOUSE itself never supplies effect authority.","active_layer":"OBJECT"},
+    {"id":"WITNESSED","meaning":"Fresh after-state or host result has been observed and attached without inference inflation.","active_layer":"ROOM"},
+    {"id":"RETURNED","meaning":"Decision, residue, evidence and continuation point have been emitted back to HOUSE/FIELD.","active_layer":"HOUSE"}
+  ],
+  "transitions": [
+    {"event":"BIND","from":"UNBOUND","to":"ORIENTED","requires":["exact HOUSE address"],"human_gate":"NONE","effect_authority":"NONE"},
+    {"event":"SET_INTENT","from":"ORIENTED","to":"ORIENTED","requires":["preferred outcome"],"human_gate":"CHOOSE","effect_authority":"NONE"},
+    {"event":"EQUIP","from":"ORIENTED","to":"EQUIPPED","requires":["known constraints","relevant capability/loadout"],"human_gate":"NONE","effect_authority":"NONE"},
+    {"event":"ENGAGE","from":"EQUIPPED","to":"ENGAGED","requires":["exact target/object","bounded operation","verification test"],"human_gate":"NONE","effect_authority":"NONE"},
+    {"event":"ACT","from":"ENGAGED","to":"ACTED","requires":["actor with native effect authority","required choice/acknowledgement for the effect class"],"human_gate":"PING_OR_CHOOSE","effect_authority":"HUMAN_PHYSICAL | HOST_NATIVE | HA_HOUSEBUS_PRIVATE"},
+    {"event":"WITNESS","from":"ACTED","to":"WITNESSED","requires":["fresh observed consequence or host-native result"],"human_gate":"WORLD_RETURN","effect_authority":"NONE"},
+    {"event":"RETURN","from":"WITNESSED","to":"RETURNED","requires":["decision","residue","evidence refs"],"human_gate":"CHOOSE_OR_PING","effect_authority":"NONE"},
+    {"event":"CONTINUE","from":"RETURNED","to":"ORIENTED","requires":["same or explicitly rebound locus","next intent"],"human_gate":"NONE","effect_authority":"NONE"},
+    {"event":"REFRAME","from":"ANY","to":"ORIENTED","requires":["explicit changed frame/address/intent delta"],"human_gate":"CHOOSE_IF_PREFERENCE_CHANGES","effect_authority":"NONE"},
+    {"event":"PARK","from":"ANY","to":"SAME","requires":["residue / continuation point"],"human_gate":"NONE","effect_authority":"NONE"}
+  ],
+  "human_gates": {
+    "NONE": "Crew may inspect, research, check, draft, navigate or propose without interrupting the human. No effect authority follows.",
+    "PING": "One lightweight human acknowledgement or readiness signal materially selects continuation; keep it one-bit where possible.",
+    "CHOOSE": "Preference, framing, adoption, irreversible direction or trade-off belongs to the human.",
+    "WORLD_RETURN": "Fresh physical or subjective evidence must come from the world/human/native host. Workers specify the evidence needed but must not synthesize it."
+  },
+  "effect_authority": {
+    "NONE": "coordination/projection only",
+    "HUMAN_PHYSICAL": "human directly performs a physical operation",
+    "HOST_NATIVE": "a separately authorized application/tool performs its native effect",
+    "HA_HOUSEBUS_PRIVATE": "private Home Assistant/HOUSEBUS actuation under its own permissions"
+  },
+  "safety_and_permanence": {
+    "reversible_default": "Prefer a reversible bounded trial while uncertainty is high, even when the dwelling is owned.",
+    "permanent_work": "Permanent/structural/utility work requires explicit human CHOOSE plus relevant fresh WORLD_RETURN and any external code/safety/engineering evidence the operation demands.",
+    "no_certification": "HOUSE/HARNESS does not certify structural, electrical, plumbing, fire, load, medical or legal fitness."
+  },
+  "hooks": {
+    "core": "/house/human-harness.js",
+    "snapshot_api": "window.HouseHumanHarness.snapshot()",
+    "transition_api": "window.HouseHumanHarness.transition(event)",
+    "crew_handoff_api": "window.HouseHumanHarness.makeCrewHandoff()",
+    "state_event": "house:harness-state",
+    "transition_event": "house:harness-transition",
+    "inputs": ["house:selection","house:design-state","house:crew-frame","house:runtime-witness","house:reality-layer"],
+    "crew_frame": "house-crew-frame/v0.1",
+    "two_worker_handoff": "house-crew-handoff/v0.1",
+    "two_worker_return": "house-crew-return/v0.1",
+    "future_adapters": {
+      "A2A": "Map remote worker identity/task artifacts to bounded handoffs/returns; never inherit HOUSE effect authority.",
+      "AG_UI": "Transport state deltas and human interrupts; HOUSE retains state/authority ownership.",
+      "A2UI": "Remote workers may describe interface intent as data; trusted HOUSE components render it."
+    }
+  },
+  "derivation": {
+    "house_design_focus_to_phase": {
+      "before":"ORIENTED",
+      "intent":"ORIENTED",
+      "change":"EQUIPPED",
+      "verify":"ENGAGED",
+      "after":"ACTED",
+      "decision":"WITNESSED",
+      "return":"RETURNED"
+    },
+    "rule": "This mapping is interface state only. In particular ACTED does not prove the physical change occurred unless fresh world/native evidence exists."
+  },
+  "return_to": "/house/"
+}

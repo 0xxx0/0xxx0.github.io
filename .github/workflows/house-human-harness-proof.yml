@@ -1,0 +1,62 @@
+name: HOUSE Human Harness Proof
+
+on:
+  pull_request:
+    paths:
+      - 'house/human-harness.json'
+      - 'house/human-harness.js'
+      - 'house/two-worker-proof.json'
+      - 'house/two-worker-proof.js'
+      - 'house/crew-card.json'
+      - 'house/crew-proof-01-handoff.json'
+      - 'house/crew-proof-return-template.json'
+      - 'tools/house-human-harness-selftest.mjs'
+      - 'tools/house-two-worker-proof-selftest.mjs'
+      - '.github/workflows/house-human-harness-proof.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'house/human-harness.json'
+      - 'house/human-harness.js'
+      - 'house/two-worker-proof.json'
+      - 'house/two-worker-proof.js'
+      - 'house/crew-card.json'
+      - 'house/crew-proof-01-handoff.json'
+      - 'house/crew-proof-return-template.json'
+      - 'tools/house-human-harness-selftest.mjs'
+      - 'tools/house-two-worker-proof-selftest.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Parse machine contracts and proof packets
+        run: |
+          node -e "const fs=require('fs'); ['house/human-harness.json','house/two-worker-proof.json','house/crew-card.json','house/crew-proof-01-handoff.json','house/crew-proof-return-template.json'].forEach(p=>JSON.parse(fs.readFileSync(p))); console.log('machine contracts + proof packets parse')"
+      - name: Test ENV-0 human harness state machine
+        run: node tools/house-human-harness-selftest.mjs
+      - name: Test CREW SEAM two-worker packet proof
+        run: node tools/house-two-worker-proof-selftest.mjs
+      - name: Validate ready Worker A packet with proof core
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          const ctx={console,Date,TextEncoder,module:{exports:{}},exports:{}};ctx.globalThis=ctx;vm.createContext(ctx);
+          vm.runInContext(fs.readFileSync('house/two-worker-proof.js','utf8'),ctx);
+          const C=ctx.module.exports,p=JSON.parse(fs.readFileSync('house/crew-proof-01-handoff.json'));
+          const v=C.validateHandoff(p); if(!v.ok)throw Error(v.errors.join(','));
+          console.log('ready handoff valid · '+v.bytes+' bytes');
+          NODE
+      - name: Boundary scan
+        run: |
+          ! grep -Eirn --include='human-harness*.js' --include='two-worker-proof*.js' '(home_assistant_url|long_lived_access_token|api[_-]?key|password[[:space:]]*=)' house
+          ! grep -Eirn --include='two-worker-proof*.json' --include='human-harness*.json' --include='crew-proof*.json' '"(conversation|transcript|messages|chat_history|raw_context|credentials|token|secret)"[[:space:]]*:' house
