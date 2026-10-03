@@ -3,7 +3,7 @@ import {
   buildHeldField,contextRoutes,lineageFor,projectionProfile,
   representationMismatch,residualMismatch,normalizeProjection
 } from "./core.mjs";
-import {paintingGeometry,representationTrial} from "./painting-plain.mjs";
+import {paintingGeometry,representationTrial,representationCensus} from "./painting-plain.mjs";
 
 const manifest=JSON.parse(fs.readFileSync(new URL("../../showcase-manifest.json",import.meta.url),"utf8"));
 const current=JSON.parse(fs.readFileSync(new URL("../../control/CURRENT.json",import.meta.url),"utf8"));
@@ -12,15 +12,9 @@ const routes=manifest.routes||[];
 const map=new Map(routes.map(r=>[r.href,r]));
 
 function assert(ok,msg){if(!ok)throw new Error(msg)}
-function depth(href){
-  let d=0,r=map.get(href),seen=new Set();
-  while(r&&r.href!=="/"&&!seen.has(r.href)){seen.add(r.href);d++;r=map.get(r.parent||"/")}
-  return d;
-}
+function depth(href){let d=0,r=map.get(href),seen=new Set();while(r&&r.href!=="/"&&!seen.has(r.href)){seen.add(r.href);d++;r=map.get(r.parent||"/")}return d}
 
-const candidate=[...routes]
-  .filter(r=>r.href!=="/"&&depth(r.href)>=2)
-  .sort((a,b)=>depth(b.href)-depth(a.href)||String(a.href).localeCompare(String(b.href)))[0];
+const candidate=[...routes].filter(r=>r.href!=="/"&&depth(r.href)>=2).sort((a,b)=>depth(b.href)-depth(a.href)||String(a.href).localeCompare(String(b.href)))[0];
 assert(candidate,"repo must contain one non-root route with depth >= 2");
 
 const held=buildHeldField(manifest,current,candidate.href,"AXIAL_LATEST");
@@ -43,28 +37,30 @@ assert(projectionProfile("GLYPH").preserve.includes("href"),"glyph identity/addr
 
 const trial=representationTrial(manifest,current,candidate.href);
 assert(trial.ok,"PLAIN ↔ PAINTING must preserve the held semantic envelope exactly");
-assert(Object.values(trial.invariants).every(Boolean),"identity/actions/witness/RETURN must remain equal across representations");
+assert(Object.values(trial.invariants).every(Boolean),"identity/actions/witness/RETURN/equal scene bounds must remain invariant");
+assert(trial.revision==="E01_R2_EQUAL_SCENE_BOUNDS","trial must declare the layout-confound correction");
 assert(trial.plain.semantic.authority==="VIEW_ONLY"&&trial.painting.semantic.authority==="VIEW_ONLY","representation trial may not gain effect authority");
-const shifted=JSON.parse(JSON.stringify(trial.painting.semantic));
-shifted.object.state=shifted.object.state+"__SELFTEST_SHIFT";
+const shifted=JSON.parse(JSON.stringify(trial.painting.semantic));shifted.object.state=shifted.object.state+"__SELFTEST_SHIFT";
 assert(paintingGeometry(shifted).state_phase!==trial.painting.geometry.state_phase,"painting geometry must respond to held state rather than remaining decorative");
+
+const census=representationCensus(manifest,current);
+assert(census.resolvable>0,"machine census must resolve at least one manifest route");
+assert(census.parity_failures.length===0,"every resolvable manifest route must preserve semantic parity");
+assert(census.authority_failures.length===0,"no census route may gain effect authority");
+assert(census.distinct_geometry>1,"painting geometry may not collapse to one static decoration across the manifest");
+assert(census.distinct_geometry<=census.resolvable,"geometry census cannot exceed resolvable route count");
+
 assert(registry.authority==="R&D_PROJECTION_ONLY","experiment registry may not become queue/priority authority");
 assert(registry.experiments.some(x=>x.id==="E01_PAINTING_LAW_VS_PLAIN"&&x.status==="ACTIVE_BOUNDED_TEST"),"active painting-vs-PLAIN experiment must remain declared");
 assert(registry.circulation?.authority==="MNEMONIC_ONLY","five-phase circulation must remain a mnemonic, not ontology/authority");
+const active=registry.experiments.filter(x=>String(x.status).startsWith("ACTIVE"));assert(active.length<=registry.active_limit,"registry active experiment count may not exceed active_limit");
 
 const noHeld=buildHeldField(manifest,current,null,"AXIAL_LATEST");
 assert(!noHeld.ok&&noHeld.reason==="NO_HELD_FIELD_OBJECT","runtime must fail closed without a held object");
 
 console.log(JSON.stringify({
-  PASS:true,
-  held:candidate.href,
-  lineage:lineageFor(manifest,candidate.href).map(r=>r.href),
-  context_count:contextRoutes(manifest,candidate.href).length,
-  mismatch:{
-    axial:{total:axial.total,irreducible:axial.irreducible,transformable:axial.transformable,residual_aligned:residualMismatch(axial,1)},
-    visual:{total:visual.total,irreducible:visual.irreducible,transformable:visual.transformable},
-    glyph:{total:glyph.total,irreducible:glyph.irreducible,transformable:glyph.transformable}
-  },
-  painting_plain:{machine_pass:trial.ok,invariants:trial.invariants,authority:trial.authority,human_return:"PENDING_LOCAL_USE"},
-  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed; painting may change atmosphere/geometry but never semantic identity or authority"
+  PASS:true,held:candidate.href,lineage:lineageFor(manifest,candidate.href).map(r=>r.href),context_count:contextRoutes(manifest,candidate.href).length,
+  mismatch:{axial:{total:axial.total,irreducible:axial.irreducible,transformable:axial.transformable,residual_aligned:residualMismatch(axial,1)},visual:{total:visual.total,irreducible:visual.irreducible,transformable:visual.transformable},glyph:{total:glyph.total,irreducible:glyph.irreducible,transformable:glyph.transformable}},
+  painting_plain:{machine_pass:trial.ok,revision:trial.revision,invariants:trial.invariants,authority:trial.authority,human_return:"PENDING_LOCAL_USE",census:{routes:census.routes,resolvable:census.resolvable,distinct_geometry:census.distinct_geometry,geometry_diversity:census.geometry_diversity,largest_geometry_collision:census.largest_geometry_collision,collision_groups:census.collision_groups}},
+  invariant:"runtime source is manifest/CURRENT held object; R2 removes unequal-layout confound; painting may change atmosphere/geometry but never semantic identity or authority"
 },null,2));
