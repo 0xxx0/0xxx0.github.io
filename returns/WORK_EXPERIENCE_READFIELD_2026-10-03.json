@@ -1,0 +1,89 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "WORK_EXPERIENCE_READFIELD_2026-10-03",
+  "created": "2026-10-03T08:34:00+08:00",
+  "status": "RECOVERED_CURRENT + CONVERGENCE_CONTRACT_LOGGED",
+  "source_request": "Continue improving work experience/features/interface usability; expand practical use cases such as READFIELD/RSVP; log work and deeper insights in the repo.",
+  "observed": {
+    "readfield": {
+      "route": "/docs/",
+      "page_version": "0.8.5 · Phone Work",
+      "capabilities": [
+        "one source + addressed cursor",
+        "PLAIN / FOCUS / MIN",
+        "RSVP with ORP and punctuation-aware dwell",
+        "VOICE on same cursor",
+        "source-local marks and next-mark navigation",
+        "local file and paste intake",
+        "RAW / exact caller RETURN",
+        "FIELD PULSE tempo borrowing",
+        "FAST / REVIEW / PULSE / VOICE / LOCI / REPO work recipes"
+      ]
+    },
+    "readfield_control_plane": {
+      "runtime": "/lib/readfield-controls.js",
+      "version": "readfield-controls/v0.9",
+      "loaded_by": "/lib/interphase-readfield.js",
+      "current_controls": [
+        "READ / SPEED / LISTEN / MARK",
+        "previous / transport / next",
+        "WPM down / value / up",
+        "scale",
+        "source progress",
+        "SOURCE / VOICE / MARK / NEXT MARK / TEMPO / COPY / RIDE / RETURN"
+      ],
+      "recent_commit": "88f6f5a751eaecfd0fa8aa1c9f68c33e4620f81b"
+    },
+    "listen": {
+      "route": "/fold-bloom/listen/",
+      "version": "0.5",
+      "law": "SOURCE → ADDRESS → APERTURE → PROJECTION → ANNOTATION → RETURN",
+      "cross_surface": [
+        "FIELD PULSE publication",
+        "READ LYRICS / RSVP handoff",
+        "LIVE/DRIVE same-source landmarks",
+        "TWO DIAL clock/context consumer",
+        "Beat Saber event-tape/export machinery"
+      ]
+    }
+  },
+  "research_signal": {
+    "conclusion": "RSVP should remain a bounded throughput/attention mode with cheap regression/review, not a universal replacement for ordinary reading.",
+    "sources": [
+      "https://pubmed.ncbi.nlm.nih.gov/29461715/",
+      "https://pubmed.ncbi.nlm.nih.gov/24747167/",
+      "https://journals.sagepub.com/doi/10.1177/1541931213601265",
+      "https://www.jstage.jst.go.jp/article/jssd/71/0/71_46/_article/-char/en"
+    ]
+  },
+  "deep_conclusions": [
+    "READFIELD is best understood as an addressed attention/work transform, not primarily a speed-reader.",
+    "Phone work should be serial: HELD OBJECT → JOB → 1–3 OPERATIONS → VISIBLE CONSEQUENCE → WITNESS → RETURN.",
+    "A mechanism that cannot currently produce consequence must expose the missing condition instead of appearing inert.",
+    "FAST → friction → REVIEW → resolve → FAST is the primary RSVP work loop; regression is a comprehension mechanism, not an exception.",
+    "Marks are addressed re-entry evidence, not a new note-taking authority.",
+    "LISTEN and READFIELD are sibling addressed-source hosts: audio uses temporal apertures; text uses semantic/structural apertures.",
+    "Borrowed clock != borrowed authorship remains the correct cross-surface law.",
+    "Cross-app integration should appear as verbs/recipes (READ LYRICS, READ → LOCI, TEMPO, NEXT MARK, RETURN), not integration settings."
+  ],
+  "logged": "/control/confluence/WORK_EXPERIENCE_READFIELD_2026-10-03.md",
+  "next_bounded_delta": {
+    "name": "READFIELD Phone Work 0.8.6 consequence-legibility pass",
+    "changes": [
+      "make phone controls state-aware: READY / RUNNING / LIVE / WAIT / UNAVAILABLE",
+      "make TEMPO/PULSE waiting state actionable rather than apparently inert",
+      "make FAST ↔ REVIEW the obvious reversible pair",
+      "keep MARK count / NEXT MARK immediately reachable",
+      "disambiguate READFIELD speech/VOICE from FOLD//BLOOM LISTEN audio",
+      "restore LOCI / REPO / USE CASE discoverability through the unified phone controls"
+    ],
+    "preserve": [
+      "one source authority",
+      "one cursor",
+      "exact RETURN",
+      "existing Field Pulse transport",
+      "existing Interphase host",
+      "no new route/store/mode/ontology/universal shell"
+    ]
+  }
+}
