@@ -1,0 +1,76 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_CREW_HANDOFF_BRIDGE_2026-10-03",
+  "date": "2026-10-03",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD machine entrypoint / human-agent and agent-agent bounded handoff",
+  "source": {
+    "user_intent": "Reduce the gap between crew mates while converging on systems that work with human compliance; leave useful hooks for other workers without creating parallel control architecture.",
+    "existing_hosts": [
+      "/llms.txt",
+      "/control/SUBMISSION_CONTRACT.json",
+      "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+      "/scripts/emit-agent-transcript.mjs"
+    ]
+  },
+  "before": "FIELD already had one contributor submission envelope and one bounded SOURCE→HOLD→TURN→TRACE→RETURN protocol, but switching humans/agents still required manually reconstructing the execution context. The primary machine entrypoint could emit current/crystal/egress/contribution projections but could not normalize one submission into a portable bounded work object.",
+  "delta": [
+    "Add /lib/field-crew-handoff.mjs as a pure stateless compiler; no network, queue, memory or effect path.",
+    "Add --handoff <submission.json> to the existing scripts/emit-agent-transcript.mjs machine entrypoint; text and --json projections carry the same work object.",
+    "Emit deterministic opaque crew:<fnv64> context handles from source_ref + intent + object_ref + contribution/evidence class + delta/question, deliberately excluding worker labels and move selection.",
+    "Carry 0–3 explicit native move declarations, optional selected_move_id, evidence pointers and exact RETURN; >3 moves and selected TURN on unresolved objects fail closed.",
+    "Expose SOURCE_REQUIRED / HOLD_REQUIRED / HOLD_READY / TURN_READY as coordination states only; none grant NOW, priority, effect, routing or merge authority.",
+    "Extend SUBMISSION_CONTRACT to v0.2 with optional contributor/receiver hints and bounded execution fields; labels remain informational.",
+    "Extend the existing field-machine-reducer selftest so older transcript/crystal/reduce/converge modes and the new handoff mode share one regression gate.",
+    "Expose the new mode through /llms.txt rather than creating a /crew/ route, dashboard or second machine entrypoint."
+  ],
+  "external_correspondence": {
+    "purpose": "Borrow proven interoperability separations without importing another runtime or claiming protocol conformance.",
+    "a2a": {
+      "source": "https://a2a-protocol.org/v0.3.0/specification/",
+      "borrowed_shape": "separate task/context correlation, status and artifacts/evidence so independent opaque agents can cooperate without sharing internals"
+    },
+    "mcp": {
+      "sources": [
+        "https://ts.sdk.modelcontextprotocol.io/v2/",
+        "https://plan.modelcontextprotocol.io/matrix"
+      ],
+      "borrowed_shape": "stateless/sessionless capability exchange with explicit handles rather than hidden shared session state"
+    },
+    "boundary": "FIELD crew handoff is a local transient projection only; it is neither an A2A server/task implementation nor an MCP transport/server."
+  },
+  "laws": [
+    "SAME OBJECT > SHARED INTERNAL STATE.",
+    "WORKER IDENTITY != AUTHORITY.",
+    "HANDOFF HANDLE CORRELATES CONTEXT; IT DOES NOT CREATE A TASK DATABASE.",
+    "HANDOFF PRESERVES INTENT + ADDRESS + BOUNDED MOVES + EVIDENCE + RETURN; IT DOES NOT SERIALIZE HIDDEN CHAIN OF THOUGHT.",
+    "ZERO MOVES MEANS HOLD_REQUIRED; MORE THAN THREE FAILS CLOSED.",
+    "SELECTED TURN != EFFECT AUTHORITY; HOST-NATIVE RELEASE/COMMIT REMAINS EXPLICIT.",
+    "RETURN ENDS AUTHORITY; NEXT_AUTHORITY NONE."
+  ],
+  "verification": {
+    "local_static": "Implemented selftest coverage in tools/field-machine-reducer-selftest.mjs; exact branch CI still required.",
+    "required_ci": [
+      "Validate JIT FIELD handoff compiler",
+      "Route Registration",
+      "gitleaks",
+      "public-surface-check"
+    ],
+    "falsifiers": [
+      "same normalized work object produces nondeterministic context handles",
+      "changing contributor_ref or receiver_hint changes the context handle",
+      "compiler accepts more than three moves",
+      "unresolved object can carry selected TURN",
+      "handoff output grants NOW/effect/merge authority",
+      "older transcript/crystal/reduce/converge modes regress"
+    ]
+  },
+  "residue": [
+    "No persistent shared task store is introduced. Long-running asynchronous coordination should remain native to the executor/host until a real missing function is demonstrated.",
+    "No automatic agent routing is introduced. receiver_hint is informational only; capability discovery can be added later if a concrete multi-worker miss demonstrates value.",
+    "No hidden reasoning transfer is attempted. Workers receive explicit source/intent/move/evidence/return state and must recover any necessary source depth themselves."
+  ],
+  "return_address": "/llms.txt",
+  "next": "After exact-head green, use the handoff on a real cross-worker repo change. Promote further routing/capability discovery only if that run exposes a concrete information loss or coordination failure.",
+  "stop": "Do not add a crew dashboard, shared memory service, agent registry, auto-router or task database merely because the handoff format exists."
+}

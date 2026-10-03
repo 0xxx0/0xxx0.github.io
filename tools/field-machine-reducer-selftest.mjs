@@ -10,7 +10,7 @@ assert.equal(helpRun.status,0,helpRun.stderr);
 const help=JSON.parse(helpRun.stdout);
 assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
 assert.equal(help.authority,'NONE');
-assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge']);
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge','crew-handoff']);
 assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
 assert.match(help.converge_attestations.base_current,/behind_by === 0/);
 const llms=fs.readFileSync('llms.txt','utf8');
@@ -86,5 +86,64 @@ for(const [name,packet,wantClass,wantDisposition] of contributionCases){
   assert.match(out.base_current_semantics,/behind_by === 0/);
 }
 
+const handoffBase={
+  source_ref:'conversation:crew-test',
+  intent:'Make one bounded existing-host change without reconstructing context',
+  object_ref:'/docs/',
+  contribution_class:'DELTA',
+  evidence_class:'SPEC',
+  delta_or_question:'Reduce one concrete reader friction',
+  proof_available:'source request + current route',
+  contributor_ref:'human:test',
+  receiver_hint:'coding-worker:any',
+  execution:{
+    moves:[
+      {id:'inspect',label:'READ CURRENT HOST',authority:'VIEW',target:'/docs/',reversibility:'NONE',commit_boundary:'NONE'},
+      {id:'patch',label:'PATCH EXISTING HOST',authority:'EDIT',target:'/docs/',reversibility:'git revert TURN',commit_boundary:'HOST_NATIVE'}
+    ],
+    selected_move_id:'patch',
+    return_to:'/?focus=%2Fdocs%2F',
+    evidence_refs:['/control/CURRENT.json','/showcase-manifest.json']
+  }
+};
+const handoffPath=write('crew-handoff.json',handoffBase);
+const handoffRun=run(['--handoff',handoffPath,'--json']);
+assert.equal(handoffRun.status,0,handoffRun.stderr);
+const handoff=JSON.parse(handoffRun.stdout);
+assert.equal(handoff.schema,'field-crew-handoff/v0.1');
+assert.match(handoff.context_handle,/^crew:[0-9a-f]{16}$/);
+assert.equal(handoff.authority,'NONE / TRANSIENT HANDOFF ONLY');
+assert.equal(handoff.status.state,'TURN_READY');
+assert.equal(handoff.hold.moves.length,2);
+assert.equal(handoff.hold.selected_move_id,'patch');
+assert.equal(handoff.return.next_authority,'NONE');
+assert.equal(handoff.return.target,'/?focus=%2Fdocs%2F');
+assert.match(handoff.crew.law,/never grant/);
+const handoffAgain=JSON.parse(run(['--handoff',handoffPath,'--json']).stdout);
+assert.equal(handoffAgain.context_handle,handoff.context_handle,'same submission must keep the same opaque crew handle');
+
+const unresolvedPath=write('crew-unresolved.json',{...handoffBase,object_ref:'UNRESOLVED',execution:{moves:[]}});
+const unresolvedRun=run(['--handoff',unresolvedPath,'--json']);
+assert.equal(unresolvedRun.status,0,unresolvedRun.stderr);
+const unresolved=JSON.parse(unresolvedRun.stdout);
+assert.equal(unresolved.status.state,'SOURCE_REQUIRED');
+assert.equal(unresolved.hold.focus,null);
+assert.equal(unresolved.return.next_authority,'NONE');
+
+const tooManyPath=write('crew-too-many.json',{...handoffBase,execution:{moves:[
+  {id:'a',label:'A',authority:'VIEW',target:'/',reversibility:'NONE',commit_boundary:'NONE'},
+  {id:'b',label:'B',authority:'VIEW',target:'/',reversibility:'NONE',commit_boundary:'NONE'},
+  {id:'c',label:'C',authority:'VIEW',target:'/',reversibility:'NONE',commit_boundary:'NONE'},
+  {id:'d',label:'D',authority:'VIEW',target:'/',reversibility:'NONE',commit_boundary:'NONE'}
+]}});
+const tooManyRun=run(['--handoff',tooManyPath,'--json']);
+assert.notEqual(tooManyRun.status,0,'crew handoff must fail closed above three moves');
+assert.match(tooManyRun.stderr,/TOO_MANY_MOVES/);
+
+const selectedUnresolvedPath=write('crew-unresolved-selected.json',{...handoffBase,object_ref:'UNRESOLVED'});
+const selectedUnresolvedRun=run(['--handoff',selectedUnresolvedPath,'--json']);
+assert.notEqual(selectedUnresolvedRun.status,0,'unresolved object may not carry a selected TURN');
+assert.match(selectedUnresolvedRun.stderr,/UNRESOLVED_CANNOT_SELECT_TURN/);
+
 fs.rmSync(dir,{recursive:true,force:true});
-console.log('FIELD machine reducer surface PASS · canonical help + packet sweep + real shelf + contribution convergence + zero implicit authority');
+console.log('FIELD machine reducer surface PASS · canonical help + crystal + packet sweep + contribution convergence + transient crew handoff + zero implicit authority');
