@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "field-crew-human-gate-2026-10-03",
+  "result_status": "CHANGED",
+  "source_object": "field-crew-handoff/v0.1",
+  "host": "FIELD crew handoff / exact-object staging",
+  "turn_ref": "branch:converge/crew-human-gate-20261003",
+  "before": "Generic FIELD crew handoff preserved object, intent, bounded moves, evidence and RETURN, while HOUSE Crew Seam separately knew whether a human interruption was actually required. A receiver outside HOUSE could preserve the task yet still re-ask the human unnecessarily or continue past a human/world boundary without an explicit coordination stop.",
+  "after": "The common transient handoff normalizes the existing submission waiting_on field into NONE | PING | CHOOSE | WORLD_RETURN | UNSPECIFIED. Exact-object staging derives that interruption need only from the selected CURRENT head when present. Unsatisfied PING/CHOOSE/WORLD_RETURN produces HUMAN_REQUIRED even when a move is selected; explicit satisfaction requires an evidence ref. EFFECT with commit_boundary NONE fails closed. The gate controls coordination readiness only and never grants EFFECT, NOW, priority, merge, commit or release authority.",
+  "observed_delta": "Crew mates can now preserve not only the same addressed object and bounded move but also whether lawful continuation should proceed without interruption, request one acknowledgement, return a preference choice, or await irreducible world evidence. Human-gate satisfaction is witnessed rather than inferred, and effect moves must name their native release boundary.",
+  "evidence_refs": [
+    "/lib/field-crew-handoff.mjs",
+    "/tools/field-stage-handoff.mjs",
+    "/llms.txt",
+    "/house/crew-card.json",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/control/confluence/CREW_SEAM_HANDOFF_2026-10-03.md",
+    "/control/CURRENT.json"
+  ],
+  "residue": "Human attention becomes an explicit scarce interface boundary rather than a default checkpoint. HOUSE remains the richer domain-specific Crew Seam; FIELD carries only the reusable interruption-class distinction over the existing handoff contract. No shared brain, crew dashboard, task store, router or effect authority was added.",
+  "unknowns": [
+    "Cross-worker ordinary-use evidence has not yet established how much briefing time or interruption burden this reduces.",
+    "A remote/untrusted agent transport still needs authenticated provenance before any supplied gate-satisfaction evidence can be trusted; this handoff validates shape and coordination state, not remote identity."
+  ],
+  "unresolved_gate": "Promotion requires exact-head field-stage-handoff selftest plus normal repository gates. Ordinary use should falsify whether UNSPECIFIED is too conservative and whether evidenced HUMAN_REQUIRED materially reduces repeated human questions without hiding necessary choices.",
+  "return_address": "/control/SUBMISSION_CONTRACT.json",
+  "closed_at": "2026-10-03T13:46:00+08:00",
+  "next_authority": "NONE",
+  "laws": [
+    "HUMAN GATE CONTROLS INTERRUPTION NEED, NOT EFFECT AUTHORITY.",
+    "NO EXPLICIT GATE = UNSPECIFIED, NOT NONE.",
+    "UNSATISFIED PING / CHOOSE / WORLD_RETURN = HUMAN_REQUIRED EVEN IF A TURN WAS SELECTED.",
+    "GATE SATISFACTION REQUIRES AN EVIDENCE REF AND NEVER GRANTS EFFECT/NOW/MERGE AUTHORITY.",
+    "EFFECT REQUIRES AN EXPLICIT HOST-NATIVE RELEASE/COMMIT BOUNDARY.",
+    "RETURN CLOSES THE TURN; THIS RECEIPT DOES NOT AUTHORIZE A CREW DASHBOARD, AUTO-ROUTER OR SHARED MEMORY STORE."
+  ]
+}
