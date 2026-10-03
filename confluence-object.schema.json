@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/confluence-object.schema.json",
+  "title": "Confluence Object",
+  "description": "Thin addressed instance envelope for one bounded operation through FIELD. Host/domain retains truth and authority; the object carries only attention, the held move, evidence references, and RETURN delta.",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "host",
+    "address",
+    "contract_ref",
+    "state",
+    "hold",
+    "return"
+  ],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["capability_gap", "resource_turn"]},
+    "host": {
+      "type": "object",
+      "required": ["domain", "object_ref"],
+      "properties": {
+        "domain": {"type": "string", "minLength": 1},
+        "object_ref": {"type": "string", "minLength": 1},
+        "authority_ref": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "address": {
+      "type": "object",
+      "required": ["blocked_ref", "gap"],
+      "properties": {
+        "blocked_ref": {"type": "string", "minLength": 1},
+        "gap": {"type": "string", "minLength": 1},
+        "desired_capability": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "contract_ref": {
+      "type": "string",
+      "description": "Reference to a capability contract conforming to /capability-contract.schema.json."
+    },
+    "state": {"enum": ["addressed", "held", "turning", "returned"]},
+    "hold": {
+      "type": "object",
+      "required": ["move"],
+      "properties": {
+        "move": {"enum": ["reuse", "verify", "repair", "fabricate", "acquire", "substitute", "abandon"]},
+        "candidate_ref": {"type": ["string", "null"]},
+        "already_have_refs": {"type": "array", "items": {"type": "string"}, "default": []},
+        "cost_vector_ref": {"type": ["string", "null"]},
+        "adoption_proof": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string"}, "default": []},
+    "return": {
+      "type": "object",
+      "required": ["status", "capability_delta", "unlocked_refs", "return_address"],
+      "properties": {
+        "status": {"enum": ["pending", "failed", "partial", "capability_gained", "abandoned"]},
+        "capability_delta": {"type": ["string", "null"]},
+        "unlocked_refs": {"type": "array", "items": {"type": "string"}},
+        "return_address": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

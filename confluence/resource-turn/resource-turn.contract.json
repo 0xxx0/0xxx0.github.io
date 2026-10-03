@@ -1,0 +1,34 @@
+{
+  "accepts": {
+    "kinds": ["capability_gap"],
+    "requires": ["blocked_ref", "gap", "held_move", "adoption_proof"],
+    "optional": ["candidate_ref", "already_have_refs", "cost_vector_ref"]
+  },
+  "transforms": {
+    "verb": "resource_turn",
+    "preserves": [
+      "host_domain_truth",
+      "human_spend_authority",
+      "one_bounded_move",
+      "return_to_address"
+    ],
+    "reversibility": "bounded",
+    "side_effects": "none"
+  },
+  "emits": {
+    "kinds": ["resource_return"],
+    "machine_readable": true,
+    "human_readable": true
+  },
+  "evidence": {
+    "receipt": "resource_return",
+    "checks": [
+      "held move is singular and bounded",
+      "candidate does not count as adopted before proof",
+      "evidence references observation rather than recommendation",
+      "capability delta names what became possible",
+      "return restores the addressed object"
+    ],
+    "return_path": "FIELD/CURRENT"
+  }
+}
