@@ -1,0 +1,169 @@
+{
+  "schema": "prison-age.source-route/v0.1",
+  "version": "0.1",
+  "id": "nine-gate-passage",
+  "title": "NINE GATE PASSAGE",
+  "authority": "CURATED_SOURCE_ROUTE / EVIDENCE_ONLY",
+  "order_authority": "EDITORIAL_NON_CANON",
+  "source_pack": "/prison-age/sources.json",
+  "evidence_atlas": "/prison-age/evidence-atlas.json",
+  "law": "The route orders exact addressed Prison Age source fragments for traversal. The order is editorial, shareable and non-canon. Every displayed fragment must resolve exactly once in its declared source. ECHO may support a transition only at the scope declared by that transition. Editorial adjacency never asserts theme, intent, causality, equivalence or comprehension.",
+  "gates": [
+    {
+      "gate": 1,
+      "key": "ORIGIN",
+      "source_id": "proto-root-2021",
+      "fragments": [
+        "all agree infinite(ly many)",
+        "9 gate cities exist …",
+        "the size of infinity",
+        "is dispute"
+      ],
+      "edge": {
+        "kind": "EDITORIAL",
+        "label": "SOURCE CLASS CHANGE",
+        "scope": "NONE",
+        "note": "Recovered 2021 proto-root → 2026 anthology source. This adjacency is editorial and makes no canon or causal claim."
+      }
+    },
+    {
+      "gate": 2,
+      "key": "WEATHER",
+      "source_id": "open-air",
+      "fragments": [
+        "One afternoon, the vent breathed backward.",
+        "The effect lasted less than a second. A loose receipt rose from the floor and touched the ceiling."
+      ],
+      "edge": {
+        "kind": "ECHO_EXACT_SELECTED",
+        "label": "EXACT CROSS-SOURCE ECHO",
+        "scope": "SELECTED_FRAGMENTS",
+        "atlas_card": 4,
+        "note": "The selected Open Air and Last Stall fragments contain the exact two Evidence Atlas card fragments. ECHO supports lexical/source adjacency only."
+      }
+    },
+    {
+      "gate": 3,
+      "key": "FOLD",
+      "source_id": "last-stall",
+      "fragments": [
+        "\"This plan is accurate,\" PooBaby said, \"except for everything that happens.\"",
+        "The ceiling touched the floor.",
+        "The carton became a bridge in one view and a blockage in another.",
+        "The partition became a ladder if the person stopped treating its top edge as a privacy boundary and started treating it as an altitude."
+      ],
+      "edge": {
+        "kind": "EDITORIAL",
+        "label": "CURATED CUT",
+        "scope": "NONE",
+        "note": "The next movement changes source. The route makes no claim that one passage explains the other."
+      }
+    },
+    {
+      "gate": 4,
+      "key": "PROVENANCE",
+      "source_id": "fandom-court",
+      "fragments": [
+        "Ione opened a blank ledger and drew four columns:",
+        "ORIGIN.",
+        "TRANSMISSION.",
+        "MUTATION.",
+        "CURRENT USE.",
+        "No column cancelled the others."
+      ],
+      "edge": {
+        "kind": "EDITORIAL",
+        "label": "CURATED CUT",
+        "scope": "NONE",
+        "note": "The route crosses from provenance language to a different authored source. No interpretation is asserted by the transition."
+      }
+    },
+    {
+      "gate": 5,
+      "key": "PRISON",
+      "source_id": "successful-escape",
+      "fragments": [
+        "“Which part is the prison?”",
+        "Sable pointed to the camera.",
+        "Then to the rules display.",
+        "Then to Nera’s answer."
+      ],
+      "edge": {
+        "kind": "SOURCE_CONTINUITY",
+        "label": "SAME SOURCE / LATER ADDRESS",
+        "scope": "SOURCE_ORDER",
+        "note": "Both movements are exact spans in the same source; the next span occurs later in source order."
+      }
+    },
+    {
+      "gate": 6,
+      "key": "MODEL",
+      "source_id": "successful-escape",
+      "fragments": [
+        "They began running small experiments. Not escape attempts—model tests.",
+        "The prison was adaptive, but adaptation revealed attention.",
+        "Every response exposed what the system considered important."
+      ],
+      "edge": {
+        "kind": "EDITORIAL",
+        "label": "CURATED CUT",
+        "scope": "NONE",
+        "note": "The route changes source. This is an editorial traversal decision, not evidence of causality."
+      }
+    },
+    {
+      "gate": 7,
+      "key": "NEXT",
+      "source_id": "last-stall",
+      "fragments": [
+        "The first prison had been a room whose privacy delayed help.",
+        "The next prison would be a system in which help required permanent legibility."
+      ],
+      "edge": {
+        "kind": "ECHO_SOURCE_PAIR",
+        "label": "SOURCE-PAIR ECHO",
+        "scope": "SOURCE_PAIR_ONLY",
+        "atlas_card": 7,
+        "note": "Evidence Atlas card 7 links this exact Last Stall fragment to another exact fragment in Successful Escape. It supports source-pair adjacency only; the target movement below is a different addressed span."
+      }
+    },
+    {
+      "gate": 8,
+      "key": "TOOL",
+      "source_id": "successful-escape",
+      "fragments": [
+        "A key was only the fossil of an earlier distinction.",
+        "“It learns the obstruction,” she said."
+      ],
+      "edge": {
+        "kind": "EDITORIAL",
+        "label": "CURATED CUT",
+        "scope": "NONE",
+        "note": "The final movement returns to a different source. The route asserts sequence only."
+      }
+    },
+    {
+      "gate": 9,
+      "key": "RETURN",
+      "source_id": "last-stall",
+      "fragments": [
+        "**PLEASE LEAVE THIS PLACE ABLE TO FIND THE NEXT PERSON.**",
+        "**THE WALL RECORDS THE VOICE / THE GAP RECORDS THE WALL / THE FLOOR CARRIES BOTH / UNTIL A PERSON COMES.**",
+        "This time a person came anyway."
+      ],
+      "edge": null
+    }
+  ],
+  "return": {
+    "schema": "prison-age.passage-return/v0.1",
+    "authority": "EVIDENCE_ONLY",
+    "field_return": "/?focus=%2Fprison-age%2F",
+    "residue": [
+      "traversal != comprehension",
+      "curated order != canon",
+      "editorial adjacency != causality",
+      "ECHO evidence != interpretation",
+      "source bytes remain PRISON_AGE authority"
+    ]
+  }
+}
