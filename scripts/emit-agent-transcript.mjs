@@ -247,6 +247,144 @@ function cliAssessContribution(p={}){
   };
 }
 
+
+const cliArgValue=(args,name,defaultValue=null)=>{
+  const i=args.indexOf(name);if(i<0)return defaultValue;
+  const v=args[i+1];if(v==null||String(v).startsWith('--'))throw new Error(name+' requires a value');
+  return String(v);
+};
+function handoffExitPaths(route){
+  return (route?.field?.exit_paths||[]).filter(x=>{
+    const s=String(x?.status||'').toUpperCase();
+    return !s||s==='AVAILABLE'||s==='ACTIVE'||s==='READY';
+  });
+}
+function handoffMoves(route){
+  const exits=handoffExitPaths(route);
+  const fromExits=exits.map(x=>({
+    label:one(x?.via||x?.label||x?.class||x?.target||'OPEN'),
+    target:x?.target||null,
+    effect:x?.effect||null,
+    reversibility:x?.reversibility||null
+  })).filter(x=>x.label).slice(0,3);
+  if(fromExits.length)return fromExits;
+  return String(route?.operation||'').split(/\s*\/\s*|\s*·\s*/).map(one).filter(Boolean).slice(0,3).map(label=>({label,target:route?.href||null,effect:null,reversibility:null}));
+}
+function handoffContract(route){
+  const c=route?.contract;if(!c)return null;
+  return {
+    accepts:c.accepts||null,
+    transforms:c.transforms?{
+      verb:c.transforms.verb||null,
+      preserves:c.transforms.preserves||null,
+      reversibility:c.transforms.reversibility||null,
+      side_effects:c.transforms.side_effects||null
+    }:null,
+    emits:c.emits||null,
+    evidence:c.evidence||null
+  };
+}
+function compileCrewHandoff(sources,selector,{intent=null}={}){
+  const p=compile(sources),routes=sources.M.routes||sources.M.entries||[],heads=sources.C.current_heads||[];
+  const sel=one(selector);
+  if(!sel)throw new Error('FIELD handoff requires one route or CURRENT lineage');
+  const head=heads.find(h=>h?.route===sel||h?.lineage===sel||h?.head===sel)||null;
+  const route=routes.find(r=>r?.href===sel)||(head?routes.find(r=>r?.href===head.route):null);
+  if(!route&&!head)throw new Error('FIELD handoff target not found: '+sel);
+  const href=route?.href||head?.route||null;
+  if(!href)throw new Error('FIELD handoff target has no address: '+sel);
+  const moves=handoffMoves(route);
+  const proofRefs=[...new Set([
+    ...(Array.isArray(head?.evidence)?head.evidence:[]),
+    head?.latest_return,
+    route?.latest_return,
+    route?.receipt
+  ].filter(Boolean))].slice(0,12);
+  const retained=one(head?.retained_function||route?.role||route?.evolution?.mutation||'');
+  const objective=one(intent)||one(head?.next_executable?.objective)||one(route?.evolution?.question)||clip(retained,280)||'Return one bounded contribution or explicit residue for this object.';
+  const contract=read('control/SUBMISSION_CONTRACT.json');
+  const packet={
+    schema:'field-crew-handoff/v0.1',
+    authority:'NONE / HANDOFF ONLY',
+    generated_from:{
+      field_revision:p.phi.expression_revision,
+      current_updated:sources.C.updated||null,
+      selector:sel,
+      sources:['/control/CURRENT.json','/showcase-manifest.json','/control/SUBMISSION_CONTRACT.json']
+    },
+    object:{
+      route:href,
+      lineage:head?.lineage||null,
+      title:route?.title||head?.lineage||href,
+      owner:route?.field?.owner||route?.family||route?.title||null,
+      state:head?.state||route?.state||null,
+      version:head?.version||route?.version||null,
+      current_head:head?.head||null,
+      retained_function:retained||null
+    },
+    intent:objective,
+    native_moves:moves,
+    evidence:{refs:proofRefs,latest_return:head?.latest_return||route?.latest_return||null},
+    boundaries:{
+      route_contract:handoffContract(route),
+      field_owner:route?.field?.owner||null,
+      law:'Information transfer does not transfer mutation authority. Perform at most one newly authorized bounded native move before TRACE / RETURN.'
+    },
+    submission_template:{
+      schema:contract.schema||'0xxx0/submission-contract/v0.1',
+      source_ref:'crew-handoff:'+p.phi.expression_revision,
+      intent:objective,
+      object_ref:href,
+      contribution_class:'UNRESOLVED',
+      evidence_class:'SPEC',
+      evidence_class_options:['BYTES','SPEC','IMAGE','RECEIPT'],
+      delta_or_question:'REPLACE WITH THE SMALLEST ACTUAL DELTA OR QUESTION',
+      proof_available:'REPLACE WITH OBSERVED / VERIFIED EVIDENCE',
+      residue:'REPLACE WITH WHAT REMAINS UNRESOLVED'
+    },
+    return_contract:{
+      required_fields:contract.return_format||['STATE','DELTA','EVIDENCE','RESIDUE','WAITING','ONE_NEXT'],
+      contribution_classes:Object.keys(contract.contribution_classes||{}),
+      merge_recheck:{
+        candidate_head:'REQUIRED IF MATERIAL REPO DELTA',
+        ci:'PASS REQUIRED FOR MERGE PROJECTION',
+        exact_head:true,
+        base_current:'RECOMPUTE FROM NATIVE ANCESTRY: compare(master,candidate_head).behind_by === 0',
+        mergeable:true
+      },
+      command:'node scripts/emit-agent-transcript.mjs --converge <returned-candidate.json>',
+      stop:'RETURN closes this turn. Re-read current truth before authorizing another move.'
+    },
+    residue:{
+      omitted_native_move_count:Math.max(0,handoffExitPaths(route).length-moves.length),
+      live_focus:'NOT_SERIALIZED',
+      repo_remote_freshness:'NOT_ATTESTED BY THIS COMPILER'
+    },
+    laws:[
+      'Explicit caller selection creates this handoff; the packet cannot self-authorize NOW.',
+      'One object, at most three native moves, one bounded TURN, TRACE, RETURN.',
+      'No merge authority transfers with the packet.',
+      'Stale good work remains residue until exact-head and base-current are re-attested.',
+      'A valid outcome is DONOR, EVIDENCE, RETURN, UNRESOLVED or no material change.'
+    ]
+  };
+  return packet;
+}
+function handoffMarkdown(h){
+  const out=['# FIELD CREW HANDOFF','authority: '+h.authority,'revision: '+h.generated_from.field_revision,''];
+  out.push('## OBJECT','- '+(h.object.route||'—')+' · '+(h.object.lineage||h.object.title||'—')+' · '+(h.object.state||'—')+' · '+(h.object.version||'—'));
+  out.push('','## INTENT','- '+h.intent,'','## NATIVE MOVES');
+  if(!h.native_moves.length)out.push('- NONE DECLARED · inspect native host before acting');
+  for(const m of h.native_moves)out.push('- '+m.label+(m.target?' → '+m.target:''));
+  out.push('','## PROOF REFS');if(!h.evidence.refs.length)out.push('- NONE DECLARED');
+  for(const x of h.evidence.refs)out.push('- '+x);
+  out.push('','## TURN LAW','- '+h.boundaries.law,'','## RETURN');
+  out.push('- '+h.return_contract.required_fields.join(' / '));
+  out.push('- merge recheck: CI PASS · exact head · behind_by 0 vs current master · mergeable');
+  out.push('- '+h.return_contract.stop,'');
+  return out.join('\n')+'\n';
+}
+
 function cliUsage(){
   return {
     schema:'field-machine-entrypoint-help/v0.1',
@@ -257,6 +395,7 @@ function cliUsage(){
       {mode:'transcript-json',command:'node scripts/emit-agent-transcript.mjs --json',purpose:'structured bounded current handoff'},
       {mode:'crystal',command:'node scripts/emit-agent-transcript.mjs --crystal',purpose:'one transient compressed read across current fronts, every CURRENT path, archive scale, packet-shelf egress, NEXT and RETURN; add --json for structured output'},
       {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
+      {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <route|lineage> [--intent "..."]',purpose:'compile one explicitly selected FIELD object into a zero-authority crew turn with ≤3 native moves, proof refs and exact RETURN/merge-recheck contract; add --json for structured output'},
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'}
     ],
     converge_attestations:{
@@ -284,17 +423,24 @@ function cliUsageText(u){
 const cliArgs=process.argv.slice(2);
 const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
+const handoffAt=cliArgs.indexOf('--handoff');
 const crystalMode=cliArgs.includes('--crystal');
 if(cliArgs.includes('--help')){
   const usage=cliUsage();
   process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
-}else if(crystalMode&&(reduceAt>=0||convergeAt>=0)){console.error('choose one: --crystal, --reduce, or --converge');process.exit(2)}
+}else if(crystalMode&&(reduceAt>=0||convergeAt>=0||handoffAt>=0)){console.error('choose one: --crystal, --reduce, --handoff, or --converge');process.exit(2)}
 else if(crystalMode){
   try{
     const c=compileCrystal(load());
     process.stdout.write(cliArgs.includes('--json')?JSON.stringify(c,null,2)+'\n':crystalMarkdown(c));
   }catch(e){console.error(String(e?.message||e));process.exit(2)}
-}else if(reduceAt>=0&&convergeAt>=0){console.error('choose one: --reduce or --converge');process.exit(2)}
+}else if([reduceAt,convergeAt,handoffAt].filter(x=>x>=0).length>1){console.error('choose one: --reduce, --handoff, or --converge');process.exit(2)}
+else if(handoffAt>=0){
+  const selector=cliArgs[handoffAt+1];
+  if(!selector||selector.startsWith('--')){console.error('FIELD handoff requires one route or CURRENT lineage');process.exit(2)}
+  try{const h=compileCrewHandoff(load(),selector,{intent:cliArgValue(cliArgs,'--intent',null)});process.stdout.write(cliArgs.includes('--json')?JSON.stringify(h,null,2)+'\n':handoffMarkdown(h))}
+  catch(e){console.error(String(e?.message||e));process.exit(2)}
+}
 else if(reduceAt>=0){
   const source=cliArgs[reduceAt+1];
   if(!source||source.startsWith('--')){console.error('FIELD reduce requires a JSON packet path or directory');process.exit(2)}
@@ -343,6 +489,20 @@ if(process.argv.includes('--selftest')){
   const selected=clone(sources);
   selected.C.next_single_action={...(selected.C.next_single_action||{}),id:String(selected.C.next_single_action?.id||'next')+'-SELFTEST'};
   if(compile(selected).phi.expression_revision===packet.phi.expression_revision)fail.push('selected CURRENT field did not invalidate revision');
+
+  const handoffTarget=(sources.C.current_heads||[]).find(x=>x?.route&&((sources.M.routes||sources.M.entries||[]).some(r=>r?.href===x.route)))?.route;
+  if(!handoffTarget)fail.push('no resolvable CURRENT head for crew-handoff selftest');
+  else{
+    const h=compileCrewHandoff(sources,handoffTarget,{intent:'SELFTEST ONE BOUNDED MOVE'});
+    if(h.authority!=='NONE / HANDOFF ONLY')fail.push('crew handoff acquired authority');
+    if(h.object.route!==handoffTarget)fail.push('crew handoff object drift');
+    if(h.native_moves.length>3)fail.push('crew handoff exposed > 3 native moves');
+    if(h.return_contract?.merge_recheck?.base_current!== 'RECOMPUTE FROM NATIVE ANCESTRY: compare(master,candidate_head).behind_by === 0')fail.push('crew handoff lost base-current recheck');
+    if(!String(h.return_contract?.stop||'').includes('Re-read current truth'))fail.push('crew handoff RETURN does not force replan');
+    if(h.submission_template?.object_ref!==handoffTarget)fail.push('crew handoff submission object drift');
+    const hm=handoffMarkdown(h);if(hm.length>9000)fail.push('crew handoff markdown exceeds 9k chars: '+hm.length);
+    if(JSON.stringify(h).length>20000)fail.push('crew handoff JSON exceeds 20k chars: '+JSON.stringify(h).length);
+  }
 
   if(fail.length){console.error('FIELD JIT transcript FAIL · '+fail.join(' · '));process.exit(1)}
   console.log('FIELD JIT transcript PASS · '+packet.phi.expression_revision);
