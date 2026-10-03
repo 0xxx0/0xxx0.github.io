@@ -18,21 +18,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import {spawn,spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
 
 const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 const FIXTURE_COUNT=Number(process.env.IMAGE_FIXTURE_COUNT||8);
 const FIXTURE_W=240,FIXTURE_H=160;
 
-function browserBin(){
-  for(const n of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
-    const r=spawnSync('which',[n],{encoding:'utf8'});
-    if(r.status===0&&r.stdout.trim())return r.stdout.trim();
-  }
-  for(const p of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Chromium.app/Contents/MacOS/Chromium']){
-    if(fs.existsSync(p))return p;
-  }
-  throw Error('No Chrome/Chromium for FOLD BLOOM image clock smoke');
-}
 
 // ── synthetic fixture PNGs (no deps, no disk, no archive bytes) ──────────────
 function crc32(buf){

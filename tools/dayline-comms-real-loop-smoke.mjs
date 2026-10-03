@@ -3,21 +3,12 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
 
 const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
 const USER_SOURCE='User: Run the real COMMS OPEN signal → Dayline → act and witness → RETURN TO SOURCE loop, then report whether PR #296 is ready to merge.';
 const WITNESS='BROWSER OBSERVED: exact COMMS source SHA + signal/message/range survived into Dayline and RUN was enacted before RETURN.';
 
-function browserBin(){
-  for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
-    const r=spawnSync('which',[name],{encoding:'utf8'});
-    if(r.status===0&&r.stdout.trim())return r.stdout.trim();
-  }
-  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
-    if(fs.existsSync(p))return p;
-  }
-  throw Error('No Chrome/Chromium');
-}
 function type(p){
   if(p.endsWith('.html'))return'text/html; charset=utf-8';
   if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';

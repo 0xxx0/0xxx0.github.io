@@ -5,21 +5,12 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
 
 const ROOT=process.cwd();
 const HOST='127.0.0.1';
 const PORT=41743;
 
-function browserBin(){
-  for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
-    const r=spawnSync('which',[name],{encoding:'utf8'});
-    if(r.status===0&&r.stdout.trim())return r.stdout.trim();
-  }
-  for(const p of ['/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium']){
-    if(fs.existsSync(p))return p;
-  }
-  throw new Error('No Chrome/Chromium binary found for FIELD LAB cross-projection proof');
-}
 function contentType(p){
   if(p.endsWith('.html'))return 'text/html; charset=utf-8';
   if(p.endsWith('.js')||p.endsWith('.mjs'))return 'text/javascript; charset=utf-8';
