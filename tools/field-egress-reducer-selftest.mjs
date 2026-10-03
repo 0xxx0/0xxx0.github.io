@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
+import {reducePacket,classifyFailureReturn,EGRESS_CLASSES,EGRESS_PRECEDENCE,FAILURE_RETURN_CLASSES} from '../lib/field-egress-reducer.mjs';
 
 const cases=[
   ['A historical cannot self-promote',
@@ -91,15 +91,41 @@ const cases=[
     {},'RESIDUE'],
   ['AD populated evidence refs still witness a delta',
     {packet_id:'populated-evidence-refs',DELTA:{material:true},EVIDENCE:{refs:['proof://exact-head']}},
-    {},'DELTA']
+    {},'DELTA'],
+  ['AE failed attempt with new evidence returns RESIDUE',
+    {packet_id:'fail-evidence',failure_return:'NEW_EVIDENCE',NEXT:{exists:true,executable:true,action:'retry differently'}},
+    {},'RESIDUE'],
+  ['AF failed attempt with changed assumption returns RESIDUE',
+    {packet_id:'fail-assumption',FAILURE_RETURN:{class:'changed assumption',summary:'host contract was narrower than expected'}},
+    {},'RESIDUE'],
+  ['AG failed attempt with narrowed unknown returns RESIDUE',
+    {packet_id:'fail-unknown',failure_return:{narrowed_unknown:true,note:'only physical IMU fidelity remains'}},
+    {},'RESIDUE'],
+  ['AH duplicate failure cannot manufacture NEXT',
+    {packet_id:'fail-duplicate',failure_return:'DUPLICATE_NO_NEW_INFO',NEXT:{exists:true,executable:true,action:'retry same thing'}},
+    {},'ARCHIVE'],
+  ['AI duplicate declaration plus independent residue is preserved for review',
+    {packet_id:'fail-conflict',failure_return:'duplicate',RESIDUE:{exists:true,summary:'new contradiction actually exists'},NEXT:'retry'},
+    {},'RESIDUE'],
+  ['AJ failure-return field does not self-authorize NOW',
+    {packet_id:'fail-now',failure_return:'new evidence',egress:'NOW'},
+    {},'RESIDUE']
 ];
 
 assert.deepEqual(EGRESS_CLASSES,['NOW','DELTA','RESIDUE','GATE','NEXT','ARCHIVE']);
 assert.deepEqual(EGRESS_PRECEDENCE,['GATE','NOW','RESIDUE','NEXT','DELTA','ARCHIVE']);
+assert.deepEqual(FAILURE_RETURN_CLASSES,['NEW_EVIDENCE','CHANGED_ASSUMPTION','NARROWED_UNKNOWN','DUPLICATE_NO_NEW_INFO']);
 for(const [name,packet,ctx,want] of cases){
   const got=reducePacket(packet,ctx);
   assert.equal(got.class,want,name+' -> '+JSON.stringify(got));
 }
+
+assert.equal(classifyFailureReturn({failure_return:'learned'}).class,'NEW_EVIDENCE');
+assert.equal(classifyFailureReturn({failure_return:{duplicate:true}}).class,'DUPLICATE_NO_NEW_INFO');
+assert.equal(classifyFailureReturn({failure_return:'not-a-class'}),null);
+assert.equal(reducePacket({packet_id:'fail-evidence',failure_return:'NEW_EVIDENCE'}).failure_return,'NEW_EVIDENCE');
+assert.equal(reducePacket({packet_id:'fail-duplicate',failure_return:'DUPLICATE_NO_NEW_INFO',NEXT:'retry'}).reason,'failure_return_duplicate_no_new_info');
+assert.equal(reducePacket({packet_id:'fail-conflict',failure_return:'DUPLICATE_NO_NEW_INFO',RESIDUE:'contradiction'}).reason,'failure_return_duplicate_conflicts_with_material_change');
 
 const precedence=reducePacket({
   packet_id:'all-signals',
@@ -107,8 +133,9 @@ const precedence=reducePacket({
   RESIDUE:{exists:true},
   NEXT:{exists:true,executable:true},
   DELTA:{material:true},
-  EVIDENCE:{sufficient:true}
+  EVIDENCE:{sufficient:true},
+  failure_return:'NEW_EVIDENCE'
 },{now:true});
-assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA');
+assert.equal(precedence.class,'GATE','GATE must dominate NOW/RESIDUE/NEXT/DELTA/failure-return');
 
-console.log('FIELD packet egress reducer PASS · A-AD · value/shape-invariant external GATE + unresolved RESIDUE + aliases + inert RETURN + authority/evidence hardening');
+console.log('FIELD packet egress reducer PASS · A-AJ · explicit Hades-style failure-return + value/shape-invariant GATE/RESIDUE + aliases + authority/evidence hardening');
