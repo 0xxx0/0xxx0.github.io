@@ -56,3 +56,4 @@ try{
  const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
  if(r.code!==0||fatal||!result.startsWith('PASS ')){console.error('PRISON AGE EVIDENCE ATLAS SMOKE FAIL',result||'(no result)');if(r.err.trim())console.error(r.err.slice(-3500));process.exitCode=1}else console.log('PRISON AGE EVIDENCE ATLAS SMOKE PASS',result.slice(5));
 }finally{await new Promise(r=>server.close(()=>r()))}
+if(!process.exitCode)await import('./prison-age-passage-smoke.mjs');
