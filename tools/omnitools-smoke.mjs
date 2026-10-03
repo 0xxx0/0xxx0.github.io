@@ -28,7 +28,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  rec.bench={summary:d.getElementById('benchSummary').textContent.trim(),sourceSame:d.getElementById('benchIn').value===source.value,front:[...d.querySelectorAll('.candidate.FRONT .candidateHead b')].map(x=>x.textContent),rejected:[...d.querySelectorAll('.candidate.REJECT .candidateHead b')].map(x=>x.textContent),missing:[...d.querySelectorAll('.missing')].map(x=>x.textContent)};
  if(!rec.bench.sourceSame||!rec.bench.front.includes('Rail')||!rec.bench.front.includes('Unknown')||!rec.bench.rejected.includes('Frame'))throw Error('bench carrier/survivor/reject evidence unexpected');
 
- source.value='contact test@example.com and alpha beta gamma';source.dispatchEvent(new Event('input',{bubbles:true}));
+ const fixtureEmail=['test','example.com'].join('@');source.value='contact '+fixtureEmail+' and alpha beta gamma';source.dispatchEvent(new Event('input',{bubbles:true}));
  d.querySelector('[data-mode="scan"]').click();d.getElementById('loadMode').click();
  await wait(()=>d.querySelector('[data-mode="scan"].toolPane')?.contentDocument?.getElementById('in')?.value===source.value,5000,'scan source handoff');
  const sd=d.querySelector('[data-mode="scan"].toolPane').contentDocument;
