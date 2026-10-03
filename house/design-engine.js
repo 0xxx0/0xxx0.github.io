@@ -3,9 +3,12 @@
 
   const SCHEMA = 'house-design-trial/v0.1';
   const RETURN_SCHEMA = 'house-design-return/v0.1';
+  const EFFECT_SCHEMA = 'house-design-effect/v0.1';
+  const WITNESS_SCHEMA = 'house-design-witness/v0.1';
   const STORE_KEY = 'house.design.trials.v01';
   const DECISIONS = ['ADOPT', 'REVISE', 'REVERT', 'HOLD'];
   const REQUIRED = ['before', 'intent', 'change', 'verify', 'after', 'decision'];
+  const CLAIM_TYPES = ['PHYSICAL_STATE_OBSERVED', 'TRIAL_CRITERION_EVALUATED', 'DIMENSIONAL_FIT_EVIDENCE_ATTACHED'];
 
   const now = () => new Date().toISOString();
   const clean = (v) => String(v == null ? '' : v).trim();
@@ -82,6 +85,101 @@
     return t;
   }
 
+  function effectRef(trial) {
+    const t = normalizeTrial(trial || {});
+    return 'house-design:' + clean(t.id) + ':' + clean(t.address);
+  }
+
+  function makeEffect(trial) {
+    const t = normalizeTrial(trial || {});
+    return {
+      schema: EFFECT_SCHEMA,
+      effect_ref: effectRef(t),
+      trial_id: t.id,
+      source_route: t.source_route || '/house/',
+      address: t.address,
+      address_label: t.address_label,
+      projection: t.projection,
+      before: t.before,
+      intent: t.intent,
+      intervention: t.change,
+      constraints: t.constraints || null,
+      authority: 'LOCAL_DESIGN_TRIAL_ONLY',
+      retry_semantics: 'NEW_TRIAL_REQUIRED',
+      law: 'Repeating or compensating this physical intervention is a new addressed trial; this effect grants no Home Assistant/HOUSEBUS actuation or retry authority.'
+    };
+  }
+
+  function makeWitnesses(trial) {
+    const t = normalizeTrial(trial || {});
+    const ref = effectRef(t);
+    const witnesses = [
+      {
+        schema: WITNESS_SCHEMA,
+        witness_id: ref + ':after',
+        effect_ref: ref,
+        trial_id: t.id,
+        address: t.address,
+        claim_type: 'PHYSICAL_STATE_OBSERVED',
+        issuer: 'LOCAL_HUMAN',
+        recorded_at: t.updated_at,
+        time_semantics: 'TRIAL_EDIT_TIME_NOT_INDEPENDENT_SENSOR_TIME',
+        evidence: t.after,
+        evidence_only: true,
+        supports: ['The stated after-observation was recorded for this exact addressed trial.'],
+        does_not_support: ['The intervention caused every observed change.', 'The intervention is structurally safe, code-compliant, or independently measured.']
+      },
+      {
+        schema: WITNESS_SCHEMA,
+        witness_id: ref + ':criterion',
+        effect_ref: ref,
+        trial_id: t.id,
+        address: t.address,
+        claim_type: 'TRIAL_CRITERION_EVALUATED',
+        issuer: 'LOCAL_HUMAN',
+        recorded_at: t.updated_at,
+        time_semantics: 'TRIAL_EDIT_TIME_NOT_INDEPENDENT_SENSOR_TIME',
+        criterion: t.verify,
+        decision: t.decision,
+        evidence: t.after,
+        evidence_only: true,
+        supports: ['The stated verification criterion was evaluated for this trial and paired with the recorded decision.'],
+        does_not_support: ['ADOPT is structural/safety approval.', 'REVERT is an undo of an external physical effect.']
+      }
+    ];
+    if (t.fit_receipt) {
+      witnesses.push({
+        schema: WITNESS_SCHEMA,
+        witness_id: ref + ':fit',
+        effect_ref: ref,
+        trial_id: t.id,
+        address: t.address,
+        claim_type: 'DIMENSIONAL_FIT_EVIDENCE_ATTACHED',
+        issuer: 'HOUSE_SHOPPING_FIT_RETURN',
+        recorded_at: t.updated_at,
+        evidence: t.fit_receipt,
+        evidence_only: true,
+        supports: ['A dimensional fit receipt was attached to this exact trial.'],
+        does_not_support: ['Physical clearance was independently measured after the intervention.', 'Fit evidence grants actuation or adoption authority.']
+      });
+    }
+    return witnesses;
+  }
+
+  function validateWitnessBinding(effect, witness) {
+    const errors = [];
+    if (!effect || effect.schema !== EFFECT_SCHEMA) errors.push('effect schema');
+    if (!witness || witness.schema !== WITNESS_SCHEMA) errors.push('witness schema');
+    if (!errors.length) {
+      if (clean(witness.effect_ref) !== clean(effect.effect_ref)) errors.push('effect_ref');
+      if (clean(witness.trial_id) !== clean(effect.trial_id)) errors.push('trial_id');
+      if (clean(witness.address) !== clean(effect.address)) errors.push('address');
+      if (!CLAIM_TYPES.includes(clean(witness.claim_type))) errors.push('claim_type');
+      if (witness.evidence_only !== true) errors.push('evidence_only');
+    }
+    return { ok: errors.length === 0, errors };
+  }
+
   function makeReturn(trial) {
     const t = normalizeTrial(trial || {});
     const check = validate(t);
@@ -89,6 +187,14 @@
       const err = new Error('design trial incomplete: ' + check.missing.join(', '));
       err.code = 'INCOMPLETE_TRIAL';
       err.missing = check.missing;
+      throw err;
+    }
+    const effect = makeEffect(t);
+    const witnesses = makeWitnesses(t);
+    const bad = witnesses.filter((w) => !validateWitnessBinding(effect, w).ok);
+    if (bad.length) {
+      const err = new Error('design witness binding failed');
+      err.code = 'INVALID_WITNESS_BINDING';
       throw err;
     }
     return {
@@ -108,9 +214,13 @@
       fit_receipt: t.fit_receipt || null,
       residue: t.residue || null,
       evidence_class: 'LOCAL_HUMAN_OBSERVATION',
+      effect,
+      witnesses,
       claims: [
         'This receipt records an addressed design trial and its observed result.',
+        'Witnesses are claim-scoped evidence attached to this exact trial; they do not create effect authority.',
         'ADOPT is a local human decision, not structural/safety approval.',
+        'REVERT means a separate corrective trial is required; it is not an undo primitive for physical reality.',
         'No Home Assistant/HOUSEBUS actuation authority is granted.',
         'Canonical HOUSE geometry changes only after independent measurement/evidence update.'
       ],
@@ -118,7 +228,7 @@
     };
   }
 
-  const Core = { SCHEMA, RETURN_SCHEMA, STORE_KEY, DECISIONS, REQUIRED, newTrial, normalizeTrial, validate, attachFit, makeReturn };
+  const Core = { SCHEMA, RETURN_SCHEMA, EFFECT_SCHEMA, WITNESS_SCHEMA, STORE_KEY, DECISIONS, REQUIRED, CLAIM_TYPES, newTrial, normalizeTrial, validate, attachFit, effectRef, makeEffect, makeWitnesses, validateWitnessBinding, makeReturn };
   root.HouseDesignCore = Core;
   if (typeof module !== 'undefined' && module.exports) module.exports = Core;
 
@@ -236,7 +346,7 @@
 
   function editorMarkup(t,key,check){
     if(key==='return'){
-      return '<div class="designEditor"><div class="designProof"><div><strong>'+esc(check.ready?'RETURN READY':'RETURN BLOCKED')+'</strong><br><small>'+esc(check.ready?'bounded physical delta can leave the local trial':'missing '+check.missing.join(' · '))+'</small></div><button class="primary" data-design-return '+(check.ready?'':'disabled')+'>EXPORT RETURN</button></div><div class="note">RETURN preserves the address, before/change/after, verification, decision and residue. It never certifies structural, utility, fire, load or code fitness.</div></div>';
+      return '<div class="designEditor"><div class="designProof"><div><strong>'+esc(check.ready?'RETURN READY':'RETURN BLOCKED')+'</strong><br><small>'+esc(check.ready?'bounded physical delta can leave the local trial':'missing '+check.missing.join(' · '))+'</small></div><button class="primary" data-design-return '+(check.ready?'':'disabled')+'>EXPORT RETURN</button></div><div class="note">RETURN preserves the address, before/change/after, verification, decision and residue, then binds claim-scoped evidence to the exact trial. It never certifies structural, utility, fire, load or code fitness.</div></div>';
     }
     if(key==='decision'){
       return '<div class="designEditor"><label>DECISION<select data-design-field="decision">'+DECISIONS.map(d=>'<option '+(d===t.decision?'selected':'')+'>'+d+'</option>').join('')+'</select></label><label>RESIDUE · what remains unknown<textarea data-design-field="residue" placeholder="simulation gap / missing measure / side effect">'+esc(t.residue)+'</textarea></label><div class="designActions"><button data-step-next="return">REVIEW RETURN →</button></div></div>';
