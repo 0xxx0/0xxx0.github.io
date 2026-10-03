@@ -10,7 +10,7 @@ assert.equal(helpRun.status,0,helpRun.stderr);
 const help=JSON.parse(helpRun.stdout);
 assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
 assert.equal(help.authority,'NONE');
-assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge']);
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','crew-handoff','contribution-converge']);
 assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
 assert.match(help.converge_attestations.base_current,/behind_by === 0/);
 const llms=fs.readFileSync('llms.txt','utf8');
@@ -26,6 +26,19 @@ assert.ok(crystal.paths.length>=1,'CRYSTAL must expose current paths');
 assert.ok(crystal.archive.addressed_route_count>=crystal.paths.length,'CRYSTAL archive scale must contain current heads');
 assert.equal(crystal.packets.counts.NOW,0,'CRYSTAL packet shelf cannot self-authorize NOW');
 assert.ok(crystal.return?.target,'CRYSTAL must retain RETURN');
+
+const handoffRun=run(['--handoff','/','--intent','SELFTEST CREW TURN','--json']);
+assert.equal(handoffRun.status,0,handoffRun.stderr);
+const handoff=JSON.parse(handoffRun.stdout);
+assert.equal(handoff.schema,'field-crew-handoff/v0.1');
+assert.equal(handoff.authority,'NONE / HANDOFF ONLY');
+assert.equal(handoff.object.route,'/');
+assert.ok(handoff.native_moves.length<=3,'crew handoff must expose <=3 native moves');
+assert.match(handoff.return_contract.merge_recheck.base_current,/behind_by === 0/);
+assert.match(handoff.return_contract.stop,/Re-read current truth/);
+assert.equal(handoff.submission_template.object_ref,'/');
+assert.ok(JSON.stringify(handoff).length<20000,'crew handoff must stay bounded');
+
 const dir=fs.mkdtempSync(path.join(os.tmpdir(),'field-machine-reducer-'));
 const write=(name,value)=>{const p=path.join(dir,name);fs.writeFileSync(p,JSON.stringify(value));return p};
 
@@ -87,4 +100,4 @@ for(const [name,packet,wantClass,wantDisposition] of contributionCases){
 }
 
 fs.rmSync(dir,{recursive:true,force:true});
-console.log('FIELD machine reducer surface PASS · canonical help + packet sweep + real shelf + contribution convergence + zero implicit authority');
+console.log('FIELD machine reducer surface PASS · canonical help + crew handoff + packet sweep + real shelf + contribution convergence + zero implicit authority');
