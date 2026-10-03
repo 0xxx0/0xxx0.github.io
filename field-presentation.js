@@ -115,3 +115,44 @@ document.addEventListener('scroll',e=>{
  if(now()<(mutedUntil.get(viewport)||0))e.stopImmediatePropagation();
 },{capture:true,passive:true});
 })();
+
+(()=>{'use strict';
+/*
+FIELD local-orientation bootstrap.
+
+The root's LOCAL / unseen rail is browser-local orientation, not backlog or
+canonical FIELD truth. Before this guard, a browser with no local acknowledgement
+state treated every historically touched route as "unseen", so a first visit
+could present the entire repository history (e.g. 167 routes) as apparent work.
+
+On the first actual root visit only, establish "now" as the local orientation
+baseline when—and only when—there is no prior bulk boundary, per-route boundary,
+or rewind history. The existing STATUS → ORIENTATION / LOCAL → REWIND action can
+still reset that bulk boundary to zero, and a one-time bootstrap marker prevents
+us from silently re-seeding after the operator deliberately rewinds.
+
+LOCAL ORIENTATION ≠ CURRENT ≠ WORK ≠ AUTHORITY.
+*/
+if(typeof window==='undefined'||location.pathname!=='/')return;
+const CATCHUP_SEEN_KEY='field.catchup.seen.v01';
+const CATCHUP_ITEMS_KEY='field.catchup.items.v02';
+const CATCHUP_HISTORY_KEY='field.catchup.history.v01';
+const ORIENTATION_BOOT_KEY='field.catchup.bootstrap.v01';
+try{
+ const seen=Math.max(0,Number(localStorage.getItem(CATCHUP_SEEN_KEY))||0);
+ const items=JSON.parse(localStorage.getItem(CATCHUP_ITEMS_KEY)||'{}');
+ const history=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');
+ const hasItems=!!items&&typeof items==='object'&&!Array.isArray(items)&&Object.keys(items).length>0;
+ const hasHistory=Array.isArray(history)&&history.length>0;
+ if(!seen&&!hasItems&&!hasHistory&&!localStorage.getItem(ORIENTATION_BOOT_KEY)){
+  const at=Date.now();
+  localStorage.setItem(CATCHUP_SEEN_KEY,String(at));
+  localStorage.setItem(ORIENTATION_BOOT_KEY,JSON.stringify({
+   schema:'field-orientation-bootstrap/v0.1',
+   at,
+   meaning:'first-visit local orientation baseline; REWIND may restore historical diff; canonical FIELD unchanged'
+  }));
+  document.documentElement.dataset.fieldOrientationBaseline='first-visit';
+ }
+}catch(_){}
+})();
