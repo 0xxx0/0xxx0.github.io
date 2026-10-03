@@ -1,0 +1,49 @@
+{
+  "schema": "omnitools-instrument/v0.3",
+  "route": "/foundry/omnitools/",
+  "bundle_version": "0.2",
+  "instrument_revision": "0.3",
+  "authority": "LOCAL_SESSION_CARRIER / ADVISORY_BENCH / NO EFFECT AUTHORITY",
+  "purpose": "Make a few unequal specialist tools behave like one usable instrument: hold one source object, choose a lawful projection, inspect its result, retain a bounded trace, and RETURN evidence without inventing shared semantics or authority.",
+  "spine": [
+    "SOURCE",
+    "AXIS",
+    "EFFECTOR",
+    "TRACE",
+    "RETURN"
+  ],
+  "axes": [
+    {"id":"bench","owner":"bench.mjs","operation":"COMPARE","input":"FORM / FUNCTION / FORTITUDE candidates with exact, ranged or unknown evidence","authority":"ADVISORY_ONLY"},
+    {"id":"scan","owner":"pii-lens.html","operation":"SCAN","authority":"LOCAL_TOOL"},
+    {"id":"read","owner":"text-lens.html","operation":"READ","authority":"LOCAL_TOOL"},
+    {"id":"align","owner":"re-reader.html","operation":"ALIGN","authority":"LOCAL_TOOL"},
+    {"id":"reshape","owner":"reshaper.html","operation":"RESHAPE","authority":"LOCAL_TOOL"}
+  ],
+  "source": {
+    "storage": "sessionStorage only",
+    "identity": "first 12 hex characters of browser SHA-256 over exact source bytes",
+    "mutation": false,
+    "network_upload": false
+  },
+  "bench": {
+    "axes": ["FORM", "FUNCTION", "FORTITUDE"],
+    "score_forms": ["exact", "range", "unknown"],
+    "hard_limit_law": "Reject only when a candidate's observed/ranged maximum is below a hard minimum.",
+    "unknown_law": "Unknown or threshold-crossing evidence remains POTENTIAL and names the missing evidence.",
+    "dominance_law": "A candidate is dominated only when another is guaranteed no worse on every axis and strictly better on at least one; overlapping ranges and unknowns preserve alternatives.",
+    "ranking_law": "No weighted winner is invented. The output is survivor set, exclusions, and what to measure next."
+  },
+  "return": {
+    "schema": "omnitools-return/v0.1",
+    "authority": "EVIDENCE_ONLY",
+    "contains": ["source identity", "active projection", "bench survivor/exclusion evidence when present", "projection preview", "bounded session trace"]
+  },
+  "laws": [
+    "SOURCE != RESULT",
+    "BENCH != RANKING",
+    "PROJECTION != EFFECT",
+    "UNEQUAL TOOLS MAY SHARE A CARRIER WITHOUT SHARING SEMANTICS",
+    "RETURN PRESERVES EVIDENCE, NOT AUTHORITY"
+  ],
+  "stop": "Do not add another Omnitools child merely because a tool exists. Add or extract only after a repeated real task cannot be expressed by SOURCE -> existing AXIS -> TRACE -> RETURN."
+}
