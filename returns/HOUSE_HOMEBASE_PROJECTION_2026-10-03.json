@@ -2,9 +2,11 @@
   "schema": "field-return/v1",
   "id": "HOUSE_HOMEBASE_PROJECTION_2026-10-03",
   "date": "2026-10-03",
-  "state": "PR_CANDIDATE",
+  "state": "PR_CANDIDATE_EXACT_HEAD_PROOF_REQUIRED",
   "object": "canonical /house/ human surface",
   "operation": "SPATIAL HOUSE -> HOMEBASE RETURN/PREP PROJECTION",
+  "base_material_head": "63d0a5e3eefb23751abaf4d981e897281aa6605c",
+  "base_material_delta": "BODY/FIT route-friction loadout projection is present beneath HOMEBASE; later COMMS heartbeat is telemetry-only and carries no HOUSE/BODY authority.",
   "delta": [
     "Reframe the canonical HOUSE root from inspection-first to return/preparation-first without replacing its spatial substrate.",
     "Add one compact HOMEBASE rail bound to the current house:selection address.",
@@ -24,6 +26,6 @@
   ],
   "authority": {"homebase":"PROJECTION_ONLY","house":"spatial locus/address","body_fit":"loadout/session/route-friction/return","env0":"coupling grammar","dayline":"time/context execution","housebus":"private runtime truth/actuation"},
   "non_goals": ["no new route","no item database","no quest/chore queue","no score/streak/readiness inference from silence","no free-roaming 3D game","no public HOUSEBUS actuation"],
-  "verify": ["node --check house/homebase.js","existing HOUSE root browser smoke must still pass","public-surface-check","gitleaks"],
+  "verify": ["node --check house/homebase.js","existing HOUSE root browser smoke must still pass","house-reality-harness selftest must prove HOMEBASE ownership boundaries","public-surface-check","gitleaks"],
   "return_condition": "Promote only after exact-head CI proves /house/ still boots and the new module introduces no public authority/store boundary regression."
 }
