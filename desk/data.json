@@ -1,13 +1,13 @@
 {
  "schema": "field-desk/v1",
- "generated": "2026-10-03T06:12:57.756Z",
+ "generated": "2026-10-03T06:42:13.149Z",
  "counts": {
-  "returns": 280,
+  "returns": 281,
   "routes": 169,
   "states": {
+   "PR_CANDIDATE": 3,
    "UNKNOWN": 145,
    "BOUNDED_EXECUTION_SEAM_CLOSED": 1,
-   "PR_CANDIDATE": 2,
    "MERGED_CI_GREEN": 16,
    "CANDIDATE / CI_REQUIRED": 4,
    "MERGED_MACHINE_GREEN": 4,
@@ -78,6 +78,39 @@
  },
  "returns": [
   {
+   "file": "RETURN_LANDING_LIGHT_LIVE_SYNC_2026-10-03.json",
+   "id": "RETURN_LANDING_LIGHT_LIVE_SYNC_2026-10-03",
+   "date": "2026-10-03",
+   "object": "FIELD INDEX light mode + FIELD DESK live GitHub state sync + FCM freshness pass",
+   "state": "PR_CANDIDATE",
+   "next": "Review PR 916. After merge, field-desk-refresh regenerates desk/data.json with refs and the desk reconciles live states on next load.",
+   "measured": "before: desk showed FIELD_MOIRE as CANDIDATE; after: MERGED (live Δ · PR #784 merged). before: fcm-fronts.json had no updated stamp; after: updated 2026-10-03 with per-front states. before: no light theme on /; after: li",
+   "checks": {
+    "public_surface": "PASS",
+    "html_document_integrity": "PASS",
+    "mutation_recency": "PASS",
+    "light_mode_render": "PASS · served page rendered in browser: data-theme flips on click, label syncs, fi-theme persists across reload, dark mode unchanged, zero console errors",
+    "live_sync_render": "PASS · rendered against live api.github.com: 164 receipts matched, 1 stale flip (FIELD_MOIRE → MERGED, PR #784 merged), 5 open PRs listed live, zero console errors",
+    "fcm_render": "PASS · three fronts + STATE 2026-10-03 + footer stamp rendered, layout intact, zero console errors"
+   },
+   "laws": [
+    "SNAPSHOT ≠ LIVE: a frozen state field is a claim about the past, not the present.",
+    "DESIGNED BUT NOT RUNNING COSTS TWICE: the desk generator was manual and desk/data.json went stale; the refresh workflow now owns it.",
+    "VERIFY THE CLAIM, NOT THE ARTIFACT: the toggle and the live sync were verified by rendering the served pages, not by exit codes.",
+    "FRESHNESS IS A STATE, NOT A DATE: fronts were re-checked against control state and returns, not merely re-stamped."
+   ],
+   "refs": {
+    "prs": [
+     784,
+     916
+    ],
+    "commits": [
+     "999b5776"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
+  },
+  {
    "file": "READFIELD_RIDE_RAIL_CURRENT_2026-10-03.json",
    "id": "READFIELD_RIDE_RAIL_CURRENT_2026-10-03",
    "date": "2026-10-03",
@@ -87,7 +120,19 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     822,
+     832,
+     833
+    ],
+    "commits": [
+     "8651bd325697c5c981bbf55d788bf83c6f50ffb8",
+     "b932528e7e2e7e0486855875ebb96c03d7a71bde",
+     "385e4c17fbead7d911888d0c72dbdb3e91a95be3"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "LACONIC_FIELD_ACTIONS_2026-10-03.json",
@@ -99,7 +144,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_HOMEBASE_SPATIAL_DOCK_2026-10-03.json",
@@ -116,7 +165,11 @@
     "DIEGETIC LOCATION FOR COMPREHENSION; SHORTCUT ACCESS FOR EFFICIENCY",
     "RETURN / SERVICE RESIDUE MAY BE SHOWN; READY IS NEVER INFERRED FROM SILENCE"
    ],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_HOMEBASE_PROJECTION_2026-10-03.json",
@@ -128,7 +181,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
@@ -140,7 +197,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     807
+    ],
+    "commits": [
+     "5e5da7b201155abaffe3b7aba322c63254caef12",
+     "061e645cc8545e04506e3adc21cd6e643701ff80",
+     "b0419535d6ece013e5c140222f9ce9370a9e27a1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_HADES_FAILURE_RETURN_2026-10-03.json",
@@ -152,7 +219,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_CREW_HANDOFF_BRIDGE_2026-10-03.json",
@@ -169,7 +240,11 @@
     "HANDOFF HANDLE CORRELATES CONTEXT; IT DOES NOT CREATE A TASK DATABASE.",
     "HANDOFF PRESERVES INTENT + ADDRESS + BOUNDED MOVES + EVIDENCE + RETURN; IT DOES NOT SERIALIZE HIDDEN CHAIN OF THOUGHT."
    ],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_CONVERGENCE_ADAPTER_2026-10-03.json",
@@ -181,7 +256,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_AWAKE_VISOR_V2_2026-10-03.json",
@@ -193,7 +272,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     533,
+     827
+    ],
+    "commits": [
+     "50f185ca45d6e0474127f6ea531040ea01cbaba8"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "BROWSER_RESOLVER_CONSOLIDATION_2026-10-03.json",
@@ -208,7 +296,11 @@
     "A guard that answers 'is it on PATH' is not a guard that answers 'will it run'.",
     "One law expressed N times by hand diverges N ways. Consolidate the law into one executable, not the call sites into one list."
    ],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "AXIAL_WRAP_BODY_2026-10-03.json",
@@ -220,7 +312,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json",
@@ -232,7 +328,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "c45ac18c",
+     "ba9eec78"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
@@ -244,7 +347,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "f5b6749eb340053d5dbec7a75e1f380c77c65980",
+     "a4b6c41d62be72d616809b3f08360488e132d326"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "RETURN_STUCK_THREADS_2026-10-02.json",
@@ -264,7 +374,11 @@
     "A script designed but not scheduled costs the same as a written script.",
     "A cron written but not enabled costs the same as one running."
    ],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "LACONIC_POCKET_MOVES_2026-10-02.json",
@@ -276,7 +390,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "LACONIC_NAME_THE_MOVE_2026-10-02.json",
@@ -288,7 +406,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "FIELD_MOIRE_HELD_OBJECT_2026-10-02.json",
@@ -300,7 +422,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     784
+    ],
+    "commits": [
+     "6cc42306f3cd2961d52d9bfc86c21c720154c59d"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
@@ -312,7 +442,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     772,
+     778,
+     779
+    ],
+    "commits": [
+     "f857e7ea3718437ab16d3f52df0de04717da154a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02.json",
@@ -329,7 +469,15 @@
     "convergence_validate": "success · run 37019887408"
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "3fe3e6ad3fdeed8aaa236eb6cba12a77db2a0464",
+     "88594239cbca1b1af968fb69d5a9733e0d013061",
+     "dc57ce3b3ad1de572ed1de0c2eae9d2f8ec99a0d"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02.json",
@@ -341,7 +489,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "221ecee263e50abf27589575b9e8247fa9f1d79b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
@@ -358,7 +512,17 @@
     "AUTO-ADVANCE MAY CHANGE FOCUS, NEVER EXECUTE THE NEXT EFFECT.",
     "AWAKE = REORIENTATION ON RETURN, NOT A SECOND PRODUCT."
    ],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     807
+    ],
+    "commits": [
+     "5e5da7b201155abaffe3b7aba322c63254caef12",
+     "061e645cc8545e04506e3adc21cd6e643701ff80",
+     "b0419535d6ece013e5c140222f9ce9370a9e27a1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "INTERPHASE_JSPACE_VOCAB_SHARED_001_2026-10-01.json",
@@ -370,7 +534,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "FIELD_INDEX_TOUCH_CATCHUP_2026-10-01.json",
@@ -390,7 +558,16 @@
     "ATTENTION != RECENCY; route.index.updated_at is curated route-touch metadata, not the Git chronology.",
     "Machine refresh commits (comms: / nexus: / convergence:) are not semantic FIELD changes and do not stamp."
    ],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "6d5a865f",
+     "9342765b",
+     "025034f2",
+     "f1e51c16"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01.json",
@@ -411,7 +588,13 @@
     "NAVIGATION DELTA != AUTHORITY DELTA.",
     "PLAY IS ONE REVEAL AWAY, NOT PERMANENT CHROME."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "2e92bc67"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
@@ -423,7 +606,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "d60120d0511038a7f76c2977328e733b59f978d7",
+     "be667a0a9f78b4475c6a4ff61f5b6e498511ad49"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
@@ -435,7 +625,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [
+     709
+    ],
+    "commits": [
+     "dc3f871d5bb8ca62edea7d957569d1407678dba0",
+     "0cacf1ea8da9b640af1990f4bf36303f3975cce6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
@@ -447,7 +646,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     739
+    ],
+    "commits": [
+     "aee12edf504145828c8fa0eebabc8a67a722fa69",
+     "9af9d903021417fc95c2a64fd6ffb27a912cd276"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json",
@@ -464,7 +672,16 @@
     "TESTED IS ON_HAND EVIDENCE; ADOPTED REQUIRES THE NATIVE HOST'S explicit lifecycle truth.",
     "ONE HELD ITEM -> <=3 NATIVE MOVES -> TRACE -> EXACT RETURN."
    ],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     650
+    ],
+    "commits": [
+     "d6f6bd267c18d1db75c2084a9c1d4bb803da470e",
+     "5fc84f18bc026619357caa8dbc1ffd1207dd4cbb"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SHOPPING_MARKET_TAPE_2026-09-30.json",
@@ -476,7 +693,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
@@ -488,7 +709,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "LACONIC_MIXED_NEWS_SCENE_2026-09-30.json",
@@ -500,7 +725,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
@@ -512,7 +741,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
@@ -524,7 +757,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
@@ -536,7 +773,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [
+     490,
+     491
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_REVERSAL_2026-09-30.json",
@@ -548,7 +792,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json",
@@ -560,7 +808,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json",
@@ -577,7 +829,22 @@
     "SAME HEX ≠ SAME NATIVE NEXT DOES NOT PROMOTE HEX TO CONTROL STATE.",
     "HOST-RELATIVE SUPPORT ≠ PERMISSION ≠ EFFECT."
    ],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     649,
+     656,
+     657
+    ],
+    "commits": [
+     "6e02caa4bbf14da3fd6c2fda82de255179e8dfed",
+     "412caa7273e079d448b52414206bea11dbd478a5",
+     "5d3b526284e974af6888b96c812bb1a1a32d7d8e",
+     "cedaba3845222fc7e733257551204c1b70024da9",
+     "52ee1f79faefeaa62b00be062775df79006f6fc4",
+     "88dca26663bc09bfd7574a54bb16afa05ce1249f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30.json",
@@ -594,7 +861,23 @@
     "NOW REQUIRES EXPLICIT CALLER CONTEXT.",
     "BATCHING CREATES NO PERSISTENT STATE."
    ],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     684,
+     685,
+     687,
+     689
+    ],
+    "commits": [
+     "0e6594d18c2e595c511a25b8844c85e04f4166f9",
+     "07a232d039f659532108b6283d3a2ced1fdedea4",
+     "4d39979cc14ffeb8bf427f4e32db49b4f2557d87",
+     "9844eb22831d694d554a1c1c20be0cf096477f85",
+     "a34fa6162b606bb50a7d1659a96ecf3c0b697eb1",
+     "46bfe98d81e0ef7f5781c4b2843438770f36a8e3"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
@@ -612,7 +895,14 @@
     "gitleaks_post_merge": "success"
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "4e71cbdd184d372431ff322f13c01a00f74e21dc",
+     "7465373a22a038a24492e8e88fd81b0eccb272f4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_HELD_GUIDE_CONTRACTION_0825_2026-09-30.json",
@@ -629,7 +919,11 @@
     "SAME CARRIER / FEWER REPRESENTATIONS.",
     "WAKE CADENCE IS LINEAGE + ACTION GRAMMAR, NOT ROOT CHROME."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
@@ -650,7 +944,16 @@
     "POINT-OF-ACTION UNDO REMAINS AT THE POINT OF ACTION.",
     "NATIVE HOST ACTIONS MAY SHAPE THE PRIMARY EDGE BUT NEVER TRANSFER EFFECT AUTHORITY TO FIELD."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     724
+    ],
+    "commits": [
+     "9b7b0327bba82891f9d0d2f3ae3bf4e125d7ad38",
+     "047ef5ee503f6eff16b4a324893a08f247d4a8f6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
@@ -662,7 +965,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     730,
+     731
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_DONOR_FOLD_2026-09-30.json",
@@ -674,7 +984,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
@@ -695,7 +1009,17 @@
     "HELD SEEN IS REWINDABLE AND ROUTE-LOCAL.",
     "REALITY / ISSUES / GIT / NEXT EACH STAY WITH THEIR EXISTING OWNER."
    ],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     675,
+     678
+    ],
+    "commits": [
+     "8acbedbbae819badc437840ef3d4b49403e9f891",
+     "538a851dd184e08ad5bdbf07fe145f30f6cd1e58"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
@@ -707,7 +1031,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29.json",
@@ -719,7 +1047,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_GESTURE_BOUNDARY_2026-09-29.json",
@@ -731,7 +1063,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_CAUSAL_RETURN_2026-09-29.json",
@@ -743,7 +1079,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
@@ -755,7 +1095,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29.json",
@@ -767,7 +1111,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     527
+    ],
+    "commits": [
+     "57e5442de7b7b3384975c29df9155c7a2e04399d",
+     "e255cda1dd1c3931a7ef103560555836b1e57275"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_FORECAST_FACTORIZATION_2026-09-29.json",
@@ -779,7 +1132,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
@@ -791,7 +1148,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FIELD_PROJECTION_ABLATION_2026-09-29.json",
@@ -803,7 +1166,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
@@ -815,7 +1182,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     575
+    ],
+    "commits": [
+     "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
+     "c3e6cec07c30c8c6c5e77ae9f0d06e693624da33",
+     "248f6befa8b2bb2516321e66eb2ad896995eed6a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
@@ -827,7 +1204,20 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     551,
+     555,
+     564,
+     570
+    ],
+    "commits": [
+     "f7346125e34f1cba0cec0b686509975a01755267",
+     "98cc5f36019364bf7d82e65aa130bc9d0b5ebb13",
+     "1d729ce1edc35473c34d7379a142d40bb3e01406"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
@@ -839,7 +1229,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     605
+    ],
+    "commits": [
+     "91f94dfa67a0c4141227361473ee2f02796af71e",
+     "8b958983bd0a687b6de482bb4e68af166bb03e59"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
@@ -855,7 +1254,23 @@
     "gitleaks": "success"
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     605,
+     618,
+     620,
+     630,
+     631,
+     634
+    ],
+    "commits": [
+     "09bec14a89ec273acc83f4fa185d5178b97d994b",
+     "43b2d31a497c6993fe2087bc4ddd08a1a0f251b9",
+     "f38e3f8a3391c5ed4562a95ea5f7f3613d3b562e",
+     "c3e6cec07c30c8c6c5e77ae9f0d06e693624da33"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
@@ -867,7 +1282,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "be1316e28b566a8e9542ec4ebdcf05a25ba07822",
+     "d8ed1dd3998e4adbcfc34545bdc512744261f67b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
@@ -879,7 +1301,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     414
+    ],
+    "commits": [
+     "c7ff53906a2a4d0610a5b0db90cb0e0627b58c29",
+     "dc028d88efb7054a19d411a37c35d9fc8a5875a9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
@@ -891,7 +1322,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5f769984808570ddf286a28632fdc53a1780f8cc"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_COAXIALITY_ADMISSION_BOUNDARY_2026-09-29.json",
@@ -903,7 +1340,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_COAXIALITY_2026-09-29.json",
@@ -915,7 +1356,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
@@ -927,7 +1372,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "e399adc966754ba599e1479598a7ced29e6939dc"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_AUTHORED_READER_2026-09-28.json",
@@ -939,7 +1390,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
@@ -956,7 +1411,11 @@
     "PATTERN ≠ PRIORITY ≠ AUTHORITY.",
     "ROUTE IDENTITY SURVIVES HELD-GLYPH DISCLOSURE."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
@@ -973,7 +1432,16 @@
     "Touch, pen and mouse may share an interaction law without pretending their gestures are identical.",
     "Projection changes never mutate FIELD route identity, CURRENT attention or native host authority."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     485
+    ],
+    "commits": [
+     "e98a04e9817c564dfd3b717541d78038bef43fca",
+     "432a78a9248b735fba493cd662b0eed8793257f5"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json",
@@ -990,7 +1458,11 @@
     "COMPRESSION IS LAWFUL ONLY WHEN RESIDUE REMAINS RECOVERABLE: hidden constraints, evidence, chronology and witnesses move into named folds rather than disappearing.",
     "ATTENTION CHANGES DISCLOSURE; IT DOES NOT CREATE A SECOND STORE, PRIORITY OR AUTHORITY."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
@@ -1007,7 +1479,11 @@
     "ALL PROJECT-GLYPH OPERATIONS ARE VIEW-ONLY.",
     "COMPRESSION MUST RETAIN NAMED RESIDUE AND EXACT RETURN."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
@@ -1019,7 +1495,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     461
+    ],
+    "commits": [
+     "540a56521ec401e62f86db94e894a080d3792a04",
+     "2f0edeb6ce84a7324b340dee756e3d9679b6741b",
+     "7a2c8c21d09d7dc75d2e1669403d0892f5f6f874"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
@@ -1031,7 +1517,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "beba274d745552613e4548711b467afe40726038"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "JSPACE_STEERING_DONOR_2026-09-27.json",
@@ -1043,7 +1535,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+     "32850daabae0212ae25b497c6ffad541a951b048",
+     "0b0d493a43451d25a0dbf11e4c8d7f98ced750f0",
+     "5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "JSPACE_REAL_TRACE_2026-09-27.json",
@@ -1055,7 +1556,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "581d398613e5602a5af361e1c34d3a92ea82ba8e",
+     "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+     "7c2310b9afe3894e0714"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
@@ -1067,7 +1576,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HTML_DOCUMENT_TAIL_INTEGRITY_2026-09-27.json",
@@ -1079,7 +1592,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "GLOBAL_SURFACE_SIMPLIFICATION_2026-09-27.json",
@@ -1091,7 +1608,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "GITHUB_REPO_SURVEY_2026-09-27.json",
@@ -1103,7 +1624,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [
+     464
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
@@ -1115,7 +1642,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "0b0d493a43451d25a0dbf11e4c8d7f98ced750f0"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "COLD_START_COMPRESSION_2026-09-27.json",
@@ -1127,7 +1660,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "CHANGE_CALCULUS_STEP_ORDER_2026-09-27.json",
@@ -1139,7 +1676,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "faec7d857920758326ae537a82291993d8cb8673"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "VERSE_COPILOT_RECENTER_2026-09-26.json",
@@ -1151,7 +1694,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [
+     394
+    ],
+    "commits": [
+     "9efa232a47f1d229794f46349d582aa8ee4fe2b4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json",
@@ -1163,7 +1714,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SHOPPING_SIGNAL_FIELD_2026-09-26.json",
@@ -1175,7 +1730,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     445
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
@@ -1187,7 +1748,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
@@ -1199,7 +1764,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     448
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "NEGLECTED_RECOVERY_SWEEP_2026-09-26.json",
@@ -1211,7 +1782,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json",
@@ -1223,7 +1798,24 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "677192e6",
+     "85c6786d8712",
+     "aaa2bf1d",
+     "380eb75572ef",
+     "bbb2129b",
+     "a9f931ccb711",
+     "923a4170",
+     "cd77a062fc74",
+     "bbb21566",
+     "908a00560dd0",
+     "afe232e3",
+     "bbd327be3be3"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json",
@@ -1235,7 +1827,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOUNDRY_WORD_MACHINES_REENTRY_2026-09-26.json",
@@ -1247,7 +1843,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "9ec385f9f74abfe69d3f548ecff5e88373b85805"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_PUBLIC_CONTRACTION_2026-09-26.json",
@@ -1259,7 +1861,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_INK_04_SWEPT_CONTACT_2026-09-26.json",
@@ -1271,7 +1877,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
@@ -1283,7 +1895,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     439
+    ],
+    "commits": [
+     "48a74fced330fe05c469bac614c4074c43dde5dc"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
@@ -1295,7 +1915,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "1073d69c59607d53adaa429b4443d8a8e007f51f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
@@ -1307,7 +1933,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "08bfcfc1afc00f523b44a712323ad8d316b91232"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_CROSS_PROJECTION_PROOF_2026-09-26.json",
@@ -1319,7 +1951,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_CONVERGENCE_2026-09-26.json",
@@ -1331,7 +1967,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6",
+     "6bb83bad5d2834a5c873ff4f7c5150cdcc90b73f",
+     "fd47791fa9bd3195faecd363002220cf16ea7f97",
+     "2f4bb84fd3b43881ca12cf05c3c3c99fcaa7def5"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_AUTHORITY_SYNC_2026-09-26.json",
@@ -1343,7 +1988,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "471fdae1c410116f614ffa5479fac29cbfa09a6f",
+     "da7dfe9efa534d07f3bbe357cf23463c66616d89",
+     "42cbfae5d7888f5192c4c3ba8f056521407ef10a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_COVERAGE_2026-09-26.json",
@@ -1355,7 +2008,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
@@ -1367,7 +2024,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "ENV0_SOURCE_BYTE_VERIFICATION_2026-09-26.json",
@@ -1379,7 +2042,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
@@ -1391,7 +2058,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
@@ -1403,7 +2076,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "ee10eaeb96e3ccc49507f8b75d794b9efc8be0ef"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json",
@@ -1415,7 +2094,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5595e08aa5367ae8a32801b6fec97333b5c5492b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "VERSE_ROUNDTRIP_RETURN_2026-09-25.json",
@@ -1427,7 +2112,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "f89867788a56fabc668fb66d2a3f504628138a39"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "VERSE_OPEN_LINE_2026-09-25.json",
@@ -1439,7 +2130,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [
+     370
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "VERSE_FOCUS_RETURN_2026-09-25.json",
@@ -1451,7 +2148,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "52588dbb123edf2b25a8c380a88a8337a9d1a966"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "VERSE_CONTINUE_INSERT_2026-09-25.json",
@@ -1463,7 +2166,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5e34273bb46a09398e908d5952743ee877316ce0"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json",
@@ -1475,7 +2184,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "ROUTE_ONTOLOGY_LINT_2026-09-25.json",
@@ -1487,7 +2200,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     256
+    ],
+    "commits": [
+     "b55d131abc59667db86e115db2c18cf23fa59ee4",
+     "f69e9c3f078f9f2217bd189fb3c4bab3697104f2"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "RESEARCH_SYNC_2026-09-25.json",
@@ -1499,7 +2221,26 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     188,
+     192,
+     200,
+     224,
+     225,
+     226,
+     230,
+     233,
+     234,
+     235,
+     236,
+     238
+    ],
+    "commits": [
+     "13049fbecc75ce623ea65ac6ab37e4c0acc7c5f7"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "READFIELD_WORK_MODES_2026-09-25.json",
@@ -1511,7 +2252,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "fb270b4ef10b185912632014ce2e1db980b026ab"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "READFIELD_WORKFLOW_084_2026-09-25.json",
@@ -1523,7 +2270,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "49e1b27f7db26298c6de107fda1fe4f09d31e515"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "READFIELD_PHONE_WORK_085_2026-09-25.json",
@@ -1535,7 +2288,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "6aac48267868393063a05f115aa3b44097446419",
+     "ecb1f3a4d400d0c58aef1e65418567d4b4949606"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
@@ -1547,7 +2307,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "10f7c937e6f3ad6a00dfc6163c80cdc81dbc9c94"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
@@ -1559,7 +2325,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     11
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "LACONIC_MISSINGNESS_RECONCILIATION_2026-09-25.json",
@@ -1571,7 +2343,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "IMAGE_ARTIFACT_HARVEST_2026-09-25.json",
@@ -1583,7 +2359,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "077713d5b6e01a1327689402e8e1db84377d41d3"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
@@ -1595,7 +2377,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_CARE_RETURN_2026-09-25.json",
@@ -1607,7 +2393,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HERMES_CROSS_SESSION_RETURN_2026-09-25.json",
@@ -1619,7 +2409,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [
+     246,
+     247,
+     248
+    ],
+    "commits": [
+     "012775db"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "FOLD_BLOOM_WORKFLOW_2026-09-25.json",
@@ -1631,7 +2431,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_VERSE_MARKS_CONVERGENCE_2026-09-25.json",
@@ -1643,7 +2449,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_THREAD_CONVERGENCE_2026-09-25.json",
@@ -1655,7 +2465,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "ea401720dd8abbac7467084513e538f8526011af",
+     "f03722b2619d42c836d314359893f2f65fabd1f1",
+     "16ce82c3dcf95b8bcc8826c2466b17e0e2241c34"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
@@ -1667,7 +2485,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "8e7db861a6dada691c78a66148c1d294f83fe77f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
@@ -1679,7 +2503,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "e214ee65b1f1d0f4dc8cf1e731b2c19479ea2902",
+     "95e48bec5e181624dc520135ba2d35ba0d8d109b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_REPLAY_02_2026-09-25.json",
@@ -1691,7 +2522,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json",
@@ -1703,7 +2538,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "a8454d741ccd58f17e5b491570d61a78f54c4e63"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_04_HEX_PUZZLE_2026-09-25.json",
@@ -1715,7 +2556,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "7801c264b5033530f6402ac1e68eb2eacbc9b642"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_03_2026-09-25.json",
@@ -1727,7 +2574,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "99911d707462cd716d77f3e7ed1ac33f94f0e110",
+     "c027f3b8a275d19f237ae4fce2791443fd63bf26"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25.json",
@@ -1739,7 +2593,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "41b69f52f75b5424308ba6531af879e017e4cb07"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_MOBILE_REFINEMENT_2026-09-25.json",
@@ -1751,7 +2611,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json",
@@ -1768,7 +2632,13 @@
     "Transient chrome may capture touches only where it has an actionable control.",
     "Duplicate detail may disappear on phone when the central instrument already carries the state."
    ],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "c3ea784497065051f19896a0a0f3464250f7fd19"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
@@ -1780,7 +2650,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FIELD_REALITY_SYNC_2026-09-25.json",
@@ -1792,7 +2666,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     259,
+     261
+    ],
+    "commits": [
+     "94c99b82b37e8cd69500a52b018598e0f702479e",
+     "96aa18aa36b28bb243d2c4dc323583ec767408c6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_WAITING_PORTS_TRUTH_2026-09-25.json",
@@ -1804,7 +2688,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_TZIMTZUM_2026-09-25.json",
@@ -1816,7 +2704,18 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "279931fe41541a3ce1757560845bdd6a793ac216",
+     "92f45644692189c1c2598331125357d622b4c6fb",
+     "47cd0e090970c37f2665067bd78a4a8b05f92fc4",
+     "f6f1062bc3709e146ceb3fa8e9022113cadca03c",
+     "226b008db265ed072ad15b9d5998b480439aca0e",
+     "0370104bd9edaaf4892f1daf3ada25e3b8c43a8a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_SEMANTIC_SIGNAL_STRIP_2026-09-25.json",
@@ -1828,7 +2727,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_WORLD_LINK_2026-09-25.json",
@@ -1840,7 +2743,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_2026-09-25.json",
@@ -1857,7 +2764,14 @@
     "COPY TEST ≠ resolution; only observed RETURN may change the claim.",
     "WAITING memory ≠ current obligation."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "10f20047",
+     "2ebc0c1e"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
@@ -1873,7 +2787,11 @@
     "A shared focus may travel across hosts; source and action authority remain with the native owner.",
     "A green code check does not prove lived, physical, or other-world outcomes."
    ],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_HELD_ACTION_APERTURE_2026-09-25.json",
@@ -1885,7 +2803,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json",
@@ -1897,7 +2819,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -1909,7 +2835,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CATCHUP_2026-09-25.json",
@@ -1926,7 +2856,11 @@
     "Route timestamps are manifest evidence, not proof that a user has read or understood a change.",
     "Exact Git chronology remains CHANGE / GIT; CATCH UP is an orientation projection."
    ],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FAN8_PHYSICAL_PROJECTION_2026-09-25.json",
@@ -1938,7 +2872,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_CONFLUENCE_WORKFIELD_2026-09-25.json",
@@ -1950,7 +2888,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
@@ -1962,7 +2904,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     296,
+     322
+    ],
+    "commits": [
+     "3ec708367add46f2ea978ebecc4984fa01e142fe"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "AXIAL_SHADOW_PROBE_2026-09-25.json",
@@ -1974,7 +2925,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -1991,7 +2946,11 @@
     "selected spatial address != presence",
     "Shopping state does not change on handoff"
    ],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json",
@@ -2003,7 +2962,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_MOBILE_REACH_CLOCK_2026-09-25.json",
@@ -2015,7 +2978,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [
+     269
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
@@ -2027,7 +2996,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [
+     259
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_LIVE_BRIDGE_2026-09-25.json",
@@ -2039,7 +3014,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
@@ -2051,7 +3030,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     207
+    ],
+    "commits": [
+     "509bcf27b67f33b33ff4a32427df74925dcdd95a",
+     "55e3084",
+     "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "READFIELD_FOCUS_LENS_080_2026-09-23.json",
@@ -2063,7 +3052,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "ace1bf8d7e1c114069f7c82651d37d0cd218af6f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
@@ -2075,7 +3070,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "73ee33d3f7ac92f84b7f8acc7db2761384f456e7"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23.json",
@@ -2087,7 +3088,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5b56b78be53704350118477c0c04b250c07b9241",
+     "5b56b78"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "ATLAS_DAYLINE_DISCLOSURE_2026-09-23.json",
@@ -2099,7 +3107,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "f59c754"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ATLAS_DAYLINE_COMPRESSION_2026-09-23.json",
@@ -2111,7 +3125,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5b56b78be53704350118477c0c04b250c07b9241",
+     "69d2dbf10176017bb8645eff43944b925352c0c7",
+     "4b4d32d0"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "TRIANGLE_UNIFIED_2026-09-22.json",
@@ -2123,7 +3145,25 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "983a377eaa5632b8fb1315adb4fe6b0490d8af1d",
+     "9a608ea0af366f91223c0efa576e24fa33f0ac97",
+     "2565387c91bc7925c568f527f01ee85b823a3bba",
+     "8ecf73af24c5a07d5f73e182002228fb8bb146d5",
+     "73885f766c2a8e2e8f37a36cf19f717ba63d01c0",
+     "447b91bb16d8d8a92f68c05edba587ab096ea0be",
+     "8233fdd1a0c3cf42571939785c23749e3b1ec488",
+     "a778e5bb343be01b265fdd478b15ce5bd25da696",
+     "8cef503e81b13863355d9328a7b3d3f7353ec1bd",
+     "5ed28c849a59873ee4c02ab27b2973e4c615b588",
+     "faa893ac41cc79770e53563b7ff015a41bc3c855",
+     "09dfb8489dc2cd8c970e5798da0ced8fb45d87ae",
+     "fb3187d0dc9790039dc507304d5d8b0c131493a2"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "TOOLBELT_MATERIALIZATION_2026-09-22.json",
@@ -2135,7 +3175,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
@@ -2147,7 +3191,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "READFIELD_CONVERGENCE_2026-09-22.json",
@@ -2159,7 +3207,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "b2b6dcac43752b7b03b4b39516f1caaa45e252fe",
+     "a0b8abf6ff57f73ed61ba4c5deb829ec11053952"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "MEDIA_REFINERY_B260728B_2026-09-22.json",
@@ -2171,7 +3226,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
@@ -2183,7 +3242,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "INTERPHASE_ROOM_2026-09-22.json",
@@ -2195,7 +3258,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5592919a5edb7fb54d7d757b547e004a189367f6",
+     "5c7e06f060a974dccec8ea81f90b970e2bec5941"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
@@ -2207,7 +3277,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "c9bea197a3f9808bc2ad2b1c58c32d5c50ed0a55"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_WINDDOWN_2026-09-22.json",
@@ -2219,7 +3295,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "8282f4762cd84d4ec3ef064922cdbdf7842ec632"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
@@ -2231,7 +3313,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "44ebcd809313ac633c13bbadc199c2b2e2e5997c"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json",
@@ -2243,7 +3331,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+     "50bbfcd840dbcfba7c1b244288b44443b19e4728"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
@@ -2255,7 +3350,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "d005ee56b127da6c547fc2b074edaa8688898cc4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
@@ -2267,7 +3368,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "683d0067100c8d8b376e2b38a23c07f11b3fed9b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
@@ -2279,7 +3386,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "30f9e96863fa23e0719fc09f0aed8252c4f179ae",
+     "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_CELL_2026-09-22.json",
@@ -2291,7 +3405,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "a9c902839ab6fbd01c23fa739acaffa4279e9d82"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
@@ -2303,7 +3423,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
+     "91db332e327a80c8daa8182add8720b48d1e7fea"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
@@ -2315,7 +3442,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "e5ead6c3893581c75dd512db8cc28eb3268b54b6",
+     "65257b7ed3d8e9afef0324f0775efce90ba8f789"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_SEED_GATE_UNLOCK_2026-09-22.json",
@@ -2327,7 +3461,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
@@ -2339,7 +3477,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "d6341f639ff53ab3adefef1554739965021de641"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
@@ -2351,7 +3495,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "394ff6639690eecfdb15fed81bc1220d662b8f5c"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
@@ -2363,7 +3513,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [
+     110
+    ],
+    "commits": [
+     "35d2e5a309a0e7daf3fe14101a9ee5adb6b72f7f",
+     "71c08a81faa49b815b0048bb69721462edf9db3e"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
@@ -2375,7 +3534,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "1d43c3edf1469c85a5fa7e3317460cd6932911b8"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_MOTION_2026-09-22.json",
@@ -2387,7 +3552,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "3dc38617be81ac215b95998ba14ff82fb1a5e2d9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json",
@@ -2404,7 +3575,14 @@
     "pack application is explicit and reversible",
     "pack metadata does not enter Experience Set fields"
    ],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4",
+     "70d01529a982690891483edbbe09b8600b6e70c4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
@@ -2416,7 +3594,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
@@ -2428,7 +3612,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
@@ -2440,7 +3630,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "716867fab903b513627e45adfb7ca586617f39f6"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
@@ -2452,7 +3648,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
@@ -2464,7 +3664,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "7734a77b1961335eb59bf142e499573a6a74c2b2"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_HORIZON_2026-09-22.json",
@@ -2476,7 +3682,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "36ca59b4658a95238e0474ae727d301901a991ac"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
@@ -2488,7 +3700,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "885a897d542f009a35f229cac49f85dfc4527cac"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22.json",
@@ -2500,7 +3718,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "fe5aff346592b514a481bc36db84490a8b61ad17",
+     "8debd93298b29a19b2c0d7f7672a053f56ccbe98",
+     "c04128f826f556bfe7a45ae3102920a2685844d4",
+     "c894f611d26893590ca81c5b52c93e763c07ba59"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
@@ -2512,7 +3739,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_DOCUMENT_ATLAS_2026-09-22.json",
@@ -2529,7 +3762,11 @@
     "Atlas section://N addresses and READFIELD section://N addresses share one parser",
     "session loss preserves cell identity but requires exact-hash REBIND before READ"
    ],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
@@ -2541,7 +3778,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "c04128f826f556bfe7a45ae3102920a2685844d4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
@@ -2553,7 +3796,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "cad6f19189285ab421c4c3f6d90ee4804ba40130"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FOCUS_INTERFACE_SYNC_COMPLETION_2026-09-22.json",
@@ -2565,7 +3814,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "7d6746a3038b20de871e258fbf069467c9e4e19a",
+     "b5c7949fad8b790d2c80485a9852abd85b017ce9",
+     "2e00c8a97604eed2df2e7ecdbd5ffe6cec1b9ff9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
@@ -2577,7 +3834,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
@@ -2589,7 +3850,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "BODY_FIT_SENSOR_FUSION_2026-09-22.json",
@@ -2601,7 +3866,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "BODY_FIT_RETURN_PATINA_2026-09-22.json",
@@ -2618,7 +3887,11 @@
     "MORE MARKS != HEALTHIER",
     "CARE ACTION COMPLETED != CONDITION IMPROVED"
    ],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
@@ -2630,7 +3903,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "1fbc9b425d1e37dade2b47e4f466184a6861ab66"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
@@ -2653,7 +3932,15 @@
     "control_index_touched": true
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [
+     61
+    ],
+    "commits": [
+     "9e9edf23828376c76672b58c5655c3e022556ca2"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "TRIANGLE_CENTER_CURRENT_2026-09-21.json",
@@ -2665,7 +3952,18 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "508681dd1f2390c51156fcb102a1e71b9185fd4a",
+     "ca9e93718f9820c90a73d0bb1a967374fe1fa30e",
+     "01f3616bab8ef812f62ecc53b97973946635873e",
+     "43c10caeb885ee2f8d085b68e105eeb4a1b749b8",
+     "6be2bc1bedcc84d7256a62c12f357ffd9f7f7761",
+     "a0ecca0367b851e802012bdd23519ae7051db3f8"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json",
@@ -2677,7 +3975,18 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     61,
+     83,
+     86
+    ],
+    "commits": [
+     "a9c00285df143f3c2054b2167e86ee2f6db2ae1f",
+     "50f886c829dcee98b043c55ef9de0c631fd31987"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
@@ -2689,7 +3998,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_2026-09-21.json",
@@ -2701,7 +4016,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     85
+    ],
+    "commits": [
+     "74b449d089963a71c29c1535ef457b154ba427a7"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
@@ -2713,7 +4036,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "c910e5763ea841a25c4f95d286cd05b99047ec69"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
@@ -2725,7 +4054,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "da1fbedc4f2f1faf58c8182dac429f1cbce7a56a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_EVOLUTION_2026-09-21.json",
@@ -2737,7 +4072,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
@@ -2749,7 +4088,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "BACKUP_RECOVERY_2026-09-21.json",
@@ -2761,7 +4104,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "APERTURE_USABILITY_CUT_2026-09-21.json",
@@ -2773,7 +4120,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
@@ -2785,7 +4136,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "WORK_EXPERIENCE_READFIELD_2026-10-03.json",
@@ -2797,7 +4152,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [
+     869
+    ],
+    "commits": [
+     "b51cc160751d976d20ae937c2fda95167cb7f5fb"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
@@ -2809,7 +4172,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SYSTEM_MAP_CONVERGENCE_2026-10-02.json",
@@ -2821,7 +4188,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "STICKER_TGS_2026-09-29.json",
@@ -2833,7 +4204,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
@@ -2845,7 +4220,19 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.093Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "37b655e5d8f82a9249ba1b83b750633e95e188cd",
+     "2195bab0119f302c8e3ad2c0f8cc773cc21bb004",
+     "b7de20ed85ce8cbe1a6d44c7b05f6661c0a31671",
+     "bb91f5aabba6b6c306c7c65639a83c69ae1ef65a",
+     "89a56004b2cdfc61945be07d03c9e3d5335adb9f",
+     "f19a855c6c2eb48769bca6608d221f80070413c8",
+     "2d185e776328479d4b6fc68853a543631c017f95"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
@@ -2857,7 +4244,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_BLOCKED_TURN_2026-10-03.json",
@@ -2869,7 +4260,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "2d185e776328479d4b6fc68853a543631c017f95",
+     "506ae47bab5c7876652b38ba9a9e6b2e97bcd616"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SLEEPER_SYSTEM_FOLD_2026-09-27.json",
@@ -2881,7 +4279,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
@@ -2893,7 +4295,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "406ec300de95dc841d1e9691f061e0bee623837e",
+     "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+     "32039cac4061a41420017236e652a998db5333a4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
@@ -2905,7 +4315,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+     "32039cac4061a41420017236e652a998db5333a4"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.530Z"
   },
   {
    "file": "SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
@@ -2917,7 +4334,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
@@ -2929,7 +4350,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -2941,7 +4366,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "50f886c829dcee98b043c55ef9de0c631fd31987",
+     "c4964cc28719a9d93259330545c98cfcf32d89c0",
+     "dfed35630f95f85e3c9fc178c5944d636f8cb783",
+     "600ae1d4cf792bd780b408098428cb9b00b57c40",
+     "f97dcbe8ab22830c392b06cedb932a83ee18fa50"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "ROOM_MATERIAL_DOM_2026-09-22.json",
@@ -2953,7 +4388,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
@@ -2965,7 +4404,24 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [
+     807
+    ],
+    "commits": [
+     "5e5fce694c2238d427509a83de3036e6d866280e",
+     "f19a855c6c2eb48769bca6608d221f80070413c8",
+     "89a56004b2cdfc61945be07d03c9e3d5335adb9f",
+     "2d185e776328479d4b6fc68853a543631c017f95",
+     "f5ab2987888e22bab3990c826f2fe667134d3390",
+     "6622f516774ea3746858c1f4589967468f23b42d",
+     "506ae47bab5c7876652b38ba9a9e6b2e97bcd616",
+     "5e5da7b201155abaffe3b7aba322c63254caef12",
+     "061e645cc8545e04506e3adc21cd6e643701ff80",
+     "b0419535d6ece013e5c140222f9ce9370a9e27a1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
@@ -2977,7 +4433,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.092Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "58d18ecc6565085fc25c6e999b1d03754c42a51a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.529Z"
   },
   {
    "file": "PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
@@ -2989,7 +4451,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
@@ -3001,7 +4467,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     578
+    ],
+    "commits": [
+     "f377ab2f77d1aed55be80a52a6b23914760f48ad",
+     "f377ab2f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRISON_AGE_READER_CONVERGENCE_2026-09-28.json",
@@ -3013,7 +4488,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
@@ -3025,7 +4504,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "ee35b81f",
+     "5523dd07",
+     "5a038d8a",
+     "eb2a5b290f79a699d7799d1eaa3ae66bd312203b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
@@ -3037,7 +4525,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     528
+    ],
+    "commits": [
+     "1856b483",
+     "f478cee439eea4b9fa513f7c7c97728d1ced4846"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
@@ -3049,7 +4546,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     785,
+     794
+    ],
+    "commits": [
+     "a6001fc01c9da4d9e83db630aee6e57dc850c09a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PERIMETER_HARDENING_2026-09-21.json",
@@ -3061,7 +4567,26 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     10,
+     11,
+     13,
+     14,
+     21,
+     35,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77
+    ],
+    "commits": [
+     "e8093f32a01ace6827f4005f46ca772fa92353c1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "PASSIVE_FEEDBACK_2026-09-21.json",
@@ -3073,7 +4598,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [
+     51
+    ],
+    "commits": [
+     "f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04",
+     "57408d15625eb697d7deba18c5d72d7afb1c74b2"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
@@ -3085,7 +4619,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.091Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "5bd76a634e78f6cb168146d8d76a5605aa6edac7",
+     "e40cc29cfec5cf19c747239d8e8cfc3abb46e92c"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.528Z"
   },
   {
    "file": "INTERPHASE_CARRIER_2026-09-27.json",
@@ -3097,7 +4638,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "INTERPHASE_ACTION_GRAMMAR_2026-09-29.json",
@@ -3109,7 +4654,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "dc893083009f742cc5e72a122fc211ff5d42fca8",
+     "0401fc9428a2ecd10dba58d41b7f69f9cf49bac9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
@@ -3121,7 +4673,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
@@ -3133,7 +4689,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json",
@@ -3145,7 +4705,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_REALITY_HARNESS_2026-10-02.json",
@@ -3161,7 +4725,16 @@
     "public_surface": ""
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [
+     782
+    ],
+    "commits": [
+     "aff5644b0e177097625566f9a5fba1a27d68add5",
+     "a9f1461ecc0ee3bdf76f0753eb24a4f92b81e29f"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.json",
@@ -3173,7 +4746,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01.json",
@@ -3185,7 +4762,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HERMES_VISION_LOOP_SKILLS_2026-09-24.json",
@@ -3202,7 +4783,11 @@
     "SUBSTANCE GENERATES FORM",
     "A SKILL IS EARNED BY RECURRENCE + DEMONSTRATED TRANSFER, NOT BY SOUNDING GENERAL"
    ],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HERMES_DAILY_LIVE_AUTHORITY_2026-09-25.json",
@@ -3214,7 +4799,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.527Z"
   },
   {
    "file": "HARD_ADVANCE_2026-09-22.json",
@@ -3226,7 +4815,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.090Z"
+   "refs": {
+    "prs": [
+     111
+    ],
+    "commits": [
+     "5912190d99ae7573edecef9932c57ff824ec197b",
+     "cb5843f64a66dcc7c7180037cbf40b2991c5311b"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
@@ -3238,7 +4836,18 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [
+     62
+    ],
+    "commits": [
+     "17d473e775257375346fc903ef7f1d5d71b5e1a1",
+     "86dd9139268aa31870ce04ae8335dd95543e34e2",
+     "74348e6c65d61827ab3c7d34ce96c5c5c426faea",
+     "c5c1c95f06d320937bfce62b4c02468ef4c7a897"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_LOSSLESS_PROOF_2026-09-23.json",
@@ -3250,7 +4859,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_VOICE_01_2026-09-24.json",
@@ -3262,7 +4875,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "dd1f289af0692e84c62c370e2b525a2069ec7201"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24.json",
@@ -3274,7 +4893,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [
+     216
+    ],
+    "commits": [
+     "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.526Z"
   },
   {
    "file": "FOLD_BLOOM_SABER_01_2026-09-25.json",
@@ -3286,7 +4913,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.089Z"
+   "refs": {
+    "prs": [
+     225
+    ],
+    "commits": [
+     "f03722b2619d42c836d314359893f2f65fabd1f1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_PHONE_NAV_TARGETS_2026-09-25.json",
@@ -3298,7 +4933,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
@@ -3310,7 +4949,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     216
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.525Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
@@ -3322,7 +4967,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     220
+    ],
+    "commits": [
+     "a21047612c3e2a900f755da4f24d88859ed97d6a"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25.json",
@@ -3334,7 +4987,15 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [
+     240
+    ],
+    "commits": [
+     "8a79e3824fb8fffb014c36118e41171ccd8e28f1"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
@@ -3346,7 +5007,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.088Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "9e308cb7f8b6272820c6404ef93726f48e98c996"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
@@ -3358,7 +5025,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     218
+    ],
+    "commits": [
+     "427e58ba6166506c85e56a7bce2c2977f01f47be",
+     "f9de196d219e50e0850f564c3645fe582f25e909"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.524Z"
   },
   {
    "file": "FIELD_WAITING_BODY_CALIBRATION_2026-09-22.json",
@@ -3370,7 +5046,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [
+     108
+    ],
+    "commits": [
+     "ab3c6a3434db939c601e4623a03a54e5663135ab",
+     "35d2e5a309a0e7daf3fe14101a9ee5adb6b72f7f",
+     "96c065f856d5893dc343babd45ea10c449a9f4f9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_PULSE_WORKFLOW_2026-09-22.json",
@@ -3382,7 +5068,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "70444235dc4112ced7e88988bacfca1cbc84f946"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_PULSE_CONVERGENCE_2026-09-24.json",
@@ -3394,7 +5086,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "6ee3b237299db2c72d9602be4a8ec79209300bd3"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_PULSE_2026-09-22.json",
@@ -3406,7 +5104,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.087Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "70d63be41dfc5d04b04063d2f90524dca0bb6526"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
@@ -3418,7 +5122,16 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "0943e21db6901939310f909c42f8bc67c769b99c",
+     "6ffe8bd9da60e008ac40e808298ed50a7920d14a",
+     "d61b5d6b964726db8ce07d22131b724854937964",
+     "841fa18b474b94cb76e000c3db8a38037b47d1de"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
@@ -3434,7 +5147,15 @@
     "gitleaks": "success"
    },
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [
+     528
+    ],
+    "commits": [
+     "f478cee439eea4b9fa513f7c7c97728d1ced4846"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.523Z"
   },
   {
    "file": "FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
@@ -3446,7 +5167,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.086Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
@@ -3458,7 +5183,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.522Z"
   },
   {
    "file": "FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
@@ -3470,7 +5199,17 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [
+     601
+    ],
+    "commits": [
+     "b0f9caae7f0b545978acf2b714b685ae029aa049",
+     "4976fd16da8f35db4808b689188e28bfdba7215a",
+     "78d9a166b1f06fd44202dd15d201969c23d117a9"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_GAME_DONOR_SIX_TRANSFER_2026-09-30.json",
@@ -3482,7 +5221,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
@@ -3499,7 +5242,11 @@
     "UNSATISFIED PING / CHOOSE / WORLD_RETURN = HUMAN_REQUIRED EVEN IF A TURN WAS SELECTED.",
     "GATE SATISFACTION REQUIRES AN EVIDENCE REF AND NEVER GRANTS EFFECT/NOW/MERGE AUTHORITY."
    ],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
@@ -3511,7 +5258,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "DAYLINE_INTERPHASE_ACTION_SURFACE_2026-09-29.json",
@@ -3523,7 +5274,14 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.085Z"
+   "refs": {
+    "prs": [],
+    "commits": [
+     "8a1805feeeb937a7314b6193e5a6a7084ad3e4fd",
+     "2205201ada43fa18f10627ac3ad0639ec08a3ebd"
+    ]
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
@@ -3535,7 +5293,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.521Z"
   },
   {
    "file": "CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
@@ -3547,7 +5309,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "BODY_FIT_ROUTE_FRICTION_2026-10-03.json",
@@ -3559,7 +5325,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
@@ -3571,7 +5341,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "AXIAL_APERTURE_CONVERGENCE_2026-09-27.json",
@@ -3583,7 +5357,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json",
@@ -3600,7 +5378,11 @@
     "DONOR/PARKED = addressable evidence, not current work.",
     "A route may remain alive for provenance while being visibly marked non-current."
    ],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.json",
@@ -3612,7 +5394,13 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [
+     244
+    ],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   },
   {
    "file": "APERTURE_MATERIAL_RSVP_2026-09-21.json",
@@ -3624,7 +5412,11 @@
    "measured": "",
    "checks": {},
    "laws": [],
-   "mtime": "2026-10-03T06:12:57.084Z"
+   "refs": {
+    "prs": [],
+    "commits": []
+   },
+   "mtime": "2026-10-03T06:42:12.520Z"
   }
  ],
  "routes": [
@@ -3634,7 +5426,7 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:15:52+08:00"
+   "updated_at": "2026-10-03T14:35:07+08:00"
   },
   {
    "href": "/",
@@ -3642,7 +5434,7 @@
    "kind": "root",
    "operation": "",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:06:19+08:00"
+   "updated_at": "2026-10-03T14:29:15+08:00"
   },
   {
    "href": "/app-atlas/",
@@ -3858,7 +5650,7 @@
    "kind": "workbench",
    "operation": "ROUTE",
    "state": "DONOR",
-   "updated_at": "2026-09-21T02:22:00+08:00"
+   "updated_at": "2026-10-03T14:35:12+08:00"
   },
   {
    "href": "/field-intake/",
@@ -4762,7 +6554,7 @@
    "kind": "evidence",
    "operation": "RETURN",
    "state": "STABLE",
-   "updated_at": "2026-10-03T14:12:27+08:00"
+   "updated_at": "2026-10-03T14:35:59+08:00"
   },
   {
    "href": "/router-bench/",
