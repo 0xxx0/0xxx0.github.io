@@ -4,7 +4,7 @@
   "result_status": "CHANGED",
   "source_object": "field-crew-handoff/v0.1",
   "host": "FIELD crew handoff / exact-object staging",
-  "turn_ref": "branch:converge/crew-human-gate-20261003",
+  "turn_ref": "commit:3f3c2c193806b35d3c5653817b823ae4e8c48c37",
   "before": "Generic FIELD crew handoff preserved object, intent, bounded moves, evidence and RETURN, while HOUSE Crew Seam separately knew whether a human interruption was actually required. A receiver outside HOUSE could therefore preserve the task yet still re-ask the human unnecessarily.",
   "after": "The common transient handoff carries one explicit human interruption gate: NONE | PING | CHOOSE | WORLD_RETURN | UNSPECIFIED. Exact-object staging derives it only from the selected CURRENT head's explicit next_executable when present. Missing gate information remains UNSPECIFIED rather than being laundered into NONE. The gate controls interruption need only and never grants EFFECT, NOW, priority, merge, commit or release authority.",
   "observed_delta": "Crew mates can now preserve not only what object and move they share, but also whether the next lawful step should proceed autonomously, request one acknowledgement, return a preference choice, or await irreducible world evidence.",
@@ -23,7 +23,7 @@
   ],
   "unresolved_gate": "Promotion requires exact-head field-stage-handoff/selftest plus normal repository gates. Ordinary use should falsify whether UNSPECIFIED is too conservative or whether gate propagation materially reduces repeated human questions.",
   "return_address": "/control/SUBMISSION_CONTRACT.json",
-  "closed_at": "2026-10-03T13:34:00+08:00",
+  "closed_at": "2026-10-03T13:50:00+08:00",
   "next_authority": "NONE",
   "laws": [
     "HUMAN GATE CONTROLS INTERRUPTION NEED, NOT EFFECT AUTHORITY.",
