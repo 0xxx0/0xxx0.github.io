@@ -36,7 +36,11 @@ const renderedHeld=()=>{const p=W().PrisonAgePassage?.packet?.(),h=p?.nodes?.at(
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.cross={source:held.source_id,transition:packet.transitions[0]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.cross.transition!=='CROSS_ECHO'||held.source_id===beforeSource)throw Error('cross evidence law');
 
- const turn=[...D().querySelectorAll('#papTurns [data-turn]')][0];if(!turn)throw Error('turn source missing');const crossSource=held.source_id,turnKey=turn.dataset.turn;turn.click();
+ const turn=[...D().querySelectorAll('#papTurns [data-turn]')][0];if(!turn)throw Error('turn source missing');const crossSource=held.source_id,turnKey=turn.dataset.turn;
+ rec.turnAttempt={key:turnKey,label:turn.textContent,connected:turn.isConnected,before:W().PrisonAgePassage.snapshot(),sourceHeader:D().getElementById('papSource').textContent,state:D().getElementById('papState').textContent};
+ turn.click();await sleep(300);
+ rec.turnAttempt.after=W().PrisonAgePassage.snapshot();rec.turnAttempt.afterState=D().getElementById('papState').textContent;rec.turnAttempt.afterHeader=D().getElementById('papSource').textContent;rec.turnAttempt.domKeys=[...D().querySelectorAll('#papTurns [data-turn]')].map(b=>b.dataset.turn);
+ if(rec.turnAttempt.after.trail.length!==3)throw Error('turn click did not mutate route · '+JSON.stringify(rec.turnAttempt));
  await wait(()=>{const h=renderedHeld();return W().PrisonAgePassage.snapshot().trail.length===3&&W().PrisonAgePassage.snapshot().current===turnKey&&h?.key===turnKey},5000,'turn source render');
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.turn={source:held.source_id,transition:packet.transitions[1]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.turn.transition!=='TURN_SOURCE'||held.source_id!==crossSource)throw Error('same-source turn law');
