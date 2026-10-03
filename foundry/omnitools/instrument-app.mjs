@@ -32,9 +32,9 @@ async function updateSourceMeta(){
   $('sourceSpineMeta').textContent=o.text?(o.text.length+' CH · sha256:'+h):'SESSION ONLY · NOTHING UPLOADED';
   save();
 }
-function addTrace(kind,detail,preview=''){
-  trace.unshift({at:new Date().toISOString(),kind,mode,detail,preview:clip(preview,600)});
-  trace=trace.slice(0,12);renderTrace();$('returnState').textContent=kind+' · '+mode.toUpperCase();
+function addTrace(kind,detail,preview='',traceMode=mode){
+  trace.unshift({at:new Date().toISOString(),kind,mode:traceMode,detail,preview:clip(preview,600)});
+  trace=trace.slice(0,12);renderTrace();$('returnState').textContent=kind+' · '+traceMode.toUpperCase();
 }
 function renderTrace(){
   $('trace').innerHTML='<div class="traceLabel">TRACE</div>'+(trace.length?trace.map(x=>'<div class="traceItem"><b>'+esc(x.kind+' · '+x.mode.toUpperCase())+'</b><span>'+esc(x.detail)+'</span></div>').join(''):'<div class="traceItem"><b>EMPTY</b><span>load or evaluate one object</span></div>');
@@ -56,36 +56,36 @@ function setValue(el,value){
   el.value=value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;
 }
 async function loadIntoTool(){
-  const o=currentObject();
-  if(!o.text){addTrace('BLOCKED','source is empty');return}
-  if(mode==='bench'){$('benchIn').value=o.text;runBench();return}
-  const frame=panes[mode];
+  const o=currentObject(),projectionMode=mode;
+  if(!o.text){addTrace('BLOCKED','source is empty','',projectionMode);return}
+  if(projectionMode==='bench'){$('benchIn').value=o.text;runBench();return}
+  const frame=panes[projectionMode];
   try{
     await waitFrame(frame);
     const d=frame.contentDocument;if(!d)throw new Error('child document unavailable');
-    if(mode==='scan'){setValue(d.getElementById('in'),o.text);d.getElementById('scan')?.click()}
-    else if(mode==='read'){setValue(d.getElementById('in'),o.text)}
-    else if(mode==='reshape'){setValue(d.getElementById('in'),o.text)}
-    else if(mode==='align'){
+    if(projectionMode==='scan'){setValue(d.getElementById('in'),o.text);d.getElementById('scan')?.click()}
+    else if(projectionMode==='read'){setValue(d.getElementById('in'),o.text)}
+    else if(projectionMode==='reshape'){setValue(d.getElementById('in'),o.text)}
+    else if(projectionMode==='align'){
       let v=null;try{v=JSON.parse(o.text)}catch{}
       if(v&&typeof v==='object'&&!Array.isArray(v)){
         setValue(d.getElementById('ta'),v.ta||v.tamil||'');setValue(d.getElementById('zh'),v.zh||v.chinese||'');setValue(d.getElementById('en'),v.en||v.english||'');
       }else setValue(d.getElementById('en'),o.text);
       d.getElementById('align')?.click();
     }
-    addTrace('PROJECTED',o.name+' → '+mode);
-    setTimeout(()=>capture(frame),260);
-  }catch(e){addTrace('BLOCKED',e.message)}
+    addTrace('PROJECTED',o.name+' → '+projectionMode,'',projectionMode);
+    setTimeout(()=>capture(frame,projectionMode),260);
+  }catch(e){addTrace('BLOCKED',e.message,'',projectionMode)}
 }
-function capture(frame){
+function capture(frame,projectionMode){
   try{
     const d=frame.contentDocument;let s='';
-    if(mode==='scan')s=d.getElementById('out')?.innerText||'';
-    if(mode==='read')s=d.getElementById('grid')?.innerText||'';
-    if(mode==='align')s=(d.getElementById('hint')?.innerText||'')+' '+(d.getElementById('read')?.innerText||'');
-    if(mode==='reshape')s=(d.getElementById('detect')?.innerText||'')+' '+(d.getElementById('out')?.value||'');
-    lastPreview={mode,summary:clip(s,1000)};addTrace('OBSERVED',lastPreview.summary||'projection rendered');
-  }catch(e){addTrace('UNKNOWN','preview unavailable: '+e.message)}
+    if(projectionMode==='scan')s=d.getElementById('out')?.innerText||'';
+    if(projectionMode==='read')s=d.getElementById('grid')?.innerText||'';
+    if(projectionMode==='align')s=(d.getElementById('hint')?.innerText||'')+' '+(d.getElementById('read')?.innerText||'');
+    if(projectionMode==='reshape')s=(d.getElementById('detect')?.innerText||'')+' '+(d.getElementById('out')?.value||'');
+    lastPreview={mode:projectionMode,summary:clip(s,1000)};addTrace('OBSERVED',lastPreview.summary||'projection rendered','',projectionMode);
+  }catch(e){addTrace('UNKNOWN','preview unavailable: '+e.message,'',projectionMode)}
 }
 const scoreText=s=>s.kind==='unknown'?'?':s.lo===s.hi?String(s.lo):s.lo+'..'+s.hi;
 function runBench(){
