@@ -277,6 +277,7 @@ jobs:
           node fold-bloom/convergence/change-calculus/selftest.mjs
           node fold-bloom/convergence/change-calculus/live-sufficiency.mjs
           node fold-bloom/convergence/change-calculus/live-step-order.mjs
+          node fold-bloom/convergence/geometric-interphase/selftest.mjs
           node --check fold-bloom/convergence/change-calculus/app.mjs
           python3 -m py_compile fold-bloom/convergence/jspace-steering/export_jlens.py
       - name: Test FOLD BLOOM change calculus browser
@@ -319,6 +320,8 @@ jobs:
           node --check fold-bloom/lab/app.js
           node --check fold-bloom/replay/app.js
           node tools/axial-aperture-smoke.mjs
+      - name: Validate axial wrap body dimensions
+        run: node tools/axial-wrap-body-selftest.mjs
       - name: Test FOLD BLOOM FIELD LAB mobile composition
         run: node tools/fold-bloom-lab-mobile-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB cross-projection continuity

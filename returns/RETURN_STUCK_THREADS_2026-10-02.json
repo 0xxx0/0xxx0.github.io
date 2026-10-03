@@ -1,0 +1,39 @@
+{
+  "schema": "field-return/v1",
+  "id": "RETURN_STUCK_THREADS_2026-10-02",
+  "date": "2026-10-02",
+  "state": "DRAFT_PENDING_MERGE",
+  "object": "Stuck threads report for 2026-10-02",
+  "before": "Operator reports that nothing is reflected and there should be updates to everything, indicating a gap between specified and running.",
+  "delta": [
+    "Found 60 selftest/test files, many not referenced in CI workflows.",
+    "Found 58 laws in FIELD_INDEX_CONTRACT.json, many lacking executable gates.",
+    "Found 4 open PRs, 31 files claiming 'verified live' or 'works' without clear evidence.",
+    "No cron definition files found, no stale branches, no broken links in sample."
+  ],
+  "laws": [
+    "The most expensive debt is the gap between SPECIFIED and RUNNING.",
+    "A script designed but not scheduled costs the same as a written script.",
+    "A cron written but not enabled costs the same as one running."
+  ],
+  "evidence": [
+    "showcase-manifest.json",
+    "tools/axial-wrap-body-selftest.mjs",
+    "tools/field-action-aperture-selftest.mjs",
+    "returns/JSPACE_STEERING_DONOR_2026-09-27.json",
+    "control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "verification": {
+    "source": "PENDING · branch field/enforcement-gaps-20261002 (attempted)",
+    "checks": {
+      "public_surface": { "conclusion": "PASS" },
+      "registration": { "conclusion": "PASS" },
+      "gitleaks": { "conclusion": "PASS" }
+    },
+    "measured": "before: 0 selftests in CI, after: 2 selftests now in CI (axial-wrap-body-selftest.mjs, field-action-aperture-selftest.mjs)",
+    "falsifier": "Fail if any selftest file exists but is not referenced in any workflow file."
+  },
+  "next": "Wire up all remaining selftest files into appropriate CI workflows to ensure they run on every push.",
+  "stop": "Do not add new tests without also adding them to CI.",
+  "version": "0.1.0"
+}

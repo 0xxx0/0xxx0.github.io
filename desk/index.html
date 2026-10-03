@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FIELD DESK</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07090a">
+<style>
+:root{
+  --bg:#07090a; --p:#0b0f11; --ink:#edf0ed; --mut:#7d898f; --line:#2a3439;
+  --hot:#ed7447; --cool:#72bce7; --green:#98d49b; --gold:#d5ad68; --bad:#cc8792;
+}
+html[data-theme="light"]{
+  --bg:#f2efe8; --p:#fbf9f3; --ink:#1a1c1a; --mut:#6b675d; --line:#d3ccbc;
+  --hot:#b8532a; --cool:#1f6a97; --green:#377a3d; --gold:#8a6a1e; --bad:#a2556a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:14px}
+button,input,textarea{font:inherit;border-radius:0;color:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--cool)}
+main{width:min(1180px,100%);margin:auto}
+
+header{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;
+  padding:22px 0 14px;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--hot);font-size:8px;letter-spacing:.22em}
+h1{margin:6px 0 0;font:900 clamp(34px,7vw,62px)/.82 system-ui,sans-serif;
+  letter-spacing:-.06em}
+.lead{color:var(--mut);font:12px/1.55 system-ui,sans-serif;max-width:52ch;margin-top:8px}
+.lead b{color:var(--ink);font-weight:600}
+.tools{margin-left:auto;display:flex;gap:4px;align-items:center}
+.tools button{border:1px solid var(--line);background:var(--p);padding:7px 11px;
+  font-size:9px;letter-spacing:.08em}
+.tools button:hover{border-color:var(--cool);color:var(--cool)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.stat{background:var(--p);padding:11px 12px}
+.stat b{display:block;font:700 22px/1 ui-monospace,monospace;letter-spacing:-.03em}
+.stat span{display:block;color:var(--mut);font-size:8px;letter-spacing:.14em;margin-top:6px}
+.stat.hot b{color:var(--hot)} .stat.cool b{color:var(--cool)}
+.stat.green b{color:var(--green)} .stat.gold b{color:var(--gold)}
+
+.bar{display:flex;gap:4px;flex-wrap:wrap;margin:14px 0 10px}
+.bar button{border:1px solid var(--line);background:var(--p);padding:7px 12px;
+  font-size:9px;letter-spacing:.1em;color:var(--mut)}
+.bar button.on{border-color:var(--gold);color:var(--gold);background:var(--p)}
+
+section{border-top:1px solid var(--line);padding:16px 0 4px}
+h2{font:800 13px/1 system-ui,sans-serif;letter-spacing:.02em;margin:0 0 4px;
+  display:flex;align-items:baseline;gap:10px}
+h2 .n{color:var(--mut);font:400 9px/1 ui-monospace,monospace;letter-spacing:.12em}
+.blurb{color:var(--mut);font-size:9px;letter-spacing:.06em;margin:0 0 12px;max-width:80ch}
+
+.row{border:1px solid var(--line);background:var(--p);padding:9px 11px;margin:0 0 5px}
+.row:hover{border-color:var(--cool)}
+.row .t{font-weight:600}
+.row .m{color:var(--mut);font-size:9px;margin-top:5px;word-break:break-word;
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.k{border:1px solid var(--line);padding:1px 6px;font-size:8px;letter-spacing:.1em;
+  color:var(--mut);text-transform:uppercase}
+.k.ok{color:var(--green);border-color:var(--green)}
+.k.hot{color:var(--hot);border-color:var(--hot)}
+.k.gold{color:var(--gold);border-color:var(--gold)}
+.k.cool{color:var(--cool);border-color:var(--cool)}
+.k.bad{color:var(--bad);border-color:var(--bad)}
+pre{margin:6px 0 0;color:var(--mut);font-size:9px;white-space:pre-wrap}
+.dim{color:var(--mut)}
+input[type=search]{width:100%;background:var(--p);border:1px solid var(--line);
+  padding:8px 10px;font-size:10px;outline:none;margin:0 0 12px}
+input[type=search]:focus{border-color:var(--cool)}
+footer{margin:26px 0 12px;border-top:1px solid var(--line);padding-top:11px;
+  color:var(--mut);font-size:8px;letter-spacing:.12em;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.count-row{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);
+  flex-wrap:wrap;margin:10px 0}
+.count-row div{background:var(--p);padding:6px 11px;font-size:9px}
+.count-row b{color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <div class="eyebrow">FIELD / DESK · WORK THAT RETURNS</div>
+      <h1>THE DESK.</h1>
+      <p class="lead">The convergent work surface. One place to see <b>what is actually
+        running</b> — return receipts, addressed routes, open pull requests — read live
+        from the repo. Not a second truth surface: this <b>is</b> the field, pointed at
+        its own evidence.</p>
+    </div>
+    <div class="tools">
+      <button id="theme" title="toggle light / dark">◐</button>
+      <a href="./"><button>← FIELD INDEX</button></a>
+    </div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar" id="bar">
+    <button class="on" data-view="returns">RETURNS</button>
+    <button data-view="prs">OPEN PRS</button>
+    <button data-view="routes">ROUTES</button>
+  </div>
+
+  <section id="v-returns">
+    <h2>RETURN RECEIPTS <span class="n" id="n-returns"></span></h2>
+    <p class="blurb">Evidence of what actually happened. Each receipt carries a measured
+      result and a falsifier. <b>exists ≠ runs ≠ verified</b> — the check column is the
+      third thing.</p>
+    <input type="search" id="q-returns" placeholder="filter returns by id, object, law, state…">
+    <div id="list-returns"></div>
+  </section>
+
+  <section id="v-prs" hidden>
+    <h2>OPEN PULL REQUESTS <span class="n" id="n-prs"></span></h2>
+    <p class="blurb">Live from the GitHub API. A PR is a candidate delta, not automatic
+      queue — mergeable and merged are different claims.</p>
+    <div id="list-prs"></div>
+  </section>
+
+  <section id="v-routes" hidden>
+    <h2>ADDRESSED ROUTES <span class="n" id="n-routes"></span></h2>
+    <p class="blurb">From the showcase manifest. <code>updated_at</code> is curated route
+      touch, not Git chronology. The desk is one of these.</p>
+    <div id="list-routes"></div>
+  </section>
+
+  <footer>
+    <span>FIELD DESK · LOCAL-OBJECT, PUBLIC-EVIDENCE · GENERATED <span id="gen">…</span></span>
+    <span>SOURCE → ADDRESS → STATE → TRANSFORM → PROVE → RETURN</span>
+  </footer>
+</main>
+
+<script>
+let DATA=null;
+const $=(s)=>document.querySelector(s);
+const esc=(s)=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('fd-theme',t)}catch(e){}
+  $('#theme').textContent = t==='light'?'◑':'◐';}
+function toggleTheme(){const c=document.documentElement.getAttribute('data-theme')||'dark';
+  applyTheme(c==='light'?'dark':'light');}
+$('#theme').onclick=toggleTheme;
+(function(){let s=null;try{s=localStorage.getItem('fd-theme')}catch(e){}
+  if(s)applyTheme(s);else applyTheme(window.matchMedia&&
+    window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');})();
+
+function stateClass(s){s=String(s).toLowerCase();
+  if(/pass|done|ok|green|verified|live/.test(s))return 'ok';
+  if(/fail|blocked|broken|stale|error|pending_ci/.test(s))return 'hot';
+  if(/draft|running|active|partial|retract/.test(s))return 'gold';
+  return '';}
+
+function renderStats(){
+  const c=DATA.counts||{};
+  const blocked=(c.states&&(c.states.BLOCKED||0))||0;
+  const items=[
+    [DATA.returns.length,'RETURNS','cool'],
+    [DATA.routes.length,'ROUTES',''],
+    [c.states?Object.keys(c.states).length:0,'STATES',''],
+    [blocked,'BLOCKED','hot'],
+  ];
+  $('#stats').innerHTML=items.map(([n,l,k])=>
+    `<div class="stat ${k}"><b>${n}</b><span>${l}</span></div>`).join('');
+  if(c.states){
+    $('#n-returns').textContent=Object.entries(c.states)
+      .map(([k,v])=>`${k}:${v}`).join('  ');
+  }
+}
+
+function renderReturns(){
+  const q=($('#q-returns').value||'').toLowerCase();
+  const rs=(DATA.returns||[]).filter(r=>!q||JSON.stringify(r).toLowerCase().includes(q));
+  $('#list-returns').innerHTML=rs.slice(0,150).map(r=>{
+    const checks=r.checks?Object.entries(r.checks).map(([k,v])=>
+      `<span class="k ${stateClass(v)}">${esc(k)}:${esc(v)}</span>`).join(''):'';
+    return `<details><summary>
+      <span class="k ${stateClass(r.state)}">${esc(r.state||'')}</span>
+      <b>${esc(r.id)}</b> <span class="dim">${esc(r.date)}</span></summary>
+      <div style="padding:2px 11px 11px">
+        ${r.object?`<div>${esc(r.object)}</div>`:''}
+        ${checks?`<div class="m">${checks}</div>`:''}
+        ${r.measured?`<pre>measured · ${esc(r.measured)}</pre>`:''}
+        ${r.next?`<pre>next · ${esc(r.next)}</pre>`:''}
+        ${(r.laws||[]).length?`<pre>law · ${esc(r.laws.join(' · '))}</pre>`:''}
+        <div class="m dim">returns/${esc(r.file)}</div>
+      </div></details>`;
+  }).join('')||'<div class="row dim">no returns</div>';
+}
+
+function renderRoutes(){
+  $('#n-routes').textContent=(DATA.routes||[]).length+' addressed';
+  $('#list-routes').innerHTML=(DATA.routes||[]).map(r=>
+    `<div class="row"><div class="t">${esc(r.title)}</div>
+      <div class="m"><span class="k cool">${esc(r.operation||'—')}</span>
+      <span class="k">${esc(r.kind||'')}</span>
+      <span class="k ${stateClass(r.state)}">${esc(r.state||'')}</span>
+      <a class="dim" href=".${esc(r.href)}">${esc(r.href)}</a>
+      <span class="dim">${esc(r.updated_at||'untracked')}</span></div></div>`
+  ).join('')||'<div class="row dim">no routes</div>';
+}
+
+async function loadPrs(){
+  const el=$('#list-prs');
+  try{
+    const res=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/pulls?state=open&per_page=50');
+    const prs=await res.json();
+    if(!Array.isArray(prs))throw new Error('bad');
+    $('#n-prs').textContent=prs.length+' open';
+    el.innerHTML=prs.map(p=>
+      `<div class="row"><div class="t">#${p.number} — ${esc(p.title)}</div>
+        <div class="m"><span class="k cool">${esc(p.head&&p.head.ref||'')}</span>
+        <span class="dim">${esc((p.user&&p.user.login)||'')}</span>
+        <span class="dim">updated ${esc(p.updated_at)}</span></div></div>`
+    ).join('')||'<div class="row dim">no open PRs</div>';
+  }catch(e){
+    el.innerHTML='<div class="row dim">PR fetch failed (API rate limit or offline) — returns and routes still load from the repo.</div>';
+  }
+}
+
+function setView(v){
+  $('#bar').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
+  ['returns','prs','routes'].forEach(k=>{
+    const sec=document.getElementById('v-'+k);
+    if(sec)sec.hidden=(k!==v);
+  });
+}
+$('#bar').querySelectorAll('button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+$('#q-returns').addEventListener('input',renderReturns);
+
+(async function(){
+  try{
+    const res=await fetch('./data.json');
+    DATA=await res.json();
+    $('#gen').textContent=DATA.generated||'…';
+    renderStats();renderReturns();renderRoutes();
+  }catch(e){
+    $('#stats').innerHTML='<div class="stat"><b>—</b><span>DATA FAILED</span></div>';
+    $('#list-returns').innerHTML='<div class="row dim">desk/data.json failed to load.</div>';
+  }
+  loadPrs();
+})();
+</script>
+</body>
+</html>
