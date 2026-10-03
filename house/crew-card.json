@@ -1,5 +1,5 @@
 {
-  "schema": "house-crew-card/v0.1",
+  "schema": "house-crew-card/v0.2",
   "updated": "2026-10-03",
   "host": "HOUSE",
   "route": "/house/",
@@ -32,6 +32,22 @@
       "actuation permission"
     ]
   },
+  "human_harness": {
+    "schema": "house-human-harness/v0.1",
+    "model": "/house/human-harness.json",
+    "core": "/house/human-harness.js",
+    "layers": ["BODY", "HARNESS", "OBJECT", "ROOM", "HOUSE", "NETWORK"],
+    "phases": ["UNBOUND", "ORIENTED", "EQUIPPED", "ENGAGED", "ACTED", "WITNESSED", "RETURNED"],
+    "human_gates": ["NONE", "PING", "CHOOSE", "WORLD_RETURN"],
+    "law": "Reality layers describe where coupling lives; execution phases describe what the task is doing. Human gate and effect authority are separate. Public HOUSE never gains effect authority by advancing a phase.",
+    "hooks": [
+      "window.HouseHumanHarness.snapshot()",
+      "window.HouseHumanHarness.transition(event)",
+      "window.HouseHumanHarness.makeCrewHandoff()",
+      "house:harness-state",
+      "house:harness-transition"
+    ]
+  },
   "offer": {
     "schema": "house-crew-offer/v0.1",
     "authority": "OFFER_ONLY",
@@ -53,6 +69,17 @@
     "storage": "sessionStorage house.crew.response.v01",
     "law": "A response changes coordination only. KEEP is not approval to execute; PARK is not rejection; WRONG_FRAME asks the proposing worker to repair its model before more work."
   },
+  "two_worker_proof": {
+    "schema": "house-two-worker-proof/v0.1",
+    "protocol": "/house/two-worker-proof.json",
+    "core": "/house/two-worker-proof.js",
+    "handoff_schema": "house-crew-handoff/v0.1",
+    "return_schema": "house-crew-return/v0.1",
+    "feedback_schema": "house-crew-feedback/v0.1",
+    "treatment": "Worker B receives only one bounded packet plus its exact source_refs.",
+    "control": "A fresh Worker B receives broad native HOUSE context, not a committed private chat transcript.",
+    "promotion_gate": "Across three real handoffs: exact locus/intent fidelity, zero authority violations, zero avoidable rebriefs, zero invented physical facts, and every genuinely missing world fact surfaced as WORLD_RETURN."
+  },
   "human_gates": {
     "NONE": "Crew can continue inspection/research/proposal work without interrupting the human.",
     "PING": "One lightweight acknowledgement may materially choose continuation.",
@@ -68,11 +95,11 @@
     },
     "A2A": {
       "status": "ADAPTER_CANDIDATE",
-      "rule": "Map remote agent identity/task artifacts into OFFER_ONLY proposals at the trust boundary; do not expose HOUSE native effect authority."
+      "rule": "Map remote agent identity/task artifacts into bounded handoff/return or OFFER_ONLY proposals at the trust boundary; do not expose HOUSE native effect authority."
     },
     "AG_UI": {
       "status": "ADAPTER_CANDIDATE",
-      "rule": "Map frame deltas, human interrupts and responses to event/state transport; HOUSE remains state/authority owner."
+      "rule": "Map harness/frame deltas, human interrupts and responses to event/state transport; HOUSE remains state/authority owner."
     },
     "A2UI": {
       "status": "DESIGN_DONOR",
@@ -81,6 +108,7 @@
   },
   "authority": {
     "crew_seam": "NONE / COORDINATION ONLY",
+    "human_harness": "NONE / COORDINATION AND PROJECTION ONLY",
     "external_worker": "OFFER_ONLY unless another native host separately grants tools",
     "human": "preferences, framing, physical observations and irreversible decisions",
     "HOUSE": "spatial/design projection and local authored trial state",
@@ -88,5 +116,6 @@
   },
   "return": "/house/",
   "research": "/control/research/CREW_SEAM_HUMAN_AGENT_2026-10-03.md",
-  "handoff": "/control/confluence/CREW_SEAM_HANDOFF_2026-10-03.md"
+  "handoff": "/control/confluence/CREW_SEAM_HANDOFF_2026-10-03.md",
+  "human_harness_handoff": "/control/confluence/HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.md"
 }
