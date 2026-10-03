@@ -85,3 +85,33 @@ function load(){
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load,{once:true}):queueMicrotask(load);
 })();
+
+(()=>{'use strict';
+/*
+FIELD axis scroll ownership guard.
+The root centers selected axis tokens with scrollIntoView(). That presentation
+scroll must never be reinterpreted as operator navigation by the root's scroll
+listener. A real pointer/touch/wheel gesture disarms the guard immediately, so
+human scrolling keeps its existing nearest-token behavior.
+*/
+if(typeof window==='undefined'||location.pathname!=='/'||!window.Element)return;
+const proto=Element.prototype,native=proto.scrollIntoView;
+if(typeof native!=='function'||proto.__fieldAxisScrollOwnershipGuard)return;
+const mutedUntil=new WeakMap(),now=()=>performance?.now?.()??Date.now();
+Object.defineProperty(proto,'__fieldAxisScrollOwnershipGuard',{value:true,configurable:false});
+proto.scrollIntoView=function(...args){
+ const viewport=this.closest?.('.axisViewport');
+ if(viewport)mutedUntil.set(viewport,now()+900);
+ return native.apply(this,args);
+};
+const userOwns=e=>{
+ const viewport=e.target?.closest?.('.axisViewport');
+ if(viewport)mutedUntil.delete(viewport);
+};
+for(const type of ['pointerdown','touchstart','wheel'])document.addEventListener(type,userOwns,{capture:true,passive:true});
+document.addEventListener('scroll',e=>{
+ const viewport=e.target;
+ if(!viewport?.classList?.contains('axisViewport'))return;
+ if(now()<(mutedUntil.get(viewport)||0))e.stopImmediatePropagation();
+},{capture:true,passive:true});
+})();
