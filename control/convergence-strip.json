@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T05:55:15.089Z",
+  "generated": "2026-10-03T06:21:02.043Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
-  "commits_in_window": 149,
-  "git_commits_in_window": 216,
-  "telemetry_commits_in_window": 67,
-  "commits_total": 4840,
-  "branch_count": 971,
+  "commits_in_window": 170,
+  "git_commits_in_window": 240,
+  "telemetry_commits_in_window": 70,
+  "commits_total": 4864,
+  "branch_count": 976,
   "recent_commits": [
-    "DOM: converge sticky toast adoption (#903)",
-    "gates: prove INTERPHASE from this checkout only (#902)",
-    "desk: refresh public field data"
+    "desk: refresh public field data",
+    "field index: stamp /control/ + /returns/ for the browser resolver landing",
+    "smoke: one browser resolver for all 28 tests (28/28 green on macOS)"
   ],
   "active_fronts": [
     {

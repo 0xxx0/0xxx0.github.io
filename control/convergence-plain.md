@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-03T05:55:15.089Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-03T06:21:02.043Z by scripts/generate-convergence-strip.mjs_
 
-The field has **149 material commits on 2026-10-03** across **971 branches** (216 exact Git commits in the window; 67 generated telemetry; 4840 on master all-time).
+The field has **170 material commits on 2026-10-03** across **976 branches** (240 exact Git commits in the window; 70 generated telemetry; 4864 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- DOM: converge sticky toast adoption (#903)
-- gates: prove INTERPHASE from this checkout only (#902)
 - desk: refresh public field data
+- field index: stamp /control/ + /returns/ for the browser resolver landing
+- smoke: one browser resolver for all 28 tests (28/28 green on macOS)
 
 ## Open gaps
 
