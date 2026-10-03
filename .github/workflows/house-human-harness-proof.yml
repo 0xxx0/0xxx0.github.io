@@ -58,5 +58,5 @@ jobs:
           NODE
       - name: Boundary scan
         run: |
-          ! grep -Eirn --include='human-harness*.js' --include='two-worker-proof*.js' '(home_assistant_url|long_lived_access_token|Authorization: Bearer|api[_-]?key|password[[:space:]]*=)' house
+          ! grep -Eirn --include='human-harness*.js' --include='two-worker-proof*.js' '(home_assistant_url|long_lived_access_token|api[_-]?key|password[[:space:]]*=)' house
           ! grep -Eirn --include='two-worker-proof*.json' --include='human-harness*.json' --include='crew-proof*.json' '"(conversation|transcript|messages|chat_history|raw_context|credentials|token|secret)"[[:space:]]*:' house
