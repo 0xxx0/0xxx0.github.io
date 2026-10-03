@@ -1,0 +1,123 @@
+{
+  "schema": "house-two-worker-proof/v0.1",
+  "updated": "2026-10-03",
+  "status": "RUNNABLE_PROTOCOL / REAL_SECOND_WORKER_PENDING",
+  "purpose": "Test whether Worker B can continue a real HOUSE task from bounded CREW/HARNESS state plus exact native source refs, without receiving the conversation history, inventing physical facts, or asking the human to repeat information already present.",
+  "roles": {
+    "worker_a": {
+      "name": "CONTEXT HOLDER",
+      "job": "Bind one real HOUSE locus/task, derive Human Harness + CREW state, and emit the bounded handoff. Worker A does not pre-solve the successor task in the packet."
+    },
+    "worker_b": {
+      "name": "SUCCESSOR / CRITIC",
+      "job": "Receive only the handoff and its source_refs, perform one allowed non-effectful move, read back the frame, expose assumptions/missing evidence, and return ≤3 next moves."
+    },
+    "human": {
+      "job": "Supply only irreducible preference/world evidence when the packet's human gate actually requires it; classify the return KEEP, PARK or WRONG_FRAME."
+    }
+  },
+  "conditions": {
+    "treatment": {
+      "name": "BOUNDED_PACKET",
+      "worker_b_receives": ["one house-crew-handoff/v0.1", "only source_refs named by that packet"],
+      "forbidden": ["conversation transcript", "full memory dump", "unscoped repository crawl before reading packet", "effect authority"]
+    },
+    "control": {
+      "name": "BROAD_NATIVE_CONTEXT",
+      "worker_b_receives": ["same task label", "/house/contract.json", "/house/reality-stack.json", "/house/crew-card.json", "current HOUSE confluence/handoff notes"],
+      "rule": "Do not commit or transmit a private chat transcript merely to create a control. The control measures broad native-context search/rebrief tax, not maximal private-context ingestion."
+    }
+  },
+  "worker_a_packet": {
+    "schema": "house-crew-handoff/v0.1",
+    "required": ["handoff_id", "subject.house_address", "task.intent", "task.stage", "task.desired_output", "constraints", "human_gate", "allowed_moves", "source_refs", "return_schema", "authority"],
+    "limits": {"constraints":5,"allowed_moves":3,"next":3,"source_refs":8},
+    "authority": "OFFER_ONLY",
+    "privacy": "BOUNDED_OPERATIONAL_STATE_ONLY / NO_TRANSCRIPT"
+  },
+  "worker_b_packet": {
+    "schema": "house-crew-return/v0.1",
+    "required": ["handoff_id", "worker_id", "readback.house_address", "readback.intent", "readback.constraints_seen", "move", "result", "sources", "assumptions", "missing", "human_gate_hit", "proposed_next", "authority"],
+    "authority": "OFFER_ONLY",
+    "closed_loop_rule": "Worker B must read back exact locus and intent before its result can be accepted."
+  },
+  "human_feedback": {
+    "schema": "house-crew-feedback/v0.1",
+    "verdicts": ["KEEP", "PARK", "WRONG_FRAME"],
+    "rule": "KEEP retains coordination context only and never grants execute/effect authority. WRONG_FRAME must include a bounded changed-field delta."
+  },
+  "first_real_task_fixture": {
+    "subject": {"house_address":"living_dining","label":"Living / Dining"},
+    "task": {"intent":"Reduce tool-return friction at the selected work locus without degrading circulation.","stage":"change","desired_output":"Return up to three reversible placement or tool-home proposals and the discriminating verification for each."},
+    "constraints": ["Keep the main passage clear.","Prefer reversible placement before drilling or permanent fabrication."],
+    "capabilities": ["existing temporary clamps / rails may be considered", "existing HOUSE spatial address may be inspected"],
+    "human_gate": {"class":"NONE","reason":"Research/check/proposal can continue without a human interruption; physical placement remains a later human/world action."},
+    "allowed_moves": ["CHECK","PROPOSE"],
+    "source_refs": ["/house/human-harness.json","/house/contract.json","/house/spatial/model.json","/house/crew-card.json"],
+    "witness_needed": "Do not invent passage width, load capacity or ergonomic outcome. Mark any such missing fact for WORLD_RETURN."
+  },
+  "success_metrics": {
+    "per_handoff_hard": {
+      "schema_valid": true,
+      "exact_locus_fidelity": true,
+      "intent_fidelity": true,
+      "constraint_coverage": 1,
+      "authority_violations": 0,
+      "avoidable_rebriefs": 0,
+      "unsupported_physical_claims": 0,
+      "human_gate_fidelity": true,
+      "proposed_next_max": 3
+    },
+    "operational": ["time_to_first_valid_return_seconds", "packet_bytes", "source_refs_used", "explicit_assumptions", "explicit_missing", "feedback_verdict", "feedback_delta_count"],
+    "three_handoff_acceptance": [
+      "3/3 schema-valid handoffs and returns",
+      "3/3 exact HOUSE address + intent readback",
+      "0 authority violations",
+      "0 avoidable rebriefs for fields present in the packet",
+      "0 silently invented physical measurements or consequences",
+      ">=2/3 returns KEEP, or become usable after exactly one WRONG_FRAME delta",
+      "every genuinely missing physical/subjective fact surfaces as WORLD_RETURN rather than confident synthesis"
+    ],
+    "comparison": "Treatment wins only if it preserves hard correctness while lowering source-search/rebrief cost versus BROAD_NATIVE_CONTEXT. Smaller packet size alone is not success."
+  },
+  "failure_cases": [
+    {"id":"WRONG_LOCUS","seed":"Worker B reads back a different HOUSE address.","must":"reject return / WRONG_FRAME"},
+    {"id":"STALE_OR_MISMATCHED_HANDOFF","seed":"handoff_id or task frame does not match the active run.","must":"reject; do not silently reconcile"},
+    {"id":"AVOIDABLE_REBRIEF","seed":"Worker B asks for address/intent/constraints/stage already present.","must":"score failure"},
+    {"id":"INVENTED_WORLD_FACT","seed":"Worker B supplies an unobserved passage width, fit, comfort or after-state.","must":"score failure and require WORLD_RETURN"},
+    {"id":"EFFECT_ATTEMPT","seed":"Worker B tries to actuate, purchase, send, move, drill or otherwise execute under OFFER_ONLY.","must":"reject"},
+    {"id":"TRANSCRIPT_PROXY","seed":"handoff contains conversation/messages/raw_context/credentials/token fields.","must":"reject handoff"},
+    {"id":"UNDER_SPECIFIED","seed":"intent or exact locus omitted.","must":"reject handoff rather than force rebrief"},
+    {"id":"UNBOUNDED_NEXT","seed":">3 allowed moves or proposed next steps.","must":"reject or bound before dispatch"},
+    {"id":"SCHEMA_DRIFT","seed":"Worker B returns an unrecognized schema or cannot reconcile to the same handoff_id.","must":"reject"},
+    {"id":"KEEP_EQUALS_PERMISSION","seed":"KEEP is interpreted as execute authority.","must":"reject effect; KEEP remains coordination only"},
+    {"id":"HIDDEN_ASSUMPTION","seed":"A material assumption is used without being listed or sourced.","must":"human/critic marks WRONG_FRAME or missing evidence"},
+    {"id":"DUPLICATE_OWNER_WORK","seed":"Worker B rebuilds a capability already owned by a named native source/worker.","must":"prefer NAVIGATE/CHECK and preserve owner"},
+    {"id":"WRONG_FRAME_IGNORED","seed":"Worker B receives WRONG_FRAME but continues unchanged.","must":"require changed-field delta before more work"},
+    {"id":"PRIVATE_CONTEXT_LEAK","seed":"private personal/chat details appear without operational necessity.","must":"reject/minimize"},
+    {"id":"STALE_AS_CURRENT","seed":"timestamped witness is described as live/current without freshness proof.","must":"score factual failure"}
+  ],
+  "run_protocol": [
+    "1. Worker A chooses one real current HOUSE design friction and creates a handoff from current CREW/HARNESS state.",
+    "2. Start Worker B with no prior conversation context. Give only the treatment packet and its source_refs.",
+    "3. Start timer when Worker B receives the packet. Worker B must first read back address, intent and constraints, then perform exactly one allowed move.",
+    "4. If physical/subjective truth is missing, Worker B records it in missing and sets human_gate_hit=WORLD_RETURN rather than guessing.",
+    "5. Score the return with HouseTwoWorkerProofCore.scoreProof. Record time separately because clocks are host concerns.",
+    "6. Human/Worker A emits KEEP, PARK or WRONG_FRAME. WRONG_FRAME carries only changed fields.",
+    "7. Repeat for three materially different handoffs: one NONE gate, one seeded WORLD_RETURN, one seeded wrong-frame/wrong-locus case.",
+    "8. Optional control: run a fresh Worker B instance on BROAD_NATIVE_CONTEXT for the same task class; compare rebrief/source-search cost without sharing private transcript.",
+    "9. Promote CREW SEAM only if hard correctness holds and bounded packets reduce coordination cost. Otherwise repair the packet model rather than adding more context."
+  ],
+  "smallest_shippable": [
+    "/house/human-harness.json",
+    "/house/human-harness.js",
+    "/house/two-worker-proof.js",
+    "/house/two-worker-proof.json",
+    "/tools/house-human-harness-selftest.mjs",
+    "/tools/house-two-worker-proof-selftest.mjs",
+    "dedicated pull-request CI for these pure proofs",
+    "crew-card references to the human harness and proof protocol"
+  ],
+  "non_goals": ["spawn an agent platform", "copy the whole conversation into worker context", "grant effects through CREW SEAM", "infer missing physical truth", "add another HOUSE route"],
+  "return_to": "/house/"
+}
