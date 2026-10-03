@@ -11,12 +11,30 @@
   ],
   "routes": [
     {
+      "href": "/desk/",
+      "title": "FIELD DESK",
+      "kind": "workbench",
+      "parent": "/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "0.1.0",
+      "showcase_card": true,
+      "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
+      "index": {
+        "updated_at": "2026-10-03T13:10:42+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
       "href": "/",
       "title": "FIELD INDEX",
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-03T04:00:00+08:00",
+        "updated_at": "2026-10-03T13:06:19+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7934,7 +7952,7 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-10-01T17:39:36+08:00",
+        "updated_at": "2026-10-03T13:10:42+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
