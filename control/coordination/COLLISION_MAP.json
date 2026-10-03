@@ -29,6 +29,7 @@
   ],
   "soft_domains": [
     {"id":"dayline","paths":["dayline/**","atlas-dayline/**","lib/interphase-dayline.js"]},
+    {"id":"comms","paths":["comms/**","port/comms/**"]},
     {"id":"readfield","paths":["docs/**","reader/**","lib/interphase-readfield.js"]},
     {"id":"fold-bloom","paths":["fold-bloom/**"]},
     {"id":"sleeper","paths":["sleeper/**"]},
@@ -54,6 +55,7 @@
     "For ordinary candidates, base movement is classified: exact-file or hard-domain impact fails; unrelated movement warns.",
     "GitHub pull_request checks execute against a synthetic merge ref; base drift is not by itself candidate causation.",
     "Soft-domain overlap is a review signal only; native hosts may contain independent deltas.",
+    "COMMS machine-room presentation and native /port/comms/ transport share one soft review domain while retaining separate authority surfaces.",
     "Unique receipts and confluence notes do not collide merely because they share a directory.",
     "This guard does not replace native tests, CURRENT, repository rulesets, or human release authority."
   ]
