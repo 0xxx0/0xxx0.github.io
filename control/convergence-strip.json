@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T05:53:24.393Z",
+  "generated": "2026-10-03T05:55:15.089Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
-  "commits_in_window": 147,
-  "git_commits_in_window": 211,
-  "telemetry_commits_in_window": 64,
-  "commits_total": 4835,
-  "branch_count": 970,
+  "commits_in_window": 149,
+  "git_commits_in_window": 216,
+  "telemetry_commits_in_window": 67,
+  "commits_total": 4840,
+  "branch_count": 971,
   "recent_commits": [
-    "desk: refresh public field data",
-    "FIELD DESK: remove operator refresh duty (#901)",
-    "FIELD: intrinsic READFIELD controls + capability-safe FOVEA (#899)"
+    "DOM: converge sticky toast adoption (#903)",
+    "gates: prove INTERPHASE from this checkout only (#902)",
+    "desk: refresh public field data"
   ],
   "active_fronts": [
     {
