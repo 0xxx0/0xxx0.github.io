@@ -40,6 +40,7 @@ const base=fs.readFileSync(path.join(ROOT,'house/base-camp.js'),'utf8');
 const mini=fs.readFileSync(path.join(ROOT,'house/mini.js'),'utf8');
 ok('base camp source parses',(()=>{try{new Function(base);return true}catch(_){return false}})());
 ok('canonical root loader is path-scoped',/path!==['"]\/house['"]/.test(mini)&&/\.\/base-camp\.js/.test(mini));
+ok('exact #BASE survives late projection registration',/exactBase=location\.hash\.toUpperCase\(\)===['"]#BASE['"]/.test(mini)&&/location\.pathname\+location\.search\+['"]#BASE['"]/.test(mini));
 ok('BASE joins existing projection grammar',/V\.unshift\(['"]BASE['"]\)/.test(base));
 ok('unaddressed root selects BASE only',/!location\.hash\|\|location\.hash===['"]#['"]/.test(base)&&/view=['"]BASE['"]/.test(base));
 ok('kit state is browser-local',/houseBaseCampLocalV01/.test(base));
