@@ -1,0 +1,114 @@
+{
+  "schema": "0xxx0/crew-delegation-contract/v0.1",
+  "status": "OPERATIONAL",
+  "purpose": "Reduce repeated human↔agent permission reconstruction by carrying one explicit, bounded, attenuating delegation lease across replaceable workers without creating a new authority plane or allowing privilege growth.",
+  "position": {
+    "boot": "/AGENTS.md + /llms.txt remain worker entry law",
+    "selection": "SOURCE → HOLD still selects the exact object and lawful native moves",
+    "delegation": "An explicit issuer-supplied lease may pre-authorize a class of TURNs within named scope and conditions.",
+    "execution": "Native host still owns EFFECT/commit. This contract never executes anything.",
+    "closure": "Every allowed TURN still TRACEs and RETURNs. The lease does not create NEXT or priority."
+  },
+  "laws": [
+    "NO LEASE MAY BE INFERRED FROM MODEL MEMORY, TASK STATE, TRANSPORT SESSION, OR THE ABSENCE OF AN OBJECTION.",
+    "Live lease bytes are authority-bearing and PRIVATE by default. Do not commit real leases to a public repository; publish only the contract and sanitized examples.",
+    "This reducer validates lease structure and scope, not issuer authenticity. Untrusted/remote transport requires host-authenticated provenance or a cryptographically verifiable issuer before operational use.",
+    "A lease can preserve or reduce issuer authority; it can never enlarge it.",
+    "Lease scope is explicit across principal, action, resource, side-effect ceiling, reversibility and time.",
+    "Unknown or out-of-scope requests ESCALATE; explicit denies and expired/revoked leases DENY.",
+    "ALLOW means only that the request matches the supplied lease. The native host must still accept and perform the operation.",
+    "A2A/MCP task or transport state is not operation authorization.",
+    "v0.1 leases are NON_DELEGABLE: an agent cannot mint a broader child lease or transfer the lease to another principal unless the issuer explicitly names that principal.",
+    "Each TURN keeps SOURCE → HOLD → TURN → TRACE → RETURN semantics; repeated permission prompts may be reduced, evidence and RETURN may not.",
+    "If authorization rules require groups, inheritance, rich contextual predicates, remote identity, revocation distribution or policy composition, stop extending this format and use a real policy engine such as Cedar or OPA."
+  ],
+  "side_effect_order": [
+    "NONE",
+    "LOCAL",
+    "REPO_BRANCH",
+    "REPO_PUBLIC",
+    "EXTERNAL",
+    "IRREVERSIBLE"
+  ],
+  "lease_required": [
+    "schema",
+    "lease_id",
+    "issuer",
+    "issued_at",
+    "principals",
+    "resources",
+    "allow_actions",
+    "deny_actions",
+    "side_effect_ceiling",
+    "require_reversible",
+    "stop_conditions",
+    "transfer"
+  ],
+  "lease_semantics": {
+    "schema": "Must equal field-crew-delegation/v0.1.",
+    "lease_id": "Stable issuer-selected identifier for check-back and RETURN references.",
+    "issuer": "Object with kind + ref. It identifies the claimed authority source; the reducer does not authenticate it. Operational hosts must establish issuer authenticity independently.",
+    "issued_at": "ISO timestamp recorded by the issuer/caller.",
+    "expires_at": "Optional ISO expiry. Expired leases DENY.",
+    "revoked": "Optional boolean. true DENYs immediately.",
+    "principals": "Explicit worker/crew identifiers or '*'. No implicit transitive membership.",
+    "resources": "Exact strings or simple '*' globs over addressed objects/routes/repositories.",
+    "allow_actions": "Explicit action tokens pre-authorized by the issuer.",
+    "deny_actions": "Explicit hard denies; deny wins over allow.",
+    "side_effect_ceiling": "Maximum effect class allowed by this lease.",
+    "require_reversible": "When true, request.reversible must be true or the request ESCALATEs.",
+    "stop_conditions": "Caller-supplied request flags that force ESCALATE before EFFECT.",
+    "transfer": "Must be NON_DELEGABLE in v0.1."
+  },
+  "request_shape": {
+    "principal": "Exact caller identity token.",
+    "action": "Requested action token.",
+    "resource": "Exact addressed target.",
+    "context": {
+      "side_effect": "One side_effect_order token.",
+      "reversible": "boolean or null when unknown",
+      "flags": "Array of observed stop-condition tokens",
+      "trace_ref": "Optional intended TRACE/RETURN context"
+    }
+  },
+  "decision_semantics": {
+    "ALLOW": "Request matches every lease dimension and no stop/deny condition. Native host authority is still required.",
+    "ESCALATE": "Lease is valid but the request is outside/unknown relative to its scope. Obtain fresh explicit authorization or narrow the request.",
+    "DENY": "Lease is expired, revoked, non-delegable contract is violated, or action is explicitly denied. Do not proceed under this lease."
+  },
+  "check_back": {
+    "purpose": "Closed-loop confirmation for human + replaceable workers.",
+    "must_name": [
+      "lease_id",
+      "issuer_ref",
+      "principal",
+      "action",
+      "resource",
+      "decision",
+      "reason",
+      "side_effect",
+      "reversibility"
+    ],
+    "law": "Critical scope is repeated back in concrete terms; silent assumption is not agreement."
+  },
+  "interop": {
+    "agents_md": "Discovery/worker instructions. Does not itself grant runtime operation authority.",
+    "mcp": "Tool/resource transport. Explicit lease/request data may travel over MCP only with host-trusted issuer provenance; transport/session state is not a lease.",
+    "a2a": "Task transport between opaque agents. AUTH_REQUIRED or task continuation is not operation authorization; untrusted peers cannot self-issue an accepted lease.",
+    "cedar_opa": "Preferred replacement when this minimal PARC-like reducer would otherwise grow into a policy language.",
+    "temporal": "A durable workflow may persist an issuer-approved lease and wait for escalations, but workflow liveness is not authorization."
+  },
+  "return": {
+    "required": true,
+    "fields": [
+      "lease_id",
+      "decision_ref",
+      "turn_ref",
+      "observed_delta",
+      "evidence_refs",
+      "unknowns",
+      "next_authority"
+    ],
+    "next_authority": "NONE unless the same still-valid lease is explicitly re-presented and re-evaluated for the next request."
+  }
+}

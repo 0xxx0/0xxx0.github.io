@@ -58,6 +58,16 @@ Before pushing, run the CI gate list locally: `node tools/ship-check.mjs` (`--fa
 
 Public-surface redaction gate: `python3 scripts/check-redaction-aperture.py` (unredacted sensitive material fails the push; exact-triple allowlist in `scripts/redaction-aperture-allow.json`).
 
+Crew delegation / permission check-back is an **optional support check after explicit issuer authorization**, not a second machine entrypoint and not an authority store:
+
+`node tools/crew-delegation.mjs --lease <lease.json> --request <request.json>`
+
+- contract: `/control/CREW_DELEGATION_CONTRACT.json`
+- example packet: `node tools/crew-delegation.mjs --example`
+- selftest: `node tools/crew-delegation.mjs --selftest`
+
+The reducer returns `ALLOW | ESCALATE | DENY` plus a closed-loop CHECK-BACK. `ALLOW` only means the supplied request matches the supplied lease; the native host still owns EFFECT/commit. Never infer a lease from chat memory, transport/task state, silence, or prior success. Leases are non-delegable in v0.1 and must be re-presented/re-evaluated for each consequential request. **Live lease bytes stay local/private by default and must not be committed to this public repository.** The reducer validates scope, not issuer authenticity; untrusted/remote use requires host-trusted provenance or cryptographic verification. If rules need groups, inheritance, rich predicates, distributed revocation or remote identity, stop extending this reducer and use a real policy engine such as Cedar/OPA.
+
 
 Bounded execution protocol (human + coding workers):
 
