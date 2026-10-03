@@ -1,0 +1,87 @@
+{
+  "schema": "house-homebase-projection/v0.1",
+  "date": "2026-10-03",
+  "route": "/house/",
+  "status": "CANDIDATE / PROJECTION_ONLY",
+  "thesis": "HOUSE is the place you return to, not a device dashboard: selected locus -> prepare -> set out -> return with evidence -> service -> ready.",
+  "loop": ["HOME", "PREP", "SET_OUT", "RETURN", "SERVICE", "READY"],
+  "owners": {
+    "locus": "HOUSE selected spatial address",
+    "fixtures": "HOUSE spatial model anchors and source evidence",
+    "loadout": "BODY / FIT kits, fittings, active session and RETURN/PATINA",
+    "harness": "ENV-0 bounded body/tool/environment coupling grammar",
+    "run": "DAYLINE current operation/context",
+    "runtime": "Home Assistant / HOUSEBUS private runtime truth and actuation",
+    "evidence": "native RETURN / source-owned receipts"
+  },
+  "reads": [
+    "/house/spatial/model.json",
+    "localStorage:0xxx0.body.fit.v01",
+    "localStorage:houseSpatialLocalV02",
+    "window.HOUSE_CONTEXT",
+    "window.HOUSE_RUNTIME_WITNESS"
+  ],
+  "writes": [
+    "localStorage:0xxx0.house.body.context.v01",
+    "sessionStorage:atlas.dayline.handoff.v01"
+  ],
+  "inventory_law": {
+    "catalog": "known item/capability definitions; source-owned reference data",
+    "inventory": "exact instances believed/observed to exist with source and last-known address; not created by HOMEBASE",
+    "stash": "addressed container/locus holding mobile instances",
+    "fixture": "capability whose useful identity is spatially bound unless explicitly moved/released",
+    "loadout": "temporary references to source-owned instances for one purpose; BODY / FIT owns the kit/session",
+    "service": "returned discrepancy/residue supported by evidence; silence never implies READY"
+  },
+  "env0_law": "ENV-0 is coupling/harness, not inventory: STASHED OBJECT -> LOADOUT REFERENCE -> BODY/CART/FURNITURE/HARNESS COUPLING -> DEPLOYED -> RETURNED -> SERVICE/READY.",
+  "ux": {
+    "form": "fixed-locus / camera-tableau rather than forced free-roaming 3D",
+    "glance_questions": [
+      "WHERE AM I / WHAT LOCUS?",
+      "WHAT SOURCE-OWNED PREP OR RETURN STATE IS NEARBY?",
+      "WHAT RETURNED DIFFERENT?",
+      "WHAT 1-3 MOVES ARE LAWFUL?"
+    ],
+    "room_roles": ["READY_RACK", "STASH", "BENCH", "RETURN_BIN", "FIXTURE", "PORT"],
+    "shortcut_law": "diegetic station and direct route remain equivalent access paths; spatial immersion may not force fake traversal"
+  },
+  "donors": [
+    {
+      "name": "Ultima Online housing",
+      "source": "https://uo.com/wiki/ultima-online-wiki/gameplay/houses-placing-a-house/house-ownership-4-managing-your-home/",
+      "transfer": "persistent addressed possessions; container vs fixed-in-place relation; house/object owns access relation"
+    },
+    {
+      "name": "Monster Hunter 4 Ultimate house/item box",
+      "source": "https://game.capcom.com/manual/MH4U/en/page-135.html",
+      "transfer": "named item/equipment sets make preparation recallable without rebuilding configuration item-by-item"
+    },
+    {
+      "name": "Warframe Orbiter",
+      "source": "https://www.warframe.com/en/news/orbiter-guide-ko",
+      "transfer": "spatial stations give functions place while direct menu shortcuts preserve low-friction access"
+    },
+    {
+      "name": "Death Stranding Director's Cut",
+      "source": "https://www.kojimaproductions.jp/en/death-stranding-directors-cut-beginners-guide",
+      "transfer": "body/load/route form one temporary system; preparation responds to terrain/friction and returns to a private-room/base loop"
+    },
+    {
+      "name": "Pacific Drive",
+      "source": "https://blog.playstation.com/2023/11/30/unravel-the-gameplay-loop-of-pacific-drive-launching-on-ps5-feb-22/",
+      "transfer": "return -> inspect/service -> plan against hazards -> adapt/pack -> set out -> return"
+    }
+  ],
+  "laws": [
+    "HOUSE IS HOMEBASE, NOT DASHBOARD",
+    "CATALOG != INVENTORY != LOADOUT != LOCATION",
+    "LOADOUT REFERENCES SOURCE-OWNED STATE; HOMEBASE CREATES NO ITEM DATABASE",
+    "SET_OUT != PHYSICAL DEPARTURE != COMPLETION",
+    "RETURNED RESIDUE MAY REQUEST SERVICE; UNKNOWN REMAINS UNKNOWN",
+    "HOUSEBUS RUNTIME AUTHORITY REMAINS PRIVATE",
+    "NO SCORE / QUEST QUEUE / STREAK / COMPLETION PERCENTAGE",
+    "NO NEW HOUSE ROUTE OR HOMEBASE PERSISTENCE STORE"
+  ],
+  "proof_gate": "One existing BODY/FIT loadout can retain one HOUSE address through PREP -> explicit SET OUT Dayline handoff -> BODY/FIT RETURN while HOMEBASE reads the same source-owned session/receipt without copying canonical item state.",
+  "stop": "Do not add a general inventory manager or free-roaming house game. Extend only for a real source-owned object/service/loadout seam that this projection cannot express."
+}

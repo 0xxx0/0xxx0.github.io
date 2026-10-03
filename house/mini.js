@@ -8,6 +8,7 @@
  *
  * Nothing here holds an HA token, an HA URL, or a raw service call.
  */
+import('./homebase.js').catch(()=>{});
 (function () {
   "use strict";
   var HB = window.HOUSEBUS || {};
