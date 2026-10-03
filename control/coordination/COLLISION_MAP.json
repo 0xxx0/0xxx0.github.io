@@ -8,9 +8,13 @@
     "native release metadata",
     "/returns/"
   ],
-  "law": "Detect overlap and stale ancestry before merge; never mint project state, priority, permission, or a second owner.",
+  "law": "Serialize hard authority; classify moving-base impact; never mint project state, priority, permission, or a second owner.",
   "policy": {
-    "base_behind": "FAIL",
+    "base_drift": "WARN",
+    "base_drift_on_hard_candidate": "FAIL",
+    "base_drift_exact_overlap": "FAIL",
+    "base_drift_hard_domain_overlap": "FAIL",
+    "base_drift_soft_domain_overlap": "WARN",
     "exact_file_overlap": "FAIL",
     "hard_domain_overlap": "FAIL",
     "soft_domain_overlap": "WARN",
@@ -46,8 +50,9 @@
     "note": "Without branch protection/ruleset-required checks, this workflow is advisory even when it fails."
   },
   "notes": [
-    "A candidate already behind its target base fails when this PR-event check runs.",
-    "Exact-file and hard-domain overlap are merge hazards and fail the check.",
+    "A stale candidate touching hard authority fails and must rejoin the current base.",
+    "For ordinary candidates, base movement is classified: exact-file or hard-domain impact fails; unrelated movement warns.",
+    "GitHub pull_request checks execute against a synthetic merge ref; base drift is not by itself candidate causation.",
     "Soft-domain overlap is a review signal only; native hosts may contain independent deltas.",
     "Unique receipts and confluence notes do not collide merely because they share a directory.",
     "This guard does not replace native tests, CURRENT, repository rulesets, or human release authority."
