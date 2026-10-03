@@ -1,0 +1,48 @@
+{
+  "schema": "field-return/v1",
+  "id": "HOUSE_HOMEBASE_PROJECTION_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "canonical /house/ human surface",
+  "operation": "SPATIAL HOUSE -> HOMEBASE RETURN/PREP PROJECTION",
+  "delta": [
+    "Reframe the canonical HOUSE root from inspection-first to return/preparation-first without replacing its spatial substrate.",
+    "Add one compact HOMEBASE rail bound to the current house:selection address.",
+    "Read existing BODY/FIT kits/active session/returns and HOUSE local service episodes; create no second inventory/loadout store.",
+    "PREP LOADOUT reuses the existing HOUSE->BODY context envelope and opens /body/fit/.",
+    "SET OUT is enabled by an existing BODY/FIT active session and emits the existing Dayline handoff with explicit non-effect truth boundary.",
+    "SERVICE HERE opens existing HOUSE CARE/MAINTENANCE projection in place.",
+    "ENV-0 remains an explicit harness/coupling depth, not an inventory authority.",
+    "Header language now states the owner split: HOUSE locus / BODY-FIT loadout / ENV-0 coupling / HOUSEBUS private runtime."
+  ],
+  "donor_transfer": [
+    "Ultima Online -> persistent addressed possession/container relation",
+    "Monster Hunter -> recallable preparation sets",
+    "Warframe Orbiter -> spatial station + shortcut parity",
+    "Death Stranding -> load/body/route coupling + private-room return ritual",
+    "Pacific Drive -> RETURN -> SERVICE -> PREP -> SET OUT maintenance loop"
+  ],
+  "authority": {
+    "homebase": "PROJECTION_ONLY",
+    "house": "spatial locus/address",
+    "body_fit": "loadout/session/return",
+    "env0": "coupling grammar",
+    "dayline": "time/context execution",
+    "housebus": "private runtime truth/actuation"
+  },
+  "non_goals": [
+    "no new route",
+    "no item database",
+    "no quest/chore queue",
+    "no score/streak/readiness inference from silence",
+    "no free-roaming 3D game",
+    "no public HOUSEBUS actuation"
+  ],
+  "verify": [
+    "node --check house/homebase.js",
+    "existing HOUSE root browser smoke must still pass",
+    "public-surface-check",
+    "gitleaks"
+  ],
+  "return_condition": "Promote only after exact-head CI proves /house/ still boots and the new module introduces no public authority/store boundary regression."
+}
