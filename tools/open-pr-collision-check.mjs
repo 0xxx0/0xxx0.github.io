@@ -43,7 +43,9 @@ function classify(ours,theirs){
 function uniq(xs){return [...new Set(xs)]}
 function git(...args){return execFileSync('git',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim()}
 function parseRepo(remote){
-  const m=String(remote||'').match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/);return m?[m[1],m[2]]:null;
+  const m=String(remote||'').trim().match(/github\.com[/:]([^/]+)\/(.+)$/);
+  if(!m)return null;
+  return [m[1],m[2].replace(/\.git$/,'')];
 }
 function headers(){
   const h={Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'field-open-pr-collision'};
@@ -84,6 +86,9 @@ function selftest(){
   if(r.exact.length||r.hard.length||r.soft.length)throw new Error('unique receipt control failed');
   r=classify(['AGENTS.md'],['control/POLICY_INDEX.json']);
   if(!r.hard.some(x=>x.id==='policy-authority'))throw new Error('policy-authority control failed');
+  const https=parseRepo('https://github.com/0xxx0/0xxx0.github.io.git');
+  const ssh=parseRepo('git@github.com:0xxx0/0xxx0.github.io.git');
+  if(https?.[1]!=='0xxx0.github.io'||ssh?.[1]!=='0xxx0.github.io')throw new Error('dotted repo parse control failed');
   console.log('OPEN PR COLLISION SELFTEST PASS');
 }
 
