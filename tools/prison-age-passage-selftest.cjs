@@ -1,0 +1,32 @@
+const fs=require('fs');
+const P=require('../prison-age/passage-core.js');
+const assert=(x,m)=>{if(!x)throw new Error(m)};
+const atlas=JSON.parse(fs.readFileSync('prison-age/evidence-atlas.json','utf8'));
+assert(atlas.schema==='prison-age.evidence-atlas/v0.1','atlas schema');
+const entries=P.entryNodes(atlas);
+assert(entries.length===4,'exactly four 2026 passage entrances');
+assert(new Set(entries.map(x=>x.endpoint.source_id)).size===4,'entrances must span four distinct sources');
+assert(entries.every(x=>!P.isBoilerplate(x)),'entrances must avoid shared margin boilerplate when stronger source evidence exists');
+
+const first=entries[0],cross=P.choices(atlas,first.key,[]).cross;
+assert(cross&&cross.endpoint.source_id!==first.endpoint.source_id,'cross echo must cross sources');
+let trail=P.append(atlas,[],first.key);
+trail=P.append(atlas,trail,cross.key);
+const turns=P.choices(atlas,cross.key,trail).turns;
+assert(turns.length>0&&turns.length<=3,'turn source must expose one to three bounded options');
+assert(turns.every(x=>x.endpoint.source_id===cross.endpoint.source_id),'turn source must remain in same source');
+trail=P.append(atlas,trail,turns[0].key);
+const v=P.validateTrail(atlas,trail);assert(v.ok,'valid CROSS→TURN route');
+const packet=P.routePacket(atlas,trail);
+assert(packet.schema==='prison-age.passage-route/v0.1','packet schema');
+assert(packet.authority==='EVIDENCE_ONLY','packet authority');
+assert(packet.nodes.length===3&&packet.transitions.length===2,'route packet cardinality');
+assert(packet.transitions[0].kind==='CROSS_ECHO'&&packet.transitions[1].kind==='TURN_SOURCE','route transition semantics');
+assert(packet.nodes.every(n=>n.text&&n.address&&n.path&&Number.isInteger(n.start)&&Number.isInteger(n.end)),'all route nodes preserve exact source addresses');
+const encoded=P.encodeTrail(trail),decoded=P.decodeTrail(encoded);assert(JSON.stringify(decoded)===JSON.stringify(trail),'share trail round trip');
+assert(P.shareQuery(trail).includes(encodeURIComponent(encoded)),'share query contains exact route');
+let rejected=false;try{P.append(atlas,trail,entries.find(x=>x.endpoint.source_id!==turns[0].endpoint.source_id&&x.card!==turns[0].card)?.key)}catch(_){rejected=true}
+assert(rejected,'unsupported source jump must reject');
+const bad=[trail[0],entries.find(x=>x.endpoint.source_id!==first.endpoint.source_id&&x.card!==first.card)?.key].filter(Boolean);
+if(bad.length===2)assert(!P.validateTrail(atlas,bad).ok,'non-evidenced jump must fail validation');
+console.log('PRISON AGE PASSAGE PASS ·',entries.map(x=>x.key+':'+x.endpoint.source_id).join(' · '),'· route',encoded);
