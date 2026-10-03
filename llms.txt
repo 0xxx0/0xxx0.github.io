@@ -58,7 +58,16 @@ Structured form:
 
 `node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json`
 
-Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves and selected TURN on an unresolved object fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
+Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, human interruption gate, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves and selected TURN on an unresolved object fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
+
+Human interruption gate travels with the handoff as `NONE | PING | CHOOSE | WORLD_RETURN | UNSPECIFIED`:
+- `NONE` — continue otherwise-lawful non-effect inspect/research/check/draft work without interrupting the human merely because a stage exists.
+- `PING` — one lightweight acknowledgement may materially choose continuation.
+- `CHOOSE` — preference, framing, adoption or decision belongs to the human; return bounded options instead of guessing.
+- `WORLD_RETURN` — fresh physical, subjective or external-world evidence must come from the human/world; agents may prepare/reduce/precompute but must not invent the observation.
+- `UNSPECIFIED` — no explicit gate travelled with the object; continue only default non-effect work and resolve the gate before any human/world claim or effect boundary.
+
+**Human gate ≠ permission.** It controls interruption need only; it never grants EFFECT, NOW, priority, merge, commit or release authority.
 
 **Already-addressed fast path:** once one exact object + native owner are resolved, human/agent/future crew may use the minimum `field-crew-turn/v0.1` projection from `/control/SUBMISSION_CONTRACT.json`:
 
@@ -86,7 +95,7 @@ For a direct readable/structured projection of the identical contract:
 
 `node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> --json`
 
-The staging helper is **not** a second packet dialect or authority source. It resolves exactly one existing object, derives at most three `OFFER` moves only from the manifest's declared operation plus `AVAILABLE` exits, and feeds `/control/SUBMISSION_CONTRACT.json` → `field-crew-handoff/v0.1`. Unknown/ambiguous objects fail closed; selecting a move still grants no EFFECT authority.
+The staging helper is **not** a second packet dialect or authority source. It resolves exactly one existing object, derives at most three `OFFER` moves only from the manifest's declared operation plus `AVAILABLE` exits, carries the selected CURRENT head's explicit human/world interruption gate when one exists, and feeds `/control/SUBMISSION_CONTRACT.json` → `field-crew-handoff/v0.1`. No explicit CURRENT gate becomes `UNSPECIFIED`, not fabricated `NONE`. Unknown/ambiguous objects fail closed; selecting a move still grants no EFFECT authority.
 
 The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.
 

@@ -72,6 +72,22 @@ function evidenceRefs(object){
   return [...new Set(out.filter(Boolean))].slice(0,8);
 }
 
+function humanGateFor(head){
+  const n=head?.next_executable;
+  if(!n)return{
+    class:'UNSPECIFIED',
+    reason:'Selected object has no explicit CURRENT next_executable human gate. Continue only lawful non-effect work; resolve a gate before any human/world claim or effect boundary.',
+    source_ref:head?'/control/CURRENT.json#current_heads.'+(head.lineage||head.route||'selected'):null
+  };
+  const state=upper(n.state);
+  const ref='/control/CURRENT.json#current_heads.'+(head.lineage||head.route||'selected')+'.next_executable';
+  const reason=text(n.objective||(Array.isArray(n.human_questions)?n.human_questions[0]:'')||state||'CURRENT human gate');
+  if(/REAL_DEVICE|PHYSICAL|ORDINARY_USE|HUMAN_USE|PRIVATE|WORLD/.test(state))return{class:'WORLD_RETURN',reason,source_ref:ref};
+  if(/PING|ACK/.test(state))return{class:'PING',reason,source_ref:ref};
+  if(/HUMAN_CONFIRM|HUMAN_CHOICE|CHOOSE|DECISION|APPROVAL|PREFERENCE|WAITING_ON_HUMAN/.test(state))return{class:'CHOOSE',reason,source_ref:ref};
+  return{class:'NONE',reason:'CURRENT exposes a machine-executable/non-effect continuation: '+reason,source_ref:ref};
+}
+
 function buildSubmission(query,opts={},sources=load()){
   const object=exactObject(query,sources),h=object.head,r=object.route,objectRef=object.object_ref;
   const moves=declaredMoves(r||{}),selected=text(opts.select)||null;
@@ -88,12 +104,13 @@ function buildSubmission(query,opts={},sources=load()){
     proof_available:{current_updated:sources.C.updated||null,head:h?{lineage:h.lineage||null,state:h.state||null,version:h.version||null}:null,manifest:r?{href:r.href||null,state:r.state||null,version:r.version||null,operation:r.operation||null}:null,refs},
     contributor_ref:text(opts.contributor)||'field:stage-helper',
     receiver_hint:text(opts.receiver)||'coding-worker:any',
+    human_gate:humanGateFor(h),
     execution:{moves,selected_move_id:selected,return_to:text(opts.returnTo)||objectRef,evidence_refs:refs}
   };
 }
 
 function flag(args,name){const i=args.indexOf(name);if(i<0)return null;const v=args[i+1];if(v==null||String(v).startsWith('--'))throw new Error(name+' requires a value');return v}
-function usage(){return `FIELD STAGE HANDOFF · PREP ONLY · authority NONE\n\nnode tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> [--json]\nnode tools/field-stage-handoff.mjs --source <...> --submission\nnode tools/field-stage-handoff.mjs --source <...> --select <move-id> [--json]\nnode tools/field-stage-handoff.mjs --selftest\n\nOptional: --intent <text> --delta <text> --receiver <label> --contributor <label> --return-to <address>\n\nThis helper resolves exactly one CURRENT/manifest object, derives at most three declared OFFER moves from its manifest operation + AVAILABLE exits, and feeds the existing field-crew-handoff/v0.1 contract. It never executes a move, grants authority, creates NOW, or writes state.\n`;}
+function usage(){return `FIELD STAGE HANDOFF · PREP ONLY · authority NONE\n\nnode tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> [--json]\nnode tools/field-stage-handoff.mjs --source <...> --submission\nnode tools/field-stage-handoff.mjs --source <...> --select <move-id> [--json]\nnode tools/field-stage-handoff.mjs --selftest\n\nOptional: --intent <text> --delta <text> --receiver <label> --contributor <label> --return-to <address>\n\nThis helper resolves exactly one CURRENT/manifest object, derives at most three declared OFFER moves from its manifest operation + AVAILABLE exits, carries the selected CURRENT human-interruption gate when one exists, and feeds the existing field-crew-handoff/v0.1 contract. It never executes a move, grants authority, creates NOW, or writes state.\n`;}
 
 function selftest(){
   const sources=load(),fail=[],assert=(ok,msg)=>{if(!ok)fail.push(msg)};
@@ -104,6 +121,7 @@ function selftest(){
     assert(handoff.schema==='field-crew-handoff/v0.1','handoff schema');
     assert(handoff.authority==='NONE / TRANSIENT HANDOFF ONLY','handoff authority');
     assert(handoff.source.object_ref===head.route,'object continuity');
+    assert(['NONE','PING','CHOOSE','WORLD_RETURN','UNSPECIFIED'].includes(handoff.human_gate?.class),'human gate class');
     assert(handoff.hold.moves.length<=3,'move bound');
     assert(handoff.hold.moves.every(m=>m.authority==='OFFER'),'derived move authority');
     assert(handoff.return.target===head.route,'return continuity');
@@ -111,12 +129,25 @@ function selftest(){
       const selected=buildSubmission(head.route,{select:handoff.hold.moves[0].id},sources),selectedHandoff=compileCrewHandoff(selected);
       assert(selectedHandoff.status.state==='TURN_READY','selected move state');
       assert(selectedHandoff.authority==='NONE / TRANSIENT HANDOFF ONLY','selection did not acquire authority');
+      assert(selectedHandoff.human_gate.class===handoff.human_gate.class,'selection changed human gate');
+    }
+    const gated=clone(sources),gatedHead=(gated.C.current_heads||[]).find(h=>h.route===head.route);
+    if(gatedHead){
+      gatedHead.next_executable={id:'SELFTEST_WORLD',state:'WAITING_ON_REAL_DEVICE',objective:'Observe one real-device property that cannot be simulated.'};
+      const worldSubmission=buildSubmission(head.route,{},gated),worldHandoff=compileCrewHandoff(worldSubmission);
+      assert(worldSubmission.human_gate.class==='WORLD_RETURN','stage did not derive WORLD_RETURN');
+      assert(worldHandoff.human_gate.class==='WORLD_RETURN','handoff lost WORLD_RETURN');
+      assert(worldHandoff.authority==='NONE / TRANSIENT HANDOFF ONLY','human gate acquired authority');
     }
   }
+  const unspecified=compileCrewHandoff({source_ref:'selftest',intent:'test omitted gate',object_ref:'/selftest/',contribution_class:'EVIDENCE',evidence_class:'SPEC',delta_or_question:'prove omission is conservative',proof_available:'fixture'});
+  assert(unspecified.human_gate.class==='UNSPECIFIED','omitted gate should remain UNSPECIFIED');
+  let badGate=false;try{compileCrewHandoff({source_ref:'selftest',intent:'bad gate',object_ref:'/selftest/',contribution_class:'EVIDENCE',evidence_class:'SPEC',delta_or_question:'reject invented gate',proof_available:'fixture',human_gate:{class:'DO_WHATEVER'}})}catch(e){badGate=String(e.message).includes('HUMAN_GATE')}
+  assert(badGate,'invalid human gate must fail closed');
   let unresolved=false;try{buildSubmission('/definitely-not-a-field-route',{},sources)}catch(e){unresolved=String(e.message).includes('UNRESOLVED_SOURCE')}
   assert(unresolved,'unknown source must fail closed');
   if(fail.length){console.error('FIELD STAGE HANDOFF SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
-  console.log('FIELD STAGE HANDOFF SELFTEST PASS · exact object → existing crew handoff · authority NONE');
+  console.log('FIELD STAGE HANDOFF SELFTEST PASS · exact object → human gate → existing crew handoff · authority NONE');
 }
 
 const args=process.argv.slice(2);
