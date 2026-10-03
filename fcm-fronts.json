@@ -1,6 +1,7 @@
 {
   "schema": "0xxx0/fcm-fronts/v0.1",
   "max_active": 3,
+  "updated": "2026-10-03",
   "active": [
     {
       "id": "release-comms",
@@ -8,6 +9,11 @@
       "operation": "SURFACE",
       "question": "Can a stranger arrive → understand → inspect/use → contact/return?",
       "done_when": "Public route, comprehension path, contact/return path and one external-use receipt exist.",
+      "state": "ADVANCING · bounded slice only (Laconic/Iconic + transport UX); external sending HELD per CURRENT",
+      "evidence": [
+        "/returns/LACONIC_FIELD_ACTIONS_2026-10-03.json",
+        "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json"
+      ],
       "anchors": [
         "KS-003",
         "ST-001",
@@ -20,6 +26,11 @@
       "operation": "SENSE → STATE → ACTUATE",
       "question": "Can one real home event complete observation → decision → action → observed effect → receipt?",
       "done_when": "One already-owned endpoint completes a measured round trip without shopping dependency.",
+      "state": "ACTIVE · two-worker proof harness implemented; real second worker / home round-trip pending",
+      "evidence": [
+        "/returns/HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.json",
+        "/returns/HOUSE_HOMEBASE_SPATIAL_DOCK_2026-10-03.json"
+      ],
       "anchors": [
         "APP-041",
         "WD-020",
@@ -32,6 +43,11 @@
       "operation": "PROJECT → ACTUATE → PROVE",
       "question": "Can one canonical object cross representation or machinery and return measurable evidence?",
       "done_when": "One source survives a useful transformation and returns with identity + result + evidence intact.",
+      "state": "HOLD_CURRENT_HEAD · AXIAL / FOCUS STACK 0.7.3; ordinary use + exported witnesses decide retain/revise/revert",
+      "evidence": [
+        "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json",
+        "/returns/FIELD_MACHINE_REDUCER_SURFACE_2026-09-30.json"
+      ],
       "anchors": [
         "APP-001",
         "SL-012",
@@ -39,5 +55,5 @@
       ]
     }
   ],
-  "note": "These are execution slots, not permanent projects. Swap only after RETURN."
+  "note": "These are execution slots, not permanent projects. Swap only after RETURN. States reviewed 2026-10-03 against control/CURRENT.json + returns/: all three still reflect live work; none done or obsolete."
 }
