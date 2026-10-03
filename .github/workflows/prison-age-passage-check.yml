@@ -1,0 +1,32 @@
+name: Prison Age Passage Check
+
+on:
+  pull_request:
+    paths:
+      - 'prison-age/**'
+      - 'tools/prison-age-passage-*'
+      - 'fold-bloom/read-course.js'
+      - 'lib/field-convergence-adapter.js'
+      - '.github/workflows/prison-age-passage-check.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'prison-age/**'
+      - 'tools/prison-age-passage-*'
+      - 'fold-bloom/read-course.js'
+      - 'lib/field-convergence-adapter.js'
+      - '.github/workflows/prison-age-passage-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  passage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate exact-source passage contract
+        run: node tools/prison-age-passage-selftest.cjs
+      - name: Browser-test shareable passage READ/RIDE/RETURN
+        run: node tools/prison-age-passage-smoke.mjs
