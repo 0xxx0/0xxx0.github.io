@@ -6,9 +6,10 @@
 // manifest), and live open PRs (fetched client-side from the GitHub API).
 // Local-only material (trophies, research, kanban) deliberately stays local.
 //
-// This writes desk/data.json. Run it whenever returns/ changes. Honest gap:
-// it is not yet wired to run on push — see the desk receipt. That is the one
-// remaining "designed but not running" line on this surface.
+// This writes desk/data.json. `.github/workflows/field-desk-refresh.yml` owns
+// automatic regeneration when returns, the manifest, this generator, or the
+// refresh workflow itself changes. The generated file does not retrigger that
+// workflow, so the projection converges without a commit loop.
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';

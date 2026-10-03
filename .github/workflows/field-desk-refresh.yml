@@ -1,0 +1,74 @@
+name: FIELD Desk Refresh
+
+# desk/data.json is a generated public projection of durable RETURN receipts +
+# registered FIELD routes. Keep it current when its actual sources change so
+# the operator does not become the synchronization mechanism.
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'returns/**/*.json'
+      - 'showcase-manifest.json'
+      - 'tools/gen-desk-data.mjs'
+      - '.github/workflows/field-desk-refresh.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: field-desk-refresh-master
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Regenerate public FIELD DESK projection
+        run: node tools/gen-desk-data.mjs
+
+      - name: Validate generated JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('desk/data.json','utf8')); console.log('desk/data.json valid')"
+
+      - name: Commit only when projection changed
+        id: commit
+        run: |
+          if git diff --quiet -- desk/data.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "FIELD DESK already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add desk/data.json
+          git commit -m "desk: refresh public field data"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Publish with bounded concurrent-writer retry
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if git push origin HEAD:master; then
+              exit 0
+            fi
+            echo "master moved; replaying generated projection (attempt $attempt/3)"
+            git fetch origin master
+            git rebase origin/master
+            node tools/gen-desk-data.mjs
+            git add desk/data.json
+            if ! git diff --cached --quiet; then
+              git commit --amend --no-edit
+            fi
+          done
+          echo "FIELD DESK refresh could not publish after 3 bounded retries" >&2
+          exit 1
