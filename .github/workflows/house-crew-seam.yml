@@ -18,7 +18,7 @@ permissions:
 jobs:
   prove:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     env:
       SMOKE_SLOW: '2'
     steps:
@@ -33,4 +33,6 @@ jobs:
       - name: Prove REALITY harness structure still holds
         run: node tools/house-reality-harness-selftest.mjs
       - name: Browser-probe HOUSE REALITY host
-        run: node tools/browser-smoke.mjs --target house-reality
+        env:
+          SMOKE_ONLY: 'HOUSE REALITY harness'
+        run: node tools/browser-smoke.mjs
