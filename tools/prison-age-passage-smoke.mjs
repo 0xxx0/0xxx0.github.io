@@ -21,7 +21,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(doors.length!==4||!/Nothing between fragments is written for you/.test(rec.intro.law))throw Error('passage threshold');
 
  doors[0].click();
- await wait(()=>W().PrisonAgePassage.snapshot().trail.length===1&&D().getElementById('papRoute').classList.contains('on'),5000,'enter route');
+ await wait(()=>W().PrisonAgePassage.snapshot().trail.length===1&&D().getElementById('papRoute').classList.contains('on')&&D().querySelector('#papContext mark'),5000,'verified entry route');
  let snap=W().PrisonAgePassage.snapshot(),packet=W().PrisonAgePassage.packet(),held=packet.nodes.at(-1);
  rec.enter={trail:snap.trail,current:snap.current,source:held.source_id,address:held.address,text:held.text,mark:!!D().querySelector('#papContext mark')};
  if(!rec.enter.mark||!held.address.startsWith('source-echo://'))throw Error('exact addressed context');
@@ -31,12 +31,12 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(!read.includes('src='+encodeURIComponent(held.path))||!read.includes('ap_char='+held.start)||!read.includes('return='))throw Error('exact READ context');
 
  const beforeSource=held.source_id;D().getElementById('papCross').click();
- await wait(()=>W().PrisonAgePassage.snapshot().trail.length===2,5000,'cross echo');
+ await wait(()=>W().PrisonAgePassage.snapshot().trail.length===2&&D().querySelector('#papContext mark'),5000,'cross echo');
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.cross={source:held.source_id,transition:packet.transitions[0]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.cross.transition!=='CROSS_ECHO'||held.source_id===beforeSource)throw Error('cross evidence law');
 
  const turn=[...D().querySelectorAll('#papTurns [data-turn]')][0];if(!turn)throw Error('turn source missing');const crossSource=held.source_id;turn.click();
- await wait(()=>W().PrisonAgePassage.snapshot().trail.length===3,5000,'turn source');
+ await wait(()=>W().PrisonAgePassage.snapshot().trail.length===3&&D().querySelector('#papContext mark'),5000,'turn source');
  packet=W().PrisonAgePassage.packet();held=packet.nodes.at(-1);rec.turn={source:held.source_id,transition:packet.transitions[1]?.kind,trail:packet.nodes.map(x=>x.key)};
  if(rec.turn.transition!=='TURN_SOURCE'||held.source_id!==crossSource)throw Error('same-source turn law');
 
@@ -48,15 +48,19 @@ const W=()=>f.contentWindow,D=()=>W().document;
  const returnText=D().getElementById('papReturnBody').textContent,meta=D().getElementById('papReturnMeta').textContent;rec.return={meta,nodes:packet.nodes.length,contains:packet.nodes.every(n=>returnText.includes(n.text)),url:W().PrisonAgePassage.snapshot().url};
  if(!rec.return.contains||!/3 exact source spans/.test(meta)||!/authority EVIDENCE ONLY/.test(meta))throw Error('reader-made return');
 
- const core=W().PrisonAgePassageCore,decoded=core.decodeTrail(new URL(W().location.href).searchParams.get('trail'));rec.share={decoded,valid:core.validateTrail(await fetch('/prison-age/evidence-atlas.json').then(r=>r.json()),decoded).ok};
- if(decoded.length!==3||!rec.share.valid)throw Error('share route restore');
+ const expectedTrail=packet.nodes.map(x=>x.key),sharePath=W().PrisonAgePassage.snapshot().url,core=W().PrisonAgePassageCore,decoded=core.decodeTrail(new URL(W().location.href).searchParams.get('trail'));rec.share={decoded,valid:core.validateTrail(await fetch('/prison-age/evidence-atlas.json').then(r=>r.json()),decoded).ok,path:sharePath};
+ if(decoded.length!==3||!rec.share.valid)throw Error('share route encode');
+ f.src=sharePath;
+ await wait(()=>W().PrisonAgePassage?.snapshot&&JSON.stringify(W().PrisonAgePassage.snapshot().trail)===JSON.stringify(expectedTrail)&&D().querySelector('#papContext mark'),12000,'shared route reload');
+ const restored=W().PrisonAgePassage.packet();rec.share.restored=restored.nodes.map(x=>x.key);rec.share.exact=restored.nodes.every((n,i)=>n.key===packet.nodes[i].key&&n.address===packet.nodes[i].address&&n.text===packet.nodes[i].text);
+ if(!rec.share.exact)throw Error('share route exact restore');
 
  D().getElementById('papClose').click();rec.closed=D().getElementById('paPassage').hidden&&!W().location.search.includes('passage=1');if(!rec.closed)throw Error('return source');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
-function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=470,940','--virtual-time-budget=28000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},42000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
+function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=470,940','--virtual-time-budget=34000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},48000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
 await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));PORT=server.address().port;
 try{
  const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
