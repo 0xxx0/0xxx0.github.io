@@ -1,0 +1,43 @@
+{
+  "schema": "0xxx0/return-receipt/v0.1",
+  "at": "2026-10-03T13:37:00+08:00",
+  "object": "HOUSE / FIELD · ENV-0 HUMAN HARNESS × CREW SEAM",
+  "state": "IMPLEMENTED_PROOF_HARNESS / REAL_SECOND_WORKER_PENDING",
+  "route": "/house/",
+  "result": [
+    "Specified a concrete six-layer human harness around one HOUSE locus: BODY, HARNESS, OBJECT, ROOM, HOUSE, NETWORK.",
+    "Separated execution phase from reality layer: UNBOUND → ORIENTED → EQUIPPED → ENGAGED → ACTED → WITNESSED → RETURNED.",
+    "Separated human gate from effect authority: NONE/PING/CHOOSE/WORLD_RETURN never by themselves grant physical, host-native or HA/HOUSEBUS effects.",
+    "Implemented a pure Human Harness state/transition core with fail-closed ACT and WITNESS transitions plus future browser hooks.",
+    "Implemented bounded two-worker handoff, return, feedback validation and proof scoring for CREW SEAM.",
+    "Defined treatment as one bounded packet + exact native sources and control as broad native HOUSE context; private chat history is not committed merely to create a control.",
+    "Encoded seeded failures for wrong locus, avoidable rebrief, invented world facts, effect attempts, transcript proxies, unbounded moves, schema drift, KEEP-as-permission, ignored WRONG_FRAME, context leakage and stale-as-current.",
+    "Added deterministic self-tests and a dedicated CI lane.",
+    "Updated house/crew-card.json so future workers can discover the Human Harness and two-worker protocol without widening HOUSE authority."
+  ],
+  "authority": {
+    "human_harness": "NONE / COORDINATION AND PROJECTION ONLY",
+    "crew_handoff": "OFFER_ONLY",
+    "public_house": "NO PHYSICAL OR HA/HOUSEBUS ACTUATION",
+    "human": "preference, framing, physical observation and irreversible decision",
+    "native_hosts": "effects only under their own permissions"
+  },
+  "verification": {
+    "deterministic_tests": "PENDING CI",
+    "real_worker_b": "PENDING",
+    "physical_return": "NOT CLAIMED",
+    "release_promotion": "WITHHELD UNTIL REAL TWO-WORKER RETURN"
+  },
+  "evidence": [
+    "/house/human-harness.json",
+    "/house/human-harness.js",
+    "/house/two-worker-proof.json",
+    "/house/two-worker-proof.js",
+    "/house/crew-card.json",
+    "/tools/house-human-harness-selftest.mjs",
+    "/tools/house-two-worker-proof-selftest.mjs",
+    "/.github/workflows/house-human-harness-proof.yml",
+    "/control/confluence/HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.md"
+  ],
+  "next": "Run one genuinely independent Worker B with only the bounded handoff + named sources. Promote visible host wiring only if the return preserves locus/intent/authority and reduces rebrief/search cost."
+}
