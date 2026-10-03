@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-02T23:07:00.596Z",
+  "generated": "2026-10-03T04:57:34.730Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
-  "commits_window": "2026-10-02",
-  "commits_in_window": 146,
-  "git_commits_in_window": 249,
-  "telemetry_commits_in_window": 103,
-  "commits_total": 4740,
-  "branch_count": 882,
+  "commits_window": "2026-10-03",
+  "commits_in_window": 140,
+  "git_commits_in_window": 195,
+  "telemetry_commits_in_window": 55,
+  "commits_total": 4819,
+  "branch_count": 955,
   "recent_commits": [
-    "return: seal merged FIELD AWAKE visor v2",
-    "FIELD: restore AWAKE as the professional INTERPHASE visor (#827)",
-    "HOUSE: capture home-base and loadout game UX donors"
+    "Merge PR #896: minimum same-object crew turn",
+    "crew: expose minimum same-object turn fast path",
+    "test: freeze minimum same-object crew execution shape"
   ],
   "active_fronts": [
     {

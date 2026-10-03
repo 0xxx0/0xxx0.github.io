@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-02T23:07:00.596Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-03T04:57:34.730Z by scripts/generate-convergence-strip.mjs_
 
-The field has **146 material commits on 2026-10-02** across **882 branches** (249 exact Git commits in the window; 103 generated telemetry; 4740 on master all-time).
+The field has **140 material commits on 2026-10-03** across **955 branches** (195 exact Git commits in the window; 55 generated telemetry; 4819 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- return: seal merged FIELD AWAKE visor v2
-- FIELD: restore AWAKE as the professional INTERPHASE visor (#827)
-- HOUSE: capture home-base and loadout game UX donors
+- Merge PR #896: minimum same-object crew turn
+- crew: expose minimum same-object turn fast path
+- test: freeze minimum same-object crew execution shape
 
 ## Open gaps
 
