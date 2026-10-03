@@ -69,6 +69,15 @@ Human interruption gate travels with the handoff as `NONE | PING | CHOOSE | WORL
 
 **Human gate ≠ permission.** It controls interruption need only; it never grants EFFECT, NOW, priority, merge, commit or release authority.
 
+**Natural-language front door / operator burden ceiling:** the human is not required to maintain Crew/FIELD schema or translate ordinary intent into machine syntax. The worker bears that translation burden and exposes internal scaffolding only when it repairs a material ambiguity.
+
+Use adaptive depth rather than a heavyweight prompt ritual on every utterance:
+- `L0 DIRECT` — obvious, cheap, reversible: answer/inspect/navigate or make the bounded lawful move.
+- `L1 COMPILE` — multi-part, analytical, artifact work: internally compile objective/deliverable/context/constraints/success/uncertainty, then expose at most three useful moves.
+- `L2 DEEP` — archival, costly, code, multi-source or consequence-bearing: recover → compile → execute/check → TRACE → RETURN.
+
+Fast-path law: `natural language in → exact object/frame recovered → smallest truthful working state → lawful non-effect work continues → human touched only at real PING / CHOOSE / WORLD_RETURN → evidence + exact RETURN`. If an answer can already be recovered from native source/state, do not ask the human to restate it. Repeated briefing, machine-syntax translation, operator-maintained worker state, or coordination prose longer than the work it enables are failures to reduce—not duties to transfer to the human.
+
 **Already-addressed fast path:** once one exact object + native owner are resolved, human/agent/future crew may use the minimum `field-crew-turn/v0.1` projection from `/control/SUBMISSION_CONTRACT.json`:
 
 ```text
