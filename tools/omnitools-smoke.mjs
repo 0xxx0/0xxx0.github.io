@@ -32,21 +32,21 @@ const W=()=>f.contentWindow,D=()=>W().document;
  d.querySelector('[data-mode="scan"]').click();d.getElementById('loadMode').click();
  await wait(()=>d.querySelector('[data-mode="scan"].toolPane')?.contentDocument?.getElementById('in')?.value===source.value,5000,'scan source handoff');
  const sd=d.querySelector('[data-mode="scan"].toolPane').contentDocument;
- await wait(()=>sd.getElementById('out')?.textContent?.trim(),5000,'scan result');
+ await wait(()=>/email/i.test(sd.getElementById('out')?.textContent||''),5000,'scan result');
  rec.scan={same:sd.getElementById('in').value===source.value,result:sd.getElementById('out').textContent.trim().slice(0,100)};
  if(!rec.scan.same)throw Error('scan source identity lost');
 
  d.querySelector('[data-mode="read"]').click();d.getElementById('loadMode').click();
  await wait(()=>d.querySelector('[data-mode="read"].toolPane')?.contentDocument?.getElementById('in')?.value===source.value,5000,'read source handoff');
  const rd=d.querySelector('[data-mode="read"].toolPane').contentDocument;
- await wait(()=>rd.getElementById('grid')?.textContent?.trim(),5000,'read result');
+ await wait(()=>{const s=(rd.getElementById('grid')?.textContent||'').replace(/\s+/g,'');return s&&!/COUNTS0characters/i.test(s)},5000,'read result');
  rec.read={same:rd.getElementById('in').value===source.value,result:rd.getElementById('grid').textContent.trim().slice(0,100)};
  if(!rec.read.same)throw Error('read source identity lost');
 
- rec.trace=[...d.querySelectorAll('#trace .traceItem b')].map(x=>x.textContent).slice(0,6);
+ await wait(()=>{const xs=[...d.querySelectorAll('#trace .traceItem b')].map(x=>x.textContent);return xs.some(x=>/OBSERVED · READ/.test(x))&&xs.some(x=>/OBSERVED · SCAN/.test(x))},5000,'observed cross-axis trace');
+ rec.trace=[...d.querySelectorAll('#trace .traceItem b')].map(x=>x.textContent).slice(0,8);
  rec.overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
  if(rec.overflow>1)throw Error('horizontal overflow '+rec.overflow);
- if(!rec.trace.some(x=>/OBSERVED · READ/.test(x))||!rec.trace.some(x=>/OBSERVED · SCAN/.test(x)))throw Error('cross-axis trace missing');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
