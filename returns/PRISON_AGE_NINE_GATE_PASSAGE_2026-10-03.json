@@ -1,0 +1,69 @@
+{
+  "schema": "prison-age.nine-gate-passage-implementation-return/v0.1",
+  "generated_at": "2026-10-03T08:50:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE / CI_REQUIRED_BEFORE_MERGE",
+  "object": "/prison-age/",
+  "aperture": "/prison-age/?passage=nine&gate=1",
+  "route_schema": "prison-age.source-route/v0.1",
+  "return_schema": "prison-age.passage-return/v0.1",
+  "authority": "EVIDENCE_ONLY",
+  "delta": [
+    "add one in-host Nine Gate Passage aperture to the existing Prison Age source resolver",
+    "order nine exact addressed source movements as ORIGIN → WEATHER → FOLD → PROVENANCE → PRISON → MODEL → NEXT → TOOL → RETURN",
+    "resolve every displayed fragment exactly once against current declared source bytes before the aperture can open",
+    "distinguish ECHO_EXACT_SELECTED, ECHO_SOURCE_PAIR, SOURCE_CONTINUITY and EDITORIAL transitions visibly",
+    "deep-link every gate through ?passage=nine&gate=N",
+    "READ THIS addresses READFIELD at the selected source character",
+    "RIDE THIS preserves exact source authority and selected span for anthology movements; the full proto-root retains its authored recurrence projection",
+    "emit evidence-only passage RETURN with exact visited addresses, actual traversal trail, typed crossed transitions, residue boundaries and embedded generic FIELD return envelope when available"
+  ],
+  "preserves": [
+    "PRISON_AGE source authority",
+    "source fingerprints and bytes",
+    "FIELD native actions remain READ / RIDE / SOURCE",
+    "2021 proto-root remains provenance-distinct",
+    "authored RECURRENCE remains distinct from cross-source ECHO",
+    "Evidence Atlas remains EVIDENCE_ONLY",
+    "retired synthetic/bespoke reader remains retired",
+    "exact RETURN to /?focus=%2Fprison-age%2F"
+  ],
+  "does_not_claim": [
+    "the curated passage order is canon",
+    "editorial adjacency is causality or interpretation",
+    "ECHO is thematic equivalence",
+    "traversal is comprehension or agreement",
+    "a new Prison Age story was authored by the runtime",
+    "FIELD gained a fourth action",
+    "the line ‘I’m always behind you’ belongs to recovered Prison Age source material"
+  ],
+  "evidence": [
+    "/prison-age/passage.json",
+    "/prison-age/passage.js",
+    "/tools/prison-age-passage-selftest.cjs",
+    "/tools/prison-age-passage-smoke.mjs",
+    "/prison-age/evidence-atlas.json",
+    "/prison-age/sources.json",
+    "/prison-age/release.json"
+  ],
+  "verification_contract": {
+    "workflow": "/.github/workflows/prison-age-passage-check.yml",
+    "required": [
+      "all nine gate fragments resolve exactly once in current source bytes",
+      "FIELD operations array remains unchanged",
+      "ECHO card references resolve and selected-fragment scope is enforced",
+      "same-source continuity moves forward in exact source order",
+      "shareable deep link restores addressed gate",
+      "READ and RIDE agree on selected anthology source offset",
+      "nine visited movements produce nine exact source addresses",
+      "RETURN is EVIDENCE_ONLY with NEXT = NONE_UNTIL_REPLAN",
+      "generic field-return-envelope/v0.1 validates on completed traversal"
+    ]
+  },
+  "open_questions": [
+    "Does the nine-movement sequence produce a coherent felt arc for a context-free reader without needing connective narration?",
+    "Should lived use retain all nine movements or subtract one or more while preserving the exact-source arc?",
+    "Does Gate 01 benefit from the authored RECURRENCE projection during Passage, or is the source-native passage view sufficient before Gate 02?",
+    "Which exact traversed addresses, if any, should later become shareable route ghosts without turning reading history into comprehension scoring?"
+  ],
+  "next_gate": "Context-free and returning-reader use after CI. Subtract before adding narrative machinery."
+}
