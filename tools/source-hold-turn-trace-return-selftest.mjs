@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 const p=JSON.parse(fs.readFileSync(new URL('../control/SOURCE_HOLD_TURN_TRACE_RETURN.json',import.meta.url),'utf8'));
+const submission=JSON.parse(fs.readFileSync(new URL('../control/SUBMISSION_CONTRACT.json',import.meta.url),'utf8'));
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 const ids=p.stages.map(x=>x.id);
 assert(p.schema==='0xxx0/source-hold-turn-trace-return/v0.1','schema');
@@ -37,3 +38,19 @@ assert(dc.laws.some(x=>x.includes('second addressed context')),'propagation evid
 assert(dc.laws.some(x=>x.includes('no shared adoption store')),'no adoption authority');
 assert(p.coding_model_instruction[4].includes('optional downstream_consequence'),'coding RETURN consequence instruction');
 console.log('DOWNSTREAM CONSEQUENCE optional evidence block PASS');
+
+const min=submission.minimum_execution_projection;
+assert(min?.schema==='field-crew-turn/v0.1','minimum crew-turn schema');
+assert(min.leaf_count===10,'minimum crew-turn leaf count');
+assert(Object.keys(min.shape||{}).join('>')==='source>hold>turn>trace>return','minimum crew-turn stage order');
+assert(Object.keys(min.shape.source||{}).join('|')==='object|owner','minimum SOURCE shape');
+assert(Object.keys(min.shape.hold||{}).join('|')==='delta','minimum HOLD shape');
+assert(Object.keys(min.shape.turn||{}).join('|')==='move|release','minimum TURN shape');
+assert(Object.keys(min.shape.trace||{}).join('|')==='status|result|evidence','minimum TRACE shape');
+assert(Object.keys(min.shape.return||{}).join('|')==='gate|to','minimum RETURN shape');
+assert(min.invariants.some(x=>x.includes('source.object is immutable')),'same-object invariant');
+assert(min.invariants.some(x=>x.includes('exactly one operation')),'one-turn invariant');
+assert(min.invariants.some(x=>x.includes('no next field')&&x.includes('no actor field')),'no actor/NEXT authority surface');
+assert(!JSON.stringify(min.shape).includes('actor')&&!JSON.stringify(min.shape).includes('next'),'minimum packet leaked actor/NEXT field');
+assert(/full submission envelope/.test(min.intake_boundary)&&/minimum projection is sufficient/.test(min.intake_boundary),'intake→execution boundary');
+console.log('MINIMUM CREW TURN PASS · one object + owner · one delta · one move · witnessed result · exact return');

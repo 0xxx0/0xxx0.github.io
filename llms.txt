@@ -60,6 +60,18 @@ Structured form:
 
 Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves and selected TURN on an unresolved object fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
 
+**Already-addressed fast path:** once one exact object + native owner are resolved, human/agent/future crew may use the minimum `field-crew-turn/v0.1` projection from `/control/SUBMISSION_CONTRACT.json`:
+
+```text
+source  { object, owner }
+hold    { delta }
+turn    { move, release }
+trace   { status, result, evidence[] }
+return  { gate, to }
+```
+
+Ten leaf fields. `source.object` stays the same end-to-end. `turn.move` is exactly one operation. `release` is `NONE` unless an explicit native commit/RELEASE boundary is crossed. There is deliberately no `actor` field and no `next` field: crew identity does not grant authority, and RETURN closes authority. Use the full submission envelope only while object/host/provenance/contribution classification is unresolved.
+
 When the object is already known but nobody should hand-copy CURRENT/manifest context, prefill that **same** submission/handoff contract from one exact route or CURRENT lineage:
 
 `node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> --submission > /tmp/field-submission.json`
