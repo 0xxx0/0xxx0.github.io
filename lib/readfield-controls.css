@@ -1,0 +1,64 @@
+.workDeck,#focusView,#pulseSync,#pulseState{display:none!important}
+.viewerHead #copyView,.viewerHead #markHere,.viewerHead #nextMark,.viewerHead #rideLive{display:none!important}
+
+body{padding-bottom:var(--rf-reserve,182px)}
+.rf-plane{position:fixed;z-index:2147481000;left:50%;bottom:max(8px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(780px,calc(100vw - 16px));container-type:inline-size;background:#070a0cee;border:1px solid #344047;box-shadow:0 14px 42px #000b;backdrop-filter:blur(14px);color:#edf0ed;font:10px/1.25 ui-monospace,SFMono-Regular,Menlo,monospace}
+.rf-plane *{box-sizing:border-box}
+.rf-row{display:flex;align-items:center;gap:4px;padding:5px}
+.rf-row+.rf-row{border-top:1px solid #273136}
+.rf-plane button,.rf-plane select{min-height:40px;min-width:40px;border:1px solid #354046;background:#0a0e10;color:#e3e8e6;padding:7px 9px;font:inherit}
+.rf-plane button:focus-visible,.rf-plane select:focus-visible,.rf-plane input:focus-visible{outline:2px solid #8dd5ff;outline-offset:1px}
+.rf-plane button:active{transform:translateY(1px)}
+.rf-mode{flex:1;color:#849197!important}
+.rf-mode.on{background:#edf0ed!important;color:#090b0c!important;border-color:#edf0ed!important}
+.rf-status{min-width:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#89969b;padding:0 4px}
+.rf-command{display:grid;grid-template-columns:minmax(180px,1fr) auto 44px;align-items:center}
+.rf-transport{display:grid;grid-template-columns:44px minmax(100px,1fr) 44px;gap:4px;min-width:0}
+.rf-play{border-color:#e87548!important;color:#ffd0bd!important;font-weight:800!important}
+.rf-tune{display:flex;gap:4px;min-width:0}
+.rf-speed{display:grid;grid-template-columns:42px 78px 42px;gap:4px}
+.rf-speed output{display:grid;place-items:center;border:1px solid #354046;color:#8dd5ff;min-height:40px}
+.rf-scale{min-width:122px;max-width:170px}
+.rf-progress{width:100%;height:30px;accent-color:#e87548}
+.rf-more{margin-left:auto}
+.rf-drawer{display:none;gap:4px;flex-wrap:wrap;padding:5px;border-top:1px solid #283136;max-height:42vh;overflow:auto}
+.rf-plane.open .rf-drawer{display:flex}
+.rf-drawer button{flex:1 1 90px}
+.rf-help{flex:1 1 100%;color:#718086;padding:4px 2px;line-height:1.45}
+.rf-kbd{color:#a8b6bb}
+
+/* Component density follows the space the control plane actually receives,
+   not a guessed device class. Secondary tuning folds behind MORE on narrow hosts. */
+@container (max-width:560px){
+  .rf-row{padding:4px}
+  .rf-plane button,.rf-plane select{min-height:44px}
+  .rf-command{grid-template-columns:minmax(0,1fr) 44px}
+  .rf-tune{display:none;grid-column:1/-1;grid-row:2;grid-template-columns:minmax(0,1fr) minmax(108px,38%);gap:4px;padding-top:4px}
+  .rf-plane.open .rf-tune{display:grid}
+  .rf-speed{grid-template-columns:44px minmax(54px,1fr) 44px}
+  .rf-speed output{min-height:44px}
+  .rf-scale{width:100%;min-width:0;max-width:none}
+  .rf-status{font-size:8px}
+  .rf-drawer button{min-height:44px}
+  .rf-progress{height:34px}
+}
+@container (max-width:390px){
+  .rf-mode{padding-inline:5px}
+  .rf-status{font-size:7.5px}
+  .rf-help{font-size:8px}
+}
+
+/* Host-level reading projection still depends on the viewport; component controls above do not. */
+@media(max-width:760px){
+  .readerUses{display:none!important}
+  .viewer{overflow:visible;min-height:auto}
+  .reading{max-height:none!important;overflow:visible!important;min-height:36vh;font-size:16px!important;line-height:1.72!important;padding:16px!important}
+  .viewerHead{position:static}
+  .sourceShelf{margin-bottom:5px}
+  .apStage{padding:4px}
+  .rf-plane{bottom:max(4px,env(safe-area-inset-bottom));width:calc(100vw - 8px)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .rf-plane button:active{transform:none}
+}
