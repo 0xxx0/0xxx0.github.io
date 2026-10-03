@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T14:29:15+08:00",
+  "updated": "2026-10-03T14:35:07+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -21,7 +21,7 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-03T13:15:52+08:00",
+        "updated_at": "2026-10-03T14:35:07+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
