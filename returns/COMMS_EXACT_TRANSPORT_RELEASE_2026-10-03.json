@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "COMMS_EXACT_TRANSPORT_RELEASE_2026-10-03",
+  "date": "2026-10-03",
+  "state": "MERGED_RUNTIME / AUTHORITY_ALIGNED_CANDIDATE",
+  "object": "COMMS SPINE 0.1.4 / exact email transport release",
+  "predecessor": "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+  "operation": "exact source-addressed response → NO_SEND → HUMAN_RELEASE → external provider → provider receipt → EVIDENCE_ONLY RETURN",
+  "delta": [
+    "Recover already-merged PR #828 transport into CURRENT, manifest and native release authority.",
+    "Move CURRENT comms head from generic /port/ to executable /port/comms/.",
+    "Expose exactly one FIELD-native RELEASE EMAIL navigation edge; effect authority remains COMMS + operator/provider.",
+    "Auto-open the existing transport panel for that exact deep-link; no automatic send or destination selection.",
+    "Decouple HUMAN_RELEASE validity from clipboard permission and make visible NOT YET SENT witness atomic with released state.",
+    "Prove demo source + exact non-empty draft → deep-link → HUMAN_RELEASE without sending."
+  ],
+  "laws": [
+    "RUNTIME SHIPPED ≠ CANONICAL UNTIL CURRENT / MANIFEST / NATIVE RELEASE AGREE",
+    "NO_SEND → HUMAN_RELEASE → PROVIDER RECEIPT → EVIDENCE_ONLY RETURN",
+    "OPEN MAIL CLIENT ≠ SENT",
+    "TRANSPORT RETURN CANNOT MUTATE COMMS STATE"
+  ],
+  "evidence": [
+    "/port/comms/transport.js",
+    "/port/comms/transport-ui.js",
+    "/port/comms/release.json",
+    "/tools/comms-transport-deeplink-smoke.mjs",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/828"
+  ],
+  "verification": {
+    "prior_exact_head": {
+      "route_registration": 37077425604,
+      "public_surface": 37077425593,
+      "gitleaks": 37077425619
+    },
+    "candidate": "fresh exact-head CI required after canonical registration + deep-link smoke"
+  },
+  "next": "Use this path on an actual source-addressed response; after provider evidence returns, change native COMMS state only by explicit COMMS action.",
+  "stop": "Do not add another transport abstraction, background sender, contact registry, retry queue or cross-app authority layer."
+}

@@ -2,10 +2,10 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1.3.0",
-  "date": "2026-09-23",
-  "state": "MERGED_ACTIVE_CANDIDATE",
-  "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
+  "version": "0.1.4",
+  "date": "2026-10-03",
+  "state": "CANDIDATE_CI_REQUIRED",
+  "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bounded explicit email release and exact transport evidence remain unequal projections beside it.",
   "source_model": {
     "schema": "comms-spine/v0.1",
     "identity": "SHA-256 of exact pasted source text in browser",
@@ -19,7 +19,11 @@
     "response/handoff lane with explicit coverage state",
     "comms-spine-agent-packet/v0.1",
     "comms-spine-return/v0.1",
-    "source-bearing RETURN import/resume restores exact thread, human marks, states, response and coverage"
+    "source-bearing RETURN import/resume restores exact thread, human marks, states, response and coverage",
+    "comms-transport-candidate/v0.1 · NO_SEND",
+    "comms-transport-release/v0.1 · HUMAN_RELEASE",
+    "comms-provider-receipt/v0.1",
+    "comms-transport-return/v0.1 · EVIDENCE_ONLY"
   ],
   "provenance_classes": {
     "DERIVED": "weak deterministic heuristic suggestion; confidence < 1; never human intent truth",
@@ -40,8 +44,12 @@
     "COVERED != DELETED",
     "SUMMARY/TASK/RESPONSE != SOURCE",
     "OPEN RESIDUE SURVIVES RETURN",
-    "NO NETWORK SEND AUTHORITY",
-    "SESSION-ONLY BY DEFAULT; LOCAL PIN IS EXPLICIT"
+    "SESSION-ONLY BY DEFAULT; LOCAL PIN IS EXPLICIT",
+    "NO SILENT OR DELEGATED SEND AUTHORITY",
+    "HUMAN_RELEASE IS ONE EXACT PAYLOAD + ONE EXACT DESTINATION; NO RETRY / EDIT / FORWARD INHERITANCE",
+    "OPEN MAIL CLIENT ≠ SENT",
+    "SENT_CONFIRMED REQUIRES AN EXACT MATCHING PROVIDER RECEIPT",
+    "TRANSPORT EVIDENCE ≠ NATIVE COMMS STATE MUTATION"
   ],
   "interaction": {
     "non_scroll_primary": "whole thread is compressed into a horizontal spine; primary reading surface holds one addressed turn at a time",
@@ -50,14 +58,16 @@
     "machine_spot_resolution": "MACHINE items expose exactly two resolving actions: CONFIRM (promote to HUMAN at confidence 1; the operator now owns it) or DISMISS (state DROPPED; nothing deleted); no TARGET, no state cycle, no REMOVE, and neither action appears on HUMAN or DERIVED items",
     "response_coverage": "target signals then COVER / DEFER / REOPEN explicitly",
     "bot_handoff": "copy source-addressed agent packet; no summary-only handoff",
-    "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable"
+    "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable",
+    "transport": "RELEASE EMAIL → destination + optional subject → AUTHORIZE + COPY PACKET → OPEN MAIL CLIENT → optional exact provider receipt import → COPY VERIFIED RETURN"
   },
   "privacy": {
-    "network_send": false,
+    "network_send": "the web app performs no provider API send; only an explicit HUMAN_RELEASE may open the operator's external mail client with one exact payload",
     "default_storage": "sessionStorage",
     "optional_storage": "explicit PIN LOCAL → localStorage",
     "export": "user-triggered JSON download",
-    "human_port_import": "current HUMAN PORT text/JSON session object only"
+    "human_port_import": "current HUMAN PORT text/JSON session object only",
+    "transport_packet": "source transcript excluded; destination + response bytes/hash + source object id + release identity only"
   },
   "evidence": [
     "/port/comms/tests/core.test.mjs",
@@ -69,7 +79,15 @@
     "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
     "PR #359",
     "public-surface-check 36148842204 PASS",
-    "Route Registration 36148842258 PASS"
+    "Route Registration 36148842258 PASS",
+    "/port/comms/transport.js",
+    "/port/comms/transport-ui.js",
+    "/port/comms/tests/transport.test.mjs",
+    "/tools/comms-transport-deeplink-smoke.mjs",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/828",
+    "public-surface-check 37077425593 PASS",
+    "Route Registration 37077425604 PASS",
+    "gitleaks 37077425619 PASS"
   ],
   "promotion_gate": [
     "core tests preserve exact source slices through parser/signals/RETURN",
@@ -81,12 +99,14 @@
   "non_goals": [
     "no automatic semantic truth claim",
     "no LLM dependency for core usefulness",
-    "no message sending",
-    "no contact transport",
     "no chapter-summary navigation",
-    "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
+    "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router",
+    "no silent/background provider send",
+    "no automatic recipient selection",
+    "no inherited retry/edit/forward authorization",
+    "no delivery claim without exact provider receipt"
   ],
-  "next": "Use the merged COMMS ↔ Dayline return loop normally only when a real source-addressed signal naturally needs time/action. Ordinary phone feel is optional future evidence; revise only from concrete friction.",
+  "next": "Use the exact transport path when a real source-addressed response is ready: explicit HUMAN_RELEASE, operator-controlled provider send, exact receipt RETURN, then let native COMMS decide signal consequence.",
   "verification": {
     "pull_request": 176,
     "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
@@ -112,10 +132,31 @@
       "result": "PASS"
     },
     "real_source_browser": "PASS · exact user instruction · 430×900",
-    "real_phone_ordinary_use": "OPTIONAL_OBSERVATION"
+    "real_phone_ordinary_use": "OPTIONAL_OBSERVATION",
+    "transport_runtime_predecessor": {
+      "pull_request": 828,
+      "proof_head": "6ba48e70d1f205a1b09db75ab33b0adb47afead0",
+      "merge_sha": "8651bd325697c5c981bbf55d788bf83c6f50ffb8",
+      "route_registration": {
+        "run": 37077425604,
+        "result": "PASS"
+      },
+      "public_surface_check": {
+        "run": 37077425593,
+        "result": "PASS"
+      },
+      "gitleaks": {
+        "run": 37077425619,
+        "result": "PASS"
+      }
+    },
+    "authority_sync": "fresh exact-head CI required"
   },
-  "released": "2026-09-28",
+  "released": "2026-10-03",
   "changes": [
+    "Added exact email transport boundary: NO_SEND candidate → explicit HUMAN_RELEASE → one exact external mail-client handoff → exact provider receipt → EVIDENCE_ONLY RETURN.",
+    "Transport packet excludes source transcript bytes; response hash/source object identity bind evidence without publishing the conversation.",
+    "Added RELEASE EMAIL deep-link entry so FIELD can reach the native transport boundary directly while COMMS retains all effect/state authority.",
     "Added explicit OPEN-signal → Dayline handoff: prefer HUMAN-authored OPEN signal, otherwise preserve DERIVED origin visibly.",
     "The handoff preserves source SHA, message/range address, signal kind, origin and text without transferring the full conversation.",
     "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY; send authority remains absent.",
