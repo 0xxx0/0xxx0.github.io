@@ -44,6 +44,16 @@ Packet sweep / egress reduction:
 
 Use repeatable `--now-id`, `--selected-id`, or `--reactivate-id` only for explicit caller context. Batch contents never self-authorize NOW.
 
+Object-scoped crew handoff:
+
+`node scripts/emit-agent-transcript.mjs --handoff <route|lineage> [--intent "..."]`
+
+Structured form:
+
+`node scripts/emit-agent-transcript.mjs --handoff <route|lineage> --json`
+
+HANDOFF compiles one explicitly selected FIELD object into a transient `field-crew-handoff/v0.1` packet with authority `NONE / HANDOFF ONLY`: exact object/current-head identity, at most three native moves, current proof/RETURN refs, compact host boundaries and a SUBMISSION_CONTRACT-shaped return template. It does not mint NOW, queue position, effect authority, commit authority or merge authority. RETURN closes the turn; material repo work must re-attest CI PASS, exact candidate head, current native ancestry (`compare(master,candidate_head).behind_by === 0`) and mergeability before convergence may project MERGE.
+
 Contribution convergence:
 
 `node scripts/emit-agent-transcript.mjs --converge <candidate.json>`
