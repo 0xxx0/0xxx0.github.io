@@ -20,7 +20,9 @@
     "offline PWA cache",
     "HUMAN PORT object handoff accepted as ordinary review candidate",
     "source object id/hash/media/focus retained in ingress source provenance",
-    "FIELD INTAKE emits object-aware RETURN after APPLY/no-mutation review"
+    "FIELD INTAKE emits object-aware RETURN after APPLY/no-mutation review",
+    "per-record PUBLIC RELEASE compiles a deliberately reduced public projection into an editable local preview",
+    "OPEN GITHUB DRAFT is explicit egress only; opening review and COPY have no external effect, and GitHub submission remains operator-owned"
   ],
   "validation": {
     "core_tests": "5/5 pass",
@@ -32,9 +34,11 @@
     "continuity_handoff_authority_boundary": "candidate-only / existing gate sovereign",
     "port_object_handoff_js_syntax": "pass",
     "port_object_authority_boundary": "candidate-only / existing resolution + APPLY remains sovereign",
-    "port_object_handoff_roundtrip_contract": "pass (schema symmetry + receiptId RETURN verified statically)"
+    "port_object_handoff_roundtrip_contract": "pass (schema symmetry + receiptId RETURN verified statically)",
+    "public_release_selftest": "tools/field-intake-public-release-selftest.mjs",
+    "public_release_boundary": "raw capture, notes, parser evidence and undeclared fields excluded by default; packet is DRAFT_ONLY / NONE_UNTIL_OPERATOR_SUBMITS"
   },
-  "amended": "2026-09-21",
+  "amended": "2026-10-03",
   "integration_delta": [
     "accepts a same-origin CONTINUITY / CASE v0.2 handoff as ordinary review candidates",
     "consumes field.intake.handoff.v01 once, then clears the transport key",
@@ -42,11 +46,14 @@
     "accepts 0xxx0/port-object-to-field-intake/v0.1 through existing field.intake.handoff.v01 transport",
     "preserves sourceObjectId/sourceObject metadata through candidate edits and re-analysis",
     "local Port bytes remain outside canonical FIELD INTAKE state; candidate records reference portobj identity",
-    "APPLY emits human-port-object-return/v0.1 with exact receiptId; RETURN does not imply original file bytes were canonized"
+    "APPLY emits human-port-object-return/v0.1 with exact receiptId; RETURN does not imply original file bytes were canonized",
+    "canonical record → reduced public projection → editable local review → optional GitHub issue draft",
+    "public release does not create a sender, credential store, queue, authority layer or automatic repository mutation"
   ],
   "integration_contracts": [
     "/continuity/field-intake-adapter.json",
     "/port/object.schema.json",
-    "/port/routes.json"
+    "/port/routes.json",
+    "/field-intake/public-release.js"
   ]
 }
