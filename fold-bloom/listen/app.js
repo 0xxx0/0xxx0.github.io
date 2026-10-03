@@ -10,7 +10,7 @@ import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 import {sourceBundleFromMeta} from './source-bundle.js';
 import {hashHex} from '../../lib/id.js';
-import {$,fmtClock as fmt,fmtMark} from '../../lib/dom.js';
+import {$,fmtClock as fmt,fmtMark,toast as _toast} from '../../lib/dom.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
@@ -20,7 +20,8 @@ const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
 let renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
-function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
+// sticky, matching this host's original behaviour (no auto-hide). 33 call sites unchanged.
+const toast=(t)=>_toast(t,{ms:0});
 function status(t){const e=$('#status');if(e)e.textContent=t}
 function parseMarkTime(value,fallback=0){
   const raw=String(value??'').trim();if(!raw)return Math.max(0,Number(fallback)||0);
