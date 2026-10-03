@@ -3,9 +3,11 @@ import {
   buildHeldField,contextRoutes,lineageFor,projectionProfile,
   representationMismatch,residualMismatch,normalizeProjection
 } from "./core.mjs";
+import {paintingGeometry,representationTrial} from "./painting-plain.mjs";
 
 const manifest=JSON.parse(fs.readFileSync(new URL("../../showcase-manifest.json",import.meta.url),"utf8"));
 const current=JSON.parse(fs.readFileSync(new URL("../../control/CURRENT.json",import.meta.url),"utf8"));
+const registry=JSON.parse(fs.readFileSync(new URL("./EXPERIMENTS.json",import.meta.url),"utf8"));
 const routes=manifest.routes||[];
 const map=new Map(routes.map(r=>[r.href,r]));
 
@@ -39,6 +41,17 @@ assert(residualMismatch(axial,1)>=0.68*axial.irreducible-1e-12,"alignment may no
 assert(normalizeProjection("bogus")==="AXIAL_LATEST","unknown projections must fail to the root FIELD projection");
 assert(projectionProfile("GLYPH").preserve.includes("href"),"glyph identity/address preservation contract must be represented");
 
+const trial=representationTrial(manifest,current,candidate.href);
+assert(trial.ok,"PLAIN ↔ PAINTING must preserve the held semantic envelope exactly");
+assert(Object.values(trial.invariants).every(Boolean),"identity/actions/witness/RETURN must remain equal across representations");
+assert(trial.plain.semantic.authority==="VIEW_ONLY"&&trial.painting.semantic.authority==="VIEW_ONLY","representation trial may not gain effect authority");
+const shifted=JSON.parse(JSON.stringify(trial.painting.semantic));
+shifted.object.state=shifted.object.state+"__SELFTEST_SHIFT";
+assert(paintingGeometry(shifted).state_phase!==trial.painting.geometry.state_phase,"painting geometry must respond to held state rather than remaining decorative");
+assert(registry.authority==="R&D_PROJECTION_ONLY","experiment registry may not become queue/priority authority");
+assert(registry.experiments.some(x=>x.id==="E01_PAINTING_LAW_VS_PLAIN"&&x.status==="ACTIVE_BOUNDED_TEST"),"active painting-vs-PLAIN experiment must remain declared");
+assert(registry.circulation?.authority==="MNEMONIC_ONLY","five-phase circulation must remain a mnemonic, not ontology/authority");
+
 const noHeld=buildHeldField(manifest,current,null,"AXIAL_LATEST");
 assert(!noHeld.ok&&noHeld.reason==="NO_HELD_FIELD_OBJECT","runtime must fail closed without a held object");
 
@@ -52,5 +65,6 @@ console.log(JSON.stringify({
     visual:{total:visual.total,irreducible:visual.irreducible,transformable:visual.transformable},
     glyph:{total:glyph.total,irreducible:glyph.irreducible,transformable:glyph.transformable}
   },
-  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed"
+  painting_plain:{machine_pass:trial.ok,invariants:trial.invariants,authority:trial.authority,human_return:"PENDING_LOCAL_USE"},
+  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed; painting may change atmosphere/geometry but never semantic identity or authority"
 },null,2));

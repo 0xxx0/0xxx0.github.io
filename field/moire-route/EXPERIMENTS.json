@@ -1,0 +1,30 @@
+{
+  "schema":"field-representation-experiments/v0.1",
+  "updated":"2026-10-03T08:00:00+08:00",
+  "surface":"/field/moire-route/",
+  "authority":"R&D_PROJECTION_ONLY",
+  "law":"Hypothesis registry only: not CURRENT, QUEUE, priority, roadmap promise, feature debt or permission to create routes. One experiment may be ACTIVE.",
+  "promotion_gate":"Same held object + one changed representation variable + invariant authority/action/RETURN + observable benefit. RETAIN only after evidence; otherwise REVISE or PARK.",
+  "circulation":{"name":"WU_XING_FIVE_PHASE_RESEARCH_CIRCULATION","authority":"MNEMONIC_ONLY","cycle":[{"phase":"WOOD","operator":"GENERATE","field_move":"recover donor/mechanism → falsifiable hypothesis"},{"phase":"FIRE","operator":"EXPOSE","field_move":"make one controlled contrast visible"},{"phase":"EARTH","operator":"HOLD","field_move":"freeze object/authority/actions/evidence/RETURN"},{"phase":"METAL","operator":"CUT","field_move":"RETAIN / REVISE / PARK"},{"phase":"WATER","operator":"RETURN","field_move":"write witness/lineage/residue → next WOOD"}]},
+  "active_limit":1,
+  "experiments":[
+    {"id":"E01_PAINTING_LAW_VS_PLAIN","status":"ACTIVE_BOUNDED_TEST","donor":"/recovery/semantic-painting-v0.8/","held_object":"?focus=<exact manifest href>","hypothesis":"Atmospheric underpainting plus state-generated geometry can improve orientation/relationship perception without changing identity, lawful actions, witness, RETURN or authority.","one_variable":"PLAIN vs PAINTING_LAW","machine_gate":["same identity","same native actions","same witness","same RETURN","VIEW_ONLY"],"human_probe":["identify object","find next lawful action","perceive state/relationship"],"pass":"machine parity + human benefit + no next-action regression","stop":"three local comparisons or any semantic/authority drift","next_if_pass":"E02_MOIRE_VS_PLAIN","next_if_fail":"REVISE once or PARK"},
+    {"id":"E02_MOIRE_VS_PLAIN","status":"READY_AFTER_E01","hypothesis":"Fine/coarse interference makes projection loss easier to notice than plain mismatch alone.","one_variable":"interference visible vs numeric/plain","pass":"hidden/displaced residue detected faster without action drift","stop":"one held object, one projection"},
+    {"id":"E03_PAINTING_X_MOIRE","status":"PARKED_DEPENDENT","hypothesis":"Painting and interference can coexist without obscuring same-object/action boundaries.","one_variable":"combined representation","pass":"adds information beyond each retained parent alone","stop":"run only if E01 + E02 pass"},
+    {"id":"E04_UNDERPAINTING_OPACITY","status":"CANDIDATE","one_variable":"opacity","hypothesis":"low-opacity atmosphere can improve figure/ground separation without slowing action retrieval","stop":"three opacity points max"},
+    {"id":"E05_STATE_GEOMETRY_CHANNELS","status":"CANDIDATE","one_variable":"state→geometry mapping","hypothesis":"fixed action/evidence/state mappings remain learnable across held objects","stop":"three objects; PARK on object-specific exceptions"},
+    {"id":"E06_RESIDUE_VISIBILITY","status":"CANDIDATE","one_variable":"residue mark","hypothesis":"explicit residue makes omitted facts noticeable without false authority","stop":"one GLYPH + one AXIAL"},
+    {"id":"E07_SIGNAL_INTERFERENCE_LOCALITY","status":"CANDIDATE","one_variable":"signal placement","hypothesis":"moire-like overlap belongs on addressed object/glyph, not global chrome","stop":"no new signal state/priority"},
+    {"id":"E08_REDUCED_MOTION_PARITY","status":"CANDIDATE","one_variable":"motion","hypothesis":"static witness preserves meaning under reduced motion","stop":"no alternate product"},
+    {"id":"E09_MONOCHROME_PARITY","status":"CANDIDATE","one_variable":"hue","hypothesis":"geometry/pattern remains legible without color coding","stop":"record hue dependency rather than adding palette complexity"},
+    {"id":"E10_PHONE_ONE_THUMB","status":"CANDIDATE","one_variable":"viewport","hypothesis":"trial remains useful on phone without burying action/RETURN","stop":"no mobile-only ontology"},
+    {"id":"E11_STATIC_PRINT_WITNESS","status":"CANDIDATE","one_variable":"live vs frozen","hypothesis":"static representation can preserve lineage/residue while declaring non-currentness","stop":"one export"},
+    {"id":"E12_LINEAGE_VS_CONTEXT","status":"CANDIDATE","one_variable":"lineage emphasis","hypothesis":"direct ancestry separated from nearby context improves relation reading","stop":"no new graph ontology"},
+    {"id":"E13_FORECAST_BEFORE_EFFECT","status":"CANDIDATE","one_variable":"forecast projection","hypothesis":"visual forecast can clarify consequence while remaining visibly unexecuted","stop":"representation may not execute"},
+    {"id":"E14_DAYLINE_RETURN_WITNESS","status":"CANDIDATE","one_variable":"returned witness representation","hypothesis":"painting law can clarify exact Dayline RETURN without changing source authority","stop":"recovered donor never becomes planner authority"},
+    {"id":"E15_CROSS_HOST_SAME_OBJECT","status":"CANDIDATE","one_variable":"host transition","hypothesis":"representation witness survives FIELD→host→FIELD without second state authority","stop":"one host family"},
+    {"id":"E16_TIME_DELTA_GHOST","status":"CANDIDATE","one_variable":"prior-state ghost","hypothesis":"one old-state ghost makes change legible without looking current","stop":"one ghost max"},
+    {"id":"E17_SEMANTIC_ZOOM","status":"CANDIDATE","one_variable":"semantic depth","hypothesis":"semantic zoom reveals evidence without changing held focus","stop":"use existing hierarchy only"},
+    {"id":"E18_DONOR_SWAP","status":"CANDIDATE","one_variable":"visual-law donor","hypothesis":"painting/ink/glyph/diagram donors can swap while semantic envelope stays exact","stop":"three donors max; no style-gallery sweep"}
+  ]
+}
