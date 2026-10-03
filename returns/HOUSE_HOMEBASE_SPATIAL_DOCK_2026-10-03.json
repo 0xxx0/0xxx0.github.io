@@ -1,0 +1,50 @@
+{
+  "schema": "field-return/v1",
+  "id": "HOUSE_HOMEBASE_SPATIAL_DOCK_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "canonical /house/ spatial stage + existing HOMEBASE projection",
+  "operation": "SIBLING HOMEBASE RAIL -> SPATIAL-STAGE DOCK",
+  "observed_problem": "The first HOMEBASE implementation had the right authority split but rendered as another three-column dashboard above the spatial house, weakening the intended lived-base reading and competing with the room itself.",
+  "delta": [
+    "Mount HOMEBASE inside the canonical spatial stage directly below its stage header; the room/locus remains the primary screen.",
+    "Replace dashboard counters with addressed fixture/station chips from the existing HOUSE spatial model.",
+    "Keep one compact loop reading: HOME -> PREP -> SET OUT -> RETURN -> SERVICE.",
+    "Keep only three primary moves: PREP, SET OUT, SERVICE.",
+    "Show BODY/FIT active loadout and latest RETURN residue without cloning loadout/inventory state.",
+    "Give active BODY/FIT session precedence over unrelated local service residue when projecting the current phase.",
+    "Keep recovered-donor geometry visibly marked; no fixture chip upgrades donor geometry into verified instance truth.",
+    "Retain direct shortcuts to BODY/FIT, ENV-0, room fixtures and HOUSE Expert so diegetic placement never forces slow traversal."
+  ],
+  "research_transfer": [
+    "Ultima Online: place-local objects/containers + explicit edit/commit/revert + Moving Crate staging.",
+    "Death Stranding / DS2: final preparation couples route, body-distributed load and equipment; private room is recovery/prep, not a global dashboard.",
+    "Monster Hunter: named item/equipment loadouts preserve arrangement for rapid task-specific prep.",
+    "Warframe Orbiter: functions are embodied as spatial stations while menu shortcuts preserve speed.",
+    "Metal Gear Solid V: sortie prep binds a small number of explicit loadouts to mission conditions.",
+    "Animal Crossing: spatial edit mode supports direct manipulation and returns removed objects to storage rather than silently deleting them."
+  ],
+  "authority": {
+    "house": "selected spatial locus + fixture addresses",
+    "body_fit": "loadout/session/RETURN",
+    "env0": "coupling/harness grammar",
+    "dayline": "time/context handoff",
+    "housebus": "private runtime truth/actuation",
+    "homebase": "projection only"
+  },
+  "laws": [
+    "THE SPACE IS THE PRIMARY SCREEN",
+    "LOADOUT = PATCH, NOT INVENTORY REPLACEMENT",
+    "DIEGETIC LOCATION FOR COMPREHENSION; SHORTCUT ACCESS FOR EFFICIENCY",
+    "RETURN / SERVICE RESIDUE MAY BE SHOWN; READY IS NEVER INFERRED FROM SILENCE",
+    "NO NEW ROUTE / STORE / QUEUE / SCORE / ACTUATION"
+  ],
+  "verify": [
+    "node --check house/homebase.js",
+    "JSON.parse house/homebase.contract.json",
+    "existing HOUSE root browser smoke",
+    "public-surface-check",
+    "gitleaks"
+  ],
+  "stop": "Do not deepen into a general inventory app or free-roaming house game. Next HOUSE delta must come from actual use of the spatial dock, a source-owned object/service seam, or verified current-house geometry."
+}
