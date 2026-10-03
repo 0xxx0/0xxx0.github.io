@@ -127,7 +127,9 @@ function validateOperation(p,protocol=readJson(FILES.protocol)){
   req(moves.length<=3,'HOLD_MAX_3_MOVES');
   req(one(p.hold?.focus),'HOLD_FOCUS');
   req(one(p.hold?.exact_return),'HOLD_EXACT_RETURN');
-  if(p.turn?.status!=='NOT_EXECUTED')req(one(p.hold?.selected_turn||p.turn?.selected_move),'TURN_SELECTED');
+  const turnStatus=token(p.turn?.status||'NOT_EXECUTED');
+  const turnRecorded=turnStatus!=='NOT_EXECUTED';
+  if(turnRecorded)req(one(p.hold?.selected_turn||p.turn?.selected_move),'TURN_SELECTED');
   const traceStatus=token(p.trace?.status||'NOT_RUN');
   req(['NOT_RUN','PASS','FAIL','INDETERMINATE'].includes(traceStatus),'TRACE_STATUS');
   if(traceStatus==='PASS')req(Array.isArray(p.trace?.evidence_refs)&&p.trace.evidence_refs.length>0,'TRACE_PASS_REQUIRES_EVIDENCE');
@@ -135,10 +137,19 @@ function validateOperation(p,protocol=readJson(FILES.protocol)){
   if(result!=null){
     req((protocol.return_schema?.status_enum||[]).includes(result),'RETURN_STATUS');
     for(const k of protocol.return_schema?.required_fields||[])req(Object.prototype.hasOwnProperty.call(p.return||{},k),'RETURN_FIELD_'+k);
+    req(turnRecorded,'RETURN_REQUIRES_TURN_OR_STOP_RECORD');
+    req(traceStatus!=='NOT_RUN','RETURN_REQUIRES_TRACE');
     req(p.return?.next_authority==='NONE','RETURN_NEXT_AUTHORITY_NONE');
     req(one(p.return?.turn_ref),'RETURN_TURN_REF');
     req(one(p.return?.return_address),'RETURN_ADDRESS');
     req(one(p.return?.closed_at),'RETURN_CLOSED_AT');
+    req(p.return?.source_object===p.source?.object_id,'RETURN_SOURCE_MATCH');
+    req(p.return?.host===p.source?.owner,'RETURN_HOST_MATCH');
+    req(p.return?.return_address===p.hold?.exact_return&&p.return?.return_address===p.source?.return_address,'RETURN_ADDRESS_MATCH');
+    if(p.turn?.turn_ref!=null)req(p.return?.turn_ref===p.turn?.turn_ref,'RETURN_TURN_REF_MATCH');
+    req(Array.isArray(p.return?.evidence_refs),'RETURN_EVIDENCE_ARRAY');
+    req(Array.isArray(p.return?.unknowns),'RETURN_UNKNOWNS_ARRAY');
+    if(p.return?.after==null)req(Array.isArray(p.return?.unknowns)&&p.return.unknowns.length>0,'RETURN_AFTER_NULL_REQUIRES_UNKNOWN');
     if(result==='CHANGED')req(one(p.return?.observed_delta),'RETURN_CHANGED_REQUIRES_DELTA');
   }else warnings.push('RETURN_OPEN');
   if(!moves.length)warnings.push('NO_NATIVE_MOVE_DECLARED');
@@ -181,6 +192,14 @@ function selftest(){
   assert(validateOperation(overflow,sources.P).status==='FAIL','>3 moves fail');
   const bad=compact(closed);bad.return.next_authority='GO';
   assert(validateOperation(bad,sources.P).status==='FAIL','next authority fails');
+  const ghost=compact(closed);ghost.turn.status='NOT_EXECUTED';
+  assert(validateOperation(ghost,sources.P).status==='FAIL','closed return requires turn/stop record');
+  const untraced=compact(closed);untraced.trace.status='NOT_RUN';
+  assert(validateOperation(untraced,sources.P).status==='FAIL','closed return requires TRACE');
+  const spoof=compact(closed);spoof.return.source_object='/other';
+  assert(validateOperation(spoof,sources.P).status==='FAIL','return cannot change source identity');
+  const afterless=compact(closed);afterless.return.after=null;afterless.return.unknowns=[];
+  assert(validateOperation(afterless,sources.P).status==='FAIL','null after requires explicit unknown');
   if(fail.length){console.error('FIELD OPERATION SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
   console.log('FIELD OPERATION SELFTEST PASS · SOURCE/HOLD/TURN/TRACE/RETURN staged without authority');
 }
