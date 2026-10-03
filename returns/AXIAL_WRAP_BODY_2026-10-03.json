@@ -1,0 +1,39 @@
+{
+  "schema": "return/axial-wrap-body/v0.1",
+  "date": "2026-10-03",
+  "state": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED",
+  "lineage": "AXIAL / STATE×TRANSFORM / WRAP physical projection",
+  "source": {
+    "digital_probe": "/field/axial-probe/",
+    "axial": "/foundry/axial/",
+    "physical_law": "/foundry/axial/FAN8.md#IDENTIFY-EMBED-DEFORM"
+  },
+  "delta": {
+    "artifact": "/field/axial-probe/wrap-body-a4.svg",
+    "spec": "/field/axial-probe/WRAP_BODY.md",
+    "selftest": "/tools/axial-wrap-body-selftest.mjs",
+    "authority": "NONE",
+    "new_route": false,
+    "new_state_store": false
+  },
+  "mechanics": {
+    "core_working_circumference_mm": 160,
+    "nominal_core_diameter_mm": 50.93,
+    "ring": {"states": 8, "spacing_mm": 20, "operation": "twist"},
+    "cylinder": {"states": 5, "spacing_mm": 7, "operation": "slide"},
+    "axis": {"states": 3, "spacing_mm": 30, "operation": "shift"},
+    "axis_slot_separation_mm": 80,
+    "calibration_mm": 100
+  },
+  "machine_validation": {
+    "required": "node tools/axial-wrap-body-selftest.mjs",
+    "scope": "print geometry only; no claim of tactile legibility, friction, coupling, dimensional accuracy after printing, or physical transfer"
+  },
+  "physical_validation": {
+    "A": "R+2 C+1 A-1 R-2 C-1 A+1 -> exact [0,0,0]",
+    "B": "R+2 C+2 A+1 and A+1 C+2 R+2 -> same visible [2,2,+1]",
+    "primary_failure": "moving one coordinate unintentionally changes another",
+    "evidence": ["calibration measurement", "home photo", "[2,2,+1] photo", "closure PASS/FAIL", "coupling count", "worst ambiguity sentence"]
+  },
+  "stop": "No sensing, detents, magnets, bearings, motors, BLE, camera, or semantic promotion until one physical paper specimen returns handling evidence."
+}

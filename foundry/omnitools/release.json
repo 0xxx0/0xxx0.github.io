@@ -2,6 +2,16 @@
   "schema": "release-receipt/v1",
   "title": "FOUNDRY / OMNITOOLS",
   "version": "0.2",
+  "version_scope": "This version numbers the WORKBENCH BUNDLE (index.html + this receipt), matching index.html's 'OMNITOOLS / 0.2'. Individual tools version independently — their self-declared versions live in tool_versions and are the single truth for each tool; 0.1 and 0.2 here never describe the same object.",
+  "tool_versions": {
+    "index.html": "0.2",
+    "pii-scan.mjs": "0.2",
+    "pii-lens.html": "0.1",
+    "text-lens.html": "0.1",
+    "re-reader.html": "0.2",
+    "reshaper.html": "0.1",
+    "html-munge.mjs": "0.1"
+  },
   "state": "CANDIDATE",
   "date": "2026-10-03",
   "route": "/foundry/omnitools/",
@@ -14,7 +24,7 @@
       "file": "pii-scan.mjs",
       "kind": "cli",
       "verdict": "TESTED",
-      "evidence": "fixture repo with planted fake secrets; tree+history scan found all 11 planted classes at correct file:line; --json/--redact/--fail-on exit codes verified; real public repo tree scan runs clean of personal mail domains (values withheld)"
+      "evidence": "fixture repo with planted fake secrets; tree+history scan found all 11 planted classes at correct file:line; --json/--redact/--fail-on exit codes verified; deleted-secret history fixture found at hist:<sha>:(deleted):1 by npm-token detector; baseline flow: 6/6 checks — --update-baseline writes/merges .pii-scan-baseline.json (fingerprints = detector:file:sha256(value)[0:16], no cleartext in file), --fail-on high exits 0 with only baselined findings present, exits 1 when a new finding appears, line-move keeps fingerprint stable, merge preserves earlier entries; verify axis: 4/4 — without --verify all findings verified:'unchecked' and a poisoned globalThis.fetch proves nothing touches the network, with --verify read-only provider GETs judge planted fake github/npm/stripe tokens verified:false while non-probeable detectors stay 'unchecked'; real public repo tree scan runs clean of personal mail domains (values withheld)"
     },
     {
       "id": "pii-lens",
@@ -35,7 +45,7 @@
       "file": "re-reader.html",
       "kind": "html",
       "verdict": "TESTED",
-      "evidence": "node --check clean; live browser run: 3 ta/zh/en segments aligned by index, VEIL toggles blur, row click reveals exactly one row, KEEP column honored, zero console errors"
+      "evidence": "node --check clean; live browser run: 3 ta/zh/en segments aligned by index, VEIL toggles blur, row click reveals exactly one row, KEEP column honored, zero console errors; Intl.Segmenter word segmentation verified live — space-free Chinese 今天天气很好，我们去公园散步吧 yields 8 dictionary words (今天/天气/很好/我们/去/公园/散步/吧) where a whitespace split glues it into 1 token, Tamil strips punctuation (வாக்கியம் not வாக்கியம்!), English 7 words; whitespace fallback proven by deleting Intl.Segmenter at runtime (zh collapses to 1 token, hint flips to 'whitespace fallback')"
     },
     {
       "id": "reshaper",
@@ -56,8 +66,11 @@
   "known_limits": [
     "pii-scan regex detectors are heuristics: real-name is keyword-anchored and low confidence; entropy sweep trades recall for noise (default 4.5 bits/char, pure-hex skipped).",
     "pii-scan history scan reports patch positions (hist:<sha>:<path>:<line>); deleted-line numbers refer to the pre-image file.",
+    "pii-scan baseline acknowledges findings per fingerprint (detector:file:sha256(value)[0:16]) — line numbers and commit shas are excluded so entries survive line moves and new commits, but the same secret in a different file is a different entry; baselined findings are always reported and only excluded from --fail-on.",
+    "pii-scan --verify probes only github-token, npm-token and stripe-key (read-only provider GETs); everything else stays verified:'unchecked', and a provider 5xx or offline run also degrades to 'unchecked' rather than guessing.",
     "html-munge is regex-based, not a DOM: malformed markup or deeply nested tables may extract imperfectly.",
     "re-reader aligns segments by index only; unequal block counts are displayed as missing, not silently padded.",
+    "re-reader word counts come from Intl.Segmenter (ICU dictionary segmentation) where the engine has it; without it, the whitespace fallback mis-segments Chinese and the UI says so in the hint.",
     "Flesch readability in text-lens is an approximation (English syllable heuristic) and meaningless for Tamil/Chinese input.",
     "Browser tools are client-side only and never transmit pasted content."
   ],
