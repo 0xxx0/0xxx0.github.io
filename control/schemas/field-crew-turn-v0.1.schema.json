@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/control/schemas/field-crew-turn-v0.1.schema.json",
+  "title": "FIELD / CARRY / OPERATE / PROVE / RETURN projection of field-crew-turn/v0.1",
+  "description": "Validation schema for the existing ten-leaf minimum execution projection. FIELD/CARRY/OPERATE/PROVE/RETURN are aliases of SOURCE/HOLD/TURN/TRACE/RETURN, not a second packet dialect.",
+  "type": "object",
+  "required": ["source", "hold", "turn", "trace", "return"],
+  "additionalProperties": false,
+  "x-stage-aliases": {
+    "source": "FIELD",
+    "hold": "CARRY",
+    "turn": "OPERATE",
+    "trace": "PROVE",
+    "return": "RETURN"
+  },
+  "x-leaf-count": 10,
+  "x-invariants": [
+    "source.object is immutable across one packet; a different object requires a new SOURCE/FIELD.",
+    "source.owner is native host authority, never worker/actor identity.",
+    "hold.delta is one observable change/question and never becomes priority or NEXT authority.",
+    "turn.move is exactly one host-native operation; a second move requires RETURN then a fresh HOLD.",
+    "turn.release is NONE unless the native host explicitly owns the named release/commit boundary.",
+    "trace.status is observation state, not proof; CHANGED and UNCHANGED behavioral claims require evidence.",
+    "return.gate preserves unresolved truth/effect constraints without becoming NOW.",
+    "return.to is exact same-object re-entry.",
+    "RETURN closes authority; there is deliberately no actor field and no next field."
+  ],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["object", "owner"],
+      "additionalProperties": false,
+      "properties": {
+        "object": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1}
+      }
+    },
+    "hold": {
+      "type": "object",
+      "required": ["delta"],
+      "additionalProperties": false,
+      "properties": {
+        "delta": {"type": "string", "minLength": 1}
+      }
+    },
+    "turn": {
+      "type": "object",
+      "required": ["move", "release"],
+      "additionalProperties": false,
+      "properties": {
+        "move": {"type": "string", "minLength": 1},
+        "release": {"type": "string", "minLength": 1}
+      }
+    },
+    "trace": {
+      "type": "object",
+      "required": ["status", "result", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["CHANGED", "UNCHANGED", "FAILED", "BLOCKED", "UNKNOWN"]
+        },
+        "result": {"type": "string"},
+        "evidence": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      }
+    },
+    "return": {
+      "type": "object",
+      "required": ["gate", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "gate": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "minLength": 1}
+          ]
+        },
+        "to": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "trace": {
+            "properties": {
+              "status": {"enum": ["CHANGED", "UNCHANGED"]}
+            },
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "trace": {
+            "properties": {
+              "evidence": {"minItems": 1}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -4,9 +4,11 @@ on:
     paths:
       - 'tools/field-stage-handoff.mjs'
       - 'tools/field-hermes-run.mjs'
+      - 'tools/field-crew-turn-contract-selftest.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
+      - 'control/schemas/field-crew-turn-v0.1.schema.json'
       - 'control/CURRENT.json'
       - 'showcase-manifest.json'
       - 'llms.txt'
@@ -16,9 +18,11 @@ on:
     paths:
       - 'tools/field-stage-handoff.mjs'
       - 'tools/field-hermes-run.mjs'
+      - 'tools/field-crew-turn-contract-selftest.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
+      - 'control/schemas/field-crew-turn-v0.1.schema.json'
       - 'control/CURRENT.json'
       - 'showcase-manifest.json'
       - 'llms.txt'
@@ -38,6 +42,8 @@ jobs:
         run: node --check tools/field-stage-handoff.mjs
       - name: Check Hermes operator bridge syntax
         run: node --check tools/field-hermes-run.mjs
+      - name: Prove FIELD / CARRY / OPERATE / PROVE / RETURN contract
+        run: node tools/field-crew-turn-contract-selftest.mjs
       - name: Prove exact-object staging stays authority NONE
         run: node tools/field-stage-handoff.mjs --selftest
       - name: Prove Hermes bridge stays loopback and authority NONE
