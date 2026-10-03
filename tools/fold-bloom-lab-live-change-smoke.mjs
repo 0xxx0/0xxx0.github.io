@@ -92,7 +92,7 @@ const wait=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Da
     rec.native.includes('SAME HEX ≠ SAME NEXT')&&rec.native.includes('FROM 2 CANDIDATES')&&rec.native.includes('TO 1 CANDIDATES')&&
     rec.steering.includes('FOLD')&&rec.steering.includes('AUTHORITY NONE')&&!rec.steering.includes('RETURN')&&
     rec.supportA.includes('C=1')&&rec.supportA.includes('UNIQUE_NATIVE_CANDIDATE')&&rec.supportB.includes('C=0')&&rec.supportB.includes('NO_NATIVE_CANDIDATE')&&rec.support===rec.supportB&&
-    rec.reducerSupport?.button==='SUPPORT · C=1'&&rec.reducerSupport?.focus.includes('SLOT 2')&&rec.reducerSupport?.focus.includes('MODEL-SUPPORTED')&&rec.reducerSupport?.status.includes('UNIQUE NATIVE SUPPORT')&&rec.reducerSupport?.status.includes('NO COMMIT')&&
+    rec.reducerSupport?.button==='SUPPORT · C=1 · VIEW'&&rec.reducerSupport?.focus.includes('SLOT 2')&&rec.reducerSupport?.focus.includes('MODEL-SUPPORTED')&&rec.reducerSupport?.status.includes('UNIQUE NATIVE SUPPORT')&&rec.reducerSupport?.status.includes('NO COMMIT')&&
     rec.reducerSupport?.beforeLastSeq===6&&rec.reducerSupport?.afterLastSeq===6&&rec.reducerSupport?.beforeNativeSeq===6&&rec.reducerSupport?.afterNativeSeq===6&&
     rec.liveA?.native_latest?.candidate_count===2&&rec.liveA?.steering_support?.native_candidate_count===1&&rec.liveA?.steering_support?.candidate_slots?.join(',')==='2'&&
     rec.haloHit==='field'&&rec.focusA.includes('SLOT 2')&&rec.focusA.includes('FOLD')&&rec.focusA.includes('MODEL-SUPPORTED')&&rec.focusA.includes('WITNESS ONLY')&&
