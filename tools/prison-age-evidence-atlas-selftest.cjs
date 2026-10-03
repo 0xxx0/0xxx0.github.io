@@ -5,3 +5,4 @@ const entries=new Map(idx.entries.map(e=>[e.id,e]));for(const c of atlas.cards){
 assert(!atlas.cards.some(c=>/ENGINE|OPERATOR|TRACE ABSENCE|RECLAIM|PUBLISH|AUTHORSHIP/i.test(c.class+' '+c.a.text.slice(0,0))),'no generated engine labels');
 const runtime=fs.readFileSync('prison-age/evidence-atlas.js','utf8');new Function(runtime);assert(runtime.includes("prison-age.evidence-route/v0.1")&&runtime.includes("authority:'EVIDENCE_ONLY'"),'typed evidence trail');
 console.log('PRISON AGE EVIDENCE ATLAS PASS · 32 exact relations · authority EVIDENCE_ONLY');
+require('./prison-age-passage-selftest.cjs');
