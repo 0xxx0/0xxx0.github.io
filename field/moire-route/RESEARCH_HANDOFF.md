@@ -1,167 +1,52 @@
 # FIELD / MOIRÉ HELD-OBJECT MISMATCH — RESEARCH HANDOFF
 
-**Date:** 2026-10-02  
+**Date:** 2026-10-03  
 **Class:** EVIDENCE / representation instrument  
 **Host:** FIELD INDEX → REFINE / PROVE  
 **Authority:** VIEW / EVIDENCE ONLY
 
 ## Question
 
-Can the earlier moiré donor stop operating on a synthetic graph and instead report representation mismatch for the exact FIELD object the operator has deliberately held?
+Can representation experiments operate on the exact FIELD object the operator has deliberately held, expose what a projection hides/displaces, and borrow visual-law donors without changing object identity, lawful action, evidence, RETURN or authority?
 
 ## Source
 
-The instrument now receives the FIELD focus by address:
+The instrument receives FIELD focus by address:
 
 ```
 /field/moire-route/?focus=<manifest route>&projection=<current FIELD projection>
 ```
 
-FIELD root constructs that link from the actual held object. If no object is held, the instrument fails closed and returns to FIELD; it does not manufacture a fixture.
+Truth sources are `/showcase-manifest.json`, `/control/CURRENT.json`, and the exact held `focus` route. No focus means fail closed; no synthetic fixture is manufactured.
 
-Truth sources:
+## Representation mismatch / moiré law
 
-- `/showcase-manifest.json`
-- `/control/CURRENT.json`
-- the exact `focus` route propagated from FIELD root
+Canonical route facts remain grouped into identity, address, content, depth, authority and evidence channels. The instrument compares those facts with the fields retained or derived by existing FIELD projections: AXIAL, VISUAL, STRUCTURE, EVOLVE, VERSIONS, RECENT and GLYPH.
 
-## Real route context
-
-The old deterministic 6×6 route/spur fixture is removed from runtime.
-
-The visible route is now the actual manifest lineage:
+Mismatch remains:
 
 ```
-/ → parent → … → held route
+raw mismatch = hidden/derived channel residue + coordinate displacement
+aligned visible interference = channel residue + compensated coordinate displacement
 ```
 
-Context branches are real manifest siblings/children only.
+`ALIGN COORDINATES` may reduce coordinate displacement. It may not erase omitted authority/evidence or turn a projection into canonical truth.
 
-## Representation mismatch
+## Painting-law donor / Dayline distinction
 
-Canonical FIELD route facts are grouped into the channels already used by `lib/interphase-field.js`:
-
-```
-identity
-address
-content
-depth
-authority
-evidence
-```
-
-The instrument compares those actual facts with fields retained or derived by extant FIELD projections:
-
-- FIELD / AXIAL
-- FIELD / VISUAL MAP
-- FIELD / STRUCTURE
-- FIELD / EVOLVE
-- FIELD / VERSIONS
-- FIELD / RECENT
-- FIELD / GLYPH
-
-Mismatch has two parts:
-
-### 1. hidden / derived channel residue
-
-A fact present in manifest/CURRENT but not preserved by the selected representation remains interference residue.
-
-Derived glyph facts are not treated as identical to preserved source facts.
-
-### 2. coordinate displacement
-
-The real manifest parent tree is the canonical address frame.
-
-Each extant FIELD projection is modeled using the fields it actually orders by:
-- AXIAL → state × operation/work-mode;
-- VISUAL → manifest parent tree;
-- STRUCTURE → route-address order;
-- EVOLVE → evolution stage;
-- VERSIONS → version;
-- RECENT → route update time;
-- GLYPH → kind × operation.
-
-The held route and its lineage therefore occupy two lawful coordinate frames rather than a fabricated maze.
-
-## Alignment law
-
-`ALIGN COORDINATES` may compensate only the transformable coordinate displacement.
-
-It may **not** erase hidden/derived channel residue.
-
-So:
+Exact recovered donor:
 
 ```
-raw mismatch
-= channel residue + coordinate displacement
-
-aligned visible interference
-= channel residue + compensated coordinate displacement
+/recovery/semantic-painting-v0.8/
+POLY // Forward Field — Semantic Painting v0.8 · Atlas Dayline
+YOU’RE AWAKE // FORWARD FIELD
 ```
-
-A representation that omits authority/evidence cannot be made truthful merely by visually aligning it.
-
-## Runtime behavior
-
-- HOLD a route on FIELD root.
-- Enter **REFINE / PROVE → MOIRÉ ROUTE**.
-- FIELD propagates `focus`, current projection, and active AXIAL tuple.
-- Instrument resolves that exact route against current manifest/CURRENT.
-- Moiré field shows canonical × projection interference.
-- Coordinate panel shows the real manifest route context against the selected projection coordinates.
-- Channel table names exact retained / derived / hidden fields.
-- COPY REPORT emits `field-representation-mismatch/v0.2`.
-- RETURN restores the same FIELD focus address.
-
-## Falsifier
-
-PARK this instrument if it cannot do at least one of:
-
-1. expose a real channel loss that is not obvious in the compressed representation;
-2. distinguish transformable coordinate drift from irreducible information loss;
-3. help choose a more suitable representation for one held FIELD object.
-
-Do not promote interference as decoration.
-
-## Verification
-
-Run:
-
-```
-node field/moire-route/selftest.mjs
-```
-
-The selftest reads the repository's actual `showcase-manifest.json` and `control/CURRENT.json`, selects a real deep manifest route, and verifies:
-
-- runtime context contains only manifest route identities;
-- synthetic grid IDs are absent;
-- VISUAL shares canonical tree coordinates;
-- GLYPH retains non-zero channel residue;
-- full alignment cannot erase hidden-channel residue;
-- no held address fails closed.
-
-## Boundary
-
-This is representation evidence, not correctness authority.
-
-```
-HELD OBJECT ≠ PROJECTION
-PROJECTION MISMATCH ≠ OBJECT ERROR
-ALIGNMENT ≠ RECOVERY OF HIDDEN INFORMATION
-VIEW EVIDENCE ≠ CANONICAL STATE
-```
-
----
-
-## 2026-10-03 extension — PAINTING LAW ↔ PLAIN
-
-Exact recovered donor: `/recovery/semantic-painting-v0.8/` — **POLY // Forward Field — Semantic Painting v0.8 · Atlas Dayline**, visibly `YOU’RE AWAKE // FORWARD FIELD`.
 
 Transferable law:
 
 ```
 underpainting = atmosphere only
-live geometry = reach / time / uncertainty / trace / RETURN from state
+live geometry = state / action / evidence-derived structure
 ```
 
 The donor is not current Atlas Dayline planning authority. Its lineage forks:
@@ -172,45 +57,93 @@ Semantic Painting v0.8  [EXACT RECOVERED DONOR]
         └──→ /field/moire-route/ trial    [VIEW-ONLY DONOR TRANSFER]
 ```
 
-The same exact held FIELD object now appears as **A · PLAIN** and **B · PAINTING LAW**. Both share the same object identity, native manifest actions, witness and exact RETURN. Painting adds only fixed atmosphere plus geometry derived from current state/action/evidence.
+## Experiment 01 — PLAIN ↔ PAINTING LAW
 
-Machine gate:
+### R1 negative result
+
+The first implementation was not a fair one-variable experiment. PAINTING alone had a 16:9 canvas above the semantic block while PLAIN did not. That changed vertical weight and action distance as well as visual law.
+
+Therefore **R1 human votes are invalid evidence**. They are not migrated.
+
+### R2 correction
+
+Both representations now use the same card structure, the same 16:9 scene bounds, and the same semantic block. The only intended scene difference is:
+
+```
+PLAIN        = neutral scene / no state geometry
+PAINTING LAW = fixed atmospheric underpainting + state/action/evidence geometry
+```
+
+Machine invariants are now:
 
 ```
 identity same
 native actions same
 witness same
 exact RETURN same
+scene bounds same
 authority = VIEW_ONLY
 ```
 
-Browser-local human probes compare object identification, next lawful action retrieval and state/relationship perception. `COPY TRIAL RETURN` emits `field-representation-trial-return/v0.1`; it cannot update CURRENT, QUEUE, Dayline or the native object.
+Browser-local R2 votes use a new storage key and `field-representation-trial-return/v0.2`, so the confounded R1 return cannot silently survive the correction.
 
-Promotion requires machine parity + human orientation benefit + no next-action regression. Otherwise REVISE once or PARK.
+### Autonomous machine census
 
-### R&D registry
+`representationCensus()` now runs the same parity trial across every resolvable route in the current manifest. It records:
 
-`EXPERIMENTS.json` records representation hypotheses without turning them into GitHub-issue debt, CURRENT, QUEUE, priority, roadmap promises or route multiplication. Only one experiment may be ACTIVE. It currently holds 18 bounded candidates spanning PLAIN/PAINTING/MOIRÉ isolation and combination, opacity, state→geometry mapping, residue visibility, signal locality, reduced-motion/monochrome/phone parity, print witnesses, lineage/context, forecast-before-effect, Dayline RETURN, cross-host continuity, prior-state ghosts, semantic zoom and donor swapping.
+- parity failures;
+- authority failures;
+- number of distinct geometry fingerprints;
+- geometry diversity ratio;
+- largest exact geometry collision and bounded collision groups.
 
-### Five-phase circulation / Wu Xing mnemonic
+The selftest requires zero semantic-parity failures, zero authority failures and more than one geometry fingerprint across the manifest. This proves only that the mapping is not globally static decoration and that semantic parity survives corpus-wide execution. It does **not** prove that the painting representation is clearer to a human.
 
-Traditional Wood → Fire → Earth → Metal → Water generating order is borrowed as a **mnemonic only**, not a FIELD ontology or metaphysical claim:
+The remaining promotion gate is still human and bounded: identify object, find next lawful action, perceive state/relationship. RETAIN only if a benefit appears without next-action regression; otherwise REVISE once or PARK.
+
+## R&D registry
+
+`EXPERIMENTS.json` is a hypothesis registry, not issue debt, CURRENT, QUEUE, priority, roadmap promise or permission to create routes. Only one experiment may be ACTIVE.
+
+E02 MOIRÉ↔PLAIN remains `READY_AFTER_E01`, not ACTIVE. Machine readiness does not satisfy E01's human return precondition.
+
+## Five-phase circulation / Wu Xing mnemonic
+
+Traditional Wood → Fire → Earth → Metal → Water generating order is borrowed as a mnemonic only:
 
 ```
-木 WOOD   · GENERATE · donor / hypothesis
+木 WOOD   · GENERATE · donor / falsifiable hypothesis
 火 FIRE   · EXPOSE   · one controlled contrast
-土 EARTH  · HOLD     · freeze object / authority / conditions
+土 EARTH  · HOLD     · freeze object / authority / actions / conditions
 金 METAL  · CUT      · RETAIN / REVISE / PARK
 水 WATER  · RETURN   · witness / lineage / residue → next WOOD
 ```
 
-It creates no FIELD state or authority. Its useful property is operational: the cycle terminates in RETURN instead of feature accumulation.
+The useful property is operational: ideas must return through evidence and reduction rather than simply accumulate. The cycle creates no FIELD state, ontology or authority.
 
-Additional boundaries:
+## Runtime behavior
+
+- HOLD a route on FIELD root.
+- Enter **REFINE / PROVE → MOIRÉ ROUTE**.
+- FIELD propagates the exact focus and projection.
+- R2 renders PLAIN and PAINTING LAW on equal scene bounds from one semantic envelope.
+- Moiré still shows canonical × projection interference and retained/derived/hidden channels.
+- `COPY REPORT` emits representation-mismatch evidence.
+- `COPY TRIAL RETURN` emits browser-local R2 human evidence only.
+- RETURN restores the same FIELD focus.
+
+## Falsifier / boundary
+
+PARK a mechanism if it cannot expose a real omission/drift or improve orientation without obscuring lawful action. Do not promote painting or interference as decoration.
 
 ```
+HELD OBJECT ≠ PROJECTION
+PROJECTION MISMATCH ≠ OBJECT ERROR
+ALIGNMENT ≠ RECOVERY OF HIDDEN INFORMATION
 UNDERPAINTING ≠ STATE
 VISUAL LAW ≠ NATIVE ACTION AUTHORITY
+MACHINE PARITY ≠ HUMAN CLARITY
 R&D REGISTRY ≠ BACKLOG / PRIORITY
 MNEMONIC CYCLE ≠ FIELD ONTOLOGY
+VIEW EVIDENCE ≠ CANONICAL STATE
 ```
