@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 const html=fs.readFileSync('foundry/omnitools/index.html','utf8');
 const release=JSON.parse(fs.readFileSync('foundry/omnitools/release.json','utf8'));
+const instrument=JSON.parse(fs.readFileSync('foundry/omnitools/instrument.json','utf8'));
 const need=(needle,msg=needle)=>assert.ok(html.includes(needle),msg);
 
 for(const id of ['sourceText','sourceHash','benchPane','benchIn','evaluate','trace','copyReturn']) need(`id="${id}"`,`missing ${id}`);
@@ -21,12 +22,15 @@ need('allow-same-origin','same-origin bounded handoff missing');
 assert.ok(!/\bfetch\s*\(/.test(html),'launcher must not fetch/network source bytes');
 assert.ok(!/XMLHttpRequest|WebSocket|EventSource/.test(html),'launcher contains network primitive');
 assert.equal(release.version,'0.2','route/bundle version drift');
-assert.equal(release.instrument_revision,'0.3','instrument revision missing');
-assert.equal(release.authority,'LOCAL_SESSION_CARRIER / ADVISORY_BENCH / NO EFFECT AUTHORITY');
-assert.ok(release.tool_versions?.['bench.mjs']==='0.1','bench tool version missing');
-assert.ok(release.laws?.includes('SOURCE != RESULT'),'release source law missing');
-assert.ok(release.laws?.includes('BENCH != RANKING'),'release bench law missing');
-assert.ok(release.laws?.includes('PROJECTION != EFFECT'),'release effect law missing');
-assert.ok(release.laws?.includes('RETURN PRESERVES EVIDENCE, NOT AUTHORITY'),'release return law missing');
+assert.equal(instrument.bundle_version,'0.2','instrument must remain inside bundle 0.2');
+assert.equal(instrument.instrument_revision,'0.3','instrument revision missing');
+assert.equal(instrument.authority,'LOCAL_SESSION_CARRIER / ADVISORY_BENCH / NO EFFECT AUTHORITY');
+assert.deepEqual(instrument.spine,['SOURCE','AXIS','EFFECTOR','TRACE','RETURN']);
+assert.deepEqual(instrument.axes.map(x=>x.id),['bench','scan','read','align','reshape']);
+assert.ok(instrument.laws.includes('SOURCE != RESULT'),'instrument source law missing');
+assert.ok(instrument.laws.includes('BENCH != RANKING'),'instrument bench law missing');
+assert.ok(instrument.laws.includes('PROJECTION != EFFECT'),'instrument effect law missing');
+assert.ok(instrument.laws.includes('RETURN PRESERVES EVIDENCE, NOT AUTHORITY'),'instrument return law missing');
+assert.equal(instrument.return.authority,'EVIDENCE_ONLY');
 
 console.log('OMNITOOLS WORKBENCH PASS · one source · five unequal axes · evidence-only return');
