@@ -47,6 +47,12 @@ function mount(){
   host.insertAdjacentElement('afterend',panel);
 
   trigger.onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden)$('#transportTo')?.focus()};
+  const launch=new URLSearchParams(location.search);
+  if(launch.get('transport')==='1'){
+    panel.hidden=false;
+    document.documentElement.dataset.commsTransportLaunch='field';
+    queueMicrotask(()=>$('#transportTo')?.focus());
+  }
   $('#transportClose').onclick=()=>{panel.hidden=true};
   $('#transportAuthorize').onclick=async()=>{
     try{
@@ -60,9 +66,14 @@ function mount(){
       });
       release=await authorizeTransport(candidate,{operatorGesture:true});
       verified=null;$('#transportReturn').disabled=true;setReady(true);
-      await copy(JSON.stringify(release,null,2));
-      status('HUMAN RELEASE · packet copied · NOT YET SENT','released');
+      status('HUMAN RELEASE · packet ready · NOT YET SENT','released');
       document.documentElement.dataset.commsTransportState='released';
+      try{
+        await copy(JSON.stringify(release,null,2));
+        status('HUMAN RELEASE · packet copied · NOT YET SENT','released');
+      }catch(_){
+        status('HUMAN RELEASE · COPY BLOCKED · NOT YET SENT','released');
+      }
     }catch(error){
       release=null;verified=null;setReady(false);$('#transportReturn').disabled=true;
       status('BLOCKED · '+String(error?.message||error).slice(0,120),'error');
@@ -78,7 +89,7 @@ function mount(){
   $('#transportReceiptTemplate').onclick=async()=>{
     if(!release)return;
     try{await copy(JSON.stringify(providerReceiptTemplate(release),null,2));status('RECEIPT TEMPLATE COPIED · provider must fill message id + sent_at','template')}
-    catch(error){status('BLOCKED · '+String(error?.message||error).slice(0,120),'error')}
+    catch(error){status('COPY BLOCKED · release remains valid · '+String(error?.message||error).slice(0,90),'error')}
   };
   $('#transportReceiptBtn').onclick=()=>$('#transportReceiptFile').click();
   $('#transportReceiptFile').onchange=async e=>{
@@ -98,7 +109,7 @@ function mount(){
   $('#transportReturn').onclick=async()=>{
     if(!verified)return;
     try{await copy(JSON.stringify(verified,null,2));status('VERIFIED TRANSPORT RETURN COPIED · native COMMS still decides signal state','verified')}
-    catch(_){status('COPY BLOCKED','error')}
+    catch(_){status('COPY BLOCKED · verified RETURN remains in this session','error')}
   };
 
   document.documentElement.dataset.commsTransport='ready';
