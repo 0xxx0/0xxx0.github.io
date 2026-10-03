@@ -29,6 +29,12 @@
  * drawn OFF the pointer (above it, flipping below near the top edge) with a
  * leader line back to the point it reads — the cursor keeps its own pixels.
  *
+ * INPUT LAW — capability, not device names:
+ *   fine pointer + motion allowed  → SPRING follows the pointer
+ *   fine pointer + reduced motion  → SNAP follows without kinetic animation
+ *   coarse/no-hover pointer        → PIN stays at the explicit FOVEA gesture
+ * Radial HOLD/OPEN/GLYPH remain available independently of follower mode.
+ *
  * THE SUMMON GESTURE — radial menu, same shape on both devices:
  *   touch/pen  long-press ~400ms stationary → RADIAL opens there; drag
  *              toward a slot; release selects; release elsewhere dismisses.
@@ -67,6 +73,9 @@ let px=0,py=0,vx=0,vy=0,scale=1,targetScale=1,spin=0,targetSpin=0,lockAt=0,stagg
 /* ANCHOR — the drawn centre; never the pointer itself */
 let ax=0, ay=0, side='up', lastX=0, lastY=0;
 
+const FINE_POINTER=matchMedia('(hover: hover) and (pointer: fine)');
+const REDUCED_MOTION=matchMedia('(prefers-reduced-motion: reduce)');
+const inputMode=()=>FINE_POINTER.matches?(REDUCED_MOTION.matches?'snap':'spring'):'pin';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function polar(cx,cy,r,a){return[cx+r*Math.cos(a),cy+r*Math.sin(a)]}
 function hexSeed(s){let h=2166136261>>>0;const t=String(s||'');for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
@@ -180,10 +189,11 @@ function draw(){
   el.dataset.mean=String(d.means.weight);
 }
 
-function place(){
+/* Probe owns semantic target/readout only. Rendering owns transform only.
+   Keeping those writers separate prevents pointer events and rAF from fighting. */
+function probeTarget(){
   if(!el)return;
   anchor();
-  el.style.transform='translate3d('+(ax-LENS/2)+'px,'+(ay-LENS/2)+'px,0)';
   const t=probe(x,y);
   const key=(t?.href||'')+'|'+(MAP()?.all?MAP().all().size:0);
   if(key!==(el.dataset.key||'')){
@@ -191,9 +201,15 @@ function place(){
     // ANTICIPATION: lock a new target with an overshoot and a small kick
     lockAt=performance.now();
     targetSpin=(hexSeed(t?.href||'field')%9)-4;      // deterministic ±4deg
-    stagger=0;                                        // restart the staggered draw
+    stagger=0;                                      // restart the staggered draw
   }
   if(t&&el.dataset.href!==t.href){el.dataset.href=t.href;el.title=t.title||t.href;readout(t)}
+  else if(!t&&el.dataset.href){delete el.dataset.href;el.removeAttribute('title');readout(null)}
+}
+function snapPosition(){
+  if(!el)return;
+  anchor();px=x;py=y;vx=0;vy=0;scale=1;spin=targetSpin;
+  el.style.transform='translate3d('+(ax-LENS/2).toFixed(1)+'px,'+(ay-LENS/2).toFixed(1)+'px,0)';
 }
 
 /* ---- THE READOUT: inspect without navigating. This is the utility. ----
@@ -298,7 +314,7 @@ function glyphZoom(pt){
 const SLOT_R=76, DEAD=26, HOLD_MS=400;
 const SLOTS=[
   {id:'FOVEA',label:'FOVEA',angle:-90,run:pt=>{
-    toggle(true);x=pt.x;y=pt.y;px=x;py=y;vx=0;vy=0;if(el)el.style.opacity='1';place();
+    x=pt.x;y=pt.y;lastX=x;lastY=y;px=x;py=y;vx=0;vy=0;toggle(true);if(el){el.style.opacity='1';snapPosition();probeTarget()}
   }},
   {id:'HOLD',label:'HOLD',angle:150,run:pt=>{
     const t=probe(pt.x,pt.y);if(t?.href){window.__fieldAct?.focus?.(t.href);burst(t.state?stateColor(t.state):'#d5ad68')}
@@ -444,15 +460,16 @@ function physics(){
   if(el)el.style.transform='translate3d('+(px-(x-ax)-LENS/2).toFixed(1)+'px,'+(py-(y-ay)-LENS/2).toFixed(1)+'px,0) scale('+scale.toFixed(3)+') rotate('+spin.toFixed(2)+'deg)';
 }
 function loop(){
-  if(!on)return;
+  raf=0;
+  if(!on||inputMode()!=='spring')return;
   physics();
-  if(performance.now()-lastProbe>60){lastProbe=performance.now();place()}
+  if(performance.now()-lastProbe>60){lastProbe=performance.now();probeTarget()}
   raf=requestAnimationFrame(loop);
 }
-
-/* Movement applies on the event, not on a frame: a backgrounded tab never
- * fires requestAnimationFrame, and a lens that freezes when the tab is not
- * painting is not a lens. rAF only keeps the figure alive at rest. */
+function startLoop(){
+  cancelAnimationFrame(raf);raf=0;
+  if(on&&inputMode()==='spring')raf=requestAnimationFrame(loop);
+}
 
 function ensure(){
   if(el)return el;
@@ -465,28 +482,32 @@ function ensure(){
   return el;
 }
 
-/* All observation is passive: position tracking + gesture arming. Nothing
- * below calls preventDefault except the two deliberate cases (touchmove /
- * contextmenu while the RADIAL is open, and the 700ms click filter that
- * follows a press-radial release so the release does not also click through). */
+/* All observation is passive: pointer events update intent and gesture state.
+ * One render owner (the rAF loop) moves spring mode; SNAP moves synchronously;
+ * PIN changes only on an explicit FOVEA gesture. */
 const MOVE={passive:true};
 function onMove(e){
   x=e.clientX;y=e.clientY;lastX=x;lastY=y;
   if(!px&&!py){px=x;py=y}
-  if(radialOpen)radialHighlight(x,y);
-  if(on&&el){el.style.opacity='1';place()}
+  armMove(e);                                           // moving cancels a pending long-press
+  if(radialOpen&&radialMode!=='press')radialHighlight(x,y);
+  if(!on||!el)return;
+  const mode=inputMode();
+  if(mode==='pin')return;
+  el.style.opacity='1';
+  if(mode==='snap'){snapPosition();probeTarget()}
 }
 function onPointerDown(e){
   if(radialOpen&&radialMode==='key'){radialClose()}      // a click means "not the radial"
   x=e.clientX;y=e.clientY;lastX=x;lastY=y;
   if(!px&&!py){px=x;py=y}
-  if(on&&el)el.style.opacity='1';
+  if(on&&el&&inputMode()!=='pin')el.style.opacity='1';
   armDown(e);
 }
 function onPointerUp(e){armUp(e)}
 function onPointerCancel(e){if(e.pointerId===armId){clearTimeout(armTimer);armId=null}if(radialOpen&&radialMode==='press')radialClose()}
-function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType))el.style.opacity='0'}
-function onEnter(){if(el&&on)el.style.opacity='1'}
+function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType)&&inputMode()!=='pin')el.style.opacity='0'}
+function onEnter(){if(el&&on&&inputMode()!=='pin')el.style.opacity='1'}
 function onKey(e){
   /* ONE press = ONE step. Escape used to fire onEscape twice (keydown AND
      keyup), so a single press dismissed two surfaces; with the figure in the
@@ -496,6 +517,14 @@ function onKey(e){
   if(e.type==='keydown')onKeyDown(e);else onKeyUp(e);
 }
 function onClickFilter(e){if(suppressClicks>0){suppressClicks=0;e.preventDefault();e.stopImmediatePropagation()}}
+function syncInputMode(){
+  const mode=inputMode();
+  document.documentElement.dataset.fieldFoveaInput=mode;
+  if(!on||!el)return mode;
+  if(mode==='spring'){el.style.opacity='1';startLoop()}
+  else{cancelAnimationFrame(raf);raf=0;snapPosition();probeTarget()}
+  return mode;
+}
 
 function toggle(next){
   on=next===undefined?!on:!!next;
@@ -504,20 +533,21 @@ function toggle(next){
   if(on){
     ensure();
     if(!x&&!y){x=innerWidth/2;y=innerHeight/2;px=x;py=y}
-    el.style.opacity='1';px=x;py=y;vx=0;vy=0;scale=.7;lockAt=performance.now();
-    place();loop();
+    cancelAnimationFrame(raf);raf=0;
+    el.style.opacity='1';px=x;py=y;vx=0;vy=0;scale=inputMode()==='spring'?.7:1;lockAt=performance.now();
+    snapPosition();probeTarget();startLoop();
   }else{
-    cancelAnimationFrame(raf);
+    cancelAnimationFrame(raf);raf=0;
     if(el){el.style.opacity='0';el.querySelectorAll('.fovBurst').forEach(b=>b.remove())}
   }
-  window.dispatchEvent(new CustomEvent('field-fovea',{detail:{on,semanticScale:window.FieldPresentation?.state?.()||null}}));
+  window.dispatchEvent(new CustomEvent('field-fovea',{detail:{on,input:inputMode(),semanticScale:window.FieldPresentation?.state?.()||null}}));
   return on;
 }
 
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='LOCAL DETAIL. Off by default; it never blocks clicks or scrolling. Summon: hold ~400ms (touch: anywhere; keyboard: `f`) → radial at that point; drag to a slot and release. Tap `f`, this button, or ◎ FOVEA to toggle. Esc dismisses.';}
+    b.title='LOCAL DETAIL. Fine pointers follow; touch pins at the explicit FOVEA gesture. It never blocks ordinary clicks or scrolling. Hold ~400ms → radial; drag to a slot and release. Tap `f`, this button, or ◎ FOVEA to toggle. Esc dismisses.';}
   window.addEventListener('keydown',onKey,true);
   window.addEventListener('keyup',onKey,true);
   window.addEventListener('pointermove',onMove,MOVE);
@@ -527,10 +557,14 @@ function boot(){
   window.addEventListener('pointerleave',onLeave);
   window.addEventListener('pointerenter',onEnter);
   window.addEventListener('click',onClickFilter,true);
+  FINE_POINTER.addEventListener?.('change',syncInputMode);
+  REDUCED_MOTION.addEventListener?.('change',syncInputMode);
+  syncInputMode();
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
     target:()=>target,bands:['FOVEA','PARA','PERIPHERY'],
     descriptor,redraw:draw,side:()=>side,
+    input:()=>({mode:inputMode(),finePointer:FINE_POINTER.matches,reducedMotion:REDUCED_MOTION.matches}),
     /* THE EXTENSION SEAM — the unified interphase registers glyph slots here. */
     radial:Object.freeze({
       open:(mx,my)=>radialOpenAt(mx??innerWidth/2,my??innerHeight/2,'api'),
