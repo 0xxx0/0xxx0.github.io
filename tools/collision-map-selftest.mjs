@@ -24,6 +24,8 @@ const hardA = ['index.html'];
 const hardB = ['lib/interphase-carrier.js'];
 const softA = ['docs/SANZIJING_WORKING_OBJECT.md'];
 const softB = ['lib/interphase-readfield.js'];
+const commsA = ['comms/index.html'];
+const commsB = ['port/comms/transport-ui.js'];
 const exactA = ['fold-bloom/play.js'];
 const exactB = ['fold-bloom/play.js', 'returns/UNIQUE.json'];
 const safeReceiptA = ['returns/A.json'];
@@ -34,6 +36,8 @@ const hardDomainsA = domains(hardA, config.hard_domains);
 const hardDomainsB = domains(hardB, config.hard_domains);
 const softDomainsA = domains(softA, config.soft_domains);
 const softDomainsB = domains(softB, config.soft_domains);
+const commsDomainsA = domains(commsA, config.soft_domains);
+const commsDomainsB = domains(commsB, config.soft_domains);
 
 assert(config.policy?.base_drift === 'WARN', 'ordinary base drift is classified, not automatically fatal');
 assert(config.policy?.base_drift_on_hard_candidate === 'FAIL', 'hard-authority candidates require current base');
@@ -44,6 +48,7 @@ assert(config.enforcement?.repository_ruleset_required_for_hard_prevention === t
 assert(hardDomainsA.has('field-root-runtime') && hardDomainsB.has('field-root-runtime'), 'different files in FIELD root share hard domain');
 assert([...hardDomainsA].some(x => hardDomainsB.has(x)), 'hard-domain overlap is detectable');
 assert(softDomainsA.has('readfield') && softDomainsB.has('readfield'), 'READFIELD soft overlap is detectable');
+assert(commsDomainsA.has('comms') && commsDomainsB.has('comms'), 'COMMS machine-room and native transport share soft domain');
 assert(overlap(exactA, exactB).length === 1, 'exact-file overlap is detectable');
 assert(overlap(safeReceiptA, safeReceiptB).length === 0, 'unique receipts do not collide by directory');
 assert((config.forbidden_public_paths || []).some(p => matches(forbidden[0], p)), 'forbidden public path is detectable');
