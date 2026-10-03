@@ -6,11 +6,11 @@ Two different failures are caught here:
 1. SEARCH-DON'T-ASK: a worker creates a substantial new artifact without searching first.
    This remains advisory by default because generic artifact creation is not always unsafe.
 
-2. RULE-LIKE FILE != AUTHORITY: a new LAW / RULE / POLICY / CHARTER / MANDATE file
-   appears outside an explicitly non-authoritative evidence/history shelf without being
-   admitted through control/POLICY_INDEX.json. This REFUSES by default. Standing policy
-   is consequential shared state; adding another plausible-looking rule file must never
-   silently create a second authority surface.
+2. RULE-LIKE FILE != AUTHORITY: a new or renamed LAW / RULE / POLICY / CHARTER /
+   MANDATE file appears outside an explicitly non-authoritative evidence/history shelf
+   without being admitted through control/POLICY_INDEX.json. This REFUSES by default.
+   Standing policy is consequential shared state; another plausible-looking rule file
+   must never silently create a second authority surface.
 
 Installed via `sh tools/install-hooks.sh`, which uses the versioned .githooks path.
 `SEARCH_FIRST_SKIP=1` skips only the generic search reminder. A conscious
@@ -56,7 +56,10 @@ ARTIFACT_EXTS = {
     ".c", ".cpp", ".h", ".hpp",
 }
 
-POLICY_LIKE = re.compile(r"(^|[._-])(LAW|RULES?|POLICY|CHARTER|MANDATE)([._-]|$)", re.I)
+POLICY_LIKE = re.compile(
+    r"(^|[._-])(LAWS?|RULES?|POLIC(?:Y|IES)|CHARTERS?|MANDATES?)([._-]|$)",
+    re.I,
+)
 NON_AUTHORITY_SHELVES = (
     "returns/",
     "recovery/",
@@ -97,18 +100,33 @@ def count_lines(path: str) -> int:
         return 0
 
 
+def parse_added_or_renamed(out: str) -> list[str]:
+    """Return destination paths for A and R records from `git diff --name-status`."""
+    paths: list[str] = []
+    for line in (out or "").splitlines():
+        parts = line.split("\t")
+        if len(parts) < 2:
+            continue
+        status = parts[0]
+        if status == "A":
+            paths.append(parts[1])
+        elif status.startswith("R") and len(parts) >= 3:
+            paths.append(parts[-1])
+    return paths
+
+
 def staged_new_files() -> list[str]:
-    rc, out = git("diff", "--cached", "--name-only", "--diff-filter=A")
+    rc, out = git("diff", "--cached", "--name-status", "--diff-filter=AR")
     if rc != 0 or not out:
         return []
-    return [f for f in out.splitlines() if f]
+    return parse_added_or_renamed(out)
 
 
 def diff_new_files(base: str) -> list[str]:
-    rc, out = git("diff", "--name-only", "--diff-filter=A", f"{base}...HEAD")
+    rc, out = git("diff", "--name-status", "--diff-filter=AR", f"{base}...HEAD")
     if rc != 0:
-        raise RuntimeError(f"cannot inspect policy additions against {base}: {out}")
-    return [f for f in out.splitlines() if f]
+        raise RuntimeError(f"cannot inspect policy additions/renames against {base}: {out}")
+    return parse_added_or_renamed(out)
 
 
 def policy_index() -> dict:
@@ -195,7 +213,11 @@ def print_reminder(new_files: list[str]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--policy-diff", metavar="BASE", help="CI mode: check newly added policy-like files against BASE...HEAD")
+    ap.add_argument(
+        "--policy-diff",
+        metavar="BASE",
+        help="CI mode: check added/renamed policy-like files against exact BASE...HEAD",
+    )
     args = ap.parse_args()
 
     try:
@@ -212,7 +234,10 @@ def main() -> int:
         return 1
 
     if args.policy_diff:
-        print(f"POLICY AUTHORITY PASS · {len(new_files)} added file(s) inspected · standing policy remains indexed")
+        print(
+            f"POLICY AUTHORITY PASS · {len(new_files)} added/renamed file(s) inspected · "
+            "standing policy remains indexed"
+        )
         return 0
 
     if SKIP:
