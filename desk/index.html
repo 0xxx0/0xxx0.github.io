@@ -68,6 +68,8 @@ h2 .n{color:var(--mut);font:400 9px/1 ui-monospace,monospace;letter-spacing:.12e
 .k.gold{color:var(--gold);border-color:var(--gold)}
 .k.cool{color:var(--cool);border-color:var(--cool)}
 .k.bad{color:var(--bad);border-color:var(--bad)}
+/* LIVE SYNC — a reconciled receipt is visibly stale against its snapshot. */
+details.changed{box-shadow:inset 2px 0 0 var(--green)}
 pre{margin:6px 0 0;color:var(--mut);font-size:9px;white-space:pre-wrap}
 .dim{color:var(--mut)}
 input[type=search]{width:100%;background:var(--p);border:1px solid var(--line);
@@ -101,6 +103,7 @@ footer{margin:26px 0 12px;border-top:1px solid var(--line);padding-top:11px;
 
   <div class="stats" id="stats"></div>
   <div class="count-row" id="buckets"></div>
+  <div class="count-row" id="livesync"><div class="dim">LIVE SYNC · connecting to api.github.com…</div></div>
 
   <div class="bar" id="bar">
     <button class="on" data-view="returns">RETURNS</button>
@@ -112,7 +115,8 @@ footer{margin:26px 0 12px;border-top:1px solid var(--line);padding-top:11px;
     <h2>RETURN RECEIPTS <span class="n" id="n-returns"></span></h2>
     <p class="blurb">Evidence of what actually happened. Each receipt carries a measured
       result and a falsifier. <b>exists ≠ runs ≠ verified</b> — the check column is the
-      third thing.</p>
+      third thing. Snapshot states are cross-checked against live GitHub state below;
+      a <b>live Δ</b> badge means the snapshot was stale.</p>
     <input type="search" id="q-returns" placeholder="filter returns by id, object, law, state…">
     <div id="list-returns"></div>
   </section>
@@ -138,9 +142,25 @@ footer{margin:26px 0 12px;border-top:1px solid var(--line);padding-top:11px;
 </main>
 
 <script>
-let DATA=null;
+let DATA=null;let LIVE=null,EFF=new Map();
 const $=(s)=>document.querySelector(s);
 const esc=(s)=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// REF EXTRACTION — mirror of tools/gen-desk-data.mjs extractRefs. data.json carries
+// per-receipt refs; the fallback re-reads the visible fields so the desk still works
+// against an older data.json (pre-refs generator).
+const REF_PR=/#(\d{2,4})\b|\bpull\/(\d{2,4})\b|\bPR[ #]+(\d{2,4})\b/gi;
+const REF_SHA=/\b[0-9a-f]{7,40}\b/g;
+function refsOf(text){const prs=new Set(),commits=new Set();
+  for(const m of String(text).matchAll(REF_PR))prs.add(Number(m[1]||m[2]||m[3]));
+  for(const m of String(text).matchAll(REF_SHA)){const h=m[0];if(h.length>=7&&/[a-f]/.test(h))commits.add(h);}
+  return{prs:[...prs].sort((a,b)=>a-b),commits:[...commits]};}
+function receiptRefs(r){
+  const x=refsOf(JSON.stringify([r.object,r.id,r.next,r.measured,r.laws,r.checks,r.file]));
+  const src=r.refs||{};
+  for(const n of (src.prs||[]))if(!x.prs.includes(n))x.prs.push(n);
+  for(const c of (src.commits||[]))if(!x.commits.includes(c))x.commits.push(c);
+  return x;}
 
 function applyTheme(t){document.documentElement.setAttribute('data-theme',t);
   try{localStorage.setItem('fd-theme',t)}catch(e){}
@@ -165,10 +185,12 @@ function bucketState(s){s=String(s).toUpperCase();
   if(/FROZEN|PARKED|RECOVER|HISTORICAL|DONOR|BOUNDED/.test(s))return 'Frozen/Recover';
   return 'Other';}
 
+function shownState(r){const e=EFF.get(r.file);return e&&e.changed?e.state:r.state;}
+function effOf(r){return EFF.get(r.file)||null;}
+
 function renderStats(){
-  const c=DATA.counts||{};
   const buckets={};
-  (DATA.returns||[]).forEach(r=>{const b=bucketState(r.state);buckets[b]=(buckets[b]||0)+1;});
+  (DATA.returns||[]).forEach(r=>{const b=bucketState(shownState(r));buckets[b]=(buckets[b]||0)+1;});
   const order=['Merged/Verified','Candidate','Draft/Active','Frozen/Recover','Other'];
   $('#stats').innerHTML=[
     [DATA.returns.length,'RETURNS','cool'],
@@ -189,15 +211,19 @@ function renderReturns(){
   const rs=(DATA.returns||[]).filter(r=>!q||JSON.stringify(r).toLowerCase().includes(q));
   const clip=(s,n)=>{s=String(s||'');return s.length>n?s.slice(0,n-1)+'…':s;};
   $('#list-returns').innerHTML=rs.slice(0,150).map(r=>{
-    const st=clip(r.state,26);
+    const e=effOf(r);
+    const st=clip(shownState(r),26);
+    const badge=e?` <span class="k ${e.cls}" title="${esc(e.note)}">${esc(e.marker)}</span>`:'';
     const checks=r.checks?Object.entries(r.checks).slice(0,6).map(([k,v])=>
       `<span class="k ${stateClass(v)}">${esc(clip(k,18))}:${esc(clip(v,14))}</span>`).join(''):'';
+    const sync=e?`<div class="m dim">${e.changed?'':'live · '}${esc(e.note)}</div>`:'';
     const title=clip(r.object,90)||clip(r.id,90);
-    return `<details><summary>
-      <span class="k ${stateClass(r.state)}">${esc(st||'—')}</span>
+    return `<details${e&&e.changed?' class="changed"':''}><summary>
+      <span class="k ${stateClass(shownState(r))}">${esc(st||'—')}</span>${badge}
       <b>${esc(title)}</b> <span class="dim">${esc(r.date)}</span></summary>
       <div style="padding:2px 11px 11px">
         <div class="m dim">id · ${esc(r.id)}</div>
+        ${sync}
         ${r.object?`<div>${esc(r.object)}</div>`:''}
         ${checks?`<div class="m">${checks}</div>`:''}
         ${r.measured?`<pre>measured · ${esc(clip(r.measured,220))}</pre>`:''}
@@ -220,10 +246,95 @@ function renderRoutes(){
   ).join('')||'<div class="row dim">no routes</div>';
 }
 
-async function loadPrs(){
+// LIVE SYNC — cross-check every return receipt's PR/commit refs against GitHub.
+// Window: pulls?state=all&per_page=100 + commits?per_page=100 (the repo creates
+// ~100 PRs every two weeks, so this covers every open PR and the recent merges).
+// Refs older than the window are resolved by up to RESOLVE_CAP targeted pulls/{n}
+// lookups per refresh — newest receipts first — cached 6h, so repeat visits cost
+// two requests. A receipt whose refs cannot be matched is LEFT AS-IS and marked
+// "snapshot": the desk never invents a live claim.
+const GH='https://api.github.com/repos/0xxx0/0xxx0.github.io';
+const LS_LIVE='fd-live-v1',LIVE_TTL=6*3600*1000,RESOLVE_CAP=12;
+function liveLoad(){try{const x=JSON.parse(localStorage.getItem(LS_LIVE));if(x&&x.at)return x;}catch(e){}return null;}
+function liveSave(){try{localStorage.setItem(LS_LIVE,JSON.stringify({at:LIVE.at,prs:[...LIVE.prs],commits:[...LIVE.commits],missed:[...LIVE.missed]}));}catch(e){}}
+async function gh(path){const r=await fetch(GH+path,{headers:{Accept:'application/vnd.github+json'}});
+  if(!r.ok)throw new Error(path+' -> '+r.status);return r.json();}
+function prInfo(p){return{num:p.number,state:p.state,merged:!!p.merged_at,title:p.title||'',
+  branch:(p.head&&p.head.ref)||'',user:(p.user&&p.user.login)||'',updated:p.updated_at||''};}
+async function loadLive(){
+  const cached=liveLoad();
+  if(cached&&Date.now()-cached.at<LIVE_TTL){
+    LIVE={prs:new Map(cached.prs),commits:new Set(cached.commits),missed:new Set(cached.missed||[]),at:cached.at};
+  }else{
+    const [prs,commits]=await Promise.all([gh('/pulls?state=all&per_page=100'),gh('/commits?per_page=100')]);
+    LIVE={prs:new Map(prs.map(p=>[p.number,prInfo(p)])),commits:new Set(commits.map(c=>c.sha)),
+      missed:new Set((cached&&cached.missed)||[]),at:Date.now()};
+    const need=[],seen=new Set();
+    for(const r of ((DATA&&DATA.returns)||[]))for(const n of receiptRefs(r).prs)
+      if(!LIVE.prs.has(n)&&!LIVE.missed.has(n)&&!seen.has(n)){seen.add(n);need.push(n);}
+    for(const n of need.slice(0,RESOLVE_CAP)){
+      try{LIVE.prs.set(n,prInfo(await gh('/pulls/'+n)));}catch(e){LIVE.missed.add(n);}
+    }
+    liveSave();
+  }
+  reconcile();
+}
+function liveVerdict(r){
+  const refs=receiptRefs(r),merged=[],open=[],closed=[];
+  for(const n of refs.prs){const v=LIVE.prs.get(n);if(!v)continue;
+    if(v.merged)merged.push(n);else if(v.state==='open')open.push(n);else closed.push(n);}
+  let commitHit=false;
+  for(const h of refs.commits){for(const s of LIVE.commits)if(s.startsWith(h)){commitHit=true;break;}if(commitHit)break;}
+  if(merged.length)return{k:'MERGED',via:'PR #'+merged[0]+' merged'};
+  if(commitHit)return{k:'MERGED',via:'referenced commit is on master'};
+  if(open.length)return{k:'OPEN',via:'PR #'+open[0]+' still open'};
+  if(closed.length)return{k:'CLOSED',via:'PR #'+closed[0]+' closed unmerged'};
+  if(refs.prs.length||refs.commits.length)return{k:'UNMATCHED',via:'no live match for refs in the fetched window'};
+  return null;
+}
+const CANDIDATEISH=/CANDIDATE|DRAFT_PENDING|IMPLEMENTED|SHIPPED|PR_|MERGE_READY|READY|PENDING/i;
+function reconcile(){
+  EFF=new Map();let changed=0,matched=0;
+  for(const r of ((DATA&&DATA.returns)||[])){
+    const v=liveVerdict(r);if(!v)continue;matched++;
+    const snap=String(r.state||'');
+    if(v.k==='MERGED'){
+      if(CANDIDATEISH.test(snap)&&!/MERGED/i.test(snap)){
+        changed++;
+        EFF.set(r.file,{state:'MERGED',marker:'live Δ',cls:'ok',note:'snapshot '+snap+' → '+v.via,changed:true});
+      }else{
+        EFF.set(r.file,{state:snap,marker:'live ✓',cls:'ok',note:v.via,changed:false});
+      }
+    }else if(v.k==='OPEN'){
+      EFF.set(r.file,{state:snap,marker:'live: open',cls:'gold',note:v.via,changed:false});
+    }else if(v.k==='CLOSED'){
+      EFF.set(r.file,{state:snap,marker:'live: closed',cls:'',note:v.via,changed:false});
+    }else{
+      EFF.set(r.file,{state:snap,marker:'snapshot',cls:'',note:v.via,changed:false});
+    }
+  }
+  const when=new Date(LIVE.at).toLocaleTimeString();
+  $('#livesync').innerHTML=`<div>LIVE SYNC · <b>${matched}</b> receipts matched · <b>${changed}</b> stale vs snapshot · window ${LIVE.prs.size} PRs / ${LIVE.commits.size} commits · fetched ${esc(when)}</div>`;
+  renderStats();renderReturns();
+}
+function syncFail(e){
+  $('#livesync').innerHTML=`<div class="dim">LIVE SYNC UNAVAILABLE (${esc(String((e&&e.message)||e).slice(0,80))}) — showing snapshot states.</div>`;
+}
+function renderPrs(){
+  const el=$('#list-prs');
+  const open=[...LIVE.prs.values()].filter(p=>p.state==='open').sort((a,b)=>b.num-a.num);
+  $('#n-prs').textContent=open.length+' open';
+  el.innerHTML=open.map(p=>
+    `<div class="row"><div class="t">#${p.num} — ${esc(p.title)}</div>
+      <div class="m"><span class="k cool">${esc(p.branch)}</span>
+      <span class="dim">${esc(p.user)}</span>
+      <span class="dim">updated ${esc(p.updated)}</span></div></div>`
+  ).join('')||'<div class="row dim">no open PRs</div>';
+}
+async function loadPrsFallback(){
   const el=$('#list-prs');
   try{
-    const res=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/pulls?state=open&per_page=50');
+    const res=await fetch(GH+'/pulls?state=open&per_page=50');
     const prs=await res.json();
     if(!Array.isArray(prs))throw new Error('bad');
     $('#n-prs').textContent=prs.length+' open';
@@ -258,7 +369,7 @@ $('#q-returns').addEventListener('input',renderReturns);
     $('#stats').innerHTML='<div class="stat"><b>—</b><span>DATA FAILED</span></div>';
     $('#list-returns').innerHTML='<div class="row dim">desk/data.json failed to load.</div>';
   }
-  loadPrs();
+  loadLive().then(renderPrs).catch(err=>{syncFail(err);loadPrsFallback();});
 })();
 </script>
 </body>

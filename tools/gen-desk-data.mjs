@@ -3,8 +3,14 @@
 //
 // The desk is a real field route at /desk/. It shows what is genuinely PUBLIC
 // in this repo: return receipts (returns/*.json), addressed routes (the
-// manifest), and live open PRs (fetched client-side from the GitHub API).
+// manifest), and live GitHub state (all PRs + commits fetched client-side, which
+// the desk uses to reconcile receipt snapshot states against reality).
 // Local-only material (trophies, research, kanban) deliberately stays local.
+//
+// Each return also carries `refs` — the PR numbers and commit shas its text
+// references — extracted here so the desk can cross-check them without
+// re-reading every receipt in the browser. Refs the live window cannot resolve
+// are left as-is by the desk (badge: snapshot); nothing is inferred.
 //
 // This writes desk/data.json. `.github/workflows/field-desk-refresh.yml` owns
 // automatic regeneration when returns, the manifest, this generator, or the
@@ -17,16 +23,26 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const returnsDir = join(root, 'returns');
 
-function newestNonMachineCommitFor(file) {
-  return null; // filled by fi-mutation-contract / git; desk only needs the receipt date
+// PR / commit references found in a receipt's text. Same grammar the desk uses
+// (mirrored in desk/index.html) so extraction and matching cannot drift.
+const REF_PR = /#(\d{2,4})\b|\bpull\/(\d{2,4})\b|\bPR[ #]+(\d{2,4})\b/gi;
+const REF_SHA = /\b[0-9a-f]{7,40}\b/g;
+function extractRefs(text) {
+  const prs = new Set(), commits = new Set();
+  for (const m of String(text).matchAll(REF_PR)) prs.add(Number(m[1] || m[2] || m[3]));
+  for (const m of String(text).matchAll(REF_SHA)) {
+    const h = m[0];
+    if (h.length >= 7 && /[a-f]/.test(h)) commits.add(h);
+  }
+  return { prs: [...prs].sort((a, b) => a - b), commits: [...commits] };
 }
 
 const files = readdirSync(returnsDir)
   .filter((f) => f.endsWith('.json'))
   .map((f) => {
     const p = join(returnsDir, f);
-    let d = {};
-    try { d = JSON.parse(readFileSync(p, 'utf8')); } catch { d = {}; }
+    let d = {}, text = '';
+    try { text = readFileSync(p, 'utf8'); d = JSON.parse(text); } catch { d = {}; }
     return {
       file: f,
       id: d.id || basename(f, '.json'),
@@ -40,6 +56,7 @@ const files = readdirSync(returnsDir)
             ([k, v]) => [k, (v && typeof v === 'object' ? v.conclusion : v) || '']))
         : {},
       laws: Array.isArray(d.laws) ? d.laws.slice(0, 4) : [],
+      refs: extractRefs(text),
       mtime: statSync(p).mtime.toISOString(),
     };
   })
