@@ -18,16 +18,17 @@ const W=()=>f.contentWindow,D=()=>W().document;
  await wait(()=>W().PrisonAgePassageAPI?.snapshot?.()?.gate===1,16000,'passage boot');
  let snap=W().PrisonAgePassageAPI.snapshot();
  rec.start={gate:snap.gate,role:D().getElementById('ppRole')?.textContent?.trim(),quote:D().getElementById('ppQuote')?.textContent?.replace(/\\s+/g,' ').trim(),order:snap.route.order_authority,authority:snap.route.authority,href:W().location.search};
- if(rec.start.gate!==1||rec.start.role!=='ORIGIN'||!/9 gate cities exist/.test(rec.start.quote)||rec.start.order!=='EDITORIAL_NON_CANON'||!rec.start.authority.includes('EVIDENCE_ONLY'))throw Error('gate 1 source route');
+ if(rec.start.gate!==1||rec.start.role!=='ORIGIN'||!rec.start.quote.includes('9 gate cities exist')||rec.start.order!=='EDITORIAL_NON_CANON'||!rec.start.authority.includes('EVIDENCE_ONLY'))throw Error('gate 1 source route');
 
  W().PrisonAgePassageAPI.openGate(2);await sleep(80);snap=W().PrisonAgePassageAPI.snapshot();
  rec.g2={gate:snap.gate,role:D().getElementById('ppRole')?.textContent?.trim(),transition:D().getElementById('ppTransition')?.textContent?.replace(/\\s+/g,' ').trim(),href:W().location.search};
- if(rec.g2.gate!==2||rec.g2.role!=='WEATHER'||!/ECHO \/ EXACT CROSS-SOURCE ECHO/.test(rec.g2.transition)||!/ATLAS 04/.test(rec.g2.transition)||!new URL(W().location.href).searchParams.get('gate')==='2')throw Error('gate 2 echo');
+ const gateQuery=new URL(W().location.href).searchParams.get('gate');
+ if(rec.g2.gate!==2||rec.g2.role!=='WEATHER'||!rec.g2.transition.includes('ECHO / EXACT CROSS-SOURCE ECHO')||!rec.g2.transition.includes('ATLAS 04')||gateQuery!=='2')throw Error('gate 2 echo');
  const read=W().PrisonAgePassageAPI.readUrl(2),readU=new URL(read,W().location.origin);rec.read={src:readU.searchParams.get('src'),char:Number(readU.searchParams.get('ap_char')),ret:readU.searchParams.get('return'),echo:readU.searchParams.get('echo_source')};
  if(rec.read.src!=='/prison-age/stories/03-open-air.md'||!Number.isInteger(rec.read.char)||rec.read.char<1||rec.read.echo!=='open-air'||!rec.read.ret.includes('passage=nine'))throw Error('exact READ address');
  const ride=await W().PrisonAgePassageAPI.ridePacket(2);rec.ride={kind:ride.kind,source:ride.packet?.sourceIdentity?.address,authority:ride.packet?.sourceIdentity?.authority,start:ride.packet?.focus?.span?.start,end:ride.packet?.focus?.span?.end,char:ride.packet?.focus?.char_index,ret:ride.packet?.returnAddress,echo:ride.packet?.echo?.source_id};
  if(ride.kind!=='READ_RIDE_PACKET'||rec.ride.source!==rec.read.src||rec.ride.authority!=='PRISON_AGE'||rec.ride.start!==rec.read.char||rec.ride.char!==rec.read.char||!(rec.ride.end>rec.ride.start)||rec.ride.echo!=='open-air')throw Error('exact RIDE packet');
- const openAir=await fetch('/prison-age/stories/03-open-air.md').then(r=>r.text());if(!/One afternoon, the vent breathed backward\./.test(openAir.slice(rec.ride.start,rec.ride.end)))throw Error('RIDE span source mismatch');
+ const openAir=await fetch('/prison-age/stories/03-open-air.md').then(r=>r.text());if(!openAir.slice(rec.ride.start,rec.ride.end).includes('One afternoon, the vent breathed backward.'))throw Error('RIDE span source mismatch');
 
  for(let g=3;g<=9;g++){W().PrisonAgePassageAPI.openGate(g);await sleep(25)}
  snap=W().PrisonAgePassageAPI.snapshot();const packet=W().PrisonAgePassageAPI.returnPacket();
@@ -35,7 +36,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(rec.final.gate!==9||rec.final.visited.length!==9||packet.result!=='COMPLETE'||packet.visited.length!==9||packet.authority!=='EVIDENCE_ONLY'||packet.next!=='NONE_UNTIL_REPLAN'||packet.field_return?.schema!=='field-return-envelope/v0.1')throw Error('passage RETURN');
  if(!packet.visited.every(x=>String(x.address).startsWith('source://prison-age/')))throw Error('RETURN exact addresses');
  if(!packet.residue.includes('traversal != comprehension')||!packet.residue.includes('curated order != canon'))throw Error('RETURN residue');
- if(!packet.transitions_crossed.some(x=>x.kind==='ECHO_EXACT_SELECTED'&&/ATLAS 04/.test(x.evidence)))throw Error('RETURN lost ECHO witness');
+ if(!packet.transitions_crossed.some(x=>x.kind==='ECHO_EXACT_SELECTED'&&String(x.evidence).includes('ATLAS 04')))throw Error('RETURN lost ECHO witness');
  done(true,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
