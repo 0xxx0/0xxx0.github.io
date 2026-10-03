@@ -1,0 +1,46 @@
+{
+  "schema": "field-return/v1",
+  "id": "RETURN_LANDING_LIGHT_LIVE_SYNC_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "FIELD INDEX light mode + FIELD DESK live GitHub state sync + FCM freshness pass",
+  "before": "Operator: 'still no light mode and improvements to field index landing'. Desk return receipts showed frozen snapshot states — a receipt stuck on CANDIDATE could already be merged upstream and the page would not know. FCM surface untouched since 2026-09-22 with fronts not restated against current control state.",
+  "delta": [
+    "index.html: html[data-theme=\"light\"] warm-paper palette (#f2efe8 / #1a1c1a, darker accents) + surgical light bridge for dark-literal surfaces; foot toggle ◑ LIGHT / ◐ DARK persists as fi-theme, respects prefers-color-scheme on first load, updates meta theme-color.",
+    "desk/index.html: on load, reconciles every receipt's PR/commit refs against live GitHub (pulls?state=all&per_page=100 + commits?per_page=100); renders live Δ (stale snapshot flip), live ✓, live: open, live: closed, or snapshot (refs the window cannot match are left as-is, per code comment). FIELD_MOIRE CANDIDATE / MACHINE_PASS / HUMAN_VALUE_UNPROVED → MERGED via PR #784 observed in-browser. 6h localStorage cache; older refs resolved by ≤12 targeted lookups per refresh.",
+    "tools/gen-desk-data.mjs: extracts per-receipt refs (PR numbers + commit shas) so reconciliation needs no client-side receipt re-reads; the desk falls back to scanning visible fields against older data.json. desk/data.json regeneration is owned by .github/workflows/field-desk-refresh.yml (already live on master — 4 runs today, latest success, bot commit 999b5776), which this PR keeps fed.",
+    "fcm-fronts.json + fcm/index.html + fcm/release.json: three fronts verified against control/CURRENT.json + returns/ as of 2026-10-03; updated stamps added and rendered (footer FRONTS.JSON UPDATED 2026-10-03; STATE 2026-10-03 lines in FRONTS cards). None done/obsolete — release-comms: bounded slice advancing (Laconic/Iconic + transport UX), external sending HELD; housebus: two-worker proof harness implemented, real second worker / home round-trip is the gate; machine-representation: HOLD_CURRENT_HEAD (AXIAL / FOCUS STACK 0.7.3)."
+  ],
+  "laws": [
+    "SNAPSHOT ≠ LIVE: a frozen state field is a claim about the past, not the present.",
+    "DESIGNED BUT NOT RUNNING COSTS TWICE: the desk generator was manual and desk/data.json went stale; the refresh workflow now owns it.",
+    "VERIFY THE CLAIM, NOT THE ARTIFACT: the toggle and the live sync were verified by rendering the served pages, not by exit codes.",
+    "FRESHNESS IS A STATE, NOT A DATE: fronts were re-checked against control state and returns, not merely re-stamped."
+  ],
+  "evidence": [
+    "index.html",
+    "desk/index.html",
+    "tools/gen-desk-data.mjs",
+    "fcm-fronts.json",
+    "fcm/index.html",
+    "fcm/release.json",
+    ".github/workflows/field-desk-refresh.yml",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/916"
+  ],
+  "verification": {
+    "source": "BRANCH field/landing-light-live-sync-20261003 · PR 916 (open; gates below run on this exact branch)",
+    "checks": {
+      "public_surface": { "conclusion": "PASS" },
+      "html_document_integrity": { "conclusion": "PASS" },
+      "mutation_recency": { "conclusion": "PASS" },
+      "light_mode_render": { "conclusion": "PASS · served page rendered in browser: data-theme flips on click, label syncs, fi-theme persists across reload, dark mode unchanged, zero console errors" },
+      "live_sync_render": { "conclusion": "PASS · rendered against live api.github.com: 164 receipts matched, 1 stale flip (FIELD_MOIRE → MERGED, PR #784 merged), 5 open PRs listed live, zero console errors" },
+      "fcm_render": { "conclusion": "PASS · three fronts + STATE 2026-10-03 + footer stamp rendered, layout intact, zero console errors" }
+    },
+    "measured": "before: desk showed FIELD_MOIRE as CANDIDATE; after: MERGED (live Δ · PR #784 merged). before: fcm-fronts.json had no updated stamp; after: updated 2026-10-03 with per-front states. before: no light theme on /; after: light palette + persistent toggle verified in-browser.",
+    "falsifier": "Fail if the served desk shows FIELD_MOIRE as CANDIDATE while PR #784 is merged, if the served / lacks the fi-theme toggle or loses the theme across reload, or if fcm-fronts.json loses the updated/state fields."
+  },
+  "next": "Review PR 916. After merge, field-desk-refresh regenerates desk/data.json with refs and the desk reconciles live states on next load.",
+  "stop": "Do not merge without review; do not restyle beyond the surgical light bridge; do not swap FCM fronts without a RETURN.",
+  "version": "0.1.0"
+}
