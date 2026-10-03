@@ -11,12 +11,11 @@
  * Exit: 0 CLEAN · 1 VIOLATIONS · 2 usage · 3 INDETERMINATE.
  */
 import {readFileSync,existsSync} from 'node:fs';
-import {basename,join,resolve,sep} from 'node:path';
+import {join,resolve,sep} from 'node:path';
 
 const argv=process.argv.slice(2),asJson=argv.includes('--json'),rootArg=argv.indexOf('--root');
 if(rootArg>=0&&!argv[rootArg+1]){console.error('usage: check-interphase.mjs [--root <checkout>] [--json]');process.exit(2)}
 const ROOT=resolve(rootArg>=0?argv[rootArg+1]:process.cwd());
-const REPO_DIR=basename(ROOT);
 const REGISTRY=join(ROOT,'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json');
 const MANIFEST=join(ROOT,'showcase-manifest.json');
 const FACETS=['SOURCE','FRAME','FOCUS','OPERATE','WITNESS','RETURN'];
@@ -32,12 +31,12 @@ function repoPath(raw){
  const s=String(raw??'').trim();if(!s)return null;
  // Published addresses (/foo/bar.js) resolve from this checkout. Older registry
  // records sometimes serialized the same repo-relative path behind an absolute
- // clone prefix (.../<repo-dir>/foo/bar.js). Strip only through the *last*
- // matching repo-directory segment, then resolve the suffix under ROOT. We do
- // not stat/read the serialized external path, so another clone cannot prove us.
- const marker=`/${REPO_DIR}/`;
- const at=s.lastIndexOf(marker);
- const rel=at>=0?s.slice(at+marker.length):(s.startsWith('/')?s.slice(1):s);
+ // clone prefix (.../<owner>.github.io/foo/bar.js). Strip only through the last
+ // github.io repository segment, then resolve the suffix under ROOT. We never
+ // stat/read the serialized external path, so another clone cannot prove us.
+ const marks=[...s.matchAll(/\/[^/]+\.github\.io\//g)];
+ const mark=marks.length?marks[marks.length-1]:null;
+ const rel=mark?s.slice(mark.index+mark[0].length):(s.startsWith('/')?s.slice(1):s);
  const full=resolve(ROOT,rel),prefix=ROOT.endsWith(sep)?ROOT:ROOT+sep;
  if(full===ROOT||!full.startsWith(prefix))return null;
  return full;
