@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T04:57:34.730Z",
+  "generated": "2026-10-03T05:18:59.966Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
-  "commits_in_window": 140,
-  "git_commits_in_window": 195,
-  "telemetry_commits_in_window": 55,
-  "commits_total": 4819,
-  "branch_count": 955,
+  "commits_in_window": 144,
+  "git_commits_in_window": 202,
+  "telemetry_commits_in_window": 58,
+  "commits_total": 4826,
+  "branch_count": 957,
   "recent_commits": [
-    "Merge PR #896: minimum same-object crew turn",
-    "crew: expose minimum same-object turn fast path",
-    "test: freeze minimum same-object crew execution shape"
+    "FIELD DESK: fix the styling leaks (state wall, filename titles) (#898)",
+    "loops: stamp /loops/ route (mutation contract)",
+    "loops: refresh public gallery (2026-10-03)"
   ],
   "active_fronts": [
     {
