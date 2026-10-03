@@ -58,3 +58,21 @@
   out.className = "m";
   panel.appendChild(out);
 })();
+
+/* BASE CAMP is a projection over the canonical HOUSE locus, loaded after the
+ * Mini App adapter so browser and Telegram entry share one home-base face. */
+(function(){
+  var path=location.pathname.replace(/\/+$/,'');
+  if(path!=='/house')return;
+  if(document.querySelector('script[data-house-base-camp]'))return;
+  var exactBase=location.hash.toUpperCase()==='#BASE';
+  if(exactBase)history.replaceState(null,'',location.pathname+location.search);
+  var s=document.createElement('script');
+  s.src='./base-camp.js';
+  s.defer=true;
+  s.dataset.houseBaseCamp='1';
+  s.onload=function(){
+    if(exactBase)history.replaceState(null,'',location.pathname+location.search+'#BASE');
+  };
+  document.head.appendChild(s);
+})();

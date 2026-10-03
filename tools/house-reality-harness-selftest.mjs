@@ -34,5 +34,24 @@ ok('module consumes design witness',/house:design-state/.test(src));
 ok('module consumes runtime witness',/house:runtime-witness/.test(src));
 const html=fs.readFileSync(path.join(ROOT,'house/index.html'),'utf8');
 ok('/house/ loads reality harness',/reality-harness\.js/.test(html));
+
+console.log('\n[HOUSE base camp]');
+const base=fs.readFileSync(path.join(ROOT,'house/base-camp.js'),'utf8');
+const mini=fs.readFileSync(path.join(ROOT,'house/mini.js'),'utf8');
+ok('base camp source parses',(()=>{try{new Function(base);return true}catch(_){return false}})());
+ok('canonical root loader is path-scoped',/path!==['"]\/house['"]/.test(mini)&&/\.\/base-camp\.js/.test(mini));
+ok('exact #BASE survives late projection registration',/exactBase=location\.hash\.toUpperCase\(\)===['"]#BASE['"]/.test(mini)&&/location\.pathname\+location\.search\+['"]#BASE['"]/.test(mini));
+ok('BASE joins existing projection grammar',/V\.unshift\(['"]BASE['"]\)/.test(base));
+ok('unaddressed root selects BASE only',/!location\.hash\|\|location\.hash===['"]#['"]/.test(base)&&/view=['"]BASE['"]/.test(base));
+ok('kit state is browser-local',/houseBaseCampLocalV01/.test(base));
+ok('ENV-0 recovered ladder retained',/BODY['"],['"]GARMENT['"],['"]HARNESS['"],['"]SUIT['"],['"]FURNITURE['"],['"]ROOM['"],['"]HOUSE/.test(base));
+ok('SET OUT reuses Dayline handoff',/atlas-dayline-handoff\/v0\.1/.test(base));
+ok('service residue reuses HOUSE CARE',/house-care-episode\/v0\.1/.test(base));
+ok('READY SERVICE UNKNOWN returns explicit',/RETURN · READY/.test(base)&&/RETURN · SERVICE/.test(base)&&/RETURN · UNKNOWN/.test(base));
+ok('inventory and loadout stay unequal',/CATALOG ≠ INVENTORY ≠ LOADOUT ≠ LOCATION/.test(base));
+ok('truth boundary visible',/does not prove possession, readiness, presence, or device state/.test(base));
+ok('BASE owns no network client',!/(?:\bfetch\s*\(|XMLHttpRequest|new\s+WebSocket)/.test(base));
+ok('BASE carries no HA credential/service surface',!/(?:HA_TOKEN|HOME_ASSISTANT_TOKEN|SUPERVISOR_TOKEN|service\/call)/.test(base));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if(fail)process.exit(1);
