@@ -3,18 +3,25 @@
   "date": "2026-10-03",
   "surface": "/docs/",
   "change": "Expose the already-shipped READFIELD → FOLD//BLOOM LIVE → READFIELD excursion as a first-class phone RIDE handoff beside the existing six-job rail.",
-  "status": "CANDIDATE_CI_REQUIRED",
+  "status": "MERGED_VERIFIED",
   "base_sha": "8651bd325697c5c981bbf55d788bf83c6f50ffb8",
   "branch": "readfield-ride-rail-current-20261003",
   "donor": "PR #822 / readfield-workflow-ride-20261003",
+  "merge": {
+    "pr": 833,
+    "head_sha": "b932528e7e2e7e0486855875ebb96c03d7a71bde",
+    "merge_sha": "385e4c17fbead7d911888d0c72dbdb3e91a95be3"
+  },
   "observed": [
-    "CURRENT and the /docs/ manifest already retain RIDE LIVE as a READFIELD capability, while the visible six-job phone rail remains FAST / REVIEW / PULSE / VOICE / LOCI / REPO.",
-    "The native #rideLive handoff already owns exact source-hash + native-span carriage and fail-closed RETURN revalidation; no new execution path is required."
+    "CURRENT and the /docs/ manifest already retained RIDE LIVE as a READFIELD capability, while the visible six-job phone rail remained FAST / REVIEW / PULSE / VOICE / LOCI / REPO.",
+    "The native #rideLive handoff already owned exact source-hash + native-span carriage and fail-closed RETURN revalidation; no new execution path was required.",
+    "The first replay incorrectly inserted RIDE as a seventh rail job. Self-audit rejected that model change and moved RIDE to the adjacent workNow continuation surface instead."
   ],
   "delta": [
     "Keep the canonical six-job work rail unchanged and add one adjacent RIDE handoff in the existing workNow strip through lib/interphase-readfield.js.",
     "Delegate the doorway directly to native #rideLive; do not clone packet state, cursor state or traversal logic.",
-    "Add one collapsed RIDE / MATERIAL use-case card and one FAST → REVIEW → RIDE → RETURN chain as explanation only."
+    "Add one collapsed RIDE / MATERIAL use-case card and one FAST → REVIEW → RIDE → RETURN chain as explanation only.",
+    "Promote the existing READFIELD → LIVE browser proof to enter through the visible RIDE doorway and assert that the doorway remains outside the canonical work rail."
   ],
   "authority": {
     "source_cursor": "READFIELD",
@@ -22,7 +29,22 @@
     "handoff": "NAVIGATION_ONLY",
     "return": "EVIDENCE_ONLY until READFIELD revalidates exact source identity and native span"
   },
+  "verification": {
+    "proof_head": "b932528e7e2e7e0486855875ebb96c03d7a71bde",
+    "public_surface": {
+      "run": 37079786182,
+      "run_number": 4932,
+      "conclusion": "success"
+    },
+    "gitleaks": {
+      "run": 37079786219,
+      "run_number": 5620,
+      "conclusion": "success"
+    },
+    "browser": "PASS · public-surface-check step 107 critical browser smoke plus READFIELD → LIVE exact cursor RETURN, local-file READ/RIDE, recovered reader RETURN, mobile/LIVE regressions, recovered-source validation and frozen City/Painting handlers all succeeded on the final PR head.",
+    "doorway": "PASS · browser proof clicks [data-reader-handoff=ride], requires label RIDE ↗, requires native #rideLive, and requires the doorway not to be inside .workRail before completing the existing exact RETURN/stale-source/malformed-visit guards."
+  },
   "falsifier": "Fail if RIDE appears without an active source, changes the six canonical work jobs, creates a second handoff state, mutates READFIELD cursor before verified RETURN, breaks the mobile work deck, or bypasses the native #rideLive path.",
-  "next": "Require exact-head public-surface/browser and gitleaks checks. If green, merge as a use-surface conversion and close stale donor PR #822 as superseded.",
+  "next": "HOLD the interface. Let ordinary phone use decide whether this adjacent handoff removes enough hunting; reopen only on observed use friction or failed exact RETURN evidence.",
   "stop": "Do not add a workflow engine, second source store, second cursor authority or new LIVE text authority."
 }
