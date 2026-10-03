@@ -25,9 +25,21 @@ fi
 
 TOP="$(git rev-parse --show-toplevel)"
 
-# finish-line first: it fetches origin, so the stamp check below reads a FRESH
-# origin/master. Judging against a stale ref is how a gate gives a confident wrong answer.
+# finish-line first: it fetches origin, so every later concurrency check reads a FRESH
+# origin/master. Judging against stale refs is how guards create confident false safety.
 python3 "$TOP/tools/finish-line.py" --pre-push || exit $?
+
+# Refuse only collisions that should actually serialize:
+#   * same exact file in another open PR
+#   * same hard authority domain (CURRENT/QUEUE/WAITING, worker policy, public registry,
+#     or FIELD root/shared carrier)
+# Native-host family overlap is warning-only. This is intentionally not a lease/lock
+# service: the writer about to publish stops; unrelated workers keep moving.
+# If GitHub cannot be reached locally the script WARNs and allows the push; PR CI is the
+# fail-closed remote proof. Conscious bypass remains: git push --no-verify.
+if [ -f "$TOP/tools/open-pr-collision-check.mjs" ] && command -v node >/dev/null 2>&1; then
+  node "$TOP/tools/open-pr-collision-check.mjs" || exit $?
+fi
 
 # CHAIN the FIELD INDEX stamp contract: MUTATION -> INDEX TOUCH.
 # control/FIELD_INDEX_CONTRACT.json requires a change that touches a route to bump that
