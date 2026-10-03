@@ -11,7 +11,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=Core;
 if(typeof document==='undefined'||typeof window==='undefined')return;
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let model=null,overlay=null,toggle=null,detail=null,active='ROOM';
+let model=null,overlay=null,toggle=null,detail=null,active='ROOM',pendingOpen=false;
 let context=root.HOUSE_CONTEXT||{address:'',label:'',projection:'PLAN'};
 let designState=null,runtimeWitness=null,crewFrame=null,crewOffer=null,crewResponse=null;
 
@@ -53,9 +53,7 @@ function crewMarkup(){
  return'<div class="crewFrame"><div class="rhEy">CREW SEAM · SHARED MINIMUM</div><div class="crewGate"><b>HUMAN '+esc(g.class||'NONE')+'</b><span>'+esc(g.reason||'')+'</span></div><div class="crewIntent">INTENT · '+(intent?esc(intent):'<em>not yet chosen</em>')+'</div><div class="crewNext">'+moves+'</div><div class="crewDelta">DELTA · '+esc(delta)+'</div>'+off+resp+'<div class="note">External workers may inspect / propose / check / draft / navigate. Offers never execute HOUSE, HA/HOUSEBUS, physical, purchase or communication effects.</div></div>'
 }
 
-function bindCrew(){
- detail.querySelectorAll('[data-crew-response]').forEach(b=>b.onclick=()=>{const x=root.HouseCrewSeam?.respond(b.dataset.crewResponse);if(x){crewResponse=x;if(b.dataset.crewResponse==='WRONG_FRAME')crewOffer=null;renderDetail()}})
-}
+function bindCrew(){detail.querySelectorAll('[data-crew-response]').forEach(b=>b.onclick=()=>{const x=root.HouseCrewSeam?.respond(b.dataset.crewResponse);if(x){crewResponse=x;if(b.dataset.crewResponse==='WRONG_FRAME')crewOffer=null;renderDetail()}})}
 function renderDetail(){
  if(!model||!detail)return;
  const layer=Core.layerById(model,active)||Core.layerById(model,'ROOM'),routes=Core.routeLimit(layer,3).map(r=>'<a href="'+esc(r.href)+'"><b>'+esc(r.label)+'</b><span>'+esc(r.role||'')+'</span></a>').join(''),donors=Core.donorList(model,layer,3).map(d=>'<a href="'+esc(d.url)+'" target="_blank" rel="noreferrer">'+esc(d.name)+'</a>').join(''),hc=model.harness_correspondence||{};
@@ -67,13 +65,16 @@ function renderDetail(){
 }
 function bindLayerClicks(){overlay.querySelectorAll('[data-rh-layer]').forEach(n=>n.addEventListener('click',()=>{active=n.dataset.rhLayer;window.dispatchEvent(new CustomEvent('house:reality-layer',{detail:{layer:active,address:context.address}}));render()}))}
 function render(){if(!overlay||!model)return;overlay.querySelector('.rhField').innerHTML=fieldMarkup();renderDetail();bindLayerClicks()}
-function open(){overlay.hidden=false;toggle.classList.add('on');toggle.setAttribute('aria-expanded','true');render()}
-function close(){overlay.hidden=true;toggle.classList.remove('on');toggle.setAttribute('aria-expanded','false')}
+function open(){
+ if(!model){pendingOpen=true;toggle.classList.add('on');toggle.textContent='REALITY …';return}
+ pendingOpen=false;toggle.textContent='REALITY ◎';overlay.hidden=false;toggle.classList.add('on');toggle.setAttribute('aria-expanded','true');render()
+}
+function close(){pendingOpen=false;toggle.textContent='REALITY ◎';overlay.hidden=true;toggle.classList.remove('on');toggle.setAttribute('aria-expanded','false')}
 function loadScript(src){return new Promise((resolve,reject)=>{if([...document.scripts].some(s=>s.src&&s.src.endsWith(src.replace(/^\.\//,''))))return resolve();const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}
 function boot(){
- const stage=document.querySelector('.stage'),head=document.querySelector('.stageHead');if(!stage||!head)return;style();toggle=document.createElement('button');toggle.className='rhToggle';toggle.textContent='REALITY ◎';toggle.setAttribute('aria-expanded','false');head.appendChild(toggle);overlay=document.createElement('div');overlay.className='realityHarness';overlay.hidden=true;overlay.innerHTML='<div class="rhGrid"><div class="rhField"></div><div class="rhDetail"></div></div>';stage.appendChild(overlay);detail=overlay.querySelector('.rhDetail');toggle.onclick=()=>overlay.hidden?open():close();document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)close()});
+ const stage=document.querySelector('.stage'),head=document.querySelector('.stageHead');if(!stage||!head)return;style();toggle=document.createElement('button');toggle.className='rhToggle';toggle.textContent='REALITY ◎';toggle.setAttribute('aria-expanded','false');head.appendChild(toggle);overlay=document.createElement('div');overlay.className='realityHarness';overlay.hidden=true;overlay.innerHTML='<div class="rhGrid"><div class="rhField"></div><div class="rhDetail"></div></div>';stage.appendChild(overlay);detail=overlay.querySelector('.rhDetail');toggle.onclick=()=>overlay.hidden&&!pendingOpen?open():close();document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(!overlay.hidden||pendingOpen))close()});
  window.addEventListener('house:selection',e=>{context=Object.assign({},context,e.detail||{});if(!overlay.hidden)render()});window.addEventListener('house:design-state',e=>{designState=e.detail||null;if(!overlay.hidden&&(active==='ROOM'||active==='RETURN'||active==='AGENT'))renderDetail()});window.addEventListener('house:runtime-witness',e=>{runtimeWitness=e.detail||null;if(!overlay.hidden&&(active==='HOUSE'||active==='NETWORK'||active==='AGENT'))renderDetail()});window.addEventListener('house:crew-frame',e=>{crewFrame=e.detail||null;if(!overlay.hidden&&active==='AGENT')renderDetail()});window.addEventListener('house:crew-offer-accepted',e=>{crewOffer=e.detail||null;if(!overlay.hidden&&active==='AGENT')renderDetail()});window.addEventListener('house:crew-response',e=>{crewResponse=e.detail||null;if(!overlay.hidden&&active==='AGENT')renderDetail()});
- fetch('./reality-stack.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(d=>{model=d;root.HOUSE_REALITY_STACK=d;if(!overlay.hidden)render()}).catch(err=>{detail.innerHTML='<div class="warn">REALITY STACK UNAVAILABLE · '+esc(err.message)+'</div>'});
+ fetch('./reality-stack.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(d=>{model=d;root.HOUSE_REALITY_STACK=d;if(pendingOpen)open();else if(!overlay.hidden)render()}).catch(err=>{pendingOpen=false;overlay.hidden=false;detail.innerHTML='<div class="warn">REALITY STACK UNAVAILABLE · '+esc(err.message)+'</div>'});
  loadScript('/lib/interphase-carrier.js').catch(()=>null).then(()=>loadScript('./crew-seam.js')).catch(()=>null);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
