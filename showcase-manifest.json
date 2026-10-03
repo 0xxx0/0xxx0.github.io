@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-03T06:36:01+08:00",
+  "updated": "2026-10-03T08:01:24+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5054,7 +5054,7 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-03T03:55:00+08:00",
+        "updated_at": "2026-10-03T08:01:24+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5123,9 +5123,11 @@
       "showcase_card": false,
       "role": "Reveal one indexed multilingual segment at a time.",
       "index": {
-        "updated_at": "2026-10-03T03:55:00+08:00",
+        "updated_at": "2026-10-03T08:01:24+08:00",
         "work_modes": [
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
