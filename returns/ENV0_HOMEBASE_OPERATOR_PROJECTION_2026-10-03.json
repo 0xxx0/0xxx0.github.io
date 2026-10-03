@@ -1,0 +1,53 @@
+{
+  "schema": "field-return/v1",
+  "id": "ENV0_HOMEBASE_OPERATOR_PROJECTION_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "ENV-0 recovered BODY↔HOUSE grammar projected as a task-shaped homebase/loadout bench",
+  "operation": "PLACE → PREP → SET OUT → RETURN → SERVICE → READY",
+  "host": "/recovery/env0/",
+  "source_authority": [
+    "/recovery/env0/manifest.json",
+    "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+    "/recovery/env0/ENV0_symbols_A2_v0_1.svg"
+  ],
+  "donor_lineage": {
+    "pr": 825,
+    "status": "SUPERSEDED / DONOR PRESERVED",
+    "transfers": [
+      "Ultima Online → persistent addressed home + staged edit/commit/revert",
+      "Warframe Orbiter → functions embedded as spatial stations in a home base",
+      "Death Stranding → task-shaped preparation + carried/equipped constraints before departure"
+    ]
+  },
+  "delta": [
+    "Existing /recovery/env0/ becomes a derived HOMEBASE / OPERATOR PROJECTION while exact recovered masters remain frozen.",
+    "One session-local loadout holds PLACE, one TASK, REQUIRED refs, NEARBY refs and CARRIED refs.",
+    "Readiness is derived only: NO_TASK | UNKNOWN | MISSING | READY. Empty requirements never pretend READY.",
+    "Inventory remains relational and manually declared; there is no canonical/global item database.",
+    "STOW clears only carried refs and enters SERVICE; RETURN may export discrepancy/service evidence and re-enter /house/.",
+    "Existing browser-local HOUSE→BODY context may seed PLACE, but selection remains context only and never proves presence."
+  ],
+  "authority": [
+    "HOUSE owns place/spatial truth.",
+    "ENV-0 owns only the current operator projection.",
+    "Home Assistant/HOUSEBUS retains private device/effect authority.",
+    "RETURN is evidence-only and cannot claim physical completion."
+  ],
+  "non_transfer": [
+    "no quest manager",
+    "no XP / score / rarity",
+    "no infinite bag",
+    "no automatic optimization",
+    "no canonical inventory store",
+    "no HOUSEBUS actuation",
+    "no new public route"
+  ],
+  "verification": {
+    "local_core_selftest": "PASS · relational kit + derived readiness + transitions + RETURN boundary",
+    "command": "node tools/env0-homebase-selftest.cjs",
+    "repo_ci": "PENDING_PR"
+  },
+  "next": "If this bench survives ordinary use, bind exact HOUSE object/location identities into NEARBY without changing ENV-0 authority. Do not invent item identity to make the UI look complete.",
+  "stop": "No second inventory/loadout system. Extend only from a concrete room/task discrepancy or exact HOUSE object identity becoming available."
+}
