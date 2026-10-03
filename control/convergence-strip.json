@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T05:18:59.966Z",
+  "generated": "2026-10-03T05:50:02.584Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-03",
-  "commits_in_window": 144,
-  "git_commits_in_window": 202,
-  "telemetry_commits_in_window": 58,
-  "commits_total": 4826,
-  "branch_count": 957,
+  "commits_in_window": 147,
+  "git_commits_in_window": 208,
+  "telemetry_commits_in_window": 61,
+  "commits_total": 4832,
+  "branch_count": 968,
   "recent_commits": [
-    "FIELD DESK: fix the styling leaks (state wall, filename titles) (#898)",
-    "loops: stamp /loops/ route (mutation contract)",
-    "loops: refresh public gallery (2026-10-03)"
+    "desk: refresh public field data",
+    "FIELD DESK: remove operator refresh duty (#901)",
+    "FIELD: intrinsic READFIELD controls + capability-safe FOVEA (#899)"
   ],
   "active_fronts": [
     {
