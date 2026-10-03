@@ -7,7 +7,7 @@
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 body{min-height:100dvh}a,button{font:inherit;color:inherit;background:#090909;border:1px solid var(--line);border-radius:0;text-decoration:none}button{cursor:pointer}
 .app{min-height:100dvh;max-width:1120px;margin:auto;padding:max(10px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));display:grid;grid-template-rows:auto 1fr auto}
-header{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding:4px 0 9px}.ey{color:var(--hot);font-size:8px;letter-spacing:.16em}.brand{font:900 clamp(23px,6vw,48px)/.85 system-ui,sans-serif;letter-spacing:-.055em}.head{display:flex;gap:5px}.head a{padding:7px 9px}
+header{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding:4px 0 9px}.ey{color:var(--hot);font-size:8px;letter-spacing:.16em}.brand{font:900 clamp(23px,6vw,48px)/.85 system-ui,sans-serif;letter-spacing:-.055em}.head{display:flex;gap:5px;flex-wrap:wrap}.head a,.head button{padding:7px 9px}
 main{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:16px;min-height:0;padding:18px 0}
 .source{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;min-height:0}.num{font:900 clamp(90px,20vw,220px)/.72 system-ui,sans-serif;letter-spacing:-.09em;color:#111411;margin-left:-.045em}.title{font:900 clamp(32px,7vw,82px)/.86 system-ui,sans-serif;letter-spacing:-.06em;max-width:920px;margin-top:-.62em;position:relative}.title b{color:var(--hot)}
 .meta{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0;color:var(--mut);font-size:8px;letter-spacing:.08em}.meta span{border-top:1px solid var(--line);padding-top:4px}.meta b{color:#cbd0cc}
@@ -76,10 +76,10 @@ async function rideSource(){
   const packet=makeReadRidePacket({
     source,label:'PRISON AGE · '+story.title,
     sourceIdentity:{address:story.path,hash:fp?fp.algo+':'+fp.value:undefined,kind:'PRISON_AGE_SOURCE',format:'MD',authority:'PRISON_AGE'},
-    focus:{char_index:0,source_progress:0},
-    from:sourceUrl(),returnAddress:returnUrl(),
-    echo:{index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'}
+    focus:{char_index:0},
+    from:sourceUrl(),returnAddress:returnUrl()
   });
+  packet.echo={index:'/prison-age/echo-index.json',source_id:story.id,source_path:story.path,source_fingerprint:fp||null,authority:'EVIDENCE_ONLY'};
   sessionStorage.setItem(READ_RIDE_STORAGE,JSON.stringify(packet));
   $('status').textContent='HANDOFF READY · SAME SOURCE → LIVE / PARAGRAPH / STEP · OWNER PRISON_AGE';
   location.href='/fold-bloom/live/?source=readfield&course=STEP';
@@ -88,4 +88,4 @@ $('readBtn').onclick=readSource;$('rideBtn').onclick=rideSource;
 window.PrisonAgeSourceAPI=Object.freeze({snapshot:()=>({story:story?{...story}:null,sourceLength:source.length,sourceUrl:story?sourceUrl():null,returnAddress:story?returnUrl():null,intent}),load:loadStory,ride:rideSource,read:readSource});
 function applyIntentStatus(){if(intent==='read')$('status').textContent='READ INTENT · choose an exact source movement; READFIELD opens only after selection.';else if(intent==='ride')$('status').textContent='RIDE INTENT · choose an exact source movement; FOLD//BLOOM LIVE opens only after selection.'}
 fetch(PACK,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('PACK '+r.status);return r.json()}).then(async x=>{pack=x;await loadStory(q.get('story')||pack.default);applyIntentStatus()}).catch(e=>{$('preview').textContent='Source pack unavailable: '+String(e.message||e);$('status').textContent='SOURCE PACK FAILED'});
-</script><script src="/prison-age/evidence-atlas.js"></script></body></html>
+</script><script src="/prison-age/evidence-atlas.js"></script><script src="/prison-age/passage-core.js"></script><script src="/prison-age/passage.js"></script></body></html>
