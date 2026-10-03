@@ -1,6 +1,6 @@
 {
   "schema": "field-game-donor-transfer/v0.1",
-  "updated": "2026-09-30",
+  "updated": "2026-10-03",
   "purpose": "Make video-game research pay rent by binding extracted mechanics to current FIELD hosts with explicit non-transfer residue and executable/contractual proof.",
   "selection_gate": [
     "current friction named",
@@ -14,21 +14,11 @@
   "transfers": [
     {
       "id": "knowledge-gap-reentry",
-      "donors": [
-        "Outer Wilds"
-      ],
+      "donors": ["Outer Wilds"],
       "status": "IMPLEMENTED_CANDIDATE",
-      "recipients": [
-        "/"
-      ],
+      "recipients": ["/"],
       "invariant": "Re-entry may expose what is known plus an already-declared unresolved edge without creating a quest, priority or obligation.",
-      "non_transfer": [
-        "quest log",
-        "mission assignment",
-        "priority score",
-        "canonical read state",
-        "game visual skin"
-      ],
+      "non_transfer": ["quest log","mission assignment","priority score","canonical read state","game visual skin"],
       "implementation": "FIELD held object renders MORE HERE inside collapsed focus RESIDUE, derived only from evolution.question, open_gaps, or unresolved field.exit_paths. The former CATCH + ACT aggregate is retired.",
       "executable_test": "tools/browser-smoke.mjs",
       "proof_claim": "Current root keeps knowledge-gap evidence attached to the held route in focusResidue without creating task, priority, obligation or canonical read state.",
@@ -37,21 +27,11 @@
     },
     {
       "id": "failure-return",
-      "donors": [
-        "Hades"
-      ],
+      "donors": ["Hades"],
       "status": "CONTRACT",
-      "recipients": [
-        "/",
-        "/dayline/",
-        "/spikes/007-hard-evolution-proofs/"
-      ],
+      "recipients": ["/","/dayline/","/spikes/007-hard-evolution-proofs/"],
       "invariant": "A failed bounded attempt should return new evidence/residue or be recognized as duplicate churn; failure is not a blank reset.",
-      "non_transfer": [
-        "XP-for-failure",
-        "streaks",
-        "punishment economy"
-      ],
+      "non_transfer": ["XP-for-failure","streaks","punishment economy"],
       "contract_key": "failure_return",
       "proof_claim": "Execution contract requires failure to emit evidence/residue or stop repeating the same attempt.",
       "new_sovereign_app": false,
@@ -59,25 +39,16 @@
     },
     {
       "id": "route-load-fit",
-      "donors": [
-        "Death Stranding"
-      ],
-      "status": "DONOR",
-      "recipients": [
-        "/body/fit/"
-      ],
+      "donors": ["Death Stranding"],
+      "status": "IMPLEMENTED_CANDIDATE",
+      "recipients": ["/body/fit/"],
       "invariant": "Preparation should answer expected route/environment friction; loadout quality is relational to body + carried modules + route/world, not inventory completeness.",
-      "non_transfer": [
-        "likes/reputation score",
-        "cargo grade economy",
-        "body productivity score",
-        "digital loadout treated as physical safety proof",
-        "automatic procurement"
-      ],
-      "implementation": "BODY/FIT already owns LOADOUT → SET OUT → RETURN → PATINA → NEXT CUT with known mass/power/service metadata and purpose-specific kits. Proposed bounded coupling: optional route-friction descriptors filter/suggest relevant capabilities without scoring the body or claiming physical safety.",
-      "proof_claim": "Existing BODY/FIT release/RETURN proves the preparation-return carrier; route-friction filtering remains proposed and is not claimed implemented.",
+      "non_transfer": ["likes/reputation score","cargo grade economy","body productivity score","digital loadout treated as physical safety proof","automatic procurement"],
+      "implementation": "BODY/FIT now loads a browser-only ROUTE / FRICTION projection beside PREP KITS. Optional CARRY / WEATHER / POWER / INSTALL / MOBILITY / DURATION frictions resolve only against declared fitting label/capability/interface/service metadata and report DECLARED MATCH or UNANSWERED with exact matching modules. DECLARED MATCH is metadata relation only, not adequacy/safety/medical capacity. Profiles remain separate browser-local projections per saved kit or active loadout; no score or procurement authority is created.",
+      "executable_test": "body/fit/health-connect-selftest.cjs",
+      "proof_claim": "Automated fixture proves POWER/WEATHER/MOBILITY declared matches, INSTALL unanswered state and exclusion of RETIRED modules; the existing public-surface workflow already executes that selftest.",
       "new_sovereign_app": false,
-      "retirement": "If route-friction descriptors do not reduce preparation translation, omit them; preserve the existing loadout/RETURN loop unchanged.",
+      "retirement": "Remove the projection if metadata relation is mistaken for adequacy/safety, it becomes an inventory-completeness score, creates procurement pressure, or fails to reduce route-to-kit translation; canonical BODY/FIT loadout state remains unchanged.",
       "sources": [
         {
           "title": "DEATH STRANDING DIRECTOR'S CUT: Beginner's Guide",
@@ -93,20 +64,11 @@
     },
     {
       "id": "precommit-telegraph",
-      "donors": [
-        "Into the Breach"
-      ],
+      "donors": ["Into the Breach"],
       "status": "CONTRACT",
-      "recipients": [
-        "/",
-        "/house/",
-        "/dayline/"
-      ],
+      "recipients": ["/","/house/","/dayline/"],
       "invariant": "When effects are predictable, expose affected addresses and reversible/irreversible boundary before authoritative commit; uncertainty stays visible.",
-      "non_transfer": [
-        "perfect-information claim",
-        "undo after irreversible side effect"
-      ],
+      "non_transfer": ["perfect-information claim","undo after irreversible side effect"],
       "contract_key": "precommit_telegraph",
       "proof_claim": "Execution contract distinguishes preview/configuration from commit/effect.",
       "new_sovereign_app": false,
@@ -114,21 +76,11 @@
     },
     {
       "id": "ghost-not-real",
-      "donors": [
-        "Factorio"
-      ],
+      "donors": ["Factorio"],
       "status": "CONTRACT",
-      "recipients": [
-        "/house/",
-        "/shopping/",
-        "/spikes/007-hard-evolution-proofs/"
-      ],
+      "recipients": ["/house/","/shopping/","/spikes/007-hard-evolution-proofs/"],
       "invariant": "A proposal may carry rich configuration while remaining explicitly non-real and non-actuating until resources, authority and enactment arrive.",
-      "non_transfer": [
-        "proposal counted as installed",
-        "preview counted as proof",
-        "automatic procurement"
-      ],
+      "non_transfer": ["proposal counted as installed","preview counted as proof","automatic procurement"],
       "contract_key": "ghost_state",
       "proof_claim": "Execution contract names PROPOSED/GHOST as non-real and incapable of increasing world authority.",
       "new_sovereign_app": false,
@@ -136,20 +88,11 @@
     },
     {
       "id": "scaffold-retirement",
-      "donors": [
-        "Terra Nil"
-      ],
+      "donors": ["Terra Nil"],
       "status": "CONTRACT",
-      "recipients": [
-        "/",
-        "/control/confluence/"
-      ],
+      "recipients": ["/","/control/confluence/"],
       "invariant": "Temporary support exists to restore or unlock capability and should name the condition under which it can be removed.",
-      "non_transfer": [
-        "deletion-as-progress",
-        "loss of provenance",
-        "automatic archival destruction"
-      ],
+      "non_transfer": ["deletion-as-progress","loss of provenance","automatic archival destruction"],
       "contract_key": "scaffold_retirement",
       "proof_claim": "Execution contract requires temporary support/helper surfaces to name a retirement condition.",
       "new_sovereign_app": false,
@@ -157,27 +100,11 @@
     },
     {
       "id": "diegetic-care-locus",
-      "donors": [
-        "Dead Space",
-        "Spiritfarer",
-        "NieR:Automata",
-        "RimWorld"
-      ],
+      "donors": ["Dead Space","Spiritfarer","NieR:Automata","RimWorld"],
       "status": "IMPLEMENTED_CANDIDATE",
-      "recipients": [
-        "/care/",
-        "/house/"
-      ],
+      "recipients": ["/care/","/house/"],
       "invariant": "Keep the represented body/room visible; attach a small locus-specific aperture with at most three existing host-lawful operations; local condition never becomes a global score or new authority.",
-      "non_transfer": [
-        "game visual skin",
-        "horror tension",
-        "affection meters",
-        "health percentages",
-        "medical inference",
-        "new care state store",
-        "automatic urgency"
-      ],
+      "non_transfer": ["game visual skin","horror tension","affection meters","health percentages","medical inference","new care state store","automatic urgency"],
       "implementation": "CARE body-map locus exposes OBSERVE/PRIOR/COURSE; HOUSE selected-room locus exposes CARE/BODY/DAYLINE. Each delegates to native host operations and disappears outside compatible projections.",
       "executable_test": "tools/browser-smoke.mjs",
       "proof_claim": "Phone-sized browser probes click real CARE/HOUSE loci, verify the represented map/room remains visible, aperture stays spatially inside its host surface, and native host actions remain the effect path.",
@@ -186,24 +113,11 @@
     },
     {
       "id": "safe-salvage-retirement",
-      "donors": [
-        "Hardspace: Shipbreaker",
-        "Terra Nil"
-      ],
+      "donors": ["Hardspace: Shipbreaker","Terra Nil"],
       "status": "IMPLEMENTED_CANDIDATE",
-      "recipients": [
-        "/",
-        "/control/confluence/"
-      ],
+      "recipients": ["/","/control/confluence/"],
       "invariant": "Hardspace: deconstruction is a dependency-graph operation whose cut order matters. Terra Nil: temporary support should disappear after capability/world recovery. FIELD combines them conservatively: survey blockers, preserve transferable mechanism/provenance/RETURN, and never let retirement classification authorize deletion.",
-      "non_transfer": [
-        "destruction spectacle",
-        "deletion-as-progress",
-        "spacecraft hazard/debt economy",
-        "ecology scoring",
-        "automatic deletion",
-        "absence of internal references treated as proof of zero external dependence"
-      ],
+      "non_transfer": ["destruction spectacle","deletion-as-progress","spacecraft hazard/debt economy","ecology scoring","automatic deletion","absence of internal references treated as proof of zero external dependence"],
       "implementation": "Read-only /lib/field-salvage-core.mjs + scripts/field-salvage-audit.mjs classify routes against CURRENT/head authority, children, aliases and live refs. This is the implemented Hardspace-style dependency survey; ordered cut planning is deliberately not automated. Terra-Nil-style scaffold retirement remains contract-owned.",
       "executable_test": "tools/field-salvage-selftest.mjs",
       "proof_claim": "Synthetic classifier proves CURRENT heads, frozen donors, compatibility aliases and live references resist retirement; only an already-explicit SUPERSEDED / DEPRECATED / RETIRED / REMOVED signal with no detected blockers may become RETIRE_CANDIDATE.",
@@ -217,7 +131,7 @@
         },
         {
           "title": "Why a recycling mechanic saved Terra Nil's climate cleanup design",
-          "url": "https://www.gamedeveloper.com/design/why-a-recycling-mechanic-saved-terra-nil-s-climate-cleanup-mechanics",
+          "url": "https://www.gamedeveloper.com/design/why-a-recycling-mechanic-saved-terra-nil-climate-cleanup-mechanics",
           "observed": "designers describe the recycling endgame as taking away the buildings/tools after restoration; the excess infrastructure problem motivated the mechanic"
         }
       ]
