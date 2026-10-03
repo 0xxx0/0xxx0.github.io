@@ -1,0 +1,22 @@
+{
+  "schema": "field-return/v1",
+  "id": "RETURN_INTERPHASE_GENESIS_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "INTERPHASE GENESIS — recovered origin canon rendered as a live instrument",
+  "before": "Operator: 'I wanna go back to the genesis of field index also back to interphase epiphany.... representation is the issue... we have lots of fraying blooming exploding... make it all count figure it out FOR ME.' The origin existed only as scattered corpus messages (INTERPHASE-PROTO-1 proto, 太玄經 ternary state-space theory) with no recovered, running form. Representation sprawl (169 routes, 67 free-text return states, drifting hand-maintained snapshots) had no single spine to fold into.",
+  "delta": [
+    "Corpus recovery (real, cited): messages_fts MATCH 'interphase' = 4,619 · '\"field index\"' = 6,350 · 'representation' = 1,954 · 'genesis' = 157 · 'epiphany' = 54. Recovered the two origin artifacts: (1) INTERPHASE-PROTO-1 — the original CSS 3D room (#VIEWPORT / #CAMERA / .room, transform-style: preserve-3d) where one object is preserved as the camera projects it; (2) 太玄經 (Taixuanjing) ternary state-space compiled into the glyph/interface/physical systems.",
+    "interphase-genesis/index.html: a self-contained house-styled instrument (mono, hard edges, border-radius:0, light+dark fi-theme) rendering the epiphany LIVE — an orbitable CSS-3D interphase room with a preserved central object, plus the 太玄經 ternary state control (⚊ SOURCE / 𝌀 HOLD / ⚋ RETURN). Toggling state changes the object's mark (路/◈/↺) and colour, while its address stays obj:genesis#0 — representation changes, identity does not. Verified in-browser: DOM state transitions confirmed (mark, colour, addr invariant), zero console errors, 3D room renders.",
+    "Thesis line: 'One object, preserved across every projection and every state. Representation is never the object.' This is the spine the representation sprawl folds into — a recovered canon (kind:recovery, op:CANONICALIZE), not a new competing surface."
+  ],
+  "after": "The genesis and the interphase epiphany are no longer dead corpus rows — they run as a verified interactive instrument at /interphase-genesis/, carrying receipts that cite the real corpus counts and the recovered origin text. A single named spine ('one object, many projections') now anchors the convergence thesis the operator asked for.",
+  "evidence": {
+    "corpus_counts": {"interphase": 4619, "field index": 6350, "representation": 1954, "genesis": 157, "epiphany": 54},
+    "recovered_origin": ["INTERPHASE-PROTO-1 (#VIEWPORT/#CAMERA/.room, preserve-3d)", "太玄經 ternary state-space → capability/glyph/interface/physical systems"],
+    "verification": "served locally, browser-verified: 0 JS errors, 0 console errors, 3D room renders, ternary state toggle mutates mark+colour while address obj:genesis#0 is invariant (identity preserved)",
+    "screenshot": "browser_screenshot_0234877331484f41b5e0a81b9f8e4073.png"
+  },
+  "object_ref": "/interphase-genesis/",
+  "receipt": "/returns/RETURN_INTERPHASE_GENESIS_2026-10-03.json"
+}
