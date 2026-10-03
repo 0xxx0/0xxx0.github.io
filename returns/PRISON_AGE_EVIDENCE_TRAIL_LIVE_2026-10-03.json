@@ -1,0 +1,47 @@
+{
+  "schema": "prison-age.evidence-trail-live-return/v0.1",
+  "generated_at": "2026-10-03T09:18:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "object": "/prison-age/",
+  "purpose": "Turn the existing source-derived Evidence Atlas trail into a shareable FOLD//BLOOM LIVE experience without generating Prison Age narrative prose or imposing canon order.",
+  "provenance_recovery": {
+    "rejected_branch": "prison-age/behind-you-reader-20260928",
+    "recovered_file": "/prison-age/pack.json @ rejected branch",
+    "finding": "The line ‘I'm always behind you.’ was declared P26 / NEW READER MOTIF with historical_canon=false and law ‘The sentence stays fixed. Only its provenance changes.’",
+    "decision": "Do not present that line as authored or historical Prison Age canon. Preserve it only as branch archaeology unless separately sourced in authored material."
+  },
+  "implemented": [
+    "/prison-age/evidence-ride.js",
+    "/prison-age/evidence-atlas.js",
+    "/prison-age/index.html",
+    "/tools/prison-age-evidence-atlas-selftest.cjs",
+    "/tools/prison-age-evidence-atlas-smoke.mjs"
+  ],
+  "experience": {
+    "sequence": "SOURCE → EVIDENCE ATLAS → reader HOLD/TURN/TRACE → RIDE TRAIL → FOLD//BLOOM LIVE → RETURN SOURCE",
+    "share": "/prison-age/?atlas=evidence&trail=<card ids>&card=<held card>",
+    "ride_schema": "prison-age.evidence-route/v0.2",
+    "handoff_schema": "field-read-ride/v0.1",
+    "source_authority": "PRISON_AGE_EVIDENCE_ROUTE",
+    "route_authority": "EVIDENCE_ONLY",
+    "max_relations": 3,
+    "max_fragments": 6
+  },
+  "laws": [
+    "Every ridden paragraph is an exact fragment already present in prison-age.evidence-atlas/v0.1.",
+    "The montage adds only blank-line separators; it adds no connective prose, theme, motive, causal bridge, character voice or invented story event.",
+    "Reader trail order is a traversal choice, not canon order.",
+    "Every montage span retains its original source id, path, byte/character bounds and source-echo address.",
+    "FOLD//BLOOM owns embodied traversal only; PRISON AGE source bytes remain authoritative.",
+    "RETURN restores the exact shareable Atlas trail; no new FIELD action, route, store or narrative authority is created."
+  ],
+  "tests": [
+    "pure exact-fragment montage validation is folded into prison-age-evidence-atlas-selftest.cjs",
+    "browser smoke restores a shared three-card trail, launches RIDE TRAIL into LIVE, verifies six exact fragments + original provenance, and RETURNs to the same Atlas trail"
+  ],
+  "field_convergence": {
+    "decision": "Keep FIELD action surface at READ / RIDE / SOURCE. The new experience is native depth under SOURCE, not a fourth root action.",
+    "reason": "FIELD already routes Prison Age to the exact source resolver; adding STORY/EXPERIENCE at root would duplicate source authority and reverse the current contraction."
+  },
+  "next_gate": "Use one reader-chosen trail on a real phone and judge whether exact-source montage + LIVE traversal produces a meaningful authored encounter. If it does, deepen presentation/provenance inside LIVE; if not, keep the trail as an evidence utility and do not manufacture narrative glue."
+}

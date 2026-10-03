@@ -1,11 +1,12 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
   "version": "0.6",
-  "date": "2026-09-29",
+  "revision": "evidence-trail-live-0.1",
+  "date": "2026-10-03",
   "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
   "route": "/prison-age/",
   "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
-  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection.",
+  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection. SOURCE additionally lets a reader hold up to three source-derived Evidence Atlas relations and RIDE that exact-fragment arrangement through FOLD//BLOOM without generating connective narrative.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
@@ -21,48 +22,19 @@
   },
   "field": {
     "route": "/?focus=%2Fprison-age%2F",
-    "native_actions": [
-      "READ",
-      "RIDE",
-      "SOURCE"
-    ],
+    "native_actions": ["READ","RIDE","SOURCE"],
     "default_source": "Listing preview only; no default story is executed by FIELD actions.",
     "boundary": "FIELD holds address and lawful operations only; it does not author Prison Age.",
-    "selection": "FIELD chooses operation intent only. Prison Age resolver requires explicit source selection before READ/RIDE; the recovered 2021 proto-root remains a distinct source class and may enter the existing authored-reader projection without adding a fourth FIELD operation."
+    "selection": "FIELD chooses operation intent only. Prison Age resolver requires explicit source selection before READ/RIDE; the recovered 2021 proto-root remains a distinct source class and may enter the existing authored-reader projection without adding a fourth FIELD operation. Reader-composed Evidence Atlas trails remain native SOURCE depth and likewise do not add a fourth FIELD operation."
   },
   "projections": {
-    "read": {
-      "host": "/docs/",
-      "authority": "READFIELD projection only; Prison Age remains source authority",
-      "return": "exact FIELD or source resolver address"
-    },
-    "ride": {
-      "host": "/fold-bloom/live/",
-      "schema": "field-read-ride/v0.1",
-      "mode": "STEP / authored RELEASE_STEP when explicitly selecting proto-root-2021",
-      "default_grain": "PARAGRAPH",
-      "authority": "FOLD//BLOOM traversal only; Prison Age remains source authority",
-      "return": "exact resolver/FIELD return supplied at launch; source authority unchanged",
-      "authored_reader": "/fold-bloom/live/?reader=prison-age-2021"
-    },
-    "source": {
-      "host": "/prison-age/",
-      "authority": "source identity/provenance only"
-    },
-    "evidence_atlas": {
-      "host": "/prison-age/?atlas=evidence",
-      "data": "/prison-age/evidence-atlas.json",
-      "runtime": "/prison-age/evidence-atlas.js",
-      "schema": "prison-age.evidence-atlas/v0.1",
-      "authority": "EVIDENCE_ONLY",
-      "behavior": "32 source-derived cross-source relation cards. Each card shows two exact addressed fragments plus shared lexical evidence; one held relation and at most three relations may be collected into a typed evidence trail.",
-      "return": "RETURN SOURCE closes the aperture to the exact source-resolver state; FIELD/native actions remain READ / RIDE / SOURCE."
-    }
+    "read": {"host":"/docs/","authority":"READFIELD projection only; Prison Age remains source authority","return":"exact FIELD or source resolver address"},
+    "ride": {"host":"/fold-bloom/live/","schema":"field-read-ride/v0.1","mode":"STEP / authored RELEASE_STEP when explicitly selecting proto-root-2021","default_grain":"PARAGRAPH","authority":"FOLD//BLOOM traversal only; Prison Age remains source authority","return":"exact resolver/FIELD return supplied at launch; source authority unchanged","authored_reader":"/fold-bloom/live/?reader=prison-age-2021"},
+    "source": {"host":"/prison-age/","authority":"source identity/provenance only"},
+    "evidence_atlas": {"host":"/prison-age/?atlas=evidence","data":"/prison-age/evidence-atlas.json","runtime":"/prison-age/evidence-atlas.js","schema":"prison-age.evidence-atlas/v0.1","authority":"EVIDENCE_ONLY","behavior":"32 source-derived cross-source relation cards. Each card shows two exact addressed fragments plus shared lexical evidence; one held relation and at most three relations may be collected into a typed evidence trail.","return":"RETURN SOURCE closes the aperture to the exact source-resolver state; FIELD/native actions remain READ / RIDE / SOURCE."},
+    "evidence_ride": {"host":"/fold-bloom/live/?source=readfield&course=STEP&prison_age=evidence_route","codec":"/prison-age/evidence-ride.js","route_schema":"prison-age.evidence-route/v0.2","handoff_schema":"field-read-ride/v0.1","authority":"PRISON_AGE_EVIDENCE_ROUTE / EVIDENCE_ONLY","behavior":"A reader-selected trail of one to three Evidence Atlas cards becomes a derived arrangement of two to six exact source fragments joined only by blank lines. LIVE traverses that arrangement as addressed text; original fragment source ids, paths, bounds and source-echo addresses remain attached as provenance metadata.","share":"/prison-age/?atlas=evidence&trail=<card ids>&card=<held card>","return":"exact shareable Evidence Atlas trail"}
   },
-  "retired_runtime": {
-    "status": "REMOVED_FROM_RUNTIME_TREE",
-    "note": "The rejected bespoke reader projection and its pack are preserved by Git history, not by a public runtime route. Exact source extraction, fingerprints and source tests remain."
-  },
+  "retired_runtime": {"status":"REMOVED_FROM_RUNTIME_TREE","note":"The rejected bespoke reader projection and its synthetic P26 motif remain preserved by Git history only. That motif was explicitly historical_canon=false and is not active story text. Exact source extraction, fingerprints and source tests remain authoritative."},
   "boundaries": [
     "No generated Prison Age story prose or connective narrative is active.",
     "No curated reading order is imposed by the runtime; source order is used only as a stable listing.",
@@ -77,7 +49,11 @@
     "EVIDENCE ATLAS cards are deterministically selected from field-source-echo-index/v0.1; they contain no generated engine/operator narrative.",
     "EVIDENCE ATLAS exposes exact fragment pairs, source addresses and lexical evidence only; it cannot assert theme, intent, causality, canon order, equivalence or interpretation.",
     "The provenance-distinct 2021 proto-root remains outside the cross-source atlas and keeps its authored RECURRENCE projection.",
-    "EVIDENCE ATLAS is an in-host SOURCE aperture, not a fourth FIELD action or a second Prison Age route."
+    "EVIDENCE ATLAS is an in-host SOURCE aperture, not a fourth FIELD action or a second Prison Age route.",
+    "EVIDENCE TRAIL RIDE order is chosen by the reader and is not canon order.",
+    "EVIDENCE TRAIL RIDE adds only blank-line separators between exact fragments; it does not mint connective prose, character voice, causal bridge, motive or event.",
+    "Every evidence-ride montage span retains its original source id/path/bounds/source-echo address; derived arrangement authority is distinct from PRISON AGE source authority.",
+    "A shareable evidence-trail URL restores card ids/held relation only; it does not claim that another reader will interpret the route the same way."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -99,21 +75,12 @@
     "EVIDENCE ATLAS contains exactly 32 cross-source exact-fragment relations derived from the shipped ECHO index and spans all six 2026 source pairs.",
     "Each Evidence Atlas READ link addresses the exact source path and char offset in READFIELD.",
     "Evidence trail is capped at three cards and emits prison-age.evidence-route/v0.1 with authority EVIDENCE_ONLY.",
-    "Shareable ?atlas=evidence&card=N restores the selected exact relation."
+    "Shareable ?atlas=evidence&card=N restores the selected exact relation.",
+    "Shareable ?atlas=evidence&trail=<ids>&card=<id> restores the exact reader-selected evidence trail.",
+    "RIDE TRAIL emits prison-age.evidence-route/v0.2 inside the existing field-read-ride/v0.1 handoff and enters FOLD//BLOOM LIVE without adding a FIELD operation.",
+    "A three-card RIDE TRAIL contains exactly six original Evidence Atlas fragment texts plus blank-line separators and validates every montage span against the original source address.",
+    "LIVE sees PRISON_AGE_EVIDENCE_ROUTE authority and RETURN SOURCE restores the same shareable Atlas trail."
   ],
-  "latest_return": "/returns/PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
-  "echo": {
-    "schema": "field-source-echo-index/v0.1",
-    "index": "/prison-age/echo-index.json",
-    "codec": "/lib/source-echo.js",
-    "authority": "EVIDENCE_ONLY",
-    "behavior": "When an exact addressed span shares sufficiently specific lexical evidence with a fragment in another Prison Age source, READFIELD/LIVE may reveal that exact neighbor with its source address. Silence is lawful when evidence is weak.",
-    "boundaries": [
-      "ECHO never rewrites source bytes or inserts narrative connective tissue.",
-      "ECHO never asserts theme, intent, causality, canon order, equivalence, comprehension or interpretation.",
-      "Current full source fingerprint must match the index before any echo renders.",
-      "Same-source candidates are excluded.",
-      "READ→RIDE carries the evidence index and source id only; source authority remains PRISON_AGE."
-    ]
-  }
+  "latest_return": "/returns/PRISON_AGE_EVIDENCE_TRAIL_LIVE_2026-10-03.json",
+  "echo": {"schema":"field-source-echo-index/v0.1","index":"/prison-age/echo-index.json","codec":"/lib/source-echo.js","authority":"EVIDENCE_ONLY","behavior":"When an exact addressed span shares sufficiently specific lexical evidence with a fragment in another Prison Age source, READFIELD/LIVE may reveal that exact neighbor with its source address. Silence is lawful when evidence is weak.","boundaries":["ECHO never rewrites source bytes or inserts narrative connective tissue.","ECHO never asserts theme, intent, causality, canon order, equivalence, comprehension or interpretation.","Current full source fingerprint must match the index before any echo renders.","Same-source candidates are excluded.","READ→RIDE carries the evidence index and source id only; source authority remains PRISON_AGE."]}
 }
