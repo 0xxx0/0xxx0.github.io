@@ -9,6 +9,7 @@ normalized to the fixture checkout before seeding, matching the gate's ROOT_ONLY
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -40,11 +41,10 @@ COMMUTE_PATHS = sorted({
 
 
 def repo_rel(value: str) -> Path:
-    """Interpret published or legacy clone paths as addresses inside this repo only."""
+    """Interpret published or legacy *.github.io clone paths inside the fixture."""
     s = str(value or "").strip()
-    marker = f"/{REPO.name}/"
-    at = s.rfind(marker)
-    rel = s[at + len(marker):] if at >= 0 else s.lstrip("/")
+    marks = list(re.finditer(r"/[^/]+\.github\.io/", s))
+    rel = s[marks[-1].end():] if marks else s.lstrip("/")
     return Path(rel)
 
 
