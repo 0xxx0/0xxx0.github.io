@@ -1,0 +1,38 @@
+name: house-crew-seam
+on:
+  pull_request:
+    paths:
+      - 'house/crew-seam.js'
+      - 'house/crew-card.json'
+      - 'house/reality-harness.js'
+      - 'house/design-engine.js'
+      - 'lib/interphase-carrier.js'
+      - 'tools/house-crew-seam-selftest.mjs'
+      - 'tools/house-design-selftest.mjs'
+      - 'tools/house-reality-harness-selftest.mjs'
+      - 'tools/browser-smoke.mjs'
+      - '.github/workflows/house-crew-seam.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SMOKE_SLOW: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove crew seam laws
+        run: node tools/house-crew-seam-selftest.mjs
+      - name: Prove existing HOUSE design contract still holds
+        run: node tools/house-design-selftest.mjs
+      - name: Prove REALITY harness structure still holds
+        run: node tools/house-reality-harness-selftest.mjs
+      - name: Browser-probe HOUSE REALITY host
+        env:
+          SMOKE_ONLY: 'HOUSE REALITY harness'
+        run: node tools/browser-smoke.mjs

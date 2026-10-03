@@ -1,0 +1,92 @@
+{
+  "schema": "house-crew-card/v0.1",
+  "updated": "2026-10-03",
+  "host": "HOUSE",
+  "route": "/house/",
+  "purpose": "Advertise a bounded coordination seam around one selected HOUSE locus so other workers can inspect context and submit non-effectful proposals without inventing authority or asking the human to restate existing state.",
+  "frame": {
+    "schema": "house-crew-frame/v0.1",
+    "runtime": "/house/crew-seam.js",
+    "derives_from": [
+      "window.HOUSE_CONTEXT / house:selection",
+      "browser-local house.design.trials.v01",
+      "house:design-state",
+      "house:runtime-witness",
+      "house:reality-layer"
+    ],
+    "exposes": [
+      "exact HOUSE locus",
+      "current design intent and constraints when already authored",
+      "current phase",
+      "human gate class",
+      "up to three next coordination moves",
+      "runtime witness freshness class",
+      "residue / RETURN address",
+      "changed coordination fields only"
+    ],
+    "does_not_expose": [
+      "private HA credentials or private runtime transport",
+      "BODY personal observations",
+      "whole-state fingerprint",
+      "presence inference",
+      "actuation permission"
+    ]
+  },
+  "offer": {
+    "schema": "house-crew-offer/v0.1",
+    "authority": "OFFER_ONLY",
+    "accepted_kinds": ["RESEARCH", "PROPOSE", "CHECK", "DRAFT", "NAVIGATE"],
+    "max_proposals": 3,
+    "exact_locus_required": true,
+    "effect_proposals_rejected": true,
+    "ingress": [
+      "window.HouseCrewSeam.receive(offer)",
+      "window.dispatchEvent(new CustomEvent('house:crew-offer',{detail:offer}))",
+      "sessionStorage house.crew.offer.v01 then enter /house/"
+    ]
+  },
+  "response": {
+    "schema": "house-crew-response/v0.1",
+    "actions": ["KEEP", "PARK", "WRONG_FRAME"],
+    "authority": "COORDINATION_ONLY",
+    "event": "house:crew-response",
+    "storage": "sessionStorage house.crew.response.v01",
+    "law": "A response changes coordination only. KEEP is not approval to execute; PARK is not rejection; WRONG_FRAME asks the proposing worker to repair its model before more work."
+  },
+  "human_gates": {
+    "NONE": "Crew can continue inspection/research/proposal work without interrupting the human.",
+    "PING": "One lightweight acknowledgement may materially choose continuation.",
+    "CHOOSE": "A preference, adoption, framing or decision belongs to the human.",
+    "WORLD_RETURN": "Fresh physical/subjective evidence must come from the human/world; simulation cannot close it."
+  },
+  "bridges": {
+    "interphase": {
+      "status": "IMPLEMENTED",
+      "schema": "interphase-carrier/v0.1",
+      "authority": "NONE / HANDOFF ONLY",
+      "function": "HouseCrewSeamCore.compileCarrier"
+    },
+    "A2A": {
+      "status": "ADAPTER_CANDIDATE",
+      "rule": "Map remote agent identity/task artifacts into OFFER_ONLY proposals at the trust boundary; do not expose HOUSE native effect authority."
+    },
+    "AG_UI": {
+      "status": "ADAPTER_CANDIDATE",
+      "rule": "Map frame deltas, human interrupts and responses to event/state transport; HOUSE remains state/authority owner."
+    },
+    "A2UI": {
+      "status": "DESIGN_DONOR",
+      "rule": "Remote workers may describe intent as data only; HOUSE renders from its own trusted component vocabulary rather than executing remote HTML/JS."
+    }
+  },
+  "authority": {
+    "crew_seam": "NONE / COORDINATION ONLY",
+    "external_worker": "OFFER_ONLY unless another native host separately grants tools",
+    "human": "preferences, framing, physical observations and irreversible decisions",
+    "HOUSE": "spatial/design projection and local authored trial state",
+    "HA_HOUSEBUS": "private runtime device truth, permissions and actuation"
+  },
+  "return": "/house/",
+  "research": "/control/research/CREW_SEAM_HUMAN_AGENT_2026-10-03.md",
+  "handoff": "/control/confluence/CREW_SEAM_HANDOFF_2026-10-03.md"
+}
