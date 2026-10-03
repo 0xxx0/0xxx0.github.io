@@ -1,0 +1,56 @@
+{
+  "schema": "prison-age.passage-return/v0.1",
+  "generated_at": "2026-10-03T08:50:00+08:00",
+  "status": "IMPLEMENTED_CANDIDATE / CI_PENDING",
+  "host": "/prison-age/",
+  "surface": "/prison-age/?passage=1",
+  "route_schema": "prison-age.passage-route/v0.1",
+  "authority": "EVIDENCE_ONLY",
+  "thesis": "The shareable narrative is the reader-made route through exact authored source spans. No connective prose is generated between spans.",
+  "implemented": [
+    "/prison-age/passage-core.js",
+    "/prison-age/passage.js",
+    "/tools/prison-age-passage-selftest.cjs",
+    "/tools/prison-age-passage-smoke.mjs"
+  ],
+  "lawful_moves": {
+    "CROSS_ECHO": "Move only to the other exact source fragment on the same shipped Evidence Atlas relation card.",
+    "TURN_SOURCE": "Remain inside the current source and move to another exact fragment that participates in a shipped Evidence Atlas relation."
+  },
+  "experience": [
+    "PASSAGE opens inside the existing SOURCE resolver rather than becoming a fourth FIELD action or a new top-level product.",
+    "Four 2026 source entrances are derived from the shipped Evidence Atlas, preferring non-boilerplate evidence.",
+    "Each held node shows the exact fragment in its surrounding exact source paragraph with the fragment visibly addressed.",
+    "READ CONTEXT opens READFIELD at the exact source path and character offset.",
+    "RIDE CONTEXT hands the exact full source plus exact current character address to FOLD//BLOOM LIVE through existing field-read-ride/v0.1, carries ECHO context, and RETURNS to the exact shareable passage trail.",
+    "RETURN / SEE PASSAGE shows only the exact fragments actually traversed, with CROSS ECHO or TURN SOURCE seams derived from the evidence graph.",
+    "COPY WITNESS exports the route packet; SHARE PASSAGE encodes the exact validated route into the URL.",
+    "The provenance-distinct 2021 proto-root remains a separate ROOT / RECURRENCE door into the existing authored-reader projection and is never flattened into the 2026 cross-source ECHO graph."
+  ],
+  "preserved": [
+    "Prison Age exact source bytes and fingerprints",
+    "FIELD native operations remain READ / RIDE / SOURCE",
+    "PRISON_AGE remains source authority",
+    "READFIELD remains reading/cursor authority",
+    "FOLD//BLOOM LIVE remains traversal/effect authority",
+    "ECHO remains lexical/source evidence only",
+    "RECURRENCE remains intra-source conservation/rearrangement evidence only",
+    "Last Stall remains an explicitly incomplete curated source extract",
+    "\"I'm always behind you\" remains excluded because exact authorship/source provenance is unresolved"
+  ],
+  "non_claims": [
+    "Reader route is not canon order.",
+    "Lexical ECHO is not semantic equivalence, theme, intent or causality.",
+    "Traversal is not comprehension or agreement.",
+    "PASSAGE does not add authored connective narrative.",
+    "The 2021 proto-root is not asserted to be the origin of the 2026 anthology stories.",
+    "No new FIELD action, canonical store, planner or narrative ontology is introduced."
+  ],
+  "verification": {
+    "pure": "/tools/prison-age-passage-selftest.cjs",
+    "browser": "/tools/prison-age-passage-smoke.mjs",
+    "integration": "Both tests are folded into the existing Prison Age Evidence Atlas CI entrypoints so PASSAGE must coexist with FIELD source law, ECHO, READFIELD and LIVE.",
+    "ci": "PENDING"
+  },
+  "next_gate": "Exact-head public-surface CI must pass before this receipt may replace the current Prison Age latest_return. After CI, first human share test should judge whether the source-derived path feels narratively alive without requiring synthetic connective prose."
+}
