@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "field-crew-human-gate-2026-10-03",
+  "result_status": "CHANGED",
+  "source_object": "field-crew-handoff/v0.1",
+  "host": "FIELD crew handoff / exact-object staging",
+  "turn_ref": "branch:converge/crew-human-gate-20261003",
+  "before": "Generic FIELD crew handoff preserved object, intent, bounded moves, evidence and RETURN, while HOUSE Crew Seam separately knew whether a human interruption was actually required. A receiver outside HOUSE could therefore preserve the task yet still re-ask the human unnecessarily.",
+  "after": "The common transient handoff carries one explicit human interruption gate: NONE | PING | CHOOSE | WORLD_RETURN | UNSPECIFIED. Exact-object staging derives it only from the selected CURRENT head's explicit next_executable when present. Missing gate information remains UNSPECIFIED rather than being laundered into NONE. The gate controls interruption need only and never grants EFFECT, NOW, priority, merge, commit or release authority.",
+  "observed_delta": "Crew mates can now preserve not only what object and move they share, but also whether the next lawful step should proceed autonomously, request one acknowledgement, return a preference choice, or await irreducible world evidence.",
+  "evidence_refs": [
+    "/lib/field-crew-handoff.mjs",
+    "/tools/field-stage-handoff.mjs",
+    "/llms.txt",
+    "/house/crew-card.json",
+    "/control/confluence/CREW_SEAM_HANDOFF_2026-10-03.md",
+    "/control/CURRENT.json"
+  ],
+  "residue": "Human attention becomes an explicit scarce interface boundary rather than a default checkpoint. HOUSE remains the richer domain-specific Crew Seam; FIELD carries only the reusable interruption-class distinction.",
+  "unknowns": [
+    "Cross-worker ordinary-use evidence has not yet established how much briefing time or interruption burden this reduces.",
+    "SUBMISSION_CONTRACT.json has not yet been expanded with prose for the additive human_gate field; the executable compiler and machine entrypoint are the current candidate proof surface."
+  ],
+  "unresolved_gate": "Promotion requires exact-head field-stage-handoff/selftest plus normal repository gates. Ordinary use should falsify whether UNSPECIFIED is too conservative or whether gate propagation materially reduces repeated human questions.",
+  "return_address": "/control/SUBMISSION_CONTRACT.json",
+  "closed_at": "2026-10-03T13:34:00+08:00",
+  "next_authority": "NONE",
+  "laws": [
+    "HUMAN GATE CONTROLS INTERRUPTION NEED, NOT EFFECT AUTHORITY.",
+    "NO EXPLICIT GATE = UNSPECIFIED, NOT NONE.",
+    "NONE MEANS CONTINUE OTHERWISE-LAWFUL NON-EFFECT WORK; IT DOES NOT MEAN DO ANYTHING.",
+    "CHOOSE AND WORLD_RETURN RETURN TO THE HUMAN/WORLD WITHOUT BLOCKING PREPARATORY MACHINE WORK.",
+    "RETURN CLOSES THE TURN; THIS RECEIPT DOES NOT AUTHORIZE A CREW DASHBOARD, AUTO-ROUTER OR SHARED MEMORY STORE."
+  ]
+}
