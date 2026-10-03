@@ -1,0 +1,107 @@
+{
+  "schema": "0xxx0/polyaddress-interphase/v0.2",
+  "title": "NAMING // POLYADDRESS INTERPHASE",
+  "date": "2026-10-03",
+  "status": "DERIVED_CONTINUATION_NOT_RECOVERED_ORIGINAL",
+  "lineage": {
+    "recovered": [
+      "stable semantic identity distinct from label/alias",
+      "names as manifestations rather than ontology",
+      "constraint-based generative naming",
+      "symmetry/palindrome/grid traversal as operations",
+      "B260728B visual laws: CROSS / ALIGN / TRACE / ROUTE / ROTATE / DISTINGUISH / CENTER / RETURN"
+    ],
+    "interphase": [
+      "identity != local node != projection address",
+      "SOVEREIGN OBJECT -> FOCUS + CONTEXT -> TYPED PARTS / PORTS / RELATIONS -> LAWFUL REWRITE -> DERIVATION -> PROJECTION -> RETURN",
+      "canonical typed state/event substrate under multiple unequal projections"
+    ],
+    "boundary": "This file specifies a new implementation derived from recovered mechanisms and Interphase theory. It does not claim to be the missing historical Game-of-Names executable."
+  },
+  "core": {
+    "object": "E",
+    "stable_identity": "iota(E)",
+    "state": "sigma_t",
+    "lens": "L",
+    "projection_address": "a_L(E,t) = L(sigma_t)",
+    "typed_address": "Addr_L(E,t) = <iota(E), L_id, a_L(E,t), epoch, model_version, provenance>",
+    "operation": "u : sigma_t -> sigma_(t+1)",
+    "return_receipt": "R_t = Commit(iota(E), H(sigma_t), u, H(sigma_(t+1)), projected_addresses, provenance)"
+  },
+  "address_kinds": {
+    "IDENTITY": {
+      "role": "stable self/address anchor",
+      "changes_when": "genesis identity changes, not ordinary state movement",
+      "candidate_mechanisms": ["self-certifying identifiers", "genesis digest"]
+    },
+    "STATE_COMMIT": {
+      "role": "integrity address for one state snapshot",
+      "changes_when": "state bytes change",
+      "candidate_mechanisms": ["cryptographic digest", "content address"]
+    },
+    "ALIAS": {
+      "role": "human/scoped mutable name",
+      "changes_when": "name, scope or binding changes",
+      "candidate_mechanisms": ["mutable signed pointer", "local scoped mapping"]
+    },
+    "FEATURE": {
+      "role": "metric/similarity-space position",
+      "changes_when": "features, model, metric or state changes",
+      "candidate_mechanisms": ["vector projection", "HNSW/ANN neighborhood"]
+    },
+    "CELL": {
+      "role": "hierarchical discrete spatial/field cell",
+      "changes_when": "position, frame or resolution changes",
+      "candidate_mechanisms": ["hierarchical grid", "H3 when coordinates are geographical"]
+    },
+    "CONCEPT": {
+      "role": "location in an object-attribute concept order",
+      "changes_when": "incidence context or active attributes change",
+      "candidate_mechanisms": ["Formal Concept Analysis"]
+    },
+    "ROUTE": {
+      "role": "recoverable path through operations/projections",
+      "changes_when": "a new transition is appended",
+      "candidate_mechanisms": ["event log", "path continuity"]
+    }
+  },
+  "non_equivalences": [
+    "cryptographic hash != semantic neighborhood",
+    "geospatial lattice != concept lattice != lattice-based cryptography",
+    "alias != identity",
+    "projection != evidence",
+    "visual proximity != cryptographic trust",
+    "derived context != source evidence"
+  ],
+  "lens_contract": {
+    "get": "Get_L : Source -> View_L",
+    "put": "Put_L : Source x View_L -> Source (only for editable lenses)",
+    "laws": [
+      "GetPut: Put(s, Get(s)) = s",
+      "PutGet: Get(Put(s, v)) = v where the lens is lossless/enforceable",
+      "Projection-only lenses may be intentionally lossy; they must expose loss/model/provenance rather than pretending invertibility."
+    ]
+  },
+  "execution_spine": ["OBSERVE", "TARGET", "ROUTES", "TEST", "RESULT", "RETURN"],
+  "canon_gates": ["TRUTH", "FIT", "REVERSAL", "PROOF", "RETURN"],
+  "task_views": ["FOCUS", "DISC", "ROUTES", "LEDGER", "RETURN"],
+  "visual_donors": [
+    {"seq":1,"verb":"CROSS","law":"nested apertures preserve central address"},
+    {"seq":2,"verb":"ALIGN","law":"ring phase exposes center/periphery and mismatch"},
+    {"seq":3,"verb":"TRACE","law":"continuity survives local detours and occlusion"},
+    {"seq":4,"verb":"ROUTE","law":"local loops and junctions compose into a field"},
+    {"seq":5,"verb":"ROTATE","law":"rotate the coordinate frame instead of rewriting the world"},
+    {"seq":6,"verb":"DISTINGUISH","law":"classification becomes passage when consequences stay visible"},
+    {"seq":7,"verb":"CENTER","law":"radial pressure exposes center, trap or escape condition"},
+    {"seq":8,"verb":"RETURN","law":"prior-field residue may aid re-entry without becoming authority"}
+  ],
+  "research_donors": [
+    {"name":"IPFS CID / IPNS","role":"immutable content addressing separated from mutable naming","url":"https://docs.ipfs.tech/concepts/ipns/"},
+    {"name":"H3","role":"hierarchical geospatial cells and resolution change","url":"https://h3geo.org/docs/highlights/indexing/"},
+    {"name":"HNSW","role":"hierarchical proximity graph for metric-space neighborhood search","url":"https://arxiv.org/abs/1603.09320"},
+    {"name":"Formal Concept Analysis","role":"concept lattice induced by objects, attributes and incidence","url":"https://en.wikipedia.org/wiki/Formal_concept_analysis"},
+    {"name":"Bidirectional lenses","role":"round-trip laws for source/view transformations","url":"https://link.springer.com/article/10.1007/s10270-020-00851-0"},
+    {"name":"KERI","role":"self-certifying identifiers and append-only key-event provenance","url":"https://arxiv.org/abs/1907.02143"},
+    {"name":"NIST FIPS 203","role":"module-lattice cryptography; deliberately separate meaning of lattice","url":"https://csrc.nist.gov/pubs/fips/203/final"}
+  ]
+}
