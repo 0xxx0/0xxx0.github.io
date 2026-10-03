@@ -6,6 +6,7 @@ const OFFER_SCHEMA='house-crew-offer/v0.1';
 const RESPONSE_SCHEMA='house-crew-response/v0.1';
 const OFFER_KEY='house.crew.offer.v01';
 const RESPONSE_KEY='house.crew.response.v01';
+const DESIGN_KEY='house.design.trials.v01';
 const GATES=Object.freeze(['NONE','PING','CHOOSE','WORLD_RETURN']);
 const RESPONSES=Object.freeze(['KEEP','PARK','WRONG_FRAME']);
 const clean=v=>String(v==null?'':v).trim();
@@ -22,7 +23,7 @@ function gateFor(design={}){
   if(step==='verify'||missing.has('verify'))return{class:'NONE',reason:'Crew may propose a discriminating verification test.'};
   if(step==='after'||missing.has('after'))return{class:'WORLD_RETURN',reason:'After-state must come from the world / human observation.'};
   if(step==='decision')return{class:'CHOOSE',reason:'ADOPT / REVISE / REVERT / HOLD remains a human decision.'};
-  if(step==='return'||design.state==='RETURN_READY')return{class:'PING',reason:'Receipt is ready; human may choose whether it is worth exporting / carrying onward.'};
+  if(step==='return'||design.state==='RETURN_READY')return{class:'PING',reason:'Receipt is ready; human may choose whether it is worth carrying onward.'};
   return{class:'NONE',reason:'No irreducible human gate is currently identified.'};
 }
 
@@ -33,7 +34,7 @@ function nextFor(design={}){
     intent:[{id:'SET_INTENT',label:'Choose preferred outcome',owner:'HUMAN',gate:'CHOOSE',authority:'OFFER'}],
     change:[
       {id:'PROPOSE_CHANGE',label:'Propose ≤3 reversible changes',owner:'CREW',gate:'NONE',authority:'OFFER'},
-      {id:'CHECK_CONSTRAINTS',label:'Check known constraints / residues',owner:'CREW',gate:'NONE',authority:'VIEW'}
+      {id:'CHECK_CONSTRAINTS',label:'Check known constraints / residue',owner:'CREW',gate:'NONE',authority:'VIEW'}
     ],
     verify:[{id:'PROPOSE_VERIFY',label:'Propose discriminating verification',owner:'CREW',gate:'NONE',authority:'OFFER'}],
     after:[{id:'OBSERVE_AFTER',label:'Observe consequence in the world',owner:'HUMAN / WORLD',gate:'WORLD_RETURN',authority:'OFFER'}],
@@ -53,48 +54,24 @@ function makeFrame(input={}){
   const reality=input.reality||{};
   const address=clean(context.address||design.address);
   const gate=gateFor(design);
-  const frame={
+  return{
     schema:FRAME_SCHEMA,
     generated_at:now(),
     authority:'NONE / COORDINATION ONLY',
     object:{
-      id:address?'house:'+address:'house:unselected',
-      owner:'HOUSE',
-      address,
-      label:clean(context.label||address||'HOUSE locus'),
-      projection:clean(context.projection||'PLAN')
+      id:address?'house:'+address:'house:unselected',owner:'HOUSE',address,
+      label:clean(context.label||design.address_label||address||'HOUSE locus'),projection:clean(context.projection||design.projection||'PLAN')
     },
-    intent:{
-      text:clean(design.intent),
-      source:design.trial_id?'house-design-trial/v0.1':'UNSET'
-    },
+    intent:{text:clean(design.intent),source:design.trial_id?'house-design-trial/v0.1':'UNSET'},
     constraints:clean(design.constraints)?[clean(design.constraints)]:[],
-    stage:{
-      state:clean(design.state||'UNSET'),
-      focus:clean(design.focus_step||'UNSET'),
-      missing:arr(design.missing).map(clean).filter(Boolean),
-      decision:clean(design.decision||'HOLD')
-    },
+    stage:{state:clean(design.state||'UNSET'),focus:clean(design.focus_step||'UNSET'),missing:arr(design.missing).map(clean).filter(Boolean),decision:clean(design.decision||'HOLD')},
     human_gate:gate,
     next:nextFor(design),
-    witness:{
-      design_state:clean(design.state||'UNSET'),
-      runtime_freshness:clean(runtime.freshness||'UNKNOWN'),
-      runtime_age:clean(runtime.age_label),
-      reality_layer:clean(reality.layer||'ROOM')
-    },
-    open:{
-      assumptions:arr(input.assumptions).map(clean).filter(Boolean).slice(0,3),
-      residue:clean(design.residue)
-    },
+    witness:{design_state:clean(design.state||'UNSET'),runtime_freshness:clean(runtime.freshness||'UNKNOWN'),runtime_age:clean(runtime.age_label),reality_layer:clean(reality.layer||'ROOM')},
+    open:{assumptions:arr(input.assumptions).map(clean).filter(Boolean).slice(0,3),residue:clean(design.residue)},
     return:{route:'/house/',address},
-    protocol_hints:{
-      interphase:'interphase-carrier/v0.1',
-      external_agents:'compile/bridge at boundary; do not widen HOUSE authority',
-      ui:'host-native rendering; remote offers are data, never executable UI/code'
-    }
+    protocol_hints:{interphase:'interphase-carrier/v0.1',external_agents:'compile/bridge at boundary; do not widen HOUSE authority',ui:'host-native rendering; remote offers are data, never executable UI/code'}
   };
-  return frame;
 }
 
 function changed(prev,next){
@@ -118,36 +95,17 @@ function validateOffer(raw,frame){
     if(!allowed.has(clean(p.kind).toUpperCase()))errors.push('proposal '+i+' kind');
     if(p.effect===true||clean(p.authority).toUpperCase()==='EFFECT')errors.push('proposal '+i+' effect');
   });
-  return{ok:!errors.length,errors,offer:{
-    schema:OFFER_SCHEMA,
-    offered_at:clean(x.offered_at||now()),
-    authority:'OFFER_ONLY',
-    from:{id:clean(x.from&&x.from.id||'external-worker'),label:clean(x.from&&x.from.label||'CREW')},
-    object:{address},
-    summary:clean(x.summary),
-    proposals:proposals.slice(0,3).map(p=>({id:clean(p.id),label:clean(p.label),kind:clean(p.kind).toUpperCase(),note:clean(p.note),target:clean(p.target)})),
-    return_to:clean(x.return_to||'/house/')
-  }};
+  return{ok:!errors.length,errors,offer:{schema:OFFER_SCHEMA,offered_at:clean(x.offered_at||now()),authority:'OFFER_ONLY',from:{id:clean(x.from&&x.from.id||'external-worker'),label:clean(x.from&&x.from.label||'CREW')},object:{address},summary:clean(x.summary),proposals:proposals.slice(0,3).map(p=>({id:clean(p.id),label:clean(p.label),kind:clean(p.kind).toUpperCase(),note:clean(p.note),target:clean(p.target)})),return_to:clean(x.return_to||'/house/')}};
 }
 
 function makeResponse(action,offer,frame){
   const a=clean(action).toUpperCase();
   if(!RESPONSES.includes(a))throw new Error('HOUSE_CREW_RESPONSE_INVALID');
-  return{
-    schema:RESPONSE_SCHEMA,
-    at:now(),
-    action:a,
-    authority:'COORDINATION_ONLY',
-    object:{address:clean(frame&&frame.object&&frame.object.address)},
-    offer_from:clean(offer&&offer.from&&offer.from.id),
-    proposal_ids:arr(offer&&offer.proposals).map(p=>clean(p.id)).filter(Boolean),
-    meaning:a==='KEEP'?'keep this offer in the active coordination frame; no native effect':a==='PARK'?'retain as residue / later possibility; no native effect':'current framing is wrong; reframe before proposing further work',
-    return_to:'/house/'
-  };
+  return{schema:RESPONSE_SCHEMA,at:now(),action:a,authority:'COORDINATION_ONLY',object:{address:clean(frame&&frame.object&&frame.object.address)},offer_from:clean(offer&&offer.from&&offer.from.id),proposal_ids:arr(offer&&offer.proposals).map(p=>clean(p.id)).filter(Boolean),meaning:a==='KEEP'?'keep this offer in the active coordination frame; no native effect':a==='PARK'?'retain as residue / later possibility; no native effect':'current framing is wrong; reframe before proposing further work',return_to:'/house/'};
 }
 
 function compileCarrier(frame,Carrier){
-  if(!Carrier||typeof Carrier.make!=='function')return null;
+  if(!Carrier||typeof Carrier.make!=='function'||!frame.object.address)return null;
   return Carrier.make({
     object:{id:frame.object.id,kind:'house-locus',label:frame.object.label,owner:'HOUSE',address:frame.object.address,contract:'/house/contract.json'},
     focus:{id:frame.object.id,label:frame.object.label,address:frame.object.address,aperture:'CREW'},
@@ -159,25 +117,34 @@ function compileCarrier(frame,Carrier){
   });
 }
 
-const Core={FRAME_SCHEMA,OFFER_SCHEMA,RESPONSE_SCHEMA,OFFER_KEY,RESPONSE_KEY,GATES,RESPONSES,gateFor,nextFor,makeFrame,changed,validateOffer,makeResponse,compileCarrier};
+const Core={FRAME_SCHEMA,OFFER_SCHEMA,RESPONSE_SCHEMA,OFFER_KEY,RESPONSE_KEY,DESIGN_KEY,GATES,RESPONSES,gateFor,nextFor,makeFrame,changed,validateOffer,makeResponse,compileCarrier};
 root.HouseCrewSeamCore=Core;
 if(typeof module!=='undefined'&&module.exports)module.exports=Core;
 if(typeof document==='undefined'||typeof window==='undefined')return;
 
 let context=root.HOUSE_CONTEXT||{},design=root.HOUSE_DESIGN_STATE||{},runtime=root.HOUSE_RUNTIME_WITNESS||{},reality={layer:'ROOM'};
 let frame=null,offer=null,response=null;
-function sessionGet(key){try{return JSON.parse(sessionStorage.getItem(key)||'null')}catch(_){return null}}
+function jsonGet(storage,key){try{return JSON.parse(storage.getItem(key)||'null')}catch(_){return null}}
+function sessionGet(key){return jsonGet(sessionStorage,key)}
 function sessionSet(key,value){try{sessionStorage.setItem(key,JSON.stringify(value))}catch(_){}}
+function localDesign(address){
+  const rows=arr(jsonGet(localStorage,DESIGN_KEY));
+  const matches=rows.filter(x=>clean(x&&x.address)===clean(address)).sort((a,b)=>clean(b.updated_at).localeCompare(clean(a.updated_at)));
+  return matches[0]||{};
+}
+function effectiveDesign(){return Object.assign({},localDesign(context.address||design.address),design)}
 function publish(){
-  const next=makeFrame({context,design,runtime,reality});
+  const currentDesign=effectiveDesign();
+  const next=makeFrame({context,design:currentDesign,runtime,reality});
   next.changed=changed(frame,next);
   frame=next;
+  if(offer&&clean(offer.object&&offer.object.address)!==clean(frame.object.address))offer=null;
   root.HOUSE_CREW_FRAME=clone(frame);
   root.HOUSE_CREW_CARRIER=compileCarrier(frame,root.InterphaseCarrier);
   window.dispatchEvent(new CustomEvent('house:crew-frame',{detail:clone(frame)}));
 }
 function receive(raw){
-  const v=validateOffer(raw,frame||makeFrame({context,design,runtime,reality}));
+  const v=validateOffer(raw,frame||makeFrame({context,design:effectiveDesign(),runtime,reality}));
   if(!v.ok){window.dispatchEvent(new CustomEvent('house:crew-offer-rejected',{detail:{errors:v.errors}}));return false}
   offer=v.offer;sessionSet(OFFER_KEY,offer);root.HOUSE_CREW_OFFER=clone(offer);
   window.dispatchEvent(new CustomEvent('house:crew-offer-accepted',{detail:clone(offer)}));
@@ -185,10 +152,11 @@ function receive(raw){
 }
 function respond(action){
   if(!offer)return null;
-  response=makeResponse(action,offer,frame);
+  const a=clean(action).toUpperCase();
+  response=makeResponse(a,offer,frame);
   sessionSet(RESPONSE_KEY,response);root.HOUSE_CREW_RESPONSE=clone(response);
   window.dispatchEvent(new CustomEvent('house:crew-response',{detail:clone(response)}));
-  if(action==='WRONG_FRAME'){offer=null;try{sessionStorage.removeItem(OFFER_KEY)}catch(_){}}
+  if(a==='WRONG_FRAME'){offer=null;try{sessionStorage.removeItem(OFFER_KEY)}catch(_){}}
   publish();return clone(response);
 }
 function clearOffer(){offer=null;response=null;try{sessionStorage.removeItem(OFFER_KEY);sessionStorage.removeItem(RESPONSE_KEY)}catch(_){};publish()}
