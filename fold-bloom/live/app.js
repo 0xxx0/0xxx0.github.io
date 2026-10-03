@@ -2,7 +2,7 @@ import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelea
 import { FoldBloomAudio, MIX_PARTS } from './audio.js?v=0.14';
 import { Renderer } from './render.js?v=0.13.9';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
-import { $ } from '../../lib/dom.js';
+import { $, toast as _toast } from '../../lib/dom.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
 import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, deformationSummary } from './track-deform.js';
@@ -343,7 +343,8 @@ function syncMixUI(){
 function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
 function haptic(ms=5){if(demo.preview)return;try{navigator.vibrate?.(ms)}catch(_){}}
-function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
+// sticky, matching this host's original behaviour (no auto-hide). 62 call sites unchanged.
+const toast=(text)=>_toast(text,{ms:0});
 function extrapolateSyntheticClock(track,now=performance.now()){
   if(!track?._pulseSeed||track._pulseClock!=='SYNTH'||!track.playing)return track;
   const bpm=Number(track.bpm)||0;if(!(bpm>0))return track;
