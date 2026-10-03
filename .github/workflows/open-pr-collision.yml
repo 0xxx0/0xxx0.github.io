@@ -26,4 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node tools/open-pr-collision-check.mjs
       - name: Refuse unindexed standing-policy additions
-        run: python3 scripts/pre-commit-search-check.py --policy-diff origin/master
+        env:
+          POLICY_BASE: ${{ github.event.pull_request.base.sha }}
+        run: python3 scripts/pre-commit-search-check.py --policy-diff "$POLICY_BASE"
