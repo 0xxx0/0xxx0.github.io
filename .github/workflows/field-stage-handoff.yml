@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'tools/field-stage-handoff.mjs'
+      - 'tools/field-hermes-run.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
@@ -14,6 +15,7 @@ on:
     branches: [master]
     paths:
       - 'tools/field-stage-handoff.mjs'
+      - 'tools/field-hermes-run.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
@@ -34,8 +36,12 @@ jobs:
           node-version: '22'
       - name: Check staging helper syntax
         run: node --check tools/field-stage-handoff.mjs
+      - name: Check Hermes operator bridge syntax
+        run: node --check tools/field-hermes-run.mjs
       - name: Prove exact-object staging stays authority NONE
         run: node tools/field-stage-handoff.mjs --selftest
+      - name: Prove Hermes bridge stays loopback and authority NONE
+        run: node tools/field-hermes-run.mjs --selftest
       - name: Round-trip staged object through canonical crew handoff
         run: |
           node tools/field-stage-handoff.mjs --source field-index --submission > /tmp/field-submission.json
