@@ -4,11 +4,13 @@ on:
     paths:
       - 'tools/field-stage-handoff.mjs'
       - 'tools/field-hermes-run.mjs'
+      - 'tools/field-terminal-lens.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
       - 'control/CURRENT.json'
       - 'showcase-manifest.json'
+      - 'field-glyph.js'
       - 'llms.txt'
       - '.github/workflows/field-stage-handoff.yml'
   push:
@@ -16,11 +18,13 @@ on:
     paths:
       - 'tools/field-stage-handoff.mjs'
       - 'tools/field-hermes-run.mjs'
+      - 'tools/field-terminal-lens.mjs'
       - 'lib/field-crew-handoff.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
       - 'control/CURRENT.json'
       - 'showcase-manifest.json'
+      - 'field-glyph.js'
       - 'llms.txt'
       - '.github/workflows/field-stage-handoff.yml'
 permissions:
@@ -38,10 +42,14 @@ jobs:
         run: node --check tools/field-stage-handoff.mjs
       - name: Check Hermes operator bridge syntax
         run: node --check tools/field-hermes-run.mjs
+      - name: Check terminal lens syntax
+        run: node --check tools/field-terminal-lens.mjs
       - name: Prove exact-object staging stays authority NONE
         run: node tools/field-stage-handoff.mjs --selftest
       - name: Prove Hermes bridge stays loopback and authority NONE
         run: node tools/field-hermes-run.mjs --selftest
+      - name: Prove terminal lens stays projection-only
+        run: node tools/field-terminal-lens.mjs --selftest
       - name: Round-trip staged object through canonical crew handoff
         run: |
           node tools/field-stage-handoff.mjs --source field-index --submission > /tmp/field-submission.json
