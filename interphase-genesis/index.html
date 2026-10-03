@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INTERPHASE GENESIS — one object, every projection</title>
+<meta name="theme-color" content="#07090a">
+<style>
+  /* ============ house palette (dark default + light bridge) ============ */
+  html[data-theme="dark"]{
+    --bg:#07090a; --p:#0b0f11; --ink:#edf0ed; --mut:#7d898f; --line:#2a3439;
+    --hot:#ed7447; --cool:#72bce7; --green:#98d49b; --gold:#d5ad68; --bad:#cc8792;
+    --face:rgba(120,150,165,0.045); --obj:#72bce7;
+  }
+  html[data-theme="light"]{
+    --bg:#f2efe8; --p:#fbf9f3; --ink:#1a1c1a; --mut:#6b675d; --line:#d3ccbc;
+    --hot:#b8491f; --cool:#1f6ea8; --green:#3f7d49; --gold:#8a6d24; --bad:#a2556b;
+    --face:rgba(60,80,90,0.05); --obj:#1f6ea8;
+  }
+  *{box-sizing:border-box; border-radius:0}
+  html,body{margin:0; height:100%}
+  body{
+    background:var(--bg); color:var(--ink); overflow-x:hidden;
+    font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s,color .25s;
+  }
+  a{color:inherit}
+  .wrap{max-width:960px; margin:0 auto; padding:0 16px}
+
+  /* ============ top rail ============ */
+  .top{position:sticky; top:0; z-index:20; background:var(--bg);
+       border-bottom:1px solid var(--line); padding:8px 0}
+  .top .wrap{display:flex; align-items:center; gap:16px}
+  .brand{font-size:15px; letter-spacing:.16em; font-weight:600}
+  .brand .m{color:var(--cool)}
+  .spacer{flex:1}
+  .tag{font-size:10px; letter-spacing:.14em; color:var(--mut); text-transform:uppercase}
+
+  /* ============ hero thesis ============ */
+  .hero{border-bottom:1px solid var(--line); padding:22px 0 18px}
+  .kicker{font-size:10px; letter-spacing:.32em; color:var(--mut); text-transform:uppercase}
+  .thesis{font-size:clamp(20px,4vw,34px); line-height:1.15; margin:10px 0 6px; letter-spacing:-.01em}
+  .thesis b{color:var(--hot); font-weight:600}
+  .sub{color:var(--mut); max-width:64ch; font-size:13px}
+  .sub em{color:var(--ink); font-style:normal}
+
+  /* ============ interphase room ============ */
+  .roomwrap{display:grid; grid-template-columns:1fr 260px; gap:0; border-bottom:1px solid var(--line)}
+  @media(max-width:720px){ .roomwrap{grid-template-columns:1fr} }
+  .stage{position:relative; height:380px; overflow:hidden; background:
+    linear-gradient(var(--line),transparent 1px) 0 0/100% 26px,
+    linear-gradient(90deg,var(--line),transparent 1px) 0 0/26px 100%;
+    background-color:var(--p);
+    background-blend-mode:normal;
+    cursor:grab; touch-action:none}
+  .stage.drag{cursor:grabbing}
+  .stage:before{content:"INTERPHASE ROOM"; position:absolute; top:10px; left:12px;
+    font-size:9px; letter-spacing:.28em; color:var(--mut); z-index:5}
+  .stage:after{content:"drag to project · the object never leaves"; position:absolute; bottom:10px; left:12px;
+    font-size:9px; letter-spacing:.16em; color:var(--mut); z-index:5}
+
+  #viewport{position:absolute; inset:0; perspective:760px; perspective-origin:50% 50%}
+  #camera{position:absolute; top:50%; left:50%; width:0; height:0; transform-style:preserve-3d}
+  .room{position:absolute; transform-style:preserve-3d}
+  .face{position:absolute; width:320px; height:320px; left:-160px; top:-160px;
+        border:1px solid var(--line); background:var(--face); backface-visibility:visible}
+  .face.small{width:120px;height:120px;left:-60px;top:-60px}
+  /* central preserved object */
+  #obj{position:absolute; width:56px; height:56px; left:-28px; top:-28px;
+       transform-style:preserve-3d; display:grid; place-items:center}
+  .obj-cube{position:absolute; inset:0; transform-style:preserve-3d}
+  .obj-cube div{position:absolute; inset:0; border:1px solid var(--obj);
+       background:color-mix(in srgb,var(--obj) 12%,transparent)}
+  .obj-mark{position:relative; z-index:2; font-size:22px; color:var(--obj);
+       text-shadow:0 0 12px color-mix(in srgb,var(--obj) 60%,transparent)}
+  .obj-addr{position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+       font-size:9px; letter-spacing:.18em; color:var(--mut); white-space:nowrap}
+
+  /* ============ state panel (太玄經 ternary) ============ */
+  .panel{border-left:1px solid var(--line); padding:18px 18px}
+  @media(max-width:720px){ .panel{border-left:0; border-top:1px solid var(--line)} }
+  .panel h3{margin:0 0 4px; font-size:10px; letter-spacing:.24em; color:var(--mut); text-transform:uppercase}
+  .panel .note{color:var(--mut); font-size:11px; margin:0 0 14px}
+  .tri{display:flex; flex-direction:column; gap:8px; margin:8px 0 4px}
+  .tri button{
+    display:flex; align-items:center; gap:10px; text-align:left; cursor:pointer;
+    background:var(--p); color:var(--ink); border:1px solid var(--line); padding:10px 12px;
+    font:inherit; transition:border-color .15s,background .15s}
+  .tri button:hover{border-color:var(--cool)}
+  .tri button[aria-pressed="true"]{border-color:var(--hot); background:color-mix(in srgb,var(--hot) 12%,transparent)}
+  .tri .glyph{font-size:18px; line-height:1; width:22px; text-align:center}
+  .tri .lab{font-size:10px; letter-spacing:.18em}
+  .tri .zh{color:var(--mut); font-size:10px}
+  .statespec{margin-top:14px; border-top:1px solid var(--line); padding-top:12px}
+  .kv{display:flex; justify-content:space-between; gap:8px; padding:3px 0; font-size:11px}
+  .kv .k{color:var(--mut)} .kv .v{color:var(--ink); text-align:right}
+
+  /* ============ receipts ============ */
+  .receipts{padding:22px 0; border-bottom:1px solid var(--line)}
+  .rhead{display:flex; align-items:baseline; gap:14px; margin-bottom:14px}
+  .rhead h2{margin:0; font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:var(--mut)}
+  .rgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line)}
+  @media(max-width:720px){ .rgrid{grid-template-columns:1fr} }
+  .rc{padding:14px; border-right:1px solid var(--line)}
+  .rc:last-child{border-right:0}
+  @media(max-width:720px){ .rc{border-right:0; border-bottom:1px solid var(--line)} .rc:last-child{border-bottom:0} }
+  .rc .num{font-size:26px; line-height:1; letter-spacing:-.02em}
+  .rc .num.cool{color:var(--cool)} .rc .num.hot{color:var(--hot)} .rc .num.gold{color:var(--gold)}
+  .rc .cl{font-size:10px; letter-spacing:.18em; color:var(--mut); text-transform:uppercase; margin:8px 0 6px}
+  .rc .qt{color:var(--ink); font-size:11px; line-height:1.5}
+  .rc .qt:before{content:"“"} .rc .qt:after{content:"”"}
+  .rc .src{color:var(--mut); font-size:9px; letter-spacing:.12em; margin-top:8px}
+
+  /* ============ footer ============ */
+  .foot{padding:16px 0; display:flex; align-items:center; gap:12px; font-size:10px; letter-spacing:.16em; color:var(--mut)}
+  .foot a, .foot button{color:var(--mut); text-decoration:none; background:none; border:1px solid var(--line);
+    padding:6px 10px; font:inherit; letter-spacing:.16em; cursor:pointer; transition:color .15s,border-color .15s}
+  .foot a:hover, .foot button:hover{color:var(--hot); border-color:var(--hot)}
+  .foot .grow{flex:1}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">INTERPHASE <span class="m">GENESIS</span></div>
+    <div class="spacer"></div>
+    <div class="tag">recovered canon · <span id="recovered">2026-10-03</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">the interphase epiphany — recovered from the corpus</div>
+    <h1 class="thesis">One object, preserved across <b>every projection</b> and <b>every state</b>. Representation is never the object.</h1>
+    <p class="sub">The origin was a room: <em>INTERPHASE-PROTO-1</em> — a 3D space where a single object holds its identity as the camera projects it from every angle. The theory beneath it was <em>太玄經</em>, a ternary state-space compiled into the glyph / interface / physical systems. This is that epiphany, running again — not a description of it.</p>
+  </div>
+</section>
+
+<section class="roomwrap">
+  <div class="stage" id="stage">
+    <div id="viewport">
+      <div id="camera">
+        <div class="room" id="room">
+          <!-- 6 faces of the projection space -->
+          <div class="face" data-r="translateZ(160px)"></div>
+          <div class="face" data-r="rotateY(180deg) translateZ(160px)"></div>
+          <div class="face" data-r="rotateY(90deg) translateZ(160px)"></div>
+          <div class="face" data-r="rotateY(-90deg) translateZ(160px)"></div>
+          <div class="face" data-r="rotateX(90deg) translateZ(160px)"></div>
+          <div class="face" data-r="rotateX(-90deg) translateZ(160px)"></div>
+          <!-- the preserved object -->
+          <div id="obj">
+            <div class="obj-cube" id="objCube">
+              <div style="transform:translateZ(28px)"></div>
+              <div style="transform:rotateY(180deg) translateZ(28px)"></div>
+              <div style="transform:rotateY(90deg) translateZ(28px)"></div>
+              <div style="transform:rotateY(-90deg) translateZ(28px)"></div>
+              <div style="transform:rotateX(90deg) translateZ(28px)"></div>
+              <div style="transform:rotateX(-90deg) translateZ(28px)"></div>
+            </div>
+            <div class="obj-mark" id="objMark">路</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="obj-addr" id="objAddr">address · <b id="addr">obj:genesis#0</b> — identity holds</div>
+  </div>
+
+  <aside class="panel">
+    <h3>太玄經 · ternary state-space</h3>
+    <p class="note">Three states. The object's <b>representation</b> changes; its <b>address</b> never does. Switch state — watch the mark and the colour move, the identity stay.</p>
+    <div class="tri" id="tri">
+      <button data-state="0" aria-pressed="true"><span class="glyph">⚊</span><span class="lab">SOURCE</span><span class="zh">天 · solid</span></button>
+      <button data-state="1" aria-pressed="false"><span class="glyph">𝌀</span><span class="lab">HOLD</span><span class="zh">人 · mixed</span></button>
+      <button data-state="2" aria-pressed="false"><span class="glyph">⚋</span><span class="lab">RETURN</span><span class="zh">地 · broken</span></button>
+    </div>
+    <div class="statespec">
+      <div class="kv"><span class="k">state</span><span class="v" id="sName">SOURCE</span></div>
+      <div class="kv"><span class="k">mark</span><span class="v" id="sMark">⚊</span></div>
+      <div class="kv"><span class="k">projection</span><span class="v" id="sProj">solid · rising</span></div>
+      <div class="kv"><span class="k">address</span><span class="v" id="sAddr">obj:genesis#0</span></div>
+      <div class="kv"><span class="k">identity</span><span class="v" id="sIdent" style="color:var(--green)">preserved</span></div>
+    </div>
+  </aside>
+</section>
+
+<section class="receipts">
+  <div class="wrap">
+    <div class="rhead"><h2>Receipts — this is recovered, not invented</h2></div>
+    <div class="rgrid">
+      <div class="rc">
+        <div class="num cool">4,619</div>
+        <div class="cl">messages · interphase</div>
+        <div class="qt">title: -=* INTERPHASE-PROTO-1 *=- … #VIEWPORT … #CAMERA … .room … transform-style: preserve-3d</div>
+        <div class="src">corpus · messages_fts MATCH 'interphase'</div>
+      </div>
+      <div class="rc">
+        <div class="num hot">6,350</div>
+        <div class="cl">messages · field index</div>
+        <div class="qt">one object preserved across projections; navigation is secondary to continuity</div>
+        <div class="src">corpus · messages_fts MATCH '"field index"'</div>
+      </div>
+      <div class="rc">
+        <div class="num gold">太玄經</div>
+        <div class="cl">ternary state-space</div>
+        <div class="qt">compile it into our existing capability / glyph / interface / physical systems</div>
+        <div class="src">corpus · 太玄经 / I Ching lineage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a href="/">← FIELD</a>
+    <a href="/control/source-hold-turn-trace-return.html">SOURCE→RETURN</a>
+    <button id="fiTheme" type="button">◑ LIGHT</button>
+    <div class="grow"></div>
+    <span>INTERPHASE GENESIS · a recovered spine, not a new surface</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- theme (fi-theme pattern) ---------- */
+  var root = document.documentElement, tbtn = document.getElementById('fiTheme');
+  function apply(t){
+    root.setAttribute('data-theme', t);
+    var m = document.querySelector('meta[name=theme-color]');
+    if (m) m.setAttribute('content', t==='light' ? '#f2efe8' : '#07090a');
+    tbtn.textContent = t==='light' ? '◐ DARK' : '◑ LIGHT';
+    try{ localStorage.setItem('fi-theme', t); }catch(e){}
+  }
+  var saved = null;
+  try{ saved = localStorage.getItem('fi-theme'); }catch(e){}
+  apply(saved || (matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+  tbtn.addEventListener('click', function(){
+    apply(root.getAttribute('data-theme')==='light' ? 'dark' : 'light');
+  });
+
+  /* ---------- interphase room: orbit projection ---------- */
+  var camera = document.getElementById('camera');
+  var faces = document.querySelectorAll('.face');
+  faces.forEach(function(f){ f.style.transform = f.getAttribute('data-r'); });
+  var objCube = document.getElementById('objCube');
+
+  var rx = -18, ry = 28, dragging=false, lx=0, ly=0, auto=true, spin=0;
+  function render(){
+    camera.style.transform = 'rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg)';
+  }
+  render();
+
+  var stage = document.getElementById('stage');
+  function down(x,y){ dragging=true; auto=false; lx=x; ly=y; stage.classList.add('drag'); }
+  function move(x,y){
+    if(!dragging) return;
+    ry += (x-lx)*0.42; rx -= (y-ly)*0.42;
+    rx = Math.max(-80, Math.min(80, rx));
+    lx=x; ly=y; render();
+  }
+  function up(){ dragging=false; stage.classList.remove('drag'); setTimeout(function(){ auto=true; }, 2600); }
+
+  stage.addEventListener('mousedown', function(e){ down(e.clientX,e.clientY); });
+  window.addEventListener('mousemove', function(e){ move(e.clientX,e.clientY); });
+  window.addEventListener('mouseup', up);
+  stage.addEventListener('touchstart', function(e){ down(e.touches[0].clientX,e.touches[0].clientY); }, {passive:true});
+  stage.addEventListener('touchmove', function(e){ move(e.touches[0].clientX,e.touches[0].clientY); }, {passive:true});
+  stage.addEventListener('touchend', up);
+
+  /* gentle auto-project when idle — the object is always shown from somewhere */
+  (function tick(){
+    if(auto && !dragging){ ry += 0.12; render(); }
+    spin += 0.4;
+    if(objCube) objCube.style.transform = 'rotateX('+(-rx*0.6).toFixed(2)+'deg) rotateY('+(spin*0.5).toFixed(2)+'deg)';
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- 太玄經 ternary state control ---------- */
+  var STATES = [
+    {name:'SOURCE',  mark:'⚊', zh:'天', proj:'solid · rising',  glyph:'路', color:'--cool', addr:'obj:genesis#0'},
+    {name:'HOLD',    mark:'𝌀', zh:'人', proj:'mixed · held',    glyph:'◈', color:'--hot',  addr:'obj:genesis#0'},
+    {name:'RETURN',  mark:'⚋', zh:'地', proj:'broken · falling',glyph:'↺', color:'--gold', addr:'obj:genesis#0'}
+  ];
+  var sName=document.getElementById('sName'), sMark=document.getElementById('sMark'),
+      sProj=document.getElementById('sProj'), sAddr=document.getElementById('sAddr'),
+      objMark=document.getElementById('objMark');
+
+  function setState(i){
+    var s = STATES[i];
+    document.querySelectorAll('#tri button').forEach(function(b,bi){
+      b.setAttribute('aria-pressed', bi===i ? 'true':'false');
+    });
+    sName.textContent = s.name; sMark.textContent = s.mark;
+    sProj.textContent = s.proj; sAddr.textContent = s.addr;
+    objMark.textContent = s.glyph;
+    /* the object's colour/mark move — its address is unchanged (identity preserved) */
+    root.style.setProperty('--obj', 'var('+s.color+')');
+  }
+  document.querySelectorAll('#tri button').forEach(function(b){
+    b.addEventListener('click', function(){ setState(+b.getAttribute('data-state')); });
+  });
+  setState(0);
+})();
+</script>
+</body>
+</html>
