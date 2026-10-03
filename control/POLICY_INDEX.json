@@ -12,7 +12,8 @@
       "CONFLICTS ARE PRESERVED AND RETURNED. Do not silently reconcile contradictory rules.",
       "POLICY CHANGE REQUIRES: source → scope → delta → affected dependents → receipt.",
       "TEMPORARY TASK INSTRUCTIONS DO NOT BECOME STANDING POLICY UNLESS PROMOTED INTO THIS INDEX.",
-      "NO POLICY PROLIFERATION: prefer amending/cross-referencing an existing authority over creating a synonym document."
+      "NO POLICY PROLIFERATION: prefer amending/cross-referencing an existing authority over creating a synonym document.",
+      "RULE-LIKE FILE ≠ AUTHORITY. A new LAW / RULE / POLICY / CHARTER / MANDATE outside explicit evidence/history shelves is not standing policy until this index admits its path, scope, authority, status and consumers."
     ],
     "conflict_resolution": [
       "1. Stop the consequential action if authority is unclear.",
@@ -34,6 +35,20 @@
     ]
   },
   "authorities": [
+    {
+      "id": "worker-governance",
+      "path": "/AGENTS.md",
+      "scope": "repository worker boot, authority, convergence, contribution and execution discipline",
+      "authority": "REPO_WORKER_AUTHORITY",
+      "status": "ACTIVE",
+      "consumers": [
+        "Hermes",
+        "Codex",
+        "ChatGPT",
+        "persistent workers",
+        "repo writers"
+      ]
+    },
     {
       "id": "orientation",
       "path": "/control/ORIENTATION.json",
@@ -101,6 +116,7 @@
       "authority": "AGENT_POLICY",
       "status": "ACTIVE",
       "depends_on": [
+        "worker-governance",
         "orientation",
         "current",
         "migration-operating"
@@ -233,6 +249,6 @@
       ]
     }
   ],
-  "task_rule": "Before a persistent agent/automation acts, it should resolve the smallest applicable policy set from this index, cite those paths in its receipt, and avoid copying their prose into task-local doctrine.",
-  "update_rule": "When a policy is added or materially changed, update this index and name affected consumers; do not silently fan the change out by hand."
+  "task_rule": "Before a persistent agent/automation acts, it should resolve the smallest applicable policy set from this index, cite those paths in its receipt, and avoid copying their prose into task-local doctrine. New standing LAW / RULE / POLICY / CHARTER / MANDATE files must be admitted here in the same change or remain explicitly non-authoritative evidence/history.",
+  "update_rule": "When a policy is added or materially changed, update this index and name affected consumers; do not silently fan the change out by hand. Existing historical rule-like material is not upgraded merely by being discovered."
 }
