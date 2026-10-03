@@ -11,7 +11,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,5 +23,8 @@ jobs:
         run: |
           node --check foundry/omnitools/bench.mjs
           node --check foundry/omnitools/instrument-app.mjs
+          node --check tools/omnitools-smoke.mjs
       - name: Validate Omnitools workbench contract
         run: node tools/omnitools-workbench-selftest.mjs
+      - name: Prove mobile one-source work loop
+        run: node tools/omnitools-smoke.mjs
