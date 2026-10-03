@@ -96,11 +96,24 @@
     "SOURCE",
     "RETURN FIELD"
   ],
+  "apertures": {
+    "nine_gate_passage": {
+      "route": "/prison-age/?passage=nine&gate=1",
+      "data": "/prison-age/passage.json",
+      "runtime": "/prison-age/passage.js",
+      "schema": "prison-age.source-route/v0.1",
+      "authority": "CURATED_SOURCE_ROUTE / EVIDENCE_ONLY",
+      "order_authority": "EDITORIAL_NON_CANON",
+      "behavior": "Nine shareable movements resolve exact source fragments at runtime; READ/RIDE continue from the addressed source span; ECHO-backed and editorial transitions remain visibly distinct; final RETURN carries addresses/traversal only.",
+      "boundary": "This is an in-host SOURCE aperture, not a fourth FIELD action, canon order, generated story, interpretation, comprehension claim or source mutation."
+    }
+  },
   "active_projection": {
     "field": "FIELD INDEX holds one PRISON AGE source-set object with READ / RIDE / SOURCE native operations; SOURCE resolves unequal source classes and READ/RIDE express operation intent only.",
     "read": "READFIELD owns text/cursor/reading projections.",
     "ride": "FOLD//BLOOM LIVE owns embodied traversal. Ordinary sourced movements use generic READ/RIDE STEP; the recovered 2021 proto-root may explicitly enter the authored-reader recurrence projection. Source authority stays native.",
-    "source": "/prison-age/ resolves exact source identity/provenance and does not add narrative framing.",
-    "return": "FIELD-launched READ/RIDE returns to /?focus=/prison-age/; direct source use returns to the exact story resolver."
+    "source": "/prison-age/ resolves exact source identity/provenance and hosts Evidence Atlas plus Nine Gate Passage as evidence-only apertures; neither adds FIELD action authority.",
+    "passage": "Nine Gate Passage is a curated non-canon order over exact addressed source fragments. Gate 01 preserves the proto-root source class; anthology movements use exact READ/RIDE spans; transition evidence is typed ECHO / SOURCE_CONTINUITY / EDITORIAL.",
+    "return": "FIELD-launched READ/RIDE returns to /?focus=/prison-age/; direct source use returns to the exact story resolver; Passage RETURN is EVIDENCE_ONLY with NEXT = NONE_UNTIL_REPLAN."
   }
 }
