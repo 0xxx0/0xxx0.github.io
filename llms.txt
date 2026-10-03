@@ -68,3 +68,21 @@ Bounded execution protocol (human + coding workers):
 - selftest: `node tools/source-hold-turn-trace-return-selftest.mjs`
 
 Use it after selecting an object: one exact source, one held focus, ≤3 lawful moves, one TURN, machine-verifiable TRACE where possible, then RETURN. EFFECT requires explicit native commit/RELEASE. After RETURN re-read CURRENT; no second move inherits authority.
+
+Executable staging for coding models:
+
+`node tools/field-operation.mjs --source <exact route|CURRENT lineage>`
+
+Readable staging:
+
+`node tools/field-operation.mjs --source <exact route|CURRENT lineage> --markdown`
+
+Validate a filled packet before claiming closure:
+
+`node tools/field-operation.mjs --validate <packet.json>`
+
+Selftest:
+
+`node tools/field-operation.mjs --selftest`
+
+FIELD OPERATION is deliberately inert: it resolves one explicit CURRENT/manifest object, stages SOURCE + HOLD with at most three declared host-native apertures, and emits empty TURN / TRACE / RETURN fields from the canonical protocol. It does **not** choose a move, execute, merge, send, mutate, create NOW, or gain host authority. `declared_next` is context only. A caller must still select one TURN and cross any native RELEASE/commit boundary explicitly.
