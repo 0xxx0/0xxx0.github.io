@@ -13,7 +13,9 @@ Two different failures are caught here:
    silently create a second authority surface.
 
 Installed via `sh tools/install-hooks.sh`, which uses the versioned .githooks path.
-A conscious `git commit --no-verify` remains possible; PR CI repeats policy admission.
+`SEARCH_FIRST_SKIP=1` skips only the generic search reminder. A conscious
+`git commit --no-verify` remains the local emergency bypass for policy admission;
+PR CI repeats policy admission independently.
 """
 
 import argparse
@@ -196,15 +198,14 @@ def main() -> int:
     ap.add_argument("--policy-diff", metavar="BASE", help="CI mode: check newly added policy-like files against BASE...HEAD")
     args = ap.parse_args()
 
-    if SKIP and not args.policy_diff:
-        return 0
-
     try:
         new_files = diff_new_files(args.policy_diff) if args.policy_diff else staged_new_files()
     except Exception as e:
         print(f"POLICY AUTHORITY: REFUSED — {e}", file=sys.stderr)
         return 1
 
+    # Standing-policy admission is deliberately stricter than the generic search reminder.
+    # SEARCH_FIRST_SKIP must not bypass this check.
     bad_policy = policy_violations(new_files)
     if bad_policy:
         print_policy_refusal(bad_policy)
@@ -212,6 +213,9 @@ def main() -> int:
 
     if args.policy_diff:
         print(f"POLICY AUTHORITY PASS · {len(new_files)} added file(s) inspected · standing policy remains indexed")
+        return 0
+
+    if SKIP:
         return 0
 
     if not new_files:
