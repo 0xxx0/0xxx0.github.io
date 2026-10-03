@@ -22,7 +22,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
  if(!rec.mobile.toggle)throw Error('mobile source handle hidden');
  toggle.click();rec.mobile.open=d.getElementById('sourceDock').classList.contains('open');if(!rec.mobile.open)throw Error('mobile source sheet did not open');
  name.value='bench-fixture';name.dispatchEvent(new Event('input',{bubbles:true}));
- source.value='Rail | 82 | 74..88 | 90 | reversible clamp\\nFrame | 70..85 | 93 | 68 | fast deployment\\nUnknown | ? | 95 | 80 | measure form\\nWeak | 50 | 60 | 60 | dominated';source.dispatchEvent(new Event('input',{bubbles:true}));
+ source.value='Rail | 82 | 74..88 | 90 | reversible clamp\\nFrame | 70..85 | 93 | 58 | fast deployment\\nUnknown | ? | 95 | 80 | measure form\\nWeak | 50 | 60 | 60 | dominated';source.dispatchEvent(new Event('input',{bubbles:true}));
  d.getElementById('minForm').value='55';d.getElementById('minFunction').value='60';d.getElementById('minFortitude').value='60';d.getElementById('evaluate').click();
  await wait(()=>/FRONT/.test(d.getElementById('benchSummary').textContent)&&d.querySelectorAll('.candidate').length>=4,4000,'bench result');
  rec.bench={summary:d.getElementById('benchSummary').textContent.trim(),front:[...d.querySelectorAll('.candidate.FRONT .candidateHead b')].map(x=>x.textContent),rejected:[...d.querySelectorAll('.candidate.REJECT .candidateHead b')].map(x=>x.textContent),missing:[...d.querySelectorAll('.missing')].map(x=>x.textContent)};
