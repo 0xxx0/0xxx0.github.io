@@ -1,0 +1,25 @@
+name: omnitools-check
+on:
+  pull_request:
+    paths:
+      - 'foundry/omnitools/**'
+      - 'tools/omnitools-**'
+      - '.github/workflows/omnitools-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove BENCH decision laws
+        run: node tools/omnitools-bench-selftest.mjs
+      - name: Check pure bench module syntax
+        run: node --check foundry/omnitools/bench.mjs
+      - name: Validate Omnitools workbench contract
+        run: node tools/omnitools-workbench-selftest.mjs
