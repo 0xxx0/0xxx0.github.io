@@ -2,7 +2,7 @@ const KEY='field.interphase.visor.seen.v03';
 const QUERY=new URLSearchParams(location.search);
 const DONOR='/recovery/semantic-painting-v0.8/';
 const WAKE=[['WAKE','SOURCE'],['CUT','FRAME'],['HOLD','FOCUS'],['TURN','OPERATE'],['TRACE','WITNESS'],['AGAIN','RETURN']];
-let root=null,trigger=null,lastFrame='';
+let root=null,trigger=null,lastFrame='',dismissed=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const seen=()=>{try{return localStorage.getItem(KEY)==='1'}catch(_){return false}};
 const remember=()=>{try{localStorage.setItem(KEY,'1')}catch(_){}};
@@ -64,23 +64,25 @@ function render(){
  q('[data-awake-return-read]').innerHTML='<b>RETURN</b> '+esc(c.return?.address||'/');
  lastFrame=c.frameId||'';root.dataset.frameId=lastFrame;root.dataset.nativeTurn=turnNative?'ready':'unavailable';return true
 }
-function show({force=false}={}){
- if(!root)return false;if(QUERY.get('visor')==='0'&&!force)return false;
- if(!force&&QUERY.get('visor')!=='1'&&seen())return false;
+function show({force=false,explicit=false}={}){
+ if(!root)return false;if(explicit)dismissed=false;if(dismissed&&!explicit)return false;
+ if(QUERY.get('visor')==='0'&&!force)return false;if(!force&&QUERY.get('visor')!=='1'&&seen())return false;
  if(!render())return false;root.hidden=false;document.documentElement.dataset.fieldAwakeVisor='open';return true
 }
-function hide({rememberSeen=true}={}){if(!root)return;if(rememberSeen)remember();root.hidden=true;document.documentElement.dataset.fieldAwakeVisor='closed'}
+function hide({rememberSeen=true}={}){if(!root)return;dismissed=true;if(rememberSeen)remember();root.hidden=true;document.documentElement.dataset.fieldAwakeVisor='closed'}
 function enter(){hide();document.getElementById('aperture')?.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+function maybeWake(){
+ if(!root||dismissed||!root.hidden)return false;const forced=QUERY.get('visor')==='1';
+ if(QUERY.get('visor')==='0'||(!forced&&seen())||!carrier())return false;return show({force:forced})
+}
 function mount(){
  if(document.getElementById('fieldAwakeVisor'))return;
  css();root=markup();const header=document.querySelector('main>header');if(!header)return;
  header.after(root);trigger=document.createElement('button');trigger.type='button';trigger.className='fieldAwakeTrigger';trigger.textContent='WAKE / VISOR';trigger.title='Open the AWAKE / INTERPHASE projection of the current FIELD object';header.appendChild(trigger);
- root.querySelector('[data-awake-close]').onclick=()=>hide();root.querySelector('[data-awake-enter]').onclick=enter;root.querySelector('[data-awake-turn]').onclick=()=>delegate('runDockTurn');root.querySelector('[data-awake-trace]').onclick=()=>delegate('runDockTrace');root.querySelector('[data-awake-return]').onclick=()=>delegate('runDockReturn');trigger.onclick=()=>show({force:true});
- window.addEventListener('field-index:state',()=>{if(root&&!root.hidden)render()});
+ root.querySelector('[data-awake-close]').onclick=()=>hide();root.querySelector('[data-awake-enter]').onclick=enter;root.querySelector('[data-awake-turn]').onclick=()=>delegate('runDockTurn');root.querySelector('[data-awake-trace]').onclick=()=>delegate('runDockTrace');root.querySelector('[data-awake-return]').onclick=()=>delegate('runDockReturn');trigger.onclick=()=>show({force:true,explicit:true});
+ window.addEventListener('field-index:state',()=>{if(!root)return;if(!root.hidden)render();else maybeWake()});
  document.documentElement.dataset.fieldAwakeVisor='mounted';
- const autoSuppressed=QUERY.get('visor')==='0'||(QUERY.get('visor')!=='1'&&seen());
- if(autoSuppressed){document.documentElement.dataset.fieldAwakeVisor='ready';return}
- let tries=0;const boot=()=>{if(show({force:QUERY.get('visor')==='1'}))return;if(++tries<80)setTimeout(boot,75);else document.documentElement.dataset.fieldAwakeVisor='ready'};boot()
+ queueMicrotask(()=>{maybeWake();document.documentElement.dataset.fieldAwakeVisor='ready'})
 }
-window.FieldAwakeVisor=Object.freeze({show:()=>show({force:true}),hide:()=>hide({rememberSeen:false}),render,state:()=>({open:!!root&&!root.hidden,frameId:lastFrame,donor:DONOR,authority:'DELEGATES_HOST_NATIVE_ONLY'})});
+window.FieldAwakeVisor=Object.freeze({show:()=>show({force:true,explicit:true}),hide:()=>hide({rememberSeen:false}),render,state:()=>({open:!!root&&!root.hidden,frameId:lastFrame,donor:DONOR,authority:'DELEGATES_HOST_NATIVE_ONLY',waiting:!!root&&root.hidden&&!dismissed&&!seen()})});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',mount,{once:true}):mount();
