@@ -1,11 +1,11 @@
 {
   "schema": "prison-age.field-source-release/v0.1",
   "version": "0.6",
-  "date": "2026-09-29",
-  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE",
+  "date": "2026-10-03",
+  "status": "FIELD_SOURCE_SET / AUTHORED_SOURCE_PATH / SOURCE_ECHO_EVIDENCE / CURATED_SOURCE_PASSAGE",
   "route": "/prison-age/",
-  "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE",
-  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection.",
+  "operation": "READ / RIDE / SOURCE · passive ECHO in READ/RIDE · optional in-host PASSAGE",
+  "object": "Four exact 2026 sourced Prison Age movements plus one provenance-distinct recovered 2021 proto-root held as one FIELD source-set object. FIELD keeps READ / RIDE / SOURCE; the resolver chooses the exact source class before projection. Nine Gate Passage is an optional evidence-only SOURCE aperture over exact addressed fragments and does not add FIELD action authority.",
   "source": {
     "pack": "/prison-age/sources.json",
     "stories": [
@@ -39,7 +39,7 @@
     "ride": {
       "host": "/fold-bloom/live/",
       "schema": "field-read-ride/v0.1",
-      "mode": "STEP / authored RELEASE_STEP when explicitly selecting proto-root-2021",
+      "mode": "STEP / authored RELEASE_STEP when explicitly selecting proto-root-2021 from the ordinary source resolver",
       "default_grain": "PARAGRAPH",
       "authority": "FOLD//BLOOM traversal only; Prison Age remains source authority",
       "return": "exact resolver/FIELD return supplied at launch; source authority unchanged",
@@ -57,6 +57,18 @@
       "authority": "EVIDENCE_ONLY",
       "behavior": "32 source-derived cross-source relation cards. Each card shows two exact addressed fragments plus shared lexical evidence; one held relation and at most three relations may be collected into a typed evidence trail.",
       "return": "RETURN SOURCE closes the aperture to the exact source-resolver state; FIELD/native actions remain READ / RIDE / SOURCE."
+    },
+    "nine_gate_passage": {
+      "host": "/prison-age/?passage=nine&gate=1",
+      "data": "/prison-age/passage.json",
+      "runtime": "/prison-age/passage.js",
+      "schema": "prison-age.source-route/v0.1",
+      "authority": "CURATED_SOURCE_ROUTE / EVIDENCE_ONLY",
+      "order_authority": "EDITORIAL_NON_CANON",
+      "behavior": "Nine shareable movements resolve exact authored/source fragments at runtime: ORIGIN → WEATHER → FOLD → PROVENANCE → PRISON → MODEL → NEXT → TOOL → RETURN. The projection distinguishes exact-selected ECHO, source-pair ECHO, same-source continuity and editorial cuts instead of manufacturing connective narrative.",
+      "read": "READ THIS opens READFIELD at the exact selected character address.",
+      "ride": "Anthology movements create field-read-ride/v0.1 with the exact selected span; Gate 01 is the full recovered proto-root and retains its authored RECURRENCE projection.",
+      "return": "prison-age.passage-return/v0.1 EVIDENCE_ONLY with exact visited addresses, actual traversal trail, typed transitions, residue boundaries and an embedded field-return-envelope/v0.1 when FIELD manifest authority is available."
     }
   },
   "retired_runtime": {
@@ -65,9 +77,9 @@
   },
   "boundaries": [
     "No generated Prison Age story prose or connective narrative is active.",
-    "No curated reading order is imposed by the runtime; source order is used only as a stable listing.",
+    "The default source resolver imposes no curated reading order. Nine Gate Passage is an explicit optional editorial/non-canon traversal and labels that boundary in its data and UI.",
     "No invented voice, pressure spine, carry story, operator prompt or motif is active.",
-    "READ/RIDE traversal is evidence of traversal only, not comprehension, agreement or proof.",
+    "READ/RIDE/PASSAGE traversal is evidence of traversal only, not comprehension, agreement or proof.",
     "The curated Last Stall file remains an explicit source extract with omissions.",
     "FIELD READ/RIDE never silently select the default story; source movement selection is explicit.",
     "The Last Stall curated extract has an exact fingerprint for the extract bytes while remaining explicitly non-complete source material.",
@@ -77,7 +89,9 @@
     "EVIDENCE ATLAS cards are deterministically selected from field-source-echo-index/v0.1; they contain no generated engine/operator narrative.",
     "EVIDENCE ATLAS exposes exact fragment pairs, source addresses and lexical evidence only; it cannot assert theme, intent, causality, canon order, equivalence or interpretation.",
     "The provenance-distinct 2021 proto-root remains outside the cross-source atlas and keeps its authored RECURRENCE projection.",
-    "EVIDENCE ATLAS is an in-host SOURCE aperture, not a fourth FIELD action or a second Prison Age route."
+    "EVIDENCE ATLAS and NINE GATE PASSAGE are in-host SOURCE apertures, not fourth/fifth FIELD actions or second Prison Age routes.",
+    "Nine Gate Passage editorial edges assert adjacency only. ECHO edges are valid only at their declared selected-fragment or source-pair scope.",
+    "Nine Gate Passage RETURN reports exact addresses and traversal; NEXT remains NONE until FIELD or another native host replans."
   ],
   "acceptance": [
     "All exact source fingerprints remain unchanged.",
@@ -94,14 +108,19 @@
     "FIELD held object still exposes exactly READ / RIDE / SOURCE.",
     "Resolver exposes proto-root-2021 as RECOVERED_AUTHORED_SOURCE / DERIVED_ARRANGEMENT with exact sha256 identity.",
     "Proto-root READ enters READFIELD over exact source bytes without cross-source ECHO.",
-    "Proto-root RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
+    "Proto-root ordinary RIDE enters the existing authored-reader recurrence projection and preserves exact resolver/FIELD RETURN.",
     "Ordinary anthology RIDE continues through field-read-ride/v0.1 unchanged.",
     "EVIDENCE ATLAS contains exactly 32 cross-source exact-fragment relations derived from the shipped ECHO index and spans all six 2026 source pairs.",
     "Each Evidence Atlas READ link addresses the exact source path and char offset in READFIELD.",
     "Evidence trail is capped at three cards and emits prison-age.evidence-route/v0.1 with authority EVIDENCE_ONLY.",
-    "Shareable ?atlas=evidence&card=N restores the selected exact relation."
+    "Shareable ?atlas=evidence&card=N restores the selected exact relation.",
+    "Nine Gate Passage contains exactly nine ordered roles and every displayed fragment resolves exactly once in the current declared source bytes.",
+    "Passage preserves FIELD operations exactly; it is discoverable only inside /prison-age/ SOURCE.",
+    "Gate 02 → 03 exact-selected ECHO is backed by Evidence Atlas card 4; Gate 07 → 08 source-pair ECHO is backed by card 7 and does not claim the selected target fragment participates.",
+    "Passage READ and anthology RIDE preserve the exact selected character span and exact Passage return address.",
+    "Passage RETURN records visited exact source addresses and residue boundaries, emits EVIDENCE_ONLY, and cannot promote NEXT."
   ],
-  "latest_return": "/returns/PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
+  "latest_return": "/returns/PRISON_AGE_NINE_GATE_PASSAGE_2026-10-03.json",
   "echo": {
     "schema": "field-source-echo-index/v0.1",
     "index": "/prison-age/echo-index.json",
