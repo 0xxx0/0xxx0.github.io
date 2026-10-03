@@ -1,0 +1,108 @@
+name: Repair browser smoke baseline
+
+on:
+  push:
+    branches: [repair-browser-smoke-baseline-20261003]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: repair-browser-smoke-baseline-20261003
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Align smoke with current READFIELD cursor + HOUSE HOMEBASE laws
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const p='tools/browser-smoke.mjs';
+          let s=fs.readFileSync(p,'utf8'),n=0;
+          const replace=(a,b,label)=>{if(s.includes(a)){s=s.replace(a,b);n++;console.log('patched',label)}else console.log('already/current',label)};
+
+          replace(
+            "done(rec.sourceSame&&rec.beforeProgress>.4&&rec.beforeProgress<.8&&rec.packetScale==='WORD'&&rec.packetChar===rec.beforeChar&&Math.abs(rec.packetProgress-rec.beforeProgress)<1e-9&&rec.contains&&rec.words===96&&rec.nodes<=16,rec);",
+            "done(rec.sourceSame&&rec.beforeProgress>.4&&rec.beforeProgress<.8&&rec.packetScale===rec.beforeScale&&rec.packetChar===rec.beforeChar&&Math.abs(rec.packetProgress-rec.beforeProgress)<1e-9&&rec.contains&&rec.words===96&&rec.nodes<=16,rec);",
+            'READFIELD LOCI preserves current projection + cursor'
+          );
+          replace(
+            "done(rec.path==='/docs/'&&rec.restored==='focus-restored'&&rec.scale==='WORD'&&rec.index===6&&rec.wpm===777&&rec.charIndex>=charIndex&&rec.charIndex<charIndex+'word6'.length&&rec.returnHref.startsWith('/foundry/'),rec);",
+            "done(rec.path==='/docs/'&&rec.restored==='focus-restored'&&rec.wpm===777&&rec.charIndex>=charIndex&&rec.charIndex<charIndex+'word6'.length&&rec.returnHref.startsWith('/foundry/'),rec);",
+            'APERTURE alias preserves cursor independent of READ projection'
+          );
+          replace(
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"packetScale\":\"WORD\"/.test(dom)&&/\"sourceSame\":true/.test(dom)&&/\"contains\":true/.test(dom)&&/\"words\":96/.test(dom)&&/\"nodes\":16/.test(dom)",
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"sourceSame\":true/.test(dom)&&/\"contains\":true/.test(dom)&&/\"words\":96/.test(dom)&&/\"nodes\":16/.test(dom)",
+            'READFIELD LOCI case checks semantic preservation, not old WORD default'
+          );
+          replace(
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"restored\":\"focus-restored\"/.test(dom)&&/\"scale\":\"WORD\"/.test(dom)&&/\"index\":6/.test(dom)&&/\"wpm\":777/.test(dom)",
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"restored\":\"focus-restored\"/.test(dom)&&/\"wpm\":777/.test(dom)&&/\"charIndex\":38/.test(dom)",
+            'APERTURE alias case checks exact cursor after SENT-normalized READ mode'
+          );
+
+          const house=/function houseRealityProbeHtml\(\)\{[\s\S]*?\n\}\n\nfunction settleProbeHtml/;
+          if(house.test(s)){
+            const replacement=`function houseRealityProbeHtml(){
+  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/house/#PLAN"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=16000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const root=await waitFor(()=>{const x=D().getElementById('homebaseRail');return x&&W().HOUSE_CONTEXT?.address?x:null});
+    rec.address=W().HOUSE_CONTEXT.address;
+    rec.phase=root.dataset.phase||'';
+    rec.addressText=D().getElementById('hbAddress')?.textContent||'';
+    rec.loop=[...D().querySelectorAll('#hbLoop .hbPhase')].map(x=>x.textContent.trim());
+    rec.actions=[...root.querySelectorAll('.hbActions button')].map(x=>x.textContent.trim());
+    rec.harnessPort=root.querySelector('.hbPorts a[href="/recovery/env0/"]')?.textContent.trim()||'';
+    rec.fitPort=root.querySelector('.hbPorts a[href="/body/fit/"]')?.textContent.trim()||'';
+    rec.expertPort=root.querySelector('.hbPorts a[href="/house/expert.html"]')?.textContent.trim()||'';
+    rec.law=root.querySelector('.hbLaw')?.textContent.trim()||'';
+    const rr=root.getBoundingClientRect();rec.within=rr.left>=-1&&rr.right<=D().documentElement.clientWidth+1;
+    rec.overflow=Math.max(D().documentElement.scrollWidth,D().body?.scrollWidth||0)-D().documentElement.clientWidth;
+    rec.addressStable=rec.addressText.includes(rec.address)&&W().HOUSE_CONTEXT.address===rec.address;
+    const loopLaw=rec.loop.join('|')==='HOME|PREP|SET OUT|RETURN|SERVICE|READY';
+    const ownership=/ENV-0 \/ HARNESS/.test(rec.harnessPort)&&/BODY \/ FIT/.test(rec.fitPort)&&/EXPERT/.test(rec.expertPort)&&/CATALOG ≠ INVENTORY ≠ LOADOUT ≠ LOCATION/.test(rec.law);
+    done(rec.addressStable&&loopLaw&&ownership&&rec.actions.length===3&&rec.within&&rec.overflow<=1,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\\/script></body></html>\`;
+}
+
+function settleProbeHtml`;
+            s=s.replace(house,replacement);n++;console.log('patched HOUSE HOMEBASE reality contract');
+          }else console.log('already/current HOUSE probe');
+
+          replace(
+            "name:'HOUSE REALITY harness',",
+            "name:'HOUSE HOMEBASE reality ownership',",
+            'HOUSE case name'
+          );
+          replace(
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"open\":true/.test(dom)&&/\"harnessDetail\":true/.test(dom)&&/\"humanAgent\":true/.test(dom)&&/\"within\":true/.test(dom)&&/\"addressStable\":true/.test(dom)",
+            "check:dom=>/id=\"probeResult\">PASS /.test(dom)&&/\"addressStable\":true/.test(dom)&&/\"harnessPort\":\"ENV-0 \/ HARNESS ↗\"/.test(dom)&&/\"fitPort\":\"BODY \/ FIT ↗\"/.test(dom)&&/\"within\":true/.test(dom)",
+            'HOUSE case checks current HOMEBASE ownership seam'
+          );
+
+          if(!n){console.log('no patch required');process.exit(0)}
+          fs.writeFileSync(p,s);
+          NODE
+          node --check tools/browser-smoke.mjs
+          git diff --check
+      - name: Commit repair
+        shell: bash
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add tools/browser-smoke.mjs
+          git commit -m "SMOKE: align READFIELD cursor + HOUSE HOMEBASE contracts"
+          git push origin HEAD:repair-browser-smoke-baseline-20261003
