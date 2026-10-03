@@ -100,3 +100,9 @@
   }
   return Object.freeze({EXPORT_SCHEMA,BUNDLE_SCHEMA,OBS_SCHEMA,transformRecord,transformExport});
 });
+
+/* Route friction is a browser-only projection. Node/CommonJS transform tests stay pure. */
+if(typeof document!=='undefined'){
+  const s=document.createElement('script');s.src='./route-friction.js';s.defer=true;
+  (document.head||document.documentElement).appendChild(s);
+}

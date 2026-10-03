@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "BODY_FIT_ROUTE_FRICTION_2026-10-03",
+  "state": "CANDIDATE / SELF_VERIFYING",
+  "route": "/body/fit/",
+  "objective": "Complete the bounded Death Stranding donor transfer by making BODY/FIT loadout preparation answer route/environment friction without inventory scoring, body scoring, procurement, or safety claims.",
+  "donor": {
+    "source": "Death Stranding",
+    "transferable_rule": "PREPARE FOR THE ROUTE, NOT FOR INVENTORY COMPLETENESS.",
+    "non_transfer": [
+      "likes/reputation economy",
+      "cargo grade economy",
+      "body productivity score",
+      "digital loadout treated as physical safety proof",
+      "automatic procurement"
+    ]
+  },
+  "delta": [
+    "BODY/FIT loads a browser-only route-friction projection beside existing PREP KITS without changing the canonical fitting/loadout state model.",
+    "Six optional frictions are available: carry/load, weather/exposure, power/charge, install/repair, mobility/traction, duration/service.",
+    "Each selected friction resolves against declared fitting label/capability/interface/service metadata and reports DECLARED MATCH or UNANSWERED with exact matching modules.",
+    "DECLARED MATCH means metadata relation only; it does not prove adequacy, safety, health capacity or successful use.",
+    "Profiles persist locally per selected saved kit, or against the active unsaved loadout when no kit is selected.",
+    "RETIRED or superseded modules cannot satisfy route friction.",
+    "The projection creates no purchase recommendation."
+  ],
+  "authority": {
+    "body_fit": "owns fitting/loadout records",
+    "route_friction": "read-only relational projection + separate browser-local friction profile",
+    "medical": "none",
+    "procurement": "none"
+  },
+  "proof": {
+    "automated": "body/fit/health-connect-selftest.cjs proves POWER/WEATHER/MOBILITY declared matches, INSTALL unanswered state, and exclusion of RETIRED modules alongside the existing Health Connect fixture.",
+    "ci_path": ".github/workflows/public-surface-check.yml already runs body/fit/health-connect-selftest.cjs",
+    "human_gate": "none for correctness; any lived usefulness remains optional subjective evidence"
+  },
+  "falsifier": "Remove the projection if metadata relation is mistaken for adequacy/safety, it becomes an inventory-completeness score, creates procurement pressure, or duplicates loadout preparation without reducing route-to-kit translation.",
+  "return": "/body/fit/"
+}
