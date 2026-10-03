@@ -5,6 +5,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
 
 const ROOT=process.cwd();
 // Overridable so two sessions running the harness concurrently do not collide on one
@@ -12,30 +13,6 @@ const ROOT=process.cwd();
 const PORT=Number(process.env.SMOKE_PORT||41739)||41739;
 const HOST='127.0.0.1';
 
-function browserBin(){
-  // Which Chromium runs decides what the suite reports. Measured 2026-10-02 on one Mac:
-  // the same case set gave 85/87 under Brave and 86/87 under Google Chrome, while CI
-  // (google-chrome-stable on Linux) reports 87/87. That divergence produced a false
-  // "this surface is broken on master" claim that was then repeated to the operator.
-  //
-  // So: the binary is now explicit, reported, and overridable with SMOKE_BROWSER. When
-  // comparing a local run to CI, pin SMOKE_BROWSER to the same family you are comparing
-  // against, or treat a single local failure as UNVERIFIED rather than a break.
-  const want=String(process.env.SMOKE_BROWSER||'').trim();
-  if(want){
-    if(!fs.existsSync(want))throw new Error('SMOKE_BROWSER does not exist: '+want);
-    return want;
-  }
-  for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
-    const r=spawnSync('which',[name],{encoding:'utf8'});
-    if(r.status===0&&r.stdout.trim())return r.stdout.trim();
-  }
-  // Google Chrome before Brave: CI runs google-chrome-stable, so match its family first.
-  for(const p of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Brave Browser.app/Contents/MacOS/Brave Browser','/Applications/Chromium.app/Contents/MacOS/Chromium']){
-    if(fs.existsSync(p))return p;
-  }
-  throw new Error('No Chrome/Chromium binary found for runtime smoke');
-}
 function contentType(p){
   if(p.endsWith('.html'))return'text/html; charset=utf-8';
   if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';

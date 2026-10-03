@@ -1,0 +1,29 @@
+{
+  "schema": "field-return/v1",
+  "id": "BROWSER_RESOLVER_CONSOLIDATION_2026-10-03",
+  "date": "2026-10-03",
+  "state": "SHIPPED_TO_MASTER",
+  "object": "One browser resolver for every smoke test, replacing 28 hand-rolled copies — 7 of them divergent.",
+  "before": "Every smoke test carried its own browserBin(). The 19 original copies asked `which google-chrome-stable` and nothing else. macOS ships Chrome as an app bundle and never on PATH, so those tests could not execute on the operator's own machine at all: they failed with `No Chrome/Chromium` — a red that described the host, not the code. Seven further copies had been patched by hand in seven different ways (some via fs.existsSync, some via spawnSync('test',['-x']), some with Brave first, some with Edge added), each fixing the same bug without the others learning it. None verified the binary would actually run.",
+  "delta": [
+    "Added tools/browser-bin.mjs — one resolver: Linux PATH names, macOS app bundles, and the Playwright per-user chromium cache, checked in that order.",
+    "It proves the binary runs (`--version`, exit 0) before returning it. A returned path is a working browser, not a filename — AGENTS.md law #3 (VERIFY THE CLAIM, NOT THE ARTIFACT) in executable form.",
+    "It throws with the full tried-list on failure, so an absent browser reads as `absent` and an unloadable one reads as `present, will not run` — the two states that were previously one indistinguishable error.",
+    "SMOKE_BROWSER pin folded in from browser-smoke.mjs, with the Brave-vs-Chrome divergence note that explains why a lone local failure is UNVERIFIED and not a break.",
+    "All 28 smoke tests now import it. Zero local definitions remain (`grep -rl 'function browserBin' tools` → only browser-bin.mjs)."
+  ],
+  "evidence": {
+    "before": "CI hand-list subset, run on the operator's Mac: 4 of 4 browser tests FAIL — `No Chrome/Chromium`. Fleet-wide the class was larger: 28 files, 7 divergent hand-fixes.",
+    "after": "Full sweep of all 28 smoke tests on the same machine: pass=28 fail=0.",
+    "resolver_check": "browserBin() resolves /Applications/Google Chrome.app/Contents/MacOS/Google Chrome in 32ms.",
+    "syntax": "node --check clean on all 28 modified files.",
+    "reverse": "Each file's change is a one-hunk deletion plus a one-line import; reversible per file."
+  },
+  "laws": [
+    "A guard that answers 'is it on PATH' is not a guard that answers 'will it run'.",
+    "One law expressed N times by hand diverges N ways. Consolidate the law into one executable, not the call sites into one list."
+  ],
+  "open": [
+    "tools/fi-mutation-contract.py reports paths that match no route — tooling and lib work cannot be stamped on the FIELD INDEX because there is no route to land under. This return is one of them. Needs a /tools/ route or a mapping decision; not resolved here."
+  ]
+}

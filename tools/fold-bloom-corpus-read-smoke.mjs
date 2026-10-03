@@ -25,22 +25,10 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawn, spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
 
 const ROOT = process.cwd(), HOST = '127.0.0.1'; let PORT = 0;
 
-function browserBin() {
-  for (const n of ['google-chrome-stable', 'google-chrome', 'chromium-browser', 'chromium']) {
-    const r = spawnSync('which', [n], {encoding: 'utf8'});
-    if (r.status === 0 && r.stdout.trim()) return r.stdout.trim();
-  }
-  for (const p of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
-    '/Applications/Chromium.app/Contents/MacOS/Chromium',
-    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge']) {
-    if (spawnSync('test', ['-x', p]).status === 0) return p;
-  }
-  throw Error('No Chrome/Chromium — checked PATH and /Applications');
-}
 function ct(p) {
   if (p.endsWith('.html')) return 'text/html; charset=utf-8';
   if (p.endsWith('.js') || p.endsWith('.mjs')) return 'text/javascript; charset=utf-8';
