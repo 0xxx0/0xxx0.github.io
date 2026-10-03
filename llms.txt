@@ -50,6 +50,16 @@ Contribution convergence:
 
 This projects contribution class plus `MERGE | REPAIR | HOLD | DROP`. MERGE requires caller-attested passing verification, exact candidate head, current ancestry (`compare(master,candidate_head).behind_by === 0`), and mergeability. External donors additionally require a passing research-donor admission. The reducer remains advisory and never queries or mutates GitHub, CURRENT, or native hosts.
 
+Human ↔ agent / agent ↔ agent crew handoff:
+
+`node scripts/emit-agent-transcript.mjs --handoff <submission.json>`
+
+Structured form:
+
+`node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json`
+
+Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves and selected TURN on an unresolved object fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
+
 The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.
 
 Deepen selectively: open only the specific CURRENT head / manifest route / WAITING item required by the selected object. Canonical authority remains in the source files; selective reading does not create a second store.
@@ -65,6 +75,7 @@ Bounded execution protocol (human + coding workers):
 
 - machine contract: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.json`
 - one-page operating notes + packet template: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
+- submission / crew bridge: `/control/SUBMISSION_CONTRACT.json`
 - selftest: `node tools/source-hold-turn-trace-return-selftest.mjs`
 
 Use it after selecting an object: one exact source, one held focus, ≤3 lawful moves, one TURN, machine-verifiable TRACE where possible, then RETURN. EFFECT requires explicit native commit/RELEASE. After RETURN re-read CURRENT; no second move inherits authority.

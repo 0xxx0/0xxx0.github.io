@@ -1,8 +1,8 @@
 {
-  "schema": "0xxx0/submission-contract/v0.1",
-  "updated": "2026-09-22",
-  "purpose": "One typed envelope for every contributor — human, Hermes, ChatGPT, Codex, or local worker. Making a contribution to FIELD is itself a FIELD operation.",
-  "sequence": "SOURCE → SUBMISSION OBJECT → FIELD/AXIAL HOST RESOLUTION → POLICY → DELTA → PROOF → RETURN",
+  "schema": "0xxx0/submission-contract/v0.2",
+  "updated": "2026-10-03",
+  "purpose": "One typed envelope for every contributor — human, Hermes, ChatGPT, Codex, or local worker. Making a contribution to FIELD is itself a FIELD operation; switching crew mates must preserve the same addressed object, bounded move options, evidence and RETURN without transferring hidden state or authority.",
+  "sequence": "SOURCE → SUBMISSION OBJECT → HOST RESOLUTION → HOLD → TURN → TRACE → RETURN",
   "envelope": {
     "required": {
       "source_ref": "Where this came from (conversation id, file, URL, observation)",
@@ -10,17 +10,76 @@
       "object_ref": "Which FIELD object/route/head this touches (or 'UNRESOLVED')",
       "contribution_class": "DELTA | EVIDENCE | DONOR | RETURN | UNRESOLVED",
       "evidence_class": "BYTES | SPEC | IMAGE | RECEIPT",
-      "delta_or_question": "The smallest change, or the open question",
-      "proof_available": "What evidence exists that this happened"
+      "delta_or_question": "The smallest observable change, or the open question",
+      "proof_available": "What evidence exists at handoff time; this may still be unverified"
     },
     "optional": {
+      "contributor_ref": "Informational sender label such as human:<name>, chatgpt:<thread>, codex:<run>, hermes:<worker>; never authority",
+      "receiver_hint": "Informational intended receiver/capability hint; never routing or priority authority",
       "host_candidates": "Candidate hosts from FIELD INDEX (if object_ref is UNRESOLVED)",
       "axial_support": "Support values from AXIAL host resolution",
       "policy_refs": "Applicable laws from POLICY_INDEX.json",
       "waiting_on": "Human/world dependency, if any",
-      "residue": "What remains unresolved after this submission"
+      "residue": "What remains unresolved after this submission",
+      "return_to": "Exact re-entry address when it differs from object_ref",
+      "execution": "Optional bounded SOURCE/HOLD projection defined below"
     }
   },
+  "execution": {
+    "purpose": "Carry enough explicit state for another crew mate to continue without reconstructing intent, while refusing to serialize hidden reasoning or invent effect authority.",
+    "optional_fields": {
+      "moves": "0–3 host-native move objects",
+      "selected_move_id": "Optional explicit selection of exactly one declared move; selection itself grants no effect authority",
+      "return_to": "Exact RETURN address",
+      "evidence_refs": "Exact refs the receiver can re-read or verify"
+    },
+    "move": {
+      "required": [
+        "label",
+        "authority",
+        "target",
+        "reversibility",
+        "commit_boundary"
+      ],
+      "id": "Stable local move identifier; generated from position only when omitted",
+      "authority_enum": [
+        "VIEW",
+        "NAVIGATION",
+        "EDIT",
+        "EFFECT",
+        "OFFER",
+        "HANDOFF",
+        "NONE"
+      ],
+      "law": "EFFECT remains inert until the native host's explicit RELEASE/commit boundary is crossed."
+    }
+  },
+  "crew_handoff_projection": {
+    "compiler": "node scripts/emit-agent-transcript.mjs --handoff <submission.json>",
+    "structured": "node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json",
+    "schema": "field-crew-handoff/v0.1",
+    "authority": "NONE / TRANSIENT HANDOFF ONLY",
+    "states": {
+      "SOURCE_REQUIRED": "object_ref is unresolved; receiver must resolve one exact host/object before action",
+      "HOLD_REQUIRED": "object is resolved but no moves are declared; receiver derives 1–3 host-native moves",
+      "HOLD_READY": "1–3 native moves are declared; one may be deliberately selected",
+      "TURN_READY": "one declared move is selected; native effect/commit authority is still not transferred"
+    },
+    "identity": "A deterministic opaque crew:<fnv64> handle is derived from source_ref + intent + object_ref + contribution_class + evidence_class + delta_or_question. It correlates the same handoff object without becoming a task database or session authority.",
+    "statelessness": "The compiler reads one submission and emits one transient projection. It writes no queue, task store, memory, CURRENT, manifest or native host state.",
+    "human_agent_parity": "The text and JSON projections carry the same SOURCE/HOLD/TRACE/RETURN facts. Human and machine readers differ in presentation, not object identity or authority.",
+    "interop_correspondence": "Design correspondence only: explicit task/context handles and evidence artifacts resemble A2A task handoff; transient explicit handles and capability/resource separation resemble current MCP practice. FIELD does not claim A2A or MCP protocol conformance from this projection."
+  },
+  "laws": [
+    "SAME OBJECT > SHARED INTERNAL STATE.",
+    "HANDOFF PRESERVES INTENT + ADDRESS + 0–3 BOUNDED MOVES + EVIDENCE POINTERS + RETURN.",
+    "HANDOFF DOES NOT SERIALIZE PRIVATE CHAIN OF THOUGHT, HIDDEN MEMORY OR TOOL INTERNALS.",
+    "CONTRIBUTOR / RECEIVER LABELS ARE INFORMATIONAL; THEY NEVER GRANT NOW, PRIORITY, HOST, EFFECT OR MERGE AUTHORITY.",
+    "ZERO MOVES IS VALID. IT MEANS HOLD_REQUIRED, NOT PERMISSION TO INVENT A PROJECT.",
+    "MORE THAN THREE MOVES FAILS CLOSED.",
+    "A SELECTED TURN ON AN UNRESOLVED OBJECT FAILS CLOSED.",
+    "RETURN CLOSES AUTHORITY; NEXT_AUTHORITY IS NONE UNTIL CURRENT IS RE-READ."
+  ],
   "contribution_classes": {
     "DELTA": "Changes an existing head. Requires a named host.",
     "EVIDENCE": "Tests or observes an existing claim. Requires the claim it tests.",
@@ -29,24 +88,74 @@
     "UNRESOLVED": "No host yet. Held for review, not promoted. This is a valid outcome."
   },
   "host_resolution": {
-    "rule": "A contribution must resolve to a host in FIELD INDEX before promotion.",
+    "rule": "A contribution must resolve to a host in FIELD INDEX before promotion or selected TURN.",
     "zero_host": "Zero obvious host means UNRESOLVED submission, not automatic new project.",
     "method": "AXIAL-style exact support against showcase-manifest.json objects — not project-name intuition, not fake scalar scoring."
   },
   "authority_gate": {
-    "auto_ok": ["READ", "SEARCH", "COMPARE", "ANALYZE", "RECOVER", "CLASSIFY", "DRAFT", "NON_DESTRUCTIVE_CHECKS", "PREPARE_BOUNDED_CHANGES"],
-    "requires_human": ["EXTERNAL_SEND", "PUBLIC_PUBLISH", "MONEY_MOVEMENT", "ACCOUNT_CHANGE", "DESTRUCTIVE_DELETE", "IRREVERSIBLE_FS", "LARGE_MIGRATION"]
+    "auto_ok": [
+      "READ",
+      "SEARCH",
+      "COMPARE",
+      "ANALYZE",
+      "RECOVER",
+      "CLASSIFY",
+      "DRAFT",
+      "NON_DESTRUCTIVE_CHECKS",
+      "PREPARE_BOUNDED_CHANGES"
+    ],
+    "requires_human": [
+      "EXTERNAL_SEND",
+      "PUBLIC_PUBLISH",
+      "MONEY_MOVEMENT",
+      "ACCOUNT_CHANGE",
+      "DESTRUCTIVE_DELETE",
+      "IRREVERSIBLE_FS",
+      "LARGE_MIGRATION"
+    ]
   },
-  "return_format": ["STATE", "DELTA", "EVIDENCE", "RESIDUE", "WAITING", "ONE_NEXT"],
+  "return_format": [
+    "STATE",
+    "DELTA",
+    "EVIDENCE",
+    "RESIDUE",
+    "WAITING",
+    "ONE_NEXT"
+  ],
   "example": {
-    "source_ref": "conversation:68f711b0 (Iconic laconic responses)",
-    "intent": "Recover the original Laconic Script Bank canon",
-    "object_ref": "/laconic/",
-    "contribution_class": "DONOR",
-    "evidence_class": "BYTES",
-    "delta_or_question": "Import 11 reconstructed canon files (255 items, 130 atomic)",
-    "proof_available": "Conversation text + 11 reconstructed files",
-    "waiting_on": "24 items remain in missing queue",
-    "residue": "2026-04-04 → 07-14 gap unaccounted"
+    "source_ref": "conversation:crew-example",
+    "intent": "Reduce one concrete reader friction without reconstructing project context",
+    "object_ref": "/docs/",
+    "contribution_class": "DELTA",
+    "evidence_class": "SPEC",
+    "delta_or_question": "Make one current READFIELD action easier to reach without changing source/cursor authority",
+    "proof_available": "request + current route + existing tests",
+    "contributor_ref": "human:operator",
+    "receiver_hint": "coding-worker:any",
+    "execution": {
+      "moves": [
+        {
+          "id": "inspect",
+          "label": "READ CURRENT HOST",
+          "authority": "VIEW",
+          "target": "/docs/",
+          "reversibility": "NONE",
+          "commit_boundary": "NONE"
+        },
+        {
+          "id": "patch",
+          "label": "PATCH EXISTING HOST",
+          "authority": "EDIT",
+          "target": "/docs/",
+          "reversibility": "git revert TURN",
+          "commit_boundary": "HOST_NATIVE"
+        }
+      ],
+      "return_to": "/?focus=%2Fdocs%2F",
+      "evidence_refs": [
+        "/control/CURRENT.json",
+        "/showcase-manifest.json"
+      ]
+    }
   }
 }
