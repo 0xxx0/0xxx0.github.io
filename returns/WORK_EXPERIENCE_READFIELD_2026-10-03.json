@@ -2,7 +2,8 @@
   "schema": "0xxx0/return/v0.1",
   "id": "WORK_EXPERIENCE_READFIELD_2026-10-03",
   "created": "2026-10-03T08:34:00+08:00",
-  "status": "RECOVERED_CURRENT + CONVERGENCE_CONTRACT_LOGGED",
+  "updated": "2026-10-03T08:40:00+08:00",
+  "status": "RECOVERED_CURRENT + CONVERGENCE_CONTRACT_LOGGED + UI_CANDIDATE",
   "source_request": "Continue improving work experience/features/interface usability; expand practical use cases such as READFIELD/RSVP; log work and deeper insights in the repo.",
   "observed": {
     "readfield": {
@@ -22,17 +23,19 @@
     },
     "readfield_control_plane": {
       "runtime": "/lib/readfield-controls.js",
-      "version": "readfield-controls/v0.9",
+      "master_version": "readfield-controls/v0.9.1",
+      "master_commit": "6b239a55611b02c219b98db070d33c6f54318468",
       "loaded_by": "/lib/interphase-readfield.js",
-      "current_controls": [
+      "master_controls": [
         "READ / SPEED / LISTEN / MARK",
         "previous / transport / next",
         "WPM down / value / up",
         "scale",
         "source progress",
-        "SOURCE / VOICE / MARK / NEXT MARK / TEMPO / COPY / RIDE / RETURN"
-      ],
-      "recent_commit": "88f6f5a751eaecfd0fa8aa1c9f68c33e4620f81b"
+        "SOURCE / VOICE / MARK / NEXT MARK / TEMPO / COPY / RIDE / RETURN",
+        "accessible escaped labels + aria-live status",
+        "readfield-control-state publication"
+      ]
     },
     "listen": {
       "route": "/fold-bloom/listen/",
@@ -67,15 +70,20 @@
     "Cross-app integration should appear as verbs/recipes (READ LYRICS, READ → LOCI, TEMPO, NEXT MARK, RETURN), not integration settings."
   ],
   "logged": "/control/confluence/WORK_EXPERIENCE_READFIELD_2026-10-03.md",
-  "next_bounded_delta": {
-    "name": "READFIELD Phone Work 0.8.6 consequence-legibility pass",
+  "candidate": {
+    "version": "readfield-controls/v0.9.2",
+    "branch": "readfield-phone-work-092",
+    "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/869",
+    "head": "7ed406523082bce8c1b68a4e32c0f490697919d1",
+    "base": "6b239a55611b02c219b98db070d33c6f54318468",
+    "status": "DRAFT / CI_REQUIRED",
+    "supersedes_unmerged_pr": 867,
     "changes": [
-      "make phone controls state-aware: READY / RUNNING / LIVE / WAIT / UNAVAILABLE",
-      "make TEMPO/PULSE waiting state actionable rather than apparently inert",
-      "make FAST ↔ REVIEW the obvious reversible pair",
-      "keep MARK count / NEXT MARK immediately reachable",
-      "disambiguate READFIELD speech/VOICE from FOLD//BLOOM LISTEN audio",
-      "restore LOCI / REPO / USE CASE discoverability through the unified phone controls"
+      "display READFIELD speech as VOICE while preserving internal LISTEN compatibility",
+      "publish explicit job + mark count + TEMPO OFF/WAIT/LIVE consequence witnesses",
+      "make TEMPO/PULSE waiting actionable rather than apparently inert",
+      "surface running SPEED/VOICE, mark count and tempo-live state in the fixed phone plane",
+      "restore existing LOCI / REPO / USE CASES affordances through the unified drawer without duplicating logic"
     ],
     "preserve": [
       "one source authority",
@@ -83,6 +91,7 @@
       "exact RETURN",
       "existing Field Pulse transport",
       "existing Interphase host",
+      "master v0.9.1 accessibility and state-publication hardening",
       "no new route/store/mode/ontology/universal shell"
     ]
   }
