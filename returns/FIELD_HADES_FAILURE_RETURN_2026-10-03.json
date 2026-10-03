@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_HADES_FAILURE_RETURN_2026-10-03",
+  "date": "2026-10-03",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "object": "FIELD packet egress failure-return semantics",
+  "donor": "Hades",
+  "transfer_rule": "FAILED ATTEMPT → RETURN WITH DIFFERENCE; continuation is earned by new evidence, a changed assumption, or a narrowed unknown. DUPLICATE_NO_NEW_INFO cannot manufacture NEXT.",
+  "delta": [
+    "lib/field-egress-reducer.mjs exports explicit FAILURE_RETURN_CLASSES and classifyFailureReturn(packet)",
+    "accepted classes are NEW_EVIDENCE, CHANGED_ASSUMPTION, NARROWED_UNKNOWN, DUPLICATE_NO_NEW_INFO",
+    "the first three are material RESIDUE rather than blank reset",
+    "duplicate-no-new-info suppresses NEXT unless independent material residue/delta creates a contradiction that must be preserved for review",
+    "no generic failure prose is interpreted automatically; producers must explicitly classify the return",
+    "egress results expose the explicit failure_return class without granting NOW or mutation authority"
+  ],
+  "authority": {
+    "failure_return": "classification/evidence only",
+    "now": "caller/CURRENT selection only",
+    "next": "explicit packet continuation subject to reducer precedence",
+    "effect": "native host only",
+    "return": "evidence/residue carrier"
+  },
+  "non_transfer": [
+    "XP for failure",
+    "streaks",
+    "punishment economy",
+    "automatic retry",
+    "automatic interpretation of failure text",
+    "failure as proof of progress"
+  ],
+  "verification": {
+    "selftest": "tools/field-egress-reducer-selftest.mjs",
+    "public_ci": ".github/workflows/public-surface-check.yml executes that selftest under Validate JIT FIELD handoff compiler",
+    "required": "exact-head public-surface-check + gitleaks before merge"
+  },
+  "falsifier": "Fail if duplicate-no-new-info can create NEXT without independent residue, failure_return can create NOW, generic failure prose is inferred into a class, or material contradiction is discarded.",
+  "retirement_when": "A broader typed RETURN contract supersedes these exact semantics with equivalent tests and preserves the four-way distinction or a proven smaller equivalent.",
+  "return": "/"
+}
