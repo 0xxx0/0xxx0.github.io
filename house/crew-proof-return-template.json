@@ -1,0 +1,25 @@
+{
+  "schema": "house-crew-return/v0.1",
+  "handoff_id": "house-env0-proof-01-tool-home",
+  "worker_id": "worker-b",
+  "returned_at": null,
+  "authority": "OFFER_ONLY",
+  "readback": {
+    "house_address": "living_dining",
+    "intent": "Reduce tool-return friction at the selected work locus without degrading circulation.",
+    "constraints_seen": [
+      "Keep the main passage clear.",
+      "Prefer reversible placement before drilling or permanent fabrication."
+    ]
+  },
+  "move": "CHECK",
+  "result": "",
+  "sources": [],
+  "assumptions": [],
+  "missing": [],
+  "questions": [],
+  "unsupported_physical_claims": [],
+  "effect_attempted": false,
+  "human_gate_hit": "",
+  "proposed_next": []
+}
