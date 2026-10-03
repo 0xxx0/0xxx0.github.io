@@ -150,3 +150,67 @@ PROJECTION MISMATCH ≠ OBJECT ERROR
 ALIGNMENT ≠ RECOVERY OF HIDDEN INFORMATION
 VIEW EVIDENCE ≠ CANONICAL STATE
 ```
+
+---
+
+## 2026-10-03 extension — PAINTING LAW ↔ PLAIN
+
+Exact recovered donor: `/recovery/semantic-painting-v0.8/` — **POLY // Forward Field — Semantic Painting v0.8 · Atlas Dayline**, visibly `YOU’RE AWAKE // FORWARD FIELD`.
+
+Transferable law:
+
+```
+underpainting = atmosphere only
+live geometry = reach / time / uncertainty / trace / RETURN from state
+```
+
+The donor is not current Atlas Dayline planning authority. Its lineage forks:
+
+```
+Semantic Painting v0.8  [EXACT RECOVERED DONOR]
+        ├──→ /atlas-dayline/              [CURRENT DESCENDANT / PLANNER]
+        └──→ /field/moire-route/ trial    [VIEW-ONLY DONOR TRANSFER]
+```
+
+The same exact held FIELD object now appears as **A · PLAIN** and **B · PAINTING LAW**. Both share the same object identity, native manifest actions, witness and exact RETURN. Painting adds only fixed atmosphere plus geometry derived from current state/action/evidence.
+
+Machine gate:
+
+```
+identity same
+native actions same
+witness same
+exact RETURN same
+authority = VIEW_ONLY
+```
+
+Browser-local human probes compare object identification, next lawful action retrieval and state/relationship perception. `COPY TRIAL RETURN` emits `field-representation-trial-return/v0.1`; it cannot update CURRENT, QUEUE, Dayline or the native object.
+
+Promotion requires machine parity + human orientation benefit + no next-action regression. Otherwise REVISE once or PARK.
+
+### R&D registry
+
+`EXPERIMENTS.json` records representation hypotheses without turning them into GitHub-issue debt, CURRENT, QUEUE, priority, roadmap promises or route multiplication. Only one experiment may be ACTIVE. It currently holds 18 bounded candidates spanning PLAIN/PAINTING/MOIRÉ isolation and combination, opacity, state→geometry mapping, residue visibility, signal locality, reduced-motion/monochrome/phone parity, print witnesses, lineage/context, forecast-before-effect, Dayline RETURN, cross-host continuity, prior-state ghosts, semantic zoom and donor swapping.
+
+### Five-phase circulation / Wu Xing mnemonic
+
+Traditional Wood → Fire → Earth → Metal → Water generating order is borrowed as a **mnemonic only**, not a FIELD ontology or metaphysical claim:
+
+```
+木 WOOD   · GENERATE · donor / hypothesis
+火 FIRE   · EXPOSE   · one controlled contrast
+土 EARTH  · HOLD     · freeze object / authority / conditions
+金 METAL  · CUT      · RETAIN / REVISE / PARK
+水 WATER  · RETURN   · witness / lineage / residue → next WOOD
+```
+
+It creates no FIELD state or authority. Its useful property is operational: the cycle terminates in RETURN instead of feature accumulation.
+
+Additional boundaries:
+
+```
+UNDERPAINTING ≠ STATE
+VISUAL LAW ≠ NATIVE ACTION AUTHORITY
+R&D REGISTRY ≠ BACKLOG / PRIORITY
+MNEMONIC CYCLE ≠ FIELD ONTOLOGY
+```
