@@ -1,0 +1,57 @@
+{
+  "schema": "field-return/v1",
+  "id": "HOUSE_BASE_CAMP_ENV0_2026-10-03",
+  "date": "2026-10-03",
+  "state": "PR_CANDIDATE",
+  "object": "/house/ canonical human surface",
+  "delta": "Convert the existing HOUSE spatial instrument into a lived home-base projection without adding a route, inventory database, quest queue, score, or actuation plane.",
+  "vision": {
+    "HOUSE": "BASE CAMP / exact place + addressed locus + service topology",
+    "ENV-0": "HARNESS / bounded BODY↔tool↔furniture↔room coupling envelope",
+    "BODY_FIT": "LOADOUT BENCH / deeper embodied fit and readiness owner",
+    "DAYLINE": "SET OUT / current run in time",
+    "HOUSEBUS": "private runtime truth + actuation authority",
+    "RETURN": "observed discrepancy / service residue / evidence"
+  },
+  "loop": "PLACE → STASH → PREP → FIT → SET OUT → RETURN → SERVICE → READY",
+  "implemented": [
+    "BASE becomes the default unaddressed /house/ projection while #PLAN/#TRACE/#CARE and every explicit existing hash remain direct projections.",
+    "Fixed-locus tableau reuses the selected HOUSE room geometry and recovered anchors rather than inventing free-roaming 3D navigation.",
+    "Browser-local LOCAL KIT stores only user-authored exact references with home address, READY/SERVICE/UNKNOWN state and optional tags.",
+    "Temporary LOADOUT selection references LOCAL KIT items; it never clones canonical object state or claims physical possession.",
+    "Route/task frictions are explicit: carry / weather / power / install / mobility / duration / room-task.",
+    "SET OUT reuses atlas-dayline-handoff/v0.1 and carries purpose + exact HOUSE address + selected local refs + friction with an explicit planning-only truth boundary.",
+    "RETURN is explicit READY / SERVICE / UNKNOWN. SERVICE and UNKNOWN reuse canonical browser-local HOUSE CARE instead of creating another maintenance queue; READY creates no care residue.",
+    "ENV-0 scale ladder BODY → GARMENT → HARNESS → SUIT → FURNITURE → ROOM → HOUSE is visible as the coupling grammar, with direct ENV-0/BODY/FIT/Shopping/Foundry/Expert shortcuts.",
+    "Canonical /house/ remains the only human route; /house/spatial/ remains compatibility-only and HOUSEBUS authority is unchanged."
+  ],
+  "research_donors": [
+    "Ultima Online housing: persistent spatial possessions / containers / locked-down objects",
+    "Monster Hunter house + Item Sets / Equipment Sets: rapid purpose-specific preparation",
+    "Warframe Orbiter: diegetic stations plus direct menu shortcut parity",
+    "Resident Evil 4 attaché case: geometry matters only when real capacity/packing matters",
+    "Death Stranding: load/body/route as one temporary system; return/service consequences",
+    "Pacific Drive garage: return → repair → route prep → adapt → set out → return"
+  ],
+  "recovered_sources": [
+    "/control/research/HOUSE_HOMEBASE_GAME_UX_2026-10-03.md",
+    "/control/confluence/VIDEO_GAME_SIX_FIELD_MAP_2026-09-30.md",
+    "/recovery/env0/",
+    "/house/reality-stack.json",
+    "/house/#CARE",
+    "/body/fit/"
+  ],
+  "authority": [
+    "HOUSE spatial address remains source-owned.",
+    "LOCAL KIT is browser-local planning state and never canonical physical inventory.",
+    "selected address != physical presence; READY label is user-authored local state, not telemetry.",
+    "DAYLINE handoff does not execute a physical action.",
+    "HOUSEBUS / Home Assistant remains the sole runtime/actuation authority."
+  ],
+  "verify": [
+    "node --check house/base-camp.js",
+    "node tools/house-base-camp-selftest.mjs",
+    "existing public-surface / HOUSE browser smoke must remain green"
+  ],
+  "stop": "Do not add another HOUSE route, global inventory app, task/quest list or score. Deepen only from a real object/run RETURN or a reproduced BASE usability failure."
+}
