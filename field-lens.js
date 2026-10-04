@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const L=()=>window.LensState,H=()=>window.FieldLensHost;
-let foveate=false,interferenceState=null,interferenceEpoch=0;
+let foveate=false,interferenceState=null,interferenceEpoch=0,interferenceRefreshQueued=false;
 let interferenceCorePromise=null,interferenceTruthPromise=null;
 const FIELD_FOVEATE={
   lensId:'field-foveate',lensVersion:'0.2',kind:'VIEW_LENS',
@@ -42,7 +42,11 @@ function snapshot(){
   if(foveate&&s.projection==='VISUAL')s=l.compose(s,FIELD_FOVEATE);
   return l.normalize(s);
 }
-function uiState(){const h=H();return{...(h?.uiState?.()||{}),foveate,interference:interferenceState}}
+function compactInterference(){
+  const s=interferenceState,p=s?.pair;if(!p)return null;
+  return{material:!!s.material,threshold:s.threshold,current:s.current,alternative:s.alternative,total:p.total,channel:p.channel,coordinate:p.coordinate};
+}
+function uiState(){const h=H();return{...(h?.uiState?.()||{}),foveate,interference:compactInterference()}}
 function restore(st){if(!st)return;foveate=!!st.foveate;H()?.restore?.(st);sync()}
 function projections(){return['AXIAL_LATEST','VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT']}
 function catalog(){return[FIELD_FOVEATE,SCALE_SPATIAL]}
@@ -145,6 +149,10 @@ async function syncInterferenceMark(){
     if(epoch===interferenceEpoch)clearInterferenceMark();
   }
 }
+function scheduleInterferenceMark(){
+  if(interferenceRefreshQueued)return;interferenceRefreshQueued=true;
+  requestAnimationFrame(()=>{interferenceRefreshQueued=false;syncInterferenceMark()});
+}
 function sync(){
   applyFoveation();const s=snapshot();if(s)window.dispatchEvent(new CustomEvent('field-lens:state',{detail:s}));syncInterferenceMark();
 }
@@ -162,12 +170,16 @@ window.FieldLensAPI=Object.freeze({
   rise:()=>{H()?.rise?.();sync()},
   dive:()=>{H()?.dive?.();sync()},
   project:m=>{H()?.project?.(m);sync()},
-  interference:()=>interferenceState,
+  interference:()=>compactInterference(),
   openStudio
 });
 window.FieldLensOptions={showTrigger:false,placement:'inline',anchor:'#aperture'};
 window.addEventListener('field-index:state',sync);
 window.addEventListener('field-density',()=>requestAnimationFrame(sync));
 const b=document.getElementById('apLens');if(b){b.textContent='◎ LENS';b.title='Refract the current FIELD focus without changing selection';b.onclick=()=>window.LensFocusRing?.open?.()}
+const apGlyph=document.getElementById('apGlyph');
+if(apGlyph&&window.MutationObserver)new MutationObserver(()=>{
+  if(interferenceState?.material&&H()?.focus?.()?.href&&!apGlyph.querySelector('.fieldMismatchMark'))scheduleInterferenceMark();
+}).observe(apGlyph,{childList:true});
 requestAnimationFrame(sync);
 })();
