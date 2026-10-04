@@ -25,7 +25,8 @@ need(z.includes('view-transition-name:field-zui-held'),'held-object continuity w
 need(!/localStorage|sessionStorage|history\.|pushState|replaceState/.test(z),'ZUI created a persistent/history state plane');
 need(!/focusRoute\(|location\.assign|setDensity\(|setBand\(/.test(z),'ZUI mutates focus/navigation/presentation density');
 need(!/touch-action\s*:\s*none|pointerdown|touchstart|wheel/.test(z),'ZUI steals native touch/pointer/scroll gestures');
-need(!/preventDefault\(\)/.test(z.replace(/summary\.addEventListener\('click',[\s\S]*?\}\);/,'').replace(/e\.preventDefault\(\)/,'')),'ZUI prevents unrelated native events');
+const prevents=(z.match(/preventDefault\(\)/g)||[]).length;
+need(prevents===1&&z.includes("summary.addEventListener('click'"),'ZUI may prevent only the native details-summary toggle it replaces');
 
 if(fail.length){console.error('FIELD ZUI FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('FIELD ZUI PASS · one address · HOLD ⇄ WORK ⇄ PROVE · native zoom untouched · authority NONE');
