@@ -2,12 +2,15 @@ import {
   TAU,buildHeldField,normalizeProjection,projectionProfile,
   representationMismatch,residualMismatch,lineageAngles
 } from "./core.mjs";
+import {
+  projectionPairMismatch,chooseCounterProjection,pairResidual,pairLineageAngles
+} from "./pair.mjs";
 import {mountPaintingPlainTrial} from "./painting-plain.mjs";
 
 const q=s=>document.querySelector(s);
 const params=new URLSearchParams(location.search);
-const focusHref=params.get("focus");
-let manifest=null,current=null,held=null,report=null;
+const focusHref=params.get("focus"),requestedCompare=params.get("compare");
+let manifest=null,current=null,held=null,report=null,pairReport=null,counterChoice=null;
 let compensation=0;
 const projectionEl=q("#projection"),comp=q("#compensation");
 const mc=q("#moire").getContext("2d"),cc=q("#coords").getContext("2d");
@@ -25,10 +28,29 @@ const returnHref=()=>{
 };
 q("#returnLink").href=returnHref();
 
+function serialPair(){
+  if(!pairReport)return null;
+  return {
+    schema:pairReport.schema,
+    left:{id:pairReport.left,label:pairReport.left_label},
+    right:{id:pairReport.right,label:pairReport.right_label},
+    mismatch:{
+      total:pairReport.total,
+      channel:pairReport.channel,
+      coordinate:pairReport.coordinate,
+      held_displacement:pairReport.held_displacement,
+      compensation,
+      visible_residual:pairResidual(pairReport,compensation)
+    },
+    channels:pairReport.channels,
+    material_threshold:.24,
+    material:pairReport.total>=.24
+  };
+}
 function serialReport(){
   if(!report)return null;
   return {
-    schema:"field-representation-mismatch/v0.2",
+    schema:"field-representation-mismatch/v0.3",
     generated_at:new Date().toISOString(),
     source:{
       route:held.route.href,
@@ -47,21 +69,33 @@ function serialReport(){
       coordinate_displacement:report.transformable,
       held_displacement:report.held_displacement,
       compensation,
-      visible_residual:residualMismatch(report,compensation)
+      visible_residual:pairReport?pairResidual(pairReport,compensation):residualMismatch(report,compensation)
     },
+    comparison:serialPair(),
     channels:report.channels,
     lineage:held.lineage.map(r=>r.href),
     context:held.context.map(r=>r.href),
-    law:"Alignment may remove coordinate displacement; hidden/derived channel residue remains. Projection evidence does not mutate FIELD truth.",
+    law:"Alignment may remove coordinate displacement; hidden/derived channel residue and pairwise channel disagreement remain. Projection evidence does not mutate FIELD truth.",
     authority:"VIEW / EVIDENCE ONLY"
   };
 }
 
+function selectPair(selected){
+  const explicit=requestedCompare?normalizeProjection(requestedCompare):null;
+  if(explicit&&explicit!==selected){
+    pairReport=projectionPairMismatch(manifest,current,focusHref,selected,explicit);
+    counterChoice={current:selected,alternative:explicit,material:!!pairReport&&pairReport.total>=.24,threshold:.24,pair:pairReport,candidates:[]};
+    return;
+  }
+  counterChoice=chooseCounterProjection(manifest,current,focusHref,selected,{threshold:.24});
+  pairReport=counterChoice?.pair||null;
+}
 function loadReport(){
   const p=normalizeProjection(projectionEl.value);
   projectionEl.value=p;
   report=representationMismatch(manifest,current,focusHref,p);
   if(!report)return;
+  selectPair(p);
   render();
 }
 function channelResidueText(row){
@@ -76,10 +110,14 @@ function renderFacts(){
   const owner=held.route.field?.owner||"FIELD ROUTE";
   q("#objectMeta").textContent=[held.route.state||"—",held.route.operation||held.route.kind||"—",owner,report.label].join(" · ");
   q("#sourceStatus").innerHTML="SOURCE <strong>"+esc(manifest.updated||"manifest")+"</strong> · "+(held.head?("CURRENT "+esc(held.head.state||"HEAD")):"no exact CURRENT head · manifest object")+" · <span class=\"pass\">synthetic fixture absent</span>";
+  q("#pairTotal").textContent=pairReport?pct(pairReport.total):"—";
+  q("#pairMeta").textContent=pairReport
+    ?pairReport.left_label+" ↔ "+pairReport.right_label+" · channels "+pct(pairReport.channel)+" · coordinates "+pct(pairReport.coordinate)+(pairReport.total>=.24?" · MATERIAL":" · below live-mark threshold")
+    :"no lawful counterprojection available";
   q("#total").textContent=pct(report.total);
   q("#irreducible").textContent=pct(report.irreducible);
   q("#transformable").textContent=pct(report.transformable);
-  q("#residual").textContent=pct(residualMismatch(report,compensation));
+  q("#residual").textContent=pct(pairReport?pairResidual(pairReport,compensation):residualMismatch(report,compensation));
   q("#compV").textContent=Math.round(compensation*100)+"%";
   q("#channels").innerHTML=report.channels.map(r=>{
     const retained=[...r.preserved,...r.derived.map(x=>x+"*")];
@@ -97,49 +135,60 @@ function drawLineField(ctx,w,h,angle,phase,spacing,alpha,stroke){
 function drawMoiré(){
   const w=q("#moire").width,h=q("#moire").height;
   mc.clearRect(0,0,w,h);mc.fillStyle="#070a0c";mc.fillRect(0,0,w,h);
-  const a=lineageAngles(report),res=residualMismatch(report,compensation);
-  const bAngle=interpAngle(a.projected,a.canonical,compensation);
-  const bPhase=a.phase*(1-compensation);
-  drawLineField(mc,w,h,a.canonical,0,11,.34,"#dfe5df");
-  drawLineField(mc,w,h,bAngle,bPhase,10.4,.24+.42*res,"#72bce7");
-  const hidden=report.channels.reduce((n,r)=>n+r.hidden.length+r.derived.length*.45,0);
-  if(hidden>0){
-    const residueAngle=a.canonical+0.42+report.irreducible*.8;
-    drawLineField(mc,w,h,residueAngle,report.irreducible*Math.PI,17,.08+.30*report.irreducible,"#ed7447");
+  let firstAngle=0,secondAngle=0,phase=0,res=0,label="",residueStrength=0;
+  if(pairReport){
+    const a=pairLineageAngles(pairReport);
+    firstAngle=a.left;secondAngle=interpAngle(a.right,a.left,compensation);phase=a.phase*(1-compensation);
+    res=pairResidual(pairReport,compensation);label=pairReport.left_label+" ↔ "+pairReport.right_label;residueStrength=pairReport.channel;
+    q("#moireLabel").textContent="INTERFERENCE · "+pairReport.left+" × "+pairReport.right;
+  }else{
+    const a=lineageAngles(report);
+    firstAngle=a.canonical;secondAngle=interpAngle(a.projected,a.canonical,compensation);phase=a.phase*(1-compensation);
+    res=residualMismatch(report,compensation);label=report.label+" ↔ CANONICAL";residueStrength=report.irreducible;
+    q("#moireLabel").textContent="INTERFERENCE · CANONICAL × PROJECTION";
+  }
+  drawLineField(mc,w,h,firstAngle,0,11,.34,"#dfe5df");
+  drawLineField(mc,w,h,secondAngle,phase,10.4,.24+.42*res,"#72bce7");
+  if(residueStrength>0){
+    const residueAngle=firstAngle+0.42+residueStrength*.8;
+    drawLineField(mc,w,h,residueAngle,residueStrength*Math.PI,17,.08+.30*residueStrength,"#ed7447");
   }
   const g=mc.createRadialGradient(w*.5,h*.5,10,w*.5,h*.5,w*.55);
   g.addColorStop(0,"rgba(255,255,255,0)");g.addColorStop(1,"rgba(0,0,0,.72)");mc.fillStyle=g;mc.fillRect(0,0,w,h);
   mc.fillStyle="rgba(8,10,12,.74)";mc.fillRect(18,18,w-36,76);
   mc.fillStyle="#edf0ed";mc.font="700 15px ui-monospace,monospace";mc.fillText((held.route.title||held.route.href).slice(0,48),30,45);
-  mc.fillStyle="#8f9ba0";mc.font="12px ui-monospace,monospace";mc.fillText(report.label+" · actual "+pct(report.total)+" · visible "+pct(res),30,67);
-  const residue=report.channels.filter(r=>r.hidden.length||r.derived.length).map(r=>r.channel.toUpperCase()).join(" / ");
-  mc.fillStyle="#d5ad68";mc.fillText("RESIDUE "+(residue||"NONE"),30,85);
+  mc.fillStyle="#8f9ba0";mc.font="12px ui-monospace,monospace";mc.fillText(label.slice(0,62)+" · visible "+pct(res),30,67);
+  mc.fillStyle="#d5ad68";mc.fillText("NON-ALIGNABLE "+pct(residueStrength),30,85);
 }
 function pos(map,id,w,h){
   const p=map.get(id)||{x:.5,y:.5};return{x:55+p.x*(w-110),y:55+p.y*(h-110)};
 }
-function contextEdgePairs(){
-  const set=new Set(held.context.map(r=>r.href)),out=[];
-  for(const r of held.context){const p=r.parent||"/";if(set.has(p)&&p!==r.href)out.push([p,r.href])}
+function contextEdgePairs(nodes=held.context){
+  const set=new Set(nodes.map(r=>r.href)),out=[];
+  for(const r of nodes){const p=r.parent||"/";if(set.has(p)&&p!==r.href)out.push([p,r.href])}
   return out;
 }
 function drawCoords(){
   const canvas=q("#coords"),w=canvas.width,h=canvas.height;
   cc.clearRect(0,0,w,h);cc.fillStyle="#070a0c";cc.fillRect(0,0,w,h);
-  const canon=report.coordinates.canonical,proj=report.coordinates.projected;
-  const edges=contextEdgePairs();
+  const left=pairReport?pairReport.coordinates.left:report.coordinates.canonical;
+  const right=pairReport?pairReport.coordinates.right:report.coordinates.projected;
+  const nodes=pairReport?pairReport.coordinates.nodes:held.context;
+  const edges=contextEdgePairs(nodes);
+  const leftLabel=pairReport?pairReport.left:"CANONICAL",rightLabel=pairReport?pairReport.right:report.projection;
+  q("#coordLabel").textContent="REAL ROUTE CONTEXT · "+leftLabel+" × "+rightLabel;
   cc.lineWidth=1.2;
   for(const [a,b] of edges){
-    const A=pos(canon,a,w,h),B=pos(canon,b,w,h);
+    const A=pos(left,a,w,h),B=pos(left,b,w,h);
     cc.strokeStyle="rgba(220,226,221,.20)";cc.beginPath();cc.moveTo(A.x,A.y);cc.lineTo(B.x,B.y);cc.stroke();
-    const PA=pos(proj,a,w,h),PB=pos(proj,b,w,h);
-    const IA={x:PA.x+(A.x-PA.x)*compensation,y:PA.y+(A.y-PA.y)*compensation};
-    const IB={x:PB.x+(B.x-PB.x)*compensation,y:PB.y+(B.y-PB.y)*compensation};
+    const RA=pos(right,a,w,h),RB=pos(right,b,w,h);
+    const IA={x:RA.x+(A.x-RA.x)*compensation,y:RA.y+(A.y-RA.y)*compensation};
+    const IB={x:RB.x+(B.x-RB.x)*compensation,y:RB.y+(B.y-RB.y)*compensation};
     cc.strokeStyle="rgba(114,188,231,.38)";cc.beginPath();cc.moveTo(IA.x,IA.y);cc.lineTo(IB.x,IB.y);cc.stroke();
   }
   const lineSet=new Set(held.lineage.map(r=>r.href));
-  for(const r of held.context){
-    const A=pos(canon,r.href,w,h),P0=pos(proj,r.href,w,h),P={x:P0.x+(A.x-P0.x)*compensation,y:P0.y+(A.y-P0.y)*compensation};
+  for(const r of nodes){
+    const A=pos(left,r.href,w,h),P0=pos(right,r.href,w,h),P={x:P0.x+(A.x-P0.x)*compensation,y:P0.y+(A.y-P0.y)*compensation};
     cc.strokeStyle="rgba(237,116,71,.30)";cc.beginPath();cc.moveTo(A.x,A.y);cc.lineTo(P.x,P.y);cc.stroke();
     cc.fillStyle=lineSet.has(r.href)?"#d5ad68":"#657279";cc.beginPath();cc.arc(A.x,A.y,lineSet.has(r.href)?4.5:3,0,TAU);cc.fill();
     cc.strokeStyle=r.href===held.route.href?"#edf0ed":"#72bce7";cc.lineWidth=r.href===held.route.href?2.2:1.2;cc.beginPath();cc.arc(P.x,P.y,r.href===held.route.href?8:4,0,TAU);cc.stroke();
@@ -149,7 +198,7 @@ function drawCoords(){
     }
   }
   cc.fillStyle="#8f9ba0";cc.font="11px ui-monospace,monospace";
-  cc.fillText("• canonical tree",18,h-27);cc.fillStyle="#72bce7";cc.fillText("○ projection / compensated",145,h-27);cc.fillStyle="#ed7447";cc.fillText("— displacement",365,h-27);
+  cc.fillText("• "+leftLabel.slice(0,18),18,h-27);cc.fillStyle="#72bce7";cc.fillText("○ "+rightLabel.slice(0,18)+" / compensated",150,h-27);cc.fillStyle="#ed7447";cc.fillText("— displacement",410,h-27);
 }
 function render(){
   renderFacts();drawMoiré();drawCoords();
