@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+await import('./field-zui-selftest.mjs');
 
 const html=fs.readFileSync('index.html','utf8');
 const sem=JSON.parse(fs.readFileSync('control/INTERACTION_SEMANTICS.json','utf8'));
@@ -21,7 +22,6 @@ need(html.includes("held.dataset.orientationAction=undoable?'undo':'seen'"),'hel
 need(html.includes("last?.kind==='route'&&last.href===focus.href"),'UNDO SEEN is not scoped to the newest matching held route');
 need(html.includes("pushCatchupHistory({kind:'route',href,previous,applied:stamp,at:Date.now()})"),'route SEEN does not retain previous/applied/action-time state');
 need(/newer local SEEN or MARK ALL/.test(contract.ui_contract?.root_orientation||''),'root orientation contract lacks immediate-undo supersession rule');
-
 
 const ops=new Map((sem.operations||[]).map(x=>[x.id,x]));
 for(const id of ['UNDO','REWIND','REVERT','RETURN']) need(ops.has(id),'interaction semantic missing '+id);

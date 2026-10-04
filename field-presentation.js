@@ -75,6 +75,91 @@ window.FieldPresentation=Object.freeze({LEVELS,levelFor,baseline,effective,state
 })();
 
 (()=>{'use strict';
+/* FIELD SEMANTIC ZUI v0.1
+ *
+ * ZUI means disclosure depth over one addressed object, not page magnification.
+ * HOLD / WORK / PROVE are existing DOM apertures over the same focus. This
+ * adapter coordinates them without creating a store, route, scale control or
+ * navigation authority. Browser pinch/zoom and FOVEA remain independent.
+ *
+ * STATE SOURCE: the two native <details>.open booleans only.
+ * MOTION: progressive View Transition enhancement; reduced motion is instant.
+ * TRACE: field-zui CustomEvent is transient authority NONE for other crew.
+ */
+if(typeof window==='undefined'||location.pathname!=='/')return;
+const IDS=Object.freeze({WORK:'workDepth',PROVE:'refineFold'});
+const root=document.documentElement;
+const reduced=()=>!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+const details=depth=>document.getElementById(IDS[depth]||'');
+const focusHref=()=>window.__fieldAct?.focusHref?.()||window.FieldLensHost?.focus?.()?.href||null;
+function state(){
+ const work=details('WORK'),prove=details('PROVE');
+ return prove?.open?'PROVE':work?.open?'WORK':'HOLD';
+}
+function sync(){
+ const depth=state();root.dataset.zuiDepth=depth;return depth;
+}
+function emit(from,to,reason){
+ window.dispatchEvent(new CustomEvent('field-zui',{detail:Object.freeze({from,to,focus:focusHref(),reason:reason||'operator',authority:'NONE'})}));
+}
+function mutate(target){
+ const work=details('WORK'),prove=details('PROVE');
+ if(!work||!prove)return;
+ work.open=target==='WORK';
+ prove.open=target==='PROVE';
+ sync();
+}
+function transition(target,reason='operator'){
+ const to=String(target||'HOLD').toUpperCase();
+ if(!['HOLD','WORK','PROVE'].includes(to))return Promise.resolve(state());
+ const from=state();if(from===to)return Promise.resolve(to);
+ const change=()=>mutate(to);
+ const canAnimate=!reduced()&&typeof document.startViewTransition==='function';
+ if(!canAnimate){change();emit(from,to,reason);return Promise.resolve(to)}
+ try{
+  const vt=document.startViewTransition(change);
+  return Promise.resolve(vt.finished).catch(()=>{}).then(()=>{emit(from,to,reason);return to});
+ }catch(_){change();emit(from,to,reason);return Promise.resolve(to)}
+}
+function open(depth,reason='operator'){return transition(depth,reason)}
+function close(reason='operator'){return transition('HOLD',reason)}
+function toggle(depth,reason='operator'){
+ const d=String(depth||'').toUpperCase();return transition(state()===d?'HOLD':d,reason);
+}
+function installStyle(){
+ if(document.getElementById('field-zui-style'))return;
+ const s=document.createElement('style');s.id='field-zui-style';s.textContent=`
+#aperture{view-transition-name:field-zui-held}
+#workDepth{view-transition-name:field-zui-work}
+#refineFold{view-transition-name:field-zui-prove}
+::view-transition-group(field-zui-held),::view-transition-group(field-zui-work),::view-transition-group(field-zui-prove){animation-duration:210ms;animation-timing-function:cubic-bezier(.2,.75,.25,1)}
+::view-transition-old(field-zui-held),::view-transition-new(field-zui-held),::view-transition-old(field-zui-work),::view-transition-new(field-zui-work),::view-transition-old(field-zui-prove),::view-transition-new(field-zui-prove){mix-blend-mode:normal}
+html[data-zui-depth="WORK"] #workDepth>summary,html[data-zui-depth="PROVE"] #refineFold>summary{outline:1px solid var(--cool);outline-offset:-1px}
+html[data-zui-depth="PROVE"] #refineFold>summary{outline-color:var(--gold)}
+@media(prefers-reduced-motion:reduce){::view-transition-group(field-zui-held),::view-transition-group(field-zui-work),::view-transition-group(field-zui-prove){animation-duration:1ms!important}}
+ `;document.head.appendChild(s);
+}
+function bind(){
+ const work=details('WORK'),prove=details('PROVE');if(!work||!prove)return;
+ installStyle();sync();
+ for(const [depth,node] of [['WORK',work],['PROVE',prove]]){
+  const peer=depth==='WORK'?prove:work;
+  const summary=node.querySelector(':scope > summary');if(!summary)continue;
+  summary.addEventListener('click',e=>{e.preventDefault();toggle(depth,'summary')});
+  node.addEventListener('toggle',()=>{if(node.open&&peer.open)peer.open=false;sync()});
+ }
+ document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape'||state()==='HOLD')return;
+  const t=e.target,tag=t?.tagName?.toLowerCase?.();
+  if(t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select')return;
+  e.preventDefault();e.stopImmediatePropagation();close('escape');
+ },true);
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',bind,{once:true}):bind();
+window.FieldZUI=Object.freeze({state,open,close,toggle,transition});
+})();
+
+(()=>{'use strict';
 /* AWAKE is a presentation projection over the live FIELD INTERPHASE carrier.
    It must never become a route, store, planner or effect authority. */
 function load(){
