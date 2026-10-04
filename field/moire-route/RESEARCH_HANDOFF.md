@@ -214,3 +214,100 @@ VISUAL LAW ≠ NATIVE ACTION AUTHORITY
 R&D REGISTRY ≠ BACKLOG / PRIORITY
 MNEMONIC CYCLE ≠ FIELD ONTOLOGY
 ```
+
+---
+
+## 2026-10-04 extension — LIVE INTERFERENCE MARK
+
+The mismatch instrument now propagates back onto the held FIELD object as a **small conditional property**, not a new panel, route, state or attention class.
+
+### Trigger
+
+For the exact held route, FIELD compares the current representation against available counterprojections using `pair.mjs`.
+
+Automatic candidates remain ordinary FIELD views:
+
+```
+AXIAL_LATEST
+VISUAL
+STRUCTURE
+RECENT
++ EVOLVE when evolution data exists
++ VERSIONS when version data exists
+```
+
+GLYPH remains an explicit deep comparison rather than an automatic live-mark candidate because it is intentionally lossy.
+
+A mark appears only when the strongest available pair has total disagreement ≥ **0.24**.
+
+Pair disagreement is not canonical error. It asks whether two lawful views of the same held object differ materially in what they retain or where they place its lineage.
+
+### Pair law
+
+For every real fact in the held object:
+
+```
+PRESERVED ↔ PRESERVED = 0
+DERIVED   ↔ DERIVED   = 0
+PRESERVED ↔ DERIVED   = 0.35
+DERIVED   ↔ HIDDEN    = 0.70
+PRESERVED ↔ HIDDEN    = 1.00
+```
+
+Then:
+
+```
+pair disagreement
+= 0.68 × channel disagreement
++ 0.32 × coordinate disagreement
+```
+
+Coordinate disagreement uses the same real manifest lineage/context and the two actual projection coordinate functions.
+
+### The mark itself is the signal
+
+The tiny circular mark attached to the held glyph is not a generic warning icon.
+
+Its two stripe fields encode the selected pair:
+
+- angle separation grows with coordinate disagreement;
+- stripe density grows with total disagreement;
+- interference opacity grows with channel disagreement;
+- border strengthens at high total disagreement;
+- reduced-motion keeps the same state without rotation.
+
+Below threshold there is no mark.
+
+No held object means no mark.
+
+### Open / RETURN
+
+Activating the mark opens:
+
+```
+/field/moire-route/
+  ?focus=<exact held route>
+  &projection=<current projection>
+  &compare=<counterprojection>
+  &ax_*=<existing FIELD tuple>
+```
+
+The full instrument continues that exact pair. Its primary moiré field becomes representation × representation; the route-context canvas displays their coordinate-frame displacement. `ALIGN COORDINATES` can collapse coordinate mismatch but cannot erase pairwise channel disagreement.
+
+`COPY REPORT` now emits `field-representation-mismatch/v0.3` with the pair report attached.
+
+RETURN restores the same FIELD route address.
+
+### Continuity
+
+The held aperture rerenders during local orientation actions such as SEEN / UNDO SEEN. The live mark is reattached after such rerenders only when the same material pair still exists. No persistence bit is added.
+
+### Boundary
+
+```
+INTERFERENCE MARK ≠ ALERT / PRIORITY
+PAIR DISAGREEMENT ≠ CANONICAL ERROR
+MOST DIFFERENT VIEW ≠ RECOMMENDED VIEW
+ALIGNMENT ≠ INFORMATION RECOVERY
+MARK CLICK ≠ EFFECT
+```
