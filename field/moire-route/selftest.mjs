@@ -3,6 +3,9 @@ import {
   buildHeldField,contextRoutes,lineageFor,projectionProfile,
   representationMismatch,residualMismatch,normalizeProjection
 } from "./core.mjs";
+import {
+  availableRepresentations,projectionPairMismatch,pairResidual,chooseCounterProjection
+} from "./pair.mjs";
 import {paintingGeometry,representationTrial} from "./painting-plain.mjs";
 
 const manifest=JSON.parse(fs.readFileSync(new URL("../../showcase-manifest.json",import.meta.url),"utf8"));
@@ -41,6 +44,20 @@ assert(residualMismatch(axial,1)>=0.68*axial.irreducible-1e-12,"alignment may no
 assert(normalizeProjection("bogus")==="AXIAL_LATEST","unknown projections must fail to the root FIELD projection");
 assert(projectionProfile("GLYPH").preserve.includes("href"),"glyph identity/address preservation contract must be represented");
 
+const available=availableRepresentations(manifest,candidate.href);
+assert(available.includes("AXIAL_LATEST")&&available.includes("VISUAL"),"held route must expose the root FIELD pair");
+const pair=projectionPairMismatch(manifest,current,candidate.href,"AXIAL_LATEST","VISUAL");
+assert(pair&&pair.href===candidate.href,"pairwise mismatch must remain attached to the exact held route");
+assert(pair.left==="AXIAL_LATEST"&&pair.right==="VISUAL","pair identity must remain explicit");
+assert(pair.total>=0&&pair.total<=1&&pair.channel>=0&&pair.coordinate>=0,"pair mismatch must remain bounded");
+assert(pair.coordinates.nodes.every(r=>map.has(r.href)),"pair context may contain only real manifest routes");
+assert(pairResidual(pair,1)<=pairResidual(pair,0)+1e-12,"pair alignment may not increase visible interference");
+assert(pairResidual(pair,1)>=0.68*pair.channel-1e-12,"pair alignment may not erase channel disagreement");
+const choice=chooseCounterProjection(manifest,current,candidate.href,"AXIAL_LATEST",{threshold:0});
+assert(choice.material&&choice.alternative&&choice.alternative!=="AXIAL_LATEST","zero-threshold choice must expose one real counterprojection");
+assert(choice.pair?.href===candidate.href,"counterprojection choice must retain held object identity");
+assert(choice.candidates.every(x=>x.id!==choice.current),"current projection may not compare with itself");
+
 const trial=representationTrial(manifest,current,candidate.href);
 assert(trial.ok,"PLAIN ↔ PAINTING must preserve the held semantic envelope exactly");
 assert(Object.values(trial.invariants).every(Boolean),"identity/actions/witness/RETURN must remain equal across representations");
@@ -65,6 +82,11 @@ console.log(JSON.stringify({
     visual:{total:visual.total,irreducible:visual.irreducible,transformable:visual.transformable},
     glyph:{total:glyph.total,irreducible:glyph.irreducible,transformable:glyph.transformable}
   },
+  live_pair:{
+    current:choice.current,counter:choice.alternative,
+    total:choice.pair.total,channel:choice.pair.channel,coordinate:choice.pair.coordinate,
+    available
+  },
   painting_plain:{machine_pass:trial.ok,invariants:trial.invariants,authority:trial.authority,human_return:"PENDING_LOCAL_USE"},
-  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed; painting may change atmosphere/geometry but never semantic identity or authority"
+  invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed; live interference reports real projection disagreement; coordinate alignment cannot erase channel disagreement; painting may change atmosphere/geometry but never semantic identity or authority"
 },null,2));
