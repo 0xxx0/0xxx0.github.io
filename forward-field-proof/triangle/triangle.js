@@ -12,7 +12,6 @@ const PRESETS={
 const $=id=>document.getElementById(id);
 const clone=x=>JSON.parse(JSON.stringify(x));
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const norm=a=>{const z=a.reduce((x,y)=>x+y,0)||1;return a.map(x=>x/z)};
 function emptyGlyph(p){const g={};for(const id of IDS){const x=PRESETS[p][id];g[id]={label:x[0],value:x[1],indicated:false,unknown:false}}return g}
 let S={version:'triangle-unified/v1',mode:'GLYPH',selected:'A',preset:'message',glyph:emptyGlyph('message'),forms:{},formSelected:{},formTrace:{},power:{A:'2',B:'3',C:'8',unknown:'C'},weights:[.33,.33,.34],returns:[]};
 try{const old=JSON.parse(localStorage.getItem(K)||'null');if(old?.version===S.version)S={...S,...old}}catch(_){}
@@ -95,41 +94,32 @@ function renderPower(){
   document.querySelectorAll('[data-unknown]').forEach(b=>b.classList.toggle('on',b.dataset.unknown===p.unknown));
   const s=solvePower();$('powerSolve').innerHTML=esc(s.text)+'<small>'+esc(s.note)+'</small>';
 }
-const VA={x:350,y:82},VB={x:92,y:520},VC={x:608,y:520};
-const bary=w=>({x:w[0]*VA.x+w[1]*VB.x+w[2]*VC.x,y:w[0]*VA.y+w[1]*VB.y+w[2]*VC.y});
-function weightsFromPoint(p){const d=(VB.y-VC.y)*(VA.x-VC.x)+(VC.x-VB.x)*(VA.y-VC.y),a=((VB.y-VC.y)*(p.x-VC.x)+(VC.x-VB.x)*(p.y-VC.y))/d,b=((VC.y-VA.y)*(p.x-VC.x)+(VA.x-VC.x)*(p.y-VC.y))/d,c=1-a-b;return norm([Math.max(0,a),Math.max(0,b),Math.max(0,c)])}
-function drawGrid(){
-  const g=$('gridLines');for(const t of [.2,.4,.6,.8]){for(const pair of [[[t,0,1-t],[t,1-t,0]],[[0,t,1-t],[1-t,t,0]],[[0,1-t,t],[1-t,0,t]]]){const a=bary(pair[0]),b=bary(pair[1]),l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);l.setAttribute('x2',b.x);l.setAttribute('y2',b.y);l.setAttribute('class','gridline');g.appendChild(l)}}
-}
-const benchCandidates=[{label:'SHIP / USE',profile:[1,.15,.4],note:'cash out something already understood'},{label:'RECOVER / EXPLORE',profile:[.25,1,.55],note:'surface missing structure or option value'},{label:'VERIFY / PROVE',profile:[.35,.35,1],note:'reduce uncertainty with evidence'}];
-function renderBench(){
-  const w=S.weights,p=bary(w),g=$('pointer'),ls=g.querySelectorAll('line'),c=g.querySelector('circle');
-  c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);ls[0].setAttribute('x1',p.x-10);ls[0].setAttribute('x2',p.x+10);ls[0].setAttribute('y1',p.y);ls[0].setAttribute('y2',p.y);ls[1].setAttribute('x1',p.x);ls[1].setAttribute('x2',p.x);ls[1].setAttribute('y1',p.y-10);ls[1].setAttribute('y2',p.y+10);$('weightLabel').setAttribute('x',p.x);$('weightLabel').setAttribute('y',p.y+28);$('weightLabel').textContent=w.map(x=>Math.round(x*100)).join(' / ');
-  $('wA').textContent=Math.round(w[0]*100)+'%';$('wB').textContent=Math.round(w[1]*100)+'%';$('wC').textContent=Math.round(w[2]*100)+'%';
-  const rows=benchCandidates.map(x=>({...x,score:x.profile.reduce((s,v,i)=>s+v*w[i],0)})).sort((a,b)=>b.score-a.score);
-  $('candidates').innerHTML=rows.map((x,i)=>'<div class="candidate '+(i===0?'win':'')+'"><div><b>'+esc(x.label)+'</b><small>'+esc(x.note)+'</small></div><i>'+x.score.toFixed(3)+'</i></div>').join('');
-}
 function drawMode(){
-  const bench=S.mode==='BENCH';$('relational').hidden=bench;$('simplex').hidden=!bench;$('rotate').disabled=S.mode==='FORM'||bench;
-  $('glyphPanel').hidden=S.mode!=='GLYPH';$('formPanel').hidden=S.mode!=='FORM';$('powerPanel').hidden=S.mode!=='POWER';$('benchPanel').hidden=!bench;
+  $('rotate').disabled=S.mode==='FORM';
+  $('glyphPanel').hidden=S.mode!=='GLYPH';$('formPanel').hidden=S.mode!=='FORM';$('powerPanel').hidden=S.mode!=='POWER';
   document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===S.mode));
-  const hints={GLYPH:'GLYPH · entities at vertices · relations on edges · composition inside · frame outside',FORM:'FORM · one mark lives at the selected locus · CALL / CROSS rewrite locally',POWER:'POWER · missing corner selects exponentiation / logarithm / root',BENCH:'BENCH · direct simplex over one 100% attention budget'};
-  $('modeHint').textContent=hints[S.mode];$('status').textContent=S.mode==='FORM'?'FORM · '+formValue():S.mode==='POWER'?'POWER · '+S.power.unknown+' UNKNOWN':S.mode==='BENCH'?'SIMPLEX · 2 DOF':'8 LOCI · 3+3+1+1';
+  const hints={GLYPH:'GLYPH · entities at vertices · relations on edges · composition inside · frame outside',FORM:'FORM · one mark lives at the selected locus · CALL / CROSS rewrite locally',POWER:'POWER · missing corner selects exponentiation / logarithm / root'};
+  $('modeHint').textContent=hints[S.mode];$('status').textContent=S.mode==='FORM'?'FORM · '+formValue():S.mode==='POWER'?'POWER · '+S.power.unknown+' UNKNOWN':'8 LOCI · 3+3+1+1';
 }
 function render(){
   drawMode();
-  if(S.mode==='BENCH')renderBench();else if(S.mode==='POWER')renderPower();else{renderRelational();if(S.mode==='GLYPH')renderGlyphPanel();if(S.mode==='FORM')renderForm()}
+  if(S.mode==='POWER')renderPower();else{renderRelational();if(S.mode==='GLYPH')renderGlyphPanel();if(S.mode==='FORM')renderForm()}
   $('resultBadge').innerHTML='<b>'+esc(S.selected)+'</b> · '+esc(S.mode==='FORM'?formValue():TYPES[S.selected]);renderReturns();save();
 }
 function renderReturns(){const xs=S.returns||[];$('returns').innerHTML=xs.length?xs.slice(0,10).map(r=>'<div><b>'+esc(r.mode)+'</b> · '+esc(r.at)+' · '+esc(r.address)+'</div>').join(''):'<div>No returns yet.</div>'}
 function receipt(){
-  let data;if(S.mode==='GLYPH')data={glyph:clone(S.glyph),compact:compact()};else if(S.mode==='FORM')data={locus:S.selected,expression:serializeRegion(formRoot()),value:formValue(),trace:clone(S.formTrace[S.selected]||[])};else if(S.mode==='POWER')data={power:clone(S.power),solution:solvePower()};else data={weights:S.weights.slice()};
-  return{schema:'triangle-return/v1',at:new Date().toISOString(),mode:S.mode,address:'triangle://'+S.mode.toLowerCase()+'/'+(S.mode==='BENCH'?'simplex':S.selected),payload:data};
+  let data;if(S.mode==='GLYPH')data={glyph:clone(S.glyph),compact:compact()};else if(S.mode==='FORM')data={locus:S.selected,expression:serializeRegion(formRoot()),value:formValue(),trace:clone(S.formTrace[S.selected]||[])};else if(S.mode==='POWER')data={power:clone(S.power),solution:solvePower()};
+  return{schema:'triangle-return/v1',at:new Date().toISOString(),mode:S.mode,address:'triangle://'+S.mode.toLowerCase()+'/'+S.selected,payload:data};
 }
-function copyText(){if(S.mode==='GLYPH')return compact();if(S.mode==='FORM')return'SFORM '+S.selected+' '+(serializeRegion(formRoot())||'[unmarked]')+' → '+formValue();if(S.mode==='POWER'){const s=solvePower();return'△ POWER · '+s.text+' · '+s.note}return'△ BENCH · '+S.weights.map(x=>Math.round(x*100)).join('/')+' · EXPLOIT/EXPLORE/PROVE'}
+function copyText(){if(S.mode==='GLYPH')return compact();if(S.mode==='FORM')return'SFORM '+S.selected+' '+(serializeRegion(formRoot())||'[unmarked]')+' → '+formValue();if(S.mode==='POWER'){const s=solvePower();return'△ POWER · '+s.text+' · '+s.note}}
 function stateLink(){const p={mode:S.mode,selected:S.selected,preset:S.preset,glyph:S.glyph,forms:S.forms,power:S.power,weights:S.weights};return location.origin+location.pathname+'#'+encodeURIComponent(JSON.stringify(p))}
-function restoreHash(){if(!location.hash)return;try{const x=JSON.parse(decodeURIComponent(location.hash.slice(1)));if(x?.mode)for(const k of ['mode','selected','preset','glyph','forms','power','weights'])if(x[k]!==undefined)S[k]=x[k]}catch(_){}}
-restoreHash();
+function restoreHash(){if(!location.hash)return false;try{const x=JSON.parse(decodeURIComponent(location.hash.slice(1)));if(x?.mode==='BENCH')return true;if(x?.mode)for(const k of ['mode','selected','preset','glyph','forms','power','weights'])if(x[k]!==undefined)S[k]=x[k]}catch(_){}return false}
+const legacyBench=restoreHash();
+if(legacyBench||S.mode==='BENCH'){
+  // Keep prior local payloads and weights; BENCH now has one canonical host.
+  if(S.mode==='BENCH')S.mode='GLYPH';
+  save();location.replace('/forward-field-proof/triangle/bench/');return;
+}
 document.querySelectorAll('.locusShape').forEach(n=>n.addEventListener('click',e=>{e.stopPropagation();S.selected=n.dataset.id;render()}));
 document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.mode;window.FieldSignals?.choice('triangle-mode',S.mode,{source:'direct'});render()});
 document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>setPreset(b.dataset.preset));
@@ -143,7 +133,5 @@ $('copy').onclick=async function(){try{await navigator.clipboard.writeText(copyT
 $('share').onclick=async function(){const u=stateLink();history.replaceState(null,'',u);try{await navigator.clipboard.writeText(u);const b=this;b.textContent='LINK COPIED';setTimeout(()=>b.textContent='COPY LINK',900)}catch(_){}};
 $('returnBtn').onclick=()=>{const r=receipt();S.returns.unshift(r);if(S.returns.length>40)S.returns.length=40;window.FieldSignals?.emit('return',{instrument:'triangle',mode:S.mode,address:r.address});render()};
 $('exportBtn').onclick=()=>{const out={schema:'triangle-export/v1',exported_at:new Date().toISOString(),state:clone(S),return:receipt()},blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='triangle-'+S.mode.toLowerCase()+'-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
-let drag=false;$('tri').addEventListener('pointerdown',e=>{if(S.mode!=='BENCH'||e.target.classList.contains('locusShape'))return;drag=true;$('tri').setPointerCapture(e.pointerId);moveBench(e)});$('tri').addEventListener('pointermove',e=>{if(drag)moveBench(e)});$('tri').addEventListener('pointerup',()=>drag=false);$('tri').addEventListener('pointercancel',()=>drag=false);
-function moveBench(e){const r=$('tri').getBoundingClientRect(),p={x:(e.clientX-r.left)*700/r.width,y:(e.clientY-r.top)*610/r.height};S.weights=weightsFromPoint(p);render()}
-drawGrid();render();
+render();
 })();

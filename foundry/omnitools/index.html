@@ -1,73 +1,33 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07090b">
-<meta name="robots" content="noindex,nofollow">
-<title>OMNITOOLS · WORKBENCH 0.2 · INSTRUMENT</title>
-<style>
-:root{color-scheme:dark;--bg:#07090b;--p:#0b1014;--p2:#10171b;--ink:#edf0eb;--mut:#7f8b91;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c;--red:#e27a65}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button,input,textarea{font:inherit;color:inherit;border-radius:0}button{min-height:34px;border:1px solid var(--line);background:#090d10;padding:7px 9px;cursor:pointer}button:hover,button:focus-visible{border-color:#66767d;outline:0}button.on{border-color:var(--cool);color:#d9f4ff;background:#0d171d}button.gold{border-color:var(--gold);color:#f1cf8e}input,textarea{width:100%;border:1px solid var(--line);background:#080c0f;padding:8px}textarea{resize:vertical}a{color:var(--cool);text-decoration:none}.app{height:100%;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto}.top{min-height:48px;display:flex;gap:12px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--line)}.brand{font:900 14px system-ui,-apple-system,sans-serif;letter-spacing:-.02em}.brand small{display:block;color:var(--hot);font:7px ui-monospace,monospace;letter-spacing:.14em;margin-bottom:2px}.truth{color:var(--mut);font-size:7px}.home{margin-left:auto;font-size:8px;color:var(--mut)}
-.spine{display:grid;grid-template-columns:minmax(160px,1.25fr) minmax(320px,2fr) minmax(150px,1fr) minmax(150px,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.seg{min-width:0;background:var(--p);padding:7px 9px;display:flex;gap:7px;align-items:center}.seg .k{color:var(--mut);font-size:6px;letter-spacing:.15em;white-space:nowrap}.seg b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.axis{display:flex;gap:3px;overflow:auto}.axis button{min-height:30px;white-space:nowrap;font-size:7px;padding:5px 7px}.seg button{min-height:30px;font-size:7px}.sourceStat{min-width:0}.sourceStat b{font-size:9px}.sourceStat span{display:block;color:var(--mut);font-size:6px;margin-top:2px}.returnState{color:var(--mut);font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shell{min-height:0;display:grid;grid-template-columns:300px minmax(0,1fr)}.source{border-right:1px solid var(--line);background:#090d10;padding:9px;overflow:auto}.sourceToggle{display:none;width:100%;text-align:left;color:var(--gold);border-color:#403a2c;letter-spacing:.12em;font-size:7px;margin-bottom:7px}.label{color:var(--mut);font-size:6px;letter-spacing:.15em;margin:0 0 5px}.source h2,.bench h2{font:800 17px/1 system-ui,-apple-system,sans-serif;margin:2px 0 4px}.note{color:#929da1;font:8px/1.5 system-ui,-apple-system,sans-serif}.source textarea{min-height:190px;margin-top:7px}.row{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:8px}.meta div{background:var(--p);padding:6px}.meta span{display:block;color:var(--mut);font-size:6px}.meta b{font-size:9px;word-break:break-all}.drop{border:1px dashed #415058;padding:7px;margin-top:8px;color:var(--mut);font-size:7px}.drop.over{border-color:var(--gold);color:var(--gold)}
-.workspace{min-width:0;min-height:0;position:relative;background:var(--bg)}.pane{width:100%;height:100%;border:0;background:var(--bg)}iframe.pane{display:block}.pane[hidden]{display:none!important}.bench{height:100%;overflow:auto;padding:10px}.benchGrid{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(360px,1.2fr);gap:8px}.card{border:1px solid var(--line);background:var(--p);padding:9px}.mins{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.mins label{color:var(--mut);font-size:6px}.mins input{margin-top:3px}.bench textarea{min-height:180px}.law{border-left:2px solid var(--cool);padding:7px 8px;background:#0b1317;color:#9ba7ab;font:8px/1.5 system-ui,-apple-system,sans-serif;margin-top:8px}.summary{display:flex;gap:4px;flex-wrap:wrap;margin:7px 0}.badge{border:1px solid var(--line);padding:3px 6px;font-size:7px}.badge.front{border-color:var(--green);color:#c8efb8}.badge.reject{border-color:var(--red);color:#ffc5b9}.badge.dom{border-color:var(--gold);color:#eed39b}.results{display:grid;gap:5px}.candidate{border:1px solid var(--line);background:#080c0f;padding:8px}.candidate.FRONT{box-shadow:inset 3px 0 var(--green)}.candidate.DOMINATED{box-shadow:inset 3px 0 var(--gold)}.candidate.REJECT{box-shadow:inset 3px 0 var(--red);opacity:.68}.candidateHead{display:flex;justify-content:space-between;gap:8px}.candidateHead b{font:750 11px system-ui,-apple-system,sans-serif}.candidateHead span{font-size:7px}.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:5px}.scores div{background:var(--p);padding:5px}.scores span{display:block;color:var(--mut);font-size:6px}.scores b{font-weight:500}.reason{color:var(--mut);font-size:7px;margin-top:5px}.missing{color:var(--cool)}
-.trace{min-height:44px;max-height:100px;overflow:auto;border-top:1px solid var(--line);background:#070a0c;padding:5px 8px;display:flex;gap:4px;align-items:flex-start}.traceLabel{position:sticky;left:0;background:#070a0c;color:var(--mut);font-size:6px;letter-spacing:.14em;padding:4px 6px 4px 0;z-index:2}.traceItem{flex:0 0 auto;border:1px solid var(--line);padding:4px 6px;max-width:260px}.traceItem b{font-size:7px}.traceItem span{display:block;color:var(--mut);font-size:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#help{position:fixed;z-index:9;right:8px;top:58px;max-width:min(420px,calc(100vw - 16px));padding:11px;border:1px solid var(--line);background:#0b1014;box-shadow:0 12px 40px #000b;display:none}#help.open{display:block}#help code{display:block;white-space:pre-wrap;color:#c7d1d3;font-size:8px}#helpToggle{position:fixed;z-index:10;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));font-size:7px}
-@media(max-width:900px){.spine{grid-template-columns:1fr 2fr}.spine .seg:nth-child(3),.spine .seg:nth-child(4){display:none}.shell{grid-template-columns:250px minmax(0,1fr)}.benchGrid{grid-template-columns:1fr}}
-@media(max-width:650px){.top .truth{display:none}.shell{display:block}.source{position:absolute;z-index:7;left:0;right:0;bottom:0;max-height:70%;border:1px solid var(--line);border-bottom:0;transform:translateY(calc(100% - 44px));transition:transform .16s ease;background:#090d10f7;backdrop-filter:blur(5px)}.source.open{transform:translateY(0)}.sourceToggle{display:block}.workspace{height:100%}.bench{padding:6px 6px 54px}.spine{grid-template-columns:1fr}.spine .seg:first-child{display:none}.axis{width:100%}.axis button{flex:1}.scores{grid-template-columns:1fr}.trace{display:none}}
-</style>
-</head>
-<body><div class="app">
-<header class="top"><div class="brand"><small>FOUNDRY · LOCAL INSTRUMENT · REV 0.3</small>OMNITOOLS / 0.2</div><div class="truth">ONE HELD OBJECT · UNEQUAL EFFECTORS · EVIDENCE BEFORE ELIMINATION · RETURN</div><a class="home" href="../">FOUNDRY ↗</a></header>
-<section class="spine" aria-label="Omnitools instrument spine">
-  <div class="seg"><div class="k">SOURCE</div><div class="sourceStat"><b id="sourceSpine">EMPTY</b><span id="sourceSpineMeta">SESSION ONLY · NOTHING UPLOADED</span></div></div>
-  <div class="seg"><div class="k">AXIS</div><nav class="axis" aria-label="Choose projection"><button data-mode="bench" class="on">BENCH</button><button data-mode="scan">SCAN</button><button data-mode="read">READ</button><button data-mode="align">ALIGN</button><button data-mode="reshape">RESHAPE</button></nav></div>
-  <div class="seg"><div class="k">EFFECTOR</div><button id="loadMode" class="gold">LOAD → BENCH</button></div>
-  <div class="seg"><div class="k">RETURN</div><button id="copyReturn">COPY RECEIPT</button><div class="returnState" id="returnState">NO TRACE YET</div></div>
-</section>
-<div class="shell">
-  <aside class="source" id="sourceDock">
-    <button id="sourceToggle" class="sourceToggle" aria-expanded="false">SOURCE · OPEN / CLOSE</button>
-    <div class="label">SOURCE CARTRIDGE · ONE TRANSIENT WORK OBJECT</div><h2>Hold the thing.</h2>
-    <div class="note">Paste once, then project the same bytes through different specialist tools. Omnitools owns only this session handoff; each child owns its own operation.</div>
-    <input id="sourceName" placeholder="object label · optional" autocomplete="off">
-    <textarea id="sourceText" spellcheck="false" placeholder="text, data, config, options, multilingual JSON…"></textarea>
-    <div class="row"><button id="loadSource" class="gold">LOAD → CURRENT MODE</button><button id="sourceToBench">SOURCE → BENCH</button><button id="clearSource">CLEAR</button></div>
-    <div class="meta"><div><span>CHARACTERS</span><b id="charCount">0</b></div><div><span>IDENTITY</span><b id="sourceHash">EMPTY</b></div></div>
-    <div class="drop" id="drop">DROP ONE TEXT FILE · BYTES STAY IN THIS BROWSER</div>
-    <div class="law">SOURCE ≠ RESULT. Projection does not mutate source. Switching tools preserves identity; it does not make their semantics equal.</div>
-  </aside>
-  <main class="workspace">
-    <section class="pane bench" id="benchPane">
-      <div class="benchGrid">
-        <div class="card"><div class="label">FORM / FUNCTION / FORTITUDE · CONSERVATIVE BENCH</div><h2>Eliminate only what the evidence earns.</h2><div class="note">One candidate per line: <b>NAME | FORM | FUNCTION | FORTITUDE | note</b>. Scores may be exact (<b>80</b>), ranges (<b>60..85</b>), or unknown (<b>?</b>).</div>
-          <div class="label" style="margin-top:10px">HARD MINIMA</div><div class="mins"><label>FORM<input id="minForm" type="number" value="0"></label><label>FUNCTION<input id="minFunction" type="number" value="0"></label><label>FORTITUDE<input id="minFortitude" type="number" value="0"></label></div>
-          <div class="label" style="margin-top:10px">CANDIDATES</div><textarea id="benchIn" spellcheck="false" placeholder="Wall rail | 82 | 74..88 | 90 | reversible clamp&#10;Floor frame | 70..85 | 93 | 68 | fast deployment&#10;Unknown donor | ? | 95 | 80 | measure first"></textarea>
-          <div class="row"><button id="evaluate" class="gold">EVALUATE</button><button id="demoBench">LOAD DEMO</button><button id="clearBench">CLEAR</button></div>
-          <div class="law"><b>No score soup.</b> Hard limits reject only proven failures. Unknowns remain live. A candidate is dominated only when another is guaranteed no worse on every axis and strictly better on at least one. Overlap stays unresolved.</div>
-        </div>
-        <div class="card"><div class="label">SURVIVOR SET · NOT A WINNER RANKING</div><div class="summary" id="benchSummary"><span class="badge">NO RUN</span></div><div class="results" id="benchResults"><div class="note">Enter real alternatives and constraints. The useful output is survivors, exclusions, and what must be measured next.</div></div></div>
-      </div>
-    </section>
-    <iframe class="pane toolPane" data-mode="scan" title="Sensitive text scan" src="./pii-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
-    <iframe class="pane toolPane" data-mode="read" title="Text analysis" src="./text-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
-    <iframe class="pane toolPane" data-mode="align" title="Multilingual alignment" src="./re-reader.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
-    <iframe class="pane toolPane" data-mode="reshape" title="Data reshape" src="./reshaper.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
-  </main>
-</div>
-<footer class="trace" id="trace"><div class="traceLabel">TRACE</div><div class="traceItem"><b>EMPTY</b><span>load or evaluate one object</span></div></footer>
-<button id="helpToggle">CLI / LAW</button>
-<aside id="help"><b>WHEN A COMMAND IS THE RIGHT EFFECTOR</b><code>REPO SCAN · node pii-scan.mjs ~/repo --history --redact
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090b"><meta name="robots" content="noindex,nofollow"><title>OMNITOOLS · 0.3</title><style>
+:root{color-scheme:dark;--bg:#07090b;--ink:#edf0eb;--mut:#89969c;--line:#33414a;--gold:#d9ad62;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink)}body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}button,input,textarea{font:inherit;color:inherit;border:1px solid var(--line);border-radius:0;background:#10171c}button{min-height:32px;padding:5px 8px;cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px solid var(--gold);outline-offset:2px}button.on{border-color:var(--gold);color:var(--gold)}button:disabled{opacity:.45}a{color:var(--gold)}.app{height:100%;display:grid;grid-template-rows:40px minmax(0,1fr);min-width:0}.top{display:flex;align-items:center;gap:8px;padding:3px 8px;border-bottom:1px solid var(--line);min-width:0}.brand{font:800 12px system-ui;white-space:nowrap}.sourceStat{min-width:0;flex:1;color:var(--mut);font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sourceStat b{font-weight:400}.workspace{min-height:0;min-width:0}.pane{display:block;width:100%;height:100%;border:0;background:var(--bg)}.pane[hidden]{display:none}dialog{padding:0;width:min(650px,calc(100vw - 16px));max-height:calc(100dvh - 16px);border:1px solid var(--line);background:var(--bg);color:var(--ink)}dialog::backdrop{background:#000c}.drawer{padding:12px;display:grid;gap:8px;min-width:0}.drawerHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.drawerHead b{font-size:12px}.axis{display:flex;gap:3px}.axis button{flex:1;min-width:0;font-size:10px;padding:4px 2px}.drawer input,.drawer textarea{width:100%;min-width:0;padding:6px}.drawer textarea{height:clamp(80px,20dvh,180px);resize:none}.sourceActions{display:flex;gap:6px}.sourceActions button:first-child{flex:1}.meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--mut);font-size:9px}.drop{border:1px dashed var(--line);padding:6px;color:var(--mut);font-size:10px}.drop.over{border-color:var(--gold)}.returnRow{display:flex;gap:6px;align-items:center}.returnRow span{font-size:9px;color:var(--mut);flex:1;min-width:0;overflow-wrap:anywhere}.note{font-size:10px;color:var(--mut);margin:0}.trace{display:grid;gap:3px}.traceItem{border-top:1px solid var(--line);padding-top:3px;font-size:9px}.traceItem b{display:block}.traceItem span{color:var(--mut);overflow-wrap:anywhere}.drawer details{font-size:10px}.drawer code{white-space:pre-wrap;display:block;color:var(--mut);font-size:9px}.drawer summary{cursor:pointer}.drawer label{display:grid;gap:3px;font-size:10px;color:var(--mut)}.drawer p{overflow-wrap:anywhere}.drawerHead button{min-height:28px}.routeReturn{display:flex;justify-content:space-between;font-size:10px}
+@media(max-width:360px){.brand{font-size:11px}.sourceStat{font-size:8px}.top button{font-size:10px}.axis button{font-size:9px}}
+@media(max-height:450px){.app{grid-template-rows:34px minmax(0,1fr)}.top button{min-height:26px;height:26px;font-size:10px}.drawer{grid-template-columns:1fr 1fr;gap:5px;padding:8px}.drawerHead,.axis,.sourceActions,.returnRow,.routeReturn,.drawer details,.drawer>.note{grid-column:1 / -1}.drawer textarea{height:62px}.drawer label{font-size:9px}.meta{font-size:8px}.drop{font-size:9px}.drawer button{min-height:26px}}
+</style></head><body><div class="app">
+<header class="top"><b class="brand">OMNITOOLS / 0.3</b><div class="sourceStat"><b id="sourceSpine">EMPTY</b></div><button id="sourceToggle" aria-expanded="false" aria-controls="sourceDock">SOURCE / ROUTE</button></header>
+<main class="workspace">
+<iframe class="pane toolPane" id="benchPane" data-mode="bench" title="General constraint decision bench" src="/forward-field-proof/triangle/bench/?embedded=1" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+<iframe class="pane toolPane" data-mode="scan" title="Sensitive text scan" src="./pii-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+<iframe class="pane toolPane" data-mode="read" title="Text analysis" src="./text-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+<iframe class="pane toolPane" data-mode="align" title="Multilingual alignment" src="./re-reader.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+<iframe class="pane toolPane" data-mode="reshape" title="Data reshape" src="./reshaper.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+</main></div>
+<dialog id="sourceDock"><section class="drawer">
+<div class="drawerHead"><b>ONE SOURCE · FIVE PROJECTIONS</b><button id="closeSource" aria-label="Close source and route">×</button></div>
+<nav class="axis" aria-label="Choose projection"><button data-mode="bench" class="on">BENCH</button><button data-mode="scan">SCAN</button><button data-mode="read">READ</button><button data-mode="align">ALIGN</button><button data-mode="reshape">RESHAPE</button></nav>
+<label>Source label<input id="sourceName" autocomplete="off" maxlength="180" placeholder="Name the thing being worked on"></label>
+<label>Exact source bytes<textarea id="sourceText" spellcheck="false" placeholder="Decision JSON, receipt JSON, legacy NAME | FORM | FUNCTION | FORTITUDE | note lines, text or data"></textarea></label>
+<div class="sourceActions"><button id="loadMode">LOAD → BENCH</button><button id="clearSource">CLEAR SOURCE</button></div>
+<div class="meta"><span id="sourceSpineMeta">SESSION ONLY · NOTHING UPLOADED</span><span><b id="charCount">0</b> CH</span><span id="sourceHash">EMPTY</span></div>
+<div class="drop" id="drop">DROP ONE TEXT FILE · LOCAL ONLY</div>
+<p class="note">SOURCE ≠ RESULT. LOAD sends an explicit snapshot. Native tools own their operation and decision records.</p>
+<div class="returnRow"><button id="copyReturn">COPY CARRIER RECEIPT</button><span id="returnState">NO TRACE YET</span></div>
+<details><summary>TRACE / provenance</summary><div class="trace" id="trace"><div class="traceItem"><b>EMPTY</b><span>load one source</span></div></div></details>
+<details><summary>CLI / boundaries</summary><code>SOURCE → AXIS → EFFECTOR → TRACE → RETURN
+REPO SCAN · node pii-scan.mjs ~/repo --history --redact
 HTML EXTRACT · node html-munge.mjs page.html --mode tables
-BENCH · exact / range / ? evidence on FORM · FUNCTION · FORTITUDE
-
-PIPE
-SOURCE → AXIS → EFFECTOR → TRACE → RETURN
-
-BOUNDARY
-Session source ≠ canonical state.
-BENCH advice ≠ priority or permission.
-Projection preview ≠ proof of external effect.</code></aside>
-<script type="module" src="./instrument-app.mjs"></script>
-</body></html>
+BENCH · editable measures, limits, options and explicit decision RETURN
+SOURCE != RESULT · PROJECTION != EFFECT
+Carrier receipt contains matching-source evidence only.</code></details>
+<div class="routeReturn"><a href="../">FOUNDRY ↗</a><a href="/forward-field-proof/triangle/bench/">OPEN NATIVE BENCH ↗</a></div>
+</section></dialog><script type="module" src="./instrument-app.mjs"></script></body></html>
