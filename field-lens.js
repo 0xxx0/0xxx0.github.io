@@ -1,6 +1,7 @@
 (()=>{'use strict';
 const L=()=>window.LensState,H=()=>window.FieldLensHost;
-let foveate=false;
+let foveate=false,interferenceState=null,interferenceEpoch=0;
+let interferenceCorePromise=null,interferenceTruthPromise=null;
 const FIELD_FOVEATE={
   lensId:'field-foveate',lensVersion:'0.2',kind:'VIEW_LENS',
   status:'PARKED_NO_CLEAR_GAIN',
@@ -41,7 +42,7 @@ function snapshot(){
   if(foveate&&s.projection==='VISUAL')s=l.compose(s,FIELD_FOVEATE);
   return l.normalize(s);
 }
-function uiState(){const h=H();return{...(h?.uiState?.()||{}),foveate}}
+function uiState(){const h=H();return{...(h?.uiState?.()||{}),foveate,interference:interferenceState}}
 function restore(st){if(!st)return;foveate=!!st.foveate;H()?.restore?.(st);sync()}
 function projections(){return['AXIAL_LATEST','VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT']}
 function catalog(){return[FIELD_FOVEATE,SCALE_SPATIAL]}
@@ -81,8 +82,71 @@ function applyFoveation(){
     if(edges[i])edges[i].style.opacity=isFocus?'.95':para?'.7':'.2';
   });
 }
+function ensureInterferenceStyle(){
+  if(document.getElementById('fieldInterferenceStyle'))return;
+  const st=document.createElement('style');st.id='fieldInterferenceStyle';
+  st.textContent=`
+#apGlyph{position:relative}
+.fieldMismatchMark{--fi-a:0deg;--fi-b:18deg;--fi-gap:2.4px;--fi-alpha:.72;position:absolute;right:-7px;top:-7px;width:18px;height:18px;min-width:18px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--bg);overflow:hidden;cursor:pointer;z-index:8;box-shadow:0 0 0 2px var(--bg);opacity:.9}
+.fieldMismatchMark::before,.fieldMismatchMark::after{content:"";position:absolute;inset:2px;border-radius:50%;pointer-events:none}
+.fieldMismatchMark::before{background:repeating-linear-gradient(var(--fi-a),transparent 0 1px,rgba(114,188,231,var(--fi-alpha)) 1px 2px,transparent 2px var(--fi-gap))}
+.fieldMismatchMark::after{background:repeating-linear-gradient(var(--fi-b),transparent 0 1px,rgba(237,116,71,var(--fi-alpha)) 1px 2px,transparent 2px var(--fi-gap));mix-blend-mode:screen}
+html[data-theme="light"] .fieldMismatchMark::after{mix-blend-mode:multiply}
+.fieldMismatchMark:hover,.fieldMismatchMark:focus-visible{border-color:var(--gold);outline:1px solid var(--gold);outline-offset:1px;opacity:1}
+.fieldMismatchMark[data-level="high"]{border-color:var(--hot)}
+.fieldMismatchMark[data-level="mid"]{border-color:var(--gold)}
+@media(prefers-reduced-motion:no-preference){.fieldMismatchMark[data-live="1"]::after{animation:fiPhase 4.2s linear infinite}@keyframes fiPhase{to{transform:rotate(360deg)}}}
+`;
+  document.head.appendChild(st);
+}
+function clearInterferenceMark(){document.querySelector('.fieldMismatchMark')?.remove();interferenceState=null}
+function interferenceCore(){return interferenceCorePromise||(interferenceCorePromise=import('/field/moire-route/pair.mjs'))}
+function interferenceTruth(){
+  return interferenceTruthPromise||(interferenceTruthPromise=Promise.all([
+    fetch('/showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('manifest '+r.status);return r.json()}),
+    fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('CURRENT '+r.status);return r.json()})
+  ]).then(([manifest,current])=>({manifest,current})));
+}
+function mismatchHref(focus,projection,alternative){
+  const p=new URLSearchParams({focus,projection,compare:alternative});
+  const a=H()?.uiState?.()?.axisState||{};
+  if(a.state&&a.state!=='ANY')p.set('ax_state',a.state);
+  if(a.operation&&a.operation!=='ANY')p.set('ax_op',a.operation);
+  if(a.mode&&a.mode!=='ANY')p.set('ax_mode',a.mode);
+  return '/field/moire-route/?'+p.toString();
+}
+async function syncInterferenceMark(){
+  const epoch=++interferenceEpoch;clearInterferenceMark();
+  const host=H(),route=host?.focus?.(),rawProjection=host?.projection?.()||'AXIAL_LATEST';
+  if(!route?.href)return;
+  try{
+    const [P,truth]=await Promise.all([interferenceCore(),interferenceTruth()]);
+    const projection=P.normalizeProjection?P.normalizeProjection(rawProjection):String(rawProjection||'AXIAL_LATEST');
+    const choice=P.chooseCounterProjection(truth.manifest,truth.current,route.href,projection,{threshold:.24});
+    const currentRoute=H()?.focus?.(),currentProjection=H()?.projection?.()||'AXIAL_LATEST';
+    if(epoch!==interferenceEpoch||currentRoute?.href!==route.href)return;
+    if(P.normalizeProjection&&P.normalizeProjection(currentProjection)!==projection)return;
+    interferenceState=choice;
+    if(!choice?.material||!choice.pair||!choice.alternative)return;
+    const pair=choice.pair,hostEl=document.getElementById('apGlyph');if(!hostEl)return;
+    ensureInterferenceStyle();
+    const b=document.createElement('button');b.type='button';b.className='fieldMismatchMark';b.dataset.live='1';
+    b.dataset.level=pair.total>=.5?'high':'mid';
+    const delta=Math.round(6+42*Math.min(1,pair.coordinate));
+    const gap=(3.35-1.45*Math.min(1,pair.total)).toFixed(2)+'px';
+    const alpha=(.42+.48*Math.min(1,pair.channel+.25*pair.coordinate)).toFixed(2);
+    b.style.setProperty('--fi-a','0deg');b.style.setProperty('--fi-b',delta+'deg');b.style.setProperty('--fi-gap',gap);b.style.setProperty('--fi-alpha',alpha);
+    const pc=n=>Math.round(n*100)+'%';
+    b.setAttribute('aria-label','Representation disagreement '+pc(pair.total)+'; open interference instrument');
+    b.title='REPRESENTATION DISAGREEMENT '+pc(pair.total)+' · '+pair.left_label+' ↔ '+pair.right_label+' · channels '+pc(pair.channel)+' · coordinates '+pc(pair.coordinate)+' · open instrument';
+    b.onclick=e=>{e.preventDefault();e.stopPropagation();location.assign(mismatchHref(route.href,choice.current,choice.alternative))};
+    hostEl.appendChild(b);
+  }catch(_){
+    if(epoch===interferenceEpoch)clearInterferenceMark();
+  }
+}
 function sync(){
-  applyFoveation();const s=snapshot();if(s)window.dispatchEvent(new CustomEvent('field-lens:state',{detail:s}));
+  applyFoveation();const s=snapshot();if(s)window.dispatchEvent(new CustomEvent('field-lens:state',{detail:s}));syncInterferenceMark();
 }
 function openStudio(){
   const h=H(),l=L(),s=snapshot(),r=h?.focus?.();if(!l||!s||!r)return;
@@ -98,6 +162,7 @@ window.FieldLensAPI=Object.freeze({
   rise:()=>{H()?.rise?.();sync()},
   dive:()=>{H()?.dive?.();sync()},
   project:m=>{H()?.project?.(m);sync()},
+  interference:()=>interferenceState,
   openStudio
 });
 window.FieldLensOptions={showTrigger:false,placement:'inline',anchor:'#aperture'};
