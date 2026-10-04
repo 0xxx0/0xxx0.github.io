@@ -3,6 +3,8 @@ import {
   contextRoutes,lineageFor,projectionCoordinates,representationMismatch
 } from "./core.mjs";
 
+export {normalizeProjection};
+
 export const AUTO_COMPARE_PROJECTIONS=Object.freeze([
   "AXIAL_LATEST","VISUAL","STRUCTURE","EVOLVE","VERSIONS","RECENT"
 ]);
