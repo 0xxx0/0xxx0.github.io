@@ -37,14 +37,14 @@ details{margin-top:10px;border-top:1px solid var(--line);padding-top:7px}summary
   <div>
     <div class="ey">FIELD INDEX · HELD OBJECT · REPRESENTATION MISMATCH</div>
     <h1>ALL MAPS ARE WRONG / INTERFERENCE</h1>
-    <p class="lede">The synthetic route is gone. This instrument receives the exact held FIELD route, reconstructs its real manifest lineage, compares canonical route facts with the selected FIELD projection, and renders the resulting coordinate loss as interference. Alignment may correct transformable coordinate drift; hidden channels remain visible residue.</p>
+    <p class="lede">The synthetic route is gone. This instrument receives the exact held FIELD route, reconstructs its real manifest lineage, compares canonical route facts with the selected FIELD projection, and now also measures disagreement between two live FIELD representations. Alignment may correct transformable coordinate drift; hidden or differently encoded channels remain visible residue.</p>
   </div>
   <a class="return" id="returnLink" href="/">RETURN → FIELD</a>
 </header>
 
 <section id="noHeld" class="noheld" hidden>
   <h2>NO HELD FIELD OBJECT</h2>
-  <p>This surface no longer invents a fixture. Return to FIELD INDEX, HOLD one addressed object, then enter MOIRÉ ROUTE from REFINE / PROVE.</p>
+  <p>This surface no longer invents a fixture. Return to FIELD INDEX, HOLD one addressed object, then enter MOIRÉ ROUTE from REFINE / PROVE or the held-object interference mark.</p>
   <a href="/">RETURN → FIELD INDEX</a>
 </section>
 
@@ -83,20 +83,21 @@ details{margin-top:10px;border-top:1px solid var(--line);padding-top:7px}summary
         <button id="copy">COPY REPORT</button>
       </div>
 
-      <div class="metric">ACTUAL REPRESENTATION MISMATCH<b id="total">—</b><small>fixed by the held object + selected projection</small></div>
+      <div class="metric">LIVE PROJECTION DISAGREEMENT<b id="pairTotal">—</b><small id="pairMeta">selected representation ↔ counterprojection</small></div>
+      <div class="metric">SELECTED → CANONICAL MISMATCH<b id="total">—</b><small>fixed by the held object + selected projection</small></div>
       <div class="metric">HIDDEN / DERIVED CHANNEL RESIDUE<b id="irreducible">—</b><small>cannot be removed by spatial alignment</small></div>
-      <div class="metric">COORDINATE DISPLACEMENT<b id="transformable">—</b><small>lineage displacement between canonical tree and projection coordinates</small></div>
-      <div class="metric">VISIBLE INTERFERENCE NOW<b id="residual">—</b><small>coordinate compensation reduces only the transformable component</small></div>
+      <div class="metric">COORDINATE DISPLACEMENT<b id="transformable">—</b><small>lineage displacement between canonical tree and selected projection</small></div>
+      <div class="metric">VISIBLE INTERFERENCE NOW<b id="residual">—</b><small>coordinate compensation reduces only transformable disagreement</small></div>
     </section>
 
     <section>
       <div class="views">
         <div class="view">
-          <div class="ey">INTERFERENCE · CANONICAL × PROJECTION</div>
+          <div class="ey" id="moireLabel">INTERFERENCE · REPRESENTATION × REPRESENTATION</div>
           <canvas id="moire" width="640" height="640"></canvas>
         </div>
         <div class="view">
-          <div class="ey">REAL ROUTE CONTEXT · TREE × PROJECTION</div>
+          <div class="ey" id="coordLabel">REAL ROUTE CONTEXT · COORDINATE FRAME DISAGREEMENT</div>
           <canvas id="coords" width="640" height="640"></canvas>
         </div>
       </div>
