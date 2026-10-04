@@ -58,6 +58,12 @@ assert(choice.material&&choice.alternative&&choice.alternative!=="AXIAL_LATEST",
 assert(choice.pair?.href===candidate.href,"counterprojection choice must retain held object identity");
 assert(choice.candidates.every(x=>x.id!==choice.current),"current projection may not compare with itself");
 
+const lensSource=fs.readFileSync(new URL("../../field-lens.js",import.meta.url),"utf8");
+new Function(lensSource);
+assert(lensSource.includes("fieldMismatchMark")&&lensSource.includes("chooseCounterProjection"),"FIELD lens must carry the live mismatch mark contract");
+assert(lensSource.includes("compare:alternative")&&lensSource.includes("threshold:.24"),"live mark must deep-link the exact pair and remain materially gated");
+assert(lensSource.includes("pair.mjs")&&lensSource.includes("/control/CURRENT.json"),"live mark must derive from the same pair model + FIELD truth sources");
+
 const trial=representationTrial(manifest,current,candidate.href);
 assert(trial.ok,"PLAIN ↔ PAINTING must preserve the held semantic envelope exactly");
 assert(Object.values(trial.invariants).every(Boolean),"identity/actions/witness/RETURN must remain equal across representations");
@@ -85,7 +91,7 @@ console.log(JSON.stringify({
   live_pair:{
     current:choice.current,counter:choice.alternative,
     total:choice.pair.total,channel:choice.pair.channel,coordinate:choice.pair.coordinate,
-    available
+    available,live_mark_contract:true,material_threshold:.24
   },
   painting_plain:{machine_pass:trial.ok,invariants:trial.invariants,authority:trial.authority,human_return:"PENDING_LOCAL_USE"},
   invariant:"runtime source is manifest/CURRENT held object; synthetic route fixture removed; live interference reports real projection disagreement; coordinate alignment cannot erase channel disagreement; painting may change atmosphere/geometry but never semantic identity or authority"
