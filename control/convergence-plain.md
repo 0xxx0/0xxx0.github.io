@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-03T18:44:59.713Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-04T13:17:55.508Z by scripts/generate-convergence-strip.mjs_
 
-The field has **175 material commits on 2026-10-03** across **978 branches** (317 exact Git commits in the window; 142 generated telemetry; 4941 on master all-time).
+The field has **9 material commits on 2026-10-04** across **985 branches** (29 exact Git commits in the window; 20 generated telemetry; 4953 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,6 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- Merge PR #923: FIELD semantic ZUI continuity
+- test: enforce single-owner Escape in FIELD ZUI
+- FIELD ZUI: give deep Escape one owner and keep depth derived
 
 ## Open gaps
 

@@ -1,15 +1,19 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-03T18:44:59.713Z",
+  "generated": "2026-10-04T13:17:55.508Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
-  "commits_window": "2026-10-03",
-  "commits_in_window": 175,
-  "git_commits_in_window": 317,
-  "telemetry_commits_in_window": 142,
-  "commits_total": 4941,
-  "branch_count": 978,
-  "recent_commits": [],
+  "commits_window": "2026-10-04",
+  "commits_in_window": 9,
+  "git_commits_in_window": 29,
+  "telemetry_commits_in_window": 20,
+  "commits_total": 4953,
+  "branch_count": 985,
+  "recent_commits": [
+    "Merge PR #923: FIELD semantic ZUI continuity",
+    "test: enforce single-owner Escape in FIELD ZUI",
+    "FIELD ZUI: give deep Escape one owner and keep depth derived"
+  ],
   "active_fronts": [
     {
       "id": "conversion",
