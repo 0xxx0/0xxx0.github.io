@@ -1,6 +1,6 @@
 {
  "schema": "showcase-manifest/v1",
- "updated": "2026-10-03T15:27:33+08:00",
+ "updated": "2026-10-04T00:45:24+00:00",
  "root": "/",
  "kernel": [
   "OBJECT",
@@ -3650,12 +3650,12 @@
   },
   {
    "href": "/forward-field-proof/triangle/",
-   "title": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
+   "title": "TRIANGLE 1.1",
    "kind": "workbench",
    "parent": "/forward-field-proof/",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "version": "1.0",
+   "version": "1.1",
    "receipt": "/forward-field-proof/triangle/release.json",
    "showcase_card": false,
    "field": {
@@ -3712,7 +3712,7 @@
     "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
    },
    "index": {
-    "updated_at": "2026-09-22T00:04:00+08:00",
+    "updated_at": "2026-10-04T00:44:54+00:00",
     "work_modes": [
      "SPECIFY",
      "IMPLEMENT",
@@ -3720,38 +3720,66 @@
      "OPERATE"
     ]
    },
-   "role": "Unified geometric instrument: eight-locus relational glyphs, one-mark executable FORM calculus, queryable power-triangle relation, and preserved simplex bench. Shared address/state/RETURN; semantics remain distinct.",
+   "role": "Relational glyphs, executable FORM calculus and inverse-query power retain their native semantics. BENCH opens the single generalized constraint-decision instrument; no duplicate hardcoded ranking remains.",
    "transfer": [
     "Triangle Glyph Lab 8-locus addressing grammar",
     "Spencer-Brown-inspired FORM boundary discipline with executable CALL/CROSS core",
     "Power Triangle missing-corner inverse-query notation",
-    "Triangle Bench direct simplex manipulation",
     "shared triangle:// addresses + triangle-return/v1 receipts",
-    "old Bench content preserved under /forward-field-proof/triangle/bench/ with one relative Glyph-Lab relocation-link adjustment",
-    "CENTER retained separately as donor"
+    "CENTER retained separately as donor",
+    "One canonical generalized constraint bench, shared with Omnitools; original calibration preserved in Git ancestry."
    ],
    "tier": "FIELD"
   },
   {
    "href": "/forward-field-proof/triangle/bench/",
-   "title": "TRIANGLE BENCH 0.1 · FROZEN",
-   "kind": "artifact",
+   "title": "TRIANGLE / CONSTRAINT BENCH 0.2",
+   "kind": "workbench",
    "parent": "/forward-field-proof/triangle/",
    "family": "FIELD / PROOF",
-   "operation": "PROVE",
-   "state": "PARKED",
-   "version": "0.1",
+   "operation": "COMPARE",
+   "state": "CANDIDATE",
+   "version": "0.2",
    "receipt": "/forward-field-proof/triangle/bench/release.json",
    "showcase_card": false,
-   "role": "Pre-unification Triangle Bench preserved for calibration/proof comparison, with one relative Glyph-Lab link adjusted for its new location. No active execution obligation.",
+   "role": "Enter actual alternatives and 1–8 named quantities in native units. Enforce hard limits, preserve unknown/range evidence, expose Pareto trade-offs, declare one main priority, and export/restore an exact decision RETURN. Sample numbers are synthetic; numerical fit is not real-world verification.",
    "index": {
-    "updated_at": "2026-09-22T00:04:00+08:00",
+    "updated_at": "2026-10-04T00:44:54+00:00",
     "work_modes": [
-     "REFERENCE",
+     "OPERATE",
      "VERIFY"
     ]
    },
-   "tier": "FIELD"
+   "tier": "FIELD",
+   "field": {
+    "owner": "/forward-field-proof/triangle/bench/",
+    "roles": [
+     "WORLD_IN",
+     "VERIFY"
+    ],
+    "inputs": [
+     {
+      "medium": "DATA",
+      "kind": "user-defined options, measured or estimated values, explicit bounds, evidence",
+      "interface": "editable numeric table / TSV / JSON"
+     }
+    ],
+    "outputs": [
+     {
+      "medium": "EVIDENCE",
+      "kind": "feasibility reasons, margins, trade-offs, local decision return",
+      "interface": "JSON model / decision-bench-return/v1"
+     }
+    ],
+    "exit_paths": [
+     {
+      "class": "COMPARE",
+      "status": "AVAILABLE",
+      "via": "/forward-field-proof/triangle/bench/"
+     }
+    ],
+    "physical_fit": "Compare entered design measurements. Does not establish structural safety, actual fit or execution."
+   }
   },
   {
    "href": "/forward-field-proof/triangle/glyph/",
@@ -5025,23 +5053,24 @@
   },
   {
    "href": "/foundry/omnitools/",
-   "title": "FOUNDRY / OMNITOOLS 0.2",
+   "title": "OMNITOOLS v3 · SOURCE / COMPARE / RETURN",
    "kind": "workbench",
    "parent": "/foundry/",
    "family": "FOUNDRY / OMNITOOLS",
    "operation": "TRANSFORM",
    "state": "CANDIDATE",
-   "version": "0.2",
+   "version": "0.3",
    "receipt": "/foundry/omnitools/release.json",
    "showcase_card": false,
-   "role": "One-screen workbench for scan, read, align and reshape. A single active tool surface preserves local processing; repository and HTML CLI tools remain reachable from one compact help aperture.",
+   "role": "Hold one source and load it into a specialist operation. The canonical Triangle Bench supplies editable measured constraints and exact decisions; SCAN / READ / ALIGN / RESHAPE retain native processing. Results bind to the source used for that operation. One reveal holds source, routes and trace.",
    "transfer": [
     "repo/PII pattern extraction",
     "entropy secret scoring",
     "trilingual re-reading overlay",
     "data format reshaping",
     "scrape munging",
-    "Four browser tools share one focused workbench and viewport; direct tool routes remain addressable without becoming root cards."
+    "Four browser tools share one focused workbench and viewport; direct tool routes remain addressable without becoming root cards.",
+    "Generalized Triangle Bench replaces duplicated three-score math; immutable source-bound returns and same-origin load/return hooks."
    ],
    "field": {
     "roles": [
@@ -5051,14 +5080,14 @@
     "inputs": [
      {
       "medium": "DATA",
-      "kind": "text, data or scraped HTML",
+      "kind": "text, data, decision model or alternatives with explicit criteria",
       "interface": "paste / file / stdin / git repo path"
      }
     ],
     "outputs": [
      {
       "medium": "EVIDENCE",
-      "kind": "findings, measurements, reshaped data",
+      "kind": "source-bound findings, measurements, reshaped data and exact local decision RETURN",
       "interface": "JSON / CSV / NDJSON / text"
      }
     ],
@@ -5067,12 +5096,17 @@
       "class": "IMPLEMENTATION",
       "status": "AVAILABLE",
       "via": "run the tool on the addressed input"
+     },
+     {
+      "class": "COMPARE",
+      "status": "AVAILABLE",
+      "via": "/forward-field-proof/triangle/bench/"
      }
     ],
     "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
    },
    "index": {
-    "updated_at": "2026-10-03T08:02:10+08:00",
+    "updated_at": "2026-10-04T00:44:54+00:00",
     "work_modes": [
      "IMPLEMENT",
      "VERIFY",
@@ -5082,12 +5116,12 @@
    "evolution": {
     "schema": "field-evolution/v0.1",
     "host": "/foundry/",
-    "generation": 1,
+    "generation": 3,
     "stage": "TEST",
-    "question": "Do compact self-contained tools remove real friction (PII exposure, text measurement, alignment, data movement) without adding surface area?",
+    "question": "Can one held source move through useful native operations and retain trustworthy results within the viewport?",
     "baseline": "Manual git grep, ad-hoc scripts and one-off pages per task.",
-    "mutation": "Replace the six-card catalog with a viewport-filling launcher: SCAN / READ / ALIGN / RESHAPE tabs + one active local tool + collapsed CLI help.",
-    "evidence_gate": "Each tool resolves one real task end-to-end on a fixture before it is listed; HTML tools additionally pass node --check and a live browser exercise.",
+    "mutation": "Preserve shared source instrument, embed canonical generalized decision host, bind each result to immutable input and collapse source/routes behind one reveal.",
+    "evidence_gate": "Exact engine cases, cross-source provenance tests and phone/landscape workflows must pass; actual usefulness remains unobserved.",
     "next_if_pass": "Keep the four tools that complete actual source-to-result work; merge or remove a tool only when a task is proven redundant.",
     "next_if_fail": "Keep as CANDIDATE/DONOR; do not expand the batch."
    },

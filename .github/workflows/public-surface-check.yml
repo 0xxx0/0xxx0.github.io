@@ -218,6 +218,10 @@ jobs:
         run: node tools/validate-pending-ci-rejection-selftest.mjs
       - name: Validate Triangle FORM rewrite core
         run: node tools/triangle-form-selftest.mjs
+      - name: Test Triangle Bench decision constraints
+        run: node tools/decision-bench-selftest.cjs
+      - name: Test Triangle Bench mobile decision workflow
+        run: node tools/decision-bench-smoke.mjs
       - name: Test LISTEN analysis + stream lens
         run: |
           node fold-bloom/listen/selftest.mjs
@@ -369,3 +373,4 @@ jobs:
       - name: Test frozen City engines and Painting handlers
         working-directory: recovery/sleeper/site-source-2026-09-18
         run: node --experimental-strip-types --test tests/field-engines.test.mjs tests/painting-path.test.mjs tests/painting-ui.test.mjs
+

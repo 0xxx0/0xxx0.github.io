@@ -1,59 +1,133 @@
 #!/usr/bin/env node
-'use strict';
 import http from 'node:http';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import {spawn} from 'node:child_process';
-import {browserBin} from './browser-bin.mjs';
-
-const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
-function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
-function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';const p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
-function probe(){return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block"></iframe><pre id="probeResult">PENDING</pre><script>
-const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let doneFlag=false;
-const done=(ok,x)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=16000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
-const W=()=>f.contentWindow,D=()=>W().document;
-(async()=>{try{
- f.src='/foundry/omnitools/?tool=bench';
- await wait(()=>D()?.getElementById('evaluate')?.onclick&&D()?.getElementById('sourceToggle')?.onclick,16000,'instrument boot');
- const d=D(),source=d.getElementById('sourceText'),name=d.getElementById('sourceName'),toggle=d.getElementById('sourceToggle');
- rec.mobile={toggle:getComputedStyle(toggle).display!=='none',width:W().innerWidth};
- if(!rec.mobile.toggle)throw Error('mobile source handle hidden');
- toggle.click();rec.mobile.open=d.getElementById('sourceDock').classList.contains('open');if(!rec.mobile.open)throw Error('mobile source sheet did not open');
- name.value='bench-fixture';name.dispatchEvent(new Event('input',{bubbles:true}));
- source.value='Rail | 82 | 74..88 | 90 | reversible clamp\\nFrame | 70..85 | 93 | 58 | fast deployment\\nUnknown | ? | 95 | 80 | measure form\\nWeak | 50 | 60 | 60 | dominated';source.dispatchEvent(new Event('input',{bubbles:true}));
- d.getElementById('minForm').value='55';d.getElementById('minFunction').value='60';d.getElementById('minFortitude').value='60';d.getElementById('sourceToBench').click();
- await wait(()=>/FRONT/.test(d.getElementById('benchSummary').textContent)&&d.querySelectorAll('.candidate').length>=4,4000,'bench result');
- rec.bench={summary:d.getElementById('benchSummary').textContent.trim(),sourceSame:d.getElementById('benchIn').value===source.value,front:[...d.querySelectorAll('.candidate.FRONT .candidateHead b')].map(x=>x.textContent),rejected:[...d.querySelectorAll('.candidate.REJECT .candidateHead b')].map(x=>x.textContent),missing:[...d.querySelectorAll('.missing')].map(x=>x.textContent)};
- if(!rec.bench.sourceSame||!rec.bench.front.includes('Rail')||!rec.bench.front.includes('Unknown')||!rec.bench.rejected.includes('Frame'))throw Error('bench carrier/survivor/reject evidence unexpected');
-
- const fixtureEmail=['test','example.com'].join('@');source.value='contact '+fixtureEmail+' and alpha beta gamma';source.dispatchEvent(new Event('input',{bubbles:true}));
- d.querySelector('[data-mode="scan"]').click();d.getElementById('loadMode').click();
- await wait(()=>d.querySelector('[data-mode="scan"].toolPane')?.contentDocument?.getElementById('in')?.value===source.value,5000,'scan source handoff');
- const sd=d.querySelector('[data-mode="scan"].toolPane').contentDocument;
- await wait(()=>/email/i.test(sd.getElementById('out')?.textContent||''),5000,'scan result');
- rec.scan={same:sd.getElementById('in').value===source.value,result:sd.getElementById('out').textContent.trim().slice(0,100)};
- if(!rec.scan.same)throw Error('scan source identity lost');
-
- d.querySelector('[data-mode="read"]').click();d.getElementById('loadMode').click();
- await wait(()=>d.querySelector('[data-mode="read"].toolPane')?.contentDocument?.getElementById('in')?.value===source.value,5000,'read source handoff');
- const rd=d.querySelector('[data-mode="read"].toolPane').contentDocument;
- await wait(()=>{const s=(rd.getElementById('grid')?.textContent||'').replace(/\s+/g,'');return s&&!/COUNTS0characters/i.test(s)},5000,'read result');
- rec.read={same:rd.getElementById('in').value===source.value,result:rd.getElementById('grid').textContent.trim().slice(0,100)};
- if(!rec.read.same)throw Error('read source identity lost');
-
- await wait(()=>{const xs=[...d.querySelectorAll('#trace .traceItem b')].map(x=>x.textContent);return xs.some(x=>/OBSERVED · READ/.test(x))&&xs.some(x=>/OBSERVED · SCAN/.test(x))},5000,'observed cross-axis trace');
- rec.trace=[...d.querySelectorAll('#trace .traceItem b')].map(x=>x.textContent).slice(0,8);
- rec.overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
- if(rec.overflow>1)throw Error('horizontal overflow '+rec.overflow);
- done(true,rec);
-}catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
-<\/script></body></html>`}
-const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
-function run(bin){return new Promise((resolve,reject)=>{const args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=470,960','--virtual-time-budget=24000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},36000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
-await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));PORT=server.address().port;
+import {spawn,spawnSync} from 'node:child_process';
+const ROOT=process.cwd();
+function browserBin(){
+ if(process.env.SMOKE_BROWSER){if(!fs.existsSync(process.env.SMOKE_BROWSER))throw Error('SMOKE_BROWSER does not exist');return process.env.SMOKE_BROWSER;}
+ for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){const r=spawnSync('which',[name],{encoding:'utf8'});if(r.status===0)return r.stdout.trim();}
+ throw Error('No Chromium binary; set SMOKE_BROWSER or run exact candidate GitHub Actions browser gate');
+}
+async function probe(){
+ const f=document.getElementById('f'),out=document.getElementById('probeResult'),checks=[],messages=[],errors=[];
+ let w,d,cw,cd,copied='';const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ const assert=(yes,msg,data)=>{if(!yes)throw Error(msg+(data===undefined?'':' '+JSON.stringify(data)));};
+ const wait=async(fn,label,ms=6000)=>{const start=Date.now();while(Date.now()-start<ms){const result=fn();if(result)return result;await delay(30);}throw Error('Timeout: '+label);};
+ const q=s=>d.querySelector(s),cq=s=>cd.querySelector(s);
+ const text=id=>d.getElementById(id).textContent;
+ const model=()=>JSON.parse(w.localStorage.getItem('decision-bench:model:v1'));
+ const check=async(name,fn)=>{try{await fn();checks.push({name,pass:true});}catch(e){checks.push({name,pass:false,error:String(e.stack||e)});}};
+ function edit(el,value){assert(el,'Input missing');el.value=value;el.dispatchEvent(new el.ownerDocument.defaultView.Event('input',{bubbles:true}));}
+ function drawer(){if(!q('#sourceDock').open)q('#sourceToggle').click();assert(q('#sourceDock').open,'SOURCE/ROUTE reveal did not open');}
+ async function choose(mode){drawer();q('nav [data-mode="'+mode+'"]').click();await delay(20);assert(!q('#sourceDock').open,'Route choice leaves obstruction');}
+ async function source(value,label='source-A'){drawer();edit(q('#sourceName'),label);edit(q('#sourceText'),value);await wait(()=>text('charCount')===String(value.length),'source digest/count');}
+ async function load(value,label,mode='bench'){
+  await choose(mode);await source(value,label);const at=messages.length;q('#loadMode').click();
+  if(mode==='bench'){
+   const msg=await wait(()=>messages.slice(at).find(m=>m.type==='decision-bench:loaded'||m.type==='decision-bench:error'),'native source acknowledgement');assert(msg.type==='decision-bench:loaded','Bench import failed',msg);
+  }else await wait(()=>!q('#sourceDock').open,'tool source delivery');
+ }
+ async function copy(){drawer();copied='';q('#copyReturn').click();await wait(()=>copied,'carrier clipboard');return JSON.parse(copied);}
+ async function record(){
+  assert(!cq('#returnBtn').disabled,'Native RETURN disabled');cq('#returnBtn').click();edit(cq('#rationale'),'Entered limits and explicit local comparison');edit(cq('#nextStep'),'Measure before committing a physical change');cq('#saveReturn').click();
+  await wait(()=>/native decision recorded/.test(text('trace')),'native RETURN bridge');
+ }
+ function geometry(width,height){
+  const bad=[],r=e=>{const x=e.getBoundingClientRect();return{x:x.x,y:x.y,right:x.right,bottom:x.bottom,w:x.width,h:x.height};};
+  for(const selector of ['header','#sourceToggle','#benchPane']){const x=r(q(selector));if(x.x<-1||x.y<-1||x.right>width+1||x.bottom>height+1||x.w<=0||x.h<=0)bad.push({selector,rect:x});}
+  const frame=q('#benchPane'),outer=r(frame),innerWidth=cw.innerWidth,innerHeight=cw.innerHeight;
+  for(const selector of ['header','footer','#modelBtn','#moreBtn','#returnBtn','.criteriaSection','.matrixSection','.result','#focus']){
+   const e=cq(selector),x=r(e);if(x.x<-1||x.y<-1||x.right>innerWidth+1||x.bottom>innerHeight+1||x.w<=0||x.h<=0)bad.push({native:selector,rect:x,innerWidth,innerHeight});
+  }
+  for(const e of cd.querySelectorAll('#matrix input,#matrix .optionSelect,#criteria input')){
+   const x=r(e),top=cd.elementFromPoint(x.x+x.w/2,x.y+x.h/2);if(x.y<-1||x.bottom>innerHeight+1||x.right>innerWidth+1)bad.push({nativeControl:e.getAttribute('aria-label'),rect:x});
+   if(top&&!e.contains(top)&&!top.contains(e))bad.push({hidden:e.getAttribute('aria-label'),by:top.id||top.className});
+  }
+  const overflow={parentX:Math.max(d.body.scrollWidth,d.documentElement.scrollWidth)-width,parentY:Math.max(d.body.scrollHeight,d.documentElement.scrollHeight)-height,childX:Math.max(cd.body.scrollWidth,cd.documentElement.scrollWidth)-innerWidth,childY:Math.max(cd.body.scrollHeight,cd.documentElement.scrollHeight)-innerHeight};
+  if(Object.values(overflow).some(x=>x>1))bad.push({overflow});assert(!bad.length,'Integrated primary surface does not fit',{width,height,first:bad.slice(0,8),count:bad.length,outer});
+ }
+ try{
+  localStorage.clear();sessionStorage.clear();f.src='/foundry/omnitools/?tool=bench';
+  await wait(()=>f.contentWindow?.document?.getElementById('sourceToggle')?.onclick,'Omnitools boot');w=f.contentWindow;d=w.document;
+  w.addEventListener('error',e=>errors.push(e.message));w.addEventListener('unhandledrejection',e=>errors.push(String(e.reason)));
+  w.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===q('#benchPane').contentWindow)messages.push(e.data);});
+  Object.defineProperty(w.navigator,'clipboard',{configurable:true,value:{writeText:async value=>{copied=value;}}});
+  await wait(()=>q('#benchPane').contentWindow?.DecisionBenchCore&&q('#benchPane').contentDocument?.getElementById('returnBtn')?.onclick,'native Bench boot');cw=q('#benchPane').contentWindow;cd=cw.document;
+  const input={schema:'decision-bench/v1',id:'omni-test',title:'Compare measured work surfaces',sample:false,context:'Fixture only',criteria:[{id:'width',label:'Width',unit:'cm',direction:'min',min:null,max:80},{id:'area',label:'Area',unit:'cm²',direction:'max',min:4000,max:null},{id:'reset',label:'Reset',unit:'min',direction:'min',min:null,max:15}],options:[{id:'table',label:'Table',values:{width:80,area:4800,reset:12},evidence:'Fixture numbers',next:''},{id:'board',label:'Board',values:{width:65,area:4500,reset:[3,5]},evidence:'Fixture range',next:''},{id:'uncertain',label:'Uncertain',values:{width:[70,90],area:4200,reset:2},evidence:'Fixture range',next:''},{id:'large',label:'Large',values:{width:100,area:6000,reset:40},evidence:'Fixture blocked option',next:''}],priority:'reset',selected:'board'};
+  const json=JSON.stringify(input);
+  await check('One native Bench, explicit JSON LOAD and mutable criteria',async()=>{
+   assert(q('#benchPane').getAttribute('src')==='/forward-field-proof/triangle/bench/?embedded=1','Wrong Bench owner');assert(!q('#benchIn'),'Duplicate Omni evaluator still visible');
+   await load(json,'source-A');assert(model().id===input.id,'Generic model lost');assert(cd.getElementById('counts').textContent==='2 FIT · 1 ? · 1 OUT','Native constraint state differs');assert(!q('#sourceDock').open,'Source drawer hides imported result');
+  });
+  await check('Native recorded decision is source/request-bound and evidence-only',async()=>{
+   await record();const r=await copy();assert(r.authority==='EVIDENCE_ONLY','Carrier acquired authority');assert(r.bench?.receipt?.status==='PROPOSED'&&r.bench.requestId,'Native proposal not bound');
+   assert(r.bench.receipt.provenance?.label==='source-A','Load provenance label absent',r.bench.receipt.provenance);
+   assert(r.source.sha256_12===r.bench.source.sha256_12,'Source identity mismatch');
+  });
+  await check('Different held source excludes old decision and preview',async()=>{
+   await source('new source bytes','source-B');const r=await copy();assert(r.bench===null&&r.projection_preview===null,'Stale evidence attached to new source',r);
+   assert(r.trace.some(t=>t.source?.label==='source-A'),'Prior evidence lost its explicit source tag');
+  });
+  await check('Valid/invalid child edits invalidate cached receipt; invalid remains paused',async()=>{
+   await load(json,'source-A');await record();edit(cq('[data-option="board"][data-axis="width"]'),'66');await delay(100);assert((await copy()).bench===null,'Changed model retains prior receipt');
+   edit(cq('[data-option="board"][data-axis="width"]'),'bad');await delay(100);assert(cq('#returnBtn').disabled,'Invalid child draft can RETURN');assert((await copy()).bench===null,'Invalid child draft retains receipt');cq('#undoBtn').click();await delay(30);
+  });
+  await check('Invalid source acknowledgement preserves native model, binds no decision',async()=>{
+   const before=JSON.stringify(model());await choose('bench');await source('{broken','bad-source');const start=messages.length;q('#loadMode').click();
+   await wait(()=>messages.slice(start).some(m=>m.type==='decision-bench:error'),'invalid source response');assert(JSON.stringify(model())===before,'Rejected source replaced native model');assert((await copy()).bench===null,'Rejected source receives old result');
+  });
+  await check('Standalone/null-request RETURN cannot bind to held source',async()=>{
+   await load(json,'source-A');await record();const r=JSON.parse(w.localStorage.getItem('decision-bench:returns:v1'))[0];
+   cw.eval('parent.postMessage('+JSON.stringify({type:'decision-bench:return',requestId:null,receipt:r})+',location.origin)');await delay(100);assert((await copy()).bench===null,'Standalone decision bound to source');
+  });
+  await check('Same-origin wrong window and foreign origin cannot inject RETURN',async()=>{
+   await load(json,'source-A');await record();const before=(await copy()).bench;
+   const fake={type:'decision-bench:changed',valid:false};w.postMessage(fake,location.origin);await delay(50);assert(JSON.stringify((await copy()).bench)===JSON.stringify(before),'Wrong source window admitted');
+   w.dispatchEvent(new w.MessageEvent('message',{origin:'https://outside.invalid',source:cw,data:fake}));await delay(50);assert(JSON.stringify((await copy()).bench)===JSON.stringify(before),'Foreign origin admitted');
+  });
+  await check('Legacy source uses native adapter, uncertainty preserved',async()=>{
+   await load('Rail | 82 | 74..88 | 90 | reversible\nUnknown | ? | 95 | 80 | measure form','legacy');assert(model().criteria.length===3&&model().options.length===2,'Legacy rows not adapted');
+   assert(model().criteria.every(c=>c.min===null&&c.max===null),'Legacy adapter invents thresholds');assert(model().options.some(o=>Object.values(o.values).includes(null)),'Unknown converted to zero');
+  });
+  await check('SCAN and READ receive same immutable bytes; source switch excludes preview',async()=>{
+   const email=['test','example.com'].join('@'),bytes='contact '+email+' and alpha beta gamma';await load(bytes,'text-A','scan');
+   const sd=q('.toolPane[data-mode="scan"]').contentDocument;await wait(()=>/email/i.test(sd.getElementById('out')?.textContent||''),'scan output');
+   await wait(()=>/OBSERVED/.test(text('trace')),'observed preview');await delay(330);let r=await copy();assert(r.projection_preview?.mode==='scan'&&r.projection_preview.inputs.in===bytes&&r.projection_preview.observed_at,'Scan snapshot missing',r.projection_preview);
+   await load(bytes,'text-A','read');const rd=q('.toolPane[data-mode="read"]').contentDocument;assert(rd.getElementById('in').value===bytes,'READ handoff changed source');await delay(330);
+   await source('second bytes','text-B');r=await copy();assert(r.projection_preview===null,'Preview from old source attached to new bytes');
+  });
+  await check('Plain ALIGN after multilingual JSON clears prior language inputs',async()=>{
+   await load(JSON.stringify({ta:'Tamil fixture',zh:'Chinese fixture',en:'English fixture'}),'multi','align');
+   await load('Plain English only','plain','align');const ad=q('.toolPane[data-mode="align"]').contentDocument;
+   assert(ad.getElementById('ta').value===''&&ad.getElementById('zh').value===''&&ad.getElementById('en').value==='Plain English only','Stale languages attributed to plain source');
+   await delay(330);const r=await copy();assert(r.projection_preview?.inputs.ta===''&&r.projection_preview.inputs.zh===''&&r.projection_preview.inputs.en==='Plain English only','ALIGN snapshot is not exact');
+  });
+  await check('Projection switching preserves native decision without creating state authority',async()=>{
+   await load(json,'source-A');const before=JSON.stringify(model());await choose('read');await choose('bench');assert(JSON.stringify(model())===before,'Switching destroyed native model');assert(cd.getElementById('title').value===input.title,'Native view not retained');
+  });
+  for(const [width,height]of [[320,568],[390,844],[740,360],[844,390],[1280,800]])await check('Integrated mobile fit '+width+'×'+height,async()=>{
+   if(q('#sourceDock').open)q('#closeSource').click();await choose('bench');f.style.width=width+'px';f.style.height=height+'px';await delay(180);geometry(width,height);assert(d.querySelectorAll('header button').length===1,'Multiple mandatory route controls');
+  });
+  assert(!errors.length,'Runtime errors',errors);
+ }catch(e){checks.push({name:'Harness initialization/runtime',pass:false,error:String(e.stack||e)});}
+ out.textContent=JSON.stringify({pass:checks.length>0&&checks.every(c=>c.pass),checks,errors});
+}
+const html='<!doctype html><meta charset="utf-8"><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block"></iframe><pre id="probeResult">PENDING</pre><script>('+probe.toString()+')();<\/script>';
+const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml'};
+const server=http.createServer((req,res)=>{try{const u=new URL(req.url,'http://local');if(u.pathname==='/__omni_probe'){res.writeHead(200,{'content-type':'text/html; charset=utf-8'});res.end(html);return;}
+ let rel=decodeURIComponent(u.pathname).replace(/^\/+/, '');if(!rel||rel.endsWith('/'))rel+='index.html';const file=path.resolve(ROOT,rel);if(!file.startsWith(ROOT+path.sep)){res.writeHead(403);res.end();return;}
+ if(!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);res.end();return;}res.writeHead(200,{'content-type':(types[path.extname(file)]||'application/octet-stream')+'; charset=utf-8','cache-control':'no-store'});fs.createReadStream(file).pipe(res);
+}catch(e){res.writeHead(500);res.end(String(e));}});
+let profile;
 try{
- const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
- if(r.code!==0||fatal||!result.startsWith('PASS ')){console.error('OMNITOOLS SMOKE FAIL',result||'(no result)');if(r.err.trim())console.error(r.err.slice(-3500));process.exitCode=1}else console.log('OMNITOOLS SMOKE PASS',result.slice(5));
-}finally{await new Promise(r=>server.close(()=>r()))}
+ const bin=browserBin();profile=fs.mkdtempSync(path.join(os.tmpdir(),'omnitools-smoke-'));await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});const port=server.address().port;
+ console.log('Omnitools browser:',bin);const output=await new Promise((resolve,reject)=>{
+  const p=spawn(bin,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-first-run','--disable-background-networking','--user-data-dir='+profile,'--window-size=1500,1000','--virtual-time-budget=26000','--dump-dom','http://127.0.0.1:'+port+'/__omni_probe'],{stdio:['ignore','pipe','pipe']});let out='',err='';
+  const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('Smoke exceeded 40s\n'+err.slice(-2000)));},40000);p.stdout.on('data',b=>out+=b);p.stderr.on('data',b=>err+=b);p.on('error',e=>{clearTimeout(timer);reject(e);});p.on('close',code=>{clearTimeout(timer);code?reject(Error('Chrome exit '+code+'\n'+err.slice(-3000))):resolve(out);});
+ });
+ const raw=/<pre id="probeResult">([\s\S]*?)<\/pre>/.exec(output)?.[1];if(!raw||raw==='PENDING')throw Error('No completed Omnitools probe');
+ const report=JSON.parse(raw.replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'));
+ for(const c of report.checks)console.log((c.pass?'PASS ':'FAIL ')+c.name+(c.error?'\n'+c.error:''));console.log('OMNITOOLS SMOKE',report.checks.filter(c=>c.pass).length+'/'+report.checks.length);if(!report.pass)process.exitCode=1;
+}catch(e){console.error(String(e.stack||e));process.exitCode=1;}finally{await new Promise(r=>server.close(r));if(profile)fs.rmSync(profile,{recursive:true,force:true});}

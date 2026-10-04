@@ -1,52 +1,76 @@
 {
   "schema": "release-receipt/v1",
-  "title": "Triangle Bench · Frozen 0.1",
-  "version": "0.1",
-  "state": "PARKED",
-  "date": "2026-09-18",
+  "title": "Triangle Bench / Constraint Bench",
+  "version": "0.2",
+  "state": "CANDIDATE",
+  "date": "2026-10-04",
   "route": "/forward-field-proof/triangle/bench/",
   "parent": "/forward-field-proof/triangle/",
   "showcase_card": false,
-  "private_source": "0xxx0/0:projects/triangle-bench/",
-  "issue": "https://github.com/0xxx0/0/issues/4",
-  "claim": "Tests whether direct simplex manipulation improves a bounded three-way attention allocation over a plain two-control representation.",
-  "vertices": [
-    "EXPLOIT",
-    "EXPLORE",
-    "PROVE"
-  ],
-  "calibration_trials": 6,
-  "static_coverage": {
-    "sample_steps": 40,
-    "showcase_trace": 0.244,
-    "house_manual_run": 0.319,
-    "forward_field_trials": 0.437
-  },
-  "survival_gate": {
-    "min_region_share": 0.05,
-    "max_triangle_error_delta": 0.05,
-    "max_triangle_time_ratio": 1.25
-  },
-  "mutation": "NONE",
-  "known_limits": [
-    "Candidate profiles are declared priors, not measured ground truth.",
-    "Human calibration evidence not yet collected.",
-    "No active-queue mutation occurs in-browser."
-  ],
-  "current_classification": {
-    "reviewed_at": "2026-09-20T23:58:00+08:00",
-    "state": "PARKED",
-    "basis": "CURRENT explicitly parks Triangle Bench pending a named AXIAL/proof comparison need; human calibration evidence is still absent.",
-    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
-    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
-  },
-  "preserved_from": {
-    "path": "/forward-field-proof/triangle/",
-    "sha": "529483be4e2b31d0c5634306f2a21d94fc51ad03"
-  },
-  "note": "Pre-unification Triangle Bench preserved at a new route; content is retained with the single relative Glyph-Lab link adjusted for relocation.",
-  "preservation": {
+  "operation": "COMPARE",
+  "claim": "Compare user-entered alternatives under explicit numeric hard limits; preserve unknown/interval values, eliminate only guaranteed Pareto inferiority, and optionally find a guaranteed leader for one declared priority. Export and restore the exact local decision with rationale, next step and separately reported outcome.",
+  "predecessor": {
+    "version": "0.1",
     "source_sha": "529483be4e2b31d0c5634306f2a21d94fc51ad03",
-    "relocation_edit": "./glyph/ → ../glyph/"
-  }
+    "history": "Predecessor calibration source remains in Git ancestry. No proof of human preference for triangle geometry is inherited."
+  },
+  "mechanisms": [
+    "AXIAL shared ConstraintSurfaceCore survivor predicate",
+    "1–8 independent named quantities in native units; up to 40 entered alternatives",
+    "mandatory lower/upper bounds before preference",
+    "finite interval worst-case feasibility and robust Pareto dominance",
+    "one held option; paginated axes/options retain identity",
+    "explicit LOCAL RETURN with PROPOSED vs OBSERVATION_REPORTED distinction",
+    "numeric table fallback; no compulsory geometric vocabulary",
+    "Same-origin Omnitools source load and decision RETURN hook; the parent retains source identity and the child owns the only decision model."
+  ],
+  "known_limits": [
+    "Only entered options and declared criteria are compared. Structural safety or suitability cannot be inferred from numerical fit.",
+    "Intervals are caller-declared uncertainty sets; no probabilities, correlations or inferred confidence.",
+    "A priority leader only compares complete options fitting entered limits; unresolved options remain explicitly outside that claim.",
+    "Sample measurements are synthetic and visibly labeled; no recommendation about the actual room is claimed.",
+    "Browser persistence is device-local. JSON export is necessary for cross-device durability.",
+    "Actual user use/value remains unobserved. Computational and browser proof do not establish lived usefulness."
+  ],
+  "verification": {
+    "state": "LOCAL_COMPUTATION_AND_BROWSER_PASS",
+    "commands": [
+      "node tools/decision-bench-selftest.cjs",
+      "node tools/decision-bench-smoke.mjs"
+    ],
+    "return_path": "/forward-field-proof/triangle/bench/",
+    "checks": {
+      "decision_core": "12/12 PASS",
+      "actual_chrome_workflow_and_layout": "24/24 PASS",
+      "triangle_form": "6/6 PASS",
+      "route_grammar": "PASS",
+      "CURRENT_manifest_coherence": "PASS",
+      "release_version_coherence": "PASS"
+    },
+    "browser": "Google Chrome 154.0.8037.97 isolated headless profile",
+    "viewports": [
+      "320×568",
+      "390×844",
+      "740×360",
+      "844×390",
+      "1280×800"
+    ],
+    "integration": "Omnitools source/return bridge is exercised by tools/omnitools-smoke.mjs in the omnitools-check workflow; exact candidate results live in GitHub Actions."
+  },
+  "authority_boundary": "Local reasoning only; no CURRENT/QUEUE mutation, purchase, external sending, actuation or automatic execution.",
+  "research": [
+    {
+      "url": "https://www.nasa.gov/reference/6-8-decision-analysis/",
+      "transfer": "mandatory criteria, alternatives, assumptions and uncertainty before choice"
+    },
+    {
+      "url": "https://www.seas.ucla.edu/~vandenbe/cvxbook/bv_cvxbook.pdf",
+      "section": "4.7",
+      "transfer": "Pareto dominance preserves independent criteria without invented scalar utility"
+    },
+    {
+      "url": "https://arxiv.org/pdf/1010.5445",
+      "transfer": "Declared interval worst-case feasibility; conservativeness and unknowns remain explicit"
+    }
+  ]
 }

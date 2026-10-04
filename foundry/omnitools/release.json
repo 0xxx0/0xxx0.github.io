@@ -1,23 +1,24 @@
 {
   "schema": "release-receipt/v1",
   "title": "FOUNDRY / OMNITOOLS",
-  "version": "0.2",
-  "version_scope": "This version numbers the WORKBENCH BUNDLE (index.html + this receipt), matching index.html's 'OMNITOOLS / 0.2'. Individual tools version independently — their self-declared versions live in tool_versions and are the single truth for each tool; 0.1 and 0.2 here never describe the same object.",
+  "version": "0.3",
+  "version_scope": "v3 is the third Omnitools instrument revision, recorded as 0.3. Child tools retain independent versions.",
   "tool_versions": {
-    "index.html": "0.2",
+    "index.html": "0.3",
     "pii-scan.mjs": "0.2",
     "pii-lens.html": "0.1",
     "text-lens.html": "0.1",
     "re-reader.html": "0.2",
     "reshaper.html": "0.1",
-    "html-munge.mjs": "0.1"
+    "html-munge.mjs": "0.1",
+    "bench.mjs": "0.2"
   },
   "state": "CANDIDATE",
-  "date": "2026-10-03",
+  "date": "2026-10-04",
   "route": "/foundry/omnitools/",
   "parent": "/foundry/",
   "operation": "TRANSFORM",
-  "claim": "Four local browser tools (SCAN / READ / ALIGN / RESHAPE) share one viewport-sized workbench. Repository PII scanning and HTML extraction remain compact CLI operations in the same help aperture; individual tool routes remain addressable and no content is uploaded by the launcher.",
+  "claim": "One held source feeds native specialist tools and the canonical generalized Triangle Bench. User-defined quantities and limits replace abstract three-score ranking; unknowns remain separate, exact decisions can be restored, and every instrument result is bound to the input used.",
   "tools": [
     {
       "id": "pii-scan",
@@ -62,7 +63,7 @@
       "evidence": "fixture page through all 6 modes (text/md/links/tables/meta/json) plus stdin mode; script/style content stripped; entities decoded"
     }
   ],
-  "mutation": "Replace the six-card catalog with one fixed-height launcher and four same-origin task tabs; preserve each tool's current local processing.",
+  "mutation": "Converge the shared-source instrument with the tested generalized decision host, remove duplicate decision math, fix stale-source receipts, and place source/navigation/trace in one reveal.",
   "known_limits": [
     "pii-scan regex detectors are heuristics: real-name is keyword-anchored and low confidence; entropy sweep trades recall for noise (default 4.5 bits/char, pure-hex skipped).",
     "pii-scan history scan reports patch positions (hist:<sha>:<path>:<line>); deleted-line numbers refer to the pre-image file.",
@@ -72,7 +73,10 @@
     "re-reader aligns segments by index only; unequal block counts are displayed as missing, not silently padded.",
     "re-reader word counts come from Intl.Segmenter (ICU dictionary segmentation) where the engine has it; without it, the whitespace fallback mis-segments Chinese and the UI says so in the hint.",
     "Flesch readability in text-lens is an approximation (English syllable heuristic) and meaningless for Tamil/Chinese input.",
-    "Browser tools are client-side only and never transmit pasted content."
+    "Browser tools are client-side only and never transmit pasted content.",
+    "Decision comparison only uses entered alternatives, criteria and uncertainty. Numerical fit does not establish physical safety or real-world suitability.",
+    "Physical cylinder / connector / applicator lineage is retained as design context; this browser release does not implement or validate physical actuation.",
+    "Actual user use/value remains unobserved. Passing software checks does not establish lived usefulness."
   ],
   "evidence": {
     "receipt": "/foundry/omnitools/release.json",
@@ -80,9 +84,14 @@
       "every HTML tool: node --check on each <script> block",
       "every HTML tool: exercised live in a browser with assertions on rendered results",
       "both CLIs: run against real fixtures with asserted output",
-      "pii-scan: calibrated against the real public repo (noise reduced: phone 1551→8, real-name 218→5 at default settings)"
+      "pii-scan: calibrated against the real public repo (noise reduced: phone 1551→8, real-name 218→5 at default settings)",
+      "node tools/decision-bench-selftest.cjs",
+      "node tools/decision-bench-smoke.mjs",
+      "node tools/omnitools-bench-selftest.mjs",
+      "node tools/omnitools-smoke.mjs"
     ],
-    "return_path": "/foundry/"
+    "return_path": "/foundry/omnitools/",
+    "decision_receipt": "/forward-field-proof/triangle/bench/release.json"
   },
   "entry": "/foundry/omnitools/"
 }
