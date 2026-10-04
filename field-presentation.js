@@ -143,15 +143,17 @@ function bind(){
  const work=details('WORK'),prove=details('PROVE');if(!work||!prove)return;
  installStyle();sync();
  for(const [depth,node] of [['WORK',work],['PROVE',prove]]){
+  const peer=depth==='WORK'?prove:work;
   const summary=node.querySelector(':scope > summary');if(!summary)continue;
   summary.addEventListener('click',e=>{e.preventDefault();toggle(depth,'summary')});
+  node.addEventListener('toggle',()=>{if(node.open&&peer.open)peer.open=false;sync()});
  }
  document.addEventListener('keydown',e=>{
   if(e.key!=='Escape'||state()==='HOLD')return;
   const t=e.target,tag=t?.tagName?.toLowerCase?.();
   if(t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select')return;
-  close('escape');
- });
+  e.preventDefault();e.stopImmediatePropagation();close('escape');
+ },true);
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',bind,{once:true}):bind();
 window.FieldZUI=Object.freeze({state,open,close,toggle,transition});
