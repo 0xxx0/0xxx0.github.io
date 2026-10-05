@@ -1,18 +1,15 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-05T17:11:45.206Z",
+  "generated": "2026-10-05T17:42:47.298Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-05",
   "commits_in_window": 2,
-  "git_commits_in_window": 139,
-  "telemetry_commits_in_window": 137,
-  "commits_total": 5107,
+  "git_commits_in_window": 142,
+  "telemetry_commits_in_window": 140,
+  "commits_total": 5110,
   "branch_count": 986,
-  "recent_commits": [
-    "linkfield: all-links index with live filter + lane chips (2026-10-05)",
-    "linkfield: living link-field doc + one-command generator (2026-10-05)"
-  ],
+  "recent_commits": [],
   "active_fronts": [
     {
       "id": "conversion",
