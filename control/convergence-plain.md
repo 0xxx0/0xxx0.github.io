@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-05T08:55:45.360Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-05T09:26:47.568Z by scripts/generate-convergence-strip.mjs_
 
-The field has **0 material commits on 2026-10-05** across **986 branches** (89 exact Git commits in the window; 89 generated telemetry; 5057 on master all-time).
+The field has **2 material commits on 2026-10-05** across **986 branches** (94 exact Git commits in the window; 92 generated telemetry; 5062 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,6 +13,8 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- linkfield: all-links index with live filter + lane chips (2026-10-05)
+- linkfield: living link-field doc + one-command generator (2026-10-05)
 
 ## Open gaps
 
