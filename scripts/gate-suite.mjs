@@ -29,6 +29,8 @@ const GATES = [
   { id: 'interphase-registry', cmd: 'node', args: ['scripts/check-interphase.mjs'] },
   { id: 'public-surface', cmd: 'node', args: ['tools/validate-public.mjs'] },
   { id: 'interphase-runtime', cmd: 'node', args: ['tools/interphase-selftest.cjs'] },
+  { id: 'interphase-composition', cmd: 'node', args: ['tools/interphase-composition-selftest.cjs'] },
+  { id: 'interphase-lenses', cmd: 'node', args: ['tools/interphase-lenses-selftest.cjs'] },
   { id: 'interphase-mapping', cmd: 'node', args: ['tools/interphase-mapping-selftest.cjs'] },
   { id: 'interphase-ring', cmd: 'node', args: ['tools/interphase-ring-selftest.cjs'] },
   { id: 'interphase-successor', cmd: 'node', args: ['tools/interphase-successor-selftest.cjs'] },
