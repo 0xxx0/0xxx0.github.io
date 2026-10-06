@@ -1,0 +1,41 @@
+name: field-urlbar
+on:
+  pull_request:
+    paths:
+      - 'field-urlbar.js'
+      - 'lib/field-address.mjs'
+      - 'lib/field-signal.js'
+      - 'tools/field-address-selftest.mjs'
+      - '.github/workflows/field-urlbar.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'field-urlbar.js'
+      - 'lib/field-address.mjs'
+      - 'lib/field-signal.js'
+      - 'tools/field-address-selftest.mjs'
+      - '.github/workflows/field-urlbar.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check browser module syntax
+        run: node --input-type=module --check < field-urlbar.js
+      - name: Check address grammar syntax
+        run: node --check lib/field-address.mjs
+      - name: Prove address grammar laws
+        run: node tools/field-address-selftest.mjs
+      - name: Preserve FIELD signal API under root boot hook
+        run: node - <<'NODE'
+          const s=require('./lib/field-signal.js');
+          if(s.normalize('github')!=='EXTERNAL')throw Error('signal alias drift');
+          if(s.combine({changed:true,reality:true})!=='MIXED')throw Error('signal combine drift');
+          console.log('FIELD SIGNAL API PASS · root URL-bar boot does not alter signal semantics');
+          NODE
