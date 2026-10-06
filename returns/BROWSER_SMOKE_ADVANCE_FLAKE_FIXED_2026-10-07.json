@@ -1,0 +1,33 @@
+{
+  "schema": "field-return/v1",
+  "id": "BROWSER_SMOKE_ADVANCE_FLAKE_FIXED_2026-10-07",
+  "date": "2026-10-07",
+  "state": "SHIPPED_TO_MASTER",
+  "object": "tools/browser-smoke.mjs — FIELD advance-as-scale case: the last local smoke flake, stabilized by observing the transition instead of racing it.",
+  "before": "The case sampled computed style once at sleep(72) after clicking a map row. Two measured failure families on the operator's host (Chrome for Testing 153, macOS 26.3, headless): (a) a too-early click misses the row handler (map-row wiring lands after the boot animations; the click then escapes the advance transition) — fails fast (~47ms, no animation created); (b) the headless animation ticker intermittently stalls: the transition animation is created, running, with the correct keyframes, but never advances a frame — computed style stays identity for the whole flight and navigation completes via the app's 560ms hard fallback (~600ms). Result: 2 FAIL / 1 PASS across 3 runs.",
+  "delta": [
+    "Settle + verify: wait 300ms after boot, re-grab the row, and click only once its handler is WIRED (`typeof row.onclick==='function'` — the wiring is readable). Fixes family (a) deterministically.",
+    "Observe, don't sample: collect frames (scale, opacity) continuously from click until the document advances; scaledSeen = visual evidence; maxScale / minOpacity / firstScaledMs recorded.",
+    "Capture the transition's SPEC when created: any animation targeting #apGlyph whose keyframes are scale(1)->scale(1.75) + opacity 1->0.12 is recorded (apGlyphAnim + animSpec). Fixes family (b): a stalled ticker is an environment fact, not an app regression.",
+    "Pass predicate: nativeAnimate && (scaledSeen OR apGlyphAnim) && elapsed<1800; reduced-motion and hard-fallback clauses unchanged. Removing the transition from the app fails both halves; breaking its keyframes fails the spec half."
+  ],
+  "after": "Single case: 8/8 inner + 6/6 runner-level PASS (was 2F/1P). Full suite: 91/91 (was 90/91, this case the sole failure). The record carries a `visual` flag so every run states whether rendered motion was observed.",
+  "evidence": {
+    "commit": "663a4797 (origin/master)",
+    "verified": "python3 tools/finish-line.py --verify 663a4797 — PASS (asks the remote)",
+    "case_logs": "~/.hermes/profiles/thisjustthing/cache/scratch/{v3-1..8.log, v3f-1..6.log}",
+    "suite_log": "~/.hermes/profiles/thisjustthing/cache/scratch/suite-advance-fix.log (91 PASS, 0 FAIL)",
+    "stall_specimen": "fail-run detail: animDetail [{tgt:'apGlyph', dur:280, ps:'running', ct:0, keys:['scale(1)|1','scale(1.75)|0.12']}] with computed style identity across 36 frames — animation created, ticker stalled",
+    "reverse": "Single file (tools/browser-smoke.mjs, +32/-8); `git revert 663a4797` restores the old case."
+  },
+  "laws": [
+    "An instrument that samples once races everything timing-dependent. Collect frames; assert on evidence the whole flight produced.",
+    "Where the environment cannot render reliably, assert the SPEC the app creates; keep the visual observation as a carried flag, not the gate.",
+    "A flake is a finding: name which race the instrument tolerates (here: an environment stall) and which it still fails on (a missing or wrong transition)."
+  ],
+  "open": [
+    "Family (b) — the headless animation ticker stall (CVDisplayLinkCreateWithCGDisplay failed (-6670) family, also behind `--dump-dom` latency; see BROWSER_RESOLVER_WORKLOAD_PROBE_2026-10-07) — is environment-level. A future case that must prove RENDERED motion on this host needs a rendering-pump strategy, not a longer timeout."
+  ],
+  "object_ref": "tools/browser-smoke.mjs",
+  "receipt": "/returns/BROWSER_SMOKE_ADVANCE_FLAKE_FIXED_2026-10-07.json"
+}
