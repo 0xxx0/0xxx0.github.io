@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T16:48:45.859Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T17:19:45.695Z by scripts/generate-convergence-strip.mjs_
 
-The field has **224 material commits on 2026-10-06** across **1018 branches** (374 exact Git commits in the window; 150 generated telemetry; 5474 on master all-time).
+The field has **226 material commits on 2026-10-06** across **1018 branches** (379 exact Git commits in the window; 153 generated telemetry; 5479 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- gitleaks: pin the action to 8.30.1 (policy parity — the default 8.24.3 silentl
+- gitleaks: allowlist the linkfield ledgers' bare 40-hex commit SHAs (sourcegrap
 - desk: refresh public field data
-- Merge pull request #936 from 0xxx0/crew-turn-executable-final-20261006
-- Merge pull request #940 from 0xxx0/field-omnibar-20261006-r2
 
 ## Open gaps
 
