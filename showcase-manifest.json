@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T05:29:06.411Z",
+  "updated": "2026-10-06T14:20:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1415,7 +1415,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-06T13:21:25+08:00",
+        "updated_at": "2026-10-06T14:03:29+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -3712,7 +3712,7 @@
         "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
       },
       "index": {
-        "updated_at": "2026-10-06T05:26:08.764Z",
+        "updated_at": "2026-10-06T13:26:08.764+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -3744,7 +3744,7 @@
       "showcase_card": false,
       "role": "Enter actual alternatives and 1–8 named quantities in native units. Enforce hard limits, preserve unknown/range evidence, expose Pareto trade-offs, declare one main priority, and export/restore an exact decision RETURN. Sample numbers are synthetic; numerical fit is not real-world verification.",
       "index": {
-        "updated_at": "2026-10-06T05:26:08.764Z",
+        "updated_at": "2026-10-06T13:26:08.764+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5106,7 +5106,7 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-06T05:26:08.764Z",
+        "updated_at": "2026-10-06T13:26:08.764+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9606,6 +9606,68 @@
           "components extracted from /20261006-ai-mode-thread-mcvoid/, /20261006-cs50-or-not-mcvoid/, /20261005-linkfield-mcvoid/ (+ links.html); values frozen into semantic tokens in tools/house-patterns.css",
           "extant survey fetched 2026-10-06: open-props.style, picocss.com, every-layout.dev, refactoringui.com, carbondesignsystem.com, design-system.service.gov.uk, patternlab.io, brutalist-web.design, lawsofux.com, practicaltypography.com",
           "drop-in verified on scratch copies of all three shipped pages (style block deleted, sheet linked) via real browser screenshots; 390px layout checked in a 390px iframe probe: scrollWidth=390, overflow=false"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-canon-mcvoid/",
+      "title": "WHERE THE DOING LIVES - TWELVE ESSAYS, ONE ARGUMENT",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / CANON",
+      "role": "Culture canon the reading lists were missing: twelve essays arguing where the doing lives - Story of Mel (1983) through Duckworth on grit - including the AI manifesto genre (Amodei, Aschenbrenner, AI 2027) read as position rather than physics. Explicit human selection 2026-10-06 (operator named Kingdom of Nouns, why's (poignant) Guide, Duckworth, Anthropic manifestos). Complements /20261006-ai-mode-thread-mcvoid/ section R (the work-specific list); this is the culture half. Noindex reading surface.",
+      "index": {
+        "updated_at": "2026-10-06T14:05:00+08:00",
+        "work_modes": [
+          "READ",
+          "RECOVER",
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "every URL fetched or source-verified 2026-10-06",
+          "Kingdom of Nouns provenance recovered from the operator's own corpus (messages:27919, 2024-09-04) - the canon missed it earlier because nobody looked; the page says so",
+          "dedup checked against /20261006-ai-mode-thread-mcvoid/ section R (Story of Mel + Three Virtues already there); this page carries the culture + manifesto half, does not restate the work list",
+          "unknowns declared on-page: 'oil town' not found in corpus, field index, links ledger or disk"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-the-cut-mcvoid/",
+      "title": "THE CUT — canon, rules, and the missing oil-town follow-up",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / DECISIONS",
+      "role": "One-strike artifact answering the operator's charge (2026-10-06): reified standards (strike once, delight clause, gates-not-trophies, spare agency) + the canon he named (Yegge Kingdom of Nouns, why's poignant guide, Duckworth, the Amodei manifesto cluster, Aschenbrenner) with verified links; marks the never-received oil-town follow-up as MISSING. Built on house-patterns.css.",
+      "index": {
+        "updated_at": "2026-10-06T14:20:00+08:00",
+        "work_modes": [
+          "READ",
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "all 7 links curl-verified 200 on 2026-10-06",
+          "canon items recovered from operator messages via memq across 8 profile transcripts + corpus",
+          "oil-town follow-up proven absent from every store (memq + kage independent search)"
         ],
         "return_path": "/"
       },

@@ -209,80 +209,11 @@ TEMPLATE = r"""<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>__TITLE__</title>
-<style>
-:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#839096;--line:#2b363b;
- --hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67;--warn:#c8102e}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);
- font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-a{color:inherit}
-.wrap{max-width:1180px;margin:0 auto;padding:26px 16px 120px}
-header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}
-h1{margin:0;font-size:clamp(34px,9vw,74px);line-height:.9;letter-spacing:-.055em;
- text-transform:uppercase;font-weight:600}
-h1 .thin{color:var(--mut);font-weight:400}
-.thesis{margin:14px 0 0;color:var(--mut);font-size:14px;max-width:64ch}
-.meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:14px;font-size:12px;color:var(--mut)}
-.meta b{color:var(--ink);font-weight:500}
-h2{font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--mut);
- margin:46px 0 4px;border-top:1px solid var(--line);padding-top:14px;
- display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-h2 em{font-style:normal;font-size:11.5px;letter-spacing:.06em;text-transform:none;color:var(--mut)}
-.stage{position:relative;width:100%;background:var(--panel);border:1px solid var(--line);
- margin-top:12px;overflow:hidden}
-#treemap{display:block;width:100%;height:min(74vh,760px)}
-#pulse{display:block;width:100%;height:330px}
-.cell{cursor:pointer}
-.cell rect{stroke:var(--bg);stroke-width:1;shape-rendering:crispEdges}
-.cell:hover rect{stroke:var(--ink);stroke-width:2}
-.cell text{pointer-events:none;font:500 11.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
-.famlabel{fill:var(--mut);font:500 10px/1 ui-monospace,monospace;letter-spacing:.12em;
- text-transform:uppercase;pointer-events:none}
-.dot{cursor:pointer}
-.dot:hover{stroke:var(--ink);stroke-width:1.5}
-.axis{stroke:var(--line);stroke-width:1;shape-rendering:crispEdges}
-.axistext{fill:var(--mut);font:400 10.5px/1 ui-monospace,monospace}
-.lanelabel{fill:var(--mut);font:500 10.5px/1 ui-monospace,monospace;letter-spacing:.14em}
-.nowline{stroke:var(--hot);stroke-width:1.5;stroke-dasharray:3 3}
-.band30{fill:var(--hot);opacity:.07}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:11.5px;color:var(--mut)}
-.lg{display:inline-flex;align-items:center;gap:6px}
-.sw{width:10px;height:10px;display:inline-block;border:1px solid var(--line)}
-.ramp{display:flex;align-items:center;gap:0;margin-left:auto}
-.ramp i{width:22px;height:10px;display:block}
-.ramp span{font-size:10.5px;color:var(--mut);margin:0 6px}
-#detail{position:fixed;left:0;right:0;bottom:0;background:var(--panel);
- border-top:1px solid var(--line);padding:11px 16px calc(11px + env(safe-area-inset-bottom));
- font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 14px;z-index:20}
-#detail .k{color:var(--mut);text-transform:uppercase;letter-spacing:.12em;font-size:10.5px}
-#detail .v{color:var(--ink)}
-#detail .role{flex-basis:100%;color:var(--mut);margin-top:2px;
- display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pick{display:grid;grid-template-columns:210px 1fr 268px 54px;gap:14px;align-items:start;
- text-decoration:none;padding:13px 0;border-bottom:1px solid var(--line)}
-.pick:hover{background:var(--panel)}
-.ph{color:var(--cool);font-weight:600}
-.pt b{display:block;font-weight:600}
-.pt em{display:block;font-style:normal;color:var(--mut);font-size:12.5px;margin-top:3px}
-.pw{font-size:12.5px;border-left:2px solid var(--hot);padding-left:10px;color:var(--ink)}
-.pa{text-align:right;color:var(--mut);font-size:12px}
-.counts{display:flex;flex-wrap:wrap;gap:0 28px;align-items:baseline;margin-top:8px}
-.counts .n{display:flex;align-items:baseline;gap:7px}
-.counts b{font-size:34px;font-weight:600;letter-spacing:-.045em;line-height:1.1}
-.counts span{font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--mut)}
-footer{margin-top:52px;border-top:1px solid var(--line);padding-top:14px;
- font-size:12px;color:var(--mut)}
-footer b{color:var(--ink);font-weight:500}
-@media(max-width:820px){
- .pick{grid-template-columns:1fr 52px;gap:6px 12px}
- .pick .pw{grid-column:1/-1;order:3}
- .pick .ph{order:1}.pick .pa{order:2}.pick .pt{order:4;grid-column:1/-1}
- #pulse{height:300px}
-}
-</style>
-<div class="wrap">
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<body class="dark">
+<div class="wrap wide">
 <header>
- <h1>The<br>Field <span class="thin">/ atlas</span></h1>
+ <h1 class="display">The<br>Field <span class="thin">/ atlas</span></h1>
  <p class="thesis">One page, three readings. <b>What shape is this</b> — a treemap where every
  rectangle is one addressed route, sized by how many real commits landed in it,
  coloured by state, dimmed by staleness. <b>What is alive</b> — the same routes plotted
@@ -298,25 +229,25 @@ footer b{color:var(--ink);font-weight:500}
  </div>
 </header>
 
-<h2>The field <em>area = how much work landed here · hue = state · brightness = freshness</em></h2>
+<h2 class="between">The field <em>area = how much work landed here · hue = state · brightness = freshness</em></h2>
 <div class="stage"><svg id="treemap" role="img" aria-label="Treemap of every route in the field"></svg></div>
 <div class="legend">__LEGEND__<span class="ramp"><span>fresh</span>
  <i style="background:var(--hot)"></i><i style="background:var(--hot);opacity:.7"></i>
  <i style="background:var(--hot);opacity:.45"></i><i style="background:var(--hot);opacity:.25"></i>
  <i style="background:var(--hot);opacity:.13"></i><span>frozen</span></span></div>
 
-<h2>The pulse <em>last touch date · one dot per route · one lane per state</em></h2>
+<h2 class="between">The pulse <em>last touch date · one dot per route · one lane per state</em></h2>
 <div class="stage"><svg id="pulse" role="img" aria-label="Every route plotted on its last touch date, grouped by state"></svg></div>
 <div class="legend"><span class="lg"><i class="sw" style="background:var(--hot)"></i>now</span>
  <span class="lg">dashed line = today · shaded band = last 30 days</span></div>
 
-<h2>Start here <em>ten picks · descriptions are the manifest's own role text</em></h2>
+<h2 class="between">Start here <em>ten picks · descriptions are the manifest's own role text</em></h2>
 <div class="picks">__PICKS_HTML__</div>
 
-<h2>The counts <em>age of every route since its last touch</em></h2>
+<h2 class="between">The counts <em>age of every route since its last touch</em></h2>
 <div class="counts">__BUCKETS__</div>
 
-<footer>Generated by <b>tools/field-atlas-build.py</b> — one command, one source of truth.
+<footer class="foot">Generated by <b>tools/field-atlas-build.py</b> — one command, one source of truth.
  Layout is computed in the browser at real pixel sizes, so the page stays legible at any width.
  Every number here comes from <b>showcase-manifest.json</b>, <b>returns/</b> or <b>git</b>,
  or it is not on the page. The PICKS block is the only hand-written text.

@@ -36,17 +36,6 @@ VALIDATE_CMD = ["node", "tools/validate-public.mjs"]
 # A dated page is any top-level dir named YYYYMMDD-… that carries its own index.html.
 DATED_DIR = re.compile(r"^\d{8}-")
 
-PALETTE = {
-    "--bg": "#080a0c",
-    "--panel": "#0b0f12",
-    "--ink": "#eef2ef",
-    "--mut": "#839096",
-    "--line": "#2b363b",
-    "--hot": "#ed7245",
-    "--cool": "#73bce8",
-    "--green": "#9ed88c",
-    "--gold": "#d7ae67",
-}
 
 
 # ---------------------------------------------------------------- registry I/O
@@ -289,7 +278,7 @@ def cmd_build(reg: dict) -> None:
         sup_bit = (
             f'<div class="sup">superseded by {_esc(sup)}</div>' if sup else ""
         )
-        return f"""      <article class="row">
+        return f"""      <article class="entry">
         <h2><a href="/{_esc(p['dir'])}/">{_esc(p['title'])}</a></h2>
         <div class="meta">
           <span class="dir">/{_esc(p['dir'])}/</span>
@@ -303,7 +292,7 @@ def cmd_build(reg: dict) -> None:
 
     def pen_row(p: dict) -> str:
         loc = f"{reg.get('holding_pen', '_archive/temp')}/{p.get('expires', '?')}/{p.get('dir', '?')}/"
-        return f"""      <article class="row pen">
+        return f"""      <article class="entry pen">
         <h2>{_esc(p['title'])}</h2>
         <div class="meta">
           <span class="dir">/{_esc(p['dir'])}/</span>
@@ -320,55 +309,15 @@ def cmd_build(reg: dict) -> None:
     pen_html = "\n".join(pen_row(p) for p in pen) or (
         '      <p class="empty">the pen is empty</p>'
     )
-    css_vars = "\n".join(f"    {k}: {v};" for k, v in PALETTE.items())
 
     html = f"""<!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>temp pages · holding pen</title>
-<style>
-  :root {{
-{css_vars}
-  }}
-  * {{ box-sizing: border-box; border-radius: 0; }}
-  body {{
-    margin: 0; padding: 16px;
-    background: var(--bg); color: var(--ink);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 14px; line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-  }}
-  h1 {{ font-size: 18px; font-weight: 600; margin: 0 0 4px; }}
-  .sub {{ color: var(--mut); margin: 0 0 16px; }}
-  .sub b {{ color: var(--gold); }}
-  h3 {{
-    font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--mut); border-bottom: 1px solid var(--line);
-    padding-bottom: 6px; margin: 24px 0 12px;
-  }}
-  .row {{
-    border: 1px solid var(--line); background: var(--panel);
-    padding: 12px; margin: 0 0 12px;
-  }}
-  .row.pen {{ opacity: 0.75; }}
-  .row h2 {{ font-size: 14px; font-weight: 600; margin: 0 0 8px; word-break: break-word; }}
-  .row h2 a {{ color: var(--cool); text-decoration: none; }}
-  .row h2 a:hover {{ text-decoration: underline; }}
-  .meta {{ display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--mut); font-size: 12px; }}
-  .meta b {{ color: var(--ink); font-weight: 600; }}
-  .meta .dir {{ color: var(--gold); word-break: break-all; }}
-  .ok {{ color: var(--green); }}
-  .exp {{ color: var(--hot); }}
-  .unk {{ color: var(--mut); }}
-  .what {{ margin: 8px 0 0; color: var(--mut); }}
-  .sup {{ margin: 6px 0 0; color: var(--hot); font-size: 12px; }}
-  .empty {{ color: var(--mut); border-left: 2px solid var(--line); padding-left: 10px; }}
-  .foot {{ color: var(--mut); font-size: 12px; border-top: 1px solid var(--line); margin-top: 24px; padding-top: 10px; }}
-  .foot code {{ color: var(--gold); }}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
   <h1>temp pages · holding pen</h1>
@@ -379,9 +328,9 @@ def cmd_build(reg: dict) -> None:
     expired-but-live <b>{expired_live}</b> ·
     {next_bit}
   </p>
-  <h3>live</h3>
+  <h2>live</h2>
 {live_html}
-  <h3>in the pen (frozen)</h3>
+  <h2>in the pen (frozen)</h2>
 {pen_html}
   <p class="foot">
     generated {now_stamp} by <code>tools/temp-pages.py --build</code> from

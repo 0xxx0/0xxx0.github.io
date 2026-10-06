@@ -157,7 +157,7 @@ def main():
         age = "today" if r["age"] == 0 else f"{r['age']}d" if r["age"] is not None else "—"
         cls = "age now" if (r["age"] or 99) <= 6 else "age old"
         rows_html.append(
-            f'<div class="row" data-state="{esc(r["state"])}" data-family="{esc(r["family"] or "—")}" '
+            f'<div class="route" data-state="{esc(r["state"])}" data-family="{esc(r["family"] or "—")}" '
             f'data-txt="{esc((r["href"] + " " + r["title"] + " " + r["role"]).lower())}">'
             f'<a class="rh" href="{esc(r["href"])}">{esc(r["href"])}</a>'
             f'<div class="rt"><b>{esc(r["title"])}</b>'
@@ -170,64 +170,11 @@ def main():
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>FIELD PICKS · {now.date().isoformat()} · mcvoid</title>
-<style>
-:root{{--ink:#111;--mut:#6b6b6b;--rule:#d8d8d8;--acc:#0b5fff;--warn:#c8102e;--ok:#0a7a3d}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:#fff;color:var(--ink);
- font:16px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.01em}}
-.wrap{{max-width:960px;margin:0 auto;padding:24px 16px 72px}}
-header{{border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:18px}}
-h1{{font-size:clamp(30px,8vw,58px);margin:0;line-height:.92;letter-spacing:-.045em;text-transform:uppercase}}
-.sub{{color:var(--mut);font-size:13px;margin-top:8px}}
-.meta{{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:13px;color:var(--mut)}}
-.meta b{{color:var(--ink)}}
-h2{{font-size:13px;text-transform:uppercase;letter-spacing:.16em;margin:34px 0 10px;
- border-top:1px solid var(--rule);padding-top:10px;color:var(--mut)}}
-.pulse{{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--rule);
- border:1px solid var(--rule)}}
-.pulse div{{background:#fff;padding:12px}}
-.pulse .n{{font-size:30px;font-weight:600;letter-spacing:-.04em}}
-.pulse .l{{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}}
-.warn{{border-left:4px solid var(--warn);padding:8px 12px;margin-top:14px;font-size:14px;background:#fff}}
-.ok{{border-left:4px solid var(--ok);padding:8px 12px;margin-top:14px;font-size:14px}}
-.pick{{display:grid;grid-template-columns:210px 1fr 250px 52px;gap:12px;align-items:start;
- text-decoration:none;color:inherit;padding:12px 0;border-bottom:1px solid var(--rule)}}
-.pick:hover{{background:#f4f7ff}}
-.ph{{font-weight:600;color:var(--acc)}}
-.pt b{{display:block;font-weight:600}}
-.pt em{{display:block;font-style:normal;color:var(--mut);font-size:13px;margin-top:3px}}
-.pw{{font-size:13px;border-left:3px solid var(--acc);padding-left:9px}}
-.pa{{text-align:right;color:var(--mut);font-size:13px}}
-.tools{{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}}
-.chip{{font:inherit;font-size:12px;background:#fff;color:var(--ink);border:1px solid var(--rule);
- padding:5px 9px;cursor:pointer;border-radius:0}}
-.chip.alt{{color:var(--mut)}}
-.chip.on{{background:var(--ink);color:#fff;border-color:var(--ink)}}
-.chip b{{color:inherit;opacity:.7}}
-input#q{{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--ink);background:#fff;border-radius:0}}
-.rows{{border-top:1px solid var(--rule);margin-top:10px}}
-.row{{display:grid;grid-template-columns:232px 1fr 176px 54px;gap:10px;align-items:center;
- padding:9px 0;border-bottom:1px solid var(--rule);font-size:14px}}
-.row a.rh{{color:var(--acc);text-decoration:none;font-weight:600;overflow-wrap:anywhere}}
-.rt b{{display:block;font-weight:600}}
-.rt span{{display:block;color:var(--mut);font-size:12.5px;margin-top:2px;
- display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
-.rm i{{font-style:normal;font-size:12px;border:1px solid var(--rule);padding:2px 5px;display:inline-block}}
-.rm u{{text-decoration:none;font-size:11.5px;color:var(--mut);display:block;margin-top:4px}}
-.age{{font-size:13px;text-align:right;color:var(--mut)}}
-.age.now{{color:var(--ok);font-weight:600}}
-.count{{font-size:12px;color:var(--mut);margin-top:8px}}
-footer{{margin-top:40px;border-top:2px solid var(--ink);padding-top:12px;font-size:12.5px;color:var(--mut)}}
-@media(max-width:760px){{
- .pick{{grid-template-columns:1fr 46px}}
- .pick .pw{{grid-column:1/-1;order:3}}
- .row{{grid-template-columns:1fr 54px;grid-template-areas:"h a" "t t" "m m"}}
- .row a.rh{{grid-area:h}} .rt{{grid-area:t}} .rm{{grid-area:m}} .age{{grid-area:a}}
-}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<body class="dark">
 <div class="wrap">
 <header>
-<h1>Field Picks</h1>
+<h1 class="display">Field Picks</h1>
 <div class="sub">what is in here, what moved, and where to start</div>
 <div class="meta"><span>generated <b>{now.isoformat()}</b></span>
 <span>head <b>{esc(sha)}</b></span>
@@ -249,19 +196,19 @@ footer{{margin-top:40px;border-top:2px solid var(--ink);padding-top:12px;font-si
 <div class="pulse">
 {"".join(f'<div><div class="n">{buckets.get(b,0)}</div><div class="l">{b}</div></div>' for b in ("today","1-6","7-13","14-30","31-90","never"))}
 </div>
-<div class="ok">Last touch, not contract state. {touched} of {len(rows)} routes have a commit behind them
+<div class="verified">Last touch, not contract state. {touched} of {len(rows)} routes have a commit behind them
 in this history; a route only shows “never” when no commit in the full history touched its path.</div>
 
 <h2>All {len(rows)} routes</h2>
-<div class="tools">{'<input id="q" placeholder="filter — href, title or description">'}</div>
-<div class="tools">{chips}</div>
-<div class="tools">{fam_chips}</div>
+<div class="filters">{'<input id="q" placeholder="filter — href, title or description">'}
+{chips}
+{fam_chips}</div>
 <div class="count" id="c"></div>
 <div class="rows" id="rows">
 {''.join(rows_html)}
 </div>
 
-<footer>Generated by <b>tools/picks-build.py</b> — one command, one source of truth.
+<footer class="foot">Generated by <b>tools/picks-build.py</b> — one command, one source of truth.
 Every number on this page is computed from the manifest, the receipts or git, or it is not here.
 PICKS text is the only hand-written block; each description is the manifest role.
 Rebuild: <b>python3 tools/picks-build.py</b></footer>
@@ -269,7 +216,7 @@ Rebuild: <b>python3 tools/picks-build.py</b></footer>
 <script>
 (function(){{
  var q=document.getElementById('q'),c=document.getElementById('c'),
-     rows=[].slice.call(document.querySelectorAll('.row')),
+     rows=[].slice.call(document.querySelectorAll('.route')),
      active={{}};
  function run(){{
   var t=(q.value||'').trim().toLowerCase(),n=0;
