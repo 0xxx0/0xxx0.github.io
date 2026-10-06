@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/redaction-aperture-allow/v0.1",
-  "updated": "2026-10-06",
+  "updated": "2026-10-07",
   "gate": "scripts/check-redaction-aperture.py",
   "redactor": "scripts/redact.py (vendored byte-identical copy of ~/void-anchor/AXIS/reusable/scripts/redact.py; sha256 fe9e54b9bf8c7925509da7ccc54b8e00dcbeba80f4d04fb0a5d08162ddc66041)",
   "policy": "Entries are EXACT (path, kind, sha256-of-value) triples, each with a why. The value itself is never stored. Never add a pattern or a family: add the one exact triple for the one finding you verified benign (`python3 scripts/check-redaction-aperture.py --hash '<exact value>'` prints the hash). allow_any entries drop the path pin and are reserved for values that are benign everywhere (e.g. the operator's own published username).",
@@ -244,6 +244,30 @@
       "kind": "user",
       "value_sha256": "73b1e43ee49d8340d8dd6470a5b45f3c3b0b4e70af9fd12584d30f1c617b2685",
       "why": "URL path fragment of the same public GitHub username in a collected public API link; verified benign by reading links.html:45, 2026-10-06"
+    },
+    {
+      "path": "20261006-linkfield-frex/links.html",
+      "kind": "user",
+      "value_sha256": "81d04713fc4e8e05fbc77394ecc91c703e8632ba1f94c2777d4dace21dca6563",
+      "why": "URL path fragment of a public GitHub username inside a collected public API link (same value already allowed for 20261005-linkfield-mcvoid/links.html); frex edition of the same ledger, verified 2026-10-07"
+    },
+    {
+      "path": "20261006-linkfield-frex/links.html",
+      "kind": "user",
+      "value_sha256": "73b1e43ee49d8340d8dd6470a5b45f3c3b0b4e70af9fd12584d30f1c617b2685",
+      "why": "URL path fragment of the same public GitHub username in a collected public API link (same value already allowed for the 20261005 ledger), verified 2026-10-07"
+    },
+    {
+      "path": "tools/interphase-history-selftest.cjs",
+      "kind": "secret",
+      "value_sha256": "9a7c2ab721c02a020f08923e7c1ee9d15b19bb1445712c0545d8ceb5f716fb3a",
+      "why": "code fragment captured by the key=value heuristic (`history.makeReturnToken(<id>` inside `const token = …` in a selftest); verified benign by reading the file 2026-10-07"
+    },
+    {
+      "path": ".github/workflows/register-field-urlbar.yml",
+      "kind": "email",
+      "value_sha256": "785a16a1e5e89b92020cf20636ca2ce3d4a3b905fd479a37270f72f4013a2637",
+      "why": "GitHub Actions no-reply infrastructure address used by the workflow's own commit step (`git config user.email`); not a personal address"
     }
   ]
 }
