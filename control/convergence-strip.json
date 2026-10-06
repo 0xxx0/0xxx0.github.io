@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-06T05:26:44.980Z",
+  "generated": "2026-10-06T06:28:46.398Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-06",
-  "commits_in_window": 48,
-  "git_commits_in_window": 137,
-  "telemetry_commits_in_window": 89,
-  "commits_total": 5236,
-  "branch_count": 989,
+  "commits_in_window": 63,
+  "git_commits_in_window": 155,
+  "telemetry_commits_in_window": 92,
+  "commits_total": 5255,
+  "branch_count": 990,
   "recent_commits": [
-    "ci: widen /docs/ tolerance to 3% -- live aperture region varies per capture",
     "desk: refresh public field data",
-    "Merge pull request #927 from 0xxx0/field/temp-adopt-20261006"
+    "Merge pull request #928 from 0xxx0/field/fi-stamp-reconcile-20261006",
+    "field index: reconcile 174 route stamps to their real git touch"
   ],
   "active_fronts": [
     {
