@@ -1,6 +1,11 @@
 (()=>{
 'use strict';
-const NS='http://www.w3.org/2000/svg',TAU=Math.PI*2,$=s=>document.querySelector(s),clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const NS='http://www.w3.org/2000/svg';
+// Polar math comes from lib/interphase-ring.js (loaded before this file): one math, one home.
+// The adoption gate is scripts/check-radial-adoption.mjs.
+const RING=globalThis.InterphaseRing;
+if(!RING)throw new Error('INTERPHASE_RING_REQUIRED');
+const TAU=RING.TAU,$=s=>document.querySelector(s),clamp=RING.clamp;
 const C={paper:'#f4efe4',ink:'#191915',graph:'#4b4942',faint:'#aaa499',line:'#cec7ba',red:'#a8422d',red2:'#c56348',blue:'#526c77',ghost:'#817c72'};
 const STORE='poly-atlas-dayline-branch-i-public-v1',RETURN_STORE='poly-atlas-dayline-branch-i-public-last-return',VIEW_STORE='poly-atlas-dayline-branch-i-public-view',RESUME_STORE='poly-atlas-dayline-branch-i-public-resume';
 const sample={
@@ -40,7 +45,7 @@ function add(g,tag,a={},text){const e=el(tag,a,text);g.appendChild(e);return e} 
 function hm(s){const [h,m]=String(s).split(':').map(Number);return h*60+m} function mh(m){m=Math.round(m);return `${String(Math.floor(m/60)%24).padStart(2,'0')}:${String((m%60+60)%60).padStart(2,'0')}`}
 function dayStart(){return hm(data.meta.dayStart)} function dayEnd(){return hm(data.meta.dayEnd)} function daySpan(){return Math.max(60,dayEnd()-dayStart())}
 function minuteAngle(m){return -Math.PI/2+((m-dayStart())/daySpan())*TAU} function angleMinute(a){let u=(a+Math.PI/2)/TAU;while(u<0)u+=1;while(u>=1)u-=1;return clamp(Math.round((dayStart()+u*daySpan())/5)*5,dayStart(),dayEnd())}
-function point(cx,cy,r,a){return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]}
+function point(cx,cy,r,a){return RING.polar(cx,cy,r,a)}
 function arcPath(cx,cy,r,a0,a1){let span=a1-a0;while(span<0)span+=TAU;const p0=point(cx,cy,r,a0),p1=point(cx,cy,r,a1),large=span>Math.PI?1:0;return`M ${p0[0]} ${p0[1]} A ${r} ${r} 0 ${large} 1 ${p1[0]} ${p1[1]}`}
 function sectorPath(cx,cy,r0,r1,a0,a1){let span=a1-a0;while(span<0)span+=TAU;const p0=point(cx,cy,r0,a0),p1=point(cx,cy,r1,a0),p2=point(cx,cy,r1,a1),p3=point(cx,cy,r0,a1),large=span>Math.PI?1:0;return`M ${p0[0]} ${p0[1]} L ${p1[0]} ${p1[1]} A ${r1} ${r1} 0 ${large} 1 ${p2[0]} ${p2[1]} L ${p3[0]} ${p3[1]} A ${r0} ${r0} 0 ${large} 0 ${p0[0]} ${p0[1]} Z`}
 function active(){return new Set(data.state.contexts||[])} function taskById(id){return data.tasks.find(t=>t.id===id)} function openDeps(t){return(t.depends||[]).filter(id=>taskById(id)?.status!=='done')}

@@ -1,5 +1,5 @@
-const CACHE='atlas-dayline-i-v6';
-const ASSETS=['./','./index.html','./app.css','./app.js','./field-bridge.js','./manifest.webmanifest','./icon.svg'];
+const CACHE='atlas-dayline-i-v7';
+const ASSETS=['./','./index.html','./app.css','./app.js','./field-bridge.js','/lib/interphase-ring.js','./manifest.webmanifest','./icon.svg'];
 const LIVE_TRUTH=new Set(['/control/CURRENT.json','/control/WAITING.json','/showcase-manifest.json']);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
