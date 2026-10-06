@@ -115,3 +115,28 @@ classic load (A) and the projection identity (B12–B14) — the three faces mus
 never carry copied bodies again. The sync found one real drift: toast's sticky
 `ms:0` extension (adoption wave 2026-10-03) was missing from the core; ported
 into `micro.js` the same day.
+
+## Using it from a session (node / fetch — measured 2026-10-06)
+
+The same primitives are reachable from agent sessions, not only from pages.
+All four forms below were RUN on this tree; outputs quoted from those runs.
+
+- node, the dual-mode core (from the repo root):
+  `node -e "const M=require('./lib/micro.js'); console.log(M.TAU, M.circularDelta(0.95,0.05), M.esc('<x>'))"`
+  → `6.283185307179586 -0.10000000000000009 &lt;x&gt;`
+- node, ESM default import: `node --input-type=module -e "import M from './lib/micro.js'; console.log(M.TAU)"`
+  → `6.283185307179586` (one global set, `module.exports` present — CJS-default interop)
+- node, the ring (classic dual-mode; `require` behaves the same):
+  `node -e "const R=require('./lib/interphase-ring.js'); console.log(R.TAU, R.relationVerb(0,1,6))"`
+  → `6.283185307179586 FOLD`
+- no checkout — fetch the live copy and require it:
+  `curl -fsSL https://0xxx0.github.io/lib/micro.js -o /tmp/micro.js && node -e "const M=require('/tmp/micro.js'); console.log(M.fmtClock(3661))"`
+  → `61:01`
+
+Classic pages: `<script src="/lib/micro.js"></script>`, then `Micro.esc(x)`.
+ESM pages: `import { TAU } from '/lib/polar-control.js'` — the face re-exports
+the core's own objects. The load mode differs; the implementation never does.
+The radial instruments converged on this in wave 2 (2026-10-06): two-dial and
+atlas-dayline consume `/lib/interphase-ring.js`, and listen imports the
+polar-control face. `node lib/micro.selftest.mjs` must stay green (24/24);
+`node scripts/check-radial-adoption.mjs` is the gate for the convergence.
