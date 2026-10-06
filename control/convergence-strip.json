@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-06T03:53:44.658Z",
+  "generated": "2026-10-06T04:24:45.432Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-06",
-  "commits_in_window": 15,
-  "git_commits_in_window": 95,
-  "telemetry_commits_in_window": 80,
-  "commits_total": 5194,
+  "commits_in_window": 23,
+  "git_commits_in_window": 106,
+  "telemetry_commits_in_window": 83,
+  "commits_total": 5205,
   "branch_count": 986,
   "recent_commits": [
-    "public-surface: allow benign public-username URL fragments in linkfield links ",
     "desk: refresh public field data",
-    "thread synthesis: restamp post-rebase"
+    "restamp",
+    "stamp"
   ],
   "active_fronts": [
     {
