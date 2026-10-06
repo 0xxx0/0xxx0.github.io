@@ -42,3 +42,7 @@ jobs:
         run: node tools/field-hermes-run.mjs --selftest
       - name: Prove root actually loads the URLbar projection
         run: grep -F "./field-urlbar.js" lib/field-signal.js
+      - name: Validate HTML document integrity
+        run: node tools/html-document-integrity-selftest.mjs
+      - name: Validate public surface
+        run: node tools/validate-public.mjs
