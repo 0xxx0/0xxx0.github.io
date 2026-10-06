@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T16:16:36+08:00",
+  "updated": "2026-10-06T16:20:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -21,7 +21,7 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-06T15:41:00+08:00",
+        "updated_at": "2026-10-06T16:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1416,7 +1416,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-06T15:41:00+08:00",
+        "updated_at": "2026-10-06T16:20:00+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -9572,7 +9572,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T15:41:00+08:00",
+        "updated_at": "2026-10-06T16:20:00+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9769,6 +9769,38 @@
           "visual QA caught and fixed two defects before ship: fixed action bar hid answer B; escaped <b> leaked into playbook text",
           "scaffold link and return schema preserved from FIELD / PLAY v0.4: one bounded move, evidence before claim, return != next",
           "converged with lam4000 ADOPT 2 registry note: one /20261006-the-call-mcvoid/ route retained; inline-style/pattern-lib adoption debt recorded, not hidden"
+        ],
+        "return_path": "/field-play.html"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-the-coach-mcvoid/",
+      "title": "THE COACH - botdoc + bottherapist, the performance coach",
+      "kind": "tool",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / INSTRUMENTS",
+      "role": "Performance coach for persona/talk, built from botdoc + bottherapist at operator direction 2026-10-06 ('research how to level up ur persona talk, build a performance coach out of botdoc bottherapist'). Three-condition feedback loop (Ericsson 2008; goal knowledge + performance awareness + gap-closing capacity): GOAL = a real measured fingerprint (8,909 messages / 810,294 words from ops-hub/wiki/data/profile_style.json, method stylometric_feature_extraction_v2) rather than a style opinion; AWARENESS = the draft scored against it; GAP-CLOSING = the concrete rewrite. BOTDOC measures, BOTTHERAPIST names the pattern and its cost to the reader. Scoring law is the interesting part and is enforced in code: rate metrics on short drafts report NO SIGNAL instead of a verdict; length-dependent metrics (TTR) are declared as length artifacts; sparse events (exclamations, questions, ellipses, contractions, emoji) may only be judged once the draft expects >= 2 of them, so zero contractions in a 61-word draft is the expected outcome and not flagged. Offline, nothing uploaded.",
+      "index": {
+        "updated_at": "2026-10-06T16:20:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "IMPLEMENT",
+          "VERIFY",
+          "RECOVER"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "RECEIPT: three-case matrix driven in a real browser - 3-word fragment => 'too short to judge' with 5 TOO-RARE-TO-JUDGE rows and no invented verdict; 113-word bad draft => 3 real drifts (platitudes, hedging, long sentences) + 3 concrete fixes; 61-word on-voice draft => 'Nothing to fix' clean pass",
+          "EVIDENCE (falsification): the first scoring pass reported 'WAY OFF' on 7 of 11 metrics for a 3-word fragment - instrument describing its own measurement artifact, not the writer. Rewritten to gate on MIN_WORDS=40 and MIN_EXPECT=2 before any rate verdict",
+          "BYTES: target fingerprint is real extracted data, not prose - TTR 0.1007, Honore R 3149.44, exclamation 0.199%, question 0.502%, contractions 0.58%, allcaps 2.09%, function words 37.49%, 8909 messages / 810294 words",
+          "BYTES: measured at a true 390px iframe viewport after fixing a real overflow (scrollWidth 423 vs 390) - house-patterns.css sets white-space:nowrap which defeated overflow-wrap:anywhere; white-space:normal added explicitly. Final: scrollWidth 390 == clientWidth 390, 0 overflowing elements",
+          "SPEC: research-grounded, not invented - deliberate practice (Ericsson 2008), the feedback-loop three conditions, and the 'calibrated probability, not a vibe' shape from stylometry-cli"
         ],
         "return_path": "/field-play.html"
       },
