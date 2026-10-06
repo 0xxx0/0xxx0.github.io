@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eae6d8">
+<title>Art Atlas — instruments for looking and making</title>
+<meta name="description" content="A small library of art instruments: playable paintings, ink brushes, and tools for attention.">
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:light;--paper:#eeeade;--ink:#243d38;--muted:#65766b;--red:#a84232;--line:#bfc4b5;--card:#f5f1e4}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 Georgia,'Times New Roman',serif}
+a{color:#386c67;text-decoration:none}
+a:hover{text-decoration:underline}
+button,a{-webkit-tap-highlight-color:transparent}
+header{height:62px;display:flex;align-items:center;justify-content:space-between;margin:0 4%;border-bottom:1px solid var(--line);gap:20px}
+header a.home{font:12px monospace;letter-spacing:2px;color:var(--ink)}
+header a.home span{color:var(--red);margin-left:8px}
+.kicker, footer{font:10px/1.6 monospace;letter-spacing:1.6px}
+.kicker{color:var(--muted);margin:0 0 5px}
+h1{font-size:clamp(32px,4vw,58px);font-weight:normal;letter-spacing:-2px;line-height:1.03;margin:0}
+h2{font-size:22px;font-weight:normal;margin:0 0 8px;letter-spacing:-.5px}
+p{margin:0 0 14px}
+main{max-width:780px;margin:0 auto;padding:28px 5% 40px}
+.opening{font-size:15px;line-height:1.45;margin:0;color:var(--muted);font-style:italic}
+
+.card{border:1px solid var(--line);background:var(--card);padding:22px 24px 18px;margin:18px 0;position:relative}
+.card .tag{position:absolute;top:12px;right:14px;font:9px monospace;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase}
+.card .desc{font-size:15px;color:var(--muted);margin:6px 0 14px}
+.card .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.card .meta a, .card .meta span{font:11px monospace;letter-spacing:.4px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.card .meta a:hover{background:#faf6e9;border-color:#425e52}
+.card .meta .ext{background:transparent;border-style:dashed;color:var(--muted)}
+
+.family{margin:32px 0 14px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.family h2{font-size:18px;letter-spacing:1px;font-family:monospace;text-transform:uppercase;color:var(--muted)}
+
+.add-note{border-left:2px solid var(--red);padding-left:14px;margin-top:28px;color:var(--muted);font-size:14px}
+footer{margin:40px 5% 20px;padding:10px 0;border-top:1px solid var(--line);color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+footer span{margin-right:auto}
+
+@media(max-width:650px){
+  h1{letter-spacing:-1px;font-size:28px}
+  .card{padding:18px 16px 14px}
+  .card .tag{position:static;display:block;margin-bottom:6px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="home">FIELD INDEX <span>↖</span></a>
+  <span class="kicker">A LIBRARY OF INSTRUMENTS</span>
+</header>
+
+<main>
+  <p class="kicker">INK · ATTENTION · RETURN</p>
+  <h1>Art Atlas</h1>
+  <p class="opening">Playable paintings, ink brushes, and tools for looking. Each instrument produces something you can keep.</p>
+
+  <div class="family"><h2>Our instruments</h2></div>
+
+  <div class="card">
+    <span class="tag">playable</span>
+    <h2>Borrowed River</h2>
+    <p class="desc">Draw a river through an original ink landscape. A finite brush, solid rocks, branching landings. Sail around, choose, then follow your own river home. Export the painting or the voyage.</p>
+    <div class="meta">
+      <a href="/20261007-borrowed-river/">Play →</a>
+      <span>Return: PNG + JSON voyage</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">recovery</span>
+    <h2>Painting / Path</h2>
+    <p class="desc">Select a real image region on Qiu Ying's <em>Spring Dawn in the Han Palace</em>, read in place, author up to three route stops. The original painting-backed study. Source-linked findings.</p>
+    <div class="meta">
+      <a href="/recovery/sleeper/painting-path/">Open →</a>
+      <span>Return: annotated regions</span>
+    </div>
+  </div>
+
+  <div class="family"><h2>Related surfaces</h2></div>
+
+  <div class="card">
+    <span class="tag">planning</span>
+    <h2>Atlas Dayline</h2>
+    <p class="desc">Radial 24-hour planning. Angle = time, radius = activation cost. SEE → SIMULATE → COMPARE → ACT → RUN ≤ 3 → RETURN.</p>
+    <div class="meta">
+      <a href="/atlas-dayline/">Open →</a>
+      <span>Return: day state + receipts</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">execution</span>
+    <h2>Dayline Confluence</h2>
+    <p class="desc">Mobile cockpit over the same DayState. One ranked held task, one primary move, low clicks, AWAKE resume.</p>
+    <div class="meta">
+      <a href="/dayline/">Open →</a>
+      <span>Return: completed tasks</span>
+    </div>
+  </div>
+
+  <div class="family"><h2>External instruments</h2></div>
+
+  <div class="card">
+    <span class="tag ext">external</span>
+    <h2>InkPainting</h2>
+    <p class="desc">Four brush types (狼毫工笔, 羊毫写意, 散锋皴擦, 斗笔泼墨), four cun textures, eight ink levels, fluid simulation with cellular automata. Water-brush for broken ink. Inscription and seal. Local gallery. Export PNG/GIF/MP4.</p>
+    <div class="meta">
+      <a class="ext" href="https://github.com/TanShilongMario/InkPainting" target="_blank" rel="noopener">GitHub →</a>
+      <span>Return: gallery + export</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag ext">external</span>
+    <h2>inkField</h2>
+    <p class="desc">WebGL digital ink. Records every gesture as JSON → replays as time-based generative art. PWA, gallery, spectral mixing. Fork another artist's recording and continue.</p>
+    <div class="meta">
+      <a class="ext" href="https://ileivoivm.github.io/inkField/" target="_blank" rel="noopener">Play →</a>
+      <span>Return: JSON recording</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag ext">external</span>
+    <h2>Pure Ink</h2>
+    <p class="desc">Professional digital ink software by artist Chung-yu WONG. Freehand and Gongbi brush, AI calligraphy, Kinetic Force scripting. Award-winning. Desktop application.</p>
+    <div class="meta">
+      <a class="ext" href="https://www.pureink.org/" target="_blank" rel="noopener">Site →</a>
+      <span>Return: print output</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag ext">external</span>
+    <h2>Google Arts & Culture — Paint With Music</h2>
+    <p class="desc">Brush strokes become musical notes. DDSP-powered instrument of your choice. Sensorial canvases.</p>
+    <div class="meta">
+      <a class="ext" href="https://experiments.withgoogle.com/paint-with-music" target="_blank" rel="noopener">Play →</a>
+      <span>Return: audio + canvas</span>
+    </div>
+  </div>
+
+  <div class="add-note">
+    <strong>Add an instrument.</strong> Drop a self-contained HTML file in a dated route. Register it here with one line. The atlas reads its own surface — no backend needed.
+  </div>
+
+</main>
+
+<footer>
+  <span>Art Atlas — 2026-10-07</span>
+  <span class="kicker">INK IS A WAY THROUGH</span>
+</footer>
+
+</body>
+</html>
