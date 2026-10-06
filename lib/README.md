@@ -25,9 +25,9 @@ new bytes. A page picks the module convention that matches its own script loadin
 - `document-structure.js` — dual-mode classic (`FieldDocumentStructure` +
   `module.exports`): parses plain text into a document structure (lines, code
   fences, headings, sections) carrying `field-document-structure/v0.1`.
-- `dom.js` — plain ES module: browser DOM primitives extracted verbatim from the
-  fold-bloom pages — esc, toast, `$`/`$$`, fmtClock, fmtMark, download (7
-  exports).
+- `dom.js` — ES-module face (PROJECTION of `micro.js`, 2026-10-06): browser DOM
+  primitives extracted verbatim from the fold-bloom pages — esc, toast, `$`/`$$`,
+  fmtClock, fmtMark, download (7 exports). Re-exports the core's own objects.
 - `field-pulse.js` — plain ES module: field-pulse messaging — normalizePulse /
   publish / subscribe / last over BroadcastChannel plus a local event, schema
   `field-pulse/v0.1`, channel `field-pulse-v0`.
@@ -55,13 +55,19 @@ new bytes. A page picks the module convention that matches its own script loadin
   artifacts, claims, conflicts, unknowns and anti-merge holds.
 - `interphase-ring.js` — dual-mode classic (`InterphaseRing`): polar math
   primitives — TAU, clamp, wrap, circular delta/distance, nearestEquivalent, polar.
-- `polar-control.js` — plain ES module: pointer-to-polar control primitives —
-  point angle/slot mapping plus the PolarDetent snap-and-drag physics.
+- `micro.js` — dual-mode core (classic `Micro` global + `module.exports`): the SINGLE
+  implementation of the DOM / store / polar primitives that `dom.js`, `store.js` and
+  `polar-control.js` project. Classic pages load it directly; ESM pages import the
+  faces; node can `require` it.
+- `polar-control.js` — ES-module face (PROJECTION of `micro.js`, 2026-10-06):
+  pointer-to-polar control primitives — point angle/slot mapping plus the
+  PolarDetent snap-and-drag physics.
 - `path.js` — dual-mode classic (`InterphasePath` + `module.exports`): path
   optics — getIn / setIn / optic / compose / pathsFor / prop / index / all /
   where (+ clone); load BEFORE interphase-core, which destructures from it.
-- `store.js` — plain ES module: thin localStorage/sessionStorage JSON wrappers —
-  get/set with try/catch and fallback on missing or corrupt payloads.
+- `store.js` — ES-module face (PROJECTION of `micro.js`, 2026-10-06): thin
+  localStorage/sessionStorage JSON wrappers — kv/skv get/set with try/catch and
+  fallback on missing or corrupt payloads.
 
 Conventions observed (ls + headers, 2026-09-26): the interphase-* family is
 classic scripts — most are dual-mode (`globalThis.InterphaseX` +
@@ -69,9 +75,11 @@ classic scripts — most are dual-mode (`globalThis.InterphaseX` +
 and this wave's path.js — `InterphasePath` — are dual-mode classic too), while
 interphase-field/lens/listen/readfield are
 no-export side-effect boots that register a host on `globalThis` and no-op when
-their host API is absent. The newer primitives — id.js, field-pulse.js,
-polar-control.js, dom.js, store.js — are plain ES modules (`export` directly, no
-globals, side-effect-free import).
+their host API is absent. The newer primitives — id.js, field-pulse.js — are
+plain ES modules (`export` directly, no globals, side-effect-free import);
+dom.js / store.js / polar-control.js are the ESM faces of `micro.js`'s dual-mode
+core (Phase 2, 2026-10-06 — projections, identity-proven by
+lib/micro.selftest.mjs).
 
 ## Standard names — vocabulary only, no tooling
 
@@ -96,3 +104,14 @@ globals, side-effect-free import).
   call sites; with `fold-bloom/listen/polar-control.js` folded into
   `polar-control.js` (byte-identical duplicate). The list above counts 18 module
   files; `ls lib/ | wc -l` reads 19 including this README.
+
+## Phase 2 — one implementation (2026-10-06)
+
+`dom.js`, `store.js`, `polar-control.js` are PROJECTIONS of `micro.js`: they
+`import './micro.js'` and re-export the core's own objects (identity, not copies).
+Classic pages load `/lib/micro.js` and use the `Micro` global; ESM pages import
+the faces; node can `require` the core. `lib/micro.selftest.mjs` proves the
+classic load (A) and the projection identity (B12–B14) — the three faces must
+never carry copied bodies again. The sync found one real drift: toast's sticky
+`ms:0` extension (adoption wave 2026-10-03) was missing from the core; ported
+into `micro.js` the same day.
