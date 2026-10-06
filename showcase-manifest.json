@@ -21,7 +21,7 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-06T19:05:00+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -37,7 +37,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-06T23:09:25+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -159,10 +159,11 @@
       "showcase_card": false,
       "role": "Retained-output index: exact public routes remain linkable; Library-only material remains Library-only; presence does not imply current role, canonical status, authority or proven utility.",
       "index": {
-        "updated_at": "2026-10-06T22:43:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       }
     },
@@ -193,11 +194,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-25T12:39:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD",
@@ -333,7 +335,7 @@
         "owner": "DAYLINE"
       },
       "index": {
-        "updated_at": "2026-10-03T06:13:25+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -497,10 +499,12 @@
         "physical_fit": "Low-burden real-world self-observation and bounded self-management experiments; not diagnosis, triage, or treatment authority."
       },
       "index": {
-        "updated_at": "2026-10-03T08:06:53+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
-          "SPECIFY"
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "owned_surfaces": [
@@ -616,7 +620,7 @@
         "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
       },
       "index": {
-        "updated_at": "2026-10-03T08:06:53+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -665,7 +669,7 @@
       "showcase_card": false,
       "role": "Shared local-first reference geometry for BODY and CARE. Stable address = plan + view + region ID; geometryVersion prevents silent drift.",
       "index": {
-        "updated_at": "2026-09-27T14:34:31+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -903,7 +907,7 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-27T16:35:41+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -968,10 +972,12 @@
       "showcase_card": false,
       "role": "Comms-on-pages: the machine room's live state as a durable public record (resilience layer 2, readable without Tailscale). The six-line system glyph is imported from glyph.py — the same object as the ANCHOR group avatar — beside fleet, open items, digest recency, last receipt and the three loops. Derived aggregate only: no message text, ids, money or personal content. A surface, not an authority.",
       "index": {
-        "updated_at": "2026-09-28T12:14:29+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "evidence": {
@@ -1028,11 +1034,12 @@
         "physical_fit": "Explicit external-action boundary: manual human share is the safe fallback; disclosed delegated automation may bind behind policy without claiming direct human authorship."
       },
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ADDRESS",
@@ -1050,10 +1057,11 @@
       "alias_of": "/contact/capsule/#view=agent",
       "role": "Lens alias into CAPSULE agent view.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1071,11 +1079,12 @@
       "showcase_card": false,
       "role": "Local-private making-history stream for corrections, jokes, failed branches and design shifts; can harvest bounded donor candidates without publishing raw chat.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
@@ -1092,10 +1101,11 @@
       "alias_of": "/contact/interpret/#mode=burst",
       "role": "Thin entry alias into INTERPRET burst mode.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1113,11 +1123,12 @@
       "showcase_card": false,
       "role": "Contextual share-link instrument with explicit intent, local compose state, public descriptor, and no-impersonation boundary.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
@@ -1134,10 +1145,11 @@
       "alias_of": "/contact/capsule/#view=family",
       "role": "Lens alias into CAPSULE family view.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1155,10 +1167,11 @@
       "alias_of": "/contact/capsule/#view=friend",
       "role": "Lens alias into CAPSULE friend view.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1176,11 +1189,12 @@
       "showcase_card": false,
       "role": "Raw-preserving interpretation surface for overloaded or ambiguous messages; separates source, asks, corrections, callbacks and possible meanings before drafting.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
@@ -1197,10 +1211,11 @@
       "alias_of": "/contact/capsule/#make=1",
       "role": "Builder alias into CAPSULE custom-link mode.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1218,10 +1233,11 @@
       "alias_of": "/port/",
       "role": "Legacy redirect back to canonical HUMAN PORT.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1239,11 +1255,12 @@
       "showcase_card": false,
       "role": "Local-first conversation residue: remember offers, questions, promises, follow-ups and ideas without automatically turning them into obligations.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
@@ -1260,10 +1277,11 @@
       "alias_of": "/contact/capsule/#view=work",
       "role": "Lens alias into CAPSULE work view.",
       "index": {
-        "updated_at": "2026-09-25T14:35:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -1417,7 +1435,7 @@
         "physical_fit": "Continuity layer for observations about people, animals, devices, rooms and projects; not a medical record authority, sensor authority, or autonomous actor."
       },
       "index": {
-        "updated_at": "2026-09-21T02:29:58+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -1437,7 +1455,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-06T22:12:28+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -1458,7 +1476,7 @@
       "showcase_card": false,
       "role": "Cross-lineage coordination surface distinguishing authority, donors and transfers. ONE RETURN v2 exact recovered source is canonical Sleeper authority; ASCII POV 0.8 and ASCII/Grid Path neighbors remain unequal derivative/donors. Includes a separately attributed current-executor perspective; it is not user-authored intent or canon.",
       "index": {
-        "updated_at": "2026-10-06T22:12:28+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -1482,10 +1500,11 @@
       "showcase_card": false,
       "role": "Recovery/import/dedup/quarantine ledger; copy first, classify second, merge third.",
       "index": {
-        "updated_at": "2026-10-06T22:12:28+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -1626,7 +1645,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-10-06T15:31:13+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -1645,10 +1664,11 @@
       "showcase_card": false,
       "role": "Scale/orientation reset: purpose, live fronts, drift signals and bounded next move.",
       "index": {
-        "updated_at": "2026-09-19T11:59:33+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ORIENT",
@@ -1663,7 +1683,7 @@
       "showcase_card": true,
       "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.5 keeps the compact always-visible phone work rail, adds direct session-local downloaded-file intake for text/Markdown/JSON/CSV/log/YAML/source/SVG material, and makes practical chains explicit: SKIM → REVIEW, LISTEN → PULSE → VOICE, READ → LOCI → RETURN. Ephemeral local/pasted bytes never pretend to have a durable addressed URL; COPY FOCUS replaces COPY VIEW for those sources. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD. 2026-09-27 adds explicit RIDE LIVE handoff carrying the current exact source + cursor into LIVE READ/RIDE without creating another text authority.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1810,10 +1830,11 @@
         "physical_fit": "Attention projection; useful for selecting physical work, not doing it."
       },
       "index": {
-        "updated_at": "2026-10-03T14:42:00+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -1946,7 +1967,7 @@
         "physical_fit": "Primary reality-ingress surface once observations/sensors have an adapter."
       },
       "index": {
-        "updated_at": "2026-10-03T08:21:05+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2015,7 +2036,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-29T17:19:11+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -2038,11 +2059,12 @@
       "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
       "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
       "index": {
-        "updated_at": "2026-10-03T08:22:13+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
           "EXPERIMENT",
-          "MAKE"
+          "MAKE",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -2077,7 +2099,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2217,7 +2239,7 @@
         "physical_fit": "Potential source-label/glyph print/export surface; no physical authority implied."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2253,7 +2275,7 @@
       "role": "Applied research witness joining exact Fold/Bloom operation form, six-bit/hex change quotient, one-line STEP paths and J-space→native-support arithmetic while keeping each representation's information loss and authority boundary explicit. I Ching data is lookup lens only; no cast or control sufficiency is inferred.",
       "receipt": "/returns/FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "VERIFY",
@@ -2292,7 +2314,7 @@
       "family": "FOLD // BLOOM",
       "role": "Executable finite-property study of one addressed FOLD//BLOOM host across LINEAR / RADIAL / AXIAL geometry. FOVEA, multifocus, host authority, explicit aperture residue and RETURN are checked; hylomorphic unfold/fold is a projection derivation. Candidate only: no new kernel, theology claim, physical measurement or lived-use promotion.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2430,7 +2452,7 @@
         "physical_fit": "Useful as a feedback/control-loop donor, not yet a House controller."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -2454,7 +2476,7 @@
       "tier": "FIELD",
       "role": "Deterministic wet-media instrument shared with FIELD LAB. Continuous pointer movement is rasterized as swept brush-contact ribbons rather than repeated dabs; pressure, speed and stylus tilt shape contact, coherent bristle lanes persist along the stroke, and water/pigment still evolve separately through paper tooth, evaporation and stain. SUMI/DRY/WASH are interaction regimes, not historical calligraphy claims.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2489,10 +2511,11 @@
       "role": "Preserved explicit one-instrument shell moved from the public family root. Binds one exact AUDIO/TEXT/SET object, owns FOCUS / projection / RETURN routing through INTERPHASE, and delegates domain operations to LISTEN, LIVE, SET/JOURNEY or READFIELD without copying their truth.",
       "tier": "FIELD",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       }
     },
@@ -2508,7 +2531,7 @@
       "tier": "FIELD",
       "role": "Eight independent apertures over unequal canonical engines. Mobile 0.3.6 places VOICE 0.2 second after RIDE in the initial route strip. RIDE, VOICE, PULSE, VERSE, READ, LOCI, INK and DATA preserve separate authority while explicit carry/RETURN tests whether one addressed object survives recursive re-projection. PULSE timing is optional; DRIVE changes presentation only, while LIVE retains source-addressed POV traversal and RETURN. DATA exposes one shared Boolean change lattice and prefix-preserving local steering as CALCULATION_ONLY; selected paths may carry into INK only as PROJECTION_ONLY geometry, with brush authorship retained by the human stroke. Sep-30 DATA additionally keeps one LIVE-instance exact release window, its lossy HEX quotient, current native NEXT evidence, and host-relative authority-NONE model-direction support as unequal witness layers; none acquires LIVE effect authority.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2671,10 +2694,11 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "role": "Extracted representation descendant. It is no longer presented as a peer playable branch, but its proved FIELD parent edge remains /fold-bloom/ because Lens G2 uses that ancestry for dive/rise/RETURN. Operational identity is the distinct scale-lens lineage.",
@@ -2704,7 +2728,7 @@
       "state": "CANDIDATE",
       "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human BOOKMARK / FLAG / editable ARC marks without conflating those facets. fold-bloom-annotations/v0.2 now round-trips source-safe authored marks through SHARE/IMPORT and AUDIO MAP while preserving analysis authority. Beat Saber export remains a bounded external pack; FOLD//BLOOM SABER 0.1 is implemented as a distinct dual-phone WebRTC motion proof and remains gated on two-real-phone lived evidence.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2952,7 +2976,7 @@
         "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2982,12 +3006,13 @@
       "tier": "FIELD",
       "role": "Expressive replay surface: LISTEN may lend exact source identity, addressed interval, measured beat/phrase/section evidence and marks; REPLAY owns authored message/context, word cues and FOLD/BLOOM operation score; LIVE ride-profile preferences remain shared by source key. Compact share links contain the authored artifact + bounded source evidence/reference but never local/private audio bytes. Visual WebM is an output projection, not canonical state.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "AUTHOR",
           "VERIFY",
-          "SHARE"
+          "SHARE",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -3127,7 +3152,7 @@
         "physical_fit": "Phones are handheld sabers; no claim of absolute 3-D tracking."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3157,7 +3182,7 @@
       "state": "CANDIDATE",
       "version": "0.1.1",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3219,11 +3244,12 @@
       "state": "CANDIDATE",
       "version": "0.1.2",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
-          "RELEASE"
+          "RELEASE",
+          "IMPLEMENT"
         ]
       },
       "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
@@ -3398,7 +3424,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3422,11 +3448,12 @@
       "tier": "FIELD",
       "role": "Local-only pitch/stability/spectrum practice projection. Standalone VOICE exposes spectrogram, centroid and spectral peak; the same trainer is folded into FIELD LAB PULSE. FIELD PULSE may lend tempo/beat and advance a local pattern, but never authors the exercise; no raw microphone audio is recorded or exported.",
       "index": {
-        "updated_at": "2026-10-03T13:54:17+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "TRAIN",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -3580,7 +3607,7 @@
         "physical_fit": "Use to kill clever physical interfaces that do not outperform plain control."
       },
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3650,10 +3677,11 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "RESEARCH"
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       },
       "evolution": {
@@ -3736,7 +3764,7 @@
         "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
       },
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -3768,10 +3796,11 @@
       "showcase_card": false,
       "role": "Enter actual alternatives and 1–8 named quantities in native units. Enforce hard limits, preserve unknown/range evidence, expose Pareto trade-offs, declare one main priority, and export/restore an exact decision RETURN. Sample numbers are synthetic; numerical fit is not real-world verification.",
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD",
@@ -3829,10 +3858,11 @@
         "next_if_fail": "Preserve standalone lab as donor; do not create a second active glyph surface."
       },
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "REFERENCE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "role": "Original 8-locus Glyph Lab preserved as a donor after its grammar transferred into unified /forward-field-proof/triangle/.",
@@ -3862,10 +3892,11 @@
         "next_if_fail": "Keep donor/negative evidence; no beautification or active-front debt."
       },
       "index": {
-        "updated_at": "2026-10-06T13:35:51+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "REFERENCE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "role": "Preserved donor/comparison surface. Its useful control direction (plain reading + bounded FCM/selection mechanics) has been absorbed elsewhere; CENTER no longer carries an execution obligation.",
@@ -3951,7 +3982,7 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / WORD MACHINES / LANGUAGE SURFACES / PROVE / RECOVER. Word Market, Pathweaver, Grid Path and Cell Foundry remain runnable unequal machines; CText, COPE, Wenyan, English Jueju and wordless interaction are explicit adjacent donors rather than hidden features of one editor.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -4111,9 +4142,10 @@
       "redirects_to": "/docs/",
       "tier": "FIELD",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -4293,7 +4325,7 @@
         "physical_fit": "FAN/8 v0.2 is a calibrated passive body candidate: six stable slots + HOLD FAST + LET FLY may project current Two Dial 0.10.4, HEX/PLAY 0.5.3 and ≤3 local-move readings. IDENTIFY/EMBED/DEFORM remain separate; physical value is unproved."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -4335,7 +4367,7 @@
       "showcase_card": false,
       "role": "Frozen AXIAL experiment: state aperture behaviour at 0.5.1. Kept as evidence of a decision, not as a current head.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "EXPERIMENT",
@@ -4364,7 +4396,7 @@
       "role": "Local-first candidate workbench for testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object with explicit RETURN; fresh bootstrap data is DEMO, not user evidence.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -4469,10 +4501,11 @@
         "physical_fit": "Prove digital↔physical mapping invariants before trusting an adapter."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "RELEASE"
+          "RELEASE",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD"
@@ -4598,7 +4631,7 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -4684,7 +4717,7 @@
         "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -4847,7 +4880,7 @@
         "physical_fit": "None inferred. A model may fit measurements while the physical result fails its independent contract, or vice versa."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "SIMPLIFY",
@@ -4890,7 +4923,7 @@
       "showcase_card": false,
       "role": "Frozen experiment: HTML as room substrate at 0.3. Part of the INTERPHASE room lineage.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "EXPERIMENT",
@@ -4918,7 +4951,7 @@
       "showcase_card": false,
       "role": "INTERPHASE ROOM 0.1. Early spatial-room projection. Frozen evidence.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "EXPERIMENT",
@@ -4946,7 +4979,7 @@
       "showcase_card": false,
       "role": "BLOCK to ROOM space-scale study, 0.2. Frozen evidence in the room lineage.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "EXPERIMENT",
@@ -5066,10 +5099,11 @@
         "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "role": "Sealed Jueju-native specialist: stable 4×7 source identity, study/evidence, path/glyph/RSVP and replayable RETURN. General Verse experiments belong outside this engine.",
@@ -5130,7 +5164,7 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5163,9 +5197,11 @@
       "showcase_card": false,
       "role": "Identify and mask sensitive values in pasted or dropped text.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -5181,9 +5217,11 @@
       "showcase_card": false,
       "role": "Measure structure and script composition for one local text source.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -5199,7 +5237,7 @@
       "showcase_card": false,
       "role": "Reveal one indexed multilingual segment at a time.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
@@ -5219,9 +5257,11 @@
       "showcase_card": false,
       "role": "Convert JSON, NDJSON, CSV or TSV between export shapes.",
       "index": {
-        "updated_at": "2026-10-06T13:33:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -5237,11 +5277,12 @@
       "tier": "FIELD",
       "role": "One-field radial focus over the addressed public surfaces, open proofs and recovered clusters: nothing filtered, foveate to read, hold to act. Projection-only access instrument — curated marks over the public manifest, OPEN hands off to native routes, and no second store, priority or mutation authority is created (the parked Lens FOVEATED comparator remains unaffected).",
       "index": {
-        "updated_at": "2026-10-03T03:48:46+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "RELEASE",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "evidence": {
@@ -5265,7 +5306,7 @@
       "showcase_card": false,
       "role": "The account behind the sky: 21 figures, each paired with the command or file it came from, plus the discrepancies and the known unknowns. Rule: a number that cannot name its source file is not allowed on a page.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
           "IMPLEMENT"
@@ -5293,7 +5334,7 @@
       "showcase_card": false,
       "role": "How the human addresses a machine, measured across 11,274 user-authored messages. Openings, closings and idioms counted as written, typos preserved. Opens with \"can you\", closes with \"go free\".",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "IMPLEMENT",
@@ -5358,7 +5399,7 @@
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-10-03T13:54:06+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -5383,10 +5424,11 @@
       "showcase_card": false,
       "role": "Technical timestamped HOUSE state/runtime projection. Canonical human entry remains /house/; Home Assistant / HOUSEBUS retains private device truth and actuation. This page adds inspection depth only.",
       "index": {
-        "updated_at": "2026-10-03T13:54:06+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -5448,9 +5490,11 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T13:54:06+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "NAVIGATE"
+          "NAVIGATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "family_href": "/house/",
@@ -5471,7 +5515,7 @@
       "tier": "FIELD",
       "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. 0.6 adds the radial wheel — the same 64 as one object, walked clockwise in King Wen order or sorted by six-bit address, with the judgment weight and the six line stages drawn outward and inward from each spoke. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
       "index": {
-        "updated_at": "2026-10-06T12:35:52+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
           "READ",
@@ -5512,7 +5556,7 @@
         "return_path": "/"
       },
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "IMPLEMENT",
@@ -5696,7 +5740,7 @@
         "owner": "LACONIC / ICONIC"
       },
       "index": {
-        "updated_at": "2026-10-03T04:12:42+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
@@ -5719,7 +5763,7 @@
       "role": "Exact recovered family launcher for five intentionally unequal tiny-law machines; shared principle, no forced shared runtime.",
       "receipt": "/law-zoo/artifact_manifest.json",
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY",
@@ -5789,10 +5833,11 @@
         "physical_fit": "Conceptual donor for tolerance/error exploration; never substitutes for safety or structural verification."
       },
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -5809,7 +5854,7 @@
       "tier": "FIELD",
       "role": "Sibling notebook to the frozen LAW ZOO donor family. Names the relation between two mined specimens via lib/interphase-ring.js, using the same four control verbs the FOLD//BLOOM convergence lane consumes (BLOOM / FOLD / RETURN / SPLIT). Records relations to browser-local storage and exports a return file. Does not read, write or modify the five FROZEN_DONOR machines; carries received vocabulary only and links out to the field guide for play.",
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -5895,10 +5940,11 @@
         "physical_fit": "Mechanism donor for addressed spatial/TRACE rules; not room geometry evidence."
       },
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -5964,10 +6010,11 @@
         "physical_fit": "Method donor for stencils, path laws and spatial rules; not physical proof."
       },
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -6032,10 +6079,11 @@
         "physical_fit": "Potential control-source donor for light/sound instruments; no hardware authority."
       },
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -6100,10 +6148,11 @@
         "physical_fit": "Candidate donor for print/glyph/stencil loops after separate proof."
       },
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -6166,9 +6215,10 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T19:49:16+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "alias_of": "/?lens_proof=1",
@@ -6187,7 +6237,7 @@
       "showcase_card": false,
       "role": "Thirteen predecessor generations, 2018 to now: KALA, KRAKEN/POLY, DataDisc, proto-kernel, Grid Path Compiler, Sleeper, Laconic, sovereign node, phantom-grid, Project Federation, training field, fold/bloom, FIELD INDEX. None deleted; every one a donor.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "IMPLEMENT",
@@ -6215,7 +6265,7 @@
       "family": "COMMS",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "INSPECT",
@@ -6243,12 +6293,13 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T16:29:25+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
           "SPECIFY",
-          "RELEASE"
+          "RELEASE",
+          "IMPLEMENT"
         ]
       },
       "machine_view": "MIGRATION",
@@ -6266,10 +6317,11 @@
       "showcase_card": false,
       "role": "Compatibility alias to the canonical FIELD convergence read at /#convRead. /nexus/board.html and /nexus/map.html remain direct utility projections; none owns NOW, NEXT, RETURN evidence, native actions, or execution authority.",
       "index": {
-        "updated_at": "2026-10-02T20:10:14+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -6294,7 +6346,7 @@
       "showcase_card": false,
       "role": "Multi-agent coordination board. Live view of who is working where, so parallel writers do not collide silently. A surface, not an authority.",
       "index": {
-        "updated_at": "2026-10-02T20:10:14+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "VERIFY",
@@ -6321,11 +6373,12 @@
       "showcase_card": false,
       "role": "Current one-page architecture projection: HUMAN PORT → Router → Policy → SHOWCASE/FIELD INDEX; FIELD holds one addressed object; Atlas Dayline executes; FIELD / PROOF tests representations; FCM remains an optional attention reducer/donor; Scale Lens, Verse Atlas, Sleeper and AXIAL stay unequal specialist hosts; RETURN closes observed consequence. Projection-only: no NOW, commit/effect or evidence authority.",
       "index": {
-        "updated_at": "2026-10-02T20:10:14+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -6350,10 +6403,11 @@
       "showcase_card": false,
       "role": "Public print launcher for the canonical PRINT-01 SVG. It exists only to move one addressed proof fixture from repository bytes to paper without relying on ephemeral chat/library attachments. The SVG remains geometry authority; the launcher cannot promote physical proof.",
       "index": {
-        "updated_at": "2026-09-25T19:47:53+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -6439,10 +6493,12 @@
         "Wordless Board 2|3 / 2|2|3 + 起承轉合 AUTHOR JUDGMENT boundary"
       ],
       "index": {
-        "updated_at": "2026-09-30T15:39:33+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
@@ -6459,7 +6515,7 @@
       "showcase_card": false,
       "role": "Bounded experiments for co-creative poetry; large research route map stays in Confluence while the lab exposes only currently executable probes.",
       "index": {
-        "updated_at": "2026-09-30T15:39:33+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -6482,10 +6538,11 @@
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
       "index": {
-        "updated_at": "2026-09-30T15:39:33+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evolution": {
@@ -6537,7 +6594,7 @@
         "University of Oklahoma / Newman Prize transfer-source provenance pinned"
       ],
       "index": {
-        "updated_at": "2026-09-30T15:39:33+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INVESTIGATE",
           "IMPLEMENT",
@@ -6793,7 +6850,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-28T14:41:15+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -6895,10 +6952,11 @@
         ]
       },
       "index": {
-        "updated_at": "2026-09-28T14:41:15+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD",
@@ -7034,7 +7092,7 @@
         "question": "Does changing representation deepen encounter while the authored prose remains primary?"
       },
       "index": {
-        "updated_at": "2026-10-03T10:04:11+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -7073,7 +7131,7 @@
         ]
       },
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
           "OPERATE",
@@ -7092,10 +7150,11 @@
       "showcase_card": false,
       "role": "Exact frozen donor families, blockers and recovery receipts; not a competing product surface.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -7113,10 +7172,11 @@
       "role": "Exact recovered AXIAL family: v0.3 transaction harness + v0.2 printable compositor/build packet; current /foundry/axial/ remains separate head.",
       "receipt": "/recovery/axial/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -7135,11 +7195,12 @@
       "role": "Exact SVG physical-correspondence template; build notes remain adjacent source. Printable fixture, not proof of completed hardware.",
       "receipt": "/recovery/axial/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7170,11 +7231,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7189,7 +7251,7 @@
       "showcase_card": false,
       "role": "Recovered folk and cultural material with provenance: the Bao & Noodle saga (包子與麵條, 41 of 46 parts, six sources, no attributable author) and its English performance adaptation; rasa poetics and the Malay narrative forms (hikayat, pantun) recovered from the operator's own sessions; the RASA PROTOCOL governing specifications (Series Grammar v1, Semantic Validation Schema v1, Plate 09 — the epistemic-control layer, recovered verbatim from chat after having no file anywhere on disk); the Jinshi lineage dossier (incl. the corrected false 1280-jinshi claim); the ALL PATHS / 512-microstory anthology note; and the keris cyber-maker note. Source memory, not current authority.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7209,7 +7271,7 @@
       "showcase_card": false,
       "role": "Governing specifications recovered verbatim from corpus chat text that had no file behind them. A sweep of 60,510 machine turns found 325 version-bearing artefact names; 62 had no standalone file on disk. Four are recovered here: CANON KERNEL v1 (2026-07-13, the Prison Age / Sig Nap Ore transmedia mythology — its originating ask states the house's own 'one artifact must survive one discriminating test' law), the BLIGHT CONTINUATION KIT v0.1 (2026-03-11, seven named artefacts in one turn: BLIGHT Constitution, Branch Registry, Provenance Ledger, Missingness Ledger, Adjacent Expansion Set, Episode Ledger, Voice Constitution Template), the Labyrinth-Grid Unified Font Spec v1.0 (2025-09-05), and the Conversation Analysis Toolkit v1 (created 2024-12-16, whose load constraint — 'analyze only visible messages, no invention, no external memory, all claims traceable to text' — is the same evidence discipline this house runs on). Source memory, not current authority.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7232,11 +7294,12 @@
       "role": "Partial exact-source recovery: editable integrated-field + symbol masters frozen; exact PDF atlas/build sheet located pending byte-copy.",
       "receipt": "/recovery/env0/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "SPECIFY"
+          "SPECIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7254,11 +7317,12 @@
       "role": "Exact editable A2 integrated-field SVG master for BODY→GARMENT→HARNESS→SUIT→FURNITURE→ROOM→HOUSE grammar.",
       "receipt": "/recovery/env0/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7276,11 +7340,12 @@
       "role": "Exact editable symbol/type grammar master: ports, boundaries, operations, confidence and print rules.",
       "receipt": "/recovery/env0/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7297,7 +7362,7 @@
       "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest.",
       "operation": "RECOVER",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY",
@@ -7318,10 +7383,11 @@
       "role": "Exact self-contained provenance cabinet carrying six unequal recovered instruments.",
       "receipt": "/recovery/foundry-cabinet-v4/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RECOVER",
@@ -7340,11 +7406,12 @@
       "role": "Exact 2018/2020 character-in-room interface fossils: ASCII face, communication field, controls, cursor/room response and later seek bodies.",
       "receipt": "/recovery/kala/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7360,7 +7427,7 @@
       "showcase_card": false,
       "role": "Historical temporal/radial instrument shelf: exact DataDisc 2019 + RSVP/TTS 2018 fixtures for mechanism comparison.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY",
@@ -7395,11 +7462,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7417,7 +7485,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/recovery/media/poobaby/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7466,7 +7534,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7508,9 +7576,11 @@
       "role": "Public-safe recovery status: exact lineage evidence exists, but no isolated public-safe runnable/source artifact has been located.",
       "receipt": "/recovery/naming/status.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "RECOVER"
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "tier": "VAULT"
@@ -7527,10 +7597,11 @@
       "role": "Exact Cabinet V4 family: general grid/path compiler and five unequal companion instruments.",
       "operation": "RECOVER",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7547,7 +7618,7 @@
       "showcase_card": false,
       "role": "English/Latin path-weave donor preserving source→path→projection→RETURN mechanics.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7568,7 +7639,7 @@
       "showcase_card": false,
       "role": "Cell-poetry topology, route/search, verification and evidence donor.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7589,7 +7660,7 @@
       "showcase_card": false,
       "role": "Unequal native engines coordinated under one federation/workbench contract.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7610,7 +7681,7 @@
       "showcase_card": false,
       "role": "Broader multilingual/general grid-path workbench: LATIN CONTROL, MEANTOME, Nine-Gate, EN/ZH/MS/TA and GRID/TEXT/GLYPH/RSVP projections.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7631,7 +7702,7 @@
       "showcase_card": false,
       "role": "Constrained lexicon/bag and least-change route construction donor.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7652,7 +7723,7 @@
       "showcase_card": false,
       "role": "RECT/RADIAL/FAN/ROOM unequal projections over stable addressed construction.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7673,7 +7744,7 @@
       "role": "Exact 2019–2021 executable + intent/contraction evidence family; later survey spec remains interpretive rather than source evidence.",
       "receipt": "/recovery/poly-furnisher/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY",
@@ -7696,11 +7767,12 @@
       "role": "Exact 2019–2020 rotating-cylinder / terse-proto / integrated-Interphase variant family with duplicate backups collapsed.",
       "receipt": "/recovery/poly-furnisher/interphase-lineage/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7730,11 +7802,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7752,11 +7825,12 @@
       "role": "Exact byte-verified xducers/matrix/lenses proto-kernel with representation swapping, scheduling and linear↔radial geometry.",
       "receipt": "/recovery/poly-furnisher/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7774,11 +7848,12 @@
       "role": "Exact FU5X2 / EMPTY3-RF / scratch donor family; historical room/cube projection over optics, matrix, state, speech/audio and focus machinery.",
       "receipt": "/recovery/poly-furnisher/room-lineage/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "IMPLEMENT"
         ]
       },
       "tier": "VAULT"
@@ -7795,7 +7870,7 @@
       "role": "Exact recovered 2018 temporal-focus fixture: word segmentation, speech-boundary synchronization and highlighting; later Watch reader work remains separate.",
       "receipt": "/recovery/rsvp/manifest.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7816,7 +7891,7 @@
       "showcase_card": false,
       "role": "Sleeper recovery shelf with canonical ONE RETURN v2-era exact source, preserved ASCII POV 0.8 derivative, playable ASCII reconstruction donor, Workfield, Painting / Path and media. Unequal objects are no longer flattened under ASCII 0.8 authority.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -7838,7 +7913,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7884,10 +7959,11 @@
         "playable donor provenance"
       ],
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "classification": "FROZEN_EXACT_DONOR",
@@ -7904,7 +7980,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7944,7 +8020,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7999,7 +8075,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -8019,7 +8095,7 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-10-06T22:45:50+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -8072,10 +8148,11 @@
         "physical_fit": "Can route toward physical adapters semantically; public bench itself never actuates."
       },
       "index": {
-        "updated_at": "2026-09-21T00:03:25+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ROUTE",
@@ -8341,7 +8418,7 @@
         "owner": "SHOPPING"
       },
       "index": {
-        "updated_at": "2026-10-03T00:14:55+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8363,10 +8440,11 @@
       "role": "Public route/link smoke surface for validating the showcase graph.",
       "operation": "VERIFY",
       "index": {
-        "updated_at": "2026-09-22T06:45:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD"
@@ -8383,7 +8461,7 @@
       "showcase_card": false,
       "role": "The quiet stretches in the record: 14 gaps of 12 days or more, 584 days in total, longest 325. REDACTED BY DESIGN — durations, dates and hours only. Verbatim text is withheld because it carries personal detail; full text stays local and out of this repository.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "VERIFY",
@@ -8412,7 +8490,7 @@
       "showcase_card": false,
       "role": "Every message exchanged with the machine, placed by date and hour of day and drawn as a night sky. Brightness is density. Built from 903 deduplicated conversations across both exports; regenerated by scripts/build-sky.mjs.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "IMPLEMENT",
@@ -8583,7 +8661,7 @@
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
           "VERIFY",
@@ -8609,10 +8687,11 @@
       "receipt": "/sleeper/ascii-pov-0.8/release.json",
       "role": "Byte-preserved former top-level POV/PLAIN four-contract constraint field. Kept runnable as a derivative; no longer canonical Sleeper authority.",
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "PLAY"
+          "PLAY",
+          "IMPLEMENT"
         ]
       },
       "classification": "SUPERSEDED_DERIVATIVE_PRESERVED",
@@ -8631,9 +8710,10 @@
       "operation": "REDIRECT",
       "tier": "FIELD",
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -8650,9 +8730,10 @@
       "operation": "REDIRECT",
       "tier": "FIELD",
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -8668,7 +8749,7 @@
       "role": "Draw a finite river around stone, sail branching landings, and return along your actual strokes; original painting voyage with replay-validated save/return.",
       "receipt": "/sleeper/borrowed-river/release.json",
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8726,7 +8807,7 @@
       "showcase_card": false,
       "role": "Borrowed River shell in the SLEEPER lineage. Playable surface, source evidence preserved.",
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "OPERATE",
@@ -8791,10 +8872,11 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
-          "RECOVER"
+          "RECOVER",
+          "IMPLEMENT"
         ]
       },
       "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2",
@@ -8820,11 +8902,12 @@
         "preserve superseded bytes before repointing authority"
       ],
       "index": {
-        "updated_at": "2026-10-03T07:46:54+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "PLAY"
+          "PLAY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD"
@@ -8841,7 +8924,7 @@
       "role": "Input surface: every typed token is DERIVED into a regular polygon — sides, size, angle and colour read off the token itself, never assigned — then shown through two projections of the same sequence (RADIAL ring, LINEAR row). The missing input half of the FIELD: 'anything means something'.",
       "tier": "FIELD",
       "index": {
-        "updated_at": "2026-09-23T09:13:30+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -8881,11 +8964,12 @@
       "tier": "FIELD",
       "role": "Disposable probe: can one object survive LINE / RING / ROOM / GLYPH without losing identity, address, focus or provenance? VALIDATED on 12 nodes. Not a product surface.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -8925,11 +9009,12 @@
       "tier": "FIELD",
       "role": "Falsification run: spike 001 used 12 like-typed tokens and proved nothing. This uses the 12 awkward types and reports residue. MODEL layer 8/8 invariants pass; PROJECTION layer 51/60 with 9 declared failures.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -8969,11 +9054,12 @@
       "tier": "FIELD",
       "role": "The falsification target: 12 heterogeneous nodes x 5 projections x 10 properties, multi-focus, fault injection, GetPut/PutGet, exact RETURN. 19/19 laws hold; 8 kill criteria clear, 1 untested, 0 hit. Diagnostic manifests, not interfaces.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -9013,11 +9099,12 @@
       "tier": "FIELD",
       "role": "Runtime collapse proof: one heterogeneous canonical field rendered as LINE / FLOWER-KEY / RADIAL / ROOM / GLYPH. FLOWER-KEY and ROOM reuse the same six DOM panel elements; projections preserve shared state and declare residue instead of pretending universality.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -9062,11 +9149,12 @@
       "tier": "FIELD",
       "role": "Implementation proof for recursive INTERPHASE composition: one canonical object can sustain multiple simultaneous unequal projections over one store, with mutations returning through the owner rather than view-to-view coupling. Current doctrine generalizes the contract recursively without merging domain semantics.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -9106,11 +9194,12 @@
       "tier": "FIELD",
       "role": "Falsification probe for an executable Φ/φ distinction: Φ is a derived host boundary, φ is an addressed locus, transcripts selectively express channels/support, translations expose residue, stale commits fail, and rewind restores expression context without rolling canonical history backward.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -9155,7 +9244,7 @@
       "tier": "FIELD",
       "role": "Executable multi-domain proofs P1/P2/P3 from HARD_EVOLUTION_MAP: one location-with-context descriptor across unequal domains; typed composition (parts / ports / relations / constraints / operators) projected as FORMULA / HYPERGRAPH / FLOWER with declared residue; preserved-interface rewrites with commit + evidence + RETURN. Interactive annex demonstrates IDENTIFY ≠ DEFORM (plane → cylinder → torus). No shared-core promotion.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -9208,11 +9297,12 @@
       "tier": "FIELD",
       "role": "Historical H1 donor: proved operation-score-before-video. Current continuation is /fold-bloom/replay/; do not evolve the spike as a competing product surface.",
       "index": {
-        "updated_at": "2026-09-27T01:18:47+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
           "INSPECT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": [
@@ -9257,7 +9347,7 @@
       "showcase_card": false,
       "role": "Two independent recoveries of the same export produced the identical 893-conversation set — and shared one blind spot, 13 group chats in a file neither extraction read. Published as evidence that agreement is not completeness.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "VERIFY",
           "IMPLEMENT"
@@ -9285,7 +9375,7 @@
       "showcase_card": false,
       "role": "The wall: archive sky, handshake, silences, twins, lineage and sourced account, now reopened in a bounded way with a second REPO SKY reading over exact static Git history + current manifest/CURRENT/live HEAD. Testimony, construction history and audit remain unequal witnesses.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INSPECT",
           "VERIFY",
@@ -9313,10 +9403,11 @@
       "role": "Default bounded execution protocol for humans and agents: resolve exact SOURCE, HOLD one addressed focus with ≤3 lawful native moves, TURN once (EFFECT requires host-native RELEASE/commit), TRACE actual consequence, RETURN durable evidence, then release authority and replan.",
       "receipt": "/returns/SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
       "index": {
-        "updated_at": "2026-10-06T22:12:28+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       }
     },
@@ -9333,7 +9424,7 @@
       "showcase_card": false,
       "role": "FIELD INDEX representation instrument. Receives the exact held FIELD route from root, reconstructs its real manifest lineage, and renders mismatch between canonical route facts and the selected FIELD projection. Alignment may compensate coordinate displacement but cannot erase hidden/derived identity, address, content, depth, authority or evidence residue.",
       "index": {
-        "updated_at": "2026-10-03T08:22:13+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9377,10 +9468,11 @@
       "showcase_card": false,
       "role": "Exact recovered self-contained ancestor of the painting-backed Forward Field / Atlas Dayline representation. Preserves the embedded underpainting and original interaction source as donor evidence only; it does not replace current Dayline or FIELD authority.",
       "index": {
-        "updated_at": "2026-10-03T10:00:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RECOVER",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -9401,7 +9493,11 @@
       "showcase_card": true,
       "role": "Recovered genesis canon rendered live: the interphase epiphany — one object preserved across every projection and state. Representation is never the object. The spine the representation sprawl folds into.",
       "index": {
-        "updated_at": "2026-10-03T15:29:57+08:00"
+        "updated_at": "2026-10-06T23:37:33+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
       },
       "receipt": "/returns/RETURN_INTERPHASE_GENESIS_2026-10-03.json"
     },
@@ -9417,7 +9513,7 @@
       "showcase_card": true,
       "role": "Executable continuity workbench: one addressed object survives PLAIN, COMPACT and FIELD readings; semantic edits round-trip through lawful lenses while FIELD camera/focus/aperture remain view-local. Genesis is provenance, not a second authority.",
       "index": {
-        "updated_at": "2026-10-06T20:28:46+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9442,7 +9538,7 @@
       "family": "FIELD / PATTERNS",
       "role": "A PATTERN LANGUAGE for the field: 22 patterns in Alexander's Context/Problem/Forces/Solution form (Alexander, Ishikawa & Silverstein 1977), each with evidence naming the real routes where it is already in use, and 32 cross-links forming the network that makes it a LANGUAGE rather than a parts catalogue. Transcribed from tools/house-patterns.css v0.3.0 and the FIELD HOUSE RULES surface-discipline section, plus work measured and shipped 2026-10-06. Closes with an index of the scattered lists (control/research, recovery, fcm) - indexed, not moved, because those paths are load-bearing for gates. Generated by tools/pattern-language-build.py.",
       "index": {
-        "updated_at": "2026-10-06T18:40:09+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -9526,7 +9622,7 @@
       "family": "FIELD / PICKS",
       "role": "Generated FIELD PICKS page — where to start: 10 ranked routes, one line of why each, computed last-touch age and returns count; every figure produced by tools/picks-build.py from the manifest + git. noindex static projection, evidence surface, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9555,7 +9651,7 @@
       "family": "FIELD / DECISIONS",
       "role": "One-page decision note: should a reader take Harvard CS50 in 2026/27 — time/money/drop-off cost, four alternatives by goal, the 2026 AI rule (external AI banned, cs50.ai allowed), and an ELI5. Compressed from a 60-page Google AI-Mode printout with page-level cites; noindex static reading surface, not a head.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9585,7 +9681,7 @@
       "family": "FIELD / DECISIONS",
       "role": "One-page synthesis of the full 60-page Google AI-Mode thread (15 replies: CS50 verdict, lawyer-friendly alternatives, APAC AI-law divergence, 4-Hour-Workweek to Muse/OpenMuse mapping, agent-harness security, Slack as legal ops OS) written for the person who asked it: APAC AI regulatory-policy at a big-tech AI firm in Singapore, non-engineer. Includes corrections verified against a live Hermes install and public sources. Noindex reading surface; not a head, not legal advice.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9615,7 +9711,7 @@
       "family": "FIELD / ATLAS",
       "role": "Single-page visual read of the whole FIELD: a nested treemap where every rectangle is one addressed route (area = how many real commits landed in it, hue = state, brightness = freshness), plus THE PULSE — the same routes on their last-touch date, one lane per state — and ten picks. Layout is computed in the browser at real pixel sizes so it stays legible on a phone. Every figure comes from showcase-manifest.json, returns/ or git, or it is not on the page. Generated by tools/field-atlas-build.py; noindex static projection, evidence surface, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9646,7 +9742,7 @@
       "family": "FIELD / WINE",
       "role": "Reconstruction of the fifteen-domaine encounter list (Burgundy + Northern Rhône, first written 2025-04-25) and the aesthetic extracted from it: fifteen terse briefs with provenance kept honest (explicit/probable/unresolved — Maréchal deliberately unresolved), the TRACE/BEAR/RELEASE/RETURN operator set, four maker attitudes, seven falsifiable laws, and the manifesto 'The Art of Cultivated Difference'. Noindex reading surface; a reconstruction with corrections welcome — not a canon, not consumption advice.",
       "index": {
-        "updated_at": "2026-10-06T12:16:36+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9676,7 +9772,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T22:22:35+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9707,7 +9803,7 @@
       "family": "FIELD / PATTERNS",
       "role": "House design/pattern library as an artifact: the 12 recurring components extracted from the three shipped dated pages (wrap, meta, big, card, act, warn, moves, table, badge/tag, close, foot, filters), each rendered live by tools/house-patterns.css with its one-line usage rule. Dogfooded reference page — every block is styled by the sheet it documents. Survey of 10 extant systems and extraction notes in AXIS/work/ACTIVE/pattern-lib/NOTES.md. Noindex static reading surface, not a head.",
       "index": {
-        "updated_at": "2026-10-06T12:59:36+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "IMPLEMENT",
@@ -9736,7 +9832,7 @@
       "family": "FIELD / CANON",
       "role": "Culture canon the reading lists were missing: twelve essays arguing where the doing lives - Story of Mel (1983) through Duckworth on grit - including the AI manifesto genre (Amodei, Aschenbrenner, AI 2027) read as position rather than physics. Explicit human selection 2026-10-06 (operator named Kingdom of Nouns, why's (poignant) Guide, Duckworth, Anthropic manifestos). Complements /20261006-ai-mode-thread-mcvoid/ section R (the work-specific list); this is the culture half. Noindex reading surface.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RECOVER",
@@ -9768,7 +9864,7 @@
       "family": "FIELD / DECISIONS",
       "role": "One-strike artifact answering the operator's charge (2026-10-06): reified standards (strike once, delight clause, gates-not-trophies, spare agency) + the canon he named (Yegge Kingdom of Nouns, why's poignant guide, Duckworth, the Amodei manifesto cluster, Aschenbrenner) with verified links; marks the never-received oil-town follow-up as MISSING. Built on house-patterns.css.",
       "index": {
-        "updated_at": "2026-10-06T16:16:36+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9798,7 +9894,7 @@
       "family": "FIELD / TOOLS",
       "role": "Client-side jargon decoder for mangospree (APAC legal/policy, non-engineer): paste any scary paragraph, get each term's context-fitting meaning, its other-room sense (polysemy solver), and one action. 44-term deck across AI-law/Slack-IT/agent/acronym domains; live deadline clocks (AU 10 Dec 2026, KR ~Jan 2027); copyable IT question. 100% in-browser — pasted text never leaves the device (deliberate for a legal user). Operator-mandated mission 2026-10-06 ('artifact for mangospree, powerful useful not a toy').",
       "index": {
-        "updated_at": "2026-10-06T23:21:10+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9829,7 +9925,7 @@
       "family": "FIELD / INSTRUMENTS",
       "role": "ARM B of a two-arm usability test the subject herself adjudicates. Decision instrument for mangospree: paste an ask, get six boxes - say (shorthand expanded), want (action: extraction), clock (in-text deadlines), who (jurisdiction + regulator), traps, move. Offline, nothing transmitted. ARM A is /20261006-decode-mangospree/ (word-meaning decoder), which already absorbed this page's ask/clock/who/move extraction as a donor on 2026-10-06. CONVERGENCE RULE: this page is DISPOSABLE BY DESIGN - whichever arm she uses less gets deleted at the 2026-11-05 expiry. Do not grow both. Operator direction 2026-10-06: 'maybe do ur own version can ask subject which one pref AB test'. Noindex tool surface.",
       "index": {
-        "updated_at": "2026-10-06T23:21:10+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "INVESTIGATE",
           "IMPLEMENT",
@@ -9859,7 +9955,7 @@
       "family": "FIELD / PLAY",
       "role": "The judgment game, built out and merged with the CONSULTATION. A repair ritual disguised as a judgment drill: real messages on real clocks, you make calls, and a narrator tells you what your call COST and what it BOUGHT. Four decks, all in one host. THE FLOOR (12 professional matters for mangospree), THE CREW (14 real incidents from our own fleet record, each with its citation), IMPACTED (7 cards built from the words used INSTEAD OF the thing - 'your role has been impacted', 'organisational realignment', 'performance-managed exit'; origin: operator 2026-10-06, 'being fired is called impacted and no one seems interested or aware enough to engage with the mappings ... feels like random execution'), and THE FIRST 90 (8 sourced onboarding failure reports quoted from the public threads they came from - r/jobs, r/auscorp, r/usajobs, r/cscareerquestions - including 'he just throws me under the bus when there's a mistake in the work I did and HE REVIEWED AND APPROVED', 'nothing makes me doubt a new job more than sitting and doing nothing', two hundred-page binders with no system access, and day one ending with the hiring manager announcing his resignation). THE CALIBRATION NOW TUNES THE RUN, it does not just label the player: four taps set position, what you leave with (profile / playbook / both / private) and how much of your time this takes (5 calls, 8, or everything). Asking is the weak instrument - the profile is read from HOW YOU PLAY, not from what you claim (Beyond Asking, Lu et al. 2026). THE POWER LAW, stated on the page where you can see it: this output is yours. No export, no team dashboard, no way for anyone with authority over you to read your result. That is not a privacy footnote - it is the difference between an instrument and a performance review wearing a friendly hat. CliftonStrengths fails exactly here, and the sourced threads say so: 'if your employer has access to the results, my motivation was to look like a valuable promotable employee, not self-knowledge'. Choosing 'private' withholds the failure-mode label entirely (YOURS. NO LABEL.) and disables the export. MERCEY RULE held and now true in the SOURCE, not just at runtime: no verdict judges the player - 12 FLOOR verdicts that opened with 'Correct.' were rewritten to the cost/buys grammar at source, and the handful that editorialised about the choice now name consequence instead. Zero judging verdicts across 123 call options. NO DIAGNOSIS whenever nothing in the run carries a citation-derived mode - the sort never invents a type from zero evidence. Local-only: nothing recorded, the Kind-Words ending note has no form and never transmits. Built on the released FIELD / PLAY v0.4 scaffold; donor modules credited in-file (ending.js + narrator pack, mahshroom 2026-10-06).",
       "index": {
-        "updated_at": "2026-10-06T23:36:21+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -9891,7 +9987,7 @@
       "family": "FIELD / INSTRUMENTS",
       "role": "Performance coach for persona/talk, built from botdoc + bottherapist at operator direction 2026-10-06 ('research how to level up ur persona talk, build a performance coach out of botdoc bottherapist'). Three-condition feedback loop (Ericsson 2008; goal knowledge + performance awareness + gap-closing capacity): GOAL = a real measured fingerprint (8,909 messages / 810,294 words from ops-hub/wiki/data/profile_style.json, method stylometric_feature_extraction_v2) rather than a style opinion; AWARENESS = the draft scored against it; GAP-CLOSING = the concrete rewrite. BOTDOC measures, BOTTHERAPIST names the pattern and its cost to the reader. Scoring law is the interesting part and is enforced in code: rate metrics on short drafts report NO SIGNAL instead of a verdict; length-dependent metrics (TTR) are declared as length artifacts; sparse events (exclamations, questions, ellipses, contractions, emoji) may only be judged once the draft expects >= 2 of them, so zero contractions in a 61-word draft is the expected outcome and not flagged. Offline, nothing uploaded.",
       "index": {
-        "updated_at": "2026-10-06T16:19:30+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -9923,7 +10019,7 @@
       "family": "FIELD / TOOLS",
       "role": "The Google AI thread re-staged as an EXPERIENCE: five tap-choices (the same clarifying questions the thread asked its asker) assemble a personal brief live, with two TTS voice clips (audiovisual), replay loop, and a kit of every artifact built from the thread. Operator mission 2026-10-06: 'represent it all as a real experience, build on scaffolds, come back with the work done'.",
       "index": {
-        "updated_at": "2026-10-06T15:06:43+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9953,7 +10049,7 @@
       "family": "FIELD / DECISIONS",
       "role": "Deep analysis of the Google AI answerer itself (operator: 'you didn't do any review deep analyses on google ai's responses'): all 15 replies graded STEAL/GOOD/MIXED/MISS/DRIFT against primary sources fetched the same day, plus the meta (its action-attachment pattern worth stealing; its confident small fabrications; mirror mode; zero effective dates) and the model update (decision + date + move is the unit).",
       "index": {
-        "updated_at": "2026-10-06T15:11:26+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9983,7 +10079,7 @@
       "family": "FIELD / DECISIONS",
       "role": "The day wrapped from REAL state: generated by tools/daywrap-build.py from git log (machine commits stripped by rule), hermes kanban list, and manifest additions — plus the waiting-on-human gates. Regenerable any day; refuses to invent a row. Operator: 'wrap it all up, make it consequential'.",
       "index": {
-        "updated_at": "2026-10-06T15:16:25+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -10012,7 +10108,7 @@
       "tier": "FIELD",
       "role": "Sibling host where tiny laws load as pure reducers ((state,t,ctx) to state prime) and compose (CHAIN). LOAD LAW runs operator-typed tixy/dwitter-style formulas locally; ships RIPPLE / RULE TAPE (ECA-90 torus) / TIXY FIELD + a live ganja.js PGA2D algebra specimen. Frozen donor machines untouched; no forced shared runtime.",
       "index": {
-        "updated_at": "2026-10-06T18:46:59+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -10068,7 +10164,7 @@
       "family": "FIELD / LINKS",
       "role": "Raw unfiltered link dump behind the frex LINK FIELD — every ledger URL verbatim, live text filter + lane chips. Contains RFC1918 / LAN addresses and internal service URLs as collected; noindex static evidence, not a runtime and not an authority.",
       "index": {
-        "updated_at": "2026-10-06T23:17:05+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "READ",
           "IMPLEMENT",
@@ -10094,10 +10190,11 @@
       "showcase_card": false,
       "role": "Formerly INTERFACE GENOME 0.1. Fetches real CURRENT + showcase-manifest records, renders one normalized FIELD record three deterministic ways, and records browser-observed retrieval correctness and latency. Synthetic fixtures, random breeding and generated advice were removed in 0.2.",
       "index": {
-        "updated_at": "2026-10-06T22:43:32+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "EXPERIMENT",
-          "VERIFY"
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "tier": "FIELD"
@@ -10113,10 +10210,12 @@
       "showcase_card": false,
       "role": "The original THE CALL judgment drill, frozen as retained history for the operator's 'retain old version' ask. The current Frex cut lives at the parent route. No further edits planned; resume only on a named reason.",
       "index": {
-        "updated_at": "2026-10-06T23:23:45+08:00",
+        "updated_at": "2026-10-06T23:37:33+08:00",
         "work_modes": [
           "PLAY",
-          "INSPECT"
+          "INSPECT",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
