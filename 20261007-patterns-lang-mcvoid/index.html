@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A PATTERN LANGUAGE · 2026-10-06</title>
+<link rel="stylesheet" href="../tools/house-patterns.css">
+<style>
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-body);margin:0}
+  .wrap{max-width:var(--wrap,900px);margin:0 auto;padding:28px 18px 80px}
+  .lede{font-size:1.15em;line-height:1.55;border-left:3px solid var(--hot);padding:2px 0 2px 16px;margin:18px 0 6px}
+  .lede b{background:var(--hl);padding:0 3px}
+  .netnav{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 30px}
+  .netnav a{font:11px/1 var(--font-mono);border:1px solid var(--rule);padding:5px 8px;color:var(--mut);text-decoration:none}
+  .netnav a:hover{border-color:var(--hot);color:var(--hot)}
+  .pat{border:1px solid var(--rule);margin:0 0 16px;background:var(--panel)}
+  .patHead{display:flex;align-items:baseline;gap:12px;padding:11px 14px;border-bottom:1px solid var(--rule)}
+  .patNum{font:700 13px/1 var(--font-mono);color:var(--bg);background:var(--ink);padding:5px 8px}
+  .patHead h3{margin:0;font:600 15px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
+  .patBody{padding:6px 14px 14px}
+  .fld{display:grid;grid-template-columns:82px 1fr;gap:12px;margin:11px 0;font-size:.92em;line-height:1.6}
+  .fld .k{font:10px/1.5 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);padding-top:3px}
+  .fld.forces .v{color:var(--mut);font-style:italic}
+  .fld.sol .v{color:var(--ink)}
+  .sol{border-left:2px solid var(--hot);padding-left:12px;margin-left:-2px}
+  .ev{margin:0;padding-left:16px}
+  .ev li{margin:2px 0;font:11px/1.6 var(--font-mono);color:var(--mut)}
+  .ev code{color:var(--ok);background:var(--codebg);padding:1px 4px}
+  .links .v a{font:11px/1 var(--font-mono);border:1px solid var(--rule);padding:4px 7px;margin:0 5px 5px 0;display:inline-block;color:var(--mut);text-decoration:none}
+  .links .v a:hover{border-color:var(--hot);color:var(--hot)}
+  .lists{margin-top:46px;border-top:2px solid var(--ink);padding-top:18px}
+  .lists h2{font:600 13px/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px}
+  table.ltbl{width:100%;border-collapse:collapse;font-size:.86em}
+  .ltbl th{text-align:left;font:10px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--rule);padding:8px 10px}
+  .ltbl td{border-bottom:1px solid var(--rule);padding:9px 10px;vertical-align:top}
+  .ltbl td:first-child{font-family:var(--font-mono);color:var(--hot);white-space:nowrap}
+  .ltbl td:nth-child(2){color:var(--mut);text-align:right;font-family:var(--font-mono)}
+  .close{margin-top:38px;border:1px solid var(--hot);padding:16px 18px;font-size:1.05em;line-height:1.6}
+  .foot{margin-top:26px;font:10.5px/1.8 var(--font-mono);color:var(--mut)}
+  @media(max-width:640px){.fld{grid-template-columns:1fr;gap:2px}.fld .k{padding-top:0}}
+</style></head>
+<body><div class="wrap">
+
+<h1 class="display">A PATTERN LANGUAGE</h1>
+<p class="sub">2026-10-06 · for the field · 22 patterns · 32 links</p>
+
+<p class="lede">A stylesheet is not a pattern language. Alexander's 253 patterns worked because
+they had names, forces, evidence, and — the part everyone forgets — they <b>referenced each
+other</b>. This is that, transcribed from what this field already ships.</p>
+
+<p class="sub">Christopher Alexander, Sara Ishikawa &amp; Murray Silverstein, <i>A Pattern Language</i> (1977):
+uniform <b>Context / Problem / Forces / Solution</b>, each carrying the evidence for its validity,
+explicitly "one possible pattern language" and written for readers to extend. The UI lineage the
+operator was remembering is real: Jenifer Tidwell, <i>Designing Interfaces</i> (2005) and her MIT essay
+"The Case for HCI Design Patterns" carried Alexander into interface work; then Pattern Lab
+(atomic design), UI Patterns, Pttrns, PatternTap. <b>30 Seconds of Code</b> is a snippet library —
+different animal, named here so nobody confuses them again.</p>
+
+<nav class="netnav"><a href="#the-one-page">00 THE ONE PAGE</a> <a href="#the-title">01 THE TITLE</a> <a href="#the-meta-strip">02 THE META STRIP</a> <a href="#the-pivot">03 THE PIVOT</a> <a href="#the-card">04 THE CARD</a> <a href="#the-do-block">05 THE DO BLOCK</a> <a href="#the-stale-flag">06 THE STALE FLAG</a> <a href="#the-moves">07 THE MOVES</a> <a href="#the-table">08 THE TABLE</a> <a href="#the-badge">09 THE BADGE</a> <a href="#the-close">10 THE CLOSE</a> <a href="#the-provenance-foot">11 THE PROVENANCE FOOT</a> <a href="#the-filters">12 THE FILTERS</a> <a href="#the-un-losable-rule">13 THE UN-LOSABLE RULE</a> <a href="#the-checker">14 THE CHECKER</a> <a href="#the-holding-pen">15 THE HOLDING PEN</a> <a href="#area-is-effort">16 AREA IS EFFORT</a> <a href="#the-pulse">17 THE PULSE</a> <a href="#reduce-don-t-expand">18 REDUCE, DON&#x27;T EXPAND</a> <a href="#commit-on-change">19 COMMIT ON CHANGE</a> <a href="#recover-before-inventing">20 RECOVER BEFORE INVENTING</a> <a href="#the-partial-asset">21 THE PARTIAL ASSET</a></nav>
+
+
+<section class="pat" id="the-one-page">
+  <div class="patHead"><span class="patNum">00</span><h3>THE ONE PAGE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">Someone has to understand a system they did not build, in one sitting.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">The truth is spread across 473 files, 170 routes and three roots. Any page that shows all of it shows none of it.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Completeness pulls toward the index. Comprehension pulls toward one page. They do not meet in the middle — a half-index is the worst of both.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Compose ONE page that answers the one question a human actually has. Everything else is reachable from it and is not rendered until asked for. The page is a reduction, never a digest.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-field-mcvoid/</code></li><li><code>wiki/personal/START-HERE.md</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-filters">12 FILTERS</a> <a href="#the-pivot">03 THE PIVOT</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-title">
+  <div class="patHead"><span class="patNum">01</span><h3>THE TITLE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A page needs to say what it is before it says anything else.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A page that opens with chrome makes the reader work out where they are.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Branding wants a logo. Orientation wants words. Words win — a name is readable by a machine and a person at once.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">One big monospace title. No wordmark, no hero image. The title is the address of the object on the page.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>every page in the field</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-meta-strip">02 THE META STRIP</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-meta-strip">
+  <div class="patHead"><span class="patNum">02</span><h3>THE META STRIP</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">The reader needs to trust the page before they read it.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Provenance lives in footnotes nobody reaches. The reader cannot tell a live page from a dead one.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Burying provenance keeps the header clean and makes every claim unverifiable. Putting all of it up top makes the page a status report.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">ONE strip of facts directly under the title: what it is, when it moved, who it is for, how stale it is. State the AGE, never just the timestamp — a timestamp that reads &quot;now&quot; while being history is a lie by omission.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/</code></li><li><code>/desk/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-stale-flag">06 THE STALE FLAG</a> <a href="#the-provenance-foot">11 THE PROVENANCE FOOT</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-pivot">
+  <div class="patHead"><span class="patNum">03</span><h3>THE PIVOT</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A page has one thing it wants you to understand.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Dense pages open with context and bury the point on line 40.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Context-first is how papers work. Point-first is how a person decides whether to keep reading. A page is not a paper.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A lede that states the single claim, and a way to mark the exact pivot word. Then everything below is evidence for that sentence.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-picks-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-one-page">00 THE ONE PAGE</a> <a href="#the-card">04 THE CARD</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-card">
+  <div class="patHead"><span class="patNum">04</span><h3>THE CARD</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A claim needs to be checkable without leaving the page.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A bare claim in prose has no boundary — the reader cannot tell where the claim stops and the commentary starts.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Boxes read as decoration unless they carry a verdict. A card that only frames is a rounded rectangle, and the house rules forbid that grammar.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A self-contained claim with an inverted badge carrying the VERDICT (verified / candidate / failed). Hard edges. The badge is the only colour in the block.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/desk/</code></li><li><code>/20261005-linkfield-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-badge">09 THE BADGE</a> <a href="#the-stale-flag">06 THE STALE FLAG</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-do-block">
+  <div class="patHead"><span class="patNum">05</span><h3>THE DO BLOCK</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">The reader has understood and now has to act.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Most pages end with more prose. The reader has to re-derive the instruction from the argument they just read.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Repeating the argument is generous and useless. A bare command is terse and rude. The action needs the same dignity as the analysis.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">One block, phrased as the move: what to do, in the imperative, with the smallest possible scope. If there are many moves, they are ranked, not listed — see 07.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/contact/</code></li><li><code>/port/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-moves">07 THE MOVES</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-stale-flag">
+  <div class="patHead"><span class="patNum">06</span><h3>THE STALE FLAG</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A projection prints a timestamp.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A projection that prints a timestamp without its age is a state line that reads as &quot;now&quot; while being history. Measured: a route could read &quot;09-30 18:50&quot; while being days old, and nothing said so.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Always showing age adds noise to every row. Never showing it makes the whole surface untrustworthy. The flag must never be out-specified by a surrounding rule.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">State the age beside the stamp, and past the clock&#x27;s interval (2x the refresh cadence) mark it in the host&#x27;s attention token. THE FLAG MUST BE UN-LOSABLE: one rule, `!important`, because 65 context rules will otherwise swallow it silently.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/ (52 flags live, measured 2026-10-06)</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-meta-strip">02 THE META STRIP</a> <a href="#the-un-losable-rule">13 THE UN-LOSABLE RULE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-moves">
+  <div class="patHead"><span class="patNum">07</span><h3>THE MOVES</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">The reader wants to know what to do next, not what is true in general.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A page that is entirely analysis hands the decision back to the reader.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Ranked actions imply authority the writer may not have. A flat list implies they are equivalent when they are not.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A ranked block of actions placed BEFORE the detail. Rank is a claim and must be defensible: the first move is the one that unblocks the others.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-picks-mcvoid/</code></li><li><code>/desk/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-do-block">05 THE DO BLOCK</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-table">
+  <div class="patHead"><span class="patNum">08</span><h3>THE TABLE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">Two or more things must be compared, or a correction must be shown.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Comparison in prose forces the reader to hold both sides in their head. A correction buried in prose is read as an aside.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Tables are dense and hostile on a phone. Prose is warm and imprecise. The house grammar prefers borders and typography over containers.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A hard-edged table for comparison, and for corrections: what it said / what is true. Corrections are first-class content, not footnotes — a wrong number that stays wrong is worse than no number.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-canon-mcvoid/</code></li><li><code>/desk/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-card">04 THE CARD</a> <a href="#the-provenance-foot">11 THE PROVENANCE FOOT</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-badge">
+  <div class="patHead"><span class="patNum">09</span><h3>THE BADGE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A card needs a verdict at a glance.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Colour coding states invites a palette; every new state adds a colour and the page turns into a dashboard.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Semantic colour is legible and grows without bound. Two tokens are stable and stop meaning anything.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">One INVERTED chip — solid background, knocked-out text. It carries a state word. The host&#x27;s two tokens (`--hot`, `--ok`) are the only colours allowed to mean something; everything else is ink and muted ink.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/desk/</code></li><li><code>/20261005-linkfield-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-card">04 THE CARD</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-close">
+  <div class="patHead"><span class="patNum">10</span><h3>THE CLOSE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">The reader is finished and about to leave.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Pages trail off. The reader is never told the argument concluded.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">A summary repeats. A call to action sells. Neither is what a page owes the reader at the end.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">ONE box before the foot. It restates the pivot in one sentence and stops. No summary, no &quot;thanks for reading&quot;.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-field-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-pivot">03 THE PIVOT</a> <a href="#the-provenance-foot">11 THE PROVENANCE FOOT</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-provenance-foot">
+  <div class="patHead"><span class="patNum">11</span><h3>THE PROVENANCE FOOT</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">Every claim on the page came from somewhere.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Sources live in files the reader cannot see. The page asserts without showing work.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Full provenance is unreadable. No provenance is unfalsifiable.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">The foot names the artifacts, commits, PRs and measurements the page stands on, in the form a machine can check: SHA, path, date. If you cannot name it, the claim does not go on the page.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/recovery/</code></li><li><code>wiki/artifacts/trophy-*.md</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-table">08 THE TABLE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-filters">
+  <div class="patHead"><span class="patNum">12</span><h3>THE FILTERS</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A page carries more rows than a person will read.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A long list is honest and unusable. A short list is usable and dishonest.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Pagination hides. Infinite scroll removes the sense of scale. Search alone presumes the reader knows the vocabulary.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A sticky search field plus LANE CHIPS that name the states the rows can be in. The chips are derived from the data, not invented — if a lane has no rows it does not get a chip. Always show the total against the filtered count so the reader knows what they are not seeing.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261005-linkfield-mcvoid/</code></li><li><code>/20261006-picks-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-one-page">00 THE ONE PAGE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-un-losable-rule">
+  <div class="patHead"><span class="patNum">13</span><h3>THE UN-LOSABLE RULE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">One visual property must never be wrong.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">CSS is a specificity contest. Every later rule that sets the same property wins silently. Measured 2026-10-06: a flag applied to 52 elements, the weight applied, the COLOUR never landed — 65 context rules could swallow it.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">`!important` is a code smell. A silently-broken invariant is a worse one. Patching each context is the actual bug, because the next context rule wins again.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Declare the invariant ONCE, un-losable (`!important`), and write a CHECKER that asserts it landed — not that the class was applied. Class-present is not colour-landed.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/ (PR #929)</code></li><li><code>scripts/check-stale-date.mjs</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-stale-flag">06 THE STALE FLAG</a> <a href="#the-checker">14 THE CHECKER</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-checker">
+  <div class="patHead"><span class="patNum">14</span><h3>THE CHECKER</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A rule has been written down.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A rule nobody runs is a wish. Measured across this system: specified-but-never-scheduled is the single most expensive kind of debt — a script designed but not scheduled costs the same as one never written.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Gates cost runs and slow everyone down. No gates means every rule is decorative.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Every law gets a pass/fail checker with a real exit code, and it is run where the change happens. A checker that asserts an artifact EXISTS and never asserts it WORKS is the commonest failure — see 13.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>tools/temp-pages.py --check</code></li><li><code>tools/validate-public.mjs</code></li><li><code>tools/fi-mutation-contract.py</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-un-losable-rule">13 THE UN-LOSABLE RULE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-holding-pen">
+  <div class="patHead"><span class="patNum">15</span><h3>THE HOLDING PEN</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">Someone ships a throwaway page with a date in its name.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Dated pages accumulate forever. The index fills with dead objects and the field starts to look like a landfill.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Deleting early destroys work still in use. Keeping forever destroys the index. A naming convention alone does not expire anything.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">A REGISTRY of temporary objects with an explicit expiry, an index page showing the countdowns, and a check that exits non-zero when a dated object is NOT registered — so the un-registered case is loud instead of invisible. Expired objects move to a holding pen, never a hard delete.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/temp/</code></li><li><code>tools/temp-pages.py</code></li><li><code>control/TEMP_PAGES.json</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-checker">14 THE CHECKER</a></span></p>
+  </div>
+</section>
+<section class="pat" id="area-is-effort">
+  <div class="patHead"><span class="patNum">16</span><h3>AREA IS EFFORT</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">You want a map of where the work actually went.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Treemaps are usually sized by file size or member count. That measures the shape of the tree, not the labour spent on it.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Commit count is easy and lies — machine refreshes inflate it. File size is easy and lies — generated artifacts are huge. Effort has no direct metric.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Size the rectangle by the count of SEMANTIC touches, with machine-refresh commits stripped. Hue is state, brightness is freshness, area is work landed. Say the encoding on the page; an unexplained colour is decoration.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-field-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-one-page">00 THE ONE PAGE</a> <a href="#the-pulse">17 THE PULSE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-pulse">
+  <div class="patHead"><span class="patNum">17</span><h3>THE PULSE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">You want to see how something is moving over time, not just its state now.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A timeline of events is unreadable at 180 routes. A sparkline per row is 180 sparklines.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Aggregate charts hide the outliers. Per-row charts do not fit.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">ONE lane per state, with each object plotted at its last semantic touch. You see clusters and gaps as shape. The absence of points IS the information.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>/20261006-field-mcvoid/</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#area-is-effort">16 AREA IS EFFORT</a></span></p>
+  </div>
+</section>
+<section class="pat" id="reduce-don-t-expand">
+  <div class="patHead"><span class="patNum">18</span><h3>REDUCE, DON&#x27;T EXPAND</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A human needs to read a knowledge base built for machines.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">The natural response to &quot;I can&#x27;t find anything&quot; is a better index. That is more surface, and the problem was never finding — it was being handed the wrong kind of page.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">A digest is generous and enormous. A reduction is small and omits. Omitting feels like losing information.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Write the page a human would read, capped in size, and label the expansion as the expansion. Most of a machine knowledge base is WRITTEN FOR SEARCH, not for reading — that is usually the system working. The failure is handing a human one of those.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>wiki/personal/ (3 pages, capped at 30)</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-one-page">00 THE ONE PAGE</a></span></p>
+  </div>
+</section>
+<section class="pat" id="commit-on-change">
+  <div class="patHead"><span class="patNum">19</span><h3>COMMIT ON CHANGE</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">A generator runs on a timer and commits the output.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">A refresh commit that only moves a clock makes the chronology unlistenable and trains everyone to ignore the log. Measured: 46 changed lines in a pure refresh, 25 of them pure clock, 21 real state.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">A real-time page wants to always be current. The git record wants to mean something. They are the same file.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Compare the generated output with its timestamps STRIPPED. If the non-clock content is identical, do not commit. Real state changes still land; the clock does not.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>comms: / nexus: / convergence: / desk: refreshes</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-checker">14 THE CHECKER</a></span></p>
+  </div>
+</section>
+<section class="pat" id="recover-before-inventing">
+  <div class="patHead"><span class="patNum">20</span><h3>RECOVER BEFORE INVENTING</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">You are about to build something.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">The new thing is satisfying and the existing thing is unglamorous. Building beside the existing thing is the default and it is how a field turns into a landfill.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Existing artifacts are half-right, which makes them feel unusable. Reusing them means inheriting their compromises.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Find the host first. Is this a DELTA to an existing head, a DONOR to one, or genuinely a missing function? Zero obvious host is an UNRESOLVED submission, not a new project. Build on the artifact even when the artifact is imperfect — see 21.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>AGENTS.md (FIELD HOUSE RULES)</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#the-holding-pen">15 THE HOLDING PEN</a></span></p>
+  </div>
+</section>
+<section class="pat" id="the-partial-asset">
+  <div class="patHead"><span class="patNum">21</span><h3>THE PARTIAL ASSET</h3></div>
+  <div class="patBody">
+    <p class="fld"><span class="k">context</span><span class="v">The obvious host is 80% right and 20% wrong.</span></p>
+    <p class="fld"><span class="k">problem</span><span class="v">Discarding it and starting clean is cleaner and loses the 80%. Keeping it means working around the 20%.</span></p>
+    <p class="fld forces"><span class="k">forces</span><span class="v">Purity of the new design. Continuity with what already shipped and is already known.</span></p>
+    <p class="fld sol"><span class="k">solution</span><span class="v">Take the 80% and fix the 20% IN PLACE. Measured this week: `house-patterns.css` was already numbered like a pattern language and nobody had written the language down — the fix was to transcribe it, not to author a new palette.</span></p>
+    <div class="fld"><span class="k">evidence</span><ul class="ev"><li><code>tools/house-patterns.css</code></li></ul></div>
+    <p class="fld links"><span class="k">links</span><span class="v"><a href="#recover-before-inventing">20 RECOVER BEFORE INVENTING</a> <a href="#the-un-losable-rule">13 THE UN-LOSABLE RULE</a></span></p>
+  </div>
+</section>
+
+<section class="lists">
+<h2>The scattered lists — indexed, not moved</h2>
+<p class="sub">These paths are load-bearing for gates, so nothing is relocated. This is the
+index that makes them findable; a mass-move would break the things that resolve them.</p>
+<table class="ltbl">
+<tr><th>where</th><th>size</th><th>what it is</th></tr>
+<tr><td>control/research/</td><td>18 files</td><td>per-topic donor raids and state notes — the bulk of the "lists all over"</td></tr>
+<tr><td>control/*.json</td><td>22 files</td><td>attention, queue, waiting, issues, policy index — machine authority</td></tr>
+<tr><td>recovery/</td><td>12 dirs</td><td>source/donor memory — recovered specs and manifests, not current authority</td></tr>
+<tr><td>fcm/ + fcm-*.json</td><td>4 files</td><td>front/cost/map kernel state</td></tr>
+<tr><td>showcase-manifest.json</td><td>180 routes</td><td>FIELD INDEX — object identity, and now with true git-touch stamps</td></tr>
+<tr><td>ops-hub/wiki/</td><td>473 files</td><td>the machine knowledge base — written for search; see REDUCE, DON'T EXPAND</td></tr>
+</table>
+</section>
+
+<div class="close">A pattern is a hypothesis with evidence. If it has no evidence it is a wish;
+if it has no links it is not in the language. 22 patterns, 32 links,
+every one of them pointing at something this field already shipped.</div>
+
+<p class="foot">generated by <code>tools/pattern-language-build.py</code> · 2026-10-06<br>
+transcribed from <code>tools/house-patterns.css</code> v0.3.0 (the numbered house sheet),
+FIELD HOUSE RULES surface-discipline, and work measured and shipped 2026-10-06.<br>
+sources: Alexander/Ishikawa/Silverstein 1977 · Tidwell 2005 + MIT "The Case for HCI Design Patterns" ·
+Pattern Lab · UI Patterns · Pttrns · PatternTap</p>
+
+</div></body></html>
