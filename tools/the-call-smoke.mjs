@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /* THE CALL — render smoke. Drives the real page in headless Chrome:
-   calibrate F (FOUR MARKETS) → want:both → pace:8, then plays 8 calls to the ending.
+   calibrate F (across APAC) → want:both → pace:8, then plays 8 calls to the ending.
 
    Asserts (render level, beyond the static/node selftest):
    - F-P2: card 1 and card 2 option ORDER equals the rotated canonical deck order
      (right call moved off index 0); letters relabel A,B,C.
-   - F-P1: the withheld ending renders "These 8 cards are the four markets …"
+   - F-P1: the withheld ending renders "These 8 cards are across APAC …"
      and does NOT say "seven cards".
    - Implicitly: 0 uncaught page errors (the runner fails on Uncaught TypeError/
      ReferenceError/SyntaxError in Chrome stderr).
@@ -32,13 +32,15 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
   await wait(()=>D().querySelector('#calibopts .call'),15000,'calibrate screen');
   await wait(()=>W().APAC_DECK&&W().APAC_DECK.length>0,10000,'apac deck');
   const pick=async(re,label)=>{const b=[...D().querySelectorAll('#calibopts .call')].find(x=>re.test(x.textContent||''));if(!b)throw Error('calib option missing: '+label);b.click();await sleep(120)};
-  await pick(/four markets/,'face F');
+  await pick(/across APAC/,'face F');
   await pick(/keep them separate/,'want both');
   await pick(/eight\\. the full read/,'pace 8');
   await wait(()=>D().querySelector('#calls .call'),10000,'first card');
   const optTexts=()=>[...D().querySelectorAll('#calls .call')].map(x=>x.querySelector('.t').textContent);
   const optLets=()=>[...D().querySelectorAll('#calls .call')].map(x=>x.querySelector('.k').textContent);
   const deck=W().APAC_DECK,t=(i,j)=>deck[i].calls[j].t;
+  const marketOrder=deck.slice(0,8).map(c=>c.market);
+  rec.spread={markets:marketOrder,ok:JSON.stringify(marketOrder)===JSON.stringify(['Indonesia','Thailand','Vietnam','Philippines','Singapore','Korea','Japan','Australia'])};
   const c1=optTexts(),l1=optLets();
   rec.card1={letters:l1.join(''),rotated:c1[0]===t(0,1)&&c1[1]===t(0,2)&&c1[2]===t(0,0)&&l1.join('')==='ABC',shown:c1.map(x=>x.slice(0,30)),want:[t(0,1),t(0,2),t(0,0)].map(x=>x.slice(0,30))};
   for(let k=0;k<8;k++){
@@ -50,9 +52,9 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
   }
   const end=await wait(()=>{const e=D().getElementById('ending');return e&&/NO DIAGNOSIS/.test(e.textContent||'')?e:null},10000,'ending');
   const et=end.textContent||'';
-  rec.ending={hasFaceLine:/These 8 cards are the four markets/.test(et),saysSeven:/seven cards/i.test(et),excerpt:et.slice(0,150)};
+  rec.ending={hasFaceLine:/These 8 cards are across APAC/.test(et),saysSeven:/seven cards/i.test(et),excerpt:et.slice(0,150)};
   rec.playbookRows=D().querySelectorAll('#pblist .pbrow').length;
-  done(rec.card1.rotated&&rec.card2.rotated&&rec.ending.hasFaceLine&&!rec.ending.saysSeven,rec);
+  done(rec.card1.rotated&&rec.card2.rotated&&rec.spread.ok&&rec.ending.hasFaceLine&&!rec.ending.saysSeven,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});

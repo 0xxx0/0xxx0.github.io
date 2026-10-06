@@ -56,10 +56,12 @@ for (const face of ['apac', 'first90', 'euphemism']) {
   ok(letters, face + ': option letters relabel by position (A,B,C)');
 }
 const apac8 = api.buildDeck('apac').slice(0, 8).map(c => c.who);
-const want = ['country manager, Jakarta', 'security incident commander', 'trust & safety lead',
-  'marketplace compliance PM', 'global platform ops director', 'regional privacy counsel',
-  'Thai country counsel', 'procurement lead, Bangkok'];
-ok(JSON.stringify(apac8) === JSON.stringify(want), 'first eight APAC cards unchanged and in order');
+/* 2026-10-07: the dealt spread was deliberately widened — the first eight now carry the
+   eight headline markets (ID·TH·VN·PH·SG·KR·JP·AU), so an 8-call run sees the whole region. */
+const want = ['country manager, Jakarta', 'regional privacy counsel', 'Hanoi-based IT manager',
+  'IT director, Manila shared services', 'vendor risk manager', 'incident response lead',
+  'Japan privacy officer', 'Australia CISO'];
+ok(JSON.stringify(apac8) === JSON.stringify(want), 'first eight APAC cards = the 8-market spread, in order');
 
 console.log(fails ? '\n' + fails + ' FAILURE(S)' : '\nall checks passed');
 process.exit(fails ? 1 : 0);
