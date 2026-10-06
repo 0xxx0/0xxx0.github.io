@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T08:01:45.214Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T08:32:46.205Z by scripts/generate-convergence-strip.mjs_
 
-The field has **81 material commits on 2026-10-06** across **992 branches** (182 exact Git commits in the window; 101 generated telemetry; 5282 on master all-time).
+The field has **87 material commits on 2026-10-06** across **992 branches** (191 exact Git commits in the window; 104 generated telemetry; 5291 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,7 +14,7 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- field/play: ship THE CALL judgment deck for mangospree
+- field: THE COACH - botdoc + bottherapist performance coach
 - desk: refresh public field data
 
 ## Open gaps
