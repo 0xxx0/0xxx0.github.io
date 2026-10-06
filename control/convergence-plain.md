@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T13:42:46.432Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T14:13:46.702Z by scripts/generate-convergence-strip.mjs_
 
-The field has **113 material commits on 2026-10-06** across **998 branches** (245 exact Git commits in the window; 132 generated telemetry; 5345 on master all-time).
+The field has **119 material commits on 2026-10-06** across **999 branches** (254 exact Git commits in the window; 135 generated telemetry; 5354 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- FIELD INDEX: colliding marks key on the rendered tile, not the label words
 - desk: refresh public field data
-- game v2: plain opening, dramatic readings, the garden, and one cat
+- linkfield frex: stamp route mutation contract (IMPLEMENT,VERIFY)
+- linkfield: the frex cut — today folded in + share/settings reveal (thisjustthi
 
 ## Open gaps
 
