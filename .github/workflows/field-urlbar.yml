@@ -45,4 +45,13 @@ jobs:
       - name: Validate HTML document integrity
         run: node tools/html-document-integrity-selftest.mjs
       - name: Validate public surface
-        run: node tools/validate-public.mjs
+        run: |
+          set -o pipefail
+          node tools/validate-public.mjs 2>&1 | tee /tmp/field-urlbar-public.log
+      - name: Upload public validator diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-urlbar-public-diagnostic
+          path: /tmp/field-urlbar-public.log
+          if-no-files-found: ignore
