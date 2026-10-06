@@ -106,3 +106,7 @@ window.addEventListener('field-density',()=>requestAnimationFrame(sync));
 const b=document.getElementById('apLens');if(b){b.textContent='◎ LENS';b.title='Refract the current FIELD focus without changing selection';b.onclick=()=>window.LensFocusRing?.open?.()}
 requestAnimationFrame(sync);
 })();
+
+/* Root-only operator projection. Keep presentation loading beside the FIELD lens host,
+   never inside the shared signal grammar. */
+if(typeof window!=='undefined'&&location.pathname==='/')import('./field-urlbar.js').catch(()=>{});

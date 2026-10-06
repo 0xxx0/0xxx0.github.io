@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'field-urlbar.js'
+      - 'field-lens.js'
       - 'lib/field-signal.js'
       - 'field-glyph.js'
       - 'tools/field-urlbar-selftest.mjs'
@@ -14,6 +15,7 @@ on:
     branches: [master]
     paths:
       - 'field-urlbar.js'
+      - 'field-lens.js'
       - 'lib/field-signal.js'
       - 'field-glyph.js'
       - 'tools/field-urlbar-selftest.mjs'
@@ -34,14 +36,16 @@ jobs:
           node-version: '22'
       - name: Check URLbar syntax
         run: node --check field-urlbar.js
-      - name: Check root bootstrap syntax
-        run: node --check lib/field-signal.js
+      - name: Check root projection host syntax
+        run: |
+          node --check field-lens.js
+          node --check lib/field-signal.js
       - name: Prove URLbar grammar and authority boundary
         run: node tools/field-urlbar-selftest.mjs
       - name: Prove Hermes bridge remains prepare-safe
         run: node tools/field-hermes-run.mjs --selftest
-      - name: Prove root actually loads the URLbar projection
-        run: grep -F "./field-urlbar.js" lib/field-signal.js
+      - name: Prove root loads URLbar from projection host
+        run: grep -F "./field-urlbar.js" field-lens.js
       - name: Validate HTML document integrity
         run: node tools/html-document-integrity-selftest.mjs
       - name: Validate public surface
