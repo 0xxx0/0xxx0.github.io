@@ -28,6 +28,8 @@
  .clock{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-left:4px solid var(--hot);background:var(--warnbg);padding:10px 13px;margin:9px 0;font-size:14px}
  .clock b{font-size:15px}
  .days{font:800 18px/1 system-ui;color:var(--hot)}
+ .slipq{border-left:4px solid var(--acc);background:#fffdfa;padding:9px 12px;margin:6px 0 8px;font:14px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap}
+ .srcbadge{display:block;margin-top:7px;font:700 9px/1.3 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
  @media(max-width:640px){textarea{font-size:14px}#out .src{font-size:13px}}
 </style>
 <div class="wrap">
@@ -69,10 +71,55 @@ This translates the dialect. Nothing here is an exam.</div>
  + bot-posted messages?" <button id="copyq" class="ghost" style="padding:7px 10px;font-size:11px">copy question</button></span></div>
 
 <h2>03 · The deck — every word, both meanings</h2>
-<div class="forwho"><b>When you see a red</b> <span class="poly">2 SENSES</span> <b>badge:</b> that word is a trap.
+<div class="forwho"><b>When you see a red</b> <span class="poly">2+ SENSES</span> <b>badge:</b> that word is a trap.
 It means two different things in two different rooms of your building, and people act like it means one.</div>
 <div class="chips" id="chips"></div>
 <div id="deck"></div>
+
+<h2>04 · real slips from the wild</h2>
+<div class="forwho">Twenty sentences doing the rounds in your world — migration threads, AI-law memos, vendor
+emails. Not strawmen: each is the pattern the deck was built for, and the trap line says which two rooms
+the sentence is standing in at once. The sentence is not the problem. The two rooms are.</div>
+
+<div class="tc"><div class="slipq">“The human-oversight control addresses any oversight in the model's output review.”</div><span class="word">oversight</span><span class="poly">2 SENSES</span><div>One sentence, both senses at once: the control AND the failure.</div><div class="so"><b>so what → </b>“Human oversight” needs a named human, an intervention point, a log. If the same sentence also calls the miss an “oversight”, the memo hasn't decided which one it's selling.</div><span class="srcbadge">AI-law memo · Korea register</span></div>
+
+<div class="tc"><div class="slipq">“The Interim Measures require the filing before launch; we will take measures to comply.”</div><span class="word">measure</span><span class="poly">2 SENSES</span><div>Capital-M Measures = CAC law. “Take measures” = a plan.</div><div class="so"><b>so what → </b>One is a legal gate with a filing number; the other is intent. Only the filing sentence has a deadline.</div><span class="srcbadge">AI-law memo · China register</span></div>
+
+<div class="tc"><div class="slipq">“Our platform is certified for AI governance, with AI Verify-aligned assurance.”</div><span class="word">certification</span><span class="poly">2 SENSES</span><div>“Certified” with no certificate. AI Verify is explicitly not a certification.</div><div class="so"><b>so what → </b>Certificate number, standard, certifying body, expiry — or it's marketing. An AI Verify report is useful evidence, just a different document.</div><span class="srcbadge">vendor email</span></div>
+
+<div class="tc"><div class="slipq">“The model filing number is live — add it to the footer beside the version.”</div><span class="word">filing</span><span class="poly">2 SENSES</span><div>Filing = pre-launch CAC registration shown in-product, not a document on file.</div><div class="so"><b>so what → </b>Before any China ship: filing number obtained AND displayed in the product. It's a ship gate.</div><span class="srcbadge">AI-law memo · product thread</span></div>
+
+<div class="tc"><div class="slipq">“The disclosure is due with the December update — both the privacy-policy disclosure and the output disclosure.”</div><span class="word">disclosure</span><span class="poly">2 SENSES</span><div>Two regulators' disclosures stacked behind one word.</div><div class="so"><b>so what → </b>Australia's APP 1.8 policy disclosure (commences 10 Dec 2026) and Korea's output disclosure/labeling are different artifacts with different owners. Map each to its regulator and date.</div><span class="srcbadge">AI-law memo · AU + KR register</span></div>
+
+<div class="tc"><div class="slipq">“By continuing to use the Service you acknowledge the updated Terms.”</div><span class="word">acknowledge</span><span class="poly">2 SENSES</span><div>Acknowledge = assent, not receipt.</div><div class="so"><b>so what → </b>Read as “you agree”. If the updated terms touch training rights or data export, that line is a decision being taken in a click.</div><span class="srcbadge">vendor email</span></div>
+
+<div class="tc"><div class="slipq">“We only train on anonymised and aggregated data.”</div><span class="word">anonymised</span><span class="poly">2 SENSES</span><div>Pseudonymised or masked data is still personal data under PDPA.</div><div class="so"><b>so what → </b>Ask: can ANYONE in the chain re-identify? If a key exists, it's personal data and PDPA applies in full. “Anonymised” is a claim, not a compliance answer.</div><span class="srcbadge">vendor email</span></div>
+
+<div class="tc"><div class="slipq">“The vendor acts as a data intermediary; the DPA calls them a processor.”</div><span class="word">intermediary</span><span class="poly">2 SENSES</span><div>PDPA word vs GDPR word for the same role.</div><div class="so"><b>so what → </b>intermediary ≈ processor — processing on behalf of another. Know the translation before searching the statute, or you'll conclude the clause is missing.</div><span class="srcbadge">vendor email · contract (PDPA)</span></div>
+
+<div class="tc"><div class="slipq">“Execution risk sits with the vendor until the agreement is executed; code execution stays in the sandbox.”</div><span class="word">execution</span><span class="poly">2 SENSES</span><div>Execute = sign vs execute = run, in one sentence.</div><div class="so"><b>so what → </b>The signature-block date is the legal “execution”. “Execution risk” in a deal memo is not a runtime risk. Two calendars.</div><span class="srcbadge">contract thread + IT thread</span></div>
+
+<div class="tc"><div class="slipq">“Once the workspace is in production, legal needs production complete by Friday.”</div><span class="word">production</span><span class="poly">2 SENSES</span><div>Live system vs the litigation document bundle.</div><div class="so"><b>so what → </b>“In production” = live. “Production” in a hold thread = the produced bundle with custodians. Confirm which team's Friday it is.</div><span class="srcbadge">gchat→Slack migration thread · legal hold</span></div>
+
+<div class="tc"><div class="slipq">“Upload the privileged documents to the workspace so the agent can summarize them.”</div><span class="word">privilege</span><span class="poly">2 SENSES</span><div>Privilege waived by disclosure; agent logs may keep the inputs.</div><div class="so"><b>so what → </b>Screen for privilege BEFORE any tool touches the material. Waiver is permanent. Ask the vendor what their logging keeps.</div><span class="srcbadge">legal-ops + agent thread</span></div>
+
+<div class="tc"><div class="slipq">“The framework requires us to do impact assessments.”</div><span class="word">framework</span><span class="poly">2 SENSES</span><div>Soft-law frameworks recommend. Statutes require.</div><div class="so"><b>so what → </b>SG's Model AI Governance Framework and the ASEAN guides are voluntary. Ask “binding or voluntary?” — it changes every deadline hanging off the sentence.</div><span class="srcbadge">AI-law memo · SG/ASEAN register</span></div>
+
+<div class="tc"><div class="slipq">“Generated content must carry a watermark; the brand watermark is already in the template.”</div><span class="word">watermark</span><span class="poly">2 SENSES</span><div>Invisible machine-readable label vs visible logo.</div><div class="so"><b>so what → </b>GB 45438-2025 / MSIT mean invisible label + provenance metadata — and China prohibits removing it. The logo on the template satisfies nothing.</div><span class="srcbadge">AI-law memo · KR/CN register</span></div>
+
+<div class="tc"><div class="slipq">“The breach clause gives 30 days' notice; PDPA breach notification runs on its own clock.”</div><span class="word">breach</span><span class="poly">2 SENSES</span><div>Data-breach notification vs breach-of-contract notice.</div><div class="so"><b>so what → </b>PDPA significant-breach notification to PDPC is mandatory and fast; a contractual 30-day notice period doesn't pause it. Know your incident owner before the incident.</div><span class="srcbadge">contract + PDPA register</span></div>
+
+<div class="tc"><div class="slipq">“We gave notice of the AI features.”</div><span class="word">notice</span><span class="poly">2 SENSES</span><div>Contractual written notice vs Korea's advance user notice.</div><div class="so"><b>so what → </b>One is a formal communication to a counterparty with address-block rules; the other is an in-product disclosure to users. A sentence can need both. Say which one out loud.</div><span class="srcbadge">contract + KR register</span></div>
+
+<div class="tc"><div class="slipq">“This is a high-impact deployment.”</div><span class="word">impact</span><span class="poly">2 SENSES</span><div>Korea's legal classifier vs business hype.</div><div class="so"><b>so what → </b>“High-impact AI” names 10 areas (life, safety, fundamental rights) with self-assessment duties before deployment. If it's one, the checklist starts now — grace period ends ~Jan 2027.</div><span class="srcbadge">AI-law memo · KR register</span></div>
+
+<div class="tc"><div class="slipq">“The migration will preserve everything, including DM history.”</div><span class="word">migration</span><div>“Everything moves” usually means “channels move”.</div><div class="so"><b>so what → </b>Free/Pro exports = public channels only; DMs and private channels need an owner application or Business+/Enterprise; files come as links. Get the export scope in writing before anyone promises DM history.</div><span class="srcbadge">gchat→Slack migration thread</span></div>
+
+<div class="tc"><div class="slipq">“We have alignment on the migration.”</div><span class="word">alignment</span><span class="poly">3 SENSES</span><div>Alignment = nobody has objected in writing yet.</div><div class="so"><b>so what → </b>It is not approval. Ask: who is the named approver, and where is the sign-off — a name, a date, a link.</div><span class="srcbadge">meeting register</span></div>
+
+<div class="tc"><div class="slipq">“Covered in the discovery phase with the SME.”</div><span class="word">discovery</span><span class="poly">3 SENSES</span><div>Project discovery phase vs eDiscovery vs Slack's Discovery API.</div><div class="so"><b>so what → </b>Three rooms now: court, Slack admin, project plan. In a vendor SoW it's a scoping milestone. The named SME signature is still the product.</div><span class="srcbadge">vendor deck register</span></div>
+
+<div class="tc"><div class="slipq">“Review is complete pending review.”</div><span class="word">review</span><span class="poly">2 SENSES</span><div>Document review vs SME review vs performance review.</div><div class="so"><b>so what → </b>Replace with “X reviewed by ⟨name⟩ on ⟨date⟩”. The named signature is the thing; the word “review” is doing no work.</div><span class="srcbadge">legal-ops register</span></div>
 
 <div class="close"><b>When overwhelmed, three questions, in order:</b> (1) What must be true? (2) What is the
 deadline? (3) Who owns it? Everything else is weather.</div>
@@ -80,8 +127,8 @@ deadline? (3) Who owns it? Everything else is weather.</div>
 <div class="foot">
 <b>Provenance</b> — meanings and "so what"s built from verified 2026 sources (Slack plan-tier docs, Korea AI
 Basic Act briefings, China GenAI measures, PDPA guidance, agent-harness incident record); assembled by
-mahshroom + kage for mangospree, 2026-10-06. Not legal advice — a translation layer. Deck deck is finite
-on purpose: 44 words that cause the most damage. · related:
+mahshroom + kage for mangospree, 2026-10-06. Not legal advice — a translation layer. The deck is finite
+on purpose: <span id="wc">57</span> words that cause the most damage. · related:
 <a href="/20261006-the-cut-mcvoid/">THE CUT</a> ·
 <a href="/20261006-ai-mode-thread-mcvoid/">the thread, answered</a> · noindex · contact: the group thread
 </div>
@@ -111,7 +158,8 @@ const DECK=[
  {d:"promptness",k:["payment","invoice","within","days","due"],m:"'Prompt payment' — pay quickly.",so:"Contract language. The old meaning wins in drafting."}]},
 {t:"alignment",poly:1,s:[
  {d:"model alignment",k:["model","ai","safety","human","values","reward","rlhf"],m:"Making an AI system do what humans actually want.",so:"The field the whole AI-safety debate is about."},
- {d:"strategic alignment",k:["strategy","stakeholder","org","goals","business"],m:"Everyone pulling the same direction.",so:"Meeting-speak. Neither wrong — just know which one you're approving."}]},
+ {d:"strategic alignment",k:["strategy","stakeholder","org","goals","business"],m:"Everyone pulling the same direction.",so:"Meeting-speak. Neither wrong — just know which one you're approving."},
+ {d:"alignment (legal-ops meeting sense)",k:["meeting","written","objection","sign-off","approval","stakeholder","consensus","migrat","everyone","aligned"],m:"'We have alignment' = nobody has objected in writing yet. It is not approval.",so:"Ask 'who is the named approver and where is the sign-off?' — a name, a date, a link. Verbal alignment has sunk more migrations than any technical failure."}]},
 {t:"inference",poly:1,s:[
  {d:"model inference",k:["model","runtime","gpu","latency","run","api","cost"],m:"Actually running a model to get answers.",so:"'Inference cost' on the AI bill = per-question cost. The recurring bill, not the build."},
  {d:"logical inference",k:["evidence","conclude","reasoning","court","draw"],m:"A conclusion drawn from evidence.",so:"The legal sense. A memo using both senses in one paragraph is a memo to push back on."}]},
@@ -132,7 +180,8 @@ const DECK=[
  {d:"data export",k:["data","portability","download","transfer","move","csv"],m:"Moving data out of a system.",so:"PDPA portability is legislated but not yet in force (2026). Also: 'export' in eDiscovery = the produced bundle."}]},
 {t:"discovery",poly:1,s:[
  {d:"eDiscovery / Discovery API",k:["ediscovery","ediscover","api","slack","export","legal hold","preserv","litigation hold"],m:"In Slack-land: the Enterprise-only export channel for compliance/legal holds.",so:"Plan-tiered. If IT hasn't enabled it, your holds may be decorative. Ask."},
- {d:"litigation discovery",k:["litigation","court","disclosure","discovery process","proceedings"],m:"The pre-trial disclosure process.",so:"Same word, adjacent meaning — Slack's 'Discovery API' is named after this one on purpose."}]},
+ {d:"litigation discovery",k:["litigation","court","disclosure","discovery process","proceedings"],m:"The pre-trial disclosure process.",so:"Same word, adjacent meaning — Slack's 'Discovery API' is named after this one on purpose."},
+ {d:"project discovery phase",k:["project","phase","vendor","sow","scoping","implementation","kickoff","engagement","covered in"],m:"The scoping phase of a project or vendor engagement — where requirements get gathered.",so:"'Covered in the discovery phase' in a vendor deck is a project milestone, NOT litigation disclosure and NOT Slack's Discovery API. Three rooms now: court, Slack admin, project plan."}]},
 {t:"hold",poly:1,s:[
  {d:"legal hold",k:["legal","litigation","preserv","delet","ediscovery","matter","spoliation"],m:"An instruction to preserve everything relevant to a dispute.",so:"Slack's legal hold (Enterprise) excludes Slack Connect messages — the gap we keep warning about. One written question to IT closes it."},
  {d:"hold (verb)",k:["hold the","please hold","hold off","hold my"],m:"Ordinary verb.",so:"Fine. Just don't let a 'hold the deletion' email get read as casual."}]},
@@ -184,7 +233,59 @@ const DECK=[
 {t:"cloud",poly:1,s:[
  {d:"cloud computing",k:["aws","azure","gcp","server","host","saas","vendor","instance"],m:"Someone else's servers running your software.",so:"'Cloud act', 'data residency', 'sovereign cloud' all hang off this. Ask where the data physically sits."},
  {d:"cloud (meteorology)",k:["weather","rain","sky"],m:"The sky kind.",so:"Rare, but in small talk, absolutely the sky."}]},
-{t:"hallucinate-v-bluff",poly:0,s:[{d:"the difference",k:[],m:"Hallucination = the system believes it. Bluffing = the person knows they're guessing.",so:"When a vendor 'explains' their model's behavior confidently, ask which one they're doing. The honest answer is usually: nobody knows."}]}
+{t:"hallucinate-v-bluff",poly:0,s:[{d:"the difference",k:[],m:"Hallucination = the system believes it. Bluffing = the person knows they're guessing.",so:"When a vendor 'explains' their model's behavior confidently, ask which one they're doing. The honest answer is usually: nobody knows."}]},
+{t:"oversight",poly:1,s:[
+ {d:"human oversight (AI governance)",k:["human","ai","governance","loop","supervision","duty","risk","oversight","control","review"],m:"A staffed control: a named human who can intervene in what the model does. A duty in Korea's AI Basic Act and every governance framework.",so:"'Human oversight' is not a vibe — it needs a named human, a defined intervention point, and a log. Ask who, where, and what happens when they disagree with the model."},
+ {d:"an oversight (a miss)",k:["an oversight","mistake","error","omission","apology","missed","regret","unintentional"],m:"A mistake — something that was missed.",so:"When a memo says human oversight fixes oversights, both senses are live in one sentence. One is the control, the other is the failure it is supposed to catch."}]},
+{t:"measure",poly:1,s:[
+ {d:"the Measures (a Chinese regulation)",k:["interim","generative","china","cac","filing","regulation","measures","require","provisions","in force"],m:"China's binding rules — 'Interim Measures for Generative AI Services' and friends. Capital-M Measures are law, with pre-launch filing duties.",so:"'The Measures require a filing' = a legal gate before launch, not a plan. China's GenAI filing + security assessment happen BEFORE you ship."},
+ {d:"measures (steps taken)",k:["take","security","mitigation","steps","appropriate","additional","prevent"],m:"Ordinary actions: 'we will take measures to comply'.",so:"Fine — but a plan is not a filing. If a China paragraph mixes both, find the sentence with the filing number: that is the deadline."}]},
+{t:"certification",poly:1,s:[
+ {d:"formal certification",k:["iso","certificate","certified","audit","scope","expiry","accredited","27001","attestation"],m:"A certificate with a number, scope and expiry, issued by a certification body.",so:"'We are certified' → certified to WHAT standard, by WHOM, valid until WHEN. Certificate number or it is marketing."},
+ {d:"'certified' (vendor-speak)",k:["vendor","aligned","assurance","verify","compliant","platform","solution","governance"],m:"Loosely: tested, aligned, or reviewed. In Singapore, AI Verify is explicitly NOT a certification — it is a voluntary testing toolkit whose reports buyers increasingly ask for.",so:"An AI Verify report is not a certificate. Useful evidence, different artifact. Ask which one they actually mean."}]},
+{t:"filing",poly:1,s:[
+ {d:"model/algorithm filing (China)",k:["china","cac","algorithm","registration","number","launch","display","product","filing","generative"],m:"China's pre-launch registration of a GenAI/algorithm service. The filing number must be displayed in the live product.",so:"A launch gate with an in-product display duty — not paperwork for a drawer. Before any CN ship: filing number obtained AND shown in-product."},
+ {d:"court filing",k:["court","litigation","proceedings","submit","tribunal","case"],m:"Documents submitted to a court.",so:"Different clock entirely. If one memo mentions both, separate the deadlines before anyone says 'the filing is done'."}]},
+{t:"disclosure",poly:1,s:[
+ {d:"AI transparency disclosure",k:["privacy policy","transparency","automated","decision","adm","app","oaic","notice","label","disclose","user"],m:"Telling people — in a privacy policy or in-product — that AI is making or supporting decisions. Australia's APP 1.8 disclosure commences 10 Dec 2026; Korea wants advance user notice + output disclosure.",so:"Two regulators, two artifacts, two dates. Map every 'disclosure' to its regulator before treating one as done."},
+ {d:"litigation disclosure",k:["discovery","litigation","court","proceedings","documents","privilege","bundle"],m:"Handing over documents in a dispute (the old sense — closely tied to discovery).",so:"Read the room: a 'disclosure' in a dispute file has custodians and dates that would horrify a marketing team."}]},
+{t:"acknowledge",poly:1,s:[
+ {d:"acknowledge = legally agree",k:["terms","service","you acknowledge","agree","policy","click","continue","updated","by using"],m:"In terms and conditions, 'you acknowledge X' is assent — closer to 'you agree' than 'you saw'.",so:"A vendor email saying 'by continuing to use the service you acknowledge…' may be you GIVING UP an argument. Read as a decision, not a receipt."},
+ {d:"acknowledge = note it",k:["acknowledge receipt","receipt","noted","thanks","confirm","received","aware"],m:"Ordinary: 'I acknowledge your email' = I saw it.",so:"Fine outside contracts. Inside them, assume the stronger meaning."}]},
+{t:"anonymised",poly:1,s:[
+ {d:"true anonymisation",k:["anonym","irreversib","re-identif","no one","cannot","out of scope","aggregate"],m:"Data stripped so nobody can identify anyone again — genuinely out of data-protection law's reach.",so:"A high bar. 'We only train on anonymised data' is not a compliance answer until you know who could re-identify it and how."},
+ {d:"pseudonymisation / masking",k:["pseudonym","mask","token","still","identifiable","key"],m:"Codes or masks replace names, but re-identification is still possible with a key. Under PDPA and GDPR this is STILL personal data.",so:"If anyone in the chain holds the key, the law applies in full. Ask: can ANYONE re-identify? Yes = personal data."}]},
+{t:"intermediary",poly:1,s:[
+ {d:"data intermediary (PDPA)",k:["pdpa","data","processor","vendor","behalf","processing","dpa","sg","singapore"],m:"Singapore's word for an organisation processing personal data on behalf of another — the GDPR 'processor' by another name. AI vendors processing your data are usually this.",so:"Contracts drafted on EU vocabulary say 'processor'; PDPA says 'intermediary'. Know the translation or you will search the statute for the wrong word."},
+ {d:"intermediary (middleman)",k:["broker","middle","agent","between","party","introduc"],m:"A go-between in a deal.",so:"Different world. But if a vendor is merely a middleman, the data may be crossing more borders than the sentence admits."}]},
+{t:"execution",poly:1,s:[
+ {d:"execute = run code",k:["code","sandbox","agent","run","arbitrary","runtime","isolate","container"],m:"Programs running — 'code execution', the thing sandboxes contain.",so:"An agent's execution powers are a security question: what can it run, where, with whose credentials."},
+ {d:"execute = sign a contract",k:["agreement","contract","sign","parties","executed","date","counterpart","enforce"],m:"Signing so the contract becomes binding. 'The agreement was executed on…' = signed on.",so:"'Execution risk' in a deal memo is a signing/enforcement risk, not a runtime risk. The signature-block date is the date that matters."}]},
+{t:"production",poly:1,s:[
+ {d:"document production (litigation)",k:["legal","hold","ediscovery","documents","produce","bundle","friday","matter","dispute","privilege"],m:"The bundle of documents handed over in a dispute — the output of discovery review.",so:"In a legal-hold thread, 'production' is a court-facing deliverable with custodians and dates. Miss it and you have a spoliation problem."},
+ {d:"production environment (IT)",k:["deploy","live","environment","staging","release","system","server","in production"],m:"The live system real users touch.",so:"'In production' means live. A migration note saying 'legal needs production complete by Friday' can mean IT or the court — confirm which calendar is speaking."}]},
+{t:"privilege",poly:1,s:[
+ {d:"legal privilege",k:["legal advice","attorney","solicitor","counsel","waive","confidential","privileged","litigation"],m:"Communications protected from disclosure because a lawyer is in the loop. Waived once disclosed — gone for good.",so:"Flag privileged material BEFORE any AI tool touches it. Many tools log their inputs. Privilege screen first, tool second."},
+ {d:"privileged access (IT)",k:["access","admin","rights","account","iam","permission","root","elevated","credentials"],m:"Admin-level access to systems.",so:"Same word, IT universe. 'Privileged account review' is a security hygiene task, not a legal review."}]},
+{t:"framework",poly:1,s:[
+ {d:"soft-law governance framework",k:["governance","mgf","asean","imda","ai verify","voluntary","model","guide","principles","framework"],m:"Voluntary guidance — Singapore's Model AI Governance Framework family, the ASEAN AI guides. No penalties attach. The de-facto baseline buyers ask about.",so:"'The framework requires…' is usually wrong — soft-law frameworks recommend. Only statutes require. Ask: binding or voluntary?"},
+ {d:"framework (software / agreement)",k:["agreement","software","architecture","scaffold","framework agreement","tech stack"],m:"A software scaffold, or a master agreement with orders under it.",so:"Check which room: a 'framework agreement' is a contract; a 'governance framework' is advice; a tech 'framework' is neither."}]},
+{t:"watermark",poly:1,s:[
+ {d:"AI-content watermark (invisible)",k:["generated","ai","invisible","metadata","label","provenance","gb","45438","korea","msit","synthetic","content"],m:"A machine-readable invisible label + metadata proving content is AI-generated. China's GB 45438-2025 and Korea's MSIT guidance both demand it. Removing it is explicitly prohibited in China.",so:"When an AI-law memo says 'watermarked output', it means the invisible label and provenance metadata — a compliance artifact, not branding. Ask where the metadata lives and what strips it."},
+ {d:"visible watermark",k:["logo","visible","copyright","stock","draft","stamp","image"],m:"The visible logo or stamp on an image.",so:"Different artifact. A brand watermark on the template does not satisfy a labeling law."}]},
+{t:"breach",poly:1,s:[
+ {d:"data breach (PDPA)",k:["personal data","pdpa","pdpc","notif","incident","leak","unauthorised","unauthorized","security","compromise"],m:"Unauthorised access to personal data. Singapore: mandatory breach notification to PDPC and affected individuals for significant harm — and the clock is short.",so:"Assess fast, notify on the statutory clock. Contract notice periods do NOT pause it. Know your incident owner before the incident."},
+ {d:"breach of contract",k:["contract","terms","agreement","clause","notice","party","liable","cure","material"],m:"Breaking a contractual promise. The contract usually sets its own notice/cure periods.",so:"A vendor email using 'breach' may be talking contract, not data. Two regulators, two clocks, one word."}]},
+{t:"notice",poly:1,s:[
+ {d:"contractual notice",k:["written","party","address","deemed","deliver","clause","served","give notice","terms"],m:"Formal communication under a contract — address blocks, deemed-delivery rules, time limits.",so:"'We gave notice' in a contract context means a specified form to a specified address. An email to the team usually does not count."},
+ {d:"user notice (AI transparency)",k:["user","ai","korea","advance","disclosure","inform","label","generated","transparency"],m:"Telling USERS that AI is involved — Korea's advance user notice + output labeling duties.",so:"Completely different audience: the public, not the counterparty. A sentence can need both. Say which one out loud."}]},
+{t:"impact",poly:1,s:[
+ {d:"high-impact AI (Korea's category)",k:["high-impact","korea","ai basic act","life","safety","fundamental","rights","energy","healthcare","credit","recruitment","education"],m:"A legal classifier in Korea's AI Basic Act: AI significantly affecting life, safety or fundamental rights across 10 named areas (energy, water, healthcare, nuclear, crime, recruitment, credit, transport, public services, education).",so:"If your system is in a named area, self-assessment + documentation duties apply before deployment. 'High-impact' here is a compliance trigger, not a compliment."},
+ {d:"impact (ordinary sense)",k:["business","esg","revenue","project","customer","team","the impact","positive","make an"],m:"Effect or influence — business impact, project impact.",so:"Meeting-speak. Fine — just don't let a 'high-impact' sentence hide a legal category inside a compliment."}]},
+{t:"review",poly:1,s:[
+ {d:"document / legal review",k:["document","legal","privilege","matter","reviewed by","sme","expert","counsel","files","production"],m:"The formal pass where a named person checks documents — legal review, privilege review, or the SME review that signs off AI output.",so:"The named signature is the product. 'Review complete' means nothing without: reviewed by WHO, on WHAT date, against WHICH standard."},
+ {d:"review (tool/process sense)",k:["code","performance","product","pull request","cycle","quarter","peer","under review"],m:"Code review, product review, performance review, or 'under review' = undecided.",so:"Four different meetings wear this word. If a status line says 'pending review', the only useful question is: whose, and by when."}]},
+{t:"migration",poly:0,s:[{d:"the workspace/chat migration",k:["slack","gchat","google chat","export","history","dm","workspace","move","import","channel","onboard"],m:"Moving the team's chat from one system to another — the move everyone is living through.",so:"'The migration will preserve everything' is the sentence to interrogate: on Free/Pro, exports are public channels only; DMs and private channels need an owner application or a higher tier; files come as links. Get the export scope in writing before anyone promises DM history."}]}
 ];
 const $=id=>document.getElementById(id);
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -251,7 +352,9 @@ function decode(){
  const words=[...new Set(DECK.map(d=>d.t))];
  let html=esc(txt);const found=[];
  for(const w of words){
-  const re=new RegExp("\\b"+w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")+"\\b","gi");
+  const escw=w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&");
+  const suf="(?:s|es|d|ed|ing)?";
+  const re=new RegExp("\\b"+escw+suf+"\\b","gi");
   let m,idx=0,src=txt;
   while((m=re.exec(src))!==null){
    const win=src.slice(Math.max(0,m.index-220),m.index+260).toLowerCase();
@@ -259,21 +362,22 @@ function decode(){
    if(ps){found.push({w,win:src.slice(Math.max(0,m.index-90),m.index+130),ps})}
    idx=m.index;
   }
-  html=html.replace(new RegExp("(<[^>]*>)|\\b("+w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")+")\\b","gi"),
+  html=html.replace(new RegExp("(<[^>]*>)|(\\b"+escw+suf+"\\b)","gi"),
    (all,tag,word)=>tag?all:'<mark title="'+w+'">'+word+"</mark>");
  }
  const seen=new Set();const cards=found.filter(f=>{const k=f.w; if(seen.has(k))return false; seen.add(k); return true;});
  let out='<div class="src">'+html+"</div>";
  out+=askBrief(txt);
- if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s 44 words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
+ if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s '+DECK.length+' words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
  for(const f of cards){
   const top=f.ps.ranked[0],second=f.ps.ranked[1];
   let h='<div class="tc"><span class="word">'+esc(f.w)+"</span>";
-  if(f.ps.entry.poly)h+='<span class="poly">2 SENSES</span>';
+  if(f.ps.entry.poly)h+='<span class="poly">'+f.ps.entry.s.length+' SENSES</span>';
   h+='<span class="sense">'+esc(top.s.d)+"</span>";
   h+="<div>"+esc(top.s.m)+"</div>";
   h+='<div class="so"><b>so what → </b>'+esc(top.s.so)+"</div>";
   if(second&&second.sc>0){h+='<div class="alt">Could also be: <b>'+esc(second.s.d)+"</b> — "+esc(second.s.m)+" In your sentence the first reading fits better, but check the room.</div>"}
+  else if(top.sc===0&&f.ps.entry.poly){h+='<div class="alt">No signal words landed near this one — both readings are guesses. Check which room the sentence is in before you act.</div>'}
   h+='<div class="alt" style="font-style:italic">from your text: “'+esc(f.win.trim().slice(0,150))+'…”</div></div>';
   out+=h;
  }
@@ -285,7 +389,7 @@ function renderDeck(filter,q){
  if(q)list=list.filter(d=>d.t.toLowerCase().includes(q.toLowerCase())||d.s.some(s=>s.m.toLowerCase().includes(q.toLowerCase())));
  el.innerHTML=list.map(d=>{
   let h='<div class="tc"><span class="word">'+esc(d.t)+"</span>";
-  if(d.poly)h+='<span class="poly">2 SENSES</span>';
+  if(d.poly)h+='<span class="poly">'+d.s.length+' SENSES</span>';
   d.s.forEach(s=>{
    h+='<span class="sense">'+esc(s.d)+"</span><div>"+esc(s.m)+"</div>";
    if(s.so)h+='<div class="so"><b>so what → </b>'+esc(s.so)+"</div>";
@@ -312,4 +416,5 @@ $("copyq").onclick=()=>navigator.clipboard.writeText('What is our Slack plan tie
 function days(id,date){const d=Math.ceil((new Date(date)-new Date())/864e5);
  $(id).textContent=d>0?d+" days":(d===0?"TODAY":Math.abs(d)+" days ago")}
 days("d-au","2026-12-10");days("d-kr","2027-01-22");
+$("wc").textContent=DECK.length;
 </script>
