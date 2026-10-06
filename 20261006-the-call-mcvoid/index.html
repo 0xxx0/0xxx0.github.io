@@ -106,6 +106,88 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
 .foot a{color:var(--cool)}
 @media(max-width:400px){h1{font-size:29px}.bubble{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+<<<<<<< Updated upstream
+=======
+
+/* ── A11Y + aesthetic discipline ─────────────────────────────────────────────
+   The link is the UNDERLINE. Colour is a secondary cue, never the only one
+   (WCAG 1.4.1 — colour alone cannot convey state). And the accent colour is a
+   quiet cue: no high-contrast colour jumps, no light-on-dark panel inversions.
+   decode-coach arrived in a cream/paper language that clashed with the page's
+   near-black; it is assimilated here rather than left as a second visual system. */
+a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:2px;text-decoration-color:color-mix(in srgb,var(--gold) 48%,transparent)}
+a:hover,a:focus{color:var(--gold);text-decoration-thickness:2px;
+  text-decoration-color:var(--gold);outline:none}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.foot a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:color-mix(in srgb,var(--gold) 48%,transparent)}
+
+/* decode-coach, re-homed into the page palette */
+.dc-t{cursor:pointer;background:transparent;color:var(--ink);
+  border-bottom:1px dashed color-mix(in srgb,var(--gold) 70%,transparent);
+  padding:0 1px;transition:background .12s ease,color .12s ease}
+.dc-t:hover,.dc-t:focus{background:color-mix(in srgb,var(--gold) 18%,transparent);
+  color:var(--ink);outline:none}
+.dc-t:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.dc-card{position:fixed;z-index:9999;max-width:320px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--line);
+  border-radius:4px;box-shadow:0 6px 26px rgba(0,0,0,.6);
+  padding:11px 13px 13px;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+.dc-x{background:transparent;color:var(--mut);border:1px solid var(--line);
+  border-radius:3px;padding:2px 7px;cursor:pointer}
+.dc-x:hover,.dc-x:focus{background:var(--panel2);color:var(--ink);outline:none}
+
+/* ── SETTINGS + SHARE ────────────────────────────────────────────────────────
+   House rule: expose only 1-3 reachable operations at a time. Everything fiddly
+   (theme, sound, saved readings, pace) moves behind one quiet control. Sharing is
+   the thing the operator asked for most: she has to SEE how she can use this with
+   other people. The rule that makes it honest: you share the SITUATION, never
+   your label. What happened to you is yours to tell. What you are named is not
+   anyone's to hold over you. */
+#settingsBtn{position:fixed;top:10px;left:10px;z-index:20;
+  font:600 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mut);background:rgba(12,17,23,.88);border:1px solid var(--line);
+  border-radius:5px;padding:8px 10px;cursor:pointer;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#settingsBtn:hover,#settingsBtn:focus{color:var(--ink);border-color:var(--mut);outline:none}
+#settingsBtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sheet{position:fixed;inset:0;z-index:50;display:none;
+  background:rgba(4,6,8,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.sheet.show{display:block}
+.sheet .card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(92vw,420px);max-height:78vh;overflow-y:scroll;overflow-x:hidden;
+  background:var(--panel);border:1px solid var(--line);border-radius:5px;
+  padding:18px 18px 20px;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 26px),transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 26px),transparent 100%)}
+.sheet h3{margin:0 0 4px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mut);font-weight:600}
+.sheet .sub{font-size:12px;color:var(--mut);line-height:1.55;margin:0 0 15px}
+.sheet .row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.sheet button.opt{font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--panel2);color:var(--mut);border:1px solid var(--line);
+  border-radius:4px;padding:9px 11px;cursor:pointer}
+.sheet button.opt:hover,.sheet button.opt:focus{color:var(--ink);border-color:var(--mut);outline:none}
+.sheet button.opt.on{border-color:var(--mut);color:var(--ink);text-decoration:underline;
+  text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+.sheet button.opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sheet .close{position:absolute;right:12px;top:12px;background:transparent;
+  color:var(--mut);border:1px solid var(--line);border-radius:3px;padding:3px 9px;cursor:pointer}
+.sheet .law{margin:14px 0 0;padding:11px 12px;border:1px solid var(--line);
+  border-left:2px solid var(--gold);background:var(--panel2);
+  font-size:12px;line-height:1.62;color:var(--ink)}
+.sheet .law b{color:var(--gold)}
+.shr{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.shr .t{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
+.share-btn{font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--ink);border:1px solid var(--line);
+  border-radius:4px;padding:8px 11px;cursor:pointer;text-decoration:underline;
+  text-underline-offset:3px}
+.share-btn:hover,.share-btn:focus{color:var(--ink);border-color:var(--cool);outline:none}
+.share-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+>>>>>>> Stashed changes
 </style>
 
 <div class="wrap">
@@ -738,7 +820,8 @@ window.THEMES.garden = (function(){
     'border:1px solid var(--line);border-radius:5px;padding:8px 10px;cursor:pointer;'+
     'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)';
   b.addEventListener('click',function(){
-    window.setTheme(window.__currentTheme==='garden' ? 'vanilla' : 'garden');
+    var s=document.getElementById('settings');
+    if(s){ s.classList.add('show'); if(window.syncShelf) window.syncShelf(); if(window.syncSettings) window.syncSettings(); }
   });
   document.body.appendChild(b);
 })();
@@ -779,4 +862,114 @@ window.setTheme(
 );
 </script>
 
+
+<button id="settingsBtn" type="button" hidden></button>
+
+<div class="sheet" id="settings" role="dialog" aria-modal="true" aria-label="Settings">
+  <div class="card">
+    <button class="close" id="settingsClose" type="button" aria-label="Close settings">close</button>
+    <h3>settings</h3>
+    <p class="sub">Everything optional lives here. The game itself never needs this.</p>
+
+    <div class="t">how it looks</div>
+    <div class="row">
+      <button class="opt" id="setPlain" type="button">plain</button>
+      <button class="opt" id="setGarden" type="button">garden</button>
+      <button class="opt" id="setSound" type="button">sound</button>
+    </div>
+
+    <div class="shr">
+      <div class="t">use it with other people</div>
+      <p class="sub" style="margin-bottom:11px">What you can share is <b style="color:var(--ink)">the
+        situation</b> — a thing that actually happened, the words used, the call you had to make.
+        Telling it is most of the point: <i>complain, talk, share to people who understand.</i></p>
+      <div class="row">
+        <button class="share-btn" id="shareCard" type="button">share this card</button>
+        <button class="share-btn" id="shareGame" type="button">send someone the game</button>
+      </div>
+      <div class="law">
+        <b>the rule —</b> you share the <b>situation</b>, never <b>your label</b>. Nothing
+        here can reach anyone with authority over you: no export, no dashboard, no result
+        anyone above you can read. That is what makes it an instrument and not a performance
+        review in a friendly hat.
+      </div>
+    </div>
+
+    <div class="shr">
+      <div class="t">kept readings</div>
+      <div id="settingsShelf" style="font-size:12px;color:var(--mut);line-height:1.6"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* settings sheet + sharing. The rule that makes sharing honest: the SITUATION travels,
+   the LABEL does not. */
+(function(){
+  var sheet=document.getElementById('settings');
+  function show(){ sheet.classList.add('show'); syncShelf(); }
+  function hide(){ sheet.classList.remove('show'); }
+  var _sb=document.getElementById('settingsBtn'); if(_sb) _sb.addEventListener('click',show);
+  document.getElementById('settingsClose').addEventListener('click',hide);
+  sheet.addEventListener('click',function(e){ if(e.target===sheet) hide(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(); });
+
+  function sync(){
+    var t=window.__currentTheme;
+    var g=document.getElementById('setGarden'), p=document.getElementById('setPlain'),
+        s=document.getElementById('setSound');
+    if(g) g.classList.toggle('on', t==='garden');
+    if(p) p.classList.toggle('on', t!=='garden');
+    if(s) s.classList.toggle('on', window.SFX!==false);
+    var b=document.getElementById('themeToggle');
+    if(b){ b.textContent='settings'+(t==='garden'?' · garden':''); }
+  }
+  function syncShelf(){
+    var el=document.getElementById('settingsShelf'); if(!el) return;
+    var s=(window.shelfList&&window.shelfList())||[];
+    el.innerHTML = s.length
+      ? s.map(function(r){ return '<div style="padding:5px 0;border-top:1px solid var(--line)">'
+          + String(r.t).slice(0,110).replace(/</g,'&lt;') + (r.t.length>110?'…':'') + '</div>'; }).join('')
+      : '<span style="opacity:.7">nothing kept yet. use ★ keep this on a passage that lands.</span>';
+  }
+  window.syncSettings=sync; window.syncShelf=syncShelf;
+
+  var gp=document.getElementById('setGarden'); if(gp) gp.addEventListener('click',function(){ window.setTheme('garden'); sync(); });
+  var pp=document.getElementById('setPlain'); if(pp) pp.addEventListener('click',function(){ window.setTheme('vanilla'); sync(); });
+  var sp=document.getElementById('setSound'); if(sp) sp.addEventListener('click',function(){
+    window.SFX=(window.SFX===false); if(window.sfxTap) window.sfxTap(); sync();
+  });
+
+  function shareText(txt,label){
+    var done=function(){
+      var b=document.getElementById(label); if(!b) return;
+      var old=b.textContent; b.textContent='copied ✓';
+      setTimeout(function(){ b.textContent=old; },1200);
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,done);
+    } else {
+      var ta=document.createElement('textarea');
+      ta.value=txt; ta.style.cssText='position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+    if(navigator.share){ navigator.share({title:'THE CALL',text:txt}).catch(function(){}); }
+  }
+  var sc=document.getElementById('shareCard'); if(sc) sc.addEventListener('click',function(){
+    var m=(window.MATTERS&&window.MATTERS[window.idx])||null;
+    var txt = m
+      ? '"' + String(m.text).replace(/<[^>]*>/g,'').trim() + '"\n\n— something that actually happened at work.\n'
+        + 'The card has a rule attached to it. No score here and nothing is called wrong.'
+      : 'Something that actually happened at work. THE CALL — a judgment drill. No score, no fail state, nothing called wrong.';
+    shareText(txt,'shareCard');
+  });
+  var sg=document.getElementById('shareGame'); if(sg) sg.addEventListener('click',function(){
+    shareText('A quiet one. Real situations from real jobs; you make the call and it tells you what the call cost and what it bought — never "wrong". Five minutes. ' + location.origin + location.pathname,'shareGame');
+  });
+
+  sync();
+})();
+</script>
 </body></html>
