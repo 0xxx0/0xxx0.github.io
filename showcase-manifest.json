@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T11:37:02+08:00",
+  "updated": "2026-10-06T11:44:29+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -9436,7 +9436,7 @@
       "family": "FIELD / DECISIONS",
       "role": "One-page decision note: should a reader take Harvard CS50 in 2026/27 — time/money/drop-off cost, four alternatives by goal, the 2026 AI rule (external AI banned, cs50.ai allowed), and an ELI5. Compressed from a 60-page Google AI-Mode printout with page-level cites; noindex static reading surface, not a head.",
       "index": {
-        "updated_at": "2026-10-06T11:23:29+08:00",
+        "updated_at": "2026-10-06T11:44:29+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -9451,40 +9451,40 @@
           "known unverified: certificate price ($199 vs $219 disagree), bar-chart hour estimates"
         ],
         "return_path": "/"
-        },
-        "tier": "FIELD"
-        },
-        {
-        "href": "/20261006-ai-mode-thread-mcvoid/",
-        "title": "AI-MODE THREAD, ANSWERED — APAC AI POLICY @ BIG TECH SG",
-        "kind": "documentation",
-        "parent": "/",
-        "operation": "ADDRESS",
-        "state": "UTILITY",
-        "versionless": true,
-        "showcase_card": false,
-        "family": "FIELD / DECISIONS",
-        "role": "One-page synthesis of the full 60-page Google AI-Mode thread (15 replies: CS50 verdict, lawyer-friendly alternatives, APAC AI-law divergence, 4-Hour-Workweek to Muse/OpenMuse mapping, agent-harness security, Slack as legal ops OS) written for the person who asked it: APAC AI regulatory-policy at a big-tech AI firm in Singapore, non-engineer. Includes corrections verified against a live Hermes install and public sources. Noindex reading surface; not a head, not legal advice.",
-        "index": {
-         "updated_at": "2026-10-06T10:35:00+08:00",
-         "work_modes": [
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-ai-mode-thread-mcvoid/",
+      "title": "AI-MODE THREAD, ANSWERED — APAC AI POLICY @ BIG TECH SG",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / DECISIONS",
+      "role": "One-page synthesis of the full 60-page Google AI-Mode thread (15 replies: CS50 verdict, lawyer-friendly alternatives, APAC AI-law divergence, 4-Hour-Workweek to Muse/OpenMuse mapping, agent-harness security, Slack as legal ops OS) written for the person who asked it: APAC AI regulatory-policy at a big-tech AI firm in Singapore, non-engineer. Includes corrections verified against a live Hermes install and public sources. Noindex reading surface; not a head, not legal advice.",
+      "index": {
+        "updated_at": "2026-10-06T11:44:29+08:00",
+        "work_modes": [
           "READ",
           "RESEARCH",
           "VERIFY",
           "IMPLEMENT"
-         ]
-        },
-        "evidence": {
-         "checks": [
+        ]
+      },
+      "evidence": {
+        "checks": [
           "all 15 AI replies read from the source PDF (103,916 chars, pymupdf); [p.n] page cites on every claim",
           "OpenClaw star/lineage claim verified via NVIDIA blog + GitHub trackers; Hermes claims verified against the live install this session",
           "unverified flagged on-page: PDPA 3-day breach figure, cert price, 'Claude 3.5 Sonnet' currency, course availability (RUNBOOK in flight)"
-         ],
-         "return_path": "/"
-        },
-        "tier": "FIELD"
-        }
         ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    }
+  ],
   "release_law": [
     "PRIVATE CANON",
     "REVIEW",
