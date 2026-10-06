@@ -9737,6 +9737,36 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-consultation-mcvoid/",
+      "title": "THE CONSULTATION — the thread as a tap-through experience",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / TOOLS",
+      "role": "The Google AI thread re-staged as an EXPERIENCE: five tap-choices (the same clarifying questions the thread asked its asker) assemble a personal brief live, with two TTS voice clips (audiovisual), replay loop, and a kit of every artifact built from the thread. Operator mission 2026-10-06: 'represent it all as a real experience, build on scaffolds, come back with the work done'.",
+      "index": {
+        "updated_at": "2026-10-06T15:15:00+08:00",
+        "work_modes": [
+          "READ",
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "full path exercised in real browser (policy/sg/automate/read/weekly): 5-question state machine advances, brief assembles 5 correct routed lines, replay resets",
+          "audio: 2 TTS clips (edge) transcoded to mp3 via bundled ffmpeg (iOS-safe), play() promise-harmed = no console errors",
+          "kit links all point at live verified routes"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [

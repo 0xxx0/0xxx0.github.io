@@ -1,0 +1,187 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>THE CONSULTATION · an experience · 2026-10-06</title>
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<style>
+ html,body{height:100%}
+ .stage{display:flex;flex-direction:column;min-height:82vh}
+ .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:8vh 0 4vh}
+ .qnum{font:700 10px/1 system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+ .qtext{font:800 clamp(24px,6vw,42px)/1.12 system-ui,sans-serif;letter-spacing:-.02em;margin:14px 0 6px}
+ .qwhy{color:var(--mut);font-size:14px;margin-bottom:26px}
+ .choice{display:block;width:100%;text-align:left;border:2px solid var(--ink);background:#fff;
+  padding:16px 18px;margin:10px 0;font:600 16px/1.35 system-ui,sans-serif;cursor:pointer;
+  transition:transform .08s ease}
+ .choice:hover,.choice:active{background:var(--ink);color:#fff;transform:translateX(4px)}
+ .choice small{display:block;font-weight:400;font-size:12.5px;opacity:.75;margin-top:3px}
+ .react{border-left:4px solid var(--acc);background:#f5f8ff;padding:12px 16px;margin:14px 0;
+  font-size:15px;min-height:24px}
+ .progress{display:flex;gap:6px;margin:0 0 4px}
+ .dot{height:6px;flex:1;background:var(--rule)}
+ .dot.on{background:var(--ink)}
+ .beginwrap{text-align:center;padding:14vh 0}
+ .begin{font:800 20px/1 system-ui;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);
+  color:#fff;border:0;padding:22px 34px;cursor:pointer}
+ .begin:hover{background:var(--acc)}
+ .audiohint{font-size:11.5px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase;margin-top:14px}
+ .brief{border:3px solid var(--ink);padding:0;margin:18px 0}
+ .brief .bh{background:var(--ink);color:#fff;font:700 11px/1 system-ui;letter-spacing:.22em;
+  text-transform:uppercase;padding:11px 14px}
+ .brief .bb{padding:14px 16px}
+ .bline{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:15px}
+ .bline:last-child{border-bottom:0}
+ .bline .tick{font-weight:800;color:var(--ok)}
+ .bline .tick.hot{color:var(--hot)}
+ .kit a{display:inline-block;border:2px solid var(--ink);padding:9px 13px;margin:5px 6px 0 0;
+  font:700 12px/1 system-ui;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+ .kit a:hover{background:var(--ink);color:#fff}
+ .restart{background:none;border:0;color:var(--mut);font-size:12px;text-decoration:underline;
+  cursor:pointer;padding:12px 0}
+ .hidden{display:none}
+</style>
+<div class="wrap">
+<header>
+<h1>THE CONSULTATION</h1>
+<div class="meta">
+ <span>an experience, not a document</span>
+ <span>5 questions · ~2 minutes</span>
+ <span>questions are the ones the thread actually asked · <b>p.3–59</b></span>
+ <span>built <b>2026-10-06</b> · expires for review <b>2026-11-06</b></span>
+</div>
+</header>
+
+<div id="beginScreen" class="beginwrap">
+ <button class="begin" id="beginBtn">tap to begin ▸</button>
+ <div class="audiohint">this experience speaks · sound on, if you like</div>
+</div>
+
+<div id="quiz" class="hidden">
+ <div class="progress" id="prog"></div>
+ <div class="stage">
+  <div class="qwrap">
+   <div class="qnum" id="qnum"></div>
+   <div class="qtext" id="qtext"></div>
+   <div class="qwhy" id="qwhy"></div>
+   <div id="choices"></div>
+   <div class="react" id="react">　</div>
+  </div>
+ </div>
+</div>
+
+<div id="briefScreen" class="hidden">
+ <div class="brief">
+  <div class="bh">your brief · assembled from your answers</div>
+  <div class="bb" id="briefBody"></div>
+ </div>
+ <h2>Your kit — everything built from this thread</h2>
+ <div class="kit">
+  <a href="/20261006-decode-mangospree/">DECODE · the jargon dial</a>
+  <a href="/20261006-ai-mode-thread-mcvoid/">the thread, answered</a>
+  <a href="/20261006-the-cut-mcvoid/">THE CUT · the canon</a>
+  <a href="/20261006-canon-mcvoid/">where the doing lives</a>
+  <a href="/20261006-cs50-or-not-mcvoid/">the 90-second CS50 card</a>
+  <a href="/20261005-linkfield-mcvoid/">the link field</a>
+ </div>
+ <div class="react" style="margin-top:18px" id="outroReact"></div>
+ <button class="restart" id="restart">↺ take it again with different answers</button>
+</div>
+
+<div class="foot">
+<b>Provenance</b> — the five questions are the clarifying questions the Google AI thread posed to its
+asker (what do you want, where do you sit, what's your media, what's your time); the brief lines are the
+verified 2026 synthesis (Slack plan tiers · Korea AI Basic Act · PDPA · harness incident record), not
+generated here. Audio: two voice clips, generated 2026-10-06. Nothing you tap is recorded or sent
+anywhere. · noindex · contact: the group thread
+</div>
+</div>
+
+<audio id="auIntro" src="assets/intro.mp3" preload="none"></audio>
+<audio id="auOutro" src="assets/outro.mp3" preload="none"></audio>
+
+<script>
+const QUESTIONS=[
+{id:"who",q:"Who are you, in the room?",why:"the thread's first question · everything routes off this",
+ choices:[
+  {label:"Policy / legal — and honestly, not technical",sub:"the person the thread was written for",flags:["policy"],react:"Good. Nobody needs 200 hours of C to be dangerous in policy. Words are your leverage."},
+  {label:"Engineer-adjacent — I can read a config",sub:"you'll move faster than most",flags:["techy"],react:"Then you can skip more than half the material everyone recommends. Fine by me."},
+  {label:"Founder / other chaos",sub:"the wildcard",flags:["other"],react:"Chaos noted. The tools don't change; only the order."}]},
+{id:"where",q:"Where do you sit?",why:"jurisdiction is destiny in this work",
+ choices:[
+  {label:"APAC · big tech · Singapore",sub:"the thread's exact seat",flags:["sg"],react:"The seat with two clocks running and a regulator who reads frameworks for fun. Let's use that."},
+  {label:"APAC, somewhere else",sub:"same weather, different rules",flags:["apac"],react:"Same divergence story, different row on the table. The map still works."},
+  {label:"EU / US",sub:"different gravity",flags:["west"],react:"Then the EU AI Act is your north star, and APAC is your expansion question."}]},
+{id:"want",q:"What do you actually want?",why:"pick the appetite, not the curriculum",
+ choices:[
+  {label:"To understand the technology",sub:"literacy, not a degree",flags:["literacy"],react:"Vocabulary first. Degree later, if ever."},
+  {label:"To automate my workflow",sub:"get my hours back",flags:["automate"],react:"The one real lever. Start with one recurring task, not a platform."},
+  {label:"To run an agent safely",sub:"without becoming the cautionary tale",flags:["agent"],react:"Correct instinct. The sandbox question comes before the demo. Always."},
+  {label:"Honestly — just survive the jargon",sub:"power over overwhelm",flags:["jargon"],react:"That's not small. Half of confidence in a room is knowing the words are being used sloppily."}]},
+{id:"media",q:"How do you take things in?",why:"the thread bent its whole answer on this",
+ choices:[
+  {label:"Reading",sub:"quiet, in my own time",flags:["read"],react:"A curated list beats a course catalogue. You'll get the list."},
+  {label:"Listening / watching",sub:"on the move",flags:["listen"],react:"Audio briefings and one video course. Chunks, not marathons."},
+  {label:"Doing exercises",sub:"hands first",flags:["do"],react:"Then it's one guided project, not three books. Practice is the fastest teacher."}]},
+{id:"time",q:"What's your honest time budget?",why:"the answer that keeps the rest realistic",
+ choices:[
+  {label:"One weekend",sub:"~7 hours, one shot",flags:["weekend"],react:"Perfect. One weekend beats six months of good intentions."},
+  {label:"A few hours a week",sub:"the sustainable kind",flags:["weekly"],react:"The compound-interest option. Boring, reliable, unbeatable."},
+  {label:"None. Just tell me what matters",sub:"triage mode",flags:["none"],react:"Understood. You get the short list and the one question. Nothing else."}]}
+];
+const state={answers:[],step:0};
+const $=id=>document.getElementById(id);
+function renderProgress(){
+ $("prog").innerHTML=QUESTIONS.map((_,i)=>'<div class="dot'+(i<=state.step?" on":"")+'"></div>').join("")
+}
+function renderStep(){
+ const q=QUESTIONS[state.step];
+ $("qnum").textContent="question "+(state.step+1)+" of "+QUESTIONS.length;
+ $("qtext").textContent=q.q;$("qwhy").textContent=q.why;
+ $("choices").innerHTML=q.choices.map((c,i)=>'<button class="choice" data-i="'+i+'">'+c.label+"<small>"+c.sub+"</small></button>").join("");
+ $("react").innerHTML="　";renderProgress();
+}
+function choose(i){
+ const q=QUESTIONS[state.step],c=q.choices[i];
+ state.answers.push({q:q.id,flags:c.flags});
+ $("react").innerHTML="<b>▸</b> "+c.react;
+ setTimeout(()=>{
+  if(state.step<QUESTIONS.length-1){state.step++;renderStep()}
+  else{finish()}
+ },1050);
+}
+function has(f){return state.answers.some(a=>a.flags.includes(f))}
+function finish(){
+ $("quiz").classList.add("hidden");$("briefScreen").classList.remove("hidden");
+ const L=[];
+ const push=(hot,txt)=>L.push({hot,txt});
+ // verdict
+ if(has("literacy")||has("jargon")) push(0,"<b>Skip CS50x and CS50L for now.</b> Start with Andrew Ng's <i>AI for Everyone</i> (~7h, free to audit) — vocabulary is the whole bottleneck.");
+ if(has("techy")) push(0,"<b>For you it's lighter than the usual advice:</b> CS50B + the docs themselves. You don't need the remedial track.");
+ if(has("sg")){push(1,"<b>Your two clocks:</b> Australia ADM transparency commences <b>10 Dec 2026</b> · Korea AI Basic Act grace ends <b>~Jan 2027</b>. Build one table: jurisdiction × trigger × deadline × owner.");
+  push(0,"Singapore-specific: MGF for Agentic AI v1.5 + AI Verify toolkit is your reference stack; PDPA portability is legislated but not yet in force — watch, don't panic.")}
+ if(has("apac")) push(0,"<b>Your rule-map:</b> SG voluntary/principles vs CN &amp; KR prescriptive. One dated-claims sheet; regulations expire in your head faster than in the law.");
+ if(has("west")) push(0,"<b>Your north star:</b> EU AI Act phase-ins through 2025–2027; GDPR Art. 22 is the ancestor of every 'automated decision' duty now spreading to APAC.");
+ if(has("automate")){push(1,"<b>This week, one move:</b> ask IT in writing: “What is our Slack plan tier, and does legal hold cover Slack Connect + bot-posted messages?” Everything else stacks on that answer.");
+  push(0,"Then: one intake form + one keyword alert + one emoji convention (👀 taken / ✅ done / ❌ blocked). That is 80% of the leverage. (DEAL: define one recurring task, eliminate its inputs, automate its 80%.)")}
+ if(has("agent")){push(1,"<b>Before any pilot touches real data:</b> sandbox diagram + audit trail + least-privilege tokens + egress allowlist + human confirm gate. OpenClaw's 2026 sandbox escape (CVSS 9.6) is why this isn't theoretical.");
+  push(0,"Measure one number: <b>deflection rate</b> — % of routine queries answered without a human. Target from the thread: 25–30%. Anything else is theatre.")}
+ if(has("jargon")) push(0,"<b>Keep DECODE open in a tab.</b> The trap words (retention · agent · training · sandbox · export · discovery) mean two things in two rooms; knowing which room you're in is the whole game.");
+ if(has("read")) push(0,"<b>Reading path:</b> Ford's <i>What Is Code?</i> (skim) → PG's <i>Maker's Schedule</i> → Brooks' <i>No Silver Bullet</i>. Then the culture canon when you want to understand the people.");
+ if(has("listen")) push(0,"<b>Listening path:</b> Ng's course on 1.5× while walking; then the two voice clips in this experience are the shape of the rest.");
+ if(has("do")) push(0,"<b>Doing path:</b> Michigan's <i>AI for Lawyers</i> 4-course series (hands-on, 2026-current) → then one real automation in your own Slack.");
+ if(has("none")) push(1,"<b>Nothing else. The whole thing is:</b> (1) the written IT question, (2) 7 hours of Ng, (3) the two dates above. Everything else can wait its turn.");
+ if(!L.length) push(0,"Your answers were too interesting for a stock brief. Start with the IT question, then read <i>The Cathedral and the Bazaar</i> — the rest follows.");
+ $("briefBody").innerHTML=L.map(l=>'<div class="bline"><span class="tick'+(l.hot?" hot":"")+'">'+(l.hot?"◆":"▸")+'</span><div>'+l.txt+"</div></div>").join("");
+ const p=$("auOutro").play();if(p&&p.catch)p.catch(()=>{});
+ $("outroReact").innerHTML="<b>▸</b> That's the brief. One question for IT this week. One weekend of learning. Two dates on a calendar. The rest is weather.";
+}
+$("choices").addEventListener("click",e=>{const b=e.target.closest(".choice");if(b)choose(+b.dataset.i)});
+$("beginBtn").onclick=()=>{
+ $("beginScreen").classList.add("hidden");$("quiz").classList.remove("hidden");
+ const q=$("auIntro").play();if(q&&q.catch)q.catch(()=>{});
+ renderStep();
+};
+$("restart").onclick=()=>{state.answers=[];state.step=0;
+ $("briefScreen").classList.add("hidden");$("beginScreen").classList.remove("hidden");window.scrollTo(0,0)};
+</script>
