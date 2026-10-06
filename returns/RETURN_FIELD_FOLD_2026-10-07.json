@@ -1,0 +1,25 @@
+{
+  "schema": "field-return/v1",
+  "id": "RETURN_FIELD_FOLD_2026-10-07",
+  "date": "2026-10-07",
+  "state": "MERGED_VERIFIED",
+  "object": "FIELD FOLD — collapse the fraying return-state vocabulary onto the canonical ternary enum",
+  "before": "285 returns carried 111 distinct free-text `state` values — compound mush (MERGED_ACTIVE_CANDIDATE, SHIPPED_ACTIVE_CANDIDATE), separators (CANDIDATE / CI_REQUIRED), 49 with no state, and one literal sentence. Two real axes (did-it-land × is-it-verified) were mashed into unbounded prose. This is the 'fraying blooming exploding' the operator named; no controlled vocabulary existed, and no gate enforced one.",
+  "delta": [
+    "tools/field-fold.mjs — the fold engine + gate. Reads returns/*.json, projects each free-text state onto the canonical enum derived from the 太玄經 ternary in the interphase-genesis prototype: ⚊ SOURCE (not landed) / 𝌀 HOLD (candidate, in flight) / ⚋ RETURN (landed) + a `verified` flag. Preserves `raw` + `why` on every row (the fold is a projection, not a destructive rewrite — house law: keep lost distinction as explicit residue). Verdict line + exit code = the verdict.",
+    "Convergence measured on real data: 111 raw states → 4-value enum (ratio 0.036). Phase distribution ⚊ SOURCE 49 · 𝌀 HOLD 94 · ⚋ RETURN 135 · ⧗ RESIDUE 7 · verified-flagged 95. Iterated the fold rules from residue 21 → 7, folding lifecycle/contribution tokens (CONVERGED/ALIGNED/RECOVERED/BOUNDED/RECONCILED) while NEVER coercing prose.",
+    "returns/FIELD_FOLD_MAP.json — the persisted fold map (field-fold/v1): per-return raw→phase projection, phase distribution, raw-state histogram, and the residue list for human disposition."
+  ],
+  "after": "The return-state vocabulary is now governed by one executable fold and a passing gate (FIELD FOLD PASS · residue 7 ≤ 9). 111 competing state representations collapse onto 3 phases + a flag; every surface can project one state without hand-reading a sentence. The 7 residue are owned, not hidden: 5 are prose sitting in the `state` field (a description where a state belongs) and 2 are off-vocab tokens — named as the data-hygiene next move, not coerced.",
+  "evidence": {
+    "fold_command": "node tools/field-fold.mjs --write",
+    "fold_result": "FIELD FOLD PASS · 285 returns · 111 raw states → 4-value enum · residue 7 ≤ 9 · vocabulary converged (exit 0)",
+    "phase_distribution": {"SOURCE": 49, "HOLD": 94, "RETURN": 135, "RESIDUE": 7},
+    "verified_flagged": 95,
+    "convergence": "111 raw → 4 enum (ratio 0.036); residue iterated 21 → 7 across three tightening passes, prose never coerced",
+    "residue_owned": "7 (5 prose-in-state-field, 2 off-vocab tokens) — listed in returns/FIELD_FOLD_MAP.json for human disposition",
+    "note": "The ternary enum is homoiconic to the interphase-genesis prototype (⃝ SOURCE/HOLD/RETURN) — the theory IS the state vocabulary, not decoration."
+  },
+  "object_ref": "tools/field-fold.mjs",
+  "receipt": "/returns/RETURN_FIELD_FOLD_2026-10-07.json"
+}
