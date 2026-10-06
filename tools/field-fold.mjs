@@ -125,6 +125,29 @@ function runRoutes() {
     if (op) ops.set(op, (ops.get(op) ?? 0) + 1);
   }
   const compoundOps = [...ops.keys()].filter((o) => o.includes('/'));
+  // Proposed operation taxonomy (unfolded from the real verbs) — a CONCRETE PROPOSAL for the
+  // operator to ratify/adjust, applied here as a read-only lens (never rewrites the manifest).
+  // Compounds collapse to their primary verb first ('REPLAY / MESSAGE / SHARE' → REPLAY).
+  const OP_CLASS_RULES = [
+    ['RECOVER', /ADDRESS|RECOVER|RETRIEV|ACQUIRE|PRESERV|SCAN|LOAD|FETCH|RESTORE|REIFY|RETURN/],
+    ['WAYFIND', /ORIENT|ROUTE|ENTER|TRAVERS|REDIRECT|RIDE|PATH|NAVIGAT|FEDERATE/],
+    ['MAKE', /PROJECT|COMPOS|SHAPE|RESHAPE|WEAV|DRAFT|DESIGN|BUILD|NAME|ENCOD|RENDER|CANONIC|REPRESENT|REMEMBER|PRINT|COMPILE|SOLVE|WORK|PLAN|TRANSFORM|DRAW/],
+    ['PLAY', /PLAY|EXPERIMENT|TRAIN|BREED|MUTAT|MODULAT|REPLAY|EXPLORE|INHABIT/],
+    ['OPERATE', /OPERATE|SERVE|TRANSACT|HOST|TRANSFER/],
+    ['SEE', /OBSERV|VERIFY|PROVE|READ|INSPECT|COMPAR|INVESTIGAT|ALIGN|LISTEN|INTERPRET|WITNESS|CAPTURE/],
+  ];
+  function classifyOp(op) {
+    const primary = (op ?? '').split('/')[0].trim().toUpperCase();
+    for (const [cls, re] of OP_CLASS_RULES) if (re.test(primary)) return cls;
+    return 'OTHER';
+  }
+  const opClass = {};
+  const opToClass = {};
+  for (const [op] of ops) {
+    const c = classifyOp(op);
+    opToClass[op] = c;
+    opClass[c] = (opClass[c] ?? 0) + 1;
+  }
   return {
     routes_total: routes.length,
     route_state_raw_distinct: new Set(routes.map((r) => r.state)).size,
@@ -134,6 +157,9 @@ function runRoutes() {
     operation_distinct: ops.size,
     operation_compound_count: compoundOps.length,
     operation_debt_sample: compoundOps.slice(0, 6),
+    operation_class_proposed: 6,
+    operation_class_dist: opClass,
+    operation_class_map: opToClass,
   };
 }
 
@@ -157,6 +183,8 @@ if (wantJson) {
     console.log(`ROUTE FOLD · ${rt.routes_total} routes · route-state ${rt.route_state_raw_distinct} → ${rt.route_state_folded_onto}-value enum`);
     console.log(`  ⚊ SOURCE ${rd.SOURCE}   ·  𝌀 HOLD ${rd.HOLD}   ·  ⚋ RETURN ${rd.RETURN}   ·  ⧗ RESIDUE ${rd.RESIDUE}`);
     console.log(`  operation debt (measured, not force-folded): ${rt.operation_distinct} distinct · ${rt.operation_compound_count} compound`);
+    const oc = rt.operation_class_dist ?? {};
+    console.log(`  operation → proposed 6-class taxonomy: ${Object.entries(oc).map(([k, v]) => k + ' ' + v).join(' · ')}`);
   }
   if (report.residue_count) {
     console.log(`  RESIDUE (needs human disposition, not coerced):`);
