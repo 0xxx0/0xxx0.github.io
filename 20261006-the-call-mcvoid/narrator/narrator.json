@@ -1,0 +1,94 @@
+{
+  "lines": [
+    {
+      "id": "intro-floor",
+      "text": "Welcome to the floor. Real messages, fake consequences. Try not to enjoy that too much.",
+      "use": "when: solo run opens"
+    },
+    {
+      "id": "intro-crew",
+      "text": "Here comes the crew. They brought opinions. You brought judgment. Let's see who's right.",
+      "use": "when: crew/audience mode opens"
+    },
+    {
+      "id": "intro-both",
+      "text": "Floor and crew together. Bold. Nothing says confidence like an audience for your mistakes.",
+      "use": "when: floor and crew both present at open"
+    },
+    {
+      "id": "verdict-expensive-1",
+      "text": "That one had a price tag. You saw the cost and called anyway. No shame.",
+      "use": "when: expensive call, cost shown to player"
+    },
+    {
+      "id": "verdict-expensive-2",
+      "text": "Expensive call. You read the cost like a menu and ordered anyway. Respectable appetite.",
+      "use": "when: expensive call, player accepted the price"
+    },
+    {
+      "id": "verdict-expensive-3",
+      "text": "You paid full price for that judgment. The receipt is honest, and so were you.",
+      "use": "when: expensive call, full cost borne"
+    },
+    {
+      "id": "verdict-expensive-4",
+      "text": "Ouch. That call cost real coin, and you made it with your eyes wide open.",
+      "use": "when: expensive call, player knew the cost"
+    },
+    {
+      "id": "verdict-expensive-5",
+      "text": "An expensive lesson, delivered on schedule. You'll remember this one. That's the whole point.",
+      "use": "when: expensive call, lesson-sized cost"
+    },
+    {
+      "id": "verdict-instinct-1",
+      "text": "Your gut got there first, and it was right. Don't let it go to your head.",
+      "use": "when: instinct call proved right"
+    },
+    {
+      "id": "verdict-instinct-2",
+      "text": "Instinct, and it landed. I'd say I'm impressed, but you'd only get smug about it.",
+      "use": "when: instinct call proved right, player is ahead"
+    },
+    {
+      "id": "verdict-instinct-3",
+      "text": "Called it on feel, and the feel was good. Quietly excellent. On to the next.",
+      "use": "when: instinct call proved right, mid-run"
+    },
+    {
+      "id": "verdict-instinct-4",
+      "text": "You knew before you knew why. One small smile is permitted. Then back to work.",
+      "use": "when: instinct call proved right on a hard one"
+    },
+    {
+      "id": "callback-shrink",
+      "text": "You shrank the room again, and it worked again. I believe this is called a habit.",
+      "use": "when: player shrank scope again"
+    },
+    {
+      "id": "callback-ask",
+      "text": "There it is again: one question, asked early, doing all the work. Keep that trick.",
+      "use": "when: player asked the one clarifying question again"
+    },
+    {
+      "id": "callback-ship",
+      "text": "You chose shipping over polish again. Rough, fast, and out the door. I approve quietly.",
+      "use": "when: player shipped over polished again"
+    },
+    {
+      "id": "callback-gap",
+      "text": "You named the gap instead of guessing. Good. That is always the right instinct here.",
+      "use": "when: player named the gap instead of guessing"
+    },
+    {
+      "id": "ending-doors",
+      "text": "That's the session. You get one door to open before you go. Choose it well.",
+      "use": "when: session wraps, handing the player their one door"
+    },
+    {
+      "id": "ending-heal",
+      "text": "You got better at this today. Go easy on yourself tonight. I'm serious.",
+      "use": "when: warm final close"
+    }
+  ]
+}

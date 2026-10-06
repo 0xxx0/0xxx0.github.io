@@ -78,6 +78,18 @@ h1 .thin{font-weight:300;color:var(--mut)}
 .pbrow .m{font-size:11.5px;color:var(--gold);margin-top:6px;line-height:1.5}
 
 hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
+.three{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.three div{background:var(--panel);padding:11px 13px}
+.three b{display:block;font:800 10px/1 system-ui;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.three span{font-size:12.5px;line-height:1.55;color:var(--mut)}
+.three i{color:var(--ink);font-style:normal}
+/* ending.js output (donor module) */
+.ending{border:1px solid var(--line);border-left:4px solid var(--gold);background:var(--panel2);padding:15px;margin-top:14px}
+.ending .emode{font:900 22px/1.05 system-ui;letter-spacing:-.02em;margin:8px 0 12px}
+.ending .g{font-size:13.5px;line-height:1.6;margin-bottom:9px;padding-left:74px;text-indent:-74px}
+.ending .g .tag{display:inline-block;font:800 9px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;padding:3px 6px;border:1px solid currentColor;color:var(--gold);margin-right:7px;min-width:56px;text-align:center;text-indent:0}
+.ending .ev{font-size:11.5px;color:#8a8d9b;line-height:1.6;margin-top:9px}
+.ending input{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:0}
 .foot{margin-top:16px;font-size:10.5px;color:var(--mut);line-height:1.75}
 .foot a{color:var(--cool)}
 @media(max-width:400px){h1{font-size:29px}.bubble{font-size:15px}}
@@ -85,8 +97,26 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
 </style>
 
 <div class="wrap">
-<div class="eyebrow">FIELD / PLAY · judgment deck · 12 matters</div>
+<div class="eyebrow">field / play · judgment deck · the floor + the crew</div>
 <h1>THE CALL.<br><span class="thin">meaning is cheap.<br>judgment is the job.</span></h1>
+
+<!-- CONSULT calibration folded in: 3 taps, no data collected, it just picks your deck -->
+<div id="calib">
+  <div class="three" style="margin-top:18px">
+    <div><b>before we start</b><span>Three taps. Nothing is recorded, nothing leaves this browser —
+      they only decide <i>which deck you get</i> and how the narrator talks to you.</span></div>
+  </div>
+  <h2><span class="n">00</span> calibrate</h2>
+  <div class="deck" id="calibpip"></div>
+  <div class="matter" style="margin-top:16px">
+    <div class="from"><div class="av">?</div>
+      <div><div class="who">the question</div><div class="meta">tap one · nothing is stored</div></div></div>
+    <div class="bubble" id="calibq">…</div>
+  </div>
+  <div class="calls" id="calibopts" style="margin-top:14px"></div>
+</div>
+
+<div id="game" style="display:none">
 <div class="deck" id="pips"></div>
 
 <div class="matter">
@@ -118,6 +148,10 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
   <button class="btn ghost" id="copyPB" style="margin-top:12px;width:100%">copy playbook json</button>
 </div>
 
+<!-- ending engine (donor, ending.js): the honest sort + the Kind Words note -->
+<div class="playbook" id="ending" style="display:none"></div>
+</div><!-- /#game -->
+
 <hr>
 <div class="foot">
 Built on the released <a href="../field-play.html">FIELD / PLAY</a> scaffold (v0.4) — same laws,
@@ -130,6 +164,8 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it. · n
 </div>
 </div>
 
+<script src="deck-crew.js"></script>
+<script src="ending.js"></script>
 <script>
 /* ───────────── audio: synthesised, zero assets ───────────── */
 let AC=null, SFX=true;
@@ -143,8 +179,11 @@ function sfxRight(){ [660,880,1180].forEach((f,i)=>setTimeout(()=>tone(f,0.17,'t
 function sfxWrong(){ [300,232,176].forEach((f,i)=>setTimeout(()=>tone(f,0.24,'sawtooth',0.032),i*105)); }
 function sfxDeal(){ tone(880,0.05,'square',0.028); setTimeout(()=>tone(1240,0.06,'square',0.024),55); }
 
-/* ───────────── the deck ───────────── */
-const MATTERS=[
+/* ───────────── the decks ─────────────
+   FLOOR = the professional scenarios (kage). CREW = our own real misfires (mahshroom, mined
+   from the fleet's own incident record with citations). Concatenation + order happens in
+   calibrate() so the deck responds to who is playing (Reigns rule). */
+const FLOOR=[
 { who:'outside counsel · email fwd to #legal-ops', meta:'SLACK CONNECT · shared channel · 17:42',
   clock:'3 days', clocklab:'to production',
   text:'Counsel\'s written advice on the data-transfer question just landed. A colleague in the <span class="q">Slack Connect</span> shared channel with the partner firm asks you to "just paste the gist here so everyone\'s aligned".',
@@ -303,9 +342,90 @@ const MATTERS=[
 ];
 
 /* ───────────── state ───────────── */
-let idx=0, results=[], answered=false;
+let idx=0, results=[], answered=false, MATTERS=[], CALIB=null;
 const $=id=>document.getElementById(id);
-const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+/* Deck assembly. Order from INTEGRATION.md: FLOOR → CREW → FLOOR → CREW → the gap card last.
+ The gap card plays once, at the end, on purpose. */
+function buildDeck(face){
+  const CREW=(window.CREW_DECK||[]).map(c=>Object.assign({},c));
+  /* MERCY RULE (non-negotiable, INTEGRATION.md #5): a verdict states what the call COSTS and what
+     it BUYS. It never says "wrong". The FLOOR deck was written with "Correct." as its opener —
+     rewritten here into the same cost/buys grammar the CREW deck already uses, so both decks read
+     as one voice. */
+  const mercy=v=>String(v)
+    .replace(/^Correct\.\s*/,'<b>Buys:</b> ')
+    .replace(/^Correct,/,'<b>Buys:</b>')
+    .replace(/\bis not wrong but\b/,'is not the error here — it')
+    .replace(/\bnot wrong\b/,'not the error');
+  const F=FLOOR.map(c=>Object.assign({},c,{face:'floor',
+    calls:c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)}))}));
+  /* THE GAP CARD — the one where the only right move is to name what you actually know.
+     Identified by its citation (SELF-AUDIT-2026-10-05.md #1), not by a guess: it plays last, once.
+     It is not "unwinnable" — it is the card that punishes certainty. */
+  const gapcard=CREW.filter(c=>/SELF-AUDIT-2026-10-05\.md #1/i.test(c.source||''));
+  const crew=CREW.filter(c=>!gapcard.includes(c));
+  let out=[];
+  if(face==='floor') out=F.slice();
+  else if(face==='crew') out=crew.concat(gapcard);
+  else out=[F[0],F[1],F[2],F[3], crew[0],crew[1], F[4],F[5], crew[2],crew[3], F[6],F[7],
+            crew[4],crew[5],crew[6],crew[7], F[8],F[9],F[10],F[11]];
+  return out.concat(gapcard);      // the gap card is always last, once
+}
+
+/* CONSULT calibration folded in (mahshroom's 3 taps): who you are / where you sit / what you
+   want. It does not collect data — it orders the deck and sets the narrator's face. */
+const CALIB_Q=[
+  {k:'who', q:'Who are you here?', o:[
+    {t:'the person who has to answer for it', v:'floor'},
+    {t:'the one who has to live with it', v:'crew'},
+    {t:'both, obviously', v:'both'}]},
+  {k:'sit', q:'Where do you sit?', o:[
+    {t:'in the middle of the message', v:'floor'},
+    {t:'somewhere it lands', v:'crew'},
+    {t:'somewhere it gets sent', v:'both'}]},
+  {k:'want', q:'What do you want from this?', o:[
+    {t:'the move. just tell me the move', v:'floor'},
+    {t:'to see it happen to someone else first', v:'crew'},
+    {t:'a bit of both, and maybe a laugh', v:'both'}]}
+];
+let calibStep=0, calibAnswers={};
+
+function renderCalib(){
+  const q=CALIB_Q[calibStep];
+  $('calibq').textContent=q.q;
+  $('calibopts').innerHTML=q.o.map((o,i)=>'<button class="call" data-i="'+i+'"><span class="k">'+
+    String.fromCharCode(65+i)+'</span><span class="t">'+o.t+'</span></button>').join('');
+  $('calibpip').innerHTML=CALIB_Q.map((_,i)=>'<div class="pip '+(i<calibStep?'on':i===calibStep?'now':'')+'"></div>').join('');
+}
+function calibPick(i){
+  const q=CALIB_Q[calibStep];
+  calibAnswers[q.k]=q.o[i].v;
+  sfxTap();
+  if(calibStep<CALIB_Q.length-1){calibStep++;renderCalib();return;}
+  const votes=Object.values(calibAnswers);
+  const face=votes.includes('both')?'both':(votes.filter(v=>v==='crew').length>votes.filter(v=>v==='floor').length?'crew':'floor');
+  CALIB=face; window.GAME_FACE=face;
+  MATTERS=buildDeck(face);
+  results=new Array(MATTERS.length).fill(null);
+  $('calib').style.display='none';
+  $('game').style.display='block';
+  const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both'}[face];
+  narrate(intro);
+  deal();
+}
+
+/* ───────────── narrator (donor pack, mahshroom) ───────────── */
+function narrate(id){
+  if(!SFX) return;
+  try{
+    const a=new Audio('narrator/'+id+'.mp3');
+    a.volume=0.85;
+    const p=a.play();
+    if(p && p.catch) p.catch(()=>{});      // autoplay refusal is not an error
+  }catch(e){}
+}
 
 function pips(){
   $('pips').innerHTML = MATTERS.map((_,i)=>{
@@ -333,21 +453,36 @@ function deal(){
 function choose(i){
   if(answered)return; answered=true;
   const m=MATTERS[idx];
-  const right=m.calls[i].right;
-  results[idx]=right;
-  [...document.querySelectorAll('.call')].forEach((el,j)=>{
+  const hasRight=m.calls.some(k=>k.right);
+  const right=m.calls[i].right===true;
+  // a card with no right call at all is not a strike and not a pass — it is recorded as skipped
+  results[idx]= hasRight ? right : null;
+  // scope to #calls — the calibration screen's buttons also carry class .call
+  [...document.querySelectorAll('#calls .call')].forEach((el,j)=>{
     el.disabled=true;
     if(m.calls[j].right) el.classList.add('right');
-    else if(j===i) el.classList.add('wrong');
+    else if(j===i) el.classList.add('picked');
   });
-  const el=document.querySelector('.call[data-i="'+i+'"]');
-  el.classList.add('picked');
+  const el=document.querySelector('#calls .call[data-i="'+i+'"]');
   const v=document.createElement('span'); v.className='verdict'; v.innerHTML=m.calls[i].v;
   el.appendChild(v);
-  $('aftertext').innerHTML = '<b>'+esc(m.move.split('Rule: ')[1] ? 'THE MOVE' : 'THE MOVE')+'</b><br>'+m.move.replace(/^Rule:\s*/,'');
+  $('aftertext').innerHTML = '<b>THE MOVE</b><br>'+m.move.replace(/^Rule:\s*/,'');
   $('evid').innerHTML = '<b>RETURN → </b>'+m.ev;
   $('after').classList.add('show');
-  right ? sfxRight() : sfxWrong();
+  /* MERCY: no "wrong". An expensive call is one you made knowing the price. */
+  const isGap=/SELF-AUDIT-2026-10-05\.md #1/i.test(m.source||'');
+  if(hasRight){
+    if(right){
+      sfxRight();
+      // callback-gap is the one habit line whose trigger we can cite: the gap card's right call IS
+      // "name the gap". The other three callback lines need a move-family taxonomy the decks do not
+      // carry, so they stay unwired rather than get an invented mapping.
+      if(isGap) narrate('callback-gap'); else narrate('verdict-instinct-'+(1+(idx%4)));
+    }
+    else { sfxWrong(); narrate('verdict-expensive-'+(1+(idx%5))); }
+  } else {
+    narrate('verdict-expensive-1');
+  }
   $('next').disabled=false;
   pips();
 }
@@ -361,11 +496,39 @@ function finish(){
   $('after').classList.remove('show');
   $('playbook').classList.add('show');
   const got=results.filter(r=>r===true).length;
+  const expensive=results.filter(r=>r===false).length;
+  const skipped=results.filter(r=>r===null).length;
   $('pblist').innerHTML =
-    '<div class="pbrow"><div class="t"><b>'+got+' of '+MATTERS.length+'</b> calls made on the first try.</div>'+
-    '<div class="m">This is not a score. It is a record of where your instinct is already right, and where it is expensive.</div></div>' +
-    MATTERS.map((m,i)=>'<div class="pbrow '+(results[i]?'':'miss')+'"><div class="t">'+m.move.replace(/^Rule:\s*/,'')+'</div>'+
-      '<div class="m">'+(results[i]?'✓ you called it · ':'✗ worth rehearsing · ')+esc(m.who)+'</div></div>').join('');
+    '<div class="pbrow"><div class="t"><b>'+got+'</b> instinct-right · <b>'+expensive+
+    '</b> expensive · <b>'+skipped+'</b> skipped.</div>'+
+    '<div class="m">Not a score. A record of where your instinct is already right, and where it is expensive.</div></div>' +
+    MATTERS.map((m,i)=>{
+      const r=results[i];
+      const lab = r===true ? '✓ instinct-right' : r===false ? '◆ expensive call' : '○ no right answer';
+      return '<div class="pbrow '+(r===false?'miss':'')+'"><div class="t">'+
+        String(m.move).replace(/^Rule:\s*/,'')+'</div>'+
+        '<div class="m">'+lab+' · '+esc(m.who)+'</div></div>';}).join('');
+
+  /* the honest sort (donor: ending.js) — failure mode, not personality; buys/costs/one door */
+  try{
+    if(window.CALL_ENDING){
+      const E=window.CALL_ENDING;
+      const t=E.tally(MATTERS, results);
+      const m=E.pickMode(MATTERS, results, t);   // returns a MODES entry: {name,buys,costs,door}
+      window.__MODE=m; window.__MODEKEY=(m&&m.name)||null;
+      $('ending').innerHTML=E.buildEnding(results, MATTERS)
+        + '<div style="font-size:11px;color:var(--mut);line-height:1.6;margin-top:11px;border-top:1px solid var(--line);padding-top:9px">'
+        + '<b style="color:var(--gold)">SCOPE —</b> The sort reads the <b>14 crew cards</b>, which each carry '
+        + 'a failure mode derived from its own citation. The 12 floor cards carry no citation, so they are '
+        + 'recorded in your playbook but deliberately <b>do not</b> vote on your type. Measured what we can '
+        + 'cite; left the rest out.</div>';
+      $('ending').style.display='block';
+      // ending-doors hands you the one door; ending-heal is the warm close after it
+      narrate('ending-doors');
+      setTimeout(()=>narrate('ending-heal'), 2600);
+    }
+  }catch(e){ $('ending').innerHTML=''; }
+
   $('next').textContent='copy playbook';
   $('next').disabled=false;
   $('next').onclick=copyPB;
@@ -373,20 +536,32 @@ function finish(){
   sfxRight();
 }
 function copyPB(){
+  const m=window.__MODE||null;
   const packet={schema:'field-game-return/v0.2',
-    deck:'THE CALL · APAC legal-ops judgment · 12 matters',
+    deck:'THE CALL · the floor + the crew · '+MATTERS.length+' matters',
     scaffold:'field-play.html v0.4',
-    laws:['ONE BOUNDED MOVE','EVIDENCE BEFORE CLAIM','RETURN != NEXT','SUBJECTIVE RATING != CORRECTNESS PROOF'],
-    first_try_right:results.filter(r=>r===true).length,
-    matters:MATTERS.map((m,i)=>({who:m.who,move:m.move,first_try:!!results[i],evidence:m.ev})),
-    returned_at:new Date().toISOString(), authority:'REPORT_ONLY / NO AUTO_WRITE'};
+    face: window.GAME_FACE || CALIB || 'both',
+    failure_mode: window.__MODEKEY || null,
+    door: m ? m.door : null,
+    buys: m ? m.buys : null,
+    costs: m ? m.costs : null,
+    laws:['ONE BOUNDED MOVE','EVIDENCE BEFORE CLAIM','RETURN != NEXT','SUBJECTIVE RATING != CORRECTNESS PROOF','MERCY: COSTS/BUYS, NEVER WRONG'],
+    instinct_right:results.filter(r=>r===true).length,
+    expensive:results.filter(r=>r===false).length,
+    skipped:results.filter(r=>r===null).length,
+    matters:MATTERS.map((c,i)=>({who:c.who,face:c.face||null,mode:c.mode||null,
+      move:c.move,outcome:results[i]===true?'instinct-right':results[i]===false?'expensive':'no-right-answer',
+      evidence:c.ev, source:c.source||null})),
+    returned_at:new Date().toISOString(), authority:'REPORT_ONLY / NO_AUTO_WRITE'};
   navigator.clipboard.writeText(JSON.stringify(packet,null,2)).then(()=>{
     $('next').textContent='copied ✓'; setTimeout(()=>{$('next').textContent='copy playbook'},1200);
   }).catch(()=>window.prompt('Copy',JSON.stringify(packet,null,2)));
 }
 $('calls').addEventListener('click',e=>{const b=e.target.closest('.call');if(b){sfxTap();choose(+b.dataset.i)}});
+$('calibopts').addEventListener('click',e=>{const b=e.target.closest('.call');if(b) calibPick(+b.dataset.i)});
 $('next').addEventListener('click',()=>{ if(!answered&&!$('playbook').classList.contains('show'))return; if($('playbook').classList.contains('show'))return; next(); });
 $('sound').addEventListener('click',()=>{SFX=!SFX;$('sound').textContent='sound: '+(SFX?'on':'off');if(SFX)sfxTap()});
 $('copyPB').addEventListener('click',copyPB);
-deal();
+/* start on the calibration screen (CONSULT's opening folded in) */
+renderCalib();
 </script>
