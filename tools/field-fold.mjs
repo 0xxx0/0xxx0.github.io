@@ -46,11 +46,11 @@ function classify(raw) {
   // Precedence: landed-on-master is the load-bearing fact and dominates any trailing
   // _CANDIDATE noise. Then bare candidate (in flight). Then nothing.
   // Landed = reached a settled/complete/aligned end-state on master.
-  if (/(MERGED|SHIPPED|RETURNED|LANDED|TERMINAL|CONVERGED|COMPLETE|DONE|ALIGNED|SOVEREIGN|IMMERSION|SOURCE_MAP|RECOVERED|CLOSED|SEAM|CHAIN|STANDALONE|TRACE_RUN|ARTIFACT|BOUNDED|RECONCILED|SAFE_DELTA)/.test(u)) {
+  if (/(MERGED|SHIPPED|RETURNED|LANDED|TERMINAL|CONVERGED|COMPLETE|DONE|ALIGNED|SOVEREIGN|IMMERSION|SOURCE_MAP|RECOVERED|CLOSED|SEAM|CHAIN|STANDALONE|TRACE_RUN|ARTIFACT|BOUNDED|RECONCILED|SAFE_DELTA|EXECUTABLE|CAPABILITY|INITIATED|PRESERVED|SHIPPABLE)/.test(u)) {
     return { phase: 'RETURN', verified, raw: s, why: 'landed (settled/complete/aligned end-state)' };
   }
   // In flight = candidate, pending, staged, or advancing toward a gate.
-  if (/CANDIDATE|PENDING|DRAFT|READY|PR[_ ]?\d|IMPLEMENTED|STAGED|BRANCH|OPEN|REQUIRED|ADVANCED|EXPORT|GATE|PROGRESS|IN_FLIGHT|SOCIAL|ARCHITECTURAL/.test(u)) {
+  if (/CANDIDATE|PENDING|DRAFT|READY|PR[_ ]?\d|IMPLEMENTED|STAGED|BRANCH|OPEN|REQUIRED|ADVANCED|EXPORT|GATE|PROGRESS|IN_FLIGHT|SOCIAL|ARCHITECTURAL|FROZEN|DONOR|PARKED/.test(u)) {
     return { phase: 'HOLD', verified, raw: s, why: 'candidate / in flight, not landed' };
   }
   if (/ACTIVE|VERIFIED|PROOF|GREEN|PASS|CURRENT_HOST/.test(u)) {
