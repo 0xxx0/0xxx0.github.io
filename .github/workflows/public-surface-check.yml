@@ -38,6 +38,8 @@ jobs:
         run: node scripts/check-reality-gaps.mjs
       - name: Validate reality-gap coverage
         run: node scripts/check-reality-gap-coverage.mjs
+      - name: Validate return-state vocabulary fold (field-fold gate)
+        run: node tools/field-fold.mjs
       - name: Validate shared semantic signal grammar
         run: |
           node tools/field-signal-selftest.mjs
