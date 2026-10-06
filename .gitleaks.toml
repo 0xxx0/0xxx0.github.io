@@ -23,6 +23,8 @@ regexes = [
   '''^0xxx0\.body\.care\.handoff\.v0\d$''',
   '''^scale\.lens\.handoff\.v0\d$''',
   '''^interphase\.carrier\.v0\d$''',
+  '''^prison-age\.passage\.return\.v0\d$''',
+  '''^0xxx0\.body\.fit\.route-friction\.v0\d$''',
 ]
 
 [[allowlists]]
