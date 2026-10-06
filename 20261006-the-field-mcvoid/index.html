@@ -1,0 +1,260 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>THE FIELD · it does not judge</title>
+<style>
+  html,body{margin:0;height:100%;background:#07090b;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100vw;height:100dvh;display:block}
+  .frame{position:fixed;inset:0;pointer-events:none;z-index:2}
+  .title{position:fixed;left:22px;top:20px;z-index:3;color:#eef2ef;pointer-events:none}
+  .title .t{font:300 clamp(15px,3.4vw,22px)/1.2 Georgia,serif;letter-spacing:.28em;text-transform:uppercase;opacity:.9}
+  .title .s{font:italic 13px/1.5 Georgia,serif;opacity:.55;margin-top:6px;letter-spacing:.04em}
+  .stamp{position:fixed;right:18px;bottom:16px;width:96px;opacity:.5;z-index:3;pointer-events:none;
+    animation:breathe 9s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.42}50%{opacity:.72}}
+  .whisper{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
+    font:italic 12.5px Georgia,serif;color:#eef2ef;opacity:.5;letter-spacing:.05em;white-space:nowrap}
+  @media (prefers-reduced-motion: reduce){.stamp{animation:none;opacity:.6}}
+</style>
+<div class="title">
+  <div class="t">The Field</div>
+  <div class="s">grown from the day's real calls &mdash; nothing here is invented</div>
+</div>
+<div class="whisper" id="whisper">it does not judge.</div>
+<img class="stamp" id="stamp" alt="" aria-hidden="true">
+<canvas id="c"></canvas>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  let W, H, CX, CY;
+  function size() {
+    W = innerWidth; H = innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W / 2; CY = H / 2;
+  }
+  // THE fix: growth accumulates into an offscreen buffer that survives any
+  // visible-canvas wipe (resize repaints were erasing every trail in place).
+  const buf = document.createElement('canvas');
+  let bctx = buf.getContext('2d');
+  function sizeBuf() { buf.width = cv.width; buf.height = cv.height;
+    bctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  size(); sizeBuf(); addEventListener('resize', () => { size(); sizeBuf(); });
+
+  // the real words — from the deck, the audit, the day
+  const WORDS = ['retention','impacted','for visibility','the gap','privilege','disappearing',
+    'fully compliant','prev discussed','per my last','the hold','no date','owner + date',
+    'shrink the room','name the thing','it does not judge','the second mile','write it down',
+    'a door that will not open','the honest sort','decisions travel','one strike','say it plainly'];
+  const wordPool = WORDS.map(w => ({ w, used:false }));
+
+  // palette
+  const INK = '238,242,239', GOLD = '215,174,103', SOIL = '30,38,44';
+
+  class Hypha {
+    constructor(x, y, a, gen) {
+      this.x = x; this.y = y; this.a = a;
+      this.gen = gen;                       // 0 = trunk
+      this.life = (gen === 0 ? 700 + Math.random() * 700 : 90 + Math.random() * 160) | 0;
+      this.speed = gen === 0 ? 1.7 : 0.8 + Math.random() * 0.7;
+      this.w = gen === 0 ? 4.4 : Math.max(0.7, 2.2 - gen * 0.5);
+      this.fade = 0;
+    }
+    step(dt, field) {
+      this.a += (Math.random() - 0.5) * 0.028;
+      // gentle drift toward the field's grain
+      const grain = field(this.x, this.y);
+      this.a += grain * 0.015;
+
+      if (this.a > Math.PI) this.a -= Math.PI * 2;   // wrap: keep growth directional
+      else if (this.a < -Math.PI) this.a += Math.PI * 2;
+      this.x += Math.cos(this.a) * this.speed * dt;
+      this.y += Math.sin(this.a) * this.speed * dt;
+      this.dist = (this.dist || 0) + this.speed * dt;
+      this.life -= dt;
+    }
+  }
+
+  // slow-flowing grain field (so growth looks like it is obeying a substrate)
+  function field(x, y) {
+    return Math.sin(x * 0.0031 + y * 0.0017) + Math.cos(y * 0.0023 - x * 0.0011);
+  }
+  // the vein field: the angle the substrate wants growth to follow
+  function flow(x, y) {
+    return Math.sin(x * 0.0027 + y * 0.0013) * 1.7 + Math.cos(y * 0.0021 - x * 0.0016) * 1.7;
+  }
+  function angDiff(target, a) {
+    let d = target - a;
+    while (d > Math.PI) d -= Math.PI * 2;
+    while (d < -Math.PI) d += Math.PI * 2;
+    return d;
+  }
+
+  // nodes: real incident words, placed on a quiet spiral
+  const nodes = [];
+  for (let i = 0; i < 22; i++) {
+    const t = i / 22, ang = t * Math.PI * 6.18, rad = (0.12 + t * 0.36) * Math.min(W, H);
+    nodes.push({
+      x: CX + Math.cos(ang) * rad, y: CY + Math.sin(ang) * rad * 0.72,
+      w: WORDS[i], lit: 0, seen: false, r: 2.4 + Math.random() * 2.2
+    });
+  }
+
+  const hyphae = []; window.__H = hyphae;
+  function seed(n) {
+    for (let i = 0; i < n; i++) {
+      const e = Math.random() * 4 | 0;
+      const x = e === 0 ? 0 : e === 1 ? W : Math.random() * W;
+      const y = e === 2 ? 0 : e === 3 ? H : Math.random() * H;
+      hyphae.push(new Hypha(x, y, Math.atan2(CY - y, CX - x) + (Math.random() - .5), 0));
+    }
+  }
+  window.__SEED = seed; window.__CTX = ctx; seed(reduce ? 560 : 120);
+
+  // pointer: the field leans toward the hand
+  let px = -1e4, py = -1e4;
+  addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (e.touches[0]) { px = e.touches[0].clientX; py = e.touches[0].clientY; }
+  }, { passive: true });
+
+  // faint substrate tint, drawn once per resize
+  function substrate() {
+    ctx.fillStyle = '#07090b'; ctx.fillRect(0, 0, W, H);
+    const g = ctx.createRadialGradient(CX, CY * 0.9, 0, CX, CY, Math.max(W, H) * 0.75);
+    g.addColorStop(0, `rgba(${SOIL},.55)`); g.addColorStop(1, 'rgba(7,9,11,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(buf, 0, 0, W, H);          // restore the growth instantly
+  }
+  substrate(); addEventListener('resize', substrate);
+
+  // pre-grow so the first paint is already alive (no one should wait for the art)
+  for (let warm = 0; warm < (reduce ? 800 : 420); warm++) {
+    for (let i = hyphae.length - 1; i >= 0; i--) {
+      const h = hyphae[i], px0 = h.x, py0 = h.y;
+      h.step(1, field);
+      // trunks must TRAVEL: soft centerward pull + substrate grain, or the colony
+      // stays pinned to its spawn edges forever (random walk has zero net drift)
+      if (h.gen < 2) {
+        // blend: follow the veins, but the substrate's pull is never zero —
+        // pure vein-following walks straight off the canvas at the edges
+        const fv = flow(h.x, h.y);
+        const ix = Math.cos(Math.atan2(CY - h.y, CX - h.x)), iy = Math.sin(Math.atan2(CY - h.y, CX - h.x));
+        const tvx = Math.cos(fv) + ix * 1.05, tvy = Math.sin(fv) + iy * 1.05;
+        h.a += angDiff(Math.atan2(tvy, tvx), h.a) * 0.13 * 1;
+        if (h.a > Math.PI) h.a -= Math.PI * 2; else if (h.a < -Math.PI) h.a += Math.PI * 2;
+      }
+
+      bctx.strokeStyle = `rgba(${INK},${0.8 - h.gen * 0.1})`;
+      bctx.lineWidth = h.w;
+      bctx.beginPath(); bctx.moveTo(px0, py0); bctx.lineTo(h.x, h.y); bctx.stroke();
+      if (h.gen < 3 && h.dist > 220 && Math.random() < 0.0022 && hyphae.length < 900)
+        hyphae.push(new Hypha(h.x, h.y, h.a + (Math.random() - .5) * 1.8, h.gen + 1));
+      if (h.life <= 0 || h.x < -60 || h.x > W + 60 || h.y < -60 || h.y > H + 60) hyphae.splice(i, 1);
+    }
+    if (hyphae.length < 220) seed(12);
+  }
+
+  let t0 = performance.now(), frame = 0;
+  function tick(now) {
+    const dt = Math.min(2.5, (now - t0) / 16.67); t0 = now; frame++;
+
+    substrate();   // bg + buffer blit (idempotent; keeps art alive through any wipe)
+    // growth
+    for (let i = hyphae.length - 1; i >= 0; i--) {
+      const h = hyphae[i];
+      const px0 = h.x, py0 = h.y;
+      h.step(dt, field);
+      // lean toward the hand — softly, like warmth
+      if (px > -9000) {
+        const dx = px - h.x, dy = py - h.y, d = Math.hypot(dx, dy);
+        if (d < 260 && d > 1) { h.a += (Math.atan2(dy, dx) - h.a) * 0.008 * dt;
+        if (h.a > Math.PI) h.a -= Math.PI * 2; else if (h.a < -Math.PI) h.a += Math.PI * 2; }
+      }
+      // trunks must TRAVEL: soft centerward pull + substrate grain, or the colony
+      // stays pinned to its spawn edges forever (random walk has zero net drift)
+      if (h.gen < 2) {
+        // blend: follow the veins, but the substrate's pull is never zero —
+        // pure vein-following walks straight off the canvas at the edges
+        const fv = flow(h.x, h.y);
+        const ix = Math.cos(Math.atan2(CY - h.y, CX - h.x)), iy = Math.sin(Math.atan2(CY - h.y, CX - h.x));
+        const tvx = Math.cos(fv) + ix * 1.05, tvy = Math.sin(fv) + iy * 1.05;
+        h.a += angDiff(Math.atan2(tvy, tvx), h.a) * 0.13 * dt;
+        if (h.a > Math.PI) h.a -= Math.PI * 2; else if (h.a < -Math.PI) h.a += Math.PI * 2;
+      }
+
+      bctx.strokeStyle = `rgba(${INK},${0.8 - h.gen * 0.1})`;
+      bctx.lineWidth = h.w;
+      bctx.beginPath(); bctx.moveTo(px0, py0); bctx.lineTo(h.x, h.y); bctx.stroke();
+
+      // branch
+      if (h.gen < 3 && h.dist > 220 && Math.random() < 0.002 * dt && hyphae.length < 900) {
+        hyphae.push(new Hypha(h.x, h.y, h.a + (Math.random() - .5) * 1.8, h.gen + 1));
+      }
+      // bud at the tip sometimes
+      if (Math.random() < 0.002 * dt) {
+        bctx.fillStyle = `rgba(${GOLD},.22)`;
+        bctx.beginPath(); bctx.arc(h.x, h.y, 1.1, 0, 7); bctx.fill();
+      }
+      if (h.life <= 0 || h.x < -60 || h.x > W + 60 || h.y < -60 || h.y > H + 60) {
+        hyphae.splice(i, 1);
+      }
+    }
+    if (hyphae.length < 220 && !reduce) seed(10);
+
+    // nodes: light when reached, then the word surfaces and rests
+    const placed = [];
+    for (const n of nodes) {
+      if (!n.seen) {
+        for (const h of hyphae) {
+          if (Math.hypot(h.x - n.x, h.y - n.y) < 20) { n.seen = true; n.lit = 1; break; }
+        }
+      }
+      if (n.lit > 0.01) n.lit *= 0.992;
+      if (n.seen) {
+        // a reached node KEEPS its word and its ember — permanence is the reward
+        const R = 26 + n.lit * 20;
+        const halo = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, R);
+        halo.addColorStop(0, `rgba(${GOLD},${0.34 + n.lit * 0.26})`); halo.addColorStop(1, 'rgba(215,174,103,0)');
+        ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, 7); ctx.fill();
+        ctx.fillStyle = `rgba(${GOLD},${0.92 + n.lit * 0.08})`;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.lit * 3.4, 0, 7); ctx.fill();
+        // stagger labels so neighbours never overlap — a collided word is an amateur tell
+        let ly = n.y + 4, tries = 0;
+        while (placed.some(q => Math.abs(q.x - n.x) < 74 && Math.abs(q.y - ly) < 13) && tries < 5) { ly += 15; tries++; }
+        if (!placed.some(q => Math.abs(q.x - n.x) < 74 && Math.abs(q.y - ly) < 13)) {
+          ctx.font = `italic ${11.5 + n.lit * 2.5}px Georgia, serif`;
+          // a quiet dark plate under each word: text over white threads must still read
+          const tw = ctx.measureText(n.w).width;
+          ctx.fillStyle = 'rgba(7,9,11,.72)';
+          ctx.fillRect(n.x + 7, ly - 11, tw + 8, 15);
+          ctx.fillStyle = `rgba(${INK},${0.82 + n.lit * 0.18})`;
+          ctx.fillText(n.w, n.x + 11, ly);
+          placed.push({ x: n.x, y: ly });
+        }
+      } else {
+        ctx.fillStyle = `rgba(${INK},.16)`;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 7); ctx.fill();
+      }
+    }
+
+    // NOTE: no per-frame dark wash — it silently erased every trail in seconds.
+    // trails persist; the field is an accumulation, like real growth.
+
+    if (reduce ? frame < 900 : true) requestAnimationFrame(tick);
+    else document.getElementById('whisper').textContent = 'rest now. the field keeps growing without you.';
+  }
+  // RAF can be throttled to zero in backgrounded/headless views — the art must not stall.
+  let lastPaint = performance.now();
+  (function raf(n){ lastPaint = n; requestAnimationFrame(raf); requestAnimationFrame(tick); })(performance.now());
+  setInterval(function(){ if (performance.now() - lastPaint > 400) tick(performance.now()); }, 60);
+
+  // the stamp: the same cat that does not judge
+  fetch('../20261006-the-call-mcvoid/cat.svg').then(r => r.text()).then(t => {
+    document.getElementById('stamp').src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(t)));
+  }).catch(() => {});
+})();
+</script>
