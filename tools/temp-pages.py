@@ -5,7 +5,9 @@ Registry: control/TEMP_PAGES.json (schema temp-pages/v1)
 Holding pen: _archive/temp/<expires>/<dir>/ with *.html renamed to *.html.frozen
 
 Subcommand flags (read-only by default):
-  --check            print the registry table + summary. Writes nothing. Exit 0.
+  --check            print the registry table + summary. Writes nothing. Exit 0,
+                     or exit 1 when a dated page dir on disk has no registry entry
+                     (drift: it would never expire).
   --build            regenerate temp/index.html (computed countdowns, no baked numbers).
   --sweep [--dry-run]  move expired live pages to the holding pen, freeze their
                      HTML, mark them archived in the registry, rebuild the index,
@@ -20,6 +22,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,6 +32,9 @@ REGISTRY = REPO / "control" / "TEMP_PAGES.json"
 INDEX = REPO / "temp" / "index.html"
 
 VALIDATE_CMD = ["node", "tools/validate-public.mjs"]
+
+# A dated page is any top-level dir named YYYYMMDD-… that carries its own index.html.
+DATED_DIR = re.compile(r"^\d{8}-")
 
 PALETTE = {
     "--bg": "#080a0c",
@@ -88,7 +94,27 @@ def days_label(page: dict, now: datetime.date) -> str:
 
 # ---------------------------------------------------------------- --check
 
-def cmd_check(reg: dict) -> None:
+def unregistered(reg: dict) -> list[str]:
+    """Dated page dirs on disk that the registry does not know about.
+
+    Without this the registry drifts silently: a new YYYYMMDD-* dir gets a manifest
+    route (the public gate forces that) but never gets an expiry, so the holding pen
+    is incomplete and the page lives forever. Drift has to be loud, not implied.
+    """
+    known = {p.get("dir") for p in reg.get("pages", [])}
+    out = []
+    for child in sorted(REPO.iterdir()):
+        if not child.is_dir() or not DATED_DIR.match(child.name):
+            continue
+        if child.name in known:
+            continue
+        if not (child / "index.html").exists():
+            continue
+        out.append(child.name)
+    return out
+
+
+def cmd_check(reg: dict) -> int:
     now = today()
     rows = []
     for p in reg["pages"]:
@@ -136,6 +162,18 @@ def cmd_check(reg: dict) -> None:
         f"retention {reg.get('retention_days', '?')}d · "
         f"holding pen {reg.get('holding_pen', '?')}"
     )
+
+    # drift is a defect, not a footnote: a dated page outside the registry has no
+    # expiry and will never reach the holding pen. Report it and fail the check.
+    missing = unregistered(reg)
+    if missing:
+        print()
+        print(f"DRIFT — {len(missing)} dated page dir(s) on disk with no registry entry:")
+        for name in missing:
+            print(f"  + {name}")
+        print("add them to control/TEMP_PAGES.json (owner, created, expires) so they expire too")
+        return 1
+    return 0
 
 
 # ---------------------------------------------------------------- --build
@@ -394,7 +432,7 @@ def main(argv: list[str]) -> int:
 
     reg = load_registry()
     if args.check:
-        cmd_check(reg)
+        return cmd_check(reg)
     elif args.build:
         cmd_build(reg)
         print_validate()
