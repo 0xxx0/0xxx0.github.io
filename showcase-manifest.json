@@ -9483,6 +9483,36 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-wine-aesthetic-mcvoid/",
+      "title": "THE LIST — FIFTEEN DOMAINES, ONE DISCIPLINE",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / WINE",
+      "role": "Reconstruction of the fifteen-domaine encounter list (Burgundy + Northern Rhône, first written 2025-04-25) and the aesthetic extracted from it: fifteen terse briefs with provenance kept honest (explicit/probable/unresolved — Maréchal deliberately unresolved), the TRACE/BEAR/RELEASE/RETURN operator set, four maker attitudes, seven falsifiable laws, and the manifesto 'The Art of Cultivated Difference'. Noindex reading surface; a reconstruction with corrections welcome — not a canon, not consumption advice.",
+      "index": {
+        "updated_at": "2026-10-06T12:16:02+08:00",
+        "work_modes": [
+          "READ",
+          "RESEARCH",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "distilled from the two wine conversations in the corpus (Wine Domaines Deep Dive 2025-04-25; Aesthetic Exploration of Wine 2026-02-12); every quoted line verbatim from the transcripts",
+          "unresolved identities deliberately left unresolved on-page (Maréchal; 'De guellec' = Le Guellec-Ducouet probable; Rousset = Stéphane probable, high)",
+          "registered 2026-10-06: route-registration gate pass; clean headless render, 0 console errors; staged on branch wine-aesthetic-2026-10-06 for operator go"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [

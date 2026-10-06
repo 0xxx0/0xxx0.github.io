@@ -1,0 +1,191 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>THE LIST — fifteen domaines, Burgundy &amp; the Northern Rhône</title>
+<style>
+:root{--ink:#17130e;--mut:#6e6557;--faint:#a3988a;--rule:#e5ded0;--paper:#fbf9f5;--acc:#6d1f2c;--ok:#0a6b3d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font:15.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-text-size-adjust:100%}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 90px}
+header{border-bottom:3px solid var(--ink);padding-bottom:14px}
+h1{font:800 clamp(34px,9vw,64px)/0.94 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:-.045em;margin:0 0 10px;text-transform:uppercase}
+.sub{color:var(--mut);font-size:14px;margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:11.5px;color:var(--mut);letter-spacing:.05em;text-transform:uppercase}
+.meta b{color:var(--ink)}
+h2{font:800 13px/1.2 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;margin:38px 0 10px;
+ border-top:2px solid var(--ink);padding-top:12px}
+h3{font:700 14px/1.25 system-ui,sans-serif;margin:20px 0 6px}
+p{margin:9px 0}
+.small{font-size:13px;color:var(--mut)}
+.orig{margin:20px 0 0;padding:14px 16px;border:2px solid var(--ink);font-size:14px}
+.orig .q{font-weight:700}
+.list{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;margin-top:14px;font-size:15px}
+.list dt{font-weight:700;letter-spacing:.02em}
+.list dd{margin:0;word-spacing:.1em}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;margin:16px 0 4px;font-size:13px;color:var(--mut)}
+.legend b{color:var(--ink)}
+.rows{border-top:1px solid var(--rule);margin-top:10px}
+.row{display:grid;grid-template-columns:30px 224px 1fr 34px;gap:12px;padding:11px 0;border-bottom:1px solid var(--rule);align-items:start}
+.n{color:var(--faint);font-size:12.5px;padding-top:2px}
+.who b{display:block;font-weight:700}
+.who span{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
+.what p{margin:0 0 4px}
+.what .lesson{color:var(--acc);font-size:13.5px}
+.mk{text-align:right;font-size:15px;padding-top:1px}
+.mk i{font-style:normal}
+.mk i.exp{color:var(--ink)}
+.mk i.prob{color:var(--acc)}
+.mk i.unr{color:var(--faint)}
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:14px}
+.loop div{background:var(--paper);padding:12px 12px 13px}
+.loop .m{font:800 13px/1.2 system-ui,sans-serif;letter-spacing:.06em}
+.loop .o{font-size:12.5px;margin-top:5px}
+.loop .s{font-size:12px;color:var(--mut);margin-top:7px}
+.loop .f{font-size:11.5px;color:var(--acc);margin-top:3px}
+.loopnote{font-size:12.5px;color:var(--mut);margin-top:8px}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:14px}
+.fam div{background:var(--paper);padding:13px 14px}
+.fam .fn{font:800 13px/1.2 system-ui,sans-serif;letter-spacing:.05em}
+.fam .fc{font-size:12.5px;color:var(--acc);margin-top:4px}
+.fam .fm{font-size:12.5px;color:var(--mut);margin-top:6px}
+.laws{margin:12px 0 0;padding:0;list-style:none;counter-reset:law}
+.laws li{counter-increment:law;padding:7px 0 7px 34px;position:relative;border-bottom:1px solid var(--rule)}
+.laws li:last-child{border-bottom:0}
+.laws li:before{content:counter(law);position:absolute;left:0;top:7px;font:700 13px/1 system-ui,sans-serif;color:var(--acc)}
+.quotes{margin:18px 0 0;padding:14px 16px;border-left:4px solid var(--acc);font-size:14px}
+.quotes p{margin:7px 0}
+.manifesto{margin:18px 0 0;padding:20px 20px 18px;border:2px solid var(--ink)}
+.manifesto .mt{font:800 16px/1.2 system-ui,sans-serif;letter-spacing:.14em;margin-bottom:14px}
+.manifesto p{font:400 16.5px/1.6 ui-serif,Georgia,'Times New Roman',serif;margin:11px 0}
+.manifesto .tiny{font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace;margin-top:16px}
+.limits{margin-top:18px;padding:14px 16px;border:1px solid var(--rule);font-size:13.5px}
+.limits p{margin:7px 0}
+.limits b{color:var(--ink)}
+.news{color:var(--acc);font-weight:700}
+footer{margin-top:44px;border-top:2px solid var(--ink);padding-top:12px;font-size:12.5px;color:var(--mut)}
+footer .fin{font:italic 14px/1.5 ui-serif,Georgia,serif;color:var(--ink);margin-bottom:10px}
+@media(max-width:720px){
+ .row{grid-template-columns:26px 1fr 28px;grid-template-areas:"n who mk" "n what mk" "n what mk"}
+ .row .n{grid-area:n}.row .who{grid-area:who}.row .what{grid-area:what}.row .mk{grid-area:mk}
+ .loop{grid-template-columns:1fr 1fr}
+ .fam{grid-template-columns:1fr}
+ .list{grid-template-columns:1fr;gap:2px 0}
+ .list dt{margin-top:10px}
+}
+</style>
+<div class="wrap">
+<header>
+<h1>The List</h1>
+<div class="sub">Fifteen domaines in Burgundy and the Northern Rhône — and the aesthetic extracted from them.</div>
+<div class="meta"><span>reconstructed <b>2026-10-06</b></span>
+<span>sources <b>two conversations · 2025-04-25 → 2026-02-12</b></span>
+<span><b>15</b> domaines · <b>2</b> registers · <b>1</b> control problem</span></div>
+</header>
+
+<div class="orig">
+<p><span class="q">“We met the folks from these domaines…”</span> — an encounter list, kept as given, with the ask it carried: <em>the most terse but insightful brief on each one; the pattern that binds all of them; something irreplaceable, to be abstracted and composed into an aesthetic — expressed first in images and seals.</em></p>
+<p class="small">The rule set with it, day one: the list is strong evidence of contact with a serious wine milieu; it is weaker evidence of one individual’s aesthetic preferences. This page is the reconstruction: the list, fifteen briefs, the pattern, the manifesto.</p>
+</div>
+
+<h2>1 · The list, as given</h2>
+<dl class="list">
+<dt>Burgundy</dt><dd>Fourrier · Bruno Clair · De guellec · Marechal · Drouhin · Simon Bize · Lafarge · Duroche · Jacques Carillon</dd>
+<dt>Rhône</dt><dd>Clape · Eric Texier · Emmanuel Darnaud · Rousset · Levet · Gonon</dd>
+</dl>
+<p class="small" style="margin-top:10px">Spelling preserved. Names are not silently completed — where an identity stayed open, it stays open below.</p>
+
+<h2>2 · Fifteen briefs</h2>
+<div class="legend"><span><b>●</b> explicit</span><span><b>◐</b> probable</span><span><b>○</b> unresolved</span>
+<span class="small">provenance scale: explicit → probable → inferred → unresolved</span></div>
+<div class="rows">
+<div class="row"><span class="n">01</span><span class="who"><b>Fourrier</b><span>Gevrey-Chambertin</span></span><span class="what"><p>Old vines, minimal handling, little new oak; a silken Pinot that whispers its site.</p><span class="lesson">→ Protect the signal from handling.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">02</span><span class="who"><b>Bruno Clair</b><span>Marsannay → eight villages</span></span><span class="what"><p>Classicist with a modern edge; whole-cluster and extraction decided per appellation, never one recipe.</p><span class="lesson">→ Structure makes nuance durable.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">03</span><span class="who"><b>Le Guellec-Ducouet</b><span>listed as “De guellec” · Gevrey / Brochon</span></span><span class="what"><p>Young domaine (2018) on family vineyards whose history goes back to 1920; limited-production Pinot, powerful yet delicate.</p><span class="lesson">→ Identity: probable (medium confidence) — kept open, not completed.</span></span><span class="mk"><i class="prob">◐</i></span></div>
+<div class="row"><span class="n">04</span><span class="who"><b>Maréchal</b><span>Burgundy · ~8 ha</span></span><span class="what"><p>Elegant, meticulous, small-scale. <b>Identity unresolved</b> — several Burgundy Maréchals exist; deliberately not guessed.</p><span class="lesson">→ Directness need not become crudity.</span></span><span class="mk"><i class="unr">○</i></span></div>
+<div class="row"><span class="n">05</span><span class="who"><b>Joseph Drouhin</b><span>Burgundy, since 1880</span></span><span class="what"><p>An institution (~100 ha) that treats vineyard diversity as its organizing principle rather than collapsing it into one prestige style.</p><span class="lesson">→ A broad grammar can preserve continuity.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">06</span><span class="who"><b>Simon Bize</b><span>Savigny-lès-Beaune</span></span><span class="what"><p>Organic and biodynamic work; purity, structure, longevity — a quiet form containing firm structure.</p><span class="lesson">→ Quiet form may contain firm structure.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">07</span><span class="who"><b>Lafarge</b><span>Volnay</span></span><span class="what"><p>Family continuity reaching into the early 1800s; a biodynamic pioneer whose patience converts continuity into depth.</p><span class="lesson">→ Patience converts continuity into depth.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">08</span><span class="who"><b>Duroché</b><span>Gevrey-Chambertin</span></span><span class="what"><p>Fifth generation; elegant, transparent; breaks one village into many named sites and keeps them distinct.</p><span class="lesson">→ Precision can remain muscular.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">09</span><span class="who"><b>Jacques Carillon</b><span>Puligny-Montrachet</span></span><span class="what"><p>An old Puligny family; mineral-driven whites, restrained oak, clarity through proportion.</p><span class="lesson">→ Clarity depends upon proportion.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">10</span><span class="who"><b>Clape</b><span>Cornas</span></span><span class="what"><p>Deep continuity; steep terraces, whole clusters, concrete and old foudres — force organized, not removed.</p><span class="lesson">→ Time integrates severity.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">11</span><span class="who"><b>Éric Texier</b><span>Brézème and neglected places</span></span><span class="what"><p>Returned attention to places whose former significance had largely disappeared — recovery, not rebellion.</p><span class="lesson">→ Recover what dominant maps omitted.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">12</span><span class="who"><b>Emmanuel Darnaud</b><span>Crozes-Hermitage</span></span><span class="what"><p>Estate dates to 2001; parcels vinified separately so their differences survive — modest scale intensifying decision.</p><span class="lesson">→ Modest scale can intensify decision.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">13</span><span class="who"><b>Rousset</b><span>probably Stéphane Rousset · Crozes / Saint-Joseph</span></span><span class="what"><p>Parcels span granite, loess and alluvial contexts; geology defeats generic regional identity. <span class="small">(high confidence)</span></p><span class="lesson">→ Geology defeats generic identity.</span></span><span class="mk"><i class="prob">◐</i></span></div>
+<div class="row"><span class="n">14</span><span class="who"><b>Levet</b><span>Côte-Rôtie · Ampuis</span></span><span class="what"><p>A small family lineage in a traditional register; wild and structured, needing age to reveal itself.</p><span class="lesson">→ Irregularity can carry identity.</span></span><span class="mk"><i class="exp">●</i></span></div>
+<div class="row"><span class="n">15</span><span class="who"><b>Gonon</b><span>Saint-Joseph</span></span><span class="what"><p>Rooted in the historic core; whole-cluster, vivid, lifted — wildness that becomes clear when held.</p><span class="lesson">→ Wildness becomes clear when held.</span></span><span class="mk"><i class="exp">●</i></span></div>
+</div>
+<p class="small" style="margin-top:10px">These are working hypotheses, not rankings. The pattern, if any, lives one level above style.</p>
+
+<h2>3 · The pattern</h2>
+<p class="small">The first synthesis — “elegance, purity, terroir, minimal intervention” — was rejected: it erased real differences among the makers. What survived, and the strongest line the thread would defend:</p>
+<p style="font:700 19px/1.45 system-ui,sans-serif;letter-spacing:-.01em;margin:14px 0">Place becomes perceptible when intervention is disciplined but not erased.</p>
+<p>The control problem, not an amount: <b>“Do enough to make difference legible; not so much that the intervention becomes the subject.”</b> The thread named the result <b class="news">high-fidelity particularism</b> — this hillside, this year, this inherited material; enough craft that the differences survive transmission.</p>
+
+<h3>The operators — an operator set, never a classification of makers</h3>
+<div class="loop">
+<div><div class="m">TRACE</div><div class="o">Reveal distinctions already present</div><div class="s">inner state: attention</div><div class="f">fails as: preciousness</div></div>
+<div><div class="m">BEAR</div><div class="o">Give pressure a form that can endure</div><div class="s">inner state: composure</div><div class="f">fails as: rigidity</div></div>
+<div><div class="m">RELEASE</div><div class="o">Permit life, variance and surprise</div><div class="s">inner state: responsiveness</div><div class="f">fails as: shapelessness</div></div>
+<div><div class="m">RETURN</div><div class="o">Compare outcome with origin</div><div class="s">what did transformation reveal —</div><div class="f">and what did it erase?</div></div>
+</div>
+<div class="loopnote">TRACE → BEAR → RELEASE → RETURN ↺ &nbsp;·&nbsp; recursive, not categorical. &nbsp;·&nbsp; questions: <em>What changes when almost nothing changes? What form can carry this pressure without concealing it? Which inherited constraint is essential, and which merely became habitual?</em></div>
+
+<h3>Four attitudes inside the list (a reading that survived verification)</h3>
+<div class="fam">
+<div><div class="fn">CARTOGRAPHERS</div><div class="fc">subdivide until a meaningful difference appears</div><div class="fm">Fourrier · Bruno Clair · Duroché · Carillon</div></div>
+<div><div class="fn">CUSTODIANS</div><div class="fc">tradition = longitudinal dataset</div><div class="fm">Lafarge · Simon Bize · Clape · Gonon · Levet</div></div>
+<div><div class="fn">ARCHAEOLOGISTS</div><div class="fc">novelty can consist of recovering a resolution the present has forgotten</div><div class="fm">Texier · Le Guellec-Ducouet</div></div>
+<div><div class="fn">INTEGRATORS</div><div class="fc">how large can a system become without collapsing local distinction?</div><div class="fm">Drouhin · Maréchal · Darnaud · Rousset</div></div>
+</div>
+
+<h3>Seven laws — held falsifiable</h3>
+<ol class="laws">
+<li>Use few primitives.</li>
+<li>Make small differences consequential.</li>
+<li>Preserve provenance through transformation.</li>
+<li>Adapt treatment to material; never impose one effect everywhere.</li>
+<li>Hide labour, not structure.</li>
+<li>Permit delayed disclosure.</li>
+<li>Compress the whole while differentiating the interior.</li>
+</ol>
+<p class="small" style="margin-top:8px">If several makers break a law, the law dies. These are the lines that survived; everything downstream — colour, texture, glyph, scale, fragrance — is downstream.</p>
+
+<div class="quotes">
+<p><b>“Maximum identity from minimum vocabulary.”</b></p>
+<p>“Do not make variants different by changing their vocabulary. Make variants different by allowing the same vocabulary to encounter different conditions.”</p>
+<p>“Importance does not require visual magnitude.” — a 2 mm interruption can matter more than an added dragon; <b>high semantic consequence per unit difference</b>.</p>
+<p>“Differentiate internally; compress externally.” — Burgundy teaches differentiation, the Rhône compression. Tendencies, not personalities.</p>
+<p>“Do not maximize detail. Maximize <b>consequential detail</b>.”</p>
+<p style="margin-bottom:0">“Global coherence + locally inexhaustible differentiation.”</p>
+</div>
+
+<h2>4 · The manifesto — the art of cultivated difference</h2>
+<div class="manifesto">
+<div class="mt">THE ART OF CULTIVATED DIFFERENCE</div>
+<p>Attend before naming. The world does not lack form. It is obscured by handling.</p>
+<p>Reveal the difference that changes the whole. Give that difference a body. Let the body endure without becoming a prison.</p>
+<p>Do not confuse silence with emptiness. Do not confuse force with volume. Do not confuse irregularity with freedom. Do not confuse inheritance with truth.</p>
+<p>Line must disclose. Mass must carry. Variation must remain answerable to identity.</p>
+<p>Preserve grain. Expose joints. Remove interference before adding expression. Intensify only what can survive intensification.</p>
+<p>A tradition lives when its function crosses into a new carrier. A structure lives when it permits transformation without losing memory. An artifact succeeds when it alters perception, survives use and generates further use.</p>
+<p>Trace what is present. Bear what is real. Release what can become.</p>
+<p>Make nothing merely impressive. Make the invisible difference operative.</p>
+<div class="tiny">distilled line: “Reveal the difference; build it a body; leave it capable of becoming.”</div>
+</div>
+
+<h2>5 · Limits</h2>
+<div class="limits">
+<p><b>Not a canon.</b> The list records encounters — “we met the folks” — not favourites. It is strong evidence of a milieu, weaker evidence of one person’s taste.</p>
+<p><b>Not “minimal intervention.”</b> The makers differ materially in farming, stems, extraction, scale and oak. The operable phrase is <b>intervention subordinated to identity</b> — the maker present, technique not becoming the subject.</p>
+<p><b>No painter, perfume or genre per producer.</b> Regions are tendencies, not personalities; the interesting object is the relationship between maker and difference.</p>
+<p><b>Unresolved stays unresolved.</b> One wrongly completed name would contaminate the pattern (see 04, 03, 13).</p>
+<p class="small">Sources: two conversations — <em>Wine Domaines Deep Dive</em> (2025-04-25) and <em>Aesthetic Exploration of Wine</em> (2026-02-12). Reconstructed 2026-10-06 from the transcripts; quotes verbatim; corrections welcome. Noindex reading surface.</p>
+</div>
+
+<footer>
+<div class="fin">“To be expressed in the design and painting of images and seals; music is fine; and thirdly, in priority, scent or flavour.” — the brief</div>
+the list · reconstruction 2026-10-06 · one page, fifteen domaines, one discipline
+</footer>
+</div>
