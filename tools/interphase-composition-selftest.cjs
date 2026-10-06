@@ -6,6 +6,8 @@ const same=(a,b)=>C.stable(a)===C.stable(b);
 const src=L.createGenesisObject({title:'INTERPHASE',thesis:'One object, many lawful readings.',state:'SOURCE',residue:{keep:'yes'}});
 const R=C.ref(src,src.kind);
 assert(R.id===src.id&&R.kind===src.kind,'stable ref');
+let emptyRef=false;try{C.ref({id:'   ',kind:'X'})}catch(e){emptyRef=/REF_ID_REQUIRED/.test(e.message)}
+assert(emptyRef,'empty object ref must fail closed');
 
 const c0=L.COMPACT.get(src);
 const c1=C.lensChange(L.COMPACT,src,{...c0,title:'INTERPHASE / CHANGE',line:'Change is first-class.',state:'HOLD'},
@@ -15,6 +17,8 @@ assert(c1.touches.length===1&&C.sameRef(c1.touches[0],R),'change touches stable 
 const s1=C.applyChange(src,c1);
 assert(s1.title==='INTERPHASE / CHANGE'&&s1.thesis==='Change is first-class.'&&s1.state==='HOLD','apply lens change');
 assert(s1.id===src.id&&same(s1.provenance,src.provenance)&&s1.residue.keep==='yes','change preserves lens protections');
+const generated=C.createChange({before:{secret:'DO_NOT_LEAK'},after:{secret:'STILL_PRIVATE'},touches:[R]});
+assert(generated.id.startsWith('chg:')&&!generated.id.includes('DO_NOT_LEAK')&&!generated.id.includes('STILL_PRIVATE'),'generated change id must not encode payload');
 
 const inv=C.invertChange(c1,{id:'chg:compact:undo'});
 assert(same(C.applyChange(s1,inv),src),'inverse law');
@@ -38,6 +42,13 @@ const view=C.projection({
 assert(view.authority==='DERIVED'&&view.updatePolicy==='LENS'&&C.canWriteProjection(view),'lawful editable derived projection');
 const readonly=C.projection({id:'glyph:witness',sourceRef:R,sourceRevision:2,authority:'DERIVED',updatePolicy:'NONE',losses:['content'],value:{id:R.id}});
 assert(!C.canWriteProjection(readonly),'read-only projection authority');
+const canonicalWrite=C.projection({id:'source:edit',sourceRef:R,authority:'CANONICAL',updatePolicy:'CANONICAL',value:{id:R.id}});
+const canonicalRead=C.projection({id:'source:read',sourceRef:R,authority:'CANONICAL',updatePolicy:'NONE',value:{id:R.id}});
+const externalEscalation=C.projection({id:'external:bad',sourceRef:R,authority:'EXTERNAL_OBSERVATION',updatePolicy:'CANONICAL',value:{id:R.id}});
+const ephemeralEscalation=C.projection({id:'ephemeral:bad',sourceRef:R,authority:'EPHEMERAL',updatePolicy:'LENS',value:{id:R.id}});
+assert(C.canWriteProjection(canonicalWrite),'canonical write requires canonical policy');
+assert(!C.canWriteProjection(canonicalRead),'canonical read-only projection stays read-only');
+assert(!C.canWriteProjection(externalEscalation)&&!C.canWriteProjection(ephemeralEscalation),'external/ephemeral projections cannot escalate authority');
 let denied=false;try{C.assertProjectionWrite(readonly)}catch(e){denied=/WRITE_DENIED/.test(e.message)}
 assert(denied,'derived projection cannot silently become authority');
 
@@ -55,6 +66,8 @@ const world=[{id:'other',kind:'X'},c2.after,{id:'tail',kind:'X'}];
 world.reverse();
 const reentry=C.reenter(anchor,r=>world.find(x=>x.id===r.id),obj=>L.COMPACT.project(obj));
 assert(reentry.ref.id===R.id&&reentry.value.id===R.id&&reentry.anchor.focus.field==='title','semantic RETURN survives reorder');
+let identityMismatch=false;try{C.reenter(anchor,()=>({id:R.id,kind:'ALIEN'}))}catch(e){identityMismatch=/IDENTITY_MISMATCH/.test(e.message)}
+assert(identityMismatch,'RETURN must not cross logical kind boundary');
 
 const why=C.whyAll(C.whySource(R,{kind:'source'}),C.whyAny(C.whySource({id:'receipt:1',kind:'RECEIPT'}),C.whySource({id:'receipt:2',kind:'RECEIPT'})));
 const sources=C.whySources(why).map(x=>x.id).sort();
