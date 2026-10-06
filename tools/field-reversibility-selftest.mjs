@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 await import('./field-zui-selftest.mjs');
+await import('./field-omnibar-selftest.mjs');
 
 const html=fs.readFileSync('index.html','utf8');
 const sem=JSON.parse(fs.readFileSync('control/INTERACTION_SEMANTICS.json','utf8'));
