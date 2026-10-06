@@ -43,16 +43,6 @@ h1 .thin{font-weight:300;color:var(--mut)}
 .call:active{transform:scale(.985)}
 .call .k{font:900 10px/1 system-ui;letter-spacing:.2em;color:var(--mut);display:block;margin-bottom:6px}
 .call .t{font-size:15px;line-height:1.5}
-.call .h{display:block;font-size:12px;line-height:1.45;color:#9aa0ae;margin-top:5px}
-.qhint{font-size:12.5px;color:#9aa0ae;margin-top:9px;line-height:1.5;padding:0 14px 16px}
-/* THE LIVING FIELD — recovered from law-zoo/error_garden.html. Its thesis is the mercy
-   rule said in one line: "fixing them usually kills the organism." So the background is
-   a population of intentionally-wrong numeric organisms, running quiet behind the cards.
-   House rule: a visual delta must reduce ambiguity, not add a decorative background —
-   so this is pushed to the lowest contrast that still breathes, and it never takes a tap. */
-#field{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:.42}
-html,body{background:#07090c}
-#calib,#game,#ending{position:relative;z-index:1}
 .call.picked{border-color:var(--gold);background:#1a1509}
 .call.right{border-color:var(--green);background:#0d1a11}
 .call.wrong{border-color:var(--hot);background:#1c0e09}
@@ -130,12 +120,9 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
     <div class="from"><div class="av">?</div>
       <div><div class="who">the question</div><div class="meta">tap one · nothing is stored</div></div></div>
     <div class="bubble" id="calibq">…</div>
-    <div class="qhint" id="calibhint"></div>
   </div>
   <div class="calls" id="calibopts" style="margin-top:14px"></div>
 </div>
-
-<canvas id="field" aria-hidden="true"></canvas>
 
 <div id="game" style="display:none">
 <div id="deckname"></div>
@@ -182,8 +169,7 @@ Sister tool: <a href="/20261006-decode-mangospree/">DECODE</a> tells you what th
 This drills what you <i>do</i>. DECODE → THE CALL.<br>
 Matters shaped from observed pain: APAC clocks (10 Dec 2026 · ~Jan 2027 · 15 Jul 2026),
 Slack/legal-hold behaviour, and the recurring legal-ops failure mode: scary language arrives before ownership, date, and next move are clear.<br>
-Nothing is uploaded. Your playbook lives in this browser until you copy it.
-      <span style="white-space:nowrap">· noindex · 2026-10-06 · kage</span>
+Nothing is uploaded. Your playbook lives in this browser until you copy it. · noindex · 2026-10-06 · kage
 </div>
 </div>
 
@@ -191,10 +177,7 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it.
 <script src="deck-euphemism.js"></script>
 <script src="deck-onboarding.js"></script>
 <script src="ending.js"></script>
-<script src="dramatic.js"></script>
-<script src="decode-coach.js"></script>
 <script>
-if(/[?&]v=1/.test(location.search)) location.replace('v0.html');
 /* ───────────── audio: synthesised, zero assets ───────────── */
 let AC=null, SFX=true;
 function tone(f,d,type,vol){ if(!SFX)return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
@@ -241,6 +224,7 @@ function buildDeck(face){
   const mercy=v=>String(v)
     .replace(/^Correct\.\s*/,'<b>Buys:</b> ')
     .replace(/^Correct,/,'<b>Buys:</b>')
+    .replace(/\bis not wrong but\b/,'is not the error here — it')
     .replace(/\bnot wrong\b/,'not the error');
   const F=FLOOR.map(c=>Object.assign({},c,{face:'floor',
     calls:c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)}))}));
@@ -270,37 +254,36 @@ function buildDeck(face){
    instrument (Beyond Asking, Lu et al. 2026: infer the profile from observed behaviour);
    so Q1-Q2 set position, Q3 sets what you leave with, Q4 sets how much of your time this
    takes. Everything else about you is read from how you play, not from what you claim. */
-/* PLAIN OPENING (v2). The old one asked "Who are you here?" and offered
-   "the person who has to answer for it" — which you cannot answer without decoding.
-   And Q1/Q2 asked the same thing twice. Three questions now, each one literally
-   answerable at a glance. Same taps, same effect, no esoterica. */
 const CALIB_Q=[
-  {k:'who', q:'Whose calls are these?', hint:'Pick the one that is actually true today.', o:[
-    {t:'mine to make', v:'floor', h:'you are the one who has to answer for it'},
-    {t:'made at me', v:'crew', h:'you are the one who has to live with it'},
-    {t:'both, obviously', v:'both', h:'you write them and you eat them'},
-    {t:'the words used instead of the thing', v:'euphemism', h:'the ones nobody says out loud'},
-    {t:'I just started somewhere new', v:'first90', h:'nobody has told you what your job is yet'}]},
-  {k:'want', q:'What do you want to leave with?', hint:'Nothing here is recorded. This only sets what the ending hands you.', o:[
-    {t:'a read on how I decide', v:'profile', h:'a card you could actually show someone'},
-    {t:'the moves. give me the rules', v:'playbook', h:'what to do, not who you are'},
-    {t:'both — keep them separate', v:'both', h:'the label and the rules, side by side'},
-    {t:'nothing to hand over', v:'private', h:'this one is just mine. no label'}]},
-  {k:'pace', q:'How long have you got?', hint:'A short run is a whole run, not a demo.', o:[
-    {t:'five calls. I have a life.', v:5, h:'about two minutes'},
-    {t:'eight. the full read.', v:8, h:'about four minutes'},
-    {t:'everything you have', v:99, h:'the whole set'}]}
+  {k:'who', q:'Who are you here?', o:[
+    {t:'the person who has to answer for it', v:'floor'},
+    {t:'the one who has to live with it', v:'crew'},
+    {t:'both, obviously', v:'both'},
+    {t:'the person this actually happened to', v:'euphemism'},
+    {t:'starting somewhere new this month', v:'first90'}]},
+  {k:'sit', q:'Where do you sit?', o:[
+    {t:'in the middle of the message', v:'floor'},
+    {t:'somewhere it lands', v:'crew'},
+    {t:'somewhere it gets sent', v:'both'},
+    {t:'between the people who wrote it and the people it happens to', v:'euphemism'},
+    {t:'in a room where nobody has told me what my job is yet', v:'first90'}]},
+  {k:'want', q:'What do you want to leave with?', o:[
+    {t:'a read on how I decide, that I can hand to a team', v:'profile'},
+    {t:'the moves. give me the rules', v:'playbook'},
+    {t:'both — and keep them separate', v:'both'},
+    {t:'nothing to hand over. this one is just mine', v:'private'}]},
+  {k:'pace', q:'How long have you got?', o:[
+    {t:'five calls. I have a life.', v:5},
+    {t:'eight. the full read.', v:8},
+    {t:'everything you have', v:99}]}
 ];
 let calibStep=0, calibAnswers={};
 
 function renderCalib(){
   const q=CALIB_Q[calibStep];
   $('calibq').textContent=q.q;
-  const hintEl=document.getElementById('calibhint');
-  if(hintEl) hintEl.textContent=q.hint||'';
   $('calibopts').innerHTML=q.o.map((o,i)=>'<button class="call" data-i="'+i+'"><span class="k">'+
-    String.fromCharCode(65+i)+'</span><span class="t">'+o.t+'</span>'+
-    (o.h?'<span class="h">'+o.h+'</span>':'')+'</button>').join('');
+    String.fromCharCode(65+i)+'</span><span class="t">'+o.t+'</span></button>').join('');
   $('calibpip').innerHTML=CALIB_Q.map((_,i)=>'<div class="pip '+(i<calibStep?'on':i===calibStep?'now':'')+'"></div>').join('');
 }
 function calibPick(i){
@@ -308,8 +291,11 @@ function calibPick(i){
   calibAnswers[q.k]=q.o[i].v;
   sfxTap();
   if(calibStep<CALIB_Q.length-1){calibStep++;renderCalib();return;}
-  // one question names the deck. the second question used to ask the same thing again.
-  const face = calibAnswers.who || 'both';
+  const votes=Object.values(calibAnswers);
+  const v=Object.values(calibAnswers);
+  // Q1 and Q2 both name a position; whichever the player actually chose decides the deck
+  const pos=['euphemism','first90','both','crew','floor'];
+  const face = pos.find(p=>v.includes(p)) || 'both';
   CALIB=face; window.GAME_FACE=face;
   MATTERS=buildDeck(face);
   // Q4 caps how much of the deck plays — a 5-call run is a real, complete run, not a demo
@@ -369,11 +355,6 @@ function deal(){
   $('next').textContent = idx>=MATTERS.length-1 ? 'see your playbook' : 'make the call';
   pips();
   sfxDeal();
-  /* module hooks (THEME-CONTRACT): each matter hands the card + matter element to the modules */
-  try{
-    const card=MATTERS[idx], matterEl=$('bubble');
-    window.MODULES.forEach(function(m){ if(m.onMatter) m.onMatter(card, matterEl); });
-  }catch(e){}
 }
 function choose(i){
   if(answered)return; answered=true;
@@ -418,7 +399,6 @@ function next(){
   else finish();
 }
 function finish(){
-  const endingEl=$('ending');
   document.querySelector('.matter').style.display='none';
   $('calls').style.display='none';
   $('after').classList.remove('show');
@@ -496,7 +476,6 @@ function finish(){
       ' unread. Nothing is recorded. Nothing leaves this browser.</div>'+
       '</div>';
     $('ending').style.display='block';
-    try{ window.MODULES.forEach(function(m){ if(m.onEnd) m.onEnd(endingEl); }); }catch(e){}
     narrate('ending-doors');
     setTimeout(()=>narrate('ending-heal'), 2600);
   }
@@ -519,7 +498,6 @@ function finish(){
       'x your own baseline — under the threshold, so it is not claimed.</div>'+
       '</div>';
     $('ending').style.display='block';
-    try{ window.MODULES.forEach(function(m){ if(m.onEnd) m.onEnd(endingEl); }); }catch(e){}
     narrate('ending-doors');
     setTimeout(()=>narrate('ending-heal'), 2600);
   }
@@ -550,7 +528,6 @@ function finish(){
         + 'recorded in your playbook but deliberately <b>do not</b> vote on your type. Measured what we can '
         + 'cite; left the rest out.</div>';
       $('ending').style.display='block';
-      try{ window.MODULES.forEach(function(m){ if(m.onEnd) m.onEnd(endingEl); }); }catch(e){}
       // ending-doors hands you the one door; ending-heal is the warm close after it
       narrate('ending-doors');
       setTimeout(()=>narrate('ending-heal'), 2600);
@@ -599,182 +576,3 @@ $('copyPB').addEventListener('click',copyPB);
 /* start on the calibration screen (CONSULT's opening folded in) */
 renderCalib();
 </script>
-
-<!-- host layer: THEME-CONTRACT wiring (donor spec, mahshroom). Modules (dramatic.js,
-     decode-coach.js) register {id,onMatter,onEnd} into window.MODULES; the engine calls
-     onMatter at the end of deal() and onEnd after the ending renders. Themes: vanilla is
-     the default and the pushable public mode; garden is opt-in ONLY via ?theme=garden or
-     a single tap. No theme changes layout, plays audio, or takes a tap from content. -->
-<script>
-/* ───────────── module + theme contract ───────────── */
-window.MODULES = window.MODULES || [];
-window.THEMES = window.THEMES || { vanilla: function(){}, garden: function(){} };
-
-/* ---------- garden theme: AMBIENCE ONLY ----------
-   THE LIVING FIELD — recovered from law-zoo/error_garden.html. Its thesis is the mercy
-   rule in one line: "fixing them usually kills the organism." So the background is
-   a population of intentionally-wrong numeric organisms, running quiet behind the cards.
-   House rule: a visual delta must reduce ambiguity, not add a decorative background —
-   so this is pushed to the lowest contrast that still breathes, and it never takes a tap.
-   Contract: a motion layer behind content only — no layout change, no audio, and
-   prefers-reduced-motion renders one static frame and stops. Plus exactly one cat. */
-window.THEMES.garden = (function(){
-  return function(root){
-    // idempotent + reversible: if ambience is already present, do nothing.
-    // clearAmbience() removes the tag, which makes garden() runnable again.
-    if(document.querySelector('[data-ambience]')) return;
-    root=root||document.body;
-    var REDUCED=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-
-    /* ---------- THE LIVING FIELD (recovered: law-zoo/error_garden.html) ---------- */
-    // the field is created (or re-created) by the theme, so clearAmbience() can remove it
-    // and garden() can grow it again. a static canvas would die permanently after one toggle.
-    var cv=document.getElementById('field');
-    if(!cv){
-      cv=document.createElement('canvas');
-      cv.id='field'; cv.setAttribute('aria-hidden','true');
-      document.body.insertBefore(cv, document.body.firstChild);
-    }
-    var ctx=cv&&cv.getContext('2d');
-    if(cv){
-      cv.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:.42';
-      cv.setAttribute('data-ambience','field');
-      function rnd(a){return Math.random()*(a===undefined?1:a)}
-      function pick(a){return a[rnd(a.length)|0]}
-      var OPS=['tan','recip','fold','mix'], MODES=['F32','I8','U8','DEC2'];
-      function org(){ return {g:{mode:pick(MODES),bits:pick([3,4,5,6,8]),wrap:pick([8,16,32,64]),
-                   eps:pick([.004,.01,.03,.08]),memory:pick([.2,.45,.7,.88]),
-                   op:pick(OPS)},buf:null,bw:0,bh:0}; }
-      function q(v,g){
-        if(!isFinite(v)) v=(v<0?-1:1)*g.wrap;
-        if(g.mode==='I8') v=new Int8Array([v*1.2])[0]/32;
-        else if(g.mode==='U8') v=new Uint8Array([(v*32)|0])[0]/64-2;
-        else if(g.mode==='DEC2') v=Math.round(v*100)/100;
-        else v=new Float32Array([v])[0];
-        var lv=1<<Math.min(10,g.bits); return Math.round(v*lv)/lv;
-      }
-      function fault(x,y,p,g,t){
-        var v;
-        if(g.op==='tan') v=Math.tan(q(x*1.2+t*.02,g))+Math.sin(y*3);
-        else if(g.op==='recip') v=1/(Math.abs(q(x+y,g))+g.eps)+Math.sin(y*2.2+t*.6);
-        else if(g.op==='fold') v=Math.sin(Math.abs(q(x,g))*g.wrap+Math.abs(q(y,g))*g.wrap+t*.4);
-        else v=Math.sin(q(x+p,g)*3+t*.3)+Math.tan(q(y-p,g)*.4)/(1+g.eps*20);
-        return q(v,g);
-      }
-      var pop=[], W=0, H=0, t0=performance.now();
-      var SHOW_W=0, SHOW_H=0, o_small=null;
-      function size(){
-        // render TINY then scale UP with smoothing: that is what turns speckle into soft
-        // cells. the previous build rendered at ~0.42 screen and blitted raw = TV static.
-        SHOW_W=innerWidth; SHOW_H=innerHeight;
-        W=cv.width=Math.max(8,Math.floor(SHOW_W/9));
-        H=cv.height=Math.max(8,Math.floor(SHOW_H/9));
-        cv.style.width='100vw'; cv.style.height='100vh';
-        pop.forEach(function(s){s.buf=null});
-      }
-      function frame(now){
-        if(!W||!H){ if(!REDUCED) requestAnimationFrame(frame); return; }
-        var t=(now-t0)/1000, im=ctx.createImageData(W,H), d=im.data;
-        for(var s=0;s<pop.length;s++){
-          var o=pop[s], g=o.g;
-          if(!o.buf||o.bw!==W||o.bh!==H){o.bw=W;o.bh=H;o.buf=new Float32Array(W*H);
-            for(var i=0;i<o.buf.length;i++)o.buf[i]=rnd(2)-1;}
-          var next=new Float32Array(W*H);
-          for(var y=0;y<H;y++)for(var x=0;x<W;x++){
-            var i=x+y*W, xx=(x/W-.5)*2, yy=(y/H-.5)*2, p=o.buf[i];
-            var v=fault(xx,yy,p,g,t);
-            v=q(v*(1-g.memory)+p*g.memory,g); next[i]=v;
-            var n=((Math.sin(v*2.4+t*.08)+1)*127)|0, k=i*4;
-            // ~1/3 of the previous amplitude: atmosphere, not overlay
-            d[k]=Math.max(d[k],(n*0.11)|0);
-            d[k+1]=Math.max(d[k+1],(n*0.13)|0);
-            d[k+2]=Math.max(d[k+2],(n*0.17)|0);
-            d[k+3]=255;
-          }
-          o.buf=next;
-        }
-        if(!o_small) o_small=document.createElement('canvas');
-        if(o_small.width!==W||o_small.height!==H){ o_small.width=W; o_small.height=H; }
-        o_small.getContext('2d').putImageData(im,0,0);
-        ctx.imageSmoothingEnabled=true;
-        ctx.imageSmoothingQuality='high';
-        ctx.clearRect(0,0,cv.width,cv.height);
-        ctx.drawImage(o_small,0,0,cv.width,cv.height);
-        if(!REDUCED) requestAnimationFrame(frame);
-      }
-      addEventListener('resize',function(){ size(); if(REDUCED) frame(performance.now()); });
-      size();
-      for(var i=0;i<3;i++) pop.push(org());
-      if(REDUCED) frame(performance.now());   // reduced motion: one static frame, then stop
-      else requestAnimationFrame(frame);
-    }
-
-    /* exactly one cat — subtle, bottom-right, small, non-interactive. Max one cat. */
-    if(document.getElementById('gardencat')) return;
-    var cat=document.createElement('img');
-      cat.id='gardencat'; cat.src='cat.png'; cat.alt=''; cat.setAttribute('aria-hidden','true');
-      cat.setAttribute('data-ambience','cat');   // so clearAmbience() can remove it
-      // assimilate into the system: a 1px panel border, desaturated, dimmed, with a mono
-      // caption. without this it is the one element that breaks the palette and the eye
-      // catches it for the wrong reason. it should read as a tiny window, discovered.
-      cat.style.cssText='position:fixed;right:14px;bottom:14px;width:92px;height:auto;'+
-        'z-index:0;pointer-events:none;user-select:none;opacity:.58;'+
-        'filter:saturate(.52) contrast(.92) brightness(.72);'+
-        'border:1px solid var(--line);border-radius:3px;'+
-        'box-shadow:0 2px 14px rgba(0,0,0,.55), inset 0 0 22px rgba(0,0,0,.6);padding:0';
-      root.appendChild(cat);
-  };
-})();
-
-/* one visible, quiet control. "subtle" never meant "undiscoverable". */
-(function(){
-  if(document.getElementById('themeToggle')) return;
-  var b=document.createElement('button');
-  b.id='themeToggle'; b.type='button'; b.setAttribute('aria-pressed','false');
-  b.style.cssText='position:fixed;top:10px;right:10px;z-index:20;font:600 10px/1 system-ui;'+
-    'letter-spacing:.16em;text-transform:uppercase;color:var(--mut);background:rgba(12,17,23,.88);'+
-    'border:1px solid var(--line);border-radius:5px;padding:8px 10px;cursor:pointer;'+
-    'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)';
-  b.addEventListener('click',function(){
-    window.setTheme(window.__currentTheme==='garden' ? 'vanilla' : 'garden');
-  });
-  document.body.appendChild(b);
-})();
-
-/* ---------- theme selection ----------
-   currentTheme is vanilla by default (vanilla is the default AND the pushable public
-   mode). Garden is opt-in ONLY via ?theme=garden or a single tap on the start screen. */
-var currentTheme='vanilla';
-if(/[?&]theme=garden(&|$)/.test(location.search)) currentTheme='garden';
-/* THEME — vanilla is the default and the pushable public mode. garden is opt-in ambience
-   only: a motion layer behind the content and one cat. It may never change layout, never
-   play audio, and respects prefers-reduced-motion. (THEME-CONTRACT, mahshroom.) */
-window.clearAmbience=function(){
-  document.querySelectorAll('[data-ambience]').forEach(function(n){ n.remove(); });
-};
-window.setTheme=function(name){
-  window.clearAmbience();
-  try{ window.THEMES[name](document.body); }catch(e){}
-  currentTheme=name;
-  window.__currentTheme=name;
-  try{ localStorage.setItem('thecall-theme', name); }catch(e){}
-  var b=document.getElementById('themeToggle');
-  if(b){
-    b.textContent = (name==='garden') ? 'plain' : 'garden';
-    b.setAttribute('aria-pressed', name==='garden' ? 'true' : 'false');
-    b.title = (name==='garden')
-      ? 'garden ambience is on — tap for the plain version'
-      : 'tap to grow the garden: moving cells and one cat. ambience only.';
-  }
-};
-/* the engine has rendered (renderCalib) by the time this block runs — apply the theme.
-   ?theme= beats the stored choice, which beats vanilla. The stored choice is RESPECTED,
-   not written-and-ignored: an opt-in that does not survive a reload is not an opt-in. */
-window.setTheme(
-  (/[?&]theme=(garden|vanilla)/.exec(location.search)||[])[1]
-  || (function(){ try{ return localStorage.getItem('thecall-theme'); }catch(e){ return null; } })()
-  || 'vanilla'
-);
-</script>
-
-</body></html>

@@ -111,7 +111,7 @@ window.ONBOARDING_DECK = [
    right:true,
    v:'<b>Costs:</b> you are doing unpaid documentation work that should have existed before you arrived, and some of it will already be out of date. <b>Buys:</b> the questions stop being your questions and become the team\'s onboarding — and you become the person who made the next one\'s first month shorter.'},
   {k:'B', t:'Keep asking but spread it across more people so I don\'t wear anyone out',
-   v:'<b>Costs:</b> you have optimised the load, not the problem; the knowledge still lives in heads and still leaves when they do. <b>Buys:</b> your relationships survive your first month.'},
+   v:'<b>Costs:</b> the load is spread across more people; the knowledge still lives in heads and still leaves when they do. <b>Buys:</b> your relationships survive your first month.'},
   {k:'C', t:'Stop asking and figure the rest out myself',
    v:'<b>Costs:</b> the cost of not asking compounds silently and surfaces as a mistake at exactly the worst moment. <b>Buys:</b> you stop being a tax on the team.'}],
  move: 'Rule: undocumented knowledge is a debt the team owes itself. If you are the one paying it down, write it down and say so — that converts resentment into credit.',
