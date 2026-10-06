@@ -3,22 +3,22 @@
  * generate-convergence-strip.mjs
  *
  * Regenerates two NON-AUTHORITATIVE convergence projections.
- * FIELD INDEX root state is hydrated at runtime from CURRENT + exact GitHub
- * master chronology; this generator never edits index.html and its outputs
- * never own NOW, NEXT, or current truth.
+ * FIELD live convergence is composed on read from QUEUE + federation-atlas;
+ * CURRENT separately owns NOW. This generator never edits index.html and its
+ * outputs never own NOW, NEXT, or current truth.
  *
  * Reads:
- *   control/CURRENT.json      (active fronts, heads, updated)
- *   control/WORKER_BOOT.json  (gaps, execution)
- *   control/QUEUE.json        (live count, max_live)
- *   git                       (exact chronology + material convergence activity)
+ *   control/CURRENT.json      (captured active fronts, heads, updated)
+ *   control/WORKER_BOOT.json  (captured gaps; compatibility input only)
+ *   control/QUEUE.json        (captured live count, max_live)
+ *   git                       (captured exact chronology + material activity)
  *
  * Writes:
  *   control/convergence-strip.json   (captured data projection; authority NONE)
  *   control/convergence-plain.md     (captured human reading; authority NONE)
  *
  * Live convergence authority:
- *   /#convRead
+ *   /#convRead  (QUEUE + federation-atlas, reading only)
  *
  * Usage:
  *   node scripts/generate-convergence-strip.mjs
@@ -33,7 +33,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SNAPSHOT_ROLE = 'DERIVED_SNAPSHOT';
 const SNAPSHOT_AUTHORITY = 'NONE';
 const LIVE_FIELD_DERIVATION = '/#convRead';
-const LIVE_FIELD_SOURCE = 'FIELD_INDEX_RUNTIME_CURRENT_PLUS_EXACT_MASTER_CHRONOLOGY';
+const LIVE_FIELD_SOURCE = 'FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS';
 
 const TELEMETRY_SUBJECT_PATTERNS=Object.freeze([
   /^comms: refresh machine-room page\b/i,
@@ -92,14 +92,14 @@ if(process.argv.includes('--selftest')){
   const plainPath=join(ROOT,'control/convergence-plain.md');
   if(!existsSync(snapshotPath)||!existsSync(plainPath))throw new Error('CONVERGENCE_SNAPSHOT_OUTPUT_MISSING');
   const snapshot=JSON.parse(readFileSync(snapshotPath,'utf8'));
-  if(snapshot.role!==SNAPSHOT_ROLE||snapshot.authority!==SNAPSHOT_AUTHORITY||snapshot.live_derivation!==LIVE_FIELD_DERIVATION){
+  if(snapshot.role!==SNAPSHOT_ROLE||snapshot.authority!==SNAPSHOT_AUTHORITY||snapshot.live_derivation!==LIVE_FIELD_DERIVATION||snapshot.live_derivation_source!==LIVE_FIELD_SOURCE){
     throw new Error('CONVERGENCE_SNAPSHOT_AUTHORITY_CONTRACT');
   }
   const plain=readFileSync(plainPath,'utf8');
-  if(!plain.includes('AUTHORITY: NONE')||!plain.includes(LIVE_FIELD_DERIVATION)||!plain.includes('At capture')){
+  if(!plain.includes('AUTHORITY: NONE')||!plain.includes(LIVE_FIELD_DERIVATION)||!plain.includes('QUEUE + federation-atlas')||!plain.includes('At capture')){
     throw new Error('CONVERGENCE_PLAIN_AUTHORITY_CONTRACT');
   }
-  console.log('CONVERGENCE snapshot authority PASS · authority NONE · live '+LIVE_FIELD_DERIVATION);
+  console.log('CONVERGENCE snapshot authority PASS · authority NONE · live '+LIVE_FIELD_DERIVATION+' from QUEUE + federation-atlas');
   console.log('CONVERGENCE material-history filter PASS · telemetry excluded, semantic commits retained');
   process.exit(0);
 }
@@ -167,7 +167,7 @@ const plainMd = [
   `# CONVERGENCE — derived snapshot`,
   ``,
   `> **AUTHORITY: NONE.** This is a captured projection, not current convergence.`,
-  `> Current convergence: [FIELD live derivation](${LIVE_FIELD_DERIVATION}). FIELD composes CURRENT attention with exact/live master chronology.`,
+  `> Current convergence: [FIELD live derivation](${LIVE_FIELD_DERIVATION}) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.`,
   `> Do not use this file to choose NOW/NEXT or to claim current truth.`,
   ``,
   `_Captured ${data.generated} by scripts/generate-convergence-strip.mjs_`,
@@ -190,7 +190,7 @@ const plainMd = [
   ``,
   `## Law`,
   ``,
-  `SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = ${LIVE_FIELD_DERIVATION}.`,
+  `SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = ${LIVE_FIELD_DERIVATION} = QUEUE + federation-atlas. CURRENT owns NOW.`,
   `ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.`,
   `RECOVER BEFORE INVENTING.`,
   ``,
@@ -200,4 +200,4 @@ const plainMd = [
 writeFileSync(join(ROOT, 'control/convergence-plain.md'), plainMd);
 console.log('wrote control/convergence-plain.md · derived snapshot · authority NONE');
 
-console.log('FIELD INDEX owns the live derivation at '+LIVE_FIELD_DERIVATION+'; generated convergence snapshots are projection-only.');
+console.log('FIELD INDEX owns the live reading at '+LIVE_FIELD_DERIVATION+' from QUEUE + federation-atlas; generated convergence snapshots are projection-only.');
