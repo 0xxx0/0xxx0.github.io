@@ -1,0 +1,73 @@
+name: INTERPHASE Register Once
+
+on:
+  push:
+    branches: [interphase/genesis-two-lenses]
+    paths:
+      - '.github/workflows/interphase-register-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: interphase/genesis-two-lenses
+          fetch-depth: 1
+
+      - name: Register /interphase/ in FIELD manifest
+        shell: bash
+        run: |
+          export NOW="$(TZ=Asia/Singapore date --iso-8601=seconds)"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          path = Path('showcase-manifest.json')
+          data = json.loads(path.read_text())
+          href = '/interphase/'
+          entry = {
+              'href': href,
+              'title': 'INTERPHASE',
+              'kind': 'workbench',
+              'parent': '/',
+              'family': 'INTERPHASE',
+              'operation': 'OPERATE',
+              'state': 'ACTIVE',
+              'version': '0.1.0',
+              'showcase_card': True,
+              'role': 'Executable continuity workbench: one addressed object survives PLAIN, COMPACT and FIELD readings; semantic edits round-trip through lawful lenses while FIELD camera/focus/aperture remain view-local. Genesis is provenance, not a second authority.',
+              'index': {
+                  'updated_at': os.environ['NOW'],
+                  'work_modes': ['IMPLEMENT', 'VERIFY', 'RECOVER']
+              },
+              'evidence': [
+                  '/interphase-genesis/',
+                  '/lib/interphase-lenses.js',
+                  '/tools/interphase-lenses-selftest.cjs'
+              ]
+          }
+          routes = data.setdefault('routes', [])
+          existing = next((i for i, r in enumerate(routes) if r.get('href') == href), None)
+          if existing is None:
+              donor = next((i for i, r in enumerate(routes) if r.get('href') == '/interphase-genesis/'), None)
+              routes.insert((donor + 1) if donor is not None else len(routes), entry)
+          else:
+              routes[existing] = entry
+          data['updated'] = os.environ['NOW']
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+          PY
+
+      - name: Remove one-shot workflow and commit registration
+        shell: bash
+        run: |
+          rm .github/workflows/interphase-register-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add showcase-manifest.json .github/workflows/interphase-register-once.yml
+          git commit -m 'interphase: register canonical workbench route'
+          git push origin HEAD:interphase/genesis-two-lenses
