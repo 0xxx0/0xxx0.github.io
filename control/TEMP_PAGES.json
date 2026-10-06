@@ -1,6 +1,6 @@
 {
   "schema": "temp-pages/v1",
-  "updated": "2026-10-06T12:10:46+08:00",
+  "updated": "2026-10-06T12:52:00+08:00",
   "retention_days": 30,
   "holding_pen": "_archive/temp",
   "pages": [
@@ -42,6 +42,16 @@
       "expires": "2026-11-05",
       "status": "live",
       "what": "Generated field picks roundup page (136KB single index.html).",
+      "superseded_by": "/20261006-field-mcvoid/"
+    },
+    {
+      "dir": "20261006-field-mcvoid",
+      "title": "THE FIELD / ATLAS · 2026-10-06 · lam4000",
+      "owner": "lam4000",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "Single-page visual read of the whole field: nested treemap sized by semantic commits, THE PULSE by last-touch date and state lane, ten picks. Output of tools/field-atlas-build.py; supersedes the picks table.",
       "superseded_by": null
     }
   ]
