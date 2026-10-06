@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T12:09:46.282Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T12:40:45.802Z by scripts/generate-convergence-strip.mjs_
 
-The field has **107 material commits on 2026-10-06** across **995 branches** (230 exact Git commits in the window; 123 generated telemetry; 5330 on master all-time).
+The field has **110 material commits on 2026-10-06** across **997 branches** (236 exact Git commits in the window; 126 generated telemetry; 5336 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- lib: microlib Phase 2 — dom/store/polar-control become projections of micro.js
 - desk: refresh public field data
-- fi-mutation-contract: stamp /20261006-wine-aesthetic-mcvoid/ + /dayline/ + /la
-- sync: merge origin/master into finish/land-all (pre-push)
+- INTERPHASE: first two lawful lenses (#934)
 
 ## Open gaps
 
