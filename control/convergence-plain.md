@@ -1,7 +1,7 @@
 # CONVERGENCE — derived snapshot
 
 > **AUTHORITY: NONE.** This is a captured projection, not current convergence.
-> Current convergence: [FIELD live derivation](/#convRead). FIELD composes CURRENT attention with exact/live master chronology.
+> Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
 _Captured 2026-10-06T11:07:45.221Z by scripts/generate-convergence-strip.mjs_
@@ -25,7 +25,7 @@ At capture, there were **0** open gaps.
 
 ## Law
 
-SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = /#convRead.
+SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = /#convRead = QUEUE + federation-atlas. CURRENT owns NOW.
 ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.
 RECOVER BEFORE INVENTING.
 
