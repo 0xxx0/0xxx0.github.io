@@ -1,0 +1,38 @@
+{
+  "schema": "field-return/v1",
+  "id": "CREW_TURN_EXECUTABLE_2026-10-06",
+  "date": "2026-10-06",
+  "state": "CANDIDATE / CI_REQUIRED",
+  "result_status": "CHANGED",
+  "source_object": "control/SUBMISSION_CONTRACT.json#minimum_execution_projection",
+  "host": "0xxx0/0xxx0.github.io crew handoff/protocol package",
+  "turn_ref": "branch:crew-turn-executable-sealed-20261006",
+  "before": "The canonical minimum field-crew-turn/v0.1 packet already existed and was selftested structurally, while exact-route staging and the full submission→crew-handoff compiler already existed. A resolved 10-leaf packet itself had no direct validator/renderer, so a crew member had to mentally bridge the minimum projection back into the larger handoff machinery.",
+  "after": "The same canonical 10-leaf packet can be validated and rendered directly with node tools/crew-turn.mjs <packet.json> [--json]. No schema, queue, route, state store, actor identity, priority, NOW, or effect authority was added.",
+  "observed_delta": "Added lib/field-crew-turn.mjs as an actor-neutral normalizer, tools/crew-turn.mjs as a direct validator/renderer, tools/field-crew-turn-selftest.mjs as the focused invariant test, extended the CI-visible field-machine-reducer selftest to exercise the direct path, and documented the helper in llms.txt. CHANGED/UNCHANGED without evidence fails closed; RETURN emits next_authority NONE.",
+  "evidence_refs": [
+    "/control/SUBMISSION_CONTRACT.json#minimum_execution_projection",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "/lib/field-crew-turn.mjs",
+    "/tools/crew-turn.mjs",
+    "/tools/field-crew-turn-selftest.mjs",
+    "/tools/field-machine-reducer-selftest.mjs",
+    "/llms.txt"
+  ],
+  "residue": "The crew seam now has three unequal layers with one object identity: natural-language/operator intake → full submission/stage-handoff while host resolution is needed → 10-leaf field-crew-turn once object+owner are exact. The minimum packet is closure-oriented rather than a task store: one delta, one move, one observed result, exact RETURN.",
+  "unknowns": [
+    "CI and pull-request exact-head proof have not yet run for this candidate.",
+    "No claim is made that every future external agent protocol can consume field-crew-turn/v0.1 without an adapter.",
+    "Human ordinary-use legibility of the one-line shorthand remains an observation, not a merge gate."
+  ],
+  "unresolved_gate": "Exact-head repository verification: machine-reducer/JIT handoff test, static/public gates, gitleaks and current ancestry.",
+  "return_address": "/control/SUBMISSION_CONTRACT.json#minimum_execution_projection",
+  "closed_at": "2026-10-06T22:05:00+08:00",
+  "next_authority": "NONE",
+  "follow_up": [
+    "If merged, use field-crew-turn/v0.1 only after object+owner are resolved; otherwise remain in the full submission/handoff path.",
+    "If another crew system needs interoperability, write an adapter to/from these ten leaves rather than extending the packet with actor/session/priority/NEXT state.",
+    "Measure actual handoff failures before adding fields. The first acceptable extension must correspond to a repeated observed loss that cannot live in evidence, gate, owner, or RETURN."
+  ],
+  "stop": "Do not turn this validator into a queue, shared memory, planner, agent roster, lifecycle database, or autonomous NEXT selector."
+}

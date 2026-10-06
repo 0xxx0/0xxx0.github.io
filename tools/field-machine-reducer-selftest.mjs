@@ -145,5 +145,27 @@ const selectedUnresolvedRun=run(['--handoff',selectedUnresolvedPath,'--json']);
 assert.notEqual(selectedUnresolvedRun.status,0,'unresolved object may not carry a selected TURN');
 assert.match(selectedUnresolvedRun.stderr,/UNRESOLVED_CANNOT_SELECT_TURN/);
 
+const crewTurnPath=write('crew-turn-min.json',{
+  schema:'field-crew-turn/v0.1',
+  source:{object:'/docs/',owner:'READFIELD'},
+  hold:{delta:'Reduce one existing reader action by one interaction without changing source/cursor authority'},
+  turn:{move:'Patch the existing /docs/ action surface',release:'HOST_NATIVE Git commit'},
+  trace:{status:'CHANGED',result:'Existing action is reachable with one fewer interaction; source/cursor authority unchanged',evidence:['commit:abc123','selftest:field-crew-turn']},
+  return:{gate:null,to:'/?focus=%2Fdocs%2F'}
+});
+const crewTurnRun=spawnSync(process.execPath,['tools/crew-turn.mjs',crewTurnPath,'--json'],{encoding:'utf8'});
+assert.equal(crewTurnRun.status,0,crewTurnRun.stderr);
+const crewTurn=JSON.parse(crewTurnRun.stdout);
+assert.equal(crewTurn.schema,'field-crew-turn/v0.1');
+assert.equal(crewTurn.source.object,'/docs/');
+assert.equal(crewTurn.source.owner,'READFIELD');
+assert.equal(crewTurn.return.next_authority,'NONE');
+assert.match(crewTurn.authority,/NONE/);
+assert.equal(Object.hasOwn(crewTurn,'actor'),false,'minimum packet must remain actor-neutral');
+const crewTurnNoEvidence=write('crew-turn-no-evidence.json',{...JSON.parse(fs.readFileSync(crewTurnPath,'utf8')),trace:{status:'CHANGED',result:'unproved change',evidence:[]}});
+const crewTurnNoEvidenceRun=spawnSync(process.execPath,['tools/crew-turn.mjs',crewTurnNoEvidence,'--json'],{encoding:'utf8'});
+assert.notEqual(crewTurnNoEvidenceRun.status,0,'CHANGED without evidence must fail closed');
+assert.match(crewTurnNoEvidenceRun.stderr,/EVIDENCE_REQUIRED_FOR_CHANGED/);
+
 fs.rmSync(dir,{recursive:true,force:true});
-console.log('FIELD machine reducer surface PASS · canonical help + crystal + packet sweep + contribution convergence + transient crew handoff + zero implicit authority');
+console.log('FIELD machine reducer surface PASS · canonical help + crystal + packet sweep + contribution convergence + transient crew handoff + direct 10-leaf crew turn + zero implicit authority');
