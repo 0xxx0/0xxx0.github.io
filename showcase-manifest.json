@@ -9927,6 +9927,34 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/law-zoo/rack.html",
+      "title": "SPECIMEN RACK 0.1",
+      "kind": "lab",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "LOAD / COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Sibling host where tiny laws load as pure reducers ((state,t,ctx) to state prime) and compose (CHAIN). LOAD LAW runs operator-typed tixy/dwitter-style formulas locally; ships RIPPLE / RULE TAPE (ECA-90 torus) / TIXY FIELD + a live ganja.js PGA2D algebra specimen. Frozen donor machines untouched; no forced shared runtime.",
+      "index": {
+        "updated_at": "2026-10-06T19:30:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/law-zoo/rack.release.json",
+        "checks": [
+          "browser run 2026-10-06: LOAD LAW flow returned 'law loaded ok' and printed as CUSTOM; ganja svg renders; 0 console errors",
+          "index.html sha256 6e0e500e...; ganja.min.js sha256 d668d9c5... (MIT, npm 1.0.204, 87KB)",
+          "zero donor bytes touched; the five machines remain FROZEN_DONOR"
+        ],
+        "return_path": "/law-zoo/"
+      }
     }
   ],
   "release_law": [

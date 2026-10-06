@@ -1,0 +1,48 @@
+{
+  "schema": "law-zoo-rack-release/v0.1-draft",
+  "route": "/law-zoo/rack.html",
+  "title": "SPECIMEN RACK",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "released": "2026-10-06",
+  "parent": "/law-zoo/",
+  "claim": "Sibling host where tiny laws load as pure reducers — (state, t, ctx) → state' — and compose (CHAIN). Ships 3 built-in specimens (RIPPLE, RULE TAPE ECA-90, TIXY FIELD) plus LOAD LAW: any tixy/dwitter-style formula entered by the operator runs locally as a live specimen. A ganja.js (PGA2D) algebra specimen renders in-page. Frozen five untouched; no forced shared runtime.",
+  "why_this_is_a_sibling_and_not_a_donor_change": "The five LAW ZOO machines are FROZEN_DONOR — their identity is exact bytes. This page reads none of them; it hosts its own loadable specimens and links out by concept only. Carries the zoo's 'shared principle, no forced shared runtime' law: composition happens at the reducer/loader layer, never by merging donors. Directly answers the THREAD_SEAL open question 'can local laws migrate between machines' — yes, as loadable reducers.",
+  "contribution_class": "DONOR",
+  "laws": {
+    "network_write": "NONE",
+    "storage": "NONE in v0.1 (no localStorage)",
+    "eval": "Function() on operator-typed text ONLY, evaluated locally in-page; no remote content is ever fetched or evaluated",
+    "donor_bytes_touched": 0,
+    "operations_exposed": [
+      "LOAD LAW",
+      "CHAIN",
+      "WRAP"
+    ]
+  },
+  "evidence": {
+    "observed": "Live browser run, 2026-10-06, served at 127.0.0.1:8811 → prototype/index.html",
+    "asserted": [
+      "4 specimens selectable in-page incl. CUSTOM LAW via LOAD LAW; UI returned 'law loaded ✓ — now playing as CUSTOM'",
+      "ganja.min.js (MIT, npm 1.0.204, 87KB) loaded at runtime; PGA2D rotor square renders (svg present in DOM)",
+      "zero JS console errors across reloads",
+      "screenshots captured (visual acceptance)"
+    ],
+    "not_verified": [
+      "mobile/touch ergonomics — not smoke-tested at phone viewport",
+      "no automated smoke case yet (recommended: a tools/browser-smoke.mjs case asserting data-specimen + loaded law, mirroring the lab's case)",
+      "live deployed copy — not landed; nothing published"
+    ]
+  },
+  "known_gaps": [
+    "no automated browser-smoke case yet",
+    "EXPORT/return file not implemented in v0.1",
+    "custom-law eval is client-local by design — document in page copy"
+  ],
+  "hashes": {
+    "prototype/index.html": "6e0e500e8013f7ef021cbc2ba0cb898ac23642bc72b491cac1834e7a54435f7f",
+    "vendor/ganja.min.js": "d668d9c534ee61a181f1219df25e11d5af6b14f4523c25dc3c075dcceddaad5f"
+  },
+  "kill_criteria": "Operator steer 2026-10-06 ('no need to kill it — that sentiment was to steer from traps/distractions'): item STAYS available; the pressure is anti-trap guidance, not a death warrant. Standing rule: stays a sibling (frozen bytes untouched); park to recovery only if it becomes upkeep without use.",
+  "landing_notes": "Landing copies prototype/index.html → law-zoo/rack.html and vendor/ → law-zoo/vendor/ganja.min.js; one line changes on copy: the script src '../vendor/ganja.min.js' → 'vendor/ganja.min.js'. Register the route via the repo's registration law (see LANDING-PACKET.md for the exact manifest delta)."
+}
