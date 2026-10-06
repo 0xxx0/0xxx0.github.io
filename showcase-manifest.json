@@ -10082,6 +10082,44 @@
         "return_path": "/20261006-linkfield-frex/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/artifacts/interface-genome-01.html",
+      "title": "PROJECTION BENCH 0.2",
+      "kind": "artifact",
+      "parent": "/artifacts/",
+      "family": "FIELD / ARTIFACTS",
+      "operation": "EXPERIMENT",
+      "state": "CANDIDATE",
+      "showcase_card": false,
+      "role": "Formerly INTERFACE GENOME 0.1. Fetches real CURRENT + showcase-manifest records, renders one normalized FIELD record three deterministic ways, and records browser-observed retrieval correctness and latency. Synthetic fixtures, random breeding and generated advice were removed in 0.2.",
+      "index": {
+        "updated_at": "2026-10-06T23:10:36+08:00",
+        "work_modes": [
+          "EXPERIMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-the-call-mcvoid/v0.html",
+      "title": "THE CALL — v0, frozen (pre-Frex-cut)",
+      "kind": "artifact",
+      "parent": "/20261006-the-call-mcvoid/",
+      "family": "FIELD / PLAY",
+      "operation": "PLAY",
+      "state": "PARKED",
+      "showcase_card": false,
+      "role": "The original THE CALL judgment drill, frozen as retained history for the operator's 'retain old version' ask. The current Frex cut lives at the parent route. No further edits planned; resume only on a named reason.",
+      "index": {
+        "updated_at": "2026-10-06T23:10:36+08:00",
+        "work_modes": [
+          "PLAY",
+          "INSPECT"
+        ]
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
