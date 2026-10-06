@@ -114,6 +114,75 @@ def unregistered(reg: dict) -> list[str]:
     return out
 
 
+def _first_tag(text: str, tag: str) -> str:
+    m = re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", text, re.I | re.S)
+    return re.sub(r"\s+", " ", m.group(1)).strip() if m else ""
+
+
+def derive_entry(name: str, reg: dict) -> dict:
+    """Build a registry entry for an unregistered dated dir from what is on disk.
+
+    Derives everything derivable (title, description, created) and refuses to
+    invent the rest: owner stays 'unassigned' because the dir name suffix is who
+    the page is FOR (…-mcvoid), not who made it.
+    """
+    d = REPO / name
+    text = (d / "index.html").read_text(encoding="utf-8", errors="replace")
+    title = _first_tag(text, "title") or name
+    desc = ""
+    m = re.search(
+        r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']', text, re.I | re.S
+    )
+    if m:
+        desc = re.sub(r"\s+", " ", m.group(1)).strip()
+
+    created = f"{name[0:4]}-{name[4:6]}-{name[6:8]}"
+    try:
+        out = subprocess.run(
+            ["git", "log", "--format=%cI", "-1", "--", f"{name}/"],
+            cwd=REPO, capture_output=True, text=True,
+        )
+        if out.stdout.strip():
+            created = out.stdout.strip()[:10]
+        datetime.date.fromisoformat(created)
+    except Exception:
+        created = f"{name[0:4]}-{name[4:6]}-{name[6:8]}"
+
+    ret = int(reg.get("retention_days", 30) or 30)
+    expires = (datetime.date.fromisoformat(created) + datetime.timedelta(days=ret)).isoformat()
+    return {
+        "dir": name,
+        "title": title,
+        "owner": "unassigned",
+        "created": created,
+        "expires": expires,
+        "status": "live",
+        "what": desc or "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+        "superseded_by": None,
+    }
+
+
+def cmd_adopt(reg: dict) -> int:
+    """Register every unregistered dated dir, then rebuild and re-check.
+
+    Drift reporting alone leaves a chore behind. Adoption closes it in one
+    command so the check can be green, and the registry can never silently
+    miss a page again.
+    """
+    missing = unregistered(reg)
+    if not missing:
+        print("nothing to adopt: every dated page dir on disk is already registered")
+        return 0
+    for name in missing:
+        entry = derive_entry(name, reg)
+        reg["pages"].append(entry)
+        print(f"adopted {name}  ->  expires {entry['expires']}  owner {entry['owner']}")
+    save_registry(reg)
+    cmd_build(reg)
+    print()
+    return cmd_check(reg)
+
+
 def cmd_check(reg: dict) -> int:
     now = today()
     rows = []
@@ -424,6 +493,7 @@ def main(argv: list[str]) -> int:
     grp.add_argument("--check", action="store_true", help="print registry table + summary; writes nothing")
     grp.add_argument("--build", action="store_true", help="regenerate temp/index.html")
     grp.add_argument("--sweep", action="store_true", help="move expired live pages to the holding pen and freeze them")
+    grp.add_argument("--adopt", action="store_true", help="register every unregistered dated page dir, then rebuild and re-check")
     ap.add_argument("--dry-run", action="store_true", help="with --sweep: print planned moves, move nothing")
     args = ap.parse_args(argv)
 
@@ -438,6 +508,8 @@ def main(argv: list[str]) -> int:
         print_validate()
     elif args.sweep:
         cmd_sweep(reg, args.dry_run)
+    elif args.adopt:
+        return cmd_adopt(reg)
     return 0
 
 
