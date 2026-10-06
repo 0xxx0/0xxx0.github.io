@@ -144,6 +144,33 @@
     border:1px solid var(--line); color:var(--mut); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:22ch}
   .tokens .tk .c{color:var(--ink); margin-left:6px}
   .tokens .none{color:var(--mut); font-size:11px; font-style:italic}
+
+  /* ============ law-zoo facet — tiny laws, high leverage ============ */
+  .zoo{border-bottom:1px solid var(--line); padding:22px 0}
+  .zoo .lead{font-size:clamp(15px,2.4vw,20px); line-height:1.35; margin:2px 0 4px; max-width:74ch}
+  .zoo .lead b{color:var(--hot); font-weight:600}
+  .zoo .sub{color:var(--mut); font-size:12px; margin:0 0 16px; max-width:76ch}
+  .specimens{display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--line)}
+  @media(max-width:820px){ .specimens{grid-template-columns:1fr 1fr} }
+  @media(max-width:480px){ .specimens{grid-template-columns:1fr} }
+  .sp{padding:13px 13px 15px; border-right:1px solid var(--line); cursor:default; transition:background .15s}
+  .sp:last-child{border-right:0}
+  .sp:hover{background:color-mix(in srgb,var(--gold) 9%,transparent)}
+  .sp .n{font-size:10px; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; margin-bottom:7px}
+  .sp .what{color:var(--ink); font-size:12px; line-height:1.45}
+  .sp .law{color:var(--mut); font-size:10.5px; line-height:1.45; margin-top:8px; padding-top:8px; border-top:1px solid var(--line)}
+
+  /* sedimented-rule micro-demo */
+  .sed{margin-top:16px; border:1px solid var(--line)}
+  .sed .sh{padding:11px 14px; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:baseline; flex-wrap:wrap}
+  .sed .sh b{color:var(--hot); font-weight:600}
+  .sed .sh .hint{color:var(--mut); font-size:10.5px; letter-spacing:.06em; margin-left:auto}
+  .sedgrid{display:grid; grid-template-columns:repeat(24,1fr); gap:0; padding:12px 14px 4px}
+  .cell{aspect-ratio:1; border:1px solid color-mix(in srgb,var(--line) 55%,transparent); cursor:pointer;
+        display:grid; place-items:center; font-size:11px; color:var(--mut); transition:background .18s,color .18s,border-color .18s; user-select:none}
+  .cell:hover{border-color:var(--cool)}
+  .sed .foot{padding:9px 14px 12px; color:var(--mut); font-size:10.5px}
+  .sed .foot b{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -219,6 +246,27 @@
     <p class="sub">Every return state in the repo, projected onto the same 太玄經 ternary that drives the room above. Click a phase to see the raw states that collapse into it. The theory is not a picture of the vocabulary — it <b>is</b> the vocabulary. Residue is shown, never coerced.</p>
     <div class="bars" id="foldBars"></div>
     <div class="tokens" id="foldTokens"><div class="th">raw states → click a phase above</div></div>
+  </div>
+</section>
+
+<section class="zoo">
+  <div class="wrap">
+    <div class="rhead"><h2>LAW ZOO — tiny laws, high leverage</h2></div>
+    <p class="lead">The ternary above is not a rule <em>about</em> representation — it is a <b>tiny law with high leverage</b>: 3 values folding 110 states. The LAW ZOO is that same move at the edge of computation. One principle, one thing.</p>
+    <p class="sub">Five machines, each a small rule that governs large behavior — and each designed so a small mutation causes a large change, and its failure is itself productive. This is the homiconicity you named: <b>the law is the mechanism</b>, not a picture of it.</p>
+    <div class="specimens">
+      <div class="sp"><div class="n">Field Guide</div><div class="what">A live specimen catalog — laws you can mutate and breed.</div><div class="law">law: a parameter shift re-draws the whole form</div></div>
+      <div class="sp"><div class="n">Palimpsest</div><div class="what">Self-reading type — glyphs evolve their own encoding surface.</div><div class="law">law: render → sample → re-render, the map rewrites itself</div></div>
+      <div class="sp"><div class="n">Law Districts</div><div class="what">Walk a world where crossing a street changes the physics.</div><div class="law">law: local update-rule is the neighborhood's terrain</div></div>
+      <div class="sp"><div class="n">One Law / Two Senses</div><div class="what">One recurrence drives image <em>and</em> sound — no master modality.</div><div class="law">law: a single source projects to unequal surfaces</div></div>
+      <div class="sp"><div class="n">Error Garden</div><div class="what">Breed numerical faults — species that vanish when "fixed."</div><div class="law">law: the failure mode is the fertile substrate</div></div>
+    </div>
+
+    <div class="sed">
+      <div class="sh"><b>THE SEDIMENTED RULE</b><span class="hint">click the field — you don't draw on it, you re-program it</span></div>
+      <div class="sedgrid" id="sedGrid"></div>
+      <div class="foot">Touching an environment <b>changes its local transition law</b> rather than drawing into it. History persists as altered response — every cell you touch keeps its own rule. The representation is the substance.</div>
+    </div>
   </div>
 </section>
 
@@ -385,6 +433,52 @@
       var ratio=document.getElementById('foldRatio');
       if(ratio) ratio.textContent='fold data unavailable (run node tools/field-fold.mjs --write)';
     });
+  })();
+
+  /* ---------- law-zoo: the sedimented rule (touching changes the local law) ---------- */
+  (function sedimented(){
+    var grid=document.getElementById('sedGrid');
+    if(!grid) return;
+    var COLS=24, ROWS=6, N=COLS*ROWS;
+    // 5 tiny laws — each a small rule producing a distinct visual (high leverage)
+    var LAWS=[
+      {g:'·', c:'--mut',  bg:'transparent'},
+      {g:'▪', c:'--cool', bg:'color-mix(in srgb,var(--cool) 16%,transparent)'},
+      {g:'▚', c:'--hot',  bg:'color-mix(in srgb,var(--hot) 16%,transparent)'},
+      {g:'✳', c:'--gold', bg:'color-mix(in srgb,var(--gold) 18%,transparent)'},
+      {g:'◈', c:'--green',bg:'color-mix(in srgb,var(--green) 16%,transparent)'}
+    ];
+    var law=new Array(N).fill(0);   // every cell starts on the baseline law
+    var cells=[];
+    for(var i=0;i<N;i++){
+      var d=document.createElement('div');
+      d.className='cell'; d.textContent=LAWS[0].g; d.setAttribute('data-i',i);
+      grid.appendChild(d); cells.push(d);
+    }
+    function paint(i){
+      var L=LAWS[law[i]];
+      cells[i].textContent=L.g;
+      cells[i].style.color='var('+L.c+')';
+      cells[i].style.background=L.bg;
+    }
+    function touch(i){
+      // touching RE-PROGRAMS the local transition law — the touched cell and its
+      // neighborhood step to the next law. History persists: law[] is never reset.
+      var r=Math.floor(i/COLS), c=i%COLS;
+      for(var dr=-1;dr<=1;dr++) for(var dc=-1;dc<=1;dc++){
+        var rr=r+dr, cc=c+dc;
+        if(rr<0||rr>=ROWS||cc<0||cc>=COLS) continue;
+        var j=rr*COLS+cc;
+        var falloff=(dr===0&&dc===0)?1:((dr===0||dc===0)?0.6:0.3);
+        if(Math.random()<falloff+0.15){ law[j]=(law[j]+(falloff>0.9?1:1))%LAWS.length; paint(j); }
+      }
+    }
+    grid.addEventListener('click',function(e){
+      var t=e.target.closest('.cell'); if(!t) return;
+      touch(+t.getAttribute('data-i'));
+    });
+    // seed a few so the field shows life before first touch
+    for(var s=0;s<5;s++){ touch(Math.floor(Math.random()*N)); }
   })();
 })();
 </script>
