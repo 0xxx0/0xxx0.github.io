@@ -9,9 +9,11 @@
  *
  * Reads:
  *   control/CURRENT.json      (captured active fronts, heads, updated)
- *   control/WORKER_BOOT.json  (captured gaps; compatibility input only)
  *   control/QUEUE.json        (captured live count, max_live)
  *   git                       (captured exact chronology + material activity)
+ *
+ * Deliberately does NOT read control/WORKER_BOOT.json: llms.txt marks it
+ * superseded compatibility history and forbids using it for current gaps/gates.
  *
  * Writes:
  *   control/convergence-strip.json   (captured data projection; authority NONE)
@@ -95,11 +97,15 @@ if(process.argv.includes('--selftest')){
   if(snapshot.role!==SNAPSHOT_ROLE||snapshot.authority!==SNAPSHOT_AUTHORITY||snapshot.live_derivation!==LIVE_FIELD_DERIVATION||snapshot.live_derivation_source!==LIVE_FIELD_SOURCE){
     throw new Error('CONVERGENCE_SNAPSHOT_AUTHORITY_CONTRACT');
   }
+  if(Object.prototype.hasOwnProperty.call(snapshot,'open_gaps')){
+    throw new Error('CONVERGENCE_SNAPSHOT_SUPERSEDED_BOOT_GAPS');
+  }
   const plain=readFileSync(plainPath,'utf8');
   if(!plain.includes('AUTHORITY: NONE')||!plain.includes(LIVE_FIELD_DERIVATION)||!plain.includes('QUEUE + federation-atlas')||!plain.includes('At capture')){
     throw new Error('CONVERGENCE_PLAIN_AUTHORITY_CONTRACT');
   }
   console.log('CONVERGENCE snapshot authority PASS · authority NONE · live '+LIVE_FIELD_DERIVATION+' from QUEUE + federation-atlas');
+  console.log('CONVERGENCE superseded WORKER_BOOT gap projection absent');
   console.log('CONVERGENCE material-history filter PASS · telemetry excluded, semantic commits retained');
   process.exit(0);
 }
@@ -109,7 +115,6 @@ const git = (cmd, d = '') => { try { return execSync(cmd, { cwd: ROOT, encoding:
 
 const current = existsSync(join(ROOT, 'control/CURRENT.json')) ? read('control/CURRENT.json') : {};
 const queue = existsSync(join(ROOT, 'control/QUEUE.json')) ? read('control/QUEUE.json') : {};
-const boot = existsSync(join(ROOT, 'control/WORKER_BOOT.json')) ? read('control/WORKER_BOOT.json') : {};
 
 const today = new Date().toISOString().slice(0, 10);
 const commitWindow = today;
@@ -135,7 +140,6 @@ const fronts = (current.active_fronts || []).map((f) => ({
 const heads = (current.current_heads || []).length;
 const liveCount = (queue.live || []).length;
 const maxLive = queue.max_live || 3;
-const gaps = (boot.open_gaps || []).map((g) => ({ id: g.id, status: g.status }));
 
 const data = {
   schema: '0xxx0/convergence-strip/v0.1',
@@ -157,7 +161,6 @@ const data = {
   active_fronts: fronts,
   live_fronts: `${liveCount}/${maxLive}`,
   current_heads: heads,
-  open_gaps: gaps,
   current_updated: current.updated || '?'
 };
 writeFileSync(join(ROOT, 'control/convergence-strip.json'), JSON.stringify(data, null, 2) + '\n');
@@ -174,7 +177,6 @@ const plainMd = [
   ``,
   `At capture, the field had **${data.commits_in_window} material commits on ${data.commits_window}** across **${data.branch_count} branches** (${data.git_commits_in_window} exact Git commits in the window; ${data.telemetry_commits_in_window} generated telemetry; ${data.commits_total} on master all-time).`,
   `At capture, **${data.live_fronts}** fronts were marked live, against **${data.current_heads}** captured current heads.`,
-  `At capture, there were **${gaps.length}** open gaps.`,
   ``,
   `## Captured active fronts`,
   ``,
@@ -184,13 +186,10 @@ const plainMd = [
   ``,
   ...recent.map((s) => `- ${s}`),
   ``,
-  `## Open gaps at capture`,
-  ``,
-  ...gaps.map((g) => `- ${g.id} — ${g.status}`),
-  ``,
   `## Law`,
   ``,
   `SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = ${LIVE_FIELD_DERIVATION} = QUEUE + federation-atlas. CURRENT owns NOW.`,
+  `WORKER_BOOT compatibility history is not a current gap/gate source.`,
   `ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.`,
   `RECOVER BEFORE INVENTING.`,
   ``,
