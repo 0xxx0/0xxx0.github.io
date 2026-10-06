@@ -27,7 +27,7 @@
     striker: {
       id: 'striker', name: 'THE STRIKE-MISSER',
       buys: 'high standards. What leaves your hands is rarely embarrassing.',
-      costs: 'the cut waits for perfection and the moment passes. (Potential, not applied — the operator’s own words.)',
+      costs: 'the cut waits for perfection and the moment passes.',
       door: 'One strike today at 80% and verified. Log what you cut — it is allowed to come back later.'
     },
     namefixer: {
@@ -51,7 +51,7 @@
     namer: {
       id: 'namer', name: 'THE GAP-NAMER',
       buys: 'trust. When you say you know, you know; when you don’t, the room can plan around it.',
-      costs: 'you are sometimes the one saying "nobody knows" when the room wanted a guess. (The oil-town call.)',
+      costs: 'you are sometimes the one saying "nobody knows" when the room wanted a guess.',
       door: 'Name the gap AND the cheapest way to close it. Honesty plus one move beats honesty alone.'
     }
   };
