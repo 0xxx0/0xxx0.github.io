@@ -1,0 +1,36 @@
+name: interphase-composition-check
+
+on:
+  pull_request:
+    paths:
+      - 'lib/interphase-composition.js'
+      - 'lib/interphase-lenses.js'
+      - 'tools/interphase-composition-selftest.cjs'
+      - 'tools/interphase-lenses-selftest.cjs'
+      - '.github/workflows/interphase-composition-check.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'lib/interphase-composition.js'
+      - 'lib/interphase-lenses.js'
+      - 'tools/interphase-composition-selftest.cjs'
+      - 'tools/interphase-lenses-selftest.cjs'
+      - '.github/workflows/interphase-composition-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate compositional kernel laws
+        run: |
+          node --check lib/interphase-composition.js
+          node tools/interphase-composition-selftest.cjs
+          node tools/interphase-lenses-selftest.cjs

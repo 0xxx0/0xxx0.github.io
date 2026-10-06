@@ -1,0 +1,26 @@
+name: artifacts-grounding
+on:
+  pull_request:
+    paths:
+      - 'artifacts/**'
+      - 'tools/artifacts-grounding-selftest.mjs'
+      - '.github/workflows/artifacts-grounding.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'artifacts/**'
+      - 'tools/artifacts-grounding-selftest.mjs'
+      - '.github/workflows/artifacts-grounding.yml'
+permissions:
+  contents: read
+jobs:
+  grounding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prevent synthetic artifact semantics
+        run: node tools/artifacts-grounding-selftest.mjs

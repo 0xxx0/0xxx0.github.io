@@ -1,0 +1,57 @@
+name: field-urlbar
+on:
+  pull_request:
+    paths:
+      - 'field-urlbar.js'
+      - 'lib/field-signal.js'
+      - 'field-glyph.js'
+      - 'tools/field-urlbar-selftest.mjs'
+      - 'tools/field-hermes-run.mjs'
+      - 'showcase-manifest.json'
+      - 'control/CURRENT.json'
+      - '.github/workflows/field-urlbar.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'field-urlbar.js'
+      - 'lib/field-signal.js'
+      - 'field-glyph.js'
+      - 'tools/field-urlbar-selftest.mjs'
+      - 'tools/field-hermes-run.mjs'
+      - 'showcase-manifest.json'
+      - 'control/CURRENT.json'
+      - '.github/workflows/field-urlbar.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check URLbar syntax
+        run: node --check field-urlbar.js
+      - name: Check root bootstrap syntax
+        run: node --check lib/field-signal.js
+      - name: Prove URLbar grammar and authority boundary
+        run: node tools/field-urlbar-selftest.mjs
+      - name: Prove Hermes bridge remains prepare-safe
+        run: node tools/field-hermes-run.mjs --selftest
+      - name: Prove root actually loads the URLbar projection
+        run: grep -F "./field-urlbar.js" lib/field-signal.js
+      - name: Validate HTML document integrity
+        run: node tools/html-document-integrity-selftest.mjs
+      - name: Validate public surface
+        run: |
+          set -o pipefail
+          node tools/validate-public.mjs 2>&1 | tee /tmp/field-urlbar-public.log
+      - name: Upload public validator diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-urlbar-public-diagnostic
+          path: /tmp/field-urlbar-public.log
+          if-no-files-found: ignore

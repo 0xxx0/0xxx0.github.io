@@ -1,0 +1,31 @@
+{
+  "schema": "field-return/v1",
+  "id": "INTERPHASE_DURABLE_RETURN_REAL_OBJECT_2026-10-06",
+  "date": "2026-10-06",
+  "state": "CANDIDATE / SELFTESTED / NO NEW LENS",
+  "object": "INTERPHASE history spine over one real FIELD object",
+  "operation": "showcase-manifest root -> route:/ -> COMPACT/FIELD edits -> content-addressed history DAG -> exact semantic RETURN token",
+  "delta": [
+    "Bind the existing FIELD INDEX root route as a real INTERPHASE object without mutating showcase-manifest.json.",
+    "Add content-addressed IMPORT / EDIT / MERGE / RETURN changes with deterministic ids and serialized restore.",
+    "Allow concurrent semantic branches to merge only when fields do not conflict; same-field divergence fails closed.",
+    "Make RETURN a verifiable token carrying object id, history cursor, projection, focus, task and viewport.",
+    "Keep representation-local camera/focus/aperture outside canonical semantic state and preserve the original manifest payload/provenance through edits and RETURN."
+  ],
+  "laws": [
+    "IDENTITY != LOCATION != PROJECTION ADDRESS",
+    "RETURN != BACK != UNDO",
+    "SOURCE remains read-only provenance; INTERPHASE edits a working object history, not showcase-manifest authority.",
+    "No third lens, route, queue, planner, CURRENT head or effect authority is created.",
+    "Conflict is explicit; the history layer does not silently choose a winner."
+  ],
+  "proof": {
+    "module": "/lib/interphase-history.js",
+    "selftest": "/tools/interphase-history-selftest.cjs",
+    "local_syntax": "PASS · node --check lib/interphase-history.js + tools/interphase-history-selftest.cjs",
+    "local_core": "PASS · real-shaped route import, deterministic content addressing, disjoint merge, serialize/restore, exact RETURN token",
+    "expected_repo_test": "node tools/interphase-history-selftest.cjs"
+  },
+  "falsifier": "Fail if route:/ identity or manifest provenance changes across projections; if serialized history can be tampered without rejection; if same-field concurrent edits auto-resolve; if RETURN cannot restore projection/focus/viewport/history cursor; or if this layer acquires manifest/device/world authority.",
+  "stop": "Merge only if the repo selftest passes on the branch. Then RETURN and replan. The next separate move, if still needed, is one XState-governed external effect boundary; do not add another lens."
+}

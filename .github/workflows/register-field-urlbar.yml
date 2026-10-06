@@ -1,0 +1,45 @@
+name: register-field-urlbar
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'tools/register-field-urlbar.mjs'
+      - '.github/workflows/register-field-urlbar.yml'
+permissions:
+  contents: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Materialize canonical URLbar registration
+        run: node tools/register-field-urlbar.mjs
+      - name: Prove CURRENT ↔ manifest coherence
+        run: node scripts/check-current-heads.mjs
+      - name: Prove release-version coherence
+        run: node scripts/check-release-versions.mjs
+      - name: Prove URLbar grammar + authority boundary
+        run: node tools/field-urlbar-selftest.mjs
+      - name: Prove Hermes remains PREP-safe
+        run: node tools/field-hermes-run.mjs --selftest
+      - name: Prove HTML integrity
+        run: node tools/html-document-integrity-selftest.mjs
+      - name: Prove public surface with registration applied
+        run: node tools/validate-public.mjs
+      - name: Commit canonical registration
+        run: |
+          if git diff --quiet -- showcase-manifest.json control/CURRENT.json returns/FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json; then
+            echo 'registration already exact'
+            exit 0
+          fi
+          git config user.name 'field-registration-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add showcase-manifest.json control/CURRENT.json returns/FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json
+          git commit -m 'feat(field): register glyph URLbar 0.8.34'
+          git push origin HEAD:master

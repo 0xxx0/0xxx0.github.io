@@ -112,7 +112,7 @@ REALWORLD = [
 def sh(cmd):
     return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=REPO).stdout
 
-MACHINE = re.compile(r"^(desk:|nexus:|comms:|convergence:|stamp$|restamp|.*: stamp$|"
+MACHINE = re.compile(r"^(desk:|nexus:|comms:|convergence:|stamp$|restamp|.*: stamp|"
                      r".*: restamp|.*restamp post-rebase|ci:|temp pages:)", re.I)
 
 def today_foldin():
@@ -248,6 +248,9 @@ def build():
 
     today_sec = today_foldin() if VARIANT else ""
     share_sec = share_panel() if VARIANT else ""
+    art_plate = """
+<figure class="plate"><img src="art/four-clocks.png" alt="Four islands at night, each carrying a glowing golden clock face; the four clocks show different times.">
+<figcaption>four clocks · ID · TH · VN · PH — the clocks disagree. plate 01, art 2026-10-06.</figcaption></figure>""" if VARIANT else ""
     extra_style = """
 <style>
  a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
@@ -260,6 +263,9 @@ def build():
  .reveal button{font:inherit;font-size:11px;padding:2px 8px;border:1px solid var(--ink);
    background:none;color:var(--ink);cursor:pointer;margin-left:6px}
  .reveal button:hover{background:var(--ink);color:var(--bg)}
+ .plate{margin:18px 0 6px}
+ .plate img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
+ .plate figcaption{margin-top:7px;font-size:11px;letter-spacing:.06em;color:var(--mut)}
 </style>""" if VARIANT else ""
 
     doc = f"""<!doctype html>
@@ -280,6 +286,8 @@ def build():
  <span><a href="links.html"><b>→ all {len(rows)} links</b></a></span>
 </div>
 </header>
+
+{art_plate}
 
 <h2>Pulse</h2>
 <div class="pulse">
