@@ -3,7 +3,7 @@
   "date": "2026-09-30",
   "object": "frontier research donor field as an operational stateless reducer",
   "status": "BOUNDED_IMPLEMENTED_BRANCH",
-  "state": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
+  "state": "BOUNDED_IMPLEMENTED_BRANCH",
   "delta": [
     "Added tools/research-donor-field.mjs, a stateless batch compiler over the existing donor gate.",
     "Each donor is reduced to one evidence lane: UNRESOLVED, RECOVER_PRIMARY, FRAME_TEST, REPLICATE, TRANSFER_TEST, READY, or PARK.",
@@ -58,5 +58,6 @@
   "next": [
     "When a donor is explicitly selected by CURRENT/user context, feed its bounded packet through the compiler, execute only the emitted evidence action, then RETURN; no automatic sequel."
   ],
-  "stop": "No donor dashboard, watcher, autonomous media backlog, second egress grammar, host authority layer, or transcript store."
+  "stop": "No donor dashboard, watcher, autonomous media backlog, second egress grammar, host authority layer, or transcript store.",
+  "summary": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument."
 }

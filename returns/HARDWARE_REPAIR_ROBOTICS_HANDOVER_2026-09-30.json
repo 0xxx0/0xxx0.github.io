@@ -3,7 +3,7 @@
   "date": "2026-09-30",
   "object": "electronics, repair and robotics historical handover convergence",
   "status": "BOUNDED_EVIDENCE_RETURN",
-  "state": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
+  "state": "BOUNDED_EVIDENCE_RETURN",
   "delta": [
     "Recovered direct lineage from a November 2024 Android-robotics comparison through its November 2025 role/bus reframing to the later phone-to-USB-CDC-to-MCU cassette pattern; the mature architecture is not backdated to 2024.",
     "Separated specification from embodiment for PhoneCassette and the One-Axis Motion Platform: detailed diagrams, BOMs, interfaces and loggers are SPEC evidence, not proof of a fabricated or tested machine.",
@@ -46,5 +46,6 @@
   "next": [
     "Promote nothing further until a physical receipt closes one of the unresolved build/test gaps or new source evidence resolves provenance."
   ],
-  "stop": "No new hardware route, dashboard, state store, architecture layer or authority surface."
+  "stop": "No new hardware route, dashboard, state store, architecture layer or authority surface.",
+  "summary": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries."
 }

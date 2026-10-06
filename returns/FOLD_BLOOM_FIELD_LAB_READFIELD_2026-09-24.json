@@ -8,7 +8,7 @@
     "base": "509bcf27b67f33b33ff4a32427df74925dcdd95a",
     "user_observation": "Phone surface now kinda works; requested usability improvements, deeper use cases such as READFIELD/RSVP, parallel-branch catch-up and meaningful autonomous evolution."
   },
-  "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
+  "state": "SHIPPED_ACTIVE_CANDIDATE",
   "delta": [
     "remove duplicate-reader authority from Lab READ",
     "embed canonical APERTURE/RSVP",
@@ -58,5 +58,6 @@
       "run": 35953594950,
       "status": "PASS"
     }
-  }
+  },
+  "summary": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI."
 }

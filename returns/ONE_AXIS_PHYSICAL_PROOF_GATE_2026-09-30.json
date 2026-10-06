@@ -3,7 +3,7 @@
   "date": "2026-09-30",
   "object": "One-Axis physical proof promotion gate",
   "status": "EXECUTABLE_CAPABILITY_DELTA",
-  "state": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
+  "state": "EXECUTABLE_CAPABILITY_DELTA",
   "delta": [
     "Added tools/one-axis-physical-proof-gate.mjs to classify a One-Axis packet no higher than SPECIFIED, BUILT or TESTED from explicit physical evidence fields.",
     "TESTED now requires ten unloaded and ten loaded measured runs, thermal observations, explicit anomalies, interruption recovery, return-to-zero, payload-adapter swap and evidence references.",
@@ -37,5 +37,6 @@
   "next": [
     "When physical work occurs, record the raw One-Axis observations and run: node tools/one-axis-physical-proof-gate.mjs <receipt.json>."
   ],
-  "stop": "Do not generalize this into a universal hardware ontology until a second distinct physical project proves the abstraction is needed."
+  "stop": "Do not generalize this into a universal hardware ontology until a second distinct physical project proves the abstraction is needed.",
+  "summary": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence."
 }

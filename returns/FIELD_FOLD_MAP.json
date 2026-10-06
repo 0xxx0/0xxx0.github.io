@@ -1,47 +1,18 @@
 {
  "schema": "field-fold/v1",
- "generated": "2026-10-06T18:25:53.797Z",
+ "generated": "2026-10-06T18:36:42.301Z",
  "returns_total": 287,
- "raw_distinct_states": 111,
+ "raw_distinct_states": 110,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
   "SOURCE": 49,
-  "HOLD": 95,
-  "RETURN": 136,
-  "RESIDUE": 7
+  "HOLD": 96,
+  "RETURN": 142,
+  "RESIDUE": 0
  },
- "residue_count": 7,
- "residue_files": [
-  {
-   "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
-   "raw": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI."
-  },
-  {
-   "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
-   "raw": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head."
-  },
-  {
-   "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
-   "raw": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument."
-  },
-  {
-   "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
-   "raw": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries."
-  },
-  {
-   "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
-   "raw": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence."
-  },
-  {
-   "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
-   "raw": "FROZEN_DONOR"
-  },
-  {
-   "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
-   "raw": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED"
-  }
- ],
+ "residue_count": 0,
+ "residue_files": [],
  "raw_state_histogram": [
   {
    "state": "(none)",
@@ -84,6 +55,10 @@
    "count": 5
   },
   {
+   "state": "SHIPPED_ACTIVE_CANDIDATE",
+   "count": 5
+  },
+  {
    "state": "SHIPPED_VERIFIED",
    "count": 5
   },
@@ -93,10 +68,6 @@
   },
   {
    "state": "MERGED_MACHINE_GREEN",
-   "count": 4
-  },
-  {
-   "state": "SHIPPED_ACTIVE_CANDIDATE",
    "count": 4
   },
   {
@@ -280,10 +251,6 @@
    "count": 1
   },
   {
-   "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
-   "count": 1
-  },
-  {
    "state": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
    "count": 1
   },
@@ -352,11 +319,11 @@
    "count": 1
   },
   {
-   "state": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head.",
+   "state": "BOUNDED_EXECUTABLE_RESEARCH_GATE_DELTA",
    "count": 1
   },
   {
-   "state": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
+   "state": "BOUNDED_IMPLEMENTED_BRANCH",
    "count": 1
   },
   {
@@ -364,7 +331,7 @@
    "count": 1
   },
   {
-   "state": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
+   "state": "BOUNDED_EVIDENCE_RETURN",
    "count": 1
   },
   {
@@ -420,7 +387,7 @@
    "count": 1
   },
   {
-   "state": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
+   "state": "EXECUTABLE_CAPABILITY_DELTA",
    "count": 1
   },
   {
@@ -1296,10 +1263,10 @@
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
-   "raw": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
-   "phase": "RESIDUE",
-   "verified": false,
-   "why": "free-text sentence, not a state token"
+   "raw": "SHIPPED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
@@ -1751,17 +1718,17 @@
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
-   "raw": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head.",
-   "phase": "RESIDUE",
+   "raw": "BOUNDED_EXECUTABLE_RESEARCH_GATE_DELTA",
+   "phase": "RETURN",
    "verified": false,
-   "why": "free-text sentence, not a state token"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
-   "raw": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
-   "phase": "RESIDUE",
+   "raw": "BOUNDED_IMPLEMENTED_BRANCH",
+   "phase": "RETURN",
    "verified": false,
-   "why": "free-text sentence, not a state token"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json",
@@ -1786,10 +1753,10 @@
   },
   {
    "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
-   "raw": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
-   "phase": "RESIDUE",
+   "raw": "BOUNDED_EVIDENCE_RETURN",
+   "phase": "RETURN",
    "verified": false,
-   "why": "free-text sentence, not a state token"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "HARD_ADVANCE_2026-09-22.json",
@@ -2031,10 +1998,10 @@
   },
   {
    "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
-   "raw": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
-   "phase": "RESIDUE",
+   "raw": "EXECUTABLE_CAPABILITY_DELTA",
+   "phase": "RETURN",
    "verified": false,
-   "why": "free-text sentence, not a state token"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
@@ -2193,9 +2160,9 @@
   {
    "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
    "raw": "FROZEN_DONOR",
-   "phase": "RESIDUE",
+   "phase": "HOLD",
    "verified": false,
-   "why": "no fold rule matched — needs human disposition"
+   "why": "candidate / in flight, not landed"
   },
   {
    "file": "RESEARCH_SYNC_2026-09-25.json",
@@ -2333,9 +2300,9 @@
   {
    "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
    "raw": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED",
-   "phase": "RESIDUE",
+   "phase": "RETURN",
    "verified": false,
-   "why": "no fold rule matched — needs human disposition"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
