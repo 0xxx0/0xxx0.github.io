@@ -5,7 +5,7 @@
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
   "live_derivation": "/#convRead",
-  "live_derivation_source": "FIELD_INDEX_RUNTIME_CURRENT_PLUS_EXACT_MASTER_CHRONOLOGY",
+  "live_derivation_source": "FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS",
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-06",
