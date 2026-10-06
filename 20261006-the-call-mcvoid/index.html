@@ -30,7 +30,9 @@ h1 .thin{font-weight:300;color:var(--mut)}
 .from .who{font:700 12.5px system-ui;letter-spacing:.01em}
 .from .meta{font-size:10px;color:var(--mut);letter-spacing:.06em}
 .bubble{padding:15px 14px;font-size:15.5px;line-height:1.62}
-.bubble .q{color:var(--gold)}
+.bubble .q{color:inherit;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.bubble .q:hover,.bubble .q:focus{text-decoration-thickness:2px}
+.bubble .q:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 .clock{display:flex;gap:9px;align-items:baseline;padding:10px 14px;
  border-top:1px solid var(--line);background:#160f0a}
 .clock b{font:900 21px/1 system-ui;color:var(--hot);font-variant-numeric:tabular-nums}

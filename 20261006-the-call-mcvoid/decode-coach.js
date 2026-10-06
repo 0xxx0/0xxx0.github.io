@@ -73,8 +73,8 @@ DECK.forEach(function (e) { BY[e.t.toLowerCase()] = e; });
 
 /* ── style, injected once · warm white / black / hard edges / no pills ────────── */
 var CSS = [
-'.dc-t{cursor:pointer;background:#fff3e2;border-bottom:1px solid #111;padding:0 2px}',
-'.dc-t:hover,.dc-t:focus{background:#111;color:#fff3e2;outline:0}',
+'.dc-t{cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;color:inherit;background:none;border:0;padding:0;font:inherit}',
+'.dc-t:hover,.dc-t:focus{text-decoration-thickness:2px}.dc-t:focus-visible{outline:2px solid currentColor;outline-offset:2px}',
 '.dc-card{position:fixed;z-index:9999;max-width:320px;background:#fffaf0;color:#111;border:1px solid #111;box-shadow:4px 4px 0 #111;padding:10px 12px 12px;font:13px/1.5 -apple-system,system-ui,sans-serif}',
 '.dc-word{font-size:15px;font-weight:700;padding-right:26px}',
 '.dc-poly{font-size:10px;font-weight:400;letter-spacing:.08em;border:1px solid #111;padding:0 4px;margin-left:6px;vertical-align:2px}',
