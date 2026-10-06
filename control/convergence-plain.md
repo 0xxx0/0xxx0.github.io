@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T17:50:45.536Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T18:21:45.609Z by scripts/generate-convergence-strip.mjs_
 
-The field has **230 material commits on 2026-10-06** across **1018 branches** (386 exact Git commits in the window; 156 generated telemetry; 5486 on master all-time).
+The field has **234 material commits on 2026-10-06** across **1021 branches** (393 exact Git commits in the window; 159 generated telemetry; 5493 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,8 +14,8 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- the field: restamp
-- the field: stamp
+- interphase-genesis: render the field fold as a live convergence instrument (#9
+- desk: refresh public field data
 
 ## Open gaps
 
