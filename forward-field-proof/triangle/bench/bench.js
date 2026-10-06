@@ -46,6 +46,7 @@
     const rows=innerHeight<330?1:innerHeight<560?2:innerHeight<650?3:4;
     return S.criteria.length>3&&innerWidth<500&&innerHeight<650?Math.max(1,rows-1):rows;
   };
+  let renderedPageSize=0;
   const visibleAxes = () => S.criteria.slice(axisPage * 3, axisPage * 3 + 3);
   const option = id => S.options.find(o => o.id === id);
   const criterion = id => S.criteria.find(c => c.id === id);
@@ -103,8 +104,9 @@
     target.append(prev,label,next);
   }
   function render() {
+    const size=pageSize();
     axisPage = Math.min(axisPage,Math.max(0,Math.ceil(S.criteria.length/3)-1));
-    optionPage = Math.min(optionPage,Math.max(0,Math.ceil(S.options.length/pageSize())-1));
+    optionPage = Math.min(optionPage,Math.max(0,Math.ceil(S.options.length/size)-1));
     $('title').value = S.title; $('context').textContent = S.sample ? 'SAMPLE NUMBERS · NOT YOUR ROOM · replace with measurements' : S.context;
     $('criteria').style.gridTemplateColumns = 'repeat('+visibleAxes().length+',minmax(0,1fr))';
     $('criteria').innerHTML = visibleAxes().map(c => {
@@ -118,17 +120,18 @@
     $('criteria').querySelectorAll('[data-priority]').forEach(b => b.onclick = () => mutate(() => {S.priority=S.priority===b.dataset.priority?null:b.dataset.priority;}));
     $('criteria').querySelectorAll('[data-bound]').forEach(input => input.oninput = () => numericInput(input,cellKey('bound',input.dataset.axis,input.dataset.bound),(s,v)=>{s.criteria.find(c=>c.id===input.dataset.axis)[input.dataset.bound]=v;},true));
     pager('axisPager',axisPage,S.criteria.length,3,p=>axisPage=p,'AXES');
-    const axes = visibleAxes(), options = S.options.slice(optionPage*pageSize(),optionPage*pageSize()+pageSize());
+    const axes = visibleAxes(), options = S.options.slice(optionPage*size,optionPage*size+size);
     $('matrix').innerHTML = '<table><thead><tr><th>OPTION / STATE</th>'+axes.map(c=>'<th title="'+esc(c.label)+'">'+esc(c.label.replace(/^.*? · /,''))+' '+esc(c.unit)+'</th>').join('')+'</tr></thead><tbody>'+options.map(o=>'<tr data-row="'+esc(o.id)+'"><td><button class="optionSelect" data-select="'+esc(o.id)+'">'+esc(o.label)+'</button><span class="rowState"></span></td>'+axes.map(c=>{
       const key=cellKey('value',o.id,c.id), raw=cells.has(key)?cells.get(key):fmt(o.values[c.id]);
       return '<td><input data-option="'+esc(o.id)+'" data-axis="'+esc(c.id)+'" value="'+esc(raw)+'" aria-label="'+esc(o.label)+' '+esc(c.label)+'"'+(errors.has(key)?' class="invalid" aria-invalid="true"':'')+'></td>';
     }).join('')+'</tr>').join('')+'</tbody></table>';
     $('matrix').querySelectorAll('[data-select]').forEach(b=>b.onclick=()=>mutate(()=>{S.selected=b.dataset.select;}));
     $('matrix').querySelectorAll('input').forEach(input=>input.oninput=()=>numericInput(input,cellKey('value',input.dataset.option,input.dataset.axis),(s,v)=>{s.options.find(o=>o.id===input.dataset.option).values[input.dataset.axis]=v;}));
-    pager('optionPager',optionPage,S.options.length,pageSize(),p=>optionPage=p,'OPTIONS');
+    pager('optionPager',optionPage,S.options.length,size,p=>optionPage=p,'OPTIONS');
     $('addOption').disabled=S.options.length>=40;
     $('undoBtn').disabled=!history.length && !errors.size;
     redrawAnalysis();
+    renderedPageSize=size;
   }
   function redrawAnalysis() {
     if (errors.size) {
@@ -271,7 +274,8 @@
   document.querySelectorAll('dialog').forEach(d=>d.addEventListener('close',()=>{render();stash();}));
   let viewportWidth=innerWidth,viewportHeight=innerHeight;
   function resizeView() {
-    if(innerWidth===viewportWidth&&innerHeight===viewportHeight)return;
+    const size=pageSize(),expectedRows=Math.min(size,Math.max(0,S.options.length-optionPage*size));
+    if(innerWidth===viewportWidth&&innerHeight===viewportHeight&&renderedPageSize===size&&document.querySelectorAll('[data-row]').length===expectedRows)return;
     viewportWidth=innerWidth;viewportHeight=innerHeight;
     const active=document.activeElement;
     const focus=active?.matches('#matrix input,#criteria input')?{
@@ -291,6 +295,7 @@
   }
   addEventListener('resize',resizeView);
   if(typeof ResizeObserver==='function')new ResizeObserver(resizeView).observe(document.documentElement);
+  if(embedded)setInterval(()=>{if(document.visibilityState!=='hidden'&&frameElement?.getClientRects().length)resizeView();},200);
   let loadSequence=0;
   addEventListener('message',async event=>{
     if(!embedded||event.origin!==location.origin||event.source!==parent||event.data?.type!=='decision-bench:load')return;
