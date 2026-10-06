@@ -17,10 +17,11 @@ header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px
 footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
 @media(max-width:860px){.grid{grid-template-columns:1fr}footer{display:block}}
 </style>
+<link rel="stylesheet" href="./embed.css">
 </head>
-<body><main>
+<body data-tool="read"><main>
 <header>
-  <div class="ey">FOUNDRY / OMNITOOLS · TEXT ANALYSIS SUITE 0.1</div>
+  <div class="ey">FOUNDRY / OMNITOOLS · TEXT ANALYSIS SUITE 0.2</div>
   <h1>TEXT<br>LENS.</h1>
   <div class="dek"><b>One paste. Nine readings.</b> Structure, length, entropy, readability, script mix, word and bigram ranks, lexical diversity. It re-measures as you type; no button needed. Everything runs in this file, offline.</div>
 </header>
@@ -34,7 +35,7 @@ footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:
 <textarea id="in" rows="10" spellcheck="false" placeholder="paste any text — prose, logs, poetry, corpus…"></textarea>
 <div class="grid" id="grid"></div>
 
-<footer><span>ENTROPY IS SHANNON OVER CHARACTERS · READABILITY IS AN APPROXIMATION</span><span id="stamp">text-lens 0.1</span></footer>
+<footer><span>ENTROPY IS SHANNON OVER CHARACTERS · READABILITY IS AN APPROXIMATION</span><span id="stamp">text-lens 0.2</span></footer>
 </main>
 <script>
 (function(){
@@ -44,10 +45,10 @@ function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(m){retur
 var STOP=('the a an and or but if then than that this these those is are was were be been being am do does did have has had i you he she it we they them his her its our your their me him us mine yours of in on at to for with from by as so not no nor up down out over under about into after before between during').split(' ');
 function shannon(s){var f={},i,p,h=0;for(i=0;i<s.length;i++)f[s[i]]=(f[s[i]]||0)+1;for(var k in f){p=f[k]/s.length;h-=p*Math.log2(p)}return h}
 function syll(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(!w)return 0;var m=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').match(/[aeiouy]{1,2}/g);return m?m.length:1}
-var last=null;
+var last=null,lastInput='';
 
 function analyze(){
-  var t=$('in').value;
+  var t=$('in').value;lastInput=t;
   var chars=t.length, words=t.match(/[\p{L}\p{N}'’-]+/gu)||[], sents=(t.match(/[^.!?…]+[.!?…]+/g)||[]).filter(function(s){return /[\p{L}\p{N}]/u.test(s)});
   var lines=t.split('\n'), paras=t.split(/\n\s*\n/).filter(function(p){return /[\p{L}\p{N}]/u.test(p)});
   if(!sents.length&&words.length)sents=[t];
@@ -105,6 +106,9 @@ $('copy').onclick=function(){
 };
 $('clear').onclick=function(){$('in').value='';analyze();$('hint').textContent='cleared'};
 analyze();
+window.OmnitoolsTool={getResult:function(){return last&&lastInput&&lastInput===$('in').value?{inputs:{in:lastInput},text:JSON.stringify(last,null,2),operation:'read:report'}:null;}};
 })();
 </script>
+<script src="./embed.js"></script>
 </body></html>
+

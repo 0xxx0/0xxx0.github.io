@@ -1,10 +1,10 @@
 {
-  "schema": "omnitools-instrument/v0.3",
+  "schema": "omnitools-instrument/v0.4",
   "route": "/foundry/omnitools/",
-  "bundle_version": "0.2",
+  "bundle_version": "0.3",
   "instrument_revision": "0.4",
   "authority": "LOCAL_SESSION_CARRIER / ADVISORY_BENCH / NO EFFECT AUTHORITY",
-  "purpose": "Make a few unequal specialist tools behave like one usable instrument: hold one source object, choose a lawful projection, inspect its result, retain a bounded trace, and RETURN evidence without inventing shared semantics or authority.",
+  "purpose": "Hold one exact source and hand an explicit immutable snapshot to unequal native tools; keep source-bound evidence and return only evidence matching the currently held source.",
   "spine": [
     "SOURCE",
     "AXIS",
@@ -13,30 +13,79 @@
     "RETURN"
   ],
   "axes": [
-    {"id":"scan","owner":"pii-lens.html","operation":"SCAN","authority":"LOCAL_TOOL"},
-    {"id":"read","owner":"text-lens.html","operation":"READ","authority":"LOCAL_TOOL"},
-    {"id":"align","owner":"re-reader.html","operation":"ALIGN","authority":"LOCAL_TOOL"},
-    {"id":"reshape","owner":"reshaper.html","operation":"RESHAPE","authority":"LOCAL_TOOL"},
-    {"id":"bench","owner":"bench.mjs","operation":"COMPARE","input":"FORM / FUNCTION / FORTITUDE candidates with exact, ranged or unknown evidence","authority":"ADVISORY_ONLY"}
+    {
+      "id": "bench",
+      "owner": "/forward-field-proof/triangle/bench/",
+      "operation": "COMPARE",
+      "input": "validated decision model/receipt JSON or legacy FORM/FUNCTION/FORTITUDE pipe rows",
+      "authority": "LOCAL REASONING ONLY"
+    },
+    {
+      "id": "scan",
+      "owner": "pii-lens.html",
+      "operation": "SCAN",
+      "authority": "LOCAL_TOOL"
+    },
+    {
+      "id": "read",
+      "owner": "text-lens.html",
+      "operation": "READ",
+      "authority": "LOCAL_TOOL"
+    },
+    {
+      "id": "align",
+      "owner": "re-reader.html",
+      "operation": "ALIGN",
+      "authority": "LOCAL_TOOL"
+    },
+    {
+      "id": "reshape",
+      "owner": "reshaper.html",
+      "operation": "RESHAPE",
+      "authority": "LOCAL_TOOL"
+    }
   ],
   "source": {
     "storage": "sessionStorage only",
-    "identity": "first 12 hex characters of browser SHA-256 over exact source bytes",
-    "mutation": false,
-    "network_upload": false
+    "identity": "first 12 hex characters of SHA-256 over exact UTF-8 source text",
+    "mutation": "Explicit USE creates a new local source snapshot; UNDO restores exact prior bytes.",
+    "network_upload": false,
+    "undo": "Restore the prior held source exactly; undo is not a semantic inverse of the transformation"
   },
   "bench": {
-    "axes": ["FORM", "FUNCTION", "FORTITUDE"],
-    "score_forms": ["exact", "range", "unknown"],
-    "hard_limit_law": "Reject only when a candidate's observed/ranged maximum is below a hard minimum.",
-    "unknown_law": "Unknown or threshold-crossing evidence remains POTENTIAL and names the missing evidence.",
-    "dominance_law": "A candidate is dominated only when another is guaranteed no worse on every axis and strictly better on at least one; overlapping ranges and unknowns preserve alternatives.",
-    "ranking_law": "No weighted winner is invented. The output is survivor set, exclusions, and what to measure next."
+    "native_route": "/forward-field-proof/triangle/bench/",
+    "embedded_route": "/forward-field-proof/triangle/bench/?embedded=1",
+    "ownership": "Native Bench owns editable criteria, min/max limits, intervals, options, uncertainty, Pareto comparison, priority, local state and decision RETURN. Omnitools owns source transport only.",
+    "handoff": "same-origin postMessage from explicit LOAD; requestId binds a frozen source snapshot",
+    "unknown_law": "Unknown and threshold-crossing evidence remain explicit UNCERTAIN alternatives and are excluded from guaranteed feasible ranking without being deleted.",
+    "generic_model": "1–8 independent measured criteria; 0–40 options; finite exact/ranged values, explicit null unknowns, min/max limits and optional main priority",
+    "legacy_adapter": "Native Bench alone parses NAME | FORM | FUNCTION | FORTITUDE | note into max-preference criteria with declared score units, no implicit thresholds and no priority; no independent Omni evaluator runs."
+  },
+  "bridge": {
+    "load": "decision-bench:load {requestId,source:{label,text}}",
+    "receive": [
+      "decision-bench:ready",
+      "decision-bench:changed",
+      "decision-bench:loaded",
+      "decision-bench:error",
+      "decision-bench:return"
+    ],
+    "admission": "event.origin must equal location.origin and event.source must equal the native Bench iframe window",
+    "invalid_input": "changed(valid:false) clears cached carrier decision evidence",
+    "standalone_return": "null/unknown requestId never binds native decision to held source",
+    "source_change": "Previous source evidence remains tagged in trace but is excluded from current carrier bench/preview fields.",
+    "reentry": "Native Bench owns exact persisted decision reentry; session source transport does not create another decision store."
   },
   "return": {
-    "schema": "omnitools-return/v0.1",
+    "schema": "omnitools-return/v0.2",
     "authority": "EVIDENCE_ONLY",
-    "contains": ["source identity", "active projection", "bench survivor/exclusion evidence when present", "projection preview", "bounded session trace"]
+    "contains": [
+      "current source identity",
+      "active projection",
+      "matching-source native decision receipt when explicitly recorded",
+      "matching-source projection preview",
+      "bounded source-tagged trace"
+    ]
   },
   "laws": [
     "SOURCE != RESULT",
@@ -45,5 +94,70 @@
     "UNEQUAL TOOLS MAY SHARE A CARRIER WITHOUT SHARING SEMANTICS",
     "RETURN PRESERVES EVIDENCE, NOT AUTHORITY"
   ],
-  "stop": "Do not add another Omnitools child merely because a tool exists. Add or extract only after a repeated real task cannot be expressed by SOURCE -> existing AXIS -> TRACE -> RETURN."
+  "stop": "Do not add another Omnitools evaluator, child, or state authority. Change an existing native tool only for a reproduced operation failure.",
+  "operation_transfer": {
+    "owner": "instrument-app.mjs",
+    "move": "USE OUTPUT",
+    "input": "Full native transform result bound to the still-held exact source",
+    "effect": "New local source snapshot, no external effect",
+    "boundary": "Clipped previews and stale results are not transferable output",
+    "failure": "Empty, unavailable or stale output leaves source unchanged and records no successful effect"
+  },
+  "research": {
+    "path": "research/extant-projects-scout.md",
+    "updated": "2026-10-06",
+    "scope": "Three primary mechanism donors only; historical broad survey retained in Git history",
+    "admission_law": "/tools/research-donor-gate.mjs",
+    "status": "SCOUT/PARK; source documentation verified, host replica and transfer evidence pending",
+    "imports": "No external code, artwork, dependency or appearance imported",
+    "donors": [
+      {
+        "id": "cyberchef",
+        "primary_ref": "https://github.com/gchq/CyberChef/blob/master/README.md",
+        "mechanism": "distinct input/output, ordered transforms, visible intermediate state",
+        "host_delta": "explicit full-output promotion with exact source undo"
+      },
+      {
+        "id": "puzzlescript",
+        "primary_ref": "https://www.puzzlescript.net/Documentation/rules.html",
+        "secondary_ref": "https://www.puzzlescript.net/Documentation/prelude.html",
+        "mechanism": "atomic cancelled turns, undo and bounded camera views",
+        "host_delta": "failed moves preserve state; primary work fits one viewport stage"
+      },
+      {
+        "id": "ibm-iconography",
+        "primary_ref": "https://www.ibm.com/design/language/iconography/ui-icons/usage/",
+        "mechanism": "sparse monochrome icons with retained text identity and touch clearance",
+        "host_delta": "stable monochrome operation glyph plus short label and accessible name; touch-density trade-off remains explicit"
+      }
+    ]
+  },
+  "acceptance": [
+    "Full native output becomes the exact new source; UNDO restores exact prior label/text including Unicode and whitespace.",
+    "Empty, unavailable or stale outputs fail without source mutation or success receipts.",
+    "Source changes exclude stale results and retain source-tagged trace continuity.",
+    "Primary work fits one viewport; explicit paging retains depth. Short labeled actions retain keyboard names; touch sizing remains a separate usability measure.",
+    "Native generic Bench remains the only decision evaluator and state owner; unknowns and physical measurements are never fabricated."
+  ],
+  "handoff": {
+    "at": "2026-10-06",
+    "state": "IMPLEMENTED / CURRENT_CI_IN_PR_921",
+    "delta": "Generalized native decision bench, strict loss-aware conversion, full-result source promotion, exact source undo, bounded native stages and source-bound RETURN.",
+    "next": "Use one actual input; report the operation, friction and exact RETURN. Device-local results are not physical or adoption proof.",
+    "physical_unknowns": [
+      "room dimensions",
+      "attachment strength",
+      "supported load",
+      "real user adoption",
+      "subjective delight"
+    ],
+    "software_evidence": {
+      "proof_head": "63f4a57a8653d5edef0280d0b091acc00d072470",
+      "native_turn_and_undo": "PASS in omnitools-check 37418626014; overall18/19, isolated later resize check failed",
+      "native_four_tool_fit": "PASS: all four tools at320×568 and740×360 in same run",
+      "standalone_decision_workflow": "24/24 PASS in public-surface-check37418625966",
+      "current_exact_head_ci": "https://github.com/0xxx0/0xxx0.github.io/pull/921",
+      "authority": "Software proof only; actual use and physical claims remain unobserved"
+    }
+  }
 }

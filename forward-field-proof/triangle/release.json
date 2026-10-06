@@ -1,18 +1,18 @@
 {
   "schema": "release-receipt/v1",
   "title": "TRIANGLE",
-  "version": "1.0",
+  "version": "1.1",
   "state": "ACTIVE",
-  "date": "2026-09-22",
+  "date": "2026-10-06",
   "route": "/forward-field-proof/triangle/",
   "parent": "/forward-field-proof/",
   "showcase_card": false,
-  "claim": "A single geometric instrument can host multiple lawful operations without collapsing their semantics: relational addressing, executable distinction rewriting, inverse-query ternary notation, and direct simplex manipulation.",
+  "claim": "Relational addressing, distinction rewriting and inverse-query power remain distinct operations; BENCH opens the single generalized constraint-decision host.",
   "active_modes": {
     "GLYPH": "8 addressable loci = 3 vertices + 3 edges + interior + outside/context; independent BLANK / UNKNOWN / INDICATE states; MESSAGE / RETURN / FIELD presets.",
     "FORM": "one primitive mark attached to any triangle locus; explicit nesting and juxtaposition; deterministic deepest-first CALL/CROSS normalization; trace + marked/unmarked result.",
     "POWER": "BASE / EXPONENT / RESULT occupy stable corners; one unknown corner selects exponentiation, logarithm or root.",
-    "BENCH": "quick EXPLOIT / EXPLORE / PROVE simplex manipulation; original human-calibration experiment remains frozen separately."
+    "BENCH": "Canonical /triangle/bench/: user-defined measurements, hard limits, alternatives, interval uncertainty, Pareto frontier, explicit main priority and decision RETURN."
   },
   "shared_laws": [
     "POSITION MAY CARRY SEMANTIC/OPERATIONAL INFORMATION",
@@ -39,8 +39,8 @@
   "preservation": {
     "bench": {
       "route": "/forward-field-proof/triangle/bench/",
-      "state": "PARKED",
-      "note": "Pre-unification Bench content preserved under /triangle/bench/ with one relative Glyph-Lab link adjusted for relocation."
+      "state": "CANDIDATE",
+      "note": "0.1 calibration source retained in Git ancestry; replaced here by the explicitly requested general decision instrument. Old abstract scoring is removed from the parent."
     },
     "glyph": {
       "route": "/forward-field-proof/triangle/glyph/",
@@ -55,7 +55,8 @@
     "triangle.js independent syntax check passed before commit",
     "FORM core extracted as single browser/CI implementation",
     "FORM fixtures cover blank, single mark, CALL, CROSS, CALL→CROSS, triple nesting and normalization idempotence",
-    "critical browser smoke includes unified Triangle root"
+    "critical browser smoke includes unified Triangle root",
+    "BENCH duplicate scoring removed; legacy stored/hash BENCH redirects to fixed canonical route while preserving GLYPH/FORM/POWER state."
   ],
   "authority_boundary": "Local representation/reasoning only. No queue mutation, external send, file move, purchase or physical actuation.",
   "next": "Use it as an instrument. Further feature work requires a concrete compression/reasoning failure or a donor mechanism that changes operation, not ornament."

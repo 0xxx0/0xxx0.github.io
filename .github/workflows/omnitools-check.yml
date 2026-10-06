@@ -4,6 +4,9 @@ on:
     paths:
       - 'foundry/omnitools/**'
       - 'tools/omnitools-**'
+      - 'forward-field-proof/triangle/bench/**'
+      - 'lib/constraint-surface.js'
+      - 'tools/decision-bench-**'
       - '.github/workflows/omnitools-check.yml'
   workflow_dispatch:
 permissions:
@@ -26,5 +29,8 @@ jobs:
           node --check tools/omnitools-smoke.mjs
       - name: Validate Omnitools workbench contract
         run: node tools/omnitools-workbench-selftest.mjs
+      - name: Prove full native result and loss boundaries
+        run: node tools/omnitools-result-selftest.mjs
       - name: Prove mobile one-source work loop
         run: node tools/omnitools-smoke.mjs
+

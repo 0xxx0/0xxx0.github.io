@@ -29,10 +29,11 @@ header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px
 footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
 @media(max-width:860px){.edit{grid-template-columns:1fr}.row{grid-template-columns:28px 1fr}.n{padding:10px 4px}.c{border-right:0;border-bottom:1px solid var(--line);font-size:14px}footer{display:block}}
 </style>
+<link rel="stylesheet" href="./embed.css">
 </head>
-<body><main>
+<body data-tool="align"><main>
 <header>
-  <div class="ey">FOUNDRY / OMNITOOLS · MULTILINGUAL RE-READING 0.2</div>
+  <div class="ey">FOUNDRY / OMNITOOLS · MULTILINGUAL RE-READING 0.3</div>
   <h1>RE-<br>READER.</h1>
   <div class="dek"><b>Three scripts. One row. Your eyes first.</b> Paste தமிழ் / 中文 / English in parallel blocks (blank line = one segment). Veil hides the languages you are not reading yet; click a row to reveal exactly that row. Word counts and per-row token spans come from <b>Intl.Segmenter</b> (ICU dictionary segmentation) — Chinese has no spaces, so a whitespace split glues a whole sentence into one token; this splits it into words. A re-reading instrument — like a reader extension, but yours, offline, and honest about alignment.</div>
 </header>
@@ -57,7 +58,7 @@ footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:
 
 <div class="read" id="read"><div class="empty">no alignment yet · press ALIGN</div></div>
 
-<footer><span>SEGMENT COUNTS MAY UNEQUAL · MISALIGNMENT IS SHOWN, NOT HIDDEN</span><span id="stamp">re-reader 0.2 · words via Intl.Segmenter</span></footer>
+<footer><span>SEGMENT COUNTS MAY UNEQUAL · MISALIGNMENT IS SHOWN, NOT HIDDEN</span><span id="stamp">re-reader 0.3 · words via Intl.Segmenter</span></footer>
 </main>
 <script>
 (function(){
@@ -92,9 +93,9 @@ function segs(id){
   var parts=t.split(/\n\s*\n/).map(function(s){return s.replace(/\s+/g,' ').trim()}).filter(Boolean);
   return parts.length>1?parts:t.split('\n').map(function(s){return s.trim()}).filter(Boolean);
 }
-var veil=false, open={};
+var veil=false, open={},alignedInputs=null,alignedRows=null;
 function align(){
-  var cols={ta:segs('ta'),zh:segs('zh'),en:segs('en')};
+  var cols={ta:segs('ta'),zh:segs('zh'),en:segs('en')};alignedInputs={ta:$('ta').value,zh:$('zh').value,en:$('en').value};alignedRows=cols;
   var n=Math.max(cols.ta.length,cols.zh.length,cols.en.length,1);
   if(!cols.ta.length&&!cols.zh.length&&!cols.en.length){$('read').innerHTML='<div class="empty">no alignment yet · press ALIGN</div>';return}
   var html='';
@@ -119,6 +120,9 @@ $('align').onclick=align;
 $('veil').onclick=function(){veil=!veil;this.classList.toggle('on',veil);this.textContent=veil?'UNVEIL':'VEIL';$('read').classList.toggle('veil',veil);$('hint').textContent=veil?'veil on · click a row to reveal it':'veil off'};
 $('keep').onchange=applyKeep;
 $('reset').onclick=function(){open={};veil=false;$('veil').classList.remove('on');$('veil').textContent='VEIL';$('read').classList.remove('veil');$('ta').value='';$('zh').value='';$('en').value='';$('read').innerHTML='<div class="empty">no alignment yet · press ALIGN</div>';$('hint').textContent='reset'};
+window.OmnitoolsTool={getResult:function(){return alignedInputs&&Object.keys(alignedInputs).every(function(k){return $(k).value===alignedInputs[k]})?{inputs:alignedInputs,text:JSON.stringify({tool:'align',segments:alignedRows,alignment:'index',missing:'explicit'},null,2),operation:'align:segments'}:null;}};
 })();
 </script>
+<script src="./embed.js"></script>
 </body></html>
+
