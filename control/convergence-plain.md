@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T10:05:46.442Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T10:36:45.138Z by scripts/generate-convergence-strip.mjs_
 
-The field has **91 material commits on 2026-10-06** across **992 branches** (203 exact Git commits in the window; 112 generated telemetry; 5303 on master all-time).
+The field has **93 material commits on 2026-10-06** across **992 branches** (208 exact Git commits in the window; 115 generated telemetry; 5308 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,7 +14,7 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- game: IMPACTED — the deck about the words used instead of the thing
+- game: THE FIRST 90 + a calibration that tunes the run
 - desk: refresh public field data
 
 ## Open gaps
