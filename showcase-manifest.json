@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T12:03:30+08:00",
+  "updated": "2026-10-06T12:21:06+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5409,11 +5409,12 @@
       "operation": "PLAY",
       "state": "ACTIVE",
       "family": "ICHING",
-      "version": "0.1",
+      "version": "0.6",
+      "receipt": "/iching/release.json",
       "tier": "FIELD",
-      "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
+      "role": "Book of Changes as a finite change/correspondence instrument: exact six-line address, primary/transformed/nuclear views and structural operations over all 64 states. 0.6 adds the radial wheel — the same 64 as one object, walked clockwise in King Wen order or sorted by six-bit address, with the judgment weight and the six line stages drawn outward and inward from each spoke. Current machine use must declare projection, ambiguity, information loss and RETURN; symbolic correspondence is a lens, not sufficient native control state or body/real-world measurement.",
       "index": {
-        "updated_at": "2026-09-28T13:23:53+08:00",
+        "updated_at": "2026-10-06T12:20:00+08:00",
         "work_modes": [
           "PLAY",
           "READ",
@@ -5423,10 +5424,13 @@
         ]
       },
       "evidence": {
+        "receipt": "/iching/release.json",
         "checks": [
           "64/64 hexagrams; binaries verified against the wikisource trigram table plus complement/nuclear invariants (27/28, 61/62, 63↔64, 1↔1, 2↔2)",
           "zh parsed 64/64 complete; en OCR extraction quality-flagged on 20 known-imperfect passages (per-hexagram _quality field)",
-          "local headless-chrome render + DOM dump verified; live URL verified after deploy"
+          "local headless-chrome render + DOM dump verified; live URL verified after deploy",
+          "radial wheel 0.6 measured by node tools/iching-core.test.mjs (26/26): King Wen order 1..64 clockwise from −90°, binary order opens 000000 / closes 111111, bar monotone in judgment length, six line marks per spoke reading back that hexagram's own binary with the bottom mark outermost, hit test round-trips to its spoke and rejects the hub",
+          "radial wheel exercised in headless Chromium on the working tree with zero console errors: hover reads out the spoke, the hub clears it, activating a spoke opens #h=<id>, and the order toggle swaps 乾/坤 at the top"
         ],
         "return_path": "/"
       }
@@ -9466,7 +9470,7 @@
       "family": "FIELD / DECISIONS",
       "role": "One-page synthesis of the full 60-page Google AI-Mode thread (15 replies: CS50 verdict, lawyer-friendly alternatives, APAC AI-law divergence, 4-Hour-Workweek to Muse/OpenMuse mapping, agent-harness security, Slack as legal ops OS) written for the person who asked it: APAC AI regulatory-policy at a big-tech AI firm in Singapore, non-engineer. Includes corrections verified against a live Hermes install and public sources. Noindex reading surface; not a head, not legal advice.",
       "index": {
-        "updated_at": "2026-10-06T12:03:30+08:00",
+        "updated_at": "2026-10-06T12:21:06+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
