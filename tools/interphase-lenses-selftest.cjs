@@ -1,5 +1,15 @@
+const fs=require('fs');
+const path=require('path');
 const L=require('../lib/interphase-lenses.js');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
+
+const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'..','showcase-manifest.json'),'utf8'));
+const route=manifest.routes.find(r=>r.href==='/interphase/');
+assert(route,'/interphase/ route registration');
+assert(route.family==='INTERPHASE','/interphase/ family');
+assert(route.operation==='OPERATE','/interphase/ operation');
+assert(route.state==='ACTIVE','/interphase/ state');
+assert(Array.isArray(route.evidence)&&route.evidence.includes('/lib/interphase-lenses.js'),'/interphase/ lens evidence');
 
 const src=L.createGenesisObject({
   title:'INTERPHASE',
@@ -47,4 +57,4 @@ assert(store.source().thesis===src.thesis&&store.source().state===src.state,'RET
 assert(store.snapshot().history.length===2,'RETURN must preserve history');
 assert(store.snapshot().history[0].id!==store.snapshot().history[1].id,'RETURN must append, not erase');
 
-console.log('INTERPHASE LENSES SELFTEST PASS',L.VERSION,JSON.stringify({compact:compactLaw.get_put&&compactLaw.put_get,field:fieldLaw.get_put&&fieldLaw.put_get,fieldLocality:locality.pass,returnRevision:r.revision}));
+console.log('INTERPHASE LENSES SELFTEST PASS',L.VERSION,JSON.stringify({route:true,compact:compactLaw.get_put&&compactLaw.put_get,field:fieldLaw.get_put&&fieldLaw.put_get,fieldLocality:locality.pass,returnRevision:r.revision}));
