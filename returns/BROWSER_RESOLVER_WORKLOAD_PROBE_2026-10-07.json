@@ -1,0 +1,32 @@
+{
+  "schema": "field-return/v1",
+  "id": "BROWSER_RESOLVER_WORKLOAD_PROBE_2026-10-07",
+  "date": "2026-10-07",
+  "state": "SHIPPED_TO_MASTER",
+  "object": "tools/browser-bin.mjs — the one browser resolver shared by 28 smoke tests — re-probed after the binary it selected silently stopped completing work.",
+  "before": "Chrome 154.0.8037.98 (auto-updated 2026-10-06) passes `--version` (exit 0) but wedges ~16–17s on every `--dump-dom` with `CVDisplayLinkCreateWithCGDisplay failed (-6670)` / `Teardown watchdog expired`, exit 2; the harness's 15s kill read as SMOKE TIMEOUT. The resolver's proof (exit-0 `--version`) still passed, so it kept returning a host that could not finish a workload. Local page batteries went red on every case while CI (older Chrome) stayed green — a red describing the host, not the code.",
+  "delta": [
+    "tools/browser-bin.mjs now probes the real workload — it dumps a throwaway page and checks the output, not just `--version` — so a candidate that cannot complete a dump is rejected with its failure signature recorded. (Tightens the 10-03 resolver law from 'will it run' to 'will it finish this workload'.)",
+    "Resolution order extended with the Playwright cache layouts (chrome-headless-shell + Chrome for Testing app bundle), newest first; a wedged system browser no longer blocks the fleet.",
+    "SMOKE_BROWSER pin still honored above all candidates; kestrel's chrome-wrap.sh exit-code shim is no longer needed (pin path remains)."
+  ],
+  "after": "Local page battery: before = TIMEOUT on every case; after = full smoke suite 90/91 PASS plus fold-bloom spine smoke PASS. Sole non-pass, `FIELD advance-as-scale transition`, was measured separately as a pre-existing timing flake (2 FAIL / 1 PASS across 3 runs, both nativeElapsed 75ms and 592ms observed; also under SMOKE_SLOW=2) — carded t_808aabab; not cased as a resolver regression.",
+  "evidence": {
+    "commit": "eb590505 (origin/master)",
+    "verified": "python3 tools/finish-line.py --verify eb590505 — PASS (asks the remote, not the worktree)",
+    "ci": "public-surface-check run 37511288206 — success",
+    "suite_log": "~/.hermes/profiles/thisjustthing/cache/scratch/smoke-full-154fix.log (90/91)",
+    "specimen": "Chrome 154.0.8037.98 / macOS 26.3; `CVDisplayLinkCreateWithCGDisplay failed (-6670)` + `Teardown watchdog expired`; Playwright chromium_headless_shell-1243 and chromium-1243 (Chrome for Testing 153) both complete dumps exit 0, fast.",
+    "reverse": "Single file (tools/browser-bin.mjs); `git revert eb590505` restores prior behavior exactly."
+  },
+  "laws": [
+    "A probe that answers 'does it start' is not a probe that answers 'does it finish'. VERIFY THE CLAIM, NOT THE ARTIFACT, one layer down: the claim is completion of the actual workload.",
+    "When a local battery goes red while CI stays green, the difference is the HOST. Re-measure the host before touching the test — and re-probe after platform updates."
+  ],
+  "open": [
+    "FIELD INDEX is route-anchored; tooling/lib work (this return; the 10-03 resolver consolidation) still has no route to land under — same mapping question, repeated, not resolved here.",
+    "`FIELD advance-as-scale transition` timing flake — card t_808aabab."
+  ],
+  "object_ref": "tools/browser-bin.mjs",
+  "receipt": "/returns/BROWSER_RESOLVER_WORKLOAD_PROBE_2026-10-07.json"
+}
