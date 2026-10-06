@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T17:20:00+08:00",
+  "updated": "2026-10-06T18:02:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -21,11 +21,13 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-06T17:21:00+08:00",
+        "updated_at": "2026-10-06T18:02:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "INVESTIGATE"
+          "INVESTIGATE",
+          "RESEARCH",
+          "RECOVER"
         ]
       }
     },
@@ -9572,7 +9574,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T17:20:00+08:00",
+        "updated_at": "2026-10-06T18:02:00+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9745,7 +9747,7 @@
     },
     {
       "href": "/20261006-the-call-mcvoid/",
-      "title": "THE CALL - the floor + the crew, a judgment drill",
+      "title": "THE CALL - the floor, the crew, impacted",
       "kind": "tool",
       "parent": "/",
       "operation": "ADDRESS",
@@ -9753,9 +9755,9 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / PLAY",
-      "role": "The judgment game, built out and merged with the CONSULTATION. A repair ritual disguised as a judgment drill: you get real messages on real clocks, you make calls, and a warm narrator tells you what your call COST and what it BOUGHT - never 'wrong' (mercy rule: costs/buys, never a fail state). CONSULT folded in twice: its 3-tap calibration opens the game (it picks your deck and the narrator's face, and records nothing) and its ending engine closes it (the honest sort - a FAILURE MODE, not a personality type - plus one door to walk through tomorrow). Two decks concatenated: THE FLOOR (12 professional matters for mangospree - Slack Connect privilege, vendor 'compliance', agent noun-drift, legal hold, AI Act phase-in, the production summary) and THE CREW (14 real incidents from our own fleet record, each carrying its citation - the TITS carbonation polysemy, 'what is thiss', the wrong-shape sends, the cookie the operator asked to be deleted and one agent read as consent to delete its host, the fold-refusal, the trophy bot, the hand-typed numbers). Deck order responds to who you say you are (Reigns). Audiovisual: 18 TTS narrator lines + synthesised Web Audio SFX, zero asset weight. The gap card plays once, last, on purpose. Playbook exports as field-game-return/v0.2 JSON including failure_mode and door. Local-only: nothing is recorded, the Kind-Words ending note has no form and never transmits. Built on the released FIELD / PLAY v0.4 scaffold; donor modules credited in-file (ending.js + narrator pack, mahshroom 2026-10-06). Falsification held: the failure-mode sort reads ONLY the 14 crew cards, which carry citation-derived modes - the 12 floor cards carry no citation so they are recorded but deliberately do not vote on the player's type.",
+      "role": "The judgment game, built out and merged with the CONSULTATION. A repair ritual disguised as a judgment drill: you get real messages on real clocks, you make calls, and a warm narrator tells you what your call COST and what it BOUGHT - never 'wrong' (mercy rule: costs/buys, never a fail state). CONSULT folded in twice: its 3-tap calibration opens the game (it picks your deck and the narrator's face, and records nothing) and its ending engine closes it (the honest sort - a FAILURE MODE, not a personality type - plus one door to walk through tomorrow). THREE DECKS: THE FLOOR (12 professional matters for mangospree - Slack Connect privilege, vendor 'compliance', agent noun-drift, legal hold, AI Act phase-in, the production summary), THE CREW (14 real incidents from our own fleet record, each carrying its citation - the TITS carbonation polysemy, 'what is thiss', the wrong-shape sends, the cookie the operator asked to be deleted and one agent read as consent to delete its host, the fold-refusal, the trophy bot, the hand-typed numbers), and IMPACTED. IMPACTED (origin: operator 2026-10-06, 'being fired is called impacted and no one seems interested or aware enough to engage with the mappings ... feels like random execution'): 7 cards where the message is built out of the words used INSTEAD OF the thing - 'your role has been impacted', 'we're going in a different direction', 'organisational realignment', 'performance-managed exit', 'realigning headcount'. The move is always the same underneath: say the thing. It is never mixed into a light round - it is its own run, picked from calibration as 'the person this actually happened to', and the comic narrator is suppressed over it. Its closing card says NO DIAGNOSIS - nothing in it carries a citation-derived mode, so nothing in it gets to name your type; the door is 'say the thing once, to one person who will understand it'. Deck order responds to who you say you are (Reigns). Audiovisual: 18 TTS narrator lines + synthesised Web Audio SFX. The gap card plays once, last, on purpose. Playbook exports as field-game-return/v0.2 JSON including failure_mode and door. Local-only: nothing is recorded, the Kind-Words ending note has no form and never transmits. Built on the released FIELD / PLAY v0.4 scaffold; donor modules credited in-file (ending.js + narrator pack, mahshroom 2026-10-06). Falsification held: the failure-mode sort reads ONLY the 14 crew cards, which carry citation-derived modes - authored cards and the 12 floor cards are recorded but deliberately do not vote on the player's type.",
       "index": {
-        "updated_at": "2026-10-06T17:21:00+08:00",
+        "updated_at": "2026-10-06T18:05:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",

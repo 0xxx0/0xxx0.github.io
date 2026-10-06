@@ -97,7 +97,7 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
 </style>
 
 <div class="wrap">
-<div class="eyebrow">field / play · judgment deck · the floor + the crew</div>
+<div class="eyebrow">field / play · judgment deck · the floor · the crew · impacted</div>
 <h1>THE CALL.<br><span class="thin">meaning is cheap.<br>judgment is the job.</span></h1>
 
 <!-- CONSULT calibration folded in: 3 taps, no data collected, it just picks your deck -->
@@ -117,6 +117,7 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
 </div>
 
 <div id="game" style="display:none">
+<div id="deckname"></div>
 <div class="deck" id="pips"></div>
 
 <div class="matter">
@@ -165,6 +166,7 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it. · n
 </div>
 
 <script src="deck-crew.js"></script>
+<script src="deck-euphemism.js"></script>
 <script src="ending.js"></script>
 <script>
 /* ───────────── audio: synthesised, zero assets ───────────── */
@@ -366,6 +368,10 @@ function buildDeck(face){
      It is not "unwinnable" — it is the card that punishes certainty. */
   const gapcard=CREW.filter(c=>/SELF-AUDIT-2026-10-05\.md #1/i.test(c.source||''));
   const crew=CREW.filter(c=>!gapcard.includes(c));
+  /* IMPACTED — the euphemism deck. Its own run, not mixed: the material is heavier and
+     mixing it into a light round would undercut both. Picked from calibration, plays whole. */
+  const IMP=(window.EUPHEMISM_DECK||[]).map(c=>Object.assign({},c,{face:'euphemism'}));
+  if(face==='euphemism') return IMP;
   let out=[];
   if(face==='floor') out=F.slice();
   else if(face==='crew') out=crew.concat(gapcard);
@@ -380,7 +386,8 @@ const CALIB_Q=[
   {k:'who', q:'Who are you here?', o:[
     {t:'the person who has to answer for it', v:'floor'},
     {t:'the one who has to live with it', v:'crew'},
-    {t:'both, obviously', v:'both'}]},
+    {t:'both, obviously', v:'both'},
+    {t:'the person this actually happened to', v:'euphemism'}]},
   {k:'sit', q:'Where do you sit?', o:[
     {t:'in the middle of the message', v:'floor'},
     {t:'somewhere it lands', v:'crew'},
@@ -405,14 +412,25 @@ function calibPick(i){
   sfxTap();
   if(calibStep<CALIB_Q.length-1){calibStep++;renderCalib();return;}
   const votes=Object.values(calibAnswers);
-  const face=votes.includes('both')?'both':(votes.filter(v=>v==='crew').length>votes.filter(v=>v==='floor').length?'crew':'floor');
+  // 'euphemism' is a position in the story, not a vote: one tap for it wins outright
+  const v=Object.values(calibAnswers);
+  const face = v.includes('euphemism') ? 'euphemism'
+             : (v.includes('both') ? 'both'
+             : (v.filter(x=>x==='crew').length > v.filter(x=>x==='floor').length ? 'crew' : 'floor'));
   CALIB=face; window.GAME_FACE=face;
   MATTERS=buildDeck(face);
   results=new Array(MATTERS.length).fill(null);
   $('calib').style.display='none';
   $('game').style.display='block';
-  const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both'}[face];
-  narrate(intro);
+  // name the deck; do not explain it
+  const DN={floor:'THE FLOOR — the professional matters',
+            crew:'THE CREW — our own record',
+            both:'THE FLOOR + THE CREW',
+            euphemism:'IMPACTED — the words used instead of the thing'};
+  $('deckname').innerHTML='<div class="eyebrow">'+DN[face]+'</div>';
+  // the euphemism deck gets no comic voice — the narrator stays out of its way
+  const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both',euphemism:null}[face];
+  if(intro) narrate(intro);
   deal();
 }
 
@@ -471,7 +489,9 @@ function choose(i){
   $('after').classList.add('show');
   /* MERCY: no "wrong". An expensive call is one you made knowing the price. */
   const isGap=/SELF-AUDIT-2026-10-05\.md #1/i.test(m.source||'');
-  if(hasRight){
+  const heavy=(m.face==='euphemism');   // no comic voice over this material
+  if(heavy){ sfxTap(); }
+  else if(hasRight){
     if(right){
       sfxRight();
       // callback-gap is the one habit line whose trigger we can cite: the gap card's right call IS
@@ -480,7 +500,7 @@ function choose(i){
       if(isGap) narrate('callback-gap'); else narrate('verdict-instinct-'+(1+(idx%4)));
     }
     else { sfxWrong(); narrate('verdict-expensive-'+(1+(idx%5))); }
-  } else {
+  } else if(!heavy) {
     narrate('verdict-expensive-1');
   }
   $('next').disabled=false;
@@ -509,8 +529,30 @@ function finish(){
         String(m.move).replace(/^Rule:\s*/,'')+'</div>'+
         '<div class="m">'+lab+' · '+esc(m.who)+'</div></div>';}).join('');
 
-  /* the honest sort (donor: ending.js) — failure mode, not personality; buys/costs/one door */
-  try{
+  /* the honest sort (donor: ending.js) — failure mode, not personality; buys/costs/one door.
+     HELD TO THE SAME LAW AS THE CARDS: no diagnosis without a vote. When nothing in the deck
+     carries a citation-derived mode (the IMPACTED deck is authored, not cited), the sort must
+     not invent a type from zero evidence — it says so instead. */
+  const modeled=MATTERS.filter(c=>c.mode).length;
+  if(modeled===0){
+    $('ending').innerHTML=
+      '<div class="ending">'+
+      '<div class="eyebrow">the honest sort · withheld</div>'+
+      '<div class="emode">NO DIAGNOSIS</div>'+
+      '<div class="g"><span class="tag">buys</span> nothing here votes on your type, so nothing here gets to name it. '+
+      'These seven cards are about what was done with words to you — not about what you are.</div>'+
+      '<div class="g"><span class="tag">costs</span> you do not get a neat label to take away. That is the price of not '+
+      'being sorted by material that was never about sorting.</div>'+
+      '<div class="g"><span class="tag">your door</span> <b>Say the thing once, to one person who will understand it. '+
+      'That is the entire move, and it is the one this deck is built to make available.</b></div>'+
+      '<div class="ev">Calls: <b>'+got+'</b> named it · <b>'+expensive+'</b> let it stand · '+skipped+
+      ' unread. Nothing is recorded. Nothing leaves this browser.</div>'+
+      '</div>';
+    $('ending').style.display='block';
+    narrate('ending-doors');
+    setTimeout(()=>narrate('ending-heal'), 2600);
+  }
+  else try{
     if(window.CALL_ENDING){
       const E=window.CALL_ENDING;
       const t=E.tally(MATTERS, results);
