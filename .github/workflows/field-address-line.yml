@@ -1,0 +1,40 @@
+name: field-address-line
+on:
+  pull_request:
+    paths:
+      - 'field-address-line.js'
+      - 'field-awake-visor.js'
+      - 'lib/field-address-grammar.mjs'
+      - 'tools/field-address-line-selftest.mjs'
+      - 'field-glyph.js'
+      - 'showcase-manifest.json'
+      - '.github/workflows/field-address-line.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'field-address-line.js'
+      - 'field-awake-visor.js'
+      - 'lib/field-address-grammar.mjs'
+      - 'tools/field-address-line-selftest.mjs'
+      - 'field-glyph.js'
+      - 'showcase-manifest.json'
+      - '.github/workflows/field-address-line.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check address grammar syntax
+        run: node --check lib/field-address-grammar.mjs
+      - name: Check address-line browser module syntax
+        run: node --input-type=module --check < field-address-line.js
+      - name: Check root projection bundle syntax
+        run: node --input-type=module --check < field-awake-visor.js
+      - name: Prove address line stays a projection over existing FIELD semantics
+        run: node tools/field-address-line-selftest.mjs
