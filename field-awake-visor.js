@@ -1,3 +1,5 @@
+import './field-address-line.js';
+
 const KEY='field.interphase.visor.seen.v02';
 const QUERY=new URLSearchParams(location.search);
 const DONOR='/recovery/semantic-painting-v0.8/';
