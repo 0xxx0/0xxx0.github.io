@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T03:53:47+08:00",
+  "updated": "2026-10-07T06:44:37+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10,6 +10,45 @@
     "RETURN"
   ],
   "routes": [
+    {
+      "href": "/20261007-art-atlas/",
+      "title": "ART ATLAS — instruments for looking and making",
+      "kind": "index",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": true,
+      "family": "FIELD / ART",
+      "role": "Library of art instruments: Borrowed River (playable ink), Painting/Path (recovery), Atlas Dayline (radial planning), Dayline Confluence (mobile cockpit), and external links (InkPainting, inkField, Pure Ink, Google Arts & Culture). Each entry shows source, play path, and return type.",
+      "index": {
+        "updated_at": "2026-10-07T06:44:37+08:00",
+        "work_modes": [
+          "ADDRESS",
+          "PLAY",
+          "RESEARCH"
+        ]
+      }
+    },
+    {
+      "href": "/20261007-borrowed-river/",
+      "title": "BORROWED RIVER — an original ink voyage",
+      "kind": "instrument",
+      "parent": "/20261007-art-atlas/",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": true,
+      "family": "FIELD / ART",
+      "role": "Playable Chinese ink landscape: draw a river from boat to lantern around solid rocks under a finite brush. Branch choices, return-home sailing, exportable painting + deterministic voyage JSON. Museum-grade references (Palace Museum, Taiwan NPM).",
+      "index": {
+        "updated_at": "2026-10-07T06:44:37+08:00",
+        "work_modes": [
+          "PLAY",
+          "ADDRESS"
+        ]
+      }
+    },
     {
       "href": "/desk/",
       "title": "FIELD DESK",
