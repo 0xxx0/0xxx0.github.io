@@ -92,6 +92,16 @@ return  { gate, to }
 
 Ten leaf fields. `source.object` stays the same end-to-end. `turn.move` is exactly one operation. `release` is `NONE` unless an explicit native commit/RELEASE boundary is crossed. There is deliberately no `actor` field and no `next` field: crew identity does not grant authority, and RETURN closes authority. Use the full submission envelope only while object/host/provenance/contribution classification is unresolved.
 
+Validate/render that exact 10-leaf packet directly:
+
+`node tools/crew-turn.mjs <packet.json>`
+
+Structured normalized form:
+
+`node tools/crew-turn.mjs <packet.json> --json`
+
+This helper does not create a second protocol. It validates the canonical minimum projection, preserves the same addressed object, fails `CHANGED` / `UNCHANGED` closed when evidence is empty, emits `next_authority: NONE`, and never adds actor, priority, NOW, queue, memory, or effect authority.
+
 When the object is already known but nobody should hand-copy CURRENT/manifest context, prefill that **same** submission/handoff contract from one exact route or CURRENT lineage:
 
 `node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> --submission > /tmp/field-submission.json`
@@ -125,6 +135,7 @@ Bounded execution protocol (human + coding workers):
 - one-page operating notes + packet template: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
 - submission / crew bridge: `/control/SUBMISSION_CONTRACT.json`
 - exact-object staging helper: `node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage>`
-- selftest: `node tools/source-hold-turn-trace-return-selftest.mjs`
+- direct 10-leaf validator: `node tools/crew-turn.mjs <packet.json>`
+- selftests: `node tools/source-hold-turn-trace-return-selftest.mjs` and `node tools/field-crew-turn-selftest.mjs`
 
 Use it after selecting an object: one exact source, one held focus, ≤3 lawful moves, one TURN, machine-verifiable TRACE where possible, then RETURN. EFFECT requires explicit native commit/RELEASE. After RETURN re-read CURRENT; no second move inherits authority.
