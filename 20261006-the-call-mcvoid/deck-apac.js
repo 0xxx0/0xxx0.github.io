@@ -1,8 +1,9 @@
 /*
- * deck-apac.js — FOUR MARKETS: ID · TH · VN · PH (the clocks disagree).
+ * deck-apac.js — APAC LEGAL-OPS: ID · TH · VN · PH · SG · HK · TW · KR · JP · AU · ASEAN-wide · Cross-border
+ * (the clocks disagree).
  * window.APAC_DECK = Card[] — same shape as FLOOR.
  *
- * Rebuilt from deck-apac.json: 26 SOURCED situations (26 citations), replacing
+ * Rebuilt from deck-apac.json: 31 SOURCED situations (31 citations), replacing
  * 9 invented archetypes. Real reported situations only — a deck that names real
  * regulators and real dates and then invents the situation is the "fake bullshit"
  * the operator named. Every matter here traces to a published source.
@@ -27,6 +28,125 @@ window.APAC_DECK = [
     ],
     move:'Rule: Indonesia\'s registration duty binds foreign operators whose system is used or offered in the territory — register through OSS before launch, because access blocking is the standing consequence of non-registration and lifts once registration completes.',
     ev:'The Register, 1 Aug 2022: "Indonesia has blocked access to PayPal, Yahoo*!*, plus Epic Games and Steam... The bans were flagged in recent weeks after Indonesia required online businesses to register as Private Scope Electronic System Operators"; Kominfo "lifted the ban on PayPal for five days" so residents could move their money.'
+  },
+  {
+    id:'apac-06',
+    who:'regional privacy counsel',
+    meta:'EMAIL · PDPC precedent watch · 08:15',
+    clock:'72h',
+    clocklab:'to report a breach to the PDPC',
+    text:'Thailand\'s first PDPA fine is public: a major online retailer with data from over 100,000 customers, fined THB 7 million — no DPO appointed, inadequate security, delayed breach notification, and the leak was later exploited in call-centre scams. We hold about 200,000 Thai customer records, we\'ve never named a Thai DPO, and our breach-reporting runbook says \'within a week of confirmation.\'',
+    market:'Thailand',
+    source:'https://chambers.com/downloads/gpg/932/029_thailand.pdf',
+    calls:[
+    {k:'A', t:'Appoint the DPO now and rebuild the runbook around the 72-hour PDPC report', v:'<b>Costs:</b> a named officer with real duties and a runbook that fires before the investigation is complete. <b>Buys:</b> the two failure pillars of the landmark fine removed — no DPO (Section 41) and delayed breach notification (Section 37(4)) are the counts that drew the maximum.', right:true},
+    {k:'B', t:'Keep the week-long runbook and argue \'without undue delay\' leaves room', v:'<b>Costs:</b> the same late-notification finding that anchored the THB 7 million decision, with the exploitation aftermath attached. <b>Buys:</b> a calmer internal process while facts settle.', right:false},
+    {k:'C', t:'Name a DPO on paper only — an existing regional manager with no local duties', v:'<b>Costs:</b> an appointment that shows up in the file but not in the response, which is the shape enforcement looks at. <b>Buys:</b> the org chart requirement ticked cheaply.', right:false}
+    ],
+    move:'Rule: Thailand\'s enforcement template is set — appoint the DPO where required and report a breach to the PDPC within 72 hours; the country\'s first administrative fine ran THB 7 million against an e-retailer on those very counts.',
+    ev:'Chambers Global Practice Guides, Data Protection & Privacy 2025 (Thailand): "On 21 August 2024, the expert committee issued a maximum administrative fine of THB7 million to a major online retail company in Thailand for failing to protect personal data... The company had collected data from over 100,000 customers but did not appoint a data protection officer (DPO) or implement adequate security measures, leading to data leaks to call centre scams."'
+  },
+  {
+    id:'apac-11',
+    who:'Hanoi-based IT manager',
+    meta:'EMAIL · RE: vendor incident · 09:30',
+    clock:'72 hours',
+    clocklab:'to notify the Ministry of Public Security',
+    text:'Our HR vendor got hit and Vietnamese employees\' data is in the exfiltrated set. We process in Vietnam and the vendor hosts in Singapore. Decree 13 says the controller notifies the Ministry of Public Security within 72 hours of a data breach using the prescribed form, and we still owe the impact-assessment dossier for this processing stream. Nobody in the region has filed with A05 before.',
+    market:'Vietnam',
+    source:'https://www.pwc.com/vn/en/publications/2023/newsbrief-decree-13-personal-data.pdf',
+    calls:[
+    {k:'A', t:'File the prescribed breach form with the MPS within 72 hours and open the impact assessment dossier', v:'<b>Costs:</b> a first filing in a prescribed form with A05 watching, plus the remedial dossier work behind it. <b>Buys:</b> the PDPD\'s clock met — notification within 72 hours with the measures taken to minimise the incident\'s consequences, on the form the decree provides.', right:true},
+    {k:'B', t:'Report through the vendor and treat their filing as covering the incident', v:'<b>Costs:</b> the controller\'s notification duty sits with the controller, not the vendor\'s incident queue. <b>Buys:</b> a single reporting channel and no duplicate filing.', right:false},
+    {k:'C', t:'Wait until the Singapore host confirms what left their environment', v:'<b>Costs:</b> the 72 hours run from the breach, not from the hosting provider\'s final report. <b>Buys:</b> a fuller description of the data involved when the notice is eventually sent.', right:false}
+    ],
+    move:'Rule: Vietnam\'s Decree 13/2023 puts the controller\'s breach notice to the Ministry of Public Security on a 72-hour clock, using the prescribed form and describing the measures taken to minimise the consequences — and the processing impact assessment is a standing dossier obligation, not an incident afterthought.',
+    ev:'PwC Vietnam, Decree 13/2023/ND-CP on Personal Data Protection: "Within 72 hours from a data breach or other violation of the PDPD, the personal data controller and the personal data controller cum processor are obliged to notify the Ministry of Public Security of the incident (including the measures taken to minimise the incident\'s consequences) using the form provided in the PDPD"; "Within 60 days of the date of data processing, organisations are required to prepare a personal data protection impact assessment."'
+  },
+  {
+    id:'apac-15',
+    who:'IT director, Manila shared services',
+    meta:'EMAIL · RE: payroll file exposure · 16:20',
+    clock:'72 hours',
+    clocklab:'to notify data subjects and the NPC; full report in 5 days',
+    text:'A misconfigured share exposed HR files for about 600 employees — names, government IDs, addresses. We found it this morning. NPC\'s published handling of the DOST incident is our playbook: they went on-site, and the DOST notified within the 72-hour window Circular 16-03 sets. Legal asks whether we can hold notification until the file-access audit finishes next week.',
+    market:'Philippines',
+    source:'https://privacy.gov.ph/category/press-statement/',
+    calls:[
+    {k:'A', t:'Notify the affected data subjects and file through the DBNMS within 72 hours; follow with the complete report in five days', v:'<b>Costs:</b> a notification built on preliminary access logs, and the five-day full report behind it. <b>Buys:</b> the Circular 16-03 sequence met in order — and note the rule against delay: with 600 subjects the no-delay carve-out for incidents affecting at least 100 data subjects applies.', right:true},
+    {k:'B', t:'Hold everything until the file-access audit is complete', v:'<b>Costs:</b> the clock runs from knowledge or reasonable belief that a notifiable breach occurred — the audit timeline is your comfort, not the statute\'s. <b>Buys:</b> one notification with the true numbers and no supplements.', right:false},
+    {k:'C', t:'Notify the NPC only and tell employees through the next town hall', v:'<b>Costs:</b> the duty runs to the data subjects individually as well as the Commission, and a town hall is not individual notice. <b>Buys:</b> a single controlled communication to the workforce.', right:false}
+    ],
+    move:'Rule: In the Philippines, notification to the NPC and affected data subjects runs 72 hours from knowledge or reasonable belief of a notifiable breach, the complete report follows within five days — and notification cannot be delayed where the breach involves at least one hundred data subjects.',
+    ev:'NPC press statement (DOST breach): "Under NPC Circular 16-03, it is mandatory for the DOST to notify the affected data subjects and the NPC within 72 hours upon knowledge of or a reasonable belief that a personal data breach has occurred"; DLA Piper (Philippines): "The full report of the personal data breach must be submitted within five (5) days from notification"; "There can be no delay in the notification if the breach involves at least one hundred (100) data subjects."'
+  },
+  {
+    id:'apac-19',
+    who:'vendor risk manager',
+    meta:'EMAIL · RE: PDPC decision on our POS vendor · 15:26',
+    clock:'30 days',
+    clocklab:'for the vendor to pay the financial penalty',
+    text:'Our POS/CRM vendor just published a PDPC decision against it: two incidents in 2024, exfiltration of files affecting 698,112 individuals, breach of the section 24 Protection Obligation, a $17,500 financial penalty, and directions to implement security measures within 90 days. They went through the Expedited Decision Procedure — meaning they admitted the facts outright. Our customer data sits on their servers too.',
+    market:'Singapore',
+    source:'https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/commissions-decisions/gd_singapore-data-hub-pte-ltd_07042025.pdf',
+    calls:[
+    {k:'A', t:'Use the decision to bind the vendor contractually to the same security direction and verify within 90 days', v:'<b>Costs:</b> negotiation leverage spent on audit rights and a remediation schedule rather than a discount. <b>Buys:</b> the regulator\'s own findings as your specification — section 24 expects IT security beyond basic access control where a provider holds or controls a high volume of personal data.', right:true},
+    {k:'B', t:'Accept the penalty as the vendor\'s problem and renew on standard terms', v:'<b>Costs:</b> your data sits inside the same network the Commission found insufficient — the decision names the failure, not just the vendor. <b>Buys:</b> no procurement friction and a fast renewal.', right:false},
+    {k:'C', t:'Terminate immediately and migrate to a new provider', v:'<b>Costs:</b> a migration during remediation season, and the new provider\'s controls untested by any comparable incident. <b>Buys:</b> distance from a named enforcement record.', right:false}
+    ],
+    move:'Rule: Singapore\'s section 24 Protection Obligation expects security arrangements beyond basic access control for organisations that hold or control a high volume of personal data — and a decision obtained under the Expedited Decision Procedure is an admission of the facts, usable as the specification for your own vendor terms.',
+    ev:'PDPC Decision DP-2406-C2514: incidents on 28 April and 14 June 2024 "led to exfiltration of files within its servers affecting 698,112 individuals"; "As a provider of POS and CRM software solutions, the Organisation was expected to implement IT security arrangements beyond basic access control to secure its network from external threats"; financial penalty of $17,500 with directions to implement measures "within 90 days from the date of this decision."'
+  },
+  {
+    id:'apac-27',
+    who:'incident response lead',
+    meta:'SLACK #kr-legal · 06:33 KST',
+    clock:'72 hours',
+    clocklab:'from awareness to PIPC + data subjects',
+    text:'Forensics confirms unauthorised access to the Korean user database \u2014 around 12,000 records including names, phone numbers and KakaoTalk IDs. The PIPA amendment changed the game: breach now includes "forgery, alteration, or damage", not just loss/theft/disclosure, and the 2023 amendment introduced a \u201cpossibility notification\u201d \u2014 if you suspect a breach may have occurred, you must notify potentially affected data subjects without delay. The GC wants to wait until we know for sure.',
+    market:'Korea',
+    source:'https://chambers.com/articles/pipa-amendment-passes-national-assembly-plenary-session',
+    calls:[
+    {k:'A', t:'Notify data subjects of the possibility immediately, file the PIPC report within 72 hours, and supplement as facts firm up', v:'<b>Costs:</b> an early message that may later be revised, and board discomfort with notifying before certainty. <b>Buys:</b> the amended PIPA\'s two clocks met \u2014 suspicion triggers the data-subject notice, confirmation triggers the PIPC report, and both run from awareness not from finished investigation.', right:true},
+    {k:'B', t:'Wait for certainty, then send one complete notification', v:'<b>Costs:</b> the suspicion clock runs independently of the confirmation clock; waiting for certainty misses the \u201cpossibility\u201d duty and leaves the 72-hour PIPC window at risk. <b>Buys:</b> one clean message with no revisions.', right:false},
+    {k:'C', t:'Notify the PIPC only and hold the data-subject message until confirmed', v:'<b>Costs:</b> the amended PIPA requires affected data subjects be notified of possibility \u2014 PIPC-only leaves half the duty unmet and the subjects uninformed. <b>Buys:</b> regulator contact maintained and public exposure deferred.', right:false}
+    ],
+    move:'Rule: Korea\'s amended PIPA (2023) runs two breach clocks \u2014 notify affected data subjects without delay when a breach is suspected, and report to PIPC within 72 hours when confirmed; the scope now covers forgery, alteration and damage, not just loss/theft/disclosure.',
+    ev:'Chambers, PIPA Amendment: the amendment "expands the concept of data breach" to include "forgery, alteration, or damage"; "where a data handler becomes aware of the possibility of a data breach... the data handler is now required to notify, without delay, all potentially affected data subjects of such possibility"; DLA Piper: "a report obligation" to PIPC within 72 hours.'
+  },
+  {
+    id:'apac-29',
+    who:'Japan privacy officer',
+    meta:'EMAIL · RE: APPI enforcement rules · 14:55 JST',
+    clock:'April 2024',
+    clocklab:'enforcement rules expanded',
+    text:'The amended APPI Enforcement Rules took effect in April 2024. The PPC now requires reporting and notification for a broader range of incidents \u2014 including cases where personal data is "likely to have been leaked" even if not confirmed, and where the volume or sensitivity crosses new thresholds. Our incident-response runbook still says "confirm first, report second."',
+    market:'Japan',
+    source:'https://www.nishimura.com/en/knowledge/newsletters/data_protection_240305',
+    calls:[
+    {k:'A', t:'Update the runbook to the new thresholds: report when leakage is likely, not only when confirmed, and name the new sensitivity/volume triggers', v:'<b>Costs:</b> runbook rewrite, training, and a higher reporting volume as the threshold drops from certainty to likelihood. <b>Buys:</b> the amended rules met on their own terms \u2014 the PPC\'s expanded scope is now the legal baseline, not best practice.', right:true},
+    {k:'B', t:'Keep the confirm-first rule and accept the risk of late reporting if the PPC disagrees with our likelihood assessment', v:'<b>Costs:</b> the PPC\'s expanded rules deliberately capture likely leaks; a confirm-first stance reads as non-compliance if the regulator assesses likelihood differently. <b>Buys:</b> lower reporting volume and fewer false positives.', right:false},
+    {k:'C', t:'Report everything and let the PPC sort out what counts', v:'<b>Costs:</b> regulator fatigue and a reputation for crying wolf; the rules name specific thresholds, not a universal duty. <b>Buys:</b> zero risk of a missed report.', right:false}
+    ],
+    move:'Rule: Japan\'s amended APPI Enforcement Rules (April 2024) expanded breach reporting to include cases where personal data is likely to have been leaked, with new sensitivity and volume thresholds \u2014 the duty runs on likelihood, not confirmation.',
+    ev:'Nishimura & Asahi, Data Protection Newsletter: "The Amended Enforcement Rules expand the scope of data breach incidents that must be reported to the PPC and notified to the affected data subjects"; Monolith Law: "the revised Japanese Personal Information Protection Act Enforcement Regulations will come into effect... the amendment expands the scope of obligations to report... in the event of a data breach."'
+  },
+  {
+    id:'apac-30',
+    who:'Australia CISO',
+    meta:'EMAIL · RE: OAIC determination · 09:12 AEDT',
+    clock:'as soon as practicable',
+    clocklab:'assessment then notification',
+    text:'The OAIC just published the Australian Clinical Labs determination: 223,000 individuals, cyberattack on acquired Medlab servers, $5.8 million in civil penalties. The court found ACL failed to assess whether there were reasonable grounds to believe an eligible data breach had occurred, and then failed to notify the Commissioner as soon as practicable. Our runbook has no timeline for the assessment phase.',
+    market:'Australia',
+    source:'https://www.oaic.gov.au/about-the-OAIC/our-regulatory-approach/guide-to-privacy-regulatory-action/chapter-11-data-breach-incidents',
+    calls:[
+    {k:'A', t:'Add a bounded assessment timeline to the runbook (e.g., 48-72 hours) and define the trigger for moving to notification', v:'<b>Costs:</b> a tighter front-end process and potential false positives if assessments run fast. <b>Buys:</b> the ACL court accepted 2-3 days for notification was practicable once grounds were believed; an explicit assessment window prevents the gap that produced the penalty.', right:true},
+    {k:'B', t:'Notify the Commissioner immediately on any suspected breach and assess in parallel', v:'<b>Costs:</b> premature notifications create regulatory noise and may trigger Commissioner oversight before the facts are stable. <b>Buys:</b> no risk of a late notification finding.', right:false},
+    {k:'C', t:'Wait for forensic certainty before either assessment or notification', v:'<b>Costs:</b> the NDB scheme requires assessment of suspected eligible breaches and notification as soon as practicable; waiting for certainty reproduces the ACL failure pattern. <b>Buys:</b> one complete, accurate story.', right:false}
+    ],
+    move:'Rule: Australia\'s NDB scheme requires a reasonable and expeditious assessment of suspected eligible data breaches, followed by Commissioner notification and individual notification as soon as practicable \u2014 the ACL court accepted 2-3 days was practicable once reasonable grounds were believed.',
+    ev:'OAIC Guide to Privacy Regulatory Action: "carry out an assessment of a suspected eligible data breach"; FCA, Australian Information Commissioner v Australian Clinical Labs Limited (No 2) [2025] FCA 1224: "it was practicable for it to have prepared a statement... within two to three days of it becoming aware on 16 June 2022 of reasonable grounds to believe that there had been an eligible data breach."'
   },
   {
     id:'apac-02',
@@ -97,23 +217,6 @@ window.APAC_DECK = [
     ev:'MAM Solutions, PSE Registration in Indonesia: "A registered operator appoints at least one contact person who lives in Indonesia, to receive official requests for access to the system or its data (Permenkominfo 5/2020, Article 25(1)). It is a named contact, not a local company, a legal representative or a nominee, and it applies on both routes."'
   },
   {
-    id:'apac-06',
-    who:'regional privacy counsel',
-    meta:'EMAIL · PDPC precedent watch · 08:15',
-    clock:'72h',
-    clocklab:'to report a breach to the PDPC',
-    text:'Thailand\'s first PDPA fine is public: a major online retailer with data from over 100,000 customers, fined THB 7 million — no DPO appointed, inadequate security, delayed breach notification, and the leak was later exploited in call-centre scams. We hold about 200,000 Thai customer records, we\'ve never named a Thai DPO, and our breach-reporting runbook says \'within a week of confirmation.\'',
-    market:'Thailand',
-    source:'https://chambers.com/downloads/gpg/932/029_thailand.pdf',
-    calls:[
-    {k:'A', t:'Appoint the DPO now and rebuild the runbook around the 72-hour PDPC report', v:'<b>Costs:</b> a named officer with real duties and a runbook that fires before the investigation is complete. <b>Buys:</b> the two failure pillars of the landmark fine removed — no DPO (Section 41) and delayed breach notification (Section 37(4)) are the counts that drew the maximum.', right:true},
-    {k:'B', t:'Keep the week-long runbook and argue \'without undue delay\' leaves room', v:'<b>Costs:</b> the same late-notification finding that anchored the THB 7 million decision, with the exploitation aftermath attached. <b>Buys:</b> a calmer internal process while facts settle.', right:false},
-    {k:'C', t:'Name a DPO on paper only — an existing regional manager with no local duties', v:'<b>Costs:</b> an appointment that shows up in the file but not in the response, which is the shape enforcement looks at. <b>Buys:</b> the org chart requirement ticked cheaply.', right:false}
-    ],
-    move:'Rule: Thailand\'s enforcement template is set — appoint the DPO where required and report a breach to the PDPC within 72 hours; the country\'s first administrative fine ran THB 7 million against an e-retailer on those very counts.',
-    ev:'Chambers Global Practice Guides, Data Protection & Privacy 2025 (Thailand): "On 21 August 2024, the expert committee issued a maximum administrative fine of THB7 million to a major online retail company in Thailand for failing to protect personal data... The company had collected data from over 100,000 customers but did not appoint a data protection officer (DPO) or implement adequate security measures, leading to data leaks to call centre scams."'
-  },
-  {
     id:'apac-07',
     who:'Thai country counsel',
     meta:'LINE · urgent · 22:10',
@@ -182,23 +285,6 @@ window.APAC_DECK = [
     ev:'Chambers Global Practice Guides, Data Protection & Privacy 2026 (Thailand): "On 24 November 2025, Thai authorities stated that the PDPC ordered relevant service providers/entities to suspend iris scanning and delete/destroy iris and personal data already collected" — reported as affecting approximately 1.2 million users in Thailand, citing PDPA breaches and concerns around unlawful consent.'
   },
   {
-    id:'apac-11',
-    who:'Hanoi-based IT manager',
-    meta:'EMAIL · RE: vendor incident · 09:30',
-    clock:'72 hours',
-    clocklab:'to notify the Ministry of Public Security',
-    text:'Our HR vendor got hit and Vietnamese employees\' data is in the exfiltrated set. We process in Vietnam and the vendor hosts in Singapore. Decree 13 says the controller notifies the Ministry of Public Security within 72 hours of a data breach using the prescribed form, and we still owe the impact-assessment dossier for this processing stream. Nobody in the region has filed with A05 before.',
-    market:'Vietnam',
-    source:'https://www.pwc.com/vn/en/publications/2023/newsbrief-decree-13-personal-data.pdf',
-    calls:[
-    {k:'A', t:'File the prescribed breach form with the MPS within 72 hours and open the impact assessment dossier', v:'<b>Costs:</b> a first filing in a prescribed form with A05 watching, plus the remedial dossier work behind it. <b>Buys:</b> the PDPD\'s clock met — notification within 72 hours with the measures taken to minimise the incident\'s consequences, on the form the decree provides.', right:true},
-    {k:'B', t:'Report through the vendor and treat their filing as covering the incident', v:'<b>Costs:</b> the controller\'s notification duty sits with the controller, not the vendor\'s incident queue. <b>Buys:</b> a single reporting channel and no duplicate filing.', right:false},
-    {k:'C', t:'Wait until the Singapore host confirms what left their environment', v:'<b>Costs:</b> the 72 hours run from the breach, not from the hosting provider\'s final report. <b>Buys:</b> a fuller description of the data involved when the notice is eventually sent.', right:false}
-    ],
-    move:'Rule: Vietnam\'s Decree 13/2023 puts the controller\'s breach notice to the Ministry of Public Security on a 72-hour clock, using the prescribed form and describing the measures taken to minimise the consequences — and the processing impact assessment is a standing dossier obligation, not an incident afterthought.',
-    ev:'PwC Vietnam, Decree 13/2023/ND-CP on Personal Data Protection: "Within 72 hours from a data breach or other violation of the PDPD, the personal data controller and the personal data controller cum processor are obliged to notify the Ministry of Public Security of the incident (including the measures taken to minimise the incident\'s consequences) using the form provided in the PDPD"; "Within 60 days of the date of data processing, organisations are required to prepare a personal data protection impact assessment."'
-  },
-  {
     id:'apac-12',
     who:'global infrastructure lead',
     meta:'EMAIL · RE: A05 letter · 10:02',
@@ -250,23 +336,6 @@ window.APAC_DECK = [
     ev:'Baker McKenzie, Decoding Vietnam\'s PDP Law: "All data transferors are required to prepare a Cross-Border Transfer Impact Assessment (CBTIA) and submit a copy of the same to the MPS within 60 days from the date of transfer"; "administrative fines are capped at VND 3 billion or 5% prior-year revenue for violation concerning cross-border data transfers. For illegal sale and purchase of personal data, the fine may reach 10 times the illegal gains."'
   },
   {
-    id:'apac-15',
-    who:'IT director, Manila shared services',
-    meta:'EMAIL · RE: payroll file exposure · 16:20',
-    clock:'72 hours',
-    clocklab:'to notify data subjects and the NPC; full report in 5 days',
-    text:'A misconfigured share exposed HR files for about 600 employees — names, government IDs, addresses. We found it this morning. NPC\'s published handling of the DOST incident is our playbook: they went on-site, and the DOST notified within the 72-hour window Circular 16-03 sets. Legal asks whether we can hold notification until the file-access audit finishes next week.',
-    market:'Philippines',
-    source:'https://privacy.gov.ph/category/press-statement/',
-    calls:[
-    {k:'A', t:'Notify the affected data subjects and file through the DBNMS within 72 hours; follow with the complete report in five days', v:'<b>Costs:</b> a notification built on preliminary access logs, and the five-day full report behind it. <b>Buys:</b> the Circular 16-03 sequence met in order — and note the rule against delay: with 600 subjects the no-delay carve-out for incidents affecting at least 100 data subjects applies.', right:true},
-    {k:'B', t:'Hold everything until the file-access audit is complete', v:'<b>Costs:</b> the clock runs from knowledge or reasonable belief that a notifiable breach occurred — the audit timeline is your comfort, not the statute\'s. <b>Buys:</b> one notification with the true numbers and no supplements.', right:false},
-    {k:'C', t:'Notify the NPC only and tell employees through the next town hall', v:'<b>Costs:</b> the duty runs to the data subjects individually as well as the Commission, and a town hall is not individual notice. <b>Buys:</b> a single controlled communication to the workforce.', right:false}
-    ],
-    move:'Rule: In the Philippines, notification to the NPC and affected data subjects runs 72 hours from knowledge or reasonable belief of a notifiable breach, the complete report follows within five days — and notification cannot be delayed where the breach involves at least one hundred data subjects.',
-    ev:'NPC press statement (DOST breach): "Under NPC Circular 16-03, it is mandatory for the DOST to notify the affected data subjects and the NPC within 72 hours upon knowledge of or a reasonable belief that a personal data breach has occurred"; DLA Piper (Philippines): "The full report of the personal data breach must be submitted within five (5) days from notification"; "There can be no delay in the notification if the breach involves at least one hundred (100) data subjects."'
-  },
-  {
     id:'apac-16',
     who:'external affairs manager',
     meta:'EMAIL · RE: NPC summons · 08:00',
@@ -316,23 +385,6 @@ window.APAC_DECK = [
     ],
     move:'Rule: Under NPC Circular 2024-01 the Case Management Division\'s Evaluating Officer resolves preliminary extension requests — extensions to notify or to file the full breach report run 20 calendar days from the request — and the request is granted or refused, not a self-service pause on any deadline.',
     ev:'Global Compliance News (Baker McKenzie), on NPC Circular 2024-01: "the CMD shall be the initial recipient of data breach notifications and shall immediately assign an Evaluating Officer to review the data breach notification... The preliminary requests for extensions granted by the CMD shall be for a period of 20 calendar days counted from the date of the request"; the evaluation report "may contain a recommendation for: (1) a possible violation of the DPA arising from the breach matter."'
-  },
-  {
-    id:'apac-19',
-    who:'vendor risk manager',
-    meta:'EMAIL · RE: PDPC decision on our POS vendor · 15:26',
-    clock:'30 days',
-    clocklab:'for the vendor to pay the financial penalty',
-    text:'Our POS/CRM vendor just published a PDPC decision against it: two incidents in 2024, exfiltration of files affecting 698,112 individuals, breach of the section 24 Protection Obligation, a $17,500 financial penalty, and directions to implement security measures within 90 days. They went through the Expedited Decision Procedure — meaning they admitted the facts outright. Our customer data sits on their servers too.',
-    market:'Singapore',
-    source:'https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/commissions-decisions/gd_singapore-data-hub-pte-ltd_07042025.pdf',
-    calls:[
-    {k:'A', t:'Use the decision to bind the vendor contractually to the same security direction and verify within 90 days', v:'<b>Costs:</b> negotiation leverage spent on audit rights and a remediation schedule rather than a discount. <b>Buys:</b> the regulator\'s own findings as your specification — section 24 expects IT security beyond basic access control where a provider holds or controls a high volume of personal data.', right:true},
-    {k:'B', t:'Accept the penalty as the vendor\'s problem and renew on standard terms', v:'<b>Costs:</b> your data sits inside the same network the Commission found insufficient — the decision names the failure, not just the vendor. <b>Buys:</b> no procurement friction and a fast renewal.', right:false},
-    {k:'C', t:'Terminate immediately and migrate to a new provider', v:'<b>Costs:</b> a migration during remediation season, and the new provider\'s controls untested by any comparable incident. <b>Buys:</b> distance from a named enforcement record.', right:false}
-    ],
-    move:'Rule: Singapore\'s section 24 Protection Obligation expects security arrangements beyond basic access control for organisations that hold or control a high volume of personal data — and a decision obtained under the Expedited Decision Procedure is an admission of the facts, usable as the specification for your own vendor terms.',
-    ev:'PDPC Decision DP-2406-C2514: incidents on 28 April and 14 June 2024 "led to exfiltration of files within its servers affecting 698,112 individuals"; "As a provider of POS and CRM software solutions, the Organisation was expected to implement IT security arrangements beyond basic access control to secure its network from external threats"; financial penalty of $17,500 with directions to implement measures "within 90 days from the date of this decision."'
   },
   {
     id:'apac-20',
@@ -450,7 +502,41 @@ window.APAC_DECK = [
     {k:'B', t:'Send the London certified translations and let the judge test them if challenged', v:'<b>Costs:</b> a foreign certified translation is not automatically equivalent to a terjemahan tersumpah, and certification supports translation reliability without establishing the source document\'s authenticity. <b>Buys:</b> no duplicate translation spend.', right:false},
     {k:'C', t:'Translate only the agreement body and attach the certificate untranslated', v:'<b>Costs:</b> the working scope covers the document, the apostille or legalisation certificate, seals and referenced attachments — a partial packet invites an evidence objection at the worst point. <b>Buys:</b> lower translation volume and faster turnaround.', right:false}
     ],
-    move:'Rule: For Indonesian court use, authenticate first and translate second — apostille or legalise the packet in the origin country, then render the complete packet (certificates, seals and attachments) into Bahasa Indonesia through a registered penerjemah tersumpah, with local counsel checking the court-facing set before filing.',
+    move:'Rule: For Indonesian court use, authenticate first and translate second \u2014 apostille or legalise the packet in the origin country, then render the complete packet (certificates, seals and attachments) into Bahasa Indonesia through a registered penerjemah tersumpah, with local counsel checking the court-facing set before filing.',
     ev:'Certof, Foreign Documents in Indonesian Civil Lawsuits: "Apostille usually comes before translation... complete the apostille or residual legalization process first, then translate the document, certificate, seals, annotations, and attachments as one packet"; "A foreign \'certified translation\' is not automatically the same as a translation signed and sealed by an AHU-appointed Penerjemah Tersumpah. Certification supports translation reliability; it does not establish the source document\'s authenticity, relevance, or legal effect."'
+  },
+  {
+    id:'apac-28',
+    who:'Korea country counsel',
+    meta:'EMAIL · RE: Golfzon penalty · 10:17',
+    clock:'immediate',
+    clocklab:'penalty calculation basis changed',
+    text:'The PIPC just imposed a KRW 7.5 billion administrative penalty on Golfzon for a data breach \u2014 the largest on a domestic company to date. The penalty basis changed from "revenue related to the violation" to total entity revenue. Our Korean entity\'s revenue is roughly KRW 80 billion; the new cap is 10% of revenue or KRW 5 billion. The board wants to know if this is a blip or the new floor.',
+    market:'Korea',
+    source:'https://law.asia/doing-business-in-korea-data-privacy-compliance/',
+    calls:[
+    {k:'A', t:'Treat KRW 7.5 billion as the new reference point and budget for proportionate security investment', v:'<b>Costs:</b> real capital spend on controls and legal review of revenue attribution. <b>Buys:</b> the penalty is not a one-off \u2014 KakaoPay (KRW 5.9bn) and Apple Distribution International (KRW 2.4bn) followed in 2025, and the basis is now total revenue, making every entity\'s full turnover the denominator.', right:true},
+    {k:'B', t:'Wait for the Enforcement Decree clarifications on revenue exclusion before acting', v:'<b>Costs:</b> the decree may refine exclusion rules, but the Golfzon and KakaoPay penalties are already live and the revenue basis is settled. <b>Buys:</b> a more precise calculation once guidance arrives.', right:false},
+    {k:'C', t:'Spin the data-processing function into a lower-revenue entity to reduce exposure', v:'<b>Costs:</b> revenue attribution follows economic reality under Korean administrative law; artificial separation is precisely the kind of structure regulators examine first. <b>Buys:</b> a lower theoretical cap if the structure survives review.', right:false}
+    ],
+    move:'Rule: Korea\'s amended PIPA calculates administrative penalties on total entity revenue (up to 10% or KRW 5 billion), not revenue related to the violation \u2014 the Golfzon (KRW 7.5bn) and KakaoPay (KRW 5.9bn) penalties are the new baseline, not outliers.',
+    ev:'Asia Business Law Journal, Doing Business in Korea: "the basis for calculating administrative penalties was revised from \u2018revenue related to the violation\u2019 to \u2018total revenue of the entity\u2019"; "the PIPC imposed a KRW7.5 billion administrative penalty on Golfzon on 8 May 2024"; "In January 2025, the PIPC imposed... administrative penalties of KRW5.9 billion on KakaoPay and KRW2.4 billion... on Apple Distribution International Limited."'
+  },
+  {
+    id:'apac-31',
+    who:'Australia regulatory counsel',
+    meta:'EMAIL · RE: OAIC annual report · 16:30 AEDT',
+    clock:'ongoing',
+    clocklab:'enforcement posture',
+    text:'The OAIC 2024-25 annual report is out: Meta paid a $50 million enforceable undertaking after a data breach, and the ACL $5.8 million penalty is the first civil penalty ordered under the Privacy Act. The Commissioner finalised 1,155 NDB notifications with 86% closed within 60 days. The board reads this as "Australia is now enforcing" and wants to know our exposure.',
+    market:'Australia',
+    source:'https://www.oaic.gov.au/news/media-centre/annual-report-highlights-oaics-work-on-privacy-and-information-access-rights-and-strengthened-regulatory-approach',
+    calls:[
+    {k:'A', t:'Commission a gap analysis against APP 11.1 (security) and the NDB scheme, with dates and owners, and model penalty exposure on revenue', v:'<b>Costs:</b> external counsel time and internal resource on a full review. <b>Buys:</b> the OAIC\'s posture is now post-undertaking and post-penalty; a proactive gap analysis is the only defensible board answer after Meta and ACL.', right:true},
+    {k:'B', t:'Wait for the Privacy Act review legislation to settle before investing in compliance rework', v:'<b>Costs:</b> the current Act already produced a $50M undertaking and a $5.8M penalty; waiting for reform leaves today\'s exposure unaddressed. <b>Buys:</b> compliance spend aligned to the final rule set, not the interim one.', right:false},
+    {k:'C', t:'Buy cyber insurance and treat regulatory action as a cost of doing business', v:'<b>Costs:</b> enforceable undertakings carry operational conditions and public reputational damage; insurance does not cover the undertaking\'s behavioural mandates or the board\'s time. <b>Buys:</b> financial backstop for the penalty line.', right:false}
+    ],
+    move:'Rule: Australia\'s OAIC has moved from guidance to enforcement \u2014 the Meta $50 million enforceable undertaking and ACL $5.8 million civil penalty are the new baseline; NDB notifications are being finalised in 60 days and the Commissioner can direct notification, investigate on own initiative, and seek civil penalties for serious or repeated interferences.',
+    ev:'OAIC Annual Report 2024-25: "a $50 million payment program as part of an enforceable undertaking received from Meta Platforms, Inc."; "Australian Clinical Labs (ACL) paying $5.8 million in civil penalties... the first civil penalties ordered under the Privacy Act"; "Finalised 1,155 notifications under the NDB scheme, with 86% of notifications finalised within 60 days."'
   }
 ];
