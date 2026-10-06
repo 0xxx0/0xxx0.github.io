@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T11:23:29+08:00",
+  "updated": "2026-10-06T11:37:02+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5072,11 +5072,12 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-03T08:02:10+08:00",
+        "updated_at": "2026-10-06T11:37:02+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RESEARCH"
         ]
       },
       "evolution": {
@@ -9406,10 +9407,12 @@
       "family": "FIELD / PICKS",
       "role": "Generated FIELD PICKS page — where to start: 10 ranked routes, one line of why each, computed last-touch age and returns count; every figure produced by tools/picks-build.py from the manifest + git. noindex static projection, evidence surface, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T11:36:00+08:00",
+        "updated_at": "2026-10-06T11:37:02+08:00",
         "work_modes": [
           "READ",
-          "VERIFY"
+          "VERIFY",
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
