@@ -7,14 +7,14 @@
 :root{--ink:#0d0d0d;--mut:#6f6f6f;--rule:#dcdcdc;--acc:#0b5fff;--hot:#d43f00;--ok:#0a7a3d;--warnbg:#fff6f1}
 *{box-sizing:border-box}
 body{margin:0;background:#fff;color:var(--ink);
- font:15.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-text-size-adjust:100%}
-.wrap{max-width:860px;margin:0 auto;padding:22px 16px 80px}
+ font:16.5px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:72ch;margin:0 auto;padding:26px 22px 90px}
 header{border-bottom:3px solid var(--ink);padding-bottom:12px}
 h1{font:800 32px/1.05 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:-.03em;margin:0 0 10px}
 .meta{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--mut);letter-spacing:.05em;text-transform:uppercase}
 .meta b{color:var(--ink)}
 .forwho{margin:18px 0 4px;padding:12px 14px;border:2px solid var(--ink);font-size:14px}
-h2{font:800 14px/1.2 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:30px 0 6px;border-top:2px solid var(--ink);padding-top:12px}
+h2{font:800 14px/1.2 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:46px 0 8px;border-top:2px solid var(--ink);padding-top:14px}
 h3{font:700 15px/1.25 system-ui,sans-serif;margin:18px 0 4px}
 .qa{margin:10px 0 22px}
 .q{font-weight:700;font-size:15px;margin-bottom:4px}
@@ -36,7 +36,14 @@ ol.moves li{margin:7px 0}
 ol.moves b{font-weight:700}
 .foot{margin-top:38px;border-top:3px solid var(--ink);padding-top:12px;font-size:12px;color:var(--mut)}
 .foot a{color:var(--acc)}
-.cite{color:var(--mut);font-size:11px}
+.cite{color:#555;font-size:11.5px}
+mark{background:#ffe14d;font-weight:700;padding:0 .22em}
+a{text-decoration:underline;text-underline-offset:2px}
+a:hover{background:var(--ink);color:#fff}
+.card{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;font-size:14.5px}
+.card .tag{display:inline-block;font:700 9.5px/1 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 6px;margin-right:8px;vertical-align:2px}
+.card .arr{font-weight:800;color:var(--acc)}
+.close{border:3px solid var(--ink);padding:15px 17px;margin:44px 0 0;font-size:16px}
 @media(max-width:640px){h1{font-size:26px}.big{font-size:18px}table{font-size:12px}th,td{padding:5px 4px}}
 </style>
 <div class="wrap">
@@ -104,8 +111,8 @@ human? That's the only proof this stack is worth anything. <span class="cite">[t
 <code>AXIS/work/ACTIVE/apac-ai-law/RUNBOOK.md</code>):<br>
 · <b>Korea AI Basic Act — in force 22 Jan 2026</b>: high-impact AI = 10 named sectors (self-assessment),
  large-scale duty at 10²⁶ FLOPs, advance AI-use notice + output labeling, foreign-firm domestic-rep
- thresholds, fines to KRW 30M; MSIT grace period ≈1 year → <b>~Jan 2027 is your real clock</b>.<br>
-· <b>Australia ADM transparency (APP 1.7–1.9) commences 10 Dec 2026</b> — hard external deadline.<br>
+ thresholds, fines to KRW 30M; MSIT grace period ≈1 year → <b><mark>~Jan 2027</mark> is your real clock</b>.<br>
+· <b>Australia ADM transparency (APP 1.7–1.9) commences <mark>10 Dec 2026</mark></b> — hard external deadline.<br>
 · <b>China</b>: still no enacted AI Law (academic drafts only); binding layer = GenAI Interim Measures
  (extraterritorial), Deep Synthesis, Algorithm Recommendation, AI content labeling (GB 45438-2025),
  plus <b>Anthropomorphic AI Interaction Measures in force 15 Jul 2026</b>.<br>
@@ -149,9 +156,9 @@ human? That's the only proof this stack is worth anything. <span class="cite">[t
 <div class="act">Write the SOP first, agent second. If you can't hand it to a smart intern, you can't hand it to a harness.</div>
 <div class="act">Keep a "dated claims" file: every rule with an effective date. Regulations expire in your head faster than in the law.</div>
 
-<h2>R · The reading list (classics — refined)</h2>
+<h2>G · The reading list (classics — refined)</h2>
 <details open>
-<summary>Ten pieces, free, in order. ~6 hours total.</summary>
+<summary>Core set + culture pack, free where possible, in order. ~8 hours total.</summary>
 <div class="qa">
 <div class="read">
 <b>1 · Start here (if code is not your job)</b><br>
@@ -167,11 +174,28 @@ human? That's the only proof this stack is worth anything. <span class="cite">[t
 · <a href="https://www.paulgraham.com/ds.html">PG, <i>Do Things That Don't Scale</i></a> (2013) — the pilot-first rule for every Slack/harness automation: do it manually for one team before you build. <span class="cite">15 min</span><br>
 · <a href="https://www.paulgraham.com/hundred.html">PG, <i>The Hundred-Year Language</i></a> (2003) — why tool choices compound; skim for the argument, not the language. <span class="cite">20 min</span><br>
 · <a href="https://www.paulgraham.com/articles.html">PG index</a> — everything else lives here; <i>Beating the Averages</i> is the next one to read after these.<br>
+<b>4 · Culture pack (why these people are the way they are)</b><br>
+· <a href="https://threevirtues.dev/">Larry Wall, <i>The Three Virtues</i></a> — Laziness, Impatience, Hubris; the operating system of every engineer you'll manage. <span class="cite">5 min</span><br>
+· Steven Levy, <i>Hackers: Heroes of the Computer Revolution</i> (1984) — book; where the culture comes from. <span class="cite">~8h</span><br>
+· Tracy Kidder, <i>The Soul of a New Machine</i> (1981) — book; what building actually feels like from the inside. <span class="cite">~7h</span><br>
+· <a href="https://www.catb.org/jargon/html/story-of-mel.html"><i>The Story of Mel</i></a> + the Jargon File (catb.org) — the folklore; short, and suddenly engineer jokes decode. <span class="cite">20 min</span><br>
 </div>
 </div>
 </details>
 
-<h2>G · Corrections &amp; confidence</h2>
+<h2>H · Cross-cut cards (the compression layer)</h2>
+<div class="card"><span class="tag">card 01 · leverage</span> <b>4-Hour Workweek ↔ Muse/OpenMuse</b> <span class="arr">→</span>
+ thread p24–27. The mapping is 1:1 (DEAL = prompt+RAG+tools). The leverage is real; the leisure isn't — you get judged on taste. <b>Track one number: deflection rate.</b></div>
+<div class="card"><span class="tag">card 02 · attention</span> <b>Maker's Schedule ↔ Slack</b> <span class="arr">→</span>
+ thread p45. Your day gets cut into hour slots by other people's calendars. <b>Batch intake into 2 windows; defend 2 half-day blocks/week.</b> 15 messages → huddle.</div>
+<div class="card"><span class="tag">card 03 · hype</span> <b>No Silver Bullet ↔ AI agents</b> <span class="arr">→</span>
+ thread p27–30. AI fixes accidental complexity (typing the code); essential complexity (deciding what's right) stays yours. <b>Never accept a demo without the sandbox diagram.</b></div>
+<div class="card"><span class="tag">card 04 · ownership</span> <b>Cathedral &amp; Bazaar ↔ harness skills</b> <span class="arr">→</span>
+ thread p49–52. The harness is cheap because the community builds it (the bazaar). What you own = the reusable SOP/skill files — those are the deliverable, not the demo.</div>
+<div class="card"><span class="tag">card 05 · culture</span> <b>Three Virtues (Laziness · Impatience · Hubris) ↔ this whole thread</b> <span class="arr">→</span>
+ <a href="https://threevirtues.dev/">threevirtues.dev</a>, Larry Wall. Laziness = automate the boring path · Impatience = one-click intake · Hubris = build it so IT is proud to keep it.</div>
+
+<h2>I · Corrections &amp; confidence</h2>
 <table>
 <tr><th>Thread claim</th><th>Checked</th><th>Verdict</th></tr>
 <tr><td>OpenClaw overtook React as most-starred repo (2026)</td><td>multiple sources, NVIDIA blog + trackers</td><td class="v">TRUE (~391k stars today)</td></tr>
@@ -181,6 +205,10 @@ human? That's the only proof this stack is worth anything. <span class="cite">[t
 <tr><td>"Claude 3.5 Sonnet" as the frontier reasoning tier</td><td>thread p38/p50</td><td class="x">DATED — 2026 frontier is elsewhere</td></tr>
 <tr><td>Courses (Michigan AI for Lawyers, CS50B, SMU, R&amp;T, Austral)</td><td>all fetched 2026-10-06</td><td class="v">ALL LIVE — CS50L $299/10wk · CS50B free-audit/$299 (Apr 2026–Jun 2027) · Ng ~7h/$49 · Michigan 4-course series · SMU SGD 2,180 (12 CPD) · R&amp;T ≤ S$2,725</td></tr>
 </table>
+
+<div class="close"><b>If you do one thing this week:</b> ask IT, in writing, the one-question audit —
+"what is our Slack plan tier, and does legal hold cover Slack Connect + bot-posted messages?"
+Everything else on this page stacks on top of that answer.</div>
 
 <div class="foot">
 <b>Provenance</b> — synthesized from the full 60-page Google AI-Mode thread
