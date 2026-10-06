@@ -1,0 +1,45 @@
+name: field-glyph-terminal
+on:
+  pull_request:
+    paths:
+      - 'tools/field-glyph-terminal.mjs'
+      - 'tools/field-stage-handoff.mjs'
+      - 'lib/interphase-glyph.js'
+      - 'lib/interphase-ring.js'
+      - 'lib/project-head-glyph.js'
+      - 'lib/field-crew-handoff.mjs'
+      - 'control/CURRENT.json'
+      - 'showcase-manifest.json'
+      - '.github/workflows/field-glyph-terminal.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'tools/field-glyph-terminal.mjs'
+      - 'tools/field-stage-handoff.mjs'
+      - 'lib/interphase-glyph.js'
+      - 'lib/interphase-ring.js'
+      - 'lib/project-head-glyph.js'
+      - 'lib/field-crew-handoff.mjs'
+      - 'control/CURRENT.json'
+      - 'showcase-manifest.json'
+      - '.github/workflows/field-glyph-terminal.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check terminal projection syntax
+        run: node --check tools/field-glyph-terminal.mjs
+      - name: Preserve canonical FIELD and glyph laws
+        run: |
+          node tools/field-stage-handoff.mjs --selftest
+          node tools/interphase-glyph-selftest.cjs
+          node --test tools/interphase-glyph-conformance.test.mjs
+      - name: Prove terminal glyph aperture remains projection-only
+        run: node tools/field-glyph-terminal.mjs --selftest
