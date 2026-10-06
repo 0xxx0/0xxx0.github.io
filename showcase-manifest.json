@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T23:08:28+08:00",
+  "updated": "2026-10-06T23:09:25+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -37,7 +37,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-03T14:29:15+08:00",
+        "updated_at": "2026-10-06T23:09:25+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -45,12 +45,13 @@
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: enter unheld from addressable CURRENT heads; one addressed held object owns native owner/action, automatic advance-as-scale presentation on commit, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN and read-only pre-commit FORECAST. While held, one persistent RUN dock mirrors that same object's primary TURN, TRACE, WITNESS/FORECAST and exact RETURN so lawful action remains reachable without scrolling; it creates no new actions, state, authority or object frame. A collapsed DEPTH / WORK wake on that same object recovers accumulated retained capability, declared transforms, proof refs, descendant/related surfaces, versions, exits and named open future directly from CURRENT + manifest. Relation marks refocus the same route identity. Latent REFINE / PROVE and collapsed STATUS remain secondary; RECENT remains chronology only.",
+      "role": "FIELD INDEX root: one glyph/address URLbar now compresses exact object addressing, HOLD, bounded TURN, TRACE-adjacent commands and Hermes PREP into a single re-enterable line over the existing FIELD object graph. Canonical state remains CURRENT + manifest + native hosts; URLbar input is a projection only. FIELD INDEX root: enter unheld from addressable CURRENT heads; one addressed held object owns native owner/action, automatic advance-as-scale presentation on commit, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN and read-only pre-commit FORECAST. While held, one persistent RUN dock mirrors that same object's primary TURN, TRACE, WITNESS/FORECAST and exact RETURN so lawful action remains reachable without scrolling; it creates no new actions, state, authority or object frame. A collapsed DEPTH / WORK wake on that same object recovers accumulated retained capability, declared transforms, proof refs, descendant/related surfaces, versions, exits and named open future directly from CURRENT + manifest. Relation marks refocus the same route identity. Latent REFINE / PROVE and collapsed STATUS remain secondary; RECENT remains chronology only.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
+      "receipt": "/returns/FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json",
       "machine_view": "FIELD",
-      "version": "0.8.33",
+      "version": "0.8.34",
       "transfer": [
+        "0.8.34 glyph URLbar: one keyboard-addressable FIELD:// line projects the existing object graph as address/glyph search, CURRENT-head filtering, bounded TURN, structural RISE, existing command projections and Hermes PREP; it adds no queue/store/shell authority, no recency rank and no direct EFFECT path.",
         "0.8.33 persistent run dock: while one object is held, mirror the existing canonical aperture's primary TURN, TRACE, WITNESS/FORECAST and exact RETURN in one persistent command surface; no new action table, store, route, state or authority.",
         "0.8.32 held work depth: one selected CURRENT head casts a collapsed read-only wake of retained capability, every declared transform, proof/receipt refs, descendant/related surfaces, versions, exits and named open future; relation marks refocus the same FIELD identity and nothing in the wake creates state, rank, backlog or authority.",
         "0.8.31 CURRENT-head entry: unqualified FIELD entry begins unheld and presents addressable CURRENT.current_heads on the existing glyph rail; one activation holds, second activation opens, RECENT remains a secondary chronology lens and head order is not rank.",
@@ -146,6 +147,24 @@
       "tier": "FIELD",
       "latest_return": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
+    },
+    {
+      "href": "/artifacts/",
+      "title": "FIELD / ARTIFACTS",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "version": "0.2",
+      "showcase_card": false,
+      "role": "Retained-output index: exact public routes remain linkable; Library-only material remains Library-only; presence does not imply current role, canonical status, authority or proven utility.",
+      "index": {
+        "updated_at": "2026-10-06T22:45:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/app-atlas/",

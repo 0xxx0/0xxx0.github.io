@@ -1,0 +1,41 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06",
+  "date": "2026-10-06",
+  "state": "MERGED_CI_GREEN",
+  "object": "FIELD INDEX 0.8.34 / GLYPH URLBAR",
+  "predecessor": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
+  "operation": "exact address / glyph / command → HOLD → bounded TURN or PREP → native owner → exact RETURN",
+  "delta": [
+    "Replace hunt-through-surface interaction with one visible FIELD:// address line over the existing FIELD object graph.",
+    "Accept exact paths, titles, state/operation terms and deterministic project glyph mnemonics; rank by textual evidence rather than recency or opaque recommendation.",
+    "Expose @ CURRENT-head filtering, > bounded navigation TURN, ^ structural RISE and : reuse of existing FIELD commands without creating a second command model.",
+    "Expose ! as Hermes PREP only: copy the existing local bridge command for the addressed object; never append --execute and never serialize API credentials.",
+    "Persist the line only as ?fi= projection state so links/re-entry can carry the operator expression while canonical truth remains elsewhere.",
+    "Register /artifacts/ as the already-present retained-output index so public-route integrity is restored without granting that catalog product or authority status."
+  ],
+  "authority": [
+    "showcase-manifest + CURRENT retain object/address/version truth; the URLbar derives and filters them.",
+    "window.__fieldAct remains the root HOLD/TURN/RISE acting hand; FieldZUI, FieldLensHost and existing controls retain command semantics.",
+    "Hermes execution remains owned by tools/field-hermes-run.mjs and native Hermes policy/approval; URLbar can prepare only.",
+    "FieldGlyph/project-head glyph mnemonics are address cues, not truth, priority, permission or semantic ontology.",
+    "Recorded CURRENT order and index.updated_at are not converted into ranking authority."
+  ],
+  "verification": {
+    "registration_run": "37484976036",
+    "registration_parent_sha": "b89427eece506a2230aa1a89c78ffbe2d752defd",
+    "urlbar_core": "node tools/field-urlbar-selftest.mjs · PASS required before registration commit",
+    "hermes_bridge": "node tools/field-hermes-run.mjs --selftest · PASS required before registration commit",
+    "current_manifest": "node scripts/check-current-heads.mjs · PASS required before registration commit",
+    "release_versions": "node scripts/check-release-versions.mjs · PASS required before registration commit",
+    "html_integrity": "node tools/html-document-integrity-selftest.mjs · PASS required before registration commit",
+    "public_surface": "node tools/validate-public.mjs · PASS required before registration commit"
+  },
+  "falsifier": "Fail if query text becomes canonical state; glyphs gain semantic/permission authority; empty/head results silently rank by recency; selection mutates without an explicit TURN/native boundary; Hermes mode executes, embeds secrets or accepts remote authority; or the new line creates another queue/store/planner/object frame.",
+  "residue": [
+    "Protected OSINT/cybersecurity work remains a separate host compartment; only sanitized references/receipts should cross into public FIELD.",
+    "ESP32/device payload execution remains behind a named Device Harness/native capability adapter; the URLbar does not gain arbitrary shell/flash authority.",
+    "Visual-regression and ordinary-use evidence are separate from grammar/static correctness; any intentional baseline change must be reviewed as presentation evidence, not inferred from CI grammar success."
+  ],
+  "stop": "Do not add another console. Improve this line only when a measured addressing/action cost remains; new execution classes belong behind existing/native capability adapters and RETURN."
+}
