@@ -803,14 +803,14 @@ window.THEMES.garden = (function(){
     /* exactly one cat — subtle, bottom-right, small, non-interactive. Max one cat. */
     if(document.getElementById('gardencat')) return;
     var cat=document.createElement('img');
-      cat.id='gardencat'; cat.src='cat.png'; cat.alt=''; cat.setAttribute('aria-hidden','true');
+      cat.id='gardencat'; cat.src='cat.svg'; cat.alt='';; cat.setAttribute('aria-hidden','true');
       cat.setAttribute('data-ambience','cat');   // so clearAmbience() can remove it
       // assimilate into the system: a 1px panel border, desaturated, dimmed, with a mono
       // caption. without this it is the one element that breaks the palette and the eye
       // catches it for the wrong reason. it should read as a tiny window, discovered.
       cat.style.cssText='position:fixed;right:14px;bottom:14px;width:92px;height:auto;'+
-        'z-index:0;pointer-events:none;user-select:none;opacity:.58;'+
-        'filter:saturate(.52) contrast(.92) brightness(.72);'+
+        'z-index:0;pointer-events:none;user-select:none;opacity:.72;'+
+        'filter:none;'+
         'border:1px solid var(--line);border-radius:3px;'+
         'box-shadow:0 2px 14px rgba(0,0,0,.55), inset 0 0 22px rgba(0,0,0,.6);padding:0';
       root.appendChild(cat);
