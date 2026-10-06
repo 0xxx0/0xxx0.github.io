@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T14:44:45.948Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T16:17:45.895Z by scripts/generate-convergence-strip.mjs_
 
-The field has **136 material commits on 2026-10-06** across **1006 branches** (274 exact Git commits in the window; 138 generated telemetry; 5374 on master all-time).
+The field has **203 material commits on 2026-10-06** across **1018 branches** (350 exact Git commits in the window; 147 generated telemetry; 5450 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- ARTIFACTS: replace synthetic interface lore with measured projection bench
 - desk: refresh public field data
-- fi-mutation-contract: stamp /20261006-linkfield-frex/ (IMPLEMENT,VERIFY)
+- dayline/fan: stamp route mutation contract (IMPLEMENT,VERIFY)
+- dayline/fan: THE FAN — the day folds into a dial, opens into a range card · 24
 
 ## Open gaps
 

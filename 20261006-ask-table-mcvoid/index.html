@@ -21,7 +21,11 @@
     font-size:12px;font-family:var(--font-mono);background:var(--panel)}
   .chip.hot{border-color:var(--hot);color:var(--hot);background:var(--warnbg)}
   .chip.ok{border-color:var(--ok);color:var(--ok)}
-  .word{border-bottom:1px dotted var(--mut);cursor:help}
+  .word{border:0;background:none;padding:0 1px;font:inherit;color:inherit;cursor:pointer;
+    text-decoration:underline;text-decoration-style:dotted;text-decoration-thickness:1px;text-underline-offset:3px}
+  .word:hover,.word[aria-expanded=true]{text-decoration-style:solid;background:var(--hl)}
+  .word:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+  .wdef{display:block;margin:2px 0 6px 2px;font-size:13px;color:var(--mut);border-left:2px solid var(--rule);padding-left:8px}
   mark{background:var(--hl);padding:0 2px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
   @media(max-width:620px){.two{grid-template-columns:1fr}}
@@ -123,6 +127,12 @@ work-speak, and asking out loud costs status. This asks for you.
 <div>
 <div class="jg"><b>15 Jul 2026</b><span>🇨🇳 China — anthropomorphic AI interaction measures in force. Still no general AI law.</span></div>
 <div class="jg"><b>rolling</b><span>🇸🇬 Singapore — MGF for Agentic AI v1.5 (May 2026); PDPA portability legislated but not yet in force. ASEAN = voluntary.</span></div>
+<div class="jg"><b>in force</b><span>🇮🇩 Indonesia — UU PDP 27/2022 fully operative; breach notice 3×24h to subject + Komdigi.</span></div>
+<div class="jg"><b>in force</b><span>🇹🇭 Thailand — PDPA fully effective since 1 Jun 2022; breach notice to PDPC within 72h.</span></div>
+</div>
+<div>
+<div class="jg"><b>1 Jan 2026</b><span>🇻🇳 Vietnam — PDPL 91/2025 in force (Decree 356/2025). Sensitive-data leak: 72h. A05 dossier: 60 days.</span></div>
+<div class="jg"><b>in force</b><span>🇵🇭 Philippines — DPA RA 10173 + NPC Circular 16-03; breach notice 72h to NPC + subjects.</span></div>
 </div>
 </div>
 
@@ -207,13 +217,22 @@ function run(){
   let found=[];
   Object.keys(ABBR).sort((a,b)=>b.length-a.length).forEach(k=>{
     const re=new RegExp("\\b"+k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","ig");
-    if(re.test(raw)){found.push(k);say=say.replace(re,m=>`<span class="word" title="${ABBR[k]}">${m}</span>`)}
+    if(re.test(raw)){found.push(k);say=say.replace(re,m=>`<button type="button" class="word" aria-expanded="false" data-def="${esc(ABBR[k])}">${m}</button>`)}
   });
   document.getElementById('o1').innerHTML =
     (found.length
       ? `<div style="margin-bottom:7px">${found.map(k=>`<span class="chip">${esc(k)} → ${esc(ABBR[k])}</span>`).join("")}</div>`
       : `<div style="margin-bottom:7px"><span class="chip">no known shorthand detected</span></div>`)
-    + `<div style="color:var(--mut);font-size:14px">the text, with the compressed words marked — hover any underlined word:</div><div style="margin-top:5px">${say}</div>`;
+    + `<div style="color:var(--mut);font-size:14px">the text, with the compressed words marked — tap (or tab to) any underlined word:</div><div style="margin-top:5px">${say}</div>`;
+  document.querySelectorAll('#o1 button.word').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const open=b.getAttribute('aria-expanded')==='true';
+      const nx=b.nextElementSibling;
+      if(open){ if(nx&&nx.classList.contains('wdef')) nx.remove(); b.setAttribute('aria-expanded','false'); }
+      else { const d=document.createElement('span'); d.className='wdef'; d.textContent=b.dataset.def;
+             b.after(d); b.setAttribute('aria-expanded','true'); }
+    });
+  });
 
   /* 2 WANT — action: beats everything; strong ask verbs next; else information only */
   const am = raw.match(ACTIONWORD);
@@ -253,6 +272,10 @@ function run(){
   if(/singapore|pdpa|\bsg\b|imda|pdpc/i.test(low)) where="🇸🇬 Singapore";
   else if(/korea|republic of korea|korean/i.test(low)) where="🇰🇷 Korea";
   else if(/australia|privacy act|oaic|\bau\b/i.test(low)) where="🇦🇺 Australia";
+  else if(/indonesia|indonesian|komdigi|kominfo|uu pdp/i.test(low)) where="🇮🇩 Indonesia";
+  else if(/thailand|thai\b/i.test(low)) where="🇹🇭 Thailand";
+  else if(/vietnam|vietnamese|decree (13|356)|\ba05\b/i.test(low)) where="🇻🇳 Vietnam";
+  else if(/philippines|filipino|manila|ra 10173|national privacy commission/i.test(low)) where="🇵🇭 Philippines";
   else if(/china|\bprc\b|\bcac\b|\bcn\b/i.test(low)) where="🇨🇳 China";
   else if(/europe|\beu\b|gdpr|eea|european|dpia|tia\b|standard contractual|scc\b/i.test(low)) where="🇪🇺 EU / EEA";
   else if(/\buk\b|united kingdom|english law/i.test(low)) where="🇬🇧 UK";

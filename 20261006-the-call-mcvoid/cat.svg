@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 138" width="128" height="138">
+  <!-- xkcd / why's-poignant-guide line cat. ink strokes, wobble on purpose.
+       redrawn after the first pass was judged "a faded watermark, not finished line art":
+       right ear now reads as an EAR (not a rabbit), tail is an OPEN curl with a tapering
+       tip (not a ball), whiskers carry jitter so they are not mechanically even. -->
+  <g fill="none" stroke="#eef2ef" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- loaf body: one uncertain arc, flat bottom -->
+    <path d="M28 98 C20 79 27 61 43 56 C54 52 71 53 82 59 C94 66 97 81 93 97
+             C91 103 83 106 63 107 C43 108 32 104 28 98 Z"/>
+
+    <!-- head: slightly too big for the body, which is the joke -->
+    <path d="M39 59 C32 51 29 38 34 30 C38 24 48 21 58 23 C72 26 79 35 77 47
+             C76 55 69 61 58 63 C50 64 43 62 39 59 Z"/>
+
+    <!-- EARS: both triangles, deliberately unequal. the left leans, the right folds. -->
+    <path d="M35 30 C31 21 29 12 32 10 C35 8 42 17 45 24"/>
+    <path d="M67 22 C71 12 78 7 81 11 C83 14 78 23 75 28
+             C73 30 71 30 70 28"/>
+    <!-- inner ear ticks, so they are not empty triangles -->
+    <path d="M37 27 L35 19 M70 26 L73 19" stroke-width="1.4"/>
+
+    <!-- eyes: two dots, deliberately off-level. one is a hair larger. -->
+    <path d="M46 42 L46.7 42" stroke-width="4.4"/>
+    <path d="M65 41 L65.6 41" stroke-width="3.8"/>
+
+    <!-- nose + the smallest possible mouth -->
+    <path d="M55 48 L57.6 48 L56.2 50.6 Z" stroke-width="1.9"/>
+    <path d="M56.2 50.6 C55.6 53.2 52.6 53.6 50.6 51.8" stroke-width="1.7"/>
+    <path d="M56.2 50.6 C57 53 59.6 53.2 61.2 51.2" stroke-width="1.7"/>
+
+    <!-- whiskers: jittered, uneven lengths. never mechanically even. -->
+    <path d="M38 46 C30 44 24 42 17 41" stroke-width="1.5"/>
+    <path d="M38 50 C31 51 26 53 20 55" stroke-width="1.5"/>
+    <path d="M39 53 C33 57 29 61 25 66" stroke-width="1.4"/>
+    <path d="M73 45 C81 42 88 41 95 39" stroke-width="1.5"/>
+    <path d="M73 49 C80 51 87 54 93 57" stroke-width="1.5"/>
+    <path d="M72 52 C78 58 83 63 88 69" stroke-width="1.4"/>
+
+    <!-- paws: two little ovals over the edge of the loaf -->
+    <path d="M43 105 C42 100 44 95 48 95 C52 95 53 101 52 106" stroke-width="1.9"/>
+    <path d="M63 106 C62 101 64 96 68 96 C72 96 73 102 72 107" stroke-width="1.9"/>
+
+    <!-- TAIL: an OPEN curl that tapers to a point. a closed loop read as a ball. -->
+    <path d="M93 93 C104 92 113 84 112 73" stroke-width="2.6"/>
+    <path d="M112 73 C111 66 104 61 99 65 C95 68 96 75 101 76
+             C104 76 106 74 106 71" stroke-width="1.7"/>
+
+    <!-- alert ticks above the head. contentment, said without a face. -->
+    <path d="M22 22 L17 13 M31 17 L28 7" stroke-width="1.5"/>
+    <path d="M88 20 L93 11" stroke-width="1.4"/>
+
+    <!-- a scrawl under the paws so it sits on something, not floats -->
+    <path d="M20 112 C46 115 84 115 106 111" stroke-width="1.5" opacity=".55"/>
+  </g>
+
+  <!-- the caption, hand-quiet. the mercy rule in three words. -->
+  <text x="63" y="131" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-style="italic" font-size="12.5" fill="#eef2ef" opacity=".88">it does not judge.</text>
+</svg>
