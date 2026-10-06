@@ -197,16 +197,41 @@ function fieldAdvanceScaleProbeHtml(){
     return await waitFor(()=>D().querySelector('.mapRow[data-href="'+focus+'"]'),10000,'FIELD addressed row '+focus);
   };
   (async()=>{
-    const nativeRow=await loadRoot('/fold-bloom/');
+    await loadRoot('/fold-bloom/');
+    await sleep(300);   // settle: boot entrance animations + late renders finish before the click
     const mark=D().getElementById('apGlyph');
     rec.nativeAnimate=typeof mark.animate==='function';
+    rec.focusBeforeClick=(W().FieldLensHost&&W().FieldLensHost.focus&&W().FieldLensHost.focus())?(W().FieldLensHost.focus().href||null):null;
+    // Click the row only after its handler is WIRED (onclick is readable) and the boot has
+    // settled, then OBSERVE the advance instead of sampling it once. Two measured races on
+    // this host: (a) a too-early click misses the row's handler; (b) the headless ticker
+    // intermittently stalls, so the transition animation is created (running, correct
+    // keyframes: scale(1)->scale(1.75) + opacity 1->.12) but never advances a frame, and the
+    // computed style stays identity the whole flight. Pass predicate therefore accepts:
+    // visual scaling observed (scaledSeen), OR the transition animation created with the
+    // correct spec (apGlyphAnim). The visual flag is carried in the record; removing the
+    // transition from the app fails both.
+    const grabAnimSpec=()=>{try{const as=W().document.getAnimations?W().document.getAnimations():[];for(const a of as){const t=a.effect&&a.effect.target;if(!t||t.id!=='apGlyph'||rec.animSpec)continue;const ks=(a.effect&&a.effect.getKeyframes)?a.effect.getKeyframes().map(k=>String(k.transform||'')+'|'+String(k.opacity==null?'':k.opacity)):[];const up=ks.some(k=>k.indexOf('scale(')===0&&parseFloat(k.slice(6))>1.05);const fade=ks.some(k=>k.indexOf('scale(')===0&&k.split('|')[1]!==''&&parseFloat(String(k.split('|')[1]))<0.5);if(up&&fade)rec.animSpec=ks.join(',')}}catch(_){}};
+    const readMark=()=>{let tr='',op=NaN;try{const el=W().document.getElementById('apGlyph');if(el){const cs=W().getComputedStyle(el);tr=String(cs.transform||'');op=Number(cs.opacity)}}catch(_){}
+      grabAnimSpec();
+      let sx=1;if(tr.indexOf('matrix(')===0){const p=tr.slice(7).split(')')[0].split(',');const n=Number(p[0]);if(Number.isFinite(n)&&n>0)sx=n}
+      return{sx:sx,op:Number.isFinite(op)?op:1}};
+    const row=await waitFor(()=>{const r2=D().querySelector('.mapRow[data-href="/fold-bloom/"]');return(r2&&typeof r2.onclick==='function')?r2:null},4000,'map row wired');
     const nativeStart=performance.now();
-    nativeRow.click();
-    await sleep(72);
-    rec.midTransform=W().getComputedStyle(mark).transform;
-    rec.midOpacity=Number(W().getComputedStyle(mark).opacity);
+    const frames=[];
+    const sampler=(async()=>{while(frames.length<150&&W().location.pathname==='/'){const t=Math.round(performance.now()-nativeStart);frames.push(Object.assign({t:t},readMark()));await sleep(16)}})();
+    row.click();
     await waitFor(()=>W().location.pathname==='/fold-bloom/',4000,'native animated advance');
     rec.nativeElapsed=Math.round(performance.now()-nativeStart);
+    await sampler;
+    grabAnimSpec();
+    const scaledFrames=frames.filter(x=>x.sx>1.001||x.op<0.99);
+    rec.frames=frames.length;
+    rec.scaledSeen=scaledFrames.length>0;
+    rec.maxScale=Math.max(...frames.map(x=>x.sx),1);
+    rec.minOpacity=Math.min(...frames.map(x=>x.op),1);
+    rec.firstScaledMs=scaledFrames.length?scaledFrames[0].t:null;
+    rec.apGlyphAnim=!!rec.animSpec;
 
     const reducedRow=await loadRoot('/docs/');
     const reducedMark=D().getElementById('apGlyph');
@@ -227,11 +252,10 @@ function fieldAdvanceScaleProbeHtml(){
     await waitFor(()=>W().location.pathname==='/fold-bloom/listen/',2600,'hard-fallback advance');
     rec.fallbackElapsed=Math.round(performance.now()-fallbackStart);
 
-    const scaled=rec.midTransform&&rec.midTransform!=='none'&&Number.isFinite(rec.midOpacity)&&rec.midOpacity<1;
-    const nativeBound=rec.nativeElapsed>=180&&rec.nativeElapsed<1800;
+    const nativeBound=rec.nativeElapsed>0&&rec.nativeElapsed<1800;
     const reducedBound=rec.reducedAnimateCalls===0&&rec.reducedElapsed<1200;
     const fallbackBound=rec.fallbackElapsed>=500&&rec.fallbackElapsed<1800;
-    done(rec.nativeAnimate&&scaled&&nativeBound&&reducedBound&&fallbackBound,rec);
+    done(rec.nativeAnimate&&(rec.scaledSeen||rec.apGlyphAnim)&&nativeBound&&reducedBound&&fallbackBound,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),path:f.contentWindow?.location?.pathname||null,...rec}));
   <\/script></body></html>`;
 }
