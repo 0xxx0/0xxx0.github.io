@@ -1,0 +1,52 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_SEMANTIC_ZUI_0834_2026-10-05",
+  "date": "2026-10-05",
+  "state": "MERGED_FUNCTIONAL_GREEN_VISUAL_BASELINE_DRIFT_OPEN",
+  "object": "FIELD INDEX 0.8.34 / SEMANTIC HOLD-WORK-PROVE DEPTH",
+  "predecessor": "/returns/FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
+  "operation": "one held FIELD object -> HOLD <-> WORK <-> PROVE -> exact HOLD return",
+  "delta": [
+    "Coordinate the existing held object, DEPTH / WORK and REFINE / PROVE apertures as one semantic disclosure-depth state: HOLD, WORK or PROVE.",
+    "Keep semantic depth distinct from browser magnification, FOVEA and native page navigation.",
+    "Escape returns any deep aperture to HOLD; only one deep aperture may be open at a time.",
+    "Use View Transition only as progressive presentation enhancement; reduced-motion and unsupported-browser paths remain immediate.",
+    "Expose transient FieldZUI and field-zui TRACE hooks with authority NONE; do not persist ZUI state."
+  ],
+  "authority": [
+    "The existing held FIELD route remains the sole addressed object/focus.",
+    "Native browser zoom, FOVEA, pointer, wheel and touch ownership remain native/existing-owner concerns.",
+    "WORK and PROVE remain projections over existing owners; semantic ZUI adds no route, store, priority, effect permission or navigation authority.",
+    "The field-zui event is transient TRACE evidence only and explicitly authority NONE.",
+    "This RETURN reconciles merged behavior; it does not authorize REACH/QUICKLOAD or any second implementation move."
+  ],
+  "verification": {
+    "source_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/923",
+    "proof_head": "0ab979af4c512955277c27a4ab9178960ba6c00b",
+    "merge_sha": "5b72d637d6dc72bbec04313dff382669c56ab726",
+    "exact_head": {
+      "validate": "PASS · actions run 37166937732",
+      "scan": [
+        "PASS · actions run 37166937741",
+        "PASS · actions run 37166935354"
+      ]
+    },
+    "post_merge": {
+      "pages": "PASS · build/deploy run 37167196310",
+      "validate": [
+        "PASS · actions run 37167197352",
+        "PASS · actions run 37167197334"
+      ],
+      "scan": "PASS · actions run 37167197316",
+      "visual_regression": "FAIL · actions run 37167197317 · known root/docs stale-golden drift tracked by issue #780; do not reinterpret as functional ZUI failure and do not widen thresholds"
+    },
+    "selftest": "tools/field-zui-selftest.mjs is composed into tools/field-reversibility-selftest.mjs and fails on persistent/history state, focus/navigation mutation, gesture theft, multiple simultaneous semantic depths, missing reduced-motion fallback, or missing exact HOLD return."
+  },
+  "falsifier": "Fail semantic ZUI if it persists depth outside native details state, changes held focus/navigation/density, opens WORK and PROVE simultaneously, intercepts native touch/pointer/wheel ownership, cannot return exactly to HOLD, or emits/claims authority other than NONE.",
+  "residue": [
+    "Visual-regression issue #780 remains open: current root/docs composition has outgrown Sep-29 CI-rendered goldens. Repair requires a CI-runner capture and replacement of only the reviewed stale goldens; thresholds remain unchanged.",
+    "control/CURRENT.json and the root manifest projection still described 0.8.33 after #923 merged; this reconciliation exists to remove that authority/projection ambiguity before any next FIELD specimen.",
+    "Capability REACH/QUICKLOAD remains only a candidate until this reconciliation returns and a fresh replan selects it."
+  ],
+  "stop": "Reconcile CURRENT/root projection to this merged state, then STOP. No REACH/QUICKLOAD, graph, planner, queue or second authority layer inherits permission from #923 or this RETURN."
+}
