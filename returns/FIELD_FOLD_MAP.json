@@ -1,0 +1,2502 @@
+{
+ "schema": "field-fold/v1",
+ "generated": "2026-10-06T18:06:30.055Z",
+ "returns_total": 287,
+ "raw_distinct_states": 111,
+ "folded_onto_enum": 4,
+ "convergence_ratio": 0.036,
+ "phase_distribution": {
+  "SOURCE": 49,
+  "HOLD": 95,
+  "RETURN": 136,
+  "RESIDUE": 7
+ },
+ "residue_count": 7,
+ "residue_files": [
+  {
+   "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+   "raw": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI."
+  },
+  {
+   "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
+   "raw": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head."
+  },
+  {
+   "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
+   "raw": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument."
+  },
+  {
+   "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
+   "raw": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries."
+  },
+  {
+   "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
+   "raw": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence."
+  },
+  {
+   "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
+   "raw": "FROZEN_DONOR"
+  },
+  {
+   "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
+   "raw": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED"
+  }
+ ],
+ "raw_state_histogram": [
+  {
+   "state": "(none)",
+   "count": 49
+  },
+  {
+   "state": "CANDIDATE",
+   "count": 27
+  },
+  {
+   "state": "MERGED_CI_GREEN",
+   "count": 22
+  },
+  {
+   "state": "MERGED_ACTIVE_CANDIDATE",
+   "count": 17
+  },
+  {
+   "state": "IMPLEMENTED_CANDIDATE",
+   "count": 13
+  },
+  {
+   "state": "MERGED_VERIFIED",
+   "count": 8
+  },
+  {
+   "state": "SHIPPED",
+   "count": 8
+  },
+  {
+   "state": "SHIPPED_CANDIDATE",
+   "count": 6
+  },
+  {
+   "state": "CANDIDATE / CI_REQUIRED",
+   "count": 5
+  },
+  {
+   "state": "PR_CANDIDATE",
+   "count": 5
+  },
+  {
+   "state": "SHIPPED_VERIFIED",
+   "count": 5
+  },
+  {
+   "state": "RETURNED",
+   "count": 4
+  },
+  {
+   "state": "MERGED_MACHINE_GREEN",
+   "count": 4
+  },
+  {
+   "state": "SHIPPED_ACTIVE_CANDIDATE",
+   "count": 4
+  },
+  {
+   "state": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+   "count": 3
+  },
+  {
+   "state": "RETURNED_BOUNDED_DELTA",
+   "count": 2
+  },
+  {
+   "state": "CANDIDATE / SELF_VERIFYING",
+   "count": 2
+  },
+  {
+   "state": "MERGED_PASS",
+   "count": 2
+  },
+  {
+   "state": "PASS / PR_528",
+   "count": 2
+  },
+  {
+   "state": "DRAFT_PENDING_MERGE",
+   "count": 2
+  },
+  {
+   "state": "VERIFIED",
+   "count": 2
+  },
+  {
+   "state": "VERIFIED_CANDIDATE",
+   "count": 2
+  },
+  {
+   "state": "MERGED_COMPLETE",
+   "count": 2
+  },
+  {
+   "state": "CANDIDATE_PENDING_CI",
+   "count": 2
+  },
+  {
+   "state": "MERGE_READY_WITH_KNOWN_BASELINE_RED",
+   "count": 2
+  },
+  {
+   "state": "MERGED_CI_GREEN_BROWSER_PROVED",
+   "count": 2
+  },
+  {
+   "state": "IMPLEMENTED_STATIC_PASS",
+   "count": 1
+  },
+  {
+   "state": "MERGED_ACTIVE_PROJECTION",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED",
+   "count": 1
+  },
+  {
+   "state": "MERGE_READY_CANDIDATE",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED_CANDIDATE_CI_PENDING",
+   "count": 1
+  },
+  {
+   "state": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_TO_MASTER",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE_EVIDENCE_PASS",
+   "count": 1
+  },
+  {
+   "state": "MERGED_MACHINE_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED_VERIFIED_BRANCH",
+   "count": 1
+  },
+  {
+   "state": "EXACT_LIBRARY_PDFS_RAW_HASH_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "PRINTABLE_CANDIDATE_V02 / FOLDED_INTO_TRANSDUCTIONS / PHYSICAL_USE_PARKED",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / LOCAL_CORE_PASS / INLINE_JS_PASS / CI_REQUIRED / UNPROMOTED_DONOR",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / CI_EVIDENCE_ATTACHED",
+   "count": 1
+  },
+  {
+   "state": "CURRENT_HOST_ALIGNED",
+   "count": 1
+  },
+  {
+   "state": "MERGED_PASS / MATERIAL_HISTORY_CANDIDATE",
+   "count": 1
+  },
+  {
+   "state": "VERIFIED / MERGED / DEPLOYED",
+   "count": 1
+  },
+  {
+   "state": "COMPLETE_PENDING_MERGE",
+   "count": 1
+  },
+  {
+   "state": "MERGED_GREEN_TERMINAL_SAFE",
+   "count": 1
+  },
+  {
+   "state": "ACTIVE",
+   "count": 1
+  },
+  {
+   "state": "MERGED_FUNCTIONAL_GREEN_VISUAL_BASELINE_DRIFT_OPEN",
+   "count": 1
+  },
+  {
+   "state": "PASS / PR 779 EXACT-HEAD",
+   "count": 1
+  },
+  {
+   "state": "MERGED / EXACT_HEAD_GREEN",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / MACHINE_PASS / HUMAN_VALUE_UNPROVED",
+   "count": 1
+  },
+  {
+   "state": "EXACT_HEAD_GREEN_CLOSED",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED / EVIDENCE_OPEN",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_CANDIDATE_REAL_PHONE_REQUIRED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_REPO_PASS_PHONE_REQUIRED",
+   "count": 1
+  },
+  {
+   "state": "CURRENT_MASTER_CANDIDATE",
+   "count": 1
+  },
+  {
+   "state": "CI_GREEN_PRESEAL",
+   "count": 1
+  },
+  {
+   "state": "TRANSFORM_EXPORT_ADVANCED",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE_LIVE_FALSIFICATION_PASS",
+   "count": 1
+  },
+  {
+   "state": "MERGED_PLANNING_AUTHORITY",
+   "count": 1
+  },
+  {
+   "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
+   "count": 1
+  },
+  {
+   "state": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_REPO_GREEN",
+   "count": 1
+  },
+  {
+   "state": "MERGED_BRANCH_CI_GREEN",
+   "count": 1
+  },
+  {
+   "state": "MARKS_V02_MERGED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_MARKS / PINNED_SPECIFIC_SABER",
+   "count": 1
+  },
+  {
+   "state": "MERGED_VISIBLE_CANDIDATE",
+   "count": 1
+  },
+  {
+   "state": "BRANCH_CANDIDATE",
+   "count": 1
+  },
+  {
+   "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+   "count": 1
+  },
+  {
+   "state": "ARCHITECTURAL_EVIDENCE_ONLY__SOCIAL_LIVED_GATE_OPEN",
+   "count": 1
+  },
+  {
+   "state": "PR_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_VERIFIED_BRANCH",
+   "count": 1
+  },
+  {
+   "state": "REPO_VERIFIED / WAITING_TWO_PHONE_PHYSICAL_PROOF",
+   "count": 1
+  },
+  {
+   "state": "SOURCE_MAP_IMMERSION_CONVERGED",
+   "count": 1
+  },
+  {
+   "state": "MERGED_REPO_GREEN_DEPLOYED",
+   "count": 1
+  },
+  {
+   "state": "RECOVERED_INDEX_NON_SOVEREIGN",
+   "count": 1
+  },
+  {
+   "state": "MERGED_RESEARCH_DONOR",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head.",
+   "count": 1
+  },
+  {
+   "state": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
+   "count": 1
+  },
+  {
+   "state": "MECHANISM_RECOVERED_STANDALONE_ARTIFACT_UNEVIDENCED",
+   "count": 1
+  },
+  {
+   "state": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE_METHOD_LAYER",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / EXTERNAL_HUMAN_CONSEQUENCE_OBSERVED",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED_PROOF_HARNESS / REAL_SECOND_WORKER_PENDING",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / SELFTESTED / NO NEW LENS",
+   "count": 1
+  },
+  {
+   "state": "REAL_MODEL_READ_TRACE_RUN__NO_CAUSAL_CLAIM",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE_REAL_MODEL_PLUMBING_PASS",
+   "count": 1
+  },
+  {
+   "state": "BOUNDED_EXECUTION_SEAM_CLOSED",
+   "count": 1
+  },
+  {
+   "state": "DIRECT_SOURCE_CHAIN_RECOVERED",
+   "count": 1
+  },
+  {
+   "state": "RECOVERY_COUNT_RECONCILED",
+   "count": 1
+  },
+  {
+   "state": "BOUNDED_PUBLIC_SAFE_DELTA",
+   "count": 1
+  },
+  {
+   "state": "BOUNDED_MECHANISM_TRANSFER",
+   "count": 1
+  },
+  {
+   "state": "BOUNDED_EXISTING_OBJECT_PROJECTION",
+   "count": 1
+  },
+  {
+   "state": "RECOVERY_CONVERGENCE_COMPLETE / NO_NEW_ACTIVE_FRONT",
+   "count": 1
+  },
+  {
+   "state": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
+   "count": 1
+  },
+  {
+   "state": "MERGED_BASELINE",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE / STALE-CANCEL-DISTINGUISHED",
+   "count": 1
+  },
+  {
+   "state": "READY_NOT_PHYSICALLY_EXECUTED",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED / PR_PROOF_REQUIRED",
+   "count": 1
+  },
+  {
+   "state": "PREDECESSOR_PROOF_SEALED / RECEIPT_HEAD_CI_REQUIRED",
+   "count": 1
+  },
+  {
+   "state": "PASS / MERGE_READY",
+   "count": 1
+  },
+  {
+   "state": "VERIFIED / PR 578 PREDECESSOR PROOF HEAD",
+   "count": 1
+  },
+  {
+   "state": "MERGED_PROVED",
+   "count": 1
+  },
+  {
+   "state": "FROZEN_DONOR",
+   "count": 1
+  },
+  {
+   "state": "Public runtime/control heads advanced materially on Sep-25 while several research/coordination documents still described the Sep-23 architectural frontier.",
+   "count": 1
+  },
+  {
+   "state": "READY_TO_MERGE_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_CANONICAL_ROOT",
+   "count": 1
+  },
+  {
+   "state": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED",
+   "count": 1
+  },
+  {
+   "state": "SOURCE_RAW_BYTES_VERIFIED",
+   "count": 1
+  },
+  {
+   "state": "CANDIDATE_BRANCH_FIELD_INDEX_INTEGRATED",
+   "count": 1
+  },
+  {
+   "state": "SHIPPED_TO_MASTER + DEVICE_PROOF_REQUIRED",
+   "count": 1
+  }
+ ],
+ "folded": [
+  {
+   "file": "ADVANCE_HARD_2026-09-22_01.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "APERTURE_MATERIAL_RSVP_2026-09-21.json",
+   "raw": "IMPLEMENTED_STATIC_PASS",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "APERTURE_USABILITY_CUT_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.json",
+   "raw": "MERGED_ACTIVE_PROJECTION",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json",
+   "raw": "IMPLEMENTED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ATLAS_DAYLINE_COMPRESSION_2026-09-23.json",
+   "raw": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "ATLAS_DAYLINE_DISCLOSURE_2026-09-23.json",
+   "raw": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "ATLAS_DAYLINE_LIVE_BRIDGE_2026-09-25.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
+   "raw": "MERGE_READY_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ATLAS_DAYLINE_MOBILE_REACH_CLOCK_2026-09-25.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "AXIAL_APERTURE_CONVERGENCE_2026-09-27.json",
+   "raw": "IMPLEMENTED_CANDIDATE_CI_PENDING",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "AXIAL_SHADOW_PROBE_2026-09-25.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "AXIAL_WRAP_BODY_2026-10-03.json",
+   "raw": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "BACKUP_RECOVERY_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "BODY_FIT_RETURN_PATINA_2026-09-22.json",
+   "raw": "RETURNED_BOUNDED_DELTA",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "BODY_FIT_ROUTE_FRICTION_2026-10-03.json",
+   "raw": "CANDIDATE / SELF_VERIFYING",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "BODY_FIT_SENSOR_FUSION_2026-09-22.json",
+   "raw": "RETURNED_BOUNDED_DELTA",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "BROWSER_RESOLVER_CONSOLIDATION_2026-10-03.json",
+   "raw": "SHIPPED_TO_MASTER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+   "raw": "RETURNED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "CHANGE_CALCULUS_STEP_ORDER_2026-09-27.json",
+   "raw": "CANDIDATE_EVIDENCE_PASS",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "COLD_START_COMPRESSION_2026-09-27.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23.json",
+   "raw": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "CREW_TURN_EXECUTABLE_2026-10-06.json",
+   "raw": "CANDIDATE / CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+   "raw": "MERGED_MACHINE_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DAYLINE_CONFLUENCE_WORKFIELD_2026-09-25.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DAYLINE_INTERPHASE_ACTION_SURFACE_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
+   "raw": "MERGED_MACHINE_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
+   "raw": "MERGED_MACHINE_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
+   "raw": "IMPLEMENTED_VERIFIED_BRANCH",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ENV0_SOURCE_BYTE_VERIFICATION_2026-09-26.json",
+   "raw": "EXACT_LIBRARY_PDFS_RAW_HASH_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FAN8_PHYSICAL_PROJECTION_2026-09-25.json",
+   "raw": "PRINTABLE_CANDIDATE_V02 / FOLDED_INTO_TRANSDUCTIONS / PHYSICAL_USE_PARKED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_AWAKE_VISOR_V2_2026-10-03.json",
+   "raw": "MERGED_MACHINE_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_COAXIALITY_2026-09-29.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_COAXIALITY_ADMISSION_BOUNDARY_2026-09-29.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_CONVERGENCE_ADAPTER_2026-10-03.json",
+   "raw": "CANDIDATE / LOCAL_CORE_PASS / INLINE_JS_PASS / CI_REQUIRED / UNPROMOTED_DONOR",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_CREW_HANDOFF_BRIDGE_2026-10-03.json",
+   "raw": "CANDIDATE / CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_EVOLUTION_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
+   "raw": "CANDIDATE / CI_EVIDENCE_ATTACHED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_GAME_DONOR_SIX_TRANSFER_2026-09-30.json",
+   "raw": "CURRENT_HOST_ALIGNED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_HADES_FAILURE_RETURN_2026-10-03.json",
+   "raw": "CANDIDATE / CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02.json",
+   "raw": "CANDIDATE / CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
+   "raw": "MERGED_MACHINE_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_INDEX_CATCHUP_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
+   "raw": "MERGED_PASS",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
+   "raw": "MERGED_PASS / MATERIAL_HISTORY_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_CONVERGENCE_DONOR_FOLD_2026-09-30.json",
+   "raw": "PR_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02.json",
+   "raw": "VERIFIED / MERGED / DEPLOYED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
+   "raw": "CANDIDATE / CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01.json",
+   "raw": "COMPLETE_PENDING_MERGE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
+   "raw": "CANDIDATE / SELF_VERIFYING",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_HELD_ACTION_APERTURE_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_HELD_GUIDE_CONTRACTION_0825_2026-09-30.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
+   "raw": "MERGED_PASS",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
+   "raw": "MERGED_GREEN_TERMINAL_SAFE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
+   "raw": "ACTIVE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
+   "raw": "PASS / PR_528",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_REALITY_GAP_2026-09-25.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_REALITY_GAP_COVERAGE_2026-09-26.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_REALITY_GAP_WORLD_LINK_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
+   "raw": "SHIPPED_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_SEMANTIC_SIGNAL_STRIP_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_SEMANTIC_ZUI_0834_2026-10-05.json",
+   "raw": "MERGED_FUNCTIONAL_GREEN_VISUAL_BASELINE_DRIFT_OPEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_INDEX_TOUCH_CATCHUP_2026-10-01.json",
+   "raw": "DRAFT_PENDING_MERGE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_WAITING_PORTS_TRUTH_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
+   "raw": "PASS / PR 779 EXACT-HEAD",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30.json",
+   "raw": "MERGED / EXACT_HEAD_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_MOIRE_HELD_OBJECT_2026-10-02.json",
+   "raw": "CANDIDATE / MACHINE_PASS / HUMAN_VALUE_UNPROVED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
+   "raw": "EXACT_HEAD_GREEN_CLOSED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_PROJECTION_ABLATION_2026-09-29.json",
+   "raw": "IMPLEMENTED / EVIDENCE_OPEN",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_PULSE_2026-09-22.json",
+   "raw": "SHIPPED_CANDIDATE_REAL_PHONE_REQUIRED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_PULSE_CONVERGENCE_2026-09-24.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_PULSE_WORKFLOW_2026-09-22.json",
+   "raw": "SHIPPED_REPO_PASS_PHONE_REQUIRED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_REALITY_SYNC_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FIELD_WAITING_BODY_CALIBRATION_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FOCUS_INTERFACE_SYNC_COMPLETION_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_AUTHORED_READER_2026-09-28.json",
+   "raw": "CURRENT_MASTER_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_AUTHORITY_SYNC_2026-09-26.json",
+   "raw": "CI_GREEN_PRESEAL",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
+   "raw": "TRANSFORM_EXPORT_ADVANCED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
+   "raw": "CANDIDATE_LIVE_FALSIFICATION_PASS",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_CONVERGENCE_2026-09-26.json",
+   "raw": "VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
+   "raw": "MERGED_PLANNING_AUTHORITY",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_DOCUMENT_ATLAS_2026-09-22.json",
+   "raw": "VERIFIED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22.json",
+   "raw": "MERGED_COMPLETE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_FIELD_LAB_CROSS_PROJECTION_PROOF_2026-09-26.json",
+   "raw": "VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+   "raw": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "free-text sentence, not a state token"
+  },
+  {
+   "file": "FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN / SUBJECTIVE_EVIDENCE_OPTIONAL",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_FORECAST_FACTORIZATION_2026-09-29.json",
+   "raw": "CANDIDATE_PENDING_CI",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
+   "raw": "SHIPPED_REPO_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_HORIZON_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_INK_04_SWEPT_CONTACT_2026-09-26.json",
+   "raw": "MERGED_BRANCH_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25.json",
+   "raw": "MARKS_V02_MERGED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
+   "raw": "SHIPPED_MARKS / PINNED_SPECIFIC_SABER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
+   "raw": "RETURNED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
+   "raw": "CANDIDATE_PENDING_CI",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
+   "raw": "MERGED_VISIBLE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_2026-09-21.json",
+   "raw": "SHIPPED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
+   "raw": "BRANCH_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
+   "raw": "ARCHITECTURAL_EVIDENCE_ONLY__SOCIAL_LIVED_GATE_OPEN",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_MOBILE_REFINEMENT_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_MOTION_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_PHONE_NAV_TARGETS_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_PLAY_03_2026-09-25.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_PLAY_04_HEX_PUZZLE_2026-09-25.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_PUBLIC_CONTRACTION_2026-09-26.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
+   "raw": "PR_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
+   "raw": "SHIPPED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_REPLAY_02_2026-09-25.json",
+   "raw": "SHIPPED_VERIFIED_BRANCH",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SABER_01_2026-09-25.json",
+   "raw": "REPO_VERIFIED / WAITING_TWO_PHONE_PHYSICAL_PROOF",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SEED_GATE_UNLOCK_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+   "raw": "SHIPPED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SOURCE_CELL_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24.json",
+   "raw": "SOURCE_MAP_IMMERSION_CONVERGED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
+   "raw": "MERGED_COMPLETE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
+   "raw": "MERGED_REPO_GREEN_DEPLOYED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_THREAD_CONVERGENCE_2026-09-25.json",
+   "raw": "RECOVERED_INDEX_NON_SOVEREIGN",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json",
+   "raw": "MERGED_RESEARCH_DONOR",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_TWO_DIAL_CAUSAL_RETURN_2026-09-29.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_TWO_DIAL_GESTURE_BOUNDARY_2026-09-29.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_TWO_DIAL_REVERSAL_2026-09-30.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_VERSE_MARKS_CONVERGENCE_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_VOICE_01_2026-09-24.json",
+   "raw": "SHIPPED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_WINDDOWN_2026-09-22.json",
+   "raw": "RETURNED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_WORKFLOW_2026-09-25.json",
+   "raw": "SHIPPED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FOLD_LOSSLESS_PROOF_2026-09-23.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
+   "raw": "IMPLEMENTED_VERIFIED",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FOUNDRY_WORD_MACHINES_REENTRY_2026-09-26.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
+   "raw": "ML Street Talk, AI Search and Lex Fridman contain useful current donor material, but the repo had no explicit gate separating fast scout media, technical mechanism sources and synthesis interviews before transfer into a current FIELD head.",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "free-text sentence, not a state token"
+  },
+  {
+   "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
+   "raw": "The external-donor gate on master can reject under-evidenced promotion requests, but a batch of donors still required manual interpretation to determine the next exact evidence move. That left the research loop executable as validation but not yet convenient as an operating instrument.",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "free-text sentence, not a state token"
+  },
+  {
+   "file": "GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json",
+   "raw": "MECHANISM_RECOVERED_STANDALONE_ARTIFACT_UNEVIDENCED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "GITHUB_REPO_SURVEY_2026-09-27.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "GLOBAL_SURFACE_SIMPLIFICATION_2026-09-27.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
+   "raw": "Historical work existed across phone robotics, repair practice, modular motion and device-role allocation, but proof state and provenance were easy to blur across repeated summaries.",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "free-text sentence, not a state token"
+  },
+  {
+   "file": "HARD_ADVANCE_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "HERMES_CROSS_SESSION_RETURN_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "HERMES_DAILY_LIVE_AUTHORITY_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HERMES_VISION_LOOP_SKILLS_2026-09-24.json",
+   "raw": "CANDIDATE_METHOD_LAYER",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "HOUSE_CARE_RETURN_2026-09-25.json",
+   "raw": "CANDIDATE / EXTERNAL_HUMAN_CONSEQUENCE_OBSERVED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HOUSE_HOMEBASE_PROJECTION_2026-10-03.json",
+   "raw": "PR_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HOUSE_HOMEBASE_SPATIAL_DOCK_2026-10-03.json",
+   "raw": "PR_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.json",
+   "raw": "IMPLEMENTED_PROOF_HARNESS / REAL_SECOND_WORKER_PENDING",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HOUSE_REALITY_HARNESS_2026-10-02.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HTML_DOCUMENT_TAIL_INTEGRITY_2026-09-27.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
+   "raw": "MERGED_ACTIVE_CANDIDATE",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "IMAGE_ARTIFACT_HARVEST_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "INTERPHASE_ACTION_GRAMMAR_2026-09-29.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "INTERPHASE_CARRIER_2026-09-27.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "INTERPHASE_DURABLE_RETURN_REAL_OBJECT_2026-10-06.json",
+   "raw": "CANDIDATE / SELFTESTED / NO NEW LENS",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "INTERPHASE_JSPACE_VOCAB_SHARED_001_2026-10-01.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "INTERPHASE_ROOM_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "JSPACE_REAL_TRACE_2026-09-27.json",
+   "raw": "REAL_MODEL_READ_TRACE_RUN__NO_CAUSAL_CLAIM",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "JSPACE_STEERING_DONOR_2026-09-27.json",
+   "raw": "CANDIDATE_REAL_MODEL_PLUMBING_PASS",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "LACONIC_FIELD_ACTIONS_2026-10-03.json",
+   "raw": "BOUNDED_EXECUTION_SEAM_CLOSED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json",
+   "raw": "DIRECT_SOURCE_CHAIN_RECOVERED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "LACONIC_MISSINGNESS_RECONCILIATION_2026-09-25.json",
+   "raw": "RECOVERY_COUNT_RECONCILED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "LACONIC_MIXED_NEWS_SCENE_2026-09-30.json",
+   "raw": "BOUNDED_PUBLIC_SAFE_DELTA",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "LACONIC_NAME_THE_MOVE_2026-10-02.json",
+   "raw": "BOUNDED_MECHANISM_TRANSFER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "LACONIC_POCKET_MOVES_2026-10-02.json",
+   "raw": "BOUNDED_EXISTING_OBJECT_PROJECTION",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "MEDIA_REFINERY_B260728B_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "NEGLECTED_RECOVERY_SWEEP_2026-09-26.json",
+   "raw": "RECOVERY_CONVERGENCE_COMPLETE / NO_NEW_ACTIVE_FRONT",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
+   "raw": "Cluster-14 convergence established SPECIFIED != BUILT != TESTED != ADOPTED, but the repository had no executable guard preventing a detailed hardware specification from being represented as TESTED without physical run evidence.",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "free-text sentence, not a state token"
+  },
+  {
+   "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "PASSIVE_FEEDBACK_2026-09-21.json",
+   "raw": "MERGED_BASELINE",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "PERIMETER_HARDENING_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29.json",
+   "raw": "CANDIDATE / STALE-CANCEL-DISTINGUISHED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
+   "raw": "READY_NOT_PHYSICALLY_EXECUTED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
+   "raw": "IMPLEMENTED / PR_PROOF_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
+   "raw": "PREDECESSOR_PROOF_SEALED / RECEIPT_HEAD_CI_REQUIRED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
+   "raw": "PASS / PR_528",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
+   "raw": "PASS / MERGE_READY",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_READER_CONVERGENCE_2026-09-28.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
+   "raw": "VERIFIED / PR 578 PREDECESSOR PROOF HEAD",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "READFIELD_CONVERGENCE_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "READFIELD_FOCUS_LENS_080_2026-09-23.json",
+   "raw": "RETURNED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READFIELD_PHONE_WORK_085_2026-09-25.json",
+   "raw": "SHIPPED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READFIELD_RIDE_RAIL_CURRENT_2026-10-03.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READFIELD_WORKFLOW_084_2026-09-25.json",
+   "raw": "SHIPPED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READFIELD_WORK_MODES_2026-09-25.json",
+   "raw": "SHIPPED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
+   "raw": "MERGED_PROVED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
+   "raw": "FROZEN_DONOR",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no fold rule matched — needs human disposition"
+  },
+  {
+   "file": "RESEARCH_SYNC_2026-09-25.json",
+   "raw": "Public runtime/control heads advanced materially on Sep-25 while several research/coordination documents still described the Sep-23 architectural frontier.",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "RETURN_FIELD_FOLD_2026-10-07.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "RETURN_INTERPHASE_GENESIS_2026-10-03.json",
+   "raw": "PR_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "RETURN_LANDING_LIGHT_LIVE_SYNC_2026-10-03.json",
+   "raw": "PR_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "RETURN_STUCK_THREADS_2026-10-02.json",
+   "raw": "DRAFT_PENDING_MERGE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "ROOM_MATERIAL_DOM_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "ROUTE_ONTOLOGY_LINT_2026-09-25.json",
+   "raw": "READY_TO_MERGE_VERIFIED",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
+   "raw": "MERGE_READY_WITH_KNOWN_BASELINE_RED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json",
+   "raw": "SHIPPED_CANONICAL_ROOT",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
+   "raw": "VERIFIED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "SHOPPING_MARKET_TAPE_2026-09-30.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "SHOPPING_SIGNAL_FIELD_2026-09-26.json",
+   "raw": "MERGE_READY_WITH_KNOWN_BASELINE_RED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
+   "raw": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no fold rule matched — needs human disposition"
+  },
+  {
+   "file": "SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SLEEPER_SYSTEM_FOLD_2026-09-27.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_BLOCKED_TURN_2026-10-03.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "STICKER_TGS_2026-09-29.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "SYSTEM_MAP_CONVERGENCE_2026-10-02.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "TOOLBELT_MATERIALIZATION_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json",
+   "raw": "SOURCE_RAW_BYTES_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "active/verified/current-host"
+  },
+  {
+   "file": "TRIANGLE_CENTER_CURRENT_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "TRIANGLE_UNIFIED_2026-09-22.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "VERSE_CONTINUE_INSERT_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN_BROWSER_PROVED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_COPILOT_RECENTER_2026-09-26.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_FOCUS_RETURN_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN_BROWSER_PROVED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_OPEN_LINE_2026-09-25.json",
+   "raw": "SHIPPED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VERSE_ROUNDTRIP_RETURN_2026-09-25.json",
+   "raw": "MERGED_CI_GREEN",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json",
+   "raw": "CANDIDATE_BRANCH_FIELD_INDEX_INTEGRATED",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
+   "raw": "CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
+   "raw": "",
+   "phase": "SOURCE",
+   "verified": false,
+   "why": "no state recorded"
+  },
+  {
+   "file": "WORK_EXPERIENCE_READFIELD_2026-10-03.json",
+   "raw": "SHIPPED_TO_MASTER + DEVICE_PROOF_REQUIRED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  }
+ ]
+}

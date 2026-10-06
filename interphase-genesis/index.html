@@ -118,6 +118,32 @@
     padding:6px 10px; font:inherit; letter-spacing:.16em; cursor:pointer; transition:color .15s,border-color .15s}
   .foot a:hover, .foot button:hover{color:var(--hot); border-color:var(--hot)}
   .foot .grow{flex:1}
+
+  /* ============ field fold — live convergence ============ */
+  .fold{border-bottom:1px solid var(--line); padding:22px 0}
+  .fold .ratio{font-size:clamp(20px,3.6vw,32px); letter-spacing:-.02em; margin:2px 0 4px}
+  .fold .ratio b{color:var(--hot); font-weight:600}
+  .fold .sub{color:var(--mut); font-size:12px; margin:0 0 16px; max-width:72ch}
+  .fold .sub b{color:var(--ink)}
+  .bars{display:flex; flex-direction:column; border:1px solid var(--line)}
+  .bar{display:grid; grid-template-columns:80px 1fr 56px; align-items:center; gap:12px;
+       padding:11px 14px; border-bottom:1px solid var(--line); cursor:pointer; transition:background .15s}
+  .bar:last-child{border-bottom:0}
+  .bar:hover{background:color-mix(in srgb,var(--cool) 8%,transparent)}
+  .bar .g{font-size:18px; line-height:1}
+  .bar .track{height:14px; background:color-mix(in srgb,var(--line) 45%,transparent); position:relative; overflow:hidden}
+  .bar .fill{position:absolute; inset:0 auto 0 0; transition:width .55s ease}
+  .bar .n{font-size:16px; text-align:right; letter-spacing:-.02em}
+  .bar.SOURCE .g{color:var(--cool)} .bar.SOURCE .fill{background:var(--cool)}
+  .bar.HOLD .g{color:var(--hot)} .bar.HOLD .fill{background:var(--hot)}
+  .bar.RETURN .g{color:var(--gold)} .bar.RETURN .fill{background:var(--gold)}
+  .bar.RESIDUE .g{color:var(--bad)} .bar.RESIDUE .fill{background:var(--bad)}
+  .tokens{margin-top:14px; border:1px solid var(--line); padding:12px 14px; min-height:70px}
+  .tokens .th{font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--mut); margin-bottom:9px}
+  .tokens .tk{display:inline-block; font-size:11px; padding:3px 8px; margin:3px 5px 0 0;
+    border:1px solid var(--line); color:var(--mut); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:22ch}
+  .tokens .tk .c{color:var(--ink); margin-left:6px}
+  .tokens .none{color:var(--mut); font-size:11px; font-style:italic}
 </style>
 </head>
 <body>
@@ -184,6 +210,16 @@
       <div class="kv"><span class="k">identity</span><span class="v" id="sIdent" style="color:var(--green)">preserved</span></div>
     </div>
   </aside>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="rhead"><h2>The fold, live — the ternary governs the real states</h2></div>
+    <p class="ratio" id="foldRatio">reading the fold…</p>
+    <p class="sub">Every return state in the repo, projected onto the same 太玄經 ternary that drives the room above. Click a phase to see the raw states that collapse into it. The theory is not a picture of the vocabulary — it <b>is</b> the vocabulary. Residue is shown, never coerced.</p>
+    <div class="bars" id="foldBars"></div>
+    <div class="tokens" id="foldTokens"><div class="th">raw states → click a phase above</div></div>
+  </div>
 </section>
 
 <section class="receipts">
@@ -304,6 +340,52 @@
     b.addEventListener('click', function(){ setState(+b.getAttribute('data-state')); });
   });
   setState(0);
+
+  /* ---------- field fold: live convergence (the ternary governs the real states) ---------- */
+  (function foldViz(){
+    var G={SOURCE:'⚊',HOLD:'𝌀',RETURN:'⚋',RESIDUE:'⧗'};
+    var PH=['SOURCE','HOLD','RETURN','RESIDUE'];
+    function esc(s){return String(s).replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
+    function showTokens(phase,d){
+      var box=document.getElementById('foldTokens');
+      if(!box) return;
+      var rows=d.folded.filter(function(f){return f.phase===phase;});
+      var counts={};
+      rows.forEach(function(f){var k=(f.raw||'(none)');counts[k]=(counts[k]||0)+1;});
+      var items=Object.keys(counts).map(function(k){return [k,counts[k]];})
+        .sort(function(a,b){return b[1]-a[1];}).slice(0,22);
+      var head='<div class="th">'+G[phase]+' '+phase+' · '+rows.length+' returns · '+items.length+' distinct raw states folded here</div>';
+      if(!items.length){ box.innerHTML=head+'<div class="none">nothing here — clean</div>'; return; }
+      box.innerHTML=head+items.map(function(it){
+        return '<span class="tk">'+esc(it[0].slice(0,30))+'<span class="c">×'+it[1]+'</span></span>';
+      }).join('');
+    }
+    fetch('../returns/FIELD_FOLD_MAP.json').then(function(r){return r.json();}).then(function(d){
+      var dist=d.phase_distribution, max=1;
+      PH.forEach(function(p){ if((dist[p]||0)>max) max=dist[p]; });
+      var ratio=document.getElementById('foldRatio');
+      if(ratio) ratio.innerHTML='<b>'+d.raw_distinct_states+'</b> raw states → <b>'+d.folded_onto_enum+'</b> &nbsp;·&nbsp; '+d.returns_total+' returns converged &nbsp;·&nbsp; residue '+d.residue_count;
+      var bars=document.getElementById('foldBars');
+      PH.forEach(function(p){
+        var n=dist[p]||0;
+        var el=document.createElement('div');
+        el.className='bar '+p;
+        el.innerHTML='<span class="g">'+G[p]+'</span>'+
+          '<span class="track"><span class="fill" style="width:0%"></span></span>'+
+          '<span class="n">'+n+'</span>';
+        el.addEventListener('click',function(){showTokens(p,d);});
+        bars.appendChild(el);
+        requestAnimationFrame(function(){
+          var fill=el.querySelector('.fill');
+          if(fill) fill.style.width=Math.round(n/max*100)+'%';
+        });
+      });
+      showTokens('RETURN',d);
+    }).catch(function(){
+      var ratio=document.getElementById('foldRatio');
+      if(ratio) ratio.textContent='fold data unavailable (run node tools/field-fold.mjs --write)';
+    });
+  })();
 })();
 </script>
 </body>
