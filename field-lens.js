@@ -106,3 +106,6 @@ window.addEventListener('field-density',()=>requestAnimationFrame(sync));
 const b=document.getElementById('apLens');if(b){b.textContent='◎ LENS';b.title='Refract the current FIELD focus without changing selection';b.onclick=()=>window.LensFocusRing?.open?.()}
 requestAnimationFrame(sync);
 })();
+
+// FIELD URL BAR is an operator projection over the existing host, not a new state owner.
+import('./field-urlbar.js').catch(()=>{});
