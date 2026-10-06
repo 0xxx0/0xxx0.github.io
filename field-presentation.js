@@ -160,8 +160,9 @@ window.FieldZUI=Object.freeze({state,open,close,toggle,transition});
 })();
 
 (()=>{'use strict';
-/* AWAKE + OMNIBAR are presentation projections over the live FIELD carrier.
-   Neither may become a route, store, planner, executor or effect authority. */
+/* AWAKE is a presentation projection over the live FIELD INTERPHASE carrier.
+   OMNIBAR is co-mounted as a projection; neither may become a route, store,
+   planner, executor or effect authority. */
 function load(){
  import('./field-awake-visor.js').catch(error=>{
   document.documentElement.dataset.fieldAwakeVisor='error';
