@@ -145,6 +145,12 @@
   .tokens .tk .c{color:var(--ink); margin-left:6px}
   .tokens .none{color:var(--mut); font-size:11px; font-style:italic}
 
+  /* field-index fold sub-sections — routes + operations, same fold language */
+  .idx{margin-top:24px; display:grid; gap:20px}
+  .idxh{font-size:10px; letter-spacing:.18em; color:var(--mut); text-transform:uppercase; margin-bottom:9px; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap}
+  .idxh span{color:var(--ink); opacity:.72; letter-spacing:.03em; text-transform:none; font-size:11px}
+  .bar.op .g{min-width:82px; color:var(--gold); letter-spacing:.07em; font-size:11px}
+
   /* ============ law-zoo facet — tiny laws, high leverage ============ */
   .zoo{border-bottom:1px solid var(--line); padding:22px 0}
   .zoo .lead{font-size:clamp(15px,2.4vw,20px); line-height:1.35; margin:2px 0 4px; max-width:74ch}
@@ -246,6 +252,17 @@
     <p class="sub">Every return state in the repo, projected onto the same 太玄經 ternary that drives the room above. Click a phase to see the raw states that collapse into it. The theory is not a picture of the vocabulary — it <b>is</b> the vocabulary. Residue is shown, never coerced.</p>
     <div class="bars" id="foldBars"></div>
     <div class="tokens" id="foldTokens"><div class="th">raw states → click a phase above</div></div>
+
+    <div class="idx">
+      <div>
+        <div class="idxh">FIELD INDEX · ROUTE STATE <span>the routes fold onto the same ternary — 10 values → 3</span></div>
+        <div class="bars" id="routeBars"></div>
+      </div>
+      <div>
+        <div class="idxh">FIELD INDEX · OPERATIONS <span>71 verbs → 6 classes · proposed lens, ratify or adjust</span></div>
+        <div class="bars" id="opBars"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -429,6 +446,25 @@
         });
       });
       showTokens('RETURN',d);
+
+      // ---- field-index convergence: route-state (→ternary) + operations (→6 classes) ----
+      function renderBars(id, entries, glyphOf, classOf){
+        var box=document.getElementById(id); if(!box) return;
+        var max=1; entries.forEach(function(e){ if(e[1]>max) max=e[1]; });
+        entries.forEach(function(e){
+          var el=document.createElement('div');
+          el.className='bar'+(classOf?' '+classOf(e[0]):'');
+          el.innerHTML='<span class="g">'+glyphOf(e[0])+'</span>'+
+            '<span class="track"><span class="fill" style="width:0%"></span></span>'+
+            '<span class="n">'+e[1]+'</span>';
+          box.appendChild(el);
+          requestAnimationFrame(function(){ var f=el.querySelector('.fill'); if(f) f.style.width=Math.round(e[1]/max*100)+'%'; });
+        });
+      }
+      var rt=d.routes||{}, rd=rt.route_state_dist||{}, oc=rt.operation_class_dist||{};
+      renderBars('routeBars', PH.map(function(p){return [p, rd[p]||0];}), function(p){return G[p];}, function(p){return p;});
+      var opOrder=Object.keys(oc).sort(function(a,b){return oc[b]-oc[a];});
+      renderBars('opBars', opOrder.map(function(k){return [k, oc[k]];}), function(k){return k;}, function(){return 'op';});
     }).catch(function(){
       var ratio=document.getElementById('foldRatio');
       if(ratio) ratio.textContent='fold data unavailable (run node tools/field-fold.mjs --write)';
