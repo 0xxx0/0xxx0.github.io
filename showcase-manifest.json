@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T13:04:27+08:00",
+  "updated": "2026-10-06T13:21:25+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1415,7 +1415,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-06T13:04:27+08:00",
+        "updated_at": "2026-10-06T13:21:25+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -9532,7 +9532,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T13:04:27+08:00",
+        "updated_at": "2026-10-06T13:21:25+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
