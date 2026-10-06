@@ -112,7 +112,7 @@ REALWORLD = [
 def sh(cmd):
     return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=REPO).stdout
 
-MACHINE = re.compile(r"^(desk:|nexus:|comms:|convergence:|stamp$|restamp|.*: stamp$|"
+MACHINE = re.compile(r"^(desk:|nexus:|comms:|convergence:|stamp$|restamp|.*: stamp|"
                      r".*: restamp|.*restamp post-rebase|ci:|temp pages:)", re.I)
 
 def today_foldin():
