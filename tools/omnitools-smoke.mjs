@@ -138,7 +138,7 @@ async function probe(){
    await load(json,'source-A');const before=JSON.stringify(model());await choose('read');await choose('bench');assert(JSON.stringify(model())===before,'Switching destroyed native model');assert(cd.getElementById('title').value===input.title,'Native view not retained');
   });
   await check('Responsive paging keeps held identity, invalid draft and focused cell',async()=>{
-   f.style.width='1280px';f.style.height='800px';await delay(100);
+   f.style.width='1280px';f.style.height='800px';await wait(()=>cw.innerWidth===1280&&cd.querySelectorAll('[data-row]').length===4&&cq('[data-select="large"]'),'expanded page exposes Large before edit');
    cq('[data-select="large"]').click();let cell=cq('[data-option="large"][data-axis="reset"]');cell.focus();edit(cell,'bad');cell.setSelectionRange(1,2);
    const unchanged=JSON.stringify(model());f.style.width='320px';f.style.height='568px';
    await wait(()=>cw.innerWidth===320&&cd.querySelectorAll('[data-row]').length<=2&&cq('[data-option="large"][data-axis="reset"]')===cd.activeElement,'focused small-frame paging');

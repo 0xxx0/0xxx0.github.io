@@ -26,7 +26,7 @@ Omnitools carries one source through unequal native projections. Generic numeric
 
 1. Load a CSV fixture containing quoted commas, an embedded newline and Unicode. Capture the full native result; USE OUTPUT holds those exact bytes. UNDO restores the original label and text byte-for-byte, including whitespace. Arbitrary manual source edits cannot inherit stale output.
 2. Reject empty/unavailable/stale output. Repeated clicks do not mint changes or successful receipts. Changing source excludes evidence from the previous source; source identity travels with every relevant trace.
-3. At mobile portrait and landscape sizes, primary actions remain reachable in one stage; source depth opens deliberately. Keyboard focus, accessible names and at least 44px action targets survive glyph compression. Page fit must not mean clipping content or suppressing access.
+3. At mobile portrait and landscape sizes, primary actions remain reachable in one stage; source depth opens deliberately. Keyboard focus and accessible names survive glyph compression. Compact-stage touch density remains an explicit usability trade-off against IBM’s 44px recommendation, not a claimed pass. Page fit must not mean clipping content or suppressing access.
 4. The native decision bench still validates exact/ranged/unknown inputs and min/max units, preserves UNCERTAIN separately, and owns its state and RETURN. The carrier does not add a second evaluator or claim physical measurements.
 
 ## Handoff and stop

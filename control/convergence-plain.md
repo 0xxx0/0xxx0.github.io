@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T04:55:45.566Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T05:26:44.980Z by scripts/generate-convergence-strip.mjs_
 
-The field has **37 material commits on 2026-10-06** across **987 branches** (123 exact Git commits in the window; 86 generated telemetry; 5222 on master all-time).
+The field has **48 material commits on 2026-10-06** across **989 branches** (137 exact Git commits in the window; 89 generated telemetry; 5236 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- goldens: recapture 5 routes on CI runner (root/docs drifted since 09-29)
-- CI: visual-regression — wait for a Pages deployment covering the push (tolerat
+- ci: widen /docs/ tolerance to 3% -- live aperture region varies per capture
 - desk: refresh public field data
+- Merge pull request #927 from 0xxx0/field/temp-adopt-20261006
 
 ## Open gaps
 
