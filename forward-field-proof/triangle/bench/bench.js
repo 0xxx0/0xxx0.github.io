@@ -43,7 +43,7 @@
   const cellKey=(...parts)=>JSON.stringify(parts);
   let editingInput = null, notice = '';
   const pageSize = () => {
-    const rows=innerHeight<560?2:innerHeight<650?3:4;
+    const rows=innerHeight<330?1:innerHeight<560?2:innerHeight<650?3:4;
     return S.criteria.length>3&&innerWidth<500&&innerHeight<650?Math.max(1,rows-1):rows;
   };
   const visibleAxes = () => S.criteria.slice(axisPage * 3, axisPage * 3 + 3);

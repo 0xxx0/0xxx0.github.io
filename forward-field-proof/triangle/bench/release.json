@@ -33,7 +33,7 @@
     "Actual user use/value remains unobserved. Computational and browser proof do not establish lived usefulness."
   ],
   "verification": {
-    "state": "CORE_PASS / PREDECESSOR_BROWSER_PASS / CURRENT_RESIZE_CANDIDATE_CI_PENDING",
+    "state": "CORE_PASS / BROWSER_EVIDENCE_IN_PR_921",
     "commands": [
       "node tools/decision-bench-selftest.cjs",
       "node tools/decision-bench-smoke.mjs"
@@ -55,7 +55,7 @@
       "844×390",
       "1280×800"
     ],
-    "integration": "Updated resize, focus and axis paging are proved on the exact candidate head by decision-bench-smoke and omnitools-smoke in GitHub Actions. Prior 24/24 browser evidence is historical, not a substitute for the current candidate."
+    "integration": "Current standalone and integrated browser results are recorded per exact candidate in https://github.com/0xxx0/0xxx0.github.io/pull/921. Historical 24/24 browser checks below are not a substitute for current candidate CI."
   },
   "authority_boundary": "Local reasoning only; no CURRENT/QUEUE mutation, purchase, external sending, actuation or automatic execution.",
   "research": [

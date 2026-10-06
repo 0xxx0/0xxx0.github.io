@@ -31,7 +31,7 @@ Omnitools carries one source through unequal native projections. Generic numeric
 
 ## Handoff and stop
 
-2026-10-06: narrowed the historical survey to these three mechanisms; verified source documentation; assigned output-to-source plus exact undo to the existing carrier. Implementation and browser evidence belong to the host worker's return. Test statuses are pending here until that evidence is attached. Do not claim a tested transplant from this research note alone.
+2026-10-06: narrowed the historical survey to these three mechanisms; verified source documentation; assigned output-to-source plus exact undo to the existing carrier. Host evidence: candidate `63f4a57` proves the real CSV→JSON→SCAN source loop, exact two-step UNDO/RETURN, and all four native tool layouts at 320×568 and 740×360 (omnitools-check run 37418626014; overall 18/19, with a separate resize-check failure). Standalone Bench passes 24/24 and the full public suite passes in run 37418625966. Current integrated resize/layout status is tracked on [PR #921](https://github.com/0xxx0/0xxx0.github.io/pull/921); these checks do not constitute an executed external-donor replica. Do not claim a tested transplant from this research note alone.
 
 Physical/world unknowns: actual room dimensions, attachment strength, supported load, user adoption and subjective delight remain unmeasured. Imported sample values are not observations. Stop adding donors after these moves; reopen only for a reproduced operation failure or explicit user selection.
 

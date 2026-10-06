@@ -141,7 +141,7 @@
   ],
   "handoff": {
     "at": "2026-10-06",
-    "state": "RESEARCH_VERIFIED / IMPLEMENTATION_EVIDENCE_PENDING",
+    "state": "IMPLEMENTED / CURRENT_CI_IN_PR_921",
     "delta": "Generalized native decision bench, strict loss-aware conversion, full-result source promotion, exact source undo, bounded native stages and source-bound RETURN.",
     "next": "Use one actual input; report the operation, friction and exact RETURN. Device-local results are not physical or adoption proof.",
     "physical_unknowns": [
@@ -150,6 +150,14 @@
       "supported load",
       "real user adoption",
       "subjective delight"
-    ]
+    ],
+    "software_evidence": {
+      "proof_head": "63f4a57a8653d5edef0280d0b091acc00d072470",
+      "native_turn_and_undo": "PASS in omnitools-check 37418626014; overall18/19, isolated later resize check failed",
+      "native_four_tool_fit": "PASS: all four tools at320×568 and740×360 in same run",
+      "standalone_decision_workflow": "24/24 PASS in public-surface-check37418625966",
+      "current_exact_head_ci": "https://github.com/0xxx0/0xxx0.github.io/pull/921",
+      "authority": "Software proof only; actual use and physical claims remain unobserved"
+    }
   }
 }
