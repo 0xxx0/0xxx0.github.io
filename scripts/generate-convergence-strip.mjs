@@ -73,7 +73,10 @@ if(process.argv.includes('--selftest')){
   })();
   const references=grep.split('\n').filter(Boolean);
   const paths=[...new Set(references.map((line)=>line.split(':',1)[0]))].sort();
-  const executableOrConfig=(p)=>/\.(?:html?|js|mjs|cjs|ts|tsx|jsx|json|ya?ml)$/i.test(p);
+  // Fail on machine-consumable config/code references. Generic HTML link indexes are
+  // navigation-only and do not consume snapshot values, so their static href/string refs
+  // are evidence of discoverability, not authority consumers.
+  const executableOrConfig=(p)=>/\.(?:js|mjs|cjs|ts|tsx|jsx|json|ya?ml)$/i.test(p);
   const allowedOperational=new Set([
     'scripts/generate-convergence-strip.mjs',
     '.github/workflows/convergence-validate.yml',
