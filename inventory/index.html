@@ -1,44 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-inventory">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE INVENTORY — what the scattered things actually do</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 80px}
-  header.top{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:24px}
-  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.22em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  .why{border:1px solid var(--line);background:#000;padding:14px 16px;margin-bottom:26px;color:var(--mut);
-    font-size:11px;line-height:1.75}
-  .why b{color:var(--ink);font-weight:500}
-  .toc{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:26px}
-  .toc a{border:1px solid var(--line);padding:5px 9px;font-size:9px;letter-spacing:.14em;
-    color:var(--mut);text-decoration:none;text-transform:uppercase}
-  .toc a:hover{color:var(--gold);border-color:var(--gold)}
-  .sys{border:1px solid var(--line);background:#000;margin-bottom:14px}
-  .sys>header{display:block;padding:13px 15px;border-bottom:1px solid var(--line);background:#080b0e}
-  .sys .hdr{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-  .sys h3{margin:0;font-size:13px;letter-spacing:.14em;color:var(--ink);font-weight:500}
-  .burden{font-size:8px;letter-spacing:.16em;padding:2px 7px;border:1px solid var(--line);white-space:nowrap}
-  .burden.load{color:var(--green);border-color:#315837}
-  .burden.mix{color:var(--gold);border-color:#3a2c1e}
-  .burden.cand{color:var(--cool);border-color:#1f4a5e}
-  .sys .one{color:var(--ink);font-size:12px;margin-top:7px;line-height:1.6}
-  .sys .meta{color:var(--mut);font-size:9px;letter-spacing:.09em;margin-top:6px}
-  table{width:100%;border-collapse:collapse}
-  td{padding:8px 15px;border-bottom:1px solid #111a1f;font-size:11px;vertical-align:top}
-  tr:last-child td{border-bottom:0}
-  td.p{color:var(--cool);white-space:nowrap;width:1%;padding-right:20px}
-  td.w{color:var(--ink);line-height:1.6}
-  .note{padding:10px 15px;border-top:1px solid #111a1f;color:var(--mut);font-size:10px;line-height:1.7;background:#05080a}
-  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  @media(max-width:700px){td.p{white-space:normal}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">

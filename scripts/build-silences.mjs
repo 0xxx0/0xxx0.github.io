@@ -98,53 +98,12 @@ for (const g of shown) {
 }
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-silences">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE SILENCES</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
-  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:30px}
-  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  .gap{border:1px solid var(--line);background:#000;margin-bottom:14px;border-radius:2px;overflow:hidden}
-  .gap.epic{border-color:#3a2c1e;background:linear-gradient(180deg,#0a0806,#000)}
-  .gap.epic .n{color:var(--gold)}
-  .hd{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line);background:#0a0e11}
-  .n{font-size:19px;letter-spacing:.09em;color:var(--hot)}
-  .r{color:var(--mut);font-size:10px;letter-spacing:.1em}
-  .body{display:grid;grid-template-columns:1fr 118px 1fr;align-items:stretch}
-  .side{padding:16px}
-  .side.before{border-right:1px solid var(--line)}
-  .side.after{border-left:1px solid var(--line)}
-  .tag{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
-  .before .tag{color:var(--cool)} .after .tag{color:var(--hot)}
-  .t{font-size:9px;color:var(--mut);letter-spacing:.08em;margin-bottom:7px}
-  .hr{color:var(--gold)}
-  .d{font-size:12px;color:var(--ink);border-left:2px solid var(--line);padding-left:11px}
-  .before .d{border-left-color:#1f4a5e} .after .d{border-left-color:#5e2f1f}
-  .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#05080a;border-left:1px solid var(--line);border-right:1px solid var(--line)}
-  .arrow{color:var(--mut);font-size:15px}
-  .quiet{font-size:8px;letter-spacing:.16em;color:var(--mut);text-align:center;text-transform:uppercase}
-  @media(max-width:820px){.body{grid-template-columns:1fr}.side.before,.side.after{border:0}
-    .before{border-bottom:1px solid var(--line)}.mid{flex-direction:row;padding:8px}}
-  footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  .lead{border:1px solid var(--gold);background:#0b0e11;padding:20px 22px;margin-bottom:26px}
-  .lead .big{font-size:30px;color:var(--gold);letter-spacing:.06em}
-  .lead .txt{color:var(--mut);font-size:10px;letter-spacing:.1em;margin-top:6px}
-  .redact{border:1px solid var(--line);background:#080b0e;padding:14px 16px;margin-bottom:26px;color:var(--mut);font-size:10px;letter-spacing:.05em}
-  .redact b{color:var(--gold)}
-  .years{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:26px}
-  .yr{background:#000;padding:10px 12px}
-  .yr .k{color:var(--mut);font-size:9px;letter-spacing:.16em}
-  .yr .v{color:var(--ink);font-size:18px;letter-spacing:.05em}
-  .yr .v em{color:var(--mut);font-size:9px;font-style:normal;letter-spacing:.1em}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">
@@ -204,16 +163,8 @@ const privDir = homedir() + '/void-anchor/_private-review';
 if (existsSync(homedir() + '/void-anchor')) {
   mkdirSync(privDir, { recursive: true });
   writeFileSync(privDir + '/silences-full.html',
-    `<!DOCTYPE html><html><head><meta charset="utf-8"><title>THE SILENCES — private full text</title>
-<style>body{background:#05070a;color:#e8ece9;font:12px/1.6 ui-monospace,Menlo,monospace;max-width:1000px;margin:0 auto;padding:30px 20px}
-h1{color:#d5ad68;font-size:14px;letter-spacing:.2em}.gap{border:1px solid #1d262c;background:#000;margin-bottom:14px;padding:0}
-.hd{display:flex;justify-content:space-between;padding:10px 14px;background:#0a0e11;border-bottom:1px solid #1d262c}
-.n{color:#ed7447;font-size:17px}.r{color:#6b7780;font-size:10px}
-.body{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.side{padding:14px}.before{border-right:1px solid #1d262c}
-.tag{font-size:8px;letter-spacing:.2em;color:#6b7780;text-transform:uppercase;margin-bottom:6px}
-.t{color:#6b7780;font-size:9px;margin-bottom:6px}blockquote{margin:0;border-left:2px solid #1f4a5e;padding-left:10px}
-.warn{color:#ed7447;border:1px solid #5a3a3f;padding:12px;margin-bottom:20px;font-size:11px}</style></head><body>
+    `<!DOCTYPE html><html class="dark doc doc-silences-full"><head><meta charset="utf-8"><title>THE SILENCES — private full text</title>
+<link rel="stylesheet" href="/tools/house-patterns.css"></head><body>
 <h1>THE SILENCES — PRIVATE FULL TEXT</h1>
 <div class="warn">LOCAL ONLY · NOT IN THE REPOSITORY · contains personal detail — do not publish or share.</div>
 ${privCards}</body></html>`);

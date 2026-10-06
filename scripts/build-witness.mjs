@@ -110,71 +110,12 @@ const discRows = discs.map((d, i) =>
 ).join('\n');
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-witness">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE EMPTY SKY IS MY ONLY WITNESS</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1280px;margin:0 auto;padding:34px 20px 90px}
-  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:30px}
-  h1{margin:0;font-size:clamp(20px,3.4vw,34px);font-weight:400;letter-spacing:.14em;color:var(--gold);line-height:1.25}
-  .sub{color:var(--mut);letter-spacing:.06em;margin-top:10px}
-  .sub b{color:var(--ink);font-weight:500}
-  .epi{border-left:2px solid var(--gold);padding:2px 0 2px 16px;margin:22px 0 0;color:var(--mut);
-    font-size:12px;line-height:1.8;max-width:760px}
-  .epi b{color:var(--ink);font-weight:400}
-  h2{font-size:9px;letter-spacing:.28em;color:var(--mut);font-weight:500;margin:42px 0 6px;text-transform:uppercase;
-    display:flex;align-items:center;gap:12px}
-  h2::after{content:"";flex:1;height:1px;background:var(--line)}
-  .n2{color:var(--gold);margin-right:8px}
-  .note{color:var(--mut);font-size:10px;letter-spacing:.05em;margin-bottom:16px}
-  .stage{position:relative;border:1px solid var(--line);background:#000}
-  canvas{display:block;width:100%;height:auto;cursor:crosshair}
-  .tip{position:absolute;pointer-events:none;background:#0a0f13f2;border:1px solid #315837;padding:5px 8px;
-    font-size:10px;color:var(--ink);display:none;white-space:nowrap;z-index:5}
-  .tip .d{color:var(--gold)}.tip .u{color:var(--cool)}.tip .a{color:var(--hot)}
-  .ctl{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:10px}
-  .ctl button{flex:1;background:#000;border:0;color:var(--mut);padding:7px;cursor:pointer;font:inherit;
-    font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-  .ctl button.on{background:#0e1418;color:var(--gold)}
-  table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:#000}
-  th{text-align:left;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);
-    padding:8px 12px;border-bottom:1px solid var(--line);background:#0a0e11;font-weight:500}
-  td{padding:7px 12px;border-bottom:1px solid #111a1f;vertical-align:top;font-size:11px}
-  tr:last-child td{border-bottom:0}
-  td.v{color:var(--gold);white-space:nowrap}
-  td.s{color:var(--mut);font-size:10px;word-break:break-word}
-  tr:hover td{background:#080c0e}
-  .disc td.i{color:var(--hot)}
-  .disc td.l b{color:var(--hot);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
-  .disc td.l .dd{color:var(--ink);margin-top:3px}
-  .disc td.s{color:var(--cool)}
-  .unk{border:1px solid var(--line);background:#000}
-  .unk .u{display:grid;grid-template-columns:260px 1fr;border-bottom:1px solid #111a1f}
-  .unk .u:last-child{border-bottom:0}
-  .unk .k{padding:9px 12px;color:var(--hot);border-right:1px solid #111a1f}
-  .unk .w{padding:9px 12px;color:var(--mut);font-size:10px}
-  .close.b{border:1px solid var(--gold);background:#0b0e11;padding:18px 20px;margin-top:22px;color:var(--ink);font-size:13px;line-height:1.8}
-  .close.b em{color:var(--gold);font-style:normal}
-  .wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-  .p{display:flex;gap:0;background:#000;text-decoration:none;color:inherit;align-items:stretch}
-  .p:hover{background:#080c0e}
-  .p:hover .pt{color:var(--gold)}
-  .pn{padding:14px 12px;color:var(--mut);font-size:10px;border-right:1px solid #111a1f;
-    background:#080b0e;letter-spacing:.1em}
-  .pb{padding:14px 15px;min-width:0}
-  .pt{color:var(--ink);font-size:13px;letter-spacing:.06em;text-transform:lowercase}
-  .pg{color:var(--cool);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
-  .pw{color:var(--mut);font-size:10.5px;line-height:1.6;margin-top:8px}
-  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  @media(max-width:820px){td.s{display:none}th:nth-child(3){display:none}.unk .u{grid-template-columns:1fr}
-    .unk .k{border-right:0;border-bottom:1px solid #111a1f}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">

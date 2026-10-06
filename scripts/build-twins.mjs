@@ -38,56 +38,12 @@ const byMonth = {};
 for (const m of man) { const k = String(m.created).slice(0, 7); byMonth[k] = (byMonth[k] || 0) + m.messages; }
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-twins">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE TWINS — two recoveries, one blind spot</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
-  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:28px}
-  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  h2{font-size:9px;letter-spacing:.26em;color:var(--mut);font-weight:500;margin:32px 0 14px;text-transform:uppercase}
-  .twins{display:grid;grid-template-columns:1fr 54px 1fr;align-items:stretch;gap:0;border:1px solid var(--line);background:#000}
-  .t{padding:18px}
-  .t.a{border-right:1px solid var(--line)}
-  .t.b{border-left:1px solid var(--line)}
-  .t .who{font-size:9px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:10px}
-  .t.a .who{color:var(--cool)} .t.b .who{color:var(--gold)}
-  .t .big{font-size:38px;color:var(--ink);letter-spacing:-.02em;line-height:1}
-  .t .cap{color:var(--mut);font-size:9px;letter-spacing:.1em;margin-top:6px}
-  .t .sha{color:var(--mut);font-size:8px;word-break:break-all;margin-top:12px;opacity:.75;line-height:1.5}
-  .mid{display:flex;align-items:center;justify-content:center;background:#080b0e;border-left:1px solid var(--line);border-right:1px solid var(--line)}
-  .eq{color:var(--green);font-size:22px}
-  .verdict{border:1px solid #315837;background:#07100a;padding:14px 16px;margin-top:14px;color:var(--green);font-size:11px;letter-spacing:.05em}
-  .verdict b{color:#c6f0c9}
-  .trap{border:1px solid #5a3a3f;background:#100708;padding:16px 18px;margin-top:16px}
-  .trap .h{color:var(--hot);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
-  .trap .t{color:var(--ink);font-size:12px;line-height:1.7}
-  .trap .t em{color:var(--gold);font-style:normal}
-  .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:14px}
-  .n{background:#000;padding:12px 14px}
-  .n .k{color:var(--mut);font-size:8px;letter-spacing:.18em;text-transform:uppercase}
-  .n .v{color:var(--ink);font-size:22px;letter-spacing:.02em;margin-top:4px}
-  .n .v.hot{color:var(--hot)} .n .v.gold{color:var(--gold)}
-  .n .s{color:var(--mut);font-size:9px;margin-top:3px}
-  .rows{margin-top:8px}
-  .row{display:grid;grid-template-columns:64px 1fr 52px;gap:10px;align-items:center;padding:2px 0}
-  .row .k{color:var(--mut);font-size:9px;letter-spacing:.08em}
-  .row .b{height:9px;background:#0d1216;border:1px solid var(--line)}
-  .row .b i{display:block;height:100%;background:var(--cool)}
-  .row .n2{text-align:right;color:var(--mut);font-size:9px}
-  footer{margin-top:38px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  .redact{border:1px solid var(--line);background:#080b0e;padding:12px 15px;margin-top:16px;color:var(--mut);font-size:10px;line-height:1.7}
-  .redact b{color:var(--gold)}
-  @media(max-width:820px){.twins{grid-template-columns:1fr}.t.a,.t.b{border:0}
-    .mid{border:0;padding:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">
@@ -121,7 +77,7 @@ Two different archives, two different sizes, two different hashes — and the sa
   <div class="n"><div class="k">group chats</div><div class="v gold">${man.length}</div><div class="s">in no JSON extraction</div></div>
   <div class="n"><div class="k">messages</div><div class="v hot">${F.msgs.toLocaleString()}</div><div class="s">recovered just now</div></div>
   <div class="n"><div class="k">characters</div><div class="v">${(F.chars/1e6).toFixed(2)}M</div><div class="s">content</div></div>
-  <div class="n"><div class="k">span</div><div class="v" style="font-size:14px">${F.from}<br>${F.to}</div><div class="s">14 months</div></div>
+  <div class="n"><div class="k">span</div><div class="v tight">${F.from}<br>${F.to}</div><div class="s">14 months</div></div>
   <div class="n"><div class="k">one person</div><div class="v">${solo}</div><div class="s">solo threads</div></div>
   <div class="n"><div class="k">with another</div><div class="v">${withOthers}</div><div class="s">shared threads</div></div>
 </div>

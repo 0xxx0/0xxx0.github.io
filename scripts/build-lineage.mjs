@@ -48,46 +48,12 @@ const rows = P.map(([era, name, tag, tried, survived, route], i) => {
 }).join('\n');
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-lineage">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE LINEAGE — thirteen generations</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1000px;margin:0 auto;padding:30px 20px 80px}
-  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:30px}
-  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  .oath{border:1px solid var(--gold);background:#0b0e11;padding:18px 20px;margin-bottom:26px;color:var(--ink);font-size:13px;line-height:1.7}
-  .oath em{color:var(--gold);font-style:normal}
-  .gen{display:grid;grid-template-columns:78px 1fr;gap:0;border:1px solid var(--line);border-bottom:0;background:#000}
-  .gen:last-of-type{border-bottom:1px solid var(--line)}
-  .gen.now{border-color:var(--gold);background:linear-gradient(90deg,#0d0b07,#000)}
-  .era{padding:14px 12px;border-right:1px solid var(--line);color:var(--mut);font-size:11px;letter-spacing:.1em;background:#080b0e}
-  .gen.now .era{color:var(--gold)}
-  .body{padding:14px 16px}
-  .name{font-size:14px;letter-spacing:.06em;color:var(--ink)}
-  .gen.now .name{color:var(--gold)}
-  .name em{color:var(--gold);font-style:normal;font-size:10px;letter-spacing:.16em;margin-left:6px}
-  .tag{color:var(--mut);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px}
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:11px}
-  .cell .k{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-  .cell .v{font-size:11px;color:var(--ink);margin-top:3px;line-height:1.55}
-  .pair .cell:first-child .k{color:#5e2f1f}
-  .pair .cell:last-child .k{color:#1f4a5e}
-  .live{margin-top:10px;font-size:9px;letter-spacing:.08em}
-  .live a{color:var(--green);text-decoration:none}
-  .live a:hover{text-decoration:underline}
-  .live span{color:var(--mut)}
-  .tail{border:1px solid var(--line);background:#080b0e;padding:16px 18px;margin-top:22px;color:var(--mut);font-size:11px;line-height:1.7}
-  .tail b{color:var(--ink)}
-  footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  @media(max-width:640px){.gen{grid-template-columns:56px 1fr}.pair{grid-template-columns:1fr;gap:10px}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">

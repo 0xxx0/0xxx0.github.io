@@ -67,55 +67,12 @@ const qRows = QUEUED.map(([t, why, st]) => {
 }).join('\n');
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-godseye">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GOD'S EYE VIEW — every number names its source</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1280px;margin:0 auto;padding:30px 20px 90px}
-  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:26px}
-  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  h2{font-size:9px;letter-spacing:.26em;color:var(--mut);font-weight:500;margin:34px 0 12px;text-transform:uppercase}
-  .rule{border:1px solid var(--gold);background:#0b0e11;padding:18px 20px;margin-bottom:24px}
-  .rule .r{font-size:15px;color:var(--gold);letter-spacing:.03em;line-height:1.5}
-  .rule .w{color:var(--mut);font-size:10px;margin-top:10px;letter-spacing:.05em}
-  table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:#000}
-  th{text-align:left;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);
-    padding:8px 12px;border-bottom:1px solid var(--line);background:#0a0e11;font-weight:500}
-  td{padding:7px 12px;border-bottom:1px solid #111a1f;vertical-align:top;font-size:11px}
-  tr:last-child td{border-bottom:0}
-  td.v{color:var(--gold);white-space:nowrap;font-size:12px}
-  td.l{color:var(--ink)}
-  td.s{color:var(--mut);font-size:10px;word-break:break-word}
-  tr:hover td{background:#080c0e}
-  .disc td.i{color:var(--hot);font-size:11px}
-  .disc td.l b{color:var(--hot);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
-  .disc td.l .d{color:var(--ink);margin-top:3px;font-size:11px}
-  .disc td.s{color:var(--cool);font-size:10px}
-  .qs{font-size:8px;letter-spacing:.16em;padding:2px 6px;border:1px solid var(--line);color:var(--mut)}
-  .q{margin-bottom:1px;display:flex;gap:0;border:1px solid var(--line);background:#000;align-items:stretch}
-  .q .qh{display:flex;flex-direction:column;gap:5px;padding:12px 14px;min-width:210px;
-    border-right:1px solid var(--line);background:#080b0e}
-  .q .qt{color:var(--ink);font-size:12px;letter-spacing:.05em}
-  .q.ok .qs{color:var(--green);border-color:#315837}
-  .q.mid .qs{color:var(--gold);border-color:#3a2c1e}
-  .q.pin .qs{color:var(--cool);border-color:#1f4a5e}
-  .q .qb{padding:12px 15px;color:var(--mut);font-size:11px;line-height:1.65}
-  .unk{border:1px solid var(--line);background:#000}
-  .unk .u{display:grid;grid-template-columns:250px 1fr;gap:0;border-bottom:1px solid #111a1f}
-  .unk .u:last-child{border-bottom:0}
-  .unk .k{padding:9px 12px;color:var(--hot);border-right:1px solid #111a1f;font-size:11px}
-  .unk .w{padding:9px 12px;color:var(--mut);font-size:10px}
-  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-  @media(max-width:820px){td.s{display:none}th:nth-child(3){display:none}
-    .unk .u{grid-template-columns:1fr}.q{flex-direction:column}.q .qh{min-width:0;border-right:0;border-bottom:1px solid var(--line)}}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">

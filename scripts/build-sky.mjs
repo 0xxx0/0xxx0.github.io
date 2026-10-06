@@ -191,42 +191,12 @@ const CLIENT = [
 ].join('\n');
 
 const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark doc doc-sky">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>THE SKY — ${totalMsgs.toLocaleString()} messages</title>
-<style>
-  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--line:#1d262c}
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1400px;margin:0 auto;padding:28px 20px 60px}
-  header{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}
-  h1{margin:0 0 6px;font-size:15px;font-weight:500;letter-spacing:.22em;color:var(--gold)}
-  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
-  .stage{position:relative;border:1px solid var(--line);background:#000;border-radius:2px;overflow:hidden}
-  canvas{display:block;width:100%;height:auto;cursor:crosshair}
-  .lab{display:flex;justify-content:space-between;color:var(--mut);font-size:9px;letter-spacing:.14em;padding:6px 2px 0}
-  .tip{position:absolute;pointer-events:none;background:#0a0f13f2;border:1px solid #315837;padding:5px 8px;
-    font-size:10px;letter-spacing:.06em;color:var(--ink);border-radius:2px;display:none;white-space:nowrap;z-index:5}
-  .tip .d{color:var(--gold)}.tip .u{color:var(--cool)}.tip .a{color:var(--hot)}
-  section{margin-top:30px}
-  h2{font-size:9px;letter-spacing:.24em;color:var(--mut);font-weight:500;margin:0 0 12px;text-transform:uppercase}
-  .strip{display:flex;align-items:flex-end;gap:2px;height:60px}
-  .m{flex:1;background:linear-gradient(180deg,var(--cool),#2c6f92);min-height:1px;border-radius:1px 1px 0 0;opacity:.85}
-  .m:hover{opacity:1;outline:1px solid var(--gold)}
-  .mlab{display:flex;justify-content:space-between;color:var(--mut);font-size:8px;letter-spacing:.12em;margin-top:6px}
-  .gaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-  .gap{background:#000;padding:9px 11px}
-  .gap .n{color:var(--hot);font-size:14px;letter-spacing:.06em}
-  .gap .r{color:var(--mut);font-size:9px;letter-spacing:.08em;margin-top:2px}
-  .ctl{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:10px}
-  .ctl button{flex:1;background:#000;border:0;color:var(--mut);padding:7px;cursor:pointer;font:inherit;
-    font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-  .ctl button.on{background:#0e1418;color:var(--gold)}.ctl button:hover{color:var(--ink)}
-  footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
-  footer a{color:var(--cool);text-decoration:none}
-</style>
+<link rel="stylesheet" href="/tools/house-patterns.css">
 </head>
 <body>
 <div class="wrap">
