@@ -3712,7 +3712,7 @@
         "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
       },
       "index": {
-        "updated_at": "2026-10-06T13:26:08.764+08:00",
+        "updated_at": "2026-10-06T13:26:08+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -3744,7 +3744,7 @@
       "showcase_card": false,
       "role": "Enter actual alternatives and 1–8 named quantities in native units. Enforce hard limits, preserve unknown/range evidence, expose Pareto trade-offs, declare one main priority, and export/restore an exact decision RETURN. Sample numbers are synthetic; numerical fit is not real-world verification.",
       "index": {
-        "updated_at": "2026-10-06T13:26:08.764+08:00",
+        "updated_at": "2026-10-06T13:26:08+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5106,7 +5106,7 @@
         "physical_fit": "Local instrument surface only; no runtime authority, no network calls from the browser tools."
       },
       "index": {
-        "updated_at": "2026-10-06T13:26:08.764+08:00",
+        "updated_at": "2026-10-06T13:26:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",

@@ -1,6 +1,6 @@
 {
  "schema": "field-desk/v1",
- "generated": "2026-10-06T06:07:37.312Z",
+ "generated": "2026-10-06T06:09:01.647Z",
  "counts": {
   "returns": 282,
   "routes": 180,
@@ -5850,7 +5850,7 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T13:26:08.764+08:00"
+   "updated_at": "2026-10-06T13:26:08+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/bench/",
@@ -5858,7 +5858,7 @@
    "kind": "workbench",
    "operation": "COMPARE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:26:08.764+08:00"
+   "updated_at": "2026-10-06T13:26:08+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/glyph/",
@@ -5986,7 +5986,7 @@
    "kind": "workbench",
    "operation": "TRANSFORM",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:26:08.764+08:00"
+   "updated_at": "2026-10-06T13:26:08+08:00"
   },
   {
    "href": "/foundry/omnitools/pii-lens.html",
