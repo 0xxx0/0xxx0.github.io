@@ -196,7 +196,17 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
 <!-- CONSULT calibration folded in: 3 taps, no data collected, it just picks your deck -->
 <div id="calib">
-  <div class="three" style="margin-top:18px">
+  <!-- SHE PLAYS FIRST, READS LATER. Four paragraphs before the first tap is exactly
+       what lost her the first time. One line, one tap to expand, everything else in
+       settings. Subtle, per the operator. -->
+  <button id="whatsthis" type="button" aria-expanded="false"
+    style="display:block;width:100%;text-align:left;background:transparent;border:0;
+      border-bottom:1px solid var(--line);color:var(--mut);font:400 13px/1.6 inherit;
+      padding:10px 2px 11px;cursor:pointer;margin-top:6px">
+    <span style="border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent);padding-bottom:2px">what this is</span>
+    <span style="float:right;opacity:.6">+</span>
+  </button>
+  <div class="three" id="about" style="margin-top:0;display:none">
     <div><b>before we start</b><span>Four taps. Nothing is recorded, nothing leaves this browser.
       They decide which deck you get, what you leave with, and how much of your time this takes.</span></div>
     <div><b>how verdicts work</b><span>None of them judge you. A verdict names what a call costs and what
@@ -970,6 +980,20 @@ window.setTheme(
   });
 
   sync();
+})();
+</script>
+
+<script>
+/* one tap, one reveal. no second control, no colour jump — the underline carries it. */
+(function(){
+  var b=document.getElementById('whatsthis'), a=document.getElementById('about');
+  if(!b||!a) return;
+  b.addEventListener('click',function(){
+    var open=a.style.display!=='none';
+    a.style.display=open?'none':'grid';
+    b.setAttribute('aria-expanded', open?'false':'true');
+    b.querySelector('span:last-child').textContent=open?'+':'−';
+  });
 })();
 </script>
 </body></html>
