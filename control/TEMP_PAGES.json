@@ -1,0 +1,48 @@
+{
+  "schema": "temp-pages/v1",
+  "updated": "2026-10-06T12:10:46+08:00",
+  "retention_days": 30,
+  "holding_pen": "_archive/temp",
+  "pages": [
+    {
+      "dir": "20261005-linkfield-mcvoid",
+      "title": "LINK FIELD · 2026-10-05 · mcvoid",
+      "owner": "mahshroom",
+      "created": "2026-10-05",
+      "expires": "2026-11-04",
+      "status": "live",
+      "what": "Generated link-field page with a live 30-day countdown (output of tools/linkfield-build.py).",
+      "superseded_by": null
+    },
+    {
+      "dir": "20261006-cs50-or-not-mcvoid",
+      "title": "CS50 in 2026 — should you, or shouldn't you",
+      "owner": "mcvoid",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "One-off essay page: taking CS50 in 2026, or not.",
+      "superseded_by": null
+    },
+    {
+      "dir": "20261006-ai-mode-thread-mcvoid",
+      "title": "The whole thread, answered — APAC AI policy @ big tech SG",
+      "owner": "mcvoid",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "One-off thread-answer page on APAC AI policy at big tech in Singapore.",
+      "superseded_by": null
+    },
+    {
+      "dir": "20261006-picks-mcvoid",
+      "title": "FIELD PICKS · 2026-10-06 · mcvoid",
+      "owner": "mahshroom",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "Generated field picks roundup page (136KB single index.html).",
+      "superseded_by": null
+    }
+  ]
+}
