@@ -22,6 +22,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const RETURNS = join(ROOT, 'returns');
 const OUT = join(ROOT, 'returns', 'FIELD_FOLD_MAP.json');
+const MANIFEST = join(ROOT, 'showcase-manifest.json');
 
 // Canonical enum — the ternary phase + verified flag.
 // phase: SOURCE (⚊ not landed) | HOLD (𝌀 candidate, in flight) | RETURN (⚋ landed) | RESIDUE (⧗ unclassified)
@@ -98,7 +99,46 @@ function run() {
   return report;
 }
 
+// ---- ROUTE FOLD: the field index's own vocabulary (showcase-manifest routes) ----
+// Route `state` (10 semantic values) folds onto the SAME ternary. `operation` is each route's
+// genuine function — measured as debt, NOT force-folded (folding it would destroy meaning + break
+// the desk tooling). Reading the manifest only; never rewriting it (collision surface).
+const ROUTE_STATE_PHASE = {
+  ACTIVE: 'RETURN', STABLE: 'RETURN', UTILITY: 'RETURN', REFERENCE: 'RETURN', // ⚋ live & usable
+  CANDIDATE: 'HOLD', PROOF_REQUIRED: 'HOLD', RECOVER: 'HOLD', // ⚆ in flight / being recovered
+  DONOR: 'SOURCE', FROZEN_DONOR: 'SOURCE', PARKED: 'SOURCE', // ⚊ held as donor/source material
+};
+function runRoutes() {
+  let manifest;
+  try { manifest = JSON.parse(readFileSync(MANIFEST, 'utf8')); }
+  catch { return { error: 'showcase-manifest.json unreadable' }; }
+  const routes = manifest.routes ?? [];
+  const dist = { SOURCE: 0, HOLD: 0, RETURN: 0, RESIDUE: 0 };
+  const residue = [];
+  const ops = new Map();
+  for (const r of routes) {
+    const st = (r.state ?? '').toString().trim();
+    const phase = ROUTE_STATE_PHASE[st] ?? 'RESIDUE';
+    dist[phase]++;
+    if (phase === 'RESIDUE') residue.push({ route: r.route, state: st });
+    const op = (r.operation ?? '').toString().trim();
+    if (op) ops.set(op, (ops.get(op) ?? 0) + 1);
+  }
+  const compoundOps = [...ops.keys()].filter((o) => o.includes('/'));
+  return {
+    routes_total: routes.length,
+    route_state_raw_distinct: new Set(routes.map((r) => r.state)).size,
+    route_state_folded_onto: 3,
+    route_state_dist: dist,
+    route_state_residue: residue,
+    operation_distinct: ops.size,
+    operation_compound_count: compoundOps.length,
+    operation_debt_sample: compoundOps.slice(0, 6),
+  };
+}
+
 const report = run();
+report.routes = runRoutes();
 const wantJson = process.argv.includes('--json');
 const wantWrite = process.argv.includes('--write');
 
@@ -111,6 +151,13 @@ if (wantJson) {
   console.log(`FIELD FOLD · ${report.returns_total} returns · ${report.raw_distinct_states} raw states → ${report.folded_onto_enum}-value enum`);
   console.log(`  ⚊ SOURCE ${d.SOURCE}   ·  𝌀 HOLD ${d.HOLD}   ·  ⚋ RETURN ${d.RETURN}   ·  ⧗ RESIDUE ${d.RESIDUE}`);
   console.log(`  verified-flagged: ${report.folded.filter((x) => x.verified).length}`);
+  const rt = report.routes ?? {};
+  if (rt.routes_total) {
+    const rd = rt.route_state_dist ?? {};
+    console.log(`ROUTE FOLD · ${rt.routes_total} routes · route-state ${rt.route_state_raw_distinct} → ${rt.route_state_folded_onto}-value enum`);
+    console.log(`  ⚊ SOURCE ${rd.SOURCE}   ·  𝌀 HOLD ${rd.HOLD}   ·  ⚋ RETURN ${rd.RETURN}   ·  ⧗ RESIDUE ${rd.RESIDUE}`);
+    console.log(`  operation debt (measured, not force-folded): ${rt.operation_distinct} distinct · ${rt.operation_compound_count} compound`);
+  }
   if (report.residue_count) {
     console.log(`  RESIDUE (needs human disposition, not coerced):`);
     for (const r of report.residue_files.slice(0, 8)) console.log(`    ${r.file}  ←  ${JSON.stringify(r.raw).slice(0, 60)}`);
@@ -120,10 +167,11 @@ if (wantJson) {
 // Gate: converged = every state folds except a bounded residue we explicitly own.
 // Exit code IS the verdict. Threshold: residue must stay ≤ 3% of returns.
 const threshold = Math.max(2, Math.ceil(report.returns_total * 0.03));
-const converged = report.residue_count <= threshold;
+const routeResidue = report.routes?.route_state_residue?.length ?? 0;
+const converged = report.residue_count <= threshold && routeResidue <= threshold;
 if (!wantJson) {
   console.log(converged
-    ? `FIELD FOLD PASS · residue ${report.residue_count} ≤ ${threshold} · vocabulary converged`
-    : `FIELD FOLD FAIL · residue ${report.residue_count} > ${threshold} · vocabulary still fraying`);
+    ? `FIELD FOLD PASS · returns residue ${report.residue_count} ≤ ${threshold} · route-state residue ${routeResidue} · vocabulary converged`
+    : `FIELD FOLD FAIL · returns residue ${report.residue_count} / route-state residue ${routeResidue} · threshold ${threshold} · vocabulary still fraying`);
 }
 process.exit(converged ? 0 : 1);

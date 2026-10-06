@@ -1,6 +1,6 @@
 {
  "schema": "field-fold/v1",
- "generated": "2026-10-06T18:58:04.218Z",
+ "generated": "2026-10-06T19:04:32.778Z",
  "returns_total": 288,
  "raw_distinct_states": 110,
  "folded_onto_enum": 4,
@@ -2472,5 +2472,27 @@
    "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   }
- ]
+ ],
+ "routes": {
+  "routes_total": 198,
+  "route_state_raw_distinct": 10,
+  "route_state_folded_onto": 3,
+  "route_state_dist": {
+   "SOURCE": 43,
+   "HOLD": 39,
+   "RETURN": 116,
+   "RESIDUE": 0
+  },
+  "route_state_residue": [],
+  "operation_distinct": 71,
+  "operation_compound_count": 19,
+  "operation_debt_sample": [
+   "ENTER / ROUTE",
+   "REMEMBER / PATH",
+   "VERIFY / CALCULATE",
+   "VERIFY / PROJECT",
+   "PLAY / OBSERVE",
+   "DRAW / TRAIN"
+  ]
+ }
 }
