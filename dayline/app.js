@@ -24,6 +24,23 @@ function nextGapMinutes(now=hm(day.state.now)){
  const inside=anchors.find(x=>now>=x.start&&now<x.end);if(inside)return 0;
  const next=anchors.find(x=>x.start>=now);return Math.max(0,(next?next.start:hm(day.meta.dayEnd))-now)
 }
+function isAnytimeTask(t){
+ const lo=hm(day.meta.dayStart),hi=hm(day.meta.dayEnd);
+ return hm(t.earliest||day.meta.dayStart)===lo && hm(t.latest||day.meta.dayEnd)===hi
+}
+function getAnytimeTasks(){
+ return openTasks().filter(t=>isAnytimeTask(t))
+}
+function pullToFlow(taskId){
+ const t=taskById(taskId);if(!t)return
+ checkpoint('PULL_ANYTIME')
+ const lo=hm(day.meta.dayStart),hi=hm(day.meta.dayEnd),now=hm(day.state.now)
+ const earliestNum=clamp(now+5,lo,hi-5)
+ const latestNum=clamp(now+120,earliestNum+15,hi)
+ t.earliest=mh(earliestNum);t.latest=mh(latestNum)
+ event('PULL_ANYTIME',t.id,'pulled into flow');saveDay();render()
+ toast('Pulled into flow')
+}
 function flowScore(t){
  const now=hm(day.state.now),act=new Set(day.state.contexts||[]),ctx=t.contexts||[],hits=ctx.filter(c=>act.has(c)),match=ctx.length?hits.length/ctx.length:1,start=hm(t.earliest||day.meta.dayStart),end=hm(t.latest||day.meta.dayEnd),missed=now>end,inWindow=!missed&&now>=start&&now<=end,untilStart=Math.max(0,start-now),untilEnd=end-now,blocked=openDeps(t),horizon=Number(day.state.horizon)||180,lookFit=(+t.duration||15)<=horizon,gap=nextGapMinutes(now),gapFit=(+t.duration||15)<=gap;
  const setup=Math.max(0,(+t.setup||0)*9-hits.length*7),timePenalty=missed?72:(inWindow?0:Math.min(50,untilStart/9)),depPenalty=blocked.length*30,horizonPenalty=lookFit?0:18,gapPenalty=(inWindow&&!gapFit)?16:0,urgency=inWindow?Math.max(0,30-Math.max(0,untilEnd)/14):0,sourcePart=({USER:12,IMPORTED:0,WORKING_SPEC:-10,DERIVED:-14}[t.sourceClass||'USER']??0);
@@ -116,7 +133,33 @@ function renderFlow(){
  btn.disabled=!m;btn.textContent=m?(sharedActionForMove(m)+' · '+m.label):'NO MOVE';
  btn.className='flowPrimary '+(m?.cls||'');
  $('#prevFocusBtn').disabled=xs.length<2;$('#nextFocusBtn').disabled=xs.length<2;
- $('#flowHint').textContent=xs.length>1?'SWIPE FOCUS ←/→ · '+xs.length+' OPEN · ENTER = PRIMARY · / = CAPTURE':'ENTER = PRIMARY · / = CAPTURE · ATLAS IS MAP, NOT REQUIRED'
+ $('#flowHint').textContent=xs.length>1?'SWIPE FOCUS ←/→ · '+xs.length+' OPEN · ENTER = PRIMARY · / = CAPTURE':'ENTER = PRIMARY · / = CAPTURE · ATLAS IS MAP, NOT REQUIRED';
+ // next-up line
+ const nextUp=held&&i>=0&&i+1<xs.length?xs[i+1]:null;
+ const nextEl=$('#flowNext');
+ if(nextUp){
+   const start=nextUp.earliest||day.meta.dayStart,until=hm(start)-hm(day.state.now);
+   const nudge=until>0&&until<=10?'~'+until+' min → '+nextUp.title:nextUp.title;
+   nextEl.textContent='NEXT · '+nudge;
+   nextEl.dataset.nudge=until>0&&until<=10?'1':'0';
+ }else{
+   nextEl.textContent='';
+   nextEl.dataset.nudge='0';
+ }
+}
+function renderAnytime(){
+ const xs=getAnytimeTasks(),host=$('#anytimeList'),countEl=$('#anytimeCount');
+ countEl.textContent=xs.length;
+ host.textContent='';
+ xs.forEach(t=>{
+   const btn=document.createElement('button');
+   btn.className='anytimeItem';
+   btn.textContent=t.title;
+   btn.onclick=()=>pullToFlow(t.id);
+   host.appendChild(btn);
+ });
+ // show/hide section based on content
+ $('#anytimeBucket').style.display=xs.length?'block':'none';
 }
 function interphaseObject(){
  const held=chooseFrame(),v=frameView(held),t=v.task||null,last=t?lastWitnessFor(t.id):null,src=t?.sourceLink||null;
@@ -178,7 +221,7 @@ function render(){
  frame=chooseFrame();const v=frameView(frame),dev=mh(deviceMinute(day)),drift=hm(day.state.now)-hm(dev),last=v.task?lastWitnessFor(v.task.id):null,sourceEvidenceState=sourceEvidence(frame);document.body.dataset.clockDrift=Math.abs(drift)>=10?'1':'0';
  $('#truth').textContent='CURRENT '+(current?.updated||'—')+' · NOW '+day.state.now+(drift?' · clock '+(drift>0?'+':'')+drift+'m':'');
  $('#owner').textContent=v.owner;$('#address').textContent=v.address;$('#focusTitle').textContent=v.title;$('#focusMeta').textContent=(v.meta||'')+(sourceEvidenceState.token!=='CLEAR'?'\nSOURCE EVIDENCE · '+sourceEvidenceState.token+(sourceEvidenceState.owner?' · '+sourceEvidenceState.owner:'')+(sourceEvidenceState.boundary?'\n'+sourceEvidenceState.boundary:''):'');window.FieldSignal?.apply(document.querySelector('.frame'),sourceEvidenceState.token);lastMoves=movesFor(frame);renderMoves(lastMoves);
- renderFlow();const witnessable=!!v.task;$('#witnessInput').disabled=!witnessable;$('#witnessBtn').disabled=!witnessable;$('#witnessState').textContent=witnessable?(last?'RECORDED':'READY'):'ACCEPT / ADOPT FIRST';$('#lastWitness').textContent=last?(new Date(last.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+last.note):'';
+ renderFlow();renderAnytime();const witnessable=!!v.task;$('#witnessInput').disabled=!witnessable;$('#witnessBtn').disabled=!witnessable;$('#witnessState').textContent=witnessable?(last?'RECORDED':'READY'):'ACCEPT / ADOPT FIRST';$('#lastWitness').textContent=last?(new Date(last.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+last.note):'';
  const stored=(()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch(_){return null}})();$('#returnClass').textContent=stored?.returnClass||'READY';renderSourceReturn();renderDepth();document.body.dataset.daylineWorkfield='ready';window.dispatchEvent(new CustomEvent('dayline:state',{detail:{object:interphaseObject()}}))
 }
 async function refreshLive({announce=false}={}){
