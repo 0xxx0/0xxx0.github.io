@@ -15,7 +15,9 @@
  *   2. with tags, the two members of a collision group differ in BOTH the aria-label (what
  *      the repro counts) and the visible <tt> mnemonic (what the operator reads).
  *   3. the shipped index.html tag computation, extracted from index.html itself rather than
- *      re-implemented here, tags exactly the colliding routes and nobody else.
+ *      re-implemented here, tags exactly the routes whose RENDERED MARK collides (identical
+ *      glyph + visible mnemonic — colour synonyms like ACTIVE/STABLE both green count) and
+ *      nobody else.
  *   4. on the real data the grids draw, (label + tag) is unique per route — the acceptance
  *      measured on the live page is 0 collision groups.
  *
@@ -64,8 +66,8 @@ hostCtx.FieldGlyph = G;
 hostCtx.nowSet = new Set();
 hostCtx.headSet = new Set();
 vm.createContext(hostCtx);
-vm.runInContext(html.slice(start, end) + '\nthis.__tag={computeMarkTags,markBaseLabel,markTagCode,markTag};', hostCtx);
-const { computeMarkTags, markTagCode } = hostCtx.__tag;
+vm.runInContext(html.slice(start, end) + '\nthis.__tag={computeMarkTags,markBaseLabel,markVisualKey,markTagCode,markTag};', hostCtx);
+const { computeMarkTags, markTagCode, markVisualKey } = hostCtx.__tag;
 assert.equal(typeof computeMarkTags, 'function');
 
 hostCtx.headSet = new Set(['/fold-bloom/', '/port/']);
@@ -87,6 +89,21 @@ assert.equal(markTagCode('/port/'), 'P');
 const twin = computeMarkTags([{ href: '/a-b/', kind: 'system' }, { href: '/a/b/', kind: 'system' }]);
 assert.notEqual(twin.get('/a-b/'), twin.get('/a/b/'), 'same-initial routes must not share a tag');
 assert.deepEqual([...computeMarkTags(fixtures)], [...tags], 'tag computation must be deterministic');
+
+// Hardening: collision is VISIBLE identity, not label words. ACTIVE and STABLE both draw green,
+// so a state flip between them recreates the operator's defect unless the lookalikes are tagged.
+const syn = computeMarkTags([
+  { href: '/s-a/', kind: 'hub', operation: 'PLAN', state: 'ACTIVE' },
+  { href: '/s-b/', kind: 'hub', operation: 'PLAN', state: 'STABLE' },
+]);
+assert.ok(syn.has('/s-a/') && syn.has('/s-b/'), 'colour-synonym lookalikes must be tagged');
+assert.notEqual(syn.get('/s-a/'), syn.get('/s-b/'), 'synonym lookalikes must get distinct tags');
+// The other side: marks the eye CAN tell apart (green vs gold bar) stay untagged — no noise.
+const apart = computeMarkTags([
+  { href: '/p-a/', kind: 'hub', operation: 'PLAN', state: 'ACTIVE' },
+  { href: '/p-b/', kind: 'hub', operation: 'PLAN', state: 'CANDIDATE' },
+]);
+assert.equal(apart.size, 0, 'visually distinct marks must stay untagged');
 
 /* 4 — the real data the live page draws: 0 collision groups after tagging.
    The universe mirrors index.html's boot call exactly: headRenderables() (manifest routes plus
@@ -121,6 +138,14 @@ for (const r of grid) {
   assert.ok(!seen.has(key) || seen.get(key) === r.href,
     'collision survives tagging: ' + seen.get(key) + ' vs ' + r.href + ' -> ' + key.replace('\u0000', ' + '));
   seen.set(key, r.href);
+}
+// The eye's channel too: (rendered mark + visible mnemonic + tag) must be route-unique.
+const visSeen = new Map();
+for (const r of grid) {
+  const key = markVisualKey(r) + '\u0000' + (realTags.get(r.href) || '');
+  assert.ok(!visSeen.has(key) || visSeen.get(key) === r.href,
+    'visible-mark collision survives tagging: ' + visSeen.get(key) + ' vs ' + r.href);
+  visSeen.set(key, r.href);
 }
 // The two groups the operator's screenshot produced: if they still collide today, tagging must
 // separate them; if the data has moved on, there is nothing to repair.

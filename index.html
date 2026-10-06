@@ -104,6 +104,11 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .sRail{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:6.5px;color:var(--mut);letter-spacing:.04em}
 .sRail i{font-style:normal;color:var(--gold);letter-spacing:.12em;font-size:6px;margin-right:3px}
 .sRail u{text-decoration:none;color:var(--mut);margin-right:8px;white-space:nowrap}
+/* STATUS RAIL on the narrowest phones (<=360px — Fold cover / SE class): the nowrap <u>
+   route+stamp items are each wider than the viewport and forced a 352px page at 320px, so the
+   page panned sideways and mark-grid tiles clipped at the screen edge (what the operator
+   photographed). Let the items wrap there only; >=361px keeps the designed one-line rail. */
+@media(max-width:360px){.sRail u{white-space:normal;overflow-wrap:anywhere}}
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
 
@@ -496,14 +501,22 @@ const nowHref=f=>{const map=routeMap(),ev=(f.evidence||[]).find(x=>map.has(x));i
    tap ("tap mark -> hold") could hold the wrong object — the operator circled exactly those
    two tiles on his phone, 2026-10-01. Nothing was duplicated in the data; the grammar simply
    carried no route segment.
-   A tag is computed ONLY for routes whose base mark label collides, so every other tile keeps
+   A tag is computed ONLY for routes whose rendered mark collides, so every other tile keeps
    its label byte-identical to what shipped before. Deterministic: route-path initials
    (/fold-bloom/ -> FB, /port/ -> P); when initials collide inside one group a sorted-href
    index suffix separates them. Same tag feeds svg() (aria-label) and mnemonic() (<tt>), so the
-   accessibility label and the visible text cannot drift apart. */
+   accessibility label and the visible text cannot drift apart.
+   Collision is what the TILE LOOKS LIKE, not the label's words (2026-10-06 hardening): the
+   states ACTIVE/STABLE/CORE_ACTIVE all draw green, CANDIDATE/PARKED both gold, and so on — two
+   routes differing only by a colour synonym render byte-identical glyph + mnemonic while their
+   label words differ, so grouping on the words would leave them untagged and the operator's
+   defect returns on the next data refresh. The key below is the svg the eye actually compares
+   (aria-label stripped, both draw sizes) plus the visible mnemonic: equal key means the tiles
+   are indistinguishable. Route-derived and recomputed at render, so it cannot rot. */
 let markTags=new Map;
 const markTag=h=>markTags.get(h)||'';
 const markBaseLabel=r=>window.FieldGlyph?[window.FieldGlyph.kindKey(r.kind),window.FieldGlyph.opKey(r.operation),r.state||'',nowSet.has(r.href)?'NOW':'',headSet.has(r.href)?'HEAD':''].filter(Boolean).join(' · '):'';
+const markVisualKey=r=>{if(!window.FieldGlyph)return'';const flags={now:nowSet.has(r.href),head:headSet.has(r.href)},strip=s=>s.replace(/ aria-label="[^"]*"/,'');return strip(window.FieldGlyph.svg(r,{size:20,...flags}))+'|'+strip(window.FieldGlyph.svg(r,{size:27,...flags}))+'|'+window.FieldGlyph.mnemonic(r)};
 function markTagCode(href){
  const words=String(href||'').split(/[^A-Za-z0-9]+/).filter(Boolean);
  let code=words.map(w=>w[0].toUpperCase()).join('');
@@ -511,10 +524,10 @@ function markTagCode(href){
  return code||'X';
 }
 function computeMarkTags(list){
- const byLabel=new Map;
- for(const r of list){const lab=markBaseLabel(r);if(!lab)continue;if(!byLabel.has(lab))byLabel.set(lab,new Set);byLabel.get(lab).add(r.href)}
+ const byKey=new Map;
+ for(const r of list){const key=markVisualKey(r);if(!key)continue;if(!byKey.has(key))byKey.set(key,new Set);byKey.get(key).add(r.href)}
  const tags=new Map;
- byLabel.forEach(hrefs=>{
+ byKey.forEach(hrefs=>{
   const hs=[...hrefs].sort();if(hs.length<2)return;             // no collision, no tag
   const codes=hs.map(markTagCode);
   hs.forEach((h,i)=>{
