@@ -16,6 +16,9 @@
  .reveal button{font:inherit;font-size:11px;padding:2px 8px;border:1px solid var(--ink);
    background:none;color:var(--ink);cursor:pointer;margin-left:6px}
  .reveal button:hover{background:var(--ink);color:var(--bg)}
+ .plate{margin:18px 0 6px}
+ .plate img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
+ .plate figcaption{margin-top:7px;font-size:11px;letter-spacing:.06em;color:var(--mut)}
 </style>
 <div id="banner">EXPIRED 2026-11-05 — this page is archived. The link field keeps moving; this frame does not.</div>
 <div class="wrap">
@@ -29,6 +32,10 @@
 </div>
 </header>
 
+
+<figure class="plate"><img src="art/four-clocks.png" alt="Four islands at night, each carrying a glowing golden clock face; the four clocks show different times.">
+<figcaption>four clocks · ID · TH · VN · PH — the clocks disagree. plate 01, art 2026-10-06.</figcaption></figure>
+
 <h2>Pulse</h2>
 <div class="pulse">
  <div><div class="n">1762</div><div class="l">links</div></div>
@@ -41,10 +48,11 @@
 is computed from that file or it does not appear.</div>
 
 <h2>Today · folded in <em>2026-10-06</em></h2>
-<div class="note">What actually landed today — 52 real commits, 22 new routes.
+<div class="note">What actually landed today — 72 real commits, 25 new routes.
 Machine refresh commits excluded. This is the shareable cut: everything below is public.</div>
 <h2 class="tight">New routes</h2>
-<ul class="qlist"><li><a href="/20261007-patterns-lang-mcvoid/">A PATTERN LANGUAGE / 2026-10-06</a></li>
+<ul class="qlist"><li><a href="/artifacts/">FIELD / ARTIFACTS</a></li>
+<li><a href="/20261007-patterns-lang-mcvoid/">A PATTERN LANGUAGE / 2026-10-06</a></li>
 <li><a href="/20261005-linkfield-mcvoid/">LINK FIELD / 2026-10-05</a></li>
 <li><a href="/20261005-linkfield-mcvoid/links.html">LINK FIELD / RAW LINKS</a></li>
 <li><a href="/20261006-picks-mcvoid/">FIELD PICKS / 2026-10-06</a></li>
@@ -65,9 +73,31 @@ Machine refresh commits excluded. This is the shareable cut: everything below is
 <li><a href="/20261006-daywrap-mcvoid/">DAYWRAP 2026-10-06 — the day as evidence</a></li>
 <li><a href="/law-zoo/rack.html">SPECIMEN RACK 0.1</a></li>
 <li><a href="/20261006-linkfield-frex/">LINK FIELD / 2026-10-06 / frex</a></li>
-<li><a href="/20261006-linkfield-frex/links.html">LINK FIELD / RAW LINKS / frex</a></li></ul>
+<li><a href="/20261006-linkfield-frex/links.html">LINK FIELD / RAW LINKS / frex</a></li>
+<li><a href="/artifacts/interface-genome-01.html">PROJECTION BENCH 0.2</a></li>
+<li><a href="/20261006-the-call-mcvoid/v0.html">THE CALL — v0, frozen (pre-Frex-cut)</a></li></ul>
 <h2 class="tight">Commits</h2>
-<ul class="qlist"><li><code>b01eb537</code> decode: land the real-slips enrichment (recovered from the shared checkout)</li>
+<ul class="qlist"><li><code>533ff1b8</code> the call: FOUR MARKETS deck — ID · TH · VN · PH (deck-apac.js + glossary)</li>
+<li><code>577d95ea</code> field: register /artifacts/ + PROJECTION BENCH 0.2 + frozen v0 — clears the master registration/validate red</li>
+<li><code>1fb17a75</code> feat(field): register glyph URLbar 0.8.34</li>
+<li><code>b89427ee</code> ci(field): register URLbar only after canonical proofs</li>
+<li><code>082e6fef</code> build(field): add one-shot URLbar canonical registration</li>
+<li><code>30451d65</code> the call: the clocks — 9 jurisdictions, 21 dated instruments (rulemap-expanded fold-in)</li>
+<li><code>52304598</code> INTERPHASE: add compositional Change / projection / RETURN primitives (#939)</li>
+<li><code>34faa7a8</code> ci(field): retain URLbar public validation diagnostics</li>
+<li><code>fd790b0b</code> ci(field): include static public validators in URLbar proof</li>
+<li><code>979609d4</code> ci(field): verify glyph URLbar projection</li>
+<li><code>8a98ac2a</code> test(field): prove URLbar grammar and authority boundary</li>
+<li><code>73b334fa</code> the call: garden cat as xkcd/poignant line art (wobble on purpose, &#x27;it does not judge.&#x27;)</li>
+<li><code>d23c33a5</code> feat(field): load URLbar projection at root</li>
+<li><code>d388307d</code> feat(field): implement glyph URLbar operator surface</li>
+<li><code>a0284ca2</code> noop</li>
+<li><code>a99241db</code> interphase: record durable-return real-object boundary</li>
+<li><code>42281627</code> interphase: prove real-object history and exact return</li>
+<li><code>acf7ad99</code> interphase: add durable semantic history spine</li>
+<li><code>e88f38b9</code> ARTIFACTS: replace synthetic interface lore with measured projection bench</li>
+<li><code>7c72754a</code> linkfield frex: regen — fold in the rest of the day; stamps excluded</li>
+<li><code>b01eb537</code> decode: land the real-slips enrichment (recovered from the shared checkout)</li>
 <li><code>ca54cc64</code> game: strip merge-conflict markers from the Frex page (3 lines, live on master)</li>
 <li><code>0ae2dc13</code> temp: holding-pen index rebuilt (frex row adopted)</li>
 <li><code>6d0e3f74</code> field: add artifact catalog v0.1</li>
