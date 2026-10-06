@@ -1297,7 +1297,7 @@ const CASES=[
   {
     name:'TRIANGLE unified',
     route:'/forward-field-proof/triangle/',
-    check:dom=>dom.includes('TRIANGLE · UNIFIED INSTRUMENT 1.0')&&dom.includes('data-mode="GLYPH"')&&dom.includes('data-mode="FORM"')&&dom.includes('data-mode="POWER"')&&dom.includes('data-mode="BENCH"')&&dom.includes('id="formRoot"')&&dom.includes('id="powerSolve"')
+    check:dom=>dom.includes('TRIANGLE · UNIFIED INSTRUMENT 1.1')&&dom.includes('data-mode="GLYPH"')&&dom.includes('data-mode="FORM"')&&dom.includes('data-mode="POWER"')&&dom.includes('href="./bench/"')&&dom.includes('id="formRoot"')&&dom.includes('id="powerSolve"')
   },
   {
     name:'CENTER current',

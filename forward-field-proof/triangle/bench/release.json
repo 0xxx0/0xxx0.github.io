@@ -3,7 +3,7 @@
   "title": "Triangle Bench / Constraint Bench",
   "version": "0.2",
   "state": "CANDIDATE",
-  "date": "2026-10-04",
+  "date": "2026-10-06",
   "route": "/forward-field-proof/triangle/bench/",
   "parent": "/forward-field-proof/triangle/",
   "showcase_card": false,
@@ -33,7 +33,7 @@
     "Actual user use/value remains unobserved. Computational and browser proof do not establish lived usefulness."
   ],
   "verification": {
-    "state": "LOCAL_COMPUTATION_AND_BROWSER_PASS",
+    "state": "CORE_PASS / PREDECESSOR_BROWSER_PASS / CURRENT_RESIZE_CANDIDATE_CI_PENDING",
     "commands": [
       "node tools/decision-bench-selftest.cjs",
       "node tools/decision-bench-smoke.mjs"
@@ -55,7 +55,7 @@
       "844×390",
       "1280×800"
     ],
-    "integration": "Omnitools source/return bridge is exercised by tools/omnitools-smoke.mjs in the omnitools-check workflow; exact candidate results live in GitHub Actions."
+    "integration": "Updated resize, focus and axis paging are proved on the exact candidate head by decision-bench-smoke and omnitools-smoke in GitHub Actions. Prior 24/24 browser evidence is historical, not a substitute for the current candidate."
   },
   "authority_boundary": "Local reasoning only; no CURRENT/QUEUE mutation, purchase, external sending, actuation or automatic execution.",
   "research": [

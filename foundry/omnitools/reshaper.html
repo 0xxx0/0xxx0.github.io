@@ -16,10 +16,11 @@ header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px
 footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
 @media(max-width:760px){footer{display:block}}
 </style>
+<link rel="stylesheet" href="./embed.css">
 </head>
-<body><main>
+<body data-tool="reshape"><main>
 <header>
-  <div class="ey">FOUNDRY / OMNITOOLS · DATA EXPORT DESK 0.1</div>
+  <div class="ey">FOUNDRY / OMNITOOLS · DATA EXPORT DESK 0.2</div>
   <h1>RE-<br>SHAPE.</h1>
   <div class="dek"><b>Paste data. Choose its next shape.</b> JSON, NDJSON, CSV or TSV in — JSON, CSV or NDJSON out. Nested objects flatten to dot-paths so nothing is silently dropped. A dump/export helper that lives in one file and never phones home.</div>
 </header>
@@ -45,24 +46,25 @@ footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:
 <div class="k">OUT · RESULT</div>
 <textarea id="out" rows="12" spellcheck="false" readonly placeholder="result appears here"></textarea>
 
-<footer><span>QUOTES AND EMBEDDED NEWLINES ARE HONORED IN CSV/TSV · FLATTEN USES DOT PATHS</span><span id="stamp">reshaper 0.1</span></footer>
+<footer><span>QUOTES AND EMBEDDED NEWLINES ARE HONORED IN CSV/TSV · FLATTEN USES DOT PATHS</span><span id="stamp">reshaper 0.2</span></footer>
 </main>
 <script>
 (function(){
 'use strict';
 var $=function(id){return document.getElementById(id)};
-var target='json', rows=[], header=[], fmt='—';
+var target='json', rows=[], header=[], fmt='—',resultInput=null;
 
 function flat(o,pre,out){
-  out=out||{};pre=pre||'';
+  out=out||Object.create(null);pre=pre||'';
+  function put(v){if(Object.prototype.hasOwnProperty.call(out,pre))throw new Error('Flattened path collision: '+pre);out[pre]=v}
   if(o&&typeof o==='object'&&!Array.isArray(o)){
     var ks=Object.keys(o);
-    if(!ks.length&&pre)out[pre]='';
+    if(!ks.length&&pre)put({});
     for(var i=0;i<ks.length;i++)flat(o[ks[i]],pre?pre+'.'+ks[i]:ks[i],out);
   }else if(Array.isArray(o)){
-    if(!o.length&&pre)out[pre]='';
+    if(!o.length&&pre)put([]);
     for(var j=0;j<o.length;j++)flat(o[j],pre+'['+j+']',out);
-  }else if(pre)out[pre]=o;
+  }else if(pre)put(o);
   return out;
 }
 function parseCSV(text,delim){
@@ -78,6 +80,7 @@ function parseCSV(text,delim){
     else if(c==='\n'){row.push(cur);cur='';if(row.some(function(x){return x!==''}))rows.push(row);row=[]}
     else if(c!=='\r')cur+=c;
   }
+  if(q)throw new Error('Unclosed CSV quote');
   row.push(cur);
   if(row.some(function(x){return x!==''}))rows.push(row);
   return rows;
@@ -86,7 +89,7 @@ function detect(text){
   var t=text.trim();
   if(!t)return{fmt:'—'};
   if((t[0]==='{'||t[0]==='[')){
-    try{var v=JSON.parse(t);return{fmt:'JSON',data:v}}catch(e){}
+    var v=JSON.parse(t);return{fmt:'JSON',data:v}
   }
   var lines=t.split('\n');
   var nd=[];
@@ -113,8 +116,10 @@ function toRecords(parsed){
     }
   }else{
     var raw=d, h=raw.length?raw[0]:[];
+    if(new Set(h).size!==h.length)throw new Error('Duplicate column names');
     for(i=1;i<raw.length;i++){
-      var r={};
+      if(raw[i].length!==h.length)throw new Error('Row '+(i+1)+' column count differs from header');
+      var r=Object.create(null);
       for(j=0;j<h.length;j++)r[h[j]!==''?h[j]:'c'+(j+1)]=raw[i][j]!==undefined?raw[i][j]:'';
       recs.push(r);
     }
@@ -134,7 +139,8 @@ function toCSV(){
   return out.join('\n');
 }
 function render(){
-  var text=$('in').value, parsed=detect(text);
+  var text=$('in').value;resultInput=null;$('out').value='';
+  var parsed;try{parsed=detect(text)}catch(e){$('hint').textContent='parse failed: '+e.message;return}
   fmt=parsed.fmt;
   if(fmt==='—'){$('detect').innerHTML='<div><b>—</b><span>DETECTED INPUT</span></div><div><b>—</b><span>ROWS</span></div><div><b>—</b><span>COLUMNS</span></div>';return}
   try{
@@ -143,6 +149,7 @@ function render(){
     if(target==='json')$('out').value=JSON.stringify(rows,null,2);
     else if(target==='csv')$('out').value=toCSV();
     else $('out').value=rows.map(function(r){return JSON.stringify(r)}).join('\n');
+    resultInput=text;
     $('hint').textContent=fmt.toLowerCase()+' → '+target+' · '+rows.length+' row(s), '+header.length+' column(s)';
   }catch(e){$('out').value='';$('hint').textContent='parse failed: '+e.message}
 }
@@ -160,6 +167,9 @@ $('download').onclick=function(){
   a.download='reshaped.'+ext;a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
   $('hint').textContent='downloaded reshaped.'+ext;
 };
+window.OmnitoolsTool={getResult:function(){return resultInput&&resultInput===$('in').value&&$('out').value?{inputs:{in:resultInput},text:$('out').value,operation:'reshape:'+target+($('flat').checked?':flat':'')}:null;}};
 })();
 </script>
+<script src="./embed.js"></script>
 </body></html>
+

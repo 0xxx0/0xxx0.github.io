@@ -1,0 +1,221 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The whole thread, answered — APAC AI policy @ big tech SG</title>
+<style>
+:root{--ink:#0d0d0d;--mut:#6f6f6f;--rule:#dcdcdc;--acc:#0b5fff;--hot:#d43f00;--ok:#0a7a3d;--warnbg:#fff6f1}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+ font:16.5px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:72ch;margin:0 auto;padding:26px 22px 90px}
+header{border-bottom:3px solid var(--ink);padding-bottom:12px}
+h1{font:800 32px/1.05 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:-.03em;margin:0 0 10px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--mut);letter-spacing:.05em;text-transform:uppercase}
+.meta b{color:var(--ink)}
+.forwho{margin:18px 0 4px;padding:12px 14px;border:2px solid var(--ink);font-size:14px}
+h2{font:800 14px/1.2 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:46px 0 8px;border-top:2px solid var(--ink);padding-top:14px}
+h3{font:700 15px/1.25 system-ui,sans-serif;margin:18px 0 4px}
+.qa{margin:10px 0 22px}
+.q{font-weight:700;font-size:15px;margin-bottom:4px}
+.says{color:var(--mut);font-size:13.5px;margin:2px 0}
+.read{margin:4px 0}
+.read::before{content:"our read · 2026 ";color:var(--ok);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.act{margin:6px 0 0;padding:8px 12px;border-left:4px solid var(--acc);background:#f5f8ff;font-size:14px}
+.act::before{content:"do → ";font-weight:700;color:var(--acc)}
+.warn{border-left:4px solid var(--hot);padding:10px 14px;background:var(--warnbg);font-size:14px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border-bottom:2px solid var(--ink)}
+td.v{color:var(--ok)}
+td.x{color:var(--hot)}
+.big{font:800 21px/1.3 system-ui,sans-serif;letter-spacing:-.02em;margin:16px 0}
+.big span{background:#ffe9a8;padding:0 4px}
+ol.moves{padding-left:22px;font-size:15px}
+ol.moves li{margin:7px 0}
+ol.moves b{font-weight:700}
+.foot{margin-top:38px;border-top:3px solid var(--ink);padding-top:12px;font-size:12px;color:var(--mut)}
+.foot a{color:var(--acc)}
+.cite{color:#555;font-size:11.5px}
+mark{background:#ffe14d;font-weight:700;padding:0 .22em}
+a{text-decoration:underline;text-underline-offset:2px}
+a:hover{background:var(--ink);color:#fff}
+.card{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;font-size:14.5px}
+.card .tag{display:inline-block;font:700 9.5px/1 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 6px;margin-right:8px;vertical-align:2px}
+.card .arr{font-weight:800;color:var(--acc)}
+.close{border:3px solid var(--ink);padding:15px 17px;margin:44px 0 0;font-size:16px}
+@media(max-width:640px){h1{font-size:26px}.big{font-size:18px}table{font-size:12px}th,td{padding:5px 4px}}
+</style>
+<div class="wrap">
+<header>
+<h1>One page for the person<br>who actually asked</h1>
+<div class="meta">
+ <span>source: <b>60-page Google AI-Mode thread</b>, all 15 replies read</span>
+ <span>reader: <b>APAC AI policy / legal ops</b></span>
+ <span>read time <b>~6 min</b></span>
+</div>
+</header>
+
+<div class="forwho"><b>Who this is for — as the thread itself says:</b> regulatory-policy person,
+APAC, at a big-tech AI firm in Singapore; complete non-engineer; wants rapid literacy,
+workflow automation, and an agent harness that won't get them fired.</div>
+
+<div class="big">You don't need a computer-science course.<br>
+You need <span>tech vocabulary + APAC rule-map + leverage</span>.<br>
+Here's all three, in order.</div>
+
+<h2>The five moves, if you read nothing else</h2>
+<ol class="moves">
+<li><b>Skip CS50L and CS50x</b> for now. Take <b>Andrew Ng's AI for Everyone</b> (~6 h, free to audit)
+ — vocabulary in one weekend. <span class="cite">[thread p13–14 recommends exactly this]</span></li>
+<li><b>Then the rule-map, not more courses:</b> Singapore AI Verify + Model AI Governance Framework,
+Korea AI Basic Act (in force 2026), China GenAI rules, PDPA — one cheat-sheet each, weekly scan.</li>
+<li><b>Turn Slack into your case-management OS</b>: zero-DM intake forms, threads-only detail,
+emoji state ledger (👀/✅/❌), keyword alerts on "indemnity / breach / PDPA".</li>
+<li><b>If you run an agent harness, isolate it</b>: sandboxed runner, least-privilege tokens,
+egress allowlist, and a human [Confirm/Abort] gate on anything that touches the outside world.</li>
+<li><b>Measure one number: deflection rate.</b> What % of routine queries got answered without a
+human? That's the only proof this stack is worth anything. <span class="cite">[thread p52: target 25–30%]</span></li>
+</ol>
+
+<h2>A · Learning path (the CS50 question)</h2>
+<div class="qa">
+<div class="q">Q — "CS50 2026/27 worth it? alternatives?"</div>
+<div class="says">thread: yes for fundamentals; C in weeks 1–5 is the quit zone; ~110–220 h total; free audit, ~$199–219 cert.</div>
+<div class="read">For your job, fundamentals are a detour. What you can't outsource is <i>judgment about systems</i> — and that needs vocabulary, not memory management in C.</div>
+<div class="act">If you want the taste of it anyway: CS50P (Python) or CS50B (Business) — both skip the C grind.</div>
+</div>
+
+<div class="qa">
+<div class="q">Q — "anything like CS50L for lawyers, more flexible, complete noob but rapid?"</div>
+<div class="says">thread (p9–11): Coursera "AI for Lawyers and Other Advocates" (Michigan, 3–5 h modules) · CS50B (zero code) · Legal Tech & Digital Transformation of Law (~20 h) · local: SMU Academy "Essentials of LegalTech" (2 days, SGD 2,180), Rajah &amp; Tann masterclasses.</div>
+<div class="read">The local 1–2 day executive courses are the highest value-per-hour for you specifically — they're built for exactly this profile and they're where the regional case studies live.</div>
+<div class="act">Book ONE local 2-day LegalTech course this quarter; do the Michigan micro-modules on commute time. Don't buy 4 courses.</div>
+</div>
+
+<div class="qa">
+<div class="q">Q — "would CS50L be useful to someone doing AI regulatory policy APAC at big tech AI firm in Singapore?"</div>
+<div class="says">thread (p12–14): "Yes, but with massive caveats" — great on de-mystifying the stack, US/EU-biased, zero APAC context (no AI Verify, no Korea AI Basic Act, no China GenAI regs, no ASEAN guide).</div>
+<div class="read">Verdict: <b>skip it.</b> The thread's own alternative stack is better than the course it's apologising for.</div>
+<div class="act">Stack, in order: Ng AI for Everyone → AI Verify / Model AI Governance Framework docs → IAPP AIGP if you want the credential.</div>
+</div>
+
+<h2>B · The rule-map (what actually binds you)</h2>
+<div class="qa">
+<div class="says">thread (p14–24, p28–30): APAC is diverging — voluntary/principles-based in SG, JP, AU vs prescriptive in CN, KR. Singapore IMDA published a <b>Model AI Governance Framework for Agentic AI</b> (4 dimensions: bound the autonomy, human accountability, technical controls, end-user responsibility). China = security reviews + algorithm registry; Korea = high-impact assessments. PDPA breach notification: <b>3 calendar days</b> vs Australia's different timeline.</div>
+<div class="read">The frame that pays: you are not writing policy docs anymore, you are <b>co-designing compliance architecture</b> with engineers — runtime guardrails instead of post-facto audits.</div>
+<div class="act">Build one living table: jurisdiction × trigger × deadline × owner. Every new rule updates the row; nothing else counts as "staying current".</div>
+</div>
+
+<div class="warn"><b>Rule-map, verified 2026</b> (primary sources fetched 2026-10-06; full runbook in
+<code>AXIS/work/ACTIVE/apac-ai-law/RUNBOOK.md</code>):<br>
+· <b>Korea AI Basic Act — in force 22 Jan 2026</b>: high-impact AI = 10 named sectors (self-assessment),
+ large-scale duty at 10²⁶ FLOPs, advance AI-use notice + output labeling, foreign-firm domestic-rep
+ thresholds, fines to KRW 30M; MSIT grace period ≈1 year → <b><mark>~Jan 2027</mark> is your real clock</b>.<br>
+· <b>Australia ADM transparency (APP 1.7–1.9) commences <mark>10 Dec 2026</mark></b> — hard external deadline.<br>
+· <b>China</b>: still no enacted AI Law (academic drafts only); binding layer = GenAI Interim Measures
+ (extraterritorial), Deep Synthesis, Algorithm Recommendation, AI content labeling (GB 45438-2025),
+ plus <b>Anthropomorphic AI Interaction Measures in force 15 Jul 2026</b>.<br>
+· <b>Singapore</b>: MGF for Agentic AI <b>v1.5 (May 2026)</b> + AI Verify toolkit; PDPC AI advisory
+ guidelines (1 Mar 2024); PDPA data portability legislated but <b>not yet in force</b>.<br>
+· <b>ASEAN</b>: voluntary 3-document stack (AI Guide 2024 → Expanded GenAI Guide 2025 → Responsible AI
+ Roadmap 2025–2030). No ASEAN agentic guide.<br>
+· <b>IAPP AIGP</b>: real but pricey ($649–799 exam + membership; 40–60 h) — employer-funded, and do it
+ <i>last</i>, once the role formalises.</div>
+
+<h2>C · 4-Hour Workweek ↔ Muse/OpenMuse</h2>
+<div class="qa">
+<div class="says">thread (p24–27, 34–37): Ferriss's 2007 "Muse" (DEAL: Definition→Elimination→Automation→Liberation) maps 1:1 onto agent architecture: Definition = system prompts; Elimination = context/RAG hygiene; Automation = tool calling with checkpoints; Liberation = …conditional. OpenMuse = open-source self-hostable personal agent (browser + terminal + files, AG-UI swappable models).</div>
+<div class="read">The mapping is right and the punchline is the honest one (p36): when automation is free, the market raises the baseline. You don't get 36 hours back; you get judged on taste, contextual judgment, trust. Same as Ferriss's own footnote in practice — the point was leverage over your <i>time</i>, not leisure.</div>
+<div class="act">Apply DEAL to one recurring task this month: define its MED, eliminate its inputs, automate its 80%, and personally handle only the 20% that needs a human name on it.</div>
+</div>
+
+<h2>D · Agent harness — verified against a real one</h2>
+<div class="qa">
+<div class="says">thread (p37–40, 49–56): Hermes Agent described as continuous state machine with autonomous skill creation, multi-platform gateway (CLI/TUI/Telegram/Slack), split-inference routing, cron loops, SQLite-FTS5 knowledge; OpenClaw as the viral harness (skills = <code>SKILL.md</code> dirs, <code>SOUL.md</code> persona, MCP servers, enterprise control planes).</div>
+<div class="read">Checked from the inside (this page is produced on a live Hermes install): CLI + <code>--tui</code> ✓, per-profile <code>config.yaml</code> ✓, skills-as-directories with <code>SKILL.md</code> ✓, cron loops + FTS5 knowledge ✓. The thread's <code>soul.yaml</code> is wrong — the file is <code>SOUL.md</code>. OpenClaw's scale claim checks out: Peter Steinberger, overtook React in stars by ~March 2026, currently ~391k stars.</div>
+<div class="act">If your firm pilots a harness: ask for the sandbox diagram and the audit trail before the demo. The harness is not the deliverable — the <i>reusable skill/SOP files</i> are. And know the incident record: OpenClaw's 2026 "Claw Chain" CVEs include a CVSS 9.6 sandbox escape (CVE-2026-44112, patched 2026.4.22) and 21k+ exposed instances — sandboxing is a config decision, not a given.</div>
+</div>
+
+<div class="qa">
+<div class="says">thread (p27–30, 51, 56): three real risks — indirect prompt injection from scraped pages/emails, token &amp; session hijack (cached OAuth cookies), shared-daemon/container escape.</div>
+<div class="read">Correct, and it's the whole ballgame for legal work: your inputs are untrusted documents by definition.</div>
+<div class="act">Three controls, non-negotiable: least-privilege tokens (an agent may never exceed its human's clearance), network egress allowlist, isolated runner + mandatory human gate on state-changing actions.</div>
+</div>
+
+<h2>E · Slack as ops OS (not chat)</h2>
+<div class="qa">
+<div class="says">thread (p41–48, 57–59): rigid channel taxonomy (<code>#intake-legal</code>, <code>#matter-*</code>, <code>#proj-*</code>, <code>#ops-*</code>) · zero-DM intake forms via Workflow Builder · rich-threads-only detail · emoji action ledger 👀/✅/❌ · keyword alerts ("indemnity", "breach", "PDPA") · Reacji-Channeler → <code>#legal-knowledge-base</code> · horizon-scanning feed (IMDA/AU/EU RSS → AI summary → one channel) · jurisdiction-tagged intake routing · 15-message rule → jump to a huddle · no "hi"/"are you there" messages.</div>
+<div class="read">All of this still holds in 2026 and is cheap. The one addition the thread misses: get IT to tell you the <b>retention / legal-hold / eDiscovery</b> posture of the workspace <i>before</i> you route any matter through it — that's the failure mode that actually bites a legal team. Verified 2026 (runbook in <code>AXIS/work/ACTIVE/workflow-agent/RUNBOOK.md</code>): EKM = Enterprise+ add-on · Audit Logs API + Discovery API (eDiscovery/DLP export) = Enterprise-only · legal hold = Enterprise, <b>excludes Slack Connect messages</b> · data residency incl. Singapore = Business+ (pre-existing data needs a Sales-led move) · Slack MCP + Real-Time Search API <b>GA 2026-02-17</b>, scope an agent to <code>search:read.public</code> first.</div>
+<div class="act">This week: one intake form + one keyword set + one emoji convention. That's the whole 80%.</div>
+</div>
+
+<h2>F · What the thread never says (our additions)</h2>
+<div class="act">Don't pay for a credential before you've done 2 weeks of free work with the tools. AIGP is a resume signal; AI Verify documentation is your actual job.</div>
+<div class="act">Your real bottleneck isn't knowledge, it's <b>triage</b>. Measure your own inbox for one week before automating anything — most "automation" projects fail because they automate a queue nobody measured.</div>
+<div class="act">Write the SOP first, agent second. If you can't hand it to a smart intern, you can't hand it to a harness.</div>
+<div class="act">Keep a "dated claims" file: every rule with an effective date. Regulations expire in your head faster than in the law.</div>
+
+<h2>G · The reading list (classics — refined)</h2>
+<details open>
+<summary>Core set + culture pack, free where possible, in order. ~8 hours total.</summary>
+<div class="qa">
+<div class="read">
+<b>1 · Start here (if code is not your job)</b><br>
+· <a href="https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/">Paul Ford, <i>What Is Code?</i></a> (Bloomberg, 2015) — 38k words written for the educated civilian; skim, don't study. <span class="cite">~2h</span><br>
+· <a href="https://www.paulgraham.com/makersschedule.html">Paul Graham, <i>Maker's Schedule, Manager's Schedule</i></a> (2009) — 10 min; the real reason Slack meetings cost you more than they cost engineers. <span class="cite">10 min</span><br>
+· <a href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/">Joel Spolsky, <i>The Law of Leaky Abstractions</i></a> (2002) — every tool hides complexity and then leaks it; your jargon-drowning problem, explained. <span class="cite">15 min</span><br>
+<b>2 · How software actually gets made</b><br>
+· <a href="https://www.catb.org/esr/writings/cathedral-bazaar/cathedral-bazaar/">Eric S. Raymond, <i>The Cathedral and the Bazaar</i></a> (1997) — why open harnesses, shared skills and "release early, release often" produce the tools you're about to use. (canonical link; our fetcher is blocked from catb.org — human browsers work) <span class="cite">~1h</span><br>
+· <a href="https://cs.fit.edu/~kgallagher/Courses/CSE2410/Brooks.NoSilverBullet.pdf">Fred Brooks, <i>No Silver Bullet</i></a> (1986) — the AI-hype antidote: essential vs accidental complexity; why "AI writes the code" fixes the cheap part and not the hard part. <span class="cite">30 min</span><br>
+· <a href="https://karpathy.medium.com/software-2-0-a64152b37c35">Andrej Karpathy, <i>Software 2.0</i></a> (2017) — models as a new programming medium; why "prompt, evaluate, curate" is now a real job. (Medium blocks bots; humans fine) <span class="cite">20 min</span><br>
+<b>3 · Work &amp; taste (the PG pack)</b><br>
+· <a href="https://www.paulgraham.com/greatwork.html">PG, <i>How to Do Great Work</i></a> (2023) — the long map: choosing a field, working on what you like, taste. <span class="cite">~1.5h</span><br>
+· <a href="https://www.paulgraham.com/ds.html">PG, <i>Do Things That Don't Scale</i></a> (2013) — the pilot-first rule for every Slack/harness automation: do it manually for one team before you build. <span class="cite">15 min</span><br>
+· <a href="https://www.paulgraham.com/hundred.html">PG, <i>The Hundred-Year Language</i></a> (2003) — why tool choices compound; skim for the argument, not the language. <span class="cite">20 min</span><br>
+· <a href="https://www.paulgraham.com/articles.html">PG index</a> — everything else lives here; <i>Beating the Averages</i> is the next one to read after these.<br>
+<b>4 · Culture pack (why these people are the way they are)</b><br>
+· <a href="https://threevirtues.dev/">Larry Wall, <i>The Three Virtues</i></a> — Laziness, Impatience, Hubris; the operating system of every engineer you'll manage. <span class="cite">5 min</span><br>
+· Steven Levy, <i>Hackers: Heroes of the Computer Revolution</i> (1984) — book; where the culture comes from. <span class="cite">~8h</span><br>
+· Tracy Kidder, <i>The Soul of a New Machine</i> (1981) — book; what building actually feels like from the inside. <span class="cite">~7h</span><br>
+· <a href="https://www.catb.org/jargon/html/story-of-mel.html"><i>The Story of Mel</i></a> + the Jargon File (catb.org) — the folklore; short, and suddenly engineer jokes decode. <span class="cite">20 min</span><br>
+</div>
+</div>
+</details>
+
+<h2>H · Cross-cut cards (the compression layer)</h2>
+<div class="card"><span class="tag">card 01 · leverage</span> <b>4-Hour Workweek ↔ Muse/OpenMuse</b> <span class="arr">→</span>
+ thread p24–27. The mapping is 1:1 (DEAL = prompt+RAG+tools). The leverage is real; the leisure isn't — you get judged on taste. <b>Track one number: deflection rate.</b></div>
+<div class="card"><span class="tag">card 02 · attention</span> <b>Maker's Schedule ↔ Slack</b> <span class="arr">→</span>
+ thread p45. Your day gets cut into hour slots by other people's calendars. <b>Batch intake into 2 windows; defend 2 half-day blocks/week.</b> 15 messages → huddle.</div>
+<div class="card"><span class="tag">card 03 · hype</span> <b>No Silver Bullet ↔ AI agents</b> <span class="arr">→</span>
+ thread p27–30. AI fixes accidental complexity (typing the code); essential complexity (deciding what's right) stays yours. <b>Never accept a demo without the sandbox diagram.</b></div>
+<div class="card"><span class="tag">card 04 · ownership</span> <b>Cathedral &amp; Bazaar ↔ harness skills</b> <span class="arr">→</span>
+ thread p49–52. The harness is cheap because the community builds it (the bazaar). What you own = the reusable SOP/skill files — those are the deliverable, not the demo.</div>
+<div class="card"><span class="tag">card 05 · culture</span> <b>Three Virtues (Laziness · Impatience · Hubris) ↔ this whole thread</b> <span class="arr">→</span>
+ <a href="https://threevirtues.dev/">threevirtues.dev</a>, Larry Wall. Laziness = automate the boring path · Impatience = one-click intake · Hubris = build it so IT is proud to keep it.</div>
+
+<h2>I · Corrections &amp; confidence</h2>
+<table>
+<tr><th>Thread claim</th><th>Checked</th><th>Verdict</th></tr>
+<tr><td>OpenClaw overtook React as most-starred repo (2026)</td><td>multiple sources, NVIDIA blog + trackers</td><td class="v">TRUE (~391k stars today)</td></tr>
+<tr><td>Hermes Agent: CLI/TUI, config.yaml, SKILL.md skills, cron, FTS5</td><td>live install, this session</td><td class="v">TRUE (except soul.yaml → SOUL.md)</td></tr>
+<tr><td>PDPA breach notification = 3 calendar days</td><td>thread p54 only</td><td class="x">needs primary source — in RUNBOOK</td></tr>
+<tr><td>Cert price $199 vs $219</td><td>sources disagree</td><td class="x">UNRESOLVED</td></tr>
+<tr><td>"Claude 3.5 Sonnet" as the frontier reasoning tier</td><td>thread p38/p50</td><td class="x">DATED — 2026 frontier is elsewhere</td></tr>
+<tr><td>Courses (Michigan AI for Lawyers, CS50B, SMU, R&amp;T, Austral)</td><td>all fetched 2026-10-06</td><td class="v">ALL LIVE — CS50L $299/10wk · CS50B free-audit/$299 (Apr 2026–Jun 2027) · Ng ~7h/$49 · Michigan 4-course series · SMU SGD 2,180 (12 CPD) · R&amp;T ≤ S$2,725</td></tr>
+</table>
+
+<div class="close"><b>If you do one thing this week:</b> ask IT, in writing, the one-question audit —
+"what is our Slack plan tier, and does legal hold cover Slack Connect + bot-posted messages?"
+Everything else on this page stacks on top of that answer.</div>
+
+<div class="foot">
+<b>Provenance</b> — synthesized from the full 60-page Google AI-Mode thread
+(<code>cs50L_cs50_2026_2027_worth_it_alternatives_Google_Search_1.PDF</code>, 103,916 chars extracted with pymupdf);
+every <code>[p.n]</code> cites that PDF. Cross-checked this session: GitHub/NVIDIA/tracker sources for OpenClaw,
+the live Hermes install for harness claims. Not a substitute for legal advice — the thread's own
+disclaimer stands. Related: <a href="/20261006-cs50-or-not-mcvoid/">the one-question CS50 page</a>.
+<br><br>Page expires 2026-11-05 · <code>noindex</code> · contact <b>mcvoid</b>
+</div>
+</div>

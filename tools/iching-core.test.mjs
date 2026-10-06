@@ -40,7 +40,7 @@ function fixture() {
     });
     return els.get(id);
   };
-  const buttons = ['read', 'cube', 'grid', 'walk']
+  const buttons = ['read', 'cube', 'grid', 'walk', 'radial']
     .map(v => ({ dataset: { view: v }, classList: { toggle() {} }, addEventListener() {} }));
   const history = { calls: [], replaceState(...a) { this.calls.push(a); } };
   const location = { hash: '', href: '' };
@@ -62,7 +62,7 @@ function fixture() {
   const html = read('iching/index.html');
   const m = html.match(/<script>([\s\S]*)<\/script>/);
   if (!m) throw new Error('iching/index.html: inline <script> block not found');
-  vm.runInContext(m[1] + '\n;globalThis.__t = {HEX, TRIGRAMS, render, renderState, renderHex, cast, tossLine, parseHash, fig};',
+  vm.runInContext(m[1] + '\n;globalThis.__t = {HEX, TRIGRAMS, render, renderState, renderHex, cast, tossLine, parseHash, fig, RC, radialOrder, radialLayout, radialHit, drawRadial};',
     context, { filename: 'iching/index.html' });
   return { t: context.__t, els, history, location };
 }
@@ -284,6 +284,74 @@ check('cast address state: render writes #c=…&q=… and parseHash round-trips 
   assert.equal(h.c, '678978', 'parseHash c');
   assert.equal(h.q, 'hi', 'parseHash q');
   assert.equal(h.h, null, 'parseHash h');
+});
+
+/* ================= radial wheel (iching/index.html) ================= */
+check('radial: 64 spokes in King Wen order, clockwise from the top (№1 at −90°)', () => {
+  t.RC.order = 'kw';
+  const L = t.radialLayout();
+  assert.equal(L.n, 64);
+  assert.equal(L.spokes.length, 64);
+  assert.deepEqual(L.spokes.map(s => s.id), Array.from({ length: 64 }, (_, i) => i + 1));
+  assert.ok(Math.abs(L.spokes[0].ang + Math.PI / 2) < 1e-9, 'spoke №1 must sit at the top');
+  for (let i = 1; i < 64; i++)
+    assert.ok(L.spokes[i].ang > L.spokes[i - 1].ang, `spoke №${i + 1} must be clockwise of №${i}`);
+});
+
+check('radial: binary ordering walks the same 64 by six-bit address', () => {
+  t.RC.order = 'bin';
+  const L = t.radialLayout();
+  const expect = HEXES.slice()
+    .sort((a, b) => parseInt(a.binary, 2) - parseInt(b.binary, 2)).map(h => h.id);
+  assert.deepEqual(L.spokes.map(s => s.id), expect);
+  assert.equal(L.spokes[0].id, byBin.get('000000').id, 'binary order must open on 000000');
+  assert.equal(L.spokes[63].id, byBin.get('111111').id, 'binary order must close on 111111');
+  t.RC.order = 'kw';
+});
+
+check('radial: bar ranks the judgment text; every mark stays on the canvas', () => {
+  const L = t.radialLayout();
+  const maxChars = Math.max(...L.spokes.map(s => s.chars));
+  const maxBar = Math.max(...L.spokes.map(s => s.bar));
+  for (const s of L.spokes.filter(s => s.chars === maxChars))
+    assert.equal(s.bar, maxBar, `hex ${s.id} carries the longest judgment but not the longest bar`);
+  for (const s of L.spokes) {
+    assert.ok(s.bar >= 12 && s.bar <= 62, `hex ${s.id} bar ${s.bar}`);
+    for (const p of [s.glyph, s.barIn, s.barOut, ...s.lines])
+      assert.ok(p.x >= 0 && p.x <= 760 && p.y >= 0 && p.y <= 760, `hex ${s.id} mark off-canvas`);
+  }
+});
+
+check('radial: six marks per spoke, bottom mark outermost, matching the binary', () => {
+  const L = t.radialLayout();
+  const dist = p => Math.hypot(p.x - L.cx, p.y - L.cy);
+  for (const s of L.spokes) {
+    assert.equal(s.lines.length, 6, `hex ${s.id} mark count`);
+    for (let k = 1; k < 6; k++)
+      assert.ok(dist(s.lines[k]) < dist(s.lines[k - 1]),
+        `hex ${s.id} mark ${k} must sit inward of mark ${k - 1}`);
+    assert.equal(s.lines.map(l => (l.yang ? '1' : '0')).join(''), byId.get(s.id).binary,
+      `hex ${s.id} marks must read out as its binary`);
+  }
+});
+
+check('radial: hit test resolves a point back to its spoke and rejects the centre', () => {
+  const L = t.radialLayout();
+  for (const i of [0, 17, 32, 63]) {
+    const s = L.spokes[i];
+    assert.equal(t.radialHit(L.cx + 300 * Math.cos(s.ang), L.cy + 300 * Math.sin(s.ang), L).id, s.id,
+      `spoke ${i} hit test`);
+  }
+  assert.equal(t.radialHit(L.cx, L.cy, L), null, 'the centre must not resolve to a spoke');
+});
+
+check('radial: drawRadial runs headless and reads out the hovered then the held hexagram', () => {
+  t.RC.hover = 43; t.RC.current = 1;
+  t.drawRadial();
+  assert.ok(fx.els.get('radialInfo').innerHTML.includes('夬'), 'hovered spoke reads out');
+  t.RC.hover = null;
+  t.drawRadial();
+  assert.ok(fx.els.get('radialInfo').innerHTML.includes('乾'), 'held hexagram reads out');
 });
 
 const fails = checks.filter(([, e]) => e);

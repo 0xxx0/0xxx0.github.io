@@ -1,0 +1,39 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "易經 // I CHING",
+  "version": "0.6",
+  "route": "/iching/",
+  "state": "ACTIVE",
+  "operation": "PLAY",
+  "released": "2026-10-06",
+  "purpose": "The Book of Changes as a finite change/correspondence instrument: one exact six-line address per state, with primary (本卦) / transformed (之卦) / nuclear (互卦) readings and structural operations over all 64. 0.6 adds the radial wheel — the same 64 as one object, walked clockwise in King Wen order, or sorted by six-bit address.",
+  "laws": [
+    "READ THE CHINESE FIRST — 周易 is authoritative; English is a public-domain reduction",
+    "A LENS, NOT AN ORACLE — symbolic correspondence is not native control state, body measurement or world proof",
+    "RECOVER BEFORE INVENTING — the arrangement is computed from the data already shipped; no new fields",
+    "ONE OBJECT, MANY PROJECTIONS — the wheel and the Walk strip are the same 64 in two renderings",
+    "PROVENANCE ON EVERY LAYER — 周易 public domain · Legge 1882 public domain · Human Design 1987 labelled as a modern lens"
+  ],
+  "visible_delta": [
+    "radial wheel: 64 spokes, King Wen order clockwise from the top (№ 1 乾 → № 64 未濟)",
+    "outward bar = judgment 卦辭 character count; inward marks = the six lines, bottom → top (yang one mark, yin two)",
+    "hover reads a spoke out in text; activating a spoke opens that hexagram",
+    "second ordering: the same 64 sorted by six-bit address (binary / Fu Xi order)",
+    "held hexagram marked on its spoke, on its rim glyph and in the hub",
+    "accessibility: the canvas carries an aria-label, the hub readout is aria-live, and the Walk strip remains the linear, keyboard-readable projection of the same object"
+  ],
+  "layout_grammar": "Movements of Change / Visualizing I-Ching (Yvette Shen, OSU designviz; Information is Beautiful showcase) — outward bars = text weight, inward marks = line stages. Grammar reference only; the renderer is this repository's own dependency-free canvas code.",
+  "inputs": [
+    "/iching/hexagrams.json"
+  ],
+  "access": "static — 2 files, zero dependencies, zero tracking, no network write",
+  "validation": {
+    "core_tests": "26/26 pass — node tools/iching-core.test.mjs (64-hexagram data laws + cast/render/state logic + 6 radial laws)",
+    "radial_laws": "King Wen order 1..64 clockwise from −90°; binary order opens on 000000 and closes on 111111; bar length monotone in judgment length; six marks per spoke reading back that hexagram's own binary, bottom mark outermost; hit test round-trips a point to its spoke and rejects the hub",
+    "local_browser_smoke": "headless Chromium on the working tree, zero console errors — hover on №43 reads out ䷪ 夬 · № 43 · 111110; the hub clears the readout; activation opens #h=43; the order toggle puts 坤 (000000) at the top in binary order and 乾 (№1) in King Wen order",
+    "live_url": "https://0xxx0.github.io/iching/",
+    "live_layer": "checked on the deployed Pages surface 2026-10-06T12:34:38+08:00 — /iching/ HTTP 200, 46,488 B, the 轮 Radial tab and four radialCanvas markers present, /iching/release.json and /iching/hexagrams.json HTTP 200",
+    "ci": "on commit 5a33bb8e: public-surface-check (it runs tools/iching-core.test.mjs), Route Registration, interphase-registry-check, FIELD Desk Refresh and gitleaks green. visual-regression is red at its own 'wait for same-SHA Pages deployment' step — Pages run 37413881444 concluded cancelled because a later push superseded the deploy — the same failure sits on neighbouring commits and it is not a pixel diff"
+  },
+  "known_gap": "Formal yarrow figures remain variant/unverified — only the three-coin 1/8, 3/8, 3/8, 1/8 distribution is claimed. 雜卦傳 Zagua characterisation, five-element trigram colours and the sphere view remain parked on the route's own deferred locators (not published); this release answers the radial item only."
+}

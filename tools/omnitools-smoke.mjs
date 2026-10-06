@@ -29,17 +29,18 @@ async function probe(){
    const msg=await wait(()=>messages.slice(at).find(m=>m.type==='decision-bench:loaded'||m.type==='decision-bench:error'),'native source acknowledgement');assert(msg.type==='decision-bench:loaded','Bench import failed',msg);
   }else await wait(()=>!q('#sourceDock').open,'tool source delivery');
  }
- async function copy(){drawer();copied='';q('#copyReturn').click();await wait(()=>copied,'carrier clipboard');return JSON.parse(copied);}
+ async function copy(){drawer();copied='';q('#copyReturn').click();await wait(()=>copied,'carrier clipboard');const receipt=JSON.parse(copied);q('#closeSource').click();assert(!q('#sourceDock').open,'Copied receipt leaves modal obstruction');return receipt;}
  async function record(){
+  if(q('#sourceDock').open)q('#closeSource').click();const at=messages.length;
   assert(!cq('#returnBtn').disabled,'Native RETURN disabled');cq('#returnBtn').click();edit(cq('#rationale'),'Entered limits and explicit local comparison');edit(cq('#nextStep'),'Measure before committing a physical change');cq('#saveReturn').click();
-  await wait(()=>/native decision recorded/.test(text('trace')),'native RETURN bridge');
+  const returned=await wait(()=>messages.slice(at).find(m=>m.type==='decision-bench:return'),'new native RETURN bridge');assert(returned.requestId&&returned.receipt?.schema==='decision-bench-return/v1','Recorded RETURN lacks load binding',returned);
  }
  function geometry(width,height){
   const bad=[],r=e=>{const x=e.getBoundingClientRect();return{x:x.x,y:x.y,right:x.right,bottom:x.bottom,w:x.width,h:x.height};};
-  for(const selector of ['header','#sourceToggle','#benchPane']){const x=r(q(selector));if(x.x<-1||x.y<-1||x.right>width+1||x.bottom>height+1||x.w<=0||x.h<=0)bad.push({selector,rect:x});}
+  for(const selector of ['header','#sourceToggle','#benchPane','.turnRail','#undoSource','#adoptResult','#quickReturn']){const x=r(q(selector));if(x.x<-1||x.y<-1||x.right>width+1||x.bottom>height+1||x.w<=0||x.h<=0)bad.push({selector,rect:x});}
   const frame=q('#benchPane'),outer=r(frame),innerWidth=cw.innerWidth,innerHeight=cw.innerHeight;
   for(const selector of ['header','footer','#modelBtn','#moreBtn','#returnBtn','.criteriaSection','.matrixSection','.result','#focus']){
-   const e=cq(selector),x=r(e);if(x.x<-1||x.y<-1||x.right>innerWidth+1||x.bottom>innerHeight+1||x.w<=0||x.h<=0)bad.push({native:selector,rect:x,innerWidth,innerHeight});
+   const e=cq(selector);if(selector==='#focus'&&!e.childElementCount)continue;const x=r(e);if(x.x<-1||x.y<-1||x.right>innerWidth+1||x.bottom>innerHeight+1||x.w<=0||x.h<=0)bad.push({native:selector,rect:x,innerWidth,innerHeight});
   }
   for(const e of cd.querySelectorAll('#matrix input,#matrix .optionSelect,#criteria input')){
    const x=r(e),top=cd.elementFromPoint(x.x+x.w/2,x.y+x.h/2);if(x.y<-1||x.bottom>innerHeight+1||x.right>innerWidth+1)bad.push({nativeControl:e.getAttribute('aria-label'),rect:x});
@@ -83,7 +84,7 @@ async function probe(){
    cw.eval('parent.postMessage('+JSON.stringify({type:'decision-bench:return',requestId:null,receipt:r})+',location.origin)');await delay(100);assert((await copy()).bench===null,'Standalone decision bound to source');
   });
   await check('Same-origin wrong window and foreign origin cannot inject RETURN',async()=>{
-   await load(json,'source-A');await record();const before=(await copy()).bench;
+   await load(json,'source-A');await record();const before=(await copy()).bench;assert(before?.requestId&&before.receipt?.status==='PROPOSED','Origin guard test has no recorded receipt');
    const fake={type:'decision-bench:changed',valid:false};w.postMessage(fake,location.origin);await delay(50);assert(JSON.stringify((await copy()).bench)===JSON.stringify(before),'Wrong source window admitted');
    w.dispatchEvent(new w.MessageEvent('message',{origin:'https://outside.invalid',source:cw,data:fake}));await delay(50);assert(JSON.stringify((await copy()).bench)===JSON.stringify(before),'Foreign origin admitted');
   });
@@ -104,8 +105,48 @@ async function probe(){
    assert(ad.getElementById('ta').value===''&&ad.getElementById('zh').value===''&&ad.getElementById('en').value==='Plain English only','Stale languages attributed to plain source');
    await delay(330);const r=await copy();assert(r.projection_preview?.inputs.ta===''&&r.projection_preview.inputs.zh===''&&r.projection_preview.inputs.en==='Plain English only','ALIGN snapshot is not exact');
   });
+  await check('Real utility result becomes the next source with exact RETURN and two-step UNDO',async()=>{
+   const csv='name,qty\nrail,2\nclamp,4',label='data-loop';await load(csv,label,'reshape');
+   const rw=q('.toolPane[data-mode="reshape"]').contentWindow;
+   await wait(()=>rw.OmnitoolsTool?.getResult()&&!q('#adoptResult').disabled,'complete RESHAPE result');const reshaped=rw.OmnitoolsTool.getResult().text;
+   const rows=JSON.parse(reshaped);assert(rows.length===2&&rows[0].name==='rail'&&rows[1].qty==='4','Real data transformation lost rows or values',rows);
+   q('#adoptResult').click();await wait(()=>q('#sourceText').value===reshaped&&!q('#undoSource').disabled,'result adopted as source');
+   let r=await copy();assert(r.source.text===reshaped&&r.turns.length===1&&r.turns[0].before.text===csv&&r.turns[0].after.text===reshaped,'Exact transformation RETURN missing',r.turns);assert(r.turns[0].authority==='LOCAL_SOURCE_ONLY','Transformation gained world authority');
+   await load(reshaped,label,'scan');const sw=q('.toolPane[data-mode="scan"]').contentWindow;
+   await wait(()=>sw.OmnitoolsTool?.getResult()&&!q('#adoptResult').disabled,'SCAN consumes transformed bytes');assert(sw.document.getElementById('in').value===reshaped,'Second operation used stale source');
+   const scanned=sw.OmnitoolsTool.getResult().text;assert(JSON.parse(scanned).findings instanceof Array,'SCAN did not return complete findings');q('#adoptResult').click();await wait(()=>q('#sourceText').value===scanned,'second result adopted');
+   r=await copy();assert(r.turns.length===2&&r.turns[1].before.text===reshaped&&r.source.text===scanned,'Two-step provenance lost');
+   q('#undoSource').click();await wait(()=>q('#sourceText').value===reshaped,'second turn undo');q('#undoSource').click();await wait(()=>q('#sourceText').value===csv&&q('#undoSource').disabled,'first turn undo');
+   r=await copy();assert(r.source.text===csv&&r.source.label===label&&r.turns.length===0,'Undo failed exact original source restoration');
+   await load(csv,label,'reshape');edit(rw.document.getElementById('in'),'different child source');await wait(()=>q('#adoptResult').disabled,'edited child cannot attach stale result');assert(q('#sourceText').value===csv,'Child edit silently replaced source');
+  });
+  await check('Four native utility surfaces fit small portrait and landscape',async()=>{
+   for(const [width,height]of [[320,568],[740,360]])for(const mode of ['scan','read','align','reshape']){
+    f.style.width=width+'px';f.style.height=height+'px';await load(mode==='reshape'?'name,qty\nrail,2\nclamp,4':'Alpha beta. Gamma delta.',mode+'-fit',mode);await delay(100);
+    const child=q('.toolPane[data-mode="'+mode+'"]').contentWindow,doc=child.document,bad=[];
+    for(const e of doc.querySelectorAll('main,main textarea,main button,main select,.bar,.strip,.detect,.edit')){
+     const r=e.getBoundingClientRect();if(r.width<=0||r.height<=0)continue;
+     if(r.x<-1||r.y<-1||r.right>child.innerWidth+1||r.bottom>child.innerHeight+1)bad.push({element:e.id||e.className,rect:{x:r.x,y:r.y,right:r.right,bottom:r.bottom}});
+     if(e.matches('button,select,textarea')){const top=doc.elementFromPoint(r.x+r.width/2,r.y+r.height/2);if(!top||(!e.contains(top)&&!top.contains(e)))bad.push({occluded:e.id||e.getAttribute('aria-label'),by:top?.id||top?.className});}
+    }
+    const overflow={x:Math.max(doc.body.scrollWidth,doc.documentElement.scrollWidth)-child.innerWidth,y:Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight)-child.innerHeight};
+    assert(!bad.length&&overflow.x<=1&&overflow.y<=1,'Native utility primary surface hidden or requires page scroll',{mode,width,height,bad:bad.slice(0,8),overflow});
+    for(const id of ['sourceToggle','undoSource','adoptResult','quickReturn']){const r=q('#'+id).getBoundingClientRect();assert(r.x>=-1&&r.right<=width+1&&r.y>=-1&&r.bottom<=height+1,'Carrier action outside utility viewport',{mode,id,width,height});}
+   }
+  });
   await check('Projection switching preserves native decision without creating state authority',async()=>{
    await load(json,'source-A');const before=JSON.stringify(model());await choose('read');await choose('bench');assert(JSON.stringify(model())===before,'Switching destroyed native model');assert(cd.getElementById('title').value===input.title,'Native view not retained');
+  });
+  await check('Responsive paging keeps held identity, invalid draft and focused cell',async()=>{
+   f.style.width='1280px';f.style.height='800px';await delay(100);
+   cq('[data-select="large"]').click();let cell=cq('[data-option="large"][data-axis="reset"]');cell.focus();edit(cell,'bad');cell.setSelectionRange(1,2);
+   const unchanged=JSON.stringify(model());f.style.width='320px';f.style.height='568px';
+   await wait(()=>cw.innerWidth===320&&cd.querySelectorAll('[data-row]').length<=2&&cq('[data-option="large"][data-axis="reset"]')===cd.activeElement,'focused small-frame paging');
+   cell=cd.activeElement;assert(cell.value==='bad'&&cell.selectionStart===1&&cell.selectionEnd===2,'Resize lost draft or cursor');assert(cell.getAttribute('aria-invalid')==='true'&&cq('#returnBtn').disabled,'Resize accepted invalid draft');geometry(320,568);
+   f.style.width='1280px';f.style.height='800px';await wait(()=>cw.innerWidth===1280&&cd.querySelectorAll('[data-row]').length===4&&cq('[data-option="large"][data-axis="reset"]')===cd.activeElement,'focused expanded-frame paging');
+   assert(cd.activeElement.value==='bad'&&JSON.stringify(model())===unchanged&&model().selected==='large','Resize changed model or held identity');cq('#undoBtn').click();assert(cd.getElementById('counts').textContent==='2 FIT · 1 ? · 1 OUT','Undo did not restore valid analysis');
+   const multi=JSON.parse(json);multi.criteria.push({id:'extra',label:'Extra constraint',unit:'s',direction:'min',min:null,max:10});multi.options.forEach(o=>o.values.extra=1);await load(JSON.stringify(multi),'four-axes');f.style.width='320px';f.style.height='568px';
+   await wait(()=>cw.innerWidth===320&&cd.querySelectorAll('[data-row]').length===1,'extra axis pager reserves row space');geometry(320,568);cq('#axisPager button[aria-label="Next AXES"]').click();assert(cq('#criteria input[data-axis="extra"]'),'Fourth axis inaccessible');geometry(320,568);assert(model().criteria.length===4&&model().options.every(o=>o.values.extra===1),'Paging lost hidden constraints');await load(json,'source-A');
   });
   for(const [width,height]of [[320,568],[390,844],[740,360],[844,390],[1280,800]])await check('Integrated mobile fit '+width+'×'+height,async()=>{
    if(q('#sourceDock').open)q('#closeSource').click();await choose('bench');f.style.width=width+'px';f.style.height=height+'px';await delay(180);geometry(width,height);assert(d.querySelectorAll('header button').length===1,'Multiple mandatory route controls');

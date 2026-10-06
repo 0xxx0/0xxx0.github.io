@@ -7,7 +7,7 @@ name: visual-regression
 
 on:
   push:
-    branches: [master]            # wait for same-SHA Pages deploy, then compare live site
+    branches: [master]            # wait for a Pages deploy covering the SHA, then compare live site
   schedule:
     - cron: '0 5 * * 1'          # weekly Mon 05:00 UTC — compare mode
   workflow_dispatch:
@@ -34,34 +34,46 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Wait for same-SHA Pages deployment
+      - name: Wait for a Pages deployment covering this SHA
         if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          echo "Waiting for Pages deployment of $GITHUB_SHA"
+          # Pages cancels an in-flight build whenever a newer push arrives, so a push's own
+          # run often ends 'cancelled' and never reaches 'success' — waiting on its SHA alone
+          # is a guaranteed red during push bursts (measured 2026-10-06: 0 green in 486 runs,
+          # about half dying here). Instead, follow the newest master head and exit when ITS
+          # Pages build has succeeded and covers this push (equal or ahead): supersession is
+          # normal and tolerated; a genuine stall still fails after the wait budget.
+          echo "Waiting for a Pages deployment covering $GITHUB_SHA"
           for i in $(seq 1 60); do
-            row=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$GITHUB_SHA&per_page=100" \
-              --jq '.workflow_runs[] | select(.name == "pages build and deployment") | [.id,.status,(.conclusion // "")] | @tsv' \
-              | head -1)
-            if [ -n "$row" ]; then
-              run_id=$(printf '%s\n' "$row" | cut -f1)
-              status=$(printf '%s\n' "$row" | cut -f2)
-              conclusion=$(printf '%s\n' "$row" | cut -f3)
-              echo "Pages run $run_id · $status · ${conclusion:-pending}"
-              if [ "$status" = "completed" ]; then
-                if [ "$conclusion" = "success" ]; then
-                  echo "Pages deployment complete for $GITHUB_SHA"
+            head=$(gh api "repos/$GITHUB_REPOSITORY/commits/master" --jq '.sha' 2>/dev/null) || head=""
+            if [ -n "$head" ]; then
+              ok=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$head&per_page=100" \
+                --jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .status == "completed" and .conclusion == "success")] | length' \
+                2>/dev/null) || ok=0
+              if [ "${ok:-0}" -gt 0 ] 2>/dev/null; then
+                if [ "$head" = "$GITHUB_SHA" ]; then
+                  echo "Pages deployment complete for $GITHUB_SHA (live)"
                   exit 0
                 fi
-                echo "::error::Pages deployment $run_id concluded $conclusion"
-                exit 1
+                rel=$(gh api "repos/$GITHUB_REPOSITORY/compare/$GITHUB_SHA...$head" \
+                  --jq '.status' 2>/dev/null) || rel=""
+                if [ "$rel" = "ahead" ] || [ "$rel" = "identical" ]; then
+                  echo "Push superseded: live deployment $head is ahead of $GITHUB_SHA — covered"
+                  exit 0
+                fi
+                echo "live head $head does not cover $GITHUB_SHA yet (compare: ${rel:-unknown})"
+              else
+                echo "Pages build for master head $head has not succeeded yet"
               fi
+            else
+              echo "master head unresolved — retrying"
             fi
-            sleep 5
+            sleep 10
           done
-          echo "::error::Timed out waiting for Pages deployment of $GITHUB_SHA"
+          echo "::error::Timed out waiting for a Pages deployment covering $GITHUB_SHA (supersession tolerated; no successful build converged in 10 min)"
           exit 1
 
       - name: Ensure Chrome + ImageMagick available
@@ -181,8 +193,9 @@ jobs:
           retention-days: 14
 
       - name: Compare against goldens
-        # Push mode waits above for the same SHA's Pages deployment to complete,
-        # so this compares the deployed master rather than a pre-deploy snapshot.
+        # Push mode waits above for a Pages deployment that covers the pushed SHA (the
+        # SHA itself or a superseding head), so this compares the deployed master rather
+        # than a pre-deploy snapshot.
         if: github.event.inputs.mode == 'compare' || github.event_name == 'schedule' || github.event_name == 'push'
         id: compare
         run: |
@@ -194,7 +207,7 @@ jobs:
 
           # Tolerance: AE (absolute error) pixel count threshold per route.
           # 430x900 = 387,000 px. Base tolerance 0.5% = 1,935 px for stable pages.
-          # Dynamic pages get higher allowances: root/fold-bloom 3% (11,610),
+          # Dynamic pages get higher allowances: root/fold-bloom/docs 3% (11,610),
           # fold-bloom/live 30% (116,100) for non-deterministic WebGL.
           # -fuzz 1% absorbs sub-pixel AA variance.
           # Per-route thresholds chosen from observed inter-run variance on ubuntu-24.04.
@@ -203,13 +216,13 @@ jobs:
             ["fold-bloom_live"]=116100  # 30% — canvas/WebGL, highly non-deterministic
             ["fold-bloom"]=11610     # 3.0% — some animation variance
             ["fold-bloom_ecology"]=1935  # 0.5% — stable static content
-            ["docs"]=1935          # 0.5% — stable static content
+            ["docs"]=11610         # 3.0% — READFIELD instrument: live aperture region varies per capture (measured 0 / 2,822 / 9,940 px, 2026-10-06)
           )
 
           echo "# Visual Regression Compare Report" > "$REPORT"
           echo "" >> "$REPORT"
           echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> "$REPORT"
-          echo "Tolerance: per-route AE thresholds (base 0.5%=1935px; root/fold-bloom 3%=11610px; fold-bloom/live 30%=116100px)" >> "$REPORT"
+          echo "Tolerance: per-route AE thresholds (base 0.5%=1935px; root/fold-bloom/docs 3%=11610px; fold-bloom/live 30%=116100px)" >> "$REPORT"
           echo "" >> "$REPORT"
           echo "| Route | Golden | Capture | Diff (AE) | Status |" >> "$REPORT"
           echo "|-------|--------|---------|-----------|--------|" >> "$REPORT"

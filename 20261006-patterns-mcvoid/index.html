@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HOUSE PATTERNS · 2026-10-06 · mcvoid</title>
+<link rel="stylesheet" href="../tools/house-patterns.css">
+<div class="wrap">
+<header>
+<h1>House Patterns<br>the sheet, dogfooded</h1>
+<div class="meta">
+ <span>2026-10-06</span>
+ <span>source <b>3 shipped pages</b></span>
+ <span>sheet <b><a href="../tools/house-patterns.css">tools/house-patterns.css</a></b></span>
+ <span>study <b>AXIS/…/pattern-lib/NOTES.md</b></span>
+ <span>read time <b>~3 min</b></span>
+</div>
+</header>
+
+<div class="big">Every block on this page is rendered by <span>the stylesheet it documents</span>.<br>
+One sheet, hard edges, no rounded pills. Cards, not a scrolling slab.</div>
+
+<div class="card"><span class="badge">pattern 01 · wrap</span> <b>the shell</b> <span class="arr">→</span>
+ every page sits in <code>.wrap</code>: one measure, centered, never full-bleed text.
+<div class="note"><b>rule</b> — every page, one measure (--wrap:880px), never full-bleed text.</div></div>
+
+<div class="card"><span class="badge">pattern 02 · meta</span> <b>the fact strip</b> <span class="arr">→</span>
+ strips sit under the h1, uppercase, facts only:
+ <div class="meta" style="margin-top:8px"><span>source <b>…</b></span><span>reader <b>…</b></span><span>expires <b>…</b></span></div>
+<div class="note"><b>rule</b> — one strip under the h1: source · reader · read-time · expiry, uppercase, ≤5 facts.</div></div>
+
+<div class="card"><span class="badge">pattern 03 · big</span> <b>the lede</b> <span class="arr">→</span>
+ <div class="big" style="font-size:17px">Say the verdict once. <span>Highlight the pivot.</span></div>
+<div class="note"><b>rule</b> — the lede statement, one per page, ≤3 lines, ≤2 highlighted spans.</div></div>
+
+<div class="card"><span class="badge">pattern 04 · card</span> <b>the claim</b> <span class="arr">→</span>
+ the unit of composition — this whole page is a deck of them.
+ <div class="card" style="margin:10px 0 4px"><span class="badge">card 01 · nested</span> a card in a card, only here because a reference page must show its own parts.</div>
+<div class="note"><b>rule</b> — one self-contained claim with a badge; a page is a deck of cards, never one scrolling slab.</div></div>
+
+<div class="card"><span class="badge">pattern 05 · act</span> <b>the do</b> <span class="arr">→</span>
+ <div class="act">Migrate one page per week, not all three in one sitting.</div>
+<div class="note"><b>rule</b> — exactly one "do →" per decision block; verb first, ≤2 lines.</div></div>
+
+<div class="card"><span class="badge">pattern 06 · warn</span> <b>the trap</b> <span class="arr">→</span>
+ <div class="warn"><b>Trap:</b> a sheet that grows a second sheet per page is the drift this one exists to stop. Extend the tokens, not the file count.</div>
+<div class="note"><b>rule</b> — risk/verified-correction blocks only; hot left edge; first sentence names the trap.</div></div>
+
+<div class="card"><span class="badge">pattern 07 · moves</span> <b>the ranked list</b> <span class="arr">→</span>
+ <ol class="moves">
+ <li><b>Read the claim</b> before the demo. <span class="cite">[this page]</span></li>
+ <li><b>Copy the markup</b> from view-source — every block is plain HTML.</li>
+ <li><b>Override a token</b> per page when the house palette is wrong for the content.</li>
+ </ol>
+<div class="note"><b>rule</b> — ol.moves: 3–7 moves before any detail; bold the action, cite at the end.</div></div>
+
+<div class="card"><span class="badge">pattern 08 · table</span> <b>the comparison</b> <span class="arr">→</span>
+ <table>
+ <tr><th>part</th><th>value</th><th>verdict</th></tr>
+ <tr><td>ink</td><td class="num">#0d0d0d</td><td class="v">frozen</td></tr>
+ <tr><td>radius</td><td class="num">0px</td><td class="v">enforced at reset</td></tr>
+ <tr><td>shadow</td><td class="num">none</td><td class="x">banned — flat, hard edges</td></tr>
+ </table>
+<div class="note"><b>rule</b> — comparisons and corrections; verdict cells td.v/td.x; all figures td.num tabular.</div></div>
+
+<div class="card"><span class="badge">pattern 09 · badge/tag</span> <b>the label</b> <span class="arr">→</span>
+ <span class="badge">inverted chip</span> for card identity · <span class="tag">muted lane label</span> for metadata.
+<div class="note"><b>rule</b> — one label per card (.badge, inverted) or one muted lane label (.tag); never both on one element.</div></div>
+
+<div class="card"><span class="badge">pattern 10 · close</span> <b>the last box</b> <span class="arr">→</span>
+ <div class="close" style="margin-top:12px"><b>If you do one thing:</b> link the sheet, delete the inline style block. Everything else is a token.</div>
+<div class="note"><b>rule</b> — one per page, the last box before the foot: the single thing to do this week.</div></div>
+
+<div class="card"><span class="badge">pattern 11 · foot</span> <b>the provenance</b> <span class="arr">→</span>
+ <div class="foot" style="margin-top:12px"><b>Provenance</b> — extracted from three shipped pages 2026-10-06; survey in NOTES.md. Unverified: pixel parity vs the original inline styles.</div>
+<div class="note"><b>rule</b> — provenance block: what was fetched, what stays unverified, expiry, noindex, contact.</div></div>
+
+<div class="card"><span class="badge">pattern 12 · filters</span> <b>the data-dump bar</b> <span class="arr">→</span>
+ <div class="filters" style="position:static">
+  <input type="search" placeholder="filter: host, lane, date…" disabled>
+  <button class="on">ALL 1634</button><button>BUILD / CODE 367</button><button>PAPERS 90</button>
+ </div>
+<div class="note"><b>rule</b> — only on generated data dumps: sticky search + lane chips + live count.</div></div>
+
+<div class="warn"><b>Collision log (why some names moved):</b> <code>.row</code> meant a Q/A row on one page and a
+bar row on another — <code>.row</code> keeps the Q/A meaning (with <code>.arrowline</code>), linkfield's bar rows
+become <code>.barline</code>. <code>.tag</code> meant both the inverted chip and the muted label —
+<code>.badge</code> is now the chip, <code>.tag</code> the label, and <code>.card .tag</code> still renders as a
+chip so old pages drop in unchanged.</div>
+
+<details class="reveal"><summary>Micro-primitives that ride along (no rules of their own)</summary>
+<p style="font-size:14px"><code>.cite</code> source slips · <code>.note</code> left-edge aside ·
+<code>.reveal</code> disclosure (this one) · <code>.barline</code> bar charts · <code>.tl</code> timelines ·
+<code>.pulse</code> stat grids · <code>.live/.dead/.far</code> status · <code>.eli5/.forwho</code> callout boxes ·
+<code>.q/.says/.read</code> thread turns · <code>#banner</code> expiry bar ·
+<code>.two</code> two-up split · <code>mark</code> highlights.</p>
+<p class="note">Bars sample: <div class="barline"><span class="k">CS50x</span><span class="bar" style="width:66%"></span><b>110–220h</b></div>
+<div class="barline"><span class="k">CS50P</span><span class="bar alt" style="width:34%"></span>~half, no C</div></p>
+</details>
+
+<div class="close"><b>If you do one thing this week:</b> take the next dated page, delete its
+<code>&lt;style&gt;</code> block, link <code>/tools/house-patterns.css</code>. If a component is missing,
+extend the sheet — never re-hand-roll.</div>
+
+<div class="foot">
+<b>Provenance</b> — component vocabulary extracted from
+<a href="/20261006-ai-mode-thread-mcvoid/">ai-mode-thread</a> ·
+<a href="/20261006-cs50-or-not-mcvoid/">cs50-or-not</a> ·
+<a href="/20261005-linkfield-mcvoid/">linkfield</a> + links.html;
+survey of 10 extant systems (Open Props, Pico, Every Layout, Refactoring UI, Carbon, GOV.UK, Pattern Lab,
+Brutalist Web Design, Laws of UX, Practical Typography) fetched 2026-10-06, in
+<code>AXIS/work/ACTIVE/pattern-lib/NOTES.md</code>.
+Not verified: pixel parity vs the originals' inline styles — drop-in proven on scratch copies, the shipped
+pages themselves are not yet migrated to the sheet.
+<br><br>Page expires 2026-11-05 · <code>noindex</code> · contact <b>mcvoid</b>
+</div>
+</div>

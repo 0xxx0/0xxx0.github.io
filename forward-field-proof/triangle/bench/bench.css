@@ -9,3 +9,4 @@ body,main,main>*,.question,.criteriaSection,.matrixSection,.result,.resultHead{m
 @media(max-height:650px){.optionSelect{max-height:32px}}
 @media(max-height:450px) and (min-width:500px){header button{min-height:28px;height:28px;padding:3px 8px}}
 .embedded header>a,.embedded header small{display:none}.embedded header b{font-size:10px}.embedded{max-width:none}
+@media(max-height:560px) and (max-width:499px){.optionSelect{min-height:24px;max-height:26px}.rowState{margin-top:0;line-height:1.1}.matrixHeading button{min-height:26px;padding:2px 4px}th{padding:2px}}

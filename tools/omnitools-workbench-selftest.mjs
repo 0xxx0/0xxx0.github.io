@@ -5,10 +5,10 @@ const instrument=JSON.parse(fs.readFileSync('foundry/omnitools/instrument.json',
 for(const id of ['sourceDock','sourceToggle','sourceText','sourceHash','benchPane','loadMode','trace','copyReturn'])assert.ok(html.includes('id="'+id+'"'),'missing '+id);
 for(const mode of ['bench','scan','read','align','reshape'])assert.ok(html.includes('data-mode="'+mode+'"'),'missing '+mode);
 assert.ok(html.includes('src="/forward-field-proof/triangle/bench/?embedded=1"'),'BENCH must use native host');
-for(const route of ['./pii-lens.html','./text-lens.html','./re-reader.html','./reshaper.html'])assert.ok(html.includes('src="'+route+'"'),'specialist route missing '+route);
+for(const route of ['./pii-lens.html','./text-lens.html','./re-reader.html','./reshaper.html'])assert.ok(html.includes('src="'+route+'?embedded=1"'),'specialist route missing '+route);
 assert.ok(!/id="(?:benchIn|benchResults|minForm|minFunction|minFortitude)"/.test(html),'duplicate fixed bench UI remains');
 assert.ok(!/parseAndEvaluate|evaluateBench|bench\.mjs/.test(app),'carrier owns a competing evaluator');
-assert.ok(html.includes('OMNITOOLS / 0.3'),'visible version stale');
+assert.ok(html.includes('OMNI / v3'),'visible version stale');
 assert.ok(html.includes('src="./instrument-app.mjs"'),'module entry missing');
 assert.ok(html.includes('SOURCE → AXIS → EFFECTOR → TRACE → RETURN'),'pipeline missing');
 assert.ok(app.includes("const KEY='omnitools.work-object.v01'"),'session source key changed');

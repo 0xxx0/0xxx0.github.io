@@ -6,19 +6,19 @@
   "tool_versions": {
     "index.html": "0.3",
     "pii-scan.mjs": "0.2",
-    "pii-lens.html": "0.1",
-    "text-lens.html": "0.1",
-    "re-reader.html": "0.2",
-    "reshaper.html": "0.1",
+    "pii-lens.html": "0.2",
+    "text-lens.html": "0.2",
+    "re-reader.html": "0.3",
+    "reshaper.html": "0.2",
     "html-munge.mjs": "0.1",
     "bench.mjs": "0.2"
   },
   "state": "CANDIDATE",
-  "date": "2026-10-04",
+  "date": "2026-10-06",
   "route": "/foundry/omnitools/",
   "parent": "/foundry/",
   "operation": "TRANSFORM",
-  "claim": "One held source feeds native specialist tools and the canonical generalized Triangle Bench. User-defined quantities and limits replace abstract three-score ranking; unknowns remain separate, exact decisions can be restored, and every instrument result is bound to the input used.",
+  "claim": "Hold one exact input, transform it in a native tool, inspect the whole result, promote that result to the next source and undo the turn exactly. The canonical Triangle Bench supports generic measured constraints and decisions; all views retain their native semantics in one bounded stage.",
   "tools": [
     {
       "id": "pii-scan",
@@ -63,7 +63,7 @@
       "evidence": "fixture page through all 6 modes (text/md/links/tables/meta/json) plus stdin mode; script/style content stripped; entities decoded"
     }
   ],
-  "mutation": "Converge the shared-source instrument with the tested generalized decision host, remove duplicate decision math, fix stale-source receipts, and place source/navigation/trace in one reveal.",
+  "mutation": "Complete v3 with full native result hooks, source promotion/undo/return, strict conversion failure boundaries, compact native stages and corrected resize/provenance/browser assertions.",
   "known_limits": [
     "pii-scan regex detectors are heuristics: real-name is keyword-anchored and low confidence; entropy sweep trades recall for noise (default 4.5 bits/char, pure-hex skipped).",
     "pii-scan history scan reports patch positions (hist:<sha>:<path>:<line>); deleted-line numbers refer to the pre-image file.",
@@ -76,7 +76,9 @@
     "Browser tools are client-side only and never transmit pasted content.",
     "Decision comparison only uses entered alternatives, criteria and uncertainty. Numerical fit does not establish physical safety or real-world suitability.",
     "Physical cylinder / connector / applicator lineage is retained as design context; this browser release does not implement or validate physical actuation.",
-    "Actual user use/value remains unobserved. Passing software checks does not establish lived usefulness."
+    "Actual user use/value remains unobserved. Passing software checks does not establish lived usefulness.",
+    "Flattening changes structural representation; collisions, duplicate columns, ragged rows and malformed JSON/CSV fail closed. Exact source undo restores input instead of inferring it from flat output.",
+    "Local source history retains up to 12 turns, bounded by aggregate text size. Carrier RETURN exports exact retained source and turns; no world effect or real adoption is inferred."
   ],
   "evidence": {
     "receipt": "/foundry/omnitools/release.json",
@@ -88,10 +90,12 @@
       "node tools/decision-bench-selftest.cjs",
       "node tools/decision-bench-smoke.mjs",
       "node tools/omnitools-bench-selftest.mjs",
-      "node tools/omnitools-smoke.mjs"
+      "node tools/omnitools-smoke.mjs",
+      "node tools/omnitools-result-selftest.mjs"
     ],
     "return_path": "/foundry/omnitools/",
-    "decision_receipt": "/forward-field-proof/triangle/bench/release.json"
+    "decision_receipt": "/forward-field-proof/triangle/bench/release.json",
+    "research_log": "/foundry/omnitools/research/extant-projects-scout.md"
   },
   "entry": "/foundry/omnitools/"
 }

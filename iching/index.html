@@ -104,6 +104,11 @@
   .walk .gl{font-size:22px;color:var(--acc);display:block}
   .walk .nn{color:var(--faint);font-size:10px;display:block}
   .walk .nm{color:var(--dim);font-size:11px;display:block}
+  #radialCanvas{width:100%;height:auto;display:block;border-radius:8px;background:#0a0c0f;cursor:crosshair;touch-action:none}
+  #radialInfo{margin-top:10px;color:var(--dim);font-size:13px;line-height:1.8;min-height:46px}
+  #radialInfo b{color:var(--fg)}
+  .rlegend{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:10px;color:var(--faint);font-size:11.5px}
+  .rlegend i{color:var(--acc);font-style:normal}
   @media (max-width:520px){ header h1{font-size:32px} .fig-wrap{gap:20px} }
 </style>
 </head>
@@ -119,6 +124,7 @@
     <button data-view="cube">方 Cube</button>
     <button data-view="grid">表 Grid</button>
     <button data-view="walk">序 Walk</button>
+    <button data-view="radial">轮 Radial</button>
   </nav>
 
   <section id="viewRead">
@@ -165,6 +171,25 @@
     </div>
   </section>
 
+  <section id="viewRadial" hidden>
+    <div class="panel">
+      <h2 class="sect" style="margin-top:0">Radial <span>轮 — all 64 as one wheel</span></h2>
+      <canvas id="radialCanvas" width="760" height="760" role="img"
+        aria-label="Radial wheel of all 64 hexagrams in King Wen order, clockwise from the top. Each spoke carries the hexagram glyph, an outward bar whose length is the judgment character count, and six marks running inward for the six lines."></canvas>
+      <div id="radialInfo" aria-live="polite">the wheel holds all 64 — hover a spoke to read it, click to open it.</div>
+      <div class="row" style="margin-top:10px">
+        <button class="ghost" id="radialOrder">order: King Wen 序</button>
+      </div>
+      <div class="rlegend">
+        <span><i>outward bar</i> = judgment 卦辭 character count</span>
+        <span><i>inward marks</i> = the six lines, bottom → top (yang one mark, yin two)</span>
+        <span><i>gold</i> = the hexagram you hold</span>
+      </div>
+      <div class="muted" style="margin-top:8px">one turn of the wheel walks the sequence — № 1 乾 at the top, clockwise to № 64 未濟. hover to read a spoke, click to open it.<br>
+      <b>read as a machine:</b> the wheel and the <i>Walk</i> strip are the same object in two projections; Walk is the linear, keyboard-readable one. the second ordering (binary) sorts the same 64 by their six-bit address instead — the wheel is the only view where the two orderings can be compared side by side.</div>
+    </div>
+  </section>
+
   <footer id="src">loading…</footer>
 </main>
 
@@ -178,6 +203,7 @@ const TRIGRAMS = {
 };
 const C6 = [1,6,15,20,15,6,1];
 let currentView = 'read', cubeCurrent = null, cubePick = [];
+const RC = { order:'kw', hover:null, current:null, pts:null };
 let cubeAngX = -0.5, cubeAngY = 0.6, cubeAuto = false, cubeDragging = false, cubeLast = null;
 const CUBE_TRIS = Object.keys(TRIGRAMS);
 
@@ -190,8 +216,9 @@ async function load(){
     `<b>Sources.</b> 卦辭/爻辭/大象 — 周易, Chinese Wikisource (public domain). `+
     `English — James Legge, <i>Sacred Books of the East</i> XVI (1882, public domain; OCR-restored — a reduction, read the Chinese first). `+
     `Human Design layer — modern system (1987), public HD references — a separate lens, not classical Yi.<br>`+
-    `64/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · cube = B₃ trigram lattice · v0.5 · ${HEX.meta.generated}.`;
-  buildGrid(); buildWalk(); initCube();
+    `Radial view — layout grammar after <i>Movements of Change</i> (Yvette Shen, OSU designviz): wheel outward = text weight, inward = line stages; arrangement = King Wen order clockwise.<br>`+
+    `64/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · cube = B₃ trigram lattice · v0.6 · ${HEX.meta.generated}.`;
+  buildGrid(); buildWalk(); initCube(); initRadial();
   const h = parseHash();
   if (h.c){ switchView('read'); render(h.c.split('').map(Number), h.q || ''); }
   else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || '', h.order || ''); }
@@ -209,7 +236,9 @@ function switchView(name){
   document.getElementById('viewCube').hidden = (name!=='cube');
   document.getElementById('viewGrid').hidden = (name!=='grid');
   document.getElementById('viewWalk').hidden = (name!=='walk');
+  document.getElementById('viewRadial').hidden = (name!=='radial');
   if (name==='cube') drawCube();
+  if (name==='radial') drawRadial();
 }
 for (const b of document.querySelectorAll('nav.views button'))
   b.addEventListener('click', ()=>{
@@ -400,6 +429,7 @@ function render(vals, q, opts={}){
   history.replaceState(null,'','#'+f.toString());
   window.__share = stateMode ? null : ()=>drawShare(prim, chgSet, vals, q, trans);
   cubeCurrent = prim.id; if(currentView==='cube') drawCube();
+  RC.current = prim.id; if(currentView==='radial') drawRadial();
 }
 function normalizeStateBits(value){
   const raw=String(value||'').replace(/[^01]/g,'');
@@ -456,6 +486,7 @@ function renderHex(id, q){
   document.getElementById('seedNote').textContent = `#h=${id}`;
   window.__share = ()=>drawShare(h, new Set(), null, q, null);
   cubeCurrent = h.id; if(currentView==='cube') drawCube();
+  RC.current = h.id; if(currentView==='radial') drawRadial();
 }
 function wireLinks(){
   document.querySelectorAll('a.tel[data-h]').forEach(a=>{
@@ -616,6 +647,129 @@ function buildWalk(){
     html += `<a class="tel" data-h="${h.id}" title="${h.name_zh} ${h.name_en}"><span class="nn">№${h.id}</span><span class="gl">${h.unicode}</span><span class="nm">${h.name_zh}</span></a>`;
   }
   box.innerHTML = html;
+}
+/* ================= radial ================= */
+/* The wheel: one spoke per hexagram, entirely computed from the existing data — no new
+   fields. King Wen order clockwise from the top, or the same 64 sorted by six-bit
+   address (binary / Fu Xi order). Layout grammar after Movements of Change
+   (Yvette Shen, OSU designviz): bars outward = text weight, marks inward = line stages. */
+function radialOrder(){
+  const l = HEX.list.slice();
+  if (RC.order === 'bin') l.sort((a,b)=>parseInt(a.binary,2)-parseInt(b.binary,2));
+  return l;
+}
+function radialLayout(){
+  const list = radialOrder(), n = list.length, cx = 380, cy = 380;
+  const R_GLYPH = 334, R_BAR = 268, R_DOT = 246, R_DOT_STEP = 9.5, R_IN = 178;
+  const lens = list.map(h => (h.judgment_zh || '').length);
+  const maxLen = Math.max(1, ...lens);
+  const at = (r, ca, sa) => ({ x: cx + r*ca, y: cy + r*sa });
+  const spokes = list.map((h, i) => {
+    const ang = -Math.PI/2 + i * (2*Math.PI/n);          // top first, then clockwise
+    const ca = Math.cos(ang), sa = Math.sin(ang);
+    const bar = 12 + Math.round(46 * (lens[i] / maxLen));
+    return {
+      id: h.id, i, ang, ca, sa, bar, chars: lens[i],
+      glyph: at(R_GLYPH, ca, sa),
+      barIn: at(R_BAR, ca, sa),
+      barOut: at(R_BAR + bar, ca, sa),
+      lines: h.binary.split('').map((b, k) =>
+        ({ yang: b === '1', k, ...at(R_DOT - k*R_DOT_STEP, ca, sa) })),
+    };
+  });
+  return { spokes, cx, cy, n, R_BAR, R_GLYPH, R_IN };
+}
+function radialHit(px, py, L){
+  const dx = px - L.cx, dy = py - L.cy;
+  const r = Math.hypot(dx, dy);
+  if (r < L.R_IN || r > 372) return null;
+  const step = 2*Math.PI/L.n;
+  let a = Math.atan2(dy, dx) + Math.PI/2;                // 0 at the top, clockwise
+  a = ((a % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
+  return L.spokes[Math.round(a/step) % L.n];
+}
+function radialInfo(){
+  const el = document.getElementById('radialInfo'); if (!el) return;
+  const id = RC.hover ?? RC.current, h = id ? HEX.byId[id] : null;
+  if (!h){ el.innerHTML = 'the wheel holds all 64 — hover a spoke to read it, click to open it.'; return; }
+  const yang = (h.binary.match(/1/g) || []).length;
+  el.innerHTML = `<b>${h.unicode} ${h.name_zh}</b> ${h.name_en} · № ${h.id} · `+
+    `<span style="font-family:ui-monospace,monospace">${h.binary}</span> · ${yang} yang · `+
+    `卦辭 ${(h.judgment_zh||'').length} chars · ${h.trigrams.lower.en} below → ${h.trigrams.upper.en} above`;
+}
+function drawRadial(){
+  const c = document.getElementById('radialCanvas'); if (!c) return;
+  const x = c.getContext('2d');
+  x.setTransform(1,0,0,1,0,0);
+  x.clearRect(0,0,c.width,c.height);
+  x.fillStyle='#0a0c0f'; x.fillRect(0,0,c.width,c.height);
+  const L = radialLayout();
+  RC.pts = L;
+  const hold = RC.hover ?? RC.current;
+  x.strokeStyle='rgba(154,148,132,.20)'; x.lineWidth=1;
+  for (const r of [L.R_BAR, L.R_IN]){ x.beginPath(); x.arc(L.cx, L.cy, r, 0, 6.3); x.stroke(); }
+  for (const s of L.spokes){
+    const hot = hold != null && s.id === hold;
+    x.strokeStyle = hot ? 'rgba(212,162,78,.95)' : 'rgba(154,148,132,.62)';
+    x.lineWidth = hot ? 4 : 3;
+    x.beginPath(); x.moveTo(s.barIn.x, s.barIn.y); x.lineTo(s.barOut.x, s.barOut.y); x.stroke();
+    const px = -s.sa, py = s.ca;                         // perpendicular to the spoke
+    x.fillStyle = hot ? '#d4a24e' : 'rgba(233,230,221,.70)';
+    for (const ln of s.lines){
+      if (ln.yang){ x.beginPath(); x.arc(ln.x, ln.y, 2.2, 0, 6.3); x.fill(); }
+      else for (const o of [-3.4, 3.4]){
+        x.beginPath(); x.arc(ln.x + px*o, ln.y + py*o, 1.9, 0, 6.3); x.fill();
+      }
+    }
+    if (hot){
+      x.beginPath(); x.arc(s.glyph.x, s.glyph.y, 13, 0, 6.3);
+      x.fillStyle = 'rgba(212,162,78,.14)'; x.fill();
+      x.strokeStyle = 'rgba(212,162,78,.55)'; x.lineWidth = 1; x.stroke();
+    }
+    x.fillStyle = hot ? '#d4a24e' : '#cfc9ba';
+    x.font = (hot ? '600 ' : '') + '17px "Apple Symbols","Songti SC",Georgia,serif';
+    x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillText(HEX.byId[s.id].unicode, s.glyph.x, s.glyph.y);
+  }
+  const cur = hold != null ? HEX.byId[hold] : null;
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  if (cur){
+    x.fillStyle = '#d4a24e'; x.font = '72px "Apple Symbols","Songti SC",Georgia,serif';
+    x.fillText(cur.unicode, L.cx, L.cy - 16);
+    x.fillStyle = '#9a9484'; x.font = '16px Georgia,serif';
+    x.fillText('№ ' + cur.id + ' · ' + cur.name_zh, L.cx, L.cy + 42);
+  } else {
+    x.fillStyle = '#5d5a52'; x.font = '14px Georgia,serif';
+    x.fillText('№ 1 → 64', L.cx, L.cy);
+  }
+  x.textAlign = 'start'; x.textBaseline = 'alphabetic';
+  radialInfo();
+}
+function initRadial(){
+  const c = document.getElementById('radialCanvas'); if (!c) return;
+  const localPt = ev => {
+    const r = c.getBoundingClientRect();
+    return { px: (ev.clientX - r.left) * (c.width / r.width),
+             py: (ev.clientY - r.top) * (c.height / r.height) };
+  };
+  c.addEventListener('pointermove', ev => {
+    if (!RC.pts) return;
+    const p = localPt(ev), s = radialHit(p.px, p.py, RC.pts), next = s ? s.id : null;
+    if (next !== RC.hover){ RC.hover = next; drawRadial(); }
+  });
+  c.addEventListener('pointerleave', () => { if (RC.hover != null){ RC.hover = null; drawRadial(); } });
+  c.addEventListener('pointerdown', ev => {
+    if (!RC.pts) return;
+    const p = localPt(ev), s = radialHit(p.px, p.py, RC.pts);
+    if (s){ switchView('read'); location.hash = 'h=' + s.id; }
+  });
+  const ob = document.getElementById('radialOrder');
+  if (ob) ob.addEventListener('click', () => {
+    RC.order = RC.order === 'kw' ? 'bin' : 'kw';
+    ob.textContent = RC.order === 'kw' ? 'order: King Wen 序' : 'order: binary 二进制';
+    drawRadial();
+  });
+  drawRadial();
 }
 /* ---- share image (canvas, no deps) ---- */
 function wrapText(ctx, text, maxWidth){

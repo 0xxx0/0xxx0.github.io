@@ -42,7 +42,10 @@
   const cells = new Map();
   const cellKey=(...parts)=>JSON.stringify(parts);
   let editingInput = null, notice = '';
-  const pageSize = () => innerHeight < 520 ? 2 : innerHeight < 650 ? 3 : 4;
+  const pageSize = () => {
+    const rows=innerHeight<560?2:innerHeight<650?3:4;
+    return S.criteria.length>3&&innerWidth<500&&innerHeight<650?Math.max(1,rows-1):rows;
+  };
   const visibleAxes = () => S.criteria.slice(axisPage * 3, axisPage * 3 + 3);
   const option = id => S.options.find(o => o.id === id);
   const criterion = id => S.criteria.find(c => c.id === id);
@@ -266,7 +269,28 @@
     }
   });
   document.querySelectorAll('dialog').forEach(d=>d.addEventListener('close',()=>{render();stash();}));
-  let timer;addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(render,100);});
+  let viewportWidth=innerWidth,viewportHeight=innerHeight;
+  function resizeView() {
+    if(innerWidth===viewportWidth&&innerHeight===viewportHeight)return;
+    viewportWidth=innerWidth;viewportHeight=innerHeight;
+    const active=document.activeElement;
+    const focus=active?.matches('#matrix input,#criteria input')?{
+      option:active.dataset.option,axis:active.dataset.axis,bound:active.dataset.bound,
+      start:active.selectionStart,end:active.selectionEnd,direction:active.selectionDirection
+    }:null;
+    const anchor=focus?.option||S.selected;
+    const index=S.options.findIndex(o=>o.id===anchor);
+    if(index>=0)optionPage=Math.floor(index/pageSize());
+    if(focus?.axis){const index=S.criteria.findIndex(c=>c.id===focus.axis);if(index>=0)axisPage=Math.floor(index/3);}
+    render();
+    if(focus){
+      const next=[...document.querySelectorAll('#matrix input,#criteria input')].find(input=>
+        input.dataset.axis===focus.axis&&input.dataset.option===focus.option&&input.dataset.bound===focus.bound);
+      if(next){next.focus({preventScroll:true});if(focus.start!==null)next.setSelectionRange(focus.start,focus.end,focus.direction);}
+    }
+  }
+  addEventListener('resize',resizeView);
+  if(typeof ResizeObserver==='function')new ResizeObserver(resizeView).observe(document.documentElement);
   let loadSequence=0;
   addEventListener('message',async event=>{
     if(!embedded||event.origin!==location.origin||event.source!==parent||event.data?.type!=='decision-bench:load')return;

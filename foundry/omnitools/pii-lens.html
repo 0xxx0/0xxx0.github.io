@@ -17,10 +17,11 @@ header{padding:26px 0 14px;border-bottom:1px solid var(--line)}.ey{font-size:8px
 footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#657178;font-size:8px}
 @media(max-width:760px){.strip{grid-template-columns:1fr 1fr}.row{grid-template-columns:64px 1fr}.row .det{grid-column:2}.val{grid-column:1/3}.loc{grid-column:1/3;text-align:left}footer{display:block}}
 </style>
+<link rel="stylesheet" href="./embed.css">
 </head>
-<body><main>
+<body data-tool="scan"><main>
 <header>
-  <div class="ey">FOUNDRY / OMNITOOLS · PII PATTERN EXTRACTOR 0.1 · LENS</div>
+  <div class="ey">FOUNDRY / OMNITOOLS · PII PATTERN EXTRACTOR 0.2 · LENS</div>
   <h1>PII<br>LENS.</h1>
   <div class="dek"><b>Paste or drop text. Find what identifies.</b> Emails, handles, tokens, keys, IPs, phones and probable names — regex detectors plus Shannon-entropy scoring, entirely in this file. Nothing leaves the page. For whole git repos and their history, run the sibling CLI <a href="./pii-scan.mjs"><b>pii-scan.mjs</b></a>.</div>
 </header>
@@ -28,6 +29,7 @@ footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:
 <div class="bar">
   <button class="primary" id="scan">SCAN</button>
   <button id="reveal">REVEAL</button>
+  <button id="redact">REDACT</button>
   <button id="copy">COPY JSON</button>
   <span class="hint" id="hint">drop a text file anywhere · scan runs offline</span>
 </div>
@@ -36,7 +38,7 @@ footer{margin-top:16px;padding-top:8px;border-top:1px solid var(--line);display:
 <div class="strip" id="strip"></div>
 <div class="rows" id="out"><div class="empty">no scan yet</div></div>
 
-<footer><span>VALUES STAY MASKED UNTIL REVEAL · NOTHING IS UPLOADED</span><span id="stamp">pii-lens 0.1</span></footer>
+<footer><span>VALUES STAY MASKED UNTIL REVEAL · NOTHING IS UPLOADED</span><span id="stamp">pii-lens 0.2</span></footer>
 </main>
 <script>
 (function(){
@@ -64,10 +66,10 @@ var D=[
 ];
 var IPV4=/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g;
 var ENT=/[A-Za-z0-9+/_=-]{20,}/g, HEX=/^(?:0x)?[0-9a-fA-F]+$/;
-var ENTROPY=4.5, reveal=false, found=[];
+var ENTROPY=4.5, reveal=false, found=[],foundInput=null,redacted=null;
 
 function scan(){
-  var text=$('in').value, lines=text.split('\n'), out=[], seen={};
+  var text=$('in').value, lines=text.split('\n'), out=[], seen={};foundInput=text;redacted=null;
   function rec(id,sev,val,line){var k=id+'|'+val+'|'+line;if(seen[k])return;seen[k]=1;out.push({detector:id,severity:sev,value:val,line:line})}
   for(var i=0;i<lines.length;i++){
     var ln=lines[i],m,j;
@@ -95,7 +97,9 @@ function render(){
   }).join('');
 }
 $('scan').onclick=scan;
-$('reveal').onclick=function(){reveal=!reveal;this.textContent=reveal?'MASK':'REVEAL';render()};
+$('redact').onclick=function(){scan();redacted=foundInput;found.slice().sort(function(a,b){return b.value.length-a.value.length}).forEach(function(f){redacted=redacted.split(f.value).join('['+f.detector+']')});$('out').textContent=redacted;$('hint').textContent='redacted draft · inspect, then USE';};
+window.OmnitoolsTool={getResult:function(){if(!foundInput||foundInput!==$('in').value)return null;return{inputs:{in:foundInput},text:redacted===null?JSON.stringify({tool:'pii-lens',findings:found.map(function(f){return{detector:f.detector,severity:f.severity,value:mask(f.value),line:f.line}})},null,2):redacted,operation:redacted===null?'scan:findings':'scan:redact'};}};
+$('reveal').onclick=function(){redacted=null;reveal=!reveal;this.textContent=reveal?'MASK':'REVEAL';render()};
 $('copy').onclick=function(){
   var payload=JSON.stringify({tool:'pii-lens',findings:found.map(function(f){return {detector:f.detector,severity:f.severity,value:mask(f.value),line:f.line}})},null,2);
   (navigator.clipboard&&navigator.clipboard.writeText(payload)||Promise.reject()).then(function(){$('hint').textContent='report copied · '+found.length+' finding(s)'},function(){$('hint').textContent='copy blocked · select from the rows'});
@@ -107,4 +111,6 @@ document.addEventListener('drop',function(e){
 });
 })();
 </script>
+<script src="./embed.js"></script>
 </body></html>
+
