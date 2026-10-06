@@ -2,7 +2,7 @@
   "schema": "omnitools-instrument/v0.3",
   "route": "/foundry/omnitools/",
   "bundle_version": "0.2",
-  "instrument_revision": "0.3",
+  "instrument_revision": "0.4",
   "authority": "LOCAL_SESSION_CARRIER / ADVISORY_BENCH / NO EFFECT AUTHORITY",
   "purpose": "Make a few unequal specialist tools behave like one usable instrument: hold one source object, choose a lawful projection, inspect its result, retain a bounded trace, and RETURN evidence without inventing shared semantics or authority.",
   "spine": [
@@ -13,11 +13,11 @@
     "RETURN"
   ],
   "axes": [
-    {"id":"bench","owner":"bench.mjs","operation":"COMPARE","input":"FORM / FUNCTION / FORTITUDE candidates with exact, ranged or unknown evidence","authority":"ADVISORY_ONLY"},
     {"id":"scan","owner":"pii-lens.html","operation":"SCAN","authority":"LOCAL_TOOL"},
     {"id":"read","owner":"text-lens.html","operation":"READ","authority":"LOCAL_TOOL"},
     {"id":"align","owner":"re-reader.html","operation":"ALIGN","authority":"LOCAL_TOOL"},
-    {"id":"reshape","owner":"reshaper.html","operation":"RESHAPE","authority":"LOCAL_TOOL"}
+    {"id":"reshape","owner":"reshaper.html","operation":"RESHAPE","authority":"LOCAL_TOOL"},
+    {"id":"bench","owner":"bench.mjs","operation":"COMPARE","input":"FORM / FUNCTION / FORTITUDE candidates with exact, ranged or unknown evidence","authority":"ADVISORY_ONLY"}
   ],
   "source": {
     "storage": "sessionStorage only",

@@ -2,7 +2,7 @@ import {parseAndEvaluate,AXES} from './bench.mjs';
 
 const $=id=>document.getElementById(id),qa=s=>[...document.querySelectorAll(s)];
 const KEY='omnitools.work-object.v01';
-let mode='bench',trace=[],lastBench=null,lastPreview=null,hashSeq=0;
+let mode='scan',trace=[],lastBench=null,lastPreview=null,hashSeq=0;
 const panes={bench:$('benchPane'),...Object.fromEntries(qa('.toolPane').map(x=>[x.dataset.mode,x]))};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const clip=(s,n=900)=>{s=String(s??'').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n-1)+'…':s};
@@ -127,8 +127,8 @@ for(const n of ['dragleave','drop'])drop.addEventListener(n,e=>{e.preventDefault
 drop.addEventListener('drop',e=>{const f=e.dataTransfer?.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('sourceName').value=f.name;$('sourceText').value=String(r.result);updateSourceMeta();addTrace('SOURCE','dropped '+f.name+' · '+f.size+' bytes')};r.readAsText(f)});
 const help=$('help'),hb=$('helpToggle');hb.onclick=()=>{const o=help.classList.toggle('open');hb.textContent=o?'CLOSE LAW':'CLI / LAW'};
 document.addEventListener('keydown',e=>{
-  if(e.altKey&&['1','2','3','4','5'].includes(e.key)){e.preventDefault();select(['bench','scan','read','align','reshape'][Number(e.key)-1])}
+  if(e.altKey&&['1','2','3','4','5'].includes(e.key)){e.preventDefault();select(['scan','read','align','reshape','bench'][Number(e.key)-1])}
   if(e.key==='Escape'){help.classList.remove('open');dock.classList.remove('open');sourceToggle.setAttribute('aria-expanded','false')}
 });
 
-restore();select(new URL(location.href).searchParams.get('tool')||'bench');renderTrace();
+restore();select(new URL(location.href).searchParams.get('tool')||'scan');renderTrace();

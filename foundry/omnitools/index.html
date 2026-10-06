@@ -19,11 +19,11 @@
 </style>
 </head>
 <body><div class="app">
-<header class="top"><div class="brand"><small>FOUNDRY · LOCAL INSTRUMENT · REV 0.3</small>OMNITOOLS / 0.2</div><div class="truth">ONE HELD OBJECT · UNEQUAL EFFECTORS · EVIDENCE BEFORE ELIMINATION · RETURN</div><a class="home" href="../">FOUNDRY ↗</a></header>
+<header class="top"><div class="brand"><small>FOUNDRY · LOCAL INSTRUMENT · REV 0.4</small>OMNITOOLS / 0.2</div><div class="truth">ONE INPUT · SCAN / READ / ALIGN / RESHAPE · LOCAL BY DEFAULT · ONE HELP APERTURE</div><a class="home" href="../">FOUNDRY ↗</a></header>
 <section class="spine" aria-label="Omnitools instrument spine">
   <div class="seg"><div class="k">SOURCE</div><div class="sourceStat"><b id="sourceSpine">EMPTY</b><span id="sourceSpineMeta">SESSION ONLY · NOTHING UPLOADED</span></div></div>
-  <div class="seg"><div class="k">AXIS</div><nav class="axis" aria-label="Choose projection"><button data-mode="bench" class="on">BENCH</button><button data-mode="scan">SCAN</button><button data-mode="read">READ</button><button data-mode="align">ALIGN</button><button data-mode="reshape">RESHAPE</button></nav></div>
-  <div class="seg"><div class="k">EFFECTOR</div><button id="loadMode" class="gold">LOAD → BENCH</button></div>
+  <div class="seg"><div class="k">AXIS</div><nav class="axis" aria-label="Choose projection"><button data-mode="scan" class="on">SCAN</button><button data-mode="read">READ</button><button data-mode="align">ALIGN</button><button data-mode="reshape">RESHAPE</button><button data-mode="bench">BENCH</button></nav></div>
+  <div class="seg"><div class="k">EFFECTOR</div><button id="loadMode" class="gold">LOAD → SCAN</button></div>
   <div class="seg"><div class="k">RETURN</div><button id="copyReturn">COPY RECEIPT</button><div class="returnState" id="returnState">NO TRACE YET</div></div>
 </section>
 <div class="shell">
@@ -39,7 +39,7 @@
     <div class="law">SOURCE ≠ RESULT. Projection does not mutate source. Switching tools preserves identity; it does not make their semantics equal.</div>
   </aside>
   <main class="workspace">
-    <section class="pane bench" id="benchPane">
+    <section class="pane bench" id="benchPane" hidden>
       <div class="benchGrid">
         <div class="card"><div class="label">FORM / FUNCTION / FORTITUDE · CONSERVATIVE BENCH</div><h2>Eliminate only what the evidence earns.</h2><div class="note">One candidate per line: <b>NAME | FORM | FUNCTION | FORTITUDE | note</b>. Scores may be exact (<b>80</b>), ranges (<b>60..85</b>), or unknown (<b>?</b>).</div>
           <div class="label" style="margin-top:10px">HARD MINIMA</div><div class="mins"><label>FORM<input id="minForm" type="number" value="0"></label><label>FUNCTION<input id="minFunction" type="number" value="0"></label><label>FORTITUDE<input id="minFortitude" type="number" value="0"></label></div>
@@ -50,7 +50,7 @@
         <div class="card"><div class="label">SURVIVOR SET · NOT A WINNER RANKING</div><div class="summary" id="benchSummary"><span class="badge">NO RUN</span></div><div class="results" id="benchResults"><div class="note">Enter real alternatives and constraints. The useful output is survivors, exclusions, and what must be measured next.</div></div></div>
       </div>
     </section>
-    <iframe class="pane toolPane" data-mode="scan" title="Sensitive text scan" src="./pii-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
+    <iframe class="pane toolPane" data-mode="scan" title="Sensitive text scan" src="./pii-lens.html" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
     <iframe class="pane toolPane" data-mode="read" title="Text analysis" src="./text-lens.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
     <iframe class="pane toolPane" data-mode="align" title="Multilingual alignment" src="./re-reader.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
     <iframe class="pane toolPane" data-mode="reshape" title="Data reshape" src="./reshaper.html" hidden sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-modals"></iframe>
