@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#080a0c">
+<title>THE HINGE — the smallest difference that changes the analysis</title>
+<link rel="stylesheet" href="../tools/house-patterns.css">
+<style>
+:root{--bg:#080a0c;--panel:#0e1317;--panel2:#121a1f;--ink:#eef2ef;--mut:#839096;
+ --line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67;--acc:#73bce8}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ -webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+body{padding:0 0 env(safe-area-inset-bottom)}
+.wrap{max-width:720px;margin:0 auto;padding:16px 15px 56px}
+.eyebrow{font-size:9.5px;letter-spacing:.24em;color:var(--mut);text-transform:uppercase}
+h1{font:900 34px/0.94 system-ui,-apple-system,sans-serif;letter-spacing:-.035em;margin:8px 0 0}
+.sub{margin:10px 0 0;font-size:15px;line-height:1.5;color:var(--gold)}
+.lede{margin:8px 0 0;font-size:13px;line-height:1.6;color:var(--mut)}
+h2{font:800 12px/1.25 system-ui,-apple-system,sans-serif;letter-spacing:.22em;
+ text-transform:uppercase;margin:38px 0 12px;border-top:2px solid var(--line);padding-top:12px}
+h2 .n{color:var(--gold)}
+.micro{font:800 9.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.22em;
+ text-transform:uppercase;color:var(--mut)}
+.rule{border:1px solid var(--line);border-left:4px solid var(--gold);background:var(--panel2);
+ padding:11px 13px;margin:12px 0 0;font-size:12.5px;line-height:1.6;color:var(--mut)}
+.rule b{display:block;color:var(--ink);font:800 9.5px/1 system-ui,-apple-system,sans-serif;
+ letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px}
+.rule i{color:var(--ink);font-style:normal}
+
+/* ── the drill: cases ─────────────────────────────────────── */
+.case{border:1px solid var(--line);background:var(--panel);padding:14px;margin:14px 0 0}
+.case h3{font:800 17px/1.25 system-ui,-apple-system,sans-serif;letter-spacing:-.01em;margin:6px 0 0}
+.rq{margin:12px 0 0;border-left:4px solid var(--cool);background:var(--panel2);
+ padding:10px 12px;font-size:13px;line-height:1.6}
+.rq .micro{display:block;margin-bottom:5px;color:var(--cool)}
+.clauses{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+ border:1px solid var(--line);margin:12px 0 0}
+.clause{background:var(--panel2);padding:11px 12px;font-size:13.5px;line-height:1.62}
+.clause .micro{display:block;margin-bottom:6px}
+.clause.b{border-left:3px solid var(--gold)}
+.section-line{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:17px 0 8px}
+.section-line span{font:800 9.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.22em;
+ text-transform:uppercase;color:var(--gold)}
+.section-line i{font-style:normal;font-size:12px;color:var(--mut)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:center;width:100%;text-align:left;
+ background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:11px 13px;
+ font:inherit;font-size:13.5px;line-height:1.5;cursor:pointer;min-height:49px;border-radius:0;
+ transition:border-color .18s,background .18s}
+.opt:hover{border-color:var(--cool)}
+.opt .dot{width:9px;height:9px;flex:0 0 9px;border:1px solid var(--mut)}
+.opt.picked-right{border-color:var(--green);background:#0d1a11}
+.opt.picked-right .dot{background:var(--green);border-color:var(--green)}
+.opt.picked-wrong{border-color:var(--hot);background:#1c0e09}
+.opt.picked-wrong .dot{background:var(--hot);border-color:var(--hot)}
+.feedback{display:none;margin:10px 0 0;padding:11px 13px;border:1px solid var(--line);
+ border-left-width:4px;font-size:13px;line-height:1.62}
+.feedback.show{display:block}
+.feedback b{display:block;font:800 9.5px/1 system-ui,-apple-system,sans-serif;
+ letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px}
+.feedback p{margin:0}
+.feedback.good{border-left-color:var(--green)}.feedback.good b{color:var(--green)}
+.feedback.bad{border-left-color:var(--hot)}.feedback.bad b{color:var(--hot)}
+.reveal[hidden]{display:none}
+.reveal.rise{animation:rise .38s cubic-bezier(.2,.8,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.dial{display:flex;flex-direction:column;gap:9px;margin:12px 0 0}
+.dial-step{border:1px solid var(--line);background:var(--panel2);padding:11px 13px}
+.broad{font-size:15.5px;line-height:1.5;margin:6px 0 0}
+ol.atomic{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+ol.atomic li{display:flex;gap:9px;font-size:12.5px;line-height:1.55}
+ol.atomic .idx{flex:0 0 18px;color:var(--gold);font:800 10px/1.75 system-ui,-apple-system,sans-serif;
+ letter-spacing:.12em}
+.receipt{border:1px solid var(--line);border-left:4px solid var(--green);background:var(--panel);
+ padding:11px 13px;margin:12px 0 0}
+.receipt p{font-size:13.5px;line-height:1.62;margin:6px 0 0}
+
+/* ── the lab ──────────────────────────────────────────────── */
+.honest{border-left:4px solid var(--gold);background:var(--panel2);padding:10px 12px;
+ font-size:13px;line-height:1.6;margin:0 0 12px}
+label.field{display:block;margin:12px 0 0}
+label.field .micro{display:block;margin-bottom:6px}
+textarea{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+ border-radius:0;padding:11px 12px;font:inherit;font-size:13.5px;line-height:1.6;
+ min-height:96px;resize:vertical}
+.btn{background:var(--ink);color:#000;border:0;padding:15px 16px;min-height:49px;
+ font:800 12px/1 system-ui,-apple-system,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+ border-radius:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:hover{background:var(--gold);border-color:var(--gold);color:#000}
+.btn.ghost:hover{background:var(--gold);color:#000}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.actions .btn{flex:1 1 200px}
+.diffboard{border:1px solid var(--line);margin:12px 0 0}
+.diffboard[hidden]{display:none}
+.diffhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:9px 12px;
+ background:var(--panel2);border-bottom:1px solid var(--line);font-size:10.5px;
+ letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.diffhead strong{color:var(--ink)}
+.diffcols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.diffcols>div{background:var(--panel);padding:11px 12px;font-size:13px;line-height:1.8}
+.diffcols em{display:block;font-style:normal;margin-bottom:7px;
+ font:800 9.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--mut)}
+span.chg{cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;
+ text-underline-offset:3px;padding:0 1px}
+span.chg:hover,span.chg:focus{text-decoration-thickness:2px}
+span.chg:focus-visible{outline:2px solid var(--cool);outline-offset:2px}
+span.chg.rem{color:#f2c0aa}
+span.chg.add{color:#bfe6c6}
+span.chg.sel{background:var(--gold);color:#000;text-decoration-color:#000}
+.diffnote{padding:9px 12px;font-size:11px;line-height:1.55;color:var(--mut);border-top:1px solid var(--line)}
+.phrasepanel{border:1px solid var(--line);border-left:4px solid var(--gold);background:var(--panel2);
+ padding:12px 13px;margin:12px 0 0}
+.phrasepanel[hidden]{display:none}
+.phrase{font-size:15px;line-height:1.55;margin:7px 0 0}
+.badge{display:inline-block;font:800 9px/1 system-ui,-apple-system,sans-serif;letter-spacing:.16em;
+ text-transform:uppercase;border:1px solid var(--line);padding:4px 7px;color:var(--mut)}
+.frames{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0}
+.frame{background:transparent;border:1px solid var(--line);color:var(--ink);
+ font:800 10.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.12em;text-transform:uppercase;
+ padding:0 13px;min-height:49px;cursor:pointer;border-radius:0}
+.frame:hover{border-color:var(--cool)}
+.frame.on{background:var(--ink);color:#000;border-color:var(--ink)}
+.receiptblock[hidden]{display:none}
+.receiptblock pre{white-space:pre-wrap;word-break:break-word;background:#0b1013;
+ border:1px solid var(--line);border-left:4px solid var(--green);padding:12px 13px;
+ font:12.5px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0 0}
+.err{margin:10px 0 0;padding:9px 12px;border:1px solid var(--hot);border-left-width:4px;
+ color:#f2c0aa;font-size:12.5px;line-height:1.55}
+.err[hidden]{display:none}
+:where(button,a,textarea,[role="button"]):focus-visible{outline:2px solid var(--cool);outline-offset:2px}
+.foot{margin-top:36px;border-top:1px solid var(--line);padding-top:12px;font-size:10.5px;
+ letter-spacing:.08em;line-height:1.7;color:var(--mut)}
+@media(max-width:560px){.clauses{grid-template-columns:1fr}.diffcols{grid-template-columns:1fr}}
+@media(max-width:400px){h1{font-size:29px}.wrap{padding:14px 12px 48px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<body>
+<main class="wrap">
+
+<header>
+ <div class="eyebrow">for gwen</div>
+ <h1>THE HINGE.</h1>
+ <p class="sub">the smallest difference that changes the analysis</p>
+ <p class="lede">Two versions. One small change. Find the one that changes what anyone can do with it.</p>
+</header>
+
+<section id="drill">
+ <h2><span class="n">01</span> · the drill</h2>
+ <div class="rule"><b>rule</b><i>Do not maximise detail. Preserve the detail that changes possible action.</i>
+ Three fictional cases. Each has two versions of one clause and three candidate differences.
+ Only one difference changes what anyone can conclude, compare or do — pick it.</div>
+ <div id="cases"></div>
+</section>
+
+<section id="signal">
+ <h2><span class="n">02</span> · the signal test</h2>
+ <div class="rule"><b>signal test</b>Ask one question of any taxonomy, note or analysis:
+ <i>would merging two fields allow opposite answers to look identical?</i>
+ If yes, it is below the needed resolution — and the difference you dropped is a hinge.</div>
+ <div class="rule"><b>the dial</b>A broad label plateaus because different questions share one container.
+ The fix is mechanical: unfold the broad point into the separate questions inside it,
+ then pin each answer to its source language.</div>
+</section>
+
+<section id="lab">
+ <h2><span class="n">03</span> · the lab</h2>
+ <p class="honest">the lab checks nothing for you — it makes you check.</p>
+ <p class="lede">Free mode. Paste two versions of anything — clauses, specs, tasting notes, replies.
+ The lab computes a local word-level difference and nothing else. It marks what changed;
+ you decide which change is the hinge, tick the frames it reaches, and write the receipt.</p>
+
+ <label class="field"><span class="micro">version A</span>
+  <textarea id="lab-a" aria-label="version A" placeholder="Paste the first version — public, invented or non-confidential text…"></textarea>
+ </label>
+ <label class="field"><span class="micro">version B</span>
+  <textarea id="lab-b" aria-label="version B" placeholder="Paste the comparison version…"></textarea>
+ </label>
+ <div class="actions">
+  <button class="btn" id="diff-btn" type="button">find the difference</button>
+  <button class="btn ghost" id="sample-btn" type="button">load the case-01 pair</button>
+ </div>
+ <div class="err" id="lab-err" role="alert" hidden></div>
+
+ <div class="diffboard" id="diffboard" hidden>
+  <div class="diffhead"><span>word delta · local only</span><strong id="diff-counts"></strong></div>
+  <div class="diffcols">
+   <div><em>A / removed</em><p id="col-a"></p></div>
+   <div><em>B / added</em><p id="col-b"></p></div>
+  </div>
+  <div class="diffnote" id="diff-note" hidden></div>
+ </div>
+
+ <div class="phrasepanel" id="phrase-panel" hidden>
+  <span class="micro">hinge candidate</span>
+  <p class="phrase"><span class="badge" id="phrase-badge"></span> <span id="phrase-text"></span></p>
+  <div class="section-line"><span>frames reached</span><i>tick every frame this change touches</i></div>
+  <div class="frames" id="frame-row" role="group" aria-label="frames"></div>
+  <div class="actions"><button class="btn" id="gen-btn" type="button">generate receipt</button></div>
+ </div>
+
+ <div class="receiptblock" id="receipt-block" hidden>
+  <span class="micro">receipt · yours, not the machine's</span>
+  <pre id="receipt-text"></pre>
+  <div class="actions"><button class="btn" id="copy-btn" type="button">copy receipt</button></div>
+ </div>
+</section>
+
+<footer class="foot">runs 100% in this browser · nothing is uploaded · noindex · 2026-10-07 · kestrel for gwen</footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var CASES = [
+    {
+      id: 'control', number: '01', title: 'Control is not assignment', kicker: 'TRANSFER / CONTROL',
+      reviewQuestion: 'Does the restriction reach an acquisition of the contracting party’s parent, or only a direct assignment?',
+      clauseA: 'No Party may assign this Agreement without the other Party’s prior written consent.',
+      clauseB: 'No Party may assign this Agreement, directly or indirectly, including by merger or change of control, without the other Party’s prior written consent.',
+      hingeOptions: [
+        { id: 'control-words', label: '“directly or indirectly, including by merger or change of control”', why: 'This changes the trigger. A taxonomy that stores only “assignment requires consent” loses the distinction the review actually needs.', correct: true },
+        { id: 'written', label: '“prior written consent”', why: 'Important language, but it appears in both versions. It cannot explain the different outcome.', correct: false },
+        { id: 'party', label: 'The use of “Party” rather than a named entity', why: 'Potentially relevant elsewhere, but not the difference between these two clauses.', correct: false }
+      ],
+      broadPoint: 'Is consent required for assignment?',
+      atomic: ['Direct assignment restricted?', 'Indirect transfer / change of control captured?', 'Affiliate or internal-reorganisation exceptions?', 'Consent standard or discretion?', 'Exact operative language pinned?'],
+      receipt: 'DIRECT ≠ INDIRECT. Preserve trigger type, exceptions and source language as separate fields.'
+    },
+    {
+      id: 'mfn', number: '02', title: 'Price is not terms', kicker: 'MFN / SCOPE',
+      reviewQuestion: 'Does the protection compare fees only, or the wider commercial bargain?',
+      clauseA: 'Supplier shall ensure that the fees offered to Customer are no less favourable than fees offered to any comparable customer.',
+      clauseB: 'Supplier shall ensure that the commercial terms, including fees, offered to Customer are no less favourable than those offered to any comparable customer.',
+      hingeOptions: [
+        { id: 'commercial', label: '“commercial terms, including fees”', why: 'This expands the comparator from a price field to a category. That changes both extraction and downstream comparison logic.', correct: true },
+        { id: 'comparable', label: '“comparable customer”', why: 'A major interpretive issue, but it is common to both versions and does not create this particular split.', correct: false },
+        { id: 'shall', label: 'The mandatory verb “shall”', why: 'The obligation strength is unchanged between the clauses.', correct: false }
+      ],
+      broadPoint: 'Is there an MFN?',
+      atomic: ['Protected dimension: fees or broader terms?', 'Comparator population defined?', 'Temporal look-back / look-forward?', 'Carve-outs or bespoke deals excluded?', 'Adjustment or remedy mechanism?'],
+      receipt: 'LABEL ≠ SCOPE. A clause name is not a data model; encode what is compared, against whom, when and with what consequence.'
+    },
+    {
+      id: 'cure', number: '03', title: 'Breach is not default', kicker: 'TERMINATION / CURE',
+      reviewQuestion: 'Can the counterparty terminate immediately after a remediable material breach?',
+      clauseA: 'A Party may terminate for material breach if the breach remains uncured for 30 days after written notice specifying the breach.',
+      clauseB: 'A Party may terminate upon written notice for material breach.',
+      hingeOptions: [
+        { id: 'cure-period', label: 'The 30-day cure condition after notice', why: 'This changes when the termination right becomes exercisable. “Termination for breach: yes” collapses a timing-critical condition.', correct: true },
+        { id: 'material', label: 'The word “material”', why: 'Materiality matters, but it appears in both versions and does not explain the timing difference.', correct: false },
+        { id: 'notice', label: 'The existence of written notice', why: 'Both versions contain notice. What differs is notice plus an unexpired cure opportunity.', correct: false }
+      ],
+      broadPoint: 'Can either party terminate for breach?',
+      atomic: ['Breach threshold?', 'Notice content required?', 'Cure right exists?', 'Cure period length / start event?', 'Immediate-termination exceptions?'],
+      receipt: 'RIGHT ≠ EXERCISABILITY. Preserve threshold, notice, cure and timing as separate variables.'
+    }
+  ];
+
+  var FRAMES = ['SCOPE', 'TRIGGER', 'EXCEPTION', 'EVIDENCE', 'OUTCOME'];
+
+  function h(tag, attrs) {
+    var node = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        if (k === 'class') { node.className = attrs[k]; }
+        else if (k === 'text') { node.textContent = attrs[k]; }
+        else { node.setAttribute(k, attrs[k]); }
+      });
+    }
+    for (var i = 2; i < arguments.length; i += 1) {
+      var kid = arguments[i];
+      if (kid === null || kid === undefined) { continue; }
+      node.appendChild(typeof kid === 'string' ? document.createTextNode(kid) : kid);
+    }
+    return node;
+  }
+
+  /* ── 01 · the drill ─────────────────────────────────────── */
+  var casesRoot = document.getElementById('cases');
+
+  CASES.forEach(function (c) {
+    var feedback = h('div', { 'class': 'feedback', role: 'status' });
+    var reveal = h('div', { 'class': 'reveal', hidden: 'hidden' });
+
+    var atomicList = h('ol', { 'class': 'atomic' });
+    c.atomic.forEach(function (q, i) {
+      atomicList.appendChild(h('li', null,
+        h('span', { 'class': 'idx', text: '0' + (i + 1) }),
+        h('span', { text: q })));
+    });
+
+    reveal.appendChild(h('div', { 'class': 'dial' },
+      h('div', { 'class': 'dial-step' },
+        h('span', { 'class': 'micro', text: 'broad point' }),
+        h('p', { 'class': 'broad', text: c.broadPoint })),
+      h('div', { 'class': 'dial-step' },
+        h('span', { 'class': 'micro', text: 'unfolded — the questions inside it' }),
+        atomicList),
+      h('div', { 'class': 'receipt' },
+        h('span', { 'class': 'micro', text: 'case receipt' }),
+        h('p', { text: c.receipt }))
+    ));
+
+    var opts = h('div', { 'class': 'opts', role: 'group', 'aria-label': 'hinge candidates' });
+    c.hingeOptions.forEach(function (opt) {
+      var btn = h('button', { 'class': 'opt', type: 'button', 'aria-pressed': 'false' },
+        h('span', { 'class': 'dot', 'aria-hidden': 'true' }),
+        h('span', { text: opt.label }));
+      btn.addEventListener('click', function () {
+        Array.prototype.forEach.call(opts.children, function (b) {
+          b.classList.remove('picked-right', 'picked-wrong');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add(opt.correct ? 'picked-right' : 'picked-wrong');
+        btn.setAttribute('aria-pressed', 'true');
+        feedback.className = 'feedback show ' + (opt.correct ? 'good' : 'bad');
+        feedback.textContent = '';
+        feedback.appendChild(h('b', { text: opt.correct ? 'hinge found' : 'not the difference' }));
+        feedback.appendChild(h('p', { text: opt.why }));
+        reveal.hidden = !opt.correct;
+        if (opt.correct) {
+          reveal.classList.remove('rise');
+          void reveal.offsetWidth;
+          reveal.classList.add('rise');
+        }
+      });
+      opts.appendChild(btn);
+    });
+
+    casesRoot.appendChild(h('article', { 'class': 'case' },
+      h('div', { 'class': 'micro', text: 'CASE ' + c.number + ' · ' + c.kicker }),
+      h('h3', { text: c.title }),
+      h('div', { 'class': 'rq' },
+        h('span', { 'class': 'micro', text: 'review question' }),
+        h('p', { text: c.reviewQuestion })),
+      h('div', { 'class': 'clauses' },
+        h('div', { 'class': 'clause' },
+          h('span', { 'class': 'micro', text: 'version A' }),
+          h('p', { text: c.clauseA })),
+        h('div', { 'class': 'clause b' },
+          h('span', { 'class': 'micro', text: 'version B' }),
+          h('p', { text: c.clauseB }))),
+      h('div', { 'class': 'section-line' },
+        h('span', { text: 'find the hinge' }),
+        h('i', { text: 'which difference can actually change the answer?' })),
+      opts,
+      feedback,
+      reveal
+    ));
+  });
+
+  /* ── 03 · the lab ───────────────────────────────────────── */
+  /* word-level LCS diff, ported from hinge-gwen App.tsx diffWords() */
+  function diffWords(a, b) {
+    var left = a.trim().split(/\s+/).filter(Boolean).slice(0, 320);
+    var right = b.trim().split(/\s+/).filter(Boolean).slice(0, 320);
+    var rows = left.length + 1;
+    var cols = right.length + 1;
+    var table = [];
+    for (var r = 0; r < rows; r += 1) {
+      table.push(new Array(cols).fill(0));
+    }
+    for (var i = left.length - 1; i >= 0; i -= 1) {
+      for (var j = right.length - 1; j >= 0; j -= 1) {
+        table[i][j] = left[i] === right[j]
+          ? table[i + 1][j + 1] + 1
+          : Math.max(table[i + 1][j], table[i][j + 1]);
+      }
+    }
+    var result = [];
+    i = 0;
+    j = 0;
+    while (i < left.length && j < right.length) {
+      if (left[i] === right[j]) {
+        result.push({ word: left[i], status: 'same' });
+        i += 1; j += 1;
+      } else if (table[i + 1][j] >= table[i][j + 1]) {
+        result.push({ word: left[i], status: 'remove' });
+        i += 1;
+      } else {
+        result.push({ word: right[j], status: 'add' });
+        j += 1;
+      }
+    }
+    while (i < left.length) {
+      result.push({ word: left[i], status: 'remove' });
+      i += 1;
+    }
+    while (j < right.length) {
+      result.push({ word: right[j], status: 'add' });
+      j += 1;
+    }
+    return result;
+  }
+
+  var labA = document.getElementById('lab-a');
+  var labB = document.getElementById('lab-b');
+  var diffBtn = document.getElementById('diff-btn');
+  var sampleBtn = document.getElementById('sample-btn');
+  var labErr = document.getElementById('lab-err');
+  var diffboard = document.getElementById('diffboard');
+  var diffCounts = document.getElementById('diff-counts');
+  var diffNote = document.getElementById('diff-note');
+  var colA = document.getElementById('col-a');
+  var colB = document.getElementById('col-b');
+  var phrasePanel = document.getElementById('phrase-panel');
+  var phraseBadge = document.getElementById('phrase-badge');
+  var phraseText = document.getElementById('phrase-text');
+  var frameRow = document.getElementById('frame-row');
+  var genBtn = document.getElementById('gen-btn');
+  var receiptBlock = document.getElementById('receipt-block');
+  var receiptText = document.getElementById('receipt-text');
+  var copyBtn = document.getElementById('copy-btn');
+
+  var runs = [];          /* changed phrases: {id, words, status} */
+  var activeRun = null;
+  var ticked = {};        /* frame -> bool, reset per phrase */
+  var CAP = 320;
+
+  FRAMES.forEach(function (frame) {
+    var btn = h('button', { 'class': 'frame', type: 'button', 'aria-pressed': 'false', text: frame });
+    btn.addEventListener('click', function () {
+      ticked[frame] = !ticked[frame];
+      btn.classList.toggle('on', !!ticked[frame]);
+      btn.setAttribute('aria-pressed', ticked[frame] ? 'true' : 'false');
+      receiptBlock.hidden = true;
+    });
+    frameRow.appendChild(btn);
+  });
+
+  function showError(message) {
+    labErr.textContent = message;
+    labErr.hidden = !message;
+  }
+
+  function selectRun(run, spanEl) {
+    activeRun = run;
+    ticked = {};
+    Array.prototype.forEach.call(frameRow.children, function (b) {
+      b.classList.remove('on');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('span.chg'), function (s) {
+      s.classList.toggle('sel', s === spanEl);
+    });
+    phraseBadge.textContent = run.status === 'remove' ? 'removed in B' : 'added in B';
+    phraseText.textContent = run.words.join(' ');
+    phrasePanel.hidden = false;
+    receiptBlock.hidden = true;
+    genBtn.disabled = false;
+    copyBtn.textContent = 'copy receipt';
+  }
+
+  function renderColumn(container, keepStatus, runStatus, sideLabel) {
+    container.textContent = '';
+    var pieces = diffPieces.filter(function (p) { return p.status !== keepStatus; });
+    var i = 0;
+    while (i < pieces.length) {
+      if (pieces[i].status === runStatus) {
+        var words = [];
+        while (i < pieces.length && pieces[i].status === runStatus) {
+          words.push(pieces[i].word);
+          i += 1;
+        }
+        (function () {
+          var run = { id: runs.length, words: words, status: runStatus };
+          runs.push(run);
+          var span = h('span', {
+            'class': 'chg ' + (runStatus === 'remove' ? 'rem' : 'add'),
+            role: 'button', tabindex: '0',
+            'aria-label': sideLabel + ' changed phrase: ' + words.join(' ')
+          }, words.join(' '));
+          span.addEventListener('click', function () { selectRun(run, span); });
+          span.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Enter' || ev.key === ' ') {
+              ev.preventDefault();
+              selectRun(run, span);
+            }
+          });
+          container.appendChild(span);
+          container.appendChild(document.createTextNode(' '));
+        }());
+      } else {
+        container.appendChild(document.createTextNode(pieces[i].word + ' '));
+        i += 1;
+      }
+    }
+    if (!container.textContent.trim()) {
+      container.appendChild(h('em', { text: '∅ ' + sideLabel + ' (no words)', style: 'font-style:normal' }));
+    }
+  }
+
+  var diffPieces = [];
+
+  function runDiff() {
+    var a = labA.value;
+    var b = labB.value;
+    showError('');
+    phrasePanel.hidden = true;
+    receiptBlock.hidden = true;
+    if (!a.trim() || !b.trim()) {
+      diffboard.hidden = true;
+      showError('Two versions are required before a difference can exist.');
+      return;
+    }
+    diffPieces = diffWords(a, b);
+    runs = [];
+    activeRun = null;
+    var removed = diffPieces.filter(function (p) { return p.status === 'remove'; });
+    var added = diffPieces.filter(function (p) { return p.status === 'add'; });
+
+    if (removed.length === 0 && added.length === 0) {
+      diffboard.hidden = false;
+      diffCounts.textContent = '0 removed · 0 added';
+      colA.textContent = '';
+      colB.textContent = '';
+      diffNote.hidden = false;
+      diffNote.textContent = 'These versions are identical at word level. Nothing changed, so nothing hinges.';
+      return;
+    }
+
+    renderColumn(colA, 'add', 'remove', 'A');
+    renderColumn(colB, 'remove', 'add', 'B');
+    diffCounts.textContent = removed.length + ' removed · ' + added.length + ' added';
+    var capped = a.trim().split(/\s+/).length > CAP || b.trim().split(/\s+/).length > CAP;
+    diffNote.hidden = false;
+    diffNote.textContent = capped
+      ? 'Diff is capped at the first 320 words per side to keep the instrument responsive. Click any changed phrase to classify it.'
+      : 'Click any changed phrase to classify it. The lab marks words; it does not know which change matters.';
+    diffboard.hidden = false;
+  }
+
+  diffBtn.addEventListener('click', runDiff);
+
+  sampleBtn.addEventListener('click', function () {
+    labA.value = CASES[0].clauseA;
+    labB.value = CASES[0].clauseB;
+    runDiff();
+  });
+
+  genBtn.addEventListener('click', function () {
+    if (!activeRun) {
+      showError('Click a changed phrase first — a receipt is about a specific difference.');
+      return;
+    }
+    var checked = FRAMES.filter(function (f) { return ticked[f]; });
+    if (checked.length === 0) {
+      showError('Tick at least one frame. The lab checks nothing for you — it makes you check.');
+      return;
+    }
+    showError('');
+    receiptText.textContent = 'HINGE: ' + activeRun.words.join(' ') +
+      ' · frames checked: ' + checked.join(' / ') +
+      ' · preserve trigger, exceptions and source language as separate fields.';
+    receiptBlock.hidden = false;
+    copyBtn.textContent = 'copy receipt';
+    genBtn.disabled = true;
+  });
+
+  function flashCopied() {
+    copyBtn.textContent = 'copied ✓';
+    window.setTimeout(function () { copyBtn.textContent = 'copy receipt'; }, 1400);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (ok) { flashCopied(); }
+  }
+
+  copyBtn.addEventListener('click', function () {
+    var text = receiptText.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flashCopied, function () { fallbackCopy(text); });
+    } else {
+      fallbackCopy(text);
+    }
+  });
+}());
+</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DECODE · the dialect dial · for gwen</title>
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<style>
+ .dial{border:3px solid var(--ink);padding:0;margin:18px 0}
+ .dial .head{background:var(--ink);color:#fff;font:700 10px/1 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:8px 12px}
+ textarea{width:100%;border:0;border-bottom:2px solid var(--ink);padding:12px;font:15px/1.5 ui-monospace,Menlo,monospace;min-height:120px;resize:vertical;background:#fffdfa}
+ .row{display:flex;gap:8px;padding:10px 12px;flex-wrap:wrap;align-items:center}
+ button{font:700 13px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;border:2px solid var(--ink);padding:11px 18px;cursor:pointer}
+ button.ghost{background:#fff;color:var(--ink)}
+ button:hover{background:var(--acc);border-color:var(--acc)}
+ .priv{font-size:11px;color:var(--ok);letter-spacing:.04em}
+ #out{padding:4px 12px 14px}
+ #out .src{font:14.5px/1.65 ui-monospace,Menlo,monospace;background:#fffdfa;border:1px solid var(--rule);padding:12px;white-space:pre-wrap}
+ #out .src mark{background:transparent;padding:0 1px;cursor:pointer;color:inherit;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+#out .src mark:hover,#out .src mark:focus{background:var(--hl);text-decoration-thickness:2px;outline:none}
+#out .src mark:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+ .tc{border:2px solid var(--ink);padding:10px 12px;margin:10px 0;font-size:14px}
+ .tc .word{font:800 17px/1.1 system-ui,sans-serif;letter-spacing:-.01em}
+ .tc .sense{display:inline-block;font:700 9px/1 system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 6px;margin:0 6px 0 8px;vertical-align:2px}
+ .tc .so{border-left:4px solid var(--acc);background:#f5f8ff;padding:7px 10px;margin:8px 0 0;font-size:13.5px}
+ .tc .alt{color:var(--mut);font-size:12.5px;margin-top:6px}
+ .chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 14px}
+ .chip{font:700 10.5px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;border:2px solid var(--ink);padding:7px 11px;cursor:pointer;background:#fff}
+ .chip.on{background:var(--ink);color:#fff}
+ .poly{background:var(--hot);color:#fff;font:700 9px/1 system-ui;letter-spacing:.12em;padding:3px 6px;margin-left:6px;vertical-align:2px}
+ .clock{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-left:4px solid var(--hot);background:var(--warnbg);padding:10px 13px;margin:9px 0;font-size:14px}
+ .clock b{font-size:15px}
+ .days{font:800 18px/1 system-ui;color:var(--hot)}
+ .slipq{border-left:4px solid var(--acc);background:#fffdfa;padding:9px 12px;margin:6px 0 8px;font:14px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap}
+ .srcbadge{display:block;margin-top:7px;font:700 9px/1.3 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+ @media(max-width:640px){textarea{font-size:14px}#out .src{font-size:13px}}
+</style>
+<div class="wrap">
+<header>
+<h1>DECODE</h1>
+<div class="meta">
+ <span>for <b>gwen</b></span>
+ <span>built <b>2026-10-07</b></span>
+ <span>phone-first · <b>your text never leaves this page</b></span>
+ <span>expires for review <b>2026-11-07</b></span>
+</div>
+</header>
+
+<div class="forwho"><b>The dial:</b> paste the paragraph — the deal memo, the vendor's email, the checklist
+question, the tasting note. Press decode. The words light up: the meaning that fits <i>your</i> sentence,
+the meaning each word has in the next room over, and one "so what" you can act on.</div>
+
+<div class="big">You are not behind. <span>You are being spoken to in a dialect.</span><br>
+This translates the dialect. Nothing here is an exam.</div>
+
+<div class="dial">
+ <div class="head">01 · the decoder</div>
+ <textarea id="tin" placeholder="Paste here. Example: 'Our model will cover the change-of-control question in the next pass; review happens before execution and there is no material downside.'"></textarea>
+ <div class="row">
+  <button id="go">DECODE ▸</button>
+  <button id="clr" class="ghost">clear</button>
+  <button id="ex" class="ghost">try an example</button>
+  <span class="priv">● runs 100% in your browser — nothing is uploaded, logged, or sent anywhere</span>
+ </div>
+ <div id="out"></div>
+</div>
+
+<h2>02 · the rooms</h2>
+<div class="forwho">Every word below lives in a room. The same word can be furniture in one and a fuse in
+another. Four rooms, for a start:</div>
+<div class="tc"><span class="word">the desk</span><div>Contracts, versions, sign-offs, the deal.
+Here a word is a promise.</div><div class="so"><b>so what → </b>On the desk, ask what a change would
+<i>do</i> — who could rely on it, and when.</div></div>
+<div class="tc"><span class="word">the machine room</span><div>Models, prompts, passes, numbers.
+Here a word is a setting.</div><div class="so"><b>so what → </b>Instructions, not guarantees. Ask what it
+read, and what a number was measured on.</div></div>
+<div class="tc"><span class="word">the cellar</span><div>Taste, patience, difference. Here a word is a
+description — and the thing doesn't read it.</div><div class="so"><b>so what → </b>Describe before you
+name. The wine never argues; it just shows you.</div></div>
+<div class="tc"><span class="word">the day</span><div>Everything else. Here a word is a mood.</div>
+<div class="so"><b>so what → </b>Most traps live here, and nobody taught us this deck.</div></div>
+<div class="clock"><span class="days">1 question</span><span><b>Ask, in writing, before you fight a number:</b>
+"What would show this improved — which questions, measured on which set, and how?"
+<button id="copyq" class="ghost" style="padding:7px 10px;font-size:11px">copy question</button></span></div>
+
+<h2>03 · The deck — every word, both meanings</h2>
+<div class="forwho"><b>When you see a red</b> <span class="poly">2+ SENSES</span> <b>badge:</b> that word is a trap.
+It means two different things in two different rooms, and people act like it means one. The badge counts rooms, not importance.</div>
+<div class="chips" id="chips"></div>
+<div id="deck"></div>
+
+<h2>04 · slips from the rounds</h2>
+<div class="forwho">Ten sentences doing the rounds in the four rooms — deal desks, model rooms, cellars, days.
+Not strawmen: each is the pattern the deck was built for, and the trap line says which rooms the sentence
+is standing in at once. The sentence is not the problem. The two rooms are.</div>
+
+<div class="tc"><div class="slipq">“We've not been able to prompt our way to better accuracy.”</div><span class="word">prompt</span><span class="poly">2 SENSES</span><div>The sentence everyone has said once.</div><div class="so"><b>so what → </b>Prompt = instructions. When instructions stop paying: split the question, fix the cut, demand the quote, freeze a little set. Structure beats vocabulary.</div><span class="srcbadge">machine room</span></div>
+
+<div class="tc"><div class="slipq">“The model is 95% accurate, so we only review the 5%.”</div><span class="word">accuracy</span><span class="poly">2 SENSES</span><div>A number pretending to be a policy.</div><div class="so"><b>so what → </b>95% of which questions, weighted how, on how many documents? And who reviews the 5% — by quote or by vibe? Ask for the set before you trust the split.</div><span class="srcbadge">machine room</span></div>
+
+<div class="tc"><div class="slipq">“Can we fine-tune it to stop missing this data point?”</div><span class="word">fine-tuning</span><span class="poly">2 SENSES</span><div>Two words, both doing double duty.</div><div class="so"><b>so what → </b>One missed question is usually not a training problem. Check what it actually read first — segmentation and retrieval — before paying for a heavier artifact.</div><span class="srcbadge">machine room</span></div>
+
+<div class="tc"><div class="slipq">“Reviewed — looks right.”</div><span class="word">review</span><span class="poly">2 SENSES</span><div>A verdict with no name, no date, no quote.</div><div class="so"><b>so what → </b>Reviewed by ⟨name⟩ on ⟨date⟩, against ⟨the clause⟩. That sentence is the product. Without it, the word is furniture.</div><span class="srcbadge">deal desk</span></div>
+
+<div class="tc"><div class="slipq">“The vendor says it's grounded; there's no quote in the answer.”</div><span class="word">grounded</span><span class="poly">2 SENSES</span><div>If it's grounded, the quote is the receipt.</div><div class="so"><b>so what → </b>No quote → not grounded → route it. That's not distrust; that's the rule working.</div><span class="srcbadge">deal desk · machine room</span></div>
+
+<div class="tc"><div class="slipq">“It signed off on the change-of-control point, but we asked about assignment.”</div><span class="word">assignment</span><span class="poly">2 SENSES</span><div>Two questions wearing one sentence — a double-barrel.</div><div class="so"><b>so what → </b>Machines fail on double-barrels. Split: direct assignment, and indirect transfer — one truth each, scored separately.</div><span class="srcbadge">deal desk</span></div>
+
+<div class="tc"><div class="slipq">“We'll taste it next month — it needs time anyway.”</div><span class="word">time</span><span class="poly">2 SENSES</span><div>Patience as a plan.</div><div class="so"><b>so what → </b>Some judgments read earlier than others. 'Needs age to reveal itself' is also true of drafts and deals: schedule the re-read, don't force the verdict.</div><span class="srcbadge">cellar</span></div>
+
+<div class="tc"><div class="slipq">“Same thing, cheaper.”</div><span class="word">same</span><span class="poly">2 SENSES</span><div>The most dangerous sentence in taste and in procurement.</div><div class="so"><b>so what → </b>If it were the same, one of them wouldn't exist. Find the difference that changes the choice — then decide.</div><span class="srcbadge">cellar · deal desk</span></div>
+
+<div class="tc"><div class="slipq">“Don't read the example until you've tried it once.”</div><span class="word">example</span><span class="poly">2 SENSES</span><div>Instructions make players; examples make copiers.</div><div class="so"><b>so what → </b>Play first, read later. A first attempt is data; a copied attempt is only agreement.</div><span class="srcbadge">the day</span></div>
+
+<div class="tc"><div class="slipq">“Is it cute?”</div><span class="word">cute</span><span class="poly">2 SENSES</span><div>A complete review in one syllable.</div><div class="so"><b>so what → </b>Some verdicts need one word, not a report. Know which review you're giving — and keep the right to give the short one.</div><span class="srcbadge">the day</span></div>
+
+<div class="close"><b>When overwhelmed, three questions, in order:</b> (1) What must be true? (2) What is the
+deadline? (3) Who owns it? Everything else is weather.</div>
+
+<div class="foot">
+<b>Provenance</b> — written in plain language for four rooms; no footnotes you can't check, no promises.
+Assembled for <b>gwen</b>, 2026-10-07, by kestrel. The deck is finite on purpose:
+<span id="wc">24</span> words that cause the most damage. · related:
+<a href="/20261007-the-call-gwen/">THE CALL · three rooms</a> ·
+<a href="/20261007-the-hinge-gwen/">THE HINGE</a> ·
+<a href="/20261007-the-set-gwen/">the set</a> · noindex
+</div>
+</div>
+
+<script>
+const DECK=[{"t":"taxonomy","poly":1,"s":[{"d":"the list of questions (your room)","k":["question","data point","checklist","deal","extract"],"m":"Your room: the list of questions run against a document — each one a data point someone wants answered.","so":"A taxonomy is a data model, not a document. When one question does two jobs, accuracy hides inside the ambiguity — split it until each question can be right or wrong on its own."},{"d":"classification (science)","k":["species","classify","order","group"],"m":"Sorting things into named groups — the original sense.","so":"Same test as species: one bucket per truth. Two truths per bucket means the bucket is wrong."}]},{"t":"data point","poly":1,"s":[{"d":"one question's answer","k":["answer","result","field","each","one"],"m":"A single answer for a single question.","so":"One data point is a dot, not a trend. 'It got this data point wrong' tells you little until you know how many attempts, and which clause it actually read."},{"d":"a dot on a chart","k":["chart","graph","plot","measure","value"],"m":"Statistics: one measurement among many.","so":"One dot never stands alone; the pattern lives across dots. Read the batch, not the answer."}]},{"t":"accuracy","poly":1,"s":[{"d":"the number in the deck","k":["model","benchmark","eval","measured","percent","%","score"],"m":"A measurement over a set — meaningless without the set, the weighting and the base rate.","so":"Ask three things: which questions, measured how, on how many documents. A number without those three is decoration."},{"d":"being right (everyday)","k":["right","correct","true","exact"],"m":"Rightness, as a habit.","so":"For a person, accuracy is a habit. For a pipeline, it is a distribution. Same word, different instruments."}]},{"t":"plateau","poly":0,"s":[{"d":"the plateau (yours)","k":["stuck","stopped","ceiling","not moved","better","improve","same"],"m":"The number stopped moving no matter what the prompts say.","so":"A plateau is usually not a wording problem. The structural moves: split the question, fix the cut, force the quote, hold one frozen little set and re-run it."}]},{"t":"prompt","poly":1,"s":[{"d":"instructions to a model","k":["ai","model","agent","instruct","ask"],"m":"The text telling a model what to do.","so":"'Prompts behind each data point' means instructions, not guarantees. When they stop paying, the fix is usually structure — not more words."},{"d":"on time (theatre)","k":["time","cue","early","late"],"m":"On cue — 'prompt' as punctuality.","so":"Sometimes the old meaning is the one in the sentence. Check the room."}]},{"t":"hallucination","poly":0,"s":[{"d":"a confident fabrication","k":["model","ai","made up","invented","wrong","confident"],"m":"The model saying something false with total confidence.","so":"Never act on a claim without a quote. 'No quote found' is a valid answer — route it, don't fight it."}]},{"t":"grounding","poly":1,"s":[{"d":"quote-first","k":["quote","source","evidence","clause","cite","receipt"],"m":"Every answer carries the sentence it came from.","so":"Grounding isn't a vibe; it's a rule you can check in one glance: quote, or decline. No quote, no grounding — however right it sounds."},{"d":"calm and steady (personal)","k":["calm","steady","breath","self"],"m":"Being settled.","so":"Worth keeping for humans, actually. A grounded person is also quoting from somewhere."}]},{"t":"confidence","poly":1,"s":[{"d":"the model's number","k":["score","high","low","percent","0.","probability"],"m":"A number attached to an answer — a temperature reading, not a promise.","so":"Sort by it, don't trust it. Check how often 'high confidence' is actually right before letting it route anything real."},{"d":"a person's","k":["me","i","feel","sure","unsure"],"m":"Self-assurance.","so":"A different instrument entirely. A low-confidence person and a low-confidence model fail in opposite directions."}]},{"t":"retrieval","poly":1,"s":[{"d":"finding the right clause","k":["search","fetch","lookup","index","vector","find"],"m":"The step that decides which part of the document the answer should come from.","so":"Most 'model mistakes' are retrieval mistakes wearing a model costume. Check what it actually read before you blame the reading."},{"d":"fetching (joyful)","k":["dog","fetch","back"],"m":"A dog thing.","so":"Not this."}]},{"t":"segmentation","poly":1,"s":[{"d":"cutting the document","k":["split","section","clause","chunk","pdf","cut"],"m":"Where the document gets cut into the pieces the passes read.","so":"If the clause was cut wrong, no prompt saves the answer. Look at the cut before the wording."},{"d":"customer groups","k":["market","customer","audience","segment"],"m":"Business: groups of people.","so":"Two rooms, one word. In your meetings, the document room wins."}]},{"t":"pass","poly":1,"s":[{"d":"one run of the pipeline","k":["models","orchestration","phase","run","stage","second"],"m":"Each pass is a stage that reads, writes, and hands off.","so":"More passes add power only when each pass has a check. Otherwise it's a rumour chain with extra steps."},{"d":"permission (a door, a ticket)","k":["allowed","door","enter","board","through"],"m":"To go past a checkpoint.","so":"Different room, same word."}]},{"t":"review","poly":1,"s":[{"d":"the named human pass","k":["checked","expert","lawyer","sign","sme","by"],"m":"A person checking the output before anyone relies on it.","so":"'Reviewed' means nothing without: reviewed by whom, when, against what. A name and a date — or it didn't happen."},{"d":"a look-over (everyday)","k":["look","once","skim","quick"],"m":"A quick look.","so":"Tell them apart by the name attached. No name, no review."}]},{"t":"execution","poly":1,"s":[{"d":"signing (contracts)","k":["sign","signature","closing","deal","copy"],"m":"Execution = the signing, in deal language.","so":"'For execution' means the signing copy. The date on the signature block is the day it happened."},{"d":"running (software)","k":["run","code","job","binary","runtime"],"m":"Where code actually runs.","so":"'Execution risk' in a deal memo is not a runtime risk. Two calendars, one word — keep them apart."}]},{"t":"material","poly":1,"s":[{"d":"consequential (contracts)","k":["breach","change","adverse","amendment","risk"],"m":"Material = important enough to change the deal.","so":"A door with a question behind it: consequential to whom, measured how? Make them answer it."},{"d":"physical substance","k":["cloth","sample","build","matter","fabric"],"m":"Stuff.","so":"Different room. Though both senses want to know what it's made of."}]},{"t":"representation","poly":1,"s":[{"d":"a statement you stand behind (contracts)","k":["warrant","statement","fact","accurate","promise"],"m":"A promise that something is true — with a price if it isn't.","so":"A representation is a claim with a price tag. If a model's answer becomes one anywhere in your flow, it's priced too. Know where that line is."},{"d":"how something is shown (art, data)","k":["visual","drawn","shown","encode","depict","image"],"m":"Depiction, or data encoding.","so":"Which sense is live changes what the sentence's 'accurate' can even mean."}]},{"t":"discovery","poly":1,"s":[{"d":"scoping (a project)","k":["phase","kickoff","requirements","vendor","sow"],"m":"The scoping phase of an engagement.","so":"In a vendor's deck, 'covered in discovery' is a milestone — not a promise of substance. The named owner is still the product."},{"d":"evidence exchange (litigation)","k":["court","litigation","hold","ediscovery","disclosure"],"m":"Pre-trial disclosure.","so":"Court room. Keep the two timelines apart — they move on different clocks."}]},{"t":"brief","poly":1,"s":[{"d":"the document (legal)","k":["file","court","counsel","argument","submit"],"m":"A written legal argument.","so":"Before summarizing 'the brief', confirm which brief. There is always more than one."},{"d":"short (everyday)","k":["quick","short","fast","summary","update"],"m":"A summary.","so":"Degrees of opposite: one is formal and long; the other means short. Delightful trap."}]},{"t":"consideration","poly":1,"s":[{"d":"the price of a promise (contracts)","k":["value","exchange","promise","term","bargain"],"m":"What each side gives so the promise binds.","so":"A technical gate, not politeness. A kindness is not consideration — but it is still worth having."},{"d":"care and thoughtfulness","k":["kind","thought","care","attention"],"m":"Considering someone.","so":"Keep this one for the day."}]},{"t":"verdict","poly":1,"s":[{"d":"costs and buys (house rule)","k":["call","decision","judge","choice"],"m":"A verdict says what a call costs and what it buys — never 'wrong'.","so":"Works at work and at dinner: 'what does it cost, what does it buy' beats 'is it right'. Try it once this week."},{"d":"the formal ruling","k":["court","jury","judge","announce"],"m":"A court's decision.","so":"Court room. Same shape, heavier gavel."}]},{"t":"fine-tuning","poly":1,"s":[{"d":"training the model further","k":["model","training","weights","customize","adapt","dataset"],"m":"Teaching an existing model more, on your examples — which makes a new artifact with new liability.","so":"Ask 'fine-tune or retrieval?' Most 'AI projects' are the second. Fine-tuning is heavier, and usually not the fix for one missed question."},{"d":"polishing (everyday)","k":["polish","detail","adjust","tweak"],"m":"Making small improvements.","so":"Harmless verb. The other sense has lawyers in it."}]},{"t":"annotation","poly":1,"s":[{"d":"labelling the training set","k":["label","train","dataset","gold","human"],"m":"Humans writing the 'right answers' a model learns from.","so":"Annotation IS the opinion. Ask who labelled the gold set, and on what day — the model inherits their judgment, including the rushed parts."},{"d":"notes in the margin","k":["note","margin","comment","mark"],"m":"Adding notes to a text.","so":"Closer than you'd think: both senses are someone's opinion, written down."}]},{"t":"model","poly":1,"s":[{"d":"the trained system","k":["ai","llm","gpt","inference","prompt","foundation"],"m":"The system that generates the answers.","so":"The model is replaceable; the questions are the asset. Facilities update models monthly — your taxonomy is the thing that compounds."},{"d":"a way of working (business sense)","k":["business","operating","role","twin","revenue"],"m":"An operating model, a role model, a revenue model.","so":"Meeting-speak. Context decides — and 'model governance' somewhere else entirely means spreadsheets, not AI."}]},{"t":"orchestration","poly":1,"s":[{"d":"the chain of passes","k":["models","pipeline","pass","stage","workflow","chain"],"m":"Putting several models and steps together so each one hands off to the next.","so":"An orchestra needs a score. No verifier between the passes means no one is listening — just louder."},{"d":"arranging music","k":["music","instruments","score","arrange"],"m":"Writing for many instruments at once.","so":"The good sense to keep: same word, and honestly the same skill."}]},{"t":"cute","poly":1,"s":[{"d":"a verdict in one syllable","k":[],"m":"Some reviews are complete at one word.","so":"Keep the right to deliver them. Not every judgment needs a memo."},{"d":"small and pleasing (standard)","k":[],"m":"The ordinary meaning.","so":"Also fine. Both senses are the same compliment wearing different shoes."}]}];
+const $=id=>document.getElementById(id);
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function score(s,win){let n=0;for(const k of s.k){if(win.includes(k))n+=k.length}return n}
+function pickSenses(word,win){const e=DECK.find(d=>d.t.toLowerCase()===word.toLowerCase());if(!e)return null;
+ const scored=e.s.map(s=>({s,sc:score(s,win)})).sort((a,b)=>b.sc-a.sc);
+ return{entry:e,ranked:scored}}
+/* ── ASK BRIEF — donor from kage (20261006-ask-table, merged here, not shipped separately).
+   Answers the question the word cards can't: what are they actually asking me to DO, and when.
+   action: beats ask-verbs; deadlines are detected in-text (distinct from the regulatory clocks). */
+function sentAt(raw,i,len){
+ const b=raw.slice(0,i),a=raw.slice(i+len);
+ const s=Math.max(b.lastIndexOf('.'),b.lastIndexOf('?'),b.lastIndexOf('!'),b.lastIndexOf('\n'))+1;
+ let e=a.search(/[.!?\n]/); e=e<0?raw.length:i+len+e+1;
+ return raw.slice(s,e).trim();
+}
+function askBrief(raw){
+ const low=raw.toLowerCase();
+ const am=raw.match(/\baction\s*:/i);
+ const strong=raw.match(/\b(please|pls|plz|can you|could you|would you|we need|need (?:you|this|to)|request|provide|confirm|advise|review|sign ?off|approve|respond|reply|draft|prepare|verify|let me know|lmk)\b/i);
+ let ask;
+ if(am) ask='<b>There is an explicit <code>action:</code> line — that <i>is</i> the ask.</b><div class="q">'+esc(sentAt(raw,am.index,am[0].length))+'</div><div class="alt">Do that. Everything before it is context.</div>';
+ else if(strong) ask='<b>The request sits near <mark>'+esc(strong[0])+'</mark>.</b><div class="q">'+esc(sentAt(raw,strong.index,strong[0].length))+'</div><div class="alt">Answer format that always works: one option, one date, one question.</div>';
+ else ask='<b>No request found — this may be information only.</b><div class="alt">Before you work on it, reply: <i>“What do you need from me on this?”</i> That is not rude. It is the job.</div>';
+
+ const dl=[];
+ [[/\bby (eod|eow|cob|close of business)\b/i,'relative deadline — <b>whose timezone?</b>'],
+  [/\bby (mon|tues|wednes|thurs|fri|satur|sun)day\b/i,'named weekday — get the date in writing'],
+  [/\bby (\d{1,2}[\/-]\d{1,2})\b/i,'numeric date'],
+  [/\b(asap|urgent|immediately|right away)\b/i,'urgent — confirm it is urgent for THEM, not just loud'],
+  [/\b(q[1-4])\b/i,'a quarter is too vague to plan against']
+ ].forEach(([re,note])=>{const m=raw.match(re); if(m)dl.push('<mark>'+esc(m[0])+'</mark> — '+note)});
+ const clock=dl.length?dl.join('<br>')
+   :'<b>No date in the text — that is the problem.</b><div class="alt">Reply with <i>“When do you need this by?”</i> before you start.</div>';
+
+ let room='the day — read it as ordinary language until shown otherwise.';
+ if(/contract|agreement|clause|deal|sign|party|term|closing|amendment|assignment/i.test(low))room='\u{1F4C4} the desk — where words get signed.';
+ else if(/model|ai|prompt|accuracy|data point|taxonomy|pipeline|orchestration|training|eval|pass\b/i.test(low))room='\u{1F916} the machine room — where words are settings.';
+ else if(/wine|bottle|taste|vintage|aroma|glass|cellar|open(ed)?\b/i.test(low))room='\u{1F377} the cellar — where words describe, and the thing doesn\'t read them.';
+ const reg=/regulator|authority|formal|notice under|request for|subpoena|enforcement|without prejudice/i.test(low);
+ const who=room+' · '+(reg?'<mark>reads like a formal artifact</mark> — answer in writing, keep a copy, tell someone it arrived.'
+   :'ordinary stakes — a fast, plain reply is fine.');
+
+ let move;
+ if(reg)move='<b>Log it, then tell someone above you it arrived</b> — before you answer. Formal requests have owners and clocks.';
+ else if(am)move='<b>Do the <code>action:</code> line and nothing else</b>, then confirm the date in one line.';
+ else if(dl.length)move='<b>Confirm the ask and the date in one line</b>, then do only the sentence with the request in it.';
+ else if(strong)move='<b>Reply to that one sentence</b>: one option, one date, one question.';
+ else move='<b>Send one line back: “What do you need from me on this?”</b>';
+
+ return '<h2 style="margin:22px 0 6px">00 · the ask — what they want you to do</h2>'
+  +'<div class="forwho">Words below tell you what things <i>mean</i>. These four tell you what to <i>do</i>.</div>'
+  +'<div class="tc"><span class="word">the ask</span>'+ask+'</div>'
+  +'<div class="tc"><span class="word">the clock</span><div>'+clock+'</div></div>'
+  +'<div class="tc"><span class="word">who</span><div>'+who+'</div></div>'
+  +'<div class="tc"><span class="word">your move</span><div>'+move+'</div></div>';
+}
+function decode(){
+ const txt=$("tin").value;if(!txt.trim())return;
+ const words=[...new Set(DECK.map(d=>d.t))];
+ let html=esc(txt);const found=[];
+ for(const w of words){
+  const escw=w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&");
+  const suf="(?:s|es|d|ed|ing)?";
+  const re=new RegExp("\\b"+escw+suf+"\\b","gi");
+  let m,idx=0,src=txt;
+  while((m=re.exec(src))!==null){
+   const win=src.slice(Math.max(0,m.index-220),m.index+260).toLowerCase();
+   const ps=pickSenses(w,win);
+   if(ps){found.push({w,win:src.slice(Math.max(0,m.index-90),m.index+130),ps})}
+   idx=m.index;
+  }
+  html=html.replace(new RegExp("(<[^>]*>)|(\\b"+escw+suf+"\\b)","gi"),
+   (all,tag,word)=>tag?all:'<mark role="link" tabindex="0" title="'+w+' — jump to its card" data-w="'+w+'">'+word+"</mark>");
+ }
+ const seen=new Set();const cards=found.filter(f=>{const k=f.w; if(seen.has(k))return false; seen.add(k); return true;});
+ let out='<div class="src">'+html+"</div>";
+ out+=askBrief(txt);
+ if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s '+DECK.length+' words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
+ for(const f of cards){
+  const top=f.ps.ranked[0],second=f.ps.ranked[1];
+  let h='<div class="tc" id="w-'+esc(f.w).replace(/\s+/g,"-")+'"><span class="word">'+esc(f.w)+"</span>";
+  if(f.ps.entry.poly)h+='<span class="poly">'+f.ps.entry.s.length+' SENSES</span>';
+  h+='<span class="sense">'+esc(top.s.d)+"</span>";
+  h+="<div>"+esc(top.s.m)+"</div>";
+  h+='<div class="so"><b>so what → </b>'+esc(top.s.so)+"</div>";
+  if(second&&second.sc>0){h+='<div class="alt">Could also be: <b>'+esc(second.s.d)+"</b> — "+esc(second.s.m)+" In your sentence the first reading fits better, but check the room.</div>"}
+  else if(top.sc===0&&f.ps.entry.poly){h+='<div class="alt">No signal words landed near this one — both readings are guesses. Check which room the sentence is in before you act.</div>'}
+  h+='<div class="alt" style="font-style:italic">from your text: “'+esc(f.win.trim().slice(0,150))+'…”</div></div>';
+  out+=h;
+ }
+ $("out").innerHTML=out;
+ $("out").querySelectorAll("mark[data-w]").forEach(mk=>{
+  const jump=()=>{const c=document.getElementById("w-"+mk.dataset.w.replace(/\s+/g,"-"));
+   if(c){c.scrollIntoView({behavior:"smooth",block:"center"});c.focus({preventScroll:true})}};
+  mk.addEventListener("click",jump);
+  mk.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();jump()}});
+ });
+}
+function renderDeck(filter,q){
+ const el=$("deck");let list=DECK;
+ if(filter&&filter!=="ALL")list=list.filter(d=>d.cat===filter);
+ if(q)list=list.filter(d=>d.t.toLowerCase().includes(q.toLowerCase())||d.s.some(s=>s.m.toLowerCase().includes(q.toLowerCase())));
+ el.innerHTML=list.map(d=>{
+  let h='<div class="tc"><span class="word">'+esc(d.t)+"</span>";
+  if(d.poly)h+='<span class="poly">'+d.s.length+' SENSES</span>';
+  d.s.forEach(s=>{
+   h+='<span class="sense">'+esc(s.d)+"</span><div>"+esc(s.m)+"</div>";
+   if(s.so)h+='<div class="so"><b>so what → </b>'+esc(s.so)+"</div>";
+  });
+  return h+"</div>"}).join("")||'<div class="tc">No words match. (The deck is finite on purpose.)</div>';
+}
+// categories
+const CATS=["ALL","TWO+ SENSES","THE DESK","THE MACHINE ROOM","THE CELLAR","THE DAY"];
+function catOf(d){if(d.poly)return"TWO+ SENSES";const k=d.s[0].k.join(" ")+" "+d.t.toLowerCase();
+ if(/contract|clause|deal|sign|agreement|party|term|promise|execution|material|consideration|representation|brief/.test(k))return"THE DESK";
+ if(/model|prompt|accuracy|pipeline|pass|retrieval|segment|training|annotation|eval/.test(k))return"THE MACHINE ROOM";
+ if(/wine|taste|bottle|vintage|cellar|aroma|cute/.test(k))return"THE CELLAR";
+ return"THE DAY"}
+DECK.forEach(d=>d.cat=catOf(d));
+$("chips").innerHTML=CATS.map(c=>'<span class="chip'+(c==="ALL"?" on":"")+'" data-c="'+c+'">'+c+(c==="POLYSEMY"?" ⚠":"")+"</span>").join("");
+$("chips").addEventListener("click",e=>{if(!e.target.dataset.c)return;
+ document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+ e.target.classList.add("on");renderDeck(e.target.dataset.c,"")});
+renderDeck("ALL","");
+$("go").onclick=decode;
+$("clr").onclick=()=>$("tin").value="",$("out").innerHTML="";
+$("ex").onclick=()=>{$("tin").value="Our model will cover the change-of-control question in the next pass; review happens before execution and there is no material downside, so we can proceed.";decode()};
+$("copyq").onclick=()=>navigator.clipboard.writeText('What would show this improved — which questions, measured on which set, and how?').then(()=>{$("copyq").textContent="copied ✓"});
+$("wc").textContent=DECK.length;
+</script>
