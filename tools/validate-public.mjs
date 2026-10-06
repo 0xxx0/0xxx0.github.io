@@ -227,7 +227,7 @@ check(daylineBridge.includes('COPY HANDOFF')&&daylineBridge.includes('fl-compact
 check(/#utilityBar button\{min-height:38px/.test(daylineCss)&&/\.plain-actions button\{min-height:38px/.test(daylineCss),'Atlas Dayline mobile primary target floor regressed');
 check(/body\[data-projection="plain"\]\{overflow-y:auto/.test(daylineCss),'Atlas Dayline mobile PLAIN scroll lock regressed');
 check(daylineApp.includes("syncDeviceNow")&&daylineApp.includes("clockWitness")&&daylineApp.includes("ORIENTATION_SNAPSHOT"),'Atlas Dayline clock/return witness regressed');
-check(daylineSw.includes("atlas-dayline-i-v6"),'Atlas Dayline mobile reach cache version not v6');
+check(daylineSw.includes("atlas-dayline-i-v7"),'Atlas Dayline mobile reach cache version not v7');
 const showcaseNav=read('showcase-nav.js');
 check(/@media\(max-width:820px\)/.test(showcaseNav)&&/\.tab\.nav\{left:auto;right:/.test(showcaseNav),'Shared mobile route adapter returned to bottom-left obstruction');
 const workfieldHtml=read('dayline/index.html');
