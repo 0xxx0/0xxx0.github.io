@@ -1,37 +1,47 @@
 {
-  "schema": "field-artifact-catalog/v0.1",
-  "updated": "2026-10-06T22:18:00+08:00",
+  "schema": "field-artifact-catalog/v0.2",
+  "updated": "2026-10-06T22:45:00+08:00",
   "policy": {
+    "purpose": "Index retained outputs without inventing semantics for them.",
     "move": "index-before-move",
     "bytes": "preserve exact source bytes and lineage",
-    "images": "batch-first unless independently functional",
-    "publication": "public-safe specimens to FIELD; private/raw sources remain Library"
+    "publication": "public routes are linkable; Library-only material stays Library-only",
+    "claim_rule": "No role, fitness, authority, or meaning claim without an exact route/file, source evidence, or measured interaction result.",
+    "unknown_rule": "Unknown stays unknown; no synthetic fallback or narrative completion."
   },
   "count": {
-    "status": "LOWER_BOUND_NOT_FINAL_CENSUS",
-    "named_families_indexed_here": 20,
-    "note": "Library contains substantially more individual files; previews, image batches, support bytes, reports, receipts and donor files are not collapsed into a false exact count."
+    "entries": 20,
+    "status": "INDEX_ENTRIES_NOT_CENSUS",
+    "note": "This is a retained-name index. It is not a complete count of files, routes, images, reports, receipts, or source packs."
   },
   "entries": [
-    {"label":"INTERFACE GENOME 0.1","kind":"interactive-html","state":"PUBLIC_SPECIMEN","location":"/artifacts/interface-genome-01.html","note":"Same task model; breed alternate projections while pinned invariants survive."},
-    {"label":"APP FOUNDRY / APP ATLAS v1","kind":"interactive-html","state":"DONOR_ALREADY_EVOLVED","location":"/app-atlas/","note":"Provenance → lineage → triage → next falsifying experiment; Library retains original v1 snapshot."},
-    {"label":"HOUSE / FIELD BUILD PACK","kind":"source-pack","state":"LIBRARY_SOURCE_SET","location":null,"note":"ENV0 atlas/symbols/build sheet + preview, HOUSE OS FIELD SYSTEM, and practical-apartment visual boards. Keep source/preview/reference roles separate."},
-    {"label":"ASCII SLEEPER","kind":"interactive-system","state":"PUBLIC_WITH_PRIVATE_LINEAGE","location":"/sleeper/","note":"Public release stays distinct from private checkpoint and unresolved City Engine/Painting-Path lineage."},
-    {"label":"LACONIC / ICONIC","kind":"text-system","state":"PUBLIC_WITH_PROVENANCE_FIREWALL","location":"/laconic/","note":"bank/fragments/scenes/release; EXACT ≠ RECONSTRUCTED ≠ NEW."},
-    {"label":"SCALE LENS","kind":"interface-experiment","state":"INDEXED_EXISTING","location":null,"note":"Semantic scale / projection experiment."},
-    {"label":"TWO DIAL","kind":"interface-experiment","state":"INDEXED_EXISTING","location":null,"note":"Compact control / representation experiment."},
-    {"label":"ECOLOGY","kind":"interactive-system","state":"INDEXED_EXISTING","location":null,"note":"Fold//Bloom ecology branch / donor."},
-    {"label":"VERSE ATLAS","kind":"atlas","state":"INDEXED_EXISTING","location":null,"note":"Text/verse atlas surface."},
-    {"label":"AXIAL / STATE × TRANSFORM","kind":"instrument","state":"INDEXED_EXISTING","location":null,"note":"State × transform projection/instrument."},
-    {"label":"FIELD INTAKE","kind":"pipeline-surface","state":"INDEXED_EXISTING","location":null,"note":"Bounded intake into FIELD without creating another truth layer."},
-    {"label":"ATLAS DAYLINE","kind":"temporal-interface","state":"PUBLIC_STABLE","location":"/atlas-dayline/","note":"Stable temporal donor / planning projection."},
-    {"label":"FIELD / PROOF","kind":"proof-surface","state":"INDEXED_EXISTING","location":null,"note":"Evidence/proof instrument."},
-    {"label":"HUMAN PORT","kind":"interface-family","state":"INDEXED_EXISTING","location":null,"note":"Human-facing port family; retain route identities rather than flattening."},
-    {"label":"SEAM ENGINE","kind":"system-donor","state":"INDEXED_EXISTING","location":null,"note":"Seam / handoff mechanism donor."},
-    {"label":"FOUNDRY COMPONENTS","kind":"artifact-family","state":"CURRENT_OR_RECOVERED","location":null,"note":"Current/recovered Foundry components; original App Atlas remains Library evidence."},
-    {"label":"GENERIC SHELL","kind":"quarantine","state":"QUARANTINED","location":null,"note":"Generic shell material stays quarantined until it proves distinct utility."},
-    {"label":"FIELD VISUAL STUDIES · 2026-10-06","kind":"image-batch","state":"LIBRARY_BATCH","location":null,"note":"Magic Field Index Dashboard and related generated visual studies; batch first, no invented symbolic interpretation."},
-    {"label":"INK / MURAL STUDIES · 2026-10-06","kind":"image-batch","state":"LIBRARY_BATCH","location":null,"note":"Ink Gesture Mural Design Study, Minimalist Ink Deity Mural, and same-session image-gen runs."},
-    {"label":"DEEP RESEARCH / INTERPHASE PACK","kind":"research-pack","state":"LIBRARY_SUPPORT","location":null,"note":"DR-1 Persistent Ask, DR-3 Malleable/Local-First, DR-5 House/Digital-Twin and related reports support implementation; they are evidence, not new canonical surfaces."}
+    {
+      "label": "PROJECTION BENCH 0.2",
+      "kind": "measurement-surface",
+      "state": "PUBLIC_SPECIMEN",
+      "basis": "ROUTE",
+      "location": "/artifacts/interface-genome-01.html",
+      "supersedes_label": "INTERFACE GENOME 0.1",
+      "note": "Fetches real CURRENT + showcase-manifest data, renders one normalized FIELD record three deterministic ways, and records browser-observed retrieval correctness/latency. Synthetic fixtures, random breeding, and advice were removed."
+    },
+    {"label":"APP FOUNDRY / APP ATLAS","kind":"interactive-route","state":"PUBLIC_ROUTE","basis":"ROUTE","location":"/app-atlas/","note":"Existing public route; no additional role claim made here."},
+    {"label":"HOUSE / FIELD BUILD PACK","kind":"source-pack","state":"LIBRARY_ONLY","basis":"LIBRARY_INDEX","location":null,"note":"Indexed Library source set; not exposed here as a public route."},
+    {"label":"ASCII SLEEPER","kind":"interactive-route","state":"PUBLIC_ROUTE_WITH_LIBRARY_LINEAGE","basis":"ROUTE","location":"/sleeper/","note":"Existing public route; private/Library lineage remains separate."},
+    {"label":"LACONIC / ICONIC","kind":"text-route","state":"PUBLIC_ROUTE_WITH_LIBRARY_LINEAGE","basis":"ROUTE","location":"/laconic/","note":"Existing public route; retained source distinctions remain outside this index."},
+    {"label":"SCALE LENS","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"TWO DIAL","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"ECOLOGY","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"VERSE ATLAS","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"AXIAL / STATE × TRANSFORM","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"FIELD INTAKE","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"ATLAS DAYLINE","kind":"interactive-route","state":"PUBLIC_ROUTE","basis":"ROUTE","location":"/atlas-dayline/","note":"Existing public route; no additional role claim made here."},
+    {"label":"FIELD / PROOF","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"HUMAN PORT","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"SEAM ENGINE","kind":"retained-family","state":"INDEXED_ONLY","basis":"RETAINED_NAME","location":null,"note":"Retained name; exact current route/file not asserted here."},
+    {"label":"FOUNDRY COMPONENTS","kind":"retained-family","state":"LIBRARY_OR_ROUTE_UNRESOLVED","basis":"RETAINED_NAME","location":null,"note":"Retained family name; current canonical location not asserted here."},
+    {"label":"GENERIC SHELL","kind":"quarantine","state":"QUARANTINED","basis":"QUARANTINE","location":null,"note":"Not promoted by this index."},
+    {"label":"FIELD VISUAL STUDIES · 2026-10-06","kind":"image-batch","state":"LIBRARY_ONLY","basis":"LIBRARY_INDEX","location":null,"note":"Generated image batch retained in Library; no symbolic interpretation asserted."},
+    {"label":"INK / MURAL STUDIES · 2026-10-06","kind":"image-batch","state":"LIBRARY_ONLY","basis":"LIBRARY_INDEX","location":null,"note":"Generated image batch retained in Library; no semantic interpretation asserted."},
+    {"label":"DEEP RESEARCH / INTERPHASE PACK","kind":"research-pack","state":"LIBRARY_ONLY","basis":"LIBRARY_INDEX","location":null,"note":"Research pack retained as source material; this index does not promote it to product/runtime authority."}
   ]
 }
