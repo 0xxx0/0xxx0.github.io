@@ -1,0 +1,30 @@
+name: field-urlbar
+on:
+  pull_request:
+    paths:
+      - 'field-urlbar-core.mjs'
+      - 'field-urlbar.selftest.mjs'
+      - 'phi/**'
+      - '.github/workflows/field-urlbar.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'field-urlbar-core.mjs'
+      - 'field-urlbar.selftest.mjs'
+      - 'phi/**'
+      - '.github/workflows/field-urlbar.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check URL operator core syntax
+        run: node --check field-urlbar-core.mjs
+      - name: Prove URL address grammar and authority boundary
+        run: node field-urlbar.selftest.mjs
