@@ -1,280 +1,137 @@
-/* deck-apac.js — THE APAC deck (16 judgment cards: Indonesia / Thailand / Vietnam / Philippines,
- * one cross-market card, three big-tech-in-APAC procedure cards).
- * Schema mirrors deck-crew.js exactly (who/meta/clock/clocklab/text/calls[k,t,right,v]/move/ev/
- * source/face/mode). Every scenario is fictionalized; every `source` cites a real public
- * instrument. Mercy rule: verdicts speak cost/buys grammar only — no card judges the player.
- * Load compatibility: same shape as window.CREW_DECK — the host can concat this deck as-is. */
+/*
+ * deck-apac.js — FOUR MARKETS: ID · TH · VN · PH (the clocks disagree).
+ * window.APAC_DECK = Card[] — same shape as FLOOR: who, meta, clock, clocklab,
+ * text, calls[3, exactly one right], move, ev.
+ * MERCY RULE: every verdict is Costs/Buys grammar. Nothing here says "wrong".
+ * PRIVACY: every matter is invented. The actor is "a large platform" and nothing
+ * more — no employer, no tools, no tickets, no real incidents. Statutory clocks are
+ * current-law snapshots with named instruments, not advice.
+ */
 window.APAC_DECK = [
 {
-"who": "the incident channel, two hours into a data spill",
-"meta": "INCIDENT · ID market · hour 2",
-"clock": "3×24 h",
-"clocklab": "hours left on the written-notice clock",
-"text": "A storage bucket behind the ID-market contact import shipped with the door open. Names and phone numbers walked out. The law runs a hard clock: <span class=\"q\">3×24 hours</span> of written notice to the people affected and to the new <span class=\"q\">PDP authority</span>. The root-cause review will take a week. The clock will not wait for it.",
-"calls": [
-{"k": "A", "t": "Send a broad notice now, before the facts settle", "right": false, "v": "<b>Costs:</b> a notice that later needs correcting becomes a second incident of its own. <b>Buys:</b> speed — the clock is beaten on day one. Artifact: the sent notice, dated before its facts."},
-{"k": "B", "t": "Notify on the clock with what is confirmed — written notice to the authority and the affected people, facts flagged preliminary, one named owner", "right": true, "v": "<b>Costs:</b> a thinner first notice, and a follow-up owed to everyone who reads it. <b>Buys:</b> the statutory clock is met on the record, and nothing has to be unsaid. Artifact: the timestamped notice plus the authority's receipt."},
-{"k": "C", "t": "Hold every notice until root cause is complete", "right": false, "v": "<b>Costs:</b> the 3×24 clock passes while the analysis runs. <b>Buys:</b> one complete, correction-free notice, sent when it is provably true. Next step: the finished review, weeks late."}
-],
-"move": "Breach clocks run on what is known — notify in time, mark it preliminary, correct in writing later.",
-"ev": "The notice timestamp against the clock start, and the authority's receipt filed with the incident record.",
-"source": "UU No. 27/2022 (UU PDP) Art. 46 (written notice within 3×24 hours to the data subject and the supervisory authority)",
-"face": "apac",
-"mode": "striker"
+ who:"the incident bridge · four markets at once",
+ meta:"SYNTHETIC INCIDENT · scope unknown · 06:12",
+ clock:"72h / 3×24h / now",
+ clocklab:"but whose clock",
+ text:"One security incident, user data in Indonesia, Thailand, Vietnam and the Philippines. Forensics is still finding the edges. Someone posts: \"Shall we hold notifications until the scope is <span class=\"q\">confirmed</span>?\"",
+ calls:[
+  {k:"A",t:"Hold. One clean filing beats four partial ones.",right:false,v:"<b>Costs:</b> every market's clock runs from <b>awareness</b>, not from your forensics timeline. TH is 72h to the PDPC · PH is 72h to the NPC <b>and</b> the data subjects · ID is 3×24h. Waiting for certainty is how the filing becomes a late filing."},
+  {k:"B",t:"Start each local clock from today's awareness, file the confirmed shape, supplement as scope firms up.",right:true,v:"<b>Buys:</b> you treat <b>awareness</b> as the trigger it actually is, and you trade one perfect filing for four timely ones. Note the PH wrinkle in writing: concealment of a sensitive-PI breach there is not just a filing problem."},
+  {k:"C",t:"File one global notice and cc everyone.",right:false,v:"<b>Costs:</b> instruments do not cc. Four regulators, four forms, four triggers — a global notice that does not land with the named authority on its own clock is an internal memo."}],
+ move:"Rule: a breach clock starts at awareness, not at confirmation. Count each market separately — TH 72h · PH 72h · ID 3×24h — and let scope updates ride as supplements.",
+ ev:"Evidence: the written awareness timestamp, per-market instrument names (TH PDPA · PH NPC Circular 16-03 · ID UU 27/2022 + GR 33/2026 · VN PDP Law 91/2025/QH15), and the filing log per authority.",
+ source:"DLA Piper PDPC clarification 2025-02; privacy.gov.ph/breach-reporting; DFDL on GR 33/2026; EY VN PDP alert"
 },
 {
-"who": "the regional data lead, moving a warehouse",
-"meta": "ARCHITECTURE · ID→SG pipeline · no date",
-"clock": "one migration",
-"clocklab": "windows before the migration date hardens into roadmap",
-"text": "The plan moves ID user records into the regional <span class=\"q\">data warehouse</span> across the border. The law does not ban it — it prices it. A transfer needs an adequate level of protection or binding safeguards, and the fines are quoted against <span class=\"q\">annual revenue</span>. The migration date is already on the roadmap. The safeguards are still on a slide.",
-"calls": [
-{"k": "A", "t": "Migrate on the roadmap date; retrofit the safeguards afterward", "right": false, "v": "<b>Costs:</b> the first months of data sit outside any documented safeguard. <b>Buys:</b> the roadmap holds and the pipeline unblocks. Artifact: the migration log — with a missing transfer memo as its shadow."},
-{"k": "B", "t": "Hold the migration until the transfer is documented — safeguard basis named, clauses signed, transfer memo filed", "right": true, "v": "<b>Costs:</b> the migration slips a quarter and the warehouse waits empty. <b>Buys:</b> the transfer has a defense before it has traffic. Artifact: the signed safeguards and the transfer memo, filed before the first row moves."},
-{"k": "C", "t": "Keep everything in-country permanently and fragment the analytics", "right": false, "v": "<b>Costs:</b> every regional report now runs on partial data, forever. <b>Buys:</b> no cross-border question ever comes up. Artifact: the fragmentation note in the architecture decision record."}
-],
-"move": "A cross-border move is a documented decision, not a pipeline ticket — file the safeguard basis before the first row moves.",
-"ev": "The transfer memo and signed clauses, dated before the migration log's first entry.",
-"source": "UU No. 27/2022 (UU PDP) Art. 56 (cross-border transfer: adequate protection or binding safeguards); Art. 57 (administrative sanctions, incl. up to 2% of annual revenue)",
-"face": "apac",
-"mode": "router"
+ who:"product · the logs-in-region thread",
+ meta:"PLATFORM SERVICES · launch review · 14:20",
+ clock:"Q1",
+ clocklab:"launch window",
+ text:"\"Regulators want activity logs <span class=\"q\">in-country</span> — right? So we localize storage everywhere in APAC and stand up entities where needed. Legal can green-light the plan?\"",
+ calls:[
+  {k:"A",t:"Yes — localize everything, everywhere. Safe default.",right:false,v:"<b>Costs:</b> three different instruments ask for three different things. VN tiers localization by data type and trigger (Decree 333/2026 keeping Decree 53/2022's frame) · TH wants a notification to ETDA with a local contact point · ID wants PSE registration. Building an entity per market answers questions nobody asked."},
+  {k:"B",t:"Split it: what does each instrument actually require — storage, presence, or a named contact? Then build only that.",right:true,v:"<b>Buys:</b> you convert one vague word into three dated obligations. Storage ≠ presence ≠ notification. \"We don't localize anywhere\" and \"we localize everything\" each answer a question VN is not asking."},
+  {k:"C",t:"Ship global and document the rationale.",right:false,v:"<b>Costs:</b> fine for the markets that only want a contact point — fatal where localization is tiered by data type. The rationale document will be read back at you later."}],
+ move:"Rule: \"in-country\" is never one requirement. Name the instrument and what it demands — storage (VN tiers) · presence/notification (TH Royal Decree B.E. 2565, ETDA) · registration (ID PSE) — then build only that. Neither \"nowhere\" nor \"everywhere\" is what VN asks.",
+ ev:"Evidence: a three-column table — market · instrument · what it actually asks for — with dated obligations and one named owner per line.",
+ source:"EY VN Legal Alert 2026-09 (Decree 333/2026/ND-CP); ETDA Royal Decree B.E. 2565 translation; GR 71/2019 (ID)"
 },
 {
-"who": "a product manager, shipping an anti-fraud check",
-"meta": "LAUNCH · ID fraud model · T-9 days",
-"clock": "9 days",
-"clocklab": "days before launch with no written basis behind it",
-"text": "The feature screens ID sign-ups for fraud before any consent screen appears. The team defaults to <span class=\"q\">consent</span> because it is the word everyone knows. The law lists more bases than that — contract, legal obligation, vital interests, public interest, <span class=\"q\">legitimate interest</span>. A safety check has no meaningful way to be refused. The basis still has to be written down.",
-"calls": [
-{"k": "A", "t": "Bolt a consent screen onto install and treat the tap as the basis", "right": false, "v": "<b>Costs:</b> a consent no user can realistically refuse reads as no consent at all. <b>Buys:</b> launch keeps its date and the copy looks friendly. Artifact: the consent screen and a log schema nobody can explain."},
-{"k": "B", "t": "Name the basis in writing before launch — a legitimate-interest record with a balancing test attached", "right": true, "v": "<b>Costs:</b> a week of memo-writing while the model waits. <b>Buys:</b> the processing stands on a basis that fits how the feature actually works. Artifact: the signed basis memo and the balancing test in the launch file."},
-{"k": "C", "t": "Launch under contract necessity and argue the point later", "right": false, "v": "<b>Costs:</b> the argument arrives on someone else's schedule, not yours. <b>Buys:</b> nothing moves the launch date. Artifact: the launch ticket with its basis field left empty."}
-],
-"move": "The basis is chosen before launch and written where the record lives — consent is one basis, not the reflex.",
-"ev": "The written basis memo and balancing test, dated before the launch ticket closes.",
-"source": "UU No. 27/2022 (UU PDP) Arts. 20–21 (lawful bases incl. legitimate interest; requirements for consent)",
-"face": "apac",
-"mode": "namefixer"
+ who:"the escalation channel · 24h clock",
+ meta:"AUTHORITY REQUEST · written · 16:44",
+ clock:"24h",
+ clocklab:"to act",
+ text:"A government content-removal request lands: 24 hours, legal basis cited in one vague clause, item list attached. Content policy says removal is defensible. Someone says: \"Let's just <span class=\"q\">remove</span> the lot and log it after.\"",
+ calls:[
+  {k:"A",t:"Remove everything in the thread, log it, done inside the clock.",right:false,v:"<b>Costs:</b> blanket removal beyond the specified items is scope you invented. The record of what was actually asked for — versus what went — becomes the story."},
+  {k:"B",t:"Remove only the specified items, inside the clock, and log the scope line by line. Escalate the vague basis in parallel.",right:true,v:"<b>Buys:</b> you meet the statutory window (VN Decree 147/2024: 24h from a written or electronic authority request — 48h for user complaints) while keeping the one artifact that matters: the exact scope."},
+  {k:"C",t:"Escalate to counsel first and act after they reply.",right:false,v:"<b>Costs:</b> the clock does not pause for a legal review. VN's 24h runs from the request, not from your comfort. Escalation is parallel, never sequential."}],
+ move:"Rule: act inside the window on the specified scope only; the escalation runs alongside. Every takedown is two artifacts — what was asked, what was done.",
+ ev:"Evidence: the request as received, the item-level action log, and the escalation note naming the clause you want narrowed.",
+ source:"Decree 147/2024/ND-CP (VN) content-removal windows; GR 5/2020 (ID) priority-category clocks; TH Royal Decree transparency duties"
 },
 {
-"who": "the Bangkok DPO, on a Sunday",
-"meta": "INCIDENT · TH vendor leak · Sunday 21:40",
-"clock": "72 h",
-"clocklab": "hours to notify the PDPC once the breach is known",
-"text": "A processor's email system leaked Thai customer records. The vendor is still saying <span class=\"q\">we are still checking</span>. The clock does not run on the vendor's timeline — it runs on when the controller becomes aware. The <span class=\"q\">PDPA</span> wants the <span class=\"q\">PDPC</span> notified without undue delay and, when feasible, within 72 hours. The vendor contract is where the next one gets prevented.",
-"calls": [
-{"k": "A", "t": "Wait for the vendor's final report before notifying anyone", "right": false, "v": "<b>Costs:</b> the 72-hour window closes under someone else's timeline. <b>Buys:</b> one notification carrying complete vendor facts. Artifact: the vendor's report — dated after the clock expired."},
-{"k": "B", "t": "Notify the PDPC within 72 hours on the known facts, and put the notification duty into the vendor contract", "right": true, "v": "<b>Costs:</b> a first notice with open questions still inside it. <b>Buys:</b> the clock is met, and the next leak arrives with a contractual deadline. Artifact: the PDPC notification receipt and the amended processor clause."},
-{"k": "C", "t": "Notify only the affected customers and skip the regulator", "right": false, "v": "<b>Costs:</b> the PDPC hears about it from customers first. <b>Buys:</b> the public-facing duty is visibly handled. Artifact: the customer email — with no regulator receipt beside it."}
-],
-"move": "The breach clock starts at awareness, not at certainty — notify on known facts and fix the vendor terms the same week.",
-"ev": "The awareness timestamp, the PDPC receipt inside 72 hours, and the amended processor clause.",
-"source": "Thailand PDPA B.E. 2562 (2019) s.37(4) (notify the Office of the PDPC without undue delay, when feasible within 72 hours); s.41 (DPO)",
-"face": "apac",
-"mode": "router"
+ who:"the age-assurance design review",
+ meta:"TEEN SAFETY · same week as PP Tunas · 11:00",
+ clock:"before",
+ clocklab:"ship",
+ text:"Child-protection rules take effect the same week as the feature review. The regulator expects <span class=\"q\">age assurance</span>. The privacy lead says every age signal is itself personal data. \"So which is it — gate everyone or infer?\"",
+ calls:[
+  {k:"A",t:"Hard age gate at signup. Verify everyone. Cleanest.",right:false,v:"<b>Costs:</b> ID's PP 17/2025 wants effective verification where a minimum age is claimed — but every document or signal you collect to prove it becomes new personal data under the PDP Law. Collecting more to comply creates a second compliance problem."},
+  {k:"B",t:"Risk-based: verify hard where the service is 18/21+, infer and restrict features elsewhere, and document why.",right:true,v:"<b>Buys:</b> matches the instrument's own shape — PP 17/2025 is risk-based, not gate-everything. You collect the minimum, restrict by feature, and keep the assessment that explains the line."},
+  {k:"C",t:"Minor mode on by default for everyone, no signals collected.",right:false,v:"<b>Costs:</b> a defensible design — but it does not discharge verification duties where a minimum age is claimed, and TH/PH consent rules still need a lawful basis for whatever you do collect."}],
+ move:"Rule: age assurance is a risk ladder, not a gate. Verify where the law claims a minimum age; infer and restrict elsewhere; whatever you collect becomes personal data — so collect the minimum and write down why.",
+ ev:"Evidence: the risk assessment mapping features to age tiers, the data-minimisation note, and instrument names (ID PP 17/2025 · TH PDPA child consent · PH DPA RA 10173 consent rules for minors).",
+ source:"Baker McKenzie / globalcompliancenews on PP 17/2025 (PP Tunas) 2025-05; CCIA comments 2026-01; privacy.gov.ph consent rules"
 },
 {
-"who": "a platform ops lead, reading a new rulebook",
-"meta": "LAUNCH · TH marketplace · T-14 days",
-"clock": "14 days",
-"clocklab": "days before the service opens to Thai users",
-"text": "The feature is a <span class=\"q\">digital platform service</span> under the Royal Decree: users offer things, other users buy them. The Decree asks for notification to <span class=\"q\">ETDA</span>, a coordinator who answers in-country, and terms published where users can read them. The launch plan contains none of these. It contains a date.",
-"calls": [
-{"k": "A", "t": "File the ETDA notification before the service opens, name the coordinator, publish the terms page", "right": true, "v": "<b>Costs:</b> two weeks of paperwork and one slipped date. <b>Buys:</b> the service opens with its entry obligations already answered. Artifact: the notification number, the named coordinator, and the terms URL inside the launch checklist."},
-{"k": "B", "t": "Launch on date and file the notification afterward", "right": false, "v": "<b>Costs:</b> the service goes live while its first regulatory act is out of order. <b>Buys:</b> the launch date and its press cycle hold. Artifact: the filing receipt — stamped after the first users arrived."},
-{"k": "C", "t": "Argue the service is not a platform and launch clean", "right": false, "v": "<b>Costs:</b> if the argument loses, the first filing is also late. <b>Buys:</b> no paperwork today and a strong legal read to argue from. Artifact: the memo — one page, untested."}
-],
-"move": "Platform rules are entry tickets, not paperwork debt — notify before the first user arrives.",
-"ev": "The ETDA notification number dated before launch, and the published terms page with its first commit date.",
-"source": "Thailand Royal Decree on Digital Platform Services B.E. 2565 (2022) (notification to ETDA before service; coordinator and terms duties)",
-"face": "apac",
-"mode": "completer"
+ who:"analytics · one global pipeline",
+ meta:"DATA PLATFORM · transfer review · 10:15",
+ clock:"before",
+ clocklab:"the pipeline ships",
+ text:"\"We can do one global <span class=\"q\">transfer</span> impact assessment and cite it everywhere, right? Vietnam's new PDP law and Indonesia's GR are both just GDPR-style paperwork.\"",
+ calls:[
+  {k:"A",t:"One global assessment, cited everywhere. Efficient.",right:false,v:"<b>Costs:</b> VN PDP Law 91/2025/QH15 wants transfer dossiers per its own shape (Art. 38 live since 2026-01-01); ID Law 27/2022's transfer duties are detailed by GR 33/2026, effective 2027-01-16. \"GDPR-style\" is a resemblance, not a passport."},
+  {k:"B",t:"Per-jurisdiction transfer files, built off one shared evidence pack.",right:true,v:"<b>Buys:</b> one evidence base, four legal conclusions. The dossier that survives review is the one written to the instrument that asked."},
+  {k:"C",t:"Keep transfers in-region until every assessment lands.",right:false,v:"<b>Costs:</b> it trades a paperwork problem for an infrastructure one, and in-region processing still faces its own localization and consent questions. Usually the most expensive \"safe\" option."}],
+ move:"Rule: one evidence pack, one file per border. A shared template is a donor; the assessment that counts is the one written to the instrument that asked for it.",
+ ev:"Evidence: per-market transfer dossiers referencing one evidence pack, each naming its instrument (VN PDP Law 91/2025/QH15 Art. 38 · ID UU 27/2022 + GR 33/2026) and its date.",
+ source:"Baker McKenzie 'Decoding Vietnam's PDP Law'; DFDL on GR 33/2026 (promulgated 2026-07-16, effective 2027-01-16)"
 },
 {
-"who": "a growth marketer, with a pre-ticked box",
-"meta": "GROWTH · TH signup flow · test 14",
-"clock": "one signup",
-"clocklab": "signups collected on a basis nobody can show",
-"text": "The signup flow ships one checkbox, pre-ticked: share my details with <span class=\"q\">partners</span> for offers. The <span class=\"q\">PDPA</span> wants consent that is informed and separately requested per purpose — a pre-ticked box is a setting, not an agreement. The flow converts better with the tick. The consent log records a tap that never happened.",
-"calls": [
-{"k": "A", "t": "Keep the pre-tick — the conversion lift is real and users can untick it", "right": false, "v": "<b>Costs:</b> every consent in the log becomes contestable at once. <b>Buys:</b> the lift and the roadmap's momentum. Artifact: the consent log — clean rows, weak roots."},
-{"k": "B", "t": "Untick it, split consent per purpose, and log the consent version with the flow", "right": true, "v": "<b>Costs:</b> the conversion lift goes away and the test loses. <b>Buys:</b> consents that survive a complaint, and a log that answers questions. Artifact: the consent record — purpose, version, timestamp, unticked default."},
-{"k": "C", "t": "Keep the pre-tick but call the basis legitimate interest instead", "right": false, "v": "<b>Costs:</b> an interest-based label over a consent-shaped flow is an argument, not a shield. <b>Buys:</b> the flow stays untouched. Artifact: the basis memo stretched over the old checkbox."}
-],
-"move": "A pre-ticked box records a default, not a decision — untick it, split the purposes, log the version.",
-"ev": "The consent log schema with purpose and version fields, and the unticked default in the shipped build.",
-"source": "Thailand PDPA B.E. 2562 (2019) ss.19–21 (lawful basis; consent must be informed and separately requested per purpose)",
-"face": "apac",
-"mode": "namefixer"
+ who:"the helpdesk · one request, four markets",
+ meta:"DATA SUBJECT REQUEST · routed to you · 13:07",
+ clock:"3×24h / now",
+ clocklab:"four clocks",
+ text:"One access request touches data from all four markets. Four response clocks, four different answers to \"who is the <span class=\"q\">controller</span> here\". The helpdesk asks: \"Who answers, in whose name?\"",
+ calls:[
+  {k:"A",t:"One regional response, signed by whoever is easiest to route to.",right:false,v:"<b>Costs:</b> the named controller differs by market — the same product can be controller in one country and processor in another. Answering in a name that is not the controller's is a filing problem before it is a courtesy problem."},
+  {k:"B",t:"Route to the DPO: identify the controller per market, run each local clock, one coordinated response per authority.",right:true,v:"<b>Buys:</b> clocks get managed (ID's rights-request window is 3×24h — a different animal from TH and PH's regimes) while the answers stay in the right name. Coordination is a front-end; the filings stay local."},
+  {k:"C",t:"Four separate local responses, no coordination.",right:false,v:"<b>Costs:</b> four answers to one person can contradict each other, and every contradiction is producible. Coordinate the facts, localise the form."}],
+ move:"Rule: one requester, many controllers. The DPO owns the map; each market answers in its own name and on its own clock; the facts are coordinated, never the identity.",
+ ev:"Evidence: the controller map per market, the per-authority response log with dates, and the instrument names (PH DPA RA 10173 · ID UU 27/2022 · TH PDPA · VN PDP Law 91/2025/QH15).",
+ source:"privacy.gov.ph registration rules (Circular 2022-04); Chambers Data Protection 2026 (ID/TH); DFDL ID alerts"
 },
 {
-"who": "a compliance analyst, with a 60-day clock",
-"meta": "FILING · VN processing · day 12",
-"clock": "60 days",
-"clocklab": "days from processing start to the dossier with A05",
-"text": "New processing for the VN market started on the 1st. <span class=\"q\">Decree 13</span> wants an impact assessment dossier — the <span class=\"q\">DPIA</span> in the prescribed form — filed with <span class=\"q\">A05</span> within 60 days of processing start. Not an approval. A filing. The team has an internal privacy review that is most of the same content, living on an internal wiki.",
-"calls": [
-{"k": "A", "t": "Treat the internal review as the dossier — same content, already written", "right": false, "v": "<b>Costs:</b> the filing that does not exist is the only one the regulator can receive. <b>Buys:</b> zero duplicate work. Artifact: the internal review link — invisible from outside."},
-{"k": "B", "t": "File the dossier in the prescribed form within the 60 days, keep the receipt, log every amendment", "right": true, "v": "<b>Costs:</b> reformatting work and one afternoon of forms. <b>Buys:</b> a filed record that answers before anyone asks. Artifact: the A05 filing receipt and the amendment log beside it."},
-{"k": "C", "t": "Start the 60 days at public launch instead of processing start", "right": false, "v": "<b>Costs:</b> the real deadline lands earlier than the one on the plan. <b>Buys:</b> more drafting time and a calmer quarter. Artifact: the plan's date field — wrong by however long the beta ran."}
-],
-"move": "Filing obligations count from processing start, and the internal doc is not the filing — file the form, keep the receipt.",
-"ev": "The A05 filing receipt dated inside the 60 days, and the amendment log kept with it.",
-"source": "Decree 13/2023/ND-CP on personal data protection, Art. 24 (impact assessment dossier to A05 within 60 days of processing start)",
-"face": "apac",
-"mode": "router"
+ who:"the ranking model · launch checklist",
+ meta:"AUTOMATED DECISIONS · gate review · 17:30",
+ clock:"pre-launch",
+ clocklab:"filing gate",
+ text:"The personalization team calls it \"just ranking\". Legal calls it <span class=\"q\">automated decision-making</span>. One regulator wants the system registered before launch; two others want impact assessments and user-facing explanations. \"What ships with the feature?\"",
+ calls:[
+  {k:"A",t:"Ship the feature, register afterwards if asked.",right:false,v:"<b>Costs:</b> PH NPC Circular 2022-04 wants ADM/profiling notified at registration time — <b>before launch, not after</b>. Missing the pre-launch step is a filing problem you cannot fix with a good explanation."},
+  {k:"B",t:"Hold the PH launch until registration is filed; everywhere else ship with the impact assessment and the user-facing explanation attached.",right:true,v:"<b>Buys:</b> each regulator gets what its instrument asks — PH gets its pre-launch notice, VN and TH get assessment and transparency. One feature, three artifacts, zero surprises."},
+  {k:"C",t:"Pause launch in all four markets until every filing lands.",right:false,v:"<b>Costs:</b> the heavy answer — and it usually trains teams to stop telling legal things. Per-market gating exists precisely so the launch does not need to be global-or-nothing."}],
+ move:"Rule: know which regulators want the paper BEFORE the switch flips. PH registers ADM pre-launch; VN/TH want assessments and explanations. Gate per market — never global-or-nothing.",
+ ev:"Evidence: the PH registration filing and date, the VN/TH impact-assessment dossiers, and the user-facing explanation text shipped with the feature.",
+ source:"NPC Circular 2022-04 (PH) ADM/profiling notification; Chambers 2026 (TH/VN); Baker McKenzie VN PDP alert"
 },
 {
-"who": "an infra engineer, moving traffic offshore",
-"meta": "INFRA · VN edge routing · change 4412",
-"clock": "one change",
-"clocklab": "change windows before the routing ships",
-"text": "The change routes VN user traffic through the regional <span class=\"q\">edge</span> outside the country. <span class=\"q\">Decree 13</span> wants a cross-border transfer dossier filed with <span class=\"q\">A05</span> — post-transfer review, not a permission slip. And the <span class=\"q\">localization rules</span> in the draft round are moving again. The change is small. The obligations it triggers are not.",
-"calls": [
-{"k": "A", "t": "Ship the routing now and file the dossier once the traffic settles", "right": false, "v": "<b>Costs:</b> transfers run for months before the record exists. <b>Buys:</b> the latency win lands this sprint. Artifact: the change log — data moving ahead of its own paperwork."},
-{"k": "B", "t": "Keep all VN traffic in-country until the draft law passes", "right": false, "v": "<b>Costs:</b> the edge plan stalls behind a legislative calendar nobody controls. <b>Buys:</b> zero transfer exposure while the rules move. Artifact: the architecture note pinned to the draft bill's next reading."},
-{"k": "C", "t": "File the transfer dossier before the routing ships, keep the confirmation with the runbooks, and put the draft rules on a monthly watch", "right": true, "v": "<b>Costs:</b> the change waits one sprint and the filing work lands on the infra board. <b>Buys:</b> the routing ships with its dossier already filed. Artifact: the A05 confirmation in the runbook folder and the dated draft-rules watch note."}
-],
-"move": "Cross-border routing is a filing event — dossier first, then the packets flow, and the draft rules get a watcher.",
-"ev": "The transfer dossier receipt before the change log entry, and the dated note tracking the draft localization round.",
-"source": "Decree 13/2023/ND-CP Arts. 37–39 (cross-border transfer impact assessment dossier to A05, post-transfer review); Decree 53/2022/ND-CP (Cybersecurity Law data localization conditions); draft PDP Law localization provisions (public consultation round)",
-"face": "apac",
-"mode": "completer"
+ who:"trust & safety · the scam listings",
+ meta:"E-COMMERCE SURFACE · three markets · 09:40",
+ clock:"statutory",
+ clocklab:"redress window",
+ text:"Scam listings pull consumer complaints in three markets. The consumer-protection regime wants merchant takedowns and redress now; the litigation lead says <span class=\"q\">preserve</span> everything first. \"Sequence it how?\"",
+ calls:[
+  {k:"A",t:"Refund and take down first. Consumers first, questions later.",right:false,v:"<b>Costs:</b> under PH's RA 12009 + the DTI/DOJ/DICT joint order, platform duties include redress — but acting first and preserving later can eat the evidence the same platform will be asked for."},
+  {k:"B",t:"Preserve the listings and evidence first, then act inside the statutory window.",right:true,v:"<b>Buys:</b> preservation and redress are not opposites — they are sequence. PH RA 12009 / JAO 24-03 duties land either way; the evidence is what makes the takedown defensible."},
+  {k:"C",t:"Route it all to trust & safety and wait for a regulator notice.",right:false,v:"<b>Costs:</b> ID's GR 5/2020 and TH's Royal Decree duties run on complaint handling and information requests — waiting for a notice is how the notice becomes an enforcement question."}],
+ move:"Rule: preserve, then act, inside the window. Consumer redress and evidence preservation are a sequence, not a trade-off — PH RA 12009/JAO 24-03 · ID GR 5/2020 · TH Royal Decree B.E. 2565.",
+ ev:"Evidence: the preserved listing snapshots with hashes and timestamps, the takedown log, and the redress record per complaint.",
+ source:"ecommerce.dti.gov.ph JAO 24-03 (PH RA 12009); GR 5/2020 (ID); ETDA Royal Decree B.E. 2565 complaint duties"
 },
 {
-"who": "a support agent, holding a deletion ticket",
-"meta": "SUPPORT · VN deletion · ticket 88213",
-"clock": "one ticket",
-"clocklab": "tickets closed before the deletion actually ran",
-"text": "A VN user wrote in asking for their account and data to be deleted. <span class=\"q\">Decree 13</span> gives data subject rights — withdrawal of consent, deletion, complaints. The support tool has a <span class=\"q\">resolve</span> button. The deletion runs in a Thursday batch job. The user has already said thanks.",
-"calls": [
-{"k": "A", "t": "Run or schedule the deletion first, then close the ticket with the deletion log attached and the exceptions named", "right": true, "v": "<b>Costs:</b> the ticket stays open two more days and the queue looks worse. <b>Buys:</b> closure that matches reality. Artifact: the deletion log — scope, timestamp, and any records kept under a legal-obligation exception."},
-{"k": "B", "t": "Close the ticket now — the user is satisfied, the deletion runs Thursday", "right": false, "v": "<b>Costs:</b> the record says resolved while the data still sits there. <b>Buys:</b> a clean queue and a happy user today. Artifact: the closed ticket — the batch job still pending beneath it."},
-{"k": "C", "t": "Keep the data and send the user the retention policy", "right": false, "v": "<b>Costs:</b> a request answered with a policy instead of an act. <b>Buys:</b> nothing is deleted before its time. Artifact: the policy email beside an unrun deletion."}
-],
-"move": "A ticket is closed by the artifact, not the mood — run the deletion, keep the log, then resolve.",
-"ev": "The deletion batch log entry for ticket 88213, and the closure note naming any retained exceptions.",
-"source": "Decree 13/2023/ND-CP, Art. 9 (data subject rights: access, correction, deletion, consent withdrawal, complaint)",
-"face": "apac",
-"mode": "striker"
-},
-{
-"who": "the PH country counsel, at hour 60",
-"meta": "INCIDENT · PH staff records · hour 60",
-"clock": "72 h",
-"clocklab": "hours left on the NPC and data-subject notice",
-"text": "A phishing incident put PH staff records in the wrong hands. <span class=\"q\">RA 10173</span> runs its own clock: notice to the <span class=\"q\">NPC</span> and to the affected data subjects within 72 hours of knowing. Hour 60 on the wall. Comms wants a statement first. The Act wants two notices.",
-"calls": [
-{"k": "A", "t": "File with the NPC only — the regulator is the one who enforces", "right": false, "v": "<b>Costs:</b> the affected people hear about their own records from someone else. <b>Buys:</b> the regulatory half of the duty is done. Artifact: the NPC receipt — alone on the incident board."},
-{"k": "B", "t": "Notify both the NPC and the affected data subjects within the clock — what happened, what data, what to do, and the DPO's contact", "right": true, "v": "<b>Costs:</b> a busy night and a notice written while facts are still moving. <b>Buys:</b> both duties met on time, telling one consistent story twice. Artifact: the NPC receipt and the data-subject notice, timestamped inside 72 hours."},
-{"k": "C", "t": "Hold formal notice until the investigation closes and publish a holding statement", "right": false, "v": "<b>Costs:</b> the statutory window closes behind the investigation. <b>Buys:</b> a single, complete public narrative. Artifact: the statement — polished, late."}
-],
-"move": "Two notices, one clock — the regulator and the people move together or not at all.",
-"ev": "Both receipts inside 72 hours of the awareness timestamp, and the DPO contact line inside the notice.",
-"source": "RA 10173 (Data Privacy Act of 2012), §39 (notify the National Privacy Commission and affected data subjects within 72 hours); its IRR",
-"face": "apac",
-"mode": "router"
-},
-{
-"who": "a country ops lead, with a new processing system",
-"meta": "LAUNCH · PH system · go-live 14",
-"clock": "14 days",
-"clocklab": "days to go-live with no registration and no name",
-"text": "The PH team is standing up a new <span class=\"q\">data processing system</span> — recruitment records, one country, one tool. The Act wants the system registered and a <span class=\"q\">DPO</span> designated. The plan says register once the system is stable. The Act describes a register of systems that process.",
-"calls": [
-{"k": "A", "t": "Register after launch, once the system shape is final", "right": false, "v": "<b>Costs:</b> live processing with an empty register entry. <b>Buys:</b> registration that describes the real system, not the guess. Artifact: the register receipt — filed after the first records arrived."},
-{"k": "B", "t": "Register the system before processing starts, name the DPO in the record, keep the registration number in the runbook", "right": true, "v": "<b>Costs:</b> two forms and one go-live item that slips a week. <b>Buys:</b> the system goes live in the order the Act reads things. Artifact: the registration number and the DPO designation letter in the launch folder."},
-{"k": "C", "t": "Rely on the global entity's registration in another country", "right": false, "v": "<b>Costs:</b> a foreign register entry answers a local question. <b>Buys:</b> no duplicate forms this quarter. Artifact: the global registration — filed somewhere else."}
-],
-"move": "Register the system that processes, name the person who answers for it — before, not after, the first record lands.",
-"ev": "The registration number and DPO designation dated before the go-live ticket.",
-"source": "RA 10173 (Data Privacy Act of 2012), §30 (Data Protection Officer); §46 (registration of data processing systems)",
-"face": "apac",
-"mode": "completer"
-},
-{
-"who": "a partnerships lead, with a co-marketing deal",
-"meta": "DEAL · PH partner promo · T-10 days",
-"clock": "10 days",
-"clocklab": "days before the partner wants the list",
-"text": "The promo shares a user list with a <span class=\"q\">telco</span> partner. The list exists. The sharing rules want a <span class=\"q\">data sharing agreement</span> first — purposes, fields, security, retention, and who answers for what. The partner's deadline is in ten days. The folder link is already drafted.",
-"calls": [
-{"k": "A", "t": "Share now through the managed folder and paper it afterward", "right": false, "v": "<b>Costs:</b> fields crossed a boundary before anyone wrote down which fields. <b>Buys:</b> the promo keeps its date. Artifact: the access log — wider than any agreement."},
-{"k": "B", "t": "Delete the names and share the rest as anonymous", "right": false, "v": "<b>Costs:</b> phone numbers with hashed IDs are still personal data to anyone holding the key. <b>Buys:</b> a smaller-looking file and a faster deal. Artifact: the export — renamed columns, same rows."},
-{"k": "C", "t": "Sign the agreement first — named fields, limited purpose, dated retention, roles stated — then share through the managed channel", "right": true, "v": "<b>Costs:</b> ten days of drafting and one lawyer's afternoon. <b>Buys:</b> the promo runs on a record that survives being read aloud. Artifact: the signed agreement and the field-level export log behind it."}
-],
-"move": "Sharing starts when the agreement names the fields — purpose, retention, roles, then the folder link.",
-"ev": "The signed data sharing agreement, and the export log listing exactly the fields that crossed.",
-"source": "NPC Circular 2020-03 (Data Sharing Agreements); RA 10173 (Data Privacy Act of 2012), §§12–13 (criteria for lawful processing)",
-"face": "apac",
-"mode": "namefixer"
-},
-{
-"who": "a country policy lead, taking a regulator's call",
-"meta": "CALL · informal regulator contact · 16:20",
-"clock": "one call",
-"clocklab": "minutes in an informal conversation before it becomes a record",
-"text": "The officer calls about removal trends and asks, casually, for internal numbers — <span class=\"q\">off the record</span>, just background. The regional rule: regulator contact goes through <span class=\"q\">regional counsel</span>, in writing, on the official channel. The relationship is genuinely good. That is exactly why the answer needs a shape check.",
-"calls": [
-{"k": "A", "t": "Answer helpfully on the call — the relationship is the asset", "right": false, "v": "<b>Costs:</b> numbers spoken into a phone have no version, no author, no recall. <b>Buys:</b> goodwill today and a reputation as the responsive one. Artifact: the call note — if anyone writes one."},
-{"k": "B", "t": "Take the question, commit to nothing, and route the ask to regional counsel for a written answer on the official channel", "right": true, "v": "<b>Costs:</b> the officer gets the answer slower than the one they wanted. <b>Buys:</b> every fact that reaches a regulator arrives dated, sourced, and approved. Artifact: the routed request and the written reply filed to the contact log."},
-{"k": "C", "t": "Decline to engage until a formal notice arrives", "right": false, "v": "<b>Costs:</b> a soft ask hardens into a formal one, and the relationship pays for it. <b>Buys:</b> nothing leaves the building unauthorized. Artifact: the refusal note — clean, cold."}
-],
-"move": "Informal asks get formal paths — take the question, route the answer, keep the record in one channel.",
-"ev": "The contact log entry, the routed request to regional counsel, and the written reply's date and version.",
-"source": "grounded in public regulator procedure: RA 10173 (NPC powers and procedure, its IRR); UU No. 27/2022 (UU PDP) Art. 7 (supervisory authority examination powers)",
-"face": "apac",
-"mode": "router"
-},
-{
-"who": "a trust and safety lead, with a takedown batch",
-"meta": "TICKET · takedown ground · batch 71",
-"clock": "one batch",
-"clocklab": "tickets labeled before the ground gets recorded",
-"text": "The batch mixes two things. Some items are a <span class=\"q\">legal request</span> from a government. Others the <span class=\"q\">policy</span> removes on its own terms. The ticket labels all of it legal. Where local law requires more than policy, law wins. Where policy is stricter than law, policy still applies — but it does not get to borrow the word law.",
-"calls": [
-{"k": "A", "t": "Label the whole batch legal — the outcome is the same either way", "right": false, "v": "<b>Costs:</b> the day someone asks which ground removed what, the record answers wrong. <b>Buys:</b> one label, one workflow, done by lunch. Artifact: the batch ticket — uniform labels over mixed grounds."},
-{"k": "B", "t": "Record the exact ground per item — legal request or policy enforcement — and follow local law where it demands more", "right": true, "v": "<b>Costs:</b> two labels and two review paths where one felt like enough. <b>Buys:</b> a takedown record that survives being audited. Artifact: the per-item ground field, and the notice text matching each ground."},
-{"k": "C", "t": "Apply global policy to everything and cite policy in every notice", "right": false, "v": "<b>Costs:</b> items removed on legal compulsion now look voluntary, and the reverse. <b>Buys:</b> one consistent public story. Artifact: the notice template — one voice, two realities."}
-],
-"move": "The ground is part of the record — law and policy get separate labels and separate words in the notice.",
-"ev": "The per-item ground field, and one notice sample per ground showing the different wording.",
-"source": "grounded in platform duties under public instruments: Thailand Royal Decree on Digital Platform Services B.E. 2565 (2022); Decree 53/2022/ND-CP (VN Cybersecurity Law coordination and takedown duties)",
-"face": "apac",
-"mode": "namefixer"
-},
-{
-"who": "a compliance analyst, asking trust and safety for logs",
-"meta": "INTERFACE · removal log request · day 3",
-"clock": "one request",
-"clocklab": "days before the regulator's question needs its answer",
-"text": "A regulator asked how a piece of content was handled. <span class=\"q\">Trust and safety</span> removed it in minutes — the job done right. Compliance needs the <span class=\"q\">removal log</span>: who, which ground, when, what scope. The log lives in the trust and safety tool. The answer is due in three days.",
-"calls": [
-{"k": "A", "t": "Reconstruct the timeline from the ticket thread and answer", "right": false, "v": "<b>Costs:</b> memory fills gaps the log already holds. <b>Buys:</b> the answer goes out today. Artifact: the reply — sourced to a thread instead of a record."},
-{"k": "B", "t": "Pull the preserved removal log before answering — ground, timestamp, actor, scope — and answer from the artifact", "right": true, "v": "<b>Costs:</b> two days of asking nicely and one internal SLA debate. <b>Buys:</b> every sentence in the answer has a row behind it. Artifact: the log export, and the answer mapped line by line to it."},
-{"k": "C", "t": "Answer with the policy summary and skip the log", "right": false, "v": "<b>Costs:</b> the summary describes what usually happens, not what happened. <b>Buys:</b> no cross-team request today. Artifact: the summary link — generic where the question was specific."}
-],
-"move": "Answer regulators from rows, not recollection — pull the log first, map every sentence to a line.",
-"ev": "The removal log export, and the answer sheet with each claim mapped to its row.",
-"source": "grounded in accountability records practice: RA 10173 (Data Privacy Act of 2012), Principle of Accountability and its IRR; Decree 13/2023/ND-CP Art. 24 (records kept with the impact assessment dossier)",
-"face": "apac",
-"mode": "namer"
-},
-{
-"who": "the regional incident lead, with four clocks",
-"meta": "INCIDENT · four markets · day 1",
-"clock": "4 regimes",
-"clocklab": "notice clocks running under one global template",
-"text": "One spill, four markets. SG wants the <span class=\"q\">PDPC</span> notified within 3 calendar days of assessing a notifiable breach. AU's <span class=\"q\">NDB</span> scheme says as soon as practicable. Korea's <span class=\"q\">PIPA</span> says without delay. China's <span class=\"q\">PIPL</span> says immediately. The global template says within 30 days. Four clocks are already running.",
-"calls": [
-{"k": "A", "t": "Run the global 30-day template across all four markets", "right": false, "v": "<b>Costs:</b> the tightest regimes' clocks expire inside the template's comfort window. <b>Buys:</b> one process, one owner, one version of the truth. Artifact: the template — its date field contradicted by four statutes."},
-{"k": "B", "t": "One incident file, four local notices, each dated to its own regime's clock — the tightest clock sets the internal deadline", "right": true, "v": "<b>Costs:</b> four drafts where one felt like enough, and local counsel on speed dial. <b>Buys:</b> every market sees its own clock honored. Artifact: the incident file with four receipts, each inside its regime's window."},
-{"k": "C", "t": "Notify only where a regulator asks", "right": false, "v": "<b>Costs:</b> the asking arrives after the deadline it is asking about. <b>Buys:</b> three markets get no paperwork at all. Artifact: the request — received on each market's clock, not yours."}
-],
-"move": "One incident, many clocks — the tightest deadline runs the room, and each regime gets its own notice.",
-"ev": "The four notification receipts, each timestamped against its own regime's clock.",
-"source": "SG PDPA s.26D and PDPC breach notification rules (3 calendar days after assessment); AU Privacy Act 1988 Part IIIC (Notifiable Data Breaches); KR PIPA Art. 34 (breach report and notification); CN PIPL Art. 57 (breach remediation and notice)",
-"face": "apac",
-"mode": "completer"
+ who:"four inboxes · one questionnaire sweep",
+ meta:"REGULATOR RFIs · same week · 08:00",
+ clock:"four deadlines",
+ clocklab:"one team",
+ text:"Four regulator questionnaires land in one week. Different deadlines, different forms. One asks for enforcement metrics the legal team will never hand over. \"Who drafts, who signs, and what gets <span class=\"q\">redacted</span>?\"",
+ calls:[
+  {k:"A",t:"Acknowledge all four, negotiate scope first, respond later.",right:false,v:"<b>Costs:</b> acknowledgement stops no clock. TH's ETDA can request platform information annually under the Royal Decree; VN's authority-request duties under Decree 147/2024 run from receipt. Negotiation is parallel work, never a pause button."},
+  {k:"B",t:"One regional response team drafts; local counsel signs each market's filing; redactions are decided per-instrument against what the authority can actually compel.",right:true,v:"<b>Buys:</b> one consistent fact base, four properly-signed filings, and a redaction decision that is a legal position (\"this is not within the instrument's scope\") instead of a silent omission."},
+  {k:"C",t:"Market-by-market from local counsel, no shared draft.",right:false,v:"<b>Costs:</b> four fact bases, four versions of the truth, and the first cross-regulator comparison finds the gaps. Draft together; sign locally."}],
+ move:"Rule: draft once as a fact base, sign locally, and make every redaction a stated legal position — never a silent gap. The clock runs from receipt, even while you negotiate.",
+ ev:"Evidence: the shared fact base, per-market signed filings with dates, and the redaction log pairing each omission with the scope argument that supports it.",
+ source:"ETDA Royal Decree B.E. 2565 information-request powers; Decree 147/2024 (VN) authority-request duties; GR 33/2026 (ID) sanctions framework; NPC compulsory powers RA 10173 (PH)"
 }
 ];
