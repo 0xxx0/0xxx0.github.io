@@ -355,6 +355,12 @@ function buildDeck(face){
     .replace(/^Correct\.\s*/,'<b>Buys:</b> ')
     .replace(/^Correct,/,'<b>Buys:</b>')
     .replace(/\bnot wrong\b/,'not the error');
+  /* F-P2 FIX (kage, 2026-10-07): option order rotates per card so the right call is not
+     always first. Measured before the fix: right === true at index 0 for 26/26 APAC,
+     8/8 FIRST 90, 7/7 IMPACTED — always-pick-first scored 100%. Letters relabel by
+     position; each call keeps its own `right` flag and verdict. CREW/FLOOR already vary. */
+  const rotate=(calls,i)=>{ const n=(calls||[]).length||1, r=(i+1)%n;
+    return calls.slice(r).concat(calls.slice(0,r)).map((k,j)=>Object.assign({},k,{k:String.fromCharCode(65+j)})); };
   const F=FLOOR.map(c=>Object.assign({},c,{face:'floor',
     calls:c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)}))}));
   /* THE GAP CARD — the one where the only right move is to name what you actually know.
@@ -364,15 +370,17 @@ function buildDeck(face){
   const crew=CREW.filter(c=>!gapcard.includes(c));
   /* IMPACTED — the euphemism deck. Its own run, not mixed: the material is heavier and
      mixing it into a light round would undercut both. Picked from calibration, plays whole. */
-  const IMP=(window.EUPHEMISM_DECK||[]).map(c=>Object.assign({},c,{face:'euphemism'}));
+  const IMP=(window.EUPHEMISM_DECK||[]).map((c,i)=>Object.assign({},c,{face:'euphemism',
+    calls:rotate(c.calls,i)}));
   if(face==='euphemism') return IMP;
   /* THE FIRST 90 — sourced onboarding incidents. Its own run, same reason as IMPACTED. */
-  const F90=(window.ONBOARDING_DECK||[]).map(c=>Object.assign({},c,{face:'first90'}));
+  const F90=(window.ONBOARDING_DECK||[]).map((c,i)=>Object.assign({},c,{face:'first90',
+    calls:rotate(c.calls,i)}));
   if(face==='first90') return F90;
   /* FOUR MARKETS — ID · TH · VN · PH. Its own run: the material is jurisdiction-clocked,
      and mixing it with the general matters would blur which instrument is talking. */
-  const APAC=(window.APAC_DECK||[]).map(c=>Object.assign({},c,{face:'apac',
-    calls:c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)}))}));
+  const APAC=(window.APAC_DECK||[]).map((c,i)=>Object.assign({},c,{face:'apac',
+    calls:rotate(c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)})),i)}));
   if(face==='apac') return APAC;
   let out=[];
   if(face==='floor') out=F.slice();
@@ -602,12 +610,22 @@ function finish(){
   const maxLift=Math.max(0, ...Object.values(correctedHits));
   const nothingStandsOut = modeled>0 && maxLift<=1.0;
   if(modeled===0){
+    /* F-P1 FIX (kage, 2026-10-07): the withheld copy is face-aware and counts the run it is
+       actually describing. It used to say "These seven cards … words to you" on every face —
+       the count was IMPACTED's deck size and the line was euphemism-tuned, but it rendered on
+       8-card FOUR MARKETS and FIRST 90 runs too. */
+    const ABOUT={floor:'the floor — what the work does to whoever answers for it',
+                 crew:'our own record — what the work did to us',
+                 both:'the work itself',
+                 euphemism:'what was done with words to you',
+                 first90:'the first ninety days — what they actually do to you',
+                 apac:'the four markets — what the clocks demanded'};
     $('ending').innerHTML=
       '<div class="ending">'+
       '<div class="eyebrow">the honest sort · withheld</div>'+
       '<div class="emode">NO DIAGNOSIS</div>'+
       '<div class="g"><span class="tag">buys</span> nothing here votes on your type, so nothing here gets to name it. '+
-      'These seven cards are about what was done with words to you — not about what you are.</div>'+
+      'These '+MATTERS.length+' cards are '+(ABOUT[window.GAME_FACE]||ABOUT.both)+' — not about what you are.</div>'+
       '<div class="g"><span class="tag">costs</span> you do not get a neat label to take away. That is the price of not '+
       'being sorted by material that was never about sorting.</div>'+
       '<div class="g"><span class="tag">your door</span> <b>Say the thing once, to one person who will understand it. '+
