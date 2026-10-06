@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-06T02:43:32.951Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-06T03:53:44.658Z by scripts/generate-convergence-strip.mjs_
 
-The field has **0 material commits on 2026-10-06** across **986 branches** (71 exact Git commits in the window; 71 generated telemetry; 5170 on master all-time).
+The field has **15 material commits on 2026-10-06** across **986 branches** (95 exact Git commits in the window; 80 generated telemetry; 5194 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,6 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- public-surface: allow benign public-username URL fragments in linkfield links 
+- desk: refresh public field data
+- thread synthesis: restamp post-rebase
 
 ## Open gaps
 
