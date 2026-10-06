@@ -36,20 +36,23 @@ jobs:
       - name: Regenerate public FIELD DESK projection
         run: node tools/gen-desk-data.mjs
 
+      - name: Regenerate FIELD FOLD convergence map (keeps /interphase-genesis/ live)
+        run: node tools/field-fold.mjs --write
+
       - name: Validate generated JSON
-        run: node -e "JSON.parse(require('fs').readFileSync('desk/data.json','utf8')); console.log('desk/data.json valid')"
+        run: node -e "JSON.parse(require('fs').readFileSync('desk/data.json','utf8')); JSON.parse(require('fs').readFileSync('returns/FIELD_FOLD_MAP.json','utf8')); console.log('desk/data.json + FIELD_FOLD_MAP.json valid')"
 
       - name: Commit only when projection changed
         id: commit
         run: |
-          if git diff --quiet -- desk/data.json; then
+          if git diff --quiet -- desk/data.json returns/FIELD_FOLD_MAP.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "FIELD DESK already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add desk/data.json
+          git add desk/data.json returns/FIELD_FOLD_MAP.json
           git commit -m "desk: refresh public field data"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
@@ -65,7 +68,8 @@ jobs:
             git fetch origin master
             git rebase origin/master
             node tools/gen-desk-data.mjs
-            git add desk/data.json
+            node tools/field-fold.mjs --write
+            git add desk/data.json returns/FIELD_FOLD_MAP.json
             if ! git diff --cached --quiet; then
               git commit --amend --no-edit
             fi
