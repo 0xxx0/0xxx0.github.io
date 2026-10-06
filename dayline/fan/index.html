@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>THE FAN · the day folded and open</title>
+<style>
+:root{
+  --bg:#0b0c0e; --ink:#e8e4da; --mut:#8a8d9b; --rule:#23262c;
+  --gold:#d7ae67; --hot:#b4614f; --cool:#7fa7c9;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:430px;margin:0 auto;padding:22px 18px 40px}
+h1{font:800 26px/1.08 system-ui;letter-spacing:-.02em;margin:0 0 4px}
+h1 .thin{color:var(--mut);font-weight:400}
+.sub{color:var(--mut);font-size:12.5px;margin:0 0 16px}
+.sub b{color:var(--gold);font-weight:600}
+
+/* one persistent control */
+.ctl{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;
+  padding:10px 0;background:linear-gradient(var(--bg) 78%,transparent)}
+button.mode{flex:1;font:600 11px/1 system-ui;letter-spacing:.18em;text-transform:uppercase;
+  padding:12px 10px;background:transparent;color:var(--gold);
+  border:1px solid var(--rule);border-radius:0;cursor:pointer;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;
+  text-decoration-color:color-mix(in srgb,var(--gold) 48%,transparent)}
+button.mode:hover,button.mode:focus{border-color:var(--gold);outline:none}
+button.mode:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+
+/* the stage — both states of the same 24 ribs */
+.stage{position:relative;width:100%;aspect-ratio:1/1.12;margin:6px 0 2px;
+  overflow:hidden}
+.rib{position:absolute;left:50%;top:6%;width:13px;height:44%;margin-left:-6.5px;
+  transform-origin:6.5px 100%;
+  transform:rotate(var(--a));
+  transition:transform .78s cubic-bezier(.22,1.2,.36,1),opacity .4s ease;
+  transition-delay:var(--d);border-left:1px solid #2b2f36;border-right:1px solid #2b2f36}
+.rib .fill{position:absolute;inset:0;
+  background:linear-gradient(color-mix(in srgb,var(--gold) 5%,transparent),transparent 30%)}
+.rib.past{opacity:.34}
+.rib.now{border-color:color-mix(in srgb,var(--gold) 55%,var(--rule))}
+.rib .hh{position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  font:700 9.5px/1 system-ui;letter-spacing:.04em;color:#a8aeb9}
+.rib.now .hh{color:var(--gold)}
+
+/* events ride their rib */
+.ev{position:absolute;left:2px;width:9px;height:2px;background:var(--gold);
+  border:0;padding:0;cursor:pointer;transform:translateY(-1px)}
+.ev::after{content:"";position:absolute;inset:-7px -3px}
+.ev:hover,.ev:focus-visible{height:4px;outline:none}
+.ev:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* now-hand (fan) / now-thread (card) — the hand pivots at the hub, like a hand should */
+.hand{position:absolute;left:50%;top:9%;width:1px;height:41%;
+  background:linear-gradient(transparent,var(--gold));
+  transform-origin:50% 100%;transform:rotate(var(--now-a,0deg));
+  transition:opacity .4s ease}
+.thread{position:absolute;left:4%;width:92%;height:1px;
+  background:repeating-linear-gradient(90deg,var(--gold) 0 7px,transparent 7px 12px);
+  opacity:0;transition:opacity .4s ease,top .78s cubic-bezier(.22,1.2,.36,1)}
+.card .hand{opacity:0}
+.card .thread{opacity:.9}
+.fan .hand{opacity:.85}
+
+/* the pivot — in card mode the fan's knot becomes the card's seal */
+.hub{position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px;
+  border:1px solid var(--gold);border-radius:50%;
+  transition:top .78s cubic-bezier(.22,1.2,.36,1),left .78s cubic-bezier(.22,1.2,.36,1),
+    margin .78s cubic-bezier(.22,1.2,.36,1),opacity .4s}
+.card .hub{top:94%;left:8%;opacity:.6}
+
+/* card-mode gridlines */
+.grid{position:absolute;left:3%;width:94%;height:1px;background:var(--rule);
+  opacity:0;transition:opacity .5s}
+.card .grid{opacity:1}
+
+/* detail reveal */
+.detail{min-height:52px;border-left:2px solid var(--gold);padding:8px 12px;
+  margin:12px 0 4px;font-size:13px;line-height:1.5;color:var(--ink)}
+.detail .t{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin-bottom:2px}
+.detail.empty{border-color:var(--rule);color:var(--mut);font-size:12px}
+
+/* hub readout — the center is where the eye lands first */
+.readout{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;transition:opacity .4s}
+.readout .clock{font:800 30px/1 system-ui;letter-spacing:-.02em;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.readout .rest{margin-top:5px;font:500 10.5px/1.5 system-ui;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mut)}
+.readout .rest b{color:var(--gold);font-weight:600}
+.card .readout{opacity:0}
+
+.foot{margin-top:18px;font-size:10.5px;color:var(--mut);line-height:1.75}
+.foot code{color:var(--gold)}
+.foot a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:2px;text-decoration-color:color-mix(in srgb,var(--gold) 48%,transparent)}
+.foot a:hover{text-decoration-thickness:2px;text-decoration-color:var(--gold)}
+@media(prefers-reduced-motion:reduce){
+  .rib,.hub,.thread{transition:none!important}
+}
+</style>
+<div class="wrap">
+<h1>THE FAN.<br><span class="thin">the day folds.<br>the day opens.</span></h1>
+<p class="sub">24 ribs, one per hour · <b>fold</b> = the dial · <b>open</b> = the range card ·
+events are today's real work, pulled from the record · <b>nothing is stored, nothing is tracked</b></p>
+
+<div class="ctl">
+  <button type="button" class="mode" id="modeBtn" aria-pressed="true">fold — the dial</button>
+</div>
+
+<div class="stage fan" id="stage" aria-label="the day, 24 hour ribs">
+  <div class="hand" id="hand"></div>
+  <div class="thread" id="thread"></div>
+  <div class="hub"></div>
+  <div class="readout" id="readout"><div class="clock" id="clock">--:--</div>
+    <div class="rest" id="rest">the day, spent and unspent</div></div>
+  <div class="grid" style="top:25%"></div>
+  <div class="grid" style="top:50%"></div>
+  <div class="grid" style="top:75%"></div>
+</div>
+
+<div class="detail empty" id="detail" role="status" aria-live="polite">tap a gold mark — it will tell you what the day actually did.</div>
+
+<p class="foot">a dayline experiment · radial ⇄ linear is one transform: the same 24 ribs,
+rotated into a dial or straightened into a card · generated from
+<code>events.json</code> (the day as evidence — git log, machine noise removed) ·
+family: <a href="/atlas-dayline/">atlas dayline</a> · <a href="/dayline/">dayline</a> ·
+<a href="/20261006-daywrap-mcvoid/">daywrap</a></p>
+</div>
+
+<script>
+(function(){
+'use strict';
+var TAU=Math.PI*2, HOUR_W=13;
+var stage=document.getElementById('stage');
+var hand=document.getElementById('hand');
+var thread=document.getElementById('thread');
+var detail=document.getElementById('detail');
+var modeBtn=document.getElementById('modeBtn');
+var mode='fan'; // fan = dial (radial), card = range card (linear)
+
+function nowAngle(){var d=new Date();
+  return ((d.getHours()+d.getMinutes()/60)/24)*360-90;}
+function nowFrac(){var d=new Date();return (d.getHours()+d.getMinutes()/60)/24;}
+
+function build(events){
+  // 24 ribs: rotate into the dial, or straighten into the card.
+  for(var i=0;i<24;i++){
+    var rib=document.createElement('div');
+    rib.className='rib';
+    rib.style.setProperty('--a',(i*15-90+7.5)+'deg');
+    rib.style.setProperty('--d',(Math.abs(i-12)*14)+'ms');
+    var h=new Date().getHours();
+    rib.classList.add(i<h?'past':i===h?'now':'future');
+    var lab=document.createElement('span');
+    lab.className='hh';lab.textContent=(i<10?'0':'')+i;
+    rib.appendChild(lab);
+    var fill=document.createElement('div');fill.className='fill';rib.appendChild(fill);
+    stage.appendChild(rib);
+  }
+  var ribs=stage.querySelectorAll('.rib');
+  events.forEach(function(e,ix){
+    var rib=ribs[e.h]; if(!rib)return;
+    var b=document.createElement('button');
+    b.type='button';b.className='ev';
+    b.style.top=(6+(e.m/60)*84)+'%';
+    b.setAttribute('aria-label','event '+e.h+':'+(e.m<10?'0':'')+e.m+' '+e.t);
+    b.dataset.label=e.t;b.dataset.time=e.h+':'+(e.m<10?'0':'')+e.m;
+    b.addEventListener('click',function(){
+      detail.classList.remove('empty');
+      detail.innerHTML='<span class="t">'+b.dataset.time+'</span>'+b.dataset.label;
+    });
+    rib.appendChild(b);
+  });
+  hand.style.setProperty('--now-a',nowAngle()+'deg');
+  thread.style.top=(10+nowFrac()*76)+'%';
+  window.__FAN={ribs:ribs,events:events};
+  if(window.__tickReadout)window.__tickReadout();
+}
+
+function applyMode(){
+  var f=(mode==='fan');
+  stage.classList.toggle('fan',f);
+  stage.classList.toggle('card',!f);
+  var ribs=window.__FAN.ribs;
+  for(var i=0;i<ribs.length;i++){
+    var r=ribs[i];
+    if(f){
+      r.style.transform='rotate('+(i*15-90+7.5)+'deg)';
+      r.style.marginLeft='-6.5px';r.style.left='50%';r.style.top='6%';
+      r.style.height='44%';r.style.width=HOUR_W+'px';
+    }else{
+      // straighten: same rib, same events, translated into its column
+      var x=4+(i+0.5)*(92/24); // % of stage width
+      r.style.transform='rotate(0deg)';
+      r.style.left=x+'%';r.style.marginLeft='-6.5px';r.style.top='10%';r.style.height='76%';
+    }
+    r.style.transitionDelay=(f?Math.abs(i-12):Math.abs(i-12))*12+'ms';
+  }
+  modeBtn.textContent=f?'fold — the dial':'open — the range card';
+  modeBtn.setAttribute('aria-pressed',f?'true':'false');
+}
+
+modeBtn.addEventListener('click',function(){
+  mode=(mode==='fan')?'card':'fan';
+  applyMode();
+});
+
+// swipe on the stage: up opens the card, down folds the dial
+(function(){
+  var y0=null;
+  stage.addEventListener('pointerdown',function(e){y0=e.clientY;});
+  stage.addEventListener('pointerup',function(e){
+    if(y0===null)return;
+    var dy=e.clientY-y0;y0=null;
+    if(Math.abs(dy)<44)return;
+    var toCard=dy<0;
+    if((toCard&&mode==='fan')||(!toCard&&mode==='card')){
+      mode=toCard?'card':'fan';applyMode();
+    }
+  });
+})();
+
+// the hub answers "how much day is left" before anyone asks
+function tickReadout(){
+  var d=new Date();
+  var hh=(d.getHours()<10?'0':'')+d.getHours();
+  var mm=(d.getMinutes()<10?'0':'')+d.getMinutes();
+  document.getElementById('clock').textContent=hh+':'+mm;
+  var left=24-(d.getHours()+d.getMinutes()/60);
+  var lh=Math.floor(left),lm=Math.round((left-lh)*60);
+  var n=window.__FAN?window.__FAN.events.length:0;
+  document.getElementById('rest').innerHTML=
+    '<b>'+lh+'h '+(lm<10?'0':'')+lm+'m</b> left · '+n+' things done on record';
+}
+tickReadout();window.__tickReadout=tickReadout;setInterval(tickReadout,30000);
+
+fetch('events.json').then(function(r){return r.json()}).then(function(ev){
+  build(ev);applyMode();
+}).catch(function(){
+  detail.classList.add('empty');
+  detail.textContent='no day loaded — events.json unreachable.';
+});
+
+// the clock moves even when nothing is tapped
+setInterval(function(){
+  hand.style.setProperty('--now-a',nowAngle()+'deg');
+  thread.style.top=(10+nowFrac()*76)+'%';
+},60000);
+})();
+</script>
+</html>

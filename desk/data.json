@@ -1,16 +1,16 @@
 {
  "schema": "field-desk/v1",
- "generated": "2026-10-06T15:08:43.704Z",
+ "generated": "2026-10-06T16:26:22.235Z",
  "counts": {
-  "returns": 284,
-  "routes": 193,
+  "returns": 285,
+  "routes": 197,
   "states": {
    "CANDIDATE / SELFTESTED / NO NEW LENS": 1,
+   "MERGED_CI_GREEN": 17,
    "MERGED_FUNCTIONAL_GREEN_VISUAL_BASELINE_DRIFT_OPEN": 1,
    "PR_CANDIDATE": 4,
    "UNKNOWN": 145,
    "BOUNDED_EXECUTION_SEAM_CLOSED": 1,
-   "MERGED_CI_GREEN": 16,
    "CANDIDATE / CI_REQUIRED": 4,
    "MERGED_MACHINE_GREEN": 4,
    "SHIPPED_TO_MASTER": 1,
@@ -98,7 +98,25 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
+  },
+  {
+   "file": "FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json",
+   "id": "FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06",
+   "date": "2026-10-06",
+   "object": "FIELD INDEX 0.8.34 / GLYPH URLBAR",
+   "state": "MERGED_CI_GREEN",
+   "next": "",
+   "measured": "",
+   "checks": {},
+   "laws": [],
+   "refs": {
+    "prs": [],
+    "commits": [
+     "b89427eece506a2230aa1a89c78ffbe2d752defd"
+    ]
+   },
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_SEMANTIC_ZUI_0834_2026-10-05.json",
@@ -120,7 +138,7 @@
      "5b72d637d6dc72bbec04313dff382669c56ab726"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "RETURN_LANDING_LIGHT_LIVE_SYNC_2026-10-03.json",
@@ -153,7 +171,7 @@
      "999b5776"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "RETURN_INTERPHASE_GENESIS_2026-10-03.json",
@@ -169,7 +187,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READFIELD_RIDE_RAIL_CURRENT_2026-10-03.json",
@@ -193,7 +211,7 @@
      "385e4c17fbead7d911888d0c72dbdb3e91a95be3"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "LACONIC_FIELD_ACTIONS_2026-10-03.json",
@@ -209,7 +227,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "HOUSE_HOMEBASE_SPATIAL_DOCK_2026-10-03.json",
@@ -230,7 +248,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOUSE_HOMEBASE_PROJECTION_2026-10-03.json",
@@ -246,7 +264,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FIELD_INDEX_PERSISTENT_RUN_DOCK_0833_2026-10-03.json",
@@ -268,7 +286,7 @@
      "b0419535d6ece013e5c140222f9ce9370a9e27a1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_HADES_FAILURE_RETURN_2026-10-03.json",
@@ -284,7 +302,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_CREW_HANDOFF_BRIDGE_2026-10-03.json",
@@ -305,7 +323,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_CONVERGENCE_ADAPTER_2026-10-03.json",
@@ -321,7 +339,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_AWAKE_VISOR_V2_2026-10-03.json",
@@ -342,7 +360,7 @@
      "50f185ca45d6e0474127f6ea531040ea01cbaba8"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BROWSER_RESOLVER_CONSOLIDATION_2026-10-03.json",
@@ -361,7 +379,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "AXIAL_WRAP_BODY_2026-10-03.json",
@@ -377,7 +395,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json",
@@ -396,7 +414,7 @@
      "ba9eec78"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.410Z"
   },
   {
    "file": "SHOPPING_VISUAL_ADVENTURE_LOOTER_2026-10-02.json",
@@ -415,7 +433,7 @@
      "a4b6c41d62be72d616809b3f08360488e132d326"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "RETURN_STUCK_THREADS_2026-10-02.json",
@@ -439,7 +457,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "LACONIC_POCKET_MOVES_2026-10-02.json",
@@ -455,7 +473,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "LACONIC_NAME_THE_MOVE_2026-10-02.json",
@@ -471,7 +489,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "FIELD_MOIRE_HELD_OBJECT_2026-10-02.json",
@@ -491,7 +509,7 @@
      "6cc42306f3cd2961d52d9bfc86c21c720154c59d"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
@@ -513,7 +531,7 @@
      "f857e7ea3718437ab16d3f52df0de04717da154a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02.json",
@@ -538,7 +556,7 @@
      "dc57ce3b3ad1de572ed1de0c2eae9d2f8ec99a0d"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02.json",
@@ -556,7 +574,7 @@
      "221ecee263e50abf27589575b9e8247fa9f1d79b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
@@ -583,7 +601,7 @@
      "b0419535d6ece013e5c140222f9ce9370a9e27a1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "INTERPHASE_JSPACE_VOCAB_SHARED_001_2026-10-01.json",
@@ -599,7 +617,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "FIELD_INDEX_TOUCH_CATCHUP_2026-10-01.json",
@@ -628,7 +646,7 @@
      "f1e51c16"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_FOOTER_PLAY_0829_2026-10-01.json",
@@ -655,7 +673,7 @@
      "2e92bc67"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "VERSE_LANGUAGE_LENSES_031_2026-09-30.json",
@@ -674,7 +692,7 @@
      "be667a0a9f78b4475c6a4ff61f5b6e498511ad49"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "VERSE_ENGLISH_JUEJU_BEHAVIOR_032_2026-09-30.json",
@@ -695,7 +713,7 @@
      "0cacf1ea8da9b640af1990f4bf36303f3975cce6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SHOPPING_PHASE_FIRST_SURFACE_2026-09-30.json",
@@ -716,7 +734,7 @@
      "9af9d903021417fc95c2a64fd6ffb27a912cd276"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SHOPPING_ONE_OBJECT_GRAMMAR_2026-09-30.json",
@@ -742,7 +760,7 @@
      "5fc84f18bc026619357caa8dbc1ffd1207dd4cbb"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "SHOPPING_MARKET_TAPE_2026-09-30.json",
@@ -758,7 +776,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "ONE_AXIS_PHYSICAL_PROOF_GATE_2026-09-30.json",
@@ -774,7 +792,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "LACONIC_MIXED_NEWS_SCENE_2026-09-30.json",
@@ -790,7 +808,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "HARDWARE_REPAIR_ROBOTICS_HANDOVER_2026-09-30.json",
@@ -806,7 +824,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_FIELD_2026-09-30.json",
@@ -822,7 +840,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FRONTIER_VIDEO_DONOR_EXTRACTION_2026-09-30.json",
@@ -841,7 +859,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_REVERSAL_2026-09-30.json",
@@ -857,7 +875,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_COMPRESSION_BASELINE_2026-09-30.json",
@@ -873,7 +891,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json",
@@ -905,7 +923,7 @@
      "88dca26663bc09bfd7574a54bb16afa05ce1249f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_MACHINE_REDUCER_SURFACE_2026-09-30.json",
@@ -938,7 +956,7 @@
      "46bfe98d81e0ef7f5781c4b2843438770f36a8e3"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_HELD_SEEN_UNDO_0827_2026-09-30.json",
@@ -963,7 +981,7 @@
      "7465373a22a038a24492e8e88fd81b0eccb272f4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_HELD_GUIDE_CONTRACTION_0825_2026-09-30.json",
@@ -984,7 +1002,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_FRAME_INTO_OBJECT_0828_2026-09-30.json",
@@ -1014,7 +1032,7 @@
      "047ef5ee503f6eff16b4a324893a08f247d4a8f6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_DECLARED_FORECAST_0829_2026-09-30.json",
@@ -1033,7 +1051,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_DONOR_FOLD_2026-09-30.json",
@@ -1049,7 +1067,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CATCH_CONTRACTION_0826_2026-09-30.json",
@@ -1080,7 +1098,7 @@
      "538a851dd184e08ad5bdbf07fe145f30f6cd1e58"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "PRISON_AGE_AUTHORED_SOURCE_FOLD_2026-09-29.json",
@@ -1096,7 +1114,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29.json",
@@ -1112,7 +1130,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_GESTURE_BOUNDARY_2026-09-29.json",
@@ -1128,7 +1146,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_TWO_DIAL_CAUSAL_RETURN_2026-09-29.json",
@@ -1144,7 +1162,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_GARDEN_HOST_2026-09-29.json",
@@ -1160,7 +1178,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_DIRECT_CHOICE_2026-09-29.json",
@@ -1181,7 +1199,7 @@
      "e255cda1dd1c3931a7ef103560555836b1e57275"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_FORECAST_FACTORIZATION_2026-09-29.json",
@@ -1197,7 +1215,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_FIRST_USE_CONTRACTION_2026-09-29.json",
@@ -1215,7 +1233,7 @@
      "00a76ad4b5f11e72010742b4a65f3a89a5a2f46f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_PROJECTION_ABLATION_2026-09-29.json",
@@ -1231,7 +1249,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_PACKET_EGRESS_REDUCER_2026-09-29.json",
@@ -1253,7 +1271,7 @@
      "248f6befa8b2bb2516321e66eb2ad896995eed6a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
@@ -1278,7 +1296,7 @@
      "1d729ce1edc35473c34d7379a142d40bb3e01406"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_HOST_ACTION_DERIVATION_2026-09-29.json",
@@ -1299,7 +1317,7 @@
      "8b958983bd0a687b6de482bb4e68af166bb03e59"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
@@ -1331,7 +1349,7 @@
      "c3e6cec07c30c8c6c5e77ae9f0d06e693624da33"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_COAXIALITY_SUBTRACTION_2026-09-29.json",
@@ -1350,7 +1368,7 @@
      "d8ed1dd3998e4adbcfc34545bdc512744261f67b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
@@ -1371,7 +1389,7 @@
      "dc028d88efb7054a19d411a37c35d9fc8a5875a9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
@@ -1389,7 +1407,7 @@
      "5f769984808570ddf286a28632fdc53a1780f8cc"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_COAXIALITY_ADMISSION_BOUNDARY_2026-09-29.json",
@@ -1405,7 +1423,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_COAXIALITY_2026-09-29.json",
@@ -1421,7 +1439,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FOLD_BLOOM_PUBLIC_LIVING_FIELD_017_2026-09-28.json",
@@ -1439,7 +1457,7 @@
      "e399adc966754ba599e1479598a7ced29e6939dc"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_AUTHORED_READER_2026-09-28.json",
@@ -1455,7 +1473,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_INDEX_SIGNAL_LOCALITY_2026-09-28.json",
@@ -1476,7 +1494,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_SEMANTIC_SCALE_USE_2026-09-28.json",
@@ -1502,7 +1520,7 @@
      "432a78a9248b735fba493cd662b0eed8793257f5"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_ONE_OBJECT_CONTRACTION_2026-09-28.json",
@@ -1523,7 +1541,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_HELD_PROJECT_GLYPH_2026-09-28.json",
@@ -1544,7 +1562,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "READ_TRAIL_DONOR_RECOVERY_2026-09-27.json",
@@ -1566,7 +1584,7 @@
      "7a2c8c21d09d7dc75d2e1669403d0892f5f6f874"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
@@ -1584,7 +1602,7 @@
      "beba274d745552613e4548711b467afe40726038"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "JSPACE_STEERING_DONOR_2026-09-27.json",
@@ -1605,7 +1623,7 @@
      "5f91d94bd9cd7190a9f3216ff93cd1dd95f2c7be"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "JSPACE_REAL_TRACE_2026-09-27.json",
@@ -1625,7 +1643,7 @@
      "7c2310b9afe3894e0714"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "HUMAN_PORT_SHOPPING_CANDIDATE_2026-09-27.json",
@@ -1641,7 +1659,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HTML_DOCUMENT_TAIL_INTEGRITY_2026-09-27.json",
@@ -1657,7 +1675,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "GLOBAL_SURFACE_SIMPLIFICATION_2026-09-27.json",
@@ -1673,7 +1691,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "GITHUB_REPO_SURVEY_2026-09-27.json",
@@ -1691,7 +1709,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FOLD_BLOOM_CHANGE_CALCULUS_2026-09-27.json",
@@ -1709,7 +1727,7 @@
      "0b0d493a43451d25a0dbf11e4c8d7f98ced750f0"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "COLD_START_COMPRESSION_2026-09-27.json",
@@ -1725,7 +1743,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "CHANGE_CALCULUS_STEP_ORDER_2026-09-27.json",
@@ -1743,7 +1761,7 @@
      "faec7d857920758326ae537a82291993d8cb8673"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "VERSE_COPILOT_RECENTER_2026-09-26.json",
@@ -1763,7 +1781,7 @@
      "9efa232a47f1d229794f46349d582aa8ee4fe2b4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json",
@@ -1779,7 +1797,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SHOPPING_SIGNAL_FIELD_2026-09-26.json",
@@ -1797,7 +1815,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SHOPPING_HOUSE_FIT_CLOSED_LOOP_2026-09-26.json",
@@ -1813,7 +1831,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "SHOPPING_DAYLINE_SIGNAL_PROPAGATION_2026-09-26.json",
@@ -1831,7 +1849,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "NEGLECTED_RECOVERY_SWEEP_2026-09-26.json",
@@ -1847,7 +1865,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json",
@@ -1876,7 +1894,7 @@
      "bbd327be3be3"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json",
@@ -1892,7 +1910,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FOUNDRY_WORD_MACHINES_REENTRY_2026-09-26.json",
@@ -1910,7 +1928,7 @@
      "9ec385f9f74abfe69d3f548ecff5e88373b85805"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_PUBLIC_CONTRACTION_2026-09-26.json",
@@ -1926,7 +1944,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_INK_04_SWEPT_CONTACT_2026-09-26.json",
@@ -1944,7 +1962,7 @@
      "9da7a89d03ac2d0a17aa2cfc4edf654d6bb9c2b6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
@@ -1964,7 +1982,7 @@
      "48a74fced330fe05c469bac614c4074c43dde5dc"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
@@ -1982,7 +2000,7 @@
      "1073d69c59607d53adaa429b4443d8a8e007f51f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
@@ -2000,7 +2018,7 @@
      "08bfcfc1afc00f523b44a712323ad8d316b91232"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_CROSS_PROJECTION_PROOF_2026-09-26.json",
@@ -2016,7 +2034,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_CONVERGENCE_2026-09-26.json",
@@ -2037,7 +2055,7 @@
      "2f4bb84fd3b43881ca12cf05c3c3c99fcaa7def5"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_AUTHORITY_SYNC_2026-09-26.json",
@@ -2057,7 +2075,7 @@
      "42cbfae5d7888f5192c4c3ba8f056521407ef10a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_COVERAGE_2026-09-26.json",
@@ -2073,7 +2091,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json",
@@ -2091,7 +2109,7 @@
      "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "ENV0_SOURCE_BYTE_VERIFICATION_2026-09-26.json",
@@ -2107,7 +2125,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json",
@@ -2125,7 +2143,7 @@
      "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json",
@@ -2143,7 +2161,7 @@
      "ee10eaeb96e3ccc49507f8b75d794b9efc8be0ef"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json",
@@ -2161,7 +2179,7 @@
      "5595e08aa5367ae8a32801b6fec97333b5c5492b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "VERSE_ROUNDTRIP_RETURN_2026-09-25.json",
@@ -2179,7 +2197,7 @@
      "f89867788a56fabc668fb66d2a3f504628138a39"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "VERSE_OPEN_LINE_2026-09-25.json",
@@ -2197,7 +2215,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "VERSE_FOCUS_RETURN_2026-09-25.json",
@@ -2215,7 +2233,7 @@
      "52588dbb123edf2b25a8c380a88a8337a9d1a966"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "VERSE_CONTINUE_INSERT_2026-09-25.json",
@@ -2233,7 +2251,7 @@
      "5e34273bb46a09398e908d5952743ee877316ce0"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json",
@@ -2249,7 +2267,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "ROUTE_ONTOLOGY_LINT_2026-09-25.json",
@@ -2270,7 +2288,7 @@
      "f69e9c3f078f9f2217bd189fb3c4bab3697104f2"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "RESEARCH_SYNC_2026-09-25.json",
@@ -2301,7 +2319,7 @@
      "13049fbecc75ce623ea65ac6ab37e4c0acc7c5f7"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READFIELD_WORK_MODES_2026-09-25.json",
@@ -2319,7 +2337,7 @@
      "fb270b4ef10b185912632014ce2e1db980b026ab"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READFIELD_WORKFLOW_084_2026-09-25.json",
@@ -2337,7 +2355,7 @@
      "49e1b27f7db26298c6de107fda1fe4f09d31e515"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READFIELD_PHONE_WORK_085_2026-09-25.json",
@@ -2356,7 +2374,7 @@
      "ecb1f3a4d400d0c58aef1e65418567d4b4949606"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
@@ -2374,7 +2392,7 @@
      "10f7c937e6f3ad6a00dfc6163c80cdc81dbc9c94"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
@@ -2392,7 +2410,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "LACONIC_MISSINGNESS_RECONCILIATION_2026-09-25.json",
@@ -2408,7 +2426,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "IMAGE_ARTIFACT_HARVEST_2026-09-25.json",
@@ -2426,7 +2444,7 @@
      "077713d5b6e01a1327689402e8e1db84377d41d3"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
@@ -2442,7 +2460,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOUSE_CARE_RETURN_2026-09-25.json",
@@ -2458,7 +2476,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HERMES_CROSS_SESSION_RETURN_2026-09-25.json",
@@ -2480,7 +2498,7 @@
      "012775db"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FOLD_BLOOM_WORKFLOW_2026-09-25.json",
@@ -2498,7 +2516,7 @@
      "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_VERSE_MARKS_CONVERGENCE_2026-09-25.json",
@@ -2514,7 +2532,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_THREAD_CONVERGENCE_2026-09-25.json",
@@ -2534,7 +2552,7 @@
      "16ce82c3dcf95b8bcc8826c2466b17e0e2241c34"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
@@ -2552,7 +2570,7 @@
      "8e7db861a6dada691c78a66148c1d294f83fe77f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
@@ -2571,7 +2589,7 @@
      "95e48bec5e181624dc520135ba2d35ba0d8d109b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_REPLAY_02_2026-09-25.json",
@@ -2587,7 +2605,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json",
@@ -2605,7 +2623,7 @@
      "a8454d741ccd58f17e5b491570d61a78f54c4e63"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_04_HEX_PUZZLE_2026-09-25.json",
@@ -2623,7 +2641,7 @@
      "7801c264b5033530f6402ac1e68eb2eacbc9b642"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_PLAY_03_2026-09-25.json",
@@ -2642,7 +2660,7 @@
      "c027f3b8a275d19f237ae4fce2791443fd63bf26"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25.json",
@@ -2660,7 +2678,7 @@
      "41b69f52f75b5424308ba6531af879e017e4cb07"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_MOBILE_REFINEMENT_2026-09-25.json",
@@ -2676,7 +2694,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json",
@@ -2699,7 +2717,7 @@
      "c3ea784497065051f19896a0a0f3464250f7fd19"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
@@ -2715,7 +2733,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FIELD_REALITY_SYNC_2026-09-25.json",
@@ -2737,7 +2755,7 @@
      "96aa18aa36b28bb243d2c4dc323583ec767408c6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_INDEX_WAITING_PORTS_TRUTH_2026-09-25.json",
@@ -2753,7 +2771,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_TZIMTZUM_2026-09-25.json",
@@ -2776,7 +2794,7 @@
      "0370104bd9edaaf4892f1daf3ada25e3b8c43a8a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_SEMANTIC_SIGNAL_STRIP_2026-09-25.json",
@@ -2792,7 +2810,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_WORLD_LINK_2026-09-25.json",
@@ -2808,7 +2826,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_REALITY_GAP_2026-09-25.json",
@@ -2832,7 +2850,7 @@
      "2ebc0c1e"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
@@ -2852,7 +2870,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_HELD_ACTION_APERTURE_2026-09-25.json",
@@ -2868,7 +2886,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json",
@@ -2884,7 +2902,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -2900,7 +2918,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CATCHUP_2026-09-25.json",
@@ -2921,7 +2939,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FAN8_PHYSICAL_PROJECTION_2026-09-25.json",
@@ -2937,7 +2955,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_CONFLUENCE_WORKFIELD_2026-09-25.json",
@@ -2953,7 +2971,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
@@ -2974,7 +2992,7 @@
      "3ec708367add46f2ea978ebecc4984fa01e142fe"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "AXIAL_SHADOW_PROBE_2026-09-25.json",
@@ -2990,7 +3008,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -3011,7 +3029,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json",
@@ -3027,7 +3045,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_MOBILE_REACH_CLOCK_2026-09-25.json",
@@ -3045,7 +3063,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
@@ -3063,7 +3081,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_LIVE_BRIDGE_2026-09-25.json",
@@ -3079,7 +3097,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
@@ -3101,7 +3119,7 @@
      "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "READFIELD_FOCUS_LENS_080_2026-09-23.json",
@@ -3119,7 +3137,7 @@
      "ace1bf8d7e1c114069f7c82651d37d0cd218af6f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
@@ -3137,7 +3155,7 @@
      "73ee33d3f7ac92f84b7f8acc7db2761384f456e7"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23.json",
@@ -3156,7 +3174,7 @@
      "5b56b78"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_DISCLOSURE_2026-09-23.json",
@@ -3174,7 +3192,7 @@
      "f59c754"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ATLAS_DAYLINE_COMPRESSION_2026-09-23.json",
@@ -3194,7 +3212,7 @@
      "4b4d32d0"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "TRIANGLE_UNIFIED_2026-09-22.json",
@@ -3224,7 +3242,7 @@
      "fb3187d0dc9790039dc507304d5d8b0c131493a2"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "TOOLBELT_MATERIALIZATION_2026-09-22.json",
@@ -3240,7 +3258,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
@@ -3256,7 +3274,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "READFIELD_CONVERGENCE_2026-09-22.json",
@@ -3275,7 +3293,7 @@
      "a0b8abf6ff57f73ed61ba4c5deb829ec11053952"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "MEDIA_REFINERY_B260728B_2026-09-22.json",
@@ -3291,7 +3309,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
@@ -3307,7 +3325,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "INTERPHASE_ROOM_2026-09-22.json",
@@ -3326,7 +3344,7 @@
      "5c7e06f060a974dccec8ea81f90b970e2bec5941"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
@@ -3344,7 +3362,7 @@
      "c9bea197a3f9808bc2ad2b1c58c32d5c50ed0a55"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_WINDDOWN_2026-09-22.json",
@@ -3362,7 +3380,7 @@
      "8282f4762cd84d4ec3ef064922cdbdf7842ec632"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
@@ -3380,7 +3398,7 @@
      "44ebcd809313ac633c13bbadc199c2b2e2e5997c"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json",
@@ -3399,7 +3417,7 @@
      "50bbfcd840dbcfba7c1b244288b44443b19e4728"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
@@ -3417,7 +3435,7 @@
      "d005ee56b127da6c547fc2b074edaa8688898cc4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
@@ -3435,7 +3453,7 @@
      "683d0067100c8d8b376e2b38a23c07f11b3fed9b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
@@ -3454,7 +3472,7 @@
      "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_CELL_2026-09-22.json",
@@ -3472,7 +3490,7 @@
      "a9c902839ab6fbd01c23fa739acaffa4279e9d82"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
@@ -3491,7 +3509,7 @@
      "91db332e327a80c8daa8182add8720b48d1e7fea"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
@@ -3510,7 +3528,7 @@
      "65257b7ed3d8e9afef0324f0775efce90ba8f789"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SEED_GATE_UNLOCK_2026-09-22.json",
@@ -3526,7 +3544,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
@@ -3544,7 +3562,7 @@
      "d6341f639ff53ab3adefef1554739965021de641"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
@@ -3562,7 +3580,7 @@
      "394ff6639690eecfdb15fed81bc1220d662b8f5c"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
@@ -3583,7 +3601,7 @@
      "71c08a81faa49b815b0048bb69721462edf9db3e"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
@@ -3601,7 +3619,7 @@
      "1d43c3edf1469c85a5fa7e3317460cd6932911b8"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_MOTION_2026-09-22.json",
@@ -3619,7 +3637,7 @@
      "3dc38617be81ac215b95998ba14ff82fb1a5e2d9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json",
@@ -3643,7 +3661,7 @@
      "70d01529a982690891483edbbe09b8600b6e70c4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
@@ -3661,7 +3679,7 @@
      "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
@@ -3679,7 +3697,7 @@
      "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
@@ -3697,7 +3715,7 @@
      "716867fab903b513627e45adfb7ca586617f39f6"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
@@ -3713,7 +3731,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
@@ -3731,7 +3749,7 @@
      "7734a77b1961335eb59bf142e499573a6a74c2b2"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_HORIZON_2026-09-22.json",
@@ -3749,7 +3767,7 @@
      "36ca59b4658a95238e0474ae727d301901a991ac"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
@@ -3767,7 +3785,7 @@
      "885a897d542f009a35f229cac49f85dfc4527cac"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22.json",
@@ -3788,7 +3806,7 @@
      "c894f611d26893590ca81c5b52c93e763c07ba59"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
@@ -3806,7 +3824,7 @@
      "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_DOCUMENT_ATLAS_2026-09-22.json",
@@ -3827,7 +3845,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
@@ -3845,7 +3863,7 @@
      "c04128f826f556bfe7a45ae3102920a2685844d4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
@@ -3863,7 +3881,7 @@
      "cad6f19189285ab421c4c3f6d90ee4804ba40130"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOCUS_INTERFACE_SYNC_COMPLETION_2026-09-22.json",
@@ -3883,7 +3901,7 @@
      "2e00c8a97604eed2df2e7ecdbd5ffe6cec1b9ff9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
@@ -3899,7 +3917,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
@@ -3915,7 +3933,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BODY_FIT_SENSOR_FUSION_2026-09-22.json",
@@ -3931,7 +3949,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BODY_FIT_RETURN_PATINA_2026-09-22.json",
@@ -3952,7 +3970,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
@@ -3970,7 +3988,7 @@
      "1fbc9b425d1e37dade2b47e4f466184a6861ab66"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
@@ -4001,7 +4019,7 @@
      "9e9edf23828376c76672b58c5655c3e022556ca2"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.410Z"
   },
   {
    "file": "TRIANGLE_CENTER_CURRENT_2026-09-21.json",
@@ -4024,7 +4042,7 @@
      "a0ecca0367b851e802012bdd23519ae7051db3f8"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json",
@@ -4047,7 +4065,7 @@
      "50f886c829dcee98b043c55ef9de0c631fd31987"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
@@ -4065,7 +4083,7 @@
      "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_2026-09-21.json",
@@ -4085,7 +4103,7 @@
      "74b449d089963a71c29c1535ef457b154ba427a7"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
@@ -4103,7 +4121,7 @@
      "c910e5763ea841a25c4f95d286cd05b99047ec69"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
@@ -4121,7 +4139,7 @@
      "da1fbedc4f2f1faf58c8182dac429f1cbce7a56a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_EVOLUTION_2026-09-21.json",
@@ -4137,7 +4155,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
@@ -4153,7 +4171,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BACKUP_RECOVERY_2026-09-21.json",
@@ -4169,7 +4187,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "APERTURE_USABILITY_CUT_2026-09-21.json",
@@ -4185,7 +4203,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
@@ -4201,7 +4219,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "WORK_EXPERIENCE_READFIELD_2026-10-03.json",
@@ -4221,7 +4239,7 @@
      "b51cc160751d976d20ae937c2fda95167cb7f5fb"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.410Z"
   },
   {
    "file": "WORKER_AUTHORITY_CONTRACTION_2026-09-25.json",
@@ -4237,7 +4255,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.410Z"
   },
   {
    "file": "SYSTEM_MAP_CONVERGENCE_2026-10-02.json",
@@ -4253,7 +4271,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "STICKER_TGS_2026-09-29.json",
@@ -4269,7 +4287,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
@@ -4293,7 +4311,7 @@
      "2d185e776328479d4b6fc68853a543631c017f95"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
@@ -4309,7 +4327,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_BLOCKED_TURN_2026-10-03.json",
@@ -4328,7 +4346,7 @@
      "506ae47bab5c7876652b38ba9a9e6b2e97bcd616"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_SYSTEM_FOLD_2026-09-27.json",
@@ -4344,7 +4362,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
@@ -4364,7 +4382,7 @@
      "32039cac4061a41420017236e652a998db5333a4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
@@ -4383,7 +4401,7 @@
      "32039cac4061a41420017236e652a998db5333a4"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
@@ -4399,7 +4417,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
@@ -4415,7 +4433,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
@@ -4437,7 +4455,7 @@
      "f97dcbe8ab22830c392b06cedb932a83ee18fa50"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.078Z"
+   "mtime": "2026-10-06T16:26:20.409Z"
   },
   {
    "file": "ROOM_MATERIAL_DOM_2026-09-22.json",
@@ -4453,7 +4471,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
@@ -4482,7 +4500,7 @@
      "b0419535d6ece013e5c140222f9ce9370a9e27a1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "READ_RIDE_RECURSIVE_INTERPHASE_2026-09-27.json",
@@ -4500,7 +4518,7 @@
      "58d18ecc6565085fc25c6e999b1d03754c42a51a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "PRISON_AGE_SOURCE_LIVE_SUCCESSOR_2026-09-28.json",
@@ -4516,7 +4534,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "PRISON_AGE_SOURCE_ECHO_2026-09-29.json",
@@ -4537,7 +4555,7 @@
      "f377ab2f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "PRISON_AGE_READER_CONVERGENCE_2026-09-28.json",
@@ -4553,7 +4571,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.408Z"
   },
   {
    "file": "PRISON_AGE_FIELD_CONVERGENCE_2026-09-29.json",
@@ -4574,7 +4592,7 @@
      "eb2a5b290f79a699d7799d1eaa3ae66bd312203b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "PRISON_AGE_EXPLICIT_SOURCE_INTENT_2026-09-29.json",
@@ -4595,7 +4613,7 @@
      "f478cee439eea4b9fa513f7c7c97728d1ced4846"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "PRISON_AGE_EVIDENCE_ATLAS_2026-10-03.json",
@@ -4616,7 +4634,7 @@
      "a6001fc01c9da4d9e83db630aee6e57dc850c09a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "PERIMETER_HARDENING_2026-09-21.json",
@@ -4647,7 +4665,7 @@
      "e8093f32a01ace6827f4005f46ca772fa92353c1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "PASSIVE_FEEDBACK_2026-09-21.json",
@@ -4668,7 +4686,7 @@
      "57408d15625eb697d7deba18c5d72d7afb1c74b2"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.077Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
@@ -4687,7 +4705,7 @@
      "e40cc29cfec5cf19c747239d8e8cfc3abb46e92c"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.407Z"
   },
   {
    "file": "INTERPHASE_CARRIER_2026-09-27.json",
@@ -4703,7 +4721,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "INTERPHASE_ACTION_GRAMMAR_2026-09-29.json",
@@ -4722,7 +4740,7 @@
      "0401fc9428a2ecd10dba58d41b7f69f9cf49bac9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
@@ -4738,7 +4756,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
@@ -4754,7 +4772,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOUSE_SPATIAL_DESIGN_TRIAL_2026-10-02.json",
@@ -4770,7 +4788,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOUSE_REALITY_HARNESS_2026-10-02.json",
@@ -4795,7 +4813,7 @@
      "a9f1461ecc0ee3bdf76f0753eb24a4f92b81e29f"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.076Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOUSE_HUMAN_HARNESS_TWO_WORKER_PROOF_2026-10-03.json",
@@ -4811,7 +4829,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01.json",
@@ -4827,7 +4845,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HERMES_VISION_LOOP_SKILLS_2026-09-24.json",
@@ -4848,7 +4866,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HERMES_DAILY_LIVE_AUTHORITY_2026-09-25.json",
@@ -4864,7 +4882,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "HARD_ADVANCE_2026-09-22.json",
@@ -4885,7 +4903,7 @@
      "cb5843f64a66dcc7c7180037cbf40b2991c5311b"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.406Z"
   },
   {
    "file": "FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
@@ -4908,7 +4926,7 @@
      "c5c1c95f06d320937bfce62b4c02468ef4c7a897"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_LOSSLESS_PROOF_2026-09-23.json",
@@ -4924,7 +4942,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_VOICE_01_2026-09-24.json",
@@ -4942,7 +4960,7 @@
      "dd1f289af0692e84c62c370e2b525a2069ec7201"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.075Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24.json",
@@ -4962,7 +4980,7 @@
      "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.405Z"
   },
   {
    "file": "FOLD_BLOOM_SABER_01_2026-09-25.json",
@@ -4982,7 +5000,7 @@
      "f03722b2619d42c836d314359893f2f65fabd1f1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_PHONE_NAV_TARGETS_2026-09-25.json",
@@ -4998,7 +5016,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
@@ -5016,7 +5034,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.074Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
@@ -5036,7 +5054,7 @@
      "a21047612c3e2a900f755da4f24d88859ed97d6a"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25.json",
@@ -5056,7 +5074,7 @@
      "8a79e3824fb8fffb014c36118e41171ccd8e28f1"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.404Z"
   },
   {
    "file": "FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
@@ -5074,7 +5092,7 @@
      "9e308cb7f8b6272820c6404ef93726f48e98c996"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
@@ -5095,7 +5113,7 @@
      "f9de196d219e50e0850f564c3645fe582f25e909"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_WAITING_BODY_CALIBRATION_2026-09-22.json",
@@ -5117,7 +5135,7 @@
      "96c065f856d5893dc343babd45ea10c449a9f4f9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_PULSE_WORKFLOW_2026-09-22.json",
@@ -5135,7 +5153,7 @@
      "70444235dc4112ced7e88988bacfca1cbc84f946"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.403Z"
   },
   {
    "file": "FIELD_PULSE_CONVERGENCE_2026-09-24.json",
@@ -5153,7 +5171,7 @@
      "6ee3b237299db2c72d9602be4a8ec79209300bd3"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_PULSE_2026-09-22.json",
@@ -5171,7 +5189,7 @@
      "70d63be41dfc5d04b04063d2f90524dca0bb6526"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.073Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
@@ -5192,7 +5210,7 @@
      "841fa18b474b94cb76e000c3db8a38037b47d1de"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
@@ -5216,7 +5234,7 @@
      "f478cee439eea4b9fa513f7c7c97728d1ced4846"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.402Z"
   },
   {
    "file": "FIELD_INDEX_GAME_DONOR_TRANSFER_2026-09-26.json",
@@ -5232,7 +5250,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.072Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
@@ -5248,7 +5266,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_INDEX_ACTION_SURFACE_0823_2026-09-29.json",
@@ -5270,7 +5288,7 @@
      "78d9a166b1f06fd44202dd15d201969c23d117a9"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.401Z"
   },
   {
    "file": "FIELD_GAME_DONOR_SIX_TRANSFER_2026-09-30.json",
@@ -5286,7 +5304,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
@@ -5307,7 +5325,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
@@ -5323,7 +5341,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "DAYLINE_INTERPHASE_ACTION_SURFACE_2026-09-29.json",
@@ -5342,7 +5360,7 @@
      "2205201ada43fa18f10627ac3ad0639ec08a3ebd"
     ]
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
@@ -5358,7 +5376,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "CARE_HOUSE_DIEGETIC_LOCUS_2026-09-26.json",
@@ -5374,7 +5392,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BODY_FIT_ROUTE_FRICTION_2026-10-03.json",
@@ -5390,7 +5408,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
@@ -5406,7 +5424,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "AXIAL_APERTURE_CONVERGENCE_2026-09-27.json",
@@ -5422,7 +5440,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json",
@@ -5443,7 +5461,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.json",
@@ -5461,7 +5479,7 @@
     ],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   },
   {
    "file": "APERTURE_MATERIAL_RSVP_2026-09-21.json",
@@ -5477,7 +5495,7 @@
     "prs": [],
     "commits": []
    },
-   "mtime": "2026-10-06T15:08:43.071Z"
+   "mtime": "2026-10-06T16:26:20.400Z"
   }
  ],
  "routes": [
@@ -5487,7 +5505,7 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T19:05:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/",
@@ -5495,7 +5513,15 @@
    "kind": "root",
    "operation": "",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T14:29:15+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
+  },
+  {
+   "href": "/artifacts/",
+   "title": "FIELD / ARTIFACTS",
+   "kind": "hub",
+   "operation": "RECOVER",
+   "state": "ACTIVE",
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/app-atlas/",
@@ -5503,7 +5529,7 @@
    "kind": "workbench",
    "operation": "CAPTURE",
    "state": "ACTIVE",
-   "updated_at": "2026-09-25T12:39:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/atlas-dayline/",
@@ -5511,7 +5537,7 @@
    "kind": "artifact",
    "operation": "PLAN",
    "state": "STABLE",
-   "updated_at": "2026-10-03T06:13:25+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/body/",
@@ -5519,7 +5545,7 @@
    "kind": "system",
    "operation": "OBSERVE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T08:06:53+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/body/fit/",
@@ -5527,7 +5553,7 @@
    "kind": "workbench",
    "operation": "ADDRESS",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T08:06:53+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/bodyplans/",
@@ -5535,7 +5561,7 @@
    "kind": "system",
    "operation": "ADDRESS",
    "state": "STABLE",
-   "updated_at": "2026-09-27T14:34:31+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/care/",
@@ -5543,7 +5569,7 @@
    "kind": "workbench",
    "operation": "CAPTURE",
    "state": "ACTIVE",
-   "updated_at": "2026-09-27T16:35:41+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/comms/",
@@ -5551,7 +5577,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "UTILITY",
-   "updated_at": "2026-09-28T12:14:29+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/",
@@ -5559,7 +5585,7 @@
    "kind": "rendezvous",
    "operation": "ADDRESS",
    "state": "STABLE",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/agent/",
@@ -5567,7 +5593,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/backstage/",
@@ -5575,7 +5601,7 @@
    "kind": "workbench",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/burst/",
@@ -5583,7 +5609,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/capsule/",
@@ -5591,7 +5617,7 @@
    "kind": "workbench",
    "operation": "RETURN",
    "state": "ACTIVE",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/family/",
@@ -5599,7 +5625,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/friend/",
@@ -5607,7 +5633,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/interpret/",
@@ -5615,7 +5641,7 @@
    "kind": "workbench",
    "operation": "INTERPRET",
    "state": "ACTIVE",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/make/",
@@ -5623,7 +5649,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/next/",
@@ -5631,7 +5657,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/residue/",
@@ -5639,7 +5665,7 @@
    "kind": "workbench",
    "operation": "REMEMBER",
    "state": "ACTIVE",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/contact/work/",
@@ -5647,7 +5673,7 @@
    "kind": "alias",
    "operation": "ROUTE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T14:35:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/continuity/",
@@ -5655,7 +5681,7 @@
    "kind": "workbench",
    "operation": "CANONICALIZE",
    "state": "ACTIVE",
-   "updated_at": "2026-09-21T02:29:58+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/control/",
@@ -5663,7 +5689,7 @@
    "kind": "control",
    "operation": "ORIENT",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T22:12:28+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/control/confluence/",
@@ -5671,7 +5697,7 @@
    "kind": "documentation",
    "operation": "TRANSFER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/control/migration/",
@@ -5679,7 +5705,7 @@
    "kind": "control",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/dayline/",
@@ -5687,7 +5713,15 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T18:46:59+08:00"
+   "updated_at": "2026-10-07T00:00:56+08:00"
+  },
+  {
+   "href": "/dayline/fan/",
+   "title": "THE FAN — the day folded and open",
+   "kind": "artifact",
+   "operation": "OPERATE",
+   "state": "ACTIVE",
+   "updated_at": "2026-10-07T00:26:04+08:00"
   },
   {
    "href": "/dock/",
@@ -5695,7 +5729,7 @@
    "kind": "control",
    "operation": "ORIENT",
    "state": "ACTIVE",
-   "updated_at": "2026-09-19T11:59:33+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/docs/",
@@ -5703,7 +5737,7 @@
    "kind": "utility",
    "operation": "READ",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fcm/",
@@ -5711,7 +5745,7 @@
    "kind": "workbench",
    "operation": "ROUTE",
    "state": "DONOR",
-   "updated_at": "2026-10-03T14:42:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/field-intake/",
@@ -5719,7 +5753,7 @@
    "kind": "artifact",
    "operation": "CAPTURE",
    "state": "STABLE",
-   "updated_at": "2026-10-03T08:21:05+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/field-play.html",
@@ -5727,7 +5761,7 @@
    "kind": "workbench",
    "operation": "VERIFY",
    "state": "ACTIVE",
-   "updated_at": "2026-09-29T17:19:11+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/field/axial-probe/",
@@ -5735,7 +5769,7 @@
    "kind": "experiment",
    "operation": "VERIFY",
    "state": "PROOF_REQUIRED",
-   "updated_at": "2026-10-03T08:22:13+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/",
@@ -5743,7 +5777,7 @@
    "kind": "hub",
    "operation": "ENTER / ROUTE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/atlas/",
@@ -5751,7 +5785,7 @@
    "kind": "experiment",
    "operation": "REMEMBER / PATH",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/convergence/change-calculus/",
@@ -5759,7 +5793,7 @@
    "kind": "experiment",
    "operation": "VERIFY / CALCULATE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/convergence/geometric-interphase/",
@@ -5767,7 +5801,7 @@
    "kind": "experiment",
    "operation": "VERIFY / PROJECT",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/ecology/",
@@ -5775,7 +5809,7 @@
    "kind": "artifact",
    "operation": "PLAY / OBSERVE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/ink/",
@@ -5783,7 +5817,7 @@
    "kind": "experiment",
    "operation": "DRAW / TRAIN",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/instrument/",
@@ -5791,7 +5825,7 @@
    "kind": "artifact",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/lab/",
@@ -5799,7 +5833,7 @@
    "kind": "experiment",
    "operation": "TRAIN / EXPLORE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/lens/",
@@ -5807,7 +5841,7 @@
    "kind": "artifact",
    "operation": "REPRESENT",
    "state": "STABLE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/listen/",
@@ -5815,7 +5849,7 @@
    "kind": "experiment",
    "operation": "LISTEN",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/live/",
@@ -5823,7 +5857,7 @@
    "kind": "artifact",
    "operation": "PLAY",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/replay/",
@@ -5831,7 +5865,7 @@
    "kind": "experiment",
    "operation": "REPLAY / MESSAGE / SHARE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/saber/",
@@ -5839,7 +5873,7 @@
    "kind": "experiment",
    "operation": "PLAY / MOTION",
    "state": "PROOF_REQUIRED",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/set/",
@@ -5847,7 +5881,7 @@
    "kind": "artifact",
    "operation": "SHAPE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/set/journey.html",
@@ -5855,7 +5889,7 @@
    "kind": "artifact",
    "operation": "RIDE_SET",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/two-dial/",
@@ -5863,7 +5897,7 @@
    "kind": "artifact",
    "operation": "PLAY",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fold-bloom/voice/",
@@ -5871,7 +5905,7 @@
    "kind": "experiment",
    "operation": "TRAIN / LISTEN",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T13:54:17+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/",
@@ -5879,7 +5913,7 @@
    "kind": "artifact",
    "operation": "PROVE",
    "state": "STABLE",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/readfield-map-e1/",
@@ -5887,7 +5921,7 @@
    "kind": "experiment",
    "operation": "PROVE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/",
@@ -5895,7 +5929,7 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/bench/",
@@ -5903,7 +5937,7 @@
    "kind": "workbench",
    "operation": "COMPARE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/glyph/",
@@ -5911,7 +5945,7 @@
    "kind": "experiment",
    "operation": "REPRESENT",
    "state": "DONOR",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/forward-field-proof/triangle/glyph/center/",
@@ -5919,7 +5953,7 @@
    "kind": "experiment",
    "operation": "ROUTE",
    "state": "DONOR",
-   "updated_at": "2026-10-06T13:35:51+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/",
@@ -5927,7 +5961,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/aperture/",
@@ -5935,7 +5969,7 @@
    "kind": "alias",
    "operation": "READ",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/axial/",
@@ -5943,7 +5977,7 @@
    "kind": "experiment",
    "operation": "ORIENT",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/axial/lab-0.5.1.html",
@@ -5951,7 +5985,7 @@
    "kind": "experiment",
    "operation": "OBSERVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/convergence/",
@@ -5959,7 +5993,7 @@
    "kind": "workbench",
    "operation": "PROJECT",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/convergence/identity-lab.html",
@@ -5967,7 +6001,7 @@
    "kind": "artifact",
    "operation": "PROVE",
    "state": "STABLE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/core/",
@@ -5975,7 +6009,7 @@
    "kind": "workbench",
    "operation": "ORIENT",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/methods/",
@@ -5983,7 +6017,7 @@
    "kind": "workbench",
    "operation": "INVESTIGATE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/room/",
@@ -5991,7 +6025,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/room/html-substrate-0.3.html",
@@ -5999,7 +6033,7 @@
    "kind": "experiment",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/room/room-0.1.html",
@@ -6007,7 +6041,7 @@
    "kind": "experiment",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/room/space-scale-0.2.html",
@@ -6015,7 +6049,7 @@
    "kind": "experiment",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/verse-atlas/",
@@ -6023,7 +6057,7 @@
    "kind": "artifact",
    "operation": "REPRESENT",
    "state": "STABLE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/omnitools/",
@@ -6031,7 +6065,7 @@
    "kind": "workbench",
    "operation": "TRANSFORM",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/omnitools/pii-lens.html",
@@ -6039,7 +6073,7 @@
    "kind": "tool",
    "operation": "SCAN",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/omnitools/text-lens.html",
@@ -6047,7 +6081,7 @@
    "kind": "tool",
    "operation": "READ",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/omnitools/re-reader.html",
@@ -6055,7 +6089,7 @@
    "kind": "tool",
    "operation": "ALIGN",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/foundry/omnitools/reshaper.html",
@@ -6063,7 +6097,7 @@
    "kind": "tool",
    "operation": "RESHAPE",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T13:33:21+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/fovea/",
@@ -6071,7 +6105,7 @@
    "kind": "artifact",
    "operation": "REPRESENT",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T03:48:46+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/godseye/",
@@ -6079,7 +6113,7 @@
    "kind": "control",
    "operation": "VERIFY",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/handshake/",
@@ -6087,7 +6121,7 @@
    "kind": "artifact",
    "operation": "INTERPRET",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/house/",
@@ -6095,7 +6129,7 @@
    "kind": "workbench",
    "operation": "PROJECT / DESIGN / REALITY / RETURN",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T13:54:06+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/house/expert.html",
@@ -6103,7 +6137,7 @@
    "kind": "utility",
    "operation": "INSPECT",
    "state": "UTILITY",
-   "updated_at": "2026-10-03T13:54:06+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/house/spatial/",
@@ -6111,7 +6145,7 @@
    "kind": "alias",
    "operation": "REDIRECT",
    "state": "UTILITY",
-   "updated_at": "2026-10-03T13:54:06+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/iching/",
@@ -6119,7 +6153,7 @@
    "kind": "artifact",
    "operation": "PLAY",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T12:35:52+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/inventory/",
@@ -6127,7 +6161,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/laconic/",
@@ -6135,7 +6169,7 @@
    "kind": "artifact",
    "operation": "DRAFT",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T04:12:42+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/",
@@ -6143,7 +6177,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-06T18:46:59+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/error_garden.html",
@@ -6151,7 +6185,7 @@
    "kind": "experiment",
    "operation": "BREED",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/lab.html",
@@ -6159,7 +6193,7 @@
    "kind": "lab",
    "operation": "NAME / RECORD",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/law_districts.html",
@@ -6167,7 +6201,7 @@
    "kind": "experiment",
    "operation": "TRAVERSE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/law_zoo_field_guide.html",
@@ -6175,7 +6209,7 @@
    "kind": "experiment",
    "operation": "MUTATE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/one_law_two_senses.html",
@@ -6183,7 +6217,7 @@
    "kind": "experiment",
    "operation": "MODULATE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/palimpsest.html",
@@ -6191,7 +6225,7 @@
    "kind": "experiment",
    "operation": "RERENDER",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-09-28T19:14:22+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/lens-proof/",
@@ -6199,7 +6233,7 @@
    "kind": "alias",
    "operation": "PROVE",
    "state": "UTILITY",
-   "updated_at": "2026-09-21T19:49:16+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/lineage/",
@@ -6207,7 +6241,7 @@
    "kind": "documentation",
    "operation": "REMEMBER",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/loops/",
@@ -6215,7 +6249,7 @@
    "kind": "hub",
    "operation": "INSPECT",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/migration/",
@@ -6223,7 +6257,7 @@
    "kind": "control",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-09-21T16:29:25+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/nexus/",
@@ -6231,7 +6265,7 @@
    "kind": "alias",
    "operation": "RETURN",
    "state": "UTILITY",
-   "updated_at": "2026-10-02T20:10:14+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/nexus/board.html",
@@ -6239,7 +6273,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "UTILITY",
-   "updated_at": "2026-10-02T20:10:14+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/nexus/map.html",
@@ -6247,7 +6281,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "UTILITY",
-   "updated_at": "2026-10-02T20:10:14+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/physical/print-01/print.html",
@@ -6255,7 +6289,7 @@
    "kind": "utility",
    "operation": "PROVE",
    "state": "UTILITY",
-   "updated_at": "2026-09-25T19:47:53+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/poetry/",
@@ -6263,7 +6297,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "ACTIVE",
-   "updated_at": "2026-09-30T15:39:33+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/poetry/lab/",
@@ -6271,7 +6305,7 @@
    "kind": "lab",
    "operation": "EXPERIMENT",
    "state": "ACTIVE",
-   "updated_at": "2026-09-30T15:39:33+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/poetry/lab/poem-map/",
@@ -6279,7 +6313,7 @@
    "kind": "experiment",
    "operation": "PROJECT",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-30T15:39:33+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/poetry/map/",
@@ -6287,7 +6321,7 @@
    "kind": "workbench",
    "operation": "PROJECT",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-30T15:39:33+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/port/",
@@ -6295,7 +6329,7 @@
    "kind": "hub",
    "operation": "ROUTE",
    "state": "ACTIVE",
-   "updated_at": "2026-09-28T14:41:15+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/port/comms/",
@@ -6303,7 +6337,7 @@
    "kind": "workbench",
    "operation": "ADDRESS",
    "state": "ACTIVE",
-   "updated_at": "2026-09-28T14:41:15+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/prison-age/",
@@ -6311,7 +6345,7 @@
    "kind": "artifact",
    "operation": "READ / RIDE / SOURCE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:04:11+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/reader/",
@@ -6319,7 +6353,7 @@
    "kind": "system",
    "operation": "OBSERVE",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/",
@@ -6327,7 +6361,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/axial/",
@@ -6335,7 +6369,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/axial/compositor-v0.2/print-template.svg",
@@ -6343,7 +6377,7 @@
    "kind": "donor",
    "operation": "PRINT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/axial/state-transform-v0.3/",
@@ -6351,7 +6385,7 @@
    "kind": "donor",
    "operation": "TRANSACT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/cultural/",
@@ -6359,7 +6393,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/specs-2026-10-01/",
@@ -6367,7 +6401,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/env0/",
@@ -6375,7 +6409,7 @@
    "kind": "recovery",
    "operation": "REIFY",
    "state": "RECOVER",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
@@ -6383,7 +6417,7 @@
    "kind": "donor",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
@@ -6391,7 +6425,7 @@
    "kind": "donor",
    "operation": "ENCODE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/fold-bloom/fold-weave-0.1/",
@@ -6399,7 +6433,7 @@
    "kind": "donor",
    "operation": "RECOVER",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/foundry-cabinet-v4/",
@@ -6407,7 +6441,7 @@
    "kind": "donor",
    "operation": "RECOVER",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/kala/",
@@ -6415,7 +6449,7 @@
    "kind": "donor",
    "operation": "INHABIT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/media/",
@@ -6423,7 +6457,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/media/datadisc/datadisc.html",
@@ -6431,7 +6465,7 @@
    "kind": "donor",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/media/poobaby/",
@@ -6439,7 +6473,7 @@
    "kind": "donor",
    "operation": "RECOVER / RETRIEVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/media/sleeper-atlas/",
@@ -6447,7 +6481,7 @@
    "kind": "donor",
    "operation": "RECOVER / RETRIEVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/naming/",
@@ -6455,7 +6489,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "RECOVER",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/",
@@ -6463,7 +6497,7 @@
    "kind": "donor-hub",
    "operation": "RECOVER",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/anthropy-pathweaver/",
@@ -6471,7 +6505,7 @@
    "kind": "donor",
    "operation": "WEAVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/cell-foundry-r2/",
@@ -6479,7 +6513,7 @@
    "kind": "donor",
    "operation": "ROUTE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/foundry-federation/",
@@ -6487,7 +6521,7 @@
    "kind": "donor",
    "operation": "FEDERATE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/grid-path-compiler-v4/",
@@ -6495,7 +6529,7 @@
    "kind": "donor",
    "operation": "COMPILE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/market-solver/",
@@ -6503,7 +6537,7 @@
    "kind": "donor",
    "operation": "SOLVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/path-grid/projection-harness/",
@@ -6511,7 +6545,7 @@
    "kind": "donor",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/poly-furnisher/",
@@ -6519,7 +6553,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/poly-furnisher/interphase-lineage/",
@@ -6527,7 +6561,7 @@
    "kind": "donor",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/poly-furnisher/kraken-2019/",
@@ -6535,7 +6569,7 @@
    "kind": "donor",
    "operation": "HOST",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/poly-furnisher/proto-kernel-2020/",
@@ -6543,7 +6577,7 @@
    "kind": "donor",
    "operation": "TRANSFORM",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/poly-furnisher/room-lineage/",
@@ -6551,7 +6585,7 @@
    "kind": "donor",
    "operation": "PROJECT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/rsvp/",
@@ -6559,7 +6593,7 @@
    "kind": "donor",
    "operation": "REPRESENT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/",
@@ -6567,7 +6601,7 @@
    "kind": "recovery",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/city-engine-v0.2/",
@@ -6575,7 +6609,7 @@
    "kind": "source",
    "operation": "RECOVER / RETRIEVE",
    "state": "REFERENCE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/one-return-recon-0.2/",
@@ -6583,7 +6617,7 @@
    "kind": "recovery",
    "operation": "PRESERVE",
    "state": "DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/painting-path/",
@@ -6591,7 +6625,7 @@
    "kind": "donor",
    "operation": "RECOVER / RETRIEVE",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/site-source-2026-09-18/",
@@ -6599,7 +6633,7 @@
    "kind": "source",
    "operation": "RECOVER / RETRIEVE",
    "state": "STABLE",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/sleeper/workfield-v1.2/",
@@ -6607,7 +6641,7 @@
    "kind": "donor",
    "operation": "WORK",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/returns/",
@@ -6615,7 +6649,7 @@
    "kind": "evidence",
    "operation": "RETURN",
    "state": "STABLE",
-   "updated_at": "2026-10-03T15:29:57+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/router-bench/",
@@ -6623,7 +6657,7 @@
    "kind": "workbench",
    "operation": "ROUTE",
    "state": "REFERENCE",
-   "updated_at": "2026-09-21T00:03:25+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/shopping/",
@@ -6631,7 +6665,7 @@
    "kind": "adapter",
    "operation": "ACQUIRE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T00:14:55+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/showcase-selftest/",
@@ -6639,7 +6673,7 @@
    "kind": "validator",
    "operation": "VERIFY",
    "state": "UTILITY",
-   "updated_at": "2026-09-22T06:45:32+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/silences/",
@@ -6647,7 +6681,7 @@
    "kind": "artifact",
    "operation": "OBSERVE",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sky/",
@@ -6655,7 +6689,7 @@
    "kind": "artifact",
    "operation": "REPRESENT",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/",
@@ -6663,7 +6697,7 @@
    "kind": "artifact",
    "operation": "PLAY / PROVE / RETURN",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/ascii-pov-0.8/",
@@ -6671,7 +6705,7 @@
    "kind": "derivative",
    "operation": "PLAY",
    "state": "PARKED",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/ascii-pov-0.8/one-return/",
@@ -6679,7 +6713,7 @@
    "kind": "alias",
    "operation": "REDIRECT",
    "state": "UTILITY",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/ascii-pov-0.8/project/",
@@ -6687,7 +6721,7 @@
    "kind": "alias",
    "operation": "REDIRECT",
    "state": "UTILITY",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/borrowed-river/",
@@ -6695,7 +6729,7 @@
    "kind": "experiment",
    "operation": "PLAY",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/borrowed-river/shell.html",
@@ -6703,7 +6737,7 @@
    "kind": "artifact",
    "operation": "PLAY",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/one-return/",
@@ -6711,7 +6745,7 @@
    "kind": "artifact",
    "operation": "PLAY",
    "state": "DONOR",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/sleeper/project/",
@@ -6719,7 +6753,7 @@
    "kind": "hub",
    "operation": "RECOVER",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T07:46:54+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spell/",
@@ -6727,7 +6761,7 @@
    "kind": "workbench",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-23T09:13:30+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/001-canonical-projection/",
@@ -6735,7 +6769,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/002-heterogeneous-collapse/",
@@ -6743,7 +6777,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/003-het12-harness/",
@@ -6751,7 +6785,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/003-one-instrument/",
@@ -6759,7 +6793,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/004-interphase-sync/",
@@ -6767,7 +6801,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/005-expression-transcript/",
@@ -6775,7 +6809,7 @@
    "kind": "experiment",
    "operation": "COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/007-hard-evolution-proofs/",
@@ -6783,7 +6817,7 @@
    "kind": "experiment",
    "operation": "PROVE",
    "state": "CANDIDATE",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/spikes/fold-bloom-message-replay-001/",
@@ -6791,7 +6825,7 @@
    "kind": "experiment",
    "operation": "REPLAY / SHARE",
    "state": "DONOR",
-   "updated_at": "2026-09-27T01:18:47+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/twins/",
@@ -6799,7 +6833,7 @@
    "kind": "evidence",
    "operation": "PROVE",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/witness/",
@@ -6807,7 +6841,7 @@
    "kind": "hub",
    "operation": "ORIENT",
    "state": "STABLE",
-   "updated_at": "2026-10-06T15:06:43+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/control/source-hold-turn-trace-return.html",
@@ -6815,7 +6849,7 @@
    "kind": "control",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/field/moire-route/",
@@ -6823,7 +6857,7 @@
    "kind": "experiment",
    "operation": "VERIFY / ALIGN",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-03T08:22:13+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/recovery/semantic-painting-v0.8/",
@@ -6831,7 +6865,7 @@
    "kind": "donor",
    "operation": "RECOVER / REPRESENT",
    "state": "FROZEN_DONOR",
-   "updated_at": "2026-10-03T10:00:45+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/interphase-genesis/",
@@ -6839,7 +6873,7 @@
    "kind": "recovery",
    "operation": "CANONICALIZE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-03T15:29:57+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/interphase/",
@@ -6847,7 +6881,7 @@
    "kind": "workbench",
    "operation": "OPERATE",
    "state": "ACTIVE",
-   "updated_at": "2026-10-06T20:23:39+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261007-patterns-lang-mcvoid/",
@@ -6855,7 +6889,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T18:40:09+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261005-linkfield-mcvoid/",
@@ -6863,7 +6897,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261005-linkfield-mcvoid/links.html",
@@ -6871,7 +6905,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-picks-mcvoid/",
@@ -6879,7 +6913,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-cs50-or-not-mcvoid/",
@@ -6887,7 +6921,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-ai-mode-thread-mcvoid/",
@@ -6895,7 +6929,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-field-mcvoid/",
@@ -6903,7 +6937,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-wine-aesthetic-mcvoid/",
@@ -6911,7 +6945,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T18:46:59+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/temp/",
@@ -6919,7 +6953,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T22:22:35+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-patterns-mcvoid/",
@@ -6927,7 +6961,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T12:59:36+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-canon-mcvoid/",
@@ -6935,7 +6969,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T14:07:49+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-the-cut-mcvoid/",
@@ -6943,7 +6977,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T16:16:36+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-decode-mangospree/",
@@ -6951,7 +6985,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T22:28:15+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-ask-table-mcvoid/",
@@ -6959,7 +6993,7 @@
    "kind": "tool",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:40:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-the-call-mcvoid/",
@@ -6967,7 +7001,7 @@
    "kind": "tool",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T23:08:28+08:00"
+   "updated_at": "2026-10-06T23:49:44+08:00"
   },
   {
    "href": "/20261006-the-coach-mcvoid/",
@@ -6975,7 +7009,7 @@
    "kind": "tool",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T16:20:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-consultation-mcvoid/",
@@ -6983,7 +7017,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:15:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-grading-mcvoid/",
@@ -6991,7 +7025,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T15:45:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-daywrap-mcvoid/",
@@ -6999,7 +7033,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T16:10:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/law-zoo/rack.html",
@@ -7007,7 +7041,7 @@
    "kind": "lab",
    "operation": "LOAD / COMPOSE",
    "state": "CANDIDATE",
-   "updated_at": "2026-10-06T19:30:00+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-linkfield-frex/",
@@ -7015,7 +7049,7 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T22:37:40+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
   },
   {
    "href": "/20261006-linkfield-frex/links.html",
@@ -7023,7 +7057,23 @@
    "kind": "documentation",
    "operation": "ADDRESS",
    "state": "UTILITY",
-   "updated_at": "2026-10-06T22:12:28+08:00"
+   "updated_at": "2026-10-06T23:37:33+08:00"
+  },
+  {
+   "href": "/artifacts/interface-genome-01.html",
+   "title": "PROJECTION BENCH 0.2",
+   "kind": "artifact",
+   "operation": "EXPERIMENT",
+   "state": "CANDIDATE",
+   "updated_at": "2026-10-06T23:37:33+08:00"
+  },
+  {
+   "href": "/20261006-the-call-mcvoid/v0.html",
+   "title": "THE CALL — v0, frozen (pre-Frex-cut)",
+   "kind": "artifact",
+   "operation": "PLAY",
+   "state": "PARKED",
+   "updated_at": "2026-10-06T23:37:33+08:00"
   }
  ]
 }

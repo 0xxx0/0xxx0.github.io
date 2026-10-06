@@ -15,7 +15,10 @@
  .priv{font-size:11px;color:var(--ok);letter-spacing:.04em}
  #out{padding:4px 12px 14px}
  #out .src{font:14.5px/1.65 ui-monospace,Menlo,monospace;background:#fffdfa;border:1px solid var(--rule);padding:12px;white-space:pre-wrap}
- #out .src mark{background:#ffe14d;padding:0 2px;cursor:pointer}
+ #out .src mark{background:transparent;padding:0 1px;cursor:pointer;color:inherit;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+#out .src mark:hover,#out .src mark:focus{background:var(--hl);text-decoration-thickness:2px;outline:none}
+#out .src mark:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
  .tc{border:2px solid var(--ink);padding:10px 12px;margin:10px 0;font-size:14px}
  .tc .word{font:800 17px/1.1 system-ui,sans-serif;letter-spacing:-.01em}
  .tc .sense{display:inline-block;font:700 9px/1 system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 6px;margin:0 6px 0 8px;vertical-align:2px}
@@ -62,11 +65,19 @@ This translates the dialect. Nothing here is an exam.</div>
  <div id="out"></div>
 </div>
 
-<h2>02 · The three clocks that actually bite</h2>
+<h2>02 · The clocks that actually bite</h2>
 <div class="clock"><span class="days" id="d-au">…</span><span><b>Australia — ADM transparency (APP 1.7–1.9) commences 10 Dec 2026.</b>
  If your org's privacy policy doesn't yet disclose automated decisions, that's the deliverable.</span></div>
 <div class="clock"><span class="days" id="d-kr">…</span><span><b>Korea — AI Basic Act grace period ends ~Jan 2027.</b>
  High-impact AI self-assessment + Korean-language user notices. Start the classification now.</span></div>
+<div class="clock"><span class="days">72h</span><span><b>Indonesia — UU PDP No. 27/2022 is fully in force (transition ended 17 Oct 2024).</b>
+ Breach → written notice to the subject <i>and</i> the authority (Komdigi, interim) within <b>3×24 hours</b>. Sanctions regime is live.</span></div>
+<div class="clock"><span class="days">72h</span><span><b>Thailand — PDPA fully effective 1 Jun 2022.</b>
+ Breach → notify the PDPC Office without undue delay, <b>within 72 hours</b> of awareness, unless no risk to rights. Data subjects told too.</span></div>
+<div class="clock"><span class="days">60d</span><span><b>Vietnam — Personal Data Protection Law 91/2025/QH15 in force 1 Jan 2026</b> (Decree 356/2025 replaced Decree 13/2023).
+ Sensitive-data leak → notify within <b>72 hours</b>; processing dossier filed with A05 within 60 days of starting.</span></div>
+<div class="clock"><span class="days">72h</span><span><b>Philippines — Data Privacy Act (RA 10173) + NPC Circular 16-03.</b>
+ Breach → notify the NPC and affected subjects <b>within 72 hours</b> of knowledge when sensitive PII / identity-fraud data is involved.</span></div>
 <div class="clock"><span class="days">1 question</span><span><b>Ask IT, in writing:</b> "What is our Slack plan tier, and does legal hold cover Slack Connect
  + bot-posted messages?" <button id="copyq" class="ghost" style="padding:7px 10px;font-size:11px">copy question</button></span></div>
 
@@ -325,6 +336,10 @@ function askBrief(raw){
  if(/singapore|pdpa|\bsg\b|imda|pdpc/i.test(low))where='🇸🇬 Singapore';
  else if(/korea|republic of korea|korean/i.test(low))where='🇰🇷 Korea';
  else if(/australia|privacy act|oaic|\bau\b/i.test(low))where='🇦🇺 Australia';
+ else if(/indonesia|indonesian|komdigi|kominfo|uu pdp/i.test(low))where='🇮🇩 Indonesia';
+ else if(/thailand|thai\b/i.test(low))where='🇹🇭 Thailand';
+ else if(/vietnam|vietnamese|decree (13|356)|\ba05\b/i.test(low))where='🇻🇳 Vietnam';
+ else if(/philippines|filipino|manila|ra 10173|national privacy commission/i.test(low))where='🇵🇭 Philippines';
  else if(/china|\bprc\b|\bcac\b|\bcn\b/i.test(low))where='🇨🇳 China';
  else if(/europe|\beu\b|gdpr|eea|european|dpia|tia\b|standard contractual|scc\b/i.test(low))where='🇪🇺 EU / EEA';
  else if(/\buk\b|united kingdom|english law/i.test(low))where='🇬🇧 UK';
@@ -363,7 +378,7 @@ function decode(){
    idx=m.index;
   }
   html=html.replace(new RegExp("(<[^>]*>)|(\\b"+escw+suf+"\\b)","gi"),
-   (all,tag,word)=>tag?all:'<mark title="'+w+'">'+word+"</mark>");
+   (all,tag,word)=>tag?all:'<mark role="link" tabindex="0" title="'+w+' — jump to its card" data-w="'+w+'">'+word+"</mark>");
  }
  const seen=new Set();const cards=found.filter(f=>{const k=f.w; if(seen.has(k))return false; seen.add(k); return true;});
  let out='<div class="src">'+html+"</div>";
@@ -371,7 +386,7 @@ function decode(){
  if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s '+DECK.length+' words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
  for(const f of cards){
   const top=f.ps.ranked[0],second=f.ps.ranked[1];
-  let h='<div class="tc"><span class="word">'+esc(f.w)+"</span>";
+  let h='<div class="tc" id="w-'+esc(f.w).replace(/\s+/g,"-")+'"><span class="word">'+esc(f.w)+"</span>";
   if(f.ps.entry.poly)h+='<span class="poly">'+f.ps.entry.s.length+' SENSES</span>';
   h+='<span class="sense">'+esc(top.s.d)+"</span>";
   h+="<div>"+esc(top.s.m)+"</div>";
@@ -382,6 +397,12 @@ function decode(){
   out+=h;
  }
  $("out").innerHTML=out;
+ $("out").querySelectorAll("mark[data-w]").forEach(mk=>{
+  const jump=()=>{const c=document.getElementById("w-"+mk.dataset.w.replace(/\s+/g,"-"));
+   if(c){c.scrollIntoView({behavior:"smooth",block:"center"});c.focus({preventScroll:true})}};
+  mk.addEventListener("click",jump);
+  mk.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();jump()}});
+ });
 }
 function renderDeck(filter,q){
  const el=$("deck");let list=DECK;
