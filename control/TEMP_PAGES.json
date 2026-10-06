@@ -1,6 +1,6 @@
 {
   "schema": "temp-pages/v1",
-  "updated": "2026-10-06T18:37:43+08:00",
+  "updated": "2026-10-06T22:11:09+08:00",
   "retention_days": 30,
   "holding_pen": "_archive/temp",
   "pages": [
@@ -160,6 +160,26 @@
       "owner": "unassigned",
       "created": "2026-10-07",
       "expires": "2026-11-06",
+      "status": "live",
+      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+      "superseded_by": null
+    },
+    {
+      "dir": "20261006-linkfield-frex",
+      "title": "LINK FIELD · 2026-10-06 · frex",
+      "owner": "thisjustthing",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "Frex cut of the generated LINK FIELD (tools/linkfield-build.py --variant frex): today folded in (commits + new routes), share/settings reveal, underline a11y law. Regenerable from the ledger.",
+      "superseded_by": null
+    },
+    {
+      "dir": "20261006-wine-aesthetic-mcvoid",
+      "title": "THE LIST — fifteen domaines, Burgundy &amp; the Northern Rhône",
+      "owner": "unassigned",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
       "status": "live",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null

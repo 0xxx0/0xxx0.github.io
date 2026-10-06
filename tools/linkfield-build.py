@@ -11,7 +11,7 @@ RUN     python3 tools/linkfield-build.py            (from ~/Projects/0xxx0.githu
 WHY     One command, one source of truth, no hand-maintained numbers.
         Every figure on the page is computed here or it does not appear.
 """
-import json, re, sys, collections, datetime, html, os, pathlib
+import json, re, sys, collections, datetime, html, os, pathlib, subprocess
 
 LEDGER = os.path.expanduser("~/void-anchor/ops-hub/data/links/ledger.jsonl")
 REPO = pathlib.Path(__file__).resolve().parent.parent
@@ -24,6 +24,18 @@ PAGE = dict(
     contact="mcvoid",
     expires="2026-11-04",          # 30-day expiry; page shows a live countdown
 )
+VARIANT = None   # None = house cut (mcvoid); "--variant frex" = the frex cut (dated today)
+
+def configure(variant=None):
+    """--variant <contact>: a dated cut for a named person. Folds in everything from
+    its date (today's commits + new routes) and adds the share/settings reveal."""
+    global VARIANT
+    if variant and variant != PAGE["contact"]:
+        VARIANT = variant
+        PAGE["contact"] = variant
+        today = datetime.date.today().isoformat()
+        PAGE["date"] = today
+        PAGE["expires"] = (datetime.date.fromisoformat(today) + datetime.timedelta(days=30)).isoformat()
 
 LANES = [
     ("BUILD / CODE",      {"github.com","gist.github.com","api.github.com","raw.githubusercontent.com",
@@ -95,6 +107,66 @@ REALWORLD = [
      "https://grapheneos.org/"),
 ]
 
+# --- variant sections (frex cut): fold in the day, expose the share levers ---
+
+def sh(cmd):
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=REPO).stdout
+
+MACHINE = re.compile(r"^(desk:|nexus:|comms:|convergence:|stamp$|restamp|.*: stamp$|"
+                     r".*: restamp|.*restamp post-rebase|ci:|temp pages:)", re.I)
+
+def today_foldin():
+    """Everything that landed on PAGE['date']: real commits + routes new since day start.
+    Pulled from git + showcase-manifest.json — numbers and lists are read, not written."""
+    day = PAGE["date"]
+    rows = []
+    for line in sh("git log --since=%sT00:00:00+08:00 --pretty=format:'%%h|%%s' --no-merges" % day).splitlines():
+        if "|" not in line:
+            continue
+        sha, msg = line.split("|", 1)
+        if not MACHINE.match(msg.strip()):
+            rows.append((sha.strip(), msg.strip()))
+    old_commit = sh("git rev-list -1 --before=%sT00:00:00+08:00 origin/master" % day).strip()
+    old = set()
+    if old_commit:
+        try:
+            old = {r.get("href") for r in json.loads(sh("git show %s:showcase-manifest.json" % old_commit)).get("routes", [])}
+        except Exception:
+            pass
+    try:
+        m = json.load(open(REPO / "showcase-manifest.json"))
+    except Exception:
+        m = {}
+    routes = [(r.get("href", "#"), r.get("title", "")) for r in m.get("routes", [])
+              if r.get("href") not in old and not r.get("showcase_card")]
+    rl = "\n".join(f'<li><a href="{html.escape(h)}">{html.escape(t) or html.escape(h)}</a></li>'
+                   for h, t in routes)
+    cl = "\n".join(f'<li><code>{html.escape(s)}</code> {html.escape(msg)}</li>' for s, msg in rows)
+    return f"""<h2>Today · folded in <em>{day}</em></h2>
+<div class="note">What actually landed today — {len(rows)} real commits, {len(routes)} new routes.
+Machine refresh commits excluded. This is the shareable cut: everything below is public.</div>
+<h2 class="tight">New routes</h2>
+<ul class="qlist">{rl or '<li><span class="q">no new routes today</span></li>'}</ul>
+<h2 class="tight">Commits</h2>
+<ul class="qlist">{cl}</ul>"""
+
+def share_panel():
+    slug = f"{PAGE['date'].replace('-','')}-{PAGE['topic']}-{PAGE['contact']}"
+    url = f"https://0xxx0.github.io/{slug}/"
+    return f"""<h2>Share · settings <em>behind the reveal</em></h2>
+<details class="reveal"><summary>share / settings</summary>
+<div class="note">
+<b>Link</b> <code id="u">{url}</code> <button id="cp" type="button">copy</button>
+<span id="cp-ok" role="status" aria-live="polite"></span><br>
+<b>Share it as</b> — public: anyone with the URL · unlisted: already <code>noindex</code>,
+search engines skip it · keyed: ask for a private cut when you want one.<br>
+<b>Pass on</b> — the whole field: the link above · one lane: <code>links.html</code> + a lane chip ·
+one item: any row link · today only: the section above.<br>
+<b>Levers</b> — expiry <b>{PAGE['expires']}</b> (banner flips after, the page stays honest) ·
+regenerate from the ledger any time:
+<code>python3 tools/linkfield-build.py --variant {html.escape(PAGE['contact'])}</code>
+</div></details>"""
+
 def bars(pairs, maxv, unit=""):
     out = []
     for k, v in pairs:
@@ -147,7 +219,8 @@ def build():
         rw.append(
             f'<tr><td class="lab">{html.escape(label)}</td><td>{html.escape(what)}</td>'
             f'<td class="num">{when_s}</td><td>{state}</td>'
-            f'<td><a href="{html.escape(url)}" rel="noreferrer">open ↗</a></td></tr>'
+            f'<td><a href="{html.escape(url)}" aria-label="Open {html.escape(label)}: {html.escape(what)}"'
+            f' rel="noreferrer">open ↗</a></td></tr>'
         )
 
     window = series[-42:]
@@ -173,12 +246,29 @@ def build():
     ql = "\n".join(f'<li><span class="q">{html.escape(t)}</span><span class="tag">{html.escape(g)}</span></li>'
                   for t, g in q)
 
+    today_sec = today_foldin() if VARIANT else ""
+    share_sec = share_panel() if VARIANT else ""
+    extra_style = """
+<style>
+ a{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+ a:hover{text-decoration:none}
+ :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+ h2.tight{margin-top:22px}
+ .reveal{border:1px solid var(--rule);padding:10px 12px;margin:12px 0}
+ .reveal summary{cursor:pointer;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+ .reveal summary:hover{color:var(--ink)}
+ .reveal button{font:inherit;font-size:11px;padding:2px 8px;border:1px solid var(--ink);
+   background:none;color:var(--ink);cursor:pointer;margin-left:6px}
+ .reveal button:hover{background:var(--ink);color:var(--bg)}
+</style>""" if VARIANT else ""
+
     doc = f"""<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LINK FIELD · {PAGE['date']} · {PAGE['contact']}</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="/tools/house-patterns.css">
+<link rel="stylesheet" href="/tools/house-patterns.css">{extra_style}
 <div id="banner">EXPIRED {PAGE['expires']} — this page is archived. The link field keeps moving; this frame does not.</div>
 <div class="wrap">
 <header>
@@ -202,6 +292,8 @@ def build():
 {bad} unparseable. Regenerate: <code>python3 tools/linkfield-build.py</code>. Every number on this page
 is computed from that file or it does not appear.</div>
 
+{today_sec}
+
 <h2>Where they land</h2>
 {bars(lane_pairs, lane_max)}
 
@@ -224,6 +316,8 @@ the timer belongs to the <b>deal</b>, not to the page.</div>
 
 <h2>Top hosts</h2>
 {bars(host_top, host_top[0][1])}
+
+{share_sec}
 
 <h2>Open questions · low confidence</h2>
 <ul class="qlist">
@@ -253,7 +347,20 @@ generated by <code>tools/linkfield-build.py</code> · {PAGE['date']}</footer>
   el.textContent = d + 'd ' + String(h).padStart(2,'0') + 'h ' + String(m).padStart(2,'0') + 'm';
   setTimeout(arguments.callee, 60000);
 }})();
+var cp = document.getElementById('cp');
+if (cp) cp.addEventListener('click', function(){{
+  var t = document.getElementById('u').textContent, ok = document.getElementById('cp-ok');
+  function done() {{ ok.textContent = ' copied'; setTimeout(function() {{ ok.textContent = ''; }}, 2000); }}
+  function legacy() {{
+    var ta = document.createElement('textarea'); ta.value = t;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); done();
+  }}
+  if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, legacy);
+  else legacy();
+}});
 </script>
+</html>
 """
     return doc, dict(rows=len(rows), bad=bad, span=span, lanes=dict(lane_pairs),
                      today=today_n, days_left=days_left)
@@ -292,6 +399,7 @@ def build_list():
         chips.append(f'<button data-l="{html.escape(L)}">{html.escape(L)} {n}</button>')
 
     return f"""<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LINKS · {PAGE['date']} · {PAGE['contact']}</title>
@@ -328,6 +436,9 @@ document.getElementById('q').addEventListener('input',go);
 
 
 if __name__ == "__main__":
+    if "--variant" in sys.argv:
+        configure(sys.argv[sys.argv.index("--variant") + 1])
+        OUT = REPO / (PAGE["date"].replace("-", "") + "-" + PAGE["topic"] + "-" + PAGE["contact"]) / "index.html"
     doc, meta = build()
     if "--check" in sys.argv:
         print(json.dumps(meta, indent=2, default=str)); sys.exit(0)
