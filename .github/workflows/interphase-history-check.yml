@@ -1,0 +1,37 @@
+name: interphase-history-check
+
+on:
+  pull_request:
+    paths:
+      - 'lib/interphase-history.js'
+      - 'lib/interphase-lenses.js'
+      - 'tools/interphase-history-selftest.cjs'
+      - 'showcase-manifest.json'
+      - '.github/workflows/interphase-history-check.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'lib/interphase-history.js'
+      - 'lib/interphase-lenses.js'
+      - 'tools/interphase-history-selftest.cjs'
+      - 'showcase-manifest.json'
+      - '.github/workflows/interphase-history-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check lib/interphase-history.js
+          node --check tools/interphase-history-selftest.cjs
+      - name: Real-object history / RETURN proof
+        run: node tools/interphase-history-selftest.cjs
