@@ -170,7 +170,24 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
    indication it could be days old — a state line that reads as "now" while being history.
    Reuses the host's own attention token (--hot); no new palette. Threshold 36h = 2× the daily
    CURRENT refresh cadence, same 2×-interval rule the reliability suite uses for freshness. */
-.staleDate{color:var(--hot);font-weight:600}
+/* STALE DATE — the flag must be UN-LOSABLE. `!important` is deliberate and load-bearing.
+
+   Measured 2026-10-06 in-browser: `SPAN.sub.staleDate` inside `BUTTON.axisToken` computed
+   to rgb(107,103,93) (the muted grey) while `B.staleDate` in `.syncLine` and in a `<summary>`
+   computed to var(--hot). The class applied, font-weight:600 applied, the COLOUR did not.
+   Two different rules had swallowed it, and the first was never diagnosed:
+
+     - `.axisToken .sub{color:#59666c}`   (0,2,0) beats `.staleDate` (0,1,0)
+       introduced by the AXIAL focus-compositor graft (13c44ffc), AFTER this flag existed
+     - `.fold>summary b{color:var(--ink)}` beats a bare `.staleDate`
+       caught and papered over below with one more context rule
+
+   The second fix is the bug: each new context rule that sets `color` silently wins again.
+   50 route tokens rendered grey. A class that renders is not a colour that shows.
+
+   So: one rule, un-losable, no per-context patches. scripts/check-stale-date.mjs asserts
+   the `!important` is still there and that no context rule can out-specify it again. */
+.staleDate{color:var(--hot)!important;font-weight:600}
 /* The heads fold sets `.fold>summary b{color:var(--ink)}`, which out-specifies `.staleDate` alone —
    measured in-browser: the class was applied but the colour stayed --ink. Keep the flag visible
    wherever it lands. */

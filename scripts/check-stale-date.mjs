@@ -42,7 +42,22 @@ ok(syntaxOk, 'all inline script blocks parse under node --check');
 // ---- 2. one rule: no inline duplicate of the threshold comparison
 ok(!/ageH\s*>\s*36/.test(html), 'no inline "ageH > 36" comparison left behind (single source of truth)');
 ok(new RegExp(`STALE_H\\s*=\\s*${STALE_H}`).test(html), `threshold defined once as STALE_H = ${STALE_H}`);
-ok(/\.staleDate\{color:var\(--hot\)/.test(html), '.staleDate maps to the host attention colour (--hot); no new palette');
+ok(/\.staleDate\{color:var\(--hot\)!important/.test(html),
+  '.staleDate maps to --hot AND is un-losable (!important) — a plain rule loses to .axisToken .sub (0,2,0) and the colour silently dies');
+ok(/\.staleDate\{color:var\(--hot\)!important;font-weight:600\}/.test(html),
+  '.staleDate is exactly one declaration pair — no per-context patches to drift');
+// The bug this catches: a context rule that sets `color` on a descendant out-specifies a bare
+// `.staleDate` (0,1,0). Two did, and one was never diagnosed — 50 route tokens rendered grey
+// with the class applied and font-weight:600 landing. Class-present != colour-landed.
+const colorRules = [...html.matchAll(/([^{}]{1,140})\{[^}]*\bcolor:(?!var\(--hot\)!important)([^;}]*)/g)]
+  .map((m) => ({ sel: m[1].trim(), val: m[2].trim() }))
+  .filter((r) => r.sel.includes('.'));
+const swallowers = colorRules.filter((r) =>
+  /\.sub\b|\bb\b|\bspan\b|\bsmall\b|\btt\b|summary|\.axisToken|\.fold/.test(r.sel) &&
+  r.sel.split(',').some((s) => s.trim().split(/[\s>+~]/).filter(Boolean).length >= 2));
+ok(swallowers.length > 0, `context colour rules exist that would swallow a bare .staleDate (${swallowers.length} found) — which is why the !important is required`);
+ok(html.includes('.fold>summary b.staleDate{color:var(--hot)}'),
+  'the historical context patch is still present (harmless with !important; kept so the diff does not churn)');
 
 // ---- 3. every date projection carries the flag
 ok(/class="sub'\+\(isRouteStale\(r\?\.index\?\.updated_at\)/.test(html),
