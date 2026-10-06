@@ -1,6 +1,6 @@
 {
   "schema": "temp-pages/v1",
-  "updated": "2026-10-06T15:40:00+08:00",
+  "updated": "2026-10-06T15:41:00+08:00",
   "retention_days": 30,
   "holding_pen": "_archive/temp",
   "pages": [
@@ -83,6 +83,16 @@
       "status": "live",
       "what": "Arm B of the mangospree A/B test. Decision instrument: say/want/clock/who/traps/move. Deleted at expiry if she uses arm A more.",
       "superseded_by": "/20261006-decode-mangospree/"
+    },
+    {
+      "dir": "20261006-the-call-mcvoid",
+      "title": "THE CALL — APAC legal-ops judgment deck for mangospree",
+      "owner": "kage",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "Phone-first 12-matter judgment deck for mangospree. Sister to DECODE: DECODE explains language; THE CALL drills the actual legal-ops move and exports a FIELD / PLAY return JSON.",
+      "superseded_by": null
     }
   ]
 }
