@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T22:12:28+08:00",
+  "updated": "2026-10-06T22:22:35+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -9657,7 +9657,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-06T19:05:00+08:00",
+        "updated_at": "2026-10-06T22:22:35+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9840,7 +9840,7 @@
       "family": "FIELD / PLAY",
       "role": "The judgment game, built out and merged with the CONSULTATION. A repair ritual disguised as a judgment drill: real messages on real clocks, you make calls, and a narrator tells you what your call COST and what it BOUGHT. Four decks, all in one host. THE FLOOR (12 professional matters for mangospree), THE CREW (14 real incidents from our own fleet record, each with its citation), IMPACTED (7 cards built from the words used INSTEAD OF the thing - 'your role has been impacted', 'organisational realignment', 'performance-managed exit'; origin: operator 2026-10-06, 'being fired is called impacted and no one seems interested or aware enough to engage with the mappings ... feels like random execution'), and THE FIRST 90 (8 sourced onboarding failure reports quoted from the public threads they came from - r/jobs, r/auscorp, r/usajobs, r/cscareerquestions - including 'he just throws me under the bus when there's a mistake in the work I did and HE REVIEWED AND APPROVED', 'nothing makes me doubt a new job more than sitting and doing nothing', two hundred-page binders with no system access, and day one ending with the hiring manager announcing his resignation). THE CALIBRATION NOW TUNES THE RUN, it does not just label the player: four taps set position, what you leave with (profile / playbook / both / private) and how much of your time this takes (5 calls, 8, or everything). Asking is the weak instrument - the profile is read from HOW YOU PLAY, not from what you claim (Beyond Asking, Lu et al. 2026). THE POWER LAW, stated on the page where you can see it: this output is yours. No export, no team dashboard, no way for anyone with authority over you to read your result. That is not a privacy footnote - it is the difference between an instrument and a performance review wearing a friendly hat. CliftonStrengths fails exactly here, and the sourced threads say so: 'if your employer has access to the results, my motivation was to look like a valuable promotable employee, not self-knowledge'. Choosing 'private' withholds the failure-mode label entirely (YOURS. NO LABEL.) and disables the export. MERCEY RULE held and now true in the SOURCE, not just at runtime: no verdict judges the player - 12 FLOOR verdicts that opened with 'Correct.' were rewritten to the cost/buys grammar at source, and the handful that editorialised about the choice now name consequence instead. Zero judging verdicts across 123 call options. NO DIAGNOSIS whenever nothing in the run carries a citation-derived mode - the sort never invents a type from zero evidence. Local-only: nothing recorded, the Kind-Words ending note has no form and never transmits. Built on the released FIELD / PLAY v0.4 scaffold; donor modules credited in-file (ending.js + narrator pack, mahshroom 2026-10-06).",
       "index": {
-        "updated_at": "2026-10-06T22:15:00+08:00",
+        "updated_at": "2026-10-06T22:22:35+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
