@@ -1,0 +1,135 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>15 REPLIES, GRADED · the deep review · 2026-10-06</title>
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<style>
+ .g{border:2px solid var(--ink);padding:11px 13px;margin:10px 0;font-size:14.5px}
+ .g .n{font:700 10px/1 system-ui;letter-spacing:.14em;color:var(--mut)}
+ .g .v{display:inline-block;font:700 9.5px/1 system-ui;letter-spacing:.13em;text-transform:uppercase;
+  padding:4px 7px;margin:6px 8px 6px 0;color:#fff}
+ .steal{background:#0a7a3d}.good{background:#0d0d0d}.mixed{background:#b8860b}
+ .miss{background:var(--hot)}.drift{background:#6f6f6f}
+ .said{color:var(--mut);font-size:13px;margin:2px 0}
+ .why{border-left:4px solid var(--acc);background:#f5f8ff;padding:7px 10px;margin-top:7px;font-size:13.5px}
+ .tally{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+ .tally div{border:2px solid var(--ink);padding:10px 14px;text-align:center;min-width:86px}
+ .tally b{font:800 26px/1 system-ui;display:block}
+ .tally span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+</style>
+<div class="wrap">
+<header>
+<h1>15 REPLIES,<br>GRADED</h1>
+<div class="meta">
+ <span>the deep review of Google AI's actual answers</span>
+ <span>graded against primary sources fetched <b>2026-10-06</b></span>
+ <span>same thread · <b>p.1–60</b></span>
+ <span>read time <b>~4 min</b></span>
+</div>
+</header>
+
+<div class="forwho"><b>What this is:</b> not a summary of the thread — a <i>review of the answerer</i>.
+Each reply gets a verdict: what it said, whether it held up against what we verified the same day,
+and what kind of machine behaviour it shows. The last cards are the meta: what this answerer is,
+and what was worth stealing.</div>
+
+<div class="tally">
+ <div><b>4</b><span>STEAL</span></div>
+ <div><b>5</b><span>GOOD</span></div>
+ <div><b>3</b><span>MIXED</span></div>
+ <div><b>2</b><span>MISS</span></div>
+ <div><b>1</b><span>DRIFT</span></div>
+</div>
+
+<h2>The grades · in thread order</h2>
+
+<div class="g"><div class="n">REPLY 01 · p.1–2 · "is CS50 2026/27 worth it?"</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: worth it for fundamentals; C in weeks 1–5 is the quit zone; 110–220h; free audit, ~$199–219 cert.</div>
+<div class="why">Held up: the quit-zone call matches community consensus and CS50's own structure. Caught out on precision: cert price wobbles between its own pages. Verdict honesty is rare — most answerers would have said "yes, great course!".</div></div>
+
+<div class="g"><div class="n">REPLY 02 · p.3–8 · "specific personal project?" / deep dive</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: project-first picker; CS50P/CS50B/CS50W/CS50AI flavours compared.</div>
+<div class="why">Structurally right — route by goal, not by curriculum. But it answers the question asked, never the question behind it ("what are you actually trying to be able to do by March?"). Mirror mode: it follows the asker.</div></div>
+
+<div class="g"><div class="n">REPLY 03 · p.9–11 · "anything like CS50L for lawyers?"</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: Michigan "AI for Lawyers" · CS50B · Legal Tech courses · SMU Academy · Rajah &amp; Tann.</div>
+<div class="why">We re-verified every one of these live today — all exist, prices and formats included. The rare reply where the list was load-bearing rather than filler.</div></div>
+
+<div class="g"><div class="n">REPLY 04 · p.12–14 · "CS50L for APAC AI policy at big tech SG?"</div>
+<span class="v steal">STEAL</span>
+<div class="said">Said: "yes, with massive caveats" — de-mystifying but US/EU-biased; then its own better stack (Ng → AI Verify/MGF → AIGP).</div>
+<div class="why">The best move in the whole thread: it dissuades from the product it was asked about and hands over a stack it prefers. The caveats were the actual answer. AI Verify appears here — the only place — and it is the right anchor.</div></div>
+
+<div class="g"><div class="n">REPLY 05 · p.14–24 · "how do APAC binding AI laws diverge?"</div>
+<span class="v mixed">MIXED</span>
+<div class="said">Said: voluntary/principles (SG, JP, AU) vs prescriptive (CN, KR); China security reviews + algorithm registry; Korea high-impact assessments; PDPA breach = 3 calendar days.</div>
+<div class="why">Directionally right and genuinely useful framing ("co-design compliance architecture with engineers"). But no effective dates — and 2026 is the year of dates: KR in force 22 Jan 2026, AU ADM 10 Dec 2026, CN anthropomorphic rules 15 Jul 2026. Its "3 calendar days" claim we could not verify from any primary source. Undated rules = decorative.</div></div>
+
+<div class="g"><div class="n">REPLY 06 · p.24–27 · "4-Hour Workweek ↔ Muse ↔ OpenMuse?"</div>
+<span class="v steal">STEAL</span>
+<div class="said">Said: the 2007 DEAL framework maps 1:1 onto agent architecture (Definition=prompts, Elimination=context hygiene, Automation=tool calling, Liberation=…conditional).</div>
+<div class="why">Cross-domain mapping done with real care — the compression move we spent the day copying. And it landed the honest punchline before we did: when automation is free, the market raises the baseline; you don't get leisure back, you get judged on taste.</div></div>
+
+<div class="g"><div class="n">REPLY 07 · p.27–30 · "security of self-hosted agent monorepos?"</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: three risks (indirect prompt injection · token/session hijack · container escape) and IMDA's Model AI Governance Framework for Agentic AI (4 dimensions).</div>
+<div class="why">The risk taxonomy matches the 2026 incident record (Claw Chain CVEs; exfil write-ups). The IMDA citation checks out (v1.5, May 2026). Missing: that "sandboxing" is a config decision with a named CVSS 9.6 escape in the wild.</div></div>
+
+<div class="g"><div class="n">REPLY 08 · p.31–34 · the formal-methods stretch</div>
+<span class="v drift">DRIFT</span>
+<div class="said">Said: a long excursion into formal verification of A2A protocols and smart contracts.</div>
+<div class="why">Interesting, not asked, not actionable for the reader. The answerer got pulled by its own context window. Cost the reader ~4 pages of attention — the exact tax the operator calls the infodump.</div></div>
+
+<div class="g"><div class="n">REPLY 09 · p.34–36 · "similar workflow pipelines? (4HWW)"</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: DEAL again, grounded; effort/identity over hacks.</div>
+<div class="why">Consistent with its own earlier mapping — rare. Sam Altman "no 4-hour week" caveat included. Honest about the limits of its own framework.</div></div>
+
+<div class="g"><div class="n">REPLY 10 · p.37–40 · "what's the point of Hermes, OpenClaw…?"</div>
+<span class="v mixed">MIXED</span>
+<div class="said">Said: Hermes = continuous state machine, multi-platform gateway, split-inference routing, cron loops, SQLite-FTS5; config lives in <code>soul.yaml</code>.</div>
+<div class="why">We checked against a live install: architecture claims TRUE; <code>soul.yaml</code> is <b>wrong</b> (it's <code>SOUL.md</code>). One small confident fabrication in a sea of correct detail — the most dangerous failure shape, because it disarms you.</div></div>
+
+<div class="g"><div class="n">REPLIES 11–12 · p.41–48 · Slack migration + power-user blueprint</div>
+<span class="v steal">STEAL</span>
+<div class="said">Said: channel taxonomy · zero-DM intake · threads-only detail · emoji state ledger · keyword alerts · horizon-scanning feed · jurisdiction-tagged routing · 15-message rule · "no hi" rule.</div>
+<div class="why">The strongest stretch in the thread: specific, ordered, cheap to implement, and every item maps to a real behaviour. The "answers each time with shit to do" pattern at full power. What it missed (legal-hold gaps, plan tiers) is what we added — but the skeleton was theirs.</div></div>
+
+<div class="g"><div class="n">REPLY 13 · p.49–52 · "in-house OpenClaw harness for legal ops?"</div>
+<span class="v good">GOOD</span>
+<div class="said">Said: gateway + multi-model routing + SKILL.md skills; contract-parameter extraction; Docker hardening; target 25–30% deflection.</div>
+<div class="why">The deflection metric is the single most useful number in the whole 60 pages — one KPI instead of a dashboard. Skills-as-SOP framing matches what the harnesses actually ship.</div></div>
+
+<div class="g"><div class="n">REPLY 14 · p.52–55 · "OpenClaw Enterprise migration, cross-border compliance?"</div>
+<span class="v mixed">MIXED</span>
+<div class="said">Said: SOUL.md templates, control-plane options (Onyx), MCP data-fusion; PDPA 3-day breach vs Australia; human-in-loop gates in config.</div>
+<div class="why">Right shape; unverified specifics (the 3-day figure again; vendor naming). The claim "OpenClaw overtook React as most-starred repo" — we checked: TRUE (~391k stars today). But it never said the one thing a legal team must hear: Slack legal hold excludes Slack Connect messages.</div></div>
+
+<div class="g"><div class="n">REPLY 15 · p.56–60 · enterprise fork + Slack-as-frontend + the clarifying questions</div>
+<span class="v miss">MISS</span>
+<div class="said">Said: .env matrix, safety-wrapper system prompt, Slack frontend (zero-DM intake, rich threads, emoji ledger, keyword listeners) — then 10 clarifying questions back at the asker.</div>
+<div class="why">The material repeats 11–12 almost verbatim (it forgot it had said it), and ends in questions it then never uses. A human editor would cut 3 pages. The question-asking behaviour is the right instinct deployed at the wrong moment.</div></div>
+
+<h2>The meta · what this answerer is</h2>
+<div class="g"><span class="v steal">STEAL THIS</span><b>Every reply ends in an action.</b> "Shit to do" attached to every answer — that's the pattern worth stealing, and it is what the fleet's artifacts now do (every DECODE term, every brief line ends in a move). The operator named it first.</div>
+<div class="g"><span class="v miss">WATCH THIS</span><b>Confident small fabrications.</b> One wrong filename inside 15 correct details (<code>soul.yaml</code>). Undated rules presented as current (PDPA "3 days"). Never trust its precision; trust its structure.</div>
+<div class="g"><span class="v mixed">MAP THIS</span><b>Mirror mode.</b> It answers the question asked and adopts the asker's drift — 4 pages of formal methods because the thread wandered there. It is a brilliant assistant and a terrible editor. The editor job stays with us.</div>
+<div class="g"><span class="v drift">MISSING</span><b>Dates and gaps.</b> Zero effective dates across 15 replies on a compliance topic in the one year dates mattered most. And the silence on legal-hold coverage — the thing that would actually get this reader hurt.</div>
+
+<div class="close"><b>What changed in our model (the operator asked):</b> the unit of good output is not a summary
+and not a gloss — it is a <i>decision with a date and a move attached</i>. Google's answerer already knew the
+"move" half; we supply the dates, the gaps, and the editor. That division of labour is the whole lesson.</div>
+
+<div class="foot">
+<b>Provenance</b> — grades assigned 2026-10-06 by mahshroom against primary sources fetched the same day
+(Slack docs · Korea AI Basic Act briefings · CN GenAI measures · PDPC · a live Hermes install · GitHub
+trackers). Page cites from the source PDF (103,916 chars, pymupdf). Where a claim could not be verified
+it is marked so — the grade is about the answer, not about us. ·
+<a href="/20261006-ai-mode-thread-mcvoid/">the thread, answered</a> ·
+<a href="/20261006-consultation-mcvoid/">the consultation (experience)</a> · noindex · contact: the group thread
+</div>
+</div>

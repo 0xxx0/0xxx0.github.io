@@ -9770,6 +9770,36 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-grading-mcvoid/",
+      "title": "15 REPLIES, GRADED — the deep review of Google AI's answers",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / DECISIONS",
+      "role": "Deep analysis of the Google AI answerer itself (operator: 'you didn't do any review deep analyses on google ai's responses'): all 15 replies graded STEAL/GOOD/MIXED/MISS/DRIFT against primary sources fetched the same day, plus the meta (its action-attachment pattern worth stealing; its confident small fabrications; mirror mode; zero effective dates) and the model update (decision + date + move is the unit).",
+      "index": {
+        "updated_at": "2026-10-06T15:45:00+08:00",
+        "work_modes": [
+          "READ",
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "each grade backed by same-day verification (Slack docs, KR/CN law briefings, live Hermes install, GitHub trackers) — MIXED/MISS grades name the specific unverified claim",
+          "page cites p.1-60 from the source PDF extraction",
+          "tally math checked: 4+5+3+2+1 = 15 replies graded"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
