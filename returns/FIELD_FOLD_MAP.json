@@ -1,14 +1,14 @@
 {
  "schema": "field-fold/v1",
- "generated": "2026-10-06T18:48:58.679Z",
- "returns_total": 287,
+ "generated": "2026-10-06T18:58:04.218Z",
+ "returns_total": 288,
  "raw_distinct_states": 110,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
   "SOURCE": 49,
   "HOLD": 96,
-  "RETURN": 142,
+  "RETURN": 143,
   "RESIDUE": 0
  },
  "residue_count": 0,
@@ -83,6 +83,10 @@
    "count": 2
   },
   {
+   "state": "SHIPPED_TO_MASTER",
+   "count": 2
+  },
+  {
    "state": "MERGED_PASS",
    "count": 2
   },
@@ -140,10 +144,6 @@
   },
   {
    "state": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED",
-   "count": 1
-  },
-  {
-   "state": "SHIPPED_TO_MASTER",
    "count": 1
   },
   {
@@ -605,6 +605,13 @@
   },
   {
    "file": "BROWSER_RESOLVER_CONSOLIDATION_2026-10-03.json",
+   "raw": "SHIPPED_TO_MASTER",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "BROWSER_RESOLVER_WORKLOAD_PROBE_2026-10-07.json",
    "raw": "SHIPPED_TO_MASTER",
    "phase": "RETURN",
    "verified": false,
