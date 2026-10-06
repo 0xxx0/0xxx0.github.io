@@ -1,6 +1,6 @@
 {
   "schema": "temp-pages/v1",
-  "updated": "2026-10-06T14:05:00+08:00",
+  "updated": "2026-10-06T15:40:00+08:00",
   "retention_days": 30,
   "holding_pen": "_archive/temp",
   "pages": [
@@ -73,6 +73,16 @@
       "status": "live",
       "what": "Culture canon page: twelve essays (Mel, Kingdom of Nouns, Brooks, Karpathy, _why, ESR, PG x2, Amodei, Aschenbrenner, AI 2027, Duckworth) arguing where the doing lives.",
       "superseded_by": null
+    },
+    {
+      "dir": "20261006-ask-table-mcvoid",
+      "title": "THE ASK TABLE - arm B of the mangospree A/B",
+      "owner": "kage",
+      "created": "2026-10-06",
+      "expires": "2026-11-05",
+      "status": "live",
+      "what": "Arm B of the mangospree A/B test. Decision instrument: say/want/clock/who/traps/move. Deleted at expiry if she uses arm A more.",
+      "superseded_by": "/20261006-decode-mangospree/"
     }
   ]
 }

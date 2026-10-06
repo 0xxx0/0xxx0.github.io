@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-06T14:09:14+08:00",
+  "updated": "2026-10-06T14:55:30+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -21,10 +21,11 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-06T14:09:14+08:00",
+        "updated_at": "2026-10-06T14:55:30+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "INVESTIGATE"
         ]
       }
     },
@@ -1415,7 +1416,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-06T14:07:49+08:00",
+        "updated_at": "2026-10-06T14:55:30+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -9688,12 +9689,13 @@
       "family": "FIELD / TOOLS",
       "role": "Client-side jargon decoder for mangospree (APAC legal/policy, non-engineer): paste any scary paragraph, get each term's context-fitting meaning, its other-room sense (polysemy solver), and one action. 44-term deck across AI-law/Slack-IT/agent/acronym domains; live deadline clocks (AU 10 Dec 2026, KR ~Jan 2027); copyable IT question. 100% in-browser — pasted text never leaves the device (deliberate for a legal user). Operator-mandated mission 2026-10-06 ('artifact for mangospree, powerful useful not a toy').",
       "index": {
-        "updated_at": "2026-10-06T14:45:00+08:00",
+        "updated_at": "2026-10-06T14:55:30+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
           "VERIFY",
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "INVESTIGATE"
         ]
       },
       "evidence": {
@@ -9701,6 +9703,36 @@
           "decode engine exercised in real browser: 11 marks + 11 cards from the built-in example, sense-picking correct (agent -> AI agent sense)",
           "mobile QA passed (single column, tap-friendly)",
           "meanings grounded in the 2026-verified runbooks (Slack plan tiers, KR AI Basic Act, PDPA, harness incident record)"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-ask-table-mcvoid/",
+      "title": "THE ASK TABLE - arm B of the mangospree A/B",
+      "kind": "tool",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / INSTRUMENTS",
+      "role": "ARM B of a two-arm usability test the subject herself adjudicates. Decision instrument for mangospree: paste an ask, get six boxes - say (shorthand expanded), want (action: extraction), clock (in-text deadlines), who (jurisdiction + regulator), traps, move. Offline, nothing transmitted. ARM A is /20261006-decode-mangospree/ (word-meaning decoder), which already absorbed this page's ask/clock/who/move extraction as a donor on 2026-10-06. CONVERGENCE RULE: this page is DISPOSABLE BY DESIGN - whichever arm she uses less gets deleted at the 2026-11-05 expiry. Do not grow both. Operator direction 2026-10-06: 'maybe do ur own version can ask subject which one pref AB test'. Noindex tool surface.",
+      "index": {
+        "updated_at": "2026-10-06T15:40:00+08:00",
+        "work_modes": [
+          "INVESTIGATE",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "RECEIPT: decoder exercised in-browser on 3 inputs (2 of them her verbatim messages); all six slots produced real output",
+          "BYTES: measured at a true 390px iframe viewport - scrollWidth 390 == clientWidth 390, 0 overflowing elements",
+          "RETURN: ask/clock/who/move extraction already donated into ARM A and verified there (action: returns exactly the action sentence) - so the capability survives this page's deletion",
+          "CONVERGENCE: registered explicitly as a disposable arm, not a second truth surface; expiry is the stop condition"
         ],
         "return_path": "/"
       },

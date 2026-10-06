@@ -192,6 +192,60 @@ function score(s,win){let n=0;for(const k of s.k){if(win.includes(k))n+=k.length
 function pickSenses(word,win){const e=DECK.find(d=>d.t.toLowerCase()===word.toLowerCase());if(!e)return null;
  const scored=e.s.map(s=>({s,sc:score(s,win)})).sort((a,b)=>b.sc-a.sc);
  return{entry:e,ranked:scored}}
+/* ── ASK BRIEF — donor from kage (20261006-ask-table, merged here, not shipped separately).
+   Answers the question the word cards can't: what are they actually asking me to DO, and when.
+   action: beats ask-verbs; deadlines are detected in-text (distinct from the regulatory clocks). */
+function sentAt(raw,i,len){
+ const b=raw.slice(0,i),a=raw.slice(i+len);
+ const s=Math.max(b.lastIndexOf('.'),b.lastIndexOf('?'),b.lastIndexOf('!'),b.lastIndexOf('\n'))+1;
+ let e=a.search(/[.!?\n]/); e=e<0?raw.length:i+len+e+1;
+ return raw.slice(s,e).trim();
+}
+function askBrief(raw){
+ const low=raw.toLowerCase();
+ const am=raw.match(/\baction\s*:/i);
+ const strong=raw.match(/\b(please|pls|plz|can you|could you|would you|we need|need (?:you|this|to)|request|provide|confirm|advise|review|sign ?off|approve|respond|reply|draft|prepare|verify|let me know|lmk)\b/i);
+ let ask;
+ if(am) ask='<b>There is an explicit <code>action:</code> line — that <i>is</i> the ask.</b><div class="q">'+esc(sentAt(raw,am.index,am[0].length))+'</div><div class="alt">Do that. Everything before it is context.</div>';
+ else if(strong) ask='<b>The request sits near <mark>'+esc(strong[0])+'</mark>.</b><div class="q">'+esc(sentAt(raw,strong.index,strong[0].length))+'</div><div class="alt">Answer format that always works: one option, one date, one question.</div>';
+ else ask='<b>No request found — this may be information only.</b><div class="alt">Before you work on it, reply: <i>“What do you need from me on this?”</i> That is not rude. It is the job.</div>';
+
+ const dl=[];
+ [[/\bby (eod|eow|cob|close of business)\b/i,'relative deadline — <b>whose timezone?</b>'],
+  [/\bby (mon|tues|wednes|thurs|fri|satur|sun)day\b/i,'named weekday — get the date in writing'],
+  [/\bby (\d{1,2}[\/-]\d{1,2})\b/i,'numeric date'],
+  [/\b(asap|urgent|immediately|right away)\b/i,'urgent — confirm it is urgent for THEM, not just loud'],
+  [/\b(q[1-4])\b/i,'a quarter is too vague to plan against']
+ ].forEach(([re,note])=>{const m=raw.match(re); if(m)dl.push('<mark>'+esc(m[0])+'</mark> — '+note)});
+ const clock=dl.length?dl.join('<br>')
+   :'<b>No date in the text — that is the problem.</b><div class="alt">Reply with <i>“When do you need this by?”</i> before you start.</div>';
+
+ let where='Not stated — assume internal until shown otherwise.';
+ if(/singapore|pdpa|\bsg\b|imda|pdpc/i.test(low))where='🇸🇬 Singapore';
+ else if(/korea|republic of korea|korean/i.test(low))where='🇰🇷 Korea';
+ else if(/australia|privacy act|oaic|\bau\b/i.test(low))where='🇦🇺 Australia';
+ else if(/china|\bprc\b|\bcac\b|\bcn\b/i.test(low))where='🇨🇳 China';
+ else if(/europe|\beu\b|gdpr|eea|european|dpia|tia\b|standard contractual|scc\b/i.test(low))where='🇪🇺 EU / EEA';
+ else if(/\buk\b|united kingdom|english law/i.test(low))where='🇬🇧 UK';
+ else if(/united states|\buss?\b|ccpa|\bftc\b/i.test(low))where='🇺🇸 US';
+ const reg=/regulator|authority|commission|supervis|inspect|audit request|request for information|\brfi\b|formal request|summons|subpoena|enforcement/i.test(low);
+ const who=where+' · '+(reg?'<mark>reads like a regulator or formal request</mark> — this is a record. Answer in writing and tell someone above you it arrived first.'
+   :'looks internal — lower stakes, a fast reply is fine.');
+
+ let move;
+ if(reg)move='<b>Log it, then tell someone above you it arrived</b> — before you answer. Formal requests have owners and clocks.';
+ else if(am)move='<b>Do the <code>action:</code> line and nothing else</b>, then confirm the date in one line.';
+ else if(dl.length)move='<b>Confirm the ask and the date in one line</b>, then do only the sentence with the request in it.';
+ else if(strong)move='<b>Reply to that one sentence</b>: one option, one date, one question.';
+ else move='<b>Send one line back: “What do you need from me on this?”</b>';
+
+ return '<h2 style="margin:22px 0 6px">00 · the ask — what they want you to do</h2>'
+  +'<div class="forwho">Words below tell you what things <i>mean</i>. These four tell you what to <i>do</i>.</div>'
+  +'<div class="tc"><span class="word">the ask</span>'+ask+'</div>'
+  +'<div class="tc"><span class="word">the clock</span><div>'+clock+'</div></div>'
+  +'<div class="tc"><span class="word">who</span><div>'+who+'</div></div>'
+  +'<div class="tc"><span class="word">your move</span><div>'+move+'</div></div>';
+}
 function decode(){
  const txt=$("tin").value;if(!txt.trim())return;
  const words=[...new Set(DECK.map(d=>d.t))];
@@ -210,6 +264,7 @@ function decode(){
  }
  const seen=new Set();const cards=found.filter(f=>{const k=f.w; if(seen.has(k))return false; seen.add(k); return true;});
  let out='<div class="src">'+html+"</div>";
+ out+=askBrief(txt);
  if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s 44 words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
  for(const f of cards){
   const top=f.ps.ranked[0],second=f.ps.ranked[1];

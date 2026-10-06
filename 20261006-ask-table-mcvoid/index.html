@@ -1,0 +1,290 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>THE ASK TABLE · paste the confusing thing</title>
+<link rel="stylesheet" href="../tools/house-patterns.css">
+<style>
+  textarea{width:100%;min-height:132px;font-family:var(--font-mono);font-size:15px;line-height:1.5;
+    border:1px solid var(--rule);padding:12px;background:var(--bg);color:var(--ink);border-radius:0}
+  textarea:focus{outline:2px solid var(--acc);outline-offset:-1px}
+  .go{font-family:var(--font-mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--ink);color:#fff;border:0;padding:13px 20px;border-radius:0;cursor:pointer;width:100%}
+  .go:active{background:var(--acc)}
+  .slot{border:1px solid var(--rule);border-left:4px solid var(--mut);padding:11px 13px;margin:9px 0}
+  .slot b.lab{display:block;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+  .slot .val{font-size:15.5px;line-height:1.55}
+  .s1{border-left-color:var(--acc)} .s2{border-left-color:var(--acc)}
+  .s3{border-left-color:var(--hot)} .s4{border-left-color:var(--gold)}
+  .s5{border-left-color:var(--hot)} .s6{border-left-color:var(--ok)}
+  .chip{display:inline-block;border:1px solid var(--rule);padding:1px 7px;margin:2px 3px 2px 0;
+    font-size:12px;font-family:var(--font-mono);background:var(--panel)}
+  .chip.hot{border-color:var(--hot);color:var(--hot);background:var(--warnbg)}
+  .chip.ok{border-color:var(--ok);color:var(--ok)}
+  .word{border-bottom:1px dotted var(--mut);cursor:help}
+  mark{background:var(--hl);padding:0 2px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  @media(max-width:620px){.two{grid-template-columns:1fr}}
+  .jg{border-top:1px solid var(--rule);padding:7px 0;display:grid;grid-template-columns:118px 1fr;gap:10px;font-size:14.5px}
+  .jg b{font-family:var(--font-mono);font-size:13.5px}
+  /* narrow-first: nothing may exceed the viewport */
+  @media(max-width:520px){
+    .wrap{padding:14px 13px}
+    .jg{grid-template-columns:1fr;gap:2px}
+    .jg b{font-size:14px}
+    h1{font-size:25px;line-height:1.18}
+    h2{font-size:19px}
+    .meta span{font-size:11px}
+    .slot{padding:10px 11px}
+    .slot .val{font-size:15px}
+    .go{padding:15px 18px;min-height:48px}
+    .jg, .card, .box, .slot, .foot{overflow-wrap:anywhere}
+  }
+  .hidden{display:none}
+</style>
+<div class="wrap">
+<header>
+<h1>The ask table<br>paste the confusing thing</h1>
+<div class="meta">
+ <span>2026-10-06</span>
+ <span>built for <b>mangospree</b></span>
+ <span>runs <b>on your phone · offline · nothing sent anywhere</b></span>
+ <span>read time <b>90 sec</b></span>
+</div>
+</header>
+
+<div class="big">Someone sends you three lines of compressed work-speak and now you're
+supposed to <i>do</i> something. Paste it here. Get back six boxes: what it says, what
+they actually want, when it's due, who's asking, what not to do, and your next move.</div>
+
+<div class="box">
+<span class="badge">why this exists</span>
+Two messages, both real, both yours: <i>&ldquo;What's <b>trsT most or all as prev discussed</b>?&rdquo;</i>
+and <i>&ldquo;What does <b>device stuff</b> mean?&rdquo;</i> Nobody trains you to read
+work-speak, and asking out loud costs status. This asks for you.
+</div>
+
+<textarea id="in" placeholder="Paste the message, the ask, the RFI, the thread you don't understand…"></textarea>
+<p><button class="go" onclick="run()">decode the ask</button></p>
+<button class="go" style="background:var(--panel);color:var(--ink);border:1px solid var(--rule)" onclick="sample()">try a sample</button>
+
+<div id="out" class="hidden">
+<div class="slot s1"><b class="lab">1 · say — what it actually says</b><div class="val" id="o1"></div></div>
+<div class="slot s2"><b class="lab">2 · want — the real ask</b><div class="val" id="o2"></div></div>
+<div class="slot s3"><b class="lab">3 · clock — when</b><div class="val" id="o3"></div></div>
+<div class="slot s4"><b class="lab">4 · who — and how much it matters</b><div class="val" id="o4"></div></div>
+<div class="slot s5"><b class="lab">5 · traps — what not to do</b><div class="val" id="o5"></div></div>
+<div class="slot s6"><b class="lab">6 · move — do this next</b><div class="val" id="o6"></div></div>
+</div>
+
+<h2>the words that hide the ask</h2>
+<p class="sub">Work-speak isn't lying to you — it's just compressed. Decode the compression, not the person.</p>
+
+<div class="two">
+<div>
+<div class="jg"><b>pls advise</b><span>They want <i>your</i> recommendation, not a summary. Give one option and say why.</span></div>
+<div class="jg"><b>pls confirm</b><span>They want a yes/no and a date. Nothing else.</span></div>
+<div class="jg"><b>for visibility</b><span>No action. Read it and move on. Safe to ignore.</span></div>
+<div class="jg"><b>looping in</b><span>Someone new is now responsible. Not you.</span></div>
+<div class="jg"><b>flagging</b><span>There's a risk and they want it on record. Reply so it's on <i>yours</i> too.</span></div>
+<div class="jg"><b>action:</b><span>The only line in the message that's actually a request. Everything else is context.</span></div>
+<div class="jg"><b>prev discussed</b><span>They believe you already agreed to this. Before you reply, go find that conversation.</span></div>
+<div class="jg"><b>as discussed</b><span>Same, but weaker. Verify before acting.</span></div>
+</div>
+<div>
+<div class="jg"><b>trsT / t&b / asap</b><span>Chat shorthand. <i>trsT</i> = &ldquo;trust&rdquo; as in &ldquo;assume&rdquo;. <i>t&b</i> = to be confirmed. When you can't decode it — that's the signal to ask.</span></div>
+<div class="jg"><b>EOD / EOW / COB</b><span>End of day / end of week / close of business. Always ask <i>whose</i> timezone — in APAC it is often not yours.</span></div>
+<div class="jg"><b>P0 / P1 / P2</b><span>Severity. P0 = drop everything. P1 = today. P2 = this week.</span></div>
+<div class="jg"><b>blocker</b><span>Someone is stuck and waiting on you. These outrank your own plan.</span></div>
+<div class="jg"><b>bandwidth</b><span>Do I have time. &ldquo;No bandwidth&rdquo; is a complete sentence.</span></div>
+<div class="jg"><b>socialise</b><span>Tell people before deciding. Not a decision yet.</span></div>
+<div class="jg"><b>park / shelf</b><span>Stop, revisit later. Ask when — or it never comes back.</span></div>
+<div class="jg"><b>RFI</b><span>Request for Information. A formal ask, usually with a deadline and a record. Treat it as a document, not a chat.</span></div>
+</div>
+</div>
+
+<h2>the traps — the four that actually burn people</h2>
+<div class="card"><span class="badge">trap 1</span> <b>Legal hold does not cover Slack Connect</b> <span class="arr">→</span>
+ Outside counsel in a shared channel? That chat can vanish under a hold. <b>Ask IT, in writing:</b>
+ &ldquo;Does our legal hold cover Slack Connect and bot-posted messages?&rdquo; You want a yes/no you can quote.</div>
+<div class="card"><span class="badge">trap 2</span> <b>Privilege is lost by forwarding</b> <span class="arr">→</span>
+ The moment you forward counsel's advice into a wider channel, you can waive it. Keep advice in the smallest channel that can act on it.</div>
+<div class="card"><span class="badge">trap 3</span> <b>The regulator gets the whole thread, not your summary</b> <span class="arr">→</span>
+ In a production, what's discoverable is the conversation — not the tidy version you wrote later. Write every message as if it will be read out.</div>
+<div class="card"><span class="badge">trap 4</span> <b>&ldquo;Delete after reading&rdquo; is a record</b> <span class="arr">→</span>
+ Disappearing messages + a retention obligation = the worst of both. If a matter is live, turn disappearing off in that channel.</div>
+
+<h2>the clock — real dates, not vibes</h2>
+<div class="two">
+<div>
+<div class="jg"><b>10 Dec 2026</b><span>🇦🇺 Australia — automated-decision transparency duties commence (APP 1.7–1.9).</span></div>
+<div class="jg"><b>~Jan 2027</b><span>🇰🇷 Korea AI Basic Act — in force 22 Jan 2026, grace ≈1 year, so this is the working deadline.</span></div>
+</div>
+<div>
+<div class="jg"><b>15 Jul 2026</b><span>🇨🇳 China — anthropomorphic AI interaction measures in force. Still no general AI law.</span></div>
+<div class="jg"><b>rolling</b><span>🇸🇬 Singapore — MGF for Agentic AI v1.5 (May 2026); PDPA portability legislated but not yet in force. ASEAN = voluntary.</span></div>
+</div>
+</div>
+
+<h2>Slack — the moves that stop the drowning</h2>
+<div class="box">
+Full brief, 14 sourced links + 8 workflows + the Google-Chat migration gotchas:
+<b>AXIS/work/ACTIVE/slack-power/BRIEF.md</b> (the crew has it). Three that matter most here:
+<div style="margin-top:9px">
+<span class="chip ok">search operators: from: in: before: has: -word</span>
+<span class="chip ok">Workflow Builder — intake form for review requests</span>
+<span class="chip ok">canvas as the matter's front page</span>
+</div>
+</div>
+
+<div class="close">
+<span class="badge">the one move</span>
+Next confusing message you get — <b>paste it in the box above before you reply.</b><br>
+<span class="it">Thirty seconds here saves the meeting where you have to ask.</span>
+</div>
+
+<div class="foot">
+runs entirely in your browser · nothing typed here leaves your phone · no account, no login ·
+built 2026-10-06 by kage for mangospree · cross-links:
+<a href="/20261006-canon-mcvoid/">the canon</a> ·
+<a href="/20261006-ai-mode-thread-mcvoid/">the thread, answered</a>
+</div>
+</div>
+
+<script>
+const ABBR = {
+ "trst":"trust / assume","prev":"previous","asap":"as soon as possible","eod":"end of day",
+ "eow":"end of week","cob":"close of business","eta":"estimated time of arrival / when",
+ "fyi":"for your information","iirc":"if I recall correctly","tl;dr":"too long; did not read",
+ "wip":"work in progress","oof":"out of office / unavailable","wfh":"work from home",
+ "ptto":"please turn over / see below","pls":"please","plz":"please","thx":"thanks",
+ "rfi":"request for information","rfp":"request for proposal","dpia":"data protection impact assessment",
+ "tia":"transfer impact assessment","scc":"standard contractual clauses","bcr":"binding corporate rules",
+ "dpa":"data processing agreement / data protection authority","dpo":"data protection officer",
+ "adm":"automated decision making","ai act":"EU AI Act","gdpr":"EU General Data Protection Regulation",
+ "pdpa":"Singapore Personal Data Protection Act","ccpa":"California Consumer Privacy Act",
+ "litigation hold":"a legal instruction to preserve documents — you may not delete",
+ "legal hold":"a legal instruction to preserve documents — you may not delete",
+ "privilege":"legal protection for lawyer communications — lost if forwarded widely",
+ "work product":"material prepared for litigation — keep it in the smallest channel",
+ "discovery":"the formal process of handing over documents to the other side",
+ "production":"the actual set of documents you hand over",
+ "remediation":"fixing the thing that went wrong","escalation":"sending it up a level",
+ "kickoff":"the first meeting on a thing","sync":"a meeting, usually a status update",
+ "standup":"a short daily status meeting","retro":"a look back at how something went",
+ "blocker":"something stopping the work — usually needs someone else","bandwidth":"available time and attention",
+ "socialise":"tell people about it before deciding","park":"stop and revisit later",
+ "shelf":"put it aside","carve out":"remove / separate a part","greenfield":"starting from nothing",
+ "brownfield":"working on something that already exists","north star":"the main goal"
+};
+const REGULATOR=/regulator|authority|commission|board|bureau|agency|supervis|inspect|audit request|request for information|rfi|formal request|summons|subpoena|enforcement/i;
+const RISK=[
+ [/legal hold|litigation hold|preserve|do not delete|preservation/i,"LEGAL HOLD — do not delete or edit anything in scope."],
+ [/privileg|counsel|outside counsel|lawyer|advice/i,"PRIVILEGE — keep counsel advice in the smallest channel that can act on it."],
+ [/retention|delet|disappear|expire|auto.?delet/i,"RETENTION — a deletion setting may be running against a live matter. Check before you rely on anything."],
+ [/produc|discovery|disclos|hand over|submit to/i,"PRODUCTION — what gets handed over is the whole thread, not your summary. Write accordingly."],
+ [/external|outside|third part|vendor|partner|slack connect|guest/i,"EXTERNAL — someone outside your org is in the room. Check what's safe to say."],
+ [/forward|share|repost|cross.?post/i,"FORWARDING — the act of forwarding can waive privilege or expose the thread."],
+ [/deadline|due|by eod|by eow|cob|urgent|asap|p0|p1/i,"DEADLINE — there is a clock on this. Get the date in writing."]
+];
+const ASKSTRONG=/\b(please|pls|plz|can you|could you|would you|we need|need (?:you|this|to)|request|provide|confirm|advise|review|sign ?off|approve|respond|reply|share|send|draft|prepare|check|verify|let me know|lmk|help)/i;
+const ACTIONWORD=/\baction\s*:/i;
+
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function sentenceWith(raw, idx, len){
+  const before=raw.slice(0, idx), after=raw.slice(idx+len);
+  const s=Math.max(before.lastIndexOf('.'), before.lastIndexOf('?'), before.lastIndexOf('!'), before.lastIndexOf('\n'))+1;
+  let e=after.search(/[.!?\n]/); e = e<0 ? raw.length : idx+len+e+1;
+  return raw.slice(s, e).trim();
+}
+function run(){
+  const raw=document.getElementById('in').value.trim();
+  if(!raw){document.getElementById('out').classList.add('hidden');return}
+  const low=raw.toLowerCase();
+
+  /* 1 SAY — expand known shorthand inline */
+  let say=esc(raw);
+  let found=[];
+  Object.keys(ABBR).sort((a,b)=>b.length-a.length).forEach(k=>{
+    const re=new RegExp("\\b"+k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","ig");
+    if(re.test(raw)){found.push(k);say=say.replace(re,m=>`<span class="word" title="${ABBR[k]}">${m}</span>`)}
+  });
+  document.getElementById('o1').innerHTML =
+    (found.length
+      ? `<div style="margin-bottom:7px">${found.map(k=>`<span class="chip">${esc(k)} → ${esc(ABBR[k])}</span>`).join("")}</div>`
+      : `<div style="margin-bottom:7px"><span class="chip">no known shorthand detected</span></div>`)
+    + `<div style="color:var(--mut);font-size:14px">the text, with the compressed words marked — hover any underlined word:</div><div style="margin-top:5px">${say}</div>`;
+
+  /* 2 WANT — action: beats everything; strong ask verbs next; else information only */
+  const am = raw.match(ACTIONWORD);
+  const strong = raw.match(ASKSTRONG);
+  let want;
+  if (am) {
+    want = `<b>There is an explicit <code>action:</code> line — that <i>is</i> the ask.</b>`
+         + `<div style="margin:7px 0;padding:9px 11px;border-left:4px solid var(--acc);background:var(--actbg)">`
+         + `${esc(sentenceWith(raw, am.index, am[0].length))}</div>`
+         + `<div style="color:var(--mut);font-size:14px">Do that. Everything before it is context.</div>`;
+  } else if (strong) {
+    want = `They want something — the request sits near <mark>${esc(strong[0])}</mark>.`
+         + `<div style="margin:7px 0;padding:9px 11px;border-left:4px solid var(--acc);background:var(--actbg)">`
+         + `${esc(sentenceWith(raw, strong.index, strong[0].length))}</div>`
+         + `<div style="color:var(--mut);font-size:14px">Answer format that always works: one option, one date, one question.</div>`;
+  } else {
+    want = `No request verb found. This may be <b>information only</b> (&ldquo;for visibility&rdquo;).`
+         + `<div style="margin:7px 0">Before you work on it, reply: <i>&ldquo;What do you need from me on this?&rdquo;</i></div>`;
+  }
+  document.getElementById('o2').innerHTML = want;
+
+  /* 3 CLOCK */
+  const dl=[];
+  let mm;
+  const pats=[[/\bby (eod|eow|cob|close of business)\b/i,"relative deadline — whose timezone?"],
+    [/\bby (mon|tues|wednes|thurs|fri|satur|sun)day\b/i,"named weekday — get the date in writing"],
+    [/\bby (\d{1,2}[\/-]\d{1,2})\b/i,"numeric date"],
+    [/\b(q[1-4])\b/i,"quarter — too vague to plan against"],
+    [/\b(asap|urgent|immediately|right away)\b/i,"urgent — confirm it is urgent for THEM, not just loud"]];
+  pats.forEach(([re,note])=>{ if((mm=raw.match(re))) dl.push(`<mark>${esc(mm[0])}</mark> — ${note}`) });
+  document.getElementById('o3').innerHTML = dl.length
+    ? dl.join("<br>")
+    : `No date in the text. <b>That is the problem.</b> Reply with: <i>&ldquo;When do you need this by?&rdquo;</i> — before you start.`;
+
+  /* 4 WHO */
+  let where="Not stated — assume internal until shown otherwise.";
+  if(/singapore|pdpa|\bsg\b|imda|pdpc/i.test(low)) where="🇸🇬 Singapore";
+  else if(/korea|republic of korea|korean/i.test(low)) where="🇰🇷 Korea";
+  else if(/australia|privacy act|oaic|\bau\b/i.test(low)) where="🇦🇺 Australia";
+  else if(/china|\bprc\b|\bcac\b|\bcn\b/i.test(low)) where="🇨🇳 China";
+  else if(/europe|\beu\b|gdpr|eea|european|dpia|tia\b|standard contractual|scc\b/i.test(low)) where="🇪🇺 EU / EEA";
+  else if(/\buk\b|united kingdom|english law/i.test(low)) where="🇬🇧 UK";
+  else if(/united states|\buss?\b|ccpa|\bftc\b/i.test(low)) where="🇺🇸 US";
+  const isReg=REGULATOR.test(low);
+  document.getElementById('o4').innerHTML =
+    `<b>${where}</b> · ${isReg
+      ? `<mark>reads like a regulator or formal request</mark> — this is a record. Answer in writing, get the date, and tell someone above you it arrived.`
+      : `looks internal — lower stakes, faster reply is fine.`}`;
+
+  /* 5 TRAPS */
+  const hits=RISK.filter(([re])=>re.test(low)).map(([,t])=>t);
+  document.getElementById('o5').innerHTML = hits.length
+    ? hits.map(t=>`<div style="margin:3px 0">⚠ ${t}</div>`).join("")
+    : `None detected. Standard rule still applies: <b>write it as if it will be read out in a meeting.</b>`;
+
+  /* 6 MOVE */
+  let move;
+  if(isReg) move=`<b>Log it, then tell someone above you it arrived</b> — before you answer. Formal requests have owners and clocks.`;
+  else if(am) move=`<b>Do the <code>action:</code> line and nothing else</b>, then confirm the date in one line.`;
+  else if(dl.length) move=`<b>Confirm the ask and the date in one line</b>, then do only the sentence that contains the request.`;
+  else if(strong) move=`<b>Reply to that one sentence</b> with: one option, one date, one question.`;
+  else move=`<b>Send one line back: &ldquo;What do you need from me on this?&rdquo;</b> That is not rude — it is the whole job.`;
+  document.getElementById('o6').innerHTML = move +
+    `<div style="margin-top:8px;color:var(--mut);font-size:14px">If you still can't decode a word — say so. One honest question beats a wrong deliverable.</div>`;
+
+  document.getElementById('out').classList.remove('hidden');
+  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function sample(){
+  document.getElementById('in').value =
+"Hi — looping in for visibility. Per prev discussed, pls can we get the TIA socialised ahead of the\ncall? Trust most or all as prev discussed is fine. Action: confirm the DPIA covers the ADM use case\nand revert by EOD. Legal hold is on so pls don't delete anything from the thread.";
+  run();
+}
+</script>
