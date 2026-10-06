@@ -1,0 +1,74 @@
+{
+  "schema": "field-return/v1",
+  "id": "CREW_EXECUTION_SPINE_COMPILE_2026-10-06",
+  "date": "2026-10-06",
+  "state": "RETURN / DOCUMENTATION + DISCOVERABILITY",
+  "object": "SOURCE → HOLD → TURN → TRACE → RETURN crew execution spine",
+  "source": {
+    "owner": "0xxx0/0xxx0.github.io protocol package",
+    "refs": [
+      "/AGENTS.md",
+      "/llms.txt",
+      "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+      "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+      "/control/SUBMISSION_CONTRACT.json",
+      "/lib/field-crew-handoff.mjs",
+      "/scripts/emit-agent-transcript.mjs",
+      "/tools/field-stage-handoff.mjs",
+      "/tools/source-hold-turn-trace-return-selftest.mjs",
+      "/tools/field-machine-reducer-selftest.mjs"
+    ]
+  },
+  "before": "The executable crew seam already existed across several canonical files and commands, but recovering the whole human/agent/future-worker path required reconstructing how SOURCE/HOLD/TURN/TRACE/RETURN, SUBMISSION_CONTRACT, field-crew-handoff, the machine entrypoint, exact-object staging, human gates and proof surfaces fit together.",
+  "turn": {
+    "kind": "DOCUMENTATION_COMPILE",
+    "authority": "EDIT / REPOSITORY DOCUMENTATION ONLY",
+    "release": "Git commit on candidate branch",
+    "commit": "36d37d939c41781c9b9e8683967fca1a5eef6e2a"
+  },
+  "observed_delta": [
+    "Added one current-master compilation note at /control/confluence/CREW_EXECUTION_SPINE_2026-10-06.md.",
+    "The note identifies the existing executable fast path for known objects: node tools/field-stage-handoff.mjs --source <exact route|CURRENT lineage> [--json].",
+    "The note identifies the existing full-envelope path: /control/SUBMISSION_CONTRACT.json → node scripts/emit-agent-transcript.mjs --handoff <submission.json> → field-crew-handoff/v0.1.",
+    "The note preserves field-crew-turn/v0.1 as the minimum 10-leaf same-object execution projection and explicitly rejects actor/next authority fields.",
+    "The note compiles current human-gate semantics, crew handoff states, fail-closed boundaries, proof locations and one successor relay-without-reconstruction experiment.",
+    "No runtime, route, CURRENT head, manifest object, queue, planner, memory store, native host or effect authority was added or changed."
+  ],
+  "evidence_refs": [
+    "/control/confluence/CREW_EXECUTION_SPINE_2026-10-06.md",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.json",
+    "/control/SOURCE_HOLD_TURN_TRACE_RETURN.md",
+    "/lib/field-crew-handoff.mjs",
+    "/scripts/emit-agent-transcript.mjs",
+    "/tools/field-stage-handoff.mjs",
+    "/tools/field-machine-reducer-selftest.mjs"
+  ],
+  "proof_observed_this_turn": [
+    "Read current /AGENTS.md worker/authority law.",
+    "Read current /llms.txt machine entrypoint and crew handoff instructions.",
+    "Read current SOURCE/HOLD/TURN/TRACE/RETURN machine + human contracts.",
+    "Read current SUBMISSION_CONTRACT minimum_execution_projection and crew_handoff_projection.",
+    "Read current field-crew-handoff compiler, exact-object staging helper and machine reducer selftest.",
+    "Confirmed the exact-object staging helper already compiles directly to the canonical crew handoff by default; no second one-shot wrapper was needed."
+  ],
+  "verification": {
+    "repository_ci": "NOT_CLAIMED_AT_RETURN_CREATION",
+    "browser": "NOT_APPLICABLE_TO_DOCUMENTATION_ONLY_DELTA",
+    "device_or_human_world": "NOT_APPLICABLE",
+    "claim_boundary": "This RETURN records source readback and the documentation commit only. Passing CI/merge status must be attached from actual repository checks, not inferred here."
+  },
+  "residue": [
+    "The canonical protocol documents remain distributed because they own unequal functions; this compilation is a map, not a replacement authority source.",
+    "A generic relay-without-reconstruction proof across a second non-HOUSE real host would strengthen cross-crew evidence if it exposes genuinely different failure modes."
+  ],
+  "successor_hook": {
+    "name": "relay_without_reconstruction",
+    "shape": "crew A resolves one object and emits handoff → crew B consumes same object/handle and performs or observes one lawful TURN → RETURN → crew C re-enters and must re-read current truth before any second consequential move",
+    "pass": "object identity, native owner, human gate, evidence and exact RETURN survive without hidden shared state or inherited authority",
+    "fail": "crew identity grants authority, a second move inherits authority, object identity drifts, or a persistent coordination store becomes necessary"
+  },
+  "unresolved_gate": null,
+  "return_address": "/control/confluence/CREW_EXECUTION_SPINE_2026-10-06.md",
+  "next_authority": "NONE"
+}
