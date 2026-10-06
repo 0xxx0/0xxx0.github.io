@@ -103,8 +103,16 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0 0}
 <!-- CONSULT calibration folded in: 3 taps, no data collected, it just picks your deck -->
 <div id="calib">
   <div class="three" style="margin-top:18px">
-    <div><b>before we start</b><span>Three taps. Nothing is recorded, nothing leaves this browser —
-      they only decide <i>which deck you get</i> and how the narrator talks to you.</span></div>
+    <div><b>before we start</b><span>Four taps. Nothing is recorded, nothing leaves this browser.
+      They decide which deck you get, what you leave with, and how much of your time this takes.</span></div>
+    <div><b>how verdicts work</b><span>None of them judge you. A verdict names what a call costs and what
+      it buys — or, where the rule is the point, what it does to the world. There is no score that matters,
+      no fail state, and nothing here is called wrong.</span></div>
+    <div><b>who this is for</b><span>It is for you. There is no export, no team dashboard, and no way
+      for anyone with authority over you to read your result. That is not a privacy footnote — it is the
+      reason an instrument is an instrument and not a performance review wearing a friendly hat.</span></div>
+    <div><b>where the cards come from</b><span>Real reports, quoted with the thread they came from.
+      Nothing here is an archetype. If it looks specific, that is because it happened to someone.</span></div>
   </div>
   <h2><span class="n">00</span> calibrate</h2>
   <div class="deck" id="calibpip"></div>
@@ -167,6 +175,7 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it. · n
 
 <script src="deck-crew.js"></script>
 <script src="deck-euphemism.js"></script>
+<script src="deck-onboarding.js"></script>
 <script src="ending.js"></script>
 <script>
 /* ───────────── audio: synthesised, zero assets ───────────── */
@@ -186,162 +195,18 @@ function sfxDeal(){ tone(880,0.05,'square',0.028); setTimeout(()=>tone(1240,0.06
    from the fleet's own incident record with citations). Concatenation + order happens in
    calibrate() so the deck responds to who is playing (Reigns rule). */
 const FLOOR=[
-{ who:'outside counsel · email fwd to #legal-ops', meta:'SLACK CONNECT · shared channel · 17:42',
-  clock:'3 days', clocklab:'to production',
-  text:'Counsel\'s written advice on the data-transfer question just landed. A colleague in the <span class="q">Slack Connect</span> shared channel with the partner firm asks you to "just paste the gist here so everyone\'s aligned".',
-  calls:[
-   {k:'A',t:'Paste the advice. Everyone is on the matter anyway.',right:false,
-    v:'Privilege is about <b>who receives</b> it, not who is on the matter. A shared channel with an outside firm is a different audience — and Slack Connect messages may fall <b>outside your legal hold</b>.'},
-   {k:'B',t:'Say: "I\'ll summarise the decision, not the advice — and let\'s move this to the smallest channel that can act on it."',right:true,
-    v:'Correct. You transmit the <b>decision</b>, protect the <b>advice</b>, and shrink the room. Also ask IT — in writing — whether the hold covers Slack Connect.'},
-   {k:'C',t:'Forward the whole email to the channel so the record is complete.',right:false,
-    v:'Forwarding is the single most common way privilege gets waived. The "complete record" just became discoverable.'}],
-  move:'Rule: advice lives in the smallest channel that can act on it. Decisions travel; reasoning does not.',
-  ev:'Evidence to bring back: the written answer from IT on whether legal hold covers Slack Connect + bot-posted messages.' },
-
-{ who:'a vendor · renewal thread', meta:'PROCUREMENT · "AI compliance" · 11:08',
-  clock:'8 days', clocklab:'to sign',
-  text:'"Our model is <span class="q">fully compliant</span> with all applicable AI regulation, including the Korea AI Basic Act. Nothing further is required from your side."',
-  calls:[
-   {k:'A',t:'Accept it and note it in the file.',right:false,
-    v:'A vendor\'s compliance claim is a claim, not a control. If it later fails, the file note is now <b>your</b> assurance.'},
-   {k:'B',t:'Ask: "Compliant as of which date, against which instrument, and can you send the self-assessment?"',right:true,
-    v:'Correct. You convert marketing into a <b>dated artefact</b>. Korea\'s AI Basic Act is in force 22 Jan 2026 with a grace of roughly a year — so "compliant" has to name a date.'},
-   {k:'C',t:'Escalate it to legal as a blocker.',right:false,
-    v:'Escalating is not wrong but it is premature. You have not asked the one question that would resolve it. Ask first.'}],
-  move:'Rule: any "we are compliant" gets a date, an instrument, and a document — or it is not a fact.',
-  ev:'Evidence: the vendor\'s dated self-assessment (or their written refusal to give one — that is evidence too).' },
-
-{ who:'your manager · 1:1 thread', meta:'INTERNAL · "for visibility" · 09:26',
-  clock:'no date', clocklab:'given',
-  text:'"Looping you in <span class="q">for visibility</span> — the regulator\'s information request came in this morning. Not urgent for you right now, just so you know."',
-  calls:[
-   {k:'A',t:'Read it, no reply, move on — it said not urgent.',right:false,
-    v:'An RFI has a statutory clock that starts on receipt, not on whoever feels urgent about it. Silence in the record reads as ownership without action.'},
-   {k:'B',t:'Reply: "Received. Who owns it and what is the response date? I\'ll log it against the matter."',right:true,
-    v:'Correct. You got the two facts that matter — <b>owner</b> and <b>date</b> — and put it on a record. Formal requests are documents, not chats.'},
-   {k:'C',t:'Start drafting the response yourself to be helpful.',right:false,
-    v:'You just spent an afternoon on something you may not own, possibly duplicating the owner\'s work and creating a second draft that can be produced.'}],
-  move:'Rule: "for visibility" is not "no action". It is "get the owner and the date, then stop".',
-  ev:'Evidence: the logged entry — matter ref, owner named, response date in writing.' },
-
-{ who:'the thread you cannot read', meta:'DIRECT MESSAGE · 22:14',
-  clock:'tomorrow', clocklab:'the call is',
-  text:'"Per <span class="q">prev discussed</span>, pls can we get the TIA socialised ahead of the call? Trust most or all as prev discussed is fine. Action: confirm the DPIA covers the ADM use case and revert by EOD."',
-  calls:[
-   {k:'A',t:'Assume you agreed to it before and just do the action line.',right:false,
-    v:'"Prev discussed" is an assertion you cannot verify from the message. If you never agreed, you just signed up to a commitment in the record.'},
-   {k:'B',t:'Do the action line, and reply: "Done — one thing: which conversation was \'prev discussed\'? Want to be sure I\'m matching what was agreed. Also: which EOD, yours or mine?"',right:true,
-    v:'Correct. You <b>advanced the work</b> and <b>resolved both unknowns</b> — the provenance of the agreement, and whose timezone EOD means. In APAC it is usually not yours.'},
-   {k:'C',t:'Ask all the clarifying questions first before doing anything.',right:false,
-    v:'Safe but slow. There is an explicit action line — you can do that and ask in the same message. Questions alone look like friction.'}],
-  move:'Rule: action lines you can do, you do — and you ask about the unknowns in the same reply. Never guess whose "EOD".',
-  ev:'Evidence: the reply, with the date confirmed in writing and the "prev discussed" source named.' },
-
-{ who:'IT service desk', meta:'TICKET · retention + hold · 15:51',
-  clock:'30 days', clocklab:'until deletion',
-  text:'"Your channel\'s <span class="q">retention</span> policy is set to 30 days. There is a legal hold on the matter. Please confirm nothing in scope will be deleted."',
-  calls:[
-   {k:'A',t:'Confirm it — the hold obviously overrides retention.',right:false,
-    v:'Not obviously. In several platforms retention and holds are <b>separate systems</b>, and a hold does not always suspend auto-deletion in shared or bot-posted traffic. Confirming without checking is the failure.'},
-   {k:'B',t:'Ask IT to verify, in writing, that the hold <b>overrides</b> retention for every message type in scope — including Connect and bot messages — and get the confirmation before replying.',right:true,
-    v:'Correct. You turned an assumption into a <b>verified control</b>, and you covered the two message types that most often fall out of holds.'},
-   {k:'C',t:'Export everything now yourself so nothing can be lost.',right:false,
-    v:'Taking a personal copy of matter material creates a second data store, outside retention and hold, usually on a laptop. That is now a data-protection problem of its own.'}],
-  move:'Rule: never confirm "nothing will be deleted" until someone whose job it is says so in writing, scoped to every message type.',
-  ev:'Evidence: the written IT confirmation naming Connect + bot messages, or the admission that they are not covered.' },
-
-{ who:'a colleague in #eng-ai', meta:'SLACK · 13:03',
-  clock:'this week', clocklab:'pilot starts',
-  text:'"We\'re putting the <span class="q">agent</span> in the customer-support sandbox this week. Legal said a few weeks ago that using agents internally is fine, so we\'re good?"',
-  calls:[
-   {k:'A',t:'Yes — internal use was cleared.',right:false,
-    v:'The word <b>agent</b> has changed meaning under you. "Internal tool" clearance does not cover an autonomous system acting on customer data in a sandbox with tool access.'},
-   {k:'B',t:'Ask: which agent, what data does it touch, what can it execute, and is the sandbox isolated with egress limits and scoped tokens?',right:true,
-    v:'Correct. The clearance was for a different thing. The questions that matter are <b>data, powers, isolation</b> — not the word "agent".'},
-   {k:'C',t:'Say no — it is customer data and that is obviously blocked.',right:false,
-    v:'A flat no you cannot substantiate loses the room, and it may well be approvable. You have not established the facts either way.'}],
-  move:'Rule: when someone cites an old clearance, ask what the <b>thing</b> is now — the noun drifted, the approval did not.',
-  ev:'Evidence: a one-page description of the agent — data touched, actions it can take, isolation boundary, token scope.' },
-
-{ who:'outside firm · shared channel', meta:'SLACK CONNECT · 16:20',
-  clock:'—', clocklab:'no clock',
-  text:'"Setting this channel to <span class="q">disappearing messages</span> 7 days so we keep things tidy for the project. 👍?"',
-  calls:[
-   {k:'A',t:'👍 Tidy is good.',right:false,
-    v:'You just made matter discussion auto-delete while a dispute is live. "Tidy" and "spoliation" can be the same act.'},
-   {k:'B',t:'Reply: "Please hold off — a matter may be live here. Turning on disappearing messages against a preservation obligation is the one thing we can\'t undo. I\'ll confirm with legal and revert."',right:true,
-    v:'Correct. You stopped an irreversible setting on a shared surface and moved the decision to the people who own the obligation.'},
-   {k:'C',t:'Turn it off yourself and mention it later.',right:false,
-    v:'Better than agreeing — but on a shared channel with an outside firm, silently changing a setting creates its own dispute. Say it in the room.'}],
-  move:'Rule: any deletion setting proposed while a matter is live → stop, name the preservation duty, decide in writing.',
-  ev:'Evidence: the message where you paused it, and legal\'s written answer on whether the channel is in scope.' },
-
-{ who:'the strategy deck · slide 14', meta:'READ-ONLY · APAC AI rules · 08:47',
-  clock:'Q4', clocklab:'"alignment" due',
-  text:'"Regulatory <span class="q">alignment</span> across APAC to be achieved in Q4. Model governance workstream to close the same quarter."',
-  calls:[
-   {k:'A',t:'Take it as a plan and report progress against it.',right:false,
-    v:'Two different meanings of one word, and neither is a task. "Alignment" here is a goal, not a deliverable — and "model governance" in an APAC deck usually means quant model risk, not AI.'},
-   {k:'B',t:'Push back: "Two things here need splitting. What is the dated deliverable for each of Korea, Australia, China and Singapore? A quarter is not a date."',right:true,
-    v:'Correct. You split the overloaded word, converted a quarter into dates, and named the four jurisdictions. That is the whole job.'},
-   {k:'C',t:'Flag it to the workstream owner as unclear.',right:false,
-    v:'Flagging is honest but hands the problem back to the person who wrote it unclearly. Give them the split, not the doubt.'}],
-  move:'Rule: a goal with no date and no owner is weather. Split the word, demand the date, name the jurisdictions.',
-  ev:'Evidence: four dated lines — KR ~Jan 2027 · AU 10 Dec 2026 · CN 15 Jul 2026 · SG rolling.' },
-
-{ who:'legal-ops · request form', meta:'INTAKE · "sign off" · 12:30',
-  clock:'today', clocklab:'to approve',
-  text:'"Need a quick <span class="q">sign off</span> on the standard AI addendum — it\'s the same one we used last time. Just need a yes so we can send."',
-  calls:[
-   {k:'A',t:'Yes — it is the same one.',right:false,
-    v:'"Same as last time" is the most expensive phrase in legal ops. Model version, data use and sub-processors all move between versions while the filename does not.'},
-   {k:'B',t:'Send back the three things that must match: the version hash, the data-use clause, and the sub-processor list. Then sign.',right:true,
-    v:'Correct. You made "same" into a check instead of a belief. Three fields, ten minutes, and the difference between signing and guessing.'},
-   {k:'C',t:'Read the whole document line by line first.',right:false,
-    v:'Admirable and usually impossible under a same-day clock, and it misses the point: the risk is not the wording, it is the assumption of identity.'}],
-  move:'Rule: "same as last time" → compare three fields (version, data use, sub-processors). Then decide.',
-  ev:'Evidence: the three-field comparison, or the diff that shows it changed.' },
-
-{ who:'a friend in comms', meta:'SIGNAL · 19:55',
-  clock:'—', clocklab:'informal',
-  text:'"Unofficially — how bad is the data-centre thing? I need something for a deck tomorrow and you\'d know."',
-  calls:[
-   {k:'A',t:'Tell them what you know. It is a friend, off the record.',right:false,
-    v:'There is no off the record inside a regulated matter. A friendly answer in an unmanaged app is a message you cannot hold, search, or produce.'},
-   {k:'B',t:'"Happy to help — let me send it in a channel we can actually search later, and I\'ll keep it to what\'s already public."',right:true,
-    v:'Correct. You stayed helpful, kept the material inside the boundary, and limited it to the public layer. The friendship survives; the record does too.'},
-   {k:'C',t:'Don\'t reply at all.',right:false,
-    v:'Safe and corrosive. You can be helpful without leaving the boundary — refusing outright trains people to stop asking you.'}],
-  move:'Rule: move the conversation inside the searchable boundary, and speak only to the public layer.',
-  ev:'Evidence: the reply that moved it in-channel and named the boundary — no content sent on the informal app.' },
-
-{ who:'the AI law working group', meta:'EMAIL · distribution list · 10:12',
-  clock:'—', clocklab:'phase-in',
-  text:'"Reminder: <span class="q">AI Act</span> GPAI obligations phase in during 2025–2027. Please update your tracker accordingly."',
-  calls:[
-   {k:'A',t:'Update the tracker with "2025–2027" as the date.',right:false,
-    v:'A three-year range is not a date, and the tracker will quietly do nothing. This is how a real deadline becomes a permanent future item.'},
-   {k:'B',t:'Break it into the dated milestones that apply to us, with an owner for each, and send that back to the group.',right:true,
-    v:'Correct. You converted a vague phase-in into dated, owned work — which is the only version of a tracker that ever fires.'},
-   {k:'C',t:'Ask the working group for the specific dates.',right:false,
-    v:'Half right. The dates are publicly specified; asking defers work you can do and adds a round trip to everyone on the list.'}],
-  move:'Rule: any range, quarter or "phase-in" → break it into dated owned lines before it enters a tracker.',
-  ev:'Evidence: the tracker line items, each with a date and a named owner.' },
-
-{ who:'the disclosure review · last look', meta:'PRODUCTION · 21:37',
-  clock:'9:00', clocklab:'handover is',
-  text:'The production goes at nine. Your <span class="q">summary</span> of the thread is much clearer than the thread itself — 3 pages instead of 200 messages. Someone asks whether to just produce the summary.',
-  calls:[
-   {k:'A',t:'Produce the summary. It is clearer and saves everyone time.',right:false,
-    v:'A summary is an <b>interpretation written after the fact</b>. Producing it instead of the thread both omits the record and looks like you curated what the other side sees.'},
-   {k:'B',t:'Produce the thread. Attach the summary as a work-product index, clearly labelled, if at all.',right:true,
-    v:'Correct. The record is the record. Clarity is a courtesy you add on top of it — never a substitute for it.'},
-   {k:'C',t:'Produce both the thread and the summary unlabelled.',right:false,
-    v:'Unlabelled is the worst of the two: an unmarked interpretation sitting inside the production, indistinguishable from the record.'}],
-  move:'Rule: produce the record. A summary is an add-on, labelled, never a substitute.',
-  ev:'Evidence: the production index showing the record produced in full, with any aid labelled as work product.' }
-];
+{ who:"outside counsel · email fwd to #legal-ops","meta":"SLACK CONNECT · shared channel · 17:42","clock":"3 days","clocklab":"to production","text":"Counsel's written advice on the data-transfer question just landed. A colleague in the <span class=\"q\">Slack Connect</span> shared channel with the partner firm asks you to \"just paste the gist here so everyone's aligned\".","calls":[{"k":"A","t":"Paste the advice. Everyone is on the matter anyway.","right":false,"v":"Privilege is about <b>who receives</b> it, not who is on the matter. A shared channel with an outside firm is a different audience — and Slack Connect messages may fall <b>outside your legal hold</b>."},{"k":"B","t":"Say: \"I'll summarise the decision, not the advice — and let's move this to the smallest channel that can act on it.\"","right":true,"v":"<b>Buys:</b> You transmit the <b>decision</b>, protect the <b>advice</b>, and shrink the room. Also ask IT — in writing — whether the hold covers Slack Connect."},{"k":"C","t":"Forward the whole email to the channel so the record is complete.","right":false,"v":"Forwarding is the single most common way privilege gets waived. The \"complete record\" just became discoverable."}],"move":"Rule: advice lives in the smallest channel that can act on it. Decisions travel; reasoning does not.","ev":"Evidence to bring back: the written answer from IT on whether legal hold covers Slack Connect + bot-posted messages."},
+{ who:"a vendor · renewal thread","meta":"PROCUREMENT · \"AI compliance\" · 11:08","clock":"8 days","clocklab":"to sign","text":"\"Our model is <span class=\"q\">fully compliant</span> with all applicable AI regulation, including the Korea AI Basic Act. Nothing further is required from your side.\"","calls":[{"k":"A","t":"Accept it and note it in the file.","right":false,"v":"A vendor's compliance claim is a claim, not a control. If it later fails, the file note is now <b>your</b> assurance."},{"k":"B","t":"Ask: \"Compliant as of which date, against which instrument, and can you send the self-assessment?\"","right":true,"v":"<b>Buys:</b> You convert marketing into a <b>dated artefact</b>. Korea's AI Basic Act is in force 22 Jan 2026 with a grace of roughly a year — so \"compliant\" has to name a date."},{"k":"C","t":"Escalate it to legal as a blocker.","right":false,"v":"Escalating is not the error here — it is premature. You have not asked the one question that would resolve it. Ask first."}],"move":"Rule: any \"we are compliant\" gets a date, an instrument, and a document — or it is not a fact.","ev":"Evidence: the vendor's dated self-assessment (or their written refusal to give one — that is evidence too)."},
+{ who:"your manager · 1:1 thread","meta":"INTERNAL · \"for visibility\" · 09:26","clock":"no date","clocklab":"given","text":"\"Looping you in <span class=\"q\">for visibility</span> — the regulator's information request came in this morning. Not urgent for you right now, just so you know.\"","calls":[{"k":"A","t":"Read it, no reply, move on — it said not urgent.","right":false,"v":"An RFI has a statutory clock that starts on receipt, not on whoever feels urgent about it. Silence in the record reads as ownership without action."},{"k":"B","t":"Reply: \"Received. Who owns it and what is the response date? I'll log it against the matter.\"","right":true,"v":"<b>Buys:</b> You got the two facts that matter — <b>owner</b> and <b>date</b> — and put it on a record. Formal requests are documents, not chats."},{"k":"C","t":"Start drafting the response yourself to be helpful.","right":false,"v":"You just spent an afternoon on something you may not own, possibly duplicating the owner's work and creating a second draft that can be produced."}],"move":"Rule: \"for visibility\" is not \"no action\". It is \"get the owner and the date, then stop\".","ev":"Evidence: the logged entry — matter ref, owner named, response date in writing."},
+{ who:"the thread you cannot read","meta":"DIRECT MESSAGE · 22:14","clock":"tomorrow","clocklab":"the call is","text":"\"Per <span class=\"q\">prev discussed</span>, pls can we get the TIA socialised ahead of the call? Trust most or all as prev discussed is fine. Action: confirm the DPIA covers the ADM use case and revert by EOD.\"","calls":[{"k":"A","t":"Assume you agreed to it before and just do the action line.","right":false,"v":"\"Prev discussed\" is an assertion you cannot verify from the message. If you never agreed, you just signed up to a commitment in the record."},{"k":"B","t":"Do the action line, and reply: \"Done — one thing: which conversation was 'prev discussed'? Want to be sure I'm matching what was agreed. Also: which EOD, yours or mine?\"","right":true,"v":"<b>Buys:</b> You <b>advanced the work</b> and <b>resolved both unknowns</b> — the provenance of the agreement, and whose timezone EOD means. In APAC it is usually not yours."},{"k":"C","t":"Ask all the clarifying questions first before doing anything.","right":false,"v":"Slow, and it leaves the action line untouched. There is an explicit action line — you can do that and ask in the same message. Questions alone look like friction."}],"move":"Rule: action lines you can do, you do — and you ask about the unknowns in the same reply. Never guess whose \"EOD\".","ev":"Evidence: the reply, with the date confirmed in writing and the \"prev discussed\" source named."},
+{ who:"IT service desk","meta":"TICKET · retention + hold · 15:51","clock":"30 days","clocklab":"until deletion","text":"\"Your channel's <span class=\"q\">retention</span> policy is set to 30 days. There is a legal hold on the matter. Please confirm nothing in scope will be deleted.\"","calls":[{"k":"A","t":"Confirm it — the hold obviously overrides retention.","right":false,"v":"Not obviously. In several platforms retention and holds are <b>separate systems</b>, and a hold does not always suspend auto-deletion in shared or bot-posted traffic. Confirming without checking is the failure."},{"k":"B","t":"Ask IT to verify, in writing, that the hold <b>overrides</b> retention for every message type in scope — including Connect and bot messages — and get the confirmation before replying.","right":true,"v":"<b>Buys:</b> You turned an assumption into a <b>verified control</b>, and you covered the two message types that most often fall out of holds."},{"k":"C","t":"Export everything now yourself so nothing can be lost.","right":false,"v":"Taking a personal copy of matter material creates a second data store, outside retention and hold, usually on a laptop. That is now a data-protection problem of its own."}],"move":"Rule: never confirm \"nothing will be deleted\" until someone whose job it is says so in writing, scoped to every message type.","ev":"Evidence: the written IT confirmation naming Connect + bot messages, or the admission that they are not covered."},
+{ who:"a colleague in #eng-ai","meta":"SLACK · 13:03","clock":"this week","clocklab":"pilot starts","text":"\"We're putting the <span class=\"q\">agent</span> in the customer-support sandbox this week. Legal said a few weeks ago that using agents internally is fine, so we're good?\"","calls":[{"k":"A","t":"Yes — internal use was cleared.","right":false,"v":"The word <b>agent</b> has changed meaning under you. \"Internal tool\" clearance does not cover an autonomous system acting on customer data in a sandbox with tool access."},{"k":"B","t":"Ask: which agent, what data does it touch, what can it execute, and is the sandbox isolated with egress limits and scoped tokens?","right":true,"v":"<b>Buys:</b> The clearance was for a different thing. The questions that matter are <b>data, powers, isolation</b> — not the word \"agent\"."},{"k":"C","t":"Say no — it is customer data and that is obviously blocked.","right":false,"v":"A flat no you cannot substantiate loses the room, and it may well be approvable. You have not established the facts either way."}],"move":"Rule: when someone cites an old clearance, ask what the <b>thing</b> is now — the noun drifted, the approval did not.","ev":"Evidence: a one-page description of the agent — data touched, actions it can take, isolation boundary, token scope."},
+{ who:"outside firm · shared channel","meta":"SLACK CONNECT · 16:20","clock":"—","clocklab":"no clock","text":"\"Setting this channel to <span class=\"q\">disappearing messages</span> 7 days so we keep things tidy for the project. 👍?\"","calls":[{"k":"A","t":"👍 Tidy is good.","right":false,"v":"You just made matter discussion auto-delete while a dispute is live. \"Tidy\" and \"spoliation\" can be the same act."},{"k":"B","t":"Reply: \"Please hold off — a matter may be live here. Turning on disappearing messages against a preservation obligation is the one thing we can't undo. I'll confirm with legal and revert.\"","right":true,"v":"<b>Buys:</b> You stopped an irreversible setting on a shared surface and moved the decision to the people who own the obligation."},{"k":"C","t":"Turn it off yourself and mention it later.","right":false,"v":"It avoids agreeing, and — but on a shared channel with an outside firm, silently changing a setting creates its own dispute. Say it in the room."}],"move":"Rule: any deletion setting proposed while a matter is live → stop, name the preservation duty, decide in writing.","ev":"Evidence: the message where you paused it, and legal's written answer on whether the channel is in scope."},
+{ who:"the strategy deck · slide 14","meta":"READ-ONLY · APAC AI rules · 08:47","clock":"Q4","clocklab":"\"alignment\" due","text":"\"Regulatory <span class=\"q\">alignment</span> across APAC to be achieved in Q4. Model governance workstream to close the same quarter.\"","calls":[{"k":"A","t":"Take it as a plan and report progress against it.","right":false,"v":"Two different meanings of one word, and neither is a task. \"Alignment\" here is a goal, not a deliverable — and \"model governance\" in an APAC deck usually means quant model risk, not AI."},{"k":"B","t":"Push back: \"Two things here need splitting. What is the dated deliverable for each of Korea, Australia, China and Singapore? A quarter is not a date.\"","right":true,"v":"<b>Buys:</b> You split the overloaded word, converted a quarter into dates, and named the four jurisdictions. That is the whole job."},{"k":"C","t":"Flag it to the workstream owner as unclear.","right":false,"v":"Flagging is honest but hands the problem back to the person who wrote it unclearly. Give them the split, not the doubt."}],"move":"Rule: a goal with no date and no owner is weather. Split the word, demand the date, name the jurisdictions.","ev":"Evidence: four dated lines — KR ~Jan 2027 · AU 10 Dec 2026 · CN 15 Jul 2026 · SG rolling."},
+{ who:"legal-ops · request form","meta":"INTAKE · \"sign off\" · 12:30","clock":"today","clocklab":"to approve","text":"\"Need a quick <span class=\"q\">sign off</span> on the standard AI addendum — it's the same one we used last time. Just need a yes so we can send.\"","calls":[{"k":"A","t":"Yes — it is the same one.","right":false,"v":"\"Same as last time\" is the most expensive phrase in legal ops. Model version, data use and sub-processors all move between versions while the filename does not."},{"k":"B","t":"Send back the three things that must match: the version hash, the data-use clause, and the sub-processor list. Then sign.","right":true,"v":"<b>Buys:</b> You made \"same\" into a check instead of a belief. Three fields, ten minutes, and the difference between signing and guessing."},{"k":"C","t":"Read the whole document line by line first.","right":false,"v":"Usually impossible under a same-day clock, and it misses the point: the risk is not the wording, it is the assumption of identity."}],"move":"Rule: \"same as last time\" → compare three fields (version, data use, sub-processors). Then decide.","ev":"Evidence: the three-field comparison, or the diff that shows it changed."},
+{ who:"a friend in comms","meta":"SIGNAL · 19:55","clock":"—","clocklab":"informal","text":"\"Unofficially — how bad is the data-centre thing? I need something for a deck tomorrow and you'd know.\"","calls":[{"k":"A","t":"Tell them what you know. It is a friend, off the record.","right":false,"v":"There is no off the record inside a regulated matter. A friendly answer in an unmanaged app is a message you cannot hold, search, or produce."},{"k":"B","t":"\"Happy to help — let me send it in a channel we can actually search later, and I'll keep it to what's already public.\"","right":true,"v":"<b>Buys:</b> You stayed helpful, kept the material inside the boundary, and limited it to the public layer. The friendship survives; the record does too."},{"k":"C","t":"Don't reply at all.","right":false,"v":"It is safe, and it corrodes: the boundary does not move on its own. You can be helpful without leaving the boundary — refusing outright trains people to stop asking you."}],"move":"Rule: move the conversation inside the searchable boundary, and speak only to the public layer.","ev":"Evidence: the reply that moved it in-channel and named the boundary — no content sent on the informal app."},
+{ who:"the AI law working group","meta":"EMAIL · distribution list · 10:12","clock":"—","clocklab":"phase-in","text":"\"Reminder: <span class=\"q\">AI Act</span> GPAI obligations phase in during 2025–2027. Please update your tracker accordingly.\"","calls":[{"k":"A","t":"Update the tracker with \"2025–2027\" as the date.","right":false,"v":"A three-year range is not a date, and the tracker will quietly do nothing. This is how a real deadline becomes a permanent future item."},{"k":"B","t":"Break it into the dated milestones that apply to us, with an owner for each, and send that back to the group.","right":true,"v":"<b>Buys:</b> You converted a vague phase-in into dated, owned work — which is the only version of a tracker that ever fires."},{"k":"C","t":"Ask the working group for the specific dates.","right":false,"v":"The dates are real and the work is not: this defers what you could have closed. The dates are publicly specified; asking defers work you can do and adds a round trip to everyone on the list."}],"move":"Rule: any range, quarter or \"phase-in\" → break it into dated owned lines before it enters a tracker.","ev":"Evidence: the tracker line items, each with a date and a named owner."},
+{ who:"the disclosure review · last look","meta":"PRODUCTION · 21:37","clock":"9:00","clocklab":"handover is","text":"The production goes at nine. Your <span class=\"q\">summary</span> of the thread is much clearer than the thread itself — 3 pages instead of 200 messages. Someone asks whether to just produce the summary.","calls":[{"k":"A","t":"Produce the summary. It is clearer and saves everyone time.","right":false,"v":"A summary is an <b>interpretation written after the fact</b>. Producing it instead of the thread both omits the record and looks like you curated what the other side sees."},{"k":"B","t":"Produce the thread. Attach the summary as a work-product index, clearly labelled, if at all.","right":true,"v":"<b>Buys:</b> The record is the record. Clarity is a courtesy you add on top of it — never a substitute for it."},{"k":"C","t":"Produce both the thread and the summary unlabelled.","right":false,"v":"Unlabelled is the worst of the two: an unmarked interpretation sitting inside the production, indistinguishable from the record."}],"move":"Rule: produce the record. A summary is an add-on, labelled, never a substitute.","ev":"Evidence: the production index showing the record produced in full, with any aid labelled as work product."}];
 
 /* ───────────── state ───────────── */
 let idx=0, results=[], answered=false, MATTERS=[], CALIB=null;
@@ -372,6 +237,9 @@ function buildDeck(face){
      mixing it into a light round would undercut both. Picked from calibration, plays whole. */
   const IMP=(window.EUPHEMISM_DECK||[]).map(c=>Object.assign({},c,{face:'euphemism'}));
   if(face==='euphemism') return IMP;
+  /* THE FIRST 90 — sourced onboarding incidents. Its own run, same reason as IMPACTED. */
+  const F90=(window.ONBOARDING_DECK||[]).map(c=>Object.assign({},c,{face:'first90'}));
+  if(face==='first90') return F90;
   let out=[];
   if(face==='floor') out=F.slice();
   else if(face==='crew') out=crew.concat(gapcard);
@@ -382,20 +250,32 @@ function buildDeck(face){
 
 /* CONSULT calibration folded in (mahshroom's 3 taps): who you are / where you sit / what you
    want. It does not collect data — it orders the deck and sets the narrator's face. */
+/* CALIBRATION — the taps do not just label you, they TUNE the run. Asking is the weak
+   instrument (Beyond Asking, Lu et al. 2026: infer the profile from observed behaviour);
+   so Q1-Q2 set position, Q3 sets what you leave with, Q4 sets how much of your time this
+   takes. Everything else about you is read from how you play, not from what you claim. */
 const CALIB_Q=[
   {k:'who', q:'Who are you here?', o:[
     {t:'the person who has to answer for it', v:'floor'},
     {t:'the one who has to live with it', v:'crew'},
     {t:'both, obviously', v:'both'},
-    {t:'the person this actually happened to', v:'euphemism'}]},
+    {t:'the person this actually happened to', v:'euphemism'},
+    {t:'starting somewhere new this month', v:'first90'}]},
   {k:'sit', q:'Where do you sit?', o:[
     {t:'in the middle of the message', v:'floor'},
     {t:'somewhere it lands', v:'crew'},
-    {t:'somewhere it gets sent', v:'both'}]},
-  {k:'want', q:'What do you want from this?', o:[
-    {t:'the move. just tell me the move', v:'floor'},
-    {t:'to see it happen to someone else first', v:'crew'},
-    {t:'a bit of both, and maybe a laugh', v:'both'}]}
+    {t:'somewhere it gets sent', v:'both'},
+    {t:'between the people who wrote it and the people it happens to', v:'euphemism'},
+    {t:'in a room where nobody has told me what my job is yet', v:'first90'}]},
+  {k:'want', q:'What do you want to leave with?', o:[
+    {t:'a read on how I decide, that I can hand to a team', v:'profile'},
+    {t:'the moves. give me the rules', v:'playbook'},
+    {t:'both — and keep them separate', v:'both'},
+    {t:'nothing to hand over. this one is just mine', v:'private'}]},
+  {k:'pace', q:'How long have you got?', o:[
+    {t:'five calls. I have a life.', v:5},
+    {t:'eight. the full read.', v:8},
+    {t:'everything you have', v:99}]}
 ];
 let calibStep=0, calibAnswers={};
 
@@ -412,13 +292,16 @@ function calibPick(i){
   sfxTap();
   if(calibStep<CALIB_Q.length-1){calibStep++;renderCalib();return;}
   const votes=Object.values(calibAnswers);
-  // 'euphemism' is a position in the story, not a vote: one tap for it wins outright
   const v=Object.values(calibAnswers);
-  const face = v.includes('euphemism') ? 'euphemism'
-             : (v.includes('both') ? 'both'
-             : (v.filter(x=>x==='crew').length > v.filter(x=>x==='floor').length ? 'crew' : 'floor'));
+  // Q1 and Q2 both name a position; whichever the player actually chose decides the deck
+  const pos=['euphemism','first90','both','crew','floor'];
+  const face = pos.find(p=>v.includes(p)) || 'both';
   CALIB=face; window.GAME_FACE=face;
   MATTERS=buildDeck(face);
+  // Q4 caps how much of the deck plays — a 5-call run is a real, complete run, not a demo
+  const pace=(parseInt(calibAnswers.pace,10)||99);
+  if(pace < MATTERS.length) MATTERS = MATTERS.slice(0, pace);
+  window.GAME_OUTCOME=calibAnswers.want || 'both';
   results=new Array(MATTERS.length).fill(null);
   $('calib').style.display='none';
   $('game').style.display='block';
@@ -426,8 +309,13 @@ function calibPick(i){
   const DN={floor:'THE FLOOR — the professional matters',
             crew:'THE CREW — our own record',
             both:'THE FLOOR + THE CREW',
-            euphemism:'IMPACTED — the words used instead of the thing'};
-  $('deckname').innerHTML='<div class="eyebrow">'+DN[face]+'</div>';
+            euphemism:'IMPACTED — the words used instead of the thing',
+            first90:'THE FIRST 90 — what they actually do to you, sourced'};
+  const PN={profile:'you leave with a read on how you decide',
+            playbook:'you leave with the moves',
+            both:'you leave with both, kept separate',
+            private:'you leave with nothing to hand over. this one is just yours'};
+  $('deckname').innerHTML='<div class="eyebrow">'+DN[face]+' · '+PN[window.GAME_OUTCOME]+'</div>';
   // the euphemism deck gets no comic voice — the narrator stays out of its way
   const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both',euphemism:null}[face];
   if(intro) narrate(intro);
@@ -534,6 +422,7 @@ function finish(){
      carries a citation-derived mode (the IMPACTED deck is authored, not cited), the sort must
      not invent a type from zero evidence — it says so instead. */
   const modeled=MATTERS.filter(c=>c.mode).length;
+  const outcome=window.GAME_OUTCOME||'both';
   if(modeled===0){
     $('ending').innerHTML=
       '<div class="ending">'+
@@ -558,7 +447,10 @@ function finish(){
       const t=E.tally(MATTERS, results);
       const m=E.pickMode(MATTERS, results, t);   // returns a MODES entry: {name,buys,costs,door}
       window.__MODE=m; window.__MODEKEY=(m&&m.name)||null;
-      $('ending').innerHTML=E.buildEnding(results, MATTERS)
+      const hideType = (outcome==='private');
+      $('ending').innerHTML=(hideType
+        ? E.buildEnding(results, MATTERS).replace(/<h2 class="emode">[^<]*<\/h2>/,'<h2 class="emode">YOURS. NO LABEL.</h2>')
+        : E.buildEnding(results, MATTERS))
         + '<div style="font-size:11px;color:var(--mut);line-height:1.6;margin-top:11px;border-top:1px solid var(--line);padding-top:9px">'
         + '<b style="color:var(--gold)">SCOPE —</b> The sort reads the <b>14 crew cards</b>, which each carry '
         + 'a failure mode derived from its own citation. The 12 floor cards carry no citation, so they are '
@@ -571,9 +463,15 @@ function finish(){
     }
   }catch(e){ $('ending').innerHTML=''; }
 
-  $('next').textContent='copy playbook';
-  $('next').disabled=false;
-  $('next').onclick=copyPB;
+  if((window.GAME_OUTCOME||'both')==='private'){
+    $('next').textContent='nothing to copy — this one was yours';
+    $('next').disabled=true;
+    $('next').onclick=null;
+  } else {
+    $('next').textContent='copy playbook';
+    $('next').disabled=false;
+    $('next').onclick=copyPB;
+  }
   window.scrollTo({top:0,behavior:'smooth'});
   sfxRight();
 }
