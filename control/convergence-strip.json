@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-06T13:11:45.747Z",
+  "generated": "2026-10-06T13:42:46.432Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-06",
-  "commits_in_window": 112,
-  "git_commits_in_window": 241,
-  "telemetry_commits_in_window": 129,
-  "commits_total": 5341,
+  "commits_in_window": 113,
+  "git_commits_in_window": 245,
+  "telemetry_commits_in_window": 132,
+  "commits_total": 5345,
   "branch_count": 998,
   "recent_commits": [
+    "FIELD INDEX: colliding marks key on the rendered tile, not the label words",
     "desk: refresh public field data",
-    "game v2: plain opening, dramatic readings, the garden, and one cat",
-    "lib: microlib Phase 2 — dom/store/polar-control become projections of micro.js"
+    "game v2: plain opening, dramatic readings, the garden, and one cat"
   ],
   "active_fronts": [
     {
