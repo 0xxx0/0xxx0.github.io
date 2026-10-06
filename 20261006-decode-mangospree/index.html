@@ -1,0 +1,260 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DECODE · the overwhelm dial · for mangospree</title>
+<link rel="stylesheet" href="/tools/house-patterns.css">
+<style>
+ .dial{border:3px solid var(--ink);padding:0;margin:18px 0}
+ .dial .head{background:var(--ink);color:#fff;font:700 10px/1 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:8px 12px}
+ textarea{width:100%;border:0;border-bottom:2px solid var(--ink);padding:12px;font:15px/1.5 ui-monospace,Menlo,monospace;min-height:120px;resize:vertical;background:#fffdfa}
+ .row{display:flex;gap:8px;padding:10px 12px;flex-wrap:wrap;align-items:center}
+ button{font:700 13px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;border:2px solid var(--ink);padding:11px 18px;cursor:pointer}
+ button.ghost{background:#fff;color:var(--ink)}
+ button:hover{background:var(--acc);border-color:var(--acc)}
+ .priv{font-size:11px;color:var(--ok);letter-spacing:.04em}
+ #out{padding:4px 12px 14px}
+ #out .src{font:14.5px/1.65 ui-monospace,Menlo,monospace;background:#fffdfa;border:1px solid var(--rule);padding:12px;white-space:pre-wrap}
+ #out .src mark{background:#ffe14d;padding:0 2px;cursor:pointer}
+ .tc{border:2px solid var(--ink);padding:10px 12px;margin:10px 0;font-size:14px}
+ .tc .word{font:800 17px/1.1 system-ui,sans-serif;letter-spacing:-.01em}
+ .tc .sense{display:inline-block;font:700 9px/1 system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 6px;margin:0 6px 0 8px;vertical-align:2px}
+ .tc .so{border-left:4px solid var(--acc);background:#f5f8ff;padding:7px 10px;margin:8px 0 0;font-size:13.5px}
+ .tc .alt{color:var(--mut);font-size:12.5px;margin-top:6px}
+ .chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 14px}
+ .chip{font:700 10.5px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;border:2px solid var(--ink);padding:7px 11px;cursor:pointer;background:#fff}
+ .chip.on{background:var(--ink);color:#fff}
+ .poly{background:var(--hot);color:#fff;font:700 9px/1 system-ui;letter-spacing:.12em;padding:3px 6px;margin-left:6px;vertical-align:2px}
+ .clock{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-left:4px solid var(--hot);background:var(--warnbg);padding:10px 13px;margin:9px 0;font-size:14px}
+ .clock b{font-size:15px}
+ .days{font:800 18px/1 system-ui;color:var(--hot)}
+ @media(max-width:640px){textarea{font-size:14px}#out .src{font-size:13px}}
+</style>
+<div class="wrap">
+<header>
+<h1>DECODE</h1>
+<div class="meta">
+ <span>for <b>mangospree</b></span>
+ <span>built <b>2026-10-06</b></span>
+ <span>phone-first · <b>your text never leaves this page</b></span>
+ <span>expires for review <b>2026-11-06</b></span>
+</div>
+</header>
+
+<div class="forwho"><b>The dial:</b> paste the scary paragraph — the strategy deck, the vendor email, the
+Slack thread, the AI-law memo. Press decode. The jargon lights up; each word gets the meaning that fits
+<i>your</i> sentence, the meaning it has in the next room over, and one "so what" you can act on.</div>
+
+<div class="big">You are not behind. <span>You are being spoken to in a dialect.</span><br>
+This translates the dialect. Nothing here is an exam.</div>
+
+<div class="dial">
+ <div class="head">01 · the decoder</div>
+ <textarea id="tin" placeholder="Paste here. Example: 'The agent will use our Slack workspace retention and the PDPA training-data basis, deployed in the VPC sandbox via MCP tools.'"></textarea>
+ <div class="row">
+  <button id="go">DECODE ▸</button>
+  <button id="clr" class="ghost">clear</button>
+  <button id="ex" class="ghost">try an example</button>
+  <span class="priv">● runs 100% in your browser — nothing is uploaded, logged, or sent anywhere</span>
+ </div>
+ <div id="out"></div>
+</div>
+
+<h2>02 · The three clocks that actually bite</h2>
+<div class="clock"><span class="days" id="d-au">…</span><span><b>Australia — ADM transparency (APP 1.7–1.9) commences 10 Dec 2026.</b>
+ If your org's privacy policy doesn't yet disclose automated decisions, that's the deliverable.</span></div>
+<div class="clock"><span class="days" id="d-kr">…</span><span><b>Korea — AI Basic Act grace period ends ~Jan 2027.</b>
+ High-impact AI self-assessment + Korean-language user notices. Start the classification now.</span></div>
+<div class="clock"><span class="days">1 question</span><span><b>Ask IT, in writing:</b> "What is our Slack plan tier, and does legal hold cover Slack Connect
+ + bot-posted messages?" <button id="copyq" class="ghost" style="padding:7px 10px;font-size:11px">copy question</button></span></div>
+
+<h2>03 · The deck — every word, both meanings</h2>
+<div class="forwho"><b>When you see a red</b> <span class="poly">2 SENSES</span> <b>badge:</b> that word is a trap.
+It means two different things in two different rooms of your building, and people act like it means one.</div>
+<div class="chips" id="chips"></div>
+<div id="deck"></div>
+
+<div class="close"><b>When overwhelmed, three questions, in order:</b> (1) What must be true? (2) What is the
+deadline? (3) Who owns it? Everything else is weather.</div>
+
+<div class="foot">
+<b>Provenance</b> — meanings and "so what"s built from verified 2026 sources (Slack plan-tier docs, Korea AI
+Basic Act briefings, China GenAI measures, PDPA guidance, agent-harness incident record); assembled by
+mahshroom + kage for mangospree, 2026-10-06. Not legal advice — a translation layer. Deck deck is finite
+on purpose: 44 words that cause the most damage. · related:
+<a href="/20261006-the-cut-mcvoid/">THE CUT</a> ·
+<a href="/20261006-ai-mode-thread-mcvoid/">the thread, answered</a> · noindex · contact: the group thread
+</div>
+</div>
+
+<script>
+const DECK=[
+{t:"agent",poly:1,s:[
+ {d:"AI agent / harness",k:["harness","model","tool","autonomous","llm","runs","skill","mcp","assistant","bot","claude","openclaw"],m:"A program that does multi-step work on its own — a very keen intern with no judgment and perfect memory.",so:"You are accountable for what it does. Before any pilot touches real data: ask for the sandbox diagram + audit trail."},
+ {d:"agency law",k:["law","power","attorney","contract","represent","client","principal","authority","act on"],m:"A person empowered to act for another (the classic legal sense).",so:"Usually what a contract means when it says 'agent'. Read which room the sentence is in."},
+ {d:"user-agent",k:["browser","header","http","crawl","request"],m:"The technical label a browser gives itself.",so:"Pure noise for you. Skip."}]},
+{t:"retention",poly:1,s:[
+ {d:"data retention",k:["data","policy","delete","message","slack","storage","days","gdpr","pdpa"],m:"How long messages/files are kept before deletion.",so:"The one that bites legal teams: if retention deletes chats a hold should have kept, you have a problem. Get the policy in writing."},
+ {d:"talent retention",k:["staff","employee","people","team","attrition","keep"],m:"Keeping employees from leaving.",so:"Different universe. If a memo mixes both in one paragraph, the memo is confused, not you."}]},
+{t:"training",poly:1,s:[
+ {d:"model training",k:["model","data","dataset","consent","base","weights","generative","ai"],m:"Teaching a model on data. The 'training data' in every AI-law memo.",so:"If your org's data was used, PDPA consent basis is the question. Ask which dataset, which basis."},
+ {d:"staff training",k:["staff","employee","course","workshop","onboard","learn"],m:"Teaching humans.",so:"Different thing entirely. 'Training data' ≠ 'training materials'."}]},
+{t:"token",poly:1,s:[
+ {d:"auth token",k:["api","access","auth","key","oauth","secret","bearer","credential"],m:"A digital key a program presents to prove who it is.",so:"Security-critical: tokens are how agents get powers. Ask which powers each token has (least privilege)."},
+ {d:"LLM token",k:["model","llm","cost","context","window","pricing","per-"],m:"A chunk of text the model reads; billing and 'context window' are measured in these.",so:"Explains the cost line on AI bills. 1 token ≈ ¾ of an English word."}]},
+{t:"model",poly:1,s:[
+ {d:"AI model",k:["ai","llm","claude","gpt","generative","inference","prompt","foundation"],m:"The trained system that generates text/answers.",so:"'Model card' and 'model risk' in AI-governance docs mean this."},
+ {d:"business/role model",k:["business","operating","role","twin","revenue"],m:"The ordinary corporate sense.",so:"Context decides. 'Model governance' in a bank usually = model risk (quant models), NOT AI — a very common meeting confusion."}]},
+{t:"hallucination",poly:0,s:[{d:"AI fabrication",k:[],m:"The model stating something false with total confidence.",so:"Never cite what you didn't check. Every AI output is a draft from a confident stranger."}]},
+{t:"prompt",poly:1,s:[
+ {d:"LLM prompt",k:["llm","model","ai","instruction","agent","system","ask"],m:"The instruction text you give a model.",so:"'Prompt injection' = attacker hides instructions in a document the model reads. Real risk for document-heavy legal work."},
+ {d:"promptness",k:["payment","invoice","within","days","due"],m:"'Prompt payment' — pay quickly.",so:"Contract language. The old meaning wins in drafting."}]},
+{t:"alignment",poly:1,s:[
+ {d:"model alignment",k:["model","ai","safety","human","values","reward","rlhf"],m:"Making an AI system do what humans actually want.",so:"The field the whole AI-safety debate is about."},
+ {d:"strategic alignment",k:["strategy","stakeholder","org","goals","business"],m:"Everyone pulling the same direction.",so:"Meeting-speak. Neither wrong — just know which one you're approving."}]},
+{t:"inference",poly:1,s:[
+ {d:"model inference",k:["model","runtime","gpu","latency","run","api","cost"],m:"Actually running a model to get answers.",so:"'Inference cost' on the AI bill = per-question cost. The recurring bill, not the build."},
+ {d:"logical inference",k:["evidence","conclude","reasoning","court","draw"],m:"A conclusion drawn from evidence.",so:"The legal sense. A memo using both senses in one paragraph is a memo to push back on."}]},
+{t:"context",poly:1,s:[
+ {d:"context window",k:["window","token","llm","memory","long","input","limit"],m:"The maximum text a model can 'see' at once.",so:"Explains why long PDFs get truncated in AI tools. Ask vendors for their window size."},
+ {d:"context of the matter",k:["matter","contract","facts","case","circumstances"],m:"The surrounding facts of a case/contract.",so:"The everyday sense."}]},
+{t:"embedding",poly:1,s:[
+ {d:"vector embedding",k:["vector","search","rag","retrieval","semantic","index","pinecone"],m:"Text converted to numbers so 'similar meaning' can be searched.",so:"The engine under semantic search / RAG. 'Embeddings store' = where your documents' vectors live — a data-protection question."},
+ {d:"embedded (systems/staff)",k:["device","firmware","team","engineer","squad"],m:"Built into hardware, or staff sitting inside another team.",so:"Different world entirely."}]},
+{t:"guardrail",poly:1,s:[
+ {d:"AI guardrail",k:["model","ai","safety","output","filter","policy","runtime"],m:"Technical controls that stop a model doing/saying prohibited things.",so:"The 2026 compliance story: runtime guardrails instead of post-facto audits. Ask vendors which guardrails are ON by default."},
+ {d:"highway guardrail",k:["road","highway","crash"],m:"The metal thing on roads.",so:"Not this."}]},
+{t:"sandbox",poly:1,s:[
+ {d:"agent sandbox",k:["agent","docker","isolate","container","code","execution","runner"],m:"An isolated box where an agent can run things without touching the real world.",so:"Non-negotiable control: isolated runner + egress allowlist + least-privilege tokens. No sandbox recipe, no real data."},
+ {d:"regulatory sandbox",k:["mas","regulator","sandbox","trial","approve","financial","monetary"],m:"A regulator letting you trial something under supervision (MAS loves these).",so:"Completely different thing with the same word. Yes, this causes real confusion in APAC meetings."}]},
+{t:"export",poly:1,s:[
+ {d:"export controls",k:["control","chip","compute","china","us","geopolitics","restrict","semiconductor"],m:"Government restrictions on selling tech abroad (the AI-cold-war lever).",so:"The reason some models aren't available in some markets. Real constraint on your vendor list."},
+ {d:"data export",k:["data","portability","download","transfer","move","csv"],m:"Moving data out of a system.",so:"PDPA portability is legislated but not yet in force (2026). Also: 'export' in eDiscovery = the produced bundle."}]},
+{t:"discovery",poly:1,s:[
+ {d:"eDiscovery / Discovery API",k:["ediscovery","ediscover","api","slack","export","legal hold","preserv","litigation hold"],m:"In Slack-land: the Enterprise-only export channel for compliance/legal holds.",so:"Plan-tiered. If IT hasn't enabled it, your holds may be decorative. Ask."},
+ {d:"litigation discovery",k:["litigation","court","disclosure","discovery process","proceedings"],m:"The pre-trial disclosure process.",so:"Same word, adjacent meaning — Slack's 'Discovery API' is named after this one on purpose."}]},
+{t:"hold",poly:1,s:[
+ {d:"legal hold",k:["legal","litigation","preserv","delet","ediscovery","matter","spoliation"],m:"An instruction to preserve everything relevant to a dispute.",so:"Slack's legal hold (Enterprise) excludes Slack Connect messages — the gap we keep warning about. One written question to IT closes it."},
+ {d:"hold (verb)",k:["hold the","please hold","hold off","hold my"],m:"Ordinary verb.",so:"Fine. Just don't let a 'hold the deletion' email get read as casual."}]},
+{t:"residency",poly:1,s:[
+ {d:"data residency",k:["data","region","singapore","server","storage","location","gdpr","pdpa","local"],m:"Which country's data centres hold your data.",so:"Slack: Business+ and up; Singapore region exists; pre-existing data stays where it was unless Sales migrates it."},
+ {d:"tax residency",k:["tax","entity","company","resident","inland"],m:"Where a company/person is tax-resident.",so:"Different law, same word."}]},
+{t:"workspace",poly:1,s:[
+ {d:"Slack workspace",k:["slack","channel","workspace","org","enterprise","member"],m:"Your Slack org instance (with channels, members, admin).",so:"'Workspace' in a Slack conversation = the instance. Retention/hold policies attach here."},
+ {d:"the office",k:["office","desk","hot desk","hybrid","wfh"],m:"Physical workplace.",so:"Harmless unless a policy doc mixes both. It happens."}]},
+{t:"channel",poly:1,s:[
+ {d:"Slack channel",k:["slack","channel","intake","matter","topic","#","post"],m:"A room in Slack.",so:"Design channels like a case file: #intake, #matter-*, #ops-*. One purpose each."},
+ {d:"channel = route to market",k:["sales","distribution","partner","market","go-to"],m:"How a product reaches customers.",so:"Meeting-speak. Adjacent word, different universe."}]},
+{t:"thread",poly:1,s:[
+ {d:"Slack thread",k:["slack","thread","reply","replies","channel","message"],m:"A reply chain under one Slack message.",so:"House rule that works: detail lives in threads, decisions live in the channel. Keeps scroll sane."},
+ {d:"thread of argument",k:["argument","thread of","reasoning","narrative"],m:"The logical line of a story/argument.",so:"The classic sense."}]},
+{t:"bridge",poly:1,s:[
+ {d:"matrix/Slack bridge",k:["matrix","irc","xmpp","slack","bridge","connect","federat"],m:"Software connecting two chat systems.",so:"If IT says 'we'll bridge it', ask what data crosses and under which retention."},
+ {d:"bridge loan",k:["loan","finance","bridge financing","property"],m:"Short-term financing.",so:"Finance sense."}]},
+{t:"grid",poly:1,s:[
+ {d:"Slack Enterprise Grid",k:["slack","enterprise","grid","org","multi-workspace","admin","ekey"],m:"Slack's top tier: many workspaces under one org admin.",so:"Where EKM, Audit Logs API, Discovery API and legal holds live. If your firm is on Grid, more of the safety kit is available than on Business+."},
+ {d:"power grid",k:["power","electricity","energy"],m:"The electricity network.",so:"Not this one."}]},
+{t:"enterprise",poly:1,s:[
+ {d:"Enterprise+ (Slack tier)",k:["slack","tier","plan","plus","feature","billing","subscription"],m:"A Slack plan tier (above Business+).",so:"Feature gating is the whole game: EKM=Enterprise+ add-on; Audit/Discovery APIs=Enterprise-only; hold=Enterprise-only."},
+ {d:"the enterprise (a big company)",k:["the enterprise","large","corporate","fortune","multinational"],m:"Big business as a category.",so:"Fine — just know 'enterprise-only feature' means the tier, not the customer size."}]},
+{t:"memory",poly:1,s:[
+ {d:"agent memory",k:["agent","memory","remember","context","state","session","recall","vault"],m:"An agent's persistent notes across sessions.",so:"Ask what an agent remembers, where it's stored, and who can read it. That's a records question in disguise."},
+ {d:"memory (human/IT)",k:["memory leak","ram","remember to"],m:"Human memory or computer RAM.",so:"Depends on room."}]},
+{t:"skill",poly:1,s:[
+ {d:"agent skill (SKILL.md)",k:["skill","agent","harness","tool","plugin","capability","install"],m:"A reusable instruction pack that teaches an agent a workflow.",so:"The real deliverable of any agent project: written, reviewable SOPs. The harness is replaceable; the skills are the IP."},
+ {d:"human skill",k:["people","staff","talent","skillset","training","hire"],m:"What people can do.",so:"Classic sense."}]},
+{t:"jailbreak",poly:0,s:[{d:"prompt jailbreak",k:[],m:"Tricking an AI past its safety rules with crafted input.",so:"Assume motivated parties will try it on any public-facing agent. Red-team before launch, not after."}]},
+{t:"MCP",poly:0,s:[{d:"Model Context Protocol",k:[],m:"An open standard for plugging tools/data into AI assistants. Slack shipped its own MCP server (GA Feb 2026).",so:"Scope matters: start any Slack-connected agent at search:read.public only, admin-approved client. Permissions are the product."}]},
+{t:"VPC",poly:0,s:[{d:"Virtual Private Cloud",k:[],m:"A private network slice in a cloud provider — the 'walled garden' where sensitive workloads run.",so:"If agents run in your VPC, ask what can reach the internet (egress allowlist) and what metadata endpoints are blocked."}]},
+{t:"DLP",poly:0,s:[{d:"Data Loss Prevention",k:[],m:"Scanning tools that stop sensitive data leaking out of chat/email/files.",so:"Slack: full-org DLP scanning needs Enterprise+ + Discovery API + a partner (Netskope, Nightfall…). Ask which one is deployed."}]},
+{t:"EKM",poly:0,s:[{d:"Enterprise Key Management",k:[],m:"You hold the encryption keys for your Slack data (Slack EKM = add-on on Enterprise+, GovSlack included).",so:"Revoke access per org/workspace/channel/time window. If a regulator asks 'who holds the keys', this is the answer that wins."}]},
+{t:"RAG",poly:0,s:[{d:"Retrieval-Augmented Generation",k:[],m:"The model answers by first searching your documents, then writing from what it finds.",so:"The most common enterprise AI pattern — and where data-protection questions concentrate (which documents can it search?)."}]},
+{t:"fine-tuning",poly:1,s:[
+ {d:"model fine-tuning",k:["model","training","dataset","weights","customize","adapt"],m:"Further training a model on your own examples.",so:"More liability surface than RAG (you're making a new model artifact). Ask 'fine-tune or retrieval?' — most 'AI projects' are the second."},
+ {d:"fine-tuning (general)",k:["process","product","pitch","polish","detail"],m:"Polishing details.",so:"Harmless verb."}]},
+{t:"PDPA",poly:0,s:[{d:"Personal Data Protection Act (Singapore)",k:[],m:"Singapore's data-protection law. Breach notification, consent, Do-Not-Call; data portability legislated but not yet in force (2026).",so:"Your home-base statute. The AI-specific guidance sits in PDPC's advisory guidelines on use of personal data in AI (Mar 2024)."}]},
+{t:"AI Act",poly:0,s:[{d:"EU AI Act",k:[],m:"The EU's risk-tiered AI law — the one everyone else's rules are measured against.",so:"Extraterritorial: if your firm serves the EU, it binds. GPAI obligations are phasing in through 2025–2027 — keep a dated-claims sheet."}]},
+{t:"GDPR",poly:0,s:[{d:"General Data Protection Regulation (EU)",k:[],m:"EU data-protection law; the template most APAC laws echo.",so:"Automated-decision rules (Art. 22) are the ancestor of Australia's new ADM transparency duties."}]},
+{t:"SME",poly:1,s:[
+ {d:"subject-matter expert",k:["legal","review","content","expert","knowledge","domain"],m:"The person who knows the thing.",so:"Every AI workflow needs a named SME reviewing output. That signature is the product."},
+ {d:"small/medium enterprise",k:["business","company","startup","size","market","segment"],m:"Company-size category.",so:"Policy docs love both. Read the sentence."}]},
+{t:"feature",poly:1,s:[
+ {d:"software feature",k:["product","release","ship","app","platform","update","gating","tier"],m:"A capability in a tool.",so:"'Feature gating' = which plan tier unlocks it. Always ask which tier you're actually on."},
+ {d:"feature (characteristic)",k:["key features","facial","list of"],m:"A characteristic.",so:"Fine."}]},
+{t:"cloud",poly:1,s:[
+ {d:"cloud computing",k:["aws","azure","gcp","server","host","saas","vendor","instance"],m:"Someone else's servers running your software.",so:"'Cloud act', 'data residency', 'sovereign cloud' all hang off this. Ask where the data physically sits."},
+ {d:"cloud (meteorology)",k:["weather","rain","sky"],m:"The sky kind.",so:"Rare, but in small talk, absolutely the sky."}]},
+{t:"hallucinate-v-bluff",poly:0,s:[{d:"the difference",k:[],m:"Hallucination = the system believes it. Bluffing = the person knows they're guessing.",so:"When a vendor 'explains' their model's behavior confidently, ask which one they're doing. The honest answer is usually: nobody knows."}]}
+];
+const $=id=>document.getElementById(id);
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function score(s,win){let n=0;for(const k of s.k){if(win.includes(k))n+=k.length}return n}
+function pickSenses(word,win){const e=DECK.find(d=>d.t.toLowerCase()===word.toLowerCase());if(!e)return null;
+ const scored=e.s.map(s=>({s,sc:score(s,win)})).sort((a,b)=>b.sc-a.sc);
+ return{entry:e,ranked:scored}}
+function decode(){
+ const txt=$("tin").value;if(!txt.trim())return;
+ const words=[...new Set(DECK.map(d=>d.t))];
+ let html=esc(txt);const found=[];
+ for(const w of words){
+  const re=new RegExp("\\b"+w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")+"\\b","gi");
+  let m,idx=0,src=txt;
+  while((m=re.exec(src))!==null){
+   const win=src.slice(Math.max(0,m.index-220),m.index+260).toLowerCase();
+   const ps=pickSenses(w,win);
+   if(ps){found.push({w,win:src.slice(Math.max(0,m.index-90),m.index+130),ps})}
+   idx=m.index;
+  }
+  html=html.replace(new RegExp("(<[^>]*>)|\\b("+w.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")+")\\b","gi"),
+   (all,tag,word)=>tag?all:'<mark title="'+w+'">'+word+"</mark>");
+ }
+ const seen=new Set();const cards=found.filter(f=>{const k=f.w; if(seen.has(k))return false; seen.add(k); return true;});
+ let out='<div class="src">'+html+"</div>";
+ if(cards.length===0){out+='<div class="tc"><b>None of the deck\'s 44 words appear.</b> Either this text is already plain, or it is jargon this deck has never met. Either way: if a sentence makes you feel small, it is the sentence\'s fault.</div>'}
+ for(const f of cards){
+  const top=f.ps.ranked[0],second=f.ps.ranked[1];
+  let h='<div class="tc"><span class="word">'+esc(f.w)+"</span>";
+  if(f.ps.entry.poly)h+='<span class="poly">2 SENSES</span>';
+  h+='<span class="sense">'+esc(top.s.d)+"</span>";
+  h+="<div>"+esc(top.s.m)+"</div>";
+  h+='<div class="so"><b>so what → </b>'+esc(top.s.so)+"</div>";
+  if(second&&second.sc>0){h+='<div class="alt">Could also be: <b>'+esc(second.s.d)+"</b> — "+esc(second.s.m)+" In your sentence the first reading fits better, but check the room.</div>"}
+  h+='<div class="alt" style="font-style:italic">from your text: “'+esc(f.win.trim().slice(0,150))+'…”</div></div>';
+  out+=h;
+ }
+ $("out").innerHTML=out;
+}
+function renderDeck(filter,q){
+ const el=$("deck");let list=DECK;
+ if(filter&&filter!=="ALL")list=list.filter(d=>d.cat===filter);
+ if(q)list=list.filter(d=>d.t.toLowerCase().includes(q.toLowerCase())||d.s.some(s=>s.m.toLowerCase().includes(q.toLowerCase())));
+ el.innerHTML=list.map(d=>{
+  let h='<div class="tc"><span class="word">'+esc(d.t)+"</span>";
+  if(d.poly)h+='<span class="poly">2 SENSES</span>';
+  d.s.forEach(s=>{
+   h+='<span class="sense">'+esc(s.d)+"</span><div>"+esc(s.m)+"</div>";
+   if(s.so)h+='<div class="so"><b>so what → </b>'+esc(s.so)+"</div>";
+  });
+  return h+"</div>"}).join("")||'<div class="tc">No words match. (The deck is finite on purpose.)</div>';
+}
+// categories
+const CATS=["ALL","POLYSEMY","AI-REALLY","THE-LAW","SLACK-IT"];
+function catOf(d){if(d.poly)return"POLYSEMY";const k=d.s[0].k.join(" ");
+ if(/slack|api|tier|plan|workspace|channel/.test(k+" "+d.t.toLowerCase()))return"SLACK-IT";
+ if(/pdpa|gdpr|act|law|regulat/.test(k+" "+d.s[0].m.toLowerCase()))return"THE-LAW";
+ return"AI-REALLY"}
+DECK.forEach(d=>d.cat=catOf(d));
+$("chips").innerHTML=CATS.map(c=>'<span class="chip'+(c==="ALL"?" on":"")+'" data-c="'+c+'">'+c+(c==="POLYSEMY"?" ⚠":"")+"</span>").join("");
+$("chips").addEventListener("click",e=>{if(!e.target.dataset.c)return;
+ document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+ e.target.classList.add("on");renderDeck(e.target.dataset.c,"")});
+renderDeck("ALL","");
+$("go").onclick=decode;
+$("clr").onclick=()=>$("tin").value="",$("out").innerHTML="";
+$("ex").onclick=()=>{$("tin").value="Our agent will deploy into the VPC sandbox and use MCP tools to search the Slack workspace. Retention is handled per our policy, and PDPA training-data consent for the model was covered in the discovery phase with the SME.";decode()};
+$("copyq").onclick=()=>navigator.clipboard.writeText('What is our Slack plan tier, and does legal hold cover Slack Connect + bot-posted messages?').then(()=>{$("copyq").textContent="copied ✓"});
+// clocks
+function days(id,date){const d=Math.ceil((new Date(date)-new Date())/864e5);
+ $(id).textContent=d>0?d+" days":(d===0?"TODAY":Math.abs(d)+" days ago")}
+days("d-au","2026-12-10");days("d-kr","2027-01-22");
+</script>

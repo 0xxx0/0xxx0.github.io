@@ -9675,6 +9675,36 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-decode-mangospree/",
+      "title": "DECODE — the overwhelm dial (jargon polysemy solver) for mangospree",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / TOOLS",
+      "role": "Client-side jargon decoder for mangospree (APAC legal/policy, non-engineer): paste any scary paragraph, get each term's context-fitting meaning, its other-room sense (polysemy solver), and one action. 44-term deck across AI-law/Slack-IT/agent/acronym domains; live deadline clocks (AU 10 Dec 2026, KR ~Jan 2027); copyable IT question. 100% in-browser — pasted text never leaves the device (deliberate for a legal user). Operator-mandated mission 2026-10-06 ('artifact for mangospree, powerful useful not a toy').",
+      "index": {
+        "updated_at": "2026-10-06T14:45:00+08:00",
+        "work_modes": [
+          "READ",
+          "RESEARCH",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "decode engine exercised in real browser: 11 marks + 11 cards from the built-in example, sense-picking correct (agent -> AI agent sense)",
+          "mobile QA passed (single column, tap-friendly)",
+          "meanings grounded in the 2026-verified runbooks (Slack plan tiers, KR AI Basic Act, PDPA, harness incident record)"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
