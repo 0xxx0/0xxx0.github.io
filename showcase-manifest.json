@@ -1,6 +1,6 @@
 {
  "schema": "showcase-manifest/v1",
- "updated": "2026-10-03T15:27:33+08:00",
+ "updated": "2026-10-06T10:20:00+08:00",
  "root": "/",
  "kernel": [
   "OBJECT",
@@ -9339,8 +9339,91 @@
     "updated_at": "2026-10-03T15:27:33+08:00"
    },
    "receipt": "/returns/RETURN_INTERPHASE_GENESIS_2026-10-03.json"
-  }
- ],
+  },
+  {
+   "href": "/20261005-linkfield-mcvoid/",
+   "title": "LINK FIELD / 2026-10-05",
+   "kind": "documentation",
+   "parent": "/",
+   "operation": "ADDRESS",
+   "state": "UTILITY",
+   "versionless": true,
+   "showcase_card": false,
+   "family": "FIELD / LINKS",
+   "role": "Generated link-field index: one filtered list of every link mcvoid collected on 2026-10-05, grouped by lane with live text filter and lane chips. Noindex static projection of tools/linkfield-build.py output; evidence surface, not a current head.",
+   "index": {
+    "updated_at": "2026-10-06T10:20:00+08:00",
+    "work_modes": [
+     "RESEARCH",
+     "READ",
+     "VERIFY"
+    ]
+   },
+   "evidence": {
+    "checks": [
+     "registered 2026-10-06 after commit aa621c7f shipped the pages unregistered (route-registration gate FAIL: 2 live orphans)",
+     "static: filter + lane chips are inline JS; links resolve relative to the directory"
+    ],
+    "return_path": "/"
+   },
+   "tier": "FIELD"
+  },
+  {
+   "href": "/20261005-linkfield-mcvoid/links.html",
+   "title": "LINK FIELD / RAW LINKS",
+   "kind": "documentation",
+   "parent": "/20261005-linkfield-mcvoid/",
+   "operation": "ADDRESS",
+   "state": "UTILITY",
+   "versionless": true,
+   "showcase_card": false,
+   "family": "FIELD / LINKS",
+   "role": "Raw unfiltered link dump behind the LINK FIELD index — every collected URL verbatim, no grouping. Contains RFC1918 / LAN addresses and internal service URLs as collected; noindex static evidence, not a runtime and not an authority.",
+   "index": {
+    "updated_at": "2026-10-06T10:20:00+08:00",
+    "work_modes": [
+     "RESEARCH",
+     "READ"
+    ]
+   },
+   "evidence": {
+    "checks": [
+     "registered 2026-10-06 with its parent so the route-registration gate sees both pages aa621c7f shipped"
+    ],
+    "return_path": "/20261005-linkfield-mcvoid/"
+    },
+    "tier": "FIELD"
+    },
+    {
+    "href": "/20261006-cs50-or-not-mcvoid/",
+    "title": "CS50 IN 2026/27 — DECISION",
+    "kind": "documentation",
+    "parent": "/",
+    "operation": "ADDRESS",
+    "state": "UTILITY",
+    "versionless": true,
+    "showcase_card": false,
+    "family": "FIELD / DECISIONS",
+    "role": "One-page decision note: should a reader take Harvard CS50 in 2026/27 — time/money/drop-off cost, four alternatives by goal, the 2026 AI rule (external AI banned, cs50.ai allowed), and an ELI5. Compressed from a 60-page Google AI-Mode printout with page-level cites; noindex static reading surface, not a head.",
+    "index": {
+     "updated_at": "2026-10-06T10:35:00+08:00",
+     "work_modes": [
+      "READ",
+      "RESEARCH",
+      "VERIFY"
+     ]
+    },
+    "evidence": {
+     "checks": [
+      "source PDF 60 pages / 103,916 chars extracted with pymupdf; page cites [p.n] refer to that PDF",
+      "live-checked links: cs50.readthedocs.io/cs50.ai, theodinproject.com, scrimba 2026 list, reddit TOP-vs-CS50",
+      "known unverified: certificate price ($199 vs $219 disagree), bar-chart hour estimates"
+     ],
+     "return_path": "/"
+    },
+    "tier": "FIELD"
+    }
+    ],
  "release_law": [
   "PRIVATE CANON",
   "REVIEW",
