@@ -1,4 +1,5 @@
 <!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
@@ -281,9 +282,11 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it.
 <script src="deck-crew.js"></script>
 <script src="deck-euphemism.js"></script>
 <script src="deck-onboarding.js"></script>
+<script src="deck-apac.js"></script>
 <script src="ending.js"></script>
 <script src="dramatic.js"></script>
 <script src="decode-coach.js"></script>
+<script src="clocks.js"></script>
 <script>
 if(/[?&]v=1/.test(location.search)) location.replace('v0.html');
 /* ───────────── audio: synthesised, zero assets ───────────── */
@@ -347,6 +350,11 @@ function buildDeck(face){
   /* THE FIRST 90 — sourced onboarding incidents. Its own run, same reason as IMPACTED. */
   const F90=(window.ONBOARDING_DECK||[]).map(c=>Object.assign({},c,{face:'first90'}));
   if(face==='first90') return F90;
+  /* FOUR MARKETS — ID · TH · VN · PH. Its own run: the material is jurisdiction-clocked,
+     and mixing it with the general matters would blur which instrument is talking. */
+  const APAC=(window.APAC_DECK||[]).map(c=>Object.assign({},c,{face:'apac',
+    calls:c.calls.map(k=>Object.assign({},k,{v:mercy(k.v)}))}));
+  if(face==='apac') return APAC;
   let out=[];
   if(face==='floor') out=F.slice();
   else if(face==='crew') out=crew.concat(gapcard);
@@ -371,7 +379,8 @@ const CALIB_Q=[
     {t:'made at me', v:'crew', h:'you are the one who has to live with it'},
     {t:'both, obviously', v:'both', h:'you write them and you eat them'},
     {t:'the words used instead of the thing', v:'euphemism', h:'the ones nobody says out loud'},
-    {t:'I just started somewhere new', v:'first90', h:'nobody has told you what your job is yet'}]},
+    {t:'I just started somewhere new', v:'first90', h:'nobody has told you what your job is yet'},
+    {t:'the four markets at once', v:'apac', h:'ID · TH · VN · PH — the clocks disagree'}]},
   {k:'want', q:'What do you want to leave with?', hint:'Nothing here is recorded. This only sets what the ending hands you.', o:[
     {t:'a read on how I decide', v:'profile', h:'a card you could actually show someone'},
     {t:'the moves. give me the rules', v:'playbook', h:'what to do, not who you are'},
@@ -415,14 +424,15 @@ function calibPick(i){
             crew:'THE CREW — our own record',
             both:'THE FLOOR + THE CREW',
             euphemism:'IMPACTED — the words used instead of the thing',
-            first90:'THE FIRST 90 — what they actually do to you, sourced'};
+            first90:'THE FIRST 90 — what they actually do to you, sourced',
+            apac:'FOUR MARKETS — ID · TH · VN · PH · the clocks disagree'};
   const PN={profile:'you leave with a read on how you decide',
             playbook:'you leave with the moves',
             both:'you leave with both, kept separate',
             private:'you leave with nothing to hand over. this one is just yours'};
   $('deckname').innerHTML='<div class="eyebrow">'+DN[face]+' · '+PN[window.GAME_OUTCOME]+'</div>';
   // the euphemism deck gets no comic voice — the narrator stays out of its way
-  const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both',euphemism:null}[face];
+  const intro={floor:'intro-floor',crew:'intro-crew',both:'intro-both',euphemism:null,apac:null,first90:null}[face];
   if(intro) narrate(intro);
   deal();
 }
@@ -803,16 +813,14 @@ window.THEMES.garden = (function(){
     /* exactly one cat — subtle, bottom-right, small, non-interactive. Max one cat. */
     if(document.getElementById('gardencat')) return;
     var cat=document.createElement('img');
-      cat.id='gardencat'; cat.src='cat.svg'; cat.alt='';; cat.setAttribute('aria-hidden','true');
+      cat.id='gardencat'; cat.src='cat.svg'; cat.alt=''; cat.setAttribute('aria-hidden','true');
       cat.setAttribute('data-ambience','cat');   // so clearAmbience() can remove it
       // assimilate into the system: a 1px panel border, desaturated, dimmed, with a mono
       // caption. without this it is the one element that breaks the palette and the eye
       // catches it for the wrong reason. it should read as a tiny window, discovered.
-      cat.style.cssText='position:fixed;right:14px;bottom:14px;width:92px;height:auto;'+
-        'z-index:0;pointer-events:none;user-select:none;opacity:.72;'+
-        'filter:none;'+
-        'border:1px solid var(--line);border-radius:3px;'+
-        'box-shadow:0 2px 14px rgba(0,0,0,.55), inset 0 0 22px rgba(0,0,0,.6);padding:0';
+      cat.style.cssText='position:fixed;right:12px;bottom:8px;width:112px;height:auto;'+
+        'z-index:0;pointer-events:none;user-select:none;opacity:.34;'+
+        'filter:none;border:0;padding:0;';
       root.appendChild(cat);
   };
 })();
