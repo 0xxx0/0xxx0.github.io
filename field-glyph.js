@@ -96,8 +96,14 @@ function attentionMarks(opt={}){
         (opt.issue?'<path d="M22 2v6" stroke="#cc8792" stroke-width="2.6"/>':'');
 }
 function parts(r,opt={}){return{kind:r?.kind||'route',kind_key:kindKey(r?.kind),operation:r?.operation||'',operation_key:opKey(r?.operation),state:r?.state||'',color:stateColor(r?.state),now:!!opt.now,head:!!opt.head,issue:!!opt.issue}}
+/* opt.tag carries ROUTE identity and exists only because kind·operation·state is not
+ * route-unique: /fold-bloom/ and /port/ both read "中 · 行 · ACTIVE · HEAD", so two grid
+ * tiles were byte-identical and a tap could hold the wrong object (operator circled it on
+ * his phone, 2026-10-01). The host computes a tag ONLY for routes whose base label collides
+ * (index.html computeMarkTags) and passes it here; without opt.tag the label is byte-identical
+ * to v2, so every non-colliding mark keeps the exact label it ships today. */
 function svg(r,opt={}){
- const p=parts(r,opt),size=opt.size||28,label=[p.kind_key,p.operation_key,p.state,opt.now?'NOW':'',opt.head?'HEAD':''].filter(Boolean).join(' · ');
+ const p=parts(r,opt),size=opt.size||28,label=[p.kind_key,p.operation_key,p.state,opt.now?'NOW':'',opt.head?'HEAD':'',opt.tag||''].filter(Boolean).join(' · ');
  // Progressive enhancement on size: below 26 units a CJK glyph mushes, so the mark runs
  // alone at full weight. At or above 26 the key becomes the subject and the mark recedes.
  const roomy=size>=26;
@@ -111,6 +117,8 @@ function svg(r,opt={}){
    +attentionMarks(opt)
    +'</svg>';
 }
-function mnemonic(r){const p=parts(r);return p.kind_key+p.operation_key}
+/* Visible half of the same route identity: the tile's <tt> line. '·' + tag keeps the
+ * grammar (kind·operation now extends to kind·operation·route) and stays inside a 48px tile. */
+function mnemonic(r,opt={}){const p=parts(r);return p.kind_key+p.operation_key+(opt.tag?'·'+opt.tag:'')}
 window.FieldGlyph={svg,parts,mnemonic,stateColor,kindKey,opKey};
 })();

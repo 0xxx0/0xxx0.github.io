@@ -473,7 +473,41 @@ const opOf=r=>r.operation||r.kind||'—';
 const modesOf=r=>Array.isArray(r.index?.work_modes)&&r.index.work_modes.length?r.index.work_modes:['UNKNOWN'];
 const unique=xs=>[...new Set(xs.filter(Boolean))];
 const nowHref=f=>{const map=routeMap(),ev=(f.evidence||[]).find(x=>map.has(x));if(ev)return ev;const m=String(f.center||'').match(/\/[A-Za-z0-9._/-]*\//);return m&&map.has(m[0])?m[0]:'/control/'};
-function routeGlyph(r,size=27){return window.FieldGlyph?.svg(r,{size,now:nowSet.has(r.href),head:headSet.has(r.href)})||''}
+/* MARK TAG — route identity for the mark code (2026-10-06).
+   kind · operation · state is NOT route-unique: /fold-bloom/ and /port/ both read
+   "中 · 行 · ACTIVE · HEAD", so two adjacent tiles in a glyph grid were byte-identical and a
+   tap ("tap mark -> hold") could hold the wrong object — the operator circled exactly those
+   two tiles on his phone, 2026-10-01. Nothing was duplicated in the data; the grammar simply
+   carried no route segment.
+   A tag is computed ONLY for routes whose base mark label collides, so every other tile keeps
+   its label byte-identical to what shipped before. Deterministic: route-path initials
+   (/fold-bloom/ -> FB, /port/ -> P); when initials collide inside one group a sorted-href
+   index suffix separates them. Same tag feeds svg() (aria-label) and mnemonic() (<tt>), so the
+   accessibility label and the visible text cannot drift apart. */
+let markTags=new Map;
+const markTag=h=>markTags.get(h)||'';
+const markBaseLabel=r=>window.FieldGlyph?[window.FieldGlyph.kindKey(r.kind),window.FieldGlyph.opKey(r.operation),r.state||'',nowSet.has(r.href)?'NOW':'',headSet.has(r.href)?'HEAD':''].filter(Boolean).join(' · '):'';
+function markTagCode(href){
+ const words=String(href||'').split(/[^A-Za-z0-9]+/).filter(Boolean);
+ let code=words.map(w=>w[0].toUpperCase()).join('');
+ if(!code)code=(String(href||'').match(/\d/g)||[]).join('').slice(0,2);
+ return code||'X';
+}
+function computeMarkTags(list){
+ const byLabel=new Map;
+ for(const r of list){const lab=markBaseLabel(r);if(!lab)continue;if(!byLabel.has(lab))byLabel.set(lab,new Set);byLabel.get(lab).add(r.href)}
+ const tags=new Map;
+ byLabel.forEach(hrefs=>{
+  const hs=[...hrefs].sort();if(hs.length<2)return;             // no collision, no tag
+  const codes=hs.map(markTagCode);
+  hs.forEach((h,i)=>{
+   const c=codes[i],dupes=codes.filter(x=>x===c).length>1;
+   tags.set(h,dupes?c+(codes.slice(0,i).filter(x=>x===c).length+1):c);
+  });
+ });
+ return tags;
+}
+function routeGlyph(r,size=27,tag=markTag(r.href)){return window.FieldGlyph?.svg(r,{size,now:nowSet.has(r.href),head:headSet.has(r.href),tag})||''}
 function heldGlyph(r){
  const h=headForFocus();if(!r||!h||h.route!==r.href||!window.ProjectHeadGlyph)return{svg:routeGlyph(r,34),summary:null};
  const children=routes.filter(x=>x.parent===r.href);
@@ -1144,6 +1178,9 @@ async function loadCachedTouches(){
 function renderFeed(){
  const currentRoutes=(current?.current_heads||[]).map(h=>routeMap().get(h.route)).filter(r=>r&&r.href&&r.href!=='/');
  const xs=feedScope==='HEADS'?currentRoutes:latest.slice(0,latestLimit),parts=[];let lastDay='';
+ // The rail's slice moves with scope and ALL, so its tags come from the slice it is drawing:
+ // two chips on this rail can never share a mark, whatever the scope.
+ const feedTags=computeMarkTags(xs);
  const scope=$('feedScope'),all=$('moreLatest'),hint=$('feedInstruction'),rail=$('feedRail');
  if(scope){scope.textContent=feedScope==='HEADS'?'RECENT':'CURRENT HEADS';scope.title=feedScope==='HEADS'?'Show recent route touches; recency is not priority':'Show addressable CURRENT heads; order is not priority';scope.setAttribute('aria-pressed',feedScope==='HEADS'?'true':'false')}
  if(all){all.hidden=feedScope==='HEADS';if(feedScope==='HEADS')all.textContent='ALL'}
@@ -1155,7 +1192,7 @@ function renderFeed(){
    const d=shortDay(r.index?.updated_at||'');
    if(feedScope==='RECENT'&&d&&d!==lastDay){const age=dayAge(r.index?.updated_at||'');parts.push('<span class="feedDay"'+(age!=null?' data-age="'+Math.min(Math.max(age,0),3)+'"':'')+' title="manifest index day '+esc(d)+(age!=null?' · '+age+'d ago':'')+'">'+esc(d)+'</span>');lastDay=d}
    const signal=routeSignal(r),lab=[feedScope==='HEADS'?'CURRENT HEAD':null,r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/'),signal!=='CLEAR'?signal:null].filter(Boolean).join(' · ');
-   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt></button>');
+   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt></button>');
  }
  rail.innerHTML=parts.join('');
  rail.querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,feedScope==='HEADS'?'HEADS':'LATEST')});
@@ -1242,13 +1279,17 @@ async function loadIssues(){
  const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),2500);
  try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO',route:p.route||null}}))}catch(_){}finally{clearTimeout(timeout)}
 }
+/* What the heads grid actually draws. One source of truth for the grid AND for the boot-time
+   mark-tag map, so a route is only ever tagged because a surface that really renders it
+   collides with another route. */
+const headRenderables=()=>(current?.current_heads||[]).map(h=>routeMap().get(h.route)||{href:h.route,title:h.head,state:h.state,kind:'artifact'});
 function renderHeads(){
- const hs=current?.current_heads||[];const cu=current?.updated,ageH=cu?((Date.now()-tsMs(cu))/36e5):null,hm=$('headMeta');
+ const hs=current?.current_heads||[],hr=headRenderables();const cu=current?.updated,ageH=cu?((Date.now()-tsMs(cu))/36e5):null,hm=$('headMeta');
  // A state line that always reads "now": state the age, and past 36h (2× the daily CURRENT
  // refresh) say so in the host's attention colour instead of lying by omission.
  hm.textContent=hs.length+' retained · CURRENT '+(cu||'—');
  if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=isStale(cu);a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';hm.appendChild(a)}
- $('headList').innerHTML='<div class="glyphGrid">'+hs.map(h=>{const r=routeMap().get(h.route)||{href:h.route,title:h.head,state:h.state,kind:'artifact'},fresh=shortTs(r?.index?.updated_at)||'unindexed',lab=[h.head,h.route,h.state,r.state||'NO MANIFEST ROUTE','manifest '+fresh,h.retained_function||''].filter(Boolean).join(' · ');return '<button class="glyphBlock" data-href="'+esc(h.route)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt><small>'+esc((r.title||h.lineage||h.route).slice(0,18))+'</small></button>'}).join('')+'</div>';
+ $('headList').innerHTML='<div class="glyphGrid">'+hs.map((h,i)=>{const r=hr[i],fresh=shortTs(r?.index?.updated_at)||'unindexed',lab=[h.head,h.route,h.state,r.state||'NO MANIFEST ROUTE','manifest '+fresh,h.retained_function||''].filter(Boolean).join(' · ');return '<button class="glyphBlock" data-href="'+esc(h.route)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:markTag(r.href)}):'')+'</tt><small>'+esc((r.title||h.lineage||h.route).slice(0,18))+'</small></button>'}).join('')+'</div>';
  $('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});updateStatusRail();
 }
 const PORT_BUCKETS={
@@ -1265,15 +1306,21 @@ function portBucket(status){
 function portRows(xs){
  const cls=x=>({BUILD_PROVE:'build',BOUNDARY:'boundary',VERIFY:'verify',PARKED:'parked'}[x.bucket]||'');
  const key=x=>({BUILD_PROVE:'!',BOUNDARY:'↗',VERIFY:'?',PARKED:'·'}[x.bucket]||'·');
- return '<div class="glyphGrid">'+xs.map(x=>{const lab=[x.r.title,x.r.href,x.e.class||'EXIT',x.e.status||'OPEN',x.e.via||'unspecified',shortTs(x.r.index?.updated_at)||'unindexed'].join(' · ');return '<button class="glyphBlock '+cls(x)+'" data-href="'+esc(x.r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'"><i>'+key(x)+'</i>'+routeGlyph(x.r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(x.r):'')+'</tt><small>'+esc((x.r.title||x.r.href).slice(0,18))+'</small></button>'}).join('')+'</div>';
+ return '<div class="glyphGrid">'+xs.map(x=>{const lab=[x.r.title,x.r.href,x.e.class||'EXIT',x.e.status||'OPEN',x.e.via||'unspecified',shortTs(x.r.index?.updated_at)||'unindexed'].join(' · ');return '<button class="glyphBlock '+cls(x)+'" data-href="'+esc(x.r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'"><i>'+key(x)+'</i>'+routeGlyph(x.r,27)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(x.r,{tag:markTag(x.r.href)}):'')+'</tt><small>'+esc((x.r.title||x.r.href).slice(0,18))+'</small></button>'}).join('')+'</div>';
 }
 function portGroup(key,xs,open=false){
  if(!xs.length)return'';
  const meta=PORT_BUCKETS[key]||{label:'OTHER / UNCLASSIFIED'};
  return '<details class="portGroup '+(key==='BUILD_PROVE'?'build ':key==='PARKED'?'parked ':'')+'"'+(open?' open':'')+'><summary><b>'+esc(meta.label)+'</b><span>'+xs.length+'</span></summary>'+portRows(xs)+'</details>';
 }
+/* The exit entries the ports grid actually draws (AVAILABLE is not a render bucket, so those
+   routes never become tiles). Shared source of truth for renderPorts and the boot mark-tag
+   map, so a port route is tagged because it collides on a surface that really draws it. */
+const PORT_DRAWN={BUILD_PROVE:1,BOUNDARY:1,VERIFY:1,PARKED:1,OTHER:1};
+const portEntries=()=>routes.flatMap(r=>(r.field?.exit_paths||[]).map(e=>({r,e,bucket:portBucket(e.status)})));
+const portItems=()=>portEntries().filter(x=>PORT_DRAWN[x.bucket]);
 function renderPorts(){
- const all=routes.flatMap(r=>(r.field?.exit_paths||[]).map(e=>({r,e,bucket:portBucket(e.status)}))),available=all.filter(x=>x.bucket==='AVAILABLE').length;
+ const entries=portEntries(),all=entries.filter(x=>PORT_DRAWN[x.bucket]),available=entries.filter(x=>x.bucket==='AVAILABLE').length;
  const by={BUILD_PROVE:[],BOUNDARY:[],VERIFY:[],PARKED:[],OTHER:[]};for(const x of all)if(by[x.bucket])by[x.bucket].push(x);
  const summary=available+' AVAILABLE · '+by.BUILD_PROVE.length+' BUILD/PROVE · '+by.BOUNDARY.length+' BOUNDARY · '+by.VERIFY.length+' VERIFY · '+by.PARKED.length+' PARKED'+(by.OTHER.length?' · '+by.OTHER.length+' OTHER':'');
  const live=by.BUILD_PROVE.length+' build/prove · '+by.BOUNDARY.length+' boundary · '+by.VERIFY.length+' verify'+(by.OTHER.length?' · '+by.OTHER.length+' unclassified':'');
@@ -1374,6 +1421,13 @@ Promise.all([
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
+ // Mark tags are computed ONCE, before any grid renders, over exactly the routes the two
+ // .glyphBlock grids draw: the head rail (manifest routes plus the fallbacks renderHeads
+ // builds for routes the manifest does not carry) and the port tiles. One page-level map, so
+ // /fold-bloom/ carries the same tag in HEADS as in PORTS — that is what the repro measures.
+ // The feed rail changes slice with scope/ALL, so it computes its own map over what it is
+ // actually showing (renderFeed).
+ markTags=computeMarkTags([...headRenderables(),...portItems().map(x=>x.r)]);
  $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderOrientation();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});

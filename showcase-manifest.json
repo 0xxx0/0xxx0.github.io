@@ -9395,6 +9395,33 @@
       "tier": "FIELD"
     },
     {
+      "href": "/20261006-picks-mcvoid/",
+      "title": "FIELD PICKS / 2026-10-06",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / PICKS",
+      "role": "Generated FIELD PICKS page — where to start: 10 ranked routes, one line of why each, computed last-touch age and returns count; every figure produced by tools/picks-build.py from the manifest + git. noindex static projection, evidence surface, not a current head.",
+      "index": {
+        "updated_at": "2026-10-06T11:36:00+08:00",
+        "work_modes": [
+          "READ",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered 2026-10-06: route-registration gate FAIL (1 live orphan /20261006-picks-mcvoid) until this entry",
+          "figures computed by tools/picks-build.py --check: routes 173 · touched 172 · fresh<=7d 61 · returns 282 · picks 10"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/20261006-cs50-or-not-mcvoid/",
       "title": "CS50 IN 2026/27 — DECISION",
       "kind": "documentation",
