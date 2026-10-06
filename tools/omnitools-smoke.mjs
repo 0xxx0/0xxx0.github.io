@@ -14,10 +14,11 @@ async function probe(){
  const f=document.getElementById('f'),out=document.getElementById('probeResult'),checks=[],messages=[],errors=[];
  let w,d,cw,cd,copied='';const delay=ms=>new Promise(r=>setTimeout(r,ms));
  const assert=(yes,msg,data)=>{if(!yes)throw Error(msg+(data===undefined?'':' '+JSON.stringify(data)));};
- const wait=async(fn,label,ms=6000)=>{const start=Date.now();while(Date.now()-start<ms){const result=fn();if(result)return result;await delay(30);}throw Error('Timeout: '+label);};
+ const wait=async(fn,label,ms=6000)=>{const start=Date.now();while(Date.now()-start<ms){const result=fn();if(result)return result;await delay(30);}throw Error('Timeout: '+label+' '+JSON.stringify(benchSnapshot()));};
  const q=s=>d.querySelector(s),cq=s=>cd.querySelector(s);
  const text=id=>d.getElementById(id).textContent;
  const model=()=>JSON.parse(w.localStorage.getItem('decision-bench:model:v1'));
+ function benchSnapshot(){if(!cw||!cd)return null;const held=model()||{},active=cd.activeElement;return{viewport:{carrier:[w.innerWidth,w.innerHeight],child:[cw.innerWidth,cw.innerHeight],frame:JSON.parse(JSON.stringify(q('#benchPane').getBoundingClientRect()))},mode:q('#modeName')?.textContent,hidden:q('#benchPane').hidden,rows:[...cd.querySelectorAll('[data-row]')].map(e=>e.dataset.row),options:held.options?.map(o=>o.id),axes:held.criteria?.map(c=>c.id),selected:held.selected,active:{id:active?.id,option:active?.dataset.option,axis:active?.dataset.axis,bound:active?.dataset.bound}};}
  const check=async(name,fn)=>{try{await fn();checks.push({name,pass:true});}catch(e){checks.push({name,pass:false,error:String(e.stack||e)});}};
  function edit(el,value){assert(el,'Input missing');el.value=value;el.dispatchEvent(new el.ownerDocument.defaultView.Event('input',{bubbles:true}));}
  function drawer(){if(!q('#sourceDock').open)q('#sourceToggle').click();assert(q('#sourceDock').open,'SOURCE/ROUTE reveal did not open');}
@@ -56,6 +57,7 @@ async function probe(){
   w.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===q('#benchPane').contentWindow)messages.push(e.data);});
   Object.defineProperty(w.navigator,'clipboard',{configurable:true,value:{writeText:async value=>{copied=value;}}});
   await wait(()=>q('#benchPane').contentWindow?.DecisionBenchCore&&q('#benchPane').contentDocument?.getElementById('returnBtn')?.onclick,'native Bench boot');cw=q('#benchPane').contentWindow;cd=cw.document;
+  cw.addEventListener('error',e=>errors.push('Bench: '+e.message));cw.addEventListener('unhandledrejection',e=>errors.push('Bench: '+String(e.reason)));
   const input={schema:'decision-bench/v1',id:'omni-test',title:'Compare measured work surfaces',sample:false,context:'Fixture only',criteria:[{id:'width',label:'Width',unit:'cm',direction:'min',min:null,max:80},{id:'area',label:'Area',unit:'cm²',direction:'max',min:4000,max:null},{id:'reset',label:'Reset',unit:'min',direction:'min',min:null,max:15}],options:[{id:'table',label:'Table',values:{width:80,area:4800,reset:12},evidence:'Fixture numbers',next:''},{id:'board',label:'Board',values:{width:65,area:4500,reset:[3,5]},evidence:'Fixture range',next:''},{id:'uncertain',label:'Uncertain',values:{width:[70,90],area:4200,reset:2},evidence:'Fixture range',next:''},{id:'large',label:'Large',values:{width:100,area:6000,reset:40},evidence:'Fixture blocked option',next:''}],priority:'reset',selected:'board'};
   const json=JSON.stringify(input);
   await check('One native Bench, explicit JSON LOAD and mutable criteria',async()=>{
@@ -138,7 +140,7 @@ async function probe(){
    await load(json,'source-A');const before=JSON.stringify(model());await choose('read');await choose('bench');assert(JSON.stringify(model())===before,'Switching destroyed native model');assert(cd.getElementById('title').value===input.title,'Native view not retained');
   });
   await check('Responsive paging keeps held identity, invalid draft and focused cell',async()=>{
-   f.style.width='1280px';f.style.height='800px';await wait(()=>cw.innerWidth===1280&&cd.querySelectorAll('[data-row]').length===4&&cq('[data-select="large"]'),'expanded page exposes Large before edit');
+   f.style.width='1280px';f.style.height='800px';f.getBoundingClientRect();await load(json,'source-A');await wait(()=>cw.innerWidth===1280&&cd.querySelectorAll('[data-row]').length===4&&cq('[data-select="large"]'),'expanded page exposes Large before edit');
    cq('[data-select="large"]').click();let cell=cq('[data-option="large"][data-axis="reset"]');cell.focus();edit(cell,'bad');cell.setSelectionRange(1,2);
    const unchanged=JSON.stringify(model());f.style.width='320px';f.style.height='568px';
    await wait(()=>cw.innerWidth===320&&cd.querySelectorAll('[data-row]').length<=2&&cq('[data-option="large"][data-axis="reset"]')===cd.activeElement,'focused small-frame paging');
