@@ -37,3 +37,9 @@ regexes = [
   '''^7d2d47da554cf0d82be4372020b26382715c$''',
   '''^c03f8691b3f33637e1a7fb416af7b0b2204f$''',
 ]
+
+[[allowlists]]
+description = "linkfield ledger pages: bare 40-hex commit SHAs in github.com URLs collide with the sourcegraph-access-token rule's degenerate [a-fA-F0-9]{40} branch whenever the word 'sourcegraph' appears in the same single-line file (keyword prefilter is per-file, not per-match). Measured 2026-10-07: 115 occurrences / 39 unique in each ledger, all public commit SHAs, entropy >= 3.68; sgp_-prefixed tokens remain scanned."
+paths = ['''^202610\d\d-linkfield-.*/links\.html$''']
+regexTarget = "secret"
+regexes = ['''^[a-fA-F0-9]{40}$''']
