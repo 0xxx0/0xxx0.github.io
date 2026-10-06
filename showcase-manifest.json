@@ -9548,6 +9548,35 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-patterns-mcvoid/",
+      "title": "HOUSE PATTERNS / REFERENCE — 2026-10-06",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / PATTERNS",
+      "role": "House design/pattern library as an artifact: the 12 recurring components extracted from the three shipped dated pages (wrap, meta, big, card, act, warn, moves, table, badge/tag, close, foot, filters), each rendered live by tools/house-patterns.css with its one-line usage rule. Dogfooded reference page — every block is styled by the sheet it documents. Survey of 10 extant systems and extraction notes in AXIS/work/ACTIVE/pattern-lib/NOTES.md. Noindex static reading surface, not a head.",
+      "index": {
+        "updated_at": "2026-10-06T12:36:31+08:00",
+        "work_modes": [
+          "READ",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "components extracted from /20261006-ai-mode-thread-mcvoid/, /20261006-cs50-or-not-mcvoid/, /20261005-linkfield-mcvoid/ (+ links.html); values frozen into semantic tokens in tools/house-patterns.css",
+          "extant survey fetched 2026-10-06: open-props.style, picocss.com, every-layout.dev, refactoringui.com, carbondesignsystem.com, design-system.service.gov.uk, patternlab.io, brutalist-web.design, lawsofux.com, practicaltypography.com",
+          "drop-in verified on scratch copies of all three shipped pages (style block deleted, sheet linked) via real browser screenshots; 390px layout checked in a 390px iframe probe: scrollWidth=390, overflow=false"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
