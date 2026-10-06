@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const U=require('../field-urlbar.js');
@@ -41,5 +42,12 @@ ok(!cmd.includes('API_SERVER_KEY')&&!cmd.includes('HERMES_API_KEY'),'URLbar neve
 const quoted=U.shellQuote("/O'Brien/");
 eq(quoted,"'/O'\\''Brien/'",'shell quote apostrophe');
 
+const urlbar=fs.readFileSync(new URL('../field-urlbar.js',import.meta.url),'utf8');
+const signal=fs.readFileSync(new URL('../lib/field-signal.js',import.meta.url),'utf8');
+const lens=fs.readFileSync(new URL('../field-lens.js',import.meta.url),'utf8');
+ok(!urlbar.includes('/v1/runs'),'public URLbar must not call Hermes Runs API directly');
+ok(!signal.includes('field-urlbar'),'shared signal grammar must remain presentation-free');
+ok(lens.includes("import('./field-urlbar.js')"),'root FIELD lens host must mount the URLbar projection');
+
 if(fail.length){console.error('FIELD URLBAR SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
-console.log('FIELD URLBAR SELFTEST PASS · one URL line → glyph/address/head/turn/Hermes prep · authority NONE');
+console.log('FIELD URLBAR SELFTEST PASS · one URL line → glyph/address/head/turn/Hermes prep · authority NONE · projection-owned mount');
