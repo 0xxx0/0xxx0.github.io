@@ -160,12 +160,16 @@ window.FieldZUI=Object.freeze({state,open,close,toggle,transition});
 })();
 
 (()=>{'use strict';
-/* AWAKE is a presentation projection over the live FIELD INTERPHASE carrier.
-   It must never become a route, store, planner or effect authority. */
+/* AWAKE + OMNIBAR are presentation projections over the live FIELD carrier.
+   Neither may become a route, store, planner, executor or effect authority. */
 function load(){
  import('./field-awake-visor.js').catch(error=>{
   document.documentElement.dataset.fieldAwakeVisor='error';
   console.error('FIELD AWAKE visor failed to load',error);
+ });
+ import('./field-omnibar.js').catch(error=>{
+  document.documentElement.dataset.fieldOmnibar='error';
+  console.error('FIELD omnibar failed to load',error);
  });
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load,{once:true}):queueMicrotask(load);
