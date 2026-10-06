@@ -375,4 +375,6 @@ jobs:
       - name: Test frozen City engines and Painting handlers
         working-directory: recovery/sleeper/site-source-2026-09-18
         run: node --experimental-strip-types --test tests/field-engines.test.mjs tests/painting-path.test.mjs tests/painting-ui.test.mjs
+      - name: Validate THE CALL ending examples against tagged source
+        run: node tools/the-call-ending-selftest.mjs
 
