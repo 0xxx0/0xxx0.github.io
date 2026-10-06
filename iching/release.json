@@ -32,7 +32,8 @@
     "radial_laws": "King Wen order 1..64 clockwise from −90°; binary order opens on 000000 and closes on 111111; bar length monotone in judgment length; six marks per spoke reading back that hexagram's own binary, bottom mark outermost; hit test round-trips a point to its spoke and rejects the hub",
     "local_browser_smoke": "headless Chromium on the working tree, zero console errors — hover on №43 reads out ䷪ 夬 · № 43 · 111110; the hub clears the readout; activation opens #h=43; the order toggle puts 坤 (000000) at the top in binary order and 乾 (№1) in King Wen order",
     "live_url": "https://0xxx0.github.io/iching/",
-    "live_layer": "measured after the Pages rebuild that follows this push; the headless and local-browser layers above are the ones measured at this commit, and the live reading is recorded in the route RETURN"
+    "live_layer": "checked on the deployed Pages surface 2026-10-06T12:34:38+08:00 — /iching/ HTTP 200, 46,488 B, the 轮 Radial tab and four radialCanvas markers present, /iching/release.json and /iching/hexagrams.json HTTP 200",
+    "ci": "on commit 5a33bb8e: public-surface-check (it runs tools/iching-core.test.mjs), Route Registration, interphase-registry-check, FIELD Desk Refresh and gitleaks green. visual-regression is red at its own 'wait for same-SHA Pages deployment' step — Pages run 37413881444 concluded cancelled because a later push superseded the deploy — the same failure sits on neighbouring commits and it is not a pixel diff"
   },
   "known_gap": "Formal yarrow figures remain variant/unverified — only the three-coin 1/8, 3/8, 3/8, 1/8 distribution is claimed. 雜卦傳 Zagua characterisation, five-element trigram colours and the sphere view remain parked on the route's own deferred locators (not published); this release answers the radial item only."
 }
