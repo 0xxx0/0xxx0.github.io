@@ -5,6 +5,10 @@ on:
     paths:
       - 'scripts/check-interphase.mjs'
       - 'tools/check-interphase-selftest.py'
+      - 'tools/interphase-continuity-selftest.cjs'
+      - 'lib/interphase-*.js'
+      - 'interphase/**'
+      - 'index.html'
       - 'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-registry-check.yml'
@@ -13,6 +17,10 @@ on:
     paths:
       - 'scripts/check-interphase.mjs'
       - 'tools/check-interphase-selftest.py'
+      - 'tools/interphase-continuity-selftest.cjs'
+      - 'lib/interphase-*.js'
+      - 'interphase/**'
+      - 'index.html'
       - 'control/INTERPHASE_CORRESPONDENCE_REGISTRY.json'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-registry-check.yml'
@@ -31,5 +39,7 @@ jobs:
           node-version: '22'
       - name: Validate current-checkout INTERPHASE correspondence
         run: node scripts/check-interphase.mjs --json
+      - name: Prove INTERPHASE FIELD continuity laws
+        run: node tools/interphase-continuity-selftest.cjs
       - name: Prove the gate fails closed, including cross-checkout decoys
         run: python3 tools/check-interphase-selftest.py
