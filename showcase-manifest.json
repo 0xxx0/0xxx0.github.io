@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T06:44:37+08:00",
+  "updated": "2026-10-07T07:06:54+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -22,30 +22,11 @@
       "family": "FIELD / ART",
       "role": "Library of art instruments: Borrowed River (playable ink), Painting/Path (recovery), Atlas Dayline (radial planning), Dayline Confluence (mobile cockpit), and external links (InkPainting, inkField, Pure Ink, Google Arts & Culture). Each entry shows source, play path, and return type.",
       "index": {
-        "updated_at": "2026-10-07T06:44:37+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "ADDRESS",
           "PLAY",
           "RESEARCH"
-        ]
-      }
-    },
-    {
-      "href": "/20261007-borrowed-river/",
-      "title": "BORROWED RIVER — an original ink voyage",
-      "kind": "instrument",
-      "parent": "/20261007-art-atlas/",
-      "operation": "PLAY",
-      "state": "ACTIVE",
-      "versionless": true,
-      "showcase_card": true,
-      "family": "FIELD / ART",
-      "role": "Playable Chinese ink landscape: draw a river from boat to lantern around solid rocks under a finite brush. Branch choices, return-home sailing, exportable painting + deterministic voyage JSON. Museum-grade references (Palace Museum, Taiwan NPM).",
-      "index": {
-        "updated_at": "2026-10-07T06:44:37+08:00",
-        "work_modes": [
-          "PLAY",
-          "ADDRESS"
         ]
       }
     },
@@ -10309,18 +10290,18 @@
       }
     },
     {
-      "href": "/20261007-the-set-gwen/",
-      "title": "THE SET — THREE ROOMS, THREE INSTRUMENTS (for gwen)",
+      "href": "/20261007-the-set/",
+      "title": "THE SET — THREE ROOMS, THREE INSTRUMENTS",
       "kind": "documentation",
       "parent": "/",
       "operation": "ADDRESS",
       "state": "UTILITY",
       "versionless": true,
       "showcase_card": false,
-      "family": "FIELD / GWEN",
-      "role": "The little index card for the set built for gwen on 2026-10-07: three instruments (THE CALL · DECODE · THE HINGE) plus the quiet shelf (CELLAR NOTES · THE LIST). Mirrors the Frex cut (2026-10-06) for a different person and register: her work world (contract review / data points / taxonomies), the wine thread she shares, and small universal human calls. One page, three doors, no chrome. Noindex; nothing stored; no private material named.",
+      "family": "FIELD / THREE ROOMS",
+      "role": "The little index card for the set built on 2026-10-07: three instruments (THE CALL · DECODE · THE HINGE) plus the quiet shelf (CELLAR NOTES · THE LIST). Mirrors the Frex cut (2026-10-06) for a different person and register: her work world (contract review / data points / taxonomies), the wine thread she shares, and small universal human calls. One page, three doors, no chrome. Noindex; nothing stored; no private material named.",
       "index": {
-        "updated_at": "2026-10-07T03:39:54+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "READ",
           "IMPLEMENT",
@@ -10329,7 +10310,7 @@
       },
       "evidence": {
         "checks": [
-          "assembled 2026-10-07 from the Frex-cut pattern + the recovered Gwen threads; every daughter page verified in-browser before this card linked them",
+          "assembled 2026-10-07 from the Frex-cut pattern + the recovered threads; every daughter page verified in-browser before this card linked them",
           "no private material anywhere on the surface: no employer name, no private thread quotes, no personal detail beyond the dedications"
         ],
         "return_path": "/"
@@ -10337,8 +10318,8 @@
       "tier": "FIELD"
     },
     {
-      "href": "/20261007-decode-gwen/",
-      "title": "DECODE — THE DIALECT DIAL · FOR GWEN",
+      "href": "/20261007-decode/",
+      "title": "DECODE — THE DIALECT DIAL",
       "kind": "documentation",
       "parent": "/",
       "operation": "ADDRESS",
@@ -10346,9 +10327,9 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / TOOLS",
-      "role": "The daughter of DECODE (mangospree) re-pointed at gwen's four rooms — the desk (contracts), the machine room (models/prompts/passes), the cellar (taste/patience), the day. Same engine: paste a paragraph, each loaded word lights with the sense that fits the sentence, the sense it has in the next room over, and one 'so what'. 24-entry deck + ten 'slips from the rounds'. 100% in-browser; pasted text never leaves the device.",
+      "role": "The daughter of DECODE (mangospree) re-pointed at the four rooms — the desk (contracts), the machine room (models/prompts/passes), the cellar (taste/patience), the day. Same engine: paste a paragraph, each loaded word lights with the sense that fits the sentence, the sense it has in the next room over, and one 'so what'. 24-entry deck + ten 'slips from the rounds'. 100% in-browser; pasted text never leaves the device.",
       "index": {
-        "updated_at": "2026-10-07T03:39:54+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
@@ -10366,7 +10347,7 @@
       "tier": "FIELD"
     },
     {
-      "href": "/20261007-the-call-gwen/",
+      "href": "/20261007-the-call/",
       "title": "THE CALL — THREE ROOMS · THE DESK · THE CELLAR · THE DAY",
       "kind": "tool",
       "parent": "/",
@@ -10375,9 +10356,9 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / PLAY",
-      "role": "The daughter of THE CALL (mangospree/frex) for gwen: same machinery (calibration → deck → costs/buys verdicts → playbook → honest sort), new deck — THREE ROOMS, 12 cards. Desk cards carry the real taxonomy-plateau fixes as calls (split the double-barrel; quote-first; the frozen ten; the messy segment); cellar cards carry the wine thread's lessons (encounter ≠ preference; leave the unresolved name open; force organised, not removed); day cards are universal (she plays first; costs-and-buys instead of a grade; the one difference). Mercy rule kept: nothing is called wrong.",
+      "role": "The daughter of THE CALL (mangospree/frex): same machinery (calibration → deck → costs/buys verdicts → playbook → honest sort), new deck — THREE ROOMS, 12 cards. Desk cards carry the real taxonomy-plateau fixes as calls (split the double-barrel; quote-first; the frozen ten; the messy segment); cellar cards carry the wine thread's lessons (encounter ≠ preference; leave the unresolved name open; force organised, not removed); day cards are universal (she plays first; costs-and-buys instead of a grade; the one difference). Mercy rule kept: nothing is called wrong.",
       "index": {
-        "updated_at": "2026-10-07T03:53:47+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "PLAY",
           "IMPLEMENT",
@@ -10395,8 +10376,8 @@
       "tier": "FIELD"
     },
     {
-      "href": "/20261007-the-hinge-gwen/",
-      "title": "THE HINGE — THE SMALLEST DIFFERENCE · FOR GWEN",
+      "href": "/20261007-the-hinge/",
+      "title": "THE HINGE — THE SMALLEST DIFFERENCE",
       "kind": "tool",
       "parent": "/",
       "operation": "ADDRESS",
@@ -10404,9 +10385,9 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / TOOLS",
-      "role": "Rebuild of the February hinge-gwen instrument (archived React demo, appdeploy) as a static route: three built-in cases (Control is not assignment · Price is not terms · Breach is not default) where you find the one difference that changes the analysis; the signal test ('would merging two fields allow opposite answers to look identical?'); and THE LAB — paste any two versions, get a local word-level delta, tick the frames the change reaches (SCOPE/TRIGGER/EXCEPTION/EVIDENCE/OUTCOME), and keep a receipt. Local-only, as it was born.",
+      "role": "Rebuild of the February hinge instrument (archived React demo, appdeploy) as a static route: three built-in cases (Control is not assignment · Price is not terms · Breach is not default) where you find the one difference that changes the analysis; the signal test ('would merging two fields allow opposite answers to look identical?'); and THE LAB — paste any two versions, get a local word-level delta, tick the frames the change reaches (SCOPE/TRIGGER/EXCEPTION/EVIDENCE/OUTCOME), and keep a receipt. Local-only, as it was born.",
       "index": {
-        "updated_at": "2026-10-07T03:39:54+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "PLAY",
           "IMPLEMENT",
@@ -10416,14 +10397,14 @@
       "evidence": {
         "checks": [
           "cases + lab exercised in real browser 2026-10-07: wrong option → 'not the difference' why; right option → hinge found + dial (broad point unfolded into atomic questions) + receipt; lab diff '1 removed · 11 added' → phrase panel → frames → receipt text exact format; 0 console/JS errors; 390px clean",
-          "port of the archived App.tsx cases verbatim (clauses, options, why, atomic questions, receipts); source preserved at 0-canon/archive/appdeploy/hinge-gwen"
+          "port of the archived App.tsx cases verbatim (clauses, options, why, atomic questions, receipts); source preserved at 0-canon/archive/appdeploy"
         ],
         "return_path": "/"
       },
       "tier": "FIELD"
     },
     {
-      "href": "/20261007-cellar-notes-gwen/",
+      "href": "/20261007-cellar-notes/",
       "title": "CELLAR NOTES — TWENTY-FOUR CARDS FOR TASTING ATTENTION",
       "kind": "documentation",
       "parent": "/",
@@ -10432,9 +10413,9 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / WINE",
-      "role": "Twenty-four small practice cards for tasting attention — the cellar register of the set for gwen. Difference-within-similarity, describe-before-naming, patience and readability, the maker's hand (reveal/carry/release), aroma order, the taster as instrument, a four-line log instead of scores, small pours and water. Practice, not advice; no prices, no producers, no consumption claims.",
+      "role": "Twenty-four small practice cards for tasting attention — the cellar register of the set. Difference-within-similarity, describe-before-naming, patience and readability, the maker's hand (reveal/carry/release), aroma order, the taster as instrument, a four-line log instead of scores, small pours and water. Practice, not advice; no prices, no producers, no consumption claims.",
       "index": {
-        "updated_at": "2026-10-07T03:39:54+08:00",
+        "updated_at": "2026-10-07T07:06:54+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",

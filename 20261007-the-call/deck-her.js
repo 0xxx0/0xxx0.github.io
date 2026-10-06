@@ -1,4 +1,4 @@
-/* deck-her.js — THREE ROOMS: the desk / the cellar / the day. For gwen, 2026-10-07.
+/* deck-her.js — THREE ROOMS: the desk / the cellar / the day. 2026-10-07.
  * Same card shape as the other decks: {id,who,meta,clock,clocklab,text,calls[{k,t,v,right}],move,ev}.
  * MERCY RULE: verdicts in costs/buys grammar; nothing says 'wrong'.
  * Situations are dramatised composites; no employer, no real person, no private matter is named.
