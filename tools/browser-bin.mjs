@@ -9,8 +9,17 @@
 // The result was 28 smoke tests that could not execute on the operator's own
 // machine — the surfaces they guard were unverifiable exactly where they are used.
 //
-// This resolver checks candidate paths AND proves the binary runs (`--version`)
-// before returning it, so a returned path is a working browser, not a filename.
+// This resolver checks candidate paths AND proves the binary runs — `--version` first,
+// then a bounded headless `--dump-dom` probe (the actual smoke workload), so a returned
+// path is a working browser, not a filename.
+//
+// Why the workload probe (measured 2026-10-07, macOS 26.3): system Chrome 154.0.8037.98
+// passes `--version` but wedges ~17s on every headless dump ("CVDisplayLinkCreateWithCGDisplay
+// failed" → "Teardown watchdog expired") and exits 2, so every case read FAIL/TIMEOUT locally
+// while the browser looked healthy; Playwright's Chromium 153-family bundles answer the same
+// dump in under 3s, exit 0. Auto-resolution now lands on those; CI (Linux chrome-stable) is
+// unchanged. An explicit SMOKE_BROWSER pin stays on the `--version` check alone — a pin is a
+// deliberate override (e.g. a local shim that normalizes a known exit code) and is honored.
 import {spawnSync} from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -41,6 +50,13 @@ function playwrightCache() {
   const rels = [
     'chrome-mac/Chromium.app/Contents/MacOS/Chromium',
     'chrome-mac-arm64/Chromium.app/Contents/MacOS/Chromium',
+    // Playwright's newer layouts (on disk, measured 2026-10-07): the Chrome for Testing
+    // app bundle and the purpose-built headless shell. Chrome for Testing is tried first
+    // because it is the full binary — every smoke's flag set applies unchanged.
+    'chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing',
+    'chrome-mac-x64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing',
+    'chrome-headless-shell-mac-arm64/chrome-headless-shell',
+    'chrome-headless-shell-mac-x64/chrome-headless-shell',
     'chrome-linux/chrome',
     'chrome-linux64/chrome',
     'chrome-win/chrome.exe',
@@ -65,6 +81,22 @@ function runs(bin) {
   } catch { return false; }
 }
 
+// …and a browser that starts is not yet a browser that answers the smokes' real workload.
+// One bounded headless --dump-dom on a data: URL: exit 0 and the marker present. `--version`
+// cannot catch a browser that starts but wedges in teardown (see the Chrome 154 note above);
+// this can. Every working candidate on record answers this in under 3s; 8s is slack.
+const PROBE_HTML = 'data:text/html,<title>probe-ok</title>';
+const PROBE_TIMEOUT = 8000;
+function answersHeadless(bin) {
+  try {
+    const r = spawnSync(bin, [
+      '--headless=new', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage',
+      '--virtual-time-budget=1500', '--dump-dom', PROBE_HTML,
+    ], {encoding: 'utf8', timeout: PROBE_TIMEOUT, maxBuffer: 4 * 1024 * 1024});
+    return r.status === 0 && /probe-ok/.test(r.stdout || '');
+  } catch { return false; }
+}
+
 export function browserBin() {
   const tried = [];
 
@@ -76,6 +108,8 @@ export function browserBin() {
   // UNVERIFIED rather than a break.
   const want = String(process.env.SMOKE_BROWSER || '').trim();
   if (want) {
+    // A pin is an explicit human decision and is honored on the version check alone —
+    // auto-resolution below is the honest path; an override is not second-guessed.
     if (!fs.existsSync(want)) throw Error('SMOKE_BROWSER does not exist: ' + want);
     if (!runs(want)) throw Error('SMOKE_BROWSER is present but will not run: ' + want);
     return want;
@@ -90,6 +124,7 @@ export function browserBin() {
     }
     if (!bin) { tried.push(`${cand} — absent`); continue; }
     if (!runs(bin)) { tried.push(`${bin} — present, will not run`); continue; }
+    if (!answersHeadless(bin)) { tried.push(`${bin} — starts, but headless --dump-dom does not answer cleanly (wedge); skipped`); continue; }
     return bin;
   }
   throw Error('No runnable Chrome/Chromium. Tried:\n  ' + tried.join('\n  '));
