@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-07T22:50:52.592Z",
+  "generated": "2026-10-07T23:21:53.201Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-07",
-  "commits_in_window": 156,
-  "git_commits_in_window": 290,
-  "telemetry_commits_in_window": 134,
-  "commits_total": 5743,
+  "commits_in_window": 164,
+  "git_commits_in_window": 301,
+  "telemetry_commits_in_window": 137,
+  "commits_total": 5754,
   "branch_count": 1011,
   "recent_commits": [
     "desk: refresh public field data",
-    "fi-mutation-contract: restamp post-rebase (root USE THESE + meters.js)",
-    "meters.js: adopt mother-meter-build version (from diff)"
+    "Merge pull request #953 from 0xxx0/fold/triangle-interphase-20261008",
+    "fi-mutation-contract: restamp /forward-field-proof/triangle/bench/ (IMPLEMENT,"
   ],
   "active_fronts": [
     {
