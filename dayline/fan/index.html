@@ -69,6 +69,7 @@ button.gear:hover,button.gear[aria-expanded="true"]{color:var(--gold);border-col
 .ev:hover,.ev:focus-visible{height:4px;outline:none}
 .ev:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .ev.plan{background:transparent;border-top:2px solid var(--cool);height:0}
+.ev.cal{background:transparent;border-top:2px dashed var(--cool);height:0}
 .ev.anchor{background:var(--hot);height:3px}
 
 /* now-hand (fan) / now-thread (card) — the hand pivots at the hub, like a hand should */
@@ -117,6 +118,7 @@ button.gear:hover,button.gear[aria-expanded="true"]{color:var(--gold);border-col
 .key i{display:inline-block;width:14px;height:2px;background:var(--gold);
   vertical-align:middle;margin:0 4px 2px 8px}
 .key i.plan{background:transparent;border-top:2px solid var(--cool);height:0}
+.key i.cal{background:transparent;border-top:2px dashed var(--cool);height:0}
 .key i.anchor{background:var(--hot);height:3px}
 
 .foot{margin-top:18px;font-size:10.5px;color:var(--mut);line-height:1.75}
@@ -156,6 +158,9 @@ button.gear:hover,button.gear[aria-expanded="true"]{color:var(--gold);border-col
   <div class="setrow"><label for="setPitch">spiral</label>
     <input type="range" id="setPitch" min="0" max="60" step="2" value="0">
     <span class="setval" id="setPitchVal">0</span></div>
+  <div class="setrow"><label for="setCal">calendar</label>
+    <input type="file" id="setCal" accept=".ics,text/calendar">
+    <span></span></div>
 </div>
 
 <div class="stage fan" id="stage" aria-label="the day, hour ribs">
@@ -170,7 +175,7 @@ button.gear:hover,button.gear[aria-expanded="true"]{color:var(--gold);border-col
 </div>
 
 <div class="detail empty" id="detail" role="status" aria-live="polite">tap a mark — it will tell you what the day actually did.</div>
-<p class="key"><i></i>happened<i class="plan"></i>planned<i class="anchor"></i>anchor</p>
+<p class="key"><i></i>happened<i class="plan"></i>planned<i class="cal"></i>calendar<i class="anchor"></i>anchor</p>
 
 <p class="foot">a dayline experiment · one transform: the same ribs, rotated into a dial
 or straightened into a card · feeds: <code>events.json</code> (the day as evidence —
@@ -178,7 +183,7 @@ git log, machine noise removed) + atlas dayline's local store (planning) · geom
 <code>lib/interphase-ring.js</code> ·
 <a href="ADR.md">why this exists (ADR + build log)</a> ·
 family: <a href="/atlas-dayline/">atlas dayline</a> · <a href="/dayline/">dayline</a> ·
-daywrap</p>
+<a href="/20261006-daywrap-mcvoid/">daywrap</a></p>
 </div>
 
 <script src="/lib/interphase-ring.js"></script>
@@ -257,6 +262,75 @@ function markFromMinute(mins){ // absolute minutes-of-day → {rib, within}
   return {rib:i,within:(f*S.count)-i};
 }
 
+/* ---- calendar: .ics import, parsed and kept on this device only ---- */
+var CAL_KEY='fan-cal-v1';
+function loadCal(){try{return JSON.parse(localStorage.getItem(CAL_KEY)||'[]')}catch(_){return[]}}
+function saveCal(list){try{localStorage.setItem(CAL_KEY,JSON.stringify(list))}catch(_){}}
+function icsDate(s){ // 20261007T090000Z / 20261007T090000 / 20261007
+  if(!s)return null;
+  var m=String(s).trim().match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z)?)?$/);
+  if(!m)return null;
+  if(!m[4])return {allDay:true};
+  var d=new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+m[6]);
+  if(m[7])d=new Date(d.getTime()+d.getTimezoneOffset()*60000); // UTC → local wall
+  return {date:d};
+}
+function parseIcs(text){
+  var lines=text.replace(/\r\n?/g,'\n').split('\n');
+  var out=[];
+  for(var u=[],i=0;i<lines.length;i++){ // unfold continuations
+    if(/^[ \t]/.test(lines[i])&&u.length)u[u.length-1]+=lines[i].slice(1);
+    else u.push(lines[i]);
+  }
+  var ev=null;
+  for(i=0;i<u.length;i++){
+    var line=u[i];
+    if(line.indexOf('BEGIN:VEVENT')===0)ev={};
+    else if(line.indexOf('END:VEVENT')===0){
+      if(ev&&ev.start&&!ev.allDay&&ev.title)out.push(ev);
+      ev=null;
+    }else if(ev){
+      var j=line.indexOf(':');
+      if(j<0)continue;
+      var key=line.slice(0,j),val=line.slice(j+1);
+      var semi=key.indexOf(';');
+      var name=semi<0?key:key.slice(0,semi);
+      if(name==='SUMMARY'&&!ev.title)ev.title=val.replace(/\\[n,;]/g,function(c){return c==='\\n'?'\n':c[1]});
+      else if(name==='DTSTART'){var d=icsDate(val);
+        if(!d)continue;if(d.allDay){ev.allDay=true;continue;}
+        ev.start=d.date;}
+      else if(name==='DTEND'){var d2=icsDate(val);if(d2&&d2.date)ev.end=d2.date;}
+    }
+  }
+  return out;
+}
+function calOn(day){ // only what lives on this day's window
+  return loadCal().filter(function(e){
+    var d=new Date(e.start);
+    return d.getFullYear()===day.getFullYear()&&d.getMonth()===day.getMonth()&&d.getDate()===day.getDate();
+  }).map(function(e){return {title:e.title,start:e.start,end:e.end||null}});
+}
+document.getElementById('setCal').addEventListener('change',function(e){
+  var f=e.target.files&&e.target.files[0];
+  if(!f)return;
+  var rd=new FileReader();
+  rd.onload=function(){
+    try{
+      var list=parseIcs(String(rd.result));
+      saveCal(list);
+      detail.classList.remove('empty');
+      detail.innerHTML='<span class="t">calendar imported</span>'+list.length+
+        ' events kept on this device · today\'s ones are on the fan as dashed marks.';
+      rebuild();
+    }catch(_){
+      detail.classList.add('empty');
+      detail.textContent='that .ics did not parse — nothing was stored.';
+    }
+  };
+  rd.readAsText(f);
+});
+window.__fanTest={parseIcs:parseIcs,calOn:calOn};
+
 /* ---- build / rebuild the ribs and their marks ---- */
 var events=[];
 function rebuild(){
@@ -307,6 +381,12 @@ function rebuild(){
         t.title||'task',(t.earliest||'')+'–'+(t.latest||''),'planned');
     });
   }
+  calOn(new Date()).forEach(function(c){
+    var d=new Date(c.start);
+    var hh=d.getHours(),mm=d.getMinutes();
+    addMark(markFromMinute(hh*60+mm),'cal',c.title,
+      hh+':'+(mm<10?'0':'')+mm,'calendar');
+  });
   applyMode();
   if(window.__tickReadout)window.__tickReadout();
 }
