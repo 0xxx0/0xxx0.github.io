@@ -22,6 +22,7 @@
     "one held option; paginated axes/options retain identity",
     "explicit LOCAL RETURN with PROPOSED vs OBSERVATION_REPORTED distinction",
     "numeric table fallback; no compulsory geometric vocabulary",
+    "Optional TRIANGLE view: Bench 0.1 simplex geometry recovered from git (4d64a331^) and projected over the entered numbers; one toggle, table stays canonical, revert = one commit",
     "Same-origin Omnitools source load and decision RETURN hook; the parent retains source identity and the child owns the only decision model."
   ],
   "known_limits": [
@@ -30,7 +31,9 @@
     "A priority leader only compares complete options fitting entered limits; unresolved options remain explicitly outside that claim.",
     "Sample measurements are synthetic and visibly labeled; no recommendation about the actual room is claimed.",
     "Browser persistence is device-local. JSON export is necessary for cross-device durability.",
-    "Actual user use/value remains unobserved. Computational and browser proof do not establish lived usefulness."
+    "Actual user use/value remains unobserved. Computational and browser proof do not establish lived usefulness.",
+    "Triangle positions are relative min..max normalisations of the entered values, not scores; the view carries no decision authority of its own.",
+    "The Bench 0.1 six-trial TRIANGLE-vs-PLAIN calibration was never scored: gate RETIRED_UNMEASURED. The view inherits no KEEP/HOLD/DEMOTE verdict and claims no usefulness."
   ],
   "verification": {
     "state": "CORE_PASS / BROWSER_EVIDENCE_IN_PR_921",
@@ -40,8 +43,8 @@
     ],
     "return_path": "/forward-field-proof/triangle/bench/",
     "checks": {
-      "decision_core": "12/12 PASS",
-      "actual_chrome_workflow_and_layout": "24/24 PASS",
+      "decision_core": "14/14 PASS",
+      "actual_chrome_workflow_and_layout": "28/28 PASS",
       "triangle_form": "6/6 PASS",
       "route_grammar": "PASS",
       "CURRENT_manifest_coherence": "PASS",

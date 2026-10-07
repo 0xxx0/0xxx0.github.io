@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T22:00:33+08:00",
+  "updated": "2026-10-08T06:57:05+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -3837,7 +3837,7 @@
       "showcase_card": false,
       "role": "Enter actual alternatives and 1–8 named quantities in native units. Enforce hard limits, preserve unknown/range evidence, expose Pareto trade-offs, declare one main priority, and export/restore an exact decision RETURN. Sample numbers are synthetic; numerical fit is not real-world verification.",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-08T06:57:05+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -9962,6 +9962,32 @@
       }
     },
     {
+      "href": "/20261006-the-call-mcvoid/v0.html",
+      "title": "THE CALL v0 (frozen pre-repair original)",
+      "kind": "tool",
+      "parent": "/20261006-the-call-mcvoid/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / PLAY",
+      "role": "The frozen v0 bytes of THE CALL as delivered on 2026-10-06, kept beside the live index for provenance when the frex delivery pages came back from the holding pen in fd3b3b99. Never registered, so the registration gate stayed red. Historical only: the live route is /20261006-the-call-mcvoid/.",
+      "index": {
+        "updated_at": "2026-10-08T07:05:00+08:00",
+        "work_modes": [
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "node scripts/check-route-registration.mjs: 204 servable pages, 0 live orphans, 0 ghosts",
+          "restored with the frex delivery pages by fd3b3b99 (2026-10-07)"
+        ],
+        "return_path": "/20261006-the-call-mcvoid/"
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/20261006-the-call-mcvoid/",
       "title": "THE CALL - the floor, the crew, impacted, the first 90",
       "kind": "tool",
@@ -9990,6 +10016,32 @@
           "converged with lam4000 ADOPT 2 registry note: one /20261006-the-call-mcvoid/ route retained; inline-style/pattern-lib adoption debt recorded, not hidden"
         ],
         "return_path": "/field-play.html"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-linkfield-frex/links.html",
+      "title": "LINK FIELD ledger / 2026-10-06 / frex",
+      "kind": "documentation",
+      "parent": "/20261006-linkfield-frex/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / LINKS",
+      "role": "The full 1,762-row LINK FIELD ledger behind the frex cut: every ledger row rendered as its own page. Restored with the frex delivery pages in fd3b3b99 (2026-10-07) but never registered, so the FIELD INDEX could not see it and the registration gate stayed red. Evidence surface, not a current head.",
+      "index": {
+        "updated_at": "2026-10-08T07:05:00+08:00",
+        "work_modes": [
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "node scripts/check-route-registration.mjs: 204 servable pages, 0 live orphans, 0 ghosts",
+          "restored with the frex delivery pages by fd3b3b99 (2026-10-07)"
+        ],
+        "return_path": "/20261006-linkfield-frex/"
       },
       "tier": "FIELD"
     },

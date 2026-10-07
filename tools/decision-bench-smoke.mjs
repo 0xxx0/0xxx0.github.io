@@ -158,6 +158,50 @@ async function probe(){
       expect(q('[data-option="x"][data-axis="y:z"]').value==='5','Distinct tuple draft collision');
       edit('[data-option="x:y"][data-axis="z"]','1');expect(text('verdict')!=='INVALID INPUT','Corrected draft did not resume');
     });
+    await check('Triangle view is off by default: table canonical, no SVG',async()=>{
+      await load(sample);
+      expect(q('#triBtn')&&!q('#triBtn').disabled,'Triangle control missing or disabled for a 3-axis model');
+      expect(q('#triView').hidden&&!q('#triView').querySelector('svg'),'Triangle rendered while the view is off');
+      expect(!q('#triView').innerHTML.trim(),'Hidden triangle view holds content');
+      expect(!q('#matrix').hidden&&w.getComputedStyle(q('#matrix')).display!=='none','Table hidden while the triangle view is off');
+    });
+    await check('Triangle toggle swaps in the projection, fits the phone, restores the table',async()=>{
+      await load(sample,390,844); click('#triBtn');
+      expect(q('#triBtn').getAttribute('aria-pressed')==='true','Toggle state not exposed to assistive tech');
+      expect(!q('#triView').hidden&&q('#matrix').hidden&&q('#optionPager').hidden,'Toggle did not swap table for triangle');
+      // Assert the COMPUTED display: #matrix{display:flex} outranks the UA [hidden] rule,
+      // so the property can be true while the table still renders underneath.
+      expect(w.getComputedStyle(q('#matrix')).display==='none','Table still displayed under the triangle view',w.getComputedStyle(q('#matrix')).display);
+      expect(w.getComputedStyle(q('#optionPager')).display==='none','Options pager still displayed under the triangle view');
+      const svg=q('#triView svg');expect(svg&&svg.querySelectorAll('.dot').length===4,'Sample options not projected',svg&&svg.querySelectorAll('.dot').length);
+      expect(svg.querySelectorAll('.axis').length===3,'Three vertex labels expected');
+      const svgRect=svg.getBoundingClientRect();
+      expect(svgRect.width>=150&&svgRect.height>=120,'Triangle svg did not take over the section',{w:svgRect.width,h:svgRect.height});
+      const overflow={width:Math.max(d.documentElement.scrollWidth,d.body.scrollWidth)-390,height:Math.max(d.documentElement.scrollHeight,d.body.scrollHeight)-844};
+      const rect=q('#triView').getBoundingClientRect();
+      expect(overflow.width<=1&&overflow.height<=1,'Triangle view overflows the document',overflow);
+      expect(rect.width>50&&rect.height>50&&rect.right<=391&&rect.bottom<=845,'Triangle view does not fit the viewport',{x:rect.x,y:rect.y,w:rect.width,h:rect.height});
+      click('#triBtn');
+      expect(!q('#matrix').hidden&&q('#triView').hidden&&!q('#triView').querySelector('svg'),'Table not restored after the toggle');
+      expect(w.getComputedStyle(q('#matrix')).display!=='none','Table not visible again after the toggle');
+    });
+    await check('Triangle projection requires exactly three measurements',async()=>{
+      await load(shape(4,3));
+      expect(q('#triBtn').disabled,'Triangle offered for a 4-axis model');
+      expect(/exactly 3/.test(q('#triBtn').title),'Disabled reason not stated');
+      expect(!q('#matrix').hidden&&q('#triView').hidden,'Four-axis model still showed the triangle');
+      await load(sample);expect(!q('#triBtn').disabled,'Three-axis model withheld the triangle');
+    });
+    await check('RETURN receipt records which view was used',async()=>{
+      await load(sample);localStorage.removeItem(RETURNS);click('#triBtn');click('#returnBtn');
+      edit('#rationale','Projected trade-off reviewed on the triangle view');edit('#nextStep','Measure the clamp footprint');
+      click('#saveReturn');await pause(20);
+      expect(receipts()[0]?.view==='triangle','Receipt did not record the triangle view',receipts()[0]?.view);
+      await load(sample);click('#returnBtn');
+      edit('#rationale','Table is canonical for this record');edit('#nextStep','Re-measure the width cap');
+      click('#saveReturn');await pause(20);
+      expect(receipts()[0]?.view==='table','Receipt did not record the table view',receipts()[0]?.view);
+    });
     for(const [width,height] of [[320,568],[390,844],[740,360],[844,390],[1280,800]]){
       await check('No primary scroll/occlusion '+width+'×'+height,async()=>{await load(sample,width,height);layout(width,height);});
       await check('Long source/labels retain primary controls '+width+'×'+height,async()=>{
