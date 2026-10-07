@@ -271,7 +271,7 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </div>
 
 <div class="bar"><div class="in">
-  <button class="btn ghost" id="sound" style="flex:0 0 92px">sound: on</button>
+  <button class="btn ghost" id="sound" style="flex:0 0 92px">sound: off</button>
   <button class="btn" id="next" disabled>make the call</button>
 </div></div>
 
@@ -303,7 +303,8 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it.
 <script src="ending.js"></script>
 <script>
 /* ───────────── audio: synthesised, zero assets ───────────── */
-let AC=null, SFX=true;
+var AC=null, SFX=false;   /* sound OFF by default (operator 2026-10-07). var, not let: this must
+   BE window.SFX so the settings sheet and the sound button share one truth (they didn't). */
 function tone(f,d,type,vol){ if(!SFX)return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
   const o=AC.createOscillator(),g=AC.createGain(); o.type=type||'sine'; o.frequency.value=f;
   g.gain.setValueAtTime(0.0001,AC.currentTime); g.gain.exponentialRampToValueAtTime(vol||0.06,AC.currentTime+0.012);
@@ -686,7 +687,8 @@ window.THEMES = window.THEMES || { vanilla: function(){}, garden: function(){} }
    House rule: a visual delta must reduce ambiguity, not add a decorative background —
    so this is pushed to the lowest contrast that still breathes, and it never takes a tap.
    Contract: a motion layer behind content only — no layout change, no audio, and
-   prefers-reduced-motion renders one static frame and stops. Plus exactly one cat. */
+   prefers-reduced-motion renders one static frame and stops. Generative ambience only —
+   the cat was removed 2026-10-07 (operator: not acceptable atm). */
 window.THEMES.garden = (function(){
   return function(root){
     // idempotent + reversible: if ambience is already present, do nothing.
@@ -778,18 +780,10 @@ window.THEMES.garden = (function(){
       else requestAnimationFrame(frame);
     }
 
-    /* exactly one cat — subtle, bottom-right, small, non-interactive. Max one cat. */
-    if(document.getElementById('gardencat')) return;
-    var cat=document.createElement('img');
-      cat.id='gardencat'; cat.src='cat.svg'; cat.alt=''; cat.setAttribute('aria-hidden','true');
-      cat.setAttribute('data-ambience','cat');   // so clearAmbience() can remove it
-      // assimilate into the system: a 1px panel border, desaturated, dimmed, with a mono
-      // caption. without this it is the one element that breaks the palette and the eye
-      // catches it for the wrong reason. it should read as a tiny window, discovered.
-      cat.style.cssText='position:fixed;right:12px;bottom:8px;width:112px;height:auto;'+
-        'z-index:0;pointer-events:none;user-select:none;opacity:.34;'+
-        'filter:none;border:0;padding:0;';
-      root.appendChild(cat);
+    /* THE CAT WAS HERE — removed 2026-10-07 (operator: "the cat is not ok or acceptable atm").
+       Garden ambience stays generative: the living field above IS the art. A moiré/cell
+       replacement may follow after self-review; nothing static ships back in this slot
+       without being seen first. */
   };
 })();
 
@@ -815,7 +809,7 @@ window.THEMES.garden = (function(){
 var currentTheme='vanilla';
 if(/[?&]theme=garden(&|$)/.test(location.search)) currentTheme='garden';
 /* THEME — vanilla is the default and the pushable public mode. garden is opt-in ambience
-   only: a motion layer behind the content and one cat. It may never change layout, never
+   only: a motion layer behind the content. It may never change layout, never
    play audio, and respects prefers-reduced-motion. (THEME-CONTRACT, mahshroom.) */
 window.clearAmbience=function(){
   document.querySelectorAll('[data-ambience]').forEach(function(n){ n.remove(); });
@@ -832,7 +826,7 @@ window.setTheme=function(name){
     b.setAttribute('aria-pressed', name==='garden' ? 'true' : 'false');
     b.title = (name==='garden')
       ? 'garden ambience is on — tap for the plain version'
-      : 'tap to grow the garden: moving cells and one cat. ambience only.';
+      : 'tap to grow the garden: moving cells. ambience only.';
   }
 };
 /* the engine has rendered (renderCalib) by the time this block runs — apply the theme.
