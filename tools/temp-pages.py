@@ -2,7 +2,7 @@
 """temp-pages.py — expiry + holding-pen lifecycle for throwaway dated pages.
 
 Registry: control/TEMP_PAGES.json (schema temp-pages/v1)
-Holding pen: _archive/temp/<expires>/<dir>/ with *.html renamed to *.html.frozen
+Holding pen: archive/temp/<expires>/<dir>/ with *.html renamed to *.html.frozen
 
 Subcommand flags (read-only by default):
   --check            print the registry table + summary. Writes nothing. Exit 0,
@@ -293,7 +293,7 @@ def cmd_build(reg: dict) -> None:
       </article>"""
 
     def pen_row(p: dict) -> str:
-        loc = f"{reg.get('holding_pen', '_archive/temp')}/{p.get('expires', '?')}/{p.get('dir', '?')}/"
+        loc = f"{reg.get('holding_pen', 'archive/temp')}/{p.get('expires', '?')}/{p.get('dir', '?')}/"
         return f"""      <article class="entry pen">
         <h2>{_esc(p['title'])}</h2>
         <div class="meta">
@@ -337,7 +337,7 @@ def cmd_build(reg: dict) -> None:
   <p class="foot">
     generated {now_stamp} by <code>tools/temp-pages.py --build</code> from
     <code>control/TEMP_PAGES.json</code> · noindex · expired pages move to
-    <code>{_esc(reg.get('holding_pen', '_archive/temp'))}/&lt;expires&gt;/&lt;dir&gt;/</code>
+    <code>{_esc(reg.get('holding_pen', 'archive/temp'))}/&lt;expires&gt;/&lt;dir&gt;/</code>
     with <code>*.html</code> frozen as <code>*.html.frozen</code> · nothing is ever deleted.
   </p>
 </body>
@@ -374,7 +374,7 @@ def git_mv(src: Path, dst: Path, dry_run: bool, log: list[str]) -> bool:
 
 def cmd_sweep(reg: dict, dry_run: bool) -> None:
     now = today()
-    pen_root = REPO / reg.get("holding_pen", "_archive/temp")
+    pen_root = REPO / reg.get("holding_pen", "archive/temp")
     log: list[str] = []
     moved = 0
 
@@ -412,11 +412,11 @@ def cmd_sweep(reg: dict, dry_run: bool) -> None:
     if moved == 0:
         print("nothing to sweep: no live page is past its expiry")
     elif dry_run:
-        print(f"dry-run: {moved} page(s) would move to {reg.get('holding_pen', '_archive/temp')}/<expires>/<dir>/ "
+        print(f"dry-run: {moved} page(s) would move to {reg.get('holding_pen', 'archive/temp')}/<expires>/<dir>/ "
               f"and have *.html frozen as *.html.frozen — nothing moved")
         return
     else:
-        print(f"swept {moved} page(s) into {reg.get('holding_pen', '_archive/temp')}/ — nothing deleted, "
+        print(f"swept {moved} page(s) into {reg.get('holding_pen', 'archive/temp')}/ — nothing deleted, "
               f"reversible with git mv back")
         save_registry(reg)
         cmd_build(reg)
@@ -436,7 +436,7 @@ def print_validate() -> None:
 # ---------------------------------------------------------------- --retire
 
 def cmd_retire(reg: dict, dirs: list[str], dry_run: bool) -> None:
-    pen_root = REPO / reg.get("holding_pen", "_archive/temp")
+    pen_root = REPO / reg.get("holding_pen", "archive/temp")
     log: list[str] = []
     moved = 0
 
@@ -475,11 +475,11 @@ def cmd_retire(reg: dict, dirs: list[str], dry_run: bool) -> None:
     if moved == 0:
         print("nothing to retire")
     elif dry_run:
-        print(f"dry-run: {moved} page(s) would move to {reg.get('holding_pen', '_archive/temp')}/<expires>/<dir>/ "
+        print(f"dry-run: {moved} page(s) would move to {reg.get('holding_pen', 'archive/temp')}/<expires>/<dir>/ "
               f"and have *.html frozen — nothing moved")
         return
     else:
-        print(f"retired {moved} page(s) into {reg.get('holding_pen', '_archive/temp')}/ — nothing deleted, "
+        print(f"retired {moved} page(s) into {reg.get('holding_pen', 'archive/temp')}/ — nothing deleted, "
               f"reversible with git mv back")
         save_registry(reg)
         cmd_build(reg)
