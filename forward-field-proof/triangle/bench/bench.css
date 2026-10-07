@@ -13,6 +13,8 @@ body,main,main>*,.question,.criteriaSection,.matrixSection,.result,.resultHead{m
 /* OPTIONAL triangle view — projection only over the canonical numeric table (bench 0.1 simplex geometry recovered). */
 #triBtn[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
 #matrix[hidden]{display:none}
+/* Keep the heading one line at every width: a wrapped legend adds a row and pushes the table into the footer. */
+.matrixHeading>span{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pager[hidden]{display:none}
 #triView{flex:1;min-height:0;display:flex;flex-direction:column;gap:4px;overflow:hidden}
 #triView[hidden]{display:none}

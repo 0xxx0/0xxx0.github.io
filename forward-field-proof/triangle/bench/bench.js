@@ -137,19 +137,23 @@
   function drawTriangle() {
     const enabled = S.criteria.length === 3;
     if (!enabled) triangleOn = false;
+    // Write only on change: a same-value mutation on every analysis redraw
+    // destabilised focus inside the Omnitools embedded bench (measured A/B).
     const button = $('triBtn');
-    button.disabled = !enabled;
-    button.title = enabled ? 'Optional triangle projection over the table; the numeric table stays canonical'
+    const pressed = String(triangleOn), label = triangleOn ? '△ TABLE' : '△ TRIANGLE';
+    const title = enabled ? 'Optional triangle projection over the table; the numeric table stays canonical'
       : 'Triangle view needs exactly 3 measurements (' + S.criteria.length + ' entered)';
-    button.setAttribute('aria-pressed', String(triangleOn));
-    button.textContent = triangleOn ? '△ TABLE' : '△ TRIANGLE';
-    $('matrix').hidden = triangleOn;
-    $('optionPager').hidden = triangleOn;
+    if (button.disabled === enabled) button.disabled = !enabled;
+    if (button.title !== title) button.title = title;
+    if (button.getAttribute('aria-pressed') !== pressed) button.setAttribute('aria-pressed', pressed);
+    if (button.textContent !== label) button.textContent = label;
+    if ($('matrix').hidden !== triangleOn) $('matrix').hidden = triangleOn;
+    if ($('optionPager').hidden !== triangleOn) $('optionPager').hidden = triangleOn;
     const view = $('triView');
-    view.hidden = !triangleOn;
+    if (view.hidden === triangleOn) view.hidden = !triangleOn;
     if (triangleOn) view.innerHTML = analysis ? TriangleView.markup(S, analysis)
       : '<p class="triNote">INVALID INPUT · correct the values to draw the projection.</p>';
-    else view.replaceChildren();
+    else if (view.firstChild) view.replaceChildren();
   }
   function redrawAnalysis() {
     if (errors.size) {
