@@ -9789,6 +9789,34 @@
       "tier": "FIELD"
     },
     {
+      "href": "/20261007-the-runbook/",
+      "title": "THE RUNBOOK — EVERYTHING ON ONE PAGE",
+      "kind": "documentation",
+      "parent": "/",
+      "operation": "ADDRESS",
+      "state": "UTILITY",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / THREE ROOMS",
+      "role": "Shareable start-here page for the set: 30-second summary, which instrument for which moment (the runbook), Slack setup tips (retention, legal holds, audit-log token discipline, ML opt-out), copy-paste Audit Logs API scripts, and every source doc in one place. Consolidation of the missing-docs gap reported against the field links; links only to live routes.",
+      "index": {
+        "updated_at": "2026-10-07T11:45:00+08:00",
+        "work_modes": [
+          "READ",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "every linked route curl-verified 200 before this card was written; slack docs.slack.dev references verified 200, slack.com help links redirect-302 to locale canonical (normal)",
+          "audit-log script examples quoted from docs.slack.dev/reference/audit-logs-api/methods-actions-reference/ (actions, filters, Tier 3 org-wide 50/min, 9999 max, March 2018 floor) and docs.slack.dev/admins/legal-holds-api/ (scopes, owner-account install, Slack Connect exclusion)"
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/20261007-decode/",
       "title": "DECODE — THE DIALECT DIAL",
       "kind": "documentation",
