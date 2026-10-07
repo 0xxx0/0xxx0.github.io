@@ -27,7 +27,20 @@ What was missing was the **transform between the two views** — the fold itself
   separate renderers. READ (Heer & Robertson 2007; see RADIAL-UX-ATOMS).
 - **D-005** · chose honesty labels over cosmetic smoothing in card mode — a quiet day
   reads quiet and says so; rejected faking density.
-- **D-006** · erratum: the APAC deck (sibling work) shipped invented archetypes before
+- **D-007** · chose to merge feeds at the fan, not build a planner — atlas dayline's
+  local store (tasks, anchors, day window) is read straight off localStorage, read-only;
+  rejected a second planning store because two truths is how families fracture. READ.
+- **D-008** · chose the family's canonical ring math (`lib/interphase-ring.js` slotAngle)
+  for rib placement with direction/rotation overrides; rejected re-deriving angles again
+  (the formula is already duplicated 5× in this family — the fan will not be the 6th). READ.
+- **D-009** · chose a settings drawer inside the one persistent control (spines 12/24/48,
+  day start, angle offset, 12/24h labels, direction, spiral pitch) persisted in
+  localStorage only; rejected a config file because the instrument belongs to the hand
+  that tunes it.
+- **D-010** · chose spiral-as-pitch (the same ribs, inner ends on a growing radius) over
+  a third mode; rejected a separate spiral renderer because circle and line are the same
+  object at different curvatures — the pitch slider proves it.
+- **D-011** · erratum: the APAC deck (sibling work) shipped invented archetypes before
   sourcing. *I said sourced, should have sourced FIRST. Fixed: the family re-sourced it
   to 26 situations; this log exists partly so this instrument doesn't repeat that.*
 

@@ -19,7 +19,7 @@ h1 .thin{color:var(--mut);font-weight:400}
 .sub{color:var(--mut);font-size:12.5px;margin:0 0 16px}
 .sub b{color:var(--gold);font-weight:600}
 
-/* one persistent control */
+/* one persistent control; settings live inside it */
 .ctl{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;
   padding:10px 0;background:linear-gradient(var(--bg) 78%,transparent)}
 button.mode{flex:1;font:600 11px/1 system-ui;letter-spacing:.18em;text-transform:uppercase;
@@ -30,13 +30,28 @@ button.mode{flex:1;font:600 11px/1 system-ui;letter-spacing:.18em;text-transform
 button.mode:hover,button.mode:focus{border-color:var(--gold);outline:none}
 button.mode:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+button.gear{width:52px;flex:none;font:600 14px/1 system-ui;color:var(--mut);
+  background:transparent;border:1px solid var(--rule);cursor:pointer}
+button.gear:hover,button.gear[aria-expanded="true"]{color:var(--gold);border-color:var(--gold)}
 
-/* the stage — both states of the same 24 ribs */
+.settings{border:1px solid var(--rule);padding:12px 12px 6px;margin:0 0 6px}
+.settings[hidden]{display:none}
+.setrow{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;
+  padding:6px 0;border-bottom:1px solid #191c21}
+.setrow:last-child{border-bottom:0}
+.setrow label{font:600 9.5px/1.3 system-ui;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mut)}
+.setrow select,.setrow input[type="range"]{width:100%;font:13px system-ui;
+  background:transparent;color:var(--ink);border:1px solid var(--rule);padding:6px}
+.setrow input[type="range"]{padding:0;border:0;accent-color:var(--gold)}
+.setval{color:var(--gold);font:600 11px/1 system-ui;letter-spacing:.08em;
+  font-variant-numeric:tabular-nums;min-width:42px;text-align:right}
+
+/* the stage — both states of the same N ribs */
 .stage{position:relative;width:100%;aspect-ratio:1/1.12;margin:6px 0 2px;
   overflow:hidden}
 .rib{position:absolute;left:50%;top:6%;width:13px;height:44%;margin-left:-6.5px;
   transform-origin:6.5px 100%;
-  transform:rotate(var(--a));
   transition:transform .78s cubic-bezier(.22,1.2,.36,1),opacity .4s ease;
   transition-delay:var(--d);border-left:1px solid #2b2f36;border-right:1px solid #2b2f36}
 .rib .fill{position:absolute;inset:0;
@@ -44,15 +59,17 @@ button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
 .rib.past{opacity:.34}
 .rib.now{border-color:color-mix(in srgb,var(--gold) 55%,var(--rule))}
 .rib .hh{position:absolute;top:-3px;left:50%;transform:translateX(-50%);
-  font:700 9.5px/1 system-ui;letter-spacing:.04em;color:#a8aeb9}
+  font:700 9.5px/1 system-ui;letter-spacing:.04em;color:#a8aeb9;white-space:nowrap}
 .rib.now .hh{color:var(--gold)}
 
-/* events ride their rib */
+/* marks ride their rib: gold = happened (record), blue = planned (atlas), red = anchor */
 .ev{position:absolute;left:2px;width:9px;height:2px;background:var(--gold);
   border:0;padding:0;cursor:pointer;transform:translateY(-1px)}
 .ev::after{content:"";position:absolute;inset:-7px -3px}
 .ev:hover,.ev:focus-visible{height:4px;outline:none}
 .ev:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ev.plan{background:transparent;border-top:2px solid var(--cool);height:0}
+.ev.anchor{background:var(--hot);height:3px}
 
 /* now-hand (fan) / now-thread (card) — the hand pivots at the hub, like a hand should */
 .hand{position:absolute;left:50%;top:9%;width:1px;height:41%;
@@ -78,13 +95,6 @@ button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
   opacity:0;transition:opacity .5s}
 .card .grid{opacity:1}
 
-/* detail reveal */
-.detail{min-height:52px;border-left:2px solid var(--gold);padding:8px 12px;
-  margin:12px 0 4px;font-size:13px;line-height:1.5;color:var(--ink)}
-.detail .t{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  display:block;margin-bottom:2px}
-.detail.empty{border-color:var(--rule);color:var(--mut);font-size:12px}
-
 /* hub readout — the center is where the eye lands first */
 .readout{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   text-align:center;pointer-events:none;transition:opacity .4s}
@@ -94,6 +104,20 @@ button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
   text-transform:uppercase;color:var(--mut)}
 .readout .rest b{color:var(--gold);font-weight:600}
 .card .readout{opacity:0}
+
+/* detail reveal */
+.detail{min-height:52px;border-left:2px solid var(--gold);padding:8px 12px;
+  margin:12px 0 4px;font-size:13px;line-height:1.5;color:var(--ink)}
+.detail .t{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin-bottom:2px}
+.detail.empty{border-color:var(--rule);color:var(--mut);font-size:12px}
+
+.key{margin:8px 0 0;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mut)}
+.key i{display:inline-block;width:14px;height:2px;background:var(--gold);
+  vertical-align:middle;margin:0 4px 2px 8px}
+.key i.plan{background:transparent;border-top:2px solid var(--cool);height:0}
+.key i.anchor{background:var(--hot);height:3px}
 
 .foot{margin-top:18px;font-size:10.5px;color:var(--mut);line-height:1.75}
 .foot code{color:var(--gold)}
@@ -106,14 +130,35 @@ button.mode:active{background:color-mix(in srgb,var(--gold) 12%,transparent)}
 </style>
 <div class="wrap">
 <h1>THE FAN.<br><span class="thin">the day folds.<br>the day opens.</span></h1>
-<p class="sub">24 ribs, one per hour · <b>fold</b> = the dial · <b>open</b> = the range card ·
-events are today's real work, pulled from the record · <b>nothing is stored, nothing is tracked</b></p>
+<p class="sub"><b>fold</b> = the dial · <b>open</b> = the range card · gold = happened
+(record) · blue = planned (atlas dayline) · red = hard anchor ·
+<b>nothing leaves this device</b></p>
 
 <div class="ctl">
   <button type="button" class="mode" id="modeBtn" aria-pressed="true">fold — the dial</button>
+  <button type="button" class="gear" id="gearBtn" aria-expanded="false"
+    aria-controls="settings" title="settings">⚙</button>
 </div>
 
-<div class="stage fan" id="stage" aria-label="the day, 24 hour ribs">
+<div class="settings" id="settings" hidden>
+  <div class="setrow"><label for="setCount">spines</label>
+    <select id="setCount"><option>12</option><option selected>24</option><option>48</option></select><span></span></div>
+  <div class="setrow"><label for="setStart">day starts</label>
+    <input type="range" id="setStart" min="0" max="23" step="1" value="0">
+    <span class="setval" id="setStartVal">00:00</span></div>
+  <div class="setrow"><label for="setRot">angle offset</label>
+    <input type="range" id="setRot" min="-90" max="90" step="5" value="0">
+    <span class="setval" id="setRotVal">0°</span></div>
+  <div class="setrow"><label for="setLabels">labels</label>
+    <select id="setLabels"><option value="24" selected>24-hour</option><option value="12">12-hour</option></select><span></span></div>
+  <div class="setrow"><label for="setDir">direction</label>
+    <select id="setDir"><option value="1" selected>clockwise</option><option value="-1">counter</option></select><span></span></div>
+  <div class="setrow"><label for="setPitch">spiral</label>
+    <input type="range" id="setPitch" min="0" max="60" step="2" value="0">
+    <span class="setval" id="setPitchVal">0</span></div>
+</div>
+
+<div class="stage fan" id="stage" aria-label="the day, hour ribs">
   <div class="hand" id="hand"></div>
   <div class="thread" id="thread"></div>
   <div class="hub"></div>
@@ -124,63 +169,145 @@ events are today's real work, pulled from the record · <b>nothing is stored, no
   <div class="grid" style="top:75%"></div>
 </div>
 
-<div class="detail empty" id="detail" role="status" aria-live="polite">tap a gold mark — it will tell you what the day actually did.</div>
+<div class="detail empty" id="detail" role="status" aria-live="polite">tap a mark — it will tell you what the day actually did.</div>
+<p class="key"><i></i>happened<i class="plan"></i>planned<i class="anchor"></i>anchor</p>
 
-<p class="foot">a dayline experiment · radial ⇄ linear is one transform: the same 24 ribs,
-rotated into a dial or straightened into a card · generated from
-<code>events.json</code> (the day as evidence — git log, machine noise removed) ·
+<p class="foot">a dayline experiment · one transform: the same ribs, rotated into a dial
+or straightened into a card · feeds: <code>events.json</code> (the day as evidence —
+git log, machine noise removed) + atlas dayline's local store (planning) · geometry from
+<code>lib/interphase-ring.js</code> ·
 <a href="ADR.md">why this exists (ADR + build log)</a> ·
 family: <a href="/atlas-dayline/">atlas dayline</a> · <a href="/dayline/">dayline</a> ·
 <a href="/20261006-daywrap-mcvoid/">daywrap</a></p>
 </div>
 
+<script src="/lib/interphase-ring.js"></script>
 <script>
 (function(){
 'use strict';
-var TAU=Math.PI*2, HOUR_W=13;
+var R=globalThis.InterphaseRing;
 var stage=document.getElementById('stage');
 var hand=document.getElementById('hand');
 var thread=document.getElementById('thread');
 var detail=document.getElementById('detail');
 var modeBtn=document.getElementById('modeBtn');
-var mode='fan'; // fan = dial (radial), card = range card (linear)
+var gearBtn=document.getElementById('gearBtn');
+var settings=document.getElementById('settings');
+var mode='fan';
 
-function nowAngle(){var d=new Date();
-  return ((d.getHours()+d.getMinutes()/60)/24)*360-90;}
-function nowFrac(){var d=new Date();return (d.getHours()+d.getMinutes()/60)/24;}
+/* ---- settings: the instrument's dials, remembered on this device only ---- */
+var S={count:24,dayStart:0,rot:0,labels:24,dir:1,pitch:0};
+try{var saved=JSON.parse(localStorage.getItem('fan-settings-v1')||'null');
+  if(saved)for(var k in S)if(saved[k]!=null)S[k]=saved[k];}catch(_){}
+function saveSettings(){try{localStorage.setItem('fan-settings-v1',JSON.stringify(S))}catch(_){}}
 
-function build(events){
-  // 24 ribs: rotate into the dial, or straighten into the card.
-  for(var i=0;i<24;i++){
+var els={
+  count:document.getElementById('setCount'),
+  dayStart:document.getElementById('setStart'),
+  rot:document.getElementById('setRot'),
+  labels:document.getElementById('setLabels'),
+  dir:document.getElementById('setDir'),
+  pitch:document.getElementById('setPitch')
+};
+els.count.value=String(S.count);
+els.dayStart.value=S.dayStart;
+els.rot.value=S.rot;
+els.labels.value=String(S.labels);
+els.dir.value=String(S.dir);
+els.pitch.value=S.pitch;
+
+/* ---- time ↔ angle: one mapping, borrowed from the family's canonical ring math ---- */
+var TAU=Math.PI*2;
+function windowFrac(h,m){ // fraction across the day window, starting at dayStart
+  return (((h-S.dayStart)+24)%24+m/60)/24;
+}
+function fracAngle(f){ // fraction → radians; -90° puts window start at top
+  return -Math.PI/2 + (S.rot*Math.PI/180) + S.dir*f*TAU;
+}
+function ribAngle(i){ // canonical slotAngle when direction allows, else our mapping
+  if(R&&R.slotAngle&&S.dir>0){
+    return R.slotAngle(i,S.count,{rotation:S.rot*Math.PI/180});
+  }
+  return fracAngle(i/S.count);
+}
+function labelFor(i){
+  var h=((S.dayStart+Math.round(i*24/S.count))%24+24)%24;
+  if(S.labels===12){
+    var hh=h%12;if(hh===0)hh=12;
+    return hh+(h<12?'a':'p');
+  }
+  return (h<10?'0':'')+h;
+}
+function nowFrac(){var d=new Date();return windowFrac(d.getHours(),d.getMinutes());}
+function nowAngle(){return fracAngle(nowFrac());}
+
+/* ---- atlas dayline's local store: the planning feed (read-only here) ---- */
+function atlas(){
+  try{
+    var x=JSON.parse(localStorage.getItem('poly-atlas-dayline-branch-i-public-v1')||'null');
+    if(!x||!x.tasks)return null;
+    return x;
+  }catch(_){return null;}
+}
+function hhmm2min(s){var p=String(s||'0:0').split(':');return (+p[0])*60+(+p[1]||0);}
+function markFromMinute(mins){ // absolute minutes-of-day → {rib, within}
+  var rel=((mins-S.dayStart*60)+1440)%1440;
+  var f=rel/1440;
+  var i=Math.max(0,Math.min(S.count-1,Math.floor(f*S.count)));
+  return {rib:i,within:(f*S.count)-i};
+}
+
+/* ---- build / rebuild the ribs and their marks ---- */
+var events=[];
+function rebuild(){
+  stage.querySelectorAll('.rib').forEach(function(n){n.remove()});
+  var nowI=Math.floor(nowFrac()*S.count);
+  var step=(S.count>24)?Math.round(S.count/24):1; // one label per hour, max
+  for(var i=0;i<S.count;i++){
     var rib=document.createElement('div');
     rib.className='rib';
-    rib.style.setProperty('--a',(i*15-90+7.5)+'deg');
-    rib.style.setProperty('--d',(Math.abs(i-12)*14)+'ms');
-    var h=new Date().getHours();
-    rib.classList.add(i<h?'past':i===h?'now':'future');
-    var lab=document.createElement('span');
-    lab.className='hh';lab.textContent=(i<10?'0':'')+i;
-    rib.appendChild(lab);
+    rib.style.setProperty('--d',(Math.abs(i-S.count/2)*12)+'ms');
+    rib.classList.add(i<nowI?'past':i===nowI?'now':'future');
+    if(i%step===0){
+      var lab=document.createElement('span');
+      lab.className='hh';lab.textContent=labelFor(i);
+      rib.appendChild(lab);
+    }
     var fill=document.createElement('div');fill.className='fill';rib.appendChild(fill);
     stage.appendChild(rib);
   }
   var ribs=stage.querySelectorAll('.rib');
-  events.forEach(function(e,ix){
-    var rib=ribs[e.h]; if(!rib)return;
+
+  function addMark(m,cls,label,time,extra){
+    var rib=ribs[m.rib];if(!rib)return;
     var b=document.createElement('button');
-    b.type='button';b.className='ev';
-    b.style.top=(6+(e.m/60)*84)+'%';
-    b.setAttribute('aria-label','event '+e.h+':'+(e.m<10?'0':'')+e.m+' '+e.t);
-    b.dataset.label=e.t;b.dataset.time=e.h+':'+(e.m<10?'0':'')+e.m;
+    b.type='button';b.className='ev'+(cls?' '+cls:'');
+    b.style.top=(6+m.within*84)+'%';
+    b.setAttribute('aria-label',time+' '+label);
+    b.dataset.label=label;b.dataset.time=time;
     b.addEventListener('click',function(){
       detail.classList.remove('empty');
-      detail.innerHTML='<span class="t">'+b.dataset.time+'</span>'+b.dataset.label;
+      detail.innerHTML='<span class="t">'+b.dataset.time+(extra?' · '+extra:'')+'</span>'+b.dataset.label;
     });
     rib.appendChild(b);
+  }
+
+  events.forEach(function(e){
+    addMark(markFromMinute(e.h*60+e.m),'',e.t,e.h+':'+(e.m<10?'0':'')+e.m,'record');
   });
-  hand.style.setProperty('--now-a',nowAngle()+'deg');
-  thread.style.top=(10+nowFrac()*76)+'%';
-  window.__FAN={ribs:ribs,events:events};
+
+  var A=atlas();
+  if(A){
+    (A.anchors||[]).forEach(function(a){
+      addMark(markFromMinute(hhmm2min(a.start)),'anchor',a.title||'anchor',a.start,'anchor');
+    });
+    (A.tasks||[]).forEach(function(t){
+      if(t.status==='done')return;
+      addMark(markFromMinute(hhmm2min(t.earliest||A.meta.dayStart)),'plan',
+        t.title||'task',(t.earliest||'')+'–'+(t.latest||''),'planned');
+    });
+  }
+  applyMode();
   if(window.__tickReadout)window.__tickReadout();
 }
 
@@ -188,27 +315,29 @@ function applyMode(){
   var f=(mode==='fan');
   stage.classList.toggle('fan',f);
   stage.classList.toggle('card',!f);
-  var ribs=window.__FAN.ribs;
+  var ribs=stage.querySelectorAll('.rib');
   for(var i=0;i<ribs.length;i++){
     var r=ribs[i];
     if(f){
-      r.style.transform='rotate('+(i*15-90+7.5)+'deg)';
-      r.style.marginLeft='-6.5px';r.style.left='50%';r.style.top='6%';
-      r.style.height='44%';r.style.width=HOUR_W+'px';
+      var a=ribAngle(i);
+      r.style.transform='rotate('+(a*180/Math.PI)+'deg) translateY(-'+(S.pitch*(i/S.count)*4)+'px)';
+      r.style.left='50%';r.style.marginLeft='-6.5px';r.style.top='6%';
+      r.style.height='44%';r.style.width='13px';
     }else{
-      // straighten: same rib, same events, translated into its column
-      var x=4+(i+0.5)*(92/24); // % of stage width
+      var x=4+(i+0.5)*(92/S.count);
       r.style.transform='rotate(0deg)';
       r.style.left=x+'%';r.style.marginLeft='-6.5px';r.style.top='10%';r.style.height='76%';
     }
-    r.style.transitionDelay=(f?Math.abs(i-12):Math.abs(i-12))*12+'ms';
+    r.style.transitionDelay=Math.abs(i-S.count/2)*12+'ms';
   }
   modeBtn.textContent=f?'fold — the dial':'open — the range card';
   modeBtn.setAttribute('aria-pressed',f?'true':'false');
   if(detail.classList.contains('empty')){
-    detail.textContent=f?'tap a gold mark — it will tell you what the day actually did.'
-      :'a quiet day reads quiet. the pile at the right edge is the record, not a bug — tap a mark.';
+    detail.textContent=f?'tap a mark — it will tell you what the day actually did.'
+      :'a quiet day reads quiet. the pile at the edge is the record, not a bug — tap a mark.';
   }
+  hand.style.setProperty('--now-a',nowAngle()+'deg');
+  thread.style.top=(10+nowFrac()*76)+'%';
 }
 
 modeBtn.addEventListener('click',function(){
@@ -216,7 +345,32 @@ modeBtn.addEventListener('click',function(){
   applyMode();
 });
 
-// swipe on the stage: up opens the card, down folds the dial
+gearBtn.addEventListener('click',function(){
+  var open=settings.hidden;
+  settings.hidden=!open;
+  gearBtn.setAttribute('aria-expanded',open?'true':'false');
+});
+
+/* settings: every change re-cuts the fan; the same ribs, re-measured */
+function onSetting(){
+  S.count=+els.count.value;
+  S.dayStart=+els.dayStart.value;
+  S.rot=+els.rot.value;
+  S.labels=+els.labels.value;
+  S.dir=+els.dir.value;
+  S.pitch=+els.pitch.value;
+  document.getElementById('setStartVal').textContent=(S.dayStart<10?'0':'')+S.dayStart+':00';
+  document.getElementById('setRotVal').textContent=S.rot+'°';
+  document.getElementById('setPitchVal').textContent=S.pitch;
+  saveSettings();
+  rebuild();
+}
+Object.keys(els).forEach(function(k){
+  els[k].addEventListener('input',onSetting);
+  els[k].addEventListener('change',onSetting);
+});
+
+/* swipe on the stage: up opens the card, down folds the dial */
 (function(){
   var y0=null;
   stage.addEventListener('pointerdown',function(e){y0=e.clientY;});
@@ -230,7 +384,8 @@ modeBtn.addEventListener('click',function(){
     }
   });
 })();
-// the hub answers "how much day is left" before anyone asks
+
+/* the hub answers "how much day is left" before anyone asks */
 function tickReadout(){
   var d=new Date();
   var hh=(d.getHours()<10?'0':'')+d.getHours();
@@ -238,20 +393,21 @@ function tickReadout(){
   document.getElementById('clock').textContent=hh+':'+mm;
   var left=24-(d.getHours()+d.getMinutes()/60);
   var lh=Math.floor(left),lm=Math.round((left-lh)*60);
-  var n=window.__FAN?window.__FAN.events.length:0;
+  var n=events.length;
   document.getElementById('rest').innerHTML=
-    '<b>'+lh+'h '+(lm<10?'0':'')+lm+'m</b> left · '+n+' things done on record';
+    '<b>'+lh+'h '+(lm<10?'0':'')+lm+'m</b> left · '+n+' things on record';
 }
 tickReadout();window.__tickReadout=tickReadout;setInterval(tickReadout,30000);
 
 fetch('events.json').then(function(r){return r.json()}).then(function(ev){
-  build(ev);applyMode();
+  events=ev;rebuild();
 }).catch(function(){
   detail.classList.add('empty');
-  detail.textContent='no day loaded — events.json unreachable.';
+  detail.textContent='no record loaded — events.json unreachable.';
+  rebuild();
 });
 
-// the clock moves even when nothing is tapped
+/* the clock moves even when nothing is tapped */
 setInterval(function(){
   hand.style.setProperty('--now-a',nowAngle()+'deg');
   thread.style.top=(10+nowFrac()*76)+'%';
