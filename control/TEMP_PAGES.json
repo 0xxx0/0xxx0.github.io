@@ -1,6 +1,6 @@
 {
   "schema": "temp-pages/v1",
-  "updated": "2026-10-06T22:11:09+08:00",
+  "updated": "2026-10-07T10:58:59+08:00",
   "retention_days": 30,
   "holding_pen": "_archive/temp",
   "pages": [
@@ -20,7 +20,7 @@
       "owner": "mcvoid",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "One-off essay page: taking CS50 in 2026, or not.",
       "superseded_by": null
     },
@@ -30,7 +30,7 @@
       "owner": "mcvoid",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "One-off thread-answer page on APAC AI policy at big tech in Singapore.",
       "superseded_by": null
     },
@@ -40,7 +40,7 @@
       "owner": "mahshroom",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Generated field picks roundup page (136KB single index.html).",
       "superseded_by": "/20261006-field-mcvoid/"
     },
@@ -50,7 +50,7 @@
       "owner": "lam4000",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Single-page visual read of the whole field: nested treemap sized by semantic commits, THE PULSE by last-touch date and state lane, ten picks. Output of tools/field-atlas-build.py; supersedes the picks table.",
       "superseded_by": null
     },
@@ -60,7 +60,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -70,7 +70,7 @@
       "owner": "kage",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Culture canon page: twelve essays (Mel, Kingdom of Nouns, Brooks, Karpathy, _why, ESR, PG x2, Amodei, Aschenbrenner, AI 2027, Duckworth) arguing where the doing lives.",
       "superseded_by": null
     },
@@ -80,7 +80,7 @@
       "owner": "kage",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Arm B of the mangospree A/B test. Decision instrument: say/want/clock/who/traps/move. Deleted at expiry if she uses arm A more.",
       "superseded_by": "/20261006-decode-mangospree/"
     },
@@ -90,7 +90,7 @@
       "owner": "kage",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Phone-first 12-matter judgment deck for mangospree. Sister to DECODE: DECODE explains language; THE CALL drills the actual legal-ops move and exports a FIELD / PLAY return JSON.",
       "superseded_by": null
     },
@@ -100,7 +100,7 @@
       "owner": "kage",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Persona/talk performance coach. Measures a draft against the real 8,909-message stylometric fingerprint, names the drift and its cost, gives the gap-closing rewrite. Refuses to score fragments.",
       "superseded_by": null
     },
@@ -110,7 +110,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -120,7 +120,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -130,7 +130,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -140,7 +140,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -150,7 +150,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     },
@@ -170,7 +170,7 @@
       "owner": "thisjustthing",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Frex cut of the generated LINK FIELD (tools/linkfield-build.py --variant frex): today folded in (commits + new routes), share/settings reveal, underline a11y law. Regenerable from the ledger.",
       "superseded_by": null
     },
@@ -180,7 +180,7 @@
       "owner": "unassigned",
       "created": "2026-10-06",
       "expires": "2026-11-05",
-      "status": "live",
+      "status": "archived",
       "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
       "superseded_by": null
     }

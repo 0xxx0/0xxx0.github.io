@@ -12,6 +12,8 @@ Subcommand flags (read-only by default):
   --sweep [--dry-run]  move expired live pages to the holding pen, freeze their
                      HTML, mark them archived in the registry, rebuild the index,
                      then print the validate-public.mjs verdict.
+  --retire DIR... [--dry-run]  move NAMED live pages to the holding pen NOW (before
+                     expiry), freeze their HTML, mark archived, rebuild, validate.
 
 Nothing is ever deleted: sweep is git mv + rename only, reversible with git mv back.
 """
@@ -431,6 +433,60 @@ def print_validate() -> None:
     print(verdict)
 
 
+# ---------------------------------------------------------------- --retire
+
+def cmd_retire(reg: dict, dirs: list[str], dry_run: bool) -> None:
+    pen_root = REPO / reg.get("holding_pen", "_archive/temp")
+    log: list[str] = []
+    moved = 0
+
+    for name in dirs:
+        page = next((p for p in reg["pages"] if p.get("dir") == name), None)
+        if page is None:
+            print(f"skip {name}: not in the registry (run --adopt first)")
+            continue
+        if page.get("status") != "live":
+            print(f"skip {name}: already {page.get('status')}")
+            continue
+        src = REPO / page["dir"]
+        if not src.is_dir():
+            print(f"skip {name}: not present on disk")
+            continue
+        dst = pen_root / page["expires"] / page["dir"]
+        print(f"RETIRE {name} (expires {page['expires']}, retired early)")
+        git_mv(src, dst, dry_run, log)
+        for html_file in sorted(dst.glob("*.html")) if not dry_run else sorted(src.glob("*.html")):
+            frozen = html_file.with_name(html_file.name + ".frozen")
+            log.append(f"  freeze {html_file.relative_to(REPO)} -> {frozen.relative_to(REPO)}")
+            if not dry_run:
+                r = subprocess.run(
+                    ["git", "mv", str(html_file.relative_to(REPO)), str(frozen.relative_to(REPO))],
+                    cwd=REPO, capture_output=True, text=True,
+                )
+                if r.returncode != 0:
+                    html_file.rename(frozen)
+        if not dry_run:
+            page["status"] = "archived"
+        moved += 1
+
+    for line in log:
+        print(line)
+
+    if moved == 0:
+        print("nothing to retire")
+    elif dry_run:
+        print(f"dry-run: {moved} page(s) would move to {reg.get('holding_pen', '_archive/temp')}/<expires>/<dir>/ "
+              f"and have *.html frozen — nothing moved")
+        return
+    else:
+        print(f"retired {moved} page(s) into {reg.get('holding_pen', '_archive/temp')}/ — nothing deleted, "
+              f"reversible with git mv back")
+        save_registry(reg)
+        cmd_build(reg)
+
+    print_validate()
+
+
 # ---------------------------------------------------------------- main
 
 def main(argv: list[str]) -> int:
@@ -442,12 +498,13 @@ def main(argv: list[str]) -> int:
     grp.add_argument("--check", action="store_true", help="print registry table + summary; writes nothing")
     grp.add_argument("--build", action="store_true", help="regenerate temp/index.html")
     grp.add_argument("--sweep", action="store_true", help="move expired live pages to the holding pen and freeze them")
+    grp.add_argument("--retire", nargs="+", metavar="DIR", help="move NAMED live page dir(s) to the holding pen now and freeze them")
     grp.add_argument("--adopt", action="store_true", help="register every unregistered dated page dir, then rebuild and re-check")
-    ap.add_argument("--dry-run", action="store_true", help="with --sweep: print planned moves, move nothing")
+    ap.add_argument("--dry-run", action="store_true", help="with --sweep/--retire: print planned moves, move nothing")
     args = ap.parse_args(argv)
 
-    if args.dry_run and not args.sweep:
-        ap.error("--dry-run only applies to --sweep")
+    if args.dry_run and not (args.sweep or args.retire):
+        ap.error("--dry-run only applies to --sweep or --retire")
 
     reg = load_registry()
     if args.check:
@@ -457,6 +514,8 @@ def main(argv: list[str]) -> int:
         print_validate()
     elif args.sweep:
         cmd_sweep(reg, args.dry_run)
+    elif args.retire:
+        cmd_retire(reg, args.retire, args.dry_run)
     elif args.adopt:
         return cmd_adopt(reg)
     return 0
