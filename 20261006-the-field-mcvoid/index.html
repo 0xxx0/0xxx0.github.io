@@ -10,8 +10,8 @@
   .title{position:fixed;left:22px;top:20px;z-index:3;color:#eef2ef;pointer-events:none}
   .title .t{font:300 clamp(15px,3.4vw,22px)/1.2 Georgia,serif;letter-spacing:.28em;text-transform:uppercase;opacity:.9}
   .title .s{font:italic 13px/1.5 Georgia,serif;opacity:.55;margin-top:6px;letter-spacing:.04em}
-  .stamp{position:fixed;right:18px;bottom:16px;width:96px;opacity:.5;z-index:3;pointer-events:none;
-    animation:breathe 9s ease-in-out infinite}
+  .stamp{position:fixed;top:auto;left:auto;right:18px;bottom:16px;width:96px;height:62px;opacity:.95;z-index:3;pointer-events:none;
+  border:1px solid rgba(150,168,184,.34);background:rgba(9,13,18,.92)}
   @keyframes breathe{0%,100%{opacity:.42}50%{opacity:.72}}
   .whisper{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
     font:italic 12.5px Georgia,serif;color:#eef2ef;opacity:.5;letter-spacing:.05em;white-space:nowrap}
@@ -28,7 +28,7 @@
   <div class="s">grown from the day's real calls &mdash; nothing here is invented</div>
 </div>
 <div class="whisper" id="whisper">it does not judge.</div>
-<img class="stamp" id="stamp" alt="" aria-hidden="true">
+<canvas class="stamp" id="stamp" width="192" height="124" aria-hidden="true"></canvas>
 <canvas id="c"></canvas>
 <script>
 (() => {
@@ -258,15 +258,35 @@
   (function raf(n){ lastPaint = n; requestAnimationFrame(raf); requestAnimationFrame(tick); })(performance.now());
   setInterval(function(){ if (performance.now() - lastPaint > 400) tick(performance.now()); }, 60);
 
-  // the stamp: the same cat that does not judge
-  fetch('../20261006-the-call-mcvoid/cat.svg').then(r => r.text()).then(t => {
-    document.getElementById('stamp').src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(t)));
-  }).catch(() => {});
+  // the stamp: a tiny moire window. operator 2026-10-07: the cat is gone —
+  // 'not ok or acceptable atm'. generative art instead of a mascot: two line
+  // families, one drifting; the interference is the whole piece.
+  (function(){
+    const c = document.getElementById('stamp').getContext('2d'); if(!c) return;
+    const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function frame(now){
+      const w=192,h=124,t=(now||0)/1000;
+      c.fillStyle='rgba(9,13,18,.92)'; c.fillRect(0,0,w,h); c.lineWidth=1; c.save(); c.translate(w/2,h/2);
+      c.strokeStyle='rgba(186,201,214,.42)';
+      for(let x=-h;x<w+h;x+=6){
+        c.beginPath(); c.moveTo(x-w/2+Math.sin(t*.13)*2.5,-h/2);
+        c.lineTo(x-w/2+h*.22+Math.sin(t*.13)*2.5,h/2); c.stroke();
+      }
+      c.strokeStyle='rgba(186,201,214,.30)';
+      for(let x=-h;x<w+h;x+=6){
+        c.beginPath(); c.moveTo(x-w/2-h*.17+Math.cos(t*.10)*2.5,-h/2);
+        c.lineTo(x-w/2+h*.04+Math.cos(t*.10)*2.5,h/2); c.stroke();
+      }
+      c.restore();
+      if(!REDUCED) requestAnimationFrame(frame);
+    }
+    if(REDUCED) frame(0); else requestAnimationFrame(frame);
+  })();
 
-  // the cat is not decoration. it has opinions and it pounces.
+  // the mark is not decoration. tap it: sparks, and one honest line.
   const OPINIONS = ['…fine. judge a little.', 'that one was expensive.', 'say it plainly next time.',
-    'the gap noticed you noticing.', 'still not judging. observing.', 'one strike. that was it.',
-    'write it down.', 'purr. (that was a warning.)', 'you chose the door. interesting.'];
+    'the gap noticed you noticing.', 'one strike. that was it.',
+    'write it down.', 'you chose the door. interesting.'];
   const stamp = document.getElementById('stamp'), whisper = document.getElementById('whisper');
   let opi = 0;
   stamp.addEventListener('click', e => {

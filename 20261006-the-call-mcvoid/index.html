@@ -252,7 +252,7 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </div>
 
 <div class="bar"><div class="in">
-  <button class="btn ghost" id="sound" style="flex:0 0 92px">sound: on</button>
+  <button class="btn ghost" id="sound" style="flex:0 0 92px">sound: off</button>
   <button class="btn" id="next" disabled>make the call</button>
 </div></div>
 
@@ -291,7 +291,7 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it.
 <script>
 if(/[?&]v=1/.test(location.search)) location.replace('v0.html');
 /* ───────────── audio: synthesised, zero assets ───────────── */
-let AC=null, SFX=true;
+var AC=null, SFX=false;
 function tone(f,d,type,vol){ if(!SFX)return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
   const o=AC.createOscillator(),g=AC.createGain(); o.type=type||'sine'; o.frequency.value=f;
   g.gain.setValueAtTime(0.0001,AC.currentTime); g.gain.exponentialRampToValueAtTime(vol||0.06,AC.currentTime+0.012);
@@ -829,28 +829,45 @@ window.THEMES.garden = (function(){
       else requestAnimationFrame(frame);
     }
 
-    /* exactly one cat — subtle, bottom-right, small, non-interactive. Max one cat. */
-    if(document.getElementById('gardencat')) return;
-    var cat=document.createElement('img');
-      cat.id='gardencat'; cat.src='cat.svg'; cat.alt=''; cat.setAttribute('aria-hidden','true');
-      cat.setAttribute('data-ambience','cat');   // so clearAmbience() can remove it
-      // assimilate into the system: a 1px panel border, desaturated, dimmed, with a mono
-      // caption. without this it is the one element that breaks the palette and the eye
-      // catches it for the wrong reason. it should read as a tiny window, discovered.
-      cat.style.cssText='position:fixed;right:12px;bottom:8px;width:112px;height:auto;'+
-        'z-index:6;pointer-events:auto;cursor:pointer;user-select:none;opacity:.34;'+
-        'filter:none;border:0;padding:0;transition:opacity .6s ease';
-      // operator 2026-10-07: 'the cat is not fun'. it now has opinions and pounces.
-      cat.addEventListener('click',function(){
-        cat.style.opacity='.85';
-        cat.animate([{transform:'rotate(0) scale(1)'},{transform:'rotate(-8deg) scale(1.16)'},{transform:'rotate(6deg) scale(.94)'},{transform:'rotate(0) scale(1)'}],{duration:520,easing:'ease-in-out'});
-        var L=['the cat has opinions.','purr. (that was a warning.)','that call was expensive.','still not judging.','say it plainly next time.','one strike. that was it.','interesting door.'];
-        var n=document.getElementById('catline');
-        if(!n){n=document.createElement('div');n.id='catline';n.style.cssText='position:fixed;right:126px;bottom:18px;z-index:6;font:italic 12.5px Georgia,serif;color:var(--ink,#eef2ef);opacity:.75;pointer-events:none';document.body.appendChild(n);}
-        n.textContent=L[Math.floor(Math.random()*L.length)];
-        clearTimeout(window.__catT); window.__catT=setTimeout(function(){n.remove();cat.style.opacity='.34';},3200);
-      });
-      root.appendChild(cat);
+    /* operator 2026-10-07: the cat is gone — 'not ok or acceptable atm'. in its
+       place a tiny moir\u00e9 window: generative art instead of a mascot. two line
+       families, one drifting against the other; the interference is the whole piece.
+       discovered, not advertised. reduced motion: one static frame, then stop. */
+    if(document.getElementById('moire')) return;
+    var mv=document.createElement('canvas');
+      mv.id='moire'; mv.setAttribute('aria-hidden','true');
+      mv.setAttribute('data-ambience','moire');   // so clearAmbience() can remove it
+      mv.style.cssText='position:fixed;right:20px;bottom:16px;width:112px;height:72px;'+
+        'z-index:6;pointer-events:none;opacity:.9;'+
+        'border:1px solid rgba(150,168,184,.34);background:rgba(9,13,18,.92)';
+      root.appendChild(mv);
+    (function(){
+      var c=mv.getContext('2d'); if(!c) return;
+      var REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function size(){ var d=Math.min(2,window.devicePixelRatio||1);
+        mv.width=Math.round(112*d); mv.height=Math.round(72*d); }
+      function frame(now){
+        var w=mv.width,h=mv.height,t=(now||0)/1000;
+        c.clearRect(0,0,w,h); c.lineWidth=1;
+        c.save(); c.translate(w/2,h/2);
+        // family A: near-vertical lines leaning right, slow breath
+        c.strokeStyle='rgba(186,201,214,.42)';
+        for(var x=-h;x<w+h;x+=6){
+          c.beginPath(); c.moveTo(x-w/2+Math.sin(t*.13)*2.5,-h/2);
+          c.lineTo(x-w/2+h*.22+Math.sin(t*.13)*2.5,h/2); c.stroke();
+        }
+        // family B: same pitch, leaning left and drifting the other way
+        c.strokeStyle='rgba(186,201,214,.30)';
+        for(var x=-h;x<w+h;x+=6){
+          c.beginPath(); c.moveTo(x-w/2-h*.17+Math.cos(t*.10)*2.5,-h/2);
+          c.lineTo(x-w/2+h*.04+Math.cos(t*.10)*2.5,h/2); c.stroke();
+        }
+        c.restore();
+        if(!REDUCED) requestAnimationFrame(frame);
+      }
+      size(); addEventListener('resize',function(){ size(); if(REDUCED) frame(0); });
+      if(REDUCED) frame(0); else requestAnimationFrame(frame);
+    })();
   };
 })();
 
