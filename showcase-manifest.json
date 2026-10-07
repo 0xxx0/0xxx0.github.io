@@ -1687,7 +1687,7 @@
       "showcase_card": false,
       "role": "One-day reading dial: the day folds into 24 hour-ribs and opens into a range card. Events come from the day's own record (git log, machine noise removed); past/now ribs, hub readout, one transform, swipe fold/open. Presentation/read-only: reads the record, writes nothing.",
       "index": {
-        "updated_at": "2026-10-07T11:03:51+08:00",
+        "updated_at": "2026-10-07T13:00:20+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -9930,6 +9930,36 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/digests/",
+      "title": "DIGESTS — ENCRYPTED",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "READ",
+      "state": "ACTIVE",
+      "version": "1.0.0",
+      "showcase_card": false,
+      "family": "WITNESS",
+      "role": "Public, client-side-encrypted projection of the local archive reader's digests wall: 14 message walls (msg-digest 09:00) + 9 day digests (day-digest 18:45), compiled from the canonical sources on disk and embedded as AES-256-GCM ciphertext. The public bytes are ciphertext plus static code; PBKDF2-SHA256 x600,000 derives the key in the browser and decryption + rendering happen locally, so no plaintext content, no local filesystem path and no passphrase is ever published. noindex (the site robots.txt already disallows everything — noindex is etiquette, not secrecy). Honest caveat: the ciphertext is public and offline-brute-forceable, so passphrase strength IS the security; git history retains old ciphertext blobs, and rotation means a new passphrase while old blobs stay old.",
+      "receipt": "/digests/release.json",
+      "index": {
+        "updated_at": "2026-10-07T13:00:20+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "node tools/build-encrypted-digests.mjs --verify (2026-10-07): decrypts digests/index.html with the real passphrase — 23 files (14 walls + 9 digests, 223,350 B) byte-identical to source; both inline scripts parse",
+          "browser proof on a byte-identical engine script with a throwaway passphrase: 14 <pre> walls + 9 markdown digests rendered; wrong passphrase → GCM tag failure, visible error, nothing rendered; lock clears the decrypted DOM and restores the header",
+          "page source carries ciphertext + static code only — no plaintext digest bytes, no local paths, no passphrase",
+          "gitleaks 8.30.1 control with the repo .gitleaks.toml: passphrase caught 4/4 on keyword-labeled shapes (generic-api-key, exit 1); unlabeled bare paste and a `passphrase:`-labelled line measured NOT caught — documented in digests/release.json"
+        ],
+        "return_path": "/digests/"
+      }
     }
   ],
   "release_law": [

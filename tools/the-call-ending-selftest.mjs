@@ -3,7 +3,11 @@ import fs from "node:fs";
 import vm from "node:vm";
 
 const context = { window: {} };
-const route = new URL("../20261006-the-call-mcvoid/", import.meta.url);
+/* REPAIR 2026-10-07: the 2026-10-06 set was retired to archive/temp/2026-11-05 (f16417cf).
+   Resolve live -> archived so this gate validates the same files in either state. */
+const route = ["../20261006-the-call-mcvoid/", "../archive/temp/2026-11-05/20261006-the-call-mcvoid/"]
+  .map((p) => new URL(p, import.meta.url))
+  .find((u) => fs.existsSync(u));
 for (const file of ["deck-crew.js", "ending.js"]) {
   vm.runInNewContext(fs.readFileSync(new URL(file, route), "utf8"), context, { filename: file });
 }

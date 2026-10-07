@@ -1,0 +1,29 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "DIGESTS — ENCRYPTED",
+  "route": "/digests/",
+  "version": "1.0.0",
+  "released": "2026-10-07",
+  "state": "ACTIVE",
+  "changes": [
+    "v1.0.0 — first public build (PLAN-2026-10-06 §1): ONE self-contained HTML page carrying both digest streams as AES-256-GCM ciphertext. Public bytes = ciphertext + static code only; PBKDF2-SHA256 (600,000 iterations, 16-byte salt, 12-byte IV, AAD-bound params) derives the AES-256 key in the browser and the page decrypts + renders client-side. No build step, no packages, no network call carries the passphrase.",
+    "v1.0.0 — embedded data, compiled the way the local archive reader /digests route compiles it (sources stay canonical on disk, newest first, at most 14 files per stream): 14 message walls 2026-09-24 → 2026-10-07 (msg-digest, 09:00) + 9 day digests 2026-09-28 → 2026-10-06 (day-digest, 18:45) = 23 files, 223,350 bytes of plaintext, all inside the ciphertext.",
+    "v1.0.0 — generator + verifier live at tools/build-encrypted-digests.mjs. Refresh = re-run it and republish (cron later). --verify decrypts the BUILT page with the real passphrase and byte-compares every file against a fresh compile of the sources.",
+    "v1.0.0 — noindex meta; the site robots.txt already disallows everything. noindex is etiquette, not secrecy."
+  ],
+  "checks": [
+    "node tools/build-encrypted-digests.mjs --verify → PASS: AES-256-GCM decrypt, 23 files byte-identical to source, both inline scripts parse (2026-10-07)",
+    "browser proof: the shipped engine script is byte-identical to the tested one (5,804 B, diffed) — unlock renders 14 <pre> walls + 9 markdown digests; a wrong passphrase fails the GCM tag with a visible error and renders nothing; lock clears the decrypted DOM and restores the header",
+    "page source carries ciphertext + static code only: no plaintext digest bytes, no local filesystem paths, no passphrase",
+    "registration + coherence gates green locally: check-route-registration, check-release-versions, audit-route-grammar, validate-public, check-redaction-aperture, html-document-integrity",
+    "gitleaks control (8.30.1, repo .gitleaks.toml): the passphrase IS caught — 4/4 keyword-labeled leak shapes (password=, secret:, apiKey:, token:) report generic-api-key and exit 1. Measured gap: an UNLABELED bare paste, a `passphrase:`-labelled line, and a plain `const X = '<value>'` assignment are NOT caught (0 findings). The gate is real for realistic leak shapes; the defence for the bare shape is that the passphrase never enters this repo."
+  ],
+  "verification": [
+    "node tools/build-encrypted-digests.mjs --verify",
+    "PR CI on this branch: gitleaks + public-surface-check + route-registration + showcase-manifest path-triggered checks (field-stage-handoff, field-urlbar, interphase-history-check, interphase-registry-check)",
+    "post-merge: python3 tools/finish-line.py --verify <merge-sha>"
+  ],
+  "return": "/digests/",
+  "caveat": "HONEST CAVEAT: the ciphertext is public and offline-brute-forceable — passphrase strength IS the security. Git history retains old ciphertext blobs, so rotation means a new passphrase and the old blobs stay decryptable by the old passphrase (they are never rewritten). The passphrase lives outside this repo and outside every receipt; it was never printed, committed or pushed.",
+  "refresh": "node tools/build-encrypted-digests.mjs && node tools/build-encrypted-digests.mjs --verify — then republish through the same worktree → branch → PR → CI → merge path."
+}

@@ -10,12 +10,14 @@
  * Relocated to tools/ 2026-10-07 (kage reapply): root resolves ../20261006-the-call-mcvoid.
  * Run: node tools/gap-card-selftest.mjs  (from repo root; exits non-zero on the first failed assertion)
  */
-import {readFileSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 
-const root=join(dirname(fileURLToPath(import.meta.url)),'..','20261006-the-call-mcvoid');
+/* REPAIR 2026-10-07: retired set — resolve live -> archived (f16417cf moved it). */
+const root=['20261006-the-call-mcvoid','archive/temp/2026-11-05/20261006-the-call-mcvoid']
+  .map(p=>join(dirname(fileURLToPath(import.meta.url)),'..',p)).find(existsSync);
 const assert=(x,m)=>{if(!x){console.error('gap-card-selftest: FAIL — '+m);process.exit(1)}};
 
 /* Load the real deck files into a window shim, then run the real inline deck-assembly
@@ -25,7 +27,7 @@ const ctx=vm.createContext({window:{}});
 for(const f of ['deck-crew.js','deck-euphemism.js','deck-onboarding.js','deck-apac.js']){
   vm.runInContext(readFileSync(join(root,f),'utf8'),ctx,{filename:f});
 }
-const html=readFileSync(join(root,'index.html'),'utf8');
+const html=readFileSync(['index.html','index.html.frozen'].map(f=>join(root,f)).find(existsSync),'utf8');
 const fStart=html.indexOf('const FLOOR=[');
 const bdStart=html.indexOf('function buildDeck(');
 assert(fStart>=0&&bdStart>fStart,'index.html no longer contains FLOOR + buildDeck where expected');
