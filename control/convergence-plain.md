@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T00:02:45.100Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-07T01:35:47.779Z by scripts/generate-convergence-strip.mjs_
 
-The field has **69 material commits on 2026-10-07** across **1009 branches** (111 exact Git commits in the window; 42 generated telemetry; 5564 on master all-time).
+The field has **70 material commits on 2026-10-07** across **1009 branches** (118 exact Git commits in the window; 48 generated telemetry; 5571 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- returns: index sync — append 42 unindexed receipt routes (ledger stale since 1
 - desk: refresh public field data
 - fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)
-- the call: intro-both re-recorded — mercy wording ('an audience for your calls'
 
 ## Open gaps
 

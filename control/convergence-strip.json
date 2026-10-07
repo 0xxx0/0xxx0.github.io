@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-07T00:02:45.100Z",
+  "generated": "2026-10-07T01:35:47.779Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-07",
-  "commits_in_window": 69,
-  "git_commits_in_window": 111,
-  "telemetry_commits_in_window": 42,
-  "commits_total": 5564,
+  "commits_in_window": 70,
+  "git_commits_in_window": 118,
+  "telemetry_commits_in_window": 48,
+  "commits_total": 5571,
   "branch_count": 1009,
   "recent_commits": [
+    "returns: index sync — append 42 unindexed receipt routes (ledger stale since 1",
     "desk: refresh public field data",
-    "fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)",
-    "the call: intro-both re-recorded — mercy wording ('an audience for your calls'"
+    "fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)"
   ],
   "active_fronts": [
     {
