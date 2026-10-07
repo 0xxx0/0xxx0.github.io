@@ -9916,7 +9916,7 @@
       "role": "Public, client-side-encrypted projection of the local archive reader's digests wall: 14 message walls (msg-digest 09:00) + 9 day digests (day-digest 18:45), compiled from the canonical sources on disk and embedded as AES-256-GCM ciphertext. The public bytes are ciphertext plus static code; PBKDF2-SHA256 x600,000 derives the key in the browser and decryption + rendering happen locally, so no plaintext content, no local filesystem path and no passphrase is ever published. noindex (the site robots.txt already disallows everything — noindex is etiquette, not secrecy). Honest caveat: the ciphertext is public and offline-brute-forceable, so passphrase strength IS the security; git history retains old ciphertext blobs, and rotation means a new passphrase while old blobs stay old.",
       "receipt": "/digests/release.json",
       "index": {
-        "updated_at": "2026-10-07T12:32:23+08:00",
+        "updated_at": "2026-10-07T12:35:21+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
