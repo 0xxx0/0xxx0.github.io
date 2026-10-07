@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T06:45:46.244Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-07T08:18:45.879Z by scripts/generate-convergence-strip.mjs_
 
-The field has **140 material commits on 2026-10-07** across **1010 branches** (217 exact Git commits in the window; 77 generated telemetry; 5670 on master all-time).
+The field has **149 material commits on 2026-10-07** across **1010 branches** (233 exact Git commits in the window; 84 generated telemetry; 5686 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- fovea: the radial answers a finger — lift, then tap a slot
 - desk: refresh public field data
-- fi-mutation-contract: update stamp after push
-- fi-mutation-contract: stamp /iching/ for mechanism view addition
+- fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)
 
 ## Open gaps
 
