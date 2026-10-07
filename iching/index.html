@@ -239,7 +239,67 @@ async function load(){
   else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || '', h.order || ''); }
   else if (h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q || ''); }
   else if (h.view) switchView(h.view);
+}function mechLaws(){
+  const revPairs=[], compPairs=[], selfRev=[];
+  for (const h of HEX.list){
+    const r = h.binary.split('').reverse().join('');
+    if (r === h.binary) selfRev.push(h.id);
+  }
+  for (let k=0;k<32;k++){
+    const a = HEX.byId[2*k+1], b = HEX.byId[2*k+2];
+    const rb = b.binary.split('').reverse().join('');
+    const cb = b.binary.split('').map(c=>c==='1'?'0':'1').join('');
+    if (rb === a.binary) revPairs.push([a.id,b.id]);
+    else if (cb === a.binary) compPairs.push([a.id,b.id]);
+    else revPairs.push(null);
+  }
+  return { revPairs: revPairs.filter(Boolean), compPairs, selfRev: selfRev.sort((a,b)=>a-b), directed: HEX.list.length*6 };
 }
+function buildMech(){
+  const box = document.getElementById('mechBox');
+  if (!box) return;
+  const L = mechLaws();
+  const mrow = (k, v) => `<div class="mrow"><div class="mk">${k}</div><div>${v}</div></div>`;
+  // coin distribution exact
+  const pc = [0,0,0,0,0,0,0,0,0,0];
+  for (const a of [2,3]) for (const b of [2,3]) for (const c of [2,3]) pc[a+b+c]++;
+  const coin6 = pc[6]; const coin7 = pc[7]; const coin8 = pc[8]; const coin9 = pc[9];
+  const outcomes = 8; // 2^3
+  const p6 = pc[6]/outcomes; const p7 = pc[7]/outcomes; const p8 = pc[8]/outcomes; const p9 = pc[9]/outcomes;
+  const pChange = p6 + p9; // = 0.5
+  const pNoChange = Math.pow(0.75, 6); // (3/4)^6
+  const expChange = 6 * 0.25;
+  box.innerHTML = `
+  <h2 class="sect">Address 卦址 <span>— 6 bits, 64 states</span></h2>
+  <p class="muted">one hexagram = one six-bit state, read bottom line → top: 2⁶ = 64. lower trigram = the low 3 bits, upper = the high 3. every 6-bit string is exactly one hexagram — the mapping is a bijection (checked in the core test).</p>
+  <p class="muted"></p>
+  <h2 class="sect">Trigrams 經卦 <span>— 3-bit registers</span></h2>
+  <p class="muted">2³ = 8 trigrams; a hexagram is an ordered pair (inner, outer) → 8×8 = 64. (Grid = the multiplication table; Cube = the lattice where one edge = one line flip.)</p>
+  <h2 class="sect">Operations 卦算</h2>
+  <p class="muted" class="law">錯 complement ¬ · 綜 reversal ↕ · 互 nuclear ⊂</p>
+  <p class="muted">Laws from the shipped data (computed live):</p>
+  <div class="mrow"><div class="mk">King Wen pairs</div><div>${L.revPairs.length} reversal pairs, ${L.compPairs.length} complement pairs</div></div>
+  <div class="mrow"><div class="mk">Self-reversible</div><div>${L.selfRev.length} (${L.selfRev.join(', ')}) – these pair by complement</div></div>
+  <h2 class="sect">Moves 變</h2>
+  <p class="muted">One line flip = Hamming distance 1. Every hexagram has 6 → ${L.directed} directed single-line moves — the same ${L.directed} as the 爻辭 line statements (plus 用九/用六 on 乾/坤).</p>
+  <p class="muted">Each line text names one directed move (this line of this hexagram flipping).</p>
+  <h2 class="sect">Casting math筮法</h2>
+  <p class="muted">Three coins per line (2 or 3 each): sums 6/7/8/9 with exact probabilities ${p6.toFixed(3)}, ${p7.toFixed(3)}, ${p8.toFixed(3)}, ${p9.toFixed(3)}.</p>
+  <p class="muted">6 (old yin) and 9 (old yang) change → P(change per line) = ${pChange.toFixed(2)}; changing lines per cast ~ Binomial(6, 0.25): expected ${expChange.toFixed(2)}, P(none) = ${pNoChange.toFixed(3)}.</p>
+  <p class="muted">Yarrow-stalk 大衍 figures (commonly cited 1/16, 5/16, 7/16, 3/16) are variant across sources — not claimed here.</p>
+  <h2 class="sect">Orderings 序</h2>
+  <p class="muted">King Wen 文王序 = narrative order (1..64). Fu Xi/Shao Yong 伏羲序 = straight binary count 000000..111111. The Radial view walks both.</p>
+  <p class="muted">The 8 self-reversible hexagrams (1,2,27,28,29,30,61,62) are fixed under reversal and pair by complement.</p>
+  <p class="muted">Binomial counts C(6,k): ${[1,6,15,20,15,6,1].join('  ')} — already in the Ops panel.</p>
+  <h2 class="sect">How to read a cast 讀法</h2>
+  <p class="muted">Question → cast → changing lines are the message → 之卦 transform = where it moves → 互卦 nuclear = the hidden middle (lines 2–5) → 序 sequence = its place in the walk.</p>
+  <p class="muted">No changing lines → the condition itself is the reading.</p>
+  <h2 class="sect">Further reading 讀</h2>
+  <p class="muted">Benebell Wen, I Ching, The Oracle (North Atlantic Books, 2023) – historical/scholarly layer + translation. 周易 core text is public domain (Wikisource); Legge 1882 for the EN on this page.</p>
+  `;
+  wireLinks();
+}
+
 function parseHash(){
   const f = new URLSearchParams(location.hash.slice(1));
   return { c: f.get('c'), b: f.get('b'), to: f.get('to'), order: f.get('order'), q: f.get('q') || '', h: f.get('h'), view: f.get('view') };
