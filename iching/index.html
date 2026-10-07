@@ -108,6 +108,14 @@
   #radialInfo{margin-top:10px;color:var(--dim);font-size:13px;line-height:1.8;min-height:46px}
   #radialInfo b{color:var(--fg)}
   .rlegend{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:10px;color:var(--faint);font-size:11.5px}
+  .lines-fold summary{cursor:pointer;color:var(--dim);fontsize:12.5px;letterspacing:.06em;padding:6px 0}
+  .lines-fold summary:hover{color:var(--acc)}
+  .lines-fold[open] summary{margin-bottom:4px}
+  .mech p{margin:0 0 6px;line-height:1.6;fontsize:13.5px}
+  .mrow{display:flex;gap:12px;border-top:1px solid var(--line);padding:9px 0;fontsize:13.5px;line-height:1.7}
+  .mrow .mk{flex:0 0 128px;color:var(--acc);fontsize:12px;letterspacing:.08em;texttransform:uppercase}
+  .mech .law{fontfamily:ui-monospace,monospace;fontsize:12px;color:var(--acc2)}
+
   .rlegend i{color:var(--acc);font-style:normal}
   @media (max-width:520px){ header h1{font-size:32px} .fig-wrap{gap:20px} }
 </style>
@@ -137,6 +145,12 @@
         <span class="muted" id="seedNote"></span>
       </div>
     </section>
+  <section id="viewMech" hidden>
+    <div class="panel">
+      <h2 class="sect" style="margin-top:0">Mechanism <span>機 — how the system works</span></h2>
+      <div id="mechBox">loading…</div>
+    </div>
+  </section>
     <section id="out"></section>
   </section>
 
@@ -220,6 +234,7 @@ async function load(){
     `64/64 · binaries bottom-to-top · nuclear 互卦 = lines 2–5 · cube = B₃ trigram lattice · v0.6 · ${HEX.meta.generated}.`;
   buildGrid(); buildWalk(); initCube(); initRadial();
   const h = parseHash();
+        buildMech();
   if (h.c){ switchView('read'); render(h.c.split('').map(Number), h.q || ''); }
   else if (h.b){ switchView('read'); renderState(h.b, h.to || h.b, h.q || '', h.order || ''); }
   else if (h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q || ''); }
@@ -858,6 +873,7 @@ document.getElementById('copyBtn').addEventListener('click', ()=>{
 });
 document.getElementById('shareBtn').addEventListener('click', ()=>{ if(window.__share) window.__share(); });
 window.addEventListener('hashchange', ()=>{ const h=parseHash();
+        buildMech();
   if(h.c){ switchView('read'); render(h.c.split('').map(Number), h.q||''); }
   else if(h.h){ switchView('read'); renderHex(parseInt(h.h,10), h.q||''); }
   else if(h.view) switchView(h.view);
