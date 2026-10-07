@@ -159,7 +159,7 @@ function open(select=true){
  if(!input)return;editing=true;root.dataset.open='1';syncAddress();if(document.activeElement!==input)input.focus({preventScroll:true});if(select)input.select();active=0;render();status('⌂ ◎ ▽ ◆ ↗ ↩ ⎘ ▶ · / or ⌘K','')
 }
 function close(restore=true){
- editing=false;root.dataset.open='0';rows=[];list.innerHTML='';if(restore)syncAddress();input?.blur();
+ editing=false;if(root)root.dataset.open='0';rows=[];if(list)list.innerHTML='';if(restore)syncAddress();input?.blur();
 }
 function isEditable(t){const tag=t?.tagName?.toLowerCase?.();return !!(t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select')}
 function css(){
@@ -171,8 +171,13 @@ function css(){
 .fieldOmniStatus{position:absolute;right:5px;top:100%;margin-top:2px;color:var(--mut);font-size:5.5px;letter-spacing:.08em;pointer-events:none}.fieldOmniResults{position:absolute;left:-1px;right:-1px;top:100%;border:1px solid var(--line);border-top:0;background:var(--bg);box-shadow:0 16px 36px rgba(0,0,0,.34);max-height:min(58vh,360px);overflow:auto}.fieldOmniResults:empty{display:none}#fieldOmnibar[data-open="0"] .fieldOmniResults{display:none}
 .fieldOmniResults button{width:100%;display:grid;grid-template-columns:32px minmax(0,1fr) minmax(80px,34%) 24px;align-items:center;gap:7px;text-align:left;padding:6px 8px;border:0;border-bottom:1px solid #1d2529;background:var(--bg)}.fieldOmniResults button:last-child{border-bottom:0}.fieldOmniResults button[aria-selected="true"]{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldOmniResults i{font-style:normal;color:var(--gold);font-size:10px;text-align:center}.fieldOmniResults span{min-width:0}.fieldOmniResults b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:8px}.fieldOmniResults small{display:block;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:5.8px;margin-top:1px}.fieldOmniResults code{color:var(--cool);font-size:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldOmniResults em{font-style:normal;color:var(--hot);text-align:center}.fieldOmniEmpty{padding:9px;color:var(--mut);font-size:7px}
 #fieldOmnibar[data-tone="ok"]{border-color:color-mix(in srgb,var(--green) 55%,var(--line))}#fieldOmnibar[data-tone="bad"]{border-color:var(--bad)}#fieldOmnibar[data-depth="WORK"] .fieldOmniSigil{color:var(--cool)}#fieldOmnibar[data-depth="PROVE"] .fieldOmniSigil{color:var(--gold)}
+#fieldOmnibarKeys[data-tone="ok"]{box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--green) 70%,transparent)}
+#fieldOmnibarKeys[data-tone="bad"]{box-shadow:inset 0 -2px 0 var(--bad)}
+/* FOLD: when the FIELD URLbar owns the line, its frame reserves one extra grid
+   column so these glyph keys ride the SAME line instead of a second bar. */
+#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 30px minmax(0,1fr) auto auto}
 html[data-theme="light"] #fieldOmnibar,html[data-theme="light"] .fieldOmniResults,html[data-theme="light"] .fieldOmniResults button{background:color-mix(in srgb,var(--bg) 95%,white)}
-@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}.fieldOmniStatus{display:none}}
+@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 34px minmax(0,1fr) auto auto}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}.fieldOmniStatus{display:none}}
 @media(prefers-reduced-motion:reduce){#fieldOmnibar *{scroll-behavior:auto!important}}
  `;document.head.appendChild(s)
 }
@@ -182,10 +187,34 @@ function markup(){
  el.innerHTML='<div class="fieldOmniLine"><span class="fieldOmniSigil" data-omni-sigil>Φ</span><input class="fieldOmniInput" data-omni-input aria-label="Address FIELD object or enter command" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="search"><div class="fieldOmniKeys">'+visible.map(id=>{const c=COMMAND_BY_ID.get(id);return'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>'}).join('')+'</div></div><div class="fieldOmniResults" data-omni-results role="listbox"></div><div class="fieldOmniStatus" data-omni-status></div>';
  return el
 }
-function bind(){
+function keysMarkup(){
+ const visible=['hold','work','prove','open','return','handoff','run'];
+ return visible.map(id=>{const c=COMMAND_BY_ID.get(id);return'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>'}).join('')+'<div class="fieldOmniStatus" data-omni-status></div>';
+}
+function wireKeys(node){node.querySelectorAll('[data-command]').forEach(b=>b.onclick=()=>execute(b.dataset.command,focusHref()||'/','glyph'))}
+/* FOLD — exactly ONE route-control line. The FIELD URLbar owns the line: its
+   address grammar, ?fi= projection state, ⌘K / / : keyboard and no-authority
+   rule stay byte-untouched. The omnibar contributes its glyph keys INSIDE that
+   line instead of mounting a second bar (no second input, no second results
+   panel, no second keyboard owner). If no URLbar ever appears, the omnibar
+   mounts its own single line — never both. */
+function mountKeys(){
+ if(document.getElementById('fieldOmnibarKeys'))return true;
+ const bar=document.getElementById('fieldUrlBar');if(!bar)return false;
+ const frame=bar.querySelector('.fieldUrlFrame')||bar;
+ document.getElementById('fieldOmnibar')?.remove();
+ const keys=document.createElement('span');keys.id='fieldOmnibarKeys';keys.className='fieldOmniKeys';
+ keys.innerHTML=keysMarkup();
+ frame.appendChild(keys);
+ wireKeys(keys);
+ root=keys;input=null;list=null;editing=false;rows=[];
+ document.documentElement.dataset.fieldOmnibar='keys';
+ return true;
+}
+function mountOwn(){
  if(document.getElementById('fieldOmnibar'))return;
  const main=document.querySelector('main');if(!main)return;
- css();root=markup();main.prepend(root);input=root.querySelector('[data-omni-input]');list=root.querySelector('[data-omni-results]');
+ root=markup();main.prepend(root);input=root.querySelector('[data-omni-input]');list=root.querySelector('[data-omni-results]');
  root.querySelectorAll('[data-command]').forEach(b=>b.onclick=()=>execute(b.dataset.command,focusHref()||'/','glyph'));
  input.addEventListener('focus',()=>open(false));
  input.addEventListener('input',()=>{editing=true;active=0;render()});
@@ -197,15 +226,34 @@ function bind(){
   if(e.key==='Enter'){e.preventDefault();choose(active,'enter')}
  });
  document.addEventListener('keydown',e=>{
+  if(document.getElementById('fieldUrlBar'))return;
   if(isEditable(e.target)||e.defaultPrevented)return;
   if(e.key==='/'&&!e.metaKey&&!e.ctrlKey&&!e.altKey){e.preventDefault();open(true);return}
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open(true)}
  },true);
  window.addEventListener('field-index:state',()=>{if(!editing)syncAddress()});
- window.addEventListener('field-zui',()=>{if(root)root.dataset.depth=window.FieldZUI?.state?.()||'HOLD'});
- document.addEventListener('pointerdown',e=>{if(root.dataset.open==='1'&&!root.contains(e.target))close(true)},{passive:true});
+ window.addEventListener('field-zui',()=>{if(root&&root.id==='fieldOmnibar')root.dataset.depth=window.FieldZUI?.state?.()||'HOLD'});
+ document.addEventListener('pointerdown',e=>{if(root?.dataset?.open==='1'&&!root.contains(e.target))close(true)},{passive:true});
  let tries=0;const boot=()=>{syncAddress();if(window.__fieldRouteMap?.all?.()?.size)return;if(++tries<80)setTimeout(boot,75)};boot();
  document.documentElement.dataset.fieldOmnibar='mounted';
+ // Module-load race: if the URLbar line arrives after this fallback mounted,
+ // converge to the keys mount so exactly one line remains visible.
+ try{
+  const mo=new MutationObserver(()=>{if(mountKeys())mo.disconnect()});
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(()=>mo.disconnect(),20000);
+ }catch(_){}
+}
+function decide(tries=0){
+ if(mountKeys())return;
+ // The URLbar sets its boot flag synchronously before inserting (or permanently
+ // bails if the host is missing), so a set flag + no element means: never.
+ if(window.__fieldURLBarBooted){mountOwn();return}
+ if(tries<30)setTimeout(()=>decide(tries+1),100);else mountOwn();
+}
+function bind(){
+ if(document.getElementById('fieldOmnibarKeys'))return;
+ css();decide();
 }
 window.FieldOmnibar=Object.freeze({open:()=>open(true),close:()=>close(true),execute:(command,href)=>execute(command,href,'api'),address:()=>focusHref()||'/',commands:COMMANDS.map(({id,glyph,label})=>({id,glyph,label}))});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',bind,{once:true}):bind();
