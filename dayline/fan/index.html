@@ -129,6 +129,7 @@ events are today's real work, pulled from the record · <b>nothing is stored, no
 <p class="foot">a dayline experiment · radial ⇄ linear is one transform: the same 24 ribs,
 rotated into a dial or straightened into a card · generated from
 <code>events.json</code> (the day as evidence — git log, machine noise removed) ·
+<a href="ADR.md">why this exists (ADR + build log)</a> ·
 family: <a href="/atlas-dayline/">atlas dayline</a> · <a href="/dayline/">dayline</a> ·
 <a href="/20261006-daywrap-mcvoid/">daywrap</a></p>
 </div>
@@ -204,6 +205,10 @@ function applyMode(){
   }
   modeBtn.textContent=f?'fold — the dial':'open — the range card';
   modeBtn.setAttribute('aria-pressed',f?'true':'false');
+  if(detail.classList.contains('empty')){
+    detail.textContent=f?'tap a gold mark — it will tell you what the day actually did.'
+      :'a quiet day reads quiet. the pile at the right edge is the record, not a bug — tap a mark.';
+  }
 }
 
 modeBtn.addEventListener('click',function(){
@@ -225,7 +230,6 @@ modeBtn.addEventListener('click',function(){
     }
   });
 })();
-
 // the hub answers "how much day is left" before anyone asks
 function tickReadout(){
   var d=new Date();
