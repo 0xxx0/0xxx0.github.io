@@ -50,7 +50,8 @@ const COMMANDS=Object.freeze([
  {id:'returns',glyph:'回',label:'RETURNS',hint:'durable evidence / re-entry',keywords:'receipts return evidence'},
  {id:'copy',glyph:'收',label:'COPY',hint:'copy existing held action',keywords:'clipboard action'},
  {id:'fovea',glyph:'◎',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
- {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'}
+ {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
+ {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents',keywords:'ranking frecency recents clear default order'}
 ]);
 
 const text=v=>String(v??'').replace(/\s+/g,' ').trim();
@@ -106,16 +107,26 @@ function scoreRoute(route,parsed,ctx={}){
 }
 function rank(routes,parsed,ctx={},limit=9){
  const xs=(routes||[]).map((route,index)=>({route,index,score:scoreRoute(route,parsed,ctx)})).filter(x=>Number.isFinite(x.score));
+ // Palette learning (bounded local cache): recents order + frecency tie-break.
+ const pal=ctx.palette||null,recents=pal?.recents||[],use=pal?.use||{};
+ const pos=h=>{const i=recents.indexOf(h);return i<0?Number.MAX_SAFE_INTEGER:i};
+ const frec=h=>{const e=use[h];if(!e)return 0;const ageDays=Math.max(0,Date.now()-(e.ts||0))/86400000;return (e.n||1)*1000000/(1+ageDays)};
  if(!text(parsed.query)){
-  // Empty input is orientation, not recommendation. Held object first, then CURRENT
-  // heads alphabetically so recorded CURRENT order cannot masquerade as priority.
+  // Empty input is orientation, not recommendation. Held object first — the one
+  // item he came for can never fall below the fold — then surfaces in USE order
+  // (Obsidian quick switcher: empty query = most recent), then CURRENT heads
+  // alphabetically so recorded CURRENT order cannot masquerade as priority.
+  const useRecents=parsed.mode!==MODES.HEADS&&recents.length>0;
   return xs.sort((a,b)=>{
    const af=a.route.href===ctx.focus?-1:0,bf=b.route.href===ctx.focus?-1:0;if(af!==bf)return af-bf;
+   if(useRecents){const ra=pos(a.route.href),rb=pos(b.route.href);if(ra!==rb)return ra-rb}
    const ah=ctx.heads?.has(a.route.href)?0:1,bh=ctx.heads?.has(b.route.href)?0:1;if(ah!==bh)return ah-bh;
    return String(a.route.title||a.route.href).localeCompare(String(b.route.title||b.route.href));
   }).slice(0,limit).map(x=>x.route);
  }
- return xs.sort((a,b)=>b.score-a.score||String(a.route.href).localeCompare(String(b.route.href))).slice(0,limit).map(x=>x.route);
+ // Fuzzy/address evidence decides; frecency only breaks a TIE (Raycast order:
+ // exact → prefix → title → keyword → frecency), then href for determinism.
+ return xs.sort((a,b)=>b.score-a.score||frec(b.route.href)-frec(a.route.href)||String(a.route.href).localeCompare(String(b.route.href))).slice(0,limit).map(x=>x.route);
 }
 function rankCommands(query='',limit=9){
  const q=norm(query);
@@ -125,7 +136,57 @@ function rankCommands(query='',limit=9){
   return{command,index,score};
  }).filter(x=>Number.isFinite(x.score)).sort((a,b)=>b.score-a.score||a.index-b.index).slice(0,limit).map(x=>x.command);
 }
-function shellQuote(value){return "'"+String(value??'').replace(/'/g,"'\\''")+"'"}
+/* ===== unified command-palette layer (donor brief §2 move 2) =============
+ Raycast ranking · Obsidian quick switcher · Notion ⌘K, onto the glyph grammar:
+   1. exact single-letter glyph alias  (h/o/w/p/r → ⌂ ROOT ◎ HOLD ▽ WORK ◆ PROVE ↗ OPEN)
+   2. fuzzy / address evidence score
+   3. frecency (frequency × recency) — LAST tie-break only, never a rank of its own
+ An alias NEVER outranks an exact typed path/address (falsifier: inverted intent).
+ Empty query = held object, then most-recently-used surfaces, then CURRENT heads
+ alphabetically; the list is bounded so the target never falls below the fold.
+ Learning lives in ONE bounded local cache (localStorage, ≤8 recents) and is a
+ convenience ordering layer only — authority stays NONE, canonical state stays
+ showcase-manifest + CURRENT. `:reset` (Raycast "Reset Ranking") clears it. */
+const PALETTE_ALIAS=Object.freeze({h:'root',o:'hold',w:'work',p:'prove',r:'open'});
+const PALETTE_KEY='field.palette.v1',PALETTE_RECENTS=8,EMPTY_ROWS=5;
+const ALIAS_GLYPHS=Object.freeze({
+ root:['⌂','ROOT','FIELD root'],hold:['◎','HOLD','address / shallow'],work:['▽','WORK','semantic depth'],
+ prove:['◆','PROVE','evidence depth'],open:['↗','OPEN','native surface'],reset:['⟲','RESET','clear learned ranking + recents']
+});
+function aliasMap(){
+ // One grammar, one map: the omnibar owns the glyph keys, so prefer its table
+ // and fall back to the identical copy here when the omnibar is not mounted.
+ try{if(typeof window!=='undefined'){const a=window.FieldOmnibar?.aliases;if(a&&typeof a==='object')return a}}catch(_){}
+ return PALETTE_ALIAS;
+}
+function aliasId(query,routes){
+ const q=String(query??'').trim();
+ if(q.length!==1)return null;
+ const map=aliasMap();
+ const id=map[q]||map[q.toLowerCase()];
+ if(!id)return null;
+ // FALSIFIER — an exact typed path/address must never lose to an alias.
+ if(q==='/'||q.startsWith('/'))return null;
+ const forms=[q,'/'+q+'/',q+'/'];
+ for(const r of routes||[]){const h=String(r?.href||'');if(forms.includes(h)||(h.endsWith('/')&&forms.includes(h.slice(0,-1))))return null}
+ return id;
+}
+function aliasRow(id){const g=ALIAS_GLYPHS[id]||[id,'›',String(id).toUpperCase()];return{kind:'alias',id,glyph:g[0],label:g[1],hint:g[2]}}
+/* The board is the site's own refresh-pipeline artifact (ops-hub generator,
+   committed by `nexus: board refresh`). Reading its counts AND its own
+   `generated … UTC` stamp from the same bytes is what makes the readout
+   impossible to stale silently: the age travels with the numbers. */
+function parseBoard(html){
+ const s=String(html||'');
+ const open=/(\d+) open · \d+ done · hermes kanban/.exec(s),stamp=/generated (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)/.exec(s);
+ if(!open||!stamp)return null;
+ const col=k=>{const m=new RegExp('<h3>'+k+'<b>(\\d+)<\\/b>').exec(s);return m?Number(m[1]):0};
+ return Object.freeze({open:Number(open[1]),blocked:col('BLOCKED'),running:col('RUNNING'),stamp:stamp[1]});
+}
+function stampMs(stamp){const t=Date.parse(String(stamp||'').replace(' ','T').replace(' UTC','Z'));return Number.isFinite(t)?t:0}
+function ageLabel(ms){const m=Math.max(0,Math.round(ms/60000));return m<60?m+'m':m<1440?Math.round(m/60)+'h':Math.round(m/1440)+'d'}
+function freshStore(){return{v:1,recents:[],use:{}}}
+function shellQuote(value){return "'"+String(value??'').replace(/'/g,"'\\''")+"'"};
 function hermesPrepare(routeOrHref){
  const href=typeof routeOrHref==='string'?routeOrHref:routeOrHref?.href;
  if(!text(href))throw new Error('FIELD_URLBAR_HERMES_SOURCE_REQUIRED');
@@ -142,11 +203,21 @@ function boot(win){
 
  const style=doc.createElement('style');style.id='field-urlbar-style';style.textContent=`
 .fieldUrlBar{position:sticky;top:max(0px,env(safe-area-inset-top));z-index:70;margin:7px 0 9px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.fieldUrlFrame{height:42px;display:grid;grid-template-columns:auto 30px minmax(0,1fr) auto;align-items:center;border:1px solid var(--line);background:var(--p);box-shadow:inset 3px 0 0 var(--cool)}
+.fieldUrlFrame{height:42px;display:grid;grid-template-columns:auto 30px minmax(0,1fr) auto auto;align-items:center;border:1px solid var(--line);background:var(--p);box-shadow:inset 3px 0 0 var(--cool)}
 .fieldUrlProto{padding:0 8px;font-size:8px;letter-spacing:.12em;color:var(--cool);white-space:nowrap}.fieldUrlGlyph{width:30px;height:30px;display:grid;place-items:center;overflow:hidden}.fieldUrlGlyph svg{width:28px!important;height:28px!important}.fieldUrlInput{height:40px;width:100%;min-width:0;border:0!important;outline:0;background:transparent!important;padding:0 8px!important;font:700 12px/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.01em}.fieldUrlInput::placeholder{color:#566268}.fieldUrlMode{height:100%;display:flex;align-items:center;gap:6px;padding:0 8px;border-left:1px solid var(--line);white-space:nowrap}.fieldUrlMode b{font:800 15px/1 system-ui,sans-serif;color:var(--gold)}.fieldUrlMode span{font-size:6px;letter-spacing:.12em;color:var(--mut)}
 .fieldUrlPanel{position:absolute;left:0;right:0;top:100%;border:1px solid var(--line);border-top:0;background:var(--p);box-shadow:0 14px 35px rgba(0,0,0,.45);max-height:min(56vh,460px);overflow:auto}.fieldUrlRow{width:100%;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:7px;align-items:center;text-align:left;border:0;border-bottom:1px solid #20282c;background:var(--p);padding:6px 8px;min-height:42px}.fieldUrlRow:last-child{border-bottom:0}.fieldUrlRow[aria-selected="true"],.fieldUrlRow:hover{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldUrlMark{width:30px;height:30px;display:grid;place-items:center;font:800 17px/1 system-ui,sans-serif;color:var(--gold)}.fieldUrlMark svg{width:28px!important;height:28px!important}.fieldUrlBody{min-width:0}.fieldUrlBody b{display:block;font:750 11px/1.15 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlBody code{display:block;margin-top:2px;color:var(--cool);font:7px/1.25 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlTail{text-align:right;color:var(--mut);font-size:6px;line-height:1.25;max-width:18ch}.fieldUrlTail b{display:block;color:var(--ink);font-size:7px}.fieldUrlStatus{display:flex;justify-content:space-between;gap:8px;padding:5px 8px;background:#080b0d;color:var(--mut);font-size:6px;letter-spacing:.06em}.fieldUrlStatus b{color:var(--gold)}
+/* status spine (donor brief §2 move 1, Dead Space RIG): one inline span on the
+   SAME line — counts carry their age, labels ride on desktop, compact
+   counts+age on a phone so the address input keeps its width. */
+.fieldUrlSpine{display:flex;align-items:center;height:100%;padding:0 7px;border-left:1px solid var(--line);color:var(--mut);font:700 7px/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.04em;white-space:nowrap;text-decoration:none;overflow:hidden;min-width:0}
+.fieldUrlSpine b{color:var(--ink);font-weight:800}
+.fieldUrlSpine i{font-style:normal;padding:0 2px;color:var(--mut)}
+.fieldUrlSpine .lbl{color:var(--cool);font-weight:700}
+.fieldUrlSpine .age{display:none;padding-left:4px;color:var(--gold)}
+.fieldUrlSpine .stale{color:var(--hot)}
+.fieldUrlSpine:hover,.fieldUrlSpine:focus-visible{color:var(--ink);background:var(--p2)}
 html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%,transparent)}html[data-theme="light"] .fieldUrlFrame,html[data-theme="light"] .fieldUrlPanel,html[data-theme="light"] .fieldUrlRow{background:#fbf9f3}html[data-theme="light"] .fieldUrlRow[aria-selected="true"],html[data-theme="light"] .fieldUrlRow:hover{background:#efece1}html[data-theme="light"] .fieldUrlStatus{background:#f7f4ec}html[data-theme="light"] .fieldUrlRow{border-color:#e2dccd}
-@media(max-width:760px){.fieldUrlBar{margin:5px 0 8px}.fieldUrlFrame{height:48px;grid-template-columns:auto 34px minmax(0,1fr) auto}.fieldUrlProto{padding:0 6px;font-size:8px}.fieldUrlInput{font-size:16px;height:46px;padding:0 6px!important}.fieldUrlMode{padding:0 6px}.fieldUrlMode span{display:none}.fieldUrlMode b{font-size:17px}.fieldUrlPanel{max-height:58vh}.fieldUrlRow{min-height:52px;padding:8px}.fieldUrlBody b{font-size:14px}.fieldUrlBody code{font-size:10px}.fieldUrlTail{font-size:9px}.fieldUrlTail b{font-size:10px}.fieldUrlStatus{font-size:9px;line-height:1.35}.fieldUrlStatus span:last-child{display:none}}
+@media(max-width:760px){.fieldUrlBar{margin:5px 0 8px}.fieldUrlFrame{height:48px;grid-template-columns:auto 34px minmax(0,1fr) auto auto}.fieldUrlProto{padding:0 6px;font-size:8px}.fieldUrlInput{font-size:16px;height:46px;padding:0 6px!important}.fieldUrlMode{padding:0 6px}.fieldUrlMode span{display:none}.fieldUrlMode b{font-size:17px}.fieldUrlPanel{max-height:58vh}.fieldUrlRow{min-height:52px;padding:8px}.fieldUrlBody b{font-size:14px}.fieldUrlBody code{font-size:10px}.fieldUrlTail{font-size:9px}.fieldUrlTail b{font-size:10px}.fieldUrlStatus{font-size:9px;line-height:1.35}.fieldUrlStatus span:last-child{display:none}.fieldUrlSpine{font-size:7px;padding:0 4px;letter-spacing:0}.fieldUrlSpine i{padding:0 1px}.fieldUrlSpine .lbl{display:none}.fieldUrlSpine .age{display:inline;padding-left:0}}
 @media(prefers-reduced-motion:reduce){.fieldUrlBar *{scroll-behavior:auto!important}}
  `;doc.head.appendChild(style);
 
@@ -156,16 +227,70 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   <span class="fieldUrlGlyph" id="fieldUrlGlyph" aria-hidden="true">Φ</span>
   <input class="fieldUrlInput" id="fieldUrlInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="fieldUrlPanel" aria-expanded="false" placeholder="address · glyph · command" value="${esc(existing)}">
   <span class="fieldUrlMode" id="fieldUrlMode"><b>位</b><span>ADDRESS</span></span>
+  <a class="fieldUrlSpine" id="fieldUrlSpine" href="/nexus/board.html" title="status spine — board counts as of the board's own generation stamp" aria-label="status spine: board counts, click for the board"><b>·</b></a>
  </div>
  <div class="fieldUrlPanel" id="fieldUrlPanel" role="listbox" hidden></div>`;
  header.insertAdjacentElement('afterend',shell);
  const input=doc.getElementById('fieldUrlInput'),panel=doc.getElementById('fieldUrlPanel'),modeNode=doc.getElementById('fieldUrlMode'),glyphNode=doc.getElementById('fieldUrlGlyph');
 
+ /* ---- palette learning store (bounded, local, authority NONE) ---- */
+ const spine=doc.getElementById('fieldUrlSpine');
+ let pal=paletteLoad(),board=null,aliasHit=null;
+ function paletteLoad(){
+  try{const raw=win.localStorage.getItem(PALETTE_KEY),s=raw?JSON.parse(raw):null;
+   if(!s||!Array.isArray(s.recents)||typeof s.use!=='object'||s.v!==1)return freshStore();
+   s.recents=s.recents.filter(x=>typeof x==='string'&&x).slice(0,PALETTE_RECENTS);return s
+  }catch(_){return freshStore()}
+ }
+ function paletteSave(){try{win.localStorage.setItem(PALETTE_KEY,JSON.stringify(pal))}catch(_){}}
+ function noteUse(key){
+  if(!text(key))return;
+  const t=Date.now(),e=pal.use[key]||{n:0,ts:0};
+  pal.use[key]={n:Number(e.n||0)+1,ts:t};
+  pal.recents=[key,...pal.recents.filter(k=>k!==key)].slice(0,PALETTE_RECENTS);
+  paletteSave();
+ }
+ function resetLearning(){pal=freshStore();try{win.localStorage.removeItem(PALETTE_KEY)}catch(_){}}
+ const learned=()=>!!(pal.recents.length||Object.keys(pal.use).length);
+ /* status spine — counts + age travel together, so the readout can never be
+    stale silently; a stamp older than 24h says so in words, not just colour. */
+ function spineTitle(){return board
+  ?'open '+board.open+' · blocked '+board.blocked+' · running '+board.running+' · as of '+board.stamp+' ('+ageLabel(Date.now()-stampMs(board.stamp))+' ago) · source /nexus/board.html'
+  :'status spine: /nexus/board.html could not be read — counts unknown'}
+ function paintSpine(err){
+  if(!spine)return;
+  if(!board){spine.innerHTML='<b>board</b><i>·</i><span class="age"> ?</span>';spine.title=spineTitle()+' · '+String(err||'');spine.setAttribute('aria-label',spineTitle());return}
+  const age=Date.now()-stampMs(board.stamp),stale=age>86400000;
+  spine.innerHTML='<span class="lbl">open </span><b>'+board.open+'</b><i>·</i><span class="lbl">blk </span><b>'+board.blocked+'</b><i>·</i><span class="lbl">run </span><b>'+board.running+'</b>'+
+   '<span class="lbl as'+(stale?' stale':'')+'"> · as of '+esc(board.stamp.replace(/^\d{4}-/,''))+(stale?' STALE':'')+'</span>'+
+   '<span class="age'+(stale?' stale':'')+'">·'+ageLabel(age)+(stale?'!':'')+'</span>';
+  spine.title=spineTitle();spine.setAttribute('aria-label',spineTitle());
+ }
+ function loadBoard(){
+  return fetch('./nexus/board.html',{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('board '+r.status);return r.text()})
+   .then(h=>{const parsed=parseBoard(h);if(!parsed)throw Error('board grammar unrecognized');board=parsed;paintSpine();return board})
+   .catch(err=>{board=null;paintSpine(err&&err.message);return null});
+ }
+ paintSpine('loading');
+ loadBoard();
+ // Age is the anti-staleness stamp: re-stamp every minute, re-read the board
+ // every fifth minute, so a stopped refresh pipeline shows its own grey.
+ let spineTick=0;
+ setInterval(()=>{if(++spineTick%5===0)loadBoard();else paintSpine()},60000);
+ win.FieldPalette=Object.freeze({
+  store:()=>JSON.parse(JSON.stringify(pal)),
+  noteUse,
+  reset:()=>{resetLearning();try{paint({forceOpen:true})}catch(_){}},
+  alias:q=>aliasId(q,routes),
+  spine:()=>board?Object.assign({},board,{ageMs:Date.now()-stampMs(board.stamp)}):null
+ });
+
  function syncURL(raw){
   const p=new URLSearchParams(win.location.search);if(text(raw))p.set('fi',String(raw));else p.delete('fi');
   const q=p.toString();win.history.replaceState(null,'',win.location.pathname+(q?'?'+q:'')+win.location.hash);
  }
- function context(){return{heads,focus:focusHref,mnemonic:glyphMnemonic}}
+ function context(){return{heads,focus:focusHref,mnemonic:glyphMnemonic,palette:pal}}
  function setMode(parsed){
   const m=MODE_META[parsed.mode]||MODE_META.SEARCH;modeNode.innerHTML='<b>'+esc(m.sigil)+'</b><span>'+esc(m.label)+'</span>';
   shell.dataset.mode=parsed.mode;
@@ -176,16 +301,33 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+selectedAttr+'" data-index="'+i+'" data-href="'+esc(r.href)+'"><span class="fieldUrlMark">'+glyph+'</span><span class="fieldUrlBody"><b>'+esc(r.title||r.href)+'</b><code>'+esc(r.href)+' · '+esc(mnemonic)+'</code></span><span class="fieldUrlTail"><b>'+esc(r.operation||r.kind||'—')+'</b>'+esc(r.state||'—')+(heads.has(r.href)?' · HEAD':'')+'</span></button>';
  }
  function commandRow(c,i){return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-command="'+esc(c.id)+'"><span class="fieldUrlMark">'+esc(c.glyph)+'</span><span class="fieldUrlBody"><b>:'+esc(c.id)+' · '+esc(c.label)+'</b><code>'+esc(c.hint)+'</code></span><span class="fieldUrlTail"><b>COMMAND</b>authority none</span></button>'}
+ function aliasRow(id,i){
+  const g=ALIAS_GLYPHS[id]||[id,'›',String(id).toUpperCase()];
+  return '<button class="fieldUrlRow fieldUrlAlias" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-alias="'+esc(id)+'"><span class="fieldUrlMark">'+esc(g[0])+'</span><span class="fieldUrlBody"><b>'+esc(g[1])+' · alias "'+esc(id)+'"</b><code>'+esc(g[2])+' · exact glyph alias, ranks first</code></span><span class="fieldUrlTail"><b>ALIAS</b>authority none</span></button>';
+ }
  function statusLine(parsed,count){
-  const grammar='<b>'+esc((MODE_META[parsed.mode]||MODE_META.SEARCH).sigil)+'</b> '+esc((MODE_META[parsed.mode]||MODE_META.SEARCH).label)+' · '+count+' match'+(count===1?'':'es');
-  const keys='⌃K focus · ↑↓ choose · ↵ hold · ⌘/ctrl+↵ turn · esc clear';
-  return '<div class="fieldUrlStatus"><span>'+grammar+' · authority NONE</span><span>'+keys+'</span></div>';
+  const m=MODE_META[parsed.mode]||MODE_META.SEARCH;
+  const grammar='<b>'+esc(m.sigil)+'</b> '+esc(m.label)+' · '+count+' match'+(count===1?'':'es');
+  // The board stamp rides the open palette too: counts + as-of in words, at rest
+  // in the line and in full here, so neither surface can go stale silently.
+  const boardTxt=board?(' · board '+board.open+'·'+board.blocked+'·'+board.running+' @ '+esc(board.stamp)):' · board unavailable';
+  const keys='⌃K focus · ↑↓ choose · ↵ hold · ⌘/ctrl+↵ turn · esc clear'+(learned()?' · ⟲ :reset clears ranking':'');
+  return '<div class="fieldUrlStatus"><span>'+grammar+' · authority NONE'+boardTxt+'</span><span>'+keys+'</span></div>';
  }
  function paint({forceOpen=false}={}){
   currentParsed=parse(input.value);setMode(currentParsed);selected=Math.max(0,selected);
-  if(currentParsed.mode===MODES.RISE){results=[];panel.innerHTML='<div class="fieldUrlStatus"><span><b>上</b> RISE · one structural depth · authority NONE</span><span>↵ apply</span></div>';panel.hidden=false;input.setAttribute('aria-expanded','true');return}
-  if(currentParsed.mode===MODES.COMMAND){results=rankCommands(currentParsed.query,9);if(selected>=results.length)selected=Math.max(0,results.length-1);panel.innerHTML=results.map(commandRow).join('')+statusLine(currentParsed,results.length)}
-  else{results=rank(routes,currentParsed,context(),9);if(selected>=results.length)selected=Math.max(0,results.length-1);panel.innerHTML=results.map(routeRow).join('')+statusLine(currentParsed,results.length)}
+  if(currentParsed.mode===MODES.RISE){aliasHit=null;results=[];panel.innerHTML='<div class="fieldUrlStatus"><span><b>上</b> RISE · one structural depth · authority NONE</span><span>↵ apply</span></div>';panel.hidden=false;input.setAttribute('aria-expanded','true');return}
+  if(currentParsed.mode===MODES.COMMAND){aliasHit=null;results=rankCommands(currentParsed.query,COMMANDS.length);if(selected>=results.length)selected=Math.max(0,results.length-1);panel.innerHTML=results.map(commandRow).join('')+statusLine(currentParsed,results.length)}
+  else{
+   // Alias-first: an exact single-letter glyph alias outranks every fuzzy match
+   // (Raycast: exact alias → prefix → title → keyword → frecency), but only
+   // when no route IS the typed address — see aliasId().
+   aliasHit=currentParsed.mode===MODES.SEARCH?aliasId(currentParsed.query,routes):null;
+   const off=aliasHit?1:0,empty=!text(currentParsed.query);
+   results=rank(routes,currentParsed,context(),empty?EMPTY_ROWS:9);
+   if(selected>=results.length+off)selected=Math.max(0,results.length-1+off);
+   panel.innerHTML=(aliasHit?aliasRow(aliasHit,0):'')+results.map((r,i)=>routeRow(r,i+off)).join('')+statusLine(currentParsed,results.length+off);
+  }
   const open=forceOpen||doc.activeElement===input;panel.hidden=!open;input.setAttribute('aria-expanded',String(open));
   panel.querySelectorAll('.fieldUrlRow').forEach(row=>{
    row.addEventListener('pointerdown',e=>e.preventDefault());
@@ -193,7 +335,12 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   });
   const active=panel.querySelector('[aria-selected="true"]');if(active){active.id='fieldUrlActive';input.setAttribute('aria-activedescendant','fieldUrlActive')}else input.removeAttribute('aria-activedescendant');
  }
- function currentRoute(){return currentParsed.mode===MODES.COMMAND?null:results[selected]||null}
+ function currentRoute(){
+  if(currentParsed.mode===MODES.COMMAND)return null;
+  const off=currentParsed.mode===MODES.SEARCH&&aliasHit?1:0;
+  if(off&&selected===0)return null;
+  return results[selected-off]||null;
+ }
  function flash(message){
   clearTimeout(flashTimer);const old=modeNode.innerHTML;modeNode.innerHTML='<b>✓</b><span>'+esc(message)+'</span>';flashTimer=setTimeout(()=>{modeNode.innerHTML=old},1700);
  }
@@ -204,6 +351,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  }
  function clearInput(){input.value='';selected=0;syncURL('');paint({forceOpen:doc.activeElement===input})}
  function executeCommand(id){
+  noteUse('cmd:'+id);
   switch(id){
    case'hold':win.FieldZUI?.close?.('urlbar');break;
    case'work':win.FieldZUI?.open?.('WORK','urlbar');break;
@@ -217,22 +365,45 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    case'copy':doc.getElementById('apCopy')?.click();break;
    case'fovea':doc.getElementById('foveaToggle')?.click();break;
    case'theme':doc.getElementById('fiTheme')?.click();break;
+   // Raycast "Reset Ranking": drop the learned frecency + recents in one move.
+   case'reset':resetLearning();input.value='';selected=0;syncURL('');paint({forceOpen:true});break;
    default:return;
   }
   flash(id.toUpperCase());
+ }
+ function executeAlias(id){
+  const href=focusHref||'/';
+  noteUse('cmd:'+id);
+  // The glyph grammar's real actions live in field-omnibar.js — the palette
+  // RANKS them, the omnibar EXECUTES them (one action map, no second copy).
+  const omni=win.FieldOmnibar;
+  if(typeof omni?.execute==='function'){omni.execute(id,href);return}
+  if(id==='root'){win.location.assign('/');return}
+  if(id==='open'){if(href!=='/'&&win.__fieldAct?.open){win.__fieldAct.open(href);flash('OPEN')}else flash('OPEN unavailable');return}
+  executeCommand(id);
  }
  async function applySelection(forceTurn=false){
   currentParsed=parse(input.value);
   if(currentParsed.mode===MODES.RISE){win.__fieldAct?.rise?.();flash('RISE');return}
   if(currentParsed.mode===MODES.COMMAND){const c=results[selected];if(c)executeCommand(c.id);return}
+  if(currentParsed.mode===MODES.SEARCH){
+   aliasHit=aliasId(currentParsed.query,routes);
+   if(aliasHit&&selected===0){executeAlias(aliasHit);return}
+  }
   const route=currentRoute();if(!route)return;
+  noteUse(route.href);
   if(currentParsed.mode===MODES.HERMES){
    const cmd=hermesPrepare(route);const ok=await copy(cmd);flash(ok?'HERMES PREP COPIED':'COPY FAILED');return;
   }
   if(currentParsed.mode===MODES.TURN||forceTurn){win.__fieldAct?.open?.(route.href);return}
   win.__fieldAct?.focus?.(route.href);focusHref=route.href;input.value=route.href;syncURL(input.value);selected=0;paint({forceOpen:false});input.blur();
  }
- function move(delta){if(!results.length)return;selected=(selected+delta+results.length)%results.length;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})}
+ function move(delta){
+  // Index space includes the alias row when one is showing, so ↑↓ walks it.
+  const total=results.length+(currentParsed.mode===MODES.SEARCH&&aliasHit?1:0);
+  if(!total)return;
+  selected=(selected+delta+total)%total;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
+ }
  function focusBar(seed){input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;paint({forceOpen:true})}
  function syncHeld(href){
   focusHref=href||win.__fieldAct?.focusHref?.()||null;const r=focusHref&&routeMap().get(focusHref);
@@ -273,5 +444,5 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  win.FieldURLBar=Object.freeze({VERSION,focus:focusBar,parse:()=>parse(input.value),results:()=>results.slice(),hermesPrepare:()=>{const r=currentRoute()||routeMap().get(focusHref);return r?hermesPrepare(r):null}});
  }
 
-return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,parse,evidenceScore,scoreRoute,rank,rankCommands,shellQuote,hermesPrepare,boot});
+return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,parse,evidenceScore,scoreRoute,rank,rankCommands,shellQuote,hermesPrepare,boot,aliasId,parseBoard,stampMs,ageLabel,PALETTE_ALIAS,PALETTE_KEY,PALETTE_RECENTS,EMPTY_ROWS});
 });
