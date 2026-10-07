@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T09:46:05+08:00",
+  "updated": "2026-10-07T09:53:48+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -43,7 +43,7 @@
       "showcase_card": true,
       "role": "Convergent work surface: return receipts, addressed routes and open PRs read live from the repo. Evidence-facing, not a second truth surface.",
       "index": {
-        "updated_at": "2026-10-07T09:46:05+08:00",
+        "updated_at": "2026-10-07T09:53:48+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -6387,7 +6387,7 @@
       "showcase_card": false,
       "role": "Multi-agent coordination board. Live view of who is working where, so parallel writers do not collide silently. A surface, not an authority.",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-07T09:53:48+08:00",
         "work_modes": [
           "INSPECT",
           "VERIFY",
