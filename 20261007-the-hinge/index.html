@@ -99,8 +99,12 @@ textarea{width:100%;background:var(--panel2);color:var(--ink);border:1px solid v
  background:var(--panel2);border-bottom:1px solid var(--line);font-size:10.5px;
  letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
 .diffhead strong{color:var(--ink)}
-.diffcols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
-.diffcols>div{background:var(--panel);padding:11px 12px;font-size:13px;line-height:1.8}
+/* minmax(0,1fr) + overflow-wrap: a pasted token with no break opportunity (URL, path, ID) must
+   wrap inside its column. With 1fr/grid min-width:auto the column grew to the token's min-content
+   and the document measured 682px wide in a 390px viewport (measured on the lab, 2026-10-07). */
+.diffcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;background:var(--line)}
+.diffcols>div{background:var(--panel);padding:11px 12px;font-size:13px;line-height:1.8;
+ min-width:0;overflow-wrap:anywhere}
 .diffcols em{display:block;font-style:normal;margin-bottom:7px;
  font:800 9.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.18em;
  text-transform:uppercase;color:var(--mut)}

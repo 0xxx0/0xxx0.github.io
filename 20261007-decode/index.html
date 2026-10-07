@@ -13,7 +13,11 @@
  button.ghost{background:#fff;color:var(--ink)}
  button:hover{background:var(--acc);border-color:var(--acc)}
  .priv{font-size:11px;color:var(--ok);letter-spacing:.04em}
- #out{padding:4px 12px 14px}
+ /* phone floor — pasted text carries unbreakable tokens (URLs, paths, IDs): a plain URL in a
+   pasted memo measured 688px wide in a 390px viewport, so the document scrolled sideways and
+   the output sat off-screen. overflow-wrap is inherited, so #out covers every block it renders
+   (.src, .tc, .so, .alt) and the pasted token now wraps inside its own box. */
+ #out{padding:4px 12px 14px;overflow-wrap:anywhere}
  #out .src{font:14.5px/1.65 ui-monospace,Menlo,monospace;background:#fffdfa;border:1px solid var(--rule);padding:12px;white-space:pre-wrap}
  #out .src mark{background:transparent;padding:0 1px;cursor:pointer;color:inherit;
   text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
