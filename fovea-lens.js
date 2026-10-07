@@ -29,6 +29,17 @@
  * drawn OFF the pointer (above it, flipping below near the top edge) with a
  * leader line back to the point it reads — the cursor keeps its own pixels.
  *
+ * WHAT THE RADIAL MAY OWN — the radial is a menu the gesture summoned, so its
+ * OWN slot elements take pointer events while it is open (that is the radial
+ * using its own UI, not the page being consumed). Nothing else in the radial
+ * captures: the ring, hint and every pixel of page content under it stay live,
+ * and a tap that lands outside a slot dismisses the radial WITHOUT being
+ * swallowed — the page still gets the whole tap. preventDefault stays where it
+ * always was: touchmove/contextmenu while a summoned radial is open, and the
+ * single click filtered within 400ms of a press-radial selecting. Never in the
+ * off state, never on page content at rest. The one CSS concession is scoped to
+ * `html.foveaSummoned` (see index.html) and exists only while a radial is open.
+ *
  * INPUT LAW — capability, not device names:
  *   fine pointer + motion allowed  → SPRING follows the pointer
  *   fine pointer + reduced motion  → SNAP follows without kinetic animation
@@ -36,8 +47,10 @@
  * Radial HOLD/OPEN/GLYPH remain available independently of follower mode.
  *
  * THE SUMMON GESTURE — radial menu, same shape on both devices:
- *   touch/pen  long-press ~400ms stationary → RADIAL opens there; drag
- *              toward a slot; release selects; release elsewhere dismisses.
+ *   touch/pen  long-press ~400ms stationary → RADIAL opens there; LIFT, then
+ *              tap a slot (the phone shape — no drag is required); a drag
+ *              toward a slot still selects on release; a tap outside a slot
+ *              dismisses and passes through to the page untouched.
  *   keyboard   hold `f` ~400ms → RADIAL at the pointer; move to a slot;
  *              release `f` selects; Esc cancels.
  *   tap `f`, the foot ◎ FOVEA button and the semantic-scale ◎ FOVEA button
@@ -45,6 +58,8 @@
  *   Esc closes the GLYPH figure, else the RADIAL, else turns the lens off.
  *   Selecting FOVEA activates the lens AT the gesture point (pin + read).
  *   Selecting GLYPH composes the held route's glyph, full size, at the point.
+ *   The radial is PLACED inside the viewport (clamped) near every edge; the
+ *   gesture point it reads is never moved.
  *
  * SLOT EXTENSION (unified interphase hook): slots are DATA — see SLOTS and
  * FoveaLens.radial.register({id,label,angle,run}). GLYPH is the first built-in
@@ -326,7 +341,9 @@ const SLOTS=[
      Display only; Esc closes the figure first, the next GLYPH use replaces it. */
   {id:'GLYPH',label:'GLYPH',angle:90,note:'held glyph, full size — display only',run:pt=>glyphZoom(pt)}
 ];
-let radialEl=null,radialOpen=false,radialMode=null,hotSlot=-1,rx=0,ry=0;
+/* rx,ry = the GESTURE POINT (never moved — slot runs read the content there).
+   ox,oy = where the menu is DRAWN (clamped inside the viewport near edges). */
+let radialEl=null,radialOpen=false,radialMode=null,hotSlot=-1,rx=0,ry=0,ox=0,oy=0;
 let armTimer=0,armX=0,armY=0,armId=null,keyTimer=0,keyDownAt=0,suppressClicks=0,suppressTimer=0;
 
 function slotHTML(){
@@ -352,10 +369,48 @@ function radialEnsure(){
   radialSlots();
   return radialEl;
 }
+/* THE HINT — one line, rewritten per summon mode so the copy never lies about
+   what the finger is supposed to do next. */
+const HINT={
+  press:'DRAG TO A SLOT, OR LIFT AND TAP · ELSEWHERE DISMISSES',
+  tap:'TAP A SLOT · TAP ELSEWHERE DISMISSES · ESC CANCELS',
+  key:'MOVE TO A SLOT · RELEASE f SELECTS · ESC CANCELS',
+  api:'TAP A SLOT · TAP ELSEWHERE DISMISSES · ESC CANCELS'
+};
+function radialHint(mode){
+  const h=document.getElementById('foveaRadialHint');
+  if(h)h.textContent=HINT[mode]||HINT.tap;
+}
+/* PLACEMENT — the menu is clamped inside the viewport; the gesture point is not.
+   Without this the radial is amputated at every edge (measured 2026-10-07 on a
+   390x844 phone: top t=-45, right r=484, left l=-94, bottom b=921 — all off
+   screen). Children are laid out in the radial's own 0x0 coordinate space, so
+   their offsets from its box are position-independent and can be measured once
+   against wherever it currently sits. */
+function radialPlace(){
+  if(!radialEl)return;
+  const o=radialEl.getBoundingClientRect();
+  let x0=-100,y0=-100,x1=100,y1=140;                 // svg ring + hint fallback
+  let first=true;
+  radialEl.querySelectorAll('svg,.fovSlot,#foveaRadialHint').forEach(n=>{
+    const r=n.getBoundingClientRect();
+    if(!r.width&&!r.height)return;
+    const l=r.left-o.left,t=r.top-o.top,rr=r.right-o.left,b=r.bottom-o.top;
+    if(first){x0=l;y0=t;x1=rr;y1=b;first=false}
+    else{x0=Math.min(x0,l);y0=Math.min(y0,t);x1=Math.max(x1,rr);y1=Math.max(y1,b)}
+  });
+  const M=4;
+  ox=clamp(rx,-x0+M,Math.max(-x0+M,innerWidth-x1-M));
+  oy=clamp(ry,-y0+M,Math.max(-y0+M,innerHeight-y1-M));
+}
+function radialPlaceDraw(){
+  radialPlace();
+  if(radialEl)radialEl.style.transform='translate3d('+ox.toFixed(1)+'px,'+oy.toFixed(1)+'px,0)';
+}
 function radialHighlight(mx,my){
   let idx=-1;
   if(radialEl){
-    const dx=mx-rx,dy=my-ry,d=Math.hypot(dx,dy);
+    const dx=mx-ox,dy=my-oy,d=Math.hypot(dx,dy);
     if(d>=DEAD){
       const a=Math.atan2(dy,dx)*180/Math.PI;let best=1e9;
       SLOTS.forEach((s,i)=>{const dd=Math.abs(((a-s.angle+540)%360)-180);if(dd<best){best=dd;idx=i}});
@@ -366,19 +421,41 @@ function radialHighlight(mx,my){
 function radialOpenAt(mx,my,mode){
   radialEnsure();
   rx=mx;ry=my;radialOpen=true;radialMode=mode;hotSlot=-1;
-  radialEl.style.transform='translate3d('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px,0)';
+  radialHint(mode);
+  radialPlaceDraw();
+  /* A press never highlights at open: once the menu is clamped away from the
+     finger (an edge), "nearest slot to the finger" would be a slot the finger
+     is not over, and lifting would fire it. Highlighting starts on real travel
+     (armMove). key/api keep the pointer's own highlight. */
+  if(mode!=='press')radialHighlight(mx,my);
   radialEl.querySelectorAll('.fovSlot').forEach(s=>s.classList.remove('on'));
-  radialHighlight(mx,my);
   radialEl.classList.add('on');
-  window.addEventListener('touchmove',radialTouchMove,{passive:false});
+  document.documentElement.classList.add('foveaSummoned');
+  /* Scroll is blocked only while the summoning finger is still down. The
+     post-lift TAP state drops this listener (see radialTapMode) so a page
+     under an open radial still scrolls and taps natively. */
+  if(mode==='press'||mode==='key')window.addEventListener('touchmove',radialTouchMove,{passive:false});
   window.addEventListener('contextmenu',radialCtx,true);
 }
 function radialClose(){
   if(!radialOpen)return;
   radialOpen=false;radialMode=null;hotSlot=-1;
   radialEl?.classList.remove('on');
+  document.documentElement.classList.remove('foveaSummoned');
   window.removeEventListener('touchmove',radialTouchMove);
   window.removeEventListener('contextmenu',radialCtx,true);
+}
+/* LIFT, THEN TAP — the phone shape. The finger leaves the screen before it
+   reaches a slot, so the radial stays up as a TAP target instead of demanding
+   a drag the hand cannot make. It stays open only until a slot is tapped, a
+   tap lands elsewhere (dismiss + pass through), or Esc. */
+function radialTapMode(){
+  if(!radialOpen)return;
+  radialMode='tap';hotSlot=-1;
+  radialEl?.querySelectorAll('.fovSlot').forEach(s=>s.classList.remove('on'));
+  window.removeEventListener('touchmove',radialTouchMove);
+  radialHint('tap');
+  radialPlaceDraw();
 }
 function radialSelect(){
   const s=hotSlot>=0?SLOTS[hotSlot]:null,mode=radialMode,pt={x:rx,y:ry};
@@ -405,12 +482,21 @@ function armMove(e){
   if(e.pointerId!==armId)return;
   const d=Math.hypot(e.clientX-armX,e.clientY-armY);
   if(!radialOpen){if(d>10){clearTimeout(armTimer);armId=null}}
-  else if(radialMode==='press')radialHighlight(e.clientX,e.clientY);
+  /* 12px of real travel before a press highlights anything: at an edge the
+     menu is drawn away from the finger, so "nearest slot" at rest would name
+     a slot the finger is not over and firing it on release would be a guess. */
+  else if(radialMode==='press'&&d>12)radialHighlight(e.clientX,e.clientY);
 }
 function armUp(e){
   if(e.pointerId!==armId)return;
   clearTimeout(armTimer);armId=null;
-  if(radialOpen&&radialMode==='press')radialSelect();
+  if(!radialOpen||radialMode!=='press')return;
+  const finger=(e.pointerType==='touch'||e.pointerType==='pen');
+  /* release ON a slot = drag-select, unchanged on every device. Release with
+     nothing under it: a mouse dismisses as it always did; a FINGER lifts into
+     the TAP state instead, because a hand cannot drag to a 40px target. */
+  if(hotSlot>=0||!finger){radialSelect();return}
+  radialTapMode();
 }
 function keyHoldEnd(){
   clearTimeout(keyTimer);
@@ -499,12 +585,35 @@ function onMove(e){
 }
 function onPointerDown(e){
   if(radialOpen&&radialMode==='key'){radialClose()}      // a click means "not the radial"
+  /* A TAP radial is dismissed by any touch that lands outside its own slots.
+     Nothing is preventDefaulted or stopped: the page underneath receives the
+     tap whole. A touch that lands ON a slot falls through to armUp/pointerup. */
+  else if(radialOpen&&radialMode!=='press'){
+    const n=document.elementFromPoint(e.clientX,e.clientY);
+    if(!(n&&n.closest&&n.closest('.fovSlot')))radialClose();
+  }
   x=e.clientX;y=e.clientY;lastX=x;lastY=y;
   if(!px&&!py){px=x;py=y}
   if(on&&el&&inputMode()!=='pin')el.style.opacity='1';
   armDown(e);
 }
-function onPointerUp(e){armUp(e)}
+function onPointerUp(e){
+  /* TAP STATE: the finger that selects was never the finger that summoned, so
+     this is a hit-test on the slot itself — the radial's own UI. Selection runs
+     here rather than on a synthesized click so it does not depend on the
+     browser producing one. */
+  if(radialOpen&&radialMode==='tap'){
+    const n=document.elementFromPoint(e.clientX,e.clientY);
+    const s=n&&n.closest?n.closest('.fovSlot'):null;
+    if(s){
+      const i=Number(s.dataset.slot);
+      if(Number.isInteger(i)&&SLOTS[i])hotSlot=i;
+      radialSelect();                       // mode 'tap' → no click suppression
+      return;
+    }
+  }
+  armUp(e);
+}
 function onPointerCancel(e){if(e.pointerId===armId){clearTimeout(armTimer);armId=null}if(radialOpen&&radialMode==='press')radialClose()}
 function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType)&&inputMode()!=='pin')el.style.opacity='0'}
 function onEnter(){if(el&&on&&inputMode()!=='pin')el.style.opacity='1'}
@@ -547,7 +656,7 @@ function toggle(next){
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='LOCAL DETAIL. Fine pointers follow; touch pins at the explicit FOVEA gesture. It never blocks ordinary clicks or scrolling. Hold ~400ms → radial; drag to a slot and release. Tap `f`, this button, or ◎ FOVEA to toggle. Esc dismisses.';}
+    b.title='LOCAL DETAIL. Fine pointers follow; touch pins at the explicit FOVEA gesture. It never blocks ordinary clicks or scrolling. Hold ~400ms → radial; lift and tap a slot, or drag to one. Tap `f`, this button, or ◎ FOVEA to toggle. Esc dismisses.';}
   window.addEventListener('keydown',onKey,true);
   window.addEventListener('keyup',onKey,true);
   window.addEventListener('pointermove',onMove,MOVE);

@@ -166,6 +166,37 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 .fovSlot{position:absolute;width:76px;height:20px;margin:-10px 0 0 -38px;display:grid;place-items:center;border:1px solid #2a3439;background:#080b0e;color:#91a0a6;font:700 7px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;box-shadow:0 2px 10px rgba(0,0,0,.55)}
 .fovSlot.on{border-color:var(--gold);color:var(--gold);background:#0d1114}
 .fovSlot.reserved{border-style:dashed;color:#4a565c}
+/* THE RADIAL'S OWN UI, ONLY WHILE IT IS UP. pointer-events:none on the parent
+   does not stop a child opting back in, so this is the whole concession: the
+   four slots become tappable and nothing else in the radial does. The ring,
+   the hint and every pixel of page content under the disc stay live, and a tap
+   outside a slot reaches the page untouched. Off / closed = zero change. */
+#foveaRadial.on .fovSlot{pointer-events:auto}
+/* FINGER-SIZED HIT TARGET. The visible chip stays 76x20 (a hairline menu, not
+   a toolbar); the ::before is an invisible expander that hit-tests AS the slot,
+   so the tap area is 76x40 — the ~40px a fingertip needs. No horizontal growth:
+   at SLOT_R=76 the side slots and GLYPH already share a corner, and growing
+   sideways would make that corner ambiguous. */
+.fovSlot::before{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}
+/* Coarse pointers get a bigger chip to aim at and type that survives a phone.
+   Media is capability, not device — the same rule that puts the lens in PIN. */
+@media (pointer:coarse){
+  /* 60px wide, not 76: at SLOT_R=76 a 76px chip reaches x=+-38 and the side
+     slots reach x=27.8, so the two bottom slots share a corner and a fingertip
+     could not tell them apart. 60px pulls the sides back to 35.8 and leaves a
+     clean gap. Height 30 + a 10px expander top and bottom = 50px of hit area
+     vertically, 60px horizontally — both clear the 40px fingertip floor. */
+  .fovSlot{width:60px;height:30px;margin:-15px 0 0 -30px;font-size:9px}
+  .fovSlot::before{top:-10px;bottom:-10px}
+}
+/* SUMMON-SCOPED SELECTION GUARD. A 400ms stationary press is also how a phone
+   selects text and opens a callout, so the gesture and the OS fight for it.
+   Chosen scope: ONLY while a radial is summoned (html.foveaSummoned, added and
+   removed by fovea-lens.js). Not on the root content element permanently —
+   that would kill text selection across the whole page at rest, which is page
+   content being interfered with, exactly what the law forbids. At rest this
+   block matches nothing: no style changes, no events, no preventDefault. */
+html.foveaSummoned body,html.foveaSummoned body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #foveaRadialHint{position:absolute;left:-110px;top:110px;width:220px;text-align:center;color:#59666c;font:9.5px/1.4 ui-monospace,monospace;letter-spacing:.08em}
 /* FOLDS */
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:10px;letter-spacing:.12em}.fold>summary span{font-size:10px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
