@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-07T01:35:47.779Z",
+  "generated": "2026-10-07T02:06:46.993Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-07",
-  "commits_in_window": 70,
-  "git_commits_in_window": 118,
-  "telemetry_commits_in_window": 48,
-  "commits_total": 5571,
+  "commits_in_window": 76,
+  "git_commits_in_window": 127,
+  "telemetry_commits_in_window": 51,
+  "commits_total": 5580,
   "branch_count": 1009,
   "recent_commits": [
-    "returns: index sync — append 42 unindexed receipt routes (ledger stale since 1",
     "desk: refresh public field data",
-    "fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)"
+    "fi-mutation-contract: stamp /desk/ + /nexus/board.html (IMPLEMENT,VERIFY)",
+    "field desk: fold the agent board in — the durable board reads as a real kanban"
   ],
   "active_fronts": [
     {

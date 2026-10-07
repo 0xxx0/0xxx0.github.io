@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T01:35:47.779Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-07T02:06:46.993Z by scripts/generate-convergence-strip.mjs_
 
-The field has **70 material commits on 2026-10-07** across **1009 branches** (118 exact Git commits in the window; 48 generated telemetry; 5571 on master all-time).
+The field has **76 material commits on 2026-10-07** across **1009 branches** (127 exact Git commits in the window; 51 generated telemetry; 5580 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
-- returns: index sync — append 42 unindexed receipt routes (ledger stale since 1
 - desk: refresh public field data
-- fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (IMPLEMENT,VERIFY)
+- fi-mutation-contract: stamp /desk/ + /nexus/board.html (IMPLEMENT,VERIFY)
+- field desk: fold the agent board in — the durable board reads as a real kanban
 
 ## Open gaps
 
