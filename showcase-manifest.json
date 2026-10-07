@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T10:59:32+08:00",
+  "updated": "2026-10-07T11:00:16+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1477,7 +1477,7 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-07T10:59:32+08:00",
+        "updated_at": "2026-10-07T11:00:16+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
@@ -1687,7 +1687,7 @@
       "showcase_card": false,
       "role": "One-day reading dial: the day folds into 24 hour-ribs and opens into a range card. Events come from the day's own record (git log, machine noise removed); past/now ribs, hub readout, one transform, swipe fold/open. Presentation/read-only: reads the record, writes nothing.",
       "index": {
-        "updated_at": "2026-10-07T10:59:32+08:00",
+        "updated_at": "2026-10-07T11:00:16+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -9663,7 +9663,7 @@
       "family": "FIELD / LIFECYCLE",
       "role": "Registry view of the throwaway generated pages: every dated YYYYMMDD-topic-mcvoid dir with its owner, creation date, expiry and a live countdown, plus whatever has been swept into the holding pen at _archive/temp/. Backed by control/TEMP_PAGES.json and tools/temp-pages.py (--check / --build / --sweep). The sweep never deletes: it git-mv's the dir and renames index.html to index.html.frozen so it stops being a directory index surface. Noindex static projection, not a current head.",
       "index": {
-        "updated_at": "2026-10-07T10:59:32+08:00",
+        "updated_at": "2026-10-07T11:00:16+08:00",
         "work_modes": [
           "READ",
           "VERIFY",
@@ -9772,7 +9772,7 @@
       "family": "FIELD / THREE ROOMS",
       "role": "The little index card for the set built on 2026-10-07: three instruments (THE CALL · DECODE · THE HINGE) plus the quiet shelf (CELLAR NOTES · THE LIST). Mirrors the Frex cut (2026-10-06) for a different person and register: her work world (contract review / data points / taxonomies), the wine thread she shares, and small universal human calls. One page, three doors, no chrome. Noindex; nothing stored; no private material named.",
       "index": {
-        "updated_at": "2026-10-07T10:59:32+08:00",
+        "updated_at": "2026-10-07T11:00:16+08:00",
         "work_modes": [
           "READ",
           "IMPLEMENT",
@@ -9886,7 +9886,7 @@
       "family": "FIELD / WINE",
       "role": "Twenty-four small practice cards for tasting attention — the cellar register of the set. Difference-within-similarity, describe-before-naming, patience and readability, the maker's hand (reveal/carry/release), aroma order, the taster as instrument, a four-line log instead of scores, small pours and water. Practice, not advice; no prices, no producers, no consumption claims.",
       "index": {
-        "updated_at": "2026-10-07T10:59:32+08:00",
+        "updated_at": "2026-10-07T11:00:16+08:00",
         "work_modes": [
           "READ",
           "RESEARCH",
