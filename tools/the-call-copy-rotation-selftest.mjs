@@ -5,13 +5,15 @@
 
    F-P2 is checked by executing the real page script (minimal DOM stubs) and calling
    the real buildDeck(). F-P1 is a static check of the withheld-ending literal. */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const game = join(root, '20261006-the-call-mcvoid');
-const html = readFileSync(join(game, 'index.html'), 'utf8');
+/* REPAIR 2026-10-07: retired set — resolve live -> archived (f16417cf moved it). */
+const game = ['20261006-the-call-mcvoid', 'archive/temp/2026-11-05/20261006-the-call-mcvoid']
+  .map((p) => join(root, p)).find(existsSync);
+const html = readFileSync(['index.html', 'index.html.frozen'].map((f) => join(game, f)).find(existsSync), 'utf8');
 
 let fails = 0;
 const ok = (cond, msg) => { console.log((cond ? 'PASS' : 'FAIL') + ' — ' + msg); if (!cond) fails++; };
