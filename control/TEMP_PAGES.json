@@ -1,188 +1,188 @@
 {
-  "schema": "temp-pages/v1",
-  "updated": "2026-10-07T11:00:16+08:00",
-  "retention_days": 30,
-  "holding_pen": "archive/temp",
-  "pages": [
-    {
-      "dir": "20261005-linkfield-mcvoid",
-      "title": "LINK FIELD · 2026-10-05 · mcvoid",
-      "owner": "mahshroom",
-      "created": "2026-10-05",
-      "expires": "2026-11-04",
-      "status": "live",
-      "what": "Generated link-field page with a live 30-day countdown (output of tools/linkfield-build.py).",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-cs50-or-not-mcvoid",
-      "title": "CS50 in 2026 — should you, or shouldn't you",
-      "owner": "mcvoid",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "One-off essay page: taking CS50 in 2026, or not.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-ai-mode-thread-mcvoid",
-      "title": "The whole thread, answered — APAC AI policy @ big tech SG",
-      "owner": "mcvoid",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "One-off thread-answer page on APAC AI policy at big tech in Singapore.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-picks-mcvoid",
-      "title": "FIELD PICKS · 2026-10-06 · mcvoid",
-      "owner": "mahshroom",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Generated field picks roundup page (136KB single index.html).",
-      "superseded_by": "/20261006-field-mcvoid/"
-    },
-    {
-      "dir": "20261006-field-mcvoid",
-      "title": "THE FIELD / ATLAS · 2026-10-06 · lam4000",
-      "owner": "lam4000",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Single-page visual read of the whole field: nested treemap sized by semantic commits, THE PULSE by last-touch date and state lane, ten picks. Output of tools/field-atlas-build.py; supersedes the picks table.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-patterns-mcvoid",
-      "title": "HOUSE PATTERNS · 2026-10-06 · mcvoid",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-canon-mcvoid",
-      "title": "WHERE THE DOING LIVES - twelve essays, one argument",
-      "owner": "kage",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Culture canon page: twelve essays (Mel, Kingdom of Nouns, Brooks, Karpathy, _why, ESR, PG x2, Amodei, Aschenbrenner, AI 2027, Duckworth) arguing where the doing lives.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-ask-table-mcvoid",
-      "title": "THE ASK TABLE - arm B of the mangospree A/B",
-      "owner": "kage",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Arm B of the mangospree A/B test. Decision instrument: say/want/clock/who/traps/move. Deleted at expiry if she uses arm A more.",
-      "superseded_by": "/20261006-decode-mangospree/"
-    },
-    {
-      "dir": "20261006-the-call-mcvoid",
-      "title": "THE CALL — APAC legal-ops judgment deck for mangospree",
-      "owner": "kage",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Phone-first 12-matter judgment deck for mangospree. Sister to DECODE: DECODE explains language; THE CALL drills the actual legal-ops move and exports a FIELD / PLAY return JSON.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-the-coach-mcvoid",
-      "title": "THE COACH - botdoc + bottherapist performance coach",
-      "owner": "kage",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Persona/talk performance coach. Measures a draft against the real 8,909-message stylometric fingerprint, names the drift and its cost, gives the gap-closing rewrite. Refuses to score fragments.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-consultation-mcvoid",
-      "title": "THE CONSULTATION · an experience · 2026-10-06",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-daywrap-mcvoid",
-      "title": "DAYWRAP · 2026-10-06",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-decode-mangospree",
-      "title": "DECODE · the overwhelm dial · for mangospree",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-grading-mcvoid",
-      "title": "15 REPLIES, GRADED · the deep review · 2026-10-06",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-the-cut-mcvoid",
-      "title": "THE CUT · 2026-10-06 · mcvoid",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261007-patterns-lang-mcvoid",
-      "title": "A PATTERN LANGUAGE · 2026-10-06",
-      "owner": "unassigned",
-      "created": "2026-10-07",
-      "expires": "2026-11-06",
-      "status": "live",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-linkfield-frex",
-      "title": "LINK FIELD · 2026-10-06 · frex",
-      "owner": "thisjustthing",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Frex cut of the generated LINK FIELD (tools/linkfield-build.py --variant frex): today folded in (commits + new routes), share/settings reveal, underline a11y law. Regenerable from the ledger.",
-      "superseded_by": null
-    },
-    {
-      "dir": "20261006-wine-aesthetic-mcvoid",
-      "title": "THE LIST — fifteen domaines, Burgundy &amp; the Northern Rhône",
-      "owner": "unassigned",
-      "created": "2026-10-06",
-      "expires": "2026-11-05",
-      "status": "archived",
-      "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
-      "superseded_by": null
-    }
-  ]
+ "schema": "temp-pages/v1",
+ "updated": "2026-10-07T11:00:16+08:00",
+ "retention_days": 30,
+ "holding_pen": "archive/temp",
+ "pages": [
+  {
+   "dir": "20261005-linkfield-mcvoid",
+   "title": "LINK FIELD · 2026-10-05 · mcvoid",
+   "owner": "mahshroom",
+   "created": "2026-10-05",
+   "expires": "2026-11-04",
+   "status": "live",
+   "what": "Generated link-field page with a live 30-day countdown (output of tools/linkfield-build.py).",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-cs50-or-not-mcvoid",
+   "title": "CS50 in 2026 — should you, or shouldn't you",
+   "owner": "mcvoid",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "One-off essay page: taking CS50 in 2026, or not.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-ai-mode-thread-mcvoid",
+   "title": "The whole thread, answered — APAC AI policy @ big tech SG",
+   "owner": "mcvoid",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "One-off thread-answer page on APAC AI policy at big tech in Singapore.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-picks-mcvoid",
+   "title": "FIELD PICKS · 2026-10-06 · mcvoid",
+   "owner": "mahshroom",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Generated field picks roundup page (136KB single index.html).",
+   "superseded_by": "/20261006-field-mcvoid/"
+  },
+  {
+   "dir": "20261006-field-mcvoid",
+   "title": "THE FIELD / ATLAS · 2026-10-06 · lam4000",
+   "owner": "lam4000",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Single-page visual read of the whole field: nested treemap sized by semantic commits, THE PULSE by last-touch date and state lane, ten picks. Output of tools/field-atlas-build.py; supersedes the picks table.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-patterns-mcvoid",
+   "title": "HOUSE PATTERNS · 2026-10-06 · mcvoid",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-canon-mcvoid",
+   "title": "WHERE THE DOING LIVES - twelve essays, one argument",
+   "owner": "kage",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Culture canon page: twelve essays (Mel, Kingdom of Nouns, Brooks, Karpathy, _why, ESR, PG x2, Amodei, Aschenbrenner, AI 2027, Duckworth) arguing where the doing lives.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-ask-table-mcvoid",
+   "title": "THE ASK TABLE - arm B of the mangospree A/B",
+   "owner": "kage",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Arm B of the mangospree A/B test. Decision instrument: say/want/clock/who/traps/move. Deleted at expiry if she uses arm A more.",
+   "superseded_by": "/20261006-decode-mangospree/"
+  },
+  {
+   "dir": "20261006-the-call-mcvoid",
+   "title": "THE CALL — APAC legal-ops judgment deck for mangospree",
+   "owner": "kage",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "live",
+   "what": "Phone-first 12-matter judgment deck for mangospree. Sister to DECODE: DECODE explains language; THE CALL drills the actual legal-ops move and exports a FIELD / PLAY return JSON.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-the-coach-mcvoid",
+   "title": "THE COACH - botdoc + bottherapist performance coach",
+   "owner": "kage",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Persona/talk performance coach. Measures a draft against the real 8,909-message stylometric fingerprint, names the drift and its cost, gives the gap-closing rewrite. Refuses to score fragments.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-consultation-mcvoid",
+   "title": "THE CONSULTATION · an experience · 2026-10-06",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-daywrap-mcvoid",
+   "title": "DAYWRAP · 2026-10-06",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-decode-mangospree",
+   "title": "DECODE · the overwhelm dial · for mangospree",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-grading-mcvoid",
+   "title": "15 REPLIES, GRADED · the deep review · 2026-10-06",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-the-cut-mcvoid",
+   "title": "THE CUT · 2026-10-06 · mcvoid",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261007-patterns-lang-mcvoid",
+   "title": "A PATTERN LANGUAGE · 2026-10-06",
+   "owner": "unassigned",
+   "created": "2026-10-07",
+   "expires": "2026-11-06",
+   "status": "live",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-linkfield-frex",
+   "title": "LINK FIELD · 2026-10-06 · frex",
+   "owner": "thisjustthing",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "live",
+   "what": "Frex cut of the generated LINK FIELD (tools/linkfield-build.py --variant frex): today folded in (commits + new routes), share/settings reveal, underline a11y law. Regenerable from the ledger.",
+   "superseded_by": null
+  },
+  {
+   "dir": "20261006-wine-aesthetic-mcvoid",
+   "title": "THE LIST — fifteen domaines, Burgundy &amp; the Northern Rhône",
+   "owner": "unassigned",
+   "created": "2026-10-06",
+   "expires": "2026-11-05",
+   "status": "archived",
+   "what": "Dated page adopted by temp-pages.py --adopt. Set owner and what.",
+   "superseded_by": null
+  }
+ ]
 }
