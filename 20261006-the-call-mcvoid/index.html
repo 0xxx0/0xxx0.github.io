@@ -856,8 +856,18 @@ window.THEMES.garden = (function(){
       // caption. without this it is the one element that breaks the palette and the eye
       // catches it for the wrong reason. it should read as a tiny window, discovered.
       cat.style.cssText='position:fixed;right:12px;bottom:8px;width:112px;height:auto;'+
-        'z-index:0;pointer-events:none;user-select:none;opacity:.34;'+
-        'filter:none;border:0;padding:0;';
+        'z-index:6;pointer-events:auto;cursor:pointer;user-select:none;opacity:.34;'+
+        'filter:none;border:0;padding:0;transition:opacity .6s ease';
+      // operator 2026-10-07: 'the cat is not fun'. it now has opinions and pounces.
+      cat.addEventListener('click',function(){
+        cat.style.opacity='.85';
+        cat.animate([{transform:'rotate(0) scale(1)'},{transform:'rotate(-8deg) scale(1.16)'},{transform:'rotate(6deg) scale(.94)'},{transform:'rotate(0) scale(1)'}],{duration:520,easing:'ease-in-out'});
+        var L=['the cat has opinions.','purr. (that was a warning.)','that call was expensive.','still not judging.','say it plainly next time.','one strike. that was it.','interesting door.'];
+        var n=document.getElementById('catline');
+        if(!n){n=document.createElement('div');n.id='catline';n.style.cssText='position:fixed;right:126px;bottom:18px;z-index:6;font:italic 12.5px Georgia,serif;color:var(--ink,#eef2ef);opacity:.75;pointer-events:none';document.body.appendChild(n);}
+        n.textContent=L[Math.floor(Math.random()*L.length)];
+        clearTimeout(window.__catT); window.__catT=setTimeout(function(){n.remove();cat.style.opacity='.34';},3200);
+      });
       root.appendChild(cat);
   };
 })();

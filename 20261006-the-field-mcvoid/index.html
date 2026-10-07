@@ -15,7 +15,13 @@
   @keyframes breathe{0%,100%{opacity:.42}50%{opacity:.72}}
   .whisper{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
     font:italic 12.5px Georgia,serif;color:#eef2ef;opacity:.5;letter-spacing:.05em;white-space:nowrap}
-  @media (prefers-reduced-motion: reduce){.stamp{animation:none;opacity:.6}}
+  .stamp{cursor:pointer}
+  .stamp.pounce{animation:pounce .55s ease-in-out}
+  @keyframes pounce{0%{transform:rotate(0) scale(1)}25%{transform:rotate(-7deg) scale(1.18)}55%{transform:rotate(5deg) scale(.94)}100%{transform:rotate(0) scale(1)}}
+  .spark{position:fixed;z-index:3;pointer-events:none;width:5px;height:5px;border-radius:50%;
+    background:#d7ae67;animation:spark .9s ease-out forwards}
+  @keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+  @media (prefers-reduced-motion: reduce){.stamp{animation:none;opacity:.6;cursor:pointer}.stamp.pounce{animation:none}}
 </style>
 <div class="title">
   <div class="t">The Field</div>
@@ -256,5 +262,24 @@
   fetch('../20261006-the-call-mcvoid/cat.svg').then(r => r.text()).then(t => {
     document.getElementById('stamp').src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(t)));
   }).catch(() => {});
+
+  // the cat is not decoration. it has opinions and it pounces.
+  const OPINIONS = ['…fine. judge a little.', 'that one was expensive.', 'say it plainly next time.',
+    'the gap noticed you noticing.', 'still not judging. observing.', 'one strike. that was it.',
+    'write it down.', 'purr. (that was a warning.)', 'you chose the door. interesting.'];
+  const stamp = document.getElementById('stamp'), whisper = document.getElementById('whisper');
+  let opi = 0;
+  stamp.addEventListener('click', e => {
+    stamp.classList.remove('pounce'); void stamp.offsetWidth; stamp.classList.add('pounce');
+    whisper.textContent = OPINIONS[opi++ % OPINIONS.length];
+    for (let s = 0; s < 7; s++) {
+      const sp = document.createElement('div'); sp.className = 'spark';
+      sp.style.left = (e.clientX + (Math.random()-.5)*30) + 'px';
+      sp.style.top = (e.clientY + (Math.random()-.5)*30) + 'px';
+      sp.style.setProperty('--dx', ((Math.random()-.5)*130) + 'px');
+      sp.style.setProperty('--dy', (-30 - Math.random()*90) + 'px');
+      document.body.appendChild(sp); setTimeout(() => sp.remove(), 950);
+    }
+  });
 })();
 </script>
