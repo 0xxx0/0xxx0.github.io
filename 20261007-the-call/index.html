@@ -70,6 +70,11 @@ html,body{background:#07090c}
 .after .lab{font-size:9.5px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:7px}
 .after .mv{font-size:15px;line-height:1.55}
 .after .ev{margin-top:11px;font-size:12.5px;color:var(--mut);line-height:1.55}
+/* the price tag (Reigns body, ENSOUL-SPEC §3): one signed line per reveal.
+   No bars, no gauges, no colour-coded meters — the transparency is the text. */
+.after .mstrip{margin-top:9px;font-size:10.5px;letter-spacing:.12em;color:var(--mut);
+ text-transform:uppercase;font-variant-numeric:tabular-nums;line-height:1.6}
+.after .mstrip:empty{display:none}
 @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 
 .bar{margin:16px 0 0;background:#0b1013;border:1px solid var(--line);
@@ -267,6 +272,7 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 <div class="after" id="after">
   <span class="lab">what actually happens</span>
   <div class="mv" id="aftertext"></div>
+  <div class="mstrip" id="mstrip" aria-live="polite"></div>
   <div class="ev" id="evid"></div>
 </div>
 
@@ -301,6 +307,8 @@ Nothing is uploaded. Your playbook lives in this browser until you copy it.
 
 <script src="deck-her.js"></script>
 <script src="ending.js"></script>
+<!-- the drift body: four meters, pure math, dual-load (window.CALL_METERS / CJS) -->
+<script src="meters.js"></script>
 <script>
 /* ───────────── audio: synthesised, zero assets ───────────── */
 var AC=null, SFX=false;   /* sound OFF by default (operator 2026-10-07). var, not let: this must
@@ -320,7 +328,17 @@ function sfxDeal(){ tone(880,0.05,'square',0.028); setTimeout(()=>tone(1240,0.06
    FLOOR/CREW/IMPACTED/FIRST90/FOUR MARKETS. */
 
 /* ───────────── state ───────────── */
-let idx=0, results=[], answered=false, MATTERS=[], CALIB=null;
+/* ── THE DRIFT BODY (Reigns-form, ENSOUL-SPEC §2-3 · INDIE-GAMES-MAP #1) ────
+   Four meters carry the run's body; the ending reads it as the second axis.
+     exposure     50 start · 0-100   cover held — how much of the week is on record
+     relationship 50 start · 0-100   trust in the room
+     budget       50 start · 0-100   money and hours left
+     momentum     50 start · 0-100   pace — whether things are moving
+   LAW 1 (ethics swap): no death at either end. Values clamp; a meter at the floor
+   is where the run spent, never a verdict on the person.
+   LAW 2 (transparency): meters move only at reveal, as one signed line — the
+   price tag, not the score. The ending reads the body; play shows the cost. */
+let idx=0, results=[], answered=false, MATTERS=[], CALIB=null, METER_STATE=null, chosen=[];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 
@@ -392,6 +410,10 @@ function calibPick(i){
   if(pace < MATTERS.length) MATTERS = MATTERS.slice(0, pace);
   window.GAME_OUTCOME=calibAnswers.want || 'both';
   results=new Array(MATTERS.length).fill(null);
+  /* the body starts whole — 50 on every axis (meters.js SPEC). Every run begins
+     equal; what it spent is written by the calls and read once at the ending. */
+  METER_STATE=window.CALL_METERS.init();
+  chosen=new Array(MATTERS.length).fill(null);
   $('calib').style.display='none';
   $('game').style.display='block';
   // name the deck; do not explain it
@@ -437,6 +459,7 @@ function deal(){
   $('cd').textContent = m.clock;
   $('cdlab').textContent = m.clocklab;
   $('after').classList.remove('show');
+  $('mstrip').innerHTML='';   /* the price tag belongs to the reveal, not the deal */
   $('calls').innerHTML = m.calls.map((c,i)=>
     '<button class="call" data-i="'+i+'"><span class="k">'+c.k+'</span><span class="t">'+c.t+'</span></button>').join('');
   $('next').disabled = true;
@@ -467,6 +490,16 @@ function choose(i){
   el.appendChild(v);
   $('aftertext').innerHTML = '<b>THE MOVE</b><br>'+m.move.replace(/^Rule:\s*/,'');
   $('evid').innerHTML = '<b>RETURN → </b>'+m.ev;
+  /* THE DRIFT BODY: this call's net drift, applied on the spot. The strip shows
+     what actually moved (applied, post-clamp) — the price tag, not a score.
+     No meter can end the run; clamping is bookkeeping, not punishment. */
+  chosen[idx]=i;
+  if(METER_STATE && m.calls[i].m){
+    const ap=window.CALL_METERS.step(METER_STATE, m.calls[i].m);
+    METER_STATE=ap.state;
+    const line=window.CALL_METERS.stripLine(ap.applied);
+    $('mstrip').innerHTML=line;   /* '' hides the line: a call that moves nothing says nothing */
+  }
   $('after').classList.add('show');
   /* MERCY: no "wrong". An expensive call is one you made knowing the price. */
   const heavy=(m.face==='euphemism');   // no comic voice over this material
@@ -496,10 +529,17 @@ function finish(){
   const got=results.filter(r=>r===true).length;
   const expensive=results.filter(r=>r===false).length;
   const skipped=results.filter(r=>r===null).length;
+  /* THE BODY AXIS (ENSOUL §3): the run's drift, read once, blame-free — the meter
+     names the ledger the week leaned on, never the person. */
+  const bodyLine=METER_STATE ? window.CALL_METERS.readoutLine(METER_STATE) : '';
+  const bodyRow=METER_STATE ?
+    '<div class="g"><span class="tag">body</span> '+bodyLine+'</div>' : '';
   $('pblist').innerHTML =
     '<div class="pbrow"><div class="t"><b>'+got+'</b> instinct-right · <b>'+expensive+
     '</b> expensive · <b>'+skipped+'</b> skipped.</div>'+
     '<div class="m">Not a score. A record of where your instinct is already right, and where it is expensive.</div></div>' +
+    (METER_STATE ? '<div class="pbrow"><div class="t"><b>body</b> · what the week cost you</div><div class="m">'+
+      bodyLine+'</div></div>' : '') +
     MATTERS.map((m,i)=>{
       const r=results[i];
       const lab = r===true ? '✓ instinct-right' : r===false ? '◆ expensive call' : '○ no right answer';
@@ -562,6 +602,7 @@ function finish(){
       'being sorted by material that was never about sorting.</div>'+
       '<div class="g"><span class="tag">your door</span> <b>Pick one call from today and run it once for real — '+
       'one question split, one clause quoted, one difference found. Verification beats reflection.</b></div>'+
+      bodyRow+
       '<div class="ev">Calls: <b>'+got+'</b> named it · <b>'+expensive+'</b> let it stand · '+skipped+
       ' unread. Nothing is recorded. Nothing leaves this browser.</div>'+
       '</div>';
@@ -584,6 +625,7 @@ function finish(){
       'same mistake twice; you did not oblige.</div>'+
       '<div class="g"><span class="tag">your door</span> <b>Play it again with different answers. A pattern '+
       'shows up across runs far more reliably than inside one.</b></div>'+
+      bodyRow+
       '<div class="ev">Calls: <b>'+got+'</b> instinct-right · <b>'+expensive+'</b> expensive · '+skipped+
       ' skipped. Closest was '+esc(top?top[0]:'nothing')+' at a lift of '+(top?top[1].toFixed(2):'0')+
       'x your own baseline — under the threshold, so it is not claimed.</div>'+
@@ -597,6 +639,7 @@ function finish(){
     if(window.CALL_ENDING){
       const E=window.CALL_ENDING;
       const t=E.tally(MATTERS, results);
+      t.meters=METER_STATE;   /* ENSOUL §4.3: the body rides the tally into pickMode + ending */
       // hand the DONOR's selector a fair tally: rates lifted over the player's own baseline
       // with an opportunity floor, instead of raw hit counts (see the MEASUREMENT FIX above)
       t.modeHits=correctedHits;
@@ -608,9 +651,11 @@ function finish(){
       window.__LIFTNOTE='Typed on ' + topPair[0] + ': ' + topPair[1].toFixed(2) + 'x your own strike rate, '
         + nStr + '. Minimum bar: 2 cards shown and 2 strikes in them. Below that it says nothing stood out.';
       const hideType = (outcome==='private');
-      $('ending').innerHTML=(hideType
-        ? E.buildEnding(results, MATTERS).replace(/<h2 class="emode">[^<]*<\/h2>/,'<h2 class="emode">YOURS. NO LABEL.</h2>')
-        : E.buildEnding(results, MATTERS))
+      let built=E.buildEnding(results, MATTERS);
+      if(hideType) built=built.replace(/<h2 class="emode">[^<]*<\/h2>/,'<h2 class="emode">YOURS. NO LABEL.</h2>');
+      /* the body row rides INSIDE the ending card, last — same grammar as buys/costs/door */
+      if(bodyRow) built=built.replace(/<\/div>$/, bodyRow+'</div>');
+      $('ending').innerHTML=built
         + '<div style="font-size:11px;color:var(--mut);line-height:1.6;margin-top:11px;border-top:1px solid var(--line);padding-top:9px">'
         + '<b style="color:var(--gold)">HOW THIS WAS MEASURED —</b> ' + esc(window.__LIFTNOTE||'') + ' '
         + '</div>'
@@ -636,6 +681,8 @@ function finish(){
     $('next').disabled=false;
     $('next').onclick=copyPB;
   }
+  window.METER_STATE=METER_STATE;   /* smoke hooks: headless checks read the body here */
+  window.METER_SPEC=window.CALL_METERS.SPEC;
   window.scrollTo({top:0,behavior:'smooth'});
   sfxRight();
 }
@@ -649,13 +696,17 @@ function copyPB(){
     door: m ? m.door : null,
     buys: m ? m.buys : null,
     costs: m ? m.costs : null,
-    laws:['ONE BOUNDED MOVE','EVIDENCE BEFORE CLAIM','RETURN != NEXT','SUBJECTIVE RATING != CORRECTNESS PROOF','MERCY: COSTS/BUYS, NEVER WRONG'],
+    laws:['ONE BOUNDED MOVE','EVIDENCE BEFORE CLAIM','RETURN != NEXT','SUBJECTIVE RATING != CORRECTNESS PROOF','MERCY: COSTS/BUYS, NEVER WRONG','METER BODY: DRIFT METERS CLAMP 0-100 — NO DEATH, NO SCORE'],
+    meters:METER_STATE||null,
     instinct_right:results.filter(r=>r===true).length,
     expensive:results.filter(r=>r===false).length,
     skipped:results.filter(r=>r===null).length,
-    matters:MATTERS.map((c,i)=>({who:c.who,face:c.face||null,mode:c.mode||null,
-      move:c.move,outcome:results[i]===true?'instinct-right':results[i]===false?'expensive':'no-right-answer',
-      evidence:c.ev, source:c.source||null})),
+    matters:MATTERS.map((c,i)=>{
+      const ci=(chosen[i]==null||!c.calls[chosen[i]])?0:chosen[i];
+      return {who:c.who,face:c.face||null,mode:c.mode||null,
+        call:c.calls[ci]?c.calls[ci].k:null, delta:(c.calls[ci]&&c.calls[ci].m)||null,
+        move:c.move,outcome:results[i]===true?'instinct-right':results[i]===false?'expensive':'no-right-answer',
+        evidence:c.ev, source:c.source||null};}),
     returned_at:new Date().toISOString(), authority:'REPORT_ONLY / NO_AUTO_WRITE'};
   navigator.clipboard.writeText(JSON.stringify(packet,null,2)).then(()=>{
     $('next').textContent='copied ✓'; setTimeout(()=>{$('next').textContent='copy playbook'},1200);
