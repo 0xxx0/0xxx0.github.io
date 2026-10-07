@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-07T12:58:01+08:00",
+  "updated": "2026-10-07T13:00:20+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1687,7 +1687,7 @@
       "showcase_card": false,
       "role": "One-day reading dial: the day folds into 24 hour-ribs and opens into a range card. Events come from the day's own record (git log, machine noise removed); past/now ribs, hub readout, one transform, swipe fold/open. Presentation/read-only: reads the record, writes nothing.",
       "index": {
-        "updated_at": "2026-10-07T11:03:51+08:00",
+        "updated_at": "2026-10-07T13:00:20+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -9916,7 +9916,7 @@
       "role": "Public, client-side-encrypted projection of the local archive reader's digests wall: 14 message walls (msg-digest 09:00) + 9 day digests (day-digest 18:45), compiled from the canonical sources on disk and embedded as AES-256-GCM ciphertext. The public bytes are ciphertext plus static code; PBKDF2-SHA256 x600,000 derives the key in the browser and decryption + rendering happen locally, so no plaintext content, no local filesystem path and no passphrase is ever published. noindex (the site robots.txt already disallows everything — noindex is etiquette, not secrecy). Honest caveat: the ciphertext is public and offline-brute-forceable, so passphrase strength IS the security; git history retains old ciphertext blobs, and rotation means a new passphrase while old blobs stay old.",
       "receipt": "/digests/release.json",
       "index": {
-        "updated_at": "2026-10-07T12:35:21+08:00",
+        "updated_at": "2026-10-07T13:00:20+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
