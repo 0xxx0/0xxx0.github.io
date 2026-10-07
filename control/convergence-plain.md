@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T02:37:47.513Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-07T03:08:45.880Z by scripts/generate-convergence-strip.mjs_
 
-The field has **82 material commits on 2026-10-07** across **1009 branches** (136 exact Git commits in the window; 54 generated telemetry; 5589 on master all-time).
+The field has **105 material commits on 2026-10-07** across **1009 branches** (162 exact Git commits in the window; 57 generated telemetry; 5615 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,8 +14,8 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- cats: restamp2
-- cats with opinions: the field + the call garden cats are alive (tap: pounce, s
+- dayline/fan: stamp route mutation contract
+- dayline/fan: calendar feed — .ics import (parsed on-device, kept local, never 
 
 ## Open gaps
 
