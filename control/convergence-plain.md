@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T08:49:46.132Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-07T14:30:56.657Z by scripts/generate-convergence-strip.mjs_
 
-The field has **152 material commits on 2026-10-07** across **1010 branches** (239 exact Git commits in the window; 87 generated telemetry; 5692 on master all-time).
+The field has **156 material commits on 2026-10-07** across **1010 branches** (263 exact Git commits in the window; 107 generated telemetry; 5716 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,8 +14,8 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- fi-mutation-contract: stamp /iching/ for mechanism view addition
-- iching: add mechanism view section and buildMech() with content
+- fi-mutation-contract: restamp post-rebase (root USE THESE + meters.js)
+- meters.js: adopt mother-meter-build version (from diff)
 
 ## Open gaps
 
