@@ -5,7 +5,7 @@
 <main>
 <div class="question"><input id="title" aria-label="Decision to make" maxlength="180"><span id="context"></span></div>
 <section class="criteriaSection" aria-label="Measurements and hard limits"><div id="criteria" class="criteria"></div><div class="pager" id="axisPager"></div></section>
-<section class="matrixSection" aria-label="Alternatives"><div class="matrixHeading"><span>ALTERNATIVES · NUMBER / LOW..HIGH / ?</span><button id="addOption">+ OPTION</button></div><div id="matrix"></div><div class="pager" id="optionPager"></div></section>
+<section class="matrixSection" aria-label="Alternatives"><div class="matrixHeading"><span>ALTERNATIVES · NUMBER / LOW..HIGH / ?</span><button id="triBtn" type="button" aria-pressed="false" title="Optional triangle projection over the table; the numeric table stays canonical">△ TRIANGLE</button><button id="addOption">+ OPTION</button></div><div id="matrix"></div><div class="pager" id="optionPager"></div><div id="triView" hidden></div></section>
 <section class="result" aria-live="polite"><div class="resultHead"><b id="verdict"></b><span id="counts"></span></div><p id="reason"></p><div id="focus"></div></section>
 </main>
 <footer><button id="undoBtn">UNDO</button><span id="localStatus">LOCAL · NO WORLD ACTION</span><button class="primary" id="returnBtn">RECORD / RETURN</button></footer>
@@ -16,5 +16,5 @@
 <dialog id="pasteDialog"><form method="dialog" class="sheet"><div class="sheetHead"><b>PASTE ALTERNATIVES</b><button aria-label="Close table paste">×</button></div><p id="pasteHelp"></p><textarea id="tableText" class="tableText" spellcheck="false" aria-label="Tab-separated alternatives"></textarea><div class="sheetFoot"><button type="button" id="applyTable">REPLACE OPTIONS</button></div><span id="pasteError" role="alert"></span></form></dialog>
 <dialog id="historyDialog"><form method="dialog" class="sheet"><div class="sheetHead"><b>LAST RETURN</b><button aria-label="Close history">×</button></div><pre id="historyText"></pre><div class="sheetFoot"><button type="button" id="restoreReturn">RESTORE MODEL</button><button type="button" id="exportReturn">EXPORT RETURN</button></div></form></dialog>
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
-<script src="/lib/constraint-surface.js"></script><script src="./decision-core.js"></script><script src="./bench.js"></script>
+<script src="/lib/constraint-surface.js"></script><script src="./decision-core.js"></script><script src="./triangle-view.js"></script><script src="./bench.js"></script>
 </body></html>

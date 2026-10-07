@@ -37,6 +37,7 @@
   }
   let S = sample(), returns = [], axisPage = 0, optionPage = 0, editAxis = 0, editOption = null;
   let history = [], errors = new Map(), analysis = null, storageAvailable = true;
+  let triangleOn = false;
   try { const saved = localStorage.getItem(MODEL_KEY); if (saved) S = Core.restore(saved); } catch (_) {}
   try { const saved = JSON.parse(localStorage.getItem(RETURNS_KEY) || '[]'); if (Array.isArray(saved)) returns = saved.slice(0,20); } catch (_) {}
   const cells = new Map();
@@ -133,12 +134,29 @@
     redrawAnalysis();
     renderedPageSize=size;
   }
+  function drawTriangle() {
+    const enabled = S.criteria.length === 3;
+    if (!enabled) triangleOn = false;
+    const button = $('triBtn');
+    button.disabled = !enabled;
+    button.title = enabled ? 'Optional triangle projection over the table; the numeric table stays canonical'
+      : 'Triangle view needs exactly 3 measurements (' + S.criteria.length + ' entered)';
+    button.setAttribute('aria-pressed', String(triangleOn));
+    button.textContent = triangleOn ? '△ TABLE' : '△ TRIANGLE';
+    $('matrix').hidden = triangleOn;
+    $('optionPager').hidden = triangleOn;
+    const view = $('triView');
+    view.hidden = !triangleOn;
+    if (triangleOn) view.innerHTML = analysis ? TriangleView.markup(S, analysis)
+      : '<p class="triNote">INVALID INPUT · correct the values to draw the projection.</p>';
+    else view.replaceChildren();
+  }
   function redrawAnalysis() {
     if (errors.size) {
       analysis=null; $('verdict').textContent='INVALID INPUT'; $('counts').textContent='RESULT PAUSED';
       $('reason').textContent=[...errors.values()][0]; $('focus').replaceChildren(); $('returnBtn').disabled=true;if($('supportNote'))$('supportNote').textContent='RESULT PAUSED · correct invalid values before using the support count.';
       document.querySelectorAll('[data-row]').forEach(tr=>{tr.className='';tr.querySelector('.rowState').textContent='CHECK INPUT';});
-      $('undoBtn').disabled=false; return;
+      $('undoBtn').disabled=false; drawTriangle(); return;
     }
     analysis=Core.evaluate(S);
     if($('supportNote'))$('supportNote').textContent='Exact support: '+analysis.feasible.length+' / '+S.options.length+' complete options fit every entered limit. No limit changes automatically.';
@@ -162,6 +180,7 @@
     if(chosen)$('editHeld').onclick=()=>openOption(chosen.id);
     $('returnBtn').disabled=!chosen||row.status==='BLOCKED';
     if(notice){$('verdict').textContent='CHECK INPUT';$('reason').textContent=notice;}
+    drawTriangle();
   }
   function openModel(index=0) {
     editAxis=Math.min(index,S.criteria.length-1);axisPage=Math.floor(editAxis/3); renderEditor(); if(!$('modelDialog').open)$('modelDialog').showModal();
@@ -213,7 +232,7 @@
     const outcome=$('outcome').value.trim(), evidence=$('outcomeEvidence').value.trim();
     if(Boolean(outcome)!==Boolean(evidence)){$('returnError').textContent='An observed outcome needs both outcome and evidence. Leave both blank for a proposed choice.';return;}
     const receipt={schema:'decision-bench-return/v1',at:new Date().toISOString(),state:Core.validate(S),analysis:Core.evaluate(S),
-      chosen:S.selected,rationale:$('rationale').value.trim(),next:$('nextStep').value.trim(),
+      chosen:S.selected,view:triangleOn?'triangle':'table',rationale:$('rationale').value.trim(),next:$('nextStep').value.trim(),
       status:outcome?'OBSERVATION_REPORTED':'PROPOSED',observation:outcome?{outcome,evidence,source:'user-reported'}:null,
       authority:'LOCAL REASONING ONLY',return_path:'/forward-field-proof/triangle/bench/'};
     if(!receipt.rationale||!receipt.next){$('returnError').textContent='State the rationale and executable next step.';return;}
@@ -225,6 +244,7 @@
   }
   $('title').onchange=()=>{const value=$('title').value;mutate(()=>{S.title=value;});};
   $('modelBtn').onclick=()=>openModel();
+  $('triBtn').onclick=()=>{triangleOn=!triangleOn;drawTriangle();};
   $('moreBtn').onclick=()=>$('moreDialog').showModal();
   $('prevCriterion').onclick=()=>{editAxis--;axisPage=Math.floor(editAxis/3);renderEditor();};
   $('nextCriterion').onclick=()=>{editAxis++;axisPage=Math.floor(editAxis/3);renderEditor();};

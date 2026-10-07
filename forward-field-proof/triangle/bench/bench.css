@@ -10,3 +10,21 @@ body,main,main>*,.question,.criteriaSection,.matrixSection,.result,.resultHead{m
 @media(max-height:450px) and (min-width:500px){header button{min-height:28px;height:28px;padding:3px 8px}}
 .embedded header>a,.embedded header small{display:none}.embedded header b{font-size:10px}.embedded{max-width:none}
 @media(max-height:560px) and (max-width:499px){.optionSelect{min-height:24px;max-height:26px}.rowState{margin-top:0;line-height:1.1}.matrixHeading button{min-height:26px;padding:2px 4px}th{padding:2px}}
+/* OPTIONAL triangle view — projection only over the canonical numeric table (bench 0.1 simplex geometry recovered). */
+#triBtn[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+#matrix[hidden]{display:none}
+.pager[hidden]{display:none}
+#triView{flex:1;min-height:0;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+#triView[hidden]{display:none}
+#triView svg{flex:1 1 auto;min-height:0;width:100%}
+#triView .triNote{margin:0;font-size:8px;line-height:1.35;color:var(--muted)}
+#triView .edge{fill:#0c1216;stroke:var(--line);stroke-width:2}
+#triView .gridline{stroke:var(--line);stroke-width:.8}
+#triView .axis{fill:var(--ink);font:700 26px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+#triView .dot{fill:var(--ink);stroke:#000;stroke-width:2}
+#triView .dot.uncertain{fill:var(--bg);stroke:var(--unknown);stroke-width:2}
+#triView .dot.blocked{fill:var(--muted);opacity:.45}
+#triView .ring{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.9}
+#triView .front{fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:5 4;opacity:.75}
+#triView .cross{stroke:var(--gold);stroke-width:1.5;fill:none}
+#triView .plabel{fill:var(--gold);font:700 17px ui-monospace,SFMono-Regular,Menlo,monospace}

@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
 const core = require('../forward-field-proof/triangle/bench/decision-core.js');
+const triangle = require('../forward-field-proof/triangle/bench/triangle-view.js');
 const criteria = [
   { id: 'time', label: 'Setup', unit: 'min', direction: 'min', min: null, max: 60 },
   { id: 'tasks', label: 'Tasks', unit: 'tasks', direction: 'max', min: null, max: null },
@@ -101,5 +102,34 @@ test('browser UMD uses the same shared constraint adapter', () => {
   for (const filename of ['lib/constraint-surface.js', 'forward-field-proof/triangle/bench/decision-core.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '..', filename), 'utf8'), context);
   const output = context.DecisionBenchCore.evaluate(state([[30, 1, 5]]));
   assert.equal(output.leader, 'A'); assert.deepEqual(Array.from(output.feasible), ['A']);
+});
+test('simplex projection round-trips through the recovered Bench 0.1 geometry', () => {
+  const cases = [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1 / 3, 1 / 3, 1 / 3], [0.2, 0.3, 0.5], [0.97, 0.02, 0.01]];
+  for (const weights of cases) {
+    const back = triangle.pointWeights(triangle.baryPoint(weights));
+    back.forEach((value, i) => assert.ok(Math.abs(value - weights[i]) < 1e-6, 'round-trip ' + weights + ' -> ' + back));
+  }
+  const outside = triangle.pointWeights({ x: 0, y: 0 });
+  assert.ok(Math.abs(outside.reduce((a, b) => a + b, 0) - 1) < 1e-9, 'outside point must stay normalised');
+  assert.ok(outside.every(value => value >= 0), 'outside point must stay inside the simplex');
+});
+test('triangle projection plots entered options, keeps unknowns out, marks the frontier and escapes labels', () => {
+  const input = state([[10, 2, 5], [20, 4, null], [30, 6, 1]]);
+  input.criteria.forEach(criterion => { criterion.direction = 'max'; criterion.min = null; criterion.max = null; });
+  input.options[0].label = 'A<b & "q">';
+  const result = core.evaluate(input);
+  assert.deepEqual(result.feasible, ['A', 'C']);
+  const view = triangle.project(core.validate(input), result);
+  assert.equal(view.points.length, 2, 'unknown measure must not be plotted');
+  assert.equal(view.excluded, 1);
+  for (const point of view.points) {
+    assert.ok(Math.abs(point.weights.reduce((a, b) => a + b, 0) - 1) < 1e-9, 'weights must sum to 1');
+    assert.ok(point.x >= triangle.B.x - 1 && point.x <= triangle.C.x + 1 && point.y >= triangle.A.y - 1 && point.y <= triangle.C.y + 1, 'point inside simplex');
+    assert.equal(point.frontier, result.frontier.indexOf(point.id) !== -1, 'frontier flag must come from the constraint core');
+  }
+  const markup = triangle.markup(core.validate(input), result);
+  assert.ok(markup.startsWith('<svg') && markup.includes('</svg>') && markup.includes('TABLE IS CANONICAL'));
+  assert.ok(markup.includes('A&lt;b &amp; &quot;q&quot;'), 'labels must be escaped');
+  assert.ok(!/<script/i.test(markup), 'projection must not introduce script');
 });
 process.stdout.write('Decision bench: ' + count + ' tests passed.\n');
