@@ -9,11 +9,30 @@
 // The fold recovers those two axes into a controlled vocabulary so every surface can project
 // one state without hand-reading a sentence. Representation as mechanism, not decoration.
 //
+// 2026-10-07 SEMANTIC REVISION (receipt: returns/RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json).
+// The first fold made three claims its input does not support; the fold no longer makes them:
+//   1. UNRECORDED ≠ SOURCE. An empty `state` field asserts nothing; folding it to ⚊ SOURCE
+//      with "no state recorded" claimed not-landed from silence. Empty now folds to ⧗ RESIDUE
+//      kind `unrecorded` — phase UNDETERMINED, listed for human disposition, counted in
+//      `unrecorded_count`. Absence is not evidence of not-landed.
+//   2. ACTIVE is not verification evidence. The verified-marker regex no longer matches
+//      ACTIVE (a liveness marker). Only actual check evidence — CI_GREEN / MACHINE_GREEN /
+//      BROWSER_PROV / VERIFIED / PASS / SELF_VERIFY / GREEN — sets the flag.
+//   3. The fold's own receipts are not independent evidence of the fold. Rows whose receipt
+//      declares `object_ref: tools/field-fold.mjs` are marked `self_reference: true` and
+//      excluded from `verified_flagged_independent`.
+// And the staleness class is mechanized (RECEIPT SYNC below): fold receipts restate counts
+// that this map regenerates on every returns push (workflow field-desk-refresh), so every
+// hand-typed count beside it is stale by construction. Each run now compares every fold
+// receipt's restated counts against the live map and records the verdict IN the map;
+// a receipt that restates counts must declare `counts_as_of`, and `--check-receipts`
+// exits non-zero when one does not — the drift is flagged by the mechanism, not by hand.
+//
 // Verdict line + exit code = the verdict. Residue (states that don't fold) is flagged for human
 // disposition, never silently coerced. House rule: a law designed but not enforced costs twice —
 // this gate makes the fold executable.
 //
-// Usage: node tools/field-fold.mjs [--json] [--write]
+// Usage: node tools/field-fold.mjs [--json] [--write] [--check-receipts]
 
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -23,23 +42,29 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const RETURNS = join(ROOT, 'returns');
 const OUT = join(ROOT, 'returns', 'FIELD_FOLD_MAP.json');
 const MANIFEST = join(ROOT, 'showcase-manifest.json');
+const SELF = 'tools/field-fold.mjs';
 
 // Canonical enum — the ternary phase + verified flag.
 // phase: SOURCE (⚊ not landed) | HOLD (𝌀 candidate, in flight) | RETURN (⚋ landed) | RESIDUE (⧗ unclassified)
 const PHASE_GLYPH = { SOURCE: '⚊', HOLD: '𝌀', RETURN: '⚋', RESIDUE: '⧗' };
 
-// verified markers — confidence that a landed/candidate object actually checks out.
-const VERIFIED = /(CI_GREEN|MACHINE_GREEN|BROWSER[_ ]?PROV|VERIFIED|\bPASS\b|SELF_VERIFY|ACTIVE|GREEN)/;
+// Verified markers — confidence that a landed/candidate object actually checks out.
+// ACTIVE was removed here on 2026-10-07: "active" is a liveness marker, not a check result,
+// and it flagged 26 ACTIVE-marked rows verified on nothing. Machine/check evidence only.
+const VERIFIED = /(CI_GREEN|MACHINE_GREEN|BROWSER[_ ]?PROV|VERIFIED|\bPASS\b|SELF_VERIFY|GREEN)/;
 
 function classify(raw) {
   const s = (raw ?? '').toString().trim();
-  if (!s) return { phase: 'SOURCE', verified: false, raw: s, why: 'no state recorded' };
+  // No state recorded. Silence does not establish not-landed — it establishes nothing.
+  // Fold to RESIDUE (unclassified) kind `unrecorded`, never to SOURCE.
+  if (!s) return { phase: 'RESIDUE', verified: false, raw: s, residue_kind: 'unrecorded',
+    why: 'no state recorded — UNDETERMINED (absence is not evidence of not-landed)' };
 
   const u = s.toUpperCase();
 
   // A free sentence is not a state — flag it as residue, never coerce.
   if (u.length > 48 && /\s/.test(u) && !/[_/]/.test(u)) {
-    return { phase: 'RESIDUE', verified: false, raw: s, why: 'free-text sentence, not a state token' };
+    return { phase: 'RESIDUE', verified: false, raw: s, residue_kind: 'fraying', why: 'free-text sentence, not a state token' };
   }
 
   const verified = VERIFIED.test(u);
@@ -55,9 +80,10 @@ function classify(raw) {
     return { phase: 'HOLD', verified, raw: s, why: 'candidate / in flight, not landed' };
   }
   if (/ACTIVE|VERIFIED|PROOF|GREEN|PASS|CURRENT_HOST/.test(u)) {
-    return { phase: 'RETURN', verified, raw: s, why: 'active/verified/current-host' };
+    return { phase: 'RETURN', verified, raw: s,
+      why: 'active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)' };
   }
-  return { phase: 'RESIDUE', verified, raw: s, why: 'no fold rule matched — needs human disposition' };
+  return { phase: 'RESIDUE', verified, raw: s, residue_kind: 'fraying', why: 'no fold rule matched — needs human disposition' };
 }
 
 function run() {
@@ -75,7 +101,11 @@ function run() {
     dist[c.phase]++;
     const key = rawState === '' ? '(none)' : String(rawState);
     raw.set(key, (raw.get(key) || 0) + 1);
-    folded.push({ file: f, raw: rawState, phase: c.phase, verified: c.verified, why: c.why });
+    const row = { file: f, raw: rawState, phase: c.phase, verified: c.verified, why: c.why };
+    if (c.residue_kind) row.residue_kind = c.residue_kind;
+    // A receipt that attests THIS TOOL's results cannot also be independent evidence of it.
+    if (d && typeof d === 'object' && d.object_ref === SELF) row.self_reference = true;
+    folded.push(row);
   }
 
   const total = files.length;
@@ -83,7 +113,7 @@ function run() {
   const residue = dist.RESIDUE;
 
   const report = {
-    schema: 'field-fold/v1',
+    schema: 'field-fold/v2',
     generated: new Date().toISOString(),
     returns_total: total,
     raw_distinct_states: rawDistinct,
@@ -91,12 +121,73 @@ function run() {
     convergence_ratio: rawDistinct ? +(4 / rawDistinct).toFixed(3) : 0,
     phase_distribution: dist,
     residue_count: residue,
-    residue_files: folded.filter((x) => x.phase === 'RESIDUE').map((x) => ({ file: x.file, raw: x.raw })),
+    // residue is split so the gate measures vocabulary fraying only: `unrecorded` rows are
+    // missing data (owned, listed), not vocabulary that failed to fold.
+    unrecorded_count: folded.filter((x) => x.residue_kind === 'unrecorded').length,
+    fraying_count: folded.filter((x) => x.residue_kind === 'fraying').length,
+    residue_files: folded.filter((x) => x.phase === 'RESIDUE').map((x) => ({ file: x.file, raw: x.raw, why: x.why, kind: x.residue_kind })),
+    self_reference_files: folded.filter((x) => x.self_reference).map((x) => x.file),
+    verified_flagged: folded.filter((x) => x.verified).length,
+    verified_flagged_independent: folded.filter((x) => x.verified && !x.self_reference).length,
     raw_state_histogram: [...raw.entries()].sort((a, b) => b[1] - a[1]).map(([state, count]) => ({ state, count })),
     folded,
   };
 
-  return report;
+  return { report, files };
+}
+
+// ---- RECEIPT SYNC: mechanize the receipt-staleness class ----
+// Fold receipts restate counts (phase_distribution, verified_flagged, fold_result lines)
+// that FIELD_FOLD_MAP.json regenerates on every returns push. Hand-typed counts beside a
+// regenerating source are stale by construction — the fix is not to re-type them each lap
+// but to make the comparison generated: every run checks each fold receipt's claims against
+// the live map and writes the verdict into the map itself. A receipt that restates counts
+// must declare `counts_as_of` (an honest historical snapshot); one that does not is the
+// misreading class — flagged here, and fatal under `--check-receipts`.
+function receiptSync(report, files) {
+  const receipts = [];
+  for (const f of files) {
+    if (!/^RETURN_FIELD_FOLD.*\.json$/.test(f)) continue;
+    let d;
+    try { d = JSON.parse(readFileSync(join(RETURNS, f), 'utf8')); } catch { continue; }
+    if (!d || typeof d !== 'object' || d.object_ref !== SELF) continue;
+    const ev = (d.evidence && typeof d.evidence === 'object') ? d.evidence : {};
+    const claims = {};
+    const mismatches = [];
+    if (ev.phase_distribution && typeof ev.phase_distribution === 'object') {
+      claims.phase_distribution = ev.phase_distribution;
+      for (const k of new Set([...Object.keys(ev.phase_distribution), ...Object.keys(report.phase_distribution)])) {
+        const a = ev.phase_distribution[k] ?? 0;
+        const b = report.phase_distribution[k] ?? 0;
+        if (a !== b) mismatches.push(`phase_distribution.${k}: receipt ${a} vs map ${b}`);
+      }
+    }
+    if (typeof ev.verified_flagged === 'number') {
+      claims.verified_flagged = ev.verified_flagged;
+      if (ev.verified_flagged !== report.verified_flagged) {
+        mismatches.push(`verified_flagged: receipt ${ev.verified_flagged} vs map ${report.verified_flagged}`);
+      }
+    }
+    const restates = Object.keys(claims).length > 0 || /\d/.test(String(ev.fold_result ?? ''));
+    const hasAsOf = typeof d.counts_as_of === 'string' || typeof ev.counts_as_of === 'string';
+    let verdict;
+    if (!restates) verdict = 'NO RESTATED COUNTS — counts cited by path, cannot go stale';
+    else if (hasAsOf) verdict = 'AS-OF — historical snapshot by declaration (counts_as_of); live counts: this map';
+    else verdict = 'STALE — restates counts with no counts_as_of declaration (the misreading class)';
+    receipts.push({
+      file: f,
+      restates_counts: restates,
+      counts_as_of_declared: hasAsOf,
+      claims,
+      mismatches,
+      needs_counts_as_of: (!restates || hasAsOf) ? false : true,
+      verdict,
+    });
+  }
+  return {
+    source: 'live counts: returns/FIELD_FOLD_MAP.json (this map, regenerated by tools/field-fold.mjs on every returns push via .github/workflows/field-desk-refresh)',
+    receipts,
+  };
 }
 
 // ---- ROUTE FOLD: the field index's own vocabulary (showcase-manifest routes) ----
@@ -163,10 +254,12 @@ function runRoutes() {
   };
 }
 
-const report = run();
+const { report, files } = run();
 report.routes = runRoutes();
+report.receipt_sync = receiptSync(report, files);
 const wantJson = process.argv.includes('--json');
 const wantWrite = process.argv.includes('--write');
+const wantCheckReceipts = process.argv.includes('--check-receipts');
 
 if (wantWrite) writeFileSync(OUT, JSON.stringify(report, null, 1) + '\n');
 
@@ -176,7 +269,13 @@ if (wantJson) {
   const d = report.phase_distribution;
   console.log(`FIELD FOLD · ${report.returns_total} returns · ${report.raw_distinct_states} raw states → ${report.folded_onto_enum}-value enum`);
   console.log(`  ⚊ SOURCE ${d.SOURCE}   ·  𝌀 HOLD ${d.HOLD}   ·  ⚋ RETURN ${d.RETURN}   ·  ⧗ RESIDUE ${d.RESIDUE}`);
-  console.log(`  verified-flagged: ${report.folded.filter((x) => x.verified).length}`);
+  console.log(`  verified-flagged: ${report.verified_flagged} (independent of the fold's own receipts: ${report.verified_flagged_independent})`);
+  if (report.self_reference_files.length) {
+    console.log(`  self-reference (the fold's own receipts — NOT independent evidence): ${report.self_reference_files.join(', ')}`);
+  }
+  if (report.unrecorded_count) {
+    console.log(`  UNRECORDED ${report.unrecorded_count} returns carry no state at all — phase UNDETERMINED (absence is not evidence of not-landed), listed in map.residue_files`);
+  }
   const rt = report.routes ?? {};
   if (rt.routes_total) {
     const rd = rt.route_state_dist ?? {};
@@ -186,20 +285,32 @@ if (wantJson) {
     const oc = rt.operation_class_dist ?? {};
     console.log(`  operation → proposed 6-class taxonomy: ${Object.entries(oc).map(([k, v]) => k + ' ' + v).join(' · ')}`);
   }
-  if (report.residue_count) {
-    console.log(`  RESIDUE (needs human disposition, not coerced):`);
-    for (const r of report.residue_files.slice(0, 8)) console.log(`    ${r.file}  ←  ${JSON.stringify(r.raw).slice(0, 60)}`);
+  const frayingFiles = report.residue_files.filter((x) => x.kind === 'fraying');
+  if (frayingFiles.length) {
+    console.log(`  RESIDUE/fraying (needs human disposition, not coerced):`);
+    for (const r of frayingFiles.slice(0, 8)) console.log(`    ${r.file}  ←  ${JSON.stringify(r.raw).slice(0, 60)}`);
+  }
+  for (const r of report.receipt_sync.receipts) {
+    console.log(`  receipt sync · ${r.file}: ${r.verdict}${r.mismatches.length ? ' [' + r.mismatches.join('; ') + ']' : ''}`);
   }
 }
 
-// Gate: converged = every state folds except a bounded residue we explicitly own.
-// Exit code IS the verdict. Threshold: residue must stay ≤ 3% of returns.
+// Gate: converged = every RECORDED state folds except a bounded fraying residue we explicitly
+// own. Unrecorded rows are missing data — reported and owned, never counted as vocabulary
+// fraying and never coerced into a phase. Exit code IS the verdict. Threshold: fraying
+// residue must stay ≤ 3% of returns.
 const threshold = Math.max(2, Math.ceil(report.returns_total * 0.03));
 const routeResidue = report.routes?.route_state_residue?.length ?? 0;
-const converged = report.residue_count <= threshold && routeResidue <= threshold;
+const converged = report.fraying_count <= threshold && routeResidue <= threshold;
 if (!wantJson) {
   console.log(converged
-    ? `FIELD FOLD PASS · returns residue ${report.residue_count} ≤ ${threshold} · route-state residue ${routeResidue} · vocabulary converged`
-    : `FIELD FOLD FAIL · returns residue ${report.residue_count} / route-state residue ${routeResidue} · threshold ${threshold} · vocabulary still fraying`);
+    ? `FIELD FOLD PASS · fraying residue ${report.fraying_count} ≤ ${threshold} · unrecorded ${report.unrecorded_count} (explicit, never coerced) · route-state residue ${routeResidue} · vocabulary converged`
+    : `FIELD FOLD FAIL · fraying residue ${report.fraying_count} / route-state residue ${routeResidue} · threshold ${threshold} · vocabulary still fraying`);
+}
+const needsAsOf = report.receipt_sync.receipts.some((r) => r.needs_counts_as_of);
+if (wantCheckReceipts && needsAsOf) {
+  console.error('RECEIPT SYNC FAIL · a fold receipt restates counts without a counts_as_of declaration — the staleness class:');
+  for (const r of report.receipt_sync.receipts.filter((x) => x.needs_counts_as_of)) console.error(`  ${r.file}: ${r.verdict}`);
+  process.exit(1);
 }
 process.exit(converged ? 0 : 1);

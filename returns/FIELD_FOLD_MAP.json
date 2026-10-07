@@ -1,18 +1,321 @@
 {
- "schema": "field-fold/v1",
- "generated": "2026-10-06T23:25:23.861Z",
- "returns_total": 289,
+ "schema": "field-fold/v2",
+ "generated": "2026-10-07T01:44:16.534Z",
+ "returns_total": 290,
  "raw_distinct_states": 110,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
-  "SOURCE": 49,
+  "SOURCE": 0,
   "HOLD": 96,
-  "RETURN": 144,
-  "RESIDUE": 0
+  "RETURN": 145,
+  "RESIDUE": 49
  },
- "residue_count": 0,
- "residue_files": [],
+ "residue_count": 49,
+ "unrecorded_count": 49,
+ "fraying_count": 0,
+ "residue_files": [
+  {
+   "file": "ADVANCE_HARD_2026-09-22_01.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "APERTURE_USABILITY_CUT_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "BACKUP_RECOVERY_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_EVOLUTION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_WAITING_PORTS_TRUTH_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_REALITY_SYNC_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_WAITING_BODY_CALIBRATION_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FOCUS_INTERFACE_SYNC_COMPLETION_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FOLD_BLOOM_SEED_GATE_UNLOCK_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FOLD_LOSSLESS_PROOF_2026-09-23.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "HARD_ADVANCE_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "HERMES_CROSS_SESSION_RETURN_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "INTERPHASE_JSPACE_VOCAB_SHARED_001_2026-10-01.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "INTERPHASE_ROOM_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "MEDIA_REFINERY_B260728B_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "PERIMETER_HARDENING_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "READFIELD_CONVERGENCE_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "ROOM_MATERIAL_DOM_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SLEEPER_SYSTEM_FOLD_2026-09-27.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_BLOCKED_TURN_2026-10-03.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "STICKER_TGS_2026-09-29.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "SYSTEM_MAP_CONVERGENCE_2026-10-02.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "TOOLBELT_MATERIALIZATION_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "TRIANGLE_CENTER_CURRENT_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "TRIANGLE_UNIFIED_2026-09-22.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  }
+ ],
+ "self_reference_files": [
+  "RETURN_FIELD_FOLD_2026-10-07.json",
+  "RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json"
+ ],
+ "verified_flagged": 72,
+ "verified_flagged_independent": 70,
  "raw_state_histogram": [
   {
    "state": "(none)",
@@ -36,7 +339,7 @@
   },
   {
    "state": "MERGED_VERIFIED",
-   "count": 8
+   "count": 9
   },
   {
    "state": "SHIPPED",
@@ -459,16 +762,18 @@
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "APERTURE_MATERIAL_RSVP_2026-09-21.json",
@@ -480,15 +785,16 @@
   {
    "file": "APERTURE_USABILITY_CUT_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.json",
    "raw": "MERGED_ACTIVE_PROJECTION",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -536,9 +842,10 @@
   {
    "file": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -571,16 +878,18 @@
   {
    "file": "BACKUP_RECOVERY_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "BODY_FIT_RETURN_PATINA_2026-09-22.json",
@@ -655,9 +964,10 @@
   {
    "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23.json",
@@ -676,9 +986,10 @@
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
@@ -741,7 +1052,7 @@
    "raw": "EXACT_LIBRARY_PDFS_RAW_HASH_VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FAN8_PHYSICAL_PROJECTION_2026-09-25.json",
@@ -788,16 +1099,18 @@
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_EVOLUTION_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_GAME_DONOR_SALVAGE_2026-09-29.json",
@@ -844,16 +1157,18 @@
   {
    "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_CATCHUP_2026-09-25.json",
@@ -886,9 +1201,10 @@
   {
    "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_AUTHORITY_CONTRACTION_0824_2026-09-29.json",
@@ -1027,8 +1343,8 @@
    "file": "FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
    "raw": "ACTIVE",
    "phase": "RETURN",
-   "verified": true,
-   "why": "active/verified/current-host"
+   "verified": false,
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
@@ -1089,9 +1405,10 @@
   {
    "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_TOUCH_CATCHUP_2026-10-01.json",
@@ -1110,9 +1427,10 @@
   {
    "file": "FIELD_INDEX_WAITING_PORTS_TRUTH_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
@@ -1173,29 +1491,32 @@
   {
    "file": "FIELD_REALITY_SYNC_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_WAITING_BODY_CALIBRATION_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FOCUS_INTERFACE_SYNC_COMPLETION_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1210,7 +1531,7 @@
    "raw": "CI_GREEN_PRESEAL",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
@@ -1231,7 +1552,7 @@
    "raw": "VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
@@ -1251,7 +1572,7 @@
    "file": "FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1266,7 +1587,7 @@
    "raw": "VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FOLD_BLOOM_FIELD_LAB_LIVE_SUPPORT_2026-09-30.json",
@@ -1279,7 +1600,7 @@
    "file": "FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
    "raw": "SHIPPED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1314,7 +1635,7 @@
    "file": "FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1335,7 +1656,7 @@
    "file": "FOLD_BLOOM_HORIZON_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1384,14 +1705,14 @@
    "file": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_LIVE_2026-09-21.json",
    "raw": "SHIPPED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1411,9 +1732,10 @@
   {
    "file": "FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
@@ -1426,7 +1748,7 @@
    "file": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1461,14 +1783,14 @@
    "file": "FOLD_BLOOM_MOTION_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1511,7 +1833,7 @@
    "raw": "PR_VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
@@ -1531,7 +1853,7 @@
    "file": "FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1539,48 +1861,49 @@
    "raw": "REPO_VERIFIED / WAITING_TWO_PHONE_PHYSICAL_PROOF",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_SEED_GATE_UNLOCK_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
    "raw": "SHIPPED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_SOURCE_CELL_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1615,7 +1938,7 @@
    "file": "FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1629,7 +1952,7 @@
    "file": "FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1678,14 +2001,14 @@
    "file": "FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_VOICE_01_2026-09-24.json",
    "raw": "SHIPPED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -1699,22 +2022,23 @@
    "file": "FOLD_BLOOM_WORKFLOW_2026-09-25.json",
    "raw": "SHIPPED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FOLD_LOSSLESS_PROOF_2026-09-23.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
@@ -1775,16 +2099,18 @@
   {
    "file": "HARD_ADVANCE_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "HERMES_CROSS_SESSION_RETURN_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "HERMES_DAILY_LIVE_AUTHORITY_2026-09-25.json",
@@ -1803,9 +2129,10 @@
   {
    "file": "HOST_TOOLCHAIN_LOAD_VERIFICATION_2026-10-01.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "HOUSE_CARE_RETURN_2026-09-25.json",
@@ -1860,15 +2187,16 @@
    "file": "HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
    "raw": "MERGED_ACTIVE_CANDIDATE",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
@@ -1922,16 +2250,18 @@
   {
    "file": "INTERPHASE_JSPACE_VOCAB_SHARED_001_2026-10-01.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "INTERPHASE_ROOM_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "JSPACE_REAL_TRACE_2026-09-27.json",
@@ -1992,22 +2322,24 @@
   {
    "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "MEDIA_REFINERY_B260728B_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "NEGLECTED_RECOVERY_SWEEP_2026-09-26.json",
    "raw": "RECOVERY_CONVERGENCE_COMPLETE / NO_NEW_ACTIVE_FRONT",
    "phase": "RETURN",
-   "verified": true,
+   "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
@@ -2020,16 +2352,18 @@
   {
    "file": "ONE_RETURN_REIFICATION_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "PASSIVE_FEEDBACK_2026-09-21.json",
@@ -2041,9 +2375,10 @@
   {
    "file": "PERIMETER_HARDENING_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "POEM_MAP_SOURCE_AUTHORITY_RACE_2026-09-29.json",
@@ -2111,9 +2446,10 @@
   {
    "file": "READFIELD_CONVERGENCE_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "READFIELD_FOCUS_LENS_080_2026-09-23.json",
@@ -2188,16 +2524,26 @@
   {
    "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "RETURN_FIELD_FOLD_2026-10-07.json",
    "raw": "MERGED_VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "landed (settled/complete/aligned end-state)"
+   "why": "landed (settled/complete/aligned end-state)",
+   "self_reference": true
+  },
+  {
+   "file": "RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json",
+   "raw": "MERGED_VERIFIED",
+   "phase": "RETURN",
+   "verified": true,
+   "why": "landed (settled/complete/aligned end-state)",
+   "self_reference": true
   },
   {
    "file": "RETURN_INTERPHASE_GENESIS_2026-10-03.json",
@@ -2223,9 +2569,10 @@
   {
    "file": "ROOM_MATERIAL_DOM_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "ROUTE_ONTOLOGY_LINT_2026-09-25.json",
@@ -2293,23 +2640,26 @@
   {
    "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SLEEPER_FIELD_CONVERGENCE_2026-09-27.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
@@ -2328,79 +2678,89 @@
   {
    "file": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SLEEPER_SYSTEM_FOLD_2026-09-27.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_BLOCKED_TURN_2026-10-03.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_PROTOCOL_2026-10-02.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SOURCE_HOLD_TURN_TRACE_RETURN_WORKED_RUN_2026-10-02.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "STICKER_TGS_2026-09-29.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "SYSTEM_MAP_CONVERGENCE_2026-10-02.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "TOOLBELT_MATERIALIZATION_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json",
    "raw": "SOURCE_RAW_BYTES_VERIFIED",
    "phase": "RETURN",
    "verified": true,
-   "why": "active/verified/current-host"
+   "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
   },
   {
    "file": "TRIANGLE_CENTER_CURRENT_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "TRIANGLE_UNIFIED_2026-09-22.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "VERSE_CONTINUE_INSERT_2026-09-25.json",
@@ -2468,9 +2828,10 @@
   {
    "file": "WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
    "raw": "",
-   "phase": "SOURCE",
+   "phase": "RESIDUE",
    "verified": false,
-   "why": "no state recorded"
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "WORK_EXPERIENCE_READFIELD_2026-10-03.json",
@@ -2583,5 +2944,42 @@
    "LOAD / COMPOSE": "RECOVER",
    "WITNESS": "SEE"
   }
+ },
+ "receipt_sync": {
+  "source": "live counts: returns/FIELD_FOLD_MAP.json (this map, regenerated by tools/field-fold.mjs on every returns push via .github/workflows/field-desk-refresh)",
+  "receipts": [
+   {
+    "file": "RETURN_FIELD_FOLD_2026-10-07.json",
+    "restates_counts": true,
+    "counts_as_of_declared": true,
+    "claims": {
+     "phase_distribution": {
+      "SOURCE": 49,
+      "HOLD": 94,
+      "RETURN": 135,
+      "RESIDUE": 7
+     },
+     "verified_flagged": 95
+    },
+    "mismatches": [
+     "phase_distribution.SOURCE: receipt 49 vs map 0",
+     "phase_distribution.HOLD: receipt 94 vs map 96",
+     "phase_distribution.RETURN: receipt 135 vs map 145",
+     "phase_distribution.RESIDUE: receipt 7 vs map 49",
+     "verified_flagged: receipt 95 vs map 72"
+    ],
+    "needs_counts_as_of": false,
+    "verdict": "AS-OF — historical snapshot by declaration (counts_as_of); live counts: this map"
+   },
+   {
+    "file": "RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json",
+    "restates_counts": true,
+    "counts_as_of_declared": true,
+    "claims": {},
+    "mismatches": [],
+    "needs_counts_as_of": false,
+    "verdict": "AS-OF — historical snapshot by declaration (counts_as_of); live counts: this map"
+   }
+  ]
  }
 }
