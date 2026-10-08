@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T11:58:46.267Z",
+  "generated": "2026-10-08T13:31:55.811Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 21,
-  "git_commits_in_window": 100,
-  "telemetry_commits_in_window": 79,
-  "commits_total": 5821,
+  "commits_in_window": 25,
+  "git_commits_in_window": 111,
+  "telemetry_commits_in_window": 86,
+  "commits_total": 5832,
   "branch_count": 1016,
   "recent_commits": [
-    "lib: fieldtypes.js — runtime contract + property-law module for the microlib",
-    "field: one command registry for the URLbar/omnibar (M1 M2 M3 M4 M6)",
-    "desk: refresh public field data"
+    "desk: refresh public field data",
+    "fi-mutation-contract: stamp /foundry/omnitools/ (IMPLEMENT,VERIFY)",
+    "omnitools: rack verbs as data rows + mode-scoped op strip (M3 M4 M8)"
   ],
   "active_fronts": [
     {
