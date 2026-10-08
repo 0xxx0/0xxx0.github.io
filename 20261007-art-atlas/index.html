@@ -38,7 +38,7 @@ main{max-width:780px;margin:0 auto;padding:28px 5% 40px}
 footer{margin:40px 5% 20px;padding:10px 0;border-top:1px solid var(--line);color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
 footer span{margin-right:auto}
 
-/* Refinery is a local compiler. It never uploads or runs a renderer. */
+/* Local compiler only: no upload, renderer or effect. */
 .refinery{container-type:inline-size;border:1px solid var(--ink);background:var(--paper);margin:18px 0}
 .refinery>summary{cursor:pointer;list-style:none;min-height:52px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;font:12px/1.4 monospace;letter-spacing:1px}
 .refinery>summary::-webkit-details-marker{display:none}
@@ -97,10 +97,7 @@ footer span{margin-right:auto}
   <div class="family"><h2>Our instruments</h2></div>
 
   <details class="refinery" id="refinery">
-    <summary>
-      <span><strong class="refinery-title">Media Refinery</strong>SOURCE → HOLD → TURN → RETURN</span>
-      <span>EFFECT · NONE</span>
-    </summary>
+    <summary><span><strong class="refinery-title">Media Refinery</strong>SOURCE → HOLD → TURN → RETURN · EFFECT NONE</span></summary>
     <div class="refinery-body">
       <p class="refinery-note">Compile one image / video / audio / FIELD object into a renderer-neutral handoff. Source bytes stay on this device. No model is called, no credit is spent, no original is changed.</p>
 
@@ -304,27 +301,29 @@ footer span{margin-right:auto}
     status.textContent=message||'CHANGED · compile again to produce a current RETURN.';
   }
 
-  function sourceObject(ref){
-    return ref.startsWith('/')?ref:'UNRESOLVED';
+  async function resolveObject(ref){
+    if(!ref.startsWith('/')) return 'UNRESOLVED';
+    try{
+      const response=await fetch('/showcase-manifest.json',{cache:'no-store'});
+      if(!response.ok) return 'UNRESOLVED';
+      const manifest=await response.json();
+      const route=Array.isArray(manifest.routes)?manifest.routes.find(item=>item&&item.href===ref):null;
+      return route?route.href:'UNRESOLVED';
+    }catch(_error){
+      return 'UNRESOLVED';
+    }
   }
 
-  function buildPacket(){
-    const ref=source.value.trim();
-    if(!ref){
-      status.textContent='SOURCE REQUIRED · enter a FIELD/content reference or choose one local file.';
-      source.focus();
-      return null;
-    }
+  function buildPacket(ref,objectRef){
     const state=lockState();
     const change=delta.value.trim()||defaults[turn.value].delta;
-    const objectRef=sourceObject(ref);
     const preserve=state.preserve.join(',');
     const intent=`${turn.value} | return:${target.value} | preserve:${preserve} | mutate:${state.mutable} | ${change}`;
     const packet={
       source_ref:ref,
       intent,
       object_ref:objectRef,
-      contribution_class:'DONOR',
+      contribution_class:objectRef==='UNRESOLVED'?'UNRESOLVED':'DONOR',
       evidence_class:'SPEC',
       delta_or_question:`Preserve [${preserve}]. Mutate [${state.mutable}]. ${change}`,
       proof_available:'Local source reference + explicit lock/mutate contract. No renderer output or effect evidence exists yet.',
@@ -338,9 +337,7 @@ footer span{margin-right:auto}
       residue:`Return target ${target.value}. Source bytes remain local to this compilation step. Original must not be mutated.`,
       return_to:'/20261007-art-atlas/#refinery'
     };
-    if(objectRef==='UNRESOLVED'){
-      packet.host_candidates=['/20261007-art-atlas/'];
-    }else{
+    if(objectRef!=='UNRESOLVED'){
       packet.execution={
         moves:[{
           id:'media-turn',
@@ -352,21 +349,28 @@ footer span{margin-right:auto}
         }],
         selected_move_id:'media-turn',
         return_to:'/20261007-art-atlas/#refinery',
-        evidence_refs:[objectRef,'/control/REPRESENTATION.json']
+        evidence_refs:[objectRef,'/showcase-manifest.json','/control/REPRESENTATION.json']
       };
     }
     return packet;
   }
 
-  function compilePacket(){
-    const packet=buildPacket();
-    if(!packet) return;
-    compiled=packet;
-    jsonOut.textContent=JSON.stringify(packet,null,2);
+  async function compilePacket(){
+    const ref=source.value.trim();
+    if(!ref){
+      status.textContent='SOURCE REQUIRED · enter a FIELD/content reference or choose one local file.';
+      source.focus();
+      return;
+    }
+    compile.disabled=true;
+    status.textContent=ref.startsWith('/')?'RESOLVING · checking exact FIELD address…':'HOLD · local/content source remains unresolved by design.';
+    const objectRef=await resolveObject(ref);
+    compiled=buildPacket(ref,objectRef);
+    jsonOut.textContent=JSON.stringify(compiled,null,2);
     output.hidden=false;
     returnBtn.disabled=false;
-    const state=packet.object_ref==='UNRESOLVED'?'HOLD REQUIRED · source is not yet a FIELD address; no TURN authority emitted.':'TURN READY · OFFER only; explicit renderer submission remains the effect boundary.';
-    status.textContent=state;
+    compile.disabled=false;
+    status.textContent=objectRef==='UNRESOLVED'?'HOLD REQUIRED · source has no verified FIELD address; no selected TURN emitted.':'TURN READY · exact FIELD route verified; OFFER only, renderer submission remains the effect boundary.';
   }
 
   function returnJson(){
