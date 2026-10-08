@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-07T23:21:53.201Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-08T00:23:53.628Z by scripts/generate-convergence-strip.mjs_
 
-The field has **164 material commits on 2026-10-07** across **1011 branches** (301 exact Git commits in the window; 137 generated telemetry; 5754 on master all-time).
+The field has **10 material commits on 2026-10-08** across **1012 branches** (40 exact Git commits in the window; 30 generated telemetry; 5761 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- Merge pull request #954 from 0xxx0/fold/palette-status-20261008
+- palette: alias-first ranking + recents-first empty state + status spine on the
 - desk: refresh public field data
-- Merge pull request #953 from 0xxx0/fold/triangle-interphase-20261008
-- fi-mutation-contract: restamp /forward-field-proof/triangle/bench/ (IMPLEMENT,
 
 ## Open gaps
 
