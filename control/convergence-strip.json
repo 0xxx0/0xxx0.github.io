@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T14:15:27.596Z",
+  "generated": "2026-10-08T14:33:56.180Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 32,
-  "git_commits_in_window": 122,
-  "telemetry_commits_in_window": 90,
-  "commits_total": 5849,
+  "commits_in_window": 34,
+  "git_commits_in_window": 126,
+  "telemetry_commits_in_window": 92,
+  "commits_total": 5864,
   "branch_count": 1018,
   "recent_commits": [
-    "Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006",
-    "Merge remote-tracking branch 'origin/master' into kestrel/pr935-sync-20261008",
-    "sync: merge origin/master into microlib wave 2 (conflict sync: lib/README keep"
+    "Merge pull request #931 from 0xxx0/audit/convergence-snapshot-authority-202610",
+    "sync: replay authority-none law onto current master; conflicts were the two ge",
+    "Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006"
   ],
   "active_fronts": [
     {
