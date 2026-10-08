@@ -6,35 +6,24 @@
  */
 if(typeof window==='undefined'||location.pathname!=='/')return;
 
-const COMMANDS=Object.freeze([
- {id:'root',glyph:'⌂',label:'ROOT',hint:'FIELD root'},
- {id:'hold',glyph:'◎',label:'HOLD',hint:'address / shallow'},
- {id:'work',glyph:'▽',label:'WORK',hint:'semantic depth'},
- {id:'prove',glyph:'◆',label:'PROVE',hint:'evidence depth'},
- {id:'open',glyph:'↗',label:'OPEN',hint:'native surface'},
- {id:'return',glyph:'↩',label:'RETURN',hint:'same object / hold'},
- {id:'handoff',glyph:'⎘',label:'HANDOFF',hint:'copy action packet'},
- {id:'run',glyph:'▶',label:'HERMES',hint:'copy local prepare command'},
- {id:'trace',glyph:'⋮',label:'TRACE',hint:'witness'},
- {id:'read',glyph:'≡',label:'READ',hint:'reader'},
- {id:'map',glyph:'⌘',label:'MAP',hint:'visual projection'},
- {id:'recent',glyph:'◴',label:'RECENT',hint:'recent projection'},
- {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents'}
-]);
-const COMMAND_BY_ID=new Map(COMMANDS.map(x=>[x.id,x]));
-const GLYPH_TO_ID=new Map(COMMANDS.map(x=>[x.glyph,x.id]));
+/* M1 · ONE REGISTRY — field-urlbar.js owns the command table (union of both
+ pre-fold tables, one glyph per id, drifted ids as aliases). This file binds it
+ through FieldURLBarCore and never keeps a second copy: decide()/mountKeys wait
+ for the core before rendering, and every consumer reads the bound view. */
+let COMMANDS=[],COMMAND_BY_ID=new Map();
+function bindRegistry(){
+ const list=(typeof globalThis!=='undefined'&&globalThis.FieldURLBarCore)||null;
+ if(!list||!Array.isArray(list.COMMANDS)||!list.COMMANDS.length)return false;
+ COMMANDS=list.COMMANDS;
+ COMMAND_BY_ID=new Map(COMMANDS.map(x=>[x.id,x]));
+ return true;
+}
+bindRegistry();
 /* Glyph aliases — the operator's grammar keys (unified palette, donor brief
    §2 move 2). One letter = one operator; the palette RANKS these first, this
    file EXECUTES them. field-urlbar.js reads this table through FieldOmnibar.aliases
    so there is exactly one map, not two. */
 const GLYPH_ALIAS=Object.freeze({h:'root',o:'hold',w:'work',p:'prove',r:'open'});
-const ALIAS=Object.freeze({
- ':root':'root',':home':'root',':hold':'hold',':work':'work',':prove':'prove',':proof':'prove',
- ':open':'open',':return':'return',':back':'return',':handoff':'handoff',':copy':'handoff',
- ':run':'run',':hermes':'run',':trace':'trace',':read':'read',':map':'map',':recent':'recent',
- ':reset':'reset',':rerank':'reset',
- ':up':'up',':down':'down',':prev':'prev',':next':'next','↑':'up','↓':'down','←':'prev','→':'next'
-});
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const clean=s=>String(s??'').trim();
 let root,input,list,active=0,rows=[],editing=false,lastAddress='/';
@@ -58,20 +47,20 @@ function fuzzyScore(needle,hay){
  let j=0,gaps=0,last=-1;for(let i=0;i<h.length&&j<n.length;i++)if(h[i]===n[j]){if(last>=0)gaps+=i-last-1;last=i;j++}
  return j===n.length?Math.max(1,1800-gaps*8-h.length):0;
 }
+/* M2 · one parser, two entry styles: resolveCommand/parseCommand live in the
+   registry owner (field-urlbar.js) — leading ':cmd', trailing 'target :cmd'
+   and bare-glyph forms all resolve through that ONE table. */
 function resolveCommand(token){
- const t=clean(token).toLowerCase();if(!t)return null;
- if(ALIAS[t])return ALIAS[t];
- if(GLYPH_TO_ID.has(token))return GLYPH_TO_ID.get(token);
- if(COMMAND_BY_ID.has(t.replace(/^:/,'')))return t.replace(/^:/,'');
+ try{const core=globalThis.FieldURLBarCore;if(core&&typeof core.resolveCommand==='function')return core.resolveCommand(token)}catch(_){}
  return null;
 }
 function parse(raw){
- let q=clean(raw),command=null;
- if(GLYPH_TO_ID.has(q))return{query:'',command:GLYPH_TO_ID.get(q)};
- const bits=q.split(/\s+/).filter(Boolean),last=bits.at(-1)||'';
- const c=resolveCommand(last);
- if(c){command=c;q=bits.slice(0,-1).join(' ')}
- else if(q.startsWith(':')){const whole=resolveCommand(q);if(whole){command=whole;q=''}}
+ let q='',command=null;
+ try{
+  const core=globalThis.FieldURLBarCore;
+  const p=core&&typeof core.parseCommand==='function'?core.parseCommand(raw):{query:clean(raw),command:null};
+  q=clean(p.query);command=p.command||null;
+ }catch(_){q=clean(raw)}
  if(q.startsWith('@'))q=q.slice(1);
  return{query:clean(q),command};
 }
@@ -94,7 +83,7 @@ function candidates(query){
 }
 function commandRows(filter=''){
  const q=clean(filter).replace(/^:/,'').toLowerCase();
- return COMMANDS.filter(c=>!q||c.id.includes(q)||c.label.toLowerCase().includes(q)).slice(0,7).map((c,i)=>({kind:'command',command:c,score:100-i}))
+ return COMMANDS.filter(c=>!q||c.id.includes(q)||c.label.toLowerCase().includes(q)||(c.aliases||[]).some(a=>a.includes(q))).slice(0,7).map((c,i)=>({kind:'command',command:c,score:100-i}))
 }
 /* Empty-state ordering: the held object first, then surfaces in USE order
    (bounded local cache, authority NONE — read only, this file holds no store). */
@@ -127,23 +116,41 @@ async function copyText(text,label){
 async function execute(command,href,reason='operator'){
  const cmd=resolveCommand(command)||command||'hold',target=href||focusHref()||'/';
  const act=window.__fieldAct,zui=window.FieldZUI,host=window.FieldLensHost;
+ // ZUI provenance: the label keeps 'omnibar' for every native origin and
+ // says 'urlbar' only when the shared dispatcher was entered from the URLbar.
+ const zsrc=reason==='urlbar'?'urlbar':'omnibar';
+ const entry=COMMAND_BY_ID.get(cmd)||null;
  // Frecency feed: every real use of a glyph operator teaches the palette
  // ranking (bounded local cache, authority NONE — see field-urlbar.js).
  try{window.FieldPalette?.noteUse?.('cmd:'+cmd)}catch(_){}
+ // M6 · :help — render the ONE registry (URLbar line owns the panel; the
+ // fallback own-mount renders it in its own results list).
+ if(cmd==='help'){
+  const u=window.FieldURLBar;
+  if(u&&typeof u.showHelp==='function'){u.showHelp();status('REGISTRY','ok')}
+  else if(input){input.value=':help';active=0;render();status('REGISTRY','ok')}
+  emit({command:cmd,target,reason});syncAddress();return;
+ }
+ // M4 · route commands are registry DATA — plain address or copy, never a new
+ // API/route and never a secret: the bar addresses, the host executes.
+ if(entry?.nav){emit({command:cmd,target:entry.nav,reason});location.assign(entry.nav);return}
+ if(entry?.copy){const ok=await copyText(entry.copy,cmd.toUpperCase()+' URL COPIED');if(ok)emit({command:cmd,target:entry.copy,reason});syncAddress();return}
  if(cmd==='root'){emit({command:cmd,target:'/',reason});location.assign('/');return}
  if(target&&target!=='/'&&act?.focus)act.focus(target);
- if(target==='/'&&cmd==='hold'){zui?.close?.('omnibar');status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
+ if(target==='/'&&cmd==='hold'){zui?.close?.(zsrc);status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
  switch(cmd){
-  case'hold':await zui?.close?.('omnibar');status('HOLD · '+target,'ok');break;
-  case'work':await zui?.open?.('WORK','omnibar');status('WORK · '+target,'ok');break;
-  case'prove':await zui?.open?.('PROVE','omnibar');status('PROVE · '+target,'ok');break;
+  case'hold':await zui?.close?.(zsrc);status('HOLD · '+target,'ok');break;
+  case'work':await zui?.open?.('WORK',zsrc);status('WORK · '+target,'ok');break;
+  case'prove':await zui?.open?.('PROVE',zsrc);status('PROVE · '+target,'ok');break;
   case'open':if(target==='/'||!act?.open){status('OPEN unavailable','bad');return}act.open(target);break;
-  case'return':await zui?.close?.('omnibar');document.getElementById('aperture')?.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});status('RETURN · '+target,'ok');break;
   case'handoff':document.getElementById('apCopy')?.click();status('HANDOFF · copied existing action packet','ok');break;
   case'run':{
    const commandLine='node tools/field-hermes-run.mjs --source '+shellEscape(target);
    await copyText(commandLine,'HERMES PREP COPIED');break;
   }
+  case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else status('HEADS · needs the FIELD:// line','bad');break}
+  case'fovea':document.getElementById('foveaToggle')?.click();status('FOVEA · '+target,'ok');break;
+  case'theme':document.getElementById('fiTheme')?.click();status('THEME','ok');break;
   case'trace':document.getElementById('apTrace')?.click();status('TRACE · '+target,'ok');break;
   case'read':document.getElementById('apInspect')?.click();status('READ · '+target,'ok');break;
   case'map':host?.project?.('VISUAL');status('MAP · '+target,'ok');break;
@@ -152,7 +159,7 @@ async function execute(command,href,reason='operator'){
   case'down':host?.dive?.();status('DIVE','ok');break;
   case'prev':host?.peer?.(-1);status('PEER ←','ok');break;
   case'next':host?.peer?.(1);status('PEER →','ok');break;
-  case'reset':window.FieldPalette?.reset?.();status('RANKING RESET','ok');break;
+  case'reset':window.FieldPalette?.reset?.();if(window.FieldURLBar&&typeof window.FieldURLBar.focus==='function')window.FieldURLBar.focus('');status('RANKING RESET','ok');break;
   default:status('UNKNOWN · '+cmd,'bad');return;
  }
  emit({command:cmd,target,reason});syncAddress();
@@ -162,6 +169,9 @@ function render(){
  const parsed=parse(input.value),raw=clean(input.value);
  rows=raw.startsWith(':')&&!parsed.command?commandRows(raw):candidates(parsed.query);
  if(parsed.command&&!parsed.query)rows=[{kind:'command',command:COMMAND_BY_ID.get(parsed.command)||{id:parsed.command,glyph:'›',label:parsed.command.toUpperCase(),hint:'current object'},score:999},...candidates('').slice(0,5)];
+ // M6 · :help renders the WHOLE registry in the fallback own-mount list; the
+ // keys-mount delegates to the URLbar panel (see execute()).
+ if(parsed.command==='help')rows=COMMANDS.map((c,i)=>({kind:'command',command:c,score:999-i}));
  // Unified palette (donor brief §2 move 2): an exact glyph alias outranks every
  // fuzzy match here exactly as it does on the URLbar line — one grammar, one rank.
  if(!parsed.command){
@@ -173,9 +183,10 @@ function render(){
  active=Math.max(0,Math.min(active,Math.max(0,rows.length-1)));
  const action=parsed.command?COMMAND_BY_ID.get(parsed.command)?.glyph||'›':'◎';
  list.innerHTML=rows.length?rows.map((row,i)=>{
-  if(row.kind==='command'){const c=row.command;return'<button type="button" role="option" aria-selected="'+(i===active)+'" data-omni-row="'+i+'"><i>'+esc(c.glyph)+'</i><span><b>'+esc(c.label)+'</b><small>'+esc(c.hint)+'</small></span><code>:'+esc(c.id)+'</code></button>'}
+  if(row.kind==='command'){const c=row.command;const al=c.aliases&&c.aliases.length?' · = '+c.aliases.map(a=>':'+a).join(' '):'';const dest=c.nav?' · → '+c.nav:c.copy?' · ⧉ copy URL':'';return'<button type="button" role="option" aria-selected="'+(i===active)+'" data-omni-row="'+i+'"><i>'+esc(c.glyph)+'</i><span><b>'+esc(c.label)+'</b><small>'+esc(c.hint+al+dest)+'</small></span><code>:'+esc(c.id)+'</code></button>'}
   const r=row.route;return'<button type="button" role="option" aria-selected="'+(i===active)+'" data-omni-row="'+i+'"><i>'+esc(row.glyph)+'</i><span><b>'+esc(r.title||r.href)+'</b><small>'+esc([r.state,r.operation,r.kind].filter(Boolean).join(' · '))+'</small></span><code>'+esc(r.href)+'</code><em>'+esc(action)+'</em></button>'
  }).join(''):'<div class="fieldOmniEmpty">∅ no addressed match</div>';
+ if(parsed.command==='help')list.insertAdjacentHTML('beforeend','<div class="fieldOmniEmpty">words · /path · @ · > · ^ · : · ! · authority NONE · '+COMMANDS.length+' commands</div>');
  list.querySelectorAll('[data-omni-row]').forEach(b=>b.onclick=()=>choose(Number(b.dataset.omniRow),'pointer'));
  root.dataset.open='1';
 }
@@ -185,7 +196,9 @@ function syncAddress(){
 function move(delta){if(!rows.length)return;active=(active+delta+rows.length)%rows.length;render();list.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})}
 async function choose(index=active,reason='keyboard'){
  const parsed=parse(input.value),row=rows[index]||null;
- if(row?.kind==='command'&&(!parsed.query||row.alias)){await execute(row.command.id,focusHref()||'/',reason);close(true);return}
+ // A command row always runs THAT command (M2: leading, trailing and glyph
+ // entry all land on the same dispatcher); :help keeps its registry open.
+ if(row?.kind==='command'){await execute(row.command.id,focusHref()||'/',reason);if(row.command.id!=='help')close(true);return}
  const href=addressFor(row,parsed),cmd=parsed.command||'hold';
  await execute(cmd,href,reason);close(true)
 }
@@ -219,12 +232,12 @@ html[data-theme="light"] #fieldOmnibar,html[data-theme="light"] .fieldOmniResult
 function markup(){
  const el=document.createElement('section');el.id='fieldOmnibar';el.dataset.open='0';el.dataset.depth='HOLD';el.setAttribute('aria-label','FIELD omnibar');
  const visible=['hold','work','prove','open','return','handoff','run'];
- el.innerHTML='<div class="fieldOmniLine"><span class="fieldOmniSigil" data-omni-sigil>Φ</span><input class="fieldOmniInput" data-omni-input aria-label="Address FIELD object or enter command" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="search"><div class="fieldOmniKeys">'+visible.map(id=>{const c=COMMAND_BY_ID.get(id);return'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>'}).join('')+'</div></div><div class="fieldOmniResults" data-omni-results role="listbox"></div><div class="fieldOmniStatus" data-omni-status></div>';
+ el.innerHTML='<div class="fieldOmniLine"><span class="fieldOmniSigil" data-omni-sigil>Φ</span><input class="fieldOmniInput" data-omni-input aria-label="Address FIELD object or enter command" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="search"><div class="fieldOmniKeys">'+visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'</div></div><div class="fieldOmniResults" data-omni-results role="listbox"></div><div class="fieldOmniStatus" data-omni-status></div>';
  return el
 }
 function keysMarkup(){
  const visible=['hold','work','prove','open','return','handoff','run'];
- return visible.map(id=>{const c=COMMAND_BY_ID.get(id);return'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>'}).join('')+'<div class="fieldOmniStatus" data-omni-status></div>';
+ return visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'<div class="fieldOmniStatus" data-omni-status></div>';
 }
 function wireKeys(node){node.querySelectorAll('[data-command]').forEach(b=>b.onclick=()=>execute(b.dataset.command,focusHref()||'/','glyph'))}
 /* FOLD — exactly ONE route-control line. The FIELD URLbar owns the line: its
@@ -235,6 +248,7 @@ function wireKeys(node){node.querySelectorAll('[data-command]').forEach(b=>b.onc
    mounts its own single line — never both. */
 function mountKeys(){
  if(document.getElementById('fieldOmnibarKeys'))return true;
+ if(!bindRegistry())return false;
  const bar=document.getElementById('fieldUrlBar');if(!bar)return false;
  const frame=bar.querySelector('.fieldUrlFrame')||bar;
  document.getElementById('fieldOmnibar')?.remove();
@@ -261,6 +275,9 @@ function mountOwn(){
   if(e.key==='Enter'){e.preventDefault();choose(active,'enter')}
  });
  document.addEventListener('keydown',e=>{
+  // M3 · keys are bindings, not owners: while the URLbar line exists this is a
+  // no-op passthrough — field-urlbar.js owns document / ⌘K : exclusively. The
+  // branches below serve ONLY the fallback own-mount (no URLbar ever booted).
   if(document.getElementById('fieldUrlBar'))return;
   if(isEditable(e.target)||e.defaultPrevented)return;
   if(e.key==='/'&&!e.metaKey&&!e.ctrlKey&&!e.altKey){e.preventDefault();open(true);return}
@@ -280,6 +297,7 @@ function mountOwn(){
  }catch(_){}
 }
 function decide(tries=0){
+ bindRegistry();
  if(mountKeys())return;
  // The URLbar sets its boot flag synchronously before inserting (or permanently
  // bails if the host is missing), so a set flag + no element means: never.
@@ -290,6 +308,6 @@ function bind(){
  if(document.getElementById('fieldOmnibarKeys'))return;
  css();decide();
 }
-window.FieldOmnibar=Object.freeze({open:()=>open(true),close:()=>close(true),execute:(command,href)=>execute(command,href,'api'),address:()=>focusHref()||'/',aliases:GLYPH_ALIAS,commands:COMMANDS.map(({id,glyph,label})=>({id,glyph,label}))});
+window.FieldOmnibar=Object.freeze({open:()=>open(true),close:()=>close(true),execute:(command,href,reason)=>execute(command,href,reason||'api'),address:()=>focusHref()||'/',aliases:GLYPH_ALIAS,get commands(){return COMMANDS.map(({id,glyph,label})=>({id,glyph,label}))}});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',bind,{once:true}):bind();
 })();

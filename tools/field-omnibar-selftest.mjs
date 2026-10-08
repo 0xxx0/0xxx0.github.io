@@ -22,8 +22,21 @@ need(!/\beval\s*\(|new Function\b/.test(omni),'omnibar created arbitrary code ex
 need(omni.includes("authority:'NONE'"),'omnibar trace event does not declare authority NONE');
 need(omni.includes(".slice(0,7)"),'omnibar result aperture is not bounded');
 need(omni.includes("e.key==='/'")&&omni.includes("e.key.toLowerCase()==='k'"),'keyboard aperture missing');
-for(const glyph of ['⌂','◎','▽','◆','↗','↩','⎘','▶'])need(omni.includes("glyph:'"+glyph+"'"),'operator glyph missing '+glyph);
-for(const command of ['hold','work','prove','open','return','handoff','run','trace','read','map','recent'])need(omni.includes("id:'"+command+"'"),'operator missing '+command);
+/* M1 · ONE registry: field-urlbar.js owns the command table (union of both
+   pre-fold tables, one glyph per id); the omnibar must BIND it, not copy it. */
+const reg=fs.readFileSync('field-urlbar.js','utf8');
+for(const glyph of ['⌂','◎','▽','◆','↗','↩','⎘','▶'])need(reg.includes("glyph:'"+glyph+"'"),'operator glyph missing '+glyph);
+for(const command of ['hold','work','prove','open','return','handoff','run','trace','read','map','recent'])need(reg.includes("id:'"+command+"'"),'operator missing '+command);
+need(omni.includes('FieldURLBarCore'),'omnibar does not bind the shared registry');
+need(!/const COMMANDS\s*=\s*Object\.freeze\(\[/.test(omni),'second command registry found in field-omnibar.js');
+/* M4 · route commands carried as registry data (plain navigation / copy) */
+for(const nav of ["/desk/","/returns/","/reader/","/digests/#pp"])need(reg.includes("nav:'"+nav+"'"),'route command missing '+nav);
+for(const url of ["http://127.0.0.1:8777/hub","http://127.0.0.1:8777/calls"])need(reg.includes("copy:'"+url+"'"),'reader URL copy missing '+url);
+need(reg.includes("id:'help'"),' :help registry command missing');
+/* M3 · one keydown owner: the omnibar listener is a passthrough while the
+   URLbar line exists — field-urlbar.js owns document / ⌘K : */
+need(omni.includes("if(document.getElementById('fieldUrlBar'))return;"),'omnibar keydown is not a passthrough');
+need(omni.includes("parsed.command==='help'"),'omnibar own-mount help branch missing');
 need(omni.includes("@media(max-width:760px)"),'mobile compression rule missing');
 need(omni.includes('prefers-reduced-motion:reduce'),'reduced-motion path missing');
 

@@ -38,21 +38,61 @@ const MODE_META=Object.freeze({
  RISE:{sigil:'上',ascii:'^',label:'RISE'},
  COMMAND:{sigil:'令',ascii:':',label:'COMMAND'}
 });
+/* M1 · ONE REGISTRY — the union of the old field-urlbar COMMANDS and the old
+ field-omnibar COMMANDS/ALIAS tables, one glyph per id. Canonical glyphs are the
+ operator's mapping (ROOT ⌂ HOLD ◎ WORK ▽ PROVE ◆ OPEN ↗) plus the key strip's
+ RETURN ↩ HANDOFF ⎘ HERMES ▶ as rendered today; drifted ids are reconciled as
+ aliases (returns≡return, copy≡handoff). `nav`/`copy` mark plain-address route
+ commands: the bar addresses, never executes (authority NONE). field-omnibar.js
+ binds this table through FieldURLBarCore — there is no second copy. */
 const COMMANDS=Object.freeze([
- {id:'hold',glyph:'中',label:'HOLD',hint:'collapse to held object',keywords:'focus close zui'},
- {id:'work',glyph:'工',label:'WORK',hint:'recover held work depth',keywords:'depth zui'},
- {id:'prove',glyph:'驗',label:'PROVE',hint:'open refine / proof depth',keywords:'verify test compare zui'},
- {id:'trace',glyph:'跡',label:'TRACE',hint:'open focus-bound policy trace',keywords:'evidence verify'},
- {id:'map',glyph:'圖',label:'MAP',hint:'visual projection; same focus',keywords:'visual structure graph'},
- {id:'recent',glyph:'時',label:'RECENT',hint:'explicit chronology projection',keywords:'latest time history'},
+ {id:'root',glyph:'⌂',label:'ROOT',hint:'FIELD root',keywords:'index home',aliases:['home']},
+ {id:'hold',glyph:'◎',label:'HOLD',hint:'address / shallow',keywords:'focus close zui'},
+ {id:'work',glyph:'▽',label:'WORK',hint:'semantic depth',keywords:'depth zui'},
+ {id:'prove',glyph:'◆',label:'PROVE',hint:'evidence depth',keywords:'verify test compare zui',aliases:['proof']},
+ {id:'open',glyph:'↗',label:'OPEN',hint:'native surface',keywords:'open external'},
+ {id:'return',glyph:'↩',label:'RETURN',hint:'durable evidence / re-entry',keywords:'receipts return evidence',aliases:['returns','back'],nav:'/returns/'},
+ {id:'handoff',glyph:'⎘',label:'HANDOFF',hint:'copy action packet',keywords:'clipboard action copy',aliases:['copy']},
+ {id:'run',glyph:'▶',label:'HERMES',hint:'copy local prepare command',keywords:'hermes prepare copy',aliases:['hermes']},
+ {id:'trace',glyph:'⋮',label:'TRACE',hint:'focus-bound policy trace',keywords:'evidence verify witness'},
+ {id:'read',glyph:'≡',label:'READ',hint:'inspect held action',keywords:'inspect read'},
+ {id:'map',glyph:'⌘',label:'MAP',hint:'visual projection',keywords:'visual structure graph'},
+ {id:'recent',glyph:'◴',label:'RECENT',hint:'explicit chronology projection',keywords:'latest time history'},
+ {id:'up',glyph:'↑',label:'UP',hint:'rise one structural depth',keywords:'rise parent'},
+ {id:'down',glyph:'↓',label:'DOWN',hint:'dive one depth',keywords:'dive child'},
+ {id:'prev',glyph:'←',label:'PREV',hint:'previous peer',keywords:'peer left'},
+ {id:'next',glyph:'→',label:'NEXT',hint:'next peer',keywords:'peer right'},
  {id:'heads',glyph:'中',label:'HEADS',hint:'CURRENT head address set',keywords:'now attention current'},
- {id:'desk',glyph:'工',label:'DESK',hint:'work desk',keywords:'workspace hermes desktop'},
- {id:'returns',glyph:'回',label:'RETURNS',hint:'durable evidence / re-entry',keywords:'receipts return evidence'},
- {id:'copy',glyph:'收',label:'COPY',hint:'copy existing held action',keywords:'clipboard action'},
- {id:'fovea',glyph:'◎',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
+ {id:'desk',glyph:'工',label:'DESK',hint:'work desk',keywords:'workspace hermes desktop',nav:'/desk/'},
+ {id:'reader',glyph:'☰',label:'READER',hint:'archive reader route',keywords:'archive local reader',nav:'/reader/'},
+ {id:'hub',glyph:'⊞',label:'HUB',hint:'copy reader hub URL (localhost :8777)',keywords:'hub ops reader',copy:'http://127.0.0.1:8777/hub'},
+ {id:'calls',glyph:'☏',label:'CALLS',hint:'copy reader calls URL (localhost :8777)',keywords:'phone meeting reader',copy:'http://127.0.0.1:8777/calls'},
+ {id:'digests',glyph:'▣',label:'DIGESTS',hint:'/digests/ · passphrase field focused locally',keywords:'encrypted digest passphrase',nav:'/digests/#pp'},
+ {id:'fovea',glyph:'◉',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
  {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
- {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents',keywords:'ranking frecency recents clear default order'}
+ {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents',keywords:'ranking frecency recents clear default order',aliases:['rerank']},
+ {id:'help',glyph:'?',label:'HELP',hint:'registry + sigil legend',keywords:'help man ls registry commands'}
 ]);
+/* One alias map + one resolver + one parser over the table: leading ':cmd args'
+   and trailing 'target :cmd' (legacy omnibar style) are the SAME grammar. */
+const COMMAND_ALIAS=Object.freeze((()=>{const m={};for(const c of COMMANDS){m[':'+c.id]=c.id;for(const a of c.aliases||[])m[':'+a]=c.id}return m})());
+const GLYPH_COMMAND=new Map(COMMANDS.map(c=>[c.glyph,c.id]));
+function resolveCommand(token){
+ const raw=String(token??'').trim();if(!raw)return null;
+ const bare=raw.startsWith(':')?raw.slice(1).toLowerCase():raw.toLowerCase();
+ if(COMMAND_ALIAS[':'+bare])return COMMAND_ALIAS[':'+bare];
+ const sym=raw.startsWith(':')?raw.slice(1):raw;
+ return GLYPH_COMMAND.get(sym)||null;
+}
+function parseCommand(raw=''){
+ const s=text(raw);
+ if(!s)return Object.freeze({query:'',command:null,style:''});
+ if(GLYPH_COMMAND.has(s))return Object.freeze({query:'',command:GLYPH_COMMAND.get(s),style:'glyph'});
+ if(s.startsWith(':')){const id=resolveCommand(s);return Object.freeze(id?{query:'',command:id,style:'leading'}:{query:s,command:null,style:''})}
+ const bits=s.split(/\s+/),last=bits[bits.length-1];
+ if(last.startsWith(':')||GLYPH_COMMAND.has(last)){const id=resolveCommand(last);if(id)return Object.freeze({query:bits.slice(0,-1).join(' '),command:id,style:'trailing'})}
+ return Object.freeze({query:s,command:null,style:''});
+}
 
 const text=v=>String(v??'').replace(/\s+/g,' ').trim();
 const norm=v=>text(v).toLocaleLowerCase();
@@ -61,11 +101,18 @@ const uniq=xs=>[...new Set(xs.filter(Boolean))];
 
 function parse(raw=''){
  const source=String(raw??''),trimmed=source.trimStart();
- if(!trimmed)return Object.freeze({raw:source,mode:MODES.SEARCH,query:'',prefix:''});
+ if(!trimmed)return Object.freeze({raw:source,mode:MODES.SEARCH,query:'',prefix:'',command:null});
  const c=trimmed[0];
  const map={'@':MODES.HEADS,'>':MODES.TURN,'!':MODES.HERMES,'^':MODES.RISE,':':MODES.COMMAND};
  const mode=map[c]||MODES.SEARCH;
- return Object.freeze({raw:source,mode,query:mode===MODES.SEARCH?trimmed:text(trimmed.slice(1)),prefix:mode===MODES.SEARCH?'':c});
+ // M2 · one parser, two entry styles: leading ':cmd args' stays COMMAND mode
+ // (ranked through the registry above); trailing 'target :cmd' — the legacy
+ // omnibar style — resolves through the SAME registry into the same dispatcher.
+ if(mode===MODES.SEARCH){
+  const p=parseCommand(trimmed);
+  if(p.style==='trailing')return Object.freeze({raw:source,mode:MODES.COMMAND,query:p.query,command:p.command,prefix:''});
+ }
+ return Object.freeze({raw:source,mode,query:mode===MODES.SEARCH?trimmed:text(trimmed.slice(1)),prefix:mode===MODES.SEARCH?'':c,command:null});
 }
 
 function subsequenceScore(needle,haystack){
@@ -131,7 +178,7 @@ function rank(routes,parsed,ctx={},limit=9){
 function rankCommands(query='',limit=9){
  const q=norm(query);
  return COMMANDS.map((command,index)=>{
-  const hay=[command.id,command.label,command.glyph,command.keywords,command.hint].join(' ');
+  const hay=[command.id,command.label,command.glyph,command.keywords,command.hint,(command.aliases||[]).map(a=>':'+a).join(' ')].join(' ');
   const score=q?evidenceScore(q,hay,{weight:1}):100-index;
   return{command,index,score};
  }).filter(x=>Number.isFinite(x.score)).sort((a,b)=>b.score-a.score||a.index-b.index).slice(0,limit).map(x=>x.command);
@@ -149,10 +196,8 @@ function rankCommands(query='',limit=9){
  showcase-manifest + CURRENT. `:reset` (Raycast "Reset Ranking") clears it. */
 const PALETTE_ALIAS=Object.freeze({h:'root',o:'hold',w:'work',p:'prove',r:'open'});
 const PALETTE_KEY='field.palette.v1',PALETTE_RECENTS=8,EMPTY_ROWS=5;
-const ALIAS_GLYPHS=Object.freeze({
- root:['⌂','ROOT','FIELD root'],hold:['◎','HOLD','address / shallow'],work:['▽','WORK','semantic depth'],
- prove:['◆','PROVE','evidence depth'],open:['↗','OPEN','native surface'],reset:['⟲','RESET','clear learned ranking + recents']
-});
+// Alias-row labels derive from the ONE registry — no second glyph map to drift.
+const ALIAS_GLYPH=id=>{const c=COMMANDS.find(x=>x.id===id);return c?[c.glyph,c.label,c.hint]:[id,'›',String(id).toUpperCase()]};
 function aliasMap(){
  // One grammar, one map: the omnibar owns the glyph keys, so prefer its table
  // and fall back to the identical copy here when the omnibar is not mounted.
@@ -171,7 +216,7 @@ function aliasId(query,routes){
  for(const r of routes||[]){const h=String(r?.href||'');if(forms.includes(h)||(h.endsWith('/')&&forms.includes(h.slice(0,-1))))return null}
  return id;
 }
-function aliasRow(id){const g=ALIAS_GLYPHS[id]||[id,'›',String(id).toUpperCase()];return{kind:'alias',id,glyph:g[0],label:g[1],hint:g[2]}}
+function aliasRow(id){const g=ALIAS_GLYPH(id);return{kind:'alias',id,glyph:g[0],label:g[1],hint:g[2]}}
 /* The board is the site's own refresh-pipeline artifact (ops-hub generator,
    committed by `nexus: board refresh`). Reading its counts AND its own
    `generated … UTC` stamp from the same bytes is what makes the readout
@@ -196,7 +241,7 @@ function hermesPrepare(routeOrHref){
 function boot(win){
  if(win.__fieldURLBarBooted||win.location.pathname!=='/')return;win.__fieldURLBarBooted=true;
  const doc=win.document,main=doc.querySelector('main'),header=main?.querySelector(':scope > header');if(!main||!header)return;
- let routes=[],heads=new Set(),selected=0,results=[],currentParsed=parse(''),focusHref=null,flashTimer=0;
+ let routes=[],heads=new Set(),selected=0,results=[],currentParsed=parse(''),focusHref=null,flashTimer=0,helpOpen=false,moved=false;
  const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
  const glyphMnemonic=r=>win.FieldGlyph?.mnemonic?.(r)||'';
  const existing=new URLSearchParams(win.location.search).get('fi')||'';
@@ -300,9 +345,15 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   const selectedAttr=i===selected?'true':'false';
   return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+selectedAttr+'" data-index="'+i+'" data-href="'+esc(r.href)+'"><span class="fieldUrlMark">'+glyph+'</span><span class="fieldUrlBody"><b>'+esc(r.title||r.href)+'</b><code>'+esc(r.href)+' · '+esc(mnemonic)+'</code></span><span class="fieldUrlTail"><b>'+esc(r.operation||r.kind||'—')+'</b>'+esc(r.state||'—')+(heads.has(r.href)?' · HEAD':'')+'</span></button>';
  }
- function commandRow(c,i){return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-command="'+esc(c.id)+'"><span class="fieldUrlMark">'+esc(c.glyph)+'</span><span class="fieldUrlBody"><b>:'+esc(c.id)+' · '+esc(c.label)+'</b><code>'+esc(c.hint)+'</code></span><span class="fieldUrlTail"><b>COMMAND</b>authority none</span></button>'}
+ function commandRow(c,i){
+  // M6 — the row carries id, glyph, hint, aliases and where a route command
+  // points, so the palette AND :help render from the same markup.
+  const al=c.aliases&&c.aliases.length?' · = '+c.aliases.map(a=>':'+a).join(' '):'';
+  const dest=c.nav?' · → '+c.nav:c.copy?' · ⧉ copy URL':'';
+  return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-command="'+esc(c.id)+'"><span class="fieldUrlMark">'+esc(c.glyph)+'</span><span class="fieldUrlBody"><b>:'+esc(c.id)+' · '+esc(c.label)+'</b><code>'+esc(c.hint+al+dest)+'</code></span><span class="fieldUrlTail"><b>COMMAND</b>authority none</span></button>'
+ }
  function aliasRow(id,i){
-  const g=ALIAS_GLYPHS[id]||[id,'›',String(id).toUpperCase()];
+  const g=ALIAS_GLYPH(id);
   return '<button class="fieldUrlRow fieldUrlAlias" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-alias="'+esc(id)+'"><span class="fieldUrlMark">'+esc(g[0])+'</span><span class="fieldUrlBody"><b>'+esc(g[1])+' · alias "'+esc(id)+'"</b><code>'+esc(g[2])+' · exact glyph alias, ranks first</code></span><span class="fieldUrlTail"><b>ALIAS</b>authority none</span></button>';
  }
  function statusLine(parsed,count){
@@ -314,10 +365,23 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   const keys='⌃K focus · ↑↓ choose · ↵ hold · ⌘/ctrl+↵ turn · esc clear'+(learned()?' · ⟲ :reset clears ranking':'');
   return '<div class="fieldUrlStatus"><span>'+grammar+' · authority NONE'+boardTxt+'</span><span>'+keys+'</span></div>';
  }
+ /* M6 · :help — the YubNub `ls`/`man` mechanic inside the bar: the full
+   registry (id · glyph · hint · aliases · destination) plus the sigil legend,
+   rendered by the same paint()/row machinery as the normal COMMAND palette. */
+ function helpLegend(){
+  return '<div class="fieldUrlStatus"><span><b>令</b> words · /path · @ · > · ^ · : · ! · authority NONE</span><span>address · exact · heads · turn · rise · command · hermes prep · '+COMMANDS.length+' commands</span></div>';
+ }
  function paint({forceOpen=false}={}){
   currentParsed=parse(input.value);setMode(currentParsed);selected=Math.max(0,selected);
   if(currentParsed.mode===MODES.RISE){aliasHit=null;results=[];panel.innerHTML='<div class="fieldUrlStatus"><span><b>上</b> RISE · one structural depth · authority NONE</span><span>↵ apply</span></div>';panel.hidden=false;input.setAttribute('aria-expanded','true');return}
-  if(currentParsed.mode===MODES.COMMAND){aliasHit=null;results=rankCommands(currentParsed.query,COMMANDS.length);if(selected>=results.length)selected=Math.max(0,results.length-1);panel.innerHTML=results.map(commandRow).join('')+statusLine(currentParsed,results.length)}
+  if(currentParsed.mode===MODES.COMMAND){
+   aliasHit=null;
+   if(helpOpen)results=COMMANDS.slice();
+   else if(currentParsed.command){const c=COMMANDS.find(x=>x.id===currentParsed.command);results=c?[c]:[]}
+   else results=rankCommands(currentParsed.query,COMMANDS.length);
+   if(selected>=results.length)selected=Math.max(0,results.length-1);
+   panel.innerHTML=(helpOpen?helpLegend():'')+results.map(commandRow).join('')+statusLine(currentParsed,results.length)
+  }
   else{
    // Alias-first: an exact single-letter glyph alias outranks every fuzzy match
    // (Raycast: exact alias → prefix → title → keyword → frecency), but only
@@ -349,10 +413,26 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    try{const ta=doc.createElement('textarea');ta.value=value;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';doc.body.appendChild(ta);ta.select();const ok=doc.execCommand('copy');ta.remove();return ok}catch(_){return false}
   }
  }
- function clearInput(){input.value='';selected=0;syncURL('');paint({forceOpen:doc.activeElement===input})}
- function executeCommand(id){
-  noteUse('cmd:'+id);
-  switch(id){
+ function clearInput(){input.value='';selected=0;helpOpen=false;moved=false;syncURL('');paint({forceOpen:doc.activeElement===input})}
+ /* M6 · one entry to the registry: ':help' (any style), ':' + ↵ or an empty
+   bar + ↵ all land here — the bar seeds its own :help projection so the panel
+   state stays re-enterable through ?fi= like every other input. */
+ function showHelp(){input.value=':help';helpOpen=true;selected=0;syncURL(input.value);paint({forceOpen:true})}
+ function executeCommand(id,target){
+  // M2/M3 · ONE dispatcher: every ':' command routes through the omnibar's
+  // execute() (the authority-NONE event source) when it is mounted, so glyph
+  // keys, trailing style and leading style all end in the same switch. This
+  // fallback only runs when field-omnibar.js never loaded (reversibility).
+  const omni=win.FieldOmnibar;
+  if(typeof omni?.execute==='function'){omni.execute(id,target||focusHref||'/','urlbar');return}
+  const rid=resolveCommand(id)||id;
+  noteUse('cmd:'+rid);
+  const entry=COMMANDS.find(c=>c.id===rid)||null;
+  // M4 · route commands are registry DATA — plain address / copy, no new API.
+  if(entry?.nav){win.location.assign(entry.nav);return}
+  if(entry?.copy){copy(entry.copy).then(ok=>flash(ok?rid.toUpperCase()+' URL COPIED':'COPY FAILED'));return}
+  if(rid==='help'){showHelp();return}
+  switch(rid){
    case'hold':win.FieldZUI?.close?.('urlbar');break;
    case'work':win.FieldZUI?.open?.('WORK','urlbar');break;
    case'prove':win.FieldZUI?.open?.('PROVE','urlbar');break;
@@ -360,9 +440,8 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    case'map':win.FieldLensHost?.project?.('VISUAL');break;
    case'recent':win.FieldLensHost?.project?.('RECENT');break;
    case'heads':input.value='@ ';selected=0;syncURL(input.value);paint({forceOpen:true});return;
-   case'desk':win.location.assign('/desk/');return;
-   case'returns':win.location.assign('/returns/');return;
-   case'copy':doc.getElementById('apCopy')?.click();break;
+   case'handoff':doc.getElementById('apCopy')?.click();break;
+   case'run':{const prep=hermesPrepare(target||focusHref||'/');copy(prep).then(ok=>flash(ok?'HERMES PREP COPIED':'COPY FAILED'));return}
    case'fovea':doc.getElementById('foveaToggle')?.click();break;
    case'theme':doc.getElementById('fiTheme')?.click();break;
    // Raycast "Reset Ranking": drop the learned frecency + recents in one move.
@@ -373,19 +452,30 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  }
  function executeAlias(id){
   const href=focusHref||'/';
-  noteUse('cmd:'+id);
   // The glyph grammar's real actions live in field-omnibar.js — the palette
-  // RANKS them, the omnibar EXECUTES them (one action map, no second copy).
+  // RANKS them, the omnibar EXECUTES them (one dispatcher, no second copy).
+  // noteUse runs on whichever side dispatches, so a use is never counted twice.
   const omni=win.FieldOmnibar;
   if(typeof omni?.execute==='function'){omni.execute(id,href);return}
+  noteUse('cmd:'+id);
   if(id==='root'){win.location.assign('/');return}
   if(id==='open'){if(href!=='/'&&win.__fieldAct?.open){win.__fieldAct.open(href);flash('OPEN')}else flash('OPEN unavailable');return}
   executeCommand(id);
  }
- async function applySelection(forceTurn=false){
+ async function applySelection(forceTurn=false,source='pointer'){
   currentParsed=parse(input.value);
+  // M6 · ↵ with nothing to act on renders the registry instead of firing an
+  // arbitrary first-ranked command (arrow-moved selections stay commands/routes).
+  if(source==='enter'&&!moved){
+   if(!text(input.value)){showHelp();return}
+   if(currentParsed.mode===MODES.COMMAND&&!text(currentParsed.query)){showHelp();return}
+  }
   if(currentParsed.mode===MODES.RISE){win.__fieldAct?.rise?.();flash('RISE');return}
-  if(currentParsed.mode===MODES.COMMAND){const c=results[selected];if(c)executeCommand(c.id);return}
+  if(currentParsed.mode===MODES.COMMAND){
+   if(helpOpen&&source==='enter'&&!moved){helpOpen=false;paint({forceOpen:true});return}
+   if(currentParsed.command){executeCommand(currentParsed.command,addressedHref(currentParsed.query));return}
+   const c=results[selected];if(c)executeCommand(c.id);return
+  }
   if(currentParsed.mode===MODES.SEARCH){
    aliasHit=aliasId(currentParsed.query,routes);
    if(aliasHit&&selected===0){executeAlias(aliasHit);return}
@@ -398,13 +488,21 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(currentParsed.mode===MODES.TURN||forceTurn){win.__fieldAct?.open?.(route.href);return}
   win.__fieldAct?.focus?.(route.href);focusHref=route.href;input.value=route.href;syncURL(input.value);selected=0;paint({forceOpen:false});input.blur();
  }
+ function addressedHref(q){
+  // Trailing-style target: exact route address only, else the held object
+  // (mirrors the omnibar's addressFor — a command never guesses a route).
+  const t=text(q);if(!t)return focusHref;
+  const hit=routes.find(r=>r.href===t||(r.href.endsWith('/')&&r.href.slice(0,-1)===t));
+  return hit?hit.href:focusHref;
+ }
  function move(delta){
+  moved=true;
   // Index space includes the alias row when one is showing, so ↑↓ walks it.
   const total=results.length+(currentParsed.mode===MODES.SEARCH&&aliasHit?1:0);
   if(!total)return;
   selected=(selected+delta+total)%total;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
  }
- function focusBar(seed){input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;paint({forceOpen:true})}
+ function focusBar(seed){input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;helpOpen=false;moved=false;paint({forceOpen:true})}
  function syncHeld(href){
   focusHref=href||win.__fieldAct?.focusHref?.()||null;const r=focusHref&&routeMap().get(focusHref);
   glyphNode.innerHTML=r&&win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'Φ';glyphNode.title=r?(glyphMnemonic(r)+' · '+r.href):'FIELD';
@@ -412,15 +510,17 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  function targetIsTyping(t){const tag=t?.tagName?.toLowerCase?.();return t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select'}
 
  input.addEventListener('focus',()=>paint({forceOpen:true}));
- input.addEventListener('input',()=>{selected=0;syncURL(input.value);paint({forceOpen:true})});
+ input.addEventListener('input',()=>{selected=0;helpOpen=false;moved=false;syncURL(input.value);paint({forceOpen:true})});
  input.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'){e.preventDefault();move(1);return}
   if(e.key==='ArrowUp'){e.preventDefault();move(-1);return}
-  if(e.key==='Enter'){e.preventDefault();applySelection(e.ctrlKey||e.metaKey);return}
+  if(e.key==='Enter'){e.preventDefault();applySelection(e.ctrlKey||e.metaKey,'enter');return}
   if(e.key==='Escape'){e.preventDefault();if(input.value){clearInput();input.focus()}else{panel.hidden=true;input.setAttribute('aria-expanded','false');input.blur()}return}
  });
  input.addEventListener('blur',()=>setTimeout(()=>{if(!shell.contains(doc.activeElement)){panel.hidden=true;input.setAttribute('aria-expanded','false')}},80));
  doc.addEventListener('keydown',e=>{
+  // M3 · THE single document-level entry owner — ⌘K / / / : live only here;
+  // field-omnibar.js keeps a passthrough listener for its fallback line only.
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();focusBar();return}
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar('/');return}
   if(e.key===':'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar(':');return}
@@ -441,8 +541,8 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   panel.innerHTML='<div class="fieldUrlStatus"><span>URLBAR SOURCE DEGRADED · '+esc(err.message)+'</span><span>authority NONE</span></div>';
  });
 
- win.FieldURLBar=Object.freeze({VERSION,focus:focusBar,parse:()=>parse(input.value),results:()=>results.slice(),hermesPrepare:()=>{const r=currentRoute()||routeMap().get(focusHref);return r?hermesPrepare(r):null}});
+ win.FieldURLBar=Object.freeze({VERSION,focus:focusBar,parse:()=>parse(input.value),results:()=>results.slice(),showHelp,hermesPrepare:()=>{const r=currentRoute()||routeMap().get(focusHref);return r?hermesPrepare(r):null}});
  }
 
-return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,parse,evidenceScore,scoreRoute,rank,rankCommands,shellQuote,hermesPrepare,boot,aliasId,parseBoard,stampMs,ageLabel,PALETTE_ALIAS,PALETTE_KEY,PALETTE_RECENTS,EMPTY_ROWS});
+return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,COMMAND_ALIAS,parse,parseCommand,resolveCommand,evidenceScore,scoreRoute,rank,rankCommands,shellQuote,hermesPrepare,boot,aliasId,parseBoard,stampMs,ageLabel,PALETTE_ALIAS,PALETTE_KEY,PALETTE_RECENTS,EMPTY_ROWS});
 });

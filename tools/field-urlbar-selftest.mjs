@@ -108,5 +108,51 @@ ok(urlbar.includes('STALE'),'spine says STALE in words, never colour alone');
 ok(urlbar.includes("(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'"),'Ctrl/⌘K still opens the palette');
 ok(urlbar.includes(".slice(0,7)")||urlbar.includes('EMPTY_ROWS'),'palette aperture stays bounded');
 
+/* ---- M1 one registry · M2 one parser/two entry styles · M3 one keydown owner ---- */
+const byCmd=new Map(U.COMMANDS.map(c=>[c.id,c]));
+const REG_IDS=['root','hold','work','prove','open','return','handoff','run','trace','read','map','recent','up','down','prev','next','heads','desk','reader','hub','calls','digests','fovea','theme','reset','help'];
+for(const id of REG_IDS)ok(byCmd.has(id),'registry carries '+id);
+ok(!byCmd.has('copy'),'drifted id copy is reconciled into handoff (alias form)');
+ok(!byCmd.has('returns'),'drifted id returns is reconciled into return (alias form)');
+eq(U.resolveCommand(':returns'),'return',':returns resolves the return command');
+eq(U.resolveCommand('returns'),'return','bare returns resolves the return command');
+eq(U.resolveCommand(':copy'),'handoff',':copy resolves the handoff command');
+eq(U.resolveCommand(':hermes'),'run',':hermes resolves the HERMES command');
+eq(U.resolveCommand(':proof'),'prove',':proof alias resolves prove');
+eq(U.resolveCommand(':home'),'root',':home alias resolves root');
+eq(U.resolveCommand('◎'),'hold','bare glyph resolves its command');
+// ONE glyph per id — the operator mapping supersedes both pre-fold tables.
+const CANON={root:'⌂',hold:'◎',work:'▽',prove:'◆',open:'↗',return:'↩',handoff:'⎘',run:'▶'};
+for(const [id,g] of Object.entries(CANON))eq(byCmd.get(id)?.glyph,g,'operator glyph '+id+' = '+g);
+const glyphList=U.COMMANDS.map(c=>c.glyph);
+eq(new Set(glyphList).size,glyphList.length,'one glyph per id — no drift pair survives');
+// M4 · route commands are registry DATA (plain navigation / copy, no new API).
+eq(byCmd.get('desk')?.nav,'/desk/',':desk addresses /desk/');
+eq(byCmd.get('return')?.nav,'/returns/',':returns/:return address /returns/');
+eq(byCmd.get('reader')?.nav,'/reader/',':reader addresses /reader/');
+eq(byCmd.get('digests')?.nav,'/digests/#pp',':digests addresses the passphrase field via its own fragment');
+eq(byCmd.get('hub')?.copy,'http://127.0.0.1:8777/hub',':hub copies the reader URL (no site route)');
+eq(byCmd.get('calls')?.copy,'http://127.0.0.1:8777/calls',':calls copies the reader URL (no site route)');
+ok(U.COMMANDS.every(c=>!c.nav||c.nav.startsWith('/')),'every nav target is a site-relative address');
+ok(!U.COMMANDS.some(c=>/--execute|API_KEY|Authorization/.test(JSON.stringify(c))),'registry never carries execution authority or secrets');
+// M2 · one parser, two entry styles.
+eq(U.parseCommand(':prove'),{query:'',command:'prove',style:'leading'},'leading :cmd parses');
+eq(U.parseCommand('/house/ :prove'),{query:'/house/',command:'prove',style:'trailing'},'trailing :cmd parses');
+eq(U.parseCommand('/house/ prove'),{query:'/house/ prove',command:null,style:''},'a bare trailing word is not a command (colon is the reserved prefix)');
+eq(U.parseCommand('◎'),{query:'',command:'hold',style:'glyph'},'bare glyph parses');
+const trail=U.parse('/house/ :prove');
+eq(trail.mode,'COMMAND','urlbar accepts the legacy trailing style');eq(trail.command,'prove','trailing command extracted');eq(trail.query,'/house/','trailing target preserved');
+eq(U.parse(':desk').mode,'COMMAND','leading style unchanged');
+eq(U.parse('中行').mode,'SEARCH','glyph text search never becomes a command');
+// M6 · :help registry.
+ok(byCmd.get('help'),':help is registered');
+for(const c of U.COMMANDS)ok(c.id&&c.glyph&&c.hint,'command renders id+glyph+hint: '+c.id);
+// M3 · exactly one document-level entry owner.
+ok(urlbar.includes("(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'"),'urlbar owns document ⌘K');
+ok(urlbar.includes("e.key===':'"),"urlbar owns document :");
+ok(omni.includes("if(document.getElementById('fieldUrlBar'))return;"),'omnibar keydown is a passthrough while the URLbar owns the line');
+ok(!/const COMMANDS\s*=\s*Object\.freeze\(\[/.test(omni),'field-omnibar.js must not carry a second command table');
+ok(omni.includes('FieldURLBarCore'),'field-omnibar.js binds the shared registry');
+
 if(fail.length){console.error('FIELD URLBAR SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('FIELD URLBAR SELFTEST PASS · one URL line → glyph/address/head/turn/Hermes prep · authority NONE · projection-owned mount');
