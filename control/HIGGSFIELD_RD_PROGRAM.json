@@ -1,0 +1,141 @@
+{
+  "schema": "0xxx0/higgsfield-rd-program/v0.1",
+  "updated": "2026-10-08",
+  "authority": "R&D_PROJECTION_ONLY",
+  "purpose": "Extract reusable renderer-control laws from Higgsfield without making Higgsfield canonical or expanding FIELD horizontally.",
+  "north_star": "A renderer adapter that can prove what changed, what stayed invariant, and when to reject the backend.",
+  "stop_condition": "Five probes maximum. One recovered source. One unlocked axis per probe. At most two attempts per probe. Every probe must end RETAIN, REVISE, or PARK before any descendant experiment is authorized.",
+  "source_policy": {
+    "count": 1,
+    "preferred": "recovered Semantic Painting / Atlas Dayline donor",
+    "identity": "exact source hash + lineage receipt",
+    "law": "source media is immutable evidence"
+  },
+  "probe_laws": [
+    "ONE SOURCE.",
+    "ONE UNLOCKED AXIS.",
+    "ALL OTHER AXES EXPLICITLY FROZEN.",
+    "NO SWEEP WITHOUT HYPOTHESIS + BUDGET + STOP.",
+    "NO SILENT FALLBACK THAT UNLOCKS AN AXIS.",
+    "BACKEND OUTPUT IS EVIDENCE, NOT AUTHORITY.",
+    "FAILURE IS RETAINED AS NEGATIVE EVIDENCE.",
+    "NO PROMOTION WITHOUT MACHINE + HUMAN DRIFT REVIEW."
+  ],
+  "reach_goals": [
+    {
+      "id": "RG1",
+      "name": "Axis-locked rendering",
+      "perfected_outcome": "A recipe can change one named visual axis while preserving all declared locks closely enough that a validator can reject drift automatically.",
+      "success_signal": "At least two distinct backends pass the same lock contract on the same source."
+    },
+    {
+      "id": "RG2",
+      "name": "Renderer interchangeability",
+      "perfected_outcome": "The same backend-neutral recipe compiles to multiple Higgsfield models and produces comparable receipts without rewriting intent.",
+      "success_signal": "Switching backend changes implementation details, not recipe semantics."
+    },
+    {
+      "id": "RG3",
+      "name": "COMPOSE before PAINT",
+      "perfected_outcome": "Spatial structure can be frozen in 3D/vector/layout form, then restyled repeatedly without material geometry drift.",
+      "success_signal": "Camera, topology and anchor positions survive at least two stylistic renders."
+    },
+    {
+      "id": "RG4",
+      "name": "MOVE as independent operator",
+      "perfected_outcome": "A still/source scene can inherit motion or camera behavior from a separate driver without semantic or structural rewrite.",
+      "success_signal": "First-frame fidelity and scene identity survive a motion-transfer run."
+    },
+    {
+      "id": "RG5",
+      "name": "Negative-evidence compiler",
+      "perfected_outcome": "Failures automatically sharpen backend capability manifests and prevent repeated bad requests.",
+      "success_signal": "A failed probe changes future compilation behavior rather than merely producing a note."
+    }
+  ],
+  "probes": [
+    {
+      "id": "P1",
+      "name": "SURFACE LOCK",
+      "backend": "Nano Banana 2.1",
+      "unlock": ["surface", "aesthetic"],
+      "freeze": ["composition", "geometry", "text", "meaning", "crop"],
+      "attempt_budget": 2,
+      "pass": "obvious surface change with materially invariant scene identity and structure"
+    },
+    {
+      "id": "P2",
+      "name": "PATTERN LOCK",
+      "backend": "FLUX 3",
+      "unlock": ["pattern", "graphic_field"],
+      "freeze": ["composition", "topology", "text", "meaning", "crop"],
+      "attempt_budget": 2,
+      "pass": "pattern field is clearly introduced without structural or semantic drift"
+    },
+    {
+      "id": "P3",
+      "name": "MOVE LOCK",
+      "backend": "Genjutsu motion control",
+      "unlock": ["motion", "camera_motion"],
+      "freeze": ["first_frame_identity", "surface", "object_identity", "framing"],
+      "attempt_budget": 2,
+      "pass": "driver motion transfers while first-frame and scene identity survive"
+    },
+    {
+      "id": "P4",
+      "name": "DECOMPOSE HACK",
+      "backend": "Higgsfield image decomposition",
+      "unlock": ["layer_proposal"],
+      "freeze": ["source_identity", "source_pixels", "semantic_authority"],
+      "attempt_budget": 1,
+      "pass": "proposed layers measurably reduce masking/reconstruction effort without becoming ontology"
+    },
+    {
+      "id": "P5",
+      "name": "COMPOSE_TO_PAINT",
+      "backend": "3D Jutsu -> image renderer",
+      "unlock": ["surface", "lighting_style"],
+      "freeze": ["camera", "geometry", "topology", "anchor_positions"],
+      "attempt_budget": 2,
+      "pass": "at least two stylistic renders preserve the same measured spatial scaffold"
+    }
+  ],
+  "evidence_contract": {
+    "required": [
+      "source_hash",
+      "recipe_id",
+      "backend_model_and_version",
+      "native_params",
+      "server_adjustments",
+      "job_or_asset_ids",
+      "cost_or_free_allowance_used",
+      "result_hash_or_asset_identity",
+      "frozen_axis_drift_report",
+      "unlocked_axis_effect_report",
+      "human_review",
+      "decision"
+    ],
+    "decision_enum": ["RETAIN", "REVISE", "PARK"]
+  },
+  "decision_thresholds": {
+    "retain": "unlocked axis visibly changes; no critical frozen-axis failure; workflow is cheaper/faster/clearer than plain alternative for its intended operation",
+    "revise": "mechanism is promising but one bounded confound or adapter issue remains",
+    "park": "requires repeated prompt rescue, silent axis unlock, large semantic drift, or does not outperform the simpler baseline"
+  },
+  "canvas": {
+    "provider": "Higgsfield Canvas",
+    "room_id": "d81418c7-3bd1-4c33-b869-d95a13742173",
+    "role": "DISPOSABLE_EXECUTION_BENCH",
+    "law": "Canvas visualizes and executes probes; FIELD/MEDIA REFINERY retain canonical recipes, hashes and verdicts."
+  },
+  "current": {
+    "authorized_probe": "P1",
+    "generation_authorized": false,
+    "reason": "bench and contracts may be prepared autonomously; paid/free generation begins only when a concrete source asset is bound and cost/free-use semantics are known"
+  },
+  "long_horizon": {
+    "name": "RENDERER-COMPILER PATTERN",
+    "outcome": "A small open recipe/adapter/receipt pattern portable across Higgsfield, ComfyUI and future backends, with lock-aware compilation and drift-based rejection.",
+    "anti_goal": "Do not become a Higgsfield workflow collection or model-ranking project."
+  }
+}
