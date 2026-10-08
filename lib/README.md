@@ -31,6 +31,14 @@ new bytes. A page picks the module convention that matches its own script loadin
 - `field-pulse.js` — plain ES module: field-pulse messaging — normalizePulse /
   publish / subscribe / last over BroadcastChannel plus a local event, schema
   `field-pulse/v0.1`, channel `field-pulse-v0`.
+- `fieldtypes.js` — dual-mode classic (`FieldTypes` + `module.exports`,
+  2026-10-08): runtime contract + property-law module — combinators
+  str/num/bool/enum/arrayOf/objectOf/record/oneOf/optional/withDefault/refine,
+  `check(value, schema)` → `{ok, errors:[{path, message}]}` with paths like
+  `$.routes[3].href`, `assert` (throws, labelled) and `parse` (applies
+  `withDefault`, never mutates), plus law helpers `invariant` / `property`
+  over a seeded `prng` with genInt / genPick / genArray generators. Selftest:
+  `node lib/fieldtypes.selftest.mjs`.
 - `id.js` — plain ES module: content-identity primitives — SHA-256 to bare hex,
   and `sha256:`-prefixed digests of a File or a string (the prefix is contract).
 - `interphase-core.js` — dual-mode classic (`Interphase`): the interphase host
@@ -115,3 +123,33 @@ classic load (A) and the projection identity (B12–B14) — the three faces mus
 never carry copied bodies again. The sync found one real drift: toast's sticky
 `ms:0` extension (adoption wave 2026-10-03) was missing from the core; ported
 into `micro.js` the same day.
+
+## Fieldtypes — types as runtime law (2026-10-08)
+
+Question on the table: could our own mini type system do what TypeScript does
+here? It cannot — TypeScript checks at COMPILE time and there is no build step,
+ever, so that half is out by law. What ships is the runtime half, which is the
+half a no-build repo can actually enforce on live JSON (manifest routes,
+capability contracts, policy traces):
+
+```js
+// classic page: <script src="/lib/fieldtypes.js"></script>
+const { objectOf, str, optional, refine, check } = FieldTypes;
+const CardSchema = objectOf({ href: str(), title: str(), state: optional(str()) });
+const r = check(card, CardSchema);
+if (!r.ok) toast(r.errors.map(e => `${e.path}: ${e.message}`).join(' · '));
+// ESM page: import '/lib/fieldtypes.js'; then use the same global.
+```
+
+- `check` never throws on a bad VALUE (only on a malformed schema — a
+  developer bug), never mutates what it checks, and reports every violation
+  at once at its address: `$.routes[3].operation: expected a string, got number`.
+- `invariant` / `property` run laws over a seeded `prng` (mulberry32): same
+  seed, same run, forever — a red run is reproducible from its result alone.
+- `lib/fieldtypes.selftest.mjs` (102 checks) proves the combinators, the
+  error paths, the parse/check parity, and — as negative controls — that the
+  property runner CAN fail: two planted bugs, both found, with their fixed
+  twins passing.
+- Round-trip against the repo: a route-shape slice of the real
+  `showcase-manifest.json` validates all routes, survives JSON serialization,
+  and a mutated clone fails at the exact paths.
