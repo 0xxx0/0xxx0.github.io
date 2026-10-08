@@ -45,6 +45,43 @@
       "authority": "LOCAL_TOOL"
     }
   ],
+  "rack": [
+    {
+      "id": "bench",
+      "glyph": "⚖",
+      "label": "BENCH",
+      "mode": "bench",
+      "hint": "Compare held source against explicit limits"
+    },
+    {
+      "id": "scan",
+      "glyph": "⌕",
+      "label": "SCAN",
+      "mode": "scan",
+      "hint": "Find sensitive values in held source"
+    },
+    {
+      "id": "read",
+      "glyph": "≡",
+      "label": "READ",
+      "mode": "read",
+      "hint": "Inspect held source structure"
+    },
+    {
+      "id": "align",
+      "glyph": "⇄",
+      "label": "ALIGN",
+      "mode": "align",
+      "hint": "Align Tamil / Chinese / English source"
+    },
+    {
+      "id": "reshape",
+      "glyph": "⟳",
+      "label": "RESHAPE",
+      "mode": "reshape",
+      "hint": "Convert held source between CSV and JSON"
+    }
+  ],
   "source": {
     "storage": "sessionStorage only",
     "identity": "first 12 hex characters of SHA-256 over exact UTF-8 source text",

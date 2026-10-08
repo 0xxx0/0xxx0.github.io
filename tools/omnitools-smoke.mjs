@@ -153,6 +153,25 @@ async function probe(){
   for(const [width,height]of [[320,568],[390,844],[740,360],[844,390],[1280,800]])await check('Integrated mobile fit '+width+'×'+height,async()=>{
    if(q('#sourceDock').open)q('#closeSource').click();await choose('bench');f.style.width=width+'px';f.style.height=height+'px';await delay(180);geometry(width,height);assert(d.querySelectorAll('header button').length===1,'Multiple mandatory route controls');
   });
+  await check('Mode-scoped rack strip renders from instrument.json verb rows',async()=>{
+   const verbs=[...d.querySelectorAll('#rackVerbs [data-verb]')],reveal=d.getElementById('rackReveal');
+   assert(verbs.length===5,'rack strip did not render every declared verb',verbs.length);
+   assert(verbs.every(b=>b.getAttribute('aria-label')),'rack verb missing aria label');
+   const shown=()=>verbs.filter(b=>!b.hidden);
+   assert(shown().length===1&&shown()[0].getAttribute('aria-current')==='true','rest state must expose only the current mode verb',shown().length);
+   assert(reveal.getAttribute('aria-expanded')==='false','reveal handle starts expanded');
+   reveal.click();await delay(20);
+   assert(shown().length===5&&reveal.getAttribute('aria-expanded')==='true','reveal did not expose the whole rack',shown().length);
+   assert(/REVEAL/.test(text('trace')),'reveal wrote no receipt line');
+   reveal.click();await delay(20);
+   assert(shown().length===1&&reveal.getAttribute('aria-expanded')==='false','rack did not collapse back to one mode',shown().length);
+   reveal.click();await delay(20);
+   verbs.find(b=>b.dataset.verb==='read').click();await delay(60);
+   assert(reveal.getAttribute('aria-expanded')==='false','mode change left the rack revealed');
+   assert(shown().length===1&&shown()[0].dataset.verb==='read','mode-scoped rest state did not follow the mode',shown().map(b=>b.dataset.verb));
+   assert(text('modeName')==='READ','rack verb did not select its mode',text('modeName'));
+   assert(/RACK/.test(text('trace')),'rack run wrote no receipt line');
+  });
   assert(!errors.length,'Runtime errors',errors);
  }catch(e){checks.push({name:'Harness initialization/runtime',pass:false,error:String(e.stack||e)});}
  out.textContent=JSON.stringify({pass:checks.length>0&&checks.every(c=>c.pass),checks,errors});

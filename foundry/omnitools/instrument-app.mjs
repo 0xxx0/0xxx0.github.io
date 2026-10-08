@@ -1,6 +1,12 @@
+/* M3 · ONE REGISTRY — the rack verbs are DATA rows in instrument.json
+   (id, glyph, label, mode, hint). The strip renders from that one table the way
+   the FIELD urlbar renders its COMMANDS table: no second table, no second
+   parser, no new state authority — keys are bindings of the same rows. */
+import INSTRUMENT from './instrument.json' with {type:'json'};
+const RACK=INSTRUMENT.rack;
 const $=id=>document.getElementById(id),qa=s=>[...document.querySelectorAll(s)];
 const KEY='omnitools.work-object.v01',ORIGIN=location.origin;
-let mode='scan',trace=[],lastBench=null,lastPreview=null,hashSeq=0,operation=null,turns=[],turnBusy=false;
+let mode='scan',trace=[],lastBench=null,lastPreview=null,hashSeq=0,operation=null,turns=[],turnBusy=false,rackRevealed=false;
 const panes=Object.fromEntries(qa('.toolPane').map(x=>[x.dataset.mode,x]));
 const pending=new Map(),bindings=new Map();
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -19,7 +25,41 @@ function renderTrace(){$('trace').innerHTML=trace.length?trace.map(x=>'<div clas
 const dock=$('sourceDock'),toggle=$('sourceToggle');
 function closeSource(){if(dock.open)dock.close();toggle.setAttribute('aria-expanded','false');}
 function openSource(){if(!dock.open)dock.showModal();toggle.setAttribute('aria-expanded','true');}
-function select(next){if(!panes[next])return;mode=next;Object.entries(panes).forEach(([k,p])=>p.hidden=k!==mode);qa('nav [data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));$('loadMode').textContent='LOAD → '+mode.toUpperCase();$('modeName').textContent=mode==='bench'?'COMPARE':mode.toUpperCase();const u=new URL(location.href);u.searchParams.set('tool',mode);history.replaceState(null,'',u);refreshActions();}
+function select(next){if(!panes[next])return;mode=next;Object.entries(panes).forEach(([k,p])=>p.hidden=k!==mode);qa('nav [data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));$('loadMode').textContent='LOAD → '+mode.toUpperCase();$('modeName').textContent=mode==='bench'?'COMPARE':mode.toUpperCase();const u=new URL(location.href);u.searchParams.set('tool',mode);history.replaceState(null,'',u);rackRevealed=false;renderRack();refreshActions();}
+/* M4 · MODE-SCOPED OP STRIP (the zellij move). One strip, one reveal handle:
+   at rest only the current mode's verb is reachable (≤3 controls with the
+   reveal), every other verb sits behind ONE explicit reveal. Buttons are built
+   once from the registry and never reordered or rebuilt, so DOM order and
+   keyboard focus order stay table order; reveal only flips `hidden`. */
+const rackVerb=id=>RACK.find(v=>v.id===id)||null;
+function buildRack(){
+  const host=$('rackVerbs');
+  host.innerHTML=RACK.map(v=>'<button type="button" data-verb="'+esc(v.id)+'" title="'+esc(v.hint)+'" aria-label="'+esc(v.label+' · '+v.hint)+'">'+esc(v.glyph)+' '+esc(v.label)+'</button>').join('');
+  [...host.children].forEach(b=>{b.onclick=()=>rackRun(b.dataset.verb);});
+  $('rackReveal').onclick=()=>{rackRevealed=!rackRevealed;addTrace('REVEAL',rackRevealed?'rack verbs revealed · '+RACK.length:'rack collapsed to current mode',null,mode);renderRack();};
+  renderRack();
+}
+function renderRack(){
+  const active=rackVerb(mode)||RACK[0];if(!active)return;
+  [...$('rackVerbs').children].forEach(b=>{
+    const on=b.dataset.verb===active.id;
+    b.hidden=!(on||rackRevealed);
+    if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
+  });
+  $('rackHint').textContent=active.hint;
+  const reveal=$('rackReveal');
+  reveal.setAttribute('aria-expanded',String(rackRevealed));
+  reveal.setAttribute('aria-label',(rackRevealed?'Collapse':'Reveal')+' rack verbs');
+  reveal.textContent=(rackRevealed?'▴':'▾')+' RACK';
+}
+/* M8 · every rack action leaves a receipt line through the existing RETURN
+   pattern (addTrace → trace → omnitools-return receipt). No new receipt system. */
+function rackRun(id){
+  const v=rackVerb(id);if(!v)return;
+  addTrace('RACK',v.label+' run · '+mode+' → '+v.mode,null,v.mode);
+  select(v.mode);
+  loadIntoTool();
+}
 async function waitFrame(frame){if(frame.contentDocument?.readyState==='complete')return;await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('tool load timeout')),4000);frame.addEventListener('load',()=>{clearTimeout(timer);resolve();},{once:true});});}
 function setValue(el,value){if(!el)throw Error('tool input missing');el.value=value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}
 async function loadIntoTool(){
@@ -99,4 +139,4 @@ toggle.onclick=()=>dock.open?closeSource():openSource();$('closeSource').onclick
 const drop=$('drop');for(const n of ['dragenter','dragover'])drop.addEventListener(n,e=>{e.preventDefault();drop.classList.add('over');});for(const n of ['dragleave','drop'])drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('over');});
 drop.addEventListener('drop',e=>{const file=e.dataTransfer?.files?.[0];if(!file)return;if(file.size>200000){addTrace('BLOCKED','use a text file smaller than 200 KB');return;}const r=new FileReader();r.onload=()=>{$('sourceName').value=file.name;$('sourceText').value=String(r.result);updateSourceMeta();addTrace('SOURCE','dropped '+file.name+' · '+file.size+' bytes');};r.readAsText(file);});
 document.addEventListener('keydown',e=>{if(e.altKey&&['1','2','3','4','5'].includes(e.key)){e.preventDefault();select(['bench','scan','read','align','reshape'][Number(e.key)-1]);closeSource();}});
-restore();select(new URL(location.href).searchParams.get('tool')||'scan');renderTrace();setInterval(refreshActions,200);
+buildRack();restore();select(new URL(location.href).searchParams.get('tool')||'scan');renderTrace();setInterval(refreshActions,200);

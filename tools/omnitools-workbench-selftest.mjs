@@ -23,4 +23,20 @@ assert.equal(instrument.bundle_version,'0.3');assert.equal(instrument.bench.nati
 assert.equal(instrument.axes[0].owner,instrument.bench.native_route);assert.deepEqual(instrument.axes.map(x=>x.id),['bench','scan','read','align','reshape']);
 assert.equal(instrument.return.authority,'EVIDENCE_ONLY');assert.equal(instrument.return.schema,'omnitools-return/v0.2');
 assert.deepEqual(instrument.spine,['SOURCE','AXIS','EFFECTOR','TRACE','RETURN']);
-console.log('OMNITOOLS WORKBENCH PASS · native Bench · one source · admitted snapshot bridge · matching evidence only');
+// M3 · rack verbs are DATA rows (id, glyph, label, mode, hint): one registry,
+// imported once by the host, rendered by the strip — no second table.
+assert.ok(Array.isArray(instrument.rack)&&instrument.rack.length===5,'rack registry missing');
+assert.deepEqual(instrument.rack.map(x=>x.id),instrument.axes.map(x=>x.id),'rack rows differ from the axes');
+for(const row of instrument.rack)for(const key of ['id','glyph','label','mode','hint'])assert.ok(row[key],'rack row '+(row&&row.id)+' lacks '+key);
+assert.ok(app.includes("from './instrument.json'")&&app.includes('INSTRUMENT.rack'),'rack registry is not imported from instrument.json');
+assert.ok(!/data-verb="[a-z]+"/.test(html),'rack verb buttons are hardcoded instead of rendered');
+// M4 · mode-scoped op strip: strip outside the header, one explicit reveal
+// handle, rest visibility flips `hidden` in place (focus order never moves).
+assert.ok(html.includes('id="rackStrip"')&&html.includes('id="rackVerbs"')&&html.includes('id="rackReveal"'),'op strip missing');
+assert.ok(html.indexOf('</header>')<html.indexOf('id="rackStrip"')&&html.indexOf('id="rackStrip"')<html.indexOf('<main'),'rack strip is not its own row between header and workspace');
+assert.ok(html.includes('aria-controls="rackVerbs"')&&html.includes('aria-label="Rack operations"'),'reveal handle or strip label missing');
+assert.ok(app.includes('b.hidden=!(on||rackRevealed)'),'mode-scoped rest visibility missing');
+// M8 · rack actions write receipts through the existing RETURN pattern only.
+assert.ok(app.includes("addTrace('RACK'")&&app.includes("addTrace('REVEAL'"),'rack actions write no receipt line');
+assert.ok(!/localStorage|indexedDB/.test(app),'rack introduced a new state authority');
+console.log('OMNITOOLS WORKBENCH PASS · native Bench · one source · admitted snapshot bridge · matching evidence only · rack verbs as data rows · mode-scoped op strip');
