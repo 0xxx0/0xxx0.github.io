@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-08T07:07:52.400Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-08T09:43:00.234Z by scripts/generate-convergence-strip.mjs_
 
-The field has **20 material commits on 2026-10-08** across **1013 branches** (79 exact Git commits in the window; 59 generated telemetry; 5800 on master all-time).
+The field has **21 material commits on 2026-10-08** across **1013 branches** (91 exact Git commits in the window; 70 generated telemetry; 5812 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -13,9 +13,9 @@ There are **0** open gaps.
 
 ## Last material commits
 
+- lib: fieldtypes.js — runtime contract + property-law module for the microlib
 - field: one command registry for the URLbar/omnibar (M1 M2 M3 M4 M6)
 - desk: refresh public field data
-- fi-mutation-contract: stamp / (IMPLEMENT,VERIFY)
 
 ## Open gaps
 
