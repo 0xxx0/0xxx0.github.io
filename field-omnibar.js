@@ -18,14 +18,21 @@ const COMMANDS=Object.freeze([
  {id:'trace',glyph:'⋮',label:'TRACE',hint:'witness'},
  {id:'read',glyph:'≡',label:'READ',hint:'reader'},
  {id:'map',glyph:'⌘',label:'MAP',hint:'visual projection'},
- {id:'recent',glyph:'◴',label:'RECENT',hint:'recent projection'}
+ {id:'recent',glyph:'◴',label:'RECENT',hint:'recent projection'},
+ {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents'}
 ]);
 const COMMAND_BY_ID=new Map(COMMANDS.map(x=>[x.id,x]));
 const GLYPH_TO_ID=new Map(COMMANDS.map(x=>[x.glyph,x.id]));
+/* Glyph aliases — the operator's grammar keys (unified palette, donor brief
+   §2 move 2). One letter = one operator; the palette RANKS these first, this
+   file EXECUTES them. field-urlbar.js reads this table through FieldOmnibar.aliases
+   so there is exactly one map, not two. */
+const GLYPH_ALIAS=Object.freeze({h:'root',o:'hold',w:'work',p:'prove',r:'open'});
 const ALIAS=Object.freeze({
  ':root':'root',':home':'root',':hold':'hold',':work':'work',':prove':'prove',':proof':'prove',
  ':open':'open',':return':'return',':back':'return',':handoff':'handoff',':copy':'handoff',
  ':run':'run',':hermes':'run',':trace':'trace',':read':'read',':map':'map',':recent':'recent',
+ ':reset':'reset',':rerank':'reset',
  ':up':'up',':down':'down',':prev':'prev',':next':'next','↑':'up','↓':'down','←':'prev','→':'next'
 });
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -89,6 +96,21 @@ function commandRows(filter=''){
  const q=clean(filter).replace(/^:/,'').toLowerCase();
  return COMMANDS.filter(c=>!q||c.id.includes(q)||c.label.toLowerCase().includes(q)).slice(0,7).map((c,i)=>({kind:'command',command:c,score:100-i}))
 }
+/* Empty-state ordering: the held object first, then surfaces in USE order
+   (bounded local cache, authority NONE — read only, this file holds no store). */
+function orderRecents(list){
+ try{
+  const pal=window.FieldPalette;if(!pal?.store)return list;
+  const rec=pal.store().recents||[];if(!rec.length)return list;
+  const focus=focusHref();
+  const pos=r=>{const h=r?.route?.href;if(!h)return Number.MAX_SAFE_INTEGER;const i=rec.indexOf(h);return i<0?Number.MAX_SAFE_INTEGER:i};
+  return list.slice().sort((a,b)=>{
+   const af=a.route?.href===focus?-1:0,bf=b.route?.href===focus?-1:0;if(af!==bf)return af-bf;
+   const pa=pos(a),pb=pos(b);if(pa!==pb)return pa-pb;
+   return list.indexOf(a)-list.indexOf(b);
+  });
+ }catch(_){return list}
+}
 function addressFor(row,parsed){
  if(row?.kind==='route')return row.route.href;
  if(parsed.query&&routeMap().has(parsed.query))return parsed.query;
@@ -105,6 +127,9 @@ async function copyText(text,label){
 async function execute(command,href,reason='operator'){
  const cmd=resolveCommand(command)||command||'hold',target=href||focusHref()||'/';
  const act=window.__fieldAct,zui=window.FieldZUI,host=window.FieldLensHost;
+ // Frecency feed: every real use of a glyph operator teaches the palette
+ // ranking (bounded local cache, authority NONE — see field-urlbar.js).
+ try{window.FieldPalette?.noteUse?.('cmd:'+cmd)}catch(_){}
  if(cmd==='root'){emit({command:cmd,target:'/',reason});location.assign('/');return}
  if(target&&target!=='/'&&act?.focus)act.focus(target);
  if(target==='/'&&cmd==='hold'){zui?.close?.('omnibar');status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
@@ -127,6 +152,7 @@ async function execute(command,href,reason='operator'){
   case'down':host?.dive?.();status('DIVE','ok');break;
   case'prev':host?.peer?.(-1);status('PEER ←','ok');break;
   case'next':host?.peer?.(1);status('PEER →','ok');break;
+  case'reset':window.FieldPalette?.reset?.();status('RANKING RESET','ok');break;
   default:status('UNKNOWN · '+cmd,'bad');return;
  }
  emit({command:cmd,target,reason});syncAddress();
@@ -136,6 +162,14 @@ function render(){
  const parsed=parse(input.value),raw=clean(input.value);
  rows=raw.startsWith(':')&&!parsed.command?commandRows(raw):candidates(parsed.query);
  if(parsed.command&&!parsed.query)rows=[{kind:'command',command:COMMAND_BY_ID.get(parsed.command)||{id:parsed.command,glyph:'›',label:parsed.command.toUpperCase(),hint:'current object'},score:999},...candidates('').slice(0,5)];
+ // Unified palette (donor brief §2 move 2): an exact glyph alias outranks every
+ // fuzzy match here exactly as it does on the URLbar line — one grammar, one rank.
+ if(!parsed.command){
+  const alias=GLYPH_ALIAS[parsed.query]||GLYPH_ALIAS[String(parsed.query||'').toLowerCase()];
+  if(alias){const c=COMMAND_BY_ID.get(alias);rows=[{kind:'command',alias:true,command:{id:c.id,glyph:c.glyph,label:c.label,hint:'glyph alias · ranks first'},score:1000},...rows].slice(0,7)}
+ }
+ // Empty query = most-recently-used surfaces first (bounded), never creation order.
+ if(!parsed.query&&!parsed.command)rows=orderRecents(rows).slice(0,5);
  active=Math.max(0,Math.min(active,Math.max(0,rows.length-1)));
  const action=parsed.command?COMMAND_BY_ID.get(parsed.command)?.glyph||'›':'◎';
  list.innerHTML=rows.length?rows.map((row,i)=>{
@@ -151,7 +185,7 @@ function syncAddress(){
 function move(delta){if(!rows.length)return;active=(active+delta+rows.length)%rows.length;render();list.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})}
 async function choose(index=active,reason='keyboard'){
  const parsed=parse(input.value),row=rows[index]||null;
- if(row?.kind==='command'&&!parsed.query){await execute(row.command.id,focusHref()||'/',reason);close(true);return}
+ if(row?.kind==='command'&&(!parsed.query||row.alias)){await execute(row.command.id,focusHref()||'/',reason);close(true);return}
  const href=addressFor(row,parsed),cmd=parsed.command||'hold';
  await execute(cmd,href,reason);close(true)
 }
@@ -173,11 +207,12 @@ function css(){
 #fieldOmnibar[data-tone="ok"]{border-color:color-mix(in srgb,var(--green) 55%,var(--line))}#fieldOmnibar[data-tone="bad"]{border-color:var(--bad)}#fieldOmnibar[data-depth="WORK"] .fieldOmniSigil{color:var(--cool)}#fieldOmnibar[data-depth="PROVE"] .fieldOmniSigil{color:var(--gold)}
 #fieldOmnibarKeys[data-tone="ok"]{box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--green) 70%,transparent)}
 #fieldOmnibarKeys[data-tone="bad"]{box-shadow:inset 0 -2px 0 var(--bad)}
-/* FOLD: when the FIELD URLbar owns the line, its frame reserves one extra grid
-   column so these glyph keys ride the SAME line instead of a second bar. */
-#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 30px minmax(0,1fr) auto auto}
+/* FOLD: when the FIELD URLbar owns the line, its frame reserves two extra grid
+   columns — one for these glyph keys, one for the status spine — so everything
+   rides the SAME line instead of a second bar. */
+#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 30px minmax(0,1fr) auto auto auto}
 html[data-theme="light"] #fieldOmnibar,html[data-theme="light"] .fieldOmniResults,html[data-theme="light"] .fieldOmniResults button{background:color-mix(in srgb,var(--bg) 95%,white)}
-@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 34px minmax(0,1fr) auto auto}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}.fieldOmniStatus{display:none}}
+@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 34px minmax(0,1fr) auto auto auto}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}.fieldOmniStatus{display:none}}
 @media(prefers-reduced-motion:reduce){#fieldOmnibar *{scroll-behavior:auto!important}}
  `;document.head.appendChild(s)
 }
@@ -255,6 +290,6 @@ function bind(){
  if(document.getElementById('fieldOmnibarKeys'))return;
  css();decide();
 }
-window.FieldOmnibar=Object.freeze({open:()=>open(true),close:()=>close(true),execute:(command,href)=>execute(command,href,'api'),address:()=>focusHref()||'/',commands:COMMANDS.map(({id,glyph,label})=>({id,glyph,label}))});
+window.FieldOmnibar=Object.freeze({open:()=>open(true),close:()=>close(true),execute:(command,href)=>execute(command,href,'api'),address:()=>focusHref()||'/',aliases:GLYPH_ALIAS,commands:COMMANDS.map(({id,glyph,label})=>({id,glyph,label}))});
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',bind,{once:true}):bind();
 })();
