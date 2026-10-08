@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-08T21:27:37+08:00",
+  "updated": "2026-10-08T21:32:20+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10072,6 +10072,33 @@
         "return_path": "/"
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/20261006-triage-mcvoid/",
+      "title": "THE TRIAGE - phone-first decision game",
+      "kind": "tool",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "UTILITY",
+      "family": "FIELD / PLAY",
+      "role": "A phone-first decision game generated from one deck of truth (tools/triage-build.py): one card = one real artifact from the 2026-10-06 APAC-AI thread material, each with a source tag. Recovered from untracked working set and landed 2026-10-08 (operator sweep).",
+      "versionless": true,
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-10-08T21:32:20+08:00",
+        "work_modes": [
+          "PLAY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "generator self-contained (deck is source of truth)",
+          "collision check 2026-10-08: 0 hits on origin/master + no open PR carried it",
+          "landed via PR 959 gates"
+        ]
+      }
     }
   ],
   "release_law": [
