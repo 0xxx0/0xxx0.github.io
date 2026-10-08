@@ -175,13 +175,69 @@ function rank(routes,parsed,ctx={},limit=9){
  // exact → prefix → title → keyword → frecency), then href for determinism.
  return xs.sort((a,b)=>b.score-a.score||frec(b.route.href)-frec(a.route.href)||String(a.route.href).localeCompare(String(b.route.href))).slice(0,limit).map(x=>x.route);
 }
-function rankCommands(query='',limit=9){
+/* G2 · match highlighting — a row must show WHY it matched. Every segment is
+   escaped BEFORE it is wrapped, so neither the row text nor the query can ever
+   inject markup (esc() is the only path to innerHTML). */
+function highlight(value,query){
+ const s=String(value??''),q=norm(query);if(!q||!s)return esc(s);
+ const v=s.toLocaleLowerCase();if(v.length!==s.length)return esc(s); // length-preserving lowercase only
+ const runs=[];
+ if(v===q)runs.push([0,s.length]);
+ else{
+  let at=v.indexOf(q);
+  if(at>=0)while(at>=0){runs.push([at,at+q.length]);at=v.indexOf(q,at+q.length)}
+  else{let j=0;const hit=[];for(let i=0;i<v.length&&j<q.length;i++)if(v[i]===q[j]){hit.push(i);j++}
+       if(j===q.length)for(const i of hit)runs.push([i,i+1])}
+ }
+ if(!runs.length)return esc(s);
+ const merged=[];
+ for(const r of runs.sort((a,b)=>a[0]-b[0])){const last=merged[merged.length-1];
+  if(last&&r[0]<=last[1])last[1]=Math.max(last[1],r[1]);else merged.push([r[0],r[1]])}
+ let out='',pos=0;
+ for(const[a,b]of merged){out+=esc(s.slice(pos,a))+'<mark>'+esc(s.slice(a,b))+'</mark>';pos=b}
+ return out+esc(s.slice(pos));
+}
+function commandHay(c){return[c.id,c.label,c.glyph,c.keywords,c.hint,(c.aliases||[]).map(a=>':'+a).join(' ')].join(' ')}
+/* G1 · command ranking — the store noteUse('cmd:'+id) writes is READ back
+   here: text evidence decides the rank, frecency (frequency × recency read
+   straight from the store — pure arithmetic, no clock, so one store always
+   ranks the same) breaks a tie, and alphabetical order is the untouched
+   default when nothing has been learned. Frecency never outranks a stronger
+   text match. */
+function rankCommands(query='',limit=9,pal=null){
  const q=norm(query);
- return COMMANDS.map((command,index)=>{
-  const hay=[command.id,command.label,command.glyph,command.keywords,command.hint,(command.aliases||[]).map(a=>':'+a).join(' ')].join(' ');
-  const score=q?evidenceScore(q,hay,{weight:1}):100-index;
-  return{command,index,score};
- }).filter(x=>Number.isFinite(x.score)).sort((a,b)=>b.score-a.score||a.index-b.index).slice(0,limit).map(x=>x.command);
+ const use=(pal&&typeof pal.use==='object')?pal.use:{};
+ const recents=(pal&&Array.isArray(pal.recents))?pal.recents:[];
+ const frec=id=>{const key='cmd:'+id,e=use[key];if(!e||typeof e!=='object')return 0;
+  const i=recents.indexOf(key);return(i<0?0:PALETTE_RECENTS-i)*1000+(Number(e.n)||1)};
+ const byId=(a,b)=>String(a.id).localeCompare(String(b.id));
+ const rows=COMMANDS.map(command=>({command,score:q?evidenceScore(q,commandHay(command)):0,f:frec(command.id)}))
+  .filter(x=>Number.isFinite(x.score));
+ // Empty query = orientation: scores are uniform, so learning (then pure
+ // alphabetical order) decides — recorded use can never masquerade as rank.
+ return rows.sort((a,b)=>b.score-a.score||b.f-a.f||byId(a.command,b.command)).slice(0,limit).map(x=>x.command);
+}
+/* G3 · a 0-match panel teaches instead of dying: the two nearest commands by
+   fuzzy score (positive score only), so a typo still lands near its target. */
+function nearScore(query,value){
+ const q=norm(query),v=norm(value);if(!q||!v)return -Infinity;
+ const exact=evidenceScore(q,v);if(Number.isFinite(exact))return exact;
+ const chars=[...new Set([...q])];let hit=0;
+ for(const ch of chars)if(v.includes(ch))hit++;
+ return hit?hit/chars.length:-Infinity;
+}
+function nearestCommands(query='',limit=2){
+ const q=norm(query);if(!q)return [];
+ return COMMANDS.map(command=>({command,score:nearScore(q,commandHay(command))}))
+  .filter(x=>x.score>0)
+  .sort((a,b)=>b.score-a.score||String(a.command.id).localeCompare(String(b.command.id)))
+  .slice(0,limit).map(x=>x.command);
+}
+function emptyHint(query,count){
+ if(count>0||!text(query))return '';
+ const near=nearestCommands(query,2);
+ const nearTxt=near.length?' · nearest '+near.map(c=>':'+c.id).join(' '):'';
+ return '<div class="fieldUrlStatus"><span>no match · :help for all commands'+esc(nearTxt)+'</span><span>esc clear</span></div>';
 }
 /* ===== unified command-palette layer (donor brief §2 move 2) =============
  Raycast ranking · Obsidian quick switcher · Notion ⌘K, onto the glyph grammar:
@@ -250,7 +306,7 @@ function boot(win){
 .fieldUrlBar{position:sticky;top:max(0px,env(safe-area-inset-top));z-index:70;margin:7px 0 9px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .fieldUrlFrame{height:42px;display:grid;grid-template-columns:auto 30px minmax(0,1fr) auto auto;align-items:center;border:1px solid var(--line);background:var(--p);box-shadow:inset 3px 0 0 var(--cool)}
 .fieldUrlProto{padding:0 8px;font-size:8px;letter-spacing:.12em;color:var(--cool);white-space:nowrap}.fieldUrlGlyph{width:30px;height:30px;display:grid;place-items:center;overflow:hidden}.fieldUrlGlyph svg{width:28px!important;height:28px!important}.fieldUrlInput{height:40px;width:100%;min-width:0;border:0!important;outline:0;background:transparent!important;padding:0 8px!important;font:700 12px/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.01em}.fieldUrlInput::placeholder{color:#566268}.fieldUrlMode{height:100%;display:flex;align-items:center;gap:6px;padding:0 8px;border-left:1px solid var(--line);white-space:nowrap}.fieldUrlMode b{font:800 15px/1 system-ui,sans-serif;color:var(--gold)}.fieldUrlMode span{font-size:6px;letter-spacing:.12em;color:var(--mut)}
-.fieldUrlPanel{position:absolute;left:0;right:0;top:100%;border:1px solid var(--line);border-top:0;background:var(--p);box-shadow:0 14px 35px rgba(0,0,0,.45);max-height:min(56vh,460px);overflow:auto}.fieldUrlRow{width:100%;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:7px;align-items:center;text-align:left;border:0;border-bottom:1px solid #20282c;background:var(--p);padding:6px 8px;min-height:42px}.fieldUrlRow:last-child{border-bottom:0}.fieldUrlRow[aria-selected="true"],.fieldUrlRow:hover{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldUrlMark{width:30px;height:30px;display:grid;place-items:center;font:800 17px/1 system-ui,sans-serif;color:var(--gold)}.fieldUrlMark svg{width:28px!important;height:28px!important}.fieldUrlBody{min-width:0}.fieldUrlBody b{display:block;font:750 11px/1.15 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlBody code{display:block;margin-top:2px;color:var(--cool);font:7px/1.25 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlTail{text-align:right;color:var(--mut);font-size:6px;line-height:1.25;max-width:18ch}.fieldUrlTail b{display:block;color:var(--ink);font-size:7px}.fieldUrlStatus{display:flex;justify-content:space-between;gap:8px;padding:5px 8px;background:#080b0d;color:var(--mut);font-size:6px;letter-spacing:.06em}.fieldUrlStatus b{color:var(--gold)}
+.fieldUrlPanel{position:absolute;left:0;right:0;top:100%;border:1px solid var(--line);border-top:0;background:var(--p);box-shadow:0 14px 35px rgba(0,0,0,.45);max-height:min(56vh,460px);overflow:auto}.fieldUrlRow{width:100%;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:7px;align-items:center;text-align:left;border:0;border-bottom:1px solid #20282c;background:var(--p);padding:6px 8px;min-height:42px}.fieldUrlRow:last-child{border-bottom:0}.fieldUrlRow[aria-selected="true"],.fieldUrlRow:hover{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldUrlMark{width:30px;height:30px;display:grid;place-items:center;font:800 17px/1 system-ui,sans-serif;color:var(--gold)}.fieldUrlMark svg{width:28px!important;height:28px!important}.fieldUrlBody{min-width:0}.fieldUrlBody b{display:block;font:750 11px/1.15 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlBody code{display:block;margin-top:2px;color:var(--cool);font:7px/1.25 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldUrlTail{text-align:right;color:var(--mut);font-size:6px;line-height:1.25;max-width:18ch}.fieldUrlTail b{display:block;color:var(--ink);font-size:7px}.fieldUrlRow mark{background:color-mix(in srgb,var(--gold) 30%,transparent);color:var(--ink);padding:0 1px;border-radius:2px}.fieldUrlStatus{display:flex;justify-content:space-between;gap:8px;padding:5px 8px;background:#080b0d;color:var(--mut);font-size:6px;letter-spacing:.06em}.fieldUrlStatus b{color:var(--gold)}
 /* status spine (donor brief §2 move 1, Dead Space RIG): one inline span on the
    SAME line — counts carry their age, labels ride on desktop, compact
    counts+age on a phone so the address input keeps its width. */
@@ -341,16 +397,17 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   shell.dataset.mode=parsed.mode;
  }
  function routeRow(r,i){
-  const mnemonic=glyphMnemonic(r),glyph=win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'<span>◇</span>';
+  const mnemonic=glyphMnemonic(r),glyph=win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'<span>◇</span>',q=currentParsed.query;
   const selectedAttr=i===selected?'true':'false';
-  return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+selectedAttr+'" data-index="'+i+'" data-href="'+esc(r.href)+'"><span class="fieldUrlMark">'+glyph+'</span><span class="fieldUrlBody"><b>'+esc(r.title||r.href)+'</b><code>'+esc(r.href)+' · '+esc(mnemonic)+'</code></span><span class="fieldUrlTail"><b>'+esc(r.operation||r.kind||'—')+'</b>'+esc(r.state||'—')+(heads.has(r.href)?' · HEAD':'')+'</span></button>';
+  return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+selectedAttr+'" data-index="'+i+'" data-href="'+esc(r.href)+'"><span class="fieldUrlMark">'+glyph+'</span><span class="fieldUrlBody"><b>'+highlight(r.title||r.href,q)+'</b><code>'+highlight(r.href,q)+' · '+esc(mnemonic)+'</code></span><span class="fieldUrlTail"><b>'+esc(r.operation||r.kind||'—')+'</b>'+esc(r.state||'—')+(heads.has(r.href)?' · HEAD':'')+'</span></button>';
  }
  function commandRow(c,i){
   // M6 — the row carries id, glyph, hint, aliases and where a route command
   // points, so the palette AND :help render from the same markup.
+  const q=currentParsed.query;
   const al=c.aliases&&c.aliases.length?' · = '+c.aliases.map(a=>':'+a).join(' '):'';
   const dest=c.nav?' · → '+c.nav:c.copy?' · ⧉ copy URL':'';
-  return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-command="'+esc(c.id)+'"><span class="fieldUrlMark">'+esc(c.glyph)+'</span><span class="fieldUrlBody"><b>:'+esc(c.id)+' · '+esc(c.label)+'</b><code>'+esc(c.hint+al+dest)+'</code></span><span class="fieldUrlTail"><b>COMMAND</b>authority none</span></button>'
+  return '<button class="fieldUrlRow" type="button" role="option" aria-selected="'+(i===selected?'true':'false')+'" data-index="'+i+'" data-command="'+esc(c.id)+'"><span class="fieldUrlMark">'+esc(c.glyph)+'</span><span class="fieldUrlBody"><b>'+highlight(':'+c.id+' · '+c.label,q)+'</b><code>'+highlight(c.hint+al+dest,q)+'</code></span><span class="fieldUrlTail"><b>COMMAND</b>authority none</span></button>'
  }
  function aliasRow(id,i){
   const g=ALIAS_GLYPH(id);
@@ -378,9 +435,9 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    aliasHit=null;
    if(helpOpen)results=COMMANDS.slice();
    else if(currentParsed.command){const c=COMMANDS.find(x=>x.id===currentParsed.command);results=c?[c]:[]}
-   else results=rankCommands(currentParsed.query,COMMANDS.length);
+   else results=rankCommands(currentParsed.query,COMMANDS.length,pal);
    if(selected>=results.length)selected=Math.max(0,results.length-1);
-   panel.innerHTML=(helpOpen?helpLegend():'')+results.map(commandRow).join('')+statusLine(currentParsed,results.length)
+   panel.innerHTML=(helpOpen?helpLegend():'')+results.map(commandRow).join('')+emptyHint(currentParsed.query,results.length)+statusLine(currentParsed,results.length)
   }
   else{
    // Alias-first: an exact single-letter glyph alias outranks every fuzzy match
@@ -390,7 +447,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    const off=aliasHit?1:0,empty=!text(currentParsed.query);
    results=rank(routes,currentParsed,context(),empty?EMPTY_ROWS:9);
    if(selected>=results.length+off)selected=Math.max(0,results.length-1+off);
-   panel.innerHTML=(aliasHit?aliasRow(aliasHit,0):'')+results.map((r,i)=>routeRow(r,i+off)).join('')+statusLine(currentParsed,results.length+off);
+   panel.innerHTML=(aliasHit?aliasRow(aliasHit,0):'')+results.map((r,i)=>routeRow(r,i+off)).join('')+emptyHint(currentParsed.query,results.length+off)+statusLine(currentParsed,results.length+off);
   }
   const open=forceOpen||doc.activeElement===input;panel.hidden=!open;input.setAttribute('aria-expanded',String(open));
   panel.querySelectorAll('.fieldUrlRow').forEach(row=>{
@@ -544,5 +601,5 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  win.FieldURLBar=Object.freeze({VERSION,focus:focusBar,parse:()=>parse(input.value),results:()=>results.slice(),showHelp,hermesPrepare:()=>{const r=currentRoute()||routeMap().get(focusHref);return r?hermesPrepare(r):null}});
  }
 
-return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,COMMAND_ALIAS,parse,parseCommand,resolveCommand,evidenceScore,scoreRoute,rank,rankCommands,shellQuote,hermesPrepare,boot,aliasId,parseBoard,stampMs,ageLabel,PALETTE_ALIAS,PALETTE_KEY,PALETTE_RECENTS,EMPTY_ROWS});
+return Object.freeze({VERSION,MODES,MODE_META,COMMANDS,COMMAND_ALIAS,parse,parseCommand,resolveCommand,evidenceScore,scoreRoute,rank,rankCommands,highlight,nearestCommands,emptyHint,shellQuote,hermesPrepare,boot,aliasId,parseBoard,stampMs,ageLabel,PALETTE_ALIAS,PALETTE_KEY,PALETTE_RECENTS,EMPTY_ROWS});
 });

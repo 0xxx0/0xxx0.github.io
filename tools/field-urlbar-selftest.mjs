@@ -154,5 +154,48 @@ ok(omni.includes("if(document.getElementById('fieldUrlBar'))return;"),'omnibar k
 ok(!/const COMMANDS\s*=\s*Object\.freeze\(\[/.test(omni),'field-omnibar.js must not carry a second command table');
 ok(omni.includes('FieldURLBarCore'),'field-omnibar.js binds the shared registry');
 
+/* ---- G1 · command frecency: rankCommands reads the store noteUse writes ---- */
+const noData=U.rankCommands('',26);
+eq(noData.map(c=>c.id),noData.map(c=>c.id).slice().sort(),'no usage data = pure alphabetical order');
+const seeded={recents:['cmd:theme','cmd:work'],use:{'cmd:theme':{n:1,ts:0},'cmd:work':{n:2,ts:0}}};
+const learned=U.rankCommands('',26,seeded);
+eq(learned.slice(0,2).map(c=>c.id),['theme','work'],'seeding the store reorders the command list');
+eq(learned.slice(2).map(c=>c.id),noData.filter(c=>c.id!=='theme'&&c.id!=='work').map(c=>c.id),'the unlearned tail stays alphabetical');
+// equal evidence scores fall back to alphabetical, then to frecency once taught.
+eq(U.rankCommands('copy').slice(0,4).map(c=>c.id),['calls','handoff','hub','run'],'equal scores fall back to alphabetical');
+const boost={recents:['cmd:run'],use:{'cmd:run':{n:5,ts:0}}};
+eq(U.rankCommands('copy',9,boost)[0].id,'run','frecency breaks an evidence TIE');
+eq(U.rankCommands('copy',9,boost).map(c=>c.id),U.rankCommands('copy',9,boost).map(c=>c.id),'one store always ranks the same (deterministic)');
+const heavyCmd={recents:['cmd:trace'],use:{'cmd:trace':{n:999,ts:0}}};
+eq(U.rankCommands('copy',9,heavyCmd).slice(0,4).map(c=>c.id),['calls','handoff','hub','run'],'heavy frecency never outranks a stronger text score');
+
+/* ---- G2 · match highlighting: wrapped in <mark>, escaped BEFORE wrapping ---- */
+const marked=U.highlight('PROVE · evidence depth','prov');
+ok(marked.startsWith('<mark>PROV</mark>'),'matched characters are wrapped in <mark>');
+eq(U.highlight('PROVE',''),'PROVE','an empty query renders plain text');
+eq(U.highlight('PROVE','zzz'),'PROVE','a non-match renders plain text');
+const nasty='<img src=x onerror=alert(1)>';
+const escaped=U.highlight(nasty,'img');
+ok(!escaped.includes('<img'),'highlight never injects raw markup (query text is escaped)');
+ok(escaped.includes('&lt;<mark>img</mark>'),'row text is escaped before it is wrapped');
+ok(urlbar.includes('highlight(r.title||r.href'),'route rows render through the highlighter');
+ok(urlbar.includes("highlight(':'+c.id+' · '+c.label"),'command rows render through the highlighter');
+ok(urlbar.includes('.fieldUrlRow mark{'),'the highlight ships quiet panel styling');
+
+/* ---- G3 · the 0-match panel teaches instead of dying ---- */
+const near=U.nearestCommands('zzzzz');
+eq(near.length,2,'a 0-match query offers the 2 nearest commands');
+ok(near.every(c=>U.COMMANDS.some(x=>x.id===c.id)),'nearest commands come from the ONE registry');
+eq(U.nearestCommands('zzzzz'),near,'nearest commands are deterministic');
+eq(U.nearestCommands('qqq'),[],'no evidence at all offers nothing (score > 0 gate)');
+const hint=U.emptyHint('zzzzz',0);
+ok(hint.includes('no match · :help for all commands'),'empty state teaches the :help handle');
+ok(hint.includes('fieldUrlStatus'),'empty state uses the quiet panel styling');
+ok(hint.includes('nearest :'),'empty state names the nearest commands');
+eq(U.emptyHint('zzzzz',3),'','a non-empty result set renders no hint');
+eq(U.emptyHint('',0),'','an empty query never claims no match');
+ok(!U.emptyHint('<b>x</b>',0).includes('<b>'),'the hint never echoes raw query markup');
+ok(urlbar.includes('emptyHint(currentParsed.query'),'paint() wires the teaching empty state');
+
 if(fail.length){console.error('FIELD URLBAR SELFTEST FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('FIELD URLBAR SELFTEST PASS · one URL line → glyph/address/head/turn/Hermes prep · authority NONE · projection-owned mount');
