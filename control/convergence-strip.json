@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T14:33:56.180Z",
+  "generated": "2026-10-08T15:04:57.196Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 34,
-  "git_commits_in_window": 126,
-  "telemetry_commits_in_window": 92,
-  "commits_total": 5864,
-  "branch_count": 1018,
+  "commits_in_window": 37,
+  "git_commits_in_window": 133,
+  "telemetry_commits_in_window": 96,
+  "commits_total": 5871,
+  "branch_count": 1019,
   "recent_commits": [
-    "Merge pull request #931 from 0xxx0/audit/convergence-snapshot-authority-202610",
-    "sync: replay authority-none law onto current master; conflicts were the two ge",
-    "Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006"
+    "desk: refresh public field data + root git chronology",
+    "Merge pull request #962 from 0xxx0/field/index-lessons-fold-20261008",
+    "index: fold the donor-brief lessons into the front door — consequence-before-t"
   ],
   "active_fronts": [
     {

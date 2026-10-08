@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-08T14:33:56.180Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-08T15:04:57.196Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **34 material commits on 2026-10-08** across **1018 branches** (126 exact Git commits in the window; 92 generated telemetry; 5864 on master all-time).
+At capture, the field had **37 material commits on 2026-10-08** across **1019 branches** (133 exact Git commits in the window; 96 generated telemetry; 5871 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -16,9 +16,9 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
-- Merge pull request #931 from 0xxx0/audit/convergence-snapshot-authority-202610
-- sync: replay authority-none law onto current master; conflicts were the two ge
-- Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006
+- desk: refresh public field data + root git chronology
+- Merge pull request #962 from 0xxx0/field/index-lessons-fold-20261008
+- index: fold the donor-brief lessons into the front door — consequence-before-t
 
 ## Law
 
