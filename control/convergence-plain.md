@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-08T02:58:54.049Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-08T06:05:52.893Z by scripts/generate-convergence-strip.mjs_
 
-The field has **14 material commits on 2026-10-08** across **1013 branches** (55 exact Git commits in the window; 41 generated telemetry; 5776 on master all-time).
+The field has **16 material commits on 2026-10-08** across **1013 branches** (69 exact Git commits in the window; 53 generated telemetry; 5790 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,8 +14,8 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- Merge pull request #955 from 0xxx0/fold/thecall-meters-fix-20261008
-- fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (VERIFY,REPAIR)
+- index: remove the USE THESE box from FIELD INDEX root
+- desk: refresh public field data
 
 ## Open gaps
 

@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T02:58:54.049Z",
+  "generated": "2026-10-08T06:05:52.893Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 14,
-  "git_commits_in_window": 55,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 5776,
+  "commits_in_window": 16,
+  "git_commits_in_window": 69,
+  "telemetry_commits_in_window": 53,
+  "commits_total": 5790,
   "branch_count": 1013,
   "recent_commits": [
     "desk: refresh public field data",
-    "Merge pull request #955 from 0xxx0/fold/thecall-meters-fix-20261008",
-    "fi-mutation-contract: stamp /20261006-the-call-mcvoid/ (VERIFY,REPAIR)"
+    "index: remove the USE THESE box from FIELD INDEX root",
+    "desk: refresh public field data"
   ],
   "active_fronts": [
     {
