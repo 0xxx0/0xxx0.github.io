@@ -316,7 +316,7 @@ function reconcile(){
       EFF.set(r.file,{state:snap,marker:'snapshot',cls:'',note:v.via,changed:false});
     }
   }
-  const when=new Date(LIVE.at).toLocaleTimeString();
+  const when=stampAge(LIVE.at);
   $('#livesync').innerHTML=`<div>LIVE SYNC · <b>${matched}</b> receipts matched · <b>${changed}</b> stale vs snapshot · window ${LIVE.prs.size} PRs / ${LIVE.commits.size} commits · fetched ${esc(when)}</div>`;
   renderStats();renderReturns();
 }
@@ -362,11 +362,20 @@ function setView(v){
 $('#bar').querySelectorAll('button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#q-returns').addEventListener('input',renderReturns);
 
+// AS-OF legibility — the desk's refresh stamp and live-sync stamp must read as AGES, not bare
+// clock times: the operator compares the desk against the root index and a UTC ISO or a bare
+// toLocaleTimeString hides a real age difference (never silently stale).
+function stampAge(iso){
+  const d=new Date(iso);if(isNaN(d))return String(iso||'…');
+  const p=n=>String(n).padStart(2,'0');const ms=Date.now()-d.getTime();
+  const a=ms<60000?'just now':ms<3600000?Math.max(1,Math.round(ms/60000))+'m ago':ms<86400000?Math.round(ms/3600000)+'h ago':Math.round(ms/86400000)+'d ago';
+  return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+' · '+a;
+}
 (async function(){
   try{
     const res=await fetch('./data.json');
     DATA=await res.json();
-    $('#gen').textContent=DATA.generated||'…';
+    $('#gen').textContent=stampAge(DATA.generated);
     renderStats();renderReturns();renderRoutes();
   }catch(e){
     $('#stats').innerHTML='<div class="stat"><b>—</b><span>DATA FAILED</span></div>';
