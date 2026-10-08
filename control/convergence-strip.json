@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T13:31:55.811Z",
+  "generated": "2026-10-08T14:03:01.182Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 25,
-  "git_commits_in_window": 111,
-  "telemetry_commits_in_window": 86,
-  "commits_total": 5832,
-  "branch_count": 1016,
+  "commits_in_window": 29,
+  "git_commits_in_window": 118,
+  "telemetry_commits_in_window": 89,
+  "commits_total": 5839,
+  "branch_count": 1017,
   "recent_commits": [
     "desk: refresh public field data",
-    "fi-mutation-contract: stamp /foundry/omnitools/ (IMPLEMENT,VERIFY)",
-    "omnitools: rack verbs as data rows + mode-scoped op strip (M3 M4 M8)"
+    "Merge pull request #959 from 0xxx0/fold/triage-merge-audit-land-20261008",
+    "fi-mutation-contract: register + stamp /20261006-triage-mcvoid/ (IMPLEMENT,VER"
   ],
   "active_fronts": [
     {

@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-10-08T13:31:55.811Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-10-08T14:03:01.182Z by scripts/generate-convergence-strip.mjs_
 
-The field has **25 material commits on 2026-10-08** across **1016 branches** (111 exact Git commits in the window; 86 generated telemetry; 5832 on master all-time).
+The field has **29 material commits on 2026-10-08** across **1017 branches** (118 exact Git commits in the window; 89 generated telemetry; 5839 on master all-time).
 **2/2** fronts are live, against **12** current heads.
 There are **0** open gaps.
 
@@ -14,8 +14,8 @@ There are **0** open gaps.
 ## Last material commits
 
 - desk: refresh public field data
-- fi-mutation-contract: stamp /foundry/omnitools/ (IMPLEMENT,VERIFY)
-- omnitools: rack verbs as data rows + mode-scoped op strip (M3 M4 M8)
+- Merge pull request #959 from 0xxx0/fold/triage-merge-audit-land-20261008
+- fi-mutation-contract: register + stamp /20261006-triage-mcvoid/ (IMPLEMENT,VER
 
 ## Open gaps
 
