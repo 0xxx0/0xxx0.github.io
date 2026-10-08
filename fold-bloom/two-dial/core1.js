@@ -6,10 +6,15 @@ const APP_VERSION = '0.10.7-reversible-commit',
 const $ = s => document.querySelector(s),
   $$ = s => [...document.querySelectorAll(s)],
   cv = $('#game'),
-  g = cv.getContext('2d'),
-  TAU = Math.PI * 2;
+  g = cv.getContext('2d');
 const CYCLIC = globalThis.InterphaseRing;
 if (!CYCLIC) throw new Error('INTERPHASE_RING_REQUIRED');
+// Polar primitives come from lib/interphase-ring.js (loaded before this file):
+// one math, one home. Local copies were byte-identical; the adoption gate is
+// scripts/check-radial-adoption.mjs.
+const TAU = CYCLIC.TAU,
+  wrap = CYCLIC.wrap,
+  clamp = CYCLIC.clamp;
 const M = ['○', '≈', '✦', '◇', '∿', '×'],
   HARM = ['Ⅰ', 'Ⅴ', 'Ⅱ', 'Ⅵ', 'Ⅲ', 'Ⅶ'];
 const WORLDS = {
@@ -227,12 +232,6 @@ let demo = { on: false, i: 0, timer: 0, prevMode: 'PLAY', raf: 0, preview: false
 let commitUndoSnapshot = null,
   pendingCommitUndoSnapshot = null,
   pendingComposeTimers = new Set();
-function wrap(n, m) {
-  return ((n % m) + m) % m;
-}
-function clamp(v, a, b) {
-  return Math.max(a, Math.min(b, v));
-}
 function rng() {
   rngState |= 0;
   rngState = (rngState + 0x6d2b79f5) | 0;

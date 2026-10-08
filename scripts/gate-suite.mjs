@@ -26,6 +26,7 @@ const ROOT = resolve(argv.includes('--root') ? argv[argv.indexOf('--root') + 1] 
 const GATES = [
   { id: 'route-registration', cmd: 'node', args: ['scripts/check-route-registration.mjs'] },
   { id: 'toast-adoption', cmd: 'node', args: ['scripts/check-toast-adoption.mjs'] },  // END 2 as a gate
+  { id: 'radial-adoption', cmd: 'node', args: ['scripts/check-radial-adoption.mjs'] },  // MICROLIB: radial math converges on lib/
   { id: 'interphase-registry', cmd: 'node', args: ['scripts/check-interphase.mjs'] },
   { id: 'public-surface', cmd: 'node', args: ['tools/validate-public.mjs'] },
   { id: 'interphase-runtime', cmd: 'node', args: ['tools/interphase-selftest.cjs'] },

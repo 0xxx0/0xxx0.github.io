@@ -55,6 +55,7 @@
 <dialog id="jsonDialog"><div class="dh"><span>CANONICAL DAYSTATE</span><button data-close="jsonDialog">CLOSE</button></div><div class="db"><textarea id="jsonText"></textarea></div><div class="df"><button id="resetData" class="danger">RESET EMPTY</button><div><button id="formatJson">FORMAT</button> <button id="shareCapsuleJson">COPY CAPSULE</button> <button id="printAtlas">PRINT</button> <button id="exportJson">EXPORT</button> <button id="applyJson" class="primary">APPLY</button></div></div></dialog>
 <div id="toast"></div>
 
+<script src="/lib/interphase-ring.js"></script>
 <script defer src="./app.js"></script>
 <script>document.addEventListener("DOMContentLoaded",()=>{const m=document.getElementById("toolbarMore");if(!m)return;const q=matchMedia("(max-width:820px)");const sync=()=>q.matches?m.removeAttribute("open"):m.setAttribute("open","");sync();q.addEventListener?.("change",sync)});</script><script defer src="./field-bridge.js"></script>
 <script src="/showcase-nav.js" defer></script></body>
