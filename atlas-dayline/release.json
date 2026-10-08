@@ -26,7 +26,7 @@
     "explicit_promotion": "PASS_BY_SOURCE",
     "feedback_no_repo_write": "PASS_BY_SOURCE",
     "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
-    "cache_version_bumped": "atlas-dayline-i-v6",
+    "cache_version_bumped": "atlas-dayline-i-v7",
     "reality_handoff_schema": "atlas-dayline-handoff/v0.1",
     "explicit_source_promotion": "PASS_BY_SOURCE",
     "session_local_transport": "PASS_BY_SOURCE",
@@ -64,6 +64,7 @@
     "shared showcase route controls relocate from bottom-left to bottom-right on phones with bounded panel scroll",
     "added explicit NOW ↻ device-clock synchronization without destroying manual/counterfactual time",
     "RETURN now distinguishes ORIENTATION_SNAPSHOT from WORLD_DELTA and records canonical vs device-local clock",
-    "worldKey now uses local calendar date"
+    "worldKey now uses local calendar date",
+    "microlib convergence (2026-10-06): TAU/clamp/point(polar) are consumed from /lib/interphase-ring.js instead of private copies; service-worker cache atlas-dayline-i-v7 precaches the shared module"
   ]
 }
