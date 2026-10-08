@@ -63,10 +63,13 @@ const files = readdirSync(returnsDir)
   .sort((a, b) => (a.date < b.date ? 1 : -1));
 
 // Manifest routes: the addressed field the desk reads alongside returns.
+// The root row ('/') is the index ITSELF, not an addressed surface — same rule as
+// index.html (`routes.filter(r=>r.href!=='/')`), so both surfaces report the SAME
+// route count instead of an unexplained 193 vs 192 off-by-one.
 let routes = [];
 try {
   const m = JSON.parse(readFileSync(join(root, 'showcase-manifest.json'), 'utf8'));
-  routes = (m.routes || []).map((r) => ({
+  routes = (m.routes || []).filter((r) => r.href !== '/').map((r) => ({
     href: r.href,
     title: r.title || r.href,
     kind: r.kind || '',

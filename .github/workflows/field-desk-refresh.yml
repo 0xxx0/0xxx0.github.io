@@ -3,6 +3,10 @@ name: FIELD Desk Refresh
 # desk/data.json is a generated public projection of durable RETURN receipts +
 # registered FIELD routes. Keep it current when its actual sources change so
 # the operator does not become the synchronization mechanism.
+# control/git-history.json rides along: it is the root index's CHANGE/GIT
+# fallback when the GitHub API rate-limits, and nothing else regenerates it —
+# left manual it aged 5 days while the desk stayed hours-old, so the two
+# surfaces disagreed with no stamp saying why (2026-10-08 desk/index match).
 on:
   push:
     branches: [master]
@@ -10,6 +14,7 @@ on:
       - 'returns/**/*.json'
       - 'showcase-manifest.json'
       - 'tools/gen-desk-data.mjs'
+      - 'scripts/build-git-history.mjs'
       - '.github/workflows/field-desk-refresh.yml'
   workflow_dispatch:
 
@@ -36,24 +41,27 @@ jobs:
       - name: Regenerate public FIELD DESK projection
         run: node tools/gen-desk-data.mjs
 
+      - name: Regenerate root git chronology (root CHANGE/GIT fallback projection)
+        run: node scripts/build-git-history.mjs
+
       - name: Regenerate FIELD FOLD convergence map (keeps /interphase-genesis/ live)
         run: node tools/field-fold.mjs --write
 
       - name: Validate generated JSON
-        run: node -e "JSON.parse(require('fs').readFileSync('desk/data.json','utf8')); JSON.parse(require('fs').readFileSync('returns/FIELD_FOLD_MAP.json','utf8')); console.log('desk/data.json + FIELD_FOLD_MAP.json valid')"
+        run: node -e "JSON.parse(require('fs').readFileSync('desk/data.json','utf8')); JSON.parse(require('fs').readFileSync('returns/FIELD_FOLD_MAP.json','utf8')); JSON.parse(require('fs').readFileSync('control/git-history.json','utf8')); console.log('desk/data.json + FIELD_FOLD_MAP.json + git-history.json valid')"
 
       - name: Commit only when projection changed
         id: commit
         run: |
-          if git diff --quiet -- desk/data.json returns/FIELD_FOLD_MAP.json; then
+          if git diff --quiet -- desk/data.json returns/FIELD_FOLD_MAP.json control/git-history.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "FIELD DESK already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add desk/data.json returns/FIELD_FOLD_MAP.json
-          git commit -m "desk: refresh public field data"
+          git add desk/data.json returns/FIELD_FOLD_MAP.json control/git-history.json
+          git commit -m "desk: refresh public field data + root git chronology"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Publish with bounded concurrent-writer retry
@@ -68,8 +76,9 @@ jobs:
             git fetch origin master
             git rebase origin/master
             node tools/gen-desk-data.mjs
+            node scripts/build-git-history.mjs
             node tools/field-fold.mjs --write
-            git add desk/data.json returns/FIELD_FOLD_MAP.json
+            git add desk/data.json returns/FIELD_FOLD_MAP.json control/git-history.json
             if ! git diff --cached --quiet; then
               git commit --amend --no-edit
             fi

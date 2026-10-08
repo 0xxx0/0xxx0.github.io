@@ -44,8 +44,8 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:10px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-.footMenu{position:relative}.footMenu>summary{list-style:none;cursor:pointer;border:1px solid var(--line);padding:4px 7px;font-size:9.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.footMenu>summary::-webkit-details-marker{display:none}.footMenu[open]>summary{color:var(--ink);border-color:#59676d}.footMenu>a{display:block;margin-top:3px;border:1px solid var(--hot);color:#ffd0bd;padding:6px 8px;font-size:9.5px;letter-spacing:.09em;white-space:nowrap}
-.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:10px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:10px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:9.5px;letter-spacing:.09em}.reentrySeg b{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:10px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:10px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:9.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.footMenu{position:relative}.footMenu>summary{list-style:none;cursor:pointer;border:1px solid var(--line);padding:4px 7px;font-size:9.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.footMenu>summary::-webkit-details-marker{display:none}.footMenu[open]>summary{color:var(--ink);border-color:#59676d}.footMenu>a{display:block;margin-top:3px;border:1px solid var(--hot);color:#ffd0bd;padding:6px 8px;font-size:9.5px;letter-spacing:.09em;white-space:nowrap}.footMenu>.footLaw{display:block;margin-top:6px;color:var(--mut);font-size:9px;letter-spacing:.06em;white-space:normal}
+.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:10px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:10px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:9.5px;letter-spacing:.09em}.reentrySeg b{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:10px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:10px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:9.5px;margin-top:2px;white-space:normal;overflow-wrap:anywhere}
 
 /* AXIAL / LATEST */
 .axial{margin-top:9px;border:1px solid var(--line);background:var(--p)}
@@ -335,6 +335,8 @@ html[data-theme="light"] .mapNode.sel rect{stroke:var(--hot);stroke-width:2}
 html[data-theme="light"] .mapNode text{fill:#3f3d36}
 html[data-theme="light"] .mapEdge{stroke:#d8d1c0}
 .plainIntro{margin:10px 0 0;max-width:52ch;font:400 13px/1.6 system-ui,sans-serif;color:var(--mut)}
+/* glyph grammar legend (Tunic): one line, at rest, no hover — each glyph carries its label */
+.glyphLegend{display:block;margin-top:5px;font:400 11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--mut);letter-spacing:.02em}
 /* phone-width: caption + meta lines wrap instead of clipping mid-word (operator: 'just usable') */
 @media(max-width:760px){summary,.footMenu>summary,.focusDepth>summary,.workDepth>summary,.portGroup>summary{white-space:normal}
 summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;display:block}
@@ -345,26 +347,26 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 </head>
 <body><main>
 <header>
-  <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1><p class="plainIntro">A map of everything here — instruments, pages, records. Tap a tile to see what it is; tap it again to open it.</p></div>
+  <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1><p class="plainIntro">A map of everything here — instruments, pages, records. Tap a tile to see what it is; tap it again to open it.<span class="glyphLegend">⌂ ROOT · ◎ HOLD · ▽ WORK · ◆ PROVE · ↗ OPEN</span></p></div>
 </header>
 <details class="reentryFold" id="reentryFold" aria-label="FIELD re-entry and depth">
   <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>READ</b></span><span class="reentryToggle">▶</span></summary>
   <div class="reentryBody">
-    <a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a>
-    <a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a>
-    <a href="#convRead"><b>CONVERGE / READ</b><span>live QUEUE + atlas projection</span></a>
-    <a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a>
-    <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
-    <a class="utility" href="./comms/"><b>MACHINE / ROOM</b><span>comms state · fleet / open / loops / moved</span></a>
-    <a class="utility" href="./fovea/"><b>FOVEA</b><span>one-field projection over registered surfaces</span></a>
-    <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
-    <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
-    <a class="utility" href="./control/confluence/"><b>CONFLUENCE</b><span>continuity + convergence records</span></a>
-    <a class="utility" href="./nexus/"><b>NEXUS ALIAS</b><span>compatibility → FIELD convergence</span></a>
-    <a class="utility" href="./foundry/"><b>FOUNDRY</b><span>axial + instruments</span></a>
-    <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
-    <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
-    <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>root interaction contract</span></a>
+    <a href="./control/"><b>NOW / CURRENT</b><span>what needs you now — heads, next move</span></a>
+    <a href="./recovery/"><b>RECOVER / VAULT</b><span>trace any claim to its exact receipt</span></a>
+    <a href="#convRead"><b>CONVERGE / READ</b><span>read live fronts and horizon — changes nothing</span></a>
+    <a href="./witness/"><b>WITNESS / WALL</b><span>one record, six views — check any of them</span></a>
+    <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>step-by-step evidence for the held object</span></a>
+    <a class="utility" href="./comms/"><b>MACHINE / ROOM</b><span>who is open, blocked, running right now</span></a>
+    <a class="utility" href="./fovea/"><b>FOVEA</b><span>read any surface through one lens</span></a>
+    <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>check a projection against its source</span></a>
+    <a class="utility" href="./house/"><b>HOUSE</b><span>the house at a glance — spatial state</span></a>
+    <a class="utility" href="./control/confluence/"><b>CONFLUENCE</b><span>where two worklines met, and what it proved</span></a>
+    <a class="utility" href="./nexus/"><b>NEXUS ALIAS</b><span>old nexus links, landed here</span></a>
+    <a class="utility" href="./foundry/"><b>FOUNDRY</b><span>make, hold, return — the workbench</span></a>
+    <a class="utility" href="./migration/"><b>RECORD</b><span>recovered material, with lineage</span></a>
+    <a class="utility" href="./returns/"><b>RETURN</b><span>every receipt — what was proved and measured</span></a>
+    <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>the rules this page keeps</span></a>
     <div class="convRead" id="convRead" aria-label="Convergence reading — composed on read from QUEUE.json and federation-atlas.json">
       <div class="cvHead"><b>CONVERGENCE READ</b><span id="convMeta">QUEUE + atlas · composing…</span></div>
       <div id="convBody"><div class="cvNone">composing live fronts · held reasons · horizon distribution…</div></div>
@@ -384,7 +386,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody">
       <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
-      <p id="apRole">One addressed object; hidden structure remains recoverable below.</p>
+      <p id="apRole">Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.</p>
       <div class="apFlow" id="apFlow" aria-label="Held object continuation">
         <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
         <div class="apOutcome"><span class="apFlowK">WITNESS → RETURN</span><div class="apOutcomeText"><span class="capWitness" id="capWitness">—</span><span class="capReturn" id="capReturn">—</span></div></div>
@@ -485,7 +487,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
   <div class="runDockRead"><span id="runDockWitness"><b>WITNESS</b> —</span><span class="forecast" id="runDockForecast"><b>FORECAST</b> —</span></div>
 </div>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a></details><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span class="footLaw">CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span></details><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -1057,7 +1059,7 @@ function renderAperture(){
   $('apTitle').textContent=impossible?'No route matches this tuple':'Choose one CURRENT head';
   $('apPath').textContent=impossible?[axisState.state,axisState.operation,axisState.mode].join(' × '):(current?.current_heads||[]).length+' retained · choose an address below · order is not rank';
   $('apProjection').textContent=impossible?'ADJUST ONE AXIS OR RESET':'SOURCE → HOLD → TURN → TRACE → RETURN';
-  $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'CURRENT asks for one bounded conversion on an existing head. Choose a CURRENT head below; its native move, forecast, witness and RETURN stay attached to that object. Head order is not priority.';
+  $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.';
   $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();renderWorkDepth();return;
  }
  ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';
@@ -1169,7 +1171,7 @@ function renderSyncLine(){
  cur.textContent=(cu||'—')+' · '+fronts+' fronts · '+heads+' heads';
  if(cu&&ageH!=null&&Number.isFinite(ageH)){const a=document.createElement('b'),stale=isStale(cu);a.className=stale?'staleDate':'';a.textContent=' · '+(stale?'STALE ':'')+Math.round(ageH)+'h old';cur.appendChild(a)}
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
- const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
+ const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date)+(c.cached?' · CACHED':''):'MHEAD —';
 }
 function routeForRepoFile(path){
  const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
@@ -1207,7 +1209,11 @@ function renderRepoTouches(){
  const xs=repoTouches.slice().sort((a,b)=>(isMachine(a.subject)?1:0)-(isMachine(b.subject)?1:0)).slice(0,8);
  if(!xs.length){meta.textContent='master · live chronology unavailable';box.innerHTML='<div class="touchFail">Live GitHub chronology unavailable; manifest projection remains below.</div>';renderSyncLine();return}
  const machineN=repoTouches.filter(c=>isMachine(c.subject)).length, fieldN=repoTouches.length-machineN;
- meta.textContent='MASTER HEAD '+masterHead.sha.slice(0,8)+' · '+shortTs(masterHead.date)+(fieldHead&&fieldHead.sha!==masterHead.sha?' · FIELD '+fieldHead.sha.slice(0,8)+' · '+shortTs(fieldHead.date):'')+' · '+fieldN+' field changes · '+machineN+' machine refreshes'+(repoTouches[0]&&repoTouches[0].cached?' · CACHED PROJECTION — live API unavailable':' · live');
+ // Cached rows must STATE their age: control/git-history.json is a fallback projection and
+ // silently reading "now" while days old is the staleness the operator cannot see (mirrors
+ // the CURRENT >36h STALE flag on the truth frame).
+ const cachedAgeH=masterHead?((Date.now()-tsMs(masterHead.date))/36e5):null;
+ meta.textContent='MASTER HEAD '+masterHead.sha.slice(0,8)+' · '+shortTs(masterHead.date)+(fieldHead&&fieldHead.sha!==masterHead.sha?' · FIELD '+fieldHead.sha.slice(0,8)+' · '+shortTs(fieldHead.date):'')+' · '+fieldN+' field changes · '+machineN+' machine refreshes'+(repoTouches[0]&&repoTouches[0].cached?' · CACHED PROJECTION — live API unavailable'+(cachedAgeH!=null&&cachedAgeH>36?' · '+(cachedAgeH<48?'1d':Math.round(cachedAgeH/24)+'d')+' old':''):' · live');
  box.innerHTML=xs.map(c=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
  box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
  renderSyncLine();
@@ -1495,7 +1501,7 @@ Promise.all([
  // The feed rail changes slice with scope/ALL, so it computes its own map over what it is
  // actually showing (renderFeed).
  markTags=computeMarkTags([...headRenderables(),...portItems().map(x=>x.r)]);
- $('axialMeta').textContent=latest.length+' addressed surfaces · hold one; refine only when needed';
+ $('axialMeta').textContent=latest.length+' addressed surfaces';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderOrientation();loadRepoTouches();loadWaiting();loadIssues();loadConvergence();renderMap();revealConvergenceHash();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('apSeen').onclick=()=>{if(!focus)return;if($('apSeen').dataset.orientationAction==='undo')undoHeldSeen(focus.href);else markRouteCaughtUp(focus.href)};$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyHeldAction;$('feedScope').onclick=()=>{feedScope=feedScope==='HEADS'?'RECENT':'HEADS';latestLimit=30;$('moreLatest').textContent='ALL';renderFeed()};$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'ALL':'SHOW FEWER';renderFeed()};
