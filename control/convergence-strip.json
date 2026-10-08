@@ -1,18 +1,23 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-08T14:03:01.182Z",
+  "generated": "2026-10-08T14:15:27.596Z",
   "generator": "scripts/generate-convergence-strip.mjs",
+  "role": "DERIVED_SNAPSHOT",
+  "authority": "NONE",
+  "live_derivation": "/#convRead",
+  "live_derivation_source": "FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS",
+  "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-08",
-  "commits_in_window": 29,
-  "git_commits_in_window": 118,
-  "telemetry_commits_in_window": 89,
-  "commits_total": 5839,
-  "branch_count": 1017,
+  "commits_in_window": 32,
+  "git_commits_in_window": 122,
+  "telemetry_commits_in_window": 90,
+  "commits_total": 5849,
+  "branch_count": 1018,
   "recent_commits": [
-    "desk: refresh public field data",
-    "Merge pull request #959 from 0xxx0/fold/triage-merge-audit-land-20261008",
-    "fi-mutation-contract: register + stamp /20261006-triage-mcvoid/ (IMPLEMENT,VER"
+    "Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006",
+    "Merge remote-tracking branch 'origin/master' into kestrel/pr935-sync-20261008",
+    "sync: merge origin/master into microlib wave 2 (conflict sync: lib/README keep"
   ],
   "active_fronts": [
     {
@@ -28,6 +33,5 @@
   ],
   "live_fronts": "2/2",
   "current_heads": 12,
-  "open_gaps": [],
   "current_updated": "2026-10-06T23:09:25+08:00"
 }

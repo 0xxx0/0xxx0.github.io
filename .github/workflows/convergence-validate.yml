@@ -29,12 +29,11 @@ jobs:
               issues.push('MISSING: ' + a.id + ' route ' + a.route);
             }
             if (a.status === 'BLOCKED_EXACT_SOURCE' && a.source_url) {
-              // Mark for manual review — can't verify external URLs in CI
               issues.push('REVIEW: ' + a.id + ' blocked source ' + a.source_url);
             }
           }
           if (issues.length) {
-            console.log('Issues found:\\n' + issues.join('\\n'));
+            console.log('Issues found:\n' + issues.join('\n'));
             process.exit(1);
           }
           console.log('All MIGRATION.json routes verified OK');
@@ -46,7 +45,6 @@ jobs:
           const c = require('./control/CURRENT.json');
           const fs = require('fs');
           let issues = [];
-          // Check all documentation paths (strip fragments and query params)
           for (const [k, v] of Object.entries(c.documentation || {})) {
             if (typeof v === 'string' && v.startsWith('/')) {
               const cleanPath = '.' + v.split('#')[0].split('?')[0];
@@ -55,7 +53,6 @@ jobs:
               }
             }
           }
-          // Check evidence paths in active_fronts
           for (const f of c.active_fronts || []) {
             for (const ev of f.evidence || []) {
               if (ev.startsWith('/') && !fs.existsSync('.' + ev.split('#')[0].split('?')[0])) {
@@ -64,7 +61,7 @@ jobs:
             }
           }
           if (issues.length) {
-            console.log('Issues found:\\n' + issues.join('\\n'));
+            console.log('Issues found:\n' + issues.join('\n'));
             process.exit(1);
           }
           console.log('All CURRENT.json references verified OK');
@@ -76,7 +73,6 @@ jobs:
           const s = require('./showcase-manifest.json');
           const fs = require('fs');
           let issues = [];
-          // Check route paths in the manifest
           const routes = s.routes || s.entries || [];
           for (const r of routes) {
             const path = r.path || r.route || r.href;
@@ -87,7 +83,7 @@ jobs:
             }
           }
           if (issues.length) {
-            console.log('Dead routes:\\n' + issues.join('\\n'));
+            console.log('Dead routes:\n' + issues.join('\n'));
             process.exit(1);
           }
           console.log('All showcase routes verified');
@@ -127,7 +123,7 @@ jobs:
           }
           check(recoveryDir);
           if (issues.length) {
-            console.log('Hash issues:\\n' + issues.join('\\n'));
+            console.log('Hash issues:\n' + issues.join('\n'));
             process.exit(1);
           }
           console.log('All recovery hashes verified OK');
@@ -155,19 +151,27 @@ jobs:
             }
           }
           findManifests(recoveryDir);
-          console.log('Manifested routes:', [...manifested].join('\\n'));
+          console.log('Manifested routes:', [...manifested].join('\n'));
           "
-      - name: Check convergence strip freshness + authority
+      - name: Check convergence snapshot authority + capture freshness
         run: |
-          echo "=== Convergence strip freshness / authority ==="
+          echo "=== Convergence snapshot authority / capture freshness ==="
           node -e "
           const fs = require('fs');
           const stripPath = './control/convergence-strip.json';
           if (!fs.existsSync(stripPath)) {
-            console.log('WARNING: convergence-strip.json missing — run scripts/generate-convergence-strip.mjs');
-            process.exit(0);
+            console.error('MISSING: convergence-strip.json — generated projection contract cannot be verified');
+            process.exit(1);
           }
           const strip = JSON.parse(fs.readFileSync(stripPath, 'utf8'));
+          const authorityOk =
+            strip.role === 'DERIVED_SNAPSHOT' &&
+            strip.authority === 'NONE' &&
+            strip.live_derivation === '/#convRead';
+          if (!authorityOk) {
+            console.error('CONVERGENCE SNAPSHOT AUTHORITY FAIL: generated capture must be DERIVED_SNAPSHOT / NONE -> /#convRead');
+            process.exit(1);
+          }
           const gen = Date.parse(strip.generated);
           const cur = JSON.parse(fs.readFileSync('./control/CURRENT.json', 'utf8'));
           const curT = Date.parse(cur.updated);
@@ -177,26 +181,27 @@ jobs:
             Number.isFinite(strip.commits_in_window) &&
             Number.isFinite(strip.git_commits_in_window) &&
             Number.isFinite(strip.telemetry_commits_in_window);
-          console.log('Strip generated: ' + strip.generated + ' (' + ageMin + ' min ago)');
+          console.log('Snapshot contract: authority NONE · live derivation /#convRead');
+          console.log('Captured: ' + strip.generated + ' (' + ageMin + ' min ago)');
           if (splitOk) {
             console.log(
-              'Strip activity: ' +
+              'Captured activity: ' +
               strip.commits_in_window + ' material / ' +
               strip.git_commits_in_window + ' exact Git / ' +
               strip.telemetry_commits_in_window + ' telemetry on ' +
               strip.commits_window + '; ' +
-              strip.branch_count + ' branches; ' +
-              strip.live_fronts + ' live fronts'
+              strip.branch_count + ' branches; captured front marker ' +
+              strip.live_fronts
             );
           } else {
-            console.log('STALE DERIVATION: legacy convergence strip has no material/exact/telemetry split; activity metrics are non-authoritative.');
+            console.log('LEGACY CAPTURE: no material/exact/telemetry split; metrics remain non-authoritative.');
           }
           if (curT && gen && curT > gen) {
-            console.log('STALE DERIVATION: CURRENT.json is newer than the strip — projection remains readable but non-authoritative until regenerated.');
+            console.log('CAPTURE AGE: CURRENT.json is newer than this projection.');
           } else {
-            console.log('Strip is at least as new as CURRENT.json');
+            console.log('CAPTURE AGE: projection is at least as recent as CURRENT.json.');
           }
-          // Never fail the build on freshness alone — stale projections must be labelled, not promoted into CURRENT authority.
+          console.log('Freshness never changes authority: snapshot NONE; current convergence lives at /#convRead.');
           "
       - name: Write validation report
         if: always()
@@ -206,22 +211,24 @@ jobs:
           if [ -f control/convergence-strip.json ]; then
             node - <<'NODE' >> /tmp/validation-report.md
           const s = require('./control/convergence-strip.json');
+          const authorityOk = s.role === 'DERIVED_SNAPSHOT' && s.authority === 'NONE' && s.live_derivation === '/#convRead';
           const splitOk =
             s.activity_semantics === 'material_excluding_generated_telemetry' &&
             Number.isFinite(s.commits_in_window) &&
             Number.isFinite(s.git_commits_in_window) &&
             Number.isFinite(s.telemetry_commits_in_window);
+          console.log('Convergence snapshot: ' + (authorityOk ? 'authority NONE -> /#convRead' : 'AUTHORITY CONTRACT INVALID'));
           if (splitOk) {
             console.log(
-              'Strip: ' +
+              'Captured metrics: ' +
               s.commits_in_window + ' material / ' +
               s.git_commits_in_window + ' exact Git / ' +
               s.telemetry_commits_in_window + ' telemetry; ' +
-              s.branch_count + ' branches; ' +
-              s.live_fronts + ' fronts'
+              s.branch_count + ' branches; captured front marker ' +
+              s.live_fronts
             );
           } else {
-            console.log('Strip: legacy/stale projection; activity metrics non-authoritative');
+            console.log('Captured metrics: legacy projection; non-authoritative');
           }
           NODE
           fi
