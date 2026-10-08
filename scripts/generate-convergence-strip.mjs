@@ -2,18 +2,25 @@
 /**
  * generate-convergence-strip.mjs
  *
- * Regenerates convergence data + the plain reading projection.
- * FIELD INDEX root state is hydrated at runtime from CURRENT + exact GitHub
- * master chronology; this generator never edits index.html.
+ * Regenerates two NON-AUTHORITATIVE convergence projections.
+ * FIELD live convergence is composed on read from QUEUE + federation-atlas;
+ * CURRENT separately owns NOW. This generator never edits index.html and its
+ * outputs never own NOW, NEXT, or current truth.
  *
  * Reads:
- *   control/CURRENT.json      (active fronts, heads, updated)
- *   control/WORKER_BOOT.json  (gaps, execution)
- *   control/QUEUE.json        (live count, max_live)
- *   git                       (exact chronology + material convergence activity)
+ *   control/CURRENT.json      (captured active fronts, heads, updated)
+ *   control/QUEUE.json        (captured live count, max_live)
+ *   git                       (captured exact chronology + material activity)
+ *
+ * Deliberately does NOT read control/WORKER_BOOT.json: llms.txt marks it
+ * superseded compatibility history and forbids using it for current gaps/gates.
  *
  * Writes:
- *   control/convergence-strip.json   (data)
+ *   control/convergence-strip.json   (captured data projection; authority NONE)
+ *   control/convergence-plain.md     (captured human reading; authority NONE)
+ *
+ * Live convergence authority:
+ *   /#convRead  (QUEUE + federation-atlas, reading only)
  *
  * Usage:
  *   node scripts/generate-convergence-strip.mjs
@@ -24,15 +31,15 @@ import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const SNAPSHOT_ROLE = 'DERIVED_SNAPSHOT';
+const SNAPSHOT_AUTHORITY = 'NONE';
+const LIVE_FIELD_DERIVATION = '/#convRead';
+const LIVE_FIELD_SOURCE = 'FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS';
+
 const TELEMETRY_SUBJECT_PATTERNS=Object.freeze([
   /^comms: refresh machine-room page\b/i,
   /^nexus: board refresh\b/i,
-  // The strip's OWN refresh tick. ops-hub/scripts/convergence_strip.sh was folded into
-  // the 30m surfaces tick on 2026-10-01 and commits `convergence: strip refresh (...)`.
-  // It is a generated heartbeat like comms/nexus: an exact Git commit that must not raise
-  // the material convergence count or occupy a recent-material slot. Without this entry
-  // the strip measured its own heartbeat as material work (12 such commits on 2026-10-01
-  // inflated the count from 17 to 29). Law: TELEMETRY != MATERIAL MUTATION.
   /^convergence: strip refresh\b/i
 ]);
 
@@ -54,22 +61,62 @@ if(process.argv.includes('--selftest')){
     const got=isGeneratedTelemetrySubject(subject);
     if(got!==want)throw new Error(`CONVERGENCE_HISTORY_SELFTEST ${name}: got ${got}, want ${want}`);
   }
+
+  const grep = (()=>{
+    try {
+      return execSync(
+        `git grep -n -E 'convergence-(strip\\.json|plain\\.md)' -- . ':!control/convergence-strip.json' ':!control/convergence-plain.md'`,
+        {cwd:ROOT,encoding:'utf8',maxBuffer:1<<22}
+      ).trim();
+    } catch (e) {
+      if(e?.status===1)return '';
+      throw e;
+    }
+  })();
+  const references=grep.split('\n').filter(Boolean);
+  const paths=[...new Set(references.map((line)=>line.split(':',1)[0]))].sort();
+  // Fail on machine-consumable config/code references. Generic HTML link indexes are
+  // navigation-only and do not consume snapshot values, so their static href/string refs
+  // are evidence of discoverability, not authority consumers.
+  const executableOrConfig=(p)=>/\.(?:js|mjs|cjs|ts|tsx|jsx|json|ya?ml)$/i.test(p);
+  const allowedOperational=new Set([
+    'scripts/generate-convergence-strip.mjs',
+    '.github/workflows/convergence-validate.yml',
+    '.github/workflows/public-surface-check.yml'
+  ]);
+  const unauthorized=paths.filter((p)=>executableOrConfig(p)&&!allowedOperational.has(p));
+  console.log('CONVERGENCE snapshot reference audit · '+(paths.length?paths.join(', '):'no external references'));
+  if(unauthorized.length){
+    throw new Error('CONVERGENCE_SNAPSHOT_AUTHORITY_CONSUMER '+unauthorized.join(', '));
+  }
+
+  const snapshotPath=join(ROOT,'control/convergence-strip.json');
+  const plainPath=join(ROOT,'control/convergence-plain.md');
+  if(!existsSync(snapshotPath)||!existsSync(plainPath))throw new Error('CONVERGENCE_SNAPSHOT_OUTPUT_MISSING');
+  const snapshot=JSON.parse(readFileSync(snapshotPath,'utf8'));
+  if(snapshot.role!==SNAPSHOT_ROLE||snapshot.authority!==SNAPSHOT_AUTHORITY||snapshot.live_derivation!==LIVE_FIELD_DERIVATION||snapshot.live_derivation_source!==LIVE_FIELD_SOURCE){
+    throw new Error('CONVERGENCE_SNAPSHOT_AUTHORITY_CONTRACT');
+  }
+  if(Object.prototype.hasOwnProperty.call(snapshot,'open_gaps')){
+    throw new Error('CONVERGENCE_SNAPSHOT_SUPERSEDED_BOOT_GAPS');
+  }
+  const plain=readFileSync(plainPath,'utf8');
+  if(!plain.includes('AUTHORITY: NONE')||!plain.includes(LIVE_FIELD_DERIVATION)||!plain.includes('QUEUE + federation-atlas')||!plain.includes('At capture')){
+    throw new Error('CONVERGENCE_PLAIN_AUTHORITY_CONTRACT');
+  }
+  console.log('CONVERGENCE snapshot authority PASS · authority NONE · live '+LIVE_FIELD_DERIVATION+' from QUEUE + federation-atlas');
+  console.log('CONVERGENCE superseded WORKER_BOOT gap projection absent');
   console.log('CONVERGENCE material-history filter PASS · telemetry excluded, semantic commits retained');
   process.exit(0);
 }
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
 const git = (cmd, d = '') => { try { return execSync(cmd, { cwd: ROOT, encoding: 'utf8' }).trim(); } catch { return d; } };
 
 const current = existsSync(join(ROOT, 'control/CURRENT.json')) ? read('control/CURRENT.json') : {};
 const queue = existsSync(join(ROOT, 'control/QUEUE.json')) ? read('control/QUEUE.json') : {};
-const boot = existsSync(join(ROOT, 'control/WORKER_BOOT.json')) ? read('control/WORKER_BOOT.json') : {};
 
 const today = new Date().toISOString().slice(0, 10);
-// WINDOW MUST BE NAMED. A bare "commits today" goes stale at midnight and
-// silently becomes 0 while the page still says "today". Store the window
-// it was measured over, and let the page print that window.
 const commitWindow = today;
 
 const subjectsInWindow=git(`git log --since="${commitWindow}T00:00:00" --format=%s`, '')
@@ -93,15 +140,18 @@ const fronts = (current.active_fronts || []).map((f) => ({
 const heads = (current.current_heads || []).length;
 const liveCount = (queue.live || []).length;
 const maxLive = queue.max_live || 3;
-const gaps = (boot.open_gaps || []).map((g) => ({ id: g.id, status: g.status }));
 
 const data = {
   schema: '0xxx0/convergence-strip/v0.1',
   generated: new Date().toISOString(),
   generator: 'scripts/generate-convergence-strip.mjs',
+  role: SNAPSHOT_ROLE,
+  authority: SNAPSHOT_AUTHORITY,
+  live_derivation: LIVE_FIELD_DERIVATION,
+  live_derivation_source: LIVE_FIELD_SOURCE,
+  authority_note: 'Captured projection only. Never grants NOW, NEXT, or current truth.',
   activity_semantics: 'material_excluding_generated_telemetry',
   commits_window: commitWindow,
-  // Compatibility field now means material convergence activity, not raw Git churn.
   commits_in_window: commitsInWindow,
   git_commits_in_window: gitCommitsInWindow,
   telemetry_commits_in_window: telemetryCommitsInWindow,
@@ -111,36 +161,35 @@ const data = {
   active_fronts: fronts,
   live_fronts: `${liveCount}/${maxLive}`,
   current_heads: heads,
-  open_gaps: gaps,
   current_updated: current.updated || '?'
 };
 writeFileSync(join(ROOT, 'control/convergence-strip.json'), JSON.stringify(data, null, 2) + '\n');
-console.log('wrote control/convergence-strip.json');
+console.log('wrote control/convergence-strip.json · authority NONE · live '+LIVE_FIELD_DERIVATION);
 
-// ---- plain reading projection (READFIELD reads convergence data) ----
 const plainMd = [
-  `# CONVERGENCE — plain reading`,
+  `# CONVERGENCE — derived snapshot`,
   ``,
-  `_Generated ${data.generated} by scripts/generate-convergence-strip.mjs_`,
+  `> **AUTHORITY: NONE.** This is a captured projection, not current convergence.`,
+  `> Current convergence: [FIELD live derivation](${LIVE_FIELD_DERIVATION}) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.`,
+  `> Do not use this file to choose NOW/NEXT or to claim current truth.`,
   ``,
-  `The field has **${data.commits_in_window} material commits on ${data.commits_window}** across **${data.branch_count} branches** (${data.git_commits_in_window} exact Git commits in the window; ${data.telemetry_commits_in_window} generated telemetry; ${data.commits_total} on master all-time).`,
-  `**${data.live_fronts}** fronts are live, against **${data.current_heads}** current heads.`,
-  `There are **${gaps.length}** open gaps.`,
+  `_Captured ${data.generated} by scripts/generate-convergence-strip.mjs_`,
   ``,
-  `## Active fronts`,
+  `At capture, the field had **${data.commits_in_window} material commits on ${data.commits_window}** across **${data.branch_count} branches** (${data.git_commits_in_window} exact Git commits in the window; ${data.telemetry_commits_in_window} generated telemetry; ${data.commits_total} on master all-time).`,
+  `At capture, **${data.live_fronts}** fronts were marked live, against **${data.current_heads}** captured current heads.`,
+  ``,
+  `## Captured active fronts`,
   ``,
   ...fronts.map((f) => `- **${f.id}** (${f.state}) — ${f.center}`),
   ``,
-  `## Last material commits`,
+  `## Last material commits at capture`,
   ``,
   ...recent.map((s) => `- ${s}`),
   ``,
-  `## Open gaps`,
-  ``,
-  ...gaps.map((g) => `- ${g.id} — ${g.status}`),
-  ``,
   `## Law`,
   ``,
+  `SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = ${LIVE_FIELD_DERIVATION} = QUEUE + federation-atlas. CURRENT owns NOW.`,
+  `WORKER_BOOT compatibility history is not a current gap/gate source.`,
   `ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.`,
   `RECOVER BEFORE INVENTING.`,
   ``,
@@ -148,6 +197,6 @@ const plainMd = [
   ``
 ].join('\n');
 writeFileSync(join(ROOT, 'control/convergence-plain.md'), plainMd);
-console.log('wrote control/convergence-plain.md');
+console.log('wrote control/convergence-plain.md · derived snapshot · authority NONE');
 
-console.log('root convergence injection retired; FIELD INDEX hydrates CURRENT + exact master chronology at runtime.');
+console.log('FIELD INDEX owns the live reading at '+LIVE_FIELD_DERIVATION+' from QUEUE + federation-atlas; generated convergence snapshots are projection-only.');

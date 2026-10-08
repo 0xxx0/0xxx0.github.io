@@ -1,27 +1,29 @@
-# CONVERGENCE — plain reading
+# CONVERGENCE — derived snapshot
 
-_Generated 2026-10-08T14:03:01.182Z by scripts/generate-convergence-strip.mjs_
+> **AUTHORITY: NONE.** This is a captured projection, not current convergence.
+> Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
+> Do not use this file to choose NOW/NEXT or to claim current truth.
 
-The field has **29 material commits on 2026-10-08** across **1017 branches** (118 exact Git commits in the window; 89 generated telemetry; 5839 on master all-time).
-**2/2** fronts are live, against **12** current heads.
-There are **0** open gaps.
+_Captured 2026-10-08T14:15:27.596Z by scripts/generate-convergence-strip.mjs_
 
-## Active fronts
+At capture, the field had **32 material commits on 2026-10-08** across **1018 branches** (122 exact Git commits in the window; 90 generated telemetry; 5849 on master all-time).
+At capture, **2/2** fronts were marked live, against **12** captured current heads.
+
+## Captured active fronts
 
 - **conversion** (ACTIVE_NOW) — existing verified heads → actual use / share / world contact → observed delta → RETURN
 - **recovery-ingest** (ACTIVE_MAINTENANCE) — /recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY
 
-## Last material commits
+## Last material commits at capture
 
-- desk: refresh public field data
-- Merge pull request #959 from 0xxx0/fold/triage-merge-audit-land-20261008
-- fi-mutation-contract: register + stamp /20261006-triage-mcvoid/ (IMPLEMENT,VER
-
-## Open gaps
-
+- Merge pull request #935 from 0xxx0/field/microlib-radial-converge-20261006
+- Merge remote-tracking branch 'origin/master' into kestrel/pr935-sync-20261008
+- sync: merge origin/master into microlib wave 2 (conflict sync: lib/README keep
 
 ## Law
 
+SNAPSHOT AUTHORITY = NONE. LIVE CONVERGENCE = /#convRead = QUEUE + federation-atlas. CURRENT owns NOW.
+WORKER_BOOT compatibility history is not a current gap/gate source.
 ATTENTION ≠ RECENCY. TELEMETRY ≠ MATERIAL MUTATION.
 RECOVER BEFORE INVENTING.
 
