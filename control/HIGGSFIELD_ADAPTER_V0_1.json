@@ -1,0 +1,128 @@
+{
+  "schema": "0xxx0/higgsfield-adapter/v0.1",
+  "updated": "2026-10-08",
+  "authority": "TRANSLATE_ADAPTER_ONLY",
+  "purpose": "Compile backend-neutral MEDIA REFINERY recipes into Higgsfield execution packets without rewriting recipe intent.",
+  "input": {
+    "required": [
+      "recipe_id",
+      "source_lineage",
+      "composition",
+      "surface",
+      "pattern",
+      "meaning",
+      "transformation",
+      "locks",
+      "budget",
+      "stop"
+    ]
+  },
+  "translation_law": [
+    "TRANSLATE MAY MAP INTENT; IT MAY NOT INVENT INTENT.",
+    "A LOCK MAY BE DECLARED UNSUPPORTED; IT MAY NOT BE SILENTLY RELAXED.",
+    "SERVER FALLBACKS/COERCIONS ARE EVIDENCE AND MUST ENTER THE RECEIPT.",
+    "ONE PROBE OUTPUT PER ATTEMPT.",
+    "NO SWEEP IN V0.1.",
+    "NO AUTO-PROMOTION FROM VISUAL APPEAL.",
+    "A FAILED LOCK TEST REJECTS THE RESULT EVEN IF THE RESULT IS BEAUTIFUL."
+  ],
+  "models": {
+    "nano_banana_2_1": {
+      "provider_model_id": "nano_banana_2_1",
+      "operator_fit": ["AESTHETIC", "PAINT"],
+      "v0_1_probe": "P1_SURFACE_LOCK",
+      "unlocked_axes": ["surface", "aesthetic"],
+      "required_locks": ["composition", "geometry", "text", "meaning", "crop"],
+      "reject_if": [
+        "major object added_or_removed",
+        "text materially changes",
+        "anchor geometry materially moves",
+        "composition class changes",
+        "meaning is reinterpreted"
+      ]
+    },
+    "flux_3": {
+      "provider_model_id": "flux_3",
+      "operator_fit": ["PATTERN", "PAINT"],
+      "v0_1_probe": "P2_PATTERN_LOCK",
+      "unlocked_axes": ["pattern", "graphic_field"],
+      "required_locks": ["composition", "topology", "text", "meaning", "crop"],
+      "reject_if": [
+        "pattern effect is negligible",
+        "pattern destroys legibility",
+        "topology materially changes",
+        "scene semantics change"
+      ]
+    },
+    "genjutsu_motion_control": {
+      "provider_model_id": "hf_mult_motion_control",
+      "operator_fit": ["MOVE"],
+      "v0_1_probe": "P3_MOVE_LOCK",
+      "unlocked_axes": ["motion", "camera_motion"],
+      "required_locks": ["first_frame_identity", "surface", "object_identity", "framing"],
+      "reject_if": [
+        "first frame materially departs from source",
+        "major object identity changes",
+        "motion does not correspond to driver",
+        "scene composition rewrites during clip"
+      ]
+    }
+  },
+  "execution_packet": {
+    "required": [
+      "recipe_id",
+      "provider_model_id",
+      "prompt",
+      "medias",
+      "native_params",
+      "declared_locks",
+      "declared_unlocks",
+      "attempt_index",
+      "attempt_budget",
+      "cost_ceiling"
+    ],
+    "forbidden": [
+      "implicit additional outputs",
+      "undeclared references",
+      "silent model substitution",
+      "silent resolution/duration changes",
+      "silent lock relaxation"
+    ]
+  },
+  "receipt": {
+    "required": [
+      "recipe_id",
+      "source_sha256",
+      "provider_model_id",
+      "provider_job_id",
+      "native_params_sent",
+      "server_adjustments",
+      "cost_or_free_allowance_used",
+      "output_asset_identity",
+      "lock_tests",
+      "unlock_test",
+      "decision"
+    ],
+    "lock_test_result": ["PASS", "FAIL", "UNKNOWN"],
+    "decision": ["RETAIN", "REVISE", "PARK"]
+  },
+  "validator": {
+    "critical_locks": ["identity", "composition", "topology", "text", "meaning"],
+    "laws": [
+      "ANY CRITICAL LOCK FAIL => RESULT REJECTED.",
+      "UNLOCK EFFECT ABSENT => RESULT REJECTED.",
+      "UNKNOWN ON A CRITICAL LOCK => HUMAN REVIEW REQUIRED BEFORE RETAIN.",
+      "SECOND FAILURE ON SAME PROBE => PARK BACKEND/RECIPE PAIR."
+    ]
+  },
+  "probe_budget": {
+    "P1_SURFACE_LOCK": {"attempts": 2, "outputs_per_attempt": 1},
+    "P2_PATTERN_LOCK": {"attempts": 2, "outputs_per_attempt": 1},
+    "P3_MOVE_LOCK": {"attempts": 2, "outputs_per_attempt": 1}
+  },
+  "v0_1_completion": {
+    "pass": "At least two probe families RETAIN and no retained result contains a critical lock failure.",
+    "partial": "One family RETAIN; others REVISE/PARK with useful negative evidence.",
+    "fail": "All three require prompt rescue, repeated lock violations, or cannot express their intended isolated axis."
+  }
+}
