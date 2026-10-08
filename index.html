@@ -1014,7 +1014,7 @@ function bindHeldForecast(el,move){
  el.onmouseenter=show;el.onfocus=show;el.ontouchstart=show
 }
 function renderHeldContinuation(){
- if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='NO MOVE · select one CURRENT head';$('capReturn').textContent='RETURN → FIELD · hold an address first';$('capForecast').textContent='NO ACTION · nothing executed';renderRunDock();return}
+ if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='—';$('capReturn').textContent='—';$('capForecast').textContent='—';renderRunDock();return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
  const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let primaryForecastMove=null;
  if(nativeActions.length){
@@ -1075,15 +1075,14 @@ function renderAperture(){
 function updateStatusRail(){
  const el=document.getElementById('sRail');if(!el)return;
  const local=unresolvedRouteChanges().length,reality=currentHumanGates().length;
- const rows=[
-  ['LOCAL',local?local+' unseen':'clear'],
-  ['REALITY',reality?reality+' gate'+(reality===1?'':'s'):'clear'],
-  ['ISSUES',$('issueMeta')?.textContent],
-  ['HEADS',$('headMeta')?.textContent],
-  ['MAP',$('mapMeta')?.textContent],
-  ['PORTS',$('portMeta')?.dataset.live||$('portMeta')?.textContent]
- ].filter(x=>x[1]&&!/^loading/.test(x[1]));
- el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
+ // Attention-only preview: a collapsed summary line is a SIGNAL, not a dashboard.
+ // Inventories (HEADS/MAP/PORTS) live in their own nested fold summaries one tap away.
+ const rows=[];
+ if(local)rows.push('<i>LOCAL</i><u>'+local+' unseen</u>');
+ if(reality)rows.push('<i>REALITY</i><u>'+reality+' gate'+(reality===1?'':'s')+'</u>');
+ const issues=String($('issueMeta')?.textContent||'').trim();
+ if(issues&&!/^loading/.test(issues)&&!/^0 open/.test(issues))rows.push('<i>ISSUES</i><u>'+esc(issues)+'</u>');
+ el.innerHTML=rows.join('')||'clear';
 }
 function catchupSeen(){try{return Math.max(0,Number(localStorage.getItem(CATCHUP_KEY))||0)}catch(_){return 0}}
 function catchupHistory(){
