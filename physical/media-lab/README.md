@@ -81,10 +81,145 @@ one observed defect or capability
 
 Do not create a new app for this. The JSON ledger is disposable enough to edit by hand and structured enough for a future worker to compile if it proves useful.
 
+## P0 specimen packet · execute exactly
+
+P0 is only a **two-printer ordinary-paper baseline**. It does not authorize Xuan, transfer stock, masks, exposure, foil, plates, metal coupons, chemistry, etching, or any other exotic medium/process.
+
+### Source lock
+
+Use exactly:
+
+- file: `physical/media-lab/media-test-plate-v0.1.svg`
+- source blob SHA: `4735268af942559f55eb6e48143825d84b25dfcb`
+- geometry: A4 landscape, `297 × 210 mm`
+- source state: as-is; no export/resample, crop, mirror, negative, tile, raster preflight, or Art Atlas/Media Refinery transform
+
+`/physical/print-01/` contributes only the already-established print law and scale gate: **100% / Actual Size / no Fit-to-page; 100 mm ± 1 mm**. It remains the authoritative prepared paper↔FIELD fixture. P0 does not modify it or borrow its route identity.
+
+`/20261007-art-atlas/` is not invoked for P0. No renderer, compiler, refinery, route, manifest, CURRENT, WAITING, queue, or effect authority is created here.
+
+### Physical inputs
+
+Use two sheets cut from the **same ordinary known-good white A4 paper stock**:
+
+- sheet A → Epson L18050
+- sheet B → Brother monochrome laser
+
+Record paper brand / nominal gsm if known. If unknown, write `ordinary A4 / identity unknown`; do not substitute exotic stock merely to fill the field.
+
+### Print settings
+
+Apply the same common print law to both devices:
+
+| setting | required value |
+|---|---|
+| source | canonical SVG above, opened directly |
+| paper size | A4 |
+| orientation | landscape |
+| scale | 100% / Actual Size |
+| Fit / Shrink / Oversize | OFF |
+| borderless | OFF |
+| duplex / booklet / poster / tiling | OFF |
+| mirror / flip | OFF |
+| copies | 1 |
+| media | ordinary plain paper |
+| quality | normal / standard; not Draft/Economy and not High/Photo |
+| manual density / contrast / saturation edits | OFF / default |
+
+Device-specific fixed intent:
+
+- **Epson L18050:** media type `Plain Paper` (or the driver's exact semantic equivalent), normal/standard quality, colour output, borderless OFF.
+- **Brother mono laser:** media type `Plain Paper` (or exact semantic equivalent), normal/default quality, Toner Save/Economy OFF.
+
+Driver wording varies. If the displayed label differs, choose the semantic equivalent and record the **exact displayed label** in the RETURN. Do not invent an unavailable dpi or media preset. P0 measures the normal plain-paper path rather than tuning the device.
+
+### IDs
+
+Write on each physical sheet before photographing:
+
+- `P0-EPS-001` for the Epson specimen
+- `P0-BRO-001` for the Brother specimen
+
+If a failed specimen is rerun, increment only that device: `P0-EPS-002`, etc. Never overwrite the evidence identity of a failed sheet.
+
+### Measure / inspect
+
+For each specimen record:
+
+1. **Scale** — measured length of the nominal 100 mm bar, to the nearest 0.5 mm available from the ruler.
+2. **Positive line survival** — smallest labeled line (`0.10 / 0.20 / 0.30 / 0.50 / 0.75 / 1.00 mm`) that remains visibly continuous for most of its run.
+3. **Negative gap survival** — smallest labeled gap (`0.10 / 0.20 / 0.30 / 0.50 / 1.00 mm`) that remains visibly open rather than filled/bridged.
+4. **Fine-structure survival** — smallest visibly distinct bar/line in the fine-structure block; record nominal width if identifiable.
+5. **Banding** — `0 NONE`, `1 VISIBLE BUT SCORABLE`, `2 OBSCURES/CONFUSES A REQUIRED DIAGNOSTIC`.
+6. **Clipping** — `NONE`, `BORDER ONLY`, or `DIAGNOSTIC LOST`.
+7. **Skew/feed anomaly** — `NONE` or one short observation.
+8. **One defect/value** — one sentence only: the most consequential visible behavior.
+
+Feature survival is **measurement, not a P0 performance target**. Do not fail a printer because 0.10 or 0.20 mm features disappear; the point is to establish the baseline that later physical transforms can be compared against.
+
+### Evidence · minimum
+
+Exactly three evidence photos per specimen are sufficient:
+
+1. **FULL** — whole A4 sheet, all diagnostic blocks visible, test ID readable.
+2. **SCALE** — ruler physically aligned with the 100 mm bar; both bar endpoints and ruler graduations readable in one frame.
+3. **DETAIL** — close enough to score the positive-line ladder, negative-gap ladder, and fine-structure region. Two detail photos are allowed only if one frame cannot make all three scorable.
+
+Do not use a screenshot or digital ruler as physical proof. Keep the original paper specimens until the P0 RETURN is accepted or explicitly discarded.
+
+### PASS / FAIL
+
+Per-printer **PASS** requires all of:
+
+- measured 100 mm bar is **99.0–101.0 mm inclusive**;
+- all required diagnostic regions remain physically present and scorable; `BORDER ONLY` clipping is recordable, but `DIAGNOSTIC LOST` is FAIL;
+- banding is `0` or `1`; banding `2` is FAIL because the baseline cannot be scored reliably;
+- FULL + SCALE + DETAIL evidence exists and is readable;
+- exact printer identity/settings are recorded well enough to repeat the print.
+
+The smallest surviving line/gap values do **not** carry a pass threshold at P0.
+
+Pair-level P0 is complete only when **both** the Epson and Brother specimens PASS independently.
+
+### RETURN block · duplicate once per printer
+
+```text
+P0 RETURN
+TEST ID:
+DATE/TIME:
+SOURCE: physical/media-lab/media-test-plate-v0.1.svg
+SOURCE BLOB: 4735268af942559f55eb6e48143825d84b25dfcb
+PRINTER MAKE/MODEL:
+APP / DRIVER / VERSION IF VISIBLE:
+PAPER ID / GSM IF KNOWN:
+MEDIA PRESET — exact displayed label:
+QUALITY — exact displayed label:
+SCALE MODE — exact displayed label:
+OTHER NONDEFAULT SETTINGS: NONE | ...
+100 MM BAR — measured mm:
+POSITIVE LINE — smallest surviving mm:
+NEGATIVE GAP — smallest surviving mm:
+FINE STRUCTURE — smallest surviving nominal width:
+BANDING: 0 | 1 | 2
+CLIPPING: NONE | BORDER ONLY | DIAGNOSTIC LOST
+SKEW / FEED:
+ONE DEFECT / VALUE:
+EVIDENCE: FULL / SCALE / DETAIL refs
+VERDICT: PASS | FAIL
+```
+
+### P0 hard stop
+
+After the two measured RETURNs, **STOP**.
+
+Even if both printers PASS, P0 does not authorize the next mechanism. Do not proceed to Xuan/rice paper, coated/release/siliconised stock, toner transfer, foil, polyester plate, photo/UV mask, metal coupon, wet chemistry, electro-etch, or any other exotic-media/process work until the P0 evidence has been returned and a subsequent bounded move explicitly opens P1 or P2.
+
+If either printer FAILS, change only the failed device's driver/scaling/maintenance defect class, print one new specimen on the same ordinary paper stock, and repeat P0 for that device. Do not compensate by editing the canonical SVG.
+
 ## First sequence
 
 **P0 — establish device baselines**  
-Print `media-test-plate-v0.1.svg` at 100% on ordinary known-good paper on both printers. Measure the 100 mm bar. This separates printer scaling/toner/ink behavior from exotic media behavior.
+Execute the P0 specimen packet above. The result is two measured ordinary-paper printer baselines and no further physical authorization.
 
 **P1 — Xuan / inkjet material curve**  
 Same plate, several ink-load / quality settings. Then selectively wet only one sacrificial copy. Capture edge spread, line survival, colour migration and dry-back.
