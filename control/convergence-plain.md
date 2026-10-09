@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-09T02:57:56.868Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-09T03:59:58.321Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **0 material commits on 2026-10-09** across **1020 branches** (36 exact Git commits in the window; 36 generated telemetry; 5910 on master all-time).
+At capture, the field had **6 material commits on 2026-10-09** across **1020 branches** (47 exact Git commits in the window; 41 generated telemetry; 5921 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -16,9 +16,9 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
+- ART ATLAS: compile local-first media turns without rendering
 - desk: refresh public field data + root git chronology
-- Merge pull request #962 from 0xxx0/field/index-lessons-fold-20261008
-- index: fold the donor-brief lessons into the front door — consequence-before-t
+- Merge pull request #963 from 0xxx0/codex/interphase-converge-20261009
 
 ## Law
 
