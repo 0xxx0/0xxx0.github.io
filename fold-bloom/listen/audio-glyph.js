@@ -1,5 +1,4 @@
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const TAU=Math.PI*2;
+import {clamp, TAU} from '../../lib/polar-control.js';
 
 function hexSeed(input=''){
   const s=String(input||'');

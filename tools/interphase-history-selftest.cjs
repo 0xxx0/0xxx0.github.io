@@ -87,4 +87,14 @@ let tamperRejected=false;
 try{H.restoreHistory(tampered)}catch(_){tamperRejected=true}
 assert(tamperRejected,'tampered history must fail closed');
 
+// Recomputed checksums do not grant topology or object authority.
+function rehash(n){const {id,...body}=n;return {...body,id:'chg:'+H.fingerprint(body)};}
+function rejects(doc,label){let rejected=false;try{H.restoreHistory(doc)}catch(_){rejected=true}assert(rejected,label);}
+const duplicate=JSON.parse(serialized);duplicate.nodes.push(duplicate.nodes[0]);rejects(duplicate,'duplicate node');
+const extraRoot=JSON.parse(serialized),rootNode=extraRoot.nodes.find(n=>n.op==='IMPORT');
+extraRoot.nodes.push(rehash({...rootNode,meta:{cause:'EXTRA_ROOT'}}));rejects(extraRoot,'second root');
+const drift=JSON.parse(serialized),leaf=drift.nodes.find(n=>n.id===drift.head);
+const altered=rehash({...leaf,snapshot:{...leaf.snapshot,id:'route:/other'}});
+drift.nodes=drift.nodes.map(n=>n===leaf?altered:n);drift.head=altered.id;rejects(drift,'rehashed snapshot identity drift');
+
 console.log('INTERPHASE HISTORY SELFTEST PASS',H.VERSION,JSON.stringify({object:obj.id,base,merged:merged.id,return_token:token.id,conflict:true,durable:true,return_append:true}));
