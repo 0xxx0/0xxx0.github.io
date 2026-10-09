@@ -9,6 +9,7 @@ Current master already contains the architecture the requested expansion needs:
 - `/docs/` is READFIELD / RSVP 0.8.5 with one source/cursor across FAST, REVIEW, PULSE, VOICE, LOCI, repository/local-file reading and RIDE/RETURN.
 - LRC/VTT/SRT sidecars already preserve real timed cues in LISTEN, but the existing READ handoff flattened them to unaligned prose.
 - On phone, LISTEN's capable workflows were mostly behind USE/MORE after load, increasing hunt cost.
+- LISTEN's visual RAF correctly stops in a hidden tab, but FIELD PULSE was published from that RAF; therefore a second-tab READFIELD handoff could leave media playing while the shared clock stopped.
 
 ## MOVE
 
@@ -19,14 +20,15 @@ Do not create another integration layer. Extend the two existing INTERPHASE host
 - add a compact post-load work rail: `RIDE · READ · COMPOSE · SABER · MORE`;
 - surface short job-oriented explanations inside the existing USE sheet;
 - when the loaded text evidence has real LRC/VTT/SRT cues, compile `readfield-track-handoff/v0.1` in addition to the existing source-text handoff;
-- unaligned embedded/provider/TXT lyrics keep the current tempo-paced RSVP path and never receive invented cue timing.
+- unaligned embedded/provider/TXT lyrics keep the current tempo-paced RSVP path and never receive invented cue timing;
+- keep rendering asleep when the LISTEN tab is hidden, but maintain a bounded transport-only heartbeat from the media element (`timeupdate` plus a throttled hidden interval) so READFIELD can follow the clock without background graphics.
 
 ### READFIELD
 
 - when a real timed handoff is present, expose `TRACK` as an optional projection, not a new source or authority;
 - consume only `FOLD_BLOOM_LISTEN` transport on the existing FIELD PULSE channel;
 - verify source hash when both sides provide one;
-- advance the existing READFIELD cursor by deterministic cue→character address at cue boundaries;
+- hold position during timed-text pre-roll, then advance the existing READFIELD cursor by deterministic cue→character address at cue boundaries;
 - any FAST / REVIEW / PULSE / VOICE / LOCI / REPO action exits TRACK immediately at the current addressed text position.
 
 ## USE CASES
@@ -47,11 +49,11 @@ Suno remains source-address/provenance + best-effort remote convenience. Local o
 
 ## PROOF / GATE
 
-Pure test: `/lib/readfield-track-sync.test.mjs` proves cue ordering, deterministic char addresses, time→cue lookup, handoff schema and source mismatch rejection.
+Pure test: `/lib/readfield-track-sync.test.mjs` proves cue ordering, deterministic char addresses, pre-roll hold, time→cue lookup, handoff schema and source mismatch rejection.
 
 CI: `.github/workflows/listen-readfield-check.yml` parses both adapters and executes the pure test. Existing PR-wide public-surface/browser checks remain authoritative for regressions.
 
-Irreducible phone claim after machine proof: Android cross-tab audio continuation / BroadcastChannel behavior under actual browser power-management remains a real-device property. It limits only the claim of uninterrupted background TRACK; it does not block the source/address/handoff implementation.
+Irreducible phone claim after machine proof: Android cross-tab media event/timer behavior under actual browser power-management remains a real-device property. The adapter now has both media `timeupdate` and throttled hidden-tab heartbeat paths; lived-device evidence still decides how smooth background TRACK is.
 
 ## STOP
 
