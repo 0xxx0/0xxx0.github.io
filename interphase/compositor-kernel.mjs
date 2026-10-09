@@ -51,6 +51,19 @@ export function stepIndex(index,dir,count){
   return R.wrap((Math.trunc(Number(index)||0)+Math.sign(Number(dir)||0)),n);
 }
 
+// A rotating list is ordinal geometry, never a semantic distance. Every item
+// keeps its native identity; only the active row and its two neighbours show.
+export function drumSlots(items,active=0){
+  const xs=Array.from(items||[]),n=xs.length;
+  if(!n)return [];
+  const a=R.wrap(Math.trunc(active)||0,n);
+  return xs.map((item,index)=>{
+    let delta=R.wrap(index-a,n);
+    if(delta>n/2)delta-=n;
+    return Object.freeze({item,index,delta,angle:-delta*42,visible:Math.abs(delta)<=1});
+  });
+}
+
 export function stageItems(stage){
   if(stage==='VIEW')return VIEWS;
   if(stage==='RETURN')return RETURN;
@@ -64,4 +77,4 @@ export function pathLabel({stage='ROOT',mode='COMPACT',query='',total=0}={}){
   return `TURN › ${mode}`;
 }
 
-export default Object.freeze({SCHEMA,ROOT,VIEWS,RETURN,routeMatches,radialSlots,pointIndex,stepIndex,stageItems,pathLabel});
+export default Object.freeze({SCHEMA,ROOT,VIEWS,RETURN,routeMatches,radialSlots,drumSlots,pointIndex,stepIndex,stageItems,pathLabel});

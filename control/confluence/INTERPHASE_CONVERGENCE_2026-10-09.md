@@ -226,3 +226,16 @@ native effects; raw-source imports are not authenticated; runtime checks do not
 constitute a compiler/theorem prover; Python benchmark commands need supplied
 inputs; private corpus remains in the original archive. Unpushed bytes on other
 machines and inaccessible historical chats cannot be reconstructed as fact.
+
+### Follow-up: compact rotary aperture and functional FOVEA
+
+The later consolidation replaces the radial eight-result default with three
+rotating rows over the complete native result sequence. It adds source-local
+FOVEA contrast and a literal semantic-signal decoder without a new state store.
+It does not claim measured cognitive-load improvement or recovery of all 18 packets.
+Read [the bounded research survey](../research/INTERPHASE_CONSOLIDATION_2026-10-09.md)
+for exact coverage, mechanisms, proof and remaining gaps; use
+[the successor drop-ins](../prompts/INTERPHASE_SUCCESSOR_2026-10-09.md)
+for Hermes, hardware input, missing reports and media/training continuation.
+The earlier seven-check result above applies only to its named head. Fresh checks
+on the pushed follow-up decide readiness.

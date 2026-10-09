@@ -215,7 +215,7 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
   });
   $('#omnibar').addEventListener('input',e=>{
     const q=e.target.value.trim().toLowerCase();const commands=['COMPACT','PLAIN','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'];
-    const matches=routes.filter(r=>(r.href+' '+r.title).toLowerCase().includes(q)).slice(0,12);
+    const matches=routes.filter(r=>(r.href+' '+r.title).toLowerCase().includes(q));
     $('#omniResults').innerHTML=commands.filter(c=>('/'+c.toLowerCase()).includes(q)).map(c=>`<button data-view="${c}">/${c.toLowerCase()}</button>`).join('')+matches.map(r=>`<button data-address="${esc(r.href)}">${esc(r.title)} <small>${esc(r.href)}</small></button>`).join('');
     $('#omniResults').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setMode(b.dataset.view));
     $('#omniResults').querySelectorAll('[data-address]').forEach(b=>b.onclick=()=>{chooseSource(H.objectFromRoute(routes.find(r=>r.href===b.dataset.address)));setMode('COMPACT')});

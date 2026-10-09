@@ -197,6 +197,10 @@ def semantic_commits(rng):
         sha, subject, ciso = parts[0], parts[1], parts[2]
         if GENERATED_SUBJECT_RE.match(subject.strip()):
             continue
+        # Compare instants in the same offset. Git writers can use any local
+        # timezone; raw ISO string ordering would make +09:00 appear newer
+        # than a genuinely later +08:00 commit and emit a noncanonical stamp.
+        ciso, _note = canonicalise_stamp(ciso)
         rows.append((sha, subject, ciso))
     return rows
 
@@ -327,9 +331,10 @@ def main() -> int:
         if not at:
             print("REFUSED: --at is required with --routes", file=sys.stderr)
             return 2
-        at, note = canonicalise_stamp(at)
-        if note:
-            print(f"  {note}")
+
+    at, note = canonicalise_stamp(at)
+    if note:
+        print(f"  {note}")
 
     missing = [h for h in wanted if h not in by_href]
     if missing:

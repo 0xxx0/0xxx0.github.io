@@ -15,6 +15,11 @@ on:
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
+      - 'fovea-context.js'
+      - 'fovea-lens.js'
+      - 'index.html'
+      - 'tools/fovea-context-smoke.mjs'
+      - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
@@ -33,6 +38,11 @@ on:
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
+      - 'fovea-context.js'
+      - 'fovea-lens.js'
+      - 'index.html'
+      - 'tools/fovea-context-smoke.mjs'
+      - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
@@ -81,6 +91,7 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+          node tools/fovea-context-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

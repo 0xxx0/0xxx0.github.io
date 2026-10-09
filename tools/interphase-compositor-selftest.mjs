@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {ROOT,VIEWS,RETURN,routeMatches,radialSlots,pointIndex,stepIndex,stageItems,pathLabel} from '../interphase/compositor-kernel.mjs';
+import {ROOT,VIEWS,RETURN,routeMatches,radialSlots,drumSlots,pointIndex,stepIndex,stageItems,pathLabel} from '../interphase/compositor-kernel.mjs';
 
 assert.deepEqual(ROOT.map(x=>x.id),['VIEW','FIND','RETURN']);
 assert.equal(VIEWS.length,8);
@@ -32,4 +32,14 @@ assert.match(pathLabel({stage:'VIEW',mode:'FAN'}),/VIEW/);
 assert.match(pathLabel({stage:'FIND',query:'alpha',total:14}),/14/);
 assert.match(pathLabel({stage:'RETURN'}),/PREVIEW/);
 
-console.log('INTERPHASE COMPOSITOR PASS: 3-root aperture, staged views/return, bounded find, shared ring geometry, wrap navigation');
+// Bounded display preserves the full sequence under arbitrary wraps.
+for(const n of [0,1,2,3,8,193]){
+ const items=Array.from({length:n},(_,id)=>({id}));
+ for(let a=0;a<Math.max(1,n);a++){
+  const ds=drumSlots(items,a);assert.equal(ds.length,n);
+  assert.ok(ds.filter(x=>x.visible).length<=3);
+  if(n){assert.equal(ds.find(x=>x.delta===0).item.id,a);assert.equal(ds.filter(x=>x.delta===0).length,1);}
+  assert.deepEqual(ds.map(x=>x.item.id),items.map(x=>x.id));
+ }
+}
+console.log('INTERPHASE COMPOSITOR PASS: 3-root aperture, staged views/return, full ordinal drum at 0–193 entries, ≤3 visible, preserved ring donor, wrap navigation');

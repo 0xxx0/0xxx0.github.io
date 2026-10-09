@@ -79,7 +79,7 @@ export function mountResearch(root, seed, onSelect=()=>{}, onData=()=>{}, select
   }
   function renderQuestions(){
     const qs=filteredQuestions();
-    $('#qList').innerHTML=qs.length?qs.map(q=>{const r=row(q);return `<button class="qitem ${q.id===state.selected?'active':''}" data-q="${esc(q.id)}"><div class="qid">${q.id}<div class="qclass">${pct(r['coverage@10'])}</div></div><div><div class="qtext">${esc(q.query)}</div><div class="qclass">${esc(classLabel(q.class))}</div></div></button>`}).join(''):`<div class="empty">No questions match this view.</div>`;
+    $('#qList').innerHTML=qs.length?qs.map(q=>{const r=row(q);return `<button class="qitem ${q.id===state.selected?'active':''}" data-q="${esc(q.id)}"><div class="qid">${esc(q.id)}<div class="qclass">${pct(r['coverage@10'])}</div></div><div><div class="qtext">${esc(q.query)}</div><div class="qclass">${esc(classLabel(q.class))}</div></div></button>`}).join(''):`<div class="empty">No questions match this view.</div>`;
     $$('#qList [data-q]').forEach(b=>b.onclick=()=>{state.selected=b.dataset.q;notify();render()});
   }
   function renderRight(){
