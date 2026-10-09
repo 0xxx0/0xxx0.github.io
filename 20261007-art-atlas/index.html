@@ -8,42 +8,79 @@
 <meta name="description" content="A small library of art instruments: playable paintings, ink brushes, and tools for attention.">
 <style>
 *{box-sizing:border-box}
-:root{color-scheme:light;--paper:#eeeade;--ink:#243d38;--muted:#65766b;--red:#a84232;--line:#bfc4b5;--card:#f5f1e4}
+:root{color-scheme:light;--paper:#eeeade;--ink:#243d38;--muted:#65766b;--red:#a84232;--line:#bfc4b5;--card:#f5f1e4;--focus:#315c56}
 body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 Georgia,'Times New Roman',serif}
 a{color:#386c67;text-decoration:none}
 a:hover{text-decoration:underline}
-button,a{-webkit-tap-highlight-color:transparent}
+button,a,input,select,textarea,summary{-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 header{height:62px;display:flex;align-items:center;justify-content:space-between;margin:0 4%;border-bottom:1px solid var(--line);gap:20px}
 header a.home{font:12px monospace;letter-spacing:2px;color:var(--ink)}
 header a.home span{color:var(--red);margin-left:8px}
-.kicker, footer{font:10px/1.6 monospace;letter-spacing:1.6px}
+.kicker,footer{font:10px/1.6 monospace;letter-spacing:1.6px}
 .kicker{color:var(--muted);margin:0 0 5px}
 h1{font-size:clamp(32px,4vw,58px);font-weight:normal;letter-spacing:-2px;line-height:1.03;margin:0}
 h2{font-size:22px;font-weight:normal;margin:0 0 8px;letter-spacing:-.5px}
 p{margin:0 0 14px}
 main{max-width:780px;margin:0 auto;padding:28px 5% 40px}
 .opening{font-size:15px;line-height:1.45;margin:0;color:var(--muted);font-style:italic}
-
 .card{border:1px solid var(--line);background:var(--card);padding:22px 24px 18px;margin:18px 0;position:relative}
 .card .tag{position:absolute;top:12px;right:14px;font:9px monospace;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase}
 .card .desc{font-size:15px;color:var(--muted);margin:6px 0 14px}
 .card .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.card .meta a, .card .meta span{font:11px monospace;letter-spacing:.4px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.card .meta a,.card .meta span{font:11px monospace;letter-spacing:.4px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
 .card .meta a:hover{background:#faf6e9;border-color:#425e52}
 .card .meta .ext{background:transparent;border-style:dashed;color:var(--muted)}
-
 .family{margin:32px 0 14px;border-bottom:1px solid var(--line);padding-bottom:6px}
 .family h2{font-size:18px;letter-spacing:1px;font-family:monospace;text-transform:uppercase;color:var(--muted)}
-
 .add-note{border-left:2px solid var(--red);padding-left:14px;margin-top:28px;color:var(--muted);font-size:14px}
 footer{margin:40px 5% 20px;padding:10px 0;border-top:1px solid var(--line);color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
 footer span{margin-right:auto}
 
+/* Local compiler only: no upload, renderer or effect. */
+.refinery{container-type:inline-size;border:1px solid var(--ink);background:var(--paper);margin:18px 0}
+.refinery>summary{cursor:pointer;list-style:none;min-height:52px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;font:12px/1.4 monospace;letter-spacing:1px}
+.refinery>summary::-webkit-details-marker{display:none}
+.refinery>summary::after{content:'OPEN';color:var(--red);font-size:10px}
+.refinery[open]>summary{border-bottom:1px solid var(--ink)}
+.refinery[open]>summary::after{content:'CLOSE'}
+.refinery-title{display:block;font:20px/1.1 Georgia,'Times New Roman',serif;letter-spacing:-.3px;margin-bottom:3px}
+.refinery-body{padding:16px}
+.refinery-note{font:11px/1.45 monospace;color:var(--muted);margin:0 0 16px}
+.refinery-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.refinery label,.refinery legend{font:10px/1.4 monospace;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.refinery label{display:grid;gap:5px}
+.refinery input,.refinery select,.refinery textarea{width:100%;min-height:44px;border:1px solid var(--line);border-radius:0;background:var(--card);padding:9px 10px}
+.refinery textarea{min-height:88px;resize:vertical;line-height:1.35}
+.refinery fieldset{border:1px solid var(--line);margin:0;padding:10px 12px 12px;min-width:0}
+.lockline{font:12px/1.55 monospace;margin-top:6px;overflow-wrap:anywhere}
+.lockline strong{color:var(--red);font-weight:normal}
+.refinery-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.refinery button{min-height:46px;border:1px solid var(--ink);border-radius:0;background:var(--ink);color:var(--paper);padding:9px 12px;font:11px/1.2 monospace;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.refinery button.secondary{background:transparent;color:var(--ink)}
+.refinery button:disabled{opacity:.45;cursor:not-allowed}
+.refinery-status{min-height:22px;margin:10px 0 0;font:11px/1.45 monospace;color:var(--muted)}
+.refinery-output{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.refinery-output[hidden]{display:none}
+.refinery-output pre{margin:7px 0 0;max-height:260px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--card);border:1px solid var(--line);padding:10px;font:10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+.refinery-file{position:relative}
+.refinery-file input[type=file]{padding:8px;background:transparent;border-style:dashed}
+.axis-key{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:7px;font:9px/1.3 monospace;color:var(--muted)}
+.axis-key span{border-left:1px solid var(--line);padding-left:5px}
+@container (min-width:560px){
+  .refinery-grid{grid-template-columns:1fr 1fr}
+  .span-2{grid-column:1/-1}
+  .axis-key{grid-template-columns:repeat(6,1fr)}
+}
 @media(max-width:650px){
   h1{letter-spacing:-1px;font-size:28px}
   .card{padding:18px 16px 14px}
   .card .tag{position:static;display:block;margin-bottom:6px}
+  .refinery-body{padding:13px}
+  .refinery-actions{grid-template-columns:1fr}
 }
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -58,6 +95,77 @@ footer span{margin-right:auto}
   <p class="opening">Playable paintings, ink brushes, and tools for looking. Each instrument produces something you can keep.</p>
 
   <div class="family"><h2>Our instruments</h2></div>
+
+  <details class="refinery" id="refinery">
+    <summary><span><strong class="refinery-title">Media Refinery</strong>SOURCE → HOLD → TURN → RETURN · EFFECT NONE</span></summary>
+    <div class="refinery-body">
+      <p class="refinery-note">Compile one image / video / audio / FIELD object into a renderer-neutral handoff. Source bytes stay on this device. No model is called, no credit is spent, no original is changed.</p>
+
+      <div class="refinery-grid">
+        <label class="span-2">Source reference
+          <input id="media-source" type="text" inputmode="url" autocomplete="off" placeholder="/field/object/ · sha256:… · local-file:name.png">
+        </label>
+
+        <label class="refinery-file">Or choose a local file
+          <input id="media-file" type="file" accept="image/*,video/*,audio/*">
+        </label>
+
+        <label>Turn
+          <select id="media-turn">
+            <option>EXTRACT</option>
+            <option>REPAIR</option>
+            <option>VARIATE</option>
+            <option selected>ANIMATE</option>
+            <option>COMPOSE</option>
+          </select>
+        </label>
+
+        <label>One mutable axis
+          <select id="media-axis">
+            <option value="NONE">NONE · inspect/extract only</option>
+            <option value="C">C · composition</option>
+            <option value="WHO">WHO · subject / identity</option>
+            <option value="WHERE">WHERE · world / geometry</option>
+            <option value="LOOK">LOOK · surface / style / pattern</option>
+            <option value="MOVE" selected>MOVE · motion / time</option>
+            <option value="SOUND">SOUND · audio / tempo</option>
+          </select>
+        </label>
+
+        <label>Return target
+          <select id="media-return-target">
+            <option value="PROOF">PROOF · evidence / next worker</option>
+            <option value="SHARE">SHARE · another human</option>
+            <option value="MEMORY" selected>MEMORY · future self</option>
+          </select>
+        </label>
+
+        <fieldset class="span-2">
+          <legend>Same world contract</legend>
+          <div class="lockline"><strong>MUTATE</strong> <span id="mutate-line">MOVE</span></div>
+          <div class="lockline"><strong>PRESERVE</strong> <span id="preserve-line">C · WHO · WHERE · LOOK · SOUND</span></div>
+          <div class="axis-key" aria-hidden="true">
+            <span>C composition</span><span>WHO subject</span><span>WHERE world</span><span>LOOK surface</span><span>MOVE time</span><span>SOUND audio</span>
+          </div>
+        </fieldset>
+
+        <label class="span-2">Delta — describe only what should change
+          <textarea id="media-delta" placeholder="e.g. Add a slow anatomical reveal while the city topology, horizon, palette and text remain unchanged."></textarea>
+        </label>
+      </div>
+
+      <div class="refinery-actions">
+        <button id="media-compile" type="button">Compile turn</button>
+        <button id="media-return" class="secondary" type="button" disabled>Return JSON</button>
+      </div>
+      <p id="media-status" class="refinery-status" role="status" aria-live="polite">SOURCE REQUIRED · choose one source; compilation is local.</p>
+
+      <div id="media-output" class="refinery-output" hidden>
+        <p class="kicker">TRACE · AUTHORITY NONE · EXECUTION UNVERIFIED</p>
+        <pre id="media-json" tabindex="0"></pre>
+      </div>
+    </div>
+  </details>
 
   <div class="card">
     <span class="tag">playable</span>
@@ -146,13 +254,156 @@ footer span{margin-right:auto}
   <div class="add-note">
     <strong>Add an instrument.</strong> Drop a self-contained HTML file in a dated route. Register it here with one line. The atlas reads its own surface — no backend needed.
   </div>
-
 </main>
 
 <footer>
-  <span>Art Atlas — 2026-10-07</span>
+  <span>Art Atlas — 2026-10-08</span>
   <span class="kicker">INK IS A WAY THROUGH</span>
 </footer>
 
+<script>
+(()=>{
+  'use strict';
+  const AXES=['C','WHO','WHERE','LOOK','MOVE','SOUND'];
+  const defaults={
+    EXTRACT:{axis:'NONE',delta:'Extract reusable structure and aesthetic evidence without changing the source.'},
+    REPAIR:{axis:'LOOK',delta:'Repair one declared visual defect; preserve the surrounding world.'},
+    VARIATE:{axis:'LOOK',delta:'Vary the look while preserving the same composition, subject, world, movement and sound.'},
+    ANIMATE:{axis:'MOVE',delta:'Add motion or temporal change while preserving the source world and appearance.'},
+    COMPOSE:{axis:'C',delta:'Change composition or framing while preserving subject identity, world, look, movement and sound.'}
+  };
+  const $=id=>document.getElementById(id);
+  const source=$('media-source'),file=$('media-file'),turn=$('media-turn'),axis=$('media-axis'),target=$('media-return-target');
+  const delta=$('media-delta'),mutateLine=$('mutate-line'),preserveLine=$('preserve-line'),compile=$('media-compile'),returnBtn=$('media-return');
+  const status=$('media-status'),output=$('media-output'),jsonOut=$('media-json');
+  let compiled=null;
+
+  function lockState(){
+    const mutable=axis.value;
+    const preserve=mutable==='NONE'?AXES.slice():AXES.filter(x=>x!==mutable);
+    mutateLine.textContent=mutable==='NONE'?'NONE':mutable;
+    preserveLine.textContent=preserve.join(' · ');
+    return {mutable,preserve};
+  }
+
+  function applyDefault(forceDelta=false){
+    const d=defaults[turn.value];
+    axis.value=d.axis;
+    if(forceDelta||!delta.value.trim()) delta.value=d.delta;
+    lockState();
+    invalidate('READY · review the delta, then compile one bounded turn.');
+  }
+
+  function invalidate(message){
+    compiled=null;
+    returnBtn.disabled=true;
+    output.hidden=true;
+    status.textContent=message||'CHANGED · compile again to produce a current RETURN.';
+  }
+
+  async function resolveObject(ref){
+    if(!ref.startsWith('/')) return 'UNRESOLVED';
+    try{
+      const response=await fetch('/showcase-manifest.json',{cache:'no-store'});
+      if(!response.ok) return 'UNRESOLVED';
+      const manifest=await response.json();
+      const route=Array.isArray(manifest.routes)?manifest.routes.find(item=>item&&item.href===ref):null;
+      return route?route.href:'UNRESOLVED';
+    }catch(_error){
+      return 'UNRESOLVED';
+    }
+  }
+
+  function buildPacket(ref,objectRef){
+    const state=lockState();
+    const change=delta.value.trim()||defaults[turn.value].delta;
+    const preserve=state.preserve.join(',');
+    const intent=`${turn.value} | return:${target.value} | preserve:${preserve} | mutate:${state.mutable} | ${change}`;
+    const packet={
+      source_ref:ref,
+      intent,
+      object_ref:objectRef,
+      contribution_class:objectRef==='UNRESOLVED'?'UNRESOLVED':'DONOR',
+      evidence_class:'SPEC',
+      delta_or_question:`Preserve [${preserve}]. Mutate [${state.mutable}]. ${change}`,
+      proof_available:'Local source reference + explicit lock/mutate contract. No renderer output or effect evidence exists yet.',
+      receiver_hint:'media-renderer:any',
+      policy_refs:[
+        '/control/REPRESENTATION.json',
+        '/control/INTERACTION_SEMANTICS.json',
+        '/control/SUBMISSION_CONTRACT.json'
+      ],
+      waiting_on:'Renderer/model/cost/permission resolution only if an external EFFECT is later requested.',
+      residue:`Return target ${target.value}. Source bytes remain local to this compilation step. Original must not be mutated.`,
+      return_to:'/20261007-art-atlas/#refinery'
+    };
+    if(objectRef!=='UNRESOLVED'){
+      packet.execution={
+        moves:[{
+          id:'media-turn',
+          label:turn.value,
+          authority:'OFFER',
+          target:objectRef,
+          reversibility:'branch-only; preserve original source',
+          commit_boundary:'explicit native renderer submission'
+        }],
+        selected_move_id:'media-turn',
+        return_to:'/20261007-art-atlas/#refinery',
+        evidence_refs:[objectRef,'/showcase-manifest.json','/control/REPRESENTATION.json']
+      };
+    }
+    return packet;
+  }
+
+  async function compilePacket(){
+    const ref=source.value.trim();
+    if(!ref){
+      status.textContent='SOURCE REQUIRED · enter a FIELD/content reference or choose one local file.';
+      source.focus();
+      return;
+    }
+    compile.disabled=true;
+    status.textContent=ref.startsWith('/')?'RESOLVING · checking exact FIELD address…':'HOLD · local/content source remains unresolved by design.';
+    const objectRef=await resolveObject(ref);
+    compiled=buildPacket(ref,objectRef);
+    jsonOut.textContent=JSON.stringify(compiled,null,2);
+    output.hidden=false;
+    returnBtn.disabled=false;
+    compile.disabled=false;
+    status.textContent=objectRef==='UNRESOLVED'?'HOLD REQUIRED · source has no verified FIELD address; no selected TURN emitted.':'TURN READY · exact FIELD route verified; OFFER only, renderer submission remains the effect boundary.';
+  }
+
+  function returnJson(){
+    if(!compiled) return;
+    const blob=new Blob([JSON.stringify(compiled,null,2)+'\n'],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    const stem=(turn.value||'media').toLowerCase();
+    a.href=url;
+    a.download=`field-media-${stem}-return.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),0);
+    status.textContent='RETURNED · local JSON receipt downloaded; no source bytes uploaded.';
+  }
+
+  file.addEventListener('change',()=>{
+    const f=file.files&&file.files[0];
+    if(!f) return;
+    source.value=`local-file:${f.name}`;
+    invalidate('LOCAL SOURCE HELD · filename only; bytes remain on device. Compile when ready.');
+  });
+  turn.addEventListener('change',()=>applyDefault(true));
+  axis.addEventListener('change',()=>{lockState();invalidate();});
+  target.addEventListener('change',()=>invalidate());
+  source.addEventListener('input',()=>invalidate(source.value.trim()?'SOURCE HELD · compile one bounded turn.':'SOURCE REQUIRED · choose one source; compilation is local.'));
+  delta.addEventListener('input',()=>invalidate());
+  compile.addEventListener('click',compilePacket);
+  returnBtn.addEventListener('click',returnJson);
+
+  applyDefault(false);
+})();
+</script>
 </body>
 </html>
