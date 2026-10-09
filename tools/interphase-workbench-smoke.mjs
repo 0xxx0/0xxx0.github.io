@@ -12,12 +12,24 @@ const browser=await chromium.launch({headless:true,args:JSON.parse(process.env.S
 const page=await browser.newPage({viewport:{width:390,height:844}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const menu=async()=>{if(!await page.locator('#control').evaluate(el=>el.open))await page.locator('#control>summary').click()};
-const turn=async mode=>{await menu();await page.locator('[data-mode='+mode+']').click()};
+const unfold=async()=>{await menu();if(!await page.locator('.control-body').evaluate(el=>el.classList.contains('compositor-unfold')))await page.locator('.comp-unfold').click()};
+const turn=async mode=>{await menu();await page.locator('[data-comp-action=VIEW]').click();await page.locator(`[data-comp-action="${mode}"]`).click()};
+const returnLast=async()=>{await menu();await page.locator('[data-comp-action=RETURN]').click();await page.locator('[data-comp-action=LAST]').click();assert.equal(await page.locator('.comp-confirm').isVisible(),true);await page.locator('.comp-commit').click()};
 const base=process.env.BASE_URL||'http://127.0.0.1:8765';
 try{
   await page.goto(base+'/interphase/?route=/');
   await page.waitForSelector('#compactForm');
   assert.equal(await page.locator('#railId').textContent(),'route:/');
+  await menu();
+  assert.deepEqual(await page.locator('.comp-item').evaluateAll(xs=>xs.map(x=>x.dataset.compAction)),['VIEW','FIND','RETURN']);
+  assert.equal(await page.locator('.modes').isVisible(),false);
+  assert.equal(await page.locator('.control-body>.control-actions').isVisible(),false);
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'compositor mobile overflow');
+  await page.locator('#omnibar').fill('dayline');
+  await page.waitForFunction(()=>document.querySelector('#compositorWheel')?.dataset.stage==='FIND');
+  assert.ok(await page.locator('[data-comp-address]').count()>0);
+  await page.locator('#control>summary').click();
+
   await page.locator('#compactForm [name=title]').fill('Durable local FIELD');
   await page.locator('#compactForm button[type=submit]').click();
   assert.match(await page.locator('#storageStatus').textContent(),/SAVED LOCALLY/);
@@ -26,13 +38,14 @@ try{
   await page.reload();await page.waitForSelector('#compactForm');
   assert.equal(await page.locator('#compactForm [name=title]').inputValue(),'Durable local FIELD');
   await turn('FIELD');
+  assert.equal(await page.locator('#railId').textContent(),'route:/');
   const stage=await page.locator('#stage').boundingBox();
   await page.mouse.move(stage.x+60,stage.y+60);await page.mouse.down();await page.mouse.move(stage.x+100,stage.y+80);await page.mouse.up();
   assert.equal(await page.locator('#railRev').textContent(),revision);
   assert.equal(await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/')),stored);
-  await menu();const downloading=page.waitForEvent('download');await page.locator('#exportBtn').click();
+  await unfold();const downloading=page.waitForEvent('download');await page.locator('#exportBtn').click();
   const download=await downloading;const packet=JSON.parse(readFileSync(await download.path(),'utf8'));
-  await page.locator('#returnBtn').click();
+  await returnLast();
   assert.notEqual(await page.locator('#fieldForm [name=title]').inputValue(),'Durable local FIELD');
   await page.locator('#importFile').setInputFiles({name:'return.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(packet))});
   await page.waitForFunction(()=>document.querySelector('#fieldForm [name=title]')?.value==='Durable local FIELD');
@@ -43,11 +56,11 @@ try{
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'mobile overflow '+JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>({tag:e.tagName,id:e.id,class:e.className,right:e.getBoundingClientRect().right})).slice(0,15))));
   await turn('COMPACT');await page.locator('#compactForm [name=title]').fill('');await page.locator('#compactForm button[type=submit]').click();
   // JSON extension installation gates semantic edits while leaving storage unchanged on rejection.
-  await menu();await page.locator('#control .control-body details').first().locator('summary').click();
+  await unfold();await page.locator('#control .control-body details').first().locator('summary').click();
   await page.locator('#loadExample').click();await page.waitForFunction(()=>document.querySelector('#extensionStatus').textContent.startsWith('ADDED'));
   await turn('COMPACT');await page.locator('#compactForm [name=title]').fill('Admitted title');await page.locator('#compactForm button[type=submit]').click();
   const validBytes=await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/'));
-  await menu();await page.locator('#returnBtn').click();assert.match(await page.locator('#storageStatus').textContent(),/EDIT REJECTED/);assert.equal(await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/')),validBytes);
+  await returnLast();assert.match(await page.locator('#storageStatus').textContent(),/EDIT REJECTED/);assert.equal(await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/')),validBytes);
   await turn('COMPACT');const beforeReject=await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/'));
   await page.locator('#compactForm [name=title]').fill('');await page.locator('#compactForm button[type=submit]').click();
   assert.match(await page.locator('#storageStatus').textContent(),/EDIT REJECTED/);
@@ -85,8 +98,8 @@ try{
     await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/mobile-research.png',fullPage:true});
     await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/research.png',fullPage:true});
     await turn('FAN');await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/fan.png',fullPage:true});
-    await turn('COMPACT');await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/focus.png',fullPage:true});
+    await turn('COMPACT');await menu();await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/compositor.png',fullPage:true});
   }
   assert.deepEqual(errors,[]);
-  console.log('INTERPHASE WORKBENCH PASS: umbrella identity, real route, reload, view locality, export, RETURN, import/tamper, extension gates, shared Dayline/fan, AXIS, Omega focus/disc/field/ledger/source descent, validated corpus, mobile');
+  console.log('INTERPHASE WORKBENCH PASS: 3-root compositor, staged views/find/return, umbrella identity, real route, reload, view locality, export, explicit RETURN, import/tamper, extension gates, shared Dayline/fan, AXIS, Omega focus/disc/field/ledger/source descent, validated corpus, mobile');
 }finally{await browser.close();}
