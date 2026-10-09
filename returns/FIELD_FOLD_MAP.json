@@ -1,14 +1,14 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-09T04:24:01.941Z",
+ "generated": "2026-10-09T04:24:18.858Z",
  "returns_total": 291,
- "raw_distinct_states": 111,
+ "raw_distinct_states": 110,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
   "SOURCE": 0,
-  "HOLD": 97,
-  "RETURN": 145,
+  "HOLD": 96,
+  "RETURN": 146,
   "RESIDUE": 49
  },
  "residue_count": 49,
@@ -343,7 +343,7 @@
   },
   {
    "state": "SHIPPED",
-   "count": 8
+   "count": 9
   },
   {
    "state": "SHIPPED_CANDIDATE",
@@ -683,10 +683,6 @@
   },
   {
    "state": "BOUNDED_EXISTING_OBJECT_PROJECTION",
-   "count": 1
-  },
-  {
-   "state": "CANDIDATE_PR_REQUIRED",
    "count": 1
   },
   {
@@ -2325,10 +2321,10 @@
   },
   {
    "file": "LISTEN_READFIELD_WORK_2026-10-09.json",
-   "raw": "CANDIDATE_PR_REQUIRED",
-   "phase": "HOLD",
+   "raw": "SHIPPED",
+   "phase": "RETURN",
    "verified": false,
-   "why": "candidate / in flight, not landed"
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
@@ -2974,8 +2970,8 @@
     },
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
-     "phase_distribution.HOLD: receipt 94 vs map 97",
-     "phase_distribution.RETURN: receipt 135 vs map 145",
+     "phase_distribution.HOLD: receipt 94 vs map 96",
+     "phase_distribution.RETURN: receipt 135 vs map 146",
      "phase_distribution.RESIDUE: receipt 7 vs map 49",
      "verified_flagged: receipt 95 vs map 72"
     ],
