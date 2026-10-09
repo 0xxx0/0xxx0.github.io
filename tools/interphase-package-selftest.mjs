@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const consumer=resolve(process.argv[2]||'.'),require=createRequire(resolve(consumer,'consumer.mjs'));
+const U=(await import(pathToFileURL(require.resolve('@0xxx0/interphase')))).default;
+const p=await U.extensions.loadModule('@0xxx0/interphase/vector',s=>import(pathToFileURL(require.resolve(s))));
+assert.equal(U.extensions.propose(U.extensions.compose(p),'dot',[1,2],{b:[3,4]}),11);
+assert.equal(U.extensions.check(U.extensions.compose(U.extensions.native),'object',U.lenses.createGenesisObject()).ok,true);
+assert.throws(()=>require.resolve('@0xxx0/interphase/lib/path.js'),{code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});
+console.log('PACKAGE PASS: installed by tar, root export, package plugin, protected subpath');

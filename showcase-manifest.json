@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-09T12:12:36+08:00",
+  "updated": "2026-10-09T12:30:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1498,12 +1498,13 @@
       "showcase_card": false,
       "role": "Cross-lineage coordination surface distinguishing authority, donors and transfers. ONE RETURN v2 exact recovered source is canonical Sleeper authority; ASCII POV 0.8 and ASCII/Grid Path neighbors remain unequal derivative/donors. Includes a separately attributed current-executor perspective; it is not user-authored intent or canon.",
       "index": {
-        "updated_at": "2026-10-09T10:42:32+08:00",
+        "updated_at": "2026-10-09T12:30:00+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
           "VERIFY",
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "RECOVER"
         ]
       },
       "machine_view": "CONFLUENCE",
@@ -7192,11 +7193,13 @@
       "showcase_card": false,
       "role": "Exact frozen donor families, blockers and recovery receipts; not a competing product surface.",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-09T12:30:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY",
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "RECOVER",
+          "RESEARCH"
         ]
       },
       "operation": "RECOVER",
@@ -9551,21 +9554,24 @@
       "family": "INTERPHASE",
       "operation": "OPERATE",
       "state": "ACTIVE",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "showcase_card": true,
-      "role": "Executable continuity workbench: one addressed object survives PLAIN, COMPACT and FIELD readings; semantic edits round-trip through lawful lenses while FIELD camera/focus/aperture remain view-local. Genesis is provenance, not a second authority.",
+      "role": "Continuity workbench with recovered Ω 0.4 research: one focus across readable edits, room, receipt spiral, native Dayline/fan and AXIS. Checked local history and explicit runtime type/law extensions; source owners retain effects.",
       "index": {
-        "updated_at": "2026-10-09T10:42:32+08:00",
+        "updated_at": "2026-10-09T12:30:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "RECOVER"
+          "RECOVER",
+          "RESEARCH"
         ]
       },
       "evidence": [
         "/interphase-genesis/",
-        "/lib/interphase-lenses.js",
-        "/tools/interphase-lenses-selftest.cjs"
+        "/lib/interphase.mjs",
+        "/tools/interphase-workbench-smoke.mjs",
+        "/tools/interphase-extensions-selftest.mjs",
+        "/recovery/omega/README.md"
       ]
     },
     {

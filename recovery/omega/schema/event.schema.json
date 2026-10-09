@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "omega://schema/event",
+  "type": "object",
+  "required": ["event_id","type","recorded_at","payload"],
+  "properties": {
+    "event_id": {"type":"string"},
+    "type": {"type":"string"},
+    "recorded_at": {"type":"string"},
+    "payload": {"type":"object"}
+  }
+}
