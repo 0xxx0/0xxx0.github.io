@@ -160,7 +160,7 @@ function probe(cx,cy){
   const href=chip.dataset?.href||'';
   const r=href?MAP()?.get?.(href):null;
   if(!href&&!r)return null;
-  return{href,state:r?.state||'',title:r?.title||chip.getAttribute?.('title')||''};
+  return{href,state:r?.state||'',title:r?.title||chip.getAttribute?.('title')||'',signal:chip.dataset?.fieldSignal||'CLEAR'};
 }
 
 /* ---- the anchor: computed from the pointer, never equal to it ---- */
@@ -210,9 +210,9 @@ function probeTarget(){
   if(!el)return;
   anchor();
   const t=probe(x,y);
-  const key=(t?.href||'')+'|'+(MAP()?.all?MAP().all().size:0);
+  const key=(t?.href||H()?.focus?.()?.href||'')+'|'+(MAP()?.all?MAP().all().size:0)+'|'+(t?.signal||'CLEAR');
   if(key!==(el.dataset.key||'')){
-    el.dataset.key=key;target=t;draw();
+    el.dataset.key=key;target=t;draw();refreshContext(t?.href||H()?.focus?.()?.href);readout(t);
     // ANTICIPATION: lock a new target with an overshoot and a small kick
     lockAt=performance.now();
     targetSpin=(hexSeed(t?.href||'field')%9)-4;      // deterministic ±4deg
@@ -230,17 +230,31 @@ function snapPosition(){
 /* ---- THE READOUT: inspect without navigating. This is the utility. ----
  * The lens is big enough to read. Sweep the field and read each route in
  * place; nothing is clicked into that was not meant to open. */
+function refreshContext(href){
+  const nodes=document.querySelectorAll('.feedChip[data-href],.mapNode[data-href]');
+  document.documentElement.classList.toggle('foveaContext',on);
+  if(!on){nodes.forEach(n=>delete n.dataset.foveaBand);return null}
+  const all=MAP()?.all?[...MAP().all().values()]:[];
+  const d=window.FieldFoveaContext?.project(all,href);
+  const bands=new Map(d?.bands.map(x=>[x.href,x.band])||[]);
+  nodes.forEach(n=>n.dataset.foveaBand=bands.get(n.dataset.href)||'PLAIN');
+  return d;
+}
 function readout(t){
-  const o=document.getElementById('foveaOut');
-  if(!o)return;
-  if(!t||!t.href){o.textContent='';o.dataset.kind='';return}
-  const r=MAP()?.get?.(t.href)||{};
-  const acts=(window.__fieldAct&&window.__fieldAct.siblings)?.()?.length||0;
-  const st=String(r.state||'—'), kd=String(r.kind||'—');
-  const meta=(st.toLowerCase()===kd.toLowerCase())?st:(st+' · '+kd);
-  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(meta)+(acts?' · '+acts+' peers':'')+'</i>';
+  const o=document.getElementById('foveaOut');if(!o)return;
+  const href=t?.href||H()?.focus?.()?.href,r=MAP()?.get?.(href);
+  if(!r){o.textContent='';o.dataset.kind='';return}
+  const d=refreshContext(href);
+  // Reuse the host's already-derived addressed signal. No global counts can
+  // mint REALITY/EXTERNAL on this object and no pattern implies urgency.
+  const node=[...document.querySelectorAll('.feedChip[data-href]')].find(n=>n.dataset.href===href);
+  const sig=window.FieldSignal?.normalize(node?.dataset.fieldSignal||t?.signal||'CLEAR')||'CLEAR';
+  o.classList.add('fieldSignalBar');o.dataset.fieldSignal=sig;
+  o.innerHTML='<b>'+esc(r.title||href)+'</b><i>'+esc(r.operation||'OPEN')+' · '+esc(sig)+'</i><small>'+esc(href)+'</small>'
+    +(d?'<small>'+d.counts.PARA+' context · '+d.counts.PERIPHERY+' peripheral · '+d.total+' retained</small>':'');
   o.dataset.kind=r.state||'';
 }
+
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
 /* ---- impact feedback: a burst, never a click trap ---- */
@@ -639,6 +653,7 @@ function toggle(next){
   on=next===undefined?!on:!!next;
   const b=document.getElementById('foveaToggle');
   if(b)b.classList.toggle('on',on);
+  refreshContext(H()?.focus?.()?.href);
   if(on){
     ensure();
     if(!x&&!y){x=innerWidth/2;y=innerHeight/2;px=x;py=y}
@@ -648,6 +663,7 @@ function toggle(next){
   }else{
     cancelAnimationFrame(raf);raf=0;
     if(el){el.style.opacity='0';el.querySelectorAll('.fovBurst').forEach(b=>b.remove())}
+    refreshContext(null);
   }
   window.dispatchEvent(new CustomEvent('field-fovea',{detail:{on,input:inputMode(),semanticScale:window.FieldPresentation?.state?.()||null}}));
   return on;
@@ -669,6 +685,7 @@ function boot(){
   FINE_POINTER.addEventListener?.('change',syncInputMode);
   REDUCED_MOTION.addEventListener?.('change',syncInputMode);
   syncInputMode();
+  window.addEventListener('field-index:state',()=>{if(on){refreshContext(target?.href||H()?.focus?.()?.href);readout(target)}});
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
     target:()=>target,bands:['FOVEA','PARA','PERIPHERY'],

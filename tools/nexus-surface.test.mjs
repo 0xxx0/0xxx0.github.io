@@ -80,17 +80,18 @@ check('FIELD: convergence hash opens the embedded read instead of a second dashb
   assert.ok(!FIELD.includes('<b>CONVERGE / NEXUS</b>'), 'stale NEXUS authority still exposed');
 });
 
-check('board: "N/N bots live" claims equal the bot cards present, header == footer', () => {
+check('board: "N/N bots live" claims match observed bot-card state, header == footer', () => {
   const claims = BOARD.match(/\d+\/\d+ bots live/g) || [];
   assert.equal(claims.length, 2, 'expected a header and a footer bots-live claim');
-  const handles = new Set(BOARD.match(/@[A-Za-z0-9_]+bot/g) || []);
-  assert.ok(handles.size >= 3, `only ${handles.size} bot handles found`);
+  const botCards = BOARD.split('<div class="card">').slice(1).filter(block => /@[A-Za-z0-9_]+bot/.test(block));
+  assert.ok(botCards.length >= 3, `only ${botCards.length} bot cards found`);
+  const live = botCards.filter(block => /class="pulse"/.test(block) && !/class="pulse off"/.test(block)).length;
   for (const claim of claims) {
     const m = claim.match(/(\d+)\/(\d+)/);
     assert.ok(m, `claim "${claim}" unparsable`);
     const [num, den] = [Number(m[1]), Number(m[2])];
-    assert.equal(num, den, `claim "${claim}" numerator ≠ denominator`);
-    assert.equal(den, handles.size, `claim "${claim}" ≠ ${handles.size} bot cards`);
+    assert.equal(num, live, `claim "${claim}" live numerator ≠ ${live} observed live bot cards`);
+    assert.equal(den, botCards.length, `claim "${claim}" denominator ≠ ${botCards.length} bot cards`);
   }
   assert.equal(claims[0], claims[1], 'header and footer bots-live claims disagree');
 });
@@ -132,7 +133,7 @@ check('map: every architecture node carries role/name/description and a lawful a
   assert.ok(nodes.length >= 10, `only ${nodes.length} architecture nodes`);
   const classes = new Set(['bound', 'root', 'exec', 'test', 'repr', 'return']);
   for (const [, classText, block] of nodes) {
-    const nodeClasses = classText.trim().split(/\\s+/);
+    const nodeClasses = classText.trim().split(/\s+/);
     assert.ok(nodeClasses.some(cls => classes.has(cls)),
       `map node classes "${classText}" lack architecture role`);
     for (const field of ['k', 'n', 'd'])

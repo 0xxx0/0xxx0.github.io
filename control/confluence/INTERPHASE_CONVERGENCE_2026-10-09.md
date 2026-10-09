@@ -88,3 +88,154 @@ node tools/interphase-workbench-smoke.mjs
    test. Stop if it adds another authority store, renderer, command bar or
    ungrounded psychophysical claim. Branch deletion and archive pruning wait on
    proven dependency recovery; no archive deletion happened in this pass.
+
+
+## Second recovery: actual Ω 0.4 and implementation
+
+PR #963 was merged before this continuation. Base for this delta is master
+`1b5a122` after rebasing over the concurrent LISTEN/READFIELD and Sleeper merges (not the stale 2020-only survey). A filename search recovered these
+actual newer artifacts, inspected as executable bytes:
+
+| Source | Role | Disposition |
+|---|---|---|
+| `omega-interphase-v0.4.html`, 2026-09-10, 218545 bytes | Most feature-rich recovered integrated 2026 INTERPHASE: focus/disc/field/ledger, Q0–Q8, operators, channel contract, benchmark audit, import, local marks, packet | Executable renderer adapted into existing `/interphase/`; personal seed excluded |
+| `omega-core-interphase-v0.4.zip` | Python source/span/node/relation/search/context/replay + benchmark machinery | Exact executable source, schemas and synthetic core tests recovered in `/recovery/omega/`; per-file hashes retained |
+| `omega-interphase-v0.3.html` | Earlier three-view version | Preserved original; superseded for integration by 0.4's brush FIELD view |
+| `interphase_bridge_v0_2.html` | Folded spatial transduction / document/cube bridge | Preserved original; folding/context visual donor, not a replacement kernel |
+| `interphase-executable-difference.html` | Domain-specific candidate/test/commit example | Distinct fixture; not generalized into fictitious effect authority |
+
+Original 0.4 HTML SHA-256: `d8e36a08c9315cc1` (prefix; original stays unchanged).
+This corrects the earlier bounded conclusion that the 2020 fixture was the
+latest integrated prototype available. Sonja remains unresolved; recovered
+Kala, DataDisc and the 2020 integrated original retain their native identities.
+
+### Working result
+
+`/interphase/` retains its addressed host. One TURN control / Cmd-or-Ctrl-K
+contains route lookup and Focus, Source, Room, History Disc, Dayline, Fan, Axis
+and recovered Ω Research. There is no new app route or replacement manifest.
+
+- Focus and Source edit checked local semantic drafts with stable identity,
+  protected provenance, content-addressed history, import/export and compensation.
+- Room reuses the original camera law and native glyph renderer; nested frames
+  derive from actual manifest ancestry. Camera is view-local.
+- History Disc places actual receipts on a causal spiral and draws their
+  recorded parents. Selecting a receipt previews it; explicit RETURN appends
+  compensation. Geometry does not assert a new semantic relation.
+- Dayline/Fan read the existing Atlas Dayline store. Linear windows and radial
+  earliest-time ribs share task IDs. OPEN/ACT hands the exact task ID to its
+  native `/dayline/?task=...` owner. No second task store or write-back is added.
+- Axis uses the existing `ConstraintSurfaceCore`, including support counts and
+  relaxation, over the current manifest. It selects the same addressed object.
+- Ω Research preserves the actual 0.4 views, question families, operators,
+  channel contract, benchmark metrics, OPERATE/AUDIT, marks and packet export.
+  Imports are validated and device-local. No coverage scores are invented for
+  default FIELD records. Missing exact source is explicit. L1–L3 expose actual
+  metadata/contracts/derived references; L0 reads supplied source units.
+
+Image donors were structural: city spiral → causal receipt order; nested doorway →
+ancestor context; sparse anchor → one selected object; radial diagrams → actual
+clock/constraint projections. Pictures do not prove interaction or physiology.
+No unverified model of universal psychophysics is introduced.
+
+### Extensibility and package paths
+
+One import now exposes the surviving core/host, carrier, correspondence mapping,
+constraint evaluator, Micro, optics, ring, glyph, lenses, history, composition,
+runtime contracts, audio and extensions: `/lib/interphase.mjs`.
+
+Extensions compose explicit immutable catalogs. Names cannot overwrite one
+another. Dependencies require exact versions; missing dependencies and cycles
+reject the complete candidate. Types/laws accept boolean or `{ok, errors}`;
+operators produce immutable proposals. Hosts retain admission/effect authority.
+The browser's JSON laws gate local semantic edits; failed admission writes no
+history. This is runtime checking, not static proof of arbitrary programs.
+
+Three implemented transports:
+
+1. Browser relative/absolute ESM URLs, optionally standard import maps:
+
+```js
+import {extensions as E} from '/lib/interphase.mjs';
+const vector = await E.loadModule('../interphase/extensions/vector.mjs');
+const catalog = E.compose(vector);
+E.propose(catalog, 'dot', [1, 2], {b:[3, 4]}); // 11
+```
+
+An import map can map `interphase` to `/lib/interphase.mjs` and
+`interphase/vector` to `/interphase/extensions/vector.mjs`, before importing
+those names. A custom importer resolves names in the caller's context:
+`E.loadModule('interphase/vector', specifier => import(specifier))`.
+
+2. Local JSON contracts via TURN → Types / laws → ADD JSON. The bounded
+schema vocabulary is string/finite number/boolean/enum/array/object and numeric
+or length bounds. JSON laws reference those types. No eval, executable
+expressions, arbitrary JavaScript-file ingestion or implicit remote installation.
+`interphase/extensions/title.json` is a working example.
+
+3. Optional local Node package transport, without changing browser loading:
+
+```sh
+node tools/package-interphase.mjs /tmp/interphase-package
+npm install /tmp/interphase-package/0xxx0-interphase-0.1.0.tgz
+```
+
+Then `import U from '@0xxx0/interphase'`; trusted plugins can use package names
+or a caller-supplied importer. The generated archive contains only the actual
+18-file source dependency closure (about 38 KB compressed), no copied source
+committed as a second implementation. The package is private and no registry
+publish occurs. `lib/interphase.d.mts` types the new extension contract and the
+main object/lens/history paths; remaining native namespaces explicitly expose
+unknown members requiring narrowing. No runtime TypeScript dependency.
+
+Primary transport references:
+[MDN import maps](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap),
+[Node package exports](https://nodejs.org/download/release/latest-jod/docs/api/packages.html).
+Trusted ESM executes code with its normal caller privileges. A worker would not
+by itself make an untrusted plugin safe; no sandbox claim is made.
+
+### Verification and continuation
+
+Local browser proof now runs: Chromium was obtained through a temporary test
+package after the usual download produced invalid archives. Browser screenshot
+review and mobile checks are real, not inferred from HTML. The native workflow
+uploads browser screenshots. No runtime browser package is committed.
+
+Passed locally: existing public surface/history/lens/composition/FieldTypes
+checks, new extension negative controls and 400 seeded dot-symmetry trials,
+real package pack/install/use, strict declaration compilation (including invalid
+state negative control), recovered Python source/evidence/search/trace/replay/
+validation tests, and browser interaction across every view. Exact PR CI remains
+the release gate; use that head's actual results before merging.
+
+Normal chat can continue from this file, `/lib/interphase.mjs`,
+`/interphase/app.mjs` and `/recovery/omega/README.md`. Run:
+
+```sh
+node tools/interphase-extensions-selftest.mjs
+node tools/interphase-history-selftest.cjs
+PYTHONPATH=recovery/omega python3 -m unittest discover -s recovery/omega/tests -v
+node tools/package-interphase.mjs /tmp/interphase-package
+python3 -m http.server 8765
+# separately, with Playwright + Chromium:
+node tools/interphase-workbench-smoke.mjs
+```
+
+Retained limits: local drafts do not publish manifest edits; Dayline/AXIAL keep
+native effects; raw-source imports are not authenticated; runtime checks do not
+constitute a compiler/theorem prover; Python benchmark commands need supplied
+inputs; private corpus remains in the original archive. Unpushed bytes on other
+machines and inaccessible historical chats cannot be reconstructed as fact.
+
+### Follow-up: compact rotary aperture and functional FOVEA
+
+The later consolidation replaces the radial eight-result default with three
+rotating rows over the complete native result sequence. It adds source-local
+FOVEA contrast and a literal semantic-signal decoder without a new state store.
+It does not claim measured cognitive-load improvement or recovery of all 18 packets.
+Read [the bounded research survey](../research/INTERPHASE_CONSOLIDATION_2026-10-09.md)
+for exact coverage, mechanisms, proof and remaining gaps; use
+[the successor drop-ins](../prompts/INTERPHASE_SUCCESSOR_2026-10-09.md)
+for Hermes, hardware input, missing reports and media/training continuation.
+The earlier seven-check result above applies only to its named head. Fresh checks
+on the pushed follow-up decide readiness.

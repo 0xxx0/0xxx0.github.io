@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "omega://schema/relation",
+  "type": "object",
+  "required": ["id","subject_id","predicate","object_id"],
+  "properties": {
+    "id": {"type": "string"},
+    "subject_id": {"type": "string"},
+    "predicate": {"enum": ["DERIVED_FROM","SUPPORTED_BY","CONTRADICTS","SUPERSEDES","REFINES","GENERALIZES","INSTANCE_OF","DEPENDS_ON","DECIDED_BY","PRODUCED","TESTS","FAILED","RESOLVES","REFERENCES"]},
+    "object_id": {"type": "string"},
+    "status": {"type": "string"},
+    "source_span_id": {"type": ["string","null"]},
+    "evidence_root": {"type": ["string","null"]},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": true
+}

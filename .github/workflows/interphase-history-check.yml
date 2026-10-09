@@ -6,8 +6,20 @@ on:
       - 'lib/interphase-history.js'
       - 'lib/interphase-lenses.js'
       - 'lib/interphase.mjs'
+      - 'lib/interphase-extensions.mjs'
+      - 'lib/interphase.d.mts'
+      - 'tools/package-interphase.mjs'
+      - 'tools/interphase-package-selftest.mjs'
+      - 'tools/interphase-extensions-selftest.mjs'
+      - 'tools/interphase-compositor-selftest.mjs'
+      - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
+      - 'fovea-context.js'
+      - 'fovea-lens.js'
+      - 'index.html'
+      - 'tools/fovea-context-smoke.mjs'
+      - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
@@ -17,8 +29,20 @@ on:
       - 'lib/interphase-history.js'
       - 'lib/interphase-lenses.js'
       - 'lib/interphase.mjs'
+      - 'lib/interphase-extensions.mjs'
+      - 'lib/interphase.d.mts'
+      - 'tools/package-interphase.mjs'
+      - 'tools/interphase-package-selftest.mjs'
+      - 'tools/interphase-extensions-selftest.mjs'
+      - 'tools/interphase-compositor-selftest.mjs'
+      - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
+      - 'fovea-context.js'
+      - 'fovea-lens.js'
+      - 'index.html'
+      - 'tools/fovea-context-smoke.mjs'
+      - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
       - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
@@ -35,21 +59,42 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax
+      - name: Syntax and compositor kernel
         run: |
           node --check lib/interphase-history.js
           node --check tools/interphase-history-selftest.cjs
+          node --check interphase/compositor.mjs
+          node tools/interphase-compositor-selftest.mjs
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
+      - name: Extension laws and recovered Omega engine
+        run: |
+          node tools/interphase-extensions-selftest.mjs
+          PYTHONPATH=recovery/omega python3 -m unittest discover -s recovery/omega/tests -v
       - name: Browser test dependencies (runner temp only)
         run: |
-          npm install --prefix "$RUNNER_TEMP/interphase-test" playwright
+          npm install --prefix "$RUNNER_TEMP/interphase-test" playwright typescript
           "$RUNNER_TEMP/interphase-test/node_modules/.bin/playwright" install --with-deps chromium
-      - name: Durable workbench / mobile / protected import
+      - name: Optional package transport and declarations
+        run: |
+          node tools/package-interphase.mjs "$RUNNER_TEMP/interphase-package"
+          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.1.0.tgz"
+          node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
+          "$RUNNER_TEMP/interphase-test/node_modules/.bin/tsc" --noEmit --strict --module nodenext --target es2022 lib/interphase.d.mts
+      - name: Durable workbench / compositor / mobile / protected import
         env:
+          INTERPHASE_SCREENSHOTS: interphase-proof
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
         run: |
+          mkdir -p interphase-proof
           python3 -m http.server 8765 >/tmp/interphase-server.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+          node tools/fovea-context-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: interphase-browser-proof
+          path: interphase-proof
+          if-no-files-found: ignore

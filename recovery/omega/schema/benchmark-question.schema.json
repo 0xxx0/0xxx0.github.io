@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"omega.benchmark.question.v1",
+  "type":"object",
+  "required":["id","class","query"],
+  "properties":{
+    "id":{"type":"string","minLength":1},
+    "class":{"enum":["factual","source_recovery","decision_rationale","temporal_update","contradiction","open_loop","artifact_recovery","composed"]},
+    "query":{"type":"string","minLength":1},
+    "gold_turn_ids":{"type":"array","items":{"type":"string"}},
+    "gold_root_ids":{"type":"array","items":{"type":"string"}},
+    "answer_points":{"type":"array","items":{"type":"string"}},
+    "abstain":{"type":"boolean"},
+    "status":{"type":"string"}
+  },
+  "additionalProperties":true
+}

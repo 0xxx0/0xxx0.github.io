@@ -1,122 +1,29 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>INTERPHASE — durable lawful lenses</title>
-<meta name="theme-color" content="#07090a">
-<style>
-:root{
-  --bg:#07090a;--panel:#0b0f11;--panel2:#0e1316;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;
-  --hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-*{box-sizing:border-box;border-radius:0}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 var(--mono);-webkit-font-smoothing:antialiased}
-button,input,textarea,select{font:inherit;color:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.shell{max-width:1180px;margin:0 auto;padding:0 14px}
-.rail{position:sticky;top:0;z-index:30;background:rgba(7,9,10,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.rail .shell{height:48px;display:flex;align-items:center;gap:12px}
-.brand{font-weight:700;letter-spacing:.16em}.brand b{color:var(--cool)}
-.addr{color:var(--mut);font-size:10px;letter-spacing:.08em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.addr strong{color:var(--ink)}
-.spacer{flex:1}.rev{font-size:10px;color:var(--gold)}
-.btn{border:1px solid var(--line);background:transparent;padding:7px 10px;letter-spacing:.08em;font-size:10px;text-transform:uppercase}
-.btn:hover,.btn:focus-visible{border-color:var(--cool);outline:none}.btn.hot{border-color:var(--hot);color:var(--hot)}
-.hero{padding:30px 0 22px;border-bottom:1px solid var(--line)}
-.kicker,.eyebrow{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut)}
-h1{font-size:clamp(25px,5vw,48px);line-height:1.02;letter-spacing:-.045em;margin:10px 0 13px;max-width:15ch;font-weight:560}
-h1 em{color:var(--hot);font-style:normal}.lead{max-width:76ch;color:var(--mut);font-size:13px}.lead strong{color:var(--ink);font-weight:500}
-.contract{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);margin-top:21px}.contract div{padding:9px 10px;border-right:1px solid var(--line);min-width:0}.contract div:last-child{border-right:0}.contract b{display:block;color:var(--cool);font-size:9px;letter-spacing:.16em}.contract span{color:var(--mut);font-size:9px}
-.modes{display:flex;align-items:stretch;border-bottom:1px solid var(--line);overflow:auto}.mode{min-width:118px;border:0;border-right:1px solid var(--line);background:transparent;padding:11px 14px;text-align:left;color:var(--mut)}.mode b{display:block;font-size:10px;letter-spacing:.16em}.mode span{font-size:9px}.mode.active{background:var(--panel);color:var(--ink);box-shadow:inset 0 -2px 0 var(--hot)}
-.status{margin-left:auto;display:flex;align-items:center;gap:5px;padding:0 8px}.law{border:1px solid var(--line);padding:3px 6px;font-size:8px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.law.pass{border-color:color-mix(in srgb,var(--green) 55%,var(--line));color:var(--green)}.law.fail{border-color:var(--bad);color:var(--bad)}
-.work{display:grid;grid-template-columns:minmax(0,1fr) 300px;border-bottom:1px solid var(--line);min-height:520px}.surface{min-width:0;border-right:1px solid var(--line);background:var(--panel)}.trace{background:var(--bg);min-width:0}.section-head{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}.section-head b{font-size:10px;letter-spacing:.18em}.section-head span{color:var(--mut);font-size:9px}.section-head .right{margin-left:auto}
-.form{padding:16px;display:grid;gap:13px}.field{display:grid;gap:5px}.field label{font-size:9px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#080b0d;padding:9px 10px;outline:none}.field textarea{min-height:98px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--cool)}.locked{color:var(--mut);background:#090b0c!important}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.micro{font-size:9px;color:var(--mut)}
-.compact-card{margin:28px auto;max-width:570px;border:1px solid var(--line);background:#080b0d}.compact-mark{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--line)}.sigil{display:grid;place-items:center;border-right:1px solid var(--line);font-size:34px;color:var(--cool);min-height:90px}.compact-meta{padding:14px}.compact-meta .object-id{font-size:9px;color:var(--mut);letter-spacing:.12em}.compact-meta h2{font-size:20px;margin:6px 0 0;letter-spacing:-.02em}.compact-card .form{padding:14px}
-.statebar{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}.statebar button{border:0;border-right:1px solid var(--line);background:transparent;padding:8px 6px;color:var(--mut)}.statebar button:last-child{border-right:0}.statebar button.active{background:color-mix(in srgb,var(--hot) 10%,transparent);color:var(--ink);box-shadow:inset 0 -2px 0 var(--hot)}
-.field-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);min-height:470px}.stage{position:relative;min-height:470px;overflow:hidden;touch-action:none;cursor:grab;background:linear-gradient(rgba(114,188,231,.09) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(114,188,231,.09) 1px,transparent 1px) 0 0/28px 28px,#070a0c}.stage.drag{cursor:grabbing}.stage:before{content:'FIELD · VIEW-LOCAL CAMERA';position:absolute;top:12px;left:13px;color:var(--mut);font-size:9px;letter-spacing:.2em;z-index:10}.stage:after{content:'drag = projection only · source Δ 0';position:absolute;left:13px;bottom:12px;color:var(--green);font-size:9px;letter-spacing:.12em;z-index:10}
-.viewport{position:absolute;inset:0;perspective:720px;perspective-origin:50% 46%}.camera{position:absolute;left:50%;top:48%;transform-style:preserve-3d}.room{position:absolute;transform-style:preserve-3d}.face{position:absolute;width:280px;height:280px;left:-140px;top:-140px;border:1px solid rgba(114,188,231,.2);background:rgba(114,188,231,.018);backface-visibility:visible}.cube{position:absolute;left:-32px;top:-32px;width:64px;height:64px;transform-style:preserve-3d}.cube i{position:absolute;inset:0;border:1px solid var(--cool);background:rgba(114,188,231,.06)}.cube .glyph3{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:24px;color:var(--cool);text-shadow:0 0 15px var(--cool);z-index:3}.stage-address{position:absolute;top:50%;left:50%;transform:translate(-50%,54px);font-size:9px;color:var(--mut);white-space:nowrap;z-index:5}.field-edit{border-left:1px solid var(--line);background:#090c0e}.camread{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}.camread span{padding:6px;border-right:1px solid var(--line);font-size:9px;color:var(--mut)}.camread span:last-child{border-right:0}.camread b{display:block;color:var(--ink);font-weight:500}.zero{color:var(--green)!important}
-.raw{margin:0 16px 16px;padding:12px;border:1px solid var(--line);background:#07090a;color:#aeb7b4;white-space:pre-wrap;overflow:auto;max-height:230px;font-size:10px}.plain-callout{margin:16px;padding:12px;border-left:2px solid var(--cool);background:#090c0e;color:var(--mut)}.plain-callout b{color:var(--ink)}
-.trace-list{display:flex;flex-direction:column}.empty{padding:20px 14px;color:var(--mut)}.receipt{padding:12px 14px;border-bottom:1px solid var(--line)}.receipt .rrow{display:flex;gap:8px;align-items:center}.receipt .rid{color:var(--cool);font-size:9px}.receipt .rop{font-size:9px;letter-spacing:.14em}.receipt .rrev{margin-left:auto;color:var(--gold);font-size:9px}.delta{margin-top:7px;display:grid;gap:4px}.delta div{font-size:9px;color:var(--mut);overflow:hidden;text-overflow:ellipsis}.delta b{color:var(--ink);font-weight:500}.return-receipt{box-shadow:inset 2px 0 0 var(--gold)}
-.boundary{padding:24px 0 40px}.boundary-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}.boundary-grid>div{padding:15px}.boundary-grid>div+div{border-left:1px solid var(--line)}.boundary h2{font-size:10px;letter-spacing:.2em;margin:0 0 10px}.boundary p{margin:6px 0;color:var(--mut)}.boundary strong{color:var(--ink);font-weight:500}.now h2{color:var(--green)}.notyet h2{color:var(--gold)}
-.foot{border-top:1px solid var(--line);padding:14px 0 28px;color:var(--mut);font-size:9px;letter-spacing:.08em}.foot .shell{display:flex;gap:10px;align-items:center}.foot a{border-bottom:1px solid var(--line)}
-@media(max-width:860px){.work{grid-template-columns:1fr}.surface{border-right:0}.trace{border-top:1px solid var(--line)}.field-grid{grid-template-columns:1fr}.field-edit{border-left:0;border-top:1px solid var(--line)}.stage{min-height:380px}.contract{grid-template-columns:1fr}.contract div{border-right:0;border-bottom:1px solid var(--line)}.contract div:last-child{border-bottom:0}.status{display:none}}
-@media(max-width:520px){.shell{padding:0 10px}.rail .shell{gap:7px}.brand{font-size:10px}.addr{max-width:115px}.rail .btn{padding:6px 7px}.hero{padding-top:22px}.field-grid{display:block}.stage{min-height:330px}.boundary-grid{grid-template-columns:1fr}.boundary-grid>div+div{border-left:0;border-top:1px solid var(--line)}h1{font-size:32px}.mode{min-width:105px}}
-</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505"><title>INTERPHASE — one thing, many readings</title>
+<link rel="stylesheet" href="./workbench.css"><link rel="stylesheet" href="./research.css"><link rel="stylesheet" href="./compositor.css">
 </head>
 <body>
-<header class="rail">
-  <div class="shell">
-    <a class="brand" href="/interphase/"><b>INTER</b>PHASE</a>
-    <div class="addr">OBJECT · <strong id="railId">obj:genesis#0</strong></div>
-    <div class="spacer"></div>
-    <div class="rev" id="railRev">r0</div>
-    <button class="btn" id="returnBtn" title="Append a compensating semantic edit">↺ RETURN</button>
-    <a class="btn" href="/interphase-genesis/">GENESIS</a>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="shell">
-      <div class="kicker">first executable contract · two lawful lenses</div>
-      <h1>Keep the thing. <em>Change the reading.</em></h1>
-      <p class="lead"><strong>INTERPHASE begins where representation stops claiming to be reality.</strong> One addressed object is read and edited through different projections. A lens may change shape, emphasis and local orientation; it may not silently change identity, provenance or unrelated source state.</p>
-      <div class="contract" aria-label="interphase contract">
-        <div><b>IDENTITY</b><span>address stays fixed</span></div>
-        <div><b>PROJECT</b><span>shape may change</span></div>
-        <div><b>EDIT</b><span>lawful fields return</span></div>
-        <div><b>TRACE</b><span>semantic delta appends</span></div>
-        <div><b>RETURN</b><span>compensate; never erase</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="shell">
-    <nav class="modes" aria-label="projections">
-      <button class="mode" data-mode="PLAIN"><b>PLAIN</b><span>source witness</span></button>
-      <button class="mode active" data-mode="COMPACT"><b>COMPACT</b><span>lens 01 · minimum</span></button>
-      <button class="mode" data-mode="FIELD"><b>FIELD</b><span>lens 02 · spatial</span></button>
-      <div class="status" id="lawStatus"></div>
-    </nav>
-
-    <section class="work">
-      <div class="surface">
-        <div class="section-head"><b id="surfaceName">COMPACT</b><span id="surfaceDesc">readable minimum</span><span class="right micro" id="sourceStamp">SOURCE · obj:genesis#0</span></div>
-        <div id="surfaceBody"></div>
-      </div>
-      <aside class="trace">
-        <div class="section-head"><b>TRACE</b><span>local history</span><span class="right micro" id="traceCount">0</span></div>
-        <div class="section-head"><button class="btn" id="exportBtn">EXPORT</button><label class="btn" for="importFile">IMPORT</label><input id="importFile" type="file" accept="application/json,.json" hidden></div>
-        <div class="section-head micro" id="storageStatus" role="status" aria-live="polite"></div>
-        <div class="trace-list" id="traceList"></div>
-      </aside>
-    </section>
-
-    <section class="boundary">
-      <div class="eyebrow">rigor boundary</div>
-      <div class="boundary-grid">
-        <div class="now">
-          <h2>TRUE NOW</h2>
-          <p><strong>Two bidirectional semantic lenses</strong> with normalized Get–Put / Put–Get checks.</p>
-          <p><strong>Identity and provenance are source-owned.</strong> Projection edits cannot smuggle replacements.</p>
-          <p><strong>FIELD motion is view-local.</strong> Camera/focus/aperture can move while canonical source delta remains zero.</p>
-          <p><strong>RETURN appends compensation.</strong> The earlier edit remains visible in TRACE.</p>
-        </div>
-        <div class="notyet">
-          <h2>NOT CLAIMED YET</h2>
-          <p><strong>Local, exportable history.</strong> Reload restores checked content-addressed nodes. It is not a distributed CRDT or cryptographic signature.</p>
-          <p><strong>Branch/merge lives in the library.</strong> This page edits one selected head. Import checks identity, provenance and history before replacing the local session.</p>
-          <p><strong>No external-effect reversal.</strong> Device/message/world consequences require an explicit control machine and compensation path.</p>
-          <p><strong>No universal-view fantasy.</strong> A projection survives only if it beats PLAIN for a real operation.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-</main>
-<footer class="foot"><div class="shell"><a href="/">FIELD</a><a href="/interphase-genesis/">GENESIS</a><span>representation ≠ object · proof before mythology</span></div></footer>
-
+<header class="rail"><div class="shell">
+<a class="brand" href="/interphase/"><b>Ω</b> INTERPHASE</a><div class="addr" id="railId">loading source</div><div class="spacer"></div><span id="railRev" class="rev">r0</span>
+<details id="control"><summary>TURN / <span id="viewLabel">FOCUS</span> <small style="display:inline">⌘K</small></summary>
+<div class="control-body">
+<form id="omniForm"><label class="eyebrow" for="omnibar">Find a thing or /turn a view</label><input id="omnibar" type="search" autocomplete="off" placeholder="FIELD, Dayline, /fan, /axis…"><div id="omniResults" class="omni-results"></div></form>
+<nav class="modes" aria-label="projections">
+<button class="mode active" data-mode="COMPACT">FOCUS / EDIT</button><button class="mode" data-mode="PLAIN">SOURCE</button><button class="mode" data-mode="FIELD">ROOM</button><button class="mode" data-mode="DISC">HISTORY DISC</button><button class="mode" data-mode="DAYLINE">DAYLINE</button><button class="mode" data-mode="FAN">FAN</button><button class="mode" data-mode="AXIS">AXIS</button><button class="mode" data-mode="RESEARCH">Ω 0.4 / RESEARCH</button>
+</nav>
+<div class="control-actions"><button class="btn" id="returnBtn">↺ RETURN LAST EDIT</button><button class="btn" id="exportBtn">EXPORT RETURN</button><label class="btn" for="importFile">IMPORT RETURN</label><input id="importFile" type="file" accept="application/json,.json" hidden></div>
+<details><summary>Types / laws / extensions</summary><p class="micro">Load a data-only contract. Trusted module and package adapters share the same API; see the continuation guide.</p><div class="control-actions"><button id="checkExtensions" class="btn">CHECK OBJECT</button><button id="loadExample" class="btn">ADD TITLE LAW</button><label class="btn" for="extensionFile">ADD JSON</label><input id="extensionFile" type="file" accept=".json,application/json" hidden></div><div id="extensionStatus" role="status" class="micro">native@1.0.0</div><pre id="extensionResults"></pre></details>
+<details><summary>Lineage / how this works</summary><p class="micro">Recovered Ω 0.4 supplies question focus, DataDisc, brush topology, benchmark ledger, audit and local packet import. The room descends from the original integrated INTERPHASE. History, runtime contracts and radial math have one shared implementation.</p><p class="micro">Views preserve identity. Edits here are checked local drafts. Dayline, AXIAL and FIELD retain their native authority. Angular spacing is never evidence of a relationship.</p><a href="/control/confluence/INTERPHASE_CONVERGENCE_2026-10-09.md">CONTINUE / SOURCES</a> · <a href="/interphase-genesis/">GENESIS</a></details>
+</div></details></div></header>
+<main class="shell">
+<section class="hero"><div class="kicker">one thing · many readings</div><div class="hero-row"><div><h1 id="focusTitle">INTERPHASE</h1><p id="focusLine">Loading the source…</p></div><a class="btn" id="openSource" hidden>OPEN OWNER ↗</a></div></section>
+<section class="work"><div class="surface"><div class="section-head"><b id="surfaceName">FOCUS</b><span id="surfaceDesc">readable minimum</span><span id="sourceStamp" class="right"></span></div><div id="surfaceBody"></div><section id="receiptPreview" hidden><div class="eyebrow">Receipt preview · no source change</div><pre id="receiptSnapshot"></pre><button class="btn" id="receiptReturn">RETURN TO THIS RECEIPT</button></section></div>
+<details class="trace"><summary>TRACE / <span id="traceCount">0</span> receipts · <span id="storageStatus" role="status" aria-live="polite"></span></summary><div id="lawStatus"></div><div class="trace-list" id="traceList"></div></details>
+</section></main>
+<footer class="foot"><div class="shell"><a href="/">FIELD</a><a href="/dayline/">DAYLINE</a><span>exact source · local draft · reversible reading</span></div></footer>
 <script type="module" src="./app.mjs"></script>
-</body>
-</html>
+<script type="module" src="./compositor.mjs"></script>
+</body></html>

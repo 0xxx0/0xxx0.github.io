@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
+      - name: Validate route mutation stamps across timezones
+        run: python3 tools/fi-mutation-contract-selftest.py
       - name: Validate manifest ↔ release-receipt version coherence
         run: node scripts/check-release-versions.mjs
       - name: Prove the release-version gate can fail
@@ -43,6 +45,7 @@ jobs:
       - name: Validate shared semantic signal grammar
         run: |
           node tools/field-signal-selftest.mjs
+          node tools/fovea-context-selftest.cjs
           node tools/field-signal-locality-selftest.cjs
       - name: Validate Shopping one-object grammar
         run: node tools/shopping-interphase-selftest.mjs
