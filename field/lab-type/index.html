@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LAB/TYPE · proof 001</title>
+<style>
+:root{color-scheme:dark;--bg:#080b0d;--fg:#d8dddf;--mut:#778287;--line:#283238;--hot:#ed7447;--ok:#98d49b;--gold:#d5ad68}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}main{max-width:1080px;margin:auto;padding:16px}.head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}.head b{font-size:16px;letter-spacing:.12em}.mut{color:var(--mut)}.controls{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:8px;margin:12px 0}.controls label{display:grid;gap:4px}.controls select,.controls input,.controls button,button{border:1px solid var(--line);background:#0b1012;color:var(--fg);border-radius:0;padding:7px;font:inherit}.proof{display:grid;grid-template-columns:170px 1fr;gap:12px}.source,.panel{border:1px solid var(--line);padding:10px}.source svg{display:block;width:100%;height:auto;color:var(--fg)}.stats{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0;color:var(--mut)}.stats b{color:var(--fg)}.variants{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:5px}.v{min-height:76px;border:1px solid var(--line);background:#0b1012;display:grid;place-items:center;padding:4px;cursor:pointer}.v:hover,.v[aria-current=true]{border-color:var(--gold)}.v svg{color:var(--fg);max-width:100%;height:auto}.seed{font-size:8px;color:var(--mut)}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.fail{color:var(--hot)}.pass{color:var(--ok)}@media(max-width:700px){.controls{grid-template-columns:1fr 1fr}.proof{grid-template-columns:1fr}.source{display:grid;grid-template-columns:120px 1fr;align-items:center}.variants{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}}
+</style>
+<main>
+  <div class="head"><b>LAB/TYPE · PROOF 001</b><span class="mut">projection only · 12 diagnostic glyphs · deterministic orthogonal jogs</span></div>
+  <div class="controls">
+    <label>GLYPH<select id="glyph"></select></label>
+    <label>DENSITY<input id="density" type="range" min="0" max="0.95" step="0.05" value="0.65"></label>
+    <label>BEND COST<input id="bend" type="range" min="0" max="5" step="0.2" value="1.2"></label>
+    <label>AMPLITUDE<input id="amp" type="range" min="1" max="2" step="1" value="1"></label>
+    <label>VARIANTS<input id="count" type="number" min="8" max="128" step="8" value="64"></label>
+  </div>
+  <div class="proof">
+    <section class="source"><div><b>SOURCE</b><div class="mut">normalized skeleton</div></div><div id="source"></div><div class="actions"><button id="svgBtn">SVG</button><button id="jsonBtn">JSON</button></div></section>
+    <section class="panel"><div class="stats" id="stats"></div><div class="variants" id="variants"></div></section>
+  </div>
+</main>
+<script type="module">
+import {RECIPES,normalizeRecipe,generateGlyph,svg} from './core.mjs';
+const $=id=>document.getElementById(id), glyph=$('glyph'), density=$('density'), bend=$('bend'), amp=$('amp'), count=$('count');
+for(const g of Object.keys(RECIPES)){const o=document.createElement('option');o.value=o.textContent=g;glyph.append(o)}
+glyph.value=new URLSearchParams(location.search).get('glyph')||'A';
+let selected=null;
+function opts(seed){return{seed,density:+density.value,bendCost:+bend.value,amplitude:+amp.value,size:58}}
+function render(){
+ const g=glyph.value,n=Math.max(8,Math.min(128,+count.value||64));
+ $('source').innerHTML=svg(normalizeRecipe(RECIPES[g]),{size:150,stroke:.85});
+ const seen=new Map, results=[];let invalid=0,dup=0;
+ for(let seed=1;seed<=n;seed++){
+  const r=generateGlyph(g,opts(seed));results.push(r);if(!r.check.ok)invalid++;
+  if(seen.has(r.signature))dup++;else seen.set(r.signature,seed);
+ }
+ $('stats').innerHTML=`<span>VALID <b class="${invalid?'fail':'pass'}">${n-invalid}/${n}</b></span><span>UNIQUE <b>${seen.size}/${n}</b></span><span>EXACT DUPES <b>${dup}</b></span><span class="mut">stop if identity requires manual redraw</span>`;
+ const host=$('variants');host.replaceChildren();
+ results.forEach((r,i)=>{const seed=i+1,b=document.createElement('button');b.className='v';b.type='button';b.innerHTML=r.svg+`<span class="seed">${r.glyph} · ${seed}</span>`;b.onclick=()=>{selected={...r,opts:opts(seed)};host.querySelectorAll('.v').forEach(x=>x.removeAttribute('aria-current'));b.setAttribute('aria-current','true')};host.append(b)});
+ selected={...results[0],opts:opts(1)};host.firstElementChild?.setAttribute('aria-current','true');
+ history.replaceState(null,'',`?glyph=${encodeURIComponent(g)}`);
+}
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+$('svgBtn').onclick=()=>selected&&download(`lab-type-${selected.glyph}-${selected.opts.seed}.svg`,selected.svg,'image/svg+xml');
+$('jsonBtn').onclick=()=>selected&&download(`lab-type-${selected.glyph}-${selected.opts.seed}.json`,JSON.stringify({schema:'lab-type/proof-001',glyph:selected.glyph,params:selected.opts,strokes:selected.strokes,signature:selected.signature,validation:selected.check},null,2),'application/json');
+[glyph,density,bend,amp,count].forEach(x=>x.addEventListener('input',render));render();
+</script>
