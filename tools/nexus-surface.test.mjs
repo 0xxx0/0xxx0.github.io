@@ -80,19 +80,33 @@ check('FIELD: convergence hash opens the embedded read instead of a second dashb
   assert.ok(!FIELD.includes('<b>CONVERGE / NEXUS</b>'), 'stale NEXUS authority still exposed');
 });
 
-check('board: "N/N bots live" claims equal the bot cards present, header == footer', () => {
-  const claims = BOARD.match(/\d+\/\d+ bots live/g) || [];
+function assertLiveClaims(board) {
+  const claims = board.match(/\d+\/\d+ bots live/g) || [];
   assert.equal(claims.length, 2, 'expected a header and a footer bots-live claim');
-  const handles = new Set(BOARD.match(/@[A-Za-z0-9_]+bot/g) || []);
-  assert.ok(handles.size >= 3, `only ${handles.size} bot handles found`);
+  const cards = board.split('<div class="card">').slice(1).filter(block => /class="t">@[A-Za-z0-9_]+bot\b/.test(block));
+  assert.ok(cards.length >= 3, 'bot status cards missing');
+  const statuses = cards.map(block => {
+    const pulses = [...block.matchAll(/class="pulse([^"]*)"/g)];
+    assert.equal(pulses.length, 1, 'bot card must carry one status pulse');
+    return !pulses[0][1].trim().split(/\s+/).includes('off');
+  });
+  const live = statuses.filter(Boolean).length;
   for (const claim of claims) {
-    const m = claim.match(/(\d+)\/(\d+)/);
-    assert.ok(m, `claim "${claim}" unparsable`);
-    const [num, den] = [Number(m[1]), Number(m[2])];
-    assert.equal(num, den, `claim "${claim}" numerator ≠ denominator`);
-    assert.equal(den, handles.size, `claim "${claim}" ≠ ${handles.size} bot cards`);
+    const [,num,den] = claim.match(/(\d+)\/(\d+)/);
+    assert.equal(Number(num), live, 'live numerator must match status cards');
+    assert.equal(Number(den), cards.length, 'denominator must match bot cards');
   }
   assert.equal(claims[0], claims[1], 'header and footer bots-live claims disagree');
+}
+check('board: live claims agree with bot card statuses, header and footer', () => assertLiveClaims(BOARD));
+check('board: disconnected/mixed fixtures pass and fabricated live claims fail', () => {
+  const cards = [false, false, false].map((on,i) => '<div class="card"><div class="t">@fixture'+i+'bot</div><span class="pulse'+(on?'':' off')+'"></span></div>').join('');
+  const fixture = (n, body=cards, total=3) => n+'/'+total+' bots live'+body+n+'/'+total+' bots live';
+  assertLiveClaims(fixture(0));
+  assertLiveClaims(fixture(1,cards.replace('pulse off','pulse')));
+  assert.throws(() => assertLiveClaims(fixture(3)), /live numerator/);
+  assert.throws(() => assertLiveClaims(fixture(0,cards,4)), /denominator/);
+  assert.throws(() => assertLiveClaims(fixture(0).replace(/^0\/3/, '1/3')), /live numerator/);
 });
 
 check('board: every card carries title + name; footer names its source', () => {

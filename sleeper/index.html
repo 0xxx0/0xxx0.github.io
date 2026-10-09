@@ -13,23 +13,23 @@
     <div class="sigil">回</div>
     <div>
       <div class="title caps">SLEEPER // ONE RETURN</div>
-      <div class="tiny gold caps" style="margin-top:8px">CITY ENGINE v0.2 LAW · NATIVE STATIC CONVERGENCE</div>
+      <div class="tiny gold caps" style="margin-top:8px">LISTEN · CUT · CARRY · RETURN</div>
     </div>
-    <div class="lede">A phrase becomes a deterministic city. Eight Gates demand eight different kinds of evidence. Return to the coordinate you began from. The city, proof ledger, and Return Artifact below are ported from the recovered v2-era source law; the host is a dependency-free GitHub Pages implementation. CITY and DISC preserve the recovered projection pair; PLAN and TRACE are non-authoritative inspection views over the same live world state.</div>
+    <div class="lede">Your phrase becomes a place. Walk it, listen for signals, and make eight proofs. A cut changes the road. A mark brings you back. Return to where you began with something you can carry.</div>
     <div class="form">
       <label class="wide">PHRASE / SOURCE<textarea id="source" maxlength="120">ALL MAPS ARE WRONG. SOME BECOME DOORS.</textarea></label>
       <label>VERSE CELL<select id="cell"></select></label>
       <label>FIGURE<select id="figure"></select></label>
     </div>
     <div id="worldPreview" class="world-preview tiny"></div>
-    <div class="boot-actions"><button id="enter" class="primary caps">CUT A CITY</button><button id="resume" class="secondary caps hidden">RESUME LAST WORLD</button></div>
-    <div class="provenance">PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding evidence-only route traces and inspection projections. Historical deployment byte identity is not claimed. PLAN / TRACE cannot satisfy or fabricate Gate proof.</div>
+    <div class="boot-actions"><button id="enter" class="primary caps">ENTER YOUR CITY →</button><button id="resume" class="secondary caps hidden">RESUME LAST WORLD</button></div>
+    <details class="provenance"><summary>SOURCE / MECHANISM / LIMITS</summary>PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding evidence-only route traces and inspection projections. Historical deployment byte identity is not claimed. PLAN / TRACE cannot satisfy or fabricate Gate proof.</details>
   </div>
 </section>
 
 <main id="app" class="hidden">
   <header class="topbar">
-    <button id="menuBtn" class="caps">FIELD</button>
+    <button id="menuBtn" class="caps" aria-controls="side" aria-expanded="false">FIELD</button>
     <span class="brand tiny caps">ONE RETURN</span><span class="world tiny" id="worldKey"></span>
     <span class="tiny dim" id="projectionLabel">CITY</span>
     <div class="stats"><span>GATES <b id="gateCount">0/8</b></span><span class="hide-mobile">STEP <b id="stepCount">0</b></span><span>TIME <b id="timeCount">0:00</b></span></div>
@@ -37,40 +37,46 @@
   <section class="stage">
     <div id="view-wrap">
       <canvas id="view"></canvas>
-      <nav class="viewstrip caps" aria-label="World projections">
-        <button class="viewbtn on" data-view="city"><b>CITY</b><span>ENCOUNTER</span></button>
-        <button class="viewbtn" data-view="plan"><b>PLAN</b><span>LOCATE</span></button>
-        <button class="viewbtn" data-view="disc"><b>DISC</b><span>REPROJECT</span></button>
-        <button class="viewbtn" data-view="trace"><b>TRACE</b><span>COMPARE</span></button>
-      </nav>
+
       <div id="traceControls" class="trace-controls hidden">
         <button id="tracePlay" class="caps">PLAY</button>
         <input id="traceScrub" aria-label="Same-world ghost trace position" type="range" min="0" max="0" value="0" step="1">
         <span class="tiny dim caps">same-world ghost · evidence only</span>
       </div>
-      <div class="overlay"><div id="note" class="cross-note"></div></div>
+      <div class="overlay"><div id="proofMoment" class="proof-moment" role="status" aria-live="polite"></div><div id="encounterCue" class="encounter-cue"><b id="cueTitle"></b><span id="cueLine"></span><div class="progress"><i id="cueProgress"></i></div></div><div id="note" class="cross-note"></div></div>
       <div class="mobile">
         <div class="pad"><button class="up" data-hold="w">↑</button><button class="left" data-hold="q">←</button><button class="down" data-hold="s">↓</button><button class="right" data-hold="e">→</button></div>
         <div class="turnpad"><button data-hold="a">↶</button><button data-hold="d">↷</button></div>
       </div>
     </div>
     <aside id="side" class="side">
+      <div class="section"><h2>READ THE SAME WORLD</h2>      <nav class="viewstrip caps" aria-label="World projections">
+        <button class="viewbtn on" data-view="city"><b>CITY</b><span>ENCOUNTER</span></button>
+        <button class="viewbtn" data-view="plan"><b>PLAN</b><span>LOCATE</span></button>
+        <button class="viewbtn" data-view="disc"><b>DISC</b><span>REPROJECT</span></button>
+        <button class="viewbtn" data-view="trace"><b>TRACE</b><span>COMPARE</span></button>
+      </nav>
+        <div class="material-controls" aria-label="City material"><button data-material="woven" aria-pressed="true">WOVEN</button><button data-material="glyph" aria-pressed="false">GLYPH</button><button id="soundBtn" aria-pressed="false">SOUND OFF</button></div>
+        <div class="tiny dim">Material and sound change how the city reads. SPIRAL remains the proof-bearing fold.</div>
+      </div>
       <div class="section"><h2>ACTIVE APERTURE</h2><div id="nearGate" class="small">NO GATE IN RANGE</div><div class="progress"><i id="gateProgress"></i></div></div>
       <div class="section"><h2>EIGHT GATES</h2><div id="gates" class="gate-list"></div></div>
       <div class="section"><h2>PROOF LEDGER</h2><div id="proofs" class="proofs">NO PROOFS YET.</div></div>
       <div class="section"><h2>TRACE</h2><div id="log" class="log"></div></div>
+      <div class="section tiny side-links"><a href="./borrowed-river/">PAINTING / BORROWED RIVER ↗</a><a href="../interphase/">INTERPHASE / WORK ↗</a></div>
     </aside>
   </section>
   <footer class="tools">
-    <button class="tool" data-tool="conch"><b>CONCH</b><span>C · signal/source</span></button>
-    <button class="tool" data-tool="keris"><b>KERIS</b><span>K · smallest cut</span></button>
-    <button class="tool" data-tool="w8"><b>W8</b><span>8 · anchor/return</span></button>
-    <button class="tool" data-tool="spiral"><b>SPIRAL</b><span>P · projection</span></button>
+    <button class="tool" data-tool="conch"><b>CONCH</b><span>C · reveal signals</span></button>
+    <button class="tool" data-tool="keris"><b>KERIS</b><span>K · cut a wall</span></button>
+    <button class="tool" data-tool="w8"><b>W8</b><span>8 · set mark</span></button>
+    <button class="tool" data-tool="spiral"><b>SPIRAL</b><span>P · fold city</span></button>
     <button id="returnBtn" disabled class="caps">RETURN SEALED</button>
   </footer>
 </main>
 <div id="modal" class="hidden"><div id="modalCard" class="modal-card"></div></div>
 
+<script src="./encounter.js"></script>
 <script src="./native-core.js"></script>
 <script src="./native-engine.js"></script>
 <script>
@@ -79,5 +85,7 @@ newGame=function(...args){const next=baseNewGame(...args);next.lastHudAt=0;retur
 </script>
 <script src="./native-views.js"></script>
 <script src="./native-ui.js"></script>
+<script src="./native-presence.js"></script>
 </body>
 </html>
+

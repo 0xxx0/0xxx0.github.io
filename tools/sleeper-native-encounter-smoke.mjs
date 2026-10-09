@@ -1,0 +1,24 @@
+import fs from 'node:fs';
+import http from 'node:http';
+import path from 'node:path';
+import {spawn} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
+const root=process.cwd();
+const probe=`<!doctype html><iframe id="f" style="border:0;width:320px;height:844px"></iframe><pre id="result">PENDING</pre><script>
+const f=document.querySelector('#f'),out=document.querySelector('#result');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)),assert=(x,m)=>{if(!x)throw Error(m)};
+(async()=>{try{f.src='/sleeper/';await new Promise((r,j)=>{f.onload=r;f.onerror=j});const w=f.contentWindow,d=w.document,read=s=>w.eval(s);d.querySelector('#enter').click();await sleep(150);read('cancelAnimationFrame(raf)');
+const state=()=>read('JSON.stringify({player:game.player,grid:game.grid,proofs:game.proofs,counts:game.operatorCounts,anchor:game.anchor})');
+assert(w.SleeperPresence.material()==='woven'&&!w.SleeperPresence.sound(),'default material / sound');
+const sizes=[];for(const width of [320,390,1280]){f.style.width=width+'px';await sleep(80);read('render(performance.now());renderHUD()');assert(d.documentElement.scrollWidth<=width,'horizontal overflow '+width);const c=d.querySelector('#encounterCue').getBoundingClientRect();assert(c.left>=0&&c.right<=width&&c.bottom<=844,'cue viewport '+width);assert(w.SleeperPresence.atlasSize()>0&&w.SleeperPresence.atlasSize()<=256,'bounded atlas');sizes.push(width)}
+f.style.width='390px';await sleep(80);d.querySelector('#menuBtn').click();assert(d.querySelector('#side').classList.contains('show'),'phone field opens');const before=state();d.querySelector('[data-material="glyph"]').click();assert(w.SleeperPresence.material()==='glyph','glyph fallback');d.querySelector('[data-material="woven"]').click();for(const v of ['plan','trace','disc','city'])d.querySelector('[data-view="'+v+'"]').click();assert(state()===before,'inspection / material mutated world');
+read('game.player={...game.gates.find(g=>g.name==="TRUTH"),direction:0};game.lastMovedAt=performance.now()-10000');read('frame(performance.now())');read('cancelAnimationFrame(raf)');assert(!read('game.gates.find(g=>g.name==="TRUTH").collected'),'menu manufactured stillness proof');d.querySelector('#menuBtn').click();assert(!d.querySelector('#side').classList.contains('show'),'phone field closes');
+read('game.player={...game.gates.find(g=>g.name==="PROVENANCE"),direction:0};useTool("conch");render(performance.now())');assert(read('game.gates.find(g=>g.name==="PROVENANCE").collected'),'accepted conch proof');assert(d.querySelector('#proofMoment').classList.contains('shown'),'proof consequence visible');assert(d.querySelector('#proofMoment').textContent.includes('THE SIGNAL NAMED'),'recovered revelation');
+const svg=read('SleeperEncounter.wovenTraceSVG(game)');assert(new DOMParser().parseFromString(svg,'image/svg+xml').querySelector('parsererror')===null,'SVG parses');assert(svg.includes('EVIDENCE ONLY'),'SVG authority');
+const key=read('game.law.key');w.localStorage.setItem('sleeper:witness:'+key,JSON.stringify({schema:'sleeper.native-route-trace/v0.1',worldKey:key,path:[null]}));assert(read('loadGhost(game.law.key)')===null,'malformed ghost rejected');
+out.textContent='PASS '+JSON.stringify({sizes,material:'woven + glyph',proof:'accepted Conch / visible revelation',authority:'inspection unchanged',ghost:'malformed rejected',svg:'valid'});
+}catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
+</script>`;
+const server=http.createServer((req,res)=>{if(req.url==='/__probe'){res.setHeader('content-type','text/html');return res.end(probe)}let p=path.resolve(root,'.'+decodeURI(req.url.split('?')[0]));if(!p.startsWith(root+path.sep)){res.writeHead(403);return res.end()}if(fs.existsSync(p)&&fs.statSync(p).isDirectory())p=path.join(p,'index.html');if(!fs.existsSync(p)){res.writeHead(404);return res.end()}res.setHeader('content-type',p.endsWith('.js')?'text/javascript':p.endsWith('.css')?'text/css':'text/html');fs.createReadStream(p).pipe(res)});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+try{const result=await new Promise((resolve,reject)=>{const p=spawn(browserBin(),['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--window-size=1400,1000','--virtual-time-budget=4000','--dump-dom','http://127.0.0.1:'+server.address().port+'/__probe']);let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('smoke timeout'))},30000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',reject);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});const match=result.out.match(/<pre id="result">([\s\S]*?)<\/pre>/);if(result.code||!match?.[1].startsWith('PASS '))throw Error((match?.[1]||'no result')+'\n'+result.err.slice(-1500));console.log('SLEEPER NATIVE ENCOUNTER SMOKE',match[1]);}finally{server.close()}
