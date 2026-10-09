@@ -22,8 +22,7 @@ function fixture(kind){
     state.glyph=audioGlyphDescriptor(state.map,state.fileMeta);state.glyph.raw='RAW_SENTINEL';
     context.FoldBloomListen={state:()=>state,glyph:()=>state.glyph,seek:t=>state.time=t,aperture:s=>state.scope=s};
     // INTERPHASE adapters are real browser modules. The conformance VM supplies
-    // their boundaries explicitly so adding a lawful module dependency cannot
-    // silently break the harness or require the product adapter to become global.
+    // their module boundaries explicitly while suppressing UI installation.
     context.createFieldPulse=()=>({publish(){return null},subscribe(){return()=>{}},last(){return null},close(){}});
     context.buildTrackHandoff=()=>({timedText:null});
     context.document={querySelector:()=>null,addEventListener:()=>{}};
@@ -31,6 +30,10 @@ function fixture(kind){
     vm.createContext(context);
     const source=read('lib/interphase-listen.js').replace(/^import .*;\n/gm,'');
     vm.runInContext(source,context);host=context.FoldBloomListenInterphase;
+    // Product install() normally performs this initial sync. The VM intentionally
+    // suppresses UI install, so establish the same canonical host state directly.
+    const id=state.fileMeta.hash;
+    host.select(id);host.focus(id,{aperture:state.scope});host.project('PAGE',{host:'LISTEN'});
   }
   return {host,state,context};
 }
@@ -75,7 +78,7 @@ test('generic fallback and failed hooks retain inspectable support without conte
 test('compressed recipe rejects content-consuming typed composition; ordered stack round trips',()=>{
   const {host}=fixture('field'),recipe=host.glyph('/fixture/').representation.recipe;
   const s=L.compose(L.fromFieldRoute({id:'fixture',href:'/fixture/'}),recipe);
-  assert.equal(L.equivalent(s,L.deserialize(L.serialize(s))),true);
+  assert.equal(L.equivalent(s,L.deserialize(L.serialize(s))),true;
   const content={...recipe,lensId:'needs-source',inputContract:'field-route/v0.1'};
   assert.equal(L.supportDescriptor(s,content).support,0);assert.throws(()=>L.compose(s,content),/unsupported/);
   assert.equal(L.validateDescriptor({...recipe,authority:'COMMIT'}).ok,false);
