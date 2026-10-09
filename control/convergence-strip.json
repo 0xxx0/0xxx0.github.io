@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-09T00:22:58.570Z",
+  "generated": "2026-10-09T02:57:56.868Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,10 +10,10 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-09",
   "commits_in_window": 0,
-  "git_commits_in_window": 25,
-  "telemetry_commits_in_window": 25,
-  "commits_total": 5899,
-  "branch_count": 1019,
+  "git_commits_in_window": 36,
+  "telemetry_commits_in_window": 36,
+  "commits_total": 5910,
+  "branch_count": 1020,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
     "Merge pull request #962 from 0xxx0/field/index-lessons-fold-20261008",
