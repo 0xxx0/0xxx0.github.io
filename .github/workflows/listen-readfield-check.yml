@@ -1,0 +1,35 @@
+name: listen-readfield-check
+on:
+  pull_request:
+    paths:
+      - 'lib/interphase-listen.js'
+      - 'lib/interphase-readfield.js'
+      - 'lib/readfield-track-sync.js'
+      - 'lib/readfield-track-sync.test.mjs'
+      - '.github/workflows/listen-readfield-check.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'lib/interphase-listen.js'
+      - 'lib/interphase-readfield.js'
+      - 'lib/readfield-track-sync.js'
+      - 'lib/readfield-track-sync.test.mjs'
+      - '.github/workflows/listen-readfield-check.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse adapters
+        run: |
+          node --check lib/interphase-listen.js
+          node --check lib/interphase-readfield.js
+          node --check lib/readfield-track-sync.js
+      - name: Prove timed cue address mapping
+        run: node lib/readfield-track-sync.test.mjs
