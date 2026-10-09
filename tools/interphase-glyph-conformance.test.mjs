@@ -21,7 +21,16 @@ function fixture(kind){
     state={fileMeta:{hash:'a'.repeat(64),name:'RAW_SENTINEL',lyrics:'RAW_SENTINEL'},time:12,scope:'PHRASE',pins:[],map:{duration:60,bpm:120,frames:[{e:.4,c:.2,f:.1}]}};
     state.glyph=audioGlyphDescriptor(state.map,state.fileMeta);state.glyph.raw='RAW_SENTINEL';
     context.FoldBloomListen={state:()=>state,glyph:()=>state.glyph,seek:t=>state.time=t,aperture:s=>state.scope=s};
-    vm.createContext(context);vm.runInContext(read('lib/interphase-listen.js').replace(/^import .*\n/,''),context);host=context.FoldBloomListenInterphase;
+    // INTERPHASE adapters are real browser modules. The conformance VM supplies
+    // their boundaries explicitly so adding a lawful module dependency cannot
+    // silently break the harness or require the product adapter to become global.
+    context.createFieldPulse=()=>({publish(){return null},subscribe(){return()=>{}},last(){return null},close(){}});
+    context.buildTrackHandoff=()=>({timedText:null});
+    context.document={querySelector:()=>null,addEventListener:()=>{}};
+    context.queueMicrotask=()=>{};
+    vm.createContext(context);
+    const source=read('lib/interphase-listen.js').replace(/^import .*;\n/gm,'');
+    vm.runInContext(source,context);host=context.FoldBloomListenInterphase;
   }
   return {host,state,context};
 }
