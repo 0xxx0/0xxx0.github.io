@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-09T03:59:58.321Z",
+  "generated": "2026-10-09T04:30:58.071Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-09",
-  "commits_in_window": 6,
-  "git_commits_in_window": 47,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 5921,
-  "branch_count": 1020,
+  "commits_in_window": 33,
+  "git_commits_in_window": 77,
+  "telemetry_commits_in_window": 44,
+  "commits_total": 5951,
+  "branch_count": 1023,
   "recent_commits": [
-    "ART ATLAS: compile local-first media turns without rendering",
     "desk: refresh public field data + root git chronology",
-    "Merge pull request #963 from 0xxx0/codex/interphase-converge-20261009"
+    "RETURN: seal shipped LISTEN READFIELD phone work seam",
+    "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
     {
