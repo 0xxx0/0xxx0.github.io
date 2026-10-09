@@ -1,5 +1,20 @@
 # lib/ — the shared library
 
+## One import (2026-10-09)
+
+`import U from '/lib/interphase.mjs'` exposes the existing optics, ring, glyph,
+lenses, history, composition, contracts and native audio-glyph APIs. It contains
+no implementation copies and registers no host. Node uses the same `.mjs` face.
+The core is functional where its native operations are functional; history/cache
+factories, DOM/storage, clocks and host effects remain explicit boundaries.
+There is no new framework, package graph or universal renderer.
+
+`/interphase/?route=/` now works on a real manifest object as a **local draft**:
+lawful lens edits → checked history → reload/export/import → compensating RETURN.
+It never writes the manifest. `/interphase/` retains the Genesis fixture.
+Lineage, competing branch disposition and exact continuation:
+`/control/confluence/INTERPHASE_CONVERGENCE_2026-10-09.md`.
+
 No build step, ever. No npm, no bundler, no TypeScript, no registry, no manifest —
 **the directory listing IS the registry.** Browsers autoupdate via GitHub Pages
 ETag revalidation: when a file changes, the next page load revalidates and gets the
