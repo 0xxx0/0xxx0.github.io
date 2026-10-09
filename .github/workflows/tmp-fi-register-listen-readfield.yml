@@ -1,0 +1,35 @@
+name: tmp-fi-register-listen-readfield
+on:
+  push:
+    branches: [listen-readfield-work-20261009]
+    paths:
+      - '.github/workflows/tmp-fi-register-listen-readfield.yml'
+permissions:
+  contents: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: listen-readfield-work-20261009
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Touch exact FIELD INDEX routes
+        run: |
+          printf '/fold-bloom/listen/\n/docs/\n' > /tmp/routes.txt
+          python3 tools/fi-mutation-contract.py --routes /tmp/routes.txt --at "$(git show -s --format=%cI HEAD)" --modes IMPLEMENT,VERIFY,OPERATE
+      - name: Commit registration if changed
+        run: |
+          if git diff --quiet -- showcase-manifest.json; then
+            echo 'No manifest change required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add showcase-manifest.json
+          git commit -m 'FIELD INDEX: touch LISTEN and READFIELD work routes'
+          git push origin HEAD:listen-readfield-work-20261009
