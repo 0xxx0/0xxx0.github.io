@@ -15,7 +15,7 @@
       <div class="title caps">SLEEPER // ONE RETURN</div>
       <div class="tiny gold caps" style="margin-top:8px">CITY ENGINE v0.2 LAW · NATIVE STATIC CONVERGENCE</div>
     </div>
-    <div class="lede">A phrase becomes a deterministic city. Eight Gates demand eight different kinds of evidence. Return to the coordinate you began from. The city, proof ledger, and Return Artifact below are ported from the recovered v2-era source law; the host is a dependency-free GitHub Pages implementation.</div>
+    <div class="lede">A phrase becomes a deterministic city. Eight Gates demand eight different kinds of evidence. Return to the coordinate you began from. The city, proof ledger, and Return Artifact below are ported from the recovered v2-era source law; the host is a dependency-free GitHub Pages implementation. CITY and DISC preserve the recovered projection pair; PLAN and TRACE are non-authoritative inspection views over the same live world state.</div>
     <div class="form">
       <label class="wide">PHRASE / SOURCE<textarea id="source" maxlength="120">ALL MAPS ARE WRONG. SOME BECOME DOORS.</textarea></label>
       <label>VERSE CELL<select id="cell"></select></label>
@@ -23,7 +23,7 @@
     </div>
     <div id="worldPreview" class="world-preview tiny"></div>
     <div class="boot-actions"><button id="enter" class="primary caps">CUT A CITY</button><button id="resume" class="secondary caps hidden">RESUME LAST WORLD</button></div>
-    <div class="provenance">PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding an evidence-only full RouteWitness/ghost sidecar. Historical deployment byte identity is not claimed.</div>
+    <div class="provenance">PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding evidence-only route traces and inspection projections. Historical deployment byte identity is not claimed. PLAN / TRACE cannot satisfy or fabricate Gate proof.</div>
   </div>
 </section>
 
@@ -37,6 +37,17 @@
   <section class="stage">
     <div id="view-wrap">
       <canvas id="view"></canvas>
+      <nav class="viewstrip caps" aria-label="World projections">
+        <button class="viewbtn on" data-view="city"><b>CITY</b><span>ENCOUNTER</span></button>
+        <button class="viewbtn" data-view="plan"><b>PLAN</b><span>LOCATE</span></button>
+        <button class="viewbtn" data-view="disc"><b>DISC</b><span>REPROJECT</span></button>
+        <button class="viewbtn" data-view="trace"><b>TRACE</b><span>COMPARE</span></button>
+      </nav>
+      <div id="traceControls" class="trace-controls hidden">
+        <button id="tracePlay" class="caps">PLAY</button>
+        <input id="traceScrub" aria-label="Same-world ghost trace position" type="range" min="0" max="0" value="0" step="1">
+        <span class="tiny dim caps">same-world ghost · evidence only</span>
+      </div>
       <div class="overlay"><div id="note" class="cross-note"></div></div>
       <div class="mobile">
         <div class="pad"><button class="up" data-hold="w">↑</button><button class="left" data-hold="q">←</button><button class="down" data-hold="s">↓</button><button class="right" data-hold="e">→</button></div>
@@ -66,6 +77,7 @@
 const baseNewGame=newGame;
 newGame=function(...args){const next=baseNewGame(...args);next.lastHudAt=0;return next};
 </script>
+<script src="./native-views.js"></script>
 <script src="./native-ui.js"></script>
 </body>
 </html>

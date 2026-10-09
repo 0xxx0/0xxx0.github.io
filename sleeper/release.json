@@ -3,7 +3,7 @@
   "name": "SLEEPER // ONE RETURN",
   "version": "v2-era / City Engine v0.2 + RETURN BRIDGE 0.1",
   "state": "CANONICAL_REPOSITORY_RUNTIME_STATIC_PORT",
-  "amended": "2026-10-03",
+  "amended": "2026-10-09",
   "route": "/sleeper/",
   "authority": {
     "exact_source": "/recovery/sleeper/site-source-2026-09-18/",
@@ -43,17 +43,19 @@
       "world compiler and deterministic key/loop derivation checked against frozen world-law.ts",
       "tool Gate decisions and TRUTH / MEASURE / RESILIENCE progress laws checked against frozen protocol.ts",
       "Return Artifact v2 schema and derivation checked against frozen world-law.ts",
-      "continuous native route evidence explicitly separated from canonical sleeper.route-witness/v0.1"
+      "continuous native route evidence explicitly separated from canonical sleeper.route-witness/v0.1",
+      "projection-depth extension keeps direct view selection non-authoritative while recovered SPIRAL remains CITY ⇄ DISC"
     ],
     "boundary": "Recovered-source tests and historical build evidence support the source law. The repository host is a new static port and does not claim historical deployment byte or pixel identity."
   },
   "runtime": {
     "canonical_address": "/sleeper/",
-    "host_build": "native static port 2026-10-03",
+    "host_build": "native static port 2026-10-09",
     "implementation": [
       "/sleeper/index.html",
       "/sleeper/native-core.js",
       "/sleeper/native-engine.js",
+      "/sleeper/native-views.js",
       "/sleeper/native-ui.js",
       "/sleeper/native.css"
     ],
@@ -64,17 +66,25 @@
       "six Verse Cells and three Figure timing/physics profiles",
       "27×27 seeded city construction and world-law loop count",
       "eight distinct proof-bearing Gate protocols",
+      "recovered SPIRAL CITY ⇄ DISC projection transition",
       "RETURN_TO_ORIGIN completion condition",
       "Return Artifact v2 schema and derivation"
     ],
     "extensions": {
       "native_route_trace": "sleeper.native-route-trace/v0.1",
       "canonical_route_witness": "sleeper.route-witness/v0.1 remains a separate integer/cardinal donor contract and is not versioned or superseded by this float-path trace",
-      "same_world_ghost": "DISC projection only",
+      "projection_depth": {
+        "views": ["CITY", "PLAN", "DISC", "TRACE"],
+        "roles": ["ENCOUNTER", "LOCATE", "REPROJECT", "COMPARE"],
+        "canonical_pair": "CITY ⇄ DISC via SPIRAL",
+        "inspection_only": ["PLAN", "TRACE"],
+        "rule": "Direct view selection mutates presentation only and cannot satisfy any Gate. PLAN reads exact held geometry; TRACE reads current and prior same-world route evidence."
+      },
+      "same_world_ghost": "DISC + TRACE projection; TRACE adds projection-only play/pause/scrub over the previous validated same-world native trace",
       "authority": "EVIDENCE_ONLY",
-      "rule": "Continuous route evidence may expose traversal and support a same-world ghost but cannot fabricate, replace, or satisfy canonical ONE RETURN Gate proof."
+      "rule": "Continuous route evidence and inspection projections may expose traversal, comparison and re-entry but cannot fabricate, replace, or satisfy canonical ONE RETURN Gate proof."
     },
-    "boundary": "Static JavaScript is a port, not an exact copy of the historical Work deployment. Translation loss and implementation deltas remain explicit."
+    "boundary": "Static JavaScript is a port, not an exact copy of the historical Work deployment. Translation loss and implementation deltas remain explicit. PLAN and TRACE are native inspection extensions rather than claims about recovered historical UI."
   },
   "superseded_derivative": {
     "name": "ASCII Sleeper POV 0.8",
@@ -87,13 +97,13 @@
     "name": "ASCII ONE RETURN / Nine Gate reconstruction",
     "route": "/sleeper/one-return/",
     "state": "DONOR",
-    "rule": "Useful mechanics may transfer inward, but donor history and authority remain separate from the recovered v2 law."
+    "rule": "Useful mechanics may transfer inward, but donor history and authority remain separate from the recovered v2 law. Temporal same-world ghost theatre is transferred only as an evidence-only projection mechanism."
   },
   "project": "/sleeper/project/",
   "recovery": "/recovery/sleeper/",
   "prior_receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
   "convergence": {
     "rule": "One public SLEEPER head. Port recovered mechanics into /sleeper/; keep exact source in Recovery; keep /sleeper/one-return/ as donor; do not mint /sleeper/v3/.",
-    "next": "Prove the native host end to end, then deepen one recovered mechanic at a time only when it changes player decision, consequence, evidence and RETURN."
+    "next": "Measure whether PLAN and TRACE reduce navigation and re-entry cost. Remove or narrow them if they behave as decorative modes rather than outperforming CITY or DISC for locate/compare operations."
   }
 }
