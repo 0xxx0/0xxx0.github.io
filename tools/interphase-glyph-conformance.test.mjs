@@ -78,7 +78,7 @@ test('generic fallback and failed hooks retain inspectable support without conte
 test('compressed recipe rejects content-consuming typed composition; ordered stack round trips',()=>{
   const {host}=fixture('field'),recipe=host.glyph('/fixture/').representation.recipe;
   const s=L.compose(L.fromFieldRoute({id:'fixture',href:'/fixture/'}),recipe);
-  assert.equal(L.equivalent(s,L.deserialize(L.serialize(s))),true;
+  assert.equal(L.equivalent(s,L.deserialize(L.serialize(s))),true);
   const content={...recipe,lensId:'needs-source',inputContract:'field-route/v0.1'};
   assert.equal(L.supportDescriptor(s,content).support,0);assert.throws(()=>L.compose(s,content),/unsupported/);
   assert.equal(L.validateDescriptor({...recipe,authority:'COMMIT'}).ok,false);
