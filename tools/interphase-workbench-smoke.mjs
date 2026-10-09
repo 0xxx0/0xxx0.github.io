@@ -41,9 +41,13 @@ try{
   await page.waitForFunction(()=>document.querySelector('#storageStatus').textContent.startsWith('IMPORT REJECTED'));
   assert.equal(await page.locator('#fieldForm [name=title]').inputValue(),'Durable local FIELD');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'mobile overflow '+JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>({tag:e.tagName,id:e.id,class:e.className,right:e.getBoundingClientRect().right})).slice(0,15))));
+  await turn('COMPACT');await page.locator('#compactForm [name=title]').fill('');await page.locator('#compactForm button[type=submit]').click();
   // JSON extension installation gates semantic edits while leaving storage unchanged on rejection.
   await menu();await page.locator('#control .control-body details').first().locator('summary').click();
   await page.locator('#loadExample').click();await page.waitForFunction(()=>document.querySelector('#extensionStatus').textContent.startsWith('ADDED'));
+  await turn('COMPACT');await page.locator('#compactForm [name=title]').fill('Admitted title');await page.locator('#compactForm button[type=submit]').click();
+  const validBytes=await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/'));
+  await menu();await page.locator('#returnBtn').click();assert.match(await page.locator('#storageStatus').textContent(),/EDIT REJECTED/);assert.equal(await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/')),validBytes);
   await turn('COMPACT');const beforeReject=await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/'));
   await page.locator('#compactForm [name=title]').fill('');await page.locator('#compactForm button[type=submit]').click();
   assert.match(await page.locator('#storageStatus').textContent(),/EDIT REJECTED/);

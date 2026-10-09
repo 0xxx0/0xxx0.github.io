@@ -46,7 +46,7 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
     project:(id,view)=>I.lens(id).project(graph.source(),view),
     edit(id,view,meta={}){const after=I.lens(id).put(graph.source(),view);if(!admitCandidate(after))return;const r=graph.commit(I.semantic(after),{lens:id,cause:meta.cause,anchor:anchor()});persist();return r;},
     editPlain(patch,meta={}){const after=I.applySemantic(graph.source(),patch);if(!admitCandidate(after))return;const r=graph.commit(I.semantic(after),{lens:'PLAIN',cause:meta.cause,anchor:anchor()});persist();return r;},
-    returnLast(){const head=graph.nodes().find(n=>n.id===graph.head());if(!head.parents.length)return;graph.returnTo(head.parents[0],{cause:'USER_RETURN',anchor:anchor()});persist();}
+    returnLast(){const head=graph.nodes().find(n=>n.id===graph.head());if(!head.parents.length)return;if(!admitCandidate(graph.snapshot(head.parents[0])))return;graph.returnTo(head.parents[0],{cause:'USER_RETURN',anchor:anchor()});persist();}
   };
   let mode='COMPACT',routes=[],axisSelection={},receiptSelection=null;
   const plugins=[E.native];let catalog=E.compose(plugins);
@@ -204,8 +204,8 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
     const file=e.target.files[0];if(!file)return;
     try{
       const packet=JSON.parse(await file.text()),next=checkedHistory(packet.history);
-      if(!admitCandidate(next.source()))throw Error('active extension law failed');
       const resolved=next.resolveReturn(packet.returnToken);
+      if(!admitCandidate(next.snapshot(resolved.change)))throw Error('active extension law failed');
       next.checkout(resolved.change);graph=next;recoveryHeld=false;
       mode=['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(resolved.anchor.projection)?resolved.anchor.projection:'COMPACT';
       const view=I.FIELD.project(graph.source(),resolved.anchor.viewport||{}).$view;
@@ -222,7 +222,7 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
   });
   $('#omniForm').onsubmit=e=>{e.preventDefault();$('#omniResults button')?.click()};
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#control').open=!$('#control').open;if($('#control').open)$('#omnibar').focus()}else if(e.key==='Escape')$('#control').open=false});
-  $('#receiptReturn').onclick=()=>{if(!receiptSelection)return;graph.returnTo(receiptSelection,{cause:'USER_RECEIPT_RETURN',anchor:anchor()});persist();$('#receiptPreview').hidden=true;render()};
+  $('#receiptReturn').onclick=()=>{if(!receiptSelection)return;if(!admitCandidate(graph.snapshot(receiptSelection))){render();return}graph.returnTo(receiptSelection,{cause:'USER_RECEIPT_RETURN',anchor:anchor()});persist();$('#receiptPreview').hidden=true;render()};
   $('#extensionFile').onchange=async e=>{
     const f=e.target.files[0];if(!f)return;
     try{if(f.size>100000)throw Error('extension exceeds 100 KB');const p=E.fromJSON(JSON.parse(await f.text()));const next=E.compose([...plugins,p]);plugins.push(p);catalog=next;$('#extensionStatus').textContent='ADDED · '+p.id+'@'+p.version;runExtensionChecks()}
