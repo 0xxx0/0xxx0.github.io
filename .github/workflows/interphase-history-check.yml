@@ -11,6 +11,7 @@ on:
       - 'tools/package-interphase.mjs'
       - 'tools/interphase-package-selftest.mjs'
       - 'tools/interphase-extensions-selftest.mjs'
+      - 'tools/interphase-compositor-selftest.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -28,6 +29,7 @@ on:
       - 'tools/package-interphase.mjs'
       - 'tools/interphase-package-selftest.mjs'
       - 'tools/interphase-extensions-selftest.mjs'
+      - 'tools/interphase-compositor-selftest.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -47,10 +49,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax
+      - name: Syntax and compositor kernel
         run: |
           node --check lib/interphase-history.js
           node --check tools/interphase-history-selftest.cjs
+          node --check interphase/compositor.mjs
+          node tools/interphase-compositor-selftest.mjs
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
       - name: Extension laws and recovered Omega engine
@@ -67,7 +71,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.1.0.tgz"
           node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
           "$RUNNER_TEMP/interphase-test/node_modules/.bin/tsc" --noEmit --strict --module nodenext --target es2022 lib/interphase.d.mts
-      - name: Durable workbench / mobile / protected import
+      - name: Durable workbench / compositor / mobile / protected import
         env:
           INTERPHASE_SCREENSHOTS: interphase-proof
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
