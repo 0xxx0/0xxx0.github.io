@@ -1,0 +1,53 @@
+{
+  "schema": "field-return/v0.1",
+  "kind": "LISTEN_READFIELD_WORK_RETURN",
+  "date": "2026-10-09",
+  "status": "CANDIDATE_PR_REQUIRED",
+  "base_sha": "edd872a0c519a01e750060071264ee655c2fad1b",
+  "branch": "listen-readfield-work-20261009",
+  "observed": [
+    "LISTEN 0.6 already owns audio source identity, address/aperture, FIELD PULSE, marks, RIDE, TWO DIAL, Beat Saber and SABER handoffs",
+    "READFIELD 0.8.5 already owns text source/cursor plus FAST, REVIEW, PULSE, VOICE, LOCI, repo/local-file reading and RIDE/RETURN",
+    "LRC/VTT/SRT timing existed in LISTEN but READFIELD handoff flattened timed text into prose",
+    "phone workflow capability existed but was mostly nested behind USE/MORE"
+  ],
+  "changed": [
+    "/lib/readfield-track-sync.js",
+    "/lib/readfield-track-sync.test.mjs",
+    "/lib/interphase-listen.js",
+    "/lib/interphase-readfield.js",
+    "/.github/workflows/listen-readfield-check.yml",
+    "/control/confluence/LISTEN_READFIELD_WORK_2026-10-09.md"
+  ],
+  "delta": [
+    "LISTEN post-load phone work rail exposes RIDE / READ / COMPOSE / SABER / MORE",
+    "existing LISTEN USE sheet gains job-oriented cross-surface use cases",
+    "real timed LRC/VTT/SRT evidence compiles to readfield-track-handoff/v0.1 while unaligned text stays tempo-RSVP only",
+    "READFIELD TRACK consumes only FOLD_BLOOM_LISTEN FIELD PULSE and source-hash checks before cue-address motion",
+    "cue changes move the existing READFIELD cursor; any native reader work action exits TRACK at that address"
+  ],
+  "authority": {
+    "audio": "LISTEN",
+    "text_source_cursor": "READFIELD",
+    "transport": "FIELD PULSE / borrowed clock only",
+    "track_projection": "VIEW_ONLY",
+    "effect": "NONE"
+  },
+  "verification": {
+    "pure_test": "PENDING_CI",
+    "adapter_parse": "PENDING_CI",
+    "public_surface": "PENDING_PR_CI",
+    "browser": "PENDING_PR_CI",
+    "real_phone_background_audio": "UNKNOWN / real-device property"
+  },
+  "external_boundary": {
+    "spotify": "OUTBOUND_ONLY / not a visual-game synchronization clock under Spotify developer policy",
+    "suno": "ADDRESS_PROVENANCE + BEST_EFFORT_REMOTE; local bytes remain analysis authority",
+    "beat_saber": "EXISTING EVENT_TAPE / mapper-test pack path retained"
+  },
+  "stop": "No provider registry, new transport, new source store or dashboard. Continue only from observed failure in an existing job.",
+  "return_to": [
+    "/fold-bloom/listen/",
+    "/docs/"
+  ]
+}
