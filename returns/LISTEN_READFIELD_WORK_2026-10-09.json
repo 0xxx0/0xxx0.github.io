@@ -2,21 +2,28 @@
   "schema": "field-return/v0.1",
   "kind": "LISTEN_READFIELD_WORK_RETURN",
   "date": "2026-10-09",
-  "status": "CANDIDATE_PR_REQUIRED",
-  "base_sha": "edd872a0c519a01e750060071264ee655c2fad1b",
+  "status": "SHIPPED",
+  "pr": 964,
   "branch": "listen-readfield-work-20261009",
+  "head_sha": "f776e0f9e34a1cd9da943023e69d34be38edc357",
+  "merge_sha": "bb8ed660002e47f1f4d3a75cb9ad3491e416f3e3",
+  "base_at_branch_reconstruction": "0978b5ab58d310eb251467046032f284938c8842",
+  "master_before_merge": "c7a7990f2ee9d3e1c27f6fb17581ae01163f874f",
   "observed": [
-    "LISTEN 0.6 already owns audio source identity, address/aperture, FIELD PULSE, marks, RIDE, TWO DIAL, Beat Saber and SABER handoffs",
-    "READFIELD 0.8.5 already owns text source/cursor plus FAST, REVIEW, PULSE, VOICE, LOCI, repo/local-file reading and RIDE/RETURN",
-    "LRC/VTT/SRT timing existed in LISTEN but READFIELD handoff flattened timed text into prose",
-    "phone workflow capability existed but was mostly nested behind USE/MORE"
+    "LISTEN 0.6 already owned audio source identity, address/aperture, FIELD PULSE, marks, RIDE, TWO DIAL, Beat Saber and SABER handoffs",
+    "READFIELD 0.8.5 already owned text source/cursor plus FAST, REVIEW, PULSE, VOICE, LOCI, repo/local-file reading and RIDE/RETURN",
+    "LRC/VTT/SRT timing existed in LISTEN but the READFIELD handoff flattened timed text into prose",
+    "phone workflow capability existed but was mostly nested behind USE/MORE",
+    "LISTEN rendering stopped correctly in a hidden tab, but transport pulses were RAF-bound; a second phone tab could therefore keep audio while starving READFIELD of clock updates"
   ],
   "changed": [
     "/lib/readfield-track-sync.js",
     "/lib/readfield-track-sync.test.mjs",
     "/lib/interphase-listen.js",
     "/lib/interphase-readfield.js",
+    "/tools/interphase-glyph-conformance.test.mjs",
     "/.github/workflows/listen-readfield-check.yml",
+    "/showcase-manifest.json",
     "/control/confluence/LISTEN_READFIELD_WORK_2026-10-09.md"
   ],
   "delta": [
@@ -24,7 +31,10 @@
     "existing LISTEN USE sheet gains job-oriented cross-surface use cases",
     "real timed LRC/VTT/SRT evidence compiles to readfield-track-handoff/v0.1 while unaligned text stays tempo-RSVP only",
     "READFIELD TRACK consumes only FOLD_BLOOM_LISTEN FIELD PULSE and source-hash checks before cue-address motion",
-    "cue changes move the existing READFIELD cursor; any native reader work action exits TRACK at that address"
+    "timed-text pre-roll holds rather than inventing an early cue",
+    "cue changes move the existing READFIELD cursor; any native reader work action exits TRACK at that address",
+    "hidden LISTEN tabs keep rendering asleep but publish a transport-only heartbeat from the media element so cross-tab TRACK can continue when the browser permits it",
+    "FIELD INDEX touched only /fold-bloom/listen/ and /docs/ through the canonical mutation contract"
   ],
   "authority": {
     "audio": "LISTEN",
@@ -34,16 +44,44 @@
     "effect": "NONE"
   },
   "verification": {
-    "pure_test": "PENDING_CI",
-    "adapter_parse": "PENDING_CI",
-    "public_surface": "PENDING_PR_CI",
-    "browser": "PENDING_PR_CI",
-    "real_phone_background_audio": "UNKNOWN / real-device property"
+    "scoped_ci": {
+      "run_id": 37883339588,
+      "result": "PASS",
+      "claims": [
+        "interphase-listen.js parse",
+        "interphase-readfield.js parse",
+        "readfield-track-sync.js parse",
+        "timed cue ordering / deterministic source char address / pre-roll / source mismatch laws"
+      ]
+    },
+    "public_surface_ci": {
+      "run_id": 37883339738,
+      "head_sha": "f776e0f9e34a1cd9da943023e69d34be38edc357",
+      "result": "PASS",
+      "claims": [
+        "shared INTERPHASE host laws",
+        "shared INTERPHASE glyph laws",
+        "LISTEN analysis + stream lens",
+        "FOLD BLOOM event tape + Beat Saber pack adapter",
+        "FOLD BLOOM SABER dual-phone core",
+        "LISTEN phone continuity with real MP3",
+        "LIVE READFIELD / local-file READ-RIDE",
+        "READFIELD -> LIVE exact cursor RETURN",
+        "FOLD BLOOM mobile interaction regression",
+        "critical browser smoke"
+      ]
+    },
+    "real_phone_background_audio": "UNKNOWN / real Android browser power-management property; media timeupdate plus throttled hidden-tab heartbeat are implemented, but CI does not prove uninterrupted background scheduling on the user's device"
   },
   "external_boundary": {
     "spotify": "OUTBOUND_ONLY / not a visual-game synchronization clock under Spotify developer policy",
     "suno": "ADDRESS_PROVENANCE + BEST_EFFORT_REMOTE; local bytes remain analysis authority",
     "beat_saber": "EXISTING EVENT_TAPE / mapper-test pack path retained"
+  },
+  "concurrency": {
+    "master_advanced_before_merge": true,
+    "intervening_change": "PR #965 SLEEPER PLAN + TRACE only",
+    "conflict_classification": "DISJOINT: sleeper/* + sleeper self-test; no LISTEN / READFIELD / INTERPHASE / manifest / shared-contract overlap"
   },
   "stop": "No provider registry, new transport, new source store or dashboard. Continue only from observed failure in an existing job.",
   "return_to": [
