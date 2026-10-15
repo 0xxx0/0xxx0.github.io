@@ -1,6 +1,6 @@
 {
-  "schema": "care-field-contract/v0.5",
-  "updated": "2026-09-22",
+  "schema": "care-field-contract/v0.6",
+  "updated": "2026-10-15",
   "title": "CARE / FIELD",
   "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
   "not_a_new_core": true,
@@ -181,5 +181,22 @@
       "law": "PORT OBJECT != CARE EVIDENCE until explicit attach; ATTACH != INTERPRET.",
       "return_path": "CARE may reopen the original Port object when the session envelope still exists or when LOCAL_STASH bytes remain addressable by payload_ref. Otherwise the ref stays explicit but non-durable."
     }
+  },
+  "shared_read": {
+    "route": "/care/#brief=<snapshot-id>",
+    "payload_schema": "0xxx0/care-share/v0.1",
+    "case_schema": "0xxx0/care-case/v0.3",
+    "envelope_schema": "0xxx0/care-sealed/v0.2",
+    "role": "read-only source-preserving snapshot of an existing CARE case; no new case authority",
+    "transport": "public AES-256-GCM ciphertext; separate strong password; PBKDF2-HMAC-SHA256 with 600000 iterations and per-snapshot salt",
+    "retention": "no implicit browser persistence or import; explicit user download/share only",
+    "law": [
+      "ciphertext is public; reading requires the link plus a separate password",
+      "password and derived key are never committed or included in URLs or requests",
+      "random password strength protects the public ciphertext against offline guessing",
+      "snapshot is dated, immutable and not a live feed",
+      "family observation, interpretation and unknowns stay distinct",
+      "normal CARE capture and SAVE remain host-owned"
+    ]
   }
 }

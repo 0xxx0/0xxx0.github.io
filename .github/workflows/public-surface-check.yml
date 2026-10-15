@@ -32,6 +32,8 @@ jobs:
         run: node scripts/check-current-heads.mjs
       - name: Validate manifest ↔ release-receipt version coherence
         run: node scripts/check-release-versions.mjs
+      - name: Validate CARE encrypted snapshot sharing
+        run: node tools/care-share-selftest.mjs
       - name: Prove the release-version gate can fail
         run: node tools/check-release-versions-selftest.mjs
       - name: Validate reality-gap proof gates

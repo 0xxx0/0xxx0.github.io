@@ -702,13 +702,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.6",
+      "title": "CARE / FIELD 0.7",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.6",
+      "version": "0.7",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -731,7 +731,8 @@
         "CONTACT NEED consult handoff when ASK exists",
         "diegetic LOCUS / CARE aperture over selected body-plan region",
         "selected locus → OBSERVE / PRIOR / COURSE using existing CARE operations",
-        "local condition remains distinct from whole-body score / diagnosis / urgency"
+        "local condition remains distinct from whole-body score / diagnosis / urgency",
+        "password-encrypted read-only CARE snapshot"
       ],
       "contract": {
         "accepts": {
@@ -929,7 +930,7 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-15T11:08:00+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -937,7 +938,7 @@
         ]
       },
       "owned_surfaces": [],
-      "role": "Compact local-first care-state projection over CONTINUITY/BODY. 0.6 keeps the reference body visible and attaches OBSERVE / PRIOR / COURSE to the selected locus without creating a health score, diagnostic authority or second care store; longitudinal course/brief/HUMAN PORT behavior remains native.",
+      "role": "Compact local-first care-state projection over CONTINUITY/BODY. 0.6 keeps the reference body visible and attaches OBSERVE / PRIOR / COURSE to the selected locus without creating a health score, diagnostic authority or second care store; longitudinal course/brief/HUMAN PORT behavior remains native. 0.7 adds a read-only password-encrypted snapshot lens with source-preserving family handoff; private case bytes and passwords remain outside public source.",
       "versions": [
         {
           "version": "0.1",
@@ -10400,4 +10401,3 @@
     "reopen_reason": "The original message/account witness remains sealed. The hub reopened only because repository activity after that snapshot was a named missing witness; REPO SKY is a projection over Git history + current FIELD authorities, not a rewrite of the corpus."
   }
 }
-
