@@ -1,0 +1,9 @@
+{
+  "protocol": "interphase-extension/v1",
+  "id": "readable-title",
+  "version": "1.0.0",
+  "types": {
+    "readableTitle": {"kind":"object","fields":{"title":{"kind":"string","minLength":1,"maxLength":120}}}
+  },
+  "laws": {"titleBounds":{"kind":"type","type":"readableTitle"}}
+}

@@ -1,0 +1,88 @@
+{
+  "source": "omega-core-interphase-v0.4.zip",
+  "recovered": "2026-10-09",
+  "archive_sha256": "434fa82bd796811a2e9fa58acfedfcd5565702c77a57c67e1704d238dad8cf15",
+  "disposition": "exact executable donors; no private seed/raw corpus; not canonical FIELD storage",
+  "files": [
+    {
+      "path": "schema/representation-unit.schema.json",
+      "sha256": "27a41701ef12d37b6bb4e36581f4a112691e8e5ed601218f632cb68ded4e0c47"
+    },
+    {
+      "path": "schema/benchmark-question.schema.json",
+      "sha256": "bea25e5bf91bf4c324a0b8ecc39a5d69c4ffe41dc49fae2a03f0e24725fb41bd"
+    },
+    {
+      "path": "schema/event.schema.json",
+      "sha256": "8c4b0a9126fbeb8624e61a0ef20a006c0ea3c5c39b216d8b61c5d0e2ff4e0cec"
+    },
+    {
+      "path": "schema/node.schema.json",
+      "sha256": "803a1452f7f0dd935874372ca389ae64b735fa10a91e3fe6f3b23fa80c1dd0c2"
+    },
+    {
+      "path": "schema/relation.schema.json",
+      "sha256": "7f25b93dd690e53dff2804e009a23b4cc2812a6528f34e04a8bb891142d9e755"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "56fc824d212cf4826def67cb367596682f79dc5d42308cae3bd1ab56f01d64be"
+    },
+    {
+      "path": "tests/test_core.py",
+      "sha256": "6ab9749d26088fdf23e18219ed34427aaff59c56acbc85a1dd441adad755b564"
+    },
+    {
+      "path": "omega/channel_contract.py",
+      "sha256": "f76cf679c976dda6d677f07baf7aa2ac05b24087086a2b27bfd78b68377711e6"
+    },
+    {
+      "path": "omega/util.py",
+      "sha256": "0362663f356416a30ba40580cd2837aaf57808d724692c474633e73bbd6ed093"
+    },
+    {
+      "path": "omega/corpus.py",
+      "sha256": "e99a8a4b16b6b76305462618d6846677f9b84399bbdc5107cb29790988804c8c"
+    },
+    {
+      "path": "omega/eval.py",
+      "sha256": "d6c107f7f05eb3680a099061cadc516fe6ffe895cb79ef6b774ca93787bb0221"
+    },
+    {
+      "path": "omega/benchmark.py",
+      "sha256": "31e4ca955be4993a0edcf3cc3c9c7b7d880a8d1a644a7b5433e90a24eada2d23"
+    },
+    {
+      "path": "omega/cli.py",
+      "sha256": "9eddf8319dcb801420c951d39f3141d6fa98851c04d6511552406adcba763fe2"
+    },
+    {
+      "path": "omega/db.py",
+      "sha256": "75e565ebc6debf71d747da7d3ea1ffeb563ff9db712409d9ae93a875aded2ed1"
+    },
+    {
+      "path": "omega/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "omega/events.py",
+      "sha256": "4911506e5af2a7959ff1338e025a046696c291ac8ad045b537d9636f6c68716e"
+    },
+    {
+      "path": "omega/__main__.py",
+      "sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3"
+    },
+    {
+      "path": "omega/core.py",
+      "sha256": "55dd24fb6c84f582d6320ad37aaccf6e5cb24305a9f937dd3c2e637da64be2de"
+    },
+    {
+      "path": "omega/render.py",
+      "sha256": "96a83f97d3a0eb2276c32427dcb94d567ac0f58f6b8505884a693c975f0da5f4"
+    },
+    {
+      "path": "omega/constants.py",
+      "sha256": "cbaf8c0e651b209bacc60b610b1f2fb3f8c0faf95d9f362eca28dadfc0a74a3a"
+    }
+  ]
+}

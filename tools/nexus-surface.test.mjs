@@ -146,7 +146,7 @@ check('map: every architecture node carries role/name/description and a lawful a
   assert.ok(nodes.length >= 10, `only ${nodes.length} architecture nodes`);
   const classes = new Set(['bound', 'root', 'exec', 'test', 'repr', 'return']);
   for (const [, classText, block] of nodes) {
-    const nodeClasses = classText.trim().split(/\\s+/);
+    const nodeClasses = classText.trim().split(/\s+/);
     assert.ok(nodeClasses.some(cls => classes.has(cls)),
       `map node classes "${classText}" lack architecture role`);
     for (const field of ['k', 'n', 'd'])

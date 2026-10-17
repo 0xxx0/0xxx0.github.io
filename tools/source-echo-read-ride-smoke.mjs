@@ -6,13 +6,13 @@ import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
 import {browserBin} from './browser-bin.mjs';
 
-const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
+const ROOT=process.cwd(),HOST='127.0.0.1',SLOW=Math.max(1,Math.min(4,Number(process.env.SMOKE_SLOW)||1));let PORT=0;
 function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.md')||p.endsWith('.txt'))return'text/plain; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
 function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';const p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
 function probe(){return `<!doctype html><html><body><iframe id="f" style="width:460px;height:940px;border:0"></iframe><pre id="probeResult">PENDING</pre><script>
-const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+const SCALE=${SLOW},f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
 const done=(ok,x)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=20000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=20000,label='condition')=>{limit*=SCALE;const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
 const W=()=>f.contentWindow,D=()=>W().document;
 (async()=>{try{
   const readUrl='/docs/?src=%2Fprison-age%2Fstories%2F08-successful-escape.md&return=%2F%3Ffocus%3D%252Fprison-age%252F&ap_scale=SENT&ap_char=344&echo=%2Fprison-age%2Fecho-index.json&echo_source=successful-escape';
@@ -43,7 +43,7 @@ const W=()=>f.contentWindow,D=()=>W().document;
 }catch(e){done(false,{...rec,error:String(e?.stack||e),href:(()=>{try{return W().location.href}catch(_){return null}})()})}})();
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
-function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=490,980','--virtual-time-budget=32000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},45000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
+function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=490,980',`--virtual-time-budget=${32000*SLOW}`,'--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const watchdog=75000*SLOW;const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error(`timeout after ${watchdog}ms (SMOKE_SLOW=${SLOW})`))},watchdog);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
 await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));PORT=server.address().port;
 try{
  const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);

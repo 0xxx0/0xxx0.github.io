@@ -15,7 +15,8 @@ It never writes the manifest. `/interphase/` retains the Genesis fixture.
 Lineage, competing branch disposition and exact continuation:
 `/control/confluence/INTERPHASE_CONVERGENCE_2026-10-09.md`.
 
-No build step, ever. No npm, no bundler, no TypeScript, no registry, no manifest —
+No browser build step or runtime dependencies. Optional package transport and
+TypeScript declarations wrap the same sources; they do not replace runtime laws —
 **the directory listing IS the registry.** Browsers autoupdate via GitHub Pages
 ETag revalidation: when a file changes, the next page load revalidates and gets the
 new bytes. A page picks the module convention that matches its own script loading

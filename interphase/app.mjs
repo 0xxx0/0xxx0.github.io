@@ -1,5 +1,7 @@
-import {lenses as I, history as H} from '/lib/interphase.mjs';
+import {lenses as I, history as H, extensions as E, glyph as G} from '/lib/interphase.mjs';
 import {esc, $, download} from '/lib/dom.js';
+import {mountResearch, fieldSeed} from './research.mjs';
+import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey, sourceAddress} from './projections.mjs';
 (async()=>{'use strict';
   if(!I){document.body.innerHTML='<pre>INTERPHASE LENSES FAILED TO LOAD</pre>';return}
   const route=new URLSearchParams(location.search).get('route');
@@ -11,7 +13,7 @@ import {esc, $, download} from '/lib/dom.js';
     if(!record)throw new Error('FIELD_ROUTE_UNRESOLVED:'+route);
     initial=H.objectFromRoute(record);
   }
-  const key='interphase.history.v01:'+initial.id;
+  let key='interphase.history.v01:'+initial.id;
   let graph=H.createHistory(initial),storageMessage='LOCAL · edits stay on this device';
   function checkedHistory(doc){
     const restored=H.restoreHistory(doc);
@@ -42,11 +44,22 @@ import {esc, $, download} from '/lib/dom.js';
     source:()=>graph.source(),
     snapshot:()=>({source:graph.source(),revision:graph.nodes().length-1,history:traceNodes().map(n=>({id:n.id,op:n.op,lens:n.meta.lens,delta:n.patch,cause:n.meta.cause,revision:n.id===graph.head()?'HEAD':'',parents:n.parents}))}),
     project:(id,view)=>I.lens(id).project(graph.source(),view),
-    edit(id,view,meta={}){const after=I.lens(id).put(graph.source(),view);const r=graph.commit(I.semantic(after),{lens:id,cause:meta.cause,anchor:anchor()});persist();return r;},
-    editPlain(patch,meta={}){const after=I.applySemantic(graph.source(),patch);const r=graph.commit(I.semantic(after),{lens:'PLAIN',cause:meta.cause,anchor:anchor()});persist();return r;},
-    returnLast(){const head=graph.nodes().find(n=>n.id===graph.head());if(!head.parents.length)return;graph.returnTo(head.parents[0],{cause:'USER_RETURN',anchor:anchor()});persist();}
+    edit(id,view,meta={}){const after=I.lens(id).put(graph.source(),view);if(!admitCandidate(after))return;const r=graph.commit(I.semantic(after),{lens:id,cause:meta.cause,anchor:anchor()});persist();return r;},
+    editPlain(patch,meta={}){const after=I.applySemantic(graph.source(),patch);if(!admitCandidate(after))return;const r=graph.commit(I.semantic(after),{lens:'PLAIN',cause:meta.cause,anchor:anchor()});persist();return r;},
+    returnLast(){const head=graph.nodes().find(n=>n.id===graph.head());if(!head.parents.length)return;if(!admitCandidate(graph.snapshot(head.parents[0])))return;graph.returnTo(head.parents[0],{cause:'USER_RETURN',anchor:anchor()});persist();}
   };
-  let mode='COMPACT';
+  let mode='COMPACT',routes=[],axisSelection={},receiptSelection=null;
+  const plugins=[E.native];let catalog=E.compose(plugins);
+  let disposeResearch=null,researchData=null;
+  try{const raw=localStorage.getItem('interphase.research.v04');if(raw)researchData=JSON.parse(raw)}catch{}
+  try{const r=await fetch('/showcase-manifest.json');if(r.ok)routes=(await r.json()).routes||[]}catch{}
+  function chooseSource(source){
+    if(source.id===initial.id)return;
+    initial=structuredClone(source);key='interphase.history.v01:'+initial.id;graph=H.createHistory(initial);recoveryHeld=false;
+    storageMessage='LOCAL DRAFT · source owner remains unchanged';
+    try{const raw=localStorage.getItem(key);if(raw)graph=checkedHistory(JSON.parse(raw))}catch(e){recoveryHeld=true;storageMessage='RECOVERY HELD · '+e.message}
+    fieldLocal.focus=initial.id;receiptSelection=null;
+  }
   const fieldLocal={focus:initial.id,camera:{x:0,y:0,z:0,rx:-10,ry:24,rz:0},aperture:'DETAIL'};
   let drag=null;
 
@@ -63,6 +76,12 @@ import {esc, $, download} from '/lib/dom.js';
       ['C·GETPUT',C.get_put],['C·PUTGET',C.put_get],['F·GETPUT',F.get_put],['F·PUTGET',F.put_get],['IDENTITY',C.identity_preserved&&F.identity_preserved],['VIEWLOCAL',V.pass]
     ];
   }
+  function admitCandidate(source){
+    const checks={object:E.check(catalog,'object',source),...E.inspect(catalog,source)};
+    const bad=Object.entries(checks).find(([,v])=>!v.ok);
+    if(bad){storageMessage='EDIT REJECTED · '+bad[0]+' · '+bad[1].errors.map(e=>e.path+': '+e.message).join('; ');return false}
+    return true;
+  }
   function renderLaws(source){
     $('#lawStatus').innerHTML=probeLaws(source).map(([k,v])=>`<span class="law ${v?'pass':'fail'}">${esc(k)} ${v?'✓':'×'}</span>`).join('');
   }
@@ -76,20 +95,42 @@ import {esc, $, download} from '/lib/dom.js';
     }).join(''):'<div class="empty">No semantic edits yet.<br>Move FIELD’s camera: TRACE must remain empty.</div>';
   }
 
-  function setMode(next){mode=next;render()}
+  function setMode(next){disposeResearch?.();disposeResearch=null;$('#surfaceBody').classList.remove('research');mode=next;$('#control').open=false;render()}
   function render(){
-    const snap=store.snapshot(),source=snap.source;
+    const snap=store.snapshot(),source=snap.source;document.body.dataset.interphaseMode=mode;
     $('#storageStatus').textContent=storageMessage;
     $('#railId').textContent=source.id;$('#railRev').textContent='r'+snap.revision;$('#sourceStamp').textContent='SOURCE · '+source.id;
     document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+    $('#focusTitle').textContent=source.title;$('#focusLine').textContent=source.thesis;
+    $('#viewLabel').textContent=mode;$('#receiptPreview').hidden=mode!=='DISC'||!receiptSelection;
+    const address=sourceAddress(source);$('#openSource').hidden=!address;if(address)$('#openSource').href=address;
     renderLaws(source);renderTrace();
-    if(mode==='PLAIN')renderPlain(source);else if(mode==='COMPACT')renderCompact(source);else renderField(source);
+    if(mode==='PLAIN')renderPlain(source);else if(mode==='COMPACT')renderCompact(source);else if(mode==='FIELD')renderField(source);else renderProjection(source);
+  }
+
+  function renderProjection(source){
+    $('#surfaceName').textContent=mode;$('#surfaceDesc').textContent='same focus · explicit source';
+    const body=$('#surfaceBody');
+    if(mode==='RESEARCH'){
+      const objects=[source,...routes.filter(r=>'route:'+r.href!==source.id).map(H.objectFromRoute)];
+      disposeResearch=mountResearch(body,researchData||fieldSeed(objects),object=>{chooseSource(object);$('#railId').textContent=initial.id;$('#railRev').textContent='r'+(graph.nodes().length-1);const address=sourceAddress(graph.source());$('#openSource').hidden=!address;if(address)$('#openSource').href=address;$('#focusTitle').textContent=graph.source().title;$('#focusLine').textContent=graph.source().thesis;renderTrace()},data=>{researchData=data;try{localStorage.setItem('interphase.research.v04',JSON.stringify(data))}catch(e){storageMessage='RESEARCH SESSION ONLY · export/import the benchmark to keep it'}},initial.id);
+    }else if(mode==='DISC'){
+      const nodes=graph.nodes();body.innerHTML=historyDisc(nodes,graph.head(),receiptSelection);
+      body.querySelectorAll('[data-receipt]').forEach(b=>b.onclick=()=>{receiptSelection=b.dataset.receipt;const n=nodes.find(n=>n.id===receiptSelection);$('#receiptPreview').hidden=false;$('#receiptSnapshot').textContent=JSON.stringify(n.snapshot,null,2);renderProjection(graph.source())});
+    }else if(mode==='DAYLINE'||mode==='FAN'){
+      try{const d=daylineSnapshot();body.innerHTML=dayView(d,source.id,mode==='FAN');body.querySelectorAll('[data-task]').forEach(b=>b.onclick=()=>{chooseSource(taskObject(d.tasks.find(t=>t.id===b.dataset.task)));render()})}
+      catch(e){body.textContent=e.message}
+    }else if(mode==='AXIS'){
+      body.innerHTML=axisView(routes,axisSelection);
+      body.querySelectorAll('[data-axis]').forEach(s=>s.onchange=()=>{axisSelection={...axisSelection,[s.dataset.axis]:s.value};renderProjection(graph.source())});
+      body.querySelectorAll('[data-route]').forEach(b=>b.onclick=()=>{chooseSource(H.objectFromRoute(routes.find(r=>r.href===b.dataset.route)));render()});
+    }
   }
 
   function renderPlain(source){
     $('#surfaceName').textContent='PLAIN';$('#surfaceDesc').textContent='source witness · no geometry';
     $('#surfaceBody').innerHTML=`
-      <div class="plain-callout"><b>PLAIN is not the universal interface.</b> It is the least magical witness: readable source semantics plus protected identity/provenance.</div>
+      <div class="plain-callout">Edit a local draft. Identity and provenance stay with the source.</div>
       <form class="form" id="plainForm">
         <div class="field"><label>identity · protected</label><input class="locked" value="${esc(source.id)}" disabled></div>
         <div class="field"><label>title</label><input name="title" value="${esc(source.title)}"></div>
@@ -105,7 +146,7 @@ import {esc, $, download} from '/lib/dom.js';
     const v=store.project('COMPACT');
     $('#surfaceName').textContent='COMPACT';$('#surfaceDesc').textContent='lens 01 · readable minimum';
     $('#surfaceBody').innerHTML=`<div class="compact-card">
-      <div class="compact-mark"><div class="sigil">${esc(v.glyph)}</div><div class="compact-meta"><div class="object-id">${esc(v.id)} · ${esc(v.mark)} ${esc(v.state)}</div><h2>${esc(v.title)}</h2></div></div>
+      <div class="compact-mark"><div class="sigil">${G.svg({id:source.id,label:source.title,channels:['identity','address'],operations:[]},{size:80})}</div><div class="compact-meta"><div class="object-id">${esc(v.id)} · ${esc(v.mark)} ${esc(v.state)}</div><h2>${esc(v.title)}</h2></div></div>
       <form class="form" id="compactForm">
         <div class="field"><label>title</label><input name="title" value="${esc(v.title)}"></div>
         <div class="field"><label>line · thesis projected compactly</label><textarea name="line">${esc(v.line)}</textarea></div>
@@ -120,12 +161,17 @@ import {esc, $, download} from '/lib/dom.js';
     <div class="face" style="transform:translateZ(140px)"></div><div class="face" style="transform:rotateY(180deg) translateZ(140px)"></div>
     <div class="face" style="transform:rotateY(90deg) translateZ(140px)"></div><div class="face" style="transform:rotateY(-90deg) translateZ(140px)"></div>
     <div class="face" style="transform:rotateX(90deg) translateZ(140px)"></div><div class="face" style="transform:rotateX(-90deg) translateZ(140px)"></div>`}
-  function cubeFaces(glyph){return `<i style="transform:translateZ(32px)"></i><i style="transform:rotateY(180deg) translateZ(32px)"></i><i style="transform:rotateY(90deg) translateZ(32px)"></i><i style="transform:rotateY(-90deg) translateZ(32px)"></i><i style="transform:rotateX(90deg) translateZ(32px)"></i><i style="transform:rotateX(-90deg) translateZ(32px)"></i><em class="glyph3">${esc(glyph)}</em>`}
+  function contextFrames(source){
+    const current=source.provenance?.href;let r=routes.find(r=>r.href===current),seen=new Set(),parents=[];
+    while(r?.parent&&!seen.has(r.parent)&&parents.length<5){seen.add(r.parent);r=routes.find(x=>x.href===r.parent);if(r)parents.push(r)}
+    return parents.map((r,i)=>`<div class="context-frame" style="--level:${i}"><span>${esc(r.title)} · ${esc(r.href)}</span></div>`).join('');
+  }
+  function cubeFaces(glyph){return `<i style="transform:translateZ(32px)"></i><i style="transform:rotateY(180deg) translateZ(32px)"></i><i style="transform:rotateY(90deg) translateZ(32px)"></i><i style="transform:rotateY(-90deg) translateZ(32px)"></i><i style="transform:rotateX(90deg) translateZ(32px)"></i><i style="transform:rotateX(-90deg) translateZ(32px)"></i><em class="glyph3">${G.svg({id:initial.id,label:graph.source().title,channels:['identity','address'],operations:[]},{size:64})}</em>`}
   function renderField(source){
     const v=store.project('FIELD',fieldLocal);
     $('#surfaceName').textContent='FIELD';$('#surfaceDesc').textContent='lens 02 · spatial orientation + readable semantics';
     $('#surfaceBody').innerHTML=`<div class="field-grid">
-      <div class="stage" id="stage"><div class="viewport"><div class="camera"><div class="room" id="room">${roomFaces()}<div class="cube" id="cube">${cubeFaces(v.representation.glyph)}</div></div></div></div><div class="stage-address">${esc(v.id)} · ${esc(v.representation.mark)} ${esc(v.state)}</div></div>
+      <div class="stage" id="stage"><div class="viewport"><div class="camera"><div class="room" id="room">${roomFaces()}${contextFrames(source)}<div class="cube" id="cube">${cubeFaces(v.representation.glyph)}</div></div></div></div><div class="stage-address">${esc(v.id)} · ${esc(v.representation.mark)} ${esc(v.state)}</div></div>
       <div class="field-edit"><form class="form" id="fieldForm">
         <div class="field"><label>identity · protected</label><input class="locked" value="${esc(v.id)}" disabled></div>
         <div class="field"><label>title</label><input name="title" value="${esc(v.title)}"></div>
@@ -159,12 +205,36 @@ import {esc, $, download} from '/lib/dom.js';
     try{
       const packet=JSON.parse(await file.text()),next=checkedHistory(packet.history);
       const resolved=next.resolveReturn(packet.returnToken);
+      if(!admitCandidate(next.snapshot(resolved.change)))throw Error('active extension law failed');
       next.checkout(resolved.change);graph=next;recoveryHeld=false;
-      mode=['PLAIN','COMPACT','FIELD'].includes(resolved.anchor.projection)?resolved.anchor.projection:'COMPACT';
+      mode=['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(resolved.anchor.projection)?resolved.anchor.projection:'COMPACT';
       const view=I.FIELD.project(graph.source(),resolved.anchor.viewport||{}).$view;
       Object.assign(fieldLocal,view,{focus:initial.id});persist();
     }catch(err){storageMessage='IMPORT REJECTED · '+err.message;}
     e.target.value='';render();
   });
+  $('#omnibar').addEventListener('input',e=>{
+    const q=e.target.value.trim().toLowerCase();const commands=['COMPACT','PLAIN','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'];
+    const matches=routes.filter(r=>(r.href+' '+r.title).toLowerCase().includes(q));
+    $('#omniResults').innerHTML=commands.filter(c=>('/'+c.toLowerCase()).includes(q)).map(c=>`<button data-view="${c}">/${c.toLowerCase()}</button>`).join('')+matches.map(r=>`<button data-address="${esc(r.href)}">${esc(r.title)} <small>${esc(r.href)}</small></button>`).join('');
+    $('#omniResults').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setMode(b.dataset.view));
+    $('#omniResults').querySelectorAll('[data-address]').forEach(b=>b.onclick=()=>{chooseSource(H.objectFromRoute(routes.find(r=>r.href===b.dataset.address)));setMode('COMPACT')});
+  });
+  $('#omniForm').onsubmit=e=>{e.preventDefault();$('#omniResults button')?.click()};
+  document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#control').open=!$('#control').open;if($('#control').open)$('#omnibar').focus()}else if(e.key==='Escape')$('#control').open=false});
+  $('#receiptReturn').onclick=()=>{if(!receiptSelection)return;if(!admitCandidate(graph.snapshot(receiptSelection))){render();return}graph.returnTo(receiptSelection,{cause:'USER_RECEIPT_RETURN',anchor:anchor()});persist();$('#receiptPreview').hidden=true;render()};
+  $('#extensionFile').onchange=async e=>{
+    const f=e.target.files[0];if(!f)return;
+    try{if(f.size>100000)throw Error('extension exceeds 100 KB');const p=E.fromJSON(JSON.parse(await f.text()));const next=E.compose([...plugins,p]);plugins.push(p);catalog=next;$('#extensionStatus').textContent='ADDED · '+p.id+'@'+p.version;runExtensionChecks()}
+    catch(err){$('#extensionStatus').textContent='REJECTED · '+err.message}e.target.value='';
+  };
+  function runExtensionChecks(){
+    $('#extensionResults').textContent=JSON.stringify({plugins:catalog.plugins,type:E.check(catalog,'object',graph.source()),laws:E.inspect(catalog,graph.source())},null,2);
+  }
+  $('#checkExtensions').onclick=runExtensionChecks;
+  $('#loadExample').onclick=async()=>{try{const r=await fetch('./extensions/title.json');if(!r.ok)throw Error('extension unavailable');const p=E.fromJSON(await r.json());const next=E.compose([...plugins,p]);plugins.push(p);catalog=next;$('#loadExample').disabled=true;$('#extensionStatus').textContent='ADDED · readable-title@1.0.0';runExtensionChecks()}catch(e){$('#extensionStatus').textContent=e.message}};
+  window.addEventListener('storage',e=>{if(e.key===daylineKey&&['DAYLINE','FAN'].includes(mode))render()});
+  const requested=new URLSearchParams(location.search).get('view')?.toUpperCase();
+  if(['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(requested))mode=requested;
   render();
 })().catch(e=>{document.querySelector('#surfaceBody').textContent='SOURCE UNRESOLVED · '+e.message;});
