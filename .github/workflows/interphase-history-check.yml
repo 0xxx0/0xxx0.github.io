@@ -12,6 +12,7 @@ on:
       - 'tools/interphase-package-selftest.mjs'
       - 'tools/interphase-extensions-selftest.mjs'
       - 'tools/interphase-compositor-selftest.mjs'
+      - 'tools/interphase-substrate-selftest.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -35,6 +36,7 @@ on:
       - 'tools/interphase-package-selftest.mjs'
       - 'tools/interphase-extensions-selftest.mjs'
       - 'tools/interphase-compositor-selftest.mjs'
+      - 'tools/interphase-substrate-selftest.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -59,12 +61,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax and compositor kernel
+      - name: Syntax and compositor / substrate kernels
         run: |
           node --check lib/interphase-history.js
           node --check tools/interphase-history-selftest.cjs
           node --check interphase/compositor.mjs
+          node --check interphase/substrate.mjs
           node tools/interphase-compositor-selftest.mjs
+          node tools/interphase-substrate-selftest.mjs
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
       - name: Extension laws and recovered Omega engine
