@@ -14,6 +14,8 @@ on:
       - 'tools/interphase-compositor-selftest.mjs'
       - 'tools/interphase-substrate-selftest.mjs'
       - 'tools/interphase-substrate-smoke.mjs'
+      - 'tools/fi-mutation-contract.py'
+      - 'tools/fi-mutation-contract-selftest.py'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -23,7 +25,6 @@ on:
       - 'tools/fovea-context-smoke.mjs'
       - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
-      - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
   push:
     branches: [master]
@@ -39,6 +40,8 @@ on:
       - 'tools/interphase-compositor-selftest.mjs'
       - 'tools/interphase-substrate-selftest.mjs'
       - 'tools/interphase-substrate-smoke.mjs'
+      - 'tools/fi-mutation-contract.py'
+      - 'tools/fi-mutation-contract-selftest.py'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -48,7 +51,6 @@ on:
       - 'tools/fovea-context-smoke.mjs'
       - 'tools/fovea-context-selftest.cjs'
       - 'tools/interphase-history-selftest.cjs'
-      - 'showcase-manifest.json'
       - '.github/workflows/interphase-history-check.yml'
 
 permissions:
@@ -63,7 +65,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax and compositor / substrate kernels
+      - name: Syntax and compositor / substrate / context laws
         run: |
           node --check lib/interphase-history.js
           node --check tools/interphase-history-selftest.cjs
@@ -71,6 +73,8 @@ jobs:
           node --check interphase/substrate.mjs
           node tools/interphase-compositor-selftest.mjs
           node tools/interphase-substrate-selftest.mjs
+          node tools/fovea-context-selftest.cjs
+          python3 tools/fi-mutation-contract-selftest.py
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
       - name: Extension laws and recovered Omega engine
