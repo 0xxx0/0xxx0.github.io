@@ -10,6 +10,7 @@ export const VIEWS=Object.freeze([
   Object.freeze({id:'COMPACT',label:'FOCUS',hint:'read / edit'}),
   Object.freeze({id:'PLAIN',label:'SOURCE',hint:'plain witness'}),
   Object.freeze({id:'FIELD',label:'ROOM',hint:'spatial view'}),
+  Object.freeze({id:'SUBSTRATE',label:'GLYPHFIELD',hint:'semantic position'}),
   Object.freeze({id:'DISC',label:'HISTORY',hint:'causal receipts'}),
   Object.freeze({id:'DAYLINE',label:'DAYLINE',hint:'linear time'}),
   Object.freeze({id:'FAN',label:'FAN',hint:'folded time'}),
