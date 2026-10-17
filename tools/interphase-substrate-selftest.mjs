@@ -5,6 +5,7 @@ const routes=[
   {href:'/',title:'FIELD',parent:null,operation:'OBSERVE'},
   {href:'/a/',title:'A',parent:'/',operation:'READ'},
   {href:'/b/',title:'B',parent:'/',operation:'READ'},
+  {href:'/a/read/',title:'Read A',parent:'/a/',operation:'READ'},
   {href:'/a/edit/',title:'Edit A',parent:'/a/',operation:'OPERATE'},
   {href:'/a/view/',title:'View A',parent:'/a/',operation:'PROJECT'},
   {href:'/a/view/deep/',title:'Deep A',parent:'/a/view/',operation:'PROJECT'},
@@ -38,7 +39,9 @@ assert.equal(model.mapping,'FIELD_FOLD_MAP');
 assert.equal(model.focus,'/a/');
 assert.ok(model.groups.length>0);
 assert.ok(model.unplaced.some(x=>x.href==='/mystery/'&&x.rawOperation==='INVENTED'),'missing fold entry remains explicit residue');
-assert.ok(model.groups.some(g=>g.operation==='SEE'&&g.items.length>=2),'different raw verbs may lawfully aggregate only through explicit fold class');
+const seeHop1=model.groups.find(g=>g.operation==='SEE'&&g.distance===1);
+assert.ok(seeHop1&&seeHop1.items.length===2,'different raw records aggregate only when explicit class AND exact hop radius match');
+assert.deepEqual(seeHop1.items.map(x=>x.href),['/','/a/read/']);
 
 for(const g of model.groups){
   for(const item of g.items){
@@ -58,4 +61,4 @@ assert.deepEqual(coords(reversed),coords(model),'route input order cannot move a
 const rawModel=substrateModel(routes,'/a/',{kernel:ACTION_KERNEL,maxHops:3});
 assert.ok(rawModel.unplaced.length>model.unplaced.length,'absence of explicit fold cannot silently classify raw verbs');
 
-console.log('INTERPHASE SUBSTRATE PASS: angle=explicit FIELD action class, radius=exact parent-edge hops, declared edges only, fold collisions aggregate, missing classes refuse placement, permutation invariant');
+console.log('INTERPHASE SUBSTRATE PASS: angle=explicit FIELD action class, radius=exact parent-edge hops, declared edges only, exact fold collisions aggregate, missing classes refuse placement, permutation invariant');
