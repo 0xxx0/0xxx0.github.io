@@ -15,6 +15,8 @@ try{
   assert.equal(await page.locator('#surfaceDesc').textContent(),'semantic substrate · warranted coordinates only');
   assert.equal(await page.locator('.substrate-residue').count(),0,'current fold covers visible route operations');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'GLYPHFIELD mobile overflow');
+  assert.equal(await page.locator('.hero').evaluate(el=>getComputedStyle(el).display),'none','semantic field must replace the prose hero in this projection');
+  assert.ok((await page.locator('.substrate-stage').boundingBox()).y<230,'semantic field should enter the first phone viewport');
 
   const first=page.locator('[data-substrate-group]').first();
   await first.click();
@@ -33,10 +35,13 @@ try{
   const nodes=await page.locator('[data-substrate-group]').evaluateAll(xs=>xs.map(x=>({key:x.dataset.substrateGroup,d:Number(x.dataset.distance),left:x.style.left,top:x.style.top})));
   assert.ok(nodes.every(x=>/^\d+\|(?:SEE|WAYFIND|OPERATE|MAKE|PLAY|RECOVER)$/.test(x.key)&&Number.isInteger(x.d)&&x.d>0&&x.left&&x.top));
 
+  // Proof image represents the bounded default, not the deliberately expanded stress state.
+  for(let i=0;i<3&&(await page.locator('.substrate-shell').getAttribute('data-hops'))!==before;i++)await page.locator('#substrateDepth').click();
+  assert.equal(await page.locator('.substrate-shell').getAttribute('data-hops'),before,'depth cycle returns exactly to prior projection state');
   if(process.env.INTERPHASE_SCREENSHOTS){
     await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/substrate-mobile.png',fullPage:true});
     await page.setViewportSize({width:1200,height:900});await page.screenshot({path:process.env.INTERPHASE_SCREENSHOTS+'/substrate.png',fullPage:true});
   }
   assert.deepEqual(errors,[]);
-  console.log('INTERPHASE GLYPHFIELD PASS: exact fold re-entry, 6 explicit action sectors, parent-hop radius, declared edges, full visible operation coverage, staged recenter, depth control, mobile');
+  console.log('INTERPHASE GLYPHFIELD PASS: viewport-first exact fold re-entry, 6 explicit action sectors, parent-hop radius, declared edges, full visible operation coverage, staged recenter, reversible depth, mobile');
 }finally{await browser.close();}
