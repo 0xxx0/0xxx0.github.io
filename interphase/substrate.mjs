@@ -40,7 +40,7 @@ if(body&&modes){
   }
   function guide(model){
     const rings=Array.from({length:model.maxHops},(_,i)=>{const p=semanticPoint(model.kernel[0],i+1,{kernel:model.kernel,maxHops:model.maxHops});return p?`<circle cx="50" cy="50" r="${(p.radius*100).toFixed(3)}"/><text x="50" y="${(50-p.radius*100+2).toFixed(3)}">${i+1}</text>`:''}).join('');
-    const sectors=model.kernel.map(op=>{const p=semanticPoint(op,1,{kernel:model.kernel,maxHops:1});if(!p)return'';const x=(50+Math.cos(p.angle)*48).toFixed(3),y=(50+Math.sin(p.angle)*48).toFixed(3),x2=(50+Math.cos(p.angle)*45).toFixed(3),y2=(50+Math.sin(p.angle)*45).toFixed(3);return `<line x1="50" y1="50" x2="${x2}" y2="${y2}"/><text class="sector" x="${x}" y="${y}">${esc(OP_MARK[op]||'·')} ${esc(op)}</text>`}).join('');
+    const sectors=model.kernel.map(op=>{const p=semanticPoint(op,1,{kernel:model.kernel,maxHops:1});if(!p)return'';const c=Math.cos(p.angle),s=Math.sin(p.angle),x=(50+c*42-s*8).toFixed(3),y=(50+s*42+c*8).toFixed(3),x2=(50+c*45).toFixed(3),y2=(50+s*45).toFixed(3);return `<line x1="50" y1="50" x2="${x2}" y2="${y2}"/><text class="sector" x="${x}" y="${y}">${esc(OP_MARK[op]||'·')} ${esc(op)}</text>`}).join('');
     const edges=model.edges.map(e=>`<g class="declared-edge"><line x1="${(e.a.x*100).toFixed(3)}" y1="${(e.a.y*100).toFixed(3)}" x2="${(e.b.x*100).toFixed(3)}" y2="${(e.b.y*100).toFixed(3)}"/>${e.count>1?`<text x="${(((e.a.x+e.b.x)/2)*100).toFixed(3)}" y="${(((e.a.y+e.b.y)/2)*100).toFixed(3)}">×${e.count}</text>`:''}</g>`).join('');
     return `<svg class="substrate-guide" viewBox="0 0 100 100" aria-hidden="true"><g class="distance-rings">${rings}</g><g class="operation-sectors">${sectors}</g><g class="declared-edges">${edges}</g></svg>`;
   }
