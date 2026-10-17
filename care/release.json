@@ -2,11 +2,16 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.6",
-  "released": "2026-09-26",
+  "version": "0.7.1",
+  "released": "2026-10-15",
   "state": "ACTIVE_CANDIDATE",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "Shared brief now renders Markdown as text-only DOM: headings, emphasis, safe source links, lists and labelled mobile table rows replace raw source formatting.",
+    "Patient handover leads with dated reported facts, six consult questions and three separate decisions; detailed record, interpretations and history are revealed explicitly.",
+    "Printable handover excludes deep history and optional personal aside; offline bundle preserves the embedded envelope before replacing the document body.",
+    "Added a read-only password-encrypted family snapshot lens inside the existing CARE route; no plaintext case, password or unlock key in Git or URLs.",
+    "Shared view exposes source messages, dated observations, unknowns, bilingual consult questions and explicit share/copy/print/export; no automatic save or import.",
     "Phone-sized browser probe clicks an actual body-plan region and verifies the map remains visible, aperture remains inside the map, and native CARE operations remain the effect path.",
     "Game donor transfer is bounded by Dead Space world-attached interface, Spiritfarer concrete care action, NieR small control grammar, and RimWorld structure/condition/capacity separation; branded skin and game scoring do not transfer.",
     "The locus aperture owns no care state, score, diagnosis, urgency, treatment, or action authority; it derives from current selection + existing event history only.",
@@ -122,5 +127,18 @@
       "no health score",
       "no treatment recommendation"
     ]
+  },
+  "shared_read_verification": {
+    "date": "2026-10-15",
+    "scope": "CARE read-only encrypted snapshot transport; no clinical outcome proof",
+    "checks": {
+      "crypto_tamper_wrong_key": "PASS: password round-trip, wrong-password and tamper rejection, fixed PBKDF2 parameters; node tools/care-share-selftest.mjs",
+      "host_versions_static_privacy": "PASS: targeted ship-check (7 gates), route registration, syntax and plaintext/password isolation",
+      "route_registration": "PASS: node scripts/check-route-registration.mjs --json",
+      "native_case_fields_and_public_bytes": "PASS: required native case types/source cues and no plaintext/key in public files",
+      "markdown_and_handover": "PASS: node tools/care-brief-selftest.mjs (DOM fixture): headings/tables/escaped HTML/safe links, copy/share/fallback/language/reveal and unchanged case; actual offline bundle wrong/correct-password checks passed without network"
+    },
+    "browser": "NOT RUN: no supported browser QA available in this environment",
+    "broad_ship_check": "PARTIAL/FAIL: CI-only maintenance and browser/environment stages are not portable locally; their unrelated generated changes were removed; no broad-green claim"
   }
 }

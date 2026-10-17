@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-09T04:30:58.071Z",
+  "generated": "2026-10-09T11:45:46.009Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,10 +10,10 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-09",
   "commits_in_window": 33,
-  "git_commits_in_window": 77,
-  "telemetry_commits_in_window": 44,
-  "commits_total": 5951,
-  "branch_count": 1023,
+  "git_commits_in_window": 100,
+  "telemetry_commits_in_window": 67,
+  "commits_total": 5974,
+  "branch_count": 1024,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
     "RETURN: seal shipped LISTEN READFIELD phone work seam",

@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<script>if(location.hash.startsWith('#brief='))document.documentElement.dataset.careShare='1';</script>
+<style>html[data-care-share="1"] body>main{display:none!important}</style>
+<script type="module" src="./brief-view.mjs?v=0.7.1"></script>
 <meta name="theme-color" content="#090b0d">
 <meta name="description" content="CARE — local-first compact observation, follow-up and clinician/vet handoff over CONTINUITY + BODYFIELD.">
 <title>CARE / FIELD</title>
@@ -257,6 +261,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <script src="/lib/micro.js"></script>
 <script>
 (()=>{'use strict';
+if(document.documentElement.dataset.careShare==='1')return;
 const KEY='0xxx0.care.field.v01',BODYCARE='0xxx0.body.care.handoff.v01',PORTCARE='care.port.evidence.v01',PORTSESSION='human.port.object.session.v01';
 const $=Micro.$, $$=Micro.$$;
 const now=()=>new Date().toISOString();
@@ -554,5 +559,5 @@ $('#caseModal').onclick=e=>{if(e.target.id==='caseModal'){$('#caseModal').classL
 $('#importBodyCare').onclick=importBodyCare;$('#dismissBodyCare').onclick=()=>{localStorage.removeItem(BODYCARE);renderBodyCareOffer()};$('#attachPortCare').onclick=importPortCareEvidence;$('#dismissPortCare').onclick=()=>{sessionStorage.removeItem(PORTCARE);renderPortCareOffer()};$('#eventTime').value=eventTimeLocal();renderAll();renderQualityChips();
 })();
 </script>
-<script src="/showcase-nav.js"></script>
+<script>if(document.documentElement.dataset.careShare!=='1'){const s=document.createElement('script');s.src='/showcase-nav.js';document.head.append(s);}</script>
 </main></body></html>
