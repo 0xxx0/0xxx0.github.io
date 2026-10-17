@@ -1,11 +1,15 @@
-export const SCHEMA='interphase-substrate/v0.1';
-export const DEFAULT_KERNEL=Object.freeze(['OBJECT','ADDRESS','PROJECT','OPERATE','RETURN']);
-export const OP_MARK=Object.freeze({OBJECT:'●',ADDRESS:'◎',PROJECT:'◇',OPERATE:'→',RETURN:'↶'});
+export const SCHEMA='interphase-substrate/v0.2';
+// Fixed mnemonic cycle only. Sector adjacency is NOT a similarity claim.
+// SEE → orient → act → materialise → explore → recover → SEE.
+export const ACTION_KERNEL=Object.freeze(['SEE','WAYFIND','OPERATE','MAKE','PLAY','RECOVER']);
+export const DEFAULT_KERNEL=ACTION_KERNEL;
+export const OP_MARK=Object.freeze({SEE:'◉',WAYFIND:'↗',OPERATE:'→',MAKE:'◆',PLAY:'✦',RECOVER:'↶'});
 export const REL_MARK=Object.freeze({FOCUS:'⊙',UP:'↑',DOWN:'↓',ACROSS:'↔'});
 
 const norm=s=>String(s??'').trim();
 const routeKey=r=>norm(r?.href);
 const clampInt=(n,lo,hi)=>Math.max(lo,Math.min(hi,Math.trunc(Number(n)||0)));
+const has=(o,k)=>!!o&&Object.prototype.hasOwnProperty.call(o,k);
 
 export function graphIndex(routes=[]){
   const by=new Map();
@@ -38,30 +42,36 @@ export function neighborhood(routes,focusHref,{maxHops=3}={}){
   return Object.freeze({focus,status:'OK',items,by,adjacent,maxHops:limit});
 }
 
-export function semanticPoint(operation,distance,{kernel=DEFAULT_KERNEL,maxHops=3}={}){
+export function semanticPoint(operationClass,distance,{kernel=DEFAULT_KERNEL,maxHops=3}={}){
   const ops=[...new Set((Array.isArray(kernel)?kernel:DEFAULT_KERNEL).map(norm).filter(Boolean))];
-  const op=norm(operation),i=ops.indexOf(op),d=clampInt(distance,0,4),h=clampInt(maxHops,1,4);
+  const op=norm(operationClass),i=ops.indexOf(op),d=clampInt(distance,0,4),h=clampInt(maxHops,1,4);
   if(i<0||d<=0)return null;
-  // Angle is declared operation. Radius is exact parent-edge hop count.
+  // Angle is an explicit operation CLASS supplied by a reviewable fold.
+  // Radius is exact declared parent-edge hop count. Angular closeness has no metric meaning.
   const angle=-Math.PI/2+(Math.PI*2*i/Math.max(1,ops.length));
   const radius=.13+(.31*d/h);
-  return Object.freeze({operation:op,operationIndex:i,distance:d,angle,radius,x:.5+Math.cos(angle)*radius,y:.5+Math.sin(angle)*radius});
+  return Object.freeze({operationClass:op,operationIndex:i,distance:d,angle,radius,x:.5+Math.cos(angle)*radius,y:.5+Math.sin(angle)*radius});
 }
 
-export function substrateModel(routes,focusHref,{kernel=DEFAULT_KERNEL,maxHops=3}={}){
+export function substrateModel(routes,focusHref,{kernel=DEFAULT_KERNEL,maxHops=3,operationClassMap=null}={}){
   const n=neighborhood(routes,focusHref,{maxHops}),ops=[...new Set((Array.isArray(kernel)?kernel:DEFAULT_KERNEL).map(norm).filter(Boolean))];
-  if(n.status!=='OK')return Object.freeze({schema:SCHEMA,status:n.status,focus:n.focus,kernel:ops,maxHops:n.maxHops,groups:[],edges:[],unplaced:[]});
+  const mapped=operationClassMap&&typeof operationClassMap==='object'&&!Array.isArray(operationClassMap);
+  if(n.status!=='OK')return Object.freeze({schema:SCHEMA,status:n.status,focus:n.focus,kernel:ops,maxHops:n.maxHops,groups:[],edges:[],unplaced:[],mapping:mapped?'FIELD_FOLD_MAP':'RAW'});
   const focusItem=n.items.find(x=>x.distance===0),groups=new Map(),unplaced=[];
-  const keyOf=new Map([[n.focus,'FOCUS']]);
+  const keyOf=new Map([[n.focus,'FOCUS']]);let mappedCount=0;
   for(const item of n.items){
     if(item.distance===0)continue;
-    const op=norm(item.record?.operation),point=semanticPoint(op,item.distance,{kernel:ops,maxHops:n.maxHops});
-    if(!point){unplaced.push(item);continue}
-    const key=`${item.distance}|${op}`;keyOf.set(item.href,key);
-    if(!groups.has(key))groups.set(key,{key,operation:op,distance:item.distance,point,items:[]});
-    groups.get(key).items.push(item);
+    const rawOperation=norm(item.record?.operation);
+    const operationClass=mapped?(has(operationClassMap,rawOperation)?norm(operationClassMap[rawOperation]):''):rawOperation;
+    const placedItem=Object.freeze({...item,rawOperation,operationClass});
+    const point=semanticPoint(operationClass,item.distance,{kernel:ops,maxHops:n.maxHops});
+    if(!point){unplaced.push(placedItem);continue}
+    mappedCount++;
+    const key=`${item.distance}|${operationClass}`;keyOf.set(item.href,key);
+    if(!groups.has(key))groups.set(key,{key,operation:operationClass,distance:item.distance,point,items:[]});
+    groups.get(key).items.push(placedItem);
   }
-  const frozenGroups=[...groups.values()].sort((a,b)=>a.distance-b.distance||a.operation.localeCompare(b.operation)).map(g=>Object.freeze({...g,items:Object.freeze(g.items.sort((a,b)=>a.href.localeCompare(b.href)))}));
+  const frozenGroups=[...groups.values()].sort((a,b)=>a.distance-b.distance||ops.indexOf(a.operation)-ops.indexOf(b.operation)).map(g=>Object.freeze({...g,items:Object.freeze(g.items.sort((a,b)=>a.href.localeCompare(b.href)))}));
   const groupByKey=new Map(frozenGroups.map(g=>[g.key,g]));
   const edgeMap=new Map();
   for(const item of n.items){
@@ -72,7 +82,7 @@ export function substrateModel(routes,focusHref,{kernel=DEFAULT_KERNEL,maxHops=3
   }
   const coord=key=>key==='FOCUS'?{x:.5,y:.5}:groupByKey.get(key)?.point;
   const edges=[...edgeMap.values()].map(e=>Object.freeze({...e,a:coord(e.from),b:coord(e.to)})).filter(e=>e.a&&e.b);
-  return Object.freeze({schema:SCHEMA,status:'OK',focus:n.focus,focusItem,kernel:Object.freeze(ops),maxHops:n.maxHops,groups:Object.freeze(frozenGroups),edges:Object.freeze(edges),unplaced:Object.freeze(unplaced)});
+  return Object.freeze({schema:SCHEMA,status:'OK',focus:n.focus,focusItem,kernel:Object.freeze(ops),maxHops:n.maxHops,groups:Object.freeze(frozenGroups),edges:Object.freeze(edges),unplaced:Object.freeze(unplaced),mapping:mapped?'FIELD_FOLD_MAP':'RAW',placedCount:mappedCount,visibleCount:Math.max(0,n.items.length-1)});
 }
 
-export default Object.freeze({SCHEMA,DEFAULT_KERNEL,OP_MARK,REL_MARK,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel});
+export default Object.freeze({SCHEMA,ACTION_KERNEL,DEFAULT_KERNEL,OP_MARK,REL_MARK,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel});
