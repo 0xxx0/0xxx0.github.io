@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import {ROOT,VIEWS,RETURN,routeMatches,radialSlots,drumSlots,pointIndex,stepIndex,stageItems,pathLabel} from '../interphase/compositor-kernel.mjs';
 
 assert.deepEqual(ROOT.map(x=>x.id),['VIEW','FIND','RETURN']);
-assert.equal(VIEWS.length,8);
+assert.equal(VIEWS.length,9);
+assert.ok(VIEWS.some(x=>x.id==='SUBSTRATE'&&x.label==='GLYPHFIELD'));
 assert.deepEqual(RETURN.map(x=>x.id),['HISTORY','LAST']);
 assert.equal(stageItems('VIEW'),VIEWS);
 assert.equal(stageItems('RETURN'),RETURN);
@@ -28,12 +29,12 @@ assert.equal(pointIndex(50,0,50,50,4),0);
 assert.equal(pointIndex(100,50,50,50,4),1);
 assert.equal(stepIndex(0,-1,4),3);
 assert.equal(stepIndex(3,1,4),0);
-assert.match(pathLabel({stage:'VIEW',mode:'FAN'}),/VIEW/);
+assert.match(pathLabel({stage:'VIEW',mode:'SUBSTRATE'}),/VIEW/);
 assert.match(pathLabel({stage:'FIND',query:'alpha',total:14}),/14/);
 assert.match(pathLabel({stage:'RETURN'}),/PREVIEW/);
 
 // Bounded display preserves the full sequence under arbitrary wraps.
-for(const n of [0,1,2,3,8,193]){
+for(const n of [0,1,2,3,9,193]){
  const items=Array.from({length:n},(_,id)=>({id}));
  for(let a=0;a<Math.max(1,n);a++){
   const ds=drumSlots(items,a);assert.equal(ds.length,n);
@@ -42,4 +43,4 @@ for(const n of [0,1,2,3,8,193]){
   assert.deepEqual(ds.map(x=>x.item.id),items.map(x=>x.id));
  }
 }
-console.log('INTERPHASE COMPOSITOR PASS: 3-root aperture, staged views/return, full ordinal drum at 0–193 entries, ≤3 visible, preserved ring donor, wrap navigation');
+console.log('INTERPHASE COMPOSITOR PASS: 3-root aperture, 9 staged views incl semantic GLYPHFIELD, full ordinal drum at 0–193 entries, ≤3 visible, preserved ring donor, wrap navigation');
