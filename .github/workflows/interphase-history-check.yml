@@ -13,6 +13,7 @@ on:
       - 'tools/interphase-extensions-selftest.mjs'
       - 'tools/interphase-compositor-selftest.mjs'
       - 'tools/interphase-substrate-selftest.mjs'
+      - 'tools/interphase-substrate-smoke.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -37,6 +38,7 @@ on:
       - 'tools/interphase-extensions-selftest.mjs'
       - 'tools/interphase-compositor-selftest.mjs'
       - 'tools/interphase-substrate-selftest.mjs'
+      - 'tools/interphase-substrate-smoke.mjs'
       - 'recovery/omega/**'
       - 'interphase/**'
       - 'tools/interphase-workbench-smoke.mjs'
@@ -85,7 +87,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.1.0.tgz"
           node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
           "$RUNNER_TEMP/interphase-test/node_modules/.bin/tsc" --noEmit --strict --module nodenext --target es2022 lib/interphase.d.mts
-      - name: Durable workbench / compositor / mobile / protected import
+      - name: Durable workbench / compositor / substrate / mobile / protected import
         env:
           INTERPHASE_SCREENSHOTS: interphase-proof
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
@@ -95,6 +97,7 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+          node tools/interphase-substrate-smoke.mjs
           node tools/fovea-context-smoke.mjs
       - uses: actions/upload-artifact@v4
         if: always()
