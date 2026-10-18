@@ -29,7 +29,9 @@ jobs:
         with:
           node-version: '22'
       - name: Test browser completion transport
-        run: node tools/browser-report-selftest.mjs
+        run: |
+          node tools/browser-report-selftest.mjs
+          node tools/browser-condition-selftest.mjs
 
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs

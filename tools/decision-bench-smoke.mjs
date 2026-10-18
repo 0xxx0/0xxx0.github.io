@@ -2,20 +2,12 @@
 // Real Chromium DOM proof. Ephemeral origin/profile; never uses operator storage.
 import http from 'node:http';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
-import {spawn,spawnSync} from 'node:child_process';
+import {browserBin} from './browser-bin.mjs';
+import {browserReport} from './browser-report.mjs';
+const reporting=browserReport();
 
 const root=process.cwd();
-function browserBin(){
-  if(process.env.SMOKE_BROWSER){if(!fs.existsSync(process.env.SMOKE_BROWSER))throw Error('SMOKE_BROWSER does not exist');return process.env.SMOKE_BROWSER;}
-  for(const name of ['google-chrome-stable','google-chrome','chromium-browser','chromium']){
-    const found=spawnSync('which',[name],{encoding:'utf8'});if(found.status===0)return found.stdout.trim();
-  }
-  for(const name of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium'])if(fs.existsSync(name))return name;
-  throw Error('No Chromium binary; set SMOKE_BROWSER');
-}
-
 async function probe(){
   const result=document.getElementById('probeResult'),f=document.getElementById('f');
   const checks=[],runtimeErrors=[],MODEL='decision-bench:model:v1',RETURNS='decision-bench:returns:v1';
@@ -213,12 +205,14 @@ async function probe(){
     expect(runtimeErrors.length===0,'Browser runtime errors',runtimeErrors);
   }catch(e){checks.push({name:'Harness initialization/runtime',pass:false,error:String(e.stack||e)});}
   result.textContent=JSON.stringify({pass:checks.length>0&&checks.every(c=>c.pass),checks,runtimeErrors});
+  fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{});
 }
 
 const html='<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><iframe id="f" style="border:0;display:block"></iframe><pre id="probeResult">PENDING</pre><script>('+probe.toString()+')();<\/script></body></html>';
 const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'};
 const server=http.createServer((req,res)=>{
   try{
+    if(reporting.read(req,res))return;
     const url=new URL(req.url,'http://local');if(url.pathname==='/__decision_bench_probe'){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(html);return;}
     let relative=decodeURIComponent(url.pathname).replace(/^\/+/, '');if(!relative||relative.endsWith('/'))relative+='index.html';
     const file=path.resolve(root,relative);if(file!==root&&!file.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
@@ -226,16 +220,12 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'Content-Type':(types[path.extname(file)]||'application/octet-stream')+'; charset=utf-8','Cache-Control':'no-store'});fs.createReadStream(file).pipe(res);
   }catch(error){res.writeHead(500);res.end(String(error));}
 });
-let profile;
 try{
-  const binary=browserBin();profile=fs.mkdtempSync(path.join(os.tmpdir(),'decision-bench-smoke-'));
+  const binary=browserBin();
   await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});const port=server.address().port;
   console.log('Decision Bench browser:',binary);
-  const output=await new Promise((resolve,reject)=>{
-    const child=spawn(binary,['--headless','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-first-run','--no-default-browser-check','--disable-background-networking','--disable-extensions','--user-data-dir='+profile,'--window-size=1500,1000','--virtual-time-budget=22000','--dump-dom','http://127.0.0.1:'+port+'/__decision_bench_probe'],{stdio:['ignore','pipe','pipe']});
-    let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
-    const timer=setTimeout(()=>{child.kill('SIGKILL');reject(Error('Browser exceeded 40s\n'+stderr.slice(-2000)));},40000);
-    child.on('error',e=>{clearTimeout(timer);reject(e);});child.on('close',code=>{clearTimeout(timer);if(code)reject(Error('Browser exit '+code+'\n'+stderr.slice(-3000)));else resolve(stdout);});
+  const {out:output}=await reporting.run(binary,'http://127.0.0.1:'+port+'/__decision_bench_probe',{
+    width:1500,height:1000,timeout:40000,args:['--no-first-run','--no-default-browser-check','--disable-background-networking','--disable-extensions']
   });
   const raw=/<pre id="probeResult">([\s\S]*?)<\/pre>/.exec(output)?.[1];
   if(!raw||raw==='PENDING')throw Error('Browser probe did not finish: '+String(raw));
@@ -245,4 +235,4 @@ try{
   console.log('Decision Bench smoke:',report.checks.filter(c=>c.pass).length+'/'+report.checks.length);
   if(!report.pass)process.exitCode=1;
 }catch(error){console.error(String(error.stack||error));process.exitCode=1;}
-finally{await new Promise(r=>server.close(r));if(profile)fs.rmSync(profile,{recursive:true,force:true});}
+finally{server.closeAllConnections();await new Promise(r=>server.close(r));}

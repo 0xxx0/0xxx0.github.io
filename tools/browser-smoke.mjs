@@ -6,13 +6,12 @@ import {browserReport} from './browser-report.mjs';
 const reporting=browserReport();
 import fs from 'node:fs';
 import path from 'node:path';
-import {spawn,spawnSync} from 'node:child_process';
 import {browserBin} from './browser-bin.mjs';
 
 const ROOT=process.cwd();
 // Overridable so two sessions running the harness concurrently do not collide on one
 // hard-coded port. Default is unchanged, so existing invocations behave identically.
-const PORT=Number(process.env.SMOKE_PORT||41739)||41739;
+let PORT=Number(process.env.SMOKE_PORT||41739);
 const HOST='127.0.0.1';
 
 function contentType(p){
@@ -796,7 +795,7 @@ function foldBloomReplayScoreProbeHtml(){
 function foldBloomLiveMobileBehaviorProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/fold-bloom/live/?play=PUZZLE"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
-  const done=(ok,data)=>{out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);if(new URLSearchParams(location.search).has('report'))fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{})};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=80)=>{for(let i=0;i<limit;i++){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('wait timeout')};
   (async()=>{
@@ -910,14 +909,6 @@ function viewportFixtureHtml(){
 // Headless Chrome clamps narrow top-level windows on current CI/local builds. A same-origin
 // iframe gives the child document the requested CSS layout viewport exactly. This proves
 // responsive layout/media-query behavior only; it is NOT touch/IMU/browser-chrome device emulation.
-function exactViewportHtml(route,w,h){
-  const safeRoute=String(route).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:${w}px;height:${h}px;border:0;display:block" src="${safeRoute}"></iframe><pre id="caseDom" data-inner-width="" data-inner-height="" data-mobile-media="">PENDING</pre><script>
-  const f=document.getElementById('f'),o=document.getElementById('caseDom');
-  const snap=()=>{try{const w=f.contentWindow,d=f.contentDocument;if(!w||!d?.documentElement)return;o.textContent=d.documentElement.outerHTML;o.dataset.innerWidth=String(w.innerWidth);o.dataset.innerHeight=String(w.innerHeight);o.dataset.mobileMedia=String(w.matchMedia('(max-width:820px)').matches)}catch(_){}};
-  f.addEventListener('load',snap);setInterval(snap,50);setTimeout(snap,0);
-  <\/script></body></html>`;
-}
 function houseRealityProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/house/#PLAN"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -949,22 +940,28 @@ function houseRealityProbeHtml(){
   <\/script></body></html>`;
 }
 
-function settleProbeHtml(route,checkSrc,limitMs,w,h){
-  const safeRoute=String(route).replace(/&/g,'&amp;');
-  return `<!doctype html><html><body style="margin:0"><img id="hold" src="/__settle-hold" hidden><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
-const f=document.getElementById('f'),o=document.getElementById('caseDom'),hold=document.getElementById('hold'),t0=Date.now();
-const check=(${checkSrc});
-let doneFlag=false;
-const done=(ok)=>{if(doneFlag)return;doneFlag=true;let dom='';try{const d=f.contentDocument;dom=d&&d.documentElement?d.documentElement.outerHTML:'(no dom)'}catch(e){dom='(serialize error '+e+')'}
-o.textContent=dom;o.setAttribute('data-pass',ok?'1':'0');o.setAttribute('data-wait',String(Date.now()-t0));
-if(new URLSearchParams(location.search).has('report'))fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{});
-hold.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='};
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-(async()=>{while(Date.now()-t0<${limitMs}){try{const d=f.contentDocument;if(d&&d.documentElement){const dom=d.documentElement.outerHTML;if(check(dom)){done(true);return}}}catch(_){}await sleep(80)}done(false)})();
-setTimeout(()=>done(false),${limitMs+2000});
-<\/script></body></html>`;
+// One condition contract for every case. Semantic predicates remain in CASES;
+// asynchronous action probes additionally terminate immediately on native FAIL.
+function conditionProbeHtml(route,checkSrc,limitMs,w,h){
+ const safeRoute=String(route).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+ return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:${w}px;height:${h}px;border:0" src="${safeRoute}"></iframe><pre id="caseDom" data-pass="0" data-wait="0">PENDING</pre><script>
+ const f=document.getElementById('f'),out=document.getElementById('caseDom'),start=Date.now(),check=(${checkSrc});let doneFlag=false;
+ const textAtId=(${textAtId.toString()}),visibleText=(${visibleText.toString()});
+ const done=ok=>{if(doneFlag)return;doneFlag=true;const d=f.contentDocument;
+  out.textContent=d?.documentElement?.outerHTML||'(no document)';out.dataset.pass=ok?'1':'0';out.dataset.wait=String(Date.now()-start);
+  out.dataset.innerWidth=String(f.contentWindow.innerWidth);out.dataset.innerHeight=String(f.contentWindow.innerHeight);
+  out.dataset.mobileMedia=String(f.contentWindow.matchMedia('(max-width: 520px)').matches);
+  fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{});
+ };
+ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+ (async()=>{while(Date.now()-start<${limitMs}){try{const d=f.contentDocument;
+  if(d?.readyState==='complete'){
+   if(/^FAIL\\b/.test(d.querySelector('#probeResult')?.textContent||'')){done(false);return}
+   if(check(d.documentElement.outerHTML)){done(true);return}
+  }
+ }catch(error){out.dataset.checkError=String(error);done(false);return}await sleep(60)}done(false)})();
+ <\/script></body></html>`;
 }
-const settleHolds=new Set();
 
 // SMOKE_SLOW — one global ceiling for every probe's waitFor, instead of 82
 // hard-coded limits. Same failure class (waitFor timeout) on unrelated probes
@@ -976,15 +973,14 @@ const slow=html=>SLOW===1?html:html.replace(/limit=(\d+)/g,(m,n)=>'limit='+Math.
 const server=http.createServer((req,res)=>{
   const reqUrl=String(req.url||'');
   if(reporting.read(req,res))return;
-  if(SLOW!==1&&(reqUrl.startsWith('/__smoke/')||reqUrl.startsWith('/__settle?'))){
-    // Rewrite the probe's own waitFor ceilings before it reaches the browser.
-    const send=res.end.bind(res);
-    res.end=(body,...rest)=>{try{if(typeof body==='string')body=slow(body)}catch(_){}return send(body,...rest)};
+  if(SLOW!==1&&reqUrl.startsWith('/__smoke/')){
+    const end=res.end.bind(res);res.end=(body,...rest)=>end(typeof body==='string'?slow(body):body,...rest);
   }
   if(String(req.url||'').startsWith('/__viewport-fixture')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(viewportFixtureHtml());return}
-  if(String(req.url||'').startsWith('/__viewport?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(exactViewportHtml(u.searchParams.get('route')||'/',Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
-  if(String(req.url||'').startsWith('/__settle-hold')){settleHolds.add(res);req.on('close',()=>settleHolds.delete(res));return}
-  if(String(req.url||'').startsWith('/__settle?')){const u=new URL('http://h'+req.url);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(settleProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>true',Number(u.searchParams.get('limit'))||20000,Number(u.searchParams.get('w'))||430,Number(u.searchParams.get('h'))||900));return}
+  if(reqUrl.startsWith('/__condition?')){const u=new URL(reqUrl,'http://local');
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(conditionProbeHtml(u.searchParams.get('route')||'/',u.searchParams.get('check')||'()=>false',Number(u.searchParams.get('limit'))||14000,Number(u.searchParams.get('w'))||1280,Number(u.searchParams.get('h'))||900));return;
+  }
   if(String(req.url||'').startsWith('/__smoke/care-locus')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(careLocusProbeHtml());return;
@@ -1116,58 +1112,13 @@ const server=http.createServer((req,res)=>{
   fs.createReadStream(file).pipe(res);
 });
 
-function runChrome(bin,route,options={}){
-  return new Promise((resolve,reject)=>{
-    const exactViewport=options.exactViewport===true;
-    const requestedWidth=Number(options.width||1280),requestedHeight=Number(options.height||900);
-    const effectiveRoute=exactViewport
-      ? '/__viewport?route='+encodeURIComponent(route)+'&w='+requestedWidth+'&h='+requestedHeight
-      : route;
-    const url='http://'+HOST+':'+PORT+effectiveRoute;
-    // Two different needs, deliberately not conflated:
-    //  - PROBE cases (/__smoke/…) emit their own verdict and need the ceiling
-    //    raised inside the page AND enough virtual time to reach it, so their
-    //    budget scales too.
-    //  - DOM-assertion cases assert a state at ONE observed moment. The budget
-    //    decides when the dump fires, so scaling it would move the moment and
-    //    break checks that legitimately assert an early state. Their budget is
-    //    left alone; only the outer kill timer scales.
-    const probeLike=String(route||'').startsWith('/__smoke/');
-    const budget=Math.round((options.budget||6500)*(probeLike?SLOW:1));
-    const killAfter=Math.round((options.timeout||15000)*SLOW);
-    if(options.report){reporting.run(bin,url+(url.includes('?')?'&':'?')+'report=1',{width:requestedWidth,height:requestedHeight,timeout:killAfter}).then(resolve,reject);return}
-    const args=[
-      '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-      '--hide-scrollbars','--window-size='+(exactViewport?Math.max(500,requestedWidth):requestedWidth)+','+requestedHeight,
-      '--virtual-time-budget='+budget,'--dump-dom',url
-    ];
-    const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
-    let out='',err='';
-    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},killAfter);
-    p.stdout.on('data',d=>out+=d);
-    p.stderr.on('data',d=>err+=d);
-    p.on('error',e=>{clearTimeout(timer);reject(e)});
-    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
-  });
-}
-function runSettle(bin,c){
-  return new Promise((resolve,reject)=>{
-    const o=c.options||{};
-    const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+Math.round((o.settleLimit||20000)*SLOW)+'&w='+(o.width||430)+'&h='+(o.height||900);
-    if(o.report){reporting.run(bin,url+'&report=1',{width:o.width||430,height:o.height||900,timeout:Math.round((o.timeout||30000)*SLOW)}).then(resolve,reject);return}
-    const args=[
-      '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-      '--hide-scrollbars','--window-size='+(o.width||430)+','+(o.height||900),
-      '--dump-dom',url
-    ];
-    const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
-    let out='',err='';
-    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+c.route))},Math.round((o.timeout||30000)*SLOW));
-    p.stdout.on('data',d=>out+=d);
-    p.stderr.on('data',d=>err+=d);
-    p.on('error',e=>{clearTimeout(timer);reject(e)});
-    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url})});
-  });
+async function runCondition(bin,c){
+ const o=c.options||{},width=o.width||1280,height=o.height||900;
+ const timeout=Math.round((o.timeout||(c.settle?30000:15000))*SLOW);
+ const limit=c.settle?Math.min(timeout-1000,(o.settleLimit||20000)*SLOW):timeout-1000;
+ const url='http://'+HOST+':'+PORT+'/__condition?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+limit+'&w='+width+'&h='+height;
+ const result=await reporting.run(bin,url,{width:Math.max(500,width),height,timeout});
+ return {...result,condition:true,exactViewport:width<500,requestedWidth:width,requestedHeight:height};
 }
 function extractCaseDom(html){
   const m=String(html||'').match(/<pre id="caseDom"[^>]*>([\s\S]*?)<\/pre>/i);
@@ -1217,19 +1168,19 @@ const CASES=[
   {
     name:'SMOKE HARNESS exact narrow viewport',
     route:'/__viewport-fixture',
-    options:{width:390,height:844,budget:1200},
+    options:{width:390,height:844},
     check:dom=>dom.includes('id="viewportFixture"')&&dom.includes('data-inner-width="390"')&&dom.includes('data-mobile="true"')
   },
   {
     name:'FIELD',
     route:'/',
-    options:{width:1040,height:820,budget:1800,timeout:18000},
+    options:{width:1040,height:820,timeout:18000},
     check:fieldRootCheck
   },
   {
     name:'FIELD held work depth',
     route:'/?focus=%2Ffold-bloom%2F',
-    options:{width:430,height:900,budget:10000,timeout:18000},
+    options:{width:430,height:900,timeout:18000},
     check:dom=>/transformations · \d+ proof · \d+ surfaces/.test(textAtId(dom,'workDepthMeta'))&&dom.includes('id="workDepthBody"')&&dom.includes('data-work-stat="transfers"')&&dom.includes('data-work-stat="proof"')&&dom.includes('data-work-stat="surfaces"')&&dom.includes('data-work-section="transfers"')&&dom.includes('data-work-section="proof"')&&dom.includes('data-work-section="relations"')&&dom.includes('data-work-section="future"')&&/FOLD\/\/BLOOM/.test(dom)
   },
   {
@@ -1245,13 +1196,13 @@ const CASES=[
   {
     name:'ROOM MATERIAL DOM 0.4',
     route:'/foundry/room/?selftest=1',
-    options:{width:1000,height:820,budget:4200,timeout:18000},
+    options:{width:1000,height:820,timeout:18000},
     check:dom=>dom.includes('ROOM 0.4')&&dom.includes('MATERIAL DOM')&&dom.includes('id="program"')&&dom.includes('data-schema="0xxx0/material-dom/v0.4"')&&dom.includes('id="compiler"')&&dom.includes('rel="next"')&&dom.includes('id="foldBtn"')&&dom.includes('id="roomSelftest"')&&/PASS · DOM PROGRAM · FOLD · RUN · BIND · RETURN/.test(dom)&&!dom.includes('space-core.js')
   },
   {
     name:'AXIAL continuity + RETURN replay',
     route:'/__smoke/axial-continuity',
-    options:{width:1180,height:880,budget:18000,timeout:24000},
+    options:{width:1180,height:880,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"backSame":true/.test(dom)&&/"replaySame":true/.test(dom)&&/"restoreButton":true/.test(dom)
   },
   {
@@ -1262,13 +1213,13 @@ const CASES=[
   {
     name:'APERTURE alias preserves READFIELD focus',
     route:'/__smoke/readfield-aperture-alias-focus',
-    options:{width:520,height:940,budget:18000,timeout:24000},
+    options:{width:520,height:940,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"restored":"focus-restored"/.test(dom)&&/"scale":"WORD"/.test(dom)&&/"index":6/.test(dom)&&/"wpm":777/.test(dom)
   },
   {
     name:'APERTURE multilingual segmentation',
     route:'/__smoke/aperture-multilingual',
-    options:{width:900,height:700,budget:9000},
+    options:{width:900,height:700},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"zh"/.test(dom)&&/"ta"/.test(dom)&&/"ja"/.test(dom)&&/"ar"/.test(dom)&&/"th"/.test(dom)&&/"count":3/.test(dom)
   },
   {
@@ -1279,13 +1230,13 @@ const CASES=[
   {
     name:'READFIELD local file phone intake',
     route:'/__smoke/readfield-local-file',
-    options:{width:430,height:900,budget:18000,timeout:24000},
+    options:{width:430,height:900,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"field-note.md"/.test(dom)&&/"scale":"WORD"/.test(dom)&&/"wpm":900/.test(dom)&&/"local":true/.test(dom)&&/"copy":"COPY FOCUS"/.test(dom)
   },
   {
     name:'READFIELD explicit pulse mode',
     route:'/docs/?pulse=4',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/^PULSE ×4/.test(textAtId(dom,'pulseSync'))&&/NO FIELD PULSE CLOCK|LISTEN|LAB PULSE/.test(textAtId(dom,'pulseState'))&&/READ TO PULSE/.test(dom)
   },
   {
@@ -1296,25 +1247,25 @@ const CASES=[
   {
     name:'DOCS Aperture addressed resume',
     route:'/__smoke/docs-aperture',
-    options:{width:1040,height:820,budget:12000,timeout:18000},
+    options:{width:1040,height:820,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"scale":"LEAF"/.test(dom)&&/"wpm":650/.test(dom)&&/"copyView":true/.test(dom)&&/"throttled":true/.test(dom)&&/"ended":true/.test(dom)
   },
   {
     name:'READFIELD focus kernel + performance',
     route:'/__smoke/reader-focus',
-    options:{width:1040,height:820,budget:16000,timeout:22000},
+    options:{width:1040,height:820,timeout:22000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"performance":true/.test(dom)&&/"reader":true/.test(dom)&&/"session":true/.test(dom)
   },
   {
     name:'READFIELD FOCUS lens convergence',
     route:'/__smoke/readfield-focus-lens',
-    options:{width:520,height:940,budget:18000,timeout:24000},
+    options:{width:520,height:940,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"speed":6000/.test(dom)&&/"glyphSpokes":24/.test(dom)&&/"markers":72/.test(dom)&&/"min":true/.test(dom)&&/"plain":true/.test(dom)
   },
   {
     name:'READFIELD route handoff',
     route:'/__smoke/readfield-handoff',
-    options:{width:1040,height:820,budget:14000,timeout:20000},
+    options:{width:1040,height:820,timeout:20000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"READ"/.test(dom)&&/"reader":true/.test(dom)
   },
   {
@@ -1361,103 +1312,103 @@ const CASES=[
   {
     name:'LENS PROOF mobile RETURN',
     route:'/__smoke/lens-proof',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FIELD advance-as-scale transition',
     route:'/__smoke/field-advance-scale',
-    options:{width:430,height:900,budget:14000,timeout:24000},
+    options:{width:430,height:900,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"nativeAnimate":true/.test(dom)&&/"reducedAnimateCalls":0/.test(dom)
   },
   {
     name:'FIELD focus + addressed re-entry',
     route:'/__smoke/field-activation',
-    options:{width:1040,height:820,budget:18000,timeout:24000},
+    options:{width:1040,height:820,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
   },
   {
     name:'FIELD held route → Dayline action',
     route:'/__smoke/field-dayline-handoff',
-    options:{width:520,height:940,budget:22000,timeout:30000},
+    options:{width:520,height:940,timeout:30000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldFocus":"\/docs\/"/.test(dom)&&/"schema":"atlas-dayline-handoff\/v0\.1"/.test(dom)&&/"before":0/.test(dom)&&/"after":1/.test(dom)&&/"return_to":"\/\?focus=%2Fdocs%2F"/.test(dom)&&/"cleared":true/.test(dom)
   },
   {
     name:'FIELD held INTERPHASE carrier in-place',
     route:'/__smoke/field-carrier-in-place',
-    options:{width:520,height:940,budget:18000,timeout:26000},
+    options:{width:520,height:940,timeout:26000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"object":"\/docs\/"/.test(dom)&&/"authority":"NONE \/ HANDOFF ONLY"/.test(dom)&&/"duplicateGuide":false/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
     route:'/__smoke/field-listen',
-    options:{width:1040,height:820,budget:16000,timeout:22000},
+    options:{width:1040,height:820,timeout:22000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"visible":true/.test(dom)&&/"focused":"\/fold-bloom\/listen\/"/.test(dom)&&/"href":"\/fold-bloom\/listen\/"/.test(dom)&&/"root":"\/"/.test(dom)
   },
   {
     name:'LENS STACK STUDIO RETURN',
     route:'/__smoke/lens-studio',
-    options:{width:1280,height:900,budget:22000,timeout:28000},
+    options:{width:1280,height:900,timeout:28000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
   },
   {
     name:'LENS focused real-use observation',
     route:'/__smoke/lens-real-use',
-    options:{width:1280,height:900,budget:24000,timeout:32000},
+    options:{width:1280,height:900,timeout:32000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"staleOrigin":false/.test(dom)&&/"hiddenTransforms":3/.test(dom)&&/"duplicatePortableLens":false/.test(dom)&&/"directDuplicatePortableLens":false/.test(dom)&&/"returnExact":true/.test(dom)&&/"identityStable":true/.test(dom)
   },
   {
     name:'GENERIC LENS RETURN ≠ BACK',
     route:'/__smoke/generic-lens-return',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/instrument\/"/.test(dom)&&/"after":"\/fold-bloom\/instrument\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
     name:'FOLD BLOOM MESSAGE REPLAY H1',
     route:'/spikes/fold-bloom-message-replay-001/',
-    options:{width:430,height:900,budget:7000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>dom.includes('data-fold-bloom-message-replay="ready"')&&/MESSAGE REPLAY 001/.test(dom)&&dom.includes('id="replay"')&&dom.includes('id="mutate"')&&dom.includes('id="copy"')&&/synthetic:field-message:001/.test(dom)&&/fnv1a32-/.test(dom)&&/ARCHITECTURAL EVIDENCE ONLY/.test(dom)
   },
   {
     name:'FOLD BLOOM REPLAY score core',
     route:'/__smoke/fold-bloom-replay-score',
-    options:{width:520,height:800,budget:9000,timeout:16000},
+    options:{width:520,height:800,timeout:16000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"sourceSame":true/.test(dom)&&/"signatureSame":true/.test(dom)&&/"changedSignature":true/.test(dom)&&/"linkLength":[0-9]+/.test(dom)
   },
   {
     name:'FOLD BLOOM REPLAY 0.2',
     route:'/fold-bloom/replay/',
-    options:{width:430,height:900,budget:10000,timeout:18000},
+    options:{width:430,height:900,timeout:18000},
     check:dom=>/REPLAY 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-replay="ready"')&&dom.includes('data-replay-share-roundtrip="pass"')&&dom.includes('id="syncListen"')&&dom.includes('id="wordAt"')&&dom.includes('id="wordHold"')&&dom.includes('id="wordEmphasis"')&&dom.includes('id="opAt"')&&dom.includes('id="anticipation"')&&dom.includes('id="textOffset"')&&dom.includes('id="clip"')&&/WHAT THIS LINK CONTAINS/.test(dom)
   },
   {
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
-    options:{width:430,height:900,budget:5000},
+    options:{width:430,height:900},
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/TRY IT FIRST · THE SYSTEM WORDS CAN WAIT/.test(dom)&&/TRY A RIDE/.test(dom)&&/WATCH A GARDEN/.test(dom)&&/MAP A SONG/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/Turn\. Release\. Change the road\./.test(dom)&&/Watch a lineage grow\./.test(dom)&&/See where a song changes\./.test(dom)&&/PUZZLE \/ HEXAGRAM · 易/.test(dom)&&/FIELD LAB 0\.3\.6 · EIGHT APERTURES/.test(dom)&&/VOICE ↔ PULSE/.test(dom)&&!/FIELD LAB 0\.2 · SIX PROJECTIONS/.test(dom)&&!/VOICE 0\.1 · PITCH × PULSE/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · HEXAGRAM \/ SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM SABER 0.1',
     route:'/fold-bloom/saber/',
-    options:{width:430,height:900,budget:7000},
+    options:{width:430,height:900},
     check:dom=>/SABER 0\.1/i.test(dom)&&dom.includes('data-fold-bloom-saber="ready"')&&dom.includes('data-saber-role="HOST"')&&dom.includes('id="offer"')&&dom.includes('id="motion"')&&dom.includes('id="returnBtn"')&&/SOURCE → EVENT TAPE → MOTION WITNESS → HIT TRACE → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM VOICE 0.2',
     route:'/fold-bloom/voice/',
-    options:{width:430,height:900,budget:8000},
+    options:{width:430,height:900},
     check:dom=>/VOICE 0\.2/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&dom.includes('id="spectrogram"')&&dom.includes('id="centroid"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM CHANGE CALCULUS',
     route:'/fold-bloom/convergence/change-calculus/',
-    options:{width:430,height:900,budget:8000},
+    options:{width:430,height:900},
     check:dom=>/CHANGE CALCULUS/i.test(dom)&&dom.includes('id="sufficiency"')&&/PROJECTION SUFFICIENCY \/ FORECAST FACTOR/.test(dom)&&/J-SPACE → NATIVE SUPPORT/.test(dom)&&/EVIDENCE LADDER · CURRENT/.test(dom)&&/NO EFFECT AUTHORITY/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB',
     route:'/fold-bloom/lab/',
-    options:{width:430,height:900,budget:7000},
+    options:{width:430,height:900},
     check:dom=>{
       const parts={
         version:/FIELD LAB 0\.3\.6/i.test(dom),
@@ -1487,25 +1438,25 @@ const CASES=[
   {
     name:'FOLD BLOOM FIELD LAB VERSE',
     route:'/fold-bloom/lab/?mode=VERSE',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>/FIELD LAB 0\.3\.6/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="VERSE"')&&dom.includes('id="verseSource"')&&dom.includes('id="versePoemMap"')&&dom.includes('id="verseRead"')&&dom.includes('id="verseLoci"')&&dom.includes('id="verseReplay"')&&/MARKS/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB READFIELD',
     route:'/fold-bloom/lab/?mode=READ',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>/FIELD LAB 0\.3\.6/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-reader-scale="WORD"')&&dom.includes('data-field-lab-read-pulse="WITNESS"')&&dom.includes('data-field-lab-read-source="bound"')&&dom.includes('data-field-lab-loci-nodes="13"')&&dom.includes('data-field-lab-loci-words="13"')&&dom.includes('id="labReader"')&&/FULL READFIELD/.test(dom)&&/CARRY → LOCI/.test(dom)&&/CARRY → DATA/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB READFIELD PACE4',
     route:'/fold-bloom/lab/?mode=READ&pulse=4',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>/FIELD LAB 0\.3\.6/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-read-pulse="PACE4"')&&dom.includes('data-field-lab-read-source="bound"')&&/PULSE · ×4 PACE/.test(dom)
   },
   {
     name:'FOLD BLOOM INK FIELD',
     route:'/fold-bloom/ink/',
-    options:{width:430,height:900,budget:7000},
+    options:{width:430,height:900},
     check:dom=>/INK FIELD/i.test(dom)&&dom.includes('data-fold-bloom-ink="ready"')&&dom.includes('id="water"')&&dom.includes('id="load"')&&dom.includes('id="absorb"')&&dom.includes('data-mode="SUMI"')&&dom.includes('data-mode="DRY"')&&dom.includes('data-mode="WASH"')&&/PRESSURE \+ TILT/.test(dom)
   },
   {
@@ -1518,7 +1469,7 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE shareable demo',
     route:'/fold-bloom/live/?demo=1&profile=DRIVE',
-    options:{width:430,height:900,settleLimit:15000,timeout:30000,report:true},
+    options:{width:430,height:900,settleLimit:15000,timeout:30000},
     settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="demo"')&&dom.includes('data-fold-bloom-ride-profile="')&&dom.includes('data-xp-preset="DRIVE"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')
   },
@@ -1532,49 +1483,49 @@ const CASES=[
   {
     name:'FOLD BLOOM module boot',
     route:'/fold-bloom/instrument/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>dom.includes('data-fb-module="ready"')
   },
   {
     name:'FOLD BLOOM INTERPHASE host boot',
     route:'/fold-bloom/instrument/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>dom.includes('data-fb-host="ready"')
   },
   {
     name:'FOLD BLOOM instrument ready',
     route:'/fold-bloom/instrument/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>dom.includes('data-fb-ready="ready"')&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')
   },
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/instrument/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/RIDE SET → LIVE/.test(dom)&&/next gate is ordinary 2–3-source phone use/i.test(dom)&&!/not yet LIVE-across-a-set/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
     route:'/fold-bloom/set/?demo=1',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/SET 0\.1/i.test(dom)&&/EXPERIENCE COMPOSITOR/i.test(dom)&&dom.includes('data-fold-bloom-set="ready"')&&dom.includes('data-set-entries="3"')&&/SOURCE A/.test(dom)&&/SOURCE B/.test(dom)&&/SOURCE C/.test(dom)&&/DISSOLVE/.test(dom)&&/RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM JOURNEY 0.1.2 exact seed witness',
     route:'/fold-bloom/set/journey.html?demo=seed&auto=1',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>/JOURNEY RIDE 0\.1\.2/i.test(dom)&&dom.includes('data-fold-bloom-journey="ready"')&&dom.includes('data-journey-demo="seed"')&&dom.includes('data-journey-demo-audio="private"')&&dom.includes('data-journey-entries="3"')&&/GHOST → FORGE → WILL/.test(dom)&&/preforme/.test(dom)&&/THROUGH THE FIRE/.test(dom)&&/BY YOUR WILL \/ 遺志/.test(dom)&&/CARRY/.test(dom)&&/DISSOLVE/.test(dom)&&/RETURN/.test(dom)&&/DEMO WITNESS/.test(dom)
   },
   {
     name:'FOLD BLOOM GLYPH ATLAS 0.2 INSIDE',
     route:'/fold-bloom/atlas/',
-    options:{width:430,height:900,budget:5000},
+    options:{width:430,height:900},
     check:dom=>/GLYPH ATLAS/i.test(dom)&&/SYNTHETIC DEMO/i.test(dom)&&/SOURCE = CELL/i.test(dom)&&/GLYPH = THUMBNAIL/i.test(dom)&&/FOCUS = INSIDE/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="inside"')&&dom.includes('id="originBtn"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')&&dom.includes('id="readBtn"')&&dom.includes('id="rebindBtn"')&&dom.includes('document-structure.js')
   },
   {
     name:'FOLD BLOOM LIVE calm ride doorway',
     route:'/fold-bloom/live/',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/TURN\.<br><span>RELEASE\./i.test(dom)&&/NO SONG \/ JUST PLAY/i.test(dom)&&/MORE MODES · PUZZLE \/ TWO DIAL \/ ECOLOGY/i.test(dom)&&dom.includes('id="vibeQuick"')&&/VIBE · NORMAL/i.test(dom)
   },
   {
@@ -1588,7 +1539,7 @@ const CASES=[
     // and still FAILs if the attributes are genuinely never written.
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
-    options:{width:430,height:900,budget:30000,settleLimit:20000,timeout:30000},
+    options:{width:430,height:900,settleLimit:20000,timeout:30000},
     settle:true,
     check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&((dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"'))||(dom.includes('data-fold-bloom-idle="off"')&&dom.includes('data-fold-bloom-autopilot="off"')))&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/TRY THE EXAMPLE|LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/THE WHOLE RIDE LOOP/.test(dom)&&/TURN\.<br><span>RELEASE\./i.test(dom)&&/NO SONG \/ JUST PLAY/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="vibeQuick"')&&dom.includes('id="menuDismiss"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&/MORE MODES · PUZZLE \/ TWO DIAL \/ ECOLOGY/i.test(dom)&&/VIBE · NORMAL/i.test(dom)&&(/△ TRIANGLE/.test(dom)||/○ CIRCLE/.test(dom)||/□ SQUARE/.test(dom))&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
   {
@@ -1598,7 +1549,7 @@ const CASES=[
     // layout to be measured instead of asserting it at an arbitrary frame.
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',
-    options:{width:430,height:900,budget:9000,settleLimit:16000,timeout:24000},
+    options:{width:430,height:900,settleLimit:16000,timeout:24000},
     settle:true,
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-loop-archetype="FORM_CHANGE"')&&dom.includes('data-fb-instrument="HEX"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-form-visual="exact-verbs-underlay"')&&dom.includes('data-fb-hex-visual="six-lines"')&&dom.includes('data-fb-view="ride"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
   },
@@ -1607,7 +1558,7 @@ const CASES=[
     // report, then apply the unchanged predicate; do not await dump-DOM teardown.
     name:'FOLD BLOOM LIVE mobile interaction regression',
     route:'/__smoke/fold-bloom-live-mobile-behavior',
-    options:{width:460,height:980,timeout:18000,report:true},
+    options:{width:460,height:980,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"instrument":"HEX"/.test(dom)&&/"formVisual":"exact-verbs-underlay"/.test(dom)&&/"hexVisual":"six-lines"/.test(dom)&&/"view":"ride"/.test(dom)&&/"formDisplay":"block"/.test(dom)&&/"formClear":true/.test(dom)&&/"drawerControl":"TRANCE"/.test(dom)&&/"topId":"closeSettings"/.test(dom)&&/"backdropClosed":true/.test(dom)&&/"escapeClosed":true/.test(dom)&&/"xClosed":true/.test(dom)&&/"mid":"still"/.test(dom)&&/"after":"ride"/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
@@ -1620,49 +1571,49 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE session scale legible',
     route:'/fold-bloom/live/?play=PLAY&scale=SESSION',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="SESSION"')&&dom.includes('data-fb-open-exit="off"')&&dom.includes('data-scale="QUICK"')&&dom.includes('data-scale="SESSION"')&&dom.includes('data-scale="OPEN"')&&/RUN · SESSION/.test(dom)&&/SESSION · medium challenge/.test(dom)&&/provisional until validated with real users/.test(dom)&&/RETURN TO RIDE/.test(dom)
   },
   {
     name:'FOLD BLOOM LIVE session scale open exit',
     route:'/fold-bloom/live/?play=PLAY&scale=OPEN',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fb-play-mode="PLAY"')&&dom.includes('data-fb-session-scale="OPEN"')&&dom.includes('data-fb-open-exit="on"')&&dom.includes('id="fbOpenExit"')&&/RUN · OPEN/.test(dom)
   },
   {
     name:'TWO DIAL 0.10.7 idle witness',
     route:'/fold-bloom/two-dial/',
-    options:{width:1180,height:900,budget:9000},
+    options:{width:1180,height:900},
     check:dom=>/SOUND FIELD 0\.10\.7/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/IDLE \/ WITNESS/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')&&dom.includes('data-fold-bloom-idle="on"')
   },
   {
     name:'FOLD BLOOM LISTEN 0.6 source bundle',
     route:'/fold-bloom/listen/',
-    options:{width:1180,height:900,budget:9000},
+    options:{width:1180,height:900},
     check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · editable span/.test(dom)&&dom.includes('id="pinStart"')&&dom.includes('id="pinEnd"')&&dom.includes('id="pinPrev"')&&dom.includes('id="pinNext"')&&dom.includes('id="pinImportBtn"')&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useReplay"')&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSaber"')&&/SABER · TWO PHONES/.test(dom)&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
   },
   {
     name:'TWO DIAL 0.10.7 mobile DUET deep link',
     route:'/fold-bloom/two-dial/?mode=DUET',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900},
     check:dom=>/SOUND FIELD 0\.10\.7/i.test(dom)&&dom.includes('id="wideBtn"')&&/MATTER/i.test(dom)&&/HARMONY/i.test(dom)&&/class="[^"]*duet[^"]*"/i.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
     route:'/__smoke/listen-preview',
-    options:{width:1000,height:820,budget:18000,timeout:32000},
+    options:{width:1000,height:820,timeout:32000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"stage":"PREVIEW"/.test(dom)&&/"frames":[2-9][0-9]/.test(dom)&&/"after":[1-9][0-9]+/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN intake activation',
     route:'/__smoke/listen-intake',
-    options:{width:1000,height:820,budget:12000,timeout:18000},
+    options:{width:1000,height:820,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"boot":"ready"/.test(dom)&&/"hidden":false/.test(dom)&&/"for":"file"/.test(dom)&&/"activated":1/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN source adapter',
     route:'/__smoke/listen-source',
-    options:{width:1000,height:820,budget:10000,timeout:16000},
+    options:{width:1000,height:820,timeout:16000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"direct":"REMOTE_AUDIO"/.test(dom)&&/"limit":100663296/.test(dom)
   },
   {
@@ -1673,25 +1624,25 @@ const CASES=[
   {
     name:'FIELD held-object knowledge-gap re-entry',
     route:'/?focus=%2Ffold-bloom%2Flens%2F',
-    options:{width:430,height:900,budget:9000,timeout:16000},
+    options:{width:430,height:900,timeout:16000},
     check:dom=>!dom.includes('id="catchupFold"')&&dom.includes('id="focusResidue"')&&/MORE HERE/.test(dom)&&/fold-bloom\/lens/.test(dom)
   },
   {
     name:'ATLAS DAYLINE radial-linear projection reported + stable',
     route:'/__smoke/atlas-dayline-projection',
-    options:{width:430,height:900,budget:12000,timeout:22000},
+    options:{width:430,height:900,timeout:22000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"projectionReported":true/.test(dom)&&/"flippedProj":"atlas"/.test(dom)&&/"backProj":"plain"/.test(dom)&&/"startProj":"plain"/.test(dom)&&/"bodyProjection":"plain"/.test(dom)&&/"idsStable":true/.test(dom)&&/"rankStable":true/.test(dom)&&/"lensStable":true/.test(dom)&&/"hasActs":true/.test(dom)
   },
   {
     name:'DAYLINE CONFLUENCE 0.1',
     route:'/dayline/',
-    options:{width:430,height:900,budget:7000,timeout:14000},
+    options:{width:430,height:900,timeout:14000},
     check:dom=>/DAYLINE \/\/ CONFLUENCE/i.test(dom)&&dom.includes('data-dayline-workfield="ready"')&&dom.includes('id="moves"')&&dom.includes('id="witnessInput"')&&dom.includes('id="returnBtn"')
   },
   {
     name:'CARE diegetic locus aperture',
     route:'/__smoke/care-locus',
-    options:{width:460,height:940,budget:12000,timeout:18000},
+    options:{width:460,height:940,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"mapVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"noteFocus":true/.test(dom)&&/"course":true/.test(dom)
   },
   {
@@ -1726,7 +1677,7 @@ const CASES=[
     // dominant lenses are INSTRUMENT and GLYPH -> NEAR -> FOLD.
     name:'LAW ZOO LAB names relations',
     route:'/law-zoo/lab.html',
-    options:{width:900,height:1000,budget:9000,timeout:14000},
+    options:{width:900,height:1000,timeout:14000},
     // data-algebra proves lib/interphase-ring.js actually loaded at runtime; data-verb
     // proves the verb was produced by relationVerb(), not hard-coded in the page.
     // NOTE: do not assert !dom.includes('failed to load') here -- that string lives in the
@@ -1744,19 +1695,19 @@ const CASES=[
   {
     name:'POEM MAP',
     route:'/__smoke/poem-map',
-    options:{width:980,height:760,budget:9000},
+    options:{width:980,height:760},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)&&/"continueInsert":true/.test(dom)&&/"replaceStill":true/.test(dom)&&/"hanCompact":true/.test(dom)&&/"nextLine":true/.test(dom)&&/"englishJueju":true/.test(dom)&&/"englishJuejuBehavior":true/.test(dom)&&/"ctext":true/.test(dom)
   },
   {
     name:'POEM MAP English Jueju board',
     route:'/poetry/map/?form=enjueju7',
-    options:{width:980,height:760,budget:9000},
+    options:{width:980,height:760},
     check:dom=>dom.includes('data-verse-form="enjueju7"')&&dom.includes('ENGLISH JUEJU 7 · TRANSFER')&&dom.includes('WORDLESS BOARD')&&dom.includes('2 | 2 | 3')&&/LINES<\/b><span class="warn">0\/4/.test(dom)
   },
   {
     name:'POEM MAP focus return',
     route:'/__smoke/poem-map-focus-return',
-    options:{width:980,height:760,budget:12000,timeout:18000},
+    options:{width:980,height:760,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"MAP"/.test(dom)&&/"selected":"L1T2"/.test(dom)&&/"focus":"L1T2"/.test(dom)&&/"sourceKey":"text-local:/.test(dom)
   },
   {
@@ -1770,7 +1721,7 @@ const CASES=[
   {
     name:'CONFLUENCE ONE INSTRUMENT',
     route:'/spikes/003-one-instrument/?proof=1',
-    options:{width:1180,height:900,budget:7000,timeout:14000},
+    options:{width:1180,height:900,timeout:14000},
     check:dom=>textAtId(dom,'proofState')==='PASS 12/12'&&dom.includes('data-proof="pass"')&&/CONTENT · AUTHORITY · DEPTH · TIME/.test(dom)
   },
   {
@@ -1802,13 +1753,13 @@ const CASES=[
   {
     name:'ONE RETURN ← GRID PATH receipt seam',
     route:'/__smoke/one-return-grid-receipt',
-    options:{width:1180,height:900,budget:9000,timeout:16000},
+    options:{width:1180,height:900,timeout:16000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"pathId":"path:test:abcd"/.test(dom)&&/"sourceFingerprint":"src:nine:test"/.test(dom)&&/"gates":9/.test(dom)
   },
   {
     name:'ONE RETURN / NINE GATE',
     route:'/sleeper/one-return/',
-    options:{width:1180,height:900,budget:5000},
+    options:{width:1180,height:900},
     check:dom=>/ONE RETURN/i.test(dom)&&/NINE GATE/i.test(dom)&&dom.includes('id="city"')&&dom.includes('data-view="disc"')&&dom.includes('data-view="trace"')&&/previous RETURN ghost/i.test(dom)
   },
   {
@@ -1834,6 +1785,7 @@ await new Promise((resolve,reject)=>{
   }
   throw e;
 });
+PORT=server.address().port;
 const smokeOnly=String(process.env.SMOKE_ONLY||'').trim();
 const RUN_CASES=smokeOnly?CASES.filter(c=>c.name===smokeOnly):CASES;
 if(smokeOnly&&!RUN_CASES.length)throw new Error('unknown SMOKE_ONLY '+smokeOnly);
@@ -1844,28 +1796,23 @@ try{
   for(const c of RUN_CASES){
     let r;
     try{
-      if(c.settle){r=await runSettle(bin,c)}
-      else{
-        const o=c.options||{};
-        // Probe/settle cases already own explicit iframe geometry. Direct routes below Chrome's
-        // top-level minimum are wrapped so a claimed 390/430/460px case actually sees that width.
-        const directNarrow=!String(c.route||'').startsWith('/__smoke/')&&Number(o.width||0)>0&&Number(o.width)<500;
-        r=await runChrome(bin,c.route,{...o,exactViewport:directNarrow});
-      }
+      r=await runCondition(bin,c);
     }
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
-    const dom=(c.settle||r.exactViewport)?(extractCaseDom(r.out)||r.out):r.out;
-    const viewportWidth=r.exactViewport?Number((r.out.match(/data-inner-width="(\d+)"/)||[])[1]||0):null;
-    const viewportHeight=r.exactViewport?Number((r.out.match(/data-inner-height="(\d+)"/)||[])[1]||0):null;
-    const viewportMobile=r.exactViewport?(r.out.match(/data-mobile-media="([^"]*)"/)||[])[1]||'':null;
-    const viewportOk=!r.exactViewport||(viewportWidth===r.requestedWidth&&viewportHeight===r.requestedHeight&&viewportMobile==='true');
-    const ok=r.code===0&&!fatal&&viewportOk&&c.check(dom);
+    const dom=r.condition?(extractCaseDom(r.out)||r.out):r.out;
+    const viewportWidth=r.condition?Number((r.out.match(/data-inner-width="(\d+)"/)||[])[1]||0):null;
+    const viewportHeight=r.condition?Number((r.out.match(/data-inner-height="(\d+)"/)||[])[1]||0):null;
+    const viewportMobile=r.condition?(r.out.match(/data-mobile-media="([^"]*)"/)||[])[1]||'':null;
+    const viewportOk=viewportWidth===r.requestedWidth&&viewportHeight===r.requestedHeight&&(!r.exactViewport||viewportMobile==='true');
+    const conditionOk=/data-pass="1"/.test(r.out);
+    const ok=r.code===0&&!fatal&&conditionOk&&viewportOk&&c.check(dom);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(r.exactViewport)console.log('SMOKE VIEWPORT',c.name,'requested='+r.requestedWidth+'x'+r.requestedHeight,'observed='+viewportWidth+'x'+viewportHeight,'mobile='+viewportMobile);
-    if(c.settle){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE SETTLE',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
+    if(r.condition){const passAttr=(r.out.match(/data-pass="(\d)"/)||[])[1]||'?';const waitAttr=(r.out.match(/data-wait="(\d+)"/)||[])[1]||'?';console.log('SMOKE CONDITION',c.name,'pass='+passAttr,'wait_ms='+waitAttr)}
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
+      const checkError=(r.out.match(/data-check-error="([^"]*)"/)||[])[1];if(checkError)console.error('SMOKE CHECK ERROR',c.name,checkError);
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
       const body=visibleText(dom).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(!viewportOk?' viewport-mismatch requested='+r.requestedWidth+'x'+r.requestedHeight+' observed='+viewportWidth+'x'+viewportHeight:'')+(body?' body='+JSON.stringify(body):''));
@@ -1873,8 +1820,7 @@ try{
     }
   }
 }finally{
-  for(const h of settleHolds){try{h.destroy()}catch(_){}}
-  await new Promise(resolve=>server.close(()=>resolve()));
+  server.closeAllConnections();await new Promise(resolve=>server.close(()=>resolve()));
 }
 if(fail.length){
   console.error('BROWSER SMOKE FAIL\n- '+fail.join('\n- '));
