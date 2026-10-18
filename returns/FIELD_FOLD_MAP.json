@@ -1,6 +1,6 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-18T04:53:01.262Z",
+ "generated": "2026-10-18T08:28:53.475Z",
  "returns_total": 291,
  "raw_distinct_states": 110,
  "folded_onto_enum": 4,
@@ -2849,13 +2849,13 @@
   }
  ],
  "routes": {
-  "routes_total": 193,
+  "routes_total": 194,
   "route_state_raw_distinct": 10,
   "route_state_folded_onto": 3,
   "route_state_dist": {
    "SOURCE": 42,
    "HOLD": 39,
-   "RETURN": 112,
+   "RETURN": 113,
    "RESIDUE": 0
   },
   "route_state_residue": [],
