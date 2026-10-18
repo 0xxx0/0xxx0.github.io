@@ -534,7 +534,13 @@ const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),
 const opOf=r=>r.operation||r.kind||'—';
 const modesOf=r=>Array.isArray(r.index?.work_modes)&&r.index.work_modes.length?r.index.work_modes:['UNKNOWN'];
 const unique=xs=>[...new Set(xs.filter(Boolean))];
-const nowHref=f=>{const map=routeMap(),ev=(f.evidence||[]).find(x=>map.has(x));if(ev)return ev;const m=String(f.center||'').match(/\/[A-Za-z0-9._/-]*\//);return m&&map.has(m[0])?m[0]:'/control/'};
+/* evidence was an array; CURRENT.json now ships it as a "route · file" string
+   (2026-10-18). Uncaught, `(f.evidence||[]).find` threw inside the boot
+   Promise.all and took the WHOLE FIELD INDEX down with
+   "LOAD FAILURE (f.evidence || []).find is not a function" — including the
+   FOVEA lens, which has no page to read. Tolerate both shapes. */
+const evRoutes=f=>{const raw=f.evidence;if(Array.isArray(raw))return raw;if(typeof raw==='string')return raw.split(/\s*·\s*/).map(s=>s.trim()).filter(Boolean);return[]};
+const nowHref=f=>{const map=routeMap(),ev=evRoutes(f).find(x=>map.has(x));if(ev)return ev;const m=String(f.center||'').match(/\/[A-Za-z0-9._/-]*\//);return m&&map.has(m[0])?m[0]:'/control/'};
 /* MARK TAG — route identity for the mark code (2026-10-06).
    kind · operation · state is NOT route-unique: /fold-bloom/ and /port/ both read
    "中 · 行 · ACTIVE · HEAD", so two adjacent tiles in a glyph grid were byte-identical and a

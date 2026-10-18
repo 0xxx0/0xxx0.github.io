@@ -1,0 +1,229 @@
+{
+ "schema": "calls-web/v0.1",
+ "generated_at": "2026-10-18T22:36:40+08:00",
+ "source": "sovereign-node/corpus/calls/calls.json",
+ "answers": "sovereign-node/corpus/calls/answers.jsonl",
+ "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
+ "open": [
+  {
+   "id": "whatsapp-pair",
+   "title": "WhatsApp — pair it?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Do it now — walk me through in chat",
+     "eff": "WhatsApp read+drafts live today"
+    },
+    {
+     "k": "B",
+     "t": "Later",
+     "eff": "stays prepped, nothing lost"
+    },
+    {
+     "k": "C",
+     "t": "Skip WhatsApp",
+     "eff": "Telegram-only comms lane stays"
+    }
+   ]
+  },
+  {
+   "id": "money-topup",
+   "title": "Credits — the wall",
+   "options": [
+    {
+     "k": "A",
+     "t": "Top up Nous",
+     "eff": "paid quality routes back on (primary lane)"
+    },
+    {
+     "k": "B",
+     "t": "Top up OpenRouter",
+     "eff": "fallback/spare lane funded"
+    },
+    {
+     "k": "C",
+     "t": "Stay free-only",
+     "eff": "$0 spend; I optimize for free models"
+    }
+   ]
+  },
+  {
+   "id": "six-0817-retire",
+   "title": "The six Aug-17 decisions — retire?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Retire all six",
+     "eff": "oldest tap off the board"
+    },
+    {
+     "k": "B",
+     "t": "Keep open — I'll answer",
+     "eff": "they stay as one-word taps"
+    }
+   ]
+  },
+  {
+   "id": "promise-secret-scan-weekly-enabled",
+   "title": "BROKEN PROMISE: secret-scan-weekly cron is re-enabled and live (job 8c5dc7f89ab2)",
+   "options": [
+    {
+     "k": "A",
+     "t": "Own it — fix now (machine executes on your word)"
+    },
+    {
+     "k": "B",
+     "t": "Extend — reply a new date, promise re-dated not buried"
+    },
+    {
+     "k": "C",
+     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
+    }
+   ]
+  },
+  {
+   "id": "promise-ab-voice-scoring-pass",
+   "title": "BROKEN PROMISE: A/B blind voice scoring pass run — the 'tests among ourselves' (10 real/10 twin set scored",
+   "options": [
+    {
+     "k": "A",
+     "t": "Own it — fix now (machine executes on your word)"
+    },
+    {
+     "k": "B",
+     "t": "Extend — reply a new date, promise re-dated not buried"
+    },
+    {
+     "k": "C",
+     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
+    }
+   ]
+  },
+  {
+   "id": "promise-qwen3-8-27b-fallback-pull",
+   "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
+   "options": [
+    {
+     "k": "A",
+     "t": "Own it — fix now (machine executes on your word)"
+    },
+    {
+     "k": "B",
+     "t": "Extend — reply a new date, promise re-dated not buried"
+    },
+    {
+     "k": "C",
+     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
+    }
+   ]
+  }
+ ],
+ "called": {
+  "purge": {
+   "id": "purge",
+   "pick": "A",
+   "pick_label": "Burn A B H I + sift C G first",
+   "note": "",
+   "ts": "2026-10-07T09:03:07"
+  },
+  "digests-publish": {
+   "id": "digests-publish",
+   "pick": "A",
+   "pick_label": "Build + publish when it passes gates",
+   "note": "",
+   "ts": "2026-10-07T11:19:11"
+  },
+  "gemini-key": {
+   "id": "gemini-key",
+   "pick": "A",
+   "pick_label": "Do it — walk me through when I say",
+   "note": "",
+   "ts": "2026-10-07T11:19:21"
+  },
+  "drafts-fold": {
+   "id": "drafts-fold",
+   "pick": "B",
+   "pick_label": "Show me the fold doc first",
+   "note": "",
+   "ts": "2026-10-07T11:20:22"
+  },
+  "six-08-17": {
+   "id": "six-08-17",
+   "pick": "B",
+   "pick_label": "Veto — reopen them",
+   "note": "",
+   "ts": "2026-10-07T11:20:40"
+  },
+  "tailscale-phone": {
+   "id": "tailscale-phone",
+   "pick": "A",
+   "pick_label": "Install when convenient",
+   "note": "I have tailscale on this phwn... not all the others atm doe... s",
+   "ts": "2026-10-07T11:39:42"
+  },
+  "p8p-adb": {
+   "id": "p8p-adb",
+   "pick": "A",
+   "pick_label": "When I get to it — ping me then",
+   "note": "I have tailscale on this phwn... not all the others atm doe... s",
+   "ts": "2026-10-07T11:22:30"
+  },
+  "wall-dm": {
+   "id": "wall-dm",
+   "pick": "move",
+   "pick_label": "Move — 09:00 msg-digest re-pointed to ANCHOR (telegram:-1004354361993)",
+   "note": "per operator 2026-10-07: try to move tk anchor",
+   "ts": "2026-10-07T11:25:00"
+  },
+  "espclaw-rotate": {
+   "id": "espclaw-rotate",
+   "pick": "A",
+   "pick_label": "Rotate — stage the steps",
+   "note": "Remove it?!",
+   "ts": "2026-10-07T09:05:07"
+  },
+  "grok-login": {
+   "id": "grok-login",
+   "pick": "A",
+   "pick_label": "Do it at some point",
+   "note": "",
+   "ts": "2026-10-07T11:21:56"
+  },
+  "mahshroom-email": {
+   "id": "mahshroom-email",
+   "pick": "B",
+   "pick_label": "Wire creds (needs an app password)",
+   "note": "",
+   "ts": "2026-10-07T11:21:48"
+  },
+  "nd-pass": {
+   "id": "nd-pass",
+   "pick": "B",
+   "pick_label": "Prep a short version I can skim first",
+   "note": "",
+   "ts": "2026-10-07T11:18:56"
+  },
+  "worker-exec": {
+   "id": "worker-exec",
+   "pick": "A",
+   "pick_label": "Pilot on one profile (thisjustthing)",
+   "note": "",
+   "ts": "2026-10-07T11:21:33"
+  },
+  "triangle-bench": {
+   "id": "triangle-bench",
+   "pick": "A",
+   "pick_label": "Recover as an optional triangle view over the bench (5 bounded deltas; numeric table stays canonical; kill at ~150 lines)",
+   "note": "",
+   "ts": "2026-10-07T22:07:17"
+  },
+  "interphase-two-tree": {
+   "id": "interphase-two-tree",
+   "pick": "A",
+   "pick_label": "Port as one patch (published tree gains the lib/path.js extraction)",
+   "note": "",
+   "ts": "2026-10-07T22:07:04"
+  }
+ },
+ "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
+}

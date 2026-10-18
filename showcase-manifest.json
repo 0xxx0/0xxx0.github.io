@@ -59,12 +59,12 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-08T22:49:23+08:00",
+        "updated_at": "2026-10-18T22:40:00+08:00",
         "work_modes": [
-          "RECOVER",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RECOVER",
+          "VERIFY"
         ]
       },
       "role": "FIELD INDEX root: one glyph/address URLbar now compresses exact object addressing, HOLD, bounded TURN, TRACE-adjacent commands and Hermes PREP into a single re-enterable line over the existing FIELD object graph. Canonical state remains CURRENT + manifest + native hosts; URLbar input is a projection only. FIELD INDEX root: enter unheld from addressable CURRENT heads; one addressed held object owns native owner/action, automatic advance-as-scale presentation on commit, contextual SEEN ⇄ UNDO SEEN, NEXT, WITNESS, exact RETURN and read-only pre-commit FORECAST. While held, one persistent RUN dock mirrors that same object's primary TURN, TRACE, WITNESS/FORECAST and exact RETURN so lawful action remains reachable without scrolling; it creates no new actions, state, authority or object frame. A collapsed DEPTH / WORK wake on that same object recovers accumulated retained capability, declared transforms, proof refs, descendant/related surfaces, versions, exits and named open future directly from CURRENT + manifest. Relation marks refocus the same route identity. Latent REFINE / PROVE and collapsed STATUS remain secondary; RECENT remains chronology only.",
@@ -5321,11 +5321,11 @@
       "tier": "FIELD",
       "role": "One-field radial focus over the addressed public surfaces, open proofs and recovered clusters: nothing filtered, foveate to read, hold to act. Projection-only access instrument — curated marks over the public manifest, OPEN hands off to native routes, and no second store, priority or mutation authority is created (the parked Lens FOVEATED comparator remains unaffected).",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-18T22:40:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "RELEASE",
           "OPERATE",
+          "RELEASE",
           "VERIFY"
         ]
       },
@@ -9456,6 +9456,25 @@
       }
     },
     {
+      "href": "/field/",
+      "title": "FIELD — instruments",
+      "kind": "index",
+      "parent": "/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "Hub of the field's own instruments: FIELD INDEX root, AXIAL shadow probe, MOIRÉ ROUTE mismatch instrument, FOVEA lens. Was a silent 404 — /field/ had instrument subdirectories and no index.",
+      "index": {
+        "updated_at": "2026-10-18T22:40:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "IMPLEMENT"
+        ]
+      }
+    },
+    {
       "href": "/field/moire-route/",
       "title": "FIELD · INTERFERENCE / HELD OBJECT 0.2",
       "kind": "experiment",
@@ -10132,11 +10151,13 @@
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / OPS",
-      "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers, fold receipts. Snapshot of ops-hub/scripts/inbox.py.",
+      "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers via one-tap Telegram deep links, fold receipts. Projection of sovereign-node/corpus/calls/calls.json; regenerate with scripts/build-calls.py.",
       "index": {
-        "updated_at": "2026-10-18T18:40:00+08:00",
+        "updated_at": "2026-10-18T22:40:00+08:00",
         "work_modes": [
-          "OPERATE"
+          "OPERATE",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     }
