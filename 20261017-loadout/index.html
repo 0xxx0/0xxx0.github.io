@@ -1,0 +1,66 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>LOADOUT — what's wired where · 2026-10-17</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.65 -apple-system, "SF Pro Text", system-ui, sans-serif;
+         color: #1c1c1e; background: #fbfbfa; }
+  h1 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; }
+  h2 { font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+       letter-spacing: 0.08em; color: #6e6e73; margin: 2.25rem 0 0.5rem; }
+  a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
+      text-decoration-color: #b8b8bd; }
+  a:hover { text-decoration-color: inherit; }
+  code, .path { font: 0.86em/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+                background: #f1f1ef; padding: 0.1em 0.35em; border-radius: 3px; }
+  table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; }
+  td, th { text-align: left; padding: 0.45rem 0.6rem 0.45rem 0;
+           border-bottom: 1px solid #ececea; vertical-align: top; font-size: 0.92rem; }
+  th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em;
+       color: #6e6e73; font-weight: 600; }
+  .num { white-space: nowrap; }
+  hr { border: 0; border-top: 1px solid #ececea; margin: 2.25rem 0; }
+  footer { color: #8e8e93; font-size: 0.82rem; margin-top: 2.5rem; }
+</style>
+
+<h1>LOADOUT — what's wired where</h1>
+<p>Inventory as a design, not a landfill. Equippable capability model applied from your
+GDC loadout donor work (<code>TECHNIQUE_QUARRY.md:146-148</code> — Death Stranding
+preparation/loadout · FTL grid loadout · Voidpet embodiment).</p>
+
+<h2>The model</h2>
+<table>
+  <tr><th>Part</th><th>Rule</th></tr>
+  <tr><td>Slots</td><td>Max 8 per session. One slot = one skill / tool / lens.</td></tr>
+  <tr><td>Weight</td><td>Attention + context cost 1–5. Budget ≤ 15 total. Default kit = 4.</td></tr>
+  <tr><td>Trigger</td><td>The condition that earns the slot. No trigger, no equip.</td></tr>
+  <tr><td>Cooldown</td><td>Trigger not fired in 2 sessions → auto-STOW.</td></tr>
+  <tr><td>Verbs</td><td><code>EQUIP</code> · <code>STOW</code> (writes a locator — nothing lost) · <code>SWAP</code> · <code>OVERLOAD</code> (drop heaviest untriggered).</td></tr>
+</table>
+<p>Consequence rule (the Death Stranding donor): leaving weight behind is a decision with a
+receipt. Source of truth: <code>~/.hermes/profiles/kestrel/skills/devops/loadout/SKILL.md</code>
+— loads in every fleet session on trigger.</p>
+
+<h2>What's wired where</h2>
+<table>
+  <tr><th>Wire</th><th>Where</th><th>State</th></tr>
+  <tr><td>Loadout model</td><td class="path">skills/devops/loadout/</td><td>live in fleet skill index</td></tr>
+  <tr><td>Model routes</td><td class="path">ops-hub/scripts/fleet-route-check.py</td><td>ALL CLEAN — 12 contexts</td></tr>
+  <tr><td>Subagent tier</td><td>every profile <code>delegation.model</code></td><td>mimo-2.6-flash (cheap)</td></tr>
+  <tr><td>Digest → machine room</td><td>cron <code>msg-digest</code> 09:00</td><td>deliver = ANCHOR</td></tr>
+  <tr><td>Non-verbal catch-up</td><td>cron <code>catchup-audio</code></td><td>daily voice digest</td></tr>
+  <tr><td>Ceiling fan (Ovlaim, Tuya)</td><td class="path">housebus inventory · key g0ewlb…jji</td><td>mixing loop target</td></tr>
+  <tr><td>Purge pen</td><td class="path">delete/crushed-20260923/</td><td>16.6 GB burned · 1.4 GB photo-dupes staged</td></tr>
+  <tr><td>Chat backup</td><td class="path">exports/chat-backup-2026-10-07/</td><td>4.3 GB · 9 sha256</td></tr>
+  <tr><td>Prep packet</td><td class="path">exports/PREP-PACKET-2026-10-07.tar.gz</td><td>15.2 MB · sha256 a37db84b…</td></tr>
+  <tr><td>Calls</td><td><a href="/calls/">/calls/</a></td><td>13/13 folded</td></tr>
+</table>
+
+<h2>Open locators (pinned, not lost)</h2>
+<p><code>gdc inventory loadout</code> literal → no corpus hit; wired above from the donor line.
+<em>casting shaping pet</em> → unresolved referent. <em>sleep8</em> → awaiting the device name.
+Snowclone library + travel contact sheets → next passes.</p>
+
+<hr>
+<footer>kestrel · 2026-10-17 · measured states only; every number carries its run.</footer>
