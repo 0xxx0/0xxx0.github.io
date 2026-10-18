@@ -14,8 +14,8 @@ try{
  await assert.rejects(report.run(early,url),/exited before reporting/);
  const hold=fixture('hold','setInterval(()=>{},1000)');
  await assert.rejects(report.run(hold,url,{timeout:100}),/timeout/);
- const failure=fixture('failure',"fetch(new URL('/__probe-report',process.argv.at(-1)),{method:'POST',body:'FAIL fixture'});setInterval(()=>{},1000)");
- const result=await report.run(failure,url);
+ const failure=fixture('failure',"fetch(new URL('/__probe-report',process.argv.at(-1)),{method:'POST',body:process.argv.includes('--autoplay-policy=no-user-gesture-required')?'FAIL fixture':'LOST LAUNCH ARG'});setInterval(()=>{},1000)");
+ const result=await report.run(failure,url,{args:['--autoplay-policy=no-user-gesture-required']});
  assert.equal(result.out,'FAIL fixture'); // completion must never relabel failure
  assert.equal(result.out.startsWith('PASS '),false);
  assert.equal((await fetch(url+'unrelated')).status,404);

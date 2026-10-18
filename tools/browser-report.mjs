@@ -12,11 +12,11 @@ export function browserReport(){
    let body='';req.on('data',d=>{body+=d;if(body.length>1048576)req.destroy()});
    req.on('end',()=>{res.end('received');accept?.(body)});return true;
   },
-  run(bin,url,{width=520,height=940,timeout=45000}={}){
+  run(bin,url,{width=520,height=940,timeout=45000,args=[]}={}){
    if(accept)throw Error('A browser report is already pending');
    return new Promise((resolve,reject)=>{
     const profile=fs.mkdtempSync(path.join(os.tmpdir(),'field-proof-'));
-    const p=spawn(bin,['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars',`--user-data-dir=${profile}`,`--window-size=${width},${height}`,url],{stdio:['ignore','ignore','pipe']});
+    const p=spawn(bin,['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars',`--user-data-dir=${profile}`,`--window-size=${width},${height}`,...args,url],{stdio:['ignore','ignore','pipe']});
     let out=null,err='',failure=null;
     const timer=setTimeout(()=>{failure=Error(`Browser report timeout after ${timeout}ms: ${url}`);p.kill('SIGKILL')},timeout);
     accept=body=>{if(out!==null)return;out=body;p.kill('SIGKILL')};

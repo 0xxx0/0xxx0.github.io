@@ -702,13 +702,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.8",
+      "title": "CARE / FIELD 0.9",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.8",
+      "version": "0.9",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -930,7 +930,7 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-10-18T11:33:48+08:00",
+        "updated_at": "2026-10-18T11:53:08+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
