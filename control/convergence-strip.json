@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-09T11:45:46.009Z",
+  "generated": "2026-10-18T04:53:42.315Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -8,16 +8,16 @@
   "live_derivation_source": "FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS",
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
-  "commits_window": "2026-10-09",
-  "commits_in_window": 33,
-  "git_commits_in_window": 100,
-  "telemetry_commits_in_window": 67,
-  "commits_total": 5974,
-  "branch_count": 1024,
+  "commits_window": "2026-10-18",
+  "commits_in_window": 11,
+  "git_commits_in_window": 13,
+  "telemetry_commits_in_window": 2,
+  "commits_total": 5994,
+  "branch_count": 1025,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "RETURN: seal shipped LISTEN READFIELD phone work seam",
-    "desk: refresh public field data + root git chronology"
+    "fi: restamp /care/ after rebase",
+    "fi: stamp /care/ for the care-family v2 delta"
   ],
   "active_fronts": [
     {
