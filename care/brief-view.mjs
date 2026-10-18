@@ -1,4 +1,4 @@
-import { parseShare, openSnapshot, MAX_BYTES } from './share-crypto.mjs';
+import { parseShare, openSnapshot, MAX_BYTES } from './share-crypto.mjs?v=1.2';
 import { appendMarkdown } from './brief-markdown.mjs?v=0.9';
 
 if (typeof document !== 'undefined' && document.documentElement.dataset.careShare === '1') start();
@@ -71,6 +71,28 @@ export function render(root, packet, snapshotId) {
     const strands=h.strands||(data.focus||[]).map(x=>({label:x.title,value:x.body})),essentials=el('section',null,'essentials');essentials.append(el('h2',t.keep,'section-label'));const dl=el('dl');for(const item of strands){const row=el('div',null,'strand'),dd=el('dd');dd.append(el('p',local(item.value),'value'));if(item.note)dd.append(el('p',local(item.note),'support'));row.append(el('dt',local(item.label)),dd);dl.append(row);}essentials.append(dl);main.append(essentials);
     const priorities=h.next||(data.priorities||data.questions||[]).slice(0,3).map(question=>({question}));
     const next=fold(main,local(h.next_title)||t.next,'next','next'),prompts=el('ol',null,'prompts');for(const [i,item] of priorities.entries()){const li=el('li',null,'prompt');li.append(el('span',local(item.label)||String(i+1),'prompt-label'),el('p',local(item.question)));prompts.append(li);}next.body.append(prompts);const copy=el('button',t.copy,'primary');copy.type='button';next.body.append(copy);if(data.watch_note)next.body.append(el('p',local(data.watch_note),'note'));
+    // The data lens consumes only the authenticated packet and never persists it.
+    // It provides portable handoff text, not autonomous clinical interpretation.
+    let brotherCopy=null,brotherDownload=null;
+    if(data.brother){
+      const desk=fold(main,local(data.brother.title)||(language==='zh'?'给家人的资料':'Family data desk'),'brother','more');
+      desk.body.append(el('p',local(data.brother.explain),'quiet paragraph'));
+      if(data.brother.glossary?.length){
+        const dl=el('dl');
+        for(const term of data.brother.glossary){
+          const wrap=el('div',null,'strand'),dd=el('dd');
+          wrap.append(el('dt',text(term.term)),dd);
+          dd.append(el('p',local(term.meaning),'support'));
+          dl.append(wrap);
+        }
+        desk.body.append(dl);
+      }
+      const actions=el('div',null,'options');
+      brotherCopy=el('button',language==='zh'?'复制 AI 交接包':'Copy AI handover','primary');
+      brotherDownload=el('button',language==='zh'?'下载完整 JSON':'Download full JSON');
+      actions.append(brotherCopy,brotherDownload);
+      desk.body.append(actions,el('p',language==='zh'?'只在主动复制或下载时离开这个页面。请先核实共享对象。':'Data leaves this page only when you intentionally copy or download it. Check recipients.','quiet'));
+    }
     const more=fold(main,t.more,'more','more'),events=[...(packet.case.events||[])].sort((a,b)=>b.at.localeCompare(a.at));
     more.body.append(el('h3',t.latest));if(events[0]?.raw_note)more.body.append(el('blockquote',events[0].raw_note));if(h.source_note)more.body.append(el('p',local(h.source_note),'quiet'));if(h.pending_note)more.body.append(el('p',local(h.pending_note),'quiet paragraph'));
     const history=fold(more.body,t.earlier,'earlier');for(const event of events.slice(1)){const row=el('div',null,'row timeline'),time=el('time',text(event.display_at||event.at));time.dateTime=event.at;row.append(time,el('p',local(event.summary)||event.raw_note));const original=fold(row,t.original,event.id+'-raw');if(event.raw_note)original.body.append(el('blockquote',event.raw_note));if(event.interpretation)original.body.append(el('p',event.interpretation,'quiet'));history.body.append(row);}
@@ -97,6 +119,12 @@ export function render(root, packet, snapshotId) {
     const questionText=()=>priorities.map((item,i)=>(i+1)+'. '+local(item.question)).join('\n');
     const fallback=value=>{next.node.open=true;next.body.querySelector('textarea')?.remove();const box=el('textarea');box.value=value;box.readOnly=true;box.rows=6;box.setAttribute('aria-label',t.failed);box.style.cssText='width:100%;font:16px/1.5 system-ui;margin-top:12px';next.body.append(box);toast.textContent=t.failed;box.focus();box.select();next.node.scrollIntoView();};
     const copyValue=async(value,message=t.copied)=>{try{await navigator.clipboard.writeText(value);toast.textContent=message;}catch{fallback(value);}};
+    if(brotherCopy)brotherCopy.onclick=()=>copyValue([local(data.brother.ai_prompt),'',JSON.stringify(packet.case,null,2)].join('\n'));
+    if(brotherDownload)brotherDownload.onclick=()=>{
+      const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='dad-family-handover-v1.2.json';a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
     copy.onclick=()=>copyValue(questionText());copyBrief.onclick=()=>copyValue([packet.case.subject?.label,asof,t.note,'',local(data.lead),'',...strands.map(x=>local(x.label)+': '+local(x.value)+'. '+local(x.note)),'',local(data.background),'',...data.unknowns?.map(local)||[],'',local(h.next_title)||t.next,questionText()].filter(x=>x!==undefined).join('\n'));
     share.onclick=async()=>{if(location.protocol==='file:'){toast.textContent=t.fileShare;return;}const url=new URL(location.href);url.search='';try{if(navigator.share)await navigator.share({title:'CARE · family brief',url:url.href});else await copyValue(url.href,t.shareCopied);}catch(error){if(error.name!=='AbortError')await copyValue(url.href,t.shareCopied);}};
     document.documentElement.lang=language==='zh'?'zh-Hans':'en';main.lang=document.documentElement.lang;
