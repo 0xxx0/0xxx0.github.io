@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-18T10:03:43.391Z",
+  "generated": "2026-10-18T10:34:41.674Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-18",
-  "commits_in_window": 26,
-  "git_commits_in_window": 50,
-  "telemetry_commits_in_window": 24,
-  "commits_total": 6031,
+  "commits_in_window": 30,
+  "git_commits_in_window": 57,
+  "telemetry_commits_in_window": 27,
+  "commits_total": 6038,
   "branch_count": 1027,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: re-stamp /dayline/ + /atlas-dayline/ (OPERATE,VERIFY)",
-    "dayline: link the visual how-to from the flow hint"
+    "fi-mutation-contract: re-stamp /control/ + /calls/ (OPERATE,VERIFY)",
+    "fi-mutation-contract: register + stamp /calls/ (OPERATE,VERIFY)"
   ],
   "active_fronts": [
     {
