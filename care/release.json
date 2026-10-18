@@ -2,11 +2,14 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.7.1",
-  "released": "2026-10-15",
+  "version": "0.8",
+  "released": "2026-10-18",
   "state": "ACTIVE_CANDIDATE",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "Family brief now opens with a source-dated update and three priority questions; deeper history, decisions, records and utilities live under one More disclosure.",
+    "Reduced initial controls to language, share and copy questions; removed fixed bottom action bar; shared URL removes stale version queries and retains the stable opaque address.",
+    "Manually refreshed case revisions preserve source, inference and planned-versus-completed distinctions; password encryption and explicit-only sharing/export remain unchanged.",
     "Shared brief now renders Markdown as text-only DOM: headings, emphasis, safe source links, lists and labelled mobile table rows replace raw source formatting.",
     "Patient handover leads with dated reported facts, six consult questions and three separate decisions; detailed record, interpretations and history are revealed explicitly.",
     "Printable handover excludes deep history and optional personal aside; offline bundle preserves the embedded envelope before replacing the document body.",
@@ -129,14 +132,14 @@
     ]
   },
   "shared_read_verification": {
-    "date": "2026-10-15",
+    "date": "2026-10-18",
     "scope": "CARE read-only encrypted snapshot transport; no clinical outcome proof",
     "checks": {
       "crypto_tamper_wrong_key": "PASS: password round-trip, wrong-password and tamper rejection, fixed PBKDF2 parameters; node tools/care-share-selftest.mjs",
       "host_versions_static_privacy": "PASS: targeted ship-check (7 gates), route registration, syntax and plaintext/password isolation",
       "route_registration": "PASS: node scripts/check-route-registration.mjs --json",
       "native_case_fields_and_public_bytes": "PASS: required native case types/source cues and no plaintext/key in public files",
-      "markdown_and_handover": "PASS: node tools/care-brief-selftest.mjs (DOM fixture): headings/tables/escaped HTML/safe links, copy/share/fallback/language/reveal and unchanged case; actual offline bundle wrong/correct-password checks passed without network"
+      "markdown_and_handover": "PASS: node tools/care-brief-selftest.mjs (DOM fixture): three initial controls, no fixed bar, priority/full questions, canonical/native share, copy/fallback, language and safe Markdown; actual offline bundle wrong/correct-password and six-table checks passed without network"
     },
     "browser": "NOT RUN: no supported browser QA available in this environment",
     "broad_ship_check": "PARTIAL/FAIL: CI-only maintenance and browser/environment stages are not portable locally; their unrelated generated changes were removed; no broad-green claim"
