@@ -56,6 +56,7 @@ export function render(root, packet, snapshotId) {
   const el=(tag,value,className)=>{const n=document.createElement(tag);if(value!=null)n.textContent=value;if(className)n.className=className;return n;};
   const link=(title,url)=>{try{const parsed=new URL(url);if(parsed.protocol!=='https:')return el('span',title);const n=el('a',title);n.href=parsed.href;n.target='_blank';n.rel='noopener noreferrer';n.referrerPolicy='no-referrer';return n;}catch{return el('span',title);}};
   const list=(parent,values)=>{const n=el('ul');for(const value of values||[])n.append(el('li',local(value)));parent.append(n);};
+  const player=(url)=>{try{const p=new URL(typeof url==='string'?url:'');if(p.protocol!=='https:')return null;const a=document.createElement('audio');a.controls=true;a.preload='none';a.src=p.href;a.style.cssText='width:100%;margin-top:10px';a.setAttribute('aria-label',language==='zh'?'冷笑话音频':'Joke audio');return a}catch{return null}};
   const fold=(parent,title,key,className='')=>{const d=el('details',null,'fold '+className);d.dataset.key=key;d.open=openSections.has(key);d.append(el('summary',title));const body=el('div',null,'fold-body');d.append(body);parent.append(d);return {node:d,body};};
   function draw(){
     for(const n of root.querySelectorAll('details')){if(n.dataset.key){if(n.open)openSections.add(n.dataset.key);else openSections.delete(n.dataset.key);}}
@@ -79,7 +80,19 @@ export function render(root, packet, snapshotId) {
     const clinical=fold(more.body,t.clinical,'clinical');for(const [key,title,items] of [['insights',t.insights,data.insights],['decisions',t.decisions,data.decisions],['care',t.care,data.care]]){if(!items?.length)continue;const parent=fold(clinical.body,title,key);for(const item of items){const row=el('div',null,'row');row.append(el('h3',local(item.title)),el('p',local(item.body)));if(item.url)row.append(link(language==='zh'?'参考来源':'Source',item.url));parent.body.append(row);}}
     const sources=fold(more.body,t.sources,'sources');sources.body.append(el('p',local(data.evidence_note),'quiet paragraph'));const sourceList=el('ul');for(const source of packet.sources||[]){const li=el('li');li.append(link(text(source.title),source.url));sourceList.append(li);}sources.body.append(sourceList);
     const tools=fold(more.body,t.tools,'tools'),options=el('div',null,'options'),print=el('button',t.print),copyBrief=el('button',t.copyBrief),download=el('button',t.download);print.onclick=()=>{const wasOpen=next.node.open;next.node.open=true;window.print();next.node.open=wasOpen;};download.onclick=()=>{const blob=new Blob([JSON.stringify(packet.case,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='care-case.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};options.append(print,copyBrief,download);tools.body.append(options);
-    if(data.aside){const aside=fold(more.body,t.aside,'aside');aside.body.append(el('p',local(data.aside.setup)));const reveal=fold(aside.body,t.punch,'punch');reveal.body.append(el('p',local(data.aside.punchline),'punchline'),el('p',local(data.aside.explanation),'quiet paragraph'));if(data.aside.url)reveal.body.append(link(t.jokeSource,data.aside.url));}
+    if(data.aside){const aside=fold(more.body,t.aside,'aside');if(data.aside.intro)aside.body.append(el('p',local(data.aside.intro),'quiet paragraph'));
+      const jokes=data.aside.jokes||[{setup:data.aside.setup,punchline:data.aside.punchline,explanation:data.aside.explanation,url:data.aside.url}];
+      for(const [ji,joke] of jokes.entries()){
+        const card=el('div',null,'row');card.append(el('h3',local(joke.title)||(language==='zh'?'冷笑话 ':'Joke ')+(ji+1)));
+        if(joke.setup)card.append(el('p',local(joke.setup),'paragraph'));
+        const reveal=fold(card,t.punch,'punch-'+ji);
+        if(joke.punchline)reveal.body.append(el('p',local(joke.punchline),'punchline'));
+        if(joke.explanation)reveal.body.append(el('p',local(joke.explanation),'quiet paragraph'));
+        if(joke.url)reveal.body.append(link(t.jokeSource,joke.url));
+        const ja=player(joke.audio&&joke.audio.url);if(ja)reveal.body.append(ja);
+        aside.body.append(card);
+      }
+      const aa=player(data.aside.audio&&data.aside.audio.url);if(aa){aside.body.append(el('p',local(data.aside.audio.title),'quiet'),aa);}}
     const toast=el('p','','toast');toast.setAttribute('role','status');main.append(toast);const footer=el('footer',null,'footer');footer.append(el('p',t.note),el('p',t.privacy+' '+t.dated,'privacy'));main.append(footer);root.append(main);
     const questionText=()=>priorities.map((item,i)=>(i+1)+'. '+local(item.question)).join('\n');
     const fallback=value=>{next.node.open=true;next.body.querySelector('textarea')?.remove();const box=el('textarea');box.value=value;box.readOnly=true;box.rows=6;box.setAttribute('aria-label',t.failed);box.style.cssText='width:100%;font:16px/1.5 system-ui;margin-top:12px';next.body.append(box);toast.textContent=t.failed;box.focus();box.select();next.node.scrollIntoView();};
