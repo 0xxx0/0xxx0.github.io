@@ -10,6 +10,7 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-font-smoothing:antialiased}
   main{max-width:952px;margin:0 auto;padding:26px 14px 64px}
+  #weave{position:fixed;inset:0;z-index:0;pointer-events:none}main{position:relative;z-index:1}
   header h1{font-size:30px;letter-spacing:.18em;margin:0 0 2px;font-weight:700}
   header .sub{color:var(--mut);font-size:12px;letter-spacing:.08em;margin:0 0 16px}
   #fovea{max-width:880px;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;background:var(--panel)}
@@ -30,6 +31,7 @@
 .mapJump{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.1em}.mapJump select{flex:1;min-width:0;background:#0a0c0f;color:var(--fg);border:1px solid var(--line);padding:8px;font:inherit}@media(max-width:600px){main{padding:12px 8px}header h1{font-size:22px}header .sub{font-size:10px;margin-bottom:8px}#fovea .bar{padding:7px 9px;gap:7px}.mapJump{padding:6px 8px}#fovea .foot{padding:6px 8px;font-size:8px}#card{left:7px;bottom:7px;max-width:calc(100vw - 34px)}}</style>
 </head>
 <body>
+<div id="weave" aria-hidden="true"></div>
 <main>
   <header>
     <h1>FOVEA</h1>
@@ -55,6 +57,7 @@
     </div>
   </div>
 </main>
+<script src="/lib/moire-ambient.js"></script>
 <script>
 (function(){
   var DATA = [
@@ -108,6 +111,27 @@
     var dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
     if(d<16){var push=(16-d)/2;dx/=d;dy/=d;a.x-=dx*push;a.y-=dy*push;b.x+=dx*push;b.y+=dy*push;}}}}
   var held=null, LMx=null, LMy=null;
+  // LAYERED SEMANTIC WEAVE (lib/moire-ambient.js) — quiet texture whose layers are
+  // real counts from THIS page's DATA: threads = running marks, parked = recovered
+  // marks, delta = waiting − parked. Barely-there at rest; revealing (hover the
+  // title, focus FIND ROUTE, or HOLD a mark — all explicit acts) blooms the full
+  // interference and names each layer. HOLD also adds the ask-class layer of the
+  // held mark's lane. Degradation is a no-op, never a broken page.
+  var weave=null, wBase=null;
+  try{
+    var live=0, park=0, wait=0;
+    DATA.forEach(function(d){if(d.k==='live')live++;else if(d.k==='park')park++;else if(d.k==='wait')wait++;});
+    wBase={threads:live,parked:park,delta:wait-park};
+    if(window.MoireAmbient&&document.getElementById('weave')){
+      weave=MoireAmbient.mount(document.getElementById('weave'),MoireAmbient.fromState(wBase),{});
+      var h1=document.querySelector('header h1');
+      if(h1){h1.addEventListener('pointerenter',function(){weave.reveal();});
+             h1.addEventListener('pointerleave',function(){weave.release();});}
+      jump.addEventListener('focus',function(){weave.reveal();});
+      jump.addEventListener('blur',function(){weave.release();});
+      document.documentElement.setAttribute('data-weave','mounted');
+    }
+  }catch(e){document.documentElement.setAttribute('data-weave','error');}
   function glyph(x,y,s,kind){
     if(kind==='live'){ctx.beginPath();ctx.arc(x,y,3.6*s,0,6.2832);ctx.stroke();}
     else if(kind==='wait'){ctx.strokeRect(x-3*s,y-3*s,6*s,6*s);}
@@ -141,6 +165,10 @@
   var openBtn=document.getElementById('open'), copyBtn=document.getElementById('copy'), relBtn=document.getElementById('rel');
   function showCard(p){
     card.style.display='block';
+    if(weave){ // HOLD is explicit: the weave gains the held mark's lane as ask-class layer
+      weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,askClass:p.it.l}));
+      weave.reveal();
+    }
     card.querySelector('.t').textContent=p.it.t;
     card.querySelector('.meta').textContent=p.it.l+' · '+KN[p.it.k];
     card.querySelector('.next').textContent='NEXT — '+(p.it.n||'open');
@@ -156,7 +184,7 @@
   }
   function mapEv(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};}
   jump.addEventListener("change",function(){if(jump.value==="")return;var p=pts[Number(jump.value)];if(!p)return;held=p;LMx=p.x;LMy=p.y;showCard(p);draw(LMx,LMy);});
-  function release(){held=null;card.style.display='none';draw(LMx,LMy);}
+  function release(){held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState(wBase));draw(LMx,LMy);}
   cv.addEventListener('pointermove',function(e){var m=mapEv(e);LMx=m.x;LMy=m.y;draw(LMx,LMy);});
   cv.addEventListener('pointerleave',function(){LMx=null;LMy=null;draw(null,null);});
   cv.addEventListener('pointerdown',function(e){
@@ -164,7 +192,7 @@
     var m=mapEv(e);LMx=m.x;LMy=m.y;
     var best=null,bd=Math.max(34,30*W/Math.max(1,cv.getBoundingClientRect().width));
     pts.forEach(function(p){var d=Math.hypot(p.x-m.x,p.y-m.y);if(d<bd){bd=d;best=p;}});
-    if(best){held=best;showCard(best);}else{held=null;card.style.display='none';}
+    if(best){held=best;showCard(best);}else{held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState(wBase));}
     draw(m.x,m.y);
   });
   relBtn.onclick=release;
