@@ -22,3 +22,20 @@ for(const g of glyphs){
 }
 
 console.log(`LAB/TYPE SELFTEST PASS · ${glyphs.length} glyphs · ${global.size} unique variants · no cross-glyph exact collisions`);
+
+// Balanced exposure, reproducible order and refusal of incomplete/fake evidence.
+const {trial,score}=await import('./recognition.mjs');
+const items=trial(7);
+assert.deepEqual(items,trial(7));assert.notDeepEqual(items,trial(8));
+assert.equal(items.length,36);
+for(const glyph of glyphs)assert.equal(items.filter(x=>x.glyph===glyph).length,3);
+const answers=items.map(x=>({response:x.glyph,ms:100}));
+assert.equal(score(items,answers).decision,'CANDIDATE_FOR_OUTLINES');
+assert.throws(()=>score(items,answers.slice(1)),/Complete/);
+assert.throws(()=>score(items,answers.map(()=>({response:'X',ms:100}))),/Invalid/);
+assert.throws(()=>score(items,answers.map(x=>({...x,ms:NaN}))),/Invalid/);
+const confused=answers.map(x=>({...x}));
+items.forEach((x,i)=>{if(x.glyph==='O'&&x.profile==='variant')confused[i].response='0'});
+assert.equal(score(items,confused).decision,'STOP_OR_REDUCE');
+assert.deepEqual(score(items,confused).repeated,['O→0']);
+console.log('LAB/TYPE RECOGNITION LAWS PASS · 36 balanced trials · repeated confusables stop · incomplete evidence refused');

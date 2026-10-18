@@ -4,10 +4,18 @@
 <title>LAB/TYPE · proof 001</title>
 <style>
 :root{color-scheme:dark;--bg:#080b0d;--fg:#d8dddf;--mut:#778287;--line:#283238;--hot:#ed7447;--ok:#98d49b;--gold:#d5ad68}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}main{max-width:1080px;margin:auto;padding:16px}.head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}.head b{font-size:16px;letter-spacing:.12em}.mut{color:var(--mut)}.controls{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:8px;margin:12px 0}.controls label{display:grid;gap:4px}.controls select,.controls input,.controls button,button{border:1px solid var(--line);background:#0b1012;color:var(--fg);border-radius:0;padding:7px;font:inherit}.proof{display:grid;grid-template-columns:170px 1fr;gap:12px}.source,.panel{border:1px solid var(--line);padding:10px}.source svg{display:block;width:100%;height:auto;color:var(--fg)}.stats{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0;color:var(--mut)}.stats b{color:var(--fg)}.variants{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:5px}.v{min-height:76px;border:1px solid var(--line);background:#0b1012;display:grid;place-items:center;padding:4px;cursor:pointer}.v:hover,.v[aria-current=true]{border-color:var(--gold)}.v svg{color:var(--fg);max-width:100%;height:auto}.seed{font-size:8px;color:var(--mut)}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.fail{color:var(--hot)}.pass{color:var(--ok)}@media(max-width:700px){.controls{grid-template-columns:1fr 1fr}.proof{grid-template-columns:1fr}.source{display:grid;grid-template-columns:120px 1fr;align-items:center}.variants{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}}
+[hidden]{display:none!important}.recognition-running>.controls,.recognition-running>.proof{display:none!important}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}main{max-width:1080px;margin:auto;padding:16px}.head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}.head b{font-size:16px;letter-spacing:.12em}.mut{color:var(--mut)}.controls{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:8px;margin:12px 0}.controls label{display:grid;gap:4px}.controls select,.controls input,.controls button,button{border:1px solid var(--line);background:#0b1012;color:var(--fg);border-radius:0;padding:7px;font:inherit}.proof{display:grid;grid-template-columns:170px 1fr;gap:12px}.source,.panel{border:1px solid var(--line);padding:10px}.source svg{display:block;width:100%;height:auto;color:var(--fg)}.stats{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0;color:var(--mut)}.stats b{color:var(--fg)}.variants{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:5px}.v{min-height:76px;border:1px solid var(--line);background:#0b1012;display:grid;place-items:center;padding:4px;cursor:pointer}.v:hover,.v[aria-current=true]{border-color:var(--gold)}.v svg{color:var(--fg);max-width:100%;height:auto}.seed{font-size:8px;color:var(--mut)}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.fail{color:var(--hot)}.pass{color:var(--ok)}@media(max-width:700px){.controls{grid-template-columns:1fr 1fr}.proof{grid-template-columns:1fr}.source{display:grid;grid-template-columns:120px 1fr;align-items:center}.variants{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}}
 </style>
 <main>
   <div class="head"><b>LAB/TYPE · PROOF 001</b><span class="mut">projection only · 12 diagnostic glyphs · deterministic orthogonal jogs</span></div>
+  <details id="recognition" class="panel" style="margin-top:12px">
+    <summary>TEST RECOGNITION · 36 unlabelled glyphs</summary>
+    <p class="mut">Fixed proof-001 parameters; source + seeds 1/2 at 32 CSS pixels. No answer feedback until the end. One reader/device only. Stop if source construction is already unreadable.</p>
+    <div class="actions"><button id="recognitionStart">BEGIN</button><button id="recognitionExport" hidden>EXPORT OBSERVATIONS</button></div>
+    <p id="recognitionProgress" role="status">No observations recorded.</p>
+    <div id="recognitionGlyph" style="height:64px;display:grid;place-items:center"></div>
+    <div id="recognitionChoices" class="actions" hidden></div>
+  </details>
   <div class="controls">
     <label>GLYPH<select id="glyph"></select></label>
     <label>DENSITY<input id="density" type="range" min="0" max="0.95" step="0.05" value="0.65"></label>
@@ -19,7 +27,9 @@
     <section class="source"><div><b>SOURCE</b><div class="mut">normalized skeleton</div></div><div id="source"></div><div class="actions"><button id="svgBtn">SVG</button><button id="jsonBtn">JSON</button></div></section>
     <section class="panel"><div class="stats" id="stats"></div><div class="variants" id="variants"></div></section>
   </div>
+
 </main>
+<script type="module" src="./recognition-ui.mjs"></script>
 <script type="module">
 import {RECIPES,normalizeRecipe,generateGlyph,svg} from './core.mjs';
 const $=id=>document.getElementById(id), glyph=$('glyph'), density=$('density'), bend=$('bend'), amp=$('amp'), count=$('count');
