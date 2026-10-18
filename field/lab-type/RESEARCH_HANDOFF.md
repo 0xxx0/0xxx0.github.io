@@ -69,9 +69,9 @@ Baseline `619314e5480d40f91b33aa3a199305e16b736fff` reproduces the claimed
 439 unique deterministic geometries. Exact path inequality does not establish
 perceptual distinction. No human recognition or installation result is recorded.
 
-Run `node field/lab-type/selftest.mjs`, serve the repository with
-`python3 -m http.server 8766`, then open
-`http://localhost:8766/field/lab-type/` → TEST RECOGNITION → BEGIN.
+Run `node field/lab-type/selftest.mjs`, start the local donor with
+`node field/lab-type/preview.mjs`, then open
+`http://127.0.0.1:8766/` → TEST RECOGNITION → BEGIN.
 The existing surface now presents 36 shuffled, unlabelled glyphs: all 12 normalized
 sources plus generated seeds 1 and 2, at 32 CSS pixels, density .65, bendCost 1.2,
 amplitude 1. Responses and milliseconds remain local until explicitly exported;
@@ -85,7 +85,7 @@ hidden from the display, not secured against code inspection.
 | `core.mjs` | Unmodified generator and source recipes; geometry authority for this donor only |
 | `recognition.mjs` | Deterministic balanced trial and explicit decision rule |
 | `recognition-ui.mjs` | Render, keyboard/select response, export actual observations |
-| `index.html` | Existing donor host; no manifest registration |
+| `specimen.html.in`, `preview.mjs` | Local donor template/launcher; no published route or manifest registration |
 | `selftest.mjs` | Existing geometry proof plus incomplete/invalid evidence and repeated-confusion controls |
 
 An exported `lab-type/recognition-001` receipt retains each expected glyph,
@@ -150,3 +150,9 @@ Primary outline reference:
 https://learn.microsoft.com/en-us/typography/opentype/spec/glyf
 The OpenType spec distinguishes contours, glyph IDs, cmap/metrics companions and
 overlap handling; a stroked SVG alone does not establish an installable font.
+
+Current-master integration found that the original unregistered `index.html`
+violated both Route Registration and the public static-surface gate. Preserve its
+source as `specimen.html.in`; `preview.mjs` serves it locally on loopback. This is
+a donor packaging repair, not a validator exemption or route promotion. The
+launcher serves only its four named assets and accepts GET only.
