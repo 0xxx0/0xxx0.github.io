@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-18T08:30:52.705Z",
+  "generated": "2026-10-18T09:01:41.959Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-18",
-  "commits_in_window": 14,
-  "git_commits_in_window": 29,
-  "telemetry_commits_in_window": 15,
-  "commits_total": 6010,
-  "branch_count": 1026,
+  "commits_in_window": 17,
+  "git_commits_in_window": 35,
+  "telemetry_commits_in_window": 18,
+  "commits_total": 6016,
+  "branch_count": 1027,
   "recent_commits": [
-    "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: register + stamp /20261017-loadout/ (OPERATE,VERIFY)",
-    "loadout: landing page for the equippable capability model + wiring map"
+    "CARE: publish password-protected read-only snapshot v1.2",
+    "CARE: align encrypted snapshot CI with optional compression",
+    "CARE: protected shared-family brief v1.2"
   ],
   "active_fronts": [
     {
