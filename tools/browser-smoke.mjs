@@ -2,6 +2,7 @@
 'use strict';
 
 import http from 'node:http';
+import os from 'node:os';
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
@@ -794,7 +795,7 @@ function foldBloomReplayScoreProbeHtml(){
 function foldBloomLiveMobileBehaviorProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/fold-bloom/live/?play=PUZZLE"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
-  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const done=(ok,data)=>{out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);if(new URLSearchParams(location.search).has('report'))fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{})};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=80)=>{for(let i=0;i<limit;i++){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('wait timeout')};
   (async()=>{
@@ -962,6 +963,7 @@ setTimeout(()=>done(false),${limitMs+2000});
 <\/script></body></html>`;
 }
 const settleHolds=new Set();
+let probeReport=null;
 
 // SMOKE_SLOW — one global ceiling for every probe's waitFor, instead of 82
 // hard-coded limits. Same failure class (waitFor timeout) on unrelated probes
@@ -972,6 +974,7 @@ const slow=html=>SLOW===1?html:html.replace(/limit=(\d+)/g,(m,n)=>'limit='+Math.
 
 const server=http.createServer((req,res)=>{
   const reqUrl=String(req.url||'');
+  if(reqUrl==='/__probe-report'&&req.method==='POST'){let body='';req.on('data',d=>{body+=d;if(body.length>1048576)req.destroy()});req.on('end',()=>{res.end('received');probeReport?.(body)});return}
   if(SLOW!==1&&(reqUrl.startsWith('/__smoke/')||reqUrl.startsWith('/__settle?'))){
     // Rewrite the probe's own waitFor ceilings before it reaches the browser.
     const send=res.end.bind(res);
@@ -1119,7 +1122,9 @@ function runChrome(bin,route,options={}){
     const effectiveRoute=exactViewport
       ? '/__viewport?route='+encodeURIComponent(route)+'&w='+requestedWidth+'&h='+requestedHeight
       : route;
-    const url='http://'+HOST+':'+PORT+effectiveRoute;
+    const report=options.report===true;
+    const profile=report?fs.mkdtempSync(path.join(os.tmpdir(),'field-probe-')):null;
+    const url='http://'+HOST+':'+PORT+effectiveRoute+(report?'?report=1':'');
     // Two different needs, deliberately not conflated:
     //  - PROBE cases (/__smoke/…) emit their own verdict and need the ceiling
     //    raised inside the page AND enough virtual time to reach it, so their
@@ -1134,15 +1139,16 @@ function runChrome(bin,route,options={}){
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
       '--hide-scrollbars','--window-size='+(exactViewport?Math.max(500,requestedWidth):requestedWidth)+','+requestedHeight,
-      '--virtual-time-budget='+budget,'--dump-dom',url
+      ...(report?['--user-data-dir='+profile]:['--virtual-time-budget='+budget,'--dump-dom']),url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
-    let out='',err='';
+    let out='',err='',reported=false;
+    if(report)probeReport=html=>{out=html;reported=true;p.kill('SIGKILL')};
     const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},killAfter);
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
-    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
+    p.on('close',code=>{clearTimeout(timer);if(report){probeReport=null;fs.rmSync(profile,{recursive:true,force:true})}resolve({code:reported?0:code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
   });
 }
 function runSettle(bin,c){
@@ -1596,9 +1602,11 @@ const CASES=[
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.6.1"')&&dom.includes('data-fold-bloom-play-loop="FOLD_BLOOM_PLAY_LOOP_0.2"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-loop-archetype="FORM_CHANGE"')&&dom.includes('data-fb-instrument="HEX"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-form-visual="exact-verbs-underlay"')&&dom.includes('data-fb-hex-visual="six-lines"')&&dom.includes('data-fb-view="ride"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
   },
   {
+    // This interaction probe needs real layout turns. Accept its explicit DOM
+    // report, then apply the unchanged predicate; do not await dump-DOM teardown.
     name:'FOLD BLOOM LIVE mobile interaction regression',
     route:'/__smoke/fold-bloom-live-mobile-behavior',
-    options:{width:460,height:980,budget:12000,timeout:18000},
+    options:{width:460,height:980,timeout:18000,report:true},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"instrument":"HEX"/.test(dom)&&/"formVisual":"exact-verbs-underlay"/.test(dom)&&/"hexVisual":"six-lines"/.test(dom)&&/"view":"ride"/.test(dom)&&/"formDisplay":"block"/.test(dom)&&/"formClear":true/.test(dom)&&/"drawerControl":"TRANCE"/.test(dom)&&/"topId":"closeSettings"/.test(dom)&&/"backdropClosed":true/.test(dom)&&/"escapeClosed":true/.test(dom)&&/"xClosed":true/.test(dom)&&/"mid":"still"/.test(dom)&&/"after":"ride"/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
