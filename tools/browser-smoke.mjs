@@ -957,6 +957,7 @@ const check=(${checkSrc});
 let doneFlag=false;
 const done=(ok)=>{if(doneFlag)return;doneFlag=true;let dom='';try{const d=f.contentDocument;dom=d&&d.documentElement?d.documentElement.outerHTML:'(no dom)'}catch(e){dom='(serialize error '+e+')'}
 o.textContent=dom;o.setAttribute('data-pass',ok?'1':'0');o.setAttribute('data-wait',String(Date.now()-t0));
+if(new URLSearchParams(location.search).has('report'))fetch('/__probe-report',{method:'POST',body:document.documentElement.outerHTML}).catch(()=>{});
 hold.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{while(Date.now()-t0<${limitMs}){try{const d=f.contentDocument;if(d&&d.documentElement){const dom=d.documentElement.outerHTML;if(check(dom)){done(true);return}}}catch(_){}await sleep(80)}done(false)})();
@@ -1153,6 +1154,7 @@ function runSettle(bin,c){
   return new Promise((resolve,reject)=>{
     const o=c.options||{};
     const url='http://'+HOST+':'+PORT+'/__settle?route='+encodeURIComponent(c.route)+'&check='+encodeURIComponent(c.check.toString())+'&limit='+Math.round((o.settleLimit||20000)*SLOW)+'&w='+(o.width||430)+'&h='+(o.height||900);
+    if(o.report){reporting.run(bin,url+'&report=1',{width:o.width||430,height:o.height||900,timeout:Math.round((o.timeout||30000)*SLOW)}).then(resolve,reject);return}
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
       '--hide-scrollbars','--window-size='+(o.width||430)+','+(o.height||900),
@@ -1516,7 +1518,8 @@ const CASES=[
   {
     name:'FOLD BLOOM LIVE shareable demo',
     route:'/fold-bloom/live/?demo=1&profile=DRIVE',
-    options:{width:430,height:900,budget:5000},
+    options:{width:430,height:900,settleLimit:15000,timeout:30000,report:true},
+    settle:true,
     check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="demo"')&&dom.includes('data-fold-bloom-ride-profile="')&&dom.includes('data-xp-preset="DRIVE"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')
   },
   {
