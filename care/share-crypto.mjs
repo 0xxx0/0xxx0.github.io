@@ -40,7 +40,16 @@ export async function openSnapshot(envelope, id, password) {
   if (salt.length !== 16 || iv.length !== 12 || ciphertext.length < 16 || ciphertext.length > MAX_BYTES + 16) throw new Error('Invalid snapshot size or parameters');
   const key = await passwordKey(password, salt, 'decrypt');
   const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv, additionalData: aad(id) }, key, ciphertext);
-  const payload = JSON.parse(decoder.decode(plain));
+  // v1.2 optional compression. Existing uncompressed links remain compatible.
+  // Decompress ONLY after authentication, cap inflated bytes, never persist plaintext.
+  let clear = new Uint8Array(plain);
+  if (envelope.compression !== undefined) {
+    if (envelope.compression !== 'gzip' || typeof DecompressionStream === 'undefined') throw new Error('Unsupported snapshot compression');
+    const expanded = await new Response(new Blob([clear]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    if (expanded.byteLength > MAX_BYTES) throw new Error('Expanded snapshot too large');
+    clear = new Uint8Array(expanded);
+  }
+  const payload = JSON.parse(decoder.decode(clear));
   if (payload?.schema !== '0xxx0/care-share/v0.1' || payload?.case?.schema !== '0xxx0/care-case/v0.3' || !payload.case.id) throw new Error('Unsupported care snapshot');
   return payload;
 }
