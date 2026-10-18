@@ -2,11 +2,14 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.8",
+  "version": "0.9",
   "released": "2026-10-18",
   "state": "ACTIVE_CANDIDATE",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "Replaced the text-first shared brief with a compact source-derived handover: current headline, three reported course stages and two short care strands; next-update questions open on demand.",
+    "Long record becomes a chapter index; earlier messages, context and tools remain behind Source & record. Language changes preserve the reader’s open sections.",
+    "No live progress animation, invented procedure completion, health score or new case store; stage states are supplied by the dated shared packet.",
     "Family brief now opens with a source-dated update and three priority questions; deeper history, decisions, records and utilities live under one More disclosure.",
     "Reduced initial controls to language, share and copy questions; removed fixed bottom action bar; shared URL removes stale version queries and retains the stable opaque address.",
     "Manually refreshed case revisions preserve source, inference and planned-versus-completed distinctions; password encryption and explicit-only sharing/export remain unchanged.",
@@ -139,9 +142,9 @@
       "host_versions_static_privacy": "PASS: targeted ship-check (7 gates), route registration, syntax and plaintext/password isolation",
       "route_registration": "PASS: node scripts/check-route-registration.mjs --json",
       "native_case_fields_and_public_bytes": "PASS: required native case types/source cues and no plaintext/key in public files",
-      "markdown_and_handover": "PASS: node tools/care-brief-selftest.mjs (DOM fixture): three initial controls, no fixed bar, priority/full questions, canonical/native share, copy/fallback, language and safe Markdown; actual offline bundle wrong/correct-password and six-table checks passed without network"
+      "markdown_and_handover": "PASS: sourced course states retain outcome pending; compact initial reading budget (<140 words on actual packet); indexed chapters; fold/language continuity; canonical/native share, copy/fallback and print state; actual offline wrong/correct-password checks passed"
     },
-    "browser": "NOT RUN: no supported browser QA available in this environment",
+    "browser": "NOT RUN for decrypted view: isolated data-URL layout specimen was rejected by browser URL policy; no visual-browser-green claim",
     "broad_ship_check": "PARTIAL/FAIL: CI-only maintenance and browser/environment stages are not portable locally; their unrelated generated changes were removed; no broad-green claim"
   }
 }
