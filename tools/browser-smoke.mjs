@@ -2,7 +2,8 @@
 'use strict';
 
 import http from 'node:http';
-import os from 'node:os';
+import {browserReport} from './browser-report.mjs';
+const reporting=browserReport();
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawn,spawnSync} from 'node:child_process';
@@ -963,7 +964,6 @@ setTimeout(()=>done(false),${limitMs+2000});
 <\/script></body></html>`;
 }
 const settleHolds=new Set();
-let probeReport=null;
 
 // SMOKE_SLOW — one global ceiling for every probe's waitFor, instead of 82
 // hard-coded limits. Same failure class (waitFor timeout) on unrelated probes
@@ -974,7 +974,7 @@ const slow=html=>SLOW===1?html:html.replace(/limit=(\d+)/g,(m,n)=>'limit='+Math.
 
 const server=http.createServer((req,res)=>{
   const reqUrl=String(req.url||'');
-  if(reqUrl==='/__probe-report'&&req.method==='POST'){let body='';req.on('data',d=>{body+=d;if(body.length>1048576)req.destroy()});req.on('end',()=>{res.end('received');probeReport?.(body)});return}
+  if(reporting.read(req,res))return;
   if(SLOW!==1&&(reqUrl.startsWith('/__smoke/')||reqUrl.startsWith('/__settle?'))){
     // Rewrite the probe's own waitFor ceilings before it reaches the browser.
     const send=res.end.bind(res);
@@ -1122,9 +1122,7 @@ function runChrome(bin,route,options={}){
     const effectiveRoute=exactViewport
       ? '/__viewport?route='+encodeURIComponent(route)+'&w='+requestedWidth+'&h='+requestedHeight
       : route;
-    const report=options.report===true;
-    const profile=report?fs.mkdtempSync(path.join(os.tmpdir(),'field-probe-')):null;
-    const url='http://'+HOST+':'+PORT+effectiveRoute+(report?'?report=1':'');
+    const url='http://'+HOST+':'+PORT+effectiveRoute;
     // Two different needs, deliberately not conflated:
     //  - PROBE cases (/__smoke/…) emit their own verdict and need the ceiling
     //    raised inside the page AND enough virtual time to reach it, so their
@@ -1136,19 +1134,19 @@ function runChrome(bin,route,options={}){
     const probeLike=String(route||'').startsWith('/__smoke/');
     const budget=Math.round((options.budget||6500)*(probeLike?SLOW:1));
     const killAfter=Math.round((options.timeout||15000)*SLOW);
+    if(options.report){reporting.run(bin,url+(url.includes('?')?'&':'?')+'report=1',{width:requestedWidth,height:requestedHeight,timeout:killAfter}).then(resolve,reject);return}
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
       '--hide-scrollbars','--window-size='+(exactViewport?Math.max(500,requestedWidth):requestedWidth)+','+requestedHeight,
-      ...(report?['--user-data-dir='+profile]:['--virtual-time-budget='+budget,'--dump-dom']),url
+      '--virtual-time-budget='+budget,'--dump-dom',url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
-    let out='',err='',reported=false;
-    if(report)probeReport=html=>{out=html;reported=true;p.kill('SIGKILL')};
+    let out='',err='';
     const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},killAfter);
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
-    p.on('close',code=>{clearTimeout(timer);if(report){probeReport=null;fs.rmSync(profile,{recursive:true,force:true})}resolve({code:reported?0:code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
+    p.on('close',code=>{clearTimeout(timer);resolve({code,out,err,url,exactViewport,requestedWidth,requestedHeight})});
   });
 }
 function runSettle(bin,c){

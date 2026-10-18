@@ -3,15 +3,16 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-import {spawn,spawnSync} from 'node:child_process';
+import {browserReport} from './browser-report.mjs';
+const reporting=browserReport();
 import {browserBin} from './browser-bin.mjs';
 
-const ROOT=process.cwd(),HOST='127.0.0.1';let PORT=0;
+const ROOT=process.cwd(),HOST='127.0.0.1',SLOW=Math.max(1,Math.min(4,Number(process.env.SMOKE_SLOW)||1));let PORT=0;
 function ct(p){if(p.endsWith('.html'))return'text/html; charset=utf-8';if(p.endsWith('.js')||p.endsWith('.mjs'))return'text/javascript; charset=utf-8';if(p.endsWith('.json'))return'application/json; charset=utf-8';if(p.endsWith('.css'))return'text/css; charset=utf-8';return'application/octet-stream'}
 function resolveFile(url){let q=decodeURIComponent(String(url||'/').split('?')[0]).replace(/^\/+/, '');if(!q)q='index.html';if(q.endsWith('/'))q+='index.html';const p=path.normalize(path.join(ROOT,q));if(!p.startsWith(ROOT))return null;if(fs.existsSync(p)&&fs.statSync(p).isFile())return p;if(fs.existsSync(p+'.html'))return p+'.html';return null}
 function probe(){return `<!doctype html><html><body style="margin:0"><pre id="probeResult">PENDING</pre><script>
 const out=document.getElementById('probeResult'),rec={};let doneFlag=false;
-const done=(ok,x)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x)};
+const done=(ok,x)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);fetch('/__probe-report',{method:'POST',body:out.textContent}).catch(()=>{})};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(60)}throw Error('wait '+label)};
 (async()=>{try{
  const source='# ONE\\n\\nOpening paragraph.\\n\\nSecond paragraph carries the cursor target.\\n\\n## TWO\\n\\nThird paragraph after the second heading.';
@@ -47,11 +48,11 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));const wait=async(fn,limit=15000
  done(ok,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
 <\/script></body></html>`}
-const server=http.createServer((req,res)=>{if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
-function run(bin){return new Promise((resolve,reject)=>{const a=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--window-size=460,980','--virtual-time-budget=15000','--dump-dom','http://'+HOST+':'+PORT+'/__probe'];const p=spawn(bin,a,{stdio:['ignore','pipe','pipe']});let out='',err='';const tm=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},26000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',e=>{clearTimeout(tm);reject(e)});p.on('close',code=>{clearTimeout(tm);resolve({code,out,err})})})}
+const server=http.createServer((req,res)=>{if(reporting.read(req,res))return;if(String(req.url||'').startsWith('/__probe')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const p=resolveFile(req.url);if(!p){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':ct(p),'cache-control':'no-store'});fs.createReadStream(p).pipe(res)});
+function run(bin){return reporting.run(bin,'http://'+HOST+':'+PORT+'/__probe',{width:460,height:980,timeout:26000*SLOW})}
 await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));PORT=server.address().port;
 try{
- const r=await run(browserBin()),m=r.out.match(/id="probeResult"[^>]*>([\s\S]*?)<\/pre>/i),result=(m?.[1]||'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
+ const r=await run(browserBin()),result=r.out.trim(),fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
  if(r.code!==0||fatal||!result.startsWith('PASS ')){console.error('LIVE READ-RIDE SMOKE FAIL',result||'(no result)');if(r.err.trim())console.error(r.err.slice(-2600));process.exitCode=1}
  else console.log('LIVE READ-RIDE SMOKE PASS',result.slice(5));
-}finally{await new Promise(r=>server.close(()=>r()))}
+}finally{server.closeAllConnections();await new Promise(r=>server.close(()=>r()))}
