@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-18T15:13:38.035Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-18T15:44:37.079Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **38 material commits on 2026-10-18** across **1028 branches** (84 exact Git commits in the window; 46 generated telemetry; 6065 on master all-time).
+At capture, the field had **41 material commits on 2026-10-18** across **1028 branches** (90 exact Git commits in the window; 49 generated telemetry; 6071 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -20,8 +20,8 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 ## Last material commits at capture
 
 - desk: refresh public field data + root git chronology
-- fi-mutation-contract: re-stamp /calls/ /field/ /fovea/ (IMPLEMENT,VERIFY)
-- Merge branch 'field/moire-ambient-20261018' into fix/surfaces-20261018
+- fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)
+- calls: refresh (auto — answers changed)
 
 ## Law
 

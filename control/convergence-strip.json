@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-18T15:13:38.035Z",
+  "generated": "2026-10-18T15:44:37.079Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-18",
-  "commits_in_window": 38,
-  "git_commits_in_window": 84,
-  "telemetry_commits_in_window": 46,
-  "commits_total": 6065,
+  "commits_in_window": 41,
+  "git_commits_in_window": 90,
+  "telemetry_commits_in_window": 49,
+  "commits_total": 6071,
   "branch_count": 1028,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: re-stamp /calls/ /field/ /fovea/ (IMPLEMENT,VERIFY)",
-    "Merge branch 'field/moire-ambient-20261018' into fix/surfaces-20261018"
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+    "calls: refresh (auto — answers changed)"
   ],
   "active_fronts": [
     {
