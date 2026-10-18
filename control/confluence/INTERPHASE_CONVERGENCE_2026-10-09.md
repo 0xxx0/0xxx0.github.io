@@ -239,3 +239,78 @@ for exact coverage, mechanisms, proof and remaining gaps; use
 for Hermes, hardware input, missing reports and media/training continuation.
 The earlier seven-check result above applies only to its named head. Fresh checks
 on the pushed follow-up decide readiness.
+
+### 2026-10-18 — converge on evidence, keep the plain default
+
+Selected work: PRs #966 and #956. Current inspected master:
+`fac8e44b562b8b72646d7d01376afac2976761eb`.
+PR #966 inspected head: `9371aa576fb941e8a59a68f853b8b6809c6cc1ba`,
+47 ahead / 0 behind, mergeable, open. The older seven-green result at `8935465e…`
+does not certify this head. Current runs: INTERPHASE/history, Route Registration
+and gitleaks PASS; public-surface-check FAIL at hosted GARDEN's 45-second
+`--dump-dom` watchdog. Later suite steps were skipped, not passed.
+
+**Bounded repair:** preserve GARDEN's existing assertions and replace virtual-time
+DOM teardown with an explicit same-origin browser completion report; isolate its
+temporary browser profile, retain a bounded watchdog, fail closed on early exit,
+and clean up the browser/server. This is a harness repair, no Ecology/LIVE source
+or effect-authority change. The original runner reproduced timeout locally; the
+new runner observed GARDEN open, Ecology ownership, no source-clock/release grant,
+and exact RETURN to LIVE.
+
+**Default decision:** ordinary native list/search is now the first-use control.
+ROTARY TRIAL explicitly selects the existing ordinal drum; USE LIST restores the
+plain controls without changing object identity/history or effect authority. No
+preference store is added. Superseded circular CSS is pruned rather than retained
+under a second overriding layout. GLYPHFIELD stays an optional view.
+
+The unmeasured cognitive-load caveat therefore **does not block merge of optional
+rotation**. It **does block promoting rotation to default**. Neither semantic
+substrate nor marking-menu research directly demonstrates an advantage for this
+three-row rotary list. The existing substrate laws remain useful; they do not
+turn sector adjacency into semantic distance or ordinal rotation into a relation.
+
+### Smallest post-merge comparison
+
+Use the same exact route, dataset, device and initial state for list and rotation.
+No canonical edits: locate a named route, inspect its source, switch to HISTORY,
+interrupt for 30 seconds, then return to the same object/view. Four matched pairs,
+order ABBA / BAAB, one untimed familiarisation per condition. Keep target difficulty
+matched and record practice/order. Log elapsed active time, wrong-object activation,
+lost object/view on RETURN, unavailable operation and brief effort rating. These
+are task-performance/effort proxies, not a measured diagnosis of cognitive load.
+
+Proposed engineering adoption rule (not literature-derived): no extra wrong-object
+or RETURN errors, no hidden lawful operation, and at least 20% lower paired median
+time after familiarisation. Otherwise keep list default; disable/park rotation if
+it repeatedly adds errors. Eight tasks for one person cannot establish a general
+usability claim. Record actual observations only; no simulated human PASS.
+
+### One owner per capability
+
+| Item | Disposition / evidence / continuation |
+|---|---|
+| `lib/interphase.mjs`, history/lenses/extensions/radial/glyph primitives | Survivor: reuse actual dependency closure; no new shared kernel |
+| Ω archive + native engine | Fixture/survivor: retain recovered bytes and 20 hash witnesses; no source deletion |
+| FIELD / Dayline / FAN / AXIS | Unequal native projections: preserve addressed identity and native effects |
+| Rotary drum / GLYPHFIELD | Optional variants: compare task behavior, no default-performance claim |
+| `#956`, head `619314e5…` | Donor: 12 glyphs, reproduced 439 unique geometries; recognition unmeasured |
+| LAB/TYPE continuation | Existing donor gains a 36-item label-hidden recognition trial; outline/12-glyph TTF spec remains gated by real observations |
+| Competing glyph ontology, another route/registry/state store | Drop from this continuation; no archive/branch deletion |
+
+Winner for the application remains **#966 / `/interphase/`**. Typography work stays
+on **#956 / `field/lab-type/`**, not copied into the semantic glyph renderer. See
+that PR's `RESEARCH_HANDOFF.md` for exact files, thresholds and outline falsifiers.
+No merge or deployment is implied by this note. Fresh results on the actual pushed
+head, native ancestry and unresolved review state decide the final release verdict.
+
+Primary research checked for this decision:
+- Shneiderman/Aris, semantic substrates: coordinates encode explicit attributes;
+  https://www.cs.umd.edu/~ben/papers/Shneiderman2006Network.pdf
+- Kurtenbach/Buxton, real-use marking menus: ordinary revealed menus remain
+  available even for experts; this result concerns marking gestures, not our drum;
+  https://billbuxton.com/MMUserLearn.html
+
+Immediate sequence: repair the failing gate → preserve plain access → collect the
+smallest real comparison. Font compile, wider ontology and new substrate work stay
+outside this turn until their named evidence gates open.

@@ -13,14 +13,15 @@ const page=await browser.newPage({viewport:{width:390,height:844}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const menu=async()=>{if(!await page.locator('#control').evaluate(el=>el.open))await page.locator('#control>summary').click()};
 const unfold=async()=>{await menu();if(!await page.locator('.control-body').evaluate(el=>el.classList.contains('compositor-unfold')))await page.locator('.comp-unfold').click()};
+const rotary=async()=>{await menu();if(await page.locator('.comp-unfold').getAttribute('aria-expanded')==='true')await page.locator('.comp-unfold').click()};
 const turn=async mode=>{
-  await menu();await page.locator('[data-comp-action=VIEW]').click();
+  await rotary();await page.locator('[data-comp-action=VIEW]').click();
   const actions=await page.locator('.comp-item').evaluateAll(xs=>xs.map(x=>x.dataset.compAction));
   const index=actions.indexOf(mode);assert.ok(index>=0);await page.locator('#compositorWheel').focus();
   for(let i=0;i<index;i++)await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
 };
-const returnLast=async()=>{await menu();await page.locator('[data-comp-action=RETURN]').click();await page.locator('[data-comp-action=LAST]').click();assert.equal(await page.locator('.comp-confirm').isVisible(),true);await page.locator('.comp-commit').click()};
+const returnLast=async()=>{await rotary();await page.locator('[data-comp-action=RETURN]').click();await page.locator('[data-comp-action=LAST]').click();assert.equal(await page.locator('.comp-confirm').isVisible(),true);await page.locator('.comp-commit').click()};
 const base=process.env.BASE_URL||'http://127.0.0.1:8765';
 try{
   await page.goto(base+'/interphase/?route=/');
@@ -28,8 +29,18 @@ try{
   assert.equal(await page.locator('#railId').textContent(),'route:/');
   await menu();
   assert.deepEqual(await page.locator('.comp-item').evaluateAll(xs=>xs.map(x=>x.dataset.compAction)),['VIEW','FIND','RETURN']);
+  assert.equal(await page.locator('.modes').isVisible(),true,'ordinary list is the default');
+  assert.equal(await page.locator('#compositorWheel').isVisible(),false);
+  assert.equal(await page.locator('.control-body>.control-actions').isVisible(),true);
+  await page.locator('.mode[data-mode=PLAIN]').click();
+  assert.equal(await page.locator('#railId').textContent(),'route:/');
+  await menu();await page.locator('.mode[data-mode=COMPACT]').click();
+  await menu();
+  const identityBeforeTrial=await page.locator('#railId').textContent();
+  await rotary();
+  assert.equal(await page.locator('#railId').textContent(),identityBeforeTrial);
   assert.equal(await page.locator('.modes').isVisible(),false);
-  assert.equal(await page.locator('.control-body>.control-actions').isVisible(),false);
+  assert.equal(await page.locator('#compositorWheel').isVisible(),true);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'compositor mobile overflow');
   await page.locator('#omnibar').fill('dayline');
   await page.waitForFunction(()=>document.querySelector('#compositorWheel')?.dataset.stage==='FIND');

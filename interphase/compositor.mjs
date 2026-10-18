@@ -17,15 +17,16 @@ if(control&&omni&&nativeResults&&nativeModes){
       <div class="comp-items"></div>
     </div>
     <div class="comp-readout" role="status" aria-live="polite" aria-atomic="true"></div>
-    <div class="comp-foot"><button type="button" class="comp-back">← ROOT</button><span>↕ ROTATE · ENTER SELECTS</span><button type="button" class="comp-unfold" aria-expanded="false">UNFOLD LIST</button></div>
+    <div class="comp-foot"><button type="button" class="comp-back">← ROOT</button><span>↕ ROTATE · ENTER SELECTS</span><button type="button" class="comp-unfold" aria-expanded="true">ROTARY TRIAL</button></div>
     <div class="comp-confirm" hidden><span>RETURN LAST EDIT?</span><button type="button" class="comp-commit">COMMIT RETURN</button><button type="button" class="comp-cancel">CANCEL</button></div>`;
   nativeModes.insertAdjacentElement('beforebegin',host);
   document.body.classList.add('compositor-ready');
+  body.classList.add('compositor-unfold');
   const wheel=host.querySelector('#compositorWheel'),itemsEl=host.querySelector('.comp-items');
   const center=host.querySelector('.comp-center'),back=host.querySelector('.comp-back');
   const unfold=host.querySelector('.comp-unfold'),confirm=host.querySelector('.comp-confirm');
   const commit=host.querySelector('.comp-commit'),cancel=host.querySelector('.comp-cancel');
-  let stage='ROOT',active=0,unfolded=false,gesture=null,wheelDelta=0,suppressClick=false,itemsKey='';
+  let stage='ROOT',active=0,unfolded=true,gesture=null,wheelDelta=0,suppressClick=false,itemsKey='';
   const mode=()=>document.querySelector('.mode.active')?.dataset.mode||'COMPACT';
   const focusObject=()=>({id:document.querySelector('#railId')?.textContent?.trim()||'—',title:document.querySelector('#focusTitle')?.textContent?.trim()||'INTERPHASE'});
   const currentItems=()=>stage==='FIND'
@@ -78,7 +79,7 @@ if(control&&omni&&nativeResults&&nativeModes){
   });
   center.onclick=()=>stage==='ROOT'?control.removeAttribute('open'):setStage('ROOT');
   back.onclick=()=>setStage('ROOT');
-  unfold.onclick=()=>{unfolded=!unfolded;body.classList.toggle('compositor-unfold',unfolded);unfold.setAttribute('aria-expanded',String(unfolded));unfold.textContent=unfolded?'FOLD LIST':'UNFOLD LIST'};
+  unfold.onclick=()=>{unfolded=!unfolded;body.classList.toggle('compositor-unfold',unfolded);unfold.setAttribute('aria-expanded',String(unfolded));unfold.textContent=unfolded?'ROTARY TRIAL':'USE LIST'};
   commit.onclick=()=>{confirm.hidden=true;stage='ROOT';document.querySelector('#returnBtn')?.click();render()};
   cancel.onclick=()=>{confirm.hidden=true;wheel.focus()};
   omni.addEventListener('input',()=>queueMicrotask(()=>{stage='FIND';active=0;confirm.hidden=true;render()}));

@@ -84,3 +84,8 @@ This ordering is a learnable directional convention only: perceive â†’ orient â†
 Run one repeated task against GLYPHFIELD and ordinary FIND/list: locate a known object, inspect one relation, switch representation, interrupt, then return. Measure completion time, wrong-object activations and reorientation errors after novice and repeated trials.
 
 **Keep GLYPHFIELD optional or remove it from the default aperture if it does not reduce reorientation/error after learning.** Unusual representation earns permanence only by outperforming plain representation for a named operation.
+
+2026-10-18 continuation: the native ordinary list is now default; ROTARY TRIAL is
+explicit opt-in. The bounded comparison and adoption threshold live in
+`control/confluence/INTERPHASE_CONVERGENCE_2026-10-09.md#2026-10-18--converge-on-evidence-keep-the-plain-default`.
+No human comparative result is yet recorded.
