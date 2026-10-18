@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-18T04:53:42.315Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-18T08:30:52.705Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **11 material commits on 2026-10-18** across **1025 branches** (13 exact Git commits in the window; 2 generated telemetry; 5994 on master all-time).
+At capture, the field had **14 material commits on 2026-10-18** across **1026 branches** (29 exact Git commits in the window; 15 generated telemetry; 6010 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -17,8 +17,8 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 ## Last material commits at capture
 
 - desk: refresh public field data + root git chronology
-- fi: restamp /care/ after rebase
-- fi: stamp /care/ for the care-family v2 delta
+- fi-mutation-contract: register + stamp /20261017-loadout/ (OPERATE,VERIFY)
+- loadout: landing page for the equippable capability model + wiring map
 
 ## Law
 
