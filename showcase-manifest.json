@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-18T12:52:27+08:00",
+  "updated": "2026-10-18T17:24:59+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1478,12 +1478,13 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-10-09T10:42:32+08:00",
+        "updated_at": "2026-10-18T17:24:59+08:00",
         "work_modes": [
           "INVESTIGATE",
           "VERIFY",
           "IMPLEMENT",
-          "RESEARCH"
+          "RESEARCH",
+          "OPERATE"
         ]
       },
       "operation": "ORIENT",
