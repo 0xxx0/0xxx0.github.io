@@ -26,16 +26,16 @@ footer{margin-top:36px;color:#788388;font-size:11px}
 <footer>Large archive · small active surface · repository/live evidence outranks recollection.</footer>
 <script>
 fetch('./CURRENT.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const pick=(x,...ks)=>{for(const k of ks)if(x&&x[k])return x[k];return ''};const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const links=x=>(x.evidence||[]).map(e=>'<a class="route" href="..'+esc(e)+'">'+esc(e)+'</a>').join('');
 document.getElementById('app').innerHTML=
 '<div class="laws">'+d.laws.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+
 '<section class="next"><b>MOVE GATE / '+esc(d.execution_contract?.loop||'RETURN → REPLAN')+'</b><p>'+esc(d.execution_contract?.gate||'A second move requires a fresh decision from returned state.')+'</p></section>'+
-'<section><div class="head"><b>ACTIVE FRONTS</b><span>'+d.active_fronts.length+'</span></div><div class="grid">'+
-d.active_fronts.map(x=>'<div class="card"><b>'+esc(x.id.toUpperCase())+'</b><div class="state">'+esc(x.state)+'</div><p>'+esc(x.objective)+'</p>'+links(x)+'</div>').join('')+
+'<section><div class="head"><b>ACTIVE FRONTS · what matters now</b><span>'+d.active_fronts.length+'</span></div><div class="grid">'+
+d.active_fronts.map(x=>'<div class="card"><b>'+esc(x.id.toUpperCase())+'</b><div class="state">'+esc(x.state)+'</div><p>'+esc(pick(x,'objective','center','purpose'))+'</p>'+links(x)+'</div>').join('')+
 '</div></section>'+
 '<section><div class="head"><b>CURRENT HEADS</b><span>'+d.current_heads.length+'</span></div><div class="list">'+
-d.current_heads.map(x=>'<div class="row"><b>'+esc(x.head)+'</b><span>'+esc(x.retained_function)+' · '+esc(x.state)+'</span></div>').join('')+
+d.current_heads.map(x=>'<div class="row"><b>'+esc(pick(x,'head','id'))+'</b><span>'+esc(x.retained_function)+' · '+esc(x.state)+'</span></div>').join('')+
 '</div></section>'+
 '<section><div class="head"><b>RECOVERY TARGETS</b><span>PAY RENT</span></div><div class="list">'+
 d.recovery_targets.map(x=>'<div class="row"><b>'+esc(x.id)+'</b><span>'+esc(x.payoff)+'</span></div>').join('')+

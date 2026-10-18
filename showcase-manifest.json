@@ -10121,6 +10121,24 @@
           "VERIFY"
         ]
       }
+    },
+    {
+      "href": "/calls/",
+      "title": "CALLS — the decision queue",
+      "kind": "index",
+      "parent": "/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers, fold receipts. Snapshot of ops-hub/scripts/inbox.py.",
+      "index": {
+        "updated_at": "2026-10-18T18:40:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [

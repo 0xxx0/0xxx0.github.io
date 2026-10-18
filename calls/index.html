@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CALLS — the decision queue</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { max-width: 40rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 -apple-system, "SF Pro Text", system-ui, sans-serif;
+         color: #1c1c1e; background: #fbfbfa; }
+  h1 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; }
+  .q { color: #6e6e73; font-size: 0.86rem; }
+  .empty { border: 1px solid #ececea; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+           color: #6e6e73; }
+  h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+       color: #6e6e73; font-weight: 600; margin: 2rem 0 0.4rem; }
+  li { margin: 0.35rem 0; }
+  code { font: 0.86em ui-monospace, Menlo, monospace; background: #f1f1ef;
+         padding: 0.1em 0.35em; border-radius: 3px; }
+  a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
+      text-decoration-color: #b8b8bd; }
+  footer { color: #8e8e93; font-size: 0.8rem; margin-top: 2.5rem; }
+</style>
+
+<h1>CALLS</h1>
+<p class="q">the decision queue · everything that needs a human tap</p>
+
+<div class="empty"><strong>inbox: empty</strong> — nothing waiting on you.<br>
+snapshot 2026-10-18 · source <code>ops-hub/scripts/inbox.py</code></div>
+
+<h2>how an ask travels</h2>
+<ul>
+  <li>you or the fleet drops <strong>one line</strong> into any bot room</li>
+  <li>it lands in the queue with an id</li>
+  <li>you answer with a letter pick (<code>A</code> / <code>B</code>) or a word</li>
+  <li>the fold happens, the receipt is written, the item clears here</li>
+</ul>
+
+<h2>last fold</h2>
+<ul>
+  <li>2026-10-07 · 13 of 13 called — purge, espclaw-rotate, six-08-17, drafts-fold,
+  nd-pass, worker-exec, wall-dm, mahshroom-email, digests-publish, gemini-key,
+  grok-login, p8p-adb, tailscale-phone</li>
+</ul>
+
+<h2>links</h2>
+<ul>
+  <li><a href="/control/">/control/</a> — what matters now</li>
+  <li><a href="/dayline/">/dayline/</a> — the working surface</li>
+  <li><a href="/atlas-dayline/howto.png">how to use</a> — one picture</li>
+</ul>
+
+<footer>this page is a snapshot of the live queue · regenerate: <code>inbox.py ls</code></footer>
