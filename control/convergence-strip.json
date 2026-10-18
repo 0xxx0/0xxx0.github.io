@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-18T09:01:41.959Z",
+  "generated": "2026-10-18T09:33:03.158Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,29 +9,44 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-18",
-  "commits_in_window": 17,
-  "git_commits_in_window": 35,
-  "telemetry_commits_in_window": 18,
-  "commits_total": 6016,
+  "commits_in_window": 21,
+  "git_commits_in_window": 42,
+  "telemetry_commits_in_window": 21,
+  "commits_total": 6023,
   "branch_count": 1027,
   "recent_commits": [
-    "CARE: publish password-protected read-only snapshot v1.2",
-    "CARE: align encrypted snapshot CI with optional compression",
-    "CARE: protected shared-family brief v1.2"
+    "desk: refresh public field data + root git chronology",
+    "fi-mutation-contract: re-stamp after rebase (OPERATE,VERIFY)",
+    "fi-mutation-contract: stamp /control/ routes (OPERATE,VERIFY)"
   ],
   "active_fronts": [
     {
-      "id": "conversion",
+      "id": "air-instrument",
       "state": "ACTIVE_NOW",
-      "center": "existing verified heads → actual use / share / world contact → observed delta → RETURN"
+      "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air"
     },
     {
-      "id": "recovery-ingest",
-      "state": "ACTIVE_MAINTENANCE",
-      "center": "/recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY"
+      "id": "loadout-model",
+      "state": "ACTIVE_NOW",
+      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide"
+    },
+    {
+      "id": "house-os-fold",
+      "state": "ACTIVE_NOW",
+      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit"
+    },
+    {
+      "id": "project-fold",
+      "state": "ACTIVE_NOW",
+      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion"
+    },
+    {
+      "id": "catchup-nonverbal",
+      "state": "ACTIVE_NOW",
+      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface"
     }
   ],
   "live_fronts": "2/2",
   "current_heads": 12,
-  "current_updated": "2026-10-06T23:09:25+08:00"
+  "current_updated": "2026-10-18T16:45:00+08:00"
 }
