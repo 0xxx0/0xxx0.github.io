@@ -82,6 +82,15 @@ new bytes. A page picks the module convention that matches its own script loadin
   implementation of the DOM / store / polar primitives that `dom.js`, `store.js` and
   `polar-control.js` project. Classic pages load it directly; ESM pages import the
   faces; node can `require` it.
+- `moire-ambient.js` — dual-mode classic (`MoireAmbient` + `module.exports`,
+  2026-10-18): layered SEMANTIC moiré backgrounds — quiet by default, full
+  interference behind explicit reveal (hover / focus / HOLD / tap). `fromState`
+  turns channel values into layers (threads→pitch, delta→tilt, askClass→angle
+  slot), `paint` (canvas) / `css` (pure-CSS repeating-gradients) render them,
+  `mount` wires a container + reveal handling + the named legend receipt.
+  One layer per supplied datum; an unsupplied channel is no layer at all.
+  Selftest: `node lib/moire-ambient.selftest.mjs` (36 laws, pos+neg arms).
+  LANDING: `/Users/mcvoid/void-anchor/AXIS/work/moire-ambient-2026-10-18/LANDING.md`.
 - `polar-control.js` — ES-module face (PROJECTION of `micro.js`, 2026-10-06):
   pointer-to-polar control primitives — point angle/slot mapping plus the
   PolarDetent snap-and-drag physics.
