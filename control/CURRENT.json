@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-06T23:09:25+08:00",
+  "updated": "2026-10-18T16:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -27,33 +27,34 @@
   ],
   "active_fronts": [
     {
-      "id": "conversion",
+      "id": "air-instrument",
       "state": "ACTIVE_NOW",
-      "center": "existing verified heads → actual use / share / world contact → observed delta → RETURN",
-      "objective": "Convert accumulated machinery into consequences outside the control plane. Prefer an existing head and the smallest delta that makes it more usable, shareable, embodied, or externally consequential. Current interface pivot: preserve one addressed object/focus across projections; expose only 1–3 reachable lawful operations, visible consequence, and exact RETURN. Treat route/page navigation as secondary. Reuse INTERPHASE and existing host authority; do not create a universal shell, store, queue, or new framework.",
-      "evidence": [
-        "/foundry/machine.json",
-        "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md",
-        "/showcase-manifest.json",
-        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
-      ]
+      "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
+      "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
     },
     {
-      "id": "recovery-ingest",
-      "state": "ACTIVE_MAINTENANCE",
-      "center": "/recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY",
-      "objective": "Maintain recoverability continuously, but reopen archaeology only when it removes a live blocker, prevents false lineage, or feeds an active conversion. Blocked local/human dependencies do not occupy NOW.",
-      "evidence": [
-        "/recovery/",
-        "/control/MIGRATION.json",
-        "/control/MEDIA_REFINERY.json",
-        "/scripts/media-refinery-run.py",
-        "/control/INGEST_FAMILY_REVIEW_2026-09-22.json",
-        "/control/HERMES_MEDIA_CURATOR.json",
-        "/scripts/media-curator-cycle.py",
-        "/skills/media-curator/SKILL.md",
-        "/scripts/media-curator-control.py"
-      ]
+      "id": "loadout-model",
+      "state": "ACTIVE_NOW",
+      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
+      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
+    },
+    {
+      "id": "house-os-fold",
+      "state": "ACTIVE_NOW",
+      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
+      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
+    },
+    {
+      "id": "project-fold",
+      "state": "ACTIVE_NOW",
+      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
+      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
+    },
+    {
+      "id": "catchup-nonverbal",
+      "state": "ACTIVE_NOW",
+      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
+      "evidence": "cron catchup-audio · /dayline/"
     }
   ],
   "current_heads": [
@@ -1200,8 +1201,8 @@
     }
   ],
   "next_single_action": {
-    "id": "conversion-first-with-stop",
-    "instruction": "Select the highest-leverage executable conversion on an existing head. Prefer another-human use, device/physical consequence, or exact recovery only when it unlocks those. If the highest-value frontier is human/world-gated, allow at most ONE bounded fallback that directly prepares that gate or reduces re-entry friction, then STOP with NO_LAWFUL_HIGH_VALUE_MOVE. Do not forage the archive for substitute work merely to remain busy."
+    "id": "witness-dayline",
+    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
