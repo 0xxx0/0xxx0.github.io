@@ -10101,6 +10101,25 @@
           "landed via PR 959 gates"
         ]
       }
+    },
+    {
+      "href": "/20261017-loadout/",
+      "title": "LOADOUT — what's wired where",
+      "kind": "index",
+      "parent": "/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "The equippable capability model (operator GDC loadout donor work applied to fleet skills) plus the live wiring map: model routes, delegation tier, digests, purge pen, backups, open locators.",
+      "index": {
+        "updated_at": "2026-10-18T16:25:23+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
