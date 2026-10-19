@@ -8,7 +8,7 @@
   :root{color-scheme:dark}
   body{max-width:40rem;margin:0 auto;padding:1.5rem 1.1rem 4rem;
        font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;
-       color:#d8d4c8;background:#07090a}
+       color:#d8d4c8;background:#080c12}
   h1{font-size:1.15rem;letter-spacing:.14em;margin:.4rem 0 .1rem}
   .q{color:#8e897a;font-size:.82rem;margin:0 0 1.2rem}
   a{color:#d8d4c8;text-decoration:none;border:1px solid #2a2f2c;border-radius:10px;
@@ -18,8 +18,16 @@
   i{display:block;font-style:normal;color:#8e897a;font-size:.78rem;margin-top:.2rem}
   footer{color:#59605b;font-size:.75rem;margin-top:2rem}
   a.plain{border:0;padding:0;background:none;color:#8e897a;text-decoration:underline}
+  /* AMBIENT IDENTITY WEAVE — lib/moire-ambient.js. Hairline gratings at the
+     operator's faint palette (pad rgb(8,12,18) · lines rgb(79,87,96) · alpha
+     <= .12 at rest), deterministic visual-hash identity seeded from THIS page's
+     route list. Quiet by default; hovering/focusing FIELD blooms it. */
+  #weave{position:fixed;inset:0;z-index:0;pointer-events:none}
+  body>*{position:relative;z-index:1}
+  @media (prefers-reduced-motion:reduce){#weave canvas{animation:none}}
 </style>
 
+<div id="weave" aria-hidden="true"></div>
 <h1>FIELD</h1>
 <p class="q">the field's own instruments · projection surfaces over the index</p>
 
@@ -29,3 +37,28 @@
 <a href="/fovea/"><b>◎ FOVEA</b><i>one lens, every surface</i></a>
 
 <footer>/field/ is an index of field instruments · the field itself is <a class="plain" href="/">here</a></footer>
+
+<script src="/lib/moire-ambient.js"></script>
+<script>
+// AMBIENT IDENTITY LAYER — deterministic visual-hash moiré (identity(seed)),
+// hairline strokes at the measured faint palette, alpha <= .12 at rest. The
+// seed is THIS page's route list, so the pattern is the hub's identity: same
+// routes -> same interference forever; add a route and the pattern itself
+// changes (tag rides the reveal legend). Explicit reveal only: hover or
+// keyboard-focus the FIELD title, or tap it on touch.
+(function(){
+  if(!window.MoireAmbient) return;
+  try{
+    var routes=[].map.call(document.querySelectorAll('a[href]'),function(a){return a.getAttribute('href');});
+    var seed='/field/|'+routes.join('|');
+    var layers=MoireAmbient.fromState({threads:routes.length,custom:MoireAmbient.identity(seed)});
+    var weave=MoireAmbient.mount(document.getElementById('weave'),layers,{});
+    var h1=document.querySelector('h1');
+    h1.addEventListener('pointerenter',function(){weave.reveal();});
+    h1.addEventListener('pointerleave',function(){weave.release();});
+    h1.addEventListener('pointerdown',function(){weave.reveal();});
+    document.documentElement.setAttribute('data-weave','mounted:'+MoireAmbient.identity(seed)[0].value);
+  }catch(e){document.documentElement.setAttribute('data-weave','error');}
+})();
+</script>
+

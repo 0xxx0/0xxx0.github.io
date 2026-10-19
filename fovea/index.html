@@ -117,13 +117,23 @@
   // title, focus FIND ROUTE, or HOLD a mark — all explicit acts) blooms the full
   // interference and names each layer. HOLD also adds the ask-class layer of the
   // held mark's lane. Degradation is a no-op, never a broken page.
+  //
+  // v0.2 — the operator's "skinny opacity moiré": the weave now ALSO carries the
+  // deterministic visual-hash identity of this page's content (identity(seed),
+  // seed = the DATA table itself) — same marks forever -> same interference
+  // pattern; the pattern IS the page's identity, tag rides the legend. Palette
+  // is his measured faint one: hairline strokes, pad rgb(8,12,18), lines
+  // rgb(79,87,96), alpha <= .12 at rest (DESIGN-INTENT P1/P2).
   var weave=null, wBase=null;
   try{
     var live=0, park=0, wait=0;
     DATA.forEach(function(d){if(d.k==='live')live++;else if(d.k==='park')park++;else if(d.k==='wait')wait++;});
     wBase={threads:live,parked:park,delta:wait-park};
     if(window.MoireAmbient&&document.getElementById('weave')){
-      weave=MoireAmbient.mount(document.getElementById('weave'),MoireAmbient.fromState(wBase),{});
+      var idSeed='/fovea/|'+DATA.map(function(d){return d.u||d.t;}).join('|');
+      var wLayers=MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,custom:MoireAmbient.identity(idSeed)});
+      weave=MoireAmbient.mount(document.getElementById('weave'),wLayers,{});
+      window.__weaveId=MoireAmbient.identity(idSeed)[0].value;
       var h1=document.querySelector('header h1');
       if(h1){h1.addEventListener('pointerenter',function(){weave.reveal();});
              h1.addEventListener('pointerleave',function(){weave.release();});}
@@ -166,7 +176,7 @@
   function showCard(p){
     card.style.display='block';
     if(weave){ // HOLD is explicit: the weave gains the held mark's lane as ask-class layer
-      weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,askClass:p.it.l}));
+      weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,askClass:p.it.l,custom:idSeed?MoireAmbient.identity(idSeed):undefined}));
       weave.reveal();
     }
     card.querySelector('.t').textContent=p.it.t;
@@ -184,7 +194,7 @@
   }
   function mapEv(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};}
   jump.addEventListener("change",function(){if(jump.value==="")return;var p=pts[Number(jump.value)];if(!p)return;held=p;LMx=p.x;LMy=p.y;showCard(p);draw(LMx,LMy);});
-  function release(){held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState(wBase));draw(LMx,LMy);}
+  function release(){held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,custom:idSeed?MoireAmbient.identity(idSeed):undefined}));draw(LMx,LMy);}
   cv.addEventListener('pointermove',function(e){var m=mapEv(e);LMx=m.x;LMy=m.y;draw(LMx,LMy);});
   cv.addEventListener('pointerleave',function(){LMx=null;LMy=null;draw(null,null);});
   cv.addEventListener('pointerdown',function(e){
