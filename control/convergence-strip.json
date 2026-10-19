@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-19T16:32:37.135Z",
+  "generated": "2026-10-19T21:42:32.978Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,14 +10,13 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-19",
   "commits_in_window": 7,
-  "git_commits_in_window": 76,
-  "telemetry_commits_in_window": 69,
-  "commits_total": 6148,
+  "git_commits_in_window": 90,
+  "telemetry_commits_in_window": 83,
+  "commits_total": 6162,
   "branch_count": 1029,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "epic10: ten instruments built overnight (oracle/room0/dawn/attention/tokipona/",
-    "fovea-lens: quiet by default — ring+centre at rest, measured figure is a revea"
+    "epic10: ten instruments built overnight (oracle/room0/dawn/attention/tokipona/"
   ],
   "active_fronts": [
     {
