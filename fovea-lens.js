@@ -178,9 +178,17 @@ function draw(){
   const d=descriptor();
   const col=target&&target.state?stateColor(target.state):'#72bce7';
   const c=60,rot=d.rotation-TAU/4;
+  const out=[];
+  /* QUIET BY DEFAULT (operator law, 2026-10-19): at rest the figure is ONE
+     ring and its centre — nothing else. The measured figure (24-radius
+     polygon, 12 chroma buckets, section ticks, live/total ring) is the
+     REVEAL: it draws only while the lens is actually reading a route
+     (target locked) or the summon radial is open. Every mark below is still
+     measured signal; only its RESTING VISIBILITY changed. */
+  const full=!!target||radialOpen;
+  if(full){
   const pts=d.radial.map((v,i)=>polar(c,c,R*v,rot+TAU*i/d.radial.length));
   const poly=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ')+' Z';
-  const out=[];
   let dly=0; const nextD=()=>{dly+=22;return dly};
   out.push('<path class="fovIn" style="animation-delay:'+nextD()+'ms" d="'+poly+'" fill="'+col+'" fill-opacity=".10" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".85"/>');
   d.chroma.forEach((v,i)=>{                       // 12 real state-count buckets
@@ -193,6 +201,8 @@ function draw(){
     out.push('<path class="fovIn" style="animation-delay:'+((i*14)+90)+'ms" d="M'+x1.toFixed(2)+' '+y1.toFixed(2)+' L'+x2.toFixed(2)+' '+y2.toFixed(2)+'" stroke="'+col+'" stroke-width=".7" stroke-opacity=".45"/>');
   }
   out.push('<circle cx="'+c+'" cy="'+c+'" r="'+(R*.12+.11*R*d.inner).toFixed(2)+'" fill="none" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".9"/>');
+  }
+  out.push('<circle cx="'+c+'" cy="'+c+'" r="'+(R*.96).toFixed(2)+'" fill="none" stroke="'+col+'" stroke-width="1" stroke-opacity="'+(full?'.18':'.32')+'"/>');
   out.push('<circle cx="'+c+'" cy="'+c+'" r="2" fill="'+col+'" fill-opacity=".9"/>');
   /* LEADER — a hairline from the lens edge to the point it reads. The lens is
      displaced off the pointer, so the figure must say which point it is about. */
@@ -431,6 +441,7 @@ function radialOpenAt(mx,my,mode){
   radialEl.querySelectorAll('.fovSlot').forEach(s=>s.classList.remove('on'));
   radialEl.classList.add('on');
   document.documentElement.classList.add('foveaSummoned');
+  if(ring)draw();            // the summon IS a reveal: bloom the full figure
   /* Scroll is blocked only while the summoning finger is still down. The
      post-lift TAP state drops this listener (see radialTapMode) so a page
      under an open radial still scrolls and taps natively. */
@@ -442,6 +453,7 @@ function radialClose(){
   radialOpen=false;radialMode=null;hotSlot=-1;
   radialEl?.classList.remove('on');
   document.documentElement.classList.remove('foveaSummoned');
+  if(ring)draw();            // return to the quiet ring the moment the menu goes
   window.removeEventListener('touchmove',radialTouchMove);
   window.removeEventListener('contextmenu',radialCtx,true);
 }
