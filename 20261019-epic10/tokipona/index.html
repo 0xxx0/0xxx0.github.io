@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOKI PONA FIELD</title>
+<!-- static only: system fonts, no build, no CDN, no fetch. phrase = f(state,depth,lane) via core.js -->
+<style>
+  :root {
+    --pad: rgb(8, 12, 18);
+    --ink: rgb(79, 87, 96);
+    /* every layer beyond base ink stays at alpha <= 0.12 at rest */
+    --a12: rgba(79, 87, 96, 0.12);
+    --a08: rgba(79, 87, 96, 0.08);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--pad); }
+  body {
+    color: var(--ink); font-family: var(--mono);
+    font-size: 13px; line-height: 1.5;
+    max-width: 390px; margin: 0 auto; padding: 20px 16px 56px;
+  }
+  @media (min-width: 780px) { body { max-width: 720px; } }
+
+  .ml {
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 10px; color: var(--ink);
+  }
+  .ml.dim { opacity: 0.55; }
+  header .ml + .ml { margin-top: 4px; }
+  hr { border: 0; border-top: 1px solid var(--a12); margin: 18px 0; }
+
+  section > .ml:first-child { margin-bottom: 8px; }
+
+  /* summary */
+  #sum-tp { font-size: 15px; margin: 0 0 4px; }
+  #sum-en { font-size: 11px; margin: 0; opacity: 0.8; }
+
+  /* dictionary — the instrument */
+  table { border-collapse: collapse; width: 100%; font-size: 11px; }
+  th, td {
+    text-align: left; padding: 5px 6px 5px 0;
+    border-bottom: 1px solid var(--a08); vertical-align: top;
+  }
+  th { text-transform: uppercase; letter-spacing: 0.12em; font-size: 9px; font-weight: 400; opacity: 0.55; }
+  td.w { font-size: 13px; }
+  td.lp { font-size: 10px; opacity: 0.7; }
+  tr[data-field] { cursor: default; outline: none; }
+  tr[data-field]:hover td, tr[data-field]:focus td { background: var(--a08); }
+  tr[data-field]:hover td.w, tr[data-field]:focus td.w { text-decoration: underline; }
+  #rule { font-size: 10px; margin: 8px 0 10px; opacity: 0.7; word-break: break-word;
+          text-transform: none; letter-spacing: 0.04em; }
+  #dict-hint { font-size: 9px; opacity: 0.5; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* objects */
+  .obj {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 8px 12px 6px; margin: 0 -8px;
+    border-top: 1px solid var(--a08); outline: none;
+  }
+  .obj:last-child { border-bottom: 1px solid var(--a08); }
+  .gi { flex: 0 0 auto; padding-top: 2px; }
+  .gi svg { display: block; }
+  .gi svg .st { stroke: var(--ink); fill: none; stroke-width: 1.25; }
+  .gi svg .st.f { fill: var(--ink); }
+  .bd { min-width: 0; flex: 1; }
+  .nm { text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; margin-bottom: 4px; }
+  .tp { font-size: 15px; line-height: 1.45; }
+  .tp .p { opacity: 0.5; }
+  .gl { font-size: 11px; margin-top: 3px; opacity: 0.75; }
+  .ch {
+    font-size: 10px; margin-top: 6px; line-height: 1.6;
+    opacity: 0; transition: opacity 160ms linear;
+  }
+  .ch .seg { white-space: nowrap; margin-right: 8px; }
+  .ch .seg .fw { text-decoration: underline; text-underline-offset: 2px; }
+  .ch .seg[data-field="state"] .fw { text-decoration-style: solid; }
+  .ch .seg[data-field="depth"] .fw { text-decoration-style: dotted; }
+  .ch .seg[data-field="lane"]  .fw { text-decoration-style: dashed; }
+  .ch .lpline { display: block; opacity: 0.8; margin-top: 2px; }
+
+  /* bloom — hover / focus / tap only */
+  .obj:hover, .obj:focus, .obj.bloom { background: var(--a08); }
+  .obj:hover .ch, .obj:focus .ch, .obj.bloom .ch { opacity: 1; }
+  .obj.hi { background: var(--a08); box-shadow: inset 2px 0 0 var(--a12); }
+  tr.hi td { background: var(--a08); }
+
+  footer .ml { margin-top: 10px; opacity: 0.5; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    /* depth still arrives, just instantly */
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ml">TOKI PONA FIELD</div>
+  <div class="ml dim">LANE TOKI PONA · EPIC10-2026-10-19 · 10 OBJECTS · NIMI PU ONLY</div>
+</header>
+
+<hr>
+
+<section id="summary">
+  <div class="ml">SUMMARY — ONE SENTENCE</div>
+  <p id="sum-tp"></p>
+  <p id="sum-en"></p>
+</section>
+
+<hr>
+
+<section id="dictionary">
+  <div class="ml">DICTIONARY — THE INSTRUMENT</div>
+  <div id="rule" class="ml"></div>
+  <table>
+    <thead><tr><th>field</th><th>value</th><th>word</th><th>gloss</th><th>(LP) gesture hint</th></tr></thead>
+    <tbody id="dict-body"></tbody>
+  </table>
+  <div id="dict-hint">hover a row: its objects light up · hover an object: its rows light up</div>
+</section>
+
+<hr>
+
+<section id="objects-sec">
+  <div class="ml">FIELD — 10 OBJECTS</div>
+  <div id="objects"></div>
+</section>
+
+<footer>
+  <div class="ml">PHRASE = F(STATE, DEPTH, LANE). NO RANDOM, NO TIME, NO NETWORK.</div>
+  <div class="ml">LP HINTS ARE ORIENTATION NOTES, NOT A DICTIONARY. TAP A CARD TO HOLD ITS BLOOM.</div>
+</footer>
+
+<script src="core.js"></script>
+<script>
+(function () {
+  'use strict';
+  var TP = window.TP;
+  var d = document;
+
+  function el(tag, cls, txt) {
+    var n = d.createElement(tag);
+    if (cls) n.className = cls;
+    if (txt != null) n.textContent = txt;
+    return n;
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  /* summary line */
+  var sum = TP.composeSummary(TP.OBJECTS);
+  d.getElementById('sum-tp').textContent = sum.tp;
+  d.getElementById('sum-en').textContent = sum.en;
+  d.getElementById('rule').textContent = 'RULE  ' + TP.RULE;
+
+  /* dictionary rows */
+  var body = d.getElementById('dict-body');
+  ['state', 'depth', 'lane'].forEach(function (field) {
+    TP.ORDER[field].forEach(function (v) {
+      var e = TP.DICT[field][v];
+      var tr = d.createElement('tr');
+      tr.dataset.field = field; tr.dataset.value = v; tr.tabIndex = 0;
+      [field, v].forEach(function (t) { tr.appendChild(el('td', null, t.toUpperCase())); });
+      tr.appendChild(el('td', 'w', e.tp));
+      tr.appendChild(el('td', null, e.tag));
+      tr.appendChild(el('td', 'lp', '(LP) ' + e.lp));
+      body.appendChild(tr);
+    });
+  });
+
+  /* glyph: size <- depth, geometry <- lane, terminus marker <- state */
+  function glyphSVG(g) {
+    var svg = '<svg width="' + g.size + '" height="' + g.size + '" viewBox="0 0 24 24" aria-hidden="true">';
+    var dash = g.dash ? ' stroke-dasharray="' + g.dash + '"' : '';
+    if (g.kind === 'circle') {
+      svg += '<circle class="st" cx="' + g.cx + '" cy="' + g.cy + '" r="' + g.r + '"' + dash + '/>';
+    } else {
+      svg += '<line class="st" x1="' + g.x1 + '" y1="' + g.y1 + '" x2="' + g.x2 + '" y2="' + g.y2 + '"' + dash + '/>';
+    }
+    if (g.marker === 'dot')    svg += '<circle class="st f" cx="' + g.mx + '" cy="' + g.my + '" r="2.6"/>';
+    if (g.marker === 'ring')   svg += '<circle class="st" cx="' + g.mx + '" cy="' + g.my + '" r="2.6"/>';
+    if (g.marker === 'cross')  svg += '<path class="st" d="M' + (g.mx - 2.6) + ' ' + (g.my - 2.6) + 'L' + (g.mx + 2.6) + ' ' + (g.my + 2.6) + 'M' + (g.mx + 2.6) + ' ' + (g.my - 2.6) + 'L' + (g.mx - 2.6) + ' ' + (g.my + 2.6) + '"/>';
+    if (g.marker === 'square') svg += '<rect class="st" x="' + (g.mx - 2.4) + '" y="' + (g.my - 2.4) + '" width="4.8" height="4.8"/>';
+    return svg + '</svg>';
+  }
+
+  /* phrase with per-word provenance spans; punctuation hugs its word */
+  function phraseHTML(o) {
+    var out = '', space = false;
+    TP.tokens(o).forEach(function (x) {
+      if (x.t === '.') { out += '.'; space = true; return; }
+      if (space) out += ' ';
+      space = true;
+      out += x.from
+        ? '<span class="w f-' + x.from + '">' + x.t + '</span>'
+        : '<span class="w p">' + x.t + '</span>';
+    });
+    return out;
+  }
+
+  /* objects */
+  var wrap = d.getElementById('objects');
+  TP.OBJECTS.forEach(function (o, i) {
+    var a = el('article', 'obj');
+    a.tabIndex = 0;
+    a.dataset.state = o.state; a.dataset.depth = o.depth; a.dataset.lane = o.lane;
+    a.dataset.id = o.id;
+
+    var gi = el('div', 'gi');
+    gi.innerHTML = glyphSVG(TP.glyph(o));
+
+    var bd = el('div', 'bd');
+    var nm = el('div', 'nm', pad2(i + 1) + ' ' + o.name.toUpperCase());
+    var tp = el('div', 'tp'); tp.innerHTML = phraseHTML(o);
+    var gl = el('div', 'gl', TP.gloss(o));
+
+    var ch = el('div', 'ch');
+    TP.chain(o).forEach(function (c) {
+      var seg = el('span', 'seg');
+      seg.dataset.field = c.field;
+      seg.innerHTML = c.field + ':' + c.value + '→<span class="fw">' + c.word + '</span>';
+      ch.appendChild(seg);
+      ch.appendChild(d.createTextNode(' '));
+    });
+    ch.appendChild(el('span', 'lpline', '(LP) ' + TP.DICT.state[o.state].lp));
+
+    bd.appendChild(nm); bd.appendChild(tp); bd.appendChild(gl); bd.appendChild(ch);
+    a.appendChild(gi); a.appendChild(bd);
+    wrap.appendChild(a);
+  });
+
+  /* cross-highlight: object <-> dictionary rows. tap holds the bloom (touch). */
+  function markMatches(card, on) {
+    ['state', 'depth', 'lane'].forEach(function (f) {
+      var row = body.querySelector('tr[data-field="' + f + '"][data-value="' + card.dataset[f] + '"]');
+      if (row) row.classList.toggle('hi', on);
+    });
+  }
+  function markCard(row, on) {
+    var sel = '.obj[data-' + row.dataset.field + '="' + row.dataset.value + '"]';
+    Array.prototype.forEach.call(d.querySelectorAll(sel), function (c) { c.classList.toggle('hi', on); });
+  }
+  Array.prototype.forEach.call(d.querySelectorAll('.obj'), function (c) {
+    c.addEventListener('focus', function () { markMatches(c, true); });
+    c.addEventListener('blur', function () { markMatches(c, false); });
+    c.addEventListener('mouseenter', function () { markMatches(c, true); });
+    c.addEventListener('mouseleave', function () { if (!c.classList.contains('bloom')) markMatches(c, false); });
+    c.addEventListener('click', function () {
+      var held = c.classList.toggle('bloom');
+      if (held) markMatches(c, true);
+      else if (!c.matches(':hover')) markMatches(c, false);
+    });
+    c.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); c.click(); }
+    });
+  });
+  Array.prototype.forEach.call(body.querySelectorAll('tr[data-field]'), function (r) {
+    r.addEventListener('focus', function () { markCard(r, true); });
+    r.addEventListener('blur', function () { markCard(r, false); });
+    r.addEventListener('mouseenter', function () { markCard(r, true); });
+    r.addEventListener('mouseleave', function () { markCard(r, false); });
+  });
+})();
+</script>
+</body>
+</html>

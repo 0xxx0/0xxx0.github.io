@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAWN · WAKE BRIEF</title>
+<style>
+/* DAWN CHORUS — quiet by default, depth behind explicit reveal.
+   pad rgb(8,12,18) · ink rgb(79,87,96) · per-layer alpha <= 0.12 at rest.
+   Every resting layer encodes a real datum:
+     delta block        -> changed - stalled, total, bucket counts
+     tick strip         -> one tick per event, height = bucket (6/11/16px)
+     section rules      -> width = that bucket's share of all events
+     gutter bars        -> width = stalled_hours (0 = nothing waiting)
+     spoken meter       -> width = word count, marks = 100 / 150 target band
+     row order          -> chronological
+   Bloom (alpha + per-line metadata) only behind hover / focus / tap;
+   prefers-reduced-motion keeps the depth with zero motion. */
+:root{
+  --pad:rgb(8,12,18);
+  --ink:rgb(79,87,96);
+  --bloom:rgb(150,158,167);
+  --rest:rgba(79,87,96,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--pad);
+  color:var(--ink);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  font-size:12.5px;
+  line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+.sheet{max-width:390px;margin:0 auto;padding:20px 16px 40px}
+.micro{font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+
+.hdr{margin-bottom:20px}
+.hdr-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 10px}
+.hdr-span{margin-top:5px}
+.tight{letter-spacing:.05em}
+
+.delta{margin-bottom:24px}
+.delta-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.delta-big{font-size:30px;line-height:1;letter-spacing:.02em}
+.delta-counts{margin-top:6px}
+.strip{display:flex;align-items:flex-end;gap:3px;height:16px;margin:14px 0 6px}
+.tick{flex:1 1 0;background:var(--rest);cursor:crosshair;transition:background-color .18s ease}
+.tick.is-bloom{background:rgba(150,158,167,.55)}
+.strip-cap{margin-top:2px}
+
+.grp{margin-bottom:22px}
+.grp-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.grp-lbl{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+.grp-rule{height:1px;background:var(--rest);margin:7px 0 3px;transition:background-color .18s ease}
+.grp:hover .grp-rule{background:rgba(150,158,167,.4)}
+.rows{list-style:none;margin:0;padding:0}
+.row{position:relative;padding:7px 0 7px 24px;outline:none;transition:background-color .18s ease}
+.gut{position:absolute;left:0;top:10px;bottom:10px;background:var(--rest);transition:background-color .18s ease}
+.rline{display:block}
+.rmeta{
+  display:block;opacity:0;max-height:0;overflow:hidden;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bloom);
+  transition:opacity .18s ease,max-height .18s ease;
+}
+.row:hover,.row:focus,.row.is-open,.row.is-bloom{background:rgba(150,158,167,.1)}
+.row:hover .rline,.row:focus .rline,.row.is-open .rline,.row.is-bloom .rline{color:var(--bloom)}
+.row:hover .rmeta,.row:focus .rmeta,.row.is-open .rmeta,.row.is-bloom .rmeta{opacity:1;max-height:3.4em}
+.row:hover .gut,.row:focus .gut,.row.is-open .gut,.row.is-bloom .gut{background:rgba(150,158,167,.5)}
+.row:focus-visible{outline:1px solid rgba(150,158,167,.45);outline-offset:2px}
+
+.spoken{margin-top:26px}
+.spk-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meter{position:relative;height:6px;margin:9px 0 6px}
+.mfill{position:absolute;left:0;top:0;bottom:0;background:var(--rest);transition:background-color .18s ease}
+.mmark{position:absolute;top:-2px;bottom:-2px;width:1px;background:var(--rest);transition:background-color .18s ease}
+.spoken:hover .mfill,.spoken:hover .mmark{background:rgba(150,158,167,.5)}
+.spk-cap{margin-bottom:6px}
+.spk-text{margin:8px 0 0;font-size:13.5px;line-height:1.8}
+
+.foot{margin-top:30px}
+#selftest,#boot-error{font-size:11px;white-space:pre-wrap;margin-top:24px;color:var(--bloom)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="hdr">
+    <div class="hdr-top">
+      <span class="micro">DAWN CHORUS · WAKE BRIEF</span>
+      <span class="micro" id="vNow">—</span>
+    </div>
+    <div class="micro hdr-span">OVERNIGHT <span class="tight" id="vSpan">—</span></div>
+  </header>
+
+  <section class="delta" aria-label="headline delta count line">
+    <div class="delta-top">
+      <span class="delta-big" id="vDelta">Δ 0</span>
+      <span class="micro" id="vTotal">—</span>
+    </div>
+    <div class="micro delta-counts" id="vCounts">—</div>
+    <div class="strip" id="vStrip" aria-hidden="true"></div>
+    <div class="micro strip-cap" id="vStripCap">—</div>
+  </section>
+
+  <div id="vBrief"></div>
+
+  <section class="spoken" aria-label="spoken brief for text to speech">
+    <div class="spk-top">
+      <span class="micro">SPOKEN BRIEF · TTS</span>
+      <span class="micro" id="vWords">—</span>
+    </div>
+    <div class="meter">
+      <i class="mfill" id="vMfill"></i>
+      <i class="mmark" style="left:66.66%"></i>
+      <i class="mmark" style="left:calc(100% - 1px)"></i>
+    </div>
+    <div class="micro spk-cap" id="vSpkCap">TARGET 100–150 WORDS · MARKS = 100 / 150</div>
+    <p class="spk-text" id="vSpoken">—</p>
+  </section>
+
+  <footer class="micro foot">HOVER · FOCUS · TAP A LINE FOR DETAIL · LOCAL FILE · NO NETWORK</footer>
+</main>
+
+<script id="sample-events" type="application/json">
+[
+ {"id":"e01","ts":"2026-10-18T18:40:00+08:00","lane":"render","verb":"queue","object":"batch 44 still queued","status":"stalled","needs_human":false,"stalled_hours":11,"extra":"0 workers · since 18:40","say":"a batch of pictures has been queued for eleven hours"},
+ {"id":"e02","ts":"2026-10-18T20:10:00+08:00","lane":"site","verb":"check","object":"lattice link audit","status":"failed","needs_human":false,"stalled_hours":7,"extra":"3 dead links · failing since 20:10","say":"a links check has been failing for seven hours"},
+ {"id":"e03","ts":"2026-10-18T22:14:00+08:00","lane":"axis","verb":"commit","object":"b94df3ef refine dawn bucket classifier","status":"ok","needs_human":false,"stalled_hours":0,"extra":"sha b94df3ef · +214 −61 · 12 checks passed","say":"the dawn classifier was tightened"},
+ {"id":"e04","ts":"2026-10-18T22:47:00+08:00","lane":"site","verb":"commit","object":"7c1a02dd static render pass for wake brief","status":"ok","needs_human":false,"stalled_hours":0,"extra":"sha 7c1a02dd · +96 −12 · 9 checks passed","say":"the wake brief now renders as a plain static page"},
+ {"id":"e05","ts":"2026-10-18T23:05:00+08:00","lane":"site","verb":"ship","object":"0xxx0.github.io/fovea/","status":"ok","needs_human":false,"stalled_hours":0,"extra":"deployed in 41s · live","say":"the fovea page went live"},
+ {"id":"e06","ts":"2026-10-18T23:30:00+08:00","lane":"cron","verb":"run","object":"nightly corpus distill","status":"ok","needs_human":false,"stalled_hours":0,"extra":"exit 0 · 3m12s","say":"the nightly indexing job finished clean"},
+ {"id":"e07","ts":"2026-10-18T23:58:00+08:00","lane":"watch","verb":"run","object":"feed sweep 12 sources","status":"ok","needs_human":false,"stalled_hours":0,"extra":"exit 0 · 4 new items","say":"the feed sweep found four new items"},
+ {"id":"e08","ts":"2026-10-19T00:20:00+08:00","lane":"axis","verb":"commit","object":"e5f77aa1 brief meter marks target band","status":"ok","needs_human":false,"stalled_hours":0,"extra":"sha e5f77aa1 · +54 −8 · 9 checks passed","say":"the word meter marks its target band"},
+ {"id":"e09","ts":"2026-10-19T01:05:00+08:00","lane":"corpus","verb":"commit","object":"a10c44b2 dedupe pasted source merges","status":"ok","needs_human":false,"stalled_hours":0,"extra":"sha a10c44b2 · +133 −77 · 14 checks passed","say":"duplicate notes were merged"},
+ {"id":"e10","ts":"2026-10-19T02:11:00+08:00","lane":"site","verb":"ship","object":"0xxx0.github.io/lattice/","status":"ok","needs_human":false,"stalled_hours":0,"extra":"deployed in 38s · live","say":"the lattice page went live"},
+ {"id":"e11","ts":"2026-10-19T03:00:00+08:00","lane":"cron","verb":"run","object":"digest-pack 03:00","status":"stalled","needs_human":false,"stalled_hours":9,"extra":"last success 10-18 18:00","say":"the nightly digest has not run in nine hours"},
+ {"id":"e12","ts":"2026-10-19T03:44:00+08:00","lane":"check","verb":"check","object":"fovea deploy gate","status":"failed","needs_human":true,"stalled_hours":2,"extra":"exit 1 · 2 of 14 checks failed","say":"the fovea page failed a check"},
+ {"id":"e13","ts":"2026-10-19T04:02:00+08:00","lane":"inbox","verb":"msg","object":"sticker sheet approval","status":"waiting","needs_human":true,"stalled_hours":5,"extra":"from kagemusha · direct message","say":"approval for the sticker sheet"},
+ {"id":"e14","ts":"2026-10-19T04:19:00+08:00","lane":"render","verb":"msg","object":"batch size question","status":"waiting","needs_human":true,"stalled_hours":3,"extra":"reply pending · overnight crew","say":"an unanswered question from the overnight crew"},
+ {"id":"e15","ts":"2026-10-19T04:30:00+08:00","lane":"cron","verb":"run","object":"fleet heartbeat","status":"ok","needs_human":false,"stalled_hours":0,"extra":"exit 0 · 2s · 9 devices","say":"every device in the fleet checked in"},
+ {"id":"e16","ts":"2026-10-19T04:52:00+08:00","lane":"dawn","verb":"commit","object":"3fd9c81a quiet rest state for lane rows","status":"ok","needs_human":false,"stalled_hours":0,"extra":"sha 3fd9c81a · +41 −6 · 9 checks passed","say":"the resting view got quieter"}
+]
+</script>
+<script src="./dawn.core.js"></script>
+<script>
+(function () {
+  window.onerror = function (msg) { document.title = 'ERR ' + msg; };
+  try {
+    boot();
+  } catch (e) {
+    document.title = 'ERR boot';
+    var pre = document.createElement('pre');
+    pre.id = 'boot-error';
+    pre.textContent = String((e && e.stack) || e);
+    document.body.appendChild(pre);
+  }
+
+  function boot() {
+    var core = window.DawnCore;
+    if (!core) throw new Error('dawn.core.js did not load');
+    var events = JSON.parse(document.getElementById('sample-events').textContent);
+    var brief = core.buildBrief(events);
+
+    document.getElementById('vNow').textContent = brief.span.short;
+    document.getElementById('vSpan').textContent = brief.span.text;
+    document.getElementById('vDelta').textContent = 'Δ ' + brief.deltaText;
+    document.getElementById('vTotal').textContent = brief.counts.total + ' EVENTS';
+    document.getElementById('vCounts').textContent =
+      brief.counts.changed + ' CHANGED · ' +
+      brief.counts.needs + ' NEED YOU · ' +
+      brief.counts.stalled + ' STALLED';
+
+    var strip = document.getElementById('vStrip');
+    var HEIGHT = { changed: 6, needs: 11, stalled: 16 };
+    brief.rows.forEach(function (r) {
+      var tick = document.createElement('i');
+      tick.className = 'tick';
+      tick.style.height = HEIGHT[r.bucket] + 'px';
+      tick.title = r.stamp + ' ' + r.lane + ' ' + r.verb;
+      strip.appendChild(tick);
+    });
+    document.getElementById('vStripCap').textContent =
+      brief.counts.total + ' TICKS IN ORDER · HEIGHT = BUCKET · HOVER A TICK TO LOCATE THE LINE';
+
+    var host = document.getElementById('vBrief');
+    var rowEls = new Array(brief.rows.length);
+    var tickEls = strip.querySelectorAll('.tick');
+
+    core.BUCKETS.forEach(function (b) {
+      var bucketRows = brief.buckets[b];
+      var sec = document.createElement('section');
+      sec.className = 'grp';
+
+      var top = document.createElement('div');
+      top.className = 'grp-top';
+      var lbl = document.createElement('span');
+      lbl.className = 'grp-lbl';
+      lbl.textContent = brief.labels[b];
+      var num = document.createElement('span');
+      num.className = 'micro';
+      num.textContent = bucketRows.length + ' / ' + brief.counts.total;
+      top.appendChild(lbl);
+      top.appendChild(num);
+
+      var rule = document.createElement('div');
+      rule.className = 'grp-rule';
+      rule.style.width = (brief.counts.total
+        ? (bucketRows.length / brief.counts.total * 100)
+        : 0) + '%';
+
+      var ol = document.createElement('ol');
+      ol.className = 'rows';
+      bucketRows.forEach(function (r) { ol.appendChild(makeRow(r)); });
+
+      sec.appendChild(top);
+      sec.appendChild(rule);
+      sec.appendChild(ol);
+      host.appendChild(sec);
+    });
+
+    function makeRow(r) {
+      var li = document.createElement('li');
+      li.className = 'row';
+      li.tabIndex = 0;
+      li.setAttribute('data-idx', String(r.index));
+      li.setAttribute('data-bucket', r.bucket);
+      var gut = document.createElement('span');
+      gut.className = 'gut';
+      gut.style.width = r.gut + 'px';
+      if (r.stalledHours > 0) gut.title = r.stalledHours + 'h waiting';
+      var line = document.createElement('span');
+      line.className = 'rline';
+      line.textContent = r.line;
+      var meta = document.createElement('span');
+      meta.className = 'rmeta';
+      meta.textContent = r.meta;
+      li.appendChild(gut);
+      li.appendChild(line);
+      li.appendChild(meta);
+      rowEls[r.index] = li;
+      return li;
+    }
+
+    function setBloom(idx, on) {
+      var row = rowEls[idx];
+      var tick = tickEls[idx];
+      if (row) row.classList.toggle('is-bloom', on);
+      if (tick) tick.classList.toggle('is-bloom', on);
+    }
+
+    rowEls.forEach(function (li, idx) {
+      li.addEventListener('mouseenter', function () { setBloom(idx, true); });
+      li.addEventListener('mouseleave', function () { setBloom(idx, false); });
+      li.addEventListener('focus', function () { setBloom(idx, true); });
+      li.addEventListener('blur', function () { setBloom(idx, false); });
+      li.addEventListener('click', function () {
+        var wasOpen = li.classList.contains('is-open');
+        rowEls.forEach(function (other) { other.classList.remove('is-open'); });
+        if (wasOpen) { setBloom(idx, false); }
+        else { li.classList.add('is-open'); setBloom(idx, true); }
+      });
+    });
+    Array.prototype.forEach.call(tickEls, function (tick, idx) {
+      tick.addEventListener('mouseenter', function () { setBloom(idx, true); });
+      tick.addEventListener('mouseleave', function () { setBloom(idx, false); });
+    });
+
+    document.getElementById('vWords').textContent =
+      brief.words + 'W / ' + core.MIN_WORDS + '–' + core.MAX_WORDS;
+    document.getElementById('vMfill').style.width =
+      Math.min(100, brief.words / core.MAX_WORDS * 100) + '%';
+    document.getElementById('vSpoken').textContent = brief.spoken;
+
+    document.documentElement.setAttribute('data-render', 'ok');
+
+    if (/[?&]selftest=1(&|$)/.test(window.location.search)) {
+      pageSelftest(events, brief, core, rowEls, tickEls);
+    }
+  }
+
+  /* ?selftest=1 — synchronous in-page verdict (DOM state, not source). */
+  function pageSelftest(events, brief, core, rowEls, tickEls) {
+    var out = [];
+    var pass = 0;
+    var total = 0;
+    function t(name, cond) {
+      total += 1;
+      if (cond) { pass += 1; out.push('PASS ' + name); }
+      else { out.push('FAIL ' + name); }
+    }
+    t('rows rendered = events (' + events.length + ')', rowEls.length === events.length);
+    t('ticks rendered = events (' + events.length + ')', tickEls.length === events.length);
+    var one = true;
+    for (var i = 0; i < events.length; i += 1) {
+      if (!rowEls[i] || rowEls[i].getAttribute('data-bucket') !== core.bucketOf(events[i])) {
+        one = false;
+      }
+    }
+    t('each row in exactly one bucket, matches rule', one);
+    var w = brief.spoken.trim().split(/\s+/).length;
+    t('spoken script ' + w + ' words (' + core.MIN_WORDS + '-' + core.MAX_WORDS + ')',
+      w >= core.MIN_WORDS && w <= core.MAX_WORDS);
+    t('delta = changed - stalled', brief.delta === brief.counts.changed - brief.counts.stalled);
+    var verdict = pass === total ? 'PASS' : 'FAIL';
+    var pre = document.createElement('pre');
+    pre.id = 'selftest';
+    pre.textContent = out.join('\n') + '\nSELFTEST ' + verdict + ' ' + pass + '/' + total;
+    document.body.appendChild(pre);
+    document.title = 'SELFTEST ' + verdict + ' ' + pass + '/' + total;
+  }
+})();
+</script>
+</body>
+</html>

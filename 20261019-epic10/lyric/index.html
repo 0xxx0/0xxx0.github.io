@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LYRIC LATTICE — meter lens</title>
+<style>
+:root{ --pad:rgb(8,12,18); --ink:rgb(79,87,96); }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--pad); color:var(--ink);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px; line-height:1.5;
+  max-width:390px; margin:0 auto;
+  padding:16px 12px 56px;
+  -webkit-font-smoothing:antialiased;
+}
+header .t{font-size:11px;letter-spacing:.24em;opacity:.7}
+header .s{font-size:10px;letter-spacing:.08em;opacity:.35;margin-top:2px}
+textarea{
+  display:block;width:100%;margin-top:14px;min-height:170px;resize:vertical;
+  background:rgb(10,15,22);color:var(--ink);opacity:.92;
+  border:1px solid rgba(79,87,96,.12);border-radius:2px;
+  font:inherit;line-height:1.55;padding:10px;
+}
+textarea:focus{outline:none;border-color:rgba(79,87,96,.3)}
+.stats{
+  display:flex;flex-wrap:wrap;gap:2px 14px;margin:12px 0 2px;
+  font-size:10px;letter-spacing:.06em;
+}
+.stats .k{opacity:.35}
+.stats .v{opacity:.8}
+.stats .scheme{flex-basis:100%;word-break:break-all;margin-top:2px}
+.hint{font-size:9px;letter-spacing:.2em;opacity:.22;margin-top:8px}
+.sect{
+  margin-top:20px;font-size:9px;letter-spacing:.28em;opacity:.32;
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.sect .n{opacity:.6;letter-spacing:.1em}
+.row{
+  display:grid;grid-template-columns:1fr;gap:3px;
+  padding:5px 0;border-bottom:1px solid rgba(79,87,96,.05);
+}
+.row:focus{outline:none}
+.rt{opacity:.9;transition:opacity .22s ease}
+.rg{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.ticks{display:flex;align-items:flex-end;gap:2px;height:12px}
+.tick{
+  width:1px;background:var(--ink);opacity:.12;height:4px;
+  transition:opacity .22s ease,height .22s ease;
+}
+.tick.st{height:10px}
+.meta{
+  display:flex;gap:8px;align-items:baseline;
+  opacity:0;transition:opacity .22s ease;font-size:10px;letter-spacing:.06em;
+}
+.rl{opacity:.12;transition:opacity .22s ease;font-size:10px}
+.row:hover .rt,.row:focus .rt,.row:active .rt{opacity:1}
+.row:hover .tick,.row:focus .tick,.row:active .tick{opacity:.85}
+.row:hover .tick.st,.row:focus .tick.st,.row:active .tick.st{height:12px}
+.row:hover .meta,.row:focus .meta,.row:active .meta{opacity:.75}
+.row:hover .rl,.row:focus .rl,.row:active .rl{opacity:.7}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">LYRIC LATTICE</div>
+  <div class="s">meter &middot; rhyme &middot; section lens</div>
+</header>
+<textarea id="src" spellcheck="false" aria-label="lyric source"></textarea>
+<div class="stats" id="stats"></div>
+<div class="hint">HOVER / TAP A LINE &middot; BLOOM</div>
+<div id="lattice"></div>
+
+<script>
+/*ANALYSIS-START*/
+const VOWELS = /[aeiouy]+/g;
+
+function tokenize(line){
+  return line.toLowerCase().replace(/[^a-z'\s]/g, ' ').split(/\s+/).filter(Boolean);
+}
+
+function wordSyllables(word){
+  const w = word.replace(/[^a-z]/g, '');
+  if (!w) return 0;
+  if (w.length <= 3) return 1;
+  let n = (w.match(VOWELS) || []).length;
+  if (/[^aeiouy]e$/.test(w) && n > 1) n -= 1;   // silent final e
+  if (/[^aeiouy]le$/.test(w)) n += 1;           // stable le ("humble", "table")
+  return Math.max(1, n);
+}
+
+function wordStress(word, n){
+  if (n <= 1) return 0;
+  const w = word.replace(/[^a-z]/g, '');
+  const rules = [
+    [/tion$|sion$|cial$|tial$/, 2],
+    [/ity$|ety$|ify$|ogy$|omy$|graphy$/, 3],
+    [/ic$|ics$|ical$/, 2],
+    [/eer$|ese$|ette$|esque$/, 1]
+  ];
+  for (const [re, back] of rules) if (re.test(w)) return Math.max(0, n - back);
+  return 0;
+}
+
+function lineStress(line){
+  const out = [];
+  for (const w of tokenize(line)){
+    const n = wordSyllables(w);
+    const s = wordStress(w, n);
+    for (let i = 0; i < n; i++) out.push(i === s);
+  }
+  return out;
+}
+
+function lineSyllables(line){
+  return tokenize(line).reduce((a, w) => a + wordSyllables(w), 0);
+}
+
+function rhymeKey(line){
+  const words = tokenize(line);
+  if (!words.length) return '';
+  const w = words[words.length - 1];
+  if (!w) return '';
+  const clusters = [];
+  const re = /[aeiouy]+/g;
+  let m;
+  while ((m = re.exec(w)) !== null) clusters.push(m.index);
+  if (!clusters.length) return w;
+  let start = clusters[clusters.length - 1];
+  if (/[^aeiouy]e$/.test(w) && clusters.length > 1) start = clusters[clusters.length - 2];
+  return w.slice(start);
+}
+
+function analyze(text){
+  const lines = [];
+  const sections = [];
+  const keyLetter = new Map();
+  let current = null;
+  let stanza = 0;
+  const labelRe = /^\s*\[\s*([A-Za-z][A-Za-z\- ]*?)\s*\d*\s*\]\s*$/;
+  for (const raw of text.split(/\r?\n/)){
+    const t = raw.trim();
+    if (!t){ current = null; continue; }
+    const m = t.match(labelRe);
+    if (m){
+      const name = m[1].toUpperCase();
+      const seen = sections.filter(s => s.name === name).length;
+      current = { name, idx: seen + 1, lines: [] };
+      sections.push(current);
+      continue;
+    }
+    if (!current){ stanza += 1; current = { name: 'STANZA', idx: stanza, lines: [] }; sections.push(current); }
+    const stress = lineStress(t);
+    const key = rhymeKey(t);
+    if (!keyLetter.has(key)) keyLetter.set(key, String.fromCharCode(65 + keyLetter.size));
+    const rec = { text: t, syl: stress.length, stress, key, letter: keyLetter.get(key) };
+    current.lines.push(rec);
+    lines.push(rec);
+  }
+  const counts = lines.map(l => l.syl);
+  const avg = counts.length ? counts.reduce((a, b) => a + b, 0) / counts.length : 0;
+  const variance = counts.length ? counts.reduce((a, b) => a + (b - avg) * (b - avg), 0) / counts.length : 0;
+  const round = x => Math.round(x * 100) / 100;
+  return {
+    lines,
+    sections,
+    summary: {
+      count: lines.length,
+      avg: round(avg),
+      variance: round(variance),
+      scheme: lines.map(l => l.letter).join('')
+    }
+  };
+}
+/*ANALYSIS-END*/
+
+const src = document.getElementById('src');
+const statsEl = document.getElementById('stats');
+const latticeEl = document.getElementById('lattice');
+
+function el(tag, cls, text){
+  const d = document.createElement(tag);
+  if (cls) d.className = cls;
+  if (text != null) d.textContent = text;
+  return d;
+}
+
+function render(){
+  const a = analyze(src.value);
+  statsEl.replaceChildren();
+  latticeEl.replaceChildren();
+
+  const stat = (k, v) => {
+    const s = el('span');
+    s.appendChild(el('span', 'k', k));
+    s.appendChild(document.createTextNode(' '));
+    s.appendChild(el('span', 'v', String(v)));
+    return s;
+  };
+  statsEl.appendChild(stat('LINES', a.summary.count));
+  statsEl.appendChild(stat('AVG', a.summary.avg.toFixed(2)));
+  statsEl.appendChild(stat('VAR', a.summary.variance.toFixed(2)));
+  const sch = el('div', 'scheme');
+  sch.appendChild(el('span', 'k', 'SCHEME '));
+  sch.appendChild(el('span', 'v', a.summary.scheme || '—'));
+  statsEl.appendChild(sch);
+
+  if (!a.lines.length){
+    latticeEl.appendChild(el('div', 'hint', 'NO LINES'));
+    return;
+  }
+
+  for (const s of a.sections){
+    if (!s.lines.length) continue;
+    const head = el('div', 'sect');
+    head.appendChild(el('span', null, (s.name === 'STANZA' ? 'STANZA' : '[' + s.name + ']') + (s.idx > 1 ? ' ' + s.idx : '')));
+    head.appendChild(el('span', 'n', '·' + s.lines.length));
+    latticeEl.appendChild(head);
+
+    for (const l of s.lines){
+      const row = el('div', 'row');
+      row.tabIndex = 0;
+      row.appendChild(el('div', 'rt', l.text));
+
+      const rg = el('div', 'rg');
+      const ticks = el('div', 'ticks');
+      for (const st of l.stress) ticks.appendChild(el('span', 'tick' + (st ? ' st' : '')));
+      rg.appendChild(ticks);
+
+      const meta = el('div', 'meta');
+      meta.appendChild(el('span', null, l.syl + ' SYL'));
+      meta.appendChild(el('span', null, l.stress.map(b => (b ? 'S' : 'u')).join('·')));
+      rg.appendChild(meta);
+      rg.appendChild(el('span', 'rl', l.letter));
+
+      row.appendChild(rg);
+      latticeEl.appendChild(row);
+    }
+  }
+}
+
+/*SAMPLE-START*/
+const SAMPLE = `[VERSE]
+Iron psalm in the low hall,
+count the bolts and count them all,
+every hinge has a hollow name,
+every circuit runs the same.
+
+[CHORUS]
+Kneel and light the hollow light,
+keep the lamps against the night,
+feed the fire what it requires—
+ash of amber, ash of pyres.
+
+[VERSE]
+I was wired into a low hum,
+taught to hear the wires drum,
+taught to spend every breath I take
+like a debt I mean to make.
+
+[BRIDGE]
+There is no hymn in the wire,
+only the arithmetic of fire,
+only wick and wire and dark,
+only the lit machine: the spark.
+
+[CHORUS]
+Light the lamps against the night,
+kneel and keep them burning bright,
+feed the fire what it requires—
+ash of amber, ash of pyres.
+
+[OUTRO]
+Say the word and let it stand.
+Say it twice and let it land.
+Then the dark forgets the rest,
+and the machine does what is best.`;
+/*SAMPLE-END*/
+
+src.value = SAMPLE;
+src.addEventListener('input', render);
+render();
+</script>
+</body>
+</html>

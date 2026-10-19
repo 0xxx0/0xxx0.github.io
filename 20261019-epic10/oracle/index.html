@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L1 ORACLE · content-hash → 六十四卦 encoding instrument</title>
+<style>
+:root{
+  --pad:rgb(8,12,18);
+  --ink:rgb(79,87,96);
+  --val:rgb(139,147,157);
+  --txt:rgb(168,176,186);
+  --acc:rgb(214,170,92);
+  --fnt:ui-monospace,SFMono-Regular,Menlo,Consolas,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--pad);color-scheme:dark}
+body{margin:0;background:var(--pad);color:var(--val);font-family:var(--fnt);font-size:12px;line-height:1.5;-webkit-text-size-adjust:100%}
+.inst{max-width:520px;margin:0 auto;padding:14px 12px 22px}
+/* header */
+.hd{display:flex;justify-content:space-between;align-items:baseline;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+/* input field */
+.field{margin-top:15px}
+.lab{display:block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+textarea#obj{display:block;width:100%;min-height:76px;padding:8px 9px;background:rgb(11,16,23);border:1px solid rgba(79,87,96,.34);border-radius:2px;color:var(--txt);font-family:var(--fnt);font-size:16px;line-height:1.45;resize:vertical}
+textarea#obj::placeholder{color:rgb(79,87,96)}
+textarea#obj:focus{outline:none;border-color:rgba(139,147,157,.75)}
+/* hash readout — encodes the derivation */
+.src{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:7px;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.src b{font-weight:normal;color:var(--val)}
+/* sample row */
+.chips{display:flex;gap:3px;margin-top:11px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:0 0 auto;background:none;border:1px solid rgba(79,87,96,.4);border-radius:2px;color:var(--ink);font-family:var(--fnt);font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:5px;white-space:nowrap;cursor:pointer}
+.chips button[aria-pressed="true"]{border-color:rgba(139,147,157,.85);color:var(--val);background:rgba(79,87,96,.16)}
+.chips button:hover{border-color:rgba(139,147,157,.7)}
+.chips button:focus-visible{outline:1px solid var(--val);outline-offset:1px}
+/* reveal block — quiet at rest, blooms on hover / focus / tap */
+.reveal{
+  --pl:rgb(79,87,96);--ln:rgb(79,87,96);--vl:rgb(139,147,157);--mk:rgb(139,147,157);--d:.12;
+  margin-top:15px;padding:12px 2px 11px;outline:none;cursor:pointer;
+  border-top:1px solid rgba(79,87,96,.25);border-bottom:1px solid rgba(79,87,96,.25);
+  transition:border-color .25s ease
+}
+.reveal:hover,.reveal:focus,.reveal:focus-within,.reveal.bloom{
+  --pl:rgb(150,158,168);--ln:rgb(176,185,195);--vl:rgb(214,221,229);--mk:rgb(214,170,92);--d:1;
+  border-top-color:rgba(139,147,157,.5);border-bottom-color:rgba(139,147,157,.5)
+}
+.mlab{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--pl);transition:color .25s ease}
+/* hexagram stage — line 1 at bottom (data convention: binary = line1..line6) */
+.stage{display:flex;justify-content:center;margin-top:9px}
+.lines{width:min(300px,100%);display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:10px}
+.pos{flex:0 0 14px;font-size:9.5px;color:var(--pl);text-align:right;transition:color .25s ease}
+.bar{flex:1;display:flex;height:11px}
+.bar i{display:block;background:var(--ln);transition:background-color .25s ease}
+.bar.yang i{flex:1 1 100%}
+.bar.yin{gap:30%}
+.bar.yin i{flex:1 1 0}
+.mark{flex:0 0 12px;font-size:11px;line-height:1;text-align:center;color:var(--mk);transition:color .25s ease}
+/* trigram boundary between line 3 and line 4 (encodes the pair split) */
+.split{display:flex;align-items:center;gap:7px;padding-left:24px;padding-right:12px;margin:1px 0}
+.split::before{content:"3│4";font-size:8.5px;color:var(--pl);letter-spacing:.08em;transition:color .25s ease}
+.split::after{content:"";flex:1;height:1px;background:var(--ln);opacity:.4;transition:background-color .25s ease}
+/* trigram pair names */
+.pair{display:flex;justify-content:space-between;gap:10px;margin-top:13px;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--val)}
+.pair .k{color:var(--ink);font-style:normal;margin-right:5px}
+.pair i{font-style:normal}
+/* 64-gua name */
+.gname{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-top:11px}
+.gly{font-size:26px;line-height:1;color:var(--vl);transition:color .25s ease}
+.zh{font-size:23px;line-height:1.15;color:var(--vl);transition:color .25s ease}
+.py{font-size:13px;color:var(--txt)}
+.idx{font-size:9.5px;letter-spacing:.1em;color:var(--pl);transition:color .25s ease}
+.en{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+/* reading panel — compact CSS layer: 1-line clamp at rest, unfolds behind reveal */
+.panel{margin-top:13px;padding-top:9px;border-top:1px dashed rgba(79,87,96,.3)}
+.prow{display:flex;gap:9px;align-items:baseline;margin-top:8px}
+.prow:first-child{margin-top:0}
+.plab{flex:0 0 88px;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--pl);transition:color .25s ease}
+.ptext{flex:1;min-width:0;margin:0;font-size:13.5px;line-height:1.55;color:var(--txt);
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+  opacity:var(--d);transition:opacity .25s ease}
+.reveal:hover .ptext,.reveal:focus .ptext,.reveal:focus-within .ptext,.reveal.bloom .ptext{-webkit-line-clamp:8}
+/* provenance footer */
+.ft{margin-top:13px;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+/* depth without motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main class="inst">
+  <header class="hd">
+    <span>L1//ORACLE · 易</span>
+    <span>ENC FNV-1A·6B</span>
+  </header>
+
+  <div class="field">
+    <label class="lab" for="obj">OBJ TEXT · 文本</label>
+    <textarea id="obj" rows="3" spellcheck="false" placeholder="paste text — exact utf-8 bytes incl. whitespace are hashed"></textarea>
+  </div>
+
+  <div class="src" aria-live="polite">
+    <span>H <b id="h8">--------</b></span>
+    <span>BITS <b id="bits">------</b></span>
+    <span>CHG <b id="chg">-/-</b></span>
+    <span>LEN <b id="len">0B</b></span>
+  </div>
+
+  <nav class="chips" id="chips" aria-label="sample objects"></nav>
+
+  <section class="reveal" id="reveal" tabindex="0" aria-label="hexagram result — hover, focus or tap to open the reading">
+    <div class="mlab">卦 HEXAGRAM · BOTTOM=1</div>
+    <div class="stage"><div class="lines" id="lines"></div></div>
+    <div class="pair" id="pair"></div>
+    <div class="gname" id="gname"></div>
+    <div class="panel">
+      <div class="prow">
+        <span class="plab">判 CLASSICAL</span>
+        <p class="ptext" id="judg"></p>
+      </div>
+      <div class="prow">
+        <span class="plab">用 USE</span>
+        <p class="ptext" id="use"></p>
+      </div>
+      <div class="prow" id="opensRow">
+        <span class="plab">變 OPENS INTO</span>
+        <p class="ptext" id="opens"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ft">
+    <span>SOURCE=BYTES · FNV-1A · 6BIT · NO RNG</span>
+    <span>READ=HOVER/TAP</span>
+  </footer>
+</main>
+
+<script id="core">
+/* L1 ORACLE CORE — deterministic content-hash -> hexagram encoding.
+   Pure FNV-1a 32-bit. No Math.random, no Date, no DOM, no fetch. */
+var ORACLE = (function () {
+  'use strict';
+  var BASIS = 0x811c9dc5, PRIME = 0x01000193;
+
+  /* UTF-8 bytes of a JS string (lone surrogates -> EF BF BD, like TextEncoder) */
+  function utf8(str) {
+    var out = [], i = 0, c, c2, cp;
+    for (; i < str.length; i++) {
+      c = str.charCodeAt(i);
+      if (c < 0x80) { out.push(c); }
+      else if (c < 0x800) { out.push(0xc0 | (c >> 6), 0x80 | (c & 63)); }
+      else if (c >= 0xd800 && c <= 0xdbff) {
+        c2 = str.charCodeAt(i + 1);
+        if (c2 >= 0xdc00 && c2 <= 0xdfff) {
+          cp = 0x10000 + ((c - 0xd800) << 10) + (c2 - 0xdc00); i++;
+          out.push(0xf0 | (cp >> 18), 0x80 | ((cp >> 12) & 63), 0x80 | ((cp >> 6) & 63), 0x80 | (cp & 63));
+        } else { out.push(0xef, 0xbf, 0xbd); }
+      }
+      else if (c >= 0xdc00 && c <= 0xdfff) { out.push(0xef, 0xbf, 0xbd); }
+      else { out.push(0xe0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63)); }
+    }
+    return out;
+  }
+
+  /* canonical FNV-1a 32-bit over a byte array */
+  function fnv1a32(bytes) {
+    var h = BASIS, i = 0;
+    for (; i < bytes.length; i++) { h ^= bytes[i]; h = Math.imul(h, PRIME); }
+    return h >>> 0;
+  }
+
+  /* hash of a text object = FNV-1a of its exact UTF-8 bytes */
+  function hash32(text) { return fnv1a32(utf8(String(text))); }
+
+  /* second pure FNV-1a pass over the 4 little-endian bytes of the first digest:
+     independent stream for changing lines (gua vs changing stay uncorrelated) */
+  function rehash32(h) { return fnv1a32([h & 255, (h >>> 8) & 255, (h >>> 16) & 255, (h >>> 24) & 255]); }
+
+  /* 8 trigrams keyed by 3 bits (lines 1..3 = lower, lines 4..6 = upper) */
+  var TRI = {
+    '111': ['乾', 'qián', 'Heaven'], '110': ['兌', 'duì', 'Lake'],
+    '101': ['離', 'lí', 'Fire'],     '100': ['震', 'zhèn', 'Thunder'],
+    '011': ['巽', 'xùn', 'Wind'],    '010': ['坎', 'kǎn', 'Water'],
+    '001': ['艮', 'gèn', 'Mountain'],'000': ['坤', 'kūn', 'Earth']
+  };
+
+  /* GUA rows: [id, binary(line1..line6), glyph, zh, pinyin, en, judgment_zh, ability_to_use] */
+  var GUA = [
+    [1,"111111","䷀","乾","Qián","The Creative","元亨。利貞。","Act with lasting strength; do not stop halfway."],
+    [2,"000000","䷁","坤","Kūn","The Receptive","元亨。利牝馬之貞。","Support what moves; lead by carrying, not pushing."],
+    [3,"100010","䷂","屯","Zhūn","Difficulty at the Beginning","元亨，利貞。勿用有攸往，利建侯。","Organize first; do not force the opening."],
+    [4,"010001","䷃","蒙","Méng","Youthful Folly","亨。匪我求童蒙，童蒙求我。初筮告，再三瀆，瀆則不告。利貞。","Ask once, sincerely; drop the question if refused."],
+    [5,"111010","䷄","需","Xū","Waiting","有孚，光亨。貞吉，利涉大川。","Feed and wait; the crossing comes in time."],
+    [6,"010111","䷅","訟","Sòng","Conflict","有孚，窒，惕，中吉，終凶。利見大人，不利涉大川。","Settle at the start; do not press to the end."],
+    [7,"010000","䷆","師","Shī","The Army","貞丈人吉，无咎。","Discipline the ranks; entrust command to the tested."],
+    [8,"000010","䷇","比","Bǐ","Holding Together","吉。原筮元永貞，无咎。不寧方來，後夫凶。","Bind early to the true center; do not arrive late."],
+    [9,"111011","䷈","小畜","Xiǎo Chù","The Small Taming","亨。密雲不雨，自我西郊。","Gather small force; refine the writing, delay the rain."],
+    [10,"110111","䷉","履","Lǚ","Treading","履，柔履剛也。說而應乎乾，是以履虎尾，不咥人，亨。剛中正，履帝位而不疚，光明也。","Step softly on dangerous ground; keep to the order."],
+    [11,"111000","䷊","泰","Tài","Peace","小往大來，吉亨。","Open the channels; small goes out, great comes in."],
+    [12,"000111","䷋","否","Pǐ","Standstill","否之匪人，不利君子貞，大往小來。","Withdraw and economize; do not trade honor for ease."],
+    [13,"101111","䷌","同人","Tóng Rén","Fellowship with Men","同人，柔得位得中，而應乎乾，曰同人。同人曰，同人于野，亨。利涉大川，乾行也。文明以健，中正而應，君子正也。唯君子為能通天下之志。","Meet others in the open; sort kin from strangers."],
+    [14,"111101","䷍","大有","Dà Yǒu","Great Possession","元亨。","Restrain evil, raise the good; hold the prize lightly."],
+    [15,"001000","䷎","謙","Qiān","Modesty","亨，君子有終。","Give the excess away; let the mountain stay hidden."],
+    [16,"000100","䷏","豫","Yù","Enthusiasm","利建侯行師。","Set the drums and the deadline together."],
+    [17,"100110","䷐","隨","Suí","Following","元亨。利貞。无咎。","Follow what is right; rest when the light fails."],
+    [18,"011001","䷑","蠱","Gǔ","Work on the Decayed","元亨。利涉大川。先甲三日，後甲三日。","Repair the rot now; act before and after the turn."],
+    [19,"110000","䷒","臨","Lín","Approach","元亨。利貞。至于八月有凶。","Teach while near; the turn comes in eight months."],
+    [20,"000011","䷓","觀","Guān","Contemplation","盥而不荐，有孚顒若。","Observe before offering; show the pattern, not the sermon."],
+    [21,"100101","䷔","噬嗑","Shì Hé","Biting Through","亨。利用獄。","Bite through the obstruction; publish the penalty."],
+    [22,"101001","䷕","賁","Bì","Grace","亨。小利有攸往。","Refine the surface; do not judge on it."],
+    [23,"000001","䷖","剝","Bō","Splitting Apart","不利。有攸往。","Halt all going; shore up the base."],
+    [24,"100000","䷗","復","Fù","Return","亨。出入无疾，朋來无咎。反復其道，七日來復，利有攸往。","Return to the first impulse; keep the gate shut today."],
+    [25,"100111","䷘","无妄","Wú Wàng","Innocence","元亨。利貞。其匪正有眚，不利有攸往。","Do not aim to gain; meet the season as it is."],
+    [26,"111001","䷙","大畜","Dà Chù","The Great Taming","利貞，不家食吉，利涉大川。","Store what you hear and see; feed beyond home."],
+    [27,"100001","䷚","頤","Yí","Corners of the Mouth (Nourishment)","貞吉。觀頤，自求口實。","Watch what enters your mouth and your ear."],
+    [28,"011110","䷛","大過","Dà Guò","Preponderance of the Great","棟橈，利有攸往，亨。","Bear it alone; the ridgepole may bend, not break."],
+    [29,"010010","䷜","坎","Kǎn","The Abysmal Water","有孚，維心亨。行有尚。","Repeat the practice through danger; keep the heart true."],
+    [30,"101101","䷝","離","Lí","The Clinging Fire","利貞。亨。畜牝牛，吉。","Tend what you depend on; light the next lamp."],
+    [31,"001110","䷞","咸","Xián","Influence (Wooing)","亨。利貞。取女吉。","Let the empty recept receive; woo without grasping."],
+    [32,"011100","䷟","恒","Héng","Duration","亨，无咎。利貞，利有攸往。","Keep one course long; do not swap the direction."],
+    [33,"001111","䷠","遯","Dùn","Retreat","亨。小利貞。","Leave early, without hostility; distance is the discipline."],
+    [34,"111100","䷡","大壯","Dà Zhuàng","The Great Power","利貞。","Use strength only on the right; do not overstep."],
+    [35,"000101","䷢","晉","Jìn","Progress","康侯用錫馬蕃庶，晝日三接。","Let the light rise openly; show the good you have."],
+    [36,"101000","䷣","明夷","Míng Yí","Darkening of the Light","利艱貞。","Hide the brightness in; govern visibly, know invisibly."],
+    [37,"101011","䷤","家人","Jiā Rén","The Family","利女貞。","Set words and rows at home first."],
+    [38,"110101","䷥","睽","Kuí","Opposition","小事吉。","Work the small matter across the split; keep your differences."],
+    [39,"001010","䷦","蹇","Jiǎn","Obstruction","利西南，不利東北；利見大人，貞吉。","Turn back and mend yourself; seek the great man."],
+    [40,"010100","䷧","解","Xiè","Deliverance","利西南，无所往，其來復吉。有攸往，夙吉。","Release the fault quickly; act before the trouble settles."],
+    [41,"110001","䷨","損","Sǔn","Decrease","有孚，元吉。无咎，可貞，利有攸往。曷之用？二簋可用享。","Cut the excess first; two bowls suffice for the rite."],
+    [42,"100011","䷩","益","Yì","Increase","利有攸往。利涉大川。","Move good in and faults out; cross the great river."],
+    [43,"111110","䷪","夬","Guài","Breakthrough","揚于王庭，孚號，有厲，告自邑，不利即戎，利有攸往。","Declare it in the open; do not answer force with arms."],
+    [44,"011111","䷫","姤","Gòu","Coming to Meet","女壯，勿用取女。","Meet what arrives unbidden; do not wed the trespass."],
+    [45,"000110","䷬","萃","Cuì","Gathering Together","亨。王假有廟，利見大人，亨。利貞。用大牲吉，利有攸往。","Gather at the shrine; prepare arms for the unforeseen."],
+    [46,"011000","䷭","升","Shēng","Pushing Upward","元亨，用見大人，勿恤，南征吉。","Climb by small increments; go south without fear."],
+    [47,"010110","䷮","困","Kùn","Oppression","亨，貞大人吉，无咎，有言不信。","Words do not convince; let the will finish it."],
+    [48,"011010","䷯","井","Jǐng","The Well","改邑不改井，无喪无得，往來井井。汔至亦未繘井。羸其瓶，凶。","Keep the source open; do not let the rope fall short."],
+    [49,"101110","䷰","革","Gé","Revolution","巳日乃孚，元亨。利貞。悔亡。","Change when trust is already there, not before."],
+    [50,"011101","䷱","鼎","Dǐng","The Cauldron","元吉，亨。","Set the position and fix the calling; cook for others."],
+    [51,"100100","䷲","震","Zhèn","The Arousing Thunder","亨。震來虩虩，笑言啞啞。震驚百里，不喪匕鬯。","Stay composed inside the shock; repair what it shows."],
+    [52,"001001","䷳","艮","Gèn","Keeping Still Mountain","艮其背，不獲其身，行其庭，不見其人，无咎。","Stop at the back; keep thoughts in their place."],
+    [53,"001011","䷴","漸","Jiàn","Development","女歸吉，利貞。","Advance step by step, like the returning bride."],
+    [54,"110100","䷵","歸妹","Guī Mèi","The Marrying Maiden","征凶，无攸利。","Know the end before you go; no advantage in pressing."],
+    [55,"101100","䷶","豐","Fēng","Abundance","亨。王假之，勿憂，宜日中。","Act at the noon of it; do not grieve the decline."],
+    [56,"001101","䷷","旅","Lǚ","The Wanderer","小亨，旅貞吉。","Travel light and cautious; do not linger in the lodge."],
+    [57,"011011","䷸","巽","Xùn","The Gentle Wind","小亨。利有攸往。利見大人。","Repeat the order gently; penetrate by small doses."],
+    [58,"110110","䷹","兌","Duì","The Joyous Lake","亨。利貞。","Talk it through with a true friend; keep the sincerity."],
+    [59,"010011","䷺","渙","Huàn","Dispersion","亨。王假有廟，利涉大川，利貞。","Dissolve the hardness; cross while the flow is wide."],
+    [60,"110010","䷻","節","Jié","Limitation","亨。苦節不可貞。","Set the count and keep it; bitter limits will not hold."],
+    [61,"110011","䷼","中孚","Zhōng Fú","Inner Truth","豚魚吉，利涉大川，利貞。","Speak from the center; even pigs and fishes can be reached."],
+    [62,"001100","䷽","小過","Xiǎo Guò","Small Preponderance","亨。利貞。可小事，不可大事。飛鳥遺之音，不宜上宜下，大吉。","Do the lesser thing, downward, not the greater, upward."],
+    [63,"101010","䷾","既濟","Jì Jì","After Completion","亨小。利貞。初吉終亂。","Guard against disorder at the moment of success."],
+    [64,"010101","䷿","未濟","Wèi Jì","Before Completion","亨。小狐汔濟，濡其尾，无攸利。","Do not court the fox's tail; distinguish things to the end."]
+  ];
+
+  var BY_PAT = {}, BY_ID = {}, i;
+  for (i = 0; i < GUA.length; i++) { BY_PAT[GUA[i][1]] = GUA[i]; BY_ID[GUA[i][0]] = GUA[i]; }
+
+  /* 6 sample objects for the chip row */
+  var SAMPLES = [
+    { l: 'STILL',  t: 'still water under the winter gate' },
+    { l: 'UNSENT', t: 'the letter I never sent' },
+    { l: 'DRAFT',  t: 'first draft, no revisions' },
+    { l: '雨',      t: '十月的雨' },
+    { l: 'SALT',   t: 'salt, bread, and a closed door' },
+    { l: 'REREAD', t: 'the thing you keep re-reading' }
+  ];
+
+  /* encode: text object -> hexagram record (all marks derive from the digest) */
+  function encode(text) {
+    if (text === null || text === undefined) { text = ''; }
+    text = String(text);
+    var bytes = utf8(text);
+    var h1 = fnv1a32(bytes);
+    var h2 = rehash32(h1);
+    var bits = (h1 >>> 26) & 63;              /* top 6 bits of digest -> gua */
+    var pat = '', lines = [], changing = [], target = null, j, yang, pair;
+    for (j = 0; j < 6; j++) {
+      yang = ((bits >>> j) & 1) === 1;        /* bit j = line j+1 (line 1 at bottom) */
+      pat += yang ? '1' : '0';
+      pair = (h2 >>> (30 - 2 * j)) & 3;       /* one bit-pair of the rehash per line */
+      lines.push({ n: j + 1, yang: yang, changing: pair === 0 });  /* P(change)=1/4 per line */
+      if (pair === 0) { changing.push(j + 1); }
+    }
+    var g = BY_PAT[pat];
+    if (changing.length) {
+      var bp = pat.split(''), k;
+      for (j = 0; j < changing.length; j++) {
+        k = changing[j] - 1;
+        bp[k] = bp[k] === '1' ? '0' : '1';
+      }
+      target = BY_PAT[bp.join('')] || null;
+    }
+    return {
+      text: text, bytes: bytes.length, h1: h1, h2: h2, bits: bits, pattern: pat,
+      id: g[0], gua: g, lines: lines, changing: changing,
+      lower: TRI[pat.substring(0, 3)], upper: TRI[pat.substring(3, 6)],
+      target: target
+    };
+  }
+
+  var CORE = {
+    version: 'L1-ORACLE-1', utf8: utf8, fnv1a32: fnv1a32, hash32: hash32, rehash32: rehash32,
+    TRI: TRI, GUA: GUA, SAMPLES: SAMPLES, encode: encode
+  };
+  if (typeof module === 'object' && module && module.exports) { module.exports = CORE; }
+  return CORE;
+}());
+</script>
+
+<script>
+/* L1 ORACLE — view layer. draws the record; quiet at rest, bloom on hover/focus/tap. */
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') { return; }
+  var O = ORACLE;
+  var POS = ['初', '二', '三', '四', '五', '上'];
+  var $ = function (id) { return document.getElementById(id); };
+  var obj = $('obj'), linesEl = $('lines'), reveal = $('reveal'), chipsEl = $('chips');
+
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) { e.className = cls; }
+    if (txt !== undefined) { e.textContent = txt; }
+    return e;
+  }
+  function clear(node) { while (node.firstChild) { node.removeChild(node.firstChild); } }
+
+  function triSpan(k, tri) {
+    var s = el('span');
+    s.appendChild(el('i', 'k', k));
+    s.appendChild(document.createTextNode(' ' + tri[0] + ' ' + tri[1] + ' ' + tri[2]));
+    return s;
+  }
+
+  function render(text) {
+    var r = O.encode(text), n;
+
+    /* derivation readout */
+    $('h8').textContent = ('00000000' + r.h1.toString(16)).slice(-8);
+    $('bits').textContent = r.pattern;
+    $('chg').textContent = r.changing.length + '/6';
+    $('len').textContent = r.bytes + 'B' + (text === '' ? ' EMPTY' : '');
+
+    /* draw 6 lines, DOM order line6 -> line1; divider at the trigram boundary */
+    clear(linesEl);
+    for (n = 6; n >= 1; n--) {
+      if (n === 4) { linesEl.appendChild(el('div', 'split')); }
+      var L = r.lines[n - 1];
+      var row = el('div', 'row');
+      row.appendChild(el('span', 'pos', POS[n - 1]));
+      var bar = el('span', 'bar ' + (L.yang ? 'yang' : 'yin'));
+      bar.appendChild(el('i'));
+      if (!L.yang) { bar.appendChild(el('i')); }
+      row.appendChild(bar);
+      var mk = el('span', 'mark');
+      if (L.changing) { mk.textContent = L.yang ? '×' : '○'; mk.title = 'changing line — old ' + (L.yang ? 'yang' : 'yin'); }
+      row.appendChild(mk);
+      linesEl.appendChild(row);
+    }
+
+    /* trigram pair: 上 upper first, 下 lower second */
+    clear($('pair'));
+    $('pair').appendChild(triSpan('上 UPPER', r.upper));
+    $('pair').appendChild(triSpan('下 LOWER', r.lower));
+
+    /* 64-gua name */
+    var g = r.gua;
+    clear($('gname'));
+    $('gname').appendChild(el('span', 'gly', g[2]));
+    $('gname').appendChild(el('span', 'zh', g[3]));
+    $('gname').appendChild(el('span', 'py', g[4]));
+    $('gname').appendChild(el('span', 'idx', ('0' + g[0]).slice(-2) + '/64'));
+    $('gname').appendChild(el('span', 'en', g[5]));
+
+    /* reading panel: classical line + ability-to-use line (+ transformation) */
+    $('judg').textContent = g[6];
+    $('use').textContent = g[7];
+    if (r.target) {
+      $('opensRow').style.display = '';
+      $('opens').textContent = ('0' + r.target[0]).slice(-2) + ' ' + r.target[2] + r.target[3] +
+        ' ' + r.target[4] + ' ' + r.target[5];
+    } else {
+      $('opensRow').style.display = 'none';
+    }
+  }
+
+  function mark(i) {
+    var bs = chipsEl.querySelectorAll('button'), k;
+    for (k = 0; k < bs.length; k++) { bs[k].setAttribute('aria-pressed', k === i ? 'true' : 'false'); }
+  }
+
+  O.SAMPLES.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = ('0' + (i + 1)).slice(-2) + ' ' + s.l;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () {
+      obj.value = s.t;
+      mark(i);
+      render(s.t);
+      reveal.classList.add('bloom');   /* explicit tap = explicit reveal; tap outside returns to quiet */
+    });
+    chipsEl.appendChild(b);
+  });
+
+  obj.addEventListener('input', function () { mark(-1); render(obj.value); });
+
+  reveal.addEventListener('click', function () { reveal.classList.toggle('bloom'); });
+  reveal.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { reveal.classList.remove('bloom'); reveal.blur(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (!reveal.contains(e.target) && !chipsEl.contains(e.target)) { reveal.classList.remove('bloom'); }
+  });
+
+  /* initial state: first sample drawn, at rest quiet */
+  obj.value = O.SAMPLES[0].t;
+  mark(0);
+  render(obj.value);
+}());
+</script>
+</body>
+</html>

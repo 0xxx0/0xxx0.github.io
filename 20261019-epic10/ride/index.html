@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>RIDE LOG — EUC / VESC telemetry reader</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hdr">
+    <div class="mark" lang="zh">輪電</div>
+    <div class="hdr-t">
+      <h1>RIDE LOG</h1>
+      <p class="micro">EUC / VESC TELEMETRY READER</p>
+    </div>
+    <div class="tag micro" id="tag" title="content hash of the derived summary — same log, same tag">&#8212;</div>
+  </header>
+
+  <section class="src">
+    <label class="micro" for="csv">CSV IN &#183; t_ms, erpm, current_a, duty, voltage_v, temp_c</label>
+    <textarea id="csv" spellcheck="false" autocomplete="off" autocapitalize="off"
+      placeholder="t_ms,erpm,current_a,duty,voltage_v,temp_c"></textarea>
+    <div class="btns">
+      <button id="b-sample" type="button">LOAD SAMPLE</button>
+      <button id="b-parse" type="button">PARSE</button>
+      <button id="b-clear" type="button">CLEAR</button>
+    </div>
+    <p class="err micro" id="err" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="scope">
+    <div class="scope-main">
+      <canvas id="cv" tabindex="0" role="img"
+        aria-label="one aligned ribbon of four hairline traces over one shared time axis: speed from erpm, current, duty, temperature. Scrub with pointer or arrow keys."></canvas>
+    </div>
+    <div class="readout" id="readout" aria-label="readout at t">
+      <div class="ro-row"><span class="ro-k">T</span><span class="ro-v" id="ro-t">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">ROW</span><span class="ro-v" id="ro-r">&#8212;</span></div>
+      <div class="ro-row" data-f="speed" tabindex="0"><span class="ro-k">SPD*</span><span class="ro-v" id="ro-spd">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">ERPM</span><span class="ro-v" id="ro-erpm">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">I</span><span class="ro-v" id="ro-i">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">DUTY</span><span class="ro-v" id="ro-duty">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">V</span><span class="ro-v" id="ro-v">&#8212;</span></div>
+      <div class="ro-row"><span class="ro-k">&#176;C</span><span class="ro-v" id="ro-c">&#8212;</span></div>
+      <p class="ro-note micro">* DERIVED</p>
+    </div>
+  </section>
+
+  <p class="hint micro">SCRUB THE RIBBON: HOVER / DRAG / TAP &#183; &#8592; &#8594; STEP BY SAMPLE (SHIFT = 10) &#183; TAP HOLDS THE REVEAL</p>
+
+  <section class="sum">
+    <div class="cells">
+      <div class="cell" tabindex="0" data-f="distance_m"><span class="k micro">DISTANCE</span><span class="v" id="v-dist">&#8212;</span><span class="u micro">m</span></div>
+      <div class="cell" tabindex="0" data-f="energy_wh"><span class="k micro">ENERGY</span><span class="v" id="v-energy">&#8212;</span><span class="u micro">Wh</span></div>
+      <div class="cell" tabindex="0" data-f="peak_current_a"><span class="k micro">PEAK I</span><span class="v" id="v-peaki">&#8212;</span><span class="u micro">A</span></div>
+      <div class="cell" tabindex="0" data-f="peak_temp_c"><span class="k micro">PEAK</span><span class="v" id="v-peakt">&#8212;</span><span class="u micro">&#176;C</span></div>
+      <div class="cell" tabindex="0" data-f="regen_s"><span class="k micro">REGEN</span><span class="v" id="v-regens">&#8212;</span><span class="u micro">s</span></div>
+      <div class="cell cell-ctl">
+        <label class="k micro" for="circ">WHEEL CIRC m</label>
+        <input id="circ" type="number" value="0.5" min="0.05" max="5" step="0.001" inputmode="decimal">
+      </div>
+    </div>
+    <div class="sub">
+      <span class="micro" data-f="net_wh">NET <b id="v-net">&#8212;</b> Wh</span>
+      <span class="micro" data-f="regen_wh">REGEN <b id="v-regenwh">&#8212;</b> Wh</span>
+      <span class="micro" data-f="duration_s">SPAN <b id="v-dur">&#8212;</b> s</span>
+      <span class="micro" data-f="samples">ROWS <b id="v-rows">&#8212;</b></span>
+    </div>
+    <p class="formula micro" id="formula" aria-live="polite">HOVER / TAP A FIGURE FOR ITS FORMULA</p>
+  </section>
+
+  <footer class="ftr micro">
+    <span>P1 P3 P4 P5 &#183; STATIC &#183; NO BUILD &#183; NO FETCH</span>
+    <span lang="zh">輪電</span>
+  </footer>
+
+</main>
+<script src="ride-core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

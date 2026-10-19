@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080c12">
+<meta name="robots" content="noindex,nofollow">
+<title>ROOM-0 · ONE OBJECT SIX WALLS</title>
+<style>
+:root{
+  --pad:rgb(8,12,18);
+  --ink:rgb(79,87,96);
+  --hot:rgb(170,180,190);
+  --room:min(74vmin,300px);
+  --half:calc(var(--room)/2);
+  --rx:0deg;--ry:0deg;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--pad);color:var(--ink);
+  font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  -webkit-text-size-adjust:100%;overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit;background:none;border:0;border-radius:0;cursor:pointer}
+:focus-visible{outline:1px solid rgb(79 87 96 / .7);outline-offset:1px}
+
+.frame{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;
+  padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+
+/* ── top rail: lane coordinates (datum: lane, date, object route) ───────── */
+.rail{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;
+  font-size:9px;letter-spacing:.16em;color:var(--ink);opacity:.95}
+.rail b{font-weight:400;color:var(--ink)}
+.rail .sep{opacity:.4}
+.rail .grow{margin-left:auto}
+
+/* ── stage ─────────────────────────────────────────────────────────────── */
+.stage{position:relative;display:grid;place-items:center;min-height:0}
+.view{perspective:1000px;display:grid;place-items:center;touch-action:none;width:100%;height:100%;cursor:grab}
+html.grabbing .view{cursor:grabbing}
+.room{position:relative;width:var(--room);height:var(--room);
+  transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform 420ms cubic-bezier(.2,.8,.2,1)}
+html.grabbing .room{transition:none}
+
+/* ── one wall = one reading ────────────────────────────────────────────── */
+.face{position:absolute;inset:0;display:flex;flex-direction:column;padding:13px;
+  border:1px solid rgb(79 87 96 / .12);backface-visibility:hidden;transform-style:preserve-3d;
+  transition:border-color 240ms ease,background-color 240ms ease}
+.face[data-face="OBJECT"]{transform:translateZ(var(--half))}
+.face[data-face="RETURN"]{transform:rotateY(180deg) translateZ(var(--half))}
+.face[data-face="TRANSFORM"]{transform:rotateY(90deg) translateZ(var(--half))}
+.face[data-face="ADDRESS"]{transform:rotateY(-90deg) translateZ(var(--half))}
+.face[data-face="STATE"]{transform:rotateX(90deg) translateZ(var(--half))}
+.face[data-face="PROVE"]{transform:rotateX(-90deg) translateZ(var(--half))}
+
+/* facing meter — scaleY = live dot product of wall normal against view axis */
+.zk{position:absolute;left:5px;top:20%;bottom:20%;width:1px;background:var(--ink);
+  opacity:.12;transform-origin:50% 100%;transform:scaleY(var(--z,0));
+  transition:transform 160ms linear,opacity 240ms ease}
+.hd,.rd{opacity:0;transition:opacity 240ms ease}
+.lab{font-size:13px;letter-spacing:.2em;color:var(--ink)}
+.cjk{margin-left:8px;font-size:11px;letter-spacing:.1em;opacity:.75}
+.ax{margin-top:5px;font-size:8.5px;letter-spacing:.16em;color:var(--ink);opacity:.8}
+.tk{margin-top:7px;display:flex;gap:4px}
+.tk i{display:block;width:1px;height:7px;background:var(--ink);opacity:.12;transition:opacity 240ms ease}
+.gp{flex:1 1 auto;min-height:78px}
+.rd{font-size:11px;line-height:1.5;letter-spacing:.02em;color:var(--ink);word-break:break-word}
+
+/* bloom: lit (tap / toward-view armed) or hover on pointer devices */
+.face.lit{border-color:rgb(79 87 96 / .55);background-color:rgb(79 87 96 / .05)}
+.face.lit .hd,.face.lit .rd{opacity:1}
+.face.lit .zk{opacity:.7}
+.face.lit .tk i{opacity:.7}
+.face.lit .lab{color:var(--hot)}
+@media (hover:hover){
+  .face:hover{border-color:rgb(79 87 96 / .55);background-color:rgb(79 87 96 / .05)}
+  .face:hover .hd,.face:hover .rd{opacity:1}
+  .face:hover .zk{opacity:.7}
+  .face:hover .tk i{opacity:.7}
+  .face:hover .lab{color:var(--hot)}
+}
+
+/* ── core: the held object, billboarded at the room centre ─────────────── */
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
+  display:grid;justify-items:center;gap:7px;pointer-events:none;text-align:center}
+.glyph{width:64px;height:64px;display:block;overflow:visible}
+.glyph .ring{fill:none;stroke:var(--ink);stroke-width:1;opacity:.12}
+.glyph .dot{fill:var(--ink);stroke:none;opacity:.12}
+.glyph .bl{stroke:var(--ink);stroke-width:1;opacity:0;transition:opacity 240ms ease}
+html.armed .glyph .bl{opacity:.7}
+.core .nm{font-size:11px;letter-spacing:.2em;color:var(--ink);transition:color 240ms ease}
+.core .sb{font-size:8.5px;letter-spacing:.14em;color:var(--ink);opacity:.85}
+html.armed .core .nm{color:var(--hot)}
+
+/* ── bottom rail: face index (chips) + live readout + return line ──────── */
+.foot{display:grid;gap:6px}
+.chips{display:flex;gap:2px;flex-wrap:nowrap;overflow:hidden}
+.chip{flex:1 1 auto;min-width:0;padding:5px 2px;font-size:10px;letter-spacing:.06em;
+  border:1px solid rgb(79 87 96 / .12);color:var(--ink);text-align:center;
+  transition:border-color 240ms ease,color 240ms ease}
+.chip[aria-pressed="true"]{text-decoration:underline;text-underline-offset:3px}
+html.armed .chip[aria-pressed="true"]{color:var(--hot);border-color:rgb(79 87 96 / .55)}
+@media (hover:hover){.chip:hover{border-color:rgb(79 87 96 / .55)}}
+.hud{font-size:9px;letter-spacing:.14em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rcpt{font-size:9px;line-height:1.5;letter-spacing:.04em;color:var(--ink);word-break:break-word;min-height:0}
+html.armed .rcpt:not(:empty){color:var(--hot)}
+
+/* ── phone-first ───────────────────────────────────────────────────────── */
+@media (max-width:430px){
+  :root{--room:min(78vmin,300px)}
+  .rail{font-size:8.5px;gap:7px}
+  .rail .grow{display:none}
+  .chip{font-size:9.5px;letter-spacing:.03em;padding:5px 1px}
+  .face{padding:11px}
+  .lab{font-size:12px}
+  .rd{font-size:10.5px}
+  .core .nm{font-size:10.5px}
+}
+
+/* ── depth without motion ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .room{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <div class="rail">
+    <b>ROOM-0</b><span class="sep">/</span><span>LANE room0</span><span class="sep">/</span><span>2026-10-19</span>
+    <span class="grow">ONE OBJECT · SIX WALLS · MONOCHROME GRID</span>
+  </div>
+
+  <main class="stage" id="stage">
+    <div class="view" id="view">
+      <div class="room" id="room">
+
+        <section class="face" data-face="OBJECT" data-idx="1">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">OBJECT<span class="cjk">物</span></div>
+            <div class="ax">F · +Z PRESENT · 01/06</div>
+            <div class="tk" aria-hidden="true"><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">ONE READING LENS HELD OVER THE FIELD ROOT. ONE FOCUS, ONE SURFACE, ONE RETURN.</div>
+        </section>
+
+        <section class="face" data-face="ADDRESS" data-idx="2">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">ADDRESS<span class="cjk">址</span></div>
+            <div class="ax">L · −X INPUT · 02/06</div>
+            <div class="tk" aria-hidden="true"><i></i><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">/field/ ∪ /fovea/ · ID 02bba0ec 23328439 · LANE room0</div>
+        </section>
+
+        <section class="face" data-face="STATE" data-idx="3">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">STATE<span class="cjk">态</span></div>
+            <div class="ax">U · +Y UP · 03/06</div>
+            <div class="tk" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">quiet at rest, bloom on read — shipped 2026-10-19 b94df3ef</div>
+        </section>
+
+        <section class="face" data-face="TRANSFORM" data-idx="4">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">TRANSFORM<span class="cjk">变</span></div>
+            <div class="ax">R · +X OUTPUT · 04/06</div>
+            <div class="tk" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">DRAG Δ ×0.30°/PX → ROTX ±105 · ROTY FREE · RELEASE SNAP → NEAREST WALL</div>
+        </section>
+
+        <section class="face" data-face="PROVE" data-idx="5">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">PROVE<span class="cjk">证</span></div>
+            <div class="ax">D · −Y GROUND · 05/06</div>
+            <div class="tk" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">SELFTEST.MJS · 9 CHECKS · NODE, NO DEPS · FNV1A-32(CANON)=d228dede</div>
+        </section>
+
+        <section class="face" data-face="RETURN" data-idx="6">
+          <div class="zk" aria-hidden="true"></div>
+          <div class="hd">
+            <div class="lab">RETURN<span class="cjk">返</span></div>
+            <div class="ax">B · −Z BEHIND · 06/06</div>
+            <div class="tk" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="gp" aria-hidden="true"></div>
+          <div class="rd">TAP THIS WALL → ONE LINE: OBJECT · STATE · GLYPH → CLIPBOARD IF ALLOWED</div>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="core" id="core"
+         data-canon="the fovea lens / FIELD root"
+         data-glyph-tag="d228dede"
+         data-ship="b94df3ef">
+      <svg class="glyph" id="glyph" viewBox="0 0 64 64" role="img" aria-label="held object glyph">
+        <circle class="ring" cx="32" cy="32" r="15"></circle>
+        <circle class="dot" cx="32" cy="32" r="2.2"></circle>
+        <g class="blades" id="blades"></g>
+      </svg>
+      <div class="nm">THE FOVEA LENS</div>
+      <div class="sb">FIELD ROOT · GLYPH <span id="tagCore">d228dede</span></div>
+    </div>
+  </main>
+
+  <div class="foot">
+    <nav class="chips" id="chips" aria-label="room walls">
+      <button class="chip" type="button" data-goto="OBJECT" aria-pressed="true">OBJECT</button>
+      <button class="chip" type="button" data-goto="ADDRESS" aria-pressed="false">ADDRESS</button>
+      <button class="chip" type="button" data-goto="STATE" aria-pressed="false">STATE</button>
+      <button class="chip" type="button" data-goto="TRANSFORM" aria-pressed="false">TRANSFORM</button>
+      <button class="chip" type="button" data-goto="PROVE" aria-pressed="false">PROVE</button>
+      <button class="chip" type="button" data-goto="RETURN" aria-pressed="false">RETURN</button>
+    </nav>
+    <div class="hud" id="hud">FACE OBJECT · RX +000 · RY +000 · QUIET</div>
+    <div class="rcpt" id="rcpt"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+var root=document.documentElement;
+try{
+
+var ORDER=['OBJECT','ADDRESS','STATE','TRANSFORM','PROVE','RETURN'];
+/* canonical orientation per wall: rx/ry that brings its normal to the view axis */
+var WALL={
+  OBJECT:{rx:0,ry:0},       /* +Z */
+  RETURN:{rx:0,ry:180},     /* −Z */
+  TRANSFORM:{rx:0,ry:-90},  /* +X */
+  ADDRESS:{rx:0,ry:90},     /* −X */
+  STATE:{rx:-90,ry:0},      /* +Y (screen up) */
+  PROVE:{rx:90,ry:0}        /* −Y (screen down) */
+};
+var NORM={OBJECT:[0,0,1],RETURN:[0,0,-1],TRANSFORM:[1,0,0],ADDRESS:[-1,0,0],STATE:[0,-1,0],PROVE:[0,1,0]};
+
+var view=document.getElementById('view'),
+    room=document.getElementById('room'),
+    core=document.getElementById('core'),
+    blades=document.getElementById('blades'),
+    tagCore=document.getElementById('tagCore'),
+    hud=document.getElementById('hud'),
+    rcpt=document.getElementById('rcpt'),
+    stage=document.getElementById('stage');
+
+var faces={},zk={},i;
+for(i=0;i<ORDER.length;i++){
+  faces[ORDER[i]]=room.querySelector('.face[data-face="'+ORDER[i]+'"]');
+  zk[ORDER[i]]=faces[ORDER[i]].querySelector('.zk');
+}
+var chipEls=document.querySelectorAll('.chip');
+
+/* ── deterministic glyph identity: FNV-1a 32 over the held object canon ── */
+function fnv1a32(str){
+  var b=new TextEncoder().encode(str),h=0x811c9dc5,k;
+  for(k=0;k<b.length;k++){h^=b[k];h=Math.imul(h,0x01000193)>>>0;}
+  return h>>>0;
+}
+var CANON=core.getAttribute('data-canon'),
+    DECL=(core.getAttribute('data-glyph-tag')||'').toLowerCase(),
+    TAGN=fnv1a32(CANON),
+    TAG=('00000000'+TAGN.toString(16)).slice(-8);
+root.setAttribute('data-glyph-ok',TAG===DECL?'1':'0');
+if(TAG!==DECL){tagCore.textContent=TAG;}
+
+/* blades: presence, length and angle all read from hash bits — same input, same mark */
+function buildGlyph(){
+  var NS='http://www.w3.org/2000/svg',n=0,k,bits,a,r0,r1,x1,y1,x2,y2;
+  while(blades.firstChild){blades.removeChild(blades.firstChild);}
+  for(k=0;k<8;k++){
+    if(((TAGN>>>k)&1)===0)continue;
+    a=(k*45+(((TAGN>>>(16+k))&1)?9:0))*Math.PI/180;
+    r0=16;r1=16+4+(((TAGN>>>(8+k))&1)?5:0);
+    x1=32+Math.cos(a)*r0;y1=32+Math.sin(a)*r0;
+    x2=32+Math.cos(a)*r1;y2=32+Math.sin(a)*r1;
+    var ln=document.createElementNS(NS,'line');
+    ln.setAttribute('class','bl');
+    ln.setAttribute('x1',x1.toFixed(2));ln.setAttribute('y1',y1.toFixed(2));
+    ln.setAttribute('x2',x2.toFixed(2));ln.setAttribute('y2',y2.toFixed(2));
+    blades.appendChild(ln);n++;
+  }
+  core.setAttribute('data-blades',String(n));
+  return n;
+}
+buildGlyph();
+
+/* ── orientation state ─────────────────────────────────────────────────── */
+var rx=0,ry=0,target='OBJECT',armed=false,drag=null,timer=0;
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+function setRM(){root.setAttribute('data-rm',reduce.matches?'1':'0');}
+setRM();
+if(reduce.addEventListener){reduce.addEventListener('change',setRM);}
+
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+function apply(){room.style.setProperty('--rx',rx.toFixed(2)+'deg');room.style.setProperty('--ry',ry.toFixed(2)+'deg');}
+function viewZ(k){
+  var n=NORM[k],
+      cy=Math.cos(ry*Math.PI/180),sy=Math.sin(ry*Math.PI/180),
+      cx=Math.cos(rx*Math.PI/180),sx=Math.sin(rx*Math.PI/180),
+      x1=n[0]*cy+n[2]*sy, z1=-n[0]*sy+n[2]*cy, y1=n[1];
+  return y1*sx+z1*cx;                       /* rotateY then rotateX, z in view space */
+}
+function nearest(){
+  var best=ORDER[0],bz=-2,k,z;
+  for(k=0;k<ORDER.length;k++){z=viewZ(ORDER[k]);if(z>bz){bz=z;best=ORDER[k];}}
+  return best;
+}
+function fmt(v){var r=Math.round(v);return (r<0?'-':'+')+('00'+Math.abs(r)).slice(-3);}
+function paint(){
+  for(var k=0;k<ORDER.length;k++){
+    var key=ORDER[k],z=viewZ(key);
+    zk[key].style.setProperty('--z',z.toFixed(3));
+    faces[key].classList.toggle('lit',armed&&key===target);
+  }
+  root.classList.toggle('armed',armed);
+  for(i=0;i<chipEls.length;i++){
+    chipEls[i].setAttribute('aria-pressed',chipEls[i].getAttribute('data-goto')===target?'true':'false');
+  }
+  hud.textContent='FACE '+target+' · RX '+fmt(rx)+' · RY '+fmt(ry)+' · '+(armed?'BLOOM':'QUIET');
+}
+function arm(){armed=true;if(timer){clearTimeout(timer);timer=0;}paint();}
+function quiet(){armed=false;timer=0;paint();}
+function later(ms){if(timer)clearTimeout(timer);timer=setTimeout(quiet,ms);}
+function goto(k){
+  if(!WALL[k])return;
+  target=k;rx=WALL[k].rx;ry=WALL[k].ry;apply();paint();
+}
+
+/* ── drag (mouse + touch + pen) ────────────────────────────────────────── */
+view.addEventListener('pointerdown',function(e){
+  if(e.button!==undefined&&e.button!==0)return;
+  var el=e.target&&e.target.closest?e.target.closest('.face'):null;
+  drag={x:e.clientX,y:e.clientY,rx:rx,ry:ry,moved:false,id:e.pointerId,el:el};
+  try{view.setPointerCapture(e.pointerId);}catch(_){}
+  if(el){target=el.getAttribute('data-face');}   /* tap preview: the touched wall blooms at once */
+  root.classList.add('grabbing');
+  arm();
+});
+view.addEventListener('pointermove',function(e){
+  if(!drag)return;
+  var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(Math.abs(dx)+Math.abs(dy)>6)drag.moved=true;
+  if(!drag.moved)return;
+  rx=clamp(drag.rx-dy*0.30,-105,105);
+  ry=drag.ry+dx*0.30;
+  apply();
+  target=nearest();
+  paint();
+});
+function endDrag(e){
+  if(!drag)return;
+  var d=drag;drag=null;
+  try{view.releasePointerCapture(d.id);}catch(_){}
+  root.classList.remove('grabbing');
+  if(!d.moved){
+    if(d.el){target=d.el.getAttribute('data-face');}
+    else{target=nearest();}
+    if(target==='RETURN'){emit();}
+  }else{
+    target=nearest();
+  }
+  goto(target);
+  arm();
+  later(2600);
+}
+view.addEventListener('pointerup',endDrag);
+view.addEventListener('pointercancel',function(e){
+  if(!drag)return;drag=null;root.classList.remove('grabbing');arm();later(2600);
+});
+
+/* ── RETURN: the room hands back one line ──────────────────────────────── */
+function reading(k){return faces[k].querySelector('.rd').textContent.replace(/\s+/g,' ').trim();}
+function emit(){
+  var line='room0 · OBJECT "'+CANON+'" · STATE "'+reading('STATE')+'" · GLYPH '+TAG;
+  rcpt.textContent=line;
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(line).then(function(){
+        rcpt.textContent=line+' · COPIED';
+      },function(){rcpt.textContent=line;});
+    }
+  }catch(_){}
+}
+
+/* ── chips + keys ──────────────────────────────────────────────────────── */
+function act(k){goto(k);arm();later(2600);}
+for(i=0;i<chipEls.length;i++){
+  (function(b){
+    b.addEventListener('click',function(){act(b.getAttribute('data-goto'));});
+    b.addEventListener('focus',function(){act(b.getAttribute('data-goto'));});
+  })(chipEls[i]);
+}
+document.addEventListener('keydown',function(e){
+  var k=e.key;
+  if(k>='1'&&k<='6'){act(ORDER[+k-1]);e.preventDefault();return;}
+  if(k==='ArrowLeft'||k==='ArrowRight'){
+    var n=ORDER.indexOf(target);if(n<0)n=0;
+    n=(n+(k==='ArrowRight'?1:-1)+ORDER.length)%ORDER.length;
+    act(ORDER[n]);e.preventDefault();return;
+  }
+  if(k==='ArrowUp'){act('STATE');e.preventDefault();return;}
+  if(k==='ArrowDown'){act('PROVE');e.preventDefault();return;}
+  if(k==='Escape'){quiet();rcpt.textContent='';}
+});
+
+/* ── boot ──────────────────────────────────────────────────────────────── */
+apply();paint();
+root.setAttribute('data-render','ok');
+
+/* page selftest: ?selftest=1 → verdict in title + <pre id="selftest"> */
+if(/[?&]selftest=1/.test(location.search)){
+  var res=[];
+  function ck(n,c){res.push({n:n,c:!!c});}
+  ck('6 FACES',room.querySelectorAll('.face').length===6);
+  ck('GLYPH MATCH',root.getAttribute('data-glyph-ok')==='1');
+  ck('REDUCED MOTION PATH',typeof reduce.matches==='boolean');
+  ck('NO EXTERNAL RESOURCE',document.querySelectorAll('script[src],link[href],img[src],iframe').length===0);
+  var pass=0,j;
+  for(j=0;j<res.length;j++){if(res[j].c)pass++;}
+  var pre=document.createElement('pre');
+  pre.id='selftest';
+  pre.textContent=(pass===res.length?'PASS ':'FAIL ')+pass+'/'+res.length+'\n'+
+    res.map(function(r){return (r.c?'PASS':'FAIL')+' '+r.n;}).join('\n');
+  document.body.appendChild(pre);
+  document.title=(pass===res.length?'SELFTEST PASS ':'SELFTEST FAIL ')+pass+'/'+res.length;
+}
+
+}catch(err){
+  root.setAttribute('data-boot-error',String(err&&err.message||err));
+  document.title='ROOM-0 BOOT FAIL';
+}
+window.addEventListener('error',function(ev){
+  root.setAttribute('data-boot-error',String(ev.message||'error'));
+});
+})();
+</script>
+</body>
+</html>

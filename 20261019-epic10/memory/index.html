@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>憶 memory graph · lane memory</title>
+<meta name="description" content="Deterministic typed-memory graph: hash placement, type lanes, bloom on tap. Static, no fetch.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="col">
+  <header>
+    <div class="ttl"><span class="cjk" lang="zh">憶</span> memory graph</div>
+    <div class="sub" id="sub">…</div>
+    <div class="hint">TAP NODE → BLOOM · TAP VOID → REST · <span lang="zh">緣</span> type lanes</div>
+  </header>
+
+  <div class="stage">
+    <canvas id="g" aria-label="memory graph — 22 typed nodes in 6 type lanes, 29 typed edges. Tap a node to bloom its neighbourhood."></canvas>
+  </div>
+
+  <section class="legend" id="legend" aria-label="type legend"></section>
+  <div class="degrees" id="degrees" aria-label="node degree counts"></div>
+  <div class="foot">STATIC · NO FETCH · NO PHYSICS · HASH LAYOUT v1</div>
+</main>
+
+<aside id="panel" aria-live="polite" aria-label="node record">
+  <div id="panel-body"></div>
+</aside>
+
+<noscript>
+  <p class="noscript">憶 this instrument needs javascript: the layout is computed from id hashes at runtime.</p>
+</noscript>
+
+<script src="data.js"></script>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

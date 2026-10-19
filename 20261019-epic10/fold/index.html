@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>摺 fold 目 — the fold</title>
+<style>
+/* L10 THE FOLD — house law: quiet by default, depth behind tap.
+   pad rgb(8,12,18) · ink rgb(79,87,96) · per-layer alpha <= 0.12 at rest.
+   one screen at 390px, no scroll. */
+:root{
+  --pad:rgb(8,12,18);
+  --ink:rgb(79,87,96);
+  --ink2:rgb(120,130,142);
+  --ink3:rgb(163,173,184);
+  --hair:rgba(79,87,96,0.12);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0 auto;
+  max-width:390px;                 /* phone-first constraint */
+  height:100dvh;                   /* ONE screen */
+  overflow:hidden;                 /* NO SCROLL — the index obeys it too */
+  background:var(--pad);
+  color:var(--ink);
+  font:400 11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  letter-spacing:0.02em;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  padding:14px 12px calc(10px + env(safe-area-inset-bottom));
+}
+header{flex:0 0 auto}
+.ttl{display:flex;align-items:baseline;gap:7px;font-size:13px;color:var(--ink2)}
+.ttl .tag{margin-left:auto;font-size:9px;color:var(--ink)}
+.cjk{font-family:"PingFang SC","Hiragino Sans GB","Songti SC","Noto Sans CJK SC",ui-serif,serif;letter-spacing:0.16em}
+.sub{margin-top:3px;font-size:10px;color:var(--ink)}
+.tot{margin-top:7px;padding-top:6px;border-top:1px solid var(--hair);font-size:10px;color:var(--ink)}
+main{
+  flex:1 1 auto;min-height:0;margin-top:10px;
+  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,minmax(0,1fr));gap:8px;
+}
+.cell{
+  position:relative;overflow:hidden;border-radius:2px;
+  background:none;border:1px solid var(--hair);padding:0;margin:0;
+  color:inherit;font:inherit;text-align:left;cursor:pointer;
+  transition:opacity .25s ease,border-color .25s ease;
+}
+.cell:focus-visible{outline:1px solid var(--ink2);outline-offset:2px}
+body.dim .cell:not(.bloom){opacity:.45}
+.cell.bloom{border-color:rgba(79,87,96,0.28)}
+canvas.stamp{position:absolute;left:4px;right:4px;top:4px;bottom:19px;width:calc(100% - 8px);height:calc(100% - 23px);display:block}
+.hd{position:absolute;left:6px;right:6px;bottom:4px;display:flex;justify-content:space-between;align-items:baseline;gap:6px;transition:opacity .2s ease}
+.cell.bloom .hd{opacity:0}          /* caption carries the data while bloomed */
+.nm{font-size:10px;color:var(--ink)}
+.st{font-size:9px;color:var(--ink);white-space:nowrap}
+.dot{display:inline-block;width:4px;height:4px;margin-right:4px;border:1px solid var(--ink);vertical-align:1px}
+.dot.on{background:var(--ink2);border-color:var(--ink2)}
+.cap{
+  position:absolute;inset:0;padding:8px 8px 7px;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:5px;
+  background:linear-gradient(180deg,rgba(8,12,18,0) 0%,rgba(8,12,18,.86) 44%,rgba(8,12,18,.97) 100%);
+  opacity:0;visibility:hidden;transition:opacity .28s ease;
+}
+.cell.bloom .cap{opacity:1;visibility:visible}
+.ds{font-size:10px;line-height:1.45;color:var(--ink3)}
+.ln{font-size:9px;color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--hair);word-break:break-all}
+.mt{font-size:9px;color:var(--ink);overflow-wrap:anywhere}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="ttl"><span class="cjk">摺</span><span>fold</span><span class="cjk">目</span><span class="tag">L10</span></div>
+  <div class="sub">一目了然 · ten instruments, one field</div>
+  <div class="tot" id="tot">built — · 10 lanes · —</div>
+</header>
+<main id="grid" aria-label="ten instruments"></main>
+<script>
+(function(){
+'use strict';
+
+/* MANIFEST — status is DECLARED here (static page; no runtime dir listing).
+   live probe (http only) may flip it; file:// stays declared.
+   declared at build time: tokipona had an index.html, fold is this page. */
+/*MANIFEST:BEGIN*/
+const MANIFEST = [
+  { id:'oracle',    cjk:'易', desc:'I-Ching state encoding',    built:false },
+  { id:'room0',     cjk:'室', desc:'cube room six readings',    built:false },
+  { id:'dawn',      cjk:'晨', desc:'wake brief',                built:false },
+  { id:'attention', cjk:'注', desc:'spiral self-portrait',      built:false },
+  { id:'tokipona',  cjk:'簡', desc:'semantic compression',      built:true  },
+  { id:'breath',    cjk:'息', desc:'breathing pacer',           built:false },
+  { id:'ride',      cjk:'騎', desc:'EUC/VESC telemetry reader', built:false },
+  { id:'lyric',     cjk:'韻', desc:'meter lattice',             built:false },
+  { id:'memory',    cjk:'憶', desc:'memory graph',              built:false },
+  { id:'fold',      cjk:'摺', desc:'convergence index — this page', built:true }
+];
+/*MANIFEST:END*/
+
+const TONIGHT = '2026-10-19';
+
+/* SPEC — pure, deterministic, DOM-free. every stamp is the name's hash. */
+/*SPEC:BEGIN*/
+function foldHash(name){
+  let h = 0x811c9dc5;
+  const s = String(name);
+  for (let i = 0; i < s.length; i++){
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h >>> 0;
+}
+function foldSpec(name){
+  const seed = foldHash(name) || 0x9e3779b9;
+  let x = seed >>> 0;
+  function nx(){ x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }
+  return {
+    h: seed,
+    cxn: 0.30 + nx()*0.40, cyn: 0.30 + nx()*0.40,
+    dA: 3 + nx()*6,        nA: 5 + Math.floor(nx()*7),
+    cxB: 0.30 + nx()*0.40, cyB: 0.30 + nx()*0.40,
+    dB: 3 + nx()*6,        nB: 5 + Math.floor(nx()*7),
+    cxC: 0.30 + nx()*0.40, cyC: 0.30 + nx()*0.40,
+    dC: 2 + nx()*5,        nC: 6 + Math.floor(nx()*8),
+    lcx: 0.20 + nx()*0.60, lcy: 0.20 + nx()*0.60,
+    ang: nx()*Math.PI,     dl: 4 + nx()*8,      ln: 9 + Math.floor(nx()*13),
+    ticks: 4 + Math.floor(nx()*9), t0: nx()*Math.PI*2,
+    bit: seed & 1
+  };
+}
+const FOLD_REST_ALPHA  = { L:0.06, A:0.11, B:0.09, T:0.08 };
+const FOLD_BLOOM_ALPHA = { L:0.22, A:0.38, B:0.32, C:0.26, T:0.30, dot:0.50 };
+/*SPEC:END*/
+
+const INK = '79,87,96';
+const TAU = 6.283185307179586;
+
+function strokeRings(g, cx, cy, n, d, a){
+  g.strokeStyle = 'rgba(' + INK + ',' + a + ')';
+  g.lineWidth = 1;
+  for (let i = 1; i <= n; i++){ g.beginPath(); g.arc(cx, cy, i*d, 0, TAU); g.stroke(); }
+}
+function strokeLattice(g, cx, cy, ang, span, n, d, a){
+  g.save(); g.translate(cx, cy); g.rotate(ang);
+  g.strokeStyle = 'rgba(' + INK + ',' + a + ')';
+  g.lineWidth = 1;
+  const half = (n - 1)*d/2;
+  for (let i = 0; i < n; i++){ const y = i*d - half; g.beginPath(); g.moveTo(-span, y); g.lineTo(span, y); g.stroke(); }
+  g.restore();
+}
+function strokeTicks(g, cx, cy, r, len, n, a0, a){
+  g.strokeStyle = 'rgba(' + INK + ',' + a + ')';
+  g.lineWidth = 1;
+  for (let i = 0; i < n; i++){
+    const t = a0 + i*TAU/n, c = Math.cos(t), s = Math.sin(t);
+    g.beginPath(); g.moveTo(cx + c*r, cy + s*r); g.lineTo(cx + c*(r+len), cy + s*(r+len)); g.stroke();
+  }
+}
+
+/* bloom layers appear ONLY on the tapped stamp */
+function drawStamp(cv, id, bloom){
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (!w || !h) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  const g = cv.getContext('2d');
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, w, h);
+  const p = foldSpec(id);                       /* stamp = hash(name) */
+  const u = Math.min(w, h)/96;
+  const R = FOLD_REST_ALPHA, B = FOLD_BLOOM_ALPHA;
+  const ax = w*p.cxn, ay = h*p.cyn, ad = p.dA*u;
+  strokeLattice(g, w*p.lcx, h*p.lcy, p.ang, Math.max(w, h), p.ln, p.dl*u, bloom ? B.L : R.L);
+  strokeRings(g, ax, ay, p.nA, ad, bloom ? B.A : R.A);
+  strokeRings(g, w*p.cxB, h*p.cyB, p.nB, p.dB*u, bloom ? B.B : R.B);
+  strokeTicks(g, ax, ay, p.nA*ad + 3*u, 4*u, p.ticks, p.t0, bloom ? B.T : R.T);
+  if (bloom){
+    strokeRings(g, w*p.cxC, h*p.cyC, p.nC, p.dC*u, B.C);
+    g.fillStyle = 'rgba(' + INK + ',' + B.dot + ')';
+    g.beginPath(); g.arc(ax, ay, 1.6*u + p.bit, 0, TAU); g.fill();
+  }
+}
+
+const grid = document.getElementById('grid');
+const tot  = document.getElementById('tot');
+const state = [];
+let open = -1;
+
+MANIFEST.forEach(function(m){
+  const b = document.createElement('button');
+  b.className = 'cell'; b.type = 'button';
+  b.setAttribute('aria-expanded','false');
+  b.setAttribute('aria-label', m.id + ' — ' + m.desc);
+  b.innerHTML =
+    '<canvas class="stamp" aria-hidden="true"></canvas>' +
+    '<div class="hd"><span class="nm">' + m.id + '</span>' +
+    '<span class="st"><i class="dot"></i><span class="w">unbuilt</span></span></div>' +
+    '<div class="cap"><div class="ds"><span class="cjk">' + m.cjk + '</span> · ' + m.desc + '</div>' +
+    '<div class="mt"><span class="w2">unbuilt</span></div>' +
+    '<a class="ln" href="../' + m.id + '/index.html">../' + m.id + '/index.html</a></div>';
+  grid.appendChild(b);
+  const s = {
+    m: m, declared: !!m.built, live: null,
+    href: '../' + m.id + '/index.html',
+    el: b, cv: b.querySelector('canvas'),
+    dot: b.querySelector('.dot'), w: b.querySelector('.w'), w2: b.querySelector('.w2'), ln: b.querySelector('.ln')
+  };
+  state.push(s);
+  b.addEventListener('click', function(){ toggle(state.indexOf(s)); });
+});
+
+function eff(s){ return s.live === null ? s.declared : s.live; }
+
+function paintStatus(s){
+  const on = eff(s);
+  s.dot.classList.toggle('on', on);
+  s.w.textContent = on ? 'built' : 'unbuilt';
+  s.w2.textContent = (on ? 'built' : 'unbuilt') + (s.live === null ? '' : ' · live');
+  s.el.setAttribute('data-src', s.live === null ? 'declared' : 'live');
+  s.el.title = s.m.id + ' · ' + (on ? 'built' : 'unbuilt') + ' · ' +
+               (s.live === null ? 'declared in manifest' : 'live probe') + ' · ' + s.href;
+}
+
+function totals(){
+  let built = 0, live = false;
+  state.forEach(function(s){ if (eff(s)) built++; if (s.live !== null) live = true; });
+  tot.textContent = 'built ' + built + '/10 · 10 lanes · ' + TONIGHT + (live ? ' · live' : ' · declared');
+}
+
+function render(){
+  for (let i = 0; i < state.length; i++) drawStamp(state[i].cv, state[i].m.id, i === open);
+}
+function closeAll(){
+  open = -1;
+  state.forEach(function(s){ s.el.classList.remove('bloom'); s.el.setAttribute('aria-expanded','false'); });
+  document.body.classList.remove('dim');
+  render();
+}
+function toggle(i){
+  if (i < 0) return;
+  if (open === i){ closeAll(); return; }
+  closeAll();
+  open = i;
+  state[i].el.classList.add('bloom');
+  state[i].el.setAttribute('aria-expanded','true');
+  document.body.classList.add('dim');
+  render();
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+
+/* live probe: http(s) only. file:// stays 'declared', no error, no spinner. */
+async function probe(){
+  if (location.protocol === 'file:') return;
+  if (typeof fetch !== 'function') return;
+  for (const s of state){
+    const cands = ['./' + s.m.id + '/index.html', '../' + s.m.id + '/index.html'];
+    for (const p of cands){
+      try {
+        const r = await fetch(p, { method:'GET', cache:'no-store' });   /* HEAD-like GET */
+        if (r.ok){ s.live = true; s.href = p; s.ln.setAttribute('href', p); s.ln.textContent = p; break; }
+      } catch (e){ /* offline / blocked — keep declared */ }
+    }
+    if (s.live === null) s.live = false;
+    paintStatus(s);
+    totals();
+  }
+}
+
+state.forEach(paintStatus);
+totals();
+render();
+window.addEventListener('resize', render);
+window.addEventListener('load', render);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+probe();
+})();
+</script>
+</body>
+</html>

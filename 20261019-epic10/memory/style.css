@@ -1,0 +1,231 @@
+/* style.css — dark, quiet, system monospace only. No imports, no fonts fetched.
+
+   DESIGN LAW, as implemented:
+   pad     = rgb(8,12,18)
+   ink     = rgb(79,87,96)
+   canvas graph layers at rest are all alpha <= 0.12
+     (lane guides .05 · hairline edges .07 · degree arcs .09 · glyph fill .06 ·
+      glyph stroke .12) — see app.js REST constants.
+   DOM chrome (title/legend/degrees) is muted ink, not a graph layer:
+   depth (panel, node titles, edge labels, full ink) appears only behind tap.
+   prefers-reduced-motion: transitions removed, states still change. */
+
+:root {
+  --pad: rgb(8, 12, 18);
+  --ink: rgb(79, 87, 96);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--pad);
+  color: var(--ink);
+}
+
+body {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "PingFang SC", "Hiragino Sans GB", monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.col {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 18px 14px 44px;
+}
+
+/* ---- header -------------------------------------------------------- */
+.ttl {
+  font-size: 15px;
+  letter-spacing: .07em;
+  color: rgba(79, 87, 96, .62);
+}
+.ttl .cjk { font-size: 17px; margin-right: 4px; }
+
+.sub {
+  margin-top: 5px;
+  font-size: 9px;
+  letter-spacing: .09em;
+  color: rgba(79, 87, 96, .44);
+}
+
+.hint {
+  margin-top: 3px;
+  font-size: 8.5px;
+  letter-spacing: .1em;
+  color: rgba(79, 87, 96, .34);
+}
+
+/* ---- stage --------------------------------------------------------- */
+.stage { margin-top: 14px; }
+
+canvas#g {
+  display: block;
+  width: 100%;
+  touch-action: pan-y;   /* vertical scroll stays possible over the graph */
+  cursor: pointer;
+}
+
+/* ---- legend -------------------------------------------------------- */
+.legend {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px 8px;
+}
+
+.lg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8.5px;
+  letter-spacing: .07em;
+  color: rgba(79, 87, 96, .5);
+  white-space: nowrap;
+}
+.lg canvas { display: block; flex: 0 0 auto; }
+.lg .n { color: rgba(79, 87, 96, .68); }
+
+/* ---- degrees line --------------------------------------------------- */
+.degrees {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(79, 87, 96, .1);
+  font-size: 8.5px;
+  line-height: 1.9;
+  letter-spacing: .05em;
+  color: rgba(79, 87, 96, .44);
+  word-break: break-word;
+}
+.degrees .k {
+  color: rgba(79, 87, 96, .66);
+  margin-right: 6px;
+}
+.degrees b { font-weight: 600; color: rgba(79, 87, 96, .62); }
+.degrees .sep { color: rgba(79, 87, 96, .22); margin: 0 5px 0 1px; }
+
+.foot {
+  margin-top: 18px;
+  font-size: 8px;
+  letter-spacing: .12em;
+  color: rgba(79, 87, 96, .3);
+}
+
+/* ---- side panel (depth, only behind tap) ---------------------------- */
+#panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: rgb(8, 12, 18);
+  border-top: 1px solid rgba(79, 87, 96, .3);
+  box-shadow: 0 -14px 30px rgba(8, 12, 18, .9);
+  transform: translateY(101%);
+  transition: transform .28s cubic-bezier(.2, .7, .3, 1);
+  max-height: 58vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 13px 16px calc(20px + env(safe-area-inset-bottom));
+}
+#panel.open { transform: translateY(0); }
+
+.p-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 8.5px;
+  letter-spacing: .1em;
+}
+.p-type { color: rgba(79, 87, 96, .95); }
+.p-id   { color: rgba(79, 87, 96, .6); }
+.p-x {
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(79, 87, 96, .35);
+  color: rgba(79, 87, 96, .8);
+  font: inherit;
+  font-size: 9px;
+  padding: 2px 7px;
+  cursor: pointer;
+}
+
+.p-title {
+  margin: 9px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: rgba(79, 87, 96, .98);
+}
+.p-sub {
+  display: inline-block;
+  margin-left: 7px;
+  font-size: 8.5px;
+  letter-spacing: .09em;
+  color: rgba(79, 87, 96, .6);
+  vertical-align: 2px;
+}
+
+.p-rec {
+  margin: 8px 0 0;
+  font-size: 10.5px;
+  line-height: 1.7;
+  color: rgba(79, 87, 96, .82);
+}
+
+.p-prov {
+  margin-top: 9px;
+  font-size: 8.5px;
+  letter-spacing: .06em;
+  color: rgba(79, 87, 96, .66);
+  border-left: 1px solid rgba(79, 87, 96, .4);
+  padding-left: 7px;
+}
+
+.p-meta {
+  margin-top: 7px;
+  font-size: 8.5px;
+  letter-spacing: .08em;
+  color: rgba(79, 87, 96, .5);
+}
+
+.p-links {
+  margin-top: 11px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(79, 87, 96, .14);
+  font-size: 9px;
+  line-height: 1.85;
+  letter-spacing: .05em;
+  color: rgba(79, 87, 96, .78);
+}
+.p-links .hd {
+  font-size: 8.5px;
+  letter-spacing: .1em;
+  color: rgba(79, 87, 96, .5);
+  margin-bottom: 3px;
+}
+.p-links .ar { color: rgba(79, 87, 96, .45); margin-right: 5px; }
+.p-links .lb { color: rgba(79, 87, 96, .95); }
+.p-links .nd { color: rgba(79, 87, 96, .6); }
+
+.noscript {
+  max-width: 430px;
+  margin: 24px auto;
+  padding: 0 14px;
+  font-size: 10px;
+  color: rgba(79, 87, 96, .7);
+}
+
+/* ---- reduced motion: same depth, no movement ------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  #panel { transition: none; }
+}
+
+@media (min-width: 700px) {
+  .col { padding-top: 30px; }
+}

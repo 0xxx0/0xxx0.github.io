@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>ATTN·SPIRAL — attention self-portrait</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="stage">
+
+  <header class="hd">
+    <h1>ATTN·SPIRAL<span class="sub">注意力螺旋</span></h1>
+    <div class="win" id="win">10-06→10-19</div>
+  </header>
+
+  <p class="hint" id="hint"><span>HOVER / TAP A DAY</span><span class="sep">·</span><span>ARC=DAY LANE=PROJECT</span><span class="sep">·</span><span>LEN=VOLUME TICK=SHIPPED</span></p>
+
+  <div class="fig" id="fig">
+    <canvas id="spiral" width="390" height="430" role="img"
+      aria-label="Attention spiral: 14 days wound around a fixed central bar; arc is day, lane is project, mark length is volume, tick is shipped versus open."></canvas>
+    <div class="readout" id="readout" aria-live="polite"></div>
+  </div>
+
+  <nav class="days" id="days" aria-label="days"></nav>
+
+  <section class="legend" id="legend" data-open="0">
+    <div class="ltitle" id="legend-title"></div>
+    <div class="lhead">
+      <span></span><span>PROJECT</span><span>IDENT</span><span>MSG ART · SHP OPN</span>
+    </div>
+    <div class="lrows" id="legend-rows"></div>
+  </section>
+
+  <footer class="foot" id="foot"></footer>
+
+</main>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

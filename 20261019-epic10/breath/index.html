@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>息 BREATH — resonance pacer</title>
+<style>
+  :root {
+    --pad: rgb(8, 12, 18);
+    --ink: rgb(79, 87, 96);
+    --ink-hi: rgb(143, 152, 163);
+    --line: rgba(79, 87, 96, 0.24);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--pad);
+    color: var(--ink);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  main {
+    width: 100%;
+    max-width: 390px;
+    padding: 22px 18px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .mark { font-size: 15px; letter-spacing: 0.34em; color: var(--ink-hi); }
+  .kicker { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.75; }
+
+  #stage { width: 100%; aspect-ratio: 1 / 1; max-height: 54vh; display: block; }
+
+  .hud { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .hud-row { display: flex; gap: 10px; align-items: baseline; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+  .hud-row .k { opacity: 0.55; }
+  .hud-row .v { color: var(--ink-hi); min-width: 4.4em; text-align: left; }
+  #phase { font-size: 13px; letter-spacing: 0.4em; min-width: 5em; }
+
+  .controls { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .chips { display: flex; gap: 6px; }
+  .chips button, .rate button, #begin {
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    padding: 8px 8px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .chips button { flex: 1; }
+  .chips button[aria-pressed="true"] { color: var(--ink-hi); border-color: rgba(143, 152, 163, 0.4); }
+  button:disabled { opacity: 0.38; cursor: default; }
+  .rate { display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .rate .k { opacity: 0.55; }
+  .rate button { padding: 6px 12px; }
+  #rate { color: var(--ink-hi); min-width: 3.2em; text-align: center; }
+  .pace { margin-left: auto; opacity: 0.8; }
+  #begin { width: 100%; padding: 13px; letter-spacing: 0.36em; color: var(--ink-hi); }
+
+  #summary { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; margin: 0; }
+  [hidden] { display: none !important; }
+
+  .scope { font-size: 9.5px; line-height: 1.75; letter-spacing: 0.12em; text-transform: uppercase; margin: 6px 0 0; }
+  .scope-gate { font-size: 9.5px; line-height: 1.75; letter-spacing: 0.12em; text-transform: uppercase; margin: 0; opacity: 0.72; }
+  .foot { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; opacity: 0.5; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="row">
+    <span class="mark">息 氣</span>
+    <span class="kicker">resonance pacer · lane breath</span>
+  </div>
+
+  <canvas id="stage" aria-label="breathing ring: ring radius encodes breath phase"></canvas>
+
+  <div class="hud">
+    <div class="hud-row"><span class="k">phase</span><span class="v" id="phase" aria-live="polite">·</span></div>
+    <div class="hud-row"><span class="k">time</span><span class="v" id="time">00:00</span></div>
+    <div class="hud-row"><span class="k">breaths</span><span class="v" id="breaths">000</span></div>
+  </div>
+
+  <div class="controls">
+    <div class="chips" role="group" aria-label="pattern">
+      <button type="button" data-pattern="resonance" aria-pressed="true">RESONANCE</button>
+      <button type="button" data-pattern="box" aria-pressed="false">BOX 4·4·4</button>
+      <button type="button" data-pattern="478" aria-pressed="false">4·7·8</button>
+    </div>
+    <div class="rate">
+      <span class="k">rate</span>
+      <button type="button" id="rate-down" aria-label="slower">−</button>
+      <span id="rate">5.5</span>
+      <button type="button" id="rate-up" aria-label="faster">+</button>
+      <span class="pace">pace <span id="pace">5.5</span> /min</span>
+    </div>
+    <button type="button" id="begin">BEGIN</button>
+  </div>
+
+  <p id="summary" hidden></p>
+
+  <p class="scope" id="scope">SOFTWARE PACER — NO SENSOR. HRV READOUT NEEDS A REAL DEVICE.</p>
+  <p class="scope-gate">REAL-DEVICE GATE — TRUE INTER-BEAT-INTERVAL FIDELITY CANNOT BE SIMULATED.</p>
+  <p class="foot">息 · 氣 — radius = phase · deterministic · no randomness</p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* @pure-core:start */
+  var PHASE_IN = 'IN';
+  var PHASE_HOLD = 'HOLD';
+  var PHASE_OUT = 'OUT';
+
+  function phaseConfig(pattern, bpm) {
+    if (pattern === 'box') return { in: 4, hold: 4, out: 4 };
+    if (pattern === '478') return { in: 4, hold: 7, out: 8 };
+    var cycle = 60 / bpm;
+    return { in: cycle / 3, hold: cycle / 3, out: cycle / 3 };
+  }
+
+  function easeInOut(p) { return (1 - Math.cos(Math.PI * p)) / 2; }
+
+  function cycleSeconds(cfg) { return cfg.in + cfg.hold + cfg.out; }
+
+  function phaseAt(t, cfg) {
+    var cycle = cfg.in + cfg.hold + cfg.out;
+    var local = t - Math.floor(t / cycle) * cycle;
+    if (local < cfg.in) {
+      var a = local / cfg.in;
+      return { phase: PHASE_IN, progress: a, radius: easeInOut(a) };
+    }
+    if (local < cfg.in + cfg.hold) {
+      return { phase: PHASE_HOLD, progress: 1, radius: 1 };
+    }
+    var q = (local - cfg.in - cfg.hold) / cfg.out;
+    return { phase: PHASE_OUT, progress: q, radius: 1 - easeInOut(q) };
+  }
+  /* @pure-core:end */
+
+  var INK = 'rgb(79, 87, 96)';
+  var INK_HI = 'rgb(143, 152, 163)';
+
+  function $(id) { return document.getElementById(id); }
+
+  var canvas = $('stage');
+  var ctx = canvas.getContext('2d');
+  var elPhase = $('phase'), elTime = $('time'), elBreaths = $('breaths');
+  var elSummary = $('summary'), elBegin = $('begin');
+  var elRate = $('rate'), elPace = $('pace');
+  var rateDown = $('rate-down'), rateUp = $('rate-up');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-pattern]'));
+
+  var state = { pattern: 'resonance', bpm: 5.5, running: false, startedAt: 0 };
+
+  var mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reducedMotion = mqReduce.matches;
+  function onReduceChange() { reducedMotion = mqReduce.matches; draw(); }
+  if (typeof mqReduce.addEventListener === 'function') mqReduce.addEventListener('change', onReduceChange);
+  else if (typeof mqReduce.addListener === 'function') mqReduce.addListener(onReduceChange);
+
+  function nowSec() { return performance.now() / 1000; }
+  function cfgNow() { return phaseConfig(state.pattern, state.bpm); }
+  function pad(n, w) { var s = String(Math.max(0, Math.floor(n))); while (s.length < w) s = '0' + s; return s; }
+  function clock(s) { return pad(Math.floor(s / 60), 2) + ':' + pad(Math.floor(s % 60), 2); }
+
+  function fit() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var rect = canvas.getBoundingClientRect();
+    var w = Math.max(1, Math.round(rect.width)), h = Math.max(1, Math.round(rect.height));
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function drawLiveRing(cx, cy, rMin, rMax, ph, frac, running) {
+    var r = running ? rMin + (rMax - rMin) * ph.radius : rMin;
+    ctx.save();
+    if (running) {
+      // bloom — explicit act only; alpha tracks the same datum as the ring (phase)
+      var g = ctx.createRadialGradient(cx, cy, r * 0.5, cx, cy, r * 1.15);
+      g.addColorStop(0, 'rgba(79, 87, 96, 0.10)');
+      g.addColorStop(1, 'rgba(79, 87, 96, 0)');
+      ctx.globalAlpha = 0.12 * (0.4 + 0.6 * ph.radius);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(cx, cy, r * 1.15, 0, Math.PI * 2); ctx.fill();
+    }
+    // ring — radius = phase
+    ctx.globalAlpha = running ? 0.2 : 0.12;
+    ctx.strokeStyle = INK; ctx.lineWidth = 1.25;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+    // cycle tick — phase origin
+    ctx.globalAlpha = 0.12;
+    ctx.beginPath(); ctx.moveTo(cx, cy - r - 3); ctx.lineTo(cx, cy - r + 3); ctx.stroke();
+    if (running) {
+      // progress arc — fraction of cycle elapsed
+      ctx.globalAlpha = 0.5;
+      ctx.strokeStyle = INK_HI; ctx.lineWidth = 1.75;
+      ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawStaticArc(cx, cy, r, ph, frac, running) {
+    // reduced motion: no scaling — fixed ring, progress as arc + text
+    ctx.save();
+    ctx.globalAlpha = 0.12;
+    ctx.strokeStyle = INK; ctx.lineWidth = 1.25;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy - r - 3); ctx.lineTo(cx, cy - r + 3); ctx.stroke();
+    if (running) {
+      ctx.globalAlpha = 0.5;
+      ctx.strokeStyle = INK_HI; ctx.lineWidth = 1.75;
+      ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  var lastPaint = { phase: '', time: '', breaths: '' };
+  function paintHud(ph, elapsed, cfg) {
+    var phaseText = state.running ? ph.phase : '·';
+    var timeText = clock(state.running ? elapsed : 0);
+    var breathText = pad(state.running ? Math.floor(elapsed / cycleSeconds(cfg)) : 0, 3);
+    if (phaseText !== lastPaint.phase) { elPhase.textContent = phaseText; lastPaint.phase = phaseText; }
+    if (timeText !== lastPaint.time) { elTime.textContent = timeText; lastPaint.time = timeText; }
+    if (breathText !== lastPaint.breaths) { elBreaths.textContent = breathText; lastPaint.breaths = breathText; }
+  }
+
+  function draw() {
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    ctx.clearRect(0, 0, w, h);
+    var cx = w / 2, cy = h / 2, size = Math.min(w, h);
+    var rMax = size * 0.36, rMin = rMax * 0.62;
+    var cfg = cfgNow();
+    var elapsed = state.running ? nowSec() - state.startedAt : 0;
+    var ph = phaseAt(elapsed, cfg);
+    var cycle = cycleSeconds(cfg);
+    var frac = (elapsed % cycle) / cycle;
+    if (reducedMotion) drawStaticArc(cx, cy, rMax, ph, frac, state.running);
+    else drawLiveRing(cx, cy, rMin, rMax, ph, frac, state.running);
+    paintHud(ph, elapsed, cfg);
+  }
+
+  function frame() { draw(); window.requestAnimationFrame(frame); }
+
+  function setControls() {
+    var on = !state.running;
+    chips.forEach(function (c) { c.disabled = !on; });
+    var rateOK = on && state.pattern === 'resonance';
+    rateDown.disabled = !rateOK;
+    rateUp.disabled = !rateOK;
+    elRate.textContent = state.bpm.toFixed(1);
+    elPace.textContent = (60 / cycleSeconds(cfgNow())).toFixed(1);
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      if (state.running) return;
+      state.pattern = chip.getAttribute('data-pattern');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      setControls();
+      draw();
+    });
+  });
+
+  rateDown.addEventListener('click', function () { state.bpm = Math.max(4, state.bpm - 0.5); setControls(); draw(); });
+  rateUp.addEventListener('click', function () { state.bpm = Math.min(8, state.bpm + 0.5); setControls(); draw(); });
+
+  elBegin.addEventListener('click', function () {
+    if (!state.running) {
+      state.running = true;
+      state.startedAt = nowSec();
+      elSummary.hidden = true;
+      elSummary.textContent = '';
+      elBegin.textContent = 'END';
+    } else {
+      var elapsed = nowSec() - state.startedAt;
+      var breaths = Math.floor(elapsed / cycleSeconds(cfgNow()));
+      state.running = false;
+      elBegin.textContent = 'BEGIN';
+      elSummary.textContent = 'SESSION · ' + pad(breaths, 3) + ' BREATHS · ' + clock(elapsed);
+      elSummary.hidden = false;
+    }
+    setControls();
+    draw();
+  });
+
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', fit);
+  setControls();
+  fit();
+  window.requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

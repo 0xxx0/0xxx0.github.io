@@ -1,0 +1,211 @@
+/* ATTN·SPIRAL — house law: pad rgb(8,12,18), lines rgb(79,87,96),
+   one warm accent (#d7ae67) + one cool (#72bce7) used only on approach.
+   System fonts only. Terse monospace terminal. Phone-first (390px). */
+
+:root {
+  --pad: rgb(8, 12, 18);
+  --ink: rgb(79, 87, 96);
+  --gold: #d7ae67;
+  --cool: #72bce7;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--pad);
+  color: var(--ink);
+  font-family: var(--mono), var(--cjk);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.stage {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100dvh;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- header ---------- */
+.hd {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hd h1 { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; color: rgb(110, 118, 128); }
+.hd .sub { margin-left: 8px; font-family: var(--cjk); font-size: 8px; letter-spacing: 0.24em; opacity: 0.62; }
+.win { opacity: 0.5; letter-spacing: 0.1em; }
+
+.hint {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  transition: opacity 0.18s ease;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2px;
+}
+.hint span { white-space: nowrap; }
+.hint .sep { margin: 0 6px; opacity: 0.6; }
+.hint[data-bloom="1"] { opacity: 0.16; }
+
+/* ---------- figure ---------- */
+.fig { position: relative; width: 100%; }
+#spiral { display: block; width: 100%; height: auto; touch-action: manipulation; }
+
+/* the fixed central bar readout — never reflows, never scrolls */
+.readout {
+  position: absolute;
+  left: 42.82%;      /* (195-28)/390 */
+  top: 39.30%;       /* (215-46)/430 */
+  width: 14.36%;     /* 56/390 */
+  height: 21.40%;    /* 92/430 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 8.5px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.rl { display: flex; align-items: baseline; justify-content: space-between; gap: 3px; }
+.rk { font-family: var(--cjk); opacity: 0.6; white-space: nowrap; }
+.rv { font-variant-numeric: tabular-nums; opacity: 0.62; transition: opacity 0.2s ease; }
+.rl:first-child .rk { font-family: var(--mono); opacity: 0.85; letter-spacing: 0; }
+.readout[data-bloom="1"] .rl:first-child .rk { color: var(--gold); opacity: 0.9; }
+.readout[data-bloom="1"] .rv { opacity: 0.92; }
+.readout[data-bloom="1"] .rl:nth-child(5) .rv { color: var(--gold); }
+.readout[data-bloom="1"] .rl:nth-child(6) .rv { color: var(--cool); }
+
+/* ---------- day chips (position, never scroll) ---------- */
+.days {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 1px;
+  margin-top: 2px;
+}
+.day {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  color: var(--ink);
+  opacity: 0.44;
+  font: inherit;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  padding: 4px 0 3px;
+  cursor: pointer;
+  transition: opacity 0.16s ease, color 0.16s ease;
+}
+.day:hover { opacity: 0.85; border-bottom-color: rgba(79, 87, 96, 0.5); }
+.day:focus-visible { outline: none; opacity: 0.9; border-bottom-color: var(--cool); }
+.day[data-active="1"] {
+  opacity: 1;
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------- legend: hidden at rest, the receipt behind the reveal ---------- */
+.legend {
+  padding-top: 7px;
+  border-top: 1px solid rgba(79, 87, 96, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+}
+.legend[data-open="1"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.18s ease, visibility 0s;
+}
+.ltitle, .lhead {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 46px 104px;
+  gap: 6px;
+  align-items: baseline;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ltitle { display: block; margin-bottom: 4px; opacity: 0.55; }
+.ltitle b { color: var(--gold); font-weight: 600; letter-spacing: 0.06em; }
+.ltitle .dot { margin: 0 6px; opacity: 0.6; }
+.ltitle .dim { opacity: 0.7; }
+.lhead { opacity: 0.3; padding-bottom: 3px; }
+.lhead span:last-child { text-align: right; }
+
+.lrows { display: flex; flex-direction: column; }
+.lrow {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 46px 104px;
+  gap: 6px;
+  align-items: center;
+  min-height: 16px;
+  font-size: 8.5px;
+  letter-spacing: 0.03em;
+  opacity: 0.42;
+  transition: opacity 0.16s ease, color 0.16s ease;
+}
+.lrow[data-on="1"] { opacity: 1; }
+.stamp { display: block; width: 20px; height: 20px; }
+.lname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ltag { font-size: 7.5px; opacity: 0.55; letter-spacing: 0.06em; }
+.lcount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 3px;
+}
+.lcount .zero { opacity: 0.45; font-family: var(--cjk); letter-spacing: 0.1em; }
+.lcount .sep { font-style: normal; opacity: 0.35; margin: 0 1px; }
+.lcount .n { font-style: normal; }
+.lcount .n.s { color: var(--gold); }
+.lcount .n.o { color: var(--cool); }
+.lcount .g { font-style: normal; width: 6px; height: 6px; display: inline-block; position: relative; top: 0px; }
+.lcount .g.ship { background: var(--gold); }
+.lcount .g.open { border: 1px solid var(--cool); }
+
+/* the bottom receipt line: real datums only (lane, geometry hash, mark count) */
+.foot {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.34;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.foot span { white-space: nowrap; }
+
+/* reduced motion: same depth, zero motion (design law) */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* short phones: let the instrument breathe rather than clip */
+@media (max-height: 640px) {
+  .stage { gap: 6px; }
+  .lrow, .lhead, .ltitle { font-size: 7.5px; }
+}
