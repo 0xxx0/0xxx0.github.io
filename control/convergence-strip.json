@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-19T04:08:35.924Z",
+  "generated": "2026-10-19T04:39:37.616Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-19",
-  "commits_in_window": 4,
-  "git_commits_in_window": 38,
-  "telemetry_commits_in_window": 34,
-  "commits_total": 6110,
+  "commits_in_window": 5,
+  "git_commits_in_window": 42,
+  "telemetry_commits_in_window": 37,
+  "commits_total": 6114,
   "branch_count": 1029,
   "recent_commits": [
+    "fovea-lens: quiet by default — ring+centre at rest, measured figure is a revea",
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: re-stamp /field/ /fovea/ after rebase (IMPLEMENT,VERIFY)",
-    "fi-mutation-contract: stamp /field/ /fovea/ (IMPLEMENT,VERIFY)"
+    "fi-mutation-contract: re-stamp /field/ /fovea/ after rebase (IMPLEMENT,VERIFY)"
   ],
   "active_fronts": [
     {
