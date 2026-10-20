@@ -113,4 +113,4 @@ function consumeLensHandoff(){
     const t=h.text.slice(0,250000);$('#text').value=t;load(t,(h.label||'human-port-intake')+'.txt');return true
   }catch(_){return false}
 }
-if(!consumeLensHandoff()){setLab(true);$('#sample').click()}draw();
+if(!consumeLensHandoff()){setLab(false);$('#sample').click()}draw();
