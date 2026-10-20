@@ -89,3 +89,14 @@ Acceptance: 18 cell/figure combinations walk BFS paths through actual `move`, en
 Research references are constraints, not imported code or canon: [Dwitter](https://www.dwitter.net/about) demonstrates dense canvas expression; [ascii-city](https://github.com/ludthor/ascii-city) describes DDA and a cached glyph atlas; [inkle/ink](https://github.com/inkle/ink) separates narrative state from presentation. We use the local native law, browser Canvas and Web Audio; no new rendering/narrative dependency was admitted.
 
 Next useful levers: measure cue usefulness before adding lore; compare WOVEN/GLYPH frame cost on an actual phone; let one proven return artifact drive one reversible external continuation. The lost painting-to-world correspondence and unidentified “crazy city” reference are not recovered from the available source. Self-modifying rules, a general monorepo kernel and new story authority remain proposals until they outperform this runnable loop without losing provenance. Stop adding modes if they increase search or cannot carry an actual return.
+
+
+## 2026-10-20 candidate: walkable aperture (read-only)
+
+This branch adds **optional navigation**, not another mode or a Gate shortcut. FIELD → SHOW ROUTE displays the shortest traversable-cell path to the nearest actionable Gate; a selector can instead hold one explicit Gate. PLAN draws that path on the exact existing grid. CITY shows the next turn. When all eight proofs are earned, guidance targets the original RETURN coordinate.
+
+The solver reads the current native grid, so actual KERIS openings and RESILIENCE relocation are visible on its next calculation. For MEASURE it routes to a reachable point in the Figure's required distance band rather than into the Gate. TRANSFER is withheld until the world-assigned primary operator has been proved. Route overlays never mutate the player, walls, proofs, operators, or recovered Return Artifact v2. Navigation is off by default and can be disabled in one press.
+
+Mechanical fixture: node tools/sleeper-walkable-aperture-selftest.cjs. Browser/device requirements still open: 320px and 390px touch, 1280px desktop, modal and drawer interaction, cue overlap, route following after a real KERIS cut, and visible recalculation when RESILIENCE moves. Do not claim actual mobile usability without that test.
+
+**Scope boundary:** The August 2026 24-kernel Play as Transfer Engine maps ten Sleeper *fields* (ONE RETURN through MINISTRY RIDGE). Those are historical design fields, not proof of ten recovered playable mini-games. This delta does not claim to implement them, import Prison Age canon, or reproduce Grow Now! Games' ASCII City. The next law worth admitting is source recall materially changes a legal route, tested first against a plain flashcard list. If there is no demonstrable navigation or retrieval gain, remove the mechanic.
