@@ -137,19 +137,19 @@ async function execute(command,href,reason='operator'){
  if(entry?.nav){emit({command:cmd,target:entry.nav,reason});location.assign(entry.nav);return}
  if(entry?.copy){const ok=await copyText(entry.copy,cmd.toUpperCase()+' URL COPIED');if(ok)emit({command:cmd,target:entry.copy,reason});syncAddress();return}
  if(cmd==='root'){emit({command:cmd,target:'/',reason});location.assign('/');return}
- if(target&&target!=='/'&&act?.focus)act.focus(target);
- if(target==='/'&&cmd==='hold'){zui?.close?.(zsrc);status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
+ if(['hold','work','prove','open','read','trace'].includes(cmd)&&target&&target!=='/'&&act?.focus)act.focus(target);
+ if(target==='/'&&cmd==='hold'){if(!zui?.close){status('HOLD unavailable','bad');return}await zui.close(zsrc);status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
  switch(cmd){
-  case'hold':await zui?.close?.(zsrc);status('HOLD · '+target,'ok');break;
-  case'work':await zui?.open?.('WORK',zsrc);status('WORK · '+target,'ok');break;
-  case'prove':await zui?.open?.('PROVE',zsrc);status('PROVE · '+target,'ok');break;
+  case'hold':if(!zui?.close){status('HOLD unavailable','bad');return}await zui.close(zsrc);status('HOLD · '+target,'ok');break;
+  case'work':if(!zui?.open){status('WORK unavailable','bad');return}await zui.open('WORK',zsrc);status('WORK · '+target,'ok');break;
+  case'prove':if(!zui?.open){status('PROVE unavailable','bad');return}await zui.open('PROVE',zsrc);status('PROVE · '+target,'ok');break;
   case'open':if(target==='/'||!act?.open){status('OPEN unavailable','bad');return}act.open(target);break;
   case'handoff':if(!tap('apCopy','HANDOFF'))return;status('HANDOFF · existing packet action invoked','ok');break;
   case'run':{
    const commandLine='node tools/field-hermes-run.mjs --source '+shellEscape(target);
-   await copyText(commandLine,'HERMES PREP COPIED');break;
+   if(!await copyText(commandLine,'HERMES PREP COPIED'))return;break;
   }
-  case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else status('HEADS · needs the FIELD:// line','bad');break}
+  case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else{status('HEADS · needs the FIELD:// line','bad');return}break}
   case'fovea':if(!tap('foveaToggle','FOVEA'))return;status('FOVEA · '+target,'ok');break;
   case'instrument':
    if(!window.FieldInstrument?.enter){status('INSTRUMENT unavailable','bad');return}
@@ -179,10 +179,10 @@ async function execute(command,href,reason='operator'){
   case'read':if(!tap('apInspect','READ'))return;status('READ · '+target,'ok');break;
   case'map':if(typeof host?.project!=='function'){status('MAP unavailable','bad');return}host.project('VISUAL');status('MAP · '+target,'ok');break;
   case'recent':if(typeof host?.project!=='function'){status('RECENT unavailable','bad');return}host.project('RECENT');status('RECENT · '+target,'ok');break;
-  case'up':host?.rise?.();status('RISE','ok');break;
-  case'down':host?.dive?.();status('DIVE','ok');break;
-  case'prev':host?.peer?.(-1);status('PEER ←','ok');break;
-  case'next':host?.peer?.(1);status('PEER →','ok');break;
+  case'up':if(!host?.rise){status('RISE unavailable','bad');return}host.rise();status('RISE','ok');break;
+  case'down':if(!host?.dive){status('DIVE unavailable','bad');return}host.dive();status('DIVE','ok');break;
+  case'prev':if(!host?.peer){status('PEER ← unavailable','bad');return}host.peer(-1);status('PEER ←','ok');break;
+  case'next':if(!host?.peer){status('PEER → unavailable','bad');return}host.peer(1);status('PEER →','ok');break;
   case'reset':window.FieldPalette?.reset?.();if(window.FieldURLBar&&typeof window.FieldURLBar.focus==='function')window.FieldURLBar.focus('');status('RANKING RESET','ok');break;
   default:status('UNKNOWN · '+cmd,'bad');return;
  }
