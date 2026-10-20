@@ -40,6 +40,7 @@ jobs:
           node --check fold-bloom/live/track.js
           node --check tools/source-spine-roundtrip-smoke.mjs
           node --test fold-bloom/lab/tests/source-spine.test.mjs
+          node --test fold-bloom/listen/tests/deep-map-source-evidence.test.mjs
           node --check fold-bloom/lab/harmonic-evidence.js
           node --check fold-bloom/lab/app.js
           node --check fold-bloom/listen/app.js

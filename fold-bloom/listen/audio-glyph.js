@@ -8,17 +8,15 @@ function hexSeed(input=''){
 }
 function avg(xs,key){if(!xs?.length)return 0;let s=0;for(const x of xs)s+=Number(x?.[key])||0;return s/xs.length}
 function sampleFrames(frames=[],n=24){
-  if(!frames.length)return Array.from({length:n},()=>({e:.2,c:.4,f:.05,l:.3,m:.4,h:.3}));
+  if(!frames.length)return Array.from({length:n},()=>({e:0,c:0,f:0,l:0,m:0,h:0}));
   return Array.from({length:n},(_,i)=>frames[Math.min(frames.length-1,Math.round(i*(frames.length-1)/(n-1)))]||{});
 }
 export function audioGlyphDescriptor(map={},source={}){
   const frames=sampleFrames(map.frames,24),hash=String(source.hash||map.source?.hash||source.sourceId||map.source?.sourceId||'UNHASHED');
   const seed=hexSeed(hash),rotation=((seed%360)/360)*TAU;
   const radial=frames.map(f=>clamp(.38+(Number(f.e)||0)*.19+(Number(f.f)||0)*.11+(Number(f.c)||0)*.07,.28,.86));
-  const chroma=Array.isArray(map.key?.chroma)&&map.key.chroma.length===12?map.key.chroma.map(x=>clamp(Number(x)||0,0,1)):Array.from({length:12},(_,i)=>{
-    const f=frames[Math.floor(i*frames.length/12)]||{};
-    return clamp(((Number(f.l)||0)*(11-i)+(Number(f.m)||0)*6+(Number(f.h)||0)*(i+1))/18,0,1);
-  });
+  const chroma=Array.isArray(map.key?.chroma)&&map.key.chroma.length===12?
+    map.key.chroma.map(x=>clamp(Number(x)||0,0,1)):Array(12).fill(0);
   const maxC=Math.max(.0001,...chroma),normChroma=chroma.map(x=>x/maxC);
   return {
     schema:'fold-bloom-audio-glyph/v0.1',

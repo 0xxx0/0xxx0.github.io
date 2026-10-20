@@ -24,6 +24,15 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   .labMediaSeek[hidden],.labMediaReturn[hidden]{display:none!important}
   .labMediaSeek span{white-space:nowrap;font-variant-numeric:tabular-nums}
   .labMediaGlyph:disabled{opacity:.35;cursor:default}
+  .labRingMask[hidden]{display:none!important}
+  .labRingMask{position:fixed;inset:0;z-index:6;background:#05070bf0;display:grid;grid-template-rows:auto 1fr auto;align-items:center;padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px)}
+  .labRingHead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:900}
+  .labRingHead button,.labRingTools button{min-height:44px;border:1px solid #65717a;background:#0e1a20;color:#ecf4f6;padding:8px 12px;font-weight:850}
+  .labRingTools{display:grid;gap:7px;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .labRingInfo{min-height:36px;display:flex;justify-content:center;align-items:center;font-size:11px;color:#d8b97c;text-align:center}
+  .labMediaPortal[data-ring-open="1"] .labMediaGlyph{position:fixed;z-index:9;left:50%;top:45%;transform:translate(-50%,-50%);width:min(70vw,290px);height:min(70vw,290px);border-radius:50%;padding:9px;touch-action:none;background:#071018}
+  .labMediaPortal[data-ring-open="1"] .labMediaGlyph svg{width:100%;height:100%}
+
   .labMediaDetail{flex:1;min-width:0;display:grid;gap:3px}
   .labMediaTitle{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .labMediaSub{font-size:9px;color:#92a7b3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -65,10 +74,20 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         <button type="button" data-portal="right">→</button>
         <button type="button" class="labMediaPrimary" data-portal="release">RELEASE</button>
       </div>
-    </footer>`;
+    </footer>
+    <div data-portal="ringMask" class="labRingMask" role="dialog" aria-label="Source ring time navigation" hidden>
+      <div class="labRingHead"><span>SOURCE / TIME · 24 ADDRESSES</span><button data-portal="ringClose" type="button">CLOSE ×</button></div>
+      <div data-portal="ringInfo" class="labRingInfo" aria-live="polite">TURN THE LARGE RING TO MOVE THROUGH TIME</div>
+      <div class="labRingTools">
+        <button type="button" data-portal="ringBack">← 1/24</button>
+        <button type="button" data-portal="ringForward">1/24 →</button>
+        <button type="button" data-portal="ringMark">MARK</button>
+        <button type="button" data-portal="ringRide">RIDE</button>
+      </div>
+    </div>`;
   document.body.appendChild(shell);
   const $=s=>shell.querySelector(s),inline=document.getElementById('labGlyphDoor');
-  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null;
+  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null,carryBusy=false;
   const api=type=>{try{return ports[type]?.contentWindow?.[type==='ride'?'FoldBloomLive':'FoldBloomListen']||null}catch(_){return null}};
   const pause=type=>{try{ports[type]?.contentDocument?.querySelector(type==='ride'?'#trackAudio':'#audio')?.pause()}catch(_){}};
   function create(type){
@@ -85,14 +104,14 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   function trace(kind){onTrace(kind)}
   function close(){
     if(!active)return;
-    pause('ride');pause('listen');active=null;shell.hidden=true;clearInterval(ticker);ticker=0;
+    pause('ride');pause('listen');active=null;shell.hidden=true;closeRing();clearInterval(ticker);ticker=0;
     document.documentElement.dataset.fieldLabMedia='closed';trace('MEDIA_RETURN');
     onStatus('FIELD LAB · NATIVE HOSTS HELD · RETURN');
   }
   function open(type){
     if(type!=='ride'&&type!=='listen')return false;
     if(active&&active!==type)pause(active);
-    active=type;create(type);shell.hidden=false;
+    closeRing();active=type;create(type);shell.hidden=false;
     document.documentElement.dataset.fieldLabMedia=type;
     for(const name of ['ride','listen']){
       $('[data-frame="'+name+'"]').hidden=name!==type;
@@ -102,6 +121,42 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     $('[data-portal="original"]').href=type==='ride'?'../live/':'../listen/';
     clearInterval(ticker);ticker=setInterval(refresh,300);refresh();trace('MEDIA_'+type.toUpperCase());
     return true;
+  }
+  function closeRing(){
+    $('[data-portal="ringMask"]').hidden=true;
+    delete shell.dataset.ringOpen;
+  }
+  function openRing(){
+    if(active!=='listen'){open('listen');return false}
+    const s=api('listen')?.state?.();
+    if(s?.sourceLoading||!s?.fileMeta?.hash||!(Number(s.map?.duration)>0)){
+      announce('BIND AN AUDIO SOURCE BEFORE OPENING THE TIME RING');return false
+    }
+    shell.dataset.ringOpen='1';
+    $('[data-portal="ringMask"]').hidden=false;
+    syncRing();
+    $('[data-portal="glyph"]').focus();
+    trace('SOURCE_RING_OPEN');
+    return true;
+  }
+  function syncRing(){
+    if(!$('[data-portal="ringMask"]').hidden){
+      const s=api('listen')?.state?.(),duration=Number(s?.map?.duration)||0,
+        time=Math.max(0,Math.min(duration,Number(s?.time)||0)),
+        fmt=x=>Math.floor(x/60)+':'+String(Math.floor(x%60)).padStart(2,'0');
+      $('[data-portal="ringInfo"]').textContent=duration>0?
+        ('TIME '+fmt(time)+' / '+fmt(duration)+' · '+(s?.stage||'UNKNOWN')+
+          (s?.stage==='AUDIO_ONLY'?' · NO MEASURED TERRAIN':' · SOURCE-BOUND')):
+        'NO TIMELINE · SOURCE BIND REQUIRED';
+      for(const k of ['ringBack','ringForward','ringMark','ringRide'])
+        $('[data-portal="'+k+'"]').disabled=!(duration>0&&s?.fileMeta?.hash&&!s.sourceLoading);
+    }
+  }
+  function ringNudge(delta){
+    const listen=api('listen'),s=listen?.state?.(),d=Number(s?.map?.duration)||0;
+    if(!d||s?.sourceLoading)return false;
+    const target=Math.max(0,Math.min(d,(Number(s.time)||0)+d*delta/24));
+    listen.seek(target);refresh();return true;
   }
   function setGlyph(glyph,hash){
     if(!glyph||!hash)return;
@@ -121,13 +176,14 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     const listen=api('listen'),native=api('ride'),ls=listen?.state?.();
     $('[data-portal="sourceReturn"]').hidden=!held?.ok;
     if(ls?.fileMeta?.hash&&ls.glyph)setGlyph(ls.glyph,ls.fileMeta.hash);
+    syncRing();
     if(active==='listen'){
       const m=ls?.fileMeta,ev=harmonicEvidence(ls?.map);
       $('[data-portal="title"]').textContent=m?m.name||'BOUND AUDIO':'LISTEN · LOAD A SOURCE';
       $('[data-portal="detail"]').textContent=m?
         (ls.stage+' · '+ev.label+' · '+String(m.hash||'').slice(0,12)):
         'TRY DEMO · LOCAL, OR OPEN AN AUDIO FILE';
-      $('[data-portal="carry"]').disabled=!m?.hash||typeof listen?.sourceFile!=='function';
+      $('[data-portal="carry"]').disabled=carryBusy||!!ls?.sourceLoading||!m?.hash||typeof listen?.sourceFile!=='function';
       const duration=Math.max(0,Number(ls?.map?.duration)||Number(m?.duration)||0),t=Math.min(duration,Math.max(0,Number(ls?.time)||0));
       $('[data-portal="seekWrap"]').hidden=!(duration>0&&m?.hash);
       const slider=$('[data-portal="seek"]');slider.max=String(duration);if(slider!==document.activeElement)slider.value=String(t);
@@ -148,11 +204,13 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     }
   }
   async function carry(){
+    if(carryBusy)return false;
     const listen=api('listen'),s=listen?.state?.(),expected=s?.fileMeta?.hash;
+    if(s?.sourceLoading){announce('SOURCE STILL LOADING · CARRY NOT AUTHORIZED');return false}
     if(!expected||typeof listen?.sourceFile!=='function'){announce('BIND AUDIO IN LISTEN FIRST');return false}
     const file=listen.sourceFile();
     if(!file){announce('SOURCE BYTES UNAVAILABLE · NOTHING TRANSFERRED');return false}
-    const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
+    carryBusy=true;const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
     const sourceHold=holdSource({hash:expected,time:s.time,duration:s.map?.duration||s.fileMeta?.duration,scope:s.scope,pins:s.pins});
     pause('listen');open('ride');
     try{
@@ -170,16 +228,17 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       const actual=native.state?.()?.sourceMeta?.hash;
       if(actual!==expected)throw Error('SOURCE_HASH_MISMATCH');
       const position=native.source?.seek?.(sourceHold.sourceAddress,expected);
-      if(!position||position.hash!==expected)throw Error('NATIVE_SOURCE_SEEK_UNVERIFIED');
-      held={...sourceHold,releasesBefore:native.state?.()?.history?.length||0};lastReturn=null;
-      announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12));
+      if(!position||position.hash!==expected)throw Error('SOURCE_IDENTITY_UNVERIFIED');
+      held={...sourceHold,releasesBefore:native.state?.()?.history?.length||0,nativeFocusConfirmed:position.ok===true};lastReturn=null;
+      document.documentElement.dataset.fieldLabNativeFocus=position.ok?'confirmed':'unverified';
+      announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12)+(position.ok?' · EXACT TIME':' · TIME UNVERIFIED'));
       document.documentElement.dataset.fieldLabCarry='matched';
       trace('MEDIA_SOURCE_MATCHED');refresh();return true;
     }catch(error){
       held=null;document.documentElement.dataset.fieldLabCarry='unverified';
       announce('SOURCE NOT VERIFIED · '+String(error?.message||error).slice(0,66));
       trace('MEDIA_SOURCE_UNVERIFIED');return false;
-    }
+    }finally{carryBusy=false;refresh()}
   }
   async function command(name){
     const native=api('ride');if(!native){announce('NATIVE LIVE NOT READY');return false}
@@ -199,13 +258,28 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   function sourceReturn(){
     if(!held?.ok){announce('NO HELD SOURCE');return null}
     const native=api('ride'),listen=api('listen'),ls=listen?.state?.(),snapshot=native?.state?.();
-    const receipt=returnToSource(held,{rideHash:snapshot?.sourceMeta?.hash,releasesAfter:snapshot?.history?.length,currentSourceHash:ls?.fileMeta?.hash});
+    const receipt=returnToSource(held,{rideHash:snapshot?.sourceMeta?.hash,
+      releasesAfter:snapshot?.history?.length,currentSourceHash:ls?.fileMeta?.hash});
     pause('ride');open('listen');
-    if(receipt.ok){listen.seek?.(receipt.time);lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='matched';
-      onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');trace('SOURCE_EXACT_RETURN');
-    }else{lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='mismatch';
-      onStatus('SOURCE RETURN UNVERIFIED · '+(receipt.reason||receipt.status));trace('SOURCE_RETURN_UNVERIFIED')}
-    held=null;refresh();return receipt;
+    let verified=false,returnedTime=null;
+    if(receipt.ok&&!ls?.sourceLoading){
+      listen.seek?.(receipt.time);
+      const now=Number(listen.state?.()?.time),media=ports.listen?.contentDocument?.getElementById('audio');
+      returnedTime=Number.isFinite(now)?now:null;
+      verified=held.nativeFocusConfirmed===true&&
+        media?.readyState>=1&&Number.isFinite(now)&&Math.abs(now-receipt.time)<.12;
+    }
+    lastReturn={...receipt,sourceMatched:receipt.ok,ok:receipt.ok&&verified,
+      returnedTime,reason:receipt.ok?(verified?'EXACT_SOURCE_TIME_RETURN':'TIME_NOT_CONFIRMED'):(receipt.reason||'SOURCE_MISMATCH')};
+    document.documentElement.dataset.fieldLabSourceReturn=lastReturn.ok?'matched':receipt.ok?'time-unverified':'mismatch';
+    if(lastReturn.ok){
+      onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');
+      trace('SOURCE_EXACT_RETURN');
+    }else{
+      onStatus('SOURCE RETURN · '+(receipt.ok?'HASH MATCHED · TIME UNVERIFIED':lastReturn.reason));
+      trace('SOURCE_RETURN_UNVERIFIED');
+    }
+    held=null;refresh();return lastReturn;
   }
   $('[data-portal="close"]').onclick=close;
   $('[data-portal="sourceReturn"]').onclick=sourceReturn;
@@ -214,6 +288,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   $('[data-portal="listen"]').onclick=()=>open('listen');
   $('[data-portal="glyph"]').onclick=e=>{
     if(active!=='listen'){open('listen');return}
+    if($('[data-portal="ringMask"]').hidden){openRing();return}
     const s=api('listen')?.state?.(),duration=Number(s?.map?.duration)||0;
     if(!(duration>0))return;
     const r=e.currentTarget.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);
@@ -222,11 +297,23 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   };
   $('[data-portal="carry"]').onclick=()=>{void carry()};
   for(const n of ['left','right','release'])$('[data-portal="'+n+'"]').onclick=()=>{void command(n)};
-  inline?.addEventListener('click',()=>open('listen'));
-  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();close()}});
+  $('[data-portal="ringClose"]').onclick=closeRing;
+  $('[data-portal="ringBack"]').onclick=()=>ringNudge(-1);
+  $('[data-portal="ringForward"]').onclick=()=>ringNudge(1);
+  $('[data-portal="ringMark"]').onclick=()=>{closeRing();api('listen')?.openPin?.()};
+  $('[data-portal="ringRide"]').onclick=()=>{closeRing();void carry()};
+  $('[data-portal="glyph"]').addEventListener('keydown',e=>{
+    if(shell.dataset.ringOpen!=='1')return;
+    if(e.key==='ArrowLeft'||e.key==='ArrowDown'){e.preventDefault();ringNudge(-1)}
+    else if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();ringNudge(1)}
+    else if(e.key==='Home'){e.preventDefault();api('listen')?.seek?.(0);refresh()}
+    else if(e.key==='End'){e.preventDefault();const s=api('listen')?.state?.();api('listen')?.seek?.(Number(s?.map?.duration)||0);refresh()}
+  });
+  inline?.addEventListener('click',()=>{if(active==='listen')openRing();else open('listen')});
+  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();if(shell.dataset.ringOpen==='1')closeRing();else close()}});
   window.addEventListener('pagehide',()=>{clearInterval(ticker);pause('listen');pause('ride')});
   return Object.freeze({
-    open,close,carry,refresh,sourceReturn,returnReceipt:()=>lastReturn?{...lastReturn}:null,
+    open,close,carry,refresh,openRing,closeRing,sourceReturn,returnReceipt:()=>lastReturn?{...lastReturn}:null,
     state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none',heldHash:held?.sourceHash||null,returnReceipt:lastReturn?{...lastReturn}:null}),
     native:type=>api(type)
   });
