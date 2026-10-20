@@ -47,7 +47,8 @@ footer{padding:0 7px 8px;display:grid;gap:5px}.transport{display:grid;grid-templ
 <script>
 (()=>{'use strict';
 const el=id=>document.getElementById(id),C=333.009;
-let items=[],idx=0,wpm=260,playing=false,timer=0,source='',sourceLabel='',format='TEXT';
+let items=[],idx=0,wpm=260,playing=false,timer=0,source='',sourceLabel='',format='TEXT',bookmarkKey='',lastPersist=0;
+function progressKey(raw){let h=2166136261;for(let i=0;i<raw.length;i++){h^=raw.charCodeAt(i);h=Math.imul(h,16777619)}return 'pin.progress.v1.'+(h>>>0).toString(36)}
 try{const v=Number(localStorage.getItem('pin.wpm'));if(v>=100&&v<=900)wpm=v}catch(_){}
 function words(s){
  const str=String(s??''),out=[];
@@ -100,6 +101,7 @@ function paint(){
  el('play').textContent=playing?'Ⅱ PAUSE':'▶ READ';
  el('state').textContent=playing?'PLAY':'PAUSED';
  el('context').textContent=playing?'':items.length?items.slice(Math.max(0,idx-4),Math.min(items.length,idx+5)).map(x=>x.word).join(' '):'Tap SOURCE to open text or JSON';
+ const now=Date.now();if(bookmarkKey&&(!playing||now-lastPersist>=1100)){try{localStorage.setItem(bookmarkKey,String(idx))}catch(_){}lastPersist=now}
 }
 function stop(){playing=false;clearTimeout(timer);timer=0;paint()}
 function next(n){if(!items.length)return;idx=Math.max(0,Math.min(items.length-1,idx+n));paint()}
@@ -115,7 +117,8 @@ function toggle(){if(playing){stop();return}if(!items.length){el('drawer').hidde
 function load(raw,name){
  stop();if(!String(raw).trim())throw Error('Empty source');
  const result=segments(String(raw),name||'');if(!result.items.length)throw Error('No readable tokens');
- items=result.items;format=result.format;idx=0;source=String(raw);sourceLabel=name||'PASTE';
+ items=result.items;format=result.format;source=String(raw);sourceLabel=name||'PASTE';bookmarkKey=progressKey(source);
+ idx=0;try{const p=Number(localStorage.getItem(bookmarkKey));if(Number.isInteger(p)&&p>=0&&p<items.length)idx=p}catch(_){}
  el('drawer').hidden=true;el('error').textContent='';paint();
 }
 async function fetchPath(path){
