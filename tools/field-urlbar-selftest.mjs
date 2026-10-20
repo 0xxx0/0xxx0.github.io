@@ -13,6 +13,21 @@ eq(turn.mode,'TURN','TURN prefix');eq(turn.query,'/house/','TURN query');
 const hermes=U.parse('! /body/');
 eq(hermes.mode,'HERMES','HERMES prefix');eq(hermes.query,'/body/','HERMES query');
 eq(U.parse('@').mode,'HEADS','HEADS prefix');eq(U.parse('^').mode,'RISE','RISE prefix');eq(U.parse(':prove').mode,'COMMAND','COMMAND prefix');eq(U.parse('中行').query,'中行','glyph query preserved');
+// Regression: before this repair a leading command with an address was fuzzy
+// search, so Enter ran nothing. Explicit unresolved targets now fail closed.
+for(const [q,id,target] of [
+ [':work','work',''],[':work /house/','work','/house/'],
+ [':open /house/','open','/house/'],['/house/ :prove','prove','/house/'],
+ [':axis','axis',''],[':turn','turn',''],[':plain','plain','']]){
+ const p=U.parse(q);eq(p.mode,'COMMAND',q+' mode');
+ eq(p.command,id,q+' command');eq(p.query,target,q+' address');
+}
+eq(U.parse(':').command,null,'bare colon opens discovery');
+eq(U.parse(':wrok').command,null,'unknown command is not executed');
+eq(U.parse(':wrok').query,'wrok','unknown command retains fuzzy search');
+eq(U.parseCommand(':open /house/').style,'leading','single parser accepts leading addressed command');
+ok(U.COMMANDS.every(c=>typeof c.id==='string'&&c.label&&c.glyph),'every command has identity/label/glyph');
+eq(new Set(U.COMMANDS.map(c=>c.glyph)).size,U.COMMANDS.length,'one unique glyph per command');
 
 const routes=[
  {href:'/zeta/',title:'Zeta',kind:'hub',operation:'ROUTE',state:'ACTIVE',index:{updated_at:'2026-10-06T10:00:00Z'}},
@@ -45,9 +60,21 @@ eq(quoted,"'/O'\\''Brien/'",'shell quote apostrophe');
 const urlbar=fs.readFileSync(new URL('../field-urlbar.js',import.meta.url),'utf8');
 const signal=fs.readFileSync(new URL('../lib/field-signal.js',import.meta.url),'utf8');
 const lens=fs.readFileSync(new URL('../field-lens.js',import.meta.url),'utf8');
+const instrument=fs.readFileSync(new URL('../field-instrument.mjs',import.meta.url),'utf8');
+const instrumentCSS=fs.readFileSync(new URL('../field-instrument.css',import.meta.url),'utf8');
+const omni=fs.readFileSync(new URL('../field-omnibar.js',import.meta.url),'utf8');
 ok(!urlbar.includes('/v1/runs'),'public URLbar must not call Hermes Runs API directly');
 ok(!signal.includes('field-urlbar'),'shared signal grammar must remain presentation-free');
 ok(lens.includes("import('./field-urlbar.js')"),'root FIELD lens host must mount the URLbar projection');
+ok(urlbar.includes("if(text(currentParsed.query)&&!target){flash('Exact route required');return}"),'explicit command target cannot silently fall back to held object');
+ok(instrument.includes("if(parsed.mode==='COMMAND')"),'instrument must delegate typed commands to shared parser');
+ok(instrument.includes("turn:()=>{if(!enabled)return false;command('turn');return true}"),'camera turn is callable, unavailable when plain');
+ok(instrument.includes("case'turn':commit({...state,turn:(state.turn+1)%4})"),'camera turn changes reversible frame');
+ok(instrumentCSS.includes('rotateY(var(--fi-yaw,0deg))'),'second CSS3D axis bound to existing camera state');
+ok(instrumentCSS.includes('@media(prefers-reduced-motion:reduce)'),'camera retains reduced-motion path');
+for(const id of ['axis','turn','plain'])ok(omni.includes("case'"+id+"'"),'new command '+id+' must reach actual effect owner');
+ok(omni.includes('role="status" aria-live="polite"'),'mobile command feedback is announced');
+ok(omni.includes('button:not([data-command="help"])'),'mobile keys collapse to a discoverable help control');
 
 /* ---- unified palette: alias-first ranking + recents-first + reset ---- */
 const ALIAS_TARGETS={h:'root',o:'hold',w:'work',p:'prove',r:'open'};
