@@ -47,11 +47,13 @@ jobs:
           node --check lib/readfield-controls.js
           node --check tools/fold-bloom-first-use-browser-smoke.mjs
           node --check fold-bloom/listen/demo-tone.js
+          node --check fold-bloom/listen/pcm-wav-preview.js
       - name: Prove first-use and source continuity contracts
         run: |
           node tools/fold-bloom-first-use-contract.test.mjs
           node fold-bloom/listen/source-adapters.test.mjs
           node fold-bloom/listen/stream-lens.test.mjs
+          node --test fold-bloom/listen/tests/pcm-wav-preview.test.mjs
       - name: Prove timed cue address mapping
         run: node lib/readfield-track-sync.test.mjs
       - uses: browser-actions/setup-chrome@v1
