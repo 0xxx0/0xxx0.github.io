@@ -39,7 +39,7 @@
       "evidence": "https://github.com/0xxx0/0xxx0.github.io/pull/973 · https://github.com/0xxx0/0xxx0.github.io/pull/971"
     }
   ],
-  "current_heads": ["current_heads": [
+  "current_heads": [
     {
       "lineage": "field-index",
       "head": "FIELD INDEX 0.8.36 / WHOLE FIELD + STABLE CONTEXT + CLICK CONTINUITY",
@@ -968,7 +968,7 @@
     "id": "repair-omnibar-exact-head",
     "instruction": "Fix PR #973's exact-head URLbar/Omnibar proof first, rebase/replay on current master, require green field-urlbar + public-surface gates, then RETURN. Do not start #971 or a new interface branch until that return. Air-instrument remains the world front and may continue only through its native physical/sensor loop."
   },
-  "execution_contract": {"execution_contract": {
+  "execution_contract": {
     "loop": "SELECT → EXECUTE ONE BOUNDED MOVE → MEASURE → RETURN → REPLAN",
     "gate": "A second material move requires a fresh decision from returned state; route continuity is never automatic authority.",
     "reconstruction_test": "When promoting a reusable mechanism, prefer demonstrated reconstruction from durable state over persuasive narration.",
