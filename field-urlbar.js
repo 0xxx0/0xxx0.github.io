@@ -70,6 +70,9 @@ const COMMANDS=Object.freeze([
  {id:'digests',glyph:'▣',label:'DIGESTS',hint:'/digests/ · passphrase field focused locally',keywords:'encrypted digest passphrase',nav:'/digests/#pp'},
  {id:'fovea',glyph:'◉',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
  {id:'instrument',glyph:'⌁',label:'INSTRUMENT',hint:'fold the same FIELD without scrolling',keywords:'field fold catchup position'},
+ {id:'plain',glyph:'▤',label:'PLAIN',hint:'return to native scrolling FIELD',keywords:'exit instrument unfurl'},
+ {id:'axis',glyph:'⊕',label:'AXIS',hint:'locate native state / operation / route axes',keywords:'axial navigate filters'},
+ {id:'turn',glyph:'⤾',label:'TURN PLANE',hint:'tilt instrument camera; preserve object identity',keywords:'rotate tilt depth camera'},
  {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
  {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents',keywords:'ranking frecency recents clear default order',aliases:['rerank']},
  {id:'help',glyph:'?',label:'HELP',hint:'registry + sigil legend',keywords:'help man ls registry commands'}
@@ -89,7 +92,11 @@ function parseCommand(raw=''){
  const s=text(raw);
  if(!s)return Object.freeze({query:'',command:null,style:''});
  if(GLYPH_COMMAND.has(s))return Object.freeze({query:'',command:GLYPH_COMMAND.get(s),style:'glyph'});
- if(s.startsWith(':')){const id=resolveCommand(s);return Object.freeze(id?{query:'',command:id,style:'leading'}:{query:s,command:null,style:''})}
+ if(s.startsWith(':')){
+  const parts=/^:([^\s]+)(?:\s+(.+))?$/.exec(s);
+  const id=parts&&resolveCommand(parts[1]);
+  return Object.freeze(id?{query:text(parts[2]||''),command:id,style:'leading'}:{query:s.slice(1),command:null,style:''});
+ }
  const bits=s.split(/\s+/),last=bits[bits.length-1];
  if(last.startsWith(':')||GLYPH_COMMAND.has(last)){const id=resolveCommand(last);if(id)return Object.freeze({query:bits.slice(0,-1).join(' '),command:id,style:'trailing'})}
  return Object.freeze({query:s,command:null,style:''});
@@ -112,6 +119,10 @@ function parse(raw=''){
  if(mode===MODES.SEARCH){
   const p=parseCommand(trimmed);
   if(p.style==='trailing')return Object.freeze({raw:source,mode:MODES.COMMAND,query:p.query,command:p.command,prefix:''});
+ }
+ if(mode===MODES.COMMAND){
+  const p=parseCommand(trimmed);
+  return Object.freeze({raw:source,mode,query:p.query,command:p.command,prefix:c});
  }
  return Object.freeze({raw:source,mode,query:mode===MODES.SEARCH?trimmed:text(trimmed.slice(1)),prefix:mode===MODES.SEARCH?'':c,command:null});
 }
@@ -476,7 +487,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  /* M6 · one entry to the registry: ':help' (any style), ':' + ↵ or an empty
    bar + ↵ all land here — the bar seeds its own :help projection so the panel
    state stays re-enterable through ?fi= like every other input. */
- function showHelp(){input.value=':help';helpOpen=true;selected=0;syncURL(input.value);paint({forceOpen:true})}
+ function showHelp(){input.value=':help';helpOpen=true;selected=0;input.focus({preventScroll:true});syncURL(input.value);paint({forceOpen:true})}
  function executeCommand(id,target){
   // M2/M3 · ONE dispatcher: every ':' command routes through the omnibar's
   // execute() (the authority-NONE event source) when it is mounted, so glyph
@@ -528,12 +539,16 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   // arbitrary first-ranked command (arrow-moved selections stay commands/routes).
   if(source==='enter'&&!moved){
    if(!text(input.value)){showHelp();return}
-   if(currentParsed.mode===MODES.COMMAND&&!text(currentParsed.query)){showHelp();return}
+   if(currentParsed.mode===MODES.COMMAND&&!text(currentParsed.query)&&!currentParsed.command){showHelp();return}
   }
   if(currentParsed.mode===MODES.RISE){win.__fieldAct?.rise?.();flash('RISE');return}
   if(currentParsed.mode===MODES.COMMAND){
    if(helpOpen&&source==='enter'&&!moved){helpOpen=false;paint({forceOpen:true});return}
-   if(currentParsed.command){executeCommand(currentParsed.command,addressedHref(currentParsed.query));return}
+   if(currentParsed.command){
+    const target=addressedHref(currentParsed.query);
+    if(text(currentParsed.query)&&!target){flash('Exact route required');return}
+    executeCommand(currentParsed.command,target);return
+   }
    const c=results[selected];if(c)executeCommand(c.id);return
   }
   if(currentParsed.mode===MODES.SEARCH){
@@ -553,7 +568,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   // (mirrors the omnibar's addressFor — a command never guesses a route).
   const t=text(q);if(!t)return focusHref;
   const hit=routes.find(r=>r.href===t||(r.href.endsWith('/')&&r.href.slice(0,-1)===t));
-  return hit?hit.href:focusHref;
+  return hit?hit.href:null;
  }
  function move(delta){
   moved=true;
