@@ -57,8 +57,6 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
-      - name: Route headless audio to a null ALSA PCM
-        run: printf 'pcm.!default { type null }\n' > "$HOME/.asoundrc"
       - name: Prove phone-width first-use in browser
         run: node tools/fold-bloom-first-use-browser-smoke.mjs
 
