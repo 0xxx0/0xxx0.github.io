@@ -23,7 +23,7 @@ A projection is justified if and only if it makes a named action cheaper **and**
 
 ## Bounded delta on this branch
 1. `/docs/`: first-use `TRY RSVP` uses a bundled short text without network; FAST explicitly chooses `WORD` at 900 WPM; mount the existing modern `readfield-controls.js` controls.
-2. `/fold-bloom/listen/`: explicit `TRY DEMO · LOCAL` loads the existing 192KB `/fold-bloom/live/demo/center-mass-demo.mp3`; preserve the same source-hash path as uploaded audio. Analysis worker request IDs prevent stale results from replacing a later source. Playback failure gets an actionable message.
+2. `/fold-bloom/listen/`: explicit `TRY DEMO · LOCAL` generates a deterministic offline six-second WAV; preserve the same source-hash path as uploaded audio. Analysis worker request IDs prevent stale results from replacing a later source. Playback failure gets an actionable message.
 3. `/fold-bloom/lens/`: start in focused sample view with LAB accessible but not default.
 4. `/fold-bloom/`: remove false `?source=example` landing link.
 5. Extend `listen-readfield-check` to gate source invariants and phone-width browser first use.
