@@ -145,7 +145,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   }
   function ringState(){
     const listen=api('listen'),s=listen?.state?.(),m=s?.fileMeta;
-    if(!m?.hash||!sameSource(m.hash,sourceHash))return null;
+    if(s?.sourceLoading||!m?.hash||!sameSource(m.hash,sourceHash))return null;
     const duration=Number(s.map?.duration)||0;
     if(!(duration>0))return null;
     return {listen,state:s,hash:m.hash,duration,rotation:Number(s.glyph?.rotation)||0};
