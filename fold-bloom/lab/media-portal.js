@@ -215,12 +215,17 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     if(notice&&performance.now()<notice.until)$('[data-portal="detail"]').textContent=notice.text;
   }
   async function carry(){
+    if(carryBusy)return false;
     const listen=api('listen'),s=listen?.state?.(),expected=s?.fileMeta?.hash;
-    if(!expected||typeof listen?.sourceFile!=='function'){announce('BIND AUDIO IN LISTEN FIRST');return false}
+    if(s?.sourceLoading){announce('SOURCE STILL LOADING · WAIT FOR EXACT HASH');return false}
+    if(!expected||typeof listen?.sourceFile!=='function'){
+      announce('BIND AUDIO IN LISTEN FIRST');return false
+    }
     const file=listen.sourceFile();
     if(!file){announce('SOURCE BYTES UNAVAILABLE · NOTHING TRANSFERRED');return false}
-    const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
-    pause('listen');open('ride');
+    const fromTime=boundedTime(s.time,s.map?.duration);
+    carryBusy=true;$('[data-portal="carry"]').disabled=true;
+    announce('BINDING EXACT AUDIO TO LIVE');pause('listen');open('ride');
     try{
       const native=await new Promise((resolve,reject)=>{
         const start=Date.now(),check=()=>{
@@ -229,20 +234,52 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
           setTimeout(check,100);
         };check();
       });
-      await Promise.race([
-        native.loadFiles([file],{retain:true,label:'LAB SOURCE → LIVE'}),
-        new Promise((_,reject)=>setTimeout(()=>reject(Error('LIVE_DECODE_TIMEOUT')),12000))
-      ]);
+      // Same source is already present: preserve native authored release history.
+      if(!sameSource(native.state?.()?.sourceMeta?.hash,expected)){
+        await Promise.race([
+          native.loadFiles([file],{retain:true,label:'LAB SOURCE → LIVE'}),
+          new Promise((_,reject)=>setTimeout(()=>reject(Error('LIVE_BIND_TIMEOUT')),12000))
+        ]);
+      }
       const actual=native.state?.()?.sourceMeta?.hash;
       if(actual!==expected)throw Error('SOURCE_HASH_MISMATCH');
-      announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12));
+      const focus=fromTime===null?{ok:false,reason:'NO_LISTEN_DURATION'}:
+        native.seekSourceTime?.({sourceHash:expected,time:fromTime})||
+          {ok:false,reason:'NO_NATIVE_FOCUS_API'};
+      const mapped=!!native.state?.()?.sourceMeta?.hash&&
+        native.state?.()?.trackfieldSource!=='SOURCE_ONLY';
       document.documentElement.dataset.fieldLabCarry='matched';
+      document.documentElement.dataset.fieldLabFocus=focus.ok?'matched':'unverified';
+      announce('EXACT SOURCE MATCHED · '+expected.slice(0,12)+
+        (focus.ok?' · SAME TIME':(' · FOCUS '+String(focus.reason||'UNVERIFIED')))+
+        (native.state?.()?.layerMode==='SOURCE'?' · SOURCE VIEW':''));
       trace('MEDIA_SOURCE_MATCHED');refresh();return true;
     }catch(error){
       document.documentElement.dataset.fieldLabCarry='unverified';
+      document.documentElement.dataset.fieldLabFocus='unverified';
       announce('SOURCE NOT VERIFIED · '+String(error?.message||error).slice(0,66));
       trace('MEDIA_SOURCE_UNVERIFIED');return false;
+    }finally{carryBusy=false;refresh()}
+  }
+  function returnToSource(){
+    const native=api('ride'),listen=api('listen');
+    const cursor=native?.sourceCursor?.(),source=listen?.state?.();
+    pause('ride');open('listen');
+    if(!sameSource(cursor?.hash,source?.fileMeta?.hash)){
+      announce('RETURN · DIFFERENT OR UNBOUND SOURCE · FOCUS UNCHANGED');
+      return {ok:false,reason:'SOURCE_MISMATCH'};
     }
+    if(!cursor?.ok){
+      announce('RETURN · SOURCE MATCHED · MEDIA CLOCK UNAVAILABLE');
+      return {ok:false,reason:'TIME_UNVERIFIED'};
+    }
+    const out=listen.seek?.(cursor.time),now=Number(listen.state?.()?.time);
+    const ok=!!out&&Number.isFinite(now)&&Math.abs(now-cursor.time)<.12;
+    document.documentElement.dataset.fieldLabReturnFocus=ok?'matched':'unverified';
+    announce(ok?'RETURN · EXACT SOURCE AND POSITION RESTORED':
+      'RETURN · SOURCE MATCHED · POSITION NOT CONFIRMED');
+    trace(ok?'MEDIA_TIME_RETURN':'MEDIA_TIME_UNVERIFIED');
+    return {ok,sourceHash:cursor.hash,time:cursor.time,returnedTime:now};
   }
   async function command(name){
     const native=api('ride');if(!native){announce('NATIVE LIVE NOT READY');return false}
@@ -261,16 +298,35 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   }
   $('[data-portal="close"]').onclick=close;
   $('[data-portal="ride"]').onclick=()=>open('ride');
-  $('[data-portal="listen"]').onclick=()=>open('listen');
-  $('[data-portal="glyph"]').onclick=()=>open('listen');
+  $('[data-portal="listen"]').onclick=()=>active==='ride'?returnToSource():open('listen');
+  $('[data-portal="returnSource"]').onclick=returnToSource;
+  $('[data-portal="glyph"]').onclick=openRing;
+  $('[data-portal="ringClose"]').onclick=closeRing;
+  $('[data-portal="ringPrev"]').onclick=()=>ringStep(-1);
+  $('[data-portal="ringNext"]').onclick=()=>ringStep(1);
+  $('[data-portal="ringMark"]').onclick=()=>{closeRing();api('listen')?.openPin?.()};
+  $('[data-portal="ringRide"]').onclick=()=>{closeRing();void carry()};
+  $('[data-portal="ringFace"]').addEventListener('click',e=>{
+    const s=ringState();if(!s)return;
+    const rect=e.currentTarget.getBoundingClientRect();
+    const addr=ringPosition({x:e.clientX,y:e.clientY,left:rect.left,top:rect.top,
+      width:rect.width,height:rect.height,rotation:s.rotation,duration:s.duration});
+    if(addr)ringSeek(addr.time);
+  });
+  $('[data-portal="ringFace"]').addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'||e.key==='ArrowDown'){e.preventDefault();ringStep(-1)}
+    else if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();ringStep(1)}
+    else if(e.key==='Home'){e.preventDefault();ringSeek(0)}
+    else if(e.key==='End'){e.preventDefault();const s=ringState();if(s)ringSeek(s.duration)}
+  });
   $('[data-portal="carry"]').onclick=()=>{void carry()};
   for(const n of ['left','right','release'])$('[data-portal="'+n+'"]').onclick=()=>{void command(n)};
-  inline?.addEventListener('click',()=>open('listen'));
-  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();close()}});
+  inline?.addEventListener('click',openRing);
+  document.addEventListener('keydown',e=>{if(!active||e.key!=='Escape')return;e.preventDefault();if(!$('[data-portal="ringPanel"]').hidden)closeRing();else close()});
   window.addEventListener('pagehide',()=>{clearInterval(ticker);pause('listen');pause('ride')});
   return Object.freeze({
-    open,close,carry,refresh,
-    state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none'}),
+    open,close,carry,returnToSource,openRing,ringSeek,refresh,
+    state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none',focusState:document.documentElement.dataset.fieldLabFocus||'unknown',returnFocus:document.documentElement.dataset.fieldLabReturnFocus||'unknown'}),
     native:type=>api(type)
   });
 }
