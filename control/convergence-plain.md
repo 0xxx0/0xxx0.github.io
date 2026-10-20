@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-20T04:56:36.951Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-20T06:29:35.623Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **29 material commits on 2026-10-20** across **1046 branches** (79 exact Git commits in the window; 50 generated telemetry; 6222 on master all-time).
+At capture, the field had **31 material commits on 2026-10-20** across **1046 branches** (88 exact Git commits in the window; 57 generated telemetry; 6231 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -19,9 +19,9 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
+- release: FIELD 0.8.38 cache-buster for the godseye frame
+- field instrument: the god's-eye frame (position truth, a real map, a measuring
 - SOURCE SPINE CI: separate browser workloads and distinguish unverified media c
-- FOLD//BLOOM: restore deep audio, truthful ring and exact source return
-- FOLD//BLOOM SOURCE SPINE: exact LISTEN → native RIDE → RETURN
 
 ## Law
 
