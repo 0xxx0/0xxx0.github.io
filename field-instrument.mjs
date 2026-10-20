@@ -161,7 +161,7 @@ function command(op){
       // One native command registry/dispatcher; no shadow implementation of tools.
       const native=window.FieldURLBarCore?.resolveCommand?.(op);
       if(native&&native!=='instrument'){
-        remember();if(['work','prove','read','trace','fovea','map','recent','up','down','hold'].includes(native))exit();
+        remember();if(['work','prove','read','trace','fovea','map','recent','up','down','hold','axis'].includes(native))exit();
         window.FieldOmnibar?.execute?.(native,held()?.address||'/','instrument');return;
       }
       notice('Unknown command. Tap the coordinate to reveal operations.');
@@ -246,6 +246,7 @@ function render(){
   const priorMark=document.activeElement?.closest?.('[data-fold]')?.dataset.fold;
   view=C.project(rows,state,seen);
   plane.style.setProperty('--fi-tilt',[0,-12,-24,-34][state.turn]+'deg');
+  plane.style.setProperty('--fi-yaw',[0,-5,0,5][state.turn]+'deg');
   const tags=C.addressTags(view.folds.map(g=>g.object).filter(Boolean));
   const places=C.placements(view),walking=state.mode==='RELATIONS'&&held();
   const edges=view.folds.map((g,i)=>{
@@ -287,8 +288,16 @@ function key(e){
   }
   if(e.key==='Enter'&&typing){
     e.preventDefault();e.stopImmediatePropagation();const q=e.target.value.trim();
-    if(q.startsWith(':')){command(q.slice(1).trim());return true}
     const parsed=window.FieldURLBarCore.parse(q);
+    if(parsed.mode==='COMMAND'){
+      if(parsed.command){
+        const target=parsed.query&&rows.find(r=>r.address===parsed.query||r.id===parsed.query);
+        if(parsed.query&&!target){notice('Exact native command target required');return true}
+        if(target)commit(C.locate(state,target),{native:true});
+        command(parsed.command);return true
+      }
+      command(parsed.query||'help');return true
+    }
     if(parsed.mode==='RISE'){command('up');return true}
     if(parsed.command){
       const target=parsed.query&&rows.find(r=>r.address===parsed.query||r.id===parsed.query);
@@ -326,6 +335,7 @@ async function load(){
 function boot(){
   if(location.pathname!=='/')return;
   window.FieldInstrument=Object.freeze({enter,exit,edit,active:()=>enabled,address,key,
+    turn:()=>{if(!enabled)return false;command('turn');return true},
     snapshot:()=>({frame:C.frame(state),anchor:C.frame(anchor),view:view&&{total:view.total,inside:view.inside,outside:view.outside,counts:view.folds.map(g=>g.count)}})});
   window.addEventListener('field-index:state',()=>load());
   let attempts=0;
