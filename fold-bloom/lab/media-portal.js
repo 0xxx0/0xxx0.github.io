@@ -204,7 +204,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     if(receipt.ok){listen.seek?.(receipt.time);lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='matched';
       onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');trace('SOURCE_EXACT_RETURN');
     }else{lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='mismatch';
-      onStatus('SOURCE RETURN UNVERIFIED · '+receipt.reason||receipt.status);trace('SOURCE_RETURN_UNVERIFIED')}
+      onStatus('SOURCE RETURN UNVERIFIED · '+(receipt.reason||receipt.status));trace('SOURCE_RETURN_UNVERIFIED')}
     held=null;refresh();return receipt;
   }
   $('[data-portal="close"]').onclick=close;
