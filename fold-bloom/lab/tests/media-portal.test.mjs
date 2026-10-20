@@ -31,5 +31,5 @@ test('FIELD LAB reuses native hosts; no extra engine or source store',()=>{
   assert.match(portal,/native\.loadFiles\(\[file\]/);
   assert.match(portal,/actual!==expected/);
   assert.match(portal,/audioGlyphRepresentation/);
-  assert.match(listen,/sourceFile:()=>sourceBlob&&fileMeta\?\.hash/);
+  assert.ok(listen.includes('sourceFile:()=>sourceBlob&&fileMeta?.hash'));
 });
