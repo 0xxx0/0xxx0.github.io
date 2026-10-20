@@ -1,0 +1,42 @@
+name: field-lab-native-media
+on:
+  pull_request:
+    paths:
+      - 'fold-bloom/lab/**'
+      - 'fold-bloom/listen/app.js'
+      - 'tools/field-lab-native-media-smoke.mjs'
+      - '.github/workflows/field-lab-native-media.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'fold-bloom/lab/**'
+      - 'fold-bloom/listen/app.js'
+      - 'tools/field-lab-native-media-smoke.mjs'
+      - '.github/workflows/field-lab-native-media.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse and prove source-bound host contract
+        run: |
+          node --check fold-bloom/lab/media-portal.js
+          node --check fold-bloom/lab/harmonic-evidence.js
+          node --check fold-bloom/lab/app.js
+          node --check fold-bloom/listen/app.js
+          node --check tools/field-lab-native-media-smoke.mjs
+          node --test fold-bloom/lab/tests/media-portal.test.mjs
+          node --test fold-bloom/lab/tests/lab-return.test.mjs
+          node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
+          node fold-bloom/listen/audio-glyph.test.mjs
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Native LAB phone-width interaction witness
+        run: node tools/field-lab-native-media-smoke.mjs
