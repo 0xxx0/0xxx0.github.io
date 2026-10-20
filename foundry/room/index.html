@@ -83,7 +83,7 @@ footer{border-top:1px solid var(--line);min-height:112px;display:grid;grid-templ
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s),program=()=>$('#program'),allBlocks=()=>[...program().querySelectorAll('.block')],block=id=>program().querySelector('#'+CSS.escape(id));
-let focus='compiler',mark=null,scope=null,lastRun=null,events=[],overlayMode='view',foldN=0;
+let focus='intent',mark=null,scope=null,lastRun=null,events=[],overlayMode='view',foldN=0;
 const event=(kind,payload={})=>{events.push({kind,payload,at:new Date().toISOString()});events=events.slice(-96)};
 function typeKey(type){let h=2166136261;for(const c of String(type||'VOID').toUpperCase()){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}const bits=[];for(let i=0;i<5;i++)bits.push((h>>>(i*5))&1);if(!bits.some(Boolean))bits[0]=1;return bits.join('')}
 function decorateKeys(){program().querySelectorAll('.keybits').forEach(k=>{const bits=typeKey(k.dataset.type);k.innerHTML=bits.split('').map(b=>'<i class="'+(b==='1'?'on':'')+'"></i>').join('');k.title=(k.dataset.type||'VOID')+' / '+bits})}
