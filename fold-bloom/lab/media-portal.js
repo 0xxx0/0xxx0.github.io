@@ -200,7 +200,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       $('[data-portal="detail"]').textContent=m?
         (ls.stage+' · '+ev.label+' · '+String(m.hash||'').slice(0,12)):
         'TRY DEMO · LOCAL, OR OPEN AN AUDIO FILE';
-      $('[data-portal="carry"]').disabled=!m?.hash||typeof listen?.sourceFile!=='function';
+      $('[data-portal="carry"]').disabled=carryBusy||!!ls?.sourceLoading||!m?.hash||typeof listen?.sourceFile!=='function';
     }else if(active==='ride'){
       const s=native?.state?.(),count=s?.history?.length||0,src=s?.sourceMeta;
       $('[data-portal="title"]').textContent=src?.name||'RIDE · NATIVE LIVE';
