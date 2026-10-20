@@ -35,8 +35,8 @@
     {
       "id": "interface-convergence",
       "state": "ACTIVE_NOW",
-      "center": "repair existing FIELD/FOLD//BLOOM first-use and action surfaces without new architecture; one failing PR at a time, starting with addressed Omnibar #973",
-      "evidence": "https://github.com/0xxx0/0xxx0.github.io/pull/973 · https://github.com/0xxx0/0xxx0.github.io/pull/971"
+      "center": "repair the existing FIELD action surface without new architecture; current machine move is addressed Omnibar/AXIS #973 after FOLD//BLOOM first-use repair merged",
+      "evidence": "https://github.com/0xxx0/0xxx0.github.io/pull/973 · master@646def23e0838e1c9d4bf3e2cb045bd20c6071b7"
     }
   ],
   "current_heads": [
@@ -966,7 +966,7 @@
   ],
   "next_single_action": {
     "id": "repair-omnibar-exact-head",
-    "instruction": "Fix PR #973's exact-head URLbar/Omnibar proof first, rebase/replay on current master, require green field-urlbar + public-surface gates, then RETURN. Do not start #971 or a new interface branch until that return. Air-instrument remains the world front and may continue only through its native physical/sensor loop."
+    "instruction": "Fix PR #973's exact-head URLbar/Omnibar proof first, rebase/replay on current master, require green field-urlbar + public-surface gates, then RETURN. Do not start a new interface branch until that return; the FOLD//BLOOM first-use repair is already merged. Air-instrument remains the world front and may continue only through its native physical/sensor loop."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
