@@ -15,10 +15,10 @@ const $=s=>document.querySelector(s);
 const faces=[
  {id:'F',axis:'+Z',role:'PRESENT',rx:0,ry:0},
  {id:'L',axis:'-X',role:'INPUT',rx:0,ry:90},
- {id:'U',axis:'+Y',role:'INTENTION',rx:-90,ry:0},
+ {id:'U',axis:'+Y',role:'INTENTION',rx:90,ry:0},
  {id:'R',axis:'+X',role:'OUTPUT',rx:0,ry:-90},
  {id:'B',axis:'-Z',role:'RETURN',rx:0,ry:180},
- {id:'D',axis:'-Y',role:'GROUND',rx:90,ry:0}
+ {id:'D',axis:'-Y',role:'GROUND',rx:-90,ry:0}
 ];
 let mode='plain',face='F';
 const stage=$('.stage'),toolbar=$('.tools');
