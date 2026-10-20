@@ -31,3 +31,6 @@ details.provenance summary{cursor:pointer;color:#a79b81;padding:6px 0}
 
 
 @media(max-width:820px){.stage .trace-controls{bottom:210px}.cross-note{display:none}}
+
+/* Read-only route guidance; no additional persistent chrome on mobile. */
+.route-section{display:grid;gap:8px}.route-actions{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:end}.route-actions button{padding:9px 11px;font-size:10px;white-space:nowrap}.route-actions [aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}.route-actions label{min-width:0;letter-spacing:.04em}.route-actions select{width:100%;min-width:0;padding:7px;font-size:10px}.route-cue{position:absolute;z-index:7;top:56px;left:12px;max-width:calc(100% - 24px);font:11px/1.45 "Courier New",monospace;letter-spacing:.06em;padding:7px 10px;border-left:2px solid var(--gold);background:rgba(5,7,7,.92);color:var(--gold);pointer-events:none}@media(max-width:820px){.route-cue{top:56px;font-size:10px;max-width:65%}}
