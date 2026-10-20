@@ -5,18 +5,59 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 import {browserBin} from './browser-bin.mjs';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
+let warmLegacy=false;
+const warmed=new Set(),coupled=['field-instrument.mjs','field-instrument-core.mjs','field-instrument.css'];
 const root=process.cwd(),server=http.createServer((req,res)=>{
-  const name=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
+  const url=new URL(req.url,'http://local'),name=decodeURIComponent(url.pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
+  if(name==='/__field_cache_probe__'){
+    res.setHeader('Content-Type','text/html');
+    res.end('<link rel="stylesheet" href="/field-instrument.css"><script type="module">import "/field-instrument.mjs";import "/field-instrument-core.mjs";document.body.dataset.primed="1";</script><body></body>');return;
+  }
+  if(warmLegacy&&!url.search&&coupled.includes(name.slice(1))){
+    warmed.add(name.slice(1));res.setHeader('Cache-Control','public, max-age=3600');
+    res.setHeader('Content-Type',name.endsWith('.css')?'text/css':'application/javascript');
+    res.end(name.endsWith('.css')?'html{--obsolete-field:cached}':'export const obsolete=true;');return;
+  }
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404).end();return}
   const type={'.html':'text/html','.mjs':'application/javascript','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'}[path.extname(file)]||'application/octet-stream';
   res.setHeader('Content-Type',type);fs.createReadStream(file).pipe(res);
 });
-const expected=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8')).routes.filter(r=>r.href!=='/').length;
+const manifest=JSON.parse(fs.readFileSync('showcase-manifest.json','utf8'));
+const expected=manifest.routes.filter(r=>r.href!=='/').length,version=manifest.routes.find(r=>r.href==='/').version;
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:browserBin(),args:['--no-sandbox','--disable-dev-shm-usage']});
 const results=[];
 try{
+  // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
+  // bytes must not combine with the newly fetched CURRENT/manifest data.
+  const cached=await browser.newContext(),cachePage=await cached.newPage();warmLegacy=true;
+  await cachePage.goto(base+'/__field_cache_probe__');
+  await cachePage.waitForFunction(()=>document.body.dataset.primed==='1');
+  assert.equal(warmed.size,3);warmLegacy=false;
+  await cachePage.goto(base+'/');await cachePage.waitForSelector('html[data-instrument="1"]');
+  await cachePage.waitForFunction(()=>[...document.styleSheets].some(s=>s.href?.includes('field-instrument.css')));
+  const releaseURLs=await cachePage.evaluate(()=>[...document.scripts].map(s=>s.src).concat([...document.styleSheets].map(s=>s.href)),null);
+  for(const file of ['field-instrument.mjs','field-instrument.css'])assert.ok(releaseURLs.some(u=>u&&new URL(u).pathname==='/'+file&&new URL(u).searchParams.get('v')===version),'release address missing: '+file);
+  assert.ok(await cachePage.evaluate(v=>performance.getEntriesByType('resource').some(e=>new URL(e.name).pathname==='/field-instrument-core.mjs'&&new URL(e.name).searchParams.get('v')===v),version),'core must inherit the same release address');
+  assert.equal(await cachePage.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--obsolete-field')),'');
+  assert.equal(await cachePage.locator('[data-map-id]').count(),expected);
+  // Non-reduced motion is an actual aperture traversal, not a TURN menu pose.
+  const cacheStart=await cachePage.evaluate(()=>FieldInstrument.snapshot().frame);
+  await cachePage.locator('#fiReading [data-action="heads"]').click();
+  const house=cachePage.getByRole('button',{name:'Enter HOUSE / FIELD · /house/ · 1 objects',exact:true});
+  const smallBox=await house.boundingBox();await house.click();
+  assert.equal((await cachePage.evaluate(()=>FieldInstrument.snapshot())).view.inside,1);
+  assert.equal(await cachePage.locator('.fiTransit').evaluate(n=>n.inert&&n.getAttribute('aria-hidden')==='true'),true);
+  await cachePage.waitForFunction(()=>!document.querySelector('.fiTransit'));
+  const bigBox=await cachePage.locator('#fiPlane .fiMark').boundingBox();
+  assert.ok(bigBox.width>smallBox.width*2,'entering a tool must visibly enlarge its aperture');
+  await cachePage.locator('#fiParent').click();await cachePage.waitForFunction(()=>!document.querySelector('.fiTransit'));
+  assert.equal((await cachePage.evaluate(()=>FieldInstrument.snapshot())).view.inside,11);
+  await house.click();await cachePage.locator('#fiReturn').click();
+  assert.deepEqual((await cachePage.evaluate(()=>FieldInstrument.snapshot())).frame,cacheStart,'RETURN must cancel an in-flight camera');
+  assert.equal(await cachePage.locator('.fiTransit').count(),0);
+  await cached.close();
   for(const [width,height] of [[320,568],[320,640],[390,844],[430,932],[1280,800]]){
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce',acceptDownloads:true});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -60,7 +101,7 @@ try{
     assert.equal(await page.locator('#fiReading small').evaluate(n=>n.scrollHeight<=n.clientHeight),true,'mark key clips on phone');
     await page.locator('#fiReading [data-close]').click();
     await page.locator('#fiReading [data-action="heads"]').click();
-    await page.getByRole('button',{name:'HOUSE / FIELD · /house/ · 1 objects',exact:true}).click();
+    await page.getByRole('button',{name:'Enter HOUSE / FIELD · /house/ · 1 objects',exact:true}).click();
     const readingBefore=await page.locator('#fiReading [data-near]').elementHandle();
     await page.mouse.move(1,1);
     assert.equal(await readingBefore.evaluate(n=>n.isConnected),true,'pointer exit must not replace a held reading control');
@@ -121,6 +162,7 @@ try{
     // A native-held address plus local geometry is retained through turn/reload/RETURN.
     await cmd('/house/');await page.waitForFunction(()=>FieldInstrument.snapshot().frame.focus==='/house/');
     const exact=await page.evaluate(()=>FieldInstrument.snapshot().frame);
+    if(process.env.SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-tool-${width}.png`)});
     const readingFit=await page.locator('#fiReading').evaluate(n=>{
       const rs=[...n.children].map(x=>x.getBoundingClientRect());
       return {overlap:rs.some((r,i)=>i>0&&r.top<rs[i-1].bottom-1),textOverflow:n.querySelector('p').scrollHeight>n.querySelector('p').clientHeight+1};
@@ -190,5 +232,5 @@ try{
     assert.deepEqual(errors,[],'browser errors '+width);
     results.push(width+'×'+height);await context.close();
   }
-  console.log('FIELD INSTRUMENT BROWSER PASS · '+results.join('/')+'px · touch-sized disjoint marks · native SEEN/inverse · native open/BACK · exact reload/RETURN · count conservation · one fixed bar · source unchanged');
+  console.log('FIELD INSTRUMENT BROWSER PASS · '+results.join('/')+'px · stale HTTP cache rejected · enter/UP/camera cancellation · touch-sized disjoint marks · native SEEN/inverse · native open/BACK · exact reload/RETURN · count conservation · one fixed bar · source unchanged');
 }finally{await browser.close();await new Promise(r=>server.close(r))}

@@ -1,16 +1,17 @@
 // Existing FIELD root adapter: effects live here; projection laws live in core.
-import * as C from './field-instrument-core.mjs';
 import {hashText,stableKey} from './lib/id.js';
 import {esc,download} from './lib/dom.js';
 import {skv} from './lib/store.js';
 import './lib/moire-ambient.js';
+// One HTML release address invalidates this adapter and its coupled projection.
+const release=new URL(import.meta.url).search;
+const C=await import('./field-instrument-core.mjs'+release);
 
-const KINDS=['root','system','hub','workbench','experiment','artifact','rendezvous','alias','recovery','documentation','control','evidence','validator','route','index','utility','tool','lab','donor','donor-hub','source','adapter','derivative','art'];
-const STATES=['ACTIVE','STABLE','CORE_ACTIVE','ACTIVE_NOW','ACTIVE_MAINTENANCE','PROOF_REQUIRED','RECOVER','CANDIDATE','PARKED','DONOR','FROZEN_DONOR','REFERENCE','UTILITY','UNKNOWN'];
 const MEMORY=skv('field.instrument.frame.v01');
 const $=s=>document.querySelector(s);
 let state=C.initial(),rows=[],seen={},view=null,root=null,plane=null,reading=null,bar=null,anchor=null,hostAnchor=null;
 let enabled=false,menu=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false,readingMarkup='';
+let flights=[];
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
@@ -19,11 +20,31 @@ const blankQuery=()=>{const i=$('#fieldUrlInput');if(i)i.value='';const u=new UR
 function notice(msg){const n=$('#fiNotice');if(!n)return;n.textContent=msg;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{n.textContent=''},5000)}
 function remember(){MEMORY.set({schema:'field-instrument-position/v0.1',frame:C.frame(state),anchor,host:window.FieldLensHost?.uiState?.()||null,hostAnchor})}
 function commit(next,{native=false}={}){
+  stopFlight();
   if(stableKey(next)===stableKey(state))return;
   revisions.push(C.frame(state));if(revisions.length>40)revisions.shift();
   state=next;probe=null;
   if(native&&held())window.__fieldAct?.focus(held().address);
   remember();render();
+}
+function stopFlight(){flights.forEach(a=>a.cancel());flights=[];root?.querySelectorAll('.fiTransit').forEach(n=>n.remove());if(plane)plane.style.pointerEvents=''}
+function travel(next,{foldId,reverse=false,native=false}={}){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){commit(next,{native});return}
+  stopFlight();
+  const past=plane.cloneNode(true),priorTilt=plane.style.getPropertyValue('--fi-tilt');
+  let target=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===foldId);
+  let box=target?.getBoundingClientRect(),bounds=plane.getBoundingClientRect();
+  commit(next,{native});
+  if(reverse){target=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===foldId);box=target?.getBoundingClientRect();bounds=plane.getBoundingClientRect()}
+  const dx=box?box.x+box.width/2-bounds.x-bounds.width/2:0,dy=box?box.y+box.height/2-bounds.y-bounds.height/2:0;
+  past.removeAttribute('id');past.classList.add('fiTransit');past.inert=true;past.setAttribute('aria-hidden','true');past.style.setProperty('--fi-tilt',priorTilt);
+  past.innerHTML=past.innerHTML.replaceAll('fiGrain','fiPastGrain');
+  $('#fiField').append(past);plane.style.pointerEvents='none';
+  const rest=`rotateX(${plane.style.getPropertyValue('--fi-tilt')})`,small=`translate(${dx}px,${dy}px) translateZ(-140px) scale(.28) rotateY(12deg)`,large=`translate(${-dx*3}px,${-dy*3}px) translateZ(170px) scale(3.2) rotateY(-10deg)`;
+  const timing={duration:440,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'};
+  const a=past.animate(reverse?[{opacity:1,transform:'rotateX('+priorTilt+')'},{opacity:0,transform:small}]:[{opacity:1,transform:'rotateX('+priorTilt+')'},{opacity:0,transform:large}],timing);
+  const b=plane.animate(reverse?[{opacity:0,transform:large},{opacity:1,transform:rest}]:[{opacity:0,transform:small},{opacity:1,transform:rest}],timing);
+  flights=[a,b];b.finished.then(()=>{if(flights.includes(b))stopFlight()}).catch(()=>{});
 }
 function putReading(html){if(html!==readingMarkup){reading.innerHTML=html;readingMarkup=html}}
 function quiet(e){
@@ -40,14 +61,14 @@ function edit(seed){
 function endEdit(){editing=false;delete $('#fieldUrlBar').dataset.editing;$('#fieldUrlInput').blur();renderBearing()}
 function scopeOut(){
   endEdit();toggleMenu(false);
-  if(state.path.length)commit(C.parent(state));else{blankQuery();commit({...state,query:'',scale:0,page:0})}
+  if(state.path.length){const last=state.path.at(-1),next=C.parent(state),v=C.project(rows,next,seen),g=v.folds.find(g=>g.dim===last.dim&&stableKey(g.values)===stableKey(last.values));travel(next,{foldId:g?.id,reverse:true})}else{blankQuery();commit({...state,query:'',scale:0,page:0})}
 }
 function wire(){
   if(root)return;
-  const style=document.createElement('link');style.rel='stylesheet';style.href='./field-instrument.css';document.head.append(style);
+  const style=document.createElement('link');style.rel='stylesheet';style.href='./field-instrument.css'+release;document.head.append(style);
   root=document.createElement('section');root.id='fieldInstrument';root.hidden=true;root.setAttribute('aria-label','FIELD instrument');
   root.innerHTML=`<div class="fiNotice" id="fiNotice" role="status" aria-live="polite"></div>
-    <div class="fiField" id="fiField" aria-label="Counted folds. Tap to unfold; arrow keys to read." tabindex="0"><div class="fiPlane" id="fiPlane"></div></div>
+    <div class="fiField" id="fiField" aria-label="Tap a region to enter it. UP moves out; RETURN restores your pinned place." tabindex="0"><div class="fiPlane" id="fiPlane"></div></div>
     <section class="fiReading" id="fiReading" aria-label="Reading at current position"></section>
     <nav class="fiMenu" id="fiMenuPanel" aria-label="Instrument operations" hidden></nav>`;
   document.querySelector('main').append(root);plane=$('#fiPlane');reading=$('#fiReading');
@@ -136,6 +157,7 @@ function exit(){
   window.FieldLensHost?.notify?.();
 }
 function returnPosition(){
+  stopFlight();
   if(!anchor)return;blankQuery();
   if(hostAnchor)window.FieldLensHost?.restore(hostAnchor);
   toggleMenu(false);commit(C.restore(anchor));
@@ -176,7 +198,7 @@ function command(op){
   renderBearing();
 }
 function showHelp(){
-  putReading(`<div class="fiName">Read the mark</div><code>angle · kind / length · depth / lane · git</code><p>Top rail = every address, fixed by family/name. Length = depth; dim = outside; tall = held.</p><small>↑ parent · ↓ children · ↔ peers<br>Pattern = hash · archive not connected</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
+  putReading(`<div class="fiName">Read the mark</div><code>rings · hubs / lattice · tools / ruled · text</code><p>Tap to enter; UP retraces the aperture. Patterned areas show kind families; mixed areas retain each family.</p><small>ruler · proof / bridges · links<br>contours · objects / approach · hash</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
   reading.querySelector('[data-close]').onclick=()=>renderReading();
 }
 function mark(g){
@@ -184,23 +206,14 @@ function mark(g){
     const paths={parent:'M60 43V15m-6 6 6-6 6 6',child:'M60 15v28m-6-6 6 6 6-6',peer:'M35 29h50m-6-6 6 6-6 6m-38-12-6 6 6 6'};
     return `<svg viewBox="0 0 120 60" aria-hidden="true"><path d="${paths[g.relation]}" stroke="currentColor" fill="none"/><path d="M43 51h${34*g.count/Math.max(1,view.inside)}" stroke="currentColor" opacity=".5"/></svg>`;
   }
-  const r=g.object;
-  if(!r){
-    const polar=window.InterphaseRing.polar;
-    const spokes=g.profile.kinds.map(([kind,n])=>{
-      const slot=KINDS.indexOf(kind),a=(slot<0?Math.PI:slot*Math.PI/KINDS.length)-Math.PI,
-        p=polar(60,31,8,a),q=polar(60,31,12+22*n/g.count,a);
-      return `<path d="M${p[0]} ${p[1]}L${q[0]} ${q[1]}"/>`;
-    }).join('');
-    const ticks=g.profile.states.map(([st,n])=>{const i=STATES.indexOf(st);return `<path d="M${24+(i<0?15:i)*4} 44v${2+6*n/g.count}"/>`}).join('');
-    return `<svg viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1">${spokes}<path d="M35 34h50m-4-3 4 3-4 3" opacity=".5"/>${ticks}</g>${g.changed?'<path d="M96 22v12m-3-6h6" stroke="currentColor" fill="none"/>':''}</svg>`;
-  }
-  const m=C.reading(r,KINDS,STATES),x=60-m.length/2,end=60+m.length/2;
-  const arc=m.arc===null?'':`<path d="M47 41Q60 ${41-15*m.arc} 73 41" opacity=".55"/>`;
-  // Known source: git is lane 1. Unknown categories are explicitly labelled in reading.
-  const tick=m.tick<0?'M90 41l4 4m0-4-4 4':`M${24+m.tick*4} 45v4`;
-  return `<svg viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1"><g transform="rotate(${m.angle??0} 60 27)"><path d="M${x} 27H${end}m-4-3 4 3-4 3"/></g><path d="M20 ${38+m.lane*3}h8M${m.lane<0?20:20+m.lane*3} 38v6" opacity=".5"/>${arc}<path d="${tick}"/></g>${m.angle===null?'<text x="91" y="30" fill="currentColor" font-size="10">?</text>':''}</svg>`;
+  const materials=new Map();for(const [kind,n] of g.profile.kinds){const m=C.material(kind);materials.set(m,(materials.get(m)||0)+n)}
+  const motifs={hub:'<circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="2"/>',tool:'<path d="M0 0L16 16M16 0L0 16M8 0V16M0 8H16"/>',text:'<path d="M0 4H16M0 10H11"/>',trace:'<path d="M0 13H16M3 13V3M8 13V8M13 13V5"/>',link:'<path d="M0 4H5L11 12H16M0 12H5L11 4H16"/>',object:'<path d="M2 2H14V14H2ZM6 6H10V10H6Z"/>'};
+  const ordered=[...materials].sort(([a],[b])=>a.localeCompare(b));
+  const slot=view.folds.findIndex(f=>f.id===g.id),defs=ordered.map(([m])=>`<pattern id="fiGrain${slot}${m}" width="${m==='hub'?20:16}" height="${m==='hub'?20:16}" patternUnits="userSpaceOnUse"><g fill="none" stroke="currentColor" stroke-width="1.5">${motifs[m]}</g></pattern>`).join('');
+  const strips=ordered.map(([m,n],i)=>`<rect x="${8+i*104/materials.size}" y="5" width="${104/materials.size-2}" height="44" fill="url(#fiGrain${slot}${m})"/><path d="M${8+i*104/materials.size} 54h${(104/materials.size-2)*n/g.count}" stroke="currentColor" stroke-width="2"/>`).join('');
+  return `<svg viewBox="0 0 120 60" aria-hidden="true"><defs>${defs}</defs>${strips}</svg>`;
 }
+
 function read(g){
   probe=g.id;root.querySelectorAll('[data-fold]').forEach(el=>el.dataset.reading=el.dataset.fold===g.id?'1':'0');renderReading(g);renderBearing(g);
 }
@@ -211,10 +224,10 @@ function renderReading(g){
     const catching=state.mode==='DELTA',unmeasured=d.unknown.length+d.unbased.length,
       title=catching?(d.hasBaseline?`${d.changed.length} measured changes`:'Start catch-up'):`${view.inside} ${state.intent==='HEADS'?'current tools':'places'}`,
       actions=catching?`<button data-action="seen">✓ SEEN ALL</button><button data-action="${owner().snapshot().canRewind?'rewind-seen':'field'}">${owner().snapshot().canRewind?'↶ UNDO SEEN':'ALL '+view.total}</button>`:`<button data-action="${state.intent==='HEADS'?'field':'heads'}">${state.intent==='HEADS'?'ALL '+view.total:'CURRENT '+rows.filter(r=>r.head).length}</button><button data-action="delta">CHANGES ${d.hasBaseline?d.changed.length:'?'}</button><button data-action="help">? KEY</button>`;
-    putReading(`<div class="fiName">${esc(title)}</div><code>${view.folds.length} counted regions · ${view.outside} outside · +1 root host</code><p>${catching?'SEEN sets a local return boundary. Changes without timestamps remain unknown.':state.intent==='HEADS'?'Native retained heads. Tap a tool, then OPEN; ALL widens to every place.':'Tap a region to unfold, then OPEN a tool. Tap the bar to locate an address.'}</p><small>${d.needs.length} need world · ${d.stalled.length} stalled · ${unmeasured} unmeasured<br>${d.hasBaseline?'timestamp-only delta':'∆? · no SEEN baseline'}</small><div class="fiActions">${actions}</div>`);
+    putReading(`<div class="fiName">${esc(title)}</div><code>${view.folds.length} counted regions · ${view.outside} outside · +1 root host</code><p>${catching?'SEEN sets a local return boundary. Changes without timestamps remain unknown.':state.intent==='HEADS'?'Native retained heads. Tap a tool, then OPEN; ALL widens to every place.':'Tap a region to enter. Tap a tool to bring it forward; OPEN uses it.'}</p><small>${d.needs.length} need world · ${d.stalled.length} stalled · ${unmeasured} unmeasured<br>${d.hasBaseline?'timestamp-only delta':'∆? · no SEEN baseline'}</small><div class="fiActions">${actions}</div>`);
   }else if(g&&!r){
     const members=rows.filter(x=>g.ids.includes(x.id)),parents=new Set(members.map(x=>x.parent).filter(Boolean));
-    putReading(`<div class="fiName">${esc(g.label)}</div><code>${g.count} objects · ${g.values.length} ${esc(g.dim)} value${g.values.length===1?'':'s'}</code><p>${g.changed===null?'Delta unknown (no SEEN baseline)':g.changed+' measured changes'} · ${g.unknown+g.unbased} unmeasured. ${state.mode==='RELATIONS'?parents.size+' declared parents.':'Unfold; held address survives.'}</p><small>Every member retained · no absorbed/deleted source</small><div class="fiActions"><button data-action="unfold">UNFOLD ${g.count}</button><button data-action="help">? KEY</button></div>`);
+    putReading(`<div class="fiName">${esc(g.label)}</div><code>${g.count} objects · ${g.values.length} ${esc(g.dim)} value${g.values.length===1?'':'s'}</code><p>${g.changed===null?'Delta unknown (no SEEN baseline)':g.changed+' measured changes'} · ${g.unknown+g.unbased} unmeasured. ${state.mode==='RELATIONS'?parents.size+' declared parents.':'Unfold; held address survives.'}</p><small>Every member retained · no absorbed/deleted source</small><div class="fiActions"><button data-action="unfold">ENTER ${g.count}</button><button data-action="help">? KEY</button></div>`);
   }else{
     const offers=owner().actions(r.address),primary=offers[0],source=`${r.title} · ${r.address} · ${r.state} · ${r.kind} · ${r.payload.operation||'No move declared'} · ${r.payload.role||''}`,
       page=C.textPage(source,Math.max(0,state.page-1),innerWidth<360?85:105),when=r.time?new Date(r.time).toISOString().slice(0,10):'UNKNOWN',
@@ -244,8 +257,8 @@ function openNative(r,id){
 }
 function activate(g){
   if(!g)return;
-  if(g.object&&g.object.id===state.focus){openObject(g.object);return}
-  endEdit();toggleMenu(false);commit(C.into(rows,state,g,seen),{native:!!g.object});
+  if(g.object&&g.object.id===state.focus&&view.inside===1){openObject(g.object);return}
+  endEdit();toggleMenu(false);travel(C.into(rows,state,g,seen),{foldId:g.id,native:!!g.object});
   // The object remains the same field mark; detail is a field state, no overlay lens.
   if(g.object)read(g);
 }
@@ -254,6 +267,7 @@ function render(){
   const priorMark=document.activeElement?.closest?.('[data-fold]')?.dataset.fold;
   view=C.project(rows,state,seen);
   plane.style.setProperty('--fi-tilt',[0,-12,-24,-34][state.turn]+'deg');
+  const single=state.mode!=='RELATIONS'&&view.inside===1&&!!view.folds[0]?.object;plane.dataset.detail=single?'1':'0';
   const tags=C.addressTags(view.folds.map(g=>g.object).filter(Boolean));
   const places=C.placements(view),walking=state.mode==='RELATIONS'&&held();
   const edges=view.folds.map((g,i)=>{
@@ -262,7 +276,7 @@ function render(){
   }).join('');
   plane.innerHTML=(walking?`<button class="fiOrigin" data-origin aria-label="Open held ${esc(held().title)}" title="${esc(held().address)}">◎</button>`:'')+(view.folds.length?`<svg class="fiCreases" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor">${edges}</g></svg>`+view.folds.map((g,i)=>{
     const {x,y}=places[i];
-    return `<button type="button" class="fiMark" data-fold="${esc(g.id)}" data-relation="${g.relation||''}" data-held="${g.ids.includes(state.focus)?'1':'0'}" style="left:${x}%;top:${y}%" aria-label="${g.relation?g.label+': ':''}${esc(g.object?g.object.title+' · '+g.object.address:g.label)} · ${g.count} objects${g.range?' · range fold':''}">${mark(g)}<span class="fiLabel">${esc(g.object?g.object.title:g.label)}</span><span class="fiCount">${g.object?esc(tags.get(g.object.id)):g.count}${g.changed?' ∆'+g.changed:''}</span></button>`;
+    return `<button type="button" class="fiMark" data-fold="${esc(g.id)}" data-relation="${g.relation||''}" data-held="${g.ids.includes(state.focus)?'1':'0'}" style="left:${x}%;top:${y}%" aria-label="${single?'Open ':'Enter '}${g.relation?g.label+': ':''}${esc(g.object?g.object.title+' · '+g.object.address:g.label)} · ${g.count} objects${g.range?' · range fold':''}">${mark(g)}<span class="fiLabel">${esc(g.object?g.object.title:g.label)}</span><span class="fiCount">${single?'OPEN ↗':g.object?esc(tags.get(g.object.id)):'ENTER · '+g.count}${g.changed?' ∆'+g.changed:''}</span></button>`;
   }).join(''):`<div class="fiEmpty">${walking?'No declared neighbours.\nThe address remains held.':state.mode==='DELTA'&&!view.delta.hasBaseline?'No SEEN baseline.\nUse SEEN ALL below to start.':'No objects in this lens.\nUnfold ↑ returns context.'}</div>`);
   const origin=plane.querySelector('[data-origin]');if(origin){origin.onclick=()=>openObject(held());origin.onfocus=quiet}
   plane.querySelectorAll('[data-fold]').forEach((b,i)=>{
