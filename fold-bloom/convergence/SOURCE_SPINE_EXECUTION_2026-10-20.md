@@ -34,3 +34,15 @@ Implementation:
 
 ## Falsifier
 If exact-hash carry or source-address restoration fails, STOP further animation/model/library work. If a native map cannot be derived, show SOURCE_ONLY; never say it is mapped. If Android audio is silent, measure/fix native media path first. If a transformation cannot preserve identity, address and human-authored marks, it belongs in LAB as an experiment rather than as the canonical instrument.
+
+## Repair verification · 2026-10-20 (continuation)
+- **Root defect found**: LISTEN's `onWorkerMessage` used `if(e.data.type='progress')`, assigning rather than comparing, which intercepted **all** DEEP results. Repaired to strict comparison, with a regression gate.
+- **No duplicate decoder**: LISTEN reuses the native `pcm-wav.js` pure PCM16 parser that LIVE already uses. Original source sample rate is retained independently of the preview analysis downsample rate. Ordinary compressed audio still uses the bounded browser decoder; failure remains clearly SOURCE_ONLY.
+- **No invented sound data**: `audio-glyph.js` no longer turns coarse low/mid/high energy into fake 12-note chroma, nor synthesizes 'measured' energy when no frames exist. An unmeasured glyph may identify a source but does not pretend to identify notes.
+- **Ring as operator**: the existing glyph expands to a thumb-sized source-time ring. Touch/click maps 0 at top and turns clockwise, with 24-step buttons and arrow keys, while native LISTEN owns the seek. MARK stays native; RIDE still transfers the exact file. This is an address tool, not a new player.
+- **Proof boundary**: LIVE source seek now reports whether its actual HTMLMedia time changed and was readable; LAB distinguishes exact matching source bytes from *confirmed temporal position*. An unavailable media clock cannot yield a false 'exact RETURN'.
+- **Browser witness**: phone-width Chromium verified LISTEN stage DEEP and ring enlargement; the existing exact SOURCE SPINE round-trip preserved SHA-256 and returned to **2.4 seconds** after **one native release**. Real Android speaker playback and haptics remain device-only evidence.
+- **Gate status**: focused media tests, first-use test, route registration and secret scanning pass. The separate global `CURRENT active_fronts > 3` validation is pre-existing and is not repaired by falsifying the coordination ledger.
+
+### Next single conversion
+On an actual phone: use one rights-held complete song, MARK one significant phrase in LISTEN, RIDE from that exact position, commit one native release, return to the authored mark, then replay the changed terrain. If source identity, authorial mark or time address changes unexpectedly, stop before music generation, AI voices, plugin frameworks or additional surface chrome. The decisive novelty is a consequential **replay with exact RETURN**, not another painting-to-note imitation.
