@@ -278,7 +278,10 @@ async function analyzeBytes(bytes,playbackBlob,meta){
   const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Web Audio unavailable');
   const hashP=hashHex(bytes.slice(0)),ctx=new AC();
   try{
-    const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP;
+    const decoded=await Promise.race([
+      ctx.decodeAudioData(bytes.slice(0)),
+      new Promise((_,reject)=>setTimeout(()=>reject(Error('WEB_AUDIO_DECODE_TIMEOUT')),5000))
+    ]),hash=await hashP;
     if(requestId!==loadToken)return;
     const {pcm,sampleRate}=mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
@@ -300,6 +303,41 @@ async function analyzeBytes(bytes,playbackBlob,meta){
 
     if(decoded.duration>1200)return;
     ensureWorker().postMessage({type:'analyze',requestId,pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
+  }catch(error){
+    if(requestId!==loadToken)return;
+    // Decoder failure does not revoke the original audio or source identity.
+    const hash=await hashP;
+    if(objectURL)URL.revokeObjectURL(objectURL);
+    sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
+    let duration=Number(meta.duration)||0;
+    if(bytes.byteLength>=44){
+      const v=new DataView(bytes),head=String.fromCharCode(...new Uint8Array(bytes,0,4)),
+            wave=String.fromCharCode(...new Uint8Array(bytes,8,4)),
+            byteRate=v.getUint32(28,true);
+      if(head==='RIFF'&&wave==='WAVE'&&byteRate>0)duration=(v.getUint32(40,true))/byteRate;
+    }
+    if(!(duration>0)&&Number.isFinite(audio.duration))duration=audio.duration;
+    fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,
+      type:meta.type||playbackBlob.type||'audio',hash,duration,sourceSampleRate:null,analysisError:String(error?.message||error)};
+    fileMeta.bundle=sourceBundleFromMeta(fileMeta);
+    map={version:'fold-bloom-audio-only/v0.1',stage:'AUDIO_ONLY',preview:false,
+      duration,sampleRate:0,frameRate:0,bpm:0,tempoConfidence:0,frames:[],beats:[],phrases:[],
+      sections:[{t:0,score:0},{t:duration,score:0}],source:fileMeta};
+    audio.addEventListener('loadedmetadata',()=>{
+      if(map?.stage!=='AUDIO_ONLY'||fileMeta?.hash!==hash)return;
+      const d=Number(audio.duration);
+      if(Number.isFinite(d)&&d>0){map.duration=d;map.sections[1].t=d;fileMeta.duration=d;publishTransport(true)}
+    },{once:true});
+    $('#track').textContent=fileMeta.name;
+    $('#meta').textContent='SOURCE HASH VERIFIED · PLAYBACK SOURCE ONLY · NO MEASURED BEATS';
+    $('#bpm').textContent='— BPM';$('#confidence').textContent='NOT ANALYZED';
+    $('#key').textContent='— KEY';$('#beats').textContent='— BEATS';
+    $('#phrases').textContent='— PHRASES';$('#sections').textContent='SOURCE ONLY';
+    drop.classList.remove('busy');drop.classList.add('loaded');
+    $('#transport').disabled=false;$('#export').disabled=false;
+    syncPins();updateWorkflow();publishTransport(true);
+    status('AUDIO READY · ANALYSIS UNAVAILABLE · ORIGINAL KEPT');
+    console.warn('LISTEN kept playback after analysis failure',error);
   }finally{await ctx.close().catch(()=>{})}
 }
 async function readTextEvidence(sidecars=[]){
