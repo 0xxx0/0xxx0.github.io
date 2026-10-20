@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-20T10:19:16+08:00",
+  "updated": "2026-10-20T10:45:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -29,32 +29,8 @@
     {
       "id": "air-instrument",
       "state": "ACTIVE_NOW",
-      "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
-      "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
-    },
-    {
-      "id": "loadout-model",
-      "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
-      "evidence": "cron catchup-audio · /dayline/"
+      "center": "one real HOUSE air loop → observe → bounded action → measure after → RETURN; HOUSE OS/loadout work are substrate, not peer fronts",
+      "evidence": "/20261017-loadout/ · /house/"
     }
   ],
   "current_heads": [
@@ -63,7 +39,7 @@
       "head": "FIELD INDEX 0.8.36 / WHOLE FIELD + STABLE CONTEXT + CLICK CONTINUITY",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fresh ordinary root entry shows all 205 manifest destinations in at most nine counted folds. Named families and an explicit counted remainder replace truncated alphabetical ranges; size means membership, not priority. One fixed bar retains a family/address ordered tick for every destination across scopes, walks and turns; scope membership dims and the held address stays marked. CURRENT and CHANGES are one-tap reading actions; the left scope control names ALL/CURRENT/CHANGES directly. Existing saved positions remain exact. Held reading controls keep DOM identity through pointer/focus transitions, so mark → Nearby → native tool → browser BACK → exact pinned RETURN works with ordinary clicks. Native focus, parser, command/SEEN owners and the six declared exit URLs remain shared. Source is the public manifest; the real archive is not connected. This is a navigation slice, with native work integration and human task advantage still unproved. Plain FIELD and native proof/AXIAL deep links retain their host.",
+      "retained_function": "Fresh ordinary root entry shows all 205 manifest destinations in at most nine counted folds. Named families and an explicit counted remainder replace truncated alphabetical ranges; size means membership, not priority. One fixed bar retains a family/address ordered tick for every destination across scopes, walks and turns; scope membership dims and the held address stays marked. CURRENT and CHANGES are one-tap reading actions; the left scope control names ALL/CURRENT/CHANGES directly. Existing saved positions remain exact. Held reading controls keep DOM identity through pointer/focus transitions, so mark → Nearby → native tool → browser BACK → exact pinned RETURN works with ordinary clicks. Native focus, parser, command/SEEN owners and the six declared exit URLs remain shared. Source is the public manifest; the real archive is not connected. This is a navigation slice, with native work integration and human task advantage still unproved. Plain FIELD and native proof/AXIAL deep links retain their host. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver.",
       "evidence": [
         "/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
         "/returns/FIELD_INDEX_POSITION_0835_2026-10-20.json",
@@ -983,8 +959,8 @@
     }
   ],
   "next_single_action": {
-    "id": "witness-dayline",
-    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
+    "id": "air-world-return",
+    "instruction": "Complete one AIR world loop through its native HOUSE/runtime boundary: capture a real before witness, perform one bounded already-authorized air/mixing/filter action, capture the after witness, and RETURN the observed delta. If the private/device runtime is not reachable, stop with WORLD_INPUT_REQUIRED; do not invent substitute repo work."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
