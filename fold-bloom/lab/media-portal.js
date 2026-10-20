@@ -310,10 +310,10 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     else if(e.key==='End'){e.preventDefault();const s=api('listen')?.state?.();api('listen')?.seek?.(Number(s?.map?.duration)||0);refresh()}
   });
   inline?.addEventListener('click',()=>{if(active==='listen')openRing();else open('listen')});
-  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();close()}});
+  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();if(shell.dataset.ringOpen==='1')closeRing();else close()}});
   window.addEventListener('pagehide',()=>{clearInterval(ticker);pause('listen');pause('ride')});
   return Object.freeze({
-    open,close,carry,refresh,sourceReturn,returnReceipt:()=>lastReturn?{...lastReturn}:null,
+    open,close,carry,refresh,openRing,closeRing,sourceReturn,returnReceipt:()=>lastReturn?{...lastReturn}:null,
     state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none',heldHash:held?.sourceHash||null,returnReceipt:lastReturn?{...lastReturn}:null}),
     native:type=>api(type)
   });
