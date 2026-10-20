@@ -297,7 +297,19 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   };
   $('[data-portal="carry"]').onclick=()=>{void carry()};
   for(const n of ['left','right','release'])$('[data-portal="'+n+'"]').onclick=()=>{void command(n)};
-  inline?.addEventListener('click',()=>open('listen'));
+  $('[data-portal="ringClose"]').onclick=closeRing;
+  $('[data-portal="ringBack"]').onclick=()=>ringNudge(-1);
+  $('[data-portal="ringForward"]').onclick=()=>ringNudge(1);
+  $('[data-portal="ringMark"]').onclick=()=>{closeRing();api('listen')?.openPin?.()};
+  $('[data-portal="ringRide"]').onclick=()=>{closeRing();void carry()};
+  $('[data-portal="glyph"]').addEventListener('keydown',e=>{
+    if(shell.dataset.ringOpen!=='1')return;
+    if(e.key==='ArrowLeft'||e.key==='ArrowDown'){e.preventDefault();ringNudge(-1)}
+    else if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();ringNudge(1)}
+    else if(e.key==='Home'){e.preventDefault();api('listen')?.seek?.(0);refresh()}
+    else if(e.key==='End'){e.preventDefault();const s=api('listen')?.state?.();api('listen')?.seek?.(Number(s?.map?.duration)||0);refresh()}
+  });
+  inline?.addEventListener('click',()=>{if(active==='listen')openRing();else open('listen')});
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();close()}});
   window.addEventListener('pagehide',()=>{clearInterval(ticker);pause('listen');pause('ride')});
   return Object.freeze({
