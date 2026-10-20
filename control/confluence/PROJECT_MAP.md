@@ -1,260 +1,68 @@
 # FIELD / SIX-FAMILY PROJECT MAP
 
-**Updated:** 2026-10-03  
-**Role:** derived orientation / project-management projection  
+**Updated:** 2026-10-20  
+**Role:** one-page derived orientation / project-management projection  
 **Authority:** NONE  
-**Sources of truth:** `control/CURRENT.json` → `showcase-manifest.json` → native host/release → `returns/`  
-**Rule:** this page may compress current work; it may not create priority, project state, backlog, permission, or a new execution front.
+**Truth:** `CURRENT → manifest → native host/release → RETURN`
 
-CURRENT still owns attention. As of this map, the only live fronts remain **conversion** and **recovery-ingest maintenance**. The six families below are capability families, not six simultaneous projects.
-
----
-
-## Dependency map
+The six families are **capability families, not six active projects**. CURRENT is contracted to two live fronts: **AIR / WORLD LOOP** and **INTERFACE CONVERGENCE**. Everything else is dependency, donor, maintenance, or parked evidence until a live front needs it.
 
 ```text
-                         ┌──────────────────────────────┐
-                         │  RECOVERY / PROVENANCE      │
-                         │ exact source · lineage      │
-                         └──────────────┬───────────────┘
-                                        │ on demand
-                                        ▼
-┌──────────────────────────────┐   ┌──────────────────────────────┐
-│ HOLD / ADDRESS / SCALE       │──►│ PATH / TRAVERSAL / RE-ENTRY │
-│ identity · focus · authority │   │ order · route · witness      │
-└──────────────┬───────────────┘   └──────────────┬───────────────┘
-               │                                  │
-               │                                  ▼
-               │                    ┌──────────────────────────────┐
-               ├───────────────────►│ TRANSFORM / STEERING        │
-               │                    │ candidate · support · limit  │
-               │                    └──────────────┬───────────────┘
-               │                                  │ optional donor
-               ▼                                  ▼
-┌───────────────────────────────────────────────────────────────┐
-│ EXPERIENCE / EXPRESSION                                       │
-│ readable · playable · embodied · memorable · shareable        │
-└──────────────────────────────┬────────────────────────────────┘
-                               │ human use / chosen action
-                               ▼
-┌───────────────────────────────────────────────────────────────┐
-│ WORLD LOOPS                                                    │
-│ native commit · external consequence · receipt · exact RETURN  │
-└──────────────────────────────┬────────────────────────────────┘
-                               │
-                               └──── RETURN evidence feeds every family above
+RECOVERY / PROVENANCE
+        │ exact source only when needed
+        ▼
+HOLD / ADDRESS / SCALE ──► PATH / TRAVERSAL
+        │                        │
+        ├──────────────► TRANSFORM / STEERING
+        │                        │
+        ▼                        ▼
+EXPERIENCE / EXPRESSION ──► WORLD LOOPS
+                                  │
+                                  └── actual consequence → RETURN → replan
 ```
 
-**Hard dependency:** no family may silently increase authority.  
-**Soft dependency:** Experience may use Path or Transform without adopting their state models.  
-**Feedback law:** WORLD consequence returns evidence upward; it does not authorize the next move.
+| Family | Dependency / owner | Current proof status | Next concrete move |
+| --- | --- | --- | --- |
+| **HOLD / ADDRESS / SCALE** | FIELD INDEX, INTERPHASE, native route identity | **PASS / mature substrate.** FIELD 0.8.36 exposes all manifest destinations, stable position, click continuity, exact native exits and RETURN. Omnibar command repair is open but red. | **Repair #973 only.** Fix exact-head grammar proof, replay onto current master, require green URLbar + public-surface checks. No new shell/toolbar/state store. |
+| **PATH / TRAVERSAL / RE-ENTRY** | READ/RIDE, STEP/path-space, Sleeper RouteWitness; depends on exact HOLD identity | **STRUCTURAL PASS.** Exact routes/trails/returns exist; path identity and endpoint identity remain distinct. | No new universal Path object. Only deepen when an active conversion raises a real order/re-entry failure. |
+| **TRANSFORM / STEERING** | Change Calculus, I Ching correspondence, J-space; native host owns effects | **CALCULATION / VIEW ONLY.** Structural support may narrow candidates; causal/effect promotion remains evidence-gated. | Attack one named failed promotion obligation only when a current world/interface front actually needs steering. Otherwise PARK. |
+| **EXPERIENCE / EXPRESSION** | FOLD//BLOOM, READFIELD, LISTEN, REPLAY, INK, VOICE, Verse, Sleeper | **CAPABLE BUT FIRST-USE FRICTION OPEN.** #971 targets concrete LISTEN/RSVP/lens entry failures; its public suite is currently red/in-flight. | After #973 RETURN, re-evaluate #971 on current master. Fix smallest failing first-use seam; no new mode or engine. |
+| **WORLD LOOPS** | HOUSE, Dayline, COMMS/CONTACT, Shopping, BODY; native owner retains commit authority | **ACTIVE REAL-WORLD FRONT.** Air loop is the clearest current consequence target; COMMS semantics are ahead of transport and remain bounded by explicit release. | AIR: one observe → action → after-measure → RETURN loop. HOUSE OS supports it; it is not a separate front. No actuation/status laundering. |
+| **RECOVERY / PROVENANCE** | vault, migration, donors, exact source shelves | **READY / MAINTENANCE.** Strong source/provenance machinery exists. | Recover only an exact blocker named by AIR or interface work; otherwise return `NO RECOVERY JUSTIFIED`. |
 
----
+## Folded out of NOW
 
-## 1 — HOLD / ADDRESS / SCALE
+These remain useful but are **not ACTIVE_NOW**:
 
-**Question**  
-What exact thing is held, where is it addressed, who owns its truth, what 1–3 moves are lawful now, and how does it RETURN?
+- **house-os-fold** → substrate of AIR / WORLD LOOP.
+- **loadout-model** → operator/tooling donor; use when a selected front needs it.
+- **project-fold** → maintenance/reducer mechanism; run only against a named duplicate blocking current work.
+- **catchup-nonverbal** → recurring orientation surface, not an execution front.
+- **INTERPHASE #966** → valuable but currently far behind master; recover donor mechanisms instead of merging a stale 55-commit application branch wholesale.
+- typography / physical / Higgsfield donors → remain bounded by their declared gates.
 
-**Primary hosts**  
-FIELD INDEX · INTERPHASE · FOVEA · Scale Lens · AXIAL · project/route glyph carriers
-
-**Depends on**  
-Exact route/source identity; current native ownership; provenance when identity is uncertain.
-
-**Current proof — `PASS / CONVERSION-READY`**  
-FIELD is now at **0.8.33** with one held object, held work depth, exact RETURN, and a persistent RUN dock that mirrors the same canonical action while scrolling. Exact-head proof for PR #807 passed Route Registration, public-surface-check and gitleaks. The current law is no longer “build a better dashboard”; it is continuity of object + focus + lawful operation + witness + RETURN.
-
-**Next concrete move**  
-Use FIELD on one already-working head and complete one full:
+## Current turn
 
 ```text
-SOURCE → HOLD → TURN → TRACE → RETURN
+1  REPAIR #973 OMNIBAR EXACT-HEAD PROOF
+   ↓
+2  RETURN / REPLAN
+   ↓
+3  either:
+   A. AIR real-world loop
+   B. #971 first-use repair
+   only one machine material move at a time
 ```
 
-without changing FIELD architecture. Record only the friction that appears during the actual move.
+## Reducer law
 
-**Stop**  
-No new scale controls, glyph ontology, project registry, second focus model, or dashboard until a reproduced ordinary-use failure requires one.
+A front is live only if it can answer all four:
 
----
+1. **What exact object/host changes?**
+2. **What bounded move is executable now?**
+3. **What witness can falsify success?**
+4. **Where does RETURN land?**
 
-## 2 — PATH / TRAVERSAL / RE-ENTRY
+If not, it is support, donor, maintenance, or waiting—not `ACTIVE_NOW`.
 
-**Question**  
-When the same endpoints admit multiple routes, can the route itself remain addressable, replayable, comparable, and returnable?
-
-**Primary hosts**  
-FIELD LAB STEP/path space · READ/RIDE exact trail · Sleeper RouteWitness / ghost · LOCI-like addressed traversal
-
-**Depends on**  
-HOLD/ADDRESS for stable identity and focus; native host witness for any claim that order changes consequence.
-
-**Current proof — `STRUCTURAL PASS / NATIVE CONSEQUENCE OPEN`**  
-The repo now proves exact STEP-order addressing and round-trip state-lens/LAB return. Merged PR #812 reduces the operational loop to `OBSERVE → CALCULATE → NEXT → SUPPORT → WITNESS → RETURN` while keeping supplied state, STEP metadata, I Ching projection and LIVE authority unequal. Open PR #814 adds an exact counterpath comparator: Kendall inversions, divergence/rejoin depths, per-depth Hamming distance and path-area for two orders sharing endpoints. Its own boundary is explicit: **abstract path divergence ≠ native LIVE non-commutation**.
-
-**Next concrete move**  
-Finish #814 exact-head CI. If green, compare **one native LIVE pair** with the same start/end state and two STEP orders, then record one of only two valid outcomes:
-
-- consequence differs → exact native witness;
-- consequence does not differ → null result preserved.
-
-**Stop**  
-Do not create a universal `Path` object or infer causal difference from combinatorics alone.
-
----
-
-## 3 — TRANSFORM / STEERING
-
-**Question**  
-What changes are structurally possible, what evidence supports a candidate, what remains ambiguous, and what—if anything—permits intervention?
-
-**Primary hosts**  
-Change Calculus · I Ching correspondence/state lens · J-space / J-Lens · native forecast/support apertures
-
-**Depends on**  
-HOLD/ADDRESS; PATH where order matters; current native host candidates; explicit evidence boundary.
-
-**Current proof — `CALCULATION_ONLY / CAUSAL PROMOTION BLOCKED`**  
-The merged reducer may preview one addressed path and inspect current native/model support. `C=0` preserves no match; `C=1` may focus one already-lawful candidate for **VIEW only**; `C>1` preserves ambiguity. Supplied I Ching state is explicitly **not a cast**. J-space/model support remains separate from permission and effect. No support survives a real host commit without refresh.
-
-**Next concrete move**  
-Attack exactly **one failed causal-promotion obligation**: predeclare a native observable, obtain one J-space-supported candidate, perform/observe the host-native transition under native authority, refresh the aperture, and compare prediction/support against the observable and a plain baseline.
-
-**Stop**  
-No auto-commit, no “unique support = permission,” no carried support across host mutation, and no promotion from elegant geometry alone.
-
----
-
-## 4 — EXPERIENCE / EXPRESSION
-
-**Question**  
-Can the machinery become something another human can immediately read, play, feel, make, remember, or share without project archaeology?
-
-**Primary hosts**  
-FOLD//BLOOM · READ/RIDE · LISTEN/MARK · REPLAY · INK · VOICE/PULSE · Verse · Sleeper/Nine Gate · Laconic WORK
-
-**Depends on**  
-HOLD/ADDRESS for source continuity; PATH/TRANSFORM only where they materially improve the encounter; WORLD LOOP for external-use evidence.
-
-**Current proof — `MACHINE-GREEN / EXTERNAL-USE UNDERPROVED`**  
-Multiple experience mechanisms are shipped and self-tested: source-preserving READ/RIDE with exact cursor RETURN, playable LIVE/DRIVE projections, LISTEN marks, Sleeper returns, Verse writing continuity, and the recent Laconic executable WORK forge loop. The remaining gap is not another mode; it is **context-free use by someone who did not build the system**.
-
-**Next concrete move**  
-Choose **one** existing public journey and contract first use to ≤3 visible moves. Default candidate:
-
-```text
-SOURCE → READ/RIDE or LISTEN/MARK → RETURN / SHARE
-```
-
-Give that exact route to one outside human and capture only: where they entered, where they stalled, what they understood, what they returned with.
-
-**Stop**  
-No new mode, story shell, game layer, or explanatory dashboard to avoid testing an existing experience.
-
----
-
-## 5 — WORLD LOOPS
-
-**Question**  
-Can an addressed intention/object/contact cross into real action, produce an observable consequence or provider receipt, and return to the native owner without status laundering?
-
-**Primary hosts**  
-FIELD RUN dock · Dayline 0.4 execution spine · HUMAN PORT / COMMS · CONTACT · HOUSE · Shopping · bounded BODY/CARE adapters
-
-**Depends on**  
-HOLD/ADDRESS; native owner authority; explicit release/commit boundary; external receipt or observation.
-
-**Current proof — `MACHINE CLOSED-LOOP PASS / REAL TRANSPORT + WORLD CONTACT PARTIAL`**  
-The current execution spine proves FIELD hold → Dayline run → witness/consequence RETURN on exact tested heads. COMMS already has an exact source-addressed Dayline closed loop with native COVERED/DEFERRED/OPEN acceptance; its release still states **NO NETWORK SEND AUTHORITY** and no contact transport. This is the cleanest remaining seam: semantics are ahead of real transport.
-
-**Next concrete move**  
-Bind **one** private real messaging transport behind the existing COMMS/CONTACT boundary—no new comms model. Prove one bounded round trip:
-
-```text
-real inbound thread
-→ exact source address
-→ draft / optional Dayline action
-→ explicit human RELEASE to send (or reject)
-→ provider message receipt
-→ exact native COMMS RETURN
-```
-
-Until transport exists, the executable machine-side move is to implement/test the adapter contract and stop at the human SEND gate.
-
-**Stop**  
-No autonomous send, no generic inbox rebuild, no second contact database, no Dayline authority over message state, no HOUSE/device actuation without its native release.
-
----
-
-## 6 — RECOVERY / PROVENANCE
-
-**Question**  
-What exact missing source, lineage, contradiction, donor, or receipt is required to unlock a live conversion—and can we recover only that?
-
-**Primary hosts**  
-Recovery vault · Migration/Census · Media Refinery · exact donor shelves · Evidence Atlas / source-derived provenance work
-
-**Depends on**  
-A named live blocker from another family. Recovery is not self-authorizing.
-
-**Current proof — `READY / ACTIVE MAINTENANCE`**  
-CURRENT explicitly retains recovery-ingest as maintenance, not the primary conversion front. The repo now has mature exact-source, donor, media-curation and source-derived evidence machinery; recent Evidence Atlas and visual-law archaeology work demonstrate that source can be recovered without automatically becoming present-state authority.
-
-**Next concrete move**  
-Run one bounded current-head gap sweep:
-
-1. inspect CURRENT heads / native releases for explicit missing-source or provenance blockers;
-2. choose the highest conversion-blocking one;
-3. recover exact bytes/source/lineage **or** return `NO RECOVERY JUSTIFIED`.
-
-**Stop**  
-No archive foraging, no “interesting” archaeology without a recipient, and no recovered donor becoming a project merely because it exists.
-
----
-
-## Portfolio turn order
-
-The six families are not six active fronts. The convergent sequence is:
-
-```text
-A. EXPERIENCE + WORLD LOOP
-   one existing thing reaches another human / real external consequence
-
-B. HOLD / ADDRESS / SCALE
-   support that conversion only; repair reproduced re-entry friction
-
-C. PATH + TRANSFORM
-   deepen only when the chosen conversion raises an order/steering question
-
-D. RECOVERY
-   activate only when an exact missing source blocks A–C
-```
-
-### One next
-
-**Do not start another architecture pass.**
-
-The strongest next cross-family conversion is:
-
-> **one real COMMS transport round trip under explicit human send authority, using the already-proved source-addressed COMMS ↔ Dayline ↔ native RETURN semantics.**
-
-If transport binding is unavailable, the fallback is one context-free outside-human use of an existing FOLD//BLOOM / READ-RIDE / Sleeper experience. After either move: RETURN and replan.
-
----
-
-## Fixed point
-
-```text
-RECOVER only what is missing
-→ HOLD one exact thing
-→ TRAVERSE one lawful path
-→ CALCULATE without laundering authority
-→ MAKE / EXPERIENCE something worthwhile
-→ RELEASE through the native world boundary
-→ TRACE the actual consequence
-→ RETURN to the same addressed object
-→ choose again
-```
-
-**Success = fewer mental merges for the human, fewer duplicate authorities in the repo, and more real consequences from already-earned capability.**
+**Success = fewer mental merges, fewer competing authorities, fewer red unrelated PRs, and more real consequences from existing capability.**
