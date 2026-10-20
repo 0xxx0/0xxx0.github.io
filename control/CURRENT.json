@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-20T10:19:16+08:00",
+  "updated": "2026-10-20T10:31:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -29,32 +29,14 @@
     {
       "id": "air-instrument",
       "state": "ACTIVE_NOW",
-      "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
-      "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
+      "center": "real HOUSE air loop → observe → mix/filter → measure → RETURN; HOUSE OS is substrate, not a peer front",
+      "evidence": "/20261017-loadout/ · /house/ · HOUSE OS fold evidence remains supporting/private where not publicly addressable"
     },
     {
-      "id": "loadout-model",
+      "id": "interface-convergence",
       "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
-      "evidence": "cron catchup-audio · /dayline/"
+      "center": "repair existing FIELD/FOLD//BLOOM first-use and action surfaces without new architecture; one failing PR at a time, starting with addressed Omnibar #973",
+      "evidence": "https://github.com/0xxx0/0xxx0.github.io/pull/973 · https://github.com/0xxx0/0xxx0.github.io/pull/971"
     }
   ],
   "current_heads": [
@@ -983,8 +965,8 @@
     }
   ],
   "next_single_action": {
-    "id": "witness-dayline",
-    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
+    "id": "repair-omnibar-exact-head",
+    "instruction": "Fix PR #973's exact-head URLbar/Omnibar proof first, rebase/replay on current master, require green field-urlbar + public-surface gates, then RETURN. Do not start #971 or a new interface branch until that return. Air-instrument remains the world front and may continue only through its native physical/sensor loop."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
