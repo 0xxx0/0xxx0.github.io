@@ -122,7 +122,7 @@ eq(U.parseBoard('no board here'),null,'an unrecognized board grammar fails LOUD 
 ok(U.stampMs(b.stamp)>0&&U.ageLabel(3*60000)==='3m'&&U.ageLabel(90*60000)==='2h'&&U.ageLabel(50*3600000)==='2d','age stamp formats minutes/hours/days');
 
 // one grammar: the omnibar owns the alias table, executes every alias target
-const omni=fs.readFileSync(new URL('../field-omnibar.js',import.meta.url),'utf8');
+/* Omnibar source already loaded above for cross-owner assertions. */
 for(const [k,v] of Object.entries(ALIAS_TARGETS))ok(omni.includes(k+":'"+v+"'"),'omnibar carries glyph alias '+k+'→'+v);
 for(const id of Object.values(ALIAS_TARGETS))ok(omni.includes("case'"+id+"':")||omni.includes("if(cmd==='"+id+"')"),'omnibar executes alias target '+id);
 ok(omni.includes("case'reset':"),'omnibar can reset the learned ranking too');
