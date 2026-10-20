@@ -351,3 +351,96 @@ For a known-object execution packet use the existing contract and validator:
 `node tools/crew-turn.mjs <packet.json> --json`. One native move per packet;
 no extra schema or actor identity grants authority. Merge/deployment evidence
 must name the actual source head and the observed live page separately.
+
+## Usability continuation — 0.8.36, 2026-10-20
+
+### Recovered actual state
+
+PR [#970](https://github.com/0xxx0/0xxx0.github.io/pull/970) was merged as
+`ba9f85911f2f6456f1a223393e8db0ffec0b6edf` and the public root was observed
+opening the instrument. The earlier opt-in/draft language above is historical.
+The operator then reported that the result was difficult to understand, did not
+give a unified whole-field view, and had insufficient immediate practical value.
+That feedback is unresolved usability evidence, not a request for more chrome.
+
+A live pointer review found a real mechanical failure: mark blur/pointer leave
+rewrote the held reading controls while their click was in flight. The new
+ordinary pointer regression timed out on 0.8.35 at the transition to NEARBY.
+Command-driven tests had missed it. `putReading` now preserves identical DOM;
+focus/pointer movement into the reading continues the same inspection. A later
+source/frame change still replaces the reading. No second effect owner or store
+was introduced.
+
+### Converted in this bounded delta
+
+- Fresh entry includes all 205 destinations (+ the root host), rather than
+  requiring discovery of ALL from an eleven-head default. Saved frames remain
+  respected; an explicit root entry clears the old hold through the native host.
+- The first family aperture names eight actual families and an explicitly
+  counted remainder. Cardinality selects the named families; it does not create
+  attention or relevance. Above the bounded human-sized fan-out, balanced range
+  refinement remains. Every original id remains reachable exactly once.
+- The bar's context rail now has a stable slot for every manifest address, sorted
+  by family/address. Tick length reads declared depth; dim reads outside-scope;
+  full-height reads the held identity. Approach highlights exact fold membership.
+  This replaces a categorical ribbon whose positions changed with the lens.
+  The small rail is orientation, not a claim that 205 labels can be read at once.
+- CURRENT / CHANGES are direct reading actions. The left scope control opens
+  ALL / CURRENT / CHANGES without a nested menu. UP and SCOPE replace the opaque
+  five-scale counter on that control. The existing five-scale algebra remains.
+- SEEN ALL is offered in catch-up, rather than as the fresh entry's primary
+  action. Held objects outside a new scope no longer mask its overview reading.
+
+The phone proof covers 320×568, 320×640, 390×844, 430×932 and 1280×800. Its first
+journey now uses ordinary UI clicks: whole field → CURRENT → HOUSE → Nearby →
+native HOUSE → BACK → exact pinned RETURN, with no address command needed. It
+also asserts held reading-node continuity and unchanged overview identity/order.
+Core proof checks all real family remainder paths and complete stable context,
+as well as the existing count/edge/restore laws. The 40k test remains synthetic.
+
+### What still prevents one useful instrument
+
+The existing source has unequal, overlapping family labels and mostly prose
+capabilities. Packed fold slots are not semantic feature-space coordinates. A
+miniature complete rail does not make all contents legible. Parent geometry is
+real; project similarity, convergence/absorption, and wordless identity recognition
+are not established. The glyphs encode data, but encoding is not recognition.
+Neither folding nor moiré alone is evidence of lower cognitive load.
+
+Most importantly, the new face still navigates to native work. It does not yet
+compose that work into the field. There are two routes with executable AVAILABLE
+ports (six exits total), not 205 working tools behind interchangeable glyphs.
+The native reader and real corpus must supply their actual source/cursor/effect
+boundaries before the interface can truthfully operate them. Do not compensate
+with synthetic arrivals, guessed action URLs, mirrored app stores, or another
+dashboard. Keep the old plain host as a task comparator.
+
+### Successor's next bounded move
+
+1. Recover the deployed source and current open owning PR before editing. Start
+   with AGENTS → llms → `node scripts/emit-agent-transcript.mjs --crystal --json`.
+   Read this last section first; earlier candidate statements are lineage.
+2. Select **one native reader port**, using the native-port probe above. Run
+   `node tools/field-stage-handoff.mjs --source /docs/ --json`; inspect the actual
+   reader binding/return API. Bind a real supplied source and its actual cursor.
+   If no source is available, return `SOURCE_REQUIRED` rather than substitute
+   manifest prose. A reusable content aperture is a candidate only when its host
+   actually exposes one. `/interphase/` and PR #966 retain their separate owner.
+3. Make one concrete task work: locate that known source, read/resume it, perform
+   its one declared native move, then RETURN to the exact held source/cursor/frame.
+   Keep the stable full-field context. Compare against the same task on PLAIN:
+   wrong-object choices, compulsory activations, lost place, unreadable text and
+   completion. Ask for one human observation when needed; don't label automated
+   geometry checks a usability pass.
+
+The three read-only probes above remain available to a coordinator; they are
+not a new queue. Use the configured code-capable executor; no MiMo installation
+or model name grants authority. One selected patch, one native task, one RETURN
+before replanning. A successful successor removes a real transition or lost
+context while retaining source/effect ownership; more patterns are not the win.
+
+Re-run the existing core/browser commands above and the read-only selected
+ship checks. Report component results separately from the known five-front /
+QUEUE coordination failures. The exact tested source hashes are in
+`/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json`; live deployment must be
+observed separately from a merged tree. `next_authority: NONE`.
