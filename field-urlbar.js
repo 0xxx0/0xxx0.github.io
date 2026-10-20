@@ -70,7 +70,7 @@ const COMMANDS=Object.freeze([
  {id:'digests',glyph:'▣',label:'DIGESTS',hint:'/digests/ · passphrase field focused locally',keywords:'encrypted digest passphrase',nav:'/digests/#pp'},
  {id:'fovea',glyph:'◉',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
  {id:'instrument',glyph:'⌁',label:'INSTRUMENT',hint:'fold the same FIELD without scrolling',keywords:'field fold catchup position'},
- {id:'plain',glyph:'≡',label:'PLAIN',hint:'return to native scrolling FIELD',keywords:'exit instrument unfurl'},
+ {id:'plain',glyph:'▤',label:'PLAIN',hint:'return to native scrolling FIELD',keywords:'exit instrument unfurl'},
  {id:'axis',glyph:'⊕',label:'AXIS',hint:'locate native state / operation / route axes',keywords:'axial navigate filters'},
  {id:'turn',glyph:'⤾',label:'TURN PLANE',hint:'tilt instrument camera; preserve object identity',keywords:'rotate tilt depth camera'},
  {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
