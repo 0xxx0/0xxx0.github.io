@@ -19,7 +19,7 @@ import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
 import {annotationPacket as buildAnnotationPacket,sourceKeyFromAnnotationPacket,marksFromAnnotationPacket,mergeAnnotationMarks} from './annotations.js';
 
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let loadToken=0,renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let loadToken=0,sourceLoading=false,renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 // sticky, matching this host's original behaviour (no auto-hide). 33 call sites unchanged.
@@ -274,7 +274,7 @@ function sourceLabel(meta){
   if(meta.sourceKind==='REMOTE_AUDIO')return'REMOTE AUDIO';return'LOCAL ONLY';
 }
 async function analyzeBytes(bytes,playbackBlob,meta){
-  const requestId=++loadToken;
+  const requestId=++loadToken;sourceLoading=true;
   status('DECODING');drop.classList.add('busy');
   const wav=decodePcmWavPreview(bytes),AC=window.AudioContext||window.webkitAudioContext;
   const hashP=hashHex(bytes.slice(0)),ctx=wav?null:(AC?new AC():null);
@@ -339,7 +339,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     refreshGlyph();syncPins();updateWorkflow();publishTransport(true);
     status('AUDIO READY · ANALYSIS UNAVAILABLE · ORIGINAL KEPT');
     console.warn('LISTEN kept playback after analysis failure',error);
-  }finally{if(ctx)await ctx.close().catch(()=>{})}
+  }finally{if(requestId===loadToken)sourceLoading=false;if(ctx)await ctx.close().catch(()=>{})}
 }
 async function readTextEvidence(sidecars=[]){
   const out=[];
@@ -700,5 +700,5 @@ window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error|
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenGesture='NONE';document.documentElement.dataset.listenApertureGesture=scope();syncPins();syncRideProfile();
 addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile()});
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,annotations:annotationPacket(),stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberPack,openSaber,shareAnnotations:sharePins,importAnnotations:importPinsFile,previousMark:()=>navigatePin(-1),nextMark:()=>navigatePin(1),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc,sourceFile:()=>sourceBlob&&fileMeta?.hash?new File([sourceBlob],String(fileMeta.sourceFileName||fileMeta.name||'audio-source.wav'),{type:sourceBlob.type||fileMeta.type||'audio/wav'}):null};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,sourceLoading,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,annotations:annotationPacket(),stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberPack,openSaber,shareAnnotations:sharePins,importAnnotations:importPinsFile,previousMark:()=>navigatePin(-1),nextMark:()=>navigatePin(1),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc,sourceFile:()=>sourceBlob&&fileMeta?.hash?new File([sourceBlob],String(fileMeta.sourceFileName||fileMeta.name||'audio-source.wav'),{type:sourceBlob.type||fileMeta.type||'audio/wav'}):null};
 requestAnimationFrame(loop);
