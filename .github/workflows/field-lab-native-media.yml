@@ -53,5 +53,16 @@ jobs:
         run: google-chrome --version
       - name: Native LAB phone-width interaction witness
         run: node tools/field-lab-native-media-smoke.mjs
+  spine:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Chrome
+        run: google-chrome --version
       - name: Exact source spine and release roundtrip
         run: node tools/source-spine-roundtrip-smoke.mjs
