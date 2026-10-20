@@ -12,6 +12,18 @@ assert.ok(v.folds.every(g=>g.changed===null),'first-visit marks must not fabrica
 assert.ok(v.folds.length<=9);
 assert.equal(stableKey(raw),bytes,'projection mutates no source');
 
+// First view names real regions; the counted remainder is reachable, not a sink.
+const familyIds=[];
+function familyWalk(xs,depth=0){
+  assert.ok(depth<12);const folds=C.partition(xs,'family');assert.ok(folds.length<=9);
+  assert.equal(folds.reduce((n,g)=>n+g.count,0),xs.length);
+  const byId=new Map(xs.map(r=>[r.id,r]));
+  for(const g of folds){if(g.range)familyWalk(g.ids.map(id=>byId.get(id)),depth+1);else familyIds.push(...g.ids)}
+}
+familyWalk(rows);
+assert.equal(new Set(familyIds).size,rows.length);assert.equal(familyIds.length,rows.length);
+assert.ok(v.folds.some(g=>g.label.startsWith('MORE · ')));
+assert.ok(v.folds.every(g=>g.range||g.values[0]===g.label));
 // Same address, changed content: identity survives, witness changes.
 const a=rows.find(r=>r.address==='/house/');
 assert.ok(a);
@@ -93,6 +105,16 @@ for(const st of [s,next,located,{...s,query:'house'},{...s,mode:'DELTA'}]){
 }
 assert.equal(C.bearing(rows,s,v,s).away,false);assert.equal(C.bearing(rows,located,C.project(rows,located,{}),s).away,true);
 assert.equal(C.bearing(rows,s,v,s).ribbon.find(p=>p.key==='changed').count,0,'unmeasured delta cannot become a changed band');
+// Whole-field context never loses, duplicates or relocates an address on drill.
+const atlas=C.overview(rows,v,null),atlasIds=atlas.map(r=>r.id);
+assert.equal(new Set(atlasIds).size,rows.length);
+assert.deepEqual(C.overview(rows.slice().reverse(),v,null),atlas);
+for(const st of [located,{...s,intent:'HEADS'},{...s,mode:'DELTA'},{...located,mode:'RELATIONS'}]){
+  const pv=C.project(rows,st,{stamp:100}),map=C.overview(rows,pv,st.focus);
+  assert.deepEqual(map.map(r=>r.id),atlasIds);
+  assert.equal(map.filter(r=>r.inside).length,pv.inside);
+  assert.equal(map.filter(r=>r.held).length,st.focus?1:0);
+}
 // Spatial relations are executable source facts, not proximity or shared names.
 for(const r of rows){
  const groups=C.neighbours(rows,r.id),ids=groups.flatMap(g=>g.members.map(x=>x.id));

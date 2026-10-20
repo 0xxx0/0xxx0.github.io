@@ -1,0 +1,50 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_OVERVIEW_0836_2026-10-20",
+  "date": "2026-10-20",
+  "state": "COMPONENT_PROVED",
+  "object": "FIELD INDEX 0.8.36 / OVERVIEW + CLICK CONTINUITY",
+  "version": "0.8.36",
+  "predecessor": "/returns/FIELD_INDEX_POSITION_0835_2026-10-20.json",
+  "source": {
+    "route": "/",
+    "review_base": "ab95b48716c2389787adca1daffda6dfd0e86dd7"
+  },
+  "operation": "Whole field → CURRENT → HOUSE → Nearby → native HOUSE → BACK → exact RETURN",
+  "observed": {
+    "destinations": 205,
+    "root_hosts": 1,
+    "viewports": [
+      "320x568",
+      "320x640",
+      "390x844",
+      "430x932",
+      "1280x800"
+    ],
+    "executable_native_exits": 6,
+    "synthetic_collision_records": 40000,
+    "pointer_before": "FAIL on 0.8.35: NEARBY transition timed out after pointer/focus destroyed its reading control",
+    "pointer_after": "PASS with held reading DOM continuity and native round trip"
+  },
+  "verification": {
+    "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
+    "browser": "PASS · full entry, mark → reading controls → native HOUSE → BACK → RETURN at five viewports; six declared exits and retained native contracts",
+    "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
+  },
+  "source_sha256": {
+    "field-instrument-core.mjs": "685df0faa34d588a5774eb16fd5975b006e53b02242fc515a65baa037aa0089f",
+    "field-instrument.mjs": "68a67018cdddc499eeada2dabcd23269859d2fd737f65b0fe552cf2302372280",
+    "field-instrument.css": "393757781793341b63e4c70bdd5454d78a03f65290bb6fcdae60aca8f006a561",
+    "index.html": "9cebefb7c10ccadaac31c1ffd1df7c1c1bed9186f44854f3f936aa9fc19f3be5",
+    "tools/field-instrument-selftest.mjs": "0c6184ec5dbe5755f5b138f57edb05e1a3f9acb8616d5828df0cd79a95744551",
+    "tools/field-instrument-smoke.mjs": "0bc423d8e06a90435fa19d746bf2c59fca58e5c5d8fafcd08f4269becb7b08d5"
+  },
+  "residue": [
+    "Human comprehension and comparative task advantage are unresolved; current slice is navigation, not unified native work.",
+    "Real corpus not connected. Full overview rail retains membership, not readable details for every object.",
+    "Packed slots are not feature-space coordinates; parent relations are declared source facts.",
+    "Broad coordination gates still report pre-existing five-front / QUEUE drift."
+  ],
+  "return_to": "/",
+  "next_authority": "NONE"
+}

@@ -25,7 +25,10 @@ try{
     await page.waitForSelector('html[data-instrument="1"]');
     const nativeBefore=await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes));
     const initial=await page.evaluate(()=>FieldInstrument.snapshot());
-    assert.equal(initial.frame.intent,'HEADS','ordinary entry must expose the live instrument over native CURRENT heads');
+    assert.equal(initial.frame.intent,'SEARCH','ordinary entry must expose the whole addressed field');
+    assert.equal(initial.view.inside,expected);
+    assert.equal(await page.locator('[data-map-id]').count(),expected,'every destination retains an overview tick');
+    const overviewIds=await page.locator('[data-map-id]').evaluateAll(ns=>ns.map(n=>n.dataset.mapId));
     assert.equal(initial.view.total,expected);assert.equal(initial.view.inside+initial.view.outside,expected);
     assert.equal(initial.view.counts.reduce((n,x)=>n+x,0),initial.view.inside);
     assert.equal(await page.locator('#fiAddress:visible').count(),1);
@@ -52,7 +55,25 @@ try{
       await cdp.detach();
     }
     const cmd=async s=>{if(await page.locator('#fiAddress:visible').count())await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(s);await page.locator('#fieldUrlInput').press('Enter')};
-    await cmd(':delta');assert.match(await page.locator('#fiReading').textContent(),/No SEEN baseline/);
+    // Real pointer entry: the reading controls must survive leaving a focused mark.
+    await page.locator('#fiReading [data-action="help"]').click();
+    assert.equal(await page.locator('#fiReading small').evaluate(n=>n.scrollHeight<=n.clientHeight),true,'mark key clips on phone');
+    await page.locator('#fiReading [data-close]').click();
+    await page.locator('#fiReading [data-action="heads"]').click();
+    await page.getByRole('button',{name:'HOUSE / FIELD · /house/ · 1 objects',exact:true}).click();
+    const readingBefore=await page.locator('#fiReading [data-near]').elementHandle();
+    await page.mouse.move(1,1);
+    assert.equal(await readingBefore.evaluate(n=>n.isConnected),true,'pointer exit must not replace a held reading control');
+    await page.locator('[data-near]').click();
+    await page.waitForFunction(()=>FieldInstrument.snapshot().frame.mode==='RELATIONS');
+    const pointerWalk=await page.evaluate(()=>FieldInstrument.snapshot().frame);
+    await page.locator('[data-origin]').click();await page.waitForURL(base+'/house/');
+    await page.goBack();await page.waitForSelector('html[data-instrument="1"]');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,pointerWalk,'ordinary pointer use must restore its exact walk');
+    assert.deepEqual(await page.locator('[data-map-id]').evaluateAll(ns=>ns.map(n=>n.dataset.mapId)),overviewIds,'drilling must not move the overview addresses');
+    await page.locator('#fiReturn').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame);
+    await cmd(':delta');assert.match(await page.locator('#fiReading').textContent(),/no SEEN baseline/i);
     await cmd(':field');
     const allFrame=(await page.evaluate(()=>FieldInstrument.snapshot())).frame;
     await page.locator('.fiMark').first().click();

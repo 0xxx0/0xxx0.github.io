@@ -10,7 +10,7 @@ const STATES=['ACTIVE','STABLE','CORE_ACTIVE','ACTIVE_NOW','ACTIVE_MAINTENANCE',
 const MEMORY=skv('field.instrument.frame.v01');
 const $=s=>document.querySelector(s);
 let state=C.initial(),rows=[],seen={},view=null,root=null,plane=null,reading=null,bar=null,anchor=null,hostAnchor=null;
-let enabled=false,menu=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false;
+let enabled=false,menu=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false,readingMarkup='';
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
@@ -25,7 +25,11 @@ function commit(next,{native=false}={}){
   if(native&&held())window.__fieldAct?.focus(held().address);
   remember();render();
 }
-function quiet(){probe=null;root?.querySelectorAll('[data-reading]').forEach(el=>el.dataset.reading='0');renderReading();renderBearing()}
+function putReading(html){if(html!==readingMarkup){reading.innerHTML=html;readingMarkup=html}}
+function quiet(e){
+  if(e?.relatedTarget&&reading?.contains(e.relatedTarget))return;
+  probe=null;root?.querySelectorAll('[data-reading]').forEach(el=>el.dataset.reading='0');renderReading();renderBearing();
+}
 function edit(seed){
   if(!enabled)return;editing=true;$('#fieldUrlBar').dataset.editing='1';
   const input=$('#fieldUrlInput');if(seed!=null)input.value=seed;
@@ -52,13 +56,15 @@ function wire(){
   bar=document.createElement('button');bar.id='fiMenu';bar.type='button';bar.textContent='···';bar.setAttribute('aria-label','Instrument operations');bar.setAttribute('aria-expanded','false');
   frame.append(bar);bar.onclick=()=>toggleMenu();
   $('#fiAddress').onclick=()=>edit(entryText());
-  $('#fiParent').onclick=()=>editing?(endEdit(),toggleMenu(false)):state.path.length||state.query?scopeOut():toggleMenu();
+  $('#fiParent').onclick=()=>editing?(endEdit(),toggleMenu(false)):state.path.length||state.query?scopeOut():toggleMenu(true,'views');
   $('#fiReturn').onclick=()=>{endEdit();returnPosition()};
   $('#fieldUrlInput').addEventListener('blur',()=>setTimeout(()=>{
     if(editing&&!$('#fieldUrlBar').contains(document.activeElement)&&!$('#fiMenuPanel').contains(document.activeElement))endEdit();
   },0));
   $('#fieldUrlBar').addEventListener('keydown',e=>{if(e.key==='Escape'&&enabled){e.preventDefault();e.stopPropagation();endEdit();toggleMenu(false)}});
   $('#fiField').addEventListener('pointerleave',quiet);
+  reading.addEventListener('pointerleave',quiet);
+  reading.addEventListener('focusout',quiet);
   let sweep=null,suppressTap=false;
   $('#fiField').addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')sweep={x:e.clientX,y:e.clientY,moved:false}});
   $('#fiField').addEventListener('pointermove',e=>{
@@ -98,11 +104,11 @@ function renderBearing(next){
   $('#fiBarMeta').textContent=`${b.near?'↔':state.mode==='DELTA'?'∆':'⌁'} ${b.inside}/${b.total}${next?' → '+next.count:''} · ${b.delta===null?'∆?':'∆'+b.delta+(b.unmeasured?'+?':'')}${b.needs?' · !'+b.needs:''}${b.heldOutside?' · HOLD↗':''}`;
   addr.setAttribute('aria-label',b.label+(next?' Next fold: '+next.count+' objects.':''));addr.title=b.address;
   $('#fiScopeGlyph').textContent=editing?'×':state.path.length||state.query?'↑':({'FIELD':'⌁','DELTA':'∆','RELATIONS':'⋈'}[state.mode]||'⌁');
-  $('#fiScopeScale').textContent=b.near?'d'+b.sourceDepth:String(state.scale+1)+'/5';
-  $('#fiParent').setAttribute('aria-label',editing?'Close address input':state.path.length||state.query?'Unfold one scope decision':'Field operations');
+  $('#fiScopeScale').textContent=editing?'CLOSE':state.path.length||state.query?'UP':'SCOPE';
+  $('#fiParent').setAttribute('aria-label',editing?'Close address input':state.path.length||state.query?'Unfold one scope decision':'Choose ALL, CURRENT or CHANGES');
   $('#fiReturn').hidden=!b.away||editing||menu;bar.hidden=b.away&&!editing&&!menu;
-  const patterns=`<defs><pattern id="fiDeltaInk" width="7" height="8" patternUnits="userSpaceOnUse"><path d="M0 8 7 0" stroke="currentColor" stroke-width="1"/></pattern><pattern id="fiUnknownInk" width="9" height="8" patternUnits="userSpaceOnUse"><path d="M3 3h1" stroke="currentColor" stroke-width="2"/></pattern></defs>`;
-  $('#fiRibbon').innerHTML=patterns+b.ribbon.map(p=>`<rect x="${1000*p.start/Math.max(1,b.total)}" y="1" width="${1000*p.count/Math.max(1,b.total)}" height="6" fill="${p.key==='changed'?'url(#fiDeltaInk)':p.key==='unknown'?'url(#fiUnknownInk)':'currentColor'}" opacity="${p.key==='outside'?'.08':p.key==='known'?'.16':'.42'}"/>`).join('')+(next?`<path d="M0 7H${1000*next.count/Math.max(1,b.total)}" stroke="currentColor" stroke-width="1.2"/>`:'');
+  const map=C.overview(rows,view,state.focus),preview=new Set(next?.ids||[]),unit=1000/Math.max(1,map.length);
+  $('#fiRibbon').innerHTML=map.map((p,i)=>`<path data-map-id="${esc(p.id)}" d="M${(i+.5)*unit} 8v-${p.held?8:2+Math.min(4,p.depth)}" stroke="currentColor" stroke-width="${p.held?Math.max(2,unit*.7):Math.max(.6,unit*.45)}" opacity="${p.held?'1':preview.has(p.id)?'.9':p.inside?'.5':'.12'}"/>${i&&map[i-1].family!==p.family?`<path d="M${i*unit} 0v8" stroke="currentColor" opacity=".18"/>`:''}`).join('');
 }
 export async function enter(){
   if(!ready){notice('FIELD source is still loading');return}
@@ -112,11 +118,11 @@ export async function enter(){
     if(stored?.schema==='field-instrument-position/v0.1'){
       state=C.restore(stored.frame);anchor=C.restore(stored.anchor);hostAnchor=stored.hostAnchor;
       if(stored.host)window.FieldLensHost?.restore(stored.host);
-    }else{state={...C.initial(),intent:'HEADS',focus:rows.find(r=>r.address===window.__fieldAct?.focusHref?.())?.id||null};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
+    }else{state={...C.initial(),focus:rows.find(r=>r.address===window.__fieldAct?.focusHref?.())?.id||null};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
   }catch(_){state=C.initial();anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null;notice('Stored position rejected; source FIELD remains intact')}
   const target=rows.find(r=>r.address===incoming);
   if(target&&target.id!==state.focus){state=C.locate(C.initial(),target);window.__fieldAct?.focus(target.address);anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
-  if(incoming==='/'){state={...C.initial(),intent:'HEADS'};window.FieldLensHost?.restore({...window.FieldLensHost?.uiState?.(),focusHref:null});anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
+  if(incoming==='/'){state=C.initial();window.FieldLensHost?.restore({...window.FieldLensHost?.uiState?.(),focusHref:null});anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
   if(entry?.expression){const p=window.FieldURLBarCore.parse(entry.expression);if(p.mode!=='COMMAND'&&(p.query!==state.query||p.mode!==state.intent)){state={...state,scale:0,path:[],query:p.query,intent:p.mode,mode:'FIELD',page:0};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}}
   const u=new URL(location.href);u.searchParams.set('instrument','1');history.replaceState(history.state,'',u);
   const input=$('#fieldUrlInput');input.setAttribute('role','searchbox');input.setAttribute('aria-label','Locate FIELD address or narrow feature coordinates');input.setAttribute('aria-autocomplete','none');input.removeAttribute('aria-activedescendant');input.removeAttribute('aria-expanded');input.placeholder='address / source:git / :delta';
@@ -170,7 +176,7 @@ function command(op){
   renderBearing();
 }
 function showHelp(){
-  reading.innerHTML=`<div class="fiName">Read the mark</div><code>angle · kind / length · depth / lane · git</code><p>Nearby: ↑ parent, ↓ children, ↔ peers. Other slots pack counted folds. Arc: day of year. Tick: state. Pattern: content witness.</p><small>9 targets max · full address resolves lookalikes<br>Archive not connected · recognition unmeasured</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`;
+  putReading(`<div class="fiName">Read the mark</div><code>angle · kind / length · depth / lane · git</code><p>Top rail = every address, fixed by family/name. Length = depth; dim = outside; tall = held.</p><small>↑ parent · ↓ children · ↔ peers<br>Pattern = hash · archive not connected</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
   reading.querySelector('[data-close]').onclick=()=>renderReading();
 }
 function mark(g){
@@ -200,19 +206,21 @@ function read(g){
 }
 function renderReading(g){
   if(!enabled)return;
-  const r=g?.object||(!g&&held()),d=view.delta;
+  const r=g?.object||(!g&&(state.mode==='RELATIONS'||view.folds.some(f=>f.ids.includes(state.focus)))?held():null),d=view.delta;
   if(!r&&!g){
-    const title=state.mode==='DELTA'?(d.hasBaseline?`${d.changed.length} measured changes`:'No SEEN baseline'):'Choose a fold',unmeasured=d.unknown.length+d.unbased.length;
-    reading.innerHTML=`<div class="fiName">${esc(title)}</div><code>${view.folds.length} folds · ${esc(view.dim)} · +1 root host</code><p>${state.mode==='DELTA'?'Each changed object counts once. SEEN is local and reversible.':'Tap to move in. Sweep or focus to read. The bar keeps your position.'}</p><small>${d.needs.length} need world · ${d.stalled.length} stalled · ${unmeasured} unmeasured<br>${d.hasBaseline?'timestamp-only delta':'∆? · no SEEN baseline'}</small><div class="fiActions"><button data-action="${!d.hasBaseline||d.unbased.length?'seen':'delta'}">${!d.hasBaseline||d.unbased.length?'✓ SEEN ALL':'∆ SINCE SEEN'}</button><button data-action="${owner().snapshot().canRewind?'rewind-seen':'help'}">${owner().snapshot().canRewind?'↶ UNDO SEEN':'? KEY'}</button></div>`;
+    const catching=state.mode==='DELTA',unmeasured=d.unknown.length+d.unbased.length,
+      title=catching?(d.hasBaseline?`${d.changed.length} measured changes`:'Start catch-up'):`${view.inside} ${state.intent==='HEADS'?'current tools':'places'}`,
+      actions=catching?`<button data-action="seen">✓ SEEN ALL</button><button data-action="${owner().snapshot().canRewind?'rewind-seen':'field'}">${owner().snapshot().canRewind?'↶ UNDO SEEN':'ALL '+view.total}</button>`:`<button data-action="${state.intent==='HEADS'?'field':'heads'}">${state.intent==='HEADS'?'ALL '+view.total:'CURRENT '+rows.filter(r=>r.head).length}</button><button data-action="delta">CHANGES ${d.hasBaseline?d.changed.length:'?'}</button><button data-action="help">? KEY</button>`;
+    putReading(`<div class="fiName">${esc(title)}</div><code>${view.folds.length} counted regions · ${view.outside} outside · +1 root host</code><p>${catching?'SEEN sets a local return boundary. Changes without timestamps remain unknown.':state.intent==='HEADS'?'Native retained heads. Tap a tool, then OPEN; ALL widens to every place.':'Tap a region to unfold, then OPEN a tool. Tap the bar to locate an address.'}</p><small>${d.needs.length} need world · ${d.stalled.length} stalled · ${unmeasured} unmeasured<br>${d.hasBaseline?'timestamp-only delta':'∆? · no SEEN baseline'}</small><div class="fiActions">${actions}</div>`);
   }else if(g&&!r){
     const members=rows.filter(x=>g.ids.includes(x.id)),parents=new Set(members.map(x=>x.parent).filter(Boolean));
-    reading.innerHTML=`<div class="fiName">${esc(g.label)}</div><code>${g.count} objects · ${g.values.length} ${esc(g.dim)} value${g.values.length===1?'':'s'}</code><p>${g.changed===null?'Delta unknown (no SEEN baseline)':g.changed+' measured changes'} · ${g.unknown+g.unbased} unmeasured. ${state.mode==='RELATIONS'?parents.size+' declared parents.':'Unfold; held address survives.'}</p><small>Every member retained · no absorbed/deleted source</small><div class="fiActions"><button data-action="unfold">UNFOLD ${g.count}</button><button data-action="help">? KEY</button></div>`;
+    putReading(`<div class="fiName">${esc(g.label)}</div><code>${g.count} objects · ${g.values.length} ${esc(g.dim)} value${g.values.length===1?'':'s'}</code><p>${g.changed===null?'Delta unknown (no SEEN baseline)':g.changed+' measured changes'} · ${g.unknown+g.unbased} unmeasured. ${state.mode==='RELATIONS'?parents.size+' declared parents.':'Unfold; held address survives.'}</p><small>Every member retained · no absorbed/deleted source</small><div class="fiActions"><button data-action="unfold">UNFOLD ${g.count}</button><button data-action="help">? KEY</button></div>`);
   }else{
     const offers=owner().actions(r.address),primary=offers[0],source=`${r.title} · ${r.address} · ${r.state} · ${r.kind} · ${r.payload.operation||'No move declared'} · ${r.payload.role||''}`,
       page=C.textPage(source,Math.max(0,state.page-1),innerWidth<360?85:105),when=r.time?new Date(r.time).toISOString().slice(0,10):'UNKNOWN',
       move=String(r.payload.operation||'No move declared').split(/\s*\/\s*/)[0],overview=`${move} · ${r.state} · ${r.payload.field?.owner||r.kind}`;
     const action=offers.length>1?`<button data-open>${offers.length} MOVES →</button>`:`<a data-open href="${esc(primary?.target||r.address)}">${esc(primary?.label||'OPEN')} ↗</a>`;
-    reading.innerHTML=`<div class="fiName">${esc(r.title)}</div><code title="${esc(r.address)}">${esc(r.address)}</code><p>${esc(state.page?page.text:overview)}</p><small>${when} · d${r.depth} · ${esc(r.source)} · ${esc((r.digest||'').slice(7,15))}<br>${state.page?'source '+(page.at+1)+'/'+page.count:'source · '+page.count+' parts'} · ${page.total} characters</small><div class="fiActions">${action}<button data-page>${state.page?'SOURCE '+(page.at+1)+'/'+page.count:'READ'} →</button><button data-near>↔ NEARBY</button></div>`;
+    putReading(`<div class="fiName">${esc(r.title)}</div><code title="${esc(r.address)}">${esc(r.address)}</code><p>${esc(state.page?page.text:overview)}</p><small>${when} · d${r.depth} · ${esc(r.source)} · ${esc((r.digest||'').slice(7,15))}<br>${state.page?'source '+(page.at+1)+'/'+page.count:'source · '+page.count+' parts'} · ${page.total} characters</small><div class="fiActions">${action}<button data-page>${state.page?'SOURCE '+(page.at+1)+'/'+page.count:'READ'} →</button><button data-near>↔ NEARBY</button></div>`);
     reading.querySelector('[data-open]').onclick=e=>{
       if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
       e.preventDefault();

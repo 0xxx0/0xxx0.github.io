@@ -53,12 +53,23 @@ export function partition(rows,dim,budget=9){
   budget=Math.max(2,Math.floor(budget));const groups=new Map();
   for(const r of rows){const k=String(r[dim]??'UNKNOWN');if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r)}
   const keys=[...groups.keys()].sort();
+  const fold=(values,label)=>{
+    const members=values.flatMap(k=>groups.get(k));
+    return {id:stableKey([dim,values]),dim,values,ids:members.map(r=>r.id),count:members.length,
+      label:label||(values.length>1?`${values[0]} … ${values.at(-1)}`:values[0]),range:values.length>1,
+      object:members.length===1?members[0]:null};
+  };
+  // At a human-sized family fan-out, name the largest existing families and
+  // explicitly count the remainder. Size is membership, never attention/rank.
+  // Larger fan-outs retain balanced ranges, so this cannot become a long tail.
+  if(dim==='family'&&keys.length>budget&&keys.length<=budget*budget){
+    const named=keys.slice().sort((a,b)=>groups.get(b).length-groups.get(a).length||a.localeCompare(b)).slice(0,budget-1).sort();
+    const rest=keys.filter(k=>!named.includes(k));
+    return named.map(k=>fold([k])).concat(fold(rest,`MORE · ${rest.length} FAMILIES`));
+  }
   const width=Math.max(1,Math.ceil(keys.length/budget)),out=[];
   for(let i=0;i<keys.length;i+=width){
-    const values=keys.slice(i,i+width),members=values.flatMap(k=>groups.get(k));
-    out.push({id:stableKey([dim,values]),dim,values,ids:members.map(r=>r.id),count:members.length,
-      label:values.length>1?`${values[0]} … ${values.at(-1)}`:values[0],range:values.length>1,
-      object:members.length===1?members[0]:null});
+    out.push(fold(keys.slice(i,i+width)));
   }
   return out;
 }
@@ -85,6 +96,14 @@ export function placements(v){
     const lines=Math.ceil(v.folds.length/3),inRow=Math.min(3,v.folds.length-Math.floor(i/3)*3);
     return {x:(3-inRow)*16.666+(i%3)*33.333,y:(3-lines)*16.666+Math.floor(i/3)*33.333};
   });
+}
+// The same address has the same overview slot through every lens and turn.
+// Family/address order is declared and inspectable; depth controls tick length.
+// This context is not a replacement for readable, counted fold targets.
+export function overview(rows,v,focus){
+  const inside=new Set(v.folds.flatMap(g=>g.ids));
+  return rows.slice().sort((a,b)=>a.family.localeCompare(b.family)||a.address.localeCompare(b.address)||a.id.localeCompare(b.id))
+    .map(r=>({id:r.id,family:r.family,depth:r.depth,inside:inside.has(r.id),held:r.id===focus}));
 }
 export function project(rows,s,seen){
   const d=delta(rows,seen),attention=new Set([...(d.hasBaseline?d.changed:[]),...d.needs,...d.stalled].map(r=>r.id));
@@ -170,7 +189,7 @@ export function addressTags(objects){
 export function bearing(rows,s,v,anchor){
   const target=rows.find(r=>r.id===s.focus),focusHere=!!target&&v.folds.some(g=>g.ids.includes(target.id));
   const near=s.mode==='RELATIONS'&&!!target;
-  const last=s.path.at(-1),scope=last?(last.values.length===1?last.values[0]:`${last.values[0]} … ${last.values.at(-1)}`):s.intent==='HEADS'?'CURRENT':s.mode;
+  const last=s.path.at(-1),scope=last?(last.values.length===1?last.values[0]:`${last.values[0]} … ${last.values.at(-1)}`):s.intent==='HEADS'?'CURRENT':s.mode==='FIELD'?'ALL':s.mode;
   const title=s.query||((focusHere||near)?target.title:scope);
   const address=focusHere||near?target.address:`${v.dim}:${scope}`;
   const inside=new Set(v.folds.flatMap(g=>g.ids));
