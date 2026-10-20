@@ -1,19 +1,19 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-19T16:09:29.114Z",
- "returns_total": 291,
- "raw_distinct_states": 110,
+ "generated": "2026-10-20T02:00:18.386Z",
+ "returns_total": 292,
+ "raw_distinct_states": 111,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
   "SOURCE": 0,
   "HOLD": 96,
   "RETURN": 146,
-  "RESIDUE": 49
+  "RESIDUE": 50
  },
- "residue_count": 49,
+ "residue_count": 50,
  "unrecorded_count": 49,
- "fraying_count": 0,
+ "fraying_count": 1,
  "residue_files": [
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
@@ -92,6 +92,12 @@
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_POSITION_0835_2026-10-20.json",
+   "raw": "COMPONENT_PROVED",
+   "why": "no fold rule matched — needs human disposition",
+   "kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_SYNC_TRUTH_2026-09-24.json",
@@ -499,6 +505,10 @@
   },
   {
    "state": "ACTIVE",
+   "count": 1
+  },
+  {
+   "state": "COMPONENT_PROVED",
    "count": 1
   },
   {
@@ -1345,6 +1355,14 @@
    "phase": "RETURN",
    "verified": false,
    "why": "active/proof/green/pass token — landed-and-live claim (a liveness marker alone is not verification evidence)"
+  },
+  {
+   "file": "FIELD_INDEX_POSITION_0835_2026-10-20.json",
+   "raw": "COMPONENT_PROVED",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no fold rule matched — needs human disposition",
+   "residue_kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_PRISON_AGE_SOURCE_INTENT_2026-09-29.json",
@@ -2972,7 +2990,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 96",
      "phase_distribution.RETURN: receipt 135 vs map 146",
-     "phase_distribution.RESIDUE: receipt 7 vs map 49",
+     "phase_distribution.RESIDUE: receipt 7 vs map 50",
      "verified_flagged: receipt 95 vs map 72"
     ],
     "needs_counts_as_of": false,
