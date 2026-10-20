@@ -102,18 +102,18 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     f.addEventListener('load',()=>{if(active===type)refresh()});
     return f;
   }
-  function announce(message){$('[data-portal="detail"]').textContent=message;onStatus(message)}
+  function announce(message){notice={text:String(message),until:performance.now()+3500};$('[data-portal="detail"]').textContent=message;onStatus(message)}
   function trace(kind){onTrace(kind)}
   function close(){
     if(!active)return;
-    pause('ride');pause('listen');active=null;shell.hidden=true;clearInterval(ticker);ticker=0;
+    pause('ride');pause('listen');active=null;shell.hidden=true;closeRing();clearInterval(ticker);ticker=0;
     document.documentElement.dataset.fieldLabMedia='closed';trace('MEDIA_RETURN');
     onStatus('FIELD LAB · NATIVE HOSTS HELD · RETURN');
   }
   function open(type){
     if(type!=='ride'&&type!=='listen')return false;
     if(active&&active!==type)pause(active);
-    active=type;create(type);shell.hidden=false;
+    closeRing();active=type;create(type);shell.hidden=false;
     document.documentElement.dataset.fieldLabMedia=type;
     for(const name of ['ride','listen']){
       $('[data-frame="'+name+'"]').hidden=name!==type;
@@ -131,12 +131,65 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     const key=String(hash)+'|'+glyph.rotation+'|'+glyph.radial.join(',');
     if(key===lastGlyph)return;
     lastGlyph=key;
-    for(const target of [$('[data-portal="glyph"]'),inline?.querySelector('.labInlineGlyph')]){
+    for(const target of [$('[data-portal="glyph"]'),inline?.querySelector('.labInlineGlyph'),$('[data-portal="ringSvg"]')]){
       if(target)target.innerHTML=rep.svg;
     }
     const glyphBtn=$('[data-portal="glyph"]');
-    glyphBtn.disabled=false;glyphBtn.title='LISTEN glyph · source '+String(hash).slice(0,12);
+    glyphBtn.disabled=false;$('[data-portal="ringFace"]').disabled=false;
+    glyphBtn.title='TURN SOURCE RING · '+String(hash).slice(0,12);
     sourceHash=hash;
+  }
+  function closeRing(){
+    $('[data-portal="ringPanel"]').hidden=true;
+    return true;
+  }
+  function ringState(){
+    const listen=api('listen'),s=listen?.state?.(),m=s?.fileMeta;
+    if(!m?.hash||!sameSource(m.hash,sourceHash))return null;
+    const duration=Number(s.map?.duration)||0;
+    if(!(duration>0))return null;
+    return {listen,state:s,hash:m.hash,duration,rotation:Number(s.glyph?.rotation)||0};
+  }
+  function syncRing(){
+    const v=ringState(),address=$('[data-portal="ringAddress"]'),
+      note=$('[data-portal="ringNote"]');
+    for(const name of ['ringPrev','ringNext','ringMark','ringRide'])
+      $('[data-portal="'+name+'"]').disabled=!v;
+    if(!v){address.textContent='NO ADDRESSED SOURCE';note.textContent='Load audio in LISTEN';return}
+    const time=boundedTime(v.state.time,v.duration)||0,p=ringMarker({
+      time,duration:v.duration,rotation:v.rotation});
+    if(p){$('[data-portal="ringDot"]').setAttribute('cx',p.x.toFixed(3));
+      $('[data-portal="ringDot"]').setAttribute('cy',p.y.toFixed(3))}
+    const fmt=t=>Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');
+    address.textContent=fmt(time)+' / '+fmt(v.duration)+' · '+Math.floor(time/v.duration*24+1).toString().padStart(2,'0')+'/24';
+    const ev=harmonicEvidence(v.state.map);
+    note.textContent=(v.state.stage==='AUDIO_ONLY'?'SOURCE-ONLY · NO MEASURED WAVEFORM':
+      v.state.stage==='PREVIEW'?'PREVIEW ENERGY · TONALITY UNMEASURED':ev.label)+
+      ' · TURN/ARROWS SEEK · MARK AUTHOR';
+  }
+  function openRing(){
+    if(active!=='listen')open('listen');
+    $('[data-portal="ringPanel"]').hidden=false;
+    syncRing();$('[data-portal="ringFace"]').focus();
+    trace('MEDIA_GLYPH_APERTURE');
+    return true;
+  }
+  function ringSeek(time){
+    const v=ringState();if(!v)return {ok:false,reason:'SOURCE_UNAVAILABLE'};
+    const target=boundedTime(time,v.duration);
+    if(target===null)return {ok:false,reason:'TIME_UNAVAILABLE'};
+    v.listen.seek(target);
+    const now=Number(v.listen.state?.()?.time);
+    const ok=Number.isFinite(now)&&Math.abs(now-target)<.12;
+    syncRing();
+    if(ok)trace('MEDIA_GLYPH_SEEK');
+    else announce('SOURCE SEEK PENDING · MEDIA TIME UNCONFIRMED');
+    return {ok,requested:target,actual:now};
+  }
+  function ringStep(sign){
+    const v=ringState();if(!v)return;
+    const step=v.duration/24;
+    ringSeek((Number(v.state.time)||0)+sign*step);
   }
   function refresh(){
     const listen=api('listen'),native=api('ride'),ls=listen?.state?.();
@@ -156,8 +209,10 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         count+' RELEASE'+(count===1?'':'S')+' · '+(s?.autopilot?'AUTOPILOT':'HUMAN CONTROL')):
         'LOADING NATIVE LIVE';
       const enabled=!!native;
-      for(const verb of ['left','right','release'])$('[data-portal="'+verb+'"]').disabled=!enabled;
+      for(const verb of ['left','right','release','returnSource'])$('[data-portal="'+verb+'"]').disabled=!enabled;
     }
+    if(!$('[data-portal="ringPanel"]').hidden)syncRing();
+    if(notice&&performance.now()<notice.until)$('[data-portal="detail"]').textContent=notice.text;
   }
   async function carry(){
     const listen=api('listen'),s=listen?.state?.(),expected=s?.fileMeta?.hash;
