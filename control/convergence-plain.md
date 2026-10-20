@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-20T08:33:36.167Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-20T11:08:37.435Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **32 material commits on 2026-10-20** across **1046 branches** (97 exact Git commits in the window; 65 generated telemetry; 6240 on master all-time).
+At capture, the field had **35 material commits on 2026-10-20** across **1046 branches** (110 exact Git commits in the window; 75 generated telemetry; 6253 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -19,9 +19,9 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
-- microlibs: hilbert-core (append-only layout, 0-reflow property test) + capture
-- release: FIELD 0.8.38 cache-buster for the godseye frame
-- field instrument: the god's-eye frame (position truth, a real map, a measuring
+- desk: refresh public field data + root git chronology
+- release: FIELD 0.8.39 — cube meets map cache-buster
+- field instrument: fold a room AT the map mark (cube meets map)
 
 ## Law
 
