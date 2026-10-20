@@ -26,5 +26,5 @@ export function monoPcm16Wav(bytes,{targetRate=12000,maxSeconds=1200}={}){
     for(let c=0;c<fmt.channels;c++)v+=dv.getInt16(start+2*c,true)/32768;
     pcm[i]=v/fmt.channels;
   }
-  return {pcm,sampleRate:sr,duration,channels:fmt.channels,authority:'PCM16_EXACT_SAMPLES_PREVIEW'};
+  return {pcm,sampleRate:sr,sourceSampleRate:fmt.rate,duration,channels:fmt.channels,authority:'PCM16_EXACT_SAMPLES_PREVIEW'};
 }
