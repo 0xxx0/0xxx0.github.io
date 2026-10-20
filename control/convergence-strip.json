@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T00:17:32.903Z",
+  "generated": "2026-10-20T01:19:37.133Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,10 +10,10 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-20",
   "commits_in_window": 2,
-  "git_commits_in_window": 27,
-  "telemetry_commits_in_window": 25,
-  "commits_total": 6170,
-  "branch_count": 1029,
+  "git_commits_in_window": 32,
+  "telemetry_commits_in_window": 30,
+  "commits_total": 6175,
+  "branch_count": 1030,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
     "epic10: ten instruments built overnight (oracle/room0/dawn/attention/tokipona/"

@@ -150,7 +150,7 @@ acknowledges a change. `:seen` / `:rewind-seen` are explicit local operations.
 
 | Channel | Datum / loss |
 |---|---|
-| Angle + existing kind key | Native kind, through a fixed vocabulary; unknown kinds remain labelled. |
+| Angle | Native kind, through a fixed vocabulary; unknown kinds use `?`. Exact kind remains readable on reveal. |
 | Length | `20 + 7 log2(1 + hierarchyDepth)`; this adapter measures hierarchy depth, not document size or thread length. |
 | Lane tick | Manifest source lane. Only git is supplied here. |
 | Arc | Fraction through the UTC year, exact date on reveal. Year/chronology is lost in the arc and is not inferred from it. |
@@ -262,3 +262,92 @@ store, effect owner, command registry, or ambient animation.
 The operator explicitly approved branch publication and a draft review on
 2026-10-20. This remains an opt-in candidate (`:instrument` / `/?instrument=1`);
 merge, default promotion and deployment require their own exact-head evidence.
+
+## Live continuation — 0.8.35, 2026-10-20
+
+**Selected objective:** make the result usable at the ordinary GitHub Pages root.
+The operator explicitly selected publication/default entry after finding the live
+page unchanged. The prior opt-in hold above is superseded for this bounded root
+delta. Human recognition and comparative burden remain unknown claims, rather
+than a blanket stop on executable work (CURRENT's human-gate law applies).
+
+### Critique → conversion
+
+| Failure found | Implemented conversion / limit |
+|---|---|
+| A draft branch was mistaken for a delivered interface | Ordinary `/` opens the instrument after source readiness. `?instrument=0` / `:plain` retain the native comparator; explicit native proof/AXIAL deep links retain their host. An explicit instrument frame survives the native AXIAL parameters generated while holding. |
+| Packed slots were too easily mistaken for semantic coordinates | NEARBY follows only manifest parent edges: parent above, children below, peers beside the held origin. Other apertures remain labelled packing, not feature-space claims. No hash or name similarity creates an edge. |
+| Single-object folds charged an empty drill step | A one-member fold is the addressed object. First activation HOLDs; a second OPENs its native route. |
+| Operation prose masquerades as executable capability | Only `/laconic/` and `/prison-age/` currently supply executable `AVAILABLE` targets: six exact URLs. Their three native exits are actionable in-place; missing targets stay prose. No URL is guessed from a label. |
+| Saved context could override an incoming source | Native entry captures the original focus/expression before URL normalization. Explicit root clears both focus owners; shared bar expressions replace stale scope; unchanged incoming identity retains the exact saved frame. |
+| Counts could overclaim first/partial catch-up | Missing boundaries remain unmeasured. A single SEEN does not turn unbased neighbours into arrivals. The bar exposes `∆?` / `∆N+?`; native acknowledgement/inverse remain the only owner. |
+| Tiny duplicate mnemonic text added decoding cost | Removed that text from the new marks. Relation arrows draw the actual typed direction; exact addresses remain the identity escape. Hash moiré is an inspection-only content witness. |
+
+The native read face delegates action enumeration to `nativeRouteActions` and
+navigation to the existing native owner. A missing/unknown move rejects; walking
+and projection cannot actuate a device or satisfy another host's proof.
+
+### Small organism / proof
+
+`declared source → counted projection → one native hold → one native URL → exact frame RETURN`
+
+The host-local core now includes disjoint `neighbours` and pure `placements`.
+Across every registered object, tests verify source-order invariance, actual
+edge membership, no self-edge, no duplicate counting, bounded folds and declared
+spatial directions. Cycle/dangling-parent controls reject invented adjacency.
+The 40k collision fixture remains explicitly synthetic; its timings vary by
+run and do not establish browser/phone throughput.
+
+Browser proof exercises ordinary entry, all three relation directions, native
+focus after a real parent step, filter retention, root/shared-address precedence,
+six exact native exit URLs, source immutability, source parts, touch arbitration,
+plain reload, OPEN/BACK, unheld REWIND and pinned RETURN at five viewport sizes.
+The legacy FIELD CLI smoke times out on this local Chromium and untouched master;
+its unchanged native acceptance predicate passes through real Playwright on the
+explicit plain host. PR #966 owns the wider browser-runner repair. Re-run:
+
+```sh
+node tools/field-instrument-selftest.mjs
+NODE_PATH=/path/to/test/node_modules node tools/field-instrument-smoke.mjs
+node tools/field-urlbar-selftest.mjs
+node tools/field-reversibility-selftest.mjs
+node scripts/check-release-versions.mjs
+python3 tools/fi-mutation-contract.py --from-git origin/master..HEAD --check
+python3 scripts/check-redaction-aperture.py
+```
+
+`returns/FIELD_INDEX_POSITION_0835_2026-10-20.json` carries bounded component
+observations and source hashes, without claiming global CI success. CURRENT's
+FIELD head and the manifest agree on 0.8.35. The prior recursive verification
+payload folds to its exact immutable Git source + hash; retained evidence links
+remain available. Other heads and active/held fronts remain byte-equivalent as
+JSON values. Existing five-front / QUEUE drift is a separate named residue.
+
+### Successor / bounded worker contract
+
+Use the repository's configured code-capable model. MiMo or another executor is
+replaceable; the host, evidence and acceptance commands decide the result. Start
+with AGENTS → llms → transient transcript. Recover the actual deployed source
+and current PR head before editing. This is a handoff specification, not a new
+queue, model installation or permission to run effects.
+
+One coordinator may assign these three independent **read-only probes**, with
+each worker returning one concrete candidate patch or a source gap. Apply one
+selected patch at a time, re-read native state after RETURN, and keep all writes
+on the existing owning branch/PR until integrated.
+
+| Worker | Exact boundary / first command | Acceptance / stop |
+|---|---|---|
+| Native port | `/docs/`; `node tools/field-stage-handoff.mjs --source /docs/ --json` | Recover one already-supported source/cursor URL or handoff from the reader. Declare it in the existing manifest owner and prove FIELD → reader → exact source/cursor RETURN. No invented default source or source substitution. Stop at `SOURCE_REQUIRED` if unsupported. |
+| Representation | `field-instrument-core.mjs`, `field-instrument.css`, existing browser proof | Falsify one concrete ambiguity at 320px: wrong relation direction, indistinguishable selectable addresses, lost count or extra compulsory activation. Preserve exact source/hold/RETURN and show a before/after task trace. New decorative marks or byte uniqueness alone do not pass. |
+| Corpus adapter | Native archive/index references recovered through `node scripts/emit-agent-transcript.mjs --crystal --json` | Bind actual id/provenance/state/time records to the same pure projection. Declare unknowns and compare enumerated counts with source; reject duplicates and test restore against changed source. Private bytes stay in their native/private boundary. Stop without the real adapter; synthetic rows are not integration. |
+
+Every worker returns: exact source revision, owning host, one changed capability,
+files touched, command/results, falsifier, remaining loss, exact RETURN, then
+`next_authority: NONE`. No branch count, UI resemblance, geometric collision
+test or prose recipe may stand in for executable capability or recognition.
+
+For a known-object execution packet use the existing contract and validator:
+`node tools/crew-turn.mjs <packet.json> --json`. One native move per packet;
+no extra schema or actor identity grants authority. Merge/deployment evidence
+must name the actual source head and the observed live page separately.

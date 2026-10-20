@@ -21,10 +21,11 @@ try{
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce',acceptDownloads:true});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());
-    await page.goto(base+'/?instrument=1');
+    await page.goto(base+'/');
     await page.waitForSelector('html[data-instrument="1"]');
     const nativeBefore=await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes));
     const initial=await page.evaluate(()=>FieldInstrument.snapshot());
+    assert.equal(initial.frame.intent,'HEADS','ordinary entry must expose the live instrument over native CURRENT heads');
     assert.equal(initial.view.total,expected);assert.equal(initial.view.inside+initial.view.outside,expected);
     assert.equal(initial.view.counts.reduce((n,x)=>n+x,0),initial.view.inside);
     assert.equal(await page.locator('#fiAddress:visible').count(),1);
@@ -53,9 +54,12 @@ try{
     const cmd=async s=>{if(await page.locator('#fiAddress:visible').count())await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(s);await page.locator('#fieldUrlInput').press('Enter')};
     await cmd(':delta');assert.match(await page.locator('#fiReading').textContent(),/No SEEN baseline/);
     await cmd(':field');
+    const allFrame=(await page.evaluate(()=>FieldInstrument.snapshot())).frame;
     await page.locator('.fiMark').first().click();
     assert.ok((await page.evaluate(()=>FieldInstrument.snapshot())).frame.path.length>0);
-    await page.locator('#fiParent').click();assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame);
+    await page.locator('#fiParent').click();assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,allFrame);
+    await cmd('/house/');await cmd(':rewind');
+    await page.waitForFunction(()=>__fieldAct.focusHref()===null&&FieldInstrument.snapshot().frame.focus===null);
     await cmd('/house/');await page.locator('#fiReturn').click();
     await page.waitForFunction(()=>__fieldAct.focusHref()===null&&FieldInstrument.snapshot().frame.focus===null);
     assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'RETURN to unheld must clear native and projected focus');
@@ -70,6 +74,28 @@ try{
     await cmd('@');
     const headsExpected=await page.evaluate(()=>FieldIndexReadModel.snapshot().heads.filter(h=>h!=='/'&&FieldIndexReadModel.snapshot().routes.some(r=>r.href===h)).length);
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).view.inside,headsExpected,'native CURRENT heads must compose into the same field');
+    await cmd(':field');
+    // Walking uses typed manifest edges and the SAME native held object.
+    await cmd('/forward-field-proof/triangle/');await page.locator('[data-near]').click();
+    if(process.env.SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-nearby-${width}.png`)});
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.mode,'RELATIONS');
+    assert.match(await page.locator('#fiAddress').getAttribute('aria-label'),/declared neighbours/);
+    const walkFrame=await page.evaluate(()=>FieldInstrument.snapshot().frame);
+    await cmd(':anchor');
+    const parent=page.locator('[data-relation="parent"]');assert.equal(await parent.count(),1);
+    const sourceBeforeWalk=await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes));
+    await parent.click();await page.waitForFunction(()=>__fieldAct.focusHref()==='/forward-field-proof/'&&FieldInstrument.snapshot().frame.focus==='/forward-field-proof/');
+    assert.equal(await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes)),sourceBeforeWalk);
+    await page.locator('#fiReturn').click();assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,walkFrame);
+    assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),'/forward-field-proof/triangle/');
+    await page.locator('[data-origin]').click();await page.waitForURL(base+'/forward-field-proof/triangle/');
+    await page.goBack();await page.waitForSelector('html[data-instrument="1"]');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,walkFrame,'native use of the held origin must return to the same walk');
+    // Every relation layout and camera turn remains reachable on a small phone.
+    for(let turn=0;turn<4;turn++){
+      assert.equal(await page.locator('.fiMark,.fiOrigin').evaluateAll(ns=>{const rs=ns.map(n=>n.getBoundingClientRect());return rs.some(r=>r.width<44||r.height<44||r.left<0||r.right>innerWidth||r.top<0||r.bottom>innerHeight)||rs.some((a,i)=>rs.some((b,j)=>j>i&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top))}),false);
+      await cmd(':turn');
+    }
     await cmd(':field');
     // A native-held address plus local geometry is retained through turn/reload/RETURN.
     await cmd('/house/');await page.waitForFunction(()=>FieldInstrument.snapshot().frame.focus==='/house/');
@@ -110,8 +136,36 @@ try{
     await cmd('/house/ :work');assert.equal(await page.locator('html[data-instrument="1"]').count(),0,'native WORK must reveal its own visible host, not run behind the field');
     assert.equal(await page.evaluate(()=>FieldZUI.state()),'WORK');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
-    await cmd(':plain');assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
+    await page.goto(base+'/?focus=/sleeper/');await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,'/sleeper/','an incoming exact source address must outrank a stale saved focus');
+    assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),'/sleeper/');
+    await cmd(':plain');await page.reload();
+    assert.equal(await page.locator('html[data-instrument="1"]').count(),0,'explicit plain mode must survive reload');
+    await page.waitForSelector('#fieldUrlInput');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?focus=/');await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,null,'explicit root address must clear saved native and projected focus');
+    assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),null);
+    await page.goto(base+'/?fi=source%3Agit%20kind%3Aworkbench');await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.query,'source:git kind:workbench','shared native bar expressions must outrank a stale saved scope');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).view.inside,await page.evaluate(()=>FieldIndexReadModel.snapshot().routes.filter(r=>r.kind==='workbench').length));
+    if(width===320&&height===568){
+      // Every declared exit gets the exact native URL; prose-only ports get no invented action.
+      for(const route of ['/laconic/','/prison-age/']){
+        const actions=await page.evaluate(h=>FieldIndexReadModel.actions(h),route);assert.equal(actions.length,3);
+        for(const a of actions){
+          await cmd(route);const before=await page.evaluate(()=>FieldInstrument.snapshot().frame);
+          await page.locator('[data-open]').click();
+          assert.equal(await page.locator('#fiMenuPanel [data-op]').count(),3);
+          await page.getByRole('button',{name:a.label+' declared native exit',exact:true}).click();
+          await page.waitForURL(new URL(a.target,base).href);
+          await page.goBack();await page.waitForSelector('html[data-instrument="1"]');
+          assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,before);
+        }
+      }
+      assert.equal(await page.evaluate(()=>FieldIndexReadModel.openAction('/laconic/','NO_SUCH_MOVE')),false);
+      assert.equal(await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes)),nativeBefore);
+    }
     assert.deepEqual(errors,[],'browser errors '+width);
     results.push(width+'×'+height);await context.close();
   }

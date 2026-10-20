@@ -58,25 +58,57 @@ export function partition(rows,dim,budget=9){
     const values=keys.slice(i,i+width),members=values.flatMap(k=>groups.get(k));
     out.push({id:stableKey([dim,values]),dim,values,ids:members.map(r=>r.id),count:members.length,
       label:values.length>1?`${values[0]} … ${values.at(-1)}`:values[0],range:values.length>1,
-      object:dim==='id'&&values.length===1?members[0]:null});
+      object:members.length===1?members[0]:null});
   }
   return out;
 }
+// Walking follows declared parent edges only. Family, spelling and hashes are
+// never evidence of adjacency. The three relations are disjoint, even in cycles.
+export function neighbours(rows,id){
+  const source=rows.find(r=>r.id===id);if(!source)return [];
+  const used=new Set([id]),groups=[];
+  for(const [relation,label,test] of [
+    ['parent','Parent',r=>r.id===source.parent],
+    ['child','Children',r=>r.parent===id],
+    ['peer','Peers',r=>!!source.parent&&r.parent===source.parent]
+  ]){
+    const members=rows.filter(r=>!used.has(r.id)&&test(r)).sort((a,b)=>a.address.localeCompare(b.address));
+    members.forEach(r=>used.add(r.id));if(members.length)groups.push({relation,label,members});
+  }
+  return groups;
+}
+// Only the relation view assigns domain meaning to placement. Other apertures
+// use explicitly packed reading slots; their coordinates are not feature claims.
+export function placements(v){
+  return v.folds.map((g,i)=>{
+    if(g.relation)return ({parent:{x:35,y:0},child:{x:35,y:66},peer:{x:0,y:33}})[g.relation];
+    const lines=Math.ceil(v.folds.length/3),inRow=Math.min(3,v.folds.length-Math.floor(i/3)*3);
+    return {x:(3-inRow)*16.666+(i%3)*33.333,y:(3-lines)*16.666+Math.floor(i/3)*33.333};
+  });
+}
 export function project(rows,s,seen){
   const d=delta(rows,seen),attention=new Set([...(d.hasBaseline?d.changed:[]),...d.needs,...d.stalled].map(r=>r.id));
-  let mode=s.mode==='DELTA'?rows.filter(r=>attention.has(r.id)):rows;
+  const near=s.mode==='RELATIONS'&&s.focus?neighbours(rows,s.focus):null;
+  let mode=near?near.flatMap(g=>g.members):s.mode==='DELTA'?rows.filter(r=>attention.has(r.id)):rows;
   if(s.intent==='HEADS')mode=mode.filter(r=>r.head);
   const predicates=s.path.map(p=>[p.dim,new Set(p.values)]);
   const searched=matching(mode,s.query),inside=searched.filter(r=>predicates.every(([dim,values])=>values.has(String(r[dim]??'UNKNOWN'))));
-  const dim=s.scale===4?'id':s.mode==='RELATIONS'&&s.scale===0?'parent':DIMS[s.scale];
-  const folds=partition(inside,dim).map(g=>{
+  const dim=near?(s.path.length?'id':'relation'):s.scale===4?'id':s.mode==='RELATIONS'&&s.scale===0?'parent':DIMS[s.scale];
+  const allowed=new Set(inside.map(r=>r.id));
+  const groups=dim==='relation'?near.flatMap(n=>{
+    const xs=n.members.filter(r=>allowed.has(r.id));if(!xs.length)return [];
+    const ids=xs.map(r=>r.id);
+    return [{id:stableKey(['relation',s.focus,n.relation,ids]),dim:'id',values:ids,ids,count:ids.length,
+      label:n.label,relation:n.relation,range:ids.length>1,object:ids.length===1?xs[0]:null}];
+  }):partition(inside,dim);
+  const folds=groups.map(g=>{
     const members=new Set(g.ids),changed=d.hasBaseline?d.changed.filter(r=>members.has(r.id)).length:null;
     const xs=inside.filter(r=>members.has(r.id)),hist=key=>[...xs.reduce((m,r)=>m.set(r[key],(m.get(r[key])||0)+1),new Map())].sort(([a],[b])=>String(a).localeCompare(String(b)));
     return {...g,changed,unknown:d.unknown.filter(r=>members.has(r.id)).length,unbased:d.unbased.filter(r=>members.has(r.id)).length,
       profile:{kinds:hist('kind'),states:hist('state'),sources:hist('source'),needs:d.needs.filter(r=>members.has(r.id)).length}};
   });
   return {folds,inside:inside.length,outside:rows.length-inside.length,total:rows.length,delta:d,dim,
-    residue:s.mode==='RELATIONS'?'Declared family/parent relations only; no inferred equivalence or merge.':d.coverage};
+    residue:s.mode==='RELATIONS'?'Declared parent/child/peer edges only. Missing parent records stay outside; no inferred similarity or merge.':d.coverage};
 }
 export function unfold(s,g){
   if(g.object)return {...s,focus:g.object.id,page:0};
@@ -85,6 +117,7 @@ export function unfold(s,g){
 // Skip a facet only when it adds no choice, or when all objects fit the aperture.
 // Skipped tautologies add no predicate: scope-out remains the exact inverse.
 export function into(rows,s,g,seen){
+  if(s.mode==='RELATIONS'&&g.object)return {...s,scale:0,path:[],query:'',intent:'SEARCH',focus:g.object.id,page:0};
   let next=unfold(s,g);if(g.object||g.range)return next;
   let v=project(rows,next,seen);
   if(v.inside>0&&v.inside<=9)return {...next,scale:4};
@@ -136,17 +169,18 @@ export function addressTags(objects){
 // Parts partition the whole field; their pattern is categorical, never decorative.
 export function bearing(rows,s,v,anchor){
   const target=rows.find(r=>r.id===s.focus),focusHere=!!target&&v.folds.some(g=>g.ids.includes(target.id));
-  const last=s.path.at(-1),scope=last?(last.values.length===1?last.values[0]:`${last.values[0]} … ${last.values.at(-1)}`):s.mode;
-  const title=s.query||(!s.query&&focusHere?target.title:scope);
-  const address=focusHere?target.address:`${v.dim}:${scope}`;
+  const near=s.mode==='RELATIONS'&&!!target;
+  const last=s.path.at(-1),scope=last?(last.values.length===1?last.values[0]:`${last.values[0]} … ${last.values.at(-1)}`):s.intent==='HEADS'?'CURRENT':s.mode;
+  const title=s.query||((focusHere||near)?target.title:scope);
+  const address=focusHere||near?target.address:`${v.dim}:${scope}`;
   const inside=new Set(v.folds.flatMap(g=>g.ids));
   const changed=new Set(v.delta.changed.map(r=>r.id)),unknown=new Set([...v.delta.unknown,...v.delta.unbased].map(r=>r.id));
   const parts=[{key:'changed',count:0},{key:'known',count:0},{key:'unknown',count:0},{key:'outside',count:v.outside}];
   for(const r of rows)if(inside.has(r.id))parts[!v.delta.hasBaseline||unknown.has(r.id)?2:changed.has(r.id)?0:1].count++;
   let offset=0;const ribbon=parts.map(p=>{const start=offset;offset+=p.count;return {...p,start,end:offset}});
-  return {title,address,scope,focusHere,heldOutside:!!target&&!focusHere,
+  return {title,address,scope,focusHere,near,sourceDepth:target?.depth||0,heldOutside:!!target&&!focusHere&&!near,
     inside:v.inside,total:v.total,scale:s.scale,mode:s.mode,depth:s.path.length,
     away:!!anchor&&stableKey(s)!==stableKey(anchor),ribbon,
     delta:v.delta.hasBaseline?v.delta.changed.length:null,unmeasured:unknown.size,needs:v.delta.needs.length,
-    label:`${title}. ${v.inside} in scope; ${v.outside} outside; ${v.total} destinations. ${v.delta.hasBaseline?v.delta.changed.length+' measured changes since SEEN':'No SEEN baseline'}. ${unknown.size} changes unmeasured; ${v.delta.needs.length} need world. ${s.path.length} scope decisions. ${focusHere?address:target?'Held outside scope: '+target.address:'No object held'}.`};
+    label:`${title}. ${v.inside} ${near?'declared neighbours':'in scope'}; ${v.outside} outside; ${v.total} destinations. ${v.delta.hasBaseline?v.delta.changed.length+' measured changes since SEEN':'No SEEN baseline'}. ${unknown.size} changes unmeasured; ${v.delta.needs.length} need world. ${s.path.length} scope decisions. ${focusHere||near?address:target?'Held outside scope: '+target.address:'No object held'}.`};
 }

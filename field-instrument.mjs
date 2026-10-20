@@ -10,12 +10,12 @@ const STATES=['ACTIVE','STABLE','CORE_ACTIVE','ACTIVE_NOW','ACTIVE_MAINTENANCE',
 const MEMORY=skv('field.instrument.frame.v01');
 const $=s=>document.querySelector(s);
 let state=C.initial(),rows=[],seen={},view=null,root=null,plane=null,reading=null,bar=null,anchor=null,hostAnchor=null;
-let enabled=false,menu=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false;
+let enabled=false,menu=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false;
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
 const entryText=()=>state.intent&&state.intent!=='SEARCH'?(window.FieldURLBarCore?.MODE_META?.[state.intent]?.ascii||'')+' '+state.query:state.query;
-const blankQuery=()=>{const i=$('#fieldUrlInput');if(i)i.value=''};
+const blankQuery=()=>{const i=$('#fieldUrlInput');if(i)i.value='';const u=new URL(location.href);u.searchParams.delete('fi');history.replaceState(history.state,'',u)};
 function notice(msg){const n=$('#fiNotice');if(!n)return;n.textContent=msg;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{n.textContent=''},5000)}
 function remember(){MEMORY.set({schema:'field-instrument-position/v0.1',frame:C.frame(state),anchor,host:window.FieldLensHost?.uiState?.()||null,hostAnchor})}
 function commit(next,{native=false}={}){
@@ -77,13 +77,14 @@ function toggleMenu(value=!menu,section='root'){
   menu=value;$('#fiMenuPanel').hidden=!menu;bar.setAttribute('aria-expanded',String(menu));
   if(menu){
     const groups={
-      root:[['delta','∆ CHANGES','native SEEN + world gates'],['menu:position','⌖ POSITION','TURN / PIN / REWIND'],['menu:local','··· FIELD','ALL / RELATIONS / SEEN / SOURCE']],
-      views:[['field','⌁ FIELD','all addressed surfaces'],['delta','∆ SINCE SEEN','native local acknowledgements'],['relations','⋈ RELATIONS','declared family + parent']],
+      root:[['menu:views','⌁ SCOPE','CURRENT / ALL / CHANGES'],['menu:position','⌖ POSITION','TURN / PIN / REWIND'],['menu:local','··· FIELD','NEARBY / SEEN / SOURCE']],
+      views:[['heads','⌖ CURRENT','native retained heads'],['field','⌁ ALL','every addressed destination'],['delta','∆ CHANGES','native local acknowledgements']],
       position:[['turn','⤾ TURN','fold plane into depth'],['anchor','⌖ PIN RETURN','retain this exact position'],['rewind','← REWIND VIEW','previous local frame']],
-      local:[['menu:views','⌁ SCOPE','ALL / CHANGES / RELATIONS'],['menu:ack','✓ SEEN','ACKNOWLEDGE / INVERSE'],['menu:depth','⋮ SOURCE','MARK KEY / RECEIPT / PLAIN']],
+      local:[['relations','↔ NEARBY','declared parent / children / peers'],['menu:ack','✓ SEEN','ACKNOWLEDGE / INVERSE'],['menu:depth','⋮ SOURCE','MARK KEY / RECEIPT / PLAIN']],
       ack:[['seen','✓ SEEN','acknowledge held object; else field'],['rewind-seen','↶ UNDO SEEN','native acknowledgement inverse'],['field','⌁ ALL','all destinations']],
       depth:[['help','? READ THE MARK','encoding + limitations'],['receipt','↩ RETURN RECEIPT','download evidence + position'],['plain','≡ PLAIN','existing root interface']]
     };
+    if(held())groups.native=owner().actions(held().address).map(a=>['native:'+a.id,a.label,'declared native exit']);
     const ops=groups[section]||groups.root;
     $('#fiMenuPanel').innerHTML=ops.map(([id,label,hint])=>`<button type="button" data-op="${id}">${label}<small>${hint}</small></button>`).join('');
     $('#fiMenuPanel').querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>command(b.dataset.op));
@@ -93,11 +94,11 @@ function toggleMenu(value=!menu,section='root'){
 function renderBearing(next){
   if(!enabled||!view)return;
   const b=C.bearing(rows,state,view,anchor),addr=$('#fiAddress');
-  $('#fiBarName').textContent=next?(next.object?.title||next.label):b.title;
-  $('#fiBarMeta').textContent=`${state.mode==='DELTA'?'∆':'⌁'} ${b.inside}/${b.total}${next?' → '+next.count:''} · ${b.delta===null?'∆?':'∆'+b.delta+(b.unmeasured?'+?':'')}${b.needs?' · !'+b.needs:''}${b.heldOutside?' · HOLD↗':''}`;
+  $('#fiBarName').textContent=next?(({parent:'↑ ',child:'↓ ',peer:'↔ '}[next.relation]||'')+(next.object?.title||next.label)):b.title;
+  $('#fiBarMeta').textContent=`${b.near?'↔':state.mode==='DELTA'?'∆':'⌁'} ${b.inside}/${b.total}${next?' → '+next.count:''} · ${b.delta===null?'∆?':'∆'+b.delta+(b.unmeasured?'+?':'')}${b.needs?' · !'+b.needs:''}${b.heldOutside?' · HOLD↗':''}`;
   addr.setAttribute('aria-label',b.label+(next?' Next fold: '+next.count+' objects.':''));addr.title=b.address;
   $('#fiScopeGlyph').textContent=editing?'×':state.path.length||state.query?'↑':({'FIELD':'⌁','DELTA':'∆','RELATIONS':'⋈'}[state.mode]||'⌁');
-  $('#fiScopeScale').textContent=String(state.scale+1)+'/5';
+  $('#fiScopeScale').textContent=b.near?'d'+b.sourceDepth:String(state.scale+1)+'/5';
   $('#fiParent').setAttribute('aria-label',editing?'Close address input':state.path.length||state.query?'Unfold one scope decision':'Field operations');
   $('#fiReturn').hidden=!b.away||editing||menu;bar.hidden=b.away&&!editing&&!menu;
   const patterns=`<defs><pattern id="fiDeltaInk" width="7" height="8" patternUnits="userSpaceOnUse"><path d="M0 8 7 0" stroke="currentColor" stroke-width="1"/></pattern><pattern id="fiUnknownInk" width="9" height="8" patternUnits="userSpaceOnUse"><path d="M3 3h1" stroke="currentColor" stroke-width="2"/></pattern></defs>`;
@@ -106,39 +107,44 @@ function renderBearing(next){
 export async function enter(){
   if(!ready){notice('FIELD source is still loading');return}
   wire();enabled=true;root.hidden=false;document.documentElement.dataset.instrument='1';
-  const stored=MEMORY.get();
+  const stored=MEMORY.get(),entry=entered?null:owner().entry(),incoming=entry?entry.focus:new URLSearchParams(location.search).get('focus');entered=true;
   try{
     if(stored?.schema==='field-instrument-position/v0.1'){
       state=C.restore(stored.frame);anchor=C.restore(stored.anchor);hostAnchor=stored.hostAnchor;
       if(stored.host)window.FieldLensHost?.restore(stored.host);
-    }else{state={...C.initial(),focus:rows.find(r=>r.address===window.__fieldAct?.focusHref?.())?.id||null};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
+    }else{state={...C.initial(),intent:'HEADS',focus:rows.find(r=>r.address===window.__fieldAct?.focusHref?.())?.id||null};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
   }catch(_){state=C.initial();anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null;notice('Stored position rejected; source FIELD remains intact')}
+  const target=rows.find(r=>r.address===incoming);
+  if(target&&target.id!==state.focus){state=C.locate(C.initial(),target);window.__fieldAct?.focus(target.address);anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
+  if(incoming==='/'){state={...C.initial(),intent:'HEADS'};window.FieldLensHost?.restore({...window.FieldLensHost?.uiState?.(),focusHref:null});anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}
+  if(entry?.expression){const p=window.FieldURLBarCore.parse(entry.expression);if(p.mode!=='COMMAND'&&(p.query!==state.query||p.mode!==state.intent)){state={...state,scale:0,path:[],query:p.query,intent:p.mode,mode:'FIELD',page:0};anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null}}
   const u=new URL(location.href);u.searchParams.set('instrument','1');history.replaceState(history.state,'',u);
   const input=$('#fieldUrlInput');input.setAttribute('role','searchbox');input.setAttribute('aria-label','Locate FIELD address or narrow feature coordinates');input.setAttribute('aria-autocomplete','none');input.removeAttribute('aria-activedescendant');input.removeAttribute('aria-expanded');input.placeholder='address / source:git / :delta';
-  window.FoveaLens?.radial?.close?.();window.FoveaLens?.toggle?.(false);
+  window.FoveaLens?.radial?.close?.();window.FoveaLens?.toggle?.(false);window.FieldAwakeVisor?.hide?.();
   $('#fieldUrlInput').value=entryText();render();remember();
 }
 function exit(){
   endEdit();remember();enabled=false;root.hidden=true;delete document.documentElement.dataset.instrument;toggleMenu(false);
   const input=$('#fieldUrlInput');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='address · glyph · command';
-  const u=new URL(location.href);u.searchParams.delete('instrument');history.replaceState(history.state,'',u);
+  const u=new URL(location.href);u.searchParams.set('instrument','0');history.replaceState(history.state,'',u);
   window.FieldLensHost?.notify?.();
 }
 function returnPosition(){
   if(!anchor)return;blankQuery();
   if(hostAnchor)window.FieldLensHost?.restore(hostAnchor);
-  toggleMenu(false);commit(C.restore(anchor));notice('RETURN restored position. Source objects unchanged.');
+  toggleMenu(false);commit(C.restore(anchor));
 }
 function command(op){
   if(op.startsWith('menu:')){toggleMenu(true,op.slice(5));return}
   toggleMenu(false);endEdit();$('#fieldUrlInput').value=entryText();
-  if(['field','delta','relations'].includes(op)){blankQuery();commit({...state,mode:op==='field'?'FIELD':op.toUpperCase(),scale:0,path:[],query:'',intent:'SEARCH',page:0});return}
+  if(op.startsWith('native:')){openNative(held(),op.slice(7));return}
+  if(['field','delta','relations','heads'].includes(op)){blankQuery();commit({...state,mode:op==='field'||op==='heads'?'FIELD':op.toUpperCase(),scale:0,path:[],query:'',intent:op==='heads'?'HEADS':'SEARCH',page:0});return}
   switch(op){
     case'turn':commit({...state,turn:(state.turn+1)%4});break;
     case'out':commit(C.parent(state));break;
     case'return':returnPosition();break;
     case'anchor':anchor=C.frame(state);hostAnchor=window.FieldLensHost?.uiState?.()||null;remember();notice('RETURN pinned here');break;
-    case'rewind':{const prev=revisions.pop();if(prev){state=prev;probe=null;if(held())window.__fieldAct?.focus(held().address);remember();render()}else notice('No earlier local frame');break}
+    case'rewind':{const prev=revisions.pop();if(prev){state=prev;probe=null;if(held())window.__fieldAct?.focus(held().address);else window.FieldLensHost?.restore({...window.FieldLensHost?.uiState?.(),focusHref:null});remember();render()}else notice('No earlier local frame');break}
     case'seen':owner().seen(held()?.address||null);load();notice('Native local SEEN applied');break;
     case'rewind-seen':if(owner().snapshot().canRewind){owner().rewind();load();notice('Native local acknowledgement restored')}else notice('No local SEEN action to undo');break;
     case'theme':$('#fiTheme')?.click();break;
@@ -164,10 +170,14 @@ function command(op){
   renderBearing();
 }
 function showHelp(){
-  reading.innerHTML=`<div class="fiName">Read the mark</div><code>angle · kind / length · hierarchy depth / lane · git</code><p>Arc: day of year. Tick: state. Parallel strokes: counted fold. Hash: content witness. Full address resolves lookalikes.</p><small>9 targets max · source:git filters · archive not connected</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`;
+  reading.innerHTML=`<div class="fiName">Read the mark</div><code>angle · kind / length · depth / lane · git</code><p>Nearby: ↑ parent, ↓ children, ↔ peers. Other slots pack counted folds. Arc: day of year. Tick: state. Pattern: content witness.</p><small>9 targets max · full address resolves lookalikes<br>Archive not connected · recognition unmeasured</small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`;
   reading.querySelector('[data-close]').onclick=()=>renderReading();
 }
 function mark(g){
+  if(g.relation){
+    const paths={parent:'M60 43V15m-6 6 6-6 6 6',child:'M60 15v28m-6-6 6 6 6-6',peer:'M35 29h50m-6-6 6 6-6 6m-38-12-6 6 6 6'};
+    return `<svg viewBox="0 0 120 60" aria-hidden="true"><path d="${paths[g.relation]}" stroke="currentColor" fill="none"/><path d="M43 51h${34*g.count/Math.max(1,view.inside)}" stroke="currentColor" opacity=".5"/></svg>`;
+  }
   const r=g.object;
   if(!r){
     const polar=window.InterphaseRing.polar;
@@ -183,8 +193,7 @@ function mark(g){
   const arc=m.arc===null?'':`<path d="M47 41Q60 ${41-15*m.arc} 73 41" opacity=".55"/>`;
   // Known source: git is lane 1. Unknown categories are explicitly labelled in reading.
   const tick=m.tick<0?'M90 41l4 4m0-4-4 4':`M${24+m.tick*4} 45v4`;
-  const key=m.angle===null?'?':window.FieldGlyph?.kindKey?.(r.kind)||'?';
-  return `<svg viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1"><g transform="rotate(${m.angle??0} 60 27)"><path d="M${x} 27H${end}m-4-3 4 3-4 3"/></g><path d="M20 ${38+m.lane*3}h8M${m.lane<0?20:20+m.lane*3} 38v6" opacity=".5"/>${arc}<path d="${tick}"/></g><text x="91" y="30" fill="currentColor" font-size="10">${esc(key)}</text></svg>`;
+  return `<svg viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1"><g transform="rotate(${m.angle??0} 60 27)"><path d="M${x} 27H${end}m-4-3 4 3-4 3"/></g><path d="M20 ${38+m.lane*3}h8M${m.lane<0?20:20+m.lane*3} 38v6" opacity=".5"/>${arc}<path d="${tick}"/></g>${m.angle===null?'<text x="91" y="30" fill="currentColor" font-size="10">?</text>':''}</svg>`;
 }
 function read(g){
   probe=g.id;root.querySelectorAll('[data-fold]').forEach(el=>el.dataset.reading=el.dataset.fold===g.id?'1':'0');renderReading(g);renderBearing(g);
@@ -199,22 +208,35 @@ function renderReading(g){
     const members=rows.filter(x=>g.ids.includes(x.id)),parents=new Set(members.map(x=>x.parent).filter(Boolean));
     reading.innerHTML=`<div class="fiName">${esc(g.label)}</div><code>${g.count} objects · ${g.values.length} ${esc(g.dim)} value${g.values.length===1?'':'s'}</code><p>${g.changed===null?'Delta unknown (no SEEN baseline)':g.changed+' measured changes'} · ${g.unknown+g.unbased} unmeasured. ${state.mode==='RELATIONS'?parents.size+' declared parents.':'Unfold; held address survives.'}</p><small>Every member retained · no absorbed/deleted source</small><div class="fiActions"><button data-action="unfold">UNFOLD ${g.count}</button><button data-action="help">? KEY</button></div>`;
   }else{
-    const source=`${r.title} · ${r.address} · ${r.state} · ${r.kind} · ${r.payload.operation||'No move declared'} · ${r.payload.role||''}`,
+    const offers=owner().actions(r.address),primary=offers[0],source=`${r.title} · ${r.address} · ${r.state} · ${r.kind} · ${r.payload.operation||'No move declared'} · ${r.payload.role||''}`,
       page=C.textPage(source,Math.max(0,state.page-1),innerWidth<360?85:105),when=r.time?new Date(r.time).toISOString().slice(0,10):'UNKNOWN',
       move=String(r.payload.operation||'No move declared').split(/\s*\/\s*/)[0],overview=`${move} · ${r.state} · ${r.payload.field?.owner||r.kind}`;
-    reading.innerHTML=`<div class="fiName">${esc(r.title)}</div><code title="${esc(r.address)}">${esc(r.address)}</code><p>${esc(state.page?page.text:overview)}</p><small>${when} · d${r.depth} · ${esc(r.source)} · ${esc((r.digest||'').slice(7,15))}<br>${state.page?'source '+(page.at+1)+'/'+page.count:'source · '+page.count+' parts'} · ${page.total} characters</small><div class="fiActions"><a data-open href="${esc(r.address)}">OPEN ↗</a><button data-page>${state.page?'SOURCE '+(page.at+1)+'/'+page.count:'READ SOURCE'} →</button></div>`;
+    const action=offers.length>1?`<button data-open>${offers.length} MOVES →</button>`:`<a data-open href="${esc(primary?.target||r.address)}">${esc(primary?.label||'OPEN')} ↗</a>`;
+    reading.innerHTML=`<div class="fiName">${esc(r.title)}</div><code title="${esc(r.address)}">${esc(r.address)}</code><p>${esc(state.page?page.text:overview)}</p><small>${when} · d${r.depth} · ${esc(r.source)} · ${esc((r.digest||'').slice(7,15))}<br>${state.page?'source '+(page.at+1)+'/'+page.count:'source · '+page.count+' parts'} · ${page.total} characters</small><div class="fiActions">${action}<button data-page>${state.page?'SOURCE '+(page.at+1)+'/'+page.count:'READ'} →</button><button data-near>↔ NEARBY</button></div>`;
     reading.querySelector('[data-open]').onclick=e=>{
       if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
-      e.preventDefault();state={...state,focus:r.id};window.__fieldAct?.focus(r.address);remember();
-      // Native adapter, after explicit HOLD, retains route-opening authority.
-      window.__fieldAct?.open(r.address);
+      e.preventDefault();
+      if(offers.length>1){commit({...state,focus:r.id},{native:true});toggleMenu(true,'native')}
+      else if(primary)openNative(r,primary.id);else openObject(r);
     };
+    reading.querySelector('[data-near]').onclick=()=>{commit({...state,focus:r.id},{native:true});command('relations')};
     reading.querySelector('[data-page]').onclick=()=>{state={...state,page:(state.page+1)%(page.count+1)};remember();renderReading(g);renderBearing()};
   }
   reading.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>b.dataset.action==='unfold'?activate(g):command(b.dataset.action));
 }
+function openObject(r){
+  state={...state,focus:r.id};window.__fieldAct?.focus(r.address);remember();
+  // Navigation only. The receiving native host owns its next action and effect.
+  window.__fieldAct?.open(r.address);
+}
+function openNative(r,id){
+  if(!r||typeof owner()?.openAction!=='function'){notice('Native move unavailable');return}
+  state={...state,focus:r.id};window.__fieldAct?.focus(r.address);remember();
+  if(!owner().openAction(r.address,id))notice('Native move rejected; source unchanged');
+}
 function activate(g){
   if(!g)return;
+  if(g.object&&g.object.id===state.focus){openObject(g.object);return}
   endEdit();toggleMenu(false);commit(C.into(rows,state,g,seen),{native:!!g.object});
   // The object remains the same field mark; detail is a field state, no overlay lens.
   if(g.object)read(g);
@@ -225,18 +247,16 @@ function render(){
   view=C.project(rows,state,seen);
   plane.style.setProperty('--fi-tilt',[0,-12,-24,-34][state.turn]+'deg');
   const tags=C.addressTags(view.folds.map(g=>g.object).filter(Boolean));
-  const places=view.folds.map((g,i)=>{
-    const lines=Math.ceil(view.folds.length/3),inRow=Math.min(3,view.folds.length-Math.floor(i/3)*3);
-    return {x:(3-inRow)*16.666+(i%3)*33.333,y:(3-lines)*16.666+Math.floor(i/3)*33.333};
-  });
+  const places=C.placements(view),walking=state.mode==='RELATIONS'&&held();
   const edges=view.folds.map((g,i)=>{
     const p=places[i],width=.6+1.4*Math.sqrt(g.count/Math.max(1,view.inside));
-    return `<path d="M500 0Q500 ${p.y*6+90} ${(p.x+15)*10} ${(p.y+14)*10}" stroke-width="${width}"/>`;
+    return `<path d="${walking?'M500 480L':'M500 0Q500 '+(p.y*6+90)+' '}${(p.x+15)*10} ${(p.y+14)*10}" stroke-width="${width}"/>`;
   }).join('');
-  plane.innerHTML=view.folds.length?`<svg class="fiCreases" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor">${edges}</g></svg>`+view.folds.map((g,i)=>{
+  plane.innerHTML=(walking?`<button class="fiOrigin" data-origin aria-label="Open held ${esc(held().title)}" title="${esc(held().address)}">◎</button>`:'')+(view.folds.length?`<svg class="fiCreases" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor">${edges}</g></svg>`+view.folds.map((g,i)=>{
     const {x,y}=places[i];
-    return `<button type="button" class="fiMark" data-fold="${esc(g.id)}" data-held="${g.ids.includes(state.focus)?'1':'0'}" style="left:${x}%;top:${y}%" aria-label="${esc(g.object?g.object.title+' · '+g.object.address:g.label)} · ${g.count} objects${g.range?' · range fold':''}">${mark(g)}<span class="fiLabel">${esc(g.object?g.object.title:g.label)}</span><span class="fiCount">${g.object?esc(tags.get(g.object.id)):g.count}${g.changed?' ∆'+g.changed:''}</span></button>`;
-  }).join(''):`<div class="fiEmpty">${state.mode==='DELTA'&&!view.delta.hasBaseline?'No SEEN baseline.\nUse SEEN ALL below to start.':'No objects in this lens.\nUnfold ↑ returns context.'}</div>`;
+    return `<button type="button" class="fiMark" data-fold="${esc(g.id)}" data-relation="${g.relation||''}" data-held="${g.ids.includes(state.focus)?'1':'0'}" style="left:${x}%;top:${y}%" aria-label="${g.relation?g.label+': ':''}${esc(g.object?g.object.title+' · '+g.object.address:g.label)} · ${g.count} objects${g.range?' · range fold':''}">${mark(g)}<span class="fiLabel">${esc(g.object?g.object.title:g.label)}</span><span class="fiCount">${g.object?esc(tags.get(g.object.id)):g.count}${g.changed?' ∆'+g.changed:''}</span></button>`;
+  }).join(''):`<div class="fiEmpty">${walking?'No declared neighbours.\nThe address remains held.':state.mode==='DELTA'&&!view.delta.hasBaseline?'No SEEN baseline.\nUse SEEN ALL below to start.':'No objects in this lens.\nUnfold ↑ returns context.'}</div>`);
+  const origin=plane.querySelector('[data-origin]');if(origin){origin.onclick=()=>openObject(held());origin.onfocus=quiet}
   plane.querySelectorAll('[data-fold]').forEach((b,i)=>{
     const g=view.folds[i];
     // Reuse the shared content-identity gratings, reveal only while reading.
@@ -278,8 +298,7 @@ function key(e){
     const r=rows.find(r=>r.address===parsed.query||r.id===parsed.query);
     if(r){blankQuery();endEdit();toggleMenu(false);commit(C.locate(state,r),{native:true});if(parsed.mode==='TURN')command('open');else if(parsed.mode==='HERMES')command('run');return true}
     if(view.inside===1){const r=rows.find(r=>r.id===view.folds[0]?.ids[0]);blankQuery();endEdit();toggleMenu(false);commit(C.locate(state,r),{native:true});if(parsed.mode==='TURN')command('open');else if(parsed.mode==='HERMES')command('run');return true}
-    endEdit();
-    notice(`${view.inside} in this lens. Tap a counted fold or enter an exact address.`);return true;
+    endEdit();return true; // The counted field already answers an ambiguous expression.
   }
   if(['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key)){
     if(typing&&['ArrowLeft','ArrowRight'].includes(e.key))return false;
@@ -313,7 +332,8 @@ function boot(){
   const start=async()=>{
     if(!window.FieldURLBar||!owner()?.snapshot()?.routes?.length){if(++attempts<120)setTimeout(start,100);return}
     wire();await load();
-    if(new URLSearchParams(location.search).get('instrument')==='1')await enter();
+    const mode=new URLSearchParams(location.search).get('instrument');
+    if(mode==='1'||(mode!=='0'&&!owner().entry().native))await enter();
   };start();
 }
 boot();

@@ -1537,8 +1537,11 @@ window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore
 window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),actionSurface:()=>fieldActionSurface()});
 // Read projection + existing local SEEN owner. No second manifest/catch-up store.
 window.FieldIndexReadModel=Object.freeze({
+ entry:()=>({focus:INIT.get('focus'),expression:INIT.get('fi'),native:['lens_proof','ax_state','ax_op','ax_mode'].some(k=>INIT.has(k))}),
  snapshot:()=>({routes:routes.slice(),heads:(current?.current_heads||[]).map(h=>h.route),
    seen:{stamp:catchupSeen(),items:catchupItems(),needs:currentHumanGates().map(g=>g.route).filter(Boolean)},canRewind:!!catchupHistory().length}),
+ actions:href=>nativeRouteActions(routeMap().get(href)),
+ openAction:(href,id)=>{const r=routeMap().get(href),a=nativeRouteActions(r).find(x=>x.id===id);if(!r||!a)return false;const u=new URL(a.target,location.href);if(!['http:','https:'].includes(u.protocol))return false;focusRoute(r,true,'OTHER');noteOpen();advanceInto(u.href);return true},
  seen:href=>{if(href)markRouteCaughtUp(href);else markCaughtUp();notifyFieldIndex()},
  rewind:()=>{rewindCaughtUp();notifyFieldIndex()}
 });

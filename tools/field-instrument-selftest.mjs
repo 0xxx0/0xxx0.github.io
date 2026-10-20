@@ -93,6 +93,28 @@ for(const st of [s,next,located,{...s,query:'house'},{...s,mode:'DELTA'}]){
 }
 assert.equal(C.bearing(rows,s,v,s).away,false);assert.equal(C.bearing(rows,located,C.project(rows,located,{}),s).away,true);
 assert.equal(C.bearing(rows,s,v,s).ribbon.find(p=>p.key==='changed').count,0,'unmeasured delta cannot become a changed band');
+// Spatial relations are executable source facts, not proximity or shared names.
+for(const r of rows){
+ const groups=C.neighbours(rows,r.id),ids=groups.flatMap(g=>g.members.map(x=>x.id));
+ assert.equal(new Set(ids).size,ids.length);assert.ok(!ids.includes(r.id));
+ assert.deepEqual(C.neighbours(rows.slice().reverse(),r.id),groups,'source iteration order cannot move a semantic neighbour');
+ for(const g of groups)for(const x of g.members){
+  assert.equal(g.relation==='parent'?x.id===r.parent:g.relation==='child'?x.parent===r.id:x.parent===r.parent,true);
+ }
+ const st={...s,mode:'RELATIONS',focus:r.id},pv=C.project(rows,st,{});
+ assert.equal(pv.inside,ids.length);assert.equal(pv.inside+pv.outside,rows.length);
+ assert.equal(pv.folds.reduce((n,g)=>n+g.count,0),ids.length);assert.ok(pv.folds.length<=3);
+ const positions=C.placements(pv);
+ pv.folds.forEach((g,i)=>{
+  const p=positions[i];assert.ok(g.relation==='parent'?p.y<33:g.relation==='child'?p.y>33:p.y===33&&p.x<35);
+  if(g.object){const walk=C.into(rows,st,g,{});assert.equal(walk.focus,g.object.id);assert.equal(walk.mode,'RELATIONS');assert.deepEqual(walk.path,[])}
+  else{const deeper=C.project(rows,C.into(rows,st,g,{}),{});assert.equal(deeper.inside,g.count);assert.ok(deeper.folds.length<=9)}
+ });
+}
+const sameName=[{id:'x',address:'/x',parent:'/missing',family:'same'},{id:'y',address:'/y',parent:'/else',family:'same'}];
+assert.deepEqual(C.neighbours(sameName,'x'),[],'same words/family cannot manufacture an edge');
+const cycle=[{id:'x',address:'/x',parent:'y'},{id:'y',address:'/y',parent:'x'}];
+assert.equal(C.neighbours(cycle,'x').flatMap(g=>g.members).length,1,'cyclic parent/child has one visible identity');
 // No lossy truncation: Unicode code points paginate and reconstruct exactly.
 const text='一目了然 🌘 '.repeat(80),pages=C.textPage(text,0,105).count;
 assert.equal(Array.from({length:pages},(_,i)=>C.textPage(text,i,105).text).join(''),text);
