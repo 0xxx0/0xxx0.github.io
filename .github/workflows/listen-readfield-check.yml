@@ -45,6 +45,8 @@ jobs:
           node --check fold-bloom/listen/analysis-worker.js
           node --check fold-bloom/lens/studio-v12.js
           node --check lib/readfield-controls.js
+          node --check tools/fold-bloom-first-use-browser-smoke.mjs
+          node --check fold-bloom/listen/demo-tone.js
       - name: Prove first-use and source continuity contracts
         run: |
           node tools/fold-bloom-first-use-contract.test.mjs
