@@ -88,3 +88,266 @@ node tools/interphase-workbench-smoke.mjs
    test. Stop if it adds another authority store, renderer, command bar or
    ungrounded psychophysical claim. Branch deletion and archive pruning wait on
    proven dependency recovery; no archive deletion happened in this pass.
+
+## ONE INSTRUMENT — root continuation, 2026-10-19
+
+**Objective:** locate and read the existing FIELD without scrolling, while
+retaining exact identity, explicit scope, native authority and a return position.
+Assumption: this is a DELTA to `/`, not another application or a replacement
+canonical store. Initial survey base: `659700556b8b9c010ffd65065105f118047c275d`;
+refinement reviewed against `eb31203` on 2026-10-20.
+
+### Lineage and disposition
+
+| Source | Class / confidence | Surviving mechanism |
+|---|---|---|
+| Root URLbar / omnibar / `__fieldAct` | survivor / HIGH | One address input, one command registry, native HOLD/OPEN. The instrument enters through `:instrument` or `/?instrument=1`. |
+| Root native SEEN / inverse | survivor / HIGH | Existing local acknowledgement keys and history remain the only catch-up owner. No new baseline store. |
+| `lib/micro.js`, DOM/store faces, `lib/id.js` | survivor / HIGH | Same function objects for clamp/wrap, safe HTML, download, local orientation, SHA-256 and canonical serialization. No copied utility bodies. |
+| `lib/moire-ambient.js` | survivor / HIGH | Existing deterministic content-identity gratings; exposed only on approach/focus. Pattern is an identity witness, never a priority or similarity claim. |
+| `FieldGlyph` | survivor / HIGH | Existing kind keys retained. The line reading adds a projection of actual kind/depth/source/state/time, not a replacement ontology. |
+| SPIKE 003 / Kala / DataDisc / recovered Ω | fixture or variant / HIGH | Exact sources retained. Their fixtures/geometry are not transferred as a new root authority. |
+| PR #966 | separate owning candidate / HIGH | Owns `/interphase/` recovered workbench and its proof runner. This root delta does not modify its source recovery, protected imports or native effect semantics. |
+| Conversation recovery | partial / LOW | Personal Context's conversation search errored; file-derived migration constraints were available. No exhaustive corpus-recovery claim. |
+| Claimed ~40k-row archive | unresolved / LOW | No native archive adapter recovered here. 40k-row proof below uses explicitly synthetic records. |
+
+No byte-duplicate archive was declared and no source/archive was deleted. This
+adds a host-local pure core; it does not add a new module to `/lib/` before the
+three-real-consumer extraction threshold is met.
+
+### Primitives and composition
+
+`ADDRESS → FRAME → FOLD → READ → WITNESS → RETURN`
+
+| Primitive | Executable meaning |
+|---|---|
+| ADDRESS | Native stable route id/address. Content SHA can change without changing this id. |
+| FRAME | `{scale,path,focus,query,intent,mode,turn,page}`. Path contains explicit feature predicates; local orientation is stored in session storage, source data is not. Native address intent is preserved. |
+| FOLD | Disjoint membership sets. Every fold displays its exact object count. More than nine distinct values produce explicit range folds; further unfolding refines that range at the same semantic scale. |
+| READ | Mouse sweep, keyboard focus or touch sweep changes the reading state of that same field. No follower widget/radial is active. Explicit HOLD remains native. |
+| WITNESS | `inside + outside = destinations` and `sum(folds) = inside`. The root host is separately named. Receipt exports those counts with exact frame and source. |
+| RETURN | Restores pinned local frame and native host context. OPEN retains the current frame; browser BACK re-enters it. UNFOLD removes one feature predicate; REWIND VIEW retrieves a prior view frame; UNDO SEEN invokes the native acknowledgement inverse. Native artifact PARENT stays in the plain host. No domain UNDO is invented. |
+
+Five semantic scales: **FIELD / SOURCE / KIND / STATE / OBJECT**. FIELD groups
+native declared families; RELATIONS instead groups declared parents. SOURCE is
+`git` for this manifest adapter, not a fabricated assertion that each object's
+underlying content originated in Git. A long text uses counted pages in the same
+reading position; no text is silently discarded. Feature predicates and held
+identity survive camera turn. Screen slots are layout, not authoritative feature
+coordinates; new source membership can reflow them. Exact RETURN is a frame law
+against the current source, not a promise to freeze the outside world.
+
+SINCE SEEN composes measured native timestamp deltas, explicit CURRENT world gates and
+exact `STALLED` / `BLOCKED` states as a **set union**, then folds it using the same
+instrument. Overlapping flags count each object once. A first visit says “no
+baseline”; it does not invent new arrivals. A per-object acknowledgement measures
+only that object's subsequent changes: neighbours without a boundary remain
+unmeasured, and the bar shows `∆N+?`. Unknown timestamps, removals and unstamped
+content changes remain explicit residue. Finger inspection never
+acknowledges a change. `:seen` / `:rewind-seen` are explicit local operations.
+
+### Glyph reading and collision law
+
+| Channel | Datum / loss |
+|---|---|
+| Angle | Native kind, through a fixed vocabulary; unknown kinds use `?`. Exact kind remains readable on reveal. |
+| Length | `20 + 7 log2(1 + hierarchyDepth)`; this adapter measures hierarchy depth, not document size or thread length. |
+| Lane tick | Manifest source lane. Only git is supplied here. |
+| Arc | Fraction through the UTC year, exact date on reveal. Year/chronology is lost in the arc and is not inferred from it. |
+| State tick | Fixed native state slot; unrecognized state uses a crossed tick and exact text on reveal. |
+| Fold spokes / state comb | Actual kind/state histograms. Each spoke/tick's extent is its share of that fold; fixed slots preserve categorical meaning. Count remains numerical. |
+| Faint connection / width | Scope contains fold / relative membership count. These are projection-membership edges, not invented domain edges. |
+| Revealed moiré + short SHA tag | Deterministic source-content witness. It carries no urgency or similarity claim. |
+
+Finite pixels cannot encode unlimited distinct readable identities. Hashes also
+cannot guarantee perceptual uniqueness. This instrument therefore never exposes
+thousands of independent hit targets: **at most nine** disjoint targets, further
+counted refinement, shortest distinguishing address suffixes at object scale,
+and exact address/type-ahead feature filtering in the stable bar. Full address
+is always the disambiguator. Geometry uniqueness and human recognition remain
+different tests; this does not promote the separate typography donor's claims.
+
+### Research transferred, not copied wholesale
+
+- [Pad++ / space-scale diagrams](https://www.cs.umd.edu/projects/hcil/pad%2B%2B/papers/jvlc-96-pad/zoom-6.html): explicit space/scale and changes of meaning across scales. Applied as feature predicates + five semantic scales + exact frame tokens; no Tcl/D3/framework dependency.
+- [Bostock's fisheye analysis](https://bost.ocks.org/mike/fisheye/): focus/context is useful, but distortion can invalidate quantitative position readings. This slice changes detail/opacity while inspecting; it does not warp the hit targets under a finger.
+- [UW perceptual kernels](https://idl.uw.edu/perceptual-kernels/): perceptual distinction is measured, not established by hashing or different SVG bytes. Retain address labels and a plain comparator until an actual recognition/task return exists.
+- [Scented Widgets](https://idl.uw.edu/papers/scented-widgets): carry real data into the navigation control. The resting address is now a position reading, not an empty search box: exact in/total counts, measured delta or uncertainty, world gates, and a categorical ribbon partitioning the whole field. Approach previews the prospective fold in that same bar.
+- [FacetZoom](https://imld.de/cnt/uploads/2008-CHI-FacetZoom.pdf): tap-and-center hierarchical refinement with context. Applied as counted predicates, singleton-facet skipping and an inverse UNFOLD. Its paper does not prove superiority over scrolling; neither does this candidate.
+- [Engelbart viewspecs](https://www.dougengelbart.org/content/view/218/158/): presentation/filter changes leave the source intact. Native effect ownership and explicit frame tokens carry this distinction here.
+
+These are engineering transfers from primary research/implementation sources,
+not evidence that this particular projection improves the operator's cognition.
+
+### Runnable slice and acceptance
+
+```sh
+node tools/field-instrument-selftest.mjs
+node tools/field-urlbar-selftest.mjs
+node tools/field-omnibar-selftest.mjs
+node tools/field-reversibility-selftest.mjs
+# Existing browser test dependency only; not an application dependency:
+NODE_PATH=/path/to/test/node_modules node tools/field-instrument-smoke.mjs
+# For manual use, serve the repository and open /?instrument=1.
+```
+
+Core proof: 206 registered routes; all 40,000 deliberately identical-looking
+synthetic records reached exactly once through bounded folds; parent/refinement
+inverses, source immutability, digest/identity separation, timestamp unknowns,
+attention-union counts, Unicode text reconstruction and malformed frame rejection.
+Measured local model projection about 45–65ms; exhaustive synthetic collision
+traversal about 160–200ms. These are Node timings, not phone frame-rate claims.
+
+Real browser proof: 320×568 / 320×640 / 390×844 / 430×932 / 1280×800;
+205 native destinations plus the root host;
+one fixed bar; disjoint touch-sized targets; touch-sweep leaves frame unchanged;
+old radial cannot steal a long press; native SEEN/inverse; native OPEN/BACK;
+turn/reload/pinned RETURN; exact count receipt; unchanged source routes. Phone
+screenshots were visually inspected. Plain root remains available via `:plain`.
+
+The repository-wide public validator fails on **pre-existing QUEUE/CURRENT drift**
+at the survey base and this candidate, with the same diagnostic. The JIT transcript
+selftest likewise fails on `CURRENT active-front law > 3` in both trees. Do not modify
+attention/capacity state to manufacture a green aesthetic PR. Focused root,
+microlib, interaction and route checks remain the relevant bounded proofs;
+the selected ship-check subset passes 10/10. Read-only comparison located these
+failures; generated CURRENT/desk/URLbar-registration side effects from the wider
+ship-check run were discarded, preserving the native attention state and receipt.
+
+**Tensions / stop:** an arbitrary amount of text needs time, paging or scroll;
+finite glyphs need counted aggregation and address escape; extreme subtlety
+needs a legible focus/contrast path; exact return needs a declared source-change
+boundary. This slice chooses counted pages, explicit reveals, native semantics
+and preserved plain comparison. Do not promote it to the default or absorb the
+archive without a real phone return: locate one known object, read its source,
+identify a change and RETURN with zero wrong holds, lost objects or clipped
+controls. If it costs more effort than plain FIELD, contract the projection.
+
+Immediate levers: existing `:instrument` → `/house/` → `:anchor` → `:turn` →
+RETURN; separately `:delta` → explicit SEEN → UNDO SEEN. No source mutation,
+archive migration, merge or deployment is implied by those local operations.
+
+### Refinement / self-review, 2026-10-20
+
+The first candidate still made the operator pay for an empty bar, duplicated
+count/scale strips, identical-looking aggregate hatches, and single-value facet
+taps. The refinement contracts these into one position bar and one field:
+
+- The same native input appears only when editing. Its parser, command registry,
+  exact HOLD/OPEN, `@` HEADS, and trailing `/address/ :work` remain composed;
+  native tools that need the plain host reveal it before dispatch.
+- The passive bar ribbon partitions measured changed / measured known /
+  unmeasured / outside membership. It never promotes an absent baseline to a
+  change count. A fold preview and RETURN use that same operation surface;
+  the separate footer/scale strips have been removed.
+- Fold glyphs now read actual kind/state distributions. The new epic10 attention
+  donor's data-in-control idea transfers; its synthetic inline data and copied
+  hash bodies do not. Those fixture routes remain preserved and registered.
+- No-choice facets cost no extra tap. Active address filters survive unfolding;
+  exact address lookup exposes exactly one object. UNFOLD reverses an actual
+  predicate decision, including skipped scales. TURN tilts into the page while
+  all targets remain reachable.
+- Reading shows one native move at rest, then lossless word-aware source parts.
+  The bar, keyboard caret, return slot and reading body are checked at narrow
+  phone widths; the CSS inherited six-column bar rule was found and corrected.
+- Native `fieldRestore({focusHref:null})` previously retained the old hold.
+  Corrected the owner boundary, with a browser regression proving both native
+  and projected focus clear on RETURN to an unheld position.
+
+The ten read-only selected ship checks pass. The broad public validator still
+reports the native QUEUE/CURRENT disagreement; no priority or capacity record was
+changed to hide it. The refinement adds no dependency, canonical route, archive
+store, effect owner, command registry, or ambient animation.
+
+The operator explicitly approved branch publication and a draft review on
+2026-10-20. This remains an opt-in candidate (`:instrument` / `/?instrument=1`);
+merge, default promotion and deployment require their own exact-head evidence.
+
+## Live continuation — 0.8.35, 2026-10-20
+
+**Selected objective:** make the result usable at the ordinary GitHub Pages root.
+The operator explicitly selected publication/default entry after finding the live
+page unchanged. The prior opt-in hold above is superseded for this bounded root
+delta. Human recognition and comparative burden remain unknown claims, rather
+than a blanket stop on executable work (CURRENT's human-gate law applies).
+
+### Critique → conversion
+
+| Failure found | Implemented conversion / limit |
+|---|---|
+| A draft branch was mistaken for a delivered interface | Ordinary `/` opens the instrument after source readiness. `?instrument=0` / `:plain` retain the native comparator; explicit native proof/AXIAL deep links retain their host. An explicit instrument frame survives the native AXIAL parameters generated while holding. |
+| Packed slots were too easily mistaken for semantic coordinates | NEARBY follows only manifest parent edges: parent above, children below, peers beside the held origin. Other apertures remain labelled packing, not feature-space claims. No hash or name similarity creates an edge. |
+| Single-object folds charged an empty drill step | A one-member fold is the addressed object. First activation HOLDs; a second OPENs its native route. |
+| Operation prose masquerades as executable capability | Only `/laconic/` and `/prison-age/` currently supply executable `AVAILABLE` targets: six exact URLs. Their three native exits are actionable in-place; missing targets stay prose. No URL is guessed from a label. |
+| Saved context could override an incoming source | Native entry captures the original focus/expression before URL normalization. Explicit root clears both focus owners; shared bar expressions replace stale scope; unchanged incoming identity retains the exact saved frame. |
+| Counts could overclaim first/partial catch-up | Missing boundaries remain unmeasured. A single SEEN does not turn unbased neighbours into arrivals. The bar exposes `∆?` / `∆N+?`; native acknowledgement/inverse remain the only owner. |
+| Tiny duplicate mnemonic text added decoding cost | Removed that text from the new marks. Relation arrows draw the actual typed direction; exact addresses remain the identity escape. Hash moiré is an inspection-only content witness. |
+
+The native read face delegates action enumeration to `nativeRouteActions` and
+navigation to the existing native owner. A missing/unknown move rejects; walking
+and projection cannot actuate a device or satisfy another host's proof.
+
+### Small organism / proof
+
+`declared source → counted projection → one native hold → one native URL → exact frame RETURN`
+
+The host-local core now includes disjoint `neighbours` and pure `placements`.
+Across every registered object, tests verify source-order invariance, actual
+edge membership, no self-edge, no duplicate counting, bounded folds and declared
+spatial directions. Cycle/dangling-parent controls reject invented adjacency.
+The 40k collision fixture remains explicitly synthetic; its timings vary by
+run and do not establish browser/phone throughput.
+
+Browser proof exercises ordinary entry, all three relation directions, native
+focus after a real parent step, filter retention, root/shared-address precedence,
+six exact native exit URLs, source immutability, source parts, touch arbitration,
+plain reload, OPEN/BACK, unheld REWIND and pinned RETURN at five viewport sizes.
+The legacy FIELD CLI smoke times out on this local Chromium and untouched master;
+its unchanged native acceptance predicate passes through real Playwright on the
+explicit plain host. PR #966 owns the wider browser-runner repair. Re-run:
+
+```sh
+node tools/field-instrument-selftest.mjs
+NODE_PATH=/path/to/test/node_modules node tools/field-instrument-smoke.mjs
+node tools/field-urlbar-selftest.mjs
+node tools/field-reversibility-selftest.mjs
+node scripts/check-release-versions.mjs
+python3 tools/fi-mutation-contract.py --from-git origin/master..HEAD --check
+python3 scripts/check-redaction-aperture.py
+```
+
+`returns/FIELD_INDEX_POSITION_0835_2026-10-20.json` carries bounded component
+observations and source hashes, without claiming global CI success. CURRENT's
+FIELD head and the manifest agree on 0.8.35. The prior recursive verification
+payload folds to its exact immutable Git source + hash; retained evidence links
+remain available. Other heads and active/held fronts remain byte-equivalent as
+JSON values. Existing five-front / QUEUE drift is a separate named residue.
+
+### Successor / bounded worker contract
+
+Use the repository's configured code-capable model. MiMo or another executor is
+replaceable; the host, evidence and acceptance commands decide the result. Start
+with AGENTS → llms → transient transcript. Recover the actual deployed source
+and current PR head before editing. This is a handoff specification, not a new
+queue, model installation or permission to run effects.
+
+One coordinator may assign these three independent **read-only probes**, with
+each worker returning one concrete candidate patch or a source gap. Apply one
+selected patch at a time, re-read native state after RETURN, and keep all writes
+on the existing owning branch/PR until integrated.
+
+| Worker | Exact boundary / first command | Acceptance / stop |
+|---|---|---|
+| Native port | `/docs/`; `node tools/field-stage-handoff.mjs --source /docs/ --json` | Recover one already-supported source/cursor URL or handoff from the reader. Declare it in the existing manifest owner and prove FIELD → reader → exact source/cursor RETURN. No invented default source or source substitution. Stop at `SOURCE_REQUIRED` if unsupported. |
+| Representation | `field-instrument-core.mjs`, `field-instrument.css`, existing browser proof | Falsify one concrete ambiguity at 320px: wrong relation direction, indistinguishable selectable addresses, lost count or extra compulsory activation. Preserve exact source/hold/RETURN and show a before/after task trace. New decorative marks or byte uniqueness alone do not pass. |
+| Corpus adapter | Native archive/index references recovered through `node scripts/emit-agent-transcript.mjs --crystal --json` | Bind actual id/provenance/state/time records to the same pure projection. Declare unknowns and compare enumerated counts with source; reject duplicates and test restore against changed source. Private bytes stay in their native/private boundary. Stop without the real adapter; synthetic rows are not integration. |
+
+Every worker returns: exact source revision, owning host, one changed capability,
+files touched, command/results, falsifier, remaining loss, exact RETURN, then
+`next_authority: NONE`. No branch count, UI resemblance, geometric collision
+test or prose recipe may stand in for executable capability or recognition.
+
+For a known-object execution packet use the existing contract and validator:
+`node tools/crew-turn.mjs <packet.json> --json`. One native move per packet;
+no extra schema or actor identity grants authority. Merge/deployment evidence
+must name the actual source head and the observed live page separately.

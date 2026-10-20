@@ -1517,7 +1517,7 @@ $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();not
 [0,400,1200,2500].forEach(t=>setTimeout(()=>{try{updateStatusRail()}catch(_){}},t));
 function fieldPathTo(href){const out=['/'];let h=href,guard=0,tmp=[];while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}return out.concat(tmp)}
 function fieldUiState(){return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1),presentation:window.FieldPresentation?.state?.()||null}}
-function fieldRestore(st){if(!st)return;window.FieldPresentation?.fit?.('restore');axisScrollMuteUntil=performance.now()+220;Object.values(scrollTimers).forEach(clearTimeout);if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;const restoredMapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);mapMode=restoredMapMode==='PULSE'?'RECENT':restoredMapMode;mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()}
+function fieldRestore(st){if(!st)return;window.FieldPresentation?.fit?.('restore');axisScrollMuteUntil=performance.now()+220;Object.values(scrollTimers).forEach(clearTimeout);if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;else if(Object.prototype.hasOwnProperty.call(st,'focusHref')&&st.focusHref===null)focus=null;const restoredMapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);mapMode=restoredMapMode==='PULSE'?'RECENT':restoredMapMode;mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()}
 function fieldProject(mode){if(mode==='AXIAL_LATEST'){$('mapFold').open=false;document.getElementById('axialLatest')?.scrollIntoView({block:'start'});notifyFieldIndex();return}if(mode==='PULSE')mode='RECENT';if(!['VISUAL','STRUCTURE','EVOLVE','VERSIONS','RECENT'].includes(mode))return;mapMode=mode;$('mapFold').open=true;renderMap();notifyFieldIndex()}
 function fieldDive(){const target=focus?.href;if(!target)return;const path=fieldPathTo(target),i=path.indexOf(mapRoot);if(i>=0&&i<path.length-1)mapRoot=path[i+1];else mapRoot=focus?.parent||'/';mapSelected=target;$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
 function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
@@ -1535,6 +1535,16 @@ window.__fieldAct=Object.freeze({
 });
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),actionSurface:()=>fieldActionSurface()});
+// Read projection + existing local SEEN owner. No second manifest/catch-up store.
+window.FieldIndexReadModel=Object.freeze({
+ entry:()=>({focus:INIT.get('focus'),expression:INIT.get('fi'),native:['lens_proof','ax_state','ax_op','ax_mode'].some(k=>INIT.has(k))}),
+ snapshot:()=>({routes:routes.slice(),heads:(current?.current_heads||[]).map(h=>h.route),
+   seen:{stamp:catchupSeen(),items:catchupItems(),needs:currentHumanGates().map(g=>g.route).filter(Boolean)},canRewind:!!catchupHistory().length}),
+ actions:href=>nativeRouteActions(routeMap().get(href)),
+ openAction:(href,id)=>{const r=routeMap().get(href),a=nativeRouteActions(r).find(x=>x.id===id);if(!r||!a)return false;const u=new URL(a.target,location.href);if(!['http:','https:'].includes(u.protocol))return false;focusRoute(r,true,'OTHER');noteOpen();advanceInto(u.href);return true},
+ seen:href=>{if(href)markRouteCaughtUp(href);else markCaughtUp();notifyFieldIndex()},
+ rewind:()=>{rewindCaughtUp();notifyFieldIndex()}
+});
 })();
 </script>
 <script src="./lib/interphase-field.js"></script>
@@ -1544,4 +1554,5 @@ window.FieldIndexCarrier=Object.freeze({current:()=>fieldCarrierForFocus(),actio
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
+<script type="module" src="./field-instrument.mjs"></script>
 </main></body></html>

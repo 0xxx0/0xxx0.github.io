@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'field-urlbar.js'
+      - 'field-instrument*'
+      - 'fovea-lens.js'
+      - 'tools/field-instrument*'
       - 'field-lens.js'
       - 'lib/field-signal.js'
       - 'field-glyph.js'
@@ -15,6 +18,9 @@ on:
     branches: [master]
     paths:
       - 'field-urlbar.js'
+      - 'field-instrument*'
+      - 'fovea-lens.js'
+      - 'tools/field-instrument*'
       - 'field-lens.js'
       - 'lib/field-signal.js'
       - 'field-glyph.js'
@@ -42,6 +48,16 @@ jobs:
           node --check lib/field-signal.js
       - name: Prove URLbar grammar and authority boundary
         run: node tools/field-urlbar-selftest.mjs
+      - name: Prove counted folding, collisions, delta and exact position
+        run: node tools/field-instrument-selftest.mjs
+      - name: Browser test dependencies (runner temp only)
+        run: |
+          npm install --prefix "$RUNNER_TEMP/field-instrument-test" playwright
+          "$RUNNER_TEMP/field-instrument-test/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Prove instrument on phone and desktop
+        env:
+          NODE_PATH: ${{ runner.temp }}/field-instrument-test/node_modules
+        run: node tools/field-instrument-smoke.mjs
       - name: Prove Hermes bridge remains prepare-safe
         run: node tools/field-hermes-run.mjs --selftest
       - name: Prove root loads URLbar from projection host

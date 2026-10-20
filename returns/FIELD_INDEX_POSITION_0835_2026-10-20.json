@@ -1,0 +1,53 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_POSITION_0835_2026-10-20",
+  "date": "2026-10-20",
+  "state": "COMPONENT_PROVED",
+  "object": "FIELD INDEX 0.8.35 / POSITION + DECLARED WALK",
+  "version": "0.8.35",
+  "predecessor": "/returns/FIELD_INDEX_GLYPH_URLBAR_0834_2026-10-06.json",
+  "source": {
+    "route": "/",
+    "review_base": "8b2351199ce60f99b4d2b273677b797a24b5ea0e"
+  },
+  "operation": "Locate or walk one declared edge → use a native URL → restore exact field frame",
+  "observed": {
+    "registered_routes": 206,
+    "destinations": 205,
+    "executable_native_exits": 6,
+    "native_exit_routes": [
+      "/laconic/",
+      "/prison-age/"
+    ],
+    "viewports": [
+      "320x568",
+      "320x640",
+      "390x844",
+      "430x932",
+      "1280x800"
+    ],
+    "synthetic_collision_records": 40000
+  },
+  "verification": {
+    "core": "PASS · counts, disjoint neighbours, source-order invariance, bounded refinement, exact frames, unknown deltas, lossless text",
+    "browser": "PASS · default entry, touch, spatial walk, native focus, 6 exact exit URLs, OPEN/BACK, reload/RETURN, shared expression, root address, plain fallback",
+    "ci": "UNCLAIMED · inspect exact candidate head; local proof is not CI proof",
+    "native_plain": "PASS · unchanged legacy FIELD acceptance predicate evaluated on real Chromium via Playwright; old CLI process teardown times out equally on untouched master"
+  },
+  "source_sha256": {
+    "field-instrument-core.mjs": "bedbdb5441f999f4961d0fdca84443d578f8c5e085c71484a975207df9ada7f8",
+    "field-instrument.mjs": "3017eecc5ffe81dc8a806e48c6a93d5bbab0327986dafec4f4ce788279900961",
+    "field-instrument.css": "393757781793341b63e4c70bdd5454d78a03f65290bb6fcdae60aca8f006a561",
+    "index.html": "9cebefb7c10ccadaac31c1ffd1df7c1c1bed9186f44854f3f936aa9fc19f3be5",
+    "tools/field-instrument-selftest.mjs": "b6f200d0c328508f168e406d61d8267f1658373cc4ce87f254fb17fa2ee52569",
+    "tools/field-instrument-smoke.mjs": "f2d1e36bce15ff013825ca8447f5e9fdd867643df95b79834ce1837cf31aea88"
+  },
+  "residue": [
+    "CURRENT still declares five active fronts and QUEUE disagrees; untouched master reproduces those gate failures.",
+    "The real 40k archive adapter was not recovered; the collision proof uses synthetic data.",
+    "Wordless relation direction is implemented; human identity recognition and comparative effort remain unmeasured.",
+    "Most native operations are prose-only; no executable target is inferred from them."
+  ],
+  "return_to": "/",
+  "next_authority": "NONE"
+}
