@@ -115,11 +115,11 @@ function audit(){
  return{blocks:all.length,links:all.filter(directSeam).length,issues};
 }
 function roundTrip(){
- const original=mode,faceBefore=face,src=RM.source(),state=RM.snapshot();
+ const original=mode,faceBefore=face,src=RM.source(),state=RM.snapshot(),bindingBefore=JSON.stringify(RM.binding());
  setView('room');setFace('R');setView('plain');setView('rail');
- const equal=src===RM.source(),focusSame=RM.snapshot().focus===state.focus;
+ const equal=src===RM.source(),snapshotSame=JSON.stringify(RM.snapshot())===JSON.stringify(state),bindingSame=JSON.stringify(RM.binding())===bindingBefore;
  face=faceBefore;setView(original);
- return{pass:equal&&focusSame,same_program:equal,same_focus:focusSame,original_view:original,audit:audit()};
+ return{pass:equal&&snapshotSame&&bindingSame,same_program:equal,same_snapshot:snapshotSame,same_binding:bindingSame,original_view:original,audit:audit()};
 }
 let requested=String(new URLSearchParams(location.search).get('view')||'plain').toLowerCase();
 setView(['plain','rail','room'].includes(requested)?requested:'plain');
