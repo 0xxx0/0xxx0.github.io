@@ -68,7 +68,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     </footer>`;
   document.body.appendChild(shell);
   const $=s=>shell.querySelector(s),inline=document.getElementById('labGlyphDoor');
-  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null;
+  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null,carryBusy=false;
   const api=type=>{try{return ports[type]?.contentWindow?.[type==='ride'?'FoldBloomLive':'FoldBloomListen']||null}catch(_){return null}};
   const pause=type=>{try{ports[type]?.contentDocument?.querySelector(type==='ride'?'#trackAudio':'#audio')?.pause()}catch(_){}};
   function create(type){
@@ -127,7 +127,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       $('[data-portal="detail"]').textContent=m?
         (ls.stage+' · '+ev.label+' · '+String(m.hash||'').slice(0,12)):
         'TRY DEMO · LOCAL, OR OPEN AN AUDIO FILE';
-      $('[data-portal="carry"]').disabled=!m?.hash||typeof listen?.sourceFile!=='function';
+      $('[data-portal="carry"]').disabled=carryBusy||!!ls?.sourceLoading||!m?.hash||typeof listen?.sourceFile!=='function';
       const duration=Math.max(0,Number(ls?.map?.duration)||Number(m?.duration)||0),t=Math.min(duration,Math.max(0,Number(ls?.time)||0));
       $('[data-portal="seekWrap"]').hidden=!(duration>0&&m?.hash);
       const slider=$('[data-portal="seek"]');slider.max=String(duration);if(slider!==document.activeElement)slider.value=String(t);
@@ -148,7 +148,9 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     }
   }
   async function carry(){
+    if(carryBusy)return false;
     const listen=api('listen'),s=listen?.state?.(),expected=s?.fileMeta?.hash;
+    if(s?.sourceLoading){announce('SOURCE STILL LOADING · CARRY NOT AUTHORIZED');return false}
     if(!expected||typeof listen?.sourceFile!=='function'){announce('BIND AUDIO IN LISTEN FIRST');return false}
     const file=listen.sourceFile();
     if(!file){announce('SOURCE BYTES UNAVAILABLE · NOTHING TRANSFERRED');return false}
