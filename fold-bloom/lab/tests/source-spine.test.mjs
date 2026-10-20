@@ -48,5 +48,5 @@ test('native APIs are exact-addressed; LAB owns no duplicate engine',()=>{
   const live=readFileSync(new URL('../../live/app.js',import.meta.url),'utf8');
   assert.match(portal,/holdSource\(/);assert.match(portal,/returnToSource\(/);
   assert.match(portal,/native\.source\?\.seek/);assert.match(portal,/\[data-portal="seek"\]/);
-  assert.match(live,/source:\{seek:\(time,hash\)/);
+  assert.match(live,/source:\s*\{\s*seek:\s*\(time,hash\)/);
 });
