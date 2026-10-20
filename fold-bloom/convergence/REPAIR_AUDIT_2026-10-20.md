@@ -31,7 +31,7 @@ A projection is justified if and only if it makes a named action cheaper **and**
 ## Exact acceptance sequence
 **P0 Cold opening (phone-width Chromium):**
 - READ `TRY RSVP` → word units advance at 300 WPM, STOP, regress one unit, source unchanged.
-- LISTEN `TRY DEMO · LOCAL` → exact hash present, preview/analysis playable, no remote service.
+- LISTEN `TRY DEMO · LOCAL` → exact hash present and same-origin Blob bound; honest `AUDIO_ONLY` if browser decoding stalls; hardware audible playback remains unverified.
 - SCALE LENS → sample source navigable and LAB closed initially.
 
 **P1 Cross-host continuation (existing gate, not newly claimed):**
@@ -44,7 +44,7 @@ A projection is justified if and only if it makes a named action cheaper **and**
 - A stale analysis request overwrites newer source, or a handoff silently changes source hash / focus / provenance.
 - On phone, SOURCE/PLAY/MARK/RETURN are unreachable after load.
 - The change requires a new global store, universal event bus, new media provider, AI generation credit, credentials, or unmeasured composition machinery.
-- If the browser smoke fails, **do not merge** or promote the UI as repaired. Return only failure + exact bounded patch.
+- If first-use browser smoke fails, **do not merge** or promote the UI as repaired. Audio output/clock advance on actual hardware is explicitly outside headless CI proof. Return only failure + exact bounded patch.
 
 ## Next highest-return experiment (only if P0 passes)
 Choose one user-owned complete song and one short technical passage; annotate an audible turn, move into LIVE, then use READFIELD to pause and mark a claim. Export a minimal **same-source / same-address / changed-projection / authored-action / RETURN** receipt, measure time-to-first-action and re-entry failures. Judge on actual phone; delete no existing engines until a new representation proves it replaces them.
