@@ -1,4 +1,5 @@
 import {ListenRenderer} from './render.js';
+import {demoWavBytes} from './demo-tone.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from '../../lib/polar-control.js';
 import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
@@ -17,7 +18,7 @@ import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
 import {annotationPacket as buildAnnotationPacket,sourceKeyFromAnnotationPacket,marksFromAnnotationPacket,mergeAnnotationMarks} from './annotations.js';
 
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let loadToken=0,renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 // sticky, matching this host's original behaviour (no auto-hide). 33 call sites unchanged.
@@ -239,7 +240,8 @@ function ensureRenderer(){
   return renderer;
 }
 function onWorkerMessage(e){
-  if(e.data.type==='progress'){status(`REFINING ${Math.round(e.data.progress*100)}%`);return}
+  if(e.data?.requestId!==loadToken)return; // Stale analysis must never overwrite a newer source.
+  if(e.data.type='progress'){status(`REFINING ${Math.round(e.data.progress*100)}%`);return}
   if(e.data.type==='error'){status(map?.stage==='PREVIEW'?'PREVIEW READY · ANALYZER ERROR':'ANALYSIS ERROR');drop.classList.remove('busy');toast(map?'PREVIEW KEPT':'ANALYSIS ERROR');return}
   if(e.data.type==='result'){
     map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
@@ -271,11 +273,17 @@ function sourceLabel(meta){
   if(meta.sourceKind==='REMOTE_AUDIO')return'REMOTE AUDIO';return'LOCAL ONLY';
 }
 async function analyzeBytes(bytes,playbackBlob,meta){
+  const requestId=++loadToken;
   status('DECODING');drop.classList.add('busy');
   const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Web Audio unavailable');
   const hashP=hashHex(bytes.slice(0)),ctx=new AC();
   try{
-    const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
+    const decoded=await Promise.race([
+      ctx.decodeAudioData(bytes.slice(0)),
+      new Promise((_,reject)=>setTimeout(()=>reject(Error('WEB_AUDIO_DECODE_TIMEOUT')),5000))
+    ]),hash=await hashP;
+    if(requestId!==loadToken)return;
+    const {pcm,sampleRate}=mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
     fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,type:meta.type||playbackBlob.type||'audio',hash,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
     fileMeta.bundle=sourceBundleFromMeta(fileMeta);
@@ -294,7 +302,42 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     toast('PREVIEW READY');publishTransport(true);
 
     if(decoded.duration>1200)return;
-    ensureWorker().postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
+    ensureWorker().postMessage({type:'analyze',requestId,pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
+  }catch(error){
+    if(requestId!==loadToken)return;
+    // Decoder failure does not revoke the original audio or source identity.
+    const hash=await hashP;
+    if(objectURL)URL.revokeObjectURL(objectURL);
+    sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
+    let duration=Number(meta.duration)||0;
+    if(bytes.byteLength>=44){
+      const v=new DataView(bytes),head=String.fromCharCode(...new Uint8Array(bytes,0,4)),
+            wave=String.fromCharCode(...new Uint8Array(bytes,8,4)),
+            byteRate=v.getUint32(28,true);
+      if(head==='RIFF'&&wave==='WAVE'&&byteRate>0)duration=(v.getUint32(40,true))/byteRate;
+    }
+    if(!(duration>0)&&Number.isFinite(audio.duration))duration=audio.duration;
+    fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,
+      type:meta.type||playbackBlob.type||'audio',hash,duration,sourceSampleRate:null,analysisError:String(error?.message||error)};
+    fileMeta.bundle=sourceBundleFromMeta(fileMeta);
+    map={version:'fold-bloom-audio-only/v0.1',stage:'AUDIO_ONLY',preview:false,
+      duration,sampleRate:0,frameRate:0,bpm:0,tempoConfidence:0,frames:[],beats:[],phrases:[],
+      sections:[{t:0,score:0},{t:duration,score:0}],source:fileMeta};
+    audio.addEventListener('loadedmetadata',()=>{
+      if(map?.stage!=='AUDIO_ONLY'||fileMeta?.hash!==hash)return;
+      const d=Number(audio.duration);
+      if(Number.isFinite(d)&&d>0){map.duration=d;map.sections[1].t=d;fileMeta.duration=d;publishTransport(true)}
+    },{once:true});
+    $('#track').textContent=fileMeta.name;
+    $('#meta').textContent='SOURCE HASH VERIFIED · PLAYBACK SOURCE ONLY · NO MEASURED BEATS';
+    $('#bpm').textContent='— BPM';$('#confidence').textContent='NOT ANALYZED';
+    $('#key').textContent='— KEY';$('#beats').textContent='— BEATS';
+    $('#phrases').textContent='— PHRASES';$('#sections').textContent='SOURCE ONLY';
+    drop.classList.remove('busy');drop.classList.add('loaded');
+    $('#transport').disabled=false;$('#export').disabled=false;
+    syncPins();updateWorkflow();publishTransport(true);
+    status('AUDIO READY · ANALYSIS UNAVAILABLE · ORIGINAL KEPT');
+    console.warn('LISTEN kept playback after analysis failure',error);
   }finally{await ctx.close().catch(()=>{})}
 }
 async function readTextEvidence(sidecars=[]){
@@ -513,6 +556,13 @@ function openReadfield(){
 }
 
 $('#file').addEventListener('change',e=>loadFiles(e.target.files));
+$('#demoListen').addEventListener('click',async()=>{
+  status('OPENING OFFLINE AUDIO TEST');
+  try{
+    const wav=demoWavBytes();
+    await loadFile(new File([wav],'fold-bloom-diagnostic.wav',{type:'audio/wav'}));
+  }catch(error){console.warn('LISTEN demo unavailable',error);drop.classList.remove('busy');status('DEMO UNAVAILABLE · CHOOSE LOCAL AUDIO')}
+});
 $('#chooseLabel').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#file').click()}});
 $('#urlBtn').addEventListener('click',()=>{const v=$('#urlInput').value.trim();if(v)loadAddress(v)});
 $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#urlBtn').click()}});
@@ -537,7 +587,7 @@ $('#useRide').onclick=()=>{
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
 rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useReplay').onclick=openReplay;$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#useBeat').onclick=()=>{void exportBeatSaberPack().then(ok=>{if(ok)toggleUse(false)})};$('#useSaber').onclick=()=>{if(openSaber())toggleUse(false)};
-$('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
+$('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused){try{await audio.play()}catch(error){status('PLAYBACK BLOCKED · CHECK AUDIO / BROWSER');console.warn('LISTEN play',error)}}else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:annotationPacket(),addressedMessage:addressedReturn(),rideProfile:{...rideProfile}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));

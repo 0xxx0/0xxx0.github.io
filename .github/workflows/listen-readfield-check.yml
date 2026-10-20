@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'lib/interphase-listen.js'
+      - 'fold-bloom/listen/**'
+      - 'fold-bloom/lens/studio-v12.js'
+      - 'docs/index.html'
+      - 'tools/fold-bloom-first-use-contract.test.mjs'
+      - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/interphase-readfield.js'
       - 'lib/readfield-track-sync.js'
       - 'lib/readfield-track-sync.test.mjs'
@@ -12,6 +17,11 @@ on:
     paths:
       - 'lib/interphase-listen.js'
       - 'lib/interphase-readfield.js'
+      - 'fold-bloom/listen/**'
+      - 'fold-bloom/lens/studio-v12.js'
+      - 'docs/index.html'
+      - 'tools/fold-bloom-first-use-contract.test.mjs'
+      - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/readfield-track-sync.js'
       - 'lib/readfield-track-sync.test.mjs'
       - '.github/workflows/listen-readfield-check.yml'
@@ -20,7 +30,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,5 +41,22 @@ jobs:
           node --check lib/interphase-listen.js
           node --check lib/interphase-readfield.js
           node --check lib/readfield-track-sync.js
+          node --check fold-bloom/listen/app.js
+          node --check fold-bloom/listen/analysis-worker.js
+          node --check fold-bloom/lens/studio-v12.js
+          node --check lib/readfield-controls.js
+          node --check tools/fold-bloom-first-use-browser-smoke.mjs
+          node --check fold-bloom/listen/demo-tone.js
+      - name: Prove first-use and source continuity contracts
+        run: |
+          node tools/fold-bloom-first-use-contract.test.mjs
+          node fold-bloom/listen/source-adapters.test.mjs
+          node fold-bloom/listen/stream-lens.test.mjs
       - name: Prove timed cue address mapping
         run: node lib/readfield-track-sync.test.mjs
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Prove phone-width first-use in browser
+        run: node tools/fold-bloom-first-use-browser-smoke.mjs
+

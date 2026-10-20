@@ -22,7 +22,7 @@
   <div class="workflowChain"><b>READ → LOCI → RETURN</b><span>Carry the exact addressed position into LOCI for rehearsal or memory, then return to the same source rather than rebuilding context.</span></div>
 </div>
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
-<div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
+<div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><button id="demoRead" type="button">TRY RSVP</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
@@ -59,6 +59,8 @@ const docs=[
 const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),EB=document.querySelector('#echoBackLink'),C=document.querySelector('#copyView'),MK=document.querySelector('#markHere'),NM=document.querySelector('#nextMark'),RL=document.querySelector('#rideLive'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste'),LF=document.querySelector('#localFile'),SE=document.querySelector('#sourceEcho'),SEL=document.querySelector('#sourceEchoLink'),SEB=document.querySelector('#sourceEchoBasis');
 let activeRaw='',activeUrl=null,activeLabel='',activeTrailIdentity='',sourceEpoch=0,activeEphemeral=false,trailTimer=null,trailPending=null,sourceEchoIndex=null,sourceEchoSourceId='',sourceEchoUrl='',sourceEchoValidatedKey='';
 const READ_RIDE_RETURN='readfield.read-ride.return.v01';
+// One-click first-use specimen; ordinary local source authority, no new storage.
+const READ_DEMO='A source is not a view. Read this short passage at a steady pace. Pause on an important phrase, then move backward without losing your position.\n\nThe same words can be read slowly, spoken aloud, or traversed spatially. The original text remains unchanged. The address is the thing we carry home.';
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
@@ -333,6 +335,7 @@ async function openLocalFile(file){
  catch(e){if(sourceEpoch===epoch)T.textContent='Unavailable local file: '+e.message}
 }
 
+document.getElementById('demoRead')?.addEventListener('click',()=>{openLocalText(READ_DEMO,'READFIELD / FIRST USE','text/plain','TXT',true);A.stop?.();const word=A.scaleIndex?.('WORD');if(Number.isFinite(word))A.setScale?.(word);A.setWpm?.(300);A.toggleRSVP?.()});
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
 async function openSource(n,value){
  const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}const epoch=++sourceEpoch;
@@ -450,7 +453,7 @@ document.querySelectorAll('[data-reader-action]').forEach(b=>b.addEventListener(
   const action=b.dataset.readerAction;setWorkMode(ACTION_MODE[action]||'OPEN');
   if(action==='fast'){
     view='PLAIN';try{localStorage.setItem('readfield.view.v2',view)}catch(_){}applyView();
-    aperture.stop?.();aperture.setWpm?.(900);if(!aperture.snapshot?.()?.playing)aperture.toggleRSVP?.();paintWorkStatus();return;
+    aperture.stop?.();const word=aperture.scaleIndex?.('WORD');if(Number.isFinite(word))aperture.setScale?.(word);aperture.setWpm?.(900);if(!aperture.snapshot?.()?.playing)aperture.toggleRSVP?.();paintWorkStatus();return;
   }
   if(action==='review'){
     view='FOCUS';try{localStorage.setItem('readfield.view.v2',view)}catch(_){}applyView();
@@ -479,4 +482,4 @@ aperture.addEventListener('aperture-focus',e=>{
   fieldPulse.publish('focus',{scale:snap.scale,index:snap.index,address:snap.address,sourceProgress:snap.source_progress,wpm:snap.wpm,playing:snap.playing,speaking:snap.speaking,label:snap.label});
 });
 applyView();setWorkMode(workMode);apply();paint();setInterval(paint,1000);
-</script></body></html>
+</script><script src="../lib/readfield-controls.js"></script></body></html>
