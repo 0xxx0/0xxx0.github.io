@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T01:19:37.133Z",
+  "generated": "2026-10-20T02:21:36.807Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,14 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-20",
-  "commits_in_window": 2,
-  "git_commits_in_window": 32,
-  "telemetry_commits_in_window": 30,
-  "commits_total": 6175,
-  "branch_count": 1030,
+  "commits_in_window": 9,
+  "git_commits_in_window": 44,
+  "telemetry_commits_in_window": 35,
+  "commits_total": 6187,
+  "branch_count": 1031,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "epic10: ten instruments built overnight (oracle/room0/dawn/attention/tokipona/"
+    "FIELD 0.8.35: one position bar and declared native walk",
+    "Merge current master refreshes into FIELD 0.8.35"
   ],
   "active_fronts": [
     {
@@ -47,5 +48,5 @@
   ],
   "live_fronts": "2/2",
   "current_heads": 12,
-  "current_updated": "2026-10-18T16:45:00+08:00"
+  "current_updated": "2026-10-20T09:43:14+08:00"
 }
