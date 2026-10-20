@@ -109,6 +109,8 @@ function status(text,tone=''){
  if(!root)return;root.dataset.tone=tone||'';const s=root.querySelector('[data-omni-status]');if(s)s.textContent=text||'';
 }
 function emit(detail){window.dispatchEvent(new CustomEvent('field-omnibar',{detail:Object.freeze({...detail,authority:'NONE'})}))}
+function tap(id,label){const el=document.getElementById(id);if(!el){status(label+' unavailable','bad');return false}el.click();return true}
+function reveal(id){const el=document.getElementById(id);if(!el)return;el.scrollIntoView({block:'start',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches?'instant':'smooth'})}
 function shellEscape(s){return "'"+String(s).replaceAll("'","'\\''")+"'"}
 async function copyText(text,label){
  try{await navigator.clipboard.writeText(text);status(label||'COPIED','ok');return true}catch(_){prompt(label||'Copy:',text);return false}
@@ -136,30 +138,52 @@ async function execute(command,href,reason='operator'){
  if(entry?.nav){emit({command:cmd,target:entry.nav,reason});location.assign(entry.nav);return}
  if(entry?.copy){const ok=await copyText(entry.copy,cmd.toUpperCase()+' URL COPIED');if(ok)emit({command:cmd,target:entry.copy,reason});syncAddress();return}
  if(cmd==='root'){emit({command:cmd,target:'/',reason});location.assign('/');return}
- if(target&&target!=='/'&&act?.focus)act.focus(target);
- if(target==='/'&&cmd==='hold'){zui?.close?.(zsrc);status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
+ if(['hold','work','prove','open','read','trace'].includes(cmd)&&target&&target!=='/'&&act?.focus)act.focus(target);
+ if(target==='/'&&cmd==='hold'){if(!zui?.close){status('HOLD unavailable','bad');return}await zui.close(zsrc);status('HOLD · /','ok');syncAddress();emit({command:cmd,target,reason});return}
  switch(cmd){
-  case'hold':await zui?.close?.(zsrc);status('HOLD · '+target,'ok');break;
-  case'work':await zui?.open?.('WORK',zsrc);status('WORK · '+target,'ok');break;
-  case'prove':await zui?.open?.('PROVE',zsrc);status('PROVE · '+target,'ok');break;
+  case'hold':if(!zui?.close){status('HOLD unavailable','bad');return}await zui.close(zsrc);status('HOLD · '+target,'ok');break;
+  case'work':if(!zui?.open){status('WORK unavailable','bad');return}await zui.open('WORK',zsrc);reveal('workDepth');status('WORK · '+target,'ok');break;
+  case'prove':if(!zui?.open){status('PROVE unavailable','bad');return}await zui.open('PROVE',zsrc);reveal('refineFold');status('PROVE · '+target,'ok');break;
   case'open':if(target==='/'||!act?.open){status('OPEN unavailable','bad');return}act.open(target);break;
-  case'handoff':document.getElementById('apCopy')?.click();status('HANDOFF · copied existing action packet','ok');break;
+  case'handoff':if(!tap('apCopy','HANDOFF'))return;status('HANDOFF · existing packet action invoked','ok');break;
   case'run':{
    const commandLine='node tools/field-hermes-run.mjs --source '+shellEscape(target);
-   await copyText(commandLine,'HERMES PREP COPIED');break;
+   if(!await copyText(commandLine,'HERMES PREP COPIED'))return;break;
   }
-  case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else status('HEADS · needs the FIELD:// line','bad');break}
-  case'fovea':document.getElementById('foveaToggle')?.click();status('FOVEA · '+target,'ok');break;
-  case'instrument':window.FieldInstrument?.enter?.();status('INSTRUMENT','ok');break;
-  case'theme':document.getElementById('fiTheme')?.click();status('THEME','ok');break;
-  case'trace':document.getElementById('apTrace')?.click();status('TRACE · '+target,'ok');break;
-  case'read':document.getElementById('apInspect')?.click();status('READ · '+target,'ok');break;
-  case'map':host?.project?.('VISUAL');status('MAP · '+target,'ok');break;
-  case'recent':host?.project?.('RECENT');status('RECENT · '+target,'ok');break;
-  case'up':host?.rise?.();status('RISE','ok');break;
-  case'down':host?.dive?.();status('DIVE','ok');break;
-  case'prev':host?.peer?.(-1);status('PEER ←','ok');break;
-  case'next':host?.peer?.(1);status('PEER →','ok');break;
+  case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else{status('HEADS · needs the FIELD:// line','bad');return}break}
+  case'fovea':if(!tap('foveaToggle','FOVEA'))return;status('FOVEA · '+target,'ok');break;
+  case'instrument':
+   if(!window.FieldInstrument?.enter){status('INSTRUMENT unavailable','bad');return}
+   await window.FieldInstrument.enter();status('INSTRUMENT','ok');break;
+  case'plain':
+   if(window.FieldInstrument?.active?.())window.FieldInstrument.exit();
+   status('PLAIN · native FIELD','ok');break;
+  case'axis':{
+   // Native axial filters; perspective never masquerades as additional data.
+   if(window.FieldInstrument?.active?.())window.FieldInstrument.exit();
+   const axis=document.getElementById('axialLatest');
+   if(!axis){status('AXIS unavailable','bad');return}
+   const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+   axis.scrollIntoView({block:'start',behavior:reduced?'instant':'smooth'});
+   status('AXIS · native coordinates','ok');break
+  }
+  case'turn':{
+   const fi=window.FieldInstrument;
+   if(!fi?.enter||!fi?.turn){status('TURN unavailable','bad');return}
+   if(!fi.active())await fi.enter();
+   if(!fi.turn()){status('TURN unavailable','bad');return}
+   const n=fi.snapshot()?.frame?.turn;
+   status('TURN · '+(Number(n)+1)+'/4 · same objects','ok');break
+  }
+  case'theme':if(!tap('fiTheme','THEME'))return;status('THEME','ok');break;
+  case'trace':if(!tap('apTrace','TRACE'))return;status('TRACE · '+target,'ok');break;
+  case'read':if(!tap('apInspect','READ'))return;status('READ · '+target,'ok');break;
+  case'map':if(typeof host?.project!=='function'){status('MAP unavailable','bad');return}host.project('VISUAL');status('MAP · '+target,'ok');break;
+  case'recent':if(typeof host?.project!=='function'){status('RECENT unavailable','bad');return}host.project('RECENT');status('RECENT · '+target,'ok');break;
+  case'up':if(!host?.rise){status('RISE unavailable','bad');return}host.rise();status('RISE','ok');break;
+  case'down':if(!host?.dive){status('DIVE unavailable','bad');return}host.dive();status('DIVE','ok');break;
+  case'prev':if(!host?.peer){status('PEER ← unavailable','bad');return}host.peer(-1);status('PEER ←','ok');break;
+  case'next':if(!host?.peer){status('PEER → unavailable','bad');return}host.peer(1);status('PEER →','ok');break;
   case'reset':window.FieldPalette?.reset?.();if(window.FieldURLBar&&typeof window.FieldURLBar.focus==='function')window.FieldURLBar.focus('');status('RANKING RESET','ok');break;
   default:status('UNKNOWN · '+cmd,'bad');return;
  }
@@ -216,8 +240,8 @@ function css(){
 #fieldOmnibar{position:sticky;top:max(0px,env(safe-area-inset-top));z-index:80;margin:0 0 7px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(13px);box-shadow:0 10px 30px rgba(0,0,0,.18)}
 .fieldOmniLine{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;min-height:34px}.fieldOmniSigil{display:grid;place-items:center;height:100%;border-right:1px solid var(--line);color:var(--hot);font-size:13px;font-weight:800}.fieldOmniInput{width:100%;min-width:0;height:32px;border:0;background:transparent!important;padding:0 9px;outline:0;font-size:9px;letter-spacing:.02em}.fieldOmniInput::selection{background:var(--cool);color:var(--bg)}
 .fieldOmniKeys{display:flex;height:100%;border-left:1px solid var(--line)}.fieldOmniKeys button{min-width:29px;height:32px;padding:0 7px;border:0;border-left:1px solid color-mix(in srgb,var(--line) 65%,transparent);background:transparent;color:var(--mut);font-size:11px}.fieldOmniKeys button:hover,.fieldOmniKeys button:focus-visible{color:var(--ink);background:var(--p2)}.fieldOmniKeys button[data-command="work"]{color:var(--cool)}.fieldOmniKeys button[data-command="prove"]{color:var(--gold)}.fieldOmniKeys button[data-command="open"]{color:var(--hot)}
-.fieldOmniStatus{position:absolute;right:5px;top:100%;margin-top:2px;color:var(--mut);font-size:5.5px;letter-spacing:.08em;pointer-events:none}.fieldOmniResults{position:absolute;left:-1px;right:-1px;top:100%;border:1px solid var(--line);border-top:0;background:var(--bg);box-shadow:0 16px 36px rgba(0,0,0,.34);max-height:min(58vh,360px);overflow:auto}.fieldOmniResults:empty{display:none}#fieldOmnibar[data-open="0"] .fieldOmniResults{display:none}
-.fieldOmniResults button{width:100%;display:grid;grid-template-columns:32px minmax(0,1fr) minmax(80px,34%) 24px;align-items:center;gap:7px;text-align:left;padding:6px 8px;border:0;border-bottom:1px solid #1d2529;background:var(--bg)}.fieldOmniResults button:last-child{border-bottom:0}.fieldOmniResults button[aria-selected="true"]{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldOmniResults i{font-style:normal;color:var(--gold);font-size:10px;text-align:center}.fieldOmniResults span{min-width:0}.fieldOmniResults b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:8px}.fieldOmniResults small{display:block;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:5.8px;margin-top:1px}.fieldOmniResults code{color:var(--cool);font-size:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldOmniResults em{font-style:normal;color:var(--hot);text-align:center}.fieldOmniEmpty{padding:9px;color:var(--mut);font-size:7px}
+.fieldOmniStatus{position:absolute;right:5px;top:100%;margin-top:2px;color:var(--mut);font-size:10px;letter-spacing:.02em;pointer-events:none;padding:2px 6px;background:var(--p);border:1px solid var(--line);z-index:2}.fieldOmniResults{position:absolute;left:-1px;right:-1px;top:100%;border:1px solid var(--line);border-top:0;background:var(--bg);box-shadow:0 16px 36px rgba(0,0,0,.34);max-height:min(58vh,360px);overflow:auto}.fieldOmniResults:empty{display:none}#fieldOmnibar[data-open="0"] .fieldOmniResults{display:none}
+.fieldOmniStatus:empty{display:none}#workDepth,#refineFold{scroll-margin-top:80px}.fieldOmniResults button{width:100%;display:grid;grid-template-columns:32px minmax(0,1fr) minmax(80px,34%) 24px;align-items:center;gap:7px;text-align:left;padding:6px 8px;border:0;border-bottom:1px solid #1d2529;background:var(--bg)}.fieldOmniResults button:last-child{border-bottom:0}.fieldOmniResults button[aria-selected="true"]{background:var(--p2);box-shadow:inset 2px 0 0 var(--hot)}.fieldOmniResults i{font-style:normal;color:var(--gold);font-size:10px;text-align:center}.fieldOmniResults span{min-width:0}.fieldOmniResults b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:8px}.fieldOmniResults small{display:block;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:5.8px;margin-top:1px}.fieldOmniResults code{color:var(--cool);font-size:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fieldOmniResults em{font-style:normal;color:var(--hot);text-align:center}.fieldOmniEmpty{padding:9px;color:var(--mut);font-size:7px}
 #fieldOmnibar[data-tone="ok"]{border-color:color-mix(in srgb,var(--green) 55%,var(--line))}#fieldOmnibar[data-tone="bad"]{border-color:var(--bad)}#fieldOmnibar[data-depth="WORK"] .fieldOmniSigil{color:var(--cool)}#fieldOmnibar[data-depth="PROVE"] .fieldOmniSigil{color:var(--gold)}
 #fieldOmnibarKeys[data-tone="ok"]{box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--green) 70%,transparent)}
 #fieldOmnibarKeys[data-tone="bad"]{box-shadow:inset 0 -2px 0 var(--bad)}
@@ -226,19 +250,19 @@ function css(){
    rides the SAME line instead of a second bar. */
 #fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 30px minmax(0,1fr) auto auto auto}
 html[data-theme="light"] #fieldOmnibar,html[data-theme="light"] .fieldOmniResults,html[data-theme="light"] .fieldOmniResults button{background:color-mix(in srgb,var(--bg) 95%,white)}
-@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 34px minmax(0,1fr) auto auto auto}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}.fieldOmniStatus{display:none}}
+@media(max-width:760px){#fieldOmnibar{margin-bottom:6px}.fieldOmniLine{grid-template-columns:30px minmax(0,1fr) auto;min-height:40px}.fieldOmniInput{height:38px;font-size:12px}.fieldOmniKeys button{height:38px;min-width:32px;font-size:13px}.fieldOmniKeys button:nth-child(n+5){display:none}#fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 34px minmax(0,1fr) auto auto auto}.fieldOmniResults button{grid-template-columns:28px minmax(0,1fr) minmax(72px,38%) 20px;padding:8px}.fieldOmniResults b{font-size:10px}.fieldOmniResults small,.fieldOmniResults code{font-size:8px}#fieldUrlBar .fieldOmniKeys button:not([data-command="help"]){display:none}#fieldUrlBar .fieldOmniKeys button[data-command="help"]{display:block}.fieldOmniStatus{display:block;font-size:10px;letter-spacing:0;right:3px;white-space:nowrap;background:var(--p);padding:1px 4px;z-index:2}}
 @media(prefers-reduced-motion:reduce){#fieldOmnibar *{scroll-behavior:auto!important}}
  `;document.head.appendChild(s)
 }
 function markup(){
  const el=document.createElement('section');el.id='fieldOmnibar';el.dataset.open='0';el.dataset.depth='HOLD';el.setAttribute('aria-label','FIELD omnibar');
- const visible=['hold','work','prove','open','return','handoff','run'];
- el.innerHTML='<div class="fieldOmniLine"><span class="fieldOmniSigil" data-omni-sigil>Φ</span><input class="fieldOmniInput" data-omni-input aria-label="Address FIELD object or enter command" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="search"><div class="fieldOmniKeys">'+visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'</div></div><div class="fieldOmniResults" data-omni-results role="listbox"></div><div class="fieldOmniStatus" data-omni-status></div>';
+ const visible=['hold','work','prove','open','return','handoff','run','help'];
+ el.innerHTML='<div class="fieldOmniLine"><span class="fieldOmniSigil" data-omni-sigil>Φ</span><input class="fieldOmniInput" data-omni-input aria-label="Address FIELD object or enter command" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="search"><div class="fieldOmniKeys">'+visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'</div></div><div class="fieldOmniResults" data-omni-results role="listbox"></div><div class="fieldOmniStatus" data-omni-status role="status" aria-live="polite"></div>';
  return el
 }
 function keysMarkup(){
- const visible=['hold','work','prove','open','return','handoff','run'];
- return visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'<div class="fieldOmniStatus" data-omni-status></div>';
+ const visible=['hold','work','prove','open','return','handoff','run','help'];
+ return visible.map(id=>{const c=COMMAND_BY_ID.get(id);return c?'<button type="button" data-command="'+c.id+'" title="'+c.label+' · '+c.hint+'" aria-label="'+c.label+'">'+c.glyph+'</button>':''}).join('')+'<div class="fieldOmniStatus" data-omni-status role="status" aria-live="polite"></div>';
 }
 function wireKeys(node){node.querySelectorAll('[data-command]').forEach(b=>b.onclick=()=>execute(b.dataset.command,focusHref()||'/','glyph'))}
 /* FOLD — exactly ONE route-control line. The FIELD URLbar owns the line: its

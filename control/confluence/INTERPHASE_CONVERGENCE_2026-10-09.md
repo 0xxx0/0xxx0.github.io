@@ -505,3 +505,13 @@ vocabulary. If motion does not convey entry, correct the selected-origin camera
 before adding gestures. The native-reader task above remains the next capability
 integration, not another style pass. Real corpus, semantic spatial embedding and
 wordless identity remain unresolved. `next_authority: NONE`.
+
+Publication reconciliation: master `b95b7bc` repaired native plain commands,
+address arguments, HELP/AXIS and bounded yaw/scale during this work. Its parser,
+owner dispatch and browser cases are retained. The aperture camera composes
+that yaw/scale rather than resetting the plane to a different transform at the
+end of flight. No alternate command table or camera state was added.
+The native HANDOFF validator matched the old inline click spelling and failed
+after b95b7bc introduced its fail-closed shared tap helper. Its browser proof now
+spies on the native packet owner: one call when present, no success event when
+absent. The stale spelling assertion was removed in favor of that behavior check.

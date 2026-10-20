@@ -205,6 +205,38 @@ try{
     await cmd(':plain');await page.reload();
     assert.equal(await page.locator('html[data-instrument="1"]').count(),0,'explicit plain mode must survive reload');
     await page.waitForSelector('#fieldUrlInput');
+    // The operator's actual plain view is a first-class command surface, not
+    // merely an escape hatch for the new instrument.
+    const plain=page.locator('#fieldUrlInput');
+    const issue=async phrase=>{await plain.fill(phrase);await plain.press('Enter')};
+    await issue(':work /house/');
+    await page.waitForFunction(()=>FieldZUI.state()==='WORK');
+    assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),'/house/','leading address command must hold the exact source');
+    assert.equal(await page.locator('#workDepth').evaluate(n=>n.open),true,'WORK must actually open its native host');
+    await page.evaluate(()=>{window.__omniProof=[];window.addEventListener('field-omnibar',e=>window.__omniProof.push(e.detail))});
+    await issue(':prove /missing-native-route/');
+    assert.equal(await page.evaluate(()=>FieldZUI.state()),'WORK','invalid explicit route must fail closed');
+    assert.equal(await page.evaluate(()=>window.__omniProof.length),0,'invalid addressed command must not emit success');
+    await issue(':prove /house/');
+    await page.waitForFunction(()=>FieldZUI.state()==='PROVE');
+    assert.equal(await page.locator('#refineFold').evaluate(n=>n.open),true,'PROVE must reveal native evidence');
+    // Spy on the existing owner boundary, without copying a packet/clipboard.
+    await page.evaluate(()=>{const node=document.getElementById('apCopy');window.__handoffProbe={node,parent:node.parentNode,next:node.nextSibling,click:node.onclick};window.__handoffCalls=0;node.onclick=()=>window.__handoffCalls++});
+    await issue(':handoff');assert.equal(await page.evaluate(()=>window.__handoffCalls),1,'HANDOFF must invoke the native packet action once');
+    const handoffEvents=await page.evaluate(()=>window.__omniProof.length);
+    await page.evaluate(()=>__handoffProbe.node.remove());await issue(':handoff');
+    assert.equal(await page.evaluate(()=>window.__omniProof.length),handoffEvents,'missing native HANDOFF must not emit success');
+    await page.evaluate(()=>{const p=__handoffProbe;p.node.onclick=p.click;p.parent.insertBefore(p.node,p.next);delete window.__handoffProbe});
+    await issue(':axis');
+    assert.equal(await page.locator('#axialLatest').isVisible(),true,'AXIS must expose real axis rows');
+    await issue(':help');
+    assert.equal(await page.locator('#fieldUrlPanel:not([hidden])').count(),1,'plain HELP must open command registry');
+    if(width<760)assert.equal(await page.locator('#fieldOmnibarKeys [data-command="help"]').isVisible(),true,'one discoverable mobile help affordance');
+    await issue(':turn');
+    await page.waitForSelector('html[data-instrument="1"]');
+    const angle=await page.evaluate(()=>FieldInstrument.snapshot().frame.turn);
+    assert.equal(Number.isInteger(angle),true,'TURN must resolve to a retained camera state');
+    await cmd(':plain');await page.waitForSelector('html:not([data-instrument="1"])');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
     await page.goto(base+'/?focus=/');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,null,'explicit root address must clear saved native and projected focus');

@@ -27,22 +27,23 @@ function commit(next,{native=false}={}){
   if(native&&held())window.__fieldAct?.focus(held().address);
   remember();render();
 }
+function camera(){return `rotateX(${plane.style.getPropertyValue('--fi-tilt')||'0deg'}) rotateY(${plane.style.getPropertyValue('--fi-yaw')||'0deg'}) scale(${plane.style.getPropertyValue('--fi-scale')||'1'})`}
 function stopFlight(){flights.forEach(a=>a.cancel());flights=[];root?.querySelectorAll('.fiTransit').forEach(n=>n.remove());if(plane)plane.style.pointerEvents=''}
 function travel(next,{foldId,reverse=false,native=false}={}){
   if(matchMedia('(prefers-reduced-motion:reduce)').matches){commit(next,{native});return}
   stopFlight();
-  const past=plane.cloneNode(true),priorTilt=plane.style.getPropertyValue('--fi-tilt');
+  const past=plane.cloneNode(true),priorCamera=camera();
   let target=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===foldId);
   let box=target?.getBoundingClientRect(),bounds=plane.getBoundingClientRect();
   commit(next,{native});
   if(reverse){target=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===foldId);box=target?.getBoundingClientRect();bounds=plane.getBoundingClientRect()}
   const dx=box?box.x+box.width/2-bounds.x-bounds.width/2:0,dy=box?box.y+box.height/2-bounds.y-bounds.height/2:0;
-  past.removeAttribute('id');past.classList.add('fiTransit');past.inert=true;past.setAttribute('aria-hidden','true');past.style.setProperty('--fi-tilt',priorTilt);
+  past.removeAttribute('id');past.classList.add('fiTransit');past.inert=true;past.setAttribute('aria-hidden','true');
   past.innerHTML=past.innerHTML.replaceAll('fiGrain','fiPastGrain');
   $('#fiField').append(past);plane.style.pointerEvents='none';
-  const rest=`rotateX(${plane.style.getPropertyValue('--fi-tilt')})`,small=`translate(${dx}px,${dy}px) translateZ(-140px) scale(.28) rotateY(12deg)`,large=`translate(${-dx*3}px,${-dy*3}px) translateZ(170px) scale(3.2) rotateY(-10deg)`;
+  const rest=camera(),small=`translate(${dx}px,${dy}px) translateZ(-140px) scale(.28) rotateY(12deg)`,large=`translate(${-dx*3}px,${-dy*3}px) translateZ(170px) scale(3.2) rotateY(-10deg)`;
   const timing={duration:440,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'};
-  const a=past.animate(reverse?[{opacity:1,transform:'rotateX('+priorTilt+')'},{opacity:0,transform:small}]:[{opacity:1,transform:'rotateX('+priorTilt+')'},{opacity:0,transform:large}],timing);
+  const a=past.animate(reverse?[{opacity:1,transform:priorCamera},{opacity:0,transform:small}]:[{opacity:1,transform:priorCamera},{opacity:0,transform:large}],timing);
   const b=plane.animate(reverse?[{opacity:0,transform:large},{opacity:1,transform:rest}]:[{opacity:0,transform:small},{opacity:1,transform:rest}],timing);
   flights=[a,b];b.finished.then(()=>{if(flights.includes(b))stopFlight()}).catch(()=>{});
 }
@@ -189,7 +190,7 @@ function command(op){
       // One native command registry/dispatcher; no shadow implementation of tools.
       const native=window.FieldURLBarCore?.resolveCommand?.(op);
       if(native&&native!=='instrument'){
-        remember();if(['work','prove','read','trace','fovea','map','recent','up','down','hold'].includes(native))exit();
+        remember();if(['work','prove','read','trace','fovea','map','recent','up','down','hold','axis'].includes(native))exit();
         window.FieldOmnibar?.execute?.(native,held()?.address||'/','instrument');return;
       }
       notice('Unknown command. Tap the coordinate to reveal operations.');
@@ -268,6 +269,8 @@ function render(){
   view=C.project(rows,state,seen);
   plane.style.setProperty('--fi-tilt',[0,-12,-24,-34][state.turn]+'deg');
   const single=state.mode!=='RELATIONS'&&view.inside===1&&!!view.folds[0]?.object;plane.dataset.detail=single?'1':'0';
+  plane.style.setProperty('--fi-yaw',state.mode==='RELATIONS'?'0deg':[0,-5,0,5][state.turn]+'deg');
+  plane.style.setProperty('--fi-scale',state.mode==='RELATIONS'?'1':'.92');
   const tags=C.addressTags(view.folds.map(g=>g.object).filter(Boolean));
   const places=C.placements(view),walking=state.mode==='RELATIONS'&&held();
   const edges=view.folds.map((g,i)=>{
@@ -309,8 +312,16 @@ function key(e){
   }
   if(e.key==='Enter'&&typing){
     e.preventDefault();e.stopImmediatePropagation();const q=e.target.value.trim();
-    if(q.startsWith(':')){command(q.slice(1).trim());return true}
     const parsed=window.FieldURLBarCore.parse(q);
+    if(parsed.mode==='COMMAND'){
+      if(parsed.command){
+        const target=parsed.query&&rows.find(r=>r.address===parsed.query||r.id===parsed.query);
+        if(parsed.query&&!target){notice('Exact native command target required');return true}
+        if(target)commit(C.locate(state,target),{native:true});
+        command(parsed.command);return true
+      }
+      command(parsed.query||'help');return true
+    }
     if(parsed.mode==='RISE'){command('up');return true}
     if(parsed.command){
       const target=parsed.query&&rows.find(r=>r.address===parsed.query||r.id===parsed.query);
@@ -348,6 +359,7 @@ async function load(){
 function boot(){
   if(location.pathname!=='/')return;
   window.FieldInstrument=Object.freeze({enter,exit,edit,active:()=>enabled,address,key,
+    turn:()=>{if(!enabled)return false;command('turn');return true},
     snapshot:()=>({frame:C.frame(state),anchor:C.frame(anchor),view:view&&{total:view.total,inside:view.inside,outside:view.outside,counts:view.folds.map(g=>g.count)}})});
   window.addEventListener('field-index:state',()=>load());
   let attempts=0;
