@@ -23,7 +23,7 @@
 </div>
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><button id="demoRead" type="button">TRY RSVP</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
-<div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
+<div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <button id="jsonProjection" type="button" hidden>STRUCT</button> <a id="wristLink" href="/rsvp/">WRIST ↗</a> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
@@ -59,6 +59,29 @@ const docs=[
 const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),EB=document.querySelector('#echoBackLink'),C=document.querySelector('#copyView'),MK=document.querySelector('#markHere'),NM=document.querySelector('#nextMark'),RL=document.querySelector('#rideLive'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste'),LF=document.querySelector('#localFile'),SE=document.querySelector('#sourceEcho'),SEL=document.querySelector('#sourceEchoLink'),SEB=document.querySelector('#sourceEchoBasis');
 let activeRaw='',activeUrl=null,activeLabel='',activeTrailIdentity='',sourceEpoch=0,activeEphemeral=false,trailTimer=null,trailPending=null,sourceEchoIndex=null,sourceEchoSourceId='',sourceEchoUrl='',sourceEchoValidatedKey='';
 const READ_RIDE_RETURN='readfield.read-ride.return.v01';
+const JP=document.getElementById('jsonProjection'),WL=document.getElementById('wristLink');
+let activeJson=null,jsonTree=false,readFocus=null;
+function asJson(s){try{const v=JSON.parse(s);return v&&typeof v==='object'?v:null}catch(_){return null}}
+function loadProjection(value,opt){
+ activeJson=value&&typeof value==='object'?value:null;jsonTree=false;readFocus=null;
+ JP.hidden=!activeJson;JP.textContent='STRUCT';
+ if(activeJson){
+   const fmt={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
+   delete fmt.address;A.load(activeRaw,fmt);
+ }else A.load(value,opt)
+}
+JP.onclick=()=>{
+ if(!activeJson)return;
+ const snap=A.snapshot?.()||{};A.stop?.();
+ if(!jsonTree){readFocus=snap;A.load(activeJson,{label:activeLabel,scale:'ROOT',wpm:snap.wpm});jsonTree=true;JP.textContent='READ JSON'}
+ else{A.load(activeRaw,{label:activeLabel,format:'TXT',scale:readFocus?.scale||'WORD',charIndex:readFocus?.char_index??0,wpm:snap.wpm});jsonTree=false;JP.textContent='STRUCT'}
+};
+WL.onclick=()=>{
+ const q=new URLSearchParams();
+ if(activeUrl)q.set('src',activeUrl.pathname+activeUrl.search);
+ else if(activeRaw){try{sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({label:activeLabel,raw:activeRaw}))}catch(_){}q.set('handoff','1')}
+ WL.href='/rsvp/'+(q.size?'?'+q.toString():'');
+};
 // One-click first-use specimen; ordinary local source authority, no new storage.
 const READ_DEMO='A source is not a view. Read this short passage at a steady pace. Pause on an important phrase, then move backward without losing your position.\n\nThe same words can be read slowly, spoken aloud, or traversed spatially. The original text remains unchanged. The address is the thing we carry home.';
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
@@ -315,7 +338,7 @@ function openPaste(text=PT.value,label='PASTE / SESSION',format='AUTO',exactId='
  activeRaw=s;activeUrl=null;activeLabel=label;activeTrailIdentity=normalizeExactId(exactId);activeEphemeral=true;H.textContent=label;R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.delete('local');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
- const opt=apertureOptions(label,s,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(s,opt);syncCopyMode();void finishTrailIdentity(epoch,s,exactId);queueMicrotask(()=>{void acceptReadRideReturn()})
+ const opt=apertureOptions(label,s,format);firstLoad=false;A.setGlyphWitness?.(null);loadProjection(asJson(s)||s,opt);syncCopyMode();void finishTrailIdentity(epoch,s,exactId);queueMicrotask(()=>{void acceptReadRideReturn()})
 }
 function localFormat(name=''){
  if(/\.md|\.markdown$/i.test(name))return'MD';if(/\.txt|\.log|\.csv|\.ya?ml$/i.test(name))return'TXT';return'AUTO'
@@ -326,7 +349,7 @@ function openLocalText(raw,name='LOCAL FILE',type='',format=localFormat(name),re
  activeRaw=out;activeUrl=null;activeLabel=name;activeTrailIdentity=normalizeExactId(exactId);activeEphemeral=true;H.textContent=name+' · LOCAL';R.hidden=true;T.textContent=out;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  if(remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format,exactId:activeTrailIdentity}))}catch(_){}}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.delete('paste');q.set('local','1');history.replaceState(null,'','?'+q.toString()+'#'+slug(name));
- const opt=apertureOptions(name,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncCopyMode();
+ const opt=apertureOptions(name,value,format);firstLoad=false;A.setGlyphWitness?.(null);loadProjection(value,opt);syncCopyMode();
  void finishTrailIdentity(epoch,s,exactId).then(id=>{if(id&&remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format,exactId:id}))}catch(_){}}});queueMicrotask(()=>{void acceptReadRideReturn()})
 }
 async function openLocalFile(file){
@@ -343,7 +366,7 @@ async function openSource(n,value){
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
    const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;activeTrailIdentity='';activeEphemeral=false;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncAddress(u,n);syncCopyMode();void finishTrailIdentity(epoch,out);queueMicrotask(()=>{sourceEchoRender(A.snapshot?.());void acceptReadRideReturn()});
+   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;activeTrailIdentity='';activeEphemeral=false;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.setGlyphWitness?.(null);loadProjection(value,opt);syncAddress(u,n);syncCopyMode();void finishTrailIdentity(epoch,out);queueMicrotask(()=>{sourceEchoRender(A.snapshot?.());void acceptReadRideReturn()});
  }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
@@ -452,6 +475,7 @@ function apply(){
 document.querySelectorAll('[data-reader-action]').forEach(b=>b.addEventListener('click',()=>{
   const action=b.dataset.readerAction;setWorkMode(ACTION_MODE[action]||'OPEN');
   if(action==='fast'){
+    if(aperture.A?.kind==='JSON')document.getElementById('jsonProjection')?.click();
     view='PLAIN';try{localStorage.setItem('readfield.view.v2',view)}catch(_){}applyView();
     aperture.stop?.();const word=aperture.scaleIndex?.('WORD');if(Number.isFinite(word))aperture.setScale?.(word);aperture.setWpm?.(900);if(!aperture.snapshot?.()?.playing)aperture.toggleRSVP?.();paintWorkStatus();return;
   }
