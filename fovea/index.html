@@ -4,15 +4,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FOVEA — one field · every surface</title>
-<!-- FOVEA v0.2 — one-field access surface. Projection-only: marks are a curated reading over the public field; OPEN hands off to native routes; no second store, no priority, no mutation authority. Born from the Hermes-side field prototype, 2026-09-27. -->
+<!--
+  FOVEA 0.4 — MEASURED PROJECTION (2026-10-20)
+  Replaces the 0.3 seeded scatter. See DESIGN-0.4.md beside this file.
+
+  LAW (from fovea-lens.js, first screenful): THE SIGNAL IS MEASURED, NOT SEEDED.
+  A hash may ORIENT a figure, never INVENT one. 0.3 broke this — `mulberry32(42)`
+  invented every x/y, so the picture carried no information and read as clutter.
+  Every dimension below reduces to a real field of a real route in the manifest:
+
+      radius  <- parent depth          (63/90/39/1 at depth 0/1/2/3)
+      sector  <- family                (~50 constellations)
+      alpha   <- index.updated_at      (real recency)
+      size    <- child count           (counted from parent links)
+      glyph   <- state                 (live/wait/park)
+      jitter  <- hash(href)            ORIENTS only — the one lawful seeded value
+
+  ONE PANEL = ONE SCALE. Stars here; the readout is the galaxy panel; OPEN hands
+  off to the native route (the cluster). Never two scales in one drawing.
+
+  Projection-only: marks are a reading over the public field; OPEN hands off to
+  native routes; no second store, no priority, no mutation authority. The manifest
+  is the address book. (0.3 held a 26-row DATA array against a 193-route manifest —
+  a duplicated representation that had drifted, and a "nothing filtered" subtitle
+  over a filtered set. Both are gone: this file holds no route list of its own.)
+-->
 <style>
-  :root{--bg:#0b0d10;--panel:#11151a;--panel2:#0a0c0f;--fg:#e9e6dd;--mut:#9a9484;--line:#232830;--acc:#7fb2a8}
+  :root{--bg:#0b0d10;--panel:#11151a;--panel2:#070a0d;--fg:#e9e6dd;--mut:#9a9484;--line:#232830;--acc:#7fb2a8;--gold:#d8b46a}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-font-smoothing:antialiased}
   main{max-width:952px;margin:0 auto;padding:26px 14px 64px}
   #weave{position:fixed;inset:0;z-index:0;pointer-events:none}main{position:relative;z-index:1}
   header h1{font-size:30px;letter-spacing:.18em;margin:0 0 2px;font-weight:700;text-shadow:0 1px 10px var(--bg),0 0 22px var(--bg)}
-  header .sub{color:var(--mut);font-size:12px;letter-spacing:.08em;margin:0 0 16px;text-shadow:0 1px 8px var(--bg),0 0 16px var(--bg)}
+  header .sub{color:var(--mut);font-size:12px;letter-spacing:.08em;margin:0 0 16px}
+  .law{color:var(--mut);font-size:10px;letter-spacing:.06em;border-left:2px solid var(--line);padding:2px 0 2px 10px;margin:0 0 16px;max-width:660px;line-height:1.7}
+  .law b{color:var(--gold)}
   #fovea{max-width:880px;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;background:var(--panel)}
   #fovea .bar{display:flex;align-items:baseline;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--mut);flex-wrap:wrap}
   #fovea .bar b{color:var(--fg);font-size:12px;letter-spacing:.16em;font-weight:700}
@@ -21,14 +47,28 @@
   #fovea .foot{display:flex;justify-content:space-between;gap:12px;padding:8px 14px;border-top:1px solid var(--line);font-size:10px;color:var(--mut);flex-wrap:wrap}
   #fovea .foot a{color:var(--acc);text-decoration:none}
   #fovea .foot a:hover{text-decoration:underline}
-  #card{position:absolute;left:16px;bottom:16px;max-width:min(540px,calc(100vw - 62px));background:#161b21;border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:none;z-index:2;box-shadow:0 6px 24px #0008}
-  #card .t{font-size:13px;font-weight:700}
-  #card .meta{font-size:10px;color:var(--mut);margin:3px 0 6px;letter-spacing:.08em;text-transform:uppercase}
-  #card .next{font-size:12px;margin-bottom:9px}
-  #card .btn{display:inline-block;font:inherit;font-size:11px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;margin:0 6px 0 0;text-decoration:none}
-  #card .btn:hover{border-color:var(--acc);color:var(--acc)}
-  #card .btn.primary{border-color:var(--acc);color:var(--acc)}
-.mapJump{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.1em}.mapJump select{flex:1;min-width:0;background:#0a0c0f;color:var(--fg);border:1px solid var(--line);padding:8px;font:inherit}@media(max-width:600px){main{padding:12px 8px}header h1{font-size:22px}header .sub{font-size:10px;margin-bottom:8px}#fovea .bar{padding:7px 9px;gap:7px}.mapJump{padding:6px 8px}#fovea .foot{padding:6px 8px;font-size:8px}#card{left:7px;bottom:7px;max-width:calc(100vw - 34px)}}</style>
+  .mapJump{display:flex;align-items:center;gap:8px;padding:7px 14px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.1em}
+  .mapJump select{flex:1;min-width:0;background:#0a0c0f;color:var(--fg);border:1px solid var(--line);padding:8px;font:inherit}
+  #readout{position:absolute;left:16px;top:16px;max-width:min(430px,calc(100vw - 62px));background:#0f1418f2;border:1px solid var(--line);border-radius:8px;padding:9px 11px;display:none;z-index:3}
+  #readout .t{font-size:13px;font-weight:700;line-height:1.35}
+  #readout .meta{font-size:9.5px;color:var(--mut);margin:4px 0 6px;letter-spacing:.07em;text-transform:uppercase}
+  #readout .next{font-size:11.5px;color:var(--fg);opacity:.85;margin-bottom:8px}
+  #readout .meas{font-size:9.5px;color:var(--mut);letter-spacing:.05em;border-top:1px solid var(--line);padding-top:6px;line-height:1.75}
+  #readout .meas i{font-style:normal;color:var(--acc)}
+  .btn{display:inline-block;font:inherit;font-size:11px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;text-decoration:none;margin:0 6px 0 0}
+  .btn:hover{border-color:var(--acc);color:var(--acc)}
+  .btn.primary{border-color:var(--acc);color:var(--acc)}
+  #panel2{max-width:880px;margin:16px 0 0;border:1px solid var(--line);border-radius:10px;padding:14px;display:none;background:var(--panel)}
+  #panel2 h2{margin:0 0 3px;font-size:11px;letter-spacing:.18em;color:var(--gold)}
+  #panel2 .p2sub{color:var(--mut);font-size:10px;letter-spacing:.06em;margin:0 0 12px}
+  .p2grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:8px}
+  .p2card{border:1px solid var(--line);border-radius:7px;padding:8px 9px;background:#0d1115}
+  .p2card a{color:var(--fg);text-decoration:none;font-size:11.5px;font-weight:700;display:block;line-height:1.35}
+  .p2card a:hover{color:var(--acc)}
+  .p2card .m{font-size:9px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+  .p2card .r{font-size:10px;color:var(--mut);margin-top:4px;line-height:1.5}
+  @media(max-width:600px){main{padding:12px 8px}header h1{font-size:22px}header .sub{font-size:10px;margin-bottom:8px}#fovea .bar{padding:7px 9px;gap:7px}.mapJump{padding:6px 9px}#readout{left:7px;top:7px}}
+</style>
 </head>
 <body>
 <div id="weave" aria-hidden="true"></div>
@@ -36,180 +76,381 @@
   <header>
     <h1>FOVEA</h1>
     <p class="sub">one field · every surface · nothing filtered</p>
+    <p class="law"><b>THE SIGNAL IS MEASURED, NOT SEEDED.</b> every mark's radius is a real parent
+    depth, its sector a real family, its brightness a real timestamp, its size a real child count.
+    a hash orients a mark inside that structure — it never invents the structure. one panel, one scale.</p>
   </header>
+
   <div id="fovea">
     <div class="bar">
-      <b>FOVEA 0.3</b>
-      <span id="c1">…</span>
+      <b>FOVEA 0.4</b>
+      <span id="c1">reading manifest…</span>
       <span class="sp"></span>
-      <span>foveate to read · tap to hold · esc releases</span>
+      <span>hover to resolve · tap to hold · esc releases</span>
     </div>
-    <canvas id="cv" aria-label="Fovea map of working and recovered site routes"></canvas><label class="mapJump" for="jumpTo">FIND ROUTE<select id="jumpTo"><option value="">Choose a route…</option></select></label>
-    <div class="foot">
-      <span>○ running · □ waiting · — parked · marks are a reading; the manifest is the address book · <a href="/">FIELD INDEX</a> · <a href="/field-play.html">FIELD / PLAY</a></span>
-      <span>v0.3 · 2026-10-03</span>
-    </div>
-    <div id="card">
+    <canvas id="cv" aria-label="Measured projection of the route field: one mark per route"></canvas>
+    <label class="mapJump" for="jumpTo">FIND ROUTE
+      <select id="jumpTo"><option value="">Choose a route…</option></select>
+    </label>
+    <div id="readout" role="status">
       <div class="t"></div>
       <div class="meta"></div>
       <div class="next"></div>
-      <a class="btn primary" id="open" href="#" target="_self" rel="noopener">OPEN ↗</a><button class="btn" id="copy">COPY NEXT</button><button class="btn" id="rel">RELEASE</button>
+      <div class="meas"></div>
+      <a class="btn primary" id="open" href="#" target="_self" rel="noopener">OPEN ↗</a>
+      <button class="btn" id="copy">COPY NEXT</button>
+      <button class="btn" id="rel">RELEASE</button>
+    </div>
+    <div class="foot">
+      <span>○ running · □ waiting · — parked · marks are a reading; the manifest is the address book · <a href="/">FIELD INDEX</a> · <a href="/field-play.html">FIELD / PLAY</a></span>
+      <span id="v0">v0.4 · 2026-10-20</span>
     </div>
   </div>
+
+  <section id="panel2" aria-label="Constellation panel — the held mark's family at second scale">
+    <h2 id="p2h">GALAXY</h2>
+    <p class="p2sub" id="p2s">second scale · the constellation the held mark belongs to</p>
+    <div class="p2grid" id="p2g"></div>
+  </section>
 </main>
+
 <script src="/lib/moire-ambient.js"></script>
 <script>
 (function(){
-  var DATA = [
-    {t:"I CHING",l:"PLAY",k:"live",u:"/iching/",n:"cast · transform · nuclear · 64/64"},
-    {t:"TWO DIAL",l:"PLAY",k:"live",u:"/fold-bloom/two-dial/",n:"two constraint dials over fold ↔ bloom"},
-    {t:"ECOLOGY",l:"PLAY",k:"live",u:"/fold-bloom/ecology/",n:"living-forms window"},
-    {t:"SLEEPER",l:"PLAY",k:"live",u:"/sleeper/",n:"constraint surface · held action aperture"},
-    {t:"SABER",l:"PLAY",k:"wait",u:"/fold-bloom/saber/",n:"dual-phone core · two-real-phone proof open"},
-    {t:"READFIELD",l:"REPRESENT",k:"live",u:"/docs/",n:"canonical reading surface · exact cursor"},
-    {t:"SCALE LENS",l:"REPRESENT",k:"live",u:"/fold-bloom/lens/",n:"field lens projection"},
-    {t:"VERSE ATLAS",l:"REPRESENT",k:"live",u:"/foundry/verse-atlas/",n:"verse atlas · sealed receipts"},
-    {t:"IDENTITY LAB",l:"REPRESENT",k:"live",u:"/foundry/convergence/identity-lab.html",n:"fovea node-focus specimen"},
-    {t:"DAYLINE",l:"PLAN",k:"live",u:"/dayline/",n:"confluence day state · ≤3 moves"},
-    {t:"ATLAS DAYLINE",l:"PLAN",k:"live",u:"/atlas-dayline/",n:"day atlas · hand-carried tasks"},
-    {t:"FIELD / PROOF",l:"PROVE",k:"live",u:"/forward-field-proof/",n:"field proof surface"},
-    {t:"FIELD / PLAY",l:"PROVE",k:"live",u:"/field-play.html",n:"public-safe missions derived from gaps"},
-    {t:"CHANGE CALCULUS",l:"PROVE",k:"wait",u:"/fold-bloom/convergence/change-calculus/",n:"STEP arithmetic · sufficiency gate open"},
-    {t:"FIELD INTAKE",l:"CAPTURE",k:"live",u:"/field-intake/",n:"one-screen intake · phone-first"},
-    {t:"HUMAN PORT",l:"CAPTURE",k:"live",u:"/port/",n:"comms spine · inbound → drafts"},
-    {t:"BODY / FIT",l:"OPEN",k:"wait",u:"/body/fit/",n:"sensor transform · real-use proof open"},
-    {t:"READ / RIDE",l:"OPEN",k:"live",u:"/fold-bloom/live/",n:"READFIELD cursor → LIVE course · in review"},
-    {t:"FAN / 8 PRINT",l:"OPEN",k:"wait",u:"/foundry/axial/",n:"print at 100% · one photo RETURN"},
-    {t:"LEGACY DRIVE ARCHIVE",l:"RECOVERED",k:"park",n:"seed · rewrite-on-earn"},
-    {t:"GLYPHLINE MAPS",l:"RECOVERED",k:"park",n:"seed"},
-    {t:"KALA / ROOM LINEAGE",l:"RECOVERED",k:"park",n:"captured · interphase refs"},
-    {t:"INTERIORAIAPP",l:"RECOVERED",k:"park",n:"park"},
-    {t:"RECOVERY FAMILIES ×24",l:"RECOVERED",k:"park",n:"manifested · parked"},
-    {t:"JUNE ARCHIVE",l:"RECOVERED",k:"park",n:"protected · sole-source"}
-  ];
-  var jump=document.getElementById("jumpTo"); DATA.forEach(function(d,i){var o=document.createElement("option");o.value=String(i);o.textContent=d.t+" · "+d.l;jump.appendChild(o);});
-  var LANES = ["PLAY","REPRESENT","PLAN","PROVE","CAPTURE","OPEN","RECOVERED"];
-  var BOX = {PLAY:[14,26,272,216],REPRESENT:[298,26,284,216],PLAN:[594,26,272,216],
-             PROVE:[14,258,272,104],CAPTURE:[298,258,284,104],OPEN:[594,258,272,104],
-             RECOVERED:[14,378,852,68]};
-  var KN = {live:"running",wait:"waiting",park:"parked"};
-  var W=880,H=470,R=140;
+  "use strict";
+  var MANIFEST = "/showcase-manifest.json";
+  var W=880,H=470,MAXR=196,CX=440,CY=235;
+
   var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
-  var FF=(getComputedStyle(document.body).fontFamily||'ui-monospace,monospace');
+  var readout=document.getElementById('readout');
+  var panel2=document.getElementById('panel2'), p2g=document.getElementById('p2g');
+  var jump=document.getElementById('jumpTo');
+
   function V(n,f){var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||f;}
-  var FG=V('--fg','#e9e6dd'), MUT=V('--mut','#9a9484'), ACC=V('--acc','#7fb2a8'), LN=V('--line','#232830');
+  var FG=V('--fg','#e9e6dd'), MUT=V('--mut','#9a9484'), ACC=V('--acc','#7fb2a8'), GOLD=V('--gold','#d8b46a'), LN=V('--line','#232830');
   var DPR=Math.min(window.devicePixelRatio||1,2);
-  cv.width=W*DPR; cv.height=H*DPR;
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
-  var laneItems={}; DATA.forEach(function(d){(laneItems[d.l]=laneItems[d.l]||[]).push(d);});
-  var rng=mulberry32(42), pts=[];
-  LANES.forEach(function(L){var b=BOX[L],its=laneItems[L]||[];
-    its.forEach(function(it){pts.push({it:it,x:b[0]+20+rng()*(b[2]-40),y:b[1]+30+rng()*(b[3]-46)});});});
-  for(var k=0;k<3;k++){for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){
-    var a=pts[i],b=pts[j]; if(a.it.l!==b.it.l) continue;
-    var dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
-    if(d<16){var push=(16-d)/2;dx/=d;dy/=d;a.x-=dx*push;a.y-=dy*push;b.x+=dx*push;b.y+=dy*push;}}}}
-  var held=null, LMx=null, LMy=null;
-  // LAYERED SEMANTIC WEAVE (lib/moire-ambient.js) — quiet texture whose layers are
-  // real counts from THIS page's DATA: threads = running marks, parked = recovered
-  // marks, delta = waiting − parked. Barely-there at rest; revealing (hover the
-  // title, focus FIND ROUTE, or HOLD a mark — all explicit acts) blooms the full
-  // interference and names each layer. HOLD also adds the ask-class layer of the
-  // held mark's lane. Degradation is a no-op, never a broken page.
-  //
-  // v0.2 — the operator's "skinny opacity moiré": the weave now ALSO carries the
-  // deterministic visual-hash identity of this page's content (identity(seed),
-  // seed = the DATA table itself) — same marks forever -> same interference
-  // pattern; the pattern IS the page's identity, tag rides the legend. Palette
-  // is his measured faint one: hairline strokes, pad rgb(8,12,18), lines
-  // rgb(79,87,96), alpha <= .12 at rest (DESIGN-INTENT P1/P2).
-  var weave=null, wBase=null;
-  try{
-    var live=0, park=0, wait=0;
-    DATA.forEach(function(d){if(d.k==='live')live++;else if(d.k==='park')park++;else if(d.k==='wait')wait++;});
-    wBase={threads:live,parked:park,delta:wait-park};
-    if(window.MoireAmbient&&document.getElementById('weave')){
-      var idSeed='/fovea/|'+DATA.map(function(d){return d.u||d.t;}).join('|');
-      var wLayers=MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,custom:MoireAmbient.identity(idSeed)});
-      weave=MoireAmbient.mount(document.getElementById('weave'),wLayers,{});
-      window.__weaveId=MoireAmbient.identity(idSeed)[0].value;
-      var h1=document.querySelector('header h1');
-      if(h1){h1.addEventListener('pointerenter',function(){weave.reveal();});
-             h1.addEventListener('pointerleave',function(){weave.release();});}
-      jump.addEventListener('focus',function(){weave.reveal();});
-      jump.addEventListener('blur',function(){weave.release();});
-      document.documentElement.setAttribute('data-weave','mounted');
-    }
-  }catch(e){document.documentElement.setAttribute('data-weave','error');}
-  function glyph(x,y,s,kind){
-    if(kind==='live'){ctx.beginPath();ctx.arc(x,y,3.6*s,0,6.2832);ctx.stroke();}
-    else if(kind==='wait'){ctx.strokeRect(x-3*s,y-3*s,6*s,6*s);}
-    else{ctx.beginPath();ctx.moveTo(x-4*s,y);ctx.lineTo(x+4*s,y);ctx.stroke();}
-  }
-  function draw(mx,my){
-    ctx.clearRect(0,0,W,H);
-    ctx.lineWidth=1.25;
-    LANES.forEach(function(L){var b=BOX[L];
-      ctx.globalAlpha=.32;ctx.strokeStyle=LN;ctx.strokeRect(b[0]+.5,b[1]+.5,b[2]-1,b[3]-1);
-      ctx.globalAlpha=.55;ctx.fillStyle=MUT;ctx.font='700 10px '+FF;ctx.textBaseline='alphabetic';
-      ctx.fillText(L+' · '+((laneItems[L]||[]).length),b[0]+8,b[1]+14);});
-    if(mx!==null){ctx.globalAlpha=.10;ctx.strokeStyle=FG;ctx.beginPath();ctx.arc(mx,my,R,0,6.2832);ctx.stroke();}
-    pts.forEach(function(p){
-      var boost=0;
-      if(mx!==null){var d=Math.hypot(p.x-mx,p.y-my);boost=Math.max(0,1-d/R);}
-      var isH=(held===p);
-      ctx.globalAlpha=isH?1:Math.min(1,.30+.72*boost);
-      ctx.strokeStyle=isH?ACC:FG;ctx.fillStyle=isH?ACC:FG;
-      ctx.lineWidth=isH?1.6:1.25;
-      glyph(p.x,p.y,isH?1.7:1+1.25*boost,p.it.k);
-      if(isH||boost>0.55){
-        ctx.globalAlpha=isH?1:Math.max(0,Math.min(1,1.25*boost-.45));
-        ctx.fillStyle=isH?ACC:FG;ctx.font='11px '+FF;ctx.textBaseline='middle';
-        var t=p.it.t.length>34?p.it.t.slice(0,33)+'…':p.it.t;
-        ctx.fillText(t,p.x+9,p.y+0.5);
+  cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+
+  /* hash(href) — ORIENTS a mark inside its measured sector. Lawful only because the
+     sector itself is measured from `family`. It never creates structure. */
+  function hash(s){var h=2166136261>>>0;s=String(s||'');for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]})}
+  function escAttr(s){return esc(s).replace(/'/g,'&#39;')}
+
+  /* DEPTH BANDS — each depth is a BAND of sky, not a hairline. Band area is set in
+     proportion to how many routes actually live there (63/90/39/1 = 33/47/20/0.5%),
+     because arc room is what stops a knot: 63 marks in a thin inner annulus collide,
+     the same 63 in a wide inner disc do not. Measured, not decorative. */
+  var BAND=[[0.10,0.555],[0.585,0.872],[0.90,0.978],[0.985,1.0]];
+  var RING=BAND.map(function(b){return (b[0]+b[1])/2;});   // label anchor per depth
+  var marks=[], families=[], famIndex={}, famCount={}, TOTAL=0;
+
+  function build(routes){
+    var byHref={};
+    routes.forEach(function(r){ byHref[r.href]=r; });
+
+    // real child counts, counted from the parent field — nothing invented
+    var kids={};
+    routes.forEach(function(r){ if(r.parent){ kids[r.parent]=(kids[r.parent]||0)+1; } });
+
+    // constellations: every distinct family, sorted by mass then name — fully deterministic
+    var fc={};
+    routes.forEach(function(r){ var f=r.family||'(unfiled)'; fc[f]=(fc[f]||0)+1; });
+    families=Object.keys(fc).sort(function(a,b){ return (fc[b]-fc[a]) || a.localeCompare(b); });
+    famCount=fc;
+    families.forEach(function(f,i){ famIndex[f]=i; });
+
+    // recency range, measured
+    var t0=Infinity,t1=-Infinity;
+    routes.forEach(function(r){
+      var u=r.index&&r.index.updated_at?Date.parse(r.index.updated_at):NaN;
+      if(!isNaN(u)){ if(u<t0)t0=u; if(u>t1)t1=u; }
+    });
+    if(!isFinite(t0)||!isFinite(t1)||t1<=t0){ t0=0; t1=1; }
+
+    var perFam={};
+    marks = routes.map(function(r){
+      var fam=r.family||'(unfiled)';
+      var depth=0, p=r.parent, guard=0;
+      while(p && p!=="/" && guard++<12){
+        var up=byHref[p];
+        if(!up) break;
+        p=up.parent; depth++;
       }
+      var hh=hash(r.href);
+      return {
+        r:r, href:r.href, title:r.title||r.href, fam:fam,
+        depth:Math.min(depth,RING.length-1),
+        kids:kids[r.href]||0,
+        u:r.index&&r.index.updated_at?Date.parse(r.index.updated_at):t0,
+        state:(r.state||'').toUpperCase(),
+        k:kindOf(r.state),
+        op:r.operation||'', kind:r.kind||'', role:r.role||'',
+        n:(perFam[fam]=(perFam[fam]||0)+1), hh:hh
+      };
+    });
+
+    /* MEASURED PLACEMENT.
+       ANGULAR WIDTH ∝ FAMILY MASS — a constellation occupies the sky it actually
+       holds, so 29 routes cannot be crushed into one hairline wedge. The mark's
+       angle within its family is its real ordinal; the hash only jitters radius
+       inside the depth band. Every coordinate reduces to a measurement. */
+    var total=routes.length, cum=-Math.PI/2, spanOf={};   // start at top of the sky
+    TOTAL=routes.length;
+    families.forEach(function(f){ var w=(famCount[f]/total)*2*Math.PI; spanOf[f]=[cum,cum+w]; cum+=w; });
+
+    marks.forEach(function(m){
+      var sp=spanOf[m.fam], cnt=famCount[m.fam];
+      var a=sp[0] + ((m.n-0.5)/cnt)*(sp[1]-sp[0]);          // real ordinal within its family
+      var hh=m.hh;
+      var j1=((hh>>>7)&0xff)/0xff, j2=((hh>>>17)&0xff)/0xff; // orient only
+      a += (j1-0.5)*((sp[1]-sp[0])/cnt)*0.55;
+      var band=BAND[m.depth];
+      var rr=(band[0] + (band[1]-band[0])*(0.12+0.76*j2))*MAXR;
+      m.x=CX+rr*Math.cos(a); m.y=CY+rr*Math.sin(a);
+      m.a=0.20+0.80*((m.u-t0)/(t1-t0));        // brightness = measured recency
+      m.rad=1.7+Math.min(2.6,m.kids*0.34);     // size = measured child count
+      m.ang=a;
+    });
+
+    // route finder over the whole real set
+    marks.slice().sort(function(a,b){return a.title.localeCompare(b.title)}).forEach(function(m){
+      var o=document.createElement('option');
+      o.value=m.href; o.textContent=m.title+' · '+(m.state||'—')+' · '+m.fam;
+      jump.appendChild(o);
     });
   }
-  var card=document.getElementById('card');
-  var openBtn=document.getElementById('open'), copyBtn=document.getElementById('copy'), relBtn=document.getElementById('rel');
-  function showCard(p){
-    card.style.display='block';
-    if(weave){ // HOLD is explicit: the weave gains the held mark's lane as ask-class layer
-      weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,askClass:p.it.l,custom:idSeed?MoireAmbient.identity(idSeed):undefined}));
-      weave.reveal();
-    }
-    card.querySelector('.t').textContent=p.it.t;
-    card.querySelector('.meta').textContent=p.it.l+' · '+KN[p.it.k];
-    card.querySelector('.next').textContent='NEXT — '+(p.it.n||'open');
-    openBtn.style.display=p.it.u?'inline-block':'none';
-    if(p.it.u)openBtn.href=p.it.u;
-    copyBtn.textContent='COPY NEXT';
-    copyBtn.onclick=function(){
-      var msg='FOVEA · '+p.it.t+' — '+(p.it.n||'open')+' ('+p.it.l+') · /fovea/';
-      try{navigator.clipboard.writeText(msg);copyBtn.textContent='copied';}
-      catch(e){copyBtn.textContent='no clipboard';}
-      setTimeout(function(){copyBtn.textContent='COPY NEXT';},900);
-    };
+
+  /* ONE state mapping, used by both the glyph and the weave's real counts */
+  function kindOf(st){
+    st=(st||'').toUpperCase();
+    if(st==='ACTIVE'||st==='STABLE') return 'live';
+    if(st==='PARKED'||st==='FROZEN_DONOR'||st==='DONOR'||st==='RECOVER') return 'park';
+    return 'wait';
   }
-  function mapEv(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};}
-  jump.addEventListener("change",function(){if(jump.value==="")return;var p=pts[Number(jump.value)];if(!p)return;held=p;LMx=p.x;LMy=p.y;showCard(p);draw(LMx,LMy);});
-  function release(){held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,custom:idSeed?MoireAmbient.identity(idSeed):undefined}));draw(LMx,LMy);}
-  cv.addEventListener('pointermove',function(e){var m=mapEv(e);LMx=m.x;LMy=m.y;draw(LMx,LMy);});
-  cv.addEventListener('pointerleave',function(){LMx=null;LMy=null;draw(null,null);});
-  cv.addEventListener('pointerdown',function(e){
-    e.preventDefault();
-    var m=mapEv(e);LMx=m.x;LMy=m.y;
-    var best=null,bd=Math.max(34,30*W/Math.max(1,cv.getBoundingClientRect().width));
-    pts.forEach(function(p){var d=Math.hypot(p.x-m.x,p.y-m.y);if(d<bd){bd=d;best=p;}});
-    if(best){held=best;showCard(best);}else{held=null;card.style.display='none';if(weave)weave.update(MoireAmbient.fromState(wBase));}
-    draw(m.x,m.y);
+
+  /* LAYERED SEMANTIC WEAVE (lib/moire-ambient.js) — kept from a628b3e90 / c94b10041 /
+     6ebc20e66. Quiet texture whose layers are real counts from THIS page's marks:
+     threads = running, parked = recovered, delta = waiting − parked. Barely-there at
+     rest; revealing (hover the title, focus FIND ROUTE, or HOLD a mark — all explicit
+     acts) blooms the full interference and names each layer. Degradation is a no-op.
+     v0.2 — the operator's "skinny opacity moiré": the weave also carries the
+     deterministic visual-hash identity of this page's content (identity(seed)).
+     0.4 NOTE: the marks now come from the manifest (193 real routes) instead of a
+     26-row hardcoded table, so the weave's counts and its identity seed are measured too. */
+  var wLive=0, wPark=0, wWait=0, wSeed='/fovea/', weave=null;
+  function mountWeave(){
+    try{
+      marks.forEach(function(d){ if(d.k==='live')wLive++; else if(d.k==='park')wPark++; else wWait++; });
+      wSeed='/fovea/|'+marks.map(function(d){return d.href||d.title;}).join('|');
+      var wBase={threads:wLive,parked:wPark,delta:wWait-wPark};
+      if(window.MoireAmbient&&document.getElementById('weave')){
+        var custom=MoireAmbient.identity(wSeed);
+        weave=MoireAmbient.mount(document.getElementById('weave'),
+          MoireAmbient.fromState({threads:wBase.threads,parked:wBase.parked,delta:wBase.delta,custom:custom}),{});
+        window.__weave=weave;
+        window.__weaveId=custom[0].value;
+        var h1=document.querySelector('header h1');
+        if(h1){h1.addEventListener('pointerenter',function(){weave.reveal();});
+               h1.addEventListener('pointerleave',function(){weave.release();});}
+        jump.addEventListener('focus',function(){weave.reveal();});
+        jump.addEventListener('blur',function(){weave.release();});
+        document.documentElement.setAttribute('data-weave','mounted');
+      }else{
+        document.documentElement.setAttribute('data-weave','absent');
+      }
+    }catch(e){ document.documentElement.setAttribute('data-weave','error'); }
+  }
+  function weaveRetarget(askClass){
+    if(!weave||!window.MoireAmbient) return;
+    try{ weave.update(MoireAmbient.fromState({
+      threads:wLive, parked:wPark, delta:wWait-wPark, askClass:askClass,
+      custom:MoireAmbient.identity(wSeed)})); }catch(e){}
+  }
+
+  function glyph(m,x,y,s){
+    var st=m.state;
+    ctx.beginPath();
+    if(st==='ACTIVE'||st==='STABLE'){ ctx.arc(x,y,3.1*s,0,6.2832); ctx.stroke(); }
+    else if(st==='PARKED'||st==='FROZEN_DONOR'||st==='DONOR'||st==='RECOVER'){ ctx.moveTo(x-3.6*s,y); ctx.lineTo(x+3.6*s,y); ctx.stroke(); }
+    else { ctx.strokeRect(x-2.7*s,y-2.7*s,5.4*s,5.4*s); }
+  }
+
+  var held=null, hovered=null;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.lineWidth=1;
+
+    // depth band edges — the scale hierarchy, named and visible.
+    // Labels sit along the +x axis at each band's mid radius, vertically staggered:
+    // stacked on one vertical line, depth 2 and 3 collided (only 4px apart).
+    for(var d=0; d<BAND.length; d++){
+      ctx.lineWidth=1;
+      ctx.globalAlpha=0.42; ctx.strokeStyle=LN;
+      ctx.beginPath(); ctx.arc(CX,CY,BAND[d][0]*MAXR,0,6.2832); ctx.stroke();
+      ctx.beginPath(); ctx.arc(CX,CY,BAND[d][1]*MAXR,0,6.2832); ctx.stroke();
+      var lx2=CX+RING[d]*MAXR, ly2=CY+(d%2? -9 : 12);
+      ctx.globalAlpha=0.9; ctx.fillStyle=MUT; ctx.font='9px ui-monospace,monospace';
+      ctx.fillText('depth '+d, lx2-16, ly2);
+    }
+
+    /* Constellation spurs at the REAL family boundaries (angular width ∝ mass),
+       and a rim label + leader tick for every constellation with real mass. */
+    var cum2=-Math.PI/2, edges=[];
+    families.forEach(function(f){ edges.push([f,cum2,cum2+(famCount[f]/TOTAL)*2*Math.PI]); cum2=edges[edges.length-1][2]; });
+    ctx.lineWidth=1;
+    edges.forEach(function(e){
+      ctx.globalAlpha=0.22; ctx.strokeStyle=LN;
+      ctx.beginPath(); ctx.moveTo(CX,CY);
+      ctx.lineTo(CX+Math.cos(e[1])*MAXR*1.02, CY+Math.sin(e[1])*MAXR*1.02); ctx.stroke();
+    });
+    ctx.font='8.5px ui-monospace,monospace';
+    edges.forEach(function(e){
+      var cnt=famCount[e[0]]||0;
+      if(cnt<5) return;
+      var mid=(e[1]+e[2])/2, lr=MAXR*1.045;
+      var right=Math.cos(mid)>=0;
+      var lx=CX+Math.cos(mid)*lr, ly=CY+Math.sin(mid)*lr;
+      ctx.globalAlpha=0.55; ctx.strokeStyle=MUT;
+      ctx.beginPath(); ctx.moveTo(lx,ly);                          // leader tick
+      ctx.lineTo(CX+Math.cos(mid)*MAXR*1.105, CY+Math.sin(mid)*MAXR*1.105); ctx.stroke();
+      ctx.textAlign=right?'left':'right'; ctx.textBaseline='middle';
+      ctx.globalAlpha=0.85; ctx.fillStyle=MUT;
+      var nm=e[0].replace(/^\(unfiled\)$/,'UNFILED');
+      if(nm.length>22) nm=nm.slice(0,21)+'…';
+      ctx.fillText(nm+'  '+cnt, CX+Math.cos(mid)*MAXR*1.125+(right?3:-3), ly);
+    });
+    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+
+    // THE STARS — one mark per route, all of them, nothing filtered
+    marks.forEach(function(m){
+      var on = (m===hovered || m===held);
+      ctx.globalAlpha = on?1:(m.a*0.92);
+      ctx.strokeStyle = on?GOLD:ACC;
+      ctx.fillStyle   = on?GOLD:ACC;
+      ctx.lineWidth   = on?1.6:1.15;
+      if(on){ ctx.globalAlpha=0.15; ctx.beginPath(); ctx.arc(m.x,m.y,m.rad*4.2,0,6.2832); ctx.fill(); ctx.globalAlpha=1; }
+      glyph(m,m.x,m.y,Math.max(0.85,m.rad/3.1));
+      if(m.kids>0 && (on||m.kids>6)){
+        ctx.globalAlpha=on?0.7:0.22;
+        ctx.beginPath(); ctx.arc(m.x,m.y,m.rad*1.25,0,6.2832); ctx.stroke();
+      }
+    });
+    ctx.globalAlpha=1;
+
+    // label ONLY for the resolved mark — resolution is earned by attention
+    var lab = held||hovered;
+    if(lab){
+      ctx.font='10px ui-monospace,monospace'; ctx.fillStyle=GOLD;
+      var t=lab.title.length>44?lab.title.slice(0,43)+'…':lab.title;
+      ctx.fillText(t, Math.min(W-10,Math.max(6,lab.x+9)), Math.max(12,lab.y-8));
+    }
+  }
+
+  function nearest(mx,my){
+    var best=null,bd=1e9;
+    for(var i=0;i<marks.length;i++){
+      var m=marks[i], dx=m.x-mx, dy=m.y-my, d=dx*dx+dy*dy;
+      if(d<bd){ bd=d; best=m; }
+    }
+    return bd < 24*24 ? best : null;
+  }
+
+  function show(m,panel){
+    if(!m){ readout.style.display='none'; return; }
+    readout.style.display='block';
+    readout.querySelector('.t').textContent=m.title;
+    readout.querySelector('.meta').textContent=(m.fam||'(unfiled)')+' · '+(m.state||'—')+' · '+(m.op||m.kind||'');
+    readout.querySelector('.next').textContent=m.role||m.href;
+    readout.querySelector('.meas').innerHTML=
+      '<i>radius</i> depth '+m.depth+' &nbsp; <i>sector</i> '+esc(m.fam)+
+      ' &nbsp; <i>brightness</i> '+esc((m.r.index&&m.r.index.updated_at)||'—')+
+      ' &nbsp; <i>size</i> '+m.kids+' child'+(m.kids===1?'':'ren');
+    document.getElementById('open').href=m.href;
+    if(panel) showPanel2(m);
+  }
+
+  function showPanel2(m){
+    document.getElementById('p2h').textContent='GALAXY — '+m.fam;
+    var sibs=marks.filter(function(x){return x.fam===m.fam;});
+    document.getElementById('p2s').textContent=
+      'second scale · '+sibs.length+' route'+(sibs.length===1?'':'s')+' in this constellation · resolved from the star field above';
+    p2g.innerHTML = sibs.map(function(x){
+      return '<div class="p2card"><a href="'+escAttr(x.href)+'">'+esc(x.title)+'</a>'+
+             '<div class="m">'+esc(x.state||'—')+' · depth '+x.depth+' · '+x.kids+' child'+(x.kids===1?'':'s')+'</div>'+
+             '<div class="r">'+esc((x.role||x.href).slice(0,120))+'</div></div>';
+    }).join('');
+    panel2.style.display='block';
+  }
+
+  function pos(e){
+    var r=cv.getBoundingClientRect();
+    var cx=(e.touches&&e.touches[0]?e.touches[0].clientX:e.clientX)-r.left;
+    var cy=(e.touches&&e.touches[0]?e.touches[0].clientY:e.clientY)-r.top;
+    return [cx*(W/r.width), cy*(H/r.height)];
+  }
+
+  cv.addEventListener('mousemove',function(e){
+    if(held) return;
+    var p=pos(e), m=nearest(p[0],p[1]);
+    if(m!==hovered){ hovered=m; draw(); }
+    show(m,false);
+    if(!m) show(held,false);
   });
-  relBtn.onclick=release;
-  window.addEventListener('keydown',function(e){if(e.key==='Escape')release();});
-  document.getElementById('c1').textContent=DATA.length+' marks · '+LANES.length+' lanes';
-  draw(null,null);
-  document.documentElement.setAttribute('data-render','ok');
+  cv.addEventListener('mouseleave',function(){ if(!held){ hovered=null; draw(); show(null,false);} });
+  cv.addEventListener('click',function(e){
+    var p=pos(e), m=nearest(p[0],p[1]);
+    held = (m===held)?null:m; hovered=null;
+    draw();
+    if(held){ show(held,true); weaveRetarget(held.fam); }
+    else { show(null,false); panel2.style.display='none'; weaveRetarget(undefined); }
+  });
+
+  function release(){
+    held=null; hovered=null;
+    readout.style.display='none';
+    panel2.style.display='none';
+    weaveRetarget(undefined);
+    draw();
+  }
+  document.getElementById('rel').onclick=release;
+  document.getElementById('copy').onclick=function(){
+    if(!held) return;
+    var b=document.getElementById('copy');
+    var msg='FOVEA · '+held.title+' — '+(held.role||held.href)+' ('+held.fam+' · '+(held.state||'—')+') · '+held.href;
+    try{ navigator.clipboard.writeText(msg); b.textContent='copied'; }
+    catch(e){ b.textContent='no clipboard'; }
+    setTimeout(function(){ b.textContent='COPY NEXT'; },900);
+  };
+
+  jump.addEventListener('change',function(){
+    if(!jump.value) return;
+    for(var i=0;i<marks.length;i++){
+      if(marks[i].href===jump.value){ held=marks[i]; hovered=null; draw(); show(held,true); return; }
+    }
+  });
+
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') release(); });
+
+  fetch(MANIFEST,{cache:'no-store'}).then(function(r){
+    if(!r.ok) throw new Error('manifest HTTP '+r.status);
+    return r.json();
+  }).then(function(d){
+    var routes=(d.routes||[]).filter(function(x){ return x && typeof x==='object' && x.href; });
+    if(!routes.length) throw new Error('manifest carried no routes');
+    build(routes);
+    mountWeave();
+    draw();
+    document.getElementById('c1').textContent =
+      routes.length+' routes · '+families.length+' constellations · '+RING.length+' depth bands · measured projection';
+    document.documentElement.setAttribute('data-render','ok');
+  }).catch(function(err){
+    document.getElementById('c1').textContent='MANIFEST UNREADABLE — '+err.message;
+    ctx.fillStyle=MUT; ctx.font='12px ui-monospace,monospace';
+    ctx.fillText('showcase-manifest.json could not be read ('+err.message+').',24,40);
+    ctx.fillText('This panel is NOT reporting an empty field.',24,60);
+    document.documentElement.setAttribute('data-render','fail');
+  });
 })();
 </script>
 <script src="/showcase-nav.js" defer></script>
