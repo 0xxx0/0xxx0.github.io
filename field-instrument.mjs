@@ -247,6 +247,7 @@ function render(){
   view=C.project(rows,state,seen);
   plane.style.setProperty('--fi-tilt',[0,-12,-24,-34][state.turn]+'deg');
   plane.style.setProperty('--fi-yaw',state.mode==='RELATIONS'?'0deg':[0,-5,0,5][state.turn]+'deg');
+  plane.style.setProperty('--fi-scale',state.mode==='RELATIONS'?'1':'.92');
   const tags=C.addressTags(view.folds.map(g=>g.object).filter(Boolean));
   const places=C.placements(view),walking=state.mode==='RELATIONS'&&held();
   const edges=view.folds.map((g,i)=>{
