@@ -1,4 +1,5 @@
 import {ListenRenderer} from './render.js';
+import {demoWavBytes} from './demo-tone.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from '../../lib/polar-control.js';
 import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
@@ -518,12 +519,10 @@ function openReadfield(){
 
 $('#file').addEventListener('change',e=>loadFiles(e.target.files));
 $('#demoListen').addEventListener('click',async()=>{
-  status('OPENING LOCAL DEMO');
+  status('OPENING OFFLINE AUDIO TEST');
   try{
-    const response=await fetch('../live/demo/center-mass-demo.mp3',{cache:'no-store'});
-    if(!response.ok)throw Error('DEMO_HTTP_'+response.status);
-    const blob=await response.blob();if(!blob.size)throw Error('DEMO_EMPTY');
-    await loadFile(new File([blob],'center-mass-demo.mp3',{type:'audio/mpeg'}));
+    const wav=demoWavBytes();
+    await loadFile(new File([wav],'fold-bloom-diagnostic.wav',{type:'audio/wav'}));
   }catch(error){console.warn('LISTEN demo unavailable',error);drop.classList.remove('busy');status('DEMO UNAVAILABLE · CHOOSE LOCAL AUDIO')}
 });
 $('#chooseLabel').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#file').click()}});
