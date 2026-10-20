@@ -241,7 +241,7 @@ function ensureRenderer(){
 }
 function onWorkerMessage(e){
   if(e.data?.requestId!==loadToken)return; // Stale analysis must never overwrite a newer source.
-  if(e.data.type='progress'){status(`REFINING ${Math.round(e.data.progress*100)}%`);return}
+  if(e.data.type==='progress'){status(`REFINING ${Math.round(e.data.progress*100)}%`);return}
   if(e.data.type==='error'){status(map?.stage==='PREVIEW'?'PREVIEW READY · ANALYZER ERROR':'ANALYSIS ERROR');drop.classList.remove('busy');toast(map?'PREVIEW KEPT':'ANALYSIS ERROR');return}
   if(e.data.type==='result'){
     map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
