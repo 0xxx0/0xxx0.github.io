@@ -1,8 +1,14 @@
 // FIELD's local, pure projection algebra. Not a second object store or ontology.
 // Shared bodies stay in /lib/: serialization, SHA-256, polar math, DOM, storage.
 import {stableKey} from './lib/id.js';
+import {esc} from './lib/dom.js';
 import './lib/micro.js';
+// The cube-net fold geometry is ONE implementation, absorbed from the browser-verified
+// donor into lib/interphase-cube.js. This module only projects route records onto it.
+import './lib/interphase-cube.js';
 const {clamp,wrap}=globalThis.Micro;
+// One cube implementation, reachable from the projection: lib/interphase-cube.js.
+export const CUBE=globalThis.InterphaseCube;
 export const SCALES=Object.freeze(['FIELD','SOURCE','KIND','STATE','OBJECT']);
 const DIMS=['family','source','kind','state'];
 // TURN measures one ring of axes: from rest each press advances state → time →
@@ -318,4 +324,63 @@ export function bearing(rows,s,v,anchor){
     away:!!anchor&&stableKey(s)!==stableKey(anchor),ribbon,
     delta:v.delta.hasBaseline?v.delta.changed.length:null,unmeasured:unknown.size,needs:v.delta.needs.length,
     label:`${title}. ${v.inside} ${near?'declared neighbours':'in scope'}; ${v.outside} outside; ${v.total} destinations. ${v.delta.hasBaseline?v.delta.changed.length+' measured changes since SEEN':'No SEEN baseline'}. ${unknown.size} changes unmeasured; ${v.delta.needs.length} need world. ${s.path.length} scope decisions. ${focusHere||near?address:target?'Held outside scope: '+target.address:'No object held'}.`};
+}
+/* ==== THE ROOM — six readings of one held object, hinged on cube-net edges ====
+   The fold pivots AT the mark: the room's plane is positioned so the anchor cell (1,1)
+   centre lands exactly on the mark's screen point, and the plane's transform-origin is
+   that same point in BOTH fold states, so the anchor [x,y] is identical net ↔ cube ↔
+   net (lib/interphase-cube.js proves it; the browser keeps it). Size is only the fit —
+   the anchor is the datum and never moves. */
+export function roomAnchor(point,box,bounds){return CUBE.roomGeometry(point,box,bounds)}
+// A frame is legible as its own address line: axis · rung · scope.
+export function frameLabel(s){
+  if(!s)return 'NONE';
+  const last=Array.isArray(s.path)?s.path.at(-1):null;
+  const scope=last?(last.values.length===1?last.values[0]:`${last.values[0]} … ${last.values.at(-1)}`):(s.query||'ALL');
+  return `${axis(s)}·${SCALES[clamp(Math.trunc(Number(s.scale)||0),0,4)]} · ${scope}`;
+}
+const clip=(v,n=64)=>{const t=String(v??'');return t.length>n?t.slice(0,n-1)+'…':t};
+// SIX READINGS — one per cube face, every one generated from the REAL route record:
+// title / held address / state / transform history from the local revision stack /
+// proof from evidence.checks / return = the pin. Content, not chrome: each line is a
+// datum the instrument already holds, and a count is printed whenever there is one.
+export function roomReadings(r,{revisions=[],pin=null}={}){
+  const ev=r?.payload?.evidence,
+    checks=Array.isArray(ev?.checks)?ev.checks:[],
+    claims=Array.isArray(ev)?ev.filter(c=>c&&c.claim):[],
+    frames=Array.isArray(revisions)?revisions:[],
+    trail=frames.slice(-3).map(frameLabel),
+    earlier=Math.max(0,frames.length-trail.length);
+  return [
+    {face:'OBJECT',   cjk:'物',axis:'+Z PRESENT',count:1,text:clip(r.title||r.address)},
+    {face:'ADDRESS',  cjk:'址',axis:'−X INPUT',  count:1,text:clip(r.address)},
+    {face:'STATE',    cjk:'态',axis:'+Y UP',     count:1,text:clip(`${r.state??'UNKNOWN'} · ${r.day??'NO TIME'}`)},
+    {face:'TRANSFORM',cjk:'变',axis:'+X OUTPUT', count:frames.length,
+     text:clip(`${frames.length} MOVE${frames.length===1?'':'S'} · ${trail.length?trail.join(' → '):'NO MOVES YET'}${earlier?` + ${earlier} EARLIER`:''}`)},
+    {face:'PROVE',    cjk:'证',axis:'−Y GROUND', count:checks.length||claims.length,
+     text:clip(checks.length?`${checks.length} CHECK${checks.length===1?'':'S'} · ${checks[0]}`
+       :claims.length?`${claims.length} CLAIM${claims.length===1?'':'S'} · ${claims.map(c=>c.status||'FILED').join(' · ')}`
+       :'NO EVIDENCE FILED')},
+    {face:'RETURN',   cjk:'返',axis:'−Z BEHIND', count:pin&&Array.isArray(pin.path)?pin.path.length:0,
+     text:clip(`PIN ${frameLabel(pin)}`)}
+  ];
+}
+// The hinge class is named by the MODEL, not typed into the markup twice.
+export const HINGE_CLASS=Object.freeze({none:'h-none',top:'h-top',bottom:'h-bottom',left:'h-left',right:'h-right'});
+// One pure markup builder (the markGlyph precedent): the room's DOM is the donor's
+// cross net — 6 cells, 4 hinge groups, RETURN nested under PROVE — and the selftest
+// asserts the emitted channels without a browser.
+export function roomMarkup(readings){
+  const byFace=new Map(readings.map((r,i)=>[r.face,i])),num=i=>`${String(i+1).padStart(2,'0')}/06`;
+  const face=e=>{
+    const i=byFace.get(e.face),r=readings[i],tappable=e.face==='OBJECT';
+    if(i===undefined||!r)throw Error('ROOM_READING_MISSING:'+e.face);
+    return `<section class="fiFace" data-face="${e.face}"${tappable?' role="button" data-room-fold tabindex="0" aria-label="Fold the room out into the plain six-reading view"':' tabindex="0" role="group" aria-label="reading '+num(i)+', '+e.face.toLowerCase()+'"'}>`
+      +`<div class="fh"><span class="lab">${e.face}<span class="cjk">${esc(r.cjk)}</span></span><span class="num">${num(i)}</span></div>`
+      +`<div class="ax">${esc(r.axis)}</div><div class="rd">${esc(r.text)}</div></section>`;
+  };
+  const cell=(e,nest)=>`<div class="cell${nest?' nest':''}"${nest?'':` style="--c:${e.cell[0]};--r:${e.cell[1]}"`}>`
+    +`<div class="hinge ${HINGE_CLASS[e.hinge]}">${face(e)}${e.face==='PROVE'?cell(CUBE.LAYOUT.find(x=>x.face==='RETURN'),true):''}</div></div>`;
+  const cells=CUBE.LAYOUT.filter(e=>!e.parent).map(e=>cell(e)).join('');
+  return `<div class="fiRoomPlane" id="fiRoomPlane" data-fold="net">${cells}</div>`;
 }

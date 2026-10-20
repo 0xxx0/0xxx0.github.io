@@ -13,7 +13,7 @@ const MEMORY=kv('field.instrument.frame.v01');
 const $=s=>document.querySelector(s);
 let state=C.initial(),rows=[],seen={},view=null,root=null,plane=null,reading=null,bar=null,anchor=null,hostAnchor=null;
 let enabled=false,menu=false,menuExpanded=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false,readingMarkup='';
-let flights=[];
+let flights=[],room=null,roomTimer=0;
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
@@ -63,7 +63,7 @@ function edit(seed){
 }
 function endEdit(){editing=false;delete $('#fieldUrlBar').dataset.editing;$('#fieldUrlInput').blur();renderBearing()}
 function scopeOut(){
-  endEdit();toggleMenu(false);
+  endEdit();toggleMenu(false);closeRoom();
   if(state.path.length){const last=state.path.at(-1),next=C.parent(state),v=C.project(rows,next,seen),g=v.folds.find(g=>g.dim===last.dim&&stableKey(g.values)===stableKey(last.values));travel(next,{foldId:g?.id,reverse:true})}else{blankQuery();commit({...state,query:'',scale:0,page:0})}
 }
 function wire(){
@@ -173,8 +173,14 @@ function renderRibbon(next){
   svg.setAttribute('data-pitch',R.pitch.toFixed(2));
   svg.setAttribute('data-axis',ax);
   svg.classList.toggle('preview',!!next);
-  svg.setAttribute('aria-label',`Whole field map: ${map.length} destinations folded into ${R.lanes} lane${R.lanes===1?'':'s'} of ${laneList}, ordered by ${ax}. ${view.inside} in scope, ${view.outside} outside, ${view.total} total. Tap a tick to locate that object; tap it again to enter its fold.`);
-  svg.innerHTML=lanes;
+  svg.setAttribute('aria-label',`Whole field map: ${map.length} destinations folded into ${R.lanes} lane${R.lanes===1?'':'s'} of ${laneList}, ordered by ${ax}. ${view.inside} in scope, ${view.outside} outside, ${view.total} total. Tap a tick to locate that object; tap it again to enter its room.`);
+  // YOU-ARE-HERE: while the room is open the held mark carries a dot on its own map
+  // tick — the whole never leaves (god's-eye law), and the dot is a real datum.
+  let here='';
+  const heldHere=room?R.groups.find(g=>g.items.some(p=>p.id===room.id)):null,k=heldHere?heldHere.items.findIndex(p=>p.id===room.id):-1;
+  if(k>=0)here=`<circle class="here" cx="${(1+(k+.5)*R.pitch).toFixed(2)}" cy="${(heldHere.y+laneH/2).toFixed(1)}" r="3.5"/>`;
+  if(room)svg.dataset.room='1';else delete svg.dataset.room;
+  svg.innerHTML=lanes+here;
   ribbonLayout={map,lanes:R.lanes,per:R.per,pitch:R.pitch,left:1,laneH,gap,groups:R.groups,width:W};
   document.documentElement.style.setProperty('--fi-ribbon-h',`${R.height}px`);
 }
@@ -197,8 +203,17 @@ function readTick(r){
 function locateTick(id){
   const r=rows.find(x=>x.id===id);if(!r)return;
   const fold=view?.folds.find(f=>f.ids.includes(id));
-  if(state.focus===id&&fold){endEdit();toggleMenu(false);activate(fold);return}
   endEdit();toggleMenu(false);
+  // Tap the SAME tick again = enter the object's OWN fold: locate it exactly, then
+  // hinge its room up at that mark's screen coordinates.
+  if(state.focus===id&&fold){
+    commit(C.locate(state,r),{native:true});
+    const g=view.folds.find(f=>f.object&&f.object.id===r.id);
+    if(!g){activate(fold);return}
+    const mark=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===g.id);
+    read(g);openRoom(g,mark?markPoint(mark):null);return;
+  }
+  closeRoom();
   commit({...state,focus:id,page:0},{native:true});
   readTick(r);
 }
@@ -234,6 +249,63 @@ function wireRibbon(){
   });
 }
 
+/* ==== THE ROOM — FOLD A ROOM AT THE MARK =====================================
+   The moment the two things meet: entering a held object's fold is the CUBE-NET FOLD
+   at that mark's exact screen coordinates. Six readings of the real route record
+   (OBJECT title · ADDRESS · STATE · TRANSFORM from the revision stack · PROVE from
+   evidence.checks · RETURN = the pin) hinge up from the flat field into the room
+   around the mark's position; the fold IS the orientation cue. Same transform-origin
+   law as the donor (lib/interphase-cube.js carries the absorbed geometry): the plane's
+   origin is the anchor cell (1,1) centre and the perspective origin is that same point,
+   so the anchor [x,y] is identical across net ↔ cube ↔ net — RETURN/UP unfolds the room
+   back flat INTO the same mark cell. Interruptible by construction: the hinges are live
+   CSS transitions, so a mid-fold tap completes or reverses from exactly where it is, and
+   prefers-reduced-motion swaps instantly with no spatial loss. The whole never leaves:
+   the map strip stays above this layer and the held mark carries a you-are-here dot. */
+const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const markPoint=el=>{const b=el.getBoundingClientRect();return{x:b.x+b.width/2,y:b.y+b.height/2}};
+function openRoom(g,point){
+  if(!g?.object)return;
+  const field=$('#fiField');if(!field)return;
+  // Already in this object's room: its position is the datum, never re-anchored.
+  if(room&&room.id===g.object.id&&field.querySelector('.fiRoom'))return;
+  const box=field.getBoundingClientRect(),
+    geo=C.roomAnchor(point||{x:box.left+box.width/2,y:box.top+box.height/2},
+      {left:box.left,top:box.top,width:box.width,height:box.height},{min:44,max:128});
+  clearTimeout(roomTimer);
+  field.querySelectorAll('.fiRoom').forEach(n=>n.remove());
+  const el=document.createElement('div');
+  el.className='fiRoom';el.id='fiRoom';
+  el.setAttribute('role','group');
+  el.setAttribute('aria-label',`Room of ${g.object.title}: six readings hinged at the mark. ${g.count} object.`);
+  el.innerHTML=C.roomMarkup(C.roomReadings(g.object,{revisions,pin:anchor}));
+  field.append(el);
+  const plane=el.querySelector('.fiRoomPlane');
+  // Position FIRST, then fold: the plane's own origin is the anchor cell centre, so
+  // the whole hinge-up pivots at the mark's screen coordinates and nowhere else.
+  plane.style.setProperty('--fi-room-s',`${geo.s.toFixed(2)}px`);
+  plane.style.left=`${geo.left.toFixed(2)}px`;plane.style.top=`${geo.top.toFixed(2)}px`;
+  el.style.perspectiveOrigin=`${geo.ax.toFixed(2)}px ${geo.ay.toFixed(2)}px`;
+  const fold=el.querySelector('[data-room-fold]');
+  const toggle=()=>{plane.dataset.fold=plane.dataset.fold==='cube'?'net':'cube'};
+  fold.onclick=toggle;
+  fold.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();e.stopPropagation();toggle()}};
+  room={id:g.object.id,anchor:[geo.anchor[0],geo.anchor[1]],s:geo.s};
+  plane.dataset.fold='net';
+  void plane.offsetWidth;                 // start flat AT the mark, then hinge up
+  plane.dataset.fold='cube';
+  renderRibbon(null);                     // you-are-here dot on the held map tick
+}
+function closeRoom(){
+  const field=$('#fiField'),el=field?.querySelector('.fiRoom');
+  clearTimeout(roomTimer);room=null;
+  if(!el)return;
+  const plane=el.querySelector('.fiRoomPlane');
+  const drop=()=>{el.remove();renderRibbon(null)};
+  if(reduced()||!plane){drop();return}
+  plane.dataset.fold='net';               // unfold back FLAT into the same mark cell
+  roomTimer=setTimeout(drop,320);
+}
 function renderBearing(next){
   if(!enabled||!view)return;
   const b=C.bearing(rows,state,view,anchor),addr=$('#fiAddress');
@@ -270,13 +342,13 @@ export async function enter(){
   $('#fieldUrlInput').value=entryText();render();remember();
 }
 function exit(){
-  endEdit();remember();enabled=false;root.hidden=true;delete document.documentElement.dataset.instrument;toggleMenu(false);
+  endEdit();remember();closeRoom();enabled=false;root.hidden=true;delete document.documentElement.dataset.instrument;toggleMenu(false);
   const input=$('#fieldUrlInput');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='address · glyph · command';
   const u=new URL(location.href);u.searchParams.set('instrument','0');history.replaceState(history.state,'',u);
   window.FieldLensHost?.notify?.();
 }
 function returnPosition(){
-  stopFlight();
+  stopFlight();closeRoom();
   if(!anchor)return;blankQuery();
   if(hostAnchor)window.FieldLensHost?.restore(hostAnchor);
   toggleMenu(false);commit(C.restore(anchor));
@@ -326,7 +398,7 @@ function showHelp(){
     +`<span>${glyph('<path d="M4 3v14M10 6v11M16 9v8"/>')}</span><b>state</b><i>tick height on the mark / lane</i>`
     +`<span>${glyph('<path d="M5 17V4M13 17V10"/>')}</span><b>depth</b><i>bar height = reading().length</i>`
     +`<span>${glyph('<path d="M3 7h14M3 14h9" stroke-width="2"/>')}</span><b>count</b><i>underline share of the fold</i>`
-    +`<span>${glyph('<path d="M3 4v9M8 6v7M13 5v8M18 7v6"/><path d="M2 17h16"/>')}</span><b>map</b><i>tap tick = locate · tap again = enter</i>`
+    +`<span>${glyph('<path d="M3 4v9M8 6v7M13 5v8M18 7v6"/><path d="M2 17h16"/>')}</span><b>map</b><i>tap tick = locate · tap again = room</i>`
     +`<span class="fiKeyWide"><b>residue</b><i>${esc(view.witness)} — ${esc(view.residue)}</i></span>`;
   putReading(`<div class="fiName">Read the mark</div><code>${mats.join(' · ')}</code><div class="fiHelp">${rows}</div><small><span>TURN re-sorts map + folds · state→time→depth→family</span><span>${view.foldSum}/${view.inside} in folds · ${esc(view.witness)}</span></small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
   reading.querySelector('[data-close]').onclick=()=>renderReading();
@@ -382,14 +454,23 @@ function openNative(r,id){
 function activate(g){
   if(!g)return;
   if(g.object&&g.object.id===state.focus&&view.inside===1){openObject(g.object);return}
-  endEdit();toggleMenu(false);travel(C.into(rows,state,g,seen),{foldId:g.id,native:!!g.object});
+  endEdit();toggleMenu(false);
+  // The fold pivots AT the mark: measure the tapped mark before the commit re-lays the
+  // plane out, so the room hinges up from — and RETURN unfolds back into — that cell.
+  const mark=g.object?[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===g.id):null,
+    point=mark?markPoint(mark):null;
+  travel(C.into(rows,state,g,seen),{foldId:g.id,native:!!g.object});
   // The object remains the same field mark; detail is a field state, no overlay lens.
-  if(g.object)read(g);
+  if(g.object){read(g);openRoom(g,point)}
 }
 function render(){
   if(!enabled)return;
   const priorMark=document.activeElement?.closest?.('[data-fold]')?.dataset.fold;
   view=C.project(rows,state,seen);
+  // A room belongs to exactly one held object's own fold. Any move that leaves that
+  // fold unfolds it back into its mark cell — the position is the datum, the room is
+  // only ever the view the user asked for.
+  if(room&&!(state.focus===room.id&&view.folds.some(f=>f.object&&f.object.id===room.id)))closeRoom();
   // TURN now MEASURES (axis swap in core). The camera is a secondary cue only:
   // a shallower tilt, still reduced-motion aware, never the carrier of meaning.
   plane.style.setProperty('--fi-tilt',[0,-6,-13,-20][state.turn]+'deg');
@@ -435,7 +516,8 @@ function key(e){
   const typing=e.target?.id==='fieldUrlInput';
   if(e.key==='Escape'){
     e.preventDefault();e.stopImmediatePropagation();
-    if(menu)toggleMenu(false);if(typing){blankQuery();state={...state,query:''};render();endEdit()}else quiet();return true;
+    if(menu)toggleMenu(false);else if(room)closeRoom();
+    if(typing){blankQuery();state={...state,query:''};render();endEdit()}else quiet();return true;
   }
   if(e.key==='Enter'&&typing){
     e.preventDefault();e.stopImmediatePropagation();const q=e.target.value.trim();
@@ -488,7 +570,10 @@ function boot(){
   window.FieldInstrument=Object.freeze({enter,exit,edit,active:()=>enabled,address,key,
     turn:()=>{if(!enabled)return false;command('turn');return true},
     snapshot:()=>({frame:C.frame(state),anchor:C.frame(anchor),view:view&&{total:view.total,inside:view.inside,outside:view.outside,counts:view.folds.map(g=>g.count),
-      axis:C.axis(state),dim:view.dim,witness:view.witness,folds:view.folds.length}})});
+      axis:C.axis(state),dim:view.dim,witness:view.witness,folds:view.folds.length},
+      // The room is a view of one held object: its id, the mark's screen anchor and
+      // which fold state the hinges are in right now.
+      room:room?{id:room.id,anchor:room.anchor.slice(),s:room.s,fold:document.querySelector('.fiRoomPlane')?.dataset.fold||null}:null})});
   window.addEventListener('field-index:state',()=>load());
   let attempts=0;
   const start=async()=>{

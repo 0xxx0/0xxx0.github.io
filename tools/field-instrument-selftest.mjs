@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import * as C from '../field-instrument-core.mjs';
 import {hashText,stableKey} from '../lib/id.js';
+import {esc} from '../lib/dom.js';
 import {kv} from '../lib/store.js';
 
 const raw=JSON.parse(readFileSync('showcase-manifest.json','utf8')).routes;
@@ -243,7 +244,7 @@ function restRulesOf(css){
     if(!/prefers-contrast|prefers-reduced-motion/.test(css.slice(at,open+1)))out+=css.slice(at,j+1);
     i=j+1;
   }
-  const reveal=/(:hover|:focus|\[data-reading="1"\]|data-detail|\.bloom|\.preview)/;
+  const reveal=/(:hover|:focus|\[data-reading="1"\]|data-detail|\.bloom|\.preview|\[data-room="1"\])/;
   return [...out.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(m=>({sel:m[1].trim(),body:m[2]}))
     .filter(r=>r.sel&&!r.sel.startsWith('@')&&/opacity/.test(r.body)&&!reveal.test(r.sel));
 }
@@ -276,5 +277,124 @@ assert.match(locatedLine,/ › id:/,'a path prints its breadcrumb');
 assert.ok(locatedLine.includes(`${C.project(rows,located,{}).inside}/${C.project(rows,located,{}).total}`),'n/total is on the line');
 assert.ok(C.bearing(rows,s,v,s).line.length<40,'counts come first: a long path can only clip its own tail');
 
+/* ==== CUBE MEETS MAP (2026-10-20) — the fold happens AT the mark ==== */
+const cubeSrc=readFileSync(new URL('../lib/interphase-cube.js',import.meta.url),'utf8');
+// ONE implementation: the instrument's core reaches the absorbed donor geometry, and
+// the donor directory is never imported, forked or re-derived anywhere in the repo.
+assert.ok(C.CUBE&&C.CUBE.VERSION==='interphase-cube/v0.1','the cube geometry is reachable from the projection');
+assert.equal(mjsSrc.includes("import './lib/interphase-cube.js'"),false,'the adapter reaches geometry through the core, never a second copy');
+assert.ok(coreSrc.includes("import './lib/interphase-cube.js'")&&coreSrc.includes('export const CUBE='),'one absorbed implementation, exported for the room AND this test');
+assert.deepEqual(C.CUBE.LAYOUT.map(e=>e.face).slice().sort(),C.CUBE.ORDER.slice().sort(),'six panels, six readings');
+assert.equal(C.CUBE.ORDER.length,6);
+assert.equal(C.CUBE.LAYOUT.filter(e=>e.parent).length,1,'the net keeps its nested (second-level) hinge');
+
+// FOLD HASH INVERSE (absorbed from the donor's test 02): net → cube → net returns the
+// same geometry hash, the matrices back within 1e-9, and the cube really closes.
+const rt=C.CUBE.roundTrip();
+assert.ok(rt.ok,'fold states must be exact inverses');
+assert.equal(rt.netHash,rt.backHash,'net -> cube -> net keeps the same geometry hash');
+assert.notEqual(rt.netHash,rt.cubeHash,'the cube is a real transform, not the flat net');
+assert.ok(rt.delta<1e-9&&rt.closes<1e-9);
+assert.equal(C.CUBE.hashGeometry(C.CUBE.geometry('cube')),C.CUBE.hashGeometry(C.CUBE.fold(C.CUBE.geometry('net'))),'fold() is stable');
+
+// HINGE ORIGINS — the four groups sit on the shared edge in the CSS exactly as the
+// model declares them, and each has a cube rule that swings it onto its wall.
+const ruleOf=sel=>{const i=cssSrc.indexOf(sel);if(i<0)return'';const open=cssSrc.indexOf('{',i),end=cssSrc.indexOf('}',open);return open<0||end<0?'':cssSrc.slice(open+1,end)};
+const roomRule=g=>ruleOf(`.fiRoomPlane .h-${g}{`),
+  cubeRule=g=>ruleOf(`#fiRoomPlane[data-fold="cube"] .h-${g}{`).includes('transform:rotate');
+let hingeOk=true;const hingeDet=[];
+for(const g of ['top','bottom','left','right']){
+  const got=(roomRule(g).match(/transform-origin:\s*([^;]+)/)||[])[1]?.replace(/\s+/g,' ').trim()||'MISSING';
+  const used=(coreSrc.match(new RegExp(`h-${g}`,'g'))||[]).length;
+  if(got!==C.CUBE.HINGE[g].css||!cubeRule(g)||used<1)hingeOk=false;
+  hingeDet.push(`h-${g} ${got}${cubeRule(g)?'':' (no cube rule)'}`);
+}
+assert.ok(hingeOk,hingeDet.join(' · '));
+assert.ok(ruleOf('#fiRoomPlane[data-fold="net"]{').trim()==='transform:none','net state: every hinge at 0 degrees');
+assert.ok(ruleOf('.fiRoomPlane{').includes('transform-origin:50% 37.5%'),'the plane origin is the anchor cell (1,1) centre, both fold states');
+assert.ok(coreSrc.includes('data-fold="net"')&&mjsSrc.includes("plane.dataset.fold='cube'"),'the fold starts flat AT the mark, then hinges up');
+
+// FOLD-AT-MARK COORDINATE INVARIANT — the anchor [x,y] is identical net ↔ cube ↔ net.
+// Two independent proofs must agree: the fold world matrix never moves the anchor cell
+// centre, and the plane rotation is applied ABOUT it (transform-origin == its centre).
+const inv=C.CUBE.anchorInvariant();
+assert.ok(inv.ok,`anchor face delta ${inv.faceDelta.toExponential(1)} · origin delta ${inv.originDelta.toExponential(1)} · pivot delta ${inv.pivotDelta.toExponential(1)}`);
+assert.deepEqual(C.CUBE.anchorCell().originPct,{x:50,y:37.5},'transform-origin resolves to the anchor cell centre of the 3x4 net');
+const fieldBox={left:12,top:129,width:390-24,height:509};
+// The reachable marks: the instrument's own placements grid (15 / 48.3 / 81.7 % of the
+// field box) plus the single-object detail centre — at the 390×844 phone it is built for.
+const phone={width:390,height:844},
+  marks=[0,1,2].flatMap(c=>[0,1,2].map(r=>({x:fieldBox.left+fieldBox.width*(0.15+c*0.3335),y:fieldBox.top+fieldBox.height*(0.15+r*0.3335)})))
+    .concat([{x:fieldBox.left+fieldBox.width/2,y:fieldBox.top+fieldBox.height/2}]);
+for(const point of marks.concat([{x:12,y:12},{x:366,y:638}])){
+  const g=C.roomAnchor(point,fieldBox,{min:44,max:128});
+  assert.ok(Math.abs(g.left+1.5*g.s-g.ax)<1e-9&&Math.abs(g.top+1.5*g.s-g.ay)<1e-9,
+    `net cell (1,1) must sit exactly on the mark at ${point.x},${point.y}`);
+  assert.ok(Math.abs(g.ax+fieldBox.left-point.x)<1e-9&&Math.abs(g.ay+fieldBox.top-point.y)<1e-9,'the anchor never moves; only the fit changes');
+  assert.ok(g.s>=44&&g.s<=128,`panel size ${g.s.toFixed(1)} outside the touch floor / phone budget`);
+}
+for(const point of marks){
+  const g=C.roomAnchor(point,fieldBox,{min:44,max:128}),l=fieldBox.left+g.left,t=fieldBox.top+g.top;
+  assert.ok(l>=0&&t>=0&&l+3*g.s<=phone.width&&t+4*g.s<=phone.height,
+    `the net fits the ${phone.width}x${phone.height} screen it folded out of (${point.x},${point.y} -> ${l.toFixed(0)},${t.toFixed(0)} ${ (3*g.s).toFixed(0)}x${(4*g.s).toFixed(0)})`);
+}
+// Six readings generated from the REAL route record — no invented content channel.
+const checked=rows.find(r=>Array.isArray(r.payload?.evidence?.checks)&&r.payload.evidence.checks.length),
+  claimed=rows.find(r=>Array.isArray(r.payload?.evidence)&&r.payload.evidence.some(c=>c&&c.claim)),
+  bare=rows.find(r=>!r.payload?.evidence);
+assert.ok(checked&&claimed&&bare,'the manifest carries proof / claims / no-evidence routes');
+const trail=[C.frame(s),{...s,turn:1,scale:2},{...s,turn:2,scale:4}];
+const six=C.roomReadings(checked,{revisions:trail,pin:s});
+assert.deepEqual(six.map(r=>r.face),C.CUBE.ORDER,'six readings, cube order');
+assert.deepEqual(Object.keys(six[0]).sort(),['axis','cjk','count','face','text'].sort(),'every face channel is rendered, nothing carried that is not drawn');
+assert.equal(six[0].text,checked.title,'OBJECT = the held title');
+assert.equal(six[1].text,checked.address,'ADDRESS = the held address');
+assert.ok(six[2].text.startsWith(checked.state)&&six[2].text.includes(checked.day),'STATE = the held state, with its day');
+assert.ok(six[3].text.startsWith(`${trail.length} MOVES`)&&six[3].text.includes('family·FIELD')&&six[3].text.includes('state·KIND'),'TRANSFORM = transform history from the revisions');
+assert.equal(six[3].count,trail.length,'the move count is printed, never hidden');
+assert.ok(six[4].text.startsWith(`${checked.payload.evidence.checks.length} CHECKS`)&&six[4].text.includes(checked.payload.evidence.checks[0].slice(0,40)),'PROVE = proof from evidence.checks');
+assert.ok(six[5].text.startsWith('PIN '),'RETURN = the pin');
+assert.ok(six.every(r=>r.text&&r.text.length<=64),'a reading folds its prose at 64 chars and keeps the count first');
+assert.equal(C.roomReadings(claimed).find(r=>r.face==='PROVE').text.startsWith(`${claimed.payload.evidence.length} CLAIMS`),true,'claims-style evidence is counted too');
+assert.equal(C.roomReadings(bare).find(r=>r.face==='PROVE').text,'NO EVIDENCE FILED','an absent proof stays absent, never invented');
+assert.equal(C.roomReadings(bare).find(r=>r.face==='TRANSFORM').text.startsWith('0 MOVES'),true);
+// The room's DOM is the donor's cross net, built by the SAME projection the browser
+// renders — six faces, four hinge groups, RETURN nested under PROVE, every reading
+// (and its count) actually on the face. A missing reading is a thrown error, not a hole.
+const roomHtml=C.roomMarkup(six);
+assert.equal((roomHtml.match(/class="fiFace" data-face="/g)||[]).length,6,'six faces emitted');
+assert.equal(C.CUBE.ORDER.every(f=>roomHtml.includes(`data-face="${f}"`)),true,'cube order on the faces');
+assert.equal((roomHtml.match(/class="cell nest"/g)||[]).length,1,'the nested (second-level) hinge is emitted under PROVE');
+for(const h of ['h-none','h-top','h-bottom','h-left','h-right'])assert.ok(roomHtml.includes(`hinge ${h}`),h+' hinge emitted');
+assert.ok(roomHtml.includes('data-room-fold'),'the OBJECT face is the fold control');
+assert.ok(roomHtml.includes('01/06')&&roomHtml.includes('06/06'),'every reading is numbered, counts never hidden');
+for(const r of six)assert.ok(roomHtml.includes(esc(r.text))&&roomHtml.includes(esc(r.axis))&&roomHtml.includes(esc(r.cjk)),
+  `${r.face} text/axis/cjk must be on its face`);
+assert.throws(()=>C.roomMarkup(six.slice(1)),/ROOM_READING_MISSING/,'a missing reading must fail loudly');
+// Interruptible by construction: the fold is a CSS transition on the LIVE hinges, so a
+// mid-fold tap completes or reverses from where it is; reduced motion swaps instantly.
+assert.ok(ruleOf('.fiRoomPlane{').includes('transition:transform 300ms cubic-bezier(.2,.8,.2,1)'),'the donor 300ms hinge transition, on the live plane');
+assert.ok(ruleOf('.fiRoomPlane .hinge{').includes('transition:transform 300ms'),'and on every live hinge');
+assert.ok(!/\.animate\(/.test(mjsSrc.slice(mjsSrc.indexOf('function openRoom'),mjsSrc.indexOf('function closeRoom'))),'the fold is interruptible CSS, not a cancellable flight');
+assert.ok(/function toggleRoom|const toggle=\(\)=>\{plane\.dataset\.fold=plane\.dataset\.fold==='cube'\?'net':'cube'\}/.test(mjsSrc),'a mid-fold tap reverses the same hinges');
+assert.ok(/plane\.dataset\.fold='net';\s*\/\/ unfold back FLAT into the same mark cell/.test(mjsSrc),'fold OUT returns flat into the mark cell');
+// REDUCED-MOTION BRANCH — depth without motion, no spatial loss.
+const rmAt=cssSrc.indexOf('@media(prefers-reduced-motion:reduce)'),rmWin=rmAt<0?'':cssSrc.slice(rmAt,rmAt+200);
+assert.ok(/\.fiRoomPlane,\.fiRoomPlane \.hinge\{transition:none\}/.test(rmWin),'the room hinges stop moving under prefers-reduced-motion');
+assert.ok(mjsSrc.includes("const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches"),'the JS swap branch exists');
+assert.ok(/if\(reduced\(\)\|\|!plane\)\{drop\(\);return\}/.test(mjsSrc),'reduced motion closes the room instantly');
+// THE ROOM NEVER LEAVES THE WHOLE — the map strip stays, with a you-are-here dot that
+// exists only in the earned room state (α.12 law still holds for everything at rest).
+assert.ok(/renderRibbon\(null\);\s*\/\/ you-are-here dot/.test(mjsSrc),'opening/closing the room re-reads the map');
+assert.ok(mjsSrc.includes('class="here"')&&/circle class="here"/.test(mjsSrc),'the you-are-here dot is drawn from the held tick position');
+assert.ok(/#fiRibbon \.here\{fill:currentColor;stroke:none;opacity:0\}/.test(cssSrc),'the dot is not a rest layer at all');
+assert.ok(mjsSrc.includes("svg.dataset.room='1'")&&mjsSrc.includes('delete svg.dataset.room'),'the room state is explicit on the map');
+assert.ok(mjsSrc.includes('closeRoom()'),'UP / RETURN / any move out of the fold unfolds the room');
+// NO CHANCE ANYWHERE — identity and geometry stay FNV-1a/stableKey, in every file.
+const chance=['Math','random'].join('.');
+assert.deepEqual([['field-instrument.mjs',mjsSrc],['field-instrument-core.mjs',coreSrc],['field-instrument.css',cssSrc],['lib/interphase-cube.js',cubeSrc]]
+  .filter(([,src])=>src.includes(chance)).map(([f])=>f),[],chance+' must appear nowhere in the instrument or its cube geometry');
+
 console.log(`FIELD INSTRUMENT PASS · ${rows.length} real routes · 40,000 colliding records reachable once · ${calls} folds / depth ${maxDepth} · projection ${projectionMs}ms / traversal ${traversalMs}ms · exact RETURN · no source mutation`);
 console.log(`GOD'S-EYE FRAME PASS · 4-turn axis ring (state → time → depth → family from rest) · map ${mapFam.length} ticks / ${C.ribbon(C.overview(rows,v,null,'family'),366).lanes} lanes / ${C.ribbon(C.overview(rows,v,null,'family'),366).pitch.toFixed(2)}px pitch at 390 · ${measured} rest layers ≤ α${peak} · witness "${v.witness}" · line "${C.bearing(rows,s,v,s).line}"`);
+console.log(`CUBE MEETS MAP PASS · room hinges AT the mark (anchor [${inv.anchor.join(',')}] identical net↔cube↔net, pivot Δ${inv.pivotDelta.toExponential(1)}) · fold hash net ${rt.netHash} → cube ${rt.cubeHash} → net ${rt.backHash} · 4 hinge origins on the shared edge + nested RETURN · six readings from a real record (${checked.address}: ${six[3].count} moves, ${six[4].count} checks, pin ${six[5].text.slice(4,20)}) · 300ms interruptible · reduced-motion instant · ${chance} nowhere`);

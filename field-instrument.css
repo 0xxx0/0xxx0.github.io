@@ -84,7 +84,63 @@ html[data-instrument="1"] #fiMenu{display:block}
 .fiMenu button{padding:8px 3px;text-align:center;font-size:13px!important;min-height:100px!important;overflow-wrap:anywhere}
 .fiMenu small{display:block;font-size:9px;color:var(--mut)}
 .fiNotice{position:absolute;left:20px;right:20px;top:var(--fi-top);color:var(--cool);font-size:10px;background:var(--bg);z-index:3;pointer-events:none}
+/* ==== THE ROOM — the held object's six readings, hinged on true cube-net edges ====
+   Entering a mark's fold is the CUBE-NET FOLD AT that mark: the room's plane is placed
+   so the anchor cell (1,1) centre lands on the mark's screen point, and its
+   transform-origin is that same point in BOTH fold states (50% / 37.5% = the anchor
+   cell centre of the 3×4 net) — so the anchor [x,y] is identical net ↔ cube ↔ net and
+   RETURN unfolds the room back INTO the same mark cell. data-fold="net" is every hinge
+   at 0° = the plain reading view (all six legible at rest); "cube" swings each hinge
+   onto its wall (the orientation cue). The 300ms hinge is the donor's, and because it
+   is a CSS transition on the live hinges a mid-fold tap completes or reverses cleanly.
+   Every face line is a real datum (title / address / state / revisions / checks / pin). */
+.fiRoom{position:absolute;inset:0;z-index:2;perspective:750px;perspective-origin:50% 50%;pointer-events:none}
+/* The plane IS the 3×4 net: it must own that box, or 50%/37.5% (the anchor cell
+   centre) would resolve against a zero-sized box and the fold would pivot at the
+   net's corner instead of at the mark. */
+.fiRoomPlane{position:absolute;width:calc(var(--fi-room-s)*3);height:calc(var(--fi-room-s)*4);
+  transform-style:preserve-3d;pointer-events:none;--fi-room-s:88px;
+  transform-origin:50% 37.5%;transition:transform 300ms cubic-bezier(.2,.8,.2,1)}
+.fiRoomPlane .cell{position:absolute;left:calc(var(--c,0)*var(--fi-room-s));top:calc(var(--r,0)*var(--fi-room-s));
+  width:var(--fi-room-s);height:var(--fi-room-s);transform-style:preserve-3d}
+.fiRoomPlane .cell.nest{left:0;top:100%}
+.fiRoomPlane .hinge{position:absolute;inset:0;transform-style:preserve-3d;backface-visibility:hidden;
+  pointer-events:auto;touch-action:manipulation;transition:transform 300ms cubic-bezier(.2,.8,.2,1)}
+/* 4 hinge groups: transform-origin sits on the shared edge, never the panel centre. */
+.fiRoomPlane .h-top{transform-origin:50% 100%}
+.fiRoomPlane .h-bottom{transform-origin:50% 0%}
+.fiRoomPlane .h-left{transform-origin:100% 50%}
+.fiRoomPlane .h-right{transform-origin:0% 50%}
+/* net state: every hinge at 0° — the flat cross, anchored at cell (1,1) = the mark */
+#fiRoomPlane[data-fold="net"]{transform:none}
+#fiRoomPlane[data-fold="net"] .hinge{transform:none}
+/* cube state: each hinge swings onto its wall, nested panel closes the back */
+#fiRoomPlane[data-fold="cube"]{transform:rotateX(-16deg) rotateY(26deg)}
+#fiRoomPlane[data-fold="cube"] .h-top{transform:rotateX(90deg)}
+#fiRoomPlane[data-fold="cube"] .h-bottom{transform:rotateX(-90deg)}
+#fiRoomPlane[data-fold="cube"] .h-left{transform:rotateY(-90deg)}
+#fiRoomPlane[data-fold="cube"] .h-right{transform:rotateY(90deg)}
+/* one face = one reading: words are the content, legible at rest at every panel size */
+#fieldInstrument .fiRoomPlane .fiFace{position:absolute;inset:0;display:flex;flex-direction:column;
+  gap:1px;padding:calc(var(--fi-room-s)*.07);min-width:0;min-height:0;overflow:hidden;text-align:left;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);
+  backface-visibility:hidden;transform-style:preserve-3d}
+#fieldInstrument .fiRoomPlane .fh{display:flex;justify-content:space-between;align-items:baseline;gap:3px;min-width:0}
+#fieldInstrument .fiRoomPlane .lab{font-size:calc(var(--fi-room-s)*.085);letter-spacing:.12em;color:var(--ink);white-space:nowrap}
+#fieldInstrument .fiRoomPlane .cjk{margin-left:3px;font-size:calc(var(--fi-room-s)*.08);color:var(--mut)}
+#fieldInstrument .fiRoomPlane .num{margin-left:auto;font-size:calc(var(--fi-room-s)*.062);color:var(--mut);white-space:nowrap}
+#fieldInstrument .fiRoomPlane .ax{font-size:calc(var(--fi-room-s)*.062);letter-spacing:.1em;color:var(--mut);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#fieldInstrument .fiRoomPlane .rd{flex:1 1 auto;min-height:0;margin-top:2px;overflow:hidden;
+  font-size:calc(var(--fi-room-s)*.088);line-height:1.3;color:var(--ink);overflow-wrap:anywhere;word-break:break-word}
+#fieldInstrument .fiRoomPlane .h-none .fiFace{cursor:pointer}
+#fieldInstrument .fiRoomPlane .fiFace:focus-visible{outline:1px solid var(--cool);outline-offset:2px}
+/* YOU-ARE-HERE — the held mark's own tick on the whole-field map, drawn only while the
+   room is open (an earned state: the fold was tapped, like data-detail). At rest the
+   dot is not drawn at all; the held tick itself is always the shape cue. */
+#fiRibbon .here{fill:currentColor;stroke:none;opacity:0}
+#fiRibbon[data-room="1"] .here{opacity:1}
 @media(min-width:760px){.fiField{left:10%;right:10%;top:calc(var(--fi-top) + 20px);bottom:206px}.fiReading{left:calc(50% - 310px);right:calc(50% - 310px)}.fiMark svg{height:76px}.fiMark .fiLabel{font-size:12px}.fiMenu{left:calc(50% - 310px);right:calc(50% - 310px)}html[data-instrument="1"] #fieldUrlBar{left:calc(50% - 330px);right:calc(50% - 330px)}}
 @media(max-height:600px){.fiMark svg{height:36px}.fiMark .fiLabel{font-size:10px}.fiMenu button{min-height:44px!important;padding:3px}}
-@media(prefers-reduced-motion:reduce){.fiPlane,.fiMark svg{transition:none}}
+@media(prefers-reduced-motion:reduce){.fiPlane,.fiMark svg,.fiRoomPlane,.fiRoomPlane .hinge{transition:none}}
 @media(prefers-contrast:more){.fiMark svg{opacity:1}.fiMark .fiLabel,.fiBarMeta,.fiReading small{color:var(--ink)}}
