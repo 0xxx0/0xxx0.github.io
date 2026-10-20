@@ -154,7 +154,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     if(!expected||typeof listen?.sourceFile!=='function'){announce('BIND AUDIO IN LISTEN FIRST');return false}
     const file=listen.sourceFile();
     if(!file){announce('SOURCE BYTES UNAVAILABLE · NOTHING TRANSFERRED');return false}
-    const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
+    carryBusy=true;const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
     const sourceHold=holdSource({hash:expected,time:s.time,duration:s.map?.duration||s.fileMeta?.duration,scope:s.scope,pins:s.pins});
     pause('listen');open('ride');
     try{
@@ -172,16 +172,17 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       const actual=native.state?.()?.sourceMeta?.hash;
       if(actual!==expected)throw Error('SOURCE_HASH_MISMATCH');
       const position=native.source?.seek?.(sourceHold.sourceAddress,expected);
-      if(!position||position.hash!==expected)throw Error('NATIVE_SOURCE_SEEK_UNVERIFIED');
-      held={...sourceHold,releasesBefore:native.state?.()?.history?.length||0};lastReturn=null;
-      announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12));
+      if(!position||position.hash!==expected)throw Error('SOURCE_IDENTITY_UNVERIFIED');
+      held={...sourceHold,releasesBefore:native.state?.()?.history?.length||0,nativeFocusConfirmed:position.ok===true};lastReturn=null;
+      document.documentElement.dataset.fieldLabNativeFocus=position.ok?'confirmed':'unverified';
+      announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12)+(position.ok?' · EXACT TIME':' · TIME UNVERIFIED'));
       document.documentElement.dataset.fieldLabCarry='matched';
       trace('MEDIA_SOURCE_MATCHED');refresh();return true;
     }catch(error){
       held=null;document.documentElement.dataset.fieldLabCarry='unverified';
       announce('SOURCE NOT VERIFIED · '+String(error?.message||error).slice(0,66));
       trace('MEDIA_SOURCE_UNVERIFIED');return false;
-    }
+    }finally{carryBusy=false;refresh()}
   }
   async function command(name){
     const native=api('ride');if(!native){announce('NATIVE LIVE NOT READY');return false}
