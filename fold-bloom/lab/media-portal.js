@@ -164,7 +164,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         };check();
       });
       await Promise.race([
-        native.loadFiles([file],{retain:true,label:'LAB SOURCE → LIVE'}),
+        native.loadFiles([file],{retain:false,label:'LAB SOURCE → LIVE'}),
         new Promise((_,reject)=>setTimeout(()=>reject(Error('LIVE_DECODE_TIMEOUT')),12000))
       ]);
       const actual=native.state?.()?.sourceMeta?.hash;
