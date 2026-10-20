@@ -32,8 +32,8 @@ body[data-projection="room"] #roomLens{display:flex}
 .cubeFace[data-face="B"]{transform:rotateY(180deg) translateZ(calc(var(--side)/2))}
 .cubeFace[data-face="L"]{transform:rotateY(-90deg) translateZ(calc(var(--side)/2))}
 .cubeFace[data-face="R"]{transform:rotateY(90deg) translateZ(calc(var(--side)/2))}
-.cubeFace[data-face="U"]{transform:rotateX(90deg) translateZ(calc(var(--side)/2))}
-.cubeFace[data-face="D"]{transform:rotateX(-90deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="U"]{transform:rotateX(-90deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="D"]{transform:rotateX(90deg) translateZ(calc(var(--side)/2))}
 .cubeContent{padding:clamp(10px,2.4vw,20px);display:flex;flex-direction:column;gap:9px;min-height:100%}
 .cubeEy{color:var(--cool);font-size:9px;letter-spacing:.1em}
 .cubeTitle{font:800 clamp(14px,3.5vw,23px)/1.1 system-ui,sans-serif;overflow-wrap:anywhere}
