@@ -12,7 +12,8 @@ need(omni.includes("window.__fieldRouteMap?.all?.()"),'omnibar does not reuse ca
 need(omni.includes("window.__fieldAct"),'omnibar bypasses existing FIELD acting hand');
 need(omni.includes("window.FieldZUI"),'omnibar does not reuse semantic HOLD / WORK / PROVE depth');
 need(omni.includes("window.FieldLensHost"),'omnibar does not reuse existing projection host');
-need(omni.includes("document.getElementById('apCopy')?.click()"),'HANDOFF does not reuse existing FIELD action packet');
+// Native HANDOFF dispatch and missing-owner rejection are exercised by the real
+// browser in field-instrument-smoke.mjs, rather than matching an inline click spelling.
 need(omni.includes("node tools/field-hermes-run.mjs --source"),'Hermes prepare bridge missing');
 need(!omni.includes('--execute'),'public omnibar must never mint Hermes execution authority');
 need(!/HERMES_API_KEY|API_SERVER_KEY|Authorization\s*:|Bearer\s/.test(omni),'public omnibar references executor credentials');

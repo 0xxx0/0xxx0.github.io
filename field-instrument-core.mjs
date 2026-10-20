@@ -130,8 +130,18 @@ export function project(rows,s,seen){
     residue:s.mode==='RELATIONS'?'Declared parent/child/peer edges only. Missing parent records stay outside; no inferred similarity or merge.':d.coverage};
 }
 export function unfold(s,g){
-  if(g.object)return {...s,focus:g.object.id,page:0};
+  if(g.object)return {...s,scale:4,path:[...s.path,{dim:'id',values:[g.object.id],fromScale:s.scale}],focus:g.object.id,page:0};
   return {...s,path:[...s.path,{dim:g.dim,values:g.values,fromScale:s.scale}],scale:g.range?s.scale:Math.min(4,s.scale+1),page:0};
+}
+// Coarse material families are a rendering vocabulary, not a new object type.
+// Exact native kinds remain in the reading; fine angular differences are not IDs.
+export function material(kind){
+  if(['root','system','hub','control','index'].includes(kind))return 'hub';
+  if(['workbench','tool','utility','experiment','lab'].includes(kind))return 'tool';
+  if(['documentation','source'].includes(kind))return 'text';
+  if(['evidence','validator'].includes(kind))return 'trace';
+  if(['route','alias','adapter','derivative','donor','donor-hub','recovery','rendezvous'].includes(kind))return 'link';
+  return 'object';
 }
 // Skip a facet only when it adds no choice, or when all objects fit the aperture.
 // Skipped tautologies add no predicate: scope-out remains the exact inverse.

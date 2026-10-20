@@ -1,0 +1,53 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_INDEX_APERTURE_0837_2026-10-20",
+  "date": "2026-10-20",
+  "state": "COMPONENT_PROVED / HUMAN_COMPREHENSION_UNRESOLVED",
+  "object": "FIELD INDEX 0.8.37 / APERTURE DEPTH + COARSE MATERIALS",
+  "version": "0.8.37",
+  "predecessor": "/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
+  "source": {
+    "route": "/",
+    "review_base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087"
+  },
+  "operation": "Enter exact selected aperture → use native tool → UP or pinned RETURN",
+  "observed": {
+    "manifest_destinations": 205,
+    "material_families": 6,
+    "viewports": [
+      "320x568",
+      "320x640",
+      "390x844",
+      "430x932",
+      "1280x800"
+    ],
+    "operator_return": "0.8.36 reported unintuitive; fine arrow angles not distinguishable",
+    "live_delivery_gap": "0.8.36 JSON observed with old interface controls and no overview ticks",
+    "camera": "Selected-origin scale/depth transition; inverse UP; full-size exact tool; interruptible RETURN"
+  },
+  "verification": {
+    "core": "PASS · prior conservation/refinement/ownership laws",
+    "browser": "PASS · obsolete real HTTP-cache entries, shared release triple, non-reduced entry/UP/cancel, five-viewport native journeys",
+    "ci": "UNCLAIMED · inspect exact candidate component steps independently of baseline red coordination gates",
+    "human": "UNRESOLVED · six material forms and motion remain hypotheses",
+    "native_merge": "Preserved b95b7bc plain argument parser, fail-closed targets, bounded yaw/scale and native HELP/AXIS tests; aperture camera composes the retained yaw/scale.",
+    "handoff": "PASS · real browser invokes native packet owner once; missing owner emits no success. Replaces stale inline-click string assertion."
+  },
+  "source_sha256": {
+    "field-instrument-core.mjs": "ef8a80d090b6b858002ed442ae1edac2b9a528fc07e7cf5ff1629d8f404eb49f",
+    "field-instrument.mjs": "029a0f057ca03985cb3278735bc367545e0385832e235d2994c1c3a9210a235a",
+    "field-instrument.css": "6d50a742bb3fb149a5ccbb451a122121f07905ace75f7c49511ef7353e331b34",
+    "index.html": "b160ebfd1e7e6bb58b25dc2ae95ebb7dad6d628f9c6c6a970cc9c74db80a8657",
+    "tools/field-instrument-selftest.mjs": "0c6184ec5dbe5755f5b138f57edb05e1a3f9acb8616d5828df0cd79a95744551",
+    "tools/field-instrument-smoke.mjs": "4c08ef0c7504fdacbb802891ac2d9552d7f66aa470775a497316ccf5b7336031",
+    "tools/field-omnibar-selftest.mjs": "78ccccbbbbb86ca58022701ebfe5f588c5e0a91d8d9aa1a2f30597e05344797e"
+  },
+  "residue": [
+    "Packed slots are not semantic feature coordinates.",
+    "Real corpus and native work inside the aperture are not integrated.",
+    "Materials do not distinguish all native kinds or establish wordless identity.",
+    "Broad five-front/QUEUE baseline coordination failures remain."
+  ],
+  "return_to": "/",
+  "next_authority": "NONE"
+}

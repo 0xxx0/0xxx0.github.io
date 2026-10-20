@@ -444,3 +444,74 @@ ship checks. Report component results separately from the known five-front /
 QUEUE coordination failures. The exact tested source hashes are in
 `/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json`; live deployment must be
 observed separately from a merged tree. `next_authority: NONE`.
+
+## Perception and depth correction — 0.8.37, 2026-10-20
+
+**The operator disconfirmed intuitive use.** Tiny angular differences between
+single arrows were not perceptually sufficient. Component PASS had established
+count/route/return mechanics, not comprehension or practical advantage. Calling
+that a useful unified instrument was ahead of the evidence. Do not ask the
+operator to learn an encoding merely because its SVG bytes differ.
+
+PR #972 merged as `0bd4dcc3a266e77426d99684a4299e0401f4149a`. The live browser
+then showed CURRENT's 0.8.36 head while still rendering 0.8.35 controls and no
+address-map ticks. New JSON and cached unversioned modules could coexist. The
+HTML now carries one release query; adapter/core/style inherit the same query.
+The browser regression first warms real HTTP cache entries with obsolete bare
+modules and CSS, then proves the released interface loads the current triple.
+Do not disable browser caching in this proof: Playwright page.route does so.
+
+### Concrete conversion
+
+- A region is an aperture: the selected origin expands with scale/translateZ,
+  revealing the next semantic level. UP follows the reverse camera path. This
+  is triggered by entry itself, rather than requiring discovery of a whole-plane
+  TURN pose in a menu. The old plane exists only as inert transition context.
+- Tool entry now narrows to the exact id and enlarges that tool to the full
+  field aperture with an explicit OPEN affordance. It no longer leaves a tiny
+  selected mark among nine others while only the footer changes. Native effects
+  remain in the receiving host; the full aperture is not a fabricated app.
+- RETURN can interrupt the flight and restores the pinned native/projected frame.
+  Reduced motion skips the flight while retaining the same scope transition.
+- Six coarse area materials replace fine arrow-angle identity: rings = native
+  hubs/systems, lattice = work tools, ruled = source/documentation, ruler =
+  evidence/validators, bridges = links/adapters, contours = other artifacts.
+  This is a rendering reduction of existing kinds, not a canonical ontology.
+  Equal bands mean presence; their lower rules carry membership fractions.
+  Exact kinds remain readable; content-hash moiré stays inspection-only.
+
+The [Pad++ source](https://www.cs.umd.edu/projects/hcil/pad%2B%2B/papers/jvlc-96-pad/zoom-6.html)
+connects pan/zoom paths with semantic appearance changes. That supports the
+selected-origin camera conversion; it does not prove this implementation's
+comprehension. [Perceptual kernels](https://idl.uw.edu/perceptual-kernels/) treat
+visual discrimination as empirical. The six materials are hypotheses, not
+measured recognition results. A transient depth animation is not durable semantic
+3D coordinates; packed slots still carry that declared limitation.
+
+### Assessment and successor stop conditions
+
+Automated proof: warmed cache rejects stale adapter/core/style; non-reduced
+entry creates a visible camera, enlarges the selected aperture by more than 2×,
+UP restores the previous scope, mid-flight RETURN cancels the camera; five
+viewport native journeys and existing count/ownership checks pass. Phone images
+are layout evidence only. No human-perception PASS is inferred.
+
+Next observation: without a command lesson, can the operator enter a known tool,
+recognize the depth change, use it, and return? Can they distinguish the six
+materials at 320px without reading their labels? Record wrong choices and lost
+place. If the materials still require decoding effort or mostly look alike,
+replace/reduce them; do not defend them with source hashes or increase the
+vocabulary. If motion does not convey entry, correct the selected-origin camera
+before adding gestures. The native-reader task above remains the next capability
+integration, not another style pass. Real corpus, semantic spatial embedding and
+wordless identity remain unresolved. `next_authority: NONE`.
+
+Publication reconciliation: master `b95b7bc` repaired native plain commands,
+address arguments, HELP/AXIS and bounded yaw/scale during this work. Its parser,
+owner dispatch and browser cases are retained. The aperture camera composes
+that yaw/scale rather than resetting the plane to a different transform at the
+end of flight. No alternate command table or camera state was added.
+The native HANDOFF validator matched the old inline click spelling and failed
+after b95b7bc introduced its fail-closed shared tap helper. Its browser proof now
+spies on the native packet owner: one call when present, no success event when
+absent. The stale spelling assertion was removed in favor of that behavior check.
