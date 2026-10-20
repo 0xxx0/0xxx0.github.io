@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T02:52:36.052Z",
+  "generated": "2026-10-20T03:23:35.868Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,14 +9,14 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-20",
-  "commits_in_window": 16,
-  "git_commits_in_window": 54,
-  "telemetry_commits_in_window": 38,
-  "commits_total": 6197,
-  "branch_count": 1038,
+  "commits_in_window": 26,
+  "git_commits_in_window": 67,
+  "telemetry_commits_in_window": 41,
+  "commits_total": 6210,
+  "branch_count": 1040,
   "recent_commits": [
-    "FIELD: make plain Omnibar commands executable and bounded AXIS navigation",
-    "FOLD//BLOOM: source-safe first-use repair for LISTEN, RSVP and Scale Lens",
+    "RSVP: fix JSON reading and add PIN wrist surface",
+    "FIELD LAB: embed native RIDE and LISTEN with source glyph and exact return",
     "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
@@ -48,5 +48,5 @@
   ],
   "live_fronts": "2/2",
   "current_heads": 12,
-  "current_updated": "2026-10-20T10:19:16+08:00"
+  "current_updated": "2026-10-20T10:39:09+08:00"
 }
