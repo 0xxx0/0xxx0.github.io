@@ -104,14 +104,14 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   function trace(kind){onTrace(kind)}
   function close(){
     if(!active)return;
-    pause('ride');pause('listen');active=null;shell.hidden=true;clearInterval(ticker);ticker=0;
+    pause('ride');pause('listen');active=null;shell.hidden=true;closeRing();clearInterval(ticker);ticker=0;
     document.documentElement.dataset.fieldLabMedia='closed';trace('MEDIA_RETURN');
     onStatus('FIELD LAB · NATIVE HOSTS HELD · RETURN');
   }
   function open(type){
     if(type!=='ride'&&type!=='listen')return false;
     if(active&&active!==type)pause(active);
-    active=type;create(type);shell.hidden=false;
+    closeRing();active=type;create(type);shell.hidden=false;
     document.documentElement.dataset.fieldLabMedia=type;
     for(const name of ['ride','listen']){
       $('[data-frame="'+name+'"]').hidden=name!==type;
@@ -121,6 +121,42 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     $('[data-portal="original"]').href=type==='ride'?'../live/':'../listen/';
     clearInterval(ticker);ticker=setInterval(refresh,300);refresh();trace('MEDIA_'+type.toUpperCase());
     return true;
+  }
+  function closeRing(){
+    $('[data-portal="ringMask"]').hidden=true;
+    delete shell.dataset.ringOpen;
+  }
+  function openRing(){
+    if(active!=='listen'){open('listen');return false}
+    const s=api('listen')?.state?.();
+    if(s?.sourceLoading||!s?.fileMeta?.hash||!(Number(s.map?.duration)>0)){
+      announce('BIND AN AUDIO SOURCE BEFORE OPENING THE TIME RING');return false
+    }
+    shell.dataset.ringOpen='1';
+    $('[data-portal="ringMask"]').hidden=false;
+    syncRing();
+    $('[data-portal="glyph"]').focus();
+    trace('SOURCE_RING_OPEN');
+    return true;
+  }
+  function syncRing(){
+    if(!$('[data-portal="ringMask"]').hidden){
+      const s=api('listen')?.state?.(),duration=Number(s?.map?.duration)||0,
+        time=Math.max(0,Math.min(duration,Number(s?.time)||0)),
+        fmt=x=>Math.floor(x/60)+':'+String(Math.floor(x%60)).padStart(2,'0');
+      $('[data-portal="ringInfo"]').textContent=duration>0?
+        ('TIME '+fmt(time)+' / '+fmt(duration)+' · '+(s?.stage||'UNKNOWN')+
+          (s?.stage==='AUDIO_ONLY'?' · NO MEASURED TERRAIN':' · SOURCE-BOUND')):
+        'NO TIMELINE · SOURCE BIND REQUIRED';
+      for(const k of ['ringBack','ringForward','ringMark','ringRide'])
+        $('[data-portal="'+k+'"]').disabled=!(duration>0&&s?.fileMeta?.hash&&!s.sourceLoading);
+    }
+  }
+  function ringNudge(delta){
+    const listen=api('listen'),s=listen?.state?.(),d=Number(s?.map?.duration)||0;
+    if(!d||s?.sourceLoading)return false;
+    const target=Math.max(0,Math.min(d,(Number(s.time)||0)+d*delta/24));
+    listen.seek(target);refresh();return true;
   }
   function setGlyph(glyph,hash){
     if(!glyph||!hash)return;
@@ -140,6 +176,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     const listen=api('listen'),native=api('ride'),ls=listen?.state?.();
     $('[data-portal="sourceReturn"]').hidden=!held?.ok;
     if(ls?.fileMeta?.hash&&ls.glyph)setGlyph(ls.glyph,ls.fileMeta.hash);
+    syncRing();
     if(active==='listen'){
       const m=ls?.fileMeta,ev=harmonicEvidence(ls?.map);
       $('[data-portal="title"]').textContent=m?m.name||'BOUND AUDIO':'LISTEN · LOAD A SOURCE';
