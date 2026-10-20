@@ -1,5 +1,6 @@
 import {ListenRenderer} from './render.js';
 import {demoWavBytes} from './demo-tone.js';
+import {decodePcmWavPreview} from './pcm-wav-preview.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from '../../lib/polar-control.js';
 import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
@@ -275,15 +276,15 @@ function sourceLabel(meta){
 async function analyzeBytes(bytes,playbackBlob,meta){
   const requestId=++loadToken;
   status('DECODING');drop.classList.add('busy');
-  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Web Audio unavailable');
-  const hashP=hashHex(bytes.slice(0)),ctx=new AC();
+  const wav=decodePcmWavPreview(bytes),AC=window.AudioContext||window.webkitAudioContext;
+  const hashP=hashHex(bytes.slice(0)),ctx=wav?null:(AC?new AC():null);
   try{
-    const decoded=await Promise.race([
-      ctx.decodeAudioData(bytes.slice(0)),
+    const decoded=wav?{duration:wav.duration,sampleRate:wav.sourceSampleRate}:await Promise.race([
+      ctx?ctx.decodeAudioData(bytes.slice(0)):Promise.reject(Error('WEB_AUDIO_UNAVAILABLE')),
       new Promise((_,reject)=>setTimeout(()=>reject(Error('WEB_AUDIO_DECODE_TIMEOUT')),5000))
     ]),hash=await hashP;
     if(requestId!==loadToken)return;
-    const {pcm,sampleRate}=mixdown(decoded);
+    const {pcm,sampleRate}=wav||mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
     fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,type:meta.type||playbackBlob.type||'audio',hash,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
     fileMeta.bundle=sourceBundleFromMeta(fileMeta);
@@ -338,7 +339,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     refreshGlyph();syncPins();updateWorkflow();publishTransport(true);
     status('AUDIO READY · ANALYSIS UNAVAILABLE · ORIGINAL KEPT');
     console.warn('LISTEN kept playback after analysis failure',error);
-  }finally{await ctx.close().catch(()=>{})}
+  }finally{if(ctx)await ctx.close().catch(()=>{})}
 }
 async function readTextEvidence(sidecars=[]){
   const out=[];
