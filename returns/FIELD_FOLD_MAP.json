@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-20T02:00:18.386Z",
- "returns_total": 292,
+ "generated": "2026-10-20T02:25:47.751Z",
+ "returns_total": 293,
  "raw_distinct_states": 111,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
@@ -9,11 +9,11 @@
   "SOURCE": 0,
   "HOLD": 96,
   "RETURN": 146,
-  "RESIDUE": 50
+  "RESIDUE": 51
  },
- "residue_count": 50,
+ "residue_count": 51,
  "unrecorded_count": 49,
- "fraying_count": 1,
+ "fraying_count": 2,
  "residue_files": [
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
@@ -92,6 +92,12 @@
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
+   "raw": "COMPONENT_PROVED",
+   "why": "no fold rule matched — needs human disposition",
+   "kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_POSITION_0835_2026-10-20.json",
@@ -400,6 +406,10 @@
    "count": 2
   },
   {
+   "state": "COMPONENT_PROVED",
+   "count": 2
+  },
+  {
    "state": "PASS / PR_528",
    "count": 2
   },
@@ -505,10 +515,6 @@
   },
   {
    "state": "ACTIVE",
-   "count": 1
-  },
-  {
-   "state": "COMPONENT_PROVED",
    "count": 1
   },
   {
@@ -1334,6 +1340,14 @@
    "phase": "RETURN",
    "verified": false,
    "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
+   "raw": "COMPONENT_PROVED",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no fold rule matched — needs human disposition",
+   "residue_kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_PACKET_EGRESS_PROJECTION_2026-09-29.json",
@@ -2990,7 +3004,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 96",
      "phase_distribution.RETURN: receipt 135 vs map 146",
-     "phase_distribution.RESIDUE: receipt 7 vs map 50",
+     "phase_distribution.RESIDUE: receipt 7 vs map 51",
      "verified_flagged: receipt 95 vs map 72"
     ],
     "needs_counts_as_of": false,
