@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T03:23:35.868Z",
+  "generated": "2026-10-20T03:54:37.471Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-20",
-  "commits_in_window": 26,
-  "git_commits_in_window": 67,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 6210,
-  "branch_count": 1040,
+  "commits_in_window": 28,
+  "git_commits_in_window": 72,
+  "telemetry_commits_in_window": 44,
+  "commits_total": 6215,
+  "branch_count": 1044,
   "recent_commits": [
-    "RSVP: fix JSON reading and add PIN wrist surface",
-    "FIELD LAB: embed native RIDE and LISTEN with source glyph and exact return",
-    "desk: refresh public field data + root git chronology"
+    "FOLD//BLOOM: restore deep audio, truthful ring and exact source return",
+    "FOLD//BLOOM SOURCE SPINE: exact LISTEN → native RIDE → RETURN",
+    "RSVP: fix JSON reading and add PIN wrist surface"
   ],
   "active_fronts": [
     {
