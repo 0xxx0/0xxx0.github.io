@@ -150,6 +150,7 @@ async function execute(command,href,reason='operator'){
   }
   case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else status('HEADS · needs the FIELD:// line','bad');break}
   case'fovea':document.getElementById('foveaToggle')?.click();status('FOVEA · '+target,'ok');break;
+  case'instrument':window.FieldInstrument?.enter?.();status('INSTRUMENT','ok');break;
   case'theme':document.getElementById('fiTheme')?.click();status('THEME','ok');break;
   case'trace':document.getElementById('apTrace')?.click();status('TRACE · '+target,'ok');break;
   case'read':document.getElementById('apInspect')?.click();status('READ · '+target,'ok');break;

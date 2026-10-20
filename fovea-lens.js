@@ -485,6 +485,7 @@ function radialCtx(e){if(radialOpen)e.preventDefault()}
 
 /* ---- the summon gestures ---- */
 function armDown(e){                                  // touch/pen long-press
+  if(window.FieldInstrument?.active?.())return;        // this field owns its in-place reading
   if(radialOpen||!e.isPrimary||e.pointerType==='mouse'||(e.button!==undefined&&e.button!==0))return;
   armId=e.pointerId;armX=e.clientX;armY=e.clientY;
   clearTimeout(armTimer);
@@ -630,6 +631,7 @@ function onPointerCancel(e){if(e.pointerId===armId){clearTimeout(armTimer);armId
 function onLeave(e){if(el&&(!e||e.pointerType==='mouse'||!e.pointerType)&&inputMode()!=='pin')el.style.opacity='0'}
 function onEnter(){if(el&&on&&inputMode()!=='pin')el.style.opacity='1'}
 function onKey(e){
+  if(window.FieldInstrument?.active?.())return;        // no hidden lens/radial keyboard owner
   /* ONE press = ONE step. Escape used to fire onEscape twice (keydown AND
      keyup), so a single press dismissed two surfaces; with the figure in the
      staircase that would close it and toggle the lens in the same press. */

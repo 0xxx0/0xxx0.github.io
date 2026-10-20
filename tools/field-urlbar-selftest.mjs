@@ -155,10 +155,10 @@ ok(!/const COMMANDS\s*=\s*Object\.freeze\(\[/.test(omni),'field-omnibar.js must 
 ok(omni.includes('FieldURLBarCore'),'field-omnibar.js binds the shared registry');
 
 /* ---- G1 · command frecency: rankCommands reads the store noteUse writes ---- */
-const noData=U.rankCommands('',26);
+const noData=U.rankCommands('',U.COMMANDS.length);
 eq(noData.map(c=>c.id),noData.map(c=>c.id).slice().sort(),'no usage data = pure alphabetical order');
 const seeded={recents:['cmd:theme','cmd:work'],use:{'cmd:theme':{n:1,ts:0},'cmd:work':{n:2,ts:0}}};
-const learned=U.rankCommands('',26,seeded);
+const learned=U.rankCommands('',U.COMMANDS.length,seeded);
 eq(learned.slice(0,2).map(c=>c.id),['theme','work'],'seeding the store reorders the command list');
 eq(learned.slice(2).map(c=>c.id),noData.filter(c=>c.id!=='theme'&&c.id!=='work').map(c=>c.id),'the unlearned tail stays alphabetical');
 // equal evidence scores fall back to alphabetical, then to frecency once taught.

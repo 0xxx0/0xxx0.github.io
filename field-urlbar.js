@@ -69,6 +69,7 @@ const COMMANDS=Object.freeze([
  {id:'calls',glyph:'☏',label:'CALLS',hint:'copy reader calls URL (localhost :8777)',keywords:'phone meeting reader',copy:'http://127.0.0.1:8777/calls'},
  {id:'digests',glyph:'▣',label:'DIGESTS',hint:'/digests/ · passphrase field focused locally',keywords:'encrypted digest passphrase',nav:'/digests/#pp'},
  {id:'fovea',glyph:'◉',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
+ {id:'instrument',glyph:'⌁',label:'INSTRUMENT',hint:'fold the same FIELD without scrolling',keywords:'field fold catchup position'},
  {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
  {id:'reset',glyph:'⟲',label:'RESET',hint:'clear learned ranking + recents',keywords:'ranking frecency recents clear default order',aliases:['rerank']},
  {id:'help',glyph:'?',label:'HELP',hint:'registry + sigil legend',keywords:'help man ls registry commands'}
@@ -429,6 +430,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   return '<div class="fieldUrlStatus"><span><b>令</b> words · /path · @ · > · ^ · : · ! · authority NONE</span><span>address · exact · heads · turn · rise · command · hermes prep · '+COMMANDS.length+' commands</span></div>';
  }
  function paint({forceOpen=false}={}){
+  if(win.FieldInstrument?.active?.()){panel.hidden=true;input.removeAttribute('aria-activedescendant');win.FieldInstrument.address(input.value);return}
   currentParsed=parse(input.value);setMode(currentParsed);selected=Math.max(0,selected);
   if(currentParsed.mode===MODES.RISE){aliasHit=null;results=[];panel.innerHTML='<div class="fieldUrlStatus"><span><b>上</b> RISE · one structural depth · authority NONE</span><span>↵ apply</span></div>';panel.hidden=false;input.setAttribute('aria-expanded','true');return}
   if(currentParsed.mode===MODES.COMMAND){
@@ -500,6 +502,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
    case'handoff':doc.getElementById('apCopy')?.click();break;
    case'run':{const prep=hermesPrepare(target||focusHref||'/');copy(prep).then(ok=>flash(ok?'HERMES PREP COPIED':'COPY FAILED'));return}
    case'fovea':doc.getElementById('foveaToggle')?.click();break;
+   case'instrument':win.FieldInstrument?.enter?.();break;
    case'theme':doc.getElementById('fiTheme')?.click();break;
    // Raycast "Reset Ranking": drop the learned frecency + recents in one move.
    case'reset':resetLearning();input.value='';selected=0;syncURL('');paint({forceOpen:true});break;
@@ -559,7 +562,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(!total)return;
   selected=(selected+delta+total)%total;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
  }
- function focusBar(seed){input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;helpOpen=false;moved=false;paint({forceOpen:true})}
+ function focusBar(seed){if(win.FieldInstrument?.active?.()){win.FieldInstrument.edit(seed);return}input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;helpOpen=false;moved=false;paint({forceOpen:true})}
  function syncHeld(href){
   focusHref=href||win.__fieldAct?.focusHref?.()||null;const r=focusHref&&routeMap().get(focusHref);
   glyphNode.innerHTML=r&&win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'Φ';glyphNode.title=r?(glyphMnemonic(r)+' · '+r.href):'FIELD';
@@ -569,6 +572,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  input.addEventListener('focus',()=>paint({forceOpen:true}));
  input.addEventListener('input',()=>{selected=0;helpOpen=false;moved=false;syncURL(input.value);paint({forceOpen:true})});
  input.addEventListener('keydown',e=>{
+  if(win.FieldInstrument?.active?.()&&win.FieldInstrument.key(e))return;
   if(e.key==='ArrowDown'){e.preventDefault();move(1);return}
   if(e.key==='ArrowUp'){e.preventDefault();move(-1);return}
   if(e.key==='Enter'){e.preventDefault();applySelection(e.ctrlKey||e.metaKey,'enter');return}
