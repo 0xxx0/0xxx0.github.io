@@ -3,14 +3,16 @@ on:
   pull_request:
     paths:
       - 'fold-bloom/lab/**'
-      - 'fold-bloom/listen/app.js'
+      - 'fold-bloom/listen/**'
+      - 'fold-bloom/live/**'
       - 'tools/field-lab-native-media-smoke.mjs'
       - '.github/workflows/field-lab-native-media.yml'
   push:
     branches: [master]
     paths:
       - 'fold-bloom/lab/**'
-      - 'fold-bloom/listen/app.js'
+      - 'fold-bloom/listen/**'
+      - 'fold-bloom/live/**'
       - 'tools/field-lab-native-media-smoke.mjs'
       - '.github/workflows/field-lab-native-media.yml'
 permissions:
@@ -27,11 +29,17 @@ jobs:
       - name: Parse and prove source-bound host contract
         run: |
           node --check fold-bloom/lab/media-portal.js
+          node --check fold-bloom/lab/ring-address.js
+          node --check fold-bloom/listen/pcm-wav-preview.js
+          node --check fold-bloom/live/track.js
+          node --check fold-bloom/live/app.js
           node --check fold-bloom/lab/harmonic-evidence.js
           node --check fold-bloom/lab/app.js
           node --check fold-bloom/listen/app.js
           node --check tools/field-lab-native-media-smoke.mjs
           node --test fold-bloom/lab/tests/media-portal.test.mjs
+          node --test fold-bloom/lab/tests/ring-address.test.mjs
+          node --test fold-bloom/listen/tests/pcm-wav-preview.test.mjs
           node --test fold-bloom/lab/tests/lab-return.test.mjs
           node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
           node fold-bloom/listen/audio-glyph.test.mjs
