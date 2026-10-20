@@ -1,31 +1,20 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-30T13:57:00+08:00",
+  "updated": "2026-10-20T10:50:00+08:00",
   "max_live": 2,
   "live": [
     {
-      "id": "conversion",
-      "front_id": "conversion",
-      "goal": "Turn existing capability into usable/shareable/embodied consequence; do not reward coordination churn.",
+      "id": "air-instrument",
+      "front_id": "air-instrument",
+      "goal": "Complete one real HOUSE air loop with measured before/after evidence; supporting HOUSE OS/loadout machinery does not become a peer front.",
       "horizon": "ACTIVE_NOW",
       "next": [
-        "Prefer changes another human can experience without reading control files.",
-        "Prefer real device/room/body/print consequences over another internal proof when both are possible.",
-        "After one material conversion, RETURN and replan; no automatic sequel."
+        "Capture a real before witness through the native HOUSE/private runtime boundary.",
+        "Perform one bounded already-authorized air/mixing/filter action.",
+        "Capture the after witness and RETURN the observed delta.",
+        "If private/device runtime is not reachable, stop WORLD_INPUT_REQUIRED; do not substitute repo work."
       ],
-      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
-    },
-    {
-      "id": "recovery-ingest",
-      "front_id": "recovery-ingest",
-      "goal": "Maintain recoverability and reversible ingest without occupying NOW unless exact source work unlocks an active conversion.",
-      "horizon": "ACTIVE_MAINTENANCE",
-      "next": [
-        "Toolbelt text sources are durable; exact transformative-journey PNG raw bytes remain blocked and parked until a byte-capable handoff exists.",
-        "Run local one-family ingest only where verified private reports/provenance are accessible; never infer family identity from filenames alone.",
-        "Use MEDIA REFINERY automation on bounded real source batches when it directly feeds a selected finished work or active recovery."
-      ],
-      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
+      "receipt": "/returns/CURRENT_ONE_FRONT_REPLAN_2026-10-20.json"
     }
   ],
   "held": [
