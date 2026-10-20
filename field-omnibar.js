@@ -145,7 +145,7 @@ async function execute(command,href,reason='operator'){
   case'work':if(!zui?.open){status('WORK unavailable','bad');return}await zui.open('WORK',zsrc);reveal('workDepth');status('WORK · '+target,'ok');break;
   case'prove':if(!zui?.open){status('PROVE unavailable','bad');return}await zui.open('PROVE',zsrc);reveal('refineFold');status('PROVE · '+target,'ok');break;
   case'open':if(target==='/'||!act?.open){status('OPEN unavailable','bad');return}act.open(target);break;
-  case'handoff':if(!tap('apCopy','HANDOFF'))return;status('HANDOFF · existing packet action invoked','ok');break;
+  case'handoff':if(!document.getElementById('apCopy')){status('HANDOFF unavailable','bad');return}document.getElementById('apCopy')?.click();status('HANDOFF · existing packet action invoked','ok');break;
   case'run':{
    const commandLine='node tools/field-hermes-run.mjs --source '+shellEscape(target);
    if(!await copyText(commandLine,'HERMES PREP COPIED'))return;break;
