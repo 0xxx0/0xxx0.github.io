@@ -4,6 +4,10 @@ on:
     paths:
       - 'fold-bloom/lab/**'
       - 'fold-bloom/listen/app.js'
+      - 'fold-bloom/listen/pcm-wav.js'
+      - 'fold-bloom/live/track.js'
+      - 'fold-bloom/live/app.js'
+      - 'tools/source-spine-roundtrip-smoke.mjs'
       - 'tools/field-lab-native-media-smoke.mjs'
       - '.github/workflows/field-lab-native-media.yml'
   push:
@@ -11,6 +15,10 @@ on:
     paths:
       - 'fold-bloom/lab/**'
       - 'fold-bloom/listen/app.js'
+      - 'fold-bloom/listen/pcm-wav.js'
+      - 'fold-bloom/live/track.js'
+      - 'fold-bloom/live/app.js'
+      - 'tools/source-spine-roundtrip-smoke.mjs'
       - 'tools/field-lab-native-media-smoke.mjs'
       - '.github/workflows/field-lab-native-media.yml'
 permissions:
@@ -27,6 +35,11 @@ jobs:
       - name: Parse and prove source-bound host contract
         run: |
           node --check fold-bloom/lab/media-portal.js
+          node --check fold-bloom/lab/source-spine.js
+          node --check fold-bloom/listen/pcm-wav.js
+          node --check fold-bloom/live/track.js
+          node --check tools/source-spine-roundtrip-smoke.mjs
+          node --test fold-bloom/lab/tests/source-spine.test.mjs
           node --check fold-bloom/lab/harmonic-evidence.js
           node --check fold-bloom/lab/app.js
           node --check fold-bloom/listen/app.js
@@ -40,3 +53,5 @@ jobs:
           chrome-version: stable
       - name: Native LAB phone-width interaction witness
         run: node tools/field-lab-native-media-smoke.mjs
+      - name: Exact source spine and release roundtrip
+        run: node tools/source-spine-roundtrip-smoke.mjs
