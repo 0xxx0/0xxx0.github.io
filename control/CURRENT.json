@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-20T10:39:09+08:00",
+  "updated": "2026-10-20T11:05:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -29,32 +29,8 @@
     {
       "id": "air-instrument",
       "state": "ACTIVE_NOW",
-      "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
-      "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
-    },
-    {
-      "id": "loadout-model",
-      "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
-      "evidence": "cron catchup-audio · /dayline/"
+      "center": "one real HOUSE air loop → observe → bounded action → measure after → RETURN; HOUSE OS/loadout/project-fold/catch-up remain substrate or maintenance, not peer fronts",
+      "evidence": "/20261017-loadout/ · /house/"
     }
   ],
   "current_heads": [
@@ -63,7 +39,7 @@
       "head": "FIELD INDEX 0.8.37 / ENTERABLE APERTURES + MATERIAL KINDS",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Tap a counted region to enter its aperture through a selected-origin scale/depth transition; UP reverses that transition. Selecting a tool brings its exact addressed aperture forward at full size; OPEN enters the native host. The fixed bar retains every manifest destination and the pinned RETURN frame. Six coarse native-kind materials replace fine arrow angles; bands show kind-family presence and lower rules show membership fractions. Content-derived hash interference remains inspection-only. One HTML release address versions the adapter, core and stylesheet together, with a real warmed-cache regression. Native focus/SEEN/effect owners and six executable exit URLs remain authoritative. Automated count, motion, cache and return proof do not establish human comprehension or wordless recognition. This remains a manifest navigation slice; real corpus and in-place native work are not integrated.",
+      "retained_function": "Tap a counted region to enter its aperture through a selected-origin scale/depth transition; UP reverses that transition. Selecting a tool brings its exact addressed aperture forward at full size; OPEN enters the native host. The fixed bar retains every manifest destination and the pinned RETURN frame. Six coarse native-kind materials replace fine arrow angles; bands show kind-family presence and lower rules show membership fractions. Content-derived hash interference remains inspection-only. One HTML release address versions the adapter, core and stylesheet together, with a real warmed-cache regression. Native focus/SEEN/effect owners and six executable exit URLs remain authoritative. Automated count, motion, cache and return proof do not establish human comprehension or wordless recognition. This remains a manifest navigation slice; real corpus and in-place native work are not integrated. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story; exact source movement stays with the native host/resolver.",
       "evidence": [
         "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
         "/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
@@ -984,8 +960,8 @@
     }
   ],
   "next_single_action": {
-    "id": "witness-dayline",
-    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
+    "id": "air-world-return",
+    "instruction": "Complete one AIR world loop through its native HOUSE/private runtime boundary: capture a real before witness, perform one bounded already-authorized air/mixing/filter action, capture the after witness, and RETURN the observed delta. If that world/runtime is unavailable, stop WORLD_INPUT_REQUIRED; do not invent substitute repo work."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
