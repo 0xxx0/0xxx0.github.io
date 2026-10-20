@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T06:29:35.623Z",
+  "generated": "2026-10-20T08:33:36.167Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-20",
-  "commits_in_window": 31,
-  "git_commits_in_window": 88,
-  "telemetry_commits_in_window": 57,
-  "commits_total": 6231,
+  "commits_in_window": 32,
+  "git_commits_in_window": 97,
+  "telemetry_commits_in_window": 65,
+  "commits_total": 6240,
   "branch_count": 1046,
   "recent_commits": [
+    "microlibs: hilbert-core (append-only layout, 0-reflow property test) + capture",
     "release: FIELD 0.8.38 cache-buster for the godseye frame",
-    "field instrument: the god's-eye frame (position truth, a real map, a measuring",
-    "SOURCE SPINE CI: separate browser workloads and distinguish unverified media c"
+    "field instrument: the god's-eye frame (position truth, a real map, a measuring"
   ],
   "active_fronts": [
     {
