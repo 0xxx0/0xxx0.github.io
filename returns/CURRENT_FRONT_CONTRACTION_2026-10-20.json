@@ -1,0 +1,29 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "CURRENT_FRONT_CONTRACTION_2026-10-20",
+  "date": "2026-10-20",
+  "object": "CURRENT attention surface / six-family portfolio",
+  "state": "CANDIDATE_REPAIR",
+  "observed": {
+    "current_front_count_before": 5,
+    "current_guard": "scripts/check-current-heads.mjs rejects active_fronts > 3",
+    "ci_witness": "PR #973 public-surface-check failed at CURRENT↔MANIFEST drift solely because CURRENT active_fronts > 3 before later gates could run"
+  },
+  "delta": [
+    "Contract ACTIVE_NOW from five named items to two actual execution fronts: air-instrument and interface-convergence.",
+    "Fold house-os-fold under air-instrument substrate.",
+    "Demote loadout-model and project-fold to support/maintenance rather than attention authority.",
+    "Class catchup-nonverbal as recurring orientation, not a material front.",
+    "Update the six-family project map to 2026-10-20 current proof/next state.",
+    "Select PR #973 as the one machine-side next move; #971 waits for RETURN."
+  ],
+  "preserved": [
+    "No current head/domain authority changes.",
+    "No branch/PR is promoted merely by mention.",
+    "QUEUE remains compatibility projection only.",
+    "No private runtime/configuration is added to public repo.",
+    "Air/world and interface work remain unequal fronts."
+  ],
+  "next": "Repair #973 exact-head URLbar/Omnibar proof, replay on current master, require green field-urlbar and public-surface checks, RETURN, then replan.",
+  "stop": "Do not re-expand ACTIVE_NOW to represent every useful support mechanism; do not begin #971 or another architecture pass before #973 RETURN."
+}
