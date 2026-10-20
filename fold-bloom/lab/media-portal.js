@@ -1,5 +1,6 @@
 import {audioGlyphRepresentation} from '../listen/audio-glyph.js';
 import {harmonicEvidence} from './harmonic-evidence.js';
+import {ringPosition,ringMarker,boundedTime,sameSource} from './ring-address.js';
 
 // Two native hosts, one view port. This owns *visibility only*, never sound, playback,
 // source bytes, native releases, or analysis. Same-origin child APIs keep native authority.
@@ -19,6 +20,20 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   .labMediaGlyph{width:52px;height:52px;flex:0 0 52px;padding:0;border:1px solid #41535d;background:#05070b;display:grid;place-items:center;cursor:pointer}
   .labMediaGlyph svg{width:100%;height:100%}
   .labMediaGlyph:disabled{opacity:.35;cursor:default}
+  .labRingPanel[hidden]{display:none!important}
+  .labRingPanel{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:12px;background:#05070bf5}
+  .labRingCard{width:min(100%,340px);display:grid;gap:9px;border:1px solid #617b87;background:#09131b;padding:12px;box-shadow:0 16px 45px #0009}
+  .labRingTop,.labRingTools{display:flex;justify-content:space-between;align-items:center;gap:6px}
+  .labRingTop b{letter-spacing:.08em;font-size:12px}
+  .labRingTop button,.labRingTools button{background:#0d1c25;color:#eef3ef;border:1px solid #405460;min-height:42px;padding:8px;cursor:pointer}
+  .labRingFace{position:relative;width:min(100%,260px);aspect-ratio:1;justify-self:center;background:#05070b;border:1px solid #405460;padding:0;touch-action:none;cursor:crosshair}
+  .labRingFace>svg,.labRingFace .labRingSvg,.labRingSvg svg{display:block;width:100%;height:100%}
+  .labRingMarker{position:absolute;inset:0;pointer-events:none}
+  .labRingMarker circle{fill:#e5bc78;stroke:#071018;stroke-width:1.2}
+  .labRingAddress{font:800 13px ui-monospace,monospace;color:#f1d197;text-align:center}
+  .labRingNote{font-size:10px;color:#92aab6;text-align:center}
+  .labRingTools button{flex:1}
+  .labRingTools [data-portal="ringRide"]{background:#e4bd82;color:#071018;border-color:#e4bd82}
   .labMediaDetail{flex:1;min-width:0;display:grid;gap:3px}
   .labMediaTitle{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .labMediaSub{font-size:9px;color:#92a7b3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -57,11 +72,24 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         <button type="button" data-portal="left">←</button>
         <button type="button" data-portal="right">→</button>
         <button type="button" class="labMediaPrimary" data-portal="release">RELEASE</button>
+        <button type="button" data-portal="returnSource">↩ SOURCE</button>
       </div>
-    </footer>`;
+    </footer>
+    <div class="labRingPanel" data-portal="ringPanel" hidden role="dialog" aria-label="Addressed audio ring">
+      <div class="labRingCard">
+        <div class="labRingTop"><b>ONE SOURCE · 24 ADDRESSES</b><button type="button" data-portal="ringClose">CLOSE ×</button></div>
+        <button type="button" class="labRingFace" data-portal="ringFace" aria-label="Turn the source ring to seek audio" disabled>
+          <span class="labRingSvg" data-portal="ringSvg">◇</span>
+          <svg class="labRingMarker" viewBox="0 0 100 100" aria-hidden="true"><circle data-portal="ringDot" cx="50" cy="5" r="2.3"/></svg>
+        </button>
+        <div class="labRingAddress" data-portal="ringAddress">NO SOURCE</div>
+        <div class="labRingNote" data-portal="ringNote">Load audio in LISTEN to turn this into a temporal address</div>
+        <div class="labRingTools"><button data-portal="ringPrev" type="button">← 1/24</button><button data-portal="ringNext" type="button">1/24 →</button><button data-portal="ringMark" type="button">MARK</button><button data-portal="ringRide" type="button">RIDE</button></div>
+      </div>
+    </div>`;
   document.body.appendChild(shell);
   const $=s=>shell.querySelector(s),inline=document.getElementById('labGlyphDoor');
-  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='';
+  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',notice=null,carryBusy=false;
   const api=type=>{try{return ports[type]?.contentWindow?.[type==='ride'?'FoldBloomLive':'FoldBloomListen']||null}catch(_){return null}};
   const pause=type=>{try{ports[type]?.contentDocument?.querySelector(type==='ride'?'#trackAudio':'#audio')?.pause()}catch(_){}};
   function create(type){
