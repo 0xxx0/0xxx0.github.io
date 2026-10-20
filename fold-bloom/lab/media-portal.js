@@ -1,5 +1,6 @@
 import {audioGlyphRepresentation} from '../listen/audio-glyph.js';
 import {harmonicEvidence} from './harmonic-evidence.js';
+import {holdSource,returnToSource} from './source-spine.js';
 
 // Two native hosts, one view port. This owns *visibility only*, never sound, playback,
 // source bytes, native releases, or analysis. Same-origin child APIs keep native authority.
@@ -16,8 +17,12 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   .labMediaViewport{min-height:0;position:relative;background:#05070b}
   .labMediaViewport iframe{border:0;width:100%;height:100%;display:block;background:#05070b}
   .labMediaFooter{background:#081016;border-top:1px solid #35444d;padding:5px 7px calc(env(safe-area-inset-bottom) + 5px);min-height:59px;display:flex;gap:8px;align-items:center}
-  .labMediaGlyph{width:52px;height:52px;flex:0 0 52px;padding:0;border:1px solid #41535d;background:#05070b;display:grid;place-items:center;cursor:pointer}
-  .labMediaGlyph svg{width:100%;height:100%}
+  .labMediaGlyph{width:56px;height:56px;flex:0 0 56px;padding:4px;border-radius:50%;border:1px solid #41535d;background:#05070b;display:grid;place-items:center;cursor:pointer}
+  .labMediaGlyph svg{width:100%;height:100%;border-radius:50%}
+  .labMediaTime{width:100%;max-width:260px;accent-color:#e2bb7d;height:16px;display:block;touch-action:pan-x}
+  .labMediaSeek{display:flex;gap:5px;align-items:center;font-size:9px;color:#b8c8d2}
+  .labMediaSeek[hidden],.labMediaReturn[hidden]{display:none!important}
+  .labMediaSeek span{white-space:nowrap;font-variant-numeric:tabular-nums}
   .labMediaGlyph:disabled{opacity:.35;cursor:default}
   .labMediaDetail{flex:1;min-width:0;display:grid;gap:3px}
   .labMediaTitle{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -40,6 +45,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       <button class="labMediaExit" data-portal="close" type="button">↩ LAB</button>
       <button data-portal="ride" type="button" aria-pressed="false">RIDE</button>
       <button data-portal="listen" type="button" aria-pressed="false">LISTEN</button>
+      <button class="labMediaReturn" data-portal="sourceReturn" type="button" hidden>↩ SOURCE</button>
       <a class="labMediaOriginal" data-portal="original" href="../live/" target="_blank" rel="noopener">FULL ↗</a>
     </header>
     <div class="labMediaViewport" data-frame="ride" hidden></div>
@@ -49,6 +55,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       <div class="labMediaDetail" aria-live="polite">
         <div class="labMediaTitle" data-portal="title">NATIVE SOURCE</div>
         <div class="labMediaSub" data-portal="detail">OPEN LISTEN TO BIND AUDIO</div>
+        <label class="labMediaSeek" data-portal="seekWrap" hidden><span data-portal="time">0:00</span><input class="labMediaTime" data-portal="seek" type="range" min="0" max="1" step="0.1" value="0" aria-label="Source position"><span data-portal="duration">0:00</span></label>
       </div>
       <div class="labMediaActions" data-actions="listen" hidden>
         <button type="button" class="labMediaPrimary" data-portal="carry" disabled>RIDE THIS ↗</button>
@@ -61,7 +68,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     </footer>`;
   document.body.appendChild(shell);
   const $=s=>shell.querySelector(s),inline=document.getElementById('labGlyphDoor');
-  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='';
+  const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null;
   const api=type=>{try{return ports[type]?.contentWindow?.[type==='ride'?'FoldBloomLive':'FoldBloomListen']||null}catch(_){return null}};
   const pause=type=>{try{ports[type]?.contentDocument?.querySelector(type==='ride'?'#trackAudio':'#audio')?.pause()}catch(_){}};
   function create(type){
@@ -93,7 +100,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       $('[data-portal="'+name+'"]').setAttribute('aria-pressed',String(name===type));
     }
     $('[data-portal="original"]').href=type==='ride'?'../live/':'../listen/';
-    clearInterval(ticker);ticker=setInterval(refresh,550);refresh();trace('MEDIA_'+type.toUpperCase());
+    clearInterval(ticker);ticker=setInterval(refresh,300);refresh();trace('MEDIA_'+type.toUpperCase());
     return true;
   }
   function setGlyph(glyph,hash){
@@ -112,6 +119,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   }
   function refresh(){
     const listen=api('listen'),native=api('ride'),ls=listen?.state?.();
+    $('[data-portal="sourceReturn"]').hidden=!held?.ok;
     if(ls?.fileMeta?.hash&&ls.glyph)setGlyph(ls.glyph,ls.fileMeta.hash);
     if(active==='listen'){
       const m=ls?.fileMeta,ev=harmonicEvidence(ls?.map);
@@ -120,7 +128,15 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         (ls.stage+' · '+ev.label+' · '+String(m.hash||'').slice(0,12)):
         'TRY DEMO · LOCAL, OR OPEN AN AUDIO FILE';
       $('[data-portal="carry"]').disabled=!m?.hash||typeof listen?.sourceFile!=='function';
+      const duration=Math.max(0,Number(ls?.map?.duration)||Number(m?.duration)||0),t=Math.min(duration,Math.max(0,Number(ls?.time)||0));
+      $('[data-portal="seekWrap"]').hidden=!(duration>0&&m?.hash);
+      const slider=$('[data-portal="seek"]');slider.max=String(duration);if(slider!==document.activeElement)slider.value=String(t);
+      const fmt=x=>Math.floor(x/60)+':'+String(Math.floor(x%60)).padStart(2,'0');
+      $('[data-portal="time"]').textContent=fmt(t);$('[data-portal="duration"]').textContent=fmt(duration);
+      const ring=$('[data-portal="glyph"]');if(!ring.disabled)ring.style.background='conic-gradient(#e2bb7d '+((duration? t/duration:0)*360)+'deg, #182b35 0deg)';
+      if(lastReturn?.ok&&lastReturn.sourceHash===m?.hash)$('[data-portal="detail"]').textContent='↩ EXACT '+fmt(lastReturn.time)+' · '+lastReturn.releases+' NATIVE RELEASES';
     }else if(active==='ride'){
+      $('[data-portal="seekWrap"]').hidden=true;
       const s=native?.state?.(),count=s?.history?.length||0,src=s?.sourceMeta;
       $('[data-portal="title"]').textContent=src?.name||'RIDE · NATIVE LIVE';
       $('[data-portal="detail"]').textContent=native?
@@ -137,6 +153,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     const file=listen.sourceFile();
     if(!file){announce('SOURCE BYTES UNAVAILABLE · NOTHING TRANSFERRED');return false}
     const b=$('[data-portal="carry"]');b.disabled=true;announce('BINDING EXACT AUDIO TO LIVE');
+    const sourceHold=holdSource({hash:expected,time:s.time,duration:s.map?.duration||s.fileMeta?.duration,scope:s.scope,pins:s.pins});
     pause('listen');open('ride');
     try{
       const native=await new Promise((resolve,reject)=>{
@@ -152,11 +169,14 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
       ]);
       const actual=native.state?.()?.sourceMeta?.hash;
       if(actual!==expected)throw Error('SOURCE_HASH_MISMATCH');
+      const position=native.source?.seek?.(sourceHold.sourceAddress,expected);
+      if(!position||position.hash!==expected)throw Error('NATIVE_SOURCE_SEEK_UNVERIFIED');
+      held={...sourceHold,releasesBefore:native.state?.()?.history?.length||0};lastReturn=null;
       announce('SOURCE MATCHED · RIDE NATIVE · '+expected.slice(0,12));
       document.documentElement.dataset.fieldLabCarry='matched';
       trace('MEDIA_SOURCE_MATCHED');refresh();return true;
     }catch(error){
-      document.documentElement.dataset.fieldLabCarry='unverified';
+      held=null;document.documentElement.dataset.fieldLabCarry='unverified';
       announce('SOURCE NOT VERIFIED · '+String(error?.message||error).slice(0,66));
       trace('MEDIA_SOURCE_UNVERIFIED');return false;
     }
@@ -176,18 +196,38 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
     }
     refresh();return true;
   }
+  function sourceReturn(){
+    if(!held?.ok){announce('NO HELD SOURCE');return null}
+    const native=api('ride'),listen=api('listen'),ls=listen?.state?.(),snapshot=native?.state?.();
+    const receipt=returnToSource(held,{rideHash:snapshot?.sourceMeta?.hash,releasesAfter:snapshot?.history?.length,currentSourceHash:ls?.fileMeta?.hash});
+    pause('ride');open('listen');
+    if(receipt.ok){listen.seek?.(receipt.time);lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='matched';
+      onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');trace('SOURCE_EXACT_RETURN');
+    }else{lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='mismatch';
+      onStatus('SOURCE RETURN UNVERIFIED · '+receipt.reason||receipt.status);trace('SOURCE_RETURN_UNVERIFIED')}
+    held=null;refresh();return receipt;
+  }
   $('[data-portal="close"]').onclick=close;
+  $('[data-portal="sourceReturn"]').onclick=sourceReturn;
+  $('[data-portal="seek"]').addEventListener('input',e=>{const t=Number(e.target.value);api('listen')?.seek?.(t);refresh()});
   $('[data-portal="ride"]').onclick=()=>open('ride');
   $('[data-portal="listen"]').onclick=()=>open('listen');
-  $('[data-portal="glyph"]').onclick=()=>open('listen');
+  $('[data-portal="glyph"]').onclick=e=>{
+    if(active!=='listen'){open('listen');return}
+    const s=api('listen')?.state?.(),duration=Number(s?.map?.duration)||0;
+    if(!(duration>0))return;
+    const r=e.currentTarget.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);
+    const theta=(Math.atan2(dy,dx)+Math.PI/2+Math.PI*2)%(Math.PI*2);
+    api('listen')?.seek?.(duration*theta/(Math.PI*2));refresh();
+  };
   $('[data-portal="carry"]').onclick=()=>{void carry()};
   for(const n of ['left','right','release'])$('[data-portal="'+n+'"]').onclick=()=>{void command(n)};
   inline?.addEventListener('click',()=>open('listen'));
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'){e.preventDefault();close()}});
   window.addEventListener('pagehide',()=>{clearInterval(ticker);pause('listen');pause('ride')});
   return Object.freeze({
-    open,close,carry,refresh,
-    state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none'}),
+    open,close,carry,refresh,sourceReturn,returnReceipt:()=>lastReturn?{...lastReturn}:null,
+    state:()=>({active,sourceHash,glyphReady:!!lastGlyph,listenReady:!!api('listen'),rideReady:!!api('ride'),carryState:document.documentElement.dataset.fieldLabCarry||'none',heldHash:held?.sourceHash||null,returnReceipt:lastReturn?{...lastReturn}:null}),
     native:type=>api(type)
   });
 }
