@@ -1,19 +1,19 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-20T02:25:47.751Z",
- "returns_total": 293,
- "raw_distinct_states": 111,
+ "generated": "2026-10-20T02:55:53.188Z",
+ "returns_total": 294,
+ "raw_distinct_states": 112,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
  "phase_distribution": {
   "SOURCE": 0,
   "HOLD": 96,
   "RETURN": 146,
-  "RESIDUE": 51
+  "RESIDUE": 52
  },
- "residue_count": 51,
+ "residue_count": 52,
  "unrecorded_count": 49,
- "fraying_count": 2,
+ "fraying_count": 3,
  "residue_files": [
   {
    "file": "ADVANCE_HARD_2026-09-22_01.json",
@@ -74,6 +74,12 @@
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+   "raw": "COMPONENT_PROVED / HUMAN_COMPREHENSION_UNRESOLVED",
+   "why": "no fold rule matched — needs human disposition",
+   "kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
@@ -495,6 +501,10 @@
   },
   {
    "state": "CURRENT_HOST_ALIGNED",
+   "count": 1
+  },
+  {
+   "state": "COMPONENT_PROVED / HUMAN_COMPREHENSION_UNRESOLVED",
    "count": 1
   },
   {
@@ -1162,6 +1172,14 @@
    "phase": "HOLD",
    "verified": false,
    "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+   "raw": "COMPONENT_PROVED / HUMAN_COMPREHENSION_UNRESOLVED",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no fold rule matched — needs human disposition",
+   "residue_kind": "fraying"
   },
   {
    "file": "FIELD_INDEX_AWAKE_INTERPHASE_2026-09-29.json",
@@ -3004,7 +3022,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 96",
      "phase_distribution.RETURN: receipt 135 vs map 146",
-     "phase_distribution.RESIDUE: receipt 7 vs map 51",
+     "phase_distribution.RESIDUE: receipt 7 vs map 52",
      "verified_flagged: receipt 95 vs map 72"
     ],
     "needs_counts_as_of": false,
