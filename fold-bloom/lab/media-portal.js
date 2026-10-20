@@ -288,6 +288,7 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   $('[data-portal="listen"]').onclick=()=>open('listen');
   $('[data-portal="glyph"]').onclick=e=>{
     if(active!=='listen'){open('listen');return}
+    if($('[data-portal="ringMask"]').hidden){openRing();return}
     const s=api('listen')?.state?.(),duration=Number(s?.map?.duration)||0;
     if(!(duration>0))return;
     const r=e.currentTarget.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);
