@@ -86,7 +86,7 @@ function jsonNodes(root){
 function analyze(source,label='Untitled',locale='en',format='AUTO'){
  let data=source,raw='',kind='TEXT';
  if(typeof source!=='string'){kind='JSON';data=source;raw=JSON.stringify(source,null,2)}
- else{raw=source;try{data=JSON.parse(source);kind='JSON'}catch(_){}}
+ else{raw=source;if(!['TXT','TEXT','READ'].includes(String(format).toUpperCase()))try{data=JSON.parse(source);kind='JSON'}catch(_){}}
  const bytes=enc.encode(raw).length,chars=raw.length;
  if(kind==='JSON'){
    const nodes=jsonNodes(data),maxDepth=Math.max(0,...nodes.map(n=>n.depth)),leaves=nodes.filter(n=>n.leaf);
