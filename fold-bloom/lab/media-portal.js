@@ -202,13 +202,28 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   function sourceReturn(){
     if(!held?.ok){announce('NO HELD SOURCE');return null}
     const native=api('ride'),listen=api('listen'),ls=listen?.state?.(),snapshot=native?.state?.();
-    const receipt=returnToSource(held,{rideHash:snapshot?.sourceMeta?.hash,releasesAfter:snapshot?.history?.length,currentSourceHash:ls?.fileMeta?.hash});
+    const receipt=returnToSource(held,{rideHash:snapshot?.sourceMeta?.hash,
+      releasesAfter:snapshot?.history?.length,currentSourceHash:ls?.fileMeta?.hash});
     pause('ride');open('listen');
-    if(receipt.ok){listen.seek?.(receipt.time);lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='matched';
-      onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');trace('SOURCE_EXACT_RETURN');
-    }else{lastReturn=receipt;document.documentElement.dataset.fieldLabSourceReturn='mismatch';
-      onStatus('SOURCE RETURN UNVERIFIED · '+(receipt.reason||receipt.status));trace('SOURCE_RETURN_UNVERIFIED')}
-    held=null;refresh();return receipt;
+    let verified=false,returnedTime=null;
+    if(receipt.ok&&!ls?.sourceLoading){
+      listen.seek?.(receipt.time);
+      const now=Number(listen.state?.()?.time),media=ports.listen?.contentDocument?.getElementById('audio');
+      returnedTime=Number.isFinite(now)?now:null;
+      verified=held.nativeFocusConfirmed===true&&
+        media?.readyState>=1&&Number.isFinite(now)&&Math.abs(now-receipt.time)<.12;
+    }
+    lastReturn={...receipt,sourceMatched:receipt.ok,ok:receipt.ok&&verified,
+      returnedTime,reason:receipt.ok?(verified?'EXACT_SOURCE_TIME_RETURN':'TIME_NOT_CONFIRMED'):(receipt.reason||'SOURCE_MISMATCH')};
+    document.documentElement.dataset.fieldLabSourceReturn=lastReturn.ok?'matched':receipt.ok?'time-unverified':'mismatch';
+    if(lastReturn.ok){
+      onStatus('SOURCE RETURN · EXACT '+receipt.time.toFixed(2)+'s · '+receipt.releases+' RELEASES');
+      trace('SOURCE_EXACT_RETURN');
+    }else{
+      onStatus('SOURCE RETURN · '+(receipt.ok?'HASH MATCHED · TIME UNVERIFIED':lastReturn.reason));
+      trace('SOURCE_RETURN_UNVERIFIED');
+    }
+    held=null;refresh();return lastReturn;
   }
   $('[data-portal="close"]').onclick=close;
   $('[data-portal="sourceReturn"]').onclick=sourceReturn;
