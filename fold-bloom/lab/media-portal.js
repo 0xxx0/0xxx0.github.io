@@ -24,6 +24,15 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
   .labMediaSeek[hidden],.labMediaReturn[hidden]{display:none!important}
   .labMediaSeek span{white-space:nowrap;font-variant-numeric:tabular-nums}
   .labMediaGlyph:disabled{opacity:.35;cursor:default}
+  .labRingMask[hidden]{display:none!important}
+  .labRingMask{position:fixed;inset:0;z-index:6;background:#05070bf0;display:grid;grid-template-rows:auto 1fr auto;align-items:center;padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px)}
+  .labRingHead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:900}
+  .labRingHead button,.labRingTools button{min-height:44px;border:1px solid #65717a;background:#0e1a20;color:#ecf4f6;padding:8px 12px;font-weight:850}
+  .labRingTools{display:grid;gap:7px;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .labRingInfo{min-height:36px;display:flex;justify-content:center;align-items:center;font-size:11px;color:#d8b97c;text-align:center}
+  .labMediaPortal[data-ring-open="1"] .labMediaGlyph{position:fixed;z-index:9;left:50%;top:45%;transform:translate(-50%,-50%);width:min(70vw,290px);height:min(70vw,290px);border-radius:50%;padding:9px;touch-action:none;background:#071018}
+  .labMediaPortal[data-ring-open="1"] .labMediaGlyph svg{width:100%;height:100%}
+
   .labMediaDetail{flex:1;min-width:0;display:grid;gap:3px}
   .labMediaTitle{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .labMediaSub{font-size:9px;color:#92a7b3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -65,7 +74,17 @@ export function mountMediaPortal({onStatus=()=>{},onTrace=()=>{}}={}){
         <button type="button" data-portal="right">→</button>
         <button type="button" class="labMediaPrimary" data-portal="release">RELEASE</button>
       </div>
-    </footer>`;
+    </footer>
+    <div data-portal="ringMask" class="labRingMask" role="dialog" aria-label="Source ring time navigation" hidden>
+      <div class="labRingHead"><span>SOURCE / TIME · 24 ADDRESSES</span><button data-portal="ringClose" type="button">CLOSE ×</button></div>
+      <div data-portal="ringInfo" class="labRingInfo" aria-live="polite">TURN THE LARGE RING TO MOVE THROUGH TIME</div>
+      <div class="labRingTools">
+        <button type="button" data-portal="ringBack">← 1/24</button>
+        <button type="button" data-portal="ringForward">1/24 →</button>
+        <button type="button" data-portal="ringMark">MARK</button>
+        <button type="button" data-portal="ringRide">RIDE</button>
+      </div>
+    </div>`;
   document.body.appendChild(shell);
   const $=s=>shell.querySelector(s),inline=document.getElementById('labGlyphDoor');
   const ports={ride:null,listen:null};let active=null,ticker=0,sourceHash=null,lastGlyph='',held=null,lastReturn=null,carryBusy=false;
