@@ -48,9 +48,8 @@ jobs:
           node --test fold-bloom/lab/tests/lab-return.test.mjs
           node --test fold-bloom/lab/tests/live-change-bridge.test.mjs
           node fold-bloom/listen/audio-glyph.test.mjs
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
+      - name: Verify runner's preinstalled Chrome
+        run: google-chrome --version
       - name: Native LAB phone-width interaction witness
         run: node tools/field-lab-native-media-smoke.mjs
       - name: Exact source spine and release roundtrip
