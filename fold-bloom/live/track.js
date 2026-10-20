@@ -1,4 +1,5 @@
 import {buildPreviewMap} from '../listen/preview-map.js';
+import {monoPcm16Wav} from '../listen/pcm-wav.js';
 import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 import {buildTrackfield} from './trackfield.js';
 import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
@@ -61,7 +62,7 @@ export function transportFromMap(map,time=0,playing=false){
 
 export class LiveTrack {
   constructor(audio,{onState=()=>{},onMap=()=>{}}={}){
-    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.streamUrl=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;
+    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.streamUrl=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;this.loadToken=0;
     audio.addEventListener('play',()=>this.onState(this.stateLabel()));
     audio.addEventListener('pause',()=>this.onState(this.stateLabel()));
     audio.addEventListener('ended',()=>this.onState(this.stateLabel()));
@@ -85,7 +86,7 @@ export class LiveTrack {
   }
   loadStream({url,name='REMOTE SOURCE',sourceAddress=null,sourceKind='REMOTE_AUDIO',artist='',title='',provider=null}={}){
     if(!url)throw Error('Remote source URL required');
-    this.worker?.terminate?.();this.worker=null;
+    this.loadToken++;this.worker?.terminate?.();this.worker=null;
     if(this.url)URL.revokeObjectURL(this.url);
     this.url=null;this.file=null;this.map=null;this.worldCache=null;this.worldTime=-1;this.textEvidence=null;
     this.streamUrl=String(url);
@@ -105,37 +106,71 @@ export class LiveTrack {
   }
   async load(file,{sidecars=[]}={}){
     if(!file)return null;
-    this.loading=true;this.file=file;this.streamUrl=null;this.onState('DECODING');
-    const bytes=await file.arrayBuffer(),hashP=hashHex(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    const token=++this.loadToken;
+    this.worker?.terminate?.();this.worker=null;
+    this.loading=true;this.file=file;this.streamUrl=null;this.map=null;this.onMap(null);this.onState('DECODING');
+    const bytes=await file.arrayBuffer(),hashP=hashHex(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name);
     let textEvidence=null;
     for(const sf of sidecars){try{const t=parseTextSidecar(await sf.text(),sf.name);if(t?.text){textEvidence=t;break}}catch(_){}}
     if(!textEvidence&&meta.lyrics)textEvidence={name:file.name,kind:'LYRICS',alignment:meta.lyricsAlignment||'UNALIGNED_EMBEDDED',text:meta.lyrics,cues:[],cueCount:0,chars:String(meta.lyrics).length};
-    this.meta={...meta,name:localDisplayName(meta,file.name),fileName:file.name};this.textEvidence=textEvidence;
-    if(!AC)throw Error('Web Audio unavailable');
-    const ctx=new AC();
+    const hash=await hashP;
+    if(token!==this.loadToken)return null;
+    this.meta={...meta,name:localDisplayName(meta,file.name),fileName:file.name,hash,sourceKind:'LOCAL_FILE',size:file.size,type:file.type||'audio',duration:null};
+    this.textEvidence=textEvidence;
+    if(this.url)URL.revokeObjectURL(this.url);
+    this.url=URL.createObjectURL(file);this.audio.src=this.url;
+    const source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',
+      lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,
+      size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};
+    let ctx=null,preview=null;
     try{
-      const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
-      this.meta={...this.meta,hash,sourceKind:'LOCAL_FILE',size:file.size,type:file.type||'audio',duration:decoded.duration};
-      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
-      if(this.url)URL.revokeObjectURL(this.url);this.url=URL.createObjectURL(file);this.audio.src=this.url;
-      this.loading=false;this.onMap(this.map);this.onState(this.stateLabel());
-      if(decoded.duration<=1200){
-        this.worker?.terminate?.();
-        this.worker=new Worker(new URL('../listen/analysis-worker.js',import.meta.url),{type:'module'});
-        this.worker.onmessage=e=>{
-          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
-          else if(e.data?.type==='error'){this.onState('PREVIEW · ANALYZER ERROR')}
-        };
-        this.worker.onerror=()=>this.onState('PREVIEW · ANALYZER ERROR');
-        this.worker.postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
+      // Pure WAV path is immediate even when Android/headless WebAudio decoding hangs.
+      preview=monoPcm16Wav(bytes);
+      if(!preview){
+        const AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+        if(!AC)throw Error('WEB_AUDIO_UNAVAILABLE');
+        ctx=new AC();
+        const decoded=await Promise.race([
+          ctx.decodeAudioData(bytes.slice(0)),
+          new Promise((_,reject)=>setTimeout(()=>reject(Error('WEB_AUDIO_DECODE_TIMEOUT')),6000))
+        ]);
+        preview={...mixdown(decoded),duration:decoded.duration};
       }
-      await this.audio.play().catch(()=>{});
-      this.onState(this.stateLabel());
+      if(token!==this.loadToken)return null;
+      this.meta.duration=preview.duration;
+      this.map=buildPreviewMap(preview.pcm,preview.sampleRate,preview.duration);
+      this.map.source=source;this.worldCache=null;this.worldTime=-1;
+      this.onMap(this.map);this.onState('READY · PREVIEW');
+      if(preview.duration<=1200){
+        try{
+          this.worker=new Worker(new URL('../listen/analysis-worker.js',import.meta.url),{type:'module'});
+          this.worker.onmessage=e=>{
+            if(token!==this.loadToken)return;
+            if(e.data?.type==='result'){
+              this.map=e.data.map;this.map.source=source;
+              this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel());
+            }else if(e.data?.type==='error')this.onState('PREVIEW · ANALYZER ERROR');
+          };
+          this.worker.onerror=()=>{if(token===this.loadToken)this.onState('PREVIEW · ANALYZER ERROR')};
+          this.worker.postMessage({type:'analyze',pcm:preview.pcm.buffer,sampleRate:preview.sampleRate,duration:preview.duration},[preview.pcm.buffer]);
+        }catch(error){console.warn('LIVE analyzer deferred',error)}
+      }
       return this.map;
-    }finally{this.loading=false;await ctx.close().catch(()=>{})}
+    }catch(error){
+      if(token!==this.loadToken)return null;
+      // Preserve the exact uploaded source even if map extraction fails; do not claim terrain.
+      this.map=null;this.meta.analysisError=String(error?.message||error);
+      this.onMap(null);this.onState('SOURCE ONLY · MAP UNAVAILABLE');
+      console.warn('LIVE source retained without analysis',error);
+      return null;
+    }finally{
+      if(token===this.loadToken){this.loading=false;this.onState(this.stateLabel())}
+      if(ctx)void ctx.close().catch(()=>{});
+    }
   }
   async toggle(){if(!this.audio.src)return false;if(this.audio.paused){await this.audio.play();return true}this.audio.pause();return false}
   clearSource(){
+    this.loadToken++;
     this.worker?.terminate?.();this.worker=null;
     if(this.url)URL.revokeObjectURL(this.url);
     this.url=null;this.file=null;this.streamUrl=null;this.map=null;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;this.loading=false;
