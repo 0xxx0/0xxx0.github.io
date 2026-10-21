@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-21T14:00:37.517Z",
+  "generated": "2026-10-21T23:49:36.085Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-21",
-  "commits_in_window": 9,
-  "git_commits_in_window": 79,
-  "telemetry_commits_in_window": 70,
-  "commits_total": 6346,
+  "commits_in_window": 12,
+  "git_commits_in_window": 107,
+  "telemetry_commits_in_window": 95,
+  "commits_total": 6374,
   "branch_count": 1047,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "routes: register /cube-composer/ (206->207) — same-change stamp",
-    "cube composer: the first playable wall (compose transforms, reach the target)"
+    "routes: stamp /cube-composer/pov/ (IMPLEMENT,VERIFY) — same-change stamp",
+    "cube composer: POV MOD v0 — inside the room (the walls ARE the state)"
   ],
   "active_fronts": [
     {

@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-21T14:00:37.517Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-21T23:49:36.085Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **9 material commits on 2026-10-21** across **1047 branches** (79 exact Git commits in the window; 70 generated telemetry; 6346 on master all-time).
+At capture, the field had **12 material commits on 2026-10-21** across **1047 branches** (107 exact Git commits in the window; 95 generated telemetry; 6374 on master all-time).
 At capture, **2/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -20,8 +20,8 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 ## Last material commits at capture
 
 - desk: refresh public field data + root git chronology
-- routes: register /cube-composer/ (206->207) — same-change stamp
-- cube composer: the first playable wall (compose transforms, reach the target)
+- routes: stamp /cube-composer/pov/ (IMPLEMENT,VERIFY) — same-change stamp
+- cube composer: POV MOD v0 — inside the room (the walls ARE the state)
 
 ## Law
 
