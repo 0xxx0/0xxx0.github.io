@@ -14,6 +14,11 @@ const $=s=>document.querySelector(s);
 let state=C.initial(),rows=[],seen={},view=null,root=null,plane=null,reading=null,bar=null,anchor=null,hostAnchor=null;
 let enabled=false,menu=false,menuExpanded=false,probe=null,revisions=[],loadEpoch=0,noticeTimer=0,ready=false,editing=false,entered=false,readingMarkup='';
 let flights=[],room=null,roomTimer=0;
+// THE VIEW CYCLE. The substrate is one ordered map; STRIP and PLAN are two
+// observer maps of it, and the room is the third state (reached by folding a
+// mark). The mode is deliberately NOT part of the frame: switching views can
+// never move the held object, the pin or a single room slot (position truth).
+let planView=false,decodeOpen=false,decodeRelease=false,releaseTimer=0,plan=null;
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
@@ -32,7 +37,9 @@ function commit(next,{native=false}={}){
 function camera(){return `rotateX(${plane.style.getPropertyValue('--fi-tilt')||'0deg'}) rotateY(${plane.style.getPropertyValue('--fi-yaw')||'0deg'}) scale(${plane.style.getPropertyValue('--fi-scale')||'1'})`}
 function stopFlight(){flights.forEach(a=>a.cancel());flights=[];root?.querySelectorAll('.fiTransit').forEach(n=>n.remove());if(plane)plane.style.pointerEvents=''}
 function travel(next,{foldId,reverse=false,native=false}={}){
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches){commit(next,{native});return}
+  // In the PLAN the plane is not on screen and reduced motion never flies:
+  // either way the walk IS the commit — same frame, same revision, no camera.
+  if(planView||matchMedia('(prefers-reduced-motion:reduce)').matches){commit(next,{native});return}
   stopFlight();
   const past=plane.cloneNode(true),priorCamera=camera();
   let target=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===foldId);
@@ -71,22 +78,26 @@ function wire(){
   const style=document.createElement('link');style.rel='stylesheet';style.href='./field-instrument.css'+release;document.head.append(style);
   root=document.createElement('section');root.id='fieldInstrument';root.hidden=true;root.setAttribute('aria-label','FIELD instrument');
   root.innerHTML=`<div class="fiNotice" id="fiNotice" role="status" aria-live="polite"></div>
-    <div class="fiField" id="fiField" aria-label="Tap a region to enter it. UP moves out; RETURN restores your pinned place." tabindex="0"><div class="fiPlane" id="fiPlane"></div></div>
+    <div class="fiField" id="fiField" aria-label="Tap a region to enter it. The VIEW chip in the bar switches the strip map and the hex plan of the same field; holding any mark decodes it. UP moves out; RETURN restores your pinned place." tabindex="0"><div class="fiPlane" id="fiPlane"></div><div class="fiPlan" id="fiPlan"></div></div>
     <section class="fiReading" id="fiReading" aria-label="Reading at current position"></section>
     <nav class="fiMenu" id="fiMenuPanel" aria-label="Instrument operations" hidden></nav>`;
   document.querySelector('main').append(root);plane=$('#fiPlane');reading=$('#fiReading');
   const frame=document.querySelector('.fieldUrlFrame');
   // The map is its own strip, not a child of the address button: a tick tap must
   // locate an object without also opening the address editor.
-  frame.insertAdjacentHTML('beforeend',`<button type="button" id="fiParent" aria-label="Unfold scope"><span id="fiScopeGlyph">⌁</span><small id="fiScopeScale"></small></button><button type="button" id="fiAddress"><span class="fiBarName" id="fiBarName"></span><span class="fiBarMeta" id="fiBarMeta"></span></button><button type="button" id="fiReturn" aria-label="Return to pinned position">↩</button><svg id="fiRibbon" viewBox="0 0 264 51" preserveAspectRatio="none" role="img" aria-label="Whole-field map"></svg>`);
+  frame.insertAdjacentHTML('beforeend',`<button type="button" id="fiParent" aria-label="Unfold scope"><span id="fiScopeGlyph">⌁</span><small id="fiScopeScale"></small></button><button type="button" id="fiAddress"><span class="fiBarName" id="fiBarName"></span><span class="fiBarMeta" id="fiBarMeta"></span></button><button type="button" id="fiReturn" aria-label="Return to pinned position">↩</button><button type="button" id="fiView" data-map="strip" aria-label="View: strip map of the whole field. Switch to the plan walk."><span id="fiViewName">⌁ STRIP</span></button><svg id="fiRibbon" viewBox="0 0 264 51" preserveAspectRatio="none" role="img" aria-label="Whole-field map"></svg>`);
   bar=document.createElement('button');bar.id='fiMenu';bar.type='button';bar.textContent='···';bar.setAttribute('aria-label','Instrument operations');bar.setAttribute('aria-expanded','false');
   frame.append(bar);bar.onclick=()=>toggleMenu();
   $('#fiAddress').onclick=()=>edit(entryText());
   $('#fiParent').onclick=()=>editing?(endEdit(),toggleMenu(false)):state.path.length||state.query?scopeOut():toggleMenu(true,'views');
   $('#fiReturn').onclick=()=>{endEdit();returnPosition()};
-  wireRibbon();
+  // THE VIEW CYCLE: STRIP <-> PLAN. The room is the third state and is reached
+  // by folding a mark, never by this chip — and the chip moves no frame field.
+  $('#fiView').onclick=()=>cycleView();
+  wireRibbon();wirePlan();wireDecode();
   let resizeTimer=0;
-  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(enabled&&view)renderBearing()},150)});
+  // The plan re-fits its box, like the strip: the sizing law is pure, the box is not.
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(enabled&&view){renderBearing();if(planView)renderPlan()}},150)});
   $('#fieldUrlInput').addEventListener('blur',()=>setTimeout(()=>{
     if(editing&&!$('#fieldUrlBar').contains(document.activeElement)&&!$('#fiMenuPanel').contains(document.activeElement))endEdit();
   },0));
@@ -142,11 +153,16 @@ function toggleMenu(value=!menu,section='root'){
    out-of-scope, held object unmistakable, and a printed count per lane. */
 let ribbonLayout=null,ribbonHold=null;
 function ribbonStates(){return C.stateScale(rows)}
-// Measure the LAYOUT box, never the transformed rect: the page's entry transform
+// Measure the strip's OWN box, never the frame's and never a transformed rect:
+// the VIEW chip owns the map's first column, and the page's entry transform
 // would otherwise shrink the map into sub-pixel lanes on the very first render.
 function ribbonWidth(){
-  const svg=$('#fiRibbon'),frame=svg?.parentElement;
-  return Math.max(64,Math.round(frame?.clientWidth||svg?.clientWidth||0)||264);
+  const svg=$('#fiRibbon'),frame=svg?.parentElement,
+    own=Math.round(svg?.clientWidth||0),host=Math.round(frame?.clientWidth||0);
+  // Prefer the strip's own box; fall back to the frame minus the VIEW chip's
+  // fixed 44px column (and 264 before either exists), so the very first paint
+  // already carries the right lane count instead of a bar that snaps shut.
+  return Math.max(64,own>64?own:host>108?host-44:264);
 }
 function renderRibbon(next){
   const svg=$('#fiRibbon');if(!svg||!view)return;
@@ -219,10 +235,12 @@ function locateTick(id){
 }
 function wireRibbon(){
   const svg=$('#fiRibbon'),address=$('#fiAddress');
-  // The map re-folds itself to the strip it is actually given, however the frame
-  // is later re-laid out (rotate, resize, another fold opening).
+  // The map re-folds itself to the strip it is actually given, however the strip
+  // is later re-laid out (rotate, resize, another fold opening). It observes the
+  // STRIP's own box, because that is the box ribbonWidth() measures — the VIEW
+  // chip now owns the frame's first column, so the frame is no longer the datum.
   const observe=new ResizeObserver(()=>{const w=ribbonWidth();if(enabled&&view&&w&&w!==ribbonLayout?.width)renderRibbon(null)});
-  observe.observe(svg.parentElement||svg);
+  observe.observe(svg);observe.observe(svg.parentElement||svg);
   const end=()=>{svg.classList.remove('bloom');ribbonHold=null};
   svg.addEventListener('pointerdown',e=>{
     // While the address field is open, taps belong to the bar — the map stays quiet.
@@ -247,6 +265,179 @@ function wireRibbon(){
     const map=ribbonLayout.map,at=Math.max(0,map.findIndex(p=>p.id===state.focus));
     locateTick(map[(at+delta+map.length)%map.length].id);
   });
+}
+
+/* ==== THE PLAN WALK — the field as a place ===============================
+   The strip maps the field in lanes; the PLAN walks it. Same ordered map, same
+   counts, same held object, same pin — only the observer changes. The rooms
+   are flat-top hexagons in the turned axis's order, spiralling out from the
+   centre: adjacent rooms are adjacent in the axis, so "next" is "next door".
+   Tap a room and the cube-net room hinges AT that tile (openRoom, the one
+   room both views share). Where the phone cannot hold 206 legible rooms the
+   outer rings fold and print their counts at the edge. */
+const planMap=()=>C.overview(rows,view,state.focus,C.axis(state));
+function tileFold(id){
+  const r=rows.find(x=>x.id===id),g=view?.folds.find(f=>f.ids.includes(id));
+  if(g)return g;
+  // An object outside the current lens still has a room; it just has no group.
+  return r?{id:'tile:'+r.id,ids:[r.id],count:1,dim:'id',values:[r.id],label:r.title,range:false,
+    object:r,changed:null,unknown:0,unbased:0,profile:{kinds:[],states:[],sources:[],needs:0}}:null;
+}
+function renderPlan(){
+  const host=$('#fiPlan');if(!host||!view||!enabled)return;
+  const map=planMap(),box=$('#fiField').getBoundingClientRect(),
+    L=C.planLayout(map,{width:Math.max(1,Math.round(box.width)),height:Math.max(1,Math.round(box.height))}),
+    states=C.stateScale(rows),w=L.width2,h=L.height2,s3=Math.sqrt(3)/2;
+  plan=L;
+  // The folded periphery: one dashed edge at the drawn boundary, and the counts
+  // of everything beyond it printed in the caption. A number, never a hidden tail.
+  const edge=L.folded>0?`<svg class="fiPlanEdge" viewBox="0 0 ${L.width} ${L.height}" preserveAspectRatio="none" aria-hidden="true"><polygon points="${[[1.5,0],[.75,s3],[-.75,s3],[-1.5,0],[-.75,-s3],[.75,-s3]]
+    .map(([x,y])=>`${(L.cx+x*L.edge).toFixed(1)},${(L.cy+y*L.edge).toFixed(1)}`).join(' ')}"/></svg>`:'';
+  const caption=`<div class="fiPlanCap"><b>${esc(C.axis(state).toUpperCase())}</b><span>${L.total} ROOMS · ${L.shown} ON MAP${L.folded?` · <i>+${L.folded} FOLDED</i>`:' · ALL ON MAP'}</span></div>`;
+  const tiles=L.tiles.map(t=>{
+    const r=rows.find(x=>x.id===t.id);if(!r)return '';
+    const g=tileFold(t.id),count=g?Math.max(1,g.count):1;
+    return `<button type="button" class="fiHex${t.inside?'':' out'}${t.held?' held':''}" data-plan-id="${esc(t.id)}" data-fold="${esc(g?g.id:'tile:'+t.id)}" data-ring="${t.ring}" data-slot="${t.index+1}"`
+      +` style="left:${(t.x-w/2).toFixed(1)}px;top:${(t.y-h/2).toFixed(1)}px;width:${w}px;height:${h}px"`
+      +` aria-label="${esc(`${r.title} · ring ${t.ring} · slot ${t.index+1} of ${L.shown}${count>1?` · ${count} objects folded`:''} · ${r.state} · ${r.address}`)}">`
+      +C.planTile(r,{size:L.size,states,count,ring:t.ring})+`</button>`;
+  }).join('');
+  host.setAttribute('aria-label',`Plan walk: ${L.total} rooms in ${C.axis(state)} order. ${L.shown} drawn to ring ${L.rings}${L.folded?`; ${L.folded} folded at the edge (${L.per.map(p=>`ring ${p.ring} +${p.count}`).join(' · ')})`:''}. Adjacent rooms are adjacent in the axis. Tap a room to hinge its cube room at the tile; hold it to decode.`);
+  host.innerHTML=caption+edge+tiles;
+  host.querySelectorAll('[data-plan-id]').forEach(b=>{
+    b.onclick=()=>tapTile(b);
+    b.onpointerenter=e=>{if(e.pointerType==='mouse'){const g=tileFold(b.dataset.planId);if(g)read(g)}};
+    b.onfocus=()=>{const g=tileFold(b.dataset.planId);if(g)read(g)};
+    b.onblur=quiet;
+  });
+}
+// One room, one hinge: the tile IS the mark, so the cube-net room opens AT the
+// tile and the two views share that single room. Locating the object is the
+// same move the strip tick makes — the position stays the datum.
+function tapTile(b){
+  const id=b?.dataset?.planId,r=rows.find(x=>x.id===id);if(!r)return;
+  endEdit();toggleMenu(false);
+  const box=b.getBoundingClientRect(),point={x:box.x+box.width/2,y:box.y+box.height/2};
+  commit(C.locate(state,r),{native:true});
+  const g=tileFold(id);if(!g)return;
+  read(g);openRoom(g,point);
+}
+// The chip cycles the two observer maps. It touches no frame field, so the
+// held object, the pin and every room slot are bit-identical across the switch.
+function cycleView(){
+  if(editing)endEdit();
+  if(menu)toggleMenu(false);
+  closeDecode();if(room)closeRoom();
+  planView=!planView;
+  root.dataset.map=planView?'plan':'strip';
+  const chip=$('#fiView');
+  chip.dataset.map=planView?'plan':'strip';
+  $('#fiViewName').textContent=planView?'⬡ PLAN':'⌁ STRIP';
+  chip.setAttribute('aria-label',planView?'View: plan walk of the whole field. Switch to the strip map.':'View: strip map of the whole field. Switch to the plan walk.');
+  render();renderBearing();
+  notice(planView?`PLAN · ${plan?.shown??0} rooms on the map · +${plan?.folded??0} folded`:'STRIP · ribbon map of the whole field');
+}
+function wirePlan(){
+  const host=$('#fiPlan');
+  // Full bloom is earned: the plan holds its breath until a finger is on it.
+  const drop=()=>host.classList.remove('bloom');
+  host.addEventListener('pointerdown',()=>{if(enabled&&planView)host.classList.add('bloom')});
+  host.addEventListener('pointerup',drop);host.addEventListener('pointercancel',drop);
+  host.addEventListener('pointerleave',drop);window.addEventListener('pointerup',drop);
+  window.addEventListener('pointercancel',drop);
+}
+
+/* ==== DECODE — hold any mark, in either view ==============================
+   The pattern-semantics fix: a mark you cannot decode on sight is a bug, so
+   one press-and-hold decodes the mark IN PLACE, from the real record — kind,
+   state, depth, lane/ring, count and address — over a field dimmed but never
+   gone. One decoder for both observer maps, and READ THE MARK opens the same
+   overlay with the key, so every style on screen is learnable after one hold. */
+function laneOf(id){const g=ribbonLayout?.groups.find(g=>g.items.some(p=>p.id===id));return g?g.lane+1:null}
+function decodeAt(el,point){
+  if(!enabled||!view)return;
+  const map=planMap(),id=el?.dataset?.mapId||el?.dataset?.planId||null,
+    row=id?rows.find(r=>r.id===id):null,
+    foldId=el?.dataset?.fold,g=foldId?view.folds.find(f=>f.id===foldId):null,
+    rawRing=el?.dataset?.ring,slot=id?map.findIndex(p=>p.id===id)+1:null,
+    box=$('#fiField').getBoundingClientRect();
+  openDecode(C.decodeMark({row,group:g&&!g.object?g:null,rows,states:C.stateScale(rows),
+    lane:id?laneOf(id):null,ring:rawRing==null||rawRing===''?null:Number(rawRing),slot,total:map.length}),
+    // The card sits beside the mark and never on top of the reading panel.
+    point,{max:Math.max(96,Math.round(box.top+box.height)-420)});
+}
+function openDecode(payload,point=null,opts={}){
+  let host=$('#fiDecode');
+  if(!host){
+    host=document.createElement('div');host.id='fiDecode';host.className='fiDecode';
+    host.setAttribute('role','dialog');host.setAttribute('aria-label','Decode the mark under the crosshair');
+    root.append(host);
+  }
+  const at=point?{x:point.x,y:point.y,max:opts.max}:{max:opts.max};
+  host.innerHTML=C.decodeMarkup(payload,at);
+  host.dataset.open='1';decodeOpen=true;
+  // The KEY opens without a mark: it keeps the whole reading panel clear, so
+  // the panel's own line and its way back stay exactly where they were.
+  const card=host.querySelector('.fiDecodeCard'),panel=$('#fiReading');
+  if(card&&panel&&!point){
+    const limit=panel.getBoundingClientRect().top-8,top=Math.max(56,limit-card.getBoundingClientRect().height);
+    card.style.setProperty('--cy',`${top.toFixed(1)}px`);
+  }
+  // The hold's own release fires a click: swallow exactly that ONE click, or
+  // the overlay would close on the very gesture that opened it. The next
+  // deliberate tap — whenever it comes — is the dismissal.
+  decodeRelease=true;clearTimeout(releaseTimer);releaseTimer=setTimeout(()=>{decodeRelease=false},700);
+  // The card's own way back: a real button, wired to the one dismiss law.
+  const close=host.querySelector('[data-decode-close]');
+  if(close)close.onclick=e=>{e.stopPropagation();closeDecode()};
+}
+function closeDecode(){
+  const host=$('#fiDecode');decodeOpen=false;decodeRelease=false;clearTimeout(releaseTimer);
+  if(!host)return;delete host.dataset.open;host.innerHTML='';
+}
+function wireDecode(){
+  let holdTimer=0,holdAt=null,holdEl=null;
+  const stop=()=>{clearTimeout(holdTimer);holdTimer=0;holdEl=null;holdAt=null};
+  // Press-and-hold on ANY mark: a strip tick, a plan tile, a fold. The sweep
+  // keeps its own meaning — moving cancels the hold, so reading never decodes
+  // by accident and decoding never moves the position.
+  // The bar and its map strip are the PAGE's own chrome, outside this section —
+  // so the hold listens on the document: a mark decodes identically wherever it
+  // lives, a strip tick, a plan tile, a fold in the plane.
+  document.addEventListener('pointerdown',e=>{
+    if(!enabled||editing||decodeOpen||!e.target?.closest)return;
+    const el=e.target.closest('[data-fold],[data-map-id]');if(!el)return;
+    holdEl=el;holdAt={x:e.clientX,y:e.clientY};clearTimeout(holdTimer);
+    holdTimer=setTimeout(()=>{
+      if(!holdEl)return;const at=holdAt,target=holdEl;stop();decodeAt(target,at);
+    },620);
+  });
+  window.addEventListener('pointermove',e=>{if(holdTimer&&holdAt&&Math.hypot(e.clientX-holdAt.x,e.clientY-holdAt.y)>8)stop()});
+  window.addEventListener('pointerup',stop);
+  // The STRIP re-folds itself the moment it is pressed (locate on touch), which
+  // can pull the held mark out of the DOM and fire a pointercancel that is not
+  // the letting go. A cancel whose mark is still on screen ends the hold; a
+  // cancel through a re-render leaves the finger pressing, so the hold stands.
+  window.addEventListener('pointercancel',()=>{if(holdEl&&!holdEl.isConnected)return;stop()});
+  // One dismiss law: a tap anywhere returns to the field. The marks below stay
+  // live behind the transparent backdrop (the reading panel included), so the
+  // first tap after a hold is the hold's own release — swallowed, never a move.
+  document.addEventListener('click',e=>{
+    if(!decodeOpen)return;
+    // The hold's own release lands ON the mark it just decoded: swallow that
+    // one, or a hold would move the position it is merely reading. Any other
+    // click — the panel, the card, the bare field — is a real act and stands.
+    if(decodeRelease&&e.target?.closest?.('[data-fold],[data-map-id]')){
+      decodeRelease=false;e.preventDefault();e.stopPropagation();return;
+    }
+    decodeRelease=false;
+    if(e.target?.closest?.('.fiDecodeCard'))return;
+    // The reading panel keeps its own actions live: its click still runs its
+    // own work AND dismisses the overlay on the way through — one tap, the
+    // field back under your finger. Everything else: the tap IS the dismiss.
+    if(e.target?.closest?.('#fiReading')){closeDecode();return}
+    e.preventDefault();e.stopPropagation();closeDecode();
+  },true);
 }
 
 /* ==== THE ROOM — FOLD A ROOM AT THE MARK =====================================
@@ -342,13 +533,13 @@ export async function enter(){
   $('#fieldUrlInput').value=entryText();render();remember();
 }
 function exit(){
-  endEdit();remember();closeRoom();enabled=false;root.hidden=true;delete document.documentElement.dataset.instrument;toggleMenu(false);
+  endEdit();remember();closeRoom();closeDecode();enabled=false;root.hidden=true;delete document.documentElement.dataset.instrument;toggleMenu(false);
   const input=$('#fieldUrlInput');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='address · glyph · command';
   const u=new URL(location.href);u.searchParams.set('instrument','0');history.replaceState(history.state,'',u);
   window.FieldLensHost?.notify?.();
 }
 function returnPosition(){
-  stopFlight();closeRoom();
+  stopFlight();closeRoom();closeDecode();
   if(!anchor)return;blankQuery();
   if(hostAnchor)window.FieldLensHost?.restore(hostAnchor);
   toggleMenu(false);commit(C.restore(anchor));
@@ -389,19 +580,22 @@ function command(op){
   renderBearing();
 }
 // A decode table, not a legend: every row is the geometry actually on screen,
-// generated from the SAME motif and material vocabulary the marks draw.
+// generated from the SAME motif and material vocabulary the marks draw. The
+// table now lives in the DECODE overlay — the same surface a hold opens — so
+// the key and any single mark are always read through one decoder.
 function showHelp(){
   reading.dataset.mode='help';
   const glyph=g=>`<svg class="fiKeyGlyph" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5">${g}</g></svg>`;
   const mats=[...Object.keys(C.MATERIALS),'object'];
-  const rows=mats.map(m=>`<span>${glyph(C.MOTIFS[m])}</span><b>${m}</b><i>${m==='object'?'anything not listed':C.MATERIALS[m].join(' · ')}</i>`).join('')
-    +`<span>${glyph('<path d="M4 3v14M10 6v11M16 9v8"/>')}</span><b>state</b><i>tick height on the mark / lane</i>`
+  const table=mats.map(m=>`<span>${glyph(C.MOTIFS[m])}</span><b>${m}</b><i>${m==='object'?'anything not listed':C.MATERIALS[m].join(' · ')}</i>`).join('')
+    +`<span>${glyph('<path d="M4 3v14M10 6v11M16 9v8"/>')}</span><b>state</b><i>notch angle on the tile · tick height on the mark</i>`
     +`<span>${glyph('<path d="M5 17V4M13 17V10"/>')}</span><b>depth</b><i>bar height = reading().length</i>`
     +`<span>${glyph('<path d="M3 7h14M3 14h9" stroke-width="2"/>')}</span><b>count</b><i>underline share of the fold</i>`
-    +`<span>${glyph('<path d="M3 4v9M8 6v7M13 5v8M18 7v6"/><path d="M2 17h16"/>')}</span><b>map</b><i>tap tick = locate · tap again = room</i>`
+    +`<span>${glyph('<path d="M3 4v9M8 6v7M13 5v8M18 7v6"/><path d="M2 17h16"/>')}</span><b>map</b><i>tap tick / room = locate · hold = decode · tap again = room</i>`
     +`<span class="fiKeyWide"><b>residue</b><i>${esc(view.witness)} — ${esc(view.residue)}</i></span>`;
-  putReading(`<div class="fiName">Read the mark</div><code>${mats.join(' · ')}</code><div class="fiHelp">${rows}</div><small><span>TURN re-sorts map + folds · state→time→depth→family</span><span>${view.foldSum}/${view.inside} in folds · ${esc(view.witness)}</span></small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
-  reading.querySelector('[data-close]').onclick=()=>renderReading();
+  openDecode({key:true,name:'Read the mark',code:mats.join(' · '),table});
+  putReading(`<div class="fiName">Read the mark</div><code>${mats.join(' · ')}</code><p>Hold any mark — a strip tick, a plan room — and it decodes in place: kind, state, depth, lane, count, address.</p><small><span>${view.foldSum}/${view.inside} in folds · ${esc(view.witness)}</span></small><div class="fiActions"><button data-close>RETURN TO FIELD</button></div>`);
+  reading.querySelector('[data-close]').onclick=()=>{closeDecode();renderReading()};
 }
 // The glyph is drawn by the projection law itself (C.markGlyph) so the selftest
 // can assert the rendered channels without a browser. This wrapper only passes context.
@@ -457,7 +651,9 @@ function activate(g){
   endEdit();toggleMenu(false);
   // The fold pivots AT the mark: measure the tapped mark before the commit re-lays the
   // plane out, so the room hinges up from — and RETURN unfolds back into — that cell.
-  const mark=g.object?[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===g.id):null,
+  // In the PLAN the mark is the object's own room tile; both views hinge the same room.
+  const mark=g.object?(planView?[...$('#fiPlan').querySelectorAll('[data-plan-id]')].find(b=>b.dataset.planId===g.object.id)
+    :[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===g.id)):null,
     point=mark?markPoint(mark):null;
   travel(C.into(rows,state,g,seen),{foldId:g.id,native:!!g.object});
   // The object remains the same field mark; detail is a field state, no overlay lens.
@@ -499,7 +695,10 @@ function render(){
     }
     b.onclick=()=>activate(g);b.onpointerenter=e=>{if(e.pointerType==='mouse')read(g)};b.onfocus=()=>read(g);b.onblur=quiet;
   });
-  if(priorMark){const same=[...plane.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===priorMark);(same||$('#fiField')).focus({preventScroll:true})}
+  // The plan is rebuilt with the plane, so the room slots never drift between
+  // renders — and focus returns to the mark in the view the user is actually in.
+  if(planView)renderPlan();
+  if(priorMark){const same=[...root.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===priorMark&&b.offsetParent!==null);(same||$('#fiField')).focus({preventScroll:true})}
   renderReading();renderBearing();
 }
 function address(q){
@@ -516,7 +715,7 @@ function key(e){
   const typing=e.target?.id==='fieldUrlInput';
   if(e.key==='Escape'){
     e.preventDefault();e.stopImmediatePropagation();
-    if(menu)toggleMenu(false);else if(room)closeRoom();
+    if(menu)toggleMenu(false);else if(decodeOpen)closeDecode();else if(room)closeRoom();
     if(typing){blankQuery();state={...state,query:''};render();endEdit()}else quiet();return true;
   }
   if(e.key==='Enter'&&typing){
@@ -544,7 +743,10 @@ function key(e){
   }
   if(['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key)){
     if(typing&&['ArrowLeft','ArrowRight'].includes(e.key))return false;
-    e.preventDefault();e.stopImmediatePropagation();const marks=[...plane.querySelectorAll('[data-fold]')];if(!marks.length)return true;
+    e.preventDefault();e.stopImmediatePropagation();
+    // Only the marks that are actually on screen take the arrows: the strip's
+    // folds, or the plan's rooms — never the hidden map's ghosts.
+    const marks=[...root.querySelectorAll('[data-fold]')].filter(n=>n.offsetParent!==null);if(!marks.length)return true;
     const index=marks.indexOf(document.activeElement),delta=e.key==='ArrowDown'?3:e.key==='ArrowUp'?-3:e.key==='ArrowLeft'?-1:1;
     marks[((Math.max(0,index)+delta)%marks.length+marks.length)%marks.length].focus();return true;
   }
@@ -573,7 +775,11 @@ function boot(){
       axis:C.axis(state),dim:view.dim,witness:view.witness,folds:view.folds.length},
       // The room is a view of one held object: its id, the mark's screen anchor and
       // which fold state the hinges are in right now.
-      room:room?{id:room.id,anchor:room.anchor.slice(),s:room.s,fold:document.querySelector('.fiRoomPlane')?.dataset.fold||null}:null})});
+      room:room?{id:room.id,anchor:room.anchor.slice(),s:room.s,fold:document.querySelector('.fiRoomPlane')?.dataset.fold||null}:null,
+      // The observer map is not part of the frame: it is stated, never stored,
+      // so a view switch can never move the position it reports.
+      map:planView?'plan':'strip',decode:decodeOpen,
+      plan:plan?{size:plan.size,rings:plan.rings,shown:plan.shown,folded:plan.folded,total:plan.total,per:plan.per.map(p=>[p.ring,p.count])}:null})});
   window.addEventListener('field-index:state',()=>load());
   let attempts=0;
   const start=async()=>{

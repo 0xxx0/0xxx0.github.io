@@ -149,6 +149,110 @@ export function ribbon(map,width){
   }
   return {width:W,usable,lanes,per,pitch,groups,height:lanes*RIBBON.lane+Math.max(0,lanes-1)*RIBBON.gap,gutter:RIBBON.gutter};
 }
+/* ==== THE PLAN — the same substrate, walked as a place =====================
+   The ribbon orders the whole field into lanes; the PLAN lays the SAME ordered
+   map onto a hexagonal floor plan: flat-top rooms, spiral out from the centre,
+   one slot per object in the turned axis's order. Two observer maps, one
+   substrate — the slot is a pure function of the ordered map, so switching
+   views can never move a room (append-only stable). Consecutive objects are
+   ADJACENT rooms, ring transitions included: "next in the axis" literally
+   means "next door". Where 206 rooms cannot be legible at phone width the
+   plan FOLDS the outer rings and prints their counts (+N) at the edge — a
+   folded number, never a hidden one, never a sub-pixel tile. */
+// Legibility floor: the tile WIDTH (2·size) a room must keep to carry its
+// motif glyph, its state notch and a count. Zoom-free: sizing is derived from
+// the box alone, so the same field is a plan at 320px and at 1280px.
+export const PLAN=Object.freeze({minSize:17,ringMax:10,cap:18});
+// Cube-coordinate ring walk (the six axial directions, in rotation).
+const HDIRS=Object.freeze([[1,-1,0],[1,0,-1],[0,1,-1],[-1,1,0],[-1,0,1],[0,-1,1]]);
+const cubeDist=c=>Math.max(Math.abs(c[0]),Math.abs(c[1]),Math.abs(c[2]));
+const cubeStep=(c,d)=>[c[0]+d[0],c[1]+d[1],c[2]+d[2]];
+const cubeAngle=c=>Math.atan2(Math.sqrt(3)*(c[2]+c[0]/2),1.5*c[0]);
+// Every cell of one ring, in one deterministic rotation.
+function ringCells(k){
+  const out=[];let c=[-k,0,k];
+  for(let i=0;i<HDIRS.length;i++)for(let j=0;j<k;j++){out.push(c);c=cubeStep(c,HDIRS[i])}
+  return out;
+}
+// The walk: ring k STARTS on a cell touching ring k-1's last cell, then walks
+// its own ring, so every consecutive pair — across rings too — is one step
+// apart. Deterministic by construction (FNV-free geometry, no chance anywhere).
+function spiralCells(rings){
+  const cells=[[0,0,0]];let prev=[0,0,0];
+  for(let k=1;k<=rings;k++){
+    const ring=ringCells(k),on=new Set(ring.map(c=>c.join(',')));
+    const start=ring.filter(c=>cubeDist([c[0]-prev[0],c[1]-prev[1],c[2]-prev[2]])===1)
+      .sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2])[0];
+    if(!start)break;
+    const ordered=[start],seen=new Set([start.join(',')]);let cur=start;
+    for(let n=1;n<6*k;n++){
+      const open=HDIRS.map(d=>cubeStep(cur,d)).filter(c=>on.has(c.join(','))&&!seen.has(c.join(',')));
+      if(!open.length)break;
+      // At the first step both ring neighbours are open: take the one that
+      // continues the rotation, so every ring turns the same way.
+      const next=open.sort((a,b)=>cubeAngle(b)-cubeAngle(a))[0];
+      ordered.push(next);seen.add(next.join(','));cur=next;
+    }
+    if(ordered.length!==6*k)break;   // never emit a broken ring
+    cells.push(...ordered);prev=ordered[ordered.length-1];
+  }
+  return cells;
+}
+const cellsFor=r=>1+3*r*(r+1);
+// Pure layout law: (ordered map, box) → tiles, folded counts, edge. The browser
+// only paints it; the selftest proves it in node.
+export function planLayout(map,box,opts={}){
+  const list=Array.isArray(map)?map:[],W=Math.max(1,Number(box?.width)||1),H=Math.max(1,Number(box?.height)||1),
+    cap=Math.max(0,Number(opts.cap)||PLAN.cap),Hh=Math.max(1,H-cap),
+    minSize=Math.max(6,Number(opts.minSize)||PLAN.minSize),
+    ringMax=Math.max(0,Math.trunc(Number(opts.ringMax)||PLAN.ringMax)),
+    // 2% inset keeps every room inside its box; sizing never comes from a zoom.
+    fit=r=>.98*Math.min(W/(3*r+2),Hh/(Math.sqrt(3)*(2*r+1)));
+  let fitRings=0;
+  for(let r=0;r<=ringMax;r++){if(fit(r)+1e-9<minSize)break;fitRings=r}
+  let needRings=0;while(cellsFor(needRings)<list.length&&needRings<ringMax)needRings++;
+  const rings=Math.min(fitRings,needRings),cells=spiralCells(rings),size=fit(rings),
+    shown=Math.min(list.length,cells.length),cx=W/2,cy=cap+Hh/2,sqrt3=Math.sqrt(3);
+  const tiles=[];
+  for(let i=0;i<shown;i++){
+    const c=cells[i];
+    tiles.push({id:list[i].id,index:i,ring:cubeDist(c),q:c[0],r:c[2],
+      x:+(cx+1.5*size*c[0]).toFixed(2),y:+(cy+sqrt3*size*(c[2]+c[0]/2)).toFixed(2),
+      inside:!!list[i].inside,held:!!list[i].held});
+  }
+  const folded=list.length-shown,per=[];let cut=0;
+  for(let k=rings+1;k<=needRings;k++){
+    const from=cellsFor(k-1),to=Math.min(list.length,cellsFor(k));
+    if(to>from){per.push({ring:k,count:to-from});cut+=to-from}
+  }
+  if(folded>cut)per.push({ring:needRings+1,count:folded-cut});   // capped ring budget
+  // The edge is the drawn boundary of the folded periphery, clamped to the box.
+  const edge=folded>0?Math.max(size,Math.min(sqrt3*size*(rings+.5)+6,Math.min(W/sqrt3,Hh/2)-4)):0;
+  return {size:+size.toFixed(2),rings,cap,width:W,height:H,cx:+cx.toFixed(2),cy:+cy.toFixed(2),
+    tiles,shown,folded,foldedIds:list.slice(shown).map(p=>p.id),per,total:list.length,
+    edge:+edge.toFixed(2),fitRings,needRings,
+    width2:+(2*size).toFixed(2),height2:+(sqrt3*size).toFixed(2)};
+}
+// One tile = one room: hex frame + the kind-motif glyph + a state notch at the
+// object's rank on the field-wide state scale + the count it folds (only when
+// there is more than one). Every channel is a datum; nothing is drawn for looks.
+export function planTile(r,ctx={}){
+  const size=Math.max(6,Number(ctx.size)||17),states=Array.isArray(ctx.states)?ctx.states:[],
+    count=Math.max(1,Number(ctx.count)||1),mat=material(r?.kind),
+    w=2*size,h=Math.sqrt(3)*size,inset=.9,s3=Math.sqrt(3)/2,
+    poly=[[1,0],[.5,s3],[-.5,s3],[-1,0],[-.5,-s3],[.5,-s3]]
+      .map(([x,y])=>`${(w/2+x*size*inset).toFixed(2)},${(h/2+y*size*inset).toFixed(2)}`).join(' '),
+    tick=Math.max(0,states.indexOf(String(r?.state??'UNKNOWN'))),
+    a=-Math.PI/2+(states.length>1?tick/(states.length-1):0)*2*Math.PI,
+    n1=`${(w/2+Math.cos(a)*size*.7).toFixed(2)} ${(h/2+Math.sin(a)*size*.7).toFixed(2)}`,
+    n2=`${(w/2+Math.cos(a)*size*1.03).toFixed(2)} ${(h/2+Math.sin(a)*size*1.03).toFixed(2)}`;
+  return `<svg class="fiHexArt" viewBox="0 0 ${w.toFixed(2)} ${h.toFixed(2)}" preserveAspectRatio="none" aria-hidden="true">`
+    +`<polygon class="fiHexFrame" data-ring="${Math.max(0,Number(ctx.ring)||0)}" points="${poly}"/>`
+    +`<g class="fiHexGlyph" data-mat="${mat}" transform="translate(${(w/2).toFixed(2)} ${(h/2).toFixed(2)}) scale(${(size*.05).toFixed(3)}) translate(-10 -10)">${MOTIFS[mat]||MOTIFS.object}</g>`
+    +`<path class="fiHexNotch" data-state="${tick}" d="M${n1}L${n2}"/>`
+    +(count>1?`<text class="fiHexCount" x="${(w/2).toFixed(2)}" y="${(h-2.2).toFixed(2)}" text-anchor="middle">${count}</text>`:'')
+    +`</svg>`;
+}
 export function project(rows,s,seen){
   const d=delta(rows,seen),attention=new Set([...(d.hasBaseline?d.changed:[]),...d.needs,...d.stalled].map(r=>r.id));
   const near=s.mode==='RELATIONS'&&s.focus?neighbours(rows,s.focus):null;
@@ -324,6 +428,59 @@ export function bearing(rows,s,v,anchor){
     away:!!anchor&&stableKey(s)!==stableKey(anchor),ribbon,
     delta:v.delta.hasBaseline?v.delta.changed.length:null,unmeasured:unknown.size,needs:v.delta.needs.length,
     label:`${title}. ${v.inside} ${near?'declared neighbours':'in scope'}; ${v.outside} outside; ${v.total} destinations. ${v.delta.hasBaseline?v.delta.changed.length+' measured changes since SEEN':'No SEEN baseline'}. ${unknown.size} changes unmeasured; ${v.delta.needs.length} need world. ${s.path.length} scope decisions. ${focusHere||near?address:target?'Held outside scope: '+target.address:'No object held'}.`};
+}
+/* ==== DECODE — one decoder for every mark, in either view =================
+   A mark you cannot decode on sight is a bug. HOLD (or long-press) any mark —
+   a ribbon tick in STRIP, a room tile in PLAN — and the same overlay decodes it
+   IN PLACE: kind, state, depth, lane/ring, count and address, read from the
+   real record or the real fold. Nothing here is a legend invented elsewhere:
+   every line is the datum the mark already carries. */
+export function decodeMark(ctx={}){
+  const row=ctx.row||null,group=ctx.group||null,all=Array.isArray(ctx.rows)?ctx.rows:[],
+    states=Array.isArray(ctx.states)?ctx.states:[],src=row||null,
+    members=group?all.filter(r=>group.ids.includes(r.id)):[],
+    count=group?Math.max(1,group.count):src?1:0,
+    lane=ctx.lane??null,ring=ctx.ring??null,
+    slot=Number.isInteger(ctx.slot)?ctx.slot:null,total=Number(ctx.total)||0,
+    mat=src?material(src.kind):'object',
+    tick=src?Math.max(0,states.indexOf(String(src.state??'UNKNOWN'))):-1,
+    rows=[],style=[];
+  rows.push({k:'ADDRESS',v:src?src.address:group?`${group.dim}: ${(group.values||[]).join(' · ')}`:'NO MARK HELD'});
+  rows.push({k:'KIND',v:src?`${src.kind} · ${mat}`:group?`${group.range?'range ':''}${group.dim} fold · ${group.label||''}`:'—'});
+  rows.push({k:'STATE',v:src?String(src.state??'UNKNOWN')
+    :(group?.profile?.states||[]).map(([s,n])=>`${s} ×${n}`).join(' · ')||'MIXED'});
+  rows.push({k:'DEPTH',v:src?String(Math.max(0,Number(src.depth)||0))
+    :members.length?String(Math.max(...members.map(r=>Math.max(0,Number(r.depth)||0)))):'—'});
+  rows.push({k:'LANE',v:lane!=null?`lane ${lane}`:ring!=null?`ring ${ring}`:'whole map'});
+  rows.push({k:'COUNT',v:`${count}${total?` of ${total}`:''}${slot!=null?` · slot ${slot}`:''}`});
+  // The style key: after ONE hold every mark style on screen is learnable.
+  style.push(`MOTIF ${mat} = the material family (${MATERIALS[mat]?MATERIALS[mat].join(' · '):'anything not listed'})`);
+  style.push(states.length?`NOTCH angle = state ${src?src.state:'mixed'} · ${tick>=0?`${tick+1} of ${states.length} on the field-wide state scale`:'not on this mark'}`:'NOTCH angle = state rank on the field-wide scale');
+  style.push(ring!=null?`RING = position in the turned axis walk (radius ${ring} of this plan)`:'TICK HEIGHT = position on the state scale; length = depth');
+  style.push(`BRIGHT = inside this lens · FAINT = outside it · UNDERLINE = held`);
+  if(count>1)style.push(`COUNT = objects folded at this mark`);
+  return {name:src?src.title:group?group.label:'Read the mark',
+    code:src?src.address:group?`${group.dim}: ${(group.values||[]).join(' · ')}`:'',
+    rows,style,mark:src?{id:src.id,kind:src.kind,state:src.state,depth:src.depth,address:src.address,count}:null};
+}
+// One markup builder, one overlay: a crosshair at the mark's own screen point,
+// the decode rows in place, and the way out. The field stays visible behind it.
+export function decodeMarkup(d={},at={}){
+  const rows=Array.isArray(d.rows)?d.rows:[],style=Array.isArray(d.style)?d.style:[],
+    x=Number.isFinite(at.x)?at.x:null,y=Number.isFinite(at.y)?at.y:null,
+    // The card sits beside the mark and never on top of the reading panel.
+    top=x===null||y===null?null:Math.min(Math.max(96,y-150),Math.max(96,Number(at.max)||900)),
+    crosshair=x===null||y===null?''
+      :`<div class="fiCross" style="--x:${x.toFixed(1)}px;--y:${y.toFixed(1)}px"><i class="fiCrossH"></i><i class="fiCrossV"></i><b class="fiCrossDot"></b></div>`,
+    body=(d.table?`<div class="fiHelp">${d.table}</div>`:'')
+      +(rows.length?`<div class="fiDecodeRows">${rows.map(r=>`<b>${esc(r.k)}</b><span>${esc(r.v)}</span>`).join('')}</div>`:'')
+      +(style.length?`<div class="fiDecodeStyle">${style.map(s=>`<span>${esc(s)}</span>`).join('')}</div>`:'');
+  return `<div class="fiDecodeCard"${top===null?'':` style="--cy:${top.toFixed(1)}px"`}>`
+    +`<div class="fiName">${esc(d.name||'Read the mark')}</div>`
+    +(d.code?`<code>${esc(d.code)}</code>`:'')
+    +body
+    +`<div class="fiActions"><button type="button" data-decode-close>${d.key?'CLOSE KEY':'CLOSE'}</button></div></div>`
+    +crosshair;
 }
 /* ==== THE ROOM — six readings of one held object, hinged on cube-net edges ====
    The fold pivots AT the mark: the room's plane is positioned so the anchor cell (1,1)

@@ -231,6 +231,10 @@ assert.ok(ribbonRules.some(r=>r.sel.includes('html[data-instrument="1"]')&&r.bod
 assert.ok(ribbonRules.every(r=>!/pointer-events:\s*none/.test(r.body)),'map ticks are tappable');
 assert.ok(mjsSrc.includes('class="laneN"')&&mjsSrc.includes('>${g.count}</text>'),'each lane prints the count it carries');
 assert.ok(mjsSrc.includes("setAttribute('data-pitch'"),'the pitch is exposed for browser verification');
+// The strip measures the box it is actually given: its own, else the frame minus
+// the VIEW chip column, else the 264px stand-in — never a bar that snaps shut.
+assert.ok(mjsSrc.includes('own>64?own:host>108?host-44:264'),'the map measures its own strip, with the VIEW chip column accounted for');
+assert.ok(mjsSrc.includes('observe.observe(svg)'),'the map re-folds when its own strip is re-laid out');
 
 // REST IS QUIET, BLOOM IS EARNED — user-override media excluded, rest rules only.
 function restRulesOf(css){
@@ -395,6 +399,117 @@ const chance=['Math','random'].join('.');
 assert.deepEqual([['field-instrument.mjs',mjsSrc],['field-instrument-core.mjs',coreSrc],['field-instrument.css',cssSrc],['lib/interphase-cube.js',cubeSrc]]
   .filter(([,src])=>src.includes(chance)).map(([f])=>f),[],chance+' must appear nowhere in the instrument or its cube geometry');
 
+/* ==== THE WALK — the hex plan and the decode overlay (2026-10-20) ==== */
+// The plan is a pure law: (ordered map, box) -> rooms. Nothing about it may
+// depend on a view, a zoom or a random number.
+const hexDist=(a,b)=>{const dq=a.q-b.q,dr=a.r-b.r;return (Math.abs(dq)+Math.abs(dq+dr)+Math.abs(dr))/2};
+const walkBox={width:390-24,height:844-(64+51)-14-206-C.PLAN.cap},   // the field box at 390x844, caption reserved
+  walkMap=C.overview(rows,v,null,C.axis(s)),walkA=C.planLayout(walkMap,walkBox),walkB=C.planLayout(walkMap,walkBox);
+assert.deepEqual(walkA.tiles,walkB.tiles,'the plan is a pure law: the same map always lays the same rooms');
+assert.equal(walkA.total,walkMap.length);assert.equal(walkA.shown+walkA.folded,walkA.total,'rooms drawn + rooms folded = the whole field');
+assert.equal(walkA.per.reduce((n,p)=>n+p.count,0),walkA.folded,'the folded periphery prints every count it hides behind');
+assert.equal(new Set(walkA.tiles.map(t=>t.id)).size,walkA.shown,'one room per address, never two');
+assert.ok(walkA.size>=C.PLAN.minSize&&walkA.width2>=2*C.PLAN.minSize-0.05,`tile ${walkA.width2}px below the legibility floor at 390`);
+// ADJACENCY = AXIS ORDER: consecutive objects in the turned axis are one hex
+// step apart, ring transitions included — "next" is literally "next door".
+assert.deepEqual(walkA.tiles.map(t=>t.id),walkMap.slice(0,walkA.shown).map(p=>p.id),'the walk IS the axis order');
+for(let i=0;i<walkA.tiles.length-1;i++)
+  assert.equal(hexDist(walkA.tiles[i],walkA.tiles[i+1]),1,`rooms ${i} and ${i+1} are not neighbours on the plan`);
+const ringOf=new Map(walkA.tiles.map(t=>[t.id,t.ring]));assert.equal(ringOf.get(walkA.tiles[0].id),0,'the first room in the axis is the centre of the plan');
+assert.equal(walkA.tiles.filter(t=>t.ring===0).length,1,'the field centre is one room');
+for(let k=1;k<walkA.rings;k++)assert.equal(walkA.tiles.filter(t=>t.ring===k).length,6*k,`ring ${k} carries its 6k rooms`);
+assert.equal(walkA.tiles.filter(t=>t.ring===walkA.rings).length,walkA.shown-walkA.tiles.filter(t=>t.ring<walkA.rings).length,'only the last ring may be partial');
+assert.ok(walkA.tiles.every((t,i)=>!i||t.ring>=walkA.tiles[i-1].ring),'rings only ever grow outward');
+assert.ok(walkA.tiles.every(t=>t.x>=0&&t.x<=walkBox.width&&t.y>=C.PLAN.cap&&t.y<=walkBox.height),'no room leaves the field box');
+// APPEND-ONLY STABLE: holding an object or narrowing the lens re-lights the
+// tiles, it never moves one. Same object, same tile, across every view switch.
+const holdMap=C.overview(rows,C.project(rows,C.locate(s,a),{}),a.id,C.axis(s)),
+  walkHold=C.planLayout(holdMap,walkBox),atSlot=new Map(walkA.tiles.map(t=>[t.id,`${t.q},${t.r}`]));
+assert.deepEqual(walkHold.tiles.map(t=>`${t.q},${t.r}`),walkA.tiles.map(t=>`${t.q},${t.r}`),'a view switch may not move a single room');
+assert.equal(walkHold.tiles.filter(t=>t.held).length,1,'the held room is marked, not relocated');
+for(const turn of [1,2,3]){
+  const t={...s,turn},m=C.overview(rows,C.project(rows,t,{}),null,C.axis(t)),L=C.planLayout(m,walkBox);
+  assert.equal(L.shown+L.folded,m.length,`turn ${turn} loses no room`);
+  assert.ok(L.size>=C.PLAN.minSize,`turn ${turn} pushes a room sub-pixel`);
+  for(let i=0;i<L.tiles.length-1;i++)assert.equal(hexDist(L.tiles[i],L.tiles[i+1]),1,`turn ${turn} breaks the walk`);
+}
+// Zoom-free sizing: the same law fits every phone and the desktop, and folds
+// what it cannot draw — a printed number, never a hidden tail, never sub-pixel.
+for(const [w,h] of [[320-24,568-129-206-C.PLAN.cap],[320-24,640-129-206-C.PLAN.cap],[390-24,844-129-206-C.PLAN.cap],[430-24,932-129-206-C.PLAN.cap],[1024,800-135-206-C.PLAN.cap]]){
+  const L=C.planLayout(walkMap,{width:w,height:h});
+  assert.ok(L.size>=C.PLAN.minSize,`tile ${L.size}px below the floor at ${w}x${h}`);
+  assert.equal(L.shown+L.folded,walkMap.length,`count lost at ${w}x${h}`);
+  assert.equal(L.per.reduce((n,p)=>n+p.count,0),L.folded,`folded counts unprinted at ${w}x${h}`);
+  assert.ok(L.tiles.every(t=>t.x-L.width2/2>=-0.5&&t.x+L.width2/2<=w+.5&&t.y-L.height2/2>=-.5&&t.y+L.height2/2<=h+.5),`room leaves the ${w}x${h} box`);
+}
+const hugeWalk=C.planLayout(C.overview(large,{folds:[]},null,'family'),walkBox);
+assert.equal(hugeWalk.shown+hugeWalk.folded,large.length,'40,000 objects still conserve their count');
+assert.equal(hugeWalk.per.reduce((n,p)=>n+p.count,0),hugeWalk.folded,'even a capped ring budget prints every folded count');
+assert.ok(hugeWalk.size>=C.PLAN.minSize,'40,000 objects may not push a room sub-pixel');
+assert.equal(C.planLayout([],walkBox).shown,0,'an empty field draws an empty plan, not a crash');
+// ONE TILE = ONE ROOM: frame + the marks' own motif + the state notch + the count.
+const tileOf=C.planTile(a,{size:18,states:vocab,count:5,ring:3});
+assert.ok(tileOf.includes('fiHexFrame')&&tileOf.includes('fiHexGlyph')&&tileOf.includes('fiHexNotch'),'frame, motif and notch are all drawn');
+assert.ok(tileOf.includes(C.MOTIFS[C.material(a.kind)]),'the tile draws the SAME material motif the marks draw');
+assert.ok(tileOf.includes(`data-state="${Math.max(0,vocab.indexOf(a.state))}"`),'the notch carries the state rank on the field-wide scale');
+assert.ok(tileOf.includes('>5<'),'the count a room folds is printed');
+assert.equal(C.planTile(a,{size:18,states:vocab,count:1}).includes('fiHexCount'),false,'a room of one prints no count');
+assert.equal(C.material(a.kind),C.material(a.kind),'material is deterministic');
+// DECODE — the overlay reads the REAL record, in either view.
+const dec=C.decodeMark({row:a,rows,states:vocab,lane:2,slot:7,total:206}),
+  decHtml=C.decodeMarkup(dec,{x:120,y:400,max:300});
+assert.ok(decHtml.includes(a.address)&&decHtml.includes(String(a.state))&&decHtml.includes(String(a.depth)),'the overlay decodes the real fields, not a legend');
+assert.ok(decHtml.includes(`lane 2`),'the lane is decoded where the mark sits');
+assert.ok(decHtml.includes('of 206'),'the count and the slot are printed, never hidden');
+assert.ok(decHtml.includes('fiCross')&&decHtml.includes('--x:120.0px')&&decHtml.includes('--y:400.0px'),'the crosshair sits AT the mark');
+assert.ok(decHtml.includes('--cy:250.0px')&&/fiDecodeCard/.test(decHtml),'the card opens beside the mark and clamps clear of the reading panel');
+assert.ok(decHtml.includes('data-decode-close'),'the overlay has one way out');
+assert.ok(decHtml.includes(C.MATERIALS[C.material(a.kind)].join(' · ')),'the style key explains the motif from the real material list');
+const groupDec=C.decodeMark({group:v.folds[0],rows,states:vocab,ring:3,total:206});
+const groupHtml=C.decodeMarkup(groupDec,{});
+assert.ok(groupHtml.includes(String(v.folds[0].count)),'a folded mark decodes its count');
+assert.ok(groupHtml.includes(v.folds[0].dim),'and the dimension it folded on');
+assert.ok(groupHtml.includes('ring 3'),'a plan room decodes its ring');
+assert.ok(groupHtml.includes(a.state)||groupHtml.includes('×'),'and the states it carries');
+assert.equal(C.decodeMarkup(C.decodeMark({}),{}).includes('NO MARK HELD'),true,'no mark is stated, never invented');
+// One decoder, two views, one key.
+assert.ok(mjsSrc.includes('function cycleView(')&&mjsSrc.includes("$('#fiView').onclick=()=>cycleView()"),'the bar gains a VIEW cycle');
+const cycleBody=mjsSrc.slice(mjsSrc.indexOf('function cycleView(){'),mjsSrc.indexOf('function wirePlan('));
+assert.ok(/planView=!planView/.test(cycleBody)&&/root\.dataset\.map=/.test(cycleBody),'the cycle names the observer map');
+assert.ok(!/\bstate\s*=/.test(cycleBody)&&!/\banchor\s*=/.test(cycleBody),'switching views cannot move the held object or the pin');
+assert.ok(mjsSrc.includes('C.planLayout(')&&mjsSrc.includes('C.planTile(')&&mjsSrc.includes('data-plan-id'),'the browser paints the SAME law this test just proved');
+assert.ok(/commit\(C\.locate\(state,r\),\{native:true\}\);[\s\S]{0,160}openRoom\(g,point\)/.test(mjsSrc),'tapping a room locates the object, then hinges the room AT the tile');
+assert.ok(mjsSrc.includes("planView?[...$('#fiPlan').querySelectorAll('[data-plan-id]')].find("),'in the plan the fold pivots at the room tile');
+assert.ok(/if\(planView\|\|matchMedia\('\(prefers-reduced-motion:reduce\)'\)\.matches\)\{commit\(next,\{native\}\);return\}/.test(mjsSrc),'the plan walks by commit — no camera on a hidden plane');
+assert.ok(mjsSrc.includes('function wireDecode(')&&mjsSrc.includes('},620);')&&mjsSrc.includes('holdTimer=setTimeout('),'a press-and-hold opens the decode in either view');
+// The bar (and its strip) is the PAGE's chrome, outside this section: the hold
+// must listen where the marks actually live, or only the plan would decode.
+assert.ok(mjsSrc.includes("document.addEventListener('pointerdown'")&&mjsSrc.includes("'[data-fold],[data-map-id]'"),'press-and-hold decodes a mark in EITHER view');
+assert.ok(mjsSrc.includes('holdEl&&!holdEl.isConnected'),'a re-render under the finger is not a letting go');
+assert.ok(mjsSrc.includes("const close=host.querySelector('[data-decode-close]')"),'the overlays own way back is wired to a real button');
+assert.ok(mjsSrc.includes('decodeRelease')&&mjsSrc.includes('decodeRelease=false;e.preventDefault()'),'the holds own release click is swallowed, never a move');
+assert.ok(mjsSrc.includes('C.decodeMark(')&&mjsSrc.includes('C.decodeMarkup('),'one decoder builds every overlay');
+assert.ok(mjsSrc.includes("closest('[data-fold],[data-map-id]')")&&mjsSrc.includes('.fiDecodeCard'),'the hold reaches strip ticks and plan rooms alike, and taps pass the overlay through');
+const helpBody=mjsSrc.slice(mjsSrc.indexOf('function showHelp(){'),mjsSrc.indexOf('// The glyph is drawn by the projection law'));
+assert.ok(helpBody.includes('openDecode({key:true'),'READ THE MARK opens the SAME overlay, not a second table');
+assert.ok(helpBody.includes('C.MOTIFS')&&helpBody.includes('C.MATERIALS'),'the key is still generated from the marks own vocabulary');
+assert.ok(helpBody.includes('data-close')&&helpBody.includes('closeDecode()'),'the panel keeps its counted line and its way back');
+assert.ok(helpBody.includes('view.witness')&&helpBody.includes('view.residue'),'the key carries the loss witness and its residue');
+// QUIET BY DEFAULT, DECODED ON HOLD.
+assert.ok(/\.fiHexArt\{[^}]*opacity:\.12/.test(cssSrc),'the plan rests at the quiet alpha');
+assert.ok(/#fiPlan\.bloom \.fiHexArt\{opacity:\.95\}/.test(cssSrc),'full bloom is earned by the finger');
+assert.ok(/\.fiPlanEdge polygon\{[^}]*opacity:\.1/.test(cssSrc),'the folded edge is a rest layer, not a shout');
+assert.ok(/\.fiDecode\{[^}]*display:none/.test(cssSrc),'the overlay is not a rest layer at all');
+assert.ok(/\.fiDecode\[data-open\]\{display:block\}/.test(cssSrc));
+assert.ok(/\.fiDecode\{[^}]*pointer-events:none/.test(cssSrc),'the field stays live behind the overlay');
+assert.ok(/\.fiDecodeCard\{[^}]*pointer-events:auto/.test(cssSrc),'the decode card alone takes the pointer');
+assert.ok(/\.fiDecodeCard\{[^}]*--cy/.test(cssSrc),'the card is positioned by the mark it decodes');
+const rmPlan=cssSrc.slice(cssSrc.indexOf('@media(prefers-reduced-motion:reduce)'),cssSrc.indexOf('@media(prefers-contrast'));
+assert.ok(/\.fiHexArt/.test(rmPlan),'reduced motion keeps the plan depth and drops the transition');
+assert.ok(mjsSrc.includes("if(planView)renderPlan();"),'the plan re-lays itself with the field it is given');
+assert.ok(mjsSrc.includes("filter(n=>n.offsetParent!==null)"),'keyboard walks the view that is actually on screen');
 console.log(`FIELD INSTRUMENT PASS · ${rows.length} real routes · 40,000 colliding records reachable once · ${calls} folds / depth ${maxDepth} · projection ${projectionMs}ms / traversal ${traversalMs}ms · exact RETURN · no source mutation`);
 console.log(`GOD'S-EYE FRAME PASS · 4-turn axis ring (state → time → depth → family from rest) · map ${mapFam.length} ticks / ${C.ribbon(C.overview(rows,v,null,'family'),366).lanes} lanes / ${C.ribbon(C.overview(rows,v,null,'family'),366).pitch.toFixed(2)}px pitch at 390 · ${measured} rest layers ≤ α${peak} · witness "${v.witness}" · line "${C.bearing(rows,s,v,s).line}"`);
 console.log(`CUBE MEETS MAP PASS · room hinges AT the mark (anchor [${inv.anchor.join(',')}] identical net↔cube↔net, pivot Δ${inv.pivotDelta.toExponential(1)}) · fold hash net ${rt.netHash} → cube ${rt.cubeHash} → net ${rt.backHash} · 4 hinge origins on the shared edge + nested RETURN · six readings from a real record (${checked.address}: ${six[3].count} moves, ${six[4].count} checks, pin ${six[5].text.slice(4,20)}) · 300ms interruptible · reduced-motion instant · ${chance} nowhere`);
+
+console.log(`THE WALK PASS · hex plan ${walkA.shown} rooms at ${walkA.width2}×${walkA.height2}px on rings 0–${walkA.rings} (tile floor ${C.PLAN.minSize}px) · ${walkA.folded} folded at the edge (${walkA.per.map(p=>`ring ${p.ring} +${p.count}`).join(' · ')}) · adjacency = axis order, ${walkA.tiles.length-1} steps · same slots after a view switch · TURN keeps the walk · 40,000-object field folds honestly · decode overlay reads real records (crosshair at the mark) · ${chance} nowhere`);
