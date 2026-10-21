@@ -1,0 +1,67 @@
+{
+  "schema": "0xxx0/media-consolidation/v1",
+  "title": "Poo Baby + Sleeper media consolidation",
+  "generated": "2026-10-21T21:48:29+08:00",
+  "state": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+  "branch": "media-consolidate-2026-10-22",
+  "canonical_home": "~/void-anchor/ai-media/consolidated/",
+  "manifest": {
+    "path": "~/void-anchor/AXIS/work/media-consolidate-2026-10-22/MANIFEST.tsv",
+    "rows": 1948,
+    "sha256": "61ca15314f6cf5fe5885a3604a341053726c15b829bd94df46e5783286a029dd",
+    "columns": "path|bytes|sha256|origin"
+  },
+  "method": "shasum -a 256 over each bounded source space; one hardlink per unique sha256; no source moved, renamed or deleted",
+  "classes": {
+    "poo_baby": {
+      "discovered_files": 810,
+      "discovered_bytes": 3357871114,
+      "unique_sha256": 789,
+      "unique_bytes": 3317425025,
+      "duplicate_clusters": 8,
+      "files_in_duplicate_clusters": 29,
+      "redundant_bytes": 40446089,
+      "links": 789
+    },
+    "sleeper": {
+      "discovered_files": 1138,
+      "discovered_bytes": 957280763,
+      "unique_sha256": 201,
+      "unique_bytes": 107106810,
+      "duplicate_clusters": 80,
+      "files_in_duplicate_clusters": 1017,
+      "redundant_bytes": 850173953,
+      "links": 201
+    }
+  },
+  "disk": {
+    "blocks_consumed": 680,
+    "block_size": 4096,
+    "note": "hardlinks share inodes: 3.2G apparent, 680 x 4KiB blocks actually consumed"
+  },
+  "absent_at_source": [
+    {
+      "path": "/tmp/poo_baby/poo_baby_epic.mp4",
+      "kind": "tmp-pruned",
+      "survives_at": "~/.codex/worktrees/00f81523-c375-4062-8bb2-a490066ef583/void-anchor/generated-artifacts/2026-05-media-and-demos/poo_baby_epic.mp4",
+      "sha256": "3579f0e64806cfdc89a6eac8eb652da8e961d39e30fb0d67e684336e066b8894",
+      "recoverable_from": "void-anchor git blob 6d8e91ed842c781ac9c70bcdd629b8b0f3f78c47 (commit 8ca9b214c, not in HEAD, /generated-artifacts/ is gitignored)"
+    },
+    {
+      "path": "~/void-anchor/poo_baby_epic.mp4",
+      "kind": "session-claim-not-on-disk",
+      "evidence": "corpus.db messages cid 20260519_155556_9090969d (2026-05-19T09:08:45Z) claims it was saved permanently; stat(1) reports absent"
+    },
+    {
+      "path": "~/.hermes/profiles/operator/audio_cache/tts_20260519_170643.ogg (and _170612, _170553, _170509)",
+      "kind": "audio-deliverable-pruned",
+      "evidence": "same corpus message lists the 4 MEDIA: tags; operator/audio_cache is empty (0 files); no tts_20260519* anywhere under /Users/mcvoid"
+    }
+  ],
+  "boundary": "Comic art, PDFs and video stay local. This receipt publishes metadata only, per /recovery/media/poobaby/ (FROZEN_DONOR) and the private-reservoir rule: no bulk-publishing originals.",
+  "local_evidence": [
+    "AXIS/work/media-consolidate-2026-10-22/INVENTORY.md",
+    "AXIS/work/media-consolidate-2026-10-22/MANIFEST.tsv",
+    "AXIS/work/media-consolidate-2026-10-22/runs.jsonl"
+  ]
+}
