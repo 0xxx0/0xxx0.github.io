@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-21T11:56:37.198Z",
+  "generated": "2026-10-21T12:27:36.106Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-21",
-  "commits_in_window": 6,
-  "git_commits_in_window": 66,
-  "telemetry_commits_in_window": 60,
-  "commits_total": 6333,
+  "commits_in_window": 9,
+  "git_commits_in_window": 72,
+  "telemetry_commits_in_window": 63,
+  "commits_total": 6339,
   "branch_count": 1046,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
-    "calls: refresh (auto — answers changed)"
+    "routes: register /cube-composer/ (206->207) — same-change stamp",
+    "cube composer: the first playable wall (compose transforms, reach the target)"
   ],
   "active_fronts": [
     {
