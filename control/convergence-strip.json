@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-21T00:03:33.128Z",
+  "generated": "2026-10-21T04:42:37.441Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,14 +10,12 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-21",
   "commits_in_window": 0,
-  "git_commits_in_window": 18,
-  "telemetry_commits_in_window": 18,
-  "commits_total": 6285,
+  "git_commits_in_window": 33,
+  "telemetry_commits_in_window": 33,
+  "commits_total": 6300,
   "branch_count": 1046,
   "recent_commits": [
-    "desk: refresh public field data + root git chronology",
-    "release: FIELD 0.8.39 — cube meets map cache-buster",
-    "field instrument: fold a room AT the map mark (cube meets map)"
+    "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
     {
