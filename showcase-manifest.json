@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-21T19:47:26+08:00",
+  "updated": "2026-10-21T20:20:37+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10414,6 +10414,32 @@
           "selftest.mjs PASS (parent-rerun 2026-10-19)",
           "house law: static-only, no CDN, no Math.random"
         ]
+      }
+    },
+    {
+      "href": "/cube-composer/",
+      "title": "CUBE COMPOSER v0 — compose transforms, reach the target",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "COMPOSE",
+      "state": "ACTIVE",
+      "family": "FIELD / PLAY",
+      "showcase_card": true,
+      "role": "First playable surface of the named cube-composer mechanic (David Peter / sharkdp, MIT): wall = state, composed visual functions (f >>> g >>> h) map START to TARGET; five levels teach map / filter / reverse / order. Quiet character-grid register, colour only on approach.",
+      "index": {
+        "updated_at": "2026-10-21T20:20:37+08:00",
+        "work_modes": [
+          "PLAY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "selftest.mjs PASS 40/40 (wall algebra, composition ORDER, every level solvable by its documented solution, target != start, tag determinism, no randomness)",
+          "headless playtest L1: tap MAP Y→R + RUN → SOLVED · TAG a76f80bb (12/12 cubes bloom)"
+        ],
+        "return_path": "/"
       }
     }
   ],
