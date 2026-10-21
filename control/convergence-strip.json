@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-21T12:27:36.106Z",
+  "generated": "2026-10-21T14:00:37.517Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,10 +10,10 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-21",
   "commits_in_window": 9,
-  "git_commits_in_window": 72,
-  "telemetry_commits_in_window": 63,
-  "commits_total": 6339,
-  "branch_count": 1046,
+  "git_commits_in_window": 79,
+  "telemetry_commits_in_window": 70,
+  "commits_total": 6346,
+  "branch_count": 1047,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
     "routes: register /cube-composer/ (206->207) — same-change stamp",
