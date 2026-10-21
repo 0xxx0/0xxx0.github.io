@@ -54,6 +54,22 @@ body {
   color: rgba(79, 87, 96, .44);
 }
 
+/* the reading. chrome, not a graph layer — muted ink like the rest of the header,
+   per the design law (depth appears only behind tap). This is the sentence the
+   instrument was missing: the lanes are a journey, and the lines are typed. */
+.read {
+  margin: 9px 0 2px;
+  max-width: 62ch;
+  font-size: 9px;
+  line-height: 1.85;
+  letter-spacing: .055em;
+  color: rgba(79, 87, 96, .42);
+}
+.read b { color: rgba(79, 87, 96, .62); font-weight: 600; }
+.read .journey { display: block; margin: 3px 0 5px; color: rgba(79, 87, 96, .52); }
+.read .journey i { font-style: normal; color: rgba(79, 87, 96, .3); padding: 0 1px; }
+.read .rels { color: rgba(79, 87, 96, .52); }
+
 .hint {
   margin-top: 3px;
   font-size: 8.5px;

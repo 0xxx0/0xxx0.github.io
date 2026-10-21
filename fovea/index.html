@@ -67,6 +67,8 @@
   .p2card a:hover{color:var(--acc)}
   .p2card .m{font-size:9px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
   .p2card .r{font-size:10px;color:var(--mut);margin-top:4px;line-height:1.5}
+.p2card.p2next{border-color:#2c3238;background:#0a0e12}
+.p2card.p2next a{color:var(--gold);letter-spacing:.05em;font-size:10.5px}
   @media(max-width:600px){main{padding:12px 8px}header h1{font-size:22px}header .sub{font-size:10px;margin-bottom:8px}#fovea .bar{padding:7px 9px;gap:7px}.mapJump{padding:6px 9px}#readout{left:7px;top:7px}}
 </style>
 </head>
@@ -377,9 +379,14 @@
       'second scale · '+sibs.length+' route'+(sibs.length===1?'':'s')+' in this constellation · resolved from the star field above';
     p2g.innerHTML = sibs.map(function(x){
       return '<div class="p2card"><a href="'+escAttr(x.href)+'">'+esc(x.title)+'</a>'+
-             '<div class="m">'+esc(x.state||'—')+' · depth '+x.depth+' · '+x.kids+' child'+(x.kids===1?'':'s')+'</div>'+
+             '<div class="m">'+esc(x.state||'—')+' · depth '+x.depth+' · '+x.kids+' child'+(x.kids===1?'':'ren')+'</div>'+
              '<div class="r">'+esc((x.role||x.href).slice(0,120))+'</div></div>';
-    }).join('');
+    }).join('') +
+      '<div class="p2card p2next"><a href="/20261019-epic10/memory/">THIRD SCALE — THE JOURNEY ↗</a>'+
+      '<div class="m">clusters · what caused what</div>'+
+      '<div class="r">place → person → decision → artifact → project → lesson — where, who, what was '+
+      'chosen, what was made, what it became, what was learned. typed relations: lives at · cares for · '+
+      'wants · caused · proves · supersedes.</div></div>';
     panel2.style.display='block';
   }
 
