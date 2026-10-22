@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-22T07:03:35.932Z",
+  "generated": "2026-10-22T09:07:37.017Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-22",
-  "commits_in_window": 10,
-  "git_commits_in_window": 51,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 6403,
+  "commits_in_window": 14,
+  "git_commits_in_window": 63,
+  "telemetry_commits_in_window": 49,
+  "commits_total": 6415,
   "branch_count": 1047,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: re-stamp after rebase /keel/ (OPERATE,RESEARCH)",
-    "fi-mutation-contract: stamp /keel/ (OPERATE,RESEARCH)"
+    "fi-mutation-contract: re-stamp after rebase /keel/",
+    "fi-mutation-contract: stamp /keel/ v2 (OPERATE,RESEARCH)"
   ],
   "active_fronts": [
     {
