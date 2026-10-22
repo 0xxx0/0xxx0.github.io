@@ -28,12 +28,18 @@ one wall-algebra home, P6) and adds only rooms/net/delta/decode.
 | act | result |
 |---|---|
 | drag the room | look around (yaw free, pitch clamped ±26°) |
+| **drag the floor** | **paint with sound** — the borrowed hand: velocity→pitch/brightness, width→loudness, height→tone, x→pan (the Paint With Music mapping) |
+| tap `Sound: off/on` | the instrument speaks (quiet by default, P3) |
 | tap a SHELF function | append to the chain (slots per room; the state wall updates live) |
-| tap a CHAIN slot | remove that function |
+| tap a CHAIN slot | remove that function (the DELTA tones if sound is on) |
 | press-and-hold any function | DECODE overlay: what it does + its record field + tags |
 | tap a lit square on the net | return to that room |
 | tap the door (after solving) | enter the next room |
 | keys `←`/`→` · `Esc` | look · clear the chain + close decode |
+
+The floor marks ARE their record: every stroke is stored as `gesture.trace`
+(points, velocities, span) and the drawn marks are that record projected —
+the ceiling's GESTURE row names it, the TONE row names the mapping.
 
 ## Donor resolution (form follows the named prototype)
 

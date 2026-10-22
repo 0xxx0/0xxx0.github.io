@@ -100,6 +100,26 @@ ck('in-page verdict hook present', html.includes('id="selftest"'));
 ck('decode overlay present (P11d)', html.includes('id="decode"'));
 ck('six faces drawn', (html.match(/class="face /g) || []).length === 6);
 
+/* --- the stroke instrument (PovBrush: pure mapping, deterministic) ------ */
+const PB = (function () {
+  const s3 = { module: { exports: {} }, exports: {}, console };
+  s3.globalThis = s3;
+  vm.createContext(s3);
+  vm.runInContext(read('brush.js'), s3, { filename: 'pov/brush.js' });
+  return s3.module.exports;
+})();
+ck('brush.js names its donor', read('brush.js').includes('f9033a8b') && read('brush.js').includes('Sonification Handbook'));
+ck('brush mapping deterministic (same input, same width)', JSON.stringify(PB.brushWidth(10, 10, { x: 0, y: 0 }, 16)) === JSON.stringify(PB.brushWidth(10, 10, { x: 0, y: 0 }, 16)));
+ck('tone mapping deterministic + bounded', (() => {
+  const t = PB.tone(360, 220, 12, 3, { w: 720, h: 440 });
+  return t.freq > 180 && t.freq <= 1400 && t.pan >= -0.8 && t.pan <= 0.8 && t.amp > 0 && t.amp <= 0.5 &&
+    JSON.stringify(t) === JSON.stringify(PB.tone(360, 220, 12, 3, { w: 720, h: 440 }));
+})());
+ck('fast stroke is thinner than slow (velocity -> width)', PB.brushWidth(40, 0, { x: 0, y: 0 }, 8).w < PB.brushWidth(10, 0, { x: 0, y: 0 }, 8).w);
+ck('gesture record names its field', PB.record([{ x: 1, y: 2, t: 100, v: 0.5 }]).field === 'gesture.trace');
+ck('no Math.random in brush.js', !/Math\.random/.test(stripComments(read('brush.js'))));
+ck('page wires the floor instrument', html.includes('brush.js') && html.includes('floorInk') && html.includes('gesture.trace'));
+
 console.log(rows.join('\n'));
 console.log(`${pass === total ? 'PASS' : 'FAIL'} ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

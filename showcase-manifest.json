@@ -10475,7 +10475,7 @@
       "state": "ACTIVE",
       "family": "FIELD / PLAY",
       "showcase_card": true,
-      "role": "POV MOD v0 — the inside view of the cube composer: a camera at the room's centre, drag to look. The walls ARE the state (north = the wall you compose live, east = target, west = the net map you hold, ceiling = the room's record, the door is behind you). Five rooms on one plus-net; a cube is lit only where the chain changed it; solving opens the door and lights one net square. Absorbs ../core.js algebra (P6 absorb law).",
+      "role": "POV MOD v0 — the inside view of the cube composer: a camera at the room's centre, drag to look. The walls ARE the state (north = the wall you compose live, east = target, west = the net map you hold, ceiling = the room's record, the door is behind you). Five rooms on one plus-net; a cube is lit only where the chain changed it; solving opens the door and lights one net square. Absorbs ../core.js algebra (P6 absorb law). The floor is the instrument: drag to paint with sound (velocity->pitch, width->loudness, height->tone, x->pan; the borrowed hand, Magenta Paint With Music via /20261018-borrowed-hand/).",
       "index": {
         "updated_at": "2026-10-22T07:45:49+08:00",
         "work_modes": [
@@ -10487,7 +10487,8 @@
       "evidence": {
         "checks": [
           "selftest.mjs PASS 29/29 (levels solve by documented solutions, wrong order does not, delta/ghost correctness, net uniqueness, tag determinism, static-law scan)",
-          "in-page ?selftest=1 PASS 5/5 + headless paint proof: rest 0 lit → tap MAP Y→R lights 3 tiles rgb(239,116,71) → remove back to 0; solve → door opens → next room (parent-rerun 2026-10-21)"
+          "in-page ?selftest=1 PASS 5/5 + headless paint proof: rest 0 lit → tap MAP Y→R lights 3 tiles rgb(239,116,71) → remove back to 0; solve → door opens → next room (parent-rerun 2026-10-21)",
+          "stroke instrument (Paint With Music mapping absorbed from borrowed-hand f9033a8b): node selftest 36/36 + browser proof — floor stroke -> 238 ink px, gesture.trace record (13 pts), trusted click -> AudioContext state=running, quiet by default (parent-rerun 2026-10-22)"
         ],
         "return_path": "/cube-composer/"
       }

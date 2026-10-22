@@ -102,6 +102,10 @@ body.solved .door{border-color:var(--B);color:var(--B)}
 .status.ok{color:var(--G)}
 .hint{color:var(--ink);letter-spacing:.05em;padding:2px 12px 0}
 
+/* ── the floor instrument (the borrowed hand paints here) ── */
+#floorInk{position:absolute;inset:0;width:100%;height:100%}
+.face.f-down .wlabel{position:absolute;top:6px;left:8px;z-index:1}
+
 /* ── decode overlay (press-and-hold: one hold teaches the vocabulary) ── */
 .decode{position:fixed;inset:0;background:rgba(8,12,18,.93);padding:18px 16px;
   z-index:9;display:flex;flex-direction:column;gap:10px;justify-content:center}
@@ -138,8 +142,10 @@ body.solved .door{border-color:var(--B);color:var(--B)}
       <div class="decrow"><b>TITLE</b><span id="decTitle">—</span></div>
       <div class="decrow"><b>TAG</b><span class="tagcode" id="decTag">—</span></div>
       <div class="decrow"><b>SOLUTION</b><span class="tagcode" id="decSol">—</span></div>
+      <div class="decrow"><b>GESTURE</b><span id="decGest">no strokes yet</span></div>
+      <div class="decrow"><b>TONE</b><span class="tagcode">velocity→pitch · width→loud · height→tone · x→pan</span></div>
     </div>
-    <div class="face f-down"><div class="wlabel">FLOOR · THE ROOM HOLDS NOTHING ELSE</div></div>
+    <div class="face f-down" id="floor"><div class="wlabel">FLOOR · THE HAND PAINTS HERE</div><canvas id="floorInk" width="720" height="440"></canvas></div>
     <div class="face f-s">
       <div class="wlabel">THE DOOR</div>
       <div class="door" id="door"><span id="doorWord">LOCKED · COMPOSE THE WALL</span></div>
@@ -154,6 +160,7 @@ body.solved .door{border-color:var(--B);color:var(--B)}
   <div class="line"><span class="k">WORK</span>
     <button id="resetBtn">↺ RESET</button>
     <button id="backBtn">← ROOMS</button>
+    <button id="soundBtn">Sound: off</button>
   </div>
 </div>
 
@@ -168,6 +175,7 @@ body.solved .door{border-color:var(--B);color:var(--B)}
 
 <script src="../core.js"></script>
 <script src="./core.js"></script>
+<script src="./brush.js"></script>
 <script>
 (function(){
 'use strict';
@@ -312,6 +320,10 @@ function render() {
   });
   renderWall($('stateGrid'), wall, litSet, ghosts);
   renderWall($('targetGrid'), r.target, {}, {});
+  if (audio && audio.on && diff.changed.length) {
+    // the DELTA is audible (P4): one tone whose velocity = tiles changed
+    try { audio.pluck(360, 220, Math.min(26, 2 + diff.changed.length * 2), Math.min(5, diff.changed.length), { w: 720, h: 440 }); } catch (e) {}
+  }
   renderNet($('netMini'), 66); renderNet($('netBig'), 180);
   $('roomTag').textContent = 'ROOM ' + (roomIx + 1) + '/' + POV.ROOMS.length +
     (solved[r.id] ? ' · OPEN' : '');
@@ -335,6 +347,7 @@ function render() {
 var dragging = false, px = 0, py = 0;
 var stage = $('stage');
 stage.addEventListener('pointerdown', function (e) {
+  if (e.target && floorEl && floorEl.contains(e.target)) return;  // the floor is the hand's surface
   dragging = true; px = e.clientX; py = e.clientY;
   stage.classList.add('grabbing');
   stage.setPointerCapture && stage.setPointerCapture(e.pointerId);
@@ -365,6 +378,57 @@ document.addEventListener('keydown', function (e) {
   else return;
   document.documentElement.style.setProperty('--yaw', yaw.toFixed(2) + 'deg');
   render();
+});
+
+/* ── the floor instrument (PovBrush: the borrowed hand, in the room) ──── */
+var audio = (typeof PovBrush !== 'undefined') ? PovBrush.makeAudio() : null;
+var floorEl = $('floor');
+var floorCtx = $('floorInk').getContext('2d');
+var gest = [], stroke = null;
+// house pattern: a headless probe drives the figure's public API
+window.POVProbe = {
+  gest: function () { return gest; },
+  audio: function () { return audio ? { on: audio.on, state: audio.ctx && audio.ctx.state } : null; }
+};
+
+$('soundBtn').addEventListener('click', async function () {
+  if (!audio) return;
+  var on = await audio.toggle();
+  $('soundBtn').textContent = on ? 'Sound: on' : 'Sound: off';
+});
+
+floorEl.addEventListener('pointerdown', function (e) {
+  e.stopPropagation();
+  floorEl.setPointerCapture && floorEl.setPointerCapture(e.pointerId);
+  stroke = { pts: [{ x: e.offsetX, y: e.offsetY, t: performance.now(), v: 0 }], prev: null };
+  floorCtx.lineCap = 'round'; floorCtx.lineJoin = 'round';
+});
+floorEl.addEventListener('pointermove', function (e) {
+  if (!stroke) return;
+  var t = performance.now();
+  var last = stroke.pts[stroke.pts.length - 1];
+  var dt = Math.max(1, t - last.t);
+  var d = Math.sqrt(Math.pow(e.offsetX - last.x, 2) + Math.pow(e.offsetY - last.y, 2));
+  var v = d / dt;
+  var s = PovBrush.brushWidth(e.offsetX, e.offsetY, last, dt);   // velocity -> width (donor)
+  stroke.pts.push({ x: e.offsetX, y: e.offsetY, t: t, v: v });
+  // the drawn mark IS the record: one measured segment, ink hairline (P1/P11)
+  floorCtx.strokeStyle = 'rgba(79,87,96,' + s.a.toFixed(3) + ')';
+  floorCtx.lineWidth = s.w;
+  floorCtx.beginPath();
+  floorCtx.moveTo(last.x, last.y);
+  floorCtx.lineTo(e.offsetX, e.offsetY);
+  floorCtx.stroke();
+  if (audio) audio.pluck(e.offsetX, e.offsetY, s.w, v, { w: $('floorInk').width, h: $('floorInk').height });
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+  floorEl.addEventListener(ev, function () {
+    if (!stroke) return;
+    var rec = PovBrush.record(stroke.pts);
+    gest.push(rec);
+    $('decGest').textContent = 'gesture.trace · ' + rec.n + ' pts · ' + rec.span + ' ms';
+    stroke = null;
+  });
 });
 
 /* ── in-page verdict (?selftest=1) — runs AFTER the first render ────── */
