@@ -10167,6 +10167,30 @@
       }
     },
     {
+      "href": "/rsvp/",
+      "title": "PIN / RSVP — the bounded repair",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "READ",
+      "state": "ACTIVE",
+      "family": "FIELD / READ",
+      "role": "PIN / RSVP — a watch-sized rapid-reading surface (180px, ORP-pinned word axis, progress ring = position, 100-900 WPM, punctuation/length dwell). Reads TXT/MD/JSON/CSV; JSON gets a text/WORD projection with explicit STRUCT return. Three clocks stay distinct (PIN visual / READFIELD cursor / LISTEN track). Responsive web proof, not a Wear OS APK.",
+      "index": {
+        "updated_at": "2026-10-22T20:00:38+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "JS syntax checks on rsvp/index.html + field-aperture.js + docs/index.html + lib/readfield-controls.js",
+          "pure-unit checks: valid JSON -> path-addressed word stream, ORP split, invalid .json -> visible error, explicit TXT -> WORD scale, AUTO -> JSON TREE scale (landed 2026-10-20, e727bbdc; not claimed: no watch hardware / DOM E2E)"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
       "href": "/20261019-epic10/oracle/",
       "title": "ORACLE — I-Ching state encoding",
       "kind": "instrument",
