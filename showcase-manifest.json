@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-22T20:09:49+08:00",
+  "updated": "2026-10-22T20:10:18+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10477,7 +10477,7 @@
       "showcase_card": true,
       "role": "POV MOD v0 — the inside view of the cube composer: a camera at the room's centre, drag to look. The walls ARE the state (north = the wall you compose live, east = target, west = the net map you hold, ceiling = the room's record, the door is behind you). Five rooms on one plus-net; a cube is lit only where the chain changed it; solving opens the door and lights one net square. Absorbs ../core.js algebra (P6 absorb law). The floor is the instrument: drag to paint with sound (velocity->pitch, width->loudness, height->tone, x->pan; the borrowed hand, Magenta Paint With Music via /20261018-borrowed-hand/).",
       "index": {
-        "updated_at": "2026-10-22T20:09:49+08:00",
+        "updated_at": "2026-10-22T20:10:18+08:00",
         "work_modes": [
           "PLAY",
           "IMPLEMENT",
