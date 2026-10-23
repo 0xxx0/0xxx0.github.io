@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-23T00:06:33.446Z",
+  "generated": "2026-10-23T03:12:35.258Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-23",
-  "commits_in_window": 0,
-  "git_commits_in_window": 19,
-  "telemetry_commits_in_window": 19,
-  "commits_total": 6472,
+  "commits_in_window": 3,
+  "git_commits_in_window": 34,
+  "telemetry_commits_in_window": 31,
+  "commits_total": 6487,
   "branch_count": 1047,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "routes: re-stamp /cube-composer/pov/ after rebase (IMPLEMENT,VERIFY)",
-    "routes: stamp /cube-composer/pov/ (IMPLEMENT,VERIFY) — same-change stamp"
+    "routes: stamp / (IMPLEMENT,OPERATE,RECOVER,VERIFY) — same-change stamp",
+    "root: the first screen answers what was worked on — + god's-eye down view"
   ],
   "active_fronts": [
     {
