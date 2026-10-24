@@ -34,11 +34,11 @@
   <h1>Make evidence<br>into passage.</h1>
   <p class="lead">Read a real source. Move through linked passages. Make one explicit connection that changes your navigable field. Export a source-bound RETURN—not another game save or ungrounded summary.</p>
   <div class="source-panel">
-    <div class="meta"><label>SOURCE TITLE<input id="title" value="Practice: observation and consequence (original exercise)"></label><label>CANONICAL URL (optional)<input id="sourceUrl" value=""></label></div>
-    <label>SOURCE TEXT (local in this tab)<textarea id="textInput" spellcheck="false"></textarea></label>
-    <div class="buttons"><button id="enter" class="primary">ENTER FIELD →</button><label style="border:1px solid var(--line);padding:10px 14px;cursor:pointer">IMPORT TXT · MD · JSON<input id="fileInput" type="file" accept=".txt,.md,.json,text/plain,application/json" style="display:none"></label><button id="exercise">RESET EXERCISE</button></div>
+    <div class="meta"><label>SOURCE TITLE<input id="title" value="Untitled source"></label><label>CANONICAL URL (optional)<input id="sourceUrl" value=""></label></div>
+    <label>SOURCE TEXT (local in this tab)<textarea id="textInput" spellcheck="false" placeholder="Paste a source you actually need to understand. Nothing is published."></textarea></label>
+    <div class="buttons"><button id="enter" class="primary">ENTER FIELD →</button><label style="border:1px solid var(--line);padding:10px 14px;cursor:pointer">IMPORT TXT · MD · JSON<input id="fileInput" type="file" accept=".txt,.md,.json,text/plain,application/json" style="display:none"></label><button id="exercise">LOAD OPTIONAL DEMO</button></div>
     <div id="sourceError" class="msg" role="alert"></div>
-    <p class="rule">The built-in exercise below is original demonstration text, not a reproduction or translation of Buddhadhamma. For the real corpus, open <a href="https://buddhadhamma.github.io/wise-reflection.html" target="_blank" rel="noopener">Wise Reflection</a>, then paste a personally selected excerpt here. The tool does not download or publish that source.</p>
+    <p class="rule">The optional demo is original synthetic text, not a reproduction or translation of Buddhadhamma. For the real corpus, open <a href="https://buddhadhamma.github.io/wise-reflection.html" target="_blank" rel="noopener">Wise Reflection</a>, then paste a personally selected excerpt here. The tool does not download or publish that source.</p>
   </div>
 </section>
 <section id="work" class="workspace hidden">
@@ -52,7 +52,7 @@
     <div class="paper">
       <div class="status"><span id="location" class="key"></span><span id="progress" class="subtle"></span></div>
       <h2 id="viewName">PASSAGE / READ</h2><p id="topologyPayoff" class="subtle"></p>
-      <div id="readView"><div id="passage" class="passage"></div><p id="anchor" class="subtle"></p><div class="witness"><h2>WITNESS / choose one exact sentence</h2><div id="evidenceOptions" class="evidence-options" aria-label="Source-exact evidence choices"></div><p id="witnessStatus" class="subtle"></p></div></div>
+      <div id="readView"><div id="passage" class="passage"></div><p id="anchor" class="subtle"></p><div class="witness"><h2>WITNESS / choose one exact sentence</h2><div id="evidenceOptions" class="evidence-options" aria-label="Source-exact evidence choices"></div><p id="witnessStatus" class="subtle"></p><div class="buttons"><button id="sendCity" disabled>ENTER CITY WITH WITNESS →</button></div><p id="cityReturn" class="axis-info hidden" role="status"></p><p class="rule">Selected sentence → native city → original source address. No semantics inferred and no Gate credited.</p></div></div>
       <div id="pinView" class="pin-view hidden">
         <div class="score-intro"><span>RIDE / ONE SOURCE · FOUR APERTURES</span><span>TWIST = SEEK · SLIDE = SCALE · SHIFT = LINK</span></div>
         <canvas id="scoreCanvas" class="score-canvas" width="520" height="520" tabindex="0" role="img" aria-label="Circular, zoomable document score; drag to seek inside current scope, vertical scroll to change scale"></canvas>
@@ -389,6 +389,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
 });
 
 </script>
+<script src="./source-aperture.js"></script>
 <script>
 (()=>{'use strict';const T=Threadwalk,A=ThreadAxis,$=q=>document.querySelector(q);const txt=s=>String(s??'');
   const DEMO=`At 08:10 the inlet gauge showed a rapid increase. The operator wrote DOWNSTREAM RISK in the log. No one had checked whether the gauge was recently calibrated.\n\nThe calibration sheet dated Monday lists a twelve-percent positive bias for the inlet gauge. A second gauge was available but not yet connected.\n\nA siren sounded at 08:12. The manual says a siren means an alarm threshold was crossed; it does not establish the cause of the reading.\n\nAt 08:16 an independent measurement showed a smaller increase. The difference was consistent with the bias noted on Monday, though nobody had established that the bias had remained constant.\n\nThe shift manager ordered a shutdown. The shutdown prevented a possible overflow, but it also stopped the pump that drained the retention basin.\n\nAt 08:27 the retention basin started filling faster. A pump technician reported that the stopped drainage pump was normally responsible for lowering the basin level.\n\nOne proposed rule said: always shut down when the inlet gauge crosses the threshold. A second rule said: cross-check an alarming reading when an independent sensor is available, without delaying an emergency response.\n\nThe final report must distinguish observation, explanation, and decision. A useful conclusion names what was known at each time, what remained uncertain, and the smallest safe verification step.`;
@@ -396,8 +397,8 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
   const n=id=>model.nodes.find(x=>x.id===id),idx=id=>model.nodes.findIndex(x=>x.id===id);
   function error(msg,target='#error'){$(target).textContent=msg;}
   function stop(){clearTimeout(timer);timer=null;$('#play').textContent='▶ RIDE';globalThis.speechSynthesis?.cancel?.();spoken=false;$('#speakBtn').textContent='TTS';}
-  async function boot(){stop();try{model=await T.seal(T.createModel($('#textInput').value,{title:$('#title').value,url:$('#sourceUrl').value}));session=T.blank(model);inspected=session.focus;score=A.createScore(model);axis=A.axis(score,model.nodes[0].start);mission=null;echoTrace=[];echoAttempts=0;$('#sourceMode').classList.add('hidden');$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');mode='pin';render();error('','#sourceError');}catch(e){error(e.message,'#sourceError')}}
-  function select(id){if(!n(id))return;stop();inspected=id;axis=A.seek(score,axis,A.atChar(score,n(id).start));mode='read';error('');render();if(innerWidth<=790)document.querySelector('.right').scrollIntoView({block:'start',behavior:'smooth'});}
+  async function boot(){stop();$('#cityReturn').classList.add('hidden');try{model=await T.seal(T.createModel($('#textInput').value,{title:$('#title').value,url:$('#sourceUrl').value}));session=T.blank(model);inspected=session.focus;score=A.createScore(model);axis=A.axis(score,model.nodes[0].start);mission=null;echoTrace=[];echoAttempts=0;$('#sourceMode').classList.add('hidden');$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');mode='pin';render();error('','#sourceError');}catch(e){error(e.message,'#sourceError')}}
+  function select(id){if(!n(id))return;stop();$('#cityReturn').classList.add('hidden');inspected=id;axis=A.seek(score,axis,A.atChar(score,n(id).start));mode='read';error('');render();if(innerWidth<=790)document.querySelector('.right').scrollIntoView({block:'start',behavior:'smooth'});}
   function setMode(next){stop();mode=next;render();}
   function ping(t){if(!soundOn)return;try{audioCtx ||= new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),time=audioCtx.currentTime;osc.type='sine';osc.frequency.value=t.pitch;gain.gain.setValueAtTime(.0001,time);gain.gain.exponentialRampToValueAtTime(Math.max(.004,Math.min(.055,t.amplitude*.046)),time+.018);gain.gain.exponentialRampToValueAtTime(.0001,time+.085);osc.connect(gain).connect(audioCtx.destination);osc.start(time);osc.stop(time+.09)}catch(e){soundOn=false;$('#soundAxis').textContent='♪ UNAVAILABLE'}}
   function paintWord(){if(!score||!axis)return;index=axis.index;const t=score.tokens[index],parts=T.orp(t.text);$('#pre').textContent=parts[0];$('#orb').textContent=parts[1];$('#post').textContent=parts[2];$('#scrub').max=Math.max(0,score.tokens.length-1);$('#scrub').value=index;const e=A.eventAt(score,axis);$('#axisInfo').textContent=axis.scale+' · '+(index+1)+'/'+score.tokens.length+' · CHAR '+t.start+'–'+t.end+' · NOV '+e.novelty.toFixed(2)+' / PREVIOUS ECHO '+(e.interval||'NONE');A.draw($('#scoreCanvas'),score,axis,session.links,{mission,found:echoTrace})}
@@ -429,10 +430,11 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
       const held=session.witnesses[q.id];const active=!!held&&held.start===e.start&&held.end===e.end;
       b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
       b.textContent=(active?'◆ ':'◇ ')+e.preview.slice(0,190)+(e.preview.length>190?'…':'');
-      b.onclick=()=>{session=T.cite(model,session,q.id,choice);error('EXACT_WITNESS_HELD');render()};
+      b.onclick=()=>{session=T.cite(model,session,q.id,choice);$('#cityReturn').classList.add('hidden');error('EXACT_WITNESS_HELD');render()};
       $('#evidenceOptions').append(b);
     }
     $('#witnessStatus').textContent=session.witnesses[q.id]?`SOURCE WITNESS HELD · ${session.witnesses[q.id].start}–${session.witnesses[q.id].end} (source-only offset; excerpt not exported)`:'Choose one source-exact sentence. No automatic semantic claim.';
+    $('#sendCity').disabled=!session.witnesses[q.id];
     $('#readView').classList.toggle('hidden',mode!=='read');$('#pinView').classList.toggle('hidden',mode!=='pin');$('#readBtn').classList.toggle('active',mode==='read');$('#pinBtn').classList.toggle('active',mode==='pin');$('#viewName').textContent=mode==='pin'?'AXIS / SOURCE SCORE':'PASSAGE / READ';if(mode==='pin')paintWord();
     $('#list').textContent='';model.nodes.forEach((item,i)=>{const b=document.createElement('button');b.className='node-item'+(item.id===session.focus?' current':'')+(item.id===inspected?' inspect':'');const num=document.createElement('b');num.textContent=(i+1).toString().padStart(2,'0');const short=document.createElement('span');short.className='cut';short.textContent=item.text.replace(/\s+/g,' ');b.append(num,short);b.onclick=()=>select(item.id);$('#list').append(b)});
     draw();const nbs=T.neighbors(model,session),candidates=T.suggestions(model,session),uniq=[...new Map(nbs.map(e=>[e.id,e])).values()];$('#near').textContent='';for(const e of uniq.slice(0,7)){const b=document.createElement('button');const title=document.createElement('b');title.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / ${e.kind}`;const description=document.createElement('span');description.textContent=(e.common?.length?e.common.join(', '):e.relation||'source sequence').slice(0,75);b.append(title,description);b.onclick=()=>navigate(e.id);$('#near').append(b)}for(const e of candidates.filter(x=>!uniq.some(y=>y.id===x.id)).slice(0,2)){const b=document.createElement('button');const h=document.createElement('b');h.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / INSPECT ONLY`;const sub=document.createElement('span');sub.textContent=(e.common||[]).join(', ');b.append(h,sub);b.onclick=()=>select(e.id);$('#near').append(b)}
@@ -446,8 +448,63 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
     $('#connect').disabled=!session.selected||session.selected===inspected;$('#return').disabled=!T.canReturn(session);$('#undo').disabled=!session.links.length;$('#redo').disabled=!session.future.length;
     $('#count').textContent=`${session.path.length-1} moves · ${session.links.length} doors · ${T.canReturn(session)?'RETURN READY':T.hasCrossed(session)?'FIND YOUR WAY BACK TO ORIGIN':'CROSS A COMMITTED DOOR; THEN RETURN TO ORIGIN'}`;
   }
-  $('#textInput').value=DEMO;$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
-  $('#enter').onclick=boot;$('#fileInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>100000){error('SOURCE_TOO_LARGE_100000','#sourceError');return;}$('#textInput').value=await f.text();$('#title').value=f.name;error('FILE_LOADED_IN_TAB_ONLY','#sourceError')};
+  $('#textInput').value='';$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
+  $('#enter').onclick=boot;
+  $('#sendCity').onclick=()=>{
+    try{
+      const packet=SleeperSourceAperture.capture(model,session.witnesses[inspected]);
+      sessionStorage.setItem(SleeperSourceAperture.KEY,JSON.stringify(packet));
+      sessionStorage.setItem(SleeperSourceAperture.BACK,JSON.stringify({source:model.source,title:model.meta.title,url:model.meta.url,sha256:model.sha256,span:packet.span}));
+      location.assign('./');
+    }catch(e){error(e.message)}
+  };
+  if(new URLSearchParams(location.search).get('sourceReturn')==='1'){
+    try{
+      const back=JSON.parse(sessionStorage.getItem(SleeperSourceAperture.BACK)||'null');
+      if(!back||typeof back.source!=='string'||back.source.length>100000||!back.span||!/^[a-f0-9]{64}$/.test(back.sha256))throw Error('SOURCE_RETURN_EXPIRED');
+      $('#textInput').value=back.source;$('#title').value=String(back.title||'').slice(0,200);$('#sourceUrl').value=String(back.url||'');
+      boot().then(()=>{
+        if(!model||model.sha256!==back.sha256){error('SOURCE_RETURN_HASH_MISMATCH');return;}
+        const target=model.nodes.find(q=>q.id===back.span.node&&q.start<=back.span.start&&q.end>=back.span.end);
+        const choice=target?T.evidenceChoices(model,target.id).findIndex(e=>e.start===back.span.start&&e.end===back.span.end):-1;
+        if(choice>=0){
+          session=T.cite(model,session,target.id,choice);select(target.id);
+          let status='SOURCE REOPENED · native return receipt not verified';
+          try{
+            const raw=JSON.parse(sessionStorage.getItem(SleeperSourceAperture.RETURN_KEY)||'null');
+            const r=SleeperSourceAperture.inspectReceipt(raw,model.sha256);
+            if(r.span.start!==back.span.start||r.span.end!==back.span.end||r.span.quoteHash!==back.span.quoteHash)throw Error('APERTURE_RETURN_ADDRESS_CHANGED');
+            $('#cityReturn').classList.remove('hidden');
+            $('#cityReturn').textContent='NATIVE RETURN · '+r.worldKey+' · '+r.nativeGateCount+'/8 Gates · '+r.operator.toUpperCase()+' · '+r.transferInstruction+' / SOURCE '+r.span.start+'–'+r.span.end+'. The native proofs do not establish the meaning or truth of this sentence.';
+            status='EXACT SOURCE REOPENED · native return receipt validated · previous AXIS route not restored';
+          }catch(e){status=new URLSearchParams(location.search).get('mode')==='observe'?'EARLY SOURCE RETURN · EXACT WITNESS REOPENED · NO NATIVE RETURN OR GATE CLAIMED':'SOURCE REOPENED / RETURN UNVERIFIED · '+e.message;}
+          finally{sessionStorage.removeItem(SleeperSourceAperture.RETURN_KEY);}
+          error(status);
+        }else error('SOURCE REOPENED · exact witness selection unavailable');
+        sessionStorage.removeItem(SleeperSourceAperture.BACK);
+      });
+    }catch(e){error(e.message,'#sourceError')}
+  }
+  // Direct public-source ingress. No third-party fetch, no new authority or source store.
+  // Existing READ/WITNESS/CITY operations run over the exact response bytes.
+  const sourceQuery=new URLSearchParams(location.search),directSource=sourceQuery.get('src');
+  if(directSource&&!sourceQuery.has('sourceReturn')){
+    (async()=>{try{
+      if(!directSource.startsWith('/')||directSource.startsWith('//'))throw Error('SOURCE_NEEDS_REPO_PATH');
+      const url=new URL(directSource,location.origin);
+      if(url.origin!==location.origin||url.search||url.hash||!/\.(md|txt)$/i.test(url.pathname))throw Error('SOURCE_PATH_NOT_ALLOWED');
+      const response=await fetch(url.pathname,{cache:'no-store'});
+      if(!response.ok)throw Error('SOURCE_HTTP_'+response.status);
+      const raw=await response.text();
+      if(!raw.trim()||new TextEncoder().encode(raw).length>100000)throw Error('SOURCE_EMPTY_OR_TOO_LARGE');
+      $('#textInput').value=raw;
+      $('#title').value=decodeURIComponent(url.pathname.split('/').pop()||'SOURCE').slice(0,180);
+      $('#sourceUrl').value=url.href;
+      await boot();
+      if(model)setMode('read');
+    }catch(e){error('SOURCE ADDRESS REJECTED · '+e.message,'#sourceError')}})();
+  }
+  $('#fileInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>100000){error('SOURCE_TOO_LARGE_100000','#sourceError');return;}$('#textInput').value=await f.text();$('#title').value=f.name;error('FILE_LOADED_IN_TAB_ONLY','#sourceError')};
   $('#setPin').onclick=()=>{session=T.select(model,session,inspected);error('MARK_HELD');render()};
   $('#moveBtn').onclick=()=>navigate(inspected);$('#homeBtn').onclick=()=>{const path=T.routeHome(model,session);if(path.length>1)navigate(path[1])};
   $('#readBtn').onclick=()=>setMode('read');$('#pinBtn').onclick=()=>setMode('pin');$('#play').onclick=play;$('#backWord').onclick=()=>seekIndex(axis.index-1);$('#nextWord').onclick=()=>seekIndex(axis.index+1);$('#scrub').oninput=e=>seekIndex(+e.target.value);$('#scaleDown').onclick=()=>axisZoom(1);$('#scaleUp').onclick=()=>axisZoom(-1);$('#echo').onclick=newMission;$('#claimEcho').onclick=claimMission;$('#soundAxis').onclick=()=>{soundOn=!soundOn;$('#soundAxis').textContent=soundOn?'♪ ON':'♪ OFF';$('#soundAxis').setAttribute('aria-pressed',String(soundOn));if(soundOn)ping(score.tokens[axis.index]);};$('#speakBtn').onclick=sound;
