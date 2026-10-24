@@ -1,0 +1,37 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "INTERPHASE_PLUS_LANDING_2026-10-24",
+  "source": {
+    "repository": "0xxx0/0xxx0.github.io",
+    "base": "bb746b755929f661b5bf092c3eaca06abfea3231",
+    "owner": "FIELD / INTERPHASE",
+    "donor": "253ba0b5ba3a1b4d58f7ebcc001c667a117b273e"
+  },
+  "delta": [
+    "Root opens the existing INTERPHASE host on real CURRENT data; the FIELD strip/plan remain a native view.",
+    "Ordered AT/WHERE/PICK/SORT/TAKE/UNIQUE projections preserve logical source paths, expose prefix outputs/losses, undo and read-only derived results.",
+    "TABLE/READ/ROOM share source and workflow; READ reuses FieldAperture, ROOM uses the existing exact cube/net matrices, RETURN verifies source/output hashes and restores workflow/view/focus.",
+    "Recovered Ω 0.4, history, Dayline/Fan, AXIS, semantic substrate, protected drafts and explicit extension API are retained. All 20 recovered source hashes match.",
+    "One import face exports optics, history, contracts, extensions and workflow; an optional local package builds from native source and passes installation/consumer tests.",
+    "Four support/orientation entries leave NOW without deleting their evidence; CURRENT attention remains with one actual world front. QUEUE mirrors it.",
+    "Field plan fixture now tests both visible held identity and folded held residue without requiring an offscreen room to relocate."
+  ],
+  "verification": {
+    "workflow": "PASS: deterministic composition/order, original row/field addresses, exact raw source identity, 64 row fixtures, input/type/bounds and no-eval negative controls.",
+    "browser": "PASS: 320/390/1280 source → composition → prefix/result → ROOM/net → READ/cursor → export/import and tamper/duplicate-key rejection, FIELD/native object correspondence and view cycle.",
+    "native": "PASS: optics/lenses, composition, durable history/import guards, 400 seeded extension laws, installed local package consumer; recovered Python 5/5, 20/20 source hashes.",
+    "limits": "Machine/browser checks establish those behaviors, not physical watch/touch comfort, human comprehension, corpus-wide integration, or a shared effect authority."
+  },
+  "proof_files": [
+    "/tools/interphase-workflow-selftest.mjs",
+    "/tools/interphase-plus-smoke.mjs",
+    "/tools/interphase-extensions-selftest.mjs",
+    "/tools/interphase-package-selftest.mjs",
+    "/control/confluence/INTERPHASE_CONVERGENCE_2026-10-09.md"
+  ],
+  "return": {
+    "to": "/",
+    "source_host": "/interphase/",
+    "next_authority": "NONE"
+  }
+}

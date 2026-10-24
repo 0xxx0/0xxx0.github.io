@@ -426,7 +426,11 @@ assert.ok(walkA.tiles.every(t=>t.x>=0&&t.x<=walkBox.width&&t.y>=C.PLAN.cap&&t.y<
 const holdMap=C.overview(rows,C.project(rows,C.locate(s,a),{}),a.id,C.axis(s)),
   walkHold=C.planLayout(holdMap,walkBox),atSlot=new Map(walkA.tiles.map(t=>[t.id,`${t.q},${t.r}`]));
 assert.deepEqual(walkHold.tiles.map(t=>`${t.q},${t.r}`),walkA.tiles.map(t=>`${t.q},${t.r}`),'a view switch may not move a single room');
-assert.equal(walkHold.tiles.filter(t=>t.held).length,1,'the held room is marked, not relocated');
+assert.equal(walkHold.tiles.filter(t=>t.held).length,walkHold.foldedIds.includes(a.id)?0:1,'a folded held room stays in the declared periphery, never relocates');
+assert.ok(walkHold.tiles.some(t=>t.held)||walkHold.foldedIds.includes(a.id),'held identity must remain represented');
+const visibleHeld=rows.find(r=>r.id===walkA.tiles[0].id),visibleHold=C.planLayout(C.overview(rows,C.project(rows,C.locate(s,visibleHeld),{}),visibleHeld.id,C.axis(s)),walkBox);
+assert.equal(visibleHold.tiles.filter(t=>t.held).length,1,'a visible held room is marked');
+assert.deepEqual(visibleHold.tiles.map(t=>[t.id,t.q,t.r]),walkA.tiles.map(t=>[t.id,t.q,t.r]),'holding a visible room cannot relocate any room');
 for(const turn of [1,2,3]){
   const t={...s,turn},m=C.overview(rows,C.project(rows,t,{}),null,C.axis(t)),L=C.planLayout(m,walkBox);
   assert.equal(L.shown+L.folded,m.length,`turn ${turn} loses no room`);
