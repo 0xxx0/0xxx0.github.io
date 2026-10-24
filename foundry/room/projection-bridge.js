@@ -10,7 +10,7 @@ const nextId=el=>(directSeam(el)?.getAttribute('href')||'').replace(/^#/,'');
 const typeOf=(el,key)=>el?.dataset?.[key]||'UNSPECIFIED';
 const labelOf=el=>el?.querySelector(':scope > summary')?.childNodes[0]?.textContent.trim()||el?.id||'UNMAPPED';
 const descOf=el=>el?.querySelector(':scope > .body > .desc')?.textContent.trim()||'No description recorded';
-const findPredecessor=id=>[...program().querySelectorAll('.block')].find(el=>nextId(el)===id)||null;
+const findPredecessor=id=>{const held=block(id);return held?[...(held.parentElement?.children||[])].filter(el=>el.classList?.contains('block')).find(el=>nextId(el)===id)||null:null};
 const $=s=>document.querySelector(s);
 const faces=[
  {id:'F',axis:'+Z',role:'PRESENT',rx:0,ry:0},
@@ -58,7 +58,7 @@ function inspect(){
  const successor=block(nextId(held));
  const verifier=[...program().querySelectorAll('.block')].find(el=>el.dataset.op==='VERIFY')||null;
  const terminal=[...program().querySelectorAll('.block')].find(el=>el.dataset.op==='RETURN')||null;
- const receipt=RM.returnReceipt(),run=receipt?.run;
+ const receipt=RM.returnReceipt(),run=receipt?.run,bind=RM.binding();
  const seam=directSeam(held);
  const out=typeOf(held,'typeOut'),into=typeOf(successor,'typeIn');
  const match=!seam||!!successor&&(out===into||out==='ANY'||into==='ANY');
@@ -70,7 +70,7 @@ function inspect(){
    U:{target:(parent||root)?.id||null,title:labelOf(parent||root),detail:parent?'This block is implemented inside #'+parent.id+'\n'+descOf(parent):'Program entry #'+(root?.id||'UNKNOWN')+'\n'+descOf(root)},
    R:{target:successor?.id||null,title:successor?labelOf(successor):'NO OUTPUT',detail:seam?(match?'TYPE MATCH · ':'TYPE MISMATCH · ')+out+' → '+into+'\n'+(successor?descOf(successor):'Broken target #'+nextId(held)):'No declared outgoing seam'},
    B:{target:terminal?.id||null,title:run?'RUN RECEIPT':'NOT YET RUN',detail:run?'Steps '+run.trace.length+' · result '+(run.result?.status||'recorded')+'\nExecution trace is available under RETURN.':'No execution witness. Run the visible DOM before treating this as proof.'},
-   D:{target:verifier?.id||null,title:verifier?labelOf(verifier):'NO VERIFY',detail:verifier?'#'+verifier.id+' · '+descOf(verifier)+'\nPhysical contract remains independent.':'No evidence operator declared'}
+   D:{target:verifier?.id||null,title:verifier?labelOf(verifier):'NO VERIFY',detail:verifier?'PROGRAM VERIFY #'+verifier.id+' · '+descOf(verifier)+'\n'+(run?'CURRENT RUN · model '+(bind.model_fit?'FIT':'FAIL')+' · physical contract REPORTED '+(bind.contract_fit?'YES':'NO'):'NO CURRENT RUN · editable values are not execution evidence'):'No evidence operator declared'}
   }
  }
 }
@@ -83,6 +83,8 @@ function unfoldAt(id){
   if(!scope||block(scope)?.contains(target))break;
   RM.back();
  }
+ // Enter the addressed implementation, including descendants of closed cassettes.
+ for(let p=target.parentElement?.closest('details.block');p;p=p.parentElement?.closest('details.block'))p.open=true;
  RM.focusOn(id);
 }
 function draw(){
@@ -132,6 +134,36 @@ function roundTrip(){
  face=faceBefore;setView(original);
  return{pass:equal&&snapshotSame&&bindingSame,same_program:equal,same_snapshot:snapshotSame,same_binding:bindingSame,original_view:original,audit:audit()};
 }
+// A destructive *disposable-page* proof. Never run on a held user composition.
+// Browser URL: ?projectiontest=deep. It checks live DOM identity, not a copied graph.
+function deepProof(){
+ const checks=[];
+ const check=(name,yes)=>{checks.push({name,pass:!!yes});if(!yes)throw new Error(name)};
+ const baseline=RM.source(),compiler=block('compiler'),verify=block('verify'),initial=RM.snapshot();
+ check('initial projection and type audit',roundTrip().pass&&audit().issues.length===0);
+ RM.run();check('initial execution witnessed',!!RM.returnReceipt().run);
+ setView('rail');RM.focusOn('bound');document.getElementById('markBtn').click();RM.focusOn('compiler');
+ const cassette=RM.foldSpan(),wrapper=block(cassette);
+ check('fold keeps exact child DOM identity',wrapper?.contains(compiler)&&block('verify')===verify);
+ check('fold invalidates earlier execution witness',RM.returnReceipt().run===null);
+ const folded=RM.run();
+ check('folded program executes the cassette',folded.trace.some(t=>t.id===cassette));
+ check('folded projection is still the same object',roundTrip().pass);
+ RM.focusOn(cassette);RM.dissolve();
+ check('dissolve returns exact DOM identity',block('compiler')===compiler&&block('verify')===verify);
+ check('dissolve invalidates folded witness',RM.returnReceipt().run===null);
+ check('fold and dissolve restore source',RM.source()===baseline);
+ setView('room');unfoldAt('verify');
+ check('UNFOLD targets the real nested block',mode==='plain'&&RM.snapshot().focus==='verify'&&compiler.open&&block('verify')===verify);
+ RM.run();
+ const pred=document.getElementById('pred'),old=pred.value;
+ pred.value=String(Number(old)+17);pred.dispatchEvent(new Event('input',{bubbles:true}));
+ check('binding edit invalidates current RUN',RM.returnReceipt().run===null);
+ pred.value=old;pred.dispatchEvent(new Event('input',{bubbles:true}));
+ check('input restoration preserves source',RM.source()===baseline);
+ check('unchanged stable object IDs',initial.entry===RM.snapshot().entry&&initial.top.join('|')===RM.snapshot().top.join('|'));
+ return{pass:checks.every(x=>x.pass),checks:checks.map(x=>x.name),audit:audit(),view:mode,focus:RM.snapshot().focus};
+}
 let requested=String(new URLSearchParams(location.search).get('view')||'plain').toLowerCase();
 setView(['plain','rail','room'].includes(requested)?requested:'plain');
 document.addEventListener('click',e=>{if(e.target.closest('.tools,.viewport'))requestAnimationFrame(()=>{if(mode==='room')draw()})});
@@ -148,9 +180,9 @@ document.addEventListener('keydown',e=>{
  else if(e.key>='1'&&e.key<='6'){e.preventDefault();setFace(faces[Number(e.key)-1].id)}
 },true);
 new MutationObserver(()=>{if(mode==='room')draw()}).observe($('.viewport'),{subtree:true,childList:true});
-window.RoomProjection={setView,setFace,inspect,audit,roundTrip,snapshot:()=>({mode,face,focus:RM.snapshot().focus})};
+window.RoomProjection={setView,setFace,inspect,audit,roundTrip,deepProof,snapshot:()=>({mode,face,focus:RM.snapshot().focus})};
 if(new URLSearchParams(location.search).has('projectiontest')){
  const p=document.createElement('pre');p.id='projectionTest';p.className='projectionTest';stage.appendChild(p);
- try{const r=roundTrip();p.textContent=(r.pass?'PASS':'FAIL')+' · SAME DOM / FOCUS · '+r.audit.issues.join(' | ')}catch(e){p.textContent='FAIL · '+e.message}
+ try{const r=new URLSearchParams(location.search).get('projectiontest')==='deep'?deepProof():roundTrip();p.textContent=(r.pass?'PASS':'FAIL')+' · '+JSON.stringify(r)}catch(e){p.textContent='FAIL · '+e.message}
 }
 })();
