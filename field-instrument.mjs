@@ -18,7 +18,7 @@ let flights=[],room=null,roomTimer=0;
 // observer maps of it, and the room is the third state (reached by folding a
 // mark). The mode is deliberately NOT part of the frame: switching views can
 // never move the held object, the pin or a single room slot (position truth).
-let planView=false,decodeOpen=false,decodeRelease=false,releaseTimer=0,plan=null;
+let planView=false,listView=false,listPage=0,decodeOpen=false,decodeRelease=false,releaseTimer=0,plan=null;
 const digests=new Map();
 const owner=()=>window.FieldIndexReadModel;
 const held=()=>rows.find(r=>r.id===state.focus);
@@ -78,14 +78,19 @@ function wire(){
   const style=document.createElement('link');style.rel='stylesheet';style.href='./field-instrument.css'+release;document.head.append(style);
   root=document.createElement('section');root.id='fieldInstrument';root.hidden=true;root.setAttribute('aria-label','FIELD instrument');
   root.innerHTML=`<div class="fiNotice" id="fiNotice" role="status" aria-live="polite"></div>
-    <div class="fiField" id="fiField" aria-label="Tap a region to enter it. The VIEW chip in the bar switches the strip map and the hex plan of the same field; holding any mark decodes it. UP moves out; RETURN restores your pinned place." tabindex="0"><div class="fiPlane" id="fiPlane"></div><div class="fiPlan" id="fiPlan"></div></div>
+    <nav class="fiViewTabs" id="fiViewTabs" role="tablist" aria-label="One FIELD, three readings" hidden>
+      <button type="button" role="tab" data-view="list" aria-selected="false">≡ LIST</button>
+      <button type="button" role="tab" data-view="strip" aria-selected="true">⌁ STRIP</button>
+      <button type="button" role="tab" data-view="plan" aria-selected="false">⬡ PLAN</button>
+    </nav>
+    <div class="fiField" id="fiField" aria-label="Tap a region to enter it. The VIEW chip in the bar switches the strip map and the hex plan of the same field; holding any mark decodes it. UP moves out; RETURN restores your pinned place." tabindex="0"><div class="fiPlane" id="fiPlane"></div><div class="fiPlan" id="fiPlan"></div><section class="fiList" id="fiList" role="tabpanel" aria-label="Readable FIELD records"></section></div>
     <section class="fiReading" id="fiReading" aria-label="Reading at current position"></section>
     <nav class="fiMenu" id="fiMenuPanel" aria-label="Instrument operations" hidden></nav>`;
   document.querySelector('main').append(root);plane=$('#fiPlane');reading=$('#fiReading');
   const frame=document.querySelector('.fieldUrlFrame');
   // The map is its own strip, not a child of the address button: a tick tap must
   // locate an object without also opening the address editor.
-  frame.insertAdjacentHTML('beforeend',`<button type="button" id="fiParent" aria-label="Unfold scope"><span id="fiScopeGlyph">⌁</span><small id="fiScopeScale"></small></button><button type="button" id="fiAddress"><span class="fiBarName" id="fiBarName"></span><span class="fiBarMeta" id="fiBarMeta"></span></button><button type="button" id="fiReturn" aria-label="Return to pinned position">↩</button><button type="button" id="fiView" data-map="strip" aria-label="View: strip map of the whole field. Switch to the plan walk."><span id="fiViewName">⌁ STRIP</span></button><svg id="fiRibbon" viewBox="0 0 264 51" preserveAspectRatio="none" role="img" aria-label="Whole-field map"></svg>`);
+  frame.insertAdjacentHTML('beforeend',`<button type="button" id="fiParent" aria-label="Unfold scope"><span id="fiScopeGlyph">⌁</span><small id="fiScopeScale"></small></button><button type="button" id="fiAddress"><span class="fiBarName" id="fiBarName"></span><span class="fiBarMeta" id="fiBarMeta"></span></button><button type="button" id="fiReturn" aria-label="Return to pinned position">↩</button><button type="button" id="fiView" data-map="strip" aria-controls="fiViewTabs" aria-expanded="false" aria-label="Choose list, strip, or plan reading of the same field."><span id="fiViewName">⌁ STRIP</span></button><svg id="fiRibbon" viewBox="0 0 264 51" preserveAspectRatio="none" role="img" aria-label="Whole-field map"></svg>`);
   bar=document.createElement('button');bar.id='fiMenu';bar.type='button';bar.textContent='···';bar.setAttribute('aria-label','Instrument operations');bar.setAttribute('aria-expanded','false');
   frame.append(bar);bar.onclick=()=>toggleMenu();
   $('#fiAddress').onclick=()=>edit(entryText());
@@ -93,11 +98,12 @@ function wire(){
   $('#fiReturn').onclick=()=>{endEdit();returnPosition()};
   // THE VIEW CYCLE: STRIP <-> PLAN. The room is the third state and is reached
   // by folding a mark, never by this chip — and the chip moves no frame field.
-  $('#fiView').onclick=()=>cycleView();
+  $('#fiView').onclick=()=>toggleViews();
+  $('#fiViewTabs').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
   wireRibbon();wirePlan();wireDecode();
   let resizeTimer=0;
   // The plan re-fits its box, like the strip: the sizing law is pure, the box is not.
-  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(enabled&&view){renderBearing();if(planView)renderPlan()}},150)});
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(enabled&&view){renderBearing();if(planView)renderPlan();if(listView)renderList()}},150)});
   $('#fieldUrlInput').addEventListener('blur',()=>setTimeout(()=>{
     if(editing&&!$('#fieldUrlBar').contains(document.activeElement)&&!$('#fiMenuPanel').contains(document.activeElement))endEdit();
   },0));
@@ -324,18 +330,56 @@ function tapTile(b){
 }
 // The chip cycles the two observer maps. It touches no frame field, so the
 // held object, the pin and every room slot are bit-identical across the switch.
-function cycleView(){
+// Each tab is a reversible projection, not a new frame, store or route.
+function toggleViews(show=$('#fiViewTabs').hidden){
+  const tabs=$('#fiViewTabs');tabs.hidden=!show;
+  $('#fiView').setAttribute('aria-expanded',String(show));
+  if(show)tabs.querySelector('[aria-selected="true"]')?.focus({preventScroll:true});
+  else $('#fiView').focus({preventScroll:true});
+}
+function setView(mode){
+  if(!['list','strip','plan'].includes(mode))return false;
   if(editing)endEdit();
   if(menu)toggleMenu(false);
-  closeDecode();if(room)closeRoom();
-  planView=!planView;
-  root.dataset.map=planView?'plan':'strip';
-  const chip=$('#fiView');
-  chip.dataset.map=planView?'plan':'strip';
-  $('#fiViewName').textContent=planView?'⬡ PLAN':'⌁ STRIP';
-  chip.setAttribute('aria-label',planView?'View: plan walk of the whole field. Switch to the strip map.':'View: strip map of the whole field. Switch to the plan walk.');
-  render();renderBearing();
-  notice(planView?`PLAN · ${plan?.shown??0} rooms on the map · +${plan?.folded??0} folded`:'STRIP · ribbon map of the whole field');
+  closeDecode();if(room)closeRoom();stopFlight();
+  planView=mode==='plan';listView=mode==='list';
+  root.dataset.map=mode;$('#fiView').dataset.map=mode;
+  $('#fiViewName').textContent=({list:'≡ LIST',strip:'⌁ STRIP',plan:'⬡ PLAN'})[mode];
+  $('#fiView').setAttribute('aria-label','Choose list, strip or plan. Current: '+mode);
+  $('#fiViewTabs').querySelectorAll('[data-view]').forEach(b=>{b.setAttribute('aria-selected',String(b.dataset.view===mode));b.tabIndex=b.dataset.view===mode?0:-1});
+  toggleViews(false);listPage=0;render();
+  notice(mode.toUpperCase()+' · same source, focus and RETURN');
+  return true;
+}
+function cycleView(){return setView(planView?'strip':'plan')}
+// LIST uses exactly the route identities of the ribbon and plan, in AXIS order.
+function renderList(){
+  const host=$('#fiList');if(!enabled||!view||!host)return;
+  const ordered=C.overview(rows,view,state.focus,C.axis(state));
+  const inScope=ordered.filter(p=>p.inside);
+  const heldOutside=ordered.find(p=>p.held&&!p.inside);
+  const items=heldOutside?[heldOutside,...inScope]:inScope;
+  const pageSize=Math.max(3,Math.min(10,Math.floor(($('#fiField').clientHeight-48)/48)));
+  const pages=Math.max(1,Math.ceil(items.length/pageSize));listPage=Math.min(Math.max(0,listPage),pages-1);
+  const page=items.slice(listPage*pageSize,(listPage+1)*pageSize);
+  const byId=new Map(rows.map(r=>[r.id,r]));
+  host.innerHTML=`<header class="fiListHead"><b>${view.inside} IN SCOPE · ${view.total} SOURCE</b><span>${listPage+1}/${pages} · ${esc(C.axis(state).toUpperCase())}</span></header>
+    <div class="fiListRows">${page.map(p=>{
+      const r=byId.get(p.id);if(!r)return '';
+      return `<button type="button" class="fiListRow${p.held?' held':''}${p.inside?'':' outside'}" data-list-id="${esc(p.id)}" aria-label="${esc(r.title+' · '+r.address+(p.held?' · held':'')+(p.inside?'':' · outside scope'))}">
+        <span class="fiListGlyph">${p.held?'◎':p.inside?'◇':'·'}</span>
+        <span class="fiListText"><b>${esc(r.title)}</b><code>${esc(r.address)}</code></span>
+        <span class="fiListState">${esc(r.state||'UNKNOWN')}</span>
+      </button>`
+    }).join('')||'<p class="fiListNone">∅ No records match. Edit the coordinate or use UP.</p>'}</div>
+    <footer class="fiListFoot"><button type="button" data-list-page="prev" ${listPage===0?'disabled':''}>← PREV</button><span>${items.length} addressed · ${view.total-inScope.length} outside</span><button type="button" data-list-page="next" ${listPage+1===pages?'disabled':''}>NEXT →</button></footer>`;
+  host.querySelectorAll('[data-list-id]').forEach(b=>{
+    b.onclick=()=>locateTick(b.dataset.listId);
+    b.onfocus=()=>{const r=byId.get(b.dataset.listId);if(r)readTick(r)};
+    b.onpointerenter=e=>{if(e.pointerType==='mouse'){const r=byId.get(b.dataset.listId);if(r)readTick(r)}}
+  });
+  host.querySelector('[data-list-page="prev"]').onclick=()=>{listPage--;renderList()};
+  host.querySelector('[data-list-page="next"]').onclick=()=>{listPage++;renderList()};
 }
 function wirePlan(){
   const host=$('#fiPlan');
@@ -559,6 +603,7 @@ function command(op){
     case'rewind-seen':if(owner().snapshot().canRewind){owner().rewind();load();notice('Native local acknowledgement restored')}else notice('No local SEEN action to undo');break;
     case'theme':$('#fiTheme')?.click();break;
     case'plain':exit();break;
+    case'list':setView('list');break;
     case'receipt':{
       const p={schema:'field-instrument-return/v0.1',authority:'EVIDENCE_ONLY',source:'/showcase-manifest.json',
         at:new Date().toISOString(),object:held()?.id||null,frame:C.frame(state),return_to:anchor,
@@ -698,6 +743,7 @@ function render(){
   // The plan is rebuilt with the plane, so the room slots never drift between
   // renders — and focus returns to the mark in the view the user is actually in.
   if(planView)renderPlan();
+  if(listView)renderList();
   if(priorMark){const same=[...root.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===priorMark&&b.offsetParent!==null);(same||$('#fiField')).focus({preventScroll:true})}
   renderReading();renderBearing();
   window.dispatchEvent(new CustomEvent('field-instrument:frame',{detail:{focus:state.focus}}));
@@ -772,6 +818,7 @@ function boot(){
   if(location.pathname!=='/')return;
   window.FieldInstrument=Object.freeze({enter,exit,edit,closeEditor:()=>{endEdit();toggleMenu(false)},active:()=>enabled,address,key,
     turn:()=>{if(!enabled)return false;command('turn');return true},
+    view:mode=>enabled&&setView(mode),
     heldAddress:()=>held()?.address||null,
     hold:address=>{const r=rows.find(r=>r.address===address);if(!r)return false;commit(C.locate(state,r),{native:true});return true},
     snapshot:()=>({frame:C.frame(state),anchor:C.frame(anchor),view:view&&{total:view.total,inside:view.inside,outside:view.outside,counts:view.folds.map(g=>g.count),
@@ -781,7 +828,7 @@ function boot(){
       room:room?{id:room.id,anchor:room.anchor.slice(),s:room.s,fold:document.querySelector('.fiRoomPlane')?.dataset.fold||null}:null,
       // The observer map is not part of the frame: it is stated, never stored,
       // so a view switch can never move the position it reports.
-      map:planView?'plan':'strip',decode:decodeOpen,
+      map:listView?'list':planView?'plan':'strip',decode:decodeOpen,
       plan:plan?{size:plan.size,rings:plan.rings,shown:plan.shown,folded:plan.folded,total:plan.total,per:plan.per.map(p=>[p.ring,p.count])}:null})});
   window.addEventListener('field-index:state',()=>load());
   let attempts=0;
