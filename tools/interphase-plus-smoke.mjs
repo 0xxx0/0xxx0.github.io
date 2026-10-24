@@ -59,6 +59,9 @@ async function continuumBrowserProof(){
    await page.waitForTimeout(250);
    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','layout/history scroll must never select a different object');
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-entry-${width}.png`)})}
+   await page.goto(base+'/?fi=house');await page.waitForSelector('#feedRail .feedChip');
+   await page.waitForFunction(()=>window.FieldURLBar?.results().length>0);
+   assert.equal(await page.locator('#fieldUrlInput').inputValue(),'house','initial query survives passive boot state');
    await page.goto(base+'/?work=1');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);

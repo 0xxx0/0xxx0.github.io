@@ -584,7 +584,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   glyphNode.innerHTML=r&&win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'Φ';glyphNode.title=r?(glyphMnemonic(r)+' · '+r.href):'FIELD';
   // Native HOLD and palette HOLD share the same address. Never replace typing
   // or the native instrument's editing state with this passive projection.
-  if(reflectAddress&&doc.activeElement!==input&&!win.FieldInstrument?.active?.())input.value=r?.href||'';
+  if(reflectAddress&&routes.length&&doc.activeElement!==input&&!win.FieldInstrument?.active?.())input.value=r?.href||'';
  }
  function targetIsTyping(t){const tag=t?.tagName?.toLowerCase?.();return t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select'}
 
@@ -605,7 +605,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar('/');return}
   if(e.key===':'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar(':');return}
  });
- win.addEventListener('field-index:state',e=>syncHeld(e.detail?.focus||null));
+ win.addEventListener('field-index:state',e=>{const href=e.detail?.focus||null;if(href!==focusHref)syncHeld(href)});
 
  Promise.all([
   fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('manifest '+r.status);return r.json()}),
