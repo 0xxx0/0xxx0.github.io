@@ -9,6 +9,10 @@ async function enterInterphase(){
  template.remove();
  const {mountContinuum}=await import('./continuum.mjs?v=0.10.0'),api=await mountContinuum(document.getElementById('interphaseContinuum'));
  window.InterphaseInstrument=api;
+ // One optional semantic reading of the same held FIELD route. No new canonical store.
+ const semanticStyle=document.createElement('link');semanticStyle.rel='stylesheet';semanticStyle.href='./semantic-field.css?v=0.1.0';document.head.append(semanticStyle);
+ const {mountSemanticField}=await import('./semantic-field.mjs?v=0.1.0');
+ window.InterphaseSemanticField=mountSemanticField(api,{start:location.hash==='#glyphfield'});
  if(q.has('src'))return api.openPath(q.get('src'));
  if(q.has('handoff')){
   const p=JSON.parse(sessionStorage.getItem('rsvp.handoff.v1')||'null');
