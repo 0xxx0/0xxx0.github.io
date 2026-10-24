@@ -492,7 +492,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
     (async()=>{try{
       if(!directSource.startsWith('/')||directSource.startsWith('//'))throw Error('SOURCE_NEEDS_REPO_PATH');
       const url=new URL(directSource,location.origin);
-      if(url.origin!==location.origin||url.search||url.hash||!/\\.(md|txt)$/i.test(url.pathname))throw Error('SOURCE_PATH_NOT_ALLOWED');
+      if(url.origin!==location.origin||url.search||url.hash||!/\.(md|txt)$/i.test(url.pathname))throw Error('SOURCE_PATH_NOT_ALLOWED');
       const response=await fetch(url.pathname,{cache:'no-store'});
       if(!response.ok)throw Error('SOURCE_HTTP_'+response.status);
       const raw=await response.text();
