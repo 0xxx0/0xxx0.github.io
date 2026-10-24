@@ -53,7 +53,8 @@ const ui=read('sleeper/native-ui.js'),engine=read('sleeper/native-engine.js'),ht
 assert.match(ui,/bundle\.sourceWitness=game\.sourceWitness/);
 assert.match(ui,/function makeArtifact\(\)/);
 assert.match(ui,/SleeperSourceAperture\.bind\(heldSourceAperture,game\.law\.source,game\.law\.key\)/);
-assert.doesNotMatch(engine,/sourceWitness|SourceAperture/);
+assert.match(engine,/if\(!game\.sourceWitness\)localStorage\.setItem\('sleeper:last'/);
+assert.equal((engine.match(/sourceWitness/g)||[]).length,1,'source witness must not enter Gate logic');
 assert.ok(html.indexOf('source-aperture.js')<html.indexOf('native-ui.js'));
 assert.ok(axis.indexOf('source-aperture.js')<axis.indexOf("const T=Threadwalk,A=ThreadAxis"));
 for(const p of ['sleeper/native-core.js','sleeper/native-engine.js','sleeper/native-ui.js','sleeper/source-aperture.js']){
