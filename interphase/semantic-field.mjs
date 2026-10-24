@@ -104,7 +104,8 @@ export function mountSemanticField(api,{start=false}={}){
     escapeText(r.operation)+' → '+escapeText(g.operation)+' · '+g.distance+' declared hop'+(g.distance===1?'':'s')+
     ' · '+escapeText(it.relation)+' · '+(member+1)+'/'+g.items.length+'</small></div>'+
     (g.items.length>1?'<button data-sem-prev aria-label="Previous object">←</button><button data-sem-next aria-label="Next object">→</button>':'')+
-    '<button data-sem-open>HOLD / READ</button>';
+    '<button data-sem-open>HOLD / READ</button>'+
+    (g.items.length>7?'<input data-sem-find type="search" autocomplete="off" aria-label="Find an exact route in this semantic cell" placeholder="FIND AMONG '+g.items.length+' ROUTES">':'');
  }
  let lastModel=null;
  function draw(m,focus){
@@ -131,6 +132,27 @@ export function mountSemanticField(api,{start=false}={}){
   if(prev)prev.onclick=()=>cycle(-1);if(next)next.onclick=()=>cycle(1);
   const open=panel.querySelector('[data-sem-open]');
   if(open)open.onclick=()=>{const x=current(m);if(x)center(x.record).catch(e=>error(e))};
+  const find=panel.querySelector('[data-sem-find]');
+  if(find){
+   const g=selectedGroup(m),label=panel.querySelector('.ip-field-inspect b'),details=panel.querySelector('.ip-field-inspect small');
+   let matches=g.items.map((item,index)=>({item,index}));
+   find.oninput=()=>{
+    const q=find.value.trim().toLocaleLowerCase();
+    matches=g.items.map((item,index)=>({item,index})).filter(x=>
+     (String(x.item.record.title||'')+' '+String(x.item.href||'')).toLocaleLowerCase().includes(q));
+    open.disabled=!matches.length;
+    if(!matches.length){label.textContent='NO ROUTE MATCHES';details.textContent='This semantic cell remains unchanged';return}
+    member=matches[0].index;const chosen=matches[0].item;
+    label.textContent=chosen.record.title||chosen.href;
+    details.textContent=String(chosen.record.operation||'')+' → '+g.operation+' · '+g.distance+
+      ' declared hops · '+matches.length+' lexical matches · '+(member+1)+'/'+g.items.length;
+    const mark=panel.querySelector('.ip-field-node.selected .ip-field-glyph');
+    if(mark)mark.innerHTML=glyph(chosen.record);
+   };
+   find.onkeydown=e=>{
+    if(e.key==='Enter'&&matches.length){e.preventDefault();e.stopPropagation();center(matches[0].item.record).catch(x=>error(x))}
+   };
+  }
   panel.querySelector('.ip-field-stage').onkeydown=e=>{
    if(['ArrowLeft','ArrowRight','Enter','Escape'].includes(e.key)){
     e.preventDefault();e.stopPropagation();
