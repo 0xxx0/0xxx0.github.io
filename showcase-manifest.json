@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T21:14:41.667+08:00",
+  "updated": "2026-10-24T21:34:43+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1733,7 +1733,7 @@
       "showcase_card": true,
       "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
       "index": {
-        "updated_at": "2026-10-24T20:47:08.919+08:00",
+        "updated_at": "2026-10-24T20:47:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -2148,7 +2148,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-10-24T20:03:08.675+08:00",
+        "updated_at": "2026-10-24T20:03:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -8785,7 +8785,7 @@
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-10-24T19:54:49.279+08:00",
+        "updated_at": "2026-10-24T19:54:49+08:00",
         "work_modes": [
           "PLAY",
           "VERIFY",
@@ -8818,7 +8818,7 @@
         "POV / THE BELL: first-person wall geometry, enacted conditional branch, nonlinear loop, real passage opening, branchable state rewinding with ghost, source link; illustrative model only"
       ],
       "index": {
-        "updated_at": "2026-10-24T21:14:41.667+08:00",
+        "updated_at": "2026-10-24T21:14:41+08:00",
         "work_modes": [
           "IMPLEMENT",
           "PLAY",
@@ -9033,6 +9033,76 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/sleeper/ladder/",
+      "title": "SLEEPER // LADDER 0.1.0",
+      "kind": "experiment",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PLAY / PROVE / RETURN",
+      "state": "CANDIDATE",
+      "version": "0.1.0",
+      "showcase_card": false,
+      "receipt": "/sleeper/ladder/release.json",
+      "role": "The four-distance resolution ladder (DESIGN_SPEC: 'make painting and city the same object at different resolutions'): FAR is the Borrowed River painting, NEAR resolves its brushwork into a 96x32 character field computed from the image itself (luminance -> cell tone, the painting's own edges -> walls, hue -> district, texture -> weather density), ENTERED is a walkable window of that field whose matter is the canonical ONE RETURN v2 contract fetched live (paragraph = district, sentence = building, word = room, character = material, punctuation = window/rain/lamp), and EXITED recomposes the painting with the walked U/D/L/R witness baked in. Deterministic: same witness -> byte-identical recomposition, different witness -> visibly different, empty witness -> the original pixels (mad64 = 0, changedPx = 0). Touch-first: tap to resolve, press-and-hold to decode a cell, swipe or arrow keys to step, return to the origin coordinate completes the run, RETURN restores the painting exactly.",
+      "transfer": [
+        "painting sha256 -> one hash32 tag = painting identity = city identity = artifact identity (f0f09635)",
+        "walked U/D/L/R witness -> deterministic recomposition + measured divergence (mad64 / changedPx / sha256)",
+        "image statistics -> walkable city field (walls from the edge quantile that opens the largest district)",
+        "canonical source text -> district/building/room/material/weather matter, drawn counts asserted against the source",
+        "return to origin -> route completion (ninth-gate move) and exact reconstruction"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "U/D/L/R route witness"
+          ],
+          "requires": [
+            "sleeper.borrowed-river/landscape.jpg",
+            "ONE_RETURN_V2.md source text"
+          ]
+        },
+        "transforms": {
+          "verb": "resolve a painting into its walkable city at four distances, then recompose the painting from the route",
+          "preserves": [
+            "painting identity",
+            "source provenance",
+            "route witness",
+            "origin reconstruction"
+          ],
+          "reversibility": "full - the empty witness recomposes the original bytes",
+          "side_effects": "browser-local runtime state only"
+        },
+        "emits": {
+          "kinds": [
+            "recomposed painting",
+            "route witness",
+            "in-page determinism measurements"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/sleeper/ladder/release.json",
+          "checks": [
+            "node sleeper/ladder/ladder-selftest.mjs - 34/34 arms (synthetic painting and real 512x171 landscape dump)",
+            "browser: touch tap / dwell decode / touch swipe step / keyboard step / EXIT metrics / RETURN / return-to-origin",
+            "same witness twice -> identical sha256; different witness -> different sha256; empty witness -> mad64 0"
+          ],
+          "return_path": "/sleeper/ladder/"
+        }
+      },
+      "spec": "/sleeper/ladder/SPEC.md",
+      "index": {
+        "updated_at": "2026-10-24T21:34:43+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "PLAY"
+        ]
       },
       "tier": "FIELD"
     },
