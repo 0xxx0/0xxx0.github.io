@@ -34,11 +34,11 @@
   <h1>Make evidence<br>into passage.</h1>
   <p class="lead">Read a real source. Move through linked passages. Make one explicit connection that changes your navigable field. Export a source-bound RETURN—not another game save or ungrounded summary.</p>
   <div class="source-panel">
-    <div class="meta"><label>SOURCE TITLE<input id="title" value="Practice: observation and consequence (original exercise)"></label><label>CANONICAL URL (optional)<input id="sourceUrl" value=""></label></div>
-    <label>SOURCE TEXT (local in this tab)<textarea id="textInput" spellcheck="false"></textarea></label>
-    <div class="buttons"><button id="enter" class="primary">ENTER FIELD →</button><label style="border:1px solid var(--line);padding:10px 14px;cursor:pointer">IMPORT TXT · MD · JSON<input id="fileInput" type="file" accept=".txt,.md,.json,text/plain,application/json" style="display:none"></label><button id="exercise">RESET EXERCISE</button></div>
+    <div class="meta"><label>SOURCE TITLE<input id="title" value="Untitled source"></label><label>CANONICAL URL (optional)<input id="sourceUrl" value=""></label></div>
+    <label>SOURCE TEXT (local in this tab)<textarea id="textInput" spellcheck="false" placeholder="Paste a source you actually need to understand. Nothing is published."></textarea></label>
+    <div class="buttons"><button id="enter" class="primary">ENTER FIELD →</button><label style="border:1px solid var(--line);padding:10px 14px;cursor:pointer">IMPORT TXT · MD · JSON<input id="fileInput" type="file" accept=".txt,.md,.json,text/plain,application/json" style="display:none"></label><button id="exercise">LOAD OPTIONAL DEMO</button></div>
     <div id="sourceError" class="msg" role="alert"></div>
-    <p class="rule">The built-in exercise below is original demonstration text, not a reproduction or translation of Buddhadhamma. For the real corpus, open <a href="https://buddhadhamma.github.io/wise-reflection.html" target="_blank" rel="noopener">Wise Reflection</a>, then paste a personally selected excerpt here. The tool does not download or publish that source.</p>
+    <p class="rule">The optional demo is original synthetic text, not a reproduction or translation of Buddhadhamma. For the real corpus, open <a href="https://buddhadhamma.github.io/wise-reflection.html" target="_blank" rel="noopener">Wise Reflection</a>, then paste a personally selected excerpt here. The tool does not download or publish that source.</p>
   </div>
 </section>
 <section id="work" class="workspace hidden">
@@ -448,7 +448,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
     $('#connect').disabled=!session.selected||session.selected===inspected;$('#return').disabled=!T.canReturn(session);$('#undo').disabled=!session.links.length;$('#redo').disabled=!session.future.length;
     $('#count').textContent=`${session.path.length-1} moves · ${session.links.length} doors · ${T.canReturn(session)?'RETURN READY':T.hasCrossed(session)?'FIND YOUR WAY BACK TO ORIGIN':'CROSS A COMMITTED DOOR; THEN RETURN TO ORIGIN'}`;
   }
-  $('#textInput').value=DEMO;$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
+  $('#textInput').value='';$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
   $('#enter').onclick=boot;
   $('#sendCity').onclick=()=>{
     try{
