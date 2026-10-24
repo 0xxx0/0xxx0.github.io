@@ -30,7 +30,7 @@
 .ip-field-held{padding:24px;max-width:650px;color:var(--ip-mut);font-size:12px}
 @media(max-width:700px){
  .ip-heading .ip-views button{min-width:0;padding:4px 5px;font-size:10px;white-space:nowrap}
- .ip-heading .ip-source b{display:none}
+ .ip-continuum[data-semantic-field="1"] .ip-heading .ip-source b{display:none}
  .ip-semantic-field{padding:6px 7px;gap:6px}
  .ip-field-tools{gap:5px;font-size:9px;justify-content:space-between}
  .ip-field-tools button{min-height:34px!important;padding:4px 6px!important}
