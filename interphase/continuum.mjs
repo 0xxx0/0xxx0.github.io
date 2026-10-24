@@ -15,7 +15,7 @@ async function dependencies(){
 }
 function safePath(value){if(!value)return '';try{const u=new URL(value,location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch{return ''}}
 function sourcePath(value){const p=safePath(value);return p&&/\.(json|txt|md|markdown|csv|log|ya?ml)(?:\?|$)/i.test(p.split('#')[0])?p.split('#')[0]:''}
-const SHA256=/^[a-f0-9]{64}$/i,DOOR_LIMIT=64,DOOR_DEPTH=16;
+const SHA256=/^sha256:[a-f0-9]{64}$/i,DOOR_LIMIT=64,DOOR_DEPTH=16;
 function validEnd(e){return !!e&&typeof e==='object'&&!!sourcePath(e.address)&&SHA256.test(e.hash||'')&&Number.isInteger(e.start)&&Number.isInteger(e.end)&&e.start>=0&&e.end>e.start&&e.end-e.start<=20000&&typeof e.scope==='string'&&e.scope.length<=120&&typeof e.quote==='string'&&e.quote.length===e.end-e.start}
 function validDoor(d){return !!d&&RELATIONS.includes(d.type)&&d.authority==='INTERPRETATION_ONLY'&&validEnd(d.from)&&validEnd(d.to)&&!(d.from.hash===d.to.hash&&d.from.address===d.to.address)&&d.from.address.length<=1024&&d.to.address.length<=1024}
 function validDoorFrame(f){return !!f&&validEnd(f.at)&&f.attention&&typeof f.label==='string'&&f.label.length<=180&&Array.isArray(f.links)&&f.links.length<=128&&Array.isArray(f.marks)&&f.marks.length<=256&&Array.isArray(f.frames)&&f.frames.length<=64&&f.frames.every(x=>x.hash===f.at.hash)}
