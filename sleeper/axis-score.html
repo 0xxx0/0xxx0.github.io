@@ -52,7 +52,7 @@
     <div class="paper">
       <div class="status"><span id="location" class="key"></span><span id="progress" class="subtle"></span></div>
       <h2 id="viewName">PASSAGE / READ</h2><p id="topologyPayoff" class="subtle"></p>
-      <div id="readView"><div id="passage" class="passage"></div><p id="anchor" class="subtle"></p><div class="witness"><h2>WITNESS / choose one exact sentence</h2><div id="evidenceOptions" class="evidence-options" aria-label="Source-exact evidence choices"></div><p id="witnessStatus" class="subtle"></p></div></div>
+      <div id="readView"><div id="passage" class="passage"></div><p id="anchor" class="subtle"></p><div class="witness"><h2>WITNESS / choose one exact sentence</h2><div id="evidenceOptions" class="evidence-options" aria-label="Source-exact evidence choices"></div><p id="witnessStatus" class="subtle"></p><div class="buttons"><button id="sendCity" disabled>ENTER CITY WITH WITNESS →</button></div><p class="rule">Selected sentence → native city → original source address. No semantics inferred and no Gate credited.</p></div></div>
       <div id="pinView" class="pin-view hidden">
         <div class="score-intro"><span>RIDE / ONE SOURCE · FOUR APERTURES</span><span>TWIST = SEEK · SLIDE = SCALE · SHIFT = LINK</span></div>
         <canvas id="scoreCanvas" class="score-canvas" width="520" height="520" tabindex="0" role="img" aria-label="Circular, zoomable document score; drag to seek inside current scope, vertical scroll to change scale"></canvas>
@@ -389,6 +389,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
 });
 
 </script>
+<script src="./source-aperture.js"></script>
 <script>
 (()=>{'use strict';const T=Threadwalk,A=ThreadAxis,$=q=>document.querySelector(q);const txt=s=>String(s??'');
   const DEMO=`At 08:10 the inlet gauge showed a rapid increase. The operator wrote DOWNSTREAM RISK in the log. No one had checked whether the gauge was recently calibrated.\n\nThe calibration sheet dated Monday lists a twelve-percent positive bias for the inlet gauge. A second gauge was available but not yet connected.\n\nA siren sounded at 08:12. The manual says a siren means an alarm threshold was crossed; it does not establish the cause of the reading.\n\nAt 08:16 an independent measurement showed a smaller increase. The difference was consistent with the bias noted on Monday, though nobody had established that the bias had remained constant.\n\nThe shift manager ordered a shutdown. The shutdown prevented a possible overflow, but it also stopped the pump that drained the retention basin.\n\nAt 08:27 the retention basin started filling faster. A pump technician reported that the stopped drainage pump was normally responsible for lowering the basin level.\n\nOne proposed rule said: always shut down when the inlet gauge crosses the threshold. A second rule said: cross-check an alarming reading when an independent sensor is available, without delaying an emergency response.\n\nThe final report must distinguish observation, explanation, and decision. A useful conclusion names what was known at each time, what remained uncertain, and the smallest safe verification step.`;
@@ -433,6 +434,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
       $('#evidenceOptions').append(b);
     }
     $('#witnessStatus').textContent=session.witnesses[q.id]?`SOURCE WITNESS HELD · ${session.witnesses[q.id].start}–${session.witnesses[q.id].end} (source-only offset; excerpt not exported)`:'Choose one source-exact sentence. No automatic semantic claim.';
+    $('#sendCity').disabled=!session.witnesses[q.id];
     $('#readView').classList.toggle('hidden',mode!=='read');$('#pinView').classList.toggle('hidden',mode!=='pin');$('#readBtn').classList.toggle('active',mode==='read');$('#pinBtn').classList.toggle('active',mode==='pin');$('#viewName').textContent=mode==='pin'?'AXIS / SOURCE SCORE':'PASSAGE / READ';if(mode==='pin')paintWord();
     $('#list').textContent='';model.nodes.forEach((item,i)=>{const b=document.createElement('button');b.className='node-item'+(item.id===session.focus?' current':'')+(item.id===inspected?' inspect':'');const num=document.createElement('b');num.textContent=(i+1).toString().padStart(2,'0');const short=document.createElement('span');short.className='cut';short.textContent=item.text.replace(/\s+/g,' ');b.append(num,short);b.onclick=()=>select(item.id);$('#list').append(b)});
     draw();const nbs=T.neighbors(model,session),candidates=T.suggestions(model,session),uniq=[...new Map(nbs.map(e=>[e.id,e])).values()];$('#near').textContent='';for(const e of uniq.slice(0,7)){const b=document.createElement('button');const title=document.createElement('b');title.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / ${e.kind}`;const description=document.createElement('span');description.textContent=(e.common?.length?e.common.join(', '):e.relation||'source sequence').slice(0,75);b.append(title,description);b.onclick=()=>navigate(e.id);$('#near').append(b)}for(const e of candidates.filter(x=>!uniq.some(y=>y.id===x.id)).slice(0,2)){const b=document.createElement('button');const h=document.createElement('b');h.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / INSPECT ONLY`;const sub=document.createElement('span');sub.textContent=(e.common||[]).join(', ');b.append(h,sub);b.onclick=()=>select(e.id);$('#near').append(b)}
@@ -447,7 +449,31 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
     $('#count').textContent=`${session.path.length-1} moves · ${session.links.length} doors · ${T.canReturn(session)?'RETURN READY':T.hasCrossed(session)?'FIND YOUR WAY BACK TO ORIGIN':'CROSS A COMMITTED DOOR; THEN RETURN TO ORIGIN'}`;
   }
   $('#textInput').value=DEMO;$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
-  $('#enter').onclick=boot;$('#fileInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>100000){error('SOURCE_TOO_LARGE_100000','#sourceError');return;}$('#textInput').value=await f.text();$('#title').value=f.name;error('FILE_LOADED_IN_TAB_ONLY','#sourceError')};
+  $('#enter').onclick=boot;
+  $('#sendCity').onclick=()=>{
+    try{
+      const packet=SleeperSourceAperture.capture(model,session.witnesses[inspected]);
+      sessionStorage.setItem(SleeperSourceAperture.KEY,JSON.stringify(packet));
+      sessionStorage.setItem(SleeperSourceAperture.BACK,JSON.stringify({source:model.source,title:model.meta.title,url:model.meta.url,sha256:model.sha256,span:packet.span}));
+      location.assign('./');
+    }catch(e){error(e.message)}
+  };
+  if(new URLSearchParams(location.search).get('sourceReturn')==='1'){
+    try{
+      const back=JSON.parse(sessionStorage.getItem(SleeperSourceAperture.BACK)||'null');
+      if(!back||typeof back.source!=='string'||back.source.length>100000||!back.span||!/^[a-f0-9]{64}$/.test(back.sha256))throw Error('SOURCE_RETURN_EXPIRED');
+      $('#textInput').value=back.source;$('#title').value=String(back.title||'').slice(0,200);$('#sourceUrl').value=String(back.url||'');
+      boot().then(()=>{
+        if(!model||model.sha256!==back.sha256){error('SOURCE_RETURN_HASH_MISMATCH');return;}
+        const target=model.nodes.find(q=>q.id===back.span.node&&q.start<=back.span.start&&q.end>=back.span.end);
+        const choice=target&&T.evidenceChoices(model,target.id).findIndex(e=>e.start===back.span.start&&e.end===back.span.end);
+        if(choice>=0){session=T.cite(model,session,target.id,choice);select(target.id);error('EXACT SOURCE REOPENED · previous AXIS route is not restored');}
+        else error('SOURCE REOPENED · previous witness selection unavailable');
+        sessionStorage.removeItem(SleeperSourceAperture.BACK);
+      });
+    }catch(e){error(e.message,'#sourceError')}
+  }
+  $('#fileInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>100000){error('SOURCE_TOO_LARGE_100000','#sourceError');return;}$('#textInput').value=await f.text();$('#title').value=f.name;error('FILE_LOADED_IN_TAB_ONLY','#sourceError')};
   $('#setPin').onclick=()=>{session=T.select(model,session,inspected);error('MARK_HELD');render()};
   $('#moveBtn').onclick=()=>navigate(inspected);$('#homeBtn').onclick=()=>{const path=T.routeHome(model,session);if(path.length>1)navigate(path[1])};
   $('#readBtn').onclick=()=>setMode('read');$('#pinBtn').onclick=()=>setMode('pin');$('#play').onclick=play;$('#backWord').onclick=()=>seekIndex(axis.index-1);$('#nextWord').onclick=()=>seekIndex(axis.index+1);$('#scrub').oninput=e=>seekIndex(+e.target.value);$('#scaleDown').onclick=()=>axisZoom(1);$('#scaleUp').onclick=()=>axisZoom(-1);$('#echo').onclick=newMission;$('#claimEcho').onclick=claimMission;$('#soundAxis').onclick=()=>{soundOn=!soundOn;$('#soundAxis').textContent=soundOn?'♪ ON':'♪ OFF';$('#soundAxis').setAttribute('aria-pressed',String(soundOn));if(soundOn)ping(score.tokens[axis.index]);};$('#speakBtn').onclick=sound;
