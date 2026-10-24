@@ -23,12 +23,28 @@ async function continuumBrowserProof(){
    const close=async()=>{if(await ip('drawer').isVisible())await ip('close').click()};
    const load=async(text,name='water.md')=>{await source();await ip('file').setInputFiles({name,mimeType:'text/plain',buffer:Buffer.from(text)});await page.waitForFunction(t=>InterphaseInstrument.snapshot()?.source.raw===t,text)};
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
-   await page.goto(base+'/');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
+   // First prove the ordinary job: identify a named tool, open its owner, return.
+   // Reader round trips below must not silently replace this entry again.
+   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip');
+   assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
+   assert.equal(await page.locator('#interphaseWorkspace').count(),0);
+   assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
+   assert.equal(await page.locator('#workedOn').isVisible(),true);
+   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:label&&label.scrollWidth>label.clientWidth+1}}));
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'named choices must remain readable and reachable');
+   await page.locator('#feedRail [data-href="/house/"]').click();
+   await page.waitForFunction(()=>document.getElementById('apTitle').textContent==='HOUSE / FIELD');
+   await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
+   await page.goBack();await page.waitForSelector('#feedRail .feedChip');
+   assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
+   assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD');
+   if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-entry-${width}.png`)})}
+   await page.goto(base+'/?work=1');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);
    assert.equal(await page.locator('.ip-continuum field-aperture').evaluate(x=>x.shadowRoot.children.length),0);
    assert.equal(requests.some(p=>/^\/interphase\/(?:app|research|substrate|compositor|work)\.mjs$/.test(p)),false);
-   await page.goto(base+'/?focus=/docs/');await wait();assert.equal((await snap()).nativeRoute,'/docs/','explicit caller focus wins over saved source');
+   await page.goto(base+'/?work=1&focus=/docs/');await wait();assert.equal((await snap()).nativeRoute,'/docs/','explicit caller focus wins over saved source');
    await page.evaluate(()=>InterphaseInstrument.loadRoute('/docs/'));assert.equal((await snap()).source.hash,s.source.hash);await page.waitForFunction(()=>FieldInstrument.heldAddress()==='/docs/');
    const observations=requests.filter(p=>p==='/showcase-manifest.json').length;await page.evaluate(()=>InterphaseInstrument.importPacket(InterphaseInstrument.packet()));assert.ok(requests.filter(p=>p==='/showcase-manifest.json').length>observations,'RETURN resolves native ports from a fresh host source');
    await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');

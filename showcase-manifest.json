@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T20:57:00+08:00",
+        "updated_at": "2026-10-24T17:14:09+00:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -67,13 +67,14 @@
           "OPERATE"
         ]
       },
-      "role": "Open the FIELD source, move through actual routes, or bring text/JSON. One exact position carries through scope, plain reading, spatial traversal and native RSVP. Quoted links and local edits remain inspectable; effects remain with the native host.",
+      "role": "Readable FIELD entry: find a named tool, hold it, open its native owner, and return to the same context. CURRENT and RECENT retain their distinct meanings. FIELD map and source-reader experiments are explicit choices under MORE.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_CREW_HANDOFF_0101_2026-10-24.json",
+      "receipt": "/interphase/SPEC.md",
       "machine_view": "FIELD",
-      "version": "0.10.2",
+      "version": "0.10.3",
       "transfer": [
-        "0.10.2 HELD WALK: LIST pins the current source across pagination, WALK follows only declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",
+        "0.10.3 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
+        "0.10.2 HELD WALK retained: LIST pins the current source across pagination, WALK follows declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",
         "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",

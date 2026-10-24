@@ -1,7 +1,8 @@
-import {mountContinuum} from './interphase/continuum.mjs?v=0.10.0';
 function startFieldWork(){
- if(location.pathname!=='/'||new URLSearchParams(location.search).get('instrument')==='0'||new URLSearchParams(location.search).get('work')==='0')return;
+ const query=new URLSearchParams(location.search);
+ if(location.pathname!=='/'||query.get('instrument')==='0'||query.get('work')!=='1')return;
  const begin=async()=>{
+  const {mountContinuum}=await import('./interphase/continuum.mjs?v=0.10.0');
   let native;for(let i=0;i<150;i++){native=window.FieldInstrument;if(native&&document.getElementById('fieldInstrument')&&document.getElementById('fiView'))break;await new Promise(r=>setTimeout(r,80))}
   if(!native)throw Error('Native FIELD did not open.');
   const root=document.getElementById('fieldInstrument'),host=document.createElement('div');host.id='interphaseWorkspace';root.append(host);root.dataset.work='1';document.documentElement.dataset.fieldWork='1';
