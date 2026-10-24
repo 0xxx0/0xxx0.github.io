@@ -44,7 +44,10 @@ html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrume
 html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest>.fieldGesture{display:block!important}
 html[data-field-words="folded"][data-field-bar-pane="trace"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#traceFold),
 html[data-field-words="folded"][data-field-bar-pane="map"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#mapFold){display:none!important}
-html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(auto-fill,minmax(54px,1fr))}
+/* Preserve the recovered horizontal, 56px native glyph rail — a generic
+   'display:block' reveal would silently destroy its one-row touch contract. */
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest > #feedRail{display:flex!important}
+
 html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) .feedName{pointer-events:none}
 html[data-field-words="folded"][data-field-bar-pane="work"]:not([data-instrument="1"]) #workDepth,
 html[data-field-words="folded"][data-field-bar-pane="prove"]:not([data-instrument="1"]) #refineFold{margin-top:8px}
