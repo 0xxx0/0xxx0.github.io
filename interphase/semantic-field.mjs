@@ -32,7 +32,7 @@ export function mountSemanticField(api,{start=false}={}){
  };
  const show=on=>{
   active=!!on;root.dataset.semanticField=active?'1':'0';panel.hidden=!active;setTabs();
-  if(active){render();panel.focus({preventScroll:true})}
+  if(active){api.stop();render();panel.focus({preventScroll:true})}
   else{++seq;nativeTabs.find(t=>t.dataset.ip==='view-'+root.dataset.view)?.setAttribute('aria-selected','true');space.focus({preventScroll:true})}
  };
  btn.onclick=()=>show(true);
