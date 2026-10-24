@@ -262,6 +262,11 @@ try{
     await issue(':help');
     assert.equal(await page.locator('#fieldUrlPanel:not([hidden])').count(),1,'plain HELP must open command registry');
     if(width<760)assert.equal(await page.locator('#fieldOmnibarKeys [data-command="help"]').isVisible(),true,'one discoverable mobile help affordance');
+    await issue(':list');
+    await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'list','plain :list opens the existing source observer, not another application');
+    await cmd(':plain');
+    await page.waitForSelector('html:not([data-instrument="1"])');
     await issue(':turn');
     await page.waitForSelector('html[data-instrument="1"]');
     const angle=await page.evaluate(()=>FieldInstrument.snapshot().frame.turn);
