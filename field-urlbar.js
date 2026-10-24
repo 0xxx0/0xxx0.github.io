@@ -71,6 +71,7 @@ const COMMANDS=Object.freeze([
  {id:'fovea',glyph:'◉',label:'FOVEA',hint:'toggle local detail lens',keywords:'lens projection'},
  {id:'instrument',glyph:'⌁',label:'INSTRUMENT',hint:'fold the same FIELD without scrolling',keywords:'field fold catchup position'},
  {id:'plain',glyph:'▤',label:'PLAIN',hint:'return to native scrolling FIELD',keywords:'exit instrument unfurl'},
+ {id:'list',glyph:'☷',label:'LIST',hint:'show readable source records in the existing FIELD instrument',keywords:'list records plain source view tabs'},
  {id:'axis',glyph:'⊕',label:'AXIS',hint:'locate native state / operation / route axes',keywords:'axial navigate filters'},
  {id:'turn',glyph:'⤾',label:'TURN PLANE',hint:'tilt instrument camera; preserve object identity',keywords:'rotate tilt depth camera'},
  {id:'theme',glyph:'◐',label:'THEME',hint:'toggle light / dark',keywords:'appearance'},
