@@ -65,6 +65,8 @@ try{
     assert.ok(initial.width>=44&&initial.height>=44&&initial.height<=64,'compact finger-size glyphs '+width);
     assert.ok(initial.pageWidth<=initial.viewport+2,'no document horizontal overflow '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    const heldProbe=await page.evaluate(()=>({href:location.href,pane:document.documentElement.dataset.fieldBarPane,words:document.documentElement.dataset.fieldWords,focus:window.__fieldAct?.focusHref?.(),title:document.getElementById('apTitle')?.textContent,bar:!!window.FieldBarLanding}));
+    console.log('FIELD BAR GLYPH PROBE '+width+' '+JSON.stringify(heldProbe));
     await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='hold');
     assert.equal(await page.locator('#feedRail').isVisible(),false,'selecting one glyph folds browse into HOLD');
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
