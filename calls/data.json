@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-24T13:08:25+08:00",
+ "generated_at": "2026-10-24T13:17:26+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -98,27 +98,6 @@
     {
      "k": "C",
      "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "publish-media-consolidated",
-   "title": "Publish the Poo Baby + sleeper archive?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Publish both (reviewed contact sheets first)",
-     "eff": "media goes public on the site in curated batches"
-    },
-    {
-     "k": "B",
-     "t": "Publish Poo Baby only",
-     "eff": "sleeper stays private"
-    },
-    {
-     "k": "C",
-     "t": "Keep it all local",
-     "eff": "archive stays on-disk only, indexed"
     }
    ]
   }
@@ -242,6 +221,13 @@
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
    "ts": "2026-10-24T13:06:43"
+  },
+  "publish-media-consolidated": {
+   "id": "publish-media-consolidated",
+   "pick": "B",
+   "pick_label": "Publish Poo Baby only",
+   "note": "OK w publishing — B: Poo Baby only, sleeper stays private; the poobaby PDF sequences arent right (flag/exclude)",
+   "ts": "2026-10-24T13:15:33"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
