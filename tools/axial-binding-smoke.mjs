@@ -37,7 +37,7 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
  rec.reentry={bind:reloaded.active_ring,value:reloaded.rings.find(r=>r.key==='kind').value};
  rec.width390=d().documentElement.scrollWidth-d().documentElement.clientWidth;
  const beforeKeys=w().AxialFocusAPI.snapshot();
- w().dispatchEvent(new w().KeyboardEvent('keydown',{key:'ArrowDown',bubbles:true,cancelable:true}));
+ w().dispatchEvent(new (w().KeyboardEvent)('keydown',{key:'ArrowDown',bubbles:true,cancelable:true}));
  const afterKeys=w().AxialFocusAPI.snapshot();
  rec.keyboardRebind=afterKeys.active_ring!==beforeKeys.active_ring&&JSON.stringify(afterKeys.rings)===JSON.stringify(beforeKeys.rings);
  f.style.width='320px';await new Promise(resolve=>setTimeout(resolve,200));
