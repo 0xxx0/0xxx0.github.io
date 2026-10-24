@@ -1,7 +1,10 @@
 // Optional semantic reading of the existing INTERPHASE continuum.
 // Same source, same native route authority; this module owns no canonical state.
 import {substrateModel,semanticPoint,ACTION_KERNEL,OP_MARK} from './substrate-kernel.mjs';
-import {glyph as G,history as H} from '../lib/interphase.mjs?v=0.5.0';
+import '../lib/interphase-ring.js';
+import '../lib/interphase-glyph.js';
+import '../lib/interphase-history.js';
+const G=globalThis.InterphaseGlyph,H=globalThis.InterphaseHistory;
 import {hashText} from '../lib/id.js';
 import {esc} from '../lib/dom.js';
 
