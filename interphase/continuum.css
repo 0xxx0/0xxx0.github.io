@@ -32,3 +32,14 @@
 .ip-editor{position:fixed;inset:10px;z-index:30;display:flex;flex-direction:column;gap:12px;background:var(--ip-bg);border:1px solid var(--ip-hot);padding:18px;overflow:auto}.ip-editor textarea{flex:1;min-height:240px}.ip-editor p{font-size:11px;color:var(--ip-mut)}
 @media(max-width:700px){.ip-heading{padding:8px}.ip-source{gap:10px}.ip-source b{font-size:11px}.ip-space{perspective:500px;min-height:240px;padding:12px}.ip-scene{display:block;position:relative}.ip-held{position:relative;z-index:2;padding:16px;min-height:220px;max-height:49vh}.ip-before,.ip-after{position:absolute;inset:20px 10px;z-index:0;pointer-events:none}.ip-before{transform:translateX(-30%) translateZ(-150px) rotateY(34deg)}.ip-after{transform:translateX(30%) translateZ(-180px) rotateY(-34deg)}.ip-continuum[data-view=plain] .ip-before,.ip-continuum[data-view=plain] .ip-after{position:relative;inset:auto;pointer-events:auto}.ip-continuum[data-view=plain] .ip-before button,.ip-continuum[data-view=plain] .ip-after button{max-height:53px;padding:2px 16px;font-size:10px}.ip-continuum[data-view=plain] .ip-held{max-height:39vh;min-height:180px}.ip-axis svg{width:138px;height:138px}.ip-drawer{padding:12px}.ip-transport{padding-bottom:14px}.ip-status{font-size:10px;padding:0 12px}.ip-range{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.ip-continuum *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Keep the transport in the viewport; the held source is the scrolling aperture. */
+.ip-continuum{height:100svh;min-height:0}
+.ip-space{min-height:0}.ip-scene{max-height:100%;min-height:0}
+.ip-axis,.ip-transport,.ip-status,.ip-heading{flex-shrink:0}
+.ip-passage.ip-held{min-height:0;max-height:100%}
+.ip-continuum[data-view=plain] .ip-scene{height:100%}
+.ip-continuum[data-view=plain] .ip-held{flex:1;min-height:100px;max-height:100%}
+.ip-continuum[data-view=plain] .ip-before,.ip-continuum[data-view=plain] .ip-after{flex:0 0 auto}
+.ip-space:focus-visible{outline:none}.ip-space:focus-visible .ip-held{outline:1px solid var(--ip-hot)}
+@media(max-width:700px){.ip-continuum[data-view=plain] .ip-before button,.ip-continuum[data-view=plain] .ip-after button{max-height:42px}}

@@ -61,6 +61,8 @@ async function continuumBrowserProof(){
    await source();await ip('file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"a":1,"a":2}')});await page.waitForFunction(()=>document.querySelector('[data-ip=status]').textContent.includes('ambiguous'));assert.equal((await snap()).source.hash,hash);await close();
    const nativeBefore=await page.evaluate(()=>FieldInstrument.snapshot().frame);await ip('space').focus();await page.keyboard.press('ArrowLeft');assert.deepEqual(await page.evaluate(()=>FieldInstrument.snapshot().frame),nativeBefore);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+   await page.evaluate(()=>InterphaseInstrument.perspective('plain'));
+   const transport=await ip('play').boundingBox();assert.ok(transport.y>=0&&transport.y+transport.height<=page.viewportSize().height,'READ transport remains in viewport');
    if(process.env.SCREENSHOT_DIR){await page.evaluate(()=>InterphaseInstrument.perspective('plain'));await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`plain-${width}.png`)})}
    await load('{"gate":{"state":"closed","count":2},"other":true}','gate.json');await page.evaluate(()=>InterphaseInstrument.setScope('ROOT'));
    await source();await ip('edit').click();await ip('replacement').fill('{');await ip('commit').click();await page.waitForFunction(()=>!!document.querySelector('[data-ip=status]').dataset.error);assert.equal((await snap()).source.raw,'{"gate":{"state":"closed","count":2},"other":true}');await ip('cancel').click();await close();

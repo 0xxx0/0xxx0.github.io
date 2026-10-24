@@ -1,6 +1,6 @@
 
 #interphaseWorkspace{position:absolute;inset:64px 0 0;overflow:auto;z-index:10;background:var(--bg)}
-#interphaseWorkspace>.ip-continuum{min-height:100%}
+#interphaseWorkspace>.ip-continuum{height:100%;min-height:0}
 #interphaseWorkspace .ip-heading,#interphaseWorkspace [data-ip=back]{display:none}
 #fieldInstrument[data-work="1"]>.fiField,#fieldInstrument[data-work="1"]>.fiReading{visibility:hidden;pointer-events:none}
 html[data-field-work="1"] #fiMenuPanel{display:none!important}

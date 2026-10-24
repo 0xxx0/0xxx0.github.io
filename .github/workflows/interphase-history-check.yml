@@ -98,6 +98,14 @@ jobs:
           node tools/field-instrument-smoke.mjs
           node tools/field-reversibility-selftest.mjs
           node tools/validate-public.mjs
+          node scripts/check-current-heads.mjs
+          node scripts/check-release-versions.mjs
+          node tools/html-document-integrity-selftest.mjs
+          python3 scripts/check-redaction-aperture.py
+      - name: Retained source echo and exact native reader doors
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+        run: node tools/interphase-native-echo-smoke.mjs
       - name: Inspect deterministic phone and desktop captures
         if: always()
         run: |
