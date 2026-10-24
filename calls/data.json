@@ -1,43 +1,28 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-25T01:42:44+08:00",
+ "generated_at": "2026-10-25T02:30:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
  "open": [
-  {
-   "id": "interphase-two-tree",
-   "title": "INTERPHASE two-tree drift (vault vs published) — drop or port b9d1b2e2?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Port as one patch (published tree gains the lib/path.js extraction)"
-    },
-    {
-     "k": "B",
-     "t": "Drop it (published tree wins; vault commit stays unmerged)"
-    },
-    {
-     "k": "C",
-     "t": "Defer"
-    }
-   ]
-  },
   {
    "id": "money-topup",
    "title": "Credits — the wall",
    "options": [
     {
      "k": "A",
-     "t": "Top up Nous"
+     "t": "Top up Nous",
+     "eff": "paid quality routes back on (primary lane)"
     },
     {
      "k": "B",
-     "t": "Top up OpenRouter"
+     "t": "Top up OpenRouter",
+     "eff": "fallback/spare lane funded"
     },
     {
      "k": "C",
-     "t": "Stay free-only"
+     "t": "Stay free-only",
+     "eff": "$0 spend; I optimize for free models"
     }
    ]
   },
@@ -47,15 +32,18 @@
    "options": [
     {
      "k": "A",
-     "t": "Redirect to canonical"
+     "t": "Redirect to canonical",
+     "eff": "donor becomes a skin on the v2 engine"
     },
     {
      "k": "B",
-     "t": "Keep as museum"
+     "t": "Keep as museum",
+     "eff": "frozen, labelled non-conforming"
     },
     {
      "k": "C",
-     "t": "Build compat layer"
+     "t": "Build compat layer",
+     "eff": "import shim between schemas"
     }
    ]
   },
@@ -65,15 +53,18 @@
    "options": [
     {
      "k": "A",
-     "t": "Your own archive"
+     "t": "Your own archive",
+     "eff": "returns + timeline entries become districts"
     },
     {
      "k": "B",
-     "t": "The sleeper canon"
+     "t": "The sleeper canon",
+     "eff": "brainstorm + ONE RETURN text"
     },
     {
      "k": "C",
-     "t": "Your chat corpus"
+     "t": "Your chat corpus",
+     "eff": "past conversations as geology"
     }
    ]
   }
@@ -171,10 +162,11 @@
    "ts": "2026-10-07T11:21:33"
   },
   "triangle-bench": {
+   "id": "triangle-bench",
    "pick": "A",
    "pick_label": "Recover as an optional triangle view over the bench (5 bounded deltas; numeric table stays canonical; kill at ~150 lines)",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
   },
   "interphase-two-tree": {
    "id": "interphase-two-tree",
@@ -183,47 +175,54 @@
    "note": "",
    "ts": "2026-10-07T22:07:04"
   },
-  "six-0817-retire": {
-   "pick": "B",
-   "pick_label": "Keep open — I'll answer",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
-  "promise-secret-scan-weekly-enabled": {
-   "pick": "C",
-   "pick_label": "Waive — closed as no-longer-wanted, ledger records the waiver",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
-  "promise-ab-voice-scoring-pass": {
-   "pick": "A",
-   "pick_label": "Own it — fix now (machine executes on your word)",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
-  "promise-qwen3-8-27b-fallback-pull": {
-   "pick": "A",
-   "pick_label": "Own it — fix now (machine executes on your word)",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
-  "promise-memory-crowding-consolidate": {
-   "pick": "A",
-   "pick_label": "Own it — fix now (machine executes on your word)",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
-  "publish-media-consolidated": {
-   "pick": "A",
-   "pick_label": "Publish both (reviewed contact sheets first)",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
-  },
   "whatsapp-pair": {
+   "id": "whatsapp-pair",
    "pick": "B",
    "pick_label": "Later",
-   "ts": "2026-10-25T01:39:17",
-   "note": ""
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "six-0817-retire": {
+   "id": "six-0817-retire",
+   "pick": "B",
+   "pick_label": "Keep open — I'll answer",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "promise-secret-scan-weekly-enabled": {
+   "id": "promise-secret-scan-weekly-enabled",
+   "pick": "C",
+   "pick_label": "Waive — closed as no-longer-wanted, ledger records the waiver",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "promise-ab-voice-scoring-pass": {
+   "id": "promise-ab-voice-scoring-pass",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "promise-qwen3-8-27b-fallback-pull": {
+   "id": "promise-qwen3-8-27b-fallback-pull",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "promise-memory-crowding-consolidate": {
+   "id": "promise-memory-crowding-consolidate",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "publish-media-consolidated": {
+   "id": "publish-media-consolidated",
+   "pick": "A",
+   "pick_label": "Publish both (reviewed contact sheets first)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
