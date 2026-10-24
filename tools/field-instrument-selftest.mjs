@@ -484,6 +484,10 @@ assert.ok(!/\bstate\s*=/.test(switchBody)&&!/\banchor\s*=/.test(switchBody),'cha
 assert.ok(mjsSrc.includes('role="tablist"')&&mjsSrc.includes('role="tab"')&&mjsSrc.includes('function renderList()'),'LIST is accessible and uses the existing instrument host');
 assert.ok(mjsSrc.includes('C.overview(rows,view,state.focus,C.axis(state))')&&mjsSrc.includes('b.onclick=()=>locateTick(b.dataset.listId)'),'LIST projects the same native axis and dispatches through the same locator');
 assert.ok(mjsSrc.includes('view.total-inScope.length')&&mjsSrc.includes('data-list-page="next"'),'pagination admits out-of-scope counts and has a reachable continuation');
+assert.ok(mjsSrc.includes('class="fiListPin"')&&mjsSrc.includes("data-list-walk")&&mjsSrc.includes("data-list-back"),'LIST holds one visible source with native WALK and revision controls');
+assert.ok(mjsSrc.includes("C.neighbours(rows,pin.id)")&&mjsSrc.includes("scopedById.get(r.id)")&&mjsSrc.includes("command(walking?'field':'relations')"),'WALK uses declared edges intersected with the current native scope');
+assert.ok(mjsSrc.includes("No declared neighbours. No similarity inferred."),'missing links fail closed instead of being manufactured');
+assert.ok(cssSrc.includes('.fiListPin{display:grid')&&cssSrc.includes('min-height:48px'),'held source stays legible and touch-sized across pagination');
 assert.ok(mjsSrc.includes('C.planLayout(')&&mjsSrc.includes('C.planTile(')&&mjsSrc.includes('data-plan-id'),'the browser paints the SAME law this test just proved');
 assert.ok(/commit\(C\.locate\(state,r\),\{native:true\}\);[\s\S]{0,160}openRoom\(g,point\)/.test(mjsSrc),'tapping a room locates the object, then hinges the room AT the tile');
 assert.ok(mjsSrc.includes("planView?[...$('#fiPlan').querySelectorAll('[data-plan-id]')].find("),'in the plan the fold pivots at the room tile');
