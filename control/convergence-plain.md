@@ -4,24 +4,20 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-24T07:37:36.225Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-24T16:24:36.438Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **29 material commits on 2026-10-24** across **1051 branches** (80 exact Git commits in the window; 51 generated telemetry; 6601 on master all-time).
-At capture, **5/5** fronts were marked live, against **12** captured current heads.
+At capture, the field had **119 material commits on 2026-10-24** across **1069 branches** (192 exact Git commits in the window; 73 generated telemetry; 6713 on master all-time).
+At capture, **1/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
 
 - **air-instrument** (ACTIVE_NOW) — haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air
-- **loadout-model** (ACTIVE_NOW) — operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide
-- **house-os-fold** (ACTIVE_NOW) — HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit
-- **project-fold** (ACTIVE_NOW) — duplicate project trees folded by utility class; manifests + revert; zero deletion
-- **catchup-nonverbal** (ACTIVE_NOW) — daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface
 
 ## Last material commits at capture
 
 - desk: refresh public field data + root git chronology
-- Merge READFIELD shared source/cursor consolidation (#985)
-- READFIELD: align structured release version and distinguish baseline CI failur
+- fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)
+- calls: refresh (auto — answers changed)
 
 ## Law
 

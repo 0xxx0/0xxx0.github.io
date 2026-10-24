@@ -1,6 +1,6 @@
 # FIELD / INTERPHASE: restoration and continuation
 
-Status: corrective continuation, 2026-10-24. The operator explicitly rejected
+Status: corrective continuation, 2026-10-25 (Singapore). The operator explicitly rejected
 0.9 and 0.10 as useful convergence. Their successful component tests are historical
 mechanical evidence, not acceptance. This document replaces the 0.10 product target;
 the exact earlier spec and implementations remain in Git.
@@ -140,10 +140,44 @@ fails. Do not spend another week polishing a failed representation.
 | Third week, only if reading is the live need | Existing READFIELD/Scale Lens; coordinate with its active work rather than replacing it | Two distant exact source ranges remain pinned; nested focus/Lens excursion returns revision, cursor, scale, pins, view, WPM, surrounding context and keyboard focus; paused on return. Then perform a real comparison or annotation. Source hashes alone do not establish useful reading |
 | After a winning task | Fold its mechanism into the existing owner; demote redundant controls and entry paths | Name what becomes easier and what control is removed. No new universal shell. Preserve unique executable variants by reference; archive only after their useful residue is explicitly accounted for |
 
-First candidate to pursue after entry is ordinary Dayline re-entry, matching the
-existing declared NEXT. The spatial branch remains the candidate for FU/INTERPHASE
-interaction work, not a replacement for all domains. A research packet, archive map,
-reader and physical workspace can complement each other without sharing one screen.
+The operator clarified that “old code” means the actual Google Drive CODE/project
+folders. The current landing is only the immediate repair. Do not turn the Dayline
+example above into an unsolicited replacement project. Subsequent INTERPHASE work
+starts from the recovered original described below, preserving its room/focus/plain
+relationship before adapting any mechanism to the existing FIELD owner.
+
+## Drive-original correction and decisive findings
+
+The first survey centered copied Library Code references and today's FIELD. That was
+the wrong center of gravity. Direct Drive discovery then located CODE (2019 and 2020),
+20210505-CODE, 20210607/20210615 snapshots, the original INTERPHASE folders and FU archives.
+Original files were downloaded read-only; no source folder or sharing state changed.
+
+| Original | Bytes / SHA-256 | Actual finding |
+|---|---|---|
+| FU7.html | 79,424 / `439c9d5ef474b981ce6d63d228f99a0f1ea5e88a4be6105a074e83ca93f0e6c4` | A distinct room/input/representation experiment; not present in the earlier FIELD fossil selection |
+| FU8.html | 48,112 / `e5922f670cd4ad83ed80c473fb8cd66464514a8f92bcdaadc2a22491e5a1788c` | Text factorization, spatial layout, ring/path geometry and Alice text; source parses |
+| INTERPHASE PROTO8 | 26,492 / `1184c1bbbb0894a2337d93ad3fdb09c89b9120cabbaea237d02a5cc1f1f791f2` | Unfinished `Traversal = ()` and `Lens{` scratch syntax; not a working successor merely because of its name |
+| INTERPHASE WIP, xducers/matrix/lenses | 31,889 / `11b4f72e9e742ceb2ba52cbc20c39c8bba889e515167d1752e5e72d52502c8b4` | Similar unfinished syntax; preserve for fragments, not default runtime |
+| index0-1.html, 28 Apr 2021 | 80,423 / `3f9ae4e4cf1c4189d73a920e426a51211fd196fae659e4e1430c0a3916438400` | Strong continuation candidate: per-face stores, actual `faxconf → foveate → ring_svg`, text ingestion, diagrams and spatial transforms in one standalone source |
+| index.html, 15 Oct 2019, folder 0 | 27,487 / `80437ca2b2cbed50ec38ef7e6823136170b3c83ba0ffa8bbd90f9866d0d27b90` | Contains the searched foveation definitions as commented reference; a search hit is not an executable recovery |
+| 20210505 index.html | 919 | Room markup and prelude, empty module entry and external stylesheet; a newer date does not make a complete working build |
+| RSVP+TTS 2018 | 32,183 / `2f0167930b5c1a19e43ad8b626b702db017d576f48644237f05d849ce87d627d` | Separate native speech/reading donor, recovered directly from CODE/html |
+
+A DOM simulation with declared audio/canvas stand-ins reached the April file's
+factorization/focus/ring functions and produced the original article→sentence→phrase→word→character
+structure from supplied text. It also exposed bootstrap/DOM errors. That is partial
+runtime evidence, not a browser, audio, mobile or visual proof. Direct rendering of
+local originals was unavailable in this environment; no claim of a fully restored
+April runtime is made. The original syntax failures above were independently checked
+with the JavaScript parser.
+
+The next bounded original-code task is to recover that April runtime's exact
+bootstrap and assets, isolate any unfinished scratch from initialization, then test
+one input→factorized source→focus path→ring/room/plain→return journey. Preserve the
+original visual vocabulary and source. Only after that comparison should a fragment
+enter FIELD. Do not substitute a source-reader rewrite, metadata editor or generic
+six-room metaphor and call it recovery.
 
 ## Validation and practical limits
 

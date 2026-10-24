@@ -208,3 +208,54 @@ html[data-instrument="1"] #fiMenu{display:block}
 @media(max-height:600px){.fiMark svg{height:36px}.fiMark .fiLabel{font-size:10px}.fiMenu button{min-height:44px!important;padding:3px}}
 @media(prefers-reduced-motion:reduce){.fiPlane,.fiMark svg,.fiHexArt,.fiRoomPlane,.fiRoomPlane .hinge{transition:none}}
 @media(prefers-contrast:more){.fiMark svg{opacity:1}.fiMark .fiLabel,.fiBarMeta,.fiReading small{color:var(--ink)}}
+
+/* Held address seam: visible on every page and under every scope. This is
+   information, not a second toolbar or persistent command strip. */
+.fiListPin{display:grid;grid-template-columns:minmax(0,1fr) 55px 44px;align-items:center;
+  gap:2px;flex:none;min-height:48px;border-bottom:1px solid var(--line)}
+.fiListPinSource{min-width:0;overflow:hidden;padding:2px 4px 2px 0}
+.fiListPinSource b,.fiListPinSource code{display:block;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis}
+.fiListPinSource b{font:600 11px/1.4 system-ui,sans-serif;color:var(--cool)}
+.fiListPinSource code{font:9px/1.4 ui-monospace,monospace;color:var(--mut)}
+#fieldInstrument .fiListPin button{min-width:0;min-height:44px;
+  padding:2px;font-size:10px;color:var(--ink)}
+#fieldInstrument .fiListPin button:disabled{color:var(--mut);cursor:default}
+
+/* FIELD READINGS · the same source/position and ribbon, not three workspaces.
+   Tabs are temporarily revealed by the existing 44px VIEW chip. No new bar
+   remains on screen. LIST is the lossless, low-inference counterpart of 3D. */
+#fiViewTabs[hidden]{display:none!important}
+#fiViewTabs{position:absolute;top:var(--fi-top);left:12px;right:12px;z-index:8;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  border:1px solid var(--line);background:var(--p);box-shadow:0 10px 25px rgb(0 0 0 / .35)}
+#fiViewTabs button{min-width:0;min-height:48px;padding:6px 3px;font-size:12px;letter-spacing:.06em}
+#fiViewTabs button[aria-selected="true"]{background:var(--p2);color:var(--cool);box-shadow:inset 0 -2px 0 var(--cool)}
+#fiViewTabs button:focus-visible{outline:2px solid var(--cool);outline-offset:-2px}
+#fiList{display:none;position:absolute;inset:0;min-width:0;min-height:0;
+  flex-direction:column;gap:0;background:var(--bg);overflow:hidden}
+#fieldInstrument[data-map="list"] #fiList{display:flex}
+#fieldInstrument[data-map="list"] .fiPlane,#fieldInstrument[data-map="list"] #fiPlan{display:none}
+.fiListHead,.fiListFoot{display:flex;align-items:center;justify-content:space-between;min-width:0;
+  gap:8px;color:var(--mut);font:10px/1.35 ui-monospace,SFMono-Regular,monospace}
+.fiListHead{flex:none;min-height:30px;border-bottom:1px solid var(--line)}
+.fiListHead b{color:var(--ink);font-weight:600}
+.fiListRows{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#fieldInstrument .fiListRow{display:grid;width:100%;grid-template-columns:26px minmax(0,1fr) auto;
+  gap:6px;align-items:center;text-align:left;min-height:48px;padding:5px 6px;
+  border:0;border-bottom:1px solid var(--line);background:transparent}
+.fiListRow .fiListGlyph{font-size:15px;color:var(--mut)}
+.fiListRow .fiListText{min-width:0;overflow:hidden}
+.fiListRow b,.fiListRow code{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.fiListRow b{color:var(--ink);font:500 12px/1.3 system-ui,sans-serif}
+.fiListRow code{color:var(--mut);font:10px/1.4 ui-monospace,monospace}
+.fiListRow .fiListState{max-width:88px;color:var(--mut);font:9px/1.2 ui-monospace,monospace;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#fieldInstrument .fiListRow.held{background:var(--p2);box-shadow:inset 3px 0 0 var(--cool)}
+.fiListRow.held .fiListGlyph{color:var(--cool)}
+.fiListRow.outside .fiListText b{color:var(--mut)}
+.fiListNone{color:var(--mut);padding:10px 0}
+.fiListFoot{flex:none;min-height:44px;border-top:1px solid var(--line)}
+#fieldInstrument .fiListFoot button{min-height:44px;padding:3px 4px;font-size:10px;color:var(--ink)}
+#fieldInstrument .fiListFoot button:disabled{color:var(--mut);cursor:default}
+@media(max-width:370px){.fiListRow .fiListState{max-width:58px}.fiListHead,.fiListFoot{font-size:9px}}

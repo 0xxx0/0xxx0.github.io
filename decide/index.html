@@ -1,0 +1,141 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>THE DESK — 14 escalated + 10 calls</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --ink:#141416; --dim:#8a8a8f; --line:#d8d8d5; --paper:#fbfbfa; --hair:#ededeb; --pad:#f3f3f1; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font:15px/1.6 -apple-system,"SF Pro Text",system-ui,sans-serif; }
+  .wrap { max-width:52rem; margin:0 auto; padding:0 1.2rem 8rem; }
+  header { margin:3.2rem 0 2rem; }
+  .kick { font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--dim); }
+  h1 { font-size:1.55rem; font-weight:600; letter-spacing:-0.01em; margin:0.5rem 0 0.6rem; }
+  .sub { color:var(--dim); font-size:0.92rem; max-width:38rem; }
+  h2 { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.11em; color:var(--dim);
+       font-weight:600; margin:2.8rem 0 0.8rem; display:flex; gap:0.8rem; align-items:baseline; }
+  h2::after { content:""; flex:1; border-top:1px solid var(--hair); }
+  .row { display:grid; grid-template-columns:1.7rem 1fr auto; gap:0.7rem;
+         padding:0.75rem 0; border-bottom:1px solid var(--hair); align-items:start; }
+  .n { color:var(--dim); font:0.8rem ui-monospace,Menlo,monospace; padding-top:0.15rem; }
+  .t { font-size:0.95rem; }
+  .meta { color:var(--dim); font-size:0.76rem; margin-top:0.15rem; }
+  .why { color:var(--dim); font-size:0.78rem; font-style:italic; margin-top:0.1rem; }
+  .chip { border:1px solid var(--line); background:var(--pad); color:var(--dim);
+          font:0.72rem ui-monospace,monospace; letter-spacing:0.04em; padding:0.3rem 0.55rem;
+          cursor:pointer; white-space:nowrap; }
+  .chip.close { color:var(--ink); border-color:var(--ink); }
+  .chip.snooze { color:var(--ink); border-style:dashed; }
+  .chip.hold { color:var(--ink); border-color:var(--ink); border-style:dotted; }
+  .call { padding:0.85rem 0; border-bottom:1px solid var(--hair); }
+  .call .t { font-size:0.95rem; }
+  .opts { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.45rem; }
+  .opt { border:1px solid var(--hair); background:#fff; font-size:0.78rem; color:var(--dim);
+         padding:0.3rem 0.55rem; cursor:pointer; max-width:22rem; text-align:left; }
+  .opt.sel { border-color:var(--ink); color:var(--ink); }
+  .opt b { font-family:ui-monospace,Menlo,monospace; font-weight:600; margin-right:0.3rem; }
+  .bar { position:fixed; left:0; right:0; bottom:0; background:rgba(251,251,250,0.96);
+         border-top:1px solid var(--line); backdrop-filter:blur(6px); }
+  .bar .in { max-width:52rem; margin:0 auto; padding:0.7rem 1.2rem; display:flex; gap:0.8rem; align-items:center; }
+  #out { flex:1; font:0.78rem/1.5 ui-monospace,Menlo,monospace; color:var(--ink);
+         background:#fff; border:1px solid var(--hair); padding:0.55rem 0.7rem;
+         white-space:pre-wrap; max-height:5.5rem; overflow:auto; }
+  #copy { border:1px solid var(--ink); background:var(--ink); color:var(--paper);
+          font-size:0.8rem; padding:0.55rem 0.9rem; cursor:pointer; }
+  .foot { color:var(--dim); font-size:0.78rem; margin-top:1rem; }
+  a { color:inherit; text-decoration:underline; text-underline-offset:2.5px; text-decoration-color:var(--line); }
+</style>
+<div class="wrap">
+  <header>
+    <div class="kick">THE DESK · decision surface · generated 2026-10-24</div>
+    <h1>Fourteen escalated + ten calls. One line out.</h1>
+    <p class="sub">Every item is pre-set to my recommendation. Tap a chip to change it, then copy the
+    line at the bottom and paste it back — I execute exactly that. Nothing here fires by itself.</p>
+  </header>
+
+  <h2>escalated promises · from the nag ledger</h2>
+  <div id="promises"></div>
+
+  <h2>open calls</h2>
+  <div id="calls"></div>
+
+  <p class="foot">Sources: kagemusha-ledger.db (promises, status=open) ·
+  sovereign-node/corpus/calls/calls.json (status=open). Aged 6–18 days, nag 10–13.
+  Twelve of the fourteen are stale or duplicated — the ledger nags old messages, not open decisions.</p>
+</div>
+<div class="bar"><div class="in">
+  <div id="out">…</div>
+  <button id="copy">copy</button>
+</div></div>
+<script>
+const D = window.__DESK__ || null;
+let promises = [], calls = [], chosen = {};
+
+function render() {
+  const pr = document.getElementById('promises');
+  pr.innerHTML = '';
+  promises.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    if (p.done) row.style.opacity = 0.45;
+    row.innerHTML = `<div class="n">${p.n}</div>
+      <div><div class="t">${esc(p.title)}</div>
+        <div class="meta">${p.age} · nag ${p.nags} · urgency ${p.urgency}</div>
+        <div class="why">${esc(p.why)}</div></div>`;
+    const chip = document.createElement('button');
+    chip.className = 'chip ' + chosen[p.id].split(' ')[0].toLowerCase();
+    chip.textContent = p.done && p.done.startsWith('CLOSED') ? 'CLOSED ✓' : chosen[p.id];
+    chip.onclick = () => {
+      const cycle = ['CLOSE', 'SNOOZE 30d', 'HOLD'];
+      chosen[p.id] = cycle[(cycle.indexOf(chosen[p.id]) + 1) % 3];
+      render();
+    };
+    row.appendChild(chip);
+    pr.appendChild(row);
+  });
+  const cl = document.getElementById('calls');
+  cl.innerHTML = '';
+  calls.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'call';
+    d.innerHTML = `<div class="t">${esc(c.title)}</div>`;
+    const opts = document.createElement('div');
+    opts.className = 'opts';
+    c.options.forEach(o => {
+      const b = document.createElement('button');
+      b.className = 'opt' + (chosen['call:' + c.id] === o.k ? ' sel' : '');
+      b.innerHTML = `<b>${o.k}</b>${esc(o.t)}`;
+      b.onclick = () => { chosen['call:' + c.id] = o.k; render(); };
+      opts.appendChild(b);
+    });
+    d.appendChild(opts);
+    cl.appendChild(d);
+  });
+  const line = buildLine();
+  document.getElementById('out').textContent = line;
+}
+function esc(s) { return String(s).replace(/[<>&]/g, m => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[m])); }
+function buildLine() {
+  const closes = promises.filter(p => chosen[p.id] === 'CLOSE').map(p => p.n);
+  const snoozes = promises.filter(p => chosen[p.id] === 'SNOOZE 30d').map(p => p.n);
+  const holds = promises.filter(p => chosen[p.id] === 'HOLD').map(p => p.n);
+  const parts = [];
+  if (closes.length) parts.push('close ' + closes.join(' '));
+  if (snoozes.length) parts.push('snooze ' + snoozes.join(' ') + ' 30d');
+  if (holds.length) parts.push('hold ' + holds.join(' '));
+  const cparts = calls.filter(c => chosen['call:' + c.id]).map(c => c.id + '=' + chosen['call:' + c.id]);
+  let out = 'promises: ' + (parts.join('; ') || 'none');
+  if (cparts.length) out += '\ncalls: ' + cparts.join(' ');
+  return out;
+}
+document.getElementById('copy').onclick = () => {
+  navigator.clipboard.writeText(buildLine());
+  document.getElementById('copy').textContent = 'copied';
+  setTimeout(() => document.getElementById('copy').textContent = 'copy', 1200);
+};
+fetch('./data.json').then(r => r.json()).then(d => {
+  promises = d.promises; calls = d.calls;
+  promises.forEach(p => chosen[p.id] = p.rec);
+  render();
+});
+</script>

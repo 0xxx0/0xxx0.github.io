@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-24T13:55:38+08:00",
+ "generated_at": "2026-10-25T00:04:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -48,20 +48,44 @@
    ]
   },
   {
-   "id": "promise-qwen3-8-27b-fallback-pull",
-   "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
+   "id": "sleeper-donor",
+   "title": "The old ONE RETURN donor: what happens to it?",
    "options": [
     {
      "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
+     "t": "Redirect to canonical",
+     "eff": "donor becomes a skin on the v2 engine"
     },
     {
      "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
+     "t": "Keep as museum",
+     "eff": "frozen, labelled non-conforming"
     },
     {
      "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
+     "t": "Build compat layer",
+     "eff": "import shim between schemas"
+    }
+   ]
+  },
+  {
+   "id": "sleeper-substrate",
+   "title": "What text becomes the city's matter?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Your own archive",
+     "eff": "returns + timeline entries become districts"
+    },
+    {
+     "k": "B",
+     "t": "The sleeper canon",
+     "eff": "brainstorm + ONE RETURN text"
+    },
+    {
+     "k": "C",
+     "t": "Your chat corpus",
+     "eff": "past conversations as geology"
     }
    ]
   }
@@ -192,6 +216,13 @@
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
    "ts": "2026-10-24T13:44:27"
+  },
+  "promise-qwen3-8-27b-fallback-pull": {
+   "id": "promise-qwen3-8-27b-fallback-pull",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "machine-recorded 2026-10-24: promise verified KEPT (kestrel ollama-local.default_model/model repointed to gpt-oss:20b; live call 'LOCAL LANE OK'); no operator tap needed — the open row was a false BROKEN PROMISE, withdrawn from the board.",
+   "ts": "2026-10-24T23:49:57"
   },
   "promise-memory-crowding-consolidate": {
    "id": "promise-memory-crowding-consolidate",

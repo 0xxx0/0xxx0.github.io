@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SLEEPER // LADDER — one painting, four distances</title>
+<meta name="description" content="The four-distance resolution ladder: the painting at FAR, its brushwork resolving into a glyph city at NEAR, a walkable text-city at ENTERED, and your walked route recomposing the painting at EXITED. Deterministic; same route, same pixels.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/sleeper/archive/media/icon/favicon.svg">
+<style>
+  /* P1 hairline skin: pad rgb(8,12,18), lines rgb(79,87,96), 1px strokes,
+     no blur, no high-contrast blocks. Controls are quiet, never loud. */
+  :root { --bg: rgb(8,12,18); --ink: rgb(79,87,96); --hair: rgba(79,87,96,.22); --hair-2: rgba(79,87,96,.12); }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    display: flex; flex-direction: column; overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  header {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+    padding: 9px 11px 7px; border-bottom: 1px solid var(--hair-2);
+    font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  header b { font-weight: 400; color: rgba(79,87,96,.92); }
+  header span { color: rgba(79,87,96,.6); letter-spacing: .06em; }
+  main { flex: 1 1 auto; position: relative; min-height: 120px; }
+  #field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  #gap {
+    position: absolute; left: 10px; right: 10px; top: 10px; display: none;
+    border: 1px solid var(--hair); padding: 8px 9px; font-size: 10px;
+    color: rgba(79,87,96,.8); background: rgba(8,12,18,.85);
+  }
+  #readout {
+    border-top: 1px solid var(--hair-2); padding: 6px 11px 7px;
+    display: flex; align-items: center; gap: 10px; font-size: 9.5px; letter-spacing: .04em;
+  }
+  /* measurements are never silently hidden: the status wraps rather than clips */
+  #status { flex: 1 1 auto; min-width: 0; white-space: normal; line-height: 1.35; overflow-wrap: anywhere; }
+  #status em { font-style: normal; color: rgba(79,87,96,.45); }
+  #primary {
+    flex: 0 0 auto; background: none; color: var(--ink); font: inherit; font-size: 9.5px;
+    letter-spacing: .14em; text-transform: uppercase; padding: 6px 9px;
+    border: 1px solid var(--hair); cursor: pointer;
+  }
+  #primary:disabled { opacity: .35; cursor: default; }
+  #primary:focus-visible, #rail button:focus-visible { outline: 1px solid rgba(79,87,96,.7); outline-offset: 1px; }
+  /* P5 one instrument: the rail IS the distance coordinate. Four detents,
+     position = meaning; no scrolling anywhere. */
+  #rail { display: flex; border-top: 1px solid var(--hair-2); }
+  #rail button {
+    flex: 1 1 0; min-width: 0; background: none; border: 0; border-left: 1px solid var(--hair-2);
+    color: var(--ink); font: inherit; font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase;
+    padding: 7px 2px 9px; opacity: .45; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  #rail button:first-child { border-left: 0; }
+  #rail button[aria-pressed="true"] { opacity: 1; }
+  #rail .tick { width: 1px; height: 9px; background: currentColor; }
+  #rail button[aria-pressed="true"] .tick { height: 13px; }
+  /* decode overlay — one hold teaches the whole mark vocabulary (P-legibility) */
+  #decode {
+    position: absolute; left: 9px; right: 9px; bottom: 9px; display: none;
+    border: 1px solid var(--hair); background: rgba(8,12,18,.94); padding: 8px 9px;
+    font-size: 10px; line-height: 1.5; z-index: 3;
+  }
+  #decode dl { margin: 0; display: grid; grid-template-columns: 8.5em 1fr; gap: 1px 8px; }
+  #decode dt { color: rgba(79,87,96,.5); text-transform: uppercase; letter-spacing: .08em; font-size: 9px; }
+  #decode dd { margin: 0; color: rgba(79,87,96,.95); overflow-wrap: anywhere; }
+  #decode .vocab { margin-top: 7px; padding-top: 6px; border-top: 1px solid var(--hair-2); color: rgba(79,87,96,.55); font-size: 9px; }
+  #identity {
+    position: absolute; left: 9px; right: 9px; top: 9px; height: 40px; z-index: 2;
+    border: 1px solid var(--hair-2); pointer-events: auto;
+  }
+  #identity .moire-legend { bottom: auto; top: 4px; left: 6px; }
+  #identity b {
+    position: relative; z-index: 2; display: block; padding: 5px 7px; font-weight: 400;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: rgba(79,87,96,.92);
+  }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+  <header>
+    <b>SLEEPER // LADDER</b>
+    <span id="head-sub">four distances · one object</span>
+  </header>
+
+  <main>
+    <canvas id="field" aria-label="The ladder instrument: a painting that resolves into a walkable city and recomposes from your route."></canvas>
+    <div id="gap" role="status"></div>
+    <div id="identity" aria-hidden="false"><b id="identity-tag">identity · —</b></div>
+    <div id="decode" role="dialog" aria-label="Cell decode"></div>
+  </main>
+
+  <div id="readout">
+    <div id="status" aria-live="polite"><em>far</em> · the painting</div>
+    <button id="primary" type="button">Resolve</button>
+  </div>
+
+  <nav id="rail" aria-label="Distance">
+    <button type="button" data-d="FAR" aria-pressed="true"><span class="tick"></span>far</button>
+    <button type="button" data-d="NEAR" aria-pressed="false"><span class="tick"></span>near</button>
+    <button type="button" data-d="ENTERED" aria-pressed="false"><span class="tick"></span>entered</button>
+    <button type="button" data-d="EXITED" aria-pressed="false"><span class="tick"></span>exited</button>
+  </nav>
+
+  <p class="sr" id="a11y-help">Tap the painting to resolve it into characters, enter the city and walk it with arrow keys or by swiping, then exit to see your route recompose the painting. Return clears the route and restores the painting exactly.</p>
+
+  <script src="/lib/moire-ambient.js"></script>
+  <script src="ladder-core.js"></script>
+  <script src="ladder.js"></script>
+</body>
+</html>

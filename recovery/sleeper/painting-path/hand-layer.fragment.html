@@ -1,0 +1,251 @@
+<style>
+#handBar{position:absolute;left:14px;bottom:104px;z-index:6;display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:calc(100% - 28px)}
+#handBar button{min-height:38px;font-size:12px;padding:4px 10px;background:#101719dc}
+#handBar button[aria-pressed=true]{background:var(--accent);color:#162024;border-color:var(--accent)}
+#handBar .hint{font-size:10px;color:#b0bdbe;background:#101719c9;padding:2px 6px}
+#handCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+/* critic fix 2026-10-24: the ink canvas must never eat the instrument's own taps.
+   Measured: with the hand armed, elementFromPoint at a pin centre returned handCanvas. */
+#pins{z-index:4!important}.viewbar{z-index:5}.camera-controls{z-index:5}#mini{z-index:5}#paintingCredit{z-index:5}#challenge{z-index:6}
+#handCanvas.armed{pointer-events:auto;cursor:crosshair}
+#handDecode{position:absolute;right:14px;bottom:104px;z-index:6;font-size:10px;color:#b0bdbe;background:#101719c9;padding:3px 6px;max-width:46%;line-height:1.5;text-align:right}
+#handDecode b{color:#e06a9c;font-weight:400}
+#handVerdict{position:absolute;left:50%;top:64px;transform:translateX(-50%);z-index:9;font:12px/1.4 ui-monospace,monospace;background:#101719f2;border:1px solid #45565c;padding:6px 10px;white-space:pre}
+</style>
+<div id="handBar" role="group" aria-label="Hand and sound">
+  <button id="handArm" aria-pressed="false">Hand · off</button>
+  <button id="handSound" aria-pressed="false">Sound · mute</button>
+  <span class="hint" id="handHint">hand off — the painting pans</span>
+</div>
+<canvas id="handCanvas" aria-label="Hand ink layer"></canvas>
+<div id="handDecode">HAND · field <b>hand.trace</b> · <span id="handCount">0 strokes</span></div>
+<div id="handVerdict" hidden></div>
+<script>
+/* THE HAND — magenta ink layer for Painting / Path.
+ *
+ * Absorbed, not invented: /20261018-borrowed-hand/ (donor commit f9033a8b4, "the Magenta layer")
+ * whose mechanism is Paint With Music (Google Arts & Culture Lab × Magenta DDSP):
+ *   velocity → pitch + brightness · width → loudness · y → tone · x → pan.
+ * House law: P3 quiet by default (paint off, master gain 0), P8 colour only on approach
+ * (hairline at rest, magenta bloom with speed), P11 every drawn mark names its record field
+ * (hand.trace), P2 deterministic (no randomness, no clock in the mapping).
+ */
+(function () {
+  'use strict';
+  var Q = new URLSearchParams(location.search);
+  var clamp = function (x, a, b) { return Math.max(a, Math.min(b, x)); };
+
+  // ---- deterministic mapping (pure; selftested) -------------------------------------------
+  function brushWidth(v) { return clamp(2 + 10 * Math.pow(1 - clamp(v, 0, 1), 1.15), 2, 12); } // fast = thin
+  function tone(y01)     { return 180 + Math.pow(clamp(y01, 0, 1), 0.7) * 1220; }    // donor law
+  function loud(w, v)    { return clamp(0.05 + (w / 12) * 0.10 + v * 0.02, 0.05, 0.18); }
+  function pan(x01)      { return clamp(x01 * 2 - 1, -1, 1); }
+  function bright(v)     { return 900 + clamp(v, 0, 1) * 3400; }                      // Hz, donor: filter opens with velocity
+
+  var layer = {
+    armed: false, sound: false, strokes: [], drawing: null,
+    ctxAudio: null, master: null, filter: null, panner: null, last: 0
+  };
+
+  function ensureAudio() {
+    if (layer.ctxAudio) return layer.ctxAudio;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    var ctx = new AC();
+    layer.ctxAudio = ctx;
+    layer.master = ctx.createGain();
+    layer.master.gain.value = 0;                        // mute until explicitly armed
+    layer.filter = ctx.createBiquadFilter();
+    layer.filter.type = 'lowpass';
+    layer.filter.frequency.value = 1200;
+    layer.panner = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+    layer.filter.connect(layer.panner || layer.master);
+    if (layer.panner) layer.panner.connect(layer.master);
+    layer.master.connect(ctx.destination);
+    return ctx;
+  }
+
+  function setSound(on) {
+    layer.sound = !!on;
+    var ctx = ensureAudio();
+    if (!ctx) return;
+    var ramp = function () {
+      layer.master.gain.cancelScheduledValues(ctx.currentTime);
+      layer.master.gain.setValueAtTime(layer.master.gain.value, ctx.currentTime);
+      layer.master.gain.linearRampToValueAtTime(on ? 0.18 : 0, ctx.currentTime + 0.06);
+    };
+    if (ctx.state === 'suspended') { ctx.resume().then(ramp).catch(function () {}); } else { ramp(); }
+  }
+
+  function pluck(p) {
+    var ctx = ensureAudio();
+    if (!ctx || !layer.sound) return;
+    var t = ctx.currentTime;
+    var osc = ctx.createOscillator();
+    var g = ctx.createGain();
+    osc.type = p.v > 0.55 ? 'triangle' : 'sine';
+    osc.frequency.value = p.tone;
+    layer.filter.frequency.setTargetAtTime(p.bright, t, 0.02);
+    if (layer.panner) layer.panner.pan.setTargetAtTime(p.pan, t, 0.02);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(p.loud, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+    osc.connect(g); g.connect(layer.filter);
+    osc.start(t); osc.stop(t + 0.36);
+  }
+
+  // ---- canvas ink ------------------------------------------------------------------------
+  var canvas = document.getElementById('handCanvas');
+  var field = document.getElementById('field');
+  var cx = canvas.getContext('2d');
+  var W = 0, H = 0;
+
+  function size() {
+    if (!canvas || !field) return;
+    var r = field.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    redraw();
+  }
+
+  function strokeSeg(a, b, w, v) {
+    cx.beginPath();
+    cx.strokeStyle = 'rgba(224,106,156,' + clamp(0.22 + v * 0.55, 0.22, 0.82) + ')'; // P8: colour on approach
+    cx.lineWidth = w; cx.lineCap = 'round'; cx.lineJoin = 'round';
+    cx.moveTo(a.x * W, a.y * H); cx.lineTo(b.x * W, b.y * H); cx.stroke();
+  }
+
+  function redraw() {
+    if (!cx) return;
+    cx.clearRect(0, 0, W, H);
+    layer.strokes.forEach(function (s) {
+      for (var i = 1; i < s.pts.length; i++) strokeSeg(s.pts[i - 1], s.pts[i], s.pts[i].w, s.v);
+    });
+  }
+
+  function uv(ev) {
+    var r = canvas.getBoundingClientRect();
+    return { x: clamp((ev.clientX - r.left) / Math.max(1, r.width), 0, 1),
+             y: clamp(1 - (ev.clientY - r.top) / Math.max(1, r.height), 0, 1) }; // y up
+  }
+
+  function speed(prev, cur) {
+    if (!prev) return 0;
+    var dx = (cur.x - prev.x), dy = (cur.y - prev.y);
+    return clamp(Math.sqrt(dx * dx + dy * dy) * 26, 0, 1);  // normalised, resolution-free (tuned: x8 left every stroke thick)
+  }
+
+  canvas.addEventListener('pointerdown', function (ev) {
+    if (!layer.armed) return;
+    ev.preventDefault(); ev.stopPropagation();
+    canvas.setPointerCapture && canvas.setPointerCapture(ev.pointerId);
+    var p = uv(ev);
+    layer.drawing = { i: layer.strokes.length, t0: Date.now(), v: 0, pts: [] };
+    var w = brushWidth(0);
+    layer.drawing.pts.push({ x: p.x, y: p.y, w: w });
+    strokeSeg(p, p, w, 0);
+    layer.strokes.push(layer.drawing);
+    updateCount();
+    pluck({ tone: tone(p.y), loud: loud(w, 0), pan: pan(p.x), v: 0, bright: bright(0) });
+  }, { passive: false });
+
+  canvas.addEventListener('pointermove', function (ev) {
+    if (!layer.armed || !layer.drawing) return;
+    ev.preventDefault(); ev.stopPropagation();
+    var p = uv(ev);
+    var prev = layer.drawing.pts[layer.drawing.pts.length - 1];
+    var v = speed(prev, p);
+    var w = brushWidth(v);
+    layer.drawing.v = Math.max(layer.drawing.v, v);
+    layer.drawing.pts.push({ x: p.x, y: p.y, w: w });
+    strokeSeg(prev, p, w, v);
+    var now = Date.now();
+    if (now - layer.last > 90) {           // rate-limited so a fast stroke cannot machine-gun
+      layer.last = now;
+      pluck({ tone: tone(p.y), loud: loud(w, v), pan: pan(p.x), v: v, bright: bright(v) });
+    }
+  }, { passive: false });
+
+  function endStroke(ev) {
+    if (layer.drawing) {
+      layer.drawing.dur = Date.now() - layer.drawing.t0;
+      layer.drawing = null;
+      updateCount();
+    }
+    if (ev && ev.pointerId != null && canvas.releasePointerCapture) {
+      try { canvas.releasePointerCapture(ev.pointerId); } catch (e) {}
+    }
+  }
+  canvas.addEventListener('pointerup', endStroke);
+  canvas.addEventListener('pointercancel', endStroke);
+
+  function updateCount() {
+    var el = document.getElementById('handCount');
+    if (el) el.textContent = layer.strokes.length + (layer.strokes.length === 1 ? ' stroke' : ' strokes');
+  }
+
+  // ---- controls --------------------------------------------------------------------------
+  function arm(on) {
+    layer.armed = !!on;
+    canvas.classList.toggle('armed', layer.armed);
+    var b = document.getElementById('handArm');
+    b.setAttribute('aria-pressed', String(layer.armed));
+    b.textContent = 'Hand · ' + (layer.armed ? 'paint' : 'off');
+    document.getElementById('handHint').textContent = layer.armed
+      ? 'drag to paint — stroke speed is the note'
+      : 'hand off — the painting pans';
+  }
+  document.getElementById('handArm').addEventListener('click', function () { arm(!layer.armed); });
+  document.getElementById('handSound').addEventListener('click', function () {
+    setSound(!layer.sound);
+    this.setAttribute('aria-pressed', String(layer.sound));
+    this.textContent = 'Sound · ' + (layer.sound ? 'on' : 'mute');
+  });
+
+  // ---- record + probe --------------------------------------------------------------------
+  function record() {
+    return {
+      schema: 'painting.hand/v0.1',
+      field: 'hand.trace',
+      donor: '/20261018-borrowed-hand/ f9033a8b4',
+      strokes: layer.strokes.map(function (s) {
+        var wsum = 0; s.pts.forEach(function (p) { wsum += p.w; });
+        return { i: s.i, t0: s.t0, dur: s.dur || 0, points: s.pts.length,
+                 wMean: +(wsum / Math.max(1, s.pts.length)).toFixed(2),
+                 vMax: +s.v.toFixed(3), tick: layer.sound ? 'audible' : 'muted' };
+      })
+    };
+  }
+  window.PaintingHand = { arm: arm, sound: setSound, record: record, layer: layer,
+                          brushWidth: brushWidth, tone: tone, loud: loud, pan: pan, bright: bright };
+
+  // ---- in-page selftest (?selftest=1) ----------------------------------------------------
+  function selftest() {
+    var checks = [], ok = function (name, cond) { checks.push((cond ? 'PASS ' : 'FAIL ') + name); return cond; };
+    ok('brushWidth monotone (fast thinner)', brushWidth(1) < brushWidth(0));
+    ok('brushWidth bounded 1.6..12', brushWidth(0) <= 12 && brushWidth(9) >= 1.6);
+    ok('tone bounded 180..1400', tone(0) === 180 && tone(1) <= 1400);
+    ok('tone rises with y', tone(0.9) > tone(0.1));
+    ok('loudness bounded', loud(0, 0) >= 0.05 && loud(12, 1) <= 0.18);
+    ok('pan edges', pan(0) === -1 && pan(1) === 1 && Math.abs(pan(0.5)) < 1e-9);
+    ok('brightness rises with velocity', bright(1) > bright(0));
+    ok('quiet by default: hand disarmed', layer.armed === false);
+    ok('quiet by default: sound muted', layer.sound === false);
+    ok('canvas present', !!canvas && !!cx);
+    ok('record field names hand.trace', record().field === 'hand.trace');
+    ok('record has strokes array', Array.isArray(record().strokes));
+    var pass = checks.filter(function (c) { return c.indexOf('PASS') === 0; }).length;
+    var box = document.getElementById('handVerdict');
+    box.hidden = false;
+    box.textContent = 'PAINTING HAND ' + pass + '/' + checks.length + '\n' + checks.join('\n');
+    window.__handSelftest = { pass: pass, total: checks.length, checks: checks };
+    return pass === checks.length;
+  }
+
+  window.addEventListener('resize', size);
+  size();
+  if (Q.get('selftest') === '1') selftest();
+})();
+</script>

@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T21:14:41.667+08:00",
+  "updated": "2026-10-25T00:04:25+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T13:21:39+00:00",
+        "updated_at": "2026-10-24T17:14:09+00:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -71,9 +71,10 @@
       "state": "ACTIVE",
       "receipt": "/interphase/SPEC.md",
       "machine_view": "FIELD",
-      "version": "0.10.1",
+      "version": "0.10.3",
       "transfer": [
-        "0.10.1 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
+        "0.10.3 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
+        "0.10.2 HELD WALK retained: LIST pins the current source across pagination, WALK follows declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",
         "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
@@ -1734,7 +1735,7 @@
       "showcase_card": true,
       "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
       "index": {
-        "updated_at": "2026-10-24T20:47:08.919+08:00",
+        "updated_at": "2026-10-24T20:47:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -2149,7 +2150,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-10-24T20:03:08.675+08:00",
+        "updated_at": "2026-10-24T20:03:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -8105,7 +8106,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-24T23:42:38+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8786,7 +8787,7 @@
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-10-24T19:54:49.279+08:00",
+        "updated_at": "2026-10-24T23:56:43+08:00",
         "work_modes": [
           "PLAY",
           "VERIFY",
@@ -8797,7 +8798,12 @@
       "project": "/sleeper/project/",
       "tier": "FIELD",
       "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; enacted Gates and ordered route evidence return to origin as Return Artifact v2. Current convergence treats Sleeper as a path/witness host for same-world route comparison, ghosts and optional transportation readings; FIELD/STEP donors may compose at the aperture boundary without taking City Engine authority.",
-      "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
+      "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+      "updated_at": "2026-10-24T23:59:30+08:00",
+      "work_modes": [
+        "IMPLEMENT",
+        "VERIFY"
+      ]
     },
     {
       "href": "/sleeper/axis-score.html",
@@ -8819,7 +8825,7 @@
         "POV / THE BELL: first-person wall geometry, enacted conditional branch, nonlinear loop, real passage opening, branchable state rewinding with ghost, source link; illustrative model only"
       ],
       "index": {
-        "updated_at": "2026-10-24T21:14:41.667+08:00",
+        "updated_at": "2026-10-24T21:14:41+08:00",
         "work_modes": [
           "IMPLEMENT",
           "PLAY",
@@ -9034,6 +9040,88 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/sleeper/ladder/",
+      "title": "SLEEPER // LADDER 0.1.0",
+      "kind": "experiment",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PLAY / PROVE / RETURN",
+      "state": "CANDIDATE",
+      "version": "0.1.0",
+      "showcase_card": false,
+      "receipt": "/sleeper/ladder/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/sleeper/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can painting and city be the same object at different resolutions — FAR the painting, NEAR the character field resolved from its own pixels, ENTERED the walkable matter, EXITED the recomposed painting — without explanatory translation?",
+        "baseline": "Borrowed River painting (sleeper/borrowed-river/landscape.jpg) plus the ONE RETURN v2 contract; no resolution ladder existed between the two.",
+        "mutation": "A 96x32 field computed from the painting itself (luminance -> cell tone, its own edges -> walls, hue -> district, texture -> weather), a walkable window whose matter is the live ONE RETURN text (paragraph=district, sentence=building, word=room, character=material, punctuation=window/rain/lamp), and a deterministic recomposition from the U/D/L/R witness.",
+        "evidence_gate": "ladder-selftest 34/34 on the real landscape pixels; empty witness recomposes to the original (mad64 = 0, changedPx = 0); same witness twice -> identical sha256, different witness -> visibly different; browser pass at 390x844 dpr2 (tap, dwell decode, swipe, keyboard step, EXIT metrics, return-to-origin).",
+        "next_if_pass": "Treat the ladder as the shared resolution primitive: painting-path and the city consume it instead of re-deriving a grid.",
+        "next_if_fail": "Keep it CANDIDATE and split resolution from matter; do not claim painting = city."
+      },
+      "role": "The four-distance resolution ladder (DESIGN_SPEC: 'make painting and city the same object at different resolutions'): FAR is the Borrowed River painting, NEAR resolves its brushwork into a 96x32 character field computed from the image itself (luminance -> cell tone, the painting's own edges -> walls, hue -> district, texture -> weather density), ENTERED is a walkable window of that field whose matter is the canonical ONE RETURN v2 contract fetched live (paragraph = district, sentence = building, word = room, character = material, punctuation = window/rain/lamp), and EXITED recomposes the painting with the walked U/D/L/R witness baked in. Deterministic: same witness -> byte-identical recomposition, different witness -> visibly different, empty witness -> the original pixels (mad64 = 0, changedPx = 0). Touch-first: tap to resolve, press-and-hold to decode a cell, swipe or arrow keys to step, return to the origin coordinate completes the run, RETURN restores the painting exactly.",
+      "transfer": [
+        "painting sha256 -> one hash32 tag = painting identity = city identity = artifact identity (f0f09635)",
+        "walked U/D/L/R witness -> deterministic recomposition + measured divergence (mad64 / changedPx / sha256)",
+        "image statistics -> walkable city field (walls from the edge quantile that opens the largest district)",
+        "canonical source text -> district/building/room/material/weather matter, drawn counts asserted against the source",
+        "return to origin -> route completion (ninth-gate move) and exact reconstruction"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "U/D/L/R route witness"
+          ],
+          "requires": [
+            "sleeper.borrowed-river/landscape.jpg",
+            "ONE_RETURN_V2.md source text"
+          ]
+        },
+        "transforms": {
+          "verb": "resolve a painting into its walkable city at four distances, then recompose the painting from the route",
+          "preserves": [
+            "painting identity",
+            "source provenance",
+            "route witness",
+            "origin reconstruction"
+          ],
+          "reversibility": "full - the empty witness recomposes the original bytes",
+          "side_effects": "browser-local runtime state only"
+        },
+        "emits": {
+          "kinds": [
+            "recomposed painting",
+            "route witness",
+            "in-page determinism measurements"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/sleeper/ladder/release.json",
+          "checks": [
+            "node sleeper/ladder/ladder-selftest.mjs - 34/34 arms (synthetic painting and real 512x171 landscape dump)",
+            "browser: touch tap / dwell decode / touch swipe step / keyboard step / EXIT metrics / RETURN / return-to-origin",
+            "same witness twice -> identical sha256; different witness -> different sha256; empty witness -> mad64 0"
+          ],
+          "return_path": "/sleeper/ladder/"
+        }
+      },
+      "spec": "/sleeper/ladder/SPEC.md",
+      "index": {
+        "updated_at": "2026-10-24T21:35:08+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "PLAY"
+        ]
       },
       "tier": "FIELD"
     },
@@ -10329,7 +10417,7 @@
       "family": "FIELD / OPS",
       "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers via one-tap Telegram deep links, fold receipts. Projection of sovereign-node/corpus/calls/calls.json; regenerate with scripts/build-calls.py.",
       "index": {
-        "updated_at": "2026-10-24T13:55:38+08:00",
+        "updated_at": "2026-10-25T00:04:25+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
@@ -10726,6 +10814,24 @@
         "work_modes": [
           "OPERATE",
           "RESEARCH"
+        ]
+      }
+    },
+    {
+      "href": "/decide/",
+      "title": "THE DESK — 14 escalated + 10 calls",
+      "kind": "instrument",
+      "parent": "/calls/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "Decision surface: 14 escalated promises pre-set to kestrel's recommendation with reasons + 10 open calls with real options. Tap, copy the one-line reply, paste back to execute. 12 closed / 1 snoozed / 1 held on 2026-10-24.",
+      "index": {
+        "updated_at": "2026-10-24T22:58:17+08:00",
+        "work_modes": [
+          "OPERATE"
         ]
       }
     }

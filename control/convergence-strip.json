@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-24T07:37:36.225Z",
+  "generated": "2026-10-24T16:24:36.438Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,44 +9,24 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-24",
-  "commits_in_window": 29,
-  "git_commits_in_window": 80,
-  "telemetry_commits_in_window": 51,
-  "commits_total": 6601,
-  "branch_count": 1051,
+  "commits_in_window": 119,
+  "git_commits_in_window": 192,
+  "telemetry_commits_in_window": 73,
+  "commits_total": 6713,
+  "branch_count": 1069,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "Merge READFIELD shared source/cursor consolidation (#985)",
-    "READFIELD: align structured release version and distinguish baseline CI failur"
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+    "calls: refresh (auto — answers changed)"
   ],
   "active_fronts": [
     {
       "id": "air-instrument",
       "state": "ACTIVE_NOW",
       "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air"
-    },
-    {
-      "id": "loadout-model",
-      "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface"
     }
   ],
-  "live_fronts": "5/5",
+  "live_fronts": "1/2",
   "current_heads": 12,
-  "current_updated": "2026-10-20T10:39:09+08:00"
+  "current_updated": "2026-10-24T21:02:00+08:00"
 }
