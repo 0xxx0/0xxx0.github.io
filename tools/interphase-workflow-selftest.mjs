@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {run,path,pointer,sourceObject,sourceData,receipt,PRESETS} from '../interphase/workflow.mjs';
+import {stableKey,hashText} from '../lib/id.js';
+const source={rows:[{id:'a',n:3,kind:'read',nested:{x:8}},{id:'b',n:1,kind:'make',nested:{x:5}},{id:'c',n:2,kind:'read',nested:{x:0}}],'a/b':{'~key':false}};
+const before=stableKey(source);
+const steps=[{op:'at',path:'/rows'},{op:'where',path:'/kind',test:'equals',value:'read'},{op:'sort',path:'/n'},{op:'pick',fields:['/id','/nested/x']}];
+const result=run(source,steps);
+assert.deepEqual(result.value,[{id:'c',x:0},{id:'a',x:8}]);assert.deepEqual(result.refs,[['rows','2'],['rows','0']]);
+assert.deepEqual(run(source,[...steps,{op:'at',path:'/0/x'}]).refs,[['rows','2','nested','x']]);
+assert.deepEqual(run(source,[...steps,{op:'at',path:'/0'},{op:'at',path:'/x'}]).refs,[['rows','2','nested','x']]);
+assert.equal(stableKey(source),before,'source must remain intact');
+assert.equal(run(source,[{op:'at',path:'/a~1b/~0key'}]).value,false);assert.equal(pointer(path('/a~1b/~0key')),'/a~1b/~0key');
+const take={op:'take',count:1},where={op:'where',path:'/kind',test:'equals',value:'make'},at={op:'at',path:'/rows'};
+assert.equal(run(source,[at,take,where]).value.length,0);assert.equal(run(source,[at,where,take]).value[0].id,'b','order must have real consequences');
+assert.deepEqual(run([null,{},false,0,'',{},null],[{op:'unique'}]).value,[null,{},false,0,'']);
+assert.deepEqual(run([{a:1},{}],[{op:'pick',fields:['/a']}]).value,[{a:1},{}],'missing is not null');
+assert.throws(()=>run(source,[{op:'at',path:'/toString'}]),/Missing/,'inherited properties are not source');
+assert.throws(()=>run(source,[{op:'at',path:'/rows'},{op:'pick',fields:['/id','/nested/id']}]),/distinct/);
+assert.throws(()=>run(source,[{op:'where'}]),/needs rows/);assert.throws(()=>run(source,Array(17).fill(at)),/at most/);
+assert.throws(()=>run([1],[{op:'take',count:-1}]),/nonnegative/);assert.throws(()=>path('/bad~2'),/pointer/);
+assert.throws(()=>run([1],[{op:'execute',code:'globalThis.pwned=1'}]),/Unknown/);assert.equal(globalThis.pwned,undefined);
+const raw=' {\r\n "rows": [{"x":1.2300e2,"text":"汉字 😀"}] } ',object=await sourceObject(raw,'exact.json','/fixture.json');
+assert.equal(object.payload.raw,raw);assert.equal(object.id,'source:'+await hashText(raw));
+const output=run(sourceData(object),[{op:'at',path:'/rows'}]),packet=await receipt(object,[{op:'at',path:'/rows'}],output,0,'ROOM');
+assert.equal(packet.source.hash,await hashText(raw));assert.equal(packet.projection.authority,'DERIVED');assert.equal(packet.projection.updatePolicy,'NONE');assert.equal(packet.return.next_authority,'NONE');
+assert.equal(packet.outputHash,await hashText(stableKey(output.value)));
+await assert.rejects(()=>sourceObject('{broken}','bad.json'),/Invalid JSON/);await assert.rejects(()=>sourceObject('','empty'),/nonempty/);
+for(let seed=0;seed<64;seed++){
+ const rows=Array.from({length:20},(_,i)=>({id:i,n:(i*17+seed)%13,on:(i+seed)%3===0}));
+ const r=run(rows,[{op:'where',path:'/on',test:'equals',value:true},{op:'sort',path:'/n',desc:seed%2===0},{op:'take',count:5}]);
+ for(let i=0;i<r.value.length;i++)assert.equal(rows[+r.refs[i][0]],r.value[i]);
+ assert.equal(new Set(r.refs.map(JSON.stringify)).size,r.value.length);
+}
+console.log('INTERPHASE WORKFLOW PASS · actual composition/order · source addresses · exact bytes · fail-closed import inputs · 64 row fixtures');

@@ -90,6 +90,25 @@ Research references are constraints, not imported code or canon: [Dwitter](https
 
 Next useful levers: measure cue usefulness before adding lore; compare WOVEN/GLYPH frame cost on an actual phone; let one proven return artifact drive one reversible external continuation. The lost painting-to-world correspondence and unidentified “crazy city” reference are not recovered from the available source. Self-modifying rules, a general monorepo kernel and new story authority remain proposals until they outperform this runnable loop without losing provenance. Stop adding modes if they increase search or cannot carry an actual return.
 
+## 2026-10-24 / THE BELL — conditional first-person experiment
+
+`/sleeper/` now offers a direct **THE BELL / POV** entrance linking to `/sleeper/axis-score.html?bell=1`, which opens into the playable room without a second setup screen. The same AXIS SCORE file remains the registered source-addressed reader host; no second public route or Gate authority is minted. This is an original explanatory model inspired by the bell example in [Payutto, *Buddhadhamma*, Five Aggregates](https://buddhadhamma.github.io/five-aggregates.html), not a copy of the translation and not a claim of doctrinal truth.
+
+### One enacted difference
+
+Walk from the entrance to the bell and through the east corridor. At the crossroads:
+
+- **FOLLOW** leaves the lower gateway closed and admits an upper circuit that returns the player to the bell via a nonlocal seam. Continuing produces a measurable additional loop.
+- **NOTICE / CUT** opens cell `(18,10)` in the lower passage while leaving the sound/contact unchanged. The player must physically reach the far exit at `(23,13)`; no button awards completion.
+- The **outer dial** rotates the actual view direction; the **inner dial** rewinds the actual player state/history and retains an evidence-only ghost of the abandoned future; centre switches POV/PLAN/CAUSE projections without mutating the player. Mobile touch and W/S/A/D controls remain available.
+
+The chapter is linked externally. No third-party text is fetched, stored, republished, or included in the exported source-free route. Source-addressed word/paragraph ring and user-imported sources remain available in AXIS SCORE; the illustrative Bell scenario is explicitly **not** automatically derived from arbitrary prose. The ported `/sleeper/` ONE RETURN Gate engine remains unchanged and authoritative for its own proofs.
+
+**Executable fixture:** `node tools/sleeper-bell-selftest.cjs`. The identical fixture completed **163 assertions** under an isolated V8 execution of exact repository source; the checked-out Node command and graphical/mobile browser remain unexecuted in this session. The rewind dial previews a history position before committing on release, and the completed scene offers an explicit rewind to the original fork.
+
+**Verification contract:** walk the source-contact path; reject choice before hearing; prove FOLLOW keeps the gate closed and crosses the nonlocal seam; prove NOTICE opens only the conditioned gate and permits actual exit traversal; rewind to an earlier state and branch again; inspect mobile/desktop DOM, ring hit regions, keyboard/touch and accessibility. Browser/device ergonomics not established by pure state tests. Do not call it a complete game or infer psychological/educational benefit until compared against a straightforward reading of the same example.
+
+**Rejected:** retention-basin terminology, sentiment-derived gameplay, rewarded doctrinal agreement, making a semantic connection to unlock a door without experiencing its consequence, copying the full Buddhadhamma text, and replacing the native Sleeper engine with this donor.
 
 ## 2026-10-20 candidate: walkable aperture (read-only)
 

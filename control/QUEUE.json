@@ -1,31 +1,14 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-30T13:57:00+08:00",
+  "updated": "2026-10-24T17:06:34+08:00",
   "max_live": 2,
   "live": [
     {
-      "id": "conversion",
-      "front_id": "conversion",
-      "goal": "Turn existing capability into usable/shareable/embodied consequence; do not reward coordination churn.",
+      "id": "air-instrument",
+      "front_id": "air-instrument",
+      "goal": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
       "horizon": "ACTIVE_NOW",
-      "next": [
-        "Prefer changes another human can experience without reading control files.",
-        "Prefer real device/room/body/print consequences over another internal proof when both are possible.",
-        "After one material conversion, RETURN and replan; no automatic sequel."
-      ],
-      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
-    },
-    {
-      "id": "recovery-ingest",
-      "front_id": "recovery-ingest",
-      "goal": "Maintain recoverability and reversible ingest without occupying NOW unless exact source work unlocks an active conversion.",
-      "horizon": "ACTIVE_MAINTENANCE",
-      "next": [
-        "Toolbelt text sources are durable; exact transformative-journey PNG raw bytes remain blocked and parked until a byte-capable handoff exists.",
-        "Run local one-family ingest only where verified private reports/provenance are accessible; never infer family identity from filenames alone.",
-        "Use MEDIA REFINERY automation on bounded real source batches when it directly feeds a selected finished work or active recovery."
-      ],
-      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
+      "source": "/control/CURRENT.json#active_fronts"
     }
   ],
   "held": [

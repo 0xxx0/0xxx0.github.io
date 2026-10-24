@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POV MOD — inside the composer</title>
+<style>
+/* POV MOD v0 — you are inside the wall.
+ *
+ * Design law applied (register: ~/void-anchor/AXIS/work/design-intent/DESIGN-INTENT.md):
+ *   P1 hairline palette — pad rgb(8,12,18) / ink rgb(79,87,96), no blur, no plates
+ *   P2 deterministic identity — level tags from core.js fnv1a; no randomness anywhere
+ *   P3 quiet by default, depth behind explicit reveal — walls hairline at rest
+ *   P4 layers mean something — a cube is lit only where the chain CHANGED it
+ *   P8 colour only on approach — letter at rest, colour when lit
+ *   P9 cube-room lineage — character-grid register, one input line primary
+ *   P11 measured, not seeded; every drawn mark names its record field in DECODE
+ *   homoiconic — the walls ARE the state; the chain IS the program; the net IS the map
+ */
+:root{
+  color-scheme:dark;
+  --pad:rgb(8,12,18); --ink:rgb(79,87,96); --txt:#aab5b9; --hi:#dce6e2;
+  --Y:#d8b26a; --R:#ef7447; --B:#75c8e7; --G:#91db8a;
+  --S:210px;            /* room half-size */
+  --yaw:0deg; --pitch:0deg;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--pad);color:var(--txt);
+  font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+  height:100%;overflow:hidden;overscroll-behavior:none}
+button{font:inherit;background:transparent;color:var(--hi);border:1px solid var(--ink);
+  border-radius:0;cursor:pointer;letter-spacing:.06em}
+button:hover,button:focus-visible{border-color:var(--B)}
+button:disabled{opacity:.32;cursor:not-allowed}
+
+/* ── header: title · room counter · the map you hold ─────────────────── */
+.top{display:flex;gap:10px;align-items:center;padding:8px 12px 6px;
+  border-bottom:1px solid var(--ink)}
+.top b{color:var(--hi);letter-spacing:.14em;font-size:10px}
+.top .tag{color:var(--ink);letter-spacing:.08em}
+.netMini{margin-left:auto;display:block}
+.netMini .cell{fill:transparent;stroke:var(--ink);stroke-width:1;cursor:pointer}
+.netMini .cell.solved{fill:rgba(220,230,226,.16);stroke:var(--txt)}
+.netMini .cell.here{stroke:var(--hi);stroke-width:1.6}
+
+/* ── the room (camera just outside the open side; faces draw inner sides only) ── */
+.stage{position:relative;height:46vh;min-height:280px;max-height:430px;
+  perspective:700px;perspective-origin:50% 50%;touch-action:none;cursor:grab}
+.stage.grabbing{cursor:grabbing}
+.room{position:absolute;left:50%;top:50%;width:calc(var(--S)*2);height:calc(var(--S)*2);
+  margin:calc(var(--S)*-1) 0 0 calc(var(--S)*-1);transform-style:preserve-3d;
+  transform:translateZ(480px) rotateX(var(--pitch)) rotateY(var(--yaw))}
+.face{position:absolute;inset:0;border:1px solid var(--ink);
+  background:rgba(8,12,18,.72);backface-visibility:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:14px;overflow:hidden}
+.f-n{transform:translateZ(calc(var(--S)*-1))}
+.f-s{transform:rotateY(180deg) translateZ(calc(var(--S)*-1))}
+.f-e{transform:rotateY(-90deg) translateZ(calc(var(--S)*-1))}
+.f-w{transform:rotateY(90deg) translateZ(calc(var(--S)*-1))}
+.f-up{transform:rotateX(-90deg) translateZ(calc(var(--S)*-1))}
+.f-down{transform:rotateX(90deg) translateZ(calc(var(--S)*-1))}
+.wlabel{color:var(--ink);letter-spacing:.16em;font-size:9px}
+
+/* ── walls of cubes: letter at rest, colour when lit (P8) ───────────── */
+.wallgrid{display:flex;gap:10px;align-items:flex-end;min-height:118px}
+.stack{display:flex;flex-direction:column-reverse;gap:4px}
+.cube{width:34px;height:34px;border:1px solid var(--ink);color:var(--txt);
+  display:flex;align-items:center;justify-content:center;font-weight:700;
+  letter-spacing:.06em;background:transparent;
+  transition:background-color .22s ease,color .22s ease,border-color .22s ease}
+.cube.lit{background:var(--c,var(--ink));color:var(--pad);border-color:var(--c,var(--ink))}
+.cube.ghost{border-style:dashed;border-color:rgb(48,56,62);color:rgb(48,56,62)}
+.wallgrid.goal .cube{color:var(--ink);border-color:rgb(48,56,62)}
+body.solved .wallgrid.goal .cube{color:var(--pad);background:var(--c,var(--ink));border-color:var(--c,var(--ink))}
+
+/* ── the door (south) + the decode wall (up) + the map wall (west) ───── */
+.door{width:150px;height:190px;border:1px solid var(--ink);position:relative;
+  display:flex;align-items:center;justify-content:center;letter-spacing:.12em;
+  color:var(--ink)}
+body.solved .door{border-color:var(--B);color:var(--B)}
+.door button{padding:10px 14px}
+.decrow{display:flex;gap:10px;color:var(--txt)}
+.decrow b{color:var(--ink);letter-spacing:.12em;font-size:9px;font-weight:400}
+.tagcode{color:var(--ink);letter-spacing:.1em}
+.netBig{display:block}
+.netBig .cell{fill:transparent;stroke:var(--ink);stroke-width:1}
+.netBig .cell.solved{fill:rgba(220,230,226,.16);stroke:var(--txt)}
+.netBig .cell.here{stroke:var(--hi);stroke-width:1.6}
+
+/* ── the dock: one input line is the primary surface (P9) ───────────── */
+.dock{border-top:1px solid var(--ink);padding:8px 12px 12px;
+  position:absolute;left:0;right:0;bottom:0;background:var(--pad)}
+.line{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:5px 0;min-height:30px}
+.line .k{color:var(--ink);letter-spacing:.14em;width:44px;flex:0 0 44px}
+.slot{border:1px dashed var(--ink);height:32px;min-width:88px;padding:0 8px;
+  display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.slot button{border:0;color:var(--txt);height:30px;padding:0 6px}
+.fnt{height:32px;padding:0 9px}
+.fnt .cl{color:var(--ink);margin-right:6px}
+.status{color:var(--ink);letter-spacing:.06em;margin-left:auto}
+.status.ok{color:var(--G)}
+.hint{color:var(--ink);letter-spacing:.05em;padding:2px 12px 0}
+
+/* ── the floor instrument (the borrowed hand paints here) ── */
+#floorInk{position:absolute;inset:0;width:100%;height:100%}
+.face.f-down .wlabel{position:absolute;top:6px;left:8px;z-index:1}
+
+/* ── decode overlay (press-and-hold: one hold teaches the vocabulary) ── */
+.decode{position:fixed;inset:0;background:rgba(8,12,18,.93);padding:18px 16px;
+  z-index:9;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.decode[hidden]{display:none}
+.decode .big{color:var(--hi);letter-spacing:.12em;font-size:13px}
+.decode .what{color:var(--txt)}
+.decode .field{color:var(--ink);letter-spacing:.08em}
+.decode button{align-self:flex-start;padding:9px 14px}
+
+@media (prefers-reduced-motion:reduce){
+  .cube{transition:none}
+}
+@media (max-height:640px){.stage{height:40vh;min-height:230px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <b>POV MOD</b>
+  <span class="tag" id="roomTag">ROOM 1/5</span>
+  <svg class="netMini" id="netMini" width="66" height="66" viewBox="0 0 66 66"
+       aria-label="the map you hold: five rooms on one net"></svg>
+</div>
+<p class="hint" id="hint">one function is enough</p>
+
+<div class="stage" id="stage" role="application" aria-label="the room you are inside — drag to look">
+  <div class="room" id="room">
+    <div class="face f-n"><div class="wlabel">STATE · THE WALL YOU COMPOSE</div><div class="wallgrid" id="stateGrid"></div></div>
+    <div class="face f-e"><div class="wlabel">TARGET</div><div class="wallgrid goal" id="targetGrid"></div></div>
+    <div class="face f-w"><div class="wlabel">THE MAP YOU HOLD</div><svg class="netBig" id="netBig" width="180" height="180" viewBox="0 0 180 180"></svg></div>
+    <div class="face f-up">
+      <div class="wlabel">DECODE · THE ROOM'S RECORD</div>
+      <div class="decrow"><b>LEVEL</b><span id="decId">—</span></div>
+      <div class="decrow"><b>TITLE</b><span id="decTitle">—</span></div>
+      <div class="decrow"><b>TAG</b><span class="tagcode" id="decTag">—</span></div>
+      <div class="decrow"><b>SOLUTION</b><span class="tagcode" id="decSol">—</span></div>
+      <div class="decrow"><b>GESTURE</b><span id="decGest">no strokes yet</span></div>
+      <div class="decrow"><b>TONE</b><span class="tagcode">velocity→pitch · width→loud · height→tone · x→pan</span></div>
+    </div>
+    <div class="face f-down" id="floor"><div class="wlabel">FLOOR · THE HAND PAINTS HERE</div><canvas id="floorInk" width="720" height="440"></canvas></div>
+    <div class="face f-s">
+      <div class="wlabel">THE DOOR</div>
+      <div class="door" id="door"><span id="doorWord">LOCKED · COMPOSE THE WALL</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="dock">
+  <div class="line"><span class="k">CHAIN</span><span id="chainLine" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+    <span class="status" id="status">chain empty</span></div>
+  <div class="line"><span class="k">SHELF</span><span id="shelfLine" style="display:flex;gap:6px;flex-wrap:wrap"></span></div>
+  <div class="line"><span class="k">WORK</span>
+    <button id="resetBtn">↺ RESET</button>
+    <button id="backBtn">← ROOMS</button>
+    <button id="soundBtn">Sound: off</button>
+  </div>
+</div>
+
+<div class="decode" id="decode" hidden>
+  <div class="big" id="decBig">—</div>
+  <div class="what" id="decWhat">—</div>
+  <div class="field" id="decField">—</div>
+  <button id="decClose">CLOSE</button>
+</div>
+
+<pre id="selftest" hidden></pre>
+
+<script src="../core.js"></script>
+<script src="./core.js"></script>
+<script src="./brush.js"></script>
+<script>
+(function(){
+'use strict';
+var CC = window.CubeComposerCore, POV = window.PovCore;
+if (!CC || !POV) throw new Error('POV_MOD_REQUIRES_CORES');
+
+var COLORS = { Y:'var(--Y)', R:'var(--R)', B:'var(--B)', G:'var(--G)' };
+var roomIx = 0, chain = [], solved = {}, yaw = 0, pitch = 0;
+var $ = function (id) { return document.getElementById(id); };
+
+function room() { return POV.ROOMS[roomIx]; }
+function composed() {
+  try { return CC.run(room().start, chain); } catch (e) { return CC.clone(room().start); }
+}
+
+/* ── walls ───────────────────────────────────────────────────────────── */
+function renderWall(el, wall, litSet, ghosts) {
+  el.innerHTML = '';
+  wall.forEach(function (stack, s) {
+    var col = document.createElement('div'); col.className = 'stack';
+    var g = ghosts[s] || [];
+    var maxH = Math.max(stack.length, g.length ? Math.max.apply(null, g) + 1 : 0);
+    for (var h = 0; h < maxH; h++) {
+      var t = document.createElement('div');
+      if (h < stack.length) {
+        t.className = 'cube' + (litSet[s + ':' + h] ? ' lit' : '');
+        t.style.setProperty('--c', COLORS[stack[h]] || 'var(--ink)');
+        t.textContent = stack[h];
+      } else {
+        t.className = 'cube ghost'; t.textContent = '·';
+      }
+      col.appendChild(t);
+    }
+    el.appendChild(col);
+  });
+}
+
+function renderNet(svg, size) {
+  var ns = 'http://www.w3.org/2000/svg';
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var u = size / 5;
+  POV.ROOMS.forEach(function (r) {
+    var rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', (r.cell[0] + 2) * u + 1.5);
+    rect.setAttribute('y', (r.cell[1] + 2) * u + 1.5);
+    rect.setAttribute('width', u - 3); rect.setAttribute('height', u - 3);
+    rect.setAttribute('class', 'cell' + (solved[r.id] ? ' solved' : '') +
+      (r.index === roomIx ? ' here' : ''));
+    rect.addEventListener('click', function () { if (solved[r.id] || r.index === roomIx) goRoom(r.index); });
+    svg.appendChild(rect);
+  });
+}
+
+/* ── dock ────────────────────────────────────────────────────────────── */
+function renderDock() {
+  var r = room(), cl = $('chainLine'), sl = $('shelfLine');
+  cl.innerHTML = '';
+  if (!chain.length) {
+    var e = document.createElement('span'); e.className = 'slot'; e.textContent = 'empty';
+    cl.appendChild(e);
+  }
+  chain.forEach(function (id, i) {
+    var s = document.createElement('span'); s.className = 'slot';
+    var b = document.createElement('button');
+    b.textContent = (i + 1) + '·' + CC.fnLabel(id);
+    b.title = 'tap to remove';
+    b.addEventListener('click', function () { chain.splice(i, 1); render(); });
+    holdable(b, id);
+    s.appendChild(b); cl.appendChild(s);
+  });
+  sl.innerHTML = '';
+  r.shelf.forEach(function (id) {
+    var b = document.createElement('button'); b.className = 'fnt';
+    b.innerHTML = '<span class="cl">+</span>' + CC.fnLabel(id);
+    b.disabled = chain.length >= r.slots;
+    b.addEventListener('click', function () {
+      if (chain.length < r.slots) { chain.push(id); render(); }
+    });
+    holdable(b, id);
+    sl.appendChild(b);
+  });
+  var solvedNow = POV.solveCheck(r, chain);
+  var st = $('status');
+  if (solvedNow && !solved[r.id]) { st.textContent = 'WALL MATCHES · THE DOOR IS OPEN'; st.className = 'status ok'; }
+  else if (solved[r.id]) { st.textContent = 'ROOM OPEN'; st.className = 'status ok'; }
+  else { st.textContent = chain.length + '/' + r.slots + ' slots · keep composing'; st.className = 'status'; }
+}
+
+/* ── decode on press-and-hold (one hold teaches the vocabulary) ─────── */
+var holdT = null;
+function holdable(el, id) {
+  var open = function () {
+    holdT = setTimeout(function () {
+      var d = POV.decodeFn(id), r = room();
+      $('decBig').textContent = d.label;
+      $('decWhat').textContent = d.what;
+      $('decField').textContent = d.field + ' · tag ' + CC.fnv1a(id) + ' · room ' + r.id + ' tag ' + r.tag;
+      $('decode').hidden = false;
+    }, 520);
+  };
+  var cancel = function () { clearTimeout(holdT); };
+  el.addEventListener('pointerdown', open);
+  el.addEventListener('pointerup', cancel);
+  el.addEventListener('pointerleave', cancel);
+  el.addEventListener('pointercancel', cancel);
+}
+$('decClose').addEventListener('click', function () { $('decode').hidden = true; });
+
+/* ── the door + rooms ────────────────────────────────────────────────── */
+function renderDoor() {
+  var r = room(), d = $('door');
+  if (solved[r.id]) {
+    d.innerHTML = '';
+    var b = document.createElement('button');
+    b.textContent = roomIx < POV.ROOMS.length - 1 ? '→ ENTER THE NEXT ROOM' : '↺ THE NET IS COMPLETE';
+    b.addEventListener('click', function () {
+      if (roomIx < POV.ROOMS.length - 1) goRoom(roomIx + 1);
+      else goRoom(0);
+    });
+    d.appendChild(b);
+    $('doorWord') && ($('doorWord').textContent = '');
+  } else {
+    d.innerHTML = '<span id="doorWord">LOCKED · COMPOSE THE WALL</span>';
+  }
+}
+
+function goRoom(i) {
+  roomIx = i; chain = [];
+  yaw = 0; pitch = 0;
+  render();
+}
+
+/* ── render ──────────────────────────────────────────────────────────── */
+function render() {
+  var r = room(), wall = composed();
+  var diff = POV.wallDiff(r.start, wall);
+  var litSet = {};
+  diff.changed.forEach(function (k) { litSet[k] = true; });
+  var ghosts = {};
+  diff.ghosts.forEach(function (k) {
+    var p = k.split(':'); (ghosts[p[0]] = ghosts[p[0]] || []).push(Number(p[1]));
+  });
+  renderWall($('stateGrid'), wall, litSet, ghosts);
+  renderWall($('targetGrid'), r.target, {}, {});
+  if (audio && audio.on && diff.changed.length) {
+    // the DELTA is audible (P4): one tone whose velocity = tiles changed
+    try { audio.pluck(360, 220, Math.min(26, 2 + diff.changed.length * 2), Math.min(5, diff.changed.length), { w: 720, h: 440 }); } catch (e) {}
+  }
+  renderNet($('netMini'), 66); renderNet($('netBig'), 180);
+  $('roomTag').textContent = 'ROOM ' + (roomIx + 1) + '/' + POV.ROOMS.length +
+    (solved[r.id] ? ' · OPEN' : '');
+  $('hint').textContent = r.hint + ' · ' + r.title;
+  $('decId').textContent = r.id;
+  $('decTitle').textContent = r.title;
+  $('decTag').textContent = r.tag;
+  $('decSol').textContent = r.solution.join(' >>> ');
+  renderDock(); renderDoor();
+  var wasSolved = solved[r.id];
+  if (!wasSolved && POV.solveCheck(r, chain)) {
+    solved[r.id] = true;
+    document.body.classList.add('solved');
+    setTimeout(function () { document.body.classList.remove('solved'); }, 2600);
+    renderNet($('netMini'), 66); renderNet($('netBig'), 180);
+    renderDock(); renderDoor();
+  }
+}
+
+/* ── look around (drag) ─────────────────────────────────────────────── */
+var dragging = false, px = 0, py = 0;
+var stage = $('stage');
+stage.addEventListener('pointerdown', function (e) {
+  if (e.target && floorEl && floorEl.contains(e.target)) return;  // the floor is the hand's surface
+  dragging = true; px = e.clientX; py = e.clientY;
+  stage.classList.add('grabbing');
+  stage.setPointerCapture && stage.setPointerCapture(e.pointerId);
+});
+stage.addEventListener('pointermove', function (e) {
+  if (!dragging) return;
+  yaw += (e.clientX - px) * 0.35;
+  pitch = Math.max(-26, Math.min(26, pitch - (e.clientY - py) * 0.22));
+  px = e.clientX; py = e.clientY;
+  document.documentElement.style.setProperty('--yaw', yaw.toFixed(2) + 'deg');
+  document.documentElement.style.setProperty('--pitch', pitch.toFixed(2) + 'deg');
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+  stage.addEventListener(ev, function () { dragging = false; stage.classList.remove('grabbing'); });
+});
+
+$('resetBtn').addEventListener('click', function () { chain = []; render(); });
+$('backBtn').addEventListener('click', function () {
+  var firstOpen = POV.ROOMS.findIndex(function (r) { return !solved[r.id]; });
+  goRoom(firstOpen < 0 ? 0 : firstOpen);
+});
+
+/* ── keyboard (desktop twin of the phone gestures) ──────────────────── */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') { yaw -= 9; }
+  else if (e.key === 'ArrowRight') { yaw += 9; }
+  else if (e.key === 'Escape') { $('decode').hidden = true; chain = []; }
+  else return;
+  document.documentElement.style.setProperty('--yaw', yaw.toFixed(2) + 'deg');
+  render();
+});
+
+/* ── the floor instrument (PovBrush: the borrowed hand, in the room) ──── */
+var audio = (typeof PovBrush !== 'undefined') ? PovBrush.makeAudio() : null;
+var floorEl = $('floor');
+var floorCtx = $('floorInk').getContext('2d');
+var gest = [], stroke = null;
+// house pattern: a headless probe drives the figure's public API
+window.POVProbe = {
+  gest: function () { return gest; },
+  audio: function () { return audio ? { on: audio.on, state: audio.ctx && audio.ctx.state } : null; }
+};
+
+$('soundBtn').addEventListener('click', async function () {
+  if (!audio) return;
+  var on = await audio.toggle();
+  $('soundBtn').textContent = on ? 'Sound: on' : 'Sound: off';
+});
+
+floorEl.addEventListener('pointerdown', function (e) {
+  e.stopPropagation();
+  floorEl.setPointerCapture && floorEl.setPointerCapture(e.pointerId);
+  stroke = { pts: [{ x: e.offsetX, y: e.offsetY, t: performance.now(), v: 0 }], prev: null };
+  floorCtx.lineCap = 'round'; floorCtx.lineJoin = 'round';
+});
+floorEl.addEventListener('pointermove', function (e) {
+  if (!stroke) return;
+  var t = performance.now();
+  var last = stroke.pts[stroke.pts.length - 1];
+  var dt = Math.max(1, t - last.t);
+  var d = Math.sqrt(Math.pow(e.offsetX - last.x, 2) + Math.pow(e.offsetY - last.y, 2));
+  var v = d / dt;
+  var s = PovBrush.brushWidth(e.offsetX, e.offsetY, last, dt);   // velocity -> width (donor)
+  stroke.pts.push({ x: e.offsetX, y: e.offsetY, t: t, v: v });
+  // the drawn mark IS the record: one measured segment, ink hairline (P1/P11)
+  floorCtx.strokeStyle = 'rgba(79,87,96,' + s.a.toFixed(3) + ')';
+  floorCtx.lineWidth = s.w;
+  floorCtx.beginPath();
+  floorCtx.moveTo(last.x, last.y);
+  floorCtx.lineTo(e.offsetX, e.offsetY);
+  floorCtx.stroke();
+  if (audio) audio.pluck(e.offsetX, e.offsetY, s.w, v, { w: $('floorInk').width, h: $('floorInk').height });
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+  floorEl.addEventListener(ev, function () {
+    if (!stroke) return;
+    var rec = PovBrush.record(stroke.pts);
+    gest.push(rec);
+    $('decGest').textContent = 'gesture.trace · ' + rec.n + ' pts · ' + rec.span + ' ms';
+    stroke = null;
+  });
+});
+
+/* ── in-page verdict (?selftest=1) — runs AFTER the first render ────── */
+render();
+if (/[?&]selftest=1/.test(location.search)) {
+  var checks = [], ok = 0;
+  var ck = function (name, pass) { checks.push((pass ? 'PASS' : 'FAIL') + ' ' + name); if (pass) ok++; };
+  ck('six faces', document.querySelectorAll('.face').length === 6);
+  ck('five net cells', $('netMini').querySelectorAll('.cell').length === 5);
+  ck('wall grid draws ' + room().start.length + ' stacks', $('stateGrid').children.length === room().start.length);
+  ck('shelf matches level', $('shelfLine').children.length === room().shelf.length);
+  ck('level tags deterministic', room().tag === CC.levelTag(room()));
+  var verdict = 'PASS ' + ok + '/' + checks.length;
+  document.title = verdict;
+  var pre = $('selftest'); pre.hidden = false;
+  pre.textContent = verdict + '\n' + checks.join('\n');
+}
+})();
+</script>
+</body>
+</html>

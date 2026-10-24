@@ -1,0 +1,257 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FIELD INDEX — the memory field</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="FIELD INDEX — the memory field">
+<meta property="og:description" content="A playable instrument over 31 months of a real corpus: 424 cells, 184,560 messages. Move through the field and it speaks. Dwell and the hidden text surfaces.">
+<meta property="og:image" content="https://0xxx0.github.io/keel/og.png">
+<style>
+  :root { --ink:#141416; --dim:#8a8a8f; --hair:#ededeb; --paper:#fbfbfa; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--paper); overflow: hidden;
+               font: 13px/1.6 -apple-system, "SF Pro Text", system-ui, sans-serif; }
+  #field { position: absolute; inset: 0; width: 100vw; height: 100vh; touch-action: none;
+           cursor: crosshair; }
+  /* quiet HUD — text at rest sits near the reveal threshold (design law) */
+  .hud { position: fixed; color: var(--dim); font-size: 11px; letter-spacing: 0.08em;
+         text-transform: uppercase; opacity: 0.35; transition: opacity .25s; }
+  .hud:hover { opacity: 1; }
+  #tl { top: 14px; left: 18px; }
+  #tr { top: 14px; right: 18px; text-align: right; }
+  #bl { bottom: 14px; left: 18px; max-width: 44vw; text-transform: none; letter-spacing: 0.02em; }
+  #br { bottom: 14px; right: 18px; text-align: right; }
+  #readout { color: var(--ink); opacity: 0.55; font-family: ui-monospace, Menlo, monospace;
+             letter-spacing: 0.02em; }
+  a { color: inherit; text-decoration: underline; text-underline-offset: 2.5px; }
+  .key { border: 1px solid var(--hair); padding: 2px 6px; margin: 0 2px; }
+</style>
+<canvas id="field"></canvas>
+<div class="hud" id="tl">FIELD INDEX · 31 months · 424 cells · 184,560 messages<br>
+  <span id="readout">move through the field</span></div>
+<div class="hud" id="tr">
+  <span class="key">drag</span> orbit · <span class="key">scroll</span> radius ·
+  <span class="key">r</span> replay · <span class="key">e</span> export trace<br>
+  dwell on a cell — the hidden text surfaces</div>
+<div class="hud" id="bl">angle = hour of day · radius = month (2023-06 core → 2026-10 rim) ·
+  light = real message count · every value measured, nothing seeded</div>
+<div class="hud" id="br"><span id="score">cells visited 0</span><br>
+  <a href="https://0xxx0.github.io/keel/">← the specimen</a></div>
+
+<script>
+(() => {
+  // FIELD INDEX — the corpus as a walkable sonified field.
+  // Named-prototype lineage: sleeper maze (radial walkable plan) + Paint With Music (stroke→sound)
+  // + inkField (gesture→JSON replay) + InkPainting (variable brush). Quiet at rest (P3):
+  // terrain alpha capped at 0.12, text hidden until dwell. Homoiconic: structure = data = text.
+  const cv = document.getElementById('field');
+  const ctx = cv.getContext('2d');
+  const readout = document.getElementById('readout');
+  const scoreEl = document.getElementById('score');
+  let M = null;                    // {months, matrix, samples}
+  let cells = [];                  // {mi, hr, count, x, y, r}
+  let W, H, cx, cy, rMin, rMax, rot = 0, zoom = 1;
+  let trace = [];                  // gesture-to-JSON: [{t, x, y, mi, hr, count}]
+  let trail = [];                  // fading strokes: {x, y, w, a}
+  let reveals = [];                // dwelling text: {text, x, y, a, target}
+  let visited = new Set();
+  let ac = null, last = null, lastMove = 0, lastCell = null, dwell = 0;
+
+  function size() {
+    W = cv.width = innerWidth * devicePixelRatio;
+    H = cv.height = innerHeight * devicePixelRatio;
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    cx = innerWidth / 2; cy = innerHeight / 2;
+    rMin = Math.min(innerWidth, innerHeight) * 0.10;
+    rMax = Math.min(innerWidth, innerHeight) * 0.44 * zoom;
+    layout();
+    paint();
+  }
+
+  function layout() {
+    if (!M) return;
+    cells = [];
+    const n = M.months.length;
+    M.months.forEach((ym, mi) => {
+      const r = rMin + (mi / (n - 1)) * (rMax - rMin);
+      for (let hr = 0; hr < 24; hr++) {
+        const count = (M.matrix[ym] || {})[hr] || 0;
+        if (!count) continue;
+        const ang = -Math.PI / 2 + (hr / 24) * Math.PI * 2 + rot;
+        cells.push({ mi, hr, count, ym,
+          x: cx + Math.cos(ang) * r, y: cy + Math.sin(ang) * r,
+          rad: 1 + Math.log(1 + count) * 1.5 });
+      }
+    });
+    // place each real sample next to its cell (the hidden text)
+    reveals = reveals.filter(r => r.a > 0.02);
+    M.samples.forEach(s => {
+      const c = cells.find(c => c.ym === s[0] && c.hr === s[1]);
+      if (c) samplesByCell.set(c, s[2]);
+    });
+  }
+  const samplesByCell = new Map();
+
+  function paint() {
+    const w = innerWidth, h = innerHeight;
+    ctx.fillStyle = '#fbfbfa'; ctx.fillRect(0, 0, w, h);
+    if (!cells.length) return;
+    // REST STATE: terrain near-invisible (alpha ≤ 0.12). Structure waits.
+    cells.forEach(c => {
+      const a = 0.04 + Math.log(1 + c.count) / Math.log(1400) * 0.08;
+      ctx.fillStyle = `rgba(20,20,22,${a.toFixed(3)})`;
+      ctx.beginPath(); ctx.arc(c.x, c.y, c.rad, 0, Math.PI * 2); ctx.fill();
+    });
+    // hour rings, 1px, near-0 dim
+    ctx.strokeStyle = 'rgba(20,20,22,0.05)'; ctx.lineWidth = 1;
+    for (let hr = 0; hr < 24; hr += 6) {
+      const ang = -Math.PI / 2 + (hr / 24) * Math.PI * 2 + rot;
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(ang) * rMax, cy + Math.sin(ang) * rMax);
+      ctx.stroke();
+    }
+    // month ring ticks
+    ctx.fillStyle = 'rgba(20,20,22,0.16)';
+    if (M) M.months.forEach((ym, mi) => {
+      if (ym.endsWith('-01') || mi === 0) {
+        const r = rMin + (mi / (M.months.length - 1)) * (rMax - rMin);
+        ctx.fillText(ym.slice(0, 4), cx + 3, cy - r);
+      }
+    });
+  }
+
+  function speak(c) {
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+    const reg = 0.7 + (c.mi / 30) * 0.6;                 // outer months ring higher
+    const f = (90 + Math.log(1 + c.count) * 78) * reg;
+    const vol = 0.04 + Math.min(0.22, Math.log(1 + c.count) / 260);
+    const gain = ac.createGain();
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(vol, t + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+    [[f, 'triangle', 0.5], [f * 1.5, 'sine', 0.2], [f / 2, 'sine', 0.25]].forEach(([fr, ty, am]) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = ty; o.frequency.value = fr; g.gain.value = am;
+      o.connect(g); g.connect(gain); o.start(t); o.stop(t + 0.55);
+    });
+    gain.connect(ac.destination);
+  }
+
+  function nearest(x, y) {
+    let best = null, bd = 40 * 40;
+    for (const c of cells) {
+      const d = (c.x - x) ** 2 + (c.y - y) ** 2;
+      if (d < bd) { bd = d; best = c; }
+    }
+    return best;
+  }
+
+  function move(x, y, speed) {
+    const now = performance.now();
+    // variable brush (InkPainting): speed → stroke width, reversed
+    const w = Math.max(1, 7 - Math.min(6, speed / 6));
+    trail.push({ x, y, w, a: 0.10 });                    // quiet trail cap
+    if (trail.length > 240) trail.shift();
+    const c = nearest(x, y);
+    if (c) {
+      const key = c.mi * 100 + c.hr;
+      if (lastCell !== key) { speak(c); visited.add(key); lastCell = key; dwell = 0; }
+      else dwell += 1;
+      // DWELL REVEAL: hidden text surfaces when you stay with a cell
+      if (dwell > 6 && samplesByCell.get(c)) {
+        const txt = samplesByCell.get(c);
+        if (!reveals.find(r => r.cell === c)) {
+          if (reveals.length > 5) reveals.shift();
+          reveals.push({ cell: c, text: txt, x: c.x, y: c.y, a: 0, target: 1 });
+        }
+      }
+      readout.textContent = `${c.ym} · ${String(c.hr).padStart(2, '0')}h · ${c.count.toLocaleString()} msgs`;
+    }
+    scoreEl.textContent = `cells visited ${visited.size}`;
+    trace.push({ t: Math.round(now), x: Math.round(x), y: Math.round(y),
+                 mi: c ? c.mi : null, hr: c ? c.hr : null, count: c ? c.count : 0 });
+    if (trace.length > 4000) trace.shift();
+    last = { x, y, t: now };
+  }
+
+  function frame() {
+    // fade the trail, ramp reveal alphas (the reveal loop)
+    trail.forEach(t => t.a *= 0.96);
+    trail = trail.filter(t => t.a > 0.004);
+    reveals.forEach(r => r.a += (r.target - r.a) * 0.08);
+    reveals = reveals.filter(r => r.a > 0.02 || r.target === 1);
+
+    paint();
+    trail.forEach(t => {
+      ctx.strokeStyle = `rgba(20,20,22,${t.a.toFixed(3)})`;
+      ctx.lineWidth = t.w;
+      ctx.beginPath(); ctx.arc(t.x, t.y, t.w / 2, 0, Math.PI * 2); ctx.stroke();
+    });
+    reveals.forEach(r => {
+      // text sits at rest ~0 alpha; only dwell brings it up
+      ctx.font = '11px ui-monospace, Menlo, monospace';
+      ctx.fillStyle = `rgba(20,20,22,${(r.a * 0.9).toFixed(3)})`;
+      const words = r.text.match(/.{1,22}(\s|$)/g) || [r.text];
+      words.slice(0, 3).forEach((ln, i) => {
+        ctx.fillText(ln.trim(), r.x + 10, r.y - 10 + i * 13);
+      });
+    });
+    requestAnimationFrame(frame);
+  }
+
+  // ---- input: pointer = walk, drag = orbit, wheel = radius zoom
+  let dragging = false, dragStart = null;
+  cv.addEventListener('pointerdown', e => {
+    dragging = true; dragStart = { x: e.clientX, y: e.clientY, rot };
+    cv.setPointerCapture(e.pointerId);
+    move(e.clientX, e.clientY, 0);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (dragging && dragStart) {
+      rot = dragStart.rot + (e.clientX - dragStart.x) * 0.004;
+      layout(); paint();
+    }
+    const speed = last ? Math.hypot(e.clientX - last.x, e.clientY - last.y) : 0;
+    move(e.clientX, e.clientY, speed);
+  });
+  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { dragging = false; }));
+  cv.addEventListener('wheel', e => {
+    e.preventDefault();
+    zoom = Math.max(0.5, Math.min(1.8, zoom * (e.deltaY > 0 ? 0.94 : 1.06)));
+    rMax = Math.min(innerWidth, innerHeight) * 0.44 * zoom;
+    layout(); paint();
+  }, { passive: false });
+
+  addEventListener('keydown', e => {
+    if (e.key === 'r') replay();
+    if (e.key === 'e') exportTrace();
+    if (e.key === 'ArrowLeft')  { rot -= 0.12; layout(); paint(); }
+    if (e.key === 'ArrowRight') { rot += 0.12; layout(); paint(); }
+  });
+
+  // ---- inkField lineage: the gesture is data. Replay it, or take it with you.
+  function replay() {
+    if (!trace.length) return;
+    let i = 0;
+    const step = () => {
+      if (i >= trace.length) return;
+      const p = trace[i++];
+      move(p.x, p.y, 2);
+      setTimeout(step, 12);
+    };
+    step();
+  }
+  function exportTrace() {
+    const blob = new Blob([JSON.stringify({ field: 'field-index', trace }, null, 1)],
+      { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'field-index-trace.json';
+    a.click();
+  }
+
+  fetch('./field-game.json').then(r => r.json()).then(d => { M = d; size(); frame(); }).catch(size);
+  addEventListener('resize', size);
+})();
+</script>

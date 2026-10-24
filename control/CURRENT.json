@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-20T10:39:09+08:00",
+  "updated": "2026-10-24T17:06:34+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -31,40 +31,19 @@
       "state": "ACTIVE_NOW",
       "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
       "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
-    },
-    {
-      "id": "loadout-model",
-      "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
-      "evidence": "cron catchup-audio · /dayline/"
     }
   ],
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.37 / ENTERABLE APERTURES + MATERIAL KINDS",
+      "head": "FIELD INDEX / INTERPHASE 0.10.0 · ONE SOURCE / MOVABLE ATTENTION",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Tap a counted region to enter its aperture through a selected-origin scale/depth transition; UP reverses that transition. Selecting a tool brings its exact addressed aperture forward at full size; OPEN enters the native host. The fixed bar retains every manifest destination and the pinned RETURN frame. Six coarse native-kind materials replace fine arrow angles; bands show kind-family presence and lower rules show membership fractions. Content-derived hash interference remains inspection-only. One HTML release address versions the adapter, core and stylesheet together, with a real warmed-cache regression. Native focus/SEEN/effect owners and six executable exit URLs remain authoritative. Automated count, motion, cache and return proof do not establish human comprehension or wordless recognition. This remains a manifest navigation slice; real corpus and in-place native work are not integrated.",
+      "retained_function": "One exact source, SHA identity and character anchor feed contained scope, plain/spatial traversal and the existing READFIELD RSVP clock. FIELD opens its full canonical manifest as a document, anchored in the actual held route; imported text and JSON use the same source-space model. Quoted interpretation links, local edits with exact undo, and validated RETURN remain source-scoped. Native effects stay with their owner. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story. Recovered Ω/history/Dayline/AXIS tools remain explicit retained tools.",
       "evidence": [
+        "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+        "/interphase/SPEC.md",
+        "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
         "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
         "/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
         "/returns/FIELD_INDEX_POSITION_0835_2026-10-20.json",
@@ -128,23 +107,46 @@
         "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
         "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
       ],
-      "version": "0.8.37",
-      "latest_return": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+      "version": "0.10.0",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
       "repo_verification": {
-        "status": "COMPONENT_PASS / EXISTING_COORDINATION_DRIFT",
-        "local": {
-          "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
-          "browser": "PASS · real stale HTTP-cache priming, non-reduced aperture expansion/reverse/cancel, five viewport native pointer/OPEN/BACK/RETURN journeys",
-          "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
+        "status": "COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
+        "source": "https://github.com/0xxx0/0xxx0.github.io/pull/988",
+        "source_head": "68a528a6a17aba89a0a796494c4d06a540125cac",
+        "component_workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183173",
+        "evidence": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+        "checks": "Native source laws; three viewport continuum browser task including real RETURN files and annotated reader round trips; five viewport native FIELD; retained workbench; package/types; static/release/redaction",
+        "broader_suite": {
+          "status": "NOT_GREEN",
+          "workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183248",
+          "observed": "Chrome --dump-dom virtual-time READ/RIDE probe timed out after 26 seconds; first-use and convergence assertions now pass after integrating current master. Earlier broad runs also exposed legacy probe completion races. No whole-repository green claim."
         },
-        "base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087",
-        "evidence": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
-        "note": "Operator disconfirmed intuitive use and fine-angle recognition. This revision tests concrete depth traversal and cache delivery; human task comprehension remains unresolved.",
-        "previous": {
-          "class": "HISTORICAL_PROOF",
-          "source": "https://github.com/0xxx0/0xxx0.github.io/blob/8b2351199ce60f99b4d2b273677b797a24b5ea0e/control/CURRENT.json",
-          "selector": "current_heads[lineage=field-index].repo_verification",
-          "canonical_json_sha256": "dc6e42727ee5ca19146c68c766276fa3c30ccea8a6980ca58ce14ecde3a5fc18"
+        "previous_release": {
+          "status": "COMPONENT_PASS / CI_UNCLAIMED",
+          "local": {
+            "core": "PASS · ordered workflow, original source/field references, exact source bytes, bounds and protected import",
+            "browser": "PASS · 320/390/1280px work composition/views/RETURN; native FIELD five viewports; recovered protected history, Ω, Dayline/Fan and AXIS",
+            "ci": "UNCLAIMED here · inspect exact PR head checks at https://github.com/0xxx0/0xxx0.github.io/pull/986"
+          },
+          "base": "d87a49a1bbd2756579204856d3ea9595af8a33dd",
+          "evidence": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+          "previous_release": {
+            "status": "COMPONENT_PASS / EXISTING_COORDINATION_DRIFT",
+            "local": {
+              "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
+              "browser": "PASS · real stale HTTP-cache priming, non-reduced aperture expansion/reverse/cancel, five viewport native pointer/OPEN/BACK/RETURN journeys",
+              "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
+            },
+            "base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087",
+            "evidence": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+            "note": "Operator disconfirmed intuitive use and fine-angle recognition. This revision tests concrete depth traversal and cache delivery; human task comprehension remains unresolved.",
+            "previous": {
+              "class": "HISTORICAL_PROOF",
+              "source": "https://github.com/0xxx0/0xxx0.github.io/blob/8b2351199ce60f99b4d2b273677b797a24b5ea0e/control/CURRENT.json",
+              "selector": "current_heads[lineage=field-index].repo_verification",
+              "canonical_json_sha256": "dc6e42727ee5ca19146c68c766276fa3c30ccea8a6980ca58ce14ecde3a5fc18"
+            }
+          }
         }
       }
     },
@@ -167,10 +169,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + RIDE LIVE",
+      "head": "READFIELD / RSVP 0.8.6 · ONE SOURCE / READ ↔ STRUCT ↔ WRIST",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE. PR #347 fixes the explicit local-file source race: choosing a local file claims the source epoch synchronously, so a stale repository load cannot discard the newer human selection. Sep-27 RIDE LIVE carries the exact current text source + cursor into FOLD//BLOOM LIVE as an addressed SENTENCE/PARAGRAPH/SECTION course through field-read-ride/v0.1; READFIELD remains source/cursor authority and LIVE remains traversal authority. Sep-27 convergence now adds one bounded device-local field-source-trail/v0.1 for VISITED/MARKED continuity and an unequal session-local readfield-course-witness/v0.1 for exact LIVE excursion RETURN: SHA-256 source identity + native-unit [start,end] revalidation precede one READFIELD cursor commit; stale/malformed returns fail closed without moving source/cursor.",
+      "retained_function": "One source and exact cursor across text scales, JSON structure, voice, READ/RIDE and compact wrist layout. Both reader layouts reuse FieldAperture and FieldSourceTrail. Source bytes are retained without JSON reserialization; WRIST handoffs verify SHA-256 and preserve character position. LISTEN retains audio-clock authority; physical watch use remains unmeasured.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -206,9 +208,10 @@
         "/returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/474",
         "/lib/read-trail.js",
-        "/tools/readfield-live-exact-return-smoke.mjs"
+        "/tools/readfield-live-exact-return-smoke.mjs",
+        "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json"
       ],
-      "latest_return": "/returns/READ_RIDE_BOUNDED_TRAIL_EXACT_RETURN_2026-09-27.json",
+      "latest_return": "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json",
       "repo_verification": {
         "route_registration_run": 36314081547,
         "public_surface_run": 36314081568,
@@ -221,7 +224,7 @@
         "read_ride_exact_return": "PASS · bounded trail + STEP×3 exact cursor RETURN + stale-source/malformed-trail zero-mutation rejection"
       },
       "merge_sha": "beba274d745552613e4548711b467afe40726038",
-      "version": "0.8.5"
+      "version": "0.8.6"
     },
     {
       "lineage": "path-poetry",
@@ -1006,6 +1009,34 @@
       "state": "HOLD_CURRENT_HEAD",
       "center": "AXIAL / FOCUS STACK 0.7.3",
       "reason": "Overview/minimap and engineering witness are now implemented from recovered donors. Hold feature expansion; ordinary use and exported witnesses should determine RETAIN/REVISE/REVERT under the mechanism-transfer loop."
+    },
+    {
+      "id": "loadout-model",
+      "state": "RETAINED_SUPPORT",
+      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
+      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/",
+      "reason": "Reusable operator substrate; retained as support rather than a separate execution front."
+    },
+    {
+      "id": "house-os-fold",
+      "state": "RETAINED_SUPPORT",
+      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
+      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md",
+      "reason": "AIR/HOUSE substrate; native private/device execution retains its owner."
+    },
+    {
+      "id": "project-fold",
+      "state": "RETAINED_SUPPORT",
+      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
+      "evidence": "exports/PROJECT-FOLD-2026-10-18.md",
+      "reason": "Maintenance reducer; no independently selected execution move."
+    },
+    {
+      "id": "catchup-nonverbal",
+      "state": "RETAINED_SUPPORT",
+      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
+      "evidence": "cron catchup-audio · /dayline/",
+      "reason": "Recurring orientation surface; not a second execution front."
     }
   ],
   "orientation": "/control/ORIENTATION.json",

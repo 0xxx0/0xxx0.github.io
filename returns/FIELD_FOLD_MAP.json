@@ -1,18 +1,18 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-20T02:55:53.188Z",
- "returns_total": 294,
- "raw_distinct_states": 112,
+ "generated": "2026-10-24T12:36:31.740Z",
+ "returns_total": 297,
+ "raw_distinct_states": 113,
  "folded_onto_enum": 4,
- "convergence_ratio": 0.036,
+ "convergence_ratio": 0.035,
  "phase_distribution": {
   "SOURCE": 0,
-  "HOLD": 96,
+  "HOLD": 97,
   "RETURN": 146,
-  "RESIDUE": 52
+  "RESIDUE": 54
  },
- "residue_count": 52,
- "unrecorded_count": 49,
+ "residue_count": 54,
+ "unrecorded_count": 51,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -95,6 +95,12 @@
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -232,6 +238,12 @@
    "kind": "unrecorded"
   },
   {
+   "file": "READFIELD_SHARED_CURSOR_2026-10-24.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
    "file": "RETURN_DOWNSTREAM_CONSEQUENCE_2026-10-03.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
@@ -332,12 +344,12 @@
   "RETURN_FIELD_FOLD_2026-10-07.json",
   "RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json"
  ],
- "verified_flagged": 72,
- "verified_flagged_independent": 70,
+ "verified_flagged": 73,
+ "verified_flagged_independent": 71,
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 49
+   "count": 51
   },
   {
    "state": "CANDIDATE",
@@ -517,6 +529,10 @@
   },
   {
    "state": "COMPLETE_PENDING_MERGE",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED / COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
    "count": 1
   },
   {
@@ -1344,6 +1360,21 @@
    "phase": "RETURN",
    "verified": true,
    "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+   "raw": "IMPLEMENTED / COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
@@ -2537,6 +2568,14 @@
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
+   "file": "READFIELD_SHARED_CURSOR_2026-10-24.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
    "file": "READFIELD_WORKFLOW_084_2026-09-25.json",
    "raw": "SHIPPED_VERIFIED",
    "phase": "RETURN",
@@ -2899,18 +2938,18 @@
   }
  ],
  "routes": {
-  "routes_total": 206,
+  "routes_total": 215,
   "route_state_raw_distinct": 10,
   "route_state_folded_onto": 3,
   "route_state_dist": {
    "SOURCE": 42,
-   "HOLD": 39,
-   "RETURN": 125,
+   "HOLD": 40,
+   "RETURN": 133,
    "RESIDUE": 0
   },
   "route_state_residue": [],
-  "operation_distinct": 71,
-  "operation_compound_count": 19,
+  "operation_distinct": 73,
+  "operation_compound_count": 21,
   "operation_debt_sample": [
    "ENTER / ROUTE",
    "REMEMBER / PATH",
@@ -2923,10 +2962,11 @@
   "operation_class_dist": {
    "RECOVER": 10,
    "OPERATE": 5,
-   "SEE": 15,
+   "SEE": 16,
    "MAKE": 21,
    "WAYFIND": 7,
-   "PLAY": 13
+   "PLAY": 13,
+   "OTHER": 1
   },
   "operation_class_map": {
    "ADDRESS": "RECOVER",
@@ -2986,6 +3026,7 @@
    "ENCODE": "MAKE",
    "INHABIT": "PLAY",
    "RECOVER / RETRIEVE": "RECOVER",
+   "PUBLISH / RETRIEVE": "OTHER",
    "WEAVE": "MAKE",
    "FEDERATE": "WAYFIND",
    "COMPILE": "MAKE",
@@ -2995,6 +3036,7 @@
    "WORK": "MAKE",
    "ACQUIRE": "RECOVER",
    "PLAY / PROVE / RETURN": "PLAY",
+   "READ / RIDE / PROVE / RETURN": "SEE",
    "REPLAY / SHARE": "PLAY",
    "VERIFY / ALIGN": "SEE",
    "RECOVER / REPRESENT": "RECOVER",
@@ -3020,10 +3062,10 @@
     },
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
-     "phase_distribution.HOLD: receipt 94 vs map 96",
+     "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 146",
-     "phase_distribution.RESIDUE: receipt 7 vs map 52",
-     "verified_flagged: receipt 95 vs map 72"
+     "phase_distribution.RESIDUE: receipt 7 vs map 54",
+     "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,
     "verdict": "AS-OF — historical snapshot by declaration (counts_as_of); live counts: this map"

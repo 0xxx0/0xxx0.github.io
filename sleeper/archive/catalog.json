@@ -1,0 +1,365 @@
+{
+ "schema": "0xxx0/sleeper-publish/v1",
+ "route": "/sleeper/archive/",
+ "published": "2026-10-24",
+ "decision": "Operator (2026-10-24): 'u can publish deduped sleeper too archive stuff' — releases the deduped Sleeper media set. Supersedes the same-morning poobaby-lane note 'Sleeper stays private', which described that lane's scope, not a standing embargo. The publication set is media-only; the source/story corpus stays local.",
+ "source_manifest": {
+  "path": "/Users/mcvoid/void-anchor/ai-media/consolidated/MANIFEST.tsv",
+  "sha256": "61ca15314f6cf5fe5885a3604a341053726c15b829bd94df46e5783286a029dd"
+ },
+ "dedup": {
+  "inventoried_rows": 1138,
+  "inventoried_bytes": 957280763,
+  "unique_sha256": 201,
+  "unique_bytes": 107106810,
+  "method": "one derivative per unique sha256; hardlink home is ai-media/consolidated/sleeper/"
+ },
+ "derivative_policy": {
+  "format": "webp",
+  "longest_edge": 1024,
+  "quality": 74,
+  "originals_published": 0,
+  "videos": "h264 source clips remuxed faststart (-c copy), no re-encode; all four are silent 640x384, 2-4 s",
+  "note": "Web derivatives only; 913 MB inventoried / 107 MB unique stay local as hardlinks."
+ },
+ "story_authority": {
+  "fields_order": "FIELD_DEFINITIONS order in the exact source shelf (recovery/sleeper/site-source-2026-09-18/app/field-catalog.ts, commit 50f886c8), cross-checked against recovery/media/sleeper-atlas/catalog.json",
+  "titles_and_descriptions": "EXACT_SOURCE_FIELD_CATALOG (recovery/media/sleeper-atlas/catalog.json) — no prose invented here",
+  "export_order": "ChatGPT export message index printed in each filename (0943 < 1284 < 2467)",
+  "walk_order": "record date (2026-10-05 worldcrafter, then 2026-10-06 walk)",
+  "creation_dates": "UNKNOWN_CREATION_DATE per the recovery catalog; groups are ordered by structure/export index/record date, never by guessed timestamps"
+ },
+ "batches": {
+  "fields": {
+   "title": "THE TEN FIELDS + site covers",
+   "count": 13,
+   "order": "field-catalog.ts FIELD_DEFINITIONS (01→10), then covers",
+   "source": "recovery/sleeper/site-source-2026-09-18/public/ (exact source shelf)",
+   "items": [
+    {
+     "file": "media/fields/01-one-return.webp",
+     "bytes": 86308,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/confluence.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/f294b5986adb__confluence.png",
+     "source_sha256": "f294b5986adb39bfca1bec2510f3c40e817bfb03ab568e4a7e19b41f4484b767",
+     "source_bytes": 466610,
+     "title": "ONE RETURN",
+     "quiet": "RETURN · RESTORE WITH DIFFERENCE · a phrase, verse cell and figure compile an ASCII city; enacted Gate proofs become a portable return"
+    },
+    {
+     "file": "media/fields/02-listening-garden.webp",
+     "bytes": 78480,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/botanage.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/0c968b72c0c2__botanage.png",
+     "source_sha256": "0c968b72c0c2983e761504886512ae6072146bc562367e96d43b08da570a7e54",
+     "source_bytes": 410909,
+     "title": "LISTENING GARDEN",
+     "quiet": "LISTEN · PRECISION WITHOUT DISSOLUTION · words become timed organisms; performance residue becomes an instrument"
+    },
+    {
+     "file": "media/fields/03-body-city.webp",
+     "bytes": 54658,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/sleeper-world.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/2a79bcc476cf__sleeper-world.png",
+     "source_sha256": "2a79bcc476cff22ff08fd86c30f99a579dded6b59fd2e42d54cb3622f05d91d6",
+     "source_bytes": 353950,
+     "title": "BODY CITY",
+     "quiet": "ANCHOR · ONE LOAD AT A TIME · hold and release pressure to awaken districts without losing the underlying body"
+    },
+    {
+     "file": "media/fields/04-all-maps-are-wrong.webp",
+     "bytes": 76436,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/labyrinth.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/620b822efaa1__labyrinth.png",
+     "source_sha256": "620b822efaa1ef112d37925b15a539135d30cd92c5b77e5a25916d3009127f15",
+     "source_bytes": 416498,
+     "title": "ALL MAPS ARE WRONG",
+     "quiet": "FOLD · ROTATE THE MODEL, NOT THE WORLD · rotate a scrambled schematic until one continuous route becomes true"
+    },
+    {
+     "file": "media/fields/05-rules-with-authors.webp",
+     "bytes": 69842,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/prison-atlas.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/9b92d1e4c162__prison-atlas.png",
+     "source_sha256": "9b92d1e4c1623c713557a3289536212b5739d6ae958c8c9716fba04c63ecc710",
+     "source_bytes": 397689,
+     "title": "RULES WITH AUTHORS",
+     "quiet": "GOVERN · MAKE THE WARDEN VISIBLE · draft a six-rule constitution while freedom, coherence and memory answer back"
+    },
+    {
+     "file": "media/fields/06-between-signal-and-form.webp",
+     "bytes": 74898,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/keris-cut.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/2113c54f02c3__keris-cut.png",
+     "source_sha256": "2113c54f02c3f33282aa0b34b3efa4da77791595da586d57034be7084ef37294",
+     "source_bytes": 435684,
+     "title": "BETWEEN SIGNAL AND FORM",
+     "quiet": "TETHER · HOLD FAST / LET FLY · cross a changing span by countering pressures from both towers"
+    },
+    {
+     "file": "media/fields/07-cultivators.webp",
+     "bytes": 68830,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/cultivators.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/486e8f4ee5f9__cultivators.png",
+     "source_sha256": "486e8f4ee5f9aa0e1f378f9d44093cf52cb7b57594ac6aa01dbc7fa7a35eed02",
+     "source_bytes": 383322,
+     "title": "CULTIVATORS",
+     "quiet": "CARRY · PRESERVE THE RETRIEVAL PATH · graft each operator to its enactment; a mark without retrieval remains decoration"
+    },
+    {
+     "file": "media/fields/08-vertical-river.webp",
+     "bytes": 61770,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/cloudbone.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/f950d57cd1de__cloudbone.png",
+     "source_sha256": "f950d57cd1dee12fb3d8bcc649239c2bb45b84ab7cf935ea42bca2392a8da0d0",
+     "source_bytes": 394089,
+     "title": "VERTICAL RIVER",
+     "quiet": "ESCAPE · CORRECT THE MODEL · flip lateral gravity while the river rises through cloudbone towers"
+    },
+    {
+     "file": "media/fields/09-confluence-engine.webp",
+     "bytes": 91160,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/a3aeea3da08e__confluence-engine.png",
+     "source_sha256": "a3aeea3da08eaea39f6cde88ed13abb873067f8fe7e672bed7c303d9afa69321",
+     "source_bytes": 483231,
+     "title": "THE CONFLUENCE ENGINE",
+     "quiet": "INTEGRATE · ONE FIELD, MANY OFFICES · rotate a junction so concurrent signals reach the offices able to answer them"
+    },
+    {
+     "file": "media/fields/10-ministry-ridge.webp",
+     "bytes": 70490,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/ministry-ridge.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/b61d0e56cb3b__ministry-ridge.png",
+     "source_sha256": "b61d0e56cb3b698257ad4679ce461fb39c6139f74b00f5dcb86c02aaa4103863",
+     "source_bytes": 408129,
+     "title": "MINISTRY RIDGE",
+     "quiet": "MEASURE · ALIGN BEFORE RETRIEVAL · turn coupled celestial rings until the archive and its sky share one coordinate"
+    },
+    {
+     "file": "media/fields/cover-one-return.webp",
+     "bytes": 67134,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/og.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/e0be741fe981__og.png",
+     "source_sha256": "e0be741fe981c8b613458b0373215909ef440fbbd547b7ed38115532f2446ca9",
+     "source_bytes": 2837663,
+     "title": "ONE RETURN / cover",
+     "quiet": "site cover for the recovered ONE RETURN v2 site · source shelf 2026-09-18"
+    },
+    {
+     "file": "media/fields/cover-field-atlas.webp",
+     "bytes": 90292,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/og-atlas.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/9e0f59f59fd2__og-atlas.png",
+     "source_sha256": "9e0f59f59fd250e043c168e1c052ae97863ac147b7c7e391a7bf9be084b05f64",
+     "source_bytes": 2981450,
+     "title": "FIELD ATLAS / cover",
+     "quiet": "site cover for the recovered field atlas · source shelf 2026-09-18"
+    },
+    {
+     "file": "media/fields/cover-wake-scroll.webp",
+     "bytes": 16076,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/public/wake-scroll.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/6b813759dbaf__wake-scroll.png",
+     "source_sha256": "6b813759dbaf3b7d4da95dafc1efb4a0273baab717f878b541dfcc34c4d84d0f",
+     "source_bytes": 2162739,
+     "title": "WAKE / scroll",
+     "quiet": "the wake scroll band from the recovered site"
+    }
+   ]
+  },
+  "lineage": {
+   "title": "LINEAGE — painting → river",
+   "count": 2,
+   "order": "mechanism lineage, stated on page",
+   "source": "experiments/painting + sleeper/borrowed-river/",
+   "items": [
+    {
+     "file": "media/lineage/spring-dawn-detail.webp",
+     "bytes": 59412,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/recovery/sleeper/site-source-2026-09-18/experiments/painting/spring-dawn-detail.jpg",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/509438475e9d__spring-dawn-detail.jpg",
+     "source_sha256": "509438475e9d5df964da52a7516d412484f0a4de9a2bedf08efe3c81577a7dcc",
+     "source_bytes": 2527253,
+     "title": "PAINTING / PATH",
+     "quiet": "brush detail from the painting experiment (experiments/painting, exact source shelf 2026-09-18) — the painting aperture lineage that later became Borrowed River"
+    },
+    {
+     "file": "media/lineage/borrowed-river-landscape.webp",
+     "bytes": 28348,
+     "source_path": "/Users/mcvoid/.codex/worktrees/4bcd/0xxx0.github.io/sleeper/borrowed-river/landscape.jpg",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/7b1e50ff74ff__landscape.jpg",
+     "source_sha256": "7b1e50ff74ffa2dec8d9b0733a6fa2b78364e7881c503f7602e2f043cb4ff428",
+     "source_bytes": 403036,
+     "title": "BORROWED RIVER 0.1",
+     "quiet": "AI-generated original ink landscape for the playable river — draw a route, sail under a finite ink budget, follow your own river home → /sleeper/borrowed-river/"
+    }
+   ]
+  },
+  "export": {
+   "title": "THE CHATGPT EXPORT",
+   "count": 3,
+   "order": "export message index",
+   "source": "ChatGPT-Backup-2026-09-18/Images/",
+   "items": [
+    {
+     "file": "media/export/0943-stories-of-the-sleeper-universe.webp",
+     "bytes": 140580,
+     "source_path": "/Users/mcvoid/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Backup-2026-09-18/Images/0943__Stories of the Sleeper Universe.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/0984a6bb68e4__0943__Stories_of_the_Sleeper_Universe.png",
+     "source_sha256": "0984a6bb68e45850eec6ede885eedba243be8e65fdce4a73c352d7ff1127365f",
+     "source_bytes": 3370244,
+     "title": "Stories of the Sleeper Universe",
+     "quiet": "ChatGPT export index 0943 · recovered from the 2026-09-18 ChatGPT backup export"
+    },
+    {
+     "file": "media/export/1284-crack-to-city.webp",
+     "bytes": 75006,
+     "source_path": "/Users/mcvoid/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Backup-2026-09-18/Images/1284__Crack to City_ A Sleeper’s Blueprint.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/612bce701b33__1284__Crack_to_City__A_Sleeper_s_Blueprint.png",
+     "source_sha256": "612bce701b3330c8530891a0d5f27312002732c4b762c26b03721c4baf367a27",
+     "source_bytes": 2881664,
+     "title": "Crack to City: A Sleeper's Blueprint",
+     "quiet": "ChatGPT export index 1284 · recovered from the 2026-09-18 ChatGPT backup export"
+    },
+    {
+     "file": "media/export/2467-sleeper-engine.webp",
+     "bytes": 104332,
+     "source_path": "/Users/mcvoid/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Backup-2026-09-18/Images/2467__The sleeper engine_ A cosmic journey.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/f07ef7352b99__2467__The_sleeper_engine__A_cosmic_journey.png",
+     "source_sha256": "f07ef7352b99365c3daa3e039d4d71235f9bfa446cb31dcd552d57dba7cb58d3",
+     "source_bytes": 2547657,
+     "title": "The sleeper engine: A cosmic journey",
+     "quiet": "ChatGPT export index 2467 · recovered from the 2026-09-18 ChatGPT backup export"
+    }
+   ]
+  },
+  "walk": {
+   "title": "THE WALK",
+   "count": 5,
+   "order": "record date",
+   "source": "AXIS/work ops recordings + worldcrafter",
+   "items": [
+    {
+     "file": "media/walk/walk-montage.webp",
+     "bytes": 21426,
+     "source_path": "/Users/mcvoid/void-anchor/AXIS/work/ops/sleeper-walk/montage.png",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/5507e49da7cf__montage.png",
+     "source_sha256": "5507e49da7cf4acb752c3308dc1e15ab3d1cad0f2a20b8d2ba7b2b383b610efc",
+     "source_bytes": 821065,
+     "title": "walk montage",
+     "quiet": "sleeper-walk ops recording · 2026-10-06"
+    },
+    {
+     "file": "media/walk/worldcrafter-sleeper-world-2026-10-05.mp4",
+     "bytes": 112687,
+     "source_path": "/Users/mcvoid/void-anchor/AXIS/work/ops/worldcrafter-sleeper-world-2026-10-05.mp4",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/eb9075596af1__worldcrafter-sleeper-world-2026-10-05.mp4",
+     "source_sha256": "eb9075596af1b6406590663cfc6e6856e31a1d6a5a6a240267c1f7bd1e8bea49",
+     "source_bytes": 112687,
+     "title": "worldcrafter: sleeper world",
+     "quiet": "2026-10-05 · h264 640×384, 2.1 s · faststart remux, no re-encode"
+    },
+    {
+     "file": "media/walk/walk-chunk-00-forward.mp4",
+     "bytes": 79051,
+     "source_path": "/Users/mcvoid/void-anchor/AXIS/work/ops/sleeper-walk/chunk-00-forward.mp4",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/1c105329942d__chunk-00-forward.mp4",
+     "source_sha256": "1c105329942df2da7912b29431127c9c391193b4cda24f614c3e6c8eab745103",
+     "source_bytes": 79051,
+     "title": "sleeper walk · chunk 00",
+     "quiet": "forward walk chunk · h264 640×384, 2.1 s · faststart remux, no re-encode"
+    },
+    {
+     "file": "media/walk/walk-chunk-01-forward.mp4",
+     "bytes": 71086,
+     "source_path": "/Users/mcvoid/void-anchor/AXIS/work/ops/sleeper-walk/chunk-01-forward.mp4",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/c9dcab87c093__chunk-01-forward.mp4",
+     "source_sha256": "c9dcab87c09389b4846ba827c8c4c9afc3b10ee8ae8a74b286bff14674d221d6",
+     "source_bytes": 71086,
+     "title": "sleeper walk · chunk 01",
+     "quiet": "forward walk chunk · h264 640×384, 2.1 s · faststart remux, no re-encode"
+    },
+    {
+     "file": "media/walk/sleeper-walk-today.mp4",
+     "bytes": 149351,
+     "source_path": "/Users/mcvoid/void-anchor/AXIS/work/ops/sleeper-walk/sleeper-walk-today.mp4",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/c89a43fd935b__sleeper-walk-today.mp4",
+     "source_sha256": "c89a43fd935b67e8652b1e430018275b6a0dac22aef10a742cd20d14a6ed4b09",
+     "source_bytes": 149351,
+     "title": "the sleeper walk, today",
+     "quiet": "2026-10-06 · h264 640×384, 4.1 s · faststart remux, no re-encode"
+    }
+   ]
+  },
+  "icon": {
+   "title": "ICON",
+   "count": 1,
+   "order": null,
+   "source": "_recovered/sleeper-city/",
+   "items": [
+    {
+     "file": "media/icon/favicon.svg",
+     "bytes": 712,
+     "source_path": "/Users/mcvoid/void-anchor/_recovered/sleeper-city/favicon.svg",
+     "consolidated_path": "/Users/mcvoid/void-anchor/ai-media/consolidated/sleeper/e6d2e59b7b5b__favicon.svg",
+     "source_sha256": "e6d2e59b7b5bbb0342e0fb496dfc262decbfe4426bbb7b047aec8d467d1dc6f7",
+     "source_bytes": 712,
+     "title": "sleeper-city favicon",
+     "quiet": "verbatim copy, 712 B"
+    }
+   ]
+  }
+ },
+ "gaps": [
+  {
+   "section": "recovery shelf (frozen vault, referenced not published here)",
+   "name": "workfield_field.png / workfield_mobile.png / Board.png",
+   "expected_source": "recovery/sleeper/workfield-v1.2/index.html references these three image files",
+   "reason": "dangling: referenced by the frozen workfield-v1.2 shelf but absent from disk, from MANIFEST.tsv, and from every consolidated copy (checked 2026-10-24). The shelf README names workfield_field.png/workfield_mobile.png as validation screenshots; their bytes never survived consolidation. Not repaired — named, per the poobaby lane convention."
+  },
+  {
+   "section": "docs (external)",
+   "name": "theme.npm.edu.tw/exh107/npm_anime/SpringDawn/.../img06.jpg",
+   "expected_source": "recovery/sleeper/site-source-2026-09-18/docs/PAINTING_PATH.md museum reference link",
+   "reason": "external museum reference inside a design doc; out of publication scope (external, not ours to mirror)"
+  }
+ ],
+ "exclusions": [
+  {
+   "what": "5 Sleeper PDFs (Atlas Reader Compendium 37.4 MB, Atlas Confluence Engine 4.3 MB, Spiral Masterwork 3.5 MB, Prison Margins Field Anthology 4.0 MB, Corpus Convergence v1 0.16 MB)",
+   "class": "DOCUMENT_CORPUS",
+   "reason": "document corpus, not gallery media; web-sized-derivative lane only. Named here, not repaired; a future document lane can release them under its own decision."
+  },
+  {
+   "what": "64 .md story/draft files (Child-of-Storms drafts, Prison-Age, slothcake fables, FIELD_LAB v1-v3, ONE_RETURN_V2, corpus pack notes) + .docx + .txt",
+   "class": "STORY_CORPUS",
+   "reason": "text corpus; this lane publishes media only. Text publication needs its own export decision (long-form, private voice)."
+  },
+  {
+   "what": "3 media-refinery derived overlays (sleeper-world__focus / __tone / __structure, AXIS/work/media-refinery out/documents/derived/maps/B-eff54c034e3680d9/)",
+   "class": "DERIVED_OVERLAY",
+   "reason": "derived working maps over sleeper-world.png, not artwork — same exclusion class the poobaby lane applied to refinery overlays."
+  },
+  {
+   "what": "Sleeper_Corpus_Convergence_v1_Pack.zip (149 KB)",
+   "class": "CONTAINER",
+   "reason": "archive container whose contents are already published individually or excluded by class above."
+  },
+  {
+   "what": "engine.ts/.mjs/.js, interphase/one-return/lab sources, index.html/css shells, build.mjs, tests, release.json, manifest.json, MANIFEST.sha256, RECEIPT.md, state.json, split_volumes.py etc. (source + tooling)",
+   "class": "SOURCE_AND_TOOLING",
+   "reason": "code and metadata, not media. The live source is already published at /sleeper/ and /recovery/sleeper/site-source-2026-09-18/; tooling/manifests are not gallery material."
+  },
+  {
+   "what": "937 duplicate rows across ~45 git worktrees (850,173,953 B of byte-identical copies)",
+   "class": "DUPLICATE_CLUSTER",
+   "reason": "byte-identical copies; one derivative per unique sha256 is published (canonical home: ai-media/consolidated hardlinks)."
+  },
+  {
+   "what": "201 unique originals (107,106,810 B)",
+   "class": "ORIGINALS_BOUNDARY",
+   "reason": "private-reservoir rule: never bulk-publish originals; derivatives only."
+  }
+ ]
+}

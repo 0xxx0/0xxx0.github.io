@@ -4,10 +4,10 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-20T03:54:37.471Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-24T07:37:36.225Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **28 material commits on 2026-10-20** across **1044 branches** (72 exact Git commits in the window; 44 generated telemetry; 6215 on master all-time).
-At capture, **2/2** fronts were marked live, against **12** captured current heads.
+At capture, the field had **29 material commits on 2026-10-24** across **1051 branches** (80 exact Git commits in the window; 51 generated telemetry; 6601 on master all-time).
+At capture, **5/5** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
 
@@ -19,9 +19,9 @@ At capture, **2/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
-- FOLD//BLOOM: restore deep audio, truthful ring and exact source return
-- FOLD//BLOOM SOURCE SPINE: exact LISTEN → native RIDE → RETURN
-- RSVP: fix JSON reading and add PIN wrist surface
+- desk: refresh public field data + root git chronology
+- Merge READFIELD shared source/cursor consolidation (#985)
+- READFIELD: align structured release version and distinguish baseline CI failur
 
 ## Law
 

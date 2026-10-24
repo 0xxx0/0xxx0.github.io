@@ -3,24 +3,40 @@ name: interphase-history-check
 on:
   pull_request:
     paths:
-      - 'lib/interphase-history.js'
-      - 'lib/interphase-lenses.js'
-      - 'lib/interphase.mjs'
+      - 'lib/interphase*'
+      - 'lib/document-structure.js'
+      - 'lib/read-trail.js'
       - 'interphase/**'
-      - 'tools/interphase-workbench-smoke.mjs'
-      - 'tools/interphase-history-selftest.cjs'
+      - 'field-aperture.js'
+      - 'field-instrument*'
+      - 'field-work*'
+      - 'index.html'
+      - 'docs/index.html'
+      - 'rsvp/**'
+      - 'tools/interphase-*'
+      - 'tools/field-instrument-smoke.mjs'
+      - 'control/CURRENT.json'
       - 'showcase-manifest.json'
+      - 'returns/FIELD_INDEX_INTERPHASE_*.json'
       - '.github/workflows/interphase-history-check.yml'
   push:
     branches: [master]
     paths:
-      - 'lib/interphase-history.js'
-      - 'lib/interphase-lenses.js'
-      - 'lib/interphase.mjs'
+      - 'lib/interphase*'
+      - 'lib/document-structure.js'
+      - 'lib/read-trail.js'
       - 'interphase/**'
-      - 'tools/interphase-workbench-smoke.mjs'
-      - 'tools/interphase-history-selftest.cjs'
+      - 'field-aperture.js'
+      - 'field-instrument*'
+      - 'field-work*'
+      - 'index.html'
+      - 'docs/index.html'
+      - 'rsvp/**'
+      - 'tools/interphase-*'
+      - 'tools/field-instrument-smoke.mjs'
+      - 'control/CURRENT.json'
       - 'showcase-manifest.json'
+      - 'returns/FIELD_INDEX_INTERPHASE_*.json'
       - '.github/workflows/interphase-history-check.yml'
 
 permissions:
@@ -29,7 +45,7 @@ permissions:
 jobs:
   history:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,9 +54,28 @@ jobs:
       - name: Syntax
         run: |
           node --check lib/interphase-history.js
+          node --check interphase/continuum.mjs
+          node --check interphase/entry.mjs
+          node --check interphase/navigation.mjs
+          node --check field-work.mjs
+          node --check rsvp/reader.js
           node --check tools/interphase-history-selftest.cjs
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
+      - name: Executable workflow and recovered source laws
+        run: |
+          node tools/interphase-navigation-selftest.mjs
+          node tools/interphase-workflow-selftest.mjs
+          node tools/interphase-extensions-selftest.mjs
+          node tools/interphase-compositor-selftest.mjs
+          PYTHONPATH=recovery/omega python3 -m unittest discover -s recovery/omega/tests -q
+      - name: Optional package transport
+        run: |
+          node tools/package-interphase.mjs "$RUNNER_TEMP/interphase-package"
+          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.3.0.tgz"
+          node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
+          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts typescript
+          node tools/interphase-types-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
       - name: Browser test dependencies (runner temp only)
         run: |
           npm install --prefix "$RUNNER_TEMP/interphase-test" playwright
@@ -53,3 +88,32 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+      - name: One-source continuum / native clock / exact reader RETURN
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
+        run: node tools/interphase-plus-smoke.mjs
+      - name: Native FIELD / source release checks
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+        run: |
+          node tools/field-instrument-smoke.mjs
+          node tools/field-reversibility-selftest.mjs
+          node tools/validate-public.mjs
+          node scripts/check-current-heads.mjs
+          node scripts/check-release-versions.mjs
+          node tools/html-document-integrity-selftest.mjs
+          python3 scripts/check-redaction-aperture.py
+      - name: Retained source echo and exact native reader doors
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+        run: node tools/interphase-native-echo-smoke.mjs
+      - name: Inspect deterministic phone and desktop captures
+        if: always()
+        run: |
+          node --input-type=module -e 'import fs from "node:fs";const d=process.env.RUNNER_TEMP+"/continuum-screenshots";if(fs.existsSync(d))for(const f of fs.readdirSync(d))if(f.endsWith(".png"))console.log("CAPTURE "+f+" "+fs.readFileSync(d+"/"+f).toString("base64"));'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: continuum-screenshots
+          path: ${{ runner.temp }}/continuum-screenshots

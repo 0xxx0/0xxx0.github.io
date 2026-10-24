@@ -349,6 +349,124 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 <header>
   <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1><p class="plainIntro">A map of everything here — instruments, pages, records. Tap a tile to see what it is; tap it again to open it.<span class="glyphLegend">⌂ ROOT · ◎ HOLD · ▽ WORK · ◆ PROVE · ↗ OPEN</span></p></div>
 </header>
+
+<!-- WHAT WAS WORKED ON + GOD'S EYE DOWN VIEW — the first screen answers what moved.
+     P3 quiet by default: rows + links at rest, the down view behind its own reveal.
+     P11 measured: every row is a registry record; the map's light is the recency rank
+     of index.updated_at, nothing seeded. P2: layout from sorted keys only. -->
+<style>
+.wo{margin:14px 0 6px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--p)}
+.woHead{display:flex;align-items:baseline;gap:10px}
+.woHead b{letter-spacing:.08em;font-size:12px}
+.woHead .tiny{color:var(--mut);font-size:11px}
+.woList{margin:8px 0 6px;padding-left:18px}
+.woList li{margin:2px 0;font-size:13px}
+.woList a{color:var(--ink);text-decoration:none}
+.woList a:hover{text-decoration:underline}
+.woNone{color:var(--mut)}
+.woFoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.woGo{font-size:12px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;
+  background:var(--p2);color:var(--ink);text-decoration:none;cursor:pointer}
+.woGo:hover{border-color:var(--gold)}
+.woDown{margin-top:10px}
+.woDown[hidden]{display:none}
+.woDown svg{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:var(--p2)}
+.woDown .tiny{color:var(--mut);font-size:11px;margin:6px 0 0}
+.woFam{fill:var(--mut);font-size:9px;letter-spacing:.05em}
+</style>
+<section class="wo" id="workedOn" aria-label="what was worked on">
+  <div class="woHead"><b>WHAT WAS WORKED ON</b><span class="tiny" id="woMeta">reading the registry…</span></div>
+  <ol class="woList" id="woList"><li class="woNone">—</li></ol>
+  <div class="woFoot">
+    <a class="woGo" href="./field-index/">◈ THE PATTERN — the memory field (play)</a>
+    <a class="woGo" href="./sleeper/axis-score.html">↻ AXIS SCORE — play a book as a traversable field</a>
+    <a class="woGo" href="./godseye/">◆ GOD'S EYE — every number names its source</a>
+    <button class="woGo" id="woDownBtn" aria-expanded="false">▾ GOD'S EYE · DOWN VIEW</button>
+  </div>
+  <div class="woDown" id="woDown" hidden>
+    <svg id="downView" viewBox="0 0 640 300" aria-label="top-down view: one tile per route, grouped by territory, light = recency rank"></svg>
+    <p class="tiny">top-down · every tile is one route from the registry · hover names its record · light = recency rank of <code>index.updated_at</code> (newest first) · tap a tile to open it</p>
+  </div>
+</section>
+<script>
+/* the strip composes itself from the same registry the map below trusts */
+(function () {
+  var host = document.getElementById('woList');
+  var meta = document.getElementById('woMeta');
+  var down = document.getElementById('woDown');
+  document.getElementById('woDownBtn').addEventListener('click', function () {
+    down.hidden = !down.hidden;
+    this.setAttribute('aria-expanded', String(!down.hidden));
+    this.textContent = (down.hidden ? '▾' : '▴') + " GOD'S EYE · DOWN VIEW";
+  });
+  fetch('./showcase-manifest.json', { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function (m) {
+    var routes = (m.routes || []).filter(function (r) { return r.href && r.title; });
+    var withTs = routes.map(function (r) { return { r: r, t: ((r.index || {}).updated_at || '') }; });
+    withTs.sort(function (a, b) { return a.t < b.t ? 1 : a.t > b.t ? -1 : 0; });
+
+    var top = withTs.slice(0, 10);
+    host.innerHTML = '';
+    top.forEach(function (x) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = x.r.href;
+      a.textContent = (x.t || '—').slice(0, 10) + '   ' + x.r.title;
+      li.appendChild(a);
+      host.appendChild(li);
+    });
+    meta.textContent = top.length + ' of ' + routes.length + ' routes · newest record stamp first';
+
+    var rank = {};
+    withTs.forEach(function (x, i) { rank[x.r.href] = i; });
+    var n = Math.max(1, withTs.length - 1);
+    var fams = {};
+    withTs.forEach(function (x) {
+      var h = x.r.href.replace(/^\//, '');
+      var fam = h.split('/')[0] || 'root';
+      if (/\.html?$/i.test(fam)) fam = 'root';
+      (fams[fam] = fams[fam] || []).push(x);
+    });
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.getElementById('downView');
+    var names = Object.keys(fams).sort();
+    var perRow = 5, colW = 128, tile = 11, gap = 2, maxX = 0, maxY = 0;
+    names.forEach(function (name, fi) {
+      var gx = 10 + (fi % perRow) * colW;
+      var gy = 16 + Math.floor(fi / perRow) * 116;
+      var lab = document.createElementNS(NS, 'text');
+      lab.setAttribute('x', gx); lab.setAttribute('y', gy);
+      lab.setAttribute('class', 'woFam'); lab.textContent = name.slice(0, 18);
+      svg.appendChild(lab);
+      fams[name].slice(0, 48).forEach(function (x, ti) {
+        var cx = gx + (ti % 8) * (tile + gap);
+        var cy = gy + 8 + Math.floor(ti / 8) * (tile + gap);
+        var a = document.createElementNS(NS, 'a');
+        a.setAttribute('href', x.r.href);
+        var rect = document.createElementNS(NS, 'rect');
+        rect.setAttribute('x', cx); rect.setAttribute('y', cy);
+        rect.setAttribute('width', tile); rect.setAttribute('height', tile);
+        var light = 1 - (rank[x.r.href] || 0) / n;
+        rect.style.fill = 'var(--gold)';
+        rect.style.fillOpacity = (0.12 + light * 0.75).toFixed(3);
+        rect.style.stroke = 'var(--line)';
+        var ttl = document.createElementNS(NS, 'title');
+        ttl.textContent = x.r.title + ' — index.updated_at ' + ((x.r.index || {}).updated_at || '—');
+        rect.appendChild(ttl);
+        a.appendChild(rect);
+        svg.appendChild(a);
+        if (cx + tile > maxX) maxX = cx + tile;
+        if (cy + tile > maxY) maxY = cy + tile;
+      });
+    });
+    svg.setAttribute('viewBox', '0 0 ' + (maxX + 12) + ' ' + (maxY + 14));
+  }).catch(function (e) {
+    meta.textContent = 'registry unreachable — ' + (e && e.message ? e.message : e);
+  });
+})();
+</script>
 <details class="reentryFold" id="reentryFold" aria-label="FIELD re-entry and depth">
   <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>READ</b></span><span class="reentryToggle">▶</span></summary>
   <div class="reentryBody">
@@ -491,7 +609,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
-<script src="./field-aperture.js"></script>
+<script src="./field-aperture.js?v=0.8.7"></script>
 <script src="./lib/constraint-surface.js"></script>
 <script src="./lib/path.js"></script><script src="./lib/interphase-core.js"></script>
 <script src="./lib/interphase-ring.js"></script>
@@ -1554,5 +1672,6 @@ window.FieldIndexReadModel=Object.freeze({
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
-<script type="module" src="./field-instrument.mjs?v=0.8.37"></script>
+<script type="module" src="./field-instrument.mjs?v=0.10.0"></script>
+<script type="module" src="./field-work.mjs?v=0.10.0"></script>
 </main></body></html>

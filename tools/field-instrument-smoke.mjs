@@ -27,6 +27,7 @@ const expected=manifest.routes.filter(r=>r.href!=='/').length,version=manifest.r
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:browserBin(),args:['--no-sandbox','--disable-dev-shm-usage']});
+// Native FIELD projection fixture; default source continuum is proved by interphase-plus-smoke.
 const results=[];
 try{
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
@@ -35,7 +36,7 @@ try{
   await cachePage.goto(base+'/__field_cache_probe__');
   await cachePage.waitForFunction(()=>document.body.dataset.primed==='1');
   assert.equal(warmed.size,3);warmLegacy=false;
-  await cachePage.goto(base+'/');await cachePage.waitForSelector('html[data-instrument="1"]');
+  await cachePage.goto(base+'/?work=0');await cachePage.waitForSelector('html[data-instrument="1"]');
   await cachePage.waitForFunction(()=>[...document.styleSheets].some(s=>s.href?.includes('field-instrument.css')));
   const releaseURLs=await cachePage.evaluate(()=>[...document.scripts].map(s=>s.src).concat([...document.styleSheets].map(s=>s.href)),null);
   for(const file of ['field-instrument.mjs','field-instrument.css'])assert.ok(releaseURLs.some(u=>u&&new URL(u).pathname==='/'+file&&new URL(u).searchParams.get('v')===version),'release address missing: '+file);
@@ -44,7 +45,9 @@ try{
   assert.equal(await cachePage.locator('[data-map-id]').count(),expected);
   // Non-reduced motion is an actual aperture traversal, not a TURN menu pose.
   const cacheStart=await cachePage.evaluate(()=>FieldInstrument.snapshot().frame);
-  await cachePage.locator('#fiReading [data-action="heads"]').click();
+  // The overview reading can legitimately become the held object's reading as native data arrives.
+  // Use the stable native bar to select CURRENT rather than racing contextual hover text.
+  await cachePage.locator('#fiAddress').click();await cachePage.locator('#fieldUrlInput').fill(':heads');await cachePage.locator('#fieldUrlInput').press('Enter');
   const house=cachePage.getByRole('button',{name:'Enter HOUSE / FIELD · /house/ · 1 objects',exact:true});
   const smallBox=await house.boundingBox();await house.click();
   assert.equal((await cachePage.evaluate(()=>FieldInstrument.snapshot())).view.inside,1);
@@ -62,7 +65,7 @@ try{
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce',acceptDownloads:true});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());
-    await page.goto(base+'/');
+    await page.goto(base+'/?work=0');
     await page.waitForSelector('html[data-instrument="1"]');
     const nativeBefore=await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes));
     const initial=await page.evaluate(()=>FieldInstrument.snapshot());
@@ -199,7 +202,7 @@ try{
     await cmd('/house/ :work');assert.equal(await page.locator('html[data-instrument="1"]').count(),0,'native WORK must reveal its own visible host, not run behind the field');
     assert.equal(await page.evaluate(()=>FieldZUI.state()),'WORK');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
-    await page.goto(base+'/?focus=/sleeper/');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&focus=/sleeper/');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,'/sleeper/','an incoming exact source address must outrank a stale saved focus');
     assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),'/sleeper/');
     await cmd(':plain');await page.reload();
@@ -238,10 +241,10 @@ try{
     assert.equal(Number.isInteger(angle),true,'TURN must resolve to a retained camera state');
     await cmd(':plain');await page.waitForSelector('html:not([data-instrument="1"])');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
-    await page.goto(base+'/?focus=/');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&focus=/');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,null,'explicit root address must clear saved native and projected focus');
     assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),null);
-    await page.goto(base+'/?fi=source%3Agit%20kind%3Aworkbench');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&fi=source%3Agit%20kind%3Aworkbench');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.query,'source:git kind:workbench','shared native bar expressions must outrank a stale saved scope');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).view.inside,await page.evaluate(()=>FieldIndexReadModel.snapshot().routes.filter(r=>r.kind==='workbench').length));
     if(width===320&&height===568){

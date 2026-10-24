@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-20T03:54:37.471Z",
+  "generated": "2026-10-24T07:37:36.225Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -8,16 +8,16 @@
   "live_derivation_source": "FIELD_INDEX_RUNTIME_QUEUE_PLUS_FEDERATION_ATLAS",
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
-  "commits_window": "2026-10-20",
-  "commits_in_window": 28,
-  "git_commits_in_window": 72,
-  "telemetry_commits_in_window": 44,
-  "commits_total": 6215,
-  "branch_count": 1044,
+  "commits_window": "2026-10-24",
+  "commits_in_window": 29,
+  "git_commits_in_window": 80,
+  "telemetry_commits_in_window": 51,
+  "commits_total": 6601,
+  "branch_count": 1051,
   "recent_commits": [
-    "FOLD//BLOOM: restore deep audio, truthful ring and exact source return",
-    "FOLD//BLOOM SOURCE SPINE: exact LISTEN → native RIDE → RETURN",
-    "RSVP: fix JSON reading and add PIN wrist surface"
+    "desk: refresh public field data + root git chronology",
+    "Merge READFIELD shared source/cursor consolidation (#985)",
+    "READFIELD: align structured release version and distinguish baseline CI failur"
   ],
   "active_fronts": [
     {
@@ -46,7 +46,7 @@
       "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface"
     }
   ],
-  "live_fronts": "2/2",
+  "live_fronts": "5/5",
   "current_heads": 12,
   "current_updated": "2026-10-20T10:39:09+08:00"
 }

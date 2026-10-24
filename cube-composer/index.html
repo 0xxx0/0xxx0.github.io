@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CUBE COMPOSER v0</title>
+<style>
+/* CUBE COMPOSER v0 — quiet character-grid register (P9), hairline palette (P1:
+   pad rgb(8,12,18) / ink rgb(79,87,96)), colour ONLY on approach (P3/P8),
+   folded CSS-3D tiles (the foundry room / cube-composer named form),
+   deterministic identity (P2 — tags from core.js, no randomness anywhere). */
+:root{
+  color-scheme:dark;
+  --pad:rgb(8,12,18); --ink:rgb(79,87,96); --txt:#aab5b9; --hi:#dce6e2;
+  --Y:#d8b26a; --R:#ef7447; --B:#75c8e7; --G:#91db8a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--pad);color:var(--txt);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+main{max-width:520px;margin:0 auto;padding:14px 12px 28px}
+a{color:var(--B)}
+/* ── header ─────────────────────────────────────────────────────────── */
+.top{display:flex;gap:8px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:8px}
+.top b{color:var(--hi);letter-spacing:.14em;font-size:10px}
+.top .tag{margin-left:auto;color:var(--ink);letter-spacing:.08em}
+.lev{margin:10px 0 2px;color:var(--hi);letter-spacing:.12em}
+.hint{color:var(--ink);margin:0 0 12px;letter-spacing:.06em}
+/* ── scene: two folded wall planes (open cube-net) ──────────────────── */
+.scene{perspective:1100px;display:flex;gap:14px;justify-content:center;margin:18px 0 6px}
+.wall{transform-style:preserve-3d;flex:1 1 0;min-width:0}
+.wall.in{transform:rotateY(14deg)}
+.wall.tg{transform:rotateY(-14deg)}
+.wlabel{color:var(--ink);letter-spacing:.14em;text-align:center;margin:0 0 6px}
+.wall.tg .wlabel{color:var(--ink)}
+.rack{display:flex;gap:8px;justify-content:center;align-items:flex-end;min-height:118px}
+.stack{display:flex;flex-direction:column-reverse;gap:3px;transform-style:preserve-3d}
+/* cube tile: character first, colour only on approach */
+.cube{
+  width:30px;height:30px;border:1px solid var(--ink);background:transparent;
+  color:var(--txt);display:flex;align-items:center;justify-content:center;
+  font-weight:700;letter-spacing:.06em;border-radius:0;
+  transform:translateZ(calc(var(--i,0) * 3px));
+  transition:background-color .22s ease,color .22s ease,border-color .22s ease;
+}
+.cube.lit,.cube:hover{background:var(--c,var(--ink));color:var(--pad);border-color:var(--c,var(--ink))}
+.wall.tg .cube{color:var(--ink);border-color:rgb(48,56,62)}
+/* ── the chain (pipeline = the program) ─────────────────────────────── */
+.chain{display:flex;gap:6px;align-items:center;justify-content:center;min-height:44px;margin:16px 0 6px;flex-wrap:wrap}
+.slot{border:1px dashed var(--ink);width:86px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.fnt{border:1px solid var(--ink);height:34px;padding:0 9px;display:flex;align-items:center;justify-content:center;
+  background:transparent;color:var(--hi);letter-spacing:.08em;cursor:pointer;border-radius:0;font-weight:700}
+.fnt:hover{border-color:var(--hi)}
+.fnt .g{color:var(--B);margin-right:5px}
+/* ── shelf ──────────────────────────────────────────────────────────── */
+.shelf{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.shelf .fnt{background:rgba(79,87,96,.12)}
+/* ── one input line (P9) ────────────────────────────────────────────── */
+.cmd{border:1px solid var(--ink);padding:9px 10px;margin:16px 0 10px;color:var(--hi);
+  letter-spacing:.05em;overflow-wrap:anywhere;min-height:34px}
+.cmd .p{color:var(--ink)}
+.cmd.win{border-color:var(--G);color:var(--G)}
+/* ── controls (one persistent route-control row) ────────────────────── */
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+button{border:1px solid var(--ink);background:transparent;color:var(--hi);font:inherit;
+  padding:8px 12px;min-height:38px;cursor:pointer;border-radius:0;letter-spacing:.12em}
+button:hover{border-color:var(--hi)}
+button:disabled{opacity:.32;cursor:not-allowed}
+button:focus-visible,.fnt:focus-visible{outline:none;border-color:var(--B);text-decoration:underline}
+.chips{margin-left:auto;display:flex;gap:4px}
+.chips button{min-width:32px;padding:8px 8px;letter-spacing:0}
+.chips button.on{border-color:var(--hi);color:var(--hi)}
+.micro{color:var(--ink);margin:16px 0 0;max-width:44em}
+@media(max-width:420px){.cube{width:26px;height:26px}.scene{gap:10px}.slot{width:74px}}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><b>FU / CUBE COMPOSER v0</b><span class="tag" id="tag">TAG —</span></div>
+  <div class="lev" id="levTitle">LEVEL 1/5 · ONE CHANGE</div>
+  <p class="hint" id="levHint">one function is enough</p>
+
+  <div class="scene">
+    <div class="wall in"><div class="wlabel">START</div><div class="rack" id="rackIn"></div></div>
+    <div class="wall tg"><div class="wlabel">TARGET</div><div class="rack" id="rackTg"></div></div>
+  </div>
+
+  <div class="chain" id="chain"></div>
+
+  <div class="cmd" id="cmd"><span class="p">&gt;&gt;&gt;</span> idle</div>
+
+  <div class="shelf" id="shelf"></div>
+
+  <div class="row">
+    <button id="runBtn">RUN</button>
+    <button id="clearBtn">CLEAR</button>
+    <button id="nextBtn">NEXT</button>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <p class="micro">Wall = state. Compose functions left to right — each one's output feeds
+  the next (f &gt;&gt;&gt; g &gt;&gt;&gt; h). Tap a tile to place it, tap it again to remove.
+  Colour is an approach layer: the letter is the state at rest. Identity is a content hash —
+  same level, same tag, always.</p>
+</main>
+<script src="core.js"></script>
+<script>
+(function(){
+'use strict';
+var C = window.CubeComposerCore;
+var li = 0, chain = [], wall = null, solved = false;
+var $ = function(s){ return document.querySelector(s); };
+
+function lv(){ return C.LEVELS[li]; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+
+function rack(el, w, lit){
+  el.innerHTML = w.map(function(st, si){
+    return '<div class="stack">' + st.map(function(c, i){
+      return '<div class="cube' + (lit ? ' lit' : '') + '" style="--c:var(--' + c + ');--i:' + i +
+        '" data-c="' + c + '">' + c + '</div>';
+    }).join('') + '</div>';
+  }).join('');
+}
+
+function renderChain(){
+  var h = '';
+  for (var i = 0; i < lv().slots; i++) {
+    if (i < chain.length) {
+      var lbl = C.fnLabel(chain[i]);
+      h += '<button class="fnt" data-rm="' + i + '" aria-label="remove ' + esc(lbl) + '"><span class="g">&#9656;</span>' + esc(lbl) + '</button>';
+    } else h += '<div class="slot">' + (i + 1) + '</div>';
+    if (i < lv().slots - 1) h += '<span style="color:var(--ink)">&gt;</span>';
+  }
+  $('#chain').innerHTML = h;
+  $('#chain').querySelectorAll('[data-rm]').forEach(function(b){
+    b.onclick = function(){ chain.splice(Number(b.dataset.rm), 1); solved = false; wall = C.clone(lv().start); render(); };
+  });
+}
+
+function renderShelf(){
+  $('#shelf').innerHTML = lv().shelf.map(function(id, i){
+    return '<button class="fnt" data-add="' + i + '" aria-label="add ' + esc(C.fnLabel(id)) + '">' + esc(C.fnLabel(id)) + '</button>';
+  }).join('');
+  $('#shelf').querySelectorAll('[data-add]').forEach(function(b){
+    b.onclick = function(){
+      if (chain.length >= lv().slots) return;
+      chain.push(lv().shelf[Number(b.dataset.add)]);
+      solved = false; wall = C.clone(lv().start); render();
+    };
+  });
+}
+
+function renderChips(){
+  $('#chips').innerHTML = C.LEVELS.map(function(l, i){
+    return '<button data-lev="' + i + '" class="' + (i === li ? 'on' : '') + '" aria-label="level ' + (i + 1) + '">' + (i + 1) + '</button>';
+  }).join('');
+  $('#chips').querySelectorAll('[data-lev]').forEach(function(b){
+    b.onclick = function(){ li = Number(b.dataset.lev); reset(); };
+  });
+}
+
+function renderCmd(){
+  var cmd = $('#cmd');
+  cmd.className = 'cmd' + (solved ? ' win' : '');
+  cmd.innerHTML = solved
+    ? '<span class="p">&gt;&gt;&gt;</span> SOLVED · ' + esc(lv().id) + ' · ' + chain.length + ' ops · TAG ' + C.levelTag(lv())
+    : '<span class="p">&gt;&gt;&gt;</span> ' + (chain.length ? esc(chain.map(C.fnLabel).join(' &gt;&gt;&gt; ')) : 'idle · ' + esc(lv().hint));
+}
+
+function render(){
+  $('#levTitle').textContent = 'LEVEL ' + (li + 1) + '/' + C.LEVELS.length + ' · ' + lv().title;
+  $('#levHint').textContent = lv().hint;
+  $('#tag').textContent = 'TAG ' + C.levelTag(lv());
+  rack($('#rackIn'), wall, false);
+  rack($('#rackTg'), lv().target, solved);
+  renderChain(); renderShelf(); renderChips(); renderCmd();
+  $('#nextBtn').disabled = !solved && li === C.LEVELS.length - 1;
+}
+
+function reset(){ chain = []; solved = false; wall = C.clone(lv().start); render(); }
+
+$('#runBtn').onclick = function(){
+  var before = wall;
+  wall = C.run(lv().start, chain);
+  solved = C.wallEq(wall, lv().target);
+  rack($('#rackIn'), wall, true);          // bloom the result (approach layer)
+  if (solved) rack($('#rackTg'), lv().target, true);
+  renderCmd();
+};
+$('#clearBtn').onclick = function(){ reset(); };
+$('#nextBtn').onclick = function(){ li = (li + 1) % C.LEVELS.length; reset(); };
+
+reset();
+document.documentElement.dataset.ccReady = 'ready';
+window.CubeComposer = { state: function(){ return { level: lv().id, chain: chain.slice(), wall: wall, solved: solved }; }, levels: C.LEVELS };
+})();
+</script>
+</body>
+</html>
