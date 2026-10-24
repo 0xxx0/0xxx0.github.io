@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {ACTION_KERNEL,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel} from '../interphase/substrate-kernel.mjs';
+import {ACTION_KERNEL,validatedOperationFold,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel} from '../interphase/substrate-kernel.mjs';
 
 const routes=[
   {href:'/',title:'FIELD',parent:null,operation:'OBSERVE'},
@@ -60,5 +60,19 @@ assert.deepEqual(coords(reversed),coords(model),'route input order cannot move a
 
 const rawModel=substrateModel(routes,'/a/',{kernel:ACTION_KERNEL,maxHops:3});
 assert.ok(rawModel.unplaced.length>model.unplaced.length,'absence of explicit fold cannot silently classify raw verbs');
+
+
+const smallRoutes=[{href:'/',operation:''},{href:'/read/',operation:'READ'},{href:'/old/',operation:'PUBLISH / RETRIEVE'}];
+const smallMap={READ:'SEE','PUBLISH / RETRIEVE':'OTHER'};
+const folded={schema:'field-fold/v2',routes:{routes_total:3,operation_distinct:2,operation_class_map:smallMap}};
+assert.equal(validatedOperationFold(folded,smallRoutes),smallMap,'reviewable OTHER is accepted as unplaced residue');
+const smallModel=substrateModel(smallRoutes,'/',{operationClassMap:validatedOperationFold(folded,smallRoutes),maxHops:1});
+assert.equal(smallModel.placedCount,1);
+assert.equal(smallModel.unplaced.length,1,'OTHER must remain inspectable but without coordinates');
+assert.equal(smallModel.unplaced[0].href,'/old/');
+assert.equal(validatedOperationFold({...folded,routes:{...folded.routes,routes_total:4}},smallRoutes),null,'route count drift fails closed');
+assert.equal(validatedOperationFold({...folded,routes:{...folded.routes,operation_distinct:1}},smallRoutes),null,'operation count drift fails closed');
+assert.equal(validatedOperationFold({...folded,routes:{...folded.routes,operation_class_map:{READ:'SEE'}}},smallRoutes),null,'missing raw operation fails closed');
+assert.equal(validatedOperationFold({...folded,routes:{...folded.routes,operation_class_map:{READ:'SEE','PUBLISH / RETRIEVE':'IMAGINED'}}},smallRoutes),null,'invented class fails closed');
 
 console.log('INTERPHASE SUBSTRATE PASS: angle=explicit FIELD action class, radius=exact parent-edge hops, declared edges only, exact fold collisions aggregate, missing classes refuse placement, permutation invariant');
