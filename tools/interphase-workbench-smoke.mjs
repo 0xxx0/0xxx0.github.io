@@ -25,7 +25,7 @@ const returnLast=async()=>{await rotary();await page.locator('[data-comp-action=
 const base=process.env.BASE_URL||'http://127.0.0.1:8765';
 try{
   await page.goto(base+'/interphase/?legacy=1&route=/');
-  await page.waitForSelector('#compactForm');
+  await page.waitForSelector('#compactForm');await page.waitForSelector('#compositorWheel');
   assert.equal(await page.locator('#railId').textContent(),'route:/');
   await menu();
   assert.deepEqual(await page.locator('.comp-item').evaluateAll(xs=>xs.map(x=>x.dataset.compAction)),['VIEW','FIND','RETURN']);
@@ -56,7 +56,7 @@ try{
   const last=await page.locator('.comp-item.active').getAttribute('data-comp-address');
   await page.keyboard.press('Enter');assert.equal(await page.locator('#railId').textContent(),'route:'+last);
   // A fresh source for the existing protected-history proof.
-  await page.goto(base+'/interphase/?legacy=1&route=/');await page.waitForSelector('#compactForm');await menu();
+  await page.goto(base+'/interphase/?legacy=1&route=/');await page.waitForSelector('#compactForm');await page.waitForSelector('#compositorWheel');await menu();
   await page.locator('#control>summary').click();
 
   await page.locator('#compactForm [name=title]').fill('Durable local FIELD');
@@ -64,7 +64,7 @@ try{
   assert.match(await page.locator('#storageStatus').textContent(),/SAVED LOCALLY/);
   const revision=await page.locator('#railRev').textContent();
   const stored=await page.evaluate(()=>localStorage.getItem('interphase.history.v01:route:/'));
-  await page.reload();await page.waitForSelector('#compactForm');
+  await page.reload();await page.waitForSelector('#compactForm');await page.waitForSelector('#compositorWheel');
   assert.equal(await page.locator('#compactForm [name=title]').inputValue(),'Durable local FIELD');
   await turn('FIELD');
   assert.equal(await page.locator('#railId').textContent(),'route:/');
