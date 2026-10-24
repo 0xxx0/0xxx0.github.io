@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-24T13:17:26+08:00",
+ "generated_at": "2026-10-24T13:47:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -48,44 +48,8 @@
    ]
   },
   {
-   "id": "promise-ab-voice-scoring-pass",
-   "title": "BROKEN PROMISE: A/B blind voice scoring pass run — the 'tests among ourselves' (10 real/10 twin set scored",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
    "id": "promise-qwen3-8-27b-fallback-pull",
    "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "promise-memory-crowding-consolidate",
-   "title": "BROKEN PROMISE: Memory crowding fixed: every profile private tail ≤1.5 KB AND shared block ≥2,200 B (MEMPR",
    "options": [
     {
      "k": "A",
@@ -221,6 +185,20 @@
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
    "ts": "2026-10-24T13:06:43"
+  },
+  "promise-ab-voice-scoring-pass": {
+   "id": "promise-ab-voice-scoring-pass",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-24T13:44:27"
+  },
+  "promise-memory-crowding-consolidate": {
+   "id": "promise-memory-crowding-consolidate",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-24T13:45:03"
   },
   "publish-media-consolidated": {
    "id": "publish-media-consolidated",
