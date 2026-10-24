@@ -31,6 +31,9 @@
  window.addEventListener('field-index:state',()=>updateHint());
  doc.addEventListener('click',e=>{
   if(e.target.closest?.('#fieldWords'))queueMicrotask(()=>{if(html.dataset.fieldWords==='folded')reveal('none')});
+  if(e.target.closest?.('#feedRail .feedChip')){
+   queueMicrotask(()=>{if(barIsVisible()&&held())reveal('hold')});
+  }
   const row=e.target.closest?.('#fieldUrlPanel .fieldUrlRow');
   if(row&&['SEARCH','HEADS'].includes(window.FieldURLBar?.parse?.()?.mode||'')){
    // The URLbar owns selecting an address. Reveal its *native* held action
