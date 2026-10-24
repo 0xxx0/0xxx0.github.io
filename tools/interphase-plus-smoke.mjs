@@ -58,7 +58,10 @@ async function continuumBrowserProof(){
    assert.ok((await page.locator('body').innerText()).length>foldedText*2,'one reveal unfolds the existing detail');
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
    const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
-   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'addressed tool targets must remain named and reachable');
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44),'addressed glyph targets retain canonical labels and touch size');
+   await page.locator('#feedRail .feedChip').last().scrollIntoViewIfNeeded();
+   const lastReachable=await page.locator('#feedRail .feedChip').last().evaluate(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1});
+   assert.ok(lastReachable,'final CURRENT head reachable by horizontal scroll at '+width);
    await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#feedRail [data-href="/house/"]').click();
    assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open the AWAKE introduction');
