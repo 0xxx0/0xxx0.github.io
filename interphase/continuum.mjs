@@ -282,7 +282,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  const api={
   root,load,loadRoute,openPath,seek,setScope,perspective,walk,packet,importPacket,command,stop:()=>ap?.stop(),refresh:paint,toggleSource:()=>drawer(el('drawer').hidden),returnStep,
   snapshot:()=>source?{source:{raw:source.raw,hash:source.hash,label:source.label,address:source.address},attention:attention(),links:structuredClone(links),frames:structuredClone(frames),edits:undo.length,playing:snap()?.playing,nativeRoute:activeRoute}:null,
-  async resume(){try{const p=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');if(p?.source?.raw)return await importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',...p})}catch(error){status('Saved session held: '+error.message,true)}return loadRoute(route)},
+  async resume(fallback=route){try{const p=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');if(p?.source?.raw)return await importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',...p})}catch(error){status('Saved session held: '+error.message,true)}return loadRoute(fallback)},
   dispose(){disposed=true;++epoch;ap?.stop();if(persistTimer)clearTimeout(persistTimer);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('pagehide',leaving);root.remove()}
  };
  return api;

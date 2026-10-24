@@ -28,6 +28,7 @@ async function continuumBrowserProof(){
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);
    assert.equal(await page.locator('.ip-continuum field-aperture').evaluate(x=>x.shadowRoot.children.length),0);
    assert.equal(requests.some(p=>/^\/interphase\/(?:app|research|substrate|compositor|work)\.mjs$/.test(p)),false);
+   await page.goto(base+'/?focus=/docs/');await wait();assert.equal((await snap()).nativeRoute,'/docs/','explicit caller focus wins over saved source');
    await page.evaluate(()=>InterphaseInstrument.loadRoute('/docs/'));assert.equal((await snap()).source.hash,s.source.hash);await page.waitForFunction(()=>FieldInstrument.heldAddress()==='/docs/');
    await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');
    await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
