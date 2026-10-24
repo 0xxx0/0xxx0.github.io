@@ -1,0 +1,59 @@
+/* The original FIELD host remains underneath. Only its entry projection changes.
+   At rest = ONE URLbar; a held action unfolds only the owning native detail.
+   Aa still restores every original section. No second store, route or shell. */
+html[data-field-words="folded"]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar){
+  width:min(850px,100%);margin:0 auto!important;
+  padding:clamp(70px,19svh,184px) clamp(10px,2vw,20px) 16px!important;
+  min-height:calc(100svh - 32px);
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar) > :where(:not(#fieldUrlBar):not(script):not(style):not(#fieldInstrument)){display:none!important}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar{
+ margin:0!important;top:max(0px,env(safe-area-inset-top));z-index:100;
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlFrame{
+ border-color:var(--line);box-shadow:inset 2px 0 0 var(--cool);height:52px;
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlInput{
+ font-size:clamp(13px,2.5vw,17px);font-weight:550;letter-spacing:0;
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlPanel{
+ max-height:min(62svh,480px);overscroll-behavior:contain;
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlRow{
+ min-height:48px;grid-template-columns:38px minmax(0,1fr) auto;
+}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlBody b{font-size:clamp(12px,2.1vw,14px)}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlBody code{font-size:11px}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlTail{font-size:9px}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlTail b{font-size:10px}
+/* Only an explicit action opens a bounded, native region. The original
+   reading, glyphs, work/proof and exact owners are not cloned here. */
+html[data-field-words="folded"][data-field-bar-pane="hold"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words="folded"][data-field-bar-pane="work"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words="folded"][data-field-bar-pane="prove"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words="folded"][data-field-bar-pane="trace"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words="folded"][data-field-bar-pane="trace"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold,
+html[data-field-words="folded"][data-field-bar-pane="map"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold{display:block!important}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) main:has(> #fieldUrlBar){padding-top:clamp(12px,4svh,40px)!important}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) #axialLatest{margin-top:8px!important}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #axialLatest > :not(#aperture){display:none!important}
+html[data-field-words="folded"][data-field-bar-pane="work"]:not([data-instrument="1"]) #axialLatest>#workDepth,
+html[data-field-words="folded"][data-field-bar-pane="prove"]:not([data-instrument="1"]) #axialLatest>#refineFold,
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest>#feedRail,
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest>.fieldGesture{display:block!important}
+html[data-field-words="folded"][data-field-bar-pane="trace"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#traceFold),
+html[data-field-words="folded"][data-field-bar-pane="map"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#mapFold){display:none!important}
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(auto-fill,minmax(54px,1fr))}
+html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) .feedName{pointer-events:none}
+html[data-field-words="folded"][data-field-bar-pane="work"]:not([data-instrument="1"]) #workDepth,
+html[data-field-words="folded"][data-field-bar-pane="prove"]:not([data-instrument="1"]) #refineFold{margin-top:8px}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #aperture{border-top:0}
+@media(max-width:520px){
+ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) main:has(> #fieldUrlBar){padding-left:6px!important;padding-right:6px!important}
+ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlProto{padding-inline:5px;font-size:9px}
+ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 32px minmax(0,1fr) 36px 40px}
+ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlBody code{font-size:10px}
+ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlTail{max-width:10ch}
+}
+@media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
