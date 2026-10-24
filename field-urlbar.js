@@ -68,7 +68,7 @@ const COMMANDS=Object.freeze([
  {id:'glyphs',glyph:'▦',label:'GLYPHS',hint:'native FIELD addressed-head strip (reversible selection)',keywords:'browse current heads route tiles strip'},
  {id:'source',glyph:'▧',label:'SOURCE',hint:'open actual text, JSON or file in existing FIELD reader',keywords:'paste upload file source text import',nav:'/?work=1&source=1'},
  {id:'walk',glyph:'↬',label:'WALK',hint:'traverse exact source neighbors and links',keywords:'interphase threadwalk read source navigation',nav:'/?work=1&view=walk'},
- {id:'dial',glyph:'◍',label:'DIAL',hint:'navigate whole source and scope with one cursor',keywords:'ring axis aperture source position',nav:'/?work=1&view=dial'}
+ {id:'dial',glyph:'◍',label:'DIAL',hint:'navigate whole source and scope with one cursor',keywords:'ring axis aperture source position',nav:'/?work=1&view=dial'},
  {id:'hub',glyph:'⊞',label:'HUB',hint:'copy reader hub URL (localhost :8777)',keywords:'hub ops reader',copy:'http://127.0.0.1:8777/hub'},
  {id:'calls',glyph:'☏',label:'CALLS',hint:'copy reader calls URL (localhost :8777)',keywords:'phone meeting reader',copy:'http://127.0.0.1:8777/calls'},
  {id:'digests',glyph:'▣',label:'DIGESTS',hint:'/digests/ · passphrase field focused locally',keywords:'encrypted digest passphrase',nav:'/digests/#pp'},
