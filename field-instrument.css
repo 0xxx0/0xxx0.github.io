@@ -240,7 +240,7 @@ html[data-instrument="1"] #fiMenu{display:block}
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #fieldInstrument .fiListRow.held{background:var(--p2);box-shadow:inset 3px 0 0 var(--cool)}
 .fiListRow.held .fiListGlyph{color:var(--cool)}
-.fiListRow.outside{opacity:.56}
+.fiListRow.outside .fiListText b{color:var(--mut)}
 .fiListNone{color:var(--mut);padding:10px 0}
 .fiListFoot{flex:none;min-height:44px;border-top:1px solid var(--line)}
 #fieldInstrument .fiListFoot button{min-height:44px;padding:3px 4px;font-size:10px;color:var(--ink)}
