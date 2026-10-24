@@ -1,0 +1,31 @@
+name: sleeper-bell-proof
+on:
+  pull_request:
+    paths:
+      - 'sleeper/bell-world.js'
+      - 'sleeper/axis-score.html'
+      - 'tools/sleeper-bell-*.mjs'
+      - 'tools/sleeper-bell-*.cjs'
+      - '.github/workflows/sleeper-bell-proof.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'sleeper/bell-world.js'
+      - 'sleeper/axis-score.html'
+      - 'tools/sleeper-bell-*.mjs'
+      - 'tools/sleeper-bell-*.cjs'
+permissions:
+  contents: read
+jobs:
+  bell:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enacted laws and reversible return
+        run: node tools/sleeper-bell-selftest.cjs
+      - name: Phone, desktop and held-touch browser encounter
+        run: node tools/sleeper-bell-dom-smoke.mjs
