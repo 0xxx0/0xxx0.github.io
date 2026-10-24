@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-field-words="folded">
+<html lang="en" data-field-words="folded" data-field-bar-pane="none">
 <head>
 <script>/* TG Mini App deep link. A link like t.me/<bot>/<app>?startapp=fold-bloom is
    passed to the webview as the GET parameter tgWebAppStartParam. Redirect
@@ -425,6 +425,7 @@ html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys button[data-
 html[data-field-words]:not([data-instrument="1"]) #fieldWords{display:block;grid-column:5;grid-row:1;min-width:40px;min-height:44px;padding:6px;border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);font:14px/1 system-ui,sans-serif;cursor:pointer;}
 html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
+<link rel="stylesheet" href="./field-bar-landing.css?v=0.1">
 </head>
 <body><main>
 <header>
@@ -1790,5 +1791,6 @@ window.FieldIndexReadModel=Object.freeze({
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
 <script type="module" src="./field-instrument.mjs?v=0.10.6"></script>
-<script type="module" src="./field-work.mjs?v=0.10.6-dial2"></script>
+<script type="module" src="./field-work.mjs?v=0.10.7-source"></script>
+<script src="./field-bar-landing.js?v=0.1"></script>
 </main></body></html>
