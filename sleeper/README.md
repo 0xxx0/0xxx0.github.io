@@ -99,11 +99,11 @@ Next useful levers: measure cue usefulness before adding lore; compare WOVEN/GLY
 Walk from the entrance to the bell and through the east corridor. There are **no answer buttons**. The branch is an actual change in physical law:
 
 - **Continue forward** past the crossroads: ordinary walking binds the pleasant sound to an upper circuit that folds back to the bell. The lower passage stays physically closed.
-- **Touch the AXIS core** while standing at the crossroads, or after experiencing the fold (keyboard: Space/E): cut the pull. The lower cell `(18,10)` becomes traversable, without changing or silencing the bell.
+- **Hold the AXIS core** at the crossroads (or after experiencing the fold): preview the other law **without changing the actual state**. POV projects the opened wall; PLAN reveals exactly nine newly reachable cells. The exit changes from unreachable to reachable (43 → 52 cells, measured from the fixed fork). **Release** (Space/E on keyboard) to commit the corresponding collision change at `(18,10)`.
 - The **outer ring** turns the actual view, the **inner ring** rewinds the visited physical/causal state and exposes an occluded ghost of the discarded future. The core shows **CUT** only where it can affect the world; otherwise it switches the view between POV/PLAN/CAUSE. The header APERTURE button always switches view.
 - Completion still requires walking to the exit at `(23,13)`. A button cannot award it. One source and one native ONE RETURN engine remain untouched.
 
-The chapter is linked externally. No third-party text is fetched, stored, republished, or included in the exported source-free route. Source-addressed word/paragraph ring and user-imported sources remain available in AXIS SCORE; the illustrative Bell scenario is explicitly **not** automatically derived from arbitrary prose. The ported `/sleeper/` ONE RETURN Gate engine remains unchanged and authoritative for its own proofs.
+The primary chapter is linked externally. No third-party text is fetched, stored, republished, or included in the exported source-free route. The v0.2 RETURN records the authored model's reachable-cell difference and explicitly rejects interpreting it as psychological or doctrinal evidence. Source-addressed word/paragraph ring and user-imported sources remain available in AXIS SCORE; the illustrative Bell scenario is explicitly **not** automatically derived from arbitrary prose. The ported `/sleeper/` ONE RETURN Gate engine remains unchanged and authoritative for its own proofs.
 
 The rewind dial previews a history position before committing on release, and the completed scene offers explicit rewind to the original fork.
 
@@ -113,7 +113,7 @@ The inner dial now records **changed position, gaze, and causal transitions**, n
 
 The source has not been remapped to a generated geometry and no outside interpretation has gained authority. The ring is a movement/conditionality instrument **within this one authored example**; it is not yet the general long-text score or Levin-inspired morphogenesis interface.
 
-**Executable fixture:** `node tools/sleeper-bell-selftest.cjs` now exercises **184 assertions** (exact source in V8), including automatic follow from actual movement, non-bypassable gate law, six idle minutes with no forged timeline samples, and a spatial echo occluded by walls. Browser/device ergonomics still require independent verification.
+**Executable fixture:** `node tools/sleeper-bell-selftest.cjs` now exercises **210 assertions** in isolated V8 against exact branch source: enacted follow, non-bypassable gate law, six idle minutes without forged history, occluded spatial ghost, pure counterfactual and model-only RETURN. Browser/mobile comprehension remains a separate gate.
 
 **Verification contract:** walk the source-contact path; reject choice before hearing; prove FOLLOW keeps the gate closed and crosses the nonlocal seam; prove NOTICE opens only the conditioned gate and permits actual exit traversal; rewind to an earlier state and branch again; inspect mobile/desktop DOM, ring hit regions, keyboard/touch and accessibility. Browser/device ergonomics not established by pure state tests. Do not call it a complete game or infer psychological/educational benefit until compared against a straightforward reading of the same example.
 
