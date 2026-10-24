@@ -1,0 +1,34 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SIX_FAMILY_PROJECT_MAP_2026-10-24",
+  "date": "2026-10-24",
+  "object": "CONFLUENCE / SIX-FAMILY PROJECT MAP",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "authority": "NONE / DERIVED ORIENTATION",
+  "source_refs": [
+    "/control/CURRENT.json",
+    "/control/QUEUE.json",
+    "/showcase-manifest.json",
+    "/control/confluence/PROJECT_MAP.md",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/994",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/991"
+  ],
+  "delta": [
+    "Refreshed the existing October 3 six-family map against October 24 CURRENT, manifest, current heads and open bounded work.",
+    "Collapsed the map to one live front: WORLD LOOPS / air-instrument. The other five families are explicitly support/held/read-only orientations.",
+    "Added dependency, current proof status and one concrete next move for each family.",
+    "Surfaced the map in the existing /control/confluence/ page; no new public route, registry, backlog or attention source.",
+    "Kept FIELD/INTERPHASE baseline drift and PR #994 visible instead of presenting current root mechanics as accepted product truth."
+  ],
+  "active_chain": "Dayline → phone witness → PMS5003/SCD41 → purifier + Ovlaim fan mixing → measured PM2.5 RETURN → CURRENT replan",
+  "invariants": [
+    "CURRENT owns NOW and NEXT.",
+    "Visibility in the map does not activate a family.",
+    "No edge in the dependency map increases authority.",
+    "Recovery activates only for an exact blocker.",
+    "Transform/support never implies permission or effect authority.",
+    "RETURN closes one move and requires replan."
+  ],
+  "next": "Use the air-instrument chain. Do not begin another architecture pass from this map.",
+  "stop": "If the map starts carrying independent status, priority or backlog, delete that state and re-derive from CURRENT/native evidence."
+}
