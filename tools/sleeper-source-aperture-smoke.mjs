@@ -51,13 +51,20 @@ const load=url=>new Promise((ok,bad)=>{f.onload=ok;f.onerror=bad;f.src=url});
  const privateSource=w.localStorage.getItem('sleeper:last');
  assert(!privateSource||!privateSource.includes(quoted),'private quoted sentence persisted to sleeper:last');
  w.eval('cancelAnimationFrame(raf)');
+ // One reversible early return: no fictitious v2 Gate proof, same exact source.
+ d.querySelector('#sourceBackNow').click();
+ await wait(()=>f.contentWindow.location.pathname==='/sleeper/axis-score.html'&&f.contentDocument.querySelector('#work')&&!f.contentDocument.querySelector('#work').classList.contains('hidden'),'source early return');
+ d=f.contentDocument;w=f.contentWindow;
+ assert(d.querySelector('#textInput').value===source,'return replaced source bytes');
+ assert(d.querySelector('#error').textContent.includes('EARLY SOURCE RETURN'),'early exit masquerades as completed Gate return');
+ assert(!w.location.search.includes(encodeURIComponent(source)),'early return leaked source into URL');
  // Malformed source handoffs reject closed; ordinary boot still works.
  w.sessionStorage.setItem('sleeper:source-aperture/v1','{invalid');
  await load('/sleeper/');
  d=f.contentDocument;
  assert(d.querySelector('#sourceApertureStatus').textContent.includes('SOURCE HANDOFF REJECTED'),'malformed handoff accepted');
  assert(d.querySelector('#enter')&&!d.querySelector('#enter').disabled,'rejected handoff broke native boot');
- out.textContent='PASS EXACT SOURCE → CITY · 320/390/1280 · NO GATE MUTATION · NO URL/LOCAL LAST LEAK · FAIL CLOSED';
+ out.textContent='PASS EXACT SOURCE → CITY · 320/390/1280 · EARLY EXACT RETURN · NO GATE MUTATION · NO URL/LOCAL LAST LEAK · FAIL CLOSED';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
 <\/script>`;
 const server=http.createServer((req,res)=>{
