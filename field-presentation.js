@@ -164,7 +164,7 @@ window.FieldZUI=Object.freeze({state,open,close,toggle,transition});
    OMNIBAR is co-mounted as a projection; neither may become a route, store,
    planner, executor or effect authority. */
 function load(){
- import('./field-awake-visor.js').catch(error=>{
+ if(new URLSearchParams(location.search).get('visor')==='1')import('./field-awake-visor.js?v=0.10.4').catch(error=>{
   document.documentElement.dataset.fieldAwakeVisor='error';
   console.error('FIELD AWAKE visor failed to load',error);
  });
