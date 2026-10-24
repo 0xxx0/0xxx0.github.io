@@ -67,10 +67,20 @@ function loadProjection(value,opt){
  jsonMap=activeJson?FieldAperture.jsonSpans(activeRaw):[];
  JP.hidden=!activeJson;JP.textContent='STRUCT';JP.title='Inspect the JSON node at this reading position';
  if(activeJson){
-   const fmt={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
    const node=jsonMap.find(n=>!n.ambiguous&&n.path===opt.address);
-   if(node)fmt.charIndex=node.contentStart;
-   delete fmt.address;A.load(activeRaw,fmt);
+   const textFocus={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
+   if(node)textFocus.charIndex=node.contentStart;
+   delete textFocus.address;
+   // Named JSON is a traversable structure first; the exact source remains
+   // untouched and a single READ TEXT action projects the same byte sequence.
+   // Unnamed pasted JSON stays text-first for ordinary reading.
+   const namedJson=/\.json$/i.test(activeUrl?.pathname||activeLabel||'');
+   if(namedJson){
+     jsonTree=true;treeEntryPath=node?.path||'$';
+     readFocus={scale:textFocus.scale,char_index:textFocus.charIndex??0,wpm:textFocus.wpm};
+     JP.textContent='READ TEXT';JP.title='Read exact JSON bytes as text';
+     A.load(activeRaw,{label:activeLabel,format:'JSON',scale:'ROOT',address:treeEntryPath,wpm:opt.wpm});
+   }else A.load(activeRaw,textFocus);
  }else A.load(value,opt)
 }
 function readingFocus(){
