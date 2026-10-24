@@ -11,6 +11,20 @@ const routeKey=r=>norm(r?.href);
 const clampInt=(n,lo,hi)=>Math.max(lo,Math.min(hi,Math.trunc(Number(n)||0)));
 const has=(o,k)=>!!o&&Object.prototype.hasOwnProperty.call(o,k);
 
+// Only a versioned, complete raw-verb mapping may locate objects. Explicit OTHER
+// and absent route operations are unplaced RESIDUE; neither may position a glyph.
+// Genuine drift (missing verbs / unexpected classes / changed totals) fails closed.
+export function validatedOperationFold(fold,routes,kernel=ACTION_KERNEL){
+  const rt=fold?.routes,map=rt?.operation_class_map;
+  if(fold?.schema!=='field-fold/v2'||!Array.isArray(routes)||!rt||
+     rt.routes_total!==routes.length||!map||typeof map!=='object'||Array.isArray(map))return null;
+  const raw=[...new Set(routes.map(r=>norm(r?.operation)).filter(Boolean))];
+  if(rt.operation_distinct!==raw.length)return null;
+  const allowed=new Set([...kernel,'OTHER']);
+  if(raw.some(op=>!has(map,op)||!allowed.has(norm(map[op]))))return null;
+  return map;
+}
+
 export function graphIndex(routes=[]){
   const by=new Map();
   for(const r of Array.isArray(routes)?routes:[]){const href=routeKey(r);if(href&&!by.has(href))by.set(href,r)}
@@ -85,4 +99,4 @@ export function substrateModel(routes,focusHref,{kernel=DEFAULT_KERNEL,maxHops=3
   return Object.freeze({schema:SCHEMA,status:'OK',focus:n.focus,focusItem,kernel:Object.freeze(ops),maxHops:n.maxHops,groups:Object.freeze(frozenGroups),edges:Object.freeze(edges),unplaced:Object.freeze(unplaced),mapping:mapped?'FIELD_FOLD_MAP':'RAW',placedCount:mappedCount,visibleCount:Math.max(0,n.items.length-1)});
 }
 
-export default Object.freeze({SCHEMA,ACTION_KERNEL,DEFAULT_KERNEL,OP_MARK,REL_MARK,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel});
+export default Object.freeze({SCHEMA,ACTION_KERNEL,DEFAULT_KERNEL,OP_MARK,REL_MARK,validatedOperationFold,graphIndex,isAncestor,neighborhood,semanticPoint,substrateModel});
