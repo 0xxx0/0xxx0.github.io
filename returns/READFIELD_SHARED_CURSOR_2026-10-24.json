@@ -24,7 +24,23 @@
     "timed_cues": "PASS: node lib/readfield-track-sync.test.mjs",
     "selected_ship_checks": "PASS: 31/31 selected static/route/source/INTERPHASE/release/syntax gates; not a full repository suite claim.",
     "native_read_ride": "PASS: real Chromium original source → native LIVE step → exact READFIELD [start,end] RETURN. Historical dump-DOM runner timed out; not counted as PASS.",
-    "public_and_redaction": "PASS: full public validator (211 routes) and redaction aperture (1926 files)."
+    "public_and_redaction": "PASS: full public validator (211 routes) and redaction aperture (1926 files).",
+    "github_ci": {
+      "tested_head": "75c64962acec628f082a9a7df9009621bc4c9172",
+      "pass": [
+        "listen-readfield-check",
+        "interphase-history-check",
+        "interphase-registry-check",
+        "Route Registration",
+        "gitleaks"
+      ],
+      "baseline_failures": [
+        "CURRENT active_fronts exceeds 3",
+        "FIELD root structured version 0.8.37 differs from manifest 0.8.40",
+        "field-instrument-selftest: held room is outside displayed plan tiles (line 429)"
+      ],
+      "baseline_comparison": "Same failures reproduced using exact origin/master 1515a1c CURRENT/manifest bytes and unchanged native validators/core. Reader structured version drift was repaired. Broader CI is not claimed green."
+    }
   },
   "proof_files": [
     "/tools/reading-source-selftest.cjs",
