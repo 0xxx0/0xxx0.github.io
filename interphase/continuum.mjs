@@ -18,7 +18,7 @@ function sourcePath(value){const p=safePath(value);return p&&/\.(json|txt|md|mar
 const SHA256=/^[a-f0-9]{64}$/i,DOOR_LIMIT=64,DOOR_DEPTH=16;
 function validEnd(e){return !!e&&typeof e==='object'&&!!sourcePath(e.address)&&SHA256.test(e.hash||'')&&Number.isInteger(e.start)&&Number.isInteger(e.end)&&e.start>=0&&e.end>e.start&&e.end-e.start<=20000&&typeof e.scope==='string'&&e.scope.length<=120&&typeof e.quote==='string'&&e.quote.length===e.end-e.start}
 function validDoor(d){return !!d&&RELATIONS.includes(d.type)&&d.authority==='INTERPRETATION_ONLY'&&validEnd(d.from)&&validEnd(d.to)&&!(d.from.hash===d.to.hash&&d.from.address===d.to.address)&&d.from.address.length<=1024&&d.to.address.length<=1024}
-function validDoorFrame(f){return !!f&&validEnd(f.at)&&f.attention&&typeof f.label==='string'&&f.label.length<=180&&Array.isArray(f.links)&&f.links.length<=128&&Array.isArray(f.marks)&&f.marks.length<=256}
+function validDoorFrame(f){return !!f&&validEnd(f.at)&&f.attention&&typeof f.label==='string'&&f.label.length<=180&&Array.isArray(f.links)&&f.links.length<=128&&Array.isArray(f.marks)&&f.marks.length<=256&&Array.isArray(f.frames)&&f.frames.length<=64&&f.frames.every(x=>x.hash===f.at.hash)}
 
 async function manifest(refresh=false){
  if(refresh)catalogPromise=null;
@@ -60,12 +60,13 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(!r.ok)throw Error('DOOR source unavailable: HTTP '+r.status);
   const raw=await r.text();
   if(request!==epoch||disposed)throw Error('DOOR cancelled by newer source request.');
-  if(await hashText(raw)!==e.hash||raw.slice(e.start,e.end)!==e.quote)throw Error('DOOR revision/quote drift. Current source unchanged.');
+  const digest=await hashText(raw);if(request!==epoch||disposed)throw Error('DOOR cancelled by newer source request.');
+  if(digest!==e.hash||raw.slice(e.start,e.end)!==e.quote)throw Error('DOOR revision/quote drift. Current source unchanged.');
   return raw;
  }
  async function cross(e,remember=true){
   const raw=await verifiedEnd(e);
-  const from=remember?{at:endpoint(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks]}:null;
+  const from=remember?{at:endpoint(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo}:null;
   const request=++epoch;
   await load(raw,e.address.split('/').at(-1),e.address,{request,hash:e.hash,attention:{...attention(),char:e.start,scope:e.scope,query:''}});
   if(from){doorFrames.push(from);if(doorFrames.length>DOOR_DEPTH)doorFrames.shift()}
@@ -215,7 +216,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(doorFrames.length){
    const previous=doorFrames.at(-1);if(!validDoorFrame(previous))throw Error('Invalid DOOR return frame.');
    const raw=await verifiedEnd(previous.at),request=++epoch;
-   await load(raw,previous.label,previous.at.address,{request,hash:previous.at.hash,attention:previous.attention,links:previous.links,marks:previous.marks});
+   await load(raw,previous.label,previous.at.address,{request,hash:previous.at.hash,attention:previous.attention,links:previous.links,marks:previous.marks,frames:previous.frames,returnTo:previous.returnTo});
    doorFrames.pop();persist(snap(),true);status('DOOR RETURN · exact prior source, revision, scope and cursor.');return;
   }
   const previous=frames.pop();
