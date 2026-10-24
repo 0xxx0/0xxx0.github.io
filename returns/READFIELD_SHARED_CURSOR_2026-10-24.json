@@ -1,0 +1,43 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "READFIELD_SHARED_CURSOR_2026-10-24",
+  "source": {
+    "repository": "0xxx0/0xxx0.github.io",
+    "base": "df77d8e",
+    "owner": "READFIELD",
+    "routes": [
+      "/docs/",
+      "/rsvp/"
+    ]
+  },
+  "delta": [
+    "WRIST reuses native FieldAperture segmentation, ORP, playback and FieldSourceTrail position; duplicate inline token/timer/bookmark implementation retired in Git.",
+    "Exact JSON raw text is retained; key/value spans map READ↔STRUCT without reserialization or special-key collisions. Duplicate-key paths reject exact mapping.",
+    "Exact character anchors survive native load/restore; session handoffs carry SHA-256/source/cursor/pace and RETURN.",
+    "WRIST is a utility child of READFIELD; existing stable URLs remain.",
+    "Existing public-validator failures reproduced on base: missing experiment metadata at /rsvp/, /cube-composer/, /cube-composer/pov/ and stale QUEUE. Runtime-sharing changes /rsvp/ to utility; cube metadata completed and QUEUE mirrors existing CURRENT attention."
+  ],
+  "verification": {
+    "source_spans": "PASS: 64 deterministic nested fixtures, raw CRLF/escape/numeric spellings, key/value offsets, special keys, scalar/empty JSON and duplicate ancestor rejection.",
+    "browser": "PASS: real Chromium READ↔STRUCT↔WRIST, moved cursor, reload and RETURN at 320x640,390x844,1280x800; 180x180 control bounds, local file, playback/pause, malformed JSON preserves source, tampered identity rejects.",
+    "source_trail": "PASS: node tools/read-trail-selftest.cjs",
+    "timed_cues": "PASS: node lib/readfield-track-sync.test.mjs",
+    "selected_ship_checks": "PASS: 31/31 selected static/route/source/INTERPHASE/release/syntax gates; not a full repository suite claim.",
+    "native_read_ride": "PASS: real Chromium original source → native LIVE step → exact READFIELD [start,end] RETURN. Historical dump-DOM runner timed out; not counted as PASS.",
+    "public_and_redaction": "PASS: full public validator (211 routes) and redaction aperture (1926 files)."
+  },
+  "proof_files": [
+    "/tools/reading-source-selftest.cjs",
+    "/tools/reading-continuity-smoke.mjs",
+    "/rsvp/README.md"
+  ],
+  "boundaries": [
+    "Native hosts retain effect and clock authority.",
+    "No historical source archive moved or deleted.",
+    "No physical watch, Android power-management, human comprehension or cross-device synchronization claim."
+  ],
+  "return": {
+    "to": "/docs/",
+    "next_authority": "NONE"
+  }
+}

@@ -69,7 +69,40 @@ function extractXrefs(text){
  for(const m of raw.matchAll(/(?:^|[\s"'(])((?:\.{0,2}\/|\/)[A-Za-z0-9_./-]+\.(?:md|json|txt|csv|ya?ml|html|png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)(?:#[A-Za-z0-9_.:-]+)?)/g))push(m[1],m[1],/\.(?:png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)(?:#|$)/i.test(m[1])?'MEDIA':'REPO');
  return out.slice(0,12)
 }
-function jsonNodes(root){
+function jsonPath(parent,key,array=false){return array?parent+'['+key+']':parent+(/^[A-Za-z_$][\w$]*$/.test(key)?'.'+key:'['+JSON.stringify(key)+']')}
+// Exact UTF-16 source addresses, including key spans. Parsing never serializes
+// the source. Duplicate member paths are explicitly unmappable, not guessed.
+function jsonSpans(source){
+ const raw=String(source);JSON.parse(raw);let at=0;const out=[];
+ const space=()=>{while(/\s/.test(raw[at]||'')&&at<raw.length)at++};
+ const string=()=>{const start=at++;while(at<raw.length){const ch=raw[at++];if(ch==='\\')at++;else if(ch==='"')break}return{start,end:at,value:JSON.parse(raw.slice(start,at))}};
+ function walk(path='$',depth=0,key='$',parent=null,keySpan=null,parentIndex=null){
+  if(depth>256)throw Error('JSON address depth exceeds 256');space();const start=at;
+  const index=out.length,node={path,depth,key,parent,parentIndex,start,end:start,keyStart:keySpan?.start??null,keyEnd:keySpan?.end??null};out.push(node);
+  if(raw[at]==='{'){
+   at++;space();while(raw[at]!=='}'){const k=string();space();at++;walk(jsonPath(path,k.value),depth+1,k.value,path,k,index);space();if(raw[at]!==',')break;at++;space()}at++;
+  }else if(raw[at]==='['){
+   at++;space();let i=0;while(raw[at]!==']'){walk(jsonPath(path,i,true),depth+1,String(i++),path,null,index);space();if(raw[at]!==',')break;at++;space()}at++;
+  }else if(raw[at]==='"')string();
+  else while(at<raw.length&&!/[\s,\]}]/.test(raw[at]))at++;
+  node.end=at;node.contentStart=raw[start]==='"'?start+1:start;
+ }
+ walk();const counts=new Map();for(const n of out)counts.set(n.path,(counts.get(n.path)||0)+1);
+ for(const n of out)n.ambiguous=counts.get(n.path)>1||(n.parentIndex!=null&&out[n.parentIndex].ambiguous);
+ return out;
+}
+function jsonNodeAt(nodes,at){
+ if(!Number.isFinite(at))return null;
+ let lo=0,hi=nodes.length;
+ while(lo<hi){const mid=(lo+hi)>>>1,n=nodes[mid];if((n.keyStart??n.start)<=at)lo=mid+1;else hi=mid}
+ let n=nodes[lo-1];
+ while(n){
+  if((n.start<=at&&at<n.end)||(n.keyStart!=null&&n.keyStart<=at&&at<n.keyEnd))return n.ambiguous?null:n;
+  n=n.parentIndex==null?null:nodes[n.parentIndex];
+ }
+ return null;
+}
+function jsonNodes(root,raw=''){
  const out=[];const seen=new WeakSet();
  function walk(v,path='$',depth=0,key='$'){
    const type=Array.isArray(v)?'array':v===null?'null':typeof v;
@@ -77,11 +110,11 @@ function jsonNodes(root){
    out.push(node);
    if(v&&typeof v==='object'){
      if(seen.has(v))return;seen.add(v);
-     if(Array.isArray(v))v.forEach((x,i)=>walk(x,path+'['+i+']',depth+1,String(i)));
-     else Object.entries(v).forEach(([k,x])=>walk(x,path+'.'+k,depth+1,k));
+     if(Array.isArray(v))v.forEach((x,i)=>walk(x,jsonPath(path,i,true),depth+1,String(i)));
+     else Object.entries(v).forEach(([k,x])=>walk(x,jsonPath(path,k),depth+1,k));
    }
  }
- walk(root);return out;
+ walk(root);if(raw){const spans=jsonSpans(raw),byPath=new Map(spans.filter(n=>!n.ambiguous).map(n=>[n.path,n]));for(const n of out){const span=byPath.get(n.path);if(span)Object.assign(n,span)}}return out;
 }
 function analyze(source,label='Untitled',locale='en',format='AUTO'){
  let data=source,raw='',kind='TEXT';
@@ -89,7 +122,7 @@ function analyze(source,label='Untitled',locale='en',format='AUTO'){
  else{raw=source;if(!['TXT','TEXT','READ'].includes(String(format).toUpperCase()))try{data=JSON.parse(source);kind='JSON'}catch(_){}}
  const bytes=enc.encode(raw).length,chars=raw.length;
  if(kind==='JSON'){
-   const nodes=jsonNodes(data),maxDepth=Math.max(0,...nodes.map(n=>n.depth)),leaves=nodes.filter(n=>n.leaf);
+   const nodes=jsonNodes(data,raw),maxDepth=Math.max(0,...nodes.map(n=>n.depth)),leaves=nodes.filter(n=>n.leaf);
    const scales=[{id:'ROOT',label:'ROOT',units:[nodes[0]]}];
    for(let d=1;d<=maxDepth;d++){const units=nodes.filter(n=>n.depth===d);if(units.length)scales.push({id:'L'+d,label:'LEVEL '+d,units})}
    if(leaves.length>1)scales.push({id:'LEAF',label:'LEAVES',units:leaves});
@@ -124,19 +157,21 @@ class FieldAperture extends HTMLElement{
  load(source,opt={}){
   this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale,opt.format||'AUTO');this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.structureDomKey='';
   const hit=this.locate(opt.address,this.scale);
-  if(hit){this.scale=hit.scale;this.pos=hit.index}
-  else if(this.A.kind==='TEXT'&&Number.isFinite(Number(opt.charIndex))){this.anchor=clamp(Math.round(Number(opt.charIndex)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  const exactChar=this.A.kind==='TEXT'&&opt.charIndex!=null&&Number.isFinite(Number(opt.charIndex));
+  if(exactChar){this.anchor=clamp(Math.round(Number(opt.charIndex)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  else if(hit){this.scale=hit.scale;this.pos=hit.index}
   else{const i=Number(opt.index);if(Number.isFinite(i))this.pos=clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1))}
-  this.captureAnchor();
+  if(!exactChar)this.captureAnchor();
   const w=Number(opt.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),MIN_WPM,MAX_WPM);this.render();this.emit();return this.snapshot()
  }
  restore(snap={}){
   if(!this.A)return null;this.stop();this.scale=this.scaleIndex(snap.scale);this.voiceCursor=null;
   const hit=this.locate(snap.address,this.scale);
-  if(hit){this.scale=hit.scale;this.pos=hit.index}
-  else if(this.A.kind==='TEXT'&&Number.isFinite(Number(snap.char_index))){this.anchor=clamp(Math.round(Number(snap.char_index)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  const exactChar=this.A.kind==='TEXT'&&snap.char_index!=null&&Number.isFinite(Number(snap.char_index));
+  if(exactChar){this.anchor=clamp(Math.round(Number(snap.char_index)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  else if(hit){this.scale=hit.scale;this.pos=hit.index}
   else{const i=Number(snap.index);this.pos=Number.isFinite(i)?clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1)):0}
-  this.captureAnchor();
+  if(!exactChar)this.captureAnchor();
   const w=Number(snap.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),MIN_WPM,MAX_WPM);this.render();this.emit();return this.snapshot()
  }
  currentScale(){return this.A?.scales[this.scale]}
@@ -368,7 +403,7 @@ function ensureDock(){
  return wrap;
 }
 window.FieldAperture={
- analyze,
+ analyze,orpParts,segmentedUnits,jsonSpans,jsonNodeAt,
  mount(target,source,opt={}){const el=document.createElement('field-aperture');if(opt.materialTarget)el.setAttribute('material-target',opt.materialTarget);target.appendChild(el);el.load(source,opt);return el},
  inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}if(opt.materialTarget)el.setAttribute('material-target',opt.materialTarget);el.load(source,opt);return el},
  dock(source,opt={}){const wrap=ensureDock(),el=wrap.querySelector('field-aperture');el.hidden=false;wrap.querySelector('[data-collapse]').textContent='−';if(opt.materialTarget)el.setAttribute('material-target',opt.materialTarget);el.load(source,opt);return el},

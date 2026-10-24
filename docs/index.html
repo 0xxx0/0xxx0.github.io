@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" class="dark doc doc-docs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>READFIELD / RSVP 0.8.5 · Phone Work</title>
+<meta name="robots" content="noindex,nofollow"><title>READFIELD / RSVP 0.8.6 · Phone Work</title>
 <link rel="stylesheet" href="/tools/house-patterns.css">
-</head><body><main><header><div><div class="ey">Φ / READFIELD · φ / CURSOR · RSVP 0.8.5</div><h1>READFIELD.</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO FIELD PULSE CLOCK</span></nav></header>
+</head><body><main><header><div><div class="ey">Φ / READFIELD · φ / CURSOR · RSVP 0.8.6</div><h1>READFIELD.</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO FIELD PULSE CLOCK</span></nav></header>
 <p class="hint">One source. One position. Φ names the READFIELD host; φ is the addressed cursor/focus projected through scale, pace, voice or context. READFIELD owns source + cursor; INTERPHASE shares focus / projection / RETURN without copying text authority. PLAIN is fastest; FOCUS restores the AXIAL/LISTEN ring; MIN keeps ring + RSVP focus.</p>
 <div class="workDeck"><div class="workRail" id="workRail" role="toolbar" aria-label="Reader work mode">
   <button data-reader-action="fast">FAST</button><button data-reader-action="review">REVIEW</button><button data-reader-action="pulse4">PULSE</button><button data-reader-action="voice">VOICE</button><button data-reader-action="loci">LOCI</button><button data-reader-action="current">REPO</button>
@@ -24,7 +24,7 @@
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><button id="demoRead" type="button">TRY RSVP</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <button id="jsonProjection" type="button" hidden>STRUCT</button> <a id="wristLink" href="/rsvp/">WRIST ↗</a> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
-<script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
+<script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js?v=0.8.6"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
 ['SLEEPER / ONE RETURN V2','../recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md','Canonical city contract: inputs, eight enacted Gates, Return Artifact v2, generalization boundary'],
@@ -60,40 +60,63 @@ const L=document.querySelector('#list'),T=document.querySelector('#text'),H=docu
 let activeRaw='',activeUrl=null,activeLabel='',activeTrailIdentity='',sourceEpoch=0,activeEphemeral=false,trailTimer=null,trailPending=null,sourceEchoIndex=null,sourceEchoSourceId='',sourceEchoUrl='',sourceEchoValidatedKey='';
 const READ_RIDE_RETURN='readfield.read-ride.return.v01';
 const JP=document.getElementById('jsonProjection'),WL=document.getElementById('wristLink');
-let activeJson=null,jsonTree=false,readFocus=null;
+let activeJson=null,jsonTree=false,readFocus=null,jsonMap=[],treeEntryPath='';
 function asJson(s){try{const v=JSON.parse(s);return v&&typeof v==='object'?v:null}catch(_){return null}}
 function loadProjection(value,opt){
- activeJson=value&&typeof value==='object'?value:null;jsonTree=false;readFocus=null;
- JP.hidden=!activeJson;JP.textContent='STRUCT';
+ activeJson=asJson(activeRaw);jsonTree=false;readFocus=null;treeEntryPath='';
+ jsonMap=activeJson?FieldAperture.jsonSpans(activeRaw):[];
+ JP.hidden=!activeJson;JP.textContent='STRUCT';JP.title='Inspect the JSON node at this reading position';
  if(activeJson){
    const fmt={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
+   const node=jsonMap.find(n=>!n.ambiguous&&n.path===opt.address);
+   if(node)fmt.charIndex=node.contentStart;
    delete fmt.address;A.load(activeRaw,fmt);
  }else A.load(value,opt)
+}
+function readingFocus(){
+ const snap=A.snapshot?.()||{};
+ if(!jsonTree)return snap;
+ if(snap.address===treeEntryPath&&readFocus)return {...readFocus,wpm:snap.wpm,playing:false,speaking:false};
+ const node=jsonMap.find(n=>!n.ambiguous&&n.path===snap.address);
+ if(!node)throw Error('This JSON path has repeated keys; its source address is ambiguous.');
+ return {scale:'WORD',char_index:node.contentStart,wpm:snap.wpm};
 }
 JP.onclick=()=>{
  if(!activeJson)return;
  const snap=A.snapshot?.()||{};A.stop?.();
- if(!jsonTree){readFocus=snap;A.load(activeJson,{label:activeLabel,scale:'ROOT',wpm:snap.wpm});jsonTree=true;JP.textContent='READ JSON'}
- else{A.load(activeRaw,{label:activeLabel,format:'TXT',scale:readFocus?.scale||'WORD',charIndex:readFocus?.char_index??0,wpm:snap.wpm});jsonTree=false;JP.textContent='STRUCT'}
+ try{
+  if(!jsonTree){
+   const node=FieldAperture.jsonNodeAt(jsonMap,snap.char_index);
+   if(!node)throw Error('This JSON position has repeated keys; keep reading the exact source.');
+   readFocus=snap;treeEntryPath=node.path;jsonTree=true;JP.textContent='READ JSON';
+   A.load(activeRaw,{label:activeLabel,scale:'ROOT',address:node.path,wpm:snap.wpm});
+  }else{
+   const focus=readingFocus();jsonTree=false;JP.textContent='STRUCT';
+   A.load(activeRaw,{label:activeLabel,format:'TXT',scale:focus.scale||'WORD',charIndex:focus.char_index??0,wpm:snap.wpm});
+  }
+  JP.title='Inspect the JSON node at this reading position';document.documentElement.dataset.readfieldProjection='mapped';
+ }catch(e){JP.title=e.message;document.documentElement.dataset.readfieldProjection='unmapped';M.textContent=e.message}
 };
-WL.onclick=()=>{
- const q=new URLSearchParams();
- if(activeUrl)q.set('src',activeUrl.pathname+activeUrl.search);
- else if(activeRaw){try{sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({label:activeLabel,raw:activeRaw}))}catch(_){}q.set('handoff','1')}
- WL.href='/rsvp/'+(q.size?'?'+q.toString():'');
+WL.onclick=async e=>{
+ e.preventDefault();if(!activeRaw)return;A.stop?.();const epoch=sourceEpoch;
+ try{
+  const focus=readingFocus(),hash=await exactTextId(activeRaw,activeTrailIdentity);if(epoch!==sourceEpoch)return;
+  sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({label:activeLabel,raw:activeRaw,focus,sourceAddress:activeUrl?activeUrl.pathname+activeUrl.search:'',hash,returnAddress:location.pathname+location.search+location.hash}));
+  location.href='/rsvp/?handoff=1';
+ }catch(x){M.textContent='WRIST unavailable: '+x.message}
 };
 // One-click first-use specimen; ordinary local source authority, no new storage.
 const READ_DEMO='A source is not a view. Read this short passage at a steady pace. Pause on an important phrase, then move backward without losing your position.\n\nThe same words can be read slowly, spoken aloud, or traversed spatially. The original text remains unchanged. The address is the thing we carry home.';
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
- const q=new URLSearchParams(location.search),index=Number(q.get('ap_index')),wpm=Number(q.get('ap_wpm')),charIndex=Number(q.get('ap_char'));
+ const q=new URLSearchParams(location.search),number=k=>q.has(k)&&q.get(k).trim()!==''?Number(q.get(k)):NaN,index=number('ap_index'),wpm=number('ap_wpm'),charIndex=number('ap_char');
  return{scale:q.get('ap_scale')||undefined,index:Number.isFinite(index)?index:undefined,address:q.get('ap_addr')||undefined,wpm:Number.isFinite(wpm)?wpm:undefined,charIndex:Number.isFinite(charIndex)?charIndex:undefined}
 }
 const initialAperture=apertureView();let firstLoad=true,apSyncTimer=null,apSyncPending=null,readingTimer=null,readingPending=null;
 function writeAperture(snap){
  const q=new URLSearchParams(location.search);snap.scale?q.set('ap_scale',snap.scale):q.delete('ap_scale');q.set('ap_index',String(Number.isFinite(+snap.index)?snap.index:0));
- snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');if(Number.isFinite(+snap.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
+ snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');if(snap.char_index!=null&&Number.isFinite(+snap.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
 }
 function scheduleReading(snap){
  readingPending=snap;if(!snap?.playing&&!snap?.speaking){if(readingTimer){clearTimeout(readingTimer);readingTimer=null}const x=readingPending;readingPending=null;if(x)renderReading(x);return}
@@ -106,7 +129,7 @@ function readerAddressForSnap(snap){
  if(snap?.scale)q.set('ap_scale',snap.scale);else q.delete('ap_scale');
  q.set('ap_index',String(Number.isFinite(+snap?.index)?snap.index:0));
  if(snap?.address)q.set('ap_addr',snap.address);else q.delete('ap_addr');
- if(Number.isFinite(+snap?.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');
+ if(snap?.char_index!=null&&Number.isFinite(+snap.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');
  q.set('ap_wpm',String(Number.isFinite(+snap?.wpm)?snap.wpm:300));
  return u.pathname+'?'+q.toString()+u.hash
 }
@@ -255,7 +278,7 @@ function scheduleTrail(snap){
 }
 function trailRestoreOption(){
   const t=ensureTrail();if(!t?.last)return null;
-  if(Number.isFinite(Number(t.last.charIndex)))return {charIndex:Number(t.last.charIndex),scale:t.last.scale||undefined};
+  if(t.last.charIndex!=null&&Number.isFinite(Number(t.last.charIndex)))return {charIndex:Number(t.last.charIndex),scale:t.last.scale||undefined};
   return t.last.address?{address:t.last.address,scale:t.last.scale||undefined}:null
 }
 function markIdentity(s){return String(s?.address||'')+'|'+String(s?.char_index??s?.charIndex??'')+'|'+String(s?.scale||'')}
@@ -345,7 +368,7 @@ function localFormat(name=''){
 }
 function openLocalText(raw,name='LOCAL FILE',type='',format=localFormat(name),remember=true,exactId=''){
  const s=String(raw??'');if(!s.trim())return;const epoch=++sourceEpoch;let value=s,out=s;
- if(/\.json$/i.test(name)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
+ if(/\.json$/i.test(name)){try{value=JSON.parse(s)}catch(_){}}
  activeRaw=out;activeUrl=null;activeLabel=name;activeTrailIdentity=normalizeExactId(exactId);activeEphemeral=true;H.textContent=name+' · LOCAL';R.hidden=true;T.textContent=out;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  if(remember){try{sessionStorage.setItem('docs.reader.local.v1',JSON.stringify({name,type,raw:s,format,exactId:activeTrailIdentity}))}catch(_){}}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.delete('paste');q.set('local','1');history.replaceState(null,'','?'+q.toString()+'#'+slug(name));
@@ -365,7 +388,7 @@ async function openSource(n,value){
  H.textContent=n;R.hidden=false;R.href=u.pathname+u.search;T.textContent='Loading…';document.querySelectorAll('.doc').forEach(b=>b.classList.toggle('on',b.dataset.slug===slug(n)));
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
-   const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
+   const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s)}catch(_){}}
    if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;activeTrailIdentity='';activeEphemeral=false;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.setGlyphWitness?.(null);loadProjection(value,opt);syncAddress(u,n);syncCopyMode();void finishTrailIdentity(epoch,out);queueMicrotask(()=>{sourceEchoRender(A.snapshot?.());void acceptReadRideReturn()});
  }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
@@ -408,7 +431,7 @@ RL.onclick=async()=>{
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return')),echoBack=echoBackUrl(Q.get('echo_back'));if(ret){B.hidden=false;B.href=ret}if(echoBack){EB.hidden=false;EB.href=echoBack;document.documentElement.dataset.readfieldEchoBack='ready'}else{EB.hidden=true;document.documentElement.dataset.readfieldEchoBack='none'}void sourceEchoLoad(Q.get('echo'),Q.get('echo_source'));
 let handoff=null;if(Q.has('handoff')){try{handoff=JSON.parse(sessionStorage.getItem('readfield.handoff.v1')||'null');sessionStorage.removeItem('readfield.handoff.v1')}catch(_){}}
 const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'',local=Q.has('local')?(()=>{try{return JSON.parse(sessionStorage.getItem('docs.reader.local.v1')||'null')}catch(_){return null}})():null;
-if(handoff?.source){const hret=returnUrl(handoff.returnAddress||handoff.from);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO',handoff.sourceIdentity?.hash||handoff.sourceIdentity?.id||'');if(handoff.focus){A.restore?.(handoff.focus);document.documentElement.dataset.readfieldHandoff='focus-restored'}if(handoff.sourceIdentity?.glyph)A.setGlyphWitness?.(handoff.sourceIdentity.glyph)}
+if(handoff?.source){const hret=returnUrl(handoff.returnAddress||handoff.from);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO',handoff.sourceIdentity?.hash||handoff.sourceIdentity?.id||'');if(handoff.sourceIdentity?.address){activeUrl=sourceUrl(handoff.sourceIdentity.address);if(activeUrl){syncAddress(activeUrl,activeLabel);R.hidden=false;R.href=activeUrl.pathname+activeUrl.search}}if(handoff.focus){A.restore?.(handoff.focus);document.documentElement.dataset.readfieldHandoff='focus-restored'}if(handoff.sourceIdentity?.glyph)A.setGlyphWitness?.(handoff.sourceIdentity.glyph)}
 else if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
 else if(local?.raw!=null)openLocalText(local.raw,local.name||'LOCAL FILE',local.type||'',local.format||localFormat(local.name||''),false,local.exactId||'');
 else if(paste){PT.value=paste;openPaste(paste)}

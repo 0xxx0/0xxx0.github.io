@@ -6,6 +6,9 @@ on:
       - 'fold-bloom/listen/**'
       - 'fold-bloom/lens/studio-v12.js'
       - 'docs/index.html'
+      - 'rsvp/**'
+      - 'field-aperture.js'
+      - 'tools/reading-*'
       - 'tools/fold-bloom-first-use-contract.test.mjs'
       - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/interphase-readfield.js'
@@ -20,6 +23,9 @@ on:
       - 'fold-bloom/listen/**'
       - 'fold-bloom/lens/studio-v12.js'
       - 'docs/index.html'
+      - 'rsvp/**'
+      - 'field-aperture.js'
+      - 'tools/reading-*'
       - 'tools/fold-bloom-first-use-contract.test.mjs'
       - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/readfield-track-sync.js'
@@ -45,6 +51,8 @@ jobs:
           node --check fold-bloom/listen/analysis-worker.js
           node --check fold-bloom/lens/studio-v12.js
           node --check lib/readfield-controls.js
+          node --check field-aperture.js
+          node --check rsvp/reader.js
           node --check tools/fold-bloom-first-use-browser-smoke.mjs
           node --check fold-bloom/listen/demo-tone.js
       - name: Prove first-use and source continuity contracts
@@ -54,9 +62,17 @@ jobs:
           node fold-bloom/listen/stream-lens.test.mjs
       - name: Prove timed cue address mapping
         run: node lib/readfield-track-sync.test.mjs
+      - name: Prove exact JSON source addresses
+        run: node tools/reading-source-selftest.cjs
       - uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
       - name: Prove phone-width first-use in browser
         run: node tools/fold-bloom-first-use-browser-smoke.mjs
+      - name: Reader browser test dependencies (runner temp only)
+        run: npm install --prefix "$RUNNER_TEMP/reading-test" playwright
+      - name: Prove READ / STRUCT / WRIST continuity
+        env:
+          NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+        run: node tools/reading-continuity-smoke.mjs
 
