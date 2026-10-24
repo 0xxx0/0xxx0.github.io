@@ -1,0 +1,83 @@
+{
+  "schema": "house-os-handoff/v0.1",
+  "updated": "2026-10-04",
+  "audience": "second human operator or agent",
+  "authority": "NONE / COORDINATION ONLY until separately granted by the runtime owner",
+  "mission": "Continue HOUSE as a small semantic/evidence layer above Home Assistant rather than expanding it into another automation platform.",
+  "read_order": [
+    "/house/os/manifest.json",
+    "/house/os/ha-adapter.contract.json",
+    "/house/os/core.js",
+    "/house/contract.json",
+    "/house/crew-card.json"
+  ],
+  "ground_truth": [
+    "HOUSE owns stable identity, relations, capability meaning, observations, intents and receipts.",
+    "Home Assistant / HOUSEBUS owns private runtime truth and actuation.",
+    "The public repository is not live runtime truth and contains no runtime credentials.",
+    "Existing DESIGN, REALITY, CARE and CREW machinery are optional projections/plugins, not kernel dependencies.",
+    "Normal operation should demand almost no interface attention; deviations should expose consequence, next move and evidence."
+  ],
+  "current_implementation": {
+    "branch": "house-os-minimal-v01",
+    "core": "Pure zero-dependency JS kernel with stable bindings, normalized observations, availability, freshness, reconnect state machine, receipts, replay and diagnostics.",
+    "tests": "node house/os/core.test.js",
+    "ha_contract": "Machine-readable v0.1 contract; default execution mode is shadow.",
+    "runtime_connection": "NOT IMPLEMENTED IN THIS PUBLIC BRANCH; private HA/HOUSEBUS binding remains separate."
+  },
+  "next_moves": [
+    {
+      "id": "BIND_10",
+      "owner": "AGENT + RUNTIME OWNER",
+      "gate": "PRIVATE_RUNTIME_ACCESS",
+      "action": "Create explicit HOUSE_ID + capability mappings for 10 already-known HA entities/devices. Do not generalize before these work.",
+      "proof": "No duplicate HOUSE identity; rename/replacement test preserves identity."
+    },
+    {
+      "id": "READ_PIPE",
+      "owner": "AGENT",
+      "gate": "PRIVATE_RUNTIME_ACCESS",
+      "action": "Translate HA state/event updates into HouseOSCore observations and availability records; append them to a private replay fixture/log.",
+      "proof": "Restart/reconnect converges and current projection can be reproduced from replay."
+    },
+    {
+      "id": "SHADOW_INTENT",
+      "owner": "AGENT",
+      "gate": "EXPLICIT_ALLOWLIST",
+      "action": "Compile a small set of light/fan intents to exact HA operations but emit WOULD_SEND only.",
+      "proof": "No side effects; each proposed operation has a receipt and can be replayed."
+    },
+    {
+      "id": "HUMAN_SURFACE",
+      "owner": "AGENT",
+      "gate": "NONE",
+      "action": "Render only deviations, uncertain/stale state, consequence and smallest next action. Keep deep device trees in expert view.",
+      "proof": "A normal household state is nearly silent; a failure explains what changed and what depends on it."
+    }
+  ],
+  "stop_conditions": [
+    "Do not introduce a second device runtime such as openHAB merely to model the same devices.",
+    "Do not create a new automation DSL before read/replay/shadow behavior is proven.",
+    "Do not place HA entity IDs, MQTT topics or vendor IDs in public UI as canonical identity.",
+    "Do not let an agent call arbitrary HA services through this seam.",
+    "Do not copy credentials, private endpoints, presence history or private topology into the public repository."
+  ],
+  "human_needed_only_for": [
+    "granting access to private runtime/tools",
+    "choosing or confirming ambiguous physical identity",
+    "fresh world observations that cannot be inferred",
+    "permission to promote a capability from shadow to act",
+    "irreversible or consequential physical decisions"
+  ],
+  "agent_can_do_without_rebrief": [
+    "inspect public HOUSE contracts and code",
+    "run/refine pure tests",
+    "propose mapping tables from runtime metadata once access exists",
+    "normalize/replay observations",
+    "diagnose stale/missing/ambiguous mappings",
+    "prepare shadow intents and receipts",
+    "refactor projections while preserving kernel boundaries"
+  ],
+  "handoff_prompt": "Read /house/os/handoff.json first. Preserve the six-noun kernel and authority split. Continue from the first unproven next_move. Prefer deleting/merging concepts over adding subsystems. Return evidence, blockers, changed files, and the smallest next executable step.",
+  "return": "/house/"
+}

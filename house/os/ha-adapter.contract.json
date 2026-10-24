@@ -1,0 +1,142 @@
+{
+  "schema": "house-ha-adapter/v0.1",
+  "updated": "2026-10-04",
+  "role": "Private runtime adapter between stable HOUSE semantics and Home Assistant device/entity state and service execution.",
+  "default_mode": "shadow",
+  "modes": ["read", "shadow", "act"],
+  "invariant": "HA entity/device identity is an alias/binding, never canonical HOUSE identity.",
+  "identity": {
+    "key": "HOUSE_ID + CAPABILITY",
+    "mapping_states": ["BOUND", "UNBOUND", "AMBIGUOUS", "MISSING", "REPLACED"],
+    "required": ["house_id", "capability", "entity_id", "mapping_state", "mapped_at"],
+    "rules": [
+      "Entity rename must not create a new HOUSE object.",
+      "New HA entities never silently inherit an existing HOUSE ID.",
+      "Replacement is an explicit binding transition.",
+      "Many HA entities may bind distinct capabilities of one HOUSE object.",
+      "Runtime/vendor identifiers remain private aliases/evidence where possible."
+    ]
+  },
+  "observations": {
+    "schema": "HOUSE_OS_CORE.makeObservation",
+    "append_only": true,
+    "required": ["object", "capability", "value", "observed_at", "received_at", "source", "quality"],
+    "quality": ["OBSERVED", "INFERRED", "STALE", "UNAVAILABLE", "UNKNOWN"],
+    "rule": "Current state is a projection/reduction over observations; adapter restart must not fabricate semantic change."
+  },
+  "availability": {
+    "states": ["AVAILABLE", "UNAVAILABLE", "UNKNOWN"],
+    "independent_from_value": true,
+    "rule": "Last known value may remain inspectable when unavailable, but must never be presented as current runtime truth without qualification."
+  },
+  "stale": {
+    "freshness_kinds": ["persistent-state", "periodic-sensor", "ephemeral-event"],
+    "rule": "Persistent state does not become stale merely from event silence. Periodic/ephemeral capabilities use declared stale thresholds."
+  },
+  "reconnect": {
+    "states": ["CONNECTED", "DISCONNECTED", "RECONNECTING", "RESYNCING", "AUTH_REQUIRED", "CONFIG_ERROR", "INCOMPATIBLE"],
+    "ordinary_sequence": "CONNECTED -> DISCONNECTED -> RECONNECTING -> RESYNCING -> CONNECTED",
+    "on_resync": [
+      "reload HA registry/state needed by bound capabilities",
+      "revalidate identity mappings",
+      "mark disappeared bindings explicitly",
+      "reread bound runtime state",
+      "emit only justified observations",
+      "resume event stream"
+    ],
+    "rule": "Ordinary network interruption should converge without semantic repair or manual ritual."
+  },
+  "diagnostics": {
+    "machine_readable": true,
+    "minimum": [
+      "connection",
+      "last_connected_at",
+      "last_event_at",
+      "last_successful_sync",
+      "binding counts",
+      "observation received/rejected counts",
+      "command sent/confirmed/failed counts",
+      "normalized errors"
+    ],
+    "forbidden_public": [
+      "access tokens",
+      "credentials",
+      "private runtime endpoints",
+      "private addresses",
+      "sensitive presence data"
+    ]
+  },
+  "replay": {
+    "input": ["initial state", "ordered normalized events", "timestamps"],
+    "output": ["HOUSE state", "availability transitions", "mapping transitions", "receipts", "diagnostics"],
+    "deterministic": true,
+    "external_actuation": false,
+    "network_dependency": false
+  },
+  "intent": {
+    "rule": "HOUSE submits typed Intent; adapter does not expose arbitrary unrestricted HA service calls through the normal seam.",
+    "pipeline": "INTENT -> mapping validation -> capability validation -> permission/policy -> HA translation -> runtime -> observation/receipt"
+  },
+  "receipts": {
+    "states": ["DRAFTED", "WOULD_SEND", "SENT", "ACKNOWLEDGED", "CONFIRMED", "FAILED", "TIMED_OUT", "REJECTED"],
+    "rule": "Every attempted external action has a receipt; SENT or HTTP success is not CONFIRMED until runtime/world evidence justifies confirmation."
+  },
+  "shadow": {
+    "default": true,
+    "effect": "Compile the exact HA operation and emit WOULD_SEND without executing it.",
+    "promotion_gate": "Replay/reconnect/identity tests pass and a capability is explicitly allowlisted for act mode."
+  },
+  "removal": {
+    "runtime_entity_disappeared": "HOUSE object remains; binding becomes MISSING.",
+    "device_or_integration_replaced": "Old binding becomes REPLACED; new binding becomes BOUND; HOUSE identity/history remains.",
+    "house_object_retired": "Explicit HOUSE lifecycle decision only; operational binding is removed while observations, receipts, mappings and provenance remain."
+  },
+  "normalized_errors": [
+    "CONNECTION_FAILED",
+    "AUTH_REQUIRED",
+    "ENTITY_MISSING",
+    "MAPPING_AMBIGUOUS",
+    "UNSUPPORTED_CAPABILITY",
+    "INVALID_VALUE",
+    "PERMISSION_DENIED",
+    "COMMAND_FAILED",
+    "COMMAND_TIMEOUT",
+    "STATE_UNCONFIRMED",
+    "RUNTIME_UNAVAILABLE"
+  ],
+  "adapter_api": [
+    "connect",
+    "disconnect",
+    "sync",
+    "resolve",
+    "observe",
+    "read",
+    "execute",
+    "diagnostics",
+    "replay",
+    "unbind"
+  ],
+  "acceptance_tests": [
+    "entity rename preserves HOUSE identity",
+    "integration restart reconnects automatically",
+    "unavailable is independent from last capability value",
+    "periodic sensor becomes stale by declared threshold",
+    "persistent state does not stale from silence alone",
+    "missing entity does not delete HOUSE object",
+    "replacement preserves history",
+    "duplicate entity cannot silently claim an existing HOUSE ID",
+    "replay is deterministic and effect-free",
+    "shadow mode emits WOULD_SEND only",
+    "command acceptance differs from confirmation",
+    "every external action has a receipt",
+    "diagnostics explain broken mappings without leaking secrets",
+    "unbind removes execution authority but preserves history",
+    "adapter restart converges without manual semantic repair"
+  ],
+  "implementation_boundary": {
+    "adapter_owns": ["HA transport", "registry/state reads", "event subscription", "binding map", "normalization", "command translation", "reconnect", "diagnostics", "replay", "receipts"],
+    "house_owns": ["canonical IDs", "relations", "capability semantics", "observation history", "state reduction", "intent", "policy", "human projections", "RETURN"],
+    "ha_owns": ["integrations", "protocol/vendor quirks", "runtime service execution", "device/entity registry", "runtime automation"]
+  },
+  "return": "/house/os/manifest.json"
+}
