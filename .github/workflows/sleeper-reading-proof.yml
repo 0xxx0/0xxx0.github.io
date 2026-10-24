@@ -1,0 +1,29 @@
+name: sleeper-reading-proof
+on:
+  pull_request:
+    paths:
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+      - 'tools/sleeper-read-play-dom-smoke.mjs'
+      - '.github/workflows/sleeper-reading-proof.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+      - 'tools/sleeper-read-play-dom-smoke.mjs'
+permissions:
+  contents: read
+jobs:
+  reading:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Threadwalk source and witness invariants
+        run: node tools/sleeper-threadwalk-selftest.cjs
+      - name: Playwright-free Chromium reading-first integration
+        run: node tools/sleeper-read-play-dom-smoke.mjs
