@@ -128,8 +128,9 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   for(const [id,start,end] of [['absolute-slider',0,source.raw.length],['local-slider',dial.span.start,dial.span.end]]){
    const slider=el(id),value=clamp(anchor,start,end-1);
    slider.setAttribute('aria-valuemin',String(start));slider.setAttribute('aria-valuemax',String(end-1));slider.setAttribute('aria-valuenow',String(value));
-   slider.setAttribute('aria-valuetext',`Character ${value-start+1} of ${end-start}${id==='local-slider'?' in '+level(model,scope).label:''}`);
+   slider.setAttribute('aria-valuetext',anchor<start||anchor>=end?`Caret character ${anchor+1} is outside this range. Home enters at character ${start+1}.`:`Character ${value-start+1} of ${end-start}${id==='local-slider'?' in '+level(model,scope).label:''}`);
   }
+  el('local-dot').setAttribute('opacity',dial.span.start<=anchor&&anchor<dial.span.end?'1':'.3');
   el('window').setAttribute('d',dialArc(...dial.window,78));
   // Exact marks appear at source coordinates, never at ordinal ring slots.
   el('marks-ring').innerHTML=marks.map(c=>{

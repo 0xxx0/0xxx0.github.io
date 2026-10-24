@@ -86,6 +86,7 @@ async function continuumBrowserProof(){
    const observations=requests.filter(p=>p==='/showcase-manifest.json').length;await page.evaluate(()=>InterphaseInstrument.importPacket(InterphaseInstrument.packet()));assert.ok(requests.filter(p=>p==='/showcase-manifest.json').length>observations,'RETURN resolves native ports from a fresh host source');
    await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');
    await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
+   assert.match(await ip('local-slider').getAttribute('aria-valuetext'),/outside this range/,'a caret in the heading is not a position inside the nearest paragraph');
    await page.evaluate(c=>{InterphaseInstrument.seek(c);InterphaseInstrument.setScope('SENT')},c);
    await page.reload();await wait();assert.equal((await snap()).source.raw,raw,'reload retains a newly opened source');assert.equal((await snap()).attention.char,c);assert.equal((await snap()).attention.scope,'SENT');
    await ip('held').evaluate(x=>x.dataset.identity='same');await ip('view-walk').click();
