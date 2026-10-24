@@ -77,8 +77,32 @@ function relation(model,hash,from,to,type){
 }
 function validRelation(model,hash,r){return !!r&&r.hash===hash&&r.authority==='INTERPRETATION_ONLY'&&RELATIONS.includes(r.type)&&[r.from,r.to].every(s=>exactSpan(model,s)&&s.end-s.start<=20000&&s.quote===model.raw.slice(s.start,s.end)&&model.levels.some(l=>l.id===s.scope&&l.units.some(u=>u.start===s.start&&u.end===s.end)))&&!(r.from.start===r.to.start&&r.from.end===r.to.end)}
 function relationDoors(model,hash,links,char){return links.filter(r=>validRelation(model,hash,r)).flatMap(r=>[...(char>=r.from.start&&char<r.from.end?[{...r,destination:r.to,direction:'→'}]:[]),...(char>=r.to.start&&char<r.to.end?[{...r,destination:r.from,direction:'←'}]:[])])}
+// Two honest coordinates sharing one source: the outer dial is absolute
+// character position; the inner dial is position inside the currently held
+// native range. The window on the outer dial always uses ABSOLUTE coordinates.
+function dialReading(model,scope,char){
+ const span=at(model,char,scope);
+ if(!span)throw Error('No native scope at this source position.');
+ const length=model.raw.length;
+ return {absolute:clamp(char/Math.max(1,length-1),0,1),
+  local:clamp((char-span.start)/Math.max(1,span.end-span.start-1),0,1),
+  window:[span.start/length,span.end/length],span:{start:span.start,end:span.end}};
+}
+function dialChar(model,scope,char,band,fraction){
+ if(!['absolute','local'].includes(band))throw Error('Unknown source dial.');
+ const span=band==='absolute'?{start:0,end:model.raw.length}:at(model,char,scope);
+ return charIn(model,span,fraction);
+}
+function dialFraction(x,y){
+ if(!Number.isFinite(x)||!Number.isFinite(y))throw Error('Invalid dial coordinate.');
+ return ((Math.atan2(y,x)+Math.PI/2)/(Math.PI*2)+1)%1;
+}
+function dialXY(fraction,radius=69){
+ const a=-Math.PI/2+Math.PI*2*clamp(fraction,0,1);
+ return {x:90+radius*Math.cos(a),y:90+radius*Math.sin(a)};
+}
 function validateAttention(model,a){
- if(!a||!Number.isInteger(a.char)||a.char<0||a.char>=model.raw.length||!model.levels.some(s=>s.id===a.scope)||!['plain','walk'].includes(a.view)||!Number.isFinite(a.wpm)||a.wpm<60||a.wpm>6000||typeof a.query!=='string'||a.query.length>200)throw Error('Invalid RETURN attention.');
+ if(!a||!Number.isInteger(a.char)||a.char<0||a.char>=model.raw.length||!model.levels.some(s=>s.id===a.scope)||!['plain','walk','dial'].includes(a.view)||!Number.isFinite(a.wpm)||a.wpm<60||a.wpm>6000||typeof a.query!=='string'||a.query.length>200)throw Error('Invalid RETURN attention.');
  return{char:a.char,scope:a.scope,view:a.view,wpm:a.wpm,query:a.query};
 }
-export {MAX_BYTES,RELATIONS,clamp,compile,level,containing,at,focusChar,zoomScope,exactSpan,charIn,ordered,neighbors,describe,patch,relation,validRelation,relationDoors,validateAttention};
+export {MAX_BYTES,RELATIONS,clamp,compile,level,containing,at,focusChar,zoomScope,exactSpan,charIn,ordered,neighbors,describe,patch,relation,validRelation,relationDoors,validateAttention,dialReading,dialChar,dialFraction,dialXY};
