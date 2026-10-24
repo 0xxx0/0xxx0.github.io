@@ -340,8 +340,9 @@ function tapTile(b){
   const g=tileFold(id);if(!g)return;
   read(g);openRoom(g,point);
 }
-// The chip cycles the two observer maps. It touches no frame field, so the
-// held object, the pin and every room slot are bit-identical across the switch.
+// Switching readings cannot move the frame, native focus or pinned RETURN.
+// LIST carries one persistent held-address seam; WALK is an existing RELATIONS
+// projection of declared source edges, never title similarity or a second graph.
 // Each tab is a reversible projection, not a new frame, store or route.
 function toggleViews(show=$('#fiViewTabs').hidden){
   const tabs=$('#fiViewTabs');tabs.hidden=!show;
@@ -367,33 +368,44 @@ function setView(mode){
 function renderList(){
   const host=$('#fiList');if(!enabled||!view||!host)return;
   const ordered=C.overview(rows,view,state.focus,C.axis(state));
-  const inScope=ordered.filter(p=>p.inside);
-  const heldOutside=ordered.find(p=>p.held&&!p.inside);
-  const items=heldOutside?[heldOutside,...inScope]:inScope;
-  const pageSize=Math.max(3,Math.min(10,Math.floor(($('#fiField').clientHeight-48)/48)));
+  const inScope=ordered.filter(p=>p.inside),byId=new Map(rows.map(r=>[r.id,r]));
+  const pin=held(),walking=state.mode==='RELATIONS'&&!!pin;
+  // WALK is a projection of the same route records. Only explicit parent edges
+  // make a neighbour; the visual relation groups are not fuzzy search results.
+  const edges=walking?C.neighbours(rows,pin.id):[];
+  const relations=new Map(edges.flatMap(g=>g.members.map(r=>[r.id,g.relation])));
+  const scopedById=new Map(inScope.map(p=>[p.id,p]));
+  const items=walking?edges.flatMap(g=>g.members.map(r=>scopedById.get(r.id)).filter(Boolean)):inScope;
+  // The held source is independent of pagination, filtering, and walk scope.
+  // It stays in one fixed seam; it is not duplicated in the countable rows.
+  const pageSize=Math.max(1,Math.min(10,Math.floor(($('#fiField').clientHeight-124)/48)));
   const pages=Math.max(1,Math.ceil(items.length/pageSize));listPage=Math.min(Math.max(0,listPage),pages-1);
   const page=items.slice(listPage*pageSize,(listPage+1)*pageSize);
-  const byId=new Map(rows.map(r=>[r.id,r]));
-  // Threadwalk is declared adjacency, not title similarity or a decorative arrow.
-  const relations=new Map(state.mode==='RELATIONS'&&state.focus
-    ?C.neighbours(rows,state.focus).flatMap(g=>g.members.map(r=>[r.id,g.relation])):[]);
-  host.innerHTML=`<header class="fiListHead"><b>${view.inside} IN SCOPE · ${view.total} SOURCE</b><span>${listPage+1}/${pages} · ${esc(C.axis(state).toUpperCase())}</span></header>
+  const edgeCount=edges.reduce((n,g)=>n+g.members.length,0);
+  host.innerHTML=`<header class="fiListHead"><b>${walking?'WALK · '+edgeCount+' LINKS':view.inside+' IN SCOPE'} · ${view.total} SOURCE</b><span>${listPage+1}/${pages} · ${walking?'DECLARED':esc(C.axis(state).toUpperCase())}</span></header>
+    <div class="fiListPin" aria-label="Held source and walk controls">
+      <span class="fiListPinSource"><b>${pin?'◎ '+esc(pin.title):'○ NO HELD SOURCE'}</b><code>${pin?esc(pin.address):'Tap a source to hold it'}</code></span>
+      <button type="button" data-list-walk aria-label="${walking?'Show the whole field':'Walk declared parent, child and peer links'}" ${pin?'':'disabled'}>${walking?'ALL':'↔ WALK'}</button>
+      <button type="button" data-list-back aria-label="Restore previous FIELD position" ${revisions.length?'':'disabled'}>↶</button>
+    </div>
     <div class="fiListRows">${page.map(p=>{
       const r=byId.get(p.id);if(!r)return '';
       const relation=relations.get(p.id);
       const glyph=p.held?'◎':relation==='parent'?'↑':relation==='child'?'↓':relation==='peer'?'↔':p.inside?'◇':'·';
-      return `<button type="button" class="fiListRow${p.held?' held':''}${p.inside?'':' outside'}" data-list-id="${esc(p.id)}" aria-label="${esc(r.title+' · '+r.address+(relation?' · '+relation:'')+(p.held?' · held':'')+(p.inside?'':' · outside scope'))}">
+      return `<button type="button" class="fiListRow${p.held?' held':''}" data-list-id="${esc(p.id)}" aria-label="${esc(r.title+' · '+r.address+(relation?' · '+relation:'')+(p.held?' · held':''))}">
         <span class="fiListGlyph">${glyph}</span>
         <span class="fiListText"><b>${esc(r.title)}</b><code>${esc(r.address)}</code></span>
         <span class="fiListState">${esc(relation?relation.toUpperCase():r.state||'UNKNOWN')}</span>
       </button>`
-    }).join('')||'<p class="fiListNone">∅ No records match. Edit the coordinate or use UP.</p>'}</div>
+    }).join('')||`<p class="fiListNone">${walking?'∅ No declared neighbours. No similarity inferred.':'∅ No records match. Edit the coordinate or use UP.'}</p>`}</div>
     <footer class="fiListFoot"><button type="button" data-list-page="prev" ${listPage===0?'disabled':''}>← PREV</button><span>${items.length} addressed · ${view.total-inScope.length} outside</span><button type="button" data-list-page="next" ${listPage+1===pages?'disabled':''}>NEXT →</button></footer>`;
   host.querySelectorAll('[data-list-id]').forEach(b=>{
     b.onclick=()=>locateTick(b.dataset.listId);
     b.onfocus=()=>{const r=byId.get(b.dataset.listId);if(r)readTick(r)};
     b.onpointerenter=e=>{if(e.pointerType==='mouse'){const r=byId.get(b.dataset.listId);if(r)readTick(r)}}
   });
+  host.querySelector('[data-list-walk]').onclick=()=>command(walking?'field':'relations');
+  host.querySelector('[data-list-back]').onclick=()=>command('rewind');
   host.querySelector('[data-list-page="prev"]').onclick=()=>{listPage--;renderList()};
   host.querySelector('[data-list-page="next"]').onclick=()=>{listPage++;renderList()};
 }
