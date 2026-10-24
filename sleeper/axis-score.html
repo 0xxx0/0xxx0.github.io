@@ -526,8 +526,37 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
   scoreCanvas.addEventListener('wheel',e=>{if(!score)return;e.preventDefault();if(Math.abs(e.deltaY)>Math.abs(e.deltaX))axisZoom(e.deltaY>0?1:-1);else seekIndex(axis.index+Math.sign(e.deltaX)*3)},{passive:false});
   scoreCanvas.addEventListener('keydown',e=>{if(!score)return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();if(e.key==='ArrowUp')axisZoom(-1);else if(e.key==='ArrowDown')axisZoom(1);else seekIndex(axis.index+(e.key==='ArrowRight'?1:-1))}});
   window.addEventListener('keydown',e=>{if(!model||$('#work').classList.contains('hidden')||/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))return;if(e.key==='Escape'){stop();setMode('read')}if(mode==='pin'&&(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();if(e.key==='ArrowUp')axisZoom(-1);else if(e.key==='ArrowDown')axisZoom(1);else seekIndex(axis.index+(e.key==='ArrowRight'?1:-1));return}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){let a=T.neighbors(model,session).filter(x=>x.kind==='ORDER').sort((a,b)=>idx(a.id)-idx(b.id));const target=e.key==='ArrowRight'?a.at(-1):a[0];if(target){e.preventDefault();navigate(target.id)}}});
+
+  // Thin adapter: READ PLAY operates on the SAME Threadwalk model/session and
+  // the existing source-seal, witness, route and RETURN authority. No clone.
+  window.SleeperReadingBridge=Object.freeze({
+    snapshot:()=>({model,session,inspected,score}),
+    async load(source,title,url=''){
+      const proposed=T.createModel(String(source),{title,url});
+      if(!proposed.nodes.length)throw Error('SOURCE_REQUIRED');
+      $('#textInput').value=source;$('#title').value=title;$('#sourceUrl').value=url;
+      await boot();
+      if(!model||model.hash!==proposed.hash)throw Error('SOURCE_LOAD_FAILED');
+      setMode('read');
+      return model;
+    },
+    inspect(id){if(!n(id))throw Error('NODE_UNKNOWN');select(id);},
+    travel(id){navigate(id);},
+    hold(id,choice){session=T.cite(model,session,id,choice);render();},
+    mark(id){session=T.select(model,session,id);render();},
+    link(id,relation,reason){
+      session=T.commit(model,session,id,relation,reason);
+      render();return session.links.at(-1);
+    },
+    undo(){session=T.undo(session);render();},
+    redo(){session=T.redo(session);render();},
+    returnArtifact(){return T.artifact(model,session);},
+    originStep(){const path=T.routeHome(model,session);if(path.length>1)navigate(path[1]);},
+    showField(){setMode('read');$('#sourceMode').classList.add('hidden');$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');}
+  });
 })();
 </script>
+<script src="./reading-play.js"></script>
 <script src="./bell-world.js"></script>
 </body>
 </html>
