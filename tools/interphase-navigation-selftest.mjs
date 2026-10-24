@@ -33,11 +33,17 @@ function navSelftest(){
  assert.equal(N.dialChar(m,'PARA',c,'local',0),dial.span.start);
  assert.equal(N.dialChar(m,'PARA',c,'local',1),dial.span.end-1);
  assert.equal(N.dialChar(m,'PARA',c,'absolute',1),raw.length-1);
- assert.equal(N.dialFraction(0,-1),0);
- assert.equal(N.dialFraction(1,0),.25);
- assert.equal(N.dialFraction(0,1),.5);
- assert.equal(N.dialFraction(-1,0),.75);
- assert.equal(Math.round(N.dialXY(.25).x),159);
+ // A finite source has distinct first/last characters. A closed circle aliases
+ // them after ordinary pixel rounding; test both ends of the actual transform.
+ const first=N.dialXY(0),last=N.dialXY(1);
+ assert.ok(Math.hypot(first.x-last.x,first.y-last.y)>1,'source endpoints must not share a screen point');
+ for(const fraction of [0,.01,.25,.5,.75,.99,1]){
+  const p=N.dialXY(fraction);
+  const inverse=N.dialFraction(Math.round(p.x*1000)/1000-90,Math.round(p.y*1000)/1000-90);
+  assert.ok(Math.abs(inverse-fraction)<.00001,'rounded dial coordinates must retain both source endpoints');
+ }
+ assert.equal(N.dialFraction(0,-1),null,'the source seam is a gap, not an implicit wrap');
+ assert.ok(Math.abs(N.dialFraction(0,1)-.5)<1e-10);
  assert.deepEqual(N.validateAttention(m,{...attention,view:'dial'}),{...attention,view:'dial'});
  assert.throws(()=>N.dialChar(m,'PARA',c,'unproved',.5),/Unknown source dial/);
 
