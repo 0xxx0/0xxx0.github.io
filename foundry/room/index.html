@@ -139,21 +139,21 @@ function foldSpan(){
  container.insertBefore(wrap,first);chosen.forEach(x=>kids.appendChild(x));
  if(pred){const a=nextAnchor(pred);if(a&&a.getAttribute('href')==='#'+first.id)a.setAttribute('href','#'+wrap.id)}
  else if(program().dataset.entry===first.id)program().dataset.entry=wrap.id;
- focus=wrap.id;mark=null;event('fold',{id:wrap.id,children:ids});decorateKeys();render();return wrap.id;
+ focus=wrap.id;mark=null;lastRun=null;event('fold',{id:wrap.id,children:ids});decorateKeys();render();return wrap.id;
 }
 function dissolve(){
  const w=block(focus);if(!w||w.dataset.generated!=='fold')throw new Error('Focus a generated cassette');
  const kids=directChildren(w),container=w.parentElement,pred=[...container.children].filter(x=>x.classList?.contains('block'))[[...container.children].filter(x=>x.classList?.contains('block')).indexOf(w)-1]||null,first=kids[0];
  if(pred){const a=nextAnchor(pred);if(a&&a.getAttribute('href')==='#'+w.id)a.setAttribute('href','#'+first.id)}
  else if(program().dataset.entry===w.id)program().dataset.entry=first.id;
- kids.forEach(k=>container.insertBefore(k,w));w.remove();focus=first.id;mark=null;event('dissolve',{id:w.id});decorateKeys();render();
+ kids.forEach(k=>container.insertBefore(k,w));w.remove();focus=first.id;mark=null;lastRun=null;event('dissolve',{id:w.id});decorateKeys();render();
 }
 function enter(){const el=block(focus);if(!el||!el.classList.contains('cassette')||!directChildren(el).length)throw new Error('Focus a cassette');scope=el.id;focus=directChildren(el)[0].id;mark=null;event('enter',{scope});render()}
 function back(){if(!scope)return;const old=scope,host=block(scope),parent=host?.parentElement?.closest('.block');scope=parent?.id||null;focus=old;mark=null;event('back',{scope});render()}
 function programBindingInputs(){return ['pred','meas','tol','contract'].map(id=>block('verify')?.querySelector('#'+id)).filter(Boolean)}
 function syncInputAttrs(){programBindingInputs().forEach(el=>{if(el.type==='checkbox'){if(el.checked)el.setAttribute('checked','');else el.removeAttribute('checked')}else el.setAttribute('value',el.value)});updateBinding()}
 function show(title,text,mode='view'){overlayMode=mode;$('#overlayTitle').textContent=title;$('#overlayText').value=text;$('#overlayText').readOnly=mode!=='source';$('#applyOverlay').style.display=mode==='source'?'inline-block':'none';$('#overlay').classList.add('on')}
-function applySource(){const t=document.createElement('template');t.innerHTML=$('#overlayText').value.trim();const p=t.content.querySelector('#program');if(!p)throw new Error('SOURCE must contain #program');program().replaceWith(p);focus=p.dataset.entry||topBlocks()[0]?.id;scope=null;mark=null;decorateKeys();event('source_apply');$('#overlay').classList.remove('on');render()}
+function applySource(){const t=document.createElement('template');t.innerHTML=$('#overlayText').value.trim();const p=t.content.querySelector('#program');if(!p)throw new Error('SOURCE must contain #program');program().replaceWith(p);focus=p.dataset.entry||topBlocks()[0]?.id;scope=null;mark=null;lastRun=null;decorateKeys();event('source_apply');$('#overlay').classList.remove('on');render()}
 function makeReturn(showIt=true){const ret={schema:'0xxx0/material-dom-return/v0.4',route:location.pathname,program_html:source(),run:lastRun,binding:binding(),events:[...events],law:'DOM-as-program / structurally reflexive; not strict homoiconicity',physical_status:'NO LOAD / SAFETY / BUILDABILITY CLAIM',at:new Date().toISOString()};if(showIt)show('RETURN',JSON.stringify(ret,null,2));return ret}
 function invoke(fn){try{fn()}catch(e){show('OPERATION REJECTED',String(e.message||e))}}
 function loadMuralPreset(){
@@ -212,12 +212,12 @@ function selftest(){
 }
 document.addEventListener('click',e=>{const s=e.target.closest('#program summary');if(s)setFocus(s.parentElement.id)});
 document.addEventListener('dblclick',e=>{const s=e.target.closest('#program summary');if(s){setFocus(s.parentElement.id);invoke(enter)}});
-document.addEventListener('input',e=>{if(['pred','meas','tol','contract'].includes(e.target.id))syncInputAttrs()});
+document.addEventListener('input',e=>{if(['pred','meas','tol','contract'].includes(e.target.id)){lastRun=null;syncInputAttrs()}});
 $('#prevBtn').onclick=()=>move(-1);$('#nextBtn').onclick=()=>move(1);$('#markBtn').onclick=toggleMark;$('#foldBtn').onclick=()=>invoke(foldSpan);$('#dissolveBtn').onclick=()=>invoke(dissolve);$('#enterBtn').onclick=()=>invoke(enter);$('#backBtn').onclick=back;
 $('#runBtn').onclick=()=>invoke(()=>show('RUN',JSON.stringify(run(),null,2)));$('#sourceBtn').onclick=()=>show('SOURCE / STRUCTURAL DOM',source(),'source');$('#muralBtn').onclick=()=>invoke(loadMuralPreset);$('#returnBtn').onclick=()=>makeReturn(true);$('#closeOverlay').onclick=()=>$('#overlay').classList.remove('on');$('#applyOverlay').onclick=()=>invoke(applySource);$('#copyOverlay').onclick=()=>navigator.clipboard?.writeText($('#overlayText').value).catch(()=>{});
 document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if(e.key==='ArrowLeft')move(-1);else if(e.key==='ArrowRight')move(1);else if(e.key==='Enter')invoke(enter);else if(e.key==='Escape')back();else if(e.key.toLowerCase()==='m')toggleMark();else if(e.key.toLowerCase()==='f')invoke(foldSpan)});
 let tx=null;$('#viewport').addEventListener('touchstart',e=>tx=e.touches[0]?.clientX??null,{passive:true});$('#viewport').addEventListener('touchend',e=>{if(tx==null)return;const x=e.changedTouches[0]?.clientX??tx,d=x-tx;tx=null;if(Math.abs(d)>52)move(d>0?-1:1)},{passive:true});
-decorateKeys();syncInputAttrs();render();window.RoomMaterial={run,source,returnReceipt:()=>makeReturn(false),foldSpan,enter,back,binding,focusOn:setFocus,snapshot:()=>({entry:program().dataset.entry,top:topBlocks().map(x=>x.id),scope,focus})};
+decorateKeys();syncInputAttrs();render();window.RoomMaterial={run,source,returnReceipt:()=>makeReturn(false),foldSpan,dissolve,enter,back,binding,focusOn:setFocus,snapshot:()=>({entry:program().dataset.entry,top:topBlocks().map(x=>x.id),scope,focus})};
 if(new URLSearchParams(location.search).get('selftest')==='1')setTimeout(selftest,40);
 })();
 </script>
