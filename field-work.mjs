@@ -33,7 +33,7 @@ function startFieldWork(){
   new MutationObserver(()=>{if(root.hidden)api.stop()}).observe(root,{attributes:true,attributeFilter:['hidden']});
   let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>api.refresh(),180)});
   const incoming=new URLSearchParams(location.search).get('focus');
-  if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');ready=true;
+  if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
   window.InterphaseInstrument=api;
   window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});
  };
