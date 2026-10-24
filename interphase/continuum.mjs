@@ -14,7 +14,8 @@ async function dependencies(){
  if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css?v=0.10.0';l.dataset.interphaseContinuum='';document.head.append(l)}
 }
 function safePath(value){if(!value)return '';try{const u=new URL(value,location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch{return ''}}
-async function manifest(){
+async function manifest(refresh=false){
+ if(refresh)catalogPromise=null;
  if(!catalogPromise)catalogPromise=(async()=>{const r=await fetch('/showcase-manifest.json',{cache:'no-store'});if(!r.ok)throw Error('FIELD source unavailable.');const raw=await r.text(),data=JSON.parse(raw),spans=FieldAperture.jsonSpans(raw),routeSpans=spans.filter(n=>/^\$\.routes\[\d+\]$/.test(n.path)).map(n=>({...n,routeIndex:Number(n.path.match(/\[(\d+)\]$/)[1])}));return{raw,data,spans,routeSpans,hash:await hashText(raw)}})().catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
@@ -191,7 +192,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(p.returnTo&&!safePath(p.returnTo))throw Error('Unsupported RETURN destination.');
   const prepared=await prepare(p.source.raw,p.source.label,p.source.address,{hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,returnTo:p.returnTo});
   try{validateAttention(prepared.model,p.attention);for(const f of p.frames){if(f.hash!==p.source.hash)throw Error('RETURN path revision mismatch.');validateAttention(prepared.model,f)}}finally{prepared.candidate.remove()}
-  const live=p.source.address==='/showcase-manifest.json'?await manifest():null,current=live?.hash===p.source.hash;
+  const live=p.source.address==='/showcase-manifest.json'?await manifest(true):null,current=live?.hash===p.source.hash;
   return load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
  }
  el('source').onclick=()=>drawer(el('drawer').hidden);
