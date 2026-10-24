@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-25T01:43:23+08:00",
+  "updated": "2026-10-25T01:55:09+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T17:46:20+00:00",
+        "updated_at": "2026-10-25T01:57:53+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -10837,6 +10837,45 @@
           "OPERATE"
         ]
       }
+    },
+    {
+      "href": "/field/at-night/",
+      "title": "THE FIELD AT NIGHT",
+      "parent": "/field/",
+      "kind": "art",
+      "state": "ACTIVE",
+      "version": "2026-10-25",
+      "role": "Two months of machine sessions drawn as a night sky: each star is one session, sized by its message count and coloured by profile. Aggregate data only — profile, date, count, and whether the session was human-facing or machine. No message text, no titles, no ids. Quiet by default; the layers control isolates the human-facing set.",
+      "operation": "READ / REFLECT",
+      "receipt": "/field/at-night/",
+      "index": {
+        "updated_at": "2026-10-25T01:55:09+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "field": {
+        "roles": [
+          "PROJECTION"
+        ],
+        "inputs": [],
+        "outputs": [
+          {
+            "medium": "DRAWING",
+            "kind": "aggregate star map"
+          }
+        ],
+        "exit_paths": [
+          {
+            "status": "AVAILABLE",
+            "via": "/field/",
+            "class": "RETURN"
+          }
+        ]
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [

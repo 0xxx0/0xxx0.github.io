@@ -1,6 +1,6 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T17:43:39.245Z",
+ "generated": "2026-10-24T17:55:27.928Z",
  "returns_total": 300,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
@@ -2974,18 +2974,18 @@
   }
  ],
  "routes": {
-  "routes_total": 217,
+  "routes_total": 218,
   "route_state_raw_distinct": 10,
   "route_state_folded_onto": 3,
   "route_state_dist": {
    "SOURCE": 42,
    "HOLD": 41,
-   "RETURN": 134,
+   "RETURN": 135,
    "RESIDUE": 0
   },
   "route_state_residue": [],
-  "operation_distinct": 74,
-  "operation_compound_count": 22,
+  "operation_distinct": 75,
+  "operation_compound_count": 23,
   "operation_debt_sample": [
    "ENTER / ROUTE",
    "REMEMBER / PATH",
@@ -2998,7 +2998,7 @@
   "operation_class_dist": {
    "RECOVER": 11,
    "OPERATE": 5,
-   "SEE": 16,
+   "SEE": 17,
    "MAKE": 21,
    "WAYFIND": 7,
    "PLAY": 13,
@@ -3078,7 +3078,8 @@
    "VERIFY / ALIGN": "SEE",
    "RECOVER / REPRESENT": "RECOVER",
    "LOAD / COMPOSE": "RECOVER",
-   "WITNESS": "SEE"
+   "WITNESS": "SEE",
+   "READ / REFLECT": "SEE"
   }
  },
  "receipt_sync": {
