@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T15:02:59+08:00",
+  "updated": "2026-10-24T17:11:43.934+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -8771,6 +8771,73 @@
       "tier": "FIELD",
       "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; enacted Gates and ordered route evidence return to origin as Return Artifact v2. Current convergence treats Sleeper as a path/witness host for same-world route comparison, ghosts and optional transportation readings; FIELD/STEP donors may compose at the aperture boundary without taking City Engine authority.",
       "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
+    },
+    {
+      "href": "/sleeper/axis-score.html",
+      "title": "SLEEPER / AXIS SCORE 0.3 · THREADWALK",
+      "kind": "instrument",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "READ / RIDE / PROVE / RETURN",
+      "state": "CANDIDATE",
+      "version": "0.3",
+      "showcase_card": true,
+      "role": "Playable source-addressed Sleeper experiment. One UTF-16 cursor powers WORD/SENTENCE/PASSAGE/DOCUMENT ring apertures, repeated-motif echo retrieval, exact sentence witnesses, reversible semantic doors and actual return-to-origin. Original local exercise or pasted/imported user text; does not fetch or publish outside corpus. Distinct from ONE RETURN v2 Gate authority; parent /sleeper/ remains canonical.",
+      "transfer": [
+        "AXIS: ring angle = address; radial band = text aperture; source identity fixed",
+        "RIDE: source-addressed passage and word sequence as a finite score, not an infinite loop",
+        "LAW ZOO: lexical recurrence and punctuation drive two senses without sentiment or TTS authority",
+        "TRACE: a link changes traversal only after two exact witnesses and explicit reason; traversal and RETURN must be enacted",
+        "Experiment does not satisfy canonical Sleeper Gate proofs or replace READFIELD's clock"
+      ],
+      "index": {
+        "updated_at": "2026-10-24T17:11:43.934+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "PLAY",
+          "VERIFY"
+        ]
+      },
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "local text",
+            "pasted text",
+            "original exercise"
+          ],
+          "requires": [
+            "source text"
+          ]
+        },
+        "transforms": {
+          "verb": "align source offsets, axis apertures and lawful reversible traversal",
+          "preserves": [
+            "source hash",
+            "exact text offsets",
+            "source identity",
+            "trace"
+          ],
+          "reversibility": "undo/redo on local relation and route state",
+          "side_effects": "in-tab only; opt-in JSON export"
+        },
+        "emits": {
+          "kinds": [
+            "source-bound witnessed relation",
+            "actual round-trip traverse",
+            "JSON RETURN"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "checks": [
+            "30 pure-core Node PASS local",
+            "20 AXIS Node PASS local"
+          ],
+          "boundary": "Local tests only; GitHub Pages runtime/browser/device proof pending",
+          "return_path": "/sleeper/axis-score.html"
+        }
+      }
     },
     {
       "href": "/sleeper/archive/",
