@@ -1,0 +1,89 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "field-index-crew-handoff-0101-2026-10-24",
+  "result_status": "CHANGED",
+  "source_object": "FIELD INDEX held-object HANDOFF seam",
+  "host": "FIELD INDEX / 0xxx0.github.io",
+  "turn_ref": "48eb0fa7275503204be6afbd64c2cc465581fcd2",
+  "before": {
+    "root_blob": "3de585028cb3c9da0ed6b3edd07cdb9106d8c85f",
+    "field_contract_blob": "2e9688d516437a49ee3005249e622be1e0b5ff90",
+    "aperture_test_blob": "ab9777d0c1c6a43642b7ece78f9b7afbddf9f884",
+    "manifest_blob": "c2dac35cb4ca1e978135d4a8743d7f4a9dcd1327",
+    "visible_copy": "COPY / COPY ACTION",
+    "packet": "field-action-handoff/v0.1"
+  },
+  "after": {
+    "root_blob": "15ac415a377fa34cde9f18a0340daaafb2211dd2",
+    "field_contract_blob": "145daba5359e191171c207fc49c9b7cc6222481a",
+    "aperture_test_blob": "fd8049e4d19d6efa331d870700c7129a014c82c6",
+    "manifest_blob": "7f2dfd7a818823f71999691af4dfe7aa89700c65",
+    "visible_copy": "HANDOFF / COPY HANDOFF",
+    "packet": "SUBMISSION_CONTRACT envelope → canonical field-crew-handoff/v0.1 normalization"
+  },
+  "observed_delta": "Holding any FIELD object now exposes a visible HANDOFF that copies one canonical crew submission: exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. The parallel field-action-handoff/v0.1 packet was removed from the root. No new queue, store, route, NOW source, effect authority or merge authority was added.",
+  "evidence_refs": [
+    "https://github.com/0xxx0/0xxx0.github.io/commit/48eb0fa7275503204be6afbd64c2cc465581fcd2",
+    "/index.html",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/field-action-aperture-selftest.mjs",
+    "/lib/field-crew-handoff.mjs",
+    "/tools/field-stage-handoff.mjs"
+  ],
+  "evidence_checks": [
+    {
+      "id": "declared_files_only",
+      "status": "PASS"
+    },
+    {
+      "id": "legacy_packet_removed",
+      "status": "PASS"
+    },
+    {
+      "id": "canonical_contract_ref",
+      "status": "PASS"
+    },
+    {
+      "id": "canonical_required_fields",
+      "status": "PASS"
+    },
+    {
+      "id": "human_gate",
+      "status": "PASS"
+    },
+    {
+      "id": "move_bound_return",
+      "status": "PASS"
+    },
+    {
+      "id": "visible_handoff",
+      "status": "PASS"
+    },
+    {
+      "id": "contract_updated",
+      "status": "PASS"
+    },
+    {
+      "id": "root_version_0.10.1",
+      "status": "PASS"
+    },
+    {
+      "id": "manifest_touch",
+      "status": "PASS"
+    },
+    {
+      "id": "selftest_guard",
+      "status": "PASS"
+    }
+  ],
+  "residue": "The crew seam is now reachable from the ordinary held-object surface: hold object → HANDOFF → paste/give JSON to another worker → normalize with the existing crew compiler → same object, bounded moves, evidence, human gate, exact RETURN.",
+  "unknowns": [
+    "No workflow run was attached to the TURN commit at TRACE time; CI/browser proof was not claimed.",
+    "Whether HANDOFF materially reduces repeated briefing across ordinary multi-worker use remains an empirical question; ordinary-use friction should decide further promotion."
+  ],
+  "unresolved_gate": null,
+  "return_address": "/?focus=<held-route>",
+  "closed_at": "2026-10-24T20:57:00+08:00",
+  "next_authority": "NONE"
+}

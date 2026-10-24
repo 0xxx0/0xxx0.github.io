@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T20:03:08.675+08:00",
+  "updated": "2026-10-24T21:14:41.667+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -59,19 +59,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T17:03:33+08:00",
+        "updated_at": "2026-10-24T20:57:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "role": "Open the FIELD source, move through actual routes, or bring text/JSON. One exact position carries through scope, plain reading, spatial traversal and native RSVP. Quoted links and local edits remain inspectable; effects remain with the native host.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+      "receipt": "/returns/FIELD_INDEX_CREW_HANDOFF_0101_2026-10-24.json",
       "machine_view": "FIELD",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "transfer": [
+        "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
         "0.8.40 THE WALK: hex plan view (radial top-down rooms, folded +N edge), STRIP<->PLAN view cycle preserving held object and anchor, press-and-hold decode overlay on any mark in either view; cube room hinges at the tapped tile.",
@@ -172,7 +174,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+      "latest_return": "/returns/FIELD_INDEX_CREW_HANDOFF_0101_2026-10-24.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -1731,7 +1733,7 @@
       "showcase_card": true,
       "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
       "index": {
-        "updated_at": "2026-10-24T13:15:00+08:00",
+        "updated_at": "2026-10-24T20:47:08.919+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -6975,39 +6977,52 @@
     },
     {
       "href": "/port/comms/",
-      "title": "HUMAN PORT / COMMS SPINE 0.1.3.0",
+      "title": "HUMAN PORT / COMMS SPINE 0.1.4",
       "kind": "workbench",
       "parent": "/port/",
       "family": "HUMAN PORT",
-      "operation": "ADDRESS",
+      "operation": "ADDRESS / RELEASE",
       "state": "ACTIVE",
-      "version": "0.1.3.0",
+      "version": "0.1.4",
       "showcase_card": false,
-      "role": "Exact conversation remains canonical while DERIVED/MACHINE/HUMAN signals, obligation state, response coverage and Dayline handoff/return remain unequal projections. A machine-spotted MACHINE item becomes HUMAN only by explicit CONFIRM at confidence 1, or retires to state DROPPED by explicit DISMISS; nothing is deleted. A Dayline OFFER_ONLY receipt can change COMMS state only after exact source SHA + signal id + message/range revalidation and an explicit native action; no network send authority.",
+      "role": "Exact conversation remains canonical while DERIVED/MACHINE/HUMAN signals, obligation state, response coverage, Dayline handoff/return and explicit email transport remain unequal projections. Transport is bounded: candidate is NO_SEND; one explicit operator gesture mints HUMAN_RELEASE for one exact payload + destination; opening the external mail client is unverified; only an exact matching provider receipt yields SENT_CONFIRMED evidence; receipt evidence cannot mutate native COMMS signal state.",
       "evidence": {
         "checks": [
           "source identity is a SHA-256 of exact pasted text, computed in the browser; source_mutation is false",
           "every promoted item must return to an exact character range in the source thread",
-          "runs with no network send and no LLM dependency for its core usefulness"
+          "runs with no network send and no LLM dependency for its core usefulness",
+          "transport candidate carries NO_SEND and excludes source transcript bytes",
+          "HUMAN_RELEASE requires an explicit operator gesture and is scoped to one exact message + destination",
+          "external mail-client open is unverified until an exact provider receipt is imported",
+          "provider receipt evidence cannot mutate native COMMS state",
+          "PR #828 exact head: Route Registration 37077425604 PASS · public-surface 37077425593 PASS · gitleaks 37077425619 PASS"
         ],
-        "return_path": "/port/",
+        "return_path": "/?focus=%2Fport%2Fcomms%2F",
         "closed_loop": [
           "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
           "PR #359",
           "public-surface-check 36148842204 PASS",
-          "Route Registration 36148842258 PASS"
+          "Route Registration 36148842258 PASS",
+          "/returns/COMMS_EXACT_TRANSPORT_RELEASE_2026-10-03.json",
+          "PR #828",
+          "public-surface-check 37077425593 PASS",
+          "Route Registration 37077425604 PASS",
+          "gitleaks 37077425619 PASS"
         ]
       },
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-24T21:02:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
-          "IMPLEMENT"
+          "RELEASE"
         ]
       },
       "tier": "FIELD",
       "transfer": [
+        "explicit transport: comms-spine-return/v0.1 → NO_SEND candidate → HUMAN_RELEASE → one exact external email handoff → provider receipt → EVIDENCE_ONLY RETURN",
+        "FIELD / CURRENT COMMS head addresses /port/comms/ directly; native RELEASE EMAIL opens the existing transport panel without creating send authority",
+        "provider receipt must match release id, response hash, destination, source identity and sent timestamp before SENT_CONFIRMED evidence exists",
         "one OPEN source-addressed signal → explicit Dayline obligation handoff; HUMAN/DERIVED provenance preserved",
         "explicit Dayline obligation handoff currently lands on /dayline/ candidate",
         "exact COMMS signal → Dayline held task → witnessed completed RETURN",
@@ -7015,8 +7030,18 @@
         "concurrent/stale source change blocks Dayline offer mutation"
       ],
       "field": {
-        "owner": "COMMS"
-      }
+        "owner": "COMMS",
+        "exit_paths": [
+          {
+            "class": "EMAIL_RELEASE",
+            "status": "AVAILABLE",
+            "via": "RELEASE EMAIL",
+            "target": "/port/comms/?transport=1"
+          }
+        ]
+      },
+      "receipt": "/port/comms/release.json",
+      "latest_return": "/returns/COMMS_EXACT_TRANSPORT_RELEASE_2026-10-03.json"
     },
     {
       "href": "/prison-age/",
@@ -8793,7 +8818,7 @@
         "POV / THE BELL: first-person wall geometry, enacted conditional branch, nonlinear loop, real passage opening, branchable state rewinding with ghost, source link; illustrative model only"
       ],
       "index": {
-        "updated_at": "2026-10-24T19:54:49.279+08:00",
+        "updated_at": "2026-10-24T21:14:41.667+08:00",
         "work_modes": [
           "IMPLEMENT",
           "PLAY",

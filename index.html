@@ -524,7 +524,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
     <summary><b>REFINE / PROVE</b><span>constraints · lawful moves · witness · residue</span></summary>
     <div class="refineTools">
       <button id="apLens" title="Refract the held object without changing FIELD selection">◎ LENS</button>
-      <button id="apTrace">TRACE</button><button id="apProof">COMPARE</button><button id="apCopy">COPY</button>
+      <button id="apTrace">TRACE</button><button id="apProof">COMPARE</button><button id="apCopy">HANDOFF</button>
       <button id="axReset">RESET / NEWEST</button>
       <a href="./field/axial-probe/" title="Disposable AXIAL gesture/reversibility falsification probe; no canonical state authority.">SHADOW PROBE</a>
       <a id="moireRouteLink" href="./field/moire-route/" title="Hold one FIELD object first. This instrument receives that exact address and reports mismatch between its canonical route facts and the current FIELD projection.">MOIRÉ ROUTE</a>
@@ -1011,22 +1011,45 @@ function fieldEgressForRoute(r){
  };
  try{return fieldEgressReduce(packet,{now:nowSet.has(r.href)})}catch(_){return null}
 }
+function crewHumanGate(h,gate){
+ const ref=h?'/control/CURRENT.json#current_heads.'+String(h.lineage||h.route||'selected')+'.next_executable':null;
+ if(!gate)return{class:'UNSPECIFIED',satisfied:false,reason:'Selected object has no explicit CURRENT human gate. Continue only lawful non-effect work; resolve a gate before any human/world claim or EFFECT boundary.',source_ref:ref,evidence_ref:null};
+ const world=new Set(['REAL_DEVICE','ORDINARY_USE','LIVED_USE','PHYSICAL','WORLD_EVENT']);
+ return{class:world.has(gate.dependency_kind)?'WORLD_RETURN':'CHOOSE',satisfied:false,reason:gate.human_move||gate.why||'Human/world evidence is required before consequence is claimed.',source_ref:ref,evidence_ref:null};
+}
+function crewMoveId(label,index){
+ return String(label||('move-'+(index+1))).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||('move-'+(index+1));
+}
 async function copyHeldAction(){
  if(!focus)return;
- const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
+ const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus(),gate=currentHumanGates().find(g=>g.route===focus.href)||null;
  if(!fieldEgressReduce)await fieldEgressReady;
  const egress=fieldEgressForRoute(focus);
- const packet={
-  schema:'field-action-handoff/v0.1',
-  object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||'FIELD ROUTE'},
-  ...(egress?{egress}:{}),
-  gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
-  native_moves:c?.moves||[],
-  authority:'NONE / HANDOFF ONLY',
-  instruction:'Hold this exact addressed object. Perform at most one lawful bounded move in the native owner, preserve authority, witness the consequence, then RETURN to '+focus.href+'.'
+ const actions=(c?.actions||[]).slice(0,3);
+ const moves=(actions.length?actions.map((a,i)=>({
+  id:crewMoveId(a.id||a.label,i),label:a.label,authority:a.authority||'NAVIGATION',
+  target:String(a.target||focus.href).replace(/^\.\//,'/'),reversibility:a.reversibility||'EXACT_RETURN',
+  commit_boundary:(a.authority||'NAVIGATION')==='NAVIGATION'?'NAVIGATION':'HOST_NATIVE'
+ })):(c?.moves||[]).slice(0,3).map((label,i)=>({
+  id:crewMoveId(label,i),label,authority:'OFFER',target:focus.href,
+  reversibility:'UNKNOWN_UNTIL_NATIVE_HOST',commit_boundary:'HOST_NATIVE'
+ })));
+ const refs=[...new Set(['/control/CURRENT.json','/showcase-manifest.json','/control/SUBMISSION_CONTRACT.json',...workProofRefs(focus,h)])].slice(0,8);
+ const submission={
+  source_ref:'FIELD INDEX held object '+focus.href+' · '+location.href,
+  intent:'Continue this exact held object with another crew mate without reconstructing collaboration state.',
+  object_ref:focus.href,
+  contribution_class:'DELTA',
+  evidence_class:'SPEC',
+  delta_or_question:n?.objective||('Continue '+(focus.title||focus.href)+' through one bounded native move, TRACE, then RETURN.'),
+  proof_available:{current_updated:current?.updated||null,head:h?{lineage:h.lineage||null,state:h.state||null,head:h.head||null}:null,manifest:{href:focus.href,state:focus.state||null,version:focus.version||null,operation:focus.operation||null},egress:egress||null,refs},
+  contributor_ref:'human:FIELD',
+  receiver_hint:'coding-worker:any',
+  waiting_on:crewHumanGate(h,gate),
+  execution:{moves,selected_move_id:null,return_to:focus.href,evidence_refs:refs}
  };
- const txt=JSON.stringify(packet,null,2);
- try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED ACTION · RETURN → '+focus.href}catch(_){prompt('Copy FIELD action packet:',txt)}
+ const txt=JSON.stringify(submission,null,2);
+ try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED CREW HANDOFF · RETURN → '+focus.href}catch(_){prompt('Copy FIELD crew handoff:',txt)}
 }
 function heldDaylineAllowed(){
  return !!focus&&focus.href!=='/'&&focus.href!=='/dayline/'&&!focus.href.startsWith('/dayline/');
@@ -1153,7 +1176,7 @@ function renderHeldContinuation(){
   open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;bindHeldForecast(open,primary);
   const extras=[];
   if(heldDaylineAllowed())extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
-  else extras.push('<button class="capMove" data-cap-copy>COPY ACTION</button>');
+  else extras.push('<button class="capMove" data-cap-copy>COPY HANDOFF</button>');
   $('capMoves').innerHTML=extras.join('');
   const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn){copyBtn.onclick=copyHeldAction;const local=()=>{$('capForecast').textContent='LOCAL_COPY · COMMIT CLIPBOARD · TARGET LOCAL · REV OVERWRITE'};copyBtn.onmouseenter=local;copyBtn.onfocus=local;copyBtn.ontouchstart=local}
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn){daylineBtn.onclick=handoffHeldToDayline;bindHeldForecast(daylineBtn,{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_ACCEPTS_THEN_RETURN'})}

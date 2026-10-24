@@ -62,4 +62,17 @@ walk(s,23.5,13.5);
 ok(s.won,'direct notice branch completes');
 ok(B.grid().length===17&&B.grid()[0].length===25,'source grid dimensions retained');
 for(let i=0;i<128;i++){const hit=B.ray(s,i*Math.PI/64);ok(hit.d>0&&Number.isFinite(hit.d),'DDA bounded '+i)}
-process.stdout.write('PASS '+assertions+' assertions / actual step paths, condition locks, fold, gate, rewind, return\n');
+// AXIS TIME IS NOT IDLE TIME — only enacted changes mint history marks.
+const idle=B.create();idle.history.push({...idle});
+for(let k=0;k<9000;k++)B.step(idle,0,0,.04);
+eq(idle.history.length,1,'six idle minutes do not erase the source origin');
+B.step(idle,1,0,.04);
+ok(idle.history.length>1,'real movement creates a timeline address');
+// The ghost is an alternate history visible from within space, never an opaque X-ray.
+const echo=B.create();echo.ghost=[[4.5,8.5],[6.5,8.5],[9.5,8.5]];
+const images=B.ghostProjection(echo,390,844);
+ok(images.length>0&&images.every(g=>Number.isFinite(g.x)&&g.radius>0),'ghost appears ahead in first-person view');
+const occluded=B.create();occluded.ghost=[[23.5,13.5]];
+eq(B.ghostProjection(occluded,390,844).length,0,'ghost hidden behind current physical walls');
+ok(B.ghostProjection(occluded,0,844).length===0,'zero viewport projects nothing');
+process.stdout.write('PASS '+assertions+' assertions / enacted route, quiet timeline, spatial ghost, conditional RETURN\n');

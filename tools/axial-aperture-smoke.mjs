@@ -19,6 +19,12 @@ const frame=src=>{const f=document.createElement('iframe');f.style='width:900px;
   let f=frame('/docs/?src=/showcase-manifest.json'),W=()=>f.contentWindow,D=()=>W().document;
   await sleep(900);
   rec.readBoot={title:D().getElementById('title')?.textContent||'',raw:(D().getElementById('text')?.textContent||'').slice(0,220),aperture:!!D().getElementById('docAperture'),kind:D().getElementById('docAperture')?.snapshot?.()?.kind||null,label:D().getElementById('docAperture')?.snapshot?.()?.label||null};
+  // TEXT is the exact source reading; JSON PATHS is its explicit projection.
+  const struct=await wait(()=>{
+    const x=D().getElementById('jsonProjection'),a=D().getElementById('docAperture');
+    return x&&!x.hidden&&a?.snapshot?.()?.kind==='TEXT'?x:null;
+  },15000,'visible JSON PATHS affordance');
+  struct.click();
   const ap=await wait(()=>{const x=D().getElementById('docAperture');return x?.snapshot?.()?.kind==='JSON'?x:null},15000,'readfield json');
   await wait(()=>D().querySelector('.jsonCard .jsonChild'),15000,'json card');
   const before=ap.snapshot(),child=D().querySelector('.jsonChild'),path=child.dataset.jsonPath;child.click();

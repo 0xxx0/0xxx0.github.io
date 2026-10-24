@@ -104,7 +104,15 @@ Walk from the entrance to the bell and through the east corridor. At the crossro
 
 The chapter is linked externally. No third-party text is fetched, stored, republished, or included in the exported source-free route. Source-addressed word/paragraph ring and user-imported sources remain available in AXIS SCORE; the illustrative Bell scenario is explicitly **not** automatically derived from arbitrary prose. The ported `/sleeper/` ONE RETURN Gate engine remains unchanged and authoritative for its own proofs.
 
-**Executable fixture:** `node tools/sleeper-bell-selftest.cjs`. The identical fixture completed **163 assertions** under an isolated V8 execution of exact repository source; the checked-out Node command and graphical/mobile browser remain unexecuted in this session. The rewind dial previews a history position before committing on release, and the completed scene offers an explicit rewind to the original fork.
+**Executable fixture:** `node tools/sleeper-bell-selftest.cjs`. The original bounded fixture completed **163 assertions** under an isolated V8 execution of exact repository source; the checked-out Node command and graphical/mobile browser remain unexecuted in this session. The rewind dial previews a history position before committing on release, and the completed scene offers an explicit rewind to the original fork.
+
+### 2026-10-24 / AXIS as an enacted timeline
+
+The inner dial now records **changed position, gaze, and causal transitions**, not idle wall-clock seconds. Bounded history retains the origin, first sound, actionable fork, first loop and gate-opening witnesses instead of evicting them indiscriminately. After rewinding, the abandoned route appears as an occlusion-tested, perspective-correct echo inside POV as well as the previous PLAN trace. The ghost cannot interact, change a wall or supply a Gate proof.
+
+The source has not been remapped to a generated geometry and no outside interpretation has gained authority. The ring is a movement/conditionality instrument **within this one authored example**; it is not yet the general long-text score or Levin-inspired morphogenesis interface.
+
+**Executable fixture:** `node tools/sleeper-bell-selftest.cjs` now exercises 168 assertions (V8 replay of repository source), including six idle minutes with no forged timeline samples and a spatial echo that cannot pass through current walls. Browser/device ergonomics remain to be checked on an actual device.
 
 **Verification contract:** walk the source-contact path; reject choice before hearing; prove FOLLOW keeps the gate closed and crosses the nonlocal seam; prove NOTICE opens only the conditioned gate and permits actual exit traversal; rewind to an earlier state and branch again; inspect mobile/desktop DOM, ring hit regions, keyboard/touch and accessibility. Browser/device ergonomics not established by pure state tests. Do not call it a complete game or infer psychological/educational benefit until compared against a straightforward reading of the same example.
 
