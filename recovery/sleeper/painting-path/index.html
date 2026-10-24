@@ -166,6 +166,9 @@ init();
 #handBar button[aria-pressed=true]{background:var(--accent);color:#162024;border-color:var(--accent)}
 #handBar .hint{font-size:10px;color:#b0bdbe;background:#101719c9;padding:2px 6px}
 #handCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+/* critic fix 2026-10-24: the ink canvas must never eat the instrument's own taps.
+   Measured: with the hand armed, elementFromPoint at a pin centre returned handCanvas. */
+#pins{z-index:4!important}.viewbar{z-index:5}.camera-controls{z-index:5}#mini{z-index:5}#paintingCredit{z-index:5}#challenge{z-index:6}
 #handCanvas.armed{pointer-events:auto;cursor:crosshair}
 #handDecode{position:absolute;right:14px;bottom:104px;z-index:6;font-size:10px;color:#b0bdbe;background:#101719c9;padding:3px 6px;max-width:46%;line-height:1.5;text-align:right}
 #handDecode b{color:#e06a9c;font-weight:400}
@@ -293,7 +296,7 @@ init();
   function speed(prev, cur) {
     if (!prev) return 0;
     var dx = (cur.x - prev.x), dy = (cur.y - prev.y);
-    return clamp(Math.sqrt(dx * dx + dy * dy) * 8, 0, 1);  // normalised, resolution-free
+    return clamp(Math.sqrt(dx * dx + dy * dy) * 26, 0, 1);  // normalised, resolution-free (tuned: x8 left every stroke thick)
   }
 
   canvas.addEventListener('pointerdown', function (ev) {
