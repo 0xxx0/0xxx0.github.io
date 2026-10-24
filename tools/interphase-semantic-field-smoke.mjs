@@ -42,7 +42,7 @@ try{
   },coordinates);
   assert.equal(lawful,true,'node coordinates exactly decode from action class and declared parent hops');
   const denseKey=await page.locator('.ip-field-node').evaluateAll(nodes=>
-    nodes.map(n=>({key:n.dataset.semCell,count:Number(n.getAttribute('aria-label')?.match(/(\\d+) routes/)?.[1]||0)}))
+    nodes.map(n=>({key:n.dataset.semCell,count:Number(n.getAttribute('aria-label')?.match(/(\d+) routes/)?.[1]||0)}))
       .find(x=>x.count>7)?.key||null);
   if(denseKey){
    await page.locator('.ip-field-node[data-sem-cell="'+denseKey+'"]').click();
