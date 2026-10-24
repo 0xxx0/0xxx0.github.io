@@ -28,7 +28,12 @@
  }
  function updateHint(){if(!barIsVisible())return;input.placeholder=contextLabel()}
  updateHint();
- window.addEventListener('field-index:state',()=>updateHint());
+ window.addEventListener('field-index:state',e=>{
+  updateHint();
+  // Existing native focus is the authoritative completion signal. A click is
+  // only a gesture; cursor/focus RETURN remain owned by FIELD.
+  if(barIsVisible()&&html.dataset.fieldBarPane==='browse'&&e.detail?.focus)reveal('hold');
+ });
  doc.addEventListener('click',e=>{
   if(e.target.closest?.('#fieldWords'))queueMicrotask(()=>{if(html.dataset.fieldWords==='folded')reveal('none')});
   if(e.target.closest?.('#feedRail .feedChip')){
