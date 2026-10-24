@@ -41,7 +41,9 @@ that finding. The repair starts by restoring access, not by adding a fourth fram
 
 ## What changes now
 
-One ordinary entry remains at `/`: the existing readable FIELD host. Full route names
+One ordinary entry remains at `/`: the existing readable FIELD host. The AWAKE
+introduction is neither loaded nor opened on first visit/HOLD; `?visor=1` retains
+explicit access. Full route names
 supplement the glyphs. Selecting a route holds it; OPEN reaches its actual native
 owner. Existing context and re-entry mechanisms remain in that host. The restored
 page still has accumulated depth; this is a bounded recovery, not a claim that all

@@ -32,7 +32,10 @@ async function continuumBrowserProof(){
    assert.equal(await page.locator('#workedOn').isVisible(),true);
    const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:label&&label.scrollWidth>label.clientWidth+1}}));
    assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'named choices must remain readable and reachable');
+   await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#feedRail [data-href="/house/"]').click();
+   assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open the AWAKE introduction');
+   assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
    await page.waitForFunction(()=>document.getElementById('apTitle').textContent==='HOUSE / FIELD');
    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
    await page.goBack();await page.waitForSelector('#feedRail .feedChip');
