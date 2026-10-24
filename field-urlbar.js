@@ -65,6 +65,7 @@ const COMMANDS=Object.freeze([
  {id:'heads',glyph:'中',label:'HEADS',hint:'CURRENT head address set',keywords:'now attention current'},
  {id:'desk',glyph:'工',label:'DESK',hint:'work desk',keywords:'workspace hermes desktop',nav:'/desk/'},
  {id:'reader',glyph:'☰',label:'READER',hint:'archive reader route',keywords:'archive local reader',nav:'/reader/'},
+ {id:'glyphs',glyph:'▦',label:'GLYPHS',hint:'native FIELD addressed-head strip (reversible selection)',keywords:'browse current heads route tiles strip'},
  {id:'source',glyph:'▧',label:'SOURCE',hint:'open actual text, JSON or file in existing FIELD reader',keywords:'paste upload file source text import',nav:'/?work=1&source=1'},
  {id:'walk',glyph:'↬',label:'WALK',hint:'traverse exact source neighbors and links',keywords:'interphase threadwalk read source navigation',nav:'/?work=1&view=walk'},
  {id:'dial',glyph:'◍',label:'DIAL',hint:'navigate whole source and scope with one cursor',keywords:'ring axis aperture source position',nav:'/?work=1&view=dial'},
