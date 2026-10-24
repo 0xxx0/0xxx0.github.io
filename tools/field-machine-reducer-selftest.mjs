@@ -10,7 +10,7 @@ assert.equal(helpRun.status,0,helpRun.stderr);
 const help=JSON.parse(helpRun.stdout);
 assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
 assert.equal(help.authority,'NONE');
-assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge','crew-handoff']);
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge','source-witness','crew-handoff']);
 assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
 assert.match(help.converge_attestations.base_current,/behind_by === 0/);
 const llms=fs.readFileSync('llms.txt','utf8');
@@ -121,6 +121,39 @@ assert.equal(handoff.return.target,'/?focus=%2Fdocs%2F');
 assert.match(handoff.crew.law,/never grant/);
 const handoffAgain=JSON.parse(run(['--handoff',handoffPath,'--json']).stdout);
 assert.equal(handoffAgain.context_handle,handoff.context_handle,'same submission must keep the same opaque crew handle');
+
+const witnessRun=run(['--witness','AGENTS.md','--json']);
+assert.equal(witnessRun.status,0,witnessRun.stderr);
+const sourceWitness=JSON.parse(witnessRun.stdout);
+assert.equal(sourceWitness.kind,'GIT_BLOB');
+assert.equal(sourceWitness.path,'AGENTS.md');
+assert.match(sourceWitness.revision,/^[0-9a-f]{40}$/);
+
+const witnessedPath=write('crew-handoff-witnessed.json',{...handoffBase,execution:{...handoffBase.execution,source_witness:sourceWitness}});
+const witnessedRun=run(['--handoff',witnessedPath,'--json']);
+assert.equal(witnessedRun.status,0,witnessedRun.stderr);
+const witnessed=JSON.parse(witnessedRun.stdout);
+assert.equal(witnessed.source_witness.status,'FRESH');
+assert.equal(witnessed.source_witness.observed_revision,sourceWitness.revision);
+assert.equal(witnessed.status.state,'TURN_READY');
+assert.equal(witnessed.context_handle,handoff.context_handle,'source witness must not fork object/context identity');
+
+const staleRevision=(sourceWitness.revision[0]==='0'?'1':'0')+sourceWitness.revision.slice(1);
+const stalePath=write('crew-handoff-stale.json',{...handoffBase,execution:{...handoffBase.execution,source_witness:{...sourceWitness,revision:staleRevision}}});
+const staleRun=run(['--handoff',stalePath,'--json']);
+assert.equal(staleRun.status,0,staleRun.stderr);
+const stale=JSON.parse(staleRun.stdout);
+assert.equal(stale.source_witness.status,'STALE');
+assert.equal(stale.status.state,'SOURCE_REQUIRED');
+assert.match(stale.status.requires[0],/re-SOURCE\/re-HOLD/);
+assert.equal(stale.context_handle,handoff.context_handle,'stale witness must preserve object identity while blocking action');
+
+const missingPath=write('crew-handoff-missing-witness.json',{...handoffBase,execution:{...handoffBase.execution,source_witness:{kind:'GIT_BLOB',path:'does-not-exist.crew-witness',revision:sourceWitness.revision}}});
+const missingRun=run(['--handoff',missingPath,'--json']);
+assert.equal(missingRun.status,0,missingRun.stderr);
+const missingWitness=JSON.parse(missingRun.stdout);
+assert.equal(missingWitness.source_witness.status,'MISSING');
+assert.equal(missingWitness.status.state,'SOURCE_REQUIRED');
 
 const unresolvedPath=write('crew-unresolved.json',{...handoffBase,object_ref:'UNRESOLVED',execution:{moves:[]}});
 const unresolvedRun=run(['--handoff',unresolvedPath,'--json']);

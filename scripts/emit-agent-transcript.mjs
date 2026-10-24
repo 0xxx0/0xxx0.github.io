@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 import {compileCrewHandoff,crewHandoffMarkdown} from '../lib/field-crew-handoff.mjs';
 
@@ -10,6 +12,37 @@ const INPUTS={
   contract:'control/FIELD_INDEX_CONTRACT.json'
 };
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const gitBlobSha=bytes=>crypto.createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
+const cleanRepoPath=raw=>{
+  const rel=String(raw??'').trim().replace(/^\/+/, '');
+  if(!rel||rel.split('/').includes('..'))throw new Error('FIELD_SOURCE_WITNESS_PATH');
+  return rel;
+};
+function sourceWitnessForPath(raw){
+  const rel=cleanRepoPath(raw),root=fs.realpathSync(process.cwd()),candidate=path.resolve(root,rel);
+  let real;
+  try{real=fs.realpathSync(candidate)}catch(_){throw new Error('FIELD_SOURCE_WITNESS_MISSING '+rel)}
+  if(real!==root&&!real.startsWith(root+path.sep))throw new Error('FIELD_SOURCE_WITNESS_OUTSIDE_REPO');
+  const bytes=fs.readFileSync(real);
+  return {kind:'GIT_BLOB',path:rel,revision:gitBlobSha(bytes)};
+}
+function preflightCrewHandoff(submission){
+  let h=compileCrewHandoff(submission),w=h.source_witness;
+  if(!w)return h;
+  try{
+    const observed=sourceWitnessForPath(w.path),fresh=observed.revision===w.expected_revision;
+    h.source_witness={...w,observed_revision:observed.revision,status:fresh?'FRESH':'STALE'};
+    if(fresh){
+      const clean=JSON.parse(JSON.stringify(submission));
+      if(clean.execution)delete clean.execution.source_witness;
+      h.status=compileCrewHandoff(clean).status;
+    }else h.status={state:'SOURCE_REQUIRED',requires:['source witness STALE: expected '+w.expected_revision+' but observed '+observed.revision+'; re-SOURCE/re-HOLD before TURN']};
+  }catch(e){
+    h.source_witness={...w,observed_revision:null,status:'MISSING',error:String(e?.message||e)};
+    h.status={state:'SOURCE_REQUIRED',requires:['source witness MISSING/unreadable; re-SOURCE/re-HOLD before TURN']};
+  }
+  return h;
+}
 const clone=v=>JSON.parse(JSON.stringify(v));
 const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
 const fnv64=text=>{let h=0xcbf29ce484222325n;for(let i=0;i<text.length;i++){h^=BigInt(text.charCodeAt(i));h=BigInt.asUintN(64,h*0x100000001b3n)}return h.toString(16).padStart(16,'0')};
@@ -258,7 +291,8 @@ function cliUsage(){
       {mode:'crystal',command:'node scripts/emit-agent-transcript.mjs --crystal',purpose:'one transient compressed read across current fronts, every CURRENT path, archive scale, packet-shelf egress, NEXT and RETURN; add --json for structured output'},
       {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'},
-      {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <submission.json>',purpose:'normalize one human/agent submission into the same SOURCE/HOLD/TURN/TRACE/RETURN object; add --json for structured output'}
+      {mode:'source-witness',command:'node scripts/emit-agent-transcript.mjs --witness <repo-path> --json',purpose:'emit one exact Git-blob freshness witness for a repo source; witness is concurrency evidence, never authority'},
+      {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <submission.json>',purpose:'normalize one human/agent submission into the same SOURCE/HOLD/TURN/TRACE/RETURN object; supplied source witness is preflighted automatically; add --json for structured output'}
     ],
     converge_attestations:{
       merge_requires:['ci PASS','exact_head true','base_current true','mergeable true'],
@@ -287,12 +321,13 @@ const cliArgs=process.argv.slice(2);
 const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
 const handoffAt=cliArgs.indexOf('--handoff');
+const witnessAt=cliArgs.indexOf('--witness');
 const crystalMode=cliArgs.includes('--crystal');
-const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,handoffAt>=0].filter(Boolean).length;
+const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,witnessAt>=0,handoffAt>=0].filter(Boolean).length;
 if(cliArgs.includes('--help')){
   const usage=cliUsage();
   process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
-}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, or --handoff');process.exit(2)}
+}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, --witness, or --handoff');process.exit(2)}
 else if(crystalMode){
   try{
     const c=compileCrystal(load());
@@ -308,11 +343,18 @@ else if(crystalMode){
   if(!source||source.startsWith('--')){console.error('FIELD converge requires a candidate JSON path');process.exit(2)}
   try{process.stdout.write(JSON.stringify(cliAssessContribution(read(source)),null,2)+'\n')}
   catch(e){console.error(String(e?.message||e));process.exit(2)}
+}else if(witnessAt>=0){
+  const source=cliArgs[witnessAt+1];
+  if(!source||source.startsWith('--')){console.error('FIELD witness requires one repo-relative file path');process.exit(2)}
+  try{
+    const w=sourceWitnessForPath(source);
+    process.stdout.write(cliArgs.includes('--json')?JSON.stringify(w,null,2)+'\n':'GIT_BLOB '+w.path+'@'+w.revision+'\n');
+  }catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else if(handoffAt>=0){
   const source=cliArgs[handoffAt+1];
   if(!source||source.startsWith('--')){console.error('FIELD handoff requires a submission JSON path');process.exit(2)}
   try{
-    const h=compileCrewHandoff(read(source));
+    const h=preflightCrewHandoff(read(source));
     process.stdout.write(cliArgs.includes('--json')?JSON.stringify(h,null,2)+'\n':crewHandoffMarkdown(h));
   }catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else{
