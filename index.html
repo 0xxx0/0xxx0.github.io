@@ -353,10 +353,10 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 
 /* FOLDED WORDS: the existing page, with detail explicitly revealed. */
 html[data-field-words="folded"]:not([data-instrument="1"]) main{max-width:800px;margin:10vh auto 0;padding:16px;}
-html[data-field-words="folded"]:not([data-instrument="1"]) header, html[data-field-words="folded"]:not([data-instrument="1"]) #workedOn, html[data-field-words="folded"]:not([data-instrument="1"]) .reentryFold, html[data-field-words="folded"]:not([data-instrument="1"]) .syncLine, html[data-field-words="folded"]:not([data-instrument="1"]) #workDepth, html[data-field-words="folded"]:not([data-instrument="1"]) #refineFold, html[data-field-words="folded"]:not([data-instrument="1"]) #statusFold, html[data-field-words="folded"]:not([data-instrument="1"]) .fieldGesture, html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest>.sectionHead{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) header, html[data-field-words="folded"]:not([data-instrument="1"]) #workedOn, html[data-field-words="folded"]:not([data-instrument="1"]) .reentryFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) .syncLine, html[data-field-words="folded"]:not([data-instrument="1"]) #workDepth:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) #refineFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) #statusFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) .fieldGesture, html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest>.sectionHead{display:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar{margin:0 0 22px;background:var(--bg);backdrop-filter:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{height:52px;grid-template-columns:auto 36px minmax(0,1fr);box-shadow:none;background:transparent;}
-html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame>:not(.fieldUrlProto):not(.fieldUrlGlyph):not(.fieldUrlInput){display:none!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame>:not(.fieldUrlProto):not(.fieldUrlGlyph):not(.fieldUrlInput):not(.fieldOmniKeys):not(#fieldWords){display:none!important;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlProto{font-size:10px;letter-spacing:.06em;padding:0 12px;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlInput{height:50px;font-weight:500;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest{margin:0;border:0;background:transparent;}
@@ -391,6 +391,15 @@ html[data-field-words="folded"]:not([data-instrument="1"]) .apFlow:not(:has(.cap
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:max-content;max-width:180px;padding:6px 8px;border:1px solid var(--line);background:var(--p);color:var(--ink);font:12px/1.3 system-ui,sans-serif;z-index:5;pointer-events:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible .feedName{display:block;}
 @media(hover:hover){html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:hover .feedName{display:block;}}
+
+/* The word reveal stays in the one address bar in either reading. */
+html[data-field-words]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 36px minmax(0,1fr) 36px 40px;height:52px;box-shadow:none;}
+html[data-field-words]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame>:not(.fieldUrlProto):not(.fieldUrlGlyph):not(.fieldUrlInput):not(.fieldOmniKeys):not(#fieldWords){display:none!important;}
+html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys{display:flex;}
+html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys button:not([data-command="help"]){display:none!important;}
+html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys button[data-command="help"]{display:block!important;min-height:44px;min-width:36px;}
+html[data-field-words]:not([data-instrument="1"]) #fieldWords{display:block;min-width:40px;min-height:44px;padding:6px;border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);font:14px/1 system-ui,sans-serif;cursor:pointer;}
+html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
 </head>
 <body><main>
@@ -659,6 +668,8 @@ html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:f
 (()=>{const root=document.documentElement,button=document.getElementById('fieldWords');
 function words(open){root.dataset.fieldWords=open?'open':'folded';button.setAttribute('aria-pressed',String(open));button.setAttribute('aria-label',open?'Fold words and details':'Show words and details');button.title=open?'Fold words and details':'Unfold words and details';}
 words(new URLSearchParams(location.search).get('words')==='1');
+const mount=()=>{const frame=document.querySelector('#fieldUrlBar .fieldUrlFrame');if(!frame)return false;frame.append(button);return true;};
+const observer=new MutationObserver(()=>{if(mount())observer.disconnect();});if(!mount())observer.observe(document.querySelector('main'),{childList:true});
 button.onclick=()=>{const open=root.dataset.fieldWords!=='open';words(open);const u=new URL(location.href);if(open)u.searchParams.set('words','1');else u.searchParams.delete('words');history.replaceState(history.state,'',u);};
 })();
 </script>
