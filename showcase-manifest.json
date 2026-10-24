@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T13:17:26+08:00",
+  "updated": "2026-10-24T13:41:16+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -7570,6 +7570,27 @@
         ]
       },
       "tier": "VAULT"
+    },
+    {
+      "href": "/poobaby/",
+      "title": "POO BABY / ARCHIVE",
+      "kind": "gallery",
+      "parent": "/",
+      "family": "MEDIA / POO BABY",
+      "operation": "PUBLISH / RETRIEVE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "role": "Public Poo Baby publication surface (explicit export decision 2026-10-24, Poo Baby only): 737 web derivatives of the 236-sheet printed-label-ordered run (May 10-11 2026 raw ChatGPT export) and the 504-sheet Pictures-generation organized archive, plus poo_baby_epic.mp4 (h264/aac, faststart). PDF sequences are flagged and excluded pending review; 4 dangling ordered slots drawn as GAP tombstones; originals (3.13 GiB) stay local; Sleeper stays private. Derivatives: webp, longest edge 1024.",
+      "receipt": "/poobaby/catalog.json",
+      "index": {
+        "updated_at": "2026-10-24T13:41:16+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/media/sleeper-atlas/",
