@@ -32,7 +32,7 @@
  doc.addEventListener('click',e=>{
   if(e.target.closest?.('#fieldWords'))queueMicrotask(()=>{if(html.dataset.fieldWords==='folded')reveal('none')});
   if(e.target.closest?.('#feedRail .feedChip')){
-   queueMicrotask(()=>{if(barIsVisible()&&held())reveal('hold')});
+   queueMicrotask(()=>{if(barIsVisible())reveal('hold')});
   }
   const row=e.target.closest?.('#fieldUrlPanel .fieldUrlRow');
   if(row&&['SEARCH','HEADS'].includes(window.FieldURLBar?.parse?.()?.mode||'')){
