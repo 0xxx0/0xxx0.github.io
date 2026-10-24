@@ -374,13 +374,18 @@ function renderList(){
   const pages=Math.max(1,Math.ceil(items.length/pageSize));listPage=Math.min(Math.max(0,listPage),pages-1);
   const page=items.slice(listPage*pageSize,(listPage+1)*pageSize);
   const byId=new Map(rows.map(r=>[r.id,r]));
+  // Threadwalk is declared adjacency, not title similarity or a decorative arrow.
+  const relations=new Map(state.mode==='RELATIONS'&&state.focus
+    ?C.neighbours(rows,state.focus).flatMap(g=>g.members.map(r=>[r.id,g.relation])):[]);
   host.innerHTML=`<header class="fiListHead"><b>${view.inside} IN SCOPE · ${view.total} SOURCE</b><span>${listPage+1}/${pages} · ${esc(C.axis(state).toUpperCase())}</span></header>
     <div class="fiListRows">${page.map(p=>{
       const r=byId.get(p.id);if(!r)return '';
-      return `<button type="button" class="fiListRow${p.held?' held':''}${p.inside?'':' outside'}" data-list-id="${esc(p.id)}" aria-label="${esc(r.title+' · '+r.address+(p.held?' · held':'')+(p.inside?'':' · outside scope'))}">
-        <span class="fiListGlyph">${p.held?'◎':p.inside?'◇':'·'}</span>
+      const relation=relations.get(p.id);
+      const glyph=p.held?'◎':relation==='parent'?'↑':relation==='child'?'↓':relation==='peer'?'↔':p.inside?'◇':'·';
+      return `<button type="button" class="fiListRow${p.held?' held':''}${p.inside?'':' outside'}" data-list-id="${esc(p.id)}" aria-label="${esc(r.title+' · '+r.address+(relation?' · '+relation:'')+(p.held?' · held':'')+(p.inside?'':' · outside scope'))}">
+        <span class="fiListGlyph">${glyph}</span>
         <span class="fiListText"><b>${esc(r.title)}</b><code>${esc(r.address)}</code></span>
-        <span class="fiListState">${esc(r.state||'UNKNOWN')}</span>
+        <span class="fiListState">${esc(relation?relation.toUpperCase():r.state||'UNKNOWN')}</span>
       </button>`
     }).join('')||'<p class="fiListNone">∅ No records match. Edit the coordinate or use UP.</p>'}</div>
     <footer class="fiListFoot"><button type="button" data-list-page="prev" ${listPage===0?'disabled':''}>← PREV</button><span>${items.length} addressed · ${view.total-inScope.length} outside</span><button type="button" data-list-page="next" ${listPage+1===pages?'disabled':''}>NEXT →</button></footer>`;
