@@ -471,5 +471,6 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
   window.addEventListener('keydown',e=>{if(!model||$('#work').classList.contains('hidden')||/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))return;if(e.key==='Escape'){stop();setMode('read')}if(mode==='pin'&&(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();if(e.key==='ArrowUp')axisZoom(-1);else if(e.key==='ArrowDown')axisZoom(1);else seekIndex(axis.index+(e.key==='ArrowRight'?1:-1));return}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){let a=T.neighbors(model,session).filter(x=>x.kind==='ORDER').sort((a,b)=>idx(a.id)-idx(b.id));const target=e.key==='ArrowRight'?a.at(-1):a[0];if(target){e.preventDefault();navigate(target.id)}}});
 })();
 </script>
+<script src="./bell-world.js"></script>
 </body>
 </html>
