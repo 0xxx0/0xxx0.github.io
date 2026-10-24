@@ -65,7 +65,7 @@ function asJson(s){try{const v=JSON.parse(s);return v&&typeof v==='object'?v:nul
 function loadProjection(value,opt){
  activeJson=asJson(activeRaw);jsonTree=false;readFocus=null;treeEntryPath='';
  jsonMap=activeJson?FieldAperture.jsonSpans(activeRaw):[];
- JP.hidden=!activeJson;JP.textContent='STRUCT';JP.title='Inspect the JSON node at this reading position';
+ JP.hidden=!activeJson;JP.textContent='JSON PATHS';JP.title='Navigate exact JSON paths without rewriting source text';
  if(activeJson){
    const fmt={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
    const node=jsonMap.find(n=>!n.ambiguous&&n.path===opt.address);
@@ -88,10 +88,10 @@ JP.onclick=()=>{
   if(!jsonTree){
    const node=FieldAperture.jsonNodeAt(jsonMap,snap.char_index);
    if(!node)throw Error('This JSON position has repeated keys; keep reading the exact source.');
-   readFocus=snap;treeEntryPath=node.path;jsonTree=true;JP.textContent='READ JSON';
+   readFocus=snap;treeEntryPath=node.path;jsonTree=true;JP.textContent='READ TEXT';
    A.load(activeRaw,{label:activeLabel,scale:'ROOT',address:node.path,wpm:snap.wpm});
   }else{
-   const focus=readingFocus();jsonTree=false;JP.textContent='STRUCT';
+   const focus=readingFocus();jsonTree=false;JP.textContent='JSON PATHS';
    A.load(activeRaw,{label:activeLabel,format:'TXT',scale:focus.scale||'WORD',charIndex:focus.char_index??0,wpm:snap.wpm});
   }
   JP.title='Inspect the JSON node at this reading position';document.documentElement.dataset.readfieldProjection='mapped';

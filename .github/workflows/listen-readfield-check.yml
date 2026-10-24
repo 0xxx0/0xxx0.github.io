@@ -9,6 +9,7 @@ on:
       - 'rsvp/**'
       - 'field-aperture.js'
       - 'tools/reading-*'
+      - 'tools/axial-aperture-smoke.mjs'
       - 'tools/fold-bloom-first-use-contract.test.mjs'
       - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/interphase-readfield.js'
@@ -26,6 +27,7 @@ on:
       - 'rsvp/**'
       - 'field-aperture.js'
       - 'tools/reading-*'
+      - 'tools/axial-aperture-smoke.mjs'
       - 'tools/fold-bloom-first-use-contract.test.mjs'
       - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/readfield-track-sync.js'
@@ -71,6 +73,8 @@ jobs:
         run: node tools/fold-bloom-first-use-browser-smoke.mjs
       - name: Reader browser test dependencies (runner temp only)
         run: npm install --prefix "$RUNNER_TEMP/reading-test" playwright
+      - name: Prove exact JSON PATHS, trail, and FIELD apertures
+        run: node tools/axial-aperture-smoke.mjs
       - name: Prove READ / STRUCT / WRIST continuity
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
