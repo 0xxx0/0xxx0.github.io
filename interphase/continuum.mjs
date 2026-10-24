@@ -77,7 +77,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const next=++epoch,result=await load(raw,address.split('/').at(-1),address,{request:next,hash:digest});
   if(!result)return;
   doorFrames.push(departure);
-  persist(snap(),true);status('Opened cited source, without inferring its meaning. RETURN restores the prior document.');
+  paint();persist(snap(),true);status('Opened cited source, without inferring its meaning. RETURN restores the prior document.');
  }
  async function cross(e,remember=true){
   const raw=await verifiedEnd(e);
@@ -86,7 +86,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const request=++epoch,result=await load(raw,e.address.split('/').at(-1),e.address,{request,hash:e.hash,attention:{...attention(),char:e.start,scope:e.scope,query:''},doorEndpoint:e});
   if(!result)return;
   if(from)doorFrames.push(from);
-  persist(snap(),true);
+  paint();persist(snap(),true);status('DOOR entered · RETURN restores the caller.');
  }
  const revision=()=>({source:{...source},attention:attention(),links:structuredClone(links),doors:structuredClone(doors),doorFrames:structuredClone(doorFrames),marks:[...marks],frames:structuredClone(frames),catalog,nativeRecord,activeRoute});
  function checkpoint(){undo.push(revision());if(undo.length>16)undo.shift();redo=[]}
@@ -244,7 +244,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const raw=await verifiedEnd(previous.at),request=++epoch;
    const result=await load(raw,previous.label,previous.at.address,{request,hash:previous.at.hash,attention:previous.attention,links:previous.links,marks:previous.marks,frames:previous.frames,returnTo:previous.returnTo,doorEndpoint:previous.at});
    if(!result)return;
-   doorFrames.pop();persist(snap(),true);status('DOOR RETURN · exact prior source, revision, scope and cursor.');return;
+   doorFrames.pop();paint();persist(snap(),true);status('DOOR RETURN · exact prior source, revision, scope and cursor.');return;
   }
   const previous=frames.pop();
   if(previous&&previous.hash===source.hash){scope=previous.scope;query=previous.query;view=previous.view;ap.setWpm(previous.wpm);seek(previous.char);status('Returned to the exact departure.');paint()}
