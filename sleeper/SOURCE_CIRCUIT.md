@@ -4,12 +4,14 @@
 
 ## One experienced circuit
 
-1. In AXIS, enter a real source and choose a single *exact* witness of **5–120 characters**. Click **ENTER CITY WITH WITNESS**. The selected UTF-16 offsets, document SHA-256, excerpt and title are checked on the reader side; the excerpt is compiled as the native city's PHRASE. The full source stays in sessionStorage for re-entry; never in a URL or public repo.
+1. In AXIS, open a real same-origin `.md`/`.txt` file using `?src=/exact/path.md`, or paste/local-import text; choose one *exact* witness of **5–120 characters**. Click **ENTER CITY WITH WITNESS**. The selected UTF-16 offsets, document SHA-256, excerpt and title are checked on the reader side; the excerpt is compiled as the native city's PHRASE. The full source stays in sessionStorage for re-entry; never in a URL or public repo.
 2. In ONE RETURN, verify the original source title and offsets under **SOURCE / HELD ADDRESS**. The native world hash/topology follows the normalized excerpt. Enact the native eight Gates through their original operators. External evidence does **not** open a Gate.
+**Immediate non-proof RETURN:** At any time inside the city, FIELD → **SOURCE NOW** reopens the original sealed source and selected offsets. This deliberately carries **no** Gate proof, v2 artifact or claimed semantic insight. It is the fast reversible reading path, not an easier way to earn a Gate.
+
 3. Return to the origin. The original Return Artifact v2 remains unchanged. A separate `sourceWitness` sidecar carries document SHA-256 and exact offsets. Click **RETURN TO SOURCE / AXIS**.
 4. AXIS re-opens the same source, checks SHA-256 and selected offsets, and displays a bounded native RETURN receipt with the dominant operator and a proposed next operation. **Do not mistake the eight native Gate proofs for proof of a claim about the document.** The previous AXIS route is not restored; only source and selected witness are restored. Downloads are explicit; no publication occurs.
 
-If storage is denied or source hash differs, the transfer must stop; the reader stays usable. The mobile browser is an unverified gate.
+If storage is denied or source hash differs, the transfer must stop; the reader stays usable. The selected-text circuit is browser-proved on synthetic text; a separate smoke opens the actual recovered `ONE_RETURN_V2.md` from a same-origin URL. Physical Android ergonomics and usefulness over plain reading remain unmeasured.
 
 ## Two catalogs, not one invented ten-game narrative
 
