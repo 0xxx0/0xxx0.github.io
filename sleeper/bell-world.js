@@ -160,7 +160,7 @@ function coreAction(){if(!$('bellCover').hidden)return;if(canChoose(s)||(s.choic
 entry.onclick=enter;$('bellQuit').onclick=exit;$('bellBegin').onclick=start;$('bellLens').onclick=lens;$('bellBefore').onclick=()=>{const ix=s.history.findIndex(p=>canChoose(p));if(ix<0)return;rewind(s,ix);finished=false;$('bellCover').hidden=true;$('bellBefore').hidden=true;$('bellSave').hidden=true;ui();cv.focus()};$('bellBook').onclick=()=>window.open(SOURCE,'_blank','noopener');
 // The encounter is enacted through walking and the central ring, not a two-answer dialogue.
 $('bellSave').onclick=()=>{const u=URL.createObjectURL(new Blob([JSON.stringify(exportState(s),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='sleeper-bell-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1200)};
-root.querySelectorAll('[data-drive]').forEach(btn=>{const k=btn.dataset.drive;btn.addEventListener('pointerdown',e=>{e.preventDefault();unlockSound();pressed.add(k)});for(const event of ['pointerup','pointercancel','pointerleave','lostpointercapture'])btn.addEventListener(event,()=>pressed.delete(k))});
+root.querySelectorAll('[data-drive]').forEach(btn=>{const k=btn.dataset.drive;btn.style.touchAction='none';btn.addEventListener('pointerdown',e=>{e.preventDefault();if(e.button!==0)return;unlockSound();try{btn.setPointerCapture(e.pointerId)}catch(_){}pressed.add(k)});for(const event of ['pointerup','pointercancel','lostpointercapture'])btn.addEventListener(event,()=>pressed.delete(k))});
 let drag=null;
 function dialTouch(e){
  const r=dial.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*180-90,y=(e.clientY-r.top)/r.height*180-90;
