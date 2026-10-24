@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T09:11:59.700Z",
- "returns_total": 295,
+ "generated": "2026-10-24T09:31:09.932Z",
+ "returns_total": 296,
  "raw_distinct_states": 112,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.036,
@@ -9,10 +9,10 @@
   "SOURCE": 0,
   "HOLD": 96,
   "RETURN": 146,
-  "RESIDUE": 53
+  "RESIDUE": 54
  },
- "residue_count": 53,
- "unrecorded_count": 50,
+ "residue_count": 54,
+ "unrecorded_count": 51,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -95,6 +95,12 @@
   },
   {
    "file": "FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -343,7 +349,7 @@
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 50
+   "count": 51
   },
   {
    "state": "CANDIDATE",
@@ -1350,6 +1356,14 @@
    "phase": "RETURN",
    "verified": true,
    "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
@@ -3039,7 +3053,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 96",
      "phase_distribution.RETURN: receipt 135 vs map 146",
-     "phase_distribution.RESIDUE: receipt 7 vs map 53",
+     "phase_distribution.RESIDUE: receipt 7 vs map 54",
      "verified_flagged: receipt 95 vs map 72"
     ],
     "needs_counts_as_of": false,
