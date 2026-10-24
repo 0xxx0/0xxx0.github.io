@@ -310,9 +310,9 @@ function render(){
  const axes=$('#bindAxes'),keys=S.rings.map(r=>r.key).join('|');
  if(axes.dataset.keys!==keys){axes.dataset.keys=keys;axes.innerHTML=S.rings.map(r=>'<button type="button" data-bind="'+esc(r.key)+'">'+esc(r.label)+'</button>').join('')}
  axes.querySelectorAll('[data-bind]').forEach(b=>b.setAttribute('aria-pressed',String(S.rings[S.activeRing]?.key===b.dataset.bind)));
- const ar=S.rings[S.activeRing];
- $('#bindRead').innerHTML=ar?'<b>'+esc(selected(ar))+'</b><small>'+esc(ar.label)+' · '+((ar.support&&ar.support[ar.index])||0)+' compatible</small>':'<b>NO SOURCE</b>';
- $('#bindPrev').disabled=$('#bindNext').disabled=!S.loaded||!ar;
+ const boundAxis=S.rings[S.activeRing];
+ $('#bindRead').innerHTML=boundAxis?'<b>'+esc(selected(boundAxis))+'</b><small>'+esc(boundAxis.label)+' · '+((boundAxis.support&&boundAxis.support[boundAxis.index])||0)+' compatible</small>':'<b>NO SOURCE</b>';
+ $('#bindPrev').disabled=$('#bindNext').disabled=!S.loaded||!boundAxis;
  $('#srcField').classList.toggle('on',S.source==='FIELD');$('#srcHouse').classList.toggle('on',S.source==='HOUSE');$('#viewRing').classList.toggle('on',S.projection==='RING');$('#viewStrip').classList.toggle('on',S.projection==='STRIP');
  cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'DRAG RING · RELEASE TO SNAP · GATE READS ALIGNMENT':'SAME ADDRESS UNWRAPPED · TAP TOKEN TO ALIGN');
  $('#legend').innerHTML=S.rings.map(function(r,i){var sup=(r.support&&r.support[r.index])||0,pos=AxialFocusCore.position(r.values,r.index);return'<div style="border-left-color:'+(i===S.activeRing?'#69b7e6':'#3d494e')+'"><b>'+esc(r.label)+'</b> '+esc(selected(r))+' <i>'+pos.label+' · '+sup+' live</i></div>'}).join('');
