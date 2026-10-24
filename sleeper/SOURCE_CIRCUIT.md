@@ -1,6 +1,6 @@
 # SLEEPER — source witness ↔ native ONE RETURN (candidate)
 
-2026-10-24 · **DRAFT / HOLD**. No deployment, no merge. The two runtime owners remain `/sleeper/axis-score.html` (source-addressed reading) and `/sleeper/` (ONE RETURN native Gates). This bridge is a **session-only, evidence-only handoff**, not a new world or model.
+2026-10-25 · **SOURCE CONTINUITY / MACHINE-VERIFIED CANDIDATE**. This is not a claim that walking improves comprehension. No automatic semantic authority or new Sleeper v3. The two runtime owners remain `/sleeper/axis-score.html` (source-addressed reading) and `/sleeper/` (ONE RETURN native Gates). This bridge is a **session-only, evidence-only handoff**, not a new world or model.
 
 ## One experienced circuit
 
@@ -11,7 +11,7 @@
 3. Return to the origin. The original Return Artifact v2 remains unchanged. A separate `sourceWitness` sidecar carries document SHA-256 and exact offsets. Click **RETURN TO SOURCE / AXIS**.
 4. AXIS re-opens the same source, checks SHA-256 and selected offsets, and displays a bounded native RETURN receipt with the dominant operator and a proposed next operation. **Do not mistake the eight native Gate proofs for proof of a claim about the document.** The previous AXIS route is not restored; only source and selected witness are restored. Downloads are explicit; no publication occurs.
 
-If storage is denied or source hash differs, the transfer must stop; the reader stays usable. The selected-text circuit is browser-proved on synthetic text; a separate smoke opens the actual recovered `ONE_RETURN_V2.md` from a same-origin URL. Physical Android ergonomics and usefulness over plain reading remain unmeasured.
+If storage is denied or source hash differs, the transfer must stop; the reader stays usable. Chromium proves both the early exact-source return and a complete source → 8 enacted native Gates → origin → source receipt circuit at 320/390/1280px where applicable. The Gate walkthrough uses actual native movement and operators, with timing artificially advanced for TRUTH/MEASURE; this is an integration test, not a human-play proof. The recovered `ONE_RETURN_V2.md` opens through a same-origin URL. Physical Android ergonomics and comprehension gain over ordinary reading remain unmeasured.
 
 ## Two catalogs, not one invented ten-game narrative
 
@@ -40,9 +40,15 @@ The separate recovered **twelve Lab studies** include RSVP, JUE, Kite, Switchyar
 
 - `node tools/sleeper-source-aperture-selftest.cjs`: SHA/span/quote tampering, length bounds, source substitution, native world determinism, eight-Gate receipt boundary and JS syntax.
 - Run existing `node tools/sleeper-native-port-selftest.cjs`, `node tools/sleeper-native-encounter-selftest.cjs`, and PR #984's own test on its own candidate branch (do not conflate or mark it passed).
-- Browser: select exact quote → send → enter → enact native proofs → return → re-open exact document. Repeat at **320 / 390 / 1280px**, touch and keyboard. Verify pause, copy/download, source address, privacy and return on storage failure. The writer has *not* run browser/device checks.
+- Browser: select exact quote → send → enter → enact native proofs → return → re-open exact document. Repeat at **320 / 390 / 1280px**, touch and keyboard. Verify pause, copy/download, source address, privacy and return on storage failure. GitHub Actions `Sleeper source circuit` run **40120410875** passes native regression and real Chromium integration, including eight distinct Gate receipts. Physical device checks remain unperformed.
 - Compare the result with a plain two-column reader and checklist. If AXIS + city cannot produce a more memorable actionable distinction than the plain baseline, remove this bridge. Do not compensate with more scenery or controls.
 - PR #984 remains independently in draft. Its navigation guide modifies `sleeper/index.html`; reconcile only after each independent gate is proved. Preserve KERIS and RESILIENCE and all native HOLD conditions.
+
+## Machine verification / release boundary
+
+- [GitHub Actions · source circuit #40120410875](https://github.com/0xxx0/0xxx0.github.io/actions/runs/40120410875) — **PASS**: Node source-integrity, native Gate regressions, Chromium source→city→early return and source→8 native Gates→origin→exact-source receipt. Distinct Gate protocols are invoked through `move`, `useTool` and `updateProofs`; no call to `openGate` by the fixture.
+- Non-authoritative source sidecars are rejected on tampering or changed source; native v2 artifact remains unchanged. `sessionStorage` is the only source-continuation carrier; no source paragraphs are intentionally added to URLs, Git commits or ordinary `sleeper:last` persistence.
+- Human study NOT PERFORMED. Do not assert superior retention, faster decisions, Buddhist doctrinal understanding or a universal tool for overload. Keep immediate SOURCE NOW as the plain reversible exit; if walking adds effort without evidence or action gains, demote the city projection.
 
 ## Exit / next bounded trial
 
