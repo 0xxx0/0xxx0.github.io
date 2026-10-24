@@ -17,7 +17,7 @@ function navSelftest(){
   assert.equal(next.raw,raw.slice(0,u.start)+'changed'+raw.slice(u.end));
   assert.equal(N.charIn(m,u,0),u.start);assert.equal(N.charIn(m,u,1),u.end-1);
  }
- const c=raw.indexOf('gate changes')+3,n=N.neighbors(m,c,'PARA');assert.ok(n.before&&n.after);assert.equal(N.neighbors(m,paras[0].start,'PARA').before,null);assert.equal(N.neighbors(m,paras.at(-1).start,'PARA').after,null);
+ const c=raw.indexOf('Water collects')+3,n=N.neighbors(m,c,'PARA');assert.ok(n.before&&n.after);assert.equal(N.neighbors(m,paras[0].start,'PARA').before,null);assert.equal(N.neighbors(m,paras.at(-1).start,'PARA').after,null);
  assert.ok(N.ordered(m,'PARA','water gate').length);
  const r=N.relation(m,'hash',{...paras[1],scope:'PARA'},{...paras[2],scope:'PARA'},'questions');
  assert.equal(N.validRelation(m,'hash',r),true);assert.equal(N.validRelation(m,'other',r),false);assert.equal(N.validRelation(m,'hash',{...r,from:{...r.from,quote:'invented'}}),false);
