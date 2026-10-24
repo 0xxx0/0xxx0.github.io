@@ -32,7 +32,8 @@ function startFieldWork(){
   window.addEventListener('field-instrument:frame',e=>{if(!ready)return;const href=native.heldAddress();if(!href||href===lastNative){api.refresh();return}lastNative=href;api.loadRoute(href).catch(()=>{})});
   new MutationObserver(()=>{if(root.hidden)api.stop()}).observe(root,{attributes:true,attributeFilter:['hidden']});
   let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>api.refresh(),180)});
-  const incoming=new URLSearchParams(location.search).get('focus');
+  // Native FIELD already captures the original navigation parameters before restoring its URL.
+  const incoming=window.FieldIndexReadModel.entry().focus;
   if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
   window.InterphaseInstrument=api;
   window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});
