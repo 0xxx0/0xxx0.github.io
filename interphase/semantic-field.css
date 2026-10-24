@@ -1,0 +1,45 @@
+.ip-continuum[data-semantic-field="1"] .ip-space,
+.ip-continuum[data-semantic-field="1"] .ip-axis,
+.ip-continuum[data-semantic-field="1"] .ip-transport{display:none!important}
+.ip-semantic-field[hidden]{display:none!important}
+.ip-semantic-field{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:7px;padding:9px 12px 12px;background:var(--ip-bg);outline:none}
+.ip-field-tools{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;width:100%;max-width:760px;font-size:10px;color:var(--ip-mut)}
+.ip-field-tools button{min-height:36px!important;padding:5px 9px!important;font-size:10px}
+.ip-field-stage{position:relative;width:min(660px,62svh,calc(100vw - 24px));aspect-ratio:1;flex:none;overflow:hidden;background:radial-gradient(circle at 50% 50%,#131918 0,#080b0d 55%);border:1px solid var(--ip-line);outline:none}
+.ip-field-stage:focus-visible{outline:2px solid var(--ip-hot)}
+.ip-field-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ip-field-rings circle{fill:none;stroke:var(--ip-line);stroke-width:.23}
+.ip-field-rays line{stroke:var(--ip-line);stroke-width:.22;opacity:.65}
+.ip-field-edges .ip-field-edge{stroke:var(--ip-hot);stroke-width:.55;opacity:.8}
+.ip-field-center,.ip-field-node{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;border-radius:50%;background:var(--ip-bg)}
+.ip-field-center{left:50%;top:50%;width:76px;height:76px;border:1px solid var(--ip-hot);z-index:3}
+.ip-field-center svg,.ip-field-glyph svg{width:100%;height:100%;display:block;border-radius:50%}
+.ip-field-center span{position:absolute;top:-11px;background:var(--ip-bg);padding:0 4px;color:var(--ip-hot)}
+.ip-field-node{width:48px;height:48px;padding:0;min-height:0!important;border:1px solid #697371!important;z-index:4}
+.ip-field-node:hover,.ip-field-node.selected{outline:2px solid var(--ip-hot);outline-offset:2px}
+.ip-field-glyph{display:block;width:100%;height:100%}
+.ip-field-marker{position:absolute;right:-5px;bottom:-5px;border:1px solid var(--ip-line);background:var(--ip-bg);color:var(--ip-ink);font-size:10px;padding:1px 3px;white-space:nowrap;line-height:1.2}
+.ip-field-inspector{width:100%;max-width:760px;min-height:54px;display:flex;gap:6px;align-items:center;justify-content:center}
+.ip-field-inspect{flex:1;min-width:0}
+.ip-field-inspect b,.ip-field-inspect small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ip-field-inspect small{font-size:10px;color:var(--ip-mut)}
+.ip-field-inspector button{font-size:11px;white-space:nowrap;min-height:40px;padding:6px 10px}
+.ip-field-explain{font-size:11px;color:var(--ip-mut);text-align:center}
+.ip-field-legend{width:100%;max-width:650px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;font-size:10px;color:var(--ip-mut);text-align:center}
+.ip-field-caption{font-size:10px;color:var(--ip-mut);text-align:center;max-width:650px}
+.ip-field-held{padding:24px;max-width:650px;color:var(--ip-mut);font-size:12px}
+@media(max-width:700px){
+ .ip-heading .ip-views button{min-width:0;padding:4px 5px;font-size:10px;white-space:nowrap}
+ .ip-heading .ip-source b{display:none}
+ .ip-semantic-field{padding:6px 7px;gap:6px}
+ .ip-field-tools{gap:5px;font-size:9px;justify-content:space-between}
+ .ip-field-tools button{min-height:34px!important;padding:4px 6px!important}
+ .ip-field-stage{width:min(calc(100vw - 14px),53svh)}
+ .ip-field-center{width:62px;height:62px}
+ .ip-field-node{width:36px;height:36px}
+ .ip-field-inspector{min-height:50px}
+ .ip-field-inspector button{min-height:40px;padding:6px;font-size:10px}
+ .ip-field-legend{grid-template-columns:repeat(3,minmax(0,1fr));font-size:9px}
+ .ip-field-caption{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.ip-semantic-field *{transition:none!important}}
