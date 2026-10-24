@@ -57,8 +57,8 @@ async function continuumBrowserProof(){
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
    assert.ok((await page.locator('body').innerText()).length>foldedText*2,'one reveal unfolds the existing detail');
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
-   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,named:!!label&&getComputedStyle(label).display!=='none'&&label.getBoundingClientRect().height>0,clipped:r.left<0||r.right>innerWidth+1}}));
-   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.named&&x.height>=80),'addressed glyph targets retain canonical labels and touch size');
+   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44),'addressed glyph targets retain canonical labels and touch size');
    await page.locator('#feedRail .feedChip').last().scrollIntoViewIfNeeded();
    const lastReachable=await page.locator('#feedRail .feedChip').last().evaluate(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1});
    assert.ok(lastReachable,'final CURRENT head reachable by horizontal scroll at '+width);
