@@ -150,6 +150,7 @@ async function execute(command,href,reason='operator'){
    const commandLine='node tools/field-hermes-run.mjs --source '+shellEscape(target);
    if(!await copyText(commandLine,'HERMES PREP COPIED'))return;break;
   }
+  case'glyphs':status('GLYPHS · native FIELD','ok');break;
   case'heads':{const u=window.FieldURLBar;if(u&&typeof u.focus==='function')u.focus('@ ');else{status('HEADS · needs the FIELD:// line','bad');return}break}
   case'fovea':if(!tap('foveaToggle','FOVEA'))return;status('FOVEA · '+target,'ok');break;
   case'instrument':
