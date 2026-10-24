@@ -51,7 +51,8 @@ try{
   assert.equal(allMatches,await page.locator('#omniResults [data-address]').count(),'no search truncation');
   assert.equal(await page.locator('.comp-item:not([hidden])').count(),3);
   await page.locator('#compositorWheel').focus();await page.keyboard.press('End');
-  assert.equal(await page.locator('#compCount').textContent(),`${allMatches+8} / ${allMatches+8}`);
+  const searchItems=await page.locator('#omniResults [data-address],#omniResults [data-view]').count();
+  assert.equal(await page.locator('#compCount').textContent(),`${searchItems} / ${searchItems}`);
   const last=await page.locator('.comp-item.active').getAttribute('data-comp-address');
   await page.keyboard.press('Enter');assert.equal(await page.locator('#railId').textContent(),'route:'+last);
   // A fresh source for the existing protected-history proof.

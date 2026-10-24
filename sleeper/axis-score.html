@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SLEEPER / AXIS SCORE — read the road you change</title>
+<style>
+:root{color-scheme:dark;--bg:#090d10;--panel:#10171b;--line:#304049;--muted:#9baeb3;--ink:#e9efe8;--gold:#f5c97d;--blue:#90c7d3;--red:#dc947e;--fs:14px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:var(--fs)/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea,select{font:inherit}button{background:transparent;color:var(--ink);border:1px solid var(--line);padding:.65rem .85rem;cursor:pointer;border-radius:0;min-height:42px}button:hover,button:focus-visible{border-color:var(--gold);color:var(--gold)}button:disabled{opacity:.37;cursor:not-allowed}button.primary{background:var(--gold);color:#141819;border-color:var(--gold);font-weight:800}button.active{border-color:var(--blue);color:var(--blue);background:#16242b}a{color:var(--blue)}h1,h2,h3,p{margin:.25rem 0 .8rem}h1{font-size:clamp(22px,4.5vw,46px);line-height:1.1;letter-spacing:-.065em;font-weight:550}h2{font-size:12px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;color:var(--gold)}h3{font-size:13px;letter-spacing:.06em}header{display:flex;justify-content:space-between;gap:14px;align-items:center;border-bottom:1px solid var(--line);padding:14px 20px}.mark{font-size:24px;color:var(--gold);font-weight:900;letter-spacing:-4px}.crumb{font-size:11px;letter-spacing:.12em;color:var(--muted)}main{margin:auto;max-width:1400px}.intake{padding:clamp(22px,5vw,50px);max-width:980px;margin:auto}.lead{max-width:60ch;color:#b0c2c7;font-size:15px}.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--gold);margin-bottom:14px}.source-panel{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:12px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:block;font-size:11px;color:var(--muted);letter-spacing:.08em}input,textarea,select{display:block;width:100%;background:#0c1114;border:1px solid #455861;color:var(--ink);padding:12px;margin-top:6px;border-radius:0;outline:none}textarea{min-height:200px;resize:vertical;line-height:1.6}input:focus,textarea:focus,select:focus{border-color:var(--blue)}.buttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.subtle{font-size:11px;color:var(--muted)}.msg{min-height:1.5em;font-size:12px;color:var(--gold)}.hidden{display:none!important}.workspace{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(340px,1.1fr);min-height:calc(100dvh - 112px)}.left{border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.head{padding:18px 20px 8px}.world{width:100%;aspect-ratio:1.15;display:block;touch-action:manipulation;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:radial-gradient(circle at center,#172328 0%,#0d1519 70%)}.key{color:var(--blue);font-size:12px}.rows{max-height:260px;overflow:auto;padding:10px 14px}.node-item{width:100%;text-align:left;margin:2px 0;padding:7px 9px;font-size:12px;display:flex;gap:9px;border:1px solid transparent}.node-item b{color:var(--muted)}.node-item.current{border-color:var(--gold)}.node-item.inspect{background:#172328}.node-item .cut{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.right{min-width:0;display:flex;flex-direction:column}.paper{padding:clamp(18px,3vw,35px);flex:1}.paper .passage{font-family:ui-serif,Georgia,serif;line-height:1.76;font-size:clamp(18px,2.3vw,27px);max-width:58ch;white-space:pre-wrap;overflow-wrap:anywhere;min-height:120px}.status{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}.pocket{margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}.pocket button{margin-bottom:6px}.gate{border-top:1px solid var(--line);padding:15px 20px;background:#121a1e}.near{display:grid;grid-template-columns:1fr 1fr;gap:8px}.near button{text-align:left;font-size:12px}.near span{display:block;color:var(--muted);font-size:10px}.assert{display:grid;grid-template-columns:140px 1fr;gap:9px;margin:12px 0}.assert input{margin:0}.reasons{min-height:64px}.footer{border-top:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;justify-content:space-between}.return{color:var(--gold)}.muted{color:var(--muted)}.rule{font-size:11px;color:#93a5a8;max-width:72ch}.pin-view{display:flex;flex-direction:column;gap:18px;align-items:stretch}.pinword{height:140px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);font-size:clamp(25px,5vw,55px);letter-spacing:-.04em;font-family:ui-monospace,monospace;white-space:nowrap;overflow:hidden}.pinword .pre{width:45%;text-align:right}.pinword .post{width:45%;text-align:left}.pinword .orb{color:var(--gold)}.pin-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.pin-controls input{width:100px;margin:0}.pin-progress{accent-color:var(--gold);width:100%!important}.gridline{stroke:#26373e;stroke-width:1}.edge{stroke:#49616a;stroke-width:1;opacity:.38}.suggest{stroke-dasharray:4 5;stroke:#89b7c0}.commit{stroke:#e8c57f;stroke-width:2.5;opacity:1}.node-c{stroke:#6d858d;fill:#14232a;stroke-width:1.3}.node-c.inspected{stroke:#f1cf89;fill:#354044;stroke-width:2.8}.node-c.focus{fill:#f5c97d;stroke:#f5c97d}.node-t{font-size:10px;fill:#b5c6c8;pointer-events:none}.svg-btn{cursor:pointer}.receipt{font-size:12px;white-space:pre-wrap;word-break:break-word;max-height:230px;overflow:auto}.kbd{border:1px solid var(--line);padding:2px 6px}#sourceMode .source-panel{border-bottom:1px solid var(--line);padding-bottom:20px}.detail{max-width:960px;margin:25px auto;padding:0 18px}.warn{color:var(--red)}@media(max-width:790px){.workspace{display:flex;flex-direction:column}.left{border-right:0;border-bottom:1px solid var(--line)}.world{aspect-ratio:2.1;max-height:310px}.rows{max-height:150px}.paper{padding:17px;min-height:220px}.gate{padding:15px}.status{margin-bottom:15px}.near{grid-template-columns:1fr 1fr}.meta{grid-template-columns:1fr}.assert{grid-template-columns:1fr}.source-panel textarea{min-height:120px}header{padding:10px 14px}h1{font-size:27px}}
+@media(max-width:390px){.world{aspect-ratio:1.75}.pinword{font-size:28px}.head{padding:12px}.node-t{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* Score is a scale lens, not a second source or decorative audio visualizer. */
+.score-intro{font-size:11px;letter-spacing:.1em;color:#93b6be;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.score-canvas{width:min(100%,520px);aspect-ratio:1;max-height:520px;height:auto;touch-action:none;display:block;margin:auto;border:1px solid #293841;background:radial-gradient(circle,#112027 0%,#080e12 72%)}
+.axis-info{min-height:32px;font-size:11px;color:#c5d0cf;border-left:2px solid var(--gold);padding-left:10px}
+.axis-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px}.axis-actions button{font-size:11px}
+.axis-actions .goal{color:#efc878;border-color:#8c7450}.axis-actions .check{color:#9bc6c5}
+.pinword{height:92px;background:#0b1114}.score-canvas:focus{outline:2px solid #f5c97d;outline-offset:-3px}
+@media(max-width:790px){.right{order:0}.left{order:1}.paper{padding:12px}.score-canvas{max-height:none}.pin-view{gap:9px}.pinword{height:70px}}
+@media(prefers-reduced-motion:reduce){.score-canvas{scroll-behavior:auto}}
+</style>
+<style>
+.witness{border-top:1px solid var(--line);margin-top:23px;padding-top:15px}.evidence-options{display:grid;gap:6px}.evidence-choice{text-align:left;font-family:ui-serif,Georgia,serif;font-size:14px;line-height:1.5;min-height:42px;color:#d1dad6;border-left:2px solid #526b72;padding:8px 12px}.evidence-choice.active{background:#193036;border-left-color:var(--gold);color:var(--gold)}.gap-label{margin-top:9px}.gap-label input{font-size:12px;padding:9px}.world{background:#0a1115}
+@media(max-width:790px){.right{order:-1}.paper{padding:17px 16px 6px}.paper .passage{min-height:0}.left .rows{max-height:190px}.left .world{max-height:240px}.footer{padding:14px 16px}header .crumb:last-child{display:none}.evidence-choice{font-size:13px}}
+
+</style>
+</head>
+<body>
+<header><div><span class="mark">回</span> <b>SLEEPER</b> <span class="crumb">/ THREADWALK · DONOR 0.2</span></div><div class="crumb">SOURCE → HOLD → TURN → TRACE → RETURN</div></header>
+<main>
+<section id="sourceMode" class="intake">
+  <div class="eyebrow">01 / A TEXT IS NOT A MAZE. AN UNRESOLVED QUESTION CAN BE.</div>
+  <h1>Make evidence<br>into passage.</h1>
+  <p class="lead">Read a real source. Move through linked passages. Make one explicit connection that changes your navigable field. Export a source-bound RETURN—not another game save or ungrounded summary.</p>
+  <div class="source-panel">
+    <div class="meta"><label>SOURCE TITLE<input id="title" value="Practice: observation and consequence (original exercise)"></label><label>CANONICAL URL (optional)<input id="sourceUrl" value=""></label></div>
+    <label>SOURCE TEXT (local in this tab)<textarea id="textInput" spellcheck="false"></textarea></label>
+    <div class="buttons"><button id="enter" class="primary">ENTER FIELD →</button><label style="border:1px solid var(--line);padding:10px 14px;cursor:pointer">IMPORT TXT · MD · JSON<input id="fileInput" type="file" accept=".txt,.md,.json,text/plain,application/json" style="display:none"></label><button id="exercise">RESET EXERCISE</button></div>
+    <div id="sourceError" class="msg" role="alert"></div>
+    <p class="rule">The built-in exercise below is original demonstration text, not a reproduction or translation of Buddhadhamma. For the real corpus, open <a href="https://buddhadhamma.github.io/wise-reflection.html" target="_blank" rel="noopener">Wise Reflection</a>, then paste a personally selected excerpt here. The tool does not download or publish that source.</p>
+  </div>
+</section>
+<section id="work" class="workspace hidden">
+  <div class="left">
+    <div class="head"><h2>FIELD / possible moves</h2><div class="key" id="worldHash"></div><div class="subtle" id="hint">Lines: reading order / shared vocabulary / user-declared doors</div></div>
+    <svg id="map" class="world" viewBox="0 0 600 420" role="img" aria-label="Passage network. Use the numbered passage index below for keyboard access."></svg>
+    <div class="rows" id="list" aria-label="Passage index"></div>
+    <div class="gate"><h2>reachable from current position</h2><div id="near" class="near"></div><p class="rule">ORDER = contiguous source · DOTTED = inspect-only lexical hint · GOLD = your evidence-bearing door. Similarity never permits travel or certifies meaning.</p></div>
+  </div>
+  <div class="right">
+    <div class="paper">
+      <div class="status"><span id="location" class="key"></span><span id="progress" class="subtle"></span></div>
+      <h2 id="viewName">PASSAGE / READ</h2><p id="topologyPayoff" class="subtle"></p>
+      <div id="readView"><div id="passage" class="passage"></div><p id="anchor" class="subtle"></p><div class="witness"><h2>WITNESS / choose one exact sentence</h2><div id="evidenceOptions" class="evidence-options" aria-label="Source-exact evidence choices"></div><p id="witnessStatus" class="subtle"></p></div></div>
+      <div id="pinView" class="pin-view hidden">
+        <div class="score-intro"><span>RIDE / ONE SOURCE · FOUR APERTURES</span><span>TWIST = SEEK · SLIDE = SCALE · SHIFT = LINK</span></div>
+        <canvas id="scoreCanvas" class="score-canvas" width="520" height="520" tabindex="0" role="img" aria-label="Circular, zoomable document score; drag to seek inside current scope, vertical scroll to change scale"></canvas>
+        <div class="pinword"><span class="pre" id="pre"></span><span class="orb" id="orb"></span><span class="post" id="post"></span></div>
+        <div id="axisInfo" class="axis-info" role="status" aria-live="polite"></div>
+        <input id="scrub" class="pin-progress" type="range" min="0" max="0" value="0" aria-label="Exact source-token position">
+        <div class="pin-controls"><button id="play">▶ RIDE</button><button id="backWord">←</button><button id="nextWord">→</button><label>WPM<input id="wpm" type="number" min="60" max="1200" value="240"></label></div>
+        <div class="axis-actions"><button id="scaleDown">− DEPTH</button><button id="scaleUp">+ DEPTH</button><button id="soundAxis" aria-pressed="false">♪ OFF</button><button id="echo" class="goal">FIND ECHO</button><button id="claimEcho" class="check" disabled>CLAIM RETURN</button></div>
+        <p id="echoStatus" class="axis-info">One finite text, not circular time. Four scales retain the exact address. Visual marks encode rarity, recurrence and punctuation; no automated claim about meaning.</p>
+        <p class="subtle">Outer → inner: DOCUMENT / PASSAGE / SENTENCE / WORD. Ring drag = seek within highlighted scale · up/down = scale · left/right = token. Source reaches an end, never wraps. Echo retrieval makes a structural witness only; human inference still requires two exact citations.</p>
+      </div>
+      <div class="pocket"><div class="buttons"><button id="readBtn" class="active">READ</button><button id="pinBtn">AXIS / RIDE</button><button id="speakBtn">TTS</button><button id="setPin">MARK THIS PASSAGE</button><button id="moveBtn">MOVE HERE →</button><button id="homeBtn" class="hidden">↩ ONE STEP HOME</button></div></div>
+      <div class="pocket" id="relationPanel"><h2 id="relationHeading">TURN / make a grounded door</h2><div class="subtle" id="markStatus">Mark one passage. Inspect a different passage. Declare their relationship.</div><div class="assert"><select id="relation" aria-label="Relationship"><option value="supports">SUPPORTS</option><option value="contrasts">CONTRASTS</option><option value="questions">QUESTIONS</option></select><textarea class="reasons" id="reason" placeholder="What exact inference, disagreement or question connects these two passages?" aria-label="Reason for link"></textarea></div><label class="gap-label">THE GAP · what observation might change your interpretation? (optional)<input id="gap" maxlength="240" placeholder="An absent witness / an alternative explanation / a test"></label><div class="buttons"><button id="connect" class="primary">COMMIT DOOR</button><button id="undo">UNDO</button><button id="redo">REDO</button></div><div class="msg" id="error" role="status"></div></div>
+    </div>
+    <div class="footer"><div class="subtle" id="count"></div><div class="buttons"><button id="return" class="primary">RETURN / EXPORT</button><button id="import">RELOAD RETURN</button><button id="change">CHANGE SOURCE</button></div></div>
+  </div>
+</section>
+<section id="returnMode" class="detail hidden"><div class="eyebrow">03 / RETURN REQUIRES A REAL CIRCUIT</div><h1>Carry a method, not a claim.</h1><div id="result" class="receipt"></div><div class="buttons"><button id="download" class="primary">DOWNLOAD RETURN JSON</button><button id="copy">COPY JSON</button><button id="back">BACK TO SAME FIELD</button></div><p class="rule">A RETURN requires crossing an evidence-bearing door, then navigating back to the original passage. It validates source identity, exact source-excerpt spans, route connectivity and user-authored links. It does not validate the truth of any interpretation. No source paragraphs or quoted evidence are embedded in the downloaded artifact.</p></section>
+</main>
+<script>
+/* SLEEPER / THREADWALK — bounded source-to-return donor. MIT-style original implementation; no external text bundled. */
+(function(root, factory){
+  const api=factory();
+  if(typeof module==='object'&&module.exports) module.exports=api;
+  else root.Threadwalk=api;
+})(typeof globalThis!=='undefined'?globalThis:this,()=>{
+  'use strict';
+  const SCHEMA='sleeper.threadwalk-return/v0.2';
+  const STOP=new Set(('the and or but for with from into that this those these are was were have has had not you your his her their its our ' +
+    'all any about can may might would could should what when where which who why how then than there here through between upon ' +
+    'each more some also been being other only both such very one two three after before they them she he it is of to in at on by as an a').split(/\s+/));
+  const normalize=s=>String(s||'').normalize('NFC');
+  function hash(s){let x=2166136261;for(const c of normalize(s)){x^=c.codePointAt(0);x=Math.imul(x,16777619);}return(x>>>0).toString(16).padStart(8,'0')}
+  function words(s){const re=/[\p{L}\p{N}]{2,}/gu,found=new Set();for(const m of normalize(s).toLowerCase().matchAll(re)){if(m[0].length>=3&&!STOP.has(m[0]))found.add(m[0]);else if(/[\u3400-\u9fff\u3040-\u30ff]/u.test(m[0])){for(let i=0;i<m[0].length-1;i++)found.add(m[0].slice(i,i+2));}}return found}
+  // Segments preserve exact UTF-16 source offsets, suitable for native JS string.slice.
+  function segments(source,{max=48,span=340}={}){
+    if(typeof source!=='string'||!source.trim())throw Error('SOURCE_REQUIRED');
+    if(source.length>100000)throw Error('SOURCE_TOO_LARGE_100000');
+    const results=[];
+    for(const m of source.matchAll(/\S[\s\S]*?(?=\n\s*\n|$)/g)){
+      const para=m[0],origin=m.index, sentences=[...para.matchAll(/[^.!?。！？]+[.!?。！？]*|[^.!?。！？]+$/gu)].filter(x=>x[0].trim());
+      let parts=[];
+      if(sentences.length<=1){for(let j=0;j<para.length;j+=span)parts.push({start:origin+j,end:origin+Math.min(para.length,j+span)});}
+      else{
+        let from=null,to=null;
+        for(const s of sentences){const a=origin+s.index,b=a+s[0].length;if(from!==null&&b-from>span){parts.push({start:from,end:to});from=null;}
+          if(from===null)from=a;to=b;
+          if(to-from>=span){parts.push({start:from,end:to});from=null;to=null;}
+        }
+        if(from!==null)parts.push({start:from,end:to});
+      }
+      for(const p of parts){const slice=source.slice(p.start,p.end),trimLeft=slice.length-slice.trimStart().length;const text=slice.trim();if(!text)continue;
+        const start=p.start+trimLeft, end=start+text.length;
+        results.push({id:'n:'+hash(start+':'+text),start,end,text});
+        if(results.length>max)throw Error('SOURCE_TOO_MANY_SEGMENTS_'+max);
+      }
+    }
+    if(results.length<2)throw Error('NEED_TWO_DISTINCT_PASSAGES');
+    return results;
+  }
+  function createModel(text,meta={}){
+    const source=normalize(text);const nodes=segments(source);const documentHash=hash(source),idf=new Map();const sets=nodes.map(n=>words(n.text));
+    for(const s of sets)for(const t of s)idf.set(t,(idf.get(t)||0)+1);
+    const pairs=[];
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      let overlap=0,weight=0,common=[];
+      for(const term of sets[i])if(sets[j].has(term)){const rarity=Math.log(1+nodes.length/(idf.get(term)||1));overlap+=rarity;common.push(term)}
+      for(const term of new Set([...sets[i],...sets[j]]))weight+=Math.log(1+nodes.length/(idf.get(term)||1));
+      if(overlap>0)pairs.push({a:nodes[i].id,b:nodes[j].id,score:+(overlap/(weight||1)).toFixed(4),common:common.sort().slice(0,5),kind:'SUGGESTION'});
+    }
+    // No global topological connectivity is inferred from lexical affinity.
+    pairs.sort((a,b)=>b.score-a.score||a.a.localeCompare(b.a)||a.b.localeCompare(b.b));
+    const picks=[],degree=new Map();
+    for(const e of pairs){if((degree.get(e.a)||0)>=3||(degree.get(e.b)||0)>=3)continue;picks.push(e);degree.set(e.a,(degree.get(e.a)||0)+1);degree.set(e.b,(degree.get(e.b)||0)+1)}
+    const edges=nodes.slice(1).map((n,i)=>({a:nodes[i].id,b:n.id,kind:'ORDER',score:1,common:[]}));
+    for(const x of picks)if(!edges.some(y=>y.a===x.a&&y.b===x.b))edges.push(x);
+    return Object.freeze({schema:'sleeper.threadwalk-source/v0.1',hash:documentHash,source,
+      meta:{title:String(meta.title||'Untitled source').slice(0,200),url:validURL(meta.url)||''},nodes,edges});
+  }
+  async function seal(model){
+    if(!globalThis.crypto?.subtle)throw Error('SHA256_UNAVAILABLE');
+    const bytes=new TextEncoder().encode(model.source);
+    const digest=await globalThis.crypto.subtle.digest('SHA-256',bytes);
+    return Object.freeze({...model,sha256:[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')});
+  }
+  function validURL(s){try{let u=new URL(String(s||''));return u.protocol==='https:'||u.protocol==='http:'?u.href:''}catch{return''}}
+  const ids=m=>new Set(m.nodes.map(n=>n.id));
+  function blank(m){return{schema:'sleeper.threadwalk-session/v0.2',sourceHash:m.hash,focus:m.nodes[0].id,path:[m.nodes[0].id],moves:[],links:[],future:[],selected:null,witnesses:{}}}
+  function assertFocus(m,id){if(!ids(m).has(id))throw Error('NODE_UNKNOWN');return id}
+  function neighbors(m,s){assertFocus(m,s.focus);return m.edges.filter(e=>e.kind==='ORDER'&&(e.a===s.focus||e.b===s.focus)).map(e=>({id:e.a===s.focus?e.b:e.a,kind:e.kind,score:e.score,common:e.common})).concat(s.links.filter(e=>e.from===s.focus||e.to===s.focus).map(e=>({id:e.from===s.focus?e.to:e.from,kind:'COMMITTED',relation:e.relation})));}
+  function suggestions(m,s){assertFocus(m,s.focus);return m.edges.filter(e=>e.kind==='SUGGESTION'&&(e.a===s.focus||e.b===s.focus)).map(e=>({id:e.a===s.focus?e.b:e.a,common:e.common,score:e.score,kind:'INSPECT_ONLY'}))}
+  function move(m,s,id){assertFocus(m,id);const edges=neighbors(m,s).filter(e=>e.id===id);if(!edges.length)throw Error('NO_LAWFUL_EDGE');const door=s.links.find(e=>(e.from===s.focus&&e.to===id)||(e.to===s.focus&&e.from===id));const via=door?'COMMITTED':'ORDER';return{...s,focus:id,path:[...s.path,id],moves:[...s.moves,{from:s.focus,to:id,via,linkId:door?.id||null}],future:[]}}
+  function select(m,s,id=s.focus){return{...s,selected:assertFocus(m,id)}}
+  // The evidence menu is generated exclusively from exact source offsets. It is
+  // deterministic, works offline, and never supplies a semantic verdict.
+  function evidenceChoices(m,id){
+    const node=m.nodes.find(x=>x.id===id);if(!node)throw Error('NODE_UNKNOWN');
+    const chunks=[...node.text.matchAll(/[^.!?。！？\n]+[.!?。！？]*/gu)].filter(x=>x[0].trim());
+    const candidates=chunks.length?chunks:[{0:node.text,index:0}];
+    let result=[];
+    for(const x of candidates){
+      const pre=x[0].length-x[0].trimStart().length;
+      const a=node.start+x.index+pre,b=node.start+x.index+x[0].trimEnd().length;
+      if(b-a<5)continue;
+      // Large source chunks remain selectable as one exact witness.
+      result.push({node:id,start:a,end:b,preview:m.source.slice(a,b).trim()});
+    }
+    if(!result.length)result=[{node:id,start:node.start,end:node.end,preview:node.text}];
+    return result.slice(0,12);
+  }
+  function cite(m,s,id,choice){
+    const choices=evidenceChoices(m,id),e=choices[choice];if(!e)throw Error('EVIDENCE_CHOICE_INVALID');
+    const witness={node:id,start:e.start,end:e.end,quoteHash:hash(m.source.slice(e.start,e.end))};
+    return {...s,witnesses:{...s.witnesses,[id]:witness},future:[]};
+  }
+  function routeHome(m,s){
+    const origin=m.nodes[0].id,queue=[s.focus],prev=new Map([[s.focus,null]]);
+    for(let i=0;i<queue.length&&!prev.has(origin);i++)for(const e of neighbors(m,{...s,focus:queue[i]})){
+      if(prev.has(e.id))continue;prev.set(e.id,queue[i]);queue.push(e.id);
+    }
+    if(!prev.has(origin))return[];
+    const result=[];let x=origin;while(x!==null){result.push(x);x=prev.get(x)}
+    return result.reverse();
+  }
+  function commit(m,s,to,relation,reason,openQuestion=''){
+    assertFocus(m,to);const from=s.selected;if(!from||!ids(m).has(from))throw Error('SELECT_SOURCE_FIRST');
+    if(to===from)throw Error('SELF_LINK');
+    if(!['supports','contrasts','questions'].includes(relation))throw Error('RELATION_INVALID');
+    const why=String(reason||'').trim().replace(/\s+/g,' ');
+    if(why.length<12||why.length>400)throw Error('REASON_LENGTH_12_TO_400');
+    if(s.links.some(l=>l.from===from&&l.to===to&&l.relation===relation))throw Error('ALREADY_LINKED');
+    const gap=String(openQuestion||'').trim().replace(/\s+/g,' ').slice(0,240);
+    const cites=[s.witnesses[from],s.witnesses[to]];
+    if(cites.some(x=>!x))throw Error('TWO_EXACT_WITNESSES_REQUIRED');
+    for(const c of cites){if(!evidenceChoices(m,c.node).some(e=>e.start===c.start&&e.end===c.end)||c.quoteHash!==hash(m.source.slice(c.start,c.end)))throw Error('WITNESS_NOT_SOURCE_BOUND');}
+    const src=m.nodes.find(n=>n.id===from),dst=m.nodes.find(n=>n.id===to);
+    const item={id:'l:'+hash(m.hash+'|'+from+'|'+to+'|'+relation+'|'+why+'|'+gap+'|'+cites.map(x=>x.quoteHash).join('|')),from,to,relation,reason:why,openQuestion:gap,cites:cites.map(x=>({...x})),sourceSpans:[[src.start,src.end],[dst.start,dst.end]],authority:'USER_DECLARED_WITH_EXACT_WITNESSES'};
+    return{...s,links:[...s.links,item],selected:null,future:[]};
+  }
+  function undo(s){if(!s.links.length)return s;const removed=s.links[s.links.length-1];const at=s.moves.findIndex(m=>m.linkId===removed.id);const path=at>=0?s.path.slice(0,at+1):s.path;const moves=at>=0?s.moves.slice(0,at):s.moves;return{...s,links:s.links.slice(0,-1),path,moves,focus:path[path.length-1],future:[{link:removed,path:s.path,moves:s.moves,focus:s.focus},...s.future]}}
+  function redo(s){if(!s.future.length)return s;const record=s.future[0];return{...s,links:[...s.links,record.link],path:record.path,moves:record.moves,focus:record.focus,future:s.future.slice(1)}}
+  function hasCrossed(s){return s.moves.some(e=>e.via==='COMMITTED'&&s.links.some(l=>l.id===e.linkId))}
+  function canReturn(s){return hasCrossed(s)&&s.path.length>=3&&s.focus===s.path[0]}
+  function distanceBetween(m,s,from,to,omitId=null){
+    assertFocus(m,from);assertFocus(m,to);
+    if(from===to)return 0;
+    const queue=[from],distance=new Map([[from,0]]);
+    for(let i=0;i<queue.length;i++){
+      const a=queue[i];
+      const edges=neighbors(m,{...s,focus:a}).filter(e=>!omitId||!(e.kind==='COMMITTED'&&s.links.some(l=>l.id===omitId&&((l.from===a&&l.to===e.id)||(l.to===a&&l.from===e.id)))));
+      for(const edge of edges){if(distance.has(edge.id))continue;distance.set(edge.id,distance.get(a)+1);
+        if(edge.id===to)return distance.get(edge.id);queue.push(edge.id);
+      }
+    }
+    return null;
+  }
+  function effect(m,s,link){
+    const a=distanceBetween(m,s,link.from,link.to,link.id),b=distanceBetween(m,s,link.from,link.to);
+    return{linkId:link.id,from:link.from,to:link.to,without:a,with:b,stepsSaved:a===null||b===null?null:Math.max(0,a-b),authority:'TOPOLOGY_ONLY'};
+  }
+  function artifact(m,s){if(m.hash!==s.sourceHash)throw Error('SOURCE_MISMATCH');
+    if(!canReturn(s))throw Error('RETURN_REQUIRES_CROSSED_DOOR_AND_ORIGIN');
+    if(!m.sha256||!/^[0-9a-f]{64}$/.test(m.sha256))throw Error('SOURCE_SHA256_REQUIRED');
+    return{schema:SCHEMA,source:{hash:m.hash,sha256:m.sha256,title:m.meta.title,url:m.meta.url,characters:m.source.length},
+      focus:s.focus,route:s.path.slice(),moves:s.moves.map(x=>({...x})),links:s.links.map(x=>({...x})),topology:s.links.map(l=>effect(m,s,l)),
+      verification:{level:'STRUCTURAL_ONLY',semantic:'UNVERIFIED_USER_JUDGMENT',sourceBytes:'NOT_EMBEDDED',method:'EXACT_OFFSETS_AND_HASH'}};
+  }
+  function restore(m,o){if(!o||o.schema!==SCHEMA||o.source?.hash!==m.hash||o.source?.sha256!==m.sha256||o.source?.characters!==m.source.length)throw Error('RETURN_SOURCE_MISMATCH');
+    let s=blank(m);const keys=ids(m);
+    if(!Array.isArray(o.route)||o.route.length<1||o.route.length>10000||o.route[0]!==m.nodes[0].id)throw Error('RETURN_ROUTE_INVALID');
+    if(o.route[o.route.length-1]!==o.focus||!keys.has(o.focus))throw Error('RETURN_FOCUS_INVALID');
+    if(!Array.isArray(o.links)||o.links.length>m.nodes.length*4)throw Error('RETURN_LINKS_INVALID');
+    if(!Array.isArray(o.moves)||o.moves.length!==o.route.length-1)throw Error('RETURN_MOVES_INVALID');
+    // Restore links in sequence; route validation is independent of committed links
+    // because links can be undone after traversal. Verify route against the FINAL
+    // graph, while preserving exact given path rather than attempting a replay.
+    s=blank(m);for(const raw of o.links){
+      if(!Array.isArray(raw.cites)||raw.cites.length!==2||raw.cites[0]?.node!==raw.from||raw.cites[1]?.node!==raw.to)throw Error('RETURN_EVIDENCE_INVALID');
+      for(const c of raw.cites){const ix=evidenceChoices(m,c.node).findIndex(e=>e.start===c.start&&e.end===c.end);
+        if(ix<0||c.quoteHash!==hash(m.source.slice(c.start,c.end)))throw Error('RETURN_EVIDENCE_TAMPERED');s=cite(m,s,c.node,ix)}
+      s=select(m,s,raw.from);s=commit(m,s,raw.to,raw.relation,raw.reason,raw.openQuestion||'');
+      if(s.links[s.links.length-1].id!==raw.id||JSON.stringify(s.links[s.links.length-1].sourceSpans)!==JSON.stringify(raw.sourceSpans)||JSON.stringify(s.links[s.links.length-1].cites)!==JSON.stringify(raw.cites)||s.links[s.links.length-1].authority!==raw.authority)throw Error('RETURN_LINK_TAMPERED');}
+    const replay=[...o.route];for(let i=0;i<replay.length;i++){const id=replay[i];if(!keys.has(id))throw Error('RETURN_ROUTE_NODE_UNKNOWN');if(i===0)continue;const from=replay[i-1],e=o.moves[i-1];if(e.from!==from||e.to!==id)throw Error('RETURN_MOVE_MISMATCH');
+      const link=s.links.find(l=>l.id===e.linkId&&((l.from===from&&l.to===id)||(l.from===id&&l.to===from)));
+      if(e.via==='COMMITTED'&&!link)throw Error('RETURN_PORTAL_UNGROUNDED');
+      if(e.via==='ORDER'&&!m.edges.some(x=>x.kind==='ORDER'&&((x.a===from&&x.b===id)||(x.a===id&&x.b===from)))||!['COMMITTED','ORDER'].includes(e.via))throw Error('RETURN_ROUTE_DISCONNECTED');
+    }
+    s={...s,focus:o.focus,path:replay,moves:o.moves.map(x=>({...x})),selected:null,future:[]};
+    if(!canReturn(s))throw Error('RETURN_REQUIRES_CROSSED_DOOR_AND_ORIGIN');
+    if(JSON.stringify(o.topology)!==JSON.stringify(s.links.map(l=>effect(m,s,l))))throw Error('RETURN_TOPOLOGY_TAMPERED');return s;
+  }
+  function orp(s){const a=Array.from(s),idx=Math.max(0,Math.min(a.length-1,Math.round((a.length-1)*.35)));return[a.slice(0,idx).join(''),a[idx]||'',a.slice(idx+1).join('')]}
+  return Object.freeze({SCHEMA,hash,words,segments,createModel,seal,validURL,blank,neighbors,suggestions,move,select,commit,undo,redo,hasCrossed,canReturn,evidenceChoices,cite,routeHome,distanceBetween,effect,artifact,restore,orp});
+});
+
+</script>
+<script>
+/* SLEEPER / AXIS SCORE — source-addressed projection, not a second text owner.
+   Geometry cycles. Text does not. All operations clamp at the end of the source.
+   Same derived event drives score ink, rests and optional sound; semantic relation remains user-declared. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.ThreadAxis=api})(typeof globalThis!=='undefined'?globalThis:this,()=>{
+'use strict';
+const PI2=Math.PI*2,SCALES=Object.freeze(['WORD','SENTENCE','PASSAGE','DOCUMENT']);
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const STOP=new Set('about after again also along among another because been being between could every first from have into just might other should still their there these those through under until where which while would your with then than this that were what when some only them they they will more each very such even else once over upon both before after'.split(' '));
+function tokensOf(source){
+  const out=[];
+  // Intl.Segmenter supplies actual word boundaries for scripts without whitespace.
+  if(typeof Intl!=='undefined'&&Intl.Segmenter){
+    const it=new Intl.Segmenter('und',{granularity:'word'}).segment(source);
+    for(const x of it){const s=x.segment;if(x.isWordLike){out.push({text:s,start:x.index,end:x.index+s.length,type:'WORD'});}else if(/[.!?。！？,;:，、；：…—]/u.test(s)){out.push({text:s,start:x.index,end:x.index+s.length,type:'REST'});}}
+  }else{
+    for(const m of source.matchAll(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*|[.!?。！？,;:，、；：…—]/gu))out.push({text:m[0],start:m.index,end:m.index+m[0].length,type:/^[\p{L}\p{N}]/u.test(m[0])?'WORD':'REST'});
+  }
+  if(!out.length)throw Error('AXIS_SOURCE_HAS_NO_TOKENS');
+  return out;
+}
+function createScore(model){
+  if(!model||typeof model.source!=='string'||!Array.isArray(model.nodes))throw Error('AXIS_SOURCE_REQUIRED');
+  const raw=tokensOf(model.source),freq=new Map(),positions=new Map();
+  raw.forEach((t,i)=>{t.node=model.nodes.findIndex(n=>t.start>=n.start&&t.start<n.end);t.key=t.text.normalize('NFC').toLocaleLowerCase();if(t.type==='WORD'){freq.set(t.key,(freq.get(t.key)||0)+1);if(!positions.has(t.key))positions.set(t.key,[]);positions.get(t.key).push(i)}});
+  const wordN=raw.filter(t=>t.type==='WORD').length,lex=freq.size;
+  const prior=new Map(),tokens=raw.map((t,i)=>{
+    let interval=0,novelty=0;
+    if(t.type==='WORD'){
+      interval=prior.has(t.key)?i-prior.get(t.key):0;prior.set(t.key,i);
+      // Smoothed self-information proxy: no sentiment, truth or learned embeddings.
+      novelty=clamp(Math.log2(1+(wordN+lex)/(freq.get(t.key)+1))/Math.max(1,Math.log2(wordN+lex+1)),0,1);
+    }
+    const rest=t.type==='REST'?/[.!?。！？…]/u.test(t.text)?2:1:0;
+    const amplitude=t.type==='REST'?.15:.20+.80*novelty;
+    const pitch=170+((interval?Math.round(Math.log2(interval+1)*3):i%12)%12)*23;
+    return Object.freeze({...t,index:i,interval,novelty,rest,amplitude,pitch});
+  });
+  const units={DOCUMENT:[{start:0,end:tokens.length}],PASSAGE:[],SENTENCE:[],WORD:[]};
+  const overlapping=(a,b)=>tokens.filter(t=>t.start<b&&t.end>a);
+  for(const n of model.nodes){const found=overlapping(n.start,n.end);if(found.length)units.PASSAGE.push({start:found[0].index,end:found.at(-1).index+1,id:n.id})}
+  // Sentence boundaries are source-addressed, and clamp to source rather than wrapping.
+  let begin=0;for(let i=0;i<tokens.length;i++)if(tokens[i].rest===2){units.SENTENCE.push({start:begin,end:i+1});begin=i+1}
+  if(begin<tokens.length)units.SENTENCE.push({start:begin,end:tokens.length});
+  for(let i=0;i<tokens.length;i++)units.WORD.push({start:i,end:i+1});
+  return Object.freeze({schema:'sleeper.axis-score/v0.1',hash:model.hash,source:model.source,meta:model.meta,tokens,units,positions,nodes:model.nodes});
+}
+function atChar(score,char){let a=0,b=score.tokens.length;while(a<b){let m=(a+b)>>1;if(score.tokens[m].end<=char)a=m+1;else b=m}return clamp(a,0,score.tokens.length-1)}
+function axis(score,char=0,scale='DOCUMENT'){return Object.freeze({index:atChar(score,char),scale:SCALES.includes(scale)?scale:'DOCUMENT',revision:0})}
+function seek(score,a,i){return Object.freeze({...a,index:clamp(Math.round(i),0,score.tokens.length-1),revision:a.revision+1})}
+function zoom(a,dir){return Object.freeze({...a,scale:SCALES[clamp(SCALES.indexOf(a.scale)+Math.sign(dir),0,SCALES.length-1)],revision:a.revision+1})}
+function setScale(a,scale){if(!SCALES.includes(scale))throw Error('AXIS_SCALE_INVALID');return Object.freeze({...a,scale,revision:a.revision+1})}
+function scope(score,a,scale=a.scale){let set=score.units[scale];if(!set)throw Error('AXIS_SCALE_INVALID');return set.find(x=>x.start<=a.index&&a.index<x.end)||set.at(-1)}
+function fraction(score,a,scale=a.scale){let s=scope(score,a,scale);return s.end-s.start<=1?0:(a.index-s.start)/(s.end-s.start-1)}
+function seekFraction(score,a,p,scale=a.scale){const unit=scope(score,a,scale);return seek(score,a,unit.start+Math.round(clamp(p,0,1)*(unit.end-unit.start-1)))}
+function phaseToFraction(x,y,cx=260,cy=260){return ((Math.atan2(y-cy,x-cx)+Math.PI/2)/PI2+1)%1}
+function dwellMs(t,wpm=240){const base=60000/clamp(Number(wpm)||240,60,1200);return Math.round(base*(t.rest===2?1.9:t.rest===1?1.4:clamp(.85+(Array.from(t.text).length-4)*.04,.75,1.48)))}
+function eventAt(score,a){const t=score.tokens[a.index];return {address:t.index,charIndex:t.start,text:t.text,novelty:t.novelty,interval:t.interval,amplitude:t.amplitude,pitch:t.pitch,rest:t.rest,progress:(a.index+1)/score.tokens.length,scale:a.scale}}
+function echoMission(score,a){const currentNode=score.tokens[a.index].node;
+  const options=[];
+  for(let i=0;i<score.tokens.length;i++){
+    const token=score.tokens[i],hits=score.positions.get(token.key)||[];
+    if(token.node!==currentNode||token.type!=='WORD'||token.key.length<4||STOP.has(token.key)||hits.length<2||hits.length>8)continue;
+    for(const j of hits){const target=score.tokens[j];if(target.node<0||target.node===currentNode||Math.abs(j-i)<8)continue;
+      const span=Math.abs(j-i);options.push({key:token.key,from:i,target:j,startNode:currentNode,targetNode:target.node,span,rank:Math.round(100*Math.min(1,span/score.tokens.length)*token.novelty)});
+    }
+  }
+  options.sort((x,y)=>y.rank-x.rank||y.span-x.span||x.from-y.from||x.target-y.target);
+  const top=options[0];return top?Object.freeze({...top,kind:'EXACT_LEXICAL_ECHO',semantic:'UNVERIFIED'}):null;
+}
+function checkEcho(score,mission,a){if(!mission||mission.kind!=='EXACT_LEXICAL_ECHO')return {ok:false,reason:'NO_ECHO'};
+  const t=score.tokens[a.index];if(t.key!==mission.key||t.node===mission.startNode)return {ok:false,reason:'SEEK_SAME_MOTIF_IN_A_DIFFERENT_PASSAGE'};
+  const source=score.tokens[mission.from];return {ok:true,record:{schema:'sleeper.axis-echo/v0.1',authority:'STRUCTURAL_MATCH_ONLY',from:{start:source.start,end:source.end,node:source.node},to:{start:t.start,end:t.end,node:t.node},keyHash:quickHash(mission.key),steps:Math.abs(a.index-mission.from),sourceHash:score.hash}};
+}
+function verifyEchoRecord(score,record){
+  if(!record||record.schema!=='sleeper.axis-echo/v0.1'||record.authority!=='STRUCTURAL_MATCH_ONLY'||record.sourceHash!==score.hash)return false;
+  const {from,to,keyHash,steps}=record;
+  const a=score.tokens.find(x=>x.start===from?.start&&x.end===from?.end&&x.node===from?.node);
+  const b=score.tokens.find(x=>x.start===to?.start&&x.end===to?.end&&x.node===to?.node);
+  if(!a||!b||a.node===b.node||a.type!=='WORD'||b.type!=='WORD'||a.key!==b.key||a.key.length<4||STOP.has(a.key))return false;
+  return keyHash===quickHash(a.key)&&steps===Math.abs(a.index-b.index);
+}
+function controlFeedback(score,mission,a){
+  if(!mission)return {status:'NO_GOAL',minScale:null,distance:null};
+  const targets=(score.positions.get(mission.key)||[]).filter(i=>score.tokens[i].node!==mission.startNode);
+  if(!targets.length)return {status:'UNREACHABLE',minScale:null,distance:null};
+  const distance=Math.min(...targets.map(i=>Math.abs(i-a.index)));
+  const apertures=SCALES.filter(scale=>{const r=scope(score,a,scale);return targets.some(i=>i>=r.start&&i<r.end)});
+  const within=apertures.includes(a.scale);return {status:within?'REACHABLE_IN_APERTURE':'WIDEN',minScale:apertures[0]||'DOCUMENT',distance,normalizedError:distance/Math.max(1,score.tokens.length-1),scale:a.scale};
+}
+function quickHash(s){let h=2166136261;for(const c of s){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return(h>>>0).toString(16)}
+function binFeatures(score,start,end,bins=96){const result=Array.from({length:bins},()=>({energy:0,echo:0,rests:0,count:0})),len=Math.max(1,end-start);
+  for(let i=start;i<end;i++){const t=score.tokens[i],b=Math.min(bins-1,Math.floor((i-start)*bins/len)),r=result[b];r.energy+=t.amplitude;r.echo+=t.interval>8?1:0;r.rests+=t.rest>0?1:0;r.count++}
+  for(const r of result){r.energy=r.count?r.energy/r.count:0;r.echo=r.count?r.echo/r.count:0;r.rests=r.count?r.rests/r.count:0}
+  return result;
+}
+function draw(canvas,score,a,links=[],{mission=null,found=[]}={}){
+  const ctx=canvas.getContext('2d');if(!ctx)return;const w=520,h=520,dpr=Math.max(1,Math.min(2,typeof devicePixelRatio==='number'?devicePixelRatio:1));
+  if(canvas.width!==w*dpr||canvas.height!==h*dpr){canvas.width=w*dpr;canvas.height=h*dpr}
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const cx=260,cy=252;
+  const arc=(r,p0,p1,color,width)=>{ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2+PI2*p0,-Math.PI/2+PI2*p1);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()};
+  const layers=[['DOCUMENT',214,96],['PASSAGE',162,72],['SENTENCE',115,48],['WORD',67,32]];
+  for(const [level,r,bins] of layers){const unit=scope(score,a,level),data=binFeatures(score,unit.start,unit.end,bins),active=a.scale===level;
+    arc(r,0,.999,'#23343c',active?24:15);
+    data.forEach((v,i)=>{
+      const size=active?8:5;const intensity=Math.min(1,v.energy+v.echo*.32);
+      arc(r,Math.max(0,i/bins+.001),(i+1)/bins-.002,`rgba(${Math.round(89+150*intensity)},${Math.round(140+65*v.rests)},${Math.round(166-65*v.echo)},${.20+.73*intensity})`,size+(active?2:0));
+    });
+    const f=fraction(score,a,level);ctx.lineWidth=active?3:1.3;
+    arc(r,0,Math.max(.0001,f),'#ebc47c',active?3:1.8);
+    const angle=-Math.PI/2+PI2*f;ctx.fillStyle=active?'#fff0cb':'#95bfca';ctx.beginPath();ctx.arc(cx+Math.cos(angle)*r,cy+Math.sin(angle)*r,active?6:3,0,PI2);ctx.fill();
+  }
+  // Same semantic links produce actual geometric chords. Suggestions cannot.
+  for(const l of links){const A=score.nodes.find(n=>n.id===l.from),B=score.nodes.find(n=>n.id===l.to);if(!A||!B)continue;
+    const ia=atChar(score,A.start),ib=atChar(score,B.start),fa=ia/Math.max(1,score.tokens.length-1),fb=ib/Math.max(1,score.tokens.length-1),rad=206;
+    const x1=cx+Math.cos(-Math.PI/2+fa*PI2)*rad,y1=cy+Math.sin(-Math.PI/2+fa*PI2)*rad,x2=cx+Math.cos(-Math.PI/2+fb*PI2)*rad,y2=cy+Math.sin(-Math.PI/2+fb*PI2)*rad;
+    ctx.strokeStyle=l.relation==='contrasts'?'#df8c87':l.relation==='questions'?'#86bfd1':'#f2ca7f';ctx.lineWidth=2.2;ctx.globalAlpha=.78;ctx.beginPath();ctx.moveTo(x1,y1);ctx.quadraticCurveTo(cx,cy,x2,y2);ctx.stroke();ctx.globalAlpha=1;
+  }
+  if(mission){const fs=[mission.from,mission.target].map(i=>i/Math.max(1,score.tokens.length-1));for(const f of fs){const th=-Math.PI/2+f*PI2;ctx.strokeStyle='#e9c97b';ctx.beginPath();ctx.arc(cx+Math.cos(th)*228,cy+Math.sin(th)*228,5,0,PI2);ctx.stroke()}}
+  const e=eventAt(score,a);
+  ctx.textAlign='center';ctx.font='12px ui-monospace,monospace';ctx.fillStyle='#8fb0b7';ctx.fillText('AXIS / '+a.scale+' · '+(a.index+1)+' / '+score.tokens.length,cx,cy-18);
+  ctx.font='bold 22px ui-monospace,monospace';ctx.fillStyle=e.rest?'#8ca5b0':'#efc878';ctx.fillText(e.rest?'∿':'✳',cx,cy+13);
+  ctx.font='11px ui-monospace,monospace';ctx.fillStyle='#a4bcc3';ctx.fillText('NOV '+e.novelty.toFixed(2)+' · ECHO '+(e.interval||'—'),cx,cy+39);
+  // Fixed top viewport: nearby tokens become traversing road marks, not text clouds.
+  for(let delta=-5;delta<=5;delta++){
+    const i=a.index+delta;if(i<0||i>=score.tokens.length)continue;const t=score.tokens[i],offset=delta*0.14,theta=-Math.PI/2+offset,rr=242;
+    const x=cx+Math.cos(theta)*rr,y=cy+Math.sin(theta)*rr;
+    ctx.fillStyle=delta===0?'#f5d58d':'rgba(172,205,213,'+(1-Math.abs(delta)*.16)+')';
+    ctx.font=(delta===0?'bold ':'')+(delta===0?12:10)+'px ui-monospace,monospace';
+    const label=t.text.length>9?t.text.slice(0,8)+'…':t.text;
+    ctx.save();ctx.translate(x,y);ctx.rotate(offset);ctx.fillText(label,0,0);ctx.restore();
+  }
+  ctx.strokeStyle='#f3d28a';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx,1);ctx.lineTo(cx,27);ctx.stroke();
+  ctx.fillStyle='#65808c';ctx.font='10px ui-monospace,monospace';ctx.fillText('CURSOR',cx,515);
+}
+return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale,scope,fraction,seekFraction,phaseToFraction,dwellMs,eventAt,echoMission,checkEcho,verifyEchoRecord,controlFeedback,binFeatures,draw});
+});
+
+</script>
+<script>
+(()=>{'use strict';const T=Threadwalk,A=ThreadAxis,$=q=>document.querySelector(q);const txt=s=>String(s??'');
+  const DEMO=`At 08:10 the inlet gauge showed a rapid increase. The operator wrote DOWNSTREAM RISK in the log. No one had checked whether the gauge was recently calibrated.\n\nThe calibration sheet dated Monday lists a twelve-percent positive bias for the inlet gauge. A second gauge was available but not yet connected.\n\nA siren sounded at 08:12. The manual says a siren means an alarm threshold was crossed; it does not establish the cause of the reading.\n\nAt 08:16 an independent measurement showed a smaller increase. The difference was consistent with the bias noted on Monday, though nobody had established that the bias had remained constant.\n\nThe shift manager ordered a shutdown. The shutdown prevented a possible overflow, but it also stopped the pump that drained the retention basin.\n\nAt 08:27 the retention basin started filling faster. A pump technician reported that the stopped drainage pump was normally responsible for lowering the basin level.\n\nOne proposed rule said: always shut down when the inlet gauge crosses the threshold. A second rule said: cross-check an alarming reading when an independent sensor is available, without delaying an emergency response.\n\nThe final report must distinguish observation, explanation, and decision. A useful conclusion names what was known at each time, what remained uncertain, and the smallest safe verification step.`;
+  let model=null,session=null,inspected=null,mode='read',timer=null,spoken=false,rsvp=[],index=0,json=null,score=null,axis=null,mission=null,echoTrace=[],soundOn=false,audioCtx=null,echoAttempts=0;
+  const n=id=>model.nodes.find(x=>x.id===id),idx=id=>model.nodes.findIndex(x=>x.id===id);
+  function error(msg,target='#error'){$(target).textContent=msg;}
+  function stop(){clearTimeout(timer);timer=null;$('#play').textContent='▶ RIDE';globalThis.speechSynthesis?.cancel?.();spoken=false;$('#speakBtn').textContent='TTS';}
+  async function boot(){stop();try{model=await T.seal(T.createModel($('#textInput').value,{title:$('#title').value,url:$('#sourceUrl').value}));session=T.blank(model);inspected=session.focus;score=A.createScore(model);axis=A.axis(score,model.nodes[0].start);mission=null;echoTrace=[];echoAttempts=0;$('#sourceMode').classList.add('hidden');$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');mode='pin';render();error('','#sourceError');}catch(e){error(e.message,'#sourceError')}}
+  function select(id){if(!n(id))return;stop();inspected=id;axis=A.seek(score,axis,A.atChar(score,n(id).start));mode='read';error('');render();if(innerWidth<=790)document.querySelector('.right').scrollIntoView({block:'start',behavior:'smooth'});}
+  function setMode(next){stop();mode=next;render();}
+  function ping(t){if(!soundOn)return;try{audioCtx ||= new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),time=audioCtx.currentTime;osc.type='sine';osc.frequency.value=t.pitch;gain.gain.setValueAtTime(.0001,time);gain.gain.exponentialRampToValueAtTime(Math.max(.004,Math.min(.055,t.amplitude*.046)),time+.018);gain.gain.exponentialRampToValueAtTime(.0001,time+.085);osc.connect(gain).connect(audioCtx.destination);osc.start(time);osc.stop(time+.09)}catch(e){soundOn=false;$('#soundAxis').textContent='♪ UNAVAILABLE'}}
+  function paintWord(){if(!score||!axis)return;index=axis.index;const t=score.tokens[index],parts=T.orp(t.text);$('#pre').textContent=parts[0];$('#orb').textContent=parts[1];$('#post').textContent=parts[2];$('#scrub').max=Math.max(0,score.tokens.length-1);$('#scrub').value=index;const e=A.eventAt(score,axis);$('#axisInfo').textContent=axis.scale+' · '+(index+1)+'/'+score.tokens.length+' · CHAR '+t.start+'–'+t.end+' · NOV '+e.novelty.toFixed(2)+' / PREVIOUS ECHO '+(e.interval||'NONE');A.draw($('#scoreCanvas'),score,axis,session.links,{mission,found:echoTrace})}
+  function seekIndex(i){if(!score)return;stop();axis=A.seek(score,axis,i);paintWord();}
+  function play(){if(timer){stop();return;}if(!score)return;if(axis.index===score.tokens.length-1){seekIndex(0);$('#play').textContent='▶ RIDE';return;}$('#play').textContent='Ⅱ PAUSE';
+    function tick(){if(axis.index>=score.tokens.length-1){timer=null;$('#play').textContent='↺ REPLAY';paintWord();return;}const t=score.tokens[axis.index];paintWord();ping(t);timer=setTimeout(()=>{axis=A.seek(score,axis,axis.index+1);tick()},A.dwellMs(t,+$('#wpm').value||240));}
+    tick();}
+  function axisZoom(dir){if(!score)return;stop();axis=A.zoom(axis,dir);paintWord();}
+  function newMission(){if(!score)return;stop();mission=A.echoMission(score,axis);echoAttempts=0;if(!mission){$('#echoStatus').textContent='NO DISTANT EXACT LEXICAL ECHO FROM THIS PASSAGE. SHIFT TO ANOTHER.';return;}$('#echoStatus').textContent='GOAL · Find “'+mission.key+'” in a different passage. Rotate/zoom the score; no wrap. Then CLAIM. This tests a source-exact recurrence, not agreement.';$('#claimEcho').disabled=false;paintWord();}
+  function claimMission(){if(!mission)return;echoAttempts++;const result=A.checkEcho(score,mission,axis);if(result.ok){echoTrace.push(result.record);const source=model.nodes[result.record.to.node];$('#echoStatus').textContent='ECHO RECOVERED · '+result.record.steps+' token steps, '+echoAttempts+' attempt(s). Source offset '+result.record.to.start+'. Inspect and cite both sources to decide if a DOOR is justified.';$('#claimEcho').disabled=true;mission=null;paintWord();if(source){inspected=source.id;}}else{const fb=A.controlFeedback(score,mission,axis);$('#echoStatus').textContent='NOT YET · '+result.reason+' · '+fb.status+' · horizon '+fb.minScale+' · source-distance '+fb.distance+' tokens (coordinate feedback, not a semantic hint).';}}
+  function sound(){if(spoken){stop();return;}if(!('speechSynthesis'in window)){error('TTS_UNAVAILABLE');return;}stop();let u=new SpeechSynthesisUtterance(n(inspected).text);u.rate=.87;u.onend=()=>{$('#speakBtn').textContent='TTS';spoken=false};speechSynthesis.speak(u);spoken=true;$('#speakBtn').textContent='STOP TTS';}
+  function navigate(id){try{stop();session=T.move(model,session,id);inspected=id;axis=A.seek(score,axis,A.atChar(score,n(id).start));mode='read';error('');render();if(innerWidth<=790)document.querySelector('.right').scrollIntoView({block:'start',behavior:'smooth'});}catch(e){error(e.message)}}
+  function draw(){const svg=$('#map'),N=model.nodes.length,center={x:300,y:210},radius=Math.min(185,155+N),pos=[];
+    for(let i=0;i<N;i++){const angle=2*Math.PI*(i/N)-Math.PI/2;pos.push({x:center.x+Math.cos(angle)*radius*1.38,y:center.y+Math.sin(angle)*radius})}
+    svg.textContent='';const NS='http://www.w3.org/2000/svg';const make=(tag,attrs)=>{let o=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))o.setAttribute(k,String(v));return o};
+    const lines=[...model.edges,...session.links.map(e=>({a:e.from,b:e.to,kind:'COMMITTED'}))];
+    for(const e of lines){const a=pos[idx(e.a)],b=pos[idx(e.b)];if(!a||!b)continue;svg.append(make('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:e.kind==='COMMITTED'?'edge commit':e.kind==='SUGGESTION'?'edge suggest':'edge'}))}
+    pos.forEach((p,i)=>{const node=model.nodes[i],grp=make('g',{class:'svg-btn',role:'button',tabindex:'0','aria-label':'Inspect passage '+(i+1)}),c=make('circle',{cx:p.x,cy:p.y,r:node.id===inspected?14:node.id===session.focus?12:10,class:'node-c '+(node.id===inspected?'inspected':node.id===session.focus?'focus':'')}),label=make('text',{x:p.x,y:p.y-19,'text-anchor':'middle',class:'node-t'});label.textContent=(i+1).toString().padStart(2,'0');grp.append(c,label);grp.addEventListener('click',()=>select(node.id));grp.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(node.id)}});svg.append(grp)});
+  }
+  function render(){const q=n(inspected);if(!q)return;
+    $('#worldHash').textContent=`WORLD ${model.hash.toUpperCase()} · ${model.nodes.length} passages`;
+    $('#location').textContent=`INSPECT ${idx(inspected)+1}/${model.nodes.length} · ${inspected===session.focus?'HERE':'REMOTE'}`;
+    $('#progress').textContent=`TRAVERSED ${session.path.length-1} · DOORS ${session.links.length} · CROSSED ${session.moves.filter(e=>e.via==='COMMITTED').length}`;
+    const gains=session.links.map(l=>T.effect(model,session,l));$('#topologyPayoff').textContent=gains.length?'Δ ROUTE · '+gains.map(v=>'door '+v.linkId.slice(-5)+' saves '+(v.stepsSaved??'?')+' source steps').join(' / ')+' · STRUCTURAL ONLY':'';
+    $('#passage').textContent=q.text;$('#anchor').textContent=`SOURCE OFFSET ${q.start}–${q.end} · ID ${q.id}`;
+    $('#evidenceOptions').textContent='';
+    for(const [choice,e] of T.evidenceChoices(model,q.id).entries()){
+      const b=document.createElement('button');b.className='evidence-choice';b.type='button';
+      const held=session.witnesses[q.id];const active=!!held&&held.start===e.start&&held.end===e.end;
+      b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+      b.textContent=(active?'◆ ':'◇ ')+e.preview.slice(0,190)+(e.preview.length>190?'…':'');
+      b.onclick=()=>{session=T.cite(model,session,q.id,choice);error('EXACT_WITNESS_HELD');render()};
+      $('#evidenceOptions').append(b);
+    }
+    $('#witnessStatus').textContent=session.witnesses[q.id]?`SOURCE WITNESS HELD · ${session.witnesses[q.id].start}–${session.witnesses[q.id].end} (source-only offset; excerpt not exported)`:'Choose one source-exact sentence. No automatic semantic claim.';
+    $('#readView').classList.toggle('hidden',mode!=='read');$('#pinView').classList.toggle('hidden',mode!=='pin');$('#readBtn').classList.toggle('active',mode==='read');$('#pinBtn').classList.toggle('active',mode==='pin');$('#viewName').textContent=mode==='pin'?'AXIS / SOURCE SCORE':'PASSAGE / READ';if(mode==='pin')paintWord();
+    $('#list').textContent='';model.nodes.forEach((item,i)=>{const b=document.createElement('button');b.className='node-item'+(item.id===session.focus?' current':'')+(item.id===inspected?' inspect':'');const num=document.createElement('b');num.textContent=(i+1).toString().padStart(2,'0');const short=document.createElement('span');short.className='cut';short.textContent=item.text.replace(/\s+/g,' ');b.append(num,short);b.onclick=()=>select(item.id);$('#list').append(b)});
+    draw();const nbs=T.neighbors(model,session),candidates=T.suggestions(model,session),uniq=[...new Map(nbs.map(e=>[e.id,e])).values()];$('#near').textContent='';for(const e of uniq.slice(0,7)){const b=document.createElement('button');const title=document.createElement('b');title.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / ${e.kind}`;const description=document.createElement('span');description.textContent=(e.common?.length?e.common.join(', '):e.relation||'source sequence').slice(0,75);b.append(title,description);b.onclick=()=>navigate(e.id);$('#near').append(b)}for(const e of candidates.filter(x=>!uniq.some(y=>y.id===x.id)).slice(0,2)){const b=document.createElement('button');const h=document.createElement('b');h.textContent=`${String(idx(e.id)+1).padStart(2,'0')} / INSPECT ONLY`;const sub=document.createElement('span');sub.textContent=(e.common||[]).join(', ');b.append(h,sub);b.onclick=()=>select(e.id);$('#near').append(b)}
+    $('#moveBtn').disabled=inspected===session.focus||!nbs.some(e=>e.id===inspected);
+    $('#markStatus').textContent=session.selected?`MARKED ${idx(session.selected)+1} → INSPECT ${idx(inspected)+1}. Hold an exact witness in BOTH passages, then declare a relation.`:'Choose a source sentence, MARK its passage, inspect another, hold its sentence, then declare a relation.';
+    const home=T.routeHome(model,session);const crossed=T.hasCrossed(session);
+    $('#homeBtn').classList.toggle('hidden',!crossed||session.focus===model.nodes[0].id);
+    $('#homeBtn').textContent=home.length>1?`↩ TOWARD ORIGIN · ${home.length-1} step${home.length===2?'':'s'}`:'↩ AT ORIGIN';
+    $('#homeBtn').disabled=home.length<=1;
+    $('#connect').title=session.selected&&!session.witnesses[session.selected]?'First choose evidence in marked passage':!session.witnesses[inspected]?'Choose evidence here before committing':'Commit declared relation';
+    $('#connect').disabled=!session.selected||session.selected===inspected;$('#return').disabled=!T.canReturn(session);$('#undo').disabled=!session.links.length;$('#redo').disabled=!session.future.length;
+    $('#count').textContent=`${session.path.length-1} moves · ${session.links.length} doors · ${T.canReturn(session)?'RETURN READY':T.hasCrossed(session)?'FIND YOUR WAY BACK TO ORIGIN':'CROSS A COMMITTED DOOR; THEN RETURN TO ORIGIN'}`;
+  }
+  $('#textInput').value=DEMO;$('#exercise').onclick=()=>{$('#title').value='Practice: observation and consequence (original exercise)';$('#sourceUrl').value='';$('#textInput').value=DEMO;error('','#sourceError')};
+  $('#enter').onclick=boot;$('#fileInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>100000){error('SOURCE_TOO_LARGE_100000','#sourceError');return;}$('#textInput').value=await f.text();$('#title').value=f.name;error('FILE_LOADED_IN_TAB_ONLY','#sourceError')};
+  $('#setPin').onclick=()=>{session=T.select(model,session,inspected);error('MARK_HELD');render()};
+  $('#moveBtn').onclick=()=>navigate(inspected);$('#homeBtn').onclick=()=>{const path=T.routeHome(model,session);if(path.length>1)navigate(path[1])};
+  $('#readBtn').onclick=()=>setMode('read');$('#pinBtn').onclick=()=>setMode('pin');$('#play').onclick=play;$('#backWord').onclick=()=>seekIndex(axis.index-1);$('#nextWord').onclick=()=>seekIndex(axis.index+1);$('#scrub').oninput=e=>seekIndex(+e.target.value);$('#scaleDown').onclick=()=>axisZoom(1);$('#scaleUp').onclick=()=>axisZoom(-1);$('#echo').onclick=newMission;$('#claimEcho').onclick=claimMission;$('#soundAxis').onclick=()=>{soundOn=!soundOn;$('#soundAxis').textContent=soundOn?'♪ ON':'♪ OFF';$('#soundAxis').setAttribute('aria-pressed',String(soundOn));if(soundOn)ping(score.tokens[axis.index]);};$('#speakBtn').onclick=sound;
+  $('#connect').onclick=()=>{try{session=T.commit(model,session,inspected,$('#relation').value,$('#reason').value,$('#gap').value);$('#reason').value='';$('#gap').value='';error('DOOR OPEN · CROSS IT, THEN FIND THE ORIGIN');render();}catch(e){error(e.message)}};
+  $('#undo').onclick=()=>{session=T.undo(session);render();error('LAST DOOR UNDONE')};$('#redo').onclick=()=>{session=T.redo(session);render();error('DOOR RESTORED')};
+  $('#return').onclick=()=>{if(!T.canReturn(session)){error('RETURN_REQUIRES_CROSSED_DOOR_AND_ORIGIN');return;}stop();json=JSON.stringify({...T.artifact(model,session),axisScore:{schema:'sleeper.axis-score-evidence/v0.1',authority:'STRUCTURAL_ONLY',cursorToken:axis.index,cursorChar:score.tokens[axis.index].start,scale:axis.scale,echoes:echoTrace}},null,2);$('#work').classList.add('hidden');$('#returnMode').classList.remove('hidden');$('#result').textContent=`${model.meta.title}\nSOURCE ${model.hash} / ${model.nodes.length} passages\nROUTE ${session.path.map(id=>idx(id)+1).join(' → ')}\n\n`+session.links.map(l=>`[${idx(l.from)+1} → ${idx(l.to)+1}] ${l.relation.toUpperCase()}\n${l.reason}\nWITNESSES ${l.cites.map(s=>s.start+':'+s.end).join(' / ')}\nOPEN QUESTION ${l.openQuestion||'UNSPECIFIED'}`).join('\n\n')+'\n\nVERIFICATION: STRUCTURAL ONLY · SEMANTIC JUDGMENT UNVERIFIED';window.scrollTo(0,0)};
+  $('#download').onclick=()=>{const u=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='threadwalk-'+model.hash+'-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)};
+  $('#copy').onclick=()=>navigator.clipboard?.writeText(json).then(()=>{$('#copy').textContent='COPIED'}).catch(()=>{$('#copy').textContent='COPY FAILED'});
+  $('#back').onclick=()=>{$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');render()};
+  $('#change').onclick=()=>{stop();$('#work').classList.add('hidden');$('#sourceMode').classList.remove('hidden');window.scrollTo(0,0)};
+  $('#import').onclick=()=>{const picker=document.createElement('input');picker.type='file';picker.accept='.json,application/json';picker.onchange=async()=>{try{const obj=JSON.parse(await picker.files[0].text());session=T.restore(model,obj);inspected=session.focus;echoTrace=Array.isArray(obj.axisScore?.echoes)?obj.axisScore.echoes.filter(x=>A.verifyEchoRecord(score,x)).slice(0,100):[];axis=A.seek(score,A.setScale(axis,A.SCALES.includes(obj.axisScore?.scale)?obj.axisScore.scale:'DOCUMENT'),obj.axisScore?.cursorToken??0);mode='pin';render();error('RETURN_REBOUND · SOURCE HASH MATCH');}catch(e){error(e.message)}};picker.click()};
+  const scoreCanvas=$('#scoreCanvas');let dragAxis=false;
+  const axisPoint=e=>{const r=scoreCanvas.getBoundingClientRect(),x=(e.clientX-r.left)*520/r.width,y=(e.clientY-r.top)*520/r.height,rad=Math.hypot(x-260,y-252);
+    const level=rad>185?'DOCUMENT':rad>137?'PASSAGE':rad>89?'SENTENCE':'WORD';axis=A.setScale(axis,level);
+    axis=A.seekFraction(score,axis,A.phaseToFraction(x,y,260,252));paintWord()};
+  scoreCanvas.addEventListener('pointerdown',e=>{if(!score)return;stop();dragAxis=true;scoreCanvas.setPointerCapture?.(e.pointerId);axisPoint(e)});
+  scoreCanvas.addEventListener('pointermove',e=>{if(dragAxis)axisPoint(e)});
+  ['pointerup','pointercancel','lostpointercapture'].forEach(k=>scoreCanvas.addEventListener(k,()=>dragAxis=false));
+  scoreCanvas.addEventListener('wheel',e=>{if(!score)return;e.preventDefault();if(Math.abs(e.deltaY)>Math.abs(e.deltaX))axisZoom(e.deltaY>0?1:-1);else seekIndex(axis.index+Math.sign(e.deltaX)*3)},{passive:false});
+  scoreCanvas.addEventListener('keydown',e=>{if(!score)return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();if(e.key==='ArrowUp')axisZoom(-1);else if(e.key==='ArrowDown')axisZoom(1);else seekIndex(axis.index+(e.key==='ArrowRight'?1:-1))}});
+  window.addEventListener('keydown',e=>{if(!model||$('#work').classList.contains('hidden')||/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))return;if(e.key==='Escape'){stop();setMode('read')}if(mode==='pin'&&(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();if(e.key==='ArrowUp')axisZoom(-1);else if(e.key==='ArrowDown')axisZoom(1);else seekIndex(axis.index+(e.key==='ArrowRight'?1:-1));return}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){let a=T.neighbors(model,session).filter(x=>x.kind==='ORDER').sort((a,b)=>idx(a.id)-idx(b.id));const target=e.key==='ArrowRight'?a.at(-1):a[0];if(target){e.preventDefault();navigate(target.id)}}});
+})();
+</script>
+</body>
+</html>
