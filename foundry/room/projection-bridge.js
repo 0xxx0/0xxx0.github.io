@@ -152,7 +152,7 @@ function deepProof(){
  RM.focusOn(cassette);RM.dissolve();
  check('dissolve returns exact DOM identity',block('compiler')===compiler&&block('verify')===verify);
  check('dissolve invalidates folded witness',RM.returnReceipt().run===null);
- check('fold and dissolve restore source',RM.source()===baseline);
+ const restored=RM.source();if(restored!==baseline){let at=0;while(at<Math.min(restored.length,baseline.length)&&restored[at]===baseline[at])at++;throw Error('fold and dissolve restore source @'+at+' expected '+JSON.stringify(baseline.slice(at,at+110))+' actual '+JSON.stringify(restored.slice(at,at+110))+' lengths '+baseline.length+'/'+restored.length)}check('fold and dissolve restore source',true);
  setView('room');unfoldAt('verify');
  check('UNFOLD targets the real nested block',mode==='plain'&&RM.snapshot().focus==='verify'&&compiler.open&&block('verify')===verify);
  RM.run();
