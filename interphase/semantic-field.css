@@ -43,3 +43,15 @@
  .ip-field-caption{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.ip-semantic-field *{transition:none!important}}
+
+/* Visual legibility and truthful fallback: the continuum's source-status prose is redundant in this geometry. */
+.ip-continuum[data-semantic-field="1"] .ip-status{display:none}
+.ip-field-glyph,.ip-field-center svg{filter:brightness(2.8) contrast(1.25)}
+.ip-field-node{border-color:#89938f!important}
+.ip-field-node .ip-field-marker{font-weight:600;font-size:11px;border-color:#697570;color:#f5e8c6}
+.ip-field-tools{font-size:11px}
+.ip-field-legend{font-size:11px}
+.ip-field-inspect b{font-size:14px;color:var(--ip-ink)}
+.ip-field-inspector input[data-sem-find]{width:min(190px,35vw);min-width:80px;max-width:100%;min-height:40px;padding:7px;font-size:12px}
+.ip-field-inspector .ip-field-match{font-size:10px;color:var(--ip-hot)}
+@media(max-width:700px){.ip-field-node{width:clamp(35px,10vw,40px);height:clamp(35px,10vw,40px)}.ip-field-legend{font-size:11px}.ip-field-inspector{flex-wrap:wrap}.ip-field-inspector input[data-sem-find]{width:100%;flex-basis:100%;order:2}.ip-field-inspect b{font-size:13px}}
