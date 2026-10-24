@@ -209,6 +209,19 @@ html[data-instrument="1"] #fiMenu{display:block}
 @media(prefers-reduced-motion:reduce){.fiPlane,.fiMark svg,.fiHexArt,.fiRoomPlane,.fiRoomPlane .hinge{transition:none}}
 @media(prefers-contrast:more){.fiMark svg{opacity:1}.fiMark .fiLabel,.fiBarMeta,.fiReading small{color:var(--ink)}}
 
+/* Held address seam: visible on every page and under every scope. This is
+   information, not a second toolbar or persistent command strip. */
+.fiListPin{display:grid;grid-template-columns:minmax(0,1fr) 55px 44px;align-items:center;
+  gap:2px;flex:none;min-height:48px;border-bottom:1px solid var(--line)}
+.fiListPinSource{min-width:0;overflow:hidden;padding:2px 4px 2px 0}
+.fiListPinSource b,.fiListPinSource code{display:block;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis}
+.fiListPinSource b{font:600 11px/1.4 system-ui,sans-serif;color:var(--cool)}
+.fiListPinSource code{font:9px/1.4 ui-monospace,monospace;color:var(--mut)}
+#fieldInstrument .fiListPin button{min-width:0;min-height:44px;
+  padding:2px;font-size:10px;color:var(--ink)}
+#fieldInstrument .fiListPin button:disabled{color:var(--mut);cursor:default}
+
 /* FIELD READINGS · the same source/position and ribbon, not three workspaces.
    Tabs are temporarily revealed by the existing 44px VIEW chip. No new bar
    remains on screen. LIST is the lossless, low-inference counterpart of 3D. */

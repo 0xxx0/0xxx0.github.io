@@ -104,8 +104,34 @@ try{
     await page.locator('#fiList [data-list-page="prev"]').click();
     await page.locator('#fiList [data-list-id]').first().click();
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,firstListId,'list click holds canonical source identity');
+    const pinned=await page.locator('#fiList .fiListPin').textContent();
+    await page.locator('#fiList [data-list-page="next"]').click();
+    assert.equal(await page.locator('#fiList .fiListPin').textContent(),pinned,'held source must remain legible across LIST pagination');
     await page.locator('#fiReturn').click();
     assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'LIST selection preserves exact pinned RETURN');
+    // The original threadwalk contract: only declared parent links can lead
+    // into another source; the current object and exact RETURN stay visible.
+    const childAddress=await page.evaluate(()=>{
+      const routes=FieldIndexReadModel.snapshot().routes,ids=new Set(routes.map(r=>r.href));
+      return routes.find(r=>r.parent&&ids.has(r.parent))?.href||null;
+    });
+    assert.ok(childAddress,'fixture must carry at least one declared source edge');
+    assert.equal(await page.evaluate(a=>FieldInstrument.hold(a),childAddress),true);
+    const childFrame=(await page.evaluate(()=>FieldInstrument.snapshot())).frame;
+    await page.locator('#fiList [data-list-walk]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.mode,'RELATIONS','WALK is native declared adjacency');
+    assert.match(await page.locator('#fiList .fiListHead').textContent(),/WALK .* LINKS/);
+    assert.ok(await page.locator('#fiList [data-list-id]').count()>=1,'declared parent has a navigable source row');
+    assert.equal((await page.locator('#fiList .fiListRow').first().textContent()).includes('PARENT'),true,'declared parent is the first semantic edge');
+    await page.locator('#fiList .fiListRow').first().click();
+    assert.notEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,childFrame.focus,'WALK follows actual source identity');
+    assert.match(await page.locator('#fiList .fiListPin').textContent(),/◎/,'new source is still held in sight');
+    await page.locator('#fiList [data-list-back]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,childFrame.focus,'↶ returns to exact previous source in the same native walk');
+    await page.locator('#fiList [data-list-walk]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.mode,'FIELD','ALL exits the relation lens without another screen');
+    await page.locator('#fiReturn').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'WALK and ALL must retain the original pinned RETURN');
     await page.locator('#fiView').click();
     await page.locator('#fiViewTabs [data-view="plan"]').click();
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'plan');
