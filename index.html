@@ -392,6 +392,30 @@ html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName{p
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible .feedName{display:block;}
 @media(hover:hover){html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:hover .feedName{display:block;}}
 
+/* FIELD / GLYPH STRIP — one row, not tool cards.
+   Each mark retains its accessible source label and its native HOLD/OPEN action.
+   The selected object is named once in the aperture above, not on every mark. */
+html[data-field-words="folded"]:not([data-instrument="1"]) main{margin-top:clamp(8px,2.5vh,26px)}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{
+ display:flex;flex-wrap:nowrap;gap:3px;max-width:100%;overflow-x:auto;overflow-y:hidden;
+ overscroll-behavior-inline:contain;padding:4px 1px 6px;scrollbar-width:thin;
+ -webkit-overflow-scrolling:touch
+}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip{
+ flex:0 0 56px;width:56px;height:56px;min-height:56px;display:grid;
+ grid-template-columns:1fr;grid-template-rows:1fr;place-items:center;
+ padding:5px;border:1px solid transparent;text-align:center
+}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip.on{
+ border-color:var(--hot);background:var(--p2)
+}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName{
+ display:none;position:absolute
+}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedDay{display:none}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible{
+ outline:2px solid var(--hot);outline-offset:-2px
+}
 /* The word reveal stays in the one address bar in either reading. */
 html[data-field-words]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 36px minmax(0,1fr) 36px 40px;height:52px;box-shadow:none;}
 html[data-field-words]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame>:not(.fieldUrlProto):not(.fieldUrlGlyph):not(.fieldUrlInput):not(.fieldOmniKeys):not(#fieldWords){display:none!important;}
@@ -572,7 +596,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
   </div>
   <details class="workDepth" id="workDepth">
     <summary><b>DEPTH / WORK</b><span id="workDepthMeta">hold one CURRENT head</span></summary>
-    <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Choose a tool to recover its accumulated work without changing authority.</div></div>
+    <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Held work and exact evidence remain source-owned.</div></div>
   </details>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span id="feedInstruction">CURRENT HEADS · choose one to hold; held head opens on second tap</span><div class="fieldGestureActions"><button id="feedScope" title="Show recently touched routes; recency is not priority">RECENT</button><button id="moreLatest">ALL</button></div></div>
@@ -786,7 +810,7 @@ function syncAxialURL(){
 function applyInitialAxial(){
  const state=INIT.get('ax_state'),op=INIT.get('ax_op'),mode=INIT.get('ax_mode'),href=INIT.get('focus');
  if(state)axisState.state=state;if(op)axisState.operation=op;if(mode)axisState.mode=mode;
- const r=href&&routeMap().get(href);focus=r||null;
+ const r=href&&routeMap().get(href);focus=r||((current?.current_heads||[]).map(h=>routeMap().get(h.route)).find(x=>x&&x.href!=='/'))||latest.find(x=>x.href!=='/')||null;
  if(r){axisState.state=r.state||axisState.state;axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||axisState.mode}
  supportTrail=[latest.length,currentMatches().length].filter((v,i,a)=>i===0||v!==a[i-1]);
  renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex();
@@ -1022,7 +1046,7 @@ function renderWorkDepth(){
  const meta=$('workDepthMeta'),body=$('workDepthBody');if(!meta||!body)return;
  if(!focus){
   meta.textContent='hold one CURRENT head';
-  body.innerHTML='<div class="workEmpty">Choose a tool. DEPTH / WORK is a read-only projection of manifest + CURRENT; it creates no priority, state, or authority.</div>';
+  body.innerHTML='<div class="workEmpty">No held work. DEPTH / WORK reads manifest + CURRENT without changing authority.</div>';
   return
  }
  const h=headForFocus(),desc=workDescendants(focus),proof=workProofRefs(focus,h),transfers=Array.isArray(focus.transfer)?focus.transfer:[],versions=Array.isArray(focus.versions)?focus.versions:[],exits=manifestExitPaths(focus),future=workFutureItems(focus,h),rels=workRelations(focus),shownRels=rels.slice(0,42),triad=triadProjection(focus,h,desc,proof,future);
@@ -1273,7 +1297,7 @@ function renderAperture(){
   const impossible=currentMatches().length===0;
   $('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);
   $('apMeta').textContent=impossible?'NO EXACT INTERSECTION':'CURRENT / SELECT ONE';$('apMeta').className=impossible?'apMeta noMatch':'apMeta';
-  $('apTitle').textContent=impossible?'No route matches this tuple':'Choose a tool';
+  $('apTitle').textContent=impossible?'No route matches this tuple':'FIELD';
   $('apPath').textContent=impossible?[axisState.state,axisState.operation,axisState.mode].join(' × '):(current?.current_heads||[]).length+' retained · choose an address below · order is not rank';
   $('apProjection').textContent=impossible?'ADJUST ONE AXIS OR RESET':'SOURCE → HOLD → TURN → TRACE → RETURN';
   $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.';
