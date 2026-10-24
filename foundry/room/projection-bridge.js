@@ -139,6 +139,7 @@ document.addEventListener('input',()=>{if(mode==='room')requestAnimationFrame(dr
 document.addEventListener('keydown',e=>{
  if(mode!=='room')return;
  if(e.target.closest('#roomLens')&&e.key==='Enter'){e.stopPropagation();return}
+ if(e.target.closest('#projectionMode')&&['ArrowLeft','ArrowRight','Enter'].includes(e.key)){e.stopPropagation();return}
  if(e.target.closest('input,textarea,select'))return;
  const i=faces.findIndex(f=>f.id===face);
  if(e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();setFace(faces[(i+faces.length-1)%faces.length].id)}
