@@ -13,7 +13,17 @@ for(let y=8;y<=13;y++)grid[y][18]=0;
 for(let x=18;x<=23;x++)grid[13][x]=0;
 function create(){return{x:2.5,y:8.5,a:0,heard:false,choice:null,opened:false,loops:0,won:false,seconds:0,steps:0,history:[],ghost:[],stamp:0,note:'Approach the bell. There is no question to answer yet.'}}
 function snapshot(s){return{x:s.x,y:s.y,a:s.a,heard:s.heard,choice:s.choice,opened:s.opened,loops:s.loops,won:s.won,seconds:s.seconds,steps:s.steps,note:s.note}}
-function record(s){s.history.push(snapshot(s));if(s.history.length>700)s.history.shift()}
+function record(s){
+ const p=snapshot(s),q=s.history.at(-1);
+ if(q&&Math.hypot(p.x-q.x,p.y-q.y)<.045&&Math.abs(Math.atan2(Math.sin(p.a-q.a),Math.cos(p.a-q.a)))<.06&&p.heard===q.heard&&p.choice===q.choice&&p.opened===q.opened&&p.loops===q.loops&&p.won===q.won)return false;
+ s.history.push(p);
+ if(s.history.length>700){
+  const keep=new Set([0,s.history.findIndex(x=>x.heard),s.history.findIndex(canChoose),s.history.findIndex(x=>x.loops>0),s.history.findIndex(x=>x.opened),s.history.findIndex(x=>x.won)]);
+  const drop=s.history.findIndex((_,i)=>i>0&&!keep.has(i));
+  if(drop>0)s.history.splice(drop,1);
+ }
+ return true;
+}
 function openCell(s,x,y){const X=Math.floor(x),Y=Math.floor(y);return X>=0&&Y>=0&&X<25&&Y<17&&grid[Y][X]===0&&!(X===18&&Y===10&&!s.opened)}
 function canChoose(s){return s.heard&&!s.choice&&s.x>13.3&&s.x<15.4&&Math.abs(s.y-8.5)<.85&&!s.won}
 function choose(s,v){if(!s.heard||s.won)throw Error('HEAR_FIRST');if(v==='follow'&&canChoose(s)){s.choice='follow';s.note='Follow the upper road. Its far end returns to the bell.'}else if(v==='notice'&&(canChoose(s)||(s.choice==='follow'&&s.loops>0))){s.choice='notice';s.opened=true;s.note='The sound persists. The lower gate is now permeable.'}else throw Error('DECISION_NOT_AVAILABLE');record(s);return s}
@@ -25,10 +35,24 @@ if(!s.heard&&Math.hypot(s.x-9.5,s.y-8.5)<1.05){s.heard=true;s.note='Contact → 
 if(canChoose(s))s.note='A wish arises: hear it again. Neither choice changes the sound.';
 if(s.choice==='follow'&&!s.opened&&s.x<10.4&&s.y<4.3){s.x=9.5;s.y=8.5;s.a=0;s.loops++;s.note='The road folded back to its cause. You can now cut the pull.';record(s)}
 if(s.opened&&s.x>22.3&&Math.abs(s.y-13.5)<.9){s.won=true;s.note='A new passage was traversed; the bell has not changed.';record(s)}
-if(s.seconds-s.stamp>.22){s.stamp=s.seconds;record(s)}return s}
+if(s.seconds-s.stamp>.14&&record(s))s.stamp=s.seconds;return s}
 function rewind(s,i){if(s.history.length<2)return s;const n=clamp(Math.round(i),0,s.history.length-1),p=s.history[n];s.ghost=s.history.slice(n).map(q=>[q.x,q.y]);Object.assign(s,p);s.history=s.history.slice(0,n+1);s.stamp=s.seconds;s.note='Previous future retained as a ghost. A different continuation is possible.';return s}
 function ray(s,a){const dx=Math.cos(a),dy=Math.sin(a),dX=Math.abs(1/(Math.abs(dx)<.00001?.00001:dx)),dY=Math.abs(1/(Math.abs(dy)<.00001?.00001:dy));let mx=Math.floor(s.x),my=Math.floor(s.y),sx=(dx<0?s.x-mx:mx+1-s.x)*dX,sy=(dy<0?s.y-my:my+1-s.y)*dY,side=0;
 for(let i=0;i<65;i++){if(sx<sy){sx+=dX;mx+=dx<0?-1:1;side=0}else{sy+=dY;my+=dy<0?-1:1;side=1}if(!openCell(s,mx+.5,my+.5))return{d:clamp(side===0?sx-dX:sy-dY,.06,40),side,gate:mx===18&&my===10&&!s.opened}}return{d:40,side:0,gate:false}}
+
+function ghostProjection(s,width,height){
+ if(!s.ghost?.length||!(width>0&&height>0))return [];
+ const out=[],c=Math.cos(s.a),d=Math.sin(s.a),view=Math.tan(.5);
+ const stride=Math.max(1,Math.ceil(s.ghost.length/75));
+ for(let i=0;i<s.ghost.length;i+=stride){
+  const p=s.ghost[i],dx=p[0]-s.x,dy=p[1]-s.y;
+  const forward=dx*c+dy*d,lateral=dy*c-dx*d,range=Math.hypot(dx,dy);
+  if(forward<.32||Math.abs(lateral/forward)>view*.95||range>16)continue;
+  if(ray(s,Math.atan2(dy,dx)).d+.18<range)continue;
+  out.push({x:width*(.5+.5*lateral/(forward*view)),y:height*(.51+.26/Math.max(.6,forward)),radius:clamp(height*.055/Math.max(.6,forward),2,16),range,phase:i/Math.max(1,s.ghost.length-1)});
+ }
+ return out;
+}
 function exportState(s){return{schema:'sleeper.bell-conditions/v0.1',source:{url:SOURCE,passage:'Chapter 1 / Five Aggregates',bytesRedistributed:false},authority:'ORIGINAL_INTERACTIVE_MODEL_NOT_DOCTRINAL_PROOF',actions:{heard:s.heard,choice:s.choice,opened:s.opened,loops:s.loops,won:s.won},trajectory:s.history.map(p=>[+p.x.toFixed(2),+p.y.toFixed(2),p.choice,p.opened]),note:'One rule of this illustrative space changes while its stimulus remains.'}}
 function mount(){
 const anchor=document.querySelector('#enter');if(!anchor||document.querySelector('#bellEntry'))return;
@@ -77,6 +101,12 @@ let sky=cx.createLinearGradient(0,0,0,h*.5);sky.addColorStop(0,'#07131e');sky.ad
 let ground=cx.createLinearGradient(0,h*.5,0,h);ground.addColorStop(0,'#263a3f');ground.addColorStop(1,'#030709');cx.fillStyle=ground;cx.fillRect(0,h*.5,w,h*.5);
 const N=Math.min(280,Math.max(90,Math.floor(w/3))),bw=w/N,FOV=1.0;
 for(let i=0;i<N;i++){const a=s.a+Math.atan((2*(i+.5)/N-1)*Math.tan(FOV/2)),r=ray(s,a),d=r.d*Math.cos(a-s.a),ht=Math.min(h*2,h/(d*.8)),top=(h-ht)/2;const light=clamp(1/(1+d*.11),.11,1),color=r.gate?[160,72,51]:r.side?[65,116,126]:[93,155,163];cx.fillStyle='rgb('+color.map(n=>Math.round(n*light)).join(',')+')';cx.fillRect(i*bw,top,bw+1,ht)}
+// Counterfactual traces are visible but never become a player or a gate.
+for(const g of ghostProjection(s,w,h)){
+ cx.strokeStyle='rgba(128,222,207,'+(1-g.phase*.42).toFixed(3)+')';cx.lineWidth=1.7;
+ cx.beginPath();cx.ellipse(g.x,g.y,g.radius,g.radius*.3,0,0,TAU);cx.stroke();
+ cx.beginPath();cx.moveTo(g.x,g.y-2*g.radius);cx.lineTo(g.x,g.y-g.radius*.5);cx.stroke();
+}
 let goal=!s.heard?{x:9.5,y:8.5,label:'◉ THE BELL'}:!s.opened?{x:21.5,y:3.5,label:'↶ THE UPPER LOOP'}:{x:23.5,y:13.5,label:'↳ EXIT'};
 const da=Math.atan2(goal.y-s.y,goal.x-s.x)-s.a,offset=Math.atan2(Math.sin(da),Math.cos(da)),dist=Math.hypot(goal.x-s.x,goal.y-s.y);
 if(Math.abs(offset)<.7&&dist>1){cx.fillStyle='#f0c47e';cx.textAlign='center';cx.font='bold '+clamp(22+60/dist,22,50)+'px monospace';cx.fillText(goal.label,w*(.5+Math.tan(offset)*.7),h*.37)}
@@ -141,5 +171,5 @@ document.addEventListener('keydown',e=>{if(!root.classList.contains('active'))re
 document.addEventListener('keyup',e=>pressed.delete(keys[e.key]));window.addEventListener('blur',()=>pressed.clear());window.addEventListener('resize',()=>{if(root.classList.contains('active'))resize()});
 if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('bell')==='1'){enter();start();}
 }
-return Object.freeze({create,step,choose,rewind,canChoose,openCell,ray,exportState,mount,grid:()=>grid.map(row=>row.slice())});
+return Object.freeze({create,step,choose,rewind,canChoose,openCell,ray,ghostProjection,exportState,mount,grid:()=>grid.map(row=>row.slice())});
 });
