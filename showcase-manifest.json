@@ -9048,6 +9048,18 @@
       "version": "0.1.0",
       "showcase_card": false,
       "receipt": "/sleeper/ladder/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/sleeper/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can painting and city be the same object at different resolutions — FAR the painting, NEAR the character field resolved from its own pixels, ENTERED the walkable matter, EXITED the recomposed painting — without explanatory translation?",
+        "baseline": "Borrowed River painting (sleeper/borrowed-river/landscape.jpg) plus the ONE RETURN v2 contract; no resolution ladder existed between the two.",
+        "mutation": "A 96x32 field computed from the painting itself (luminance -> cell tone, its own edges -> walls, hue -> district, texture -> weather), a walkable window whose matter is the live ONE RETURN text (paragraph=district, sentence=building, word=room, character=material, punctuation=window/rain/lamp), and a deterministic recomposition from the U/D/L/R witness.",
+        "evidence_gate": "ladder-selftest 34/34 on the real landscape pixels; empty witness recomposes to the original (mad64 = 0, changedPx = 0); same witness twice -> identical sha256, different witness -> visibly different; browser pass at 390x844 dpr2 (tap, dwell decode, swipe, keyboard step, EXIT metrics, return-to-origin).",
+        "next_if_pass": "Treat the ladder as the shared resolution primitive: painting-path and the city consume it instead of re-deriving a grid.",
+        "next_if_fail": "Keep it CANDIDATE and split resolution from matter; do not claim painting = city."
+      },
       "role": "The four-distance resolution ladder (DESIGN_SPEC: 'make painting and city the same object at different resolutions'): FAR is the Borrowed River painting, NEAR resolves its brushwork into a 96x32 character field computed from the image itself (luminance -> cell tone, the painting's own edges -> walls, hue -> district, texture -> weather density), ENTERED is a walkable window of that field whose matter is the canonical ONE RETURN v2 contract fetched live (paragraph = district, sentence = building, word = room, character = material, punctuation = window/rain/lamp), and EXITED recomposes the painting with the walked U/D/L/R witness baked in. Deterministic: same witness -> byte-identical recomposition, different witness -> visibly different, empty witness -> the original pixels (mad64 = 0, changedPx = 0). Touch-first: tap to resolve, press-and-hold to decode a cell, swipe or arrow keys to step, return to the origin coordinate completes the run, RETURN restores the painting exactly.",
       "transfer": [
         "painting sha256 -> one hash32 tag = painting identity = city identity = artifact identity (f0f09635)",
