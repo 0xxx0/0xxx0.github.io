@@ -59,6 +59,12 @@ function exportState(s){return{schema:'sleeper.bell-conditions/v0.1',source:{url
 // Physical dial hit bands are source-of-truth, not a decorative label.
 // 40 / 90 * 107px = 47.6px mobile action diameter.
 function ringZone(radius){return radius>62?'TURN':radius>40?'REWIND':'CORE'}
+function bindDrive(btn,held,key,unlock){
+ btn.style.touchAction='none';
+ btn.addEventListener('pointerdown',e=>{e.preventDefault();if(e.button!==0)return;unlock();try{btn.setPointerCapture(e.pointerId)}catch(_){}held.add(key)});
+ for(const event of ['pointerup','pointercancel','lostpointercapture'])btn.addEventListener(event,()=>held.delete(key));
+ return()=>held.delete(key);
+}
 function mount(){
 const anchor=document.querySelector('#enter');if(!anchor||document.querySelector('#bellEntry'))return;
 const entry=document.createElement('button');entry.id='bellEntry';entry.className='primary';entry.textContent='ENTER THE BELL / POV';anchor.parentNode.insertBefore(entry,anchor);
@@ -160,7 +166,7 @@ function coreAction(){if(!$('bellCover').hidden)return;if(canChoose(s)||(s.choic
 entry.onclick=enter;$('bellQuit').onclick=exit;$('bellBegin').onclick=start;$('bellLens').onclick=lens;$('bellBefore').onclick=()=>{const ix=s.history.findIndex(p=>canChoose(p));if(ix<0)return;rewind(s,ix);finished=false;$('bellCover').hidden=true;$('bellBefore').hidden=true;$('bellSave').hidden=true;ui();cv.focus()};$('bellBook').onclick=()=>window.open(SOURCE,'_blank','noopener');
 // The encounter is enacted through walking and the central ring, not a two-answer dialogue.
 $('bellSave').onclick=()=>{const u=URL.createObjectURL(new Blob([JSON.stringify(exportState(s),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='sleeper-bell-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1200)};
-root.querySelectorAll('[data-drive]').forEach(btn=>{const k=btn.dataset.drive;btn.style.touchAction='none';btn.addEventListener('pointerdown',e=>{e.preventDefault();if(e.button!==0)return;unlockSound();try{btn.setPointerCapture(e.pointerId)}catch(_){}pressed.add(k)});for(const event of ['pointerup','pointercancel','lostpointercapture'])btn.addEventListener(event,()=>pressed.delete(k))});
+root.querySelectorAll('[data-drive]').forEach(btn=>bindDrive(btn,pressed,btn.dataset.drive,unlockSound));
 let drag=null;
 function dialTouch(e){
  const r=dial.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*180-90,y=(e.clientY-r.top)/r.height*180-90;
@@ -178,5 +184,5 @@ document.addEventListener('keydown',e=>{if(!root.classList.contains('active'))re
 document.addEventListener('keyup',e=>pressed.delete(keys[e.key]));window.addEventListener('blur',()=>pressed.clear());window.addEventListener('resize',()=>{if(root.classList.contains('active'))resize()});
 if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('bell')==='1'){enter();start();}
 }
-return Object.freeze({create,step,choose,rewind,canChoose,openCell,ray,ghostProjection,ringZone,exportState,mount,grid:()=>grid.map(row=>row.slice())});
+return Object.freeze({create,step,choose,rewind,canChoose,openCell,ray,ghostProjection,ringZone,bindDrive,exportState,mount,grid:()=>grid.map(row=>row.slice())});
 });
