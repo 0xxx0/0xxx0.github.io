@@ -68,7 +68,7 @@
       },
       "role": "INTERPHASE+ working entry: hold real JSON/text, compose addressed data projections, inspect prefix/result/source, READ or unfold the same six readings, export/import a checked RETURN. The existing FIELD strip/plan and native actions remain a view of the same addressed route; exact FIELD position and RETURN remain native.",
       "state": "ACTIVE",
-      "receipt": "/returns/INTERPHASE_PLUS_LANDING_2026-10-24.json",
+      "receipt": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
       "machine_view": "FIELD",
       "version": "0.9.0",
       "transfer": [
@@ -171,7 +171,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/INTERPHASE_PLUS_LANDING_2026-10-24.json",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -9731,8 +9731,8 @@
         "/lib/interphase-lenses.js",
         "/tools/interphase-lenses-selftest.cjs"
       ],
-      "receipt": "/returns/INTERPHASE_PLUS_LANDING_2026-10-24.json",
-      "latest_return": "/returns/INTERPHASE_PLUS_LANDING_2026-10-24.json"
+      "receipt": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json"
     },
     {
       "href": "/20261007-patterns-lang-mcvoid/",
