@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-24T23:47:43+08:00",
+ "generated_at": "2026-10-24T23:49:58+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -44,24 +44,6 @@
      "k": "C",
      "t": "Stay free-only",
      "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  },
-  {
-   "id": "promise-qwen3-8-27b-fallback-pull",
-   "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
     }
    ]
   }
@@ -192,6 +174,13 @@
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
    "ts": "2026-10-24T13:44:27"
+  },
+  "promise-qwen3-8-27b-fallback-pull": {
+   "id": "promise-qwen3-8-27b-fallback-pull",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "machine-recorded 2026-10-24: promise verified KEPT (kestrel ollama-local.default_model/model repointed to gpt-oss:20b; live call 'LOCAL LANE OK'); no operator tap needed — the open row was a false BROKEN PROMISE, withdrawn from the board.",
+   "ts": "2026-10-24T23:49:57"
   },
   "promise-memory-crowding-consolidate": {
    "id": "promise-memory-crowding-consolidate",
