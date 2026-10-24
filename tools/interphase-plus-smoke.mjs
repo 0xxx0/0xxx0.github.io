@@ -136,6 +136,7 @@ async function continuumBrowserProof(){
    assert.equal((await snap()).attention.char,innerChar,'dial source position survives RETURN');
    await load('{"title":"Gate","role":"holds","proof":false}','gate-fields.json');await page.evaluate(()=>InterphaseInstrument.setScope('ROOT'));
    assert.equal(await ip('residue').isVisible(),true);assert.match(await ip('residue').textContent(),/1 other fields/,'DIAL must retain hidden-field counts');
+   assert.equal(await ip('title').isVisible(),true);assert.equal(await ip('title').textContent(),'Gate','a JSON object title is identity, not repeated prose context');
    await page.evaluate(p=>InterphaseInstrument.importPacket(p),savedDial);
    await ip('view-walk').click();
 

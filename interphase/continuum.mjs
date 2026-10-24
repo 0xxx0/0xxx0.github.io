@@ -108,7 +108,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   for(const [id,node] of [['before',n.before],['after',n.after]]){const a=describe(model,node);el(id).disabled=!node;el(id).textContent=node?(a.title||a.body).slice(0,180):(id==='before'?'BEGINNING':'END')}
   const key=[source.hash,u?.path,u?.start,scope,query,view].join('|');
   if(bodyKey!==key){
-   bodyKey=key;el('title').textContent=d.title||(model.kind==='TEXT'?containing(model.sections,anchor)?.key:'')||'';el('title').hidden=!el('title').textContent;
+   bodyKey=key;el('title').textContent=d.title||(model.kind==='TEXT'?containing(model.sections,anchor)?.key:'')||'';el('title').hidden=!el('title').textContent||(view==='dial'&&model.kind==='TEXT');
    const detailScope=model.kind==='TEXT'&&view!=='dial'&&['WORD','PHRASE','SENT'].includes(scope)?at(model,anchor,'PARA'):u;
    const detail=describe(model,detailScope),text=detail.body.slice(0,5000);
    el('body').dataset.start=String(detailScope?.start||0);el('body').dataset.exactText=model.kind==='TEXT'?'1':'0';el('body').dataset.bodyText=text;el('body').textContent=text;
