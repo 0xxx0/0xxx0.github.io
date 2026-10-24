@@ -1,6 +1,6 @@
 import {hashText} from '../lib/id.js';
 import {esc,download} from '../lib/dom.js';
-import {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS} from './navigation.mjs';
+import {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY} from './navigation.mjs';
 const scriptLoads=new Map();let catalogPromise;
 function sourceScript(path,key){
  if(globalThis[key])return Promise.resolve();
@@ -22,7 +22,7 @@ async function manifest(refresh=false){
 async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={}){
  await dependencies();
  const root=document.createElement('section');root.className='ip-continuum';root.dataset.view='plain';
- root.innerHTML=`<header class="ip-heading"><button class="ip-source" data-ip="source" aria-expanded="false"><b>INTERPHASE</b><span data-ip="label">Opening source…</span></button><button data-ip="view" aria-label="Change perspective">WALK ↗</button></header>
+ root.innerHTML=`<header class="ip-heading"><button class="ip-source" data-ip="source" aria-expanded="false"><b>INTERPHASE</b><span data-ip="label">Opening source…</span></button><nav class="ip-views" role="tablist" aria-label="One source, three readings"><button data-ip="view-plain" role="tab" aria-selected="true" aria-controls="ip-source-space">≡ READ</button><button data-ip="view-walk" role="tab" aria-selected="false" aria-controls="ip-source-space">↔ WALK</button><button data-ip="view-dial" role="tab" aria-selected="false" aria-controls="ip-source-space">◎ DIAL</button></nav></header>
  <section class="ip-drawer" data-ip="drawer" hidden aria-label="Source and work"><div class="ip-drawer-head"><b>SOURCE</b><button data-ip="close">CLOSE ×</button></div>
  <form data-ip="path-form" class="ip-row"><input data-ip="path" aria-label="Source address" placeholder="/path/to/text.md or JSON"><button>OPEN</button><label class="ip-button">FILE<input data-ip="file" type="file" accept="text/*,.txt,.md,.markdown,.json,.csv,.log" hidden></label><button type="button" data-ip="field">FIELD</button></form>
  <details><summary>Paste text / JSON</summary><textarea data-ip="paste" aria-label="Paste source" placeholder="Bring the actual source."></textarea><button data-ip="load-paste">OPEN PASTE</button></details>
@@ -33,12 +33,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a></div>
  <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a href="/interphase/?legacy=1">Recovered Ω / history / Dayline / AXIS workbench ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
- <div class="ip-space" data-ip="space" tabindex="0" aria-label="Source space. Left/right move, up widens scope, down narrows scope, space reads."><div class="ip-scene">
+ <div class="ip-space" id="ip-source-space" data-ip="space" tabindex="0" aria-label="Source space. Left/right move, up widens scope, down narrows scope, space reads."><div class="ip-scene">
  <article class="ip-passage ip-before"><button data-ip="before" aria-label="Previous source range"></button></article>
  <article class="ip-passage ip-held" data-ip="held"><div class="ip-range"><span data-ip="range"></span><button data-ip="back" hidden>↶ RETURN</button></div><h1 data-ip="title"></h1><div class="ip-word" aria-hidden="true"><span data-ip="word-before"></span><b data-ip="word-mark"></b><span data-ip="word-after"></span></div><div class="ip-body" data-ip="body"></div><p class="ip-residue" data-ip="residue"></p><div class="ip-doors" data-ip="doors"></div></article>
  <article class="ip-passage ip-after"><button data-ip="after" aria-label="Next source range"></button></article>
  </div></div>
- <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="slider" tabindex="0" aria-label="Source position and scope" aria-valuemin="0" aria-valuemax="100"><circle class="ip-track" cx="90" cy="90" r="69"/><circle class="ip-scope-track" cx="90" cy="90" r="45"/><path class="ip-window" data-ip="window"/><circle class="ip-dot" data-ip="dot" r="6"/><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
+ <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="group" tabindex="0" aria-label="Source dial: outer circle moves through the entire source; inner circle moves inside this range; minus and plus change scope."><circle class="ip-track" cx="90" cy="90" r="69"/><circle class="ip-scope-track" cx="90" cy="90" r="45"/><path class="ip-window" data-ip="window"/><g data-ip="marks-ring" aria-hidden="true"></g><circle class="ip-dot ip-dot-absolute" data-ip="absolute-dot" r="6"/><circle class="ip-dot ip-dot-local" data-ip="local-dot" r="4"/><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
  <nav class="ip-transport" aria-label="Traversal"><button data-ip="previous" aria-label="Previous">←</button><button data-ip="play">▶ READ</button><button data-ip="next" aria-label="Next">→</button></nav>
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
@@ -77,7 +77,8 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(next===scope)return status('No further source scope at this exact position.');setScope(next);
  }
  function perspective(next){
-  view=next==='walk'?'walk':'plain';root.dataset.view=view;el('view').textContent=view==='walk'?'PLAIN ↙':'WALK ↗';el('view').setAttribute('aria-pressed',String(view==='walk'));paint();persist();
+  if(!['plain','walk','dial'].includes(next)||next===view)return;
+  ap?.stop();view=next;root.dataset.view=view;paint();persist();
  }
  function highlight(body,start,text,anchor){
   const word=model.words.find(w=>w.start<=anchor&&anchor<w.end);
@@ -96,10 +97,13 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const s=snap(),anchor=s.char_index,n=neighbors(model,anchor,scope,query),u=n.current,d=describe(model,u);
   if(catalog&&source.trusted){const row=catalog.routeSpans.find(r=>r.start<=anchor&&anchor<r.end);nativeRecord=row?catalog.data.routes[row.routeIndex]:null;activeRoute=nativeRecord?.href||null}
   root.dataset.view=view;root.dataset.playing=s.playing?'1':'0';root.dataset.sourceHash=source.hash;root.dataset.anchor=String(anchor);root.dataset.scope=scope;
+  for(const [id,mode] of [['view-plain','plain'],['view-walk','walk'],['view-dial','dial']]){
+   const tab=el(id);tab.setAttribute('aria-selected',String(view===mode));tab.tabIndex=view===mode?0:-1;
+  }
   el('label').textContent=source.label;el('range').textContent=`${level(model,scope).label} · ${u?.path||''} · ${u?.start??0}–${u?.end??0}`;
   el('scope').value=scope;el('scope-label').textContent=level(model,scope).label;el('position-label').textContent=`${Math.max(0,n.index+1)} / ${n.units.length}`;
   el('wpm').value=s.wpm;el('play').textContent=s.playing?'Ⅱ PAUSE':'▶ READ';el('back').hidden=!frames.length&&!source.returnTo;
-  el('view').textContent=view==='walk'?'PLAIN ↙':'WALK ↗';el('previous').disabled=!n.before;el('next').disabled=!n.after;
+  el('previous').disabled=!n.before;el('next').disabled=!n.after;
   for(const [id,node] of [['before',n.before],['after',n.after]]){const a=describe(model,node);el(id).disabled=!node;el(id).textContent=node?(a.title||a.body).slice(0,180):(id==='before'?'BEGINNING':'END')}
   const key=[source.hash,u?.path,u?.start,scope,query].join('|');
   if(bodyKey!==key){
@@ -113,11 +117,21 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(el('body').dataset.exactText==='1')highlight(el('body'),Number(el('body').dataset.start),el('body').dataset.bodyText,anchor);
   const word=model.words.find(w=>w.start<=anchor&&anchor<w.end)||model.words[0],p=FieldAperture.orpParts(word?.text||s.focus||'');
   el('word-before').textContent=p.before;el('word-mark').textContent=p.mark;el('word-after').textContent=p.after;
-  const range=at(model,anchor,scope),f=range?clamp((anchor-range.start)/Math.max(1,range.end-range.start-1),0,1):0,angle=-Math.PI/2+2*Math.PI*f;
-  el('dot').setAttribute('cx',String(90+69*Math.cos(angle)));el('dot').setAttribute('cy',String(90+69*Math.sin(angle)));
-  el('ring').setAttribute('aria-valuenow',String(Math.round(100*f)));el('ring').setAttribute('aria-valuetext',`${level(model,scope).label}, character ${anchor}`);
-  const a0=-Math.PI/2+2*Math.PI*(range?.start||0)/source.raw.length,a1=-Math.PI/2+2*Math.PI*(range?.end||0)/source.raw.length;
+  // FU foveation restored as two NON-INTERCHANGEABLE coordinates:
+  // outer dot = absolute source position, outer arc = absolute range;
+  // inner dot = offset within the currently selected native range.
+  const dial=dialReading(model,scope,anchor);
+  for(const [id,point] of [['absolute-dot',dialXY(dial.absolute,69)],['local-dot',dialXY(dial.local,45)]]){
+   el(id).setAttribute('cx',String(point.x));el(id).setAttribute('cy',String(point.y));
+  }
+  el('ring').setAttribute('aria-label',`Whole source character ${anchor+1} of ${source.raw.length}; ${level(model,scope).label} character ${anchor-dial.span.start+1} of ${dial.span.end-dial.span.start}. Outer ring = whole source; inner ring = held range.`);
+  const a0=-Math.PI/2+2*Math.PI*dial.window[0],a1=-Math.PI/2+2*Math.PI*dial.window[1];
   el('window').setAttribute('d',`M ${90+78*Math.cos(a0)} ${90+78*Math.sin(a0)} A 78 78 0 ${a1-a0>Math.PI?1:0} 1 ${90+78*Math.cos(a1-.0001)} ${90+78*Math.sin(a1-.0001)}`);
+  // Exact marks appear at source coordinates, never at ordinal ring slots.
+  el('marks-ring').innerHTML=marks.map(c=>{
+   const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
+   return `<path d="M ${a.x} ${a.y} L ${b.x} ${b.y}" />`;
+  }).join('');
   el('doors').replaceChildren();el('more-ports').replaceChildren();const port=node=>(el('doors').children.length<3?el('doors'):el('more-ports')).append(node);
   for(const door of relationDoors(model,source.hash,links,anchor)){
    const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
@@ -197,7 +211,15 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  }
  el('source').onclick=()=>drawer(el('drawer').hidden);
  el('close').onclick=()=>{drawer(false);if(el('status').dataset.error)status('The held source is unchanged.')};
- el('view').onclick=()=>perspective(view==='walk'?'plain':'walk');
+ for(const [id,mode] of [['view-plain','plain'],['view-walk','walk'],['view-dial','dial']]){
+   const tab=el(id);tab.onclick=()=>perspective(mode);
+   tab.onkeydown=e=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+    e.preventDefault();e.stopPropagation();
+    const modes=['plain','walk','dial'],next=e.key==='Home'?0:e.key==='End'?2:(modes.indexOf(mode)+(e.key==='ArrowRight'?1:2))%3;
+    perspective(modes[next]);el('view-'+modes[next]).focus({preventScroll:true});
+   };
+  }
  el('previous').onclick=()=>walk(-1);el('next').onclick=()=>walk(1);el('before').onclick=()=>walk(-1);el('after').onclick=()=>walk(1);
  el('play').onclick=()=>{if(!ap)return;const s=snap();if(!s.playing&&s.index>=s.count-1)return status('End of source. Choose an earlier position to read again.');drawer(false);ap.toggleRSVP();paint()};
  el('widen').onclick=()=>zoom(-1);el('narrow').onclick=()=>zoom(1);el('scope').onchange=e=>setScope(e.target.value);el('wpm').onchange=e=>ap?.setWpm(e.target.value);
@@ -249,11 +271,17 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  let drag=null;
  const ringPoint=e=>{const r=el('ring').getBoundingClientRect(),x=(e.clientX-r.left)*180/r.width-90,y=(e.clientY-r.top)*180/r.height-90;return{x,y,r:Math.hypot(x,y)}};
  function ringMove(e){
-  if(!drag||e.pointerId!==drag.id)return;const p=ringPoint(e),delta=p.r-drag.r;
-  if(Math.abs(delta)>22){setScope(zoomScope(model,char(),drag.scope,delta>0?-1:1));return}
-  const fraction=((Math.atan2(p.y,p.x)+Math.PI/2)/(Math.PI*2)+1)%1;ap.selectChar(charIn(model,drag.span,fraction));paint();persist();
+  if(!drag||e.pointerId!==drag.id)return;
+  const p=ringPoint(e),fraction=dialFraction(p.x,p.y);
+  ap.selectChar(dialChar(model,drag.scope,drag.origin,drag.band,fraction));
+  paint();persist();
  }
- el('ring').onpointerdown=e=>{if(!model)return;ap.stop();const p=ringPoint(e);drag={id:e.pointerId,r:p.r,scope,span:{...at(model,char(),scope)}};el('ring').setPointerCapture(e.pointerId);ringMove(e)};
+ el('ring').onpointerdown=e=>{
+  if(!model)return;const p=ringPoint(e),band=p.r>=58?'absolute':p.r>=26?'local':null;
+  if(!band)return;ap.stop();frames.push(frame());if(frames.length>64)frames.shift();
+  drag={id:e.pointerId,scope,origin:char(),band};
+  el('ring').setPointerCapture(e.pointerId);ringMove(e);
+ };
  el('ring').onpointermove=ringMove;el('ring').onpointerup=e=>{drag=null;try{el('ring').releasePointerCapture(e.pointerId)}catch{}};el('ring').onpointercancel=()=>{drag=null};
  root.addEventListener('keydown',e=>{
   e.stopPropagation();
@@ -274,7 +302,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    el('find').value=input;el('find-form').dispatchEvent(new Event('submit',{cancelable:true}));return true;
   }
   const m=input.match(/^:([a-z]+)(?:\s+([\s\S]*))?$/i);if(!m){status('Unsupported source command.');return false}
-  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
+  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
   if(!actions[name]){status('That move is not supported in this source. The native FIELD map is under SOURCE.');el('space').focus();return false}
   await actions[name]();if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
  }

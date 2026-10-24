@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-24T16:24:36.438Z",
+  "generated": "2026-10-24T17:57:35.752Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-24",
-  "commits_in_window": 119,
-  "git_commits_in_window": 192,
-  "telemetry_commits_in_window": 73,
-  "commits_total": 6713,
-  "branch_count": 1069,
+  "commits_in_window": 138,
+  "git_commits_in_window": 216,
+  "telemetry_commits_in_window": 78,
+  "commits_total": 6737,
+  "branch_count": 1077,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
-    "calls: refresh (auto — answers changed)"
+    "fi-mutation-contract: stamp /field/at-night/",
+    "ART — THE FIELD AT NIGHT: two months of sessions as an aggregate star map (/fi"
   ],
   "active_fronts": [
     {

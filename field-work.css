@@ -1,7 +1,7 @@
 
 #interphaseWorkspace{position:absolute;inset:64px 0 0;overflow:auto;z-index:10;background:var(--bg)}
 #interphaseWorkspace>.ip-continuum{height:100%;min-height:0}
-#interphaseWorkspace .ip-heading,#interphaseWorkspace [data-ip=back]{display:none}
+#interphaseWorkspace [data-ip=back],#interphaseWorkspace .ip-source{display:none}
 #fieldInstrument[data-work="1"]>.fiField,#fieldInstrument[data-work="1"]>.fiReading{visibility:hidden;pointer-events:none}
 html[data-field-work="1"] #fiMenuPanel{display:none!important}
 html[data-field-work="1"] #fieldUrlBar .fieldUrlFrame{grid-template-columns:44px minmax(0,1fr) 44px 64px;grid-template-rows:44px;height:44px}
@@ -12,3 +12,10 @@ html[data-field-work="1"] #fiRibbon{display:none}
 #interphaseWorkspace .ip-editor{top:74px}
 
 html[data-field-work="1"] #fiView{width:64px;min-height:44px;border:0;background:transparent;color:var(--ink);font:11px ui-monospace,monospace;cursor:pointer}
+
+/* Existing continuum owns READ / WALK / DIAL; remove the redundant host toggle. */
+#interphaseWorkspace .ip-heading{display:flex;min-height:44px;padding:0 10px;border-bottom:1px solid var(--line)}
+#interphaseWorkspace .ip-views{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+#interphaseWorkspace .ip-views button{width:100%;font-size:12px}
+html[data-field-work="1"] #fieldUrlBar .fieldUrlFrame{grid-template-columns:44px minmax(0,1fr) 44px}
+html[data-field-work="1"] #fiView{display:none!important}

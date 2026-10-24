@@ -43,3 +43,27 @@
 .ip-continuum[data-view=plain] .ip-before,.ip-continuum[data-view=plain] .ip-after{flex:0 0 auto}
 .ip-space:focus-visible{outline:none}.ip-space:focus-visible .ip-held{outline:1px solid var(--ip-hot)}
 @media(max-width:700px){.ip-continuum[data-view=plain] .ip-before button,.ip-continuum[data-view=plain] .ip-after button{max-height:42px}}
+
+/* The same held bytes + character cursor in three native readings. Not three
+   workspaces, no duplicated source, and no hidden tab chooser. */
+.ip-heading{align-items:center}
+.ip-views{display:flex;flex:none;gap:2px}
+.ip-views button{flex:none;min-width:61px;min-height:44px;padding:5px 8px;border:0;border-bottom:2px solid transparent;font-size:11px;letter-spacing:.02em}
+.ip-views button[aria-selected="true"]{color:var(--ip-hot);border-bottom-color:var(--ip-hot)}
+.ip-views button:focus-visible{outline-offset:-2px}
+.ip-dot-absolute{fill:var(--ip-hot)}
+.ip-dot-local{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:2.5}
+.ip-axis [data-ip="marks-ring"]{fill:none;stroke:var(--ip-hot);stroke-width:1.4;opacity:.8;pointer-events:none}
+.ip-continuum[data-view="dial"] .ip-axis{padding:4px 0 10px}
+.ip-continuum[data-view="dial"] .ip-axis svg{width:min(62vw,34svh,268px);height:auto;max-height:268px}
+.ip-continuum[data-view="dial"] .ip-scene{display:flex;flex-direction:column;max-width:720px;height:100%;gap:5px}
+.ip-continuum[data-view="dial"] .ip-passage{width:100%;transform:none;position:relative;inset:auto;pointer-events:auto}
+.ip-continuum[data-view="dial"] .ip-held{flex:1;min-height:70px;max-height:100%}
+.ip-continuum[data-view="dial"] .ip-before button,.ip-continuum[data-view="dial"] .ip-after button{min-height:0;max-height:29px;overflow:hidden;border:0;padding:2px 12px;font-size:10px}
+@media(max-width:700px){
+ .ip-source{gap:4px;min-width:0}.ip-source span{font-size:10px}
+ .ip-heading{gap:4px}.ip-views button{min-width:55px;padding:4px 5px;font-size:10px}
+ .ip-continuum[data-view="dial"] .ip-axis{gap:6px}
+ .ip-continuum[data-view="dial"] .ip-axis svg{width:min(59vw,30svh,220px);height:auto}
+ .ip-continuum[data-view="dial"] .ip-held{min-height:60px;padding:10px}
+}

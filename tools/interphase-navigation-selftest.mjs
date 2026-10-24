@@ -24,6 +24,23 @@ function navSelftest(){
  assert.equal(N.relationDoors(m,'hash',[r],paras[1].start)[0].destination.start,paras[2].start);
  const attention={char:c,scope:'PARA',view:'walk',wpm:260,query:'gate'};
  assert.deepEqual(N.validateAttention(m,attention),attention);
+ // The outer and inner dials have different coordinate laws, even while a
+ // view switch preserves exactly one source/cursor and signed RETURN attention.
+ const dial=N.dialReading(m,'PARA',c);
+ assert.ok(dial.span.start<=c&&c<dial.span.end);
+ assert.equal(N.dialChar(m,'PARA',c,'absolute',dial.absolute),c);
+ assert.equal(N.dialChar(m,'PARA',c,'local',dial.local),c);
+ assert.equal(N.dialChar(m,'PARA',c,'local',0),dial.span.start);
+ assert.equal(N.dialChar(m,'PARA',c,'local',1),dial.span.end-1);
+ assert.equal(N.dialChar(m,'PARA',c,'absolute',1),raw.length-1);
+ assert.equal(N.dialFraction(0,-1),0);
+ assert.equal(N.dialFraction(1,0),.25);
+ assert.equal(N.dialFraction(0,1),.5);
+ assert.equal(N.dialFraction(-1,0),.75);
+ assert.equal(Math.round(N.dialXY(.25).x),159);
+ assert.deepEqual(N.validateAttention(m,{...attention,view:'dial'}),{...attention,view:'dial'});
+ assert.throws(()=>N.dialChar(m,'PARA',c,'unproved',.5),/Unknown source dial/);
+
  for(const bad of [{char:-1},{char:raw.length},{scope:'GUESSED'},{view:'hype'},{wpm:0},{query:'x'.repeat(201)}])assert.throws(()=>N.validateAttention(m,{...attention,...bad}));
  assert.throws(()=>model('{"x":1,"x":2}'),/ambiguous/);assert.throws(()=>model('\ud800'),/surrogate/);assert.throws(()=>model('x'.repeat(2000001)),/2 MB/);
  const jraw=' { "routes" : [ { "title": "Gate", "role": "Water holds", "open": false, "n":null, "a.b": "🧭" }, {"title":"River","role":"Flows"} ], "meta": true } ';
@@ -36,6 +53,6 @@ function navSelftest(){
  for(let i=0;i<10;i++){const next=N.zoomScope(j,focus,scope,1);if(next===scope)break;const inner=N.at(j,focus,next);assert.ok(inner.start>=span.start&&inner.end<=span.end&&inner.end-inner.start<span.end-span.start);scope=next;span=inner}
  const nested=model('# A\n\nOne.\n\n## B\n\nTwo.\n\n# C\n\nThree.');const b=N.at(nested,nested.raw.indexOf('Two'),'SECTION');assert.equal(b.key,'B');
  assert.equal(N.neighbors(nested,nested.raw.indexOf('Two'),'SECTION').after.key,'C');
- console.log('SOURCE LAWS PASS · native spans · GetPut / PutGet · Unicode · monotone scope · quoted relations · finite traversal · strict RETURN');
+ console.log('SOURCE LAWS PASS · native spans · GetPut / PutGet · Unicode · monotone scope · quoted relations · finite traversal · strict RETURN · two source-addressed dial coordinates');
 }
 navSelftest();

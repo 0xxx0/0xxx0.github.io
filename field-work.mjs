@@ -18,13 +18,13 @@ function startFieldWork(){
    if(get('fiParent'))get('fiParent').setAttribute('aria-label','Source and work');
    if(get('fiReturn')){get('fiReturn').setAttribute('aria-label','Return to previous source context');get('fiReturn').hidden=!s.back}
    if(get('fiMenu'))get('fiMenu').hidden=true;
-   if(get('fiViewName'))get('fiViewName').textContent=s.view==='walk'?'◇ WALK':'⊞ PLAIN';
+   // The three visible source tabs own the projection; no second view control.
   }});
-  const view=get('fiView');view.setAttribute('aria-label','Change source perspective: plain or walk');view.onclick=e=>{e.stopPropagation();api.perspective(api.snapshot()?.attention.view==='walk'?'plain':'walk')};
+  // No host-level shadow view toggle. All views retain the same native source.
   get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
   get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
   get('fiAddress').addEventListener('click',()=>api.stop());
-  const input=get('fieldUrlInput');input.placeholder='Source /path · find words · :walk · :read · :return';
+  const input=get('fieldUrlInput');input.placeholder='Source /path · find words · :walk · :dial · :return';
   input.addEventListener('input',e=>{if(native.active())e.stopImmediatePropagation()},true);
   input.addEventListener('keydown',e=>{
    if(e.key!=='Enter'||!native.active())return;e.preventDefault();e.stopImmediatePropagation();

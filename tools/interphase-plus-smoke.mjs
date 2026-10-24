@@ -65,10 +65,29 @@ async function continuumBrowserProof(){
    await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
    await page.evaluate(c=>{InterphaseInstrument.seek(c);InterphaseInstrument.setScope('SENT')},c);
    await page.reload();await wait();assert.equal((await snap()).source.raw,raw,'reload retains a newly opened source');assert.equal((await snap()).attention.char,c);assert.equal((await snap()).attention.scope,'SENT');
-   await ip('held').evaluate(x=>x.dataset.identity='same');await page.locator('#fiView').click();
+   await ip('held').evaluate(x=>x.dataset.identity='same');await ip('view-walk').click();
    assert.equal((await snap()).attention.view,'walk');assert.equal((await snap()).attention.char,c);assert.equal(await ip('held').getAttribute('data-identity'),'same');
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`walk-${width}.png`)})}
    await bar(':plain');assert.equal((await snap()).attention.view,'plain');await bar(':walk');assert.equal((await snap()).attention.view,'walk');
+   // One source + cursor across three actual tabs. The two radial bands
+   // are measured against DIFFERENT coordinate systems, not a decorative turn.
+   await ip('view-dial').click();assert.equal((await snap()).attention.view,'dial');assert.equal((await snap()).attention.char,c);
+   const dialBox=await ip('ring').boundingBox();assert.ok(dialBox?.width>100,'dial visible at phone width');
+   await page.mouse.click(dialBox.x+dialBox.width*(159/180),dialBox.y+dialBox.height*.5);
+   const outerChar=(await snap()).attention.char;
+   assert.ok(Math.abs(outerChar-Math.round((raw.length-1)/4))<=2,'outer ring selects absolute source fraction');
+   await page.mouse.click(dialBox.x+dialBox.width*(135/180),dialBox.y+dialBox.height*.5);
+   const innerChar=(await snap()).attention.char;
+   assert.notEqual(innerChar,outerChar,'inner ring selects native range-local fraction');
+   assert.equal((await snap()).source.hash,hash);
+   await ip('view-plain').click();assert.equal((await snap()).attention.char,innerChar,'view changes must not move held source');
+   await bar(':dial');assert.equal((await snap()).attention.view,'dial');
+   const savedDial=await page.evaluate(()=>InterphaseInstrument.packet());
+   await page.evaluate(p=>InterphaseInstrument.importPacket(p),savedDial);
+   assert.equal((await snap()).attention.view,'dial','dial view survives strict RETURN');
+   assert.equal((await snap()).attention.char,innerChar,'dial source position survives RETURN');
+   await ip('view-walk').click();
+
    const before=(await snap()).attention.char;await bar(':unsupported');assert.equal((await snap()).attention.char,before);assert.match(await ip('status').textContent(),/not supported/);
    await page.evaluate(()=>InterphaseInstrument.setScope('PARA'));
    await bar('water gate');assert.equal((await snap()).attention.query,'water gate');await source();await ip('clear').click();assert.equal((await snap()).attention.query,'');
@@ -113,7 +132,7 @@ async function continuumBrowserProof(){
    assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),20);
    await page.evaluate(()=>sessionStorage.removeItem('interphase.continuum.v1'));await page.locator('#show').click();await page.locator('#interphase').click();await wait();
    assert.equal((await snap()).source.raw,jsonSource);assert.equal((await snap()).attention.char,20);assert.equal((await snap()).attention.scope,'ROOT');
-   assert.deepEqual(errors,[]);console.log('CONTINUUM BROWSER PASS '+width+'px · one native clock · source race · plain/walk same DOM · commands · quoted link/RETURN · edit/undo/redo · ring · finite end · rejected forged RETURN · exact reader/wrist handoff');
+   assert.deepEqual(errors,[]);console.log('CONTINUUM BROWSER PASS '+width+'px · one native clock · source race · READ/WALK/DIAL same source · commands · quoted link/RETURN · edit/undo/redo · ring · finite end · rejected forged RETURN · exact reader/wrist handoff');
    await context.close();
   }
  }finally{await browser.close();await new Promise(r=>server.close(r))}
