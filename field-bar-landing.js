@@ -48,7 +48,7 @@
   if(!barIsVisible())return;
   const to={
    hold:held()?'hold':'none',work:'work',prove:'prove',
-   read:'hold',trace:'trace',axis:'prove',
+   read:'hold',trace:'trace',axis:'prove',glyphs:'browse',
    map:'map',recent:'map',fovea:'browse',
    up:'browse',down:'browse',prev:'hold',next:'hold',
    heads:'none',reset:'none',help:'none'
