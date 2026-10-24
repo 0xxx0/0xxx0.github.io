@@ -466,20 +466,21 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
       boot().then(()=>{
         if(!model||model.sha256!==back.sha256){error('SOURCE_RETURN_HASH_MISMATCH');return;}
         const target=model.nodes.find(q=>q.id===back.span.node&&q.start<=back.span.start&&q.end>=back.span.end);
-        const choice=target&&T.evidenceChoices(model,target.id).findIndex(e=>e.start===back.span.start&&e.end===back.span.end);
+        const choice=target?T.evidenceChoices(model,target.id).findIndex(e=>e.start===back.span.start&&e.end===back.span.end):-1;
         if(choice>=0){
           session=T.cite(model,session,target.id,choice);select(target.id);
+          let status='SOURCE REOPENED · native return receipt not verified';
           try{
             const raw=JSON.parse(sessionStorage.getItem(SleeperSourceAperture.RETURN_KEY)||'null');
             const r=SleeperSourceAperture.inspectReceipt(raw,model.sha256);
             if(r.span.start!==back.span.start||r.span.end!==back.span.end||r.span.quoteHash!==back.span.quoteHash)throw Error('APERTURE_RETURN_ADDRESS_CHANGED');
             $('#cityReturn').classList.remove('hidden');
             $('#cityReturn').textContent='NATIVE RETURN · '+r.worldKey+' · '+r.nativeGateCount+'/8 Gates · '+r.operator.toUpperCase()+' · '+r.transferInstruction+' / SOURCE '+r.span.start+'–'+r.span.end+'. The native proofs do not establish the meaning or truth of this sentence.';
-            sessionStorage.removeItem(SleeperSourceAperture.RETURN_KEY);
-          }catch(e){error(e.message);}
-          error('EXACT SOURCE REOPENED · previous AXIS route is not restored');
-        }
-        else error('SOURCE REOPENED · previous witness selection unavailable');
+            status='EXACT SOURCE REOPENED · native return receipt validated · previous AXIS route not restored';
+          }catch(e){status='SOURCE REOPENED / RETURN UNVERIFIED · '+e.message;}
+          finally{sessionStorage.removeItem(SleeperSourceAperture.RETURN_KEY);}
+          error(status);
+        }else error('SOURCE REOPENED · exact witness selection unavailable');
         sessionStorage.removeItem(SleeperSourceAperture.BACK);
       });
     }catch(e){error(e.message,'#sourceError')}
