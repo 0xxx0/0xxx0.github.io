@@ -30,7 +30,7 @@ const load=url=>new Promise((ok,bad)=>{f.onload=ok;f.onerror=bad;f.src=url});
  evidence.click();
  assert(!d.querySelector('#sendCity').disabled,'source witness did not enable handoff');
  d.querySelector('#sendCity').click();
- await wait(()=>f.contentWindow.location.pathname==='/sleeper/'&&f.contentDocument.querySelector('#sourceApertureStatus'),'native handoff');
+ await wait(()=>f.contentWindow.location.pathname==='/sleeper/'&&f.contentDocument.querySelector('#sourceApertureStatus')?.textContent.includes('EXACT WITNESS HELD'),'native handoff');
  w=f.contentWindow;d=w.document;
  const quoted=d.querySelector('#source').value;
  assert(quoted==='A signal appeared in the log.','wrong source span carried: '+quoted);
@@ -62,7 +62,7 @@ const load=url=>new Promise((ok,bad)=>{f.onload=ok;f.onerror=bad;f.src=url});
  // Same exact witness, now complete eight native Gate protocols and return to AXIS.
  assert(!d.querySelector('#sendCity').disabled,'returned witness unavailable');
  d.querySelector('#sendCity').click();
- await wait(()=>f.contentWindow.location.pathname==='/sleeper/'&&f.contentDocument.querySelector('#sourceApertureStatus'),'second city handoff');
+ await wait(()=>f.contentWindow.location.pathname==='/sleeper/'&&f.contentDocument.querySelector('#sourceApertureStatus')?.textContent.includes('EXACT WITNESS HELD'),'second city handoff');
  w=f.contentWindow;d=w.document;d.querySelector('#enter').click();
  await wait(()=>!d.querySelector('#app').classList.contains('hidden'),'second city start');
  w.eval('cancelAnimationFrame(raf)');
