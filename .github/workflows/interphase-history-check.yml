@@ -72,6 +72,8 @@ jobs:
           node tools/package-interphase.mjs "$RUNNER_TEMP/interphase-package"
           npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.3.0.tgz"
           node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
+          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts typescript
+          node tools/interphase-types-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
       - name: Browser test dependencies (runner temp only)
         run: |
           npm install --prefix "$RUNNER_TEMP/interphase-test" playwright
@@ -96,6 +98,10 @@ jobs:
           node tools/field-instrument-smoke.mjs
           node tools/field-reversibility-selftest.mjs
           node tools/validate-public.mjs
+      - name: Inspect deterministic phone and desktop captures
+        if: always()
+        run: |
+          node --input-type=module -e 'import fs from "node:fs";const d=process.env.RUNNER_TEMP+"/continuum-screenshots";if(fs.existsSync(d))for(const f of fs.readdirSync(d))if(f.endsWith(".png"))console.log("CAPTURE "+f+" "+fs.readFileSync(d+"/"+f).toString("base64"));'
       - uses: actions/upload-artifact@v4
         if: always()
         with:

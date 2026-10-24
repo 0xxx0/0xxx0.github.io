@@ -17,7 +17,7 @@ function startFieldWork(){
    if(get('fiMenu'))get('fiMenu').hidden=true;
    if(get('fiViewName'))get('fiViewName').textContent=s.view==='walk'?'◇ WALK':'⊞ PLAIN';
   }});
-  const view=get('fiView');view.onclick=e=>{e.stopPropagation();api.perspective(api.snapshot()?.attention.view==='walk'?'plain':'walk')};
+  const view=get('fiView');view.setAttribute('aria-label','Change source perspective: plain or walk');view.onclick=e=>{e.stopPropagation();api.perspective(api.snapshot()?.attention.view==='walk'?'plain':'walk')};
   get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
   get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
   get('fiAddress').addEventListener('click',()=>api.stop());
