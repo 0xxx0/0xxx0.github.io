@@ -4,9 +4,11 @@
 #interphaseWorkspace .ip-heading,#interphaseWorkspace [data-ip=back]{display:none}
 #fieldInstrument[data-work="1"]>.fiField,#fieldInstrument[data-work="1"]>.fiReading{visibility:hidden;pointer-events:none}
 html[data-field-work="1"] #fiMenuPanel{display:none!important}
-html[data-field-work="1"] .fieldUrlFrame{grid-template-columns:44px minmax(0,1fr) 44px 64px;height:44px}
+html[data-field-work="1"] #fieldUrlBar .fieldUrlFrame{grid-template-columns:44px minmax(0,1fr) 44px 64px;grid-template-rows:44px;height:44px}
 html[data-field-work="1"] #fiView{grid-area:1/4;display:flex}
 html[data-field-work="1"] #fiRibbon{display:none}
 
 #interphaseWorkspace .ip-drawer{top:64px}
 #interphaseWorkspace .ip-editor{top:74px}
+
+html[data-field-work="1"] #fiView{width:64px;min-height:44px;border:0;background:transparent;color:var(--ink);font:11px ui-monospace,monospace;cursor:pointer}

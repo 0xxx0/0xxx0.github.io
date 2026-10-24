@@ -23,7 +23,7 @@ async function continuumBrowserProof(){
    const close=async()=>{if(await ip('drawer').isVisible())await ip('close').click()};
    const load=async(text,name='water.md')=>{await source();await ip('file').setInputFiles({name,mimeType:'text/plain',buffer:Buffer.from(text)});await page.waitForFunction(t=>InterphaseInstrument.snapshot()?.source.raw===t,text)};
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
-   await page.goto(base+'/');await wait();
+   await page.goto(base+'/');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);
    assert.equal(await page.locator('.ip-continuum field-aperture').evaluate(x=>x.shadowRoot.children.length),0);
@@ -64,13 +64,19 @@ async function continuumBrowserProof(){
    if(process.env.SCREENSHOT_DIR){await page.evaluate(()=>InterphaseInstrument.perspective('plain'));await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`plain-${width}.png`)})}
    await load('{"gate":{"state":"closed","count":2},"other":true}','gate.json');await page.evaluate(()=>InterphaseInstrument.setScope('ROOT'));
    await source();await ip('edit').click();await ip('replacement').fill('{');await ip('commit').click();await page.waitForFunction(()=>!!document.querySelector('[data-ip=status]').dataset.error);assert.equal((await snap()).source.raw,'{"gate":{"state":"closed","count":2},"other":true}');await ip('cancel').click();await close();
-   await load(raw);await page.evaluate(()=>InterphaseInstrument.seek(42));await source();await ip('reader').click();
+   await load(raw);await page.evaluate(p=>InterphaseInstrument.importPacket(p),packet);await page.evaluate(()=>InterphaseInstrument.seek(42));await source();await ip('reader').click();
    await page.waitForFunction(()=>document.getElementById('docAperture')?.A?.raw);
    assert.equal(await page.locator('#docAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#docAperture').evaluate(x=>x.snapshot().char_index),42);
-   await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);
+   await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);assert.equal((await snap()).links.length,1);
    await ip('source').click();await ip('wrist').click();await page.waitForFunction(()=>document.getElementById('wristAperture')?.A?.raw);
    assert.equal(await page.locator('#wristAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),42);
-   await page.locator('#show').click();await page.locator('#interphase').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.hash,hash);
+   await page.locator('#show').click();await page.locator('#interphase').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.hash,hash);assert.equal((await snap()).links.length,1);
+   const jsonSource='{"gate":{"state":"closed","count":2},"other":true}';
+   await page.evaluate(t=>InterphaseInstrument.load(t,'gate.json'),jsonSource);await page.evaluate(()=>InterphaseInstrument.seek(20));
+   await ip('source').click();await ip('wrist').click();await page.waitForFunction(()=>document.getElementById('wristAperture')?.A?.raw);
+   assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),20);
+   await page.evaluate(()=>sessionStorage.removeItem('interphase.continuum.v1'));await page.locator('#show').click();await page.locator('#interphase').click();await wait();
+   assert.equal((await snap()).source.raw,jsonSource);assert.equal((await snap()).attention.char,20);assert.equal((await snap()).attention.scope,'ROOT');
    assert.deepEqual(errors,[]);console.log('CONTINUUM BROWSER PASS '+width+'px · one native clock · source race · plain/walk same DOM · commands · quoted link/RETURN · edit/undo/redo · ring · finite end · rejected forged RETURN · exact reader/wrist handoff');
    await context.close();
   }
