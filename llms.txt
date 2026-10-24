@@ -58,6 +58,13 @@ Structured form:
 
 `node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json`
 
+Source freshness for a handoff that may outlive the current worker/turn:
+
+`node scripts/emit-agent-transcript.mjs --witness <repo-path> --json`
+
+Place that object at `execution.source_witness`. The normal `--handoff` path revalidates it automatically against the receiver's local checkout. `FRESH` resumes the ordinary coordination state; `STALE` or `MISSING` fails closed to `SOURCE_REQUIRED` and requires a fresh SOURCE/HOLD. The opaque crew handle remains the same because revision/freshness is not object identity. A witness is optimistic-concurrency evidence only; it never grants NOW, priority, merge, commit, RELEASE or effect authority.
+
+
 Input follows `/control/SUBMISSION_CONTRACT.json`. The compiler emits one transient `field-crew-handoff/v0.1`: deterministic opaque context handle, same addressed object/intent, 0–3 host-native moves, selected move when explicitly supplied, evidence pointers, normalized human interruption gate, and exact RETURN. `SOURCE_REQUIRED`, `HOLD_REQUIRED`, `HOLD_READY`, `HUMAN_REQUIRED`, and `TURN_READY` are coordination states only. Crew labels never grant routing, priority, NOW, host, effect, or merge authority. More than three moves, selected TURN on an unresolved object, and EFFECT without a native commit/RELEASE boundary fail closed. The projection writes no queue, task store, memory, CURRENT, manifest, or native state.
 
 Human interruption need uses the existing submission `waiting_on` field (the compiler also accepts the earlier additive `human_gate` spelling during convergence) and normalizes it to `NONE | PING | CHOOSE | WORLD_RETURN | UNSPECIFIED`:
