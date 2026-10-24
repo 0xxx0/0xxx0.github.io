@@ -200,7 +200,7 @@ try{
     await cmd('/house/ :work');assert.equal(await page.locator('html[data-instrument="1"]').count(),0,'native WORK must reveal its own visible host, not run behind the field');
     assert.equal(await page.evaluate(()=>FieldZUI.state()),'WORK');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
-    await page.goto(base+'/?focus=/sleeper/');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&focus=/sleeper/');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,'/sleeper/','an incoming exact source address must outrank a stale saved focus');
     assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),'/sleeper/');
     await cmd(':plain');await page.reload();
@@ -239,10 +239,10 @@ try{
     assert.equal(Number.isInteger(angle),true,'TURN must resolve to a retained camera state');
     await cmd(':plain');await page.waitForSelector('html:not([data-instrument="1"])');
     await cmd(':instrument');await page.waitForSelector('html[data-instrument="1"]');
-    await page.goto(base+'/?focus=/');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&focus=/');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,null,'explicit root address must clear saved native and projected focus');
     assert.equal(await page.evaluate(()=>__fieldAct.focusHref()),null);
-    await page.goto(base+'/?fi=source%3Agit%20kind%3Aworkbench');await page.waitForSelector('html[data-instrument="1"]');
+    await page.goto(base+'/?work=0&fi=source%3Agit%20kind%3Aworkbench');await page.waitForSelector('html[data-instrument="1"]');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.query,'source:git kind:workbench','shared native bar expressions must outrank a stale saved scope');
     assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).view.inside,await page.evaluate(()=>FieldIndexReadModel.snapshot().routes.filter(r=>r.kind==='workbench').length));
     if(width===320&&height===568){

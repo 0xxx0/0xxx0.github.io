@@ -770,7 +770,7 @@ async function load(){
 }
 function boot(){
   if(location.pathname!=='/')return;
-  window.FieldInstrument=Object.freeze({enter,exit,edit,active:()=>enabled,address,key,
+  window.FieldInstrument=Object.freeze({enter,exit,edit,closeEditor:()=>{endEdit();toggleMenu(false)},active:()=>enabled,address,key,
     turn:()=>{if(!enabled)return false;command('turn');return true},
     heldAddress:()=>held()?.address||null,
     hold:address=>{const r=rows.find(r=>r.address===address);if(!r)return false;commit(C.locate(state,r),{native:true});return true},

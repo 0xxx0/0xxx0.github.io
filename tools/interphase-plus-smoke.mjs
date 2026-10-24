@@ -3,67 +3,77 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import {createRequire} from 'node:module';
-import {browserBin} from './browser-bin.mjs';
-const {chromium}=createRequire(import.meta.url)('playwright');
-const root=process.cwd(),server=http.createServer((req,res)=>{
- const name=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
- if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404).end();return}
- res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'})[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);
-});
-await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
-const browser=await chromium.launch({headless:true,executablePath:browserBin(),args:['--no-sandbox','--disable-dev-shm-usage']});
-const results=[];
-try{
- for(const [width,height] of [[390,844],[320,640],[1280,900]]){
-  const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,acceptDownloads:true,reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
-  page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());
-  await page.goto(base+'/');await page.waitForFunction(()=>window.FieldWork?.snapshot()?.ready,{timeout:30000});
-  const frame=page.frames().find(f=>new URL(f.url()).pathname==='/interphase/');assert.ok(frame,'root must contain the existing INTERPHASE host');
-  await frame.waitForFunction(()=>window.InterphaseWorkbench?.snapshot().work);
-  const initial=await frame.evaluate(()=>InterphaseWorkbench.snapshot());assert.equal(initial.mode,'WORK');assert.equal(initial.source.kind,'DATA_SOURCE');assert.ok(initial.work.result.value.length>3,'real CURRENT heads must be usable at entry');
-  if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'interphase-landing-'+width+'.png')})}
-  const raw=initial.source.payload.raw,source=initial.source.id,frameBefore=await page.evaluate(()=>FieldInstrument.snapshot().frame);
-  assert.equal(await frame.locator('#focusTitle').textContent(),'CURRENT.json');
-  await frame.locator('[data-panel="step"]').click();await frame.locator('#iwOp').selectOption('take');await frame.locator('#iwArg').fill('2');await frame.locator('#iwStepForm button[type="submit"]').count().then(async n=>{if(n)await frame.locator('#iwStepForm button[type="submit"]').click();else await frame.locator('#iwStepForm>button').click()});
-  assert.equal(await frame.evaluate(()=>InterphaseWorkbench.work().snapshot().result.value.length),2);
-  await frame.locator('[data-prefix="0"]').click();assert.ok(await frame.locator('tbody tr').count()>2,'prefix inspection must show its real intermediate output');
-  await frame.locator('#iwFinal').click();assert.equal(await frame.locator('tbody tr').count(),2);
-  await frame.locator('#iwUndo').click();assert.ok(await frame.locator('tbody tr').count()>2);
-  await frame.evaluate(()=>InterphaseWorkbench.work().setSteps([...InterphaseWorkbench.work().snapshot().steps,{op:'take',count:2}]));
-  await frame.locator('.iw-view>summary').click();await frame.locator('[data-view="ROOM"]').click();
-  assert.equal(await frame.locator('.iw-face').count(),6);const cube=await frame.locator('.iw-net').getAttribute('data-geometry');
-  if(process.env.SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'interphase-room-'+width+'.png')});
-  await frame.locator('#iwUnfold').click();assert.notEqual(await frame.locator('.iw-net').getAttribute('data-geometry'),cube);assert.equal(await frame.evaluate(()=>InterphaseWorkbench.work().snapshot().source),source);
-  await frame.locator('.iw-room-controls [data-view="TABLE"]').click();
-  await frame.locator('.iw-view>summary').click();await frame.locator('[data-view="READ"]').click();
-  await frame.evaluate(()=>{const a=document.getElementById('iwReader');a.setPos(3)});const read=await frame.evaluate(()=>document.getElementById('iwReader').snapshot());
-  await frame.locator('.iw-view>summary').click();await frame.locator('[data-view="TABLE"]').click();await frame.locator('.iw-view>summary').click();await frame.locator('[data-view="READ"]').click();
-  assert.equal(await frame.evaluate(()=>document.getElementById('iwReader').snapshot().char_index),read.char_index,'READ projection must retain its cursor');
-  assert.equal(await frame.evaluate(()=>InterphaseWorkbench.source().payload.raw),raw,'composition/view changes cannot rewrite source');
-  assert.deepEqual(await page.evaluate(()=>FieldInstrument.snapshot().frame),frameBefore,'work views do not change FIELD navigation');
-  await frame.locator('.iw-view>summary').click();const downloadPromise=page.waitForEvent('download');await frame.locator('#iwExport').click();const downloaded=await downloadPromise;
-  const file=await downloaded.path(),packet=JSON.parse(fs.readFileSync(file,'utf8'));assert.equal(packet.input,raw);assert.equal(packet.steps.at(-1).op,'take');assert.equal(packet.projection.updatePolicy,'NONE');
-  await frame.locator('[data-panel="source"]').click();
-  const bad={...packet,source:{...packet.source,hash:'sha256:'+'0'.repeat(64)}};
-  await frame.locator('#iwImport').setInputFiles({name:'bad-return.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(bad))});
-  await frame.waitForFunction(()=>document.querySelector('.iw-error')?.textContent.includes('identity mismatch'));
-  assert.equal(await frame.evaluate(()=>InterphaseWorkbench.source().id),source,'tampered import must keep held source');
-  await frame.locator('#iwImport').setInputFiles(file);await frame.waitForFunction(()=>!document.querySelector('.iw-error').textContent);
-  assert.equal(await frame.evaluate(()=>InterphaseWorkbench.source().id),source,'verified return restores exact source identity');
-  assert.equal(await frame.evaluate(()=>document.getElementById('iwReader').snapshot().char_index),read.char_index,'RETURN restores the derived reader cursor');
-  await frame.locator('[data-panel="source"]').click();await frame.locator('#iwFile').setInputFiles({name:'duplicate.json',mimeType:'application/json',buffer:Buffer.from('{"a":1,"a":2}')});await frame.waitForFunction(()=>document.querySelector('.iw-error').textContent.includes('ambiguous'));assert.equal(await frame.evaluate(()=>InterphaseWorkbench.source().id),source);
-  // Native FIELD focus and the workbench refer to the same route through the
-  // existing explicit address correspondence, not by equating their id formats.
-  await page.evaluate(()=>FieldInstrument.hold('/house/'));
-  await frame.waitForFunction(()=>InterphaseWorkbench.source().id==='route:/house/');
-  await frame.evaluate(()=>InterphaseWorkbench.chooseRoute('/docs/'));
-  await page.waitForFunction(()=>FieldInstrument.heldAddress()==='/docs/');
-  assert.equal(await frame.evaluate(()=>InterphaseWorkbench.source().id),'route:/docs/');
-  const pin=await page.evaluate(()=>FieldInstrument.snapshot().frame);await page.locator('#fiView').click();assert.equal(await page.evaluate(()=>FieldWork.active()),false);await page.locator('#fiView').click();assert.equal(await page.evaluate(()=>FieldInstrument.snapshot().map),'plan');await page.locator('#fiView').click();assert.equal(await page.evaluate(()=>FieldWork.active()),true);assert.deepEqual(await page.evaluate(()=>FieldInstrument.snapshot().frame),pin,'view cycle preserves native frame');
-  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);
-  const sourceBytes=JSON.stringify(initial.source.payload.data);assert.ok(sourceBytes.length>1000);
-  if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await frame.evaluate(()=>InterphaseWorkbench.chooseRoute('/house/'));await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'interphase-root-'+width+'.png')})}
-  assert.deepEqual(errors,[],'browser errors '+width);results.push({width,height,source_composition_views_return_focus:'PASS'});await context.close();
- }
- console.log('INTERPHASE+ BROWSER PASS '+JSON.stringify(results));
-}finally{await browser.close();await new Promise(r=>server.close(r))}
+const require=createRequire(import.meta.url),{chromium}=require('playwright');
+async function continuumBrowserProof(){
+ const root=process.cwd(),server=http.createServer((req,res)=>{
+  const name=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
+  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);res.end();return}
+  res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);
+ });
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
+ const browser=await chromium.launch({headless:true,args:JSON.parse(process.env.SMOKE_ARGS||'[]'),executablePath:process.env.SMOKE_BROWSER||undefined});
+ const raw='# Water and gates\n\nWater flows downhill. A gate changes its route.\n\nThe gate is closed. Water collects upstream.\n\nAn observation can question an explanation. A path records attention, not proof of understanding.';
+ try{
+  for(const width of [390,320,1280]){
+   const context=await browser.newContext({viewport:{width,height:width===320?640:900},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
+   page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(new URL(r.url()).pathname));
+   const ip=id=>page.locator('[data-ip="'+id+'"]'),snap=()=>page.evaluate(()=>InterphaseInstrument.snapshot());
+   const wait=()=>page.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw);
+   const source=async()=>{if(!await ip('drawer').isVisible())await page.locator('#fiParent').click()};
+   const close=async()=>{if(await ip('drawer').isVisible())await ip('close').click()};
+   const load=async(text,name='water.md')=>{await source();await ip('file').setInputFiles({name,mimeType:'text/plain',buffer:Buffer.from(text)});await page.waitForFunction(t=>InterphaseInstrument.snapshot()?.source.raw===t,text)};
+   const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
+   await page.goto(base+'/');await wait();
+   let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
+   assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);
+   assert.equal(await page.locator('.ip-continuum field-aperture').evaluate(x=>x.shadowRoot.children.length),0);
+   assert.equal(requests.some(p=>/^\/interphase\/(?:app|research|substrate|compositor|work)\.mjs$/.test(p)),false);
+   await page.evaluate(()=>InterphaseInstrument.loadRoute('/docs/'));assert.equal((await snap()).source.hash,s.source.hash);await page.waitForFunction(()=>FieldInstrument.heldAddress()==='/docs/');
+   await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');
+   await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
+   await page.evaluate(c=>{InterphaseInstrument.seek(c);InterphaseInstrument.setScope('SENT')},c);
+   await ip('held').evaluate(x=>x.dataset.identity='same');await page.locator('#fiView').click();
+   assert.equal((await snap()).attention.view,'walk');assert.equal((await snap()).attention.char,c);assert.equal(await ip('held').getAttribute('data-identity'),'same');
+   if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`walk-${width}.png`)})}
+   await bar(':plain');assert.equal((await snap()).attention.view,'plain');await bar(':walk');assert.equal((await snap()).attention.view,'walk');
+   const before=(await snap()).attention.char;await bar(':unsupported');assert.equal((await snap()).attention.char,before);assert.match(await ip('status').textContent(),/not supported/);
+   await page.evaluate(()=>InterphaseInstrument.setScope('PARA'));
+   await bar('water gate');assert.equal((await snap()).attention.query,'water gate');await source();await ip('clear').click();assert.equal((await snap()).attention.query,'');
+   await page.evaluate(c=>InterphaseInstrument.seek(c),raw.indexOf('Water flows'));
+   const departure=(await snap()).attention.char;
+   const details=ip('link-start').locator('xpath=ancestor::details');
+   await source();await details.locator('summary').click();await ip('link-start').click();
+   await ip('next').click();const destination=(await snap()).attention.char;
+   await source();await ip('relation').selectOption('questions');await ip('link-end').click();assert.equal((await snap()).links.length,1);
+   await page.locator('.ip-relation').click();assert.equal((await snap()).attention.char,raw.indexOf('Water flows'));
+   await page.locator('#fiReturn').click();assert.equal((await snap()).attention.char,destination);
+   await source();await ip('edit').click();const oldRange=await ip('replacement').inputValue();await ip('replacement').fill(oldRange.replace('closed','open'));
+   await ip('commit').click();await page.waitForFunction(t=>InterphaseInstrument.snapshot().source.raw===t,raw.replace('closed','open'));
+   await source();await ip('undo').click();await page.waitForFunction(t=>InterphaseInstrument.snapshot().source.raw===t,raw);assert.equal((await snap()).links.length,1);assert.equal((await snap()).source.hash,hash);
+   await source();await ip('redo').click();await page.waitForFunction(t=>InterphaseInstrument.snapshot().source.raw===t,raw.replace('closed','open'));await source();await ip('undo').click();await page.waitForFunction(t=>InterphaseInstrument.snapshot().source.raw===t,raw);await close();
+   const ring=await ip('ring').boundingBox();await page.mouse.click(ring.x+ring.width*.87,ring.y+ring.height*.5);assert.equal((await snap()).source.hash,hash);
+   await page.evaluate(()=>{const a=document.querySelector('.ip-continuum field-aperture');a.setWpm(1200);a.selectChar(a.A.scales.find(s=>s.id==='WORD').units.at(-2).start)});
+   await ip('play').click();await page.waitForFunction(()=>!InterphaseInstrument.snapshot().playing);const end=(await snap()).attention.char;await ip('play').click();assert.equal((await snap()).attention.char,end);assert.equal((await snap()).playing,false);
+   const packet=await page.evaluate(()=>InterphaseInstrument.packet());await page.evaluate(()=>InterphaseInstrument.seek(0));
+   const rejection=await page.evaluate(async p=>{try{await InterphaseInstrument.importPacket({...p,source:{...p.source,raw:p.source.raw+'bad'}});return false}catch(e){return e.message}},packet);assert.match(rejection,/mismatch/);assert.equal((await snap()).attention.char,0);
+   await page.evaluate(p=>InterphaseInstrument.importPacket(p),packet);assert.equal((await snap()).attention.char,end);
+   const rejectedQuote=await page.evaluate(async p=>{p.links[0].from.quote='invented';try{await InterphaseInstrument.importPacket(p);return false}catch(e){return e.message}},packet);assert.match(rejectedQuote,/quotes/);
+   await source();await ip('file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"a":1,"a":2}')});await page.waitForFunction(()=>document.querySelector('[data-ip=status]').textContent.includes('ambiguous'));assert.equal((await snap()).source.hash,hash);await close();
+   const nativeBefore=await page.evaluate(()=>FieldInstrument.snapshot().frame);await ip('space').focus();await page.keyboard.press('ArrowLeft');assert.deepEqual(await page.evaluate(()=>FieldInstrument.snapshot().frame),nativeBefore);
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+   if(process.env.SCREENSHOT_DIR){await page.evaluate(()=>InterphaseInstrument.perspective('plain'));await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`plain-${width}.png`)})}
+   await load('{"gate":{"state":"closed","count":2},"other":true}','gate.json');await page.evaluate(()=>InterphaseInstrument.setScope('ROOT'));
+   await source();await ip('edit').click();await ip('replacement').fill('{');await ip('commit').click();await page.waitForFunction(()=>!!document.querySelector('[data-ip=status]').dataset.error);assert.equal((await snap()).source.raw,'{"gate":{"state":"closed","count":2},"other":true}');await ip('cancel').click();await close();
+   await load(raw);await page.evaluate(()=>InterphaseInstrument.seek(42));await source();await ip('reader').click();
+   await page.waitForFunction(()=>document.getElementById('docAperture')?.A?.raw);
+   assert.equal(await page.locator('#docAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#docAperture').evaluate(x=>x.snapshot().char_index),42);
+   await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);
+   await ip('source').click();await ip('wrist').click();await page.waitForFunction(()=>document.getElementById('wristAperture')?.A?.raw);
+   assert.equal(await page.locator('#wristAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),42);
+   await page.locator('#show').click();await page.locator('#interphase').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.hash,hash);
+   assert.deepEqual(errors,[]);console.log('CONTINUUM BROWSER PASS '+width+'px · one native clock · source race · plain/walk same DOM · commands · quoted link/RETURN · edit/undo/redo · ring · finite end · rejected forged RETURN · exact reader/wrist handoff');
+   await context.close();
+  }
+ }finally{await browser.close();await new Promise(r=>server.close(r))}
+}
+await continuumBrowserProof();

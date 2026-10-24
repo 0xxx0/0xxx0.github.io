@@ -7,6 +7,10 @@ on:
       - 'lib/interphase-lenses.js'
       - 'lib/interphase.mjs'
       - 'interphase/**'
+      - 'field-aperture.js'
+      - 'docs/index.html'
+      - 'rsvp/**'
+      - 'tools/interphase-navigation-selftest.mjs'
       - 'field-work*'
       - 'tools/interphase-plus-smoke.mjs'
       - 'tools/interphase-workflow-selftest.mjs'
@@ -21,6 +25,10 @@ on:
       - 'lib/interphase-lenses.js'
       - 'lib/interphase.mjs'
       - 'interphase/**'
+      - 'field-aperture.js'
+      - 'docs/index.html'
+      - 'rsvp/**'
+      - 'tools/interphase-navigation-selftest.mjs'
       - 'field-work*'
       - 'tools/interphase-plus-smoke.mjs'
       - 'tools/interphase-workflow-selftest.mjs'
@@ -35,7 +43,7 @@ permissions:
 jobs:
   history:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,11 +52,17 @@ jobs:
       - name: Syntax
         run: |
           node --check lib/interphase-history.js
+          node --check interphase/continuum.mjs
+          node --check interphase/entry.mjs
+          node --check interphase/navigation.mjs
+          node --check field-work.mjs
+          node --check rsvp/reader.js
           node --check tools/interphase-history-selftest.cjs
       - name: Real-object history / RETURN proof
         run: node tools/interphase-history-selftest.cjs
       - name: Executable workflow and recovered source laws
         run: |
+          node tools/interphase-navigation-selftest.mjs
           node tools/interphase-workflow-selftest.mjs
           node tools/interphase-extensions-selftest.mjs
           node tools/interphase-compositor-selftest.mjs
@@ -56,7 +70,7 @@ jobs:
       - name: Optional package transport
         run: |
           node tools/package-interphase.mjs "$RUNNER_TEMP/interphase-package"
-          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.2.0.tgz"
+          npm install --prefix "$RUNNER_TEMP/interphase-consumer" --ignore-scripts "$RUNNER_TEMP/interphase-package/0xxx0-interphase-0.3.0.tgz"
           node tools/interphase-package-selftest.mjs "$RUNNER_TEMP/interphase-consumer"
       - name: Browser test dependencies (runner temp only)
         run: |
@@ -70,7 +84,20 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
-      - name: Unified landing and composed source RETURN
+      - name: One-source continuum / native clock / exact reader RETURN
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
         run: node tools/interphase-plus-smoke.mjs
+      - name: Native FIELD / source release checks
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+        run: |
+          node tools/field-instrument-smoke.mjs
+          node tools/field-reversibility-selftest.mjs
+          node tools/validate-public.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: continuum-screenshots
+          path: ${{ runner.temp }}/continuum-screenshots

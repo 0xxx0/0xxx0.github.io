@@ -55,7 +55,7 @@
     },
     {
       "href": "/",
-      "title": "FIELD INDEX / INTERPHASE+",
+      "title": "FIELD INDEX / INTERPHASE",
       "kind": "root",
       "parent": null,
       "index": {
@@ -66,12 +66,13 @@
           "VERIFY"
         ]
       },
-      "role": "INTERPHASE+ working entry: hold real JSON/text, compose addressed data projections, inspect prefix/result/source, READ or unfold the same six readings, export/import a checked RETURN. The existing FIELD strip/plan and native actions remain a view of the same addressed route; exact FIELD position and RETURN remain native.",
+      "role": "Open the FIELD source, move through actual routes, or bring text/JSON. One exact position carries through scope, plain reading, spatial traversal and native RSVP. Quoted links and local edits remain inspectable; effects remain with the native host.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+      "receipt": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
       "machine_view": "FIELD",
-      "version": "0.9.0",
+      "version": "0.10.0",
       "transfer": [
+        "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
         "0.8.40 THE WALK: hex plan view (radial top-down rooms, folded +N edge), STRIP<->PLAN view cycle preserving held object and anchor, press-and-hold decode overlay on any mark in either view; cube room hinges at the tapped tile.",
         "0.8.37 ENTERABLE APERTURES: selected-origin scale/depth transition with inverse UP; tool selection enlarges one exact object to a full aperture. Six coarse material forms replace fine-angle arrows; mixed bands retain native-kind families. One release address propagates to adapter/core/style to reject stale mixed deployments. Human comprehension remains unresolved; no wordless-recognition or unified-work completion claim.",
@@ -171,7 +172,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
       "interphase_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
@@ -9710,15 +9711,15 @@
     },
     {
       "href": "/interphase/",
-      "title": "INTERPHASE+ / WORK",
+      "title": "INTERPHASE / SOURCE SPACE",
       "kind": "workbench",
       "parent": "/",
       "family": "INTERPHASE",
       "operation": "OPERATE",
       "state": "ACTIVE",
-      "version": "0.5.0",
+      "version": "0.10.0",
       "showcase_card": true,
-      "role": "Native INTERPHASE workbench over one held source. Compose bounded pure data operations with retained source paths; inspect intermediate outputs and reductions; share the existing reader cursor; fold the exact native six-face cube net; export/import source, workflow, result evidence and view/focus. Recovered Ω audit, local history, Dayline/Fan, AXIS, protected drafts and explicit extensions remain complementary readings. Native hosts retain effects; data results have authority DERIVED / update NONE.",
+      "role": "One source-space instrument for exact text and JSON: focus, contained scope, plain/walk/native RSVP, quoted paths, local edit/undo and checked RETURN. Recovered Ω/history/Dayline/AXIS remain behind the explicit legacy entry.",
       "index": {
         "updated_at": "2026-10-24T17:03:33+08:00",
         "work_modes": [
@@ -9732,8 +9733,11 @@
         "/lib/interphase-lenses.js",
         "/tools/interphase-lenses-selftest.cjs"
       ],
-      "receipt": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
-      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json"
+      "receipt": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+      "transfer": [
+        "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal"
+      ]
     },
     {
       "href": "/20261007-patterns-lang-mcvoid/",

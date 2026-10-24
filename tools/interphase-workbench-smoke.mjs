@@ -24,7 +24,7 @@ const turn=async mode=>{
 const returnLast=async()=>{await rotary();await page.locator('[data-comp-action=RETURN]').click();await page.locator('[data-comp-action=LAST]').click();assert.equal(await page.locator('.comp-confirm').isVisible(),true);await page.locator('.comp-commit').click()};
 const base=process.env.BASE_URL||'http://127.0.0.1:8765';
 try{
-  await page.goto(base+'/interphase/?route=/');
+  await page.goto(base+'/interphase/?legacy=1&route=/');
   await page.waitForSelector('#compactForm');
   assert.equal(await page.locator('#railId').textContent(),'route:/');
   await menu();
@@ -56,7 +56,7 @@ try{
   const last=await page.locator('.comp-item.active').getAttribute('data-comp-address');
   await page.keyboard.press('Enter');assert.equal(await page.locator('#railId').textContent(),'route:'+last);
   // A fresh source for the existing protected-history proof.
-  await page.goto(base+'/interphase/?route=/');await page.waitForSelector('#compactForm');await menu();
+  await page.goto(base+'/interphase/?legacy=1&route=/');await page.waitForSelector('#compactForm');await menu();
   await page.locator('#control>summary').click();
 
   await page.locator('#compactForm [name=title]').fill('Durable local FIELD');

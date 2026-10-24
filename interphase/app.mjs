@@ -1,5 +1,3 @@
-import {mountWork} from './work.mjs';
-import {sourceObject} from './workflow.mjs';
 import {lenses as I, history as H, extensions as E, glyph as G} from '/lib/interphase.mjs?v=0.5.0';
 import {esc, $, download} from '/lib/dom.js';
 import {mountResearch, fieldSeed} from './research.mjs';
@@ -53,7 +51,7 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
   };
   let mode='COMPACT',routes=[],axisSelection={},receiptSelection=null;
   const plugins=[E.native];let catalog=E.compose(plugins);
-  let disposeResearch=null,researchData=null,work=null;
+  let disposeResearch=null,researchData=null;
   try{const raw=localStorage.getItem('interphase.research.v04');if(raw)researchData=JSON.parse(raw)}catch{}
   try{const r=await fetch('/showcase-manifest.json');if(r.ok)routes=(await r.json()).routes||[]}catch{}
   function chooseSource(source){
@@ -98,9 +96,9 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
     }).join(''):'<div class="empty">No semantic edits yet.<br>Move FIELD’s camera: TRACE must remain empty.</div>';
   }
 
-  function setMode(next){work?.dispose();work=null;disposeResearch?.();disposeResearch=null;$('#surfaceBody').classList.remove('research');mode=next;$('#control').open=false;render()}
+  function setMode(next){disposeResearch?.();disposeResearch=null;$('#surfaceBody').classList.remove('research');mode=next;$('#control').open=false;render()}
   function render(){
-    work?.dispose();work=null;
+    
     const snap=store.snapshot(),source=snap.source;document.body.dataset.interphaseMode=mode;
     $('#storageStatus').textContent=storageMessage;
     $('#railId').textContent=source.id;$('#railRev').textContent='r'+snap.revision;$('#sourceStamp').textContent='SOURCE · '+source.id;
@@ -109,17 +107,10 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
     $('#viewLabel').textContent=mode;$('#receiptPreview').hidden=mode!=='DISC'||!receiptSelection;
     const address=sourceAddress(source);$('#openSource').hidden=!address;if(address)$('#openSource').href=address;
     renderLaws(source);renderTrace();
-    if(mode==='WORK')renderWork(source);else if(mode==='PLAIN')renderPlain(source);else if(mode==='COMPACT')renderCompact(source);else if(mode==='FIELD')renderField(source);else renderProjection(source);
+    if(mode==='PLAIN')renderPlain(source);else if(mode==='COMPACT')renderCompact(source);else if(mode==='FIELD')renderField(source);else renderProjection(source);
   }
 
-  function publishFocus(detail={}){
-    const s=graph.source(),w=work?.snapshot();detail={...(w?{steps:w.steps.length,view:w.view}:{}),...detail};window.dispatchEvent(new CustomEvent('interphase:focus',{detail:{id:s.id,route:s.provenance?.href||null,...detail}}));
-    if(window.parent!==window)window.parent.postMessage({type:'INTERPHASE_FOCUS',id:s.id,route:s.provenance?.href||null,label:s.title,...detail},location.origin);
-  }
-  function renderWork(source){
-    $('#surfaceName').textContent='WORK';$('#surfaceDesc').textContent='source → composition → result';
-    work=mountWork($('#surfaceBody'),source,{choose:next=>{chooseSource(next);setMode('WORK');publishFocus()},project:setMode,owner:sourceAddress(source),resolveRoute:href=>{const r=routes.find(r=>r.href===href);return r?H.objectFromRoute(r):null},publish:publishFocus});
-  }
+  function publishFocus(detail={}){const s=graph.source();window.dispatchEvent(new CustomEvent('interphase:focus',{detail:{id:s.id,route:s.provenance?.href||null,...detail}}))}
   function renderProjection(source){
     $('#surfaceName').textContent=mode;$('#surfaceDesc').textContent='same focus · explicit source';
     const body=$('#surfaceBody');
@@ -219,18 +210,18 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
       const resolved=next.resolveReturn(packet.returnToken);
       if(!admitCandidate(next.snapshot(resolved.change)))throw Error('active extension law failed');
       next.checkout(resolved.change);graph=next;recoveryHeld=false;
-      mode=['WORK','PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(resolved.anchor.projection)?resolved.anchor.projection:'COMPACT';
+      mode=['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(resolved.anchor.projection)?resolved.anchor.projection:'COMPACT';
       const view=I.FIELD.project(graph.source(),resolved.anchor.viewport||{}).$view;
       Object.assign(fieldLocal,view,{focus:initial.id});persist();
     }catch(err){storageMessage='IMPORT REJECTED · '+err.message;}
     e.target.value='';render();
   });
   $('#omnibar').addEventListener('input',e=>{
-    const q=e.target.value.trim().toLowerCase();const commands=['WORK','COMPACT','PLAIN','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'];
+    const q=e.target.value.trim().toLowerCase();const commands=['COMPACT','PLAIN','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'];
     const matches=routes.filter(r=>(r.href+' '+r.title).toLowerCase().includes(q));
     $('#omniResults').innerHTML=commands.filter(c=>('/'+c.toLowerCase()).includes(q)).map(c=>`<button data-view="${c}">/${c.toLowerCase()}</button>`).join('')+matches.map(r=>`<button data-address="${esc(r.href)}">${esc(r.title)} <small>${esc(r.href)}</small></button>`).join('');
     $('#omniResults').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setMode(b.dataset.view));
-    $('#omniResults').querySelectorAll('[data-address]').forEach(b=>b.onclick=()=>{chooseSource(H.objectFromRoute(routes.find(r=>r.href===b.dataset.address)));setMode('WORK')});
+    $('#omniResults').querySelectorAll('[data-address]').forEach(b=>b.onclick=()=>{chooseSource(H.objectFromRoute(routes.find(r=>r.href===b.dataset.address)));setMode('COMPACT')});
   });
   $('#omniForm').onsubmit=e=>{e.preventDefault();$('#omniResults button')?.click()};
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#control').open=!$('#control').open;if($('#control').open)$('#omnibar').focus()}else if(e.key==='Escape')$('#control').open=false});
@@ -246,22 +237,8 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
   $('#checkExtensions').onclick=runExtensionChecks;
   $('#loadExample').onclick=async()=>{try{const r=await fetch('./extensions/title.json');if(!r.ok)throw Error('extension unavailable');const p=E.fromJSON(await r.json());const next=E.compose([...plugins,p]);plugins.push(p);catalog=next;$('#loadExample').disabled=true;$('#extensionStatus').textContent='ADDED · readable-title@1.0.0';runExtensionChecks()}catch(e){$('#extensionStatus').textContent=e.message}};
   window.addEventListener('storage',e=>{if(e.key===daylineKey&&['DAYLINE','FAN'].includes(mode))render()});
-  window.InterphaseWorkbench=Object.freeze({
-    source:()=>graph.source(),snapshot:()=>({source:graph.source(),mode,work:work?.snapshot(),history:graph.serialize()}),setMode,
-    chooseRoute(href){const r=routes.find(r=>r.href===href);if(!r)throw Error('FIELD_ROUTE_UNRESOLVED:'+href);chooseSource(H.objectFromRoute(r));setMode('WORK');publishFocus()},
-    work:()=>work
-  });
-  window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='INTERPHASE_THEME'){for(const [key,value] of Object.entries(e.data.palette||{}))if(['--bg','--ink','--mut','--line','--cool','--hot','--bad'].includes(key)&&typeof value==='string'&&CSS.supports('color',value))document.documentElement.style.setProperty(key,value);return}if(e.data?.type!=='INTERPHASE_SELECT_ROUTE')return;try{window.InterphaseWorkbench.chooseRoute(e.data.route)}catch(err){storageMessage=err.message;render()}});
-  const query=new URLSearchParams(location.search),requested=query.get('view')?.toUpperCase();
-  if(query.has('embedded'))document.body.dataset.embedded='1';
-  if(['WORK','PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(requested))mode=requested;
-  else if(!route)mode='WORK';
-  if(!route&&mode==='WORK'){
-    const address=query.get('src')||'/control/CURRENT.json',u=new URL(address,location.href);
-    if(u.origin!==location.origin||!/^\/(?!\/)/.test(u.pathname)||!/\.(json|md|txt|csv|log|ya?ml)$/i.test(u.pathname))throw Error('SOURCE_ADDRESS_REJECTED');
-    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw Error('SOURCE_HTTP_'+r.status);
-    chooseSource(await sourceObject(await r.text(),u.pathname.split('/').at(-1),u.pathname+u.search));
-  }
+  window.InterphaseWorkbench=Object.freeze({source:()=>graph.source(),snapshot:()=>({source:graph.source(),mode,history:graph.serialize()}),setMode,chooseRoute(href){const r=routes.find(r=>r.href===href);if(!r)throw Error('FIELD_ROUTE_UNRESOLVED:'+href);chooseSource(H.objectFromRoute(r));setMode('COMPACT');publishFocus()}});
+  const requested=new URLSearchParams(location.search).get('view')?.toUpperCase();
+  if(['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(requested))mode=requested;else mode='COMPACT';
   render();publishFocus();
-  if(window.parent!==window)window.parent.postMessage({type:'INTERPHASE_READY'},location.origin);
 })().catch(e=>{document.querySelector('#surfaceBody').textContent='SOURCE UNRESOLVED · '+e.message;});

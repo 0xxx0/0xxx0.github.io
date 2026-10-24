@@ -1,53 +1,39 @@
-// Root aperture onto the existing INTERPHASE host. FIELD still owns its frame,
-// native effects and RETURN. The child owns data work; messages select sources
-// only, on this exact same-origin window pair.
-const query=new URLSearchParams(location.search);
-if(location.pathname==='/'&&query.get('instrument')!=='0'&&query.get('work')!=='0'){
- let attempts=0;
- function boot(){
-  const native=window.FieldInstrument,root=document.getElementById('fieldInstrument'),view=document.getElementById('fiView');
-  if(!native?.active()||!root||!view){if(attempts++<150)setTimeout(boot,80);return}
-  const iframe=document.createElement('iframe');iframe.id='interphaseWorkspace';iframe.title='INTERPHASE+ · source, compose, result';
-  iframe.src='/interphase/?embedded=1&view=WORK';iframe.setAttribute('allow','clipboard-write');root.append(iframe);
-  const style=document.createElement('link');style.rel='stylesheet';style.href='/field-work.css?v=0.9.0';document.head.append(style);
-  let work=true,ready=false,childRoute=null,childFocus=null,lastSent=null;
-  const oldView=view.onclick;
-  const sendTheme=()=>{if(!ready)return;const computed=getComputedStyle(document.documentElement),palette={};for(const key of ['--bg','--ink','--mut','--line','--cool','--hot','--bad']){const value=computed.getPropertyValue(key).trim();if(CSS.supports('color',value))palette[key]=value}iframe.contentWindow.postMessage({type:'INTERPHASE_THEME',palette},location.origin)};
-  new MutationObserver(sendTheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','class','style']});
-  function paint(){
-   root.dataset.work=work?'1':'0';document.documentElement.dataset.fieldWork=work?'1':'0';iframe.hidden=!work;
-   if(work){
-    document.getElementById('fiViewName').textContent='Ω WORK';view.setAttribute('aria-label','View: INTERPHASE work. Switch to the Field strip.');
-    const name=document.getElementById('fiBarName'),meta=document.getElementById('fiBarMeta');
-    name.textContent='INTERPHASE+';meta.textContent=childFocus?`${childFocus.label} · ${childFocus.view||'WORK'} · ${childFocus.steps||0} steps`:'SOURCE → COMPOSE → RESULT';
-    document.getElementById('fiAddress').setAttribute('aria-label','Find a FIELD object; work stays held');
-   }else{
-    const plan=native.snapshot().map==='plan';document.getElementById('fiViewName').textContent=plan?'⌁ PLAN':'⌁ STRIP';view.setAttribute('aria-label',plan?'View: Field plan. Switch to INTERPHASE work.':'View: Field strip. Switch to the Field plan.');
-   }
-  }
-  function selectHeld(){
-   if(!ready)return;
-   const href=native.heldAddress();
-   if(href&&href!=='/'&&href!==childRoute&&href!==lastSent){lastSent=href;iframe.contentWindow.postMessage({type:'INTERPHASE_SELECT_ROUTE',route:href},location.origin)}
-  }
-  view.onclick=e=>{
-   if(work){work=false;oldView?.call(view,e);if(native.snapshot().map==='plan')oldView?.call(view,e);paint();return}
-   if(native.snapshot().map==='strip'){oldView?.call(view,e);paint();return}
-   oldView?.call(view,e);work=true;selectHeld();paint();
-  };
-  document.getElementById('fieldUrlInput').addEventListener('focus',()=>{work=false;paint()});
-  window.addEventListener('field-instrument:frame',()=>{selectHeld();paint()});
-  window.addEventListener('message',e=>{
-   if(e.origin!==location.origin||e.source!==iframe.contentWindow||!e.data)return;
-   if(e.data.type==='INTERPHASE_READY'){ready=true;sendTheme();selectHeld();paint()}
-   if(e.data.type==='INTERPHASE_FOCUS'){
-    childFocus=e.data;childRoute=e.data.route||null;lastSent=null;
-    if(childRoute&&native.heldAddress()!==childRoute)native.hold(childRoute);
-    paint();
-   }
-  });
-  window.FieldWork=Object.freeze({active:()=>work,show(){work=true;selectHeld();paint()},hide(){work=false;paint()},snapshot:()=>({active:work,ready,source:childFocus&&{id:childFocus.id,label:childFocus.label,route:childRoute}})});
-  paint();
- }
- boot();
+import {mountContinuum} from './interphase/continuum.mjs?v=0.10.0';
+function startFieldWork(){
+ if(location.pathname!=='/'||new URLSearchParams(location.search).get('instrument')==='0'||new URLSearchParams(location.search).get('work')==='0')return;
+ const begin=async()=>{
+  let native;for(let i=0;i<150;i++){native=window.FieldInstrument;if(native&&document.getElementById('fieldInstrument')&&document.getElementById('fiView'))break;await new Promise(r=>setTimeout(r,80))}
+  if(!native)throw Error('Native FIELD did not open.');
+  const root=document.getElementById('fieldInstrument'),host=document.createElement('div');host.id='interphaseWorkspace';root.append(host);root.dataset.work='1';document.documentElement.dataset.fieldWork='1';
+  const css=document.createElement('link');css.rel='stylesheet';css.href='/field-work.css?v=0.10.0';document.head.append(css);
+  const get=id=>document.getElementById(id);let lastNative=null,api,ready=false;
+  api=await mountContinuum(host,{route:'/',onRoute:href=>{if(href!==lastNative){lastNative=href;native.hold(href)}},onFocus:s=>{
+   if(get('fiBarName'))get('fiBarName').textContent=s.label;
+   if(get('fiBarMeta'))get('fiBarMeta').textContent=`${s.scopeLabel} · ${s.index} / ${s.count}`;
+   if(get('fiScopeGlyph'))get('fiScopeGlyph').textContent='☷';
+   if(get('fiScopeScale'))get('fiScopeScale').textContent='SOURCE';
+   if(get('fiParent'))get('fiParent').setAttribute('aria-label','Source and work');
+   if(get('fiReturn')){get('fiReturn').setAttribute('aria-label','Return to previous source context');get('fiReturn').hidden=!s.back}
+   if(get('fiMenu'))get('fiMenu').hidden=true;
+   if(get('fiViewName'))get('fiViewName').textContent=s.view==='walk'?'◇ WALK':'⊞ PLAIN';
+  }});
+  const view=get('fiView');view.onclick=e=>{e.stopPropagation();api.perspective(api.snapshot()?.attention.view==='walk'?'plain':'walk')};
+  get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
+  get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
+  get('fiAddress').addEventListener('click',()=>api.stop());
+  const input=get('fieldUrlInput');input.placeholder='Source /path · find words · :walk · :read · :return';
+  input.addEventListener('input',e=>{if(native.active())e.stopImmediatePropagation()},true);
+  input.addEventListener('keydown',e=>{
+   if(e.key!=='Enter'||!native.active())return;e.preventDefault();e.stopImmediatePropagation();
+   const value=input.value;native.closeEditor();api.command(value).catch(x=>{const s=host.querySelector('[data-ip=status]');s.textContent=x.message;s.dataset.error='1'}).finally(()=>{api.refresh();if(value!==':source')host.querySelector('[data-ip=space]').focus()});
+  },true);
+  window.addEventListener('field-instrument:frame',e=>{if(!ready)return;const href=native.heldAddress();if(!href||href===lastNative){api.refresh();return}lastNative=href;api.loadRoute(href).catch(()=>{})});
+  new MutationObserver(()=>{if(root.hidden)api.stop()}).observe(root,{attributes:true,attributeFilter:['hidden']});
+  let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>api.refresh(),180)});
+  await api.resume();ready=true;
+  window.InterphaseInstrument=api;
+  window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});
+ };
+ begin().catch(e=>{const host=document.getElementById('interphaseWorkspace');if(host)host.textContent='Source could not open: '+e.message;console.error(e)});
 }
+startFieldWork();

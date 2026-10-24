@@ -70,6 +70,7 @@ el('readfield').onclick=e=>{
   location.href='/docs/?handoff=1';
  }catch(x){err(Error('READFIELD handoff unavailable: '+x.message))}
 };
+el('interphase').onclick=function toWalk(e){if(!raw)return;e.preventDefault();stop();try{sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({raw,label,hash:sourceHash,sourceAddress,returnAddress:location.pathname+location.search,focus:snap()}));location.href='/interphase/?handoff=1'}catch(x){err(Error('WALK handoff unavailable: '+x.message))}};
 window.addEventListener('keydown',e=>{
  if(!el('drawer').hidden||e.target?.closest?.('input,textarea,select,a,button')||e.altKey||e.ctrlKey||e.metaKey)return;
  if(e.code==='Space'){e.preventDefault();toggle()}else if(e.code==='ArrowLeft'){e.preventDefault();step(-1)}else if(e.code==='ArrowRight'){e.preventDefault();step(1)}else if(e.code==='ArrowUp')adjust(wpm+20);else if(e.code==='ArrowDown')adjust(wpm-20);
