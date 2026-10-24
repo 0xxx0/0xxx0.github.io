@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-24T19:30:35.496Z",
+  "generated": "2026-10-24T20:32:35.358Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-24",
-  "commits_in_window": 170,
-  "git_commits_in_window": 257,
-  "telemetry_commits_in_window": 87,
-  "commits_total": 6778,
+  "commits_in_window": 173,
+  "git_commits_in_window": 265,
+  "telemetry_commits_in_window": 92,
+  "commits_total": 6786,
   "branch_count": 1087,
   "recent_commits": [
-    "FIELD: one bar landing with native work on demand",
-    "SLEEPER: make source reading the default Bell experience",
-    "FIELD: restore one compact CURRENT glyph landing"
+    "desk: refresh public field data + root git chronology",
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+    "calls: refresh (auto — answers changed)"
   ],
   "active_fronts": [
     {
