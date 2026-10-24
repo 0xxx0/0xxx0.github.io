@@ -116,7 +116,7 @@ function jsonNodes(root,raw=''){
  }
  walk(root);if(raw){const spans=jsonSpans(raw),byPath=new Map(spans.filter(n=>!n.ambiguous).map(n=>[n.path,n]));for(const n of out){const span=byPath.get(n.path);if(span)Object.assign(n,span)}}return out;
 }
-function analyze(source,label='Untitled',locale='en',format='AUTO'){
+function analyze(source,label='Untitled',locale='en',format='AUTO',compact=false){
  let data=source,raw='',kind='TEXT';
  if(typeof source!=='string'){kind='JSON';data=source;raw=JSON.stringify(source,null,2)}
  else{raw=source;if(!['TXT','TEXT','READ'].includes(String(format).toUpperCase()))try{data=JSON.parse(source);kind='JSON'}catch(_){}}
@@ -128,7 +128,7 @@ function analyze(source,label='Untitled',locale='en',format='AUTO'){
    if(leaves.length>1)scales.push({id:'LEAF',label:'LEAVES',units:leaves});
    return{kind,label,raw,data,bytes,chars,nodes,leaves:leaves.length,maxDepth,scales,xrefs:extractXrefs(raw)};
  }
- const words=segmentedUnits(raw,locale,'word'),sentences=segmentedUnits(raw,locale,'sentence'),graphemes=segmentedUnits(raw,locale,'grapheme'),paras=paragraphUnits(raw,format),phrases=phraseUnits(raw,locale),sections=sectionUnits(raw,paras,format);
+ const words=segmentedUnits(raw,locale,'word'),sentences=segmentedUnits(raw,locale,'sentence'),graphemes=compact?[]:segmentedUnits(raw,locale,'grapheme'),paras=paragraphUnits(raw,format),phrases=phraseUnits(raw,locale),sections=sectionUnits(raw,paras,format);
  const unit=(x,i,type,key=null)=>({path:type.toLowerCase()+'://'+i,key:key??String(i+1),type,value:x.text??x,text:x.text??x,leaf:true,start:x.start??0,end:x.end??raw.length});
  const scales=[
   {id:'DOC',label:'DOCUMENT',units:[unit({text:raw,start:0,end:raw.length},0,'DOC',label)]},
@@ -139,11 +139,11 @@ function analyze(source,label='Untitled',locale='en',format='AUTO'){
   {id:'WORD',label:'WORD',units:words.map((x,i)=>unit(x,i,'WORD'))},
   {id:'GRAPHEME',label:'GRAPHEME',units:graphemes.map((x,i)=>unit(x,i,'GRAPHEME'))}
  ].filter(x=>x&&x.units.length);
- return{kind,label,locale,raw,data:raw,bytes,chars,words:words.length,sentences:sentences.length,phrases:phrases.length,graphemes:graphemes.length,paragraphs:paras.length,sections,scales,xrefs:extractXrefs(raw)};
+ return{kind,label,locale,raw,data:raw,bytes,chars,words:words.length,sentences:sentences.length,phrases:phrases.length,graphemes:compact?null:graphemes.length,paragraphs:paras.length,sections,scales,xrefs:extractXrefs(raw)};
 }
 class FieldAperture extends HTMLElement{
  constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.timer=null;this.rsvp=false;this.wpm=300;this.speaking=false;this.voiceToken=0;this.structureDomKey='';this.glyphDomKey='';this.externalPulse=null;this.glyphWitness=null;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000,4000,5000,6000]}
- connectedCallback(){this.renderShell();this.tabIndex=this.tabIndex<0?0:this.tabIndex;this.addEventListener('keydown',this.boundKey);if(this.hasAttribute('source'))this.load(this.getAttribute('source'),{label:this.getAttribute('label')||'Source'})}
+ connectedCallback(){if(!this.hasAttribute('headless'))this.renderShell();this.tabIndex=this.tabIndex<0?0:this.tabIndex;this.addEventListener('keydown',this.boundKey);if(this.hasAttribute('source'))this.load(this.getAttribute('source'),{label:this.getAttribute('label')||'Source'})}
  disconnectedCallback(){this.stop();this.removeEventListener('keydown',this.boundKey)}
  scaleIndex(value){
   if(!this.A)return 0;if(value==null||value==='')return 0;
@@ -155,7 +155,7 @@ class FieldAperture extends HTMLElement{
   for(const si of order){const units=this.A.scales[si]?.units||[],pi=units.findIndex(x=>x.path===address);if(pi>=0)return{scale:si,index:pi}}return null
  }
  load(source,opt={}){
-  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale,opt.format||'AUTO');this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.structureDomKey='';
+  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale,opt.format||'AUTO',this.hasAttribute('headless'));this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.structureDomKey='';
   const hit=this.locate(opt.address,this.scale);
   const exactChar=this.A.kind==='TEXT'&&opt.charIndex!=null&&Number.isFinite(Number(opt.charIndex));
   if(exactChar){this.anchor=clamp(Math.round(Number(opt.charIndex)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
@@ -328,6 +328,7 @@ class FieldAperture extends HTMLElement{
   if(Math.abs(r-50)<Math.abs(r-innerR))this.seekFraction(frac);else this.setScale(Math.round(frac*Math.max(0,this.A.scales.length-1)));
  }
  render(){
+  if(this.hasAttribute('headless'))return;
   if(!this.A)return;const q=id=>this.shadowRoot.getElementById(id),s=this.currentScale(),c=this.current(),mag=this.magnitude(),n=s.units.length,frac=this.sourceFraction(),a=-Math.PI/2+frac*Math.PI*2,sa=-Math.PI/2+(this.A.scales.length<=1?0:this.scale/(this.A.scales.length-1))*Math.PI*2,innerR=50-mag.gap,st=this.structure(),parts=orpParts(this.focusText());
   q('inner').setAttribute('r',innerR);this.setLine(q('posTick'),50,a,10);this.setLine(q('scaleTick'),innerR,sa,9);
   const markerKey=(this.A.kind||'')+'|'+st.markers.map(m=>Math.round(clamp(m.at,0,1)*10000)+':'+(m.path||m.label||'')).join('|');

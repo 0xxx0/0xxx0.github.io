@@ -33,7 +33,8 @@ need(/REVERT/.test(sem.core_law||''),'root interaction law omits REVERT');
 need((contract.laws||[]).some(x=>/^LOCAL ACKNOWLEDGEMENT IS REWINDABLE/.test(x)),'FIELD catch-up rewind law missing');
 
 const root=(manifest.routes||[]).find(r=>r.href==='/');
-need(Number(String(root?.version||'0').split('.').slice(0,2).join('.'))>=0.8,'FIELD root version missing');
+const rootVersion=String(root?.version||'0').split('.').map(Number);
+need(rootVersion[0]>0||rootVersion[0]===0&&rootVersion[1]>=8,'FIELD root version missing');
 need(/^\/returns\/FIELD_INDEX_.*\d{4}-\d{2}-\d{2}\.json$/.test(root?.latest_return||''),'FIELD root dated RETURN not attached');
 
 if(fail.length){

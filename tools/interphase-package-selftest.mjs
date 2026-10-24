@@ -11,3 +11,5 @@ assert.throws(()=>require.resolve('@0xxx0/interphase/lib/path.js'),{code:'ERR_PA
 assert.equal(typeof U.micro.esc,'function');
 assert.deepEqual(U.workflow.run([{n:3},{n:1}],[{op:'sort',path:'/n'},{op:'take',count:1}]).value,[{n:1}]);
 console.log('PACKAGE PASS: installed by tar, root export, package plugin, protected subpath');
+
+assert.equal(U.navigation.patch({raw:'alpha beta',kind:'TEXT'},{start:6,end:10},'gamma').raw,'alpha gamma');

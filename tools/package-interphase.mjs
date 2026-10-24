@@ -20,7 +20,7 @@ function include(path){
 }
 try{
   include('lib/interphase.mjs');include('lib/interphase.d.mts');include('interphase/extensions/vector.mjs');
-  writeFileSync(join(stage,'package.json'),JSON.stringify({name:'@0xxx0/interphase',version:'0.2.0',private:true,description:'One source: addressed objects, lawful projections, contracts and explicit extensions',engines:{node:'>=22'},exports:{'.':{types:'./lib/interphase.d.mts',default:'./lib/interphase.mjs'},'./extensions':'./lib/interphase-extensions.mjs','./vector':'./interphase/extensions/vector.mjs'},files:[...seen]},null,2));
+  writeFileSync(join(stage,'package.json'),JSON.stringify({name:'@0xxx0/interphase',version:'0.3.0',private:true,description:'One source: addressed objects, lawful projections, contracts and explicit extensions',engines:{node:'>=22'},exports:{'.':{types:'./lib/interphase.d.mts',default:'./lib/interphase.mjs'},'./extensions':'./lib/interphase-extensions.mjs','./vector':'./interphase/extensions/vector.mjs'},files:[...seen]},null,2));
   mkdirSync(destination,{recursive:true});
   const result=JSON.parse(execFileSync('npm',['pack','--json','--ignore-scripts','--pack-destination',destination],{cwd:stage,encoding:'utf8'}));
   console.log(JSON.stringify({file:join(destination,result[0].filename),sourceFiles:seen.size,bytes:result[0].size},null,2));

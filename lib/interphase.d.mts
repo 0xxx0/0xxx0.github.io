@@ -35,5 +35,29 @@ export type WorkPointer = string | readonly string[];
 export type WorkStep = {op:'at';path:WorkPointer} | {op:'where';path?:WorkPointer;test?:'contains'|'equals'|'not'|'exists'|'gt'|'lt';value?:JSONValue} | {op:'pick';fields:readonly WorkPointer[]} | {op:'sort';path?:WorkPointer;desc?:boolean} | {op:'take';count:number} | {op:'unique';path?:WorkPointer};
 export interface WorkResult {value:JSONValue;refs:string[][];columns:Record<string,string[]>|null;trace:{index:number;step:WorkStep;before:{type:string;count:number};after:{type:string;count:number};loss:string;refs:string[][];value:JSONValue}[];losses:string[]}
 export const workflow:{readonly VERSION:'interphase-work/v0.1';readonly LIMITS:{bytes:number;steps:number;rows:number};readonly PRESETS:Readonly<Record<'heads'|'routes'|'read',readonly WorkStep[]>>;path(value?:WorkPointer):string[];pointer(path:readonly string[]):string;type(value:JSONValue):string;count(value:JSONValue):number;run(input:JSONValue,steps?:readonly WorkStep[]):WorkResult;sourceObject(raw:string,label?:string,address?:string):Promise<Source>;sourceData(source:Source):JSONValue;receipt(source:Source,steps:readonly WorkStep[],result:WorkResult,focus?:JSONValue,view?:string):Promise<JSONValue>};
-declare const api:{readonly core:typeof core;readonly carrier:typeof carrier;readonly mapping:typeof mapping;readonly constraints:typeof constraints;readonly micro:typeof micro;readonly optics:typeof optics;readonly ring:typeof ring;readonly glyph:typeof glyph;readonly lenses:typeof lenses;readonly history:typeof history;readonly composition:typeof composition;readonly contracts:typeof contracts;readonly audio:typeof audio;readonly extensions:typeof extensions;readonly workflow:typeof workflow};
+
+export interface NavigationRange {start:number;end:number;path?:string;key?:string;type?:string;value?:unknown;text?:string;contentStart?:number;depth?:number;parent?:string}
+export interface NavigationLevel {id:string;label:string;units:NavigationRange[]}
+export interface NavigationModel {readonly raw:string;readonly kind:'TEXT'|'JSON';readonly levels:NavigationLevel[];readonly nodes:NavigationRange[];readonly words:NavigationRange[];readonly sections:NavigationRange[]}
+export interface NativeSourceAnalysis {raw:string;kind:'TEXT'|'JSON';scales:NavigationLevel[];nodes?:NavigationRange[];sections?:NavigationRange[]}
+export interface SourceAttention {char:number;scope:string;view:'plain'|'walk';wpm:number;query:string}
+export interface SourceRelation {hash:string;type:'supports'|'contrasts'|'questions'|'explains';authority:'INTERPRETATION_ONLY';from:NavigationRange&{scope:string;quote:string};to:NavigationRange&{scope:string;quote:string}}
+export const navigation:{
+ readonly MAX_BYTES:2000000;readonly RELATIONS:readonly SourceRelation['type'][];
+ compile(raw:string,analysis:NativeSourceAnalysis,jsonAnalysis?:NativeSourceAnalysis|null,spans?:NavigationRange[]):NavigationModel;
+ clamp(n:number,a:number,b:number):number;level(model:NavigationModel,id:string):NavigationLevel;containing(units:NavigationRange[],char:number):NavigationRange|null;
+ at(model:NavigationModel,char:number,scope:string):NavigationRange|null;
+ focusChar(model:NavigationModel,unit:NavigationRange|null):number;zoomScope(model:NavigationModel,char:number,scope:string,direction:number):string;
+ exactSpan(model:NavigationModel,span:NavigationRange):boolean;charIn(model:NavigationModel,span:NavigationRange,fraction:number):number;
+ ordered(model:NavigationModel,scope:string,query?:string):NavigationRange[];
+ neighbors(model:NavigationModel,char:number,scope:string,query?:string):{current:NavigationRange|null;units:NavigationRange[];index:number;before:NavigationRange|null;after:NavigationRange|null;total:number};
+ describe(model:NavigationModel,unit:NavigationRange|null):{title:string;body:string;hidden:number;value?:unknown};
+ patch(model:NavigationModel,span:NavigationRange,replacement:string):{raw:string;changed:boolean;span:NavigationRange};
+ relation(model:NavigationModel,hash:string,from:NavigationRange&{scope?:string},to:NavigationRange&{scope?:string},type:SourceRelation['type']):SourceRelation;
+ validRelation(model:NavigationModel,hash:string,link:SourceRelation):boolean;
+ relationDoors(model:NavigationModel,hash:string,links:SourceRelation[],char:number):(SourceRelation&{destination:NavigationRange&{scope:string;quote:string};direction:string})[];
+ validateAttention(model:NavigationModel,attention:SourceAttention):SourceAttention;
+};
+
+declare const api:{readonly core:typeof core;readonly carrier:typeof carrier;readonly mapping:typeof mapping;readonly constraints:typeof constraints;readonly micro:typeof micro;readonly optics:typeof optics;readonly ring:typeof ring;readonly glyph:typeof glyph;readonly lenses:typeof lenses;readonly history:typeof history;readonly composition:typeof composition;readonly contracts:typeof contracts;readonly audio:typeof audio;readonly extensions:typeof extensions;readonly workflow:typeof workflow;readonly navigation:typeof navigation};
 export default api;
