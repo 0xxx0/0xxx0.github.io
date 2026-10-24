@@ -142,6 +142,7 @@ jobs:
           node tools/sleeper-return-v2-selftest.cjs
           node tools/sleeper-native-port-selftest.cjs
           node tools/sleeper-native-encounter-selftest.cjs
+          node tools/sleeper-bell-selftest.cjs
           node tools/sleeper-native-encounter-smoke.mjs
           node tools/sleeper-route-witness-selftest.cjs
           node tools/sleeper-route-witness-smoke.mjs
