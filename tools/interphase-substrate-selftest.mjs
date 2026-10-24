@@ -62,7 +62,7 @@ const rawModel=substrateModel(routes,'/a/',{kernel:ACTION_KERNEL,maxHops:3});
 assert.ok(rawModel.unplaced.length>model.unplaced.length,'absence of explicit fold cannot silently classify raw verbs');
 
 
-const smallRoutes=[{href:'/',operation:''},{href:'/read/',operation:'READ'},{href:'/old/',operation:'PUBLISH / RETRIEVE'}];
+const smallRoutes=[{href:'/',operation:''},{href:'/read/',parent:'/',operation:'READ'},{href:'/old/',parent:'/',operation:'PUBLISH / RETRIEVE'}];
 const smallMap={READ:'SEE','PUBLISH / RETRIEVE':'OTHER'};
 const folded={schema:'field-fold/v2',routes:{routes_total:3,operation_distinct:2,operation_class_map:smallMap}};
 assert.equal(validatedOperationFold(folded,smallRoutes),smallMap,'reviewable OTHER is accepted as unplaced residue');
