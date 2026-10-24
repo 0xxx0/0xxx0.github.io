@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-25T01:43:23+08:00",
+        "updated_at": "2026-10-25T01:57:53+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -67,12 +67,13 @@
           "OPERATE"
         ]
       },
-      "role": "Readable FIELD entry: find a named tool, hold it, open its native owner, and return to the same context. CURRENT and RECENT retain their distinct meanings. FIELD map and source-reader experiments are explicit choices under MORE.",
+      "role": "One address bar, one held tool with its native action, and a compact tool strip. Aa unfolds the original descriptions, history and status without moving focus. Native map and reader remain explicit tools.",
       "state": "ACTIVE",
       "receipt": "/interphase/SPEC.md",
       "machine_view": "FIELD",
-      "version": "0.10.5",
+      "version": "0.10.6",
       "transfer": [
+        "0.10.6 folds words by default: one address bar, one held object/action, compact addressed tool targets, and Aa to unfold existing depth in place. No duplicate command dock or automatic introduction in the folded reading.",
         "0.10.5 exact re-entry: axis scroll changes selection only after a pointer/touch/wheel gesture on that live strip; layout/history restoration and hidden strips cannot reselect a different route. Keyboard and direct selection remain native.",
         "0.10.4 quiet entry: the retained AWAKE introduction is loaded only by explicit ?visor=1; ordinary first visit and first HOLD neither load it nor open it. Native map, source reader and original-code continuation remain unchanged.",
         "0.10.3 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
