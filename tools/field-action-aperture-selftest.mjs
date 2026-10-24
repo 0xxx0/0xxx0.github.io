@@ -19,6 +19,13 @@ need(/same held control becomes UNDO SEEN/.test(contract.ui_contract?.root_orien
 
 need(html.includes('data-wait-hold'),'CURRENT gate HOLD missing from REALITY owner');
 need(html.includes('function copyHeldAction'),'action handoff missing');
+need(html.includes('function crewHumanGate(h,gate)'),'canonical crew human-gate projection missing');
+need(html.includes("'/control/SUBMISSION_CONTRACT.json'"),'held handoff does not cite canonical submission contract');
+need(html.includes("object_ref:focus.href")&&html.includes("contribution_class:'DELTA'")&&html.includes("evidence_class:'SPEC'"),'held handoff is not a canonical submission envelope');
+need(html.includes("receiver_hint:'coding-worker:any'")&&html.includes('waiting_on:crewHumanGate(h,gate)'),'held handoff lost crew receiver/human-gate semantics');
+need(html.includes('execution:{moves,selected_move_id:null,return_to:focus.href,evidence_refs:refs}'),'held handoff does not preserve ≤3 moves + exact RETURN');
+need(!html.includes("schema:'field-action-handoff/v0.1'"),'legacy parallel field-action-handoff survived');
+need(html.includes('id="apCopy">HANDOFF</button>')&&html.includes('COPY HANDOFF</button>'),'visible FIELD handoff affordance did not converge');
 need(html.includes('function handoffHeldToDayline'),'held Dayline action missing');
 need(html.includes("schema:'atlas-dayline-handoff/v0.1'"),'Dayline handoff schema missing');
 need(html.includes("sessionStorage.setItem('atlas.dayline.handoff.v01'"),'Dayline session handoff write missing');

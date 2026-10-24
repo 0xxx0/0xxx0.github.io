@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T20:47:08.919+08:00",
+  "updated": "2026-10-24T20:57:00+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -59,19 +59,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T17:03:33+08:00",
+        "updated_at": "2026-10-24T20:57:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "role": "Open the FIELD source, move through actual routes, or bring text/JSON. One exact position carries through scope, plain reading, spatial traversal and native RSVP. Quoted links and local edits remain inspectable; effects remain with the native host.",
       "state": "ACTIVE",
       "receipt": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
       "machine_view": "FIELD",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "transfer": [
+        "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
         "0.8.40 THE WALK: hex plan view (radial top-down rooms, folded +N edge), STRIP<->PLAN view cycle preserving held object and anchor, press-and-hold decode overlay on any mark in either view; cube room hinges at the tapped tile.",
