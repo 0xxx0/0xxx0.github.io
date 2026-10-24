@@ -6,7 +6,7 @@ html[data-field-words="folded"]:not([data-instrument="1"]):not([data-field-work=
   padding:clamp(70px,19svh,184px) clamp(10px,2vw,20px) 16px!important;
   min-height:calc(100svh - 32px);
 }
-html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar) > :not(#fieldUrlBar):not(script):not(style):not(#fieldInstrument){display:none!important}
+html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar) > :where(:not(#fieldUrlBar):not(script):not(style):not(#fieldInstrument)){display:none!important}
 html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar{
  margin:0!important;top:max(0px,env(safe-area-inset-top));z-index:100;
 }
