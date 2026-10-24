@@ -90,16 +90,16 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
-      - name: One-source continuum / native clock / exact reader RETURN
-        env:
-          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
-          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
-        run: node tools/interphase-plus-smoke.mjs
       - name: CURRENT continuum semantic FIELD / native source RETURN
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
           SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
         run: node tools/interphase-semantic-field-smoke.mjs
+      - name: One-source continuum / native clock / exact reader RETURN
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
+        run: node tools/interphase-plus-smoke.mjs
       - name: Native FIELD / source release checks
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
