@@ -37,6 +37,11 @@ function startFieldWork(){
   // Native FIELD already captures the original navigation parameters before restoring its URL.
   const incoming=window.FieldIndexReadModel.entry().focus;
   if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
+  // One native reader, addressed from the root palette. A URL only selects its
+  // existing perspective/drawer; source/cursor/RETURN still belong to api.
+  const requestedView=query.get('view');
+  if(['plain','walk','dial'].includes(requestedView))api.perspective(requestedView);
+  if(query.get('source')==='1')api.command(':source');
   window.InterphaseInstrument=api;
   window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});
  };
