@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-21T19:47:26+08:00",
+ "generated_at": "2026-10-24T13:08:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -44,24 +44,6 @@
      "k": "C",
      "t": "Stay free-only",
      "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  },
-  {
-   "id": "promise-secret-scan-weekly-enabled",
-   "title": "BROKEN PROMISE: secret-scan-weekly cron is re-enabled and live (job 8c5dc7f89ab2)",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
     }
    ]
   },
@@ -116,6 +98,27 @@
     {
      "k": "C",
      "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
+    }
+   ]
+  },
+  {
+   "id": "publish-media-consolidated",
+   "title": "Publish the Poo Baby + sleeper archive?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Publish both (reviewed contact sheets first)",
+     "eff": "media goes public on the site in curated batches"
+    },
+    {
+     "k": "B",
+     "t": "Publish Poo Baby only",
+     "eff": "sleeper stays private"
+    },
+    {
+     "k": "C",
+     "t": "Keep it all local",
+     "eff": "archive stays on-disk only, indexed"
     }
    ]
   }
@@ -232,6 +235,13 @@
    "pick_label": "Keep open — I'll answer",
    "note": "Keep / open (?)",
    "ts": "2026-10-21T19:45:21"
+  },
+  "promise-secret-scan-weekly-enabled": {
+   "id": "promise-secret-scan-weekly-enabled",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-24T13:06:43"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
