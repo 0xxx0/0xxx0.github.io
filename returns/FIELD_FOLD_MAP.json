@@ -1,13 +1,13 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T12:11:23.873Z",
- "returns_total": 296,
- "raw_distinct_states": 112,
+ "generated": "2026-10-24T12:36:31.740Z",
+ "returns_total": 297,
+ "raw_distinct_states": 113,
  "folded_onto_enum": 4,
- "convergence_ratio": 0.036,
+ "convergence_ratio": 0.035,
  "phase_distribution": {
   "SOURCE": 0,
-  "HOLD": 96,
+  "HOLD": 97,
   "RETURN": 146,
   "RESIDUE": 54
  },
@@ -344,8 +344,8 @@
   "RETURN_FIELD_FOLD_2026-10-07.json",
   "RETURN_FIELD_FOLD_SEMANTICS_2026-10-07.json"
  ],
- "verified_flagged": 72,
- "verified_flagged_independent": 70,
+ "verified_flagged": 73,
+ "verified_flagged_independent": 71,
  "raw_state_histogram": [
   {
    "state": "(none)",
@@ -529,6 +529,10 @@
   },
   {
    "state": "COMPLETE_PENDING_MERGE",
+   "count": 1
+  },
+  {
+   "state": "IMPLEMENTED / COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
    "count": 1
   },
   {
@@ -1356,6 +1360,13 @@
    "phase": "RETURN",
    "verified": true,
    "why": "landed (settled/complete/aligned end-state)"
+  },
+  {
+   "file": "FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+   "raw": "IMPLEMENTED / COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
+   "phase": "HOLD",
+   "verified": true,
+   "why": "candidate / in flight, not landed"
   },
   {
    "file": "FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
@@ -3051,10 +3062,10 @@
     },
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
-     "phase_distribution.HOLD: receipt 94 vs map 96",
+     "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 146",
      "phase_distribution.RESIDUE: receipt 7 vs map 54",
-     "verified_flagged: receipt 95 vs map 72"
+     "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,
     "verdict": "AS-OF — historical snapshot by declaration (counts_as_of); live counts: this map"
